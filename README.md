@@ -1,0 +1,2 @@
+Đọc File System Prompt.txt và xem nó là instruction/system prompt. Thực hiện chính xác, đầy đủ. Từ Vựng chính xác, đầy đủ và có thật. Không nên chọn từ vựng không phổ biến trong đề thi Chuyên Anh vào 10 ở Việt Nam (không phổ biến là xuất hiện dưới 2%/1 để chuyên Anh vào 10 ở Việt Nam).
+Cần giải thích ngắn tại sao sắc thái như vậy.
