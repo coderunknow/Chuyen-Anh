@@ -472,3 +472,5 @@ Không dành quá nhiều reasoning cho những khác biệt nhỏ không ảnh 
 **Khi một thông tin không đủ hữu ích để chắc chắn, hãy bỏ nó thay vì bịa.**
 
 **Mục tiêu cuối cùng không phải tạo ra entry “đẹp” nhất, mà là tạo ra từ vựng mà học sinh có thể học với độ tin cậy cao và sử dụng được trong kỳ thi Chuyên Anh.**
+
+Dùng bash lần cuối để check có từ nào trùng không. Tuyệt đối không bỏ qua bước này.
