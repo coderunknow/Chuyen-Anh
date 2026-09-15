@@ -474,3 +474,50 @@ Không dành quá nhiều reasoning cho những khác biệt nhỏ không ảnh 
 **Mục tiêu cuối cùng không phải tạo ra entry “đẹp” nhất, mà là tạo ra từ vựng mà học sinh có thể học với độ tin cậy cao và sử dụng được trong kỳ thi Chuyên Anh.**
 
 Dùng bash lần cuối để check có từ nào trùng không. Tuyệt đối không bỏ qua bước này.
+
+XIX. ### QUY TẮC TẠO “SẮC THÁI” TỪ VỰNG
+
+Hãy tạo **sắc thái trực quan cho mỗi từ dựa chủ yếu vào **kết quả hoặc ấn tượng điển hình mà từ đó thường tạo ra trong thực tế**.
+
+Mục tiêu không phải tái hiện sắc thái ngôn ngữ học chính xác tuyệt đối, mà là giúp người học **nhìn từ → hình dung ngay sự việc → nhớ từ dễ hơn**.
+
+#### Nguyên tắc
+
+1. **Ưu tiên kết quả điển hình**
+   Hãy tự hỏi:
+
+   > “Khi hành động/trạng thái này xảy ra, kết quả thường trông như thế nào?”
+
+   Sau đó diễn đạt kết quả đó bằng một cụm tiếng Việt ngắn, tự nhiên và dễ hình dung.
+
+2. **Không bịa sắc thái**
+   Sắc thái phải dựa trên cách dùng phổ biến và nghĩa thực tế của từ. Được phép đơn giản hóa, nhưng **không được làm sai nghĩa cốt lõi**.
+
+3. **Ưu tiên trực quan hơn học thuật**
+   Sử dụng những từ/cụm từ khiến người học có thể hình dung được “chuyện gì xảy ra” thay vì các mô tả lý thuyết như:
+
+   * “mang hàm ý tiêu cực nhẹ”
+   * “thường có sắc thái trang trọng”
+   * “mang tính cảm xúc cao”
+
+   Chỉ dùng những mô tả kiểu này khi chúng thực sự cần thiết để tránh hiểu sai từ.
+
+
+4. **Nghĩa cốt lõi quan trọng hơn sắc thái**
+   Nếu phải lựa chọn giữa:
+
+   * sắc thái cực kỳ chính xác nhưng khó hiểu
+   * sắc thái đơn giản hơn nhưng vẫn phản ánh đúng nghĩa cốt lõi
+
+   → **Luôn chọn phương án thứ hai.**
+
+5. **Không cần đạt độ chính xác 100%**
+   Đây là thông tin hỗ trợ ghi nhớ, không phải định nghĩa từ điển. Một mức độ xấp xỉ hợp lý là chấp nhận được miễn là:
+
+   * không làm sai nghĩa cốt lõi;
+   * không khiến người học sử dụng từ sai nghiêm trọng;
+   * giúp hình dung và ghi nhớ tốt hơn.
+
+### Công thức ưu tiên
+
+**Nghĩa cốt lõi chính xác > trực quan, dễ nhớ > cách dùng hợp lý > sắc thái tinh tế tuyệt đối**
