@@ -418,3 +418,33 @@
 416|Vie|v|tranh giành, cạnh tranh|
 417|Jeopardize|v|đe dọa, gây nguy hiểm|--
 
+418|Consensus|n|sự đồng thuận, nhất trí chung|+
+419|Incentive|n|động lực, sự khuyến khích|+
+420|Hypothesis|n|giả thuyết|
+421|Criterion|n|tiêu chí, chuẩn mực|
+422|Aftermath|n|hậu quả, thời kỳ sau biến cố|-
+423|Outcome|n|kết quả cuối cùng|
+424|Threshold|n|ngưỡng, bậc cửa|
+425|Precedent|n|tiền lệ|
+426|Rationale|n|lý do cốt lõi, cơ sở lý luận|
+427|Attribute|v/n|quy cho, gán cho / đặc điểm, thuộc tính|
+428|Preclude|v|loại trừ, ngăn không cho xảy ra|-
+429|Entail|v|kéo theo, đòi hỏi|
+430|Encompass|v|bao gồm, bao trùm|
+431|Constitute|v|cấu thành, chiếm (tỷ lệ)|
+432|Elaborate|v/adj|trình bày chi tiết / công phu, tỉ mỉ|+
+433|Contradict|v|mâu thuẫn, bác bỏ|-
+434|Deprive|v|tước đoạt, làm mất|-
+435|Incur|v|phải gánh chịu, mắc phải|-
+436|Underpin|v|làm nền tảng, củng cố|+
+437|Undergo|v|trải qua, chịu (thay đổi, điều trị)|
+438|Undertake|v|đảm nhận, tiến hành|
+439|Withstand|v|chống đỡ, chịu đựng được|+
+440|Empirical|adj|dựa trên quan sát, thực nghiệm|
+441|Coherent|adj|mạch lạc, nhất quán|+
+442|Consecutive|adj|liên tiếp, liền nhau|
+443|Subsequent|adj|sau đó, tiếp theo|
+444|Sustainable|adj|bền vững, có thể duy trì|+
+445|Tangible|adj|hữu hình, cụ thể|+
+446|Compelling|adj|thuyết phục, hấp dẫn|+
+447|Tentative|adj|tạm thời, chưa chắc chắn|-
