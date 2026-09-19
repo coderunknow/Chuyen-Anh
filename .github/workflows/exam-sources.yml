@@ -25,10 +25,9 @@ jobs:
         with:
           name: public-exam-sources
           path: .cache/exams/
-          run-id: 35451398022
+          run-id: 35451718331
           github-token: ${{ github.token }}
-      - run: python scripts/exams/discover.py
-      - run: python scripts/exams/review_sources.py
+      - run: python scripts/exams/packages.py
       - name: Publish unreviewed transcriptions to session branch only
         if: github.ref == 'refs/heads/arena/01a0ba22-chuy-n-anh'
         run: |
