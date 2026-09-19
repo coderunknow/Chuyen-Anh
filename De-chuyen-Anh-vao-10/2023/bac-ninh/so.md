@@ -1,0 +1,442 @@
+---
+id: "2023-bac-ninh-so"
+nam_thi: 2023
+nam_hoc: "2023-2024"
+tinh_thanh: "Bắc Ninh"
+don_vi: "Sở GD&ĐT Bắc Ninh"
+nguon_trang: "https://tailieudieuky.com/baiviet/document/de-thi-chuyen-tieng-anh-tinh-bac-ninh-nam-hoc-2023-2024/"
+ngay_truy_cap: "2026-09-19"
+xac_minh: "ban-dang-lai-co-tieu-de-ky-thi"
+chat_luong: "PDF-text"
+dap_an: "Chưa lấy được đáp án riêng"
+sha256_noi_dung: "5bb4818391514c014a4cac5a20a51ec664147d4e7209ddbab68febcc54844406"
+---
+
+# Bắc Ninh — Chuyên Anh vào 10 — 2023-2024
+
+**Đơn vị/kỳ thi:** Sở GD&ĐT Bắc Ninh.
+
+> **Bản chép từ nguồn đăng lại, không phải bản phát hành của Sở/trường.** Đã kiểm tra nhãn kỳ thi, năm và môn chuyên trong nội dung nguồn; chưa đối chiếu thủ công từng câu với bản gốc. Không coi bản này là bản chuẩn tuyệt đối.
+
+## Nguồn và giới hạn
+
+- Trang đăng: [https://tailieudieuky.com/baiviet/document/de-thi-chuyen-tieng-anh-tinh-bac-ninh-nam-hoc-2023-2024/](https://tailieudieuky.com/baiviet/document/de-thi-chuyen-tieng-anh-tinh-bac-ninh-nam-hoc-2023-2024/).
+- Nội dung lấy từ [PDF](https://drive.google.com/uc?export=download&id=1h50JrYtzmzoLTrp_MV7TebsYII__Ik1k); SHA-256 tệp nguồn: `9b604734e30582b77790272b7ad5c96a571a2051ae9762c217f5d54012f968bb`.
+  - Đã trích văn bản từ cả 8 trang PDF; không thay trang ảnh trống bằng văn bản tự tạo.
+- Đáp án: Chưa lấy được đáp án riêng. Không tự sinh đáp án còn thiếu.
+- File nghe: không nhúng vào Markdown; xem trang/gói nguồn. Chưa xác minh khả năng phát hoặc sự đầy đủ của audio.
+- Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.
+- Giữ nguyên nội dung bài đọc và cả lỗi cố ý trong bài sửa lỗi; không tự “sửa ngữ pháp” của đề.
+
+## Đề thi và phần kèm theo trong nguồn
+
+## Trang 1
+
+```text
+UBND TỈNH BẮC NINH    ĐỀ THI TUYỂN SINH VÀO LỚP 10 THPT CHUYÊN
+  SỞ GIÁO DỤC VÀ ĐÀO TẠO          NĂM HỌC 2023-2024
+                            Môn: Tiếng Anh (dành cho thí sinh chuyên Tiếng Anh)
+     ĐỀ CHÍNH THỨC                                  Thời gian làm bài: 150 phút (không kể thời gian giao đề)
+       (Đề thi có 08 trang)
+                            Thí sinh làm bài trên tờ giấy thi
+
+  Họ và tên thí sinh:............................................................... Số báo danh:....................................
+
+PART A: LISTENING (20 POINTS)
+I. Margaret is telephoning Bob. Before you listen to the conversation, read the Applicant enquiry
+carefully, then listen and complete each gap with ONE WORD AND/OR A NUMBER. (10 points)
+Example:
+Name: Margaret Smith
+
+                           Cycle tour leader: Applicant enquiry
+      About the applicant:
+        •  wants a (1) ______________ job
+        •  will soon start work as a (2) ______________
+        •  has led cycle trips in (3) ______________
+        •  interested in being a leader of a cycling trip for families
+        •   is currently doing voluntary work with members of a (4) ______________ club
+        •  available for five months from the 1st of (5) ______________
+        •  can’t eat (6) ______________
+      Contact details:
+        •  address: 27 (7) ______________ Place, Dumfries
+        •  postcode: (8) ______________
+       Interview:
+        •  interview at 2.30 pm on (9) ______________
+        •  will plan a short (10) ______________ about being a tour guide
+
+
+II. You will hear a woman, Vanessa, talking about a journey she made with her husband, Robert, and
+her baby, Ben. Listen and choose the best answer A, B, or C for each of the following questions. (5.0
+points)
+1. What did Vanessa and Robert decide to do last year?
+  A. Get married.
+  B. Travel to England by boat.
+  C. Travel to Hong Kong by boat.
+2. Vanessa was worried that ______.
+  A. they wouldn’t be prepared
+  B. the living space would be too small
+  C. the baby would get ill
+3. How did Vanessa feel when they reached Singapore?
+  A. She wondered if she should fly home.
+  B. She was worried about the boat.
+  C. She enjoyed the break from travelling.
+                                         Trang 1/8
+```
+
+## Trang 2
+
+```text
+4. Why was Vanessa’s father-in-law particularly helpful?
+  A. He was a good cook.
+  B. He looked after the baby.
+  C. He helped to sail the boat.
+5. Because of spending so much time on the boat, the baby ______.
+  A. learnt to walk late
+  B. doesn’t play by himself
+  C. only likes a certain kind of food
+
+III. You will hear a woman talking to a doctor at a clinic about her medical problem. Listen carefully
+and decide whether the following statements are TRUE (I) or FALSE (F). (5.0 points)
+1. Julie’s exact date of birth is October 10th, 1991.
+2. Julie is working as a manager in Cawley Life Insurance Company.
+3. Julie’s been on medication for the pain in her knee.
+4. Julie has taken Tylenol as a painkiller and applied both heat and ice to deal with the pain.
+5. Her legs are getting quite a pounding after an accident.
+
+PART B: PHONETICS (5.0 POINTS)
+I. Choose the letter A, B, C, or D to indicate the word whose underlined part differs from the other
+three in pronunciation in each of the following questions. (2.0 points)
+1. A. chaos               B. chalet              C. chauffeur          D. champagne
+2. A. adventure           B. future             C. mature            D. figure
+
+II. Choose the letter A, B, C, or D to indicate the word that differs from the other three in the position
+of primary stress in each of the following questions. (3.0 points)
+1. A. confide             B. purchase           C. prefer              D. maintain
+2. A. imprison            B. endanger           C. horrify             D. develop
+3. A. establishment        B. amphibian          C. magnificence       D. astrophysics
+
+PART C. LEXICO- GRAMMAR (25 POINTS)
+I. Choose the best answer A, B, C, or D to complete the sentence in each of the following questions.
+(10.0 points)
+1. ______ precipitation events have produced more rain and become more common since the 1950s in
+many regions of the world, including much of the United States.
+  A. Extreme            B. Supreme           C. Utmost            D. Drastic
+2. ______ one after another, parallel computers perform a group of operations at the same time.
+  A. Conventional computers, by handling tasks
+  B. Since tasks being handled by conventional computers
+  C. Whereas conventional computers handle tasks
+  D. While tasks handled by conventional computers
+3. The storm ______ havoc on trains and highways, making it unlikely thousands of investors and traders
+would arrive at work.
+  A. made               B. executed           C. wreaked            D. exercised
+4. He was a great athlete when he was younger. He now still ______ had it not been for that accident.
+  A. would have been     B. had been           C. will be             D. would be
+
+                                         Trang 2/8
+```
+
+## Trang 3
+
+```text
+5. Your ______ depends on such things as your genes, behaviors, attitudes, environment, and a little bit
+of luck.
+  A. expectancy          B. longevity           C. endurance          D. durability
+6. More and more investors are pouring ______ money into food and beverage start-ups.
+  A. an                  B. the                C. no article           D. a
+7. Giving up smoking is just one of the ways to ______ heart disease.
+  A. push off            B. put off             C. ward off           D. brush off
+8. Only by reducing its brightness and shutting down apps ______ running in the background in 20
+hours.
+  A. you can prevent this iPhone from going dead
+  B. can you prevent this iPhone from going dead
+  C. you prevent this iPhone going dead
+  D. can you prevent this iPhone from not going dead
+9. Fixed term employment, also known as contract work, is used for single projects or to replace workers
+on ______.
+  A. permission          B. leave              C. break              D. absence
+10. Uneducated people, the kind ______ lack information about life, themselves, and the world, make
+poor choices in their life.
+  A. who                B. whose             C. which             D. whom
+11. ______, they remained optimistic.
+  A. Though fairly unsure about the final outcome of the trial his lawyers were
+  B. Fairly unsure about the final outcome of the trial as his lawyers were
+  C. Fairly unsure about the final outcome of the trial as were his lawyers
+  D. Despite fairly unsure about the final outcome of the trial his lawyers were
+12. Emma: “I love your gardens. The plants are well taken care of!”
+    Dennis: “Thanks. Yes, I suppose I’ve always ______.”
+  A. had a good root round                       B. had green fingers
+  C. been up a gum tree                        D. taken leave of my senses
+13. Some teachers have a tendency to ______ preference to students with disadvantaged backgrounds
+such as poor and handicapped students.
+  A. lend                B. give               C. deliver             D. send
+14. The residents living in this area were warned not to be extravagant with water, ______ the low
+rainfall this year.
+  A. in view of           B. with a view to       C. regardless of        D. for fear that
+15. I will never forget the look of ______ joy on her face at the time her boyfriend gave her his proposal.
+  A. deep               B. steep              C. high               D. sheer
+16. The skyscraper, ______ with multi-colored light, looked incredible.
+  A. illuminating         B. illuminated         C. was illuminated     D. was illuminating
+17. ______ a parent, I think that more should be done to protect our children.
+  A. Like                B. As                C. Unlike             D. Alike
+18. Christine is inviting Gillian to dinner.
+   Christine: “I’m having some friends over for dinner this Saturday. Would you like to join us?”
+   Gillian: “______”
+  A. Can I take a rain check?                     B. Come on. It’s your turn.
+  C. Thanks, but I mustn’t.                     D. As a matter of fact, I do.
+
+                                         Trang 3/8
+```
+
+## Trang 4
+
+```text
+19. Joyce wants to talk to Mr. Smith, but he is not in the office at the moment. She is talking to his
+secretary instead.
+   Joyce: “May I leave a message for Mr. Smith?”
+   Secretary: “______”
+   A. Not a chance.                              B. That’s very kind of you.
+   C. I can’t agree more.                        D. Yes, I’ll make sure he gets it.
+20. People should not have children unless they are ______ to being responsible parents.
+   A. allowed             B. involved           C. committed          D. promised
+
+ II. Give the correct tense/form of the verb in brackets to complete the sentence in each of the following
+questions. (5.0 points)
+1. There (be) ___________ several questions still to be answered, we will continue this discussion some
+other time.
+2. I knew that he didn’t have much money, but he has just bought a new car. He (borrow) ___________
+money from someone.
+3. (Collapse) ___________ as a result of water damage, some parts of the floor are now being
+painstakingly reconstructed by master builders.
+4. It is strongly recommended that your brakes (check) ___________ before you go on a long drive.
+5. By the time we finish our ninth grade this summer, my brother (graduate) ___________ from his
+university.
+6. The dawn redwood appears (flourish) ___________ some 100 million years ago in northern forests
+in California.
+7. I could tell at a glance that the pile of the letters on my desk (disturb) ___________ while I (be)
+___________ out.
+8. Not once in my life I (experience) ___________ such a luxury cruise.
+9. You promised to have a day off and go camping with us and you were at work until midnight this
+Sunday. I would rather you (keep) ___________ your words.
+
+III. Give the correct form of the word in brackets to complete each of the following sentences. (5.0
+points)
+1. The __________ of the education system in Finland is famous all over Europe.   EFFICIENT
+2. A(n) __________ boom in tourism brought sudden prosperity to the town.     PRECEDE
+3. The talks were totally __________. We didn’t reach agreement on anything.    PRODUCE
+4. Police are trained to be __________ and to remember details.             OBSERVE
+5. Bullying among school children can cause __________ of school, which can HATE
+impact their academic development.
+6. He quit his job at Cornell, ending a(n) __________ academic career.          DISTINGUISH
+7. During the 18th century, land was cheap, grain was plentiful, and meat was ABOUND
+__________.
+8. Her contribution to the overall success of the project was __________ important. MEASURE
+9. He won the discus event at the Olympic Games but was later __________ when a QUALIFY
+medical check proved that he had been taking drugs.
+10. The  truth  is  that __________ recycling protects markets as well as the OBLIGE
+environment.
+
+
+                                         Trang 4/8
+```
+
+## Trang 5
+
+```text
+IV. The passage below contains FIVE mistakes. Identify the mistakes and give the corrections on your
+answer sheet. (5.0 points)
+Example:   Line 1: in g of
+ Line                                      Passage
+  1   Many in us thought the world had four oceans - the Atlantic, Indian, Pacific and Arctic Oceans.
+  2    That’s which we were taught in school. Moreover, a search on the Internet will show that there
+  3     is also a “Southern Ocean” around the South Pole and Antarctica. The National Geographic
+  4    Society has now officially accepted that this body of water around Antarctica is a real ocean.
+  5   Geography teachers will now have to teach their students that the world has five oceans.
+  6    National Geographic said its recognition of the world to have a fifth ocean would have an
+  7    impact on how children see the world. Alex Tait, a geographer and cartographer at National
+  8   Geographic said that realizing the Southern Ocean would help students understand more about
+  9    climate change. National Geographic added that: “The Southern Ocean has unique and fragile
+  10   marine ecosystems that are home for wonderful marine life such as whales, penguins and seals.”
+
+PART D. READING (25 POINTS)
+I. Read the text below and fill each blank with ONE suitable word. (10.0 points)
+  The air above our head is becoming cleaner. A (1) __________ of fresh air has been running right
+round the planet for the past five years. The planet is apparently purging itself of pollution. Paul Novell
+of the University of Colorado, the co-author of a report on this phenomenon says, “It seems as if the
+planet’s own cleaning service has suddenly got a new lease of (2) __________. Suddenly, there are a lot
+of changes going on up there”.
+   Estimates of the death (3) __________ from urban smog have been steadily rising, so the new cleaner
+trend could have significant consequences for life expectancy in cities as well as for the planet itself.
+The sudden and unexpected reversal of several decades of worsening pollution (4) __________ from the
+air in city streets to the remotest mid-Pacific Ocean and Antarctica.
+   (5) __________ the pollutants which have begun to disappear from the atmosphere are carbon
+monoxide, from car exhaust and burning rain forests, and methane from the guts of cattle, paddy fields,
+and gas fields. Even carbon dioxide, the main gas behind global warning, has fallen slightly.
+  There are two theories about why pollution is disappearing. First that there is (6) __________
+pollution to start with due to laws to cut down urban smogs and acid rain starting to have a global impact.
+Second, that the planet may be becoming more efficient at cleaning up.
+  The main planetary clean-up agent is a chemical (7) __________ hydroxyl. It is present throughout
+the atmosphere in tiny quantities and removes most pollutants from the air by oxidizing (8) __________.
+The amount of hydroxyl in the air has fallen (9) __________ a quarter in 1980s. Now it may be reviving
+for two reasons: ironically, because the ozone hole has expanded, letting in more ultraviolet radiation
+into the lower atmosphere, where it manufactures hydroxyl. Then the stricter controls on vehicle exhausts
+in America and Europe may have cut global carbon monoxide emissions, (10) __________ allowing
+more hydroxyl to clean up other pollutants.
+
+I1. Read the text below and choose the word that best fits each of the blanks in the following passage.
+(5.0 points)
+    It is (1) _______ hot in the Eldorado Valley in Nevada, USA. In midsummer, temperatures regularly
+(2) _______ 45 degrees centigrade. That’s why farmers have no choice but to wake up early. To get a
+day’s work done before the heat becomes (3) _______, they have to be out in the fields soon after dawn.
+
+                                         Trang 5/8
+```
+
+## Trang 6
+
+```text
+The heat also explains why this is the perfect place to construct a solar power plant. Concentrated solar
+power (CSP) works by using special mirrors (4) _______ focus the rays of the sun onto a chamber full
+of oil. This oil then (5) _______ up to a temperature of almost 400 degrees centigrade. Steam from the
+hot oil is then used to (6) _______ electricity. Although the technology works, it has been difficult to get
+people interested in it because this is a relatively expensive way of producing electricity. This situation
+(7) _______ fast, however, thanks to the rising cost of traditional methods of producing electricity. As a
+result, some people now (8) _______ CSP as the best type of renewable energy for the future. CSP works
+best where the sun is constantly very hot, (9) _______ deserts where very few people live. Compared
+with alternatives such as wind and wave energy, (10) _______, it has less impact on people’s lives, on
+wildlife or on the environment.
+1.  A. hospitably           B. extremely          C. moderately         D. violently
+2.  A. fetch               B. access             C. meet              D. reach
+3.  A. improper            B. inevitable          C. unbearable         D. impassable
+4.  A. what               B. that                C. who               D. where
+5.  A. burns               B. goes               C. heats              D. develop
+6.  A. generate            B. supply             C. assemble           D. rises
+7.  A. will have changed    B. had changed        C. changed            D. deliver
+8.  A. refer               B. believe             C. regard             D. is changing
+9.  A. nearly              B. almost             C. most              D. mostly
+10. A. however            B. therefore           C. nonetheless         D. wheareas
+
+III. Read the following passage and choose the letter A, B, C, or D to indicate the correct answer to
+each of the following questions. (10.0 points)
+  We live in a world of tired, sleep deprived people. In his book Counting Sheep, Paul Martin – a
+behavioural biologist – describes a society which is just too busy to sleep and which does not give
+sleeping the importance it deserves.
+  Modern society has invented reasons not to sleep. We are now a 24/7 society where shops and services
+must be available all hours. We spend longer hours at work than we used to, and more time getting to
+work. Mobile phones and email allow us to stay in touch round the clock and late-night TV and the
+Internet tempt us away from our beds. When we need more time for work or pleasure, the easy solution
+is to sleep less. The average adult sleeps only 6.2 hours a night during the week, whereas research shows
+that most people need eight or even eight and a half hours’ sleep to feel at their best. Nowadays, many
+people have got used to sleeping less than they need and they live in an almost permanent state of “sleep
+debt”.
+   Until the invention of the electric light in 1879 our daily cycle of sleep used to depend on the hours
+of daylight. People would get up with the sun and go to bed at nightfall. But nowadays our hours of sleep
+are mainly determined by our working hours (or our social life) and most people are woken up artificially
+by an alarm clock. During the day caffeine, the world’s most popular drug, helps to keep us awake. 75%
+of the world’s population habitually consume caffeine, which up to a point masks the symptoms of sleep
+deprivation.
+  What does a chronic lack of sleep do to us? As well as making us irritable and unhappy as humans, it
+also reduces our motivation and ability to work. This has serious implications for society in general.
+Doctors, for example, are often chronically sleep deprived, especially when they are on “night call” and
+may get less than three hours’ sleep. Lack of sleep can seriously impair their mood, judgment, and ability
+to take decisions. Tired engineers, in the early hours of the morning, made a series of mistakes with
+
+                                         Trang 6/8
+```
+
+## Trang 7
+
+```text
+catastrophic results. On our roads and motorways lack of sleep kills thousands of people every year.
+Tests show that a tired driver can be just as dangerous as a drunken driver. However, driving when drunk
+is against the law but driving when exhausted isn’t. As Paul Martin says, it is very ironic that we admire
+people who function on very little sleep instead of criticizing them for being irresponsible. Our world
+would be a much safer, happier place if everyone, whatever their job, slept eight hours a night.
+1. Which of the following could best serve as the title of the passage?
+  A. Accident Prevention: Urgent!                B. Sleep Deprivation: Causes and Effects
+  C. A Society of Sleepless People               D. A 24/7 Society and “Sleep Debt”
+2. The phrase “round the clock” in second paragraph is similar in meaning to ______.
+  A. surrounded with clocks                      B. having a round clock
+  C. during the daytime                        D. all day and night
+3. The writer mentions the Internet in the passage as ______.
+  A. a temptation that prevents us from sleeping
+  B. an easy solution to sleep deprivation
+  C. an ineffective means of communication
+  D. a factor that is not related to sleep deprivation
+4. According to the third paragraph, which of the following is NOT TRUE?
+  A. Our social life has no influence on our hours of sleep.
+  B. The sun obviously determined our daily routines.
+  C. The electric light was invented in the 19th century.
+  D. The electric light has changed our daily cycle of sleep.
+5. The word “which” in the third paragraph refers to ______.
+  A. reaching a point                            B. masking the symptoms
+  C. the world’s population                     D. caffeine consumption
+6. Which of the following is TRUE, according to the last paragraph?
+  A. Doctors ‘on night call’ do not need more than three hours of sleep a day.
+  B. Our motivation decreases with the bigger number of hours we sleep.
+  C. Sleep deprivation has negative effects on both individuals and society.
+  D. Thousands of people are killed every day by drunken drivers.
+7. The word “catastrophic” in the last paragraph probably means ______.
+  A. bound to bring satisfaction                   B. becoming more noticeable
+  C. causing serious damage or loss              D. likely to become worthless
+8. Which of the following can be inferred from the passage?
+  A. Driving when exhausted is against the law.
+  B. Both drunken drivers and sleep-deprived people should be criticized.
+  C. There is no point in criticizing irresponsible people in our society.
+  D. We certainly can function well even when we hardly sleep.
+9. All of the following are mentioned as those whose performance is affected by ‘sleep debt’ EXCEPT
+______.
+  A. doctors             B. drivers             C. biologists          D. engineers
+10. According to the passage, which of the following statements is TRUE about Paul Martin?
+  A. He shows his concern for sleep deprivation in modern society.
+  B. He gives an interesting account of a sleepless society.
+  C. He is a scientist who is chronically deprived of sleep.
+  D. He describes the modern world as a place without insomnia.
+
+                                         Trang 7/8
+```
+
+## Trang 8
+
+```text
+PART E. WRITING (25 POINTS)
+1. Complete each of the following sentences in such a way that it has the similar meaning to the
+sentence printed before. (5.0 points)
+1. They produce a lot of paper, so they need a lot of wood pulp.
+@ The more ________________________________________________________________________
+2. If anyone succeeds in solving the problem, it will probably be him.
+@ He is the most ____________________________________________________________________
+3. Our science correspondence sees this new invention as the answer to many of our problems.
+@ According to _____________________________________________________________________
+4. It was difficult to understand her colleagues’ open hostility towards her proposal.
+@ That her colleagues ________________________________________________________________
+5. He was so enthusiastic that he apparently ignored any warning signs.
+@ Such ___________________________________________________________________________
+
+II. Complete the second sentence so that it has a similar meaning to the first sentence, using the word
+in bold given in brackets. DO NOT change the word given. (5.0 points)
+1. I didn’t follow the speech exactly, but I understood the general meaning of what was being said.
+(DRIFT)
+@ I _______________________________________________________________________________
+2. Don’t you remember anything about your lifetime in London as a child? (RECOLLECTION)
+@ Haven’t _________________________________________________________________________
+3. Any correspondence from the Canberra office must be dealt with before other matters. (PRIORITY)
+@ Any ____________________________________________________________________________
+4. It was the Olympic Games that really made Seoul famous. (MAP)
+@ It ______________________________________________________________________________
+5. She is determined to become a professional dancer. (HEART)
+@ She ____________________________________________________________________________
+
+III. Essay Writing (15.0 points)
+To what extent do you agree or disagree with the idea that “AI (Artificial Intelligence) may pose a
+threat to human beings.”?
+Write an essay of about 250 words to express your opinion, using specific details and examples to support
+your answer.
+
+                                                   ------- HẾT -------
+
+
+
+
+
+                                         Trang 8/8
+```

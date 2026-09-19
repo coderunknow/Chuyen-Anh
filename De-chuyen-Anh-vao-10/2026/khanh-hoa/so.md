@@ -1,0 +1,652 @@
+---
+id: "2026-khanh-hoa-so"
+nam_thi: 2026
+nam_hoc: "2026-2027"
+tinh_thanh: "Khánh Hòa"
+don_vi: "Sở GD&ĐT Khánh Hòa"
+nguon_trang: "https://tailieudieuky.com/baiviet/document/de-chuyen-anh-khanh-hoa-2026-2027-co-dap-an/"
+ngay_truy_cap: "2026-09-19"
+xac_minh: "ban-dang-lai-co-tieu-de-ky-thi"
+chat_luong: "DOCX"
+dap_an: "Có, theo bản đăng lại"
+sha256_noi_dung: "fd5e5980d42fa7ceb3dd451e47b02d6582baef387f1f257620f71be808645616"
+---
+
+# Khánh Hòa — Chuyên Anh vào 10 — 2026-2027
+
+**Đơn vị/kỳ thi:** Sở GD&ĐT Khánh Hòa.
+
+> **Bản chép từ nguồn đăng lại, không phải bản phát hành của Sở/trường.** Đã kiểm tra nhãn kỳ thi, năm và môn chuyên trong nội dung nguồn; chưa đối chiếu thủ công từng câu với bản gốc. Không coi bản này là bản chuẩn tuyệt đối.
+
+## Nguồn và giới hạn
+
+- Trang đăng: [https://tailieudieuky.com/baiviet/document/de-chuyen-anh-khanh-hoa-2026-2027-co-dap-an/](https://tailieudieuky.com/baiviet/document/de-chuyen-anh-khanh-hoa-2026-2027-co-dap-an/).
+- Nội dung lấy từ [DOCX](https://tailieudieuky.com/baiviet/wp-content/uploads/2026/07/De-Chuyen-Anh-Khanh-Hoa-2026-2027-co-dap-an.zip); SHA-256 tệp nguồn: `6fd4a79ab619a05a141532f3a58611f9e7897c061d4526b7a22e1563ba75f623`.
+  - Thành viên trong gói tải: `de-thi-chinh-thuc.docx`.
+- Nội dung lấy từ [DOCX](https://tailieudieuky.com/baiviet/wp-content/uploads/2026/07/De-Chuyen-Anh-Khanh-Hoa-2026-2027-co-dap-an.zip); SHA-256 tệp nguồn: `a1ac8bd31120868d2b5ed52ce9671b44f68ce2863bfba7e4b6a9613e9d9ba0c1`.
+  - Thành viên trong gói tải: `dap-an.docx`.
+- Đáp án: Có, theo bản đăng lại. Không tự sinh đáp án còn thiếu.
+- File nghe: không nhúng vào Markdown; xem trang/gói nguồn. Chưa xác minh khả năng phát hoặc sự đầy đủ của audio.
+- Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.
+- Giữ nguyên nội dung bài đọc và cả lỗi cố ý trong bài sửa lỗi; không tự “sửa ngữ pháp” của đề.
+
+## Đề thi và phần kèm theo trong nguồn
+
+| **SỞ GIÁO DỤC VÀ ĐÀO TẠO**<br>ĐỀ CHÍNH THỨC**KHÁNH HÒA**<br>*(Đề **thi** có **10** trang)* | **KỲ THI TUYỂN SINH VÀO LỚP 10** **THPT CHUYÊN **<br>**Năm học 2026-2027**<br>**Môn thi: TIẾNG ANH**<br>*Thời gian làm bài: **15**0 phút, không kể thời gian phát đề*<br> |
+| --- | --- |
+
+I. LEXICO-GRAMMAR (30 points)
+
+Part 1. For questions 1-20, write the letter A, B, C, or D in the numbered boxes provided (1-20) to indicate the option that best completes each unfinished sentence. (10 points)
+
+**1. **The social media post became extremely popular and turned into \_\_\_\_\_\_\_\_\_\_ within a few hours.
+
+| **A.** algorithm | **B.** viral content | **C.** press release | **D.** editorial |
+| --- | --- | --- | --- |
+
+**2. **After spending hours scrolling through low-quality videos, he felt like he was experiencing serious \_\_\_\_\_\_\_\_\_\_.
+
+| **A.** brain rot | **B.** cybersecurity |
+| --- | --- |
+| **C.** digital transformation | **D.** digital footprint |
+
+**3. **He made a \_\_\_\_\_\_\_\_\_\_ decision without considering the potential long-term risks involved.
+
+| **A.** short-sight | **B.** sight-short | **C.** short-sighting | **D.** short-sighted |
+| --- | --- | --- | --- |
+
+**4. **After hearing the news, she felt completely \_\_\_\_\_\_\_\_\_\_ and unable to speak.
+
+| **A.** heart-breaking | **B.** heart-broken | **C.** broken-heart | **D.** heart-break |
+| --- | --- | --- | --- |
+
+**5. **The professor encouraged a \_\_\_\_\_\_\_\_\_\_ approach to solving real-world problems in class discussions.
+
+| **A.** problem-solving | **B.** problem solved | **C.** solving-problem | **D.** solved-problem |
+| --- | --- | --- | --- |
+
+**6. **The app is designed to be \_\_\_\_\_\_\_\_\_\_, even for users with limited technical skills.
+
+| **A.** users friendly | **B.** using-friendly | **C.** friendly-users | **D.** user-friendly |
+| --- | --- | --- | --- |
+
+**7. **The company invested heavily in \_\_\_\_\_\_\_\_\_\_ equipment to stay competitive in the global market.
+
+| **A.** state-of-the-art | **B.** states of the art |
+| --- | --- |
+| **C.** the-state-of-art | **D.** state-of-the-arts |
+
+**8. **The event was canceled \_\_\_\_\_\_\_\_\_\_ unexpected weather conditions that made it unsafe for participants.
+
+| **A.** in contrast with | **B.** in addition to | **C.** on account of | **D.** as opposed to |
+| --- | --- | --- | --- |
+
+**9. **The policy was introduced \_\_\_\_\_\_\_\_\_\_ reducing traffic congestion in urban areas.
+
+| **A.** with a view to | **B.** in lieu of | **C.** in contrast with | **D.** in exchange for |
+| --- | --- | --- | --- |
+
+**10. **The problem was solved \_\_\_\_\_\_\_\_\_\_ a simple adjustment to the system settings, rather than a complete overhaul.
+
+| **A.** by means of | **B.** on no account | **C.** in case of | **D.** regardless of |
+| --- | --- | --- | --- |
+
+**11. **\_\_\_\_\_\_\_\_\_\_ unforgettable journey we had while exploring the ancient town during our summer vacation together!
+
+| **A.** How an | **B.** What | **C.** What an | **D.** How |
+| --- | --- | --- | --- |
+
+**12. **She studied every chapter carefully and reviewed her notes twice; \_\_\_\_\_\_\_\_\_\_, she passed the final exam with excellent results.
+
+| **A.** unfortunately | **B.** simultaneously | **C.** consequently | **D.** similarly |
+| --- | --- | --- | --- |
+
+**13. **The speech was inspiring and easy to understand; \_\_\_\_\_\_\_\_\_\_, it encouraged many students to volunteer for community projects.
+
+| **A.** in turn | **B.** in case | **C.** in contrast | **D.** in brief |
+| --- | --- | --- | --- |
+
+**14. **She would have missed the international flight yesterday \_\_\_\_\_\_\_\_\_\_ her brother reminding her about the passport.
+
+| **A.** but for | **B.** or else | **C.** even if | **D.** because of |
+| --- | --- | --- | --- |
+
+**15.** The more carefully you prepare for the interview, \_\_\_\_\_\_\_\_\_\_ you will feel when answering questions.
+
+| **A.** as confident as | **B.** as confidently as |
+| --- | --- |
+| **C.** the more confidently | **D.** the more confident |
+
+**16. **The athlete was reported \_\_\_\_\_\_\_\_\_\_ intensive training before winning the international championship last month.
+
+| **A.** to be completed | **B.** to have completed | **C.** completing | **D.** having completed |
+| --- | --- | --- | --- |
+
+**17. **\_\_\_\_\_\_\_\_\_\_ he needs most right now is enough confidence to start speaking English in public.
+
+| **A.** What | **B.** That | **C.** Whether | **D.** Why |
+| --- | --- | --- | --- |
+
+**18. **They adopted a \_\_\_\_\_\_\_\_\_\_ dog from the local animal rescue center last weekend.
+
+| **A.** little white lovely | **B.** white lovely little | **C.** lovely little white | **D.** lovely white little |
+| --- | --- | --- | --- |
+
+**19. **Nobody in the class has submitted the final assignment yet, \_\_\_\_\_\_\_\_\_\_?
+
+| **A.** have they | **B.** hasn’t he | **C.** did they | **D.** has nobody |
+| --- | --- | --- | --- |
+
+**20. **Neither the manager nor the employees \_\_\_\_\_\_\_\_\_\_ aware of the issue.
+
+| **A.** was | **B.** were | **C.** is | **D.** be |
+| --- | --- | --- | --- |
+
+Part 2. For questions 21-30, use the word given in capitals at the end of the blank to form a word that fits in it. Write your answers in the numbered boxes provided (21-30). There is an example at the beginning (0). (10 points)
+
+Phở drifts into the morning like a (**0. SOFTEN**) **<u>soft</u>** memory, and its arrival is almost (**21. NOTICE**) \_\_\_\_\_\_\_\_\_\_, yet deeply felt. The rising steam forms an intriguing (**22. MIX**) \_\_\_\_\_\_\_\_\_\_ of scent and silence, where herbs and broth seem to (**23. BREATH**) \_\_\_\_\_\_\_\_\_\_ together.
+
+There is an artful refinement in every detail, a slow (**24. DEVOTE**) \_\_\_\_\_\_\_\_\_\_ shaped by hands both (**25. KNOW**) \_\_\_\_\_\_\_\_\_\_ and patient. The flavors gather in subtle depth, not demanding attention, but inviting it softly and (**26. PERSIST**) \_\_\_\_\_\_\_\_\_\_. Each bowl feels charming, not in extravagance, but in its quiet (**27. HONEST**) \_\_\_\_\_\_\_\_\_\_.
+
+Beyond taste, there is something more elusive. A quiet (**28. WARM**) \_\_\_\_\_\_\_\_\_\_ settles, almost (**29. CONSCIOUS**) \_\_\_\_\_\_\_\_\_\_, like a forgotten feeling returning. The world outside may remain restless and (**30. CHANGE**) \_\_\_\_\_\_\_\_\_\_, but here, something stays still.
+
+Part 3. The passage below contains 10 mistakes. For questions 31-40, identify the mistakes and write your corrections in the numbered boxes provided (31-40). There is an example at the beginning (0). (10 points)
+
+*Example:* *are*  *is*
+
+One of the most influential self-help books of modern times (0) **<u>are</u>** *Awaken the Giant Within* by Anthony Robbins. First publishing in 1991, the book focuses on helping individuals take control of their emotions, financial, relationships, and overall life direction. In this book, Robbins argues that people often limit them through negative beliefs and habits. He introduces practical strategies to change one’s mindset and behaviour pattern. According to Robbins, true change begins with making clear decisions and consistently take action toward personal goals. A key idea in the book is the concept of “personal power”, which Robbins believes everyone possess. Robbins believes that everyone has an inner strength or “giant” that can be awake through discipline and self-awareness. The book also emphasizes the importance of set specific and meaningful goals.
+
+*Awaken the Giant Within* not only provides inspiration but also motivations readers to take action. Many readers find the book so helpful that they recommend it to other interested in personal growth.
+
+II. READING (40 points)
+
+Part 1. For questions 41-50, read the passage and fill in each blank with ONE suitable word. Write your answers in the numbered boxes provided (41-50). (10 points)
+
+Little Things, Deep Happiness
+
+People often believe happiness comes only **(0)** **<u>with</u>** success, distant journeys, or the moment long-cherished dreams finally come true. They wait **(41)** \_\_\_\_\_\_\_\_\_\_ the “right moment”, thinking life will only become meaningful then. Yet, true joy often hides in the smallest, quietest moments.
+
+A simple dinner with family, the smell of rain after a hot day, or a gentle message from someone asking if we are alright can warm the heart beyond words. **(42)** \_\_\_\_\_\_\_\_\_\_, such moments are easy to overlook because they seem too ordinary. We spend **(43)** \_\_\_\_\_\_\_\_\_\_ much time looking ahead that we forget what is already here. It does not mean giving up ambition or forgetting our goals. **(44)** \_\_\_\_\_\_\_\_\_\_, it means learning to pause and treasure the present.
+
+Sometimes, happiness is sitting beside someone you love in **(45)** \_\_\_\_\_\_\_\_\_\_, saying nothing, and still feeling understood. It is hearing your mother call your name or watching the sky turn orange at sunset. These moments remind us **(46)** \_\_\_\_\_\_\_\_\_\_ life is built not only on success, but also on affection, gratitude, and human connection. We become **(47)** \_\_\_\_\_\_\_\_\_\_ peaceful and less afraid of whatever tomorrow may bring.
+
+Love appears not in expensive gifts **(48)** \_\_\_\_\_\_\_\_\_\_ in small daily kindnesses - a glass of water offered, a patient ear, or a warm and sincere smile. They often mean far **(49)** \_\_\_\_\_\_\_\_\_\_ than we realize. Joy is not something we search **(50)** \_\_\_\_\_\_\_\_\_\_. It is already around us, waiting softly to be seen.
+
+Part 2. For questions 51-60, read the passage and choose the answer which best fits each blank. Write your answers in the numbered boxes provided (51-60). (10 points)
+
+In Japan, the concept of *omotenashi* represents a deeply rooted tradition of selfless service, where hosts anticipate guests’ needs without expecting anything in return. During a traditional tea ceremony, the host may **(51)** \_\_\_\_\_\_\_\_\_\_ each movement with extreme precision, turning a simple drink into an art form. Guests are encouraged to **(52)** \_\_\_\_\_\_\_\_\_\_ the quiet atmosphere and notice subtle gestures. Silence is not awkward but **(53)** \_\_\_\_\_\_\_\_\_\_ valued as part of the experience.
+
+This cultural practice is based on the idea that one should **(54)** \_\_\_\_\_\_\_\_\_\_ fully in the present moment, leaving distractions behind. Even the arrangement of utensils can have a significant **(55)** \_\_\_\_\_\_\_\_\_\_ on the emotional experience of the guest.
+
+Tourists who are **(56)** \_\_\_\_\_\_\_\_\_\_ through such ceremonies often report feeling unexpectedly calm. They also become more **(57)** \_\_\_\_\_\_\_\_\_\_ of small details that are usually ignored in daily life. Compared with Western-style hospitality, *omotenashi* is less **(58)** \_\_\_\_\_\_\_\_\_\_ on verbal communication and more on thoughtful action.
+
+This philosophy continues to influence modern society. It is now **(59)** \_\_\_\_\_\_\_\_\_\_ in many service training programs, and many international hotels **(60)** \_\_\_\_\_\_\_\_\_\_ elements of this approach.
+
+| **51.** | **A.** promote | **B.** foster | **C.** perform | **D.** rehearse |
+| --- | --- | --- | --- | --- |
+| **52.** | **A.** undermine | **B.** appreciate | **C.** flatter | **D.** celebrate |
+| **53.** | **A.** firmly | **B.** utterly | **C.** highly | **D.** strongly |
+| **54.** | **A.** engage | **B.** embody | **C.** immerse | **D.** attend |
+| **55.** | **A.** consequence | **B.** improvement | **C.** impact | **D.** limitation |
+| **56.** | **A.** diverted | **B.** led | **C.** carried | **D.** attended |
+| **57.** | **A.** aware | **B.** apprehensive | **C.** sensitive | **D.** attentive |
+| **58.** | **A.** focused | **B.** reflected | **C.** relied | **D.** imposed |
+| **59.** | **A.** redundant | **B.** external | **C.** integral | **D.** minor |
+| **60.** | **A.** reject | **B.** adopt | **C.** abandon | **D.** resist |
+
+Part 3. Read the passage and do the tasks that follow. (10 points)
+
+Gratitude in a Restless World
+
+[**A**] On a crowded train during the evening rush, most passengers are absorbed in their own private worlds - scrolling through phones, answering emails, or simply staring blankly ahead. It is easy, in such moments, to feel disconnected, as if life were a series of obligations rather than experiences to be valued. Yet, scattered among these ordinary scenes are quiet instances of gratitude: a commuter offering a seat to an elderly stranger, a brief smile exchanged between two tired workers, or a message of thanks sent at the end of a long day. These small gestures suggest that gratitude, though often overlooked, remains a powerful force in modern life. In fact, gratitude is commonly defined as the appreciation of what is valuable and meaningful to oneself. However, this definition barely captures its depth. It is not merely a polite response to kindness or a social convention reinforced by upbringing; rather, it is a way of seeing the world. Individuals who cultivate gratitude tend to notice not only grand achievements but also the subtle moments that give life texture - the warmth of sunlight on a cold morning, the comfort of familiar routines, or the presence of supportive relationships.
+
+[**B**] In recent years, psychologists have taken a growing interest in gratitude, seeking to understand its impact on human well-being. Studies suggest that people who regularly reflect on what they are thankful for report higher levels of happiness and lower levels of stress. This is partly because gratitude shifts attention away from what is lacking toward what is already present. In a culture that often emphasizes comparison and achievement, such a shift can be both refreshing and transformative. Moreover, the influence of gratitude extends beyond the individual. In social contexts, expressions of appreciation can strengthen relationships and foster trust. When people feel acknowledged, they are more likely to engage positively with others, creating a cycle of goodwill. For example, a simple thank-you in the workplace can increase motivation and cooperation, while in personal relationships, it can deepen emotional connections. In this sense, gratitude functions as a kind of social glue, binding individuals together in mutual respect.
+
+[**C**] Despite its many benefits, gratitude does not always come naturally. Modern life, with its constant demands and distractions, can make it difficult to pause and reflect. People often take positive aspects of their lives for granted, focusing instead on problems or unmet expectations. This tendency is sometimes referred to as the “negativity bias,” a psychological phenomenon in which negative experiences have a greater impact on our thoughts and emotions than positive ones. Overcoming this bias requires conscious effort and practice. One widely recommended approach is the use of a gratitude journal. By writing down a few things each day that one is thankful for, individuals can gradually train their minds to recognize positive experiences more readily. Over time, this practice can reshape habitual patterns of thinking, making gratitude a more automatic response. Another method involves expressing appreciation directly to others, whether through spoken words, written notes, or simple acts of kindness.
+
+[**D**] Such expressions not only benefit the recipient but also reinforce the giver’s own sense of gratitude. However, it is important to note that gratitude is not about ignoring difficulties or pretending that everything is perfect. Rather, it coexists with hardship, offering a way to find meaning even in challenging circumstances. For instance, someone facing adversity may still feel grateful for the support of friends or the lessons learned through struggle. In this way, gratitude does not eliminate suffering but can make it more bearable, providing a sense of perspective and resilience. Cultural differences also shape how gratitude is expressed and understood. In some societies, it is conveyed openly through words and gestures, while in others, it may be demonstrated more subtly through actions. Regardless of these variations, the underlying principle remains consistent: an acknowledgment of the value that others and the world contribute to one’s life.
+
+[**E**] This universality suggests that gratitude is a fundamental aspect of human experience, transcending language and tradition. Ultimately, gratitude invites a shift in attention - from what is missing to what is present, from dissatisfaction to appreciation. It encourages individuals to engage more fully with their surroundings and to recognize the interconnectedness of human lives. In a world that often feels hurried and fragmented, such a perspective can offer a sense of grounding. As the train reaches its final stop and passengers disperse into the night, the brief encounters of the day fade into memory. Yet, the moments of gratitude - however small - linger quietly, shaping how individuals perceive their lives and their relationships. Though it may not solve every problem, gratitude has the potential to transform the ordinary into something meaningful, reminding us that even in the midst of routine, there is much to be thankful for.
+
+**For questions 61-65, choose the most suitable heading for each paragraph (A-E) from the list of headings (i-vii) below. Write the correct number (i-vii) in the numbered boxes (61-65).**
+
+**List of headings**
+
+i. Gratitude as a source of resilience and a universal human experience
+
+ii. Scientific evidence and the social effects of gratitude
+
+iii. Everyday examples and the deeper meaning of gratitude
+
+iv. Final reflections on gratitude in ordinary life
+
+v. Why gratitude is difficult and how to practise it
+
+vi. Gratitude in professional success
+
+vii. Cultural differences in emotional expression
+
+**61.** Paragraph A \_\_\_\_\_\_\_\_\_\_
+
+**62.** Paragraph B \_\_\_\_\_\_\_\_\_\_
+
+**63.** Paragraph C \_\_\_\_\_\_\_\_\_\_
+
+**64.** Paragraph D \_\_\_\_\_\_\_\_\_\_
+
+**65.** Paragraph E \_\_\_\_\_\_\_\_\_\_
+
+**The reading passage has five paragraphs, A-E. Which paragraph contains the following information? For questions 66-67, write your answers (A-E) in the numbered boxes (66-67).**
+
+**66.** a mention of a psychological habit that causes people to focus more on negative experiences: \_\_\_\_\_\_\_\_\_\_
+
+**67.** an example showing that appreciation at work can improve teamwork and motivation: \_\_\_\_\_\_\_\_\_\_
+
+**For questions 68-70, complete the summary, using ONE WORD from the list of words below. Write your answers in the numbered boxes (68-70).**
+
+**trust / journal / comparison / culture / stress / routine / support / achievement**
+
+Researchers have found that gratitude improves well-being by lowering levels of **(68) **\_\_\_\_\_\_\_\_\_\_ and helping people shift attention away from constant **(69) **\_\_\_\_\_\_\_\_\_\_ with others. One effective method of developing gratitude is keeping a gratitude **(70) **\_\_\_\_\_\_\_\_\_\_, where individuals regularly record positive experiences and meaningful moments.
+
+Part 4. Read the passage and do the tasks that follow. (10 points)
+
+Matcha: A Convergence of Ritual, Chemistry, and Global Demand
+
+In contemporary consumer culture, matcha has been rebranded as both a superfood and a lifestyle symbol. Yet such modern interpretations obscure its complex historical trajectory and cultural specificity. Unlike conventional infusions, in which leaves are steeped and discarded, matcha entails the ingestion of the entire leaf in powdered form. This seemingly simple distinction has profound implications not only for its nutritional profile but also for its symbolic and economic value.
+
+The origins of matcha are frequently misattributed exclusively to Japan; however, its conceptual precursor emerged during the Tang Dynasty in China, when tea was processed into compressed forms for storage and transport. It was during the Song Dynasty, though, that powdered tea preparation gained prominence. This practice was subsequently transmitted to Japan in the late 12th century by the Zen monk Eisai, who advocated its use in monastic settings. Eisai’s writings emphasized not merely the physiological effects of tea, but also its capacity to cultivate mental discipline.
+
+Central to matcha’s appeal within Zen Buddhism was its unique biochemical composition. While caffeine is typically associated with heightened alertness, it often induces restlessness when consumed in isolation. Matcha, by contrast, contains L-theanine, an amino acid that modulates the stimulatory effects of caffeine. The result is a sustained state of attentiveness devoid of the abrupt fluctuations commonly referred to as “crashes.” This synergy rendered matcha particularly suitable for extended meditative practices, during which both concentration and composure are essential.
+
+Over subsequent centuries, matcha became codified within the Japanese tea ceremony, or chanoyu, a highly ritualized practice governed by aesthetic and philosophical principles. The ceremony is not merely a method of beverage preparation, but an embodied expression of values such as wabi-sabi (an appreciation of imperfection) and ichigo ichie (the uniqueness of each encounter). Participants are expected to engage with the process attentively, as even minor gestures are imbued with meaning. In this context, matcha transcends its material form to become a medium of cultural transmission.
+
+From a nutritional standpoint, matcha has been widely promoted as a potent source of antioxidants, particularly catechins such as epigallocatechin gallate (EGCG). These compounds have been linked to a range of potential health benefits, including anti-inflammatory effects and cardiovascular support. Nevertheless, it is important to distinguish between preliminary findings and clinically substantiated outcomes. While some studies suggest metabolic enhancement, the extent of such effects remains contested within the scientific community.
+
+The cultivation of matcha-grade tea leaves involves a series of deliberate interventions designed to alter the plant’s chemical composition. Prior to harvest, tea bushes are shaded for several weeks, a process that increases chlorophyll production while simultaneously elevating amino acid levels. Following harvesting, the leaves undergo steaming to prevent oxidation, after which they are dried and meticulously sorted. The removal of stems and veins yields tencha, the raw material that is subsequently ground into matcha using granite mills. This process is inherently inefficient, with high-quality production requiring significant time and expertise.
+
+As global demand for matcha has surged, so too have concerns regarding commodification and authenticity. The term “matcha” has been applied indiscriminately across a wide spectrum of products, many of which bear little resemblance to traditional forms. Culinary-grade matcha, for instance, is often characterized by a more bitter profile and diminished vibrancy in color, making it suitable for incorporation into recipes but less desirable for direct consumption. The proliferation of such products complicates consumer perceptions and risks diluting established standards.
+
+Moreover, the expansion of matcha production raises questions about environmental sustainability and labor practices. Intensive cultivation methods may lead to soil degradation if not managed responsibly, while increased demand places pressure on small-scale farmers. In response, certain producers have adopted organic certification and equitable trade frameworks. However, these initiatives are not yet universal, and their long-term efficacy remains to be seen.
+
+In essence, matcha occupies a unique intersection between tradition and modernity. Its evolution from a monastic aid to a global commodity illustrates the dynamic interplay between cultural preservation and commercial adaptation. Understanding matcha, therefore, requires not only an appreciation of its sensory qualities but also a critical awareness of the historical and socio-economic forces that continue to shape its trajectory.
+
+**For questions 71-73, choose the correct letter A, B, C or D. Write your answers in the numbered boxes (71-73).**
+
+**71.** What is implied about the development of matcha in China?
+
+| **A.** It was fully developed during the Tang Dynasty. |
+| --- |
+| **B.** It was abandoned before reaching Japan. |
+| **C.** It evolved through multiple stages before transmission. |
+| **D.** It was identical to modern matcha. |
+
+**72.** What is the primary purpose of shading tea bushes before harvesting matcha leaves?
+
+| **A.** To modify the plant’s biochemical composition, enhancing amino acid levels |
+| --- |
+| **B.** To intensify bitterness for culinary applications |
+| **C.** To reduce production costs and speed up harvesting |
+| **D.** To prevent the leaves from growing beyond a certain size |
+
+**73.** What best describes the author’s overall attitude toward matcha in the passage?
+
+| **A.** Enthusiastic endorsement of its global commercialization |
+| --- |
+| **B.** Rejection of modern adaptations in favor of historical purity |
+| **C.** Balanced analysis combining appreciation with critical caution |
+| **D.** Neutral scientific reporting without cultural interpretation |
+
+**For questions 74-78, do the following statements agree with the information given in the reading passage? In the numbered boxes provided (74-78), write:**
+
+**TRUE/ T **        *if the statement agrees with the information*
+
+**FALSE/ F**        *if the statement contradicts the information*
+
+**NOT GIVEN/ NG**    *if there is no information about the statement*
+
+**74.** \_\_\_\_\_\_\_\_\_\_ Matcha differs from regular tea infusions because the whole tea leaf is consumed rather than discarded.
+
+**75.** \_\_\_\_\_\_\_\_\_\_ Eisai believed that matcha should only be used for improving physical health, not for mental discipline.
+
+**76.** \_\_\_\_\_\_\_\_\_\_ The widespread modern image of matcha as a health trend tends to simplify its deeper historical and cultural background.
+
+**77.** \_\_\_\_\_\_\_\_\_\_ The Japanese tea ceremony requires participants to follow strict procedures, but personal interpretation of gestures is discouraged.
+
+**78.** \_\_\_\_\_\_\_\_\_\_ Although some producers have introduced sustainable farming and fair trade practices, there is no clear evidence yet of their lasting success.
+
+**For questions 79-80, complete the sentences below, using ONE WORD from the passage for each answer. Write your answers in the numbered boxes (79-80).**
+
+• High-quality matcha is produced from leaves known as **(79)** \_\_\_\_\_\_\_\_\_\_.
+
+• However, increasing demand has led to concerns about **(80)** \_\_\_\_\_\_\_\_\_\_ and sustainability.
+
+III. WRITING (30 points)
+
+Part 1. For questions 81-85, complete the second sentence in such a way that it has a similar meaning to the sentence printed before it. (5 points)
+
+**81.** Many young people probably feel isolated because they spend too much time online.
+
+It is \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+**82.** The corporation made a mistake by ignoring the warnings about air pollution.
+
+The corporation shouldn’t \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+**83.** I will support any decision the community makes about protecting the local park.
+
+Whatever \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+**84.** They are determined to continue the charity campaign even if they receive little financial support.
+
+Regardless \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+**85.** You chose to speak honestly with your parents about your academic difficulties, which was a very responsible thing to do.
+
+You were \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+Part 2. For questions 86-90, complete the second sentence so that it has a similar meaning to the first one, using the word given unchanged. You must use between THREE and FIVE words, including the word given. (5 points)
+
+**86.** People believe that social media has greatly changed the way teenagers communicate. (**supposed**)
+
+Social media \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ changed the way teenagers communicate.
+
+**87.** I don’t think you should complain so much about the new school regulations. (**rather**)
+
+We’d \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ so much about the new school regulations.
+
+**88.** Several parents came to ask about the new education policy while you were away. (**during**)
+
+During \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ to ask about the new education policy.
+
+**89.** I think she is the person responsible for organizing the charity event. (**appears**)
+
+She \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ responsible for organizing the charity event.
+
+**90.** The school bought far more computers than were necessary for the language laboratory. (**needn’t**)
+
+The school \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ computers for the language laboratory.
+
+Part 3. Write an essay about the following topic. (20 points)
+
+**Many students believe that there are no shortcuts to academic success and that hard work and persistence are the most important factors in achieving good results at school.**
+
+To what extent do you agree or disagree?
+
+Write at least 250 words.
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+---------- **THE END** ----------
+
+## Đáp án/hướng dẫn chấm trong nguồn
+
+| **SỞ GIÁO DỤC VÀ ĐÀO TẠO**<br>ĐỀ CHÍNH THỨC**KHÁNH HÒA**<br>*(Đề **thi** có **10** trang)* | **KỲ THI TUYỂN SINH VÀO LỚP 10** **THPT CHUYÊN **<br>**Năm học 2026-2027**<br>**Môn thi: TIẾNG ANH**<br>*Thời gian làm bài: **15**0 phút, không kể thời gian phát đề*<br> |
+| --- | --- |
+
+I. LEXICO-GRAMMAR
+
+Part 1.
+
+1\. B
+
+2\. A
+
+3\. D
+
+4\. B
+
+5\. A
+
+6\. D
+
+7\. A
+
+8\. C
+
+9\. A
+
+10\. A
+
+11\. C
+
+12\. C
+
+13\. A
+
+14\. A
+
+15\. D
+
+16\. B
+
+17\. A
+
+18\. C
+
+19\. A
+
+20\. B
+
+Part 2.
+
+21\. unnoticed / unnoticeable
+
+22\. mixture
+
+23\. breathe
+
+24\. devotion
+
+25\. knowing
+
+26\. persistently
+
+27\. honesty
+
+28\. warmth
+
+29\. unconsciously
+
+30\. ever-changing / changing / changeable
+
+Part 3.
+
+31\. publishing → published
+
+32\. financial → finances
+
+33\. them → themselves
+
+34\. pattern → patterns
+
+35\. take → taking
+
+36\. possess → possesses
+
+37\. awake → awakened
+
+38\. set → setting
+
+39\. motivations → motivates
+
+40\. other → others
+
+II. READING
+
+Part 1.
+
+41\. for
+
+42\. However / Nevertheless
+
+43\. so
+
+44\. Instead / Rather
+
+45\. silence
+
+46\. that
+
+47\. more
+
+48\. but
+
+49\. more
+
+50\. for
+
+Part 2.
+
+51\. C
+
+52\. B
+
+53\. C
+
+54\. A
+
+55\. C
+
+56\. B
+
+57\. A
+
+58\. A
+
+59\. C
+
+60\. B
+
+Part 3.
+
+61\. iii
+
+62\. ii
+
+63\. v
+
+64\. i
+
+65\. iv
+
+66\. C
+
+67\. B
+
+68\. stress
+
+69\. comparison
+
+70\. journal
+
+Part 4.
+
+71\. C
+
+72\. A
+
+73\. C
+
+74\. TRUE / T
+
+75\. FALSE / F
+
+76\. TRUE / T
+
+77\. NOT GIVEN / NG
+
+78\. TRUE / T
+
+79\. tencha
+
+80\. authenticity / commodification
+
+III. WRITING
+
+Part 1.
+
+81\. It is likely/probable that many young people feel isolated because they spend too much time online.
+
+82\. The corporation shouldn’t have ignored the warnings about air pollution.
+
+83\. Whatever decision the community makes about protecting the local park, I will support it.
+
+84\. Regardless of receiving little financial support / the little financial support they receive, they are determined to continue the charity campaign.
+
+85\. You were very responsible to speak honestly with your parents about your academic difficulties.
+
+Part 2.
+
+86\. is supposed to have greatly
+
+87\. rather you didn’t complain
+
+88\. your absence, several parents came
+
+89\. appears to be the person / appears to be
+
+90\. needn’t have bought so many

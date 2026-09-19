@@ -1,0 +1,1002 @@
+---
+id: "2022-hai-duong-so"
+nam_thi: 2022
+nam_hoc: "2022-2023"
+tinh_thanh: "Hải Dương"
+don_vi: "Sở GD&ĐT Hải Dương"
+nguon_trang: "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-t-hpt-chuyen-nguyen-trai-hai-duong-mon-tieng-anh-chuyen-nam-hoc-2022-2023-co-dap-an-ban-pdf/"
+ngay_truy_cap: "2026-09-19"
+xac_minh: "ban-dang-lai-co-tieu-de-ky-thi"
+chat_luong: "HTML/OCR-cần-soát"
+dap_an: "Có nội dung đáp án trong bản chép"
+sha256_noi_dung: "dda19492a09c396409cc6aba675732f47a44c43a40dfdd57920dfce3e35e1d1b"
+---
+
+# Hải Dương — Chuyên Anh vào 10 — 2022-2023
+
+**Đơn vị/kỳ thi:** Sở GD&ĐT Hải Dương.
+
+> **Bản chép từ nguồn đăng lại, không phải bản phát hành của Sở/trường.** Đã kiểm tra nhãn kỳ thi, năm và môn chuyên trong nội dung nguồn; chưa đối chiếu thủ công từng câu với bản gốc. Không coi bản này là bản chuẩn tuyệt đối.
+
+## Nguồn và giới hạn
+
+- Trang đăng: [https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-t-hpt-chuyen-nguyen-trai-hai-duong-mon-tieng-anh-chuyen-nam-hoc-2022-2023-co-dap-an-ban-pdf/](https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-t-hpt-chuyen-nguyen-trai-hai-duong-mon-tieng-anh-chuyen-nam-hoc-2022-2023-co-dap-an-ban-pdf/).
+- Nội dung lấy từ [HTML](https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-t-hpt-chuyen-nguyen-trai-hai-duong-mon-tieng-anh-chuyen-nam-hoc-2022-2023-co-dap-an-ban-pdf/); SHA-256 tệp nguồn: `9fb14e021507d230bc89f3b9db204da01310542d69aa060d161eea65659990e7`.
+- Đáp án: Có nội dung đáp án trong bản chép. Không tự sinh đáp án còn thiếu.
+- File nghe: không nhúng vào Markdown; xem trang/gói nguồn. Chưa xác minh khả năng phát hoặc sự đầy đủ của audio.
+- Bản HTML/OCR cần soát: có thể sai ký tự, đảo cột, mất gạch chân hoặc có đáp án xen câu hỏi; chưa xác nhận đầy đủ số trang của bản gốc. Không phải bản chép sạch.
+- Giữ nguyên nội dung bài đọc và cả lỗi cố ý trong bài sửa lỗi; không tự “sửa ngữ pháp” của đề.
+
+## Đề thi và phần kèm theo trong nguồn
+
+SỞ GIÁO DỤC VÀ ĐÀO TẠO HẢI DƯƠNG
+
+ĐỀ CHÍNH THỨC
+
+(Đề thi gồm có 07 trang)
+
+A. LISTENING
+
+KỲ THI TUYỂN SINH LỚP 10 THPT CHUYÊN NGUYỄN TRÃI NĂM HỌC 2022 – 2023
+
+MÔN: TIẾNG ANH
+
+Thời gian làm bài: 120 phút, không kể thời gian giao đề
+
+CHÚ Ý:
+
+Thí sinh làm bài vào tờ giấy thi
+
+Phần trắc nghiệm. Chỉ cần viết số cầu và đáp án A, B, C, hoặc D
+
+Phần tự luận. Viết đầy đủ theo yêu cầu của bài
+
+(Thí sinh không được sử dụng bất cứ tài liệu gì.)
+
+Shared by Angels of Otto Channel
+
+Hướng dẫn làm bài nghe:
+
+Bài nghe gồm có 04 phần, mỗi phần thí sinh được nghe 02 lần. Mở đầu và kết thúc phần nghe có tín hiệu nhạc. Mọi hướng dẫn cho thí sinh (bằng tiếng Anh) có trong bài.
+
+I. Listen to FIVE short conversations and choose the correct answer A, B, or C to each question. There is one question for each conversation. (5.0 points)
+
+Question 1. What is the subject of the announcement?
+
+A. Being careful at school B. Sharing food and drinks Question 2. What does the teacher instruct the students to do?
+
+A. Watch a dinosaur movie B. Go to the dinosaur exhibit
+
+Question 3. What is probably true about the teacher?
+
+C. A flu going around at school
+
+C. Work on their dinosaur projects
+
+A. He never gives bad scores. B. He is proud of the students. C. He hasn't finished correcting tests. Question 4. What does the principal instruct the students to do?
+
+A. Bring snacks to the party
+
+B. Eat lunch outside
+
+Question 5. What are the students probably going to do next?
+
+A. Talk about fruit
+
+B. Draw pictures of fruit
+
+C. Plant flowers and trees
+
+C. Hang up their pictures
+
+II. You will hear a radio program about some historic places to visit. Listen and complete the note below with NO MORE THAN THREE WORDS / NUMBERS for each answer. (5.0 points)
+
+HISTORIC PLACES TO VISIT
+
+Question 6.
+
+Black Rock Caves
+
+Over two million years old
+
+For half a million years, people and animals, (6)
+
+\* The caves open daily, from April to October.
+
+\* A special attraction on evenings in August is a walk (7)
+
+Salter House
+
+\* Built in the year (8)
+
+\* Made famous by the (9)
+
+called Aunt Dorothy
+
+\* All visitors want to see Dorothy's kitchen
+
+The Old Port
+
+\* Have a ride on an old tram to the (10)
+
+\* In the factory, find out how people used to make sweets
+
+Question 7.
+
+Question 8.
+
+lived here
+
+Question 9.
+
+Question 10.
+
+III. You will hear a man telling a group of students about a trip to the theatre. Listen and fill in the missing information in the numbered space. Write NO MORE THAN THREE WORDS / NUMBERS for each answer. (5.0 points)
+
+Question 11.
+
+TRIP TO STAUNTON THEATER
+
+Meet at 6.00 p.m. at the (11)
+
+of the school.
+
+The name of the play is (12)
+
+Get a copy of the play from the (13)
+
+Each theatre ticket will cost (14)
+
+After the theatre - have ice cream and coffee.
+
+On the return journey, the coach will stop at the (15)
+
+Question 12.
+
+Question 13.
+
+and then the school.
+
+Question 14.
+
+Question 15.
+
+IV. You will hear part of a radio interview with a woman called Linda Brown, who is talking about working in a cake shop when she was a student. Listen and choose the correct answer A, B, C, or D to each question. (5.0 points)
+
+Question 16. Linda worked in a cake shop because
+
+A. she had a big family to support
+
+C. she needed to buy things for college Question 17. Linda liked her first boss because he
+
+A. paid her well
+
+C. sent her on a training course
+
+Question 18. In the shop, Linda helped with
+
+A. baking bread
+
+B. displaying cakes
+
+B. she wanted to give her parents some money D. her parents didn't give her enough money
+
+B. was kind to her
+
+Shared by Angels
+
+D. had a good sense of humor of Otto Channel
+
+C. creating new recipes D. making sandwiches
+
+Question 19. Linda says that the full-time shop assistants
+
+A. got much more money than her
+
+C. hadn't got the same skills as her Question 20. What does Linda say about serving
+
+A. She didn't like dealing with complaints.
+
+C. She enjoyed the busy part of the day.
+
+B. were friendly to her
+
+D. didn't work as hard as her
+
+customers?
+
+B. She often discussed the design of the cakes with them. D. She liked giving them advice.
+
+B. GRAMMAR - VOCABULARY-LANGUAGE FUNCTIONS
+
+I. Choose the correct option A, B, C, or D that best completes each of the sentences below. (10.0 points) Question 21. The elaborate bridal costumes of the coastal Indians are
+
+from mother to daughter.
+
+D. put by
+
+Vitamin C to eat more fruits and vegetable.
+
+D. for
+
+A. taken after
+
+Question 22. Doctors advise people who are deficient
+
+B. handed down
+
+C. parted with
+
+A. from
+
+B. of
+
+A. abundant
+
+Question 23. Three hundred people were made
+
+B. dispensable
+
+Question 24. A major concern among archaeologists threatened by development.
+
+A. which many
+
+Question 25.
+
+B. many of them
+
+C. in
+
+when the factory closed.
+
+C. redundant
+
+D. expendable
+
+today is the preservation of archaeological sites,
+
+C. many of which
+
+with about fifteen times its weight in air does gasoline
+
+B. To mix it
+
+C. When mixed
+
+A. It is mixed Question 26. The upper levels of the Sun's atmosphere are of very low temperature.
+
+A. density, but solar activity
+
+C. density, solar activity
+
+D. of which many
+
+allow the carburetor run smoothly.
+
+D. Only when mixed
+
+are
+
+heats the gases there to very high
+
+B. density and activity of the Sun is D. dense and solar
+
+Question 27. There are some
+
+pictures in this newspaper.
+
+A. interesting white computer-generated new C. interesting new white computer-generated Question 28. They were left with egg
+
+B. computer-generated white interesting new D. new interesting computer-generated white when none of the people invited showed up at the opening ceremony.
+
+C. on their shirts
+
+D. on their back
+
+B. on their face A. on their head Question 29. Today, more traffic and faster vehicles mean that greater driving skill than before.
+
+A. how safe and reliable
+
+a car may be, its driver has to have much
+
+C. however safe and reliable
+
+B. however safely and reliably D. how safely and reliably
+
+Question 30. Reports back from the first astronauts helped dispel the dangerous
+
+boundaries and had limitless resources.
+
+that the world had no
+
+A. judgement
+
+B. notion
+
+C. reflection
+
+D. concept
+
+II. Choose the correct option A, B, C, or D that best completes each of the following exchanges. (5.0 points) Question 31. Susan, a secretary, is talking to a man in the office.
+
+Susan: "I'm sorry, sir. The manager's gone on business."
+
+Man: "Oh, what a pity!
+
+A. Can I take a message then?
+
+C. Would you like to get a message?
+
+B. Can I leave a message then?
+
+D. Why don't you leave a message?
+
+Question 32: Two friends, John and Bob, met on the first day at school.
+
+Bob. "Hey John. I didn't know you were coming to this school." John: "
+
+It's good to see you."
+
+A. Oh, how do you do.
+
+C. That's life.
+
+B. Yeah, what a coincidence!
+
+D. Every now and then.
+
+Question 33. Mary and Sam are having a chat in the classroom.
+
+Mary: "What kind of job would you like in the future?"
+
+Sam:
+
+M
+
+A. Well, I'm optimistic about the future. C. Well, anything to do with tourism.
+
+B. Is there a good chance of promotion? D. I heard it would be good.
+
+Question 34. Two students are talking about the school curriculum.
+
+Student A: "Swimming should be made part of the school curriculum."
+
+Student B:
+
+It is an essential life skill."
+
+A. I don't think it's a good idea.
+
+B. I can't agree with you more. D. What an absurd idea!
+
+C. You must be kidding.
+
+Question 35. A waiter in a restaurant is talking to a customer who has just finished his meal.
+
+Waiter: "Here's your bill, sir."
+
+Customer:
+
+A. Don't mention it. B. You're welcome.
+
+C. What do you have? D. Can I pay by credit card?
+
+III. Give the correct form of the words in brackets. (5.0 points)
+
+Question 36. (VEGETABLE)
+
+is very popular among young people in Britain, especially among teenage girls. Question 37. All the athletes participated in the Olympic Games in the true spirit of (SPORT) Question 38. The computer allows you to (PERSON)
+
+standard letters by adding a greeting to each one.
+
+Question 39. The government will make radical changes that include cutting subsidies and shedding (PRODUCE)
+
+jobs.
+
+Question 40. The costs of cleaning up the bay are estimated, (CONSERVE)
+
+at £1.5 million.
+
+Page 3/7
+
+IV. Choose the underlined part A, B, C, or D that needs correction in each sentence below. (5.0 points) Question 41. U.S. census figures indicate that people with only an elementary education can earn just half as much
+
+as college graduations.
+
+D
+
+A
+
+B
+
+C
+
+Question 42. Undoubtedly, what we know about certain diseases are still not sufficient to prevent them from
+
+A
+
+B
+
+spreading easily among the population.
+
+D
+
+Shared by Angels of
+
+Otto Channel
+
+Question 43. Mountain bikes differ ordinary bicycles in that they have ten or more gears, a more rugged frame, and a
+
+wider treads on the tyres.
+
+D
+
+A
+
+B
+
+C
+
+Question 44. In many countries, poor agricultural practices have led to increasing desertification and the loss of
+
+former arable lands.
+
+D
+
+A
+
+B
+
+C
+
+Question 45. In 1964, GATT (the General Agreement on Tariffs and Trade) established the International Trade Center
+
+A
+
+with a view to assisting developing countries in the promotion of its exports.
+
+C. READING
+
+B
+
+C
+
+D
+
+I. Look at the text in each question. What does it say? Choose the correct explanation A, B, C, or D. (5.0 points)
+
+Question 46.
+
+VOLLEYBALL TRAINING
+
+Professional coach available for pre-booked groups -48 hours 'notice required
+
+A. Volleyball players are only allowed to practice here if accompanied by a professional coach.
+
+B. Volleyball training for groups is cancelled until further notice. C. A volleyball coach is available if a booking is made far enough in advance.
+
+D. A professional volleyball coach is available unless a booking is previously made.
+
+Question 47.
+
+WARNING
+
+UNSAFE FOR SWIMMING
+
+Water temporarily POLLUTED because of high bacteria levels which may pose a risk to your health
+
+A. People can drink the water at their own risk.
+
+B. The water is not suitable for drinking, but swimming is possible.
+
+C. Swimming is dangerous because of the dirty water. D. High water levels make it not safe for swimming.
+
+Question 48.
+
+PUBLIC FOOTPATH OVER PRIVATE LAND
+
+Please -
+
+Take nothing but photographs Leave nothing but footprints Keep dogs under close control
+
+A. You can use this way to cross the area.
+
+B. Only people with permission can cross the area by this way.
+
+C. This path is closed to the public.
+
+D. Photographs are forbidden on this path.
+
+Thank you
+
+Page 4/7
+
+Question 49.
+
+Welcome to Hotel Casablanca
+
+Dear Guests,
+
+Our holiday advisor is available in the
+
+lounge every day 7.00
+
+9.00 a.m. for
+
+A. Hotel Casablanca's holiday advisor accompanies guests on
+
+tours.
+
+B. People staying at Hotel Casablanca can arrange activities through the hotel.
+
+C. Daily sightseeing trips start from the Hotel Casablanca.
+
+booking guided tours, museum/ D. Guests staying at Hotel Casablanca are required to buy garden tickets, camel rides
+
+Enjoy your stay!
+
+Question 50.
+
+MARKET VEHICLES UNLOAD HERE
+
+06.00-10.00 DAILY
+
+CUSTOMER PARKING
+
+ALLOWED
+
+AT OTHER TIMES
+
+tickets for their tours at the lounge.
+
+A. Customers may park outside the market for up to four hours. B. You may unload your vehicle here at any time.
+
+C. Customers may park here at times when vehicles are not unloading.
+
+D. Customers are allowed to park here when vehicles are unloading.
+
+II. Read the following passage and choose the best option A, B, C, or D that fits each of the numbered
+
+blanks. (10.0 points)
+
+When Pamela Jarrett left university to become a school teacher, it was by no (51)
+
+easy to find a job.
+
+She therefore decided to go abroad as a volunteer teacher for a year. When she realized she would be teaching deaf
+
+and blind children, she was a (52)
+
+taken aback. But after a month's training she felt more confident that she
+
+would be able to cope with the situation. The basic living conditions also (53)
+
+as something of a shock.
+
+of one Pamela's school was situated in a remote Ethiopian village, where her accommodation (54) room and a shared bathroom. Not only was the space cramped, but there was no electricity, internet or telephone access, so she felt totally cut (55)
+
+from the outside world. Now back home in Britain, Pamela has used her
+
+has made a huge change to (56)
+
+experience to set up a similar school for the deaf and blind (57) dozens of children who would (58)
+
+find themselves struggling to learn. She is now concentrating her efforts
+
+on (59)
+
+her school to cater for children with other learning difficulties, too. It seems as if the more people get
+
+the demand is for her skills.
+
+to know her, the (60) Question 51. A. means Question 52. A. rather Question 53. A. appeared Question 54. A. combined Question 55. A. down Question 56. A. worthy Question 57. A. who Question 58. A. furthermore Question 59. A. growing
+
+Question 60. A. greater
+
+C. ways
+
+C. little
+
+C. proved
+
+B. extent
+
+B. quite
+
+B. came
+
+B. consisted
+
+C. contained
+
+B. away
+
+C. out
+
+B. valuable
+
+C. priceless
+
+B. it
+
+C. which
+
+B. nonetheless
+
+C. otherwise
+
+B. widening
+
+B. larger
+
+Page 5/7
+
+D. account
+
+D. somewhat
+
+C. expanding
+
+C. steeper
+
+D. arrived
+
+D. composed
+
+D. off
+
+D. precious
+
+D. what
+
+D. however
+
+D. stretching
+
+D. taller
+
+III. Read the following passage and choose the correct answer A, B, C, or D to each of the questions. (10.0 points)
+
+Long before they can actually speak, babies pay special attention to the speech they hear around them. Within the first month of their lives, babies' responses to the sound of the human voice will be different from their responses to other sorts of auditory stimuli. They will stop crying when they hear a person talking, but not if they hear a bell or the sound of a rattle. At first, the sounds that an infant notices might be only those words that receive the heaviest emphasis and that often occur at the end of utterances. By the time they are six or seven weeks old, babies can detect the difference between syllables pronounced with rising and falling inflections. Very soon, these differences in adult stress and intonation can influence babies' emotional states and behavior. Long before they develop actual language comprehension, babies can sense when an adult is playful or angry, attempting to initiate or terminate new behavior, and so on, merely on the basis of cues such as the rate, volume, and melody of adult speech.
+
+Adults make it as easy as they can for babies to pick up a language by exaggerating such cues. One researcher observed babies and their mothers in six diverse cultures and found that, in all six languages, the mothers used simplified syntax, short utterances and nonsense sounds, and transformed certain sounds into baby talk. Other investigators have noted that when mothers talk to babies who are only a few months old, they exaggerate the pitch, loudness, and intensity of their words. They also exaggerate their facial expressions, hold vowels longer, and emphasize certain words.
+
+More significant for language development than their response to general intonation is observation that tiny babies can make relatively fine distinctions between speech sounds. In other words, babies enter the world with the ability to make precisely those perceptual discriminations that are necessary if they are to acquire aural language.
+
+Babies obviously derive pleasure from sound input, too: even as young as nine months they will listen to songs or stories, although the words themselves are beyond their understanding. For babies, language is a sensory-motor delight rather than the route to prosaic meaning that is often for adults.
+
+Question 61. What does the passage mainly discuss?
+
+A. How babies differentiate between the sound of the human voice and other sounds
+
+B. The differences between a baby's and an adult's ability to comprehend language
+
+C. How babies perceive and respond to the human voice in the their earliest stages of language development D. The response of babies to sounds other than the human voice
+
+Question 62. The author mentions "a bell" and "a rattle" in paragraph 1 in order to
+
+A. contrast the reactions of babies to human and nonhuman sounds Shared by Angels of
+
+B. give examples of sounds that will cause a baby to cry
+
+C. explain how babies distinguish between different nonhuman sounds Otto Channel
+
+D. give examples of typical toys that babies do not like
+
+Question 63. Why does the author mention "syllables pronounced with rising and falling inflections" in paragraph 1?
+
+A. To demonstrate how difficult it is for babies to interpret emotions
+
+B. To illustrate that a six-week-old baby can already distinguish some language differences
+
+C. To provide an example of ways adults speak to babies
+
+D. To give a reason for babies' difficulty in distinguishing one adult from another
+
+Question 64. The word "diverse" in paragraph 2 is closest in meaning to
+
+B. divided
+
+C. varied
+
+A. surrounding Question 65. The word "noted" in paragraph 2 is closest in meaning to
+
+A. theorized
+
+A. mothers
+
+B. requested
+
+Question 66. The word "they" in paragraph 2 refers to
+
+B. investigators
+
+C. disagreed
+
+C. babies
+
+D. stimulating
+
+D. observed
+
+D. words
+
+Question 67. The passage mentions all of the following as ways adults modify their speech when talking to babies, EXCEPT
+
+A. giving all words equal emphasis
+
+B. speaking with shorter sentences
+
+C. speaking more loudly than normal
+
+D. using meaningless sounds
+
+Question 68. According to the author, why do babies listen to songs and stories, even though they cannot understand them?
+
+A. They understand the rhythm.
+
+C. They can remember them easily.
+
+B. They enjoy the sound.
+
+D. They focus on the meaning of their parents' words. Page 6/7
+
+Question 69. What point does the author make to illustrate that babies are born with the ability to acquire language?
+
+A. Babies begin to understand words in songs.
+
+B. Babies exaggerate their own sounds and expressions.
+
+Shared by Angels of
+
+C. Babies are more sensitive to sounds than are adults. Otto Channel
+
+D. Babies notice even minor differences between speech sounds.
+
+Question 70. Which of the following can be inferred about the findings described in paragraph 2?
+
+A. Babies who are exposed to more than one language can speak earlier than babies exposed to a single language.
+
+B. Mothers from different cultures speak to their babies in similar ways.
+
+C. Babies ignore facial expressions in comprehending aural language.
+
+D. The mothers observed by the researchers were consciously teaching their babies to speak.
+
+D. WRITING
+
+I. Finish each of the following sentences in such a way that it means the same as the sentence printed before it. (5.0 points)
+
+Question 71. No matter what happens, we will never do business with that company again.
+
+Under
+
+Question 72. The witness's description of the incident was completely different from what really happened.
+
+The witness's description of the incident bore
+
+Question 73. It was wrong of you not to call the fire brigade at once.
+
+You should
+
+Question 74. People became aware of the damage to the ozone layer when an enormous hole was discovered over the South Pole.
+
+It was the
+
+Question 75. Her fondness for the game increased with her proficiency.
+
+The more
+
+II. This is part of a letter you have received from your friend, Elise. In about 100-120 words, write a letter to answer her question. (10.0 points)
+
+I have one close friend who I spend a lot of time with. What about you? Tell me something about your friends! How important are they to you?
+
+You are required to begin and end your letter as followed:
+
+Dear Elise,
+
+Mai Anh
+
+III. In about 150-170 words, write a paragraph about some of the qualities that make for an ideal school. (15.0 points)
+
+Họ và tên thí sinh: Cán bộ coi thi số 1:.
+
+=== THE END =
+
+Số báo danh:
+
+Phòng thi:
+
+Cán bộ coi thi số 2:
+
+Page 7/7
+
+DAP AN DU THAO
+
+UN ILLIW ANI
+
+A. LISTENING
+
+I. 5.0 points (each correct answer: 1.0 point)
+
+1\. C
+
+2\. B
+
+3\. B
+
+II. 5.0 points (each correct answer: 1.0 point)
+
+6\. particularly/ especially (the) tiger(s)
+
+4\. A
+
+8\. 1765/ seventeen sixty-five 9. television/ TV series
+
+III. 5.0 points (each correct answer:
+
+14\. £15.75/ 15.75 pounds
+
+11\. back gate
+
+1.0 point)
+
+12\. The Party
+
+15\. bus station/ bus stop
+
+IV. 5.0 points (each correct answer: 1.0 point)
+
+5\. C
+
+7\. by candlelight
+
+10\. (old) fishing village
+
+13\. (school) secretary
+
+Shared by Angels of Otto Channel
+
+16\. D
+
+17\. B
+
+18\. D
+
+19\. C
+
+20\. C
+
+B. GRAMMAR - VOCABULARY-LANGUAGE FUNCTIONS I. 10.0 points (each correct answer: 1.0 point)
+
+21\. B
+
+26\. A
+
+22\. C
+
+27\. C
+
+23\. C
+
+24\. C
+
+25\. D
+
+28\. B
+
+29\. C
+
+30\. B
+
+II. 5.0 points (each correct answer: 1.0 point)
+
+31\. B
+
+32\. B
+
+33\. C
+
+34\. B
+
+35\. D
+
+III. 5.0 points (each correct answer: 1.0 point)
+
+36\. VEGETARIANISM
+
+37\. SPORTSMANSHIP
+
+38\. PERSONALIZE/SE
+
+39\. UNPRODUCTIVE
+
+IV. 5.0 points (each correct answer: 1.0 point)
+
+40\. CONSERVATIVELY
+
+41\. D
+
+C. READING
+
+42\. C
+
+43\. A
+
+I. 5.0 points (each correct answer: 1.0 point)
+
+44\. D
+
+45\. D
+
+46\. C
+
+47\. C
+
+48\. A
+
+49\. B
+
+50\. C
+
+II. 10.0 points (each correct answer: 1.0 point)
+
+51\. A
+
+52\. C
+
+53\. B
+
+54\. B
+
+55\. D
+
+56\. B
+
+57\. C
+
+58\. C
+
+59\. C
+
+60\. A
+
+III. 10.0 points (each correct answer: 1.0 point)
+
+61\. C
+
+62\. A
+
+63\. B
+
+64\. C
+
+65\. D
+
+66\. A
+
+67\. A
+
+68\. B
+
+69\. D
+
+70\. B
+
+D. WRITING
+
+Shared by Angels of Otto Channel
+
+I. 5.0 points (each correct answer: 1.0 point)
+
+71\. Under no circumstances will we (ever) do business with that company again.
+
+72\. The witness's description of the incident bore no resemblance to what really happened.
+
+73\. You should have called the fire brigade at once.
+
+74\. It was the discovery of an enormous hole over the South Pole that made people (become) aware of the damage to the ozone layer.
+
+75\. The more proficient she was at/ in the game, the more she was fond of it.
+
+1

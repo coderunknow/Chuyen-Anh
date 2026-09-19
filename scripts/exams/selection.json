@@ -1,0 +1,3136 @@
+[
+  {
+    "key": "2022/an-giang/so",
+    "year": 2022,
+    "province": "An Giang",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-chuyen-tieng-anh-tinh-an-giang-vao-thpt-chuyen-thu-khoa-nghia-thoai-ngoc-hau-nam-2022-2023/",
+    "assets": [
+      {
+        "file": "18e923677294bf269264.md",
+        "type": "pdf",
+        "url": "https://drive.google.com/uc?export=download&id=1Lf9GFQiUWvTiPuojc1JiXHRsnA4hNylO",
+        "sha256": "d881c0233a34400d5398604adae0308d84ecbf22c280f8e98044d05a9719cdc6",
+        "pages": 7,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Chưa lấy được đáp án riêng",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT An Giang"
+  },
+  {
+    "key": "2022/bac-giang/so",
+    "year": 2022,
+    "province": "Bắc Giang",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-chinh-thuc-vao-lop-chuyen-tieng-anh-vao-truong-thpt-chuyen-bac-giang-nam-hoc-2022-2023/",
+    "assets": [
+      {
+        "file": "4d26fa7355f96d9a3d71.md",
+        "type": "pdf",
+        "url": "https://drive.google.com/uc?export=download&id=1wdLuJYyvK3qm8Wlm7q6lH1JdfZS2dgu1",
+        "sha256": "f7ecdf2eff2fd868b97f139e3fca620780fec29369d90941bf9efa488bc413ca",
+        "pages": 9,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Chưa lấy được đáp án riêng",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Bắc Giang"
+  },
+  {
+    "key": "2022/bac-kan/so",
+    "year": 2022,
+    "province": "Bắc Kạn",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-chuyen-bac-kan-nam-hoc-2022-2023-mon-thi-tieng-anh-danh-cho-thi-sinh-thi-chuyen-tieng-anh-co-dap-an/",
+    "assets": [
+      {
+        "file": "90ad61367db62c224386.md",
+        "type": "pdf",
+        "url": "https://drive.google.com/uc?export=download&id=19-NPDBEoNxQXk9xxztM7-GEp3o6NB9c3",
+        "sha256": "993573b29973000b333ef270bee29080a7eb8409df8b98664d0288ae892df3ba",
+        "pages": 7,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Chưa lấy được đáp án riêng",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Bắc Kạn"
+  },
+  {
+    "key": "2022/bac-ninh/so",
+    "year": 2022,
+    "province": "Bắc Ninh",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-chuyen-bac-ninh-mon-tieng-anh-chuyen-nam-hoc-2022-2023-co-dap-an/",
+    "assets": [
+      {
+        "file": "5fdf22fa523a201a0a4b.md",
+        "type": "html",
+        "url": "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-chuyen-bac-ninh-mon-tieng-anh-chuyen-nam-hoc-2022-2023-co-dap-an/",
+        "sha256": "6f0f9224fa4552fc0c6f1d7edeaf585effbf2a150d6302c2212678f20fe7daaf",
+        "label": "Đề thi và phần kèm theo trong nguồn",
+        "start": "UBND TỈNH BẮC NINH ĐỀ THI TUYỂN SINH VÀO LỚP"
+      }
+    ],
+    "quality": "HTML/OCR-cần-soát",
+    "answers": "Chưa lấy được đáp án riêng",
+    "note": "Bản HTML/OCR cần soát: có thể sai ký tự, đảo cột, mất gạch chân hoặc có đáp án xen câu hỏi; chưa xác nhận đầy đủ số trang của bản gốc. Không phải bản chép sạch.",
+    "unit_label": "Sở GD&ĐT Bắc Ninh"
+  },
+  {
+    "key": "2022/binh-duong/so",
+    "year": 2022,
+    "province": "Bình Dương",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-chuyen-hung-vuong-binh-duong-nam-hoc-2022-2023-mon-tieng-anh-ban-pdf/",
+    "assets": [
+      {
+        "file": "89f4d3e95d71dddec44f.md",
+        "type": "html",
+        "url": "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-chuyen-hung-vuong-binh-duong-nam-hoc-2022-2023-mon-tieng-anh-ban-pdf/",
+        "sha256": "a530cb64ba03780c526ecdde46a947d06b125b63619ad375720c0421eb5a95ba",
+        "label": "Đề thi và phần kèm theo trong nguồn",
+        "start": "SỞ GIÁO DỤC VÀ ĐÀO TẠO"
+      }
+    ],
+    "quality": "HTML/OCR-cần-soát",
+    "answers": "Chưa lấy được đáp án riêng",
+    "note": "Bản HTML/OCR cần soát: có thể sai ký tự, đảo cột, mất gạch chân hoặc có đáp án xen câu hỏi; chưa xác nhận đầy đủ số trang của bản gốc. Không phải bản chép sạch.",
+    "unit_label": "Sở GD&ĐT Bình Dương"
+  },
+  {
+    "key": "2022/binh-phuoc/so",
+    "year": 2022,
+    "province": "Bình Phước",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-mon-tieng-anh-chuyen-tinh-binh-phuoc-nam-hoc-2022-2023-co-dap-an-ban-pdf/",
+    "assets": [
+      {
+        "file": "ec366a313ca51754d229.md",
+        "type": "html",
+        "url": "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-mon-tieng-anh-chuyen-tinh-binh-phuoc-nam-hoc-2022-2023-co-dap-an-ban-pdf/",
+        "sha256": "036a5d824a6996f111db2972e277c3c4c5228b69f0496cd90c035316fc3bb58b",
+        "label": "Đề thi và phần kèm theo trong nguồn",
+        "start": "SỞ GIÁO DỤC VÀ ĐÀO TẠO BÌNH PHƯỚC"
+      }
+    ],
+    "quality": "HTML/OCR-cần-soát",
+    "answers": "Có nội dung đáp án trong bản chép",
+    "note": "Bản HTML/OCR cần soát: có thể sai ký tự, đảo cột, mất gạch chân hoặc có đáp án xen câu hỏi; chưa xác nhận đầy đủ số trang của bản gốc. Không phải bản chép sạch.",
+    "unit_label": "Sở GD&ĐT Bình Phước"
+  },
+  {
+    "key": "2022/binh-thuan/so",
+    "year": 2022,
+    "province": "Bình Thuận",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-cong-lap-tinh-binh-thuan-mon-tieng-anh-chuyen-nam-hoc-2022-2023-ban-pdf/",
+    "assets": [
+      {
+        "file": "3b0d8031a4664c12e27d.md",
+        "type": "html",
+        "url": "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-cong-lap-tinh-binh-thuan-mon-tieng-anh-chuyen-nam-hoc-2022-2023-ban-pdf/",
+        "sha256": "48196b19d6795130ab148d0b30c6633e42db46e8ef00c5e6d047fec218d812a9",
+        "label": "Đề thi và phần kèm theo trong nguồn",
+        "start": "SỞ GIÁO DỤC VÀ ĐÀO TẠO BÌNH THUẬN"
+      }
+    ],
+    "quality": "HTML/OCR-cần-soát",
+    "answers": "Chưa lấy được đáp án riêng",
+    "note": "Bản HTML/OCR cần soát: có thể sai ký tự, đảo cột, mất gạch chân hoặc có đáp án xen câu hỏi; chưa xác nhận đầy đủ số trang của bản gốc. Không phải bản chép sạch.",
+    "unit_label": "Sở GD&ĐT Bình Thuận"
+  },
+  {
+    "key": "2022/ca-mau/so",
+    "year": 2022,
+    "province": "Cà Mau",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-chuyen-anh-tinh-ca-mau-vao-thpt-chuyen-phan-ngoc-hien-nam-hoc-2022-2023-co-dap-an/",
+    "assets": [
+      {
+        "file": "bfb17fbb02d8156ab465.md",
+        "type": "pdf",
+        "url": "https://drive.google.com/uc?export=download&id=1YbSQgsqlQBOtz0CC5ks_qp0D3dL5mz5Q",
+        "sha256": "1e7761ad3f0814822a7c832ff2b12ea7f1bff0063fe3ec936359ee7bbf7629ca",
+        "pages": 7,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Chưa lấy được đáp án riêng",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Cà Mau"
+  },
+  {
+    "key": "2022/dak-lak/so",
+    "year": 2022,
+    "province": "Đắk Lắk",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-chuyen-tinh-dak-lak-mon-tieng-anh-chuyen-nam-hoc-2022-2023-co-dap-an-ban-pdf/",
+    "assets": [
+      {
+        "file": "27ca1398ed6c3cbf3f7a.md",
+        "type": "pdf",
+        "url": "https://drive.google.com/uc?export=download&id=1nr3fFBPjBI_1A7PFMVQbc6chLfw5vdiu",
+        "sha256": "25d8aca7128ff3fdc926eded9d515c0fefc239f68be97c55b2c168438318a677",
+        "pages": 12,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Chưa lấy được đáp án riêng",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Đắk Lắk"
+  },
+  {
+    "key": "2022/dong-nai/so",
+    "year": 2022,
+    "province": "Đồng Nai",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-chuyen-luong-the-vinh-dong-nai-mon-tieng-anh-chuyen-nam-hoc-2022-2023-ban-pdf/",
+    "assets": [
+      {
+        "file": "2ef773ba884528b3bdf7.md",
+        "type": "html",
+        "url": "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-chuyen-luong-the-vinh-dong-nai-mon-tieng-anh-chuyen-nam-hoc-2022-2023-ban-pdf/",
+        "sha256": "b9359fed724e32c652ddd2bb7620e358b2327be032ffcd7dbd2202c4451f7b79",
+        "label": "Đề thi và phần kèm theo trong nguồn",
+        "start": "SỞ GIÁO DỤC VÀ ĐÀO TẠO ĐÔNG NAI"
+      }
+    ],
+    "quality": "HTML/OCR-cần-soát",
+    "answers": "Chưa lấy được đáp án riêng",
+    "note": "Bản HTML/OCR cần soát: có thể sai ký tự, đảo cột, mất gạch chân hoặc có đáp án xen câu hỏi; chưa xác nhận đầy đủ số trang của bản gốc. Không phải bản chép sạch.",
+    "unit_label": "Sở GD&ĐT Đồng Nai"
+  },
+  {
+    "key": "2022/dong-thap/so",
+    "year": 2022,
+    "province": "Đồng Tháp",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-chuyen-tinh-dong-thap-mon-tieng-anh-chuyen-nam-hoc-2022-2023-co-dap-an-ban-pdf/",
+    "assets": [
+      {
+        "file": "2e911b3492fd460e046d.md",
+        "type": "html",
+        "url": "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-chuyen-tinh-dong-thap-mon-tieng-anh-chuyen-nam-hoc-2022-2023-co-dap-an-ban-pdf/",
+        "sha256": "92c674c27a1b559f785fb37f3ab758c835b02a1d8802f45cb8e5cb1f6d14fb7a",
+        "label": "Đề thi và phần kèm theo trong nguồn",
+        "start": "SỞ GIÁO DỤC VÀ ĐÀO TẠO TỈNH ĐỒNG THÁP"
+      }
+    ],
+    "quality": "HTML/OCR-cần-soát",
+    "answers": "Có nội dung đáp án trong bản chép",
+    "note": "Bản HTML/OCR cần soát: có thể sai ký tự, đảo cột, mất gạch chân hoặc có đáp án xen câu hỏi; chưa xác nhận đầy đủ số trang của bản gốc. Không phải bản chép sạch.",
+    "unit_label": "Sở GD&ĐT Đồng Tháp"
+  },
+  {
+    "key": "2022/ha-nam/so",
+    "year": 2022,
+    "province": "Hà Nam",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-lop-10-thpt-chuyen-nam-hoc-2022-2023-mon-tieng-anh-de-chuyen-chuyen-bien-hoa-ha-nam/",
+    "assets": [
+      {
+        "file": "54b08a1e2f9c01d86226.md",
+        "type": "pdf",
+        "url": "https://drive.google.com/uc?export=download&id=1dwWsIzVY5LJWVvdZzUL-cKCIJDMQ4Abk",
+        "sha256": "6e2c1766f7fce421aed1c1387608164c1a0b03c25b9ff3fbf94bea85270f9ea6",
+        "pages": 11,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Chưa lấy được đáp án riêng",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Hà Nam"
+  },
+  {
+    "key": "2022/ha-noi/chuyen-su-pham",
+    "year": 2022,
+    "province": "Hà Nội",
+    "unit": "chuyen-su-pham",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-chuyen-dai-hoc-su-pham-dhqg-ha-noi-nam-hoc-2022-2023-mon-tieng-anh-chuyen-ban-pdf/",
+    "assets": [
+      {
+        "file": "14638f718f4fa9e4a02c.md",
+        "type": "pdf",
+        "url": "https://drive.google.com/uc?export=download&id=1kXeEtt7QSXU868XNVVdaEN5GWq8kn9P_",
+        "sha256": "af9d5ddc5d99d9a303f2d45c06ba8716a076c5f639b019c0dbf60c352e898962",
+        "pages": 8,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Chưa lấy được đáp án riêng",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "THPT Chuyên ĐH Sư phạm Hà Nội"
+  },
+  {
+    "key": "2022/ha-noi/so",
+    "year": 2022,
+    "province": "Hà Nội",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-chuyen-chu-van-an-ha-noi-amsterdam-mon-tieng-anh-chuyen-nam-hoc-2022-2023/",
+    "assets": [
+      {
+        "file": "efc3975338fd7f6d8306.md",
+        "type": "pdf",
+        "url": "https://drive.google.com/uc?export=download&id=114datuyYs_FVX_rXX3qzQQnNPnZ5Nm0L",
+        "sha256": "19ff550e9f320e890b7a496b59b8804a0b72cc9696f6f84fc1ce582cfbb5b354",
+        "pages": 16,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Có nội dung đáp án trong bản chép",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc. Nguồn là bản xuất bài kiểm tra TAK12 có Quiz ID, không phải ảnh đề của Sở; giữ cả nhãn câu của bản xuất.",
+    "unit_label": "Sở GD&ĐT Hà Nội"
+  },
+  {
+    "key": "2022/hai-duong/so",
+    "year": 2022,
+    "province": "Hải Dương",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-t-hpt-chuyen-nguyen-trai-hai-duong-mon-tieng-anh-chuyen-nam-hoc-2022-2023-co-dap-an-ban-pdf/",
+    "assets": [
+      {
+        "file": "8f018c57d35ab2fb3a85.md",
+        "type": "html",
+        "url": "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-t-hpt-chuyen-nguyen-trai-hai-duong-mon-tieng-anh-chuyen-nam-hoc-2022-2023-co-dap-an-ban-pdf/",
+        "sha256": "9fb14e021507d230bc89f3b9db204da01310542d69aa060d161eea65659990e7",
+        "label": "Đề thi và phần kèm theo trong nguồn",
+        "start": "SỞ GIÁO DỤC VÀ ĐÀO TẠO HẢI DƯƠNG"
+      }
+    ],
+    "quality": "HTML/OCR-cần-soát",
+    "answers": "Có nội dung đáp án trong bản chép",
+    "note": "Bản HTML/OCR cần soát: có thể sai ký tự, đảo cột, mất gạch chân hoặc có đáp án xen câu hỏi; chưa xác nhận đầy đủ số trang của bản gốc. Không phải bản chép sạch.",
+    "unit_label": "Sở GD&ĐT Hải Dương"
+  },
+  {
+    "key": "2022/hai-phong/so",
+    "year": 2022,
+    "province": "Hải Phòng",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-mon-tieng-anh-chuyen-thpt-chuyen-tran-phu-hai-phong-nam-hoc-2022-2023-ban-pdf/",
+    "assets": [
+      {
+        "file": "678ad090c557a86aba45.md",
+        "type": "pdf",
+        "url": "https://drive.google.com/uc?export=download&id=1dfLlvoe76O7tajspM8rmvxEVCmZf0fKL",
+        "sha256": "be9ef04cd288fe007a4d9d8296f95ed0fa76f75f08a9dc02076bfb534393abee",
+        "pages": 10,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Chưa lấy được đáp án riêng",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Hải Phòng"
+  },
+  {
+    "key": "2022/hoa-binh/so",
+    "year": 2022,
+    "province": "Hòa Bình",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-chuyen-hoang-van-thu-hoa-binh-mon-tieng-anh-chuyen-nam-hoc-2022-2023/",
+    "assets": [
+      {
+        "file": "3988b218092712497bc8.md",
+        "type": "html",
+        "url": "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-chuyen-hoang-van-thu-hoa-binh-mon-tieng-anh-chuyen-nam-hoc-2022-2023/",
+        "sha256": "a32e333b7eb7a8701eb1647e519fc651d541c0f83bf6a094aa323be37866378d",
+        "label": "Đề thi và phần kèm theo trong nguồn",
+        "start": "SỞ GD&ĐT HÒA BÌNH"
+      }
+    ],
+    "quality": "HTML/OCR-cần-soát",
+    "answers": "Chưa lấy được đáp án riêng",
+    "note": "Bản HTML/OCR cần soát: có thể sai ký tự, đảo cột, mất gạch chân hoặc có đáp án xen câu hỏi; chưa xác nhận đầy đủ số trang của bản gốc. Không phải bản chép sạch.",
+    "unit_label": "Sở GD&ĐT Hòa Bình"
+  },
+  {
+    "key": "2022/long-an/so",
+    "year": 2022,
+    "province": "Long An",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-chuyen-tinh-long-an-mon-tieng-anh-chuyen-nam-hoc-2022-2023-ban-pdf/",
+    "assets": [
+      {
+        "file": "b1f4ff409e7f126ad04c.md",
+        "type": "html",
+        "url": "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-chuyen-tinh-long-an-mon-tieng-anh-chuyen-nam-hoc-2022-2023-ban-pdf/",
+        "sha256": "669d5d2fc9fce8b75cafdff4fd71d6324c28619babab7c720303ce15f271c64b",
+        "label": "Đề thi và phần kèm theo trong nguồn",
+        "start": "SỞ GIÁO DỤC VÀ ĐÀO TẠO"
+      }
+    ],
+    "quality": "HTML/OCR-cần-soát",
+    "answers": "Chưa lấy được đáp án riêng",
+    "note": "Bản HTML/OCR cần soát: có thể sai ký tự, đảo cột, mất gạch chân hoặc có đáp án xen câu hỏi; chưa xác nhận đầy đủ số trang của bản gốc. Không phải bản chép sạch.",
+    "unit_label": "Sở GD&ĐT Long An"
+  },
+  {
+    "key": "2022/ninh-binh/so",
+    "year": 2022,
+    "province": "Ninh Bình",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-thpt-chuyen-luong-van-tuy-ninh-binh-nam-hoc-2022-2023-mon-tieng-anh-chuyen-co-dap-an-de-thi-chinh-thuc/",
+    "assets": [
+      {
+        "file": "85019100fdf1471b5c24.md",
+        "type": "pdf",
+        "url": "https://drive.google.com/uc?export=download&id=16QvKP5R7TZsvuXbwW-1jj1hNOCyCPc3g",
+        "sha256": "fe7b394b95bed6928ea67a56c68d53d6eab3fa84935afd67bf4c36dc6792e2cd",
+        "pages": 10,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Có nội dung đáp án trong bản chép",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Ninh Bình"
+  },
+  {
+    "key": "2022/ninh-thuan/so",
+    "year": 2022,
+    "province": "Ninh Thuận",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-chuyen-tinh-ninh-thuan-mon-tieng-anh-chuyen-nam-hoc-2022-2023-ban-pdf/",
+    "assets": [
+      {
+        "file": "f9971cb818541a324e56.md",
+        "type": "pdf",
+        "url": "https://drive.google.com/uc?export=download&id=1l_QajoJdD55Egg985fa6dcTuP37vQX6w",
+        "sha256": "c4ab929768d528ddcb1e38bb5483a61dcd04e214749870445d07edaca6863401",
+        "pages": 8,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Chưa lấy được đáp án riêng",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Ninh Thuận"
+  },
+  {
+    "key": "2022/phu-tho/so",
+    "year": 2022,
+    "province": "Phú Thọ",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-chuyen-hung-vuong-phu-tho-mon-tieng-anh-chuyen-nam-hoc-2022-2023-co-dap-an-ban-pdf/",
+    "assets": [
+      {
+        "file": "03f998b4aefdc4136080.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2024/03/De-thi-tuyen-sinh-vao-lop-10-THPT-Chuyen-Hung-Vuong-Phu-Tho-mon-Tieng-Anh-Chuyen-nam-hoc-2022-2023-co-dap-an-1.pdf",
+        "sha256": "8cbb1286287826af8a2b51712028fab2433fdbd942d25840aa2aa1373903b957",
+        "pages": 11,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Có nội dung đáp án trong bản chép",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Phú Thọ"
+  },
+  {
+    "key": "2022/quang-ngai/so",
+    "year": 2022,
+    "province": "Quảng Ngãi",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-chuyen-tinh-quang-ngai-mon-tieng-anh-chuyen-nam-hoc-2022-2023-co-dap-an-ban-pdf/",
+    "assets": [
+      {
+        "file": "4db3bd3eed39f45a319c.md",
+        "type": "html",
+        "url": "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-chuyen-tinh-quang-ngai-mon-tieng-anh-chuyen-nam-hoc-2022-2023-co-dap-an-ban-pdf/",
+        "sha256": "e69792934eeb2d30bf7b83fd43091a81dcd6185aa390ba0321dce20a16350ff9",
+        "label": "Đề thi và phần kèm theo trong nguồn",
+        "start": "SỞ GIÁO DỤC VÀ ĐÀO TẠO QUẢNG NGÃI"
+      }
+    ],
+    "quality": "HTML/OCR-cần-soát",
+    "answers": "Có nội dung đáp án trong bản chép",
+    "note": "Bản HTML/OCR cần soát: có thể sai ký tự, đảo cột, mất gạch chân hoặc có đáp án xen câu hỏi; chưa xác nhận đầy đủ số trang của bản gốc. Không phải bản chép sạch.",
+    "unit_label": "Sở GD&ĐT Quảng Ngãi"
+  },
+  {
+    "key": "2022/quang-ninh/so",
+    "year": 2022,
+    "province": "Quảng Ninh",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-chuyen-ha-long-quang-ninh-mon-tieng-anh-chuyen-nam-hoc-2022-2023-co-dap-an/",
+    "assets": [
+      {
+        "file": "d59399f2ca9675f6528d.md",
+        "type": "pdf",
+        "url": "https://drive.google.com/uc?export=download&id=14URkRlira6Q7u9jRXLoq_NiMyL5cql-u",
+        "sha256": "1e82ed956ad7f88e782a6f4c454e42e55483717f90913f6b70e55707b417f7cc",
+        "pages": 10,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Chưa lấy được đáp án riêng",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Quảng Ninh"
+  },
+  {
+    "key": "2022/soc-trang/so",
+    "year": 2022,
+    "province": "Sóc Trăng",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-chuyen-tinh-soc-trang-nam-hoc-2022-2023-ban-pdf/",
+    "assets": [
+      {
+        "file": "1f4d85fa5397593ef5dd.md",
+        "type": "html",
+        "url": "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-chuyen-tinh-soc-trang-nam-hoc-2022-2023-ban-pdf/",
+        "sha256": "15e1158d9a5729a4bdbe716150d2a9c5e5b21035322e6f43d631d73da5fc5dbc",
+        "label": "Đề thi và phần kèm theo trong nguồn",
+        "start": "SỞ GIÁO DỤC VÀ ĐÀO TẠO SÓC TRĂNG"
+      }
+    ],
+    "quality": "HTML/OCR-cần-soát",
+    "answers": "Chưa lấy được đáp án riêng",
+    "note": "Bản HTML/OCR cần soát: có thể sai ký tự, đảo cột, mất gạch chân hoặc có đáp án xen câu hỏi; chưa xác nhận đầy đủ số trang của bản gốc. Không phải bản chép sạch.",
+    "unit_label": "Sở GD&ĐT Sóc Trăng"
+  },
+  {
+    "key": "2022/tay-ninh/so",
+    "year": 2022,
+    "province": "Tây Ninh",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-nam-hoc-2022-2023-mon-thi-tieng-anh-chuyen-tinh-tay-ninh/",
+    "assets": [
+      {
+        "file": "7d17bb2cafe7a902fe88.md",
+        "type": "pdf",
+        "url": "https://drive.google.com/uc?export=download&id=1Fgt8T4jiuPT9YHN6S5Fb3wHX0SZFHOI3",
+        "sha256": "23a2fec0ee656feeb3ed47275298ea5f57bffde7e617842600fb973480180979",
+        "pages": 10,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Chưa lấy được đáp án riêng",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Tây Ninh"
+  },
+  {
+    "key": "2022/thai-nguyen/so",
+    "year": 2022,
+    "province": "Thái Nguyên",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-chuyen-thai-nguyen-mon-tieng-anh-danh-cho-thi-sinh-thi-chuyen-anh-nam-hoc-2022-2023-ban-pdf/",
+    "assets": [
+      {
+        "file": "f1134786eaa268882eef.md",
+        "type": "pdf",
+        "url": "https://drive.google.com/uc?export=download&id=10QCHhOqF_0LnK00PQGFeNsmORYU7svmu",
+        "sha256": "dc2510d763807db3b0f41c6b8e6f85558f5d2b7d62a8eec7fc9eb4a3bf9cd50b",
+        "pages": 17,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Có nội dung đáp án trong bản chép",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Thái Nguyên"
+  },
+  {
+    "key": "2022/tien-giang/so",
+    "year": 2022,
+    "province": "Tiền Giang",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-chuyen-tinh-tien-giang-mon-tieng-anh-chuyen-nam-hoc-2022-2023-ban-pdf/",
+    "assets": [
+      {
+        "file": "671bd55dbc220263f6f9.md",
+        "type": "html",
+        "url": "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-chuyen-tinh-tien-giang-mon-tieng-anh-chuyen-nam-hoc-2022-2023-ban-pdf/",
+        "sha256": "a73c1881e7614bb067620799ac273c1dd4a5a6efc61c33517d71edba1f8045e4",
+        "label": "Đề thi và phần kèm theo trong nguồn",
+        "start": "SỞ GD-ĐT TIỀN GIANG KỲ THI TUYỂN SINH LỚP 10 THPT NĂM HỌC 2022-2023"
+      }
+    ],
+    "quality": "HTML/OCR-cần-soát",
+    "answers": "Chưa lấy được đáp án riêng",
+    "note": "Bản HTML/OCR cần soát: có thể sai ký tự, đảo cột, mất gạch chân hoặc có đáp án xen câu hỏi; chưa xác nhận đầy đủ số trang của bản gốc. Không phải bản chép sạch.",
+    "unit_label": "Sở GD&ĐT Tiền Giang"
+  },
+  {
+    "key": "2022/tp-ho-chi-minh/ptnk",
+    "year": 2022,
+    "province": "TP. Hồ Chí Minh",
+    "unit": "ptnk",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-lop-10-thpt-nang-khieu-dhqg-tp-ho-chi-minh-mon-tieng-anh-chuyen-nam-hoc-2022-2023-ban-pdf/",
+    "assets": [
+      {
+        "file": "c0225b8ec2ecfe6775ea.md",
+        "type": "html",
+        "url": "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-lop-10-thpt-nang-khieu-dhqg-tp-ho-chi-minh-mon-tieng-anh-chuyen-nam-hoc-2022-2023-ban-pdf/",
+        "sha256": "bbe03a9efac1f7be745b5f32feaaf32da5e6632f568dded6dce012fef90cc3d8",
+        "label": "Đề thi và phần kèm theo trong nguồn",
+        "start": "TRƯỜNG PHỔ THÔNG NĂNG KHIẾU HỘI ĐỒNG TUYỂN SINH"
+      }
+    ],
+    "quality": "HTML/OCR-cần-soát",
+    "answers": "Chưa lấy được đáp án riêng",
+    "note": "Bản HTML/OCR cần soát: có thể sai ký tự, đảo cột, mất gạch chân hoặc có đáp án xen câu hỏi; chưa xác nhận đầy đủ số trang của bản gốc. Không phải bản chép sạch.",
+    "unit_label": "Phổ thông Năng khiếu — ĐHQG TP.HCM"
+  },
+  {
+    "key": "2022/vinh-phuc/so",
+    "year": 2022,
+    "province": "Vĩnh Phúc",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-chuyen-vinh-phuc-mon-tieng-anh-chuyen-nam-hoc-2022-2023-co-dap-an/",
+    "assets": [
+      {
+        "file": "3cda6d99d7a3eb503c5d.md",
+        "type": "html",
+        "url": "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-chuyen-vinh-phuc-mon-tieng-anh-chuyen-nam-hoc-2022-2023-co-dap-an/",
+        "sha256": "dad1235cb756a3e415f08651b23bec7c5e32b920c9a43661cd9c39892f362298",
+        "label": "Đề thi và phần kèm theo trong nguồn",
+        "start": "SỞ GD&ĐT VĨNH PHÚC KỲ THI TUYỂN SINH LỚP"
+      }
+    ],
+    "quality": "HTML/OCR-cần-soát",
+    "answers": "Chưa lấy được đáp án riêng",
+    "note": "Bản HTML/OCR cần soát: có thể sai ký tự, đảo cột, mất gạch chân hoặc có đáp án xen câu hỏi; chưa xác nhận đầy đủ số trang của bản gốc. Không phải bản chép sạch. Đáp án đã được điền/xen trực tiếp vào câu hỏi trong bản nguồn, không phải đề trống để tự kiểm tra.",
+    "unit_label": "Sở GD&ĐT Vĩnh Phúc"
+  },
+  {
+    "key": "2023/ba-ria-vung-tau/so",
+    "year": 2023,
+    "province": "Bà Rịa - Vũng Tàu",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-chuyen-anh-tinh-ba-ria-vung-tau-thpt-chuyen-le-quy-don-nam-hoc-2023-2024-co-dap-an/",
+    "assets": [
+      {
+        "file": "d60bc46047415c3fe72e.md",
+        "type": "pdf",
+        "url": "https://drive.google.com/uc?export=download&id=1JO1tLZmFzhmqbPSooAhcnh9q2aFjjxno",
+        "sha256": "a4f532dc289c1db80f553e17b7c30f7eb050d011aff6ca21bd719359e5e2f2aa",
+        "pages": 16,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Có nội dung đáp án trong bản chép",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Bà Rịa - Vũng Tàu"
+  },
+  {
+    "key": "2023/bac-ninh/so",
+    "year": 2023,
+    "province": "Bắc Ninh",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-chuyen-tieng-anh-tinh-bac-ninh-nam-hoc-2023-2024/",
+    "assets": [
+      {
+        "file": "e362115a95acdd35aecd.md",
+        "type": "pdf",
+        "url": "https://drive.google.com/uc?export=download&id=1h50JrYtzmzoLTrp_MV7TebsYII__Ik1k",
+        "sha256": "9b604734e30582b77790272b7ad5c96a571a2051ae9762c217f5d54012f968bb",
+        "pages": 8,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Chưa lấy được đáp án riêng",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Bắc Ninh"
+  },
+  {
+    "key": "2023/binh-duong/so",
+    "year": 2023,
+    "province": "Bình Dương",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-chuyen-anh-vao-thpt-chuyen-hung-vuong-binh-duong-nam-hoc-2023-2024/",
+    "assets": [
+      {
+        "file": "27986a3c56ce182c1cb0.md",
+        "type": "html",
+        "url": "https://tailieudieuky.com/baiviet/document/de-thi-chuyen-anh-vao-thpt-chuyen-hung-vuong-binh-duong-nam-hoc-2023-2024/",
+        "sha256": "5f610d86c636576d598297877055cf3fd77f658f0cf19b7694f73382a72c9094",
+        "label": "Đề thi và phần kèm theo trong nguồn",
+        "start": "SỞ GIÁO DỤC VÀ ĐÀO TẠO"
+      }
+    ],
+    "quality": "HTML/OCR-cần-soát",
+    "answers": "Có nội dung đáp án trong bản chép",
+    "note": "Bản HTML/OCR cần soát: có thể sai ký tự, đảo cột, mất gạch chân hoặc có đáp án xen câu hỏi; chưa xác nhận đầy đủ số trang của bản gốc. Không phải bản chép sạch.",
+    "unit_label": "Sở GD&ĐT Bình Dương"
+  },
+  {
+    "key": "2023/binh-thuan/so",
+    "year": 2023,
+    "province": "Bình Thuận",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-chuyen-tieng-anh-vao-thpt-chuyen-tran-hung-dao-binh-thuan-nam-hoc-2023-2024/",
+    "assets": [
+      {
+        "file": "77d627caaec8224707b2.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/03/de-thi-chuyen-tieng-anh-vao-thpt-chuyen-tran-hung-dao-binh-thuan-nam-hoc-2023-2024.zip",
+        "sha256": "0c90f189d7d8a15a1f24149a0d0a0abb52e312bb00ad3756572cbd14ac59ce5a",
+        "original": "[tailieudieuky.com] ĐỀ THI CHÍNH THỨC.pdf",
+        "images": 0,
+        "pages": 8,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "b51eb38e3fa82bd4427e.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/03/de-thi-chuyen-tieng-anh-vao-thpt-chuyen-tran-hung-dao-binh-thuan-nam-hoc-2023-2024.zip",
+        "sha256": "91541c74ff306b5257bfe242da5e3c7977258d05d6bc5c006c6dea3693c1ff3c",
+        "original": "[tailieudieuky.com] ĐÁP ÁN CHÍNH THỨC.pdf",
+        "images": 0,
+        "pages": 2,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Có, theo bản đăng lại",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Bình Thuận"
+  },
+  {
+    "key": "2023/da-nang/so",
+    "year": 2023,
+    "province": "Đà Nẵng",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-chuyen-anh-vao-thpt-chuyen-le-quy-don-da-nang-nam-hoc-2023-2024-co-dap-an/",
+    "assets": [
+      {
+        "file": "5d58fb419bf15eaf0554.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2024/05/tailieudieuky.com-De-thi-Chuyen-Anh-vao-THPT-Chuyen-Le-Quy-Don-Da-Nang-nam-hoc-2023-2024-co-dap-an.pdf",
+        "sha256": "24ee84cb6d903edb56f0dc81caefe61ae83c9be314c0a981339a0983ed7ad734",
+        "pages": 6,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Chưa lấy được đáp án riêng",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Đà Nẵng"
+  },
+  {
+    "key": "2023/dak-lak/so",
+    "year": 2023,
+    "province": "Đắk Lắk",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-chuyen-tieng-anh-vao-truong-thpt-chuyen-nguyen-du-dak-lak-nam-hoc-2023-2024-co-dap-an-va-audio-file-nghe-transcript/",
+    "assets": [
+      {
+        "file": "330090eef69e18193115.md",
+        "type": "html",
+        "url": "https://tailieudieuky.com/baiviet/document/de-thi-chuyen-tieng-anh-vao-truong-thpt-chuyen-nguyen-du-dak-lak-nam-hoc-2023-2024-co-dap-an-va-audio-file-nghe-transcript/",
+        "sha256": "d48ba418a4ceabae5d35f62c7521ce10fc6838523992227f64b3faf77f5a1cbf",
+        "label": "Đề thi và phần kèm theo trong nguồn",
+        "start": "SỞ GIÁO DỤC VÀ ĐÀO TẠO ĐẢK LẮK"
+      }
+    ],
+    "quality": "HTML/OCR-cần-soát",
+    "answers": "Có nội dung đáp án trong bản chép",
+    "note": "Bản HTML/OCR cần soát: có thể sai ký tự, đảo cột, mất gạch chân hoặc có đáp án xen câu hỏi; chưa xác nhận đầy đủ số trang của bản gốc. Không phải bản chép sạch. Phần transcript cuối nguồn kết thúc bằng dấu ba chấm; không coi transcript là bản đầy đủ.",
+    "unit_label": "Sở GD&ĐT Đắk Lắk"
+  },
+  {
+    "key": "2023/dak-nong/so",
+    "year": 2023,
+    "province": "Đắk Nông",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-chuyen-anh-dak-nong-thpt-chuyen-nguyen-chi-thanh-nam-hoc-2023-2024/",
+    "assets": [
+      {
+        "file": "864cfdf44d075e541ac3.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2024/03/De-thi-Chuyen-Anh-Dak-Nong-THPT-Chuyen-Nguyen-Chi-Thanh-nam-hoc-2023-2024.pdf",
+        "sha256": "27335ce4e65f2c4256f1f9e1831515802f98eaa7e6e5c481f4d7ea5cbdd7fbb4",
+        "pages": 8,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Chưa lấy được đáp án riêng",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Đắk Nông"
+  },
+  {
+    "key": "2023/dong-nai/so",
+    "year": 2023,
+    "province": "Đồng Nai",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-chuyen-tieng-anh-vao-truong-thpt-chuyen-luong-the-vinh-dong-nai-nam-hoc-2023-2024-co-dap-an/",
+    "assets": [
+      {
+        "file": "9e2cdb706a2547369300.md",
+        "type": "pdf",
+        "url": "https://drive.google.com/uc?export=download&id=1Gm0XXuCp58d80CIsLHWqT4yWFBJq-yT6",
+        "sha256": "37ee1d81c63589a0dfa4748f9dcae435b3a28fabb70fd9845b8baa22822eb879",
+        "pages": 10,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Có nội dung đáp án trong bản chép",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Đồng Nai"
+  },
+  {
+    "key": "2023/dong-thap/so",
+    "year": 2023,
+    "province": "Đồng Tháp",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-chuyen-tieng-anh-vao-truong-truong-thpt-chuyen-nguyen-quang-dieu-dong-thap-nam-hoc-2023-2024/",
+    "assets": [
+      {
+        "file": "906953d1b2d37755520c.md",
+        "type": "pdf",
+        "url": "https://drive.google.com/uc?export=download&id=1aizSPluLlxB4d29m8-fPd8nJMCqot8KK",
+        "sha256": "efd3b8b8ce0b7be17a7c58a288abc1f0e4b9c396c16a64a53343e34890d41da7",
+        "pages": 6,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Chưa lấy được đáp án riêng",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Đồng Tháp"
+  },
+  {
+    "key": "2023/ha-giang/so",
+    "year": 2023,
+    "province": "Hà Giang",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-chuyen-tieng-anh-tinh-ha-giang-nam-hoc-2023-2024-co-dap-an/",
+    "assets": [
+      {
+        "file": "018d9a56657932908438.md",
+        "type": "pdf",
+        "url": "https://drive.google.com/uc?export=download&id=1sYXlXjM9m40rTp94dbNXYjBouczKo6-5",
+        "sha256": "580cf5a94c884a6ebcbe4995a22a1238db5736ef7fecb204122693924d6e6701",
+        "pages": 5,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Chưa lấy được đáp án riêng",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Hà Giang"
+  },
+  {
+    "key": "2023/ha-noi/chuyen-su-pham",
+    "year": 2023,
+    "province": "Hà Nội",
+    "unit": "chuyen-su-pham",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-chuyen-tieng-anh-dai-hoc-su-pham-dhsp-ha-noi-nam-hoc-2023-2024-co-dap-an/",
+    "assets": [
+      {
+        "file": "2773455a611c132666f2.md",
+        "type": "html",
+        "url": "https://tailieudieuky.com/baiviet/document/de-thi-chuyen-tieng-anh-dai-hoc-su-pham-dhsp-ha-noi-nam-hoc-2023-2024-co-dap-an/",
+        "sha256": "e029948cd5ee146c12a62b7572d563a5193b792c2e64c5a5e1e42548499611b6",
+        "label": "Đề thi và phần kèm theo trong nguồn",
+        "start": "BỘ GIÁO DỤC VÀ ĐÀO TẠO TRƯỜNG ĐẠI HỌC SƯ PHẠM HÀ NỘI"
+      }
+    ],
+    "quality": "HTML/OCR-cần-soát",
+    "answers": "Có nội dung đáp án trong bản chép",
+    "note": "Bản HTML/OCR cần soát: có thể sai ký tự, đảo cột, mất gạch chân hoặc có đáp án xen câu hỏi; chưa xác nhận đầy đủ số trang của bản gốc. Không phải bản chép sạch. Đặc biệt: phần đáp án ở cuối bị OCR sai nặng; chỉ để đối chiếu nguồn, không dùng chấm điểm trước khi soát lại.",
+    "unit_label": "THPT Chuyên ĐH Sư phạm Hà Nội"
+  },
+  {
+    "key": "2023/ha-noi/so",
+    "year": 2023,
+    "province": "Hà Nội",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-chinh-thuc-chuyen-tieng-anh-ha-noi-nam-hoc-2023-2024-co-dap-an-va-audio-file-nghe/",
+    "assets": [
+      {
+        "file": "6e49f993faf29964a0bc.md",
+        "type": "html",
+        "url": "https://tailieudieuky.com/baiviet/document/de-thi-chinh-thuc-chuyen-tieng-anh-ha-noi-nam-hoc-2023-2024-co-dap-an-va-audio-file-nghe/",
+        "sha256": "1da8fd4f720c088593678be7703a4386162dc23019156e6fb37e746dc3df5333",
+        "label": "Đề thi và phần kèm theo trong nguồn",
+        "start": "SỞ GIÁO DỤC VÀ ĐÀO TẠO"
+      }
+    ],
+    "quality": "HTML/OCR-cần-soát",
+    "answers": "Có nội dung đáp án trong bản chép",
+    "note": "Bản HTML/OCR cần soát: có thể sai ký tự, đảo cột, mất gạch chân hoặc có đáp án xen câu hỏi; chưa xác nhận đầy đủ số trang của bản gốc. Không phải bản chép sạch.",
+    "unit_label": "Sở GD&ĐT Hà Nội"
+  },
+  {
+    "key": "2023/hai-phong/so",
+    "year": 2023,
+    "province": "Hải Phòng",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-chuyen-tran-phu-hai-phong-nam-hoc-2023-2024-mon-tieng-anh-chuyen-ma-de-thi-085-ban-pdf/",
+    "assets": [
+      {
+        "file": "2a0b8fdd218768b6f7a6.md",
+        "type": "pdf",
+        "url": "https://drive.google.com/uc?export=download&id=1K_Xk6EgZXu4d0rBJSydAxs2z-bHDfudx",
+        "sha256": "1842d489218806b91631aa2bf79f95a9338d18c627298062dc97e45f7572f940",
+        "pages": 8,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Chưa lấy được đáp án riêng",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Hải Phòng"
+  },
+  {
+    "key": "2023/hung-yen/so",
+    "year": 2023,
+    "province": "Hưng Yên",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-chuyen-hung-yen-nam-hoc-2023-2024-bai-thi-mon-tieng-anh-chuyen-danh-cho-thi-sinh-thi-vao-lop-chuyen-tieng-anh/",
+    "assets": [
+      {
+        "file": "8faab94a3480ded285fa.md",
+        "type": "html",
+        "url": "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-chuyen-hung-yen-nam-hoc-2023-2024-bai-thi-mon-tieng-anh-chuyen-danh-cho-thi-sinh-thi-vao-lop-chuyen-tieng-anh/",
+        "sha256": "ad25be08d23b9c2600bbead460c11abb9cbfcc462d5330b338c9023b9c2f7cc3",
+        "label": "Đề thi và phần kèm theo trong nguồn",
+        "start": "SỞ GIÁO DỤC VÀ ĐÀO TẠO HƯNG YÊN"
+      }
+    ],
+    "quality": "HTML/OCR-cần-soát",
+    "answers": "Chưa lấy được đáp án riêng",
+    "note": "Bản HTML/OCR cần soát: có thể sai ký tự, đảo cột, mất gạch chân hoặc có đáp án xen câu hỏi; chưa xác nhận đầy đủ số trang của bản gốc. Không phải bản chép sạch.",
+    "unit_label": "Sở GD&ĐT Hưng Yên"
+  },
+  {
+    "key": "2023/nam-dinh/so",
+    "year": 2023,
+    "province": "Nam Định",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-chuyen-tieng-anh-le-hong-phong-nam-dinh-nam-hoc-2023-2024/",
+    "assets": [
+      {
+        "file": "6257a8ab2baa0dc4c569.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2024/03/De-thi-chuyen-Tieng-Anh-Le-Hong-Phong-Nam-Dinh-nam-hoc-2023-2024.pdf",
+        "sha256": "0b92bd9b410dc3fd7e2f39b1ee9103b7fc01a322b88e13c678fbbf73dc63399e",
+        "pages": 9,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Có nội dung đáp án trong bản chép",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Nam Định"
+  },
+  {
+    "key": "2023/phu-yen/so",
+    "year": 2023,
+    "province": "Phú Yên",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-chuyen-tieng-anh-vao-thpt-chuyen-luong-van-chanh-phu-yen-nam-hoc-2023-2024-co-dap-an/",
+    "assets": [
+      {
+        "file": "35af8ad3d0ebffec5dca.md",
+        "type": "html",
+        "url": "https://tailieudieuky.com/baiviet/document/de-thi-chuyen-tieng-anh-vao-thpt-chuyen-luong-van-chanh-phu-yen-nam-hoc-2023-2024-co-dap-an/",
+        "sha256": "a2bf871ed2245b0959595ea8d66e4f51d40976895dcc48c2b0aaef3121275ed6",
+        "label": "Đề thi và phần kèm theo trong nguồn",
+        "start": "SỞ GIÁO DỤC VÀ ĐÀO TẠO TỈNH PHÚ YÊN"
+      }
+    ],
+    "quality": "HTML/OCR-cần-soát",
+    "answers": "Có nội dung đáp án trong bản chép",
+    "note": "Bản HTML/OCR cần soát: có thể sai ký tự, đảo cột, mất gạch chân hoặc có đáp án xen câu hỏi; chưa xác nhận đầy đủ số trang của bản gốc. Không phải bản chép sạch.",
+    "unit_label": "Sở GD&ĐT Phú Yên"
+  },
+  {
+    "key": "2023/quang-binh/so",
+    "year": 2023,
+    "province": "Quảng Bình",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-chuyen-tieng-anh-truong-thpt-chuyen-vo-nguyen-giap-quang-binh-nam-hoc-2023-2024/",
+    "assets": [
+      {
+        "file": "b6d650d99c86eddf3f5c.md",
+        "type": "pdf",
+        "url": "https://drive.google.com/uc?export=download&id=1PY2WKM7ELJSkcBiEwZRgICmPcy0aQd2y",
+        "sha256": "ad44367892e8062513d6234c70566689db6af5d074f667f2aaa7c5d880c454bb",
+        "pages": 6,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Chưa lấy được đáp án riêng",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Quảng Bình"
+  },
+  {
+    "key": "2023/soc-trang/so",
+    "year": 2023,
+    "province": "Sóc Trăng",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-chuyen-tieng-anh-vao-thpt-chuyen-nguyen-thi-minh-khai-soc-trang-nam-hoc-2023-2024/",
+    "assets": [
+      {
+        "file": "c3b9ab581f35dc044a33.md",
+        "type": "pdf",
+        "url": "https://drive.google.com/uc?export=download&id=1RxstSeFkdacag-XSMBBUW7Xh5xUSock4",
+        "sha256": "884b80d1fea923e6c23439cbb640f01c5f5371f6c759e788bfa76e7905e755b7",
+        "pages": 4,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Chưa lấy được đáp án riêng",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Sóc Trăng"
+  },
+  {
+    "key": "2023/thua-thien-hue/so",
+    "year": 2023,
+    "province": "Thừa Thiên Huế",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-vao-lop-10-chuyen-anh-thpt-chuyen-quoc-hoc-hue-nam-2023-2024/",
+    "assets": [
+      {
+        "file": "8b0b512e1d8f3e008373.md",
+        "type": "html",
+        "url": "https://tailieudieuky.com/baiviet/document/de-thi-vao-lop-10-chuyen-anh-thpt-chuyen-quoc-hoc-hue-nam-2023-2024/",
+        "sha256": "f66f58ede26a69f6824069679d1de23c086ca907dc01eb3ff5ea0b4bf86c6893",
+        "label": "Đề thi và phần kèm theo trong nguồn",
+        "start": "SỞ GIÁO DỤC VÀ ĐÀO TẠO"
+      }
+    ],
+    "quality": "HTML/OCR-cần-soát",
+    "answers": "Có nội dung đáp án trong bản chép",
+    "note": "Bản HTML/OCR cần soát: có thể sai ký tự, đảo cột, mất gạch chân hoặc có đáp án xen câu hỏi; chưa xác nhận đầy đủ số trang của bản gốc. Không phải bản chép sạch.",
+    "unit_label": "Sở GD&ĐT Thừa Thiên Huế"
+  },
+  {
+    "key": "2023/tp-ho-chi-minh/ptnk",
+    "year": 2023,
+    "province": "TP. Hồ Chí Minh",
+    "unit": "ptnk",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-chuyen-anh-tuyen-sinh-lop-10-truong-pho-thong-nang-khieu-ptnk-nam-hoc-2023-2024-co-dap-an/",
+    "assets": [
+      {
+        "file": "d3ffff2c3d2cbfcb08a5.md",
+        "type": "html",
+        "url": "https://tailieudieuky.com/baiviet/document/de-thi-chuyen-anh-tuyen-sinh-lop-10-truong-pho-thong-nang-khieu-ptnk-nam-hoc-2023-2024-co-dap-an/",
+        "sha256": "21752d9a1572454e705131cf804556a8f24ce5a6720812ab4e27e1a54944d637",
+        "label": "Đề thi và phần kèm theo trong nguồn",
+        "start": "ĐẠI HỌC QUỐC GIA TP. HỒ CHÍ MINH TRƯỜNG PHỔ THÔNG NĂNG KHIẾU"
+      }
+    ],
+    "quality": "HTML/OCR-cần-soát",
+    "answers": "Có nội dung đáp án trong bản chép",
+    "note": "Bản HTML/OCR cần soát: có thể sai ký tự, đảo cột, mất gạch chân hoặc có đáp án xen câu hỏi; chưa xác nhận đầy đủ số trang của bản gốc. Không phải bản chép sạch.",
+    "unit_label": "Phổ thông Năng khiếu — ĐHQG TP.HCM"
+  },
+  {
+    "key": "2023/tp-ho-chi-minh/so",
+    "year": 2023,
+    "province": "TP. Hồ Chí Minh",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-chuyen-tieng-anh-tp-ho-chi-minh-tp-hcm-nam-hoc-2023-2024/",
+    "assets": [
+      {
+        "file": "3b9d9d63baff0d4da3cc.md",
+        "type": "pdf",
+        "url": "https://drive.google.com/uc?export=download&id=1gg4tF_Pog3vaCLj5QJ0zx_P3TxttjIgw",
+        "sha256": "9f968f3ec46a1bf8c759582ae7000c24221d144f706d14b4d18e784f3248802d",
+        "pages": 7,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Có nội dung đáp án trong bản chép",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT TP. Hồ Chí Minh"
+  },
+  {
+    "key": "2023/vinh-phuc/so",
+    "year": 2023,
+    "province": "Vĩnh Phúc",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-chuyen-tieng-anh-tieng-phap-vao-truong-thpt-chuyen-vinh-phuc-nam-hoc-2023-2024/",
+    "assets": [
+      {
+        "file": "926001258662b793a7fd.md",
+        "type": "pdf",
+        "url": "https://drive.google.com/uc?export=download&id=18X_pMoJA-fXX-NW1bLNp0gGjI3OusVdX",
+        "sha256": "d5cb11554a01bbc0c42788645e67b81e73e3bf60bb58d0bc32fcded503281221",
+        "pages": 8,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Chưa lấy được đáp án riêng",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Vĩnh Phúc"
+  },
+  {
+    "key": "2024/ben-tre/so",
+    "year": 2024,
+    "province": "Bến Tre",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-chuyen-anh-ben-tre-2024-2025-va-dap-an/",
+    "assets": [
+      {
+        "file": "fb8cb8b504b155873ed5.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/04/De-Chuyen-Anh-Ben-Tre-2024-2025.zip",
+        "sha256": "1bac52961638fcbe7b2e6aed4731445fbdf59a10ba22cbabf8cde0a4e14392ab",
+        "original": "[tailieudieuky.com] ĐỀ THI CHÍNH THỨC.pdf",
+        "images": 0,
+        "pages": 5,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "d689815180283cf4d9d6.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/04/De-Chuyen-Anh-Ben-Tre-2024-2025.zip",
+        "sha256": "003c14c559ed4641be2b61618f64e5327aa8158e063cea4ca4f6d443495acb59",
+        "original": "[tailieudieuky.com] ĐÁP ÁN CHÍNH THỨC.pdf",
+        "images": 0,
+        "pages": 3,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      },
+      {
+        "file": "09bb3adb6a53302bc50d.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/04/De-Chuyen-Anh-Ben-Tre-2024-2025.zip",
+        "sha256": "1d211c33d46f14b35fb5c3a6081dd11ca2d83d104c0e5e6f2a26d78eecec730f",
+        "original": "AUDIOSCRIPTS.pdf",
+        "images": 0,
+        "pages": 3,
+        "label": "Transcript trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Có, theo bản đăng lại",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Bến Tre"
+  },
+  {
+    "key": "2024/da-nang/so",
+    "year": 2024,
+    "province": "Đà Nẵng",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-chuyen-anh-tp-da-nang-2024-2025-co-dap-an/",
+    "assets": [
+      {
+        "file": "dd9ed4686e46c0885dd0.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/07/De-Chuyen-Anh-TP-Da-Nang-2024-2025-co-dap-an.zip",
+        "sha256": "d8313b22ab624168bb69238950e49adf0d402f49e6e0ba3a65dff2266c4f1be8",
+        "original": "de-thi-chinh-thuc.pdf",
+        "images": 0,
+        "pages": 7,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "523375807e57ab2c6d5a.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/07/De-Chuyen-Anh-TP-Da-Nang-2024-2025-co-dap-an.zip",
+        "sha256": "15b3cef426cbc31b5739eb559c91a0086f9ea9b8039c23e522f5e1b82965906f",
+        "original": "dap-an-chinh-thuc.pdf",
+        "images": 0,
+        "pages": 2,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Có, theo bản đăng lại",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Đà Nẵng"
+  },
+  {
+    "key": "2024/ha-noi/chuyen-su-pham",
+    "year": 2024,
+    "province": "Hà Nội",
+    "unit": "chuyen-su-pham",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-chuyen-tieng-anh-dhsp-nam-2024-co-dap-an/",
+    "assets": [
+      {
+        "file": "1da71ea44936c81d9f7a.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2024/07/De-thi-Chuyen-Tieng-Anh-DHSP-nam-2024.pdf",
+        "sha256": "375835a50802728060920861a6820c48a2fa2a0918329161a39b6b1b82c7fd46",
+        "pages": 9,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Có nội dung đáp án trong bản chép",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "THPT Chuyên ĐH Sư phạm Hà Nội"
+  },
+  {
+    "key": "2024/ha-noi/so",
+    "year": 2024,
+    "province": "Hà Nội",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-chuyen-anh-ha-noi-2024-2025/",
+    "assets": [
+      {
+        "file": "8e80f060a411001fdc6a.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/06/De-Chuyen-Anh-Ha-Noi-2024-2025-dap-an-file-nghe.zip",
+        "sha256": "006d03250400eeba0b6baecfc3aae0fe828b547b015bf55b94b1082394d25f1d",
+        "original": "de-thi-chinh-thuc.pdf",
+        "images": 0,
+        "pages": 10,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "4fd4712dacca14f5aa8b.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/06/De-Chuyen-Anh-Ha-Noi-2024-2025-dap-an-file-nghe.zip",
+        "sha256": "bac306fe8608d806f2c04b525f0eb5d80bb95589a009c082b78b0868f304a8dc",
+        "original": "dap-an-tham-khao.pdf",
+        "images": 0,
+        "pages": 5,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Có, bản tham khảo",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Hà Nội"
+  },
+  {
+    "key": "2024/thanh-hoa/so",
+    "year": 2024,
+    "province": "Thanh Hóa",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-chuyen-anh-nam-hoc-2024-2025-tinh-thanh-hoa-vao-thpt-chuyen-lam-son/",
+    "assets": [
+      {
+        "file": "65674a90e7d3d1a7d4e5.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2024/05/De-thi-Chuyen-Anh-nam-hoc-2024-2025-tinh-Thanh-Hoa-vao-THPT-Chuyen-Lam-Son.pdf",
+        "sha256": "77548ba570613a0b222c053ab897283a5bbf6a6b7d069e8419d8bb57f4dd9794",
+        "pages": 7,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Chưa lấy được đáp án riêng",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Thanh Hóa"
+  },
+  {
+    "key": "2024/tp-ho-chi-minh/so",
+    "year": 2024,
+    "province": "TP. Hồ Chí Minh",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-chuyen-anh-tp-hcm-nam-hoc-2024-2025-co-dap-an/",
+    "assets": [
+      {
+        "file": "2c735d8f5eeef7fd100e.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2024/06/de-thi-chuyen-anh-tp-hcm-nam-hoc-2024-2025-co-dap-an.zip",
+        "sha256": "37080902678c01875452f76f68a606cdea7e50701ecf3b3dadfb14ceef326084",
+        "original": "de-thi-chuyen-anh-tp-hcm-nam-hoc-2024-2025-co-dap-an.pdf",
+        "images": 0,
+        "pages": 4,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Có nội dung đáp án trong bản chép",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT TP. Hồ Chí Minh"
+  },
+  {
+    "key": "2024/vinh-phuc/so",
+    "year": 2024,
+    "province": "Vĩnh Phúc",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-chuyen-anh-tinh-vinh-phuc-nam-hoc-2024-2025-co-dap-an-va-file-nghe-file-word-pdf/",
+    "assets": [
+      {
+        "file": "4d701dccb42b8354e409.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2024/06/De-thi-Chuyen-Anh-tinh-Vinh-Phuc-nam-hoc-2024-2025.zip",
+        "sha256": "0f3e55ffc669f87f50142421a189e84253188bd11d14acdf08a8ea4cf88bb612",
+        "original": "DE-THI-CHINH-THUC.pdf",
+        "images": 0,
+        "pages": 8,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "cd24ff4d3ce43adfa2b3.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2024/06/De-thi-Chuyen-Anh-tinh-Vinh-Phuc-nam-hoc-2024-2025.zip",
+        "sha256": "85ffb9f3d7e68b3684520c6a214d95c8301e93c75a054b04edcdd8bf6c88e820",
+        "original": "DAP-AN.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      }
+    ],
+    "quality": "PDF-text/DOCX",
+    "answers": "Có, bản tham khảo",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Vĩnh Phúc"
+  },
+  {
+    "key": "2025/ba-ria-vung-tau/so",
+    "year": 2025,
+    "province": "Bà Rịa - Vũng Tàu",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-chuyen-anh-ba-ria-vung-tau-2025-2026/",
+    "assets": [
+      {
+        "file": "da536d528dc0057c0424.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/07/De-Chuyen-Anh-Ba-Ria-Vung-Tau-2025-2026.zip",
+        "sha256": "1f315032d8600f96bee6a2dd1b248c4a957dc1e58b900f74d3adf81b706799a4",
+        "original": "de-thi-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "5d6e048196aaf034c64c.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/07/De-Chuyen-Anh-Ba-Ria-Vung-Tau-2025-2026.zip",
+        "sha256": "c846eea71544f472d6f3c6a0e5a701a022c2b0bbe8bcb996abe509f262aa7fd5",
+        "original": "dap-an-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      }
+    ],
+    "quality": "DOCX",
+    "answers": "Có, theo bản đăng lại",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Bà Rịa - Vũng Tàu"
+  },
+  {
+    "key": "2025/bac-giang/so",
+    "year": 2025,
+    "province": "Bắc Giang",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-chuyen-anh-bac-giang-2025-2026-dap-an-file-nghe/",
+    "assets": [
+      {
+        "file": "8dadeaa5890b678fbb51.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/11/De-Chuyen-Anh-Bac-Giang-2025-2026.zip",
+        "sha256": "16b11d621e06667c3b02d21cb5c31e69168c27558eedee7a3479c4f4a95d5834",
+        "original": "de-thi-chinh-thuc.pdf",
+        "images": 0,
+        "pages": 10,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "984924c08c71c0c7aba0.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/11/De-Chuyen-Anh-Bac-Giang-2025-2026.zip",
+        "sha256": "8990f50f6e35221c0740d5de1cb0a9b0823ead9cfbcd902f5c048d38c9ccece8",
+        "original": "dap-an-chinh-thuc.pdf",
+        "images": 0,
+        "pages": 5,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      },
+      {
+        "file": "87ddb4797d52f02c0be5.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/11/De-Chuyen-Anh-Bac-Giang-2025-2026.zip",
+        "sha256": "af81de044594161c5118da7a73bacf30fe531615dffcb063147ad708a2b69434",
+        "original": "transcripts.pdf",
+        "images": 0,
+        "pages": 4,
+        "label": "Transcript trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Có, theo bản đăng lại",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Bắc Giang"
+  },
+  {
+    "key": "2025/binh-duong/so",
+    "year": 2025,
+    "province": "Bình Dương",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-chuyen-anh-binh-duong-2025-2026/",
+    "assets": [
+      {
+        "file": "b726240da54de3c03db9.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/05/De-Chuyen-Anh-Binh-Duong-2025-2026.zip",
+        "sha256": "b7979a0df422e596e260ab0d378ec7ef2ae3efb1352fa68935700dcff44e5bca",
+        "original": "de-thi-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "d7863a9a5e4be05672c6.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/05/De-Chuyen-Anh-Binh-Duong-2025-2026.zip",
+        "sha256": "18c40e162c1af8cdbcaaac8d0c6b183eace9d8175f6d0f00bb4a51d37a520a28",
+        "original": "dap-an-tham-khao.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      }
+    ],
+    "quality": "DOCX",
+    "answers": "Có, bản tham khảo",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Bình Dương"
+  },
+  {
+    "key": "2025/binh-phuoc/so",
+    "year": 2025,
+    "province": "Bình Phước",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-chuyen-anh-binh-phuoc-2025-2026/",
+    "assets": [
+      {
+        "file": "207db4770e0c864715d7.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/07/De-Chuyen-Anh-Binh-Phuoc-2025-2026.zip",
+        "sha256": "f500231b4f766db4e48a809f828410e1d833873b1d4b2ecc4737864d6e793c79",
+        "original": "de-thi-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "65dc7dc5468b62e6bf66.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/07/De-Chuyen-Anh-Binh-Phuoc-2025-2026.zip",
+        "sha256": "3afbba3d798684079579760d5f74bf026bd147fd2a7b2692190f0ecc3fe8a5e2",
+        "original": "dap-an-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      },
+      {
+        "file": "4aaee4ae4305be0d056f.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/07/De-Chuyen-Anh-Binh-Phuoc-2025-2026.zip",
+        "sha256": "e90e2c7331fc239e5aba0997bad1e113b5407b1907fcaaa60ca3b518814faa49",
+        "original": "transcripts.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Transcript trong nguồn"
+      }
+    ],
+    "quality": "DOCX",
+    "answers": "Có, theo bản đăng lại",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Bình Phước"
+  },
+  {
+    "key": "2025/da-nang/so",
+    "year": 2025,
+    "province": "Đà Nẵng",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-chuyen-anh-da-nang-2025-2026/",
+    "assets": [
+      {
+        "file": "2dfdb100b5270d001742.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/03/De-chuyen-Anh-Da-Nang-2025-2026-dap-an-chinh-thuc.zip",
+        "sha256": "c33e46abbbd2440bc603c0c4eafe256d6859ecda43e72e7ea75ce52c729714d4",
+        "original": "de-thi-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "303322cb31b7a2d6ae27.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/03/De-chuyen-Anh-Da-Nang-2025-2026-dap-an-chinh-thuc.zip",
+        "sha256": "1e1f56b4b4a88de87a0bb414c026ea54aaf1a0bbc7eaa4dd8554f64b6fedff04",
+        "original": "dap-an-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      }
+    ],
+    "quality": "DOCX",
+    "answers": "Có, theo bản đăng lại",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Đà Nẵng"
+  },
+  {
+    "key": "2025/dak-lak/so",
+    "year": 2025,
+    "province": "Đắk Lắk",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-chuyen-anh-dak-lak-2025-2026/",
+    "assets": [
+      {
+        "file": "1d7f76c29a9c43608033.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/03/De-chuyen-Anh-Dak-Lak-2025-2026-dap-an-chinh-thuc.zip",
+        "sha256": "d64773d9822d1e1a92119969228ec35b97f94e1ef4edd8474486e4339da8691a",
+        "original": "de-thi-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "3fcccfd443f23a683474.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/03/De-chuyen-Anh-Dak-Lak-2025-2026-dap-an-chinh-thuc.zip",
+        "sha256": "f97b9d83f49b3c738cc31b242fc8f3d9033e301811b28648a661b2a93d520820",
+        "original": "dap-an-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      },
+      {
+        "file": "a996f88b9dcbd72b9090.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/03/De-chuyen-Anh-Dak-Lak-2025-2026-dap-an-chinh-thuc.zip",
+        "sha256": "8475abf2e5c3b214c56e0e52d9539414e821fe47f7f5947e0e5bc4af4bbde6bc",
+        "original": "transcripts.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Transcript trong nguồn"
+      }
+    ],
+    "quality": "DOCX",
+    "answers": "Có, theo bản đăng lại",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Đắk Lắk"
+  },
+  {
+    "key": "2025/dong-nai/so",
+    "year": 2025,
+    "province": "Đồng Nai",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-chuyen-anh-dong-nai-2025-wordpdf/",
+    "assets": [
+      {
+        "file": "2d33e1354c4591895ae7.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/07/De-Chuyen-Anh-Dong-Nai-2025.zip",
+        "sha256": "1f210f05fb1bc748418c704d063fb6b082ed6fae7fe4d15cca48bac7e4713930",
+        "original": "de-thi-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "3ab54fc367ed252baabc.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/07/De-Chuyen-Anh-Dong-Nai-2025.zip",
+        "sha256": "9be317012468701a72a6951ab3e22e539cf93a8cf078e2625ef2b4778ca60c94",
+        "original": "dap-an-tham-khao.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      }
+    ],
+    "quality": "DOCX",
+    "answers": "Có, bản tham khảo",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Đồng Nai"
+  },
+  {
+    "key": "2025/dong-thap/so",
+    "year": 2025,
+    "province": "Đồng Tháp",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-chuyen-anh-dong-thap-2025-2026-dap-an-file-nghe/",
+    "assets": [
+      {
+        "file": "62328aa0e5de72df6b91.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/07/De-Chuyen-Anh-Dong-Thap-2025-2026-dap-an-file-nghe.zip",
+        "sha256": "cc1c5d78a194d45968580b0c7131dc8999655c4194f0d352257295401c9dc501",
+        "original": "de-thi-chinh-thuc.pdf",
+        "images": 0,
+        "pages": 6,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "690211d4498508300a06.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/07/De-Chuyen-Anh-Dong-Thap-2025-2026-dap-an-file-nghe.zip",
+        "sha256": "f7223a82d0542254d284734ab7baba947e1f9ed8e1816a0f92fcb9c774192c24",
+        "original": "dap-an-tham-khao.pdf",
+        "images": 0,
+        "pages": 3,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Có, bản tham khảo",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Đồng Tháp"
+  },
+  {
+    "key": "2025/ha-nam/so",
+    "year": 2025,
+    "province": "Hà Nam",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-chuyen-anh-ha-nam-2025-2026/",
+    "assets": [
+      {
+        "file": "f585786f119c4fd88e5f.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/08/De-thi-Chuyen-Anh-Ha-Nam-2025-2026.zip",
+        "sha256": "cd167e277e2a4acc8e7bf3e9bb88f9b5b59924d533d1615dfdf0deb517f83f47",
+        "original": "de-thi-chinh-thuc.pdf",
+        "images": 0,
+        "pages": 9,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "bf4d1e41d0739cef89e9.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/08/De-thi-Chuyen-Anh-Ha-Nam-2025-2026.zip",
+        "sha256": "aa943e7ea29ec294f6848d3483dd749a6c5c88df695ce3a491996148696f80b7",
+        "original": "dap-an-chinh-thuc.pdf",
+        "images": 0,
+        "pages": 7,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Có, theo bản đăng lại",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Hà Nam"
+  },
+  {
+    "key": "2025/ha-noi/so",
+    "year": 2025,
+    "province": "Hà Nội",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-chuyen-anh-ha-noi-2025-2026/",
+    "assets": [
+      {
+        "file": "393597087af07cccc9f0.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/11/De-thi-chuyen-Anh-Ha-Noi-2025-2026.zip",
+        "sha256": "71bc6805ffbe6b77502fd2e1afe6307dfb11199bfcab685ef8d3a06f07a5312b",
+        "original": "de-thi-chinh-thuc.pdf",
+        "images": 0,
+        "pages": 10,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "4ae529bed3e6d2a067c7.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/11/De-thi-chuyen-Anh-Ha-Noi-2025-2026.zip",
+        "sha256": "6355bed002b1b4ad2587bf7961e8a205922e0ace637a991694a8f6b8f48bead4",
+        "original": "dap-an-chinh-thuc.pdf",
+        "images": 0,
+        "pages": 3,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      },
+      {
+        "file": "5e792d9584b464ab4081.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/11/De-thi-chuyen-Anh-Ha-Noi-2025-2026.zip",
+        "sha256": "5dd394f03ece6970b8257a57c333b6fc976014d16ba402c77ed0b10eac06d3b4",
+        "original": "transcripts.pdf",
+        "images": 0,
+        "pages": 3,
+        "label": "Transcript trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Có, theo bản đăng lại",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Hà Nội"
+  },
+  {
+    "key": "2025/hai-phong/so",
+    "year": 2025,
+    "province": "Hải Phòng",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-ts-chuyen-anh-vao-lop-10-tran-phu-hai-phong-2025/",
+    "assets": [
+      {
+        "file": "874cbb054ead46f0d926.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/07/De-thi-TS-Chuyen-Anh-vao-lop-10-Tran-Phu-Hai-Phong-2025.zip",
+        "sha256": "9c5049116a2439589828a272d083e663d0d0bcc0f0e276683507c76a5543c468",
+        "original": "de-thi-chinh-thuc.pdf",
+        "images": 0,
+        "pages": 8,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "ffe784820e99b59df135.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/07/De-thi-TS-Chuyen-Anh-vao-lop-10-Tran-Phu-Hai-Phong-2025.zip",
+        "sha256": "bcdc2d4dcd7ec01e2514ef3dcf516fbdf91ddb64a9c1eccacfe088df0fa0415d",
+        "original": "dap-an-chinh-thuc.pdf",
+        "images": 0,
+        "pages": 4,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Có, theo bản đăng lại",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Hải Phòng"
+  },
+  {
+    "key": "2025/khanh-hoa/so",
+    "year": 2025,
+    "province": "Khánh Hòa",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-chuyen-anh-khanh-hoa-2025-2026/",
+    "assets": [
+      {
+        "file": "8bec29dedab68ca4e345.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/03/De-Chuyen-Anh-Khanh-Hoa-2025-2026.zip",
+        "sha256": "4e75050a7869c10d694ad5221960d18301d286ee1dcbd908286c44f0a899a330",
+        "original": "de-thi-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "23d7d0f2531f0c64aa96.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/03/De-Chuyen-Anh-Khanh-Hoa-2025-2026.zip",
+        "sha256": "55a70326d0bac45fb90c1670d7029a2cf8d80e8699cc0fd6d94c1c4f38ed077a",
+        "original": "dap-an.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      }
+    ],
+    "quality": "DOCX",
+    "answers": "Có, theo bản đăng lại",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Khánh Hòa"
+  },
+  {
+    "key": "2025/kon-tum/so",
+    "year": 2025,
+    "province": "Kon Tum",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-chuyen-anh-kon-tum-2025-2026/",
+    "assets": [
+      {
+        "file": "73ccefd42241b278e780.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/09/De-thi-chuyen-Anh-Kon-Tum-2025-–-2026.zip",
+        "sha256": "a6454997857e406b3322a45dc19f9ffe95a79796221a9ddbb956fb0d8c5d1ec7",
+        "original": "de-thi-chinh-thuc.pdf",
+        "images": 0,
+        "pages": 8,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "d5cbecbb308f42abb722.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/09/De-thi-chuyen-Anh-Kon-Tum-2025-–-2026.zip",
+        "sha256": "136756075f88fd71acabd1fb0527f9f068d334c977edf4c0300b73ef63c3f573",
+        "original": "dap-an-tham-khao.pdf",
+        "images": 0,
+        "pages": 5,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Có, bản tham khảo",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Kon Tum"
+  },
+  {
+    "key": "2025/lai-chau/so",
+    "year": 2025,
+    "province": "Lai Châu",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-chuyen-anh-lai-chau-nam-hoc-2025-2026/",
+    "assets": [
+      {
+        "file": "93b6bb265b55d3d31794.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/07/De-Chuyen-Anh-Lai-Chau-nam-hoc-2025-2026.zip",
+        "sha256": "589bd944866e8510483cff9e5170e623eb84024caa167130e850452593248924",
+        "original": "de-thi-chinh-thuc.pdf",
+        "images": 0,
+        "pages": 7,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "3cddc6bc9ad741685496.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/07/De-Chuyen-Anh-Lai-Chau-nam-hoc-2025-2026.zip",
+        "sha256": "47c86632a8ac699c45f9b6be7080abe82378d125ce12ea317ca0753be98b8197",
+        "original": "dap-an-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      }
+    ],
+    "quality": "PDF-text/DOCX",
+    "answers": "Có, theo bản đăng lại",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Lai Châu"
+  },
+  {
+    "key": "2025/nam-dinh/so",
+    "year": 2025,
+    "province": "Nam Định",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-chuyen-anh-nam-dinh-2025-2026/",
+    "assets": [
+      {
+        "file": "c060842ee56e2fabf5db.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/07/De-thi-Chuyen-Anh-Nam-Dinh-2025-2026-dap-anfile-nghe-va-transcripts.zip",
+        "sha256": "7559b88f556d36087d97251e8af4bf8eb4635212919dd08a6e03f1355206b99d",
+        "original": "de-thi-chinh-thuc.pdf",
+        "images": 0,
+        "pages": 10,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "f1ae30342f905dff171d.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/07/De-thi-Chuyen-Anh-Nam-Dinh-2025-2026-dap-anfile-nghe-va-transcripts.zip",
+        "sha256": "edce95f6d147889613baf2b696c50c3dd646d30e9274b4babac1b0ca036f557f",
+        "original": "dap-an-chinh-thuc.pdf",
+        "images": 0,
+        "pages": 7,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Có, theo bản đăng lại",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Nam Định"
+  },
+  {
+    "key": "2025/nghe-an/so",
+    "year": 2025,
+    "province": "Nghệ An",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-chuyen-anh-thpt-chuyen-phan-boi-chau-nghe-an-2025-2026/",
+    "assets": [
+      {
+        "file": "28a6de0f908d991ff078.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/07/De-thi-Chuyen-Anh-THPT-Chuyen-Phan-Boi-Chau-Nghe-An-nam-hoc-2025-2026.zip",
+        "sha256": "9af17b7c3d932c56caf7048803973c312b46f499f3c5fa439a7c184d51956b82",
+        "original": "de-thi-chinh-thuc.pdf",
+        "images": 0,
+        "pages": 12,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "0454493fc4b507c6e6e3.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/07/De-thi-Chuyen-Anh-THPT-Chuyen-Phan-Boi-Chau-Nghe-An-nam-hoc-2025-2026.zip",
+        "sha256": "731a249af8fb3ae849383ebf973e37645350559325c6200605c437e104c462b3",
+        "original": "dap-an-chinh-thuc.pdf",
+        "images": 0,
+        "pages": 6,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      },
+      {
+        "file": "dc6645a7bc28d15d3618.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/07/De-thi-Chuyen-Anh-THPT-Chuyen-Phan-Boi-Chau-Nghe-An-nam-hoc-2025-2026.zip",
+        "sha256": "eac3ca7b8fc16a92e42700a4f8d1b29b80987e044176b365bd1065fe6ed6a9b2",
+        "original": "transcripts.pdf",
+        "images": 0,
+        "pages": 4,
+        "label": "Transcript trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Có, theo bản đăng lại",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Nghệ An"
+  },
+  {
+    "key": "2025/ninh-thuan/so",
+    "year": 2025,
+    "province": "Ninh Thuận",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-chuyen-anh-le-quy-don-ninh-thuan-2025-2026/",
+    "assets": [
+      {
+        "file": "5ee6ebf357824ed7c8a3.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/07/De-thi-Chuyen-Anh-Le-Quy-Don-Ninh-Thuan-2025-2026.zip",
+        "sha256": "d9ba908ad960210397f55b8ab91d4588ebbef979bd12338174d19b25ec1dae5a",
+        "original": "de-thi-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "f1beeca87118539d8d08.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/07/De-thi-Chuyen-Anh-Le-Quy-Don-Ninh-Thuan-2025-2026.zip",
+        "sha256": "3e727404bb6cbecf96322126bb1b8299f7f4b67924cbca3ee36eb59ed07112de",
+        "original": "dap-an-tham-khao.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      }
+    ],
+    "quality": "DOCX",
+    "answers": "Có, bản tham khảo",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Ninh Thuận"
+  },
+  {
+    "key": "2025/phu-tho/so",
+    "year": 2025,
+    "province": "Phú Thọ",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-chuyen-anh-phu-tho-2025/",
+    "assets": [
+      {
+        "file": "391826cf55c49af23330.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/07/De-Chuyen-Anh-Phu-Tho-2025.zip",
+        "sha256": "5651adf5ba4daefb747240e3e974d11c2cb4c90b74020d0b17645c53606bf339",
+        "original": "de-thi-chinh-thuc.pdf",
+        "images": 0,
+        "pages": 7,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "09cf18f8ebef00134cc5.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/07/De-Chuyen-Anh-Phu-Tho-2025.zip",
+        "sha256": "2298e61a4331505771d619135578d9360da0e9d24d3a0d6b2309a2a2795a01f5",
+        "original": "dap-an-chinh-thuc.pdf",
+        "images": 0,
+        "pages": 4,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Có, theo bản đăng lại",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Phú Thọ"
+  },
+  {
+    "key": "2025/quang-ngai/so",
+    "year": 2025,
+    "province": "Quảng Ngãi",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-chuyen-anh-quang-ngai-nam-hoc-2025-2026-dap-anfile-nghe/",
+    "assets": [
+      {
+        "file": "2008fb063db945fbfb51.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/10/De-Chuyen-Anh-Quang-Ngai-nam-hoc-2025-2026.zip",
+        "sha256": "e5947ad282f22b699653a874df4fdb1c1cdd608010b1811291e3cafd7f9aa630",
+        "original": "de-thi-chinh-thuc.pdf",
+        "images": 0,
+        "pages": 6,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "71e3cf2bc724509fd04a.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/10/De-Chuyen-Anh-Quang-Ngai-nam-hoc-2025-2026.zip",
+        "sha256": "904e1029b2435919c7b874564533be604632851f0b657a444355b8697dff6106",
+        "original": "dap-an-chinh-thuc.pdf",
+        "images": 0,
+        "pages": 5,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      },
+      {
+        "file": "6370b0ccb13f95f7fdbc.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/10/De-Chuyen-Anh-Quang-Ngai-nam-hoc-2025-2026.zip",
+        "sha256": "19636326647aabdfc9e494e4c7242e12702fcddf465b12e6a9536c621681a29a",
+        "original": "speaking.pdf",
+        "images": 0,
+        "pages": 1,
+        "label": "Đề thi nói trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Có, theo bản đăng lại",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Quảng Ngãi"
+  },
+  {
+    "key": "2025/quang-ninh/so",
+    "year": 2025,
+    "province": "Quảng Ninh",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-chuyen-anh-ha-long-quang-ninh-2025-2026-pdfword/",
+    "assets": [
+      {
+        "file": "c6f5b559d19fd069def0.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/07/De-thi-Chuyen-Anh-Ha-Long-Quang-Ninh-2025-2026.zip",
+        "sha256": "4c6f221f0096d6859dcc51ae29a5c71da61b6186e8a2db3c65b1e27edef4ea65",
+        "original": "de-thi-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "bc1280c435d6bc03b021.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/07/De-thi-Chuyen-Anh-Ha-Long-Quang-Ninh-2025-2026.zip",
+        "sha256": "aaab5ad71d753ec6747e148a552821a821266bc7bad43dc6bf0c9cfc69c8f752",
+        "original": "dap-an-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      },
+      {
+        "file": "d7e3827f6b5133268aa2.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/07/De-thi-Chuyen-Anh-Ha-Long-Quang-Ninh-2025-2026.zip",
+        "sha256": "62bbe6a886959c5cc10e749d33ce50e4765a4414bb29f65a7287fa072624adb8",
+        "original": "transcripts.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Transcript trong nguồn"
+      }
+    ],
+    "quality": "DOCX",
+    "answers": "Có, theo bản đăng lại",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Quảng Ninh"
+  },
+  {
+    "key": "2025/thai-binh/so",
+    "year": 2025,
+    "province": "Thái Bình",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-chuyen-anh-thai-binh-2025-dap-an-va-file-nghe/",
+    "assets": [
+      {
+        "file": "b3576bbba84057988d42.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/07/De-Chuyen-Anh-Thai-Binh-2025-dap-an-va-file-nghe.zip",
+        "sha256": "ad4e1a25214a67b05635e6852e98359a51fd63095911a7b5190c01eed320cd91",
+        "original": "de-thi-chinh-thuc.pdf",
+        "images": 0,
+        "pages": 8,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "80943c7f869d83d41a74.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/07/De-Chuyen-Anh-Thai-Binh-2025-dap-an-va-file-nghe.zip",
+        "sha256": "690a59c170fce16ae85bdfd677b6f4ba1c2977b3a361f81cbcdbe3c918ce2706",
+        "original": "dap-an-chinh-thuc.pdf",
+        "images": 0,
+        "pages": 2,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      },
+      {
+        "file": "f1eb48c428fe3a24e437.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/07/De-Chuyen-Anh-Thai-Binh-2025-dap-an-va-file-nghe.zip",
+        "sha256": "17765d830d3cda31e9bae734b8fb78e4da4e6f18ec35456f89ecf6b4c7a41e62",
+        "original": "transcripts.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Transcript trong nguồn"
+      }
+    ],
+    "quality": "PDF-text/DOCX",
+    "answers": "Có, theo bản đăng lại",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Thái Bình"
+  },
+  {
+    "key": "2025/thai-nguyen/so",
+    "year": 2025,
+    "province": "Thái Nguyên",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-chuyen-anh-thai-nguyen-2025-va-dap-an/",
+    "assets": [
+      {
+        "file": "2ac2ec02ddead3c00b32.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/07/De-Chuyen-Anh-Thai-Nguyen-2025-va-dap-an.zip",
+        "sha256": "3ceb706742ac49fd6fe2c8b0535cddd7c5f80128f43bd8cf3bb1ea3dbf7f00ec",
+        "original": "de-thi-chinh-thuc.pdf",
+        "images": 0,
+        "pages": 5,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "5c709ae7b78daadfa0e9.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/07/De-Chuyen-Anh-Thai-Nguyen-2025-va-dap-an.zip",
+        "sha256": "fd2ed2690d6f80bcfbff10eca7e557fe77f5fb9dbd7fb98765af8440de03ca36",
+        "original": "dap-an-tham-khao.pdf",
+        "images": 0,
+        "pages": 2,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Có, bản tham khảo",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc. Bản tải trong nguồn là PHẦN TRẮC NGHIỆM; cần kiểm tra có đề tự luận tách riêng hay không. Không khẳng định đã đủ mọi phần của kỳ thi.",
+    "unit_label": "Sở GD&ĐT Thái Nguyên"
+  },
+  {
+    "key": "2025/tien-giang/so",
+    "year": 2025,
+    "province": "Tiền Giang",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-chuyen-anh-tien-giang-2025-2026/",
+    "assets": [
+      {
+        "file": "f0791c6b823dbdf5000e.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/07/De-chuyen-Anh-Tien-Giang-2025-2026.zip",
+        "sha256": "11ff32799d573e732b9bddf391738b745f51a8607a54dbc3f7fd6ad22104e379",
+        "original": "de-thi-chinh-thuc.pdf",
+        "images": 0,
+        "pages": 8,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "9c9783b55647d3e97c39.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/07/De-chuyen-Anh-Tien-Giang-2025-2026.zip",
+        "sha256": "a2f84c68f223bc84d23cf8c0f4d4c60a888840f89b5edd9a1e9dec150931cf61",
+        "original": "dap-an-chinh-thuc.pdf",
+        "images": 0,
+        "pages": 5,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      },
+      {
+        "file": "fa77fcdc3278b34772e2.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/07/De-chuyen-Anh-Tien-Giang-2025-2026.zip",
+        "sha256": "64acfe48d314d8aaeb66ea1f6ef515b63a9cd8b86a754d03db4a8f8c36211782",
+        "original": "transcripts.pdf",
+        "images": 0,
+        "pages": 3,
+        "label": "Transcript trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Có, theo bản đăng lại",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Tiền Giang"
+  },
+  {
+    "key": "2025/tp-ho-chi-minh/so",
+    "year": 2025,
+    "province": "TP. Hồ Chí Minh",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-chuyen-anh-tp-hcm-2025-2026-dap-an/",
+    "assets": [
+      {
+        "file": "570b0a4ac94b75ea6524.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/08/De-Chuyen-Anh-TP-HCM-2025-2026-dap-an.zip",
+        "sha256": "eab95cb6413d3d6ccd9b50a682a3de9906b01ef1c6c65f4751a2c6faa0c3952b",
+        "original": "de-thi-chinh-thuc.pdf",
+        "images": 0,
+        "pages": 5,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "832595eab2075b78564d.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/08/De-Chuyen-Anh-TP-HCM-2025-2026-dap-an.zip",
+        "sha256": "60e1dff85a54939be51501ecb6c60f11947788bc9485a3556b45d09e1286865a",
+        "original": "dap-an-tham-khao.pdf",
+        "images": 0,
+        "pages": 3,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Có, bản tham khảo",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT TP. Hồ Chí Minh"
+  },
+  {
+    "key": "2025/tuyen-quang/so",
+    "year": 2025,
+    "province": "Tuyên Quang",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-chuyen-anh-tuyen-quang-2025-2026/",
+    "assets": [
+      {
+        "file": "b48446f0c2e75908b562.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/05/De-chuyen-Anh-Tuyen-Quang-2025-2026.zip",
+        "sha256": "70480bff3675926c6e686b4e2a3658a4392801cb2dc387560cfa430a94ba00cc",
+        "original": "de-thi-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "c6202a239a514d7c2515.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/05/De-chuyen-Anh-Tuyen-Quang-2025-2026.zip",
+        "sha256": "af6c8d3300ef1baed12a4a74043f7e1c5e258692a5041aeb5996f350cca5a860",
+        "original": "dap-an-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      },
+      {
+        "file": "d38cb21633033d715423.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/05/De-chuyen-Anh-Tuyen-Quang-2025-2026.zip",
+        "sha256": "fc529f06912cdd150728dd120b41e21c72a8e6ab430f8aa84569da33869e1ab7",
+        "original": "transcripts.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Transcript trong nguồn"
+      }
+    ],
+    "quality": "DOCX",
+    "answers": "Có, theo bản đăng lại",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Tuyên Quang"
+  },
+  {
+    "key": "2025/vinh-phuc/so",
+    "year": 2025,
+    "province": "Vĩnh Phúc",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-chuyen-anh-vinh-phuc-2025-2026-dap-an-va-file-nghe/",
+    "assets": [
+      {
+        "file": "41ddb429f1194906480e.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/07/De-thi-Chuyen-Anh-Vinh-Phuc-2025-2026-dap-an-va-file-nghe.zip",
+        "sha256": "cb7aa9a3e9952c20fd6681beb71f2b2dd4252123670f3d6d5210756a2f2dc810",
+        "original": "de-thi-chinh-thuc.pdf",
+        "images": 0,
+        "pages": 10,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "d31a62b652ce4f7ffecd.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2025/07/De-thi-Chuyen-Anh-Vinh-Phuc-2025-2026-dap-an-va-file-nghe.zip",
+        "sha256": "b8e7ac2ba5d60ee0a04545561e4b23d91aa712d8787e27069dfdd693a6e230d5",
+        "original": "dap-an-chinh-thuc.pdf",
+        "images": 0,
+        "pages": 2,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      }
+    ],
+    "quality": "PDF-text",
+    "answers": "Có, theo bản đăng lại",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Vĩnh Phúc"
+  },
+  {
+    "key": "2025/yen-bai/so",
+    "year": 2025,
+    "province": "Yên Bái",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-chuyen-tieng-anh-yen-bai-2025-2026-thpt-chuyen-nguyen-tat-thanh/",
+    "assets": [
+      {
+        "file": "eb2ae5488bdb873a3e5c.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/05/De-thi-Chuyen-Tieng-Anh-Yen-Bai-2025–2026-THPT-Chuyen-Nguyen-Tat-Thanh-co-dap-an.zip",
+        "sha256": "c7a3e190c1f2311bb45f21ec215580578924cb33399903f52303de134c6cd75b",
+        "original": "de-thi-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "3c94dfa022a76075c970.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/05/De-thi-Chuyen-Tieng-Anh-Yen-Bai-2025–2026-THPT-Chuyen-Nguyen-Tat-Thanh-co-dap-an.zip",
+        "sha256": "85874b58f5ddbcef811d91d4fc98bf5e8e6c45e6e88a12645583d3d0aa7647b7",
+        "original": "dap-an.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      }
+    ],
+    "quality": "DOCX",
+    "answers": "Có, theo bản đăng lại",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Yên Bái"
+  },
+  {
+    "key": "2026/an-giang/so",
+    "year": 2026,
+    "province": "An Giang",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-chuyen-anh-an-giang-2026-2027-co-dap-an-chinh-thuc/",
+    "assets": [
+      {
+        "file": "c7bd31a0f3fc83f04fcc.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/08/De-Chuyen-Anh-An-Giang-2026–2027-co-dap-an-chinh-thuc.zip",
+        "sha256": "6dea46f8f5065821153074f5e272d476824c1b0c431de7efbfd1644c6cb28481",
+        "original": "de-thi-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "9e9094b4854448ce28ed.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/08/De-Chuyen-Anh-An-Giang-2026–2027-co-dap-an-chinh-thuc.zip",
+        "sha256": "8c098792552f147c2029ca21c86b62ae01a339b53890cb0bade8e71cd0054704",
+        "original": "dap-an-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      },
+      {
+        "file": "29c6cfcefed48d809390.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/08/De-Chuyen-Anh-An-Giang-2026–2027-co-dap-an-chinh-thuc.zip",
+        "sha256": "83c130721818aac3ea91bbeec2b769bd2519ed2216e377d510b8870303ea13f4",
+        "original": "transcript.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Transcript trong nguồn"
+      }
+    ],
+    "quality": "DOCX",
+    "answers": "Có, theo bản đăng lại",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT An Giang"
+  },
+  {
+    "key": "2026/bac-ninh/so",
+    "year": 2026,
+    "province": "Bắc Ninh",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-chuyen-tieng-anh-bac-ninh-2026-2027/",
+    "assets": [
+      {
+        "file": "cd8075e7ebf621e3682c.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/07/De-Chuyen-Tieng-Anh-Bac-Ninh-2026–2027-co-dap-an-file-nghe-transcript-.docx.zip",
+        "sha256": "3a790e0a43cef56c0b8d0598a374ccc1a3d88776bb9eeb1d22aab500c21a93f4",
+        "original": "de-thi-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "1ccc7ff8f70d448c214e.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/07/De-Chuyen-Tieng-Anh-Bac-Ninh-2026–2027-co-dap-an-file-nghe-transcript-.docx.zip",
+        "sha256": "d38867e24d5ab20c31ba7bde704a69e7499492c2b885bae572737cce5d493ea0",
+        "original": "dap-an.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      },
+      {
+        "file": "55011222e57312afcf69.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/07/De-Chuyen-Tieng-Anh-Bac-Ninh-2026–2027-co-dap-an-file-nghe-transcript-.docx.zip",
+        "sha256": "1c3dcf674040a29660a7bcb622e96a2dfc50a58a43ae3d1c4a5aac51bd1a34b2",
+        "original": "transcript.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Transcript trong nguồn"
+      }
+    ],
+    "quality": "DOCX",
+    "answers": "Có, theo bản đăng lại",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Bắc Ninh"
+  },
+  {
+    "key": "2026/da-nang/so",
+    "year": 2026,
+    "province": "Đà Nẵng",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-chuyen-anh-da-nang-2026-2027-dap-an/",
+    "assets": [
+      {
+        "file": "c4441a3835c17a27c2b1.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/08/De-Chuyen-Anh-Da-Nang-2026-2027-dap-an.zip",
+        "sha256": "6631d935aafd004258bb438d022f32230d0cdb7adc33989378946a11c3412fee",
+        "original": "de-thi-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "745e1a423a0220631c51.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/08/De-Chuyen-Anh-Da-Nang-2026-2027-dap-an.zip",
+        "sha256": "8eca69bbc574adfc38786e4d558b86d2f5721a33d6c5781301894bbe03c98440",
+        "original": "dap-an.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      }
+    ],
+    "quality": "DOCX",
+    "answers": "Có, theo bản đăng lại",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Đà Nẵng"
+  },
+  {
+    "key": "2026/dak-lak/so",
+    "year": 2026,
+    "province": "Đắk Lắk",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-chuyen-anh-dak-lak-2026-2027/",
+    "assets": [
+      {
+        "file": "8ce6695b9f7100dc781e.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/07/De-Chuyen-Anh-Dak-Lak-2026-2027-co-dap-an-chinh-thuc.zip",
+        "sha256": "4a00701d2764ce148b459e60c24e6e42f646d242535be5f883bbdbc29e442cb4",
+        "original": "de-thi-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "54f9f29bad9724497767.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/07/De-Chuyen-Anh-Dak-Lak-2026-2027-co-dap-an-chinh-thuc.zip",
+        "sha256": "8bd004b1ccaadfc9a2d2ec0453c787a7832aa8baa6d84be5e1b8367587011a26",
+        "original": "dap-an-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      },
+      {
+        "file": "cf178f6305dbf020fef5.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/07/De-Chuyen-Anh-Dak-Lak-2026-2027-co-dap-an-chinh-thuc.zip",
+        "sha256": "480cf82071223f4a0bd6b97b0b8b3524b7be41bc7315ffe91ed9d41b12842d3f",
+        "original": "transcript.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Transcript trong nguồn"
+      }
+    ],
+    "quality": "DOCX",
+    "answers": "Có, theo bản đăng lại",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Đắk Lắk"
+  },
+  {
+    "key": "2026/dien-bien/so",
+    "year": 2026,
+    "province": "Điện Biên",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-chuyen-anh-dien-bien-2026-2027-thpt-chuyen-le-quy-don/",
+    "assets": [
+      {
+        "file": "7b4911f874ecf41e4322.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/08/De-Chuyen-Anh-Dien-Bien-2026-2027-THPT-Chuyen-Le-Quy-Don.zip",
+        "sha256": "14c4910b9146d0b26d4a90d76a75fe34f66cee869f93f67b4957cae95bbc7ca3",
+        "original": "de-thi-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "e8e95b69b5d4d9b46eba.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/08/De-Chuyen-Anh-Dien-Bien-2026-2027-THPT-Chuyen-Le-Quy-Don.zip",
+        "sha256": "089ab56c8e9fdeb68104b9bece87ed48b838bb975772766dadfd3a2c6c30cdb5",
+        "original": "dap-an-chinh-thuc.pdf",
+        "images": 0,
+        "pages": 5,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      },
+      {
+        "file": "d2653dbb1f4f19b54da9.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/08/De-Chuyen-Anh-Dien-Bien-2026-2027-THPT-Chuyen-Le-Quy-Don.zip",
+        "sha256": "cb1868a1ed1ecc4685b424556ef2d09528b573e596243398eea52a10db8376dc",
+        "original": "transcript.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Transcript trong nguồn"
+      }
+    ],
+    "quality": "DOCX/PDF-text",
+    "answers": "Có, theo bản đăng lại",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Điện Biên"
+  },
+  {
+    "key": "2026/dong-nai/so",
+    "year": 2026,
+    "province": "Đồng Nai",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-chuyen-anh-dong-nai-vao-chuyen-luong-the-vinh-2026-2027-dap-an/",
+    "assets": [
+      {
+        "file": "418ce9b143370e5ae04e.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/07/De-Chuyen-Anh-Dong-Nai-vao-chuyen-Luong-The-Vinh-2026-2027-dap-an.zip",
+        "sha256": "3c6e866cf036b31202334f3e563f06e1a5ab9554bbc135ae9d1d3e292ec5b638",
+        "original": "de-thi-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "a13d4821ef4872ded881.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/07/De-Chuyen-Anh-Dong-Nai-vao-chuyen-Luong-The-Vinh-2026-2027-dap-an.zip",
+        "sha256": "1cca8d8ff8352e220cb229102f2bc988c8115b36a591b72c7a60d9ee9535ce7b",
+        "original": "dap-an.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      }
+    ],
+    "quality": "DOCX",
+    "answers": "Có, theo bản đăng lại",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Đồng Nai"
+  },
+  {
+    "key": "2026/gia-lai/so",
+    "year": 2026,
+    "province": "Gia Lai",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-chuyen-anh-tinh-gia-lai-2026-2027/",
+    "assets": [
+      {
+        "file": "61f27387550659f2ae71.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/07/De-Chuyen-Anh-tinh-Gia-Lai-2026-2027-co-dap-an-va-file-nghe.zip",
+        "sha256": "97da68adbfe9925bf4b26328273aad7abec12b873589e45c6c1ec62eeeea5d0b",
+        "original": "de-thi-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "9615fa5f6e4ebf964ee8.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/07/De-Chuyen-Anh-tinh-Gia-Lai-2026-2027-co-dap-an-va-file-nghe.zip",
+        "sha256": "d7c9782b7e299f3a0056430c053f8e1ae63c3f05b80e4be34586e9de16973c59",
+        "original": "dap-an.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      },
+      {
+        "file": "557f252cb1e4cde4af62.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/07/De-Chuyen-Anh-tinh-Gia-Lai-2026-2027-co-dap-an-va-file-nghe.zip",
+        "sha256": "4d749698664e0368a55812b3eae54b01108b35866b3cd07cde39f83eff1b1e53",
+        "original": "transcript.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Transcript trong nguồn"
+      }
+    ],
+    "quality": "DOCX",
+    "answers": "Có, theo bản đăng lại",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Gia Lai"
+  },
+  {
+    "key": "2026/ha-tinh/so",
+    "year": 2026,
+    "province": "Hà Tĩnh",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-chuyen-anh-ha-tinh-2026-2027-dap-an-chinh-thuc/",
+    "assets": [
+      {
+        "file": "dc14a74ffc17dba5c930.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/07/De-Chuyen-Anh-Ha-Tinh-2026-2027-dap-an-chinh-thuc.zip",
+        "sha256": "d0cec29908445af2b17d82123df4f8353e45c3c961064a19b543e56a1b6a86aa",
+        "original": "de-thi-chinh-thuc.pdf",
+        "images": 0,
+        "pages": 10,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "87504990e1da4a2a3280.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/07/De-Chuyen-Anh-Ha-Tinh-2026-2027-dap-an-chinh-thuc.zip",
+        "sha256": "2c58ef9d0f4ae897442cbe86cc36247c42102ceef77c73238f5abe87fff375de",
+        "original": "dap-an-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      },
+      {
+        "file": "63074aa188b09b89e30c.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/07/De-Chuyen-Anh-Ha-Tinh-2026-2027-dap-an-chinh-thuc.zip",
+        "sha256": "439646f0f05528261b6b8006b63fa8ce058bee421d9169bfe6cdf702d649e646",
+        "original": "transcript.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Transcript trong nguồn"
+      }
+    ],
+    "quality": "PDF-text/DOCX",
+    "answers": "Có, theo bản đăng lại",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc. DOCX cùng gói có một đối tượng/hình không chuyển được; chọn PDF-text nhưng vẫn phải xem bản gốc khi câu hỏi phụ thuộc hình.",
+    "unit_label": "Sở GD&ĐT Hà Tĩnh"
+  },
+  {
+    "key": "2026/hue/chuyen-khoa-hoc-hue",
+    "year": 2026,
+    "province": "Huế",
+    "unit": "chuyen-khoa-hoc-hue",
+    "source": "https://tailieudieuky.com/baiviet/document/de-thi-chuyen-anh-thpt-chuyen-khoa-hoc-hue-2026-2027-dap-an/",
+    "assets": [
+      {
+        "file": "78f73677e5763366e820.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/09/De-thi-Chuyen-Anh-THPT-Chuyen-Khoa-Hoc-Hue-2026-2027-dap-an.zip",
+        "sha256": "47fcc85b6b190a95108d41f248da3f279db67007a20dd0a747d72c695464f7bc",
+        "original": "de-thi-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "72d06a3b0243260a18e3.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/09/De-thi-Chuyen-Anh-THPT-Chuyen-Khoa-Hoc-Hue-2026-2027-dap-an.zip",
+        "sha256": "7f1eb8889a09b07771c9e3fee6c8c4795aae3ae3fece86d066c261c8d45ae317",
+        "original": "dap-an.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      },
+      {
+        "file": "096cd257b9d5a6118172.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/09/De-thi-Chuyen-Anh-THPT-Chuyen-Khoa-Hoc-Hue-2026-2027-dap-an.zip",
+        "sha256": "c5af280ea9ee2420a8f22527ffc048230d8523eca4f1a77bb090fd3afd499b3a",
+        "original": "transcript.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Transcript trong nguồn"
+      }
+    ],
+    "quality": "DOCX",
+    "answers": "Có, theo bản đăng lại",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "THPT Chuyên Khoa học — Đại học Huế"
+  },
+  {
+    "key": "2026/khanh-hoa/so",
+    "year": 2026,
+    "province": "Khánh Hòa",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-chuyen-anh-khanh-hoa-2026-2027-co-dap-an/",
+    "assets": [
+      {
+        "file": "543f7da5a842f2a82331.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/07/De-Chuyen-Anh-Khanh-Hoa-2026-2027-co-dap-an.zip",
+        "sha256": "6fd4a79ab619a05a141532f3a58611f9e7897c061d4526b7a22e1563ba75f623",
+        "original": "de-thi-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "20e22b20eec2ea59f7eb.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/07/De-Chuyen-Anh-Khanh-Hoa-2026-2027-co-dap-an.zip",
+        "sha256": "a1ac8bd31120868d2b5ed52ce9671b44f68ce2863bfba7e4b6a9613e9d9ba0c1",
+        "original": "dap-an.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      }
+    ],
+    "quality": "DOCX",
+    "answers": "Có, theo bản đăng lại",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Khánh Hòa"
+  },
+  {
+    "key": "2026/lai-chau/so",
+    "year": 2026,
+    "province": "Lai Châu",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-chuyen-anh-le-quy-don-lai-chau-2026-2027-dap-an/",
+    "assets": [
+      {
+        "file": "b5a1467f21fb609bff14.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/07/De-Chuyen-Anh-Le-Quy-Don-Lai-Chau-2026-2027-dap-an.zip",
+        "sha256": "226c5781094062ae921b8950811a87dba93f5c704a0fddca504fdd6eeec5904f",
+        "original": "de-thi-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "02fa3639c15625bedbe9.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/07/De-Chuyen-Anh-Le-Quy-Don-Lai-Chau-2026-2027-dap-an.zip",
+        "sha256": "a33c4fb4c182d4a99f513a75b7b81e91a6f6d9abe96af49135c4ec6af1d48f0d",
+        "original": "dap-an.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      }
+    ],
+    "quality": "DOCX",
+    "answers": "Có, theo bản đăng lại",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Lai Châu"
+  },
+  {
+    "key": "2026/lao-cai/so",
+    "year": 2026,
+    "province": "Lào Cai",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-chuyen-anh-lao-cai-2026-2027-co-dap-an/",
+    "assets": [
+      {
+        "file": "eecf243d39a00f2e467c.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/08/De-Chuyen-Anh-Lao-Cai-2026-2027-co-dap-an.zip",
+        "sha256": "2f03c4e4b7ee473d1c3a78bcc91cb3d75bc73c3e3b83548acce970f7d8183fc1",
+        "original": "de-thi-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "8fa4772193aec6671f2b.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/08/De-Chuyen-Anh-Lao-Cai-2026-2027-co-dap-an.zip",
+        "sha256": "239c21b01aa0537adf586c1a30e195787e525bfbeacd24750db32968caf31117",
+        "original": "dap-an.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      },
+      {
+        "file": "1316b01e8c1cb1e98d98.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/08/De-Chuyen-Anh-Lao-Cai-2026-2027-co-dap-an.zip",
+        "sha256": "38aa6f08237edbfc2f6ac6ddd209f133aafe3b1d12d149ef5d755f0876c95f61",
+        "original": "transcript.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Transcript trong nguồn"
+      }
+    ],
+    "quality": "DOCX",
+    "answers": "Có, theo bản đăng lại",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Lào Cai"
+  },
+  {
+    "key": "2026/nghe-an/chuyen-dai-hoc-vinh",
+    "year": 2026,
+    "province": "Nghệ An",
+    "unit": "chuyen-dai-hoc-vinh",
+    "source": "https://tailieudieuky.com/baiviet/document/de-chuyen-anh-dh-vinh-2026-2027/",
+    "assets": [
+      {
+        "file": "5940e53b4cdddf5ad1f3.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/07/De-Chuyen-Anh-DH-Vinh-2026-2027-dap-an-chinh-thuc.zip",
+        "sha256": "fa9114d77318225b21018e24c697222a26900a9961bb6fd470f726af747239e1",
+        "original": "de-thi-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "ebe3a7003c25a4b405e3.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/07/De-Chuyen-Anh-DH-Vinh-2026-2027-dap-an-chinh-thuc.zip",
+        "sha256": "f69b75d6b5eb992e29cd4261588d287772dc777f9ef1ffef1541c5c6c4d68b0d",
+        "original": "dap-an-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      },
+      {
+        "file": "72b19e9261c8288089ab.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/07/De-Chuyen-Anh-DH-Vinh-2026-2027-dap-an-chinh-thuc.zip",
+        "sha256": "553fdc1ce59c34d0bde936e09c0d9244643b6fe58d22e73330abbd41b73093c8",
+        "original": "transcript.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Transcript trong nguồn"
+      }
+    ],
+    "quality": "DOCX",
+    "answers": "Có, theo bản đăng lại",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "THPT Chuyên — Đại học Vinh"
+  },
+  {
+    "key": "2026/nghe-an/so",
+    "year": 2026,
+    "province": "Nghệ An",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-chuyen-anh-phan-boi-chau-nghe-an-2026-2027/",
+    "assets": [
+      {
+        "file": "ab555bca4ee1e49845ec.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/06/De-Chuyen-Anh-Phan-Boi-Chau-Nghe-An-2026-2027-Co-dap-an-chinh-thuc-file-nghe-transcripts.zip",
+        "sha256": "3ddd9b43fca798a9ee5c823f60bc13b7f758fee32f96ecc81d9e989d4a01d0b0",
+        "original": "de-thi-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "177da39ea6ba7bacf041.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/06/De-Chuyen-Anh-Phan-Boi-Chau-Nghe-An-2026-2027-Co-dap-an-chinh-thuc-file-nghe-transcripts.zip",
+        "sha256": "fc581185e2308be97006b7dc6f0af20157eb82828a1a82e2333111bf5a644cdd",
+        "original": "dap-an-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      },
+      {
+        "file": "91e22666c0284c81568f.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/06/De-Chuyen-Anh-Phan-Boi-Chau-Nghe-An-2026-2027-Co-dap-an-chinh-thuc-file-nghe-transcripts.zip",
+        "sha256": "a261a7d4e9edcc59e1ec0ef02a049e1ba3fca5a5a6d6e072655977bd35acc7cb",
+        "original": "transcripts.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Transcript trong nguồn"
+      }
+    ],
+    "quality": "DOCX",
+    "answers": "Có, theo bản đăng lại",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Nghệ An"
+  },
+  {
+    "key": "2026/ninh-binh/so",
+    "year": 2026,
+    "province": "Ninh Bình",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-chuyen-tieng-anh-ninh-binh-2026-2027-co-dap-an-chinh-thuc/",
+    "assets": [
+      {
+        "file": "65a22537d3df198f0158.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/06/De-Chuyen-Tieng-Anh-Ninh-Binh-2026-2027-co-dap-an-chinh-thuc.zip",
+        "sha256": "1dd11f679131f2c8b74443e277f1885f6e96c6b49abdbb8059e5d3a52f5bb911",
+        "original": "de-thi-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "a3a564c1519381d4bedf.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/06/De-Chuyen-Tieng-Anh-Ninh-Binh-2026-2027-co-dap-an-chinh-thuc.zip",
+        "sha256": "d0e059c912247e95c4d0f6b863a39e1d8914cb0cc8923b087cc12dbf21f3a68e",
+        "original": "dap-an-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      }
+    ],
+    "quality": "DOCX",
+    "answers": "Có, theo bản đăng lại",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Ninh Bình"
+  },
+  {
+    "key": "2026/quang-ninh/so",
+    "year": 2026,
+    "province": "Quảng Ninh",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-chuyen-anh-ha-long-quang-ninh-2026-2027-dap-an-chinh-thuc/",
+    "assets": [
+      {
+        "file": "3ec164bfbd60f89683f0.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/08/De-Chuyen-Anh-Ha-Long-Quang-Ninh-2026-2027-dap-an-chinh-thuc.zip",
+        "sha256": "8359478d4326ee9643acb6272affcfdbf91ef617038695a1defd6edd879ed064",
+        "original": "de-thi-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "be698c68b8235e96ccca.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/08/De-Chuyen-Anh-Ha-Long-Quang-Ninh-2026-2027-dap-an-chinh-thuc.zip",
+        "sha256": "50a798758eb2ce0fb0532d6670158bd789669bdedbd741069096539dd3505d78",
+        "original": "dap-an-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      },
+      {
+        "file": "e671a8ff0d23841983de.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/08/De-Chuyen-Anh-Ha-Long-Quang-Ninh-2026-2027-dap-an-chinh-thuc.zip",
+        "sha256": "931f33e2525a8b4b7bb4d7b02a8697c9ed295754986afffeff2e9b77e72bcb6b",
+        "original": "transcript.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Transcript trong nguồn"
+      }
+    ],
+    "quality": "DOCX",
+    "answers": "Có, theo bản đăng lại",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Quảng Ninh"
+  },
+  {
+    "key": "2026/quang-tri/so",
+    "year": 2026,
+    "province": "Quảng Trị",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-chuyen-anh-quang-tri-2026-2027-dap-an-chinh-thuc-word/",
+    "assets": [
+      {
+        "file": "19dd5ccb786eb5290acc.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/06/De-Chuyen-Anh-Quang-Tri-2026-2027-dap-an-chinh-thuc-WORD.zip",
+        "sha256": "e36391aaddb2e7e3c8f8e21cd15a927fdefa6beae4eed132916fcdcd68b1fc19",
+        "original": "de-thi-chinh-thuc.pdf",
+        "images": 0,
+        "pages": 7,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "eaaf18775386b3234ff3.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/06/De-Chuyen-Anh-Quang-Tri-2026-2027-dap-an-chinh-thuc-WORD.zip",
+        "sha256": "04133b79baeb417b491eea39c634d73c6064bb0bfff592421b269607047b45b0",
+        "original": "transcript.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Transcript trong nguồn"
+      },
+      {
+        "file": "77ec6c6cf9d578f7dd02.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/06/De-Chuyen-Anh-Quang-Tri-2026-2027-dap-an-chinh-thuc-WORD.zip",
+        "sha256": "b6b435b7b3c3d62c4e8c34f1b078a40ccb967587572b1204ffb902a6f1e422a7",
+        "original": "speaking-topics.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đề thi nói trong nguồn"
+      },
+      {
+        "file": "fbb3bcb7764906e3c54d.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/06/De-Chuyen-Anh-Quang-Tri-2026-2027-dap-an-chinh-thuc-WORD.zip",
+        "sha256": "52294c630b220e9a09d9ae511e153860fa880b785ca532ae98b03d29b9f2a93f",
+        "original": "huong-dan-cham-thi-noi.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Hướng dẫn chấm thi nói trong nguồn"
+      }
+    ],
+    "quality": "PDF-text/DOCX",
+    "answers": "Có nội dung đáp án trong bản chép",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc. Có đề và hướng dẫn chấm phần nói; chưa lấy được đáp án riêng cho toàn bộ bài viết.",
+    "unit_label": "Sở GD&ĐT Quảng Trị"
+  },
+  {
+    "key": "2026/tay-ninh/so",
+    "year": 2026,
+    "province": "Tây Ninh",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-chuyen-anh-tay-ninh-2026-2027/",
+    "assets": [
+      {
+        "file": "806bbdec50c6863da0bb.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/06/De-Chuyen-Anh-Tay-Ninh-2026-2027-dap-an-chinh-thuc.zip",
+        "sha256": "c498adcbc89cde3146d81ec99287015bc66a83e50c7839fac418e88750ce59d2",
+        "original": "de-thi-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "9549883873fdd3093731.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/06/De-Chuyen-Anh-Tay-Ninh-2026-2027-dap-an-chinh-thuc.zip",
+        "sha256": "1c0f3212031efb61ba609a0699347db0c8b5539aeaf3394bc60d47b9677cf0f7",
+        "original": "dap-an-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      },
+      {
+        "file": "aad58ee6092fca91fb87.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/06/De-Chuyen-Anh-Tay-Ninh-2026-2027-dap-an-chinh-thuc.zip",
+        "sha256": "fa751c8d5d078689dd90da601f41aea0acf7c21c32b77402bc7b51781df8ea50",
+        "original": "transcripts.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Transcript trong nguồn"
+      }
+    ],
+    "quality": "DOCX",
+    "answers": "Có, theo bản đăng lại",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Tây Ninh"
+  },
+  {
+    "key": "2026/thanh-hoa/so",
+    "year": 2026,
+    "province": "Thanh Hóa",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-chuyen-anh-thanh-hoa-2026-2027/",
+    "assets": [
+      {
+        "file": "8603ccca07b669eaf24e.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/06/De-Chuyen-Anh-Thanh-Hoa-2026-2027.zip",
+        "sha256": "9946c70ad4f30de1bf79c067c81d6923f47d2ba585ee523ad78871a98e64cd50",
+        "original": "de-thi-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "5fa2948c20527f39436d.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/06/De-Chuyen-Anh-Thanh-Hoa-2026-2027.zip",
+        "sha256": "f09a35917ae3c2d755d9a5dac46583172a6a0a8494b1d4d594eba552cd8bcbf7",
+        "original": "dap-an.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      },
+      {
+        "file": "5781754cdb8402ab9db4.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/06/De-Chuyen-Anh-Thanh-Hoa-2026-2027.zip",
+        "sha256": "a667970077462f139c7cc6693b5bca1dfa17cad600dec608af01c378b9714696",
+        "original": "transcripts.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Transcript trong nguồn"
+      }
+    ],
+    "quality": "DOCX",
+    "answers": "Có, theo bản đăng lại",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Thanh Hóa"
+  },
+  {
+    "key": "2026/tp-ho-chi-minh/ptnk",
+    "year": 2026,
+    "province": "TP. Hồ Chí Minh",
+    "unit": "ptnk",
+    "source": "https://tailieudieuky.com/baiviet/document/de-chuyen-anh-ptnk-2026-2027-dap-an-chinh-thuc-file-word/",
+    "assets": [
+      {
+        "file": "4be56b43e2a69ca1ae53.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/09/De-Chuyen-Anh-PTNK-2026-2027-dap-an-chinh-thuc.zip",
+        "sha256": "7a2415c89c144437b23f5f53bd07cbd82bdf4e3dec9392c9b52c1ae6bc64d45d",
+        "original": "de-thi-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "9ea07f6a932f8f16d39d.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/09/De-Chuyen-Anh-PTNK-2026-2027-dap-an-chinh-thuc.zip",
+        "sha256": "453350ad90bb322284a71d84116ad962a0bb4ae23e013ed93b1878db672f5c36",
+        "original": "dap-an-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      }
+    ],
+    "quality": "DOCX",
+    "answers": "Có, theo bản đăng lại",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Phổ thông Năng khiếu — ĐHQG TP.HCM"
+  },
+  {
+    "key": "2026/vinh-long/so",
+    "year": 2026,
+    "province": "Vĩnh Long",
+    "unit": "so",
+    "source": "https://tailieudieuky.com/baiviet/document/de-chuyen-anh-vinh-long-2026-2027-va-dap-an-so-gddt/",
+    "assets": [
+      {
+        "file": "7bc50d54ff7ce61dabc4.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/08/De-Chuyen-Anh-Vinh-Long-2026–2027-va-dap-an-so-GDDT.zip",
+        "sha256": "13da06a75784edd2dfce939eef4440bdf3f98b43b57ca36ea329681c14fd9caf",
+        "original": "de-thi-chinh-thuc.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Đề thi và phần kèm theo trong nguồn"
+      },
+      {
+        "file": "7f6e0b92ab2750977dda.md",
+        "type": "pdf",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/08/De-Chuyen-Anh-Vinh-Long-2026–2027-va-dap-an-so-GDDT.zip",
+        "sha256": "ac906e8ff5d59b1b25056402b705b5d3e57b5afaa30a2dd4d4879a59fc66b3b1",
+        "original": "dap-an-chinh-thuc.pdf",
+        "images": 0,
+        "pages": 2,
+        "label": "Đáp án/hướng dẫn chấm trong nguồn"
+      },
+      {
+        "file": "42f149d95e034f1b288c.md",
+        "type": "docx",
+        "url": "https://tailieudieuky.com/baiviet/wp-content/uploads/2026/08/De-Chuyen-Anh-Vinh-Long-2026–2027-va-dap-an-so-GDDT.zip",
+        "sha256": "59a8faae34a580732725beba7f36935cb8aacc2b6d71d523dab0dd663a0fdf50",
+        "original": "transcript.docx",
+        "images": 0,
+        "pages": 0,
+        "label": "Transcript trong nguồn"
+      }
+    ],
+    "quality": "DOCX/PDF-text",
+    "answers": "Có, theo bản đăng lại",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "unit_label": "Sở GD&ĐT Vĩnh Long"
+  }
+]

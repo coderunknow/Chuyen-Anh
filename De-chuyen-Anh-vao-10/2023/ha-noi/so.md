@@ -1,0 +1,652 @@
+---
+id: "2023-ha-noi-so"
+nam_thi: 2023
+nam_hoc: "2023-2024"
+tinh_thanh: "Hà Nội"
+don_vi: "Sở GD&ĐT Hà Nội"
+nguon_trang: "https://tailieudieuky.com/baiviet/document/de-thi-chinh-thuc-chuyen-tieng-anh-ha-noi-nam-hoc-2023-2024-co-dap-an-va-audio-file-nghe/"
+ngay_truy_cap: "2026-09-19"
+xac_minh: "ban-dang-lai-co-tieu-de-ky-thi"
+chat_luong: "HTML/OCR-cần-soát"
+dap_an: "Có nội dung đáp án trong bản chép"
+sha256_noi_dung: "76dfb638d7a1d8c780e30612d5a4d9603ee0be1a8d26ff31f7d25ca1cb545991"
+---
+
+# Hà Nội — Chuyên Anh vào 10 — 2023-2024
+
+**Đơn vị/kỳ thi:** Sở GD&ĐT Hà Nội.
+
+> **Bản chép từ nguồn đăng lại, không phải bản phát hành của Sở/trường.** Đã kiểm tra nhãn kỳ thi, năm và môn chuyên trong nội dung nguồn; chưa đối chiếu thủ công từng câu với bản gốc. Không coi bản này là bản chuẩn tuyệt đối.
+
+## Nguồn và giới hạn
+
+- Trang đăng: [https://tailieudieuky.com/baiviet/document/de-thi-chinh-thuc-chuyen-tieng-anh-ha-noi-nam-hoc-2023-2024-co-dap-an-va-audio-file-nghe/](https://tailieudieuky.com/baiviet/document/de-thi-chinh-thuc-chuyen-tieng-anh-ha-noi-nam-hoc-2023-2024-co-dap-an-va-audio-file-nghe/).
+- Nội dung lấy từ [HTML](https://tailieudieuky.com/baiviet/document/de-thi-chinh-thuc-chuyen-tieng-anh-ha-noi-nam-hoc-2023-2024-co-dap-an-va-audio-file-nghe/); SHA-256 tệp nguồn: `1da8fd4f720c088593678be7703a4386162dc23019156e6fb37e746dc3df5333`.
+- Đáp án: Có nội dung đáp án trong bản chép. Không tự sinh đáp án còn thiếu.
+- File nghe: không nhúng vào Markdown; xem trang/gói nguồn. Chưa xác minh khả năng phát hoặc sự đầy đủ của audio.
+- Bản HTML/OCR cần soát: có thể sai ký tự, đảo cột, mất gạch chân hoặc có đáp án xen câu hỏi; chưa xác nhận đầy đủ số trang của bản gốc. Không phải bản chép sạch.
+- Giữ nguyên nội dung bài đọc và cả lỗi cố ý trong bài sửa lỗi; không tự “sửa ngữ pháp” của đề.
+
+## Đề thi và phần kèm theo trong nguồn
+
+SỞ GIÁO DỤC VÀ ĐÀO TẠO
+
+HÀ NỘI
+
+ĐỀ THI CHÍNH THỨC
+
+(Đề thi có 08 trang)
+
+KỲ THI TUYỂN SINH VÀO LỚP 10 THPT
+
+NĂM HỌC 2023-2024
+
+Môn thi: TIẾNG ANH (Chuyên)
+
+Ngày thi: 12/06/2023
+
+Thời gian làm bài: 120 phút, không kể thời gian phát đề
+
+Điểm Chữ ký và họ tên CB chấm thi 1 Chữ ký và họ tên CB chấm thi 2 SỐ PHÁCH
+
+(do Ban phách ghi)
+
+Bằng số Bằng chữ
+
+Lưu ý: Thí sinh làm bài trực tiếp vào các trang của đề thi này, không được sử dụng từ điển và bất kỳ loại tài liệu nào. Cán bộ coi thi không giải thích gì thêm.
+
+LISTENING: You will hear each part TWICE. (2.0 pts)
+
+Part 1. Questions 1-10
+
+Questions 1-5: Listen to the first part of the conversation and circle the correct answer for
+
+Questions 1-5.
+
+1\. What point does Robert make about the 2013 study in Britain?
+
+A. It focused more on packaging than wasted food.
+
+B. It proved that households produced more waste than restaurants.
+
+C. It included liquid waste as well as solid waste.
+
+2\. The speakers agree that food waste reports should emphasize the connection between carbon dioxide emissions and \_\_\_\_\_\_\_\_\_\_.
+
+A. food production B. transport of food to landfill sites C. distribution of food product
+
+3\. Television programmes now tend to focus on \_\_\_\_\_\_\_\_\_\_.
+
+A. the nutritional value of food products
+
+B. the origin of food products
+
+C. the chemicals found in food products
+
+4\. For Anna, the most significant point about food waste is \_\_\_\_\_\_\_\_\_\_.
+
+A. the moral aspect B. the environment impact C. the economic effect
+
+5\. Anna and Robert decide to begin their presentation by \_\_\_\_\_\_\_\_\_\_.
+
+A. handing out a questionnaire
+
+B. providing statistical evidence
+
+C. showing images of wasted food
+
+Questions 6-10: What advantage do the speakers identify for each of the following projects? Choose FIVE answers from the box and write the correct letter, A-G, in the spaces given after
+
+Questions 6-10.
+
+Advantages Projects
+
+A. It should save time.
+
+B. It will create new jobs.
+
+C. It will benefit local communities.
+
+D. It will make money.
+
+E. It will encourage personal responsibility.
+
+F. It will be easy to advertise.
+
+G. It will involve very little cost.
+
+6\. edible patch
+
+7\. ripeness sensor
+
+8\. waste tracking technology
+
+9\. smartphone application
+
+10\. food waste composting
+
+Part 2. Questions 11-20: You will hear five short extracts in which people describe cultural activities. While you listen, you must complete both tasks.
+
+Task one. Choose from the list (A-H) the activity each speaker is describing.
+
+A. watching a DVD at home
+
+B. going to the opera
+
+C. going to the theatre
+
+D. listening to a concert on the radio
+
+E. viewing an exhibition of posters
+
+F. going to the cinema
+
+G. visiting a museum of ancient artifacts
+
+H. viewing a collection of photographs (11) Speaker 1: \_\_\_\_\_\_\_\_\_\_
+
+(12) Speaker 2: \_\_\_\_\_\_\_\_\_\_
+
+(13) Speaker 3: \_\_\_\_\_\_\_\_\_\_
+
+(14) Speaker 4: \_\_\_\_\_\_\_\_\_\_
+
+(15) Speaker 5: \_\_\_\_\_\_\_\_\_\_
+
+Task two. Choose from the list (A-H) how each speaker says they felt during the activity.
+
+A. disappointed
+
+B. puzzled
+
+C. bored
+
+D. fascinated
+
+E. scared
+
+F. amused
+
+G. depressed
+
+H. angry (16) Speaker 1: \_\_\_\_\_\_\_\_\_\_
+
+(17) Speaker 2: \_\_\_\_\_\_\_\_\_\_
+
+(17) Speaker 3: \_\_\_\_\_\_\_\_\_\_
+
+(19) Speaker 4: \_\_\_\_\_\_\_\_\_\_
+
+(20) Speaker 5: \_\_\_\_\_\_\_\_\_\_
+
+PHONETICS
+
+Part 1. Circle the letter A, B, C or D to indicate the word whose underlined part is pronounced differently from that of the rest in each of the following questions.
+
+21\. A. fizzy B. Switzerland C. pizza D. pretzel
+
+22\. A. hazard B. bombard C. custard D. mustard
+
+Part 2. Circle the letter A, B, C or D to indicate the word that differs from the other three in the position of the primary stress in each of the following questions.
+
+23\. A. disguise B. canal C. obscure D. process
+
+24\. A. ultraviolet B. paradoxical C. correlative D. influential
+
+25\. A. legitimate B. extravagant C. apprehend D. autonomous
+
+VOCABULARY AND GRAMMAR (2.5 pts)
+
+Part 1. Circle the best option A, B, C or D to complete the following sentences.
+
+26\. - Tim: “You’re so lucky to be going abroad for a whole semester!”
+
+- Janet: “\_\_\_\_\_\_\_\_\_\_, I’ll miss my friends and family.”
+
+A. That is B. On account of that C. All the same D. But despite
+
+27\. This year it was \_\_\_\_\_\_\_\_\_\_ that many of our flowering plants died
+
+A. so a dry’ summer B. so dry a summer C. a so dry a summer D. such dry a summer
+
+28\. I’ve heard that argument before and quite frankly it just doesn’t \_\_\_\_\_\_\_\_\_\_!
+
+A. face the music B. hit the roof C. cany’ weight D. hold water
+
+29\. Unsalted butter is best for this recipe, but \_\_\_\_\_\_\_\_\_\_ that, margarine will do.
+
+A. except B. failing C. for all of D. given
+
+30\. It seems a lot of us are putting ourselves \_\_\_\_\_\_\_\_\_\_ the mercy of material comfort.
+
+A. at B. in C. on D. under
+
+31\. In spite of working their fingers to the \_\_\_\_\_\_\_\_\_\_, all the staff were made redundant.
+
+A. nail B. edge C. flesh D. bone
+
+32\. I thought she was being serious, but she was only having me \_\_\_\_\_\_\_\_\_\_.
+
+A. up B. on C. over D. round
+
+33\. When his parents are away, his oldest brother \_\_\_\_\_\_\_\_\_\_.
+
+A. knocks it off B. calls the shots C. draws the line D. is in the same boat
+
+34\. The new secretary seems a bit lazy, she doesn’t really \_\_\_\_\_\_\_\_\_\_ her weight.
+
+A. push B. give C. act D. pull
+
+35\. “What do you think of these books?” - “\_\_\_\_\_\_\_\_\_\_, the two novels are similar.”
+
+A. To their respects B. At many respects
+
+C. In many respects D. The many respects
+
+Part 2. Think of ONE word which can be used appropriately in all THREE sentences. Write your answer in the numbered space.
+
+36\. \_\_\_\_\_\_\_\_\_\_
+
+- Your work has not been up to standard in the last three months, but we are prepared to let you me a \_\_\_\_\_\_\_\_\_\_ start.
+
+- Write the report today while die events are still \_\_\_\_\_\_\_\_\_\_ in your mind.
+
+- You will find that Professor Stanton has an entirely \_\_\_\_\_\_\_\_\_\_ approach to this problem.
+
+37\. \_\_\_\_\_\_\_\_\_\_
+
+- I do not \_\_\_\_\_\_\_\_\_\_ with young people staying up till all hours.
+
+- Ben’s parents \_\_\_\_\_\_\_\_\_\_ shares in several major multinational companies.
+
+- Computers can \_\_\_\_\_\_\_\_\_\_ huge amounts of information.
+
+38\. \_\_\_\_\_\_\_\_\_\_
+
+- It’s not worth arguing with Jane, as I learned to my \_\_\_\_\_\_\_\_\_\_.
+
+- If we build an airport on this land, the \_\_\_\_\_\_\_\_\_\_ to the environment will be enormous.
+
+- When Andrew’s boss found out that he had lied on his CV, it \_\_\_\_\_\_\_\_\_\_ him his job.
+
+39\. \_\_\_\_\_\_\_\_\_\_
+
+- If the examiner asks you something, don’t spend too long thinking about what to say - just give a answer
+
+\_\_\_\_\_\_\_\_\_\_ to the question using everyday language.
+
+- Ginny was delighted to get \_\_\_\_\_\_\_\_\_\_ A’s from the judges, the highest possible marks anyone could get in the competition.
+
+- The shelf isn’t \_\_\_\_\_\_\_\_\_\_ - it sags in the middle.
+
+40\. \_\_\_\_\_\_\_\_\_\_
+
+- I usually \_\_\_\_\_\_\_\_\_\_ up a big appetite after patrolling the streets all day.
+
+- This video game doesn’t \_\_\_\_\_\_\_\_\_\_ the way it’s supposed to.
+
+- We need to \_\_\_\_\_\_\_\_\_\_ out a way to reduce costs without firing anyone.
+
+Part 3. Give the correct form of the words in brackets to complete the passage.
+
+Most people would probably name around six categories into which they place their music, including classical, rock, pop, folk, blues and soul, but could this breakdown be divisive, even elitist? Could music be labelled more (41. include) \_\_\_\_\_\_\_\_\_\_? One suggestion would be to consider its purpose and impact rather than its genre. To test the (42. feasible) \_\_\_\_\_\_\_\_\_\_ of this, consider the kind of music people find (43. lift) \_\_\_\_\_\_\_\_\_\_. Most would accept that singing creates a feeling of well-being, but the actual music that’s sung seems to be (44. relevant) \_\_\_\_\_\_\_\_\_\_. It may straddle more than one traditional category, but its effect is (45. deny) \_\_\_\_\_\_\_\_\_\_ the same. Now take the need for (46. assure) \_\_\_\_\_\_\_\_\_\_. Everyone hums soothing melodies to crying babies or plays nostalgic tunes at times of emotional turmoil. Yet one person’s musical choice in such situations may be (47. comprehend) \_\_\_\_\_\_\_\_\_\_ to others. It follows that we shouldn’t pigeonhole ourselves as classical or rock fans, but how we use music and what it does for us. Although some may find this provocative, they might actually be surprised at the (48. diverse) \_\_\_\_\_\_\_\_\_\_ of their own playlists!
+
+Part 4. Circle the best option A, B, C, or D to indicate the word CLOSEST in meaning to the underlined one in the following question.
+
+49\. Albert Einstein is lauded as one of the greatest theoretical physicists of all time.
+
+A. dictated B. acclaimed C. described D. rumored
+
+Part 5. Circle the best option A, B, c, or D to indicate the word OPPOSITE in meaning to the underlined one in the following question.
+
+50\. Golf wear has become a very lucrative business for both manufacturers and golf stars.
+
+A. unprofitable B. impoverished C. inexpensive D. unfavorable
+
+READING (2.0 pts)
+
+Part 1. Read the passage and decide which answer (A, B, C or D) best fits each gap.
+
+Humans live in interdependent societies where people (51) \_\_\_\_\_\_\_\_\_\_ together in groups for mutual aid and protection. We have always had a conscious (52) \_\_\_\_\_\_\_\_\_\_ that group survival means personal survival, that the individual benefits by supporting the group, because the group reciprocates by supporting the individual. Our primitive ancestors worked collectively to hunt for food and to fight off (53) \_\_\_\_\_\_\_\_\_\_ of dangerous animals. They were nomads who lived in (54) \_\_\_\_\_\_\_\_\_\_ and followed seasonally available wild plants and game for their subsistence. These hunter-gatherers migrated when food resources became scarce or the environment less hospitable.
+
+When they learnt how to farm, they were finally able to (55) \_\_\_\_\_\_\_\_\_\_ away with their nomadic lifestyle. They formed small permanent settlements where they harvested crops for their sustenance and kept (56) \_\_\_\_\_\_\_\_\_\_ of livestock. Over time, the settlements grew. Now, super cities with millions of inhabitants dot the planet, but many people feel a greater sense of isolation and a very real disconnect from their fellow human beings.
+
+51\. A. form B. match C. make D. band
+
+52\. A. effort B. decision C. awareness D. attempt
+
+53\. A. packs B. clans C. squads D. throngs
+
+54\. A. factions B. tribes C. races D. unions
+
+55\. A. keep B. run C. do D. get
+
+56\. A. hordes B. crowds C. masses D. herds
+
+Part 2. Read the passage carefully and then fill ONE suitable word in each gap.
+
+It is often said that non-native speakers don’t get the British (57) \_\_\_\_\_\_\_\_\_\_ of humor, and it’s easy to see why this is so. Almost every conversation between Brits has an undercurrent of humor, making it difficult for a non-native speaker to decipher (58) \_\_\_\_\_\_\_\_\_\_ a Brit is joking or being serious. In addition, the British also have a particular fondness for understatement. In refusing to be overwhelmed by anything, the British might retort ‘Not bad’ when they really mean, ‘That’s great’. Furthermore, the British don’t like to (59) \_\_\_\_\_\_\_\_\_\_ their own trumpet. They tend to make (60) \_\_\_\_\_\_\_\_\_\_ of their accomplishments by being excessively modest and putting themselves down. But the most difficult part of British humor for foreigners is that much of British humor is not obviously hilarious and does not result in fits (61) \_\_\_\_\_\_\_\_\_\_ laughter. However, those unaccustomed to British humor need not worry, for the best thing about it is that it is not something you can learn, it’s something that (62) \_\_\_\_\_\_\_\_\_\_ on you.
+
+Part 3. Read the following passage and do the tasks that follow
+
+A. For many hundreds of thousands of people worldwide, online networking has become enmeshed in our daily lives. However, it is a decades-old insight from a study of traditional social networks that best illuminates one of the most important aspects of today’s online networking. In 1973 sociologist Mark Granovetter showed how the loose acquaintances, or ‘weak ties’, in our social network exert a disproportionate influence over our behaviour and choices. Granovetter’s research showed that a significant percentage of people get their jobs as a result of recommendations or advice provided by a weak tie. Today our number of weak-tie contacts has exploded via online social networking. “You couldn’t maintain all of those weak ties on your own,” says Jennifer Golbeck of the University of Maryland. “Online sites, such as Facebook, give you a way of cataloging them.” The result? It’s now significantly easier for the schoolfriend you haven’t seen in years to pass you a tip that alters your behaviour, from recommendation of a low-cholesterol breakfast cereal to a party invite where you meet your future wife or husband.
+
+B. The explosion of weak ties could have profound consequences for our social structures too, according to Judith Donath of the Berkman Center for Internet and Society at Harvard University. “We’re already seeing changes,” she says. For example, many people now turn to their online social networks ahead of sources such as newspapers and television for trusted and relevant news or information. What they hear could well be inaccurate, but the change is happening nonetheless. If these huge ‘supernets’ - some of them numbering up to 5,000 people - continue to thrive and grow, they could fundamentally change the way we share information and transform our notions of relationships.
+
+C. But are these vast networks really that relevant to us on a personal level? Robin Dunbar, an evolutionary anthropologist at the University of Oxford, believes that our primate brains place a cap on the number of genuine social relationships we can actually cope with: roughly 150. According to Dunbar, online social networking appears to be very good for ‘servicing’ relationships, but not for establishing them. He argues that our evolutionary roots mean we still depend heavily on physical and face-to-face contact to be able to create ties.
+
+D. Nonetheless, there is evidence that online networking can transform our daily interactions. In an experiment at Cornell University, psychologist Jeff Hancock asked participants to try to encourage other participants to like them via instant messaging conversation. Beforehand, some members of the trial were allowed to view the Facebook profile of the person they were trying to win over. He found that those with Facebook access asked questions to which they already knew the answers or raised things they had in common, and as result were much more successful in their social relationships. Hancock concluded that people who use these sites to keep updated on the activities of their acquaintances are more likely to be liked in subsequent social interactions.
+
+E. Online social networking may also have tangible effects on our well-being. Nicole Ellison of Michigan State University found that the frequency of networking site use correlates with greater self-esteem. Support and affirmation from the weak ties could be the explanation, says Ellison. “Asking your close friends for help or advice is nothing new, but we are seeing a lowering of barriers among acquaintances,” she says. People are readily sharing personal feelings and experiences to a wider circle than they might once have done. Sandy Pentland at the Massachusetts Institute of Technology agrees. “The ability to broadcast to our social group means we need never feel alone,” he says. “The things that befall us are often due to a lack of social support. There’s more of a safety net now.”
+
+F. Henry Holman, also at MIT, who studies the interface between online social networking and the real world, points out that increased visibility also means our various social spheres - family, work, friends - are merging, and so we will have to prepare for new societal norms. “We’ll have to learn how to live a more transparent life,” he says. “We may have to give up some ability to show very limited glimpses of ourselves to others.”
+
+G. Another way that online networking appears to be changing our social structures is through dominance. In one repeated experiment, Michael Kearns of the University of Pennsylvania asked 30 volunteers to quickly reach consensus in an online game over a choice between two colours. Each person was offered a cash reward if they succeeded in persuading the group to pick one or other colour. All participants could see the colour chosen by some of the other people, but certain participants had an extra advantage: the ability to see more of the participants’ chosen colours than others. Every time Kearns found that those who could see the choices of more participants (in other words, were better connected) persuaded the group to pick their colour, even when they had to persuade the vast majority to give up their financial incentive. While Kearns warns that the setting was artificial, he says it’s possible that greater persuasive power could lie with well-connected individuals in the everyday online world too.
+
+Questions 63-66: Look at the following findings and the list of researchers below. Match each finding with the correct researcher, A-F. Write the correct letter, A-F, in the space given at the end of each question.
+
+63\. People who network widely may be more able to exert pressure on others.
+
+64\. We have become more willing to confide in an extensive number of people.
+
+65\. There is a limit to how many meaningful relationships we can maintain.
+
+66\. There is a social advantage in knowing about the lives of our online contacts. \_\_\_\_\_\_\_\_\_\_
+
+\_\_\_\_\_\_\_\_\_\_
+
+\_\_\_\_\_\_\_\_\_\_
+
+\_\_\_\_\_\_\_\_\_\_
+
+List of researchers
+
+A. Mark Granovetter
+
+B. Judith Donath
+
+C. Robin Dunbar D. Jeff Hancock
+
+E. Nicole Ellison
+
+F. Michael Kearns
+
+Questions 69-70: Which TWO of these disadvantages of online social networking are mentioned in the reading passage? Circle your answers.
+
+A. Information from online social contacts may be unreliable.
+
+B. We may become jealous of people who seem to have a wide circle of friends.
+
+C. We may lose the ability to relate to people face-to-face.
+
+D. It is easy to waste a lot of time on social networking sites.
+
+E. Using social networking sites may result in a lack of privacy.
+
+WRITING (3.0 pts)
+
+Part 1. Finish each of the following sentences in such a way that it means the same as the original one. Write your answer in the spaces provided. (0.8 pts)
+
+71\. Redundancy has caused a lot of domestic problems.
+
+=> Many a ...................................................................................................................................... redundancy.
+
+72\. If the weather is fine, we may go camping at the weekend.
+
+=> Weather ............................................................................................................................... at the weekend.
+
+73\. It was not until five years had elapsed that the whole truth about the accident came out.
+
+=> Not for .................................................................................................................................................... out.
+
+74\. I think you should have some consideration for those who don’t have lives as privileged as yours.
+
+=> I think you should spare ................................................................................... aren’t as privileged as yours.
+
+75\. James and Jane do not think in a similar way and understand each other well about how to deal with the problem.
+
+=> James and Jane ..................................................................... wavelength about the solution to the problem.
+
+76\. Many creatures still survive and thrive in the harsh conditions of the deserts.
+
+=> Harsh ........................................................................................................................ still survive and thrive.
+
+77\. Nowadays I consider taking up a hobby to be far less important than I used to.
+
+=> Nowadays I don’t attach nearly ..................................................................................................... I used to.
+
+ Part 2. Rewrite each of the following sentences using the word given in bold so that it has the same meaning as the original one. You MUST use between 2-5 words, including the word given. (0.7 pts)
+
+79\. I know it was a waste of money - don’t make me feel worse about it! SALT
+
+=> I know it was a waste of money - there’s no need to ........................................................ by reminding me!
+
+80\. When they started their trek, they had no idea how bad the weather would become. OUTSET
+
+=> Nobody realized ........................................................................... trek how bad the weather would become.
+
+81\. Guy made absolutely sure nothing would go wrong when he planned the expedition. CHANCE
+
+=> Guy ............................................................................................................ when he planned the expedition.
+
+82\. As a pop singer, Kay has recently become involved in more diverse styles of music. BRANCHED
+
+=> As a pop singer, recently Kay ...................................................................................... other styles of music.
+
+83\. She speaks Spanish very well. COMMAND
+
+=> She .................................................................................................................................................. Spanish.
+
+84\. He is likely to be promoted. CARDS
+
+=> His promotion ...............................................................................................................................................
+
+85\. The meeting will be an opportunity for everyone to express their feelings. VENT
+
+=> The meeting will be an opportunity for everyone ................................................................... their feelings.
+
+Part 3. Write an academic essay of about 250 words on the following topic. (1.5 pts)
+
+It is reckoned that making mistakes is inevitable and can be a valuable growth experience for teenagers. To what extent do you agree with this idea?
+
+Use specific reasons and examples to support your answer.
+
+---------- HẾT ----------
+
+## Đáp án chính thức - Đề thi Chuyên Anh TP Hà Nội năm học 2023-2024
+
+SỞ GIÁO DỤC VÀ ĐÀO TẠO
+
+HÀ NỘI
+
+ĐÁP ÁN CHÍNH THỨC
+
+(Đáp án có 03 trang)
+
+KỲ THI TUYỂN SINH VÀO LỚP 10 THPT
+
+NĂM HỌC 2023-2024
+
+Môn thi: TIẾNG ANH (Chuyên)
+
+Ngày thi: 12/06/2023
+
+Thời gian làm bài: 120 phút, không kể thời gian phát đề
+
+LISTENING (2.0 PTS)
+
+Part 1. 1 C
+
+2 A
+
+3 B
+
+4 C
+
+5 A
+
+6 G
+
+7 A
+
+8 D
+
+9 C
+
+10 E
+
+Part 2. 11 C
+
+12 A
+
+13 E
+
+14 H
+
+15 G
+
+16 H
+
+17 C
+
+18 D
+
+19 G
+
+20 A
+
+PHONETICS (0.5 PTS)
+
+Part 1. 21 A
+
+22 B
+
+Part 2. 23 D
+
+24 C
+
+25 C
+
+VOCABULARY - GRAMMAR (2.5 PTS)
+
+Part 1. 26 C
+
+27 B
+
+28 D
+
+29 B
+
+30 A
+
+31 D
+
+32 B
+
+33 B
+
+34 D
+
+35 C
+
+Part 2. 36 fresh
+
+37 hold
+
+38 cost
+
+39 straight
+
+40 work
+
+Part 3. 41 inclusively
+
+42 feasibility
+
+43 uplifting
+
+44 irrelevant
+
+45 undeniably
+
+46 reassurance
+
+47 incomprehensible
+
+48 diversity
+
+Part 4. 49 B
+
+Part 5. 50 A
+
+READING (2.0 PTS)
+
+Part 1. 51 D
+
+52 C
+
+53 A
+
+54 B
+
+55 C
+
+56 D
+
+Part 2. 57 sense
+
+58 when
+
+59 blow
+
+60 light
+
+61 of
+
+62 grows
+
+Part 3. 63 F
+
+64 E
+
+65 C
+
+66 D
+
+67-68 B, E
+
+69-70 A, E
+
+WRITING (3.0 PTS)
+
+Part 1. 71 Many a domestic problem has been caused by redundancy.
+
+72 Weather permitting, we will go camping at the weekend.
+
+73 Not for another five years did the whole truth about the accident come out.
+
+74 I think you should spare a thought for those (people) whose lives aren't as privileged as yours.
+
+75 James and Jane are not on the same wavelength about the solution to the problem.
+
+76 Harsh as/though the conditions of the deserts are, many creatures still survive and thrive.
+
+77 Nowadays, I don't attach nearly as/so much importance to taking up a hobby as I used to.
+
+78 Not being particularly interested in technology, we chose not to attend the exhibition.
+
+Part 2. 79 I know it was a waste of money - there’s no need to rub salt into the/my wound by reminding me!
+
+80 Nobody realized at the outset of their trek how bad the weather would become.
+
+81 Guy left nothing to chance when he planned the expedition.
+
+82 As a pop singer, recently Kay has branched out into (singing) other styles of music.
+
+83 She has a good command of Spanish.
+
+84 His promotion is on the cards.
+
+85 The meeting will be an opportunity for everyone to give vent to their feelings.
+
+Part 3. Essay writing.

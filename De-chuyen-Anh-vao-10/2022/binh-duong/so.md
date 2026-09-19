@@ -1,0 +1,1470 @@
+---
+id: "2022-binh-duong-so"
+nam_thi: 2022
+nam_hoc: "2022-2023"
+tinh_thanh: "Bình Dương"
+don_vi: "Sở GD&ĐT Bình Dương"
+nguon_trang: "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-chuyen-hung-vuong-binh-duong-nam-hoc-2022-2023-mon-tieng-anh-ban-pdf/"
+ngay_truy_cap: "2026-09-19"
+xac_minh: "ban-dang-lai-co-tieu-de-ky-thi"
+chat_luong: "HTML/OCR-cần-soát"
+dap_an: "Chưa lấy được đáp án riêng"
+sha256_noi_dung: "9e718fc83b78fec284a34b7e156e2330ff975f265abb103644739b48437be7bd"
+---
+
+# Bình Dương — Chuyên Anh vào 10 — 2022-2023
+
+**Đơn vị/kỳ thi:** Sở GD&ĐT Bình Dương.
+
+> **Bản chép từ nguồn đăng lại, không phải bản phát hành của Sở/trường.** Đã kiểm tra nhãn kỳ thi, năm và môn chuyên trong nội dung nguồn; chưa đối chiếu thủ công từng câu với bản gốc. Không coi bản này là bản chuẩn tuyệt đối.
+
+## Nguồn và giới hạn
+
+- Trang đăng: [https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-chuyen-hung-vuong-binh-duong-nam-hoc-2022-2023-mon-tieng-anh-ban-pdf/](https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-chuyen-hung-vuong-binh-duong-nam-hoc-2022-2023-mon-tieng-anh-ban-pdf/).
+- Nội dung lấy từ [HTML](https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-chuyen-hung-vuong-binh-duong-nam-hoc-2022-2023-mon-tieng-anh-ban-pdf/); SHA-256 tệp nguồn: `a530cb64ba03780c526ecdde46a947d06b125b63619ad375720c0421eb5a95ba`.
+- Đáp án: Chưa lấy được đáp án riêng. Không tự sinh đáp án còn thiếu.
+- File nghe: không nhúng vào Markdown; xem trang/gói nguồn. Chưa xác minh khả năng phát hoặc sự đầy đủ của audio.
+- Bản HTML/OCR cần soát: có thể sai ký tự, đảo cột, mất gạch chân hoặc có đáp án xen câu hỏi; chưa xác nhận đầy đủ số trang của bản gốc. Không phải bản chép sạch.
+- Giữ nguyên nội dung bài đọc và cả lỗi cố ý trong bài sửa lỗi; không tự “sửa ngữ pháp” của đề.
+
+## Đề thi và phần kèm theo trong nguồn
+
+SỞ GIÁO DỤC VÀ ĐÀO TẠO
+
+ĐỀ THI CHÍNH THỨC
+
+Đề thi có 10 trang
+
+KỲ THI TUYÊN SINH VÀO LỚP 10 TRUNG HỌC PHỔ THÔNG CHUYÊN NĂM HỌC 2022 – 2023 Môn thi: Tiếng Anh
+
+Ngày thi: 04/6/2022
+
+Thời gian làm bài: 120 phút
+
+(Không tính thời gian phát đề và phần nghe)
+
+Thí sinh làm bài vào Phiếu trả lời
+
+Shared by Angels of
+
+I. LISTENING: (50 points)
+
+Otto Channel
+
+Each recording will be played twice.
+
+08.0
+
+Part 1. Listen and write NO MORE THAN ONE WORD for each answer.
+
+John
+
+Jane
+
+(1) Tuesday
+
+(2) Economics.
+
+Day of arrival
+
+Subjects studying
+
+Monday's 9 a.m lecture
+
+Monday's 2 p.m. lecture
+
+Location of sport
+
+Thursday
+
+Economics
+
+Maths
+
+French
+
+French
+
+Maths
+
+Sports hall
+
+Wednesday afternoon sport selected (4) Volleybal
+
+Part 2. Listen and choose the best answer for each question.
+
+History Music
+
+(3) tastory
+
+free
+
+volleyball
+
+(5) antona sports hall
+
+existy technology
+
+6\. Students entering the design competition have to
+
+A. produce an energy-efficient design B. adapt an existing energy-saving appliance C. develop a new use for current technology
+
+7\. John chose a dishwasher because he wanted to make dishwashers
+
+A. more appealing
+
+B. The stone in John's "Rockpoll" design is used
+
+A. for decoration
+
+B. more common pho bien
+
+C. more economical Save
+
+B. to switch it on
+
+C. to stop water escaping
+
+B. dries the dishes
+
+9\. In the holding chamber, the carbon dioxide
+
+A. changes back to a gas
+
+10\. At the end of the cleaning process, the carbon dioxide
+
+A. is released into the air
+
+B. is disposed of with the waste
+
+C. is allowed to cool
+
+C, is collected ready to be re-used
+
+up their new Part 3. Listen and choose from the list (A-H) the reason each speaker gives for deciding to take interest. Use the letters only once. There are three extra letters which you do not need to use.
+
+A. to help other people
+
+B. to make some money
+
+E. to try to win a prize
+
+F. to overcome a fear
+
+C. to pass the time G. to get fit
+
+D. to meet new people H. to make a change from their work
+
+Questions:
+
+Speaker 1
+
+(11) D
+
+Speaker 2
+
+(12) E
+
+無
+
+Speaker 3 (13) G
+
+Speaker 4
+
+(14)
+
+Speaker 5 (15) E
+
+Part 4. Listen and write NO MORE THAN TWO WORDS for each answer.
+
+7.30 p.m. "Art Review": Student Art Exhibition
+
+national museum
+
+in London. The exhibition is of work by students in the (17)perior year of their art course. At the exhibition, you can see things as different as curtains and (18)class war Some of the works of art have been made using (19)
+
+This evening's programme is taking place at the (16) o review
+
+8.00 p.m. Play "The Vanishing Lady"
+
+technology.
+
+materials
+
+A (21)
+
+In the play, a young couple on a train think they hear the sound of someone using a (20) waiter tells the couple about an old lady whom he has seen. After writing this play, the author, Porten, became
+
+a writer for (22) fillos.
+
+Đề thi chuyên Anh 10 \_ NH2022 2023
+
+1
+
+9.30 p.m. "Business Scenes": Interview with Peter Field
+
+Peter used to work for a (23)
+
+Peter says the material he uses for his boats is a particular kind
+
+of
+
+Acquaintances
+
+(24) \_\_\_\_\_\_\_\_\_\_. Peter collects (25) as a hobby.
+
+II. READING (50 points)
+
+models
+
+For questions 1-10, read the passage and do as directed.
+
+To examine your career options, you should first gather as much information as possible.
+
+Here are some places where you can get advice.
+
+School
+
+those with acc Read the text
+
+Write:
+
+T
+
+if the s
+
+F
+
+if the s
+
+NG
+
+if ther
+
+6\. Job seekers
+
+Your careers library will have some basic information on a variety of occupations. Ask the librarian questions 7. Career Info
+
+like:
+
+• What does someone with this job do?
+
+What subjects do I need to study?
+
+• What courses are available?
+
+• How long will it take to train?
+
+Shared by Angels of Otto Channel
+
+B. Prospective 9. Job opport
+
+10\. Tertiary in
+
+For question
+
+Most
+
+Also use careers advisors to expand your list of career ideas by finding out about related options. Many schools he questions have work experience programs which give you the chance to check out a job which interests you. Career Information Centres
+
+east three ha Stand
+
+Resources in these centres include printed information about jobs, and tertiary study reference materials such as university and college handbooks. There are 12 Career Information Centres throughout the country. Assistance peakers of a
+
+from staff is also available.
+
+Employers
+
+You could talk to employers in areas you find interesting. You might ask them questions such as:
+
+• What are the most demanding aspects of this work?
+
+• What is the most preferred method of entry?
+
+• Are there courses which will prepare me for this work?
+
+Parents, friends, relatives
+
+Relatives and friends can be helpful in giving you insights into the daily routine of an occupation. By questioning them, you can expand your knowledge of the work. Another option is to use this group to arrange industry contacts or check out possible vacancies.
+
+Universities and colleges
+
+re well-defi lioms that a onsidered a
+
+owever, re ppropriate ictionaries
+
+Colle
+
+ther slang ccepts certa require its
+
+It ha
+
+o
+
+f a large b
+
+These institutions have careers advisors for prospective students. You can also take advantage of their open days. ociety; sec During these days, you can have a look at the facilities offered and chat to the students and lecturers. Internet
+
+nd the maj
+
+Fina
+
+Don't forget the Internet. One great site to start at is the government careers directory.
+
+or scholars
+
+sing colloc
+
+Getting it all together
+
+You will no doubt gather lots of information, but it is easy to forget details, so you should collect the information 1 three typ using a folder or filing system. Check that your information is kept up-to-date.
+
+L. Which
+
+A. Sta
+
+Using the words or phrases provided to complete the summary below.
+
+open days
+
+work experience programs
+
+B. Idio
+
+C. Dif
+
+career options
+
+D. Dic Which
+
+A. It c
+
+lecturers A
+
+B. It i
+
+university and college handbooks
+
+industry contacts
+
+C. It i
+
+D. It i
+
+knowledge of the work
+
+careers advisors
+
+Both schools and universities have (1)
+
+run (2)\_\_\_\_\_\_\_\_\_\_ for practice at specific jobs. There are several (3) Đề thi chuyên Anh 10 \_ NH2022-2023
+
+Career Information Centres
+
+Which
+
+A. Co
+
+basic information
+
+B. Fa
+
+C. In
+
+to assist students with job information. Schools may also which advise clients on careers.
+
+D. C
+
+Acco
+
+2
+
+thì cho
+
+kind of
+
+estions
+
+schools
+
+such as
+
+sistance
+
+Acquaintances can sometimes provide (4).
+
+and colleges also hold (5)
+
+for students. Finally, for
+
+Read the text and decide whether the statements are TRUE (T), FALSE (F), or NOT GIVEN (NG). those with access to the Internet, the government careers directory is a useful source of information.
+
+if the statement agrees with the information if the statement contradicts the information NG if there is no information on this
+
+Write:
+
+T
+
+F
+
+Shared by Angels of
+
+Otto Channel
+
+7\. Career Information Centres do not offer information on tertiary courses. 6. Job seekers should speak to their school principals about future careers. 8. Prospective employers could be consulted.
+
+9\. Job opportunities may be discovered through friends.
+
+10\. Tertiary institutions encourage prospective students to enroll in their courses.
+
+For questions 11 - 20, read the following passage and choose the correct answer (A, B, C or D) for each of
+
+the questions.
+
+Most languages have several levels of vocabulary that may be used by the same speakers. In English, at least three have been identified and described.
+
+words and
+
+Standard usage includes those words and expressions understood, used, and accepted by a majority of the speakers of a language in any situation regardless of the level of formality. As such, these words and expressions are well-defined and listed in standard dictionaries. Colloquialisms, on the other hand, are familiar idioms that are understood by almost all speakers of a language and used in informal speech of writing, but not considered acceptable for more formal situations. Almost all idiomatic expressions are colloquial language. Slang, however, refers to words and expressions understood by a large number of speakers but not accepted as appropriate formal usage by the majority. Colloquial expressions and even slang may be found in standard dictionaries but will be so identified) Both colloquial usage and slang are more common in speech than in writing. Colloquial speech often passes into standard speech. Some slang also passes into standard speech, but other slang expressions enjoy momentary popularity followed by obscurity. In some cases, the majority never estioning accepts certain slang phrases, but nevertheless retains them in their collective memories. Every generation seems
+
+contacts to require its own set of words to describe familiar objects and events.
+
+It has been pointed out by a number of linguists that three cultural conditions are necessary for the creation of a large body of slang expressions. First, the introduction and acceptance of new objects and situations in the pen days. society; second, a diverse population with a large number of subgroups; third, association among the subgroups
+
+and the majority population.
+
+ormation
+
+also
+
+eers.
+
+Finally, it is worth noting that the terms "standard," "colloquial," and "slang" exist only as abstract labels for scholars who study language. Only a tiny number of the speakers of any language will be aware that they are using colloquial or slang expressions. Most speakers of English will, during appropriate situations, select and use all three types of expressions.
+
+11\. Which of the following is the main topic of the passage?
+
+A. Standard speech and writing
+
+B. Idiomatic phrases
+
+C. Different types of vocabulary/
+
+D. Dictionary usage
+
+12\. Which of the following is true of standard usage?
+
+A. It can be used in formal or informal settings.
+
+B. It is limited to written language.
+
+C. It is only understood by the upper classes.
+
+D. It is constantly changing.
+
+13\. Which of the following is true of colloquialisms?
+
+A Colloquialisms are found in both speech and writing in formal settings.
+
+B. Familiar situations that are experienced by most people of a language are called colloquialisms.
+
+C. Informal language contains colloquialisms, which are not found in more formal language.
+
+D Colloquialisms can be used in both formal and informal speech in appropriate situations.
+
+14\. According to the author, what is slang?
+
+Đề thi chuyên Anh 10 \_ NH2022-2023
+
+3
+
+Words and phrases accepted by the majority for formal usage and found in standard dictionaries.
+
+B. Words and phrases understood by the majority but not found in standard dictionaries. C. Words and phrases that are understood by a restricted group of speakers.
+
+D. Words and phrases understood by a large number of speakers but not accepted as formal 15. The word "appropriate" is closest in meaning to
+
+A. old
+
+B. large
+
+C. correct
+
+D. important
+
+16\. The word "them" refers to
+
+A. words
+
+B. slang phrases
+
+C. memories
+
+D. the majority
+
+17\. Where colloquial language and slang are most commonly used?
+
+A) in speech than in writing
+
+B. in standard dictionaries
+
+C. in formal situations
+
+D. in standard writing
+
+25\. A. progra 26. A. comed
+
+usage.
+
+27\. A. taken
+
+28\. A. Taken
+
+18\. The author mentions all of the following as requirements for slang expressions to be created EXCEPT
+
+A new situations
+
+B. a new generation
+
+C. interaction among diverse groups
+
+D.a number of linguists
+
+19\. The word "diverse" could best be replaced by
+
+A) different
+
+29\. A. one 30. A. mind
+
+You are goi (A-D). The
+
+recommen
+
+states that says visito points out suggests v says visito mentions
+
+advises vi
+
+states that
+
+warns vis
+
+A Rodas Some of S these are o to the sum
+
+At first sig the beach pine from
+
+the beach!
+
+B Whitel Australia
+
+B. minor
+
+C. numerous
+
+D. major
+
+20\. It can be inferred from the passage that the author
+
+A. does not approve of either slang or colloquial speech in any situation
+
+B. approves of colloquial speech in some situations, but not slang C. approves of slang and colloquial speech in appropriate situations
+
+D. does not approve of colloquial usage in writing
+
+For questions 21-30, read the passage and choose the correct word (A, B, C or D) for each of the blanks.
+
+After more than fifty years of television, it might seem only obvious to conclude that it is here to (21) There have been many objections to it during this time, of course, and (22) a variety of grounds. Did it cause eye-strain? Was the (23) bombarding us with radioactivity? Did the advertisements contain subliminal messages, persuading us to buy more? Did children turn to violence through watching it, either because so (24) programmes taught them how to shoot, rob, and kill, or because they had to do something to counteract the hours they had spent glued to the tiny screen? Or did it simply create a vast passive (25)
+
+? On the other hand, did it increase anxiety by drugged by glamorous serials and inane situation (26) sensationalizing the news (or the news which was (27) by suitable pictures) and filling our living rooms
+
+with war, famine and political unrest? (28) in all, television proved to be the all-purpose scapegoat for
+
+how
+
+the second half of the century, blamed for everything, but above all, eagerly watched. For no (29). much we despised it, feared it, were bored by it, or felt that it took us away from the old paradise of family conversation and hobbies such as collecting stamps, we never turned it off. We kept staring at the screen, aware that our own tiny (30) was in if we looked carefully.
+
+21\. A. be
+
+22.A, with
+
+B. stay
+
+C. exist
+
+B. over
+
+C. by
+
+D. prolong D. on
+
+23\. A. screen
+
+B. danger
+
+C. machine
+
+24\. A. that
+
+B. far
+
+C. many
+
+D. reason D. what
+
+4
+
+backgrou
+
+islands, t
+
+expect in
+
+sand, in
+
+the islan
+
+and even
+
+Matir
+
+Matira B green wa ocean
+
+Matira i and the s
+
+visit the and whe DAnse This mu especial
+
+behind betwee
+
+Dè thi ch
+
+Đề thi chuyên Anh 10 \_NH2022-2023
+
+(21)
+
+ads.
+
+tain
+
+use
+
+to
+
+by
+
+ms
+
+for
+
+OW
+
+ily
+
+re
+
+25\. A. programme 26. A. comedies
+
+27\. A. taken
+
+28\. A. Taken
+
+29\. A. one
+
+30\. A. mind
+
+B. person
+
+B. programmes B. presented B. All
+
+B. matter
+
+B. reflection
+
+(C) audience
+
+D. information
+
+C. tragedies C. capable C. One
+
+C. difference
+
+C. situation
+
+D. consequences D. accompanied D. Thus
+
+D. reason
+
+D. consciousness
+
+You are going to read an article from a travel magazine. For questions 31-40, choose from the sections (A-D). The sections may be chosen more than once.
+
+recommends paying the entrance fee?
+
+states that the beach has featured in advertisements? says visitors may be surprised by the water temperature? points out that the water is quite shallow? suggests visitors should take photos of the beach? says visitors can walk on the beach in their bare feet? mentions a pleasant smell from the trees? advises visitors to get to the beach early in the day? states that it is not always possible to visit the beach? warns visitors to the beach to protect their skin?
+
+31.
+
+B
+
+32.
+
+DC 33. A
+
+34\. D
+
+Shared by Angels of Otto Channel
+
+35\. D
+
+37.
+
+B
+
+39.
+
+B
+
+40.
+
+36.
+
+38.
+
+Four of the world's best beaches Which are the best beaches on Earth? Here are our top four
+
+A Rodas Beach, the Cies Islands, Spain
+
+Some of Spain's most spectacular beaches lie in Galicia on the Atlantic coast, and perhaps the most stunning of these are on the Cies Islands. These unspoilt and uninhabited islands are a national park, with public access limited to the summer months, and contain the perfectly-shaped Rodas Beach with its pure white sand and clear blue sea. At first sight it almost seems tropical, until dipping your toe in the water encourages you to spend a lazy day on the beach rather than dive in for a swim. There you can enjoy the quiet, the warmth of the sun and the scent of pine from the nearby woods, and later on have an excellent meal in the reasonably-priced fish restaurant close to the beach.
+
+BWhitehaven Beach, Whitsunday Islands, Australia
+
+Australia is famous for wonderful beaches, and Whitehaven must surely be one of its very best. Set against a background of amazingly-green tropical forest, and with views across the clear blue ocean to distant small islands, the sandy white beach is like something from a picture postcard or a TV commercial. As you would expect in such a sunny climate, the water is pleasantly warm, ideal for swimming on or below the surface. The sand, in contrast, always remains cool as it is of a type that reflects the sunlight, so you won't need sandals. As the island has no permanent inhabitants, and most day trippers leave by boat quite early, in the late afternoon and evening you can have the place almost to yourself. CMatira Beach, Bora Bora, Tahiti
+
+Matira Beach on the Pacific island of Bora Bora has incredibly white sand, beautiful fish swimming in clear blue- green water, and stunning sunsets. The air temperature hardly varies around the year, and neither does that of the ocean - which is only waist-high even hundreds of metres from the shore. And unlike windier beaches nearby, Matira is quite well-sheltered. There isn't, however, much shade, so it is advisable to use plenty of sun cream, and the sand can feel uncomfortably hot unless you wear beach shoes or something similar. There is no charge to visit the beach, yet it rarely becomes crowded at any time of day. Everyone should go there at least once in life, and when you do, make sure you have your photo taken as the sun goes down.
+
+DAnse Source d'Argent Beach, Seychelles
+
+This must be one of the most photographed beaches in the world, so don't forget to get some shots of your own, especially of the sea and the sand framed by the background of enormous pink rocks, with tall palm trees right behind them. It's easy to see why commercials have been made there. The patches of brilliantly white sand between those beautiful rocks make it the perfect place to spend a relaxing day, and it is well worth the small
+
+Đề thi chuyên Anh 10 NH2022-2023
+
+5
+
+amount it costs for access. The best spots - those with both sunshine and shade - quickly get taken, so make sure you arrive well before the sun starts to beat down and the sand heats up.
+
+For questions 41-50, read the text below and think of ONE word that best fits each gap.
+
+The world's friendliest city
+
+A team social psychologists from California has spent six years studying the reactions of people in cities around the world to (41) Same situations. The results show that cities where people have less money generally have friendlier populations. Rio de Janeiro in Brazil, which is often known for its crime, comes out top, and the capital of Malawi, Lilongwe, comes third.
+
+But what makes one city friendlier than (42) others? The psychologists from California State University say it has got more to do with environment than (43)
+
+or nationality. They carried out a study into the way locals (44)
+
+strangers in 23 cities around the world. The team (45) did their research through a series of tests, where they (46)
+
+pens or pretended they were blind and needed help crossing the street. The study concludes that people are more helpful in cities (47)
+
+a more relaxed way of life such as Rio. While they were there, researchers received help in 93 percent of cases, and the percentage in Lilongwe was only a littl lower. However, richer cities such as Amsterdam and New York are (48) the least friendly. Inhabitant of Amsterdam helped the (49) in 53 percent of cases and in New York just 44 percent. The psychologist found that, in these cities, people tend to be short of time, so they hurry and often (50) ignore strangers.
+
+III. COMMUNICATION (5 points)
+
+Shared by Angels of
+
+Otto Channel
+
+no
+
+Mark the letter A, B, C, or D to indicate the correct answer to each of the following conversations. 51. Peter and Mary are talking about social networks.
+
+- Peter: "Using social networks may have negative effects on students."
+
+- Mary:"
+
+It distracts them from their studies."
+
+A. I'm not sure about that
+
+B. I don't quite agree
+
+D.I couldn't agree with you more
+
+59\. Yo
+
+AI
+
+60.
+
+A. S
+
+61\. Ma
+
+A.1
+
+C.
+
+62\. Nov
+
+A. b
+
+63, A q
+
+A. I
+
+C.a
+
+64.
+
+A.If
+
+65\. If yo
+
+Ava
+
+66\. Anci
+
+A. is 67. Jake
+
+A. an
+
+C. a
+
+68.
+
+A. He
+
+C. Th
+
+69.
+
+A. Su
+
+C. Sh
+
+70\. On be
+
+C. I don't share your opinion
+
+52\. Ken and Tom are high-school students. They are discussing where their study group will meet.
+
+- Ken: "Where is our geography group going to meet next weekend?"
+
+- Tom: "
+
+A. Studying in a group is great fun.
+
+C. Why don't you look at the atlas?
+
+53\. Adam and Janet are at the school canteen.
+
+- Adam: "
+
+- Janet: "Yes, please.'
+
+A. Do you mind if I sit here?
+
+C. It's a bit hot in here, isn't it?
+
+B. We are too busy on weekdays.
+
+The library would be best.
+
+B. Can you pass me the salt, please? D. Would you like a cup of coffee?
+
+54\. - Ron: "Your speech this morning was just beyond my expectation."
+
+- Harry:
+
+A. It's OK. Thanks for your nice words. C. It was my pleasure.
+
+B. Not at all. It was just OK.
+
+D. Thanks. Without your help, I couldn't succeed.
+
+55.- Nick: "Could you show me how this machine works, please?"
+
+- David:
+
+A Let's begin by reading its manual together. C. Well, it read quite well.
+
+IV. GRAMMAR AND VOCABULARY (50 points) Choose the best word or phrase (A, B, C or D) to fill in 56. This kind of hot and spicy food is very typical
+
+Alof
+
+B. in
+
+57\. He admits that quite
+
+A. a little 58. She
+
+B. Yes. The show is terrific!
+
+D. It's good except that it takes hours to get there
+
+each blank.
+
+the food in the south of the country.
+
+D. at
+
+C. about Nery experienced climbers have died on the West Ridge route.
+
+C. some
+
+D. few
+
+B. a few
+
+for her parents' support during her university education, but she preferred to work part-tim
+
+and support herself.
+
+A. could have asked B should have asked C. ought to ask D. must have asked Đề thi chuyên Anh 10 \_NH2022-2023
+
+A her C. Ma 71. I'd rath A. send
+
+72\. She m A. opp
+
+73\. People
+
+A. adop 74.
+
+A. Tre 75, People A, unde
+
+476\. Agatha A. drop 77. They r A. breal
+
+78\. Studies A intak 79. He's g A. shoe
+
+80\. Our go closures an A. effor
+
+81\. He had A. belly
+
+6
+
+Đề thi chuyên
+
+make sure
+
+e in cities generally p, and the
+
+University to the way gh a series
+
+59\. Your sister has lost a lot of weight. She must have been on a diet,
+
+60.
+
+A. mustn't she
+
+A. Such
+
+B. needn't she
+
+C. haven't she
+
+?
+
+D, hasn't she
+
+was expected, these discussions raised temperatures in the chapter hall.
+
+B. So
+
+C. As
+
+61\. Mary has been expelled from school. She maintains
+
+A. to have been treated unfairly
+
+C. she was treated unfairly
+
+62\. Nowadays children would prefer history
+
+A. be taught
+
+B. teach
+
+B. to be treating unfairly
+
+D. to treat unfairly
+
+D. That
+
+in more practical ways. C.to be taught
+
+63, A quick look would reveal that France has twice
+
+A. more televisions than C. as many televisions as
+
+computers.
+
+B. many as televisions as
+
+D. as many as televisions
+
+anyone call, please ask them to call back later.
+
+B. Should
+
+65\. If you book in advance, you will
+
+The study While they
+
+64.
+
+A.If
+
+only a little
+
+Inhabitants
+
+sychologists gers.
+
+A. almost
+
+B. mostly
+
+C. When
+
+D. to be teaching
+
+D. Unless
+
+certainly have a better table at our restaurant.
+
+C. the most
+
+D. most
+
+Chad been
+
+66\. Ancient civilizations were not aware that the earth
+
+A. is
+
+B. was
+
+67\. Jake, the boy who sat beside me in class, used to wear
+
+A. an old cotton white
+
+a sphere.
+
+D. has been shirt to school.
+
+C. a white old cotton
+
+Ban old white cotton D. a cotton old white
+
+68.
+
+no one was absent from the farewell party last night.
+
+ceed.
+
+to get there.
+
+work part-tim
+
+6
+
+69.
+
+A. Heavily as it rained
+
+C. Though it rains heavily
+
+that she burnt to ears.
+
+A. Such was angry girl
+
+C. She was angry so
+
+70\. On being told about her sack,
+
+A her boss felt sorry for Mary<
+
+C. Mary's face turned pale
+
+71\. I'd rather you
+
+A. send
+
+72\. She missed a
+
+A. opportunity
+
+73\. People should
+
+Shared by Angels of Otto Channel
+
+B. As it rained heavily D. In spite of the heavily rain
+
+B. So angry she was
+
+D. Her anger was such
+
+B. Mary was shocked
+
+the completed form back as soon as possible.
+
+B. sent
+
+C. had sent
+
+D. her boss changed his attitude
+
+D. have sent
+
+D. fortune
+
+D. adjust
+
+C. luck
+
+C. adjoin erosion.
+
+of promotion when she turned down the job of assistant manager.
+
+B, chance green lifestyle to help conserve the natural resources. B. adapt on barren slopes can help prevent A. Trees to be planted B. Planting tree 75, People under a lot of stress may
+
+74.
+
+A. adopt
+
+A, undertake
+
+B.experience
+
+C. Trees being planted headaches, minor pains, and
+
+C. assume
+
+\*76. Agatha became jealous when Jack's career started
+
+A. dropping off 77. They reported a sudden
+
+B. going on
+
+B. outbreak
+
+A. breakthrough 78. Studies suggest that regular
+
+A intake
+
+B. ingest 79. He's going to have to pull his
+
+B. socks
+
+A. shoes
+
+C. taking off
+
+D. That trees are planted sleeping difficulties.
+
+D. shoulder
+
+of the disease in the south of the country. C. breakdown
+
+80\. Our government has taken various closures and event cancellations
+
+.
+
+A. efforts
+
+81\. He had butterflies in his
+
+B. measures
+
+B. stomach
+
+A. belly Đề thi chuyên Anh 10 \_ NH2022-2023
+
+Succeed
+
+D. coming on
+
+D. outcome
+
+D. eating
+
+D. sleeves
+
+of the vitamin significantly improves brain function.
+
+C. swallow
+
+up if he wants to stay in the team.
+
+C. sandals
+
+against the new coronavirus, including requesting school
+
+C. attempts
+
+D. methods
+
+D. lung
+
+7
+
+while waiting for the results of his exam.
+
+C. throat
+
+82\. Men are more expected to be a breadwinner in a family than women. (CLOSEST meaning)
+
+A. the family member who does most of the housework
+
+B. the family member who is responsible for childcare
+
+C. the family member who is willing to share the domestic chores
+
+83\. My boss runs a very tight ship here, and he expects all his employees to follow the regulations as well as
+
+D. the family member who earns money that the family needs
+
+take good care of their own work. (OPPOSITE meaning)
+
+A. controls an inflexible system C. runs faster than others
+
+B. has a good voyage
+
+D. controls things inefficiently
+
+84\. Drivers are advised to get enough petrol because filling stations are few and far between on the highway.
+
+(OPPOSITE meaning)
+
+A. easy to find
+
+B. difficult to access C. unlikely to happen
+
+D. impossible to reach
+
+85\. Critics say Russian authorities turn a blind eye to routine violations of safety norms and regulations,
+
+D. supervise with open pit mines often located dangerously close to towns and villages. (CLOSEST meaning)
+
+A. overlook
+
+B. notice
+
+C. wink
+
+Choose the underlined part (A, B, C, or D) that needs correcting.
+
+86\. (A) On the floor of the Pacific Ocean (B) is hundreds of flat-tipped mountains (C) more than a mile
+
+beneath sea level.
+
+(
+
+B. Not until his C. Only if the c D. But for the 108. Had the anno A. The late ann B.More people C. The lecture D. Few people 109. You should h A. You persuad B. You didn't p CAIf I were in y D. It was essent 110. They think the
+
+A. The owner o B. The owner of
+
+C. The owner of
+
+D. The owner of
+
+87\. Biodegradable (A) package helps (B) to limit the (C) amount of harmful chemicals ((D) released into 111. The film bear
+
+atmosphere.
+
+88\. (A) The salary of a professor (B) is (C) higher than (D) a secretary.
+
+89\. A football match (A) begins (B) with the ball (C) kicking forwards from a spot (D) in the centre of the fiel 90. Vaccines (A) are one of the most important (B) measures of (C) prevention medicine to protect the populati from diseases and (D) infections.
+
+91\. I (A) tried to (B) explain him the problem, but he (C) had difficulty (D) understanding me. 92. Unfortunately, (A) the species has (B) gotten extinct (C) due to (D) human activity.
+
+93\. (A) Many of the population in the (B) rural areas is (C) composed of manual (D) laborers. 94. (A) Not until (B) recent (C) has interest in synthetic fuels (D) been revived.
+
+95\. Some (A) tree frogs (B) can alter their colors (C) in order to blend (D) to their environment.
+
+Supply the appropriate form of the words in brackets.
+
+96\. His bread is completely free from artificial DAC PRESERVE).
+
+from sheep farming, breathtakingly breath rating breathtakingly b 98. The full moon was (BREATH)
+
+beautiful.
+
+A. The film and B. The film is v
+
+C.The film and
+
+112\. "Why don't yo D. The film is co
+
+A. Bob suggeste B. Bob asked Li C.Bob suggested D.Bob suggested
+
+113\. Many countrie A. The pollution B. By putting into prevented.
+
+C.The sea will c
+
+and driving more people away D. A lot of count
+
+Sustainable
+
+boom in house prices.
+
+14\. The head teach A. The girl's beh B. The head tead
+
+Informative
+
+choice
+
+99\. They are suffering a serious increase in inflation and an (SUSTAIN "Swotonoblo 100. For many college graduates, job hunting can be a (HEART)ohta struggle, heart-broken 101. The bustling (TOWN)own are surrounded by upscale shopping centers and malls. 102. We need to spend more time researching our options so that we can make an (INFORM) 103. Melbourne is a (CULTURE) city that is characterized by its people rather than any geographica
+
+feature.
+
+104\. They refused the appeal without offering any (REASON) reasonable.
+
+argument.
+
+to unlock the device.
+
+105\. On some phones you can set up fingerprint (AUTHENTIC),hentic
+
+V. WRITING (45 points)
+
+Part A: Choose the best answer for each of the following questions. 106. I thought it was not necessary to book tickets for the film in advance, but I was wrong.
+
+A. I needn't have booked tickets for the film in advance. B. I couldn't have booked tickets for the film in advance. CA should have booked tickets for the film in advance. D. I must have booked tickets for the film in advance.
+
+107\. The coach changed his tactics in the second half. His football team won the match.
+
+C. The girl's bel D. The head tea 15. The number o
+
+A.
+
+There has be
+
+B. It has been th C. The imposing D. There have b
+
+art B: Finish the ot change the g WORDS) on your
+
+Example: I re
+
+A. Without the coach's change of tactics in the second half, his football team could have won the match Answer:
+
+Đề thi chuyên Anh 10 \_ NH2022-2023
+
+一个
+
+HA
+
+8 thi chuyên Anh 10
+
+1
+
+ns as well as
+
+the highway.
+
+ulations,
+
+than a mile (D) released into the
+
+entre of the field
+
+ect the population
+
+people away
+
+se prices. keen
+
+6 in formative
+
+choice.
+
+any geographical
+
+e.
+
+B. Not until his football team had won the match did the coach change his tactics in the second half. C. Only if the coach had changed the tactics in the second half could his football team have won the match. D. But for the coach's change of tactics in the second half, the football team wouldn't have won the match. 108. Had the announcement been made earlier, more people would have attended the lecture.
+
+A. The late announcement would have made more people attend the lecture. B. More people came late to the lecture because of the late announcement. C. The lecture was held so late that a few people would have attended it. D. Few people came to the lecture because the announcement was not made earlier. 109. You should have persuaded her to join our club.
+
+A. You persuaded her to join our club but she didn't agree.
+
+B. You didn't persuade her to join our club.
+
+CHfI were in your position, I would persuade her to join our club. D. It was essential to persuade her to join our club but you didn't. 110. They think that the owner of the house has gone abroad.
+
+A. The owner of the house is thought to go abroad.
+
+B. The owner of the house is thought to have been gone abroad. C. The owner of the house is thought to have been going abroad. X D. The owner of the house is thought to have gone abroad. 111. The film bears little resemblance to the original novel.
+
+A. The film and the original novel resemble in many ways. B. The film is very similar to the original novel.
+
+C.The film and the original novel differ in some ways. D. The film is completely different from the original novel. 112. "Why don't you have your room repainted?" said Bob to Linda.
+
+A. Bob suggested having Linda's room repainted.
+
+B. Bob asked Linda why she didn't repaint her room.
+
+C.Bob suggested that Linda should have her room repainted.
+
+D. Bob suggested that Linda should have repainted her room.
+
+113\. Many countries share the view that drastic measures must be taken to stop the pollution of the seas.
+
+A. The pollution of the seas can only be prevented provided that many countries follow the same policy. B. By putting into practice a series of precaution, it is believed that the pollution of the seas will be prevented.
+
+C.The sea will continue to be polluted unless this agreement is accepted by a majority of the countries. D. A lot of countries agree that it is essential to take strong action to put an end to the pollution of the sea. 114. The head teacher was at a loss to understand the girl's behavior.
+
+A. The girl's behavior was nothing but a shock to the head teacher.
+
+B. The head teacher thought that the girl's behavior was understandable.
+
+C. The girl's behavior was incomprehensible to the head teacher.
+
+D. The head teacher treated the girl with suspicion because she didn't understand her. 115. The number of accidents has gone down steadily since the speed limit was imposed.
+
+A. There has been a steady decline in the number of accidents since the speed limit was imposed. B. It has been the speed limit that leads to the steady decrease in the number of accidents. C. The imposing of speed limit has resulted from the steady decline in the number of accidents. D. There have been fewer accidents than before since they imposed the speed limit.
+
+Part B: Finish the second sentence so that it has the same meaning as the first one, using the given word. I not change the given word. Use NO MORE THAN 5 WORDS. Write the answers (NO MORE THAN WORDS) on your answer sheet.
+
+Example: I regret not speaking to Marge sooner. (HAD)
+
+won the match. Answer:
+
+8
+
+→ I wish I
+
+sooner.
+
+HAD SPOKEN TO MARGE
+
+Đề thi chuyên Anh 10 \_ NH2022-2023
+
+9
+
+with
+
+116\. You should get used to being under pressure if you want to make it in this field of work. (HANDLE) → To survive in this field of work, you should handle Out pressure.
+
+117\. We demanded to see the manager to lodge our complaint. (SEEING)
+
+→ We doject to Seera the manager to lodge our complaint. Look forward to
+
+118\. Mary doesn't realize how lucky she has been. (LITTLE)
+
+→ Little has Marhow lucky she been.
+
+119\. Someone stole my bracelet as I was leaving for the airport. (ROBBED) → I was robbed Thith →I
+
+my bracelet as I was leaving for the airport.
+
+Shared by Angels of
+
+Otto Channel
+
+120\. A person is more likely to get a cold in the winter than in the summer. (FEWER) → Most people get fewer cold in the summer than in the winter.
+
+Part C: Write an essay of at least 200 words on the following topic:
+
+Nowadays, it only takes a few seconds to translate any foreign language into our mother tongue and vice versa thanks to Google Translate or other translation apps. Therefore, some people think that it is a waste of time to learn a foreign language. To what extent do you agree or disagree?
+
+Give reasons for your answer and include any relevant examples from your own knowledge or experience.
+
+THE END
