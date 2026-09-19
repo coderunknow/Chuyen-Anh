@@ -21,14 +21,14 @@ HEADERS = {'User-Agent': 'ExamArchiveResearch/1.0 (public educational sources; l
 MAX_BYTES = 15 * 1024 * 1024
 
 
-def download(url):
+def download(url, max_bytes=MAX_BYTES):
     with requests.get(url, headers=HEADERS, timeout=(15, 60), stream=True) as r:
         r.raise_for_status()
         parts, total = [], 0
         for part in r.iter_content(65536):
             total += len(part)
-            if total > MAX_BYTES:
-                raise ValueError('Source exceeds 15 MiB limit')
+            if total > max_bytes:
+                raise ValueError(f'Source exceeds {max_bytes // 1024 // 1024} MiB limit')
             parts.append(part)
         return b''.join(parts), r.url
 
@@ -47,7 +47,7 @@ def save_page(item):
         links = []
         for el in soup.select('a[href], iframe[src], embed[src], object[data]'):
             link = urljoin(final, el.get('href') or el.get('src') or el.get('data'))
-            if any(ext in link.lower() for ext in ['.pdf', '.docx', 'drive.google.com', '.mp3', 'download']):
+            if any(ext in link.lower() for ext in ['.pdf', '.docx', '.zip', 'drive.google.com', '.mp3', 'download']):
                 links.append({'url': link, 'label': el.get_text(' ', strip=True)[:250]})
         # Some PDF viewers store the public resource in data attributes/shortcodes.
         for match in re.findall(r'https?[^\s<>\"\']+\.pdf(?:\?[^\s<>\"\']*)?', str(soup)):
@@ -153,4 +153,10 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    import sys
+    if '--reparse' in sys.argv:
+        old = json.loads((OUT / 'pages.json').read_text())
+        results = [save_page((p['url'], p['title'])) for p in old]
+        (OUT / 'pages.json').write_text(json.dumps(results, ensure_ascii=False, indent=2))
+    else:
+        main()

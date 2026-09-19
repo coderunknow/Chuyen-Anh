@@ -4,6 +4,7 @@
 This stage produces review material only. It does not decide exam authenticity.
 Limits prevent unbounded downloads/archive expansion. Audio/images stay at source.
 """
+import concurrent.futures
 import hashlib
 import io
 import json
@@ -112,6 +113,41 @@ def docx_markdown(data):
         return '\n\n'.join(p for p in parts if p) + '\n', images
 
 
+def fetch_package(item):
+    url, parent = item
+    out = Path('.source-review')
+    record = {'url': url, 'parent': parent, 'files': []}
+    try:
+        data, _ = download(url, max_bytes=80 * 1024 * 1024)
+        record['sha256'] = hashlib.sha256(data).hexdigest()
+        if re.search(r'\.docx(?:$|[?#])', url, re.I):
+            files = [(url.rsplit('/', 1)[-1], data)]
+        else:
+            with zipfile.ZipFile(io.BytesIO(data)) as z:
+                infos = [i for i in z.infolist() if i.filename.lower().endswith(('.docx', '.pdf')) and not i.filename.startswith('__MACOSX')]
+                if len(infos) > 40 or sum(i.file_size for i in infos) > 80 * 1024 * 1024:
+                    raise ValueError('Archive exceeds expansion limits')
+                files = [(i.filename, z.read(i)) for i in infos]
+        for name, payload in files:
+            key = hashlib.sha256((url + '#' + name).encode()).hexdigest()[:20]
+            entry = {'name': name, 'file': key + '.md', 'sha256': hashlib.sha256(payload).hexdigest()}
+            if name.lower().endswith('.docx'):
+                text, images = docx_markdown(payload)
+                entry['images'] = images
+            else:
+                doc = fitz.open(stream=payload, filetype='pdf')
+                texts = [p.get_text(sort=True) for p in doc]
+                entry['page_characters'] = [len(t.strip()) for t in texts]
+                text = '\n\n'.join(f'## Trang {n}\n\n```text\n{t.strip()}\n```' for n, t in enumerate(texts, 1))
+            entry['characters'] = len(text)
+            (out / entry['file']).write_text('# CHƯA KIỂM DUYỆT — ' + name + '\n\n- URL: ' + url + '\n- SHA-256: ' + entry['sha256'] + '\n\n' + text)
+            record['files'].append(entry)
+    except Exception as exc:
+        record['error'] = str(exc)
+    time.sleep(.5)
+    return record
+
+
 def main():
     pages = json.loads((OUT / 'pages.json').read_text())
     out = Path('.source-review')
@@ -126,36 +162,9 @@ def main():
             seen.add(url)
             if len(seen) > 120:
                 break
-            record = {'url': url, 'parent': page['url'], 'files': []}
-            try:
-                data, _ = download(url)
-                record['sha256'] = hashlib.sha256(data).hexdigest()
-                if re.search(r'\.docx(?:$|[?#])', url, re.I):
-                    files = [(url.rsplit('/', 1)[-1], data)]
-                else:
-                    with zipfile.ZipFile(io.BytesIO(data)) as z:
-                        infos = [i for i in z.infolist() if i.filename.lower().endswith(('.docx', '.pdf')) and not i.filename.startswith('__MACOSX')]
-                        if len(infos) > 40 or sum(i.file_size for i in infos) > 80 * 1024 * 1024:
-                            raise ValueError('Archive exceeds expansion limits')
-                        files = [(i.filename, z.read(i)) for i in infos]
-                for name, payload in files:
-                    key = hashlib.sha256((url + '#' + name).encode()).hexdigest()[:20]
-                    entry = {'name': name, 'file': key + '.md', 'sha256': hashlib.sha256(payload).hexdigest()}
-                    if name.lower().endswith('.docx'):
-                        text, images = docx_markdown(payload)
-                        entry['images'] = images
-                    else:
-                        doc = fitz.open(stream=payload, filetype='pdf')
-                        texts = [p.get_text(sort=True) for p in doc]
-                        entry['page_characters'] = [len(t.strip()) for t in texts]
-                        text = '\n\n'.join(f'## Trang {n}\n\n```text\n{t.strip()}\n```' for n, t in enumerate(texts, 1))
-                    entry['characters'] = len(text)
-                    (out / entry['file']).write_text('# CHƯA KIỂM DUYỆT — ' + name + '\n\n- URL: ' + url + '\n- SHA-256: ' + entry['sha256'] + '\n\n' + text)
-                    record['files'].append(entry)
-            except Exception as exc:
-                record['error'] = str(exc)
-            results.append(record)
-            time.sleep(.5)
+            results.append((url, page['url']))
+    with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:
+        results = list(pool.map(fetch_package, results))
     (out / 'packages.json').write_text(json.dumps(results, ensure_ascii=False, indent=2))
     print('Packages:', len(results), 'extracted files:', sum(len(x['files']) for x in results))
 
