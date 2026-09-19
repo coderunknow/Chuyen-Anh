@@ -59,6 +59,8 @@ def main():
     (out / 'pages.json').write_text(json.dumps(pages, ensure_ascii=False, indent=2))
     (out / 'pdfs.json').write_text(json.dumps(pdfs, ensure_ascii=False, indent=2))
     (out / 'discovery.json').write_bytes((root / 'discovery.json').read_bytes())
+    if (root / 'errors.json').exists():
+        (out / 'errors.json').write_bytes((root / 'errors.json').read_bytes())
     print('UNREVIEWED source files:', len(list(out.glob('*.md'))))
 
 
