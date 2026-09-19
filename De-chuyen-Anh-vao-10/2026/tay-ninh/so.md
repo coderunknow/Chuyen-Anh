@@ -1,0 +1,672 @@
+---
+id: "2026-tay-ninh-so"
+nam_thi: 2026
+nam_hoc: "2026-2027"
+tinh_thanh: "Tây Ninh"
+don_vi: "Sở GD&ĐT Tây Ninh"
+nguon_trang: "https://tailieudieuky.com/baiviet/document/de-chuyen-anh-tay-ninh-2026-2027/"
+ngay_truy_cap: "2026-09-19"
+xac_minh: "ban-dang-lai-co-tieu-de-ky-thi"
+chat_luong: "DOCX"
+dap_an: "Có, theo bản đăng lại"
+sha256_noi_dung: "24ab95a4ee58761dcc188f269f779039f2de1f99d32f7e2696ce3bca93f20601"
+---
+
+# Tây Ninh — Chuyên Anh vào 10 — 2026-2027
+
+**Đơn vị/kỳ thi:** Sở GD&ĐT Tây Ninh.
+
+> **Bản chép từ nguồn đăng lại, không phải bản phát hành của Sở/trường.** Đã kiểm tra nhãn kỳ thi, năm và môn chuyên trong nội dung nguồn; chưa đối chiếu thủ công từng câu với bản gốc. Không coi bản này là bản chuẩn tuyệt đối.
+
+## Nguồn và giới hạn
+
+- Trang đăng: [https://tailieudieuky.com/baiviet/document/de-chuyen-anh-tay-ninh-2026-2027/](https://tailieudieuky.com/baiviet/document/de-chuyen-anh-tay-ninh-2026-2027/).
+- Nội dung lấy từ [DOCX](https://tailieudieuky.com/baiviet/wp-content/uploads/2026/06/De-Chuyen-Anh-Tay-Ninh-2026-2027-dap-an-chinh-thuc.zip); SHA-256 tệp nguồn: `c498adcbc89cde3146d81ec99287015bc66a83e50c7839fac418e88750ce59d2`.
+  - Thành viên trong gói tải: `de-thi-chinh-thuc.docx`.
+- Nội dung lấy từ [DOCX](https://tailieudieuky.com/baiviet/wp-content/uploads/2026/06/De-Chuyen-Anh-Tay-Ninh-2026-2027-dap-an-chinh-thuc.zip); SHA-256 tệp nguồn: `1c0f3212031efb61ba609a0699347db0c8b5539aeaf3394bc60d47b9677cf0f7`.
+  - Thành viên trong gói tải: `dap-an-chinh-thuc.docx`.
+- Nội dung lấy từ [DOCX](https://tailieudieuky.com/baiviet/wp-content/uploads/2026/06/De-Chuyen-Anh-Tay-Ninh-2026-2027-dap-an-chinh-thuc.zip); SHA-256 tệp nguồn: `fa751c8d5d078689dd90da601f41aea0acf7c21c32b77402bc7b51781df8ea50`.
+  - Thành viên trong gói tải: `transcripts.docx`.
+- Đáp án: Có, theo bản đăng lại. Không tự sinh đáp án còn thiếu.
+- File nghe: không nhúng vào Markdown; xem trang/gói nguồn. Chưa xác minh khả năng phát hoặc sự đầy đủ của audio.
+- Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.
+- Giữ nguyên nội dung bài đọc và cả lỗi cố ý trong bài sửa lỗi; không tự “sửa ngữ pháp” của đề.
+
+## Đề thi và phần kèm theo trong nguồn
+
+| **SỞ** **GIÁO** **DỤC** **VÀ** **ĐÀO** **TẠO** **TÂY** **NINH ĐỀ THI CHÍNH THỨC**<br>*(Đề* *thi gồm* *14* *trang)* | **KỲ** **THI** **TUYỂN** **SINH** **VÀO** **LỚP** **10** **THPT** **2026** **–** **2027 MÔN THI: TIẾNG ANH (Chuyên)**<br>**Ngày** **thi: 03** **tháng** **6** **năm** **2026**<br>**Thời** **gian** **làm** **bài:** **150** **phút** *(không* *tính* *thời* *gian* *phát* *đề)* |  |  |
+| --- | --- | --- | --- |
+| Họ và tên thí sinh:             Trường:          Xã/ Phường:    , tỉnh Tây Ninh Số báo danh: | Họ tên và chữ ký<br>**Giám** **thị** **1** | Họ tên và chữ ký<br>**Giám** **thị 2** | SỐ PHÁCH |
+
+| **Điểm** **bằng** **số** | **Điểm** **bằng** **chữ** | Họ tên và chữ ký<br>**Giám** **khảo** **1** | Họ tên và chữ ký<br>**Giám** **khảo** **2** | SỐ PHÁCH |
+| --- | --- | --- | --- | --- |
+
+| **Điểm** **phần** **I** | **Điểm** **phần** **II** | **Điểm** **phần** **III** | **Điểm** **phần** **IV** | **Điểm** **tổng** |
+| --- | --- | --- | --- | --- |
+|  |  |  |  |  |
+
+**LƯU** **Ý** **QUAN** **TRỌNG:** Đề thi gồm 14 trang. Thí sinh làm bài trên đề thi này. Thí sinh phải làm đúng theo hướng dẫn cách ghi câu trả lời ở mỗi phần. Bài làm chỉ được chấm ở các phần ***YOUR*** ***ANSWERS***. Mọi cách ghi khác đều không được chấm điểm.**LƯU** **Ý** **QUAN** **TRỌNG:** Đề thi gồm 14 trang. Thí sinh làm bài trên đề thi này. Thí sinh phải làm đúng theo hướng dẫn cách ghi câu trả lời ở mỗi phần. Bài làm chỉ được chấm ở các phần ***YOUR*** ***ANSWERS***. Mọi cách ghi khác đều không được chấm điểm.
+
+1\. LISTENING (2.0/10 MS) Part 1 (0.5 M)
+
+You will hear a woman called Angela Thomas, who works for a wildlife organisation, talking about the spectacled bear. For questions 1-5, decide whether the following statements are True (T) or False (F). Write your answers in the provided answer box.
+
+1\. All spectacled bears have identical golden markings around their eyes.
+
+2\. The spectacled bear is the last surviving member of a bear group that lived in America during the Ice Age.
+
+3\. Unlike many other bear species, spectacled bears usually spend the entire winter sleeping.
+
+4\. Spectacled bears are endangered mainly because they are frequently attacked by predators.
+
+5\. They wait in trees for several days until fruits become ripe enough to eat.
+
+YOUR ANSWERS (0.1 each correct answer)
+
+| 1. | 2. | 3. | 4. | 5. |
+| --- | --- | --- | --- | --- |
+
+Part 2 (0.5 M)
+
+You will hear a girl mentioning her life since she left for America. For questions 6-10, choose the answer (A, B, C, or D) which best fits according to what you hear. Write your answers in the provided answer box.
+
+6\. When doing her shopping, why did the mother need her daughter’s assistance?
+
+1\. No Vietnamese people lived near her.
+
+2\. No Vietnamese clerks worked in the stores.
+
+3\. No one wanted to go shopping with her.
+
+4\. She needed someone to help carry her shopping bags.
+
+7\. Why did her father find it hard to work in a factory?
+
+5\. He wasn’t able to speak any English.
+
+6\. He had very few friends there.
+
+7\. He had enjoyed a much better job in Vietnam.
+
+8\. He couldn’t get along with American workers.
+
+8\. Why are the speaker and her brother more fortunate than their sisters?
+
+9\. They can get extra English lessons.
+
+10\. They may look more American.
+
+11\. They communicate with American accents.
+
+12\. They quickly make American friends.
+
+9\. What has the speaker forgotten about life in Vietnam?
+
+13\. Living close to other people
+
+14\. The warm weather
+
+15\. Wearing traditional costumes
+
+16\. Traditional cuisine
+
+10\. Why does she find inviting friends to her home embarrassing?
+
+17\. Her parents have very little money.
+
+18\. Her parents haven’t adopted American way of life yet.
+
+19\. Her parents force her to wear traditional Vietnamese clothes.
+
+20\. Her parents do not speak English fluently.
+
+YOUR ANSWERS (0.1 each correct answer)
+
+| 6. | 7. | 8. | 9. | 10. |
+| --- | --- | --- | --- | --- |
+
+Part 3 (1 M)
+
+You will hear an interview with Dr Marilyn Shepherd about food safety. For questions 11-20, complete the sentences with NO MORE THAN TWO WORDS. Write your answers in the provided answer box.
+
+11\. Food poisoning affects roughly     people in the UK every year, highlighting the importance of being careful about the food we eat.
+
+12\. The bacteria in raw chicken are responsible for over      of food poisoning cases, so it must be handled carefully.
+
+13\. Any tools used with raw chicken should be washed carefully, including knives and     .
+
+14\. Check that the     part has no pink meat and the juices run clear.
+
+15\. A     can help you check that it’s fully cooked.
+
+16\. Rare beef can be eaten safely if its outer layer is well-cooked to remove the     .
+
+17\. The     of beef prevents bacteria from reaching the inside, so there is no need to cook it fully to the centre.
+
+18\. Raw beef like steak tartare is safe to eat only when strict food     are followed.
+
+19\. Stir microwave-heated food halfway through to eliminate     where bacteria may remain.
+
+20\. Refrigerate     rice instantly and reheat it only once because reheating rice kills bacteria but not toxins.
+
+YOUR ANSWERS (0.1 each correct answer)
+
+| 11. | 12. |
+| --- | --- |
+| 13. | 14. |
+| 15. | 16. |
+| 17. | 18. |
+| 19. | 20. |
+
+2\. USE OF ENGLISH (2.5/10 MS) PART 1 (1 M)
+
+For questions 21-30, choose the word or phrase that best completes each sentence. Write your answer (A, B, C or D) in the provided answer box.
+
+21\. , she dropped the teacup onto the floor, unable to conceal her fear.
+
+1\. Her hands were trembling    B. Her hands trembling
+
+C. Her hands were trembled    D. Her hands had trembled
+
+22\. After receiving the scholarship from her dream university, Lisa was     for the rest of the week.
+
+A. on cloud nine    B. all ears    C. up in the air    D. on ice
+
+23\. The manager urged that the project     by the end of the following month.
+
+A. complete    B. completed    C. be completed    D. being completed
+
+24\. The report     by an independent committee after months of investigation revealed several critical flaws in the company’s safety procedures.
+
+A. been compiled    B. compiled    C. having compiled    D. compiling
+
+25\. All employees are required to     the company’s code of conduct at all times, especially when dealing with confidential information.
+
+A. abide by    B. look into    C. turn in    D. comply to
+
+26\. When your best friend unexpectedly appeared at your graduation ceremony, you     surprised.
+
+A. would have been    B. can’t have been    C. must have been    D. needn’t have been
+
+27\. A misunderstanding had kept the childhood friends apart for years, but they finally decided to      after meeting at a reunion.
+
+2\. break new ground    B. come to an end
+
+C. come out of their shell    D. bury the hatchet
+
+28\. The youth orchestra delivered a     performance because several musicians kept losing track of the tempo.
+
+A. ridged    B. bumpy    C. stony    D. ragged
+
+29\. When asked about his own party’s transport policies, the candidate      a sideswipe at his opponent by mentioning the recent rail strikes.
+
+A. took    B. did    C. put    D. gave
+
+30\. Many independent bookstores have been     by large online retailers over the past decade.
+
+A. swallowed up    B. taken up    C. traded up    D. blown up
+
+YOUR ANSWERS (0.1 each correct answer)
+
+| 21. | 22. | 23. | 24. | 25. |
+| --- | --- | --- | --- | --- |
+| 26. | 27. | 28. | 29. | 30. |
+
+PART 2 (0.5 M)
+
+The passage below contains 5 mistakes. <u>UNDERLINE</u> the mistakes from 31 to 35 and <u>WRITE</u> their correct forms in the provided answer box. (0) has been done as an example.
+
+Artificial intelligence is becoming an <u>increasing</u> important part of modern society. It is used in many sectors such as healthcare, education, finance, and transportation to improve efficiency and reduce human errors. In hospitals, AI systems can analyze patients’ data more faster than human doctors, helping them to make accurate diagnosis and treatment decisions. In education, AI tools allow teachers to personalize learning materials based on each student’s needs and abilities. However, the rapid development of AI also raise several concerns among experts. Many people believe that too much reliance on machines may result for a decline in human critical thinking skills. Others argue that governments should take action to ensure AI is used in a responsible way and its benefits are distributed more fairly across society. Despite these challenges, AI continues to transform the way people live and work around the world.
+
+YOUR ANSWERS (0.1 each correct answer)
+
+| **Question** | **Mistake** | **Correction** |
+| --- | --- | --- |
+| 0 | increasing | increasingly |
+| 31 |  |  |
+| 32 |  |  |
+| 33 |  |  |
+| 34 |  |  |
+| 35 |  |  |
+
+Part 3 (1 M)
+
+***Read the text below. For questions 36-45, use the word given in capitals in brackets to form a word that fits in the gap. Write your answers in the provided answer box.***
+
+BOOKS
+
+As someone who loves reading, I believe that a good book can completely change the way we see the world. Whenever I start a truly         **(36.** **PUT)** novel, I often lose track of time because the story and characters seem so real. A great book can      **(37.** **COMPANY) **you during difficult moments and provide comfort in unexpected ways. Some classic novels may appear     **(38.** **ACCESS)** at first because of their complex language or historical background, but with a little patience and a few proper      **(39.** **EXPLAIN)**, they become far more enjoyable. I am often
+
+**(40. MYSTERY) **by clever plot twists in mystery stories, especially when the author hides important clues so well. In my opinion, skilled writers do not simply      **(41.** **LONG) **a story to make it longer; instead, they focus on creating     **(42.** **HEART)** scenes that readers can emotionally connect with. Reading also requires the
+
+**(43. MAINTAIN) **of good habits, since regular reading helps improve concentration and vocabulary. Of course, it would be     **(44. COURTESY) **to spoil the ending of a book for someone else, and great      **(45. LITERARY) **invariably rewards readers who are patient enough to appreciate every detail.
+
+YOUR ANSWERS (0.1 each correct answer)
+
+| 36. | 37. | 38. | 39. | 40. |
+| --- | --- | --- | --- | --- |
+| 41. | 42. | 43. | 44. | 45. |
+
+3\. READING COMPREHENSION: (3/10 MS) Part 1 (0.8 M)
+
+***Read*** ***the*** ***following*** ***passage*** ***and*** ***for*** ***questions*** ***46-53*** ***decide*** ***which*** ***answer*** ***(A,*** ***B,*** ***C*** ***or*** ***D)*** ***best*** ***fits*** ***each*** ***gap.*** ***Write*** ***your answers in the provided answer box.***
+
+THE WORLD OF CLIMBING
+
+The growth of extreme sports in the 1990s brought climbing into the spotlight. It has also featured in many popular films, although Hollywood often fails to give a(n) **(46)**     picture of the reality of climbing. Among different
+
+types of climbing, the most difficult and dangerous one is alpine climbing in which climbers spend days or weeks at a time up mountains, often in **(47)**    conditions. This sort of climbing requires **(48)**    equipment and is usually done only by professional climbers with **(49)**    of experience.
+
+However, climbing doesn’t have to **(50)**        snow and ice and dangerous conditions; it can5 be a very enjoyable hobby and something you can do for just a few hours on a Saturday afternoon. At the other end of the climbing spectrum from alpine climbing is sport climbing. This can be done indoors or outdoors on climbing walls. These walls vary from those which are completely **(51)**    to naturally occurring rock formations with equipment bolted in place. For beginners, the easiest type of climbing is top-roping where the rope is already in place. All you need is climbing shoes, a harness and an experienced climber or a(n) **(52)**     to control the ropes. All this basic equipment can be
+
+**(53)**    from most sports centres.
+
+46\. A. authentic    B. accurate    C. original    D. correct
+
+47\. A. ice    B. frozen    C. freezing    D. winter
+
+48\. A. specialized    B. exact    C. precise    D. certain
+
+49\. A. enough    B. years    C. hours    D. lot
+
+50\. A. present    B. involve    C. encounter    D. consist
+
+51\. A. fake    B. false    C. artificial    D. untrue
+
+52\. A. professor    B. instructor    C. teacher    D. tutor
+
+53\. A. rented    B. borrowed    C. lent    D. used
+
+YOUR ANSWERS (0.1 each correct answer)
+
+| 46. | 47. | 48. | 49. |
+| --- | --- | --- | --- |
+| 50. | 51. | 52. | 53. |
+
+Part 2 (0.8 M)
+
+Read the text below and for questions 54-61, think of the word which best fits each gap. Use only ONE word in each gap. Write your answers in the provided answer box.
+
+For more than 149 million years, dinosaurs were the dominant land animals on Earth. Their extinction occurred approximately 60 million years before the emergence of human beings. The term “dinosaur” originates **(54)**     the Greek words meaning “terrible lizard.” These creatures belonged to a distinct group of prehistoric reptiles, and interestingly, their closest living relatives today are crocodiles. Dinosaurs reached sizes far exceeding **(55)**         modern land animal; in fact, a single individual from one of the largest species would have **(56)**    as much as more than 1,500 people combined. Nevertheless, **(57)**    all dinosaurs were enormous. Some species grew no larger than a modernday chicken. They existed in an extraordinary diversity of shapes and sizes. While some plodded
+
+**(58)**     all fours, others walked or ran on their **(59)**         legs like ostriches. The group included both fearsome carnivores and peaceful herbivores. Their habitats **(60)**            widely as well: some inhabited hilly regions, whereas others roamed across low plains and arid landscapes. However, the majority preferred the lush, dense forests that covered vast expanses of the Earth. It wasn’t **(61)**     the last century that humans came to realize that dinosaurs had once actually existed. Since then, thousands of dinosaur skeletons have been unearthed and collected from various locations around the globe.
+
+YOUR ANSWERS (0.1 each correct answer)
+
+| 54. | 55. | 56. | 57. |
+| --- | --- | --- | --- |
+| 58. | 59. | 60. | 61. |
+
+Part 3 (0.6 M)
+
+***Read the following passage and for questions 62-67, choose the answer (A, B, C or D) which you think fits best according to the article. Write your answers in the provided answer box.***
+
+DIFFERENCES THAT DON’T DIVIDE
+
+Tristan and Hannah are as different as two people could be. Tristan loves football, but Hannah hates sports. Hannah loves technology. On the other hand, Tristan doesn’t know the first thing about computers. He’s from a large family with four brothers and sisters while she’s an only child. Prior to meeting Tristan, Hannah was soft-spoken in groups. However, she’s now far more outspoken than Tristan. The list of differences between them goes on and on. Yet, somehow, they’ve been married for fifteen years. With so little in common, how did they manage to make a connection and retain it for so long?
+
+Unlikely relationships like theirs are kind and curious. Most people assume that successful couples have more similarities than differences. That is the conventional wisdom: having a lot in common with a partner should make life easier. After all, interactions will produce less conflict and unhappiness if the partners share a similar point of view.
+
+However, research shows that this might not be the case. A Columbia University study found that some couples are just too much alike for their own good. Over three years, researchers studied 732 men and women and found that couples with the most similar personalities had some of the weakest relationships. In surveys about levels of closeness,
+
+commitment, and overall happiness, those couples scored low. Clearly, having a lot in common is no guarantee of a successful marriage. Relationships between very different people have other advantages as well. In his study of couples, Robert Levenson of the University of California showed that different personalities could balance against each other and give couples different ways to see issues and cope with life’s difficulties. For instance, someone with an outgoing nature can make up for a partner’s shyness. In turn, the outgoing partner can learn to enjoy more time alone.
+
+The causes of attraction between very different people may go even deeper. A study at Rutgers University revealed a physiological reason for attraction between some opposites. In the study, Dr. Helen Fisher reviewed research on the subject of attraction and learned that levels of certain hormones are linked with specific personality characteristics. Individuals with high levels of testosterone tend to be competitive and analytical. They are often attracted to - and attract - their opposites, who are introspective and nurturing individuals with high levels of the hormone estrogen. On the other hand, people with more curious or flexible personality types tend to be attracted to people like themselves. In addition, people who are less anxious and more social are attracted to others of the same personality type. These two groups tend to have average levels of testosterone and estrogen. Ultimately, it seems that opposites do attract among certain personality types, but not all.
+
+Genetics may also explain why opposites sometimes attract. A University of New Mexico study suggests that our genes strongly influence our choice of partners. The study found that a woman’s unhappiness in a relationship is linked to her partner’s genes being too closely matched to her own. This preference may have developed to avoid the dangers that come with inbreeding, which can cause harmful mutations and decreased overall health. In addition, researchers at the Université Paris Diderot compile evidence that people use smell to sense whether a partner is a match. The study suggests that people can sense differences in MHC (a part of our DNA that plays an essential role in protecting the body from disease) and are more attracted to those whose MHC composition differs from their own. Differing MHC compositions give partners a genetic advantage when having children since their offspring will benefit from a diversified gene pool that can protect them from various diseases.
+
+As with everything in life, there’s no approach to finding love. Like Tristan and Hannah, people with very different upbringings, personalities, and interests can have long-lasting relationships. Their characters, not to mention their hormones and diversified gene pool, may even benefit them in the long run. But in the end, all of this research doesn’t really offer much advice for people looking for a perfect match. So don’t search exclusively for partners whom you perceive as similar to or different from yourself. Leave your options open and allow yourself to be surprised by what you find.
+
+62\. According to paragraph 1, what is true about Tristan?
+
+1\. He dislikes sports.    B. He is an only child.
+
+C. He’s soft-spoken in groups.    D. He’s been married for years.
+
+63\. According to paragraph 3, what did the study at Columbia University find?
+
+2\. Couples with different personalities can balance against each other.
+
+3\. Couples with different personalities can cope with life’ problems better.
+
+4\. Couples with similar personalities are more likely to have weak relationships.
+
+5\. Couples with similar personalities are more likely to have successful marriages.
+
+64\. According to paragraph 4, what is NOT true about attraction?
+
+6\. Individuals with high levels of hormones are likely to be attracted to their opposite.
+
+7\. Analytical individuals tend to be attracted to competitive personality types.
+
+8\. Individuals with average levels of hormones are likely to be attracted to each other.
+
+9\. Individuals who are curious or flexible tend to be more attracted to people with average hormone levels.
+
+65\. According to paragraph 5, how does genetics affect attraction?
+
+10\. People are attracted to individuals who have similar MHC compositions.
+
+11\. Pairing individuals with differing genes is likely to cause harmful mutations.
+
+12\. Couples with similar gene pools are more likely to be unhappy.
+
+13\. People are less attracted to individuals who are unhealthy.
+
+66\. According to paragraph 5, why have women evolved to prefer partners who are genetically different?
+
+14\. To minimize the chances of health problems in their children
+
+15\. To increase the possibility of success in their relationships
+
+16\. To avoid partners who are too competitive and analytical
+
+17\. To select partners who have higher levels of testosterone
+
+67\. In paragraph 5, what can be inferred about genes?
+
+18\. They determine whether someone has MHC or not.
+
+19\. They should be tested before two people have children.
+
+20\. They cause different diseases in men and women.
+
+21\. They can affect how a person smells.
+
+YOUR ANSWERS (0.1 each correct answer)
+
+| 62. | 63. | 64. | 65. | 66. | 67. |
+| --- | --- | --- | --- | --- | --- |
+
+Part 4 (0.8 M)
+
+***You are going to read an interview in which four teenagers talk about their part-time jobs. For questions 68-75, choose from the sections (A-D). The sections may be chosen more than once. Write your answers in the provided answer box.***
+
+Which teenager ...
+
+68\. is working for the family business?
+
+69\. is not content with the earnings they receive?
+
+70\. has parents who didn’t work in their teens?
+
+71\. is gaining work experience for their future career?
+
+72\. finds it hard to get up early for work?
+
+73\. doesn’t have to travel far from home to work?
+
+74\. is anxious about balancing work and studies?
+
+75\. enjoys good company at work?
+
+PART-TIME JOBS
+
+1\. **FINN**
+
+Well, unlike a lot of people of my age, I like my part-time job. I work in a gym, but the only thing I’m not really keen on is doing the 6am shifts. It’s so hard to get out of bed then, especially when it’s cold and wet outside. We have a rota, so we don’t get the early shift all the time. The best thing is I get on with the other guys there. We’ve become pretty close over the past year and hang out when we’re not there. However, I must admit, it’s not exactly the kind of thing I’d want to be doing when I leave school. I want to get into something more corporate such as going into business like my parents.
+
+2\. GIOVANNI
+
+I’m a dog walker. I gave up my last job at a restaurant because it was so stressful and tiring. We weren’t even allowed to take a break at busy times. My new working place is just around the corner, so I don’t even have to take the bus. I can just walk in. Then there’s the fact that I don’t have the boss constantly telling me what to do. Obviously as long as a good walk is offered, I can choose the route and time, which is a fascinating thing. Even when I have a lot of schoolwork, it’s just fine to take an hour off and get outside. Mum and Dad have their own business and are away a lot. I keep asking them to get a dog of our own. They reckon their lives are too busy right now, but I think they don’t want to get up early before work to take it out.
+
+3\. LAUREN
+
+My job is acceptable. To be honest, I didn’t go out looking for one. I’m perfectly happy to rely on the bank of Mum and Dad! I’m not exactly in a rush to work a nine-to-five job. My parents have their own company, and they need a hand with the gardening jobs because it is expanding, so I agree to it for a short time. The stuff I do is outside the city mainly, so a lot of the time is spent going to and from places with Dad, which can be time-consuming. Mum mainly does the accounts and bookings in an office at the end of our garden. It’s challenging because I don’t want my schoolwork to suffer. It hasn’t yet, but it’s always at the back of my mind. And actually, my parents have such a good work ethic. They’ve always paid their way, even as teens, so I guess I ought to take their example.
+
+4\. TARA
+
+Having a part-time job has been a big wake-up call for me. Before I worked at weekends, I would lie in until midday surfing the internet or just sleeping. Looking back, I realize it was such a waste of time. Now, I’m working at the bakery. It’s a bit monotonous and the wages really could be better. On the other hand, the cakes and bread that they give away at the end of the day are so worth it. My parents would rather I focused on schoolwork but that’s probably because my grandparents didn’t let them have a job until they finished university. I’m not planning on that and being in the kitchen every weekend is just a great way to learn things for when I go to catering college. The other people there are mainly full-time. They’re nice, but I wouldn’t say they’re people I’d make plans with in my free time.
+
+YOUR ANSWERS (0.1 each correct answer)
+
+| 68. | 69. | 70. | 71. |
+| --- | --- | --- | --- |
+| 72. | 73. | 74. | 75. |
+
+4\. WRITING (2.5/10 MS)
+
+Part 1 (1 M)
+
+For questions 76-80, complete the second sentence so that it has a similar meaning to the first sentence. Write your answers in the provided answer box.
+
+76\. Watson worked really hard, but she still couldn't make ends meet.
+
+→ No     , she still couldn’t make ends meet.
+
+77\. It was rumoured that Steve had accepted a large bonus before unexpectedly resigning from his position.
+
+→ Steve     a large bonus before unexpectedly resigning from his position.
+
+78\. Daniel jogs every morning so that he can lose weight.
+
+→ Daniel jogs every morning with a     weight.
+
+79\. She cut me off right after I started to speak.
+
+→ Barely     she cut me off.
+
+80\. I lent him a large sum of money, and that turned out to be a bad decision.
+
+→ I lent him a large sum of money,      decision. For questions 81-85, complete the second sentence so that it has a similar meaning to the first sentence, using the word given. Do not change the word given. Write your answers in the provided answer box.
+
+81\. John ran so fast that no one could catch up with him. **(A)**
+
+→ John was so     no one could catch up with him.
+
+82\. The sophomores stayed up late to study for the final exam. **(OIL)**
+
+→ The sophomores     the final exam.
+
+83\. Starting a business in a highly competitive market involves many risks. **(FRAUGHT)**
+
+→ Starting a business in a highly competitive market     risks.
+
+84\. Her success highlighted the value of perseverance and hard work. **(UNDERSCORED)**
+
+→ Her     perseverance and hard work.
+
+85\. When the conversation gradually came to an end, everyone went home. **(PETERED)**
+
+→ When     , everyone went home.
+
+YOUR ANSWERS (0.1 each correct answer)
+
+| 76. |
+| --- |
+| 77. |
+| 78. |
+| 79. |
+| 80. |
+| 81. |
+| 82. |
+| 83. |
+| 84. |
+| 85. |
+
+Part 2 (1.5 MS)
+
+Some parents believe that children should be obliged to spend a day without smart devices each week. Do you agree or disagree with this?
+
+Write an essay of about 250 words to express your opinion and support your answer with relevant examples from your own knowledge or experience.
+
+## Đáp án/hướng dẫn chấm trong nguồn
+
+**SỞ** **GIÁO** **DỤC** **VÀ** **ĐÀO** **TẠO** **TÂY** **NINH    KỲ** **THI** **TUYỂN SINH** **VÀO** **LỚP** **10** **THPT**
+
+**ĐỀ** **THI** **CHÍNH** **THỨC**        **ĐỀ** **THI** **CHÍNH** **THỨC**    **NĂM HỌC 2026 – 2027 ĐÁP** **ÁN,** **THANG** **ĐIỂM**
+
+**Môn** **thi:** **TIẾNG** **ANH (chuyên)**
+
+*Đap* *an, thang* *điêm* *gôm: 2 **trang*
+
+1\. **LISTENING** **(2/10** **MS)** **-** **Mỗi** **câu** **đúng** **0.1đ Part 1: (0.5/10)**
+
+| 1. F/ FALSE | 2. T/ TRUE | 3. F/ FALSE | 4. F/ FALSE | 5. T/ TRUE |
+| --- | --- | --- | --- | --- |
+
+**Part** **2:** **(0.5/10)**
+
+| 6. B | 7. C | 8. C | 9. A |  | 10. B |
+| --- | --- | --- | --- | --- | --- |
+
+**Part** **3:** **(1/10)**
+
+| 11. a million | 12. a quarter | 13. chopping board**s** | 14. thickest | 15. meat thermometer |
+| --- | --- | --- | --- | --- |
+| 16. surface bacteria | 17. dense texture | 18. safety guideline**s** | 19. cold spot**s** | 20. cooked |
+
+***Lưu*** ***ý:*** *Từ* *điền chính xac* *mới được* *0.1 **điêm.*
+
+2\. **USE** **OF** **ENGLISH** **(2.5/10** **MS)**
+
+**Part 1:** **(1/10): gồm** **10** **câu** **-** **Mỗi** **câu** **đúng** **0.1đ**
+
+| 21. B | 22. A | 23. C | 24. B | 25. A | 26. C | 27. D | 28. D | 29. A | 30. A |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+
+**Part 2:** **gồm** **5 câu (0.5/10)**
+
+**Mỗi câu đúng 0.1đ ***(Gạch dưới đúng và sửa đúng thì được 0.1, gạch dưới đúng mà sửa sai thì không cho điêm câu đó. Nếu quên gạch dưới mà viết đúng từ sai và sửa lại đúng thì cho 0.1.) (Cac câu trả lời* *KHÔNG cần phải đúng thứ tự.)*
+
+Artificial intelligence is becoming an <u>increasing</u> important part of modern society. It is used in many sectors such as healthcare, education, finance, and transportation to improve efficiency and reduce human errors. In hospitals, AI systems can analyze patients’ data more faster than human doctors, helping them to make accurate diagnosis and treatment decisions. In education, AI tools allow teachers to personalize learning materials based on each student’s needs and abilities. However, the rapid development of AI also raise several concerns among experts. Many people believe that too much reliance on machines may result for a decline in human critical thinking skills. Others argue that governments should take action to ensure AI is used in a responsible way and its benefits are distributed more fairly across society. Despite these challenges, AI continues to transform the way people live and work around the world.
+
+| 0. increasing  increasingly | 31. error**s**  error | 32. more faster<br> (much/ far/ a lot) faster |
+| --- | --- | --- |
+| 33. diagnos**is**  diagnos**es** | 34. raise  raise**s** | 35. for  in |
+
+**Part 3:** **gồm** **10 câu** **(1/10) -** **Mỗi** **câu** **đúng 0.1đ**
+
+| 36. unputdownable | 37. accompany | 38. inaccessible | 39. explanation**s** | 40. mystified |
+| --- | --- | --- | --- | --- |
+| 41. prolong | 42. heartfelt/ heartbreaking | 43. maintenance | 44. discourteous | 45. literature |
+
+***Lưu ý: Từ điền phải hoàn toàn chính xac theo hướng dẫn chấm mới được 0.1 điêm, ngược lại sẽ không có điêm câu đó.*
+
+3\. **READING** **(3/10** **MS)**
+
+46\. B47. C48. A49. B50. B51. C52. B53. A46. B47. C48. A49. B50. B51. C52. B53. A54. from55. any56. weighed57. not58. on59. hind/ back60. varied/differed61. until54. from55. any56. weighed57. not58. on59. hind/ back60. varied/differed61. until62. D63. C64. B65. C66. A67. D62. D63. C64. B65. C66. A67. D68. C69. D70. D71. D72. A73. B74. C75. A68. C69. D70. D71. D72. A73. B74. C75. A**Part** **1:** **Gồm** **8** **câu** **-** **Mỗi** **câu** **đúng** **0.1đ Part** **2:** **Gồm** **8** **câu** **-** **Mỗi** **câu** **đúng** **0.1đ Part** **3:** **Gồm** **6** **câu** **-** **Mỗi** **câu** **đúng** **0.1đ Part 4:** **Gồm** **8 câu -** **Mỗi** **câu** **đúng** **0.1đ**
+
+4\. **WRITING** **(2.5/10** **MS)**
+
+**Part 1:** **Gồm** **10 câu**
+
+**Mỗi** **câu đúng** **0.1đ ***(nếu* *sai bất* *kỳ* *lỗi* *nào trong* *câu thì* *không cho* *điêm).*
+
+76\. …………..matter how hard Watson worked.……………
+
+77\. ……..was rumo(u)red to have accepted…………………….
+
+78\. ……………….view to losing (his)………….…………...
+
+79\. ………..had I started to speak/ speaking when…………… 80……which turned out to be a bad ………..………………. 81……….so fast a runner that……………………..………..
+
+82\. ………burned/t the midnight oil (to study) for……………
+
+83\. …………………..is fraught with many………………….
+
+84\. ………success underscored (the value of)……………….. 85…………………..the conversation petered out……………. **Part 2: (1.5/10)**
+
+***Lưu*** ***ý:*** *Phần viết* *giam* *khảo* *chấm* *đúng như yêu cầu,* *không được mở* *rộng hay chia nhỏ* *thang **điêm.*
+
+|  | **Mô** **tả** **tiêu** **chí** **đánh giá** | **Điểm tối** **đa** |
+| --- | --- | --- |
+| **1** | **Mở bài:** | **0.2** |
+|  | - Có phần mở bài | 0.1 |
+|  | - Câu dẫn vào chủ đề mạch lạc, nêu ra quan điểm. | 0.1 |
+| **2** | **Thân** **bài:** | **0.6** |
+|  | - Phát triển ý có trình tự logic và có ít nhất 2 ý chính. | 0.4 |
+|  | (Nếu chỉ có 1 ý đầy đủ chấm 0.2) |  |
+|  | - Có dẫn chứng, ví dụ, … để bảo vệ ý kiến của mình, thuyết phục người đọc. | 0.2 |
+| **3** | **Kết luận:** | **0.2** |
+|  | - Có phần kết luận | 0.1 |
+|  | - Tóm tắt ý chính của bài văn, khẳng định lại quan điểm của người viết, hoặc đưa ra 1 | 0.1 |
+|  | gợi ý, một quan điểm hay 1 dự đoán, có paraphrase lại ý chính. |  |
+| **4.** | **Sử** **dụng** **ngôn** **từ:** | **0.3** |
+|  | - Sử dụng ngôn từ đúng văn phong và đúng thể loại bài viết, không lặp từ quá 5 lần, | 0.1 |
+|  | từ phong phú. |  |
+|  | - Sử dụng từ nối để nối các ý. (Ít nhất 5 từ nối, nếu ít hơn sẽ trừ điểm phần này) | 0.1 |
+|  | - Độ dài: 220- 280 từ, nếu viết dưới 150 từ thì trừ 0.1. (Nếu viết dưới 100 từ thì | 0.1 |
+|  | không chấm tiêu chí 4, 5.) |  |
+| **5.** | **Ngữ** **pháp,** **dấu** **câu,** **chính tả:** | **0.2** |
+|  | - Đúng chính tả: Nếu lỗi chính tả gây hiểu nhầm / sai lệch ý trên 3 từ sẽ không tính | 0.1 |
+|  | điểm phần này. (Cùng 1 lỗi chính tả mà lặp lại chỉ tính 1 lỗi.) |  |
+|  | - Sử dụng đúng ngữ pháp, dấu câu. (Nếu sai từ 5 lỗi đến 10 lỗi trừ 0.1, hơn 10 lỗi sẽ |  |
+|  | không tính điểm phần này.) | 0.1 |
+| **Tổng** |  | **1.5** |
+
+**--------HẾT-------**
+
+## Transcript trong nguồn
+
+Part 1.
+
+**Woman: **Thanks for inviting me tonight. As you know, my main interest is in conservation, and I’m lucky enough to work with lots of different organizations looking after animals, both in captivity and in the wild.
+
+I’d been fascinated by all kinds of bears for a long time before I started working in this field, but it was the spectacled bear that really attracted me. Some people find it appealing because of its size and shape, and it’s less well-known than other types of bear. But for me, I thought it was such a great name!
+
+It comes from the patches of yellowish fur around the bear’s eyes, which grow in a sort of circle shape, like glasses. Although these golden markings vary greatly from one bear to another, and may not be limited to the eyes. They can extend as far as the bear’s cheeks, or even chest
+
+I’d like to explain what we know about this bear, and why I find it so fascinating. It’s the only survivor of a type of bear that once ranged across America during the last Ice Age. We thought that it was only found in certain places in Venezuela and Chile, but I was thrilled to read some reports that suggested it might also be living in northern parts of Argentina, and eastern Panama.
+
+It’s quite difficult to find spectacled bears in the wild because they are quite shy animals, and tend to live in a wide variety of habitats, which can range from dry coastal deserts to high mountain areas above 4,000 meters. They are most commonly found in forests, though.
+
+Being such timid animals, they tend to come out at night, which is another thing that makes them difficult to see. Though, like me, you may be surprised to learn that they don’t sleep all through the winter, as many other types of bear do.
+
+We’re not sure about the actual number of spectacled bears that remain in the wild, but it’s been estimated that there are only about 2,400 still around. The bears are endangered, not so much because they are hunted by other animals, but - what I find really sad - is the fact that humans destroy their habitat.
+
+Spectacled bears are quite small compared with other bears, and, of course, they do have other enemies. These mostly include mountain lions and jaguars, but they remain a smaller threat.
+
+The bears are primarily vegetarian, and their normal diet is tree bark and berries. On rare occasions, though, they eat honey, which I thought was just something in children’s books. I was interested to find that they are incredibly good climbers.
+
+And one thing I find really funny is that they’ve been known to sit up in a tree for days. They make a platform. Why? I couldn’t guess. But they’re waiting for fruit to ripen so they can eat it.
+
+It’s quite surprising that although they rarely eat meat, they have extremely strong jaws and wide, flat teeth. Very occasionally, they do eat meat - something like birds or insects, though they like small mice best if they can get them.
+
+We’re really trying to make people more aware of the bears, and we’ve made a television series about one man’s efforts to make people understand the dangers facing the animals. He spent a long time in Peru studying them, and has published a very funny diary of his time there. I hope everyone will read it, and support our efforts to help these fascinating creatures. So, are there any questions?
+
+Part 2.
+
+**Girl: **I was a small child when I left Vietnam and moved with my family to live in America. For me and my little brother, it didn’t take long before we felt American. But for my parents and two older sisters, it was a different story.
+
+The biggest problem for my mother was the language. We were living in New York, and although there were quite a lot of Vietnamese families near us, they didn’t work in the stores. This meant my mother had to take me with her when she went shopping, and I was usually at school.
+
+For my father, the most important thing when we arrived was to find a job. Luckily, he had friends who knew us in Vietnam, and they helped him get a job in a factory. It was hard for him to do that sort of work. In Saigon, he had been a doctor.
+
+My two older sisters went to high school. They worked hard and did well, and the school gave them extra English lessons. Even now, though, they speak with Vietnamese accents. My brother and I are lucky - we may look Vietnamese, but we speak with American accents!
+
+My family found the way of life very different. In Vietnam, my mother used to spend a lot of time visiting her sisters and brothers, and looking after her mother and father. She feels quite lonely now. She says that in America, you live inside your house, but in Vietnam, you take your house outside onto the street and share your life with everybody. I don’t remember that. But I do find the winters are quite hard to put up with in New York. It’s very cold and snows a lot.
+
+My mother still wears traditional Vietnamese clothes at home, and always cooks us rice and noodles. I must admit, I prefer burgers and chips!
+
+Although my friends like to visit us, I often feel a bit embarrassed by my parents’ way of life. They don’t understand Americans, and I think I am more American than Vietnamese now. I suppose it’s sad for them to have such a strange daughter.
+
+Part 3.
+
+**Rob: **Hello, and welcome to the program. Every year, about a million people suffer from food poisoning in the UK, which would suggest that we need to be a bit more careful about what we eat. Our food expert, Dr. Marilyn Shepherd, is here with us today to give us a few tips on food safety. Marilyn, what seems to be the biggest cause of food poisoning?
+
+**Dr. Marilyn Shepherd: **Well, Rob, it appears to be chicken. There’s bacteria in raw chicken that causes more than a quarter of all the cases of food poisoning in the country, so you need to be really careful with it.
+
+Raw chicken should always be kept in the fridge, and you should make sure that it’s covered and doesn’t come into contact with any of the other food in there. After handling raw chicken, you should always wash your hands, knives, and chopping boards with soap and hot water.
+
+**Rob: **Are there any precautions we should take when we’re cooking chicken?
+
+**Dr. Marilyn Shepherd: **When you’re cooking chicken, you need to make sure that it’s done right through to the middle, so as to kill all of the bacteria. When you cut into the thickest part of the chicken, there shouldn’t be any pink meat, and the juices should be clear, not pink.
+
+If you want to be really sure that it’s cooked properly, you could buy a meat thermometer. Chicken is supposed to reach 74 degrees C to be safe to eat.
+
+**Rob: **Thanks for that, Marilyn. So you’re saying that chicken has to be cooked thoroughly. How about other meat? Some people like their beef rare, for example.
+
+**Dr. Marilyn Shepherd: **That’s right, Rob. And rare beef is perfectly safe, as long as it’s well cooked on the outside to kill the surface bacteria. You see, pieces of beef have a very dense texture that bacteria can’t go through, so it’s not so important to cook it right through to the middle.
+
+You can also eat raw beef, like steak tartare, for example, but this is only safe to eat when the meat has been handled following strict food safety guidelines. As for other kinds of meat, they should all be cooked through to the middle.
+
+**Rob: **Let’s talk about leftover food now, Marilyn. Is it safe to reheat it?
+
+**Dr. Marilyn Shepherd: **Yes, reheating food is fine, as long as you heat it to 74 degrees C all the way through to kill the bacteria. If you’re using a microwave, you should mix the food halfway through to ensure that there aren’t any cold spots that still have bacteria.
+
+And you have to be extra careful with rice. Rice has a bacteria which produces a toxin that is not destroyed by heat. Reheating the rice kills the bacteria, but it doesn’t remove the toxin. To reduce the risk of food poisoning, put cooked rice in the fridge as soon as possible after cooking, and reheat it only once.
+
+**Rob: **That all makes perfect sense, Marilyn. Thank you for joining us.
+
+**Dr. Marilyn Shepherd: **My pleasure.

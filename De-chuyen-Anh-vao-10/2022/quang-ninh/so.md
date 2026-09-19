@@ -1,0 +1,813 @@
+---
+id: "2022-quang-ninh-so"
+nam_thi: 2022
+nam_hoc: "2022-2023"
+tinh_thanh: "Quảng Ninh"
+don_vi: "Sở GD&ĐT Quảng Ninh"
+nguon_trang: "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-chuyen-ha-long-quang-ninh-mon-tieng-anh-chuyen-nam-hoc-2022-2023-co-dap-an/"
+ngay_truy_cap: "2026-09-19"
+xac_minh: "ban-dang-lai-co-tieu-de-ky-thi"
+chat_luong: "PDF-text"
+dap_an: "Chưa lấy được đáp án riêng"
+sha256_noi_dung: "da18b8abba151ca0b5978603206a373fe0af8ff30599138ff884a30412d9faf4"
+---
+
+# Quảng Ninh — Chuyên Anh vào 10 — 2022-2023
+
+**Đơn vị/kỳ thi:** Sở GD&ĐT Quảng Ninh.
+
+> **Bản chép từ nguồn đăng lại, không phải bản phát hành của Sở/trường.** Đã kiểm tra nhãn kỳ thi, năm và môn chuyên trong nội dung nguồn; chưa đối chiếu thủ công từng câu với bản gốc. Không coi bản này là bản chuẩn tuyệt đối.
+
+## Nguồn và giới hạn
+
+- Trang đăng: [https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-chuyen-ha-long-quang-ninh-mon-tieng-anh-chuyen-nam-hoc-2022-2023-co-dap-an/](https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-chuyen-ha-long-quang-ninh-mon-tieng-anh-chuyen-nam-hoc-2022-2023-co-dap-an/).
+- Nội dung lấy từ [PDF](https://drive.google.com/uc?export=download&id=14URkRlira6Q7u9jRXLoq_NiMyL5cql-u); SHA-256 tệp nguồn: `1e82ed956ad7f88e782a6f4c454e42e55483717f90913f6b70e55707b417f7cc`.
+  - Đã trích văn bản từ cả 10 trang PDF; không thay trang ảnh trống bằng văn bản tự tạo.
+- Đáp án: Chưa lấy được đáp án riêng. Không tự sinh đáp án còn thiếu.
+- File nghe: không nhúng vào Markdown; xem trang/gói nguồn. Chưa xác minh khả năng phát hoặc sự đầy đủ của audio.
+- Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.
+- Giữ nguyên nội dung bài đọc và cả lỗi cố ý trong bài sửa lỗi; không tự “sửa ngữ pháp” của đề.
+
+## Đề thi và phần kèm theo trong nguồn
+
+## Trang 1
+
+```text
+TAILIEUDIEUKY © 2024 TAILIEUDIEUKY © 2024 TAILIEUDIEUKY © 2024 TAILIEUDIEUKY © 2024
+
+ SỞ GIÁO DỤC VÀ ĐÀO TẠO        KỲ THI TUYỂN SINH VÀO LỚP 10 THPT
+    TỈNH QUẢNG NINH                NĂM HỌC 2022-2023
+                                   Môn thi: Tiếng Anh (Chuyên)
+    ĐỀ THI CHÍNH THỨC           Dành cho thí sinh thi vào Trường THPT Chuyên Hạ Long
+       (Đề thi có 10 trang)               Thời gian làm bài: 120 phút, không kể thời gian phát đề
+
+
+A. LISTENING (2.5 points)
+
+Part 1: You will hear a woman who works at an employment agency talking to a man about jobs he can apply
+
+for. Listen and complete the table. Write ONE WORD for each answer. (1.0 point)
+
+                           Employment Agency: Possible jobs
+
+ Employment Agency: Possible Jobs              Second Job
+
+ First Job                                     Warehouse assistant in South London
+
+ Administrative   assistant   in   a  company   that  Responsibilities
+
+ produces (1) __________ (North London)         ●  stock management
+
+ Responsibilities                          ●  managing (6) __________
+
+ ●  data entry                                  Requirements
+
+ ● go to (2) __________ and take notes           ●  ability to work with (7) __________
+
+ ●  general admin                         ● good computer skills
+
+ ● management of (3) __________              ●  very organized and (8) __________
+
+ Requirements                           ● good communication skills
+
+ ● good computer skills including spreadsheets      ●  used to working in a (9) __________
+
+ ● good (4) __________ skills                 ●  able to cope with items that are (10) __________
+
+ ●  attention to (5) __________
+
+Part 2: You will hear someone talking on the radio about food and restaurants in the local area. Listen and
+
+choose the best answer A, B, C or D. (0.5 points)
+
+11. The market is now situated __________.
+
+  A. under a car park                                B. beside the cathedral
+
+  C. near the river                                 D. by the new shopping centre
+
+12. On only one day a week the market sells __________.
+
+  A. antique furniture                                B. local produce
+
+  C. handmade items                              D. utensils like saucepans
+
+13. The area is well-known for __________.
+
+  A. apples                                         B. ice cream
+
+  C. a kind of cake                                D. a fish dish
+
+14. What do fishermen do with the fish they catch?
+
+  A. They don’t sell fish in the harbor.
+
+  B. They sell all their fish in London.
+
+  C. They don’t sell fish to other countries.
+
+ TAILIEUDIEUKY © 2024                                                               Trang 1/10
+```
+
+## Trang 2
+
+```text
+TAILIEUDIEUKY © 2024 TAILIEUDIEUKY © 2024 TAILIEUDIEUKY © 2024 TAILIEUDIEUKY © 2024
+
+  D. They sell fresh fish in a stall in the harbor.
+
+15. What change has taken place in the harbor area?
+
+  A. There are no restaurants in the town.
+
+  B. The restaurants have moved to a different part.
+
+  C. There are fewer restaurants than there used to be.
+
+  D. Many new restaurants have been opened.
+
+Part 3: You will hear a talk between a customer and a receptionist about joining a gym. Decide if the following
+
+statements are True (T) or False (F). Put a tick (   ) in the correct box next to each sentence. (0.5 points)
+
+                                                      T        F
+
+ 16. The man has only recently decided to join the gym.
+
+ 17. The woman says that other gyms have cancellation fees but this one doesn’t.
+
+ 18. The exercise plan your personal trainer provides will tell you what to eat.
+
+ 19. The personal trainer doesn’t cost anything at all.
+
+ 20. The gym offers a sample visit.
+
+Part 4: You will hear five different people talking about their jobs. Choose from the list (A-F) the reason why
+
+each speaker likes their job. Use each letter only once. There is one extra letter which you do NOT need to
+
+use. (0.5 points)
+
+ A. amusing colleagues
+                                                       21. Speaker 1 __________
+ B. can be creative
+                                                       22. Speaker 2 __________
+ C. good holiday entitlement
+                                                       23. Speaker 3 __________
+ D. convenient location
+                                                       24. Speaker 4 __________
+ E. flexible working hours
+                                                       25. Speaker 5 __________
+ F. opportunities for promotion
+
+
+B. LEXICO-GRAMMAR (2.0 points)
+
+Part 1: Circle the letter A, B, C, or D to indicate the answer that best fits each of the blank ín the following
+
+questions. (1.0 point)
+
+1. I wish I __________ there to see Gabriel’s face when you told him!
+
+  A. can be                                         B. would have been
+
+  C. would be                                    D. could have been
+
+2. Nobody, even the best doctors, expected Frank’s __________ to be so quick and successful after so severe an
+
+accident.
+
+  A. renewal               B. resumption           C. recuperation          D. renumeration
+
+3. My grandfather __________ this camera when he was a young man, but I’m not sure.
+
+  A. may have used                                 B. must have used
+
+  C. should have used                              D. need have used
+
+4. The traffic in town was very __________ and I arrived home earlier than expected.
+
+ TAILIEUDIEUKY © 2024                                                               Trang 2/10
+```
+
+## Trang 3
+
+```text
+TAILIEUDIEUKY © 2024 TAILIEUDIEUKY © 2024 TAILIEUDIEUKY © 2024 TAILIEUDIEUKY © 2024
+
+  A. light                  B. weak                C. little                 D. few
+
+5. It could have been a lot worse __________ there.
+
+  A. when he was not                                B. whether or not he had been
+
+  C. for he had not been                            D. had he not been
+
+6. The book says that the revolution was __________ off by the assassination of the state governor.
+
+  A. launched              B. cropped              C. triggered             D. prompted
+
+7. The __________ prices of property in big cities may deter people on low incomes from owning a house there.
+
+  A. competitive           B. forbidding            C. prohibitive            D. inflatable
+
+8. The life __________ of individuals in developed countries has increased dramatically for decades.
+
+  A. expectation            B. exception             C. exertion              D. expectancy
+
+9. __________ the two sisters, Mary is __________.
+
+  A. Of/ the prettier                                 B. Between/ the prettiest
+
+  C. Of/ more prettier                              D. Between/ the prettier
+
+10. Mark and Carol are talking in the classroom.
+
+    - Mark: “You must have found reading my essay very tiring.”
+
+    - Carol: “__________. I enjoyed it.”
+
+  A. You are welcome                               B. Just in case
+
+  C. Not in the least                               D. At all costs
+
+Part 2: Circle the letter A, B, C or D to indicate the underlined part that needs correcting in each of the
+
+following sentences. (0.5 points)
+
+11. Only recently (A) did the talent spotter wake up to the fact that my daughter, an (B) aspiring starlet with (C)
+
+great potentials, would make (D) it to the top.
+
+12. Every (A) employee is expected to be (B) competent and (C) industrial because wage rates (D) depend on
+
+levels of productivity.
+
+13. The number of wild condors, an endangered (A) species of bird, (B) have been increasing (C) steadily (D)
+
+because of the work of scientists and environmentalists.
+
+14. The next step is (A) deforestation, which involves (B) growing forests in areas (C) where there (D) were none
+
+before.
+
+15. The federal government (A) recommends that all (B) expectant mothers (C) will not only refrain from
+
+smoking but also avoid places where other people (D) smoke.
+
+Part 3: Give the correct form of the words in capital letters. Write your answers in the spaces provided. (0.5
+
+points)
+
+16. Eddie had imagined life on the farm to be enjoyable and peaceful, but the (REAL) __________ turned out to
+
+be totally different.
+
+17. The wounded soldier was given some morphine to (DIE) __________ the pain.
+
+18. Her son is always mischievous and (OBEY) __________, which annoys her very much.
+
+
+
+ TAILIEUDIEUKY © 2024                                                               Trang 3/10
+```
+
+## Trang 4
+
+```text
+TAILIEUDIEUKY © 2024 TAILIEUDIEUKY © 2024 TAILIEUDIEUKY © 2024 TAILIEUDIEUKY © 2024
+
+19. Cats are not considered to be social animals in the sense that they have never (HABIT) __________travelled
+
+in packs or adopted leaders.
+
+20. A million new species of (SCOPE) __________ sea life have recently been observed for the first time.
+
+C. READING (3.0 points)
+
+Part 1: Read the following passage and circle the letter A, B, C, or D to indicate the correct word or phrase
+
+that best fits each of the numbered blanks. (0.8 points)
+
+                         A love of travelling
+
+   For Nigel Portman, a love of travelling began with what’s called a ‘gap year’. In common with many other
+
+British teenagers, he chose to take a year out before (1) __________ to study for his degree. After doing various
+
+jobs to (2) __________ some money, he left home to gain some experience of life in different cultures, visiting
+
+America and Asia. The more adventurous the young person, the greater the challenge they are likely to (3)
+
+__________ themselves for the gap year, and for some, like Nigel, it can result in a thirst for adventure.
+
+  Now that his university course has come to an end, Nigel is just about to leave on a three-year trip that will
+
+take him (4) __________ around the world. What’s more, he plans to make the whole journey using only means
+
+of transport which are (5) __________ by natural energy. In other words, he’ll be (6) __________ mostly on
+
+bicycles and his own legs; and when there’s an ocean to cross, he won’t be taking a (7) __________ cut by
+
+climbing aboard a plane, he’ll be Joining the crew of a sailing ship (8) __________.
+
+1.  A. settling down         B. getting up            C. taking over          D. holding back
+
+2.  A. achieve              B. raise                C. advance             D. win
+
+3.  A. put                  B. set                  C. aim                 D. place
+
+4.  A. just                  B. complete            C. whole               D. right
+
+5.  A. pulled               B. charged             C. forced               D. powered
+
+6.  A. relying               B. using               C. attempting           D. trying
+
+7.  A. quick                B. short                C. brief                D. swift
+
+8.  A. anyway              B. alike                C. instead              D. otherwise
+
+Part 2: Fill the gap with ONE suitable word. Write your answers in the numbered spaces provided. (0.7 points)
+
+  The truth is nobody really knows how the language first began. Did we all start talking at around the same
+
+time (9) __________ of the manner in which our brains had begun to develop?
+
+   Although there is a lack of clear evidence, people have come up with various theories about the origins of
+
+language. One recent theory is that human beings have evolved in (10) __________ a way that we are
+
+programmed for language from the moment of birth. In other words, language came (11) __________ as a result
+
+of an evolutionary change in our brains at some stage.
+
+  Language (12) __________ well be programmed into the brain but, despite this, people still need stimulus
+
+from others around them. From studies, we know that (13) __________ children are isolated (14) __________
+
+human contact and have not learnt to construct sentences before they are ten, it is doubtful they will ever do (15)
+
+
+
+ TAILIEUDIEUKY © 2024                                                               Trang 4/10
+```
+
+## Trang 5
+
+```text
+TAILIEUDIEUKY © 2024 TAILIEUDIEUKY © 2024 TAILIEUDIEUKY © 2024 TAILIEUDIEUKY © 2024
+
+__________. This research shows, if nothing else, that language is a social activity, not something invented in
+
+isolation.
+
+Part 3: Read the following passage and circle the letter A, B, C or D to indicate the correct answer to each of
+
+the following questions. (1.0 point)
+
+   Centuries ago, man discovered that removing moisture from food helped to preserve it, and that the easiest
+
+way to do this was to expose the food to sun and wind. In this way the North American Indians produced
+
+pemmican (dried meat ground into powder and made into cakes), the Scandinavians made stock fish and the
+
+Arabs dried dates and apricots.
+
+   All foods contain water - cabbage and other leaf vegetables contain as much as 93% water, potatoes and other
+
+root vegetables 80%, lean meat 75% and fish anything from 80% to 60% depending on how fatty it is. If this
+
+water is removed, the activity of the bacteria which causes food to go bad is checked.
+
+   Fruit is sun-dried in Asia Minor, Greece, Spain and other Mediterranean countries, and also in California,
+
+South Africa and Australia. The methods used vary, but in general the fruit is spread out on trays in drying yards
+
+in the hot sun. In order to prevent darkening, pears, peaches and apricots are exposed to the fumes of burning
+
+sulphur before drying. Plums for making prunes, and certain varieties of grapes for making raisins and currants,
+
+are dipped in an alkaline solution in order to crack the skins of the fruit slightly and remove their wax coating, so
+
+increasing the rate of drying.
+
+  Nowadays most foods are dried mechanically; the conventional method of such dehydration is to put food in
+
+chambers through which hot air is blown at temperatures of about 110°C at entry to about 45°C at exit. This is
+
+the usual method for drying such things as vegetables, minced meat, and fish.
+
+   Liquids such as milk, coffee, tea, soups and eggs may be dried by pouring them over a heated horizontal steel
+
+cylinder or by spraying them into a chamber through which a current of hot air passes. In the first case, the dried
+
+material is scraped off the roller as a thin film which is then broken up into small, though still relatively coarse
+
+flakes. In the second process it falls to the bottom of the chamber as a fine powder. Where recognizable pieces
+
+of meat and vegetables are required, as in soup, the ingredients are dried separately and then mixed.
+
+   Dried foods take up less room and weigh less than the same food packed in cans or frozen, and they do not
+
+need to be stored in special conditions. For these reasons they are invaluable to climbers, explorers and soldiers
+
+in battle, who have little storage space. They are also popular with housewives because it takes so little time to
+
+cook them.
+
+                                        From Practical Faster Reading by Gerald Mosback and Vivien Mosback. CUP
+16. What is the main idea of the passage?
+
+  A. Advantages of dried foods                       B. Water: the main component of food
+
+  C. Different methods of drying foods               D. Mechanization of drying foods
+
+17. The phrase “do this” in the first paragraph mostly means __________.
+
+  A. moisten foods                                  B. remove moisture from foods
+
+  C. produce pemmican                            D. expose foods to sun and wind
+
+18. The word “checked” in the second paragraph is closest in meaning to __________.
+
+ TAILIEUDIEUKY © 2024                                                               Trang 5/10
+```
+
+## Trang 6
+
+```text
+TAILIEUDIEUKY © 2024 TAILIEUDIEUKY © 2024 TAILIEUDIEUKY © 2024 TAILIEUDIEUKY © 2024
+
+  A. motivated to develop                            B. reduced considerably
+
+  C. examined carefully                            D. put a tick
+
+19. In the process of drying certain kinds of fruits, sulphur fumes help __________.
+
+  A. crack their skin                                 B. remove their wax coating
+
+  C. maintain their color                            D. kill off bacteria
+
+20. Nowadays the common method for drying vegetables and minced meat is __________.
+
+  A. spreading them out on trays in drying yards
+
+  B. pouring them over a heated horizontal steel cylinder
+
+  C. dipping them in an alkaline solution
+
+  D. putting them in chambers and blowing hot air through
+
+21. What does the word “which” in the fourth paragraph refer to?
+
+  A. chambers             B. foods                C. things                D. vegetables
+
+22. The final product of the process of drying liquids that uses the first method will be __________.
+
+  A. fine powder           B. dried soup            C. recognizable pieces    D. small flakes
+
+23. Which of the following is NOT mentioned in the passage?
+
+  A. Liquids are not dried in the same way as fruits and vegetables.
+
+  B. Fruit is usually dried by being laid out on trays in the sun.
+
+  C. People in India began to use drying methods centuries ago.
+
+  D. Dried foods have several advantages over canned or frozen foods.
+
+24. According to the passage, dried foods are most useful for __________.
+
+  A. explorers who are underweight                   B. people who are on the move
+
+  C. soldiers who are not in battle                    D. housewives who have little storage space
+
+25. This passage is mainly __________.
+
+  A. analytical             B. informative           C. fictional              D. argumentative
+
+Part 4: The following reading passage has five paragraphs, A-E. Read the paragraphs and choose the correct
+
+heading for each from the list below. There are more headings than paragraphs, so you will not use them all.
+
+Write the number of the heading in the corresponding provided space. (0.5 points)
+
+                 CHOCOLATE - THE FOOD OF THE GODS
+
+A. The story of chocolate begins with the discovery of America in 1492. Columbus was the first European to
+
+come into contact with cacao. On August 5th, 1502, on his fourth and last voyage to the Americas, Columbus
+
+and his crew met some natives in a canoe that contained beans from the cacao tree. Columbus was struck by how
+
+much value the Indians placed on them as he did not know the beans were used for currency. It is unlikely that
+
+Columbus brought any of these beans back to Spain and it was not until about twenty years later that Cortez
+
+grasped the commercial possibilities when he found the Aztecs using the beans to make the royal drink
+
+“chocolate”.
+
+B. The Spanish, in general, were not fond of the bitter drink so Cortez and his followers made it more palatable
+
+by adding cane sugar and later cinnamon and vanilla were added. Spanish monks let the secret out back home
+
+
+ TAILIEUDIEUKY © 2024                                                               Trang 6/10
+```
+
+## Trang 7
+
+```text
+TAILIEUDIEUKY © 2024 TAILIEUDIEUKY © 2024 TAILIEUDIEUKY © 2024 TAILIEUDIEUKY © 2024
+
+and, although the Spanish hid it from their neighbours for a hundred years, finally chocolate’s popularity grew
+
+until it was the fashionable drink at the French court and the discerning choice of customers at London meeting
+
+houses.
+
+C. The cacao beans are harvested from pods grown on the cacao tree. The pods come in a range of types since
+
+cacao trees cross-pollinate freely. These types can be reduced to three classifications. The most common is
+
+Forastero, which accounts for nearly 90% of the world’s production of cacao beans. This is the easiest to cultivate
+
+and has a thick-walled pod and a pungent aroma. Rarest and most prized are the beans of the Criollo. These beans
+
+from the soft, thin-skinned pod have an aroma and delicacy that make them sought after by the world’s best
+
+chocolate makers. Finally, there is the Trinitario, which is believed to be a natural cross from strains of the other
+
+two types. It has a great variety of characteristics but generally possesses a good, aromatic flavour and the trees
+
+are particularly suitable for cultivation.
+
+D. The cacao tree is strictly a tropical plant thriving only in hot, rainy climates. Thus, its cultivation is confined
+
+to countries not more than 20 degrees north or south of the equator. The cacao tree is very delicate and sensitive.
+
+It needs protection from the wind and requires a fair amount of shade under most conditions. This is true,
+
+especially in its first two or three years of growth. A newly planted cacao seedling is often sheltered by a different
+
+type of tree. It is normal to plant food crops for shade such as bananas, plantain, coconuts or cocoyams. Rubber
+
+trees and forest trees are also used for shade. Once established, however, cacao trees can grow in full sunlight,
+
+provided there are fertile soil conditions and intensive husbandry. With pruning and careful cultivation, the trees
+
+of most strains will begin bearing fruit in the fifth year. With extreme care, some strains can be induced to yield
+
+good crops in the third and fourth years.
+
+E. The process of turning cacao into chocolate hasn’t changed much since the Swiss made the major
+
+breakthroughs in the process in the late 1800s. First, the beans (up to twelve varieties harvested from all over the
+
+world) go through a process of fermentation and drying. They are then sorted by hand before cleaning and then
+
+roasting. Winnowing follows which removes the hard outer hulls and leaves what is known as the “nibs”. A
+
+crushing and heating process known as Hunter’sProcess is then used to remove nearly half of the cocoa butter
+
+from the nibs. This makes unsweetened chocolate (also known as cooking chocolate). Basic eating chocolate is
+
+made from a blending of the unsweetened chocolate with some of the cocoa butter along with other ingredients
+
+such as sugar and vanilla. The resulting product is then “conched” and this conching gives chocolate the velvet
+
+texture that we know so well. The finished result is then moulded, cooled, packaged by machine, distributed, sold
+
+and, of course, eaten!
+
+                   List of headings
+
+  i. Growing The Tree                                  26. Paragraph A: __________
+
+  ii. Why We Like It                                    27. Paragraph B: __________
+
+  iii. How the Aztecs Discovered Chocolate             28. Paragraph C: __________
+
+ iv. Chocolate Spreads to Europe                       29. Paragraph D: __________
+
+ v. First Contact                                       30. Paragraph E: __________
+
+ vi. The Countries that Grow Cacao Trees
+
+
+ TAILIEUDIEUKY © 2024                                                               Trang 7/10
+```
+
+## Trang 8
+
+```text
+TAILIEUDIEUKY © 2024 TAILIEUDIEUKY © 2024 TAILIEUDIEUKY © 2024 TAILIEUDIEUKY © 2024
+
+ vii. Varieties of Cacao
+
+ viii. From Bean to Bar
+
+
+D. WRITING (2.5 points)
+
+Part 1: Finish each of the following sentences ín such a way that it means exactly the same as the sentence
+
+printed before it. (0.5 points)
+
+1. Driving at that speed is dangerous although you drive well.
+
+→ However _______________________________________________________________________________.
+
+2. I don’t intend to apologize to either of them.
+
+→ I have _________________________________________________________________________________.
+
+3. I find his clothes the most irritating about him.
+
+→ What most _____________________________________________________________________________.
+
+4. The writer’s writing style contrasted sharply with his spoken language.
+
+→ There was ______________________________________________________________________________.
+
+5. He suddenly thought that he might have misunderstood her.
+
+→ It crossed ______________________________________________________________________________.
+
+Part 2: Complete the second sentence so that it has a similar meaning to the first sentence, using the word
+
+given. Do not change the word given. You must use between THREE and EIGHT words, including the word
+
+given. (0.5 points)
+
+6. They arrived at the station with only a minute to spare. (NICK)
+
+→ They arrived at the station _________________________________________________________________.
+
+7. To pass the time, I looked through some magazines. (WHILED)
+
+→ I ________________________________________________________________________ some magazines.
+
+8. Being her only niece, Ann is very precious to her. (APPLE)
+
+→ Being her only niece, _____________________________________________________________________.
+
+9. I know I can convince Dave that I’m right about that matter. (BRING)
+
+→ I know I can __________________________________________________ my way of thinking on this matter.
+
+10. I don’t usually remember people’s surnames. (MEMORY)
+
+→ I don’t __________________________________________________________________ people’s surnames.
+
+Part 3: Write a paragraph of about 160-180 words about some disadvantages of using social networks (such
+
+as Facebook, Twitter, Instagram) among teenagers. (1.5 points)
+
+Write your paragraph in the space below.
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+ TAILIEUDIEUKY © 2024                                                               Trang 8/10
+```
+
+## Trang 9
+
+```text
+TAILIEUDIEUKY © 2024 TAILIEUDIEUKY © 2024 TAILIEUDIEUKY © 2024 TAILIEUDIEUKY © 2024
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+
+ TAILIEUDIEUKY © 2024                                                               Trang 9/10
+```
+
+## Trang 10
+
+```text
+TAILIEUDIEUKY © 2024 TAILIEUDIEUKY © 2024 TAILIEUDIEUKY © 2024 TAILIEUDIEUKY © 2024
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+……………………………………………………………………………………………………………………...
+
+                                                     ---------- HẾT ----------
+
+
+ TAILIEUDIEUKY © 2024                                                              Trang 10/10
+```

@@ -1,0 +1,627 @@
+---
+id: "2023-nam-dinh-so"
+nam_thi: 2023
+nam_hoc: "2023-2024"
+tinh_thanh: "Nam Định"
+don_vi: "Sở GD&ĐT Nam Định"
+nguon_trang: "https://tailieudieuky.com/baiviet/document/de-thi-chuyen-tieng-anh-le-hong-phong-nam-dinh-nam-hoc-2023-2024/"
+ngay_truy_cap: "2026-09-19"
+xac_minh: "ban-dang-lai-co-tieu-de-ky-thi"
+chat_luong: "PDF-text"
+dap_an: "Có nội dung đáp án trong bản chép"
+sha256_noi_dung: "a4f1c0312d1074e9c64b589a8152b8ed4494044af2d07afb9b2495f53278d09a"
+---
+
+# Nam Định — Chuyên Anh vào 10 — 2023-2024
+
+**Đơn vị/kỳ thi:** Sở GD&ĐT Nam Định.
+
+> **Bản chép từ nguồn đăng lại, không phải bản phát hành của Sở/trường.** Đã kiểm tra nhãn kỳ thi, năm và môn chuyên trong nội dung nguồn; chưa đối chiếu thủ công từng câu với bản gốc. Không coi bản này là bản chuẩn tuyệt đối.
+
+## Nguồn và giới hạn
+
+- Trang đăng: [https://tailieudieuky.com/baiviet/document/de-thi-chuyen-tieng-anh-le-hong-phong-nam-dinh-nam-hoc-2023-2024/](https://tailieudieuky.com/baiviet/document/de-thi-chuyen-tieng-anh-le-hong-phong-nam-dinh-nam-hoc-2023-2024/).
+- Nội dung lấy từ [PDF](https://tailieudieuky.com/baiviet/wp-content/uploads/2024/03/De-thi-chuyen-Tieng-Anh-Le-Hong-Phong-Nam-Dinh-nam-hoc-2023-2024.pdf); SHA-256 tệp nguồn: `0b92bd9b410dc3fd7e2f39b1ee9103b7fc01a322b88e13c678fbbf73dc63399e`.
+  - Đã trích văn bản từ cả 9 trang PDF; không thay trang ảnh trống bằng văn bản tự tạo.
+- Đáp án: Có nội dung đáp án trong bản chép. Không tự sinh đáp án còn thiếu.
+- File nghe: không nhúng vào Markdown; xem trang/gói nguồn. Chưa xác minh khả năng phát hoặc sự đầy đủ của audio.
+- Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.
+- Giữ nguyên nội dung bài đọc và cả lỗi cố ý trong bài sửa lỗi; không tự “sửa ngữ pháp” của đề.
+
+## Đề thi và phần kèm theo trong nguồn
+
+## Trang 1
+
+```text
+TAILIEUDIEUKY © 2023
+
+   SỞ GIÁO DỤC VÀ ĐÀO TẠO             ĐỀ THI TUYỂN SINH LỚP 10 THPT CHUYÊN
+        NAM ĐỊNH                         NĂM HỌC 2023-2024
+      ĐỀ THI CHÍNH THỨC
+                                       MÔN THI: TIẾNG ANH
+         (Đề thi có 08 trang)
+                                              Thời gian làm bài: 120 phút, không kể thời gian phát đề
+
+
+              Điểm bài thi                 Họ tên, chữ ký của giám khảo         Số phách
+
+       Bằng số            Bằng chữ
+                                                          1. ………………………………….
+
+
+                                                          2. ………………………………….
+
+
+
+Chú ý: Thí sinh làm bài vào đề thi này.
+
+                          PART A. LISTENING (2.0 POINTS)
+
+Hướng dẫn phần thi nghe hiểu:
+- Nội dung phần nghe gồm 03 phần, thí sinh được nghe 2 lần, đĩa CD tự chạy 2 lần.
+- Mở đầu và kết thúc phần nghe có tín hiệu nhạc.
+- Hướng dẫn làm bài chi tiết cho thí sinh (bằng Tiếng Anh) đã có trong bài nghe.
+
+I. PART 1: You’ll hear a bank clerk talking to a man about opening a bank account. Listen and m complete the
+form below. Write NO MORE THAN TWO WORDS AND/OR A NUMBER for each answer. You will hear it TWICE.
+(1.0p)
+ Type of customer:      New customer
+ Personal information
+    - Name:               Tim Jones
+    - Date of birth:              (1) __________ 1980
+ Contact details
+    - Home address:        3 Bridgewater Quay
+    - Postcode:                 (2) __________
+    - Mobile:               01632960625
+    - Home phone:             (3) __________
+    - Email:                timjones@dayrep.com
+ Employment details
+    - Occupation:               (4) __________
+    - Company name:         Allberry & Jones (5) __________
+    - Annual salary:          £35,000
+ Account details
+    - Account type:             (6) __________
+    - Overdraft limit:         £1,500
+    - Amount depositing:       (7) £ __________
+    - Internet banking:       Yes
+    - Statement notification:   via (8) __________
+    - Method of contact:        (9) __________
+    - Identification:            (10) __________
+
+II. PART 2: You will hear a man talking to a group of people who are looking around a community garden.
+Listen and circle the correct answer A, B or C. You will hear it TWICE. (0.5p)
+                                  The Community Garden
+1. What was recently discovered at this site?
+  A. a written text about the area
+  B. various tools used for farming
+
+ TAILIEUDIEUKY © 2024                                                                   Trang 1/8
+```
+
+## Trang 2
+
+```text
+TAILIEUDIEUKY © 2023
+
+  C. some drawings showing the garden
+2. This location is good for gardening because __________.
+  A. there is enough water
+  B. the weather is warm
+  C. it is protected from the wind
+3. In 1860, what was built on this site?
+  A. a medical center                  B. a type factory                     C. a base for soldiers
+4. Today, the fruit and vegetables from the gardens __________.
+  A. are sold to businesses in the area
+  B. are given to certain local people
+  C. are used by those who work in the garden
+5. The local college now uses the gardens __________.
+  A. as a location for scientific research
+  B. for educating the wider community
+  C. to teach its students gardening skills
+
+III. PART 3: You will hear part of a lecture about the ancient African city of Great Zimbabwe. Listen and fill in
+each blank with ONE WORD ONLY. You will hear it TWICE. (0.5p)
+1. The city probably functioned as the __________ of the region.
+2. The name “Zimbabwe” may mean houses of __________.
+3. The Great Enclosure was probably a __________ home.
+4. Agriculture was probably held back by the relatively poor __________.
+5. __________ is no longer believed to be the reason for founding the city here.
+
+                   PART B. GRAMMAR AND VOCABULARY (2.0 POINTS)
+
+I. Circle the letter A, B, C or D to complete each of the following sentences. (1.0p)
+1. He is very __________ because he is concerned only with his own interests and feelings.
+  A. tolerant                 B. selfish                  C. grateful                 D. appreciative
+2. The more you talk about the situation, __________.
+  A. it is the worse            B. it is worse               C. the worse is it            D. the worse it is
+3. I didn’t know you were asleep. __________, I wouldn’t have made so much noise when I came in.
+  A. Otherwise               B. Nevertheless            C. Although                D. While
+4. In order to evaluate different approaches to teaching English, a number of experiments have been __________.
+  A. put aside                B. called off                C. carried out               D. taken on
+5. The Smiths wanted to give their son every advantage. However, they now regret __________ him by providing too
+many material possessions.
+  A. having been spoiled                                 B. having spoiled
+  C. to have spoiled                                     D. to have been spoiled
+6. If he carries on like this, he’s in __________ of losing his job.
+  A. danger                  B. risk                     C. threat                   D. warning
+7. Only after the teacher had explained the procedure clearly __________ to go ahead with the projects.
+  A. the students were allowed                            B. the students allowed
+  C. were the students allowed                            D. did the students allow
+8. John: “I didn’t pass the driving test.” – Anna: “__________!”
+  A. Better luck next time                                 B. Congratulations
+  C. That would be great                                 D. That was nice of them
+9. Susan is still in Paris, so you __________ seen her at the gym yesterday.
+  A. hadn’t                   B. should have             C. can’t have               D. mustn’t have
+10. I was born here so I know this area like the back of my __________.
+  A. shoulder                B. leg                     C. head                    D. hand
+
+II. Give the correct form of the capital words. Write your answers in the blanks. (0.5p)
+                   WHY YOU CAN’T SAY NO TO CERTAIN FOODS
+
+
+ TAILIEUDIEUKY © 2024                                                                   Trang 2/8
+```
+
+## Trang 3
+
+```text
+TAILIEUDIEUKY © 2023
+
+   Are you a chocoholic or a fast-food addict? Don’t blame yourself - certain foods can trigger an eating binge, but
+there are ways to control the (0. CRAVE) ___cravings___.
+   Even if you’re a fairly disciplined eater, there are sure to be foods you’ll have no resistance to. For some it’s a bar
+of chocolate, for others a burger. You (1. PROBABILITY) ____________ think there’s no one to blame but your weak-
+willed self.
+   But the reassuring truth is that when it comes to (2. CONTROL) ____________ your junk food intake, the odds are
+heavily stacked against you. High fat, high-sugar foods can act like an addictive drug, making us crave even more of
+the same. Fat is often added to food to make it more palatable so it’s a good way of making inexpensive, bland food
+seem tastier. Another reason certain foods are so (3. RESIST) ____________ is that they have a very real effect on
+our mood, making us feel more relaxed.
+   Our eating habits develop when we are young and as we move into (4. ADULT) ____________, the chocolate that
+we were rewarded with as a young child becomes a guilty indulgence. We might feel we’ve earned the right to treat
+ourselves after a hard day at work, for example. Past (5. ASSOCIATE) ____________ can reinforce bad eating habits
+that are difficult to break free from.
+
+III. Each of the following sentences has ONE word that needs correction. Underline that word and correct it
+by replacing it with ONE proper word. Write the correction in the provided blank on the right. There is an
+example at the beginning (0). (0.5p)
+ Sentences                                                                                 Corrections
+ 0. He collided with a car because he was driving too fastly.                                         fast
+ 1. Public speaking is quite a frightened experience for many people.
+ 2. Some robots may make the washing-up and keep the house clean.
+ 3. Social networking sites are estimated to have over 700 millions users worldwide.
+ 4. The book which you borrow from the city library yesterday is very interesting.
+ 5. Some bacteria are extremely harmful, but others are regular used in producing foods.
+
+                           PART C. READING (2.5 POINTS)
+
+I. Read the text and circle A, B, C or D that best fits each space. (0.5p)
+Holidays in South Carolina
+   Roaring across the bay in a motorized rubber boat, we were told by the captain to keep our eyes open. With the
+engine turned (1) __________, it wasn’t long before half a dozen dolphins came swimming around us. Eventually, two
+came up right beside the boat and popped their heads out of the water to give us a wide grin.
+   Dolphin watching is just one of the (2) __________ unexpected attractions of a holiday in South Carolina, in the
+USA. The state has long been popular with golfers and, with dozens of courses in the area, it is (3) __________ a
+golfer’s paradise. But even the keenest golfer needs other divisions and we soon found the resorts had plenty to offer.
+   In fact, Charleston, (4) __________ is midway along the coast, is one of the most interesting cities in the USA, and
+is where the first shots in the Civil War were (5) __________. Taking a guided horse and carriage tour through the
+quiet back streets you get a real (6) __________ of the city’s past. Strict regulations apply to buildings so that original
+(7) __________ are preserved. South of Charleston lies Hilton Head, an island resort about 18 km long and shaped
+(8) __________ a foot. It has a fantastic sandy beach (9) __________ the length of the island and this is perfect for
+all manner of water sports. Alternatively, if you feel like doing nothing, (10) __________ a chair and umbrella, head
+for an open space and just sit back and watch the pelicans diving for fish.
+1.     A. up                    B. off                    C. into                   D. away
+2.     A. many                 B. much                 C. little                   D. lots
+3.     A. fully                   B. truly                  C. honestly               D. purely
+4.     A. where                 B. that                   C. which                 D. who
+5.     A. thrown                B. aimed                 C. pulled                 D. fired
+6.     A. significance            B. sense                 C. importance            D. comprehension
+7.     A. points                 B. particles               C. factors                D. features
+8.     A. like                   B. as                    C. so                    D. similar
+9.     A. lying                  B. going                 C. following              D. running
+10.    A. charge                B. lend                  C. hire                   D. loan
+
+
+ TAILIEUDIEUKY © 2024                                                                   Trang 3/8
+```
+
+## Trang 4
+
+```text
+TAILIEUDIEUKY © 2023
+
+II. Fill in each blank with ONE suitable word. Write the words in the spaces provided. (0.5p)
+  The truth is nobody really knows how the language first began. Did we all start talking at around the same time
+because of the manner in (1) ____________ our brains had begun to develop?
+   Although there is a lack of clean evidence, people have (2) ____________ up with various theories about the
+origins of language. One recent theory is that human beings have evolved in such a way that we are programmed for
+language from the moment of birth. In other (3) ____________, language came about as a result of an evolutionary
+change in our brains at some stage.
+   Language can well (4) ____________ programmed into the brain but, despite this, people still need stimulus from
+others around them. From studies, we know that if children are isolated (5) ____________ human contact and have
+not learnt to construct sentences before they are ten, it is doubtful they will ever do so. This research shows, if nothing
+else, that language is a social activity, not something invented in isolation.
+
+III. Read the following passage and circle the letter A, B, C, or D to indicate the correct answer to each of the
+questions. (1.0p)
+   According to the best evidence gathered by space probes and astronomers, Mars is an inhospitable planet, more
+similar to Earth’s Moon than to Earth itself - a dry, stark, seemingly lifeless world. Mars’ air pressure is equal to Earth’s
+at an altitude of 100,000 feet. The air there is 95 percent carbon dioxide.
+   Mars has no ozone layer to screen out the sun’s lethal radiation. Daytime temperatures may reach above freezing,
+but because the planet is blanketed by the mere wisp of an atmosphere, the heat radiates back into space. Even at
+the equator, the temperature drops to -50C (-60F) at night. Today there is no liquid water, although valleys and
+channels on the surface show evidence of having been carved by running water. The polar ice caps are made of
+frozen water and carbon dioxide, and water may be frozen in the ground as permafrost.
+   Despite these difficult conditions, certain scientists believe that there is a possibility of transforming Mars into a
+more Earth-like planet. Nuclear reactors might be used to melt frozen gases and eventually build up the atmosphere.
+This in turn could create a “greenhouse effect” that would stop heat from radiating back into space. Liquid water could
+be thawed to form a polar ocean. Once enough ice has melted, suitable plants could be introduced to build up the
+level of oxygen in the atmosphere so that, in time, the planet would support animal life from Earth and even permanent
+human colonies. “This was once thought to be so far in the future as to be irrelevant,” said Christopher McKay, a
+research scientist at NASA. “But now it’s starting to look practical. We could begin work in four or five decades.”
+  The idea of “terra-forming” Mars, as enthusiasts call it, has its roots in science fiction. But as researchers develop
+a more profound understanding of how Earth’s ecology supports life, they have begun to see how it may be possible
+to create similar conditions on Mars. Don’t plan on homesteading on Mars any time soon, though. The process could
+take hundreds or even thousands of years to complete and the cost would be staggering.
+1. What does the passage mainly discuss?
+  A. The possibility of changing the Martian environment
+  B. The challenge of space travel
+  C. The advantages of establishing colonies on Mars
+  D. The need to study the Martian colony
+2. The word “stark” in paragraph 1 is closest in meaning to __________.
+  A. unknown                B. harsh                   C. dark                    D. friendly
+3. According to the passage, the Martian atmosphere today consists mainly of __________.
+  A. oxygen                  B. ozone                   C. water vapor              D. carbon dioxide
+4. Which of the following is NOT listed as a characteristic of the planet Mars that would make colonization difficult?
+  A. There is no liquid water.
+  B. Daytime temperatures are dangerously high.
+  C. The sun’s rays are deadly.
+  D. Nighttime temperatures are extremely low.
+5. It can be inferred from paragraph 3 that the “greenhouse effect” is __________.
+  A. the direct result of nuclear reactions
+  B. the cause of low temperatures on Mars
+  C. caused by the introduction of green plants
+  D. possible means of warming Mars
+6. The word “permanent” in paragraph 3 is closest in meaning to __________.
+  A. temporary               B. short                    C. lasting                  D. famous
+7. According to Christopher McKay, the possibility of transforming Mars __________
+ TAILIEUDIEUKY © 2024                                                                   Trang 4/8
+```
+
+## Trang 5
+
+```text
+TAILIEUDIEUKY © 2023
+
+  A. could only occur in science fiction stories
+  B. will not begin for hundreds, even thousands of years
+  C. could be started in forty or fifty years
+  D. is completely impractical
+8. The phrase “more profound” in paragraph 4 is closest in meaning to __________.
+  A. deeper                  B. more modern            C. brighter                 D. more difficult
+9. The word “they” in paragraph 4 refers to __________.
+  A. Mars                    B. enthusiasts              C. roots                    D. more difficult
+10. According to the passage, the basic knowledge needed to transform Mars comes from __________.
+  A. a knowledge of Earth’s ecology                       B. the science of astronomy
+  C. data from space probes                              D. science fiction stories
+
+IV. Choose the correct heading for paragraphs 1-5 from the list of headings below. Write your answers in the
+boxes provided. (0.5 p)
+List of Headings
+i. Location is everything
+ii. Installing the right technology
+iii. Pollution - the number one problem
+iv. Preventing waste
+v. Ways to motivate developers
+vi. Exploiting the good and avoiding the bad
+vii. The importance of size
+viii. Cutting the cost of building
+
+The need for houses for a growing population often seems to be at odds with the need to protect the environment.
+James Chilton looks at how best to satisfy both of these needs.
+Paragraph 1
+The thing is, sustainable development can be achieved relatively easily so long as the industry can be persuaded to
+follow certain guidelines and adopt regulations; in short, to care about the environment. This might initially eat into
+their profits, which is why construction companies often need to be persuaded. Strict laws, fashionable green
+movements (and public shaming of builders who disregard them) and peer pressure within the industry all contribute
+to ethical policies and principles. If developers can, at the same time, be made to feel proud of their environmentally-
+friendly initiatives, then this is an extra incentive for them to care.
+Paragraph 2
+Our homes need to be built in such a way that, however rich we are, or however little we care about the planet, it is
+impossible to do too much damage in terms of using up our energy resources or generating emissions. This means
+that heating, cooling and hot water provision must be as fuel efficient as possible. Solar, wind or geothermal technology
+must be used as standard so that the greatest possible proportion of renewable energy is used, and temperatures
+must be correctly regulated by the use of thermostats. In addition to this, cooking appliances, light fittings and bulbs
+should take into consideration the range of sensors, timers and other economy products we now have available.
+Paragraph 3
+Once all the above have been taken care of,  it remains for designers to stop the energy from being lost, and that
+means insulation. The latest thinking is to steer clear of the potentially harmful side-effects of more traditional materials
+such as fibre glass in favor of insulation made from recycled newspaper, wool or even denim. A range of treatments
+exists to improve the thermal qualities of glass, and, all in all, there is no reason why a new-build should lose more
+than a small fraction of the energy used to heat or cool it. Roofs should gather rainwater, to be stored and recycled.
+Water recycling, in the form of water-filtering plants, is an exciting prospect.
+Paragraph 4
+Orientation plays a big part in making the most of natural resources.  It is something that has been practiced for
+thousands of years and learned, no doubt, the hard way. Even the briefest of studies of old constructions will reveal
+that they were positioned in such a way as to maximize sunlight in cold countries and shade in hot ones. Houses built
+end-on into the prevailing winds, houses built near fresh running water, walled gardens to shelter from the wind and
+trap the sun; all these are examples of working with nature and not against it. Passive solar design, as it is now known,
+involves orienting the house in a way that makes the best use of energy from the sun. This can, in certain cases,
+reduce energy consumption by 40%.
+ TAILIEUDIEUKY © 2024                                                                   Trang 5/8
+```
+
+## Trang 6
+
+```text
+TAILIEUDIEUKY © 2023
+
+Paragraph 5
+But it is where the buildings are placed that might ultimately have the biggest effect on the planet because damage is
+more easily prevented than corrected. Consideration must be given to where new constructions are to be sited if we
+are to avoid a range of unwanted short-term and long-term consequences. Fragile ecosystems and green belts should,
+of course, be respected and protected. Beyond that, it is a matter of common sense that a house built on a hill clearly
+be subjected to more heat loss than one further down.
+   Paragraph           1               2              3               4               5
+    Heading
+
+                           PART D. WRITING (2.5 POINTS)
+
+I. Rewrite each of the following sentences in such a way that it has the same meaning as the first sentence,
+using the cues at the beginning of each sentence. (0.5p)
+1. Nam had all the necessary qualifications and he got the job.
+→ If Nam ____________________________________________________________________________________.
+2. I was astonished by his generosity.
+→ What _____________________________________________________________________________________.
+3. “If you don’t apologize immediately, I’ll leave”, she told him.
+→ She threatened _____________________________________________________________________________.
+4. They believe that the robbers got into the house through the window.
+→ The robbers ________________________________________________________________________________.
+5. Linda isn’t to blame for her child’s misbehavior by any means.
+→ By no means _______________________________________________________________________________.
+
+II. Complete the second sentence so that it has a similar meaning to the first sentence, using the word given.
+Do not change the word given. You must use BETWEEN THREE AND SIX WORDS, including the word given.
+(0.5p)
+1. Peter was about to go shopping when it started to rain. (POINT)
+→ Peter was _________________________________________________________ shopping when it started to rain.
+2. Jack really likes football and hardly misses a match. (CRAZY)
+→ Jack __________________________________________________________ football and hardly misses a match.
+3. He felt that his bosses didn’t appreciate him. (GRANTED)
+→ He felt that his bosses ________________________________________________________________________.
+4. I suddenly realized that I had left my cheque book at home. (DAWNED)
+→ It __________________________________________________________ that I had left my cheque book at home.
+5. You must accept the fact that your closest friend is moving to another city. (RESIGN)
+→You must _____________________________________________ that your closest friend is moving to another city.
+
+III. Write an essay on the following topic (1.5p)
+Some people say that parents play the most important role in helping their children overcome stress. To what
+extent do you agree or disagree with this opinion?
+Give reasons for your answer and include any relevant examples from your own knowledge or experience.
+Your writing must be between 200 and 220 words.
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+
+ TAILIEUDIEUKY © 2024                                                                   Trang 6/8
+```
+
+## Trang 7
+
+```text
+TAILIEUDIEUKY © 2023
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+ TAILIEUDIEUKY © 2024                                                                   Trang 7/8
+```
+
+## Trang 8
+
+```text
+TAILIEUDIEUKY © 2023
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+………………………………………………………………………………………………………………………………………
+
+                                                                ---------- HẾT ----------
+
+
+
+
+
+ TAILIEUDIEUKY © 2024                                                                   Trang 8/8
+```
+
+## Trang 9
+
+```text
+TAILIEUDIEUKY © 2023
+
+   SỞ GIÁO DỤC VÀ ĐÀO TẠO             ĐỀ THI TUYỂN SINH LỚP 10 THPT CHUYÊN
+        NAM ĐỊNH                         NĂM HỌC 2023-2024
+     ĐÁP ÁN CHÍNH THỨC
+                                       MÔN THI: TIẾNG ANH
+        (Đáp án có 01 trang)
+                                              Thời gian làm bài: 120 phút, không kể thời gian phát đề
+
+
+PART A. LISTENING (2.0 POINTS)
+I. PART 1: (1.0 p) → 0.1p for each correct answer
+ 1. 27/27th               2. A1944Y           3.154960998           4. engineer             5. construction
+ March/March 27
+ 4. current               7. 270                  8. email                9. mobile              10. driving
+                                                                                                 licence/license
+II. PART 2: (0.5 p) → 0.1p for each correct answer
+ 1. B                     2. A                     3. A                     4. B                     5. C
+II. PART 3: (0.5 p) → 0.1p for each correct answer
+ 1. capital               2. rock                  3. royal                 4. soil                   5. gold
+
+PART B. GRAMMAR AND VOCABULARY (2.0 POINTS)
+I. (1.0 p) → 0.1p for each correct answer
+ 1. B                     2. D                    3. A                     4. C                    5. B
+ 6. A                     7. C                    8. A                     9. C                  10. D
+II. (0.5 p) → 0.1p for each correct answer
+ 1. probably             2. controlling           3. irresistible           4. adulthood            5. associations(s)
+III. (0.5 p) → 0.1p for each correct answer
+ 1. frightened →        2. make → do          3. millions → million    4. borrow →            5. regular →
+ frightening                                                   borrowed               regularly
+
+PART C. READING (2.5 POINTS)
+I. (0.5 p) → 0.05p for each correct answer
+ 1. B                     2. A                     3. B                     4. C                    5. D
+ 6. B                     7. D                    8. A                     9. D                  10. C
+II. (0.5 p) → 0.1p for each correct answer
+ 1. which                2. come                3. words                4. be                    5. from
+III. (1.0 p) → 0.1p for each correct answer
+ 1. A                     2. B                     3. D                     4. B                     5. D
+ 6. C                    7. C                    8. A                     9. D                  10. A
+IV. (0.5 p) → 0.1p for each correct answer
+ Paragraph       1               2              3               4               5
+ Heading         v                                     ii                       iv                      vi                                    i
+
+PART D. WRITING (2.5 POINTS)
+I. (0.5 p) → 0.1p for each correct answer
+1. hadn’t/ had not had all the necessary qualifications, he wouldn’t/ would not have got the job.
+2. astonished me was his generosity/ made me astonished was his generosity.
+3. to leave if he didn’t apologize immediately.
+4. are believed to have got into the house through the window.
+5. is Linda to blame for her child’s misbehavior.
+II. (0.5 p) → 0.1p for each correct answer
+1. on the point of leaving
+2. is crazy about
+3. took him for granted
+4. suddenly dawned on me
+5. resign yourself to the fact that
+
+ TAILIEUDIEUKY © 2024                                                                   Trang 9/8
+```

@@ -1,0 +1,644 @@
+---
+id: "2022-dak-lak-so"
+nam_thi: 2022
+nam_hoc: "2022-2023"
+tinh_thanh: "Đắk Lắk"
+don_vi: "Sở GD&ĐT Đắk Lắk"
+nguon_trang: "https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-chuyen-tinh-dak-lak-mon-tieng-anh-chuyen-nam-hoc-2022-2023-co-dap-an-ban-pdf/"
+ngay_truy_cap: "2026-09-19"
+xac_minh: "ban-dang-lai-co-tieu-de-ky-thi"
+chat_luong: "PDF-text"
+dap_an: "Chưa lấy được đáp án riêng"
+sha256_noi_dung: "300d11c6939ba6266f3104cb08819c6952c7ebcdb67f96f15c8919dcfd821557"
+---
+
+# Đắk Lắk — Chuyên Anh vào 10 — 2022-2023
+
+**Đơn vị/kỳ thi:** Sở GD&ĐT Đắk Lắk.
+
+> **Bản chép từ nguồn đăng lại, không phải bản phát hành của Sở/trường.** Đã kiểm tra nhãn kỳ thi, năm và môn chuyên trong nội dung nguồn; chưa đối chiếu thủ công từng câu với bản gốc. Không coi bản này là bản chuẩn tuyệt đối.
+
+## Nguồn và giới hạn
+
+- Trang đăng: [https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-chuyen-tinh-dak-lak-mon-tieng-anh-chuyen-nam-hoc-2022-2023-co-dap-an-ban-pdf/](https://tailieudieuky.com/baiviet/document/de-thi-tuyen-sinh-vao-lop-10-thpt-chuyen-tinh-dak-lak-mon-tieng-anh-chuyen-nam-hoc-2022-2023-co-dap-an-ban-pdf/).
+- Nội dung lấy từ [PDF](https://drive.google.com/uc?export=download&id=1nr3fFBPjBI_1A7PFMVQbc6chLfw5vdiu); SHA-256 tệp nguồn: `25d8aca7128ff3fdc926eded9d515c0fefc239f68be97c55b2c168438318a677`.
+  - Đã trích văn bản từ cả 12 trang PDF; không thay trang ảnh trống bằng văn bản tự tạo.
+- Đáp án: Chưa lấy được đáp án riêng. Không tự sinh đáp án còn thiếu.
+- File nghe: không nhúng vào Markdown; xem trang/gói nguồn. Chưa xác minh khả năng phát hoặc sự đầy đủ của audio.
+- Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.
+- Giữ nguyên nội dung bài đọc và cả lỗi cố ý trong bài sửa lỗi; không tự “sửa ngữ pháp” của đề.
+
+## Đề thi và phần kèm theo trong nguồn
+
+## Trang 1
+
+```text
+SỞ GIÁO DỤC VÀ ĐÀO TẠO  KỲ THI TUYỂN SINH VÀO LỚP 10 TRUNG HỌC PHỔ THÔNG
+      ĐẮK LẮK                   NĂM HỌC 2022 – 2023
+
+    ĐỀ CHÍNH THỨC                Môn thi: TIẾNG ANH – CHUYÊN
+    (Đề thi gồm có 11 trang)             Thời gian làm bài: 150 phút, không kể thời gian phát đề
+
+
+                                    (Lưu ý: Thí sinh làm bài ngay trên đề thi này)
+
+   GIÁM KHẢO 1   GIÁM KHẢO 2        ĐIỂM THI        SỐ PHÁCH
+
+                            BẰNG SỐ   BẰNG CHỮ
+
+
+
+
+
+    I. LISTENING.
+  HƯỚNG DẪN PHẦN THI NGHE HIỂU
+     Bài nghe gồm 03 phần; mỗi phần được nghe 02 lần, mỗi lần cách nhau 05 giây.
+
+   Mở đầu bài nghe có tín hiệu nhạc.
+
+    Mọi hướng dẫn cho thí sinh (bằng tiếng Anh) đã có trong bài nghe.
+
+   Part 1. For questions 1-5, complete the notes below. Write NO MORE THAN TWO WORDS
+  AND/OR A NUMBER for each answer in the boxes below. 0 is done as an example. (10
+   points)
+
+              MOVING COMPANY SERVICE REPORT
+
+   Full name:           (0) ___________
+
+   Phone number:      (1) ___________
+
+  USA Address:     509 (2) ___________ House, 1137 University Drive in Seattle
+
+   Packing Day:        (3) ___________
+
+   Date:                  11th March
+
+   Clean-up by:        5:00 p.m.
+
+   Day:                 (4) ___________
+
+   About the Price:     Rather expensive
+
+   Storage Time:        (5) ___________
+
+   Your answers: (0) Jane Bond
+
+     1.                  2.                    3.                  4.                   5.
+   Part 2. For questions 6-10, choose the correct letter A, B or C for each answer in the boxes
+   below. (10 points)
+
+                    SHOPPING IN SECOND-HAND SHOPS
+
+   1
+```
+
+## Trang 2
+
+```text
+6. Sophie says that she goes to second-hand shops because of _______.
+ A. the price of their stock         B. the quality of their stock     C. the range of their stock
+ 7. According to Sophie, it’s worth spending more when _______.
+ A. shopping for a special event    B. buying accessories         C. looking for footwear
+ 8. Sophie admits that she began frequenting second-hand shops _______.
+ A. as a protest against big corporations
+ B. when she started living away from home
+ C. because she wanted to have unique clothes
+ 9. Sophie points out that second-hand shops _______.
+ A. don’t always have things that fit
+ B. charge a large fee to alter clothes
+ C. often don’t have anything you want
+ 10. Sophie believes that _______.
+ A. everyone should buy second-hand clothes
+ B. it shouldn’t take too long to find what you’re looking for
+ C. it’s vital not to give up easily
+Your answers:
+
+ 6.                  7.                    8.                  9.                 10.
+Part 3. For questions 11-20, complete the sentences. Write ONE WORD for each answer in
+the boxes below. (20 points)       THE SPIRIT BEAR
+
+General facts
+•        It is a white bear belonging to the black bear family.
+•        Its colour comes from an uncommon (11) _______.
+•      Local people believe that it has unusual (12) _______.
+•     They protect the bear from (13) _______.
+Habitat
+•     The bear’s relationship with the forest is complex.
+•     Tree roots stop (14) _______ along salmon streams.
+•     The bears’ feeding habits provide nutrients for forest vegetation.
+•        It is currently found on a small number of (15) _______.
+Threats
+•      Habitat is being lost due to deforestation and construction of (16) _______ by logging
+companies.
+•      Unrestricted (17) _______  is affecting the salmon supply.
+•     The bears’ existence is also threatened by their low rate of (18) _______.
+Going forward
+•      Interested parties are working together.
+•     Logging companies must improve their (19) _______ of logging.
+•     Maintenance and (20) _______ of the spirit bears’ territory is needed.
+Your answers:
+ 11.                                         16.
+ 12.                                         17.
+ 13.                                         18.
+ 14.                                         19.
+ 15.                                         20.
+
+
+2
+```
+
+## Trang 3
+
+```text
+II. USE OF ENGLISH
+Part 1. Choose and write in boxes below the correct option (A,B,C or D) that best completes
+each unfinished sentence or substitutes the bold part in italics. (30.0 pts)
+21. Prawns can be risky to eat if they _______ at the right temperature.
+  A. aren’t being kept                             B. won’t be kept
+  C. haven’t been kept                           D. hadn’t been kept
+22. Visitors are asked to _______ to the rules of the park to prevent damage to its fragile
+ecosystem.
+  A. bond                B. adhere              C. affix               D. cling
+23. _______ about the course until Sandra told him.
+  A. Little did he know                            B. Little knew he
+  C. He did little know                           D. He knew a little
+24. I really can’t bear _______ that.
+  A. you did              B. you doing            C. you do             D. you to do
+25. It is rather _______ to believe buying these clothes will make you look like the models in the
+adverts.
+  A. tasteless              B. trustworthy          C. helpless            D. naive
+26. Tom: “ ________________________”
+   Jim: “ Well, if you do, you may end up in debt.”
+  A. Do you know how the mortgage system work?
+  B. When will you pay me back?
+  C. What do you think about my taking out a loan to buy that car?
+  D. How much do you think a flat like that costs?
+27. Your grades are coming down. You should try to _______ the other students in your class.
+  A. keep up with          B. come up with        C. get along with   D. get in touch with
+28. Kathy: “ ________________________”
+   Susan: “ No, nobody has. She’s really antisocial these days, it seems.”
+  A. How has Oyku been doing?
+  B. Have you talked to Doris lately?
+  C. How much overtime has Cathy worked so far this week?
+  D. Where is Edna going to have the party?
+29. Jessica returned her smartphone to the shop, as it was still under _____ and had stopped
+working.
+  A. assurance             B. pledge              C. agreement           D. guarantee
+30. I'm afraid you have tonsillitis but don't worry, I'll _______ some antibiotics for you.
+  A. inscribe               B. subscribe            C. prescribe           D. transcribe
+31. It is important that cancer is diagnosed and treated as early as possible _______.
+  A. in order for a successful cure to assure           C. in order to assuring a successful cure
+  B. in order to assure a successful cure              D. in order that assured a successful
+32. The amateur actor was _______ his brain trying to remember the lines of the script.
+  A. racking               B. stretching           C. picking            D. bashing
+33. Previous teaching experience is a necessary _______ for this job.
+  A. demand               B. need                C. qualification        D. request
+
+
+
+
+
+3
+```
+
+## Trang 4
+
+```text
+34. If you are _______ to other people, the chances are that they won't be respectful or kind to
+you either.
+  A. inconsiderate         B. inconsiderable         C. considerable       D. considerate
+35. She _______ by credit card but she preferred cash.
+  A. would have paid       B. should pay            C. could have paid     D. can pay
+36. Michael has promised he will be on his best _______ during his grandparents' visit.
+  A. action                B. approach             C. behaviour          D. style
+37. _______ you doubt my story, I have brought documents to attest to its truth.
+  A. In case               B. Unless               C. Provided           D. While
+38. The new trade agreement should _______ more rapid economic growth.
+  A. alleviate              B. probe                C. strengthen         D. facilitate
+39. Sleep is _______ to our health, and lack of it can lead to many illnesses.
+  A. desirable             B. needed               C. required           D. essential
+40. “Don't look so worried! You should take the leader's comment with _______.”
+  A. a teaspoon of salt     B. a dose of salt          C. a pinch of salt      D. a cup of salt
+41. I would advise you to do this as well and in that way you will kill two birds with one stone.
+  A. get things done twice                           B. get something done two times
+  C. get two things done at the same time             D. get two things done twice
+42. Please send the file to _______ is in charge of marketing.
+  A. whomever           B. whoever              C. whatever         D. whichever
+43. The level of air pollution announced by the government is often _______ by ecological
+groups.
+  A. managed             B. contradicted            C. overseen         D. disputed
+44. These technological developments were hardly _______ 30 years ago.
+  A. imaginative          B. imaginable            C. imaginary        D. imagining
+45. _______ to stay inside for months on end, many children felt the lack of communication with
+their friends.
+  A. Making              B. Being made            C. Having made D. Having been made
+46. The tournament's regulations requested that he _______ energy drinks before the game.
+  A. didn't use            B. not use                C. don't use         D. won't use
+47. She ran in a marathon last week but _______ after ten kilometers.
+  A. broke up             B. made up               C. dropped out       D. closed down
+48. Going to a concert is a good way a to let off _______ and relax.
+  A. steam               B. smoke                C. moisture         D. temper
+49. Scientists all over the world are working to _______ a cure for the acute hepatitis.
+  A. disallow             B. discern                C. discard          D. discover
+50. _______ in the diet is especially important for vegetarians.
+  A. That they obtain enough protein                   B. Enough protein is obtained
+  C. They obtain enough protein                     D. By obtaining enough protein
+
+Your answer:
+ 21.      22.      23.      24.      25.      26.      27.      28.      29.      30.
+ 31.      32.      33.      34.      35.      36.      37.      38.      39.      40.
+ 41.      42.      43.      44.      45.      46.      47.      48.      49.      50.
+
+
+
+
+4
+```
+
+## Trang 5
+
+```text
+Part 2. Fill in the boxes below the appropriate forms of the words in parentheses. (10.0 pts)
+              TEENAGER BEHAVIOR – HOW AND WHY?
+Teenagers have a reputation for being impulsive and sometimes (51 - REASON) _______. But
+in fact, recent research suggests that there may often be scientific (52 - EXPLAIN) _______ for
+a lot of teenage behavior. It has long been thought that by far the most important period of brain
+(53 - DEVELOP) _______ takes place during the first few years of life. However, with the (54 -
+ASSIST) _______ of new technologies like magnetic resonance imaging (MRI), some scientists
+are beginning to (55 - CONSIDER) _______. That's because MRI scanning has found evidence
+of (56 - EXPECT) _______ late changes in the brains of subjects aged in their teens or even
+early 20s.  It appears that brain connections that are not being used in teenage years are
+abandoned, while those in regular use become more (57-INFLUENCE) _______. If this is true
+then our choices as teens will affect our habits, and possibly even our (58 - PERSON) _______
+as adults. What does seem clear is that our journey from being children to fully (59 – DEPEND)
+_______ adults takes place at a time when the brain is undergoing (60 - DRAMA) _______
+changes.
+                                      (Adapted from Gateway 2nd Edition, Amada French)
+Your answers:
+    51.                                          56.
+    52.                                          57.
+    53.                                          58.
+    54.                                          59.
+    55.                                          60.
+
+III. READING (70.0 pts)
+Part 1. Read the following passage and write in the boxes below the letter A, B, C, or D to
+indicate the correct word that best fits each of the numbered blanks. (10.0 pts)
+                   SOMETHING DIFFERENT?
+      Looking for an unforgettable way to celebrate a special occasion? Well, the (61) _______
+of options open to today's youngster – or even ‘oldster’ for that matter, is a far cry from the
+traditional party or restaurant visit. No longer is it (62) _______ sufficient to invite your friends
+round, buy some food and (63) _______ a baker to produce a cake. No, today's birthday boy or
+girl is looking for something out of the ordinary, ranging from the outrageously expensive to the
+downright dangerous. Anything (64) _______ as long as it is unusual and impressive.
+      Top of this year's popular (65) _______ are as follows: taking some friends rally driving,
+helicopter lessons, plane trip and parachuting and hot air ballooning. Then, there is (66) _______
+group bungee jumping or taking your buddies (67) _______ a stomach-churning, white water
+rafting ride down rapids.
+       The desire for adventurous celebration is not restricted to the young. I recently met an
+octogenarian who celebrated (68) _______ the milestone of eighty by having a flying lesson.
+Of course, if you have the money, the world is your oyster. A well-heeled relation of mine flew
+fifty of his friends to a Caribbean island to mark the passing of his half century. Unfortunately, I
+was only a (69) _______ relation.
+         Undoubtedly, the more traditional forms of celebration do continue to satisfy the less
+extravagant or less adventurous among us. However, with my own half century looming on the
+horizon I would not say no to a weekend in Paris and a meal at the Eiffel Tower. I can (70)
+_______ dream. Perhaps by the time I'm eighty I'll be able to afford it.
+
+
+5
+```
+
+## Trang 6
+
+```text
+( Adapted from Upstream Advanced, Virginia
+Evans)
+    61. A. scale              B. degree                C. range           D. variance
+    62. A. hoped             B. decided               C. marked          D. considered
+    63. A. make             B. let                   C. get             D. want
+    64. A. goes              B. comes                C. wins            D. takes
+    65. A. experiments       B. extravagances          C. exposures        D. expansions
+    66. A. ever              B. always                C. more            D. instead
+    67. A. of                B. in                    C. out             D. on
+    68. A. attaining          B. arriving               C. getting          D. reaching
+    69. A. distant            B. remote                C. faraway         D. slight
+    70. A. however          B. but                   C. nevertheless      D. anyway
+
+Your answers:
+  61.                 62.                 63.                 64.                 65.
+  66.                 67.                 68.                 69.                 70.
+
+Part 2. Read the passage and write ONE suitable word for each blank in the boxes below.
+(20.0pts)
+                        BRITISH LEISURE LIFE
+       British people are always famous (71) _______  their conservative nature. Nevertheless,
+they also have some interesting ways to enjoy themselves. Of course, (72) _______ of their
+different positions, the social  elite and common people demonstrate different tastes in this
+respect. (73) _______ the organized leisure, the Club, is for the VIPs, then the amusement like
+the Pancake Race is for the commons.
+      Club life started with coffee drinking (74) _______ began around 1650. Among the most
+exclusivemand famous clubs of London, the Other Club occupies a special position.  It was
+founded in 1911 by Sir  Winston Churchill and F.E. Smith. Members of this club gather for
+dinner once (75) _______ month when Parliament is (76) _______ session and their traditional
+meeting place is the Pirate Room of the Savoy Hotel. These meetings are very private and
+informal. The Club has only three rules: 1. The object is (77) _______ dine, wine and talk; 2.
+Nothing in the intercourse of the members shall be allowed to interfere (78) _______ the full
+rigorous pursuit of party politics; 3. The names of the members of the Executive Committee must
+remain to (79) _______ unknown.
+        Political antagonists, who may never be seen to say a word to each other in public, may
+dine side by side here and engage in unfettered and amicable conversation. The Other Club is
+rich in traditions. Many of them originated from Sir Winston Churchill. At (80) _______
+command, a large wooden and black cat was seated near him at dinner with a napkin tied around
+its neck.
+                  (Adapted from Expanding Vocabulary through Reading, Higher Education
+Press)
+
+Your answers:
+  71.                 72.                 73.                 74.                 75.
+  76.                 77.                 78.                 79.                 80.
+
+
+
+6
+```
+
+## Trang 7
+
+```text
+Pa rt 3 . The passage below contains 10 mistakes. Identify the mistakes, correct them, and write
+your answers in the boxes below. (20.0 pts)
+       (Lines 1,3 and 4 have been done as examples)
+ Line
+ 1           There are more forty universities in Britain. They are all private institutions.
+ 2       Each has its own governing council, including some local businessmen and too
+ 3        local politicians as well as a few academics. Students have to pay fees and living
+ 4        costs, but every students may receive from the local authority of the place where
+ 5      he
+ 6         lives a personal grant which is enough to pay in his full costs, including lodging
+ 7      and food.
+ 8           Each university has their own syllabuses, and there are some quite important
+ 9       differences between one and the another. In general, the Bachelor's degree is given
+ 10      to students who pass examines at the end of three or four years of study.
+ 11      Bachelors' degrees are on two levels, Honors and Pass. In some cases, the Honor
+ 12      degree is given for intensive study and examination in one, two or three related
+ 13      subjects that the Pass degree may be somewhat broader.
+ 14         The first post-graduate degree is normally of Master, conferred for a thesis
+ 15      based on at least one year's full-time work; the time actually taking is usually
+ 16     more
+ 17      than a year. Oxford and Cambridge are peculiar in which they give the Master of
+          Arts degree automatic to any Bachelor who pays the necessary fees at any time
+            after the seventh year from his first admission to the university.
+
+
+
+ Question   Line   Mistake  Correction
+     0        1    more  more than
+    00       2     and too and
+    000      4     every students every student
+    81
+    82
+    83
+    84
+    85
+    86
+    87
+    88
+    89
+    90
+
+7
+```
+
+## Trang 8
+
+```text
+Part 4 . Read the following passage and write in the boxes below the letter A, B, or D to
+indicate the correct answer to each of the questions.(20.0 pts)
+                      DISCOURSE ANALYSIS
+      Discourse analysis is a subfield of linguistics that attempts to analyze language above the
+sentence level. It attempts to go beyond the simple analysis of grammar to examine how context
+affects the meaning of what is said or written. In this sense, it begins to bleed into psychology
+and sociology as well because factors such as the social context and the speaker's state of mind
+must be taken into account in discourse analysis. Two of the primary approaches to discourse
+analysis are pragmatics and sociolinguistics.
+      Pragmatics is the attempt to bridge the gap between the literal, grammatical meaning of a
+sentence and the speaker's true meaning. Anyone who has ever had a misunderstanding with a
+friend or a relative knows that these two things are not always the same. A common example
+would be when a person says, "Why don't we go to the movies?" Here, the true meaning of the
+speaker is not to ask a question, but rather to make a suggestion.
+      To clear up the ambiguities of such language, pragmatics classifies pieces of speech
+according to speech acts, the role they play in a conversation. Sometimes, the speech act is
+obvious. When a police officer yells, "Stop or I'll shoot," the officer is both giving an order (stop)
+and making a threat (I'll shoot). Often, however, a speech act can only be determined by its
+context. Look at the following example. A mother asks her son, "Can you take out the garbage?"
+to which the son replies, "I did it yesterday." The mother then responds, "I don't care. Just do it."
+In this context the son's speech act is not to inform his mother of the fact that he took out the
+garbage yesterday, as the grammar of the sentence would seem to indicate. Instead, the son's
+speech act is a refusal of the mother's request. This, however, only becomes clear when the boy's
+words are analyzed within the larger context of the conversation as a whole. Such analysis is the
+nature of pragmatics.
+      Sociolinguistics employs discourse analysis for an entirely different purpose. The primary
+goal of a sociolinguistic approach to discourse analysis is to study how social factors, such as
+socioeconomic status, influence the way in which language is used. Among speakers of the same
+language, people in different social groups will use language differently. Their tones, grammar,
+and word choice may  all be drastically different from each other. Sometimes this can be
+attributed simply to differences in educational level. Obviously a college graduate will have a
+wider vocabulary and more sophisticated style of speech than most middle school students. But
+differences in education do not entirely explain the differences in the way that language is used.
+Social settings greatly affect the way that people use language. For example, a business meeting
+requires a more formal use of language than a conversation with one's friends at a party. These
+shifts in the way we use language are called code switching. Nearly everyone is capable of some
+level of code switching, and those who are not adept at it often have considerable trouble making
+their way in society.
+    Other social factors are not so flexible. For example, one's status in society affects the way
+one speaks, and these changes are not so given to code switching; they are generally far more
+rigid. A famous example is the differences between the way that men and women speak. An
+analysis of male discourse generally shows it to be highly pragmatic and goal oriented. Women's
+language, however, often is centered on building consensus and a sense of community  . An
+examination of the way that men and women respond when they are told of a personal problem
+illustrates this point quite well. In this situation, men generally express their sympathy by
+offering advice and suggesting solutions. Women, on the other hand, express their sympathy by
+
+
+8
+```
+
+## Trang 9
+
+```text
+relating their own experiences with similar problems or through the use of expressions like "I
+know how you feel." Here the emphasis is less on finding a solution to the problem than on
+building a sense of togetherness. The analysis of such social influences on language is the goal of
+a sociolinguistic approach to discourse analysis.
+                                           (Adapted from Ebook Hooked on TOEFL iBT
+Reading)
+91. According to paragraph 1,all of the following are true of discourse analysis EXCEPT _____.
+     A. It places a heavy focus on analysis of grammar structures.
+     B. It utilizes elements from other fields of study.
+     C. It is concerned with how the situation influences meaning.
+     D. It can be applied through several different methods.
+92. According to paragraph 2, what is the goal of pragmatics?
+     A. To make a speaker's true meaning more like the grammatical meaning of a sentence
+     B. To understand how context can lead to differences between the true meaning and
+ grammatical meaning of a sentence
+     C. To eliminate the misunderstandings that result from deceptive uses of language
+     D. To bridge gaps in meaning through the proper use of grammar and sentence structure
+93. Based on the information in paragraphs 2 and 3, what can be inferred about speech acts?
+     A. They are not always properly interpreted by the listener.
+     B. They are always inherentlsy unclear in meaning.
+     C. They are common in confrontational situations.
+     D. Their true meaning is impossible to establish.
+ 94. The word ambiguities in paragraph 3 is closest in meaning to ________.
+     A. difficulties        B. misunderstandings  C. uncertainties     D. shortcoming
+95. In paragraph 3, the author uses the example of a conversation between a mother and a son to
+explain ________.
+     A. the limitations of a pragmatic approach to discourse analysis
+     B. the uses of pragmatics and the analysis of speech acts in conflict resolution
+     C. the need to consider context when determining the nature of a speech act
+     D. the influence of speech acts on human relationships
+ 96. The phrase Such analysis in paragraph 3 refers to the analysis of ________.
+     A. Various modes of conversation
+     B. Speech acts in context
+     C. Speech acts in requests and refusals
+     D. The deviations from literal meaning in a conversation
+ 97. According to paragraph 4, sociolinguistic discourse analysis aims to ________.
+     A. explain instances of code switching in a social context
+     B. explain how the use of language can affect social settings
+     C. explain the differences between various societies and how they use language
+     D. explain the effects of one's social environment on the use of language
+ 98. The word attributed in paragraph 4 is closest in meaning to ________.
+     A. analyzed        B. reduced            C. credited         D. exemplified
+ 99. Based on the information in paragraph 4, which of the following would be an example of
+code vitching?
+     A. The differences between the language of the rich and the poor
+     B. Regional differences in the way people speak
+
+
+9
+```
+
+## Trang 10
+
+```text
+C. Differences in the way language is used in different social situations
+     D. Differences in the way language is used by different generations
+ 100. Why does the speaker mention a personal problem in the last paragraph?
+     A. To illustrate the social consequences of not utilizing code switching
+     B. To illustrate the differences between the way men and women use language
+     C. To discuss how code switching may be used to express sympathy in various ways
+     D. To discuss the difficulties created by the differences in the ways men and women use
+language
+Your answers:
+  91.                 92.                 93.                 94.                 95.
+  96.                 97.                 98.                 99.                100.
+V. WRITING
+Part 1. Finish each of the following sentences in such a way that it means the same as the
+sentence printed before. (10.0 pts)
+101. You may be very intelligent, but you should be careful about this.
+ No matter _______________________________________________________________.
+102. The play is so popular that the theatre is likely to be full every night.
+ Such is _______________________________________________________________.
+103. Thanks to his uncle's legacy of 15.000 dollars, he was able to buy the house he wanted.
+ Had his _______________________________________________________________.
+104. He decided to repair the computer himself and not to take it back to the shop.
+ Rather _______________________________________________________________.
+105. I wasn't surprised to hear that Mary had changed her job.
+ It came _______________________________________________________________.
+Part 2. Complete the second sentence so that it has a similar meaning to the first one. DO
+NOT CHANGE THE WORD GIVEN. (10.0 pts)
+106. We get on well with both of John's parents. (TERMS)
+ We _______________________________________________________________.
+107. John changed his ways when he came out of prison. (LEAF)
+ John has _______________________________________________________________.
+108. The interviewers will assume that you have found out something about the company and the
+job. (GRANTED)
+ The interviewers __________________________________________________________.
+109. Mary is far superior to me in terms of technical knowledge. (MATCH)
+ When it comes ____________________________________________________________.
+110. Linda is very bright so she won't be taken in, whatever they say. (UPTAKE)
+ Linda _______________________________________________________________.
+Part 3. Write an essay of about 220 words on the following topic:
+Some people prefer learning from books, while others prefer learning from experiences.
+Which
+one do you prefer?
+Use any relevant examples to justify your answer. (30.0 pts)
+Your answer:
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+
+
+10
+```
+
+## Trang 11
+
+```text
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+
+
+11
+```
+
+## Trang 12
+
+```text
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+
+
+
+
+
+12
+```

@@ -1,0 +1,743 @@
+---
+id: "2026-dak-lak-so"
+nam_thi: 2026
+nam_hoc: "2026-2027"
+tinh_thanh: "Đắk Lắk"
+don_vi: "Sở GD&ĐT Đắk Lắk"
+nguon_trang: "https://tailieudieuky.com/baiviet/document/de-chuyen-anh-dak-lak-2026-2027/"
+ngay_truy_cap: "2026-09-19"
+xac_minh: "ban-dang-lai-co-tieu-de-ky-thi"
+chat_luong: "DOCX"
+dap_an: "Có, theo bản đăng lại"
+sha256_noi_dung: "f7b6c19ba0f4e0b274d825be0ecf5c8123280ef2ce5afb4ff520cad7de88feb9"
+---
+
+# Đắk Lắk — Chuyên Anh vào 10 — 2026-2027
+
+**Đơn vị/kỳ thi:** Sở GD&ĐT Đắk Lắk.
+
+> **Bản chép từ nguồn đăng lại, không phải bản phát hành của Sở/trường.** Đã kiểm tra nhãn kỳ thi, năm và môn chuyên trong nội dung nguồn; chưa đối chiếu thủ công từng câu với bản gốc. Không coi bản này là bản chuẩn tuyệt đối.
+
+## Nguồn và giới hạn
+
+- Trang đăng: [https://tailieudieuky.com/baiviet/document/de-chuyen-anh-dak-lak-2026-2027/](https://tailieudieuky.com/baiviet/document/de-chuyen-anh-dak-lak-2026-2027/).
+- Nội dung lấy từ [DOCX](https://tailieudieuky.com/baiviet/wp-content/uploads/2026/07/De-Chuyen-Anh-Dak-Lak-2026-2027-co-dap-an-chinh-thuc.zip); SHA-256 tệp nguồn: `4a00701d2764ce148b459e60c24e6e42f646d242535be5f883bbdbc29e442cb4`.
+  - Thành viên trong gói tải: `de-thi-chinh-thuc.docx`.
+- Nội dung lấy từ [DOCX](https://tailieudieuky.com/baiviet/wp-content/uploads/2026/07/De-Chuyen-Anh-Dak-Lak-2026-2027-co-dap-an-chinh-thuc.zip); SHA-256 tệp nguồn: `8bd004b1ccaadfc9a2d2ec0453c787a7832aa8baa6d84be5e1b8367587011a26`.
+  - Thành viên trong gói tải: `dap-an-chinh-thuc.docx`.
+- Nội dung lấy từ [DOCX](https://tailieudieuky.com/baiviet/wp-content/uploads/2026/07/De-Chuyen-Anh-Dak-Lak-2026-2027-co-dap-an-chinh-thuc.zip); SHA-256 tệp nguồn: `480cf82071223f4a0bd6b97b0b8b3524b7be41bc7315ffe91ed9d41b12842d3f`.
+  - Thành viên trong gói tải: `transcript.docx`.
+- Đáp án: Có, theo bản đăng lại. Không tự sinh đáp án còn thiếu.
+- File nghe: không nhúng vào Markdown; xem trang/gói nguồn. Chưa xác minh khả năng phát hoặc sự đầy đủ của audio.
+- Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.
+- Giữ nguyên nội dung bài đọc và cả lỗi cố ý trong bài sửa lỗi; không tự “sửa ngữ pháp” của đề.
+
+## Đề thi và phần kèm theo trong nguồn
+
+| **SỞ GIÁO DỤC VÀ ĐÀO TẠO**<br>ĐỀ CHÍNH THỨC**ĐẮK LẮK**<br>*(Đề **thi** có 0**8** trang)* | **KỲ THI TUYỂN SINH VÀO LỚP 10**<br>**TRUNG HỌC PHỔ THÔNG NĂM HỌC 2026-2027**<br>**Môn thi: TIẾNG ANH (CHUYÊN)**<br>*Thời gian làm bài: **15**0 phút, không kể thời gian phát đề*<br> |
+| --- | --- |
+
+I. LISTENING
+
+**HƯỚNG DẪN PHẦN THI NGHE HIỂU**
+
+- *Bài nghe gồm 02 phần; mỗi phần được nghe 02 lần, mỗi lần cách nhau 05 giây.*
+
+- *Mở đầu và kết thúc bài nghe có tín hiệu nhạc. *
+
+- *Mọi hướng dẫn cho thí sinh (bằng tiếng Anh) đã có trong bài nghe.*
+
+Part 1. For questions 1-5, listen and complete the form below. Write NO MORE THAN TWO WORDS OR A NUMBER for each answer. Write your answers in the corresponding numbered boxes provided. (0.5 pt)
+
+| HOTEL ARMITAGE BOOKING FORM<br>Name: **Kelvin Jones**<br>Booking No.: **1.** \_\_\_\_\_\_\_\_\_\_<br>Vehicle registration No.: **2.** \_\_\_\_\_\_\_\_\_\_<br>Date of arrival: **21 May**<br>Room No.: **501**<br>Type of room: **3.** \_\_\_\_\_\_\_\_\_\_<br>Extra requirements: **4.** \_\_\_\_\_\_\_\_\_\_<br>Identification: **Driver’s license**<br>Length of stay: **5.** \_\_\_\_\_\_\_\_\_\_ |
+| --- |
+
+Part 2.  For questions 6-15, listen and complete the form below. Write ONE WORD AND/ OR A NUMBER for each answer. Write your answers in the corresponding numbered boxes provided. (1.0 pt)
+
+CONCERTS IN UNIVERSITY ARTS FESTIVAL
+
+**Concert 1**
+
+- Australian composer: Liza Lim
+
+- Studied piano and **(6)** \_\_\_\_\_\_\_\_\_\_ before turning to composition.
+
+- Performers and festivals around the world have given her a lot of commissions.
+
+- Compositions show a great deal of **(7)** \_\_\_\_\_\_\_\_\_\_ and are drawn from various cultural sources.
+
+- Her music is very expensive and **(8)** \_\_\_\_\_\_\_\_\_\_.
+
+- Festival will include her **(9)** \_\_\_\_\_\_\_\_\_\_ called The Oresteia.
+
+- Lim described the sounds in The Oresteia as **(10)** \_\_\_\_\_\_\_\_\_\_.
+
+- British composers: Ralph Vaughan Williams, Federick Delius
+
+**Concert 2**
+
+- British composers: Benjamin Britten, Judith Weir
+
+- Australian composer: Ross Edwards
+
+- Festival will include The Tower of Remoteness, inspired by nature.
+
+- The Tower of Remoteness is performed by piano and **(11)** \_\_\_\_\_\_\_\_\_\_.
+
+- Compositions include music for children.
+
+- Celebrates Australia’s cultural **(12)** \_\_\_\_\_\_\_\_\_\_.
+
+**Concert 3**
+
+- Australian composer: Carl Vine
+
+- Played cornet then piano.
+
+- Studied **(13)** \_\_\_\_\_\_\_\_\_\_ before studying music.
+
+- Worked in Sydney as a pianist and composer.
+
+- Became well known as composer of music for **(14)** \_\_\_\_\_\_\_\_\_\_.
+
+- Festival will include his music for the 1996 **(15)** \_\_\_\_\_\_\_\_\_\_.
+
+- British composers: Edward Elgar, Thomas Adès
+
+II. USE OF ENGLISH
+
+Part 1. For questions 16-30, choose the correct answer A, B, C or D to each of the following questions and write your answer in the corresponding numbered boxes provided. (1.5 pts)
+
+**16.** My friend’s house is packed with the most bizarre pieces of furniture. I saw her bring home a/an \_\_\_\_\_\_\_\_\_\_ table last week.
+
+| **A.** old weird wooden U-shaped | **B.** weird U-shaped old wooden |
+| --- | --- |
+| **C.** weird old U-shaped wooden | **D.** U-shaped weird old wooden |
+
+**17.** Just think! Next month you’ll be \_\_\_\_\_\_\_\_\_\_ and it seems like only yesterday you were a baby.
+
+| **A.** in your teenage | **B.** in your teens |
+| --- | --- |
+| **C.** at your teens | **D.** at your teenage |
+
+**18. **Jacques launched into a \_\_\_\_\_\_\_\_\_\_ explanation that left us just as confused as before.
+
+| **A.** far-fetched | **B.** nerve-wrecking | **C.** long-winded | **D.** far-reaching |
+| --- | --- | --- | --- |
+
+**19.** - Tom: “Hey, Jane \_\_\_\_\_\_\_\_\_\_”
+
+- Jane: “Just the usual.”
+
+| **A.** Let’s go for a drink now. | **B.** What have you been up to? |
+| --- | --- |
+| **C.** How often do you go to work? | **D.** What do you do? |
+
+**20. **What she told me was a \_\_\_\_\_\_\_\_\_\_ of lies.
+
+| **A.** pack | **B.** load | **C.** herd | **D.** flock |
+| --- | --- | --- | --- |
+
+**21. **Last weekend, \_\_\_\_\_\_\_\_\_\_ nothing to watch on TV, we played chess together.
+
+| **A.** there being | **B.** there having | **C.** having had | **D.** being |
+| --- | --- | --- | --- |
+
+**22. **She \_\_\_\_\_\_\_\_\_\_ modern art. She visits all the local exhibitions.
+
+| **A.** looks down on | **B.** goes in for | **C.** fixes up with | **D.** comes up against |
+| --- | --- | --- | --- |
+
+**23. **- Mike: “Your brother is not interested in learning Spanish, is he?”
+
+- Anna: “\_\_\_\_\_\_\_\_\_\_. I’m afraid!”
+
+| **A.** No, he is | **B.** Yes, he is | **C.** No, he isn’t | **D.** Yes, he isn’t |
+| --- | --- | --- | --- |
+
+**24. **She’s very \_\_\_\_\_\_\_\_\_\_ and isn’t at all worried about moving to a big city where she won’t know anybody.
+
+| **A.** self-conscious | **B.** self-confessed | **C.** self-contained | **D.** self-centered |
+| --- | --- | --- | --- |
+
+**25.** Luckily, the teacher \_\_\_\_\_\_\_\_\_\_ and was able to evacuate all of her students from the burning building.
+
+| **A.** went to her head | **B.** had her wits about her |
+| --- | --- |
+| **C.** had her head in the clouds | **D.** gathered her wits |
+
+**26.** The upper levels of the Sun’s atmosphere are of very low \_\_\_\_\_\_\_\_\_\_ heats the gases there to be very high temperatures.
+
+| **A.** dense and solar | **B.** density, solar activity |
+| --- | --- |
+| **C.** density, but solar activity | **D.** density and activity of the Sun is |
+
+**27. **On the island \_\_\_\_\_\_\_\_\_\_ the only representative of the Indian’s handicraft.
+
+| **A.** remains it | **B.** remains | **C.** did it remain | **D.** does it remain |
+| --- | --- | --- | --- |
+
+**28. **There was no one downstairs, so she turned off the lights again and decided that she \_\_\_\_\_\_\_\_\_\_ have imagined things.
+
+| **A.** needn’t | **B.** should | **C.** can’t | **D.** must |
+| --- | --- | --- | --- |
+
+**29. **Take the doctor’s advice into consideration. He’s in \_\_\_\_\_\_\_\_\_\_ earnest about the epidemic.
+
+| **A.** mortally | **B.** fatally | **C.** gravely | **D.** deadly |
+| --- | --- | --- | --- |
+
+**30. **Young children often ask many questions because they are naturally \_\_\_\_\_\_\_\_\_\_.
+
+| **A.** intriguing | **B.** inquisitive | **C.** ingenious | **D.** captivating |
+| --- | --- | --- | --- |
+
+Part 2. For questions 31-40, write the correct form of each bracketed word in the corresponding numbered boxes provided. (1.0 pt)
+
+**31.** Many children die every day around the world because of \_\_\_\_\_\_\_\_\_\_ caused by diarrhoea. (**HYDRATE**)
+
+**32.** The product was \_\_\_\_\_\_\_\_\_\_ launched since we hadn’t completed the quality assurance tests. (**MATURITY**)
+
+**33.** Archaeologists hope to \_\_\_\_\_\_\_\_\_\_ significant artifacts from the ancient site that could shed light on early human civilizations. (**EARTH**)
+
+**34.** The decision to invest heavily in outdated technology was \_\_\_\_\_\_\_\_\_\_ and led to significant financial loss. (**GUIDE**)
+
+**35.** In Scotland, there is greater emphasis on \_\_\_\_\_\_\_\_\_\_ by each individual school. (**VALUE**)
+
+**36.** Some things are \_\_\_\_\_\_\_\_\_\_ true: Water is wet, grass is green, dogs bark, and house prices rise. (**ALIEN**)
+
+**37.** You look rather \_\_\_\_\_\_\_\_\_\_. Are you worried about something?  (**OCCUPY**)
+
+**38.** A \_\_\_\_\_\_\_\_\_\_ is a popular place for tourists and travelers to send and receive emails. (**CAFÉ**)
+
+**39.** Tests are often carried out to detect genetic \_\_\_\_\_\_\_\_\_\_ before birth. (**NORMAL**)
+
+**40.** Some people still do not \_\_\_\_\_\_\_\_\_\_ hunting as a violent act. (**CONCEPT**)
+
+Part 3. For questions 41-45, read the passage below which contains 05 mistakes. Underline, write and correct the mistakes in the corresponding numbered boxes. There is ONE example at the beginning. (0.5 pt)
+
+*For example:** with ** to*
+
+Exceptionally talented or just over-confident?
+
+According **<u>with</u>** a study on what lies at the heart of success, it seems that the key is not what might be expected, in other words talent, hard work or a good education, but instead it’s total, adulterated confidence. Confident people tend not to be put out by their own shortcomings and often have larger than life personalities. This means they make themselves more visible in the workplace, pushing themselves forward at every opportunity and so getting promotion over those who may well be more competent but appear on the surface to be less talented. Confident people are often admired and their opinions valued; consequently, they are able to effect decisions made within a group. This could have implications for the recruitment procedures of many companies, as a typical job interview often involves a group task which unfair favours the over-confident. Such a display of confidence may carry too much weight with interviewers, and better, quieter candidates may be turned down, led to a less efficient workforce.
+
+III. READING
+
+Part 1. For questions 46-55, read the passage and write ONE suitable word for each blank in the boxes below. (1.0 pt)
+
+Sad **(46)** \_\_\_\_\_\_\_\_\_\_ it is, a social misperception of the disabled is still prevalent in many communities. It is only in a few highly-civilised states where the problems and needs of people with physical or mental incapacities are given the proper **(47)** \_\_\_\_\_\_\_\_\_\_. In the remaining countries, the discrimination against the disabled is still practiced in many areas of social life. As in the past, they are ignored, denounced and forced to stay away from the normal community which, unfortunately, isn’t capable of making any **(48)** \_\_\_\_\_\_\_\_\_\_ for its less fit members. For decades, the hale and hearty part of every society has stripped the disabled of their fundamental rights as their job applications have been** (49)** \_\_\_\_\_\_\_\_\_\_ down, their active participation in business life has on most (50) \_\_\_\_\_\_\_\_\_\_ been disallowed and there has been little concern for their convenience in access to public transport. Equally little effort has been made to help the disabled fully **(51)** \_\_\_\_\_\_\_\_\_\_ with the able-bodied thus laying foundations for greater community awareness of the drawbacks that the handicapped have to wrestle **(52)** \_\_\_\_\_\_\_\_\_\_ daily. There’s an urgent need to offer the disabled more adequate assistance and support in their struggle for putting their basic rights into **(53)** \_\_\_\_\_\_\_\_\_\_. The key principle is that the stereotyped approach towards the impaired individuals ought to be **(54)** \_\_\_\_\_\_\_\_\_\_ for a more considerate one. Another pressing matter is that the disabled shouldn’t be appraised on the basis of their handicap, but society should rather focus on providing them with complete acceptance **(55)** \_\_\_\_\_\_\_\_\_\_ of any imperfections thus treating them as fully-fledged citizens.
+
+Part 2. For questions 56-65, read the following passage and write in the boxes below the letter A, B, C, or D to indicate the correct answer to each of the questions. (1.0 pt)
+
+ORIENTATION AND NAVIGATION
+
+To South Americans, robins are birds that fly north every spring. To North Americans, the robins simply vacation in the south each winter. Furthermore, they fly to very specific places in South America and will often come back to the same trees in North American yards the following spring. The question is not why they would leave the cold of winter so much as how they find their way around. The question **<u>perplexed</u>** people for years, until, in the 1950’s, a German scientist named Gustave Kramer provided some answers and, in the process, raised new questions.
+
+Kramer initiated important new kinds of research regarding how animals orient and navigate. Orientation is simply facing in the right direction: navigation involves finding one’s way from point A to point B.
+
+Early in his research, Kramer found that caged migratory birds became very restless at about the time they would normally have begun migration in the wild. Furthermore, he noticed that as they fluttered around in the cage, they often launched themselves in the direction of their normal migratory route. **<u>He then set up experiments with caged starlings and found that their orientation was, in fact, in the proper migratory direction except when the sky was overcast, at which times there was no clear direction to their restless movements</u>**. Kramer surmised, therefore, that they were orienting according to the position of the Sun. To test this idea, he blocked their view of the Sun and used mirrors to change its apparent position. He found that under these circumstances, the birds oriented with respect to the new “Sun”. They seemed to be using the Sun as a compass to determine direction. At the time, this idea seemed **<u>preposterous</u>**. Now could a bird navigate by the Sun when some of us lose our way with road maps? Obviously, more testing was in order.
+
+So, in another set of experiments, Kramer put identical food boxes around the cage, with food in only one of the boxes. [**I**] The boxes were stationary, and the one containing food was always at the same point of the compass. [**II**] However, its position with respect to the surroundings could be changed by revolving either the inner cage containing the birds or the outer walls, which served as the background. [**III**] As long as the birds could see the Sun, no matter how their surroundings were altered, they went directly to the correct food box. [**IV**] Whether the box appeared in front of the right wall or the left wall, they showed no signs of confusion. On overcast days, however, the birds were disoriented and had trouble locating their food box.
+
+In experimenting with artificial suns, Kramer made another interesting discovery. If the artificial Sun remained stationary, the birds would shift their direction with respect to it at a rate of about 15 degrees per hour, the Sun’s rate of movement across the sky. Apparently, the birds were assuming that the “Sun” they saw was moving at that rate. When the real Sun was visible, however, the birds maintained a constant direction as it moved across the sky. In other words, they were able to compensate for the Sun’s movement. This meant that some sort of biological clock was operating - and a very precise clock at that.
+
+What about birds that migrate at night? Perhaps they navigate by the night sky. To test the idea, caged night-migrating birds were placed on the floor of a planetarium during their migratory period. A planetarium is essentially a theater with a domelike ceiling onto which a night sky can be projected for any night of the year. When the planetarium sky matched the sky outside, the birds fluttered in the direction of their normal migration. But when the dome was rotated, the birds changed their direction to match the artificial sky. The results clearly indicated that the birds were orienting according to the stars.
+
+There is accumulating evidence indicating that birds navigate by using a wide variety of environmental cues. Other areas under investigation include magnetism, landmarks, coastlines, sonar, and even smells. The studies are complicated by the fact that the data are sometimes contradictory and the mechanisms apparently change from time to time. Furthermore, one sensory ability may back up another.
+
+**56. **The word **<u>perplexed</u>** in the passage could be best replaced by \_\_\_\_\_\_\_\_\_\_.
+
+| **A.** puzzled | **B.** conciliated | **C.** placated | **D.** occupied |
+| --- | --- | --- | --- |
+
+**57.** Which of the following can be inferred about bird migration from paragraph 1?
+
+| **A.** The destination of birds’ migration can change from year to year. |
+| --- |
+| **B.** Bird migration generally involves moving back and forth between north and south. |
+| **C.** The purpose of migration is to join with larger groups of birds. |
+| **D.** Birds will take the most direct migratory route to their new habitat. |
+
+**58.** Which of the sentences below best expresses the essential information in the underlined sentence in paragraph 3?
+
+| **A.** Experiments revealed that caged starlings were unable to orient themselves in the direction of their normal migratory route. |
+| --- |
+| **B.** Experiments revealed that caged starlings displayed a lack of directional sense and restless movements. |
+| **C.** Experiments revealed that the restless movement of caged starlings had no clear direction. |
+| **D.** Experiments revealed that caged starlings’ orientation was accurate unless the weather was overcast. |
+
+**59. **The word **<u>preposterous</u>** in paragraph 3 is **OPPOSITE** in meaning to \_\_\_\_\_\_\_\_\_\_\_.
+
+| **A.** unbelievable | **B.** exuberant | **C.** precarious | **D.** plausible |
+| --- | --- | --- | --- |
+
+**60.** According to paragraph 3, why did Kramer use mirrors to change the apparent position of the Sun?
+
+| **A.** To test the effect of light on the birds’ restlessness. |
+| --- |
+| **B.** To cause the birds to migrate at a different time than they would in the wild. |
+| **C.** To simulate the shifting of light the birds would encounter along their regular migratory route. |
+| **D.** To test whether birds were using the Sun to navigate. |
+
+**61.** Which of the following can be inferred from paragraph 4 about Kramer’s reason for filling one food box and leaving the rest empty?
+
+| **A.** He believed the birds would eat food from only one box. |
+| --- |
+| **B.** He wanted to see whether the Sun alone controlled the birds’ ability to navigate toward the box with food. |
+| **C.** He thought that if all the boxes contained food, this would distract the birds from following their migratory route. |
+| **D.** He needed to test whether the birds preferred having the food at any particular point of the compass. |
+
+**62.** The experiment described in paragraph 5 caused Kramer to conclude that birds possess a biological clock because \_\_\_\_\_\_\_\_\_\_.
+
+| **A.** birds’ migration is triggered by natural environmental cues, such as the position of the Sun |
+| --- |
+| **B.** birds shift their direction at a rate of 15 degrees per hour whether the Sun is visible or not |
+| **C.** birds’ innate bearings keep them oriented in a direction that is within 15 degrees of the Sun’s direction |
+| **D.** when birds navigate they are able to compensate for the changing position of the Sun in the sky |
+
+**63.** According to paragraph 6, how did the birds navigate in the planetarium’s nighttime environment?
+
+| **A.** By navigating randomly until they found the correct orientation. |
+| --- |
+| **B.** By their position on the planetarium floor. |
+| **C.** By orienting themselves to the stars in the artificial night sky. |
+| **D.** By waiting for the dome to stop rotating. |
+
+**64. **Where in paragraph 4 does the following sentence best fit?
+
+**He arranged the food boxes at various positions on a compass.**
+
+| **A.** [I] | **B.** [II] | **C.** [III] | **D.** [IV] |
+| --- | --- | --- | --- |
+
+**65.** Directions: An introductory sentence for a brief summary of the passage is provided below.
+
+**Gustave Kramer conducted important research related to the ability of birds to orient and navigate.**
+
+Which of the following **DOES NOT** belong in the summary?
+
+| **A.** Because caged birds become disoriented when the sky is overcast, Kramer hypothesized that birds orient themselves according to the Sun’s position. |
+| --- |
+| **B.** The role of environmental cues in birds’ navigation is clear, for on overcast days, birds use objects besides the Sun to orient themselves. |
+| **C.** Kramer demonstrated that an internal biological clock allows birds to compensate for the Sun’s movement. |
+| **D.** Kramer showed that night-migrating birds use the sky to navigate by the stars. |
+
+Part 3. For questions 66-75, read the following extract and do the tasks that follow. (1.0 pt)
+
+**A**. In forests and fields all over the world, plants are engaged in a deadly chemical war to suppress other plants and create conditions for their own success. But what if we could learn the secrets of these plants and use them for our own purposes? Would it be possible to use their strategies and weapons to help us improve agriculture by preventing weeds from germinating and encouraging growth in crops? This possibility is leading agricultural researchers to explore the effects plants have on other plants with the aim of applying their findings to farming.
+
+**B**. The phenomenon by which an organism produces one or more chemicals that influence the growth, survival and reproduction of other organisms is called allelopathy. These chemicals are a subset of chemicals produced by organisms called secondary metabolites. A plant’s primary metabolites are associated with growth and development. Allelochemicals, however, are part of a plant’s defence system and have a secondary function in the life of the organism. The term allelopathy comes from the Greek: allelo and pathy meaning ‘mutual harm’. The term was first used by the Austrian scientist Hans Molisch in 1937, but people have been noting the negative effects that one plant can have on another for a long time. In 300 BC, the Greek philosopher Theophrastus noticed that pigweed had a negative effect on alfalfa plants. In China, around the first century AD, the author of Shennong Ben Cao Jing described 267 plants that have the ability to kill pests.
+
+**C**. Allelopathy can be observed in many aspects of plant ecology. It can affect where certain species of plants grow, the fertility of competitor plants, the natural change of plant communities over time, which plant species are able to dominate a particular area, and the diversity of plants in an area. Plants can release allelopathic chemicals in several ways: their roots can release chemicals directly into the soil, and their bark and leaves can release chemicals into the soil as they rot. Initially, scientists were interested in the negative effects of allelopathic chemicals. Observations of the phenomenon included poor growth of some forest trees, damage to crops, changes in vegetation patterns and, interestingly, the occurrence of weed-free areas. It was also realised that some species could have beneficial effects on agricultural crop plants and the possible application of allelopathy became the subject of research.
+
+**D**. Today research is focused on the effects of weeds on crops, the effects of crops on weeds, and how certain crops affect other crops. Agricultural scientists are exploring the use of allelochemicals to regulate growth and to act as natural herbicides, thereby promoting sustainable agriculture by using these natural chemicals as an alternative to man-made chemicals. For example, a small fast-growing tree found in Central America, sometimes called the ‘miracle tree’, contains a poison that slows the growth of other trees but does not affect its own seeds. Chemicals produced by this tree have been shown to improve the production of rice. Similarly, box elder - another tree - stimulates the growth of bluestem grass, which is a tall prairie grass found in the mid-western United States. Many weeds may use allelopathy to become ecologically successful; a study in China found that 25 out of 33 highly poisonous weeds had significant allelopathic properties.
+
+**E**. There may be at least three applications of allelopathy to agriculture. Firstly, the allelopathic properties of wild or cultivated plants may be bred into crop plants through genetic modification or traditional breeding methods to improve the release of desired allelochemicals and thus improve crop yield. Secondly, a plant with strong allelopathic properties could be used to control weeds by planting it in rotation with an agricultural crop and then leaving it to rot and become part of the soil in order to inhibit the growth of weeds. Finally, naturally occurring allelopathic chemicals could be used in combination with man-made chemicals. Boosting the efficiency of man-made herbicides could lead to a reduction in the amount of herbicides used in agriculture, which is better for the environment.
+
+**F**. Despite the promising uses of allelopathic chemicals, agricultural scientists are still cautious. Firstly, allelopathic chemicals may break down and disappear in the soil more easily than artificial chemicals. Secondly, allelopathic chemicals may be harmful to plants other than weeds. Thirdly, allelopathic chemicals could persist in the soil for a long time and may affect crops grown in the same field as the allelopathic plants at a later date. Because the effects of allelopathic chemicals are not yet fully known, agricultural scientists will need to continue to study the biological war between plants.
+
+**For questions 66-70, choose the correct heading for paragraphs B-F from the list of headings below. Write the correct number, i-ix in the numbered boxes. **
+
+| List of Headings<br>i. What are metabolites?<br>ii. The negative effects of allelopathy<br>iii. Biological warfare in the plant world<br>iv. Why we cannot use allelopathic chemicals at present<br>v. What is allelopathy?<br>vi. The reasons why plants compete with other plants<br>vii. The effects of allelopathy and realisation of its possible uses<br>viii. How could we use allelopathic chemicals in farming?<br>ix. Specific examples of allelopathic plants | ***Example: Paragraph A-iii***<br>**66.** Paragraph B \_\_\_\_\_\_\_\_\_\_<br>**67.** Paragraph C \_\_\_\_\_\_\_\_\_\_<br>**68.** Paragraph D \_\_\_\_\_\_\_\_\_\_<br>**69.** Paragraph E \_\_\_\_\_\_\_\_\_\_<br>**70.** Paragraph F \_\_\_\_\_\_\_\_\_\_ |
+| --- | --- |
+
+**For questions 71-75: Complete the summary below. Choose NO MORE THAN TWO WORDS from the passage for each answer. Write your answer in the numbered boxes. **
+
+Allelopathy is a phenomenon by which an organism produces **(71)** \_\_\_\_\_\_\_\_\_\_ that influence the growth, survival and reproduction of others. Plants can release these chemicals through their roots, bark and leaves, which affects the domination and the **(72)** \_\_\_\_\_\_\_\_\_\_ of plants in an area. Scientists were interested in the potential **(73)** \_\_\_\_\_\_\_\_\_\_ of allelopathy to agricultural crop plants. Today, they are exploring the use of allelochemicals to regulate growth and to act as **(74)** \_\_\_\_\_\_\_\_\_\_ in replacement of man-made chemicals in agricultural crops. Another application is that the ability to produce allelopathic chemicals could be **(75)** \_\_\_\_\_\_\_\_\_\_ agricultural crops. Besides, allelopathic plants could be planted in rotation with a crop. However, agriculturalists are still cautious as allelopathic plants may have negative effects on plants and the chemicals could remain in the ground for a long time, even after the plants themselves have died.
+
+IV. WRITING
+
+Part 1. For questions 76-80, choose the letter A, B, C, or D to indicate the best arrangement of utterances or sentences to make a cohesive and coherent exchange or text in each of the questions.    Write your answer in the numbered boxes. (0.5 pt)
+
+**76. **
+
+Dear Noah,
+
+Hope you’re doing well. Are your evening classes going okay?
+
+a. The app even shows how much CO2 we save, which made my neighbors compete in a fun way.
+
+b. Our building joined a “zero-waste” pilot, so we now scan a QR code before throwing anything away.
+
+c. At first, I mixed up plastic and metal, and the bin flashed red in front of everyone.
+
+d. After a week, I got used to rinsing containers and carrying a small box for reusable chopsticks.
+
+e. Because fewer trucks come to collect trash, the street is quieter, and the rooftop garden smells fresher.
+
+Yours,
+
+Mia
+
+| **A.** b – c – d – a – e | **B.** b – d – c – e – a | **C.** b – d – a – c – e | **D.** b – c – a – e– d |
+| --- | --- | --- | --- |
+
+**77. **
+
+a. Because the interruptions were fewer, I finished assignments earlier and started walking home with music instead of scrolling on the bus, which lowered my stress.
+
+b. It showed nearly five hours a day, mostly short visits to videos, even in the library, that broke my focus while I was doing homework at night.
+
+c. After two weeks, my eyes felt less tired in the morning and I talked more at dinner, which made me realise technology works best when I set clear limits.
+
+d. For a long time, I thought checking my phone between classes and during lunch was harmless, but my screen-time report proved otherwise.
+
+e. To change that, I moved the apps off my home screen, turned on Focus Mode, and asked my friend to send homework reminders as one message in the group chat, so I wouldn’t tap them.
+
+| **A.** d – b – c – e – a | **B.** d – b – e – a – c | **C.** d – a – b – c – e | **D.** d – a – e – b – c |
+| --- | --- | --- | --- |
+
+**78. **
+
+a. The change brings more jobs and better buses, yet it also raises rents and makes long-time families feel invisible in their own area.
+
+b. As new apartments and shopping streets appear, older parks and small markets are often moved or reduced to make room.
+
+c. If planners protect green corners, add safe walking routes, and support affordable housing, growth can feel like real progress instead of a loss.
+
+d. In my neighbourhood, a quiet field became a high-rise complex, and the new residents now queue for coffee where kids once played football.
+
+e. Urbanisation has made my city busier every year, and it has even changed the way we share public space after school.
+
+| **A.** e – d – b – a – c | **B.** b – e – d – c – a | **C.** e – d – c – a – b | **D.** b – e – a – c – d |
+| --- | --- | --- | --- |
+
+**79.**
+
+a. Does this affect the diversity of your talent pool?
+
+b. I noticed many companies are shifting to AI-powered recruitment processes nowadays.
+
+c. Actually, we’ve seen improved diversity as AI helps eliminate unconscious biases.
+
+d. We’ve implemented AI screening, but we still value human interaction in final decisions.
+
+e. That’s fascinating how technology is making hiring both efficient and more inclusive.
+
+f. Absolutely, it’s all about balancing tech and people.
+
+| **A.** b – c – a – e – f – d | **B.** b – d – c – a – f – e |
+| --- | --- |
+| **C.** b – a – c – d – e – f | **D.** b – d – a – c – e – f |
+
+**80. **
+
+a. She took evening online courses, practised with volunteers on weekends, and even learned to use an AI camera-trap app that sorts photos so rangers can react faster.
+
+b. One life story I admire is my aunt’s decision to leave a stable office job and work in wildlife conservation in a small reserve near our city.
+
+c. Watching her keep learning, changing careers, and cooperating with different communities has taught me that a ‘good job’ is not only about salary, but about purpose and growth.
+
+d. After a documentary about endangered pangolins, she realised her marketing skills could help raise funds, but she first had to learn basic fieldwork and data recording.
+
+e. The work is tiring and sometimes dangerous, yet she says it feels meaningful when a rescued animal is released and when local farmers join the protection team.
+
+| **A.** d – a – b – e – c | **B.** d – b – a – e – c | **C.** b – d – e – a – c | **D.** b – d – a – e – c |
+| --- | --- | --- | --- |
+
+Part 2. For questions 81-85, finish each of the following sentences in such a way that it means the same as the sentence printed before. (0.5 pt)
+
+**81.** You explained the project so clearly that I had no difficulty finishing it.
+
+Had it \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+**82.** She is proud of her ability to solve complex problems.
+
+She takes \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+**83.** The value of Sterling has fallen considerably in the past week.
+
+There has \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+**84.** Just thinking about his face at the moment makes me laugh.
+
+The very \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+**85.** The boy does whatever his father wants in an obedient way.
+
+The boy dances \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+Part 3. For questions 86-90, complete the second sentence so that it has the similar meaning to the first one. Use BETWEEN THREE AND FIVE WORDS, including the word given in capitals, and this word must not be changed in any way. (0.5 pt)
+
+**86.** Whenever there is a power cut, we sell a lot of candles. (**TRADE**)
+
+Whenever there is a power cut, we \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ candles.
+
+**87.** There were empty lemonade bottles and half-eaten sandwiches all over his floor. (**STREWN**)
+
+His \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ empty lemonade bottles and half-eaten sandwiches.
+
+**88.** I think we ought to permit him to do whatever he chooses. (**HAND**)
+
+I think we should \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+**89.** Julia soon calmed down and explained her problem to her parents. (**PULLED**)
+
+Julia soon \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ her problem to her parents.
+
+**90.** I made her angry and upset when I said that her novel was amateurish and badly written. (**KINDLY**)
+
+She \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ the way I described her novel.
+
+Part 4. For question 91, write an essay of about 250 words on the following topic. (1.0 pt)
+
+**In today’s world, many young people tend to take things for granted and forget to show gratitude. Why is practicing gratitude important, and what can families and schools do to teach this virtue to the young generation?**
+
+---------- **THE END** ----------
+
+## Đáp án/hướng dẫn chấm trong nguồn
+
+| **   SỞ GIÁO DỤC VÀ ĐÀO TẠO**<br>**                  ĐẮK LẮK**<br> | **KỲ THI TUYỂN SINH VÀO LỚP 10 **<br>**TRUNG HỌC PHỔ THÔNG NĂM HỌC 2026-2027** |
+| --- | --- |
+
+**HƯỚNG DẪN CHẤM** **THI **
+
+**MÔN: TIẾNG ANH** (CHUYÊN)** - ĐỀ CHÍNH THỨC**
+
+*(Hướng dẫn chấm có **02** trang)*
+
+**1. Hướng dẫn chung**
+
+*- Nếu thí sinh làm bài không theo cách được trình bày trong đáp án mà vẫn đúng thì cho đủ điểm từng phần như hướng dẫn quy định;*
+
+*- Việc chi tiết hóa thang điểm (nếu có) so với thang điểm chấm phải bảo đảm không sai lệch với hướng dẫn chấm **và được thống nhất thực hiện trong Hội đồng chấm thi;*
+
+*- Điểm bài thi không làm tròn số, có thể lẻ đến 0,1.*
+
+**I. LISTENING (1.5** **điểm)**
+
+**<u>Part 1</u>*. (**0.5*** ***điểm / 5 câu**) - Mỗi câu đúng = 0.**1** điểm***
+
+| **1.** OOL 238 1420 | **2.** HUV 3331 | **3.** deluxe | **4.** (extra) pillows | **5.** 3 nights |
+| --- | --- | --- | --- | --- |
+
+**<u>Part 2</u>.** *(1.0 điểm/ **10** câu) - Mỗi câu đúng = 0.**1** điểm*
+
+| **6.** violin | **11.** clarinet |
+| --- | --- |
+| **7.** energy | **12.** diversity |
+| **8.** complex | **13.** physics |
+| **9.** opera | **14.** dance |
+| **10.** disturbing | **15.** Olympics |
+
+**II. USE OF ENGLISH (3.0 điểm)**
+
+<u>Part 1</u>.* (**1.5** điểm/ **15** câu) - Mỗi câu đúng = 0.1 điểm*
+
+| **16. **C | **17. **B | **18. **C | **19. **B | **20. **A | **21. **A | **22. **B | **23. **C |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| **24. **C | **25. **B | **26. **C | **27. **B | **28. **D | **29. **D | **30. **B |  |
+
+<u>Part 2</u>. ***(1.0 điểm/ 10 câu) - Mỗi câu đúng = 0.1 điểm***
+
+| **31. **dehydration | **36. **inalienably/unalienably |
+| --- | --- |
+| **32.** prematurely | **37. **preoccupied |
+| **33.** unearth | **38.** cyber-café |
+| **34**. misguided | **39.** abnormalities |
+| **35. **self-evaluation | **40.** conceptualize |
+
+<u>Part 3</u>*. (0.5 điểm/ 5 câu) - Mỗi câu đúng = 0.1 điểm**. (Phát hiện lỗi sai 0.05 điểm; Sửa đúng 0.05 điểm)***
+
+**Exceptionally talented or just over-confident?**
+
+According **<u>with</u>** a study on what lies at the heart of success, it seems that the key is not what might be expected, in other words talent, hard work or a good education, but instead it’s total, **<u>adulterated</u>** confidence. Confident people tend not to be put **<u>out</u>** by their own shortcomings and often have larger than life personalities. This means they make themselves more visible in the workplace, pushing themselves forward at every opportunity and so getting promotion over those who may well be more competent but appear on the surface to be less talented. Confident people are often admired and their opinions valued; consequently, they are able to **<u>effect</u>** decisions made within a group. This could have implications for the recruitment procedures of many companies, as a typical job interview often involves a group task which **<u>unfai</u>r** favours the over-confident. Such a display of confidence may carry too much weight with interviewers, and better, quieter candidates may be turned down, **<u>led</u>** to a less efficient workforce.
+
+| *Questions* | *Mistakes* | *Corrections* |
+| --- | --- | --- |
+| 0. | with | to |
+| **41.** | adulterated | unadulterated |
+| **42.** | out | off |
+| **43.** | effect | affect |
+| **44.** | unfair | unfairly |
+| **45.** | led | leading |
+
+**iii. READING (3.0 điểm)**
+
+Part 1. ***(**1**.0 điểm/ 10 câu) - Mỗi câu đúng = 0.**1** điểm ***
+
+| **46. **as/though | **47. **consideration | **48. **provisions | **49. **turned | **50.  **occasions |
+| --- | --- | --- | --- | --- |
+| **51. **integrate | **52. **with | **53. **operation | **54. **exchanged | **55. **irrespective/regardless |
+
+**Part 2. (*1**.0 điểm/ 10 câu) - Mỗi câu đúng = 0.**1** điểm***
+
+| **56. **A | **57. **B | **58. **D | **59. **D | **60.  **D |
+| --- | --- | --- | --- | --- |
+| **61. **B | **62. **D | **63. **C | **64. **A | **65. ** B |
+
+**Part 3. (*1**.0 điểm/ 10 câu) - Mỗi câu đúng = 0.**1** điểm***
+
+| **66. **Paragraph B - v | **71. **allelochemicals/ chemicals/ allelopathic chemicals |
+| --- | --- |
+| **67. **Paragraph C - vii | **72. **diversity |
+| **68. **Paragraph D - ix | **73. **application |
+| **69. **Paragraph E - viii | **74. **natural herbicides |
+| **70. **Paragraph F - iv | **75. **bred into |
+
+**IV. WRITING (2.5 điểm)**
+
+**Part 1.** ***(**0.5** điểm/ 5 câu) **-** Mỗi câu đúng = 0.**1** điểm***
+
+| **76. **A | **77. **B | **78. **A | **79. **D | **80. **D |
+| --- | --- | --- | --- | --- |
+
+**Part 2.* (0.5 điểm/ 5 câu) **-** Mỗi câu đúng = 0.1 điểm***
+
+**81.** You explained the project so clearly that I had no difficulty finishing it.
+
+→ Had it **not been for your clear explanation of/for the project, I would have had difficulty (in) finishing it.**
+
+**82.** She is proud of her ability to solve complex problems.
+
+→ She takes **pride in her ability to solve complex problems.**
+
+**83. **The value of Sterling has fallen considerably in the past week.
+
+→ There has** been a considerable fall in the value of Sterling in the past week.**
+
+**84. **Just thinking about his face at the moment makes me laugh.
+
+→ The very **thought of his face at the moment makes me laugh.**
+
+**85. **The boy does whatever his father wants in an obedient way.
+
+→ The boy dances **to his father's tune.**
+
+Or The boy dances **attendance on/upon his father.**
+
+**Part 3.* (1.0 điểm/ 5 câu) **-** Mỗi câu đúng = 0.**1** điểm***
+
+**86. **Whenever there is a power cut, we sell a lot of candles. (**TRADE**)
+
+→ Whenever there is a power cut, we **do a roaring trade in** candles.
+
+**87. **There were empty lemonade bottles and half-eaten sandwiches all over his floor. (**STREWN**)
+
+→ His **floor was strewn with** empty lemonade bottles and half-eaten sandwiches.
+
+**88**. I think we ought to permit him to do whatever he chooses. (**HAND**)
+
+→ I think we should **give him a free hand.**
+
+**89.** Julia soon calmed down and explained her problem to her parents. (**pulled**)
+
+→ Julia soon **pulled herself together and explained **her problem to her parents.
+
+**90.** I made her angry and upset when I said that her novel was amateurish and badly written. (**KINDLY**)
+
+→ She **didn’t take kindly to** the way I described her novel.
+
+**Part 4.** *For question 91, write an essay of about 250 words on the following topic. (1.0 pt)***
+
+***<u>Đề nghị điểm thành phần của bài luận:</u>***
+
+1\. **Bố cục và độ dài:** (**0.2 điểm) **
+
+Đầy đủ 3 phần: Mở bài, thân bài, kết luận. Độ dài khoảng 250 từ.
+
+2\. **Cấu trúc câu, ngữ pháp, từ vựng: (0.3 điểm)**
+
+Câu không mắc lỗi ngữ pháp cơ bản, sử dụng từ vựng tốt, câu đa dạng linh hoạt.
+
+3\. **Nội dung: (0.3 điểm) **
+
+Ý hay, phong phú, biểu đạt nội dung liên quan chặt chẽ với chủ đề.
+
+4\. **Kỹ năng viết tổng hợp:** (**0.2 điểm)**
+
+Thể hiện viết mạch lạc, chặt chẽ, nối kết câu, chuyển mạch tốt.
+
+*(Tùy mức độ thí sinh viết được, giám khảo dựa vào thang điểm để quyết định.)*
+
+**-----HẾT-----**
+
+## Transcript trong nguồn
+
+| **SỞ GIÁO DỤC VÀ ĐÀO TẠO**<br>ĐỀ CHÍNH THỨC**ĐẮK LẮK**<br>*(Đề **thi** có 0**8** trang)* | **KỲ THI TUYỂN SINH VÀO LỚP 10**<br>**TRUNG HỌC PHỔ THÔNG NĂM HỌC 2026-2027**<br>**Môn thi: TIẾNG ANH (CHUYÊN)**<br>*Thời gian làm bài: **15**0 phút, không kể thời gian phát đề*<br> |
+| --- | --- |
+
+Part 1.
+
+**Mr. Jones:** Good afternoon. My name is Kelvin Jones. I booked by internet yesterday.
+
+**Receptionist:** Good afternoon, Mr. Jones. Welcome to the Armitage Hotel. Can you spell your first name for me, please?
+
+**Mr. Jones:** Certainly. K-E-L-V-I-N.
+
+**Receptionist:** Thank you. Do you have your booking number, or perhaps you printed out your confirmation?
+
+**Mr. Jones:** Yes, of course. I don’t have the printout, but I did remember to note down the number. It’s OOL2381420.
+
+**Receptionist:** Thanks. OOL2381420. Oh, I see you’ve stayed with us before.
+
+**Mr. Jones:** Yes, on several occasions.
+
+**Receptionist:** And do you still have the same vehicle registration number? HQW5919?
+
+**Mr. Jones:** Well, no. This time I have the company car.
+
+**Receptionist:** And what is the registration number?
+
+**Mr. Jones:** Oh dear, I can’t remember. Hang on a minute. Here it is on the key ring. HUV3331.
+
+**Receptionist:** Thanks. HUV3331. Now, today is the 21st of May, and I see you’ve booked a deluxe room on the fifth floor, room 501.
+
+**Mr. Jones:** Really? I booked a deluxe room? I usually only ever have a standard double room.
+
+**Receptionist:** It’s the off-season, Mr. Jones, and we’ve upgraded you.
+
+**Mr. Jones:** How nice! And what does the deluxe room have? Is it as good as a suite?
+
+**Receptionist:** Almost. It has all the usual, plus a spa bath, fully stocked bar fridge, a king-sized bed, and a balcony.
+
+**Mr. Jones:** Is there a view from the balcony?
+
+**Receptionist:** Yes.
+
+**Mr. Jones:** Is that a view of the bay?
+
+**Receptionist:** Yes, and a glimpse of the blue lagoon as well.
+
+**Mr. Jones:** Very nice. I hope it’ll be warm enough to sit out there.
+
+**Receptionist:** We can’t guarantee the weather, Mr. Jones, although we do try to make your stay as comfortable as possible.
+
+**Mr. Jones:** Thank you. Now that you mention comfort, is it possible to have some extra pillows, please? I have a sore shoulder, you see, and I need to prop it up at night, or I don’t get any sleep.
+
+**Receptionist:** Well, you’ll find pillows on the bed, of course, and we can send up a couple more later.
+
+**Mr. Jones:** Well, I’d appreciate that.
+
+**Receptionist:** One more thing. You paid by credit card over the internet. Can I see your credit card, please?
+
+**Mr. Jones:** Oh, of course.
+
+**Receptionist:** And some photo ID?
+
+**Mr. Jones:** What would you like? Driver’s license?
+
+**Receptionist:** Yes, that’s fine. You’re staying for five days, is that right?
+
+**Mr. Jones:** That was the original plan, yes. But the conference has been cut short by two days because the keynote speaker is ill. So, I’ll be going home on Wednesday.
+
+**Receptionist:** So, that’s just three nights in all.
+
+**Mr. Jones:** Afraid so.
+
+Part 2.
+
+**Lecturer:** As you all know, the university is planning an arts festival for later this year. And here in the music department, we’ve planned three concerts. These will be public performances, and the program has just been finalized. The theme of the festival is links between the UK and Australia, and this is reflected in the music. Each concert will feature both British and Australian composers. I’ll tell you briefly about the Australian music, as you probably won’t be familiar with that.
+
+The first concert will include music by Liza Lim, who was born in Perth, Western Australia, in 1966. As a child, Lim originally learned to play the piano, like so many children, and also the violin. But when she was 11, her teachers encouraged her to start composing. She found this was her real strength, and she studied and later taught composition, both in Australia and in other countries. As a composer, she has received commissions from numerous orchestras, other performers, and festivals in several countries. Liza Lim’s compositions are vibrant and full of energy, and she often explores Asian and Australian Aboriginal cultural sources, including the native instrument, the didgeridoo. This is featured in a work called *The Compass*. Her music is very expressive, so, although it is complex, it has the power of connecting with audiences and performers alike.
+
+In the festival, we’re going to give a semi-staged performance of the *Oresteia*. This is an opera in seven parts, based on the trilogy of ancient Greek tragedies by Aeschylus. Lim composed this when she was in her mid-20s, and she also wrote the text, along with Barry Kosky. It’s performed by six singers, a dancer, and an orchestra that, as well as standard orchestral instruments, includes electric guitar and a traditional Turkish stringed instrument. Lim wrote that because the stories in the tragedies are not easy to tell. The sounds she creates are also disturbing, and they include breathing, sobbing, laughing, and whistling. The work lasts around 75 minutes, and the rest of the concert will consist of orchestral works by the British composers Ralph Vaughan Williams and Frederick Delius.
+
+Moving on now to our second concert, this will begin with instrumental music by British composers Benjamin Britten and Judith Weir. After the interval, we’ll go to Australia for a piece by Ross Edwards, *The Tower of Remoteness*. According to Edwards, the inspiration for this piece came from nature, when he was sitting alone in the dry bed of a creek, overshadowed by the leaves of palm trees, listening to the birds and insects. *The Tower of Remoteness* is scored for piano and clarinet. Edwards says he realized years after writing the piece that he had subconsciously modeled its opening phrase on a bird call.
+
+Ross Edwards was born in 1943 in Sydney, Australia, and studied at the Sydney Conservatorium of Music and the universities of Adelaide and Sydney. He’s well known in Australia, and in fact, he’s one of the country’s most performed composers. He’s written a wide range of music, from symphonies and concertos to some composed specifically for children. Edwards’s music has been described as being deeply connected to Australia. And it can be regarded as a celebration of the diversity of cultures that Australia can be proud of.
+
+The last of the three Australian composers to be represented in our festival is Carl Vine. Born in 1954, Vine, like Liza Lim, comes from Perth, Western Australia. He took up the cornet at the age of five, switching to the piano five years later. However, he went to university to study physics before changing to composition. After graduating, he moved to Sydney and worked as a freelance pianist and composer. Before long, he had become prominent in Australia as a composer for dance, and in fact, has written 25 scores of that type.
+
+In our third concert, Vine will be represented by his music for the flag handover ceremony of the Olympics, held in 1996. This seven-minute orchestral piece was, of course, heard by millions of people worldwide. And we’ll hear it alongside works written by British composers Edward Elgar and, more recently, Thomas Adès.

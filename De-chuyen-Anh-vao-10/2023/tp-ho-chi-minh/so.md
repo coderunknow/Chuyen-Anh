@@ -1,0 +1,507 @@
+---
+id: "2023-tp-ho-chi-minh-so"
+nam_thi: 2023
+nam_hoc: "2023-2024"
+tinh_thanh: "TP. Hồ Chí Minh"
+don_vi: "Sở GD&ĐT TP. Hồ Chí Minh"
+nguon_trang: "https://tailieudieuky.com/baiviet/document/de-thi-chuyen-tieng-anh-tp-ho-chi-minh-tp-hcm-nam-hoc-2023-2024/"
+ngay_truy_cap: "2026-09-19"
+xac_minh: "ban-dang-lai-co-tieu-de-ky-thi"
+chat_luong: "PDF-text"
+dap_an: "Có nội dung đáp án trong bản chép"
+sha256_noi_dung: "1206956f93a3de957e114a31cadfa2e8316250a251827c7ec7af04b5c970c5d9"
+---
+
+# TP. Hồ Chí Minh — Chuyên Anh vào 10 — 2023-2024
+
+**Đơn vị/kỳ thi:** Sở GD&ĐT TP. Hồ Chí Minh.
+
+> **Bản chép từ nguồn đăng lại, không phải bản phát hành của Sở/trường.** Đã kiểm tra nhãn kỳ thi, năm và môn chuyên trong nội dung nguồn; chưa đối chiếu thủ công từng câu với bản gốc. Không coi bản này là bản chuẩn tuyệt đối.
+
+## Nguồn và giới hạn
+
+- Trang đăng: [https://tailieudieuky.com/baiviet/document/de-thi-chuyen-tieng-anh-tp-ho-chi-minh-tp-hcm-nam-hoc-2023-2024/](https://tailieudieuky.com/baiviet/document/de-thi-chuyen-tieng-anh-tp-ho-chi-minh-tp-hcm-nam-hoc-2023-2024/).
+- Nội dung lấy từ [PDF](https://drive.google.com/uc?export=download&id=1gg4tF_Pog3vaCLj5QJ0zx_P3TxttjIgw); SHA-256 tệp nguồn: `9f968f3ec46a1bf8c759582ae7000c24221d144f706d14b4d18e784f3248802d`.
+  - Đã trích văn bản từ cả 7 trang PDF; không thay trang ảnh trống bằng văn bản tự tạo.
+- Đáp án: Có nội dung đáp án trong bản chép. Không tự sinh đáp án còn thiếu.
+- File nghe: không nhúng vào Markdown; xem trang/gói nguồn. Chưa xác minh khả năng phát hoặc sự đầy đủ của audio.
+- Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.
+- Giữ nguyên nội dung bài đọc và cả lỗi cố ý trong bài sửa lỗi; không tự “sửa ngữ pháp” của đề.
+
+## Đề thi và phần kèm theo trong nguồn
+
+## Trang 1
+
+```text
+TAILIEUDIEUKY © 2023
+ SỞ GIÁO DỤC VÀ ĐÀO TẠO   KỲ THI TUYỂN SINH LỚP 10 THPT NĂM HỌC 2023-2024
+ THÀNH PHỐ HỒ CHÍ MINH         KHÓA NGÀY 06 THÁNG 6 NĂM 2023
+                                   Môn thi chuyên: Tiếng Anh
+    ĐỀ THI CHÍNH THỨC                   Ngày thi: 07 tháng 6 năm 2023
+       (Đề thi có 04 trang)              Thời gian làm bài: 150 phút, không kể thời gian phát đề
+
+
+I. USE OF ENGLISH (30 PTS)
+PART A: CHOOSE THE CORRECT ANSWER TO FILL IN THE BLANK. (10 PTS)
+1. One of the key techniques of magicians in performance is to _______ curiosity from the audience.
+  A. arise                        B. awake                     C. arouse                     D. aggravate
+2. If only Helena _______ the last point in the presentation; it was a striking point.
+  A. did not miss                 B. would not miss              C. would not have missed      D. hadn’t missed
+3. _______ Mike’s determination, the whole team refused to join the science project competition.
+  A. Not regarding               B. Were it not                 C. Regardless of              D. Should it not be
+4. I have told you this _______ that the water heater should be turned off after use.
+  A. as quite often as not         B. umpteen times              C. irredeemable times          D. very several times
+5. It is my own recommendation that short-loan books _______ by weekend.
+  A. being returned               B. should return               C. be returned                D. are returned
+6. The more you read about the world, _______ to know more about yourself.
+  A. the better you have chances                                 B. the better chances you have
+  C. chances are better                                       D. better chances are
+7. - Jack: “Why do you ask me about my brother?”
+    - Carlos: “_______.”
+  A. Just a reason                B. Be curious                 C. I can’t miss it               D. Just idle curiosity
+8. Are there any chances that Manchester City will be _______ with Manchester United?
+  A. tied                         B. drawn                     C. equaled                    D. balanced
+9. Many _______ professional training abroad for the last three years.
+  A. candidates experienced                                     B. a candidate has experienced
+  C. candidates had experienced                               D. a candidate have experienced
+10. - Peter: “You fancy a field trip to a soft drink factory or a train excursion to an art village?”
+     - Paul: “_______”
+  A. No wonder for me           B. No way to pick them up      C. Nothing much to choose     D. Not even one chance
+11. The horror film _______, all of the children froze in fear and we were completely silent.
+  A. being hideous               B. was hideous                C. so hideous                 D. hideous as it was
+12. The coaches should do something for the team. _______ words don’t help.
+  A. Simple                      B. Lone                      C. Only                       D. Mere
+13. The new clerk was blamed for _______ the troubles in the sales team and disrupting the process.
+  A. stirring                      B. agitating                   C. disintegrating               D. fermenting
+14. _______, the answer did not receive good comments from the judges because it was not creative enough.
+  A. Brief and accurate it was                                    B. Brief though accurate
+  C. Though brief and accurate                                 D. Though it is brief and accurate
+15. At Hudson Bay to the North of Canada _______.
+  A. were located some British-owned factories                   B. located some British-owned factories
+  C. were some British-owned factories located                  D. were locating some British-owned factories
+16. The film is _______ based on a true story, but most of it is fiction.
+  A. loosely                      B. casually                    C. faintly                     D. lightly
+17. - Tina: “What a coincidence it is!”
+     - Keith: “Yes. It’s strange that we _______ the same pastel striped T-shirt.”
+  A. should be wearing           B. were wearing               C. might be wearing           D. ought to be wearing
+18. - My brother: “I don’t like the glowing colors in your painting.”
+     - Me: “_______. I’d say.”
+  A. Everyone to his own         B. Each to his own             C. Each has his own           D. Everyone has his own
+19. Having taken a long nap after the journey, the children now are as fresh as _______.
+  A. bread                       B. milk                       C. a breeze                   D. a daisy
+20. The university sent me a letter _______ were congratulations for my successful application.
+  A. which the beginning          B. the beginning at which       C. at the beginning of which     D. of which at the beginning
+
+PART B: CHOOSE THE WORD OR PHRASE THAT BEST FITS EACH SPACE IN THE FOLLOWING PASSAGE. (20 PTS)
+PASSAGE 1
+   The Phantom of the Opera, Broadway’s longest-running show, is scheduled to close in February 2023. The musical – a fixture
+on Broadway since 1988, (1) _______ recessions, war and cultural shifts – will play its final performance on Broadway on 18
+February, a spokesperson said on Friday. The closure will come less than a month after its 35th anniversary. It will conclude with
+an (2) _______ 13,925 performances. Box office grosses have fluctuated since the show reopened after the pandemic – going as
+high as over $1m (£870,000) a week but also dropping to about $850,000. Last week, it hit $867,997. Based on a novel by Gaston
+Leroux, Phantom of the Opera tells the story of a (3) _______ composer who haunts the Paris opera house and falls (4) _______
+in love with an innocent young soprano, Christine. Andrew Lloyd Webber’s lavish songs include Masquerade, Angel of Music, All
+I Ask of You and The Music of the Night.
+
+ TAILIEUDIEUKY © 2024                                                                         1
+```
+
+## Trang 2
+
+```text
+TAILIEUDIEUKY © 2023
+   “As a producer you dream that a show will run for ever. (5) _______, my production of Andrew’s Cats proudly declared for
+decades ‘Now and Forever.’ Yet ‘Phantom’ has (6) _______ that show’s extraordinary Broadway (7) _______. But all shows do
+finally close,” producer Cameron Mackintosh said in a statement.
+   The first production opened in London in 1986 and since then the show has been seen by more than 145 million people in 183
+cities and performed in 17 languages over 70,000 performances. On Broadway (8) _______, the musical has played more than
+13,500 performances to 19 million people at the Majestic theatre. The closing of Phantom would mean the longest running show
+(9) _______ would go to Chicago, which started in 1996. The Lion King is next, (10) _______ performances in 1997.
+1.      A. recovering                B. undertaking              C. weathering               D. airing
+2.      A. eye-popping               B. eye-washing              C. eye-shadowing           D. eye-witnessing
+3.      A. dispatched                B. disqualified               C. dishonored               D. disfigured
+4.      A. madly                     B. vividly                   C. avidly                    D. divinely
+5.      A. Therefore                 B. Nevertheless             C. Indeed                   D. Otherwise
+6.      A. overcome                 B. surpassed                C. exceeded                D. overtaken
+7.      A. fame                     B. move                    C. run                      D. go
+8.      A. alone                     B. single                    C. sole                     D. particularly
+9.      A. glory                      B. crown                   C. queen                   D. corona
+10.     A. beginning                 B. begun                   C. which began             D. having begun
+
+PASSAGE 2
+   The environment is the fundamental source of all possible existence on planet Earth. However, over the recent years, the
+environment has been exploited (1) _______ because of which the environmental conditions are becoming worse (2) _______.
+Pollution of air, water and land, mining, industrialisation, modern urbanization, deforestation, release of chemical (3) _______ and
+landfills are some of the major factors that cause the gradual deterioration of the environment. With the disastrous pace of climate
+change, a result of pollution and exploitation of the environment, finding out ways to protect the environment from any further
+damage should be the first (4) _______. Bringing back the environment to its original state is of (5) _______ importance and is
+the only solution. Working towards a common goal will be the easiest and fastest way to keep the environment from any more
+harm. Dots are to be connected between climate change, water (6) _______, energy shortages, global health, food security and
+women’s (7) _______. Solutions to one problem must be solutions for all.
+   The leaders of the world are working to reduce the rapid degradation of the environment, organizations like the United Nations
+(8) _______ initiatives to create awareness and get people to take actions to curb the problems of the environment. Some of
+these initiatives include the 2019 Sustainable Development Summit, 2019 Climate Action Summit, 2030 Agenda for Sustainable
+Development. (9) _______ all these measures are in action, individuals are also obliged to take steps to preserve the environment
+that everyone is a part of. With everyone’s efforts, we can be sure that all of it will definitely (10) _______ a difference and help
+the environment in becoming healthy and sustainable.
+1.      A. excessively               B. abundantly               C. aggressively              D. extremely
+2.      A. from day to day            B. day in day out            C. day by day               D. day after day
+3.      A. effluents                  B. affluence                 C. liquids                   D. outflowing
+4.      A. prerequisite               B. requirement              C. frontier                  D. priority
+5.      A. substantial                B. critical                   C. subliminal                D. primary
+6.      A. shortness                 B. scarcity                  C. sparseness              D. deficiency
+7.      A. domination                B. control                   C. bestowal                 D. empowerment
+8.      A. bring up                   B. take on                  C. come up with             D. stand up for
+9.      A. Since                     B. By the time               C. Until                     D. While
+10.     A. take                      B. make                    C. have                    D. count
+
+II. READING (35 PTS)
+PART A: READ THE PASSAGE AND CHOOSE THE BEST ANSWERS TO THE QUESTIONS. (10 PTS)
+   Back in 1998, three 26-year-olds, Adam Balon, Richard Reed and Jon Wright, made up their minds that it was time they either
+left their well-paid jobs in management consultancy and advertising and went into business together or stopped talking about it.
+What kind of business they wanted to set up they weren’t quite sure, but it was something they had been discussing ever since
+they were at university together. Deciding that the way forward was to make it easier for busy people to be healthy, the trio bought
+some fruit and made smoothies, which they then tested on people at a small jazz festival in London. ‘We put up a large sign
+asking, “should we quit our jobs to make these smoothies?” and put out one bin saying “Yes” and another saying “No”.’ The ‘Yes’
+bin filled up immediately with empty bottles and the next day they resigned from their jobs.
+   However, launching Innocent smoothies did not happen overnight. Experts in the food industry told them that their product
+was too expensive and without the use of additives, the drinks wouldn’t last long. Even more worryingly, the numerous banks they
+approached were not too keen on financing them and it wasn’t until their savings were about to run out that a wealthy businessman
+took a leap of faith and invested in the business. Ignoring most of the advice they’d been given, Innocent then went on to create
+a range of drinks made from 100 percent fresh fruit and nothing else. Careful production and high-tech packaging gave the drinks
+the longest possible shelf life, but they stuck to their beliefs by ‘not messing about with them’ at all. The next step was to
+persuade local shops to stock their product, which they delivered personally in their grass-covered minibus.
+   Their airy office in London, affectionately known as ‘Fruit Towers’, is open-plan, the ‘grass’ floors, table football games,
+beanbags and casually dressed trendy young staff representing the fresh feeling Innocent is trying to create. But alongside all this
+quirkiness is an impressive business. New recipes created in the high-tech kitchen are tried out on the people in the surrounding
+office buildings, although new product ideas, however fashionable, are rejected if they go too far away from their main aim: making
+a natural, healthy, great-tasting drink. Their confidence that a quality product will sell itself appears to have paid off; despite
+minimal advertising, Innocent currently sells more than two million smoothies per week.
+   Aside from the greenery, one of the first things you notice about Fruit Towers is how happy everyone there seems to be. The
+three partners were convinced that success relies on the well-being and happiness of the people who work there, so as well as
+financial incentives  like company shares, healthcare and extra bonuses, the staff are motivated by snowboarding  trips,
+scholarships to enable them to pursue outside interests and studies, and a wide choice of social and sporting activities. Innocent
+ TAILIEUDIEUKY © 2024                                                                         2
+```
+
+## Trang 3
+
+```text
+TAILIEUDIEUKY © 2023
+employees are positive, motivated, and proud of where they work, which is why the company has won numerous awards over the
+years, including Guardian Employer of the Year and top place in the Sunday Times “Best small companies to work for” list.
+   Wright, Balon and Reed had firm ideas from the very beginning about the kind of company they wanted to run. Their aim was
+to provide a wide range of healthy drinks, make Innocent a global brand and take its ethical values to the world’s consumers.
+1. The three friends gave up their ‘real jobs’ because they had _______.
+  A. always dreamt of creating fruit drinks together
+  B. realised that one of their business ideas might be a success
+  C. decided that their ‘real jobs’ did not allow them to live healthy lives
+  D. lost interest in what they were doing before
+2. Innocent’s major obstacle to marketing their smoothies was _______.
+  A. deciding how to package the drink attractively                 B. seeking advice from experts
+  C. working out how to keep the drinks fresh                    D. keeping the cost low to sell to supermarkets
+3. The phrase “took a leap of faith” in the second paragraph suggests that the investor _______.
+  A. took a risk while hoping it would have a good result           B. didn’t believe in the future of Innocent
+  C. took the faith of Innocent’s founders for granted             D. tried to persuade other investors to give their money
+4. The expression “not messing about with them” in the second paragraph suggests that the trio didn’t _______.
+  A. change the basic contents of the drinks                      B. check how long the drinks were kept in the shops
+  C. allow anyone else to distribute the drinks                    D. worry about which bottles the drinks were in
+5. The ‘Fruit Towers’ Office is NOT _______.
+  A. ventilated due to the grassy floors                            B. peculiar nor arresting
+  C. equipped with leisure facilities                             D. divided up into separate rooms
+6. The success of Innocent can be attributed to the fact that _______.
+  A. their staff are young and trendy
+  B. their ingredients change according to what is popular at the time
+  C. the company has benefited from the partners’ experience in advertising
+  D. the partners have maintained a very clear focus on what they do
+7. The word ‘their’ in paragraph 3 refers to _______.
+  A. the people in the office buildings                             B. new product ideas
+  C. new recipes                                             D. Innocent
+8. The phrase “paid off” in paragraph 3 is closest in meaning to _______.
+  A. owed                       B. succeeded                 C. returned                   D. cost
+9. Employees are motivated to work for Innocent because they _______.
+  A. are paid more than other people in similar jobs                B. appreciate working for a prize-winning company
+  C. feel they are valued by the organisation                     D. get a lot of time off to pursue their interests
+10. Innocent could become popular among the world’s consumers because it _______.
+  A. did not allow itself to become too big                         B. was much admired for its underlying philosophy
+  C. believed in building the brand’s image and reputation         D. did not concern itself with making a lot of money
+
+PART B: FIVE SENTENCES HAVE BEEN REMOVED FROM THE STORY. READ THE STORY AND THEN CHOOSE FROM
+THE LIST A-F GIVEN BELOW THE BEST SENTENCE TO FILL IN EACH OF THE BLANKS (1-5). THERE IS ONE SENTENCE
+YOU DO NOT NEED TO USE. (5 PTS)
+     I wanted to sail to the Canary Islands, but I was afraid to go too far from the shore. It was only a small boat. And so we sailed
+on south for some days. We had very little water, and it was dangerous country here, with many wild animals. We were afraid.
+We often had to go on shore to get more water. Once, I used a gun to shoot a wild animal. I don’t know what animal it was, but it
+made a good meal. For about ten or twelve days we sailed on south, down the coast of Africa. (1) _______. They were strange,
+wild people, who did not look friendly. By now we had very little food, and we really needed help. We were afraid, but we had to
+go on shore. At first, they were afraid of us, too. Perhaps white people never visited this coast. (2) _______. So we used our
+hands and faces to show that we were hungry. They came with food for us, but then they moved away quickly. (3) _______. While
+we did that they watched us carefully. I tried to thank them, but I had nothing to give them. Just then two big wild cats came down
+to the shore from the mountains. I think they were leopards. The people were afraid of these wild cats, and the women cried out.
+Quickly, I took a gun, and shot one of the animals. (4) _______. Guns were new to these African people, and they were afraid of
+the loud noise and the smoke. But they were happy about the dead wild cat. I gave them the meat of the dead animal, and they
+gave us more food and water. We now had a lot of food and water, and we sailed on. (5) _______. We could see them, but we
+couldn’t get near because there was no wind.
+   A. Then one day we saw some people on the shore.
+   B. We carried it to our boat and ate it.
+   C. Eleven days later we came near the Cape Verde Islands.
+   D. The second one ran back up into the mountains.
+   E. The wind picked up, and we had to move.
+   F. We did not speak their language.
+
+PART C: SUPPLY EACH BLANK WITH ONE SUITABLE WORD TO MAKE A MEANINGFUL PASSAGE. (20 PTS)
+PASSAGE 1
+   Ants are common insects, but they have some unique capabilities including their legendary communication skills that allow
+their colonies to (1) _______ as superorganisms. There are more than 10,000 known species of ants living throughout the world.
+Ants can be (2) _______ by the constriction that looks like a waist (3) _______ the abdomen, at the end of the body, and the part
+of the body called the thorax, which is located before the head. Their bodies are covered with a hard armour called the exoskeleton.
+While the exoskeleton is their (4) _______ weapon, their rear abdominal stinger is their offensive one. Like other insects, they
+have six legs; each (5) _______ three joints. Ants have large heads with compound eyes, elbowed antennae, and powerful pincers
+known as mandibles. These are an ant’s most useful tools to be used for holding, carrying and cutting.
+
+ TAILIEUDIEUKY © 2024                                                                         3
+```
+
+## Trang 4
+
+```text
+TAILIEUDIEUKY © 2023
+  Queen ants are the largest ants in the (6) _______. They have wings and their purpose is to lay eggs. The queens can live up
+to 30 years. There may be one or more queens, which depends on the ant species and the nest community (7) _______. The ant
+life cycle has four stages of development: egg, larva, pupa and (8) _______. The queen lays the eggs, which will hatch into larvae
+in a couple of days. The helpless larvae are fed and groomed by the worker ants (9) _______ they pass through the pupal stage.
+In a little more than a week, an adult ant will emerge, and the metamorphosis is (10) _______.
+
+PASSAGE 2
+   You can read faster if you wish to, but you will have to push yourself to do it. If you just (1) _______ along while reading, you
+will make (2) _______ or no improvement in your rate. If, however, you keep trying to step up your reading speed, you will be
+surprised to discover that you are making (3) _______. There are several ways to shift your reading speed from low into high (4)
+_______.
+  When you read books, magazines or newspapers, make every effort to read faster, quicken your (5) _______ movement, allow
+no concentration (6) _______. If you try and try again, you are likely to see the difference. You may think you should slow down
+your reading rate or reread certain parts of a chapter of a book to have a better understanding. Don’t (7) _______ in to this feeling.
+(8) _______, keep up your reading speed until you have finished the chapter. Then, make an oral or written summary of what you
+have read. Reread the chapter from start to finish but a little faster than before and with greater understanding.
+   However, you should adjust your rate to your purpose and material. Reading is like driving a car. Your purpose and conditions
+of your drive decide your speed. You may be in a hurry and step on the (9) _______; you may drive at moderate speed to enjoy
+the countryside. A good reader adopts the speed that best fits his reading purpose and material. Are you reading a history book,
+a novel, or a magazine? Do you read for specific details, for writing a report or for recreation? All (10) _______.
+
+III. ERROR CORRECTION: IDENTIFY THE FIVE MISTAKES IN THE FOLLOWING PASSAGE AND CORRECT THEM. (5 PTS)
+ LINE NUMBER
+       1              In Britain good manners were once seen as proof of a person’s worth, as in the old saying ‘manners maketh
+       2         man’. Though attitudes have become more tolerant over the years, people still tend to judge how do others
+       3         conduct themselves. People may be said to have no manners if they speak rudely to someone, yawn without
+       4         covering their mouth, or behave without thoughts for others. They certainly attract criticisms. On the other
+       5         hand, a person who is civilly courteous, who is considerate towards other people, who says little about their
+       6       own achievements and who respects the privacy of others, is much more likely to win approval and respect.
+       7         Ideas about appropriate personal behaviour vary from country to country and  it seems to be no universal
+       8           definition for good manners. Good manners do not have to be formal. They include table manners; they are
+       9        magic words like ‘please’, ‘thank you’, on simple words like ‘pardon’, ‘good morning’. In the past but less
+       10      common today, people bought books on etiquette (polite behavior) to learn how to behave.
+
+IV. WORD FORMS: SUPPLY THE APPROPRIATE FORMS OF THE WORDS IN BRACKETS. (10 PTS)
+1. Due to the advanced medicine, patients now have certain negligence of _______. [herb]
+2. The demonstrators have been _______ outside the garment factory in the protest for furcoats. [camp]
+3. John Steinbeck is an American writer who is well-known for masterly _______. [character]
+4. Contrary to what I had expected, my first journey to Antarctica was _______. [event]
+5. When I told my students that I believed in every of Don Quixote’s unrealistic ideas, my students looked at me _______. [search]
+7. Not every journalist could notice the star’s shifted grounds; her opinion had changed _______. [perceive]
+8. Due to the ten-minute standing ovation of the audience, the violinist had to take his third _______. [curtain]
+9. False data in his surveys and interviews have _______ his scientific research. [valid]
+9. I do not always fancy modern gadgets or recent scientific techniques; I sometimes find them really _______. [new]
+10. I just heard something broken in the kitchen again; nothing surprising. My children are _______. [butter]
+
+V. WRITING: COMPLETE THE SECOND SENTENCE SO THAT IT MEANS THE SAME AS THE FIRST ONE, USING THE
+WORD GIVEN. (20 PTS)
+1. I do not have enough money to have the automatic lighting installed. (PUT)
+→ Were ______________________________________________________________________.
+2. When the war broke out, a lot of Ukrainians fled to neighbor countries to escape misfortune. (NECK)
+→ No sooner ______________________________________________________________________.
+3. The management board decided to offer the strikers a pay rise to alleviate their anger. (FEATHERS)
+→ With a ______________________________________________________________________.
+4. It was wrong of the antifans to make negative influence on the journalists about the star. (PREJUDICED)
+→ The antifans should ______________________________________________________________________.
+5. Kevin was so interested in the hockey match on TV that he invented an excuse for his day off. (COOKED)
+→ Such ______________________________________________________________________.
+6. No one can believe that Laura earns money to support the whole family at such a tender age. (BACON)
+→ Hardly ______________________________________________________________________.
+7. The local authorities made the museum suitable for the public hall after the war. (KEYED)
+→ It was ______________________________________________________________________.
+8. Nice art works from litter should be exhibited now. (LAUNCHED)
+→ It’s high ______________________________________________________________________.
+9. Our team could not have been favoured by the judges if we had been experienced enough. (WIN)
+→ Due to ______________________________________________________________________.
+10. Although quiet members seem to be patient, they do not always take criticism. (COME)
+→ Patient ______________________________________________________________________.
+
+
+                                  THE END OF THE TEST
+
+ TAILIEUDIEUKY © 2024                                                                         4
+```
+
+## Trang 5
+
+```text
+TAILIEUDIEUKY © 2023
+SỞ GIÁO DỤC VÀ ĐÀO TẠO   KỲ THI TUYỂN SINH LỚP 10 THPT NĂM HỌC 2023-2024
+ THÀNH PHỐ HỒ CHÍ MINH         KHÓA NGÀY 06 THÁNG 6 NĂM 2023
+                                   Môn thi chuyên: Tiếng Anh
+        ĐÁP ÁN                        Ngày thi: 07 tháng 6 năm 2023
+
+
+
+
+                                                                             I. USE OF ENGLISH
+                      1  C
+                      2  D
+                      3  C
+                      4  B
+                      5  C
+                      6  B
+                      7  D
+                      8  A
+                      9  B
+                      10  C
+     PART A.
+                      11  A
+                      12  D
+                      13  D
+                      14  C
+                      15  A
+                      16  A
+                      17  A
+                      18  B
+                      19  D
+                      20  C
+     PART B.
+                      1  C
+                      2  A
+                      3  D
+                      4  A
+                      5  C
+    PASSAGE 1
+                      6  B
+                      7  C
+                      8  A
+                      9  B
+                      10  D
+                      1  A
+                      2  C
+                      3  A
+                      4  D
+                      5  B
+    PASSAGE 2
+                      6  B
+                      7  D
+                      8  C
+                      9  D
+                      10  B
+                                                                                   II. READING
+     PART A.         1  B
+
+TAILIEUDIEUKY © 2024                                                                         5
+```
+
+## Trang 6
+
+```text
+TAILIEUDIEUKY © 2023
+                      2  C
+                      3  A
+                      4  A
+                      5  D
+                      6  D
+                      7  D
+                      8  B
+                      9  C
+                      10  B
+                      1  A
+                      2  F
+     PART B.         3  B
+                      4  D
+                      5  C
+     PART C.
+                      1   function/ act
+                      2   identified/distinguished
+                      3   between
+                      4   defensive
+                      5    with/ having
+   PASSAGE 1.
+                      6   colony
+                      7   size
+                      8   adult
+                      9    until
+                      10  complete
+                      1   plod/ jog/ coast
+                      2     little
+                      3   progress
+                      4   gear
+                      5   eye
+   PASSAGE 2.
+                      6   lapses
+                      7   give
+                      8   Instead
+                      9   gas/ accelerator
+                      10  depend/ matter
+                                                                        III. ERROR CORRECTION
+                      1    tolerant => tolerable
+                      2  how do others => how others
+                      3   mouth => mouths
+                      4   thought => thinking
+                      5    criticisms => criticism
+                      5      it seems to be => there seems to be
+                                                     IV. WORD FORMS
+                      1   herbalism
+                      2   encamped/encamping
+                      3   characterization
+                      4   uneventful
+                      5   searchingly
+                      6   imperceptibly
+                      7    curtain-call
+                      8   invalidated
+
+TAILIEUDIEUKY © 2024                                                                         6
+```
+
+## Trang 7
+
+```text
+TAILIEUDIEUKY © 2023
+                      9   newfangled
+                      10   butterfingered
+                                                 V. WRITING
+                        Were I to have enough money/ Were it not for the lack of money, I would have had
+                      1
+                               the automatic lighting put in.
+                      No sooner had the war broken out than a lot of Ukrainians fled to neighbor countries
+                      2
+                                  to save their necks.
+                             With a view to smoothing the strikers' ruffled feathers, the management board
+                      3   decided to offer them a pay rise./ With a view not to ruffling their feathers, the
+                         management board decided to offer the strikers a pay rise.
+                      4   The anti-fans should not have prejudiced the journalists against the star.
+                         Such was Kevin's interest in the hockey match on TV that he cooked up an excuse
+                      5
+                                     for his day off.
+                      6   Hardly anyone believes that Laura brings home the bacon at such a tender age.
+                                                    It was the museum that was keyed to the need for a/the public hall by the local
+                      7   authorities after the war./ It was after the war that the museum was keyed to the
+                          need for a/the public hall by the local authorities.
+                                              It's high time people launched an exhibition on nice art works from litter./ It's high
+                      8
+                              time the exhibition of nice art works from litter was launched.
+                       Due to our lack of experience, our team could not win the judges’ favour./ Due to our
+                      9
+                                lack of experience, our team didn’t manage to win the judges’ favour.
+                                Patient as/though quiet members may seem, they do not always come to terms with
+                      10
+                                     criticism.
+
+
+
+
+
+TAILIEUDIEUKY © 2024                                                                         7
+```
