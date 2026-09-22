@@ -448,3 +448,169 @@
 445|Tangible|adj|hữu hình, cụ thể|+
 446|Compelling|adj|thuyết phục, hấp dẫn|+
 447|Tentative|adj|tạm thời, chưa chắc chắn|-
+448|Menial task|phrase|công việc tay chân tầm thường, ít được coi trọng|-
+449|Odd job|phrase|việc vặt, việc lẻ không cố định (thường được trả công theo lần)|
+450|Gig|n|công việc ngắn hạn/tạm thời; buổi biểu diễn (nhạc, hài)|
+451|Derivative|adj/n|bắt chước, ăn theo, thiếu tính nguyên bản / sản phẩm phái sinh|-
+452|Derivation|n|nguồn gốc, sự bắt nguồn (đặc biệt của từ ngữ); quá trình suy ra|
+453|Derive|v|bắt nguồn từ (derive from); thu được, rút ra (derive sth from)|
+454|A bit of a stretch|idiom|hơi quá, hơi cường điệu; điều khó tin hoặc khó chấp nhận|-
+455|Agree to disagree|idiom|chấp nhận bất đồng quan điểm và ngừng tranh cãi|+
+456|Subjunctive structure|grammar|cấu trúc giả định: S + suggest/demand/insist/It is essential... + that + S + V-bare (không chia)|
+457|Add up to|phrasal v|tổng cộng thành; dẫn đến, có nghĩa là (một kết quả)|
+458|Square away|phrasal v|thu xếp, giải quyết ổn thỏa, hoàn tất (việc gì)|+
+459|Check out with|phrasal v|khớp với, ăn khớp với (thông tin, lời khai, dữ liệu)|
+460|Discursive|adj|lan man, tản mạn, nhảy từ ý này sang ý khác|-
+461|Discursively|adv|một cách lan man, tản mạn|-
+462|Discursiveness|n|tính lan man, tản mạn|-
+463|Pretentious|adj|phô trương, làm ra vẻ quan trọng/hiểu biết hơn thực tế|--
+464|Pretentiousness|n|sự phô trương, làm màu, kiểu cách|--
+465|Pretension|n|sự tự nhận (có phẩm chất/địa vị) không thật; sự phô trương|-
+466|Fastidiously|adv|một cách kỹ tính, cầu kỳ đến mức khó tính|-
+467|Fastidiousness|n|tính kỹ tính, khó tính, cầu kỳ|-
+468|Meticulously|adv|một cách tỉ mỉ, cẩn thận đến từng chi tiết|+
+469|Meticulousness|n|tính tỉ mỉ, kỹ lưỡng|+
+470|Adornment|n|đồ trang sức, đồ trang trí; sự trang hoàng|+
+471|Unadorned|adj|không trang trí; mộc mạc, giản dị|
+472|Embellishment|n|sự trang trí, tô điểm; chi tiết thêm thắt, thêu dệt (trong kể chuyện)|
+473|Upkeep|n|việc/chi phí bảo trì, bảo dưỡng (nhà cửa, xe cộ)|
+474|Far-fetched|adj|khó tin, phi lý, gượng ép|-
+475|Far-flung|adj|xa xôi, hẻo lánh; trải rộng trên khu vực lớn|
+476|Far-sighted|adj|nhìn xa trông rộng; viễn thị|+
+477|Far-reaching|adj|có tác động sâu rộng, ảnh hưởng lớn và lâu dài|
+478|Ephemerality|n|tính ngắn ngủi, chóng tàn, phù du|-
+479|Sporadic|adj|rải rác, thỉnh thoảng, không đều đặn|
+480|Sporadically|adv|một cách rải rác, thỉnh thoảng, không đều|
+481|Volatile|adj|dễ biến động, bất ổn; thất thường, dễ bùng nổ (tính khí); dễ bay hơi|-
+482|Volatility|n|tính biến động, bất ổn; tính thất thường|-
+483|Malleable|adj|dễ uốn nắn, dễ định hình; dễ bị ảnh hưởng (người); có thể dát mỏng (kim loại)|
+484|Malleability|n|tính dễ uốn nắn, dễ định hình|
+485|Sound judgment|collocation|sự phán đoán sáng suốt, chín chắn|++
+486|Snap judgment|collocation|phán đoán vội vàng, quyết định chớp nhoáng thiếu cân nhắc|-
+487|Layover|n|thời gian/điểm dừng chờ chuyển tiếp giữa chặng bay|
+488|Crossover|n|sự giao thoa, kết hợp giữa các thể loại/lĩnh vực; tác phẩm kết hợp nhân vật của nhiều tác phẩm|
+489|Spillover|n|tác động lan tỏa, hiệu ứng dây chuyền sang lĩnh vực/nơi khác|
+490|Lactose intolerant|adj|không dung nạp lactose (không tiêu hóa được đường sữa)|
+491|Repellent|adj/n|gây ghê tởm, khó chịu; có tác dụng xua đuổi / chất xua đuổi (côn trùng)|-
+492|Averse|adj|không ưa, ác cảm, phản đối (averse to sth; risk-averse)|-
+493|Aversion|n|sự ác cảm, ghét cay ghét đắng (aversion to sth)|-
+494|Incidental|adj|phụ, ngẫu nhiên đi kèm; không phải phần chính (incidental expenses)|
+495|Anecdotal evidence|collocation|bằng chứng giai thoại, dựa trên trải nghiệm cá nhân thay vì dữ liệu hệ thống|-
+496|Stick to one's guns|idiom|giữ vững lập trường, không nhượng bộ dù bị phản đối|+
+497|Play one's cards right|idiom|hành xử khôn khéo, tận dụng tốt cơ hội để thành công|+
+498|Follow one's nose|idiom|làm theo trực giác; (chỉ đường) cứ đi thẳng|
+499|Throw one's hat in the ring|idiom|tuyên bố tham gia cuộc đua/tranh cử|+
+500|Cotton on to|phrasal v|bắt đầu hiểu ra, nhận ra (điều gì)|
+501|Muscle in on|phrasal v|chen chân vào, xía vào để giành phần lợi/quyền lực|--
+502|Pander to|phrasal v|chiều theo, nuông chiều (thị hiếu tầm thường, điểm yếu của ai) để lấy lòng|--
+503|Land on|phrasal v|chốt, đi đến (một quyết định/lựa chọn) sau khi cân nhắc|
+504|Fresco|n|tranh bích họa (vẽ trên lớp vữa tường còn ướt)|
+505|Incorrigibility|n|tính không thể sửa chữa, không thể cải tạo (tật xấu, con người)|--
+506|Irreverent|adj|bất kính, thiếu tôn trọng (thường theo lối hài hước, châm biếm)|-
+507|Irreverence|n|sự bất kính, thái độ thiếu tôn trọng|-
+508|Reverent|adj|tôn kính, thành kính|++
+509|Irreconcilable|adj|không thể hòa giải, không thể dung hòa (mâu thuẫn, khác biệt)|--
+510|Irreconcilability|n|tính không thể hòa giải, không thể dung hòa|--
+511|In the offing|idiom|sắp xảy ra, sắp tới trong tương lai gần|
+512|In the balance|idiom|chưa ngã ngũ, ở thế bấp bênh chưa biết kết cục|-
+513|On the back burner|idiom|bị tạm gác lại, để xử lý sau|-
+514|Against the grain|idiom|trái với bản tính, thói quen hoặc xu hướng chung|-
+515|Phase out|phrasal v|loại bỏ dần theo từng giai đoạn|
+516|Write off|phrasal v|coi (ai/cái gì) là thất bại, vô vọng; xóa nợ; xem xe hỏng không sửa được|-
+517|Rule out|phrasal v|loại trừ (khả năng); bác bỏ|
+518|By virtue of|prep phrase|nhờ vào, do có (phẩm chất, quyền, điều kiện nào đó)|
+519|In the face of|prep phrase|đối mặt với; bất chấp (khó khăn, phản đối)|
+520|Clear the decks|idiom|dọn dẹp việc tồn đọng để sẵn sàng cho việc mới|+
+521|Cut corners|idiom|làm tắt, làm ẩu để tiết kiệm thời gian/tiền|--
+522|Lest + S + (should) V-bare|grammar|'kẻo, e rằng, vì sợ rằng': lest + S + (should) + V-bare; không dùng not sau lest|
+523|Out on a limb|idiom|ở thế đơn độc, mạo hiểm, không được ai ủng hộ|-
+524|On a hiding to nothing|idiom|ở thế chắc chắn thất bại, làm cũng không được gì|--
+525|In the doldrums|idiom|trì trệ, ảm đạm; buồn chán, ủ rũ|--
+526|Burn one's bridges/boats|idiom|tự chặt đứt đường lui, không còn đường quay lại|--
+527|Bide one's time|idiom|kiên nhẫn chờ thời cơ thích hợp|+
+528|Cut one's losses|idiom|dừng lại đúng lúc để tránh mất mát thêm|
+529|Raise the stakes|idiom|tăng mức rủi ro/cược; đẩy thử thách lên cao hơn|
+530|Insulated from|adj|được che chắn, bảo vệ khỏi (tác động bên ngoài)|+
+531|Insulation|n|sự cách nhiệt/cách âm/cách điện; vật liệu cách nhiệt; sự che chắn khỏi tác động|
+532|Insulate|v|cách nhiệt/cách âm/cách điện; che chắn, bảo vệ khỏi tác động (insulate sb from sth)|
+533|Fecund|adj|màu mỡ, phì nhiêu; sinh sản tốt; sáng tạo dồi dào|++
+534|Fecundity|n|độ phì nhiêu; khả năng sinh sản/sáng tạo dồi dào|++
+535|Opulent|adj|xa hoa, lộng lẫy, giàu có|+
+536|Opulence|n|sự xa hoa, giàu sang, lộng lẫy|+
+537|Stimulus|n|tác nhân kích thích; biện pháp kích thích (kinh tế) — số nhiều: stimuli|
+538|Intrinsic to|adj|thuộc về bản chất, vốn có và không thể tách rời của|
+539|Intrinsically|adv|về bản chất, vốn dĩ|
+540|Ingrained|adj|ăn sâu, bén rễ, khó thay đổi (thói quen, định kiến)|-
+541|Quiver|v/n|run rẩy, rung nhẹ (vì sợ, xúc động) / cái run nhẹ; bao đựng tên|
+542|Flutter|v/n|vỗ, đập nhẹ (cánh); phấp phới; đập loạn (tim); bồn chồn / sự rung nhẹ, cảm giác nôn nao|
+543|Apprehension|n|nỗi lo âu, e sợ về điều sắp xảy ra; sự bắt giữ; sự lĩnh hội|-
+544|Genetic makeup|collocation|cấu trúc/thành phần di truyền của một cá thể|
+545|Adrenaline surge|collocation|cơn dồn adrenaline, cảm giác hưng phấn/năng lượng bùng lên đột ngột|
+546|Surge|n/v|sự tăng vọt, dâng trào đột ngột / dâng lên, tăng vọt|
+547|Rear its (ugly) head|idiom|(vấn đề, nguy cơ) bắt đầu ló dạng, xuất hiện trở lại|--
+548|Summary|n/adj|bản tóm tắt / nhanh gọn, tức thời, không qua thủ tục đầy đủ (summary dismissal)|
+549|Summarily|adv|một cách nhanh chóng, dứt khoát, không qua thủ tục đầy đủ (dismissed summarily)|-
+550|Eclipse|v/n|làm lu mờ, vượt trội hơn hẳn / nhật/nguyệt thực; sự lu mờ|
+551|Pit A against B|phrasal v|đặt A đối đầu/cạnh tranh với B|
+552|Transcribe|v|chép lại thành văn bản (từ lời nói, ghi âm); phiên âm|
+553|Transcription|n|bản chép lại; quá trình chép/phiên âm|
+554|Word for word|idiom|nguyên văn, từng từ một|
+555|Obsolescence|n|sự lỗi thời, tình trạng không còn được dùng (planned obsolescence)|-
+556|Scaffold|n|giàn giáo; khung/bệ đỡ cho việc học hay tư duy|
+557|Scaffolding|n|hệ giàn giáo; (giáo dục) sự hỗ trợ từng bước có cấu trúc để người học tự làm được|
+558|Cling to|phrasal v|bám chặt vào; khư khư bám giữ (niềm tin, hy vọng, quyền lực)|-
+559|Reactionary|adj/n|phản động, bảo thủ cực đoan, muốn quay về trật tự cũ / người có tư tưởng đó|--
+560|Curator|n|người phụ trách, giám tuyển (bảo tàng, triển lãm)|
+561|Curate|v|chọn lọc, sắp xếp và quản lý (bộ sưu tập, nội dung)|+
+562|Ingenuity|n|sự khéo léo, tài xoay xở sáng tạo|++
+563|Marginal|adj|nhỏ, không đáng kể; ở bên lề, thứ yếu|-
+564|Marginalize|v|gạt ra bên lề, làm cho (nhóm/người) mất tiếng nói và cơ hội|--
+565|AI slop|n|nội dung do AI tạo hàng loạt, chất lượng thấp, vô giá trị|--
+566|Anthropomorphic|adj|nhân hóa, mang hình dáng/đặc điểm con người (vật, động vật, thần thánh)|
+567|Soap opera|n|phim truyền hình dài tập nhiều drama tình cảm|-
+568|Churn out|phrasal v|sản xuất hàng loạt, nhanh và nhiều (thường kém chất lượng)|-
+569|Telenovela|n|phim truyền hình dài tập kiểu Mỹ La-tinh|
+570|Insidious|adj|ngấm ngầm, âm ỉ gây hại theo cách khó nhận ra|--
+571|Insidiously|adv|một cách ngấm ngầm, âm ỉ, khó nhận thấy|--
+572|Underbelly|n|mặt tối, góc khuất (của xã hội, thành phố); điểm yếu dễ tổn thương|--
+573|Propagation|n|sự lan truyền, truyền bá; sự nhân giống (cây)|
+574|Propagate|v|lan truyền, truyền bá (ý tưởng, tin tức); nhân giống (cây)|
+575|Rampant|adj|tràn lan, hoành hành không kiểm soát (tội phạm, dịch bệnh, lạm phát)|--
+576|State-funded|adj|do nhà nước tài trợ, cấp kinh phí|
+577|Council estate|n|khu nhà ở xã hội do chính quyền địa phương xây (Anh)|
+578|Lark|n|trò vui, trò đùa cho vui không nghiêm túc (for a lark); chim sơn ca|+
+579|Burning social conscience|phrase|ý thức trách nhiệm xã hội mãnh liệt, luôn day dứt thôi thúc|++
+580|Make a dent in|idiom|tạo ra tiến triển/tác động (dù nhỏ) đối với vấn đề lớn; làm hao hụt (tiền)|+
+581|Shrinking violet|idiom|người cực kỳ nhút nhát, rụt rè|-
+582|Strident|adj|chói tai, gay gắt; (quan điểm) quyết liệt, hùng hổ đến khó chịu|-
+583|Incendiary device|collocation|thiết bị gây cháy, bom cháy|--
+584|Streaky bacon|n|thịt ba chỉ xông khói (nạc mỡ xen kẽ)|
+585|Roving|adj|lưu động, nay đây mai đó (roving reporter, roving eye)|
+586|Plethora|n|số lượng quá nhiều, thừa mứa (a plethora of)|-
+587|Chronically|adv|một cách kinh niên, dai dẳng kéo dài (chronically ill, chronically underfunded)|-
+588|Chronic|adj|mãn tính, kinh niên; dai dẳng, kéo dài (bệnh, vấn đề)|-
+589|Chronicity|n|tính mãn tính, tính kéo dài dai dẳng (thuật ngữ y khoa)|-
+590|Low-hanging fruit|idiom|mục tiêu dễ đạt nhất, việc dễ làm nên làm trước|+
+591|Public purse|n|ngân sách nhà nước, tiền thuế của dân|
+592|Allot|v|phân bổ, phân chia, cấp cho (thời gian, tiền, nhiệm vụ)|
+593|Allotment|n|phần được phân bổ; sự phân bổ; (Anh) mảnh đất thuê để trồng rau|
+594|Extraction|n|sự chiết xuất, khai thác, nhổ (răng); nguồn gốc xuất thân (of Chinese extraction)|
+595|Extract|v/n|chiết xuất, khai thác, lấy ra, moi (thông tin) / chiết xuất; đoạn trích|
+596|Crony|n|bạn bè thân hữu của người có quyền (được ưu ái) — sắc thái khinh miệt|--
+597|Cronyism|n|nạn thân hữu, thiên vị bạn bè trong việc bổ nhiệm/trao quyền lợi|--
+598|Preservationist|n|người chủ trương bảo tồn (di sản, công trình lịch sử, thiên nhiên)|+
+599|Preserve|v/n|bảo tồn, gìn giữ; bảo quản (thực phẩm) / mứt; khu bảo tồn; lĩnh vực riêng|+
+600|Preservation|n|sự bảo tồn, gìn giữ; sự bảo quản|+
+601|Merchantable timber|collocation|gỗ đạt chất lượng/kích thước để bán được trên thị trường|
+602|Jargon|n|biệt ngữ, thuật ngữ chuyên ngành khó hiểu với người ngoài|-
+603|Suffuse|v|lan tỏa, tràn ngập khắp (ánh sáng, màu sắc, cảm xúc)|+
+604|Herbicide|n|thuốc diệt cỏ|-
+605|Insecticide|n|thuốc trừ sâu, thuốc diệt côn trùng|-
+606|Flora and fauna|collocation|hệ thực vật và động vật (của một vùng)|
+607|Retention|n|sự giữ lại, duy trì (nhân viên, khách hàng, nước); khả năng ghi nhớ|
+608|Retain|v|giữ lại, duy trì; ghi nhớ; thuê (luật sư)|
+609|Retentive|adj|có khả năng ghi nhớ tốt (a retentive memory); giữ được (nước, nhiệt)|+
+610|Indefinitely|adv|vô thời hạn, không xác định thời điểm kết thúc|
+611|Indefinite|adj|không xác định, không rõ giới hạn/thời hạn; mơ hồ|
+612|Resilience|n|khả năng phục hồi sau khó khăn; sức bền, độ đàn hồi|++
+613|Canopy trees|collocation|cây tầng tán, cây cao tạo thành vòm rừng|
