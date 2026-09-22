@@ -4523,10 +4523,18 @@
     "id": "448",
     "word": "Menial task",
     "pos": "phrase",
-    "meaning": "công việc tay chân tầm thường, ít được coi trọng|-",
-    "examples": [],
-    "tags": [],
-    "difficulty": 0,
+    "meaning": "công việc lao dịch, tay chân vất vả, ít được coi trọng",
+    "examples": [
+      {
+        "en": "He was tired of doing menial tasks all day.",
+        "vi": "Anh ấy mệt mỏi vì phải làm những công việc tay chân cả ngày."
+      }
+    ],
+    "tags": [
+      "work",
+      "daily-life"
+    ],
+    "difficulty": 2,
     "createdAt": "2026-09-22"
   },
   {

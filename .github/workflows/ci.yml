@@ -1,54 +1,53 @@
-name: CI - Validate & Build
+name: Static checks
 
 on:
   pull_request:
     branches: [main]
     paths:
-      - "data/**"
-      - "src/**"
-      - "public/**"
       - "index.html"
-      - "package.json"
-      - "package-lock.json"
-      - "vite.config.js"
+      - "style.css"
+      - "app.js"
+      - "data/**"
+      - "scripts/validate_vocab.py"
+      - "tests/**"
       - ".github/workflows/ci.yml"
   push:
     branches: [main]
     paths:
-      - "data/**"
-      - "src/**"
-      - "public/**"
       - "index.html"
-      - "package.json"
-      - "package-lock.json"
-      - "vite.config.js"
+      - "style.css"
+      - "app.js"
+      - "data/**"
+      - "scripts/validate_vocab.py"
+      - "tests/**"
       - ".github/workflows/ci.yml"
 
 concurrency:
-  group: flashcard-ci-${{ github.ref }}
+  group: static-checks-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
-  ci:
+  checks:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
           persist-credentials: false
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-          cache: 'npm'
-
-      - run: npm ci --prefer-offline --no-audit --no-fund
-
       - name: Validate vocabulary
-        run: npm run validate:vocab
+        run: python scripts/validate_vocab.py
+      - name: Run validator unit tests
+        run: python -m unittest discover -s tests -p 'test_*.py'
 
-      - name: Run tests
-        run: npm run test
-
-      - name: Build
-        run: npm run build
+      # Node is used only for dependency-free unit tests; production deployment
+      # does not install Node, npm, or a package manager.
+      - name: Run static logic tests
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node --test tests/static-app.test.js
