@@ -1,0 +1,6242 @@
+[
+  {
+    "id": "1",
+    "word": "Adversity",
+    "pos": "n",
+    "meaning": "nghịch cảnh",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "2",
+    "word": "Meticulous",
+    "pos": "adj",
+    "meaning": "tỉ mỉ, kỹ lưỡng",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "3",
+    "word": "Ambiguity",
+    "pos": "n",
+    "meaning": "sự mơ hồ, tính đa nghĩa",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "4",
+    "word": "Deteriorate",
+    "pos": "v",
+    "meaning": "suy giảm, xuống cấp",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "5",
+    "word": "Exacerbate",
+    "pos": "v",
+    "meaning": "làm trầm trọng thêm",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "6",
+    "word": "Discrepancy",
+    "pos": "n",
+    "meaning": "sự chênh lệch, bất nhất",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "7",
+    "word": "Constraint",
+    "pos": "n",
+    "meaning": "sự hạn chế, ràng buộc",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "8",
+    "word": "Scrutinize",
+    "pos": "v",
+    "meaning": "xem xét kỹ lưỡng",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "9",
+    "word": "Pervasive",
+    "pos": "adj",
+    "meaning": "lan rộng, phổ biến",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "10",
+    "word": "Eloquent",
+    "pos": "adj",
+    "meaning": "hùng biện, diễn đạt lưu loát",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "11",
+    "word": "Plausible",
+    "pos": "adj",
+    "meaning": "hợp lý, có vẻ đúng",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "12",
+    "word": "Conspicuous",
+    "pos": "adj",
+    "meaning": "dễ thấy, nổi bật",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "13",
+    "word": "Relinquish",
+    "pos": "v",
+    "meaning": "từ bỏ, nhượng lại",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "14",
+    "word": "Disparate",
+    "pos": "adj",
+    "meaning": "khác biệt rõ rệt, không đồng nhất",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "15",
+    "word": "Indispensable",
+    "pos": "adj",
+    "meaning": "không thể thiếu",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "16",
+    "word": "Abundant",
+    "pos": "adj",
+    "meaning": "dồi dào, phong phú",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "17",
+    "word": "Acquiesce",
+    "pos": "v",
+    "meaning": "bằng lòng, chấp nhận mà không phản đối",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "18",
+    "word": "Alleviate",
+    "pos": "v",
+    "meaning": "làm giảm bớt",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "19",
+    "word": "Audacious",
+    "pos": "adj",
+    "meaning": "táo bạo, liều lĩnh",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "20",
+    "word": "Benevolent",
+    "pos": "adj",
+    "meaning": "nhân từ, nhân hậu",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "21",
+    "word": "Coercion",
+    "pos": "n",
+    "meaning": "sự cưỡng ép",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "22",
+    "word": "Comprehensive",
+    "pos": "adj",
+    "meaning": "toàn diện",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "23",
+    "word": "Concurrent",
+    "pos": "adj",
+    "meaning": "đồng thời",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "24",
+    "word": "Contingency",
+    "pos": "n",
+    "meaning": "tình huống bất ngờ; phương án dự phòng",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "25",
+    "word": "Detrimental",
+    "pos": "adj",
+    "meaning": "có hại, bất lợi",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "26",
+    "word": "Diligent",
+    "pos": "adj",
+    "meaning": "chăm chỉ, siêng năng",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "27",
+    "word": "Disseminate",
+    "pos": "v",
+    "meaning": "phổ biến, truyền bá",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "28",
+    "word": "Elusive",
+    "pos": "adj",
+    "meaning": "khó nắm bắt, khó đạt được",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "29",
+    "word": "Endorse",
+    "pos": "v",
+    "meaning": "ủng hộ, tán thành; xác nhận",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "30",
+    "word": "Ephemeral",
+    "pos": "adj",
+    "meaning": "ngắn ngủi, chóng tàn",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "31",
+    "word": "Eradicate",
+    "pos": "v",
+    "meaning": "loại bỏ hoàn toàn, tiêu diệt",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "32",
+    "word": "Exemplary",
+    "pos": "adj",
+    "meaning": "mẫu mực, đáng noi theo",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "33",
+    "word": "Feasible",
+    "pos": "adj",
+    "meaning": "khả thi",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "34",
+    "word": "Formidable",
+    "pos": "adj",
+    "meaning": "đáng gờm, khó đối phó",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "35",
+    "word": "Impede",
+    "pos": "v",
+    "meaning": "cản trở",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "36",
+    "word": "Imperative",
+    "pos": "adj",
+    "meaning": "cấp thiết, tối quan trọng",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "37",
+    "word": "Incessant",
+    "pos": "adj",
+    "meaning": "liên tục, không ngừng",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "38",
+    "word": "Inevitable",
+    "pos": "adj",
+    "meaning": "không thể tránh khỏi",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "39",
+    "word": "Inherent",
+    "pos": "adj",
+    "meaning": "vốn có, cố hữu",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "40",
+    "word": "Lucid",
+    "pos": "adj",
+    "meaning": "rõ ràng, dễ hiểu",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "41",
+    "word": "Mitigate",
+    "pos": "v",
+    "meaning": "giảm nhẹ, làm dịu",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "42",
+    "word": "Negligent",
+    "pos": "adj",
+    "meaning": "cẩu thả, tắc trách",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "43",
+    "word": "Obsolete",
+    "pos": "adj",
+    "meaning": "lỗi thời, lạc hậu",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "44",
+    "word": "Ostentatious",
+    "pos": "adj",
+    "meaning": "phô trương, khoe khoang",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "45",
+    "word": "Paramount",
+    "pos": "adj",
+    "meaning": "tối quan trọng, hàng đầu",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "46",
+    "word": "Pertinent",
+    "pos": "adj",
+    "meaning": "liên quan, thích đáng",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "47",
+    "word": "Pragmatic",
+    "pos": "adj",
+    "meaning": "thực tế, thực dụng",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "48",
+    "word": "Prevalent",
+    "pos": "adj",
+    "meaning": "phổ biến, thịnh hành",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "49",
+    "word": "Reluctant",
+    "pos": "adj",
+    "meaning": "miễn cưỡng, không sẵn lòng",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "50",
+    "word": "Substantial",
+    "pos": "adj",
+    "meaning": "đáng kể, lớn",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "51",
+    "word": "Subtle",
+    "pos": "adj",
+    "meaning": "tinh tế, khó nhận thấy",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "52",
+    "word": "Surmount",
+    "pos": "v",
+    "meaning": "vượt qua, khắc phục",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "53",
+    "word": "Ubiquitous",
+    "pos": "adj",
+    "meaning": "có mặt ở khắp nơi",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "54",
+    "word": "Unprecedented",
+    "pos": "adj",
+    "meaning": "chưa từng có",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "55",
+    "word": "Vulnerable",
+    "pos": "adj",
+    "meaning": "dễ bị tổn thương",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "56",
+    "word": "Apprehensive",
+    "pos": "adj",
+    "meaning": "lo lắng, e ngại",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "57",
+    "word": "Complacent",
+    "pos": "adj",
+    "meaning": "tự mãn, chủ quan",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "58",
+    "word": "Corroborate",
+    "pos": "v",
+    "meaning": "xác nhận, củng cố bằng bằng chứng",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "59",
+    "word": "Exonerate",
+    "pos": "v",
+    "meaning": "minh oan, miễn trách nhiệm",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "60",
+    "word": "Indefatigable",
+    "pos": "adj",
+    "meaning": "không biết mệt mỏi",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "61",
+    "word": "Inadvertent",
+    "pos": "adj",
+    "meaning": "vô ý, không chủ ý",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "62",
+    "word": "Superfluous",
+    "pos": "adj",
+    "meaning": "thừa thãi, không cần thiết",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "63",
+    "word": "Ambivalent",
+    "pos": "adj",
+    "meaning": "có cảm xúc hoặc quan điểm trái chiều",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "64",
+    "word": "Assiduous",
+    "pos": "adj",
+    "meaning": "chăm chỉ, cần cù",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "65",
+    "word": "Precipitate",
+    "pos": "v/adj",
+    "meaning": "gây ra hoặc làm xảy ra đột ngột / hấp tấp, vội vàng",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "66",
+    "word": "Tenacious",
+    "pos": "adj",
+    "meaning": "kiên trì, dai dẳng",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "67",
+    "word": "Placate",
+    "pos": "v",
+    "meaning": "xoa dịu, làm nguôi giận",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "68",
+    "word": "Disparage",
+    "pos": "v",
+    "meaning": "coi thường, gièm pha",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "69",
+    "word": "Ineffable",
+    "pos": "adj",
+    "meaning": "không thể diễn tả bằng lời",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "70",
+    "word": "Scrupulous",
+    "pos": "adj",
+    "meaning": "cẩn trọng, kỹ lưỡng",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "71",
+    "word": "Extraneous",
+    "pos": "adj",
+    "meaning": "không liên quan, thừa",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "72",
+    "word": "Prolific",
+    "pos": "adj",
+    "meaning": "có năng suất cao, sáng tác dồi dào",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "73",
+    "word": "Rectify",
+    "pos": "v",
+    "meaning": "sửa chữa, khắc phục",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "74",
+    "word": "Fastidious",
+    "pos": "adj",
+    "meaning": "khó tính, kỹ tính",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "75",
+    "word": "Equivocal",
+    "pos": "adj",
+    "meaning": "mập mờ, nước đôi",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "76",
+    "word": "Impeccable",
+    "pos": "adj",
+    "meaning": "hoàn hảo, không chê vào đâu được",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "77",
+    "word": "Compensate",
+    "pos": "v",
+    "meaning": "bù đắp, đền bù",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "78",
+    "word": "Surreptitious",
+    "pos": "adj",
+    "meaning": "lén lút, vụng trộm",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "79",
+    "word": "Malign",
+    "pos": "v/adj",
+    "meaning": "nói xấu, phỉ báng / có hại, ác độc",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "80",
+    "word": "Anomalous",
+    "pos": "adj",
+    "meaning": "bất thường, khác với thông thường",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "81",
+    "word": "Lethargic",
+    "pos": "adj",
+    "meaning": "uể oải, lờ đờ",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "82",
+    "word": "Condone",
+    "pos": "v",
+    "meaning": "bỏ qua, dung túng",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "83",
+    "word": "Capricious",
+    "pos": "adj",
+    "meaning": "thất thường, hay thay đổi",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "84",
+    "word": "Vindicate",
+    "pos": "v",
+    "meaning": "minh oan, chứng minh là đúng",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "85",
+    "word": "Indignant",
+    "pos": "adj",
+    "meaning": "phẫn nộ vì bị đối xử bất công",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "86",
+    "word": "Subvert",
+    "pos": "v",
+    "meaning": "lật đổ, phá hoại từ bên trong",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "87",
+    "word": "Resilient",
+    "pos": "adj",
+    "meaning": "kiên cường, có khả năng phục hồi",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "88",
+    "word": "Commensurate",
+    "pos": "adj",
+    "meaning": "tương xứng, tương ứng",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "89",
+    "word": "Dissemble",
+    "pos": "v",
+    "meaning": "che giấu cảm xúc hoặc sự thật; giả vờ",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "90",
+    "word": "Perfunctory",
+    "pos": "adj",
+    "meaning": "chiếu lệ, hời hợt",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "91",
+    "word": "Acumen",
+    "pos": "n",
+    "meaning": "sự nhạy bén, sáng suốt",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "92",
+    "word": "Admonish",
+    "pos": "v",
+    "meaning": "khiển trách, cảnh cáo",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "93",
+    "word": "Advocate",
+    "pos": "v/n",
+    "meaning": "ủng hộ / người ủng hộ",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "94",
+    "word": "Affluent",
+    "pos": "adj",
+    "meaning": "giàu có, sung túc",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "95",
+    "word": "Animosity",
+    "pos": "n",
+    "meaning": "sự thù oán, ác cảm",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "96",
+    "word": "Apathetic",
+    "pos": "adj",
+    "meaning": "thờ ơ, lãnh đạm",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "97",
+    "word": "Appraise",
+    "pos": "v",
+    "meaning": "đánh giá, định giá",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "98",
+    "word": "Articulate",
+    "pos": "adj/v",
+    "meaning": "diễn đạt rõ ràng, ăn nói lưu loát / diễn đạt rõ ràng",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "99",
+    "word": "Ascertain",
+    "pos": "v",
+    "meaning": "xác định, làm rõ",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "100",
+    "word": "Augment",
+    "pos": "v",
+    "meaning": "gia tăng, tăng cường",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "101",
+    "word": "Auspicious",
+    "pos": "adj",
+    "meaning": "thuận lợi, đầy hứa hẹn",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "102",
+    "word": "Belligerent",
+    "pos": "adj",
+    "meaning": "hiếu chiến",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "103",
+    "word": "Bolster",
+    "pos": "v",
+    "meaning": "củng cố, tăng cường",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "104",
+    "word": "Candid",
+    "pos": "adj",
+    "meaning": "thẳng thắn, chân thành",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "105",
+    "word": "Cognizant",
+    "pos": "adj",
+    "meaning": "nhận thức rõ",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "106",
+    "word": "Catalyst",
+    "pos": "n",
+    "meaning": "chất xúc tác, yếu tố thúc đẩy",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "107",
+    "word": "Censorship",
+    "pos": "n",
+    "meaning": "sự kiểm duyệt",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "108",
+    "word": "Chagrin",
+    "pos": "n",
+    "meaning": "sự buồn phiền, hổ thẹn",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "109",
+    "word": "Cogent",
+    "pos": "adj",
+    "meaning": "thuyết phục, có sức thuyết phục",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "110",
+    "word": "Colloquial",
+    "pos": "adj",
+    "meaning": "thông tục, khẩu ngữ",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "111",
+    "word": "Commend",
+    "pos": "v",
+    "meaning": "khen ngợi, tuyên dương",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "112",
+    "word": "Concede",
+    "pos": "v",
+    "meaning": "thừa nhận; nhượng bộ",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "113",
+    "word": "Conciliate",
+    "pos": "v",
+    "meaning": "hòa giải, xoa dịu",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "114",
+    "word": "Condescend",
+    "pos": "v",
+    "meaning": "tỏ ra kẻ cả, hạ cố",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "115",
+    "word": "Conducive",
+    "pos": "adj",
+    "meaning": "có lợi, thuận lợi cho",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "116",
+    "word": "Conscientious",
+    "pos": "adj",
+    "meaning": "tận tâm, có trách nhiệm",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "117",
+    "word": "Consolidate",
+    "pos": "v",
+    "meaning": "củng cố, hợp nhất",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "118",
+    "word": "Contemplative",
+    "pos": "adj",
+    "meaning": "trầm tư, suy ngẫm",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "119",
+    "word": "Contention",
+    "pos": "n",
+    "meaning": "sự tranh cãi; luận điểm gây tranh cãi",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "120",
+    "word": "Curtail",
+    "pos": "v",
+    "meaning": "cắt giảm, hạn chế",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "121",
+    "word": "Debilitate",
+    "pos": "v",
+    "meaning": "làm suy yếu",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "122",
+    "word": "Deference",
+    "pos": "n",
+    "meaning": "sự tôn kính, kính trọng",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "123",
+    "word": "Delineate",
+    "pos": "v",
+    "meaning": "phác họa, mô tả rõ",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "124",
+    "word": "Demeanor",
+    "pos": "n",
+    "meaning": "thái độ, tác phong",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "125",
+    "word": "Denounce",
+    "pos": "v",
+    "meaning": "lên án, tố cáo",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "126",
+    "word": "Depict",
+    "pos": "v",
+    "meaning": "miêu tả, khắc họa",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "127",
+    "word": "Deplete",
+    "pos": "v",
+    "meaning": "làm cạn kiệt",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "128",
+    "word": "Deride",
+    "pos": "v",
+    "meaning": "chế nhạo, giễu cợt",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "129",
+    "word": "Despondent",
+    "pos": "adj",
+    "meaning": "nản lòng, tuyệt vọng",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "130",
+    "word": "Detract",
+    "pos": "v",
+    "meaning": "làm giảm giá trị, làm mất ưu thế",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "131",
+    "word": "Deviate",
+    "pos": "v",
+    "meaning": "chệch hướng, lệch khỏi",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "132",
+    "word": "Devoid",
+    "pos": "adj",
+    "meaning": "không có, thiếu",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "133",
+    "word": "Diffident",
+    "pos": "adj",
+    "meaning": "thiếu tự tin, rụt rè",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "134",
+    "word": "Dilapidated",
+    "pos": "adj",
+    "meaning": "đổ nát, xuống cấp",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "135",
+    "word": "Diminish",
+    "pos": "v",
+    "meaning": "giảm bớt, suy giảm",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "136",
+    "word": "Discerning",
+    "pos": "adj",
+    "meaning": "sáng suốt, tinh tế",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "137",
+    "word": "Disconsolate",
+    "pos": "adj",
+    "meaning": "buồn bã, đau khổ",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "138",
+    "word": "Discord",
+    "pos": "n",
+    "meaning": "sự bất hòa, bất đồng",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "139",
+    "word": "Disdain",
+    "pos": "n/v",
+    "meaning": "sự khinh miệt / khinh miệt, coi thường",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "140",
+    "word": "Disillusion",
+    "pos": "v",
+    "meaning": "làm vỡ mộng, khiến mất ảo tưởng",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "141",
+    "word": "Dissent",
+    "pos": "n/v",
+    "meaning": "sự bất đồng / bất đồng, phản đối",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "142",
+    "word": "Dogmatic",
+    "pos": "adj",
+    "meaning": "giáo điều, độc đoán",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "143",
+    "word": "Dubious",
+    "pos": "adj",
+    "meaning": "đáng ngờ, không chắc chắn",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "144",
+    "word": "Eccentric",
+    "pos": "adj",
+    "meaning": "kỳ quặc, lập dị",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "145",
+    "word": "Efficacy",
+    "pos": "n",
+    "meaning": "tính hữu hiệu, hiệu quả",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "146",
+    "word": "Egregious",
+    "pos": "adj",
+    "meaning": "cực kỳ tồi tệ, đáng chê trách",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "147",
+    "word": "Elucidate",
+    "pos": "v",
+    "meaning": "làm sáng tỏ, giải thích rõ",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "148",
+    "word": "Embellish",
+    "pos": "v",
+    "meaning": "tô điểm, thêm thắt",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "149",
+    "word": "Emulate",
+    "pos": "v",
+    "meaning": "noi theo, cố gắng sánh hoặc vượt qua bằng cách noi theo",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "150",
+    "word": "Enigmatic",
+    "pos": "adj",
+    "meaning": "bí ẩn, khó hiểu",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "151",
+    "word": "Equanimity",
+    "pos": "n",
+    "meaning": "sự bình tĩnh, điềm tĩnh",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "152",
+    "word": "Erudite",
+    "pos": "adj",
+    "meaning": "uyên bác",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "153",
+    "word": "Esoteric",
+    "pos": "adj",
+    "meaning": "thâm sâu, chỉ dành cho người có chuyên môn",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "154",
+    "word": "Evoke",
+    "pos": "v",
+    "meaning": "gợi lên, khơi dậy",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "155",
+    "word": "Exasperate",
+    "pos": "v",
+    "meaning": "làm tức giận, làm bực tức",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "156",
+    "word": "Exhort",
+    "pos": "v",
+    "meaning": "thúc giục, khuyên mạnh mẽ",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "157",
+    "word": "Extravagant",
+    "pos": "adj",
+    "meaning": "quá mức, phung phí",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "158",
+    "word": "Extricate",
+    "pos": "v",
+    "meaning": "giải thoát, gỡ khỏi tình thế khó khăn",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "159",
+    "word": "Exuberant",
+    "pos": "adj",
+    "meaning": "tràn đầy năng lượng, nhiệt tình",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "160",
+    "word": "Facetious",
+    "pos": "adj",
+    "meaning": "cợt nhả, đùa cợt không đúng lúc",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "161",
+    "word": "Fervent",
+    "pos": "adj",
+    "meaning": "nồng nhiệt, nhiệt thành",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "162",
+    "word": "Flamboyant",
+    "pos": "adj",
+    "meaning": "phô trương, rực rỡ",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "163",
+    "word": "Foster",
+    "pos": "v",
+    "meaning": "nuôi dưỡng, thúc đẩy",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "164",
+    "word": "Futile",
+    "pos": "adj",
+    "meaning": "vô ích, không có kết quả",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "165",
+    "word": "Garrulous",
+    "pos": "adj",
+    "meaning": "lắm lời",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "166",
+    "word": "Gregarious",
+    "pos": "adj",
+    "meaning": "hòa đồng, thích giao du",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "167",
+    "word": "Haphazard",
+    "pos": "adj",
+    "meaning": "ngẫu nhiên, thiếu tổ chức",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "168",
+    "word": "Illusory",
+    "pos": "adj",
+    "meaning": "ảo tưởng, hão huyền",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "169",
+    "word": "Imminent",
+    "pos": "adj",
+    "meaning": "sắp xảy ra",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "170",
+    "word": "Impassioned",
+    "pos": "adj",
+    "meaning": "đầy cảm xúc, nhiệt huyết",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "171",
+    "word": "Impervious",
+    "pos": "adj",
+    "meaning": "không bị ảnh hưởng; không thấm",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "172",
+    "word": "Implicit",
+    "pos": "adj",
+    "meaning": "ngầm hiểu, không được nói trực tiếp",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "173",
+    "word": "Impromptu",
+    "pos": "adj",
+    "meaning": "ngẫu hứng, không chuẩn bị trước",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "174",
+    "word": "Incompatible",
+    "pos": "adj",
+    "meaning": "không tương thích, xung khắc",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "175",
+    "word": "Incorrigible",
+    "pos": "adj",
+    "meaning": "không thể sửa chữa, không thể cải tạo",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "176",
+    "word": "Indolent",
+    "pos": "adj",
+    "meaning": "lười biếng, uể oải",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "177",
+    "word": "Inept",
+    "pos": "adj",
+    "meaning": "vụng về, thiếu năng lực",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "178",
+    "word": "Ingenious",
+    "pos": "adj",
+    "meaning": "khéo léo, sáng tạo",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "179",
+    "word": "Inhibited",
+    "pos": "adj",
+    "meaning": "e dè, mất tự nhiên",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "180",
+    "word": "Innate",
+    "pos": "adj",
+    "meaning": "bẩm sinh, vốn có",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "181",
+    "word": "Inscrutable",
+    "pos": "adj",
+    "meaning": "khó hiểu, khó đoán",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "182",
+    "word": "Insolent",
+    "pos": "adj",
+    "meaning": "xấc láo, hỗn xược",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "183",
+    "word": "Intricate",
+    "pos": "adj",
+    "meaning": "phức tạp, nhiều chi tiết",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "184",
+    "word": "Irrevocable",
+    "pos": "adj",
+    "meaning": "không thể thay đổi, không thể hủy bỏ",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "185",
+    "word": "Luminous",
+    "pos": "adj",
+    "meaning": "phát sáng, rực sáng",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "186",
+    "word": "Magnanimous",
+    "pos": "adj",
+    "meaning": "hào hiệp, rộng lượng",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "187",
+    "word": "Manifest",
+    "pos": "v/adj",
+    "meaning": "biểu lộ, thể hiện / rõ ràng, hiển nhiên",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "188",
+    "word": "Nonchalant",
+    "pos": "adj",
+    "meaning": "thản nhiên, bình thản",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "189",
+    "word": "Ominous",
+    "pos": "adj",
+    "meaning": "điềm gở, báo hiệu điều xấu",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "190",
+    "word": "Pensive",
+    "pos": "adj",
+    "meaning": "trầm tư, suy tư",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "191",
+    "word": "Abate",
+    "pos": "v",
+    "meaning": "giảm bớt, lắng xuống",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "192",
+    "word": "Abdicate",
+    "pos": "v",
+    "meaning": "thoái vị; từ bỏ quyền hoặc trách nhiệm",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "193",
+    "word": "Aberration",
+    "pos": "n",
+    "meaning": "sự lệch chuẩn, điều bất thường",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "194",
+    "word": "Abstain",
+    "pos": "v",
+    "meaning": "kiêng, nhịn; không tham gia hoặc không bỏ phiếu",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "195",
+    "word": "Accentuate",
+    "pos": "v",
+    "meaning": "nhấn mạnh, làm nổi bật",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "196",
+    "word": "Acclaim",
+    "pos": "n/v",
+    "meaning": "sự hoan nghênh, tán dương / hoan nghênh, tán dương",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "197",
+    "word": "Accommodate",
+    "pos": "v",
+    "meaning": "đáp ứng, cung cấp chỗ cho; điều chỉnh cho phù hợp",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "198",
+    "word": "Accrue",
+    "pos": "v",
+    "meaning": "tích lũy, phát sinh dần",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "199",
+    "word": "Adept",
+    "pos": "adj/n",
+    "meaning": "thành thạo / người thành thạo",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "200",
+    "word": "Adjudicate",
+    "pos": "v",
+    "meaning": "phân xử, xét xử",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "201",
+    "word": "Adjure",
+    "pos": "v",
+    "meaning": "khẩn cầu, nghiêm trang yêu cầu",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "202",
+    "word": "Adroit",
+    "pos": "adj",
+    "meaning": "khéo léo, thành thạo",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "203",
+    "word": "Affectation",
+    "pos": "n",
+    "meaning": "sự kiểu cách, làm bộ",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "204",
+    "word": "Aggrandize",
+    "pos": "v",
+    "meaning": "làm tăng quyền lực, địa vị hoặc tầm quan trọng của",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "205",
+    "word": "Alacrity",
+    "pos": "n",
+    "meaning": "sự nhanh nhẹn, sốt sắng",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "206",
+    "word": "Allay",
+    "pos": "v",
+    "meaning": "làm dịu, làm giảm",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "207",
+    "word": "Amalgamate",
+    "pos": "v",
+    "meaning": "hợp nhất, kết hợp thành một",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "208",
+    "word": "Ameliorate",
+    "pos": "v",
+    "meaning": "cải thiện, làm tốt hơn",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "209",
+    "word": "Amenable",
+    "pos": "adj",
+    "meaning": "sẵn sàng hợp tác; dễ uốn nắn hoặc chấp nhận",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "210",
+    "word": "Anachronism",
+    "pos": "n",
+    "meaning": "sự lỗi thời; vật hoặc người thuộc sai thời đại",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "211",
+    "word": "Anathema",
+    "pos": "n",
+    "meaning": "điều bị căm ghét hoặc cực lực phản đối",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "212",
+    "word": "Animus",
+    "pos": "n",
+    "meaning": "ác cảm, thù địch",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "213",
+    "word": "Antagonize",
+    "pos": "v",
+    "meaning": "khiến đối đầu, chọc tức",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "214",
+    "word": "Antediluvian",
+    "pos": "adj",
+    "meaning": "cổ lỗ sĩ, cực kỳ lỗi thời",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "215",
+    "word": "Antipathy",
+    "pos": "n",
+    "meaning": "ác cảm, sự không ưa",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "216",
+    "word": "Appease",
+    "pos": "v",
+    "meaning": "xoa dịu, làm nguôi; đáp ứng để tránh xung đột",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "217",
+    "word": "Arbitrary",
+    "pos": "adj",
+    "meaning": "tùy tiện, độc đoán; không dựa trên nguyên tắc rõ ràng",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "218",
+    "word": "Arduous",
+    "pos": "adj",
+    "meaning": "gian khổ, nặng nhọc",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "219",
+    "word": "Ascetic",
+    "pos": "adj/n",
+    "meaning": "khổ hạnh / người sống khổ hạnh",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "220",
+    "word": "Assail",
+    "pos": "v",
+    "meaning": "tấn công, công kích dữ dội",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "221",
+    "word": "Assimilate",
+    "pos": "v",
+    "meaning": "tiếp thu, đồng hóa",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "222",
+    "word": "Astute",
+    "pos": "adj",
+    "meaning": "sắc sảo, tinh anh",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "223",
+    "word": "Atrophy",
+    "pos": "v/n",
+    "meaning": "teo lại, suy yếu / sự teo lại, suy thoái",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "224",
+    "word": "Augury",
+    "pos": "n",
+    "meaning": "điềm báo, dấu hiệu báo trước",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "225",
+    "word": "Austere",
+    "pos": "adj",
+    "meaning": "khắc khổ, nghiêm khắc; giản dị đến mức khắc khổ",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "226",
+    "word": "Avarice",
+    "pos": "n",
+    "meaning": "lòng tham, tính tham lam",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "227",
+    "word": "Axiomatic",
+    "pos": "adj",
+    "meaning": "hiển nhiên, được coi là đúng không cần chứng minh",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "228",
+    "word": "Banal",
+    "pos": "adj",
+    "meaning": "tầm thường, sáo mòn",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "229",
+    "word": "Bane",
+    "pos": "n",
+    "meaning": "tai họa, nguyên nhân gây khổ sở",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "230",
+    "word": "Beneficent",
+    "pos": "adj",
+    "meaning": "nhân từ, làm điều thiện",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "231",
+    "word": "Befuddle",
+    "pos": "v",
+    "meaning": "làm bối rối, khiến khó hiểu",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "232",
+    "word": "Belie",
+    "pos": "v",
+    "meaning": "che giấu, phủ nhận hoặc trái với vẻ bề ngoài",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "233",
+    "word": "Bereft",
+    "pos": "adj",
+    "meaning": "mất mát, thiếu thốn; mất đi người hoặc vật quan trọng",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "234",
+    "word": "Blatant",
+    "pos": "adj",
+    "meaning": "trắng trợn, lộ liễu",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "235",
+    "word": "Boisterous",
+    "pos": "adj",
+    "meaning": "ồn ào, náo nhiệt, hiếu động",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "236",
+    "word": "Breach",
+    "pos": "n/v",
+    "meaning": "vi phạm, phá vỡ / sự vi phạm, lỗ hổng",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "237",
+    "word": "Brevity",
+    "pos": "n",
+    "meaning": "sự ngắn gọn",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "238",
+    "word": "Byzantine",
+    "pos": "adj",
+    "meaning": "rối rắm, phức tạp; cầu kỳ",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "239",
+    "word": "Cacophony",
+    "pos": "n",
+    "meaning": "âm thanh chói tai, hỗn tạp",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "240",
+    "word": "Cajole",
+    "pos": "v",
+    "meaning": "dỗ dành, dụ dỗ bằng lời ngọt ngào",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "241",
+    "word": "Callous",
+    "pos": "adj",
+    "meaning": "chai lì, vô cảm",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "242",
+    "word": "Calumny",
+    "pos": "n",
+    "meaning": "lời vu khống, bôi nhọ",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "243",
+    "word": "Camaraderie",
+    "pos": "n",
+    "meaning": "tình đồng đội, sự thân tình",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "244",
+    "word": "Captivate",
+    "pos": "v",
+    "meaning": "mê hoặc, cuốn hút",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "245",
+    "word": "Castigate",
+    "pos": "v",
+    "meaning": "khiển trách, chỉ trích nghiêm khắc",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "246",
+    "word": "Caustic",
+    "pos": "adj",
+    "meaning": "chua cay, cay độc; có tính ăn mòn",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "247",
+    "word": "Caveat",
+    "pos": "n",
+    "meaning": "lời cảnh báo, điều kiện cần lưu ý",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "248",
+    "word": "Cede",
+    "pos": "v",
+    "meaning": "nhượng lại, chuyển giao",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "249",
+    "word": "Clandestine",
+    "pos": "adj",
+    "meaning": "bí mật, lén lút",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "250",
+    "word": "Cleave",
+    "pos": "v",
+    "meaning": "bổ, chẻ; bám chặt",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "251",
+    "word": "Clemency",
+    "pos": "n",
+    "meaning": "lòng khoan dung, sự giảm nhẹ hình phạt",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "252",
+    "word": "Coalesce",
+    "pos": "v",
+    "meaning": "hợp nhất, kết lại thành một",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "253",
+    "word": "Coeval",
+    "pos": "adj",
+    "meaning": "cùng thời, đồng thời",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "254",
+    "word": "Collusion",
+    "pos": "n",
+    "meaning": "sự thông đồng, cấu kết",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "255",
+    "word": "Commemorate",
+    "pos": "v",
+    "meaning": "kỷ niệm, tưởng niệm",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "256",
+    "word": "Complaisant",
+    "pos": "adj",
+    "meaning": "chiều lòng người khác, quá dễ làm vừa lòng",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "257",
+    "word": "Compliant",
+    "pos": "adj",
+    "meaning": "tuân thủ, dễ bảo; sẵn sàng làm theo",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "258",
+    "word": "Compunction",
+    "pos": "n",
+    "meaning": "sự day dứt, áy náy",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "259",
+    "word": "Concise",
+    "pos": "adj",
+    "meaning": "súc tích, ngắn gọn",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "260",
+    "word": "Concoct",
+    "pos": "v",
+    "meaning": "bịa ra; pha chế, tạo ra",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "261",
+    "word": "Conflagration",
+    "pos": "n",
+    "meaning": "đám cháy lớn, hỏa hoạn lớn",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "262",
+    "word": "Congenial",
+    "pos": "adj",
+    "meaning": "dễ mến, hợp tính; phù hợp",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "263",
+    "word": "Conjecture",
+    "pos": "n/v",
+    "meaning": "phỏng đoán / phỏng đoán",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "264",
+    "word": "Connive",
+    "pos": "v",
+    "meaning": "làm ngơ hoặc bí mật thông đồng để việc sai trái xảy ra",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "265",
+    "word": "Consecrate",
+    "pos": "v",
+    "meaning": "hiến dâng, thánh hóa",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "266",
+    "word": "Contempt",
+    "pos": "n",
+    "meaning": "sự khinh miệt",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "267",
+    "word": "Contrite",
+    "pos": "adj",
+    "meaning": "ăn năn, hối lỗi",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "268",
+    "word": "Conundrum",
+    "pos": "n",
+    "meaning": "câu đố khó; vấn đề nan giải",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "269",
+    "word": "Convivial",
+    "pos": "adj",
+    "meaning": "vui vẻ, thân thiện, tạo không khí thân mật",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "270",
+    "word": "Copious",
+    "pos": "adj",
+    "meaning": "dồi dào, phong phú",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "271",
+    "word": "Corpulent",
+    "pos": "adj",
+    "meaning": "béo phì, đẫy đà",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "272",
+    "word": "Correlate",
+    "pos": "v/n",
+    "meaning": "có tương quan / biến hoặc đại lượng tương quan",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "273",
+    "word": "Corrosive",
+    "pos": "adj",
+    "meaning": "ăn mòn; có tính hủy hoại",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "274",
+    "word": "Cosmopolitan",
+    "pos": "adj/n",
+    "meaning": "mang tính quốc tế, cởi mở / người có tầm nhìn quốc tế",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "275",
+    "word": "Counterfeit",
+    "pos": "adj/n/v",
+    "meaning": "giả, làm giả / hàng giả / làm giả",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "276",
+    "word": "Covert",
+    "pos": "adj/n",
+    "meaning": "bí mật, ngầm / nơi trú ẩn hoặc nơi có cây che phủ",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "277",
+    "word": "Covet",
+    "pos": "v",
+    "meaning": "thèm muốn, ham muốn thứ thuộc về người khác",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "278",
+    "word": "Cower",
+    "pos": "v",
+    "meaning": "co rúm, nép mình vì sợ",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "279",
+    "word": "Crafty",
+    "pos": "adj",
+    "meaning": "xảo quyệt, ranh mãnh",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "280",
+    "word": "Crass",
+    "pos": "adj",
+    "meaning": "thô lỗ, thiếu tinh tế",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "281",
+    "word": "Credence",
+    "pos": "n",
+    "meaning": "sự tin tưởng, độ đáng tin",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "282",
+    "word": "Credulous",
+    "pos": "adj",
+    "meaning": "cả tin, dễ tin",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "283",
+    "word": "Culminate",
+    "pos": "v",
+    "meaning": "lên đến đỉnh điểm, culminate in: kết thúc bằng",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "284",
+    "word": "Culpable",
+    "pos": "adj",
+    "meaning": "có lỗi, đáng trách",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "285",
+    "word": "Cumbersome",
+    "pos": "adj",
+    "meaning": "cồng kềnh, khó xử lý",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "286",
+    "word": "Cynical",
+    "pos": "adj",
+    "meaning": "hoài nghi, yếm thế; cho rằng người khác hành động vì lợi ích riêng",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "287",
+    "word": "Daunting",
+    "pos": "adj",
+    "meaning": "đáng ngại, gây nản lòng",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "288",
+    "word": "Dawdle",
+    "pos": "v",
+    "meaning": "chần chừ, lề mề",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "289",
+    "word": "Decadence",
+    "pos": "n",
+    "meaning": "sự suy đồi, sa sút",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "290",
+    "word": "Decimate",
+    "pos": "v",
+    "meaning": "tàn phá nặng nề, làm giảm mạnh",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "291",
+    "word": "Accost",
+    "pos": "v",
+    "meaning": "tiếp cận hoặc bắt chuyện một cách đột ngột, thường gây phiền",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "292",
+    "word": "Acerbic",
+    "pos": "adj",
+    "meaning": "chua cay, gay gắt",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "293",
+    "word": "Acme",
+    "pos": "n",
+    "meaning": "đỉnh cao, tột bậc",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "294",
+    "word": "Acquit",
+    "pos": "v",
+    "meaning": "tha bổng, tuyên vô tội; hoàn thành hoặc thực hiện tốt một nhiệm vụ",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "295",
+    "word": "Adamant",
+    "pos": "adj",
+    "meaning": "cương quyết, không lay chuyển",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "296",
+    "word": "Adjacent",
+    "pos": "adj",
+    "meaning": "liền kề, sát cạnh",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "297",
+    "word": "Adulate",
+    "pos": "v",
+    "meaning": "tâng bốc, nịnh hót",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "298",
+    "word": "Adverse",
+    "pos": "adj",
+    "meaning": "bất lợi, có hại; chống lại",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "299",
+    "word": "Aegis",
+    "pos": "n",
+    "meaning": "sự bảo trợ, che chở",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "300",
+    "word": "Aesthetic",
+    "pos": "adj/n",
+    "meaning": "thuộc về thẩm mỹ / khía cạnh hoặc quan niệm về cái đẹp",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "301",
+    "word": "Affront",
+    "pos": "n/v",
+    "meaning": "sự xúc phạm / xúc phạm, làm nhục",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "302",
+    "word": "Aggrieve",
+    "pos": "v",
+    "meaning": "làm đau buồn; gây bất công hoặc thiệt hại cho",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "303",
+    "word": "Agitate",
+    "pos": "v",
+    "meaning": "kích động, khuấy động; làm băn khoăn",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "304",
+    "word": "Allege",
+    "pos": "v",
+    "meaning": "cáo buộc, khẳng định mà chưa được chứng minh",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "305",
+    "word": "Allegiance",
+    "pos": "n",
+    "meaning": "lòng trung thành",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "306",
+    "word": "Allegory",
+    "pos": "n",
+    "meaning": "truyện hoặc tác phẩm mang ý nghĩa biểu tượng",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "307",
+    "word": "Allude",
+    "pos": "v",
+    "meaning": "ám chỉ, đề cập gián tiếp",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "308",
+    "word": "Allure",
+    "pos": "v/n",
+    "meaning": "quyến rũ, lôi cuốn / sức quyến rũ",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "309",
+    "word": "Aloof",
+    "pos": "adj",
+    "meaning": "xa cách, lãnh đạm",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "310",
+    "word": "Altruism",
+    "pos": "n",
+    "meaning": "lòng vị tha",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "311",
+    "word": "Amass",
+    "pos": "v",
+    "meaning": "tích lũy, gom góp",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "312",
+    "word": "Amiable",
+    "pos": "adj",
+    "meaning": "thân thiện, dễ mến",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "313",
+    "word": "Amity",
+    "pos": "n",
+    "meaning": "tình hữu nghị, hòa hảo",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "314",
+    "word": "Amoral",
+    "pos": "adj",
+    "meaning": "không quan tâm đến đúng sai về đạo đức",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "315",
+    "word": "Amorphous",
+    "pos": "adj",
+    "meaning": "vô định hình, không có hình dạng rõ ràng",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "316",
+    "word": "Analogy",
+    "pos": "n",
+    "meaning": "sự tương tự, phép loại suy",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "317",
+    "word": "Anecdote",
+    "pos": "n",
+    "meaning": "giai thoại, câu chuyện ngắn",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "318",
+    "word": "Annals",
+    "pos": "n",
+    "meaning": "biên niên sử, ghi chép lịch sử theo năm",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "319",
+    "word": "Annihilate",
+    "pos": "v",
+    "meaning": "hủy diệt hoàn toàn, tiêu diệt",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "320",
+    "word": "Annotate",
+    "pos": "v",
+    "meaning": "chú giải, ghi chú",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "321",
+    "word": "Annul",
+    "pos": "v",
+    "meaning": "hủy bỏ, bãi bỏ",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "322",
+    "word": "Antagonism",
+    "pos": "n",
+    "meaning": "sự thù địch, chống đối",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "323",
+    "word": "Antecedent",
+    "pos": "n/adj",
+    "meaning": "tiền thân, điều xảy ra trước / xảy ra trước",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "324",
+    "word": "Antidote",
+    "pos": "n",
+    "meaning": "thuốc giải độc; biện pháp đối phó",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "325",
+    "word": "Antiquated",
+    "pos": "adj",
+    "meaning": "cổ lỗ sĩ, lỗi thời",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "326",
+    "word": "Appall",
+    "pos": "v",
+    "meaning": "làm kinh hoàng, khiến sửng sốt",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "327",
+    "word": "Appertain",
+    "pos": "v",
+    "meaning": "thuộc về, liên quan tới",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "328",
+    "word": "Apposite",
+    "pos": "adj",
+    "meaning": "thích hợp, xác đáng",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "329",
+    "word": "Archaic",
+    "pos": "adj",
+    "meaning": "cổ xưa, lỗi thời",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "330",
+    "word": "Argot",
+    "pos": "n",
+    "meaning": "tiếng lóng, biệt ngữ của một nhóm",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "331",
+    "word": "Arid",
+    "pos": "adj",
+    "meaning": "khô cằn, cằn cỗi; khô khan",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "332",
+    "word": "Array",
+    "pos": "n/v",
+    "meaning": "mảng, dãy, tập hợp / sắp xếp, bày biện",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "333",
+    "word": "Arrogance",
+    "pos": "n",
+    "meaning": "sự kiêu ngạo",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "334",
+    "word": "Ascribe",
+    "pos": "v",
+    "meaning": "quy cho, gán cho",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "335",
+    "word": "Aspersion",
+    "pos": "n",
+    "meaning": "lời vu khống, bôi nhọ",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "336",
+    "word": "Aspiration",
+    "pos": "n",
+    "meaning": "khát vọng, hoài bão",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "337",
+    "word": "Assay",
+    "pos": "v/n",
+    "meaning": "thử nghiệm hoặc phân tích / phép thử, phép phân tích",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "338",
+    "word": "Venerate",
+    "pos": "v",
+    "meaning": "tôn kính, sùng kính",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "339",
+    "word": "Prosaic",
+    "pos": "adj",
+    "meaning": "tầm thường, thiếu trí tưởng tượng; mang tính văn xuôi",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "340",
+    "word": "Elicit",
+    "pos": "v",
+    "meaning": "khơi gợi, khiến xuất hiện hoặc thu được",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "341",
+    "word": "Intransigent",
+    "pos": "adj",
+    "meaning": "bất khuất, không chịu thỏa hiệp",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "342",
+    "word": "Quixotic",
+    "pos": "adj",
+    "meaning": "lý tưởng hóa, thiếu thực tế nhưng cao đẹp",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "343",
+    "word": "Sycophantic",
+    "pos": "adj",
+    "meaning": "nịnh bợ, xu nịnh",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "344",
+    "word": "Enervate",
+    "pos": "v",
+    "meaning": "làm suy yếu, làm kiệt sức",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "345",
+    "word": "Juxtapose",
+    "pos": "v",
+    "meaning": "đặt cạnh nhau để so sánh hoặc làm nổi bật sự tương phản",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "346",
+    "word": "Obfuscate",
+    "pos": "v",
+    "meaning": "làm cho khó hiểu, che giấu bằng cách làm rối",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "347",
+    "word": "Perfidious",
+    "pos": "adj",
+    "meaning": "phản trắc, bội bạc",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "348",
+    "word": "Quotidian",
+    "pos": "adj",
+    "meaning": "hằng ngày, thường nhật; tầm thường",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "349",
+    "word": "Salient",
+    "pos": "adj/n",
+    "meaning": "nổi bật, đáng chú ý / điểm nổi bật",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "350",
+    "word": "Tangential",
+    "pos": "adj",
+    "meaning": "tiếp tuyến; chỉ liên quan gián tiếp, lệch khỏi trọng tâm",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "351",
+    "word": "Zealous",
+    "pos": "adj",
+    "meaning": "nhiệt thành, sốt sắng",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "352",
+    "word": "Vindictive",
+    "pos": "adj",
+    "meaning": "thù hằn, muốn trả đũa",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "353",
+    "word": "Pugnacious",
+    "pos": "adj",
+    "meaning": "hiếu chiến, thích gây gổ",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "354",
+    "word": "Recondite",
+    "pos": "adj",
+    "meaning": "khó hiểu, thâm sâu và ít người biết",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "355",
+    "word": "Incontrovertible",
+    "pos": "adj",
+    "meaning": "không thể bác bỏ, không thể tranh cãi",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "356",
+    "word": "Nefarious",
+    "pos": "adj",
+    "meaning": "xấu xa, đê tiện",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "357",
+    "word": "Pedantic",
+    "pos": "adj",
+    "meaning": "mọt sách, quá chú trọng tiểu tiết hoặc quy tắc học thuật",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "358",
+    "word": "Trenchant",
+    "pos": "adj",
+    "meaning": "sắc bén, gay gắt và hiệu quả",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "359",
+    "word": "Vicarious",
+    "pos": "adj",
+    "meaning": "gián tiếp; trải nghiệm thay cho người khác",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "360",
+    "word": "Wanton",
+    "pos": "adj",
+    "meaning": "phóng túng, vô trách nhiệm; cố ý tàn nhẫn hoặc vô lý",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "361",
+    "word": "Vex",
+    "pos": "v",
+    "meaning": "làm bực mình, làm khó chịu",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "362",
+    "word": "Whimsical",
+    "pos": "adj",
+    "meaning": "kỳ quặc theo lối vui nhộn, thất thường",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "363",
+    "word": "Veracity",
+    "pos": "n",
+    "meaning": "tính chân thật, độ xác thực",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "364",
+    "word": "Unwieldy",
+    "pos": "adj",
+    "meaning": "cồng kềnh, khó điều khiển hoặc xử lý",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "365",
+    "word": "Truculent",
+    "pos": "adj",
+    "meaning": "hung hăng, hiếu chiến",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "366",
+    "word": "Obdurate",
+    "pos": "adj",
+    "meaning": "ngoan cố, cứng đầu, không chịu thay đổi",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "367",
+    "word": "Sanguine",
+    "pos": "adj",
+    "meaning": "lạc quan, tin tưởng; điềm tĩnh trong hoàn cảnh khó khăn",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "368",
+    "word": "Plummet",
+    "pos": "v",
+    "meaning": "lao dốc, giảm mạnh đột ngột|--",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "369",
+    "word": "Galvanize",
+    "pos": "v",
+    "meaning": "thúc đẩy, khích lệ hành động",
+    "examples": [],
+    "tags": [
+      "difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "370",
+    "word": "Wane",
+    "pos": "v/n",
+    "meaning": "suy yếu, giảm dần; sự suy giảm|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "371",
+    "word": "Absolve",
+    "pos": "v",
+    "meaning": "minh oan, tha tội",
+    "examples": [],
+    "tags": [
+      "very-difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "372",
+    "word": "Squander",
+    "pos": "v",
+    "meaning": "phung phí, lãng phí|--",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "373",
+    "word": "Kindle",
+    "pos": "v",
+    "meaning": "khơi dậy, nhen nhóm",
+    "examples": [],
+    "tags": [
+      "difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "374",
+    "word": "Thwart",
+    "pos": "v",
+    "meaning": "ngăn cản, làm thất bại|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "375",
+    "word": "Lament",
+    "pos": "v/n",
+    "meaning": "than khóc, than tiếc; lời than, sự than tiếc|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "376",
+    "word": "Demystify",
+    "pos": "v",
+    "meaning": "làm sáng tỏ, làm cho dễ hiểu",
+    "examples": [],
+    "tags": [
+      "difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "377",
+    "word": "Usurp",
+    "pos": "v",
+    "meaning": "tiếm quyền, chiếm đoạt trái phép|--",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "378",
+    "word": "Fluctuate",
+    "pos": "v",
+    "meaning": "dao động, biến động",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "379",
+    "word": "Revere",
+    "pos": "v",
+    "meaning": "tôn kính, hết sức kính trọng",
+    "examples": [],
+    "tags": [
+      "very-difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "380",
+    "word": "Jettison",
+    "pos": "v",
+    "meaning": "vứt bỏ, loại bỏ",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "381",
+    "word": "Subside",
+    "pos": "v",
+    "meaning": "lắng xuống, dịu đi",
+    "examples": [],
+    "tags": [
+      "difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "382",
+    "word": "Obliterate",
+    "pos": "v",
+    "meaning": "xóa sổ, hủy diệt hoàn toàn|--",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "383",
+    "word": "Baffle",
+    "pos": "v",
+    "meaning": "làm bối rối, khiến không thể hiểu|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "384",
+    "word": "Yield",
+    "pos": "v/n",
+    "meaning": "mang lại; nhường, nhượng bộ; sản lượng, lợi suất",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "385",
+    "word": "Nurture",
+    "pos": "v/n",
+    "meaning": "nuôi dưỡng, chăm sóc; sự nuôi dưỡng",
+    "examples": [],
+    "tags": [
+      "very-difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "386",
+    "word": "Confound",
+    "pos": "v",
+    "meaning": "làm bối rối, làm lẫn lộn; làm thất bại dự đoán của ai|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "387",
+    "word": "Hamper",
+    "pos": "v",
+    "meaning": "cản trở, gây trở ngại|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "388",
+    "word": "Yearn",
+    "pos": "v",
+    "meaning": "khao khát, mong mỏi",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "389",
+    "word": "Mollify",
+    "pos": "v",
+    "meaning": "xoa dịu, làm nguôi giận",
+    "examples": [],
+    "tags": [
+      "difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "390",
+    "word": "Aggravate",
+    "pos": "v",
+    "meaning": "làm trầm trọng thêm|--",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "391",
+    "word": "Peruse",
+    "pos": "v",
+    "meaning": "đọc kỹ, xem xét cẩn thận",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "392",
+    "word": "Ravage",
+    "pos": "v",
+    "meaning": "tàn phá, hủy hoại nghiêm trọng|--",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "393",
+    "word": "Compel",
+    "pos": "v",
+    "meaning": "ép buộc, cưỡng bách|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "394",
+    "word": "Oscillate",
+    "pos": "v",
+    "meaning": "dao động, lên xuống; do dự, dao động giữa các lựa chọn",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "395",
+    "word": "Tarnish",
+    "pos": "v",
+    "meaning": "làm hoen ố, làm mất vẻ sáng; làm tổn hại danh tiếng|--",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "396",
+    "word": "Ignite",
+    "pos": "v",
+    "meaning": "đốt cháy, châm ngòi; khơi dậy",
+    "examples": [],
+    "tags": [
+      "difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "397",
+    "word": "Enfeeble",
+    "pos": "v",
+    "meaning": "làm suy yếu, làm mất sức|--",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "398",
+    "word": "Burgeon",
+    "pos": "v",
+    "meaning": "phát triển nhanh chóng, nảy nở mạnh",
+    "examples": [],
+    "tags": [
+      "very-difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "399",
+    "word": "Quench",
+    "pos": "v",
+    "meaning": "dập tắt; làm dịu, thỏa cơn khát",
+    "examples": [],
+    "tags": [
+      "difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "400",
+    "word": "Undermine",
+    "pos": "v",
+    "meaning": "phá hoại ngầm, làm suy yếu|--",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "401",
+    "word": "Adorn",
+    "pos": "v",
+    "meaning": "tô điểm, trang hoàng",
+    "examples": [],
+    "tags": [
+      "very-difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "402",
+    "word": "Besiege",
+    "pos": "v",
+    "meaning": "bao vây, vây hãm; gây áp lực liên tục|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "403",
+    "word": "Dwindle",
+    "pos": "v",
+    "meaning": "giảm dần, nhỏ dần, suy giảm|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "404",
+    "word": "Impel",
+    "pos": "v",
+    "meaning": "thúc đẩy, thôi thúc",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "405",
+    "word": "Ardor",
+    "pos": "n",
+    "meaning": "nhiệt huyết, say mê",
+    "examples": [],
+    "tags": [
+      "very-difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "406",
+    "word": "Rejuvenate",
+    "pos": "v",
+    "meaning": "trẻ hóa, hồi phục, tái tạo sức sống",
+    "examples": [],
+    "tags": [
+      "very-difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "407",
+    "word": "Grapple",
+    "pos": "v",
+    "meaning": "vật lộn; cố gắng giải quyết",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "408",
+    "word": "Cultivate",
+    "pos": "v",
+    "meaning": "canh tác, trau dồi, phát triển",
+    "examples": [],
+    "tags": [
+      "difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "409",
+    "word": "Warp",
+    "pos": "v/n",
+    "meaning": "làm cong vênh, bóp méo; sự cong vênh|--",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "410",
+    "word": "Hinder",
+    "pos": "v",
+    "meaning": "cản trở, gây trở ngại|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "411",
+    "word": "Quell",
+    "pos": "v",
+    "meaning": "dập tắt, trấn áp",
+    "examples": [],
+    "tags": [
+      "difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "412",
+    "word": "Negate",
+    "pos": "v",
+    "meaning": "phủ định, vô hiệu hóa|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "413",
+    "word": "Trigger",
+    "pos": "v/n",
+    "meaning": "kích hoạt, gây ra; tác nhân kích hoạt",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "414",
+    "word": "Magnify",
+    "pos": "v",
+    "meaning": "phóng đại, khuếch đại",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "415",
+    "word": "Languish",
+    "pos": "v",
+    "meaning": "suy nhược, héo úa, trì trệ|--",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "416",
+    "word": "Vie",
+    "pos": "v",
+    "meaning": "tranh giành, cạnh tranh",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "417",
+    "word": "Jeopardize",
+    "pos": "v",
+    "meaning": "đe dọa, gây nguy hiểm|--",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "418",
+    "word": "Consensus",
+    "pos": "n",
+    "meaning": "sự đồng thuận, nhất trí chung",
+    "examples": [],
+    "tags": [
+      "difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "419",
+    "word": "Incentive",
+    "pos": "n",
+    "meaning": "động lực, sự khuyến khích",
+    "examples": [],
+    "tags": [
+      "difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "420",
+    "word": "Hypothesis",
+    "pos": "n",
+    "meaning": "giả thuyết",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "421",
+    "word": "Criterion",
+    "pos": "n",
+    "meaning": "tiêu chí, chuẩn mực",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "422",
+    "word": "Aftermath",
+    "pos": "n",
+    "meaning": "hậu quả, thời kỳ sau biến cố|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "423",
+    "word": "Outcome",
+    "pos": "n",
+    "meaning": "kết quả cuối cùng",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "424",
+    "word": "Threshold",
+    "pos": "n",
+    "meaning": "ngưỡng, bậc cửa",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "425",
+    "word": "Precedent",
+    "pos": "n",
+    "meaning": "tiền lệ",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "426",
+    "word": "Rationale",
+    "pos": "n",
+    "meaning": "lý do cốt lõi, cơ sở lý luận",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "427",
+    "word": "Attribute",
+    "pos": "v/n",
+    "meaning": "quy cho, gán cho / đặc điểm, thuộc tính",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "428",
+    "word": "Preclude",
+    "pos": "v",
+    "meaning": "loại trừ, ngăn không cho xảy ra|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "429",
+    "word": "Entail",
+    "pos": "v",
+    "meaning": "kéo theo, đòi hỏi",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "430",
+    "word": "Encompass",
+    "pos": "v",
+    "meaning": "bao gồm, bao trùm",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "431",
+    "word": "Constitute",
+    "pos": "v",
+    "meaning": "cấu thành, chiếm (tỷ lệ)",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "432",
+    "word": "Elaborate",
+    "pos": "v/adj",
+    "meaning": "trình bày chi tiết / công phu, tỉ mỉ",
+    "examples": [],
+    "tags": [
+      "difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "433",
+    "word": "Contradict",
+    "pos": "v",
+    "meaning": "mâu thuẫn, bác bỏ|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "434",
+    "word": "Deprive",
+    "pos": "v",
+    "meaning": "tước đoạt, làm mất|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "435",
+    "word": "Incur",
+    "pos": "v",
+    "meaning": "phải gánh chịu, mắc phải|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "436",
+    "word": "Underpin",
+    "pos": "v",
+    "meaning": "làm nền tảng, củng cố",
+    "examples": [],
+    "tags": [
+      "difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "437",
+    "word": "Undergo",
+    "pos": "v",
+    "meaning": "trải qua, chịu (thay đổi, điều trị)",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "438",
+    "word": "Undertake",
+    "pos": "v",
+    "meaning": "đảm nhận, tiến hành",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "439",
+    "word": "Withstand",
+    "pos": "v",
+    "meaning": "chống đỡ, chịu đựng được",
+    "examples": [],
+    "tags": [
+      "difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "440",
+    "word": "Empirical",
+    "pos": "adj",
+    "meaning": "dựa trên quan sát, thực nghiệm",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "441",
+    "word": "Coherent",
+    "pos": "adj",
+    "meaning": "mạch lạc, nhất quán",
+    "examples": [],
+    "tags": [
+      "difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "442",
+    "word": "Consecutive",
+    "pos": "adj",
+    "meaning": "liên tiếp, liền nhau",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "443",
+    "word": "Subsequent",
+    "pos": "adj",
+    "meaning": "sau đó, tiếp theo",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "444",
+    "word": "Sustainable",
+    "pos": "adj",
+    "meaning": "bền vững, có thể duy trì",
+    "examples": [],
+    "tags": [
+      "difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "445",
+    "word": "Tangible",
+    "pos": "adj",
+    "meaning": "hữu hình, cụ thể",
+    "examples": [],
+    "tags": [
+      "difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "446",
+    "word": "Compelling",
+    "pos": "adj",
+    "meaning": "thuyết phục, hấp dẫn",
+    "examples": [],
+    "tags": [
+      "difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "447",
+    "word": "Tentative",
+    "pos": "adj",
+    "meaning": "tạm thời, chưa chắc chắn|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "448",
+    "word": "Menial task",
+    "pos": "phrase",
+    "meaning": "công việc tay chân tầm thường, ít được coi trọng|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "449",
+    "word": "Odd job",
+    "pos": "phrase",
+    "meaning": "việc vặt, việc lẻ không cố định (thường được trả công theo lần)",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "450",
+    "word": "Gig",
+    "pos": "n",
+    "meaning": "công việc ngắn hạn/tạm thời; buổi biểu diễn (nhạc, hài)",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "451",
+    "word": "Derivative",
+    "pos": "adj/n",
+    "meaning": "bắt chước, ăn theo, thiếu tính nguyên bản / sản phẩm phái sinh|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "452",
+    "word": "Derivation",
+    "pos": "n",
+    "meaning": "nguồn gốc, sự bắt nguồn (đặc biệt của từ ngữ); quá trình suy ra",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "453",
+    "word": "Derive",
+    "pos": "v",
+    "meaning": "bắt nguồn từ (derive from); thu được, rút ra (derive sth from)",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "454",
+    "word": "A bit of a stretch",
+    "pos": "idiom",
+    "meaning": "hơi quá, hơi cường điệu; điều khó tin hoặc khó chấp nhận|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "455",
+    "word": "Agree to disagree",
+    "pos": "idiom",
+    "meaning": "chấp nhận bất đồng quan điểm và ngừng tranh cãi",
+    "examples": [],
+    "tags": [
+      "difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "456",
+    "word": "Subjunctive structure",
+    "pos": "grammar",
+    "meaning": "cấu trúc giả định: S + suggest/demand/insist/It is essential... + that + S + V-bare (không chia)",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "457",
+    "word": "Add up to",
+    "pos": "phrasal v",
+    "meaning": "tổng cộng thành; dẫn đến, có nghĩa là (một kết quả)",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "458",
+    "word": "Square away",
+    "pos": "phrasal v",
+    "meaning": "thu xếp, giải quyết ổn thỏa, hoàn tất (việc gì)",
+    "examples": [],
+    "tags": [
+      "difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "459",
+    "word": "Check out with",
+    "pos": "phrasal v",
+    "meaning": "khớp với, ăn khớp với (thông tin, lời khai, dữ liệu)",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "460",
+    "word": "Discursive",
+    "pos": "adj",
+    "meaning": "lan man, tản mạn, nhảy từ ý này sang ý khác|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "461",
+    "word": "Discursively",
+    "pos": "adv",
+    "meaning": "một cách lan man, tản mạn|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "462",
+    "word": "Discursiveness",
+    "pos": "n",
+    "meaning": "tính lan man, tản mạn|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "463",
+    "word": "Pretentious",
+    "pos": "adj",
+    "meaning": "phô trương, làm ra vẻ quan trọng/hiểu biết hơn thực tế|--",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "464",
+    "word": "Pretentiousness",
+    "pos": "n",
+    "meaning": "sự phô trương, làm màu, kiểu cách|--",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "465",
+    "word": "Pretension",
+    "pos": "n",
+    "meaning": "sự tự nhận (có phẩm chất/địa vị) không thật; sự phô trương|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "466",
+    "word": "Fastidiously",
+    "pos": "adv",
+    "meaning": "một cách kỹ tính, cầu kỳ đến mức khó tính|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "467",
+    "word": "Fastidiousness",
+    "pos": "n",
+    "meaning": "tính kỹ tính, khó tính, cầu kỳ|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "468",
+    "word": "Meticulously",
+    "pos": "adv",
+    "meaning": "một cách tỉ mỉ, cẩn thận đến từng chi tiết",
+    "examples": [],
+    "tags": [
+      "difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "469",
+    "word": "Meticulousness",
+    "pos": "n",
+    "meaning": "tính tỉ mỉ, kỹ lưỡng",
+    "examples": [],
+    "tags": [
+      "difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "470",
+    "word": "Adornment",
+    "pos": "n",
+    "meaning": "đồ trang sức, đồ trang trí; sự trang hoàng",
+    "examples": [],
+    "tags": [
+      "difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "471",
+    "word": "Unadorned",
+    "pos": "adj",
+    "meaning": "không trang trí; mộc mạc, giản dị",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "472",
+    "word": "Embellishment",
+    "pos": "n",
+    "meaning": "sự trang trí, tô điểm; chi tiết thêm thắt, thêu dệt (trong kể chuyện)",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "473",
+    "word": "Upkeep",
+    "pos": "n",
+    "meaning": "việc/chi phí bảo trì, bảo dưỡng (nhà cửa, xe cộ)",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "474",
+    "word": "Far-fetched",
+    "pos": "adj",
+    "meaning": "khó tin, phi lý, gượng ép|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "475",
+    "word": "Far-flung",
+    "pos": "adj",
+    "meaning": "xa xôi, hẻo lánh; trải rộng trên khu vực lớn",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "476",
+    "word": "Far-sighted",
+    "pos": "adj",
+    "meaning": "nhìn xa trông rộng; viễn thị",
+    "examples": [],
+    "tags": [
+      "difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "477",
+    "word": "Far-reaching",
+    "pos": "adj",
+    "meaning": "có tác động sâu rộng, ảnh hưởng lớn và lâu dài",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "478",
+    "word": "Ephemerality",
+    "pos": "n",
+    "meaning": "tính ngắn ngủi, chóng tàn, phù du|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "479",
+    "word": "Sporadic",
+    "pos": "adj",
+    "meaning": "rải rác, thỉnh thoảng, không đều đặn",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "480",
+    "word": "Sporadically",
+    "pos": "adv",
+    "meaning": "một cách rải rác, thỉnh thoảng, không đều",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "481",
+    "word": "Volatile",
+    "pos": "adj",
+    "meaning": "dễ biến động, bất ổn; thất thường, dễ bùng nổ (tính khí); dễ bay hơi|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "482",
+    "word": "Volatility",
+    "pos": "n",
+    "meaning": "tính biến động, bất ổn; tính thất thường|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "483",
+    "word": "Malleable",
+    "pos": "adj",
+    "meaning": "dễ uốn nắn, dễ định hình; dễ bị ảnh hưởng (người); có thể dát mỏng (kim loại)",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "484",
+    "word": "Malleability",
+    "pos": "n",
+    "meaning": "tính dễ uốn nắn, dễ định hình",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "485",
+    "word": "Sound judgment",
+    "pos": "collocation",
+    "meaning": "sự phán đoán sáng suốt, chín chắn",
+    "examples": [],
+    "tags": [
+      "very-difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "486",
+    "word": "Snap judgment",
+    "pos": "collocation",
+    "meaning": "phán đoán vội vàng, quyết định chớp nhoáng thiếu cân nhắc|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "487",
+    "word": "Layover",
+    "pos": "n",
+    "meaning": "thời gian/điểm dừng chờ chuyển tiếp giữa chặng bay",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "488",
+    "word": "Crossover",
+    "pos": "n",
+    "meaning": "sự giao thoa, kết hợp giữa các thể loại/lĩnh vực; tác phẩm kết hợp nhân vật của nhiều tác phẩm",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "489",
+    "word": "Spillover",
+    "pos": "n",
+    "meaning": "tác động lan tỏa, hiệu ứng dây chuyền sang lĩnh vực/nơi khác",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "490",
+    "word": "Lactose intolerant",
+    "pos": "adj",
+    "meaning": "không dung nạp lactose (không tiêu hóa được đường sữa)",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "491",
+    "word": "Repellent",
+    "pos": "adj/n",
+    "meaning": "gây ghê tởm, khó chịu; có tác dụng xua đuổi / chất xua đuổi (côn trùng)|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "492",
+    "word": "Averse",
+    "pos": "adj",
+    "meaning": "không ưa, ác cảm, phản đối (averse to sth; risk-averse)|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "493",
+    "word": "Aversion",
+    "pos": "n",
+    "meaning": "sự ác cảm, ghét cay ghét đắng (aversion to sth)|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "494",
+    "word": "Incidental",
+    "pos": "adj",
+    "meaning": "phụ, ngẫu nhiên đi kèm; không phải phần chính (incidental expenses)",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "495",
+    "word": "Anecdotal evidence",
+    "pos": "collocation",
+    "meaning": "bằng chứng giai thoại, dựa trên trải nghiệm cá nhân thay vì dữ liệu hệ thống|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "496",
+    "word": "Stick to one's guns",
+    "pos": "idiom",
+    "meaning": "giữ vững lập trường, không nhượng bộ dù bị phản đối",
+    "examples": [],
+    "tags": [
+      "difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "497",
+    "word": "Play one's cards right",
+    "pos": "idiom",
+    "meaning": "hành xử khôn khéo, tận dụng tốt cơ hội để thành công",
+    "examples": [],
+    "tags": [
+      "difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "498",
+    "word": "Follow one's nose",
+    "pos": "idiom",
+    "meaning": "làm theo trực giác; (chỉ đường) cứ đi thẳng",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "499",
+    "word": "Throw one's hat in the ring",
+    "pos": "idiom",
+    "meaning": "tuyên bố tham gia cuộc đua/tranh cử",
+    "examples": [],
+    "tags": [
+      "difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "500",
+    "word": "Cotton on to",
+    "pos": "phrasal v",
+    "meaning": "bắt đầu hiểu ra, nhận ra (điều gì)",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "501",
+    "word": "Muscle in on",
+    "pos": "phrasal v",
+    "meaning": "chen chân vào, xía vào để giành phần lợi/quyền lực|--",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "502",
+    "word": "Pander to",
+    "pos": "phrasal v",
+    "meaning": "chiều theo, nuông chiều (thị hiếu tầm thường, điểm yếu của ai) để lấy lòng|--",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "503",
+    "word": "Land on",
+    "pos": "phrasal v",
+    "meaning": "chốt, đi đến (một quyết định/lựa chọn) sau khi cân nhắc",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "504",
+    "word": "Fresco",
+    "pos": "n",
+    "meaning": "tranh bích họa (vẽ trên lớp vữa tường còn ướt)",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "505",
+    "word": "Incorrigibility",
+    "pos": "n",
+    "meaning": "tính không thể sửa chữa, không thể cải tạo (tật xấu, con người)|--",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "506",
+    "word": "Irreverent",
+    "pos": "adj",
+    "meaning": "bất kính, thiếu tôn trọng (thường theo lối hài hước, châm biếm)|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "507",
+    "word": "Irreverence",
+    "pos": "n",
+    "meaning": "sự bất kính, thái độ thiếu tôn trọng|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "508",
+    "word": "Reverent",
+    "pos": "adj",
+    "meaning": "tôn kính, thành kính",
+    "examples": [],
+    "tags": [
+      "very-difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "509",
+    "word": "Irreconcilable",
+    "pos": "adj",
+    "meaning": "không thể hòa giải, không thể dung hòa (mâu thuẫn, khác biệt)|--",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "510",
+    "word": "Irreconcilability",
+    "pos": "n",
+    "meaning": "tính không thể hòa giải, không thể dung hòa|--",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "511",
+    "word": "In the offing",
+    "pos": "idiom",
+    "meaning": "sắp xảy ra, sắp tới trong tương lai gần",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "512",
+    "word": "In the balance",
+    "pos": "idiom",
+    "meaning": "chưa ngã ngũ, ở thế bấp bênh chưa biết kết cục|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "513",
+    "word": "On the back burner",
+    "pos": "idiom",
+    "meaning": "bị tạm gác lại, để xử lý sau|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "514",
+    "word": "Against the grain",
+    "pos": "idiom",
+    "meaning": "trái với bản tính, thói quen hoặc xu hướng chung|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "515",
+    "word": "Phase out",
+    "pos": "phrasal v",
+    "meaning": "loại bỏ dần theo từng giai đoạn",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "516",
+    "word": "Write off",
+    "pos": "phrasal v",
+    "meaning": "coi (ai/cái gì) là thất bại, vô vọng; xóa nợ; xem xe hỏng không sửa được|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "517",
+    "word": "Rule out",
+    "pos": "phrasal v",
+    "meaning": "loại trừ (khả năng); bác bỏ",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "518",
+    "word": "By virtue of",
+    "pos": "prep phrase",
+    "meaning": "nhờ vào, do có (phẩm chất, quyền, điều kiện nào đó)",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "519",
+    "word": "In the face of",
+    "pos": "prep phrase",
+    "meaning": "đối mặt với; bất chấp (khó khăn, phản đối)",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "520",
+    "word": "Clear the decks",
+    "pos": "idiom",
+    "meaning": "dọn dẹp việc tồn đọng để sẵn sàng cho việc mới",
+    "examples": [],
+    "tags": [
+      "difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "521",
+    "word": "Cut corners",
+    "pos": "idiom",
+    "meaning": "làm tắt, làm ẩu để tiết kiệm thời gian/tiền|--",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "522",
+    "word": "Lest + S + (should) V-bare",
+    "pos": "grammar",
+    "meaning": "'kẻo, e rằng, vì sợ rằng': lest + S + (should) + V-bare; không dùng not sau lest",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "523",
+    "word": "Out on a limb",
+    "pos": "idiom",
+    "meaning": "ở thế đơn độc, mạo hiểm, không được ai ủng hộ|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "524",
+    "word": "On a hiding to nothing",
+    "pos": "idiom",
+    "meaning": "ở thế chắc chắn thất bại, làm cũng không được gì|--",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "525",
+    "word": "In the doldrums",
+    "pos": "idiom",
+    "meaning": "trì trệ, ảm đạm; buồn chán, ủ rũ|--",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "526",
+    "word": "Burn one's bridges/boats",
+    "pos": "idiom",
+    "meaning": "tự chặt đứt đường lui, không còn đường quay lại|--",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "527",
+    "word": "Bide one's time",
+    "pos": "idiom",
+    "meaning": "kiên nhẫn chờ thời cơ thích hợp",
+    "examples": [],
+    "tags": [
+      "difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "528",
+    "word": "Cut one's losses",
+    "pos": "idiom",
+    "meaning": "dừng lại đúng lúc để tránh mất mát thêm",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "529",
+    "word": "Raise the stakes",
+    "pos": "idiom",
+    "meaning": "tăng mức rủi ro/cược; đẩy thử thách lên cao hơn",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "530",
+    "word": "Insulated from",
+    "pos": "adj",
+    "meaning": "được che chắn, bảo vệ khỏi (tác động bên ngoài)",
+    "examples": [],
+    "tags": [
+      "difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "531",
+    "word": "Insulation",
+    "pos": "n",
+    "meaning": "sự cách nhiệt/cách âm/cách điện; vật liệu cách nhiệt; sự che chắn khỏi tác động",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "532",
+    "word": "Insulate",
+    "pos": "v",
+    "meaning": "cách nhiệt/cách âm/cách điện; che chắn, bảo vệ khỏi tác động (insulate sb from sth)",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "533",
+    "word": "Fecund",
+    "pos": "adj",
+    "meaning": "màu mỡ, phì nhiêu; sinh sản tốt; sáng tạo dồi dào",
+    "examples": [],
+    "tags": [
+      "very-difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "534",
+    "word": "Fecundity",
+    "pos": "n",
+    "meaning": "độ phì nhiêu; khả năng sinh sản/sáng tạo dồi dào",
+    "examples": [],
+    "tags": [
+      "very-difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "535",
+    "word": "Opulent",
+    "pos": "adj",
+    "meaning": "xa hoa, lộng lẫy, giàu có",
+    "examples": [],
+    "tags": [
+      "difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "536",
+    "word": "Opulence",
+    "pos": "n",
+    "meaning": "sự xa hoa, giàu sang, lộng lẫy",
+    "examples": [],
+    "tags": [
+      "difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "537",
+    "word": "Stimulus",
+    "pos": "n",
+    "meaning": "tác nhân kích thích; biện pháp kích thích (kinh tế) — số nhiều: stimuli",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "538",
+    "word": "Intrinsic to",
+    "pos": "adj",
+    "meaning": "thuộc về bản chất, vốn có và không thể tách rời của",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "539",
+    "word": "Intrinsically",
+    "pos": "adv",
+    "meaning": "về bản chất, vốn dĩ",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "540",
+    "word": "Ingrained",
+    "pos": "adj",
+    "meaning": "ăn sâu, bén rễ, khó thay đổi (thói quen, định kiến)|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "541",
+    "word": "Quiver",
+    "pos": "v/n",
+    "meaning": "run rẩy, rung nhẹ (vì sợ, xúc động) / cái run nhẹ; bao đựng tên",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "542",
+    "word": "Flutter",
+    "pos": "v/n",
+    "meaning": "vỗ, đập nhẹ (cánh); phấp phới; đập loạn (tim); bồn chồn / sự rung nhẹ, cảm giác nôn nao",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "543",
+    "word": "Apprehension",
+    "pos": "n",
+    "meaning": "nỗi lo âu, e sợ về điều sắp xảy ra; sự bắt giữ; sự lĩnh hội|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "544",
+    "word": "Genetic makeup",
+    "pos": "collocation",
+    "meaning": "cấu trúc/thành phần di truyền của một cá thể",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "545",
+    "word": "Adrenaline surge",
+    "pos": "collocation",
+    "meaning": "cơn dồn adrenaline, cảm giác hưng phấn/năng lượng bùng lên đột ngột",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "546",
+    "word": "Surge",
+    "pos": "n/v",
+    "meaning": "sự tăng vọt, dâng trào đột ngột / dâng lên, tăng vọt",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "547",
+    "word": "Rear its (ugly) head",
+    "pos": "idiom",
+    "meaning": "(vấn đề, nguy cơ) bắt đầu ló dạng, xuất hiện trở lại|--",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "548",
+    "word": "Summary",
+    "pos": "n/adj",
+    "meaning": "bản tóm tắt / nhanh gọn, tức thời, không qua thủ tục đầy đủ (summary dismissal)",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "549",
+    "word": "Summarily",
+    "pos": "adv",
+    "meaning": "một cách nhanh chóng, dứt khoát, không qua thủ tục đầy đủ (dismissed summarily)|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "550",
+    "word": "Eclipse",
+    "pos": "v/n",
+    "meaning": "làm lu mờ, vượt trội hơn hẳn / nhật/nguyệt thực; sự lu mờ",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "551",
+    "word": "Pit A against B",
+    "pos": "phrasal v",
+    "meaning": "đặt A đối đầu/cạnh tranh với B",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "552",
+    "word": "Transcribe",
+    "pos": "v",
+    "meaning": "chép lại thành văn bản (từ lời nói, ghi âm); phiên âm",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "553",
+    "word": "Transcription",
+    "pos": "n",
+    "meaning": "bản chép lại; quá trình chép/phiên âm",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "554",
+    "word": "Word for word",
+    "pos": "idiom",
+    "meaning": "nguyên văn, từng từ một",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "555",
+    "word": "Obsolescence",
+    "pos": "n",
+    "meaning": "sự lỗi thời, tình trạng không còn được dùng (planned obsolescence)|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "556",
+    "word": "Scaffold",
+    "pos": "n",
+    "meaning": "giàn giáo; khung/bệ đỡ cho việc học hay tư duy",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "557",
+    "word": "Scaffolding",
+    "pos": "n",
+    "meaning": "hệ giàn giáo; (giáo dục) sự hỗ trợ từng bước có cấu trúc để người học tự làm được",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "558",
+    "word": "Cling to",
+    "pos": "phrasal v",
+    "meaning": "bám chặt vào; khư khư bám giữ (niềm tin, hy vọng, quyền lực)|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "559",
+    "word": "Reactionary",
+    "pos": "adj/n",
+    "meaning": "phản động, bảo thủ cực đoan, muốn quay về trật tự cũ / người có tư tưởng đó|--",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "560",
+    "word": "Curator",
+    "pos": "n",
+    "meaning": "người phụ trách, giám tuyển (bảo tàng, triển lãm)",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "561",
+    "word": "Curate",
+    "pos": "v",
+    "meaning": "chọn lọc, sắp xếp và quản lý (bộ sưu tập, nội dung)",
+    "examples": [],
+    "tags": [
+      "difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "562",
+    "word": "Ingenuity",
+    "pos": "n",
+    "meaning": "sự khéo léo, tài xoay xở sáng tạo",
+    "examples": [],
+    "tags": [
+      "very-difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "563",
+    "word": "Marginal",
+    "pos": "adj",
+    "meaning": "nhỏ, không đáng kể; ở bên lề, thứ yếu|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "564",
+    "word": "Marginalize",
+    "pos": "v",
+    "meaning": "gạt ra bên lề, làm cho (nhóm/người) mất tiếng nói và cơ hội|--",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "565",
+    "word": "AI slop",
+    "pos": "n",
+    "meaning": "nội dung do AI tạo hàng loạt, chất lượng thấp, vô giá trị|--",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "566",
+    "word": "Anthropomorphic",
+    "pos": "adj",
+    "meaning": "nhân hóa, mang hình dáng/đặc điểm con người (vật, động vật, thần thánh)",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "567",
+    "word": "Soap opera",
+    "pos": "n",
+    "meaning": "phim truyền hình dài tập nhiều drama tình cảm|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "568",
+    "word": "Churn out",
+    "pos": "phrasal v",
+    "meaning": "sản xuất hàng loạt, nhanh và nhiều (thường kém chất lượng)|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "569",
+    "word": "Telenovela",
+    "pos": "n",
+    "meaning": "phim truyền hình dài tập kiểu Mỹ La-tinh",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "570",
+    "word": "Insidious",
+    "pos": "adj",
+    "meaning": "ngấm ngầm, âm ỉ gây hại theo cách khó nhận ra|--",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "571",
+    "word": "Insidiously",
+    "pos": "adv",
+    "meaning": "một cách ngấm ngầm, âm ỉ, khó nhận thấy|--",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "572",
+    "word": "Underbelly",
+    "pos": "n",
+    "meaning": "mặt tối, góc khuất (của xã hội, thành phố); điểm yếu dễ tổn thương|--",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "573",
+    "word": "Propagation",
+    "pos": "n",
+    "meaning": "sự lan truyền, truyền bá; sự nhân giống (cây)",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "574",
+    "word": "Propagate",
+    "pos": "v",
+    "meaning": "lan truyền, truyền bá (ý tưởng, tin tức); nhân giống (cây)",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "575",
+    "word": "Rampant",
+    "pos": "adj",
+    "meaning": "tràn lan, hoành hành không kiểm soát (tội phạm, dịch bệnh, lạm phát)|--",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "576",
+    "word": "State-funded",
+    "pos": "adj",
+    "meaning": "do nhà nước tài trợ, cấp kinh phí",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "577",
+    "word": "Council estate",
+    "pos": "n",
+    "meaning": "khu nhà ở xã hội do chính quyền địa phương xây (Anh)",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "578",
+    "word": "Lark",
+    "pos": "n",
+    "meaning": "trò vui, trò đùa cho vui không nghiêm túc (for a lark); chim sơn ca",
+    "examples": [],
+    "tags": [
+      "difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "579",
+    "word": "Burning social conscience",
+    "pos": "phrase",
+    "meaning": "ý thức trách nhiệm xã hội mãnh liệt, luôn day dứt thôi thúc",
+    "examples": [],
+    "tags": [
+      "very-difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "580",
+    "word": "Make a dent in",
+    "pos": "idiom",
+    "meaning": "tạo ra tiến triển/tác động (dù nhỏ) đối với vấn đề lớn; làm hao hụt (tiền)",
+    "examples": [],
+    "tags": [
+      "difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "581",
+    "word": "Shrinking violet",
+    "pos": "idiom",
+    "meaning": "người cực kỳ nhút nhát, rụt rè|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "582",
+    "word": "Strident",
+    "pos": "adj",
+    "meaning": "chói tai, gay gắt; (quan điểm) quyết liệt, hùng hổ đến khó chịu|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "583",
+    "word": "Incendiary device",
+    "pos": "collocation",
+    "meaning": "thiết bị gây cháy, bom cháy|--",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "584",
+    "word": "Streaky bacon",
+    "pos": "n",
+    "meaning": "thịt ba chỉ xông khói (nạc mỡ xen kẽ)",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "585",
+    "word": "Roving",
+    "pos": "adj",
+    "meaning": "lưu động, nay đây mai đó (roving reporter, roving eye)",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "586",
+    "word": "Plethora",
+    "pos": "n",
+    "meaning": "số lượng quá nhiều, thừa mứa (a plethora of)|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "587",
+    "word": "Chronically",
+    "pos": "adv",
+    "meaning": "một cách kinh niên, dai dẳng kéo dài (chronically ill, chronically underfunded)|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "588",
+    "word": "Chronic",
+    "pos": "adj",
+    "meaning": "mãn tính, kinh niên; dai dẳng, kéo dài (bệnh, vấn đề)|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "589",
+    "word": "Chronicity",
+    "pos": "n",
+    "meaning": "tính mãn tính, tính kéo dài dai dẳng (thuật ngữ y khoa)|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "590",
+    "word": "Low-hanging fruit",
+    "pos": "idiom",
+    "meaning": "mục tiêu dễ đạt nhất, việc dễ làm nên làm trước",
+    "examples": [],
+    "tags": [
+      "difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "591",
+    "word": "Public purse",
+    "pos": "n",
+    "meaning": "ngân sách nhà nước, tiền thuế của dân",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "592",
+    "word": "Allot",
+    "pos": "v",
+    "meaning": "phân bổ, phân chia, cấp cho (thời gian, tiền, nhiệm vụ)",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "593",
+    "word": "Allotment",
+    "pos": "n",
+    "meaning": "phần được phân bổ; sự phân bổ; (Anh) mảnh đất thuê để trồng rau",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "594",
+    "word": "Extraction",
+    "pos": "n",
+    "meaning": "sự chiết xuất, khai thác, nhổ (răng); nguồn gốc xuất thân (of Chinese extraction)",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "595",
+    "word": "Extract",
+    "pos": "v/n",
+    "meaning": "chiết xuất, khai thác, lấy ra, moi (thông tin) / chiết xuất; đoạn trích",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "596",
+    "word": "Crony",
+    "pos": "n",
+    "meaning": "bạn bè thân hữu của người có quyền (được ưu ái) — sắc thái khinh miệt|--",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "597",
+    "word": "Cronyism",
+    "pos": "n",
+    "meaning": "nạn thân hữu, thiên vị bạn bè trong việc bổ nhiệm/trao quyền lợi|--",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "598",
+    "word": "Preservationist",
+    "pos": "n",
+    "meaning": "người chủ trương bảo tồn (di sản, công trình lịch sử, thiên nhiên)",
+    "examples": [],
+    "tags": [
+      "difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "599",
+    "word": "Preserve",
+    "pos": "v/n",
+    "meaning": "bảo tồn, gìn giữ; bảo quản (thực phẩm) / mứt; khu bảo tồn; lĩnh vực riêng",
+    "examples": [],
+    "tags": [
+      "difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "600",
+    "word": "Preservation",
+    "pos": "n",
+    "meaning": "sự bảo tồn, gìn giữ; sự bảo quản",
+    "examples": [],
+    "tags": [
+      "difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "601",
+    "word": "Merchantable timber",
+    "pos": "collocation",
+    "meaning": "gỗ đạt chất lượng/kích thước để bán được trên thị trường",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "602",
+    "word": "Jargon",
+    "pos": "n",
+    "meaning": "biệt ngữ, thuật ngữ chuyên ngành khó hiểu với người ngoài|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "603",
+    "word": "Suffuse",
+    "pos": "v",
+    "meaning": "lan tỏa, tràn ngập khắp (ánh sáng, màu sắc, cảm xúc)",
+    "examples": [],
+    "tags": [
+      "difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "604",
+    "word": "Herbicide",
+    "pos": "n",
+    "meaning": "thuốc diệt cỏ|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "605",
+    "word": "Insecticide",
+    "pos": "n",
+    "meaning": "thuốc trừ sâu, thuốc diệt côn trùng|-",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "606",
+    "word": "Flora and fauna",
+    "pos": "collocation",
+    "meaning": "hệ thực vật và động vật (của một vùng)",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "607",
+    "word": "Retention",
+    "pos": "n",
+    "meaning": "sự giữ lại, duy trì (nhân viên, khách hàng, nước); khả năng ghi nhớ",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "608",
+    "word": "Retain",
+    "pos": "v",
+    "meaning": "giữ lại, duy trì; ghi nhớ; thuê (luật sư)",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "609",
+    "word": "Retentive",
+    "pos": "adj",
+    "meaning": "có khả năng ghi nhớ tốt (a retentive memory); giữ được (nước, nhiệt)",
+    "examples": [],
+    "tags": [
+      "difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "610",
+    "word": "Indefinitely",
+    "pos": "adv",
+    "meaning": "vô thời hạn, không xác định thời điểm kết thúc",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "611",
+    "word": "Indefinite",
+    "pos": "adj",
+    "meaning": "không xác định, không rõ giới hạn/thời hạn; mơ hồ",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "612",
+    "word": "Resilience",
+    "pos": "n",
+    "meaning": "khả năng phục hồi sau khó khăn; sức bền, độ đàn hồi",
+    "examples": [],
+    "tags": [
+      "very-difficult"
+    ],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  },
+  {
+    "id": "613",
+    "word": "Canopy trees",
+    "pos": "collocation",
+    "meaning": "cây tầng tán, cây cao tạo thành vòm rừng",
+    "examples": [],
+    "tags": [],
+    "difficulty": 0,
+    "createdAt": "2026-09-22"
+  }
+]
