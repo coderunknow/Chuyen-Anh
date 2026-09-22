@@ -12,7 +12,8 @@ import {
   validateImportPayload,
   exportProgressBundle,
   saveProgress,
-  loadProgress
+  loadProgress,
+  normalize
 } from '../app.js';
 
 const vocab = [
@@ -58,6 +59,7 @@ test('stats and search support exact, partial, case-insensitive and filters', ()
   assert.equal(searchVocabulary(index, 'METIC', { state: 'favorites' })[0].entry.word, 'Meticulous');
   assert.equal(searchVocabulary(index, 'tay chan')[0].entry.word, 'Menial task');
   assert.equal(searchVocabulary(index, '', { state: 'weak' })[0].entry.word, 'Meticulous');
+  assert.equal(normalize('Đúng đắn'), 'dung dan');
 });
 
 test('progress save/load and import validation are atomic at the boundary', () => {

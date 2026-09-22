@@ -22,6 +22,19 @@ class VocabularyValidatorTest(unittest.TestCase):
         }]
         self.assertEqual(validator.validate(data), [])
 
+    def test_legacy_difficulty_marker_is_not_part_of_meaning(self):
+        data = [{
+            "id": "legacy",
+            "word": "legacy",
+            "pos": "n",
+            "meaning": "nghĩa|-",
+            "examples": [],
+            "tags": [],
+            "difficulty": 0,
+        }]
+        errors = "\n".join(validator.validate(data))
+        self.assertIn("unconverted legacy difficulty marker", errors)
+
     def test_duplicate_and_malformed_entry_are_reported(self):
         data = [
             {"id": "same", "word": "word", "pos": "n", "meaning": "x", "examples": [], "tags": [], "difficulty": 1},
