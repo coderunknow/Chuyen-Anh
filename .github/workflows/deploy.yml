@@ -2,60 +2,59 @@ name: Deploy Flashcard
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
     paths:
-      - "data/**"
-      - "src/**"
-      - "public/**"
       - "index.html"
-      - "package.json"
-      - "package-lock.json"
-      - "vite.config.js"
+      - "style.css"
+      - "app.js"
+      - "data/**"
+      - "assets/**"
+      - "scripts/validate_vocab.py"
       - ".github/workflows/deploy.yml"
   workflow_dispatch:
 
-permissions:
-  contents: write
-
 concurrency:
-  group: flashcard-main
+  group: flashcard-pages
   cancel-in-progress: true
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 5
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-          cache: 'npm'
-          cache-dependency-path: package-lock.json
-
-      - name: Install dependencies
-        run: npm ci --prefer-offline --no-audit --no-fund
-
       - name: Validate vocabulary
-        run: npm run validate:vocab
+        run: python scripts/validate_vocab.py
 
-      - name: Run tests
-        run: npm run test
+      # The repository also contains source PDFs and exam notes. Stage only the
+      # static app so Pages does not upload unrelated archive material.
+      - name: Stage static files
+        run: |
+          rm -rf _site
+          mkdir -p _site/data
+          cp index.html style.css app.js _site/
+          cp data/vocabulary.json _site/data/
+          if [ -d assets ]; then cp -R assets _site/assets; fi
+          touch _site/.nojekyll
 
-      - name: Build
-        run: npm run build
-        env:
-          GITHUB_SHA: ${{ github.sha }}
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
 
-      - name: Deploy to gh-pages
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Upload static site
+        uses: actions/upload-pages-artifact@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-          publish_branch: gh-pages
-          force_orphan: true
-          commit_message: "deploy: ${{ github.sha }}"
+          path: _site
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
