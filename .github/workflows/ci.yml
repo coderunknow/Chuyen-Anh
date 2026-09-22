@@ -1,0 +1,54 @@
+name: CI - Validate & Build
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "data/**"
+      - "src/**"
+      - "public/**"
+      - "index.html"
+      - "package.json"
+      - "package-lock.json"
+      - "vite.config.js"
+      - ".github/workflows/ci.yml"
+  push:
+    branches: [main]
+    paths:
+      - "data/**"
+      - "src/**"
+      - "public/**"
+      - "index.html"
+      - "package.json"
+      - "package-lock.json"
+      - "vite.config.js"
+      - ".github/workflows/ci.yml"
+
+concurrency:
+  group: flashcard-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - run: npm ci --prefer-offline --no-audit --no-fund
+
+      - name: Validate vocabulary
+        run: npm run validate:vocab
+
+      - name: Run tests
+        run: npm run test
+
+      - name: Build
+        run: npm run build
