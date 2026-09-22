@@ -13,18 +13,6 @@ on:
       - "package-lock.json"
       - "vite.config.js"
       - ".github/workflows/deploy.yml"
-  pull_request:
-    branches:
-      - main
-    paths:
-      - "data/**"
-      - "src/**"
-      - "public/**"
-      - "index.html"
-      - "package.json"
-      - "package-lock.json"
-      - "vite.config.js"
-      - ".github/workflows/deploy.yml"
   workflow_dispatch:
 
 permissions:
@@ -68,13 +56,11 @@ jobs:
           GITHUB_SHA: ${{ github.sha }}
 
       - name: Upload artifact for Pages
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
 
   deploy:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs: build-and-deploy
     runs-on: ubuntu-latest
     timeout-minutes: 5
