@@ -47,10 +47,10 @@ jobs:
           if [ -d assets ]; then cp -R assets _site/assets; fi
           touch _site/.nojekyll
 
+      # Pages must be enabled once in Settings → Pages with GitHub Actions.
+      # Do not use enablement: true here: GITHUB_TOKEN cannot create a Pages site.
       - name: Configure Pages
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
 
       - name: Upload static site
         uses: actions/upload-pages-artifact@v4
