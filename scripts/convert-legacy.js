@@ -23,23 +23,27 @@ for (const line of lines) {
     console.warn('Skipping malformed line:', line);
     continue;
   }
-  const [idRaw, wordRaw, posRaw, meaningRaw, ...extra] = parts;
+  const [idRaw, wordRaw, posRaw, ...meaningParts] = parts;
   const id = idRaw.trim();
   const word = wordRaw.trim();
   const pos = posRaw.trim().toLowerCase();
-  const meaning = [meaningRaw, ...extra].join('|').trim(); // meaning may contain |
-  // extra markers like + ++ from file? Clean
-  const cleanMeaning = meaning.replace(/\|\++$/, '').replace(/\|+$/, '').trim();
-  // Handle lines like "609|Retentive|adj|có khả năng...|+" where extra is marker
-  let finalMeaning = cleanMeaning;
-  let tags = [];
-  // detect trailing + markers in original
-  const plusMatch = line.match(/\|(\++)\s*$/);
-  if (plusMatch) {
-    const plus = plusMatch[1];
-    if (plus === '+') tags.push('difficult');
-    if (plus === '++') tags.push('very-difficult');
+
+  // The legacy list uses the final pipe-delimited field for an optional
+  // difficulty marker. An empty final field is only a trailing delimiter;
+  // it must not become part of the Vietnamese meaning.
+  let marker = '';
+  while (meaningParts.length && !meaningParts[meaningParts.length - 1].trim()) meaningParts.pop();
+  if (meaningParts.length && /^(?:\+{1,2}|-{1,2})$/.test(meaningParts[meaningParts.length - 1].trim())) {
+    marker = meaningParts.pop().trim();
   }
+  const finalMeaning = meaningParts.join('|').trim();
+  const markerTags = {
+    '+': 'difficult',
+    '++': 'very-difficult',
+    '-': 'easy',
+    '--': 'very-easy'
+  };
+  const tags = markerTags[marker] ? [markerTags[marker]] : [];
 
   if (!id || !word || !pos || !finalMeaning) {
     console.warn('Skipping incomplete:', line);
@@ -60,5 +64,5 @@ for (const line of lines) {
 }
 
 fs.mkdirSync(path.dirname(outPath), { recursive: true });
-fs.writeFileSync(outPath, JSON.stringify(entries, null, 2), 'utf-8');
+fs.writeFileSync(outPath, `${JSON.stringify(entries, null, 2)}\n`, 'utf-8');
 console.log(`Converted ${entries.length} entries to ${outPath}`);

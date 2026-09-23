@@ -38,6 +38,7 @@ export function normalize(value) {
   return String(value ?? '')
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[đĐ]/g, 'd')
     .toLowerCase()
     .trim()
     .replace(/\s+/g, ' ');
@@ -188,10 +189,11 @@ export function isDue(progress, now = Date.now()) {
 export function calculateStats(progressMap, now = Date.now()) {
   const stats = { total: 0, new: 0, learning: 0, weak: 0, review: 0, mastered: 0, due: 0, correct: 0, wrong: 0 };
   for (const progress of Object.values(progressMap || {})) {
+    if (!progress || typeof progress !== 'object' || Array.isArray(progress)) continue;
     stats.total += 1;
     if (VALID_STATES.has(progress.state)) stats[progress.state] += 1;
-    stats.correct += progress.correctCount || 0;
-    stats.wrong += progress.wrongCount || 0;
+    if (Number.isFinite(progress.correctCount) && progress.correctCount > 0) stats.correct += progress.correctCount;
+    if (Number.isFinite(progress.wrongCount) && progress.wrongCount > 0) stats.wrong += progress.wrongCount;
     if (isDue(progress, now)) stats.due += 1;
   }
   stats.accuracy = stats.correct + stats.wrong
@@ -210,10 +212,13 @@ function shuffle(items) {
 }
 
 export function selectSession(vocabulary, progressMap, { size = 20, mode = 'due', favorites = new Set(), now = Date.now() } = {}) {
-  const byId = new Map(vocabulary.map(entry => [entry.id, entry]));
+  const entries = Array.isArray(vocabulary) ? vocabulary : [];
+  const byId = new Map(entries.map(entry => [entry.id, entry]));
   const make = progress => ({ vocab: byId.get(progress.id), progress });
   const valid = progress => progress && byId.has(progress.id);
-  const all = Object.values(progressMap).filter(valid);
+  const all = Object.values(progressMap || {}).filter(valid);
+  const limit = Number.isFinite(Number(size)) ? Math.max(0, Math.floor(Number(size))) : 0;
+  const favoriteIds = favorites && typeof favorites.has === 'function' ? favorites : new Set(Array.isArray(favorites) ? favorites : []);
   let candidates;
 
   if (mode === 'new') {
@@ -222,7 +227,7 @@ export function selectSession(vocabulary, progressMap, { size = 20, mode = 'due'
     candidates = all.filter(p => p.state === STATES.WEAK)
       .sort((a, b) => b.wrongCount - a.wrongCount || a.nextReview - b.nextReview).map(make);
   } else if (mode === 'favorites') {
-    candidates = all.filter(p => favorites.has(p.id)).map(make);
+    candidates = all.filter(p => favoriteIds.has(p.id)).map(make);
   } else if (mode === 'random') {
     candidates = shuffle(all).map(make);
   } else {
@@ -254,7 +259,7 @@ export function selectSession(vocabulary, progressMap, { size = 20, mode = 'due'
     }
     candidates = interleaved;
   }
-  return candidates.slice(0, Math.max(0, size));
+  return candidates.slice(0, limit);
 }
 
 function examplesFor(entry) {
@@ -264,9 +269,14 @@ function examplesFor(entry) {
   }).filter(example => example.en) : [];
 }
 
+function escapeRegExp(value) {
+  return String(value ?? '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 function distractors(vocabulary, current, field) {
   const seen = new Set([normalize(current[field])]);
-  return shuffle(vocabulary.filter(entry => entry.id !== current.id && entry[field] && !seen.has(normalize(entry[field]))))
+  const entries = Array.isArray(vocabulary) ? vocabulary : [];
+  return shuffle(entries.filter(entry => entry && entry.id !== current.id && entry[field] && !seen.has(normalize(entry[field]))))
     .slice(0, 3);
 }
 
@@ -274,7 +284,7 @@ export function generateQuestion(item, vocabulary, modeHint = null) {
   const entry = item.vocab || item;
   const progress = item.progress || createInitialProgress(entry.id);
   const examples = examplesFor(entry);
-  let mode = modeHint;
+  let mode = Object.values(MODES).includes(modeHint) ? modeHint : null;
   if (!mode) {
     const choices = examples.length ? [MODES.RECOGNITION, MODES.RECALL, MODES.SPELLING, MODES.CLOZE] : [MODES.RECOGNITION, MODES.RECALL, MODES.SPELLING];
     mode = choices[(progress.correctCount + progress.wrongCount) % choices.length];
@@ -294,11 +304,12 @@ export function generateQuestion(item, vocabulary, modeHint = null) {
   }
 
   const example = examples[0];
-  const escapedWord = entry.word.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&');
-  // Recognise a regular plural in an example (task -> tasks) as context too.
-  const examplePattern = new RegExp(`${escapedWord}s?`, 'i');
+  const escapedWord = escapeRegExp(entry.word);
+  // Match a whole word or phrase and recognise a regular plural (task -> tasks)
+  // without accidentally replacing a substring such as art in article.
+  const examplePattern = new RegExp(`(^|[^A-Za-z])${escapedWord}s?(?=$|[^A-Za-z])`, 'ig');
   const cloze = examplePattern.test(example.en)
-    ? example.en.replace(new RegExp(`${escapedWord}s?`, 'ig'), '_____')
+    ? example.en.replace(examplePattern, (_match, prefix) => `${prefix}_____`)
     : `_____ · ${entry.meaning}`;
   const options = shuffle([{ id: entry.id, text: entry.word, correct: true }, ...distractors(vocabulary, entry, 'word').map(other => ({ id: other.id, text: other.word, correct: false }))]);
   return { mode: MODES.CLOZE, prompt: cloze, subPrompt: `${entry.pos} · chọn từ phù hợp`, options, answer: entry.word, example };
@@ -315,25 +326,28 @@ function searchText(entry) {
   return normalize([entry.word, entry.meaning, entry.pos, ...(entry.tags || []), ...examples].join(' '));
 }
 
-export function createSearchIndex(vocabulary, progressMap, favorites = new Set()) {
-  return vocabulary.map(entry => ({
+export function createSearchIndex(vocabulary, progressMap = {}, favorites = new Set()) {
+  const favoriteIds = favorites && typeof favorites.has === 'function' ? favorites : new Set(Array.isArray(favorites) ? favorites : []);
+  return (Array.isArray(vocabulary) ? vocabulary : []).map(entry => ({
     entry,
     word: entry.word,
     wordLower: normalize(entry.word),
     searchLower: searchText(entry),
     posLower: normalize(entry.pos),
-    state: progressMap[entry.id]?.state || STATES.NEW,
-    progress: progressMap[entry.id],
-    favorite: favorites.has(entry.id)
+    state: progressMap?.[entry.id]?.state || STATES.NEW,
+    progress: progressMap?.[entry.id],
+    favorite: favoriteIds.has(entry.id)
   }));
 }
 
-export function searchVocabulary(index, query = '', filters = {}, now = Date.now()) {
+export function searchVocabulary(index = [], query = '', filters = {}, now = Date.now()) {
   const normalizedQuery = normalize(query);
-  const state = filters.state || 'all';
-  const pos = filters.pos || 'all';
-  const sort = filters.sort || 'az';
-  let results = index.filter(item => {
+  const safeFilters = filters && typeof filters === 'object' ? filters : {};
+  const state = safeFilters.state || 'all';
+  const pos = safeFilters.pos || 'all';
+  const sort = safeFilters.sort || 'az';
+  let results = (Array.isArray(index) ? index : []).filter(item => {
+    if (!item || !item.entry) return false;
     if (state === 'due' && !isDue(item.progress, now)) return false;
     if (state === 'favorites' && !item.favorite) return false;
     if (VALID_STATES.has(state) && item.state !== state) return false;
@@ -381,29 +395,57 @@ export function loadFavorites(storage = memorySafeStorage()) {
 }
 
 export function saveFavorites(favorites, storage = memorySafeStorage()) {
-  return writeJson(storage, STORAGE_KEYS.favorites, [...favorites]);
+  const values = favorites && typeof favorites[Symbol.iterator] === 'function' ? [...favorites] : [];
+  return writeJson(storage, STORAGE_KEYS.favorites, values.filter(id => typeof id === 'string'));
+}
+
+function sanitizeHistoryEntry(value) {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return null;
+  const numericKeys = ['total', 'correct', 'wrong', 'accuracy', 'durationSec'];
+  if (typeof value.date !== 'string' || !value.date || Number.isNaN(Date.parse(value.date))) return null;
+  if (typeof value.mode !== 'string' || !value.mode || value.mode.length > 80) return null;
+  if (numericKeys.some(key => !Number.isFinite(value[key]) || value[key] < 0)) return null;
+  return {
+    date: value.date,
+    total: Math.floor(value.total),
+    correct: Math.floor(value.correct),
+    wrong: Math.floor(value.wrong),
+    accuracy: Math.min(100, Math.floor(value.accuracy)),
+    mode: value.mode,
+    durationSec: Math.floor(value.durationSec)
+  };
 }
 
 export function loadHistory(storage = memorySafeStorage()) {
   const value = readJson(storage, STORAGE_KEYS.history, []);
-  return Array.isArray(value) ? value.slice(-50) : [];
+  if (!Array.isArray(value)) return [];
+  return value.map(sanitizeHistoryEntry).filter(Boolean).slice(-50);
 }
 
 export function saveHistory(history, storage = memorySafeStorage()) {
-  return writeJson(storage, STORAGE_KEYS.history, history.slice(-50));
+  const entries = Array.isArray(history) ? history.map(sanitizeHistoryEntry).filter(Boolean) : [];
+  return writeJson(storage, STORAGE_KEYS.history, entries.slice(-50));
+}
+
+function sanitizeStreak(value) {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return null;
+  if (![value.current, value.longest].every(number => Number.isFinite(number) && number >= 0)) return null;
+  const lastDate = value.lastDate ?? null;
+  if (lastDate !== null && (typeof lastDate !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(lastDate))) return null;
+  return {
+    current: Math.floor(value.current),
+    longest: Math.floor(value.longest),
+    lastDate
+  };
 }
 
 export function loadStreak(storage = memorySafeStorage()) {
   const value = readJson(storage, STORAGE_KEYS.streak, {});
-  return {
-    current: Number.isFinite(value?.current) ? value.current : 0,
-    longest: Number.isFinite(value?.longest) ? value.longest : 0,
-    lastDate: typeof value?.lastDate === 'string' ? value.lastDate : null
-  };
+  return sanitizeStreak(value) || { current: 0, longest: 0, lastDate: null };
 }
 
 export function saveStreak(streak, storage = memorySafeStorage()) {
-  return writeJson(storage, STORAGE_KEYS.streak, streak);
+  return writeJson(storage, STORAGE_KEYS.streak, sanitizeStreak(streak) || { current: 0, longest: 0, lastDate: null });
 }
 
 export function exportProgressBundle({ progress, prefs, favorites, history, streak }) {
@@ -431,24 +473,23 @@ export function validateImportPayload(payload, validIds = null) {
     if (!validIds || validIds.has(id)) progress[id] = sanitized;
   }
   if (!Array.isArray(payload.favorites) || payload.favorites.some(id => typeof id !== 'string')) throw new Error('favorites phải là một mảng chuỗi.');
-  if (!Array.isArray(payload.history) || payload.history.some(item => !item || typeof item !== 'object')) throw new Error('history không hợp lệ.');
+  if (!Array.isArray(payload.history)) throw new Error('history không hợp lệ.');
+  const history = payload.history.map(sanitizeHistoryEntry);
+  if (history.some(item => !item)) throw new Error('history không hợp lệ.');
   if (!payload.streak || typeof payload.streak !== 'object' || Array.isArray(payload.streak)) throw new Error('streak không hợp lệ.');
+  const streak = sanitizeStreak(payload.streak);
+  if (!streak) throw new Error('streak không hợp lệ.');
   if (payload.prefs !== undefined && (!payload.prefs || typeof payload.prefs !== 'object' || Array.isArray(payload.prefs))) throw new Error('prefs không hợp lệ.');
   const importedPrefs = { ...DEFAULT_PREFS, ...(payload.prefs || {}) };
   if (![10, 20, 30, 50].includes(Number(importedPrefs.sessionSize)) || typeof importedPrefs.keyboardShortcuts !== 'boolean' || typeof importedPrefs.darkMode !== 'boolean') {
     throw new Error('prefs chứa giá trị không hợp lệ.');
   }
-  if (![payload.streak.current, payload.streak.longest].every(value => Number.isFinite(value) && value >= 0)) throw new Error('streak chứa số không hợp lệ.');
   return {
     progress,
     prefs: { ...importedPrefs, sessionSize: Number(importedPrefs.sessionSize) },
     favorites: new Set(validIds ? payload.favorites.filter(id => validIds.has(id)) : payload.favorites),
-    history: payload.history.slice(-50),
-    streak: {
-      current: payload.streak.current,
-      longest: payload.streak.longest,
-      lastDate: typeof payload.streak.lastDate === 'string' ? payload.streak.lastDate : null
-    }
+    history: history.slice(-50),
+    streak
   };
 }
 
@@ -462,6 +503,27 @@ function fingerprint(text) {
   return `${text.length.toString(16)}-${(hash >>> 0).toString(16).padStart(8, '0')}`;
 }
 
+function validateRuntimeEntry(entry, index) {
+  if (!entry || typeof entry !== 'object' || Array.isArray(entry)) return `Entry ${index + 1} phải là object.`;
+  if (typeof entry.id !== 'string' || !/^[A-Za-z0-9][A-Za-z0-9._-]*$/.test(entry.id.trim())) return `Entry ${index + 1} có id không hợp lệ.`;
+  for (const field of ['word', 'pos', 'meaning']) {
+    if (typeof entry[field] !== 'string' || !entry[field].trim()) return `Entry ${index + 1} thiếu ${field}.`;
+  }
+  if (entry.examples !== undefined) {
+    if (!Array.isArray(entry.examples)) return `Entry ${index + 1} có examples không hợp lệ.`;
+    if (entry.examples.some(example => !example || typeof example !== 'object' || Array.isArray(example)
+      || typeof example.en !== 'string' || !example.en.trim()
+      || typeof example.vi !== 'string' || !example.vi.trim())) {
+      return `Entry ${index + 1} có example không hợp lệ.`;
+    }
+  }
+  if (entry.tags !== undefined && (!Array.isArray(entry.tags)
+    || entry.tags.some(tag => typeof tag !== 'string' || !tag.trim()))) return `Entry ${index + 1} có tags không hợp lệ.`;
+  if (entry.difficulty !== undefined && (typeof entry.difficulty !== 'number'
+    || !Number.isFinite(entry.difficulty) || entry.difficulty < 0 || entry.difficulty > 5)) return `Entry ${index + 1} có difficulty không hợp lệ.`;
+  return null;
+}
+
 export async function loadVocabulary(url = './data/vocabulary.json') {
   const separator = url.includes('?') ? '&' : '?';
   const response = await fetch(`${url}${separator}refresh=${Date.now()}`, { cache: 'no-store' });
@@ -473,11 +535,13 @@ export async function loadVocabulary(url = './data/vocabulary.json') {
   const ids = new Set();
   const words = new Set();
   for (const [index, entry] of data.entries()) {
-    if (!entry || typeof entry !== 'object' || !entry.id || !entry.word || !entry.meaning) throw new Error(`Entry ${index + 1} thiếu id, word hoặc meaning.`);
+    const validationError = validateRuntimeEntry(entry, index);
+    if (validationError) throw new Error(validationError);
+    const id = entry.id.trim().toLowerCase();
     const word = normalize(entry.word);
-    if (ids.has(entry.id)) throw new Error(`Trùng ID trong dữ liệu: ${entry.id}`);
+    if (ids.has(id)) throw new Error(`Trùng ID trong dữ liệu: ${entry.id}`);
     if (words.has(word)) throw new Error(`Trùng word trong dữ liệu: ${entry.word}`);
-    ids.add(entry.id); words.add(word);
+    ids.add(id); words.add(word);
   }
   return { data, version: fingerprint(raw) };
 }
@@ -499,7 +563,14 @@ function exampleHtml(entry) {
   return `<div class="example"><strong>Ví dụ</strong><br><em>${escapeHtml(example.en)}</em>${example.vi ? `<br><span>${escapeHtml(example.vi)}</span>` : ''}</div>`;
 }
 
-function todayKey() { return new Date().toISOString().slice(0, 10); }
+function dateKey(date = new Date()) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+function todayKey() { return dateKey(); }
 
 export async function createApp(root) {
   let loaded;
@@ -539,7 +610,9 @@ export async function createApp(root) {
   function updateStreak() {
     const today = todayKey();
     if (streak.lastDate === today) return;
-    const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+    const yesterdayDate = new Date();
+    yesterdayDate.setDate(yesterdayDate.getDate() - 1);
+    const yesterday = dateKey(yesterdayDate);
     streak.current = streak.lastDate === yesterday ? streak.current + 1 : 1;
     streak.longest = Math.max(streak.longest, streak.current);
     streak.lastDate = today;
@@ -658,7 +731,6 @@ export async function createApp(root) {
     sessionSummary = null;
     lastAnswered = null;
     repeatQueued = false;
-    updateStreak();
     nextQuestion();
     renderShell();
   }
@@ -729,6 +801,7 @@ export async function createApp(root) {
     answered = true;
     answerResult = { correct, selected: answer };
     lastAnswered = item;
+    updateStreak();
     repeatQueued = false;
     if (correct) sessionStats.correct += 1; else sessionStats.wrong += 1;
     persist();

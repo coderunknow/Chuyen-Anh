@@ -65,6 +65,8 @@ def validate(data: Any) -> list[str]:
             problem(errors, index, entry, "missing or empty pos")
         if not isinstance(meaning, str) or not meaning.strip():
             problem(errors, index, entry, "missing or empty meaning")
+        elif re.search(r"\|[+-]{1,2}$", meaning.strip()):
+            problem(errors, index, entry, "meaning contains an unconverted legacy difficulty marker")
 
         examples = entry.get("examples")
         if not isinstance(examples, list):

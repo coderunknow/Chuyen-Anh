@@ -3673,9 +3673,11 @@
     "id": "368",
     "word": "Plummet",
     "pos": "v",
-    "meaning": "lao dốc, giảm mạnh đột ngột|--",
+    "meaning": "lao dốc, giảm mạnh đột ngột",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "very-easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -3695,9 +3697,11 @@
     "id": "370",
     "word": "Wane",
     "pos": "v/n",
-    "meaning": "suy yếu, giảm dần; sự suy giảm|-",
+    "meaning": "suy yếu, giảm dần; sự suy giảm",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -3717,9 +3721,11 @@
     "id": "372",
     "word": "Squander",
     "pos": "v",
-    "meaning": "phung phí, lãng phí|--",
+    "meaning": "phung phí, lãng phí",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "very-easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -3739,9 +3745,11 @@
     "id": "374",
     "word": "Thwart",
     "pos": "v",
-    "meaning": "ngăn cản, làm thất bại|-",
+    "meaning": "ngăn cản, làm thất bại",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -3749,9 +3757,11 @@
     "id": "375",
     "word": "Lament",
     "pos": "v/n",
-    "meaning": "than khóc, than tiếc; lời than, sự than tiếc|-",
+    "meaning": "than khóc, than tiếc; lời than, sự than tiếc",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -3771,9 +3781,11 @@
     "id": "377",
     "word": "Usurp",
     "pos": "v",
-    "meaning": "tiếm quyền, chiếm đoạt trái phép|--",
+    "meaning": "tiếm quyền, chiếm đoạt trái phép",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "very-easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -3825,9 +3837,11 @@
     "id": "382",
     "word": "Obliterate",
     "pos": "v",
-    "meaning": "xóa sổ, hủy diệt hoàn toàn|--",
+    "meaning": "xóa sổ, hủy diệt hoàn toàn",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "very-easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -3835,9 +3849,11 @@
     "id": "383",
     "word": "Baffle",
     "pos": "v",
-    "meaning": "làm bối rối, khiến không thể hiểu|-",
+    "meaning": "làm bối rối, khiến không thể hiểu",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -3867,9 +3883,11 @@
     "id": "386",
     "word": "Confound",
     "pos": "v",
-    "meaning": "làm bối rối, làm lẫn lộn; làm thất bại dự đoán của ai|-",
+    "meaning": "làm bối rối, làm lẫn lộn; làm thất bại dự đoán của ai",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -3877,9 +3895,11 @@
     "id": "387",
     "word": "Hamper",
     "pos": "v",
-    "meaning": "cản trở, gây trở ngại|-",
+    "meaning": "cản trở, gây trở ngại",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -3909,9 +3929,11 @@
     "id": "390",
     "word": "Aggravate",
     "pos": "v",
-    "meaning": "làm trầm trọng thêm|--",
+    "meaning": "làm trầm trọng thêm",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "very-easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -3929,9 +3951,11 @@
     "id": "392",
     "word": "Ravage",
     "pos": "v",
-    "meaning": "tàn phá, hủy hoại nghiêm trọng|--",
+    "meaning": "tàn phá, hủy hoại nghiêm trọng",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "very-easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -3939,9 +3963,11 @@
     "id": "393",
     "word": "Compel",
     "pos": "v",
-    "meaning": "ép buộc, cưỡng bách|-",
+    "meaning": "ép buộc, cưỡng bách",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -3959,9 +3985,11 @@
     "id": "395",
     "word": "Tarnish",
     "pos": "v",
-    "meaning": "làm hoen ố, làm mất vẻ sáng; làm tổn hại danh tiếng|--",
+    "meaning": "làm hoen ố, làm mất vẻ sáng; làm tổn hại danh tiếng",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "very-easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -3981,9 +4009,11 @@
     "id": "397",
     "word": "Enfeeble",
     "pos": "v",
-    "meaning": "làm suy yếu, làm mất sức|--",
+    "meaning": "làm suy yếu, làm mất sức",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "very-easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -4015,9 +4045,11 @@
     "id": "400",
     "word": "Undermine",
     "pos": "v",
-    "meaning": "phá hoại ngầm, làm suy yếu|--",
+    "meaning": "phá hoại ngầm, làm suy yếu",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "very-easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -4037,9 +4069,11 @@
     "id": "402",
     "word": "Besiege",
     "pos": "v",
-    "meaning": "bao vây, vây hãm; gây áp lực liên tục|-",
+    "meaning": "bao vây, vây hãm; gây áp lực liên tục",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -4047,9 +4081,11 @@
     "id": "403",
     "word": "Dwindle",
     "pos": "v",
-    "meaning": "giảm dần, nhỏ dần, suy giảm|-",
+    "meaning": "giảm dần, nhỏ dần, suy giảm",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -4113,9 +4149,11 @@
     "id": "409",
     "word": "Warp",
     "pos": "v/n",
-    "meaning": "làm cong vênh, bóp méo; sự cong vênh|--",
+    "meaning": "làm cong vênh, bóp méo; sự cong vênh",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "very-easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -4123,9 +4161,11 @@
     "id": "410",
     "word": "Hinder",
     "pos": "v",
-    "meaning": "cản trở, gây trở ngại|-",
+    "meaning": "cản trở, gây trở ngại",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -4145,9 +4185,11 @@
     "id": "412",
     "word": "Negate",
     "pos": "v",
-    "meaning": "phủ định, vô hiệu hóa|-",
+    "meaning": "phủ định, vô hiệu hóa",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -4175,9 +4217,11 @@
     "id": "415",
     "word": "Languish",
     "pos": "v",
-    "meaning": "suy nhược, héo úa, trì trệ|--",
+    "meaning": "suy nhược, héo úa, trì trệ",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "very-easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -4195,9 +4239,11 @@
     "id": "417",
     "word": "Jeopardize",
     "pos": "v",
-    "meaning": "đe dọa, gây nguy hiểm|--",
+    "meaning": "đe dọa, gây nguy hiểm",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "very-easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -4249,9 +4295,11 @@
     "id": "422",
     "word": "Aftermath",
     "pos": "n",
-    "meaning": "hậu quả, thời kỳ sau biến cố|-",
+    "meaning": "hậu quả, thời kỳ sau biến cố",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -4309,9 +4357,11 @@
     "id": "428",
     "word": "Preclude",
     "pos": "v",
-    "meaning": "loại trừ, ngăn không cho xảy ra|-",
+    "meaning": "loại trừ, ngăn không cho xảy ra",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -4361,9 +4411,11 @@
     "id": "433",
     "word": "Contradict",
     "pos": "v",
-    "meaning": "mâu thuẫn, bác bỏ|-",
+    "meaning": "mâu thuẫn, bác bỏ",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -4371,9 +4423,11 @@
     "id": "434",
     "word": "Deprive",
     "pos": "v",
-    "meaning": "tước đoạt, làm mất|-",
+    "meaning": "tước đoạt, làm mất",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -4381,9 +4435,11 @@
     "id": "435",
     "word": "Incur",
     "pos": "v",
-    "meaning": "phải gánh chịu, mắc phải|-",
+    "meaning": "phải gánh chịu, mắc phải",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -4513,9 +4569,11 @@
     "id": "447",
     "word": "Tentative",
     "pos": "adj",
-    "meaning": "tạm thời, chưa chắc chắn|-",
+    "meaning": "tạm thời, chưa chắc chắn",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -4561,9 +4619,11 @@
     "id": "451",
     "word": "Derivative",
     "pos": "adj/n",
-    "meaning": "bắt chước, ăn theo, thiếu tính nguyên bản / sản phẩm phái sinh|-",
+    "meaning": "bắt chước, ăn theo, thiếu tính nguyên bản / sản phẩm phái sinh",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -4591,9 +4651,11 @@
     "id": "454",
     "word": "A bit of a stretch",
     "pos": "idiom",
-    "meaning": "hơi quá, hơi cường điệu; điều khó tin hoặc khó chấp nhận|-",
+    "meaning": "hơi quá, hơi cường điệu; điều khó tin hoặc khó chấp nhận",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -4655,9 +4717,11 @@
     "id": "460",
     "word": "Discursive",
     "pos": "adj",
-    "meaning": "lan man, tản mạn, nhảy từ ý này sang ý khác|-",
+    "meaning": "lan man, tản mạn, nhảy từ ý này sang ý khác",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -4665,9 +4729,11 @@
     "id": "461",
     "word": "Discursively",
     "pos": "adv",
-    "meaning": "một cách lan man, tản mạn|-",
+    "meaning": "một cách lan man, tản mạn",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -4675,9 +4741,11 @@
     "id": "462",
     "word": "Discursiveness",
     "pos": "n",
-    "meaning": "tính lan man, tản mạn|-",
+    "meaning": "tính lan man, tản mạn",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -4685,9 +4753,11 @@
     "id": "463",
     "word": "Pretentious",
     "pos": "adj",
-    "meaning": "phô trương, làm ra vẻ quan trọng/hiểu biết hơn thực tế|--",
+    "meaning": "phô trương, làm ra vẻ quan trọng/hiểu biết hơn thực tế",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "very-easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -4695,9 +4765,11 @@
     "id": "464",
     "word": "Pretentiousness",
     "pos": "n",
-    "meaning": "sự phô trương, làm màu, kiểu cách|--",
+    "meaning": "sự phô trương, làm màu, kiểu cách",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "very-easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -4705,9 +4777,11 @@
     "id": "465",
     "word": "Pretension",
     "pos": "n",
-    "meaning": "sự tự nhận (có phẩm chất/địa vị) không thật; sự phô trương|-",
+    "meaning": "sự tự nhận (có phẩm chất/địa vị) không thật; sự phô trương",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -4715,9 +4789,11 @@
     "id": "466",
     "word": "Fastidiously",
     "pos": "adv",
-    "meaning": "một cách kỹ tính, cầu kỳ đến mức khó tính|-",
+    "meaning": "một cách kỹ tính, cầu kỳ đến mức khó tính",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -4725,9 +4801,11 @@
     "id": "467",
     "word": "Fastidiousness",
     "pos": "n",
-    "meaning": "tính kỹ tính, khó tính, cầu kỳ|-",
+    "meaning": "tính kỹ tính, khó tính, cầu kỳ",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -4801,9 +4879,11 @@
     "id": "474",
     "word": "Far-fetched",
     "pos": "adj",
-    "meaning": "khó tin, phi lý, gượng ép|-",
+    "meaning": "khó tin, phi lý, gượng ép",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -4843,9 +4923,11 @@
     "id": "478",
     "word": "Ephemerality",
     "pos": "n",
-    "meaning": "tính ngắn ngủi, chóng tàn, phù du|-",
+    "meaning": "tính ngắn ngủi, chóng tàn, phù du",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -4873,9 +4955,11 @@
     "id": "481",
     "word": "Volatile",
     "pos": "adj",
-    "meaning": "dễ biến động, bất ổn; thất thường, dễ bùng nổ (tính khí); dễ bay hơi|-",
+    "meaning": "dễ biến động, bất ổn; thất thường, dễ bùng nổ (tính khí); dễ bay hơi",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -4883,9 +4967,11 @@
     "id": "482",
     "word": "Volatility",
     "pos": "n",
-    "meaning": "tính biến động, bất ổn; tính thất thường|-",
+    "meaning": "tính biến động, bất ổn; tính thất thường",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -4925,9 +5011,11 @@
     "id": "486",
     "word": "Snap judgment",
     "pos": "collocation",
-    "meaning": "phán đoán vội vàng, quyết định chớp nhoáng thiếu cân nhắc|-",
+    "meaning": "phán đoán vội vàng, quyết định chớp nhoáng thiếu cân nhắc",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -4975,9 +5063,11 @@
     "id": "491",
     "word": "Repellent",
     "pos": "adj/n",
-    "meaning": "gây ghê tởm, khó chịu; có tác dụng xua đuổi / chất xua đuổi (côn trùng)|-",
+    "meaning": "gây ghê tởm, khó chịu; có tác dụng xua đuổi / chất xua đuổi (côn trùng)",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -4985,9 +5075,11 @@
     "id": "492",
     "word": "Averse",
     "pos": "adj",
-    "meaning": "không ưa, ác cảm, phản đối (averse to sth; risk-averse)|-",
+    "meaning": "không ưa, ác cảm, phản đối (averse to sth; risk-averse)",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -4995,9 +5087,11 @@
     "id": "493",
     "word": "Aversion",
     "pos": "n",
-    "meaning": "sự ác cảm, ghét cay ghét đắng (aversion to sth)|-",
+    "meaning": "sự ác cảm, ghét cay ghét đắng (aversion to sth)",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -5015,9 +5109,11 @@
     "id": "495",
     "word": "Anecdotal evidence",
     "pos": "collocation",
-    "meaning": "bằng chứng giai thoại, dựa trên trải nghiệm cá nhân thay vì dữ liệu hệ thống|-",
+    "meaning": "bằng chứng giai thoại, dựa trên trải nghiệm cá nhân thay vì dữ liệu hệ thống",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -5081,9 +5177,11 @@
     "id": "501",
     "word": "Muscle in on",
     "pos": "phrasal v",
-    "meaning": "chen chân vào, xía vào để giành phần lợi/quyền lực|--",
+    "meaning": "chen chân vào, xía vào để giành phần lợi/quyền lực",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "very-easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -5091,9 +5189,11 @@
     "id": "502",
     "word": "Pander to",
     "pos": "phrasal v",
-    "meaning": "chiều theo, nuông chiều (thị hiếu tầm thường, điểm yếu của ai) để lấy lòng|--",
+    "meaning": "chiều theo, nuông chiều (thị hiếu tầm thường, điểm yếu của ai) để lấy lòng",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "very-easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -5121,9 +5221,11 @@
     "id": "505",
     "word": "Incorrigibility",
     "pos": "n",
-    "meaning": "tính không thể sửa chữa, không thể cải tạo (tật xấu, con người)|--",
+    "meaning": "tính không thể sửa chữa, không thể cải tạo (tật xấu, con người)",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "very-easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -5131,9 +5233,11 @@
     "id": "506",
     "word": "Irreverent",
     "pos": "adj",
-    "meaning": "bất kính, thiếu tôn trọng (thường theo lối hài hước, châm biếm)|-",
+    "meaning": "bất kính, thiếu tôn trọng (thường theo lối hài hước, châm biếm)",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -5141,9 +5245,11 @@
     "id": "507",
     "word": "Irreverence",
     "pos": "n",
-    "meaning": "sự bất kính, thái độ thiếu tôn trọng|-",
+    "meaning": "sự bất kính, thái độ thiếu tôn trọng",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -5163,9 +5269,11 @@
     "id": "509",
     "word": "Irreconcilable",
     "pos": "adj",
-    "meaning": "không thể hòa giải, không thể dung hòa (mâu thuẫn, khác biệt)|--",
+    "meaning": "không thể hòa giải, không thể dung hòa (mâu thuẫn, khác biệt)",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "very-easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -5173,9 +5281,11 @@
     "id": "510",
     "word": "Irreconcilability",
     "pos": "n",
-    "meaning": "tính không thể hòa giải, không thể dung hòa|--",
+    "meaning": "tính không thể hòa giải, không thể dung hòa",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "very-easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -5193,9 +5303,11 @@
     "id": "512",
     "word": "In the balance",
     "pos": "idiom",
-    "meaning": "chưa ngã ngũ, ở thế bấp bênh chưa biết kết cục|-",
+    "meaning": "chưa ngã ngũ, ở thế bấp bênh chưa biết kết cục",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -5203,9 +5315,11 @@
     "id": "513",
     "word": "On the back burner",
     "pos": "idiom",
-    "meaning": "bị tạm gác lại, để xử lý sau|-",
+    "meaning": "bị tạm gác lại, để xử lý sau",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -5213,9 +5327,11 @@
     "id": "514",
     "word": "Against the grain",
     "pos": "idiom",
-    "meaning": "trái với bản tính, thói quen hoặc xu hướng chung|-",
+    "meaning": "trái với bản tính, thói quen hoặc xu hướng chung",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -5233,9 +5349,11 @@
     "id": "516",
     "word": "Write off",
     "pos": "phrasal v",
-    "meaning": "coi (ai/cái gì) là thất bại, vô vọng; xóa nợ; xem xe hỏng không sửa được|-",
+    "meaning": "coi (ai/cái gì) là thất bại, vô vọng; xóa nợ; xem xe hỏng không sửa được",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -5285,9 +5403,11 @@
     "id": "521",
     "word": "Cut corners",
     "pos": "idiom",
-    "meaning": "làm tắt, làm ẩu để tiết kiệm thời gian/tiền|--",
+    "meaning": "làm tắt, làm ẩu để tiết kiệm thời gian/tiền",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "very-easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -5305,9 +5425,11 @@
     "id": "523",
     "word": "Out on a limb",
     "pos": "idiom",
-    "meaning": "ở thế đơn độc, mạo hiểm, không được ai ủng hộ|-",
+    "meaning": "ở thế đơn độc, mạo hiểm, không được ai ủng hộ",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -5315,9 +5437,11 @@
     "id": "524",
     "word": "On a hiding to nothing",
     "pos": "idiom",
-    "meaning": "ở thế chắc chắn thất bại, làm cũng không được gì|--",
+    "meaning": "ở thế chắc chắn thất bại, làm cũng không được gì",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "very-easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -5325,9 +5449,11 @@
     "id": "525",
     "word": "In the doldrums",
     "pos": "idiom",
-    "meaning": "trì trệ, ảm đạm; buồn chán, ủ rũ|--",
+    "meaning": "trì trệ, ảm đạm; buồn chán, ủ rũ",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "very-easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -5335,9 +5461,11 @@
     "id": "526",
     "word": "Burn one's bridges/boats",
     "pos": "idiom",
-    "meaning": "tự chặt đứt đường lui, không còn đường quay lại|--",
+    "meaning": "tự chặt đứt đường lui, không còn đường quay lại",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "very-easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -5487,9 +5615,11 @@
     "id": "540",
     "word": "Ingrained",
     "pos": "adj",
-    "meaning": "ăn sâu, bén rễ, khó thay đổi (thói quen, định kiến)|-",
+    "meaning": "ăn sâu, bén rễ, khó thay đổi (thói quen, định kiến)",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -5517,9 +5647,11 @@
     "id": "543",
     "word": "Apprehension",
     "pos": "n",
-    "meaning": "nỗi lo âu, e sợ về điều sắp xảy ra; sự bắt giữ; sự lĩnh hội|-",
+    "meaning": "nỗi lo âu, e sợ về điều sắp xảy ra; sự bắt giữ; sự lĩnh hội",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -5557,9 +5689,11 @@
     "id": "547",
     "word": "Rear its (ugly) head",
     "pos": "idiom",
-    "meaning": "(vấn đề, nguy cơ) bắt đầu ló dạng, xuất hiện trở lại|--",
+    "meaning": "(vấn đề, nguy cơ) bắt đầu ló dạng, xuất hiện trở lại",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "very-easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -5577,9 +5711,11 @@
     "id": "549",
     "word": "Summarily",
     "pos": "adv",
-    "meaning": "một cách nhanh chóng, dứt khoát, không qua thủ tục đầy đủ (dismissed summarily)|-",
+    "meaning": "một cách nhanh chóng, dứt khoát, không qua thủ tục đầy đủ (dismissed summarily)",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -5637,9 +5773,11 @@
     "id": "555",
     "word": "Obsolescence",
     "pos": "n",
-    "meaning": "sự lỗi thời, tình trạng không còn được dùng (planned obsolescence)|-",
+    "meaning": "sự lỗi thời, tình trạng không còn được dùng (planned obsolescence)",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -5667,9 +5805,11 @@
     "id": "558",
     "word": "Cling to",
     "pos": "phrasal v",
-    "meaning": "bám chặt vào; khư khư bám giữ (niềm tin, hy vọng, quyền lực)|-",
+    "meaning": "bám chặt vào; khư khư bám giữ (niềm tin, hy vọng, quyền lực)",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -5677,9 +5817,11 @@
     "id": "559",
     "word": "Reactionary",
     "pos": "adj/n",
-    "meaning": "phản động, bảo thủ cực đoan, muốn quay về trật tự cũ / người có tư tưởng đó|--",
+    "meaning": "phản động, bảo thủ cực đoan, muốn quay về trật tự cũ / người có tư tưởng đó",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "very-easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -5721,9 +5863,11 @@
     "id": "563",
     "word": "Marginal",
     "pos": "adj",
-    "meaning": "nhỏ, không đáng kể; ở bên lề, thứ yếu|-",
+    "meaning": "nhỏ, không đáng kể; ở bên lề, thứ yếu",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -5731,9 +5875,11 @@
     "id": "564",
     "word": "Marginalize",
     "pos": "v",
-    "meaning": "gạt ra bên lề, làm cho (nhóm/người) mất tiếng nói và cơ hội|--",
+    "meaning": "gạt ra bên lề, làm cho (nhóm/người) mất tiếng nói và cơ hội",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "very-easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -5741,9 +5887,11 @@
     "id": "565",
     "word": "AI slop",
     "pos": "n",
-    "meaning": "nội dung do AI tạo hàng loạt, chất lượng thấp, vô giá trị|--",
+    "meaning": "nội dung do AI tạo hàng loạt, chất lượng thấp, vô giá trị",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "very-easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -5761,9 +5909,11 @@
     "id": "567",
     "word": "Soap opera",
     "pos": "n",
-    "meaning": "phim truyền hình dài tập nhiều drama tình cảm|-",
+    "meaning": "phim truyền hình dài tập nhiều drama tình cảm",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -5771,9 +5921,11 @@
     "id": "568",
     "word": "Churn out",
     "pos": "phrasal v",
-    "meaning": "sản xuất hàng loạt, nhanh và nhiều (thường kém chất lượng)|-",
+    "meaning": "sản xuất hàng loạt, nhanh và nhiều (thường kém chất lượng)",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -5791,9 +5943,11 @@
     "id": "570",
     "word": "Insidious",
     "pos": "adj",
-    "meaning": "ngấm ngầm, âm ỉ gây hại theo cách khó nhận ra|--",
+    "meaning": "ngấm ngầm, âm ỉ gây hại theo cách khó nhận ra",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "very-easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -5801,9 +5955,11 @@
     "id": "571",
     "word": "Insidiously",
     "pos": "adv",
-    "meaning": "một cách ngấm ngầm, âm ỉ, khó nhận thấy|--",
+    "meaning": "một cách ngấm ngầm, âm ỉ, khó nhận thấy",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "very-easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -5811,9 +5967,11 @@
     "id": "572",
     "word": "Underbelly",
     "pos": "n",
-    "meaning": "mặt tối, góc khuất (của xã hội, thành phố); điểm yếu dễ tổn thương|--",
+    "meaning": "mặt tối, góc khuất (của xã hội, thành phố); điểm yếu dễ tổn thương",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "very-easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -5841,9 +5999,11 @@
     "id": "575",
     "word": "Rampant",
     "pos": "adj",
-    "meaning": "tràn lan, hoành hành không kiểm soát (tội phạm, dịch bệnh, lạm phát)|--",
+    "meaning": "tràn lan, hoành hành không kiểm soát (tội phạm, dịch bệnh, lạm phát)",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "very-easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -5907,9 +6067,11 @@
     "id": "581",
     "word": "Shrinking violet",
     "pos": "idiom",
-    "meaning": "người cực kỳ nhút nhát, rụt rè|-",
+    "meaning": "người cực kỳ nhút nhát, rụt rè",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -5917,9 +6079,11 @@
     "id": "582",
     "word": "Strident",
     "pos": "adj",
-    "meaning": "chói tai, gay gắt; (quan điểm) quyết liệt, hùng hổ đến khó chịu|-",
+    "meaning": "chói tai, gay gắt; (quan điểm) quyết liệt, hùng hổ đến khó chịu",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -5927,9 +6091,11 @@
     "id": "583",
     "word": "Incendiary device",
     "pos": "collocation",
-    "meaning": "thiết bị gây cháy, bom cháy|--",
+    "meaning": "thiết bị gây cháy, bom cháy",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "very-easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -5957,9 +6123,11 @@
     "id": "586",
     "word": "Plethora",
     "pos": "n",
-    "meaning": "số lượng quá nhiều, thừa mứa (a plethora of)|-",
+    "meaning": "số lượng quá nhiều, thừa mứa (a plethora of)",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -5967,9 +6135,11 @@
     "id": "587",
     "word": "Chronically",
     "pos": "adv",
-    "meaning": "một cách kinh niên, dai dẳng kéo dài (chronically ill, chronically underfunded)|-",
+    "meaning": "một cách kinh niên, dai dẳng kéo dài (chronically ill, chronically underfunded)",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -5977,9 +6147,11 @@
     "id": "588",
     "word": "Chronic",
     "pos": "adj",
-    "meaning": "mãn tính, kinh niên; dai dẳng, kéo dài (bệnh, vấn đề)|-",
+    "meaning": "mãn tính, kinh niên; dai dẳng, kéo dài (bệnh, vấn đề)",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -5987,9 +6159,11 @@
     "id": "589",
     "word": "Chronicity",
     "pos": "n",
-    "meaning": "tính mãn tính, tính kéo dài dai dẳng (thuật ngữ y khoa)|-",
+    "meaning": "tính mãn tính, tính kéo dài dai dẳng (thuật ngữ y khoa)",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -6059,9 +6233,11 @@
     "id": "596",
     "word": "Crony",
     "pos": "n",
-    "meaning": "bạn bè thân hữu của người có quyền (được ưu ái) — sắc thái khinh miệt|--",
+    "meaning": "bạn bè thân hữu của người có quyền (được ưu ái) — sắc thái khinh miệt",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "very-easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -6069,9 +6245,11 @@
     "id": "597",
     "word": "Cronyism",
     "pos": "n",
-    "meaning": "nạn thân hữu, thiên vị bạn bè trong việc bổ nhiệm/trao quyền lợi|--",
+    "meaning": "nạn thân hữu, thiên vị bạn bè trong việc bổ nhiệm/trao quyền lợi",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "very-easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -6125,9 +6303,11 @@
     "id": "602",
     "word": "Jargon",
     "pos": "n",
-    "meaning": "biệt ngữ, thuật ngữ chuyên ngành khó hiểu với người ngoài|-",
+    "meaning": "biệt ngữ, thuật ngữ chuyên ngành khó hiểu với người ngoài",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -6147,9 +6327,11 @@
     "id": "604",
     "word": "Herbicide",
     "pos": "n",
-    "meaning": "thuốc diệt cỏ|-",
+    "meaning": "thuốc diệt cỏ",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
@@ -6157,9 +6339,11 @@
     "id": "605",
     "word": "Insecticide",
     "pos": "n",
-    "meaning": "thuốc trừ sâu, thuốc diệt côn trùng|-",
+    "meaning": "thuốc trừ sâu, thuốc diệt côn trùng",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "easy"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22"
   },
