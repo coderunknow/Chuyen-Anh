@@ -1,0 +1,3862 @@
+{
+  "corpus": {
+    "glob": "De-chuyen-Anh-vao-10/*/*/*.md",
+    "section": "## Đề thi và phần kèm theo trong nguồn",
+    "file_count": 106,
+    "note": "Exact whole-token selected-form coverage only; no prefixes/stemming. Includes instructions, options, answer keys and transcripts. Not sense-disambiguated or independent-exam frequency. Compounds explicitly allowed only where listed; lists are not exhaustive."
+  },
+  "entries": [
+    {
+      "id": 614,
+      "word": "Acquire",
+      "forms": [
+        "acquire",
+        "acquired",
+        "acquires",
+        "acquiring",
+        "acquisition",
+        "acquisitions"
+      ]
+    },
+    {
+      "id": 615,
+      "word": "Adapt",
+      "forms": [
+        "adapt",
+        "adaptability",
+        "adaptable",
+        "adaptation",
+        "adaptations",
+        "adapted",
+        "adapting",
+        "adapts"
+      ]
+    },
+    {
+      "id": 616,
+      "word": "Allocate",
+      "forms": [
+        "allocate",
+        "allocated",
+        "allocates",
+        "allocating",
+        "allocation",
+        "allocations"
+      ]
+    },
+    {
+      "id": 617,
+      "word": "Anticipate",
+      "forms": [
+        "anticipate",
+        "anticipated",
+        "anticipates",
+        "anticipating",
+        "anticipation"
+      ]
+    },
+    {
+      "id": 618,
+      "word": "Assess",
+      "forms": [
+        "assess",
+        "assessed",
+        "assesses",
+        "assessing",
+        "assessment",
+        "assessments",
+        "assessor",
+        "assessors"
+      ]
+    },
+    {
+      "id": 619,
+      "word": "Assume",
+      "forms": [
+        "assume",
+        "assumed",
+        "assumes",
+        "assuming",
+        "assumption",
+        "assumptions"
+      ]
+    },
+    {
+      "id": 620,
+      "word": "Clarification",
+      "forms": [
+        "clarification",
+        "clarifications",
+        "clarified",
+        "clarifies",
+        "clarify",
+        "clarifying",
+        "clarity"
+      ]
+    },
+    {
+      "id": 621,
+      "word": "Conduct",
+      "forms": [
+        "conduct",
+        "conducted",
+        "conducting",
+        "conduction",
+        "conductive",
+        "conductor",
+        "conductors",
+        "conducts"
+      ]
+    },
+    {
+      "id": 622,
+      "word": "Confirm",
+      "forms": [
+        "confirm",
+        "confirmation",
+        "confirmations",
+        "confirmed",
+        "confirming",
+        "confirms"
+      ]
+    },
+    {
+      "id": 623,
+      "word": "Considerable",
+      "forms": [
+        "consider",
+        "considerable",
+        "considerably",
+        "considerate",
+        "considerately",
+        "consideration",
+        "considerations",
+        "considered",
+        "considering",
+        "considers"
+      ]
+    },
+    {
+      "id": 624,
+      "word": "Consistent",
+      "forms": [
+        "consistency",
+        "consistent",
+        "consistently",
+        "inconsistencies",
+        "inconsistency",
+        "inconsistent",
+        "inconsistently"
+      ]
+    },
+    {
+      "id": 625,
+      "word": "Conventional",
+      "forms": [
+        "convention",
+        "conventional",
+        "conventionally",
+        "conventions",
+        "unconventional",
+        "unconventionally"
+      ]
+    },
+    {
+      "id": 626,
+      "word": "Crucial",
+      "forms": [
+        "crucial",
+        "crucially"
+      ]
+    },
+    {
+      "id": 627,
+      "word": "Superior",
+      "forms": [
+        "superior",
+        "superiority",
+        "superiors"
+      ]
+    },
+    {
+      "id": 628,
+      "word": "Demonstrate",
+      "forms": [
+        "demonstrable",
+        "demonstrably",
+        "demonstrate",
+        "demonstrated",
+        "demonstrates",
+        "demonstrating",
+        "demonstration",
+        "demonstrations"
+      ]
+    },
+    {
+      "id": 629,
+      "word": "Detect",
+      "forms": [
+        "detect",
+        "detectable",
+        "detected",
+        "detecting",
+        "detection",
+        "detector",
+        "detectors",
+        "detects"
+      ]
+    },
+    {
+      "id": 630,
+      "word": "Determine",
+      "forms": [
+        "determination",
+        "determinations",
+        "determine",
+        "determined",
+        "determines",
+        "determining"
+      ]
+    },
+    {
+      "id": 631,
+      "word": "Distinguish",
+      "forms": [
+        "distinction",
+        "distinctions",
+        "distinctive",
+        "distinctively",
+        "distinguish",
+        "distinguishable",
+        "distinguished",
+        "distinguishes",
+        "distinguishing",
+        "indistinguishable"
+      ]
+    },
+    {
+      "id": 632,
+      "word": "Efficient",
+      "forms": [
+        "efficiency",
+        "efficient",
+        "efficiently",
+        "inefficiency",
+        "inefficient",
+        "inefficiently"
+      ]
+    },
+    {
+      "id": 633,
+      "word": "Eliminate",
+      "forms": [
+        "eliminate",
+        "eliminated",
+        "eliminates",
+        "eliminating",
+        "elimination"
+      ]
+    },
+    {
+      "id": 634,
+      "word": "Enhance",
+      "forms": [
+        "enhance",
+        "enhanced",
+        "enhancement",
+        "enhancements",
+        "enhances",
+        "enhancing"
+      ]
+    },
+    {
+      "id": 635,
+      "word": "Ensure",
+      "forms": [
+        "ensure",
+        "ensured",
+        "ensures",
+        "ensuring"
+      ]
+    },
+    {
+      "id": 636,
+      "word": "Establish",
+      "forms": [
+        "establish",
+        "established",
+        "establishes",
+        "establishing",
+        "establishment",
+        "establishments"
+      ]
+    },
+    {
+      "id": 637,
+      "word": "Evaluate",
+      "forms": [
+        "evaluate",
+        "evaluated",
+        "evaluates",
+        "evaluating",
+        "evaluation",
+        "evaluations",
+        "evaluative"
+      ]
+    },
+    {
+      "id": 638,
+      "word": "Exceed",
+      "forms": [
+        "exceed",
+        "exceeded",
+        "exceeding",
+        "exceeds",
+        "excess",
+        "excesses",
+        "excessive",
+        "excessively"
+      ]
+    },
+    {
+      "id": 639,
+      "word": "Expand",
+      "forms": [
+        "expand",
+        "expandable",
+        "expanded",
+        "expanding",
+        "expands",
+        "expansion",
+        "expansions"
+      ]
+    },
+    {
+      "id": 640,
+      "word": "Exploit",
+      "forms": [
+        "exploit",
+        "exploitation",
+        "exploitative",
+        "exploited",
+        "exploiting",
+        "exploits"
+      ]
+    },
+    {
+      "id": 641,
+      "word": "Facilitate",
+      "forms": [
+        "facilitate",
+        "facilitated",
+        "facilitates",
+        "facilitating",
+        "facilitation",
+        "facilitator",
+        "facilitators"
+      ]
+    },
+    {
+      "id": 642,
+      "word": "Generate",
+      "forms": [
+        "generate",
+        "generated",
+        "generates",
+        "generating",
+        "generation",
+        "generations",
+        "generator",
+        "generators"
+      ]
+    },
+    {
+      "id": 643,
+      "word": "Implement",
+      "forms": [
+        "implement",
+        "implementation",
+        "implementations",
+        "implemented",
+        "implementing",
+        "implements"
+      ]
+    },
+    {
+      "id": 644,
+      "word": "Imply",
+      "forms": [
+        "implication",
+        "implications",
+        "implied",
+        "implies",
+        "imply",
+        "implying"
+      ]
+    },
+    {
+      "id": 645,
+      "word": "Infer",
+      "forms": [
+        "infer",
+        "inference",
+        "inferences",
+        "inferential",
+        "inferred",
+        "inferring",
+        "infers"
+      ]
+    },
+    {
+      "id": 646,
+      "word": "Interpret",
+      "forms": [
+        "interpret",
+        "interpretation",
+        "interpretations",
+        "interpreted",
+        "interpreter",
+        "interpreters",
+        "interpreting",
+        "interprets"
+      ]
+    },
+    {
+      "id": 647,
+      "word": "Justify",
+      "forms": [
+        "justifiable",
+        "justifiably",
+        "justification",
+        "justifications",
+        "justified",
+        "justifies",
+        "justify",
+        "justifying",
+        "unjustified"
+      ]
+    },
+    {
+      "id": 648,
+      "word": "Maintain",
+      "forms": [
+        "maintain",
+        "maintained",
+        "maintaining",
+        "maintains",
+        "maintenance"
+      ]
+    },
+    {
+      "id": 649,
+      "word": "Obtain",
+      "forms": [
+        "obtain",
+        "obtainable",
+        "obtained",
+        "obtaining",
+        "obtains",
+        "unobtainable"
+      ]
+    },
+    {
+      "id": 650,
+      "word": "Perceive",
+      "forms": [
+        "imperceptible",
+        "perceive",
+        "perceived",
+        "perceives",
+        "perceiving",
+        "perceptible",
+        "perceptibly",
+        "perception",
+        "perceptions",
+        "perceptive",
+        "perceptively"
+      ]
+    },
+    {
+      "id": 651,
+      "word": "Predict",
+      "forms": [
+        "predict",
+        "predictable",
+        "predictably",
+        "predicted",
+        "predicting",
+        "prediction",
+        "predictions",
+        "predicts",
+        "unpredictable",
+        "unpredictably"
+      ]
+    },
+    {
+      "id": 652,
+      "word": "Prioritize",
+      "forms": [
+        "priorities",
+        "prioritisation",
+        "prioritise",
+        "prioritised",
+        "prioritises",
+        "prioritising",
+        "prioritization",
+        "prioritize",
+        "prioritized",
+        "prioritizes",
+        "prioritizing",
+        "priority"
+      ]
+    },
+    {
+      "id": 653,
+      "word": "Regulate",
+      "forms": [
+        "regulate",
+        "regulated",
+        "regulates",
+        "regulating",
+        "regulation",
+        "regulations",
+        "regulator",
+        "regulators",
+        "regulatory"
+      ]
+    },
+    {
+      "id": 654,
+      "word": "Reinforce",
+      "forms": [
+        "reinforce",
+        "reinforced",
+        "reinforcement",
+        "reinforcements",
+        "reinforces",
+        "reinforcing"
+      ]
+    },
+    {
+      "id": 655,
+      "word": "Require",
+      "forms": [
+        "require",
+        "required",
+        "requirement",
+        "requirements",
+        "requires",
+        "requiring"
+      ]
+    },
+    {
+      "id": 656,
+      "word": "Resolve",
+      "forms": [
+        "irresolute",
+        "resolute",
+        "resolutely",
+        "resolution",
+        "resolutions",
+        "resolve",
+        "resolved",
+        "resolves",
+        "resolving"
+      ]
+    },
+    {
+      "id": 657,
+      "word": "Restrict",
+      "forms": [
+        "restrict",
+        "restricted",
+        "restricting",
+        "restriction",
+        "restrictions",
+        "restrictive",
+        "restricts",
+        "unrestricted"
+      ]
+    },
+    {
+      "id": 658,
+      "word": "Specify",
+      "forms": [
+        "specific",
+        "specifically",
+        "specification",
+        "specifications",
+        "specified",
+        "specifies",
+        "specify",
+        "specifying"
+      ]
+    },
+    {
+      "id": 659,
+      "word": "Submit",
+      "forms": [
+        "submission",
+        "submissions",
+        "submissive",
+        "submissively",
+        "submit",
+        "submits",
+        "submitted",
+        "submitting"
+      ]
+    },
+    {
+      "id": 660,
+      "word": "Transform",
+      "forms": [
+        "transform",
+        "transformation",
+        "transformations",
+        "transformative",
+        "transformed",
+        "transforming",
+        "transforms"
+      ]
+    },
+    {
+      "id": 661,
+      "word": "Transmit",
+      "forms": [
+        "transmissible",
+        "transmission",
+        "transmissions",
+        "transmit",
+        "transmits",
+        "transmitted",
+        "transmitter",
+        "transmitters",
+        "transmitting"
+      ]
+    },
+    {
+      "id": 662,
+      "word": "Verify",
+      "forms": [
+        "verifiable",
+        "verification",
+        "verified",
+        "verifies",
+        "verify",
+        "verifying"
+      ]
+    },
+    {
+      "id": 663,
+      "word": "Withdraw",
+      "forms": [
+        "withdraw",
+        "withdrawal",
+        "withdrawals",
+        "withdrawing",
+        "withdrawn",
+        "withdraws",
+        "withdrew"
+      ]
+    },
+    {
+      "id": 664,
+      "word": "Accurate",
+      "forms": [
+        "accuracy",
+        "accurate",
+        "accurately",
+        "inaccuracies",
+        "inaccuracy",
+        "inaccurate",
+        "inaccurately"
+      ]
+    },
+    {
+      "id": 665,
+      "word": "Adequate",
+      "forms": [
+        "adequacy",
+        "adequate",
+        "adequately",
+        "inadequacies",
+        "inadequacy",
+        "inadequate",
+        "inadequately"
+      ]
+    },
+    {
+      "id": 666,
+      "word": "Alternative",
+      "forms": [
+        "alternate",
+        "alternated",
+        "alternates",
+        "alternating",
+        "alternative",
+        "alternatively",
+        "alternatives"
+      ]
+    },
+    {
+      "id": 667,
+      "word": "Apparent",
+      "forms": [
+        "apparent",
+        "apparently"
+      ]
+    },
+    {
+      "id": 668,
+      "word": "Appropriate",
+      "forms": [
+        "appropriate",
+        "appropriately",
+        "appropriateness",
+        "inappropriate",
+        "inappropriately"
+      ]
+    },
+    {
+      "id": 669,
+      "word": "Artificial",
+      "forms": [
+        "artificial",
+        "artificiality",
+        "artificially"
+      ]
+    },
+    {
+      "id": 670,
+      "word": "Beneficial",
+      "forms": [
+        "beneficial",
+        "beneficially",
+        "benefit",
+        "benefited",
+        "benefiting",
+        "benefits",
+        "benefitted",
+        "benefitting"
+      ]
+    },
+    {
+      "id": 671,
+      "word": "Capable",
+      "forms": [
+        "capabilities",
+        "capability",
+        "capable",
+        "incapable"
+      ]
+    },
+    {
+      "id": 672,
+      "word": "Cautious",
+      "forms": [
+        "caution",
+        "cautioned",
+        "cautioning",
+        "cautions",
+        "cautious",
+        "cautiously"
+      ]
+    },
+    {
+      "id": 673,
+      "word": "Cognitive",
+      "forms": [
+        "cognition",
+        "cognitive",
+        "cognitively"
+      ]
+    },
+    {
+      "id": 674,
+      "word": "Commercial",
+      "forms": [
+        "commerce",
+        "commercial",
+        "commercialisation",
+        "commercialise",
+        "commercialised",
+        "commercialises",
+        "commercialising",
+        "commercialization",
+        "commercialize",
+        "commercialized",
+        "commercializes",
+        "commercializing",
+        "commercially"
+      ]
+    },
+    {
+      "id": 675,
+      "word": "Comparable",
+      "forms": [
+        "comparable",
+        "comparably",
+        "compare",
+        "compared",
+        "compares",
+        "comparing",
+        "comparison",
+        "comparisons"
+      ]
+    },
+    {
+      "id": 676,
+      "word": "Competent",
+      "forms": [
+        "competence",
+        "competencies",
+        "competency",
+        "competent",
+        "competently",
+        "incompetence",
+        "incompetent"
+      ]
+    },
+    {
+      "id": 677,
+      "word": "Complex",
+      "forms": [
+        "complex",
+        "complexes",
+        "complexities",
+        "complexity"
+      ]
+    },
+    {
+      "id": 678,
+      "word": "Concrete",
+      "forms": [
+        "concrete",
+        "concretely",
+        "concreteness"
+      ]
+    },
+    {
+      "id": 679,
+      "word": "Conscious",
+      "forms": [
+        "conscious",
+        "consciously",
+        "consciousness",
+        "unconscious",
+        "unconsciously",
+        "unconsciousness"
+      ]
+    },
+    {
+      "id": 680,
+      "word": "Contemporary",
+      "forms": [
+        "contemporaries",
+        "contemporary"
+      ]
+    },
+    {
+      "id": 681,
+      "word": "Controversial",
+      "forms": [
+        "controversial",
+        "controversially",
+        "controversies",
+        "controversy"
+      ]
+    },
+    {
+      "id": 682,
+      "word": "Credible",
+      "forms": [
+        "credibility",
+        "credible",
+        "credibly",
+        "incredible",
+        "incredibly"
+      ]
+    },
+    {
+      "id": 683,
+      "word": "Critical",
+      "forms": [
+        "critic",
+        "critical",
+        "critically",
+        "criticise",
+        "criticised",
+        "criticises",
+        "criticising",
+        "criticism",
+        "criticisms",
+        "criticize",
+        "criticized",
+        "criticizes",
+        "criticizing",
+        "critics"
+      ]
+    },
+    {
+      "id": 684,
+      "word": "Deliberate",
+      "forms": [
+        "deliberate",
+        "deliberated",
+        "deliberately",
+        "deliberates",
+        "deliberating",
+        "deliberation",
+        "deliberations"
+      ]
+    },
+    {
+      "id": 685,
+      "word": "Diverse",
+      "forms": [
+        "biodiverse",
+        "biodiversity",
+        "diverse",
+        "diversification",
+        "diversified",
+        "diversifies",
+        "diversify",
+        "diversifying",
+        "diversity"
+      ]
+    },
+    {
+      "id": 686,
+      "word": "Domestic",
+      "forms": [
+        "domestic",
+        "domestically",
+        "domesticate",
+        "domesticated",
+        "domesticates",
+        "domesticating",
+        "domestication"
+      ]
+    },
+    {
+      "id": 687,
+      "word": "Eligible",
+      "forms": [
+        "eligibility",
+        "eligible",
+        "ineligible"
+      ]
+    },
+    {
+      "id": 688,
+      "word": "Ethical",
+      "forms": [
+        "ethical",
+        "ethically",
+        "ethics",
+        "unethical",
+        "unethically"
+      ]
+    },
+    {
+      "id": 689,
+      "word": "Explicit",
+      "forms": [
+        "explicit",
+        "explicitly",
+        "explicitness"
+      ]
+    },
+    {
+      "id": 690,
+      "word": "Extensive",
+      "forms": [
+        "extend",
+        "extended",
+        "extending",
+        "extends",
+        "extension",
+        "extensions",
+        "extensive",
+        "extensively",
+        "extent"
+      ]
+    },
+    {
+      "id": 691,
+      "word": "External",
+      "forms": [
+        "external",
+        "externalisation",
+        "externalise",
+        "externalised",
+        "externalises",
+        "externalising",
+        "externalization",
+        "externalize",
+        "externalized",
+        "externalizes",
+        "externalizing",
+        "externally"
+      ]
+    },
+    {
+      "id": 692,
+      "word": "Flexible",
+      "forms": [
+        "flexibility",
+        "flexible",
+        "flexibly",
+        "inflexibility",
+        "inflexible"
+      ]
+    },
+    {
+      "id": 693,
+      "word": "Fundamental",
+      "forms": [
+        "fundamental",
+        "fundamentally",
+        "fundamentals"
+      ]
+    },
+    {
+      "id": 694,
+      "word": "Genuine",
+      "forms": [
+        "genuine",
+        "genuinely",
+        "genuineness"
+      ]
+    },
+    {
+      "id": 695,
+      "word": "Gradual",
+      "forms": [
+        "gradual",
+        "gradually",
+        "gradualness"
+      ]
+    },
+    {
+      "id": 696,
+      "word": "Hostile",
+      "forms": [
+        "hostile",
+        "hostilities",
+        "hostility"
+      ]
+    },
+    {
+      "id": 697,
+      "word": "Immune",
+      "forms": [
+        "immune",
+        "immunisation",
+        "immunise",
+        "immunised",
+        "immunises",
+        "immunising",
+        "immunities",
+        "immunity",
+        "immunization",
+        "immunize",
+        "immunized",
+        "immunizes",
+        "immunizing"
+      ]
+    },
+    {
+      "id": 698,
+      "word": "Independent",
+      "forms": [
+        "depend",
+        "depended",
+        "dependence",
+        "dependent",
+        "depending",
+        "depends",
+        "independence",
+        "independent",
+        "independently"
+      ]
+    },
+    {
+      "id": 699,
+      "word": "Initial",
+      "forms": [
+        "initial",
+        "initially",
+        "initials",
+        "initiate",
+        "initiated",
+        "initiates",
+        "initiating",
+        "initiation",
+        "initiations"
+      ]
+    },
+    {
+      "id": 700,
+      "word": "Intensive",
+      "forms": [
+        "intense",
+        "intensely",
+        "intensification",
+        "intensified",
+        "intensifies",
+        "intensify",
+        "intensifying",
+        "intensities",
+        "intensity",
+        "intensive",
+        "intensively"
+      ]
+    },
+    {
+      "id": 701,
+      "word": "Internal",
+      "forms": [
+        "internal",
+        "internalisation",
+        "internalise",
+        "internalised",
+        "internalises",
+        "internalising",
+        "internalization",
+        "internalize",
+        "internalized",
+        "internalizes",
+        "internalizing",
+        "internally"
+      ]
+    },
+    {
+      "id": 702,
+      "word": "Applaud",
+      "forms": [
+        "applaud",
+        "applauded",
+        "applauding",
+        "applauds",
+        "applause"
+      ]
+    },
+    {
+      "id": 703,
+      "word": "Mutual",
+      "forms": [
+        "mutual",
+        "mutuality",
+        "mutually"
+      ]
+    },
+    {
+      "id": 704,
+      "word": "Objective",
+      "forms": [
+        "objective",
+        "objectively",
+        "objectives",
+        "objectivity"
+      ]
+    },
+    {
+      "id": 705,
+      "word": "Permanent",
+      "forms": [
+        "impermanence",
+        "impermanent",
+        "permanence",
+        "permanent",
+        "permanently"
+      ]
+    },
+    {
+      "id": 706,
+      "word": "Potential",
+      "forms": [
+        "potential",
+        "potentially"
+      ]
+    },
+    {
+      "id": 707,
+      "word": "Precise",
+      "forms": [
+        "imprecise",
+        "imprecision",
+        "precise",
+        "precisely",
+        "precision"
+      ]
+    },
+    {
+      "id": 708,
+      "word": "Profound",
+      "forms": [
+        "profound",
+        "profoundly",
+        "profundity"
+      ]
+    },
+    {
+      "id": 709,
+      "word": "Humiliate",
+      "forms": [
+        "humiliate",
+        "humiliated",
+        "humiliates",
+        "humiliating",
+        "humiliation",
+        "humiliations"
+      ]
+    },
+    {
+      "id": 710,
+      "word": "Relevant",
+      "forms": [
+        "irrelevance",
+        "irrelevant",
+        "relevance",
+        "relevant",
+        "relevantly"
+      ]
+    },
+    {
+      "id": 711,
+      "word": "Reliable",
+      "forms": [
+        "reliability",
+        "reliable",
+        "reliably",
+        "relied",
+        "relies",
+        "rely",
+        "relying",
+        "unreliability",
+        "unreliable"
+      ]
+    },
+    {
+      "id": 712,
+      "word": "Remote",
+      "forms": [
+        "remote",
+        "remotely",
+        "remoteness"
+      ]
+    },
+    {
+      "id": 713,
+      "word": "Valid",
+      "forms": [
+        "invalid",
+        "invalidate",
+        "invalidated",
+        "invalidates",
+        "invalidating",
+        "valid",
+        "validate",
+        "validated",
+        "validates",
+        "validating",
+        "validation",
+        "validity"
+      ]
+    },
+    {
+      "id": 714,
+      "word": "Accountability",
+      "forms": [
+        "accountability",
+        "accountable",
+        "unaccountable"
+      ]
+    },
+    {
+      "id": 715,
+      "word": "Achievement",
+      "forms": [
+        "achievable",
+        "achieve",
+        "achieved",
+        "achievement",
+        "achievements",
+        "achieves",
+        "achieving"
+      ]
+    },
+    {
+      "id": 716,
+      "word": "Admission",
+      "forms": [
+        "admissible",
+        "admission",
+        "admissions",
+        "admit",
+        "admits",
+        "admitted",
+        "admitting",
+        "inadmissible"
+      ]
+    },
+    {
+      "id": 717,
+      "word": "Agriculture",
+      "forms": [
+        "agricultural",
+        "agriculturally",
+        "agriculture"
+      ]
+    },
+    {
+      "id": 718,
+      "word": "Ambition",
+      "forms": [
+        "ambition",
+        "ambitions",
+        "ambitious",
+        "ambitiously"
+      ]
+    },
+    {
+      "id": 719,
+      "word": "Analysis",
+      "forms": [
+        "analyse",
+        "analysed",
+        "analyses",
+        "analysing",
+        "analysis",
+        "analyst",
+        "analysts",
+        "analytical",
+        "analytically",
+        "analyze",
+        "analyzed",
+        "analyzes",
+        "analyzing"
+      ]
+    },
+    {
+      "id": 720,
+      "word": "Anxiety",
+      "forms": [
+        "anxieties",
+        "anxiety",
+        "anxious",
+        "anxiously"
+      ]
+    },
+    {
+      "id": 721,
+      "word": "Apology",
+      "forms": [
+        "apologetic",
+        "apologetically",
+        "apologies",
+        "apologise",
+        "apologised",
+        "apologises",
+        "apologising",
+        "apologize",
+        "apologized",
+        "apologizes",
+        "apologizing",
+        "apology"
+      ]
+    },
+    {
+      "id": 722,
+      "word": "Awareness",
+      "forms": [
+        "aware",
+        "awareness",
+        "unaware"
+      ]
+    },
+    {
+      "id": 723,
+      "word": "Capacity",
+      "forms": [
+        "capacious",
+        "capacities",
+        "capacity",
+        "incapacitate",
+        "incapacitated",
+        "incapacitates",
+        "incapacitating",
+        "incapacitation",
+        "incapacities",
+        "incapacity"
+      ]
+    },
+    {
+      "id": 724,
+      "word": "Circumstance",
+      "forms": [
+        "circumstance",
+        "circumstances",
+        "circumstantial",
+        "circumstantially"
+      ]
+    },
+    {
+      "id": 725,
+      "word": "Commitment",
+      "forms": [
+        "commit",
+        "commitment",
+        "commitments",
+        "commits",
+        "committed",
+        "committing"
+      ]
+    },
+    {
+      "id": 726,
+      "word": "Competition",
+      "forms": [
+        "compete",
+        "competed",
+        "competes",
+        "competing",
+        "competition",
+        "competitions",
+        "competitive",
+        "competitively",
+        "competitor",
+        "competitors"
+      ]
+    },
+    {
+      "id": 727,
+      "word": "Concentration",
+      "forms": [
+        "concentrate",
+        "concentrated",
+        "concentrates",
+        "concentrating",
+        "concentration",
+        "concentrations"
+      ]
+    },
+    {
+      "id": 728,
+      "word": "Consequence",
+      "forms": [
+        "consequence",
+        "consequences",
+        "consequent",
+        "consequential",
+        "consequently"
+      ]
+    },
+    {
+      "id": 729,
+      "word": "Conservation",
+      "forms": [
+        "conservation",
+        "conservationist",
+        "conservationists",
+        "conserve",
+        "conserved",
+        "conserves",
+        "conserving"
+      ]
+    },
+    {
+      "id": 730,
+      "word": "Consumption",
+      "forms": [
+        "consumable",
+        "consumables",
+        "consume",
+        "consumed",
+        "consumer",
+        "consumers",
+        "consumes",
+        "consuming",
+        "consumption"
+      ]
+    },
+    {
+      "id": 731,
+      "word": "Contribution",
+      "forms": [
+        "contribute",
+        "contributed",
+        "contributes",
+        "contributing",
+        "contribution",
+        "contributions",
+        "contributor",
+        "contributors",
+        "contributory"
+      ]
+    },
+    {
+      "id": 732,
+      "word": "Convenience",
+      "forms": [
+        "convenience",
+        "conveniences",
+        "convenient",
+        "conveniently",
+        "inconvenience",
+        "inconveniences",
+        "inconvenient",
+        "inconveniently"
+      ]
+    },
+    {
+      "id": 733,
+      "word": "Cooperation",
+      "forms": [
+        "co-operate",
+        "co-operated",
+        "co-operates",
+        "co-operating",
+        "co-operation",
+        "co-operative",
+        "co-operatively",
+        "cooperate",
+        "cooperated",
+        "cooperates",
+        "cooperating",
+        "cooperation",
+        "cooperative",
+        "cooperatively"
+      ]
+    },
+    {
+      "id": 734,
+      "word": "Curriculum",
+      "forms": [
+        "curricula",
+        "curricular",
+        "curriculum",
+        "curriculums",
+        "extra-curricular",
+        "extracurricular"
+      ]
+    },
+    {
+      "id": 735,
+      "word": "Deforestation",
+      "forms": [
+        "deforest",
+        "deforestation",
+        "deforested",
+        "deforesting",
+        "deforests",
+        "reforest",
+        "reforestation",
+        "reforested",
+        "reforesting",
+        "reforests"
+      ]
+    },
+    {
+      "id": 736,
+      "word": "Deficiency",
+      "forms": [
+        "deficiencies",
+        "deficiency",
+        "deficient"
+      ]
+    },
+    {
+      "id": 737,
+      "word": "Demand",
+      "forms": [
+        "demand",
+        "demanded",
+        "demanding",
+        "demands"
+      ]
+    },
+    {
+      "id": 738,
+      "word": "Discipline",
+      "forms": [
+        "disciplinary",
+        "discipline",
+        "disciplined",
+        "disciplines",
+        "disciplining"
+      ]
+    },
+    {
+      "id": 739,
+      "word": "Disposal",
+      "forms": [
+        "disposable",
+        "disposables",
+        "disposal",
+        "disposals",
+        "dispose",
+        "disposed",
+        "disposes",
+        "disposing"
+      ]
+    },
+    {
+      "id": 740,
+      "word": "Distribution",
+      "forms": [
+        "distribute",
+        "distributed",
+        "distributes",
+        "distributing",
+        "distribution",
+        "distributions",
+        "distributor",
+        "distributors"
+      ]
+    },
+    {
+      "id": 741,
+      "word": "Economy",
+      "forms": [
+        "economic",
+        "economical",
+        "economically",
+        "economics",
+        "economies",
+        "economist",
+        "economists",
+        "economy"
+      ]
+    },
+    {
+      "id": 742,
+      "word": "Emission",
+      "forms": [
+        "emission",
+        "emissions",
+        "emit",
+        "emits",
+        "emitted",
+        "emitting"
+      ]
+    },
+    {
+      "id": 743,
+      "word": "Employment",
+      "forms": [
+        "employ",
+        "employed",
+        "employee",
+        "employees",
+        "employer",
+        "employers",
+        "employing",
+        "employment",
+        "employs",
+        "unemployed",
+        "unemployment"
+      ]
+    },
+    {
+      "id": 744,
+      "word": "Encounter",
+      "forms": [
+        "encounter",
+        "encountered",
+        "encountering",
+        "encounters"
+      ]
+    },
+    {
+      "id": 745,
+      "word": "Enthusiasm",
+      "forms": [
+        "enthusiasm",
+        "enthusiasms",
+        "enthusiast",
+        "enthusiastic",
+        "enthusiastically",
+        "enthusiasts"
+      ]
+    },
+    {
+      "id": 746,
+      "word": "Equality",
+      "forms": [
+        "equal",
+        "equaled",
+        "equaling",
+        "equality",
+        "equalled",
+        "equalling",
+        "equally",
+        "equals",
+        "inequalities",
+        "inequality",
+        "unequal",
+        "unequally"
+      ]
+    },
+    {
+      "id": 747,
+      "word": "Evidence",
+      "forms": [
+        "evidence",
+        "evidenced",
+        "evidencing",
+        "evident",
+        "evidently"
+      ]
+    },
+    {
+      "id": 748,
+      "word": "Exhibition",
+      "forms": [
+        "exhibit",
+        "exhibited",
+        "exhibiting",
+        "exhibition",
+        "exhibitions",
+        "exhibitor",
+        "exhibitors",
+        "exhibits"
+      ]
+    },
+    {
+      "id": 749,
+      "word": "Expenditure",
+      "forms": [
+        "expend",
+        "expended",
+        "expending",
+        "expenditure",
+        "expenditures",
+        "expends",
+        "expense",
+        "expenses",
+        "expensive",
+        "expensively",
+        "inexpensive"
+      ]
+    },
+    {
+      "id": 750,
+      "word": "Expertise",
+      "forms": [
+        "expert",
+        "expertise",
+        "expertly",
+        "experts"
+      ]
+    },
+    {
+      "id": 751,
+      "word": "Exposure",
+      "forms": [
+        "expose",
+        "exposed",
+        "exposes",
+        "exposing",
+        "exposure",
+        "exposures"
+      ]
+    },
+    {
+      "id": 752,
+      "word": "Extinction",
+      "forms": [
+        "extinct",
+        "extinction",
+        "extinctions"
+      ]
+    },
+    {
+      "id": 753,
+      "word": "Failure",
+      "forms": [
+        "fail",
+        "failed",
+        "failing",
+        "failings",
+        "fails",
+        "failure",
+        "failures"
+      ]
+    },
+    {
+      "id": 754,
+      "word": "Increasingly",
+      "forms": [
+        "increase",
+        "increased",
+        "increases",
+        "increasing",
+        "increasingly"
+      ]
+    },
+    {
+      "id": 755,
+      "word": "Fatigue",
+      "forms": [
+        "fatigue",
+        "fatigued",
+        "fatigues",
+        "fatiguing"
+      ]
+    },
+    {
+      "id": 756,
+      "word": "Fluency",
+      "forms": [
+        "fluency",
+        "fluent",
+        "fluently"
+      ]
+    },
+    {
+      "id": 757,
+      "word": "Foundation",
+      "forms": [
+        "foundation",
+        "foundational",
+        "foundations",
+        "founded",
+        "founder",
+        "founders",
+        "founding"
+      ]
+    },
+    {
+      "id": 758,
+      "word": "Funding",
+      "forms": [
+        "fund",
+        "funded",
+        "funding",
+        "funds"
+      ]
+    },
+    {
+      "id": 759,
+      "word": "Guidance",
+      "forms": [
+        "guidance",
+        "guide",
+        "guided",
+        "guides",
+        "guiding"
+      ]
+    },
+    {
+      "id": 760,
+      "word": "Habitat",
+      "forms": [
+        "habitat",
+        "habitats"
+      ]
+    },
+    {
+      "id": 761,
+      "word": "Heritage",
+      "forms": [
+        "heritage",
+        "heritages"
+      ]
+    },
+    {
+      "id": 762,
+      "word": "Identity",
+      "forms": [
+        "identifiable",
+        "identification",
+        "identified",
+        "identifies",
+        "identify",
+        "identifying",
+        "identities",
+        "identity",
+        "unidentifiable",
+        "unidentified"
+      ]
+    },
+    {
+      "id": 763,
+      "word": "Impact",
+      "forms": [
+        "impact",
+        "impacted",
+        "impacting",
+        "impacts"
+      ]
+    },
+    {
+      "id": 764,
+      "word": "Infrastructure",
+      "forms": [
+        "infrastructural",
+        "infrastructure",
+        "infrastructures"
+      ]
+    },
+    {
+      "id": 765,
+      "word": "Innovation",
+      "forms": [
+        "innovate",
+        "innovated",
+        "innovates",
+        "innovating",
+        "innovation",
+        "innovations",
+        "innovative",
+        "innovator",
+        "innovators"
+      ]
+    },
+    {
+      "id": 766,
+      "word": "Insight",
+      "forms": [
+        "insight",
+        "insightful",
+        "insightfully",
+        "insights"
+      ]
+    },
+    {
+      "id": 767,
+      "word": "Insurance",
+      "forms": [
+        "insurance",
+        "insure",
+        "insured",
+        "insurer",
+        "insurers",
+        "insures",
+        "insuring"
+      ]
+    },
+    {
+      "id": 768,
+      "word": "Interaction",
+      "forms": [
+        "interact",
+        "interacted",
+        "interacting",
+        "interaction",
+        "interactions",
+        "interactive",
+        "interactively",
+        "interacts"
+      ]
+    },
+    {
+      "id": 769,
+      "word": "Investment",
+      "forms": [
+        "invest",
+        "invested",
+        "investing",
+        "investment",
+        "investments",
+        "investor",
+        "investors",
+        "invests"
+      ]
+    },
+    {
+      "id": 770,
+      "word": "Isolation",
+      "forms": [
+        "isolate",
+        "isolated",
+        "isolates",
+        "isolating",
+        "isolation"
+      ]
+    },
+    {
+      "id": 771,
+      "word": "Literacy",
+      "forms": [
+        "illiteracy",
+        "illiterate",
+        "literacy",
+        "literate"
+      ]
+    },
+    {
+      "id": 772,
+      "word": "Principle",
+      "forms": [
+        "principle",
+        "principled",
+        "principles",
+        "unprincipled"
+      ]
+    },
+    {
+      "id": 773,
+      "word": "Migration",
+      "forms": [
+        "migrant",
+        "migrants",
+        "migrate",
+        "migrated",
+        "migrates",
+        "migrating",
+        "migration",
+        "migrations",
+        "migratory"
+      ]
+    },
+    {
+      "id": 774,
+      "word": "Motivation",
+      "forms": [
+        "motivate",
+        "motivated",
+        "motivates",
+        "motivating",
+        "motivation",
+        "motivational",
+        "motivations"
+      ]
+    },
+    {
+      "id": 775,
+      "word": "Nutrition",
+      "forms": [
+        "nutrient",
+        "nutrients",
+        "nutrition",
+        "nutritional",
+        "nutritionally",
+        "nutritious"
+      ]
+    },
+    {
+      "id": 776,
+      "word": "Obstacle",
+      "forms": [
+        "obstacle",
+        "obstacles"
+      ]
+    },
+    {
+      "id": 777,
+      "word": "Opportunity",
+      "forms": [
+        "opportune",
+        "opportunist",
+        "opportunistic",
+        "opportunists",
+        "opportunities",
+        "opportunity"
+      ]
+    },
+    {
+      "id": 778,
+      "word": "Participant",
+      "forms": [
+        "participant",
+        "participants",
+        "participate",
+        "participated",
+        "participates",
+        "participating",
+        "participation",
+        "participatory"
+      ]
+    },
+    {
+      "id": 779,
+      "word": "Perspective",
+      "forms": [
+        "perspective",
+        "perspectives"
+      ]
+    },
+    {
+      "id": 780,
+      "word": "Poverty",
+      "forms": [
+        "impoverish",
+        "impoverished",
+        "impoverishes",
+        "impoverishing",
+        "impoverishment",
+        "poor",
+        "poorer",
+        "poorest",
+        "poorly",
+        "poverty"
+      ]
+    },
+    {
+      "id": 781,
+      "word": "Prejudice",
+      "forms": [
+        "prejudice",
+        "prejudiced",
+        "prejudices",
+        "prejudicial",
+        "prejudicing"
+      ]
+    },
+    {
+      "id": 782,
+      "word": "Privacy",
+      "forms": [
+        "privacy",
+        "private",
+        "privately"
+      ]
+    },
+    {
+      "id": 783,
+      "word": "Procedure",
+      "forms": [
+        "procedural",
+        "procedurally",
+        "procedure",
+        "procedures"
+      ]
+    },
+    {
+      "id": 784,
+      "word": "Productivity",
+      "forms": [
+        "produce",
+        "produced",
+        "produces",
+        "producing",
+        "product",
+        "production",
+        "productions",
+        "productive",
+        "productively",
+        "productivity",
+        "products",
+        "unproductive"
+      ]
+    },
+    {
+      "id": 785,
+      "word": "Prospect",
+      "forms": [
+        "prospect",
+        "prospective",
+        "prospectively",
+        "prospects"
+      ]
+    },
+    {
+      "id": 786,
+      "word": "Qualification",
+      "forms": [
+        "disqualification",
+        "disqualified",
+        "disqualifies",
+        "disqualify",
+        "disqualifying",
+        "qualification",
+        "qualifications",
+        "qualified",
+        "qualifies",
+        "qualify",
+        "qualifying",
+        "unqualified"
+      ]
+    },
+    {
+      "id": 787,
+      "word": "Recession",
+      "forms": [
+        "recession",
+        "recessionary",
+        "recessions"
+      ]
+    },
+    {
+      "id": 788,
+      "word": "Reputation",
+      "forms": [
+        "reputable",
+        "reputation",
+        "reputational",
+        "reputations",
+        "reputed",
+        "reputedly"
+      ]
+    },
+    {
+      "id": 789,
+      "word": "Resource",
+      "forms": [
+        "resource",
+        "resourceful",
+        "resourcefully",
+        "resourcefulness",
+        "resources"
+      ]
+    },
+    {
+      "id": 790,
+      "word": "Revenue",
+      "forms": [
+        "revenue",
+        "revenues"
+      ]
+    },
+    {
+      "id": 791,
+      "word": "Scholarship",
+      "forms": [
+        "scholar",
+        "scholarly",
+        "scholars",
+        "scholarship",
+        "scholarships"
+      ]
+    },
+    {
+      "id": 792,
+      "word": "Security",
+      "forms": [
+        "insecure",
+        "insecurely",
+        "insecurities",
+        "insecurity",
+        "secure",
+        "secured",
+        "securely",
+        "secures",
+        "securing",
+        "security"
+      ]
+    },
+    {
+      "id": 793,
+      "word": "Shortage",
+      "forms": [
+        "shortage",
+        "shortages"
+      ]
+    },
+    {
+      "id": 794,
+      "word": "Significance",
+      "forms": [
+        "insignificance",
+        "insignificant",
+        "significance",
+        "significant",
+        "significantly"
+      ]
+    },
+    {
+      "id": 795,
+      "word": "Species",
+      "forms": [
+        "speciation",
+        "species"
+      ]
+    },
+    {
+      "id": 796,
+      "word": "Strategy",
+      "forms": [
+        "strategic",
+        "strategically",
+        "strategies",
+        "strategist",
+        "strategists",
+        "strategy"
+      ]
+    },
+    {
+      "id": 797,
+      "word": "Versatile",
+      "forms": [
+        "versatile",
+        "versatility"
+      ]
+    },
+    {
+      "id": 798,
+      "word": "Substitute",
+      "forms": [
+        "substitute",
+        "substituted",
+        "substitutes",
+        "substituting",
+        "substitution",
+        "substitutions"
+      ]
+    },
+    {
+      "id": 799,
+      "word": "Phenomenon",
+      "forms": [
+        "phenomena",
+        "phenomenal",
+        "phenomenally",
+        "phenomenon"
+      ]
+    },
+    {
+      "id": 800,
+      "word": "Survey",
+      "forms": [
+        "survey",
+        "surveyed",
+        "surveying",
+        "surveyor",
+        "surveyors",
+        "surveys"
+      ]
+    },
+    {
+      "id": 801,
+      "word": "Tendency",
+      "forms": [
+        "tend",
+        "tended",
+        "tendencies",
+        "tendency",
+        "tending",
+        "tends"
+      ]
+    },
+    {
+      "id": 802,
+      "word": "Threat",
+      "forms": [
+        "threat",
+        "threaten",
+        "threatened",
+        "threatening",
+        "threateningly",
+        "threatens",
+        "threats"
+      ]
+    },
+    {
+      "id": 803,
+      "word": "Tolerance",
+      "forms": [
+        "intolerable",
+        "intolerably",
+        "intolerance",
+        "intolerant",
+        "tolerable",
+        "tolerably",
+        "tolerance",
+        "tolerant",
+        "tolerantly",
+        "tolerate",
+        "tolerated",
+        "tolerates",
+        "tolerating"
+      ]
+    },
+    {
+      "id": 804,
+      "word": "Transition",
+      "forms": [
+        "transition",
+        "transitional",
+        "transitioned",
+        "transitioning",
+        "transitions"
+      ]
+    },
+    {
+      "id": 805,
+      "word": "Treatment",
+      "forms": [
+        "treat",
+        "treatable",
+        "treated",
+        "treating",
+        "treatment",
+        "treatments",
+        "treats",
+        "untreated"
+      ]
+    },
+    {
+      "id": 806,
+      "word": "Trend",
+      "forms": [
+        "trend",
+        "trended",
+        "trending",
+        "trends",
+        "trendy"
+      ]
+    },
+    {
+      "id": 807,
+      "word": "Deceive",
+      "forms": [
+        "deceit",
+        "deceitful",
+        "deceitfully",
+        "deceive",
+        "deceived",
+        "deceives",
+        "deceiving",
+        "deception",
+        "deceptions",
+        "deceptive",
+        "deceptively"
+      ]
+    },
+    {
+      "id": 808,
+      "word": "Underestimate",
+      "forms": [
+        "underestimate",
+        "underestimated",
+        "underestimates",
+        "underestimating",
+        "underestimation"
+      ]
+    },
+    {
+      "id": 809,
+      "word": "Urbanization",
+      "forms": [
+        "urban",
+        "urbanisation",
+        "urbanise",
+        "urbanised",
+        "urbanises",
+        "urbanising",
+        "urbanization",
+        "urbanize",
+        "urbanized",
+        "urbanizes",
+        "urbanizing"
+      ]
+    },
+    {
+      "id": 810,
+      "word": "Variation",
+      "forms": [
+        "variability",
+        "variable",
+        "variables",
+        "variation",
+        "variations",
+        "varied",
+        "varies",
+        "varieties",
+        "variety",
+        "vary",
+        "varying"
+      ]
+    },
+    {
+      "id": 811,
+      "word": "Welfare",
+      "forms": [
+        "welfare"
+      ]
+    },
+    {
+      "id": 812,
+      "word": "Workforce",
+      "forms": [
+        "workforce",
+        "workforces"
+      ]
+    },
+    {
+      "id": 813,
+      "word": "Degrade",
+      "forms": [
+        "biodegradable",
+        "biodegradation",
+        "biodegrade",
+        "biodegraded",
+        "biodegrades",
+        "biodegrading",
+        "degradable",
+        "degradation",
+        "degrade",
+        "degraded",
+        "degrades",
+        "degrading"
+      ]
+    },
+    {
+      "id": 814,
+      "word": "Abandon",
+      "forms": [
+        "abandon",
+        "abandoned",
+        "abandoning",
+        "abandonment",
+        "abandons"
+      ]
+    },
+    {
+      "id": 815,
+      "word": "Absorb",
+      "forms": [
+        "absorb",
+        "absorbed",
+        "absorbent",
+        "absorbing",
+        "absorbs",
+        "absorption"
+      ]
+    },
+    {
+      "id": 816,
+      "word": "Acknowledge",
+      "forms": [
+        "acknowledge",
+        "acknowledged",
+        "acknowledgement",
+        "acknowledgements",
+        "acknowledges",
+        "acknowledging",
+        "acknowledgment",
+        "acknowledgments"
+      ]
+    },
+    {
+      "id": 817,
+      "word": "Adjust",
+      "forms": [
+        "adjust",
+        "adjustable",
+        "adjusted",
+        "adjusting",
+        "adjustment",
+        "adjustments",
+        "adjusts"
+      ]
+    },
+    {
+      "id": 818,
+      "word": "Adopt",
+      "forms": [
+        "adopt",
+        "adopted",
+        "adopting",
+        "adoption",
+        "adoptions",
+        "adoptive",
+        "adopts"
+      ]
+    },
+    {
+      "id": 819,
+      "word": "Advancement",
+      "forms": [
+        "advance",
+        "advanced",
+        "advancement",
+        "advancements",
+        "advances",
+        "advancing"
+      ]
+    },
+    {
+      "id": 820,
+      "word": "Afford",
+      "forms": [
+        "afford",
+        "affordability",
+        "affordable",
+        "afforded",
+        "affording",
+        "affords",
+        "unaffordable"
+      ]
+    },
+    {
+      "id": 821,
+      "word": "Alter",
+      "forms": [
+        "alter",
+        "alteration",
+        "alterations",
+        "altered",
+        "altering",
+        "alters"
+      ]
+    },
+    {
+      "id": 822,
+      "word": "Amateur",
+      "forms": [
+        "amateur",
+        "amateurish",
+        "amateurism",
+        "amateurs"
+      ]
+    },
+    {
+      "id": 823,
+      "word": "Intimidate",
+      "forms": [
+        "intimidate",
+        "intimidated",
+        "intimidates",
+        "intimidating",
+        "intimidation"
+      ]
+    },
+    {
+      "id": 824,
+      "word": "Appreciate",
+      "forms": [
+        "appreciable",
+        "appreciably",
+        "appreciate",
+        "appreciated",
+        "appreciates",
+        "appreciating",
+        "appreciation",
+        "appreciative",
+        "appreciatively"
+      ]
+    },
+    {
+      "id": 825,
+      "word": "Approve",
+      "forms": [
+        "approval",
+        "approvals",
+        "approve",
+        "approved",
+        "approves",
+        "approving",
+        "disapproval",
+        "disapprove",
+        "disapproved",
+        "disapproves",
+        "disapproving"
+      ]
+    },
+    {
+      "id": 826,
+      "word": "Attain",
+      "forms": [
+        "attain",
+        "attainable",
+        "attained",
+        "attaining",
+        "attainment",
+        "attainments",
+        "attains",
+        "unattainable"
+      ]
+    },
+    {
+      "id": 827,
+      "word": "Authentic",
+      "forms": [
+        "authentic",
+        "authentically",
+        "authenticate",
+        "authenticated",
+        "authenticates",
+        "authenticating",
+        "authentication",
+        "authenticity"
+      ]
+    },
+    {
+      "id": 828,
+      "word": "Bargain",
+      "forms": [
+        "bargain",
+        "bargained",
+        "bargainer",
+        "bargainers",
+        "bargaining",
+        "bargains"
+      ]
+    },
+    {
+      "id": 829,
+      "word": "Bias",
+      "forms": [
+        "bias",
+        "biased",
+        "biases",
+        "biasing",
+        "unbiased"
+      ]
+    },
+    {
+      "id": 830,
+      "word": "Boost",
+      "forms": [
+        "boost",
+        "boosted",
+        "booster",
+        "boosters",
+        "boosting",
+        "boosts"
+      ]
+    },
+    {
+      "id": 831,
+      "word": "Breakthrough",
+      "forms": [
+        "breakthrough",
+        "breakthroughs"
+      ]
+    },
+    {
+      "id": 832,
+      "word": "Captivity",
+      "forms": [
+        "captive",
+        "captives",
+        "captivity",
+        "captor",
+        "captors"
+      ]
+    },
+    {
+      "id": 833,
+      "word": "Catastrophic",
+      "forms": [
+        "catastrophe",
+        "catastrophes",
+        "catastrophic",
+        "catastrophically"
+      ]
+    },
+    {
+      "id": 834,
+      "word": "Cease",
+      "forms": [
+        "cease",
+        "ceased",
+        "ceaseless",
+        "ceaselessly",
+        "ceases",
+        "ceasing",
+        "cessation"
+      ]
+    },
+    {
+      "id": 835,
+      "word": "Collapse",
+      "forms": [
+        "collapse",
+        "collapsed",
+        "collapses",
+        "collapsible",
+        "collapsing"
+      ]
+    },
+    {
+      "id": 836,
+      "word": "Compromise",
+      "forms": [
+        "compromise",
+        "compromised",
+        "compromises",
+        "compromising",
+        "uncompromising"
+      ]
+    },
+    {
+      "id": 837,
+      "word": "Deduction",
+      "forms": [
+        "deduce",
+        "deduced",
+        "deduces",
+        "deducing",
+        "deduct",
+        "deducted",
+        "deducting",
+        "deduction",
+        "deductions",
+        "deductive",
+        "deductively",
+        "deducts"
+      ]
+    },
+    {
+      "id": 838,
+      "word": "Comprise",
+      "forms": [
+        "comprise",
+        "comprised",
+        "comprises",
+        "comprising"
+      ]
+    },
+    {
+      "id": 839,
+      "word": "Conceal",
+      "forms": [
+        "conceal",
+        "concealed",
+        "concealing",
+        "concealment",
+        "conceals"
+      ]
+    },
+    {
+      "id": 840,
+      "word": "Confront",
+      "forms": [
+        "confront",
+        "confrontation",
+        "confrontational",
+        "confrontations",
+        "confronted",
+        "confronting",
+        "confronts"
+      ]
+    },
+    {
+      "id": 841,
+      "word": "Congestion",
+      "forms": [
+        "congested",
+        "congestion"
+      ]
+    },
+    {
+      "id": 842,
+      "word": "Confidential",
+      "forms": [
+        "confide",
+        "confided",
+        "confidential",
+        "confidentiality",
+        "confidentially",
+        "confides",
+        "confiding"
+      ]
+    },
+    {
+      "id": 843,
+      "word": "Contaminate",
+      "forms": [
+        "contaminant",
+        "contaminants",
+        "contaminate",
+        "contaminated",
+        "contaminates",
+        "contaminating",
+        "contamination"
+      ]
+    },
+    {
+      "id": 844,
+      "word": "Convert",
+      "forms": [
+        "conversion",
+        "conversions",
+        "convert",
+        "converted",
+        "convertible",
+        "converting",
+        "converts"
+      ]
+    },
+    {
+      "id": 845,
+      "word": "Convince",
+      "forms": [
+        "convince",
+        "convinced",
+        "convinces",
+        "convincing",
+        "convincingly",
+        "unconvinced",
+        "unconvincing"
+      ]
+    },
+    {
+      "id": 846,
+      "word": "Counterpart",
+      "forms": [
+        "counterpart",
+        "counterparts"
+      ]
+    },
+    {
+      "id": 847,
+      "word": "Whereas",
+      "forms": [
+        "whereas"
+      ]
+    },
+    {
+      "id": 848,
+      "word": "Decline",
+      "forms": [
+        "decline",
+        "declined",
+        "declines",
+        "declining"
+      ]
+    },
+    {
+      "id": 849,
+      "word": "Dedicate",
+      "forms": [
+        "dedicate",
+        "dedicated",
+        "dedicates",
+        "dedicating",
+        "dedication"
+      ]
+    },
+    {
+      "id": 850,
+      "word": "Defy",
+      "forms": [
+        "defiance",
+        "defiant",
+        "defiantly",
+        "defied",
+        "defies",
+        "defy",
+        "defying"
+      ]
+    },
+    {
+      "id": 851,
+      "word": "Guarantee",
+      "forms": [
+        "guarantee",
+        "guaranteed",
+        "guaranteeing",
+        "guarantees",
+        "guarantor",
+        "guarantors"
+      ]
+    },
+    {
+      "id": 852,
+      "word": "Discriminate",
+      "forms": [
+        "discriminate",
+        "discriminated",
+        "discriminates",
+        "discriminating",
+        "discrimination",
+        "discriminatory"
+      ]
+    },
+    {
+      "id": 853,
+      "word": "Disrupt",
+      "forms": [
+        "disrupt",
+        "disrupted",
+        "disrupting",
+        "disruption",
+        "disruptions",
+        "disruptive",
+        "disrupts"
+      ]
+    },
+    {
+      "id": 854,
+      "word": "Distract",
+      "forms": [
+        "distract",
+        "distracted",
+        "distracting",
+        "distraction",
+        "distractions",
+        "distracts"
+      ]
+    },
+    {
+      "id": 855,
+      "word": "Drought",
+      "forms": [
+        "drought",
+        "drought-resistant",
+        "droughts"
+      ]
+    },
+    {
+      "id": 856,
+      "word": "Durable",
+      "forms": [
+        "durability",
+        "durable",
+        "durably"
+      ]
+    },
+    {
+      "id": 857,
+      "word": "Emerge",
+      "forms": [
+        "emerge",
+        "emerged",
+        "emergence",
+        "emerges",
+        "emerging"
+      ]
+    },
+    {
+      "id": 858,
+      "word": "Sufficient",
+      "forms": [
+        "insufficiency",
+        "insufficient",
+        "insufficiently",
+        "suffice",
+        "sufficed",
+        "suffices",
+        "sufficiency",
+        "sufficient",
+        "sufficiently",
+        "sufficing"
+      ]
+    },
+    {
+      "id": 859,
+      "word": "Enforce",
+      "forms": [
+        "enforce",
+        "enforceable",
+        "enforced",
+        "enforcement",
+        "enforces",
+        "enforcing",
+        "unenforceable"
+      ]
+    },
+    {
+      "id": 860,
+      "word": "Enrich",
+      "forms": [
+        "enrich",
+        "enriched",
+        "enriches",
+        "enriching",
+        "enrichment"
+      ]
+    },
+    {
+      "id": 861,
+      "word": "Erode",
+      "forms": [
+        "erode",
+        "eroded",
+        "erodes",
+        "eroding",
+        "erosion",
+        "erosive"
+      ]
+    },
+    {
+      "id": 862,
+      "word": "Evolve",
+      "forms": [
+        "evolution",
+        "evolutionary",
+        "evolve",
+        "evolved",
+        "evolves",
+        "evolving"
+      ]
+    },
+    {
+      "id": 863,
+      "word": "Exaggerate",
+      "forms": [
+        "exaggerate",
+        "exaggerated",
+        "exaggerates",
+        "exaggerating",
+        "exaggeration",
+        "exaggerations"
+      ]
+    },
+    {
+      "id": 864,
+      "word": "Fierce",
+      "forms": [
+        "fierce",
+        "fiercely",
+        "fierceness",
+        "fiercer",
+        "fiercest"
+      ]
+    },
+    {
+      "id": 865,
+      "word": "Fertile",
+      "forms": [
+        "fertile",
+        "fertilisation",
+        "fertilise",
+        "fertilised",
+        "fertiliser",
+        "fertilisers",
+        "fertilises",
+        "fertilising",
+        "fertility",
+        "fertilization",
+        "fertilize",
+        "fertilized",
+        "fertilizer",
+        "fertilizers",
+        "fertilizes",
+        "fertilizing",
+        "infertile",
+        "infertility"
+      ]
+    },
+    {
+      "id": 866,
+      "word": "Flourish",
+      "forms": [
+        "flourish",
+        "flourished",
+        "flourishes",
+        "flourishing"
+      ]
+    },
+    {
+      "id": 867,
+      "word": "Fragile",
+      "forms": [
+        "fragile",
+        "fragility"
+      ]
+    },
+    {
+      "id": 868,
+      "word": "Frustrate",
+      "forms": [
+        "frustrate",
+        "frustrated",
+        "frustrates",
+        "frustrating",
+        "frustration",
+        "frustrations"
+      ]
+    },
+    {
+      "id": 869,
+      "word": "Harness",
+      "forms": [
+        "harness",
+        "harnessed",
+        "harnesses",
+        "harnessing"
+      ]
+    },
+    {
+      "id": 870,
+      "word": "Hazard",
+      "forms": [
+        "hazard",
+        "hazardous",
+        "hazardously",
+        "hazards"
+      ]
+    },
+    {
+      "id": 871,
+      "word": "Refine",
+      "forms": [
+        "refine",
+        "refined",
+        "refinement",
+        "refinements",
+        "refineries",
+        "refinery",
+        "refines",
+        "refining"
+      ]
+    },
+    {
+      "id": 872,
+      "word": "Impose",
+      "forms": [
+        "impose",
+        "imposed",
+        "imposes",
+        "imposing",
+        "imposition",
+        "impositions"
+      ]
+    },
+    {
+      "id": 873,
+      "word": "Incorporate",
+      "forms": [
+        "incorporate",
+        "incorporated",
+        "incorporates",
+        "incorporating",
+        "incorporation"
+      ]
+    },
+    {
+      "id": 874,
+      "word": "Indifferent",
+      "forms": [
+        "indifference",
+        "indifferent",
+        "indifferently"
+      ]
+    },
+    {
+      "id": 875,
+      "word": "Inclusive",
+      "forms": [
+        "include",
+        "included",
+        "includes",
+        "including",
+        "inclusion",
+        "inclusive",
+        "inclusively"
+      ]
+    },
+    {
+      "id": 876,
+      "word": "Interpersonal",
+      "forms": [
+        "interpersonal",
+        "interpersonally"
+      ]
+    },
+    {
+      "id": 877,
+      "word": "Integrate",
+      "forms": [
+        "integrate",
+        "integrated",
+        "integrates",
+        "integrating",
+        "integration",
+        "integrative"
+      ]
+    },
+    {
+      "id": 878,
+      "word": "Interfere",
+      "forms": [
+        "interfere",
+        "interfered",
+        "interference",
+        "interferes",
+        "interfering"
+      ]
+    },
+    {
+      "id": 879,
+      "word": "Intervene",
+      "forms": [
+        "intervene",
+        "intervened",
+        "intervenes",
+        "intervening",
+        "intervention",
+        "interventions"
+      ]
+    },
+    {
+      "id": 880,
+      "word": "Intelligible",
+      "forms": [
+        "intelligibility",
+        "intelligible",
+        "intelligibly",
+        "unintelligible"
+      ]
+    },
+    {
+      "id": 881,
+      "word": "Promote",
+      "forms": [
+        "promote",
+        "promoted",
+        "promoter",
+        "promoters",
+        "promotes",
+        "promoting",
+        "promotion",
+        "promotional",
+        "promotions"
+      ]
+    },
+    {
+      "id": 882,
+      "word": "Legible",
+      "forms": [
+        "illegibility",
+        "illegible",
+        "illegibly",
+        "legibility",
+        "legible",
+        "legibly"
+      ]
+    },
+    {
+      "id": 883,
+      "word": "Longevity",
+      "forms": [
+        "longevity"
+      ]
+    },
+    {
+      "id": 884,
+      "word": "Manipulate",
+      "forms": [
+        "manipulate",
+        "manipulated",
+        "manipulates",
+        "manipulating",
+        "manipulation",
+        "manipulations",
+        "manipulative",
+        "manipulator",
+        "manipulators"
+      ]
+    },
+    {
+      "id": 885,
+      "word": "Misleading",
+      "forms": [
+        "mislead",
+        "misleading",
+        "misleadingly",
+        "misleads",
+        "misled"
+      ]
+    },
+    {
+      "id": 886,
+      "word": "Empathy",
+      "forms": [
+        "empathetic",
+        "empathic",
+        "empathise",
+        "empathised",
+        "empathises",
+        "empathising",
+        "empathize",
+        "empathized",
+        "empathizes",
+        "empathizing",
+        "empathy"
+      ]
+    },
+    {
+      "id": 887,
+      "word": "Obscure",
+      "forms": [
+        "obscure",
+        "obscured",
+        "obscurely",
+        "obscures",
+        "obscuring",
+        "obscurity"
+      ]
+    },
+    {
+      "id": 888,
+      "word": "Outbreak",
+      "forms": [
+        "outbreak",
+        "outbreaks"
+      ]
+    },
+    {
+      "id": 889,
+      "word": "Overlook",
+      "forms": [
+        "overlook",
+        "overlooked",
+        "overlooking",
+        "overlooks"
+      ]
+    },
+    {
+      "id": 890,
+      "word": "Persist",
+      "forms": [
+        "persist",
+        "persisted",
+        "persistence",
+        "persistent",
+        "persistently",
+        "persisting",
+        "persists"
+      ]
+    },
+    {
+      "id": 891,
+      "word": "Prestigious",
+      "forms": [
+        "prestige",
+        "prestigious"
+      ]
+    },
+    {
+      "id": 892,
+      "word": "Prohibit",
+      "forms": [
+        "prohibit",
+        "prohibited",
+        "prohibiting",
+        "prohibition",
+        "prohibitions",
+        "prohibitive",
+        "prohibitively",
+        "prohibits"
+      ]
+    },
+    {
+      "id": 893,
+      "word": "Prosperity",
+      "forms": [
+        "prosper",
+        "prospered",
+        "prospering",
+        "prosperity",
+        "prosperous",
+        "prosperously",
+        "prospers"
+      ]
+    },
+    {
+      "id": 894,
+      "word": "Resent",
+      "forms": [
+        "resent",
+        "resented",
+        "resentful",
+        "resentfully",
+        "resenting",
+        "resentment",
+        "resents"
+      ]
+    },
+    {
+      "id": 895,
+      "word": "Recruit",
+      "forms": [
+        "recruit",
+        "recruited",
+        "recruiter",
+        "recruiters",
+        "recruiting",
+        "recruitment",
+        "recruits"
+      ]
+    },
+    {
+      "id": 896,
+      "word": "Redundant",
+      "forms": [
+        "redundancies",
+        "redundancy",
+        "redundant",
+        "redundantly"
+      ]
+    },
+    {
+      "id": 897,
+      "word": "Emphasize",
+      "forms": [
+        "emphases",
+        "emphasis",
+        "emphasise",
+        "emphasised",
+        "emphasises",
+        "emphasising",
+        "emphasize",
+        "emphasized",
+        "emphasizes",
+        "emphasizing",
+        "emphatic",
+        "emphatically"
+      ]
+    },
+    {
+      "id": 898,
+      "word": "Eventually",
+      "forms": [
+        "eventual",
+        "eventualities",
+        "eventuality",
+        "eventually"
+      ]
+    },
+    {
+      "id": 899,
+      "word": "Restore",
+      "forms": [
+        "restoration",
+        "restorations",
+        "restorative",
+        "restore",
+        "restored",
+        "restores",
+        "restoring"
+      ]
+    },
+    {
+      "id": 900,
+      "word": "Rigorous",
+      "forms": [
+        "rigor",
+        "rigorous",
+        "rigorously",
+        "rigour"
+      ]
+    },
+    {
+      "id": 901,
+      "word": "Scarce",
+      "forms": [
+        "scarce",
+        "scarcely",
+        "scarcer",
+        "scarcest",
+        "scarcity"
+      ]
+    },
+    {
+      "id": 902,
+      "word": "Skeptical",
+      "forms": [
+        "sceptic",
+        "sceptical",
+        "sceptically",
+        "scepticism",
+        "sceptics",
+        "skeptic",
+        "skeptical",
+        "skeptically",
+        "skepticism",
+        "skeptics"
+      ]
+    },
+    {
+      "id": 903,
+      "word": "Simulate",
+      "forms": [
+        "simulate",
+        "simulated",
+        "simulates",
+        "simulating",
+        "simulation",
+        "simulations",
+        "simulator",
+        "simulators"
+      ]
+    },
+    {
+      "id": 904,
+      "word": "Strive",
+      "forms": [
+        "strive",
+        "strived",
+        "striven",
+        "strives",
+        "striving",
+        "strove"
+      ]
+    },
+    {
+      "id": 905,
+      "word": "Susceptible",
+      "forms": [
+        "susceptibilities",
+        "susceptibility",
+        "susceptible"
+      ]
+    },
+    {
+      "id": 906,
+      "word": "Thrive",
+      "forms": [
+        "thrive",
+        "thrived",
+        "thrives",
+        "thriving",
+        "throve"
+      ]
+    },
+    {
+      "id": 907,
+      "word": "Transparent",
+      "forms": [
+        "transparencies",
+        "transparency",
+        "transparent",
+        "transparently"
+      ]
+    },
+    {
+      "id": 908,
+      "word": "Renewable",
+      "forms": [
+        "non-renewable",
+        "renew",
+        "renewable",
+        "renewal",
+        "renewals",
+        "renewed",
+        "renewing",
+        "renews"
+      ]
+    },
+    {
+      "id": 909,
+      "word": "Moreover",
+      "forms": [
+        "moreover"
+      ]
+    },
+    {
+      "id": 910,
+      "word": "Obligation",
+      "forms": [
+        "obligated",
+        "obligation",
+        "obligations",
+        "obligatory",
+        "oblige",
+        "obliged",
+        "obliges",
+        "obliging"
+      ]
+    },
+    {
+      "id": 911,
+      "word": "Nevertheless",
+      "forms": [
+        "nevertheless"
+      ]
+    },
+    {
+      "id": 912,
+      "word": "Viable",
+      "forms": [
+        "viability",
+        "viable",
+        "viably"
+      ]
+    },
+    {
+      "id": 913,
+      "word": "Virtually",
+      "forms": [
+        "virtual",
+        "virtually"
+      ]
+    }
+  ],
+  "reviewed_excluded": [
+    {
+      "word": "Approximately",
+      "forms": [
+        "approximate",
+        "approximated",
+        "approximately",
+        "approximates",
+        "approximating",
+        "approximation",
+        "approximations"
+      ]
+    },
+    {
+      "word": "Biodiversity",
+      "forms": [
+        "biodiverse",
+        "biodiversity"
+      ]
+    },
+    {
+      "word": "Compulsory",
+      "forms": [
+        "compel",
+        "compelled",
+        "compelling",
+        "compels",
+        "compulsion",
+        "compulsions",
+        "compulsive",
+        "compulsively",
+        "compulsorily",
+        "compulsory"
+      ]
+    },
+    {
+      "word": "Consequently",
+      "forms": [
+        "consequence",
+        "consequences",
+        "consequent",
+        "consequential",
+        "consequently"
+      ]
+    },
+    {
+      "word": "Famine",
+      "forms": [
+        "famine",
+        "famines"
+      ]
+    },
+    {
+      "word": "Furthermore",
+      "forms": [
+        "furthermore"
+      ]
+    },
+    {
+      "word": "Legitimate",
+      "forms": [
+        "illegitimacy",
+        "illegitimate",
+        "legitimacy",
+        "legitimate",
+        "legitimately",
+        "legitimisation",
+        "legitimise",
+        "legitimised",
+        "legitimises",
+        "legitimising",
+        "legitimization",
+        "legitimize",
+        "legitimized",
+        "legitimizes",
+        "legitimizing"
+      ]
+    },
+    {
+      "word": "Livelihood",
+      "forms": [
+        "livelihood",
+        "livelihoods"
+      ]
+    },
+    {
+      "word": "Neglect",
+      "forms": [
+        "neglect",
+        "neglected",
+        "neglectful",
+        "neglecting",
+        "neglects",
+        "negligence",
+        "negligent",
+        "negligently"
+      ]
+    },
+    {
+      "word": "Rational",
+      "forms": [
+        "irrational",
+        "irrationally",
+        "rational",
+        "rationality",
+        "rationally"
+      ]
+    },
+    {
+      "word": "Rehabilitate",
+      "forms": [
+        "rehabilitate",
+        "rehabilitated",
+        "rehabilitates",
+        "rehabilitating",
+        "rehabilitation",
+        "rehabilitative"
+      ]
+    },
+    {
+      "word": "Relatively",
+      "forms": [
+        "relate",
+        "related",
+        "relates",
+        "relating",
+        "relation",
+        "relations",
+        "relationship",
+        "relationships",
+        "relative",
+        "relatively",
+        "relatives"
+      ]
+    },
+    {
+      "word": "Remarkable",
+      "forms": [
+        "remark",
+        "remarkable",
+        "remarkably",
+        "remarked",
+        "remarking",
+        "remarks",
+        "unremarkable"
+      ]
+    },
+    {
+      "word": "Sophisticated",
+      "forms": [
+        "sophisticated",
+        "sophistication"
+      ]
+    },
+    {
+      "word": "Substance",
+      "forms": [
+        "substance",
+        "substances",
+        "substantial",
+        "substantially"
+      ]
+    },
+    {
+      "word": "Surplus",
+      "forms": [
+        "surplus",
+        "surpluses"
+      ]
+    },
+    {
+      "word": "Tuition",
+      "forms": [
+        "tuition",
+        "tuitions"
+      ]
+    },
+    {
+      "word": "Unveil",
+      "forms": [
+        "unveil",
+        "unveiled",
+        "unveiling",
+        "unveilings",
+        "unveils"
+      ]
+    }
+  ]
+}
