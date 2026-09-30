@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="vi" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<title>{{TITLE}}</title>
+<meta name="description" content="{{DESCRIPTION}}">
+<meta name="generator" content="scripts/build_flashcards.py">
+<style>
+{{CSS}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Bỏ qua tới nội dung chính</a>
+
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">🎓</span>
+      <span class="brand-text">
+        <strong>913 từ đã học</strong>
+        <span>Flashcard chuyên Anh · một file duy nhất</span>
+      </span>
+    </div>
+
+    <nav class="header-stats" aria-label="Số liệu nhanh">
+      <span class="pill is-due" title="Từ đã tới hạn ôn">🔁 Đến hạn <b id="pill-due">0</b></span>
+      <span class="pill is-weak" title="Từ trả lời sai gần đây">⚠️ Từ yếu <b id="pill-weak">0</b></span>
+      <span class="pill is-streak" title="Số ngày học liên tiếp">🔥 Chuỗi <b id="pill-streak">0</b></span>
+      <span class="pill" title="Số câu đã trả lời hôm nay">📅 Hôm nay <b id="pill-today">0</b></span>
+      <span class="pill" title="Số từ đã thuộc">🏅 Đã thuộc <b id="pill-mastered">0</b></span>
+    </nav>
+
+    <div class="header-actions">
+      <button class="btn icon" id="btn-help" type="button" aria-label="Phím tắt và cách học" title="Phím tắt (?)">❔</button>
+      <button class="btn icon" id="btn-theme" type="button" aria-label="Đổi chủ đề sáng/tối" title="Đổi chủ đề">
+        <span id="btn-theme-icon" aria-hidden="true">☀️</span>
+      </button>
+      <button class="btn icon" id="btn-settings" type="button" aria-label="Cài đặt và dữ liệu" title="Cài đặt">⚙️</button>
+    </div>
+  </header>
+
+  <nav class="chip-row" id="main-nav" role="tablist" aria-label="Khu vực chính">
+    <button class="chip is-on" id="nav-home" role="tab" aria-selected="true" aria-controls="view-home" type="button">🏠 Trang chủ</button>
+    <button class="chip" id="nav-study" role="tab" aria-selected="false" aria-controls="view-study" type="button">🎯 Học</button>
+    <button class="chip" id="nav-browse" role="tab" aria-selected="false" aria-controls="view-browse" type="button">📚 Danh sách từ</button>
+    <button class="chip" id="nav-stats" role="tab" aria-selected="false" aria-controls="view-stats" type="button">📈 Thống kê</button>
+  </nav>
+
+  <p class="notice" id="storage-notice" role="status" hidden>
+    <span>⚠️ Trình duyệt không cho lưu dữ liệu cho tệp này, nên tiến độ chỉ giữ trong lúc tab còn mở.
+      Mở tệp từ GitHub Pages, hoặc bật lưu dữ liệu trang web rồi mở lại, để giữ tiến độ.</span>
+    <button class="btn small" id="storage-notice-close" type="button">Đã hiểu</button>
+  </p>
+
+  <main id="main" aria-label="Khu vực chính">
+
+    <!-- ======================= TRANG CHỦ ======================= -->
+    <section class="view is-active" id="view-home" role="tabpanel" aria-labelledby="nav-home">
+      <h1 class="sr-only" id="view-home-title" tabindex="-1">Trang chủ</h1>
+
+      <div class="hero">
+        <div>
+          <h2 id="home-greeting">Chào bạn!</h2>
+          <p id="home-subtitle">Bắt đầu một phiên học để lưu tiến độ.</p>
+          <div class="hero-actions">
+            <button class="btn primary" id="start-smart" type="button">🎯 Bắt đầu phiên trộn thông minh</button>
+          </div>
+          <p class="card-note" id="plan-today" style="margin-top:12px"></p>
+        </div>
+        <div class="hero-side">
+          <div class="ring-wrap">
+            <div class="ring" id="header-ring" role="img" aria-label="Tỉ lệ từ đã thuộc">
+              <span class="ring-inner"><b id="header-ring-label">0%</b><span>đã thuộc</span></span>
+            </div>
+          </div>
+          <div class="plan-grid">
+            <div class="plan-item"><b id="plan-due">0</b><span>từ đến hạn</span>
+              <button class="btn small" id="plan-due-btn" type="button">Ôn ngay</button>
+            </div>
+            <div class="plan-item"><b id="plan-weak">0</b><span>từ yếu</span>
+              <button class="btn small" id="plan-weak-btn" type="button">Ôn từ yếu</button>
+            </div>
+            <div class="plan-item"><b id="plan-fresh">0</b><span>từ chưa gặp</span>
+              <button class="btn small" id="plan-fresh-btn" type="button">Học từ mới</button>
+            </div>
+            <div class="plan-item"><b id="plan-mastered">0</b><span>từ đã thuộc</span>
+              <button class="btn small" id="plan-level-btn" type="button">Ôn từ trọng tâm</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section class="section" id="resume-card" hidden>
+        <div class="card-panel" style="display:flex;gap:12px;justify-content:space-between;align-items:center;flex-wrap:wrap">
+          <div>
+            <strong>Phiên học đang dở</strong>
+            <p class="card-note" id="resume-text"></p>
+          </div>
+          <button class="btn primary" id="resume-btn" type="button">▶️ Tiếp tục phiên</button>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <h2>Chọn chế độ học</h2>
+          <span class="hint" id="mode-hint">Mỗi chế độ luyện một kỹ năng khác nhau</span>
+        </div>
+        <div class="mode-grid" id="mode-cards"></div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <h2>Lọc nhanh theo mức độ khó</h2>
+          <span class="hint">Bấm một mức để học ngay các từ ở mức đó</span>
+        </div>
+        <div class="chip-row" id="home-levels"></div>
+      </section>
+
+      <div class="hero" style="grid-template-columns:1.2fr 0.8fr">
+        <section class="section" style="margin:0">
+          <div class="section-head"><h2>Từ của ngày</h2></div>
+          <div class="card-panel" id="wotd">
+            <p style="font-size:1.4rem;font-weight:700" id="wotd-word"></p>
+            <p id="wotd-meaning" style="color:var(--text-soft)"></p>
+            <p class="card-note" id="wotd-meta"></p>
+            <div class="chip-row" style="margin-top:10px">
+              <button class="btn small" id="wotd-btn" type="button">🎯 Học từ này</button>
+              <button class="btn small ghost" id="wotd-open" type="button">Xem chi tiết</button>
+            </div>
+          </div>
+        </section>
+        <section class="section" style="margin:0">
+          <div class="section-head">
+            <h2>Vừa học gần đây</h2>
+            <span class="hint">Bấm để mở trong danh sách</span>
+          </div>
+          <ul id="home-recent" style="display:grid;gap:6px"></ul>
+        </section>
+      </div>
+
+      <section class="section">
+        <div class="section-head">
+          <h2>Cấu hình phiên học</h2>
+          <span class="hint">Số từ mỗi phiên</span>
+        </div>
+        <div class="card-panel" style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+          <div class="field" style="max-width:220px">
+            <label for="size-select">Số từ mỗi phiên</label>
+            <select id="size-select"></select>
+          </div>
+          <p class="card-note">Từ đến hạn và từ yếu luôn được ưu tiên xếp trước, sau đó mới tới từ mới.</p>
+        </div>
+      </section>
+    </section>
+
+    <!-- ======================= HỌC ======================= -->
+    <section class="view" id="view-study" role="tabpanel" aria-labelledby="nav-study">
+      <h1 class="sr-only" id="view-study-title" tabindex="-1">Phiên học</h1>
+
+      <div class="study-bar">
+        <button class="btn small" id="btn-exit" type="button">← Thoát</button>
+        <span class="grow">
+          <span class="progress" role="progressbar" aria-label="Tiến độ phiên" id="study-progress"><span></span></span>
+        </span>
+        <span class="study-meta">
+          <span><b id="study-count">0/0</b> từ</span>
+          <span><b id="study-accuracy">0%</b> đúng</span>
+          <span id="study-mode-label"></span>
+        </span>
+      </div>
+
+      <div class="stage" id="card-stage">
+        <article class="flashcard" id="card">
+          <div class="card-tags" id="card-tags"></div>
+          <p class="card-word" id="card-word">Sẵn sàng học?</p>
+          <p class="card-ipa" id="card-ipa" hidden></p>
+          <p class="card-prompt" id="card-prompt"></p>
+          <p class="card-note" id="card-pos"></p>
+
+          <div class="chip-row" style="justify-content:center">
+            <button class="btn small" id="card-speak" type="button" hidden>🔊 Nghe (S)</button>
+            <button class="btn small ghost" id="card-hint-btn" type="button" hidden>💡 Gợi ý (H)</button>
+          </div>
+          <p class="card-note" id="card-hint"></p>
+
+          <div id="options" class="options"></div>
+
+          <div class="answer-row" id="answer-row" hidden>
+            <input type="text" id="answer-input" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Câu trả lời">
+            <button class="btn primary" id="answer-submit" type="button">Kiểm tra</button>
+          </div>
+
+          <div class="grade-row" id="grade-row" hidden>
+            <button class="btn grade-0" type="button" data-grade="0">Quên<small>học lại ngay</small></button>
+            <button class="btn grade-1" type="button" data-grade="1">Khó<small>nhắc lại sớm</small></button>
+            <button class="btn grade-2" type="button" data-grade="2">Được<small>nhịp bình thường</small></button>
+            <button class="btn grade-3" type="button" data-grade="3">Dễ<small>giãn nhịp dài</small></button>
+          </div>
+
+          <button class="btn primary block" id="card-start" type="button">🎯 Bắt đầu phiên trộn thông minh</button>
+          <button class="btn block" id="flip-btn" type="button">🃏 Lật thẻ (Enter)</button>
+
+          <p class="feedback" id="feedback" hidden></p>
+          <div class="card-answer" id="card-answer" hidden></div>
+
+          <div class="chip-row" id="next-row" style="justify-content:center" hidden>
+            <button class="btn primary" id="next-btn" type="button">Thẻ tiếp theo (Enter) →</button>
+          </div>
+        </article>
+      </div>
+
+      <div class="study-foot">
+        <div class="keys">
+          <span><kbd>1</kbd>-<kbd>4</kbd> chọn đáp án</span>
+          <span><kbd>Enter</kbd> lật / tiếp</span>
+          <span><kbd>S</kbd> nghe</span>
+          <span><kbd>F</kbd> đánh dấu</span>
+          <span><kbd>Esc</kbd> thoát</span>
+        </div>
+        <div class="chip-row">
+          <button class="btn small" id="btn-fav" type="button">☆ Đánh dấu (F)</button>
+          <button class="btn small ghost" id="btn-skip" type="button">⏭️ Bỏ qua</button>
+        </div>
+      </div>
+
+      <div class="summary" id="summary" hidden>
+        <div class="card-panel">
+          <div class="summary-head">
+            <h2 id="summary-title">Hoàn thành phiên học</h2>
+            <p class="card-note" id="summary-sub"></p>
+          </div>
+          <div class="summary-grid" id="summary-grid"></div>
+          <div id="summary-weak" style="margin-top:14px"></div>
+          <div class="chip-row" style="margin-top:16px">
+            <button class="btn primary" id="summary-again" type="button">🔄 Học phiên mới</button>
+            <button class="btn" id="summary-wrong-btn" type="button">🎯 Ôn các từ đã sai</button>
+            <button class="btn ghost" id="summary-home" type="button">🏠 Về trang chủ</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================= DANH SÁCH TỪ ======================= -->
+    <section class="view" id="view-browse" role="tabpanel" aria-labelledby="nav-browse">
+      <h1 class="sr-only" id="view-browse-title" tabindex="-1">Danh sách từ</h1>
+
+      <div class="card-panel browse-tools">
+        <div class="field">
+          <label for="browse-search">Tìm từ (không cần gõ dấu)</label>
+          <input type="search" id="browse-search" placeholder="Ví dụ: meticulous, kỹ lưỡng, acquire…" autocomplete="off">
+        </div>
+        <div>
+          <p class="card-note" style="margin-bottom:6px">Trạng thái học</p>
+          <div class="chip-row" id="browse-filters"></div>
+        </div>
+        <div>
+          <p class="card-note" style="margin-bottom:6px">Mức độ khó</p>
+          <div class="chip-row" id="browse-levels"></div>
+        </div>
+        <div>
+          <p class="card-note" style="margin-bottom:6px">Ưu tiên ôn</p>
+          <div class="chip-row" id="browse-tiers"></div>
+        </div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:end">
+          <div class="field" style="max-width:230px">
+            <label for="browse-sort">Sắp xếp</label>
+            <select id="browse-sort">
+              <option value="az">A → Z</option>
+              <option value="za">Z → A</option>
+              <option value="level">Mức khó tăng dần</option>
+              <option value="level-desc">Mức khó giảm dần</option>
+              <option value="coverage">Xuất hiện nhiều trong đề</option>
+            </select>
+          </div>
+          <button class="btn primary" id="browse-study" type="button">🎯 Học các từ đang lọc</button>
+          <button class="btn" id="browse-mastered" type="button">🃏 Xem lại từ đã thuộc</button>
+        </div>
+        <p class="hint"><span id="browse-count">0 từ</span> · hôm nay <span id="browse-today"></span></p>
+      </div>
+
+      <ul class="browse-list" id="browse-list"></ul>
+      <p class="hint" id="browse-empty" hidden>Không có từ nào khớp bộ lọc. Thử xoá ô tìm kiếm hoặc đổi chip lọc.</p>
+      <div class="chip-row" style="justify-content:center;margin-top:14px">
+        <button class="btn" id="browse-more" type="button" hidden>Xem thêm</button>
+      </div>
+    </section>
+
+    <!-- ======================= THỐNG KÊ ======================= -->
+    <section class="view" id="view-stats" role="tabpanel" aria-labelledby="nav-stats">
+      <h1 class="sr-only" id="view-stats-title" tabindex="-1">Thống kê</h1>
+
+      <div class="stats-grid" id="stats-grid"></div>
+
+      <div class="hero" style="grid-template-columns:1fr 1fr;margin-top:22px">
+        <section class="section" style="margin:0">
+          <div class="section-head"><h2>Phân bố theo mức độ khó</h2><span class="hint">Toàn bộ 913 từ</span></div>
+          <div class="card-panel bars" id="stats-levels"></div>
+        </section>
+        <section class="section" style="margin:0">
+          <div class="section-head"><h2>Phân bố theo ưu tiên ôn</h2><span class="hint">Bậc 1 là trọng tâm</span></div>
+          <div class="card-panel bars" id="stats-tiers"></div>
+        </section>
+      </div>
+
+      <section class="section" style="margin-top:22px">
+        <div class="section-head">
+          <h2>5 tuần gần đây</h2>
+          <span class="hint" id="stats-week"></span>
+        </div>
+        <div class="card-panel">
+          <div class="heat" id="heatmap"></div>
+          <p class="card-note" id="stats-streak" style="margin-top:10px"></p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <h2>Từ yếu cần chú ý</h2>
+          <span class="hint" id="stats-weak-count"></span>
+        </div>
+        <div class="card-panel">
+          <ul class="weak-list" id="stats-weak-list"></ul>
+          <div class="chip-row" style="margin-top:12px">
+            <button class="btn primary" id="stats-weak" type="button">🎯 Ôn từ yếu</button>
+            <button class="btn" id="stats-frequency" type="button">🔥 Ôn từ trọng tâm &amp; hay gặp</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <h2>Phiên học gần đây</h2>
+          <span class="hint" id="stats-history-count"></span>
+        </div>
+        <ul class="history card-panel" id="stats-history"></ul>
+      </section>
+
+      <section class="section">
+        <div class="section-head"><h2>Dữ liệu học tập</h2><span class="hint">Lưu trong trình duyệt của bạn</span></div>
+        <div class="card-panel chip-row">
+          <button class="btn" id="stats-export" type="button">📤 Xuất JSON</button>
+          <button class="btn" id="stats-csv" type="button">📄 Xuất CSV</button>
+          <button class="btn" id="stats-import" type="button">📥 Nhập JSON</button>
+          <button class="btn danger" id="stats-reset" type="button">♻️ Xoá dữ liệu</button>
+          <button class="btn ghost" id="stats-about" type="button">ℹ️ Về file này</button>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>{{FOOTER_NOTE}}</p>
+    <p>Toàn bộ dữ liệu nằm trong chính file này. Tiến độ học chỉ lưu trong trình duyệt của bạn.</p>
+  </footer>
+</div>
+
+<template id="tpl-mode-card">
+  <button class="mode-card" type="button">
+    <span class="mode-icon" aria-hidden="true"></span>
+    <span class="mode-name"></span>
+    <span class="mode-desc"></span>
+    <span class="mode-meta"></span>
+  </button>
+</template>
+
+<template id="tpl-option">
+  <button class="option" type="button">
+    <span class="key" aria-hidden="true"></span>
+    <span class="opt-text"></span>
+  </button>
+</template>
+
+<template id="tpl-word-row">
+  <li class="word-row">
+    <button class="word-row-main" type="button">
+      <span>
+        <span class="w"></span>
+        <span class="m"></span>
+      </span>
+      <span class="meta"></span>
+    </button>
+    <div class="word-row-detail" hidden></div>
+  </li>
+</template>
+
+<div id="dialog-host" hidden></div>
+<div id="toast-host" aria-live="polite" aria-atomic="false"></div>
+<p class="sr-only" id="sr-live" role="status" aria-live="polite"></p>
+
+<script type="application/json" id="ca-data">{{DATA_JSON}}</script>
+<script>
+{{APP_JS}}
+</script>
+</body>
+</html>

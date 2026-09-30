@@ -7,6 +7,7 @@ on:
       - "index.html"
       - "style.css"
       - "app.js"
+      - "flashcards.html"
       - "data/**"
       - "assets/**"
       - "scripts/validate_vocab.py"
@@ -37,12 +38,13 @@ jobs:
         run: python scripts/validate_vocab.py
 
       # The repository also contains source PDFs and exam notes. Stage only the
-      # static app so Pages does not upload unrelated archive material.
+      # static app (including the single-file flashcards.html) so Pages does not
+      # upload unrelated archive material.
       - name: Stage static files
         run: |
           rm -rf _site
           mkdir -p _site/data
-          cp index.html style.css app.js _site/
+          cp index.html style.css app.js flashcards.html _site/
           cp data/vocabulary.json _site/data/
           if [ -d assets ]; then cp -R assets _site/assets; fi
           touch _site/.nojekyll
