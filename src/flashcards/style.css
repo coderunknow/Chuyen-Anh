@@ -171,6 +171,15 @@ a { color: var(--accent-2); }
 .section-head h2 { font-size: 1.05rem; }
 .section-head .hint { font-size: 0.8rem; color: var(--muted); }
 
+.notice {
+  display: flex; gap: 12px; align-items: center; justify-content: space-between;
+  padding: 11px 14px; margin-bottom: 16px; border-radius: var(--radius-sm);
+  border: 1px solid color-mix(in srgb, var(--amber) 45%, transparent);
+  background: color-mix(in srgb, var(--amber) 12%, transparent);
+  color: var(--text-soft); font-size: 0.85rem;
+}
+.notice .btn { flex: none; }
+
 .card-panel {
   background: var(--panel); backdrop-filter: blur(12px);
   border: 1px solid var(--line); border-radius: var(--radius);

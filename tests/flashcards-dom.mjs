@@ -51,7 +51,8 @@ function check(name, ok, extra) {
 }
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-function makeDom(seed) {
+function makeDom(seed, options) {
+  const opts = options || {};
   const vc = new VirtualConsole();
   const errors = [];
   vc.on('jsdomError', (e) => errors.push('jsdomError: ' + (e && e.message)));
@@ -59,12 +60,14 @@ function makeDom(seed) {
   const dom = new JSDOM(HTML, {
     runScripts: 'dangerously',
     pretendToBeVisual: true,
-    url: 'https://local.test/flashcards.html',
+    url: opts.url || 'https://local.test/flashcards.html',
     virtualConsole: vc,
     beforeParse(window) {
       window.matchMedia = (q) => ({ matches: false, media: q, addEventListener() {}, removeEventListener() {}, addListener() {}, removeListener() {} });
-      window.speechSynthesis = { getVoices: () => [{ name: 'Test', lang: 'en-US' }], speak(u) { window.__spoken = u.text; }, cancel() {}, addEventListener() {} };
-      window.SpeechSynthesisUtterance = function (text) { this.text = text; };
+      if (!opts.noTts) {
+        window.speechSynthesis = { getVoices: () => [{ name: 'Test', lang: 'en-US' }], speak(u) { window.__spoken = u.text; }, cancel() {}, addEventListener() {} };
+        window.SpeechSynthesisUtterance = function (text) { this.text = text; };
+      }
       window.Element.prototype.scrollIntoView = function () {};
       window.__downloads = [];
       window.URL.createObjectURL = () => 'blob:test';
@@ -74,14 +77,14 @@ function makeDom(seed) {
         if (this.download) { window.__downloads.push(this.download); return; }
         return realClick.call(this);
       };
-      Object.entries(seed || {}).forEach(([key, value]) => window.localStorage.setItem(key, value));
+      if (!opts.noStorage) Object.entries(seed || {}).forEach(([key, value]) => window.localStorage.setItem(key, value));
     }
   });
   return { dom, errors };
 }
 
-async function boot(seed) {
-  const { dom, errors } = makeDom(seed);
+async function boot(seed, options) {
+  const { dom, errors } = makeDom(seed, options);
   const w = dom.window;
   await new Promise((r) => w.addEventListener('load', r));
   await sleep(120);
@@ -119,6 +122,7 @@ check('có 4 lựa chọn số từ', doc.querySelectorAll('#size-select option'
 check('từ của ngày có IPA hoặc nghĩa', text(doc, 'wotd-word').length > 1 && text(doc, 'wotd-meaning').length > 2);
 check('vòng tiến độ hiện 0%', text(doc, 'header-ring-label') === '0%');
 check('danh sách gần đây nhắc bắt đầu', /Chưa có từ nào/.test(doc.getElementById('home-recent').textContent));
+check('không có cảnh báo lưu dữ liệu khi localStorage chạy', doc.getElementById('storage-notice').hidden);
 
 /* ---------- phiên Anh → Việt ---------- */
 click(w, doc.querySelector('#mode-cards .mode-card[data-mode="en-vi"]'));
@@ -592,6 +596,30 @@ await sleep(70);
 check('ôn lại đúng các từ đã sai', api.engine.hasSession() && api.engine.getState().ids.every((id) => wrongIds.includes(id)),
   api.engine.getState().ids.join(',') + ' vs ' + wrongIds.join(','));
 await leaveSession({ w, doc });
+
+
+/* ---------- mở trực tiếp từ đĩa và trình duyệt không có giọng đọc ---------- */
+
+const fileBoot = await boot(null, { url: 'file:///tmp/flashcards.html' });
+check('mở bằng file:// vẫn chạy', fileBoot.w.ChuyenAnhFlashcards && fileBoot.errors.length === 0, fileBoot.errors.join(' | '));
+check('file:// vẫn bắt đầu được phiên', fileBoot.w.ChuyenAnhFlashcards.ui.startSession('en-vi', null, 'Kiểm thử file') !== false);
+await sleep(80);
+check('file:// hiện thẻ học', !!fileBoot.w.ChuyenAnhFlashcards.engine.current());
+check('file:// nhắc rằng tiến độ chỉ giữ trong phiên', !fileBoot.doc.getElementById('storage-notice').hidden);
+const fileCard = fileBoot.api.engine.current();
+fileBoot.api.engine.answerOption(fileCard.question.options.findIndex((o) => o.correct));
+check('file:// vẫn ghi nhận câu trả lời', (fileBoot.api.store.progress()[fileCard.id] || {}).n === 1);
+
+const noTts = await boot(null, { noTts: true });
+const silentDoc = noTts.doc;
+check('không có giọng đọc vẫn khởi động', noTts.api && noTts.errors.length === 0, noTts.errors.join(' | '));
+check('không có giọng đọc thì tắt chế độ nghe', silentDoc.querySelector('#mode-cards .mode-card[data-mode="listen"]').disabled);
+check('không có giọng đọc thì ẩn nút loa trên thẻ', (() => {
+  noTts.api.ui.startSession('smart', null, 'Kiểm thử không giọng đọc');
+  return silentDoc.getElementById('card-speak').hidden;
+})());
+check('câu hỏi không dùng dạng nghe khi thiếu giọng đọc',
+  noTts.api.engine.current().question.kind !== 'listen');
 
 console.log('\nĐã kiểm tra ' + checks + ' điểm, lỗi: ' + fails.length + '.');
 if (fails.length) {

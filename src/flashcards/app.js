@@ -1114,6 +1114,7 @@
     expandedId: null,
     browse: { query: '', state: 'all', level: 'all', tier: 'all', sort: 'az', results: [], rendered: 0, ids: [] },
     typedFor: null,
+    storageNoticeClosed: false,
     timer: null,
     modal: null,
     lastFocus: null,
@@ -1204,6 +1205,7 @@
     var ring = $('#header-ring');
     if (ring) ring.style.setProperty('--pct', Math.round(stats.masteredShare * 100));
     setText($('#header-ring-label'), Math.round(stats.masteredShare * 100) + '%');
+    reveal($('#storage-notice'), !store.hasStorage && !app.storageNoticeClosed);
   }
 
   /* ---------- màn hình chủ ---------- */
@@ -2628,6 +2630,10 @@
     on($('#btn-theme'), 'click', toggleTheme);
     on($('#btn-help'), 'click', openHelp);
     on($('#btn-settings'), 'click', openSettings);
+    on($('#storage-notice-close'), 'click', function () {
+      app.storageNoticeClosed = true;
+      reveal($('#storage-notice'), false);
+    });
 
     on($('#start-smart'), 'click', function () { startSession('smart', null, 'Trộn thông minh'); });
     on($('#plan-due-btn'), 'click', function () {

@@ -181,6 +181,15 @@ a { color: var(--accent-2); }
 .section-head h2 { font-size: 1.05rem; }
 .section-head .hint { font-size: 0.8rem; color: var(--muted); }
 
+.notice {
+  display: flex; gap: 12px; align-items: center; justify-content: space-between;
+  padding: 11px 14px; margin-bottom: 16px; border-radius: var(--radius-sm);
+  border: 1px solid color-mix(in srgb, var(--amber) 45%, transparent);
+  background: color-mix(in srgb, var(--amber) 12%, transparent);
+  color: var(--text-soft); font-size: 0.85rem;
+}
+.notice .btn { flex: none; }
+
 .card-panel {
   background: var(--panel); backdrop-filter: blur(12px);
   border: 1px solid var(--line); border-radius: var(--radius);
@@ -548,6 +557,12 @@ kbd {
     <button class="chip" id="nav-browse" role="tab" aria-selected="false" aria-controls="view-browse" type="button">📚 Danh sách từ</button>
     <button class="chip" id="nav-stats" role="tab" aria-selected="false" aria-controls="view-stats" type="button">📈 Thống kê</button>
   </nav>
+
+  <p class="notice" id="storage-notice" role="status" hidden>
+    <span>⚠️ Trình duyệt không cho lưu dữ liệu cho tệp này, nên tiến độ chỉ giữ trong lúc tab còn mở.
+      Mở tệp từ GitHub Pages, hoặc bật lưu dữ liệu trang web rồi mở lại, để giữ tiến độ.</span>
+    <button class="btn small" id="storage-notice-close" type="button">Đã hiểu</button>
+  </p>
 
   <main id="main" aria-label="Khu vực chính">
 
@@ -2002,6 +2017,7 @@ kbd {
     expandedId: null,
     browse: { query: '', state: 'all', level: 'all', tier: 'all', sort: 'az', results: [], rendered: 0, ids: [] },
     typedFor: null,
+    storageNoticeClosed: false,
     timer: null,
     modal: null,
     lastFocus: null,
@@ -2092,6 +2108,7 @@ kbd {
     var ring = $('#header-ring');
     if (ring) ring.style.setProperty('--pct', Math.round(stats.masteredShare * 100));
     setText($('#header-ring-label'), Math.round(stats.masteredShare * 100) + '%');
+    reveal($('#storage-notice'), !store.hasStorage && !app.storageNoticeClosed);
   }
 
   /* ---------- màn hình chủ ---------- */
@@ -3516,6 +3533,10 @@ kbd {
     on($('#btn-theme'), 'click', toggleTheme);
     on($('#btn-help'), 'click', openHelp);
     on($('#btn-settings'), 'click', openSettings);
+    on($('#storage-notice-close'), 'click', function () {
+      app.storageNoticeClosed = true;
+      reveal($('#storage-notice'), false);
+    });
 
     on($('#start-smart'), 'click', function () { startSession('smart', null, 'Trộn thông minh'); });
     on($('#plan-due-btn'), 'click', function () {
