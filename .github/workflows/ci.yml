@@ -9,6 +9,11 @@ on:
       - "app.js"
       - "data/**"
       - "scripts/validate_vocab.py"
+      - "scripts/audit_learned_vocab.py"
+      - "Learned_Vocabulary_List.md"
+      - "docs/vocabulary-300-*.json"
+      - "docs/vocabulary-300-review.md"
+      - "De-chuyen-Anh-vao-10/**"
       - "tests/**"
       - ".github/workflows/ci.yml"
   push:
@@ -19,6 +24,11 @@ on:
       - "app.js"
       - "data/**"
       - "scripts/validate_vocab.py"
+      - "scripts/audit_learned_vocab.py"
+      - "Learned_Vocabulary_List.md"
+      - "docs/vocabulary-300-*.json"
+      - "docs/vocabulary-300-review.md"
+      - "De-chuyen-Anh-vao-10/**"
       - "tests/**"
       - ".github/workflows/ci.yml"
 
