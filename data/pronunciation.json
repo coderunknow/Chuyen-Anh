@@ -1,0 +1,3295 @@
+{
+ "count": 822,
+ "license": "Copyright (C) 1993-2015 Carnegie Mellon University. All rights reserved. Redistribution and use in source and binary forms, with or without modification, are permitted provided that the copyright notice, this list of conditions and the following disclaimer are retained (BSD-2-Clause). THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND.",
+ "source": "CMU Pronouncing Dictionary (BSD-2), chuyển tự ARPAbet -> IPA",
+ "words": {
+  "abandon|v": {
+   "ipa": "/əˈbændən/",
+   "syllables": 3
+  },
+  "abate|v": {
+   "ipa": "/əˈbeɪt/",
+   "syllables": 2
+  },
+  "abdicate|v": {
+   "ipa": "/ˈæbdəkeɪt/",
+   "syllables": 3
+  },
+  "aberration|n": {
+   "ipa": "/æbɚˈeɪʃən/",
+   "syllables": 4
+  },
+  "absolve|v": {
+   "ipa": "/əbˈzɑːlv/",
+   "syllables": 2
+  },
+  "absorb|v": {
+   "ipa": "/əbˈzɔːrb/",
+   "syllables": 2
+  },
+  "abstain|v": {
+   "ipa": "/əbˈsteɪn/",
+   "syllables": 2
+  },
+  "abundant|adj": {
+   "ipa": "/əˈbʌndənt/",
+   "syllables": 3
+  },
+  "accentuate|v": {
+   "ipa": "/ækˈsentʃueɪt/",
+   "syllables": 4
+  },
+  "acclaim|n/v": {
+   "ipa": "/əˈkleɪm/",
+   "syllables": 2
+  },
+  "accommodate|v": {
+   "ipa": "/əˈkɑːmədeɪt/",
+   "syllables": 4
+  },
+  "accost|v": {
+   "ipa": "/əˈkɔːst/",
+   "syllables": 2
+  },
+  "accountability|n": {
+   "ipa": "/əˈkaʊntəbɪlɪti/",
+   "syllables": 6
+  },
+  "accrue|v": {
+   "ipa": "/əˈkruː/",
+   "syllables": 2
+  },
+  "accurate|adj": {
+   "ipa": "/ˈækjɚət/",
+   "syllables": 3
+  },
+  "acerbic|adj": {
+   "ipa": "/əˈserbɪk/",
+   "syllables": 3
+  },
+  "achievement|n": {
+   "ipa": "/əˈtʃiːvmənt/",
+   "syllables": 3
+  },
+  "acknowledge|v": {
+   "ipa": "/ækˈnɑːlɪdʒ/",
+   "syllables": 3
+  },
+  "acme|n": {
+   "ipa": "/ˈækmi/",
+   "syllables": 2
+  },
+  "acquiesce|v": {
+   "ipa": "/ækwiˈes/",
+   "syllables": 3
+  },
+  "acquire|v": {
+   "ipa": "/əˈkwaɪɚ/",
+   "syllables": 3
+  },
+  "acquit|v": {
+   "ipa": "/əˈkwɪt/",
+   "syllables": 2
+  },
+  "acumen|n": {
+   "ipa": "/əkˈjuːmən/",
+   "syllables": 3
+  },
+  "adamant|adj": {
+   "ipa": "/ˈædəmənt/",
+   "syllables": 3
+  },
+  "adapt|v": {
+   "ipa": "/əˈdæpt/",
+   "syllables": 2
+  },
+  "adept|adj/n": {
+   "ipa": "/əˈdept/",
+   "syllables": 2
+  },
+  "adequate|adj": {
+   "ipa": "/ˈædəkwət/",
+   "syllables": 3
+  },
+  "adjacent|adj": {
+   "ipa": "/əˈdʒeɪsənt/",
+   "syllables": 3
+  },
+  "adjudicate|v": {
+   "ipa": "/əˈdʒuːdɪkeɪt/",
+   "syllables": 4
+  },
+  "adjust|v": {
+   "ipa": "/əˈdʒʌst/",
+   "syllables": 2
+  },
+  "admission|n": {
+   "ipa": "/ædˈmɪʃən/",
+   "syllables": 3
+  },
+  "admonish|v": {
+   "ipa": "/ædˈmɑːnɪʃ/",
+   "syllables": 3
+  },
+  "adopt|v": {
+   "ipa": "/əˈdɑːpt/",
+   "syllables": 2
+  },
+  "adornment|n": {
+   "ipa": "/əˈdɔːrnmənt/",
+   "syllables": 3
+  },
+  "adorn|v": {
+   "ipa": "/əˈdɔːrn/",
+   "syllables": 2
+  },
+  "adroit|adj": {
+   "ipa": "/əˈdrɔɪt/",
+   "syllables": 2
+  },
+  "adulate|v": {
+   "ipa": "/ˈædʒəleɪt/",
+   "syllables": 3
+  },
+  "advancement|n": {
+   "ipa": "/ədˈvænsmənt/",
+   "syllables": 3
+  },
+  "adverse|adj": {
+   "ipa": "/ædˈvɜːs/",
+   "syllables": 2
+  },
+  "adversity|n": {
+   "ipa": "/ædˈvɜːsɪtiː/",
+   "syllables": 4
+  },
+  "advocate|v/n": {
+   "ipa": "/ˈædvəkət/",
+   "syllables": 3
+  },
+  "aegis|n": {
+   "ipa": "/ˈiːdʒəs/",
+   "syllables": 2
+  },
+  "aesthetic|adj/n": {
+   "ipa": "/esˈθetɪk/",
+   "syllables": 3
+  },
+  "affectation|n": {
+   "ipa": "/æfekˈteɪʃən/",
+   "syllables": 4
+  },
+  "affluent|adj": {
+   "ipa": "/ˈæfluənt/",
+   "syllables": 3
+  },
+  "afford|v": {
+   "ipa": "/əˈfɔːrd/",
+   "syllables": 2
+  },
+  "affront|n/v": {
+   "ipa": "/əˈfrʌnt/",
+   "syllables": 2
+  },
+  "aftermath|n": {
+   "ipa": "/ˈæftɚmæθ/",
+   "syllables": 3
+  },
+  "aggrandize|v": {
+   "ipa": "/əˈɡrændaɪz/",
+   "syllables": 3
+  },
+  "aggravate|v": {
+   "ipa": "/ˈæɡrəveɪt/",
+   "syllables": 3
+  },
+  "aggrieve|v": {
+   "ipa": "/əˈɡriːv/",
+   "syllables": 2
+  },
+  "agitate|v": {
+   "ipa": "/ˈædʒəteɪt/",
+   "syllables": 3
+  },
+  "agriculture|n": {
+   "ipa": "/ˈæɡrɪkʌltʃɚ/",
+   "syllables": 4
+  },
+  "alacrity|n": {
+   "ipa": "/əˈlækrəti/",
+   "syllables": 4
+  },
+  "allay|v": {
+   "ipa": "/əˈleɪ/",
+   "syllables": 2
+  },
+  "allege|v": {
+   "ipa": "/əˈledʒ/",
+   "syllables": 2
+  },
+  "allegiance|n": {
+   "ipa": "/əˈliːdʒəns/",
+   "syllables": 3
+  },
+  "allegory|n": {
+   "ipa": "/ˈæləɡɔːri/",
+   "syllables": 4
+  },
+  "alleviate|v": {
+   "ipa": "/əˈliːvieɪt/",
+   "syllables": 4
+  },
+  "allocate|v": {
+   "ipa": "/ˈæləkeɪt/",
+   "syllables": 3
+  },
+  "allotment|n": {
+   "ipa": "/əˈlɑːtmənt/",
+   "syllables": 3
+  },
+  "allot|v": {
+   "ipa": "/əˈlɑːt/",
+   "syllables": 2
+  },
+  "allude|v": {
+   "ipa": "/əˈluːd/",
+   "syllables": 2
+  },
+  "allure|v/n": {
+   "ipa": "/əˈlʊr/",
+   "syllables": 2
+  },
+  "aloof|adj": {
+   "ipa": "/əˈluːf/",
+   "syllables": 2
+  },
+  "alternative|n/adj": {
+   "ipa": "/ɔːlˈtɜːnətɪv/",
+   "syllables": 4
+  },
+  "alter|v": {
+   "ipa": "/ˈɔːltɚ/",
+   "syllables": 2
+  },
+  "altruism|n": {
+   "ipa": "/ˈæltruɪzəm/",
+   "syllables": 4
+  },
+  "amalgamate|v": {
+   "ipa": "/əˈmælɡəmeɪt/",
+   "syllables": 4
+  },
+  "amass|v": {
+   "ipa": "/əˈmæs/",
+   "syllables": 2
+  },
+  "amateur|n/adj": {
+   "ipa": "/ˈæmətɜː/",
+   "syllables": 3
+  },
+  "ambiguity|n": {
+   "ipa": "/æmbɪɡˈjuːəti/",
+   "syllables": 5
+  },
+  "ambition|n": {
+   "ipa": "/æmˈbɪʃən/",
+   "syllables": 3
+  },
+  "ambivalent|adj": {
+   "ipa": "/æmˈbɪvələnt/",
+   "syllables": 4
+  },
+  "ameliorate|v": {
+   "ipa": "/əˈmiːljɚeɪt/",
+   "syllables": 4
+  },
+  "amenable|adj": {
+   "ipa": "/əˈmenəbəl/",
+   "syllables": 4
+  },
+  "amiable|adj": {
+   "ipa": "/ˈeɪmiəbəl/",
+   "syllables": 4
+  },
+  "amity|n": {
+   "ipa": "/ˈæmɪti/",
+   "syllables": 3
+  },
+  "amoral|adj": {
+   "ipa": "/eɪˈmɔːrəl/",
+   "syllables": 3
+  },
+  "amorphous|adj": {
+   "ipa": "/əˈmɔːrfəs/",
+   "syllables": 3
+  },
+  "anachronism|n": {
+   "ipa": "/əˈnækrənɪzəm/",
+   "syllables": 5
+  },
+  "analogy|n": {
+   "ipa": "/əˈnælədʒi/",
+   "syllables": 4
+  },
+  "analysis|n": {
+   "ipa": "/əˈnæləsəs/",
+   "syllables": 4
+  },
+  "anathema|n": {
+   "ipa": "/əˈnæθəmə/",
+   "syllables": 4
+  },
+  "anecdote|n": {
+   "ipa": "/ˈænəkdoʊt/",
+   "syllables": 3
+  },
+  "animosity|n": {
+   "ipa": "/ænəˈmɑːsəti/",
+   "syllables": 5
+  },
+  "animus|n": {
+   "ipa": "/ˈænɪməs/",
+   "syllables": 3
+  },
+  "annals|n": {
+   "ipa": "/ˈænəlz/",
+   "syllables": 2
+  },
+  "annihilate|v": {
+   "ipa": "/əˈnaɪəleɪt/",
+   "syllables": 4
+  },
+  "annotate|v": {
+   "ipa": "/ˈænəteɪt/",
+   "syllables": 3
+  },
+  "annul|v": {
+   "ipa": "/ˈænəl/",
+   "syllables": 2
+  },
+  "anomalous|adj": {
+   "ipa": "/əˈnɑːmələs/",
+   "syllables": 4
+  },
+  "antagonism|n": {
+   "ipa": "/ænˈtæɡənɪzəm/",
+   "syllables": 5
+  },
+  "antagonize|v": {
+   "ipa": "/ænˈtæɡənaɪz/",
+   "syllables": 4
+  },
+  "antecedent|n/adj": {
+   "ipa": "/ænˈtesədənt/",
+   "syllables": 4
+  },
+  "anthropomorphic|adj": {
+   "ipa": "/ænθrəpəˈmɔːrfɪk/",
+   "syllables": 5
+  },
+  "anticipate|v": {
+   "ipa": "/ænˈtɪsəpeɪt/",
+   "syllables": 4
+  },
+  "antidote|n": {
+   "ipa": "/ˈæntɪdoʊt/",
+   "syllables": 3
+  },
+  "antipathy|n": {
+   "ipa": "/ænˈtɪpəθi/",
+   "syllables": 4
+  },
+  "antiquated|adj": {
+   "ipa": "/ˈæntəkweɪtɪd/",
+   "syllables": 4
+  },
+  "anxiety|n": {
+   "ipa": "/æŋˈzaɪəti/",
+   "syllables": 4
+  },
+  "apathetic|adj": {
+   "ipa": "/æpəˈθetɪk/",
+   "syllables": 4
+  },
+  "apology|n": {
+   "ipa": "/əˈpɑːlədʒiː/",
+   "syllables": 4
+  },
+  "appall|v": {
+   "ipa": "/əˈpɔːl/",
+   "syllables": 2
+  },
+  "apparent|adj": {
+   "ipa": "/əˈperənt/",
+   "syllables": 3
+  },
+  "appease|v": {
+   "ipa": "/əˈpiːz/",
+   "syllables": 2
+  },
+  "applaud|v": {
+   "ipa": "/əˈplɔːd/",
+   "syllables": 2
+  },
+  "appraise|v": {
+   "ipa": "/əˈpreɪz/",
+   "syllables": 2
+  },
+  "appreciate|v": {
+   "ipa": "/əˈpriːʃieɪt/",
+   "syllables": 4
+  },
+  "apprehension|n": {
+   "ipa": "/æprɪˈhenʃən/",
+   "syllables": 4
+  },
+  "apprehensive|adj": {
+   "ipa": "/æprɪˈhensɪv/",
+   "syllables": 4
+  },
+  "appropriate|adj": {
+   "ipa": "/əˈproʊpriət/",
+   "syllables": 4
+  },
+  "approve|v": {
+   "ipa": "/əˈpruːv/",
+   "syllables": 2
+  },
+  "arbitrary|adj": {
+   "ipa": "/ˈɑːrbətreri/",
+   "syllables": 4
+  },
+  "archaic|adj": {
+   "ipa": "/ɑːrˈkeɪɪk/",
+   "syllables": 3
+  },
+  "ardor|n": {
+   "ipa": "/ˈɑːrdɚ/",
+   "syllables": 2
+  },
+  "arduous|adj": {
+   "ipa": "/ˈɑːrdʒuəs/",
+   "syllables": 3
+  },
+  "argot|n": {
+   "ipa": "/ˈɑːrɡət/",
+   "syllables": 2
+  },
+  "arid|adj": {
+   "ipa": "/ˈærəd/",
+   "syllables": 2
+  },
+  "array|n/v": {
+   "ipa": "/ɚˈeɪ/",
+   "syllables": 2
+  },
+  "arrogance|n": {
+   "ipa": "/ˈerəɡəns/",
+   "syllables": 3
+  },
+  "articulate|adj/v": {
+   "ipa": "/ɑːrˈtɪkjəleɪt/",
+   "syllables": 4
+  },
+  "artificial|adj": {
+   "ipa": "/ɑːrtəˈfɪʃəl/",
+   "syllables": 4
+  },
+  "ascertain|v": {
+   "ipa": "/æsɚˈteɪn/",
+   "syllables": 3
+  },
+  "ascetic|adj/n": {
+   "ipa": "/əˈsetɪk/",
+   "syllables": 3
+  },
+  "ascribe|v": {
+   "ipa": "/əˈskraɪb/",
+   "syllables": 2
+  },
+  "aspersion|n": {
+   "ipa": "/əˈspɜːʒən/",
+   "syllables": 3
+  },
+  "aspiration|n": {
+   "ipa": "/æspɚˈeɪʃən/",
+   "syllables": 4
+  },
+  "assail|v": {
+   "ipa": "/əˈseɪl/",
+   "syllables": 2
+  },
+  "assay|v/n": {
+   "ipa": "/ˈæsi/",
+   "syllables": 2
+  },
+  "assess|v": {
+   "ipa": "/əˈses/",
+   "syllables": 2
+  },
+  "assiduous|adj": {
+   "ipa": "/əˈsɪdwəs/",
+   "syllables": 3
+  },
+  "assimilate|v": {
+   "ipa": "/əˈsɪməleɪt/",
+   "syllables": 4
+  },
+  "assume|v": {
+   "ipa": "/əˈsuːm/",
+   "syllables": 2
+  },
+  "astute|adj": {
+   "ipa": "/əˈstuːt/",
+   "syllables": 2
+  },
+  "atrophy|v/n": {
+   "ipa": "/ˈætrəfi/",
+   "syllables": 3
+  },
+  "attain|v": {
+   "ipa": "/əˈteɪn/",
+   "syllables": 2
+  },
+  "attribute|v/n": {
+   "ipa": "/ˈætrəbjuːt/",
+   "syllables": 3
+  },
+  "audacious|adj": {
+   "ipa": "/ɑːˈdeɪʃəs/",
+   "syllables": 3
+  },
+  "augment|v": {
+   "ipa": "/ɔːɡˈment/",
+   "syllables": 2
+  },
+  "auspicious|adj": {
+   "ipa": "/ɑːˈspɪʃəs/",
+   "syllables": 3
+  },
+  "austere|adj": {
+   "ipa": "/ɔːˈstɪr/",
+   "syllables": 2
+  },
+  "authentic|adj": {
+   "ipa": "/əˈθentɪk/",
+   "syllables": 3
+  },
+  "avarice|n": {
+   "ipa": "/ˈævɚəs/",
+   "syllables": 3
+  },
+  "averse|adj": {
+   "ipa": "/əˈvɜːs/",
+   "syllables": 2
+  },
+  "aversion|n": {
+   "ipa": "/əˈvɜːʒən/",
+   "syllables": 3
+  },
+  "awareness|n": {
+   "ipa": "/əˈwernəs/",
+   "syllables": 3
+  },
+  "axiomatic|adj": {
+   "ipa": "/æksiəˈmætɪk/",
+   "syllables": 5
+  },
+  "baffle|v": {
+   "ipa": "/ˈbæfəl/",
+   "syllables": 2
+  },
+  "banal|adj": {
+   "ipa": "/bəˈnɑːl/",
+   "syllables": 2
+  },
+  "bane|n": {
+   "ipa": "/ˈbeɪn/",
+   "syllables": 1
+  },
+  "bargain|n/v": {
+   "ipa": "/ˈbɑːrɡən/",
+   "syllables": 2
+  },
+  "befuddle|v": {
+   "ipa": "/bɪˈfʌdəl/",
+   "syllables": 3
+  },
+  "belie|v": {
+   "ipa": "/bɪˈlaɪ/",
+   "syllables": 2
+  },
+  "belligerent|adj": {
+   "ipa": "/bəˈlɪdʒɚənt/",
+   "syllables": 4
+  },
+  "beneficent|adj": {
+   "ipa": "/benəˈfɪʃənt/",
+   "syllables": 4
+  },
+  "beneficial|adj": {
+   "ipa": "/benəˈfɪʃəl/",
+   "syllables": 4
+  },
+  "benevolent|adj": {
+   "ipa": "/bəˈnevələnt/",
+   "syllables": 4
+  },
+  "bereft|adj": {
+   "ipa": "/bɚˈeft/",
+   "syllables": 2
+  },
+  "besiege|v": {
+   "ipa": "/bɪˈsiːdʒ/",
+   "syllables": 2
+  },
+  "bias|n/v": {
+   "ipa": "/ˈbaɪəs/",
+   "syllables": 2
+  },
+  "blatant|adj": {
+   "ipa": "/ˈbleɪtənt/",
+   "syllables": 2
+  },
+  "boisterous|adj": {
+   "ipa": "/ˈbɔɪstɚəs/",
+   "syllables": 3
+  },
+  "bolster|v": {
+   "ipa": "/ˈboʊlstɚ/",
+   "syllables": 2
+  },
+  "boost|v/n": {
+   "ipa": "/ˈbuːst/",
+   "syllables": 1
+  },
+  "breach|n/v": {
+   "ipa": "/ˈbriːtʃ/",
+   "syllables": 1
+  },
+  "breakthrough|n": {
+   "ipa": "/ˈbreɪkθruː/",
+   "syllables": 2
+  },
+  "brevity|n": {
+   "ipa": "/ˈbrevəti/",
+   "syllables": 3
+  },
+  "burgeon|v": {
+   "ipa": "/ˈbɜːdʒən/",
+   "syllables": 2
+  },
+  "byzantine|adj": {
+   "ipa": "/ˈbɪzəntaɪn/",
+   "syllables": 3
+  },
+  "cacophony|n": {
+   "ipa": "/kæˈkɑːfəni/",
+   "syllables": 4
+  },
+  "cajole|v": {
+   "ipa": "/kəˈdʒoʊl/",
+   "syllables": 2
+  },
+  "callous|adj": {
+   "ipa": "/ˈkæləs/",
+   "syllables": 2
+  },
+  "calumny|n": {
+   "ipa": "/ˈkæləmni/",
+   "syllables": 3
+  },
+  "camaraderie|n": {
+   "ipa": "/kɑːmɚˈɑːdɚi/",
+   "syllables": 5
+  },
+  "candid|adj": {
+   "ipa": "/ˈkændəd/",
+   "syllables": 2
+  },
+  "capable|adj": {
+   "ipa": "/ˈkeɪpəbəl/",
+   "syllables": 3
+  },
+  "capacity|n": {
+   "ipa": "/kəˈpæsəti/",
+   "syllables": 4
+  },
+  "capricious|adj": {
+   "ipa": "/kəˈprɪʃəs/",
+   "syllables": 3
+  },
+  "captivate|v": {
+   "ipa": "/ˈkæptɪveɪt/",
+   "syllables": 3
+  },
+  "captivity|n": {
+   "ipa": "/kæpˈtɪvəti/",
+   "syllables": 4
+  },
+  "castigate|v": {
+   "ipa": "/ˈkæstəɡeɪt/",
+   "syllables": 3
+  },
+  "catalyst|n": {
+   "ipa": "/ˈkætələst/",
+   "syllables": 3
+  },
+  "catastrophic|adj": {
+   "ipa": "/kætəˈstrɑːfɪk/",
+   "syllables": 4
+  },
+  "caustic|adj": {
+   "ipa": "/ˈkɑːstɪk/",
+   "syllables": 2
+  },
+  "cautious|adj": {
+   "ipa": "/ˈkɔːʃəs/",
+   "syllables": 2
+  },
+  "caveat|n": {
+   "ipa": "/ˈkeɪviæt/",
+   "syllables": 3
+  },
+  "cease|v": {
+   "ipa": "/ˈsiːs/",
+   "syllables": 1
+  },
+  "cede|v": {
+   "ipa": "/ˈsiːd/",
+   "syllables": 1
+  },
+  "censorship|n": {
+   "ipa": "/ˈsensɚʃɪp/",
+   "syllables": 3
+  },
+  "chagrin|n": {
+   "ipa": "/ʃəˈɡrɪn/",
+   "syllables": 2
+  },
+  "chronically|adv": {
+   "ipa": "/ˈkrɑːnɪkəli/",
+   "syllables": 4
+  },
+  "chronic|adj": {
+   "ipa": "/ˈkrɑːnɪk/",
+   "syllables": 2
+  },
+  "circumstance|n": {
+   "ipa": "/ˈsɜːkəmstæns/",
+   "syllables": 3
+  },
+  "clandestine|adj": {
+   "ipa": "/klænˈdestɪn/",
+   "syllables": 3
+  },
+  "clarification|n": {
+   "ipa": "/klerəfəˈkeɪʃən/",
+   "syllables": 5
+  },
+  "cleave|v": {
+   "ipa": "/ˈkliːv/",
+   "syllables": 1
+  },
+  "clemency|n": {
+   "ipa": "/ˈklemənsi/",
+   "syllables": 3
+  },
+  "coalesce|v": {
+   "ipa": "/koʊəˈles/",
+   "syllables": 3
+  },
+  "coercion|n": {
+   "ipa": "/koʊˈɜːʃən/",
+   "syllables": 3
+  },
+  "cogent|adj": {
+   "ipa": "/ˈkoʊdʒənt/",
+   "syllables": 2
+  },
+  "cognitive|adj": {
+   "ipa": "/ˈkɑːɡnɪtɪv/",
+   "syllables": 3
+  },
+  "cognizant|adj": {
+   "ipa": "/ˈkɑːɡnəzənt/",
+   "syllables": 3
+  },
+  "coherent|adj": {
+   "ipa": "/koʊˈhɪrənt/",
+   "syllables": 3
+  },
+  "collapse|v/n": {
+   "ipa": "/kəˈlæps/",
+   "syllables": 2
+  },
+  "colloquial|adj": {
+   "ipa": "/kəˈloʊkwiəl/",
+   "syllables": 4
+  },
+  "collusion|n": {
+   "ipa": "/kəˈluːʒən/",
+   "syllables": 3
+  },
+  "commemorate|v": {
+   "ipa": "/kəˈmemɚeɪt/",
+   "syllables": 4
+  },
+  "commend|v": {
+   "ipa": "/kəˈmend/",
+   "syllables": 2
+  },
+  "commensurate|adj": {
+   "ipa": "/kəˈmensɚət/",
+   "syllables": 4
+  },
+  "commercial|adj": {
+   "ipa": "/kəˈmɜːʃəl/",
+   "syllables": 3
+  },
+  "commitment|n": {
+   "ipa": "/kəˈmɪtmənt/",
+   "syllables": 3
+  },
+  "comparable|adj": {
+   "ipa": "/ˈkɑːmpɚəbəl/",
+   "syllables": 4
+  },
+  "compelling|adj": {
+   "ipa": "/kəmˈpelɪŋ/",
+   "syllables": 3
+  },
+  "compel|v": {
+   "ipa": "/kəmˈpel/",
+   "syllables": 2
+  },
+  "compensate|v": {
+   "ipa": "/ˈkɑːmpənseɪt/",
+   "syllables": 3
+  },
+  "competent|adj": {
+   "ipa": "/ˈkɑːmpətɪnt/",
+   "syllables": 3
+  },
+  "competition|n": {
+   "ipa": "/kɑːmpəˈtɪʃən/",
+   "syllables": 4
+  },
+  "complacent|adj": {
+   "ipa": "/kəmˈpleɪsənt/",
+   "syllables": 3
+  },
+  "complaisant|adj": {
+   "ipa": "/kəmˈpleɪsənt/",
+   "syllables": 3
+  },
+  "complex|adj/n": {
+   "ipa": "/ˈkɑːmpleks/",
+   "syllables": 2
+  },
+  "compliant|adj": {
+   "ipa": "/kəmˈplaɪənt/",
+   "syllables": 3
+  },
+  "comprehensive|adj": {
+   "ipa": "/kɑːmpriˈhensɪv/",
+   "syllables": 4
+  },
+  "comprise|v": {
+   "ipa": "/kəmˈpraɪz/",
+   "syllables": 2
+  },
+  "compromise|n/v": {
+   "ipa": "/ˈkɑːmprəmaɪz/",
+   "syllables": 3
+  },
+  "compunction|n": {
+   "ipa": "/kəmˈpʌŋkʃən/",
+   "syllables": 3
+  },
+  "conceal|v": {
+   "ipa": "/kənˈsiːl/",
+   "syllables": 2
+  },
+  "concede|v": {
+   "ipa": "/kənˈsiːd/",
+   "syllables": 2
+  },
+  "concentration|n": {
+   "ipa": "/kɑːnsənˈtreɪʃən/",
+   "syllables": 4
+  },
+  "concise|adj": {
+   "ipa": "/kənˈsaɪs/",
+   "syllables": 2
+  },
+  "concoct|v": {
+   "ipa": "/kənˈkɑːkt/",
+   "syllables": 2
+  },
+  "concrete|adj/n": {
+   "ipa": "/kənˈkriːt/",
+   "syllables": 2
+  },
+  "concurrent|adj": {
+   "ipa": "/kənˈkɜːənt/",
+   "syllables": 3
+  },
+  "condescend|v": {
+   "ipa": "/kɑːndɪˈsend/",
+   "syllables": 3
+  },
+  "condone|v": {
+   "ipa": "/kənˈdoʊn/",
+   "syllables": 2
+  },
+  "conducive|adj": {
+   "ipa": "/kənˈduːsɪv/",
+   "syllables": 3
+  },
+  "conduct|v/n": {
+   "ipa": "/ˈkɑːndəkt/",
+   "syllables": 2
+  },
+  "confidential|adj": {
+   "ipa": "/kɑːnfəˈdenʃəl/",
+   "syllables": 4
+  },
+  "confirm|v": {
+   "ipa": "/kənˈfɜːm/",
+   "syllables": 2
+  },
+  "conflagration|n": {
+   "ipa": "/kɑːnfləˈɡreɪʃən/",
+   "syllables": 4
+  },
+  "confound|v": {
+   "ipa": "/kɑːnˈfaʊnd/",
+   "syllables": 2
+  },
+  "confront|v": {
+   "ipa": "/kənˈfrʌnt/",
+   "syllables": 2
+  },
+  "congenial|adj": {
+   "ipa": "/kənˈdʒiːnjəl/",
+   "syllables": 3
+  },
+  "congestion|n": {
+   "ipa": "/kənˈdʒestʃən/",
+   "syllables": 3
+  },
+  "conjecture|n/v": {
+   "ipa": "/kənˈdʒektʃɚ/",
+   "syllables": 3
+  },
+  "connive|v": {
+   "ipa": "/kəˈnaɪv/",
+   "syllables": 2
+  },
+  "conscientious|adj": {
+   "ipa": "/kɑːnʃiˈenʃəs/",
+   "syllables": 4
+  },
+  "conscious|adj": {
+   "ipa": "/ˈkɑːnʃəs/",
+   "syllables": 2
+  },
+  "consecrate|v": {
+   "ipa": "/ˈkɑːnsəkreɪt/",
+   "syllables": 3
+  },
+  "consecutive|adj": {
+   "ipa": "/kənˈsekjətɪv/",
+   "syllables": 4
+  },
+  "consensus|n": {
+   "ipa": "/kənˈsensəs/",
+   "syllables": 3
+  },
+  "consequence|n": {
+   "ipa": "/ˈkɑːnsəkwəns/",
+   "syllables": 3
+  },
+  "conservation|n": {
+   "ipa": "/kɑːnsɚˈveɪʃən/",
+   "syllables": 4
+  },
+  "considerable|adj": {
+   "ipa": "/kənˈsɪdɚəbəl/",
+   "syllables": 5
+  },
+  "consistent|adj": {
+   "ipa": "/kənˈsɪstənt/",
+   "syllables": 3
+  },
+  "consolidate|v": {
+   "ipa": "/kənˈsɑːlɪdeɪt/",
+   "syllables": 4
+  },
+  "conspicuous|adj": {
+   "ipa": "/kənˈspɪkjuəs/",
+   "syllables": 4
+  },
+  "constitute|v": {
+   "ipa": "/ˈkɑːnstətuːt/",
+   "syllables": 3
+  },
+  "constraint|n": {
+   "ipa": "/kənˈstreɪnt/",
+   "syllables": 2
+  },
+  "consumption|n": {
+   "ipa": "/kənˈsʌmpʃən/",
+   "syllables": 3
+  },
+  "contaminate|v": {
+   "ipa": "/kənˈtæməneɪt/",
+   "syllables": 4
+  },
+  "contemplative|adj": {
+   "ipa": "/kənˈtemplətɪv/",
+   "syllables": 4
+  },
+  "contemporary|adj/n": {
+   "ipa": "/kənˈtempɚeri/",
+   "syllables": 5
+  },
+  "contempt|n": {
+   "ipa": "/kənˈtempt/",
+   "syllables": 2
+  },
+  "contention|n": {
+   "ipa": "/kənˈtenʃən/",
+   "syllables": 3
+  },
+  "contingency|n": {
+   "ipa": "/kənˈtɪndʒənsi/",
+   "syllables": 4
+  },
+  "contradict|v": {
+   "ipa": "/kɑːntrəˈdɪkt/",
+   "syllables": 3
+  },
+  "contribution|n": {
+   "ipa": "/kɑːntrəbˈjuːʃən/",
+   "syllables": 4
+  },
+  "contrite|adj": {
+   "ipa": "/kənˈtraɪt/",
+   "syllables": 2
+  },
+  "controversial|adj": {
+   "ipa": "/kɑːntrəˈvɜːʃəl/",
+   "syllables": 4
+  },
+  "conundrum|n": {
+   "ipa": "/kəˈnʌndrəm/",
+   "syllables": 3
+  },
+  "convenience|n": {
+   "ipa": "/kənˈviːnjəns/",
+   "syllables": 3
+  },
+  "conventional|adj": {
+   "ipa": "/kənˈvenʃənəl/",
+   "syllables": 4
+  },
+  "convert|v": {
+   "ipa": "/ˈkɑːnvɚt/",
+   "syllables": 2
+  },
+  "convince|v": {
+   "ipa": "/kənˈvɪns/",
+   "syllables": 2
+  },
+  "convivial|adj": {
+   "ipa": "/kənˈvɪviəl/",
+   "syllables": 4
+  },
+  "cooperation|n": {
+   "ipa": "/koʊɑːpɚˈeɪʃən/",
+   "syllables": 5
+  },
+  "copious|adj": {
+   "ipa": "/ˈkoʊpiəs/",
+   "syllables": 3
+  },
+  "correlate|v/n": {
+   "ipa": "/ˈkɔːrəleɪt/",
+   "syllables": 3
+  },
+  "corroborate|v": {
+   "ipa": "/kɚˈɑːbɚeɪt/",
+   "syllables": 4
+  },
+  "corrosive|adj": {
+   "ipa": "/kɚˈoʊsɪv/",
+   "syllables": 3
+  },
+  "cosmopolitan|adj/n": {
+   "ipa": "/kɑːzməˈpɑːlətən/",
+   "syllables": 5
+  },
+  "counterfeit|adj/n/v": {
+   "ipa": "/ˈkaʊntɚfɪt/",
+   "syllables": 3
+  },
+  "counterpart|n": {
+   "ipa": "/ˈkaʊntɚpɑːrt/",
+   "syllables": 3
+  },
+  "covert|adj/n": {
+   "ipa": "/ˈkoʊvɚt/",
+   "syllables": 2
+  },
+  "covet|v": {
+   "ipa": "/ˈkʌvət/",
+   "syllables": 2
+  },
+  "cower|v": {
+   "ipa": "/ˈkaʊɚ/",
+   "syllables": 2
+  },
+  "crafty|adj": {
+   "ipa": "/ˈkræfti/",
+   "syllables": 2
+  },
+  "crass|adj": {
+   "ipa": "/ˈkræs/",
+   "syllables": 1
+  },
+  "credence|n": {
+   "ipa": "/ˈkriːdəns/",
+   "syllables": 2
+  },
+  "credible|adj": {
+   "ipa": "/ˈkredəbəl/",
+   "syllables": 3
+  },
+  "credulous|adj": {
+   "ipa": "/ˈkredʒələs/",
+   "syllables": 3
+  },
+  "criterion|n": {
+   "ipa": "/kraɪˈtɪriən/",
+   "syllables": 4
+  },
+  "critical|adj": {
+   "ipa": "/ˈkrɪtɪkəl/",
+   "syllables": 3
+  },
+  "cronyism|n": {
+   "ipa": "/ˈkroʊniɪzəm/",
+   "syllables": 4
+  },
+  "crony|n": {
+   "ipa": "/ˈkroʊni/",
+   "syllables": 2
+  },
+  "crossover|n": {
+   "ipa": "/ˈkrɔːsoʊvɚ/",
+   "syllables": 3
+  },
+  "crucial|adj": {
+   "ipa": "/ˈkruːʃəl/",
+   "syllables": 2
+  },
+  "culminate|v": {
+   "ipa": "/ˈkʌlmɪneɪt/",
+   "syllables": 3
+  },
+  "culpable|adj": {
+   "ipa": "/ˈkʌlpəbəl/",
+   "syllables": 3
+  },
+  "cultivate|v": {
+   "ipa": "/ˈkʌltəveɪt/",
+   "syllables": 3
+  },
+  "cumbersome|adj": {
+   "ipa": "/ˈkʌmbɚsəm/",
+   "syllables": 3
+  },
+  "curate|v": {
+   "ipa": "/kˈjʊrət/",
+   "syllables": 2
+  },
+  "curator|n": {
+   "ipa": "/kjʊˈreɪtɚ/",
+   "syllables": 3
+  },
+  "curriculum|n": {
+   "ipa": "/kɚˈɪkjələm/",
+   "syllables": 4
+  },
+  "curtail|v": {
+   "ipa": "/kɚˈteɪl/",
+   "syllables": 2
+  },
+  "cynical|adj": {
+   "ipa": "/ˈsɪnɪkəl/",
+   "syllables": 3
+  },
+  "daunting|adj": {
+   "ipa": "/ˈdɔːntɪŋ/",
+   "syllables": 2
+  },
+  "dawdle|v": {
+   "ipa": "/ˈdɔːdəl/",
+   "syllables": 2
+  },
+  "debilitate|v": {
+   "ipa": "/dəˈbɪləteɪt/",
+   "syllables": 4
+  },
+  "decadence|n": {
+   "ipa": "/ˈdekədəns/",
+   "syllables": 3
+  },
+  "deceive|v": {
+   "ipa": "/dɪˈsiːv/",
+   "syllables": 2
+  },
+  "decimate|v": {
+   "ipa": "/ˈdesəmeɪt/",
+   "syllables": 3
+  },
+  "decline|v/n": {
+   "ipa": "/dɪˈklaɪn/",
+   "syllables": 2
+  },
+  "dedicate|v": {
+   "ipa": "/ˈdedəkeɪt/",
+   "syllables": 3
+  },
+  "deduction|n": {
+   "ipa": "/dɪˈdʌkʃən/",
+   "syllables": 3
+  },
+  "deference|n": {
+   "ipa": "/ˈdefɚəns/",
+   "syllables": 3
+  },
+  "deficiency|n": {
+   "ipa": "/dɪˈfɪʃənsi/",
+   "syllables": 4
+  },
+  "deforestation|n": {
+   "ipa": "/dɪfɔːrɪˈsteɪʃən/",
+   "syllables": 5
+  },
+  "defy|v": {
+   "ipa": "/dɪˈfaɪ/",
+   "syllables": 2
+  },
+  "degrade|v": {
+   "ipa": "/dɪˈɡreɪd/",
+   "syllables": 2
+  },
+  "deliberate|adj": {
+   "ipa": "/dɪˈlɪbɚət/",
+   "syllables": 4
+  },
+  "delineate|v": {
+   "ipa": "/dɪˈlɪnieɪt/",
+   "syllables": 4
+  },
+  "demand|n/v": {
+   "ipa": "/dɪˈmænd/",
+   "syllables": 2
+  },
+  "demeanor|n": {
+   "ipa": "/dɪˈmiːnɚ/",
+   "syllables": 3
+  },
+  "demonstrate|v": {
+   "ipa": "/ˈdemənstreɪt/",
+   "syllables": 3
+  },
+  "demystify|v": {
+   "ipa": "/diˈmɪstəfaɪ/",
+   "syllables": 4
+  },
+  "denounce|v": {
+   "ipa": "/dɪˈnaʊns/",
+   "syllables": 2
+  },
+  "depict|v": {
+   "ipa": "/dɪˈpɪkt/",
+   "syllables": 2
+  },
+  "deplete|v": {
+   "ipa": "/dɪˈpliːt/",
+   "syllables": 2
+  },
+  "deprive|v": {
+   "ipa": "/dɪˈpraɪv/",
+   "syllables": 2
+  },
+  "deride|v": {
+   "ipa": "/dɪˈraɪd/",
+   "syllables": 2
+  },
+  "derivation|n": {
+   "ipa": "/derəˈveɪʃən/",
+   "syllables": 4
+  },
+  "derivative|adj/n": {
+   "ipa": "/dɚˈɪvətɪv/",
+   "syllables": 4
+  },
+  "derive|v": {
+   "ipa": "/dɚˈaɪv/",
+   "syllables": 2
+  },
+  "despondent|adj": {
+   "ipa": "/dɪˈspɑːndənt/",
+   "syllables": 3
+  },
+  "detect|v": {
+   "ipa": "/dɪˈtekt/",
+   "syllables": 2
+  },
+  "deteriorate|v": {
+   "ipa": "/dɪˈtɪriɚeɪt/",
+   "syllables": 5
+  },
+  "determine|v": {
+   "ipa": "/dəˈtɜːmən/",
+   "syllables": 3
+  },
+  "detract|v": {
+   "ipa": "/dɪˈtrækt/",
+   "syllables": 2
+  },
+  "detrimental|adj": {
+   "ipa": "/detrəˈmentəl/",
+   "syllables": 4
+  },
+  "deviate|v": {
+   "ipa": "/ˈdiːvieɪt/",
+   "syllables": 3
+  },
+  "devoid|adj": {
+   "ipa": "/dɪˈvɔɪd/",
+   "syllables": 2
+  },
+  "dilapidated|adj": {
+   "ipa": "/dəˈlæpədeɪtɪd/",
+   "syllables": 5
+  },
+  "diligent|adj": {
+   "ipa": "/ˈdɪlɪdʒənt/",
+   "syllables": 3
+  },
+  "diminish|v": {
+   "ipa": "/dɪˈmɪnɪʃ/",
+   "syllables": 3
+  },
+  "discerning|adj": {
+   "ipa": "/dɪˈsɜːnɪŋ/",
+   "syllables": 3
+  },
+  "discipline|n/v": {
+   "ipa": "/ˈdɪsəplən/",
+   "syllables": 3
+  },
+  "discord|n": {
+   "ipa": "/ˈdɪskɔːrd/",
+   "syllables": 2
+  },
+  "discrepancy|n": {
+   "ipa": "/dɪˈskrepənsi/",
+   "syllables": 4
+  },
+  "discriminate|v": {
+   "ipa": "/dɪˈskrɪməneɪt/",
+   "syllables": 4
+  },
+  "discursive|adj": {
+   "ipa": "/dɪˈskɜːsɪv/",
+   "syllables": 3
+  },
+  "disdain|n/v": {
+   "ipa": "/dɪsˈdeɪn/",
+   "syllables": 2
+  },
+  "disillusion|v": {
+   "ipa": "/dɪsɪˈluːʒən/",
+   "syllables": 4
+  },
+  "disparage|v": {
+   "ipa": "/dɪˈsperɪdʒ/",
+   "syllables": 3
+  },
+  "disparate|adj": {
+   "ipa": "/ˈdɪspɚɪt/",
+   "syllables": 3
+  },
+  "disposal|n": {
+   "ipa": "/dɪˈspoʊzəl/",
+   "syllables": 3
+  },
+  "disrupt|v": {
+   "ipa": "/dɪsˈrʌpt/",
+   "syllables": 2
+  },
+  "dissemble|v": {
+   "ipa": "/dɪˈsembəl/",
+   "syllables": 3
+  },
+  "disseminate|v": {
+   "ipa": "/dɪˈseməneɪt/",
+   "syllables": 4
+  },
+  "dissent|n/v": {
+   "ipa": "/dɪˈsent/",
+   "syllables": 2
+  },
+  "distinguish|v": {
+   "ipa": "/dɪˈstɪŋɡwɪʃ/",
+   "syllables": 3
+  },
+  "distract|v": {
+   "ipa": "/dɪˈstrækt/",
+   "syllables": 2
+  },
+  "distribution|n": {
+   "ipa": "/dɪstrəbˈjuːʃən/",
+   "syllables": 4
+  },
+  "diverse|adj": {
+   "ipa": "/daɪˈvɜːs/",
+   "syllables": 2
+  },
+  "dogmatic|adj": {
+   "ipa": "/dɑːɡˈmætɪk/",
+   "syllables": 3
+  },
+  "domestic|adj": {
+   "ipa": "/dəˈmestɪk/",
+   "syllables": 3
+  },
+  "drought|n": {
+   "ipa": "/ˈdraʊt/",
+   "syllables": 1
+  },
+  "dubious|adj": {
+   "ipa": "/ˈduːbiəs/",
+   "syllables": 3
+  },
+  "durable|adj": {
+   "ipa": "/ˈdʊrəbəl/",
+   "syllables": 3
+  },
+  "dwindle|v": {
+   "ipa": "/ˈdwɪndəl/",
+   "syllables": 2
+  },
+  "eccentric|adj": {
+   "ipa": "/ɪkˈsentrɪk/",
+   "syllables": 3
+  },
+  "eclipse|v/n": {
+   "ipa": "/ɪˈklɪps/",
+   "syllables": 2
+  },
+  "economy|n": {
+   "ipa": "/ɪˈkɑːnəmi/",
+   "syllables": 4
+  },
+  "efficacy|n": {
+   "ipa": "/ˈefɪkæsi/",
+   "syllables": 4
+  },
+  "efficient|adj": {
+   "ipa": "/ɪˈfɪʃənt/",
+   "syllables": 3
+  },
+  "egregious|adj": {
+   "ipa": "/ɪˈɡriːdʒəs/",
+   "syllables": 3
+  },
+  "elaborate|v/adj": {
+   "ipa": "/ɪˈlæbrət/",
+   "syllables": 3
+  },
+  "elicit|v": {
+   "ipa": "/ɪˈlɪsɪt/",
+   "syllables": 3
+  },
+  "eligible|adj": {
+   "ipa": "/ˈelədʒəbəl/",
+   "syllables": 4
+  },
+  "eliminate|v": {
+   "ipa": "/ɪˈlɪməneɪt/",
+   "syllables": 4
+  },
+  "eloquent|adj": {
+   "ipa": "/ˈeləkwənt/",
+   "syllables": 3
+  },
+  "elucidate|v": {
+   "ipa": "/ɪˈluːsədeɪt/",
+   "syllables": 4
+  },
+  "elusive|adj": {
+   "ipa": "/ɪˈluːsɪv/",
+   "syllables": 3
+  },
+  "embellishment|n": {
+   "ipa": "/emˈbelɪʃmənt/",
+   "syllables": 4
+  },
+  "embellish|v": {
+   "ipa": "/ɪmˈbelɪʃ/",
+   "syllables": 3
+  },
+  "emerge|v": {
+   "ipa": "/ɪˈmɜːdʒ/",
+   "syllables": 2
+  },
+  "emission|n": {
+   "ipa": "/ɪˈmɪʃən/",
+   "syllables": 3
+  },
+  "empathy|n": {
+   "ipa": "/ˈempəθi/",
+   "syllables": 3
+  },
+  "emphasize|v": {
+   "ipa": "/ˈemfəsaɪz/",
+   "syllables": 3
+  },
+  "empirical|adj": {
+   "ipa": "/emˈpɪrɪkəl/",
+   "syllables": 4
+  },
+  "employment|n": {
+   "ipa": "/emˈplɔɪmənt/",
+   "syllables": 3
+  },
+  "emulate|v": {
+   "ipa": "/ˈemjəleɪt/",
+   "syllables": 3
+  },
+  "encompass|v": {
+   "ipa": "/enˈkʌmpəs/",
+   "syllables": 3
+  },
+  "encounter|v/n": {
+   "ipa": "/ɪnˈkaʊntɚ/",
+   "syllables": 3
+  },
+  "endorse|v": {
+   "ipa": "/enˈdɔːrs/",
+   "syllables": 2
+  },
+  "enfeeble|v": {
+   "ipa": "/enˈfiːbəl/",
+   "syllables": 3
+  },
+  "enforce|v": {
+   "ipa": "/enˈfɔːrs/",
+   "syllables": 2
+  },
+  "enhance|v": {
+   "ipa": "/enˈhæns/",
+   "syllables": 2
+  },
+  "enigmatic|adj": {
+   "ipa": "/enɪɡˈmætɪk/",
+   "syllables": 4
+  },
+  "enrich|v": {
+   "ipa": "/enˈrɪtʃ/",
+   "syllables": 2
+  },
+  "ensure|v": {
+   "ipa": "/enˈʃʊr/",
+   "syllables": 2
+  },
+  "entail|v": {
+   "ipa": "/enˈteɪl/",
+   "syllables": 2
+  },
+  "enthusiasm|n": {
+   "ipa": "/ɪnˈθuːziæzəm/",
+   "syllables": 5
+  },
+  "ephemeral|adj": {
+   "ipa": "/ɪˈfemɚəl/",
+   "syllables": 4
+  },
+  "equality|n": {
+   "ipa": "/ɪˈkwɑːləti/",
+   "syllables": 4
+  },
+  "equanimity|n": {
+   "ipa": "/iːkwəˈnɪmɪti/",
+   "syllables": 5
+  },
+  "equivocal|adj": {
+   "ipa": "/ɪˈkwɪvəkəl/",
+   "syllables": 4
+  },
+  "eradicate|v": {
+   "ipa": "/ɪˈrædəkeɪt/",
+   "syllables": 4
+  },
+  "erode|v": {
+   "ipa": "/ɪˈroʊd/",
+   "syllables": 2
+  },
+  "erudite|adj": {
+   "ipa": "/ˈerədaɪt/",
+   "syllables": 3
+  },
+  "esoteric|adj": {
+   "ipa": "/esəˈterɪk/",
+   "syllables": 4
+  },
+  "establish|v": {
+   "ipa": "/ɪˈstæblɪʃ/",
+   "syllables": 3
+  },
+  "ethical|adj": {
+   "ipa": "/ˈeθɪkəl/",
+   "syllables": 3
+  },
+  "evaluate|v": {
+   "ipa": "/ɪˈvæljueɪt/",
+   "syllables": 4
+  },
+  "eventually|adv": {
+   "ipa": "/ɪˈventʃəwəli/",
+   "syllables": 5
+  },
+  "evidence|n": {
+   "ipa": "/ˈevədəns/",
+   "syllables": 3
+  },
+  "evoke|v": {
+   "ipa": "/ɪˈvoʊk/",
+   "syllables": 2
+  },
+  "evolve|v": {
+   "ipa": "/ɪˈvɑːlv/",
+   "syllables": 2
+  },
+  "exacerbate|v": {
+   "ipa": "/ɪɡˈzæsɚbeɪt/",
+   "syllables": 4
+  },
+  "exaggerate|v": {
+   "ipa": "/ɪɡˈzædʒɚeɪt/",
+   "syllables": 4
+  },
+  "exasperate|v": {
+   "ipa": "/ɪɡˈzæspɚeɪt/",
+   "syllables": 4
+  },
+  "exceed|v": {
+   "ipa": "/ɪkˈsiːd/",
+   "syllables": 2
+  },
+  "exemplary|adj": {
+   "ipa": "/ɪɡˈzemplɚi/",
+   "syllables": 4
+  },
+  "exhibition|n": {
+   "ipa": "/eksəˈbɪʃən/",
+   "syllables": 4
+  },
+  "exhort|v": {
+   "ipa": "/ɪɡˈzɔːrt/",
+   "syllables": 2
+  },
+  "exonerate|v": {
+   "ipa": "/ɪɡˈzɑːnɚeɪt/",
+   "syllables": 4
+  },
+  "expand|v": {
+   "ipa": "/ɪkˈspænd/",
+   "syllables": 2
+  },
+  "expenditure|n": {
+   "ipa": "/ɪkˈspendətʃɚ/",
+   "syllables": 4
+  },
+  "expertise|n": {
+   "ipa": "/ekspɚˈtiːz/",
+   "syllables": 3
+  },
+  "explicit|adj": {
+   "ipa": "/ɪkˈsplɪsət/",
+   "syllables": 3
+  },
+  "exploit|v": {
+   "ipa": "/ˈeksplɔɪt/",
+   "syllables": 2
+  },
+  "exposure|n": {
+   "ipa": "/ɪkˈspoʊʒɚ/",
+   "syllables": 3
+  },
+  "extensive|adj": {
+   "ipa": "/ɪkˈstensɪv/",
+   "syllables": 3
+  },
+  "external|adj": {
+   "ipa": "/ɪkˈstɜːnəl/",
+   "syllables": 3
+  },
+  "extinction|n": {
+   "ipa": "/ɪkˈstɪŋkʃən/",
+   "syllables": 3
+  },
+  "extraction|n": {
+   "ipa": "/ekˈstrækʃən/",
+   "syllables": 3
+  },
+  "extract|v/n": {
+   "ipa": "/ˈekstrækt/",
+   "syllables": 2
+  },
+  "extraneous|adj": {
+   "ipa": "/ekˈstreɪniəs/",
+   "syllables": 4
+  },
+  "extravagant|adj": {
+   "ipa": "/ekˈstrævəɡənt/",
+   "syllables": 4
+  },
+  "extricate|v": {
+   "ipa": "/ˈekstrəkeɪt/",
+   "syllables": 3
+  },
+  "exuberant|adj": {
+   "ipa": "/ɪɡˈzuːbɚənt/",
+   "syllables": 4
+  },
+  "facetious|adj": {
+   "ipa": "/fəˈsiːʃəs/",
+   "syllables": 3
+  },
+  "facilitate|v": {
+   "ipa": "/fəˈsɪləteɪt/",
+   "syllables": 4
+  },
+  "failure|n": {
+   "ipa": "/ˈfeɪljɚ/",
+   "syllables": 2
+  },
+  "far-fetched|adj": {
+   "ipa": "/ˈfɑːrˈfetʃt/",
+   "syllables": 2
+  },
+  "far-sighted|adj": {
+   "ipa": "/ˈfɑːrˈsaɪtəd/",
+   "syllables": 3
+  },
+  "fastidious|adj": {
+   "ipa": "/fæˈstɪdiəs/",
+   "syllables": 4
+  },
+  "fatigue|n/v": {
+   "ipa": "/fəˈtiːɡ/",
+   "syllables": 2
+  },
+  "feasible|adj": {
+   "ipa": "/ˈfiːzəbəl/",
+   "syllables": 3
+  },
+  "fecundity|n": {
+   "ipa": "/fəˈkʌndɪti/",
+   "syllables": 4
+  },
+  "fertile|adj": {
+   "ipa": "/ˈfɜːtəl/",
+   "syllables": 2
+  },
+  "fervent|adj": {
+   "ipa": "/ˈfɜːvənt/",
+   "syllables": 2
+  },
+  "fierce|adj": {
+   "ipa": "/ˈfɪrs/",
+   "syllables": 1
+  },
+  "flamboyant|adj": {
+   "ipa": "/flæmˈbɔɪənt/",
+   "syllables": 3
+  },
+  "flexible|adj": {
+   "ipa": "/ˈfleksəbəl/",
+   "syllables": 3
+  },
+  "flourish|v": {
+   "ipa": "/ˈflɜːɪʃ/",
+   "syllables": 2
+  },
+  "fluctuate|v": {
+   "ipa": "/ˈflʌktʃəweɪt/",
+   "syllables": 3
+  },
+  "fluency|n": {
+   "ipa": "/ˈfluːənsi/",
+   "syllables": 3
+  },
+  "flutter|v/n": {
+   "ipa": "/ˈflʌtɚ/",
+   "syllables": 2
+  },
+  "formidable|adj": {
+   "ipa": "/ˈfɔːrmədəbəl/",
+   "syllables": 4
+  },
+  "foster|v": {
+   "ipa": "/ˈfɑːstɚ/",
+   "syllables": 2
+  },
+  "foundation|n": {
+   "ipa": "/faʊnˈdeɪʃən/",
+   "syllables": 3
+  },
+  "fragile|adj": {
+   "ipa": "/ˈfrædʒəl/",
+   "syllables": 2
+  },
+  "fresco|n": {
+   "ipa": "/ˈfreskoʊ/",
+   "syllables": 2
+  },
+  "frustrate|v": {
+   "ipa": "/ˈfrʌstreɪt/",
+   "syllables": 2
+  },
+  "fundamental|adj": {
+   "ipa": "/fʌndəˈmentəl/",
+   "syllables": 4
+  },
+  "funding|n": {
+   "ipa": "/ˈfʌndɪŋ/",
+   "syllables": 2
+  },
+  "futile|adj": {
+   "ipa": "/fˈjuːtəl/",
+   "syllables": 2
+  },
+  "galvanize|v": {
+   "ipa": "/ˈɡælvənaɪz/",
+   "syllables": 3
+  },
+  "garrulous|adj": {
+   "ipa": "/ˈɡerələs/",
+   "syllables": 3
+  },
+  "generate|v": {
+   "ipa": "/ˈdʒenɚeɪt/",
+   "syllables": 3
+  },
+  "genuine|adj": {
+   "ipa": "/ˈdʒenjəwən/",
+   "syllables": 3
+  },
+  "gig|n": {
+   "ipa": "/ˈɡɪɡ/",
+   "syllables": 1
+  },
+  "gradual|adj": {
+   "ipa": "/ˈɡrædʒuəl/",
+   "syllables": 3
+  },
+  "grapple|v": {
+   "ipa": "/ˈɡræpəl/",
+   "syllables": 2
+  },
+  "gregarious|adj": {
+   "ipa": "/ɡrəˈɡeriəs/",
+   "syllables": 4
+  },
+  "guarantee|v/n": {
+   "ipa": "/ɡerənˈtiː/",
+   "syllables": 3
+  },
+  "guidance|n": {
+   "ipa": "/ˈɡaɪdəns/",
+   "syllables": 2
+  },
+  "habitat|n": {
+   "ipa": "/ˈhæbətæt/",
+   "syllables": 3
+  },
+  "hamper|v": {
+   "ipa": "/ˈhæmpɚ/",
+   "syllables": 2
+  },
+  "haphazard|adj": {
+   "ipa": "/hæpˈhæzɚd/",
+   "syllables": 3
+  },
+  "harness|v/n": {
+   "ipa": "/ˈhɑːrnəs/",
+   "syllables": 2
+  },
+  "hazard|n": {
+   "ipa": "/ˈhæzɚd/",
+   "syllables": 2
+  },
+  "herbicide|n": {
+   "ipa": "/ˈhɜːbɪsaɪd/",
+   "syllables": 3
+  },
+  "heritage|n": {
+   "ipa": "/ˈherətədʒ/",
+   "syllables": 3
+  },
+  "hinder|v": {
+   "ipa": "/ˈhɪndɚ/",
+   "syllables": 2
+  },
+  "hostile|adj": {
+   "ipa": "/ˈhɑːstəl/",
+   "syllables": 2
+  },
+  "humiliate|v": {
+   "ipa": "/hjuˈmɪlieɪt/",
+   "syllables": 4
+  },
+  "hypothesis|n": {
+   "ipa": "/haɪˈpɑːθəsəs/",
+   "syllables": 4
+  },
+  "identity|n": {
+   "ipa": "/aɪˈdentɪtiː/",
+   "syllables": 4
+  },
+  "ignite|v": {
+   "ipa": "/ɪɡˈnaɪt/",
+   "syllables": 2
+  },
+  "illusory|adj": {
+   "ipa": "/ɪˈluːsɚi/",
+   "syllables": 4
+  },
+  "imminent|adj": {
+   "ipa": "/ˈɪmənənt/",
+   "syllables": 3
+  },
+  "immune|adj": {
+   "ipa": "/ɪmˈjuːn/",
+   "syllables": 2
+  },
+  "impact|n/v": {
+   "ipa": "/ɪmˈpækt/",
+   "syllables": 2
+  },
+  "impassioned|adj": {
+   "ipa": "/ɪmˈpæʃənd/",
+   "syllables": 3
+  },
+  "impeccable|adj": {
+   "ipa": "/ɪmˈpekəbəl/",
+   "syllables": 4
+  },
+  "impede|v": {
+   "ipa": "/ɪmˈpiːd/",
+   "syllables": 2
+  },
+  "impel|v": {
+   "ipa": "/ɪmˈpel/",
+   "syllables": 2
+  },
+  "imperative|adj": {
+   "ipa": "/ɪmˈperətɪv/",
+   "syllables": 4
+  },
+  "impervious|adj": {
+   "ipa": "/ɪmˈpɜːviəs/",
+   "syllables": 4
+  },
+  "implement|v": {
+   "ipa": "/ˈɪmpləmənt/",
+   "syllables": 3
+  },
+  "implicit|adj": {
+   "ipa": "/ɪmˈplɪsət/",
+   "syllables": 3
+  },
+  "imply|v": {
+   "ipa": "/ɪmˈplaɪ/",
+   "syllables": 2
+  },
+  "impose|v": {
+   "ipa": "/ɪmˈpoʊz/",
+   "syllables": 2
+  },
+  "impromptu|adj": {
+   "ipa": "/ɪmˈprɑːmptu/",
+   "syllables": 3
+  },
+  "inadvertent|adj": {
+   "ipa": "/ɪnədˈvɜːtənt/",
+   "syllables": 4
+  },
+  "incentive|n": {
+   "ipa": "/ɪnˈsentɪv/",
+   "syllables": 3
+  },
+  "incessant|adj": {
+   "ipa": "/ɪnˈsesənt/",
+   "syllables": 3
+  },
+  "incidental|adj": {
+   "ipa": "/ɪnsɪˈdentəl/",
+   "syllables": 4
+  },
+  "inclusive|adj": {
+   "ipa": "/ɪnˈkluːsɪv/",
+   "syllables": 3
+  },
+  "incompatible|adj": {
+   "ipa": "/ɪnkəmˈpætəbəl/",
+   "syllables": 5
+  },
+  "incontrovertible|adj": {
+   "ipa": "/ɪŋkɑːntroʊˈvɜːtɪbəl/",
+   "syllables": 6
+  },
+  "incorporate|v": {
+   "ipa": "/ɪnˈkɔːrpɚeɪt/",
+   "syllables": 4
+  },
+  "incorrigible|adj": {
+   "ipa": "/ɪnˈkɑːrədʒəbəl/",
+   "syllables": 5
+  },
+  "increasingly|adv": {
+   "ipa": "/ɪnˈkriːsɪŋli/",
+   "syllables": 4
+  },
+  "incur|v": {
+   "ipa": "/ɪnˈkɜː/",
+   "syllables": 2
+  },
+  "indefatigable|adj": {
+   "ipa": "/ɪndɪˈfætɪɡəbəl/",
+   "syllables": 6
+  },
+  "indefinitely|adv": {
+   "ipa": "/ɪnˈdefənətli/",
+   "syllables": 5
+  },
+  "indefinite|adj": {
+   "ipa": "/ɪnˈdefənət/",
+   "syllables": 4
+  },
+  "independent|adj": {
+   "ipa": "/ɪndɪˈpendənt/",
+   "syllables": 4
+  },
+  "indifferent|adj": {
+   "ipa": "/ɪnˈdɪfrənt/",
+   "syllables": 3
+  },
+  "indignant|adj": {
+   "ipa": "/ɪnˈdɪɡnənt/",
+   "syllables": 3
+  },
+  "indispensable|adj": {
+   "ipa": "/ɪndɪˈspensəbəl/",
+   "syllables": 5
+  },
+  "indolent|adj": {
+   "ipa": "/ˈɪndələnt/",
+   "syllables": 3
+  },
+  "ineffable|adj": {
+   "ipa": "/ɪˈnefəbəl/",
+   "syllables": 4
+  },
+  "inept|adj": {
+   "ipa": "/ɪˈnept/",
+   "syllables": 2
+  },
+  "inevitable|adj": {
+   "ipa": "/ɪˈnevətəbəl/",
+   "syllables": 5
+  },
+  "infer|v": {
+   "ipa": "/ɪnˈfɜː/",
+   "syllables": 2
+  },
+  "infrastructure|n": {
+   "ipa": "/ɪnfrəˈstrʌktʃɚ/",
+   "syllables": 4
+  },
+  "ingenious|adj": {
+   "ipa": "/ɪnˈdʒiːnjəs/",
+   "syllables": 3
+  },
+  "ingenuity|n": {
+   "ipa": "/ɪndʒəˈnuːətiː/",
+   "syllables": 5
+  },
+  "ingrained|adj": {
+   "ipa": "/ɪnˈɡreɪnd/",
+   "syllables": 2
+  },
+  "inherent|adj": {
+   "ipa": "/ɪnˈhɪrənt/",
+   "syllables": 3
+  },
+  "inhibited|adj": {
+   "ipa": "/ɪnˈhɪbətɪd/",
+   "syllables": 4
+  },
+  "initial|adj/n": {
+   "ipa": "/ɪˈnɪʃəl/",
+   "syllables": 3
+  },
+  "innate|adj": {
+   "ipa": "/ɪˈneɪt/",
+   "syllables": 2
+  },
+  "innovation|n": {
+   "ipa": "/ɪnəˈveɪʃən/",
+   "syllables": 4
+  },
+  "inscrutable|adj": {
+   "ipa": "/ɪnˈskruːtəbəl/",
+   "syllables": 4
+  },
+  "insecticide|n": {
+   "ipa": "/ɪnˈsektəsaɪd/",
+   "syllables": 4
+  },
+  "insidious|adj": {
+   "ipa": "/ɪnˈsɪdiːəs/",
+   "syllables": 4
+  },
+  "insight|n": {
+   "ipa": "/ˈɪnsaɪt/",
+   "syllables": 2
+  },
+  "insolent|adj": {
+   "ipa": "/ˈɪnsələnt/",
+   "syllables": 3
+  },
+  "insulate|v": {
+   "ipa": "/ˈɪnsəleɪt/",
+   "syllables": 3
+  },
+  "insulation|n": {
+   "ipa": "/ɪnsəˈleɪʃən/",
+   "syllables": 4
+  },
+  "insurance|n": {
+   "ipa": "/ɪnˈʃʊrəns/",
+   "syllables": 3
+  },
+  "integrate|v": {
+   "ipa": "/ˈɪntəɡreɪt/",
+   "syllables": 3
+  },
+  "intelligible|adj": {
+   "ipa": "/ɪnˈtelədʒəbəl/",
+   "syllables": 5
+  },
+  "intensive|adj": {
+   "ipa": "/ɪnˈtensɪv/",
+   "syllables": 3
+  },
+  "interaction|n": {
+   "ipa": "/ɪntɚˈækʃən/",
+   "syllables": 4
+  },
+  "interfere|v": {
+   "ipa": "/ɪntɚˈfɪr/",
+   "syllables": 3
+  },
+  "internal|adj": {
+   "ipa": "/ɪnˈtɜːnəl/",
+   "syllables": 3
+  },
+  "interpersonal|adj": {
+   "ipa": "/ɪntɚˈpɜːsənəl/",
+   "syllables": 5
+  },
+  "interpret|v": {
+   "ipa": "/ɪnˈtɜːprət/",
+   "syllables": 3
+  },
+  "intervene|v": {
+   "ipa": "/ɪntɚˈviːn/",
+   "syllables": 3
+  },
+  "intimidate|v": {
+   "ipa": "/ɪnˈtɪmɪdeɪt/",
+   "syllables": 4
+  },
+  "intransigent|adj": {
+   "ipa": "/ɪnˈtrænsədʒənt/",
+   "syllables": 4
+  },
+  "intricate|adj": {
+   "ipa": "/ˈɪntrəkət/",
+   "syllables": 3
+  },
+  "intrinsically|adv": {
+   "ipa": "/ɪnˈtrɪnsɪkəli/",
+   "syllables": 5
+  },
+  "investment|n": {
+   "ipa": "/ɪnˈvestmənt/",
+   "syllables": 3
+  },
+  "irreconcilable|adj": {
+   "ipa": "/ɪˈrekənsaɪləbəl/",
+   "syllables": 6
+  },
+  "irreverence|n": {
+   "ipa": "/ɪˈrevɚəns/",
+   "syllables": 4
+  },
+  "irreverent|adj": {
+   "ipa": "/ɪˈrevɚənt/",
+   "syllables": 4
+  },
+  "irrevocable|adj": {
+   "ipa": "/ɪˈrevəkəbəl/",
+   "syllables": 5
+  },
+  "isolation|n": {
+   "ipa": "/aɪsəˈleɪʃən/",
+   "syllables": 4
+  },
+  "jargon|n": {
+   "ipa": "/ˈdʒɑːrɡən/",
+   "syllables": 2
+  },
+  "jeopardize|v": {
+   "ipa": "/ˈdʒepɚdaɪz/",
+   "syllables": 3
+  },
+  "jettison|v": {
+   "ipa": "/ˈdʒetɪsən/",
+   "syllables": 3
+  },
+  "justify|v": {
+   "ipa": "/ˈdʒʌstəfaɪ/",
+   "syllables": 3
+  },
+  "juxtapose|v": {
+   "ipa": "/dʒʌkstəˈpoʊz/",
+   "syllables": 3
+  },
+  "kindle|v": {
+   "ipa": "/ˈkɪndəl/",
+   "syllables": 2
+  },
+  "lament|v/n": {
+   "ipa": "/ləˈment/",
+   "syllables": 2
+  },
+  "languish|v": {
+   "ipa": "/ˈlæŋɡwɪʃ/",
+   "syllables": 2
+  },
+  "lark|n": {
+   "ipa": "/ˈlɑːrk/",
+   "syllables": 1
+  },
+  "layover|n": {
+   "ipa": "/ˈleɪoʊvɚ/",
+   "syllables": 3
+  },
+  "legible|adj": {
+   "ipa": "/ˈledʒəbəl/",
+   "syllables": 3
+  },
+  "lethargic|adj": {
+   "ipa": "/ləˈθɑːrdʒɪk/",
+   "syllables": 3
+  },
+  "literacy|n": {
+   "ipa": "/ˈlɪtɚəsi/",
+   "syllables": 4
+  },
+  "longevity|n": {
+   "ipa": "/lɔːnˈdʒevəti/",
+   "syllables": 4
+  },
+  "lucid|adj": {
+   "ipa": "/ˈluːsəd/",
+   "syllables": 2
+  },
+  "luminous|adj": {
+   "ipa": "/ˈluːmənəs/",
+   "syllables": 3
+  },
+  "magnanimous|adj": {
+   "ipa": "/mæɡˈnænəməs/",
+   "syllables": 4
+  },
+  "magnify|v": {
+   "ipa": "/ˈmæɡnəfaɪ/",
+   "syllables": 3
+  },
+  "maintain|v": {
+   "ipa": "/meɪnˈteɪn/",
+   "syllables": 2
+  },
+  "malign|v/adj": {
+   "ipa": "/məˈlaɪn/",
+   "syllables": 2
+  },
+  "malleability|n": {
+   "ipa": "/mæliəˈbɪləti/",
+   "syllables": 6
+  },
+  "malleable|adj": {
+   "ipa": "/ˈmæliəbəl/",
+   "syllables": 4
+  },
+  "manifest|v/adj": {
+   "ipa": "/ˈmænəfest/",
+   "syllables": 3
+  },
+  "manipulate|v": {
+   "ipa": "/məˈnɪpjəleɪt/",
+   "syllables": 4
+  },
+  "marginalize|v": {
+   "ipa": "/ˈmɑːrdʒənəlaɪz/",
+   "syllables": 4
+  },
+  "marginal|adj": {
+   "ipa": "/ˈmɑːrdʒənəl/",
+   "syllables": 3
+  },
+  "meticulously|adv": {
+   "ipa": "/məˈtɪkjələsli/",
+   "syllables": 5
+  },
+  "meticulous|adj": {
+   "ipa": "/məˈtɪkjələs/",
+   "syllables": 4
+  },
+  "migration|n": {
+   "ipa": "/maɪˈɡreɪʃən/",
+   "syllables": 3
+  },
+  "misleading|adj": {
+   "ipa": "/mɪˈsliːdɪŋ/",
+   "syllables": 3
+  },
+  "mitigate|v": {
+   "ipa": "/ˈmɪtəɡeɪt/",
+   "syllables": 3
+  },
+  "mollify|v": {
+   "ipa": "/ˈmɑːləfaɪ/",
+   "syllables": 3
+  },
+  "moreover|adv": {
+   "ipa": "/mɔːˈroʊvɚ/",
+   "syllables": 3
+  },
+  "motivation|n": {
+   "ipa": "/moʊtəˈveɪʃən/",
+   "syllables": 4
+  },
+  "mutual|adj": {
+   "ipa": "/mˈjuːtʃuəl/",
+   "syllables": 3
+  },
+  "nefarious|adj": {
+   "ipa": "/nəˈferiəs/",
+   "syllables": 4
+  },
+  "negate|v": {
+   "ipa": "/nɪˈɡeɪt/",
+   "syllables": 2
+  },
+  "negligent|adj": {
+   "ipa": "/ˈneɡlədʒənt/",
+   "syllables": 3
+  },
+  "nevertheless|adv": {
+   "ipa": "/nevɚðəˈles/",
+   "syllables": 4
+  },
+  "nonchalant|adj": {
+   "ipa": "/nɑːnʃəˈlɑːnt/",
+   "syllables": 3
+  },
+  "nurture|v/n": {
+   "ipa": "/ˈnɜːtʃɚ/",
+   "syllables": 2
+  },
+  "nutrition|n": {
+   "ipa": "/nuˈtrɪʃən/",
+   "syllables": 3
+  },
+  "obdurate|adj": {
+   "ipa": "/ˈɑːbdɚət/",
+   "syllables": 3
+  },
+  "obfuscate|v": {
+   "ipa": "/ˈɑːbfəskeɪt/",
+   "syllables": 3
+  },
+  "objective|adj/n": {
+   "ipa": "/əbˈdʒektɪv/",
+   "syllables": 3
+  },
+  "obligation|n": {
+   "ipa": "/ɑːbləˈɡeɪʃən/",
+   "syllables": 4
+  },
+  "obliterate|v": {
+   "ipa": "/əˈblɪtɚeɪt/",
+   "syllables": 4
+  },
+  "obscure|adj/v": {
+   "ipa": "/əbˈskjʊr/",
+   "syllables": 2
+  },
+  "obsolescence|n": {
+   "ipa": "/ɑːbsəˈlesəns/",
+   "syllables": 4
+  },
+  "obsolete|adj": {
+   "ipa": "/ˈɑːbsəliːt/",
+   "syllables": 3
+  },
+  "obstacle|n": {
+   "ipa": "/ˈɑːbstəkəl/",
+   "syllables": 3
+  },
+  "obtain|v": {
+   "ipa": "/əbˈteɪn/",
+   "syllables": 2
+  },
+  "ominous|adj": {
+   "ipa": "/ˈɑːmənəs/",
+   "syllables": 3
+  },
+  "opportunity|n": {
+   "ipa": "/ɑːpɚˈtuːnəti/",
+   "syllables": 5
+  },
+  "opulence|n": {
+   "ipa": "/ˈɑːpjələns/",
+   "syllables": 3
+  },
+  "opulent|adj": {
+   "ipa": "/ˈɑːpjələnt/",
+   "syllables": 3
+  },
+  "oscillate|v": {
+   "ipa": "/ˈɑːsəleɪt/",
+   "syllables": 3
+  },
+  "ostentatious|adj": {
+   "ipa": "/ɑːstənˈteɪʃəs/",
+   "syllables": 4
+  },
+  "outbreak|n": {
+   "ipa": "/ˈaʊtbreɪk/",
+   "syllables": 2
+  },
+  "outcome|n": {
+   "ipa": "/ˈaʊtkʌm/",
+   "syllables": 2
+  },
+  "overlook|v": {
+   "ipa": "/ˈoʊvɚlʊk/",
+   "syllables": 3
+  },
+  "paramount|adj": {
+   "ipa": "/ˈperəmaʊnt/",
+   "syllables": 3
+  },
+  "participant|n": {
+   "ipa": "/pɑːrˈtɪsəpənt/",
+   "syllables": 4
+  },
+  "pedantic|adj": {
+   "ipa": "/pəˈdæntɪk/",
+   "syllables": 3
+  },
+  "pensive|adj": {
+   "ipa": "/ˈpensɪv/",
+   "syllables": 2
+  },
+  "perceive|v": {
+   "ipa": "/pɚˈsiːv/",
+   "syllables": 2
+  },
+  "perfunctory|adj": {
+   "ipa": "/pɚˈfʌŋktɚi/",
+   "syllables": 4
+  },
+  "permanent|adj": {
+   "ipa": "/ˈpɜːmənənt/",
+   "syllables": 3
+  },
+  "persist|v": {
+   "ipa": "/pɚˈsɪst/",
+   "syllables": 2
+  },
+  "perspective|n": {
+   "ipa": "/pɚˈspektɪv/",
+   "syllables": 3
+  },
+  "pertinent|adj": {
+   "ipa": "/ˈpɜːtɪnɪnt/",
+   "syllables": 3
+  },
+  "peruse|v": {
+   "ipa": "/pɚˈuːz/",
+   "syllables": 2
+  },
+  "pervasive|adj": {
+   "ipa": "/pɚˈveɪsɪv/",
+   "syllables": 3
+  },
+  "phenomenon|n": {
+   "ipa": "/fəˈnɑːmənɑːn/",
+   "syllables": 4
+  },
+  "placate|v": {
+   "ipa": "/ˈpleɪkeɪt/",
+   "syllables": 2
+  },
+  "plausible|adj": {
+   "ipa": "/ˈplɔːzəbəl/",
+   "syllables": 3
+  },
+  "plethora|n": {
+   "ipa": "/ˈpleθɚə/",
+   "syllables": 3
+  },
+  "plummet|v": {
+   "ipa": "/ˈplʌmət/",
+   "syllables": 2
+  },
+  "potential|adj/n": {
+   "ipa": "/pəˈtenʃəl/",
+   "syllables": 3
+  },
+  "poverty|n": {
+   "ipa": "/ˈpɑːvɚti/",
+   "syllables": 3
+  },
+  "pragmatic|adj": {
+   "ipa": "/præɡˈmætɪk/",
+   "syllables": 3
+  },
+  "precedent|n": {
+   "ipa": "/ˈpresɪdənt/",
+   "syllables": 3
+  },
+  "precipitate|v/adj": {
+   "ipa": "/prɪˈsɪpɪteɪt/",
+   "syllables": 4
+  },
+  "precise|adj": {
+   "ipa": "/prɪˈsaɪs/",
+   "syllables": 2
+  },
+  "preclude|v": {
+   "ipa": "/prɪˈkluːd/",
+   "syllables": 2
+  },
+  "predict|v": {
+   "ipa": "/prɪˈdɪkt/",
+   "syllables": 2
+  },
+  "prejudice|n/v": {
+   "ipa": "/ˈpredʒədɪs/",
+   "syllables": 3
+  },
+  "preservationist|n": {
+   "ipa": "/prezɚˈveɪʃənɪst/",
+   "syllables": 5
+  },
+  "preservation|n": {
+   "ipa": "/prezɚˈveɪʃən/",
+   "syllables": 4
+  },
+  "preserve|v/n": {
+   "ipa": "/prəˈzɜːv/",
+   "syllables": 2
+  },
+  "prestigious|adj": {
+   "ipa": "/preˈstɪdʒəs/",
+   "syllables": 3
+  },
+  "pretension|n": {
+   "ipa": "/priˈtenʃən/",
+   "syllables": 3
+  },
+  "pretentious|adj": {
+   "ipa": "/priˈtenʃəs/",
+   "syllables": 3
+  },
+  "prevalent|adj": {
+   "ipa": "/ˈprevələnt/",
+   "syllables": 3
+  },
+  "principle|n": {
+   "ipa": "/ˈprɪnsəpəl/",
+   "syllables": 3
+  },
+  "prioritize|v": {
+   "ipa": "/praɪˈɔːrətaɪz/",
+   "syllables": 4
+  },
+  "privacy|n": {
+   "ipa": "/ˈpraɪvəsi/",
+   "syllables": 3
+  },
+  "procedure|n": {
+   "ipa": "/prəˈsiːdʒɚ/",
+   "syllables": 3
+  },
+  "productivity|n": {
+   "ipa": "/proʊdəkˈtɪvəti/",
+   "syllables": 5
+  },
+  "profound|adj": {
+   "ipa": "/proʊˈfaʊnd/",
+   "syllables": 2
+  },
+  "prohibit|v": {
+   "ipa": "/proʊˈhɪbət/",
+   "syllables": 3
+  },
+  "prolific|adj": {
+   "ipa": "/proʊˈlɪfɪk/",
+   "syllables": 3
+  },
+  "promote|v": {
+   "ipa": "/prəˈmoʊt/",
+   "syllables": 2
+  },
+  "propagate|v": {
+   "ipa": "/ˈprɑːpəɡeɪt/",
+   "syllables": 3
+  },
+  "propagation|n": {
+   "ipa": "/prɑːpəˈɡeɪʃən/",
+   "syllables": 4
+  },
+  "prosaic|adj": {
+   "ipa": "/proʊˈzeɪɪk/",
+   "syllables": 3
+  },
+  "prospect|n": {
+   "ipa": "/ˈprɑːspekt/",
+   "syllables": 2
+  },
+  "prosperity|n": {
+   "ipa": "/prɑːˈsperəti/",
+   "syllables": 4
+  },
+  "pugnacious|adj": {
+   "ipa": "/pəɡˈnæʃɪs/",
+   "syllables": 3
+  },
+  "qualification|n": {
+   "ipa": "/kwɑːləfəˈkeɪʃən/",
+   "syllables": 5
+  },
+  "quell|v": {
+   "ipa": "/ˈkwel/",
+   "syllables": 1
+  },
+  "quench|v": {
+   "ipa": "/ˈkwentʃ/",
+   "syllables": 1
+  },
+  "quiver|v/n": {
+   "ipa": "/ˈkwɪvɚ/",
+   "syllables": 2
+  },
+  "quixotic|adj": {
+   "ipa": "/kwɪkˈsɑːtɪk/",
+   "syllables": 3
+  },
+  "rampant|adj": {
+   "ipa": "/ˈræmpənt/",
+   "syllables": 2
+  },
+  "rationale|n": {
+   "ipa": "/ræʃəˈnæl/",
+   "syllables": 3
+  },
+  "ravage|v": {
+   "ipa": "/ˈrævɪdʒ/",
+   "syllables": 2
+  },
+  "reactionary|adj/n": {
+   "ipa": "/riˈækʃəneri/",
+   "syllables": 5
+  },
+  "recession|n": {
+   "ipa": "/rɪˈseʃən/",
+   "syllables": 3
+  },
+  "recondite|adj": {
+   "ipa": "/ˈrekəndaɪt/",
+   "syllables": 3
+  },
+  "recruit|v/n": {
+   "ipa": "/rəˈkruːt/",
+   "syllables": 2
+  },
+  "rectify|v": {
+   "ipa": "/ˈrektəfaɪ/",
+   "syllables": 3
+  },
+  "redundant|adj": {
+   "ipa": "/rɪˈdʌndənt/",
+   "syllables": 3
+  },
+  "refine|v": {
+   "ipa": "/rəˈfaɪn/",
+   "syllables": 2
+  },
+  "regulate|v": {
+   "ipa": "/ˈreɡjəleɪt/",
+   "syllables": 3
+  },
+  "reinforce|v": {
+   "ipa": "/riːɪnˈfɔːrs/",
+   "syllables": 3
+  },
+  "rejuvenate|v": {
+   "ipa": "/rɪˈdʒuːvəneɪt/",
+   "syllables": 4
+  },
+  "relevant|adj": {
+   "ipa": "/ˈreləvənt/",
+   "syllables": 3
+  },
+  "reliable|adj": {
+   "ipa": "/rɪˈlaɪəbəl/",
+   "syllables": 4
+  },
+  "relinquish|v": {
+   "ipa": "/rɪˈlɪŋkwɪʃ/",
+   "syllables": 3
+  },
+  "reluctant|adj": {
+   "ipa": "/rɪˈlʌktənt/",
+   "syllables": 3
+  },
+  "remote|adj": {
+   "ipa": "/rɪˈmoʊt/",
+   "syllables": 2
+  },
+  "renewable|adj": {
+   "ipa": "/riˈnuːəbəl/",
+   "syllables": 4
+  },
+  "repellent|adj/n": {
+   "ipa": "/rɪˈpelənt/",
+   "syllables": 3
+  },
+  "reputation|n": {
+   "ipa": "/repjəˈteɪʃən/",
+   "syllables": 4
+  },
+  "require|v": {
+   "ipa": "/riːˈkwaɪɚ/",
+   "syllables": 3
+  },
+  "resent|v": {
+   "ipa": "/rɪˈzent/",
+   "syllables": 2
+  },
+  "resilience|n": {
+   "ipa": "/rɪˈzɪliəns/",
+   "syllables": 4
+  },
+  "resilient|adj": {
+   "ipa": "/rɪˈzɪljənt/",
+   "syllables": 3
+  },
+  "resolve|v/n": {
+   "ipa": "/riˈzɑːlv/",
+   "syllables": 2
+  },
+  "resource|n": {
+   "ipa": "/ˈriːsɔːrs/",
+   "syllables": 2
+  },
+  "restore|v": {
+   "ipa": "/rɪˈstɔːr/",
+   "syllables": 2
+  },
+  "restrict|v": {
+   "ipa": "/riˈstrɪkt/",
+   "syllables": 2
+  },
+  "retain|v": {
+   "ipa": "/rɪˈteɪn/",
+   "syllables": 2
+  },
+  "retention|n": {
+   "ipa": "/riˈtenʃən/",
+   "syllables": 3
+  },
+  "revenue|n": {
+   "ipa": "/ˈrevənuː/",
+   "syllables": 3
+  },
+  "reverent|adj": {
+   "ipa": "/ˈrevɚənt/",
+   "syllables": 3
+  },
+  "revere|v": {
+   "ipa": "/rɪˈvɪr/",
+   "syllables": 2
+  },
+  "rigorous|adj": {
+   "ipa": "/ˈrɪɡɚəs/",
+   "syllables": 3
+  },
+  "roving|adj": {
+   "ipa": "/ˈroʊvɪŋ/",
+   "syllables": 2
+  },
+  "salient|adj/n": {
+   "ipa": "/ˈseɪliənt/",
+   "syllables": 3
+  },
+  "sanguine|adj": {
+   "ipa": "/ˈsæŋɡwɪn/",
+   "syllables": 2
+  },
+  "scaffolding|n": {
+   "ipa": "/ˈskæfəldɪŋ/",
+   "syllables": 3
+  },
+  "scaffold|n": {
+   "ipa": "/ˈskæfəld/",
+   "syllables": 2
+  },
+  "scarce|adj": {
+   "ipa": "/ˈskers/",
+   "syllables": 1
+  },
+  "scholarship|n": {
+   "ipa": "/ˈskɑːlɚʃɪp/",
+   "syllables": 3
+  },
+  "scrupulous|adj": {
+   "ipa": "/ˈskruːpjələs/",
+   "syllables": 3
+  },
+  "scrutinize|v": {
+   "ipa": "/ˈskruːtənaɪz/",
+   "syllables": 3
+  },
+  "security|n": {
+   "ipa": "/sɪkˈjʊrəti/",
+   "syllables": 4
+  },
+  "shortage|n": {
+   "ipa": "/ˈʃɔːrtədʒ/",
+   "syllables": 2
+  },
+  "significance|n": {
+   "ipa": "/səɡˈnɪfɪkəns/",
+   "syllables": 4
+  },
+  "simulate|v": {
+   "ipa": "/ˈsɪmjələt/",
+   "syllables": 3
+  },
+  "skeptical|adj": {
+   "ipa": "/ˈskeptəkəl/",
+   "syllables": 3
+  },
+  "species|n": {
+   "ipa": "/ˈspiːʃiz/",
+   "syllables": 2
+  },
+  "specify|v": {
+   "ipa": "/ˈspesəfaɪ/",
+   "syllables": 3
+  },
+  "spillover|n": {
+   "ipa": "/ˈspɪloʊvɚ/",
+   "syllables": 3
+  },
+  "sporadically|adv": {
+   "ipa": "/spɚˈædɪkli/",
+   "syllables": 4
+  },
+  "sporadic|adj": {
+   "ipa": "/spɚˈædɪk/",
+   "syllables": 3
+  },
+  "squander|v": {
+   "ipa": "/ˈskwɑːndɚ/",
+   "syllables": 2
+  },
+  "stimulus|n": {
+   "ipa": "/ˈstɪmjələs/",
+   "syllables": 3
+  },
+  "strategy|n": {
+   "ipa": "/ˈstrætədʒi/",
+   "syllables": 3
+  },
+  "strident|adj": {
+   "ipa": "/ˈstraɪdənt/",
+   "syllables": 2
+  },
+  "strive|v": {
+   "ipa": "/ˈstraɪv/",
+   "syllables": 1
+  },
+  "submit|v": {
+   "ipa": "/səbˈmɪt/",
+   "syllables": 2
+  },
+  "subsequent|adj": {
+   "ipa": "/ˈsʌbsəkwənt/",
+   "syllables": 3
+  },
+  "subside|v": {
+   "ipa": "/səbˈsaɪd/",
+   "syllables": 2
+  },
+  "substantial|adj": {
+   "ipa": "/səbˈstænʃəl/",
+   "syllables": 3
+  },
+  "substitute|n/v": {
+   "ipa": "/ˈsʌbstətuːt/",
+   "syllables": 3
+  },
+  "subtle|adj": {
+   "ipa": "/ˈsʌtəl/",
+   "syllables": 2
+  },
+  "subvert|v": {
+   "ipa": "/səbˈvɜːt/",
+   "syllables": 2
+  },
+  "sufficient|adj": {
+   "ipa": "/səˈfɪʃənt/",
+   "syllables": 3
+  },
+  "suffuse|v": {
+   "ipa": "/səfˈjuːz/",
+   "syllables": 2
+  },
+  "summarily|adv": {
+   "ipa": "/səˈmerɪli/",
+   "syllables": 4
+  },
+  "summary|n/adj": {
+   "ipa": "/ˈsʌmɚi/",
+   "syllables": 3
+  },
+  "superfluous|adj": {
+   "ipa": "/ˈsuːpɚflwʌs/",
+   "syllables": 3
+  },
+  "superior|adj/n": {
+   "ipa": "/suˈpɪriɚ/",
+   "syllables": 4
+  },
+  "surge|n/v": {
+   "ipa": "/ˈsɜːdʒ/",
+   "syllables": 1
+  },
+  "surmount|v": {
+   "ipa": "/sɚˈmaʊnt/",
+   "syllables": 2
+  },
+  "surreptitious|adj": {
+   "ipa": "/sɜːəpˈtɪʃəs/",
+   "syllables": 4
+  },
+  "survey|n/v": {
+   "ipa": "/sɚˈveɪ/",
+   "syllables": 2
+  },
+  "susceptible|adj": {
+   "ipa": "/səˈseptəbəl/",
+   "syllables": 4
+  },
+  "sustainable|adj": {
+   "ipa": "/səˈsteɪnəbəl/",
+   "syllables": 4
+  },
+  "sycophantic|adj": {
+   "ipa": "/sɪkəˈfæntɪk/",
+   "syllables": 4
+  },
+  "tangential|adj": {
+   "ipa": "/tænˈdʒenʃəl/",
+   "syllables": 3
+  },
+  "tangible|adj": {
+   "ipa": "/ˈtændʒəbəl/",
+   "syllables": 3
+  },
+  "tarnish|v": {
+   "ipa": "/ˈtɑːrnɪʃ/",
+   "syllables": 2
+  },
+  "tenacious|adj": {
+   "ipa": "/təˈneɪʃəs/",
+   "syllables": 3
+  },
+  "tendency|n": {
+   "ipa": "/ˈtendənsi/",
+   "syllables": 3
+  },
+  "tentative|adj": {
+   "ipa": "/ˈtentətɪv/",
+   "syllables": 3
+  },
+  "threat|n": {
+   "ipa": "/ˈθret/",
+   "syllables": 1
+  },
+  "threshold|n": {
+   "ipa": "/ˈθreʃoʊld/",
+   "syllables": 2
+  },
+  "thrive|v": {
+   "ipa": "/ˈθraɪv/",
+   "syllables": 1
+  },
+  "thwart|v": {
+   "ipa": "/ˈθwɔːrt/",
+   "syllables": 1
+  },
+  "tolerance|n": {
+   "ipa": "/ˈtɑːlɚəns/",
+   "syllables": 3
+  },
+  "transcribe|v": {
+   "ipa": "/trænˈskraɪb/",
+   "syllables": 2
+  },
+  "transcription|n": {
+   "ipa": "/trænˈskrɪpʃən/",
+   "syllables": 3
+  },
+  "transform|v": {
+   "ipa": "/trænˈsfɔːrm/",
+   "syllables": 2
+  },
+  "transition|n": {
+   "ipa": "/trænˈzɪʃən/",
+   "syllables": 3
+  },
+  "transmit|v": {
+   "ipa": "/trænzˈmɪt/",
+   "syllables": 2
+  },
+  "transparent|adj": {
+   "ipa": "/trænˈsperənt/",
+   "syllables": 3
+  },
+  "treatment|n": {
+   "ipa": "/ˈtriːtmənt/",
+   "syllables": 2
+  },
+  "trenchant|adj": {
+   "ipa": "/ˈtrentʃənt/",
+   "syllables": 2
+  },
+  "trend|n/v": {
+   "ipa": "/ˈtrend/",
+   "syllables": 1
+  },
+  "trigger|v/n": {
+   "ipa": "/ˈtrɪɡɚ/",
+   "syllables": 2
+  },
+  "truculent|adj": {
+   "ipa": "/ˈtrʌkjələnt/",
+   "syllables": 3
+  },
+  "ubiquitous|adj": {
+   "ipa": "/juˈbɪkwɪtəs/",
+   "syllables": 4
+  },
+  "unadorned|adj": {
+   "ipa": "/ʌnəˈdɔːrnd/",
+   "syllables": 3
+  },
+  "underbelly|n": {
+   "ipa": "/ˈʌndɚbeli/",
+   "syllables": 4
+  },
+  "underestimate|v": {
+   "ipa": "/ˈʌndɚˈestəmeɪt/",
+   "syllables": 5
+  },
+  "undergo|v": {
+   "ipa": "/ʌndɚˈɡoʊ/",
+   "syllables": 3
+  },
+  "undermine|v": {
+   "ipa": "/ˈʌndɚmaɪn/",
+   "syllables": 3
+  },
+  "underpin|v": {
+   "ipa": "/ˈʌndɚpɪn/",
+   "syllables": 3
+  },
+  "undertake|v": {
+   "ipa": "/ˈʌndɚteɪk/",
+   "syllables": 3
+  },
+  "unprecedented|adj": {
+   "ipa": "/ənˈpresɪdentɪd/",
+   "syllables": 5
+  },
+  "unwieldy|adj": {
+   "ipa": "/ənˈwiːldi/",
+   "syllables": 3
+  },
+  "upkeep|n": {
+   "ipa": "/ˈʌpkiːp/",
+   "syllables": 2
+  },
+  "urbanization|n": {
+   "ipa": "/ɜːbənəˈzeɪʃən/",
+   "syllables": 5
+  },
+  "usurp|v": {
+   "ipa": "/juːˈsɜːp/",
+   "syllables": 2
+  },
+  "valid|adj": {
+   "ipa": "/ˈvælɪd/",
+   "syllables": 2
+  },
+  "variation|n": {
+   "ipa": "/veriˈeɪʃən/",
+   "syllables": 4
+  },
+  "venerate|v": {
+   "ipa": "/ˈvenɚeɪt/",
+   "syllables": 3
+  },
+  "veracity|n": {
+   "ipa": "/vɚˈæsɪti/",
+   "syllables": 4
+  },
+  "verify|v": {
+   "ipa": "/ˈverəfaɪ/",
+   "syllables": 3
+  },
+  "versatile|adj": {
+   "ipa": "/ˈvɜːsətəl/",
+   "syllables": 3
+  },
+  "vex|v": {
+   "ipa": "/ˈveks/",
+   "syllables": 1
+  },
+  "viable|adj": {
+   "ipa": "/ˈvaɪəbəl/",
+   "syllables": 3
+  },
+  "vicarious|adj": {
+   "ipa": "/vaɪˈkeriəs/",
+   "syllables": 4
+  },
+  "vie|v": {
+   "ipa": "/ˈvaɪ/",
+   "syllables": 1
+  },
+  "vindicate|v": {
+   "ipa": "/ˈvɪndəkeɪt/",
+   "syllables": 3
+  },
+  "vindictive|adj": {
+   "ipa": "/vɪnˈdɪktɪv/",
+   "syllables": 3
+  },
+  "virtually|adv": {
+   "ipa": "/ˈvɜːtʃuəli/",
+   "syllables": 4
+  },
+  "volatile|adj": {
+   "ipa": "/ˈvɑːlətəl/",
+   "syllables": 3
+  },
+  "volatility|n": {
+   "ipa": "/vɑːləˈtɪləti/",
+   "syllables": 5
+  },
+  "vulnerable|adj": {
+   "ipa": "/ˈvʌlnɚəbəl/",
+   "syllables": 4
+  },
+  "wane|v/n": {
+   "ipa": "/ˈweɪn/",
+   "syllables": 1
+  },
+  "wanton|adj": {
+   "ipa": "/ˈwɔːntən/",
+   "syllables": 2
+  },
+  "warp|v/n": {
+   "ipa": "/ˈwɔːrp/",
+   "syllables": 1
+  },
+  "welfare|n": {
+   "ipa": "/ˈwelfer/",
+   "syllables": 2
+  },
+  "whereas|conj": {
+   "ipa": "/weˈræz/",
+   "syllables": 2
+  },
+  "whimsical|adj": {
+   "ipa": "/ˈwɪmzɪkəl/",
+   "syllables": 3
+  },
+  "withdraw|v": {
+   "ipa": "/wɪðˈdrɔː/",
+   "syllables": 2
+  },
+  "withstand|v": {
+   "ipa": "/wɪθˈstænd/",
+   "syllables": 2
+  },
+  "workforce|n": {
+   "ipa": "/ˈwɜːkfɔːrs/",
+   "syllables": 2
+  },
+  "yearn|v": {
+   "ipa": "/ˈjɜːn/",
+   "syllables": 1
+  },
+  "yield|v/n": {
+   "ipa": "/ˈjiːld/",
+   "syllables": 1
+  },
+  "zealous|adj": {
+   "ipa": "/ˈzeləs/",
+   "syllables": 2
+  }
+ }
+}
