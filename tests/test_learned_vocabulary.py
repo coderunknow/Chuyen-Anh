@@ -26,7 +26,7 @@ class LearnedVocabularyTests(unittest.TestCase):
             with self.subTest(word=source['word']):
                 self.assertEqual(len(record), 4)
                 self.assertEqual(record[1], source['word'])
-                self.assertIn(record[2], {'n', 'v', 'adj', 'adv', 'n/v', 'v/n', 'adj/n', 'n/adj', 'adj/v'})
+                self.assertIn(record[2], {'n', 'v', 'adj', 'adv', 'conj', 'n/v', 'v/n', 'adj/n', 'n/adj', 'adj/v'})
                 for label in ['**Họ từ:**', '**Phân biệt:**', '**Nguồn:**']:
                     self.assertIn(label, record[3])
                 path = ROOT / source['path']

@@ -2,15 +2,15 @@
 
 ## Phạm vi và giới hạn
 
-- Bổ sung đúng 300 đầu mục chưa có trong 613 đầu mục cũ; không tính họ từ là mục mới. Các từ cùng họ có thể liên hệ nhau, nhưng không dùng biến tố số nhiều/quá khứ làm mục riêng để tăng số lượng.
-- Kiểm tra tự động: ID, đầu mục chuẩn hóa, đủ trường nội dung, đường dẫn/dòng nguồn, dạng từ và trích đoạn. Kiểm tra máy không chứng minh toàn bộ nghĩa và họ từ đúng tuyệt đối.
-- Rà soát biên tập nghĩa, từ loại, cấu trúc và cặp dễ lẫn; không tuyên bố đã tra từ điển độc lập cho mọi dạng phái sinh. Nguồn đề là bản đăng lại, chưa đối chiếu toàn bộ với bản phát hành chính thức.
-- Tra bổ sung một số điểm dễ lẫn: [deduction](https://dictionary.cambridge.org/dictionary/english/deduction) (suy luận/khấu trừ), [comprise](https://dictionary.cambridge.org/dictionary/english/comprise), [assure](https://dictionary.cambridge.org/dictionary/english/assure). Truy cập 2026-09-30.
+- Bổ sung đúng 300 đầu mục chưa có trong 613 đầu mục cũ; không tính họ từ là mục mới; không trùng đầu mục (kể cả khác hoa/thường, khoảng trắng).
+- Lượt rà soát 2 thay 18 mục ít gặp trong kho đề (Applaud, Clarification, Deceive, Deduction, Defy, Degrade, Empathy, Famine, Humiliate, Intimidate, Legitimate, Livelihood, Refine, Rehabilitate, Surplus, Tuition, Unveil, Versatile) bằng 18 mục tần suất cao và hữu ích hơn cho viết/đọc (Nevertheless, Furthermore, Moreover, Consequently, Whereas, Relatively, Increasingly, Approximately, Eventually, Sufficient, Principle, Guarantee, Superior, Phenomenon, Remarkable, Sophisticated, Promote, Emphasize).
+- Kiểm tra tự động: ID liên tục, đủ trường, đường dẫn/dòng nguồn, dạng từ và trích đoạn khớp file gốc. Tần suất theo cụm họ từ đo trên 106 bản đề trong kho; ngưỡng loại: <5 bản đề nếu không có lý do chiến thuật (ví dụ cặp dễ lẫn kinh điển).
+- Rà soát biên tập nghĩa, từ loại, họ từ, cấu trúc và cặp dễ lẫn (imply/infer, economic/economical, sensible/sensitive, superior to, phenomenon/phenomena, principle/principal...). Tra bổ sung Cambridge cho deduction, comprise, assure, consent. Truy cập 2026-09-30.
 - Không tự sửa 613 mục lịch sử, không chạy lại converter và không thay dữ liệu flashcard.
 
 ## Bằng chứng xuất hiện
 
-Các đoạn dưới đây giữ nguyên ký tự trong bản chép (có thể cắt ngắn ở hai đầu); không dùng làm mẫu ngữ pháp hay khẳng định đáp án. Nhấp liên kết để đọc ngữ cảnh và thông tin tài liệu gốc.
+Các đoạn dưới đây giữ nguyên ký tự trong bản chép (có thể cắt ngắn ở hai đầu); không dùng làm mẫu ngữ pháp hay khẳng định đáp án.
 
 ### 614. Acquire
 
@@ -54,11 +54,11 @@ of who we would like to be, not who we actually are. We anticipate photos of peo
 …scriptive of the unique dual parenting role that this generation assume.
 ```
 
-### 620. Clarification
+### 620. Guarantee
 
-- [Vị trí trong bản chép](https://github.com/coderunknow/Chuyen-Anh/blob/424de9c23bc0398ca58ef627e2aa4dd5129495e8/De-chuyen-Anh-vao-10/2025/tuyen-quang/so.md#L322); dạng xuất hiện: **clarification**.
+- [Vị trí trong bản chép](https://github.com/coderunknow/Chuyen-Anh/blob/424de9c23bc0398ca58ef627e2aa4dd5129495e8/De-chuyen-Anh-vao-10/2026/dak-lak/so.md#L705); dạng xuất hiện: **guarantee**.
 ```text
-…d mark for a project I did and I knew that if I’d just asked for clarification on what we were supposed to do, I could have done well. Next time there was somethin…
+**Receptionist:** We can’t guarantee the weather, Mr. Jones, although we do try to make your stay as comfortable as possi…
 ```
 
 ### 621. Conduct
@@ -103,11 +103,11 @@ Since concerns over the effects of conventional farming on both human health and
 It’s crucial to re-evaluate our relationship with food. The ideal diet should consist of fruits, …
 ```
 
-### 627. Deduction
+### 627. Superior
 
-- [Vị trí trong bản chép](https://github.com/coderunknow/Chuyen-Anh/blob/424de9c23bc0398ca58ef627e2aa4dd5129495e8/De-chuyen-Anh-vao-10/2026/ha-tinh/so.md#L305); dạng xuất hiện: **deduction**.
+- [Vị trí trong bản chép](https://github.com/coderunknow/Chuyen-Anh/blob/424de9c23bc0398ca58ef627e2aa4dd5129495e8/De-chuyen-Anh-vao-10/2026/nghe-an/so.md#L390); dạng xuất hiện: **superior**.
 ```text
-by deduction from the paychecks of working people, Social Security ensures that retired persons (…
+11\. It presents pre-industrial sleep patterns as morally superior to modern educational timetables.
 ```
 
 ### 628. Demonstrate
@@ -628,11 +628,11 @@ researchers were surprised by the results. They expected the intensive multitask
 the abilities to navigate internal bureaucracies and please your superiors the most valued skills. Today’s
 ```
 
-### 702. Legitimate
+### 702. Nevertheless
 
-- [Vị trí trong bản chép](https://github.com/coderunknow/Chuyen-Anh/blob/424de9c23bc0398ca58ef627e2aa4dd5129495e8/De-chuyen-Anh-vao-10/2026/lao-cai/so.md#L328); dạng xuất hiện: **legitimate**.
+- [Vị trí trong bản chép](https://github.com/coderunknow/Chuyen-Anh/blob/424de9c23bc0398ca58ef627e2aa4dd5129495e8/De-chuyen-Anh-vao-10/2026/khanh-hoa/so.md#L263); dạng xuất hiện: **Nevertheless**.
 ```text
-…**5. **\_\_\_\_\_\_\_\_\_\_. But is watching a hoax of this kind legitimate entertainment or just exploitation? Practical jokes by their very nature tend to inv…
+… including anti-inflammatory effects and cardiovascular support. Nevertheless, it is important to distinguish between preliminary findings and clinically substant…
 ```
 
 ### 703. Mutual
@@ -992,11 +992,11 @@ for nutrients, shelter, and other benefits. The extinction of one species can se
 … effect of being willing to take risks. Teens are less afraid of failure, and one of the biggest
 ```
 
-### 754. Famine
+### 754. Increasingly
 
-- [Vị trí trong bản chép](https://github.com/coderunknow/Chuyen-Anh/blob/424de9c23bc0398ca58ef627e2aa4dd5129495e8/De-chuyen-Anh-vao-10/2022/binh-duong/so.md#L578); dạng xuất hiện: **famine**.
+- [Vị trí trong bản chép](https://github.com/coderunknow/Chuyen-Anh/blob/424de9c23bc0398ca58ef627e2aa4dd5129495e8/De-chuyen-Anh-vao-10/2026/quang-tri/so.md#L802); dạng xuất hiện: **increasingly**.
 ```text
-with war, famine and political unrest? (28) in all, television proved to be the all-purpose scapegoat…
+**Question 10:** Fast food is becoming increasingly popular among teenagers.
 ```
 
 ### 755. Fatigue
@@ -1118,11 +1118,11 @@ promote walkability and community interaction. Green building practices are also
 management of complex variables, communication, literacy and problem-solving, on top of the necessary computer
 ```
 
-### 772. Livelihood
+### 772. Principle
 
-- [Vị trí trong bản chép](https://github.com/coderunknow/Chuyen-Anh/blob/424de9c23bc0398ca58ef627e2aa4dd5129495e8/De-chuyen-Anh-vao-10/2025/ha-nam/so.md#L335); dạng xuất hiện: **livelihood**.
+- [Vị trí trong bản chép](https://github.com/coderunknow/Chuyen-Anh/blob/424de9c23bc0398ca58ef627e2aa4dd5129495e8/De-chuyen-Anh-vao-10/2026/bac-ninh/so.md#L831); dạng xuất hiện: **principle**.
 ```text
-recreational activities, and means of livelihood to save a plant or an animal? Should saving such
+**Dr. Lafford: **Well, the basic principle behind forensic science is that every contact leaves a trace. Wherever we go, whatev…
 ```
 
 ### 773. Migration
@@ -1307,11 +1307,11 @@ The 300 or so species of octopuses have been around for over 250 million years a
 | **vii** | Abundant contact as a substitute for mutual vulnerability |
 ```
 
-### 799. Surplus
+### 799. Phenomenon
 
-- [Vị trí trong bản chép](https://github.com/coderunknow/Chuyen-Anh/blob/424de9c23bc0398ca58ef627e2aa4dd5129495e8/De-chuyen-Anh-vao-10/2025/tp-ho-chi-minh/so.md#L267); dạng xuất hiện: **surplus**.
+- [Vị trí trong bản chép](https://github.com/coderunknow/Chuyen-Anh/blob/424de9c23bc0398ca58ef627e2aa4dd5129495e8/De-chuyen-Anh-vao-10/2025/ha-noi/so.md#L244); dạng xuất hiện: **phenomenon**.
 ```text
-uses some of this surplus power to pump water uphill from one lake to another during this time. (5)
+encroach upon open space in North America (a phenomenon known as urban sprawl).
 ```
 
 ### 800. Survey
@@ -1363,11 +1363,11 @@ renewables can be passed on to help to make transition to greater use of renewab
 World Bank and a lead author on the study. “This is a concerning trend, especially as climate change
 ```
 
-### 807. Tuition
+### 807. Consequently
 
-- [Vị trí trong bản chép](https://github.com/coderunknow/Chuyen-Anh/blob/424de9c23bc0398ca58ef627e2aa4dd5129495e8/De-chuyen-Anh-vao-10/2023/binh-duong/so.md#L342); dạng xuất hiện: **tuition**.
+- [Vị trí trong bản chép](https://github.com/coderunknow/Chuyen-Anh/blob/424de9c23bc0398ca58ef627e2aa4dd5129495e8/De-chuyen-Anh-vao-10/2026/quang-tri/so.md#L380); dạng xuất hiện: **Consequently**.
 ```text
-Part 1. 141 Maybe Paul would benefit from some private tuition if he’s having so many problems at school.
+complex to be fully understood by humans. Consequently, this has caused even more suspicion and
 ```
 
 ### 808. Underestimate
@@ -1475,11 +1475,11 @@ Further research found that listening to different sounds can alter your percept
 At a time when interest in astronomy is on the increase, amateur astronomers are finding it increasingly
 ```
 
-### 823. Applaud
+### 823. Furthermore
 
-- [Vị trí trong bản chép](https://github.com/coderunknow/Chuyen-Anh/blob/424de9c23bc0398ca58ef627e2aa4dd5129495e8/De-chuyen-Anh-vao-10/2025/hai-phong/so.md#L407); dạng xuất hiện: **applaud**.
+- [Vị trí trong bản chép](https://github.com/coderunknow/Chuyen-Anh/blob/424de9c23bc0398ca58ef627e2aa4dd5129495e8/De-chuyen-Anh-vao-10/2026/quang-tri/so.md#L238); dạng xuất hiện: **Furthermore**.
 ```text
-A. commend               B. applaud                C. compliment            D. punish
+also found in the Amazon Rainforest. Furthermore, one half of the world's species of animals, plants,
 ```
 
 ### 824. Appreciate
@@ -1643,11 +1643,11 @@ studying ways to convert the energy of ocean currents, tides, and waves to elect
 **8.** The man was envious of his counterpart’s success. (**GREEN**)
 ```
 
-### 847. Deceive
+### 847. Whereas
 
-- [Vị trí trong bản chép](https://github.com/coderunknow/Chuyen-Anh/blob/424de9c23bc0398ca58ef627e2aa4dd5129495e8/De-chuyen-Anh-vao-10/2024/ha-noi/so.md#L473); dạng xuất hiện: **deceived**.
+- [Vị trí trong bản chép](https://github.com/coderunknow/Chuyen-Anh/blob/424de9c23bc0398ca58ef627e2aa4dd5129495e8/De-chuyen-Anh-vao-10/2026/quang-tri/so.md#L319); dạng xuất hiện: **whereas**.
 ```text
-73. The cigarette companies deceived the public about the health risks of cigarettes. (wool)
+whereas in less stable homes and those with many children, if you don’t grab a marshmallow n…
 ```
 
 ### 848. Decline
@@ -1664,18 +1664,18 @@ studying ways to convert the energy of ocean currents, tides, and waves to elect
 …\_ to our administration and your help at a time when needed. (**DEDICATE**)
 ```
 
-### 850. Defy
+### 850. Approximately
 
-- [Vị trí trong bản chép](https://github.com/coderunknow/Chuyen-Anh/blob/424de9c23bc0398ca58ef627e2aa4dd5129495e8/De-chuyen-Anh-vao-10/2022/ca-mau/so.md#L314); dạng xuất hiện: **defy**.
+- [Vị trí trong bản chép](https://github.com/coderunknow/Chuyen-Anh/blob/424de9c23bc0398ca58ef627e2aa4dd5129495e8/De-chuyen-Anh-vao-10/2025/ha-noi/so.md#L873); dạng xuất hiện: **Approximately**.
 ```text
-human experience. Cultural evolution has enabled us to defy our physical limitations and shortcut biological
+crack if their bottom hits the ocean floor. Approximately 85% of an iceberg is actually under the
 ```
 
-### 851. Degrade
+### 851. Sophisticated
 
-- [Vị trí trong bản chép](https://github.com/coderunknow/Chuyen-Anh/blob/424de9c23bc0398ca58ef627e2aa4dd5129495e8/De-chuyen-Anh-vao-10/2023/binh-thuan/so.md#L387); dạng xuất hiện: **degrade**.
+- [Vị trí trong bản chép](https://github.com/coderunknow/Chuyen-Anh/blob/424de9c23bc0398ca58ef627e2aa4dd5129495e8/De-chuyen-Anh-vao-10/2025/ha-noi/so.md#L418); dạng xuất hiện: **sophisticated**.
 ```text
-do not degrade with age. But how can we prevent a diminishing of our semantic and unaided prospecti…
+sophisticated in our question setting and are able to cross-reference the answers, so an examiner …
 ```
 
 ### 852. Discriminate
@@ -1720,11 +1720,11 @@ more durable, lasting at least six times longer. However, they do have some draw
 In a little more than a week, an adult ant will emerge, and the metamorphosis is (10) _______.
 ```
 
-### 858. Empathy
+### 858. Sufficient
 
-- [Vị trí trong bản chép](https://github.com/coderunknow/Chuyen-Anh/blob/424de9c23bc0398ca58ef627e2aa4dd5129495e8/De-chuyen-Anh-vao-10/2025/nghe-an/so.md#L438); dạng xuất hiện: **empathy**.
+- [Vị trí trong bản chép](https://github.com/coderunknow/Chuyen-Anh/blob/424de9c23bc0398ca58ef627e2aa4dd5129495e8/De-chuyen-Anh-vao-10/2025/nam-dinh/so.md#L422); dạng xuất hiện: **sufficient**.
 ```text
-One thing that makes Blakemore’s empathy and affection for teenagers so striking is its rarity. ‘Yes, I’m a champion
+trying to arrange sufficient mules for the next stage of the trek. His companions showed no interest in
 ```
 
 ### 859. Enforce
@@ -1811,11 +1811,11 @@ Blakemore suggests we might harness the power of peer pressure by getting adoles
 explained that fish gather there, so this is an accepted hazard of those with a job of catching them.
 ```
 
-### 871. Humiliate
+### 871. Relatively
 
-- [Vị trí trong bản chép](https://github.com/coderunknow/Chuyen-Anh/blob/424de9c23bc0398ca58ef627e2aa4dd5129495e8/De-chuyen-Anh-vao-10/2025/nghe-an/so.md#L1380); dạng xuất hiện: **humiliate**.
+- [Vị trí trong bản chép](https://github.com/coderunknow/Chuyen-Anh/blob/424de9c23bc0398ca58ef627e2aa4dd5129495e8/De-chuyen-Anh-vao-10/2025/quang-ngai/so.md#L180); dạng xuất hiện: **relatively**.
 ```text
-Whenever I made a mistake, she’d do her best to humiliate me in front of all the other girls. The result
+that rises from the seas is relatively pure and free of the contaminants, which are left behind. Next,
 ```
 
 ### 872. Impose
@@ -1881,11 +1881,11 @@ Q32.5.  A. incorporate       B. comprise         C. include          D. unite
 5. Handwriting,             1.0 pt      - Intelligible handwriting. (0.5 pt)
 ```
 
-### 881. Intimidate
+### 881. Promote
 
-- [Vị trí trong bản chép](https://github.com/coderunknow/Chuyen-Anh/blob/424de9c23bc0398ca58ef627e2aa4dd5129495e8/De-chuyen-Anh-vao-10/2022/hai-phong/so.md#L606); dạng xuất hiện: **intimidated**.
+- [Vị trí trong bản chép](https://github.com/coderunknow/Chuyen-Anh/blob/424de9c23bc0398ca58ef627e2aa4dd5129495e8/De-chuyen-Anh-vao-10/2026/quang-tri/so.md#L370); dạng xuất hiện: **promote**.
 ```text
-…g to appear on air, while they frighten away others who may feel intimidated by a camera.
+programs. Their attempt to promote this program to cancer doctors was a PR disaster. The AI promised
 ```
 
 ### 882. Legible
@@ -1993,18 +1993,18 @@ new-found, post-war prosperity. It was solved by bringing in immigrant labour fr
 …eir fingers to the \_\_\_\_\_\_\_\_\_\_, all the staff were made redundant.
 ```
 
-### 897. Refine
+### 897. Emphasize
 
-- [Vị trí trong bản chép](https://github.com/coderunknow/Chuyen-Anh/blob/424de9c23bc0398ca58ef627e2aa4dd5129495e8/De-chuyen-Anh-vao-10/2026/da-nang/so.md#L199); dạng xuất hiện: **refined**.
+- [Vị trí trong bản chép](https://github.com/coderunknow/Chuyen-Anh/blob/424de9c23bc0398ca58ef627e2aa4dd5129495e8/De-chuyen-Anh-vao-10/2026/ha-tinh/so.md#L440); dạng xuất hiện: **emphasize**.
 ```text
-… for her remarkable sense of form, which is both fundamental and refined. Many of her poems are closely **(2)** \_\_\_\_\_\_\_\_\_\_ with a Black community k…
+adapt. Skilled riders often emphasize that working with a horse requires communication rather than
 ```
 
-### 898. Rehabilitate
+### 898. Eventually
 
-- [Vị trí trong bản chép](https://github.com/coderunknow/Chuyen-Anh/blob/424de9c23bc0398ca58ef627e2aa4dd5129495e8/De-chuyen-Anh-vao-10/2022/phu-tho/so.md#L177); dạng xuất hiện: **rehabilitate**.
+- [Vị trí trong bản chép](https://github.com/coderunknow/Chuyen-Anh/blob/424de9c23bc0398ca58ef627e2aa4dd5129495e8/De-chuyen-Anh-vao-10/2026/thanh-hoa/so.md#L344); dạng xuất hiện: **eventually**.
 ```text
-A. relieve               B. release              C. rehabilitate          D. remove
+**C**. Endless scrolling eventually disrupts this balance, prompting the brain to compensate by producing less dopamine …
 ```
 
 ### 899. Restore
@@ -2077,11 +2077,11 @@ occasion         complicate         revolve          simulate           intend
 You are going to read a text about renewable energy. Mark A, B, C, or D on the answer sheet to answer the
 ```
 
-### 909. Unveil
+### 909. Moreover
 
-- [Vị trí trong bản chép](https://github.com/coderunknow/Chuyen-Anh/blob/424de9c23bc0398ca58ef627e2aa4dd5129495e8/De-chuyen-Anh-vao-10/2026/quang-tri/so.md#L527); dạng xuất hiện: **unveil**.
+- [Vị trí trong bản chép](https://github.com/coderunknow/Chuyen-Anh/blob/424de9c23bc0398ca58ef627e2aa4dd5129495e8/De-chuyen-Anh-vao-10/2025/vinh-phuc/so.md#L334); dạng xuất hiện: **Moreover**.
 ```text
-So, today, I’m happy to unveil our new bottle design. As you can see, it’s designed to look like a black metal drin…
+seep into the narrative. Moreover, research generally involves translations from one language to
 ```
 
 ### 910. Obligation
@@ -2091,11 +2091,11 @@ So, today, I’m happy to unveil our new bottle design. As you can see, it’s d
  You are \_**under no obligation/ not obliged/ not required to finish**\_ the presentation outline before Saturday.
 ```
 
-### 911. Versatile
+### 911. Remarkable
 
-- [Vị trí trong bản chép](https://github.com/coderunknow/Chuyen-Anh/blob/424de9c23bc0398ca58ef627e2aa4dd5129495e8/De-chuyen-Anh-vao-10/2026/gia-lai/so.md#L192); dạng xuất hiện: **versatile**.
+- [Vị trí trong bản chép](https://github.com/coderunknow/Chuyen-Anh/blob/424de9c23bc0398ca58ef627e2aa4dd5129495e8/De-chuyen-Anh-vao-10/2025/tp-ho-chi-minh/so.md#L297); dạng xuất hiện: **remarkable**.
 ```text
-…sively on a single learning style, adopting a more adaptable and versatile approach is generally regarded as **(40)** \_\_\_\_\_\_\_\_\_\_ beneficial.
+starting with average recall, achieved remarkable feats. Konrad’s example underscores the dedication needed.
 ```
 
 ### 912. Viable
