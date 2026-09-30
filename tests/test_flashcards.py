@@ -133,9 +133,12 @@ class DerivedDataTests(unittest.TestCase):
                     cache[entry["ref"]["path"]] = _read(path).splitlines()
                 lines = cache[entry["ref"]["path"]]
                 self.assertLessEqual(entry["ref"]["line"], len(lines))
-                cited = lines[entry["ref"]["line"] - 1].casefold()
+                at = entry["ref"]["line"] - 1
+                window = " ".join(lines[max(0, at - 2):at + 3]).casefold()
                 form = (entry.get("exampleForm") or (entry.get("cloze") or {}).get("form") or entry["word"]).casefold()
-                self.assertIn(form, cited, "the cited line really contains the word")
+                self.assertIn(form, window, "the cited paragraph really contains the word")
+                if entry["example"]:
+                    self.assertIn(form, entry["example"].casefold(), "the example sentence shows the word")
 
     def test_cloze_items_are_usable(self) -> None:
         cloze = [entry for entry in self.entries if entry.get("cloze")]

@@ -370,16 +370,61 @@ ANSWER_KEY = re.compile(r"^\s*\(\s*[A-Za-z][A-Za-z /-]*\)\s*$")
 NUMBER_PREFIX = re.compile(r"^\s*(?:\*\*)?\d+[.)]\s*(?:\*\*)?\s*")
 
 
+LIST_START = re.compile(r"^\s*(?:[-*\u2022\u2013]|\(?\d{1,2}[.)]|[A-Da-d][.)])\s+")
+
+
 def clean_excerpt(line: str) -> str:
     return NUMBER_PREFIX.sub("", clean_markup(line)).strip()
 
 
-def sentence_around(line: str, forms: list[str], limit: int = 260) -> tuple[str, str] | None:
-    """Return (sentence, matched_form) for the first family form on the line."""
+def sentence_window(lines: list[str], line_number: int, limit: int = 3, backwards: int = 2) -> str:
+    """Ghép các dòng liền kề của cùng một đoạn để câu trong đề không bị cắt giữa chừng.
+
+    Dừng ở dòng trống, ở mục danh sách mới (đề thường xuống dòng cho từng ý) hoặc ở
+    dòng nhiễu như chân trang.
+    """
+    def usable(candidate: str) -> bool:
+        return bool(candidate) and "\u00a9" not in candidate and len(candidate) >= 25 and not LIST_START.match(candidate)
+
+    parts = [lines[line_number - 1].strip()] if line_number <= len(lines) else []
+    for offset in range(1, limit):
+        at = line_number - 1 + offset
+        if at >= len(lines):
+            break
+        candidate = lines[at].strip()
+        if not usable(candidate):
+            break
+        if re.search(r"[.!?][\"')\]]?$", parts[-1]):
+            break
+        parts.append(candidate)
+    for offset in range(1, backwards + 1):
+        at = line_number - 1 - offset
+        if at < 0:
+            break
+        candidate = lines[at].strip()
+        if not usable(candidate):
+            break
+        parts.insert(0, candidate)
+    return " ".join(parts)
+
+
+def sentence_around(line: str, forms: list[str], limit: int = 260, prefer: str = "") -> tuple[str, str] | None:
+    """Return (sentence, matched_form) for the first family form on the line.
+
+    ``prefer`` (usually the headword) wins over an earlier inflected form so that
+    "Consumption" is illustrated by a sentence about consumption, not one that
+    happens to contain "consumes" first.
+    """
     text = clean_excerpt(line)
     haystack = text.casefold()
     found, at = "", -1
+    if prefer:
+        match = re.search(rf"(?<![\w-]){re.escape(prefer)}(?![\w-])", haystack)
+        if match:
+            at, found = match.start(), prefer
     for form in sorted(forms, key=len, reverse=True):
+        if at != -1:
+            break
         match = re.search(rf"(?<![\w-]){re.escape(form)}(?![\w-])", haystack)
         if match and (at == -1 or match.start() < at):
             at, found = match.start(), form
@@ -423,8 +468,8 @@ def cloze_ready(text: str, form: str) -> bool:
     return usable_context(text, form, 40)
 
 
-def build_cloze(line: str, forms: list[str]) -> dict | None:
-    found = sentence_around(line, forms)
+def build_cloze(line: str, forms: list[str], prefer: str = "") -> dict | None:
+    found = sentence_around(line, forms, prefer=prefer)
     if not found:
         return None
     sentence, form = found
@@ -475,8 +520,8 @@ def build_payload() -> dict:
         if documented:
             cite = evidence[ident]
             lines = (ROOT / cite["path"]).read_text(encoding="utf-8").splitlines()
-            line = lines[cite["line"] - 1]
-            context = sentence_around(line, context_forms)
+            block = sentence_window(lines, cite["line"])
+            context = sentence_around(block, context_forms, prefer=word.casefold())
             example = context[0] if context else clean_excerpt(line)
             form = context[1] if context else cite.get("form", word)
             if not usable_context(example, form, 25):
@@ -486,7 +531,7 @@ def build_payload() -> dict:
                 "distinction": rich["distinction"],
                 "example": example,
                 "exampleForm": form or word,
-                "cloze": build_cloze(line, context_forms),
+                "cloze": build_cloze(block, context_forms, prefer=word.casefold()),
                 "ref": {
                     "path": cite["path"],
                     "line": cite["line"],

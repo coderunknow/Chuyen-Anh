@@ -607,6 +607,7 @@
     if (opts.state && opts.state !== 'all') {
       source = source.filter(function (e) { return SRS.stateOf(store.recordOf(e.id), now) === opts.state; });
     }
+    if (typeof opts.predicate === 'function') source = source.filter(opts.predicate);
     var buckets = { due: [], weak: [], fresh: [], learning: [], review: [] };
     source.forEach(function (entry) {
       var record = store.recordOf(entry.id);
@@ -1225,6 +1226,14 @@
     { id: 'flip', icon: '🃏', name: 'Thẻ tự do', desc: 'Lật thẻ và tự đánh giá' }
   ];
 
+  /** Từ nào mới luyện được bằng chế độ này? (điền từ cần câu ngữ cảnh trong đề) */
+  function modePredicate(modeId) {
+    if (modeId === 'cloze') {
+      return function (entry) { return !!(entry.cloze && entry.cloze.text); };
+    }
+    return null;
+  }
+
   function modeAvailable(mode) {
     if (mode.id === 'listen' && !tts) return false;
     if (mode.id === 'cloze' && !META.cloze) return false;
@@ -1234,9 +1243,13 @@
   function sessionSize() { return Number(store.prefs().sessionSize) || 20; }
 
   function startSession(modeId, ids, label) {
-    var pool = ids && ids.length ? ids : selectIds({
-      size: sessionSize(), now: Date.now(), rng: createRng(hashString('start' + Date.now() + modeId))
+    var pool = ids && ids.length ? ids.slice() : selectIds({
+      size: sessionSize(), now: Date.now(), rng: createRng(hashString('start' + Date.now() + modeId)),
+      predicate: modePredicate(modeId)
     });
+    if (!ids && modeId === 'cloze' && !pool.length) {
+      pool = selectIds({ size: sessionSize(), now: Date.now(), rng: createRng(hashString('fallback' + Date.now())) });
+    }
     if (!pool.length) {
       toast('Không có từ nào phù hợp để học.', 'bad');
       return false;
@@ -1742,7 +1755,7 @@
       }
     }
     var panel = $('#card-answer');
-    if (panel) panel.scrollIntoView({ block: 'nearest', behavior: prefersReduce() ? 'auto' : 'smooth' });
+    if (panel && panel.scrollIntoView) panel.scrollIntoView({ block: 'nearest', behavior: prefersReduce() ? 'auto' : 'smooth' });
   }
 
   function resultMessage(card, entry) {

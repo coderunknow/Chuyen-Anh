@@ -400,6 +400,15 @@ test('xoá tiến độ giữ đánh dấu, xoá tất cả trả về mặc đ�
 
 /* ------------------------------------------------------------- phiên học */
 
+test('selectIds lọc được từ theo điều kiện của chế độ học', () => {
+  const local = loadApp(fakeStorage());
+  const ids = local.core.selectIds({ size: 30, predicate: (entry) => !!(entry.cloze && entry.cloze.text) });
+  assert.equal(ids.length, 30);
+  for (const id of ids) assert.ok(local.byId[id].cloze, `từ không có ngữ cảnh: ${id}`);
+  const all = local.core.selectIds({ size: 10 });
+  assert.equal(all.length, 10);
+});
+
 test('phiên học chạy trọn vẹn, hỏi lại từ sai và lưu tổng kết', () => {
   const local = loadApp(fakeStorage());
   local.store.updatePrefs({ sessionSize: 4 });
