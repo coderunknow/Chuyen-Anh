@@ -7,9 +7,12 @@ on:
       - "index.html"
       - "style.css"
       - "app.js"
+      - "flashcards.html"
+      - "src/flashcards/**"
       - "data/**"
       - "scripts/validate_vocab.py"
       - "scripts/audit_learned_vocab.py"
+      - "scripts/build_flashcards.py"
       - "Learned_Vocabulary_List.md"
       - "docs/vocabulary-300-*.json"
       - "docs/vocabulary-300-review.md"
@@ -22,9 +25,12 @@ on:
       - "index.html"
       - "style.css"
       - "app.js"
+      - "flashcards.html"
+      - "src/flashcards/**"
       - "data/**"
       - "scripts/validate_vocab.py"
       - "scripts/audit_learned_vocab.py"
+      - "scripts/build_flashcards.py"
       - "Learned_Vocabulary_List.md"
       - "docs/vocabulary-300-*.json"
       - "docs/vocabulary-300-review.md"
@@ -61,3 +67,4 @@ jobs:
         with:
           node-version: 22
       - run: node --test tests/static-app.test.js
+      - run: node --test tests/flashcards.test.js

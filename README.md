@@ -78,6 +78,48 @@ assets/* (nếu có)
 - Import/export JSON; import validate trước, lỗi không ghi đè backup cũ; reset progress.
 - Responsive, focus-visible, semantic controls, keyboard shortcuts (`Space`, `1–4`, `Enter`, `R`) và reduced motion.
 
+## File flashcard một chặng: `flashcards.html`
+
+`flashcards.html` là **một file HTML duy nhất, tự chứa và offline hoàn toàn** cho toàn bộ 913 từ
+trong `Learned_Vocabulary_List.md`. Mở trực tiếp bằng trình duyệt (kể cả `file://`) là học được
+ngay: không `fetch()`, không CDN, không font ngoài, không bước build.
+
+Trong file có:
+
+- 913 từ kèm mức khó 1–5, bậc ưu tiên 1–3 theo độ phủ trong đề, phiên âm IPA cho 822 từ.
+- 300 từ có ngữ cảnh đề: họ từ, phân biệt, câu trong đề, chỗ trống điền từ và liên kết tới đúng
+  dòng trong `De-chuyen-Anh-vao-10/`.
+- 7 chế độ học, SRS, thống kê, tìm kiếm/lọc, xuất–nhập tiến độ; chi tiết nằm trong app ở mục
+  “Phím tắt & cách học”.
+
+Dữ liệu được sinh tự động, không sửa tay trong `flashcards.html`:
+
+```text
+Learned_Vocabulary_List.md + data/vocabulary.json + data/pronunciation.json
+    + docs/vocabulary-300-{families,evidence}.json + De-chuyen-Anh-vao-10/*/*/*.md
+        ↓ python3 scripts/build_flashcards.py
+flashcards.html (một file, dấu vân tay dữ liệu in ở chân trang)
+```
+
+```bash
+python3 scripts/build_flashcards.py               # sinh lại flashcards.html
+python3 scripts/build_flashcards.py --check       # file còn khớp nguồn dữ liệu?
+python3 scripts/build_flashcards.py --calibrate   # xem phân bố mức khó / bậc ưu tiên
+python3 scripts/build_flashcards.py --refresh-ipa # cập nhật data/pronunciation.json từ CMUdict
+```
+
+Kiểm thử:
+
+```bash
+python3 -m unittest tests.test_flashcards -v      # dữ liệu dẫn xuất + tính toàn vẹn của file
+node --test tests/flashcards.test.js              # logic app: SRS, chế độ học, lưu trữ, CSV
+npm install --no-save jsdom@26 && node tests/flashcards-dom.mjs   # E2E trong DOM thật (tuỳ chọn)
+```
+
+Phiên âm lấy từ CMU Pronouncing Dictionary (BSD-2), chuyển ARPAbet → IPA; giấy phép nằm trong
+`data/pronunciation.json` và trong chính file HTML. Tiến độ của file này lưu dưới khoá
+`chuyen-anh.flashcards.v1.*`, tách hẳn khỏi tiến độ của app runtime.
+
 ## GitHub Actions
 
 ### Deploy `.github/workflows/deploy.yml`
@@ -89,7 +131,7 @@ checkout
   ↓
 python scripts/validate_vocab.py
   ↓
-stage index.html/style.css/app.js/data (không build)
+stage index.html/style.css/app.js/flashcards.html/data (không build)
   ↓
 configure Pages
   ↓
@@ -102,7 +144,10 @@ Workflow có concurrency `flashcard-pages` và `cancel-in-progress: true`. Khôn
 
 ### CI `.github/workflows/ci.yml`
 
-CI tách riêng cho PR/push: chạy validator Python, unit test Python và dependency-free Node built-in tests cho scheduler/search/persistence/import. CI không chạy npm install và không phải deployment.
+CI tách riêng cho PR/push: chạy validator Python, unit test Python (bao gồm `--check` của
+`flashcards.html`, nên file lỗi thời sẽ fail) và dependency-free Node built-in tests cho cả app
+runtime lẫn `flashcards.html`. CI không chạy npm install và không phải deployment;
+`tests/flashcards-dom.mjs` cần jsdom nên chỉ chạy khi cài thêm, thiếu jsdom thì tự bỏ qua.
 
 GitHub Pages cần được bật với source **GitHub Actions** trong Settings → Pages. Không thể đo runtime deploy thật từ checkout local; sau lần merge đầu tiên, xem job summary của `Deploy Flashcard` để ghi nhận checkout, validation, upload và deploy trên GitHub-hosted runner.
 
