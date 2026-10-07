@@ -3,9 +3,10 @@
 ## Workflow for every task
 
 1. Before acting, check for and read the entire root `DESIGN_LOG.md`. Treat it as project memory, not unquestionable truth: verify the relevant details against the current files, tests, and workflows.
-2. If `DESIGN_LOG.md` is missing, create it with only the user's explicit intent and mark unknowns as unspecified. Tell the user it was created.
-3. The current user request overrides older intent, but do not silently resolve a conflict between the log and the repository. Re-check first; if the conflict changes the work, explain it and ask before proceeding on that part.
-4. Capture new user decisions accurately. After the task, append a dated, sequential, typed entry to `DESIGN_LOG.md` describing only what was decided, changed, and verified. Preserve user wording where practical; never rewrite or reorder earlier entries. State what was not tested.
+2. Do not modify `AGENT.md` unless the user explicitly requests an `AGENT.md` change. When requested, inspect the existing file first and verify repository-specific facts against current files, tests, and workflows before editing it.
+3. If `DESIGN_LOG.md` is missing, create it with only the user's explicit intent and mark unknowns as unspecified. Tell the user it was created.
+4. The current user request overrides older intent, but do not silently resolve a conflict between the log and the repository. Re-check first; if the conflict changes the work, explain it and ask before proceeding on that part.
+5. Capture new user decisions accurately. After the task, append a dated, sequential, typed entry to `DESIGN_LOG.md` describing only what was decided, changed, and verified. Preserve user wording where practical; never rewrite or reorder earlier entries. State what was not tested.
 
 ## Project context
 
@@ -34,4 +35,4 @@ python -m unittest discover -s tests -p 'test_*.py'
 node --test tests/static-app.test.js
 ```
 
-`node` is used by CI for app-logic tests; production has no frontend bundler or npm build. `.github/workflows/deploy.yml` validates the synchronized data and publishes only `index.html` to GitHub Pages. Consult `README.md` and the relevant workflow before changing these steps.
+`node` is used by CI and the deploy workflow for dependency-free app-logic tests; production has no frontend bundler or npm build. `.github/workflows/deploy.yml` checks source/JSON/HTML synchronization and runs the Python and Node tests before staging and publishing only `index.html` to GitHub Pages. Consult `README.md` and the relevant workflow before changing these steps.

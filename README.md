@@ -23,7 +23,7 @@ COLLOCATIONS | REGISTER | CONNOTATION | NOTES | TAGS
 - Các ô văn bản để trống khi chưa có thông tin. Dấu `|` có trong nội dung được escape theo Markdown; parser đọc lại nguyên vẹn.
 - Từ ID 614–913, `WORD_FAMILY` chỉ lấy nội dung đã được ghi nhãn là họ từ. `NOTES` giữ nguyên phần phân biệt và nguồn trích dẫn; không tự phân loại chúng thành từ đồng nghĩa, trái nghĩa, kết hợp từ, văn phong hoặc sắc thái.
 - ID 448 dùng nghĩa trong danh sách làm nghĩa chính. Nghĩa trước đây trong app được giữ trong `NOTES` và ghi rõ là định nghĩa app cũ.
-- `data/vocabulary.json` giữ lại metadata ứng dụng đã tồn tại (ví dụ, tags, ví dụ, difficulty và ngày tạo) khi đồng bộ theo ID. Với 300 mục mới, không có ví dụ, điểm difficulty hay ngày tạo nào được tự bịa; trường không có nguồn sẽ để rỗng hoặc không xuất hiện.
+- Khi đồng bộ theo ID, `data/vocabulary.json` giữ metadata chỉ có trong ứng dụng (ví dụ: ví dụ, difficulty, ngày tạo và các trường chưa có trong bảng). Các trường do bảng nguồn quản lý, gồm cả `TAGS`, được đồng bộ từ Markdown. ID 448 giữ các tag app cũ `work` và `daily-life`, đồng thời thêm `easy` để chuyển dấu difficulty `-` trong bảng cũ thành tag; difficulty số `2` vẫn được giữ. Nghĩa chính dùng cách viết đã chọn từ Markdown; nghĩa app cũ được giữ trong `NOTES`. Với 300 mục mới, không có ví dụ, điểm difficulty hay ngày tạo nào được tự bịa; trường không có nguồn sẽ để rỗng hoặc không xuất hiện.
 
 Sau khi chỉnh bảng từ vựng, chạy:
 
@@ -71,11 +71,11 @@ Chỉ cần giữ `index.html` khi sao chép/triển khai ứng dụng. Các t�
 
 ### Deploy `.github/workflows/deploy.yml`
 
-Khi nguồn dữ liệu, validator, bộ đồng bộ hoặc app thay đổi trên `main`, workflow kiểm tra JSON, kiểm tra bảng/JSON/HTML đã đồng bộ, rồi upload **chỉ `index.html`** lên GitHub Pages. Không có frontend bundler, npm install hay backend.
+Khi nguồn dữ liệu, validator, bộ đồng bộ hoặc app thay đổi trên `main`, workflow kiểm tra bảng/JSON/HTML đã đồng bộ, chạy toàn bộ unit test Python và Node, rồi mới stage và upload **chỉ `index.html`** lên GitHub Pages. Lỗi ở bất kỳ bước kiểm tra nào sẽ chặn deploy. Không có frontend bundler, npm install hay backend.
 
 ### CI `.github/workflows/ci.yml`
 
-CI chạy validator Python, unit test Python, kiểm tra đồng bộ nguồn, kiểm tra cấu trúc file HTML độc lập và Node built-in tests cho scheduler/search/persistence/import. Node chỉ được dùng trong CI để chạy test.
+CI chạy trên PR và push `main` khi các tệp liên quan thay đổi: kiểm tra đồng bộ nguồn, validator Python, unit test Python và Node built-in tests cho scheduler/search/persistence/import. Thay đổi `deploy.yml` cũng kích hoạt CI. Workflow deploy tự chạy lại các kiểm tra này trước khi xuất bản, không giả định rằng workflow CI riêng đã chạy hoặc thành công. Node chỉ được dùng trong test; production không cần Node.
 
 GitHub Pages cần được bật với source **GitHub Actions** trong Settings → Pages. Không thể xác nhận deploy thật từ checkout local; sau lần merge, kiểm tra job `Deploy Flashcard` trên GitHub.
 

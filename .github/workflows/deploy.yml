@@ -40,6 +40,17 @@ jobs:
           python scripts/validate_vocab.py
           python scripts/embed_vocabulary.py --check
 
+      - name: Run Python unit tests
+        run: python -m unittest discover -s tests -p 'test_*.py'
+
+      # Node is used only for dependency-free tests; production is a single HTML file.
+      - name: Set up Node for app-logic tests
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Run static app logic and single-file tests
+        run: node --test tests/static-app.test.js
+
       # Publish only the fully self-contained application file.
       - name: Stage standalone HTML
         run: |

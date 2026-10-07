@@ -9,6 +9,11 @@
 - User: “Make no misktakes, think carefully, maximum effort.”
 
 ## Constraints & Decisions
+
+> Resolution: The following bullets preserve the initial open questions; they are historical notes, not current constraints. Later explicit user decisions supersede them: entry #3 defines the expanded schema, entry #4 chooses a self-contained HTML file with all 913 records, entry #5 supersedes the earlier 613-record limit, and entry #7 resolves the ID 448 meaning. The former “not yet verified/not yet specified” questions are therefore resolved; see those entries for the authoritative decisions.
+>
+> Field-preservation reconciliation: entries #8 and #10 remain verbatim as historical summaries; their overbroad preservation wording is corrected by entry #18, which records the exact field-level comparison and current account.
+
 - The requested deliverable should use a single HTML file in place of the app's separate HTML, JavaScript, CSS, and related front-end files; exact scope of “...” is not yet verified.
 - The intended “right the format” for `Learned_Vocabulary_List.md` is not yet specified and needs to be inferred from the project's own conventions or clarified if ambiguous.
 
@@ -62,3 +67,12 @@ Expanded root `AGENT.md` with a per-task workflow: read the full design log, ver
 
 ### #16 — 2026-10-07 — NOTE
 `git diff --check` passed for this documentation update. Python/Node tests and browser/runtime checks were not run because no application code or behavior changed. After pushing the update, PR #12 remained open; its Kilo Code Review check was pending at the last status check.
+
+### #17 — 2026-10-07 — INTENT
+User requested a review and direct correction of PR #12 based on the current repository and four findings: reconcile the initial unresolved notes with later explicit decisions without rewriting log history; protect `AGENT.md` from unsolicited edits; report the ID 448 `easy`-tag migration accurately; and make CI/deploy validation consistent with the standalone HTML deliverable. The user required repository-backed assertions, relevant automated checks, a reviewed final diff, and an updated PR.
+
+### #18 — 2026-10-07 — CORRECTION
+A field-by-field comparison of the original `origin/main:data/vocabulary.json` with the current app data for IDs 1–613 found exactly two changed pre-existing fields, both for ID 448: `meaning` uses the user's selected Markdown wording (entry #7; the former app meaning remains in `NOTES`), and `tags` change from `["work", "daily-life"]` to `["work", "daily-life", "easy"]`. The original Markdown row marked ID 448 with legacy `-`; `easy` is its intentional tag migration, while the old tags and numeric `difficulty: 2` remain. Every other pre-existing key/value for IDs 1–613 matches the original JSON. This qualifies the broad preservation wording in historical entries #8 and #10; those entries remain unchanged, and this entry is the current field-level account.
+
+### #19 — 2026-10-07 — DONE
+Clarified that the initial open-question bullets are historical and superseded by explicit decisions #3–#5 and #7, while preserving entries #1–#16 verbatim; entry #18 records the exact ID 448 field comparison. Added an explicit opt-in-only edit rule for `AGENT.md`. Documented the ID 448 tag conversion in the README and added a regression test that requires `work`, `daily-life`, and `easy` while retaining numeric difficulty 2. CI now runs when the deploy workflow changes, and the deploy job repeats source/JSON/HTML checks plus Python and Node tests before staging only the standalone HTML. CI and deploy name Node setup and Node test steps separately. Verified 913-row source→JSON→embedded-HTML synchronization, 13 Python tests, 8 Node tests, YAML parsing and workflow-order assertions, ID 448 field-level differences against `origin/main`, unchanged historical entries, and `git diff --check`. No vocabulary source, JSON, embedded HTML, or runtime behavior changed. Not run locally: a live GitHub Pages deployment or interactive browser session.

@@ -37,7 +37,7 @@ class LearnedVocabularyTests(unittest.TestCase):
                     self.assertIsInstance(record[field], list)
                     self.assertTrue(all(isinstance(value, str) and value.strip() for value in record[field]))
 
-    def test_original_613_terms_and_runtime_only_data_are_preserved(self):
+    def test_source_and_app_vocabulary_match_and_legacy_fields_exist(self):
         self.assertEqual(len(self.app_data), 913)
         for record, entry in zip(self.records, self.app_data):
             with self.subTest(word=record["word"]):
@@ -61,6 +61,15 @@ class LearnedVocabularyTests(unittest.TestCase):
         self.assertIn("Previous app definition (data/vocabulary.json): công việc lao dịch, tay chân vất vả, ít được coi trọng", menial["notes"])
         self.assertEqual(menial["examples"][0]["en"], "He was tired of doing menial tasks all day.")
         self.assertEqual(menial["difficulty"], 2)
+
+    def test_legacy_dash_marker_for_id_448_migrates_to_easy_tag(self):
+        # The prior source used `-`; the migration adds its `easy` tag without dropping old tags.
+        source = next(record for record in self.records if record["id"] == "448")
+        app_entry = self.app_by_id["448"]
+        expected_tags = ["work", "daily-life", "easy"]
+        self.assertEqual(source["tags"], expected_tags)
+        self.assertEqual(app_entry["tags"], expected_tags)
+        self.assertEqual(app_entry["difficulty"], 2)
 
     def test_additions_preserve_source_evidence_without_guessing_new_fields(self):
         evidence = json.loads((ROOT / "docs/vocabulary-300-evidence.json").read_text(encoding="utf-8"))
