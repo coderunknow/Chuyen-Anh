@@ -2498,3 +2498,9 @@ D One island showing that renewable energy can be viable is the Spanish Canary I
 When I became a guide I had virtually no training at all, just a two-hour lecture about what not to
 ```
 
+
+## Later app integration (2026-10-06)
+
+The earlier statement that these 300 entries should not replace `data/vocabulary.json` records the decision at the time of this review. On 2026-10-06, the user requested a standalone app containing all 913 records, superseding that limit. IDs 614–913 are now represented in the structured Markdown table and app data. Their explicitly labeled word-family text is stored in `WORD_FAMILY`; the original comparison and source citation remain together in `NOTES`. No synonyms, antonyms, collocations, register, connotation, example sentences, difficulty scores, or creation dates were inferred where the source did not provide them.
+
+For ID 448 (`Menial task`), the Markdown-list meaning was selected as canonical; the previous app wording is retained in `NOTES` so neither definition is discarded. The exam evidence and counts above remain unchanged.

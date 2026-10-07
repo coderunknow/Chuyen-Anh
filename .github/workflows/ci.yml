@@ -5,32 +5,36 @@ on:
     branches: [main]
     paths:
       - "index.html"
-      - "style.css"
-      - "app.js"
+      - "Learned_Vocabulary_List.md"
       - "data/**"
+      - "scripts/build_vocabulary.py"
+      - "scripts/embed_vocabulary.py"
+      - "scripts/learned_vocabulary.py"
       - "scripts/validate_vocab.py"
       - "scripts/audit_learned_vocab.py"
-      - "Learned_Vocabulary_List.md"
       - "docs/vocabulary-300-*.json"
       - "docs/vocabulary-300-review.md"
       - "De-chuyen-Anh-vao-10/**"
       - "tests/**"
       - ".github/workflows/ci.yml"
+      - ".github/workflows/deploy.yml"
   push:
     branches: [main]
     paths:
       - "index.html"
-      - "style.css"
-      - "app.js"
+      - "Learned_Vocabulary_List.md"
       - "data/**"
+      - "scripts/build_vocabulary.py"
+      - "scripts/embed_vocabulary.py"
+      - "scripts/learned_vocabulary.py"
       - "scripts/validate_vocab.py"
       - "scripts/audit_learned_vocab.py"
-      - "Learned_Vocabulary_List.md"
       - "docs/vocabulary-300-*.json"
       - "docs/vocabulary-300-review.md"
       - "De-chuyen-Anh-vao-10/**"
       - "tests/**"
       - ".github/workflows/ci.yml"
+      - ".github/workflows/deploy.yml"
 
 concurrency:
   group: static-checks-${{ github.ref }}
@@ -49,15 +53,19 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Validate vocabulary
-        run: python scripts/validate_vocab.py
-      - name: Run validator unit tests
+      - name: Check vocabulary sources and embedded HTML
+        run: |
+          python scripts/build_vocabulary.py --check
+          python scripts/validate_vocab.py
+          python scripts/embed_vocabulary.py --check
+
+      - name: Run Python unit tests
         run: python -m unittest discover -s tests -p 'test_*.py'
 
-      # Node is used only for dependency-free unit tests; production deployment
-      # does not install Node, npm, or a package manager.
-      - name: Run static logic tests
+      # Node is used only for dependency-free tests; production is a single HTML file.
+      - name: Set up Node for app-logic tests
         uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: node --test tests/static-app.test.js
+      - name: Run static app logic and single-file tests
+        run: node --test tests/static-app.test.js
