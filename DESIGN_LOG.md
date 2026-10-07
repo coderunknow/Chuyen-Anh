@@ -59,3 +59,6 @@ User: “Tôi muốn nó phải cho agent khi đọc vào sẽ biết workflow c
 
 ### #15 — 2026-10-07 — DONE
 Expanded root `AGENT.md` with a per-task workflow: read the full design log, verify relevant claims against the repository, surface unresolved conflicts and ask before dependent changes, and append factual dated entries without rewriting prior history. Kept the repository-specific data pipeline and test guidance. No source code, app configuration, or runtime behavior changed; this update is documentation-only.
+
+### #16 — 2026-10-07 — NOTE
+`git diff --check` passed for this documentation update. Python/Node tests and browser/runtime checks were not run because no application code or behavior changed. After pushing the update, PR #12 remained open; its Kilo Code Review check was pending at the last status check.
