@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Small, dependency-free validator for data/vocabulary.json.
 
-This is intentionally independent from Node/npm so deployment can validate the
-source data and upload the static files without a build step.
+This is intentionally independent from Node/npm so CI and deployment can check
+the app data before verifying its embedded copy in the standalone HTML.
 """
 from __future__ import annotations
 
@@ -81,12 +81,20 @@ def validate(data: Any) -> list[str]:
                 if not isinstance(example.get("vi"), str) or not example["vi"].strip():
                     problem(errors, index, entry, f"examples[{example_index}].vi must be a non-empty string")
 
+        for field in ("wordFamily", "register", "connotation", "notes"):
+            if not isinstance(entry.get(field), str):
+                problem(errors, index, entry, f"{field} must be a string (use an empty string when unknown)")
+        for field in ("synonyms", "antonyms", "collocations"):
+            values = entry.get(field)
+            if not isinstance(values, list) or any(not isinstance(value, str) or not value.strip() for value in values):
+                problem(errors, index, entry, f"{field} must be an array of non-empty strings (use [] when unknown)")
+
         tags = entry.get("tags")
         if not isinstance(tags, list) or any(not isinstance(tag, str) or not tag.strip() for tag in tags):
             problem(errors, index, entry, "tags must be an array of non-empty strings")
         difficulty = entry.get("difficulty")
-        if isinstance(difficulty, bool) or not isinstance(difficulty, (int, float)) or not 0 <= difficulty <= 5:
-            problem(errors, index, entry, "difficulty must be a number from 0 to 5")
+        if "difficulty" in entry and (isinstance(difficulty, bool) or not isinstance(difficulty, (int, float)) or not 0 <= difficulty <= 5):
+            problem(errors, index, entry, "difficulty, when provided, must be a number from 0 to 5")
 
     for entry_id, indexes in ids.items():
         if len(indexes) > 1:
