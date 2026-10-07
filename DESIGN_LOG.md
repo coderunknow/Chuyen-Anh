@@ -50,3 +50,6 @@ User: “Final check audit. open PR.” User also asked to inspect and handle ro
 
 ### #12 — 2026-10-07 — DONE
 Checked for root `AGENT.md` first; it was absent. Audited the README, data pipeline, app entry point, tests, and GitHub Actions, then created a concise `AGENT.md` with only verified repository context and commands. Re-ran vocabulary synchronization/validation, evidence audit, 12 Python tests, 8 Node tests, Python compilation, HTML structure checks, and an HTTP preview smoke test; all passed. This task made no source-code, configuration, or runtime-behavior edits.
+
+### #13 — 2026-10-07 — DONE
+Committed and pushed this work on the session branch, then opened PR #12 against `main`: https://github.com/coderunknow/Chuyen-Anh/pull/12. The PR is open.
