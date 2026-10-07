@@ -1,5 +1,12 @@
 # AGENT.md
 
+## Workflow for every task
+
+1. Before acting, check for and read the entire root `DESIGN_LOG.md`. Treat it as project memory, not unquestionable truth: verify the relevant details against the current files, tests, and workflows.
+2. If `DESIGN_LOG.md` is missing, create it with only the user's explicit intent and mark unknowns as unspecified. Tell the user it was created.
+3. The current user request overrides older intent, but do not silently resolve a conflict between the log and the repository. Re-check first; if the conflict changes the work, explain it and ask before proceeding on that part.
+4. Capture new user decisions accurately. After the task, append a dated, sequential, typed entry to `DESIGN_LOG.md` describing only what was decided, changed, and verified. Preserve user wording where practical; never rewrite or reorder earlier entries. State what was not tested.
+
 ## Project context
 
 - The flashcard app's only runtime/deployment file is `index.html`. It contains the markup, styles, JavaScript module, and embedded vocabulary JSON; there is no app API or external data fetch. Learning progress and preferences use browser `localStorage`.

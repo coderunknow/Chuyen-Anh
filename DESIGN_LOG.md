@@ -53,3 +53,9 @@ Checked for root `AGENT.md` first; it was absent. Audited the README, data pipel
 
 ### #13 — 2026-10-07 — DONE
 Committed and pushed this work on the session branch, then opened PR #12 against `main`: https://github.com/coderunknow/Chuyen-Anh/pull/12. The PR is open.
+
+### #14 — 2026-10-07 — INTENT
+User: “Tôi muốn nó phải cho agent khi đọc vào sẽ biết workflow cần làm gì (ví dụ: đọc DESIGN_LOG.md,... và chỉ dẫn tốt nhất).”
+
+### #15 — 2026-10-07 — DONE
+Expanded root `AGENT.md` with a per-task workflow: read the full design log, verify relevant claims against the repository, surface unresolved conflicts and ask before dependent changes, and append factual dated entries without rewriting prior history. Kept the repository-specific data pipeline and test guidance. No source code, app configuration, or runtime behavior changed; this update is documentation-only.
