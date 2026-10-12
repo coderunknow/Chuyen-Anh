@@ -15519,6 +15519,7 @@ export const MODES = Object.freeze({
 });
 
 const VALID_STATES = new Set(Object.values(STATES));
+const PREVIOUS_APP_DEFINITION_PREFIX = 'Previous app definition (data/vocabulary.json): ';
 const STORAGE_KEYS = Object.freeze({
   progress: 'chuyen-anh.progress.v1',
   prefs: 'chuyen-anh.prefs.v1',
@@ -15761,6 +15762,14 @@ export function selectSession(vocabulary, progressMap, { size = 20, mode = 'due'
   return candidates.slice(0, limit);
 }
 
+export function queueRepeatedCard(session, item, sessionStats) {
+  if (!Array.isArray(session) || !session.length || !item?.vocab
+    || !sessionStats || !Number.isFinite(sessionStats.total)) return false;
+  session.unshift({ vocab: item.vocab, progress: item.progress });
+  sessionStats.total += 1;
+  return true;
+}
+
 function examplesFor(entry) {
   return Array.isArray(entry?.examples) ? entry.examples.filter(Boolean).map(example => {
     if (typeof example === 'string') return { en: example, vi: '' };
@@ -15840,6 +15849,13 @@ export function createSearchIndex(vocabulary, progressMap = {}, favorites = new 
     progress: progressMap?.[entry.id],
     favorite: favoriteIds.has(entry.id)
   }));
+}
+
+export function updateSearchFavorite(index, id, favorite) {
+  const item = Array.isArray(index) ? index.find(candidate => candidate?.entry?.id === id) : null;
+  if (!item) return false;
+  item.favorite = Boolean(favorite);
+  return true;
 }
 
 export function searchVocabulary(index = [], query = '', filters = {}, now = Date.now()) {
@@ -16078,6 +16094,13 @@ function exampleHtml(entry) {
 }
 
 export function vocabularyMetadataHtml(entry) {
+  const notes = entry?.notes;
+  const previousMeaning = typeof notes === 'string' && notes.startsWith(PREVIOUS_APP_DEFINITION_PREFIX)
+    ? notes.slice(PREVIOUS_APP_DEFINITION_PREFIX.length)
+    : null;
+  const noteField = previousMeaning === null
+    ? ['Ghi chú / phân biệt / nguồn', notes]
+    : ['Nghĩa của phiên bản ứng dụng trước (chỉ tham chiếu lịch sử; không phải nghĩa hiện tại)', previousMeaning];
   const fields = [
     ['Họ từ', entry?.wordFamily],
     ['Đồng nghĩa', entry?.synonyms],
@@ -16085,7 +16108,7 @@ export function vocabularyMetadataHtml(entry) {
     ['Cụm từ', entry?.collocations],
     ['Văn phong', entry?.register],
     ['Sắc thái', entry?.connotation],
-    ['Ghi chú / phân biệt / nguồn', entry?.notes]
+    noteField
   ];
   const rows = fields.map(([label, value]) => {
     const text = (Array.isArray(value) ? value : [value])
@@ -16104,6 +16127,15 @@ function dateKey(date = new Date()) {
 }
 
 function todayKey() { return dateKey(); }
+
+export function shouldHandleGlobalShortcut(event) {
+  const target = event?.target;
+  const tag = String(target?.tagName || '').toUpperCase();
+  if (['INPUT', 'TEXTAREA', 'SELECT'].includes(tag) || target?.isContentEditable) return false;
+  if ((event?.key === ' ' || event?.key === 'Enter')
+    && target?.closest?.('button, a, [role="button"]')) return false;
+  return true;
+}
 
 export async function createApp(root) {
   let loaded;
@@ -16135,9 +16167,23 @@ export async function createApp(root) {
   let sessionStats = null;
   let sessionSummary = null;
 
+  function clearActiveSession() {
+    session = null;
+    question = null;
+    questionStarted = 0;
+    answered = false;
+    revealed = false;
+    answerResult = null;
+    lastAnswered = null;
+    repeatQueued = false;
+    sessionStats = null;
+    sessionSummary = null;
+  }
+
   function persist() {
     const ok = [saveProgress(progress, storage), savePrefs(prefs, storage), saveFavorites(favorites, storage), saveHistory(history, storage), saveStreak(streak, storage)].every(Boolean);
     if (!ok) toast('Không thể lưu dữ liệu trên thiết bị này.', 'error');
+    return ok;
   }
 
   function updateStreak() {
@@ -16200,7 +16246,12 @@ export async function createApp(root) {
     `;
     root.querySelectorAll('[data-view]').forEach(button => button.addEventListener('click', () => { view = button.dataset.view; sessionSummary = null; renderShell(); }));
     root.querySelector('#brand-link').addEventListener('click', event => { event.preventDefault(); view = 'learn'; sessionSummary = null; renderShell(); });
-    root.querySelector('#theme-button').addEventListener('click', () => { prefs.darkMode = !prefs.darkMode; savePrefs(prefs, storage); applyTheme(); renderShell(); });
+    root.querySelector('#theme-button').addEventListener('click', () => {
+      prefs.darkMode = !prefs.darkMode;
+      if (!savePrefs(prefs, storage)) toast('Không thể lưu giao diện trên thiết bị này.', 'error');
+      applyTheme();
+      renderShell();
+    });
     root.querySelector('#export-top').addEventListener('click', exportDownload);
     renderView();
   }
@@ -16311,12 +16362,12 @@ export async function createApp(root) {
       questionArea.querySelector('#submit-answer').addEventListener('click', () => handleAnswer(input.value));
       if (!answered) setTimeout(() => input.focus(), 0);
     } else {
-      questionArea.innerHTML = `<div class="options" role="radiogroup">${options.map((option, index) => `<button class="option ${answerResult && option.correct ? 'correct' : ''} ${answerResult && answerResult.selected === option.id && !answerResult.correct ? 'wrong' : ''}" data-option="${escapeHtml(option.id)}" ${answered ? 'disabled' : ''}><span class="option-index">${index + 1}</span><span>${escapeHtml(option.text)}</span></button>`).join('')}</div>`;
+      questionArea.innerHTML = `<div class="options" role="group" aria-label="${question.mode === MODES.RECOGNITION ? 'Chọn nghĩa tiếng Việt' : 'Chọn từ tiếng Anh'}">${options.map((option, index) => `<button class="option ${answerResult && option.correct ? 'correct' : ''} ${answerResult && answerResult.selected === option.id && !answerResult.correct ? 'wrong' : ''}" data-option="${escapeHtml(option.id)}" ${answered ? 'disabled' : ''}><span class="option-index">${index + 1}</span><span>${escapeHtml(option.text)}</span></button>`).join('')}</div>`;
       questionArea.querySelectorAll('[data-option]').forEach(button => button.addEventListener('click', () => handleAnswer(button.dataset.option)));
     }
     container.querySelector('#favorite-card').addEventListener('click', () => toggleFavorite(item.vocab.id));
     container.querySelector('#skip-card').addEventListener('click', skipCard);
-    container.querySelector('#exit-session').addEventListener('click', () => { session = null; question = null; renderShell(); });
+    container.querySelector('#exit-session').addEventListener('click', () => { clearActiveSession(); renderShell(); });
     container.querySelector('#reveal-correct')?.addEventListener('click', () => handleAnswer('__revealed_correct__', true));
     container.querySelector('#reveal-wrong')?.addEventListener('click', () => handleAnswer('__revealed_wrong__', false));
     if (answered) renderFeedback(container);
@@ -16346,7 +16397,9 @@ export async function createApp(root) {
     const correct = answerResult.correct;
     const answerText = question.answer;
     container.querySelector('#feedback-area').innerHTML = `<div class="feedback ${correct ? 'correct' : 'wrong'}" role="alert"><div class="feedback-title">${correct ? '✓ Chính xác!' : `✕ Chưa đúng · Đáp án: ${escapeHtml(answerText)}`}</div><p><strong>${escapeHtml(item.vocab.word)}</strong> · ${escapeHtml(item.vocab.meaning)}</p>${vocabularyMetadataHtml(item.vocab)}${!correct ? `<p>Bạn sai từ này ${item.progress.wrongCount} lần. Từ yếu sẽ được ưu tiên trong phiên sau.</p>` : ''}${exampleHtml(item.vocab)}<p style="color:var(--muted);font-size:.75rem">Lần ôn tiếp theo: ${formatNextReview(item.progress.nextReview)} · trạng thái: ${item.progress.state}</p><div class="actions" style="margin-top:12px"><button class="btn primary full" id="next-card">Tiếp tục <kbd>Enter</kbd></button></div></div>`;
-    container.querySelector('#next-card').addEventListener('click', advanceCard);
+    const nextButton = container.querySelector('#next-card');
+    nextButton.addEventListener('click', advanceCard);
+    nextButton.focus({ preventScroll: true });
   }
 
   function advanceCard() {
@@ -16361,22 +16414,32 @@ export async function createApp(root) {
     if (!session?.length || answered) return;
     session.push(session.shift());
     nextQuestion();
-    renderFlashcard(root.querySelector('#content'));
+    const content = root.querySelector('#content');
+    renderFlashcard(content);
+    content.querySelector('#question-area [data-option], #spelling-input')?.focus({ preventScroll: true });
   }
 
   function repeatCurrent() {
     if (!answered || !session?.length || repeatQueued) return;
-    session.unshift({ vocab: lastAnswered.vocab, progress: progress[lastAnswered.vocab.id] });
+    if (!queueRepeatedCard(session, {
+      vocab: lastAnswered.vocab,
+      progress: progress[lastAnswered.vocab.id]
+    }, sessionStats)) return;
     repeatQueued = true;
     toast('Đã xếp lại từ này ngay sau thẻ hiện tại.');
     advanceCard();
   }
 
-  function toggleFavorite(id) {
-    if (favorites.has(id)) { favorites.delete(id); toast('Đã bỏ yêu thích.'); }
-    else { favorites.add(id); toast('Đã thêm vào yêu thích.', 'success'); }
-    saveFavorites(favorites, storage);
-    renderShell();
+  function toggleFavorite(id, rerender = true) {
+    const removing = favorites.has(id);
+    if (removing) favorites.delete(id);
+    else favorites.add(id);
+    if (saveFavorites(favorites, storage)) {
+      toast(removing ? 'Đã bỏ yêu thích.' : 'Đã thêm vào yêu thích.', removing ? 'info' : 'success');
+    } else {
+      toast('Không thể lưu danh sách yêu thích trên thiết bị này.', 'error');
+    }
+    if (rerender) renderShell();
   }
 
   function finishSession() {
@@ -16423,7 +16486,12 @@ export async function createApp(root) {
       page = Math.min(page, pages);
       const visible = matches.slice((page - 1) * pageSize, page * pageSize);
       results.innerHTML = matches.length ? `<p class="results-meta">${matches.length} kết quả · trang ${page}/${pages}</p><div class="vocab-list">${visible.map(item => `<div class="vocab-row"><span class="vocab-word">${escapeHtml(item.entry.word)}</span><span class="vocab-pos">${escapeHtml(item.entry.pos)}</span><span class="vocab-meaning" title="${escapeHtml(item.entry.meaning)}">${escapeHtml(item.entry.meaning)}</span><span class="state-pill state-${escapeHtml(item.state)}">${escapeHtml(item.state)}</span><button class="fav ${item.favorite ? 'active' : ''}" data-fav="${escapeHtml(item.entry.id)}" aria-label="${item.favorite ? 'Bỏ yêu thích' : 'Thêm yêu thích'}">${item.favorite ? '★' : '☆'}</button></div>`).join('')}</div>${pages > 1 ? `<div class="pagination">${Array.from({ length: pages }, (_, i) => `<button class="btn small ${i + 1 === page ? 'primary' : ''}" data-page="${i + 1}">${i + 1}</button>`).join('')}</div>` : ''}` : '<div class="empty"><strong>Không tìm thấy</strong>Thử từ khóa khác hoặc bỏ bớt bộ lọc.</div>';
-      results.querySelectorAll('[data-fav]').forEach(button => button.addEventListener('click', () => toggleFavorite(button.dataset.fav)));
+      results.querySelectorAll('[data-fav]').forEach(button => button.addEventListener('click', () => {
+        const id = button.dataset.fav;
+        toggleFavorite(id, false);
+        updateSearchFavorite(index, id, favorites.has(id));
+        draw();
+      }));
       results.querySelectorAll('[data-page]').forEach(button => button.addEventListener('click', () => { page = Number(button.dataset.page); draw(); }));
     };
     [field, state, pos, sort].forEach(element => element.addEventListener('input', () => { page = 1; draw(); }));
@@ -16458,12 +16526,16 @@ export async function createApp(root) {
     try {
       const parsed = JSON.parse(await file.text());
       const imported = validateImportPayload(parsed, validIds); // no storage mutation before this completes
+      clearActiveSession(); // the imported scheduler state must not reuse stale session progress
       progress = ensureProgress(imported.progress, vocabulary);
       prefs = { ...DEFAULT_PREFS, ...imported.prefs };
       favorites = imported.favorites;
       history = imported.history;
       streak = imported.streak;
-      persist();
+      if (!persist()) {
+        renderShell();
+        return;
+      }
       toast('Đã nhập progress thành công.', 'success');
       renderShell();
     } catch (error) {
@@ -16475,15 +16547,15 @@ export async function createApp(root) {
 
   function resetProgress() {
     if (!confirm('Xóa toàn bộ progress, favorites, streak và lịch sử trên thiết bị này?')) return;
+    clearActiveSession();
     progress = ensureProgress({}, vocabulary);
     favorites = new Set(); history = []; streak = { current: 0, longest: 0, lastDate: null };
-    persist(); toast('Đã xóa progress.', 'success'); renderShell();
+    if (!persist()) { renderShell(); return; }
+    toast('Đã xóa progress.', 'success'); renderShell();
   }
 
   document.addEventListener('keydown', event => {
-    if (!prefs.keyboardShortcuts || !session?.length) return;
-    const tag = event.target?.tagName;
-    if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || event.target?.isContentEditable) return;
+    if (!prefs.keyboardShortcuts || !session?.length || !shouldHandleGlobalShortcut(event)) return;
     if (event.key >= '1' && event.key <= '4' && !answered && question?.options) {
       event.preventDefault();
       const button = root.querySelectorAll('[data-option]')[Number(event.key) - 1];

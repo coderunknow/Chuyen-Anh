@@ -10,12 +10,21 @@ import argparse
 import json
 import re
 import sys
+import unicodedata
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
 DEFAULT_PATH = Path(__file__).resolve().parents[1] / "data" / "vocabulary.json"
 ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*$")
+DIACRITICS_RE = re.compile(r"[\u0300-\u036f]")
+
+
+def normalize_word(value: str) -> str:
+    """Match the runtime's accent-insensitive, case-insensitive word key."""
+    normalized = unicodedata.normalize("NFD", value)
+    normalized = DIACRITICS_RE.sub("", normalized).replace("đ", "d").replace("Đ", "d")
+    return " ".join(normalized.lower().split())
 
 
 def problem(errors: list[str], index: int, entry: Any, message: str) -> None:
@@ -59,7 +68,7 @@ def validate(data: Any) -> list[str]:
         elif len(word.strip()) > 120:
             problem(errors, index, entry, f"word is too long ({len(word.strip())} characters)")
         else:
-            words[word.strip().casefold()].append(index)
+            words[normalize_word(word.strip())].append(index)
 
         if not isinstance(pos, str) or not pos.strip():
             problem(errors, index, entry, "missing or empty pos")

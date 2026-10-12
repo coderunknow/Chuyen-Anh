@@ -61,7 +61,7 @@ Chỉ cần giữ `index.html` khi sao chép/triển khai ứng dụng. Các t�
 - Cloze/context: chọn từ trong câu ví dụ.
 - Scheduler deterministic: `new`, `learning`, `weak`, `review`, `mastered`; theo dõi đúng/sai, streak, difficulty, interval, last/next review.
 - Session: đến hạn, từ yếu, từ mới, random, yêu thích, 10/20/30/50 từ; due + weak được ưu tiên.
-- Error-based feedback: xem đáp án, nghĩa, metadata có sẵn, ví dụ và số lần sai ngay sau câu trả lời.
+- Error-based feedback: xem đáp án, nghĩa, metadata có sẵn, ví dụ và số lần sai ngay sau câu trả lời; nghĩa cũ của ID 448 được đánh dấu rõ là tham chiếu lịch sử, không phải nghĩa hiện tại.
 - Search local theo English, Vietnamese, POS, tags, word family, metadata và example; filter theo state/favorite/due; pagination chỉ render 50 dòng một lần.
 - Dashboard: total, new, learning, weak, mastered, due, accuracy, streak và lịch sử phiên.
 - Import/export JSON; import validate trước, lỗi không ghi đè backup cũ; reset progress.

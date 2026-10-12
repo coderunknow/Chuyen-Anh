@@ -44,6 +44,14 @@ class VocabularyValidatorTest(unittest.TestCase):
         errors = "\n".join(validator.validate(data))
         self.assertIn("unconverted legacy difficulty marker", errors)
 
+    def test_duplicate_words_follow_runtime_accent_normalization(self):
+        data = [
+            entry(id="1", word="resume", examples=[], tags=[]),
+            entry(id="2", word="résumé", examples=[], tags=[]),
+        ]
+        errors = "\n".join(validator.validate(data))
+        self.assertIn("duplicate word", errors)
+
     def test_duplicate_and_malformed_entry_are_reported(self):
         data = [
             entry(id="same", word="word", meaning="x", examples=[], tags=[], difficulty=1),
