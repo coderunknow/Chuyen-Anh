@@ -253,6 +253,92 @@ test('a revealed answer can only be graded by explicit self-assessment', () => {
   assert.equal(canGradeBySelection({}), false, 'no question means nothing can be graded');
 });
 
+test('every multiple-choice question offers plausible, distinct options', () => {
+  const vocabulary = embeddedVocabulary;
+  const posTokens = entry => String(entry?.pos ?? '').toLowerCase().split(/[^a-z]+/).filter(Boolean);
+  const sharesPos = (a, b) => {
+    const right = new Set(posTokens(b));
+    return posTokens(a).some(token => right.has(token));
+  };
+  const field = mode => (mode === MODES.RECOGNITION ? 'meaning' : 'word');
+  // Index once: the assertion needs the number of *distinct* same-part-of-speech
+  // option texts the implementation can pick from, not the number of entries.
+  const byPosToken = new Map();
+  for (const entry of vocabulary) {
+    for (const token of new Set(posTokens(entry))) {
+      if (!byPosToken.has(token)) byPosToken.set(token, []);
+      byPosToken.get(token).push(entry);
+    }
+  }
+  const peerTexts = (entry, mode) => {
+    const answerText = normalize(entry[field(mode)]);
+    const texts = new Set();
+    for (const token of new Set(posTokens(entry))) {
+      for (const other of byPosToken.get(token)) {
+        if (other.id === entry.id) continue;
+        const text = other[field(mode)];
+        if (!text) continue;
+        const key = normalize(text);
+        if (key !== answerText) texts.add(key);
+      }
+    }
+    return texts.size;
+  };
+
+  let statements = 0;
+  let clozeStatements = 0;
+  for (const entry of vocabulary) {
+    const progress = createInitialProgress(entry.id, 0);
+    for (const mode of [MODES.RECOGNITION, MODES.RECALL, MODES.CLOZE]) {
+      const question = generateQuestion({ vocab: entry, progress, taught: true }, vocabulary, mode);
+      if (question.mode !== mode) continue; // cloze needs an example sentence
+      if (mode === MODES.CLOZE) clozeStatements += 1;
+      statements += 1;
+      assert.equal(question.options.length, 4, `${entry.word} must offer four options`);
+      assert.equal(question.options.filter(option => option.correct).length, 1);
+      assert.equal(question.options.filter(option => option.id === entry.id).length, 1);
+
+      const texts = question.options.map(option => normalize(option.text));
+      assert.equal(new Set(texts).size, 4, `${entry.word} repeated an option text`);
+      // The dataset holds entries that share one gloss; none of them may become the answer.
+      assert.equal(question.options.find(option => option.id === entry.id).text, entry[field(mode)]);
+
+      const options = question.options.filter(option => option.id !== entry.id)
+        .map(option => vocabulary.find(candidate => candidate.id === option.id));
+      // Same part of speech whenever the dataset has enough peers; otherwise the
+      // remaining slots fall back instead of leaving the question short.
+      const expectedSamePos = Math.min(3, peerTexts(entry, mode));
+      const actualSamePos = options.filter(option => sharesPos(option, entry)).length;
+      assert.equal(actualSamePos, expectedSamePos,
+        `${entry.word} (${entry.pos}, ${mode}) used ${actualSamePos} same-POS distractors, expected ${expectedSamePos}`);
+    }
+  }
+  assert.ok(statements >= vocabulary.length * 2, `expected recognition and recall for every word, generated ${statements}`);
+  assert.ok(clozeStatements >= 1, 'the record that has an example sentence must still be asked as cloze');
+});
+
+test('cloze options never repeat a word already printed in the sentence', () => {
+  const fixture = [
+    { id: 'a', word: 'Menial', pos: 'adj', meaning: 'tầm thường', examples: [{ en: 'He was tired of doing menial work all day.', vi: '' }] },
+    { id: 'b', word: 'Tired', pos: 'adj', meaning: 'mệt mỏi' },
+    { id: 'c', word: 'Work', pos: 'n', meaning: 'công việc' },
+    { id: 'd', word: 'Day', pos: 'n', meaning: 'ngày' },
+    { id: 'e', word: 'Lucid', pos: 'adj', meaning: 'rõ ràng' },
+    { id: 'f', word: 'Gauge', pos: 'v', meaning: 'đo lường' },
+    { id: 'g', word: 'Opaque', pos: 'adj', meaning: 'mờ đục' }
+  ];
+  for (let attempt = 0; attempt < 40; attempt += 1) {
+    const question = generateQuestion({ vocab: fixture[0], progress: createInitialProgress('a', 0), taught: true }, fixture, MODES.CLOZE);
+    assert.match(question.prompt, /_____/);
+    const texts = question.options.map(option => normalize(option.text));
+    assert.equal(texts.includes('tired'), false, '"tired" is printed in the sentence');
+    assert.equal(texts.includes('work'), false, '"work" is printed in the sentence');
+    assert.equal(texts.includes('day'), false, '"day" is printed in the sentence');
+    assert.equal(texts.includes('menial'), true);
+    assert.equal(new Set(texts).size, question.options.length);
+  }
+});
+
 test('each failed card gets its own retry, retaining the original queue order', () => {
   const queue = vocab.map(entry => ({ vocab: entry, progress: createInitialProgress(entry.id, 0) }));
   const originals = [...queue];

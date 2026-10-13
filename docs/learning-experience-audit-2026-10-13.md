@@ -141,3 +141,45 @@ Not run: retention measurement, screen reader, Safari/Firefox/iOS, storage-quota
 - The introduction adds one extra screen per never-studied word. Skipping is one click (`Bỏ qua`).
 - Distractor quality is unchanged; the SAME-POS/similar-meaning improvement above remains the best follow-up if the dataset ever gains synonyms.
 - The one-word cloze situation is unchanged: 912 of 913 records have no example sentence, and no sentence was invented.
+
+---
+
+# Third pass — 2026-10-13, branch `arena/25926059-chuyen-anh`
+
+User decision after the first two passes: implement the smarter-distractor follow-up, close PRs #14 and #15 as superseded, and keep PR #16 open and unmerged. This section records that work; the sections above are preserved verbatim.
+
+## Hypothesis tested first, and one of them was wrong
+
+The suspicion going in was twofold: (a) the shuffle might systematically place the correct answer away from option 1, and (b) distractor quality might be weak. Hypothesis (a) was **measured and rejected**: over 48 real questions the correct answer landed in each of the four slots `[9, 12, 11, 16]` (baseline run) — `shuffle` really is a uniform Fisher–Yates shuffle and there is no position bias. Nothing was “fixed” on the basis of that guess.
+
+Hypothesis (b) held. Measured on the real app before any change: **38.2% of distractors shared a part of speech with the headword** (55/144; exact-string comparison gives 25.7%). For a word → Vietnamese-gloss question, a distractor from a different word class is usually eliminable at a glance, so roughly three quarters of the options were not plausible competition and the question was closer to a free pick than a test.
+
+A third, smaller defect was confirmed from the data, not from the app: 5 glosses are shared by exactly 2 entries each (10 records, e.g. identical normalized meanings). Because the old candidate filter only excluded the *answer* text, two distractors could still carry the same gloss, silently turning a four-option question into a three-option one. And the cloze builder drew its options from the whole vocabulary with no check against the sentence being displayed, so an option could be a word already printed in that sentence.
+
+## Change
+
+`distractors(vocabulary, current, field, { usable })` now builds two pools, shuffles each, and takes same-part-of-speech candidates first, then falls back to the rest:
+
+- **Part of speech matching.** `pos` is free text in the source table (`n`, `v/n`, `phrasal v`, `idiom`, `prep phrase`, …), so matching is done on token overlap, which correctly treats `v/n` as sharing a class with both `v` and `n`. Measured availability in `data/vocabulary.json`: 910 of 913 entries have at least three same-POS peers; only `grammar` (2 records) and `conj` (1 record) do not, and those fall back to other word classes so the question still offers four options.
+- **No repeated text anywhere in the options.** Candidates whose normalized text equals the answer's or another chosen option's are skipped, which removes the duplicate-gloss problem described above.
+- **Cloze options are not words already printed in the sentence.** `wordsIn()` builds the sentence's word set (including a regular plural, so `tasks` also blocks `task`) and such candidates are filtered out for that mode only.
+
+No vocabulary record, scheduler rule, storage key, import/export field or dependency changed; the change is confined to how a question is composed.
+
+## Measured effect (same probe, before and after)
+
+| Metric (48 real questions, Chromium) | Before | After |
+| --- | --- | --- |
+| Distractors sharing the headword's part of speech (token-overlap definition) | 38.2% (55/144) | **100%** (144/144) |
+| Correct-answer slot distribution | `[15, 14, 9, 10]` | `[10, 10, 14, 14]` — still effectively uniform, no new bias |
+| Duplicate option texts | none observed in this sample | none |
+
+## Verification executed
+
+- `node --test tests/static-app.test.js` — **18 passed** (16 inherited + 2 new). The new property test walks all 913 real records in recognition, recall and cloze modes (1,827 generated questions) and asserts, for every one: four options, exactly one correct, the correct text present once, four distinct normalized option texts, and *exactly* `min(3, distinct same-POS peers)` same-part-of-speech distractors — so the fallback for `conj`/`grammar` is asserted rather than assumed. The second test drives the cloze mode 40 times over a fixture whose sentence contains candidate words and asserts they are never offered.
+- `node tests/browser-learning.cjs` — Chromium 133.0.6943.0, no page errors, now also asserting in the real app that a recognition question offers four distinct texts, that the answer appears once, that all three distractors share the headword's part of speech, and that the sole cloze record (ID 448, forced into cloze through seeded progress `correctCount: 3`) shows no option already printed in its sentence.
+- `python scripts/build_vocabulary.py --check`, `python scripts/validate_vocab.py`, `python scripts/embed_vocabulary.py --check` — pass, 913 records unchanged.
+- `python -m unittest discover -s tests -p 'test_*.py'` — 13 passed, unchanged.
+- `git diff --check` — clean.
+
+Not run: everything already listed as not run in the second pass (retention measurement, screen reader, other browsers, real deployment), plus a human judgement of whether same-POS distractors *feel* harder — the difficulty increase is a hypothesis supported by the measured before/after composition, not by a retention study.

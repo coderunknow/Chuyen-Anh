@@ -202,6 +202,31 @@ async function main() {
     assert.equal(await page.locator('#start-quiz').count(), 0);
     assert.equal(await page.locator('[data-option]').count(), 4);
     assert.equal(await page.locator('.first-look').count(), 0);
+
+    // The four options are plausible: distinct texts sharing the headword's part of speech.
+    const options = await page.evaluate(id => {
+      const data = JSON.parse(document.getElementById('vocabulary-data').textContent);
+      const tokens = value => String(value ?? '').toLowerCase().split(/[^a-z]+/).filter(Boolean);
+      const shares = (a, b) => { const right = new Set(tokens(b.pos)); return tokens(a.pos).some(token => right.has(token)); };
+      const buttons = [...document.querySelectorAll('[data-option]')];
+      const answer = data.find(item => item.id === id);
+      return {
+        ids: buttons.map(button => button.dataset.option),
+        texts: buttons.map(button => button.querySelector('span:last-child').textContent.trim()),
+        answerPos: answer.pos,
+        peers: new Set(data.filter(item => item.id !== id
+          && item.meaning.trim().toLowerCase() !== answer.meaning.trim().toLowerCase())
+          .filter(item => shares(item, answer)).map(item => item.meaning.trim().toLowerCase())).size,
+        distractors: buttons.map(button => button.dataset.option).filter(optionId => optionId !== id)
+          .map(optionId => ({ pos: data.find(item => item.id === optionId).pos, shares: shares(data.find(item => item.id === optionId), answer) }))
+      };
+    }, introEntry.id);
+    assert.equal(new Set(options.texts.map(text => text.toLowerCase())).size, 4, 'no option text is repeated');
+    assert.equal(options.ids.filter(optionId => optionId === introEntry.id).length, 1, 'the answer appears exactly once');
+    if (options.peers >= 3) {
+      assert.equal(options.distractors.filter(distractor => distractor.shares).length, 3,
+        `${introEntry.word} (${options.answerPos}): all three distractors share its part of speech`);
+    }
     await page.locator(`[data-option="${introEntry.id}"]`).click();
     const introGraded = (await read('progress'))[introEntry.id];
     assert.equal(introGraded.state, 'learning');
@@ -272,6 +297,30 @@ async function main() {
     await page.locator('[data-session="favorites"]').click();
     assert.equal(await page.locator('#start-quiz').count(), 1, 'an ungraded new word is introduced again after a reload');
 
+    // The only record with an example sentence is asked as cloze, and no option is a
+    // word that is already printed in that sentence (ID 448, 'Menial task').
+    await page.evaluate(() => {
+      localStorage.clear();
+      localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['448']));
+      localStorage.setItem('chuyen-anh.progress.v1', JSON.stringify({
+        '448': { id: '448', state: 'learning', correctCount: 3, wrongCount: 0, streak: 3, lastReviewed: 0, nextReview: 0, interval: 1, ease: 2.5, difficulty: 0 }
+      }));
+    });
+    await page.reload();
+    await page.locator('[data-session="favorites"]').click();
+    assert.match(await page.locator('.mode-label').innerText(), /ĐIỀN VÀO NGỮ CẢNH/i);
+    assert.match(await page.locator('.prompt').innerText(), /_____/);
+    const clozeOptions = await page.locator('[data-option] > span:last-child').allInnerTexts();
+    const sentence = await page.evaluate(() => {
+      const data = JSON.parse(document.getElementById('vocabulary-data').textContent);
+      return data.find(item => item.id === '448').examples[0].en;
+    });
+    const printed = new Set(sentence.toLowerCase().split(/[^a-z']+/).filter(Boolean));
+    for (const option of clozeOptions) {
+      assert.equal(printed.has(option.trim().toLowerCase()), false,
+        `"${option}" is already printed in the cloze sentence`);
+    }
+
     // Existing saved progress is untouched: a scheduled card is never introduced.
     await page.evaluate(() => {
       localStorage.clear();
@@ -291,7 +340,7 @@ async function main() {
     assert.equal(continued.correctCount, 4, 'the stored counters keep growing from their old value');
     assert.equal(continued.wrongCount, 0);
     assert.deepEqual(errors, []);
-    console.log(`PASS: Chromium ${browser.version()} — first-look introduction for new words, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, mobile layout, reduced-motion setting; no page errors.`);
+    console.log(`PASS: Chromium ${browser.version()} — first-look introduction for new words, same-part-of-speech distractors, cloze options absent from the sentence, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, mobile layout, reduced-motion setting; no page errors.`);
   } finally {
     if (browser) await browser.close();
     await new Promise(resolve => server.close(resolve));

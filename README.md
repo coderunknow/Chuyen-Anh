@@ -59,6 +59,7 @@ Chỉ cần giữ `index.html` khi sao chép/triển khai ứng dụng. Các t�
 - Recall: Vietnamese → English.
 - Spelling: gõ từ tiếng Anh.
 - Cloze/context: chọn từ trong câu ví dụ.
+- Câu hỏi trắc nghiệm: ba phương án nhiễu được lấy cùng từ loại với từ đang hỏi khi dữ liệu có đủ (đo trên ứng dụng thật: 38,2% → 100% số phương án nhiễu cùng từ loại), không lặp lại văn bản của đáp án hay của nhau, và không dùng từ đã in sẵn trong câu cloze. Khi một từ loại quá ít từ (ví dụ `conj`, `grammar`), các chỗ còn lại được lấp bằng từ loại khác để câu hỏi vẫn đủ bốn lựa chọn.
 - Scheduler deterministic: `new`, `learning`, `weak`, `review`, `mastered`; theo dõi đúng/sai, streak, difficulty, interval, last/next review.
 - Session: đến hạn, từ yếu, từ mới, random, yêu thích, 10/20/30/50 từ. Phiên “đến hạn” chỉ lấy từ đã học tới lịch ôn; phiên nhanh ưu tiên từ đến hạn/từ yếu rồi mới lấp chỗ trống.
 - First look: từ đang ở trạng thái `new` được giới thiệu nghĩa trước khi bị kiểm tra — kèm họ từ, cụm từ, ghi chú và ví dụ nếu dữ liệu đã có. Lượt giới thiệu không phải câu trả lời: nó không ghi gì vào `localStorage`, không đổi lịch ôn hay streak, và từ đó không được giới thiệu lại trong cùng phiên. Sau khi bấm “Bắt đầu kiểm tra”, từ được hỏi ngay như bình thường nên lần trả lời đầu tiên mới là lượt ôn được ghi lại.

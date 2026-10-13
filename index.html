@@ -15813,11 +15813,46 @@ function escapeRegExp(value) {
   return String(value ?? '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-function distractors(vocabulary, current, field) {
+// Part of speech is free text in the source table ('n', 'v/n', 'phrasal v', 'idiom', …),
+// so two entries share one when their tokens overlap.
+function posTokens(entry) {
+  return String(entry?.pos ?? '').toLowerCase().split(/[^a-z]+/).filter(Boolean);
+}
+
+function sharesPos(a, b) {
+  const right = new Set(posTokens(b));
+  return posTokens(a).some(token => right.has(token));
+}
+
+// Distractors come from the same part of speech whenever the dataset allows it: a gloss
+// from another word class is usually eliminable on sight, which would turn the question
+// into a free pick. Candidates whose text repeats the answer or another option are
+// skipped, because the dataset really does contain entries sharing one gloss.
+function distractors(vocabulary, current, field, { usable = () => true } = {}) {
   const seen = new Set([normalize(current[field])]);
-  const entries = Array.isArray(vocabulary) ? vocabulary : [];
-  return shuffle(entries.filter(entry => entry && entry.id !== current.id && entry[field] && !seen.has(normalize(entry[field]))))
-    .slice(0, 3);
+  const samePos = [];
+  const otherPos = [];
+  for (const entry of Array.isArray(vocabulary) ? vocabulary : []) {
+    if (!entry || entry.id === current.id || !entry[field] || !usable(entry)) continue;
+    const key = normalize(entry[field]);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    (sharesPos(entry, current) ? samePos : otherPos).push(entry);
+  }
+  return [...shuffle(samePos), ...shuffle(otherPos)].slice(0, 3);
+}
+
+// Words already printed in a cloze sentence cannot be distractors: seeing the word in
+// the sentence would make a wrong option look right.
+function wordsIn(text) {
+  const words = new Set();
+  for (const raw of String(text ?? '').split(/[^A-Za-z']+/)) {
+    const word = normalize(raw);
+    if (!word) continue;
+    words.add(word);
+    if (word.length > 3 && word.endsWith('s')) words.add(word.slice(0, -1));
+  }
+  return words;
 }
 
 export function generateQuestion(item, vocabulary, modeHint = null) {
@@ -15844,6 +15879,7 @@ export function generateQuestion(item, vocabulary, modeHint = null) {
   }
 
   const example = examples[0];
+  const sentenceWords = wordsIn(example.en);
   const escapedWord = escapeRegExp(entry.word);
   // Match a whole word or phrase and recognise a regular plural (task -> tasks)
   // without accidentally replacing a substring such as art in article.
@@ -15851,7 +15887,9 @@ export function generateQuestion(item, vocabulary, modeHint = null) {
   const cloze = examplePattern.test(example.en)
     ? example.en.replace(examplePattern, (_match, prefix) => `${prefix}_____`)
     : `_____ · ${entry.meaning}`;
-  const options = shuffle([{ id: entry.id, text: entry.word, correct: true }, ...distractors(vocabulary, entry, 'word').map(other => ({ id: other.id, text: other.word, correct: false }))]);
+  const options = shuffle([{ id: entry.id, text: entry.word, correct: true }, ...distractors(vocabulary, entry, 'word', {
+    usable: other => !sentenceWords.has(normalize(other.word))
+  }).map(other => ({ id: other.id, text: other.word, correct: false }))]);
   return { mode: MODES.CLOZE, prompt: cloze, subPrompt: `${entry.pos} · chọn từ phù hợp`, options, answer: entry.word, example };
 }
 
