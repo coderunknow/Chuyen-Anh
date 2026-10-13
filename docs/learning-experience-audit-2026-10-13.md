@@ -183,3 +183,38 @@ No vocabulary record, scheduler rule, storage key, import/export field or depend
 - `git diff --check` — clean.
 
 Not run: everything already listed as not run in the second pass (retention measurement, screen reader, other browsers, real deployment), plus a human judgement of whether same-POS distractors *feel* harder — the difficulty increase is a hypothesis supported by the measured before/after composition, not by a retention study.
+
+---
+
+# Release audit — 2026-10-13, v1.0.0-dev1 candidate
+
+This section records the current release pass on `arena/9c93afb0-chuyen-anh`. It supplements, and does not rewrite, the earlier audit passes above. The current user authorization explicitly permits one focused PR, merge after repository checks, deployment verification, and a prerelease; this supersedes the older “leave it unmerged” boundary quoted in the historical passes.
+
+## Reproduced findings and scope choice
+
+The supplied 913-word app and its due/new/mixed session rules already work as intended. The baseline browser run also confirmed the earlier first-look introduction, locked answer reveal/self-assessment, corrective retrieval, first-pass statistics, same-part-of-speech distractors, search/favorite stability, and data backup protections. Those behaviors were verified and preserved rather than redesigned.
+
+The current unmodified UI had two directly reproduced accessibility defects: focusing `#content` after navigation drew a 3px outline around the whole page, and the two settings switches had no accessible names or visible keyboard focus on their actual switch. At 375×812, navigation plus duplicate progress/help panels left the page heading around y=667 and the first study choice around y=812, below the initial viewport. The dashboard and session surfaces also exposed internal English state/session names. These are interface/accessibility findings; they do not establish a learning-outcome problem.
+
+The selected scope improves the study entry point, mobile hierarchy, visual consistency, learner-facing language, focus and settings accessibility, and backup feedback. A small, transparent recommendation is due review when `stats.due > 0`, otherwise a fixed 10-card mixed session. All prior session choices remain available. This is a convenience rule, not a claim that one session size improves retention.
+
+## Changes and invariants
+
+- Reworked the home view into a clear next action, focused study modes, and secondary quick-session choices. Reordered the responsive shell so the study content precedes supporting progress/shortcut panels; the navigation remains compact and sticky on narrow screens.
+- Replaced text/emoji navigation and session glyphs with inline SVGs embedded in the same `index.html`; updated color tokens, cards, spacing, focus treatment, success/error toasts, and the browser theme-color metadata for dark mode. Reduced-motion mode now sets both transitions and animations to zero.
+- Added Vietnamese display labels for learner-facing scheduler states and session/history modes. Storage keys, internal scheduler values, existing user records, scheduling decisions, and the version-1 import/export contract are unchanged. Backup validation failures and the reset confirmation now use learner-facing Vietnamese terms instead of raw internal field names.
+- Gave settings controls explicit names/descriptions and a visible focus ring on the drawn switch; made live feedback toasts announce through status/alert semantics. Added `formatDuration` for accurate summary time labels.
+- The display-only `recommendedSession` helper selects due review when due cards exist, otherwise `quick10`; it changes neither the queue contents nor scheduler/persisted state.
+- No vocabulary source row, JSON record, embedded vocabulary content, build pipeline, production dependency, network request, backend, or workflow changed. The one-file HTML remains the only production artifact and all learner data remains local.
+
+## Verification and visual review
+
+- Before editing, the required vocabulary checks, 17 Python tests, 28 Node tests, existing Chromium suite, and whitespace check all passed at the baseline recorded in entry #33.
+- After changes: `python scripts/build_vocabulary.py --check` reports that JSON matches all 913 Markdown records; `python scripts/validate_vocab.py` passes with 913 entries and zero duplicate IDs/words; `python scripts/embed_vocabulary.py --check` confirms the HTML embeds all 913 records; `python -m unittest discover -s tests -p 'test_*.py'` passes 17 tests; `node --test tests/static-app.test.js` passes 30/30; and `git diff --check` is clean.
+- `node tests/browser-learning.cjs` passes on Chromium 133.0.6943.0 with no page errors. In addition to the established study, search, import/export and persistence cases, the run checks the recommendation in empty and due states, named settings switches and their keyboard focus ring, light/dark theme metadata, reduced motion, and horizontal overflow/content priority at 320×720, 375×812, and 768×900.
+- Rendered and visually reviewed the actual HTML at 1440×1000 and mobile 375×812 across home, first look, question, feedback, summary, dashboard, search and settings. Home’s main content now begins before y=220 and the recommended action fits in both the 375×812 and 320×720 first viewport assertions; secondary progress/help follows it on mobile. The screenshots used for this temporary comparison were scratch files and are not production assets.
+- The first rerun exposed stale browser assertions (a `.session-card` queried after navigation to a flashcard, ambiguous due-card selectors after the new recommendation, and old toast/chooser copy assumptions). Those assertions were scoped to the correct view and localized messages; the full suite subsequently passed. No production defect was hidden by loosening the behavioral checks.
+
+## Limits and release status at this checkpoint
+
+No screen-reader usability session, physical device, Safari/Firefox run, controlled learning-retention study, or live Pages visit was performed. Chromium automation is the browser evidence; it is not a substitute for those checks. No learning effectiveness is claimed. Local checks are complete, but PR review/CI, merge, Pages deployment, post-merge SHA verification, tag collision recheck, and GitHub prerelease are still pending at the time this section is written; none is claimed here.

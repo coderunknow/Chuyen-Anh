@@ -5,6 +5,7 @@ import { readFile } from 'node:fs/promises';
 const root = new URL('../', import.meta.url);
 const html = await readFile(new URL('index.html', root), 'utf8');
 const vocabularyScript = html.match(/<script id="vocabulary-data" type="application\/json">([\s\S]*?)<\/script>/i);
+const styleBlock = html.match(/<style>([\s\S]*?)<\/style>/i);
 const appScript = html.match(/<script type="module" id="app-script">([\s\S]*?)<\/script>/i);
 assert.ok(vocabularyScript, 'index.html must contain its vocabulary JSON');
 assert.ok(appScript, 'index.html must contain its application module');
@@ -15,6 +16,12 @@ const app = await import(`data:text/javascript;base64,${Buffer.from(appScript[1]
 const {
   STATES,
   MODES,
+  STATE_LABELS,
+  stateLabel,
+  sessionModeLabel,
+  recommendedSession,
+  formatDuration,
+  iconMarkup,
   generateQuestion,
   createInitialProgress,
   updateProgress,
@@ -93,6 +100,25 @@ test('embedded vocabulary loads without fetch and passes runtime validation', as
     if (previousDocument === undefined) delete globalThis.document;
     else globalThis.document = previousDocument;
   }
+});
+
+test('learner-facing labels stay local while persisted scheduler keys remain stable', () => {
+  assert.deepEqual(STATE_LABELS, {
+    new: 'Chưa học', learning: 'Đang học', weak: 'Từ yếu', review: 'Ôn tập', mastered: 'Thành thạo'
+  });
+  assert.deepEqual(Object.values(STATES), ['new', 'learning', 'weak', 'review', 'mastered']);
+  assert.deepEqual(['due', 'weak', 'new', 'random', 'favorites', 'mixed'].map(sessionModeLabel), [
+    'Ôn đến hạn', 'Từ yếu', 'Từ mới', 'Ngẫu nhiên', 'Yêu thích', 'Phiên nhanh'
+  ]);
+  assert.equal(stateLabel('future-state'), 'Trạng thái khác');
+  assert.equal(sessionModeLabel('future-mode'), 'Phiên học');
+  assert.equal(recommendedSession({ due: 0 }), 'quick10');
+  assert.equal(recommendedSession({ due: 3 }), 'due');
+  assert.equal(formatDuration(1), '1 giây');
+  assert.equal(formatDuration(61), '1 phút 1 giây');
+  assert.equal(formatDuration(120), '2 phút');
+  assert.match(iconMarkup('book'), /<svg[\s\S]*aria-hidden="true"[\s\S]*<\/svg>/);
+  assert.doesNotMatch(iconMarkup('search'), /<(?:img|use)\b|\bsrc=/i);
 });
 
 test('new progress transitions to learning, and wrong answers become weak and due', () => {
@@ -263,8 +289,8 @@ test('a failed write is reported instead of being followed by a success message'
   const importBody = appScript[1].slice(importStart, resetStart);
   const resetBody = appScript[1].slice(resetStart, appScript[1].indexOf("document.addEventListener('keydown'", resetStart));
   for (const [name, body, successToast] of [
-    ['import', importBody, "toast('Đã nhập progress thành công.', 'success')"],
-    ['reset', resetBody, "toast('Đã xóa progress.', 'success')"]
+    ['import', importBody, "toast('Đã khôi phục tiến độ từ bản sao lưu.', 'success')"],
+    ['reset', resetBody, "toast('Đã xóa dữ liệu học.', 'success')"]
   ]) {
     const guard = body.indexOf('if (!persist())');
     assert.ok(guard >= 0, `${name} must check the persistence result`);
@@ -273,6 +299,15 @@ test('a failed write is reported instead of being followed by a success message'
   // The theme toggle is a direct prefs write and reports its own failure.
   assert.match(appScript[1], /if \(!savePrefs\(prefs, storage\)\) toast\('Không thể lưu giao diện trên thiết bị này\.', 'error'\);/);
   assert.match(appScript[1], /if \(saveFavorites\(favorites, storage\)\) \{/);
+});
+
+test('programmatic page focus stays visually quiet while settings switches have names and focus', () => {
+  assert.ok(styleBlock);
+  assert.match(styleBlock[1], /\.content:focus \{ outline: none; \}/);
+  assert.match(appScript[1], /aria-labelledby=\"dark-label\" aria-describedby=\"dark-help\"/);
+  assert.match(appScript[1], /aria-labelledby=\"keys-label\" aria-describedby=\"keys-help\"/);
+  assert.match(styleBlock[1], /\.switch input:focus-visible \+ span \{ outline: 3px solid/);
+  assert.match(appScript[1], /aria-labelledby=\"size-label\" aria-describedby=\"size-help\"/);
 });
 
 test('global shortcuts only act on the session that is actually on screen', () => {
@@ -336,16 +371,16 @@ test('an exported backup round-trips through the importer without loss or mutati
 test('misidentified and malformed backups are rejected with an accurate message', () => {
   const bundle = exportProgressBundle({ progress: { '1': createInitialProgress('1', 0) }, prefs: {}, favorites: new Set(['1']), history: [], streak: { current: 0, longest: 0, lastDate: null } });
   const cases = [
-    ['not an object', [], /JSON object/],
+    ['not an object', [], /đối tượng JSON/],
     ['wrong application id', { ...bundle, app: 'other-app' }, /không đúng phiên bản/],
     ['unsupported version', { ...bundle, version: 2 }, /không đúng phiên bản/],
-    ['missing progress', { ...bundle, progress: undefined }, /thiếu progress/],
+    ['missing progress', { ...bundle, progress: undefined }, /thiếu tiến độ học/],
     ['invalid state', { ...bundle, progress: { '1': { state: 'nope' } } }, /không hợp lệ/],
     ['negative counters', { ...bundle, progress: { '1': { state: 'new', correctCount: -1 } } }, /không hợp lệ/],
-    ['history is not an array', { ...bundle, history: 'nope' }, /history không hợp lệ/],
-    ['history entry without a real date', { ...bundle, history: [{ date: 'not-a-date', total: 1, correct: 0, wrong: 1, accuracy: 0, durationSec: 1, mode: 'x' }] }, /history không hợp lệ/],
-    ['streak is not numeric', { ...bundle, streak: { current: -1, longest: 0 } }, /streak không hợp lệ/],
-    ['unsupported session size', { ...bundle, prefs: { sessionSize: 7, keyboardShortcuts: true, darkMode: false } }, /prefs chứa giá trị không hợp lệ/]
+    ['history is not an array', { ...bundle, history: 'nope' }, /Lịch sử phiên học không hợp lệ/],
+    ['history entry without a real date', { ...bundle, history: [{ date: 'not-a-date', total: 1, correct: 0, wrong: 1, accuracy: 0, durationSec: 1, mode: 'x' }] }, /Lịch sử phiên học không hợp lệ/],
+    ['streak is not numeric', { ...bundle, streak: { current: -1, longest: 0 } }, /Chuỗi ngày học liên tiếp không hợp lệ/],
+    ['unsupported session size', { ...bundle, prefs: { sessionSize: 7, keyboardShortcuts: true, darkMode: false } }, /Cài đặt chứa giá trị không hợp lệ/]
   ];
   for (const [label, payload, pattern] of cases) {
     assert.throws(() => validateImportPayload(payload, new Set(['1'])), pattern, label);

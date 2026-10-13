@@ -35,7 +35,35 @@ async function main() {
     page.on('pageerror', error => errors.push(error.message));
     await page.goto(`http://127.0.0.1:${server.address().port}`);
     await page.locator('[data-session="new"]').waitFor();
-    assert.match(await page.locator('[data-session="due"]').innerText(), /0 từ/);
+    assert.match(await page.locator('.session-grid--focus [data-session="due"]').innerText(), /0 từ/);
+    assert.equal(await page.locator('.study-recommendation [data-session]').getAttribute('data-session'), 'quick10',
+      'a fresh profile is offered a short mixed session instead of an empty due queue');
+    assert.equal(await page.evaluate(() => getComputedStyle(document.querySelector('#content')).outlineWidth), '0px',
+      'programmatic focus does not draw a frame around the whole page');
+    assert.equal(await page.locator('meta[name="theme-color"]').getAttribute('content'), '#f4f7f5', 'the browser chrome starts in the light theme');
+    await page.setViewportSize({ width: 375, height: 812 });
+    const homeMobile = await page.evaluate(() => {
+      const rect = selector => { const { top, bottom, width } = document.querySelector(selector).getBoundingClientRect(); return { top, bottom, width }; };
+      return { main: rect('#content'), action: rect('.study-recommendation button'), nav: rect('.sidebar'), support: rect('.support-sidebar'), scrollWidth: document.documentElement.scrollWidth };
+    });
+    assert.equal(homeMobile.main.top < 220, true, 'the main study choice follows compact mobile navigation');
+    assert.equal(homeMobile.action.bottom < 812, true, 'the recommended study action is in the first 375×812 viewport');
+    assert.equal(homeMobile.support.top > homeMobile.main.top, true, 'secondary progress/help follows the study entry point on mobile');
+    assert.equal(homeMobile.scrollWidth <= 375, true, 'the homepage does not overflow horizontally');
+    assert.equal(await page.locator('.session-card .icon').count() > 0, true, 'session icons are self-contained SVGs');
+    assert.equal(await page.locator('.session-card').first().evaluate(el => getComputedStyle(el).transitionDuration), '0s', 'reduced motion removes nonessential card transitions');
+    await page.setViewportSize({ width: 320, height: 720 });
+    const homeNarrow = await page.evaluate(() => ({
+      width: document.documentElement.scrollWidth,
+      mainTop: document.querySelector('#content').getBoundingClientRect().top,
+      actionBottom: document.querySelector('.study-recommendation button').getBoundingClientRect().bottom
+    }));
+    assert.equal(homeNarrow.width <= 320, true, 'the minimum supported 320px viewport has no horizontal overflow');
+    assert.equal(homeNarrow.mainTop < 220, true, 'the primary study content stays near the top at 320px');
+    assert.equal(homeNarrow.actionBottom < 720, true, 'the recommended action fits the first 320×720 viewport');
+    await page.setViewportSize({ width: 768, height: 900 });
+    assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, 'the tablet breakpoint does not introduce horizontal overflow');
+    await page.setViewportSize({ width: 1280, height: 900 });
 
     const key = name => `chuyen-anh.${name}.v1`;
     const read = name => page.evaluate(k => JSON.parse(localStorage.getItem(k)), key(name));
@@ -95,8 +123,9 @@ async function main() {
     await page.locator('#favorite-card').click(); // Restore favorite.
     await page.locator('#theme-button').click();
     assert.equal(await page.locator('html').getAttribute('data-theme'), 'dark');
+    assert.equal(await page.locator('meta[name="theme-color"]').getAttribute('content'), '#101a18', 'the browser chrome follows the dark theme');
     await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
-    assert.equal(await page.locator('.prompt').evaluate(el => getComputedStyle(el).color), 'rgb(228, 240, 237)');
+    assert.equal(await page.locator('.prompt').evaluate(el => getComputedStyle(el).color), 'rgb(232, 242, 237)');
     if (process.env.BROWSER_SCREENSHOT) await page.screenshot({ path: process.env.BROWSER_SCREENSHOT, fullPage: true });
     await page.setViewportSize({ width: 375, height: 812 });
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
@@ -113,16 +142,42 @@ async function main() {
     assert.deepEqual((await read('progress'))['1'], failedProgress);
     assert.equal((await read('prefs')).darkMode, true);
     assert.deepEqual((await read('favorites')).sort(), ['1', '2']);
-    assert.match(await page.locator('[data-session="due"]').innerText(), /1 từ/);
+    assert.match(await page.locator('.session-grid--focus [data-session="due"]').innerText(), /1 từ/);
+
+    // A genuinely due review becomes the recommended action; it is not filled with future cards.
+    await page.evaluate(() => {
+      localStorage.clear();
+      localStorage.setItem('chuyen-anh.progress.v1', JSON.stringify({
+        '1': { id: '1', state: 'review', correctCount: 2, wrongCount: 0, streak: 2, lastReviewed: 0, nextReview: 0, interval: 1, ease: 2.5, difficulty: 0 }
+      }));
+    });
+    await page.reload();
+    await page.locator('.study-recommendation [data-session="due"]').waitFor();
+    assert.match(await page.locator('.study-recommendation').innerText(), /1 từ đang đến hạn/);
+    await page.locator('.study-recommendation [data-session="due"]').click();
+    assert.match(await page.locator('.page-header').innerText(), /Ôn đến hạn · 1 lượt còn lại/);
+    assert.equal(await page.locator('.first-look').count(), 0, 'the due review does not introduce a previously studied card');
+    await page.locator('#exit-session').click();
 
     // Export and valid/invalid import preserve the post-session backup.
     await page.locator('[data-view="settings"]').click();
+    assert.equal(await page.getByRole('checkbox', { name: 'Giao diện tối' }).count(), 1, 'the theme switch has a learner-facing accessible name');
+    assert.equal(await page.getByRole('checkbox', { name: 'Phím tắt bàn phím' }).count(), 1, 'the shortcut switch has a learner-facing accessible name');
+    assert.equal(await page.getByRole('combobox', { name: 'Số thẻ mặc định mỗi phiên' }).count(), 1, 'the session-size select has a name');
+    await page.keyboard.press('Tab');
+    assert.equal(await page.evaluate(() => document.activeElement.id), 'dark-setting', 'keyboard navigation reaches the named theme switch');
+    const switchFocus = await page.locator('#dark-setting').evaluate(input => ({
+      visible: input.matches(':focus-visible'),
+      outlineStyle: getComputedStyle(input.nextElementSibling).outlineStyle,
+      outlineWidth: getComputedStyle(input.nextElementSibling).outlineWidth
+    }));
+    assert.deepEqual(switchFocus, { visible: true, outlineStyle: 'solid', outlineWidth: '3px' }, 'the hidden checkbox gives its visible switch a focus ring');
     const downloadPromise = page.waitForEvent('download');
     await page.locator('#export-setting').click();
     const download = await downloadPromise;
     const backup = fs.readFileSync(await download.path());
     await page.locator('#import-setting').setInputFiles({ name: 'backup.json', mimeType: 'application/json', buffer: backup });
-    await page.locator('.toast').filter({ hasText: 'Đã nhập' }).waitFor();
+    await page.locator('.toast').filter({ hasText: 'Đã khôi phục tiến độ' }).waitFor();
     const beforeBadImport = await page.evaluate(() => ({ ...localStorage }));
     await page.locator('#import-setting').setInputFiles({ name: 'bad.json', mimeType: 'application/json', buffer: Buffer.from('{"app":"wrong"}') });
     await page.locator('.toast').filter({ hasText: 'Import thất bại' }).waitFor();
@@ -333,7 +388,7 @@ async function main() {
     await page.locator('[data-session="favorites"]').click();
     assert.equal(await page.locator('#start-quiz').count(), 0, 'a card with existing progress is not reintroduced');
     assert.equal(await page.locator('[data-option]').count(), 4);
-    assert.equal(await page.locator('.state-pill').innerText(), 'review');
+    assert.equal(await page.locator('.state-pill').innerText(), 'Ôn tập');
     assert.equal((await read('progress'))['1'].correctCount, 3);
     await page.locator('[data-option="1"]').click();
     const continued = (await read('progress'))['1'];
@@ -378,9 +433,9 @@ async function main() {
     await page.locator('[data-view="settings"]').click();
     page.on('dialog', dialog => dialog.accept());
     await page.locator('#reset-setting').click();
-    await page.locator('.toast').filter({ hasText: 'Đã xóa progress' }).waitFor();
+    await page.locator('.toast').filter({ hasText: 'Đã xóa dữ liệu học' }).waitFor();
     await page.locator('[data-view="learn"]').click();
-    assert.equal(await page.locator('.session-grid').count(), 1, 'reset returns to the session chooser');
+    assert.equal(await page.locator('.session-grid--focus').count(), 1, 'reset returns to the session chooser');
     assert.equal(await page.locator('.flashcard').count(), 0, 'a reset session is not resurrected');
     assert.equal(await page.locator('#exit-session').count(), 0);
     assert.equal(await page.locator('.prompt').count(), 0);
@@ -394,9 +449,9 @@ async function main() {
     await page.locator('#export-setting').click();
     const activeBackup = fs.readFileSync(await (await activeDownload).path());
     await page.locator('#import-setting').setInputFiles({ name: 'active.json', mimeType: 'application/json', buffer: activeBackup });
-    await page.locator('.toast').filter({ hasText: 'Đã nhập' }).waitFor();
+    await page.locator('.toast').filter({ hasText: 'Đã khôi phục tiến độ' }).waitFor();
     await page.locator('[data-view="learn"]').click();
-    assert.equal(await page.locator('.session-grid').count(), 1, 'import returns to the session chooser');
+    assert.equal(await page.locator('.session-grid--focus').count(), 1, 'import returns to the session chooser');
     assert.equal(await page.locator('.flashcard').count(), 0, 'an imported bundle does not continue the previous session');
     assert.equal(importPrompt.length > 0, true);
 
@@ -508,7 +563,7 @@ async function main() {
     await page.locator('[data-session="new"]').waitFor();
     await page.locator('[data-view="settings"]').click();
     await page.locator('#import-setting').setInputFiles({ name: 'roundTripBundle.json', mimeType: 'application/json', buffer: fs.readFileSync(roundTripPath) });
-    await page.locator('.toast').filter({ hasText: 'Đã nhập' }).waitFor();
+    await page.locator('.toast').filter({ hasText: 'Đã khôi phục tiến độ' }).waitFor();
     await page.reload();
     const restored = await page.evaluate(() => ({ ...localStorage }));
     assert.deepEqual(restored, stateAfterSession, 'the restored device state must match the exported one');
@@ -557,7 +612,7 @@ async function main() {
     await page.reload();
     await page.locator('[data-view="settings"]').click();
     await page.locator('#import-setting').setInputFiles({ name: 'retention.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify(retentionBundle)) });
-    await page.locator('.toast').filter({ hasText: 'Đã nhập' }).waitFor();
+    await page.locator('.toast').filter({ hasText: 'Đã khôi phục tiến độ' }).waitFor();
     await page.reload();
     const restoredHistory = await read('history');
     assert.equal(restoredHistory.length, 50, 'no session is lost when the roundTripBundle is restored');
@@ -582,10 +637,10 @@ async function main() {
     await failing.locator('[data-view="settings"]').click();
     await failing.locator('#reset-setting').click();
     await failing.locator('.toast').filter({ hasText: 'Không thể xóa dữ liệu' }).waitFor();
-    assert.equal(await failing.locator('.toast').filter({ hasText: 'Đã xóa progress' }).count(), 0, 'a failed wipe is not reported as success');
+    assert.equal(await failing.locator('.toast').filter({ hasText: 'Đã xóa dữ liệu học' }).count(), 0, 'a failed wipe is not reported as success');
     await failing.locator('#import-setting').setInputFiles({ name: 'active.json', mimeType: 'application/json', buffer: activeBackup });
     await failing.locator('.toast').filter({ hasText: 'Không thể lưu dữ liệu vừa nhập' }).waitFor();
-    assert.equal(await failing.locator('.toast').filter({ hasText: 'Đã nhập progress thành công' }).count(), 0, 'a failed import is not reported as success');
+    assert.equal(await failing.locator('.toast').filter({ hasText: 'Đã khôi phục tiến độ' }).count(), 0, 'a failed import is not reported as success');
     assert.equal(await failing.evaluate(() => localStorage.getItem('chuyen-anh.progress.v1')), null, 'nothing was stored');
     const deviceAfterFailedWrites = await failing.evaluate(() => ({ ...localStorage }));
     await failing.locator('[data-view="search"]').click();
@@ -603,7 +658,7 @@ async function main() {
     await failing.close();
 
     assert.deepEqual(errors, []);
-    console.log(`PASS: Chromium ${browser.version()} — first-look introduction for new words, same-part-of-speech distractors, cloze options absent from the sentence, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, mobile layout, reduced-motion setting, search state across a favorite toggle, session clearing on reset/import, the ID 448 historical label, named option groups, shortcuts limited to the visible card, failed writes reported truthfully, and JSON backup round-trips that keep every retained session; no page errors.`);
+    console.log(`PASS: Chromium ${browser.version()} — first-look introduction for new words, same-part-of-speech distractors, cloze options absent from the sentence, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, 320/375/768px responsive layout, reduced-motion setting, search state across a favorite toggle, session clearing on reset/import, the ID 448 historical label, named option groups, shortcuts limited to the visible card, failed writes reported truthfully, and JSON backup round-trips that keep every retained session; no page errors.`);
   } finally {
     if (browser) await browser.close();
     await new Promise(resolve => server.close(resolve));
