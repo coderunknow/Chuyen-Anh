@@ -10,10 +10,14 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 from learned_vocabulary import escape_cell, parse_table, split_table_row  # noqa: E402
 from audit_learned_vocab import recount, tokens  # noqa: E402
+from build_vocabulary import build_vocabulary  # noqa: E402
 
 
 def normalized(word):
-    return " ".join(unicodedata.normalize("NFKC", word).casefold().split())
+    """The runtime's word key: case-, accent- and whitespace-insensitive."""
+    value = unicodedata.normalize("NFD", word)
+    value = "".join(char for char in value if not "\u0300" <= char <= "\u036f")
+    return " ".join(value.replace("đ", "d").replace("Đ", "d").lower().split())
 
 
 class LearnedVocabularyTests(unittest.TestCase):
@@ -61,6 +65,32 @@ class LearnedVocabularyTests(unittest.TestCase):
         self.assertIn("Previous app definition (data/vocabulary.json): công việc lao dịch, tay chân vất vả, ít được coi trọng", menial["notes"])
         self.assertEqual(menial["examples"][0]["en"], "He was tired of doing menial tasks all day.")
         self.assertEqual(menial["difficulty"], 2)
+
+    def test_rebuild_preserves_application_only_metadata_by_id(self):
+        # The build pipeline keeps metadata the Markdown source does not model
+        # (examples, difficulty, createdAt, tags-by-id and any private fields).
+        record = self.records[0]
+        examples = [{"en": "A sourced sentence.", "vi": "Một câu có nguồn."}]
+        private_metadata = {"origin": "app-only", "values": [1, 2]}
+        existing = [{
+            "id": record["id"],
+            "word": "stale word",
+            "meaning": "stale meaning",
+            "examples": examples,
+            "difficulty": 3,
+            "createdAt": "2026-09-22",
+            "customMetadata": private_metadata,
+            "tags": ["stale-tag"],
+        }]
+
+        rebuilt = build_vocabulary([record], existing)[0]
+        self.assertEqual(rebuilt["word"], record["word"])
+        self.assertEqual(rebuilt["meaning"], record["meaning"])
+        self.assertEqual(rebuilt["tags"], record["tags"])
+        self.assertEqual(rebuilt["examples"], examples)
+        self.assertEqual(rebuilt["difficulty"], 3)
+        self.assertEqual(rebuilt["createdAt"], "2026-09-22")
+        self.assertEqual(rebuilt["customMetadata"], private_metadata)
 
     def test_legacy_dash_marker_for_id_448_migrates_to_easy_tag(self):
         # The prior source used `-`; the migration adds its `easy` tag without dropping old tags.
