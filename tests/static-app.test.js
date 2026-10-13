@@ -21,6 +21,8 @@ const {
   calculateStats,
   isDue,
   selectSession,
+  needsFirstLook,
+  canGradeBySelection,
   createSearchIndex,
   searchVocabulary,
   validateImportPayload,
@@ -213,6 +215,42 @@ test('practice is bounded to one retry per card, including the last card', () =>
   assert.equal(queue.length, 1);
   assert.equal(app.queuePractice([], item), false);
   assert.equal(app.queuePractice(null, item), false);
+});
+
+test('only a never-studied card is introduced before it is graded', () => {
+  const item = (state, extra = {}) => ({
+    vocab: vocab[0],
+    progress: { ...createInitialProgress('1', 0), state },
+    ...extra
+  });
+  assert.equal(needsFirstLook(item(STATES.NEW)), true);
+  assert.equal(needsFirstLook(item(STATES.LEARNING)), false);
+  assert.equal(needsFirstLook(item(STATES.WEAK)), false);
+  assert.equal(needsFirstLook(item(STATES.REVIEW)), false);
+  assert.equal(needsFirstLook(item(STATES.MASTERED)), false);
+  // The introduction is shown once per card per session, and never for practice.
+  assert.equal(needsFirstLook(item(STATES.NEW, { taught: true })), false);
+  assert.equal(needsFirstLook(item(STATES.NEW, { practice: true })), false);
+  assert.equal(needsFirstLook({ vocab: vocab[0] }), false);
+  assert.equal(needsFirstLook(null), false);
+  assert.equal(needsFirstLook(undefined), false);
+  // The introduction itself is not an answer: deciding to show it must leave the
+  // record untouched so the first graded retrieval is the one that is stored.
+  const fresh = { vocab: vocab[0], progress: createInitialProgress('1', 0) };
+  const snapshot = structuredClone(fresh.progress);
+  assert.equal(needsFirstLook(fresh), true);
+  assert.deepEqual(fresh.progress, snapshot);
+  assert.equal(fresh.progress.state, STATES.NEW);
+  assert.equal(fresh.progress.correctCount, 0);
+  assert.equal(fresh.progress.wrongCount, 0);
+});
+
+test('a revealed answer can only be graded by explicit self-assessment', () => {
+  assert.equal(canGradeBySelection({ answered: false, revealed: false, hasQuestion: true }), true);
+  assert.equal(canGradeBySelection({ answered: true, revealed: false, hasQuestion: true }), false);
+  assert.equal(canGradeBySelection({ answered: false, revealed: true, hasQuestion: true }), false);
+  assert.equal(canGradeBySelection({ answered: false, revealed: false, hasQuestion: false }), false);
+  assert.equal(canGradeBySelection({}), false, 'no question means nothing can be graded');
 });
 
 test('each failed card gets its own retry, retaining the original queue order', () => {

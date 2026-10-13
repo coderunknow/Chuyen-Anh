@@ -151,11 +151,20 @@ kbd, .kbd { min-width: 24px; padding: 2px 6px; border: 1px solid var(--border-st
 .option:hover { border-color: var(--primary); background: var(--surface-soft); }
 .option.correct { border-color: var(--success); background: var(--success-soft); }
 .option.wrong { border-color: var(--danger); background: var(--danger-soft); }
+.option.locked { cursor: not-allowed; opacity: .5; }
+.option.locked:hover { border-color: var(--border); background: var(--surface); }
 .option-index { width: 27px; height: 27px; display: grid; place-items: center; flex: 0 0 auto; border-radius: 7px; background: var(--surface-soft); color: var(--muted); font-weight: 800; font-size: .78rem; }
 .spelling { display: flex; gap: 8px; max-width: 510px; margin: 25px auto 0; }
 .spelling input, .search-input, .select, .setting-select { min-height: 42px; width: 100%; padding: 9px 12px; border: 1px solid var(--border-strong); border-radius: 9px; background: var(--surface); color: var(--text); }
 .reveal { margin: 22px auto 0; padding: 13px; border: 1px dashed var(--primary); border-radius: 10px; background: var(--primary-soft); color: var(--text); }
 .reveal strong { display: block; font-size: 1.1rem; }
+.first-look { display: grid; gap: 12px; max-width: 560px; margin: 22px auto 0; padding: 16px; border: 1px dashed var(--primary); border-radius: 12px; background: var(--primary-soft); color: var(--text); text-align: left; }
+.first-look-meaning { margin: 0; font-size: 1.05rem; line-height: 1.4; }
+.first-look-meaning span { display: block; margin-bottom: 3px; color: var(--muted); font-size: .68rem; font-weight: 850; letter-spacing: .07em; text-transform: uppercase; }
+.first-look-meaning strong { overflow-wrap: anywhere; }
+.first-look .vocabulary-metadata { margin: 0; }
+.first-look-note { margin: 0; color: var(--muted); font-size: .76rem; }
+.first-look .actions { justify-content: center; }
 .feedback { margin-top: 21px; padding: 15px; border: 1px solid; border-radius: 12px; text-align: left; }
 .feedback.correct { border-color: color-mix(in srgb, var(--success) 45%, var(--border)); background: var(--success-soft); }
 .feedback.wrong { border-color: color-mix(in srgb, var(--danger) 45%, var(--border)); background: var(--danger-soft); }
@@ -15778,6 +15787,21 @@ export function queuePractice(session, item) {
   return true;
 }
 
+// A never-studied card is introduced before it is graded. Without that step the
+// first graded answer is a guess between four options, and a lucky guess would
+// be recorded as a successful retrieval and move the review schedule forward.
+export function needsFirstLook(item) {
+  return Boolean(item && item.progress && !item.practice && !item.taught
+    && item.progress.state === STATES.NEW);
+}
+
+// Only an unrevealed card whose answer is still hidden may be graded by picking
+// an option or typing; a revealed card can only be graded by explicit
+// self-assessment, so the reported result never comes from the shown answer.
+export function canGradeBySelection({ answered = false, revealed = false, hasQuestion = false } = {}) {
+  return Boolean(hasQuestion && !answered && !revealed);
+}
+
 function examplesFor(entry) {
   return Array.isArray(entry?.examples) ? entry.examples.filter(Boolean).map(example => {
     if (typeof example === 'string') return { en: example, vi: '' };
@@ -16149,6 +16173,7 @@ export async function createApp(root) {
   let answerResult = null;
   let sessionStats = null;
   let sessionSummary = null;
+  let firstLook = false;
 
   function persist() {
     const ok = [saveProgress(progress, storage), savePrefs(prefs, storage), saveFavorites(favorites, storage), saveHistory(history, storage), saveStreak(streak, storage)].every(Boolean);
@@ -16241,11 +16266,11 @@ export async function createApp(root) {
     if (sessionSummary) { renderSummary(container); return; }
     const currentStats = stats();
     container.innerHTML = `
-      <div class="page-header"><div><h1>Học từ vựng Chuyên Anh</h1><p>Ôn chủ động, gặp lại đúng lúc. Phiên học ưu tiên từ yếu và từ đã đến hạn trước khi thêm từ mới.</p></div></div>
+      <div class="page-header"><div><h1>Học từ vựng Chuyên Anh</h1><p>Ôn chủ động, gặp lại đúng lúc. Phiên học ưu tiên từ yếu và từ đã đến hạn trước khi thêm từ mới; từ chưa học bao giờ được giới thiệu nghĩa trước khi bị kiểm tra.</p></div></div>
       <div class="session-grid">
         ${sessionCard('due', '⏰', 'Đến hạn hôm nay', 'Ôn những từ cần truy xuất lại', `${currentStats.due} từ`)}
         ${sessionCard('weak', '🎯', 'Từ yếu', 'Tập trung vào các từ hay sai', `${currentStats.weak} từ`)}
-        ${sessionCard('new', '✦', 'Từ mới', 'Bắt đầu với các từ chưa học', `${currentStats.new} từ`)}
+        ${sessionCard('new', '✦', 'Từ mới', 'Xem nghĩa trước, rồi kiểm tra ngay', `${currentStats.new} từ`)}
         ${sessionCard('random', '◈', 'Ngẫu nhiên', 'Interleave toàn bộ kho từ', `${vocabulary.length} từ`)}
         ${sessionCard('favorites', '★', 'Yêu thích', 'Ôn lại danh sách đã đánh dấu', `${favorites.size} từ`)}
         ${sessionCard('quick10', '⚡', 'Nhanh 10 từ', 'Một phiên ngắn trong giờ giải lao', '10 từ')}
@@ -16286,11 +16311,32 @@ export async function createApp(root) {
     if (!session?.length) return finishSession();
     const item = session[0];
     item.progress = progress[item.vocab.id];
-    question = generateQuestion(item, vocabulary, item.practice ? MODES.SPELLING : null);
+    // Never-studied words get an introduction first; the timer starts with the quiz.
+    firstLook = needsFirstLook(item);
+    question = firstLook ? null : generateQuestion(item, vocabulary, item.practice ? MODES.SPELLING : null);
     questionStarted = Date.now();
     answered = false;
     revealed = false;
     answerResult = null;
+  }
+
+  function startFirstLookQuiz() {
+    if (!firstLook || !session?.length) return;
+    session[0].taught = true; // Introduction is shown once per card per session.
+    nextQuestion();
+    renderFlashcard(root.querySelector('#content'));
+  }
+
+  function firstLookBody(item) {
+    return `
+            <div class="mode-label">Từ mới · học trước khi kiểm tra</div>
+            <div class="prompt">${escapeHtml(item.vocab.word)}</div><div class="sub-prompt">${escapeHtml(item.vocab.pos)}</div>
+            <div class="first-look">
+              <p class="first-look-meaning"><span>Nghĩa</span><strong>${escapeHtml(item.vocab.meaning)}</strong></p>
+              ${vocabularyMetadataHtml(item.vocab)}${exampleHtml(item.vocab)}
+              <p class="first-look-note">Lượt giới thiệu này không phải là câu trả lời và không thay đổi lịch ôn. Sau khi bấm nút, từ sẽ được kiểm tra ngay bằng một câu hỏi ngắn.</p>
+              <div class="actions"><button class="btn primary" id="start-quiz">Bắt đầu kiểm tra <kbd>Enter</kbd></button></div>
+            </div>`;
   }
 
   function renderFlashcard(container) {
@@ -16300,7 +16346,9 @@ export async function createApp(root) {
     const totalAttempts = sessionStats.total + sessionStats.practiceTotal;
     const done = totalAttempts - session.length;
     const percent = Math.round(done / totalAttempts * 100);
-    const options = question.options || [];
+    // A revealed answer locks the answer controls; grading then comes from self-assessment.
+    const locked = answered || revealed;
+    const options = question?.options || [];
     container.innerHTML = `
       <div class="flashcard-wrap">
         <div class="page-header"><div><h1>Phiên học</h1><p>${sessionStats.mode === 'due' ? 'Chỉ các từ đang đến hạn' : sessionStats.mode === 'mixed' ? 'Ưu tiên từ đến hạn và từ yếu' : `Chế độ ${escapeHtml(sessionStats.mode)}`} · ${session.length} lượt còn lại</p></div><button class="btn" id="exit-session">Thoát phiên</button></div>
@@ -16308,31 +16356,41 @@ export async function createApp(root) {
         <article class="flashcard">
           <div class="flashcard-head"><span><b>${done + 1}</b> / ${totalAttempts} lượt · ${session.length} còn lại</span><div class="flashcard-head-actions"><span class="state-pill state-${escapeHtml(item.progress.state)}">${escapeHtml(item.progress.state)}</span><button class="fav ${favorites.has(item.vocab.id) ? 'active' : ''}" id="favorite-card" aria-label="${favorites.has(item.vocab.id) ? 'Bỏ yêu thích' : 'Thêm yêu thích'}">${favorites.has(item.vocab.id) ? '★' : '☆'}</button><button class="btn small" id="skip-card">Bỏ qua</button></div></div>
           <div class="flashcard-body">
+            ${firstLook ? firstLookBody(item) : `
             <div class="mode-label">${item.practice ? 'Luyện lại · ' : ''}${modeLabel(question.mode)} · ${escapeHtml(item.vocab.pos)}</div>
             <div class="prompt">${escapeHtml(question.prompt)}</div><div class="sub-prompt">${escapeHtml(question.subPrompt || '')}</div>
             ${item.practice ? '<p class="sub-prompt">Tự gõ lại từ vừa ôn. Lượt luyện không thay đổi lịch ôn hay độ chính xác lần đầu.</p>' : ''}
             <div id="question-area"></div>
-            ${revealed && !answered ? `<div class="reveal"><strong>${escapeHtml(question.answer)}</strong><span>Đây là đáp án. Tự đánh giá rồi chọn bên dưới.</span><div class="actions" style="justify-content:center;margin-top:10px"><button class="btn primary small" id="reveal-correct">Nhớ được</button><button class="btn danger small" id="reveal-wrong">Chưa nhớ</button></div></div>` : ''}
-            <div id="feedback-area"></div>
+            ${revealed && !answered ? `<div class="reveal"><strong>${escapeHtml(question.answer)}</strong><span>Bạn đã xem đáp án, nên các lựa chọn bên trên đã bị khóa. Hãy tự đánh giá trung thực.</span><div class="actions" style="justify-content:center;margin-top:10px"><button class="btn primary small" id="reveal-correct">Nhớ được</button><button class="btn danger small" id="reveal-wrong">Chưa nhớ</button></div></div>` : ''}
+            <div id="feedback-area"></div>`}
           </div>
-          <div class="card-footer"><span><span>Đúng ${item.progress.correctCount}</span><span>Sai ${item.progress.wrongCount}</span><span>Khó ${Math.round(item.progress.difficulty * 100)}%</span></span><span><kbd>Space</kbd> lật · <kbd>Enter</kbd> tiếp</span></div>
+          <div class="card-footer"><span><span>Đúng ${item.progress.correctCount}</span><span>Sai ${item.progress.wrongCount}</span><span>Khó ${Math.round(item.progress.difficulty * 100)}%</span></span><span>${firstLook ? '<kbd>Enter</kbd> bắt đầu kiểm tra' : '<kbd>Space</kbd> lật · <kbd>Enter</kbd> tiếp'}</span></div>
         </article>
       </div>
     `;
-    const questionArea = container.querySelector('#question-area');
-    if (question.mode === MODES.SPELLING) {
-      questionArea.innerHTML = `<div class="spelling"><input id="spelling-input" aria-label="Nhập từ tiếng Anh" autocomplete="off" spellcheck="false" placeholder="Gõ từ tiếng Anh…" ${answered ? 'disabled' : ''}><button class="btn primary" id="submit-answer" ${answered ? 'disabled' : ''}>Xác nhận</button></div><div style="margin-top:8px;color:var(--muted);font-size:.75rem">Gợi ý: <span class="code">${escapeHtml(question.hint)}</span></div>`;
-      const input = questionArea.querySelector('#spelling-input');
-      input.addEventListener('keydown', event => { if (event.key === 'Enter') { event.preventDefault(); handleAnswer(input.value); } });
-      questionArea.querySelector('#submit-answer').addEventListener('click', () => handleAnswer(input.value));
-      if (!answered) setTimeout(() => input.focus(), 0);
+    if (firstLook) {
+      const startButton = container.querySelector('#start-quiz');
+      startButton.addEventListener('click', startFirstLookQuiz);
+      // Shell rendering focuses the view container; take focus back afterwards
+      // so the keyboard can start the quiz without hunting for the button.
+      setTimeout(() => startButton.focus({ preventScroll: true }), 0);
     } else {
-      questionArea.innerHTML = `<div class="options" role="radiogroup">${options.map((option, index) => `<button class="option ${answerResult && option.correct ? 'correct' : ''} ${answerResult && answerResult.selected === option.id && !answerResult.correct ? 'wrong' : ''}" data-option="${escapeHtml(option.id)}" ${answered ? 'disabled' : ''}><span class="option-index">${index + 1}</span><span>${escapeHtml(option.text)}</span></button>`).join('')}</div>`;
-      questionArea.querySelectorAll('[data-option]').forEach(button => button.addEventListener('click', () => handleAnswer(button.dataset.option)));
+      const questionArea = container.querySelector('#question-area');
+      if (question.mode === MODES.SPELLING) {
+        questionArea.innerHTML = `<div class="spelling"><input id="spelling-input" aria-label="Nhập từ tiếng Anh" autocomplete="off" spellcheck="false" placeholder="Gõ từ tiếng Anh…" ${locked ? 'disabled' : ''}><button class="btn primary" id="submit-answer" ${locked ? 'disabled' : ''}>Xác nhận</button></div><div style="margin-top:8px;color:var(--muted);font-size:.75rem">Gợi ý: <span class="code">${escapeHtml(question.hint)}</span></div>`;
+        const input = questionArea.querySelector('#spelling-input');
+        input.addEventListener('keydown', event => { if (event.key === 'Enter') { event.preventDefault(); handleAnswer(input.value); } });
+        questionArea.querySelector('#submit-answer').addEventListener('click', () => handleAnswer(input.value));
+        if (!locked) setTimeout(() => input.focus(), 0);
+      } else {
+        questionArea.innerHTML = `<div class="options" role="radiogroup">${options.map((option, index) => `<button class="option ${answerResult && option.correct ? 'correct' : ''} ${answerResult && answerResult.selected === option.id && !answerResult.correct ? 'wrong' : ''} ${revealed && !answered ? 'locked' : ''}" data-option="${escapeHtml(option.id)}" ${locked ? 'disabled' : ''}><span class="option-index">${index + 1}</span><span>${escapeHtml(option.text)}</span></button>`).join('')}</div>`;
+        questionArea.querySelectorAll('[data-option]').forEach(button => button.addEventListener('click', () => handleAnswer(button.dataset.option)));
+      }
+      if (revealed && !answered) container.querySelector('#reveal-correct')?.focus({ preventScroll: true });
     }
     container.querySelector('#favorite-card').addEventListener('click', () => toggleFavorite(item.vocab.id));
     container.querySelector('#skip-card').addEventListener('click', skipCard);
-    container.querySelector('#exit-session').addEventListener('click', () => { session = null; question = null; renderShell(); });
+    container.querySelector('#exit-session').addEventListener('click', () => { session = null; question = null; firstLook = false; renderShell(); });
     container.querySelector('#reveal-correct')?.addEventListener('click', () => handleAnswer('__revealed_correct__', true));
     container.querySelector('#reveal-wrong')?.addEventListener('click', () => handleAnswer('__revealed_wrong__', false));
     if (answered) renderFeedback(container);
@@ -16341,7 +16399,8 @@ export async function createApp(root) {
   function modeLabel(mode) { return ({ recognition: 'Nhận diện', recall: 'Gợi nhớ ngược', spelling: 'Chính tả', cloze: 'Điền vào ngữ cảnh' })[mode] || mode; }
 
   function handleAnswer(answer, forced = null) {
-    if (answered || !question || !session?.length) return;
+    if (!canGradeBySelection({ answered, revealed, hasQuestion: Boolean(question) }) && forced === null) return;
+    if (!session?.length) return;
     const correct = forced === null ? checkAnswer(question, answer) : forced;
     const item = session[0];
     // Immediate post-feedback retrieval is practice, not evidence of spaced retention.
@@ -16352,7 +16411,7 @@ export async function createApp(root) {
       if (!correct && queuePractice(session, item)) sessionStats.practiceTotal += 1;
     }
     answered = true;
-    answerResult = { correct, selected: answer };
+    answerResult = { correct, selected: answer, revealed };
     updateStreak();
     if (item.practice) {
       if (correct) sessionStats.practiceCorrect += 1; else sessionStats.practiceWrong += 1;
@@ -16367,7 +16426,7 @@ export async function createApp(root) {
     const item = session[0];
     const correct = answerResult.correct;
     const answerText = question.answer;
-    container.querySelector('#feedback-area').innerHTML = `<div class="feedback ${correct ? 'correct' : 'wrong'}" role="alert"><div class="feedback-title">${correct ? '✓ Chính xác!' : `✕ Chưa đúng · Đáp án: ${escapeHtml(answerText)}`}</div><p><strong>${escapeHtml(item.vocab.word)}</strong> · ${escapeHtml(item.vocab.meaning)}</p>${vocabularyMetadataHtml(item.vocab)}${!correct && !item.practice ? `<p>Bạn sai từ này ${item.progress.wrongCount} lần. Đã xếp một lượt gõ lại sau các thẻ còn lại; từ vẫn đến hạn ôn.</p>` : ''}${item.practice ? '<p>Lượt luyện đã hoàn tất. Lịch ôn và kết quả lần đầu được giữ nguyên; hãy ôn lại khi đến hạn.</p>' : ''}${exampleHtml(item.vocab)}<p style="color:var(--muted);font-size:.75rem">Lần ôn tiếp theo: ${formatNextReview(item.progress.nextReview)} · trạng thái: ${item.progress.state}</p><div class="actions" style="margin-top:12px"><button class="btn primary full" id="next-card">Tiếp tục <kbd>Enter</kbd></button></div></div>`;
+    container.querySelector('#feedback-area').innerHTML = `<div class="feedback ${correct ? 'correct' : 'wrong'}" role="alert"><div class="feedback-title">${correct ? '✓ Chính xác!' : `✕ Chưa đúng · Đáp án: ${escapeHtml(answerText)}`}</div><p><strong>${escapeHtml(item.vocab.word)}</strong> · ${escapeHtml(item.vocab.meaning)}</p>${vocabularyMetadataHtml(item.vocab)}${!correct && !item.practice ? `<p>Bạn sai từ này ${item.progress.wrongCount} lần. Đã xếp một lượt gõ lại sau các thẻ còn lại; từ vẫn đến hạn ôn.</p>` : ''}${item.practice ? '<p>Lượt luyện đã hoàn tất. Lịch ôn và kết quả lần đầu được giữ nguyên; hãy ôn lại khi đến hạn.</p>' : ''}${answerResult.revealed ? '<p>Lượt này được chấm theo tự đánh giá vì bạn đã xem đáp án trước đó.</p>' : ''}${exampleHtml(item.vocab)}<p style="color:var(--muted);font-size:.75rem">Lần ôn tiếp theo: ${formatNextReview(item.progress.nextReview)} · trạng thái: ${item.progress.state}</p><div class="actions" style="margin-top:12px"><button class="btn primary full" id="next-card">Tiếp tục <kbd>Enter</kbd></button></div></div>`;
     const nextButton = container.querySelector('#next-card');
     nextButton.addEventListener('click', advanceCard);
     nextButton.focus({ preventScroll: true });
@@ -16410,7 +16469,7 @@ export async function createApp(root) {
     sessionSummary = { ...sessionStats, accuracy, duration: Math.max(1, Math.round((Date.now() - sessionStats.startedAt) / 1000)) };
     history.push({ date: new Date().toISOString(), total, correct: sessionStats.correct, wrong: sessionStats.wrong, accuracy, mode: sessionStats.mode, durationSec: sessionSummary.duration });
     saveHistory(history, storage);
-    session = null; question = null; answered = false;
+    session = null; question = null; answered = false; firstLook = false;
     renderShell();
   }
 
@@ -16510,16 +16569,19 @@ export async function createApp(root) {
     const tag = event.target?.tagName;
     if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || event.target?.isContentEditable) return;
     if (event.defaultPrevented || (tag === 'BUTTON' && [' ', 'Enter'].includes(event.key))) return;
-    if (event.key >= '1' && event.key <= '4' && !answered && question?.options) {
+    if (event.key >= '1' && event.key <= '4' && !answered && !revealed && question?.options) {
       event.preventDefault();
       const button = root.querySelectorAll('[data-option]')[Number(event.key) - 1];
       button?.click();
     } else if (event.key === ' ') {
       event.preventDefault();
-      if (answered) advanceCard(); else if (!revealed) { revealed = true; renderFlashcard(root.querySelector('#content')); }
+      if (answered) advanceCard();
+      else if (firstLook) startFirstLookQuiz();
+      else if (!revealed) { revealed = true; renderFlashcard(root.querySelector('#content')); }
     } else if (event.key === 'Enter') {
       event.preventDefault();
       if (answered) advanceCard();
+      else if (firstLook) startFirstLookQuiz();
       else root.querySelector('#submit-answer')?.click();
     } else if (event.key.toLowerCase() === 'r') {
       event.preventDefault();

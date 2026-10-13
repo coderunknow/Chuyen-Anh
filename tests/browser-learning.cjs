@@ -53,9 +53,11 @@ async function main() {
       await page.keyboard.press('Enter');
     }
     async function answer(id, correct) {
+      await startQuizFromIntroduction();
       await page.locator(correct ? `[data-option="${id}"]` : `[data-option]:not([data-option="${id}"])`).first().click();
     }
     async function typeAnswer(value) {
+      await startQuizFromIntroduction();
       await page.locator('#spelling-input').fill(value);
       await page.locator('#spelling-input').press('Enter');
     }
@@ -63,6 +65,14 @@ async function main() {
       const entries = await read('history');
       assert.equal(entries.length, 1);
       for (const [field, value] of Object.entries(expected)) assert.equal(entries[0][field], value, field);
+    }
+    async function entryFor(word) {
+      return page.evaluate(w => JSON.parse(document.getElementById('vocabulary-data').textContent)
+        .find(item => item.word.toLowerCase() === w.toLowerCase()), word);
+    }
+    // A never-studied card opens on its introduction; the quiz starts from there.
+    async function startQuizFromIntroduction() {
+      if (await page.locator('#start-quiz').count()) await page.locator('#start-quiz').click();
     }
 
     // Error -> intervening word -> typed corrective retrieval -> truthful summary.
@@ -160,8 +170,128 @@ async function main() {
     await next();
     assert.match(await page.locator('.summary').innerText(), /Luyện lại: 2 đúng · 0 chưa đúng \/ 2 lượt/);
     await history({ total: 2, correct: 0, wrong: 2, accuracy: 0 });
+
+    // A never-studied word is introduced first, and the introduction is not an answer.
+    await page.evaluate(() => localStorage.clear());
+    await page.reload();
+    await page.locator('[data-session="new"]').click();
+    assert.equal(await page.locator('#start-quiz').count(), 1, 'a new word opens on its introduction');
+    assert.equal(await page.locator('[data-option]').count(), 0, 'the introduction must not offer an answer');
+    assert.equal(await page.locator('.first-look').count(), 1);
+    const introWord = (await page.locator('.prompt').innerText()).trim();
+    const introEntry = await entryFor(introWord);
+    assert.equal(await page.locator('.first-look-meaning strong').innerText(), introEntry.meaning);
+    assert.match(await page.locator('.mode-label').innerText(), /Từ mới/i);
+    await page.waitForFunction(() => document.activeElement.id === 'start-quiz', null, { timeout: 4000 });
+    assert.equal(await page.evaluate(() => document.activeElement.id), 'start-quiz', 'the introduction is keyboard-ready');
+    assert.equal(await page.locator('[role="progressbar"]').getAttribute('aria-valuenow'), '0');
+    assert.equal(await page.evaluate(() => localStorage.getItem('chuyen-anh.progress.v1')), null, 'reading an introduction writes no progress');
+    assert.equal(await page.evaluate(() => localStorage.getItem('chuyen-anh.streak.v1')), null, 'reading an introduction must not extend the streak');
+    assert.equal(await page.evaluate(() => localStorage.getItem('chuyen-anh.history.v1')), null);
+
+    // The introduction is readable and operable on a small screen.
+    await page.setViewportSize({ width: 375, height: 812 });
+    assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, 'the introduction fits a 375px viewport');
+    assert.equal(await page.locator('#start-quiz').isVisible(), true);
+    assert.equal(await page.locator('.first-look-meaning strong').isVisible(), true);
+    await page.setViewportSize({ width: 1280, height: 900 });
+
+    // The document-level Space shortcut starts the quiz from the introduction.
+    await page.evaluate(() => document.activeElement.blur());
+    await page.keyboard.press(' ');
+    assert.equal(await page.locator('#start-quiz').count(), 0);
+    assert.equal(await page.locator('[data-option]').count(), 4);
+    assert.equal(await page.locator('.first-look').count(), 0);
+    await page.locator(`[data-option="${introEntry.id}"]`).click();
+    const introGraded = (await read('progress'))[introEntry.id];
+    assert.equal(introGraded.state, 'learning');
+    assert.equal(introGraded.correctCount, 1, 'the quiz after the introduction is the graded attempt');
+
+    // Revealing an answer locks the options; only self-assessment may grade the card.
+    await next();
+    assert.equal(await page.locator('#start-quiz').count(), 1, 'the next never-studied word is introduced too');
+    await page.locator('#start-quiz').click();
+    const revealWord = (await page.locator('.prompt').innerText()).trim();
+    const revealEntry = await entryFor(revealWord);
+    assert.equal(await page.locator(`[data-option="${revealEntry.id}"]`).isEnabled(), true);
+    const beforeReveal = structuredClone((await read('progress'))[revealEntry.id]);
+    await page.keyboard.press(' ');
+    assert.equal(await page.locator('.reveal').count(), 1);
+    assert.equal(await page.locator('[data-option]:enabled').count(), 0, 'revealed options are locked');
+    assert.equal(await page.locator('.option.locked').count(), 4, 'locked options are visually marked as inactive');
+    assert.equal(await page.evaluate(() => document.activeElement.id), 'reveal-correct', 'self-assessment takes focus after a reveal');
+    assert.equal(await page.locator('#feedback-area').innerText(), '', 'nothing is graded by revealing');
+    // Neither a click nor the 1–4 shortcut may answer a revealed card.
+    await page.evaluate(id => document.querySelector(`[data-option="${id}"]`).click(), revealEntry.id);
+    await page.keyboard.press('1');
+    assert.equal(await page.locator('.reveal').count(), 1, 'the card is still waiting for self-assessment');
+    assert.equal(await page.locator('#next-card').count(), 0);
+    assert.deepEqual((await read('progress'))[revealEntry.id], beforeReveal, 'a revealed answer cannot be graded by selection');
+    assert.equal(beforeReveal.state, 'new', 'the card was never studied before the reveal');
+    await page.locator('#reveal-correct').click();
+    assert.match(await page.locator('#feedback-area').innerText(), /tự đánh giá/);
+    assert.equal((await read('progress'))[revealEntry.id].correctCount, 1, 'self-assessment grades the card');
+    await next();
+
+    // An introduced word is not introduced again when it returns in the same session.
+    await seed(['1', '2', '3']);
+    assert.equal(await page.locator('#start-quiz').count(), 1);
+    await page.locator('#start-quiz').click();
+    await page.locator('[data-option="1"]').click();
+    await next();
+    assert.equal(await page.locator('#start-quiz').count(), 1, 'the second never-studied word is introduced');
+    await page.locator('#start-quiz').click();
+    await page.locator('#skip-card').click();
+    assert.equal((await page.locator('.prompt').innerText()).trim(), 'Ambiguity');
+    await page.locator('#skip-card').click();
+    assert.equal((await page.locator('.prompt').innerText()).trim(), 'Meticulous');
+    assert.equal(await page.locator('#start-quiz').count(), 0, 'an introduced word is not introduced again in the same session');
+    assert.equal(await page.locator('[data-option]').count(), 4);
+
+    // A revealed typed card locks its input as well, and practice stays practice.
+    await seed(['1']);
+    await page.locator('#start-quiz').click();
+    await page.locator('[data-option]:not([data-option="1"])').first().click();
+    await next();
+    assert.equal(await page.locator('#spelling-input').isEnabled(), true);
+    // Space is a normal character while typing, so reveal from the card shortcut.
+    await page.evaluate(() => document.activeElement.blur());
+    await page.keyboard.press(' ');
+    assert.equal(await page.locator('#spelling-input').isDisabled(), true, 'a revealed spelling card cannot be typed into');
+    assert.equal(await page.locator('.reveal').count(), 1);
+    await page.locator('#reveal-wrong').click();
+    assert.match(await page.locator('#feedback-area').innerText(), /tự đánh giá/);
+    await next();
+    assert.match(await page.locator('.summary').innerText(), /Luyện lại: 0 đúng · 1 chưa đúng \/ 1 lượt/);
+    await history({ total: 1, correct: 0, wrong: 1, accuracy: 0 });
+
+    // The introduction is not persisted: a reload mid-session re-introduces the word.
+    await seed(['1']);
+    assert.equal(await page.locator('#start-quiz').count(), 1);
+    await page.reload();
+    await page.locator('[data-session="favorites"]').click();
+    assert.equal(await page.locator('#start-quiz').count(), 1, 'an ungraded new word is introduced again after a reload');
+
+    // Existing saved progress is untouched: a scheduled card is never introduced.
+    await page.evaluate(() => {
+      localStorage.clear();
+      localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['1']));
+      localStorage.setItem('chuyen-anh.progress.v1', JSON.stringify({
+        '1': { id: '1', state: 'review', correctCount: 3, wrongCount: 0, streak: 2, lastReviewed: 0, nextReview: 0, interval: 5, ease: 2.4, difficulty: 0.2 }
+      }));
+    });
+    await page.reload();
+    await page.locator('[data-session="favorites"]').click();
+    assert.equal(await page.locator('#start-quiz').count(), 0, 'a card with existing progress is not reintroduced');
+    assert.equal(await page.locator('[data-option]').count(), 4);
+    assert.equal(await page.locator('.state-pill').innerText(), 'review');
+    assert.equal((await read('progress'))['1'].correctCount, 3);
+    await page.locator('[data-option="1"]').click();
+    const continued = (await read('progress'))['1'];
+    assert.equal(continued.correctCount, 4, 'the stored counters keep growing from their old value');
+    assert.equal(continued.wrongCount, 0);
     assert.deepEqual(errors, []);
-    console.log(`PASS: Chromium ${browser.version()} — corrective retrieval, bounded retries, R, skips, first-pass history, persistence, import/export, keyboard focus, light/dark, mobile layout, reduced-motion setting; no page errors.`);
+    console.log(`PASS: Chromium ${browser.version()} — first-look introduction for new words, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, mobile layout, reduced-motion setting; no page errors.`);
   } finally {
     if (browser) await browser.close();
     await new Promise(resolve => server.close(resolve));

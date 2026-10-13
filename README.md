@@ -61,7 +61,9 @@ Chỉ cần giữ `index.html` khi sao chép/triển khai ứng dụng. Các t�
 - Cloze/context: chọn từ trong câu ví dụ.
 - Scheduler deterministic: `new`, `learning`, `weak`, `review`, `mastered`; theo dõi đúng/sai, streak, difficulty, interval, last/next review.
 - Session: đến hạn, từ yếu, từ mới, random, yêu thích, 10/20/30/50 từ. Phiên “đến hạn” chỉ lấy từ đã học tới lịch ôn; phiên nhanh ưu tiên từ đến hạn/từ yếu rồi mới lấp chỗ trống.
+- First look: từ đang ở trạng thái `new` được giới thiệu nghĩa trước khi bị kiểm tra — kèm họ từ, cụm từ, ghi chú và ví dụ nếu dữ liệu đã có. Lượt giới thiệu không phải câu trả lời: nó không ghi gì vào `localStorage`, không đổi lịch ôn hay streak, và từ đó không được giới thiệu lại trong cùng phiên. Sau khi bấm “Bắt đầu kiểm tra”, từ được hỏi ngay như bình thường nên lần trả lời đầu tiên mới là lượt ôn được ghi lại.
 - Error-based feedback: xem đáp án, nghĩa, metadata có sẵn, ví dụ và số lần sai ngay sau câu trả lời. Mỗi từ trả lời sai được xếp một lượt gõ lại sau các thẻ còn lại (tối đa một lượt/từ). Lượt luyện không đổi progress hay lịch ôn và được báo riêng với độ chính xác lần đầu; `R` sau feedback cũng xếp lượt luyện thay vì tính như lần ôn mới.
+- Tự đánh giá có khóa: khi bấm `Space` để lật đáp án, các lựa chọn hoặc ô gõ bị khóa và lượt đó chỉ được chấm bằng “Nhớ được”/“Chưa nhớ”. Feedback nói rõ đây là tự đánh giá, nên điểm và lịch ôn không bao giờ đến từ một đáp án vừa được hiển thị.
 - Search local theo English, Vietnamese, POS, tags, word family, metadata và example; filter theo state/favorite/due; pagination chỉ render 50 dòng một lần.
 - Dashboard: total, new, learning, weak, mastered, due, accuracy, streak và lịch sử phiên.
 - Import/export JSON; import validate trước, lỗi không ghi đè backup cũ; reset progress.
