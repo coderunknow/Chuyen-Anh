@@ -3,64 +3,94 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0f766e">
+  <meta name="theme-color" content="#f4f7f5">
   <meta name="description" content="Flashcard từ vựng Chuyên Anh với active recall và spaced repetition">
   <title>Chuyên Anh · Flashcard từ vựng</title>
   <style>
 :root {
   color-scheme: light;
-  --bg: #f4f7f6;
-  --surface: #ffffff;
-  --surface-soft: #eef4f2;
-  --surface-hover: #e8f1ef;
-  --text: #102321;
-  --muted: #5c706c;
-  --faint: #849590;
-  --border: #d9e5e1;
-  --border-strong: #b7cbc5;
-  --primary: #0f766e;
-  --primary-strong: #0b5d57;
-  --primary-soft: #d9f2ed;
-  --success: #18794e;
+  --bg: #f4f7f5;
+  --surface: #fffefa;
+  --surface-soft: #edf3ef;
+  --surface-hover: #e4eee8;
+  --text: #142923;
+  --muted: #596d65;
+  --faint: #5f756b;
+  --border: #d9e5dd;
+  --border-strong: #b8cbbf;
+  --primary: #08796c;
+  --primary-strong: #075f54;
+  --primary-soft: #dff3eb;
+  --success: #19704b;
   --success-soft: #dcf5e8;
-  --warning: #a15c05;
+  --warning: #805800;
   --warning-soft: #fff0cd;
-  --danger: #b42318;
+  --danger: #ae2e24;
   --danger-soft: #fee4e2;
-  --shadow: 0 8px 30px rgba(16, 35, 33, .07);
-  --shadow-sm: 0 2px 10px rgba(16, 35, 33, .06);
-  --radius: 16px;
-  --radius-sm: 10px;
+  --review: #20548b;
+  --review-soft: #e2effc;
+  --state-new: #52675e;
+  --state-new-soft: #e8efeb;
+  --state-learning: #805800;
+  --state-weak: #ae2e24;
+  --state-review: #20548b;
+  --state-mastered: #19704b;
+  --chart-new: #8fa39a;
+  --chart-learning: #ca9634;
+  --chart-weak: #bc554d;
+  --chart-review: #548bb8;
+  --chart-mastered: #338f63;
+  --shadow: 0 18px 46px rgba(20, 41, 35, .085);
+  --shadow-sm: 0 4px 16px rgba(20, 41, 35, .055);
+  --radius: 20px;
+  --radius-sm: 12px;
   --font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 [data-theme="dark"] {
   color-scheme: dark;
-  --bg: #0d1716;
-  --surface: #142321;
-  --surface-soft: #1b302d;
-  --surface-hover: #25403b;
-  --text: #e4f0ed;
-  --muted: #a4b9b4;
-  --faint: #718883;
-  --border: #29423e;
-  --border-strong: #3b5b55;
-  --primary: #58c4b3;
-  --primary-strong: #7bdfce;
-  --primary-soft: #163b36;
-  --success: #6bd39b;
-  --success-soft: #123a2a;
-  --warning: #f3bb58;
-  --warning-soft: #473310;
-  --danger: #ff8b82;
-  --danger-soft: #4b1e1b;
-  --shadow: 0 8px 30px rgba(0, 0, 0, .24);
-  --shadow-sm: 0 2px 10px rgba(0, 0, 0, .2);
+  --bg: #101a18;
+  --surface: #172421;
+  --surface-soft: #1e302b;
+  --surface-hover: #294039;
+  --text: #e8f2ed;
+  --muted: #a4b8af;
+  --faint: #91a69c;
+  --border: #2e453d;
+  --border-strong: #49645a;
+  --primary: #83d8b7;
+  --primary-strong: #a1ebce;
+  --primary-soft: #19392f;
+  --success: #7bd5a7;
+  --success-soft: #1a3e2e;
+  --warning: #f1c56d;
+  --warning-soft: #433613;
+  --danger: #ff9b92;
+  --danger-soft: #482320;
+  --review: #9ac9f7;
+  --review-soft: #1d3852;
+  --state-new: #b3c6bc;
+  --state-new-soft: #283a34;
+  --state-learning: #f1c56d;
+  --state-weak: #ff9b92;
+  --state-review: #9ac9f7;
+  --state-mastered: #7bd5a7;
+  --chart-new: #71867d;
+  --chart-learning: #d3a13f;
+  --chart-weak: #d86d64;
+  --chart-review: #69a9da;
+  --chart-mastered: #47ad79;
+  --shadow: 0 20px 50px rgba(0, 0, 0, .28);
+  --shadow-sm: 0 4px 16px rgba(0, 0, 0, .2);
 }
+[data-theme="dark"] .btn.primary,
+[data-theme="dark"] .nav-button.active,
+[data-theme="dark"] .brand-mark { color: #10231b; }
+
 
 * { box-sizing: border-box; }
 html { min-width: 320px; font-family: var(--font); background: var(--bg); color: var(--text); }
-body { margin: 0; min-height: 100vh; line-height: 1.55; background: radial-gradient(circle at 5% -10%, rgba(15,118,110,.11), transparent 32rem), var(--bg); }
+body { margin: 0; min-height: 100vh; line-height: 1.58; background: radial-gradient(circle at 4% -8%, color-mix(in srgb, var(--primary) 10%, transparent), transparent 34rem), var(--bg); }
 button, input, select { font: inherit; }
 button { cursor: pointer; }
 button:disabled { cursor: not-allowed; opacity: .65; }
@@ -68,30 +98,34 @@ button:disabled { cursor: not-allowed; opacity: .65; }
 
 .loading { min-height: 100vh; display: grid; place-items: center; align-content: center; gap: 12px; color: var(--muted); }
 .loading p { margin: 0; }
-.brand-mark { width: 56px; height: 56px; display: grid; place-items: center; border-radius: 16px; background: var(--primary); color: #fff; font-size: 1.1rem; font-weight: 850; letter-spacing: -.05em; box-shadow: var(--shadow); }
+.brand-mark { width: 56px; height: 56px; display: grid; place-items: center; border-radius: 16px; background: linear-gradient(145deg, var(--primary), var(--primary-strong)); color: #fff; font-size: 1.1rem; font-weight: 850; letter-spacing: -.05em; box-shadow: var(--shadow-sm); }
 .noscript { max-width: 680px; margin: 4rem auto; padding: 1rem; border: 1px solid var(--danger); color: var(--danger); background: var(--danger-soft); border-radius: var(--radius-sm); }
 
 .app-shell { min-height: 100vh; display: flex; flex-direction: column; }
 .topbar { position: sticky; top: 0; z-index: 10; border-bottom: 1px solid var(--border); background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(12px); }
-.topbar-inner { max-width: 1220px; min-height: 72px; margin: auto; padding: 12px 24px; display: flex; align-items: center; gap: 22px; }
+.topbar-inner { max-width: 1280px; min-height: 72px; margin: auto; padding: 12px 28px; display: flex; align-items: center; gap: 22px; }
 .brand { display: inline-flex; align-items: center; gap: 10px; color: var(--text); text-decoration: none; min-width: max-content; }
 .brand .brand-mark { width: 38px; height: 38px; border-radius: 11px; font-size: .9rem; }
 .brand-name { font-size: 1rem; font-weight: 800; letter-spacing: -.025em; }
 .brand-detail { display: block; margin-top: 1px; color: var(--muted); font-size: .72rem; }
-.top-meta { display: flex; align-items: center; gap: 9px; margin-left: auto; color: var(--muted); font-size: .82rem; white-space: nowrap; }
+.top-meta { display: flex; align-items: center; gap: 14px; margin-left: auto; color: var(--muted); font-size: .78rem; white-space: nowrap; }
 .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--border-strong); }
 .top-actions { display: flex; gap: 8px; }
 
-.layout { width: 100%; max-width: 1220px; margin: 0 auto; padding: 26px 24px 40px; display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 24px; flex: 1; }
-.sidebar { align-self: start; position: sticky; top: 96px; display: grid; gap: 14px; }
+.layout { width: 100%; max-width: 1280px; margin: 0 auto; padding: 30px 28px 46px; display: grid; grid-template-columns: 232px minmax(0, 1fr); grid-template-rows: auto 1fr; align-items: start; gap: 16px 26px; flex: 1; }
+.sidebar { grid-column: 1; grid-row: 1; align-self: start; position: sticky; top: 96px; z-index: 2; display: grid; gap: 14px; }
+.support-sidebar { grid-column: 1; grid-row: 2; align-self: start; display: grid; gap: 14px; }
+.content { grid-column: 2; grid-row: 1 / span 2; min-width: 0; }
+/* Main is programmatically focused after navigation; it is not a keyboard control. */
+.content:focus { outline: none; }
 .panel { overflow: hidden; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow-sm); }
-.panel-heading { padding: 13px 16px; border-bottom: 1px solid var(--border); color: var(--muted); font-size: .73rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.panel-heading { margin: 0; padding: 13px 16px; border-bottom: 1px solid var(--border); color: var(--muted); font-size: .73rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
 .panel-body { padding: 16px; }
-.nav { padding: 8px; display: grid; gap: 3px; }
-.nav-button { width: 100%; display: flex; align-items: center; gap: 10px; padding: 10px 11px; border: 1px solid transparent; border-radius: 9px; background: transparent; color: var(--muted); text-align: left; font-weight: 650; font-size: .88rem; }
+.nav { padding: 8px; display: grid; gap: 4px; }
+.nav-button { width: 100%; min-height: 44px; display: flex; align-items: center; gap: 10px; padding: 10px 11px; border: 1px solid transparent; border-radius: 11px; background: transparent; color: var(--muted); text-align: left; font-weight: 650; font-size: .86rem; transition: background-color .16s ease, color .16s ease; }
 .nav-button:hover { background: var(--surface-soft); color: var(--text); }
-.nav-button.active { background: var(--primary); color: #fff; }
-.nav-icon { width: 20px; text-align: center; }
+.nav-button.active { background: var(--primary); color: #fff; box-shadow: 0 5px 14px color-mix(in srgb, var(--primary) 20%, transparent); }
+.nav-icon { width: 20px; display: inline-grid; place-items: center; flex: 0 0 auto; }
 .nav-count { margin-left: auto; min-width: 23px; padding: 2px 6px; border-radius: 99px; background: color-mix(in srgb, currentColor 14%, transparent); text-align: center; font-size: .72rem; }
 .active .nav-count { background: rgba(255,255,255,.2); }
 .mini-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
@@ -102,56 +136,58 @@ button:disabled { cursor: not-allowed; opacity: .65; }
 .shortcut { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 kbd, .kbd { min-width: 24px; padding: 2px 6px; border: 1px solid var(--border-strong); border-bottom-width: 2px; border-radius: 5px; background: var(--surface-soft); color: var(--text); font-family: ui-monospace, monospace; font-size: .7rem; text-align: center; }
 
-.content { min-width: 0; }
 .page-header { display: flex; justify-content: space-between; gap: 20px; align-items: flex-start; margin-bottom: 22px; }
 .page-header h1 { margin: 0 0 5px; font-size: clamp(1.55rem, 3vw, 2.1rem); line-height: 1.15; letter-spacing: -.04em; }
 .page-header p { max-width: 680px; margin: 0; color: var(--muted); font-size: .9rem; }
 .actions { display: flex; flex-wrap: wrap; gap: 8px; }
-.btn { min-height: 38px; display: inline-flex; align-items: center; justify-content: center; gap: 7px; padding: 8px 13px; border: 1px solid var(--border-strong); border-radius: 9px; background: var(--surface); color: var(--text); font-weight: 700; font-size: .82rem; }
+.btn { min-height: 42px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 9px 14px; border: 1px solid var(--border-strong); border-radius: 11px; background: var(--surface); color: var(--text); font-weight: 700; font-size: .82rem; transition: transform .14s ease, background-color .14s ease, border-color .14s ease; }
 .btn:hover { background: var(--surface-hover); }
 .btn.primary { border-color: var(--primary); background: var(--primary); color: #fff; }
-.btn.primary:hover { background: var(--primary-strong); }
+.btn .icon { width: 16px; height: 16px; }
+.btn.primary:hover { background: var(--primary-strong); border-color: var(--primary-strong); }
 .btn.subtle { border-color: transparent; background: var(--surface-soft); }
 .btn.danger { border-color: color-mix(in srgb, var(--danger) 30%, var(--border)); color: var(--danger); background: var(--danger-soft); }
 .btn.small { min-height: 32px; padding: 5px 9px; font-size: .75rem; }
 .btn.full { width: 100%; }
 
 .session-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 18px; }
-.session-card { min-height: 154px; padding: 17px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); color: var(--text); text-align: left; box-shadow: var(--shadow-sm); transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease; }
+.session-card { min-height: 158px; padding: 17px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); color: var(--text); text-align: left; box-shadow: var(--shadow-sm); transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease; }
 .session-card:hover { transform: translateY(-2px); border-color: var(--primary); box-shadow: var(--shadow); }
-.session-icon { font-size: 1.35rem; }
-.session-card h3 { margin: 10px 0 4px; font-size: .95rem; }
-.session-card p { min-height: 40px; margin: 0; color: var(--muted); font-size: .77rem; line-height: 1.45; }
+.session-icon { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 11px; background: var(--primary-soft); color: var(--primary-strong); }
+.session-card-title { display: block; margin: 11px 0 4px; font-size: .94rem; font-weight: 800; }
+.session-card-description { display: block; min-height: 40px; margin: 0; color: var(--muted); font-size: .77rem; line-height: 1.45; }
 .session-count { display: inline-block; margin-top: 10px; color: var(--primary-strong); font-size: .76rem; font-weight: 800; }
 .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-.info-item { display: flex; gap: 10px; padding: 14px; border-radius: 11px; background: var(--surface-soft); }
+.info-item { display: flex; align-items: flex-start; gap: 12px; padding: 15px; border: 1px solid color-mix(in srgb, var(--border) 72%, transparent); border-radius: 14px; background: var(--surface-soft); }
 .info-item b { display: block; font-size: .82rem; }
-.info-item span { display: block; margin-top: 2px; color: var(--muted); font-size: .74rem; }
+.info-item span { display: block; margin-top: 3px; color: var(--muted); font-size: .74rem; }
+.info-icon { width: 32px; height: 32px; display: grid; place-items: center; flex: 0 0 auto; border-radius: 10px; background: var(--surface); color: var(--primary-strong); }
 
 .flashcard-wrap { max-width: 760px; margin: 0 auto; }
-.session-progress { height: 7px; overflow: hidden; margin-bottom: 14px; border-radius: 99px; background: var(--surface-soft); }
+.session-progress { height: 8px; overflow: hidden; margin-bottom: 14px; border-radius: 99px; background: var(--surface-soft); }
 .session-progress > span { display: block; height: 100%; border-radius: inherit; background: var(--primary); transition: width .25s ease; }
-.flashcard { overflow: hidden; border: 1px solid var(--border); border-radius: 20px; background: var(--surface); box-shadow: var(--shadow); }
+.flashcard { overflow: hidden; border: 1px solid var(--border); border-radius: 24px; background: var(--surface); box-shadow: var(--shadow); }
 .flashcard-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 14px 18px; border-bottom: 1px solid var(--border); color: var(--muted); font-size: .78rem; }
 .flashcard-head-actions { display: flex; align-items: center; gap: 7px; }
-.state-pill { display: inline-flex; align-items: center; padding: 4px 8px; border-radius: 99px; background: var(--surface-soft); color: var(--muted); font-size: .68rem; font-weight: 800; }
-.state-new { color: #64748b; background: color-mix(in srgb, #64748b 13%, transparent); }
-.state-learning { color: var(--warning); background: var(--warning-soft); }
-.state-weak { color: var(--danger); background: var(--danger-soft); }
-.state-review { color: #2867a8; background: #e2effc; }
-.state-mastered { color: var(--success); background: var(--success-soft); }
-.fav { width: 32px; height: 32px; padding: 0; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--faint); font-size: 1.1rem; }
-.fav.active { color: #d28a00; background: var(--warning-soft); }
+.state-pill { display: inline-flex; align-items: center; justify-content: center; min-height: 26px; padding: 4px 9px; border-radius: 99px; background: var(--surface-soft); color: var(--muted); font-size: .7rem; font-weight: 800; white-space: nowrap; }
+.state-new { color: var(--state-new); background: var(--state-new-soft); }
+.state-learning { color: var(--state-learning); background: var(--warning-soft); }
+.state-weak { color: var(--state-weak); background: var(--danger-soft); }
+.state-review { color: var(--state-review); background: var(--review-soft); }
+.state-mastered { color: var(--state-mastered); background: var(--success-soft); }
+.fav { width: 38px; height: 38px; padding: 0; border: 1px solid var(--border); border-radius: 11px; background: var(--surface); color: var(--faint); font-size: 1.1rem; }
+.fav.active { color: #8a5a00; background: var(--warning-soft); }
+[data-theme="dark"] .fav.active { color: #f1c56d; }
 .flashcard-body { padding: clamp(23px, 5vw, 48px); text-align: center; }
 .mode-label { color: var(--primary-strong); font-size: .7rem; font-weight: 850; letter-spacing: .08em; text-transform: uppercase; }
 .prompt { margin: 14px 0 4px; font-size: clamp(1.65rem, 5vw, 2.65rem); font-weight: 850; letter-spacing: -.04em; line-height: 1.18; overflow-wrap: anywhere; }
 .sub-prompt { color: var(--muted); font-size: .88rem; }
 .options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 26px auto 0; text-align: left; }
-.option { min-height: 57px; display: flex; align-items: center; gap: 11px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 11px; background: var(--surface); color: var(--text); text-align: left; }
+.option { min-height: 60px; display: flex; align-items: center; gap: 12px; padding: 12px 14px; border: 1px solid var(--border); border-radius: 13px; background: var(--surface); color: var(--text); text-align: left; transition: border-color .14s ease, background-color .14s ease, transform .14s ease; }
 .option:hover { border-color: var(--primary); background: var(--surface-soft); }
 .option.correct { border-color: var(--success); background: var(--success-soft); }
 .option.wrong { border-color: var(--danger); background: var(--danger-soft); }
-.option.locked { cursor: not-allowed; opacity: .5; }
+.option.locked { cursor: not-allowed; opacity: .72; }
 .option.locked:hover { border-color: var(--border); background: var(--surface); }
 .option-index { width: 27px; height: 27px; display: grid; place-items: center; flex: 0 0 auto; border-radius: 7px; background: var(--surface-soft); color: var(--muted); font-weight: 800; font-size: .78rem; }
 .spelling { display: flex; gap: 8px; max-width: 510px; margin: 25px auto 0; }
@@ -211,11 +247,11 @@ kbd, .kbd { min-width: 24px; padding: 2px 6px; border: 1px solid var(--border-st
 .error { border-color: var(--danger); background: var(--danger-soft); color: var(--danger); }
 .notice { margin-bottom: 15px; padding: 11px 13px; border-radius: 10px; background: var(--primary-soft); color: var(--muted); font-size: .8rem; }
 .summary { max-width: 640px; margin: 10px auto; text-align: center; }
-.summary .panel-body { padding: 30px; }
+.summary .panel-body { padding: 34px; }
 .summary h2 { margin: 7px 0; font-size: 1.65rem; }
 .summary p { color: var(--muted); font-size: .86rem; }
 .summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 20px 0; }
-.summary-grid div { padding: 12px 5px; border-radius: 9px; background: var(--surface-soft); }
+.summary-grid div { padding: 14px 7px; border: 1px solid var(--border); border-radius: 13px; background: var(--surface-soft); }
 .summary-grid strong { display: block; font-size: 1.25rem; }
 .summary-grid span { color: var(--muted); font-size: .68rem; }
 
@@ -223,21 +259,85 @@ kbd, .kbd { min-width: 24px; padding: 2px 6px; border: 1px solid var(--border-st
 .setting-row { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 12px 0; border-bottom: 1px solid var(--border); font-size: .85rem; }
 .setting-row:last-child { border-bottom: 0; }
 .setting-row small { display: block; margin-top: 3px; color: var(--muted); }
+.settings-copy { margin: 0; color: var(--muted); font-size: .84rem; }
+.data-info { color: var(--muted); font-size: .84rem; }
+.data-info p:first-child { margin-top: 0; }
+.data-info p:last-child { margin-bottom: 0; }
+.data-info b { color: var(--text); }
 .switch { width: 42px; height: 24px; position: relative; flex: 0 0 auto; }
 .switch input { opacity: 0; width: 0; height: 0; }
 .switch span { position: absolute; inset: 0; border-radius: 99px; background: var(--border-strong); transition: background .15s ease; }
 .switch span::after { content: ""; position: absolute; width: 18px; height: 18px; top: 3px; left: 3px; border-radius: 50%; background: #fff; transition: transform .15s ease; }
 .switch input:checked + span { background: var(--primary); }
+.switch input:focus-visible + span { outline: 3px solid color-mix(in srgb, var(--primary) 58%, transparent); outline-offset: 3px; }
 .switch input:checked + span::after { transform: translateX(18px); }
 .setting-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
 .code { padding: 2px 5px; border: 1px solid var(--border); border-radius: 4px; background: var(--surface-soft); font-family: ui-monospace, monospace; font-size: .78em; }
-.footer { padding: 18px 24px 26px; color: var(--faint); text-align: center; font-size: .72rem; }
-.toast { position: fixed; z-index: 30; left: 50%; bottom: 22px; max-width: min(92vw, 520px); padding: 11px 15px; transform: translateX(-50%); border: 1px solid var(--border-strong); border-radius: 10px; background: var(--surface); box-shadow: var(--shadow); color: var(--text); font-size: .8rem; }
+.footer { padding: 18px 24px 26px; color: var(--faint); text-align: center; font-size: .74rem; }
+.toast { position: fixed; z-index: 30; left: 50%; bottom: 22px; max-width: min(92vw, 520px); padding: 11px 15px; transform: translateX(-50%); border: 1px solid var(--border-strong); border-radius: 12px; background: var(--surface); box-shadow: var(--shadow); color: var(--text); font-size: .82rem; }
+.toast-error { border-color: color-mix(in srgb, var(--danger) 55%, var(--border)); }
+.toast-success { border-color: color-mix(in srgb, var(--success) 55%, var(--border)); }
+
+
+.icon { width: 18px; height: 18px; display: block; flex: 0 0 auto; }
+.nav-icon .icon { width: 19px; height: 19px; }
+.session-icon .icon { width: 19px; height: 19px; }
+.info-icon .icon { width: 18px; height: 18px; }
+.top-stat { display: inline-flex; align-items: center; gap: 7px; }
+.top-stat .icon { width: 15px; height: 15px; }
+
+.study-recommendation {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 24px;
+  overflow: hidden;
+  margin: 0 0 25px;
+  padding: 24px 26px;
+  border: 1px solid color-mix(in srgb, var(--primary) 25%, var(--border));
+  border-radius: 22px;
+  background: linear-gradient(115deg, var(--primary-soft), var(--surface) 72%);
+  box-shadow: var(--shadow-sm);
+}
+.study-recommendation::after {
+  content: "";
+  position: absolute;
+  width: 230px;
+  height: 230px;
+  top: -145px;
+  right: 115px;
+  border: 1px solid color-mix(in srgb, var(--primary) 13%, transparent);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.recommendation-copy, .recommendation-mark { position: relative; z-index: 1; }
+.eyebrow { display: block; color: var(--primary-strong); font-size: .69rem; font-weight: 850; letter-spacing: .11em; text-transform: uppercase; }
+.study-recommendation h2 { margin: 7px 0 5px; font-size: clamp(1.25rem, 2.4vw, 1.7rem); line-height: 1.2; letter-spacing: -.035em; }
+.study-recommendation p { max-width: 580px; margin: 0 0 15px; color: var(--muted); font-size: .84rem; }
+.recommendation-mark { width: 112px; height: 112px; display: grid; place-items: center; align-content: center; gap: 7px; border: 1px solid color-mix(in srgb, var(--primary) 25%, var(--border)); border-radius: 50%; background: color-mix(in srgb, var(--surface) 74%, transparent); color: var(--primary-strong); text-align: center; }
+.recommendation-mark .icon { width: 21px; height: 21px; }
+.recommendation-mark strong { font-size: 1.35rem; line-height: 1; }
+.recommendation-mark span { color: var(--muted); font-size: .65rem; }
+.study-section { margin-top: 24px; }
+.study-section-heading { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin: 0 0 11px; }
+.study-section-heading h2 { margin: 0; font-size: 1rem; letter-spacing: -.02em; }
+.study-section-heading p { margin: 3px 0 0; color: var(--muted); font-size: .78rem; }
+.session-grid--focus { grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); }
+.session-grid--quick { grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); }
+.info-title { display: block; font-size: .82rem; }
+.summary-mark { width: 54px; height: 54px; display: grid; place-items: center; margin: 0 auto 10px; border-radius: 17px; background: var(--primary-soft); color: var(--primary-strong); }
+.summary-mark .icon { width: 26px; height: 26px; }
+.stat-card .stat-icon { color: var(--primary-strong); }
+.history-row strong { color: var(--primary-strong); }
+.results-meta { padding: 4px 0; }
+.pagination [aria-current="page"] { box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary) 25%, transparent); }
 
 @media (max-width: 940px) {
-  .layout { grid-template-columns: 1fr; }
-  .sidebar { position: static; grid-template-columns: 1fr 1fr; }
-  .sidebar .panel:first-child { grid-column: 1 / -1; }
+  .layout { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto auto; gap: 14px; }
+  .sidebar { grid-column: 1; grid-row: 1; position: static; top: auto; }
+  .content { grid-column: 1; grid-row: 2; }
+  .support-sidebar { grid-column: 1; grid-row: 3; grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .nav { display: flex; flex-wrap: wrap; }
   .nav-button { flex: 1 1 120px; }
 }
@@ -245,12 +345,26 @@ kbd, .kbd { min-width: 24px; padding: 2px 6px; border: 1px solid var(--border-st
   .topbar-inner { min-height: 62px; padding: 9px 14px; gap: 10px; }
   .brand-detail, .top-meta { display: none; }
   .top-actions { margin-left: auto; }
-  .layout { padding: 18px 13px 28px; }
-  .sidebar { grid-template-columns: 1fr; }
-  .sidebar .panel:first-child { grid-column: auto; }
-  .page-header { display: block; }
+  .layout { padding: 12px 14px 28px; gap: 12px; }
+  .sidebar { position: sticky; top: 62px; z-index: 9; }
+  .nav { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 3px; padding: 5px; }
+  .nav-button { min-height: 55px; flex: initial; flex-direction: column; justify-content: center; gap: 3px; padding: 5px 2px; border-radius: 10px; font-size: .68rem; text-align: center; }
+  .nav-icon { width: 20px; }
+  .nav-count { min-width: 0; margin-left: 0; padding: 1px 5px; font-size: .58rem; }
+  .support-sidebar { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .page-header { display: block; margin-bottom: 17px; }
   .page-header .actions { margin-top: 12px; }
   .session-grid, .info-grid, .two-col { grid-template-columns: 1fr; }
+  .session-grid--focus, .session-grid--quick { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
+  .session-card { min-height: 148px; padding: 13px; }
+  .session-card-title { font-size: .86rem; }
+  .session-card-description { min-height: 0; font-size: .72rem; }
+  .study-recommendation { grid-template-columns: minmax(0, 1fr); gap: 0; margin-bottom: 19px; padding: 19px; }
+  .study-recommendation::after, .recommendation-mark { display: none; }
+  .study-recommendation h2 { font-size: 1.3rem; }
+  .study-recommendation p { margin-bottom: 13px; }
+  .study-section { margin-top: 19px; }
+  .study-section-heading { align-items: flex-start; }
   .options { grid-template-columns: 1fr; }
   .spelling { flex-direction: column; }
   .vocab-row { grid-template-columns: 1fr auto auto; }
@@ -259,12 +373,18 @@ kbd, .kbd { min-width: 24px; padding: 2px 6px; border: 1px solid var(--border-st
   .vocab-row .state-pill { grid-column: 1; grid-row: 3; justify-self: start; }
   .vocab-row .fav { grid-column: 3; grid-row: 1; }
   .summary-grid { grid-template-columns: 1fr 1fr; }
+  .summary .panel-body { padding: 24px 16px; }
   .card-footer { display: block; }
   .card-footer > * + * { margin-top: 7px; }
 }
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0s !important; animation-duration: .01ms !important; }
+@media (max-width: 380px) {
+  .support-sidebar { grid-template-columns: minmax(0, 1fr); }
+  .session-grid--focus, .session-grid--quick { grid-template-columns: 1fr; }
 }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0s !important; animation-duration: 0s !important; }
+}
+
   </style>
 </head>
 <body>
@@ -15527,6 +15647,65 @@ export const MODES = Object.freeze({
   CLOZE: 'cloze'
 });
 
+export const STATE_LABELS = Object.freeze({
+  [STATES.NEW]: 'Chưa học',
+  [STATES.LEARNING]: 'Đang học',
+  [STATES.WEAK]: 'Từ yếu',
+  [STATES.REVIEW]: 'Ôn tập',
+  [STATES.MASTERED]: 'Thành thạo'
+});
+
+export function stateLabel(state) {
+  return STATE_LABELS[state] || 'Trạng thái khác';
+}
+
+const SESSION_LABELS = Object.freeze({
+  due: 'Ôn đến hạn',
+  weak: 'Từ yếu',
+  new: 'Từ mới',
+  random: 'Ngẫu nhiên',
+  favorites: 'Yêu thích',
+  mixed: 'Phiên nhanh'
+});
+
+export function sessionModeLabel(mode) {
+  return SESSION_LABELS[mode] || 'Phiên học';
+}
+
+// One inline icon set keeps the standalone file sharp and consistent without
+// relying on platform emoji fonts, remote assets, or a runtime dependency.
+const ICON_PATHS = Object.freeze({
+  book: '<path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v17H6.5A2.5 2.5 0 0 0 4 22z"/><path d="M4 5.5V22M8 7h8M8 11h8"/>',
+  overview: '<rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="5" rx="1.5"/><rect x="13" y="10" width="8" height="11" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/>',
+  search: '<circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.5 4.5"/>',
+  settings: '<circle cx="12" cy="12" r="3"/><path d="m19.4 15 .1.1a1.7 1.7 0 0 1-2.4 2.4l-.1-.1a1.7 1.7 0 0 0-2.9 1.2v.2a1.7 1.7 0 0 1-3.4 0v-.2a1.7 1.7 0 0 0-2.9-1.2l-.1.1a1.7 1.7 0 0 1-2.4-2.4l.1-.1a1.7 1.7 0 0 0-1.2-2.9H4a1.7 1.7 0 0 1 0-3.4h.2a1.7 1.7 0 0 0 1.2-2.9l-.1-.1a1.7 1.7 0 0 1 2.4-2.4l.1.1a1.7 1.7 0 0 0 2.9-1.2V4a1.7 1.7 0 0 1 3.4 0v.2a1.7 1.7 0 0 0 2.9 1.2l.1-.1a1.7 1.7 0 0 1 2.4 2.4l-.1.1a1.7 1.7 0 0 0 1.2 2.9h.2a1.7 1.7 0 0 1 0 3.4h-.2a1.7 1.7 0 0 0-1.2 2.9z"/>',
+  clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/>',
+  target: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
+  spark: '<path d="m12 3 1.9 5.8L20 11l-6.1 2.2L12 19l-2-5.8L4 11l6-2.2z"/><path d="m19 15 .9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9z"/>',
+  shuffle: '<path d="m16 3 5 4-5 4"/><path d="M4 7h3c5 0 5 10 10 10h4"/><path d="m16 13 5 4-5 4"/><path d="M4 17h3c1.6 0 2.7-1.4 3.7-3"/>',
+  star: '<path d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/>',
+  bolt: '<path d="m13 2-9 12h7l-1 8 10-13h-7z"/>',
+  layers: '<path d="m12 3 9 5-9 5-9-5z"/><path d="m3 12 9 5 9-5M3 16l9 5 9-5"/>',
+  arrow: '<path d="M7 17 17 7M8 7h9v9"/>',
+  brain: '<path d="M12 5.5A3.5 3.5 0 0 0 5.6 4a3.8 3.8 0 0 0-2.1 6.3A4.2 4.2 0 0 0 6 18.1 3.4 3.4 0 0 0 12 18z"/><path d="M12 5.5A3.5 3.5 0 0 1 18.4 4a3.8 3.8 0 0 1 2.1 6.3 4.2 4.2 0 0 1-2.5 7.8A3.4 3.4 0 0 1 12 18zM8 8.5c1.5 0 2.3 1 2.3 2.2M16 8.5c-1.5 0-2.3 1-2.3 2.2M8 14.5c1.5 0 2.3.8 2.3 1.8M16 14.5c-1.5 0-2.3.8-2.3 1.8M12 5.5v12.6"/>',
+  repeat: '<path d="m17 2 4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15M7 22l-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/>',
+  interleave: '<path d="M4 6h4c5 0 7 12 12 12h1M4 18h4c2 0 3.6-2 4.8-4.2M16 6h5M18 3l3 3-3 3M18 15l3 3-3 3"/>',
+  sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+  moon: '<path d="M20.8 14.1A8.5 8.5 0 0 1 9.9 3.2 8.5 8.5 0 1 0 20.8 14.1z"/>',
+  download: '<path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 16v4h16v-4"/>',
+  check: '<path d="m5 12 4 4L19 6"/>',
+  flame: '<path d="M12 22c4.4 0 7-2.9 7-6.7 0-3.4-2-5.8-5.1-9.3.2 2.1-.5 3.4-1.6 4.2C12 7.2 10.5 4.3 8.2 2 8.4 6 5 9.1 5 14.2 5 18.7 7.8 22 12 22z"/><path d="M12 22c-1.7-1-2.5-2.3-2.5-4 0-1.4.7-2.5 1.8-3.7.1 1.4.8 2.3 1.9 2.7"/>'
+});
+
+export function iconMarkup(name, className = 'icon') {
+  const paths = ICON_PATHS[name] || ICON_PATHS.spark;
+  return `<svg class="${className}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${paths}</svg>`;
+}
+
+export function recommendedSession(stats) {
+  return Number(stats?.due) > 0 ? 'due' : 'quick10';
+}
+
 const VALID_STATES = new Set(Object.values(STATES));
 // Some records keep a previous-app gloss in `notes` behind this internal marker.
 // It is historical metadata, not the current definition, so it must never be
@@ -16062,27 +16241,27 @@ export function exportProgressBundle({ progress, prefs, favorites, history, stre
 }
 
 export function validateImportPayload(payload, validIds = null) {
-  if (!payload || typeof payload !== 'object' || Array.isArray(payload)) throw new Error('Tệp backup phải là một JSON object.');
-  if (payload.app !== 'chuyen-anh-flashcard' || payload.version !== 1) throw new Error('Tệp backup không đúng phiên bản của Chuyên Anh.');
-  if (!payload.progress || typeof payload.progress !== 'object' || Array.isArray(payload.progress)) throw new Error('Backup thiếu progress hợp lệ.');
+  if (!payload || typeof payload !== 'object' || Array.isArray(payload)) throw new Error('Tệp sao lưu phải là một đối tượng JSON.');
+  if (payload.app !== 'chuyen-anh-flashcard' || payload.version !== 1) throw new Error('Tệp sao lưu không đúng phiên bản của Chuyên Anh.');
+  if (!payload.progress || typeof payload.progress !== 'object' || Array.isArray(payload.progress)) throw new Error('Bản sao lưu thiếu tiến độ học hợp lệ.');
   const progress = {};
   for (const [id, value] of Object.entries(payload.progress)) {
-    if (!value || typeof value !== 'object' || !VALID_STATES.has(value.state)) throw new Error(`Progress của từ ${id} không hợp lệ.`);
+    if (!value || typeof value !== 'object' || !VALID_STATES.has(value.state)) throw new Error(`Tiến độ của từ ${id} không hợp lệ.`);
     const sanitized = sanitizeProgress(value, id);
-    if (!sanitized) throw new Error(`Progress của từ ${id} không hợp lệ.`);
+    if (!sanitized) throw new Error(`Tiến độ của từ ${id} không hợp lệ.`);
     if (!validIds || validIds.has(id)) progress[id] = sanitized;
   }
-  if (!Array.isArray(payload.favorites) || payload.favorites.some(id => typeof id !== 'string')) throw new Error('favorites phải là một mảng chuỗi.');
-  if (!Array.isArray(payload.history)) throw new Error('history không hợp lệ.');
+  if (!Array.isArray(payload.favorites) || payload.favorites.some(id => typeof id !== 'string')) throw new Error('Danh sách yêu thích phải là một mảng chuỗi.');
+  if (!Array.isArray(payload.history)) throw new Error('Lịch sử phiên học không hợp lệ.');
   const history = payload.history.map(sanitizeHistoryEntry);
-  if (history.some(item => !item)) throw new Error('history không hợp lệ.');
-  if (!payload.streak || typeof payload.streak !== 'object' || Array.isArray(payload.streak)) throw new Error('streak không hợp lệ.');
+  if (history.some(item => !item)) throw new Error('Lịch sử phiên học không hợp lệ.');
+  if (!payload.streak || typeof payload.streak !== 'object' || Array.isArray(payload.streak)) throw new Error('Chuỗi ngày học liên tiếp không hợp lệ.');
   const streak = sanitizeStreak(payload.streak);
-  if (!streak) throw new Error('streak không hợp lệ.');
-  if (payload.prefs !== undefined && (!payload.prefs || typeof payload.prefs !== 'object' || Array.isArray(payload.prefs))) throw new Error('prefs không hợp lệ.');
+  if (!streak) throw new Error('Chuỗi ngày học liên tiếp không hợp lệ.');
+  if (payload.prefs !== undefined && (!payload.prefs || typeof payload.prefs !== 'object' || Array.isArray(payload.prefs))) throw new Error('Cài đặt không hợp lệ.');
   const importedPrefs = { ...DEFAULT_PREFS, ...(payload.prefs || {}) };
   if (![10, 20, 30, 50].includes(Number(importedPrefs.sessionSize)) || typeof importedPrefs.keyboardShortcuts !== 'boolean' || typeof importedPrefs.darkMode !== 'boolean') {
-    throw new Error('prefs chứa giá trị không hợp lệ.');
+    throw new Error('Cài đặt chứa giá trị không hợp lệ.');
   }
   return {
     progress,
@@ -16160,6 +16339,14 @@ export async function loadVocabulary(rawText) {
 
 function formatDate(value) {
   try { return new Date(value).toLocaleDateString('vi-VN'); } catch { return ''; }
+}
+
+export function formatDuration(seconds) {
+  const total = Math.max(0, Math.floor(Number(seconds) || 0));
+  if (total < 60) return `${total} giây`;
+  const minutes = Math.floor(total / 60);
+  const remainder = total % 60;
+  return remainder ? `${minutes} phút ${remainder} giây` : `${minutes} phút`;
 }
 
 function formatNextReview(timestamp) {
@@ -16279,13 +16466,19 @@ export async function createApp(root) {
   function toast(message, type = 'info') {
     document.querySelector('.toast')?.remove();
     const node = document.createElement('div');
-    node.className = 'toast';
-    node.textContent = `${type === 'error' ? '⚠️ ' : type === 'success' ? '✓ ' : ''}${message}`;
+    node.className = `toast toast-${type}`;
+    node.setAttribute('role', type === 'error' ? 'alert' : 'status');
+    node.setAttribute('aria-live', type === 'error' ? 'assertive' : 'polite');
+    node.setAttribute('aria-atomic', 'true');
+    node.textContent = `${type === 'error' ? 'Lỗi: ' : type === 'success' ? 'Đã xong: ' : ''}${message}`;
     document.body.append(node);
     setTimeout(() => node.remove(), 3200);
   }
 
-  function applyTheme() { document.documentElement.dataset.theme = prefs.darkMode ? 'dark' : 'light'; }
+  function applyTheme() {
+    document.documentElement.dataset.theme = prefs.darkMode ? 'dark' : 'light';
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', prefs.darkMode ? '#101a18' : '#f4f7f5');
+  }
 
   function stats() { return calculateStats(progress); }
 
@@ -16297,30 +16490,32 @@ export async function createApp(root) {
         <div class="topbar-inner">
           <a class="brand" href="#learn" id="brand-link" aria-label="Về trang học">
             <span class="brand-mark">CA</span>
-            <span><span class="brand-name">Chuyên Anh</span><span class="brand-detail">Flashcard · ${vocabulary.length} từ · data ${escapeHtml(loaded.version)}</span></span>
+            <span><span class="brand-name">Chuyên Anh</span><span class="brand-detail">Flashcard · ${vocabulary.length} từ</span></span>
           </a>
-          <div class="top-meta"><span>📚 ${vocabulary.length} từ</span><i class="dot"></i><span>⏰ ${currentStats.due} đến hạn</span><i class="dot"></i><span>🔥 ${streak.current}</span></div>
-          <div class="top-actions"><button class="btn subtle small" id="theme-button" aria-label="Đổi giao diện">◐</button><button class="btn small" id="export-top">Xuất</button></div>
+          <div class="top-meta"><span class="top-stat">${iconMarkup('clock')}<span>${currentStats.due} đến hạn</span></span><i class="dot" aria-hidden="true"></i><span class="top-stat">${iconMarkup('flame')}<span>${streak.current} ngày liên tiếp</span></span></div>
+          <div class="top-actions"><button class="btn subtle small" id="theme-button" aria-label="${prefs.darkMode ? 'Dùng giao diện sáng' : 'Bật giao diện tối'}" aria-pressed="${prefs.darkMode}">${iconMarkup(prefs.darkMode ? 'sun' : 'moon')}</button><button class="btn small" id="export-top">${iconMarkup('download')}Xuất</button></div>
         </div>
       </header>
       <div class="layout">
         <aside class="sidebar">
           <div class="panel"><nav class="nav" aria-label="Điều hướng chính">
-            ${navButton('learn', '📖', 'Học', currentStats.due)}
-            ${navButton('dashboard', '▦', 'Dashboard')}
-            ${navButton('search', '⌕', 'Tra cứu', vocabulary.length)}
-            ${navButton('settings', '⚙', 'Cài đặt')}
+            ${navButton('learn', 'book', 'Học', currentStats.due)}
+            ${navButton('dashboard', 'overview', 'Tổng quan')}
+            ${navButton('search', 'search', 'Tra cứu')}
+            ${navButton('settings', 'settings', 'Cài đặt')}
           </nav></div>
-          <div class="panel"><div class="panel-heading">Tiến độ</div><div class="panel-body"><div class="mini-stats">
-            ${miniStat(currentStats.total, 'Tổng')}${miniStat(currentStats.mastered, 'Thành thạo')}${miniStat(currentStats.weak, 'Từ yếu')}${miniStat(`${currentStats.accuracy}%`, 'Chính xác')}
-          </div></div></div>
-          <div class="panel"><div class="panel-heading">Phím tắt</div><div class="panel-body shortcuts">
-            <div class="shortcut"><span>Chọn đáp án</span><kbd>1–4</kbd></div><div class="shortcut"><span>Lật / tiếp</span><kbd>Space</kbd></div><div class="shortcut"><span>Xác nhận / tiếp</span><kbd>Enter</kbd></div><div class="shortcut"><span>Xếp lượt luyện</span><kbd>R</kbd></div>
-          </div></div>
         </aside>
         <main class="content" id="content" tabindex="-1"></main>
+        <aside class="support-sidebar" aria-label="Tiến độ và phím tắt">
+          <section class="panel"><h2 class="panel-heading">Tiến độ</h2><div class="panel-body"><div class="mini-stats">
+            ${miniStat(currentStats.total, 'Tổng')}${miniStat(currentStats.mastered, 'Thành thạo')}${miniStat(currentStats.weak, 'Từ yếu')}${miniStat(`${currentStats.accuracy}%`, 'Chính xác')}
+          </div></div></section>
+          <section class="panel"><h2 class="panel-heading">Phím tắt</h2><div class="panel-body shortcuts">
+            <div class="shortcut"><span>Chọn đáp án</span><kbd>1–4</kbd></div><div class="shortcut"><span>Lật / tiếp</span><kbd>Space</kbd></div><div class="shortcut"><span>Xác nhận / tiếp</span><kbd>Enter</kbd></div><div class="shortcut"><span>Xếp lượt luyện</span><kbd>R</kbd></div>
+          </div></section>
+        </aside>
       </div>
-      <footer class="footer">Static frontend · localStorage · active recall · spaced repetition · data version ${escapeHtml(loaded.version)}</footer>
+      <footer class="footer">Ứng dụng chạy từ một tệp HTML độc lập · tiến độ chỉ lưu trên thiết bị này.</footer>
     `;
     root.querySelectorAll('[data-view]').forEach(button => button.addEventListener('click', () => { view = button.dataset.view; sessionSummary = null; renderShell(); }));
     root.querySelector('#brand-link').addEventListener('click', event => { event.preventDefault(); view = 'learn'; sessionSummary = null; renderShell(); });
@@ -16334,8 +16529,8 @@ export async function createApp(root) {
     renderView();
   }
 
-  function navButton(id, icon, label, count = null) {
-    return `<button class="nav-button ${view === id ? 'active' : ''}" data-view="${id}" ${view === id ? 'aria-current="page"' : ''}><span class="nav-icon">${icon}</span><span>${label}</span>${count === null ? '' : `<span class="nav-count">${count}</span>`}</button>`;
+  function navButton(id, iconName, label, count = null) {
+    return `<button class="nav-button ${view === id ? 'active' : ''}" data-view="${id}" ${view === id ? 'aria-current="page"' : ''}><span class="nav-icon">${iconMarkup(iconName)}</span><span>${label}</span>${count === null ? '' : `<span class="nav-count">${count}</span>`}</button>`;
   }
 
   function miniStat(value, label) { return `<div class="mini-stat"><strong>${value}</strong><span>${label}</span></div>`; }
@@ -16354,29 +16549,57 @@ export async function createApp(root) {
     if (session?.length) { renderFlashcard(container); return; }
     if (sessionSummary) { renderSummary(container); return; }
     const currentStats = stats();
+    const suggestion = recommendedSession(currentStats);
+    const hasDue = suggestion === 'due';
+    const suggestionTitle = hasDue ? `${currentStats.due} từ đang đến hạn` : 'Bắt đầu với một phiên ngắn';
+    const suggestionText = hasDue
+      ? 'Ôn các thẻ đã đến lịch trước; phiên này không kéo thẻ tương lai lên sớm.'
+      : 'Phiên 10 thẻ ưu tiên mục cần củng cố, rồi chuyển sang các thẻ khác.';
+    const favoritesDescription = favorites.size
+      ? 'Ôn lại những từ bạn đã đánh dấu.'
+      : 'Đánh dấu từ bằng ngôi sao trong Tra cứu để tạo danh sách.';
     container.innerHTML = `
-      <div class="page-header"><div><h1>Học từ vựng Chuyên Anh</h1><p>Ôn chủ động, gặp lại đúng lúc. Phiên học ưu tiên từ yếu và từ đã đến hạn trước khi thêm từ mới; từ chưa học bao giờ được giới thiệu nghĩa trước khi bị kiểm tra.</p></div></div>
-      <div class="session-grid">
-        ${sessionCard('due', '⏰', 'Đến hạn hôm nay', 'Ôn những từ cần truy xuất lại', `${currentStats.due} từ`)}
-        ${sessionCard('weak', '🎯', 'Từ yếu', 'Tập trung vào các từ hay sai', `${currentStats.weak} từ`)}
-        ${sessionCard('new', '✦', 'Từ mới', 'Xem nghĩa trước, rồi kiểm tra ngay', `${currentStats.new} từ`)}
-        ${sessionCard('random', '◈', 'Ngẫu nhiên', 'Interleave toàn bộ kho từ', `${vocabulary.length} từ`)}
-        ${sessionCard('favorites', '★', 'Yêu thích', 'Ôn lại danh sách đã đánh dấu', `${favorites.size} từ`)}
-        ${sessionCard('quick10', '⚡', 'Nhanh 10 từ', 'Một phiên ngắn trong giờ giải lao', '10 từ')}
-        ${sessionCard('quick20', '◫', '20 từ', 'Phiên cân bằng mỗi ngày', '20 từ')}
-        ${sessionCard('quick30', '↗', '30 từ', 'Phiên học sâu hơn', '30 từ')}
-      </div>
-      <section class="panel"><div class="panel-heading">Cách học hiệu quả</div><div class="panel-body info-grid">
-        <div class="info-item"><b>🧠 Active recall<span>Tự nhớ trước khi xem đáp án.</span></b></div>
-        <div class="info-item"><b>⏱ Spaced repetition<span>Sai gặp lại sớm, đúng giãn cách.</span></b></div>
-        <div class="info-item"><b>🔀 Interleaving<span>Trộn nhiều dạng câu hỏi và chủ đề.</span></b></div>
+      <div class="page-header"><div><h1>Học từ vựng Chuyên Anh</h1><p>Ôn chủ động, gặp lại đúng lúc. Từ chưa học được giới thiệu nghĩa trước khi kiểm tra.</p></div></div>
+      <section class="study-recommendation" aria-labelledby="recommendation-title">
+        <div class="recommendation-copy">
+          <span class="eyebrow">Gợi ý tiếp theo</span>
+          <h2 id="recommendation-title">${suggestionTitle}</h2>
+          <p>${suggestionText}</p>
+          <button class="btn primary" data-session="${suggestion}">${iconMarkup('arrow')}${hasDue ? 'Ôn từ đến hạn' : 'Bắt đầu học 10 từ'}</button>
+        </div>
+        <div class="recommendation-mark" aria-hidden="true">
+          ${iconMarkup(hasDue ? 'clock' : 'bolt')}<strong>${hasDue ? currentStats.due : 10}</strong><span>${hasDue ? 'TỪ ĐẾN HẠN' : 'TỪ / PHIÊN'}</span>
+        </div>
+      </section>
+      <section class="study-section" aria-labelledby="study-goals-title">
+        <div class="study-section-heading"><div><h2 id="study-goals-title">Học theo mục tiêu</h2><p>Chọn nhóm từ bạn muốn tập trung hôm nay.</p></div></div>
+        <div class="session-grid session-grid--focus">
+          ${sessionCard('due', 'clock', 'Đến hạn hôm nay', 'Ôn các từ đã đến lịch xem lại.', `${currentStats.due} từ`)}
+          ${sessionCard('weak', 'target', 'Từ yếu', 'Tập trung vào những từ thường sai.', `${currentStats.weak} từ`)}
+          ${sessionCard('new', 'spark', 'Từ mới', 'Xem nghĩa trước, rồi tự nhớ lại.', `${currentStats.new} từ`)}
+          ${sessionCard('favorites', 'star', 'Yêu thích', favoritesDescription, `${favorites.size} từ`)}
+        </div>
+      </section>
+      <section class="study-section" aria-labelledby="study-modes-title">
+        <div class="study-section-heading"><div><h2 id="study-modes-title">Khám phá & phiên nhanh</h2><p>Trộn cả kho từ hoặc chọn một phiên ngắn theo thời gian bạn có.</p></div></div>
+        <div class="session-grid session-grid--quick">
+          ${sessionCard('random', 'shuffle', 'Ngẫu nhiên', 'Trộn các trạng thái trong toàn bộ kho.', `${vocabulary.length} từ`)}
+          ${sessionCard('quick10', 'bolt', 'Nhanh 10 từ', 'Một phiên ngắn để bắt đầu.', '10 từ')}
+          ${sessionCard('quick20', 'layers', '20 từ', 'Phiên vừa phải cho một lượt ôn.', '20 từ')}
+          ${sessionCard('quick30', 'arrow', '30 từ', 'Phiên dài hơn để luyện tập trung.', '30 từ')}
+        </div>
+      </section>
+      <section class="panel learning-principles"><div class="panel-heading">Ba nguyên tắc học</div><div class="panel-body info-grid">
+        <div class="info-item"><span class="info-icon">${iconMarkup('brain')}</span><div><b class="info-title">Gợi nhớ chủ động</b><span>Tự nhớ trước khi xem đáp án.</span></div></div>
+        <div class="info-item"><span class="info-icon">${iconMarkup('repeat')}</span><div><b class="info-title">Ôn cách quãng</b><span>Từ sai gặp lại sớm; từ đúng giãn dần.</span></div></div>
+        <div class="info-item"><span class="info-icon">${iconMarkup('interleave')}</span><div><b class="info-title">Đan xen</b><span>Đổi dạng câu hỏi để luyện linh hoạt.</span></div></div>
       </div></section>
     `;
     container.querySelectorAll('[data-session]').forEach(button => button.addEventListener('click', () => startSession(button.dataset.session)));
   }
 
-  function sessionCard(id, icon, title, description, count) {
-    return `<button class="session-card" data-session="${id}"><span class="session-icon">${icon}</span><h3>${title}</h3><p>${description}</p><span class="session-count">${count}</span></button>`;
+  function sessionCard(id, iconName, title, description, count) {
+    return `<button class="session-card" data-session="${id}"><span class="session-icon">${iconMarkup(iconName)}</span><span class="session-card-title">${escapeHtml(title)}</span><span class="session-card-description">${escapeHtml(description)}</span><span class="session-count">${escapeHtml(count)}</span></button>`;
   }
 
   function startSession(type) {
@@ -16440,10 +16663,10 @@ export async function createApp(root) {
     const options = question?.options || [];
     container.innerHTML = `
       <div class="flashcard-wrap">
-        <div class="page-header"><div><h1>Phiên học</h1><p>${sessionStats.mode === 'due' ? 'Chỉ các từ đang đến hạn' : sessionStats.mode === 'mixed' ? 'Ưu tiên từ đến hạn và từ yếu' : `Chế độ ${escapeHtml(sessionStats.mode)}`} · ${session.length} lượt còn lại</p></div><button class="btn" id="exit-session">Thoát phiên</button></div>
+        <div class="page-header"><div><h1>Phiên học</h1><p>${escapeHtml(sessionModeLabel(sessionStats.mode))} · ${session.length} lượt còn lại</p></div><button class="btn" id="exit-session">Thoát phiên</button></div>
         <div class="session-progress" aria-label="Tiến độ phiên" role="progressbar" aria-valuenow="${percent}" aria-valuemin="0" aria-valuemax="100"><span style="width:${percent}%"></span></div>
         <article class="flashcard">
-          <div class="flashcard-head"><span><b>${done + 1}</b> / ${totalAttempts} lượt · ${session.length} còn lại</span><div class="flashcard-head-actions"><span class="state-pill state-${escapeHtml(item.progress.state)}">${escapeHtml(item.progress.state)}</span><button class="fav ${favorites.has(item.vocab.id) ? 'active' : ''}" id="favorite-card" aria-label="${favorites.has(item.vocab.id) ? 'Bỏ yêu thích' : 'Thêm yêu thích'}">${favorites.has(item.vocab.id) ? '★' : '☆'}</button><button class="btn small" id="skip-card">Bỏ qua</button></div></div>
+          <div class="flashcard-head"><span><b>${done + 1}</b> / ${totalAttempts} lượt · ${session.length} còn lại</span><div class="flashcard-head-actions"><span class="state-pill state-${escapeHtml(item.progress.state)}">${escapeHtml(stateLabel(item.progress.state))}</span><button class="fav ${favorites.has(item.vocab.id) ? 'active' : ''}" id="favorite-card" aria-label="${favorites.has(item.vocab.id) ? 'Bỏ yêu thích' : 'Thêm yêu thích'}">${favorites.has(item.vocab.id) ? '★' : '☆'}</button><button class="btn small" id="skip-card">Bỏ qua</button></div></div>
           <div class="flashcard-body">
             ${firstLook ? firstLookBody(item) : `
             <div class="mode-label">${item.practice ? 'Luyện lại · ' : ''}${modeLabel(question.mode)} · ${escapeHtml(item.vocab.pos)}</div>
@@ -16519,7 +16742,7 @@ export async function createApp(root) {
     const item = session[0];
     const correct = answerResult.correct;
     const answerText = question.answer;
-    container.querySelector('#feedback-area').innerHTML = `<div class="feedback ${correct ? 'correct' : 'wrong'}" role="alert"><div class="feedback-title">${correct ? '✓ Chính xác!' : `✕ Chưa đúng · Đáp án: ${escapeHtml(answerText)}`}</div><p><strong>${escapeHtml(item.vocab.word)}</strong> · ${escapeHtml(item.vocab.meaning)}</p>${vocabularyMetadataHtml(item.vocab)}${!correct && !item.practice ? `<p>Bạn sai từ này ${item.progress.wrongCount} lần. Đã xếp một lượt gõ lại sau các thẻ còn lại; từ vẫn đến hạn ôn.</p>` : ''}${item.practice ? '<p>Lượt luyện đã hoàn tất. Lịch ôn và kết quả lần đầu được giữ nguyên; hãy ôn lại khi đến hạn.</p>' : ''}${answerResult.revealed ? '<p>Lượt này được chấm theo tự đánh giá vì bạn đã xem đáp án trước đó.</p>' : ''}${exampleHtml(item.vocab)}<p style="color:var(--muted);font-size:.75rem">Lần ôn tiếp theo: ${formatNextReview(item.progress.nextReview)} · trạng thái: ${item.progress.state}</p><div class="actions" style="margin-top:12px"><button class="btn primary full" id="next-card">Tiếp tục <kbd>Enter</kbd></button></div></div>`;
+    container.querySelector('#feedback-area').innerHTML = `<div class="feedback ${correct ? 'correct' : 'wrong'}" role="alert"><div class="feedback-title">${correct ? '✓ Chính xác!' : `✕ Chưa đúng · Đáp án: ${escapeHtml(answerText)}`}</div><p><strong>${escapeHtml(item.vocab.word)}</strong> · ${escapeHtml(item.vocab.meaning)}</p>${vocabularyMetadataHtml(item.vocab)}${!correct && !item.practice ? `<p>Bạn sai từ này ${item.progress.wrongCount} lần. Đã xếp một lượt gõ lại sau các thẻ còn lại; từ vẫn đến hạn ôn.</p>` : ''}${item.practice ? '<p>Lượt luyện đã hoàn tất. Lịch ôn và kết quả lần đầu được giữ nguyên; hãy ôn lại khi đến hạn.</p>' : ''}${answerResult.revealed ? '<p>Lượt này được chấm theo tự đánh giá vì bạn đã xem đáp án trước đó.</p>' : ''}${exampleHtml(item.vocab)}<p style="color:var(--muted);font-size:.75rem">Lần ôn tiếp theo: ${formatNextReview(item.progress.nextReview)} · trạng thái: ${stateLabel(item.progress.state)}</p><div class="actions" style="margin-top:12px"><button class="btn primary full" id="next-card">Tiếp tục <kbd>Enter</kbd></button></div></div>`;
     const nextButton = container.querySelector('#next-card');
     nextButton.addEventListener('click', advanceCard);
     nextButton.focus({ preventScroll: true });
@@ -16577,17 +16800,21 @@ export async function createApp(root) {
 
   function renderSummary(container) {
     const summary = sessionSummary;
-    container.innerHTML = `<div class="summary"><section class="panel"><div class="panel-body"><div style="font-size:2.3rem">🎉</div><h2>Hoàn thành phiên học</h2><p>${summary.total} từ · ${summary.duration}s · ${escapeHtml(summary.mode)}</p><div class="summary-grid"><div><strong>${summary.accuracy}%</strong><span>Chính xác lần đầu</span></div><div><strong style="color:var(--success)">${summary.correct}</strong><span>Đúng</span></div><div><strong style="color:var(--danger)">${summary.wrong}</strong><span>Sai</span></div><div><strong>${stats().weak}</strong><span>Từ yếu</span></div></div>${summary.practiceTotal ? `<p>Luyện lại: ${summary.practiceCorrect} đúng · ${summary.practiceWrong} chưa đúng / ${summary.practiceTotal} lượt. Không tính vào độ chính xác lần đầu hay lịch ôn.</p>` : ''}<div class="actions" style="justify-content:center"><button class="btn primary" id="again">Học tiếp</button><button class="btn" id="summary-dashboard">Xem dashboard</button></div></div></section></div>`;
+    container.innerHTML = `<div class="summary"><section class="panel"><div class="panel-body"><div class="summary-mark" aria-hidden="true">${iconMarkup('check')}</div><h2>Hoàn thành phiên học</h2><p>${summary.total} từ · ${formatDuration(summary.duration)} · ${escapeHtml(sessionModeLabel(summary.mode))}</p><div class="summary-grid"><div><strong>${summary.accuracy}%</strong><span>Chính xác lần đầu</span></div><div><strong style="color:var(--success)">${summary.correct}</strong><span>Đúng</span></div><div><strong style="color:var(--danger)">${summary.wrong}</strong><span>Sai</span></div><div><strong>${stats().weak}</strong><span>Từ yếu</span></div></div>${summary.practiceTotal ? `<p>Luyện lại: ${summary.practiceCorrect} đúng · ${summary.practiceWrong} chưa đúng / ${summary.practiceTotal} lượt. Không tính vào độ chính xác lần đầu hay lịch ôn.</p>` : ''}<div class="actions" style="justify-content:center"><button class="btn primary" id="again">Học tiếp</button><button class="btn" id="summary-dashboard">Xem tổng quan</button></div></div></section></div>`;
     container.querySelector('#again').addEventListener('click', () => { sessionSummary = null; renderLearn(container); });
     container.querySelector('#summary-dashboard').addEventListener('click', () => { view = 'dashboard'; sessionSummary = null; renderShell(); });
   }
 
   function renderDashboard(container) {
     const currentStats = stats();
-    const colors = { new: '#849590', learning: '#d49120', weak: '#c9564d', review: '#4e91c8', mastered: '#2f9b66' };
+    const colors = {
+      new: 'var(--chart-new)', learning: 'var(--chart-learning)', weak: 'var(--chart-weak)',
+      review: 'var(--chart-review)', mastered: 'var(--chart-mastered)'
+    };
     const totalForBar = Math.max(1, currentStats.total);
     const recent = [...history].reverse().slice(0, 8);
-    container.innerHTML = `<div class="page-header"><div><h1>Dashboard</h1><p>Tổng quan tiến độ học trên thiết bị này. Dữ liệu không rời khỏi trình duyệt.</p></div></div><div class="stat-grid">${statCard(currentStats.total, 'Tổng từ')}${statCard(currentStats.new, 'Từ mới')}${statCard(currentStats.learning + currentStats.review, 'Đang học')}${statCard(currentStats.weak, 'Từ yếu')}${statCard(currentStats.mastered, 'Thành thạo')}${statCard(currentStats.due, 'Đến hạn')}${statCard(`${currentStats.accuracy}%`, 'Độ chính xác')}${statCard(`🔥 ${streak.current}`, 'Streak')}</div><div class="two-col"><section class="panel"><div class="section-header"><h2 class="section-title">Phân bố trạng thái</h2><span style="color:var(--muted);font-size:.73rem">${currentStats.learned} đã học</span></div><div class="panel-body"><div class="bar">${Object.keys(colors).map(state => `<i style="flex:${Math.max(.001, currentStats[state] / totalForBar)};background:${colors[state]}" title="${state}: ${currentStats[state]}"></i>`).join('')}</div><div class="legend">${Object.keys(colors).map(state => `<span><i style="background:${colors[state]}"></i>${state} · ${currentStats[state]}</span>`).join('')}</div></div></section><section class="panel"><div class="section-header"><h2 class="section-title">Lịch sử phiên học</h2><span style="color:var(--muted);font-size:.73rem">${history.length} phiên</span></div><div class="history">${recent.length ? recent.map(item => `<div class="history-row"><div><b>${escapeHtml(item.mode)}</b><small>${formatDate(item.date)} · ${item.total} thẻ</small></div><strong>${item.accuracy}%</strong></div>`).join('') : '<div class="empty" style="padding:20px;border:0">Chưa có phiên học.</div>'}</div></section></div>`;
+    const distributionLabel = Object.keys(colors).map(state => `${stateLabel(state)} ${currentStats[state]}`).join(', ');
+    container.innerHTML = `<div class="page-header"><div><h1>Tổng quan</h1><p>Tiến độ học trên thiết bị này. Dữ liệu không rời khỏi trình duyệt.</p></div></div><div class="stat-grid">${statCard(currentStats.total, 'Tổng từ')}${statCard(currentStats.new, 'Chưa học')}${statCard(currentStats.learning + currentStats.review, 'Đang học')}${statCard(currentStats.weak, 'Từ yếu')}${statCard(currentStats.mastered, 'Thành thạo')}${statCard(currentStats.due, 'Đến hạn')}${statCard(`${currentStats.accuracy}%`, 'Chính xác')}${statCard(streak.current, 'Ngày liên tiếp')}</div><div class="two-col"><section class="panel"><div class="section-header"><h2 class="section-title">Phân bố trạng thái</h2><span style="color:var(--muted);font-size:.73rem">${currentStats.learned} đã học</span></div><div class="panel-body"><div class="bar" role="img" aria-label="${escapeHtml(distributionLabel)}">${Object.keys(colors).map(state => `<i aria-hidden="true" style="flex:${Math.max(.001, currentStats[state] / totalForBar)};background:${colors[state]}" title="${escapeHtml(stateLabel(state))}: ${currentStats[state]}"></i>`).join('')}</div><div class="legend">${Object.keys(colors).map(state => `<span><i aria-hidden="true" style="background:${colors[state]}"></i>${escapeHtml(stateLabel(state))} · ${currentStats[state]}</span>`).join('')}</div></div></section><section class="panel"><div class="section-header"><h2 class="section-title">Lịch sử phiên học</h2><span style="color:var(--muted);font-size:.73rem">${history.length} phiên</span></div><div class="history">${recent.length ? recent.map(item => `<div class="history-row"><div><b>${escapeHtml(sessionModeLabel(item.mode))}</b><small>${formatDate(item.date)} · ${item.total} thẻ</small></div><strong>${item.accuracy}%</strong></div>`).join('') : '<div class="empty" style="padding:20px;border:0">Chưa có phiên học.</div>'}</div></section></div>`;
   }
 
   function statCard(value, label) { return `<div class="stat-card"><strong>${value}</strong><span>${label}</span></div>`; }
@@ -16595,7 +16822,7 @@ export async function createApp(root) {
   function renderSearch(container) {
     const index = createSearchIndex(vocabulary, progress, favorites);
     const positions = [...new Set(vocabulary.map(entry => entry.pos).filter(Boolean))].sort((a, b) => a.localeCompare(b));
-    container.innerHTML = `<div class="page-header"><div><h1>Tra cứu từ vựng</h1><p>Tìm theo tiếng Anh, tiếng Việt, từ loại, tag hoặc ví dụ · ${vocabulary.length} từ.</p></div></div><div class="search-tools"><input class="search-input" id="search-field" placeholder="Tìm từ hoặc nghĩa…" aria-label="Tìm kiếm từ vựng"><button class="btn" id="clear-search">Xóa</button></div><div class="filters"><select class="select" id="state-filter" aria-label="Lọc trạng thái"><option value="all">Tất cả trạng thái</option><option value="new">New</option><option value="learning">Learning</option><option value="weak">Weak</option><option value="review">Review</option><option value="mastered">Mastered</option><option value="due">Đến hạn</option><option value="favorites">Yêu thích</option></select><select class="select" id="pos-filter" aria-label="Lọc từ loại"><option value="all">Tất cả từ loại</option>${positions.map(pos => `<option value="${escapeHtml(pos)}">${escapeHtml(pos)}</option>`).join('')}</select><select class="select" id="sort-filter" aria-label="Sắp xếp"><option value="az">A → Z</option><option value="za">Z → A</option><option value="difficulty">Khó nhất</option><option value="mostWrong">Sai nhiều nhất</option><option value="dueSoon">Đến hạn sớm</option></select></div><div id="results"></div>`;
+    container.innerHTML = `<div class="page-header"><div><h1>Tra cứu từ vựng</h1><p>Tìm theo tiếng Anh, tiếng Việt, từ loại, tag hoặc ví dụ · ${vocabulary.length} từ.</p></div></div><div class="search-tools"><input class="search-input" id="search-field" placeholder="Tìm từ hoặc nghĩa…" aria-label="Tìm kiếm từ vựng"><button class="btn" id="clear-search">Xóa</button></div><div class="filters"><select class="select" id="state-filter" aria-label="Lọc trạng thái"><option value="all">Tất cả trạng thái</option><option value="new">${stateLabel(STATES.NEW)}</option><option value="learning">${stateLabel(STATES.LEARNING)}</option><option value="weak">${stateLabel(STATES.WEAK)}</option><option value="review">${stateLabel(STATES.REVIEW)}</option><option value="mastered">${stateLabel(STATES.MASTERED)}</option><option value="due">Đến hạn</option><option value="favorites">Yêu thích</option></select><select class="select" id="pos-filter" aria-label="Lọc từ loại"><option value="all">Tất cả từ loại</option>${positions.map(pos => `<option value="${escapeHtml(pos)}">${escapeHtml(pos)}</option>`).join('')}</select><select class="select" id="sort-filter" aria-label="Sắp xếp"><option value="az">A → Z</option><option value="za">Z → A</option><option value="difficulty">Khó nhất</option><option value="mostWrong">Sai nhiều nhất</option><option value="dueSoon">Đến hạn sớm</option></select></div><div id="results"></div>`;
     const field = container.querySelector('#search-field');
     const state = container.querySelector('#state-filter');
     const pos = container.querySelector('#pos-filter');
@@ -16608,7 +16835,7 @@ export async function createApp(root) {
       const pages = Math.max(1, Math.ceil(matches.length / pageSize));
       page = Math.min(page, pages);
       const visible = matches.slice((page - 1) * pageSize, page * pageSize);
-      results.innerHTML = matches.length ? `<p class="results-meta">${matches.length} kết quả · trang ${page}/${pages}</p><div class="vocab-list">${visible.map(item => `<div class="vocab-row"><span class="vocab-word">${escapeHtml(item.entry.word)}</span><span class="vocab-pos">${escapeHtml(item.entry.pos)}</span><span class="vocab-meaning" title="${escapeHtml(item.entry.meaning)}">${escapeHtml(item.entry.meaning)}</span><span class="state-pill state-${escapeHtml(item.state)}">${escapeHtml(item.state)}</span><button class="fav ${item.favorite ? 'active' : ''}" data-fav="${escapeHtml(item.entry.id)}" aria-label="${item.favorite ? 'Bỏ yêu thích' : 'Thêm yêu thích'}">${item.favorite ? '★' : '☆'}</button></div>`).join('')}</div>${pages > 1 ? `<div class="pagination">${Array.from({ length: pages }, (_, i) => `<button class="btn small ${i + 1 === page ? 'primary' : ''}" data-page="${i + 1}">${i + 1}</button>`).join('')}</div>` : ''}` : '<div class="empty"><strong>Không tìm thấy</strong>Thử từ khóa khác hoặc bỏ bớt bộ lọc.</div>';
+      results.innerHTML = matches.length ? `<p class="results-meta" role="status" aria-live="polite">${matches.length} kết quả · trang ${page}/${pages}</p><div class="vocab-list">${visible.map(item => `<div class="vocab-row"><span class="vocab-word">${escapeHtml(item.entry.word)}</span><span class="vocab-pos">${escapeHtml(item.entry.pos)}</span><span class="vocab-meaning" title="${escapeHtml(item.entry.meaning)}">${escapeHtml(item.entry.meaning)}</span><span class="state-pill state-${escapeHtml(item.state)}">${escapeHtml(stateLabel(item.state))}</span><button class="fav ${item.favorite ? 'active' : ''}" data-fav="${escapeHtml(item.entry.id)}" aria-label="${item.favorite ? 'Bỏ yêu thích' : 'Thêm yêu thích'}">${item.favorite ? '★' : '☆'}</button></div>`).join('')}</div>${pages > 1 ? `<div class="pagination" aria-label="Trang kết quả">${Array.from({ length: pages }, (_, i) => `<button class="btn small ${i + 1 === page ? 'primary' : ''}" data-page="${i + 1}" aria-label="Trang ${i + 1}" ${i + 1 === page ? 'aria-current="page"' : ''}>${i + 1}</button>`).join('')}</div>` : ''}` : '<div class="empty" role="status"><strong>Không tìm thấy</strong>Thử từ khóa khác hoặc bỏ bớt bộ lọc.</div>';
       results.querySelectorAll('[data-fav]').forEach(button => button.addEventListener('click', () => {
         const id = button.dataset.fav;
         toggleFavorite(id, false); // No shell rerender: the search state must survive.
@@ -16624,7 +16851,7 @@ export async function createApp(root) {
   }
 
   function renderSettings(container) {
-    container.innerHTML = `<div class="page-header"><div><h1>Cài đặt & dữ liệu</h1><p>Tiến độ được lưu localStorage. Bạn có thể sao lưu hoặc chuyển sang thiết bị khác bằng JSON.</p></div></div><div class="settings"><section class="panel"><div class="panel-heading">Tùy chọn học</div><div class="panel-body"><div class="setting-row"><div><b>Giao diện tối</b><small>Giảm chói khi học buổi tối.</small></div><label class="switch"><input type="checkbox" id="dark-setting" ${prefs.darkMode ? 'checked' : ''}><span></span></label></div><div class="setting-row"><div><b>Phím tắt bàn phím</b><small>Tắt nếu bạn thường gõ trên trang học.</small></div><label class="switch"><input type="checkbox" id="keys-setting" ${prefs.keyboardShortcuts ? 'checked' : ''}><span></span></label></div><div class="setting-row"><div><b>Số thẻ mặc định mỗi phiên</b><small>Áp dụng cho nút phiên học mặc định.</small></div><select class="setting-select" id="size-setting" style="width:100px"><option ${prefs.sessionSize === 10 ? 'selected' : ''}>10</option><option ${prefs.sessionSize === 20 ? 'selected' : ''}>20</option><option ${prefs.sessionSize === 30 ? 'selected' : ''}>30</option><option ${prefs.sessionSize === 50 ? 'selected' : ''}>50</option></select></div></div></section><section class="panel"><div class="panel-heading">Sao lưu tiến độ</div><div class="panel-body"><p style="margin-top:0;color:var(--muted);font-size:.82rem">Export lưu progress, favorites, streak, lịch sử và cài đặt. Import được kiểm tra toàn bộ trước khi ghi đè.</p><div class="setting-actions"><button class="btn primary" id="export-setting">Xuất progress JSON</button><label class="btn" for="import-setting">Nhập progress JSON<input id="import-setting" type="file" accept="application/json,.json" hidden></label><button class="btn danger" id="reset-setting">Xóa progress</button></div></div></section><section class="panel"><div class="panel-heading">Thông tin dữ liệu</div><div class="panel-body" style="font-size:.82rem;color:var(--muted)"><p style="margin-top:0"><b style="color:var(--text)">${vocabulary.length} từ</b> · phiên bản dữ liệu <code class="code">${escapeHtml(loaded.version)}</code></p><p>Toàn bộ từ vựng, kiểu dáng và mã ứng dụng được nhúng trong một file HTML. Ứng dụng không tải dữ liệu hoặc tài nguyên bên ngoài.</p></div></section></div>`;
+    container.innerHTML = `<div class="page-header"><div><h1>Cài đặt & dữ liệu</h1><p>Tiến độ được lưu trong bộ nhớ của trình duyệt. Bạn có thể sao lưu hoặc chuyển sang thiết bị khác bằng tệp JSON.</p></div></div><div class="settings"><section class="panel"><div class="panel-heading">Tùy chọn học</div><div class="panel-body"><div class="setting-row"><div><b id="dark-label">Giao diện tối</b><small id="dark-help">Giảm chói khi học buổi tối.</small></div><label class="switch"><input type="checkbox" id="dark-setting" aria-labelledby="dark-label" aria-describedby="dark-help" ${prefs.darkMode ? 'checked' : ''}><span aria-hidden="true"></span></label></div><div class="setting-row"><div><b id="keys-label">Phím tắt bàn phím</b><small id="keys-help">Tắt nếu bạn thường gõ trên trang học.</small></div><label class="switch"><input type="checkbox" id="keys-setting" aria-labelledby="keys-label" aria-describedby="keys-help" ${prefs.keyboardShortcuts ? 'checked' : ''}><span aria-hidden="true"></span></label></div><div class="setting-row"><div><div><b id="size-label">Số thẻ mặc định mỗi phiên</b></div><small id="size-help">Áp dụng cho Đến hạn, Từ yếu, Từ mới, Ngẫu nhiên và Yêu thích. Phiên nhanh giữ số thẻ ghi trên nút.</small></div><select class="setting-select" id="size-setting" aria-labelledby="size-label" aria-describedby="size-help" style="width:100px"><option ${prefs.sessionSize === 10 ? 'selected' : ''}>10</option><option ${prefs.sessionSize === 20 ? 'selected' : ''}>20</option><option ${prefs.sessionSize === 30 ? 'selected' : ''}>30</option><option ${prefs.sessionSize === 50 ? 'selected' : ''}>50</option></select></div></div></section><section class="panel"><div class="panel-heading">Sao lưu tiến độ</div><div class="panel-body"><p class="settings-copy">Tệp sao lưu gồm tiến độ, từ yêu thích, chuỗi ngày, lịch sử và cài đặt. Tệp nhập được kiểm tra trước khi thay dữ liệu hiện tại.</p><div class="setting-actions"><button class="btn primary" id="export-setting">${iconMarkup('download')}Xuất bản sao JSON</button><label class="btn" for="import-setting">${iconMarkup('overview')}Nhập bản sao JSON<input id="import-setting" type="file" accept="application/json,.json" hidden></label><button class="btn danger" id="reset-setting">Xóa dữ liệu học</button></div></div></section><section class="panel"><div class="panel-heading">Thông tin dữ liệu</div><div class="panel-body data-info"><p><b>${vocabulary.length} từ</b> · phiên bản dữ liệu <code class="code">${escapeHtml(loaded.version)}</code></p><p>Từ vựng, giao diện và mã ứng dụng nằm trong chính tệp HTML này. Ứng dụng không tải dữ liệu hoặc tài nguyên bên ngoài.</p></div></section></div>`;
     container.querySelector('#dark-setting').addEventListener('change', event => { prefs.darkMode = event.target.checked; persist(); applyTheme(); renderShell(); });
     container.querySelector('#keys-setting').addEventListener('change', event => { prefs.keyboardShortcuts = event.target.checked; persist(); });
     container.querySelector('#size-setting').addEventListener('change', event => { prefs.sessionSize = Number(event.target.value); persist(); });
@@ -16640,7 +16867,7 @@ export async function createApp(root) {
     const anchor = document.createElement('a');
     anchor.href = url; anchor.download = `chuyen-anh-progress-${todayKey()}.json`; anchor.click();
     setTimeout(() => URL.revokeObjectURL(url), 0);
-    toast('Đã xuất progress JSON.', 'success');
+    toast('Đã xuất bản sao JSON.', 'success');
   }
 
   async function importFile(event) {
@@ -16663,7 +16890,7 @@ export async function createApp(root) {
         renderShell();
         return;
       }
-      toast('Đã nhập progress thành công.', 'success');
+      toast('Đã khôi phục tiến độ từ bản sao lưu.', 'success');
       renderShell();
     } catch (error) {
       toast(`Import thất bại: ${error.message}`, 'error');
@@ -16673,7 +16900,7 @@ export async function createApp(root) {
   }
 
   function resetProgress() {
-    if (!confirm('Xóa toàn bộ progress, favorites, streak và lịch sử trên thiết bị này?')) return;
+    if (!confirm('Xóa toàn bộ tiến độ, danh sách yêu thích, chuỗi ngày học và lịch sử trên thiết bị này?')) return;
     clearActiveSession(); // A cleared profile must not leave a running session behind.
     progress = ensureProgress({}, vocabulary);
     favorites = new Set(); history = []; streak = { current: 0, longest: 0, lastDate: null };
@@ -16684,7 +16911,7 @@ export async function createApp(root) {
       renderShell();
       return;
     }
-    toast('Đã xóa progress.', 'success');
+    toast('Đã xóa dữ liệu học.', 'success');
     renderShell();
   }
 
