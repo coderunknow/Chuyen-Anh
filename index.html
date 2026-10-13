@@ -15540,6 +15540,12 @@ const STORAGE_KEYS = Object.freeze({
   streak: 'chuyen-anh.streak.v1'
 });
 
+// Session history retention. Memory, storage, the exported backup and the importer
+// all keep the same last-N window: otherwise a session could hold more entries
+// than the importer accepts and a backup/restore round trip would drop the oldest
+// sessions without telling anyone.
+const HISTORY_LIMIT = 50;
+
 export const DEFAULT_PREFS = Object.freeze({
   sessionSize: 20,
   keyboardShortcuts: true,
@@ -16013,12 +16019,12 @@ function sanitizeHistoryEntry(value) {
 export function loadHistory(storage = memorySafeStorage()) {
   const value = readJson(storage, STORAGE_KEYS.history, []);
   if (!Array.isArray(value)) return [];
-  return value.map(sanitizeHistoryEntry).filter(Boolean).slice(-50);
+  return value.map(sanitizeHistoryEntry).filter(Boolean).slice(-HISTORY_LIMIT);
 }
 
 export function saveHistory(history, storage = memorySafeStorage()) {
   const entries = Array.isArray(history) ? history.map(sanitizeHistoryEntry).filter(Boolean) : [];
-  return writeJson(storage, STORAGE_KEYS.history, entries.slice(-50));
+  return writeJson(storage, STORAGE_KEYS.history, entries.slice(-HISTORY_LIMIT));
 }
 
 function sanitizeStreak(value) {
@@ -16082,7 +16088,7 @@ export function validateImportPayload(payload, validIds = null) {
     progress,
     prefs: { ...importedPrefs, sessionSize: Number(importedPrefs.sessionSize) },
     favorites: new Set(validIds ? payload.favorites.filter(id => validIds.has(id)) : payload.favorites),
-    history: history.slice(-50),
+    history: history.slice(-HISTORY_LIMIT),
     streak
   };
 }
@@ -16561,6 +16567,9 @@ export async function createApp(root) {
     const accuracy = total ? Math.round(sessionStats.correct / total * 100) : 0;
     sessionSummary = { ...sessionStats, accuracy, duration: Math.max(1, Math.round((Date.now() - sessionStats.startedAt) / 1000)) };
     history.push({ date: new Date().toISOString(), total, correct: sessionStats.correct, wrong: sessionStats.wrong, accuracy, mode: sessionStats.mode, durationSec: sessionSummary.duration });
+    // Trim in memory too, so the dashboard count, what is stored and what an
+    // export contains all describe the same retention window.
+    history = history.slice(-HISTORY_LIMIT);
     saveHistory(history, storage);
     session = null; question = null; answered = false; firstLook = false;
     renderShell();

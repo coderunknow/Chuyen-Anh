@@ -33,6 +33,8 @@ const {
   saveFavorites,
   saveHistory,
   saveStreak,
+  loadHistory,
+  ensureProgress,
   loadProgress,
   loadVocabulary,
   vocabularyMetadataHtml,
@@ -277,6 +279,113 @@ test('global shortcuts only act on the session that is actually on screen', () =
   // The visible flashcard lives in the learn view; another view must not be
   // replaced or graded by Space/Enter/1-4/R.
   assert.match(appScript[1], /if \(!prefs\.keyboardShortcuts \|\| view !== 'learn' \|\| !session\?\.length\) return;/);
+});
+
+test('an exported backup round-trips through the importer without loss or mutation', () => {
+  const ids = new Set(vocab.map(entry => entry.id));
+  // Progress as the scheduler actually produces it, so clamping cannot silently rewrite it.
+  let scheduled = createInitialProgress('1', 0);
+  for (const correct of [true, true, true, true, true, true, false, true]) scheduled = updateProgress(scheduled, correct, 1200, 1_700_000_000_000);
+  const progress = { ...Object.fromEntries(vocab.map(entry => [entry.id, createInitialProgress(entry.id, 0)])), '1': scheduled };
+  const streak = { current: 3, longest: 5, lastDate: '2026-10-13' };
+  const prefs = { sessionSize: 20, keyboardShortcuts: true, darkMode: false };
+  const history = [
+    { date: '2026-10-12T00:00:00.000Z', total: 10, correct: 8, wrong: 2, accuracy: 80, mode: 'yêu thích', durationSec: 120 },
+    { date: '2026-10-13T00:00:00.000Z', total: 5, correct: 5, wrong: 0, accuracy: 100, mode: 'mixed', durationSec: 45 }
+  ];
+  const first = exportProgressBundle({ progress, prefs, favorites: new Set(['2']), history, streak });
+  assert.equal(first.app, 'chuyen-anh-flashcard');
+  assert.equal(first.version, 1);
+  assert.ok(typeof first.exportedAt === 'string');
+
+  const imported = validateImportPayload(JSON.parse(JSON.stringify(first)), ids);
+  // The scheduler's own output must survive the importer byte for byte.
+  assert.deepEqual(imported.progress['1'], scheduled);
+  assert.deepEqual(imported.streak, streak);
+  assert.deepEqual(imported.prefs, prefs);
+  assert.deepEqual(imported.history, history);
+  assert.deepEqual([...imported.favorites], ['2']);
+  // Vietnamese text in user data survives the round trip.
+  assert.equal(imported.history[0].mode, 'yêu thích');
+
+  // Exporting the imported state again must reproduce the same logical bundle.
+  const second = exportProgressBundle({
+    progress: ensureProgress(imported.progress, vocab, 0),
+    prefs: imported.prefs,
+    favorites: imported.favorites,
+    history: imported.history,
+    streak: imported.streak
+  });
+  const stripVolatile = ({ exportedAt, ...rest }) => rest;
+  assert.deepEqual(stripVolatile(second), stripVolatile(first), 'a repeated import/export must not mutate the bundle');
+  // Only the volatile timestamp may differ between two exports.
+  assert.notEqual(second.exportedAt, undefined);
+
+  // Unknown fields are dropped by the fixed record shapes instead of being carried around.
+  const extras = validateImportPayload(JSON.parse(JSON.stringify({
+    ...first,
+    progress: { '1': { ...scheduled, unknownField: 'x' } },
+    history: [{ ...history[0], unknownField: 'x' }],
+    streak: { ...streak, unknownField: 'x' }
+  })), new Set(['1']));
+  assert.equal('unknownField' in extras.progress['1'], false);
+  assert.equal('unknownField' in extras.history[0], false);
+  assert.equal('unknownField' in extras.streak, false);
+});
+
+test('misidentified and malformed backups are rejected with an accurate message', () => {
+  const bundle = exportProgressBundle({ progress: { '1': createInitialProgress('1', 0) }, prefs: {}, favorites: new Set(['1']), history: [], streak: { current: 0, longest: 0, lastDate: null } });
+  const cases = [
+    ['not an object', [], /JSON object/],
+    ['wrong application id', { ...bundle, app: 'other-app' }, /không đúng phiên bản/],
+    ['unsupported version', { ...bundle, version: 2 }, /không đúng phiên bản/],
+    ['missing progress', { ...bundle, progress: undefined }, /thiếu progress/],
+    ['invalid state', { ...bundle, progress: { '1': { state: 'nope' } } }, /không hợp lệ/],
+    ['negative counters', { ...bundle, progress: { '1': { state: 'new', correctCount: -1 } } }, /không hợp lệ/],
+    ['history is not an array', { ...bundle, history: 'nope' }, /history không hợp lệ/],
+    ['history entry without a real date', { ...bundle, history: [{ date: 'not-a-date', total: 1, correct: 0, wrong: 1, accuracy: 0, durationSec: 1, mode: 'x' }] }, /history không hợp lệ/],
+    ['streak is not numeric', { ...bundle, streak: { current: -1, longest: 0 } }, /streak không hợp lệ/],
+    ['unsupported session size', { ...bundle, prefs: { sessionSize: 7, keyboardShortcuts: true, darkMode: false } }, /prefs chứa giá trị không hợp lệ/]
+  ];
+  for (const [label, payload, pattern] of cases) {
+    assert.throws(() => validateImportPayload(payload, new Set(['1'])), pattern, label);
+  }
+  // Validation happens before any write, so a rejected file cannot touch stored data.
+  const storage = store();
+  saveProgress({ '1': createInitialProgress('1', 0) }, storage);
+  const before = JSON.stringify(loadProgress(storage));
+  assert.throws(() => validateImportPayload({ ...bundle, app: 'other-app' }, new Set(['1'])));
+  assert.equal(JSON.stringify(loadProgress(storage)), before);
+});
+
+test('session history keeps one retention window across storage, export and import', () => {
+  const entries = Array.from({ length: 60 }, (_, index) => ({
+    date: new Date(1_700_000_000_000 + index * 60_000).toISOString(),
+    total: 1, correct: 1, wrong: 0, accuracy: 100, mode: 'due', durationSec: 10
+  }));
+  const storage = store();
+  assert.equal(saveHistory(entries, storage), true);
+  const stored = loadHistory(storage);
+  assert.equal(stored.length, 50, 'storage keeps the last 50 sessions');
+  assert.deepEqual(stored.map(entry => entry.date), entries.slice(-50).map(entry => entry.date));
+
+  // A bundle built from the retained window round-trips unchanged: the oldest
+  // sessions are already gone before the export, so import cannot drop any.
+  const bundle = exportProgressBundle({
+    progress: { '1': createInitialProgress('1', 0) }, prefs: {}, favorites: new Set(['1']), history: stored, streak: { current: 0, longest: 0, lastDate: null }
+  });
+  assert.equal(bundle.history.length, 50);
+  const imported = validateImportPayload(JSON.parse(JSON.stringify(bundle)), new Set(['1']));
+  assert.deepEqual(imported.history, stored, 'an exported backup must import without losing sessions');
+
+  // The in-memory window is trimmed with the same constant, so an export can never
+  // contain more rows than the importer keeps.
+  const finishStart = appScript[1].indexOf('function finishSession()');
+  const finishBody = appScript[1].slice(finishStart, appScript[1].indexOf('function renderSummary', finishStart));
+  assert.match(finishBody, /history = history\.slice\(-HISTORY_LIMIT\);/);
+  assert.match(appScript[1], /const HISTORY_LIMIT = 50;/);
+  assert.equal((appScript[1].match(/-HISTORY_LIMIT\)/g) || []).length, 4, 'memory, load, save and import share the window');
+  assert.doesNotMatch(appScript[1], /slice\(-50\)/, 'no bare retention literal may bypass the shared constant');
 });
 
 test('expanded metadata is rendered safely on answer feedback', () => {

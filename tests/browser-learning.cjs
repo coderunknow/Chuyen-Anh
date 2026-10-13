@@ -477,6 +477,92 @@ async function main() {
     assert.equal(await page.locator('#next-card').count(), 0);
     assert.deepEqual(await page.evaluate(() => ({ ...localStorage })), storageBeforeShortcuts, 'the hidden card was not graded or rescheduled');
 
+    // ---- A backup file round-trips: export → wipe → import → export preserves data.
+    await page.evaluate(() => localStorage.clear());
+    await page.reload();
+    await seed(['1']);
+    await answer('1', true);
+    await next();
+    await page.locator('.summary').waitFor();
+    const stateAfterSession = await page.evaluate(() => ({ ...localStorage }));
+    await page.locator('[data-view="settings"]').click();
+    const roundTripDownload = page.waitForEvent('download');
+    await page.locator('#export-setting').click();
+    const roundTripFile = await roundTripDownload;
+    assert.match(await roundTripFile.suggestedFilename(), /^chuyen-anh-progress-\d{4}-\d{2}-\d{2}\.json$/);
+    const roundTripPath = await roundTripFile.path();
+    const roundTripBundle = JSON.parse(fs.readFileSync(roundTripPath, 'utf8'));
+    assert.equal(roundTripBundle.app, 'chuyen-anh-flashcard');
+    assert.equal(roundTripBundle.version, 1);
+    assert.equal(roundTripBundle.history.length, 1);
+    assert.equal(roundTripBundle.history[0].total, 1);
+    assert.equal(roundTripBundle.history[0].correct, 1);
+    assert.deepEqual(roundTripBundle.favorites, ['1']);
+    assert.equal(roundTripBundle.progress['1'].correctCount, 1);
+    assert.equal(roundTripBundle.progress['1'].state, 'learning');
+    assert.equal(typeof roundTripBundle.exportedAt, 'string');
+
+    // Wipe the device, then restore from the file: the state must come back.
+    await page.evaluate(() => localStorage.clear());
+    await page.reload();
+    await page.locator('[data-session="new"]').waitFor();
+    await page.locator('[data-view="settings"]').click();
+    await page.locator('#import-setting').setInputFiles({ name: 'roundTripBundle.json', mimeType: 'application/json', buffer: fs.readFileSync(roundTripPath) });
+    await page.locator('.toast').filter({ hasText: 'Đã nhập' }).waitFor();
+    await page.reload();
+    const restored = await page.evaluate(() => ({ ...localStorage }));
+    assert.deepEqual(restored, stateAfterSession, 'the restored device state must match the exported one');
+
+    // Exporting the restored state again reproduces the same logical bundle.
+    await page.locator('[data-view="settings"]').click();
+    const secondDownload = page.waitForEvent('download');
+    await page.locator('#export-setting').click();
+    const secondBundle = JSON.parse(fs.readFileSync(await (await secondDownload).path(), 'utf8'));
+    const stripVolatile = ({ exportedAt, ...rest }) => rest;
+    assert.deepEqual(stripVolatile(secondBundle), stripVolatile(roundTripBundle), 'a repeated import/export must not mutate the bundle');
+
+    // A roundTripBundle from a different application or version is refused without touching data.
+    const beforeWrongVersion = await page.evaluate(() => ({ ...localStorage }));
+    await page.locator('#import-setting').setInputFiles({ name: 'v2.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify({ ...roundTripBundle, version: 2 })) });
+    await page.locator('.toast').filter({ hasText: 'Import thất bại' }).waitFor();
+    assert.match(await page.locator('.toast').innerText(), /không đúng phiên bản/);
+    assert.deepEqual(await page.evaluate(() => ({ ...localStorage })), beforeWrongVersion, 'a refused import changes nothing');
+
+    // ---- History keeps one retention window, so a roundTripBundle cannot drop sessions.
+    const seededHistory = Array.from({ length: 50 }, (_, index) => ({
+      date: new Date(Date.UTC(2026, 8, 1, 0, index)).toISOString(),
+      total: 1, correct: 1, wrong: 0, accuracy: 100, mode: 'due', durationSec: 10
+    }));
+    await page.evaluate(entries => {
+      localStorage.clear();
+      localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['1']));
+      localStorage.setItem('chuyen-anh.history.v1', JSON.stringify(entries));
+    }, seededHistory);
+    await page.reload();
+    await page.locator('[data-session="favorites"]').click();
+    await answer('1', true);
+    await next();
+    await page.locator('.summary').waitFor();
+    const retained = await read('history');
+    assert.equal(retained.length, 50, 'the newest session enters the window and the oldest leaves it');
+    assert.equal(retained[retained.length - 1].mode, 'favorites', 'the session just finished is kept');
+    assert.equal(retained[0].date, seededHistory[1].date, 'only the oldest entry is dropped');
+    await page.locator('[data-view="settings"]').click();
+    const retentionDownload = page.waitForEvent('download');
+    await page.locator('#export-setting').click();
+    const retentionBundle = JSON.parse(fs.readFileSync(await (await retentionDownload).path(), 'utf8'));
+    assert.equal(retentionBundle.history.length, 50, 'the export contains exactly the retained window');
+    // Restoring that roundTripBundle keeps every session it contains.
+    await page.evaluate(() => localStorage.clear());
+    await page.reload();
+    await page.locator('[data-view="settings"]').click();
+    await page.locator('#import-setting').setInputFiles({ name: 'retention.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify(retentionBundle)) });
+    await page.locator('.toast').filter({ hasText: 'Đã nhập' }).waitFor();
+    await page.reload();
+    const restoredHistory = await read('history');
+    assert.equal(restoredHistory.length, 50, 'no session is lost when the roundTripBundle is restored');
+    assert.deepEqual(restoredHistory, retentionBundle.history);
+
     // ---- A failed device write is reported, never replaced by a success message.
     const failing = await browser.newPage({ viewport: { width: 1280, height: 900 }, reducedMotion: 'reduce' });
     const failingErrors = [];
@@ -487,6 +573,11 @@ async function main() {
       Storage.prototype.setItem = function () { throw new Error('quota exceeded'); };
     });
     await failing.goto(`http://127.0.0.1:${server.address().port}`);
+    // This page inherits the origin's storage from the previous scenario, so start
+    // from an empty device to make "nothing was stored" a real assertion.
+    // Storage.prototype.clear is not overridden; only writes fail.
+    await failing.evaluate(() => localStorage.clear());
+    await failing.reload();
     await failing.locator('[data-session="new"]').waitFor();
     await failing.locator('[data-view="settings"]').click();
     await failing.locator('#reset-setting').click();
@@ -496,6 +587,7 @@ async function main() {
     await failing.locator('.toast').filter({ hasText: 'Không thể lưu dữ liệu vừa nhập' }).waitFor();
     assert.equal(await failing.locator('.toast').filter({ hasText: 'Đã nhập progress thành công' }).count(), 0, 'a failed import is not reported as success');
     assert.equal(await failing.evaluate(() => localStorage.getItem('chuyen-anh.progress.v1')), null, 'nothing was stored');
+    const deviceAfterFailedWrites = await failing.evaluate(() => ({ ...localStorage }));
     await failing.locator('[data-view="search"]').click();
     await failing.locator('#search-field').fill('advers');
     await failing.locator('#results .vocab-row').first().waitFor();
@@ -506,11 +598,12 @@ async function main() {
     assert.equal(await failing.locator('#results .vocab-row').count(), failingRows);
     await failing.locator('#theme-button').click();
     await failing.locator('.toast').filter({ hasText: 'Không thể lưu giao diện' }).waitFor();
+    assert.deepEqual(await failing.evaluate(() => ({ ...localStorage })), deviceAfterFailedWrites, 'failed writes leave the device unchanged');
     assert.deepEqual(failingErrors, []);
     await failing.close();
 
     assert.deepEqual(errors, []);
-    console.log(`PASS: Chromium ${browser.version()} — first-look introduction for new words, same-part-of-speech distractors, cloze options absent from the sentence, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, mobile layout, reduced-motion setting, search state across a favorite toggle, session clearing on reset/import, the ID 448 historical label, named option groups, shortcuts limited to the visible card, and failed writes reported truthfully; no page errors.`);
+    console.log(`PASS: Chromium ${browser.version()} — first-look introduction for new words, same-part-of-speech distractors, cloze options absent from the sentence, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, mobile layout, reduced-motion setting, search state across a favorite toggle, session clearing on reset/import, the ID 448 historical label, named option groups, shortcuts limited to the visible card, failed writes reported truthfully, and JSON backup round-trips that keep every retained session; no page errors.`);
   } finally {
     if (browser) await browser.close();
     await new Promise(resolve => server.close(resolve));
