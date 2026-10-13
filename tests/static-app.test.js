@@ -25,9 +25,14 @@ const {
   canGradeBySelection,
   createSearchIndex,
   searchVocabulary,
+  updateSearchFavorite,
   validateImportPayload,
   exportProgressBundle,
   saveProgress,
+  savePrefs,
+  saveFavorites,
+  saveHistory,
+  saveStreak,
   loadProgress,
   loadVocabulary,
   vocabularyMetadataHtml,
@@ -43,6 +48,14 @@ const vocab = [
 function store() {
   const data = new Map();
   return { getItem: key => data.get(key) ?? null, setItem: (key, value) => data.set(key, value) };
+}
+
+// Every write throws, the way a full or blocked localStorage behaves at runtime.
+function failingStore() {
+  return {
+    getItem() { throw new Error('blocked'); },
+    setItem() { throw new Error('quota exceeded'); }
+  };
 }
 
 test('the only runtime deliverable is a self-contained HTML document', async () => {
@@ -156,6 +169,114 @@ test('stats and search include structured vocabulary metadata', () => {
   assert.equal(searchVocabulary(index, 'laborious work')[0].entry.word, 'Menial task');
   assert.equal(searchVocabulary(index, '', { state: 'weak' })[0].entry.word, 'Meticulous');
   assert.equal(normalize('Đúng đắn'), 'dung dan');
+});
+
+test('a search favorite toggle updates the cached index without dropping the result set', () => {
+  const index = createSearchIndex(vocab, {}, new Set());
+  assert.equal(searchVocabulary(index, 'METIC').length, 1);
+  assert.equal(searchVocabulary(index, 'advers').length, 1);
+
+  assert.equal(updateSearchFavorite(index, '2', true), true);
+  // The same in-memory index now answers the favorite filter with no rebuild.
+  assert.equal(searchVocabulary(index, 'METIC', { state: 'favorites' })[0].entry.word, 'Meticulous');
+  // A favorite toggle must not change what an unrelated query matches.
+  assert.equal(searchVocabulary(index, 'advers').length, 1);
+  assert.equal(searchVocabulary(index, 'advers')[0].entry.word, 'Adversity');
+  assert.equal(searchVocabulary(index, 'METIC')[0].entry.word, 'Meticulous');
+
+  assert.equal(updateSearchFavorite(index, '2', false), true);
+  assert.deepEqual(searchVocabulary(index, '', { state: 'favorites' }), []);
+  assert.equal(updateSearchFavorite(index, 'missing', true), false);
+  assert.equal(updateSearchFavorite(null, '2', true), false);
+});
+
+test('ID 448 renders its canonical meaning and labels the retained old wording', () => {
+  const entry = embeddedVocabulary.find(item => item.id === '448');
+  // The canonical vocabulary data is unchanged.
+  assert.equal(entry.meaning, 'công việc tay chân tầm thường, ít được coi trọng');
+  assert.equal(entry.notes, 'Previous app definition (data/vocabulary.json): công việc lao dịch, tay chân vất vả, ít được coi trọng');
+
+  const rendered = vocabularyMetadataHtml(entry);
+  assert.match(rendered, /Nghĩa của phiên bản ứng dụng trước/);
+  assert.match(rendered, /chỉ tham chiếu lịch sử; không phải nghĩa hiện tại/);
+  assert.match(rendered, /công việc lao dịch, tay chân vất vả, ít được coi trọng/);
+  // The internal metadata marker and the generic notes label are not learner-facing.
+  assert.doesNotMatch(rendered, /Previous app definition/);
+  assert.doesNotMatch(rendered, /data\/vocabulary\.json/);
+  assert.doesNotMatch(rendered, /<dt>Ghi chú \/ phân biệt \/ nguồn<\/dt>/);
+
+  // Ordinary notes keep the ordinary label.
+  const plain = vocabularyMetadataHtml({ notes: '**Phân biệt:** acquire là có được.' });
+  assert.match(plain, /<dt>Ghi chú \/ phân biệt \/ nguồn<\/dt>/);
+  assert.doesNotMatch(plain, /Nghĩa của phiên bản ứng dụng trước/);
+});
+
+test('answer choices are a named button group rather than a radio group', () => {
+  // The controls are ordinary buttons: they implement no radio roles, no
+  // aria-checked and no arrow-key navigation.
+  assert.match(appScript[1], /class="options" role="group" aria-label="\$\{optionsLabel\}"/);
+  assert.match(appScript[1], /const optionsLabel = question\.mode === MODES\.RECOGNITION \? 'Chọn nghĩa tiếng Việt' : 'Chọn từ tiếng Anh';/);
+  assert.doesNotMatch(appScript[1], /role="radiogroup"/);
+  assert.doesNotMatch(appScript[1], /aria-checked/);
+  assert.doesNotMatch(appScript[1], /type="radio"/);
+});
+
+test('resetting or importing progress clears the whole running session', () => {
+  const start = appScript[1].indexOf('function clearActiveSession()');
+  const end = appScript[1].indexOf('function persist()', start);
+  assert.ok(start >= 0 && end > start, 'clearActiveSession must be defined before persist');
+  const clearBody = appScript[1].slice(start, end);
+  for (const reset of [
+    'session = null;', 'question = null;', 'questionStarted = 0;',
+    'answered = false;', 'revealed = false;', 'answerResult = null;',
+    'firstLook = false;', 'sessionStats = null;', 'sessionSummary = null;'
+  ]) {
+    assert.ok(clearBody.includes(reset), `clearActiveSession must clear ${reset}`);
+  }
+
+  const importStart = appScript[1].indexOf('async function importFile(event)');
+  const resetStart = appScript[1].indexOf('function resetProgress()');
+  assert.ok(importStart >= 0 && resetStart > importStart, 'the settings flows must exist');
+  assert.match(appScript[1].slice(importStart, resetStart), /clearActiveSession\(\);/);
+  const resetBody = appScript[1].slice(resetStart, appScript[1].indexOf("document.addEventListener('keydown'", resetStart));
+  assert.match(resetBody, /clearActiveSession\(\);/);
+  // Exiting a session uses the same clearing, and the summary is not wiped by it.
+  assert.match(appScript[1], /'#exit-session'\).addEventListener\('click', \(\) => \{ clearActiveSession\(\); renderShell\(\); \}\)/);
+  assert.doesNotMatch(appScript[1], /function finishSession\(\)[\s\S]{0,400}?clearActiveSession\(\)/);
+});
+
+test('a failed write is reported instead of being followed by a success message', () => {
+  // Persistence itself returns the outcome and never claims success.
+  assert.match(appScript[1], /function persist\(\)[\s\S]*?return ok;/);
+  const storage = failingStore();
+  assert.equal(saveProgress({ '1': createInitialProgress('1', 0) }, storage), false);
+  assert.equal(savePrefs({}, storage), false);
+  assert.equal(saveFavorites(new Set(['1']), storage), false);
+  assert.equal(saveHistory([], storage), false);
+  assert.equal(saveStreak({ current: 0 }, storage), false);
+  assert.equal(saveProgress({}, null), false);
+
+  const importStart = appScript[1].indexOf('async function importFile(event)');
+  const resetStart = appScript[1].indexOf('function resetProgress()');
+  const importBody = appScript[1].slice(importStart, resetStart);
+  const resetBody = appScript[1].slice(resetStart, appScript[1].indexOf("document.addEventListener('keydown'", resetStart));
+  for (const [name, body, successToast] of [
+    ['import', importBody, "toast('Đã nhập progress thành công.', 'success')"],
+    ['reset', resetBody, "toast('Đã xóa progress.', 'success')"]
+  ]) {
+    const guard = body.indexOf('if (!persist())');
+    assert.ok(guard >= 0, `${name} must check the persistence result`);
+    assert.ok(body.indexOf(successToast) > guard, `${name} must not toast success before the write is confirmed`);
+  }
+  // The theme toggle is a direct prefs write and reports its own failure.
+  assert.match(appScript[1], /if \(!savePrefs\(prefs, storage\)\) toast\('Không thể lưu giao diện trên thiết bị này\.', 'error'\);/);
+  assert.match(appScript[1], /if \(saveFavorites\(favorites, storage\)\) \{/);
+});
+
+test('global shortcuts only act on the session that is actually on screen', () => {
+  // The visible flashcard lives in the learn view; another view must not be
+  // replaced or graded by Space/Enter/1-4/R.
+  assert.match(appScript[1], /if \(!prefs\.keyboardShortcuts \|\| view !== 'learn' \|\| !session\?\.length\) return;/);
 });
 
 test('expanded metadata is rendered safely on answer feedback', () => {
@@ -315,6 +436,48 @@ test('every multiple-choice question offers plausible, distinct options', () => 
   }
   assert.ok(statements >= vocabulary.length * 2, `expected recognition and recall for every word, generated ${statements}`);
   assert.ok(clozeStatements >= 1, 'the record that has an example sentence must still be asked as cloze');
+});
+
+test('every generated mode keeps prompt, answer and options bound to its own record', () => {
+  // 913 records x 4 requested learning modes = 3,652 generated questions. This
+  // checks application/data association; it is not a dictionary review.
+  let generated = 0;
+  let cloze = 0;
+  for (const entry of embeddedVocabulary) {
+    const snapshot = structuredClone(entry);
+    const progress = createInitialProgress(entry.id, 0);
+    for (const requested of Object.values(MODES)) {
+      const question = generateQuestion({ vocab: entry, progress }, embeddedVocabulary, requested);
+      generated += 1;
+      const correct = question.options === null ? [] : question.options.filter(option => option.correct).map(option => [option.id, option.text]);
+      if (requested === MODES.CLOZE && !entry.examples?.length) {
+        // Documented fallback: cloze needs an example sentence.
+        assert.equal(question.mode, MODES.RECOGNITION, `${entry.id} cloze fallback`);
+      }
+      if (question.mode === MODES.RECOGNITION) {
+        assert.equal(question.prompt, entry.word, `${entry.id} recognition prompt`);
+        assert.equal(question.answer, entry.meaning, `${entry.id} recognition answer`);
+        assert.deepEqual(correct, [[entry.id, entry.meaning]], `${entry.id} recognition option`);
+      } else if (question.mode === MODES.RECALL) {
+        assert.equal(question.prompt, entry.meaning, `${entry.id} recall prompt`);
+        assert.equal(question.answer, entry.word, `${entry.id} recall answer`);
+        assert.deepEqual(correct, [[entry.id, entry.word]], `${entry.id} recall option`);
+      } else if (question.mode === MODES.SPELLING) {
+        assert.equal(question.prompt, entry.meaning, `${entry.id} spelling prompt`);
+        assert.equal(question.answer, entry.word, `${entry.id} spelling answer`);
+        assert.equal(question.options, null, `${entry.id} spelling options`);
+      } else {
+        assert.equal(question.mode, MODES.CLOZE, `${entry.id} mode`);
+        assert.equal(question.answer, entry.word, `${entry.id} cloze answer`);
+        assert.deepEqual(question.example, entry.examples[0], `${entry.id} cloze example`);
+        assert.deepEqual(correct, [[entry.id, entry.word]], `${entry.id} cloze option`);
+        cloze += 1;
+      }
+    }
+    assert.deepEqual(entry, snapshot, `${entry.id} was mutated while generating questions`);
+  }
+  assert.equal(generated, embeddedVocabulary.length * 4);
+  assert.equal(cloze, 1, 'only the record with an example sentence is asked as cloze');
 });
 
 test('cloze options never repeat a word already printed in the sentence', () => {
