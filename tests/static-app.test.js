@@ -25,9 +25,16 @@ const {
   canGradeBySelection,
   createSearchIndex,
   searchVocabulary,
+  updateSearchFavorite,
   validateImportPayload,
   exportProgressBundle,
   saveProgress,
+  savePrefs,
+  saveFavorites,
+  saveHistory,
+  saveStreak,
+  loadHistory,
+  ensureProgress,
   loadProgress,
   loadVocabulary,
   vocabularyMetadataHtml,
@@ -43,6 +50,14 @@ const vocab = [
 function store() {
   const data = new Map();
   return { getItem: key => data.get(key) ?? null, setItem: (key, value) => data.set(key, value) };
+}
+
+// Every write throws, the way a full or blocked localStorage behaves at runtime.
+function failingStore() {
+  return {
+    getItem() { throw new Error('blocked'); },
+    setItem() { throw new Error('quota exceeded'); }
+  };
 }
 
 test('the only runtime deliverable is a self-contained HTML document', async () => {
@@ -156,6 +171,221 @@ test('stats and search include structured vocabulary metadata', () => {
   assert.equal(searchVocabulary(index, 'laborious work')[0].entry.word, 'Menial task');
   assert.equal(searchVocabulary(index, '', { state: 'weak' })[0].entry.word, 'Meticulous');
   assert.equal(normalize('Đúng đắn'), 'dung dan');
+});
+
+test('a search favorite toggle updates the cached index without dropping the result set', () => {
+  const index = createSearchIndex(vocab, {}, new Set());
+  assert.equal(searchVocabulary(index, 'METIC').length, 1);
+  assert.equal(searchVocabulary(index, 'advers').length, 1);
+
+  assert.equal(updateSearchFavorite(index, '2', true), true);
+  // The same in-memory index now answers the favorite filter with no rebuild.
+  assert.equal(searchVocabulary(index, 'METIC', { state: 'favorites' })[0].entry.word, 'Meticulous');
+  // A favorite toggle must not change what an unrelated query matches.
+  assert.equal(searchVocabulary(index, 'advers').length, 1);
+  assert.equal(searchVocabulary(index, 'advers')[0].entry.word, 'Adversity');
+  assert.equal(searchVocabulary(index, 'METIC')[0].entry.word, 'Meticulous');
+
+  assert.equal(updateSearchFavorite(index, '2', false), true);
+  assert.deepEqual(searchVocabulary(index, '', { state: 'favorites' }), []);
+  assert.equal(updateSearchFavorite(index, 'missing', true), false);
+  assert.equal(updateSearchFavorite(null, '2', true), false);
+});
+
+test('ID 448 renders its canonical meaning and labels the retained old wording', () => {
+  const entry = embeddedVocabulary.find(item => item.id === '448');
+  // The canonical vocabulary data is unchanged.
+  assert.equal(entry.meaning, 'công việc tay chân tầm thường, ít được coi trọng');
+  assert.equal(entry.notes, 'Previous app definition (data/vocabulary.json): công việc lao dịch, tay chân vất vả, ít được coi trọng');
+
+  const rendered = vocabularyMetadataHtml(entry);
+  assert.match(rendered, /Nghĩa của phiên bản ứng dụng trước/);
+  assert.match(rendered, /chỉ tham chiếu lịch sử; không phải nghĩa hiện tại/);
+  assert.match(rendered, /công việc lao dịch, tay chân vất vả, ít được coi trọng/);
+  // The internal metadata marker and the generic notes label are not learner-facing.
+  assert.doesNotMatch(rendered, /Previous app definition/);
+  assert.doesNotMatch(rendered, /data\/vocabulary\.json/);
+  assert.doesNotMatch(rendered, /<dt>Ghi chú \/ phân biệt \/ nguồn<\/dt>/);
+
+  // Ordinary notes keep the ordinary label.
+  const plain = vocabularyMetadataHtml({ notes: '**Phân biệt:** acquire là có được.' });
+  assert.match(plain, /<dt>Ghi chú \/ phân biệt \/ nguồn<\/dt>/);
+  assert.doesNotMatch(plain, /Nghĩa của phiên bản ứng dụng trước/);
+});
+
+test('answer choices are a named button group rather than a radio group', () => {
+  // The controls are ordinary buttons: they implement no radio roles, no
+  // aria-checked and no arrow-key navigation.
+  assert.match(appScript[1], /class="options" role="group" aria-label="\$\{optionsLabel\}"/);
+  assert.match(appScript[1], /const optionsLabel = question\.mode === MODES\.RECOGNITION \? 'Chọn nghĩa tiếng Việt' : 'Chọn từ tiếng Anh';/);
+  assert.doesNotMatch(appScript[1], /role="radiogroup"/);
+  assert.doesNotMatch(appScript[1], /aria-checked/);
+  assert.doesNotMatch(appScript[1], /type="radio"/);
+});
+
+test('resetting or importing progress clears the whole running session', () => {
+  const start = appScript[1].indexOf('function clearActiveSession()');
+  const end = appScript[1].indexOf('function persist()', start);
+  assert.ok(start >= 0 && end > start, 'clearActiveSession must be defined before persist');
+  const clearBody = appScript[1].slice(start, end);
+  for (const reset of [
+    'session = null;', 'question = null;', 'questionStarted = 0;',
+    'answered = false;', 'revealed = false;', 'answerResult = null;',
+    'firstLook = false;', 'sessionStats = null;', 'sessionSummary = null;'
+  ]) {
+    assert.ok(clearBody.includes(reset), `clearActiveSession must clear ${reset}`);
+  }
+
+  const importStart = appScript[1].indexOf('async function importFile(event)');
+  const resetStart = appScript[1].indexOf('function resetProgress()');
+  assert.ok(importStart >= 0 && resetStart > importStart, 'the settings flows must exist');
+  assert.match(appScript[1].slice(importStart, resetStart), /clearActiveSession\(\);/);
+  const resetBody = appScript[1].slice(resetStart, appScript[1].indexOf("document.addEventListener('keydown'", resetStart));
+  assert.match(resetBody, /clearActiveSession\(\);/);
+  // Exiting a session uses the same clearing, and the summary is not wiped by it.
+  assert.match(appScript[1], /'#exit-session'\).addEventListener\('click', \(\) => \{ clearActiveSession\(\); renderShell\(\); \}\)/);
+  assert.doesNotMatch(appScript[1], /function finishSession\(\)[\s\S]{0,400}?clearActiveSession\(\)/);
+});
+
+test('a failed write is reported instead of being followed by a success message', () => {
+  // Persistence itself returns the outcome and never claims success.
+  assert.match(appScript[1], /function persist\(\)[\s\S]*?return ok;/);
+  const storage = failingStore();
+  assert.equal(saveProgress({ '1': createInitialProgress('1', 0) }, storage), false);
+  assert.equal(savePrefs({}, storage), false);
+  assert.equal(saveFavorites(new Set(['1']), storage), false);
+  assert.equal(saveHistory([], storage), false);
+  assert.equal(saveStreak({ current: 0 }, storage), false);
+  assert.equal(saveProgress({}, null), false);
+
+  const importStart = appScript[1].indexOf('async function importFile(event)');
+  const resetStart = appScript[1].indexOf('function resetProgress()');
+  const importBody = appScript[1].slice(importStart, resetStart);
+  const resetBody = appScript[1].slice(resetStart, appScript[1].indexOf("document.addEventListener('keydown'", resetStart));
+  for (const [name, body, successToast] of [
+    ['import', importBody, "toast('Đã nhập progress thành công.', 'success')"],
+    ['reset', resetBody, "toast('Đã xóa progress.', 'success')"]
+  ]) {
+    const guard = body.indexOf('if (!persist())');
+    assert.ok(guard >= 0, `${name} must check the persistence result`);
+    assert.ok(body.indexOf(successToast) > guard, `${name} must not toast success before the write is confirmed`);
+  }
+  // The theme toggle is a direct prefs write and reports its own failure.
+  assert.match(appScript[1], /if \(!savePrefs\(prefs, storage\)\) toast\('Không thể lưu giao diện trên thiết bị này\.', 'error'\);/);
+  assert.match(appScript[1], /if \(saveFavorites\(favorites, storage\)\) \{/);
+});
+
+test('global shortcuts only act on the session that is actually on screen', () => {
+  // The visible flashcard lives in the learn view; another view must not be
+  // replaced or graded by Space/Enter/1-4/R.
+  assert.match(appScript[1], /if \(!prefs\.keyboardShortcuts \|\| view !== 'learn' \|\| !session\?\.length\) return;/);
+});
+
+test('an exported backup round-trips through the importer without loss or mutation', () => {
+  const ids = new Set(vocab.map(entry => entry.id));
+  // Progress as the scheduler actually produces it, so clamping cannot silently rewrite it.
+  let scheduled = createInitialProgress('1', 0);
+  for (const correct of [true, true, true, true, true, true, false, true]) scheduled = updateProgress(scheduled, correct, 1200, 1_700_000_000_000);
+  const progress = { ...Object.fromEntries(vocab.map(entry => [entry.id, createInitialProgress(entry.id, 0)])), '1': scheduled };
+  const streak = { current: 3, longest: 5, lastDate: '2026-10-13' };
+  const prefs = { sessionSize: 20, keyboardShortcuts: true, darkMode: false };
+  const history = [
+    { date: '2026-10-12T00:00:00.000Z', total: 10, correct: 8, wrong: 2, accuracy: 80, mode: 'yêu thích', durationSec: 120 },
+    { date: '2026-10-13T00:00:00.000Z', total: 5, correct: 5, wrong: 0, accuracy: 100, mode: 'mixed', durationSec: 45 }
+  ];
+  const first = exportProgressBundle({ progress, prefs, favorites: new Set(['2']), history, streak });
+  assert.equal(first.app, 'chuyen-anh-flashcard');
+  assert.equal(first.version, 1);
+  assert.ok(typeof first.exportedAt === 'string');
+
+  const imported = validateImportPayload(JSON.parse(JSON.stringify(first)), ids);
+  // The scheduler's own output must survive the importer byte for byte.
+  assert.deepEqual(imported.progress['1'], scheduled);
+  assert.deepEqual(imported.streak, streak);
+  assert.deepEqual(imported.prefs, prefs);
+  assert.deepEqual(imported.history, history);
+  assert.deepEqual([...imported.favorites], ['2']);
+  // Vietnamese text in user data survives the round trip.
+  assert.equal(imported.history[0].mode, 'yêu thích');
+
+  // Exporting the imported state again must reproduce the same logical bundle.
+  const second = exportProgressBundle({
+    progress: ensureProgress(imported.progress, vocab, 0),
+    prefs: imported.prefs,
+    favorites: imported.favorites,
+    history: imported.history,
+    streak: imported.streak
+  });
+  const stripVolatile = ({ exportedAt, ...rest }) => rest;
+  assert.deepEqual(stripVolatile(second), stripVolatile(first), 'a repeated import/export must not mutate the bundle');
+  // Only the volatile timestamp may differ between two exports.
+  assert.notEqual(second.exportedAt, undefined);
+
+  // Unknown fields are dropped by the fixed record shapes instead of being carried around.
+  const extras = validateImportPayload(JSON.parse(JSON.stringify({
+    ...first,
+    progress: { '1': { ...scheduled, unknownField: 'x' } },
+    history: [{ ...history[0], unknownField: 'x' }],
+    streak: { ...streak, unknownField: 'x' }
+  })), new Set(['1']));
+  assert.equal('unknownField' in extras.progress['1'], false);
+  assert.equal('unknownField' in extras.history[0], false);
+  assert.equal('unknownField' in extras.streak, false);
+});
+
+test('misidentified and malformed backups are rejected with an accurate message', () => {
+  const bundle = exportProgressBundle({ progress: { '1': createInitialProgress('1', 0) }, prefs: {}, favorites: new Set(['1']), history: [], streak: { current: 0, longest: 0, lastDate: null } });
+  const cases = [
+    ['not an object', [], /JSON object/],
+    ['wrong application id', { ...bundle, app: 'other-app' }, /không đúng phiên bản/],
+    ['unsupported version', { ...bundle, version: 2 }, /không đúng phiên bản/],
+    ['missing progress', { ...bundle, progress: undefined }, /thiếu progress/],
+    ['invalid state', { ...bundle, progress: { '1': { state: 'nope' } } }, /không hợp lệ/],
+    ['negative counters', { ...bundle, progress: { '1': { state: 'new', correctCount: -1 } } }, /không hợp lệ/],
+    ['history is not an array', { ...bundle, history: 'nope' }, /history không hợp lệ/],
+    ['history entry without a real date', { ...bundle, history: [{ date: 'not-a-date', total: 1, correct: 0, wrong: 1, accuracy: 0, durationSec: 1, mode: 'x' }] }, /history không hợp lệ/],
+    ['streak is not numeric', { ...bundle, streak: { current: -1, longest: 0 } }, /streak không hợp lệ/],
+    ['unsupported session size', { ...bundle, prefs: { sessionSize: 7, keyboardShortcuts: true, darkMode: false } }, /prefs chứa giá trị không hợp lệ/]
+  ];
+  for (const [label, payload, pattern] of cases) {
+    assert.throws(() => validateImportPayload(payload, new Set(['1'])), pattern, label);
+  }
+  // Validation happens before any write, so a rejected file cannot touch stored data.
+  const storage = store();
+  saveProgress({ '1': createInitialProgress('1', 0) }, storage);
+  const before = JSON.stringify(loadProgress(storage));
+  assert.throws(() => validateImportPayload({ ...bundle, app: 'other-app' }, new Set(['1'])));
+  assert.equal(JSON.stringify(loadProgress(storage)), before);
+});
+
+test('session history keeps one retention window across storage, export and import', () => {
+  const entries = Array.from({ length: 60 }, (_, index) => ({
+    date: new Date(1_700_000_000_000 + index * 60_000).toISOString(),
+    total: 1, correct: 1, wrong: 0, accuracy: 100, mode: 'due', durationSec: 10
+  }));
+  const storage = store();
+  assert.equal(saveHistory(entries, storage), true);
+  const stored = loadHistory(storage);
+  assert.equal(stored.length, 50, 'storage keeps the last 50 sessions');
+  assert.deepEqual(stored.map(entry => entry.date), entries.slice(-50).map(entry => entry.date));
+
+  // A bundle built from the retained window round-trips unchanged: the oldest
+  // sessions are already gone before the export, so import cannot drop any.
+  const bundle = exportProgressBundle({
+    progress: { '1': createInitialProgress('1', 0) }, prefs: {}, favorites: new Set(['1']), history: stored, streak: { current: 0, longest: 0, lastDate: null }
+  });
+  assert.equal(bundle.history.length, 50);
+  const imported = validateImportPayload(JSON.parse(JSON.stringify(bundle)), new Set(['1']));
+  assert.deepEqual(imported.history, stored, 'an exported backup must import without losing sessions');
+
+  // The in-memory window is trimmed with the same constant, so an export can never
+  // contain more rows than the importer keeps.
+  const finishStart = appScript[1].indexOf('function finishSession()');
+  const finishBody = appScript[1].slice(finishStart, appScript[1].indexOf('function renderSummary', finishStart));
+  assert.match(finishBody, /history = history\.slice\(-HISTORY_LIMIT\);/);
+  assert.match(appScript[1], /const HISTORY_LIMIT = 50;/);
+  assert.equal((appScript[1].match(/-HISTORY_LIMIT\)/g) || []).length, 4, 'memory, load, save and import share the window');
+  assert.doesNotMatch(appScript[1], /slice\(-50\)/, 'no bare retention literal may bypass the shared constant');
 });
 
 test('expanded metadata is rendered safely on answer feedback', () => {
@@ -315,6 +545,48 @@ test('every multiple-choice question offers plausible, distinct options', () => 
   }
   assert.ok(statements >= vocabulary.length * 2, `expected recognition and recall for every word, generated ${statements}`);
   assert.ok(clozeStatements >= 1, 'the record that has an example sentence must still be asked as cloze');
+});
+
+test('every generated mode keeps prompt, answer and options bound to its own record', () => {
+  // 913 records x 4 requested learning modes = 3,652 generated questions. This
+  // checks application/data association; it is not a dictionary review.
+  let generated = 0;
+  let cloze = 0;
+  for (const entry of embeddedVocabulary) {
+    const snapshot = structuredClone(entry);
+    const progress = createInitialProgress(entry.id, 0);
+    for (const requested of Object.values(MODES)) {
+      const question = generateQuestion({ vocab: entry, progress }, embeddedVocabulary, requested);
+      generated += 1;
+      const correct = question.options === null ? [] : question.options.filter(option => option.correct).map(option => [option.id, option.text]);
+      if (requested === MODES.CLOZE && !entry.examples?.length) {
+        // Documented fallback: cloze needs an example sentence.
+        assert.equal(question.mode, MODES.RECOGNITION, `${entry.id} cloze fallback`);
+      }
+      if (question.mode === MODES.RECOGNITION) {
+        assert.equal(question.prompt, entry.word, `${entry.id} recognition prompt`);
+        assert.equal(question.answer, entry.meaning, `${entry.id} recognition answer`);
+        assert.deepEqual(correct, [[entry.id, entry.meaning]], `${entry.id} recognition option`);
+      } else if (question.mode === MODES.RECALL) {
+        assert.equal(question.prompt, entry.meaning, `${entry.id} recall prompt`);
+        assert.equal(question.answer, entry.word, `${entry.id} recall answer`);
+        assert.deepEqual(correct, [[entry.id, entry.word]], `${entry.id} recall option`);
+      } else if (question.mode === MODES.SPELLING) {
+        assert.equal(question.prompt, entry.meaning, `${entry.id} spelling prompt`);
+        assert.equal(question.answer, entry.word, `${entry.id} spelling answer`);
+        assert.equal(question.options, null, `${entry.id} spelling options`);
+      } else {
+        assert.equal(question.mode, MODES.CLOZE, `${entry.id} mode`);
+        assert.equal(question.answer, entry.word, `${entry.id} cloze answer`);
+        assert.deepEqual(question.example, entry.examples[0], `${entry.id} cloze example`);
+        assert.deepEqual(correct, [[entry.id, entry.word]], `${entry.id} cloze option`);
+        cloze += 1;
+      }
+    }
+    assert.deepEqual(entry, snapshot, `${entry.id} was mutated while generating questions`);
+  }
+  assert.equal(generated, embeddedVocabulary.length * 4);
+  assert.equal(cloze, 1, 'only the record with an example sentence is asked as cloze');
 });
 
 test('cloze options never repeat a word already printed in the sentence', () => {

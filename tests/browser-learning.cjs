@@ -339,8 +339,271 @@ async function main() {
     const continued = (await read('progress'))['1'];
     assert.equal(continued.correctCount, 4, 'the stored counters keep growing from their old value');
     assert.equal(continued.wrongCount, 0);
+
+    // ---- Searching "advers" and favoriting a result must not reset the view.
+    await page.evaluate(() => localStorage.clear());
+    await page.reload();
+    await page.locator('[data-view="search"]').click();
+    await page.locator('#search-field').fill('advers');
+    await page.locator('#results .vocab-row').first().waitFor();
+    const searchMetaBefore = await page.locator('#results .results-meta').innerText();
+    const searchRowsBefore = await page.locator('#results .vocab-row').count();
+    assert.match(searchMetaBefore, /2 kết quả · trang 1\/1/, 'the query matches its two records');
+    await page.locator('#sort-filter').selectOption('za');
+    const targetWord = (await page.locator('#results .vocab-row .vocab-word').first().innerText()).trim();
+    const targetEntry = await entryFor(targetWord);
+    const targetRow = () => page.locator('#results .vocab-row').filter({ hasText: targetWord }).first();
+    assert.equal(await targetRow().locator('.fav.active').count(), 0);
+
+    await targetRow().locator('.fav').click();
+    assert.equal(await page.locator('#search-field').inputValue(), 'advers', 'the active query survives a favorite toggle');
+    assert.equal(await page.locator('#sort-filter').inputValue(), 'za', 'the sort order survives a favorite toggle');
+    assert.equal(await page.locator('#state-filter').inputValue(), 'all', 'the state filter survives a favorite toggle');
+    assert.equal(await page.locator('#pos-filter').inputValue(), 'all');
+    assert.equal(await page.locator('#results .results-meta').innerText(), searchMetaBefore, 'the result count and page survive a favorite toggle');
+    assert.equal(await page.locator('#results .vocab-row').count(), searchRowsBefore, 'the visible result set survives a favorite toggle');
+    assert.equal(await targetRow().locator('.fav.active').count(), 1, 'the star shows the new favorite state');
+    assert.deepEqual(await read('favorites'), [targetEntry.id], 'the favorite is persisted');
+
+    await targetRow().locator('.fav').click();
+    assert.equal(await page.locator('#search-field').inputValue(), 'advers', 'un-favoriting also keeps the query');
+    assert.equal(await page.locator('#results .vocab-row').count(), searchRowsBefore);
+    assert.deepEqual(await read('favorites'), []);
+    await page.locator('#clear-search').click();
+
+    // ---- Reset and import end the running session instead of resurrecting it.
+    await seed(['1', '2']);
+    await page.locator('#start-quiz').click();
+    assert.equal(await page.locator('.flashcard').count(), 1);
+    await page.locator('[data-view="settings"]').click();
+    page.on('dialog', dialog => dialog.accept());
+    await page.locator('#reset-setting').click();
+    await page.locator('.toast').filter({ hasText: 'Đã xóa progress' }).waitFor();
+    await page.locator('[data-view="learn"]').click();
+    assert.equal(await page.locator('.session-grid').count(), 1, 'reset returns to the session chooser');
+    assert.equal(await page.locator('.flashcard').count(), 0, 'a reset session is not resurrected');
+    assert.equal(await page.locator('#exit-session').count(), 0);
+    assert.equal(await page.locator('.prompt').count(), 0);
+    assert.equal((await read('progress'))['1'].correctCount, 0);
+
+    await seed(['1', '2']);
+    await page.locator('#start-quiz').click();
+    const importPrompt = (await page.locator('.prompt').innerText()).trim();
+    await page.locator('[data-view="settings"]').click();
+    const activeDownload = page.waitForEvent('download');
+    await page.locator('#export-setting').click();
+    const activeBackup = fs.readFileSync(await (await activeDownload).path());
+    await page.locator('#import-setting').setInputFiles({ name: 'active.json', mimeType: 'application/json', buffer: activeBackup });
+    await page.locator('.toast').filter({ hasText: 'Đã nhập' }).waitFor();
+    await page.locator('[data-view="learn"]').click();
+    assert.equal(await page.locator('.session-grid').count(), 1, 'import returns to the session chooser');
+    assert.equal(await page.locator('.flashcard').count(), 0, 'an imported bundle does not continue the previous session');
+    assert.equal(importPrompt.length > 0, true);
+
+    // ---- ID 448 shows its canonical meaning and labels the retained old wording.
+    await page.evaluate(() => {
+      localStorage.clear();
+      localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['448']));
+    });
+    await page.reload();
+    await page.locator('[data-session="favorites"]').click();
+    const menial = await entryFor('Menial task');
+    assert.equal(menial.meaning, 'công việc tay chân tầm thường, ít được coi trọng', 'the canonical meaning is unchanged');
+    assert.equal(menial.notes, 'Previous app definition (data/vocabulary.json): công việc lao dịch, tay chân vất vả, ít được coi trọng');
+    const introduction = await page.locator('.first-look').innerText();
+    assert.ok(introduction.includes(menial.meaning), 'the introduction shows the canonical meaning');
+    assert.match(introduction, /Nghĩa của phiên bản ứng dụng trước/);
+    assert.match(introduction, /chỉ tham chiếu lịch sử; không phải nghĩa hiện tại/);
+    assert.equal(/Previous app definition/.test(introduction), false, 'the internal marker is not learner-facing');
+    assert.equal(/Ghi chú \/ phân biệt \/ nguồn/.test(introduction), false, 'the historical gloss is not filed as an ordinary note');
+    await page.locator('#start-quiz').click();
+    assert.equal(await page.getByRole('group', { name: 'Chọn nghĩa tiếng Việt' }).count(), 1);
+    await page.locator('[data-option="448"]').click();
+    await page.locator('#next-card').waitFor();
+    const menialFeedback = await page.locator('#feedback-area').innerText();
+    assert.ok(menialFeedback.includes(menial.meaning), 'the answer shows the canonical meaning');
+    assert.match(menialFeedback, /Nghĩa của phiên bản ứng dụng trước/);
+    assert.equal(/Previous app definition/.test(menialFeedback), false);
+    assert.equal(/data\/vocabulary\.json/.test(menialFeedback), false);
+    // The same label appears on the graded cloze card of an already-studied record.
+    await page.evaluate(() => {
+      localStorage.setItem('chuyen-anh.progress.v1', JSON.stringify({
+        '448': { id: '448', state: 'learning', correctCount: 3, wrongCount: 0, streak: 3, lastReviewed: 0, nextReview: 0, interval: 1, ease: 2.5, difficulty: 0 }
+      }));
+    });
+    await page.reload();
+    await page.locator('[data-session="favorites"]').click();
+    assert.match(await page.locator('.mode-label').innerText(), /ĐIỀN VÀO NGỮ CẢNH/i);
+    assert.equal(await page.getByRole('group', { name: 'Chọn từ tiếng Anh' }).count(), 1, 'cloze choices are a named English-word button group');
+    assert.equal(await page.locator('.options').getAttribute('aria-label'), 'Chọn từ tiếng Anh');
+    await page.locator('[data-option="448"]').click();
+    await page.locator('#next-card').waitFor();
+    const clozeFeedback = await page.locator('#feedback-area').innerText();
+    assert.ok(clozeFeedback.includes(menial.meaning));
+    assert.match(clozeFeedback, /Nghĩa của phiên bản ứng dụng trước \(chỉ tham chiếu lịch sử; không phải nghĩa hiện tại\)/);
+
+    // ---- The answer choices are a named button group, not a radio group.
+    await page.evaluate(() => localStorage.clear());
+    await page.reload();
+    await page.locator('[data-session="new"]').click();
+    await page.locator('#start-quiz').click();
+    assert.equal(await page.locator('[role="radiogroup"]').count(), 0, 'no radio-group role is used');
+    assert.equal(await page.locator('input[type="radio"]').count(), 0);
+    const optionGroup = page.getByRole('group', { name: 'Chọn nghĩa tiếng Việt' });
+    assert.equal(await optionGroup.count(), 1, 'the choice group is named for what it contains');
+    assert.equal(await page.locator('.options').getAttribute('role'), 'group');
+    assert.equal(await optionGroup.getByRole('button').count(), 4);
+    for (const label of await optionGroup.getByRole('button').allInnerTexts()) {
+      assert.ok(label.trim().length > 0, 'every option button has an accessible name');
+    }
+
+    // ---- Shortcuts belong to the visible card, not to a hidden session.
+    await seed(['1', '2']);
+    await page.locator('#start-quiz').click();
+    const hiddenPrompt = (await page.locator('.prompt').innerText()).trim();
+    await page.locator('[data-view="search"]').click();
+    await page.locator('#search-field').fill('advers');
+    assert.equal(await page.locator('#results .vocab-row').count(), searchRowsBefore);
+    await page.evaluate(() => document.activeElement.blur());
+    const storageBeforeShortcuts = await page.evaluate(() => ({ ...localStorage }));
+    for (const key of ['Space', '1', 'r', 'Enter']) await page.keyboard.press(key);
+    assert.equal(await page.locator('#search-field').count(), 1, 'another view is not replaced by the hidden session');
+    assert.equal(await page.locator('.flashcard').count(), 0);
+    assert.equal(await page.locator('.reveal').count(), 0);
+    assert.equal(await page.locator('#results .vocab-row').count(), searchRowsBefore, 'the typed query is untouched');
+    await page.locator('[data-view="learn"]').click();
+    assert.equal((await page.locator('.prompt').innerText()).trim(), hiddenPrompt, 'the hidden card was neither answered nor skipped');
+    assert.equal(await page.locator('.reveal').count(), 0);
+    assert.equal(await page.locator('#next-card').count(), 0);
+    assert.deepEqual(await page.evaluate(() => ({ ...localStorage })), storageBeforeShortcuts, 'the hidden card was not graded or rescheduled');
+
+    // ---- A backup file round-trips: export → wipe → import → export preserves data.
+    await page.evaluate(() => localStorage.clear());
+    await page.reload();
+    await seed(['1']);
+    await answer('1', true);
+    await next();
+    await page.locator('.summary').waitFor();
+    const stateAfterSession = await page.evaluate(() => ({ ...localStorage }));
+    await page.locator('[data-view="settings"]').click();
+    const roundTripDownload = page.waitForEvent('download');
+    await page.locator('#export-setting').click();
+    const roundTripFile = await roundTripDownload;
+    assert.match(await roundTripFile.suggestedFilename(), /^chuyen-anh-progress-\d{4}-\d{2}-\d{2}\.json$/);
+    const roundTripPath = await roundTripFile.path();
+    const roundTripBundle = JSON.parse(fs.readFileSync(roundTripPath, 'utf8'));
+    assert.equal(roundTripBundle.app, 'chuyen-anh-flashcard');
+    assert.equal(roundTripBundle.version, 1);
+    assert.equal(roundTripBundle.history.length, 1);
+    assert.equal(roundTripBundle.history[0].total, 1);
+    assert.equal(roundTripBundle.history[0].correct, 1);
+    assert.deepEqual(roundTripBundle.favorites, ['1']);
+    assert.equal(roundTripBundle.progress['1'].correctCount, 1);
+    assert.equal(roundTripBundle.progress['1'].state, 'learning');
+    assert.equal(typeof roundTripBundle.exportedAt, 'string');
+
+    // Wipe the device, then restore from the file: the state must come back.
+    await page.evaluate(() => localStorage.clear());
+    await page.reload();
+    await page.locator('[data-session="new"]').waitFor();
+    await page.locator('[data-view="settings"]').click();
+    await page.locator('#import-setting').setInputFiles({ name: 'roundTripBundle.json', mimeType: 'application/json', buffer: fs.readFileSync(roundTripPath) });
+    await page.locator('.toast').filter({ hasText: 'Đã nhập' }).waitFor();
+    await page.reload();
+    const restored = await page.evaluate(() => ({ ...localStorage }));
+    assert.deepEqual(restored, stateAfterSession, 'the restored device state must match the exported one');
+
+    // Exporting the restored state again reproduces the same logical bundle.
+    await page.locator('[data-view="settings"]').click();
+    const secondDownload = page.waitForEvent('download');
+    await page.locator('#export-setting').click();
+    const secondBundle = JSON.parse(fs.readFileSync(await (await secondDownload).path(), 'utf8'));
+    const stripVolatile = ({ exportedAt, ...rest }) => rest;
+    assert.deepEqual(stripVolatile(secondBundle), stripVolatile(roundTripBundle), 'a repeated import/export must not mutate the bundle');
+
+    // A roundTripBundle from a different application or version is refused without touching data.
+    const beforeWrongVersion = await page.evaluate(() => ({ ...localStorage }));
+    await page.locator('#import-setting').setInputFiles({ name: 'v2.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify({ ...roundTripBundle, version: 2 })) });
+    await page.locator('.toast').filter({ hasText: 'Import thất bại' }).waitFor();
+    assert.match(await page.locator('.toast').innerText(), /không đúng phiên bản/);
+    assert.deepEqual(await page.evaluate(() => ({ ...localStorage })), beforeWrongVersion, 'a refused import changes nothing');
+
+    // ---- History keeps one retention window, so a roundTripBundle cannot drop sessions.
+    const seededHistory = Array.from({ length: 50 }, (_, index) => ({
+      date: new Date(Date.UTC(2026, 8, 1, 0, index)).toISOString(),
+      total: 1, correct: 1, wrong: 0, accuracy: 100, mode: 'due', durationSec: 10
+    }));
+    await page.evaluate(entries => {
+      localStorage.clear();
+      localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['1']));
+      localStorage.setItem('chuyen-anh.history.v1', JSON.stringify(entries));
+    }, seededHistory);
+    await page.reload();
+    await page.locator('[data-session="favorites"]').click();
+    await answer('1', true);
+    await next();
+    await page.locator('.summary').waitFor();
+    const retained = await read('history');
+    assert.equal(retained.length, 50, 'the newest session enters the window and the oldest leaves it');
+    assert.equal(retained[retained.length - 1].mode, 'favorites', 'the session just finished is kept');
+    assert.equal(retained[0].date, seededHistory[1].date, 'only the oldest entry is dropped');
+    await page.locator('[data-view="settings"]').click();
+    const retentionDownload = page.waitForEvent('download');
+    await page.locator('#export-setting').click();
+    const retentionBundle = JSON.parse(fs.readFileSync(await (await retentionDownload).path(), 'utf8'));
+    assert.equal(retentionBundle.history.length, 50, 'the export contains exactly the retained window');
+    // Restoring that roundTripBundle keeps every session it contains.
+    await page.evaluate(() => localStorage.clear());
+    await page.reload();
+    await page.locator('[data-view="settings"]').click();
+    await page.locator('#import-setting').setInputFiles({ name: 'retention.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify(retentionBundle)) });
+    await page.locator('.toast').filter({ hasText: 'Đã nhập' }).waitFor();
+    await page.reload();
+    const restoredHistory = await read('history');
+    assert.equal(restoredHistory.length, 50, 'no session is lost when the roundTripBundle is restored');
+    assert.deepEqual(restoredHistory, retentionBundle.history);
+
+    // ---- A failed device write is reported, never replaced by a success message.
+    const failing = await browser.newPage({ viewport: { width: 1280, height: 900 }, reducedMotion: 'reduce' });
+    const failingErrors = [];
+    failing.on('pageerror', error => failingErrors.push(error.message));
+    failing.on('dialog', dialog => dialog.accept());
+    await failing.clock.setFixedTime(new Date('2026-10-13T12:00:00Z'));
+    await failing.addInitScript(() => {
+      Storage.prototype.setItem = function () { throw new Error('quota exceeded'); };
+    });
+    await failing.goto(`http://127.0.0.1:${server.address().port}`);
+    // This page inherits the origin's storage from the previous scenario, so start
+    // from an empty device to make "nothing was stored" a real assertion.
+    // Storage.prototype.clear is not overridden; only writes fail.
+    await failing.evaluate(() => localStorage.clear());
+    await failing.reload();
+    await failing.locator('[data-session="new"]').waitFor();
+    await failing.locator('[data-view="settings"]').click();
+    await failing.locator('#reset-setting').click();
+    await failing.locator('.toast').filter({ hasText: 'Không thể xóa dữ liệu' }).waitFor();
+    assert.equal(await failing.locator('.toast').filter({ hasText: 'Đã xóa progress' }).count(), 0, 'a failed wipe is not reported as success');
+    await failing.locator('#import-setting').setInputFiles({ name: 'active.json', mimeType: 'application/json', buffer: activeBackup });
+    await failing.locator('.toast').filter({ hasText: 'Không thể lưu dữ liệu vừa nhập' }).waitFor();
+    assert.equal(await failing.locator('.toast').filter({ hasText: 'Đã nhập progress thành công' }).count(), 0, 'a failed import is not reported as success');
+    assert.equal(await failing.evaluate(() => localStorage.getItem('chuyen-anh.progress.v1')), null, 'nothing was stored');
+    const deviceAfterFailedWrites = await failing.evaluate(() => ({ ...localStorage }));
+    await failing.locator('[data-view="search"]').click();
+    await failing.locator('#search-field').fill('advers');
+    await failing.locator('#results .vocab-row').first().waitFor();
+    const failingRows = await failing.locator('#results .vocab-row').count();
+    await failing.locator('#results .vocab-row .fav').first().click();
+    await failing.locator('.toast').filter({ hasText: 'Không thể lưu danh sách yêu thích' }).waitFor();
+    assert.equal(await failing.locator('#search-field').inputValue(), 'advers');
+    assert.equal(await failing.locator('#results .vocab-row').count(), failingRows);
+    await failing.locator('#theme-button').click();
+    await failing.locator('.toast').filter({ hasText: 'Không thể lưu giao diện' }).waitFor();
+    assert.deepEqual(await failing.evaluate(() => ({ ...localStorage })), deviceAfterFailedWrites, 'failed writes leave the device unchanged');
+    assert.deepEqual(failingErrors, []);
+    await failing.close();
+
     assert.deepEqual(errors, []);
-    console.log(`PASS: Chromium ${browser.version()} — first-look introduction for new words, same-part-of-speech distractors, cloze options absent from the sentence, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, mobile layout, reduced-motion setting; no page errors.`);
+    console.log(`PASS: Chromium ${browser.version()} — first-look introduction for new words, same-part-of-speech distractors, cloze options absent from the sentence, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, mobile layout, reduced-motion setting, search state across a favorite toggle, session clearing on reset/import, the ID 448 historical label, named option groups, shortcuts limited to the visible card, failed writes reported truthfully, and JSON backup round-trips that keep every retained session; no page errors.`);
   } finally {
     if (browser) await browser.close();
     await new Promise(resolve => server.close(resolve));

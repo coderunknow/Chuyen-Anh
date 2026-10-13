@@ -10,12 +10,25 @@ import argparse
 import json
 import re
 import sys
+import unicodedata
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
 DEFAULT_PATH = Path(__file__).resolve().parents[1] / "data" / "vocabulary.json"
 ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*$")
+COMBINING_MARKS_RE = re.compile(r"[\u0300-\u036f]")
+
+
+def normalize_word(value: str) -> str:
+    """Return the runtime's accent-, case- and whitespace-insensitive word key.
+
+    Mirrors `normalize()` in index.html so the validator reports the same
+    headword collisions the app itself would reject at load time.
+    """
+    decomposed = unicodedata.normalize("NFD", value)
+    decomposed = COMBINING_MARKS_RE.sub("", decomposed).replace("đ", "d").replace("Đ", "d")
+    return " ".join(decomposed.lower().split())
 
 
 def problem(errors: list[str], index: int, entry: Any, message: str) -> None:
@@ -59,7 +72,7 @@ def validate(data: Any) -> list[str]:
         elif len(word.strip()) > 120:
             problem(errors, index, entry, f"word is too long ({len(word.strip())} characters)")
         else:
-            words[word.strip().casefold()].append(index)
+            words[normalize_word(word.strip())].append(index)
 
         if not isinstance(pos, str) or not pos.strip():
             problem(errors, index, entry, "missing or empty pos")
@@ -101,7 +114,11 @@ def validate(data: Any) -> list[str]:
             errors.append(f"Entry: {', '.join(map(str, indexes))}\nWord: (duplicate id)\nProblem: duplicate id {entry_id!r}")
     for word, indexes in words.items():
         if len(indexes) > 1:
-            errors.append(f"Entry: {', '.join(map(str, indexes))}\nWord: {word}\nProblem: duplicate word (case-insensitive)")
+            errors.append(
+                f"Entry: {', '.join(map(str, indexes))}\n"
+                f"Word: {word}\n"
+                f"Problem: duplicate word (same after the app's case, accent and whitespace normalization)"
+            )
     return errors
 
 
