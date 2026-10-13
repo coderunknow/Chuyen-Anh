@@ -60,7 +60,7 @@ Chỉ cần giữ `index.html` khi sao chép/triển khai ứng dụng. Các t�
 - Spelling: gõ từ tiếng Anh.
 - Cloze/context: chọn từ trong câu ví dụ.
 - Scheduler deterministic: `new`, `learning`, `weak`, `review`, `mastered`; theo dõi đúng/sai, streak, difficulty, interval, last/next review.
-- Session: đến hạn, từ yếu, từ mới, random, yêu thích, 10/20/30/50 từ; due + weak được ưu tiên.
+- Session: đến hạn, từ yếu, từ mới, random, yêu thích, 10/20/30/50 từ. Phiên “đến hạn” chỉ lấy từ đã học tới lịch ôn; phiên nhanh ưu tiên từ đến hạn/từ yếu rồi mới lấp chỗ trống.
 - Error-based feedback: xem đáp án, nghĩa, metadata có sẵn, ví dụ và số lần sai ngay sau câu trả lời.
 - Search local theo English, Vietnamese, POS, tags, word family, metadata và example; filter theo state/favorite/due; pagination chỉ render 50 dòng một lần.
 - Dashboard: total, new, learning, weak, mastered, due, accuracy, streak và lịch sử phiên.

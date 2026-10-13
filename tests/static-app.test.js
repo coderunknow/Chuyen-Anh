@@ -19,6 +19,8 @@ const {
   createInitialProgress,
   updateProgress,
   calculateStats,
+  isDue,
+  selectSession,
   createSearchIndex,
   searchVocabulary,
   validateImportPayload,
@@ -93,6 +95,48 @@ test('repeated correct review answers can reach mastered', () => {
   progress = updateProgress(progress, true, 1000, 1000);
   assert.equal(progress.state, STATES.MASTERED);
   assert.ok(progress.interval >= 21);
+});
+
+test('untouched new words are not misreported as overdue reviews', () => {
+  const now = 1_000_000;
+  const fresh = Object.fromEntries(vocab.map(entry => [entry.id, createInitialProgress(entry.id, now)]));
+  assert.equal(calculateStats(fresh, now).new, 3);
+  assert.equal(calculateStats(fresh, now).due, 0);
+  assert.equal(isDue(fresh['1'], now), false);
+  assert.deepEqual(selectSession(vocab, fresh, { size: 20, mode: 'due', now }), []);
+  assert.equal(selectSession(vocab, fresh, { size: 20, mode: 'new', now }).length, 3);
+  assert.equal(selectSession(vocab, fresh, { size: 20, mode: 'mixed', now }).length, 3);
+});
+
+test('due sessions never pull reviews forward while quick mixed sessions may fill', () => {
+  const now = 1_000_000;
+  const progress = {
+    '1': { ...createInitialProgress('1', now), state: STATES.REVIEW, nextReview: now - 20 },
+    '2': { ...createInitialProgress('2', now), state: STATES.WEAK, wrongCount: 2, nextReview: now - 10 },
+    '3': { ...createInitialProgress('3', now), state: STATES.LEARNING, nextReview: now + 86_400_000 }
+  };
+
+  const due = selectSession(vocab, progress, { size: 20, mode: 'due', now });
+  assert.deepEqual(due.map(item => item.vocab.id), ['2', '1']);
+  assert.ok(due.every(item => item.progress.nextReview <= now));
+
+  const mixed = selectSession(vocab, progress, { size: 20, mode: 'mixed', now });
+  assert.deepEqual(mixed.map(item => item.vocab.id), ['2', '1', '3']);
+  assert.deepEqual(selectSession(vocab, progress, { size: 20, mode: 'due', now: 0 }), []);
+});
+
+test('due selection respects size boundaries and deterministic overdue order', () => {
+  const now = 10_000;
+  const progress = {
+    '1': { ...createInitialProgress('1', now), state: STATES.REVIEW, nextReview: now - 1 },
+    '2': { ...createInitialProgress('2', now), state: STATES.REVIEW, nextReview: now - 100 },
+    '3': { ...createInitialProgress('3', now), state: STATES.REVIEW, nextReview: now - 50 }
+  };
+  assert.deepEqual(
+    selectSession(vocab, progress, { size: 2, mode: 'due', now }).map(item => item.vocab.id),
+    ['2', '3']
+  );
+  assert.deepEqual(selectSession(vocab, progress, { size: 0, mode: 'due', now }), []);
 });
 
 test('stats and search include structured vocabulary metadata', () => {

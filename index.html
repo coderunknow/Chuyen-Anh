@@ -15682,7 +15682,10 @@ export function updateProgress(progress, correct, responseTimeMs = 0, now = Date
 }
 
 export function isDue(progress, now = Date.now()) {
-  return Boolean(progress && Number.isFinite(progress.nextReview) && progress.nextReview <= now);
+  // New cards have never been scheduled. They belong in New (or mixed quick)
+  // sessions, not in the review backlog simply because their seed timestamp is now.
+  return Boolean(progress && progress.state !== STATES.NEW
+    && Number.isFinite(progress.nextReview) && progress.nextReview <= now);
 }
 
 export function calculateStats(progressMap, now = Date.now()) {
@@ -15732,11 +15735,17 @@ export function selectSession(vocabulary, progressMap, { size = 20, mode = 'due'
   } else {
     const priority = { weak: 0, learning: 1, review: 2, new: 3, mastered: 4 };
     const due = all.filter(p => isDue(p, now))
-      .sort((a, b) => priority[a.state] - priority[b.state] || b.wrongCount - a.wrongCount);
-    const selectedIds = new Set(due.map(p => p.id));
-    const fill = all.filter(p => !selectedIds.has(p.id))
-      .sort((a, b) => priority[a.state] - priority[b.state] || a.nextReview - b.nextReview);
-    candidates = [...due, ...fill].map(make);
+      .sort((a, b) => priority[a.state] - priority[b.state]
+        || a.nextReview - b.nextReview || b.wrongCount - a.wrongCount);
+    if (mode === 'due') {
+      // A targeted due session must not introduce not-yet-due cards merely to fill its size.
+      candidates = due.map(make);
+    } else {
+      const selectedIds = new Set(due.map(p => p.id));
+      const fill = all.filter(p => !selectedIds.has(p.id))
+        .sort((a, b) => priority[a.state] - priority[b.state] || a.nextReview - b.nextReview);
+      candidates = [...due, ...fill].map(make);
+    }
   }
 
   // Interleave states for non-due sessions without losing weak-word priority.
@@ -16252,7 +16261,8 @@ export async function createApp(root) {
 
   function startSession(type) {
     const sizes = { quick10: 10, quick20: 20, quick30: 30 };
-    const mode = type.startsWith('quick') ? 'due' : type;
+    // Quick sessions fill spare slots after due cards; the explicit due session never does.
+    const mode = type.startsWith('quick') ? 'mixed' : type;
     const size = sizes[type] || prefs.sessionSize;
     const selected = selectSession(vocabulary, progress, { size, mode, favorites });
     if (!selected.length) {
@@ -16288,7 +16298,7 @@ export async function createApp(root) {
     const options = question.options || [];
     container.innerHTML = `
       <div class="flashcard-wrap">
-        <div class="page-header"><div><h1>Phiên học</h1><p>${sessionStats.mode === 'due' ? 'Ưu tiên due + weak' : `Chế độ ${escapeHtml(sessionStats.mode)}`} · ${session.length} từ còn lại</p></div><button class="btn" id="exit-session">Thoát phiên</button></div>
+        <div class="page-header"><div><h1>Phiên học</h1><p>${sessionStats.mode === 'due' ? 'Chỉ các từ đang đến hạn' : sessionStats.mode === 'mixed' ? 'Ưu tiên từ đến hạn và từ yếu' : `Chế độ ${escapeHtml(sessionStats.mode)}`} · ${session.length} từ còn lại</p></div><button class="btn" id="exit-session">Thoát phiên</button></div>
         <div class="session-progress" aria-label="Tiến độ phiên" role="progressbar" aria-valuenow="${percent}" aria-valuemin="0" aria-valuemax="100"><span style="width:${percent}%"></span></div>
         <article class="flashcard">
           <div class="flashcard-head"><span><b>${done + 1}</b> / ${sessionStats.total} · ${session.length} còn lại</span><div class="flashcard-head-actions"><span class="state-pill state-${escapeHtml(item.progress.state)}">${escapeHtml(item.progress.state)}</span><button class="fav ${favorites.has(item.vocab.id) ? 'active' : ''}" id="favorite-card" aria-label="${favorites.has(item.vocab.id) ? 'Bỏ yêu thích' : 'Thêm yêu thích'}">${favorites.has(item.vocab.id) ? '★' : '☆'}</button><button class="btn small" id="skip-card">Bỏ qua</button></div></div>
