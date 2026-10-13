@@ -187,3 +187,39 @@ test('question mode constants remain available and cloze handles a regular plura
   assert.match(question.prompt, /_____/);
   assert.doesNotMatch(question.prompt, /menial tasks/);
 });
+
+test('corrective practice follows remaining cards without mutating their progress', () => {
+  const first = { vocab: vocab[0], progress: updateProgress(createInitialProgress('1', 0), false, 0, 1000) };
+  const second = { vocab: vocab[1], progress: createInitialProgress('2', 0) };
+  const queue = [first, second];
+  const before = structuredClone(first.progress);
+  assert.equal(app.queuePractice(queue, first), true);
+  assert.equal(queue.length, 3);
+  assert.equal(queue[1], second);
+  assert.equal(queue[2].vocab, first.vocab);
+  assert.equal(queue[2].practice, true);
+  assert.deepEqual(first.progress, before);
+  assert.equal(isDue(first.progress, 1000), true);
+  assert.equal(generateQuestion(queue[2], vocab, MODES.SPELLING).mode, MODES.SPELLING);
+});
+
+test('practice is bounded to one retry per card, including the last card', () => {
+  const item = { vocab: vocab[0], progress: createInitialProgress('1', 0) };
+  const queue = [item];
+  assert.equal(app.queuePractice(queue, item), true);
+  assert.equal(app.queuePractice(queue, item), false);
+  queue.shift();
+  assert.equal(app.queuePractice(queue, queue[0]), false);
+  assert.equal(queue.length, 1);
+  assert.equal(app.queuePractice([], item), false);
+  assert.equal(app.queuePractice(null, item), false);
+});
+
+test('each failed card gets its own retry, retaining the original queue order', () => {
+  const queue = vocab.map(entry => ({ vocab: entry, progress: createInitialProgress(entry.id, 0) }));
+  const originals = [...queue];
+  originals.forEach(item => assert.equal(app.queuePractice(queue, item), true));
+  assert.deepEqual(queue.map(item => item.vocab.id), ['1', '2', '3', '1', '2', '3']);
+  assert.ok(queue.slice(3).every(item => item.practice));
+  assert.ok(originals.every(item => !item.practice));
+});

@@ -254,7 +254,7 @@ kbd, .kbd { min-width: 24px; padding: 2px 6px; border: 1px solid var(--border-st
   .card-footer > * + * { margin-top: 7px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0s !important; animation-duration: .01ms !important; }
 }
   </style>
 </head>
@@ -15770,6 +15770,14 @@ export function selectSession(vocabulary, progressMap, { size = 20, mode = 'due'
   return candidates.slice(0, limit);
 }
 
+// One corrective retrieval per original card; practice never recursively queues itself.
+export function queuePractice(session, item) {
+  if (!Array.isArray(session) || !session.includes(item) || item.practice || item.practiceQueued) return false;
+  item.practiceQueued = true;
+  session.push({ vocab: item.vocab, progress: item.progress, practice: true });
+  return true;
+}
+
 function examplesFor(entry) {
   return Array.isArray(entry?.examples) ? entry.examples.filter(Boolean).map(example => {
     if (typeof example === 'string') return { en: example, vi: '' };
@@ -16139,8 +16147,6 @@ export async function createApp(root) {
   let answered = false;
   let revealed = false;
   let answerResult = null;
-  let lastAnswered = null;
-  let repeatQueued = false;
   let sessionStats = null;
   let sessionSummary = null;
 
@@ -16200,7 +16206,7 @@ export async function createApp(root) {
             ${miniStat(currentStats.total, 'Tổng')}${miniStat(currentStats.mastered, 'Thành thạo')}${miniStat(currentStats.weak, 'Từ yếu')}${miniStat(`${currentStats.accuracy}%`, 'Chính xác')}
           </div></div></div>
           <div class="panel"><div class="panel-heading">Phím tắt</div><div class="panel-body shortcuts">
-            <div class="shortcut"><span>Chọn đáp án</span><kbd>1–4</kbd></div><div class="shortcut"><span>Lật / tiếp</span><kbd>Space</kbd></div><div class="shortcut"><span>Xác nhận / tiếp</span><kbd>Enter</kbd></div><div class="shortcut"><span>Lặp lại</span><kbd>R</kbd></div>
+            <div class="shortcut"><span>Chọn đáp án</span><kbd>1–4</kbd></div><div class="shortcut"><span>Lật / tiếp</span><kbd>Space</kbd></div><div class="shortcut"><span>Xác nhận / tiếp</span><kbd>Enter</kbd></div><div class="shortcut"><span>Xếp lượt luyện</span><kbd>R</kbd></div>
           </div></div>
         </aside>
         <main class="content" id="content" tabindex="-1"></main>
@@ -16270,10 +16276,8 @@ export async function createApp(root) {
       return;
     }
     session = selected;
-    sessionStats = { total: selected.length, correct: 0, wrong: 0, startedAt: Date.now(), mode };
+    sessionStats = { total: selected.length, correct: 0, wrong: 0, practiceTotal: 0, practiceCorrect: 0, practiceWrong: 0, startedAt: Date.now(), mode };
     sessionSummary = null;
-    lastAnswered = null;
-    repeatQueued = false;
     nextQuestion();
     renderShell();
   }
@@ -16282,7 +16286,7 @@ export async function createApp(root) {
     if (!session?.length) return finishSession();
     const item = session[0];
     item.progress = progress[item.vocab.id];
-    question = generateQuestion(item, vocabulary);
+    question = generateQuestion(item, vocabulary, item.practice ? MODES.SPELLING : null);
     questionStarted = Date.now();
     answered = false;
     revealed = false;
@@ -16293,18 +16297,20 @@ export async function createApp(root) {
     if (!session?.length) { renderLearn(container); return; }
     const item = session[0];
     const currentStats = stats();
-    const done = sessionStats.total - session.length;
-    const percent = Math.round(done / sessionStats.total * 100);
+    const totalAttempts = sessionStats.total + sessionStats.practiceTotal;
+    const done = totalAttempts - session.length;
+    const percent = Math.round(done / totalAttempts * 100);
     const options = question.options || [];
     container.innerHTML = `
       <div class="flashcard-wrap">
-        <div class="page-header"><div><h1>Phiên học</h1><p>${sessionStats.mode === 'due' ? 'Chỉ các từ đang đến hạn' : sessionStats.mode === 'mixed' ? 'Ưu tiên từ đến hạn và từ yếu' : `Chế độ ${escapeHtml(sessionStats.mode)}`} · ${session.length} từ còn lại</p></div><button class="btn" id="exit-session">Thoát phiên</button></div>
+        <div class="page-header"><div><h1>Phiên học</h1><p>${sessionStats.mode === 'due' ? 'Chỉ các từ đang đến hạn' : sessionStats.mode === 'mixed' ? 'Ưu tiên từ đến hạn và từ yếu' : `Chế độ ${escapeHtml(sessionStats.mode)}`} · ${session.length} lượt còn lại</p></div><button class="btn" id="exit-session">Thoát phiên</button></div>
         <div class="session-progress" aria-label="Tiến độ phiên" role="progressbar" aria-valuenow="${percent}" aria-valuemin="0" aria-valuemax="100"><span style="width:${percent}%"></span></div>
         <article class="flashcard">
-          <div class="flashcard-head"><span><b>${done + 1}</b> / ${sessionStats.total} · ${session.length} còn lại</span><div class="flashcard-head-actions"><span class="state-pill state-${escapeHtml(item.progress.state)}">${escapeHtml(item.progress.state)}</span><button class="fav ${favorites.has(item.vocab.id) ? 'active' : ''}" id="favorite-card" aria-label="${favorites.has(item.vocab.id) ? 'Bỏ yêu thích' : 'Thêm yêu thích'}">${favorites.has(item.vocab.id) ? '★' : '☆'}</button><button class="btn small" id="skip-card">Bỏ qua</button></div></div>
+          <div class="flashcard-head"><span><b>${done + 1}</b> / ${totalAttempts} lượt · ${session.length} còn lại</span><div class="flashcard-head-actions"><span class="state-pill state-${escapeHtml(item.progress.state)}">${escapeHtml(item.progress.state)}</span><button class="fav ${favorites.has(item.vocab.id) ? 'active' : ''}" id="favorite-card" aria-label="${favorites.has(item.vocab.id) ? 'Bỏ yêu thích' : 'Thêm yêu thích'}">${favorites.has(item.vocab.id) ? '★' : '☆'}</button><button class="btn small" id="skip-card">Bỏ qua</button></div></div>
           <div class="flashcard-body">
-            <div class="mode-label">${modeLabel(question.mode)} · ${escapeHtml(item.vocab.pos)}</div>
+            <div class="mode-label">${item.practice ? 'Luyện lại · ' : ''}${modeLabel(question.mode)} · ${escapeHtml(item.vocab.pos)}</div>
             <div class="prompt">${escapeHtml(question.prompt)}</div><div class="sub-prompt">${escapeHtml(question.subPrompt || '')}</div>
+            ${item.practice ? '<p class="sub-prompt">Tự gõ lại từ vừa ôn. Lượt luyện không thay đổi lịch ôn hay độ chính xác lần đầu.</p>' : ''}
             <div id="question-area"></div>
             ${revealed && !answered ? `<div class="reveal"><strong>${escapeHtml(question.answer)}</strong><span>Đây là đáp án. Tự đánh giá rồi chọn bên dưới.</span><div class="actions" style="justify-content:center;margin-top:10px"><button class="btn primary small" id="reveal-correct">Nhớ được</button><button class="btn danger small" id="reveal-wrong">Chưa nhớ</button></div></div>` : ''}
             <div id="feedback-area"></div>
@@ -16338,15 +16344,21 @@ export async function createApp(root) {
     if (answered || !question || !session?.length) return;
     const correct = forced === null ? checkAnswer(question, answer) : forced;
     const item = session[0];
-    const updated = updateProgress(progress[item.vocab.id], correct, Date.now() - questionStarted);
-    progress[item.vocab.id] = updated;
-    item.progress = updated;
+    // Immediate post-feedback retrieval is practice, not evidence of spaced retention.
+    if (!item.practice) {
+      const updated = updateProgress(progress[item.vocab.id], correct, Date.now() - questionStarted);
+      progress[item.vocab.id] = updated;
+      item.progress = updated;
+      if (!correct && queuePractice(session, item)) sessionStats.practiceTotal += 1;
+    }
     answered = true;
     answerResult = { correct, selected: answer };
-    lastAnswered = item;
     updateStreak();
-    repeatQueued = false;
-    if (correct) sessionStats.correct += 1; else sessionStats.wrong += 1;
+    if (item.practice) {
+      if (correct) sessionStats.practiceCorrect += 1; else sessionStats.practiceWrong += 1;
+    } else {
+      if (correct) sessionStats.correct += 1; else sessionStats.wrong += 1;
+    }
     persist();
     renderFlashcard(root.querySelector('#content'));
   }
@@ -16355,8 +16367,10 @@ export async function createApp(root) {
     const item = session[0];
     const correct = answerResult.correct;
     const answerText = question.answer;
-    container.querySelector('#feedback-area').innerHTML = `<div class="feedback ${correct ? 'correct' : 'wrong'}" role="alert"><div class="feedback-title">${correct ? '✓ Chính xác!' : `✕ Chưa đúng · Đáp án: ${escapeHtml(answerText)}`}</div><p><strong>${escapeHtml(item.vocab.word)}</strong> · ${escapeHtml(item.vocab.meaning)}</p>${vocabularyMetadataHtml(item.vocab)}${!correct ? `<p>Bạn sai từ này ${item.progress.wrongCount} lần. Từ yếu sẽ được ưu tiên trong phiên sau.</p>` : ''}${exampleHtml(item.vocab)}<p style="color:var(--muted);font-size:.75rem">Lần ôn tiếp theo: ${formatNextReview(item.progress.nextReview)} · trạng thái: ${item.progress.state}</p><div class="actions" style="margin-top:12px"><button class="btn primary full" id="next-card">Tiếp tục <kbd>Enter</kbd></button></div></div>`;
-    container.querySelector('#next-card').addEventListener('click', advanceCard);
+    container.querySelector('#feedback-area').innerHTML = `<div class="feedback ${correct ? 'correct' : 'wrong'}" role="alert"><div class="feedback-title">${correct ? '✓ Chính xác!' : `✕ Chưa đúng · Đáp án: ${escapeHtml(answerText)}`}</div><p><strong>${escapeHtml(item.vocab.word)}</strong> · ${escapeHtml(item.vocab.meaning)}</p>${vocabularyMetadataHtml(item.vocab)}${!correct && !item.practice ? `<p>Bạn sai từ này ${item.progress.wrongCount} lần. Đã xếp một lượt gõ lại sau các thẻ còn lại; từ vẫn đến hạn ôn.</p>` : ''}${item.practice ? '<p>Lượt luyện đã hoàn tất. Lịch ôn và kết quả lần đầu được giữ nguyên; hãy ôn lại khi đến hạn.</p>' : ''}${exampleHtml(item.vocab)}<p style="color:var(--muted);font-size:.75rem">Lần ôn tiếp theo: ${formatNextReview(item.progress.nextReview)} · trạng thái: ${item.progress.state}</p><div class="actions" style="margin-top:12px"><button class="btn primary full" id="next-card">Tiếp tục <kbd>Enter</kbd></button></div></div>`;
+    const nextButton = container.querySelector('#next-card');
+    nextButton.addEventListener('click', advanceCard);
+    nextButton.focus({ preventScroll: true });
   }
 
   function advanceCard() {
@@ -16375,10 +16389,11 @@ export async function createApp(root) {
   }
 
   function repeatCurrent() {
-    if (!answered || !session?.length || repeatQueued) return;
-    session.unshift({ vocab: lastAnswered.vocab, progress: progress[lastAnswered.vocab.id] });
-    repeatQueued = true;
-    toast('Đã xếp lại từ này ngay sau thẻ hiện tại.');
+    if (!answered || !session?.length) return;
+    if (queuePractice(session, session[0])) {
+      sessionStats.practiceTotal += 1;
+      toast('Đã xếp một lượt luyện sau các thẻ còn lại, không đổi lịch ôn.');
+    }
     advanceCard();
   }
 
@@ -16401,7 +16416,7 @@ export async function createApp(root) {
 
   function renderSummary(container) {
     const summary = sessionSummary;
-    container.innerHTML = `<div class="summary"><section class="panel"><div class="panel-body"><div style="font-size:2.3rem">🎉</div><h2>Hoàn thành phiên học</h2><p>${summary.total} thẻ · ${summary.duration}s · ${escapeHtml(summary.mode)}</p><div class="summary-grid"><div><strong>${summary.accuracy}%</strong><span>Chính xác</span></div><div><strong style="color:var(--success)">${summary.correct}</strong><span>Đúng</span></div><div><strong style="color:var(--danger)">${summary.wrong}</strong><span>Sai</span></div><div><strong>${stats().weak}</strong><span>Từ yếu</span></div></div><div class="actions" style="justify-content:center"><button class="btn primary" id="again">Học tiếp</button><button class="btn" id="summary-dashboard">Xem dashboard</button></div></div></section></div>`;
+    container.innerHTML = `<div class="summary"><section class="panel"><div class="panel-body"><div style="font-size:2.3rem">🎉</div><h2>Hoàn thành phiên học</h2><p>${summary.total} từ · ${summary.duration}s · ${escapeHtml(summary.mode)}</p><div class="summary-grid"><div><strong>${summary.accuracy}%</strong><span>Chính xác lần đầu</span></div><div><strong style="color:var(--success)">${summary.correct}</strong><span>Đúng</span></div><div><strong style="color:var(--danger)">${summary.wrong}</strong><span>Sai</span></div><div><strong>${stats().weak}</strong><span>Từ yếu</span></div></div>${summary.practiceTotal ? `<p>Luyện lại: ${summary.practiceCorrect} đúng · ${summary.practiceWrong} chưa đúng / ${summary.practiceTotal} lượt. Không tính vào độ chính xác lần đầu hay lịch ôn.</p>` : ''}<div class="actions" style="justify-content:center"><button class="btn primary" id="again">Học tiếp</button><button class="btn" id="summary-dashboard">Xem dashboard</button></div></div></section></div>`;
     container.querySelector('#again').addEventListener('click', () => { sessionSummary = null; renderLearn(container); });
     container.querySelector('#summary-dashboard').addEventListener('click', () => { view = 'dashboard'; sessionSummary = null; renderShell(); });
   }
@@ -16494,6 +16509,7 @@ export async function createApp(root) {
     if (!prefs.keyboardShortcuts || !session?.length) return;
     const tag = event.target?.tagName;
     if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || event.target?.isContentEditable) return;
+    if (event.defaultPrevented || (tag === 'BUTTON' && [' ', 'Enter'].includes(event.key))) return;
     if (event.key >= '1' && event.key <= '4' && !answered && question?.options) {
       event.preventDefault();
       const button = root.querySelectorAll('[data-option]')[Number(event.key) - 1];
