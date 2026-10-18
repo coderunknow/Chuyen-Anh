@@ -2320,7 +2320,7 @@
     ],
     "quality": "DOCX",
     "answers": "Có, theo bản đăng lại",
-    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc. Transcript trong tệp DOCX được lưu kết thúc giữa câu bằng dấu ba chấm; phần transcript này không đầy đủ.",
     "unit_label": "Sở GD&ĐT An Giang"
   },
   {
@@ -2363,7 +2363,7 @@
     ],
     "quality": "DOCX",
     "answers": "Có, theo bản đăng lại",
-    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc. Transcript trong tệp DOCX được lưu kết thúc giữa câu bằng dấu ba chấm; phần transcript này không đầy đủ.",
     "unit_label": "Sở GD&ĐT Bắc Ninh"
   },
   {
@@ -2644,7 +2644,7 @@
     ],
     "quality": "DOCX",
     "answers": "Có, theo bản đăng lại",
-    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc.",
+    "note": "Đã giữ toàn bộ phần văn bản của tài liệu được chọn; chưa đối chiếu từng câu, hình, gạch chân và bố cục với bản gốc. Transcript trong tệp DOCX được lưu kết thúc giữa câu bằng dấu ba chấm; phần transcript này không đầy đủ.",
     "unit_label": "THPT Chuyên Khoa học — Đại học Huế"
   },
   {

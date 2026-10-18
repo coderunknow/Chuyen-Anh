@@ -11,6 +11,8 @@ on:
       - "scripts/embed_vocabulary.py"
       - "scripts/learned_vocabulary.py"
       - "scripts/validate_vocab.py"
+      - "scripts/exams/**"
+      - "De-chuyen-Anh-vao-10/**"
       - ".github/workflows/deploy.yml"
   workflow_dispatch:
 
@@ -39,6 +41,7 @@ jobs:
           python scripts/build_vocabulary.py --check
           python scripts/validate_vocab.py
           python scripts/embed_vocabulary.py --check
+          python scripts/exams/embed_archive.py --check
 
       - name: Run Python unit tests
         run: python -m unittest discover -s tests -p 'test_*.py'

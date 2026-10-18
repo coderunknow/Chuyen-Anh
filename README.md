@@ -1,6 +1,6 @@
-# Chuyên Anh — standalone flashcards
+# Chuyên Anh — flashcards & kho đề offline
 
-Web flashcard từ vựng Chuyên Anh, chạy như **một file HTML độc lập**. `index.html` chứa toàn bộ HTML, CSS, JavaScript và 913 mục từ; ứng dụng không gọi API, không tải tệp dữ liệu/tài nguyên bên ngoài và có thể mở trực tiếp trên trình duyệt. Tiến độ học được lưu trong `localStorage` của trình duyệt.
+Ứng dụng flashcard Chuyên Anh và kho bản chép đề offline, chạy như **một file HTML độc lập**. `index.html` chứa HTML, CSS, JavaScript, 913 mục từ và toàn bộ 106 bản chép đề thi 2022–2026. Không có API, backend hay tài nguyên tự tải; có thể mở trực tiếp trên trình duyệt. Chỉ tiến độ flashcard được lưu trong `localStorage`; kho đề là dữ liệu đọc trong file.
 
 ## Dữ liệu và quy trình cập nhật
 
@@ -9,7 +9,10 @@ Learned_Vocabulary_List.md  (bảng từ vựng có cấu trúc)
            ↓ python scripts/build_vocabulary.py
  data/vocabulary.json       (dữ liệu ứng dụng + metadata cũ được giữ lại)
            ↓ python scripts/embed_vocabulary.py
- index.html                 (file duy nhất cần triển khai)
+
+De-chuyen-Anh-vao-10/*.md + scripts/exams/selection.json
+           ↓ python scripts/exams/embed_archive.py
+index.html                  (vocabulary-data + exam-data; file duy nhất cần triển khai)
 ```
 
 `Learned_Vocabulary_List.md` là bảng Markdown có các cột:
@@ -30,6 +33,7 @@ Sau khi chỉnh bảng từ vựng, chạy:
 ```bash
 python scripts/build_vocabulary.py
 python scripts/embed_vocabulary.py
+python scripts/exams/embed_archive.py
 python scripts/validate_vocab.py
 ```
 
@@ -38,6 +42,7 @@ Có thể kiểm tra hai bước đồng bộ mà không ghi tệp:
 ```bash
 python scripts/build_vocabulary.py --check
 python scripts/embed_vocabulary.py --check
+python scripts/exams/embed_archive.py --check
 ```
 
 Validator kiểm tra schema, kiểu dữ liệu, ID/từ trùng lặp và các trường bắt buộc. CI cũng xác nhận rằng JSON và dữ liệu nhúng trong HTML khớp nhau.
@@ -55,6 +60,7 @@ Chỉ cần giữ `index.html` khi sao chép/triển khai ứng dụng. Các t�
 
 ## Tính năng học
 
+- Ngôn ngữ giao diện Tiếng Việt/English trong Cài đặt; lựa chọn được lưu riêng trên thiết bị (`chuyen-anh.language.v1`), không thêm vào JSON sao lưu tiến độ v1. Nghĩa từ vựng và nội dung đề giữ nguyên ngôn ngữ nguồn.
 - Recognition: English → Vietnamese.
 - Recall: Vietnamese → English.
 - Spelling: gõ từ tiếng Anh.
@@ -71,29 +77,41 @@ Chỉ cần giữ `index.html` khi sao chép/triển khai ứng dụng. Các t�
 - Import/export JSON; import validate trước, lỗi không ghi đè backup cũ; reset tiến độ. Thông báo cho người học và lỗi tệp sao lưu được viết bằng tiếng Việt. Import hoặc reset kết thúc phiên đang học (hàng đợi, câu hỏi, trạng thái giới thiệu/tự đánh giá, thống kê phiên) nên quay lại Học sẽ thấy màn hình chọn phiên thay vì phiên cũ. Ghi `localStorage` được kiểm tra kết quả: khi ghi thất bại, ứng dụng báo lỗi thay vì báo thành công.
 - Giao diện co giãn cho điện thoại và desktop, ưu tiên lựa chọn học trước các bảng hỗ trợ trên màn hình hẹp; điều khiển có nhãn, focus-visible và reduced motion. Biểu tượng SVG được nhúng trong file. Các lựa chọn đáp án là nhóm nút có tên (`role="group"` + `aria-label`) đúng với điều khiển thật; phím tắt (`Space`, `1–4`, `Enter`, `R`) chỉ tác động lên thẻ đang hiển thị ở màn hình Học.
 
+## Kho bản chép đề offline
+
+- Kho gồm 106 bản chép Markdown thuộc các kỳ thi 2022–2026; lọc theo năm, tỉnh/thành, đơn vị và dạng nguồn, đồng thời tìm kiếm theo metadata. Danh sách được phân trang để giữ giao diện gọn.
+- Mỗi bản giữ nguyên phần Markdown hiện có, ghi chú chất lượng, nguồn đăng lại, loại tệp và SHA-256 của nguồn. Trình đọc hiển thị toàn bộ nội dung đã nhúng, không cắt theo số dòng/ký tự; điều đó **không chứng minh bản PDF/DOCX gốc đầy đủ**. Cả 106 bản đều **chưa được soát riêng từng câu với bản gốc**; 22 bản HTML/OCR còn cần rà soát định dạng/nội dung.
+- Có transcript kết thúc giữa câu bằng dấu ba chấm trong 2023 Đắk Lắk và các tệp 2026 An Giang, Bắc Ninh, Chuyên Khoa học Huế. Đây là phần thiếu ngay trong văn bản nguồn đã chuyển đổi, không phải cắt xén do giao diện. Kho hiện không có PDF/DOCX gốc đầy đủ để khôi phục các đoạn này; cần cung cấp nguồn gốc để hoàn thiện.
+- **Prototype luyện tập không chấm điểm:** 84 bản PDF/DOCX có thể cung cấp câu/mục được trích tự động khi phát hiện được số thứ tự và lựa chọn/vạch trống hiện diện trong chính văn bản. Từng mục đều được đánh dấu chưa xác minh; parser có thể bỏ sót, ghép sai hoặc dừng trước phần đáp án. Không coi số mục trích ra là độ bao phủ của đề. 22 bản HTML/OCR và bản không phát hiện được cấu trúc đủ tin cậy vẫn chỉ đọc, không đoán cách ghép.
+- Có thể điều hướng giữa các bản và các mục trích, theo dõi đã/chưa trả lời, chọn/đổi đáp án, xem lại trước khi nộp, nộp bài và xem tóm tắt chỉ gồm số đã/chưa trả lời. Lựa chọn chỉ nằm trong bộ nhớ trang hiện tại, được giữ để xem lại sau nộp và mất khi tải lại/đóng trang; không ghi vào localStorage, lịch sử luyện đề hay JSON backup.
+- Chế độ luyện tập không nạp hoặc tiết lộ riêng đáp án; không có thời gian, chấm đúng/sai, điểm, xếp hạng hay lịch sử điểm. Bản Markdown đầy đủ vẫn hiển thị riêng bên dưới và có thể chứa nội dung đáp án đã nằm trong nguồn. Audio nghe không được nhúng hoặc bịa thêm. Thời lượng in trong nguồn không được chuẩn hóa/kiểm chứng chéo và không được trình bày như thời lượng chính thức.
+- Nội dung đáp án trong nguồn là gợi ý provenance, không phải khóa chấm đã xác minh độc lập. Cấu trúc phiên tách riêng câu trả lời khỏi tiến độ flashcard, để sau này có thể thêm khóa đã xác minh, chấm điểm, thời gian và lịch sử trong một thiết kế riêng; các tính năng đó chưa được bật hoặc phê duyệt.
+- Kho được nhúng trong `index.html`, không đi vào JSON sao lưu tiến độ. Hợp đồng sao lưu flashcard v1 không thay đổi; phiên luyện transcript hiện tại không tạo lịch sử lâu dài.
+
 ## GitHub Actions
 
 ### Deploy `.github/workflows/deploy.yml`
 
-Khi nguồn dữ liệu, validator, bộ đồng bộ hoặc app thay đổi trên `main`, workflow kiểm tra bảng/JSON/HTML đã đồng bộ, chạy toàn bộ unit test Python và Node, rồi mới stage và upload **chỉ `index.html`** lên GitHub Pages. Lỗi ở bất kỳ bước kiểm tra nào sẽ chặn deploy. Không có frontend bundler, npm install hay backend.
+Khi nguồn dữ liệu, validator, bộ đồng bộ, kho đề hoặc app thay đổi trên `main`, workflow kiểm tra bảng/JSON/HTML và 106 bản chép đã được nhúng đồng bộ, chạy unit test Python và Node, rồi mới stage và upload **chỉ `index.html`** lên GitHub Pages. File này chứa cả dữ liệu từ vựng lẫn bản chép đề; không cần tệp chạy-time nào khác. Lỗi ở bất kỳ bước kiểm tra nào sẽ chặn deploy. Không có frontend bundler, npm install hay backend.
 
 ### CI `.github/workflows/ci.yml`
 
-CI chạy trên PR và push `main` khi các tệp liên quan thay đổi: kiểm tra đồng bộ nguồn, validator Python, unit test Python và Node built-in tests cho scheduler/search/persistence/import. Thay đổi `deploy.yml` cũng kích hoạt CI. Workflow deploy tự chạy lại các kiểm tra này trước khi xuất bản, không giả định rằng workflow CI riêng đã chạy hoặc thành công. Node chỉ được dùng trong test; production không cần Node.
+CI chạy trên PR và push `main` khi các tệp liên quan thay đổi: kiểm tra đồng bộ nguồn từ vựng/kho đề, validator Python, unit test Python và Node built-in tests cho scheduler/search/persistence/import và dữ liệu luyện đề. Thay đổi nguồn Markdown hoặc manifest đề cũng chạy kiểm tra đồng bộ; nội dung mới không được tự chấp nhận khi chưa có trong manifest đã chọn. Workflow deploy tự chạy lại các kiểm tra này trước khi xuất bản, không giả định rằng workflow CI riêng đã chạy hoặc thành công. Node chỉ được dùng trong test; production không cần Node.
 
 GitHub Pages cần được bật với source **GitHub Actions** trong Settings → Pages. Không thể xác nhận deploy thật từ checkout local; sau lần merge, kiểm tra job `Deploy Flashcard` trên GitHub.
 
-## Kho đề
+## Kho đề và nguồn dữ liệu
 
-Các tài liệu đề chuyên Anh được giữ nguyên trong `De-chuyen-Anh-vao-10/` và không được đưa vào Pages artifact. Bằng chứng và phương pháp rà soát 300 mục bổ sung được ghi tại [`docs/vocabulary-300-review.md`](docs/vocabulary-300-review.md).
+106 tệp Markdown và manifest đã chọn nằm trong `De-chuyen-Anh-vao-10/` và `scripts/exams/selection.json`; build script chỉ nhúng các bản đã có trong manifest, không tự nhận đề mới. Nội dung trong Pages artifact được đóng gói trực tiếp vào `index.html`; GitHub Pages vẫn chỉ nhận một tệp. Các tệp nguồn được giữ nguyên để kiểm tra provenance và tái tạo payload. Phạm vi kho không khẳng định đã thu thập đủ toàn quốc; xem [`De-chuyen-Anh-vao-10/DO-PHU.md`](De-chuyen-Anh-vao-10/DO-PHU.md) và [`NGUON-CHO-XU-LY.md`](De-chuyen-Anh-vao-10/NGUON-CHO-XU-LY.md). Bằng chứng và phương pháp rà soát 300 mục bổ sung được ghi tại [`docs/vocabulary-300-review.md`](docs/vocabulary-300-review.md).
 
 ## Kiểm tra luồng học bằng trình duyệt (tùy chọn)
 
-CI và runtime vẫn không có dependency mới. Bộ kiểm tra trình duyệt dùng Playwright Core với Chromium, phục vụ HTML qua static HTTP và kiểm tra feedback → luyện lại → summary, phím tắt/focus, bỏ qua, reload, import/export, theme, reduced motion và viewport mobile; ngoài ra còn kiểm tra gợi ý phiên theo thẻ đến hạn, bố cục đầu trang trên điện thoại, tên và focus của điều khiển cài đặt, trạng thái tìm kiếm khi bật/tắt yêu thích, việc xóa phiên khi reset/import, nhãn lịch sử của ID 448, nhóm nút đáp án có tên, phạm vi phím tắt, và thông báo trung thực khi ghi `localStorage` thất bại. Để chạy trong sandbox Linux tối giản:
+CI và runtime vẫn không có dependency mới. Bộ kiểm tra trình duyệt tùy chọn dùng Playwright Core với Chromium và phục vụ HTML qua static HTTP. `browser-learning.cjs` kiểm tra luồng flashcard, bàn phím/focus, responsive, import/export, reset và lưu trữ; `browser-exams.cjs` kiểm tra archive offline, bộ lọc/provenance, source rendering an toàn, lựa chọn → đổi → review → submit → xem lại đáp án đã nộp, điều hướng giấy thi/câu hỏi, trạng thái answered/unanswered, phiên chỉ tồn tại trong bộ nhớ, fallback chỉ đọc cho HTML/OCR, không có timer/điểm và bố cục mobile/tablet/desktop; đồng thời bảo đảm không phát sinh network request. Để chạy trong sandbox Linux tối giản:
 
 ```bash
 npm install --no-save --package-lock=false playwright-core @sparticuz/chromium@133.0.0
 node tests/browser-learning.cjs
+node tests/browser-exams.cjs
 ```
 
-Có thể chỉ cài `playwright-core` và dùng `BROWSER_EXECUTABLE=/path/to/chromium node tests/browser-learning.cjs` với Chromium có sẵn. Không đưa `node_modules` vào Git; không cần các package này để sử dụng hay triển khai ứng dụng.
+Có thể chỉ cài `playwright-core` và dùng `BROWSER_EXECUTABLE=/path/to/chromium node tests/browser-learning.cjs` hoặc `BROWSER_EXECUTABLE=/path/to/chromium node tests/browser-exams.cjs` với Chromium có sẵn. Không đưa `node_modules` vào Git; không cần các package này để sử dụng hay triển khai ứng dụng.
