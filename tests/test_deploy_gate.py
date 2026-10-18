@@ -72,12 +72,20 @@ class DecideDeployTests(unittest.TestCase):
         self.assertIn('forced', reason)
 
 
-class Dev3HoldTests(unittest.TestCase):
-    def test_repository_hold_names_the_dev3_release(self):
-        text = (ROOT / 'DEPLOY_HOLD').read_text(encoding='utf-8')
+class HoldMarkerLifecycleTests(unittest.TestCase):
+    def test_hold_marker_is_absent_or_names_exactly_one_release_tag(self):
+        # The v1.0.0-dev3 hold was lifted after its prerelease published (DESIGN_LOG entry
+        # #47): absence means auto-deploy. If a hold marker returns for a future release it
+        # must name exactly one well-formed release tag — no blank, comment-only, or typo text.
+        path = ROOT / 'DEPLOY_HOLD'
+        if not path.exists():
+            return
+        text = path.read_text(encoding='utf-8')
         tags = [line.strip() for line in text.splitlines()
                 if line.strip() and not line.strip().startswith('#')]
-        self.assertEqual(tags, ['v1.0.0-dev3'])
+        self.assertEqual(len(tags), 1, 'DEPLOY_HOLD must name exactly one release tag')
+        self.assertRegex(tags[0], r'^v\d+\.\d+\.\d+',
+                         'DEPLOY_HOLD tag must look like a release tag (e.g. v1.0.0-dev3)')
 
 
 class DeployWorkflowContractTests(unittest.TestCase):
