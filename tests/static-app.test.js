@@ -1,16 +1,21 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 
 const root = new URL('../', import.meta.url);
 const html = await readFile(new URL('index.html', root), 'utf8');
 const vocabularyScript = html.match(/<script id="vocabulary-data" type="application\/json">([\s\S]*?)<\/script>/i);
+const examScript = html.match(/<script id="exam-data" type="application\/json">([\s\S]*?)<\/script>/i);
 const styleBlock = html.match(/<style>([\s\S]*?)<\/style>/i);
 const appScript = html.match(/<script type="module" id="app-script">([\s\S]*?)<\/script>/i);
 assert.ok(vocabularyScript, 'index.html must contain its vocabulary JSON');
+assert.ok(examScript, 'index.html must contain the offline exam archive JSON');
 assert.ok(appScript, 'index.html must contain its application module');
 const embeddedRaw = vocabularyScript[1].trim();
 const embeddedVocabulary = JSON.parse(embeddedRaw);
+const embeddedExamRaw = examScript[1].trim();
+const embeddedExamRecords = JSON.parse(embeddedExamRaw);
 const app = await import(`data:text/javascript;base64,${Buffer.from(appScript[1], 'utf8').toString('base64')}`);
 
 const {
@@ -45,7 +50,15 @@ const {
   loadProgress,
   loadVocabulary,
   vocabularyMetadataHtml,
-  normalize
+  normalize,
+  loadExamArchive,
+  filterExamArchive,
+  renderExamMarkdown,
+  loadExamHistory,
+  saveExamHistory,
+  createExamAttempt,
+  updateExamAttempt,
+  examClockState
 } = app;
 
 const vocab = [
@@ -78,6 +91,28 @@ test('the only runtime deliverable is a self-contained HTML document', async () 
   assert.doesNotMatch(appScript[1], /\bfetch\s*\(/);
 });
 
+test('the embedded exam archive preserves all 106 selected transcription bodies and provenance', async () => {
+  const plan = JSON.parse(await readFile(new URL('scripts/exams/selection.json', root), 'utf8'));
+  const records = loadExamArchive(embeddedExamRaw);
+  assert.equal(records.length, 106);
+  assert.deepEqual(records.map(record => record.id), plan.map(record => record.key));
+  assert.equal(records.filter(record => /HTML|OCR|cần-soát/i.test(record.quality)).length, 22);
+  assert.equal(records.filter(record => record.answers.startsWith('Chưa')).length, 32);
+  assert.equal(records.filter(record => record.answers.startsWith('Có')).length, 74);
+  assert.doesNotMatch(embeddedExamRaw, /<\/script/i, 'source text cannot terminate its JSON script block');
+
+  for (let index = 0; index < records.length; index += 1) {
+    const record = records[index];
+    const source = await readFile(new URL(`De-chuyen-Anh-vao-10/${record.id}.md`, root), 'utf8');
+    const body = source.replace(/^---\n[\s\S]*?\n---\n/, '');
+    assert.equal(record.markdown, body, `${record.id} transcription body must be embedded without edits`);
+    assert.equal(record.contentSha256, createHash('sha256').update(body, 'utf8').digest('hex'));
+    assert.equal(record.source, plan[index].source);
+    assert.equal(record.province, plan[index].province);
+    assert.equal(record.year, plan[index].year);
+  }
+});
+
 test('embedded vocabulary loads without fetch and passes runtime validation', async () => {
   const loaded = await loadVocabulary(embeddedRaw);
   assert.equal(loaded.data.length, 913);
@@ -100,6 +135,69 @@ test('embedded vocabulary loads without fetch and passes runtime validation', as
     if (previousDocument === undefined) delete globalThis.document;
     else globalThis.document = previousDocument;
   }
+});
+
+test('exam archive filters by year, location, format and unit', () => {
+  const records = loadExamArchive(embeddedExamRaw);
+  const papers2026 = filterExamArchive(records, { year: 2026 });
+  assert.equal(papers2026.length, records.filter(record => record.year === 2026).length);
+  assert.equal(filterExamArchive(records, { year: 2026, province: 'Vĩnh Long' }).length, 1);
+  assert.equal(filterExamArchive(records, { query: 'vinh long' })[0].id, '2026/vinh-long/so');
+  assert.equal(filterExamArchive(records, { format: 'needs-review' }).length, 22);
+  assert.ok(filterExamArchive(records, { format: 'pdf' }).every(record => record.assets.some(asset => asset.type === 'pdf')));
+  assert.ok(filterExamArchive(records, { unit: 'school' }).every(record => record.unit !== 'so'));
+  assert.ok(filterExamArchive(records, { unit: 'department' }).every(record => record.unit === 'so'));
+});
+
+test('all unreviewed papers remain browse-only: no timed attempts or generated outline controls', () => {
+  assert.equal(embeddedExamRecords.length, 106);
+  assert.equal(embeddedExamRecords.filter(record => record.review?.status === 'reviewed').length, 0);
+  assert.match(appScript[1], /Chưa có bản chép nào được cấu trúc và soát riêng theo từng câu/);
+  assert.match(appScript[1], /chưa có điều hướng câu hỏi, đồng hồ luyện tập hoặc chấm điểm/i);
+  assert.doesNotMatch(appScript[1], /name="exam-timer-mode"|id="exam-start"|id="exam-duration"|role="timer"|class="exam-outline"/);
+});
+
+test('transcription rendering keeps source structure and escapes untrusted HTML', () => {
+  const rendered = renderExamMarkdown([
+    '# Paper title', '', '## Listening', '', '> **Instructions**', '',
+    '| **A.** Choice |', '| --- |', '| B. Other choice |', '',
+    '<u>Underlined</u><br>Next line', '',
+    '[Source](https://example.test/paper?a=1&b=2)',
+    '[Unsafe](javascript:alert(1))', '',
+    '<img src=x onerror=alert(1)>', '',
+    '```text', '<script>alert(1)</script>', '```'
+  ].join('\n'), '2026/demo/so');
+  assert.deepEqual(rendered.headings.map(heading => heading.label), ['Paper title', 'Listening']);
+  assert.match(rendered.html, /<h3 id="exam-2026-demo-so-section-2">Listening<\/h3>/);
+  assert.match(rendered.html, /<table class="exam-table">/);
+  assert.match(rendered.html, /<u>Underlined<\/u><br>Next line/);
+  assert.match(rendered.html, /href="https:\/\/example.test\/paper\?a=1&amp;b=2"/);
+  assert.doesNotMatch(rendered.html, /href="javascript:/i);
+  assert.doesNotMatch(rendered.html, /<img\b|<script\b/i);
+  assert.match(rendered.html, /&lt;script&gt;alert\(1\)&lt;\/script&gt;/);
+});
+
+test('exam attempts use a separate local-only history and never extend the v1 flashcard backup', () => {
+  const storage = store();
+  const active = createExamAttempt('2026/vinh-long/so', 'countdown', 60, 1_000, 0.5);
+  assert.equal(active.durationSeconds, 3_600);
+  assert.equal(active.status, 'in-progress');
+  assert.deepEqual(examClockState(active, 31_000), { elapsed: 30, remaining: 3_570, label: '59:30', expired: false });
+  assert.equal(examClockState(active, 3_601_000).expired, true);
+  assert.throws(() => createExamAttempt('2026/vinh-long/so', 'countdown', 0, 1_000), /1 đến 360 phút/);
+
+  let attempts = updateExamAttempt([active], active.id, { notes: '1. B\n2. C' }, 2_000);
+  attempts = updateExamAttempt(attempts, active.id, { status: 'completed', completedAt: 3_000 }, 3_000);
+  assert.equal(saveExamHistory(attempts, storage), true);
+  assert.deepEqual(loadExamHistory(storage), attempts);
+  assert.equal(storage.getItem('chuyen-anh.exam-history.v1') !== null, true);
+  assert.equal(storage.getItem('chuyen-anh.progress.v1'), null);
+
+  const bundle = exportProgressBundle({
+    progress: {}, prefs: {}, favorites: new Set(), history: [], streak: { current: 0, longest: 0, lastDate: null }
+  });
+  assert.deepEqual(Object.keys(bundle).sort(), ['app', 'exportedAt', 'favorites', 'history', 'prefs', 'progress', 'streak', 'version']);
+  assert.equal('examAttempts' in bundle, false);
 });
 
 test('learner-facing labels stay local while persisted scheduler keys remain stable', () => {
@@ -246,7 +344,14 @@ test('answer choices are a named button group rather than a radio group', () => 
   assert.match(appScript[1], /const optionsLabel = question\.mode === MODES\.RECOGNITION \? 'Chọn nghĩa tiếng Việt' : 'Chọn từ tiếng Anh';/);
   assert.doesNotMatch(appScript[1], /role="radiogroup"/);
   assert.doesNotMatch(appScript[1], /aria-checked/);
-  assert.doesNotMatch(appScript[1], /type="radio"/);
+  const optionRendererStart = appScript[1].indexOf('const optionsLabel =');
+  const optionRendererEnd = appScript[1].indexOf("container.querySelector('#favorite-card')", optionRendererStart);
+  assert.ok(optionRendererStart >= 0 && optionRendererEnd > optionRendererStart);
+  assert.doesNotMatch(appScript[1].slice(optionRendererStart, optionRendererEnd), /type="radio"/);
+  // The archive remains browse-only until individual question structure is reviewed.
+  assert.doesNotMatch(appScript[1], /name="exam-timer-mode"|id="exam-start"|id="exam-duration"|role="timer"|class="exam-outline"/);
+  assert.match(appScript[1], /exam-practice-locked/);
+  assert.match(appScript[1], /Chưa có bản chép nào được cấu trúc và soát riêng theo từng câu/);
 });
 
 test('resetting or importing progress clears the whole running session', () => {

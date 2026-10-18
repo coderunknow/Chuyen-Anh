@@ -12,6 +12,7 @@ on:
       - "scripts/learned_vocabulary.py"
       - "scripts/validate_vocab.py"
       - "scripts/audit_learned_vocab.py"
+      - "scripts/exams/**"
       - "docs/vocabulary-300-*.json"
       - "docs/vocabulary-300-review.md"
       - "De-chuyen-Anh-vao-10/**"
@@ -29,6 +30,7 @@ on:
       - "scripts/learned_vocabulary.py"
       - "scripts/validate_vocab.py"
       - "scripts/audit_learned_vocab.py"
+      - "scripts/exams/**"
       - "docs/vocabulary-300-*.json"
       - "docs/vocabulary-300-review.md"
       - "De-chuyen-Anh-vao-10/**"
@@ -58,6 +60,7 @@ jobs:
           python scripts/build_vocabulary.py --check
           python scripts/validate_vocab.py
           python scripts/embed_vocabulary.py --check
+          python scripts/exams/embed_archive.py --check
 
       - name: Run Python unit tests
         run: python -m unittest discover -s tests -p 'test_*.py'
