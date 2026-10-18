@@ -1,0 +1,39 @@
+name: Release artifacts
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Optional tag to backfill (blank processes every current release)"
+        required: false
+        type: string
+  push:
+    tags:
+      - "v1.0.0-dev*"
+
+permissions:
+  contents: write
+
+jobs:
+  artifacts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out workflow code and tags
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Backfill releases or package pushed tag
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          INPUT_TAG: ${{ inputs.tag }}
+          PUSH_TAG: ${{ github.event_name == 'push' && github.ref_name || '' }}
+        run: python3 scripts/release_artifacts.py
