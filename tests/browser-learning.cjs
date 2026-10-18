@@ -163,7 +163,10 @@ async function main() {
     await page.locator('[data-view="settings"]').click();
     assert.equal(await page.getByRole('checkbox', { name: 'Giao diện tối' }).count(), 1, 'the theme switch has a learner-facing accessible name');
     assert.equal(await page.getByRole('checkbox', { name: 'Phím tắt bàn phím' }).count(), 1, 'the shortcut switch has a learner-facing accessible name');
+    assert.equal(await page.getByRole('combobox', { name: 'Ngôn ngữ giao diện' }).count(), 1, 'the interface-language select has a name');
     assert.equal(await page.getByRole('combobox', { name: 'Số thẻ mặc định mỗi phiên' }).count(), 1, 'the session-size select has a name');
+    await page.keyboard.press('Tab');
+    assert.equal(await page.evaluate(() => document.activeElement.id), 'language-setting', 'keyboard navigation reaches the interface-language selector first');
     await page.keyboard.press('Tab');
     assert.equal(await page.evaluate(() => document.activeElement.id), 'dark-setting', 'keyboard navigation reaches the named theme switch');
     const switchFocus = await page.locator('#dark-setting').evaluate(input => ({

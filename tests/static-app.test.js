@@ -41,10 +41,14 @@ const {
   validateImportPayload,
   exportProgressBundle,
   saveProgress,
+  loadPrefs,
   savePrefs,
   saveFavorites,
   saveHistory,
   saveStreak,
+  loadLanguage,
+  saveLanguage,
+  translateUiText,
   loadHistory,
   ensureProgress,
   loadProgress,
@@ -111,6 +115,52 @@ test('the embedded exam archive preserves all 106 selected transcription bodies 
     assert.equal(record.province, plan[index].province);
     assert.equal(record.year, plan[index].year);
   }
+
+  const incompleteTranscripts = ['2026/an-giang/so', '2026/bac-ninh/so', '2026/hue/chuyen-khoa-hoc-hue'];
+  for (const id of incompleteTranscripts) {
+    const record = records.find(item => item.id === id);
+    assert.match(record.note, /transcript.*không đầy đủ/i, `${id} explicitly warns that its stored transcript is incomplete`);
+    assert.match(record.markdown.trimEnd(), /(?:…|\.\.\.)$/, `${id} retains the source's visible ellipsis instead of silently filling it in`);
+  }
+  assert.match(records.find(item => item.id === '2023/dak-lak/so').note, /không coi transcript là bản đầy đủ/i);
+});
+
+test('interface language is stored independently and is not added to prefs or the v1 backup', () => {
+  const storage = store();
+  assert.equal(loadLanguage(storage), 'vi', 'Vietnamese is the default');
+  assert.equal(saveLanguage('en', storage), true);
+  assert.equal(storage.getItem('chuyen-anh.language.v1'), 'en');
+  assert.equal(loadLanguage(storage), 'en');
+  assert.deepEqual(loadPrefs(storage), { sessionSize: 20, keyboardShortcuts: true, darkMode: false });
+  assert.equal(saveLanguage('fr', storage), false, 'unsupported locales are rejected');
+  assert.equal(loadLanguage(storage), 'en', 'an invalid choice must not overwrite the saved locale');
+  assert.equal(loadLanguage({ getItem() { throw new Error('blocked'); } }), 'vi');
+  assert.equal(saveLanguage('vi', { setItem() { throw new Error('blocked'); } }), false);
+
+  const bundle = exportProgressBundle({
+    progress: {}, prefs: loadPrefs(storage), favorites: new Set(), history: [],
+    streak: { current: 0, longest: 0, lastDate: null }
+  });
+  assert.equal(bundle.version, 1);
+  assert.equal(Object.hasOwn(bundle, 'language'), false);
+});
+
+test('English interface labels are localized while unknown source text and Vietnamese mode remain unchanged', () => {
+  assert.equal(translateUiText('Kho đề Chuyên Anh', 'en'), 'Specialized English exam archive');
+  assert.equal(translateUiText('106 bản chép · trang 1/5', 'en'), '106 transcriptions · page 1 of 5');
+  assert.equal(translateUiText('913 từ.', 'en'), '913 words.');
+  assert.equal(translateUiText('Tìm theo tiếng Anh, tiếng Việt, từ loại, tag hoặc ví dụ · 913 từ.', 'en'), 'Search English, Vietnamese, part of speech, tags, or examples · 913 words.');
+  assert.equal(translateUiText('13/10/2026 · 4 thẻ', 'en'), '13/10/2026 · 4 cards');
+  assert.equal(translateUiText('4 từ · 3 lượt · Ôn đến hạn', 'en'), '4 words · 3 turns · Due review');
+  assert.equal(translateUiText('TỪ / PHIÊN', 'en'), 'WORDS / SESSION');
+  assert.equal(translateUiText('Khó 0%', 'en'), 'Difficulty 0%');
+  assert.equal(translateUiText('lượt còn lại', 'en'), 'turns left');
+  assert.equal(translateUiText('Tiến độ của từ 17 không hợp lệ.', 'en'), 'Progress for word 17 is invalid.');
+  assert.equal(translateUiText('Tệp sao lưu phải là một đối tượng JSON.', 'en'), 'The backup file must contain a JSON object.');
+  assert.equal(translateUiText('Tất cả năm', 'en'), 'All years');
+  assert.equal(translateUiText('  Tất cả năm  ', 'en'), '  All years  ');
+  assert.equal(translateUiText('Kho đề Chuyên Anh', 'vi'), 'Kho đề Chuyên Anh');
+  assert.equal(translateUiText('What are Parkour athletes expected to do?', 'en'), 'What are Parkour athletes expected to do?');
 });
 
 test('embedded vocabulary loads without fetch and passes runtime validation', async () => {
@@ -215,6 +265,8 @@ test('learner-facing labels stay local while persisted scheduler keys remain sta
   assert.equal(formatDuration(1), '1 giây');
   assert.equal(formatDuration(61), '1 phút 1 giây');
   assert.equal(formatDuration(120), '2 phút');
+  assert.equal(formatDuration(61, 'en'), '1 min 1 sec');
+  assert.equal(formatDuration(120, 'en'), '2 min');
   assert.match(iconMarkup('book'), /<svg[\s\S]*aria-hidden="true"[\s\S]*<\/svg>/);
   assert.doesNotMatch(iconMarkup('search'), /<(?:img|use)\b|\bsrc=/i);
 });

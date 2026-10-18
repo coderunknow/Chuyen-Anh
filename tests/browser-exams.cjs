@@ -118,6 +118,100 @@ async function main() {
       }
     }
 
+    await page.locator('[data-view="settings"]').click();
+    await page.locator('#language-setting').selectOption('en');
+    await page.getByRole('heading', { name: 'Settings & data' }).waitFor();
+    assert.equal(await page.evaluate(() => document.documentElement.lang), 'en');
+    assert.equal(await page.evaluate(() => localStorage.getItem('chuyen-anh.language.v1')), 'en');
+    assert.equal(await page.getByRole('combobox', { name: 'Interface language' }).inputValue(), 'en');
+    assert.equal(await page.evaluate(() => document.activeElement.id), 'language-setting', 'keyboard focus remains on the language selector after switching locales');
+    assert.match(await page.locator('.data-info').innerText(), /Vocabulary, 106 exam transcriptions/);
+    assert.equal(await page.getByRole('button', { name: 'Exam archive' }).count(), 1, 'navigation is translated after changing the locale');
+    for (const viewport of [
+      { width: 320, height: 720 },
+      { width: 375, height: 812 },
+      { width: 768, height: 900 },
+      { width: 1440, height: 1000 }
+    ]) {
+      await page.setViewportSize(viewport);
+      assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, `English settings fit ${viewport.width}px without horizontal overflow`);
+      assert.equal(await page.locator('#language-setting').isVisible(), true, `English language selector is visible at ${viewport.width}px`);
+      if (screenshotDir && [320, 375, 768, 1440].includes(viewport.width)) {
+        await page.screenshot({ path: path.join(screenshotDir, `settings-en-${viewport.width}.png`), fullPage: true });
+      }
+    }
+    await page.evaluate(() => localStorage.setItem('chuyen-anh.history.v1', JSON.stringify([{
+      date: '2026-10-13T12:00:00.000Z', total: 4, correct: 3, wrong: 1, accuracy: 75, mode: 'due', durationSec: 60
+    }])));
+    await page.reload();
+    await page.locator('[data-view="dashboard"]').click();
+    await page.getByRole('heading', { name: 'Overview' }).waitFor();
+    assert.match(await page.locator('.history-row').innerText(), /Due review/);
+    assert.match(await page.locator('.history-row').innerText(), /4 cards/);
+    assert.match(await page.locator('.history-row').innerText(), /13\/10\/2026/);
+    await page.locator('[data-view="learn"]').click();
+    await page.getByRole('heading', { name: 'Study advanced English vocabulary' }).waitFor();
+    await page.locator('.recommendation-copy [data-session="quick10"]').click();
+    await page.locator('#start-quiz').waitFor();
+    assert.match(await page.locator('#content').innerText(), /Quick session · 10 turns left/);
+    assert.match(await page.locator('#content').innerText(), /1 \/ 10 turns · 10 left/);
+    assert.match(await page.locator('#content').innerText(), /Difficulty 0%/);
+    await page.locator('#start-quiz').click();
+    await page.locator('.flashcard-head').waitFor();
+    assert.match(await page.locator('.flashcard-head').innerText(), /1 \/ 10 turns · 10 left/);
+    assert.match(await page.locator('.flashcard-head').innerText(), /New/);
+    await page.locator('#exit-session').click();
+
+    await page.locator('[data-view="exams"]').click();
+    await page.getByRole('heading', { name: 'Specialized English exam archive', level: 1 }).waitFor();
+    for (const viewport of [
+      { width: 320, height: 720 },
+      { width: 375, height: 812 },
+      { width: 768, height: 900 },
+      { width: 1440, height: 1000 }
+    ]) {
+      await page.setViewportSize(viewport);
+      assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, `the English catalogue fits ${viewport.width}px without horizontal overflow`);
+      assert.equal(await page.getByRole('searchbox', { name: 'Search by location, school, or year' }).isVisible(), true, `English archive search remains visible at ${viewport.width}px`);
+      if (screenshotDir && [375, 768, 1440].includes(viewport.width)) {
+        await page.screenshot({ path: path.join(screenshotDir, `catalogue-en-${viewport.width}.png`), fullPage: true });
+      }
+    }
+    assert.match(await page.locator('.exam-warning').innerText(), /None of the 106 papers has been individually structured and reviewed question by question/i);
+    assert.equal(await page.getByRole('searchbox', { name: 'Search by location, school, or year' }).count(), 1);
+    for (const name of ['Exam year', 'Province/city', 'Source format', 'Exam provider']) {
+      assert.equal(await page.getByRole('combobox', { name }).count(), 1, `${name} filter is translated and accessible`);
+    }
+    await page.locator('#exam-search').fill('an giang');
+    await page.locator('#exam-year').selectOption('2026');
+    await page.locator('[data-exam-open="2026/an-giang/so"]').click();
+    await page.locator('#exam-practice-locked-title').waitFor();
+    assert.equal(await page.getByRole('heading', { name: 'Question-by-question practice is not available' }).count(), 1);
+    assert.match(await page.locator('.exam-warning').innerText(), /transcript.*incomplete/i, 'the known source transcript truncation is identified in the detail warning');
+    const sourceBody = await page.locator('.exam-document').innerText();
+    assert.match(sourceBody, /What are Parkour athletes expected to do\?/);
+    assert.match(sourceBody.trimEnd(), /Right, so I’d like to go ahead and…$/,  'the reader renders the literal final source text instead of cropping the page');
+    for (const viewport of [
+      { width: 320, height: 720 },
+      { width: 375, height: 812 },
+      { width: 768, height: 900 },
+      { width: 1440, height: 1000 }
+    ]) {
+      await page.setViewportSize(viewport);
+      assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, `the English transcription fits ${viewport.width}px without horizontal overflow`);
+      assert.equal(await page.locator('#exam-detail-back').isVisible(), true, `English back-to-archive remains visible at ${viewport.width}px`);
+      if (screenshotDir && [375, 768, 1440].includes(viewport.width)) {
+        await page.screenshot({ path: path.join(screenshotDir, `detail-en-${viewport.width}.png`), fullPage: true });
+      }
+    }
+
+    await page.reload();
+    assert.equal(await page.evaluate(() => document.documentElement.lang), 'en', 'the selected locale survives a reload');
+    await page.locator('[data-view="settings"]').click();
+    await page.locator('#language-setting').selectOption('vi');
+    await page.getByRole('heading', { name: 'Cài đặt & dữ liệu' }).waitFor();
+    assert.equal(await page.evaluate(() => document.documentElement.lang), 'vi');
+
     assert.deepEqual(externalRequests, [], 'offline catalogue and transcription browsing make no network requests');
     assert.deepEqual(errors, [], 'no browser exceptions');
     console.log(`PASS: Chromium ${browser.version()} — 106-record offline catalogue; accent-insensitive search; year/location/quality filters; source hashes and limitations; raw transcription rendering; no timers, question outlines or grading for unreviewed papers; safe markup; no network requests; 320/375/768/1440px archive and detail layouts; no page errors.`);

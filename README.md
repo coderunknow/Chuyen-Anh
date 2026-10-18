@@ -60,6 +60,7 @@ Chỉ cần giữ `index.html` khi sao chép/triển khai ứng dụng. Các t�
 
 ## Tính năng học
 
+- Ngôn ngữ giao diện Tiếng Việt/English trong Cài đặt; lựa chọn được lưu riêng trên thiết bị (`chuyen-anh.language.v1`), không thêm vào JSON sao lưu tiến độ v1. Nghĩa từ vựng và nội dung đề giữ nguyên ngôn ngữ nguồn.
 - Recognition: English → Vietnamese.
 - Recall: Vietnamese → English.
 - Spelling: gõ từ tiếng Anh.
@@ -79,7 +80,8 @@ Chỉ cần giữ `index.html` khi sao chép/triển khai ứng dụng. Các t�
 ## Kho bản chép đề offline
 
 - Kho gồm 106 bản chép Markdown thuộc các kỳ thi 2022–2026; lọc theo năm, tỉnh/thành, đơn vị và dạng nguồn, đồng thời tìm kiếm theo metadata. Danh sách được phân trang để giữ giao diện gọn.
-- Mỗi bản giữ nguyên nội dung chép, ghi chú chất lượng, nguồn đăng lại, loại tệp và SHA-256 của nguồn. Cả 106 bản đều **chưa được soát riêng từng câu với bản gốc**; 22 bản HTML/OCR còn cần rà soát định dạng/nội dung.
+- Mỗi bản giữ nguyên phần Markdown hiện có, ghi chú chất lượng, nguồn đăng lại, loại tệp và SHA-256 của nguồn. Trình đọc hiển thị toàn bộ nội dung đã nhúng, không cắt theo số dòng/ký tự; điều đó **không chứng minh bản PDF/DOCX gốc đầy đủ**. Cả 106 bản đều **chưa được soát riêng từng câu với bản gốc**; 22 bản HTML/OCR còn cần rà soát định dạng/nội dung.
+- Có transcript kết thúc giữa câu bằng dấu ba chấm trong 2023 Đắk Lắk và các tệp 2026 An Giang, Bắc Ninh, Chuyên Khoa học Huế. Đây là phần thiếu ngay trong văn bản nguồn đã chuyển đổi, không phải cắt xén do giao diện. Kho hiện không có PDF/DOCX gốc đầy đủ để khôi phục các đoạn này; cần cung cấp nguồn gốc để hoàn thiện.
 - **Phạm vi hiện tại là duyệt và đọc nguyên bản chép.** Chưa có bản nào được cấu trúc và review theo câu, nên không có mục lục/điều hướng câu hỏi, đồng hồ hay phiên làm bài. Các tiêu đề vốn có trong bản chép chỉ được hiển thị trong nội dung nguồn, không được coi là cấu trúc câu hỏi đã xác minh.
 - Nội dung đáp án trong nguồn là gợi ý provenance, không phải khóa chấm đã xác minh độc lập; ứng dụng không tự chấm. Audio nghe không được nhúng và tính đầy đủ/khả dụng không được xác nhận. Thời lượng in trong nguồn không được chuẩn hóa hoặc kiểm chứng chéo và không được trình bày như thời lượng chính thức.
 - Chỉ sau khi từng đề có schema câu hỏi và metadata review riêng mới nên mở điều hướng theo câu hoặc timed attempts. Thời lượng cần provenance nguồn rõ ràng; chấm tự động tiếp tục yêu cầu khóa đáp án được xác minh độc lập.
