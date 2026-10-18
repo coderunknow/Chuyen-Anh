@@ -410,8 +410,45 @@ kbd, .kbd { min-width: 24px; padding: 2px 6px; border: 1px solid var(--border-st
 .exam-source-metadata .data-info p { overflow-wrap: anywhere; }
 .exam-source-metadata .data-info ul { padding-left: 19px; color: var(--muted); font-size: .75rem; }
 .exam-source-metadata code { overflow-wrap: anywhere; }
-.exam-practice-locked { margin-bottom: 14px; }
-.exam-practice-locked .panel-body p { margin: 0; color: var(--muted); font-size: .82rem; }
+.exam-paper-nav { display: flex; justify-content: space-between; gap: 10px; margin: -4px 0 14px; }
+.exam-paper-nav .btn { min-width: 0; max-width: 48%; }
+.exam-paper-nav .btn span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.exam-practice { margin-bottom: 14px; }
+.exam-practice .panel-body { display: grid; gap: 13px; }
+.exam-practice-note { margin: 0; padding: 11px 13px; border: 1px solid color-mix(in srgb, var(--warning) 30%, var(--border)); border-radius: 10px; background: var(--warning-soft); color: var(--text); font-size: .78rem; line-height: 1.55; }
+.exam-practice-note strong { display: block; margin-bottom: 3px; }
+.exam-practice-status { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; color: var(--muted); font-size: .78rem; }
+.exam-practice-status b { color: var(--text); }
+.exam-practice-question { padding: 16px; border: 1px solid var(--border); border-radius: 13px; background: var(--surface-soft); }
+.exam-practice-question h3 { margin: 5px 0 10px; font-size: 1rem; line-height: 1.45; }
+.exam-question-meta { margin: 0; color: var(--muted); font-size: .72rem; font-weight: 750; }
+.exam-question-instruction { margin: 0 0 8px; color: var(--muted); font-size: .79rem; }
+.exam-question-prompt { margin: 0; overflow-wrap: anywhere; line-height: 1.62; }
+.exam-question-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(48px, 1fr)); gap: 7px; }
+.exam-question-nav { min-width: 0; min-height: 42px; display: flex; align-items: center; justify-content: center; gap: 4px; padding: 5px; border: 1px solid var(--border-strong); border-radius: 9px; background: var(--surface); color: var(--text); font-size: .75rem; font-weight: 800; }
+.exam-question-nav.is-current { outline: 2px solid var(--primary); outline-offset: 1px; }
+.exam-question-nav.is-answered { border-color: color-mix(in srgb, var(--success) 55%, var(--border)); background: var(--success-soft); }
+.exam-question-status-mark { color: var(--muted); font-size: .7rem; }
+.exam-question-nav.is-answered .exam-question-status-mark { color: var(--success); }
+.exam-practice-options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 13px; }
+.exam-practice-option { min-width: 0; min-height: 50px; display: flex; align-items: flex-start; gap: 9px; padding: 10px; border: 1px solid var(--border-strong); border-radius: 10px; background: var(--surface); color: var(--text); text-align: left; line-height: 1.45; overflow-wrap: anywhere; }
+.exam-practice-option:hover:not(:disabled) { border-color: var(--primary); }
+.exam-practice-option[aria-pressed="true"] { border-color: var(--primary); background: var(--primary-soft); box-shadow: inset 0 0 0 1px var(--primary); }
+.exam-practice-option:disabled { cursor: default; }
+.exam-practice-option-label { flex: 0 0 auto; min-width: 22px; font-weight: 850; }
+.exam-practice-response { width: 100%; min-height: 88px; resize: vertical; padding: 10px 11px; border: 1px solid var(--border-strong); border-radius: 9px; background: var(--surface); color: var(--text); line-height: 1.5; }
+.exam-practice-actions { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
+.exam-practice-actions > div { display: flex; flex-wrap: wrap; gap: 8px; }
+.exam-practice-summary-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.exam-practice-summary-card { padding: 11px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface-soft); }
+.exam-practice-summary-card strong { display: block; font-size: 1.25rem; }
+.exam-practice-summary-card span { display: block; color: var(--muted); font-size: .7rem; }
+.exam-practice-review-list { display: grid; gap: 7px; max-height: 420px; overflow: auto; }
+.exam-practice-review-item { width: 100%; display: grid; grid-template-columns: minmax(125px, .34fr) minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 10px 11px; border: 1px solid var(--border); border-radius: 9px; background: var(--surface); color: var(--text); text-align: left; }
+.exam-practice-review-item:hover { border-color: var(--primary); }
+.exam-practice-review-item small { color: var(--muted); overflow-wrap: anywhere; }
+.exam-practice-review-item .state-pill { justify-self: end; }
+.exam-source-heading { margin: 16px 0 8px; font-size: .9rem; }
 .exam-document { min-width: 0; padding: clamp(17px, 3vw, 30px); border: 1px solid var(--border); border-radius: 18px; background: var(--surface); box-shadow: var(--shadow-sm); }
 .exam-markdown { color: var(--text); font-size: .9rem; line-height: 1.72; overflow-wrap: anywhere; }
 .exam-markdown h2, .exam-markdown h3, .exam-markdown h4, .exam-markdown h5, .exam-markdown h6 { margin: 1.5em 0 .55em; line-height: 1.3; letter-spacing: -.02em; scroll-margin-top: 110px; }
@@ -444,6 +481,17 @@ kbd, .kbd { min-width: 24px; padding: 2px 6px; border: 1px solid var(--border-st
   .exam-warning { gap: 9px; padding: 12px; }
   .exam-warning h2 { font-size: .86rem; }
   .exam-warning p { font-size: .75rem; }
+  .exam-paper-nav { gap: 6px; }
+  .exam-paper-nav .btn { padding: 6px 8px; font-size: .7rem; }
+  .exam-practice-options { grid-template-columns: minmax(0, 1fr); }
+  .exam-practice-actions { flex-direction: column; }
+  .exam-practice-actions > div { width: 100%; }
+  .exam-practice-actions .btn { flex: 1 1 auto; }
+  .exam-practice-review-item { grid-template-columns: minmax(0, 1fr) auto; gap: 6px; }
+  .exam-practice-review-item small { grid-column: 1 / -1; grid-row: 2; }
+  .exam-practice-summary-grid { gap: 6px; }
+  .exam-practice-summary-card { padding: 8px; }
+  .exam-practice-summary-card span { font-size: .64rem; }
   .exam-filter-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
   .exam-search-filter { grid-column: 1 / -1; }
   .exam-card { display: block; padding: 13px; }
@@ -16010,7 +16058,50 @@ const EN_UI_TRANSLATIONS = Object.freeze({
   'Bản chép tham khảo; tính đầy đủ của nguồn chưa được xác minh': 'Reference transcriptions; source completeness has not been verified',
   '← Về kho đề': '← Back to archive',
   'Phần audio không được nhúng; đề có thể chứa đáp án ngay trong bản chép.': 'Audio is not embedded; answers may appear in the transcription.',
-  'Chưa có bản chép nào được cấu trúc và soát riêng theo từng câu. Vì vậy ứng dụng chỉ cung cấp bản lưu trữ để đọc: chưa có điều hướng câu hỏi, đồng hồ luyện tập hoặc chấm điểm. Thời lượng in trong nguồn (nếu có) chưa được chuẩn hóa hoặc kiểm chứng chéo, không phải thời lượng chính thức do ứng dụng xác nhận.': 'No paper has been individually structured and reviewed question by question. The archive therefore provides read-only transcriptions: no question navigation, practice timer, or grading. Durations printed in a source, if any, have not been standardized or cross-checked and are not official durations confirmed by this app.',
+  'Luyện theo bản chép — không chấm điểm': 'Transcript-based practice — ungraded',
+  'Chỉ dùng văn bản đã có trong bản chép đang lưu. Ranh giới mục và lựa chọn được trích xuất tự động, chưa xác minh và có thể không đầy đủ. Phần luyện tập không nạp hay tiết lộ đáp án, không có đồng hồ, kiểm tra đúng/sai, điểm số hoặc xếp hạng. Audio nghe không được nhúng. Câu trả lời chỉ được giữ trong bộ nhớ của trang đang mở và mất khi tải lại hoặc đóng trang. Bản chép đầy đủ bên dưới vẫn có thể chứa nội dung đáp án như trong nguồn.': 'Only text already present in the stored transcription is used. Extracted item boundaries and choices are automatic, unverified, and may be incomplete. The practice interface does not load or disclose an answer key, and has no timer, correctness checks, grade, score, or ranking. Listening audio is not embedded. Responses stay in memory for this open page only and are cleared when it reloads or closes. The full transcription below may itself contain answer material from the source.',
+  'Bản chép này chỉ đọc trong chế độ luyện tập': 'This record is read-only for question practice',
+  'Bản này có nhãn HTML/OCR và cần soát thủ công. Để tránh trình bày cách ghép dòng chưa chắc là câu hỏi/lựa chọn, ứng dụng không tự trích mục tương tác. Bản chép lưu trữ vẫn đọc được bên dưới; không có nội dung nào được dựng lại.': 'This transcription is marked HTML/OCR and needs manual review. To avoid presenting uncertain line groupings as questions or choices, the app does not extract interactive items from it. The stored transcription remains readable below; nothing is reconstructed.',
+  'Không phát hiện được cấu trúc câu hỏi đủ tin cậy': 'No reliable question sequence was detected',
+  'Văn bản đã lưu vẫn đọc được bên dưới. Bài này chỉ đọc thay vì đoán ranh giới câu hỏi hoặc lựa chọn.': 'The stored text remains readable below. This paper stays read-only rather than guessing question boundaries or choices.',
+  'mục được trích từ văn bản hiện có. Chưa xác minh từng mục với đề gốc; nội dung có thể thiếu.': ' items were extracted from the stored text. Individual items are unverified against the original and may be incomplete.',
+  'mục trích xuất · không bấm giờ': ' extracted items · no timer',
+  'Bắt đầu luyện không chấm điểm': 'Start ungraded practice',
+  'Tóm tắt bài nộp · không chấm điểm': 'Submission summary · ungraded',
+  'Câu trả lời đã được nộp trong phiên trình duyệt đang mở. Ứng dụng không kiểm tra đúng/sai hoặc tạo điểm.': 'Your responses were submitted for this open browser session. The app does not check correctness or produce a score.',
+  'Đã trả lời': 'Answered',
+  'Chưa trả lời': 'Unanswered',
+  'Mục trích xuất': 'Extracted items',
+  'Lựa chọn chỉ còn trong khi trang này mở; chúng không được ghi vào bộ nhớ trình duyệt, lịch sử học hoặc bản sao v1.': 'Selections are kept only while this page remains open; they are not written to browser storage, study history, or the v1 backup.',
+  'Xem lại câu trả lời đã nộp': 'Review submitted answers',
+  'Xem lại lựa chọn đã nộp': 'Review submitted selections',
+  'Xem lại câu trả lời trước khi nộp': 'Review answers before submitting',
+  'Đây chỉ là xem lại lựa chọn, không kiểm tra đúng/sai.': 'This is a response review only; it does not check correctness.',
+  'Về tóm tắt bài nộp': 'Back to submission summary',
+  'Về câu hỏi': 'Back to questions',
+  'Nộp bài': 'Submit Exam',
+  'Lựa chọn chép từ bản đề': 'Choices copied from the transcription',
+  'Câu trả lời do bạn nhập (không chấm điểm)': 'Your response (not graded)',
+  'Câu số trong nguồn': 'Source question number',
+  'Điều hướng các mục đã trích': 'Navigate extracted items',
+  'Câu trước': 'Previous question',
+  'Câu sau': 'Next question',
+  'Xem lại câu trả lời': 'Review answers',
+  'Luyện tập theo bản chép · không chấm điểm': 'Transcript-based practice · ungraded',
+  'Bài trước': 'Previous paper',
+  'Bài sau': 'Next paper',
+  'Điều hướng giữa các bản chép': 'Navigate between papers',
+  'Bản chép lưu trữ đầy đủ hiện có (nguồn; có thể chứa nội dung đáp án)': 'Full stored transcription currently available (source text; may include answers)',
+  'Câu nguồn': 'Source question',
+  'đã trả lời': 'answered',
+  'chưa trả lời': 'unanswered',
+  'đang mở': 'current',
+  'Đang mở': 'Current',
+  'Lựa chọn đã lưu:': 'Saved selection:',
+  'Đã nộp · không chấm điểm': 'Submitted · ungraded',
+  'mục trích xuất': 'extracted items',
+  'Chuyên Anh · bản chép hiện có được lưu trong tệp HTML offline; chưa xác minh tính đầy đủ so với nguồn gốc.': 'Specialized English · the available transcription is stored in this offline HTML file; completeness against the original has not been verified.',
+  'Luyện tập không bấm giờ, không chấm điểm và không hiển thị đáp án trong giao diện luyện tập.': 'Practice is untimed and ungraded; no answer key is shown in the practice interface.',
   'Năm thi:': 'Exam year:',
   'Có, theo bản đăng lại': 'Yes, according to the reposted source',
   'Chưa lấy được đáp án riêng': 'A separate answer key was not obtained',
@@ -16026,8 +16117,8 @@ const EN_UI_TRANSLATIONS = Object.freeze({
   'Phần transcript cuối nguồn kết thúc bằng dấu ba chấm; không coi transcript là bản đầy đủ.': 'The transcript at the end of the source ends with an ellipsis; it should not be treated as complete.',
   'Bản chép từ nguồn đăng lại, không phải bản phát hành của Sở/trường.': 'Reposted transcription, not an original release from the Department or school.',
   'Tra cứu 106 bản chép theo năm, địa phương và dạng nguồn. Mở từng bản để đọc phần văn bản hiện có; tính đầy đủ so với nguồn gốc chưa được xác minh.': 'Browse 106 transcriptions by year, location, and source format. Open an item to read the text currently available; completeness against the original has not been verified.',
-  'Ứng dụng nhúng và hiển thị toàn bộ phần Markdown hiện có; trang đọc không cắt theo số dòng hay ký tự. Tuy nhiên, điều đó không chứng minh tệp gốc có đủ mọi trang/câu. Một số transcript kết thúc giữa câu hoặc bằng dấu ba chấm; hãy xem ghi chú riêng và đối chiếu PDF/DOCX gốc. 22 bản HTML/OCR vẫn cần soát. Chưa có bản nào được cấu trúc và soát riêng theo từng câu; cả 106 bản hiện chỉ để đọc. Nội dung đáp án chưa được xác minh độc lập; audio nghe không được nhúng.': 'The app embeds and displays all Markdown currently available; the reader does not cut off text by line or character count. This does not prove that the original file contains every page or question. Some transcripts end mid-sentence or with an ellipsis; check each record note and compare the original PDF/DOCX. The 22 HTML/OCR transcriptions still need review. None of the 106 papers has been individually structured and reviewed question by question; all are currently read-only. Answer content has not been independently verified, and listening audio is not embedded.',
-  'Hiện chỉ hỗ trợ duyệt và đọc kho offline; điều hướng câu hỏi, đồng hồ luyện tập và chấm điểm đều chưa được bật. Thời lượng nếu có trong nguồn chỉ là văn bản được chép lại, chưa chuẩn hóa hoặc kiểm chứng chéo và không phải thời lượng chính thức của ứng dụng.': 'The archive currently supports browsing and reading only; question navigation, a practice timer, and grading are not enabled. Any duration shown in a source is copied text, not standardized or cross-checked, and is not an official duration confirmed by this app.',
+  'Ứng dụng nhúng và hiển thị toàn bộ phần Markdown hiện có; trang đọc không cắt theo số dòng hay ký tự. Tuy nhiên, điều đó không chứng minh tệp gốc có đủ mọi trang/câu. Một số bản chép kết thúc giữa câu hoặc bằng dấu ba chấm; hãy xem ghi chú riêng và đối chiếu PDF/DOCX gốc. 22 bản HTML/OCR vẫn cần soát và được giữ chỉ đọc trong chế độ luyện tập để tránh ghép nhầm câu/lựa chọn. Các bản còn lại có thể cung cấp mục trích xuất chưa xác minh, không phải cấu trúc đã soát; bài tập không chấm điểm, không có đáp án, đồng hồ hoặc điểm số. Nội dung đáp án chưa được xác minh độc lập; audio nghe không được nhúng.': 'The app embeds and displays all Markdown currently available; the reader does not cut off text by line or character count. This does not prove that the original contains every page or question. Some transcriptions end mid-sentence or with an ellipsis; check the record note and compare the original PDF/DOCX. The 22 HTML/OCR records still need review and remain read-only for practice to avoid misgrouping lines as questions or choices. Other records may expose unverified extracted items, not reviewed question structures; practice is ungraded and has no answer key, timer, or score. Answer content has not been independently verified, and listening audio is not embedded.',
+  'Có thể bắt đầu luyện không chấm điểm từ các mục trích xuất khi cấu trúc được nhận diện; các mục chưa được xác minh từng câu. 22 bản HTML/OCR vẫn chỉ đọc. Không có đồng hồ hay chấm điểm; thời lượng in trong nguồn chỉ là văn bản chép lại, chưa chuẩn hóa hoặc kiểm chứng chéo.': 'Ungraded practice can start from detected extracted items; individual questions have not been verified. The 22 HTML/OCR records remain read-only. There is no timer or grading; durations printed in a source are copied text and have not been standardized or cross-checked.',
   'Chuyên Anh · phần bản chép hiện có được lưu trong tệp HTML offline; tính đầy đủ so với nguồn gốc chưa được xác minh.': 'Specialized English · the available transcription is stored in this offline HTML file; completeness against the original has not been verified.',
   'Ứng dụng hiển thị nguyên vẹn phần Markdown hiện có cho bản này, nhưng chưa xác minh rằng nguồn gốc có đủ mọi trang/câu. Không thể dựng lại nội dung vắng mặt nếu thiếu PDF/DOCX đầy đủ.': 'The app displays all Markdown currently available for this record, but has not verified that the original contains every page or question. Missing content cannot be reconstructed without the complete PDF/DOCX.',
   'Tìm địa phương, trường hoặc năm': 'Search by location, school, or year',
@@ -16053,10 +16144,7 @@ const EN_UI_TRANSLATIONS = Object.freeze({
   'Trang trước': 'Previous page',
   'Trang sau': 'Next page',
   'Phạm vi kho đề': 'Archive scope',
-  'Nguồn đăng lại; chưa soát riêng từng câu. Hiện chỉ có thể đọc và tra cứu.': 'Reposted sources; questions have not been individually reviewed. Browsing and reading only.',
-  'Chưa bật điều hướng theo câu, đồng hồ luyện tập hay chấm điểm.': 'Question navigation, a practice timer, and grading are not enabled.',
   'Giới hạn của bản chép': 'Transcription limitations',
-  'Chế độ luyện tập theo câu chưa khả dụng': 'Question-by-question practice is not available',
   'Nguồn và trạng thái dữ liệu': 'Source and data status',
   'Bản chép đề thi': 'Exam transcription',
   'Mở bản chép': 'Open transcription',
@@ -17022,6 +17110,191 @@ export function renderExamMarkdown(markdown, namespace = 'exam') {
   return { html: html.join('\n'), headings };
 }
 
+function examAnswerKeyHeading(line) {
+  const title = String(line ?? '').trim().replace(/^#{1,6}\s*/, '').replace(/[*_`]/g, '').trim();
+  return /^(?:answers?(?:\s+key)?|official\s+answers?|answer\s+key|solutions?|đáp\s*án|hướng\s*dẫn\s*chấm|marking\s*scheme)(?:\b|\s*[/(:—-])/i.test(title);
+}
+
+function examQuestionMarker(line) {
+  const source = String(line ?? '').trim().replace(/^\|\s*/, '').replace(/\s*\|\s*$/, '');
+  const match = source.match(/^(?:\*\*)?\s*(?:(?:Question|Q\.?|Câu)\s*)?(\d{1,3})\s*[.):](?!\d)\s*(?:\*\*)?\s*(.*)$/i);
+  if (!match || Number(match[1]) > 200) return null;
+  const prompt = match[2].trim();
+  const instructionText = prompt.replace(/^(?:\d{1,3}\s*[.):]\s*)+/, '').replace(/^[*_`]+/, '').trim();
+  if (/^(?:section|part|page|your answers?\b|answer sheet\b|example\b|numbered boxes?\b|choose\b|read\b|listen\b|for questions\b|fill\b|complete\b|write\b|match\b|identify\b|use the\b|supply\b|give the correct\b)/i.test(instructionText)) return null;
+  if (/^[\d\s._\\-–—*|]+$/.test(prompt)) return null;
+  return { number: Number(match[1]), prompt };
+}
+
+function parseExamChoiceSegments(value) {
+  const source = String(value ?? '').replace(/<br\s*\/?\s*>/gi, '\n');
+  const marker = /(^|[\s|])(?:\*\*)?(?:\(([A-Z])\)|([A-Z])[.):])(?:\*\*)?\s*/g;
+  const matches = [];
+  let match;
+  while ((match = marker.exec(source))) {
+    matches.push({ index: match.index, end: marker.lastIndex, label: match[2] || match[3] });
+  }
+  if (!matches.length) return { prompt: source.trim(), options: [] };
+  const prompt = source.slice(0, matches[0].index).replace(/[|\s]+$/, '').trim();
+  const options = matches.map((item, index) => ({
+    label: item.label.toUpperCase(),
+    text: source.slice(item.end, matches[index + 1]?.index ?? source.length).replace(/^[|\s]+|[|\s]+$/g, '').trim()
+  })).filter(item => item.text);
+  return { prompt, options };
+}
+
+function parseExamOptionLine(line) {
+  const source = String(line ?? '').trim();
+  if (/^\s*\|.*\|\s*$/.test(source)) {
+    if (examTableRule(source)) return [];
+    return splitExamTableRow(source).flatMap(cell => parseExamChoiceSegments(cell).options);
+  }
+  return parseExamChoiceSegments(source).options;
+}
+
+function examQuestionInstruction(line) {
+  const text = String(line ?? '').replace(/^\s*#{1,6}\s*/, '').replace(/[*_`]/g, '').trim();
+  return text.length <= 600 && /\b(?:choose|select|complete|fill|match|identify|decide|write your answers|write answers|for questions|read the following|listen to|supply the correct|give the correct|one word only|true\s*\(?t\)?\s*(?:\/|or)\s*false)\b/i.test(text);
+}
+
+function captureExamInstruction(lines, index, end) {
+  const first = lines[index].trim().replace(/^(?:\*\*)?\s*\d{1,3}\s*[.):]\s*(?:\*\*)?\s*/, '');
+  const parts = [first];
+  let continuations = 0;
+  for (let look = index + 1; look < end && look <= index + 3; look += 1) {
+    const line = lines[look];
+    if (!line.trim()) continue;
+    if (/^\s*#{1,6}\s+/.test(line) || examAnswerKeyHeading(line)
+      || examQuestionMarker(line) || examQuestionInstruction(line) || parseExamOptionLine(line).length) break;
+    parts.push(line.trim());
+    continuations += 1;
+    if (continuations >= 2) break;
+  }
+  return parts.join(' ');
+}
+
+export function parseExamQuestions(markdown) {
+  const lines = String(markdown ?? '').replace(/\r\n?/g, '\n').split('\n');
+  const examHeading = lines.findIndex(line => /^#{1,6}\s+.*(?:đề\s*thi|exam|paper|test)/i.test(line));
+  if (examHeading < 0) return [];
+  let end = lines.length;
+  for (let index = examHeading + 1; index < lines.length; index += 1) {
+    if (examAnswerKeyHeading(lines[index])) { end = index; break; }
+  }
+
+  const questions = [];
+  let instruction = '';
+  for (let index = examHeading + 1; index < end; index += 1) {
+    const line = lines[index];
+    if (/^\s*#{1,6}\s+/.test(line)) instruction = '';
+    if (examQuestionInstruction(line) && !examQuestionMarker(line)) instruction = captureExamInstruction(lines, index, end).slice(0, 600);
+    const marker = examQuestionMarker(line);
+    if (!marker) continue;
+
+    const inline = parseExamChoiceSegments(marker.prompt);
+    let prompt = inline.prompt;
+    const options = [];
+    const labels = new Set();
+    const addOptions = values => {
+      for (const option of values) {
+        if (!option.text || labels.has(option.label)) continue;
+        labels.add(option.label);
+        options.push({ id: `choice-${option.label}`, label: option.label, text: option.text });
+      }
+    };
+    addOptions(inline.options);
+    const continuation = [];
+    let optionGroupStarted = options.length > 0;
+    let nonemptyLookahead = 0;
+    let blankLookahead = 0;
+    if (options.length < 2) {
+      for (let look = index + 1; look < end && look <= index + 8; look += 1) {
+        const nextLine = lines[look];
+        if (examQuestionMarker(nextLine) || /^\s*#{1,6}\s+/.test(nextLine) || examAnswerKeyHeading(nextLine)) break;
+        if (!nextLine.trim()) {
+          blankLookahead += 1;
+          if (optionGroupStarted && blankLookahead > 1) break;
+          continue;
+        }
+        blankLookahead = 0;
+        if (examTableRule(nextLine)) continue;
+        const lineOptions = parseExamOptionLine(nextLine);
+        if (lineOptions.length) {
+          addOptions(lineOptions);
+          optionGroupStarted = true;
+          continue;
+        }
+        if (optionGroupStarted || examQuestionInstruction(nextLine) || nonemptyLookahead >= 2) break;
+        continuation.push(nextLine.trim());
+        nonemptyLookahead += 1;
+      }
+    }
+    if (continuation.length) prompt = [prompt, ...continuation].filter(Boolean).join(' ');
+
+    if (options.length < 2 && /\btrue\s*\(?t\)?\s*(?:\/|or)\s*false\s*\(?f\)?\b/i.test(instruction)) {
+      options.push({ id: 'choice-T', label: 'T', text: 'True' }, { id: 'choice-F', label: 'F', text: 'False' });
+    }
+    const isOpenResponse = options.length < 2;
+    if (isOpenResponse && !/\?/.test(prompt) && !/(?:_{2,}|\\_\\_)/.test(prompt)) continue;
+
+    const promptText = prompt || instruction;
+    if (!promptText) continue;
+    const sourceLine = index + 1;
+    questions.push({
+      id: `q-${sourceLine}-${questions.length + 1}`,
+      number: marker.number,
+      sourceLine,
+      prompt: promptText,
+      instruction: prompt && instruction && instruction !== prompt ? instruction : '',
+      options: isOpenResponse ? [] : options,
+      responseType: isOpenResponse ? 'text' : 'choice',
+      verified: false
+    });
+  }
+  return questions;
+}
+
+export function createExamPracticeSession(examId, questions) {
+  if (typeof examId !== 'string' || !examId || !Array.isArray(questions) || !questions.length) return null;
+  return {
+    schemaVersion: 1,
+    examId,
+    questions,
+    responses: Object.create(null),
+    status: 'in-progress',
+    submittedAt: null,
+    currentIndex: 0,
+    view: 'question'
+  };
+}
+
+export function recordExamPracticeResponse(session, questionId, response) {
+  if (!session || session.status !== 'in-progress' || typeof response !== 'string' || response.length > 20_000) return false;
+  const question = session.questions.find(item => item.id === questionId);
+  if (!question) return false;
+  if (question.responseType === 'choice' && !question.options.some(option => option.id === response)) return false;
+  session.responses[questionId] = response;
+  return true;
+}
+
+export function summarizeExamPractice(session) {
+  if (!session || !Array.isArray(session.questions)) return { total: 0, answered: 0, unanswered: 0 };
+  const answered = session.questions.filter(question => {
+    const response = session.responses?.[question.id];
+    return question.responseType === 'choice'
+      ? question.options.some(option => option.id === response)
+      : typeof response === 'string' && Boolean(response.trim());
+  }).length;
+  return { total: session.questions.length, answered, unanswered: session.questions.length - answered };
+}
+
+export function submitExamPractice(session, now = Date.now()) {
+  if (!session || session.status !== 'in-progress' || !Number.isFinite(now) || now < 0) return null;
+  session.status = 'submitted';
+  session.submittedAt = now;
+  return summarizeExamPractice(session);
+}
+
 function sanitizeExamAttempt(value) {
   if (!value || typeof value !== 'object' || Array.isArray(value)
     || typeof value.id !== 'string' || !value.id
@@ -17138,6 +17411,10 @@ export async function createApp(root) {
   let examArchivePromise = null;
   let examAttempts = loadExamHistory(storage);
   let selectedExamId = null;
+  // These transcript-only responses exist in this in-memory Map only; they never
+  // enter flashcard storage, the v1 backup, or the legacy graded-attempt history.
+  const examPracticeSessions = new Map();
+  const examQuestionCache = new Map();
 
   function applyLanguageMetadata() {
     document.documentElement.lang = language;
@@ -17149,14 +17426,14 @@ export async function createApp(root) {
 
   function localizeSubtree(node) {
     if (language !== 'en' || !node) return;
-    const protectedSelectors = '.exam-document, .vocab-word, .vocab-meaning, .vocab-pos, .vocab-detail dd, .prompt, .sub-prompt, .option, .example em, .example span, .code';
+    const protectedSelectors = '.exam-document, .exam-question-source, .vocab-word, .vocab-meaning, .vocab-pos, .vocab-detail dd, .prompt, .sub-prompt, .option, .example em, .example span, .code';
     const visit = current => {
       if (current.nodeType === 3) {
         if (!current.parentElement?.closest(protectedSelectors)) current.nodeValue = translateUiText(current.nodeValue, language);
         return;
       }
       if (current.nodeType !== 1 && current.nodeType !== 9 && current.nodeType !== 11) return;
-      if (current.nodeType === 1 && current.matches('.exam-document, .vocab-word, .vocab-meaning, .vocab-pos, .vocab-detail dd, .prompt, .sub-prompt, .option, .example em, .example span, .code')) return;
+      if (current.nodeType === 1 && current.matches('.exam-document, .exam-question-source, .vocab-word, .vocab-meaning, .vocab-pos, .vocab-detail dd, .prompt, .sub-prompt, .option, .example em, .example span, .code')) return;
       if (current.nodeType === 1) {
         for (const name of ['aria-label', 'placeholder', 'title', 'alt']) {
           const value = current.getAttribute(name);
@@ -17282,7 +17559,7 @@ export async function createApp(root) {
         </aside>
         <main class="content" id="content" tabindex="-1"></main>
         <aside class="support-sidebar" aria-label="${examView ? 'Thông tin kho đề' : 'Tiến độ và phím tắt'}">
-          ${examView ? `<section class="panel"><h2 class="panel-heading">Phạm vi kho đề</h2><div class="panel-body data-info"><p><b>106 bản chép</b> · 2022–2026</p><p>Nguồn đăng lại; chưa soát riêng từng câu. Hiện chỉ có thể đọc và tra cứu.</p><p>Chưa bật điều hướng theo câu, đồng hồ luyện tập hay chấm điểm.</p></div></section>` : `<section class="panel"><h2 class="panel-heading">Tiến độ</h2><div class="panel-body"><div class="mini-stats">
+          ${examView ? `<section class="panel"><h2 class="panel-heading">Phạm vi kho đề</h2><div class="panel-body data-info"><p><b>106 bản chép</b> · 2022–2026</p><p>Nguồn đăng lại; 22 bản HTML/OCR cần soát và chỉ đọc. Các mục trích xuất khác chưa được xác minh từng câu.</p><p>Luyện tập không bấm giờ, không chấm điểm và không hiển thị đáp án trong giao diện luyện tập.</p></div></section>` : `<section class="panel"><h2 class="panel-heading">Tiến độ</h2><div class="panel-body"><div class="mini-stats">
             ${miniStat(currentStats.total, 'Tổng')}${miniStat(currentStats.mastered, 'Thành thạo')}${miniStat(currentStats.weak, 'Từ yếu')}${miniStat(`${currentStats.accuracy}%`, 'Chính xác')}
           </div></div></section>
           <section class="panel"><h2 class="panel-heading">Phím tắt</h2><div class="panel-body shortcuts">
@@ -17650,7 +17927,7 @@ export async function createApp(root) {
     const provinces = [...new Set(records.map(record => record.province))].sort((a, b) => a.localeCompare(b, 'vi'));
     container.innerHTML = `
       <div class="page-header"><div><span class="eyebrow">Kho đề offline · 2022–2026</span><h1>Kho đề Chuyên Anh</h1><p>Tra cứu 106 bản chép theo năm, địa phương và dạng nguồn. Mở từng bản để đọc phần văn bản hiện có; tính đầy đủ so với nguồn gốc chưa được xác minh.</p></div></div>
-      <section class="exam-warning" aria-labelledby="exam-warning-title"><span class="exam-warning-icon" aria-hidden="true">!</span><div><h2 id="exam-warning-title">Bản chép tham khảo; tính đầy đủ của nguồn chưa được xác minh</h2><p>Ứng dụng nhúng và hiển thị toàn bộ phần Markdown hiện có; trang đọc không cắt theo số dòng hay ký tự. Tuy nhiên, điều đó không chứng minh tệp gốc có đủ mọi trang/câu. Một số transcript kết thúc giữa câu hoặc bằng dấu ba chấm; hãy xem ghi chú riêng và đối chiếu PDF/DOCX gốc. 22 bản HTML/OCR vẫn cần soát. Chưa có bản nào được cấu trúc và soát riêng theo từng câu; cả 106 bản hiện chỉ để đọc. Nội dung đáp án chưa được xác minh độc lập; audio nghe không được nhúng.</p><p>Hiện chỉ hỗ trợ duyệt và đọc kho offline; điều hướng câu hỏi, đồng hồ luyện tập và chấm điểm đều chưa được bật. Thời lượng nếu có trong nguồn chỉ là văn bản được chép lại, chưa chuẩn hóa hoặc kiểm chứng chéo và không phải thời lượng chính thức của ứng dụng.</p></div></section>
+      <section class="exam-warning" aria-labelledby="exam-warning-title"><span class="exam-warning-icon" aria-hidden="true">!</span><div><h2 id="exam-warning-title">Bản chép tham khảo; tính đầy đủ của nguồn chưa được xác minh</h2><p>Ứng dụng nhúng và hiển thị toàn bộ phần Markdown hiện có; trang đọc không cắt theo số dòng hay ký tự. Tuy nhiên, điều đó không chứng minh tệp gốc có đủ mọi trang/câu. Một số bản chép kết thúc giữa câu hoặc bằng dấu ba chấm; hãy xem ghi chú riêng và đối chiếu PDF/DOCX gốc. 22 bản HTML/OCR vẫn cần soát và được giữ chỉ đọc trong chế độ luyện tập để tránh ghép nhầm câu/lựa chọn. Các bản còn lại có thể cung cấp mục trích xuất chưa xác minh, không phải cấu trúc đã soát; bài tập không chấm điểm, không có đáp án, đồng hồ hoặc điểm số. Nội dung đáp án chưa được xác minh độc lập; audio nghe không được nhúng.</p><p>Có thể bắt đầu luyện không chấm điểm từ các mục trích xuất khi cấu trúc được nhận diện; các mục chưa được xác minh từng câu. 22 bản HTML/OCR vẫn chỉ đọc. Không có đồng hồ hay chấm điểm; thời lượng in trong nguồn chỉ là văn bản chép lại, chưa chuẩn hóa hoặc kiểm chứng chéo.</p></div></section>
       <section class="exam-filter-panel panel" aria-label="Lọc kho đề"><div class="exam-filter-grid">
         <label class="exam-filter exam-search-filter"><span>Tìm địa phương, trường hoặc năm</span><input class="search-input" id="exam-search" type="search" autocomplete="off" placeholder="Ví dụ: Hà Nội, 2026…"></label>
         <label class="exam-filter"><span>Năm thi</span><select class="select" id="exam-year"><option value="all">Tất cả năm</option>${years.map(year => `<option value="${year}">${year}–${year + 1}</option>`).join('')}</select></label>
@@ -17698,6 +17975,72 @@ export async function createApp(root) {
     renderShell();
   }
 
+  function examQuestionsFor(record) {
+    if (/HTML|OCR|cần-soát/i.test(record.quality)) return [];
+    if (!examQuestionCache.has(record.id)) examQuestionCache.set(record.id, parseExamQuestions(record.markdown));
+    return examQuestionCache.get(record.id);
+  }
+
+  function examPracticeQuestionAnswered(session, question) {
+    const response = session.responses?.[question.id];
+    return question.responseType === 'choice'
+      ? question.options.some(option => option.id === response)
+      : typeof response === 'string' && Boolean(response.trim());
+  }
+
+  function examPracticeResponseLabel(session, question) {
+    const response = session.responses?.[question.id];
+    if (!examPracticeQuestionAnswered(session, question)) return '—';
+    if (question.responseType === 'choice') {
+      const option = question.options.find(item => item.id === response);
+      return option ? `${option.label}. ${option.text}` : '—';
+    }
+    return response.trim();
+  }
+
+  function renderExamPractice(record, questions, session, requiresManualReview) {
+    const note = `<div class="exam-practice-note" role="note"><strong>Luyện theo bản chép — không chấm điểm</strong><span>Chỉ dùng văn bản đã có trong bản chép đang lưu. Ranh giới mục và lựa chọn được trích xuất tự động, chưa xác minh và có thể không đầy đủ. Phần luyện tập không nạp hay tiết lộ đáp án, không có đồng hồ, kiểm tra đúng/sai, điểm số hoặc xếp hạng. Audio nghe không được nhúng. Câu trả lời chỉ được giữ trong bộ nhớ của trang đang mở và mất khi tải lại hoặc đóng trang. Bản chép đầy đủ bên dưới vẫn có thể chứa nội dung đáp án như trong nguồn.</span></div>`;
+    let body = '';
+    if (requiresManualReview) {
+      body = `<div class="empty exam-practice-readonly"><strong>Bản chép này chỉ đọc trong chế độ luyện tập</strong><p>Bản này có nhãn HTML/OCR và cần soát thủ công. Để tránh trình bày cách ghép dòng chưa chắc là câu hỏi/lựa chọn, ứng dụng không tự trích mục tương tác. Bản chép lưu trữ vẫn đọc được bên dưới; không có nội dung nào được dựng lại.</p></div>`;
+    } else if (!questions.length) {
+      body = `<div class="empty exam-practice-readonly"><strong>Không phát hiện được cấu trúc câu hỏi đủ tin cậy</strong><p>Văn bản đã lưu vẫn đọc được bên dưới. Bài này chỉ đọc thay vì đoán ranh giới câu hỏi hoặc lựa chọn.</p></div>`;
+    } else if (!session) {
+      body = `<p class="exam-practice-copy"><b>${questions.length}</b> mục được trích từ văn bản hiện có. Chưa xác minh từng mục với đề gốc; nội dung có thể thiếu.</p><div class="exam-practice-actions"><span class="exam-practice-status"><b>${questions.length}</b> mục trích xuất · không bấm giờ</span><button class="btn primary" id="exam-practice-start">Bắt đầu luyện không chấm điểm</button></div>`;
+    } else if (session.status === 'submitted' && session.view === 'summary') {
+      const summary = summarizeExamPractice(session);
+      body = `<div id="exam-submission-summary" role="status" aria-live="polite"><h3 tabindex="-1">Tóm tắt bài nộp · không chấm điểm</h3><p>Câu trả lời đã được nộp trong phiên trình duyệt đang mở. Ứng dụng không kiểm tra đúng/sai hoặc tạo điểm.</p><div class="exam-practice-summary-grid"><div class="exam-practice-summary-card"><strong id="exam-practice-answered-count">${summary.answered}</strong><span>Đã trả lời</span></div><div class="exam-practice-summary-card"><strong id="exam-practice-unanswered-count">${summary.unanswered}</strong><span>Chưa trả lời</span></div><div class="exam-practice-summary-card"><strong>${summary.total}</strong><span>Mục trích xuất</span></div></div><p>Lựa chọn chỉ còn trong khi trang này mở; chúng không được ghi vào bộ nhớ trình duyệt, lịch sử học hoặc bản sao v1.</p><div class="exam-practice-actions"><span></span><button class="btn primary" id="exam-review-submitted">Xem lại câu trả lời đã nộp</button></div></div>`;
+    } else if (session.view === 'review') {
+      const summary = summarizeExamPractice(session);
+      const submitted = session.status === 'submitted';
+      const rows = questions.map((question, index) => {
+        const answered = examPracticeQuestionAnswered(session, question);
+        const response = examPracticeResponseLabel(session, question);
+        return `<button class="exam-practice-review-item" data-review-question="${index}" aria-label="Câu nguồn ${question.number}, ${answered ? 'đã trả lời' : 'chưa trả lời'}"><span><b>Câu nguồn ${question.number} · mục trích xuất ${index + 1}</b></span><small class="exam-question-source">${escapeHtml(response)}</small><span class="state-pill ${answered ? 'exam-pill-neutral' : 'exam-pill-warning'}">${answered ? 'Đã trả lời' : 'Chưa trả lời'}</span></button>`;
+      }).join('');
+      body = `<div><h3 tabindex="-1">${submitted ? 'Xem lại lựa chọn đã nộp' : 'Xem lại câu trả lời trước khi nộp'}</h3><p><strong>${summary.answered}</strong> đã trả lời · <strong>${summary.unanswered}</strong> chưa trả lời · <strong>${summary.total}</strong> mục trích xuất. Đây chỉ là xem lại lựa chọn, không kiểm tra đúng/sai.</p><div class="exam-practice-review-list">${rows}</div><div class="exam-practice-actions" style="margin-top:12px"><button class="btn" id="exam-practice-back">${submitted ? 'Về tóm tắt bài nộp' : 'Về câu hỏi'}</button><div>${!submitted ? '<button class="btn primary" id="exam-submit">Nộp bài</button>' : ''}</div></div></div>`;
+    } else {
+      const index = Math.min(Math.max(0, Number.isInteger(session.currentIndex) ? session.currentIndex : 0), questions.length - 1);
+      session.currentIndex = index;
+      const question = questions[index];
+      const submitted = session.status === 'submitted';
+      const answered = examPracticeQuestionAnswered(session, question);
+      const response = session.responses?.[question.id] ?? '';
+      const summary = summarizeExamPractice(session);
+      const options = question.responseType === 'choice'
+        ? `<div class="exam-practice-options" role="group" aria-label="Lựa chọn chép từ bản đề">${question.options.map(option => `<button class="exam-practice-option" data-practice-choice="${escapeHtml(option.id)}" aria-pressed="${response === option.id}" ${submitted ? 'disabled' : ''}><span class="exam-practice-option-label">${escapeHtml(option.label)}.</span><span class="exam-question-source">${escapeHtml(option.text)}</span></button>`).join('')}</div>`
+        : `<label for="exam-practice-response">Câu trả lời do bạn nhập (không chấm điểm)</label><textarea class="exam-practice-response" id="exam-practice-response" maxlength="20000" ${submitted ? 'disabled' : ''}>${escapeHtml(response)}</textarea>`;
+      const questionButtons = questions.map((item, questionIndex) => {
+        const itemAnswered = examPracticeQuestionAnswered(session, item);
+        const active = questionIndex === index;
+        const status = itemAnswered ? 'đã trả lời' : 'chưa trả lời';
+        return `<button class="exam-question-nav ${active ? 'is-current' : ''} ${itemAnswered ? 'is-answered' : ''}" data-question-index="${questionIndex}" aria-label="Câu nguồn ${item.number}, ${status}${active ? ', đang mở' : ''}" ${active ? 'aria-current="step"' : ''}><span>${escapeHtml(item.number)}</span><span class="exam-question-status-mark" aria-hidden="true">${itemAnswered ? '✓' : '—'}</span></button>`;
+      }).join('');
+      body = `<div class="exam-practice-status" id="exam-practice-status"><span><b id="exam-practice-answered-count">${summary.answered}</b> <span>đã trả lời</span></span><span><b id="exam-practice-unanswered-count">${summary.unanswered}</b> <span>chưa trả lời</span></span><span><b>${summary.total}</b> mục trích xuất</span>${submitted ? '<span class="state-pill exam-pill-neutral">Đã nộp · không chấm điểm</span>' : ''}</div><section class="exam-practice-question" aria-labelledby="exam-current-question-heading"><p class="exam-question-meta"><span>Câu số trong nguồn</span> <strong>${escapeHtml(question.number)}</strong> · <span>Mục trích xuất</span> <strong>${index + 1}</strong> / <strong>${questions.length}</strong></p><h3 id="exam-current-question-heading" tabindex="-1"><span class="exam-question-source">${escapeHtml(question.prompt)}</span></h3>${question.instruction ? `<p class="exam-question-instruction">${escapeHtml(question.instruction)}</p>` : ''}${options}${submitted && answered ? `<p class="exam-question-instruction" role="status">Lựa chọn đã lưu: <span class="exam-question-source">${escapeHtml(examPracticeResponseLabel(session, question))}</span></p>` : ''}</section><div><h3 class="section-title">Điều hướng các mục đã trích</h3><div class="exam-question-grid">${questionButtons}</div></div><div class="exam-practice-actions"><div><button class="btn" id="exam-question-prev" ${index === 0 ? 'disabled' : ''}>Câu trước</button><button class="btn" id="exam-question-next" ${index >= questions.length - 1 ? 'disabled' : ''}>Câu sau</button></div><div>${!submitted ? '<button class="btn" id="exam-review-answers">Xem lại câu trả lời</button><button class="btn primary" id="exam-submit">Nộp bài</button>' : '<button class="btn primary" id="exam-review-submitted">Xem lại câu trả lời đã nộp</button>'}</div></div>`;
+    }
+    return `<section class="exam-practice panel" aria-labelledby="exam-practice-title"><h2 class="panel-heading" id="exam-practice-title" tabindex="-1">Luyện tập theo bản chép · không chấm điểm</h2><div class="panel-body">${note}${body}</div></section>`;
+  }
+
   function renderExamDetail(container) {
     const record = findExam(selectedExamId);
     if (!record) {
@@ -17707,14 +18050,119 @@ export async function createApp(root) {
     }
     const rendered = renderExamMarkdown(record.markdown, record.id);
     const review = /HTML|OCR|cần-soát/i.test(record.quality);
+    const questions = examQuestionsFor(record);
+    const practiceSession = examPracticeSessions.get(record.id) || null;
+    const currentPaperIndex = examRecords.findIndex(item => item.id === record.id);
+    const previousPaper = currentPaperIndex > 0 ? examRecords[currentPaperIndex - 1] : null;
+    const nextPaper = currentPaperIndex >= 0 && currentPaperIndex < examRecords.length - 1 ? examRecords[currentPaperIndex + 1] : null;
     container.innerHTML = `
-      <div class="page-header exam-page-header"><div><span class="eyebrow">${record.year}–${record.year + 1} · ${escapeHtml(record.province)}</span><h1>${escapeHtml(record.unitLabel)}</h1><p>Chuyên Anh · phần bản chép hiện có được lưu trong tệp HTML offline; tính đầy đủ so với nguồn gốc chưa được xác minh.</p></div><button class="btn" id="exam-detail-back">← Về kho đề</button></div>
+      <div class="page-header exam-page-header"><div><span class="eyebrow">${record.year}–${record.year + 1} · ${escapeHtml(record.province)}</span><h1>${escapeHtml(record.unitLabel)}</h1><p>Chuyên Anh · bản chép hiện có được lưu trong tệp HTML offline; chưa xác minh tính đầy đủ so với nguồn gốc.</p></div><button class="btn" id="exam-detail-back">← Về kho đề</button></div>
+      <nav class="exam-paper-nav" aria-label="Điều hướng giữa các bản chép"><button class="btn" id="exam-paper-previous" data-paper-id="${escapeHtml(previousPaper?.id || '')}" ${previousPaper ? '' : 'disabled'} aria-label="Bài trước">← ${previousPaper ? `${escapeHtml(previousPaper.province)} · ${previousPaper.year}` : 'Bài trước'}</button><button class="btn" id="exam-paper-next" data-paper-id="${escapeHtml(nextPaper?.id || '')}" ${nextPaper ? '' : 'disabled'} aria-label="Bài sau">${nextPaper ? `${escapeHtml(nextPaper.province)} · ${nextPaper.year}` : 'Bài sau'} →</button></nav>
       <section class="exam-warning" role="note"><span class="exam-warning-icon" aria-hidden="true">!</span><div><h2>Giới hạn của bản chép</h2><p>${escapeHtml(record.note)}</p><p>Ứng dụng hiển thị nguyên vẹn phần Markdown hiện có cho bản này, nhưng chưa xác minh rằng nguồn gốc có đủ mọi trang/câu. Không thể dựng lại nội dung vắng mặt nếu thiếu PDF/DOCX đầy đủ. ${escapeHtml(examAnswerLabel(record))}. Phần audio không được nhúng; đề có thể chứa đáp án ngay trong bản chép.</p></div></section>
-      <section class="exam-practice-locked panel" aria-labelledby="exam-practice-locked-title"><h2 class="panel-heading" id="exam-practice-locked-title">Chế độ luyện tập theo câu chưa khả dụng</h2><div class="panel-body"><p>Chưa có bản chép nào được cấu trúc và soát riêng theo từng câu. Vì vậy ứng dụng chỉ cung cấp bản lưu trữ để đọc: chưa có điều hướng câu hỏi, đồng hồ luyện tập hoặc chấm điểm. Thời lượng in trong nguồn (nếu có) chưa được chuẩn hóa hoặc kiểm chứng chéo, không phải thời lượng chính thức do ứng dụng xác nhận.</p></div></section>
+      ${renderExamPractice(record, questions, practiceSession, review)}
       <section class="exam-source-metadata panel"><h2 class="panel-heading">Nguồn và trạng thái dữ liệu</h2><div class="panel-body data-info"><p><b>Năm thi:</b> ${record.year}–${record.year + 1} · <b>Địa phương:</b> ${escapeHtml(record.province)} · <b>Đơn vị:</b> ${escapeHtml(record.unitLabel)}</p><p><b>Dạng lưu:</b> <span class="state-pill ${review ? 'exam-pill-warning' : 'exam-pill-neutral'}">${escapeHtml(record.quality)}</span></p><p><b>Đáp án:</b> ${escapeHtml(record.answers)} · không được dùng để chấm tự động.</p><p><b>Nguồn trang:</b> <a href="${escapeHtml(record.source)}" target="_blank" rel="noopener noreferrer">Mở trang đăng lại (cần kết nối mạng)</a></p><ul>${record.assets.map(asset => `<li>${escapeHtml(asset.label || asset.type.toUpperCase())} · ${escapeHtml(asset.type.toUpperCase())}${asset.pages ? ` · ${asset.pages} trang` : ''} · SHA-256 <code>${escapeHtml(asset.sha256)}</code></li>`).join('')}</ul></div></section>
+      <h2 class="exam-source-heading">Bản chép lưu trữ đầy đủ hiện có (nguồn; có thể chứa nội dung đáp án)</h2>
       <article class="exam-markdown exam-document" aria-label="Bản chép đề thi">${rendered.html}</article>
     `;
     container.querySelector('#exam-detail-back').addEventListener('click', () => { view = 'exams'; renderShell(); });
+    container.querySelectorAll('.exam-paper-nav [data-paper-id]').forEach(button => {
+      if (button.dataset.paperId) button.addEventListener('click', () => openExamDetail(button.dataset.paperId));
+    });
+    bindExamPractice(container, record, questions, review);
+  }
+
+  function refreshExamPracticeRegion(container, record, questions, requiresManualReview) {
+    const current = container.querySelector('.exam-practice');
+    if (!current) return;
+    const session = examPracticeSessions.get(record.id) || null;
+    current.outerHTML = renderExamPractice(record, questions, session, requiresManualReview);
+    bindExamPractice(container, record, questions, requiresManualReview);
+  }
+
+  function bindExamPractice(container, record, questions, requiresManualReview) {
+    const practiceRegion = container.querySelector('.exam-practice');
+    const practiceSession = examPracticeSessions.get(record.id) || null;
+    if (!practiceRegion) return;
+    const rerender = (focusSelector = '#exam-practice-title') => {
+      refreshExamPracticeRegion(container, record, questions, requiresManualReview);
+      container.querySelector(focusSelector)?.focus({ preventScroll: true });
+    };
+    practiceRegion.querySelector('#exam-practice-start')?.addEventListener('click', () => {
+      const created = createExamPracticeSession(record.id, questions);
+      if (!created) return;
+      examPracticeSessions.set(record.id, created);
+      rerender('#exam-current-question-heading');
+    });
+    practiceRegion.querySelectorAll('[data-question-index]').forEach(button => button.addEventListener('click', () => {
+      if (!practiceSession) return;
+      practiceSession.currentIndex = Number(button.dataset.questionIndex);
+      practiceSession.view = 'question';
+      rerender('#exam-current-question-heading');
+    }));
+    practiceRegion.querySelectorAll('[data-review-question]').forEach(button => button.addEventListener('click', () => {
+      if (!practiceSession) return;
+      practiceSession.currentIndex = Number(button.dataset.reviewQuestion);
+      practiceSession.view = 'question';
+      rerender('#exam-current-question-heading');
+    }));
+    practiceRegion.querySelectorAll('[data-practice-choice]').forEach(button => button.addEventListener('click', () => {
+      const question = practiceSession?.questions[practiceSession.currentIndex];
+      if (!question || !recordExamPracticeResponse(practiceSession, question.id, button.dataset.practiceChoice)) return;
+      rerender(`[data-practice-choice="${button.dataset.practiceChoice}"]`);
+    }));
+    practiceRegion.querySelector('#exam-practice-response')?.addEventListener('input', event => {
+      const question = practiceSession?.questions[practiceSession.currentIndex];
+      if (!question || !recordExamPracticeResponse(practiceSession, question.id, event.target.value)) return;
+      const summary = summarizeExamPractice(practiceSession);
+      const answeredCount = practiceRegion.querySelector('#exam-practice-answered-count');
+      const unansweredCount = practiceRegion.querySelector('#exam-practice-unanswered-count');
+      if (answeredCount) answeredCount.textContent = String(summary.answered);
+      if (unansweredCount) unansweredCount.textContent = String(summary.unanswered);
+      practiceRegion.querySelectorAll('[data-question-index]').forEach(navButton => {
+        const index = Number(navButton.dataset.questionIndex);
+        const item = practiceSession.questions[index];
+        const isAnswered = examPracticeQuestionAnswered(practiceSession, item);
+        const isCurrent = index === practiceSession.currentIndex;
+        navButton.classList.toggle('is-answered', isAnswered);
+        navButton.setAttribute('aria-label', `${translateUiText('Câu nguồn', language)} ${item.number}, ${translateUiText(isAnswered ? 'Đã trả lời' : 'Chưa trả lời', language)}${isCurrent ? `, ${translateUiText('Đang mở', language)}` : ''}`);
+        const mark = navButton.querySelector('.exam-question-status-mark');
+        if (mark) mark.textContent = isAnswered ? '✓' : '—';
+      });
+    });
+    practiceRegion.querySelector('#exam-question-prev')?.addEventListener('click', () => {
+      if (!practiceSession || practiceSession.currentIndex <= 0) return;
+      practiceSession.currentIndex -= 1;
+      practiceSession.view = 'question';
+      rerender('#exam-current-question-heading');
+    });
+    practiceRegion.querySelector('#exam-question-next')?.addEventListener('click', () => {
+      if (!practiceSession || practiceSession.currentIndex >= questions.length - 1) return;
+      practiceSession.currentIndex += 1;
+      practiceSession.view = 'question';
+      rerender('#exam-current-question-heading');
+    });
+    practiceRegion.querySelector('#exam-review-answers')?.addEventListener('click', () => {
+      if (!practiceSession) return;
+      practiceSession.view = 'review';
+      rerender('#exam-practice-title');
+    });
+    practiceRegion.querySelector('#exam-review-submitted')?.addEventListener('click', () => {
+      if (!practiceSession) return;
+      practiceSession.view = 'review';
+      rerender('#exam-practice-title');
+    });
+    practiceRegion.querySelector('#exam-practice-back')?.addEventListener('click', () => {
+      if (!practiceSession) return;
+      practiceSession.view = practiceSession.status === 'submitted' ? 'summary' : 'question';
+      rerender('#exam-practice-title');
+    });
+    practiceRegion.querySelector('#exam-submit')?.addEventListener('click', () => {
+      if (!practiceSession) return;
+      const summary = submitExamPractice(practiceSession);
+      if (!summary) return;
+      practiceSession.view = 'summary';
+      rerender('#exam-submission-summary h3');
+    });
   }
 
   function renderSettings(container) {

@@ -58,6 +58,11 @@ const {
   loadExamArchive,
   filterExamArchive,
   renderExamMarkdown,
+  parseExamQuestions,
+  createExamPracticeSession,
+  recordExamPracticeResponse,
+  summarizeExamPractice,
+  submitExamPractice,
   loadExamHistory,
   saveExamHistory,
   createExamAttempt,
@@ -199,12 +204,105 @@ test('exam archive filters by year, location, format and unit', () => {
   assert.ok(filterExamArchive(records, { unit: 'department' }).every(record => record.unit === 'so'));
 });
 
-test('all unreviewed papers remain browse-only: no timed attempts or generated outline controls', () => {
+test('unreviewed corpus uses conservative transcript-only parsing and leaves OCR records read-only', () => {
+  const records = loadExamArchive(embeddedExamRaw);
   assert.equal(embeddedExamRecords.length, 106);
   assert.equal(embeddedExamRecords.filter(record => record.review?.status === 'reviewed').length, 0);
-  assert.match(appScript[1], /Chưa có bản chép nào được cấu trúc và soát riêng theo từng câu/);
-  assert.match(appScript[1], /chưa có điều hướng câu hỏi, đồng hồ luyện tập hoặc chấm điểm/i);
+  assert.equal(records.filter(record => /HTML|OCR|cần-soát/i.test(record.quality)).length, 22);
+  assert.match(appScript[1], /if \(\/HTML\|OCR\|cần-soát\/i\.test\(record\.quality\)\) return \[\];/);
+  assert.match(appScript[1], /unverified.{0,20}may be incomplete/i);
+  assert.match(appScript[1], /không có đồng hồ, kiểm tra đúng\/sai, điểm số hoặc xếp hạng/);
   assert.doesNotMatch(appScript[1], /name="exam-timer-mode"|id="exam-start"|id="exam-duration"|role="timer"|class="exam-outline"/);
+  assert.match(appScript[1], /examPracticeSessions = new Map\(\)/);
+  assert.doesNotMatch(appScript[1], /examPracticeSessions[^;]*localStorage|localStorage[^;]*examPracticeSessions/);
+});
+
+test('transcript parser groups only present choices, marks items unverified, and stops before answer-key sections', () => {
+  const source = [
+    '# source title',
+    '## Exam paper',
+    'Choose the best option.',
+    '**1.** Which drink do you prefer?',
+    '| **A.** Tea | **B.** Coffee |',
+    '| --- | --- |',
+    '| **C.** Water | **D.** Juice |',
+    '**2.** She moved to _______.',
+    '10.00 a.m.: check in at the station.',
+    '## Answer key',
+    '**1.** B. This must never become a practice choice.',
+    '**3.** A fabricated-after-cutoff prompt?'
+  ].join('\n');
+  const questions = parseExamQuestions(source);
+  assert.equal(questions.length, 2);
+  assert.deepEqual(questions[0].options.map(option => [option.label, option.text]), [
+    ['A', 'Tea'], ['B', 'Coffee'], ['C', 'Water'], ['D', 'Juice']
+  ]);
+  assert.equal(questions[0].prompt, 'Which drink do you prefer?');
+  assert.equal(questions[0].responseType, 'choice');
+  assert.equal(questions[1].responseType, 'text');
+  assert.equal(questions.every(question => question.verified === false), true);
+  assert.doesNotMatch(JSON.stringify(questions), /This must never become|fabricated-after-cutoff/);
+
+  const tablePrompt = parseExamQuestions([
+    '## Exam paper',
+    '1. Choose A, B, C or D to identify the item.',
+    'Continue the instruction from the source.',
+    '1. A. first B. second C. third D. fourth',
+    '## Đáp án/hướng dẫn chấm trong nguồn',
+    '1. correct answer is present here'
+  ].join('\n'));
+  assert.equal(tablePrompt.length, 1);
+  assert.match(tablePrompt[0].prompt, /Choose A, B, C or D/);
+  assert.match(tablePrompt[0].prompt, /Continue the instruction/);
+  assert.equal(tablePrompt[0].options.length, 4);
+});
+
+test('corpus parsing stops before explicit answer and marking-scheme headings', () => {
+  const records = loadExamArchive(embeddedExamRaw);
+  let recordsWithKeyHeadings = 0;
+  for (const record of records) {
+    const lines = record.markdown.split(/\r?\n/);
+    const keyHeadingIndex = lines.findIndex(line => /^\s*#{1,6}\s+/.test(line)
+      && /(?:answers?(?:\s+key)?|marking\s*scheme|solutions?|đáp\s*án|hướng\s*dẫn\s*chấm)/i.test(line));
+    if (keyHeadingIndex < 0) continue;
+    recordsWithKeyHeadings += 1;
+    const questions = parseExamQuestions(record.markdown);
+    assert.ok(questions.every(question => question.sourceLine < keyHeadingIndex + 1), `${record.id} exposes no items from an answer/marking section`);
+  }
+  assert.ok(recordsWithKeyHeadings >= 50, 'the regression covers the majority of the corpus records that carry answer-key headings');
+});
+
+test('transcript practice supports selection, changes, incomplete submissions and in-session review without grading', () => {
+  const questions = parseExamQuestions([
+    '## Exam paper',
+    '**1.** Which letter is printed: ___?',
+    '**A.** First',
+    '**B.** Second',
+    '**2.** What is your response: _______?',
+    '## Answer key',
+    '**1.** A'
+  ].join('\n'));
+  const session = createExamPracticeSession('2026/demo/so', questions);
+  assert.equal(session.status, 'in-progress');
+  assert.equal(session.currentIndex, 0);
+  assert.deepEqual(summarizeExamPractice(session), { total: 2, answered: 0, unanswered: 2 });
+  assert.equal(recordExamPracticeResponse(session, questions[0].id, 'choice-Z'), false);
+  assert.equal(recordExamPracticeResponse(session, questions[0].id, 'choice-A'), true);
+  assert.deepEqual(summarizeExamPractice(session), { total: 2, answered: 1, unanswered: 1 });
+  assert.equal(recordExamPracticeResponse(session, questions[0].id, 'choice-B'), true, 'a choice can be changed before submission');
+  assert.equal(recordExamPracticeResponse(session, questions[1].id, '   '), true);
+  assert.deepEqual(summarizeExamPractice(session), { total: 2, answered: 1, unanswered: 1 });
+  assert.equal(recordExamPracticeResponse(session, questions[1].id, 'My answer'), true);
+  assert.deepEqual(summarizeExamPractice(session), { total: 2, answered: 2, unanswered: 0 });
+  assert.deepEqual(submitExamPractice(session, 1_800_000_000_000), { total: 2, answered: 2, unanswered: 0 });
+  assert.equal(session.status, 'submitted');
+  assert.equal(session.submittedAt, 1_800_000_000_000);
+  assert.equal(recordExamPracticeResponse(session, questions[0].id, 'choice-A'), false, 'submitted selections are immutable');
+  assert.equal(submitExamPractice(session, 1_800_000_000_001), null, 'a submission cannot be graded or re-submitted');
+  assert.equal('score' in session, false);
+  assert.equal('correct' in session, false);
+  assert.equal('answerKey' in session, false);
+  assert.deepEqual({ ...session.responses }, { [questions[0].id]: 'choice-B', [questions[1].id]: 'My answer' });
 });
 
 test('transcription rendering keeps source structure and escapes untrusted HTML', () => {
@@ -400,10 +498,12 @@ test('answer choices are a named button group rather than a radio group', () => 
   const optionRendererEnd = appScript[1].indexOf("container.querySelector('#favorite-card')", optionRendererStart);
   assert.ok(optionRendererStart >= 0 && optionRendererEnd > optionRendererStart);
   assert.doesNotMatch(appScript[1].slice(optionRendererStart, optionRendererEnd), /type="radio"/);
-  // The archive remains browse-only until individual question structure is reviewed.
+  // Transcript-derived practice is ungraded and untimed; OCR-only records retain a read-only fallback.
   assert.doesNotMatch(appScript[1], /name="exam-timer-mode"|id="exam-start"|id="exam-duration"|role="timer"|class="exam-outline"/);
-  assert.match(appScript[1], /exam-practice-locked/);
-  assert.match(appScript[1], /Chưa có bản chép nào được cấu trúc và soát riêng theo từng câu/);
+  assert.match(appScript[1], /id="exam-submit"/);
+  assert.match(appScript[1], /function parseExamQuestions\(markdown\)/);
+  assert.match(appScript[1], /Bản chép này chỉ đọc trong chế độ luyện tập/);
+  assert.doesNotMatch(appScript[1], /exam-practice-locked/);
 });
 
 test('resetting or importing progress clears the whole running session', () => {

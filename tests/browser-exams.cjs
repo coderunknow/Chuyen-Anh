@@ -53,8 +53,9 @@ async function main() {
       assert.equal(await page.getByRole('combobox', { name }).count(), 1, `${name} filter has an accessible name`);
     }
     assert.equal(await page.getByRole('heading', { name: 'Kho đề Chuyên Anh', level: 1 }).count(), 1);
-    assert.match(await page.locator('.exam-warning').innerText(), /chưa có bản nào được cấu trúc và soát riêng theo từng câu/i);
-    assert.match(await page.locator('.exam-warning').innerText(), /Audio nghe không được nhúng/i);
+    assert.match(await page.locator('.exam-warning').innerText(), /22 bản HTML\/OCR vẫn cần soát.*chỉ đọc/i);
+    assert.match(await page.locator('.exam-warning').innerText(), /mục trích xuất chưa xác minh/i);
+    assert.match(await page.locator('.exam-warning').innerText(), /audio nghe không được nhúng/i);
     assert.equal(await page.locator('[role="timer"]').count(), 0, 'the unreviewed archive exposes no exam clock');
     assert.equal(await page.locator('.exam-outline').count(), 0, 'raw headings are not promoted into a generated outline');
 
@@ -72,14 +73,12 @@ async function main() {
     await page.locator('#exam-format').selectOption('all');
     await page.locator('#exam-search').fill('vinh long');
     await page.locator('[data-exam-open="2026/vinh-long/so"]').click();
-    await page.locator('#exam-practice-locked-title').waitFor();
-
-    assert.match(await page.locator('.exam-practice-locked').innerText(), /chưa có bản chép nào được cấu trúc và soát riêng theo từng câu/i);
-    assert.match(await page.locator('.exam-practice-locked').innerText(), /không phải thời lượng chính thức/i);
-    assert.equal(await page.locator('#exam-start').count(), 0, 'there is no start-attempt button before per-paper review');
-    assert.equal(await page.locator('#exam-duration').count(), 0, 'there is no user-selected or implied exam duration');
-    assert.equal(await page.locator('input[name="exam-timer-mode"]').count(), 0, 'timed-attempt controls are gated');
-    assert.equal(await page.locator('.exam-outline').count(), 0, 'no question/heading outline is offered');
+    await page.locator('#exam-practice-start').waitFor();
+    assert.match(await page.locator('.exam-practice-note').innerText(), /trích xuất tự động, chưa xác minh/i);
+    assert.match(await page.locator('.exam-practice-note').innerText(), /mất khi tải lại hoặc đóng trang/i);
+    assert.equal(await page.locator('[role="timer"]').count(), 0, 'transcript practice has no timer');
+    assert.equal(await page.locator('.exam-outline').count(), 0, 'raw headings are not promoted into a generated outline');
+    assert.equal(await page.locator('#exam-practice-start').count(), 1);
     assert.equal(await page.locator('.exam-document h2, .exam-document h3, .exam-document h4').count() > 0, true, 'the preserved transcription headings remain readable in the source body');
     assert.match(await page.locator('.exam-source-metadata').innerText(), /SHA-256/);
     assert.match(await page.locator('.exam-source-metadata').innerText(), /không được dùng để chấm tự động/);
@@ -87,6 +86,63 @@ async function main() {
     assert.equal(await sourceLink.getAttribute('target'), '_blank');
     assert.match(await sourceLink.getAttribute('rel'), /noopener/);
     assert.equal(await page.locator('.exam-document script, .exam-document img, .exam-document iframe, .exam-document [onerror], .exam-document [onload]').count(), 0, 'raw transcription text cannot introduce executable markup');
+
+    await page.locator('#exam-practice-start').click();
+    await page.locator('#exam-current-question-heading').waitFor();
+    assert.equal(await page.locator('[data-question-index]').count(), 49, 'only explicitly parsed items are included in question navigation');
+    assert.equal(await page.locator('.exam-practice-option').count(), 3, 'the first question uses the three choices stored in the transcription');
+    const firstChoiceText = (await page.locator('.exam-practice-option').nth(1).innerText()).replace(/^B\.\s*/, '').trim();
+    await page.locator('.exam-practice-option').nth(0).click();
+    assert.equal(await page.locator('.exam-practice-option').nth(0).getAttribute('aria-pressed'), 'true');
+    await page.locator('.exam-practice-option').nth(1).click();
+    assert.equal(await page.locator('.exam-practice-option').nth(0).getAttribute('aria-pressed'), 'false', 'a selected choice can be changed before submission');
+    assert.equal(await page.locator('.exam-practice-option').nth(1).getAttribute('aria-pressed'), 'true');
+    await page.locator('[data-question-index="35"]').click();
+    const textAnswer = 'A learner-entered response kept only in this browser session.';
+    await page.locator('#exam-practice-response').fill(textAnswer);
+    assert.equal(await page.locator('[data-question-index="35"]').evaluate(element => element.classList.contains('is-answered')), true, 'typing updates the answered indicator immediately');
+    assert.equal(await page.locator('#exam-practice-answered-count').innerText(), '2');
+    await page.locator('#exam-review-answers').click();
+    assert.equal(await page.locator('.exam-practice-review-item').count(), 49, 'the review list covers all extracted items');
+    assert.equal((await page.locator('[data-review-question="0"] .exam-question-source').innerText()).trim(), `B. ${firstChoiceText}`);
+    assert.equal((await page.locator('[data-review-question="35"] .exam-question-source').innerText()).trim(), textAnswer);
+    await page.locator('[data-review-question="0"]').click();
+    const changedChoiceText = (await page.locator('.exam-practice-option').nth(2).innerText()).replace(/^C\.\s*/, '').trim();
+    await page.locator('.exam-practice-option').nth(2).click();
+    for (const viewport of [
+      { width: 320, height: 720 },
+      { width: 375, height: 812 },
+      { width: 768, height: 900 },
+      { width: 1440, height: 1000 }
+    ]) {
+      await page.setViewportSize(viewport);
+      assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, `interactive question navigation fits ${viewport.width}px without horizontal overflow`);
+      assert.equal(await page.locator('#exam-submit').isVisible(), true, `Submit Exam remains visible at ${viewport.width}px`);
+      assert.equal(await page.locator('[data-question-index]').count(), 49, `question status navigation remains available at ${viewport.width}px`);
+      if (screenshotDir && [320, 375, 768, 1440].includes(viewport.width)) {
+        await page.screenshot({ path: path.join(screenshotDir, `practice-${viewport.width}.png`), fullPage: true });
+      }
+    }
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.locator('#exam-submit').click();
+    await page.locator('#exam-submission-summary').waitFor();
+    assert.equal(await page.locator('#exam-practice-answered-count').innerText(), '2');
+    assert.equal(await page.locator('#exam-practice-unanswered-count').innerText(), '47');
+    assert.equal(await page.evaluate(() => localStorage.getItem('chuyen-anh.exam-history.v1')), null, 'transcript submissions do not create persisted exam history');
+    assert.equal(await page.evaluate(() => localStorage.getItem('chuyen-anh.history.v1')), null, 'transcript submissions do not enter flashcard study history');
+    assert.equal(await page.locator('#exam-score').count(), 0, 'the submission has no score');
+    assert.equal(await page.getByRole('button', { name: 'Xem lại câu trả lời đã nộp' }).count(), 1);
+    await page.locator('#exam-review-submitted').click();
+    assert.equal((await page.locator('[data-review-question="0"] .exam-question-source').innerText()).trim(), `C. ${changedChoiceText}`, 'submitted choice remains available for review');
+    assert.equal((await page.locator('[data-review-question="35"] .exam-question-source').innerText()).trim(), textAnswer, 'submitted text response remains available for review');
+    await page.locator('#exam-practice-back').click();
+    const originalPaperLabel = await page.locator('.exam-page-header .eyebrow').innerText();
+    await page.locator('#exam-paper-previous').click();
+    await page.locator('.exam-practice').waitFor();
+    assert.notEqual(await page.locator('.exam-page-header .eyebrow').innerText(), originalPaperLabel, 'paper navigation opens the previous archive record');
+    await page.locator('#exam-paper-next').click();
+    await page.locator('#exam-submission-summary').waitFor();
+    assert.equal(await page.locator('#exam-practice-answered-count').innerText(), '2', 'submitted responses survive paper navigation for this open session');
 
     for (const viewport of [
       { width: 320, height: 720 },
@@ -177,7 +233,9 @@ async function main() {
         await page.screenshot({ path: path.join(screenshotDir, `catalogue-en-${viewport.width}.png`), fullPage: true });
       }
     }
-    assert.match(await page.locator('.exam-warning').innerText(), /None of the 106 papers has been individually structured and reviewed question by question/i);
+    assert.match(await page.locator('.exam-warning').innerText(), /The 22 HTML\/OCR records still need review and remain read-only for practice/i);
+    assert.match(await page.locator('.exam-warning').innerText(), /Other records may expose unverified extracted items/i);
+    assert.match(await page.locator('.exam-warning').innerText(), /listening audio is not embedded/i);
     assert.equal(await page.getByRole('searchbox', { name: 'Search by location, school, or year' }).count(), 1);
     for (const name of ['Exam year', 'Province/city', 'Source format', 'Exam provider']) {
       assert.equal(await page.getByRole('combobox', { name }).count(), 1, `${name} filter is translated and accessible`);
@@ -185,12 +243,23 @@ async function main() {
     await page.locator('#exam-search').fill('an giang');
     await page.locator('#exam-year').selectOption('2026');
     await page.locator('[data-exam-open="2026/an-giang/so"]').click();
-    await page.locator('#exam-practice-locked-title').waitFor();
-    assert.equal(await page.getByRole('heading', { name: 'Question-by-question practice is not available' }).count(), 1);
+    await page.locator('#exam-practice-start').waitFor();
     assert.match(await page.locator('.exam-warning').innerText(), /transcript.*incomplete/i, 'the known source transcript truncation is identified in the detail warning');
     const sourceBody = await page.locator('.exam-document').innerText();
     assert.match(sourceBody, /What are Parkour athletes expected to do\?/);
-    assert.match(sourceBody.trimEnd(), /Right, so I’d like to go ahead and…$/,  'the reader renders the literal final source text instead of cropping the page');
+    assert.match(sourceBody.trimEnd(), /Right, so I’d like to go ahead and…$/, 'the reader renders the literal final source text instead of cropping the page');
+    await page.locator('#exam-practice-start').click();
+    assert.equal(await page.locator('[data-question-index]').count(), 48, 'an explicitly incomplete transcript remains available with a visible completeness warning');
+    assert.equal(await page.getByRole('heading', { name: 'Transcript-based practice · ungraded' }).count(), 1, 'the practice panel is localized');
+    assert.match(await page.locator('.exam-practice-note').innerText(), /Only text already present.*unverified/i);
+    assert.equal(await page.getByRole('button', { name: 'Submit Exam' }).count(), 1, 'the English UI exposes the working Submit Exam control');
+    assert.equal(await page.locator('[role="timer"]').count(), 0);
+    assert.equal(await page.locator('#exam-score').count(), 0);
+    await page.locator('.exam-practice-option').first().click();
+    await page.locator('#exam-submit').click();
+    await page.locator('#exam-submission-summary').waitFor();
+    assert.equal(await page.locator('#exam-practice-answered-count').innerText(), '1');
+    assert.match(await page.locator('#exam-submission-summary').innerText(), /does not check correctness or produce a score/i);
     for (const viewport of [
       { width: 320, height: 720 },
       { width: 375, height: 812 },
@@ -198,7 +267,7 @@ async function main() {
       { width: 1440, height: 1000 }
     ]) {
       await page.setViewportSize(viewport);
-      assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, `the English transcription fits ${viewport.width}px without horizontal overflow`);
+      assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, `the English practice and transcription fit ${viewport.width}px without horizontal overflow`);
       assert.equal(await page.locator('#exam-detail-back').isVisible(), true, `English back-to-archive remains visible at ${viewport.width}px`);
       if (screenshotDir && [375, 768, 1440].includes(viewport.width)) {
         await page.screenshot({ path: path.join(screenshotDir, `detail-en-${viewport.width}.png`), fullPage: true });
@@ -207,6 +276,20 @@ async function main() {
 
     await page.reload();
     assert.equal(await page.evaluate(() => document.documentElement.lang), 'en', 'the selected locale survives a reload');
+    await page.locator('[data-view="exams"]').click();
+    await page.locator('#exam-search').fill('an giang');
+    await page.locator('#exam-year').selectOption('2026');
+    await page.locator('[data-exam-open="2026/an-giang/so"]').click();
+    await page.locator('#exam-practice-start').waitFor();
+    assert.equal(await page.locator('#exam-submission-summary').count(), 0, 'transcript responses are not restored after reload');
+    assert.equal(await page.locator('[data-question-index]').count(), 0, 'the submitted session is memory-only and has ended on reload');
+    await page.locator('#exam-detail-back').click();
+    await page.locator('#exam-search').fill('binh phuoc');
+    await page.locator('[data-exam-open="2022/binh-phuoc/so"]').click();
+    await page.locator('.exam-practice-readonly').waitFor();
+    assert.equal(await page.locator('#exam-practice-start').count(), 0, 'HTML/OCR records needing review do not expose guessed interactive groupings');
+    assert.match(await page.locator('.exam-practice-readonly').innerText(), /HTML\/OCR.*manual review/i);
+    await page.locator('#exam-detail-back').click();
     await page.locator('[data-view="settings"]').click();
     await page.locator('#language-setting').selectOption('vi');
     await page.getByRole('heading', { name: 'Cài đặt & dữ liệu' }).waitFor();
