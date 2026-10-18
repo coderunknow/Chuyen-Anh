@@ -71,7 +71,8 @@ Chỉ cần giữ `index.html` khi sao chép/triển khai ứng dụng. Các t�
 - Giao diện học hiển thị trạng thái từ và loại phiên bằng tiếng Việt, trong khi các khóa scheduler và giá trị lưu trữ vẫn giữ nguyên để tương thích với dữ liệu hiện có.
 - First look: từ đang ở trạng thái `new` được giới thiệu nghĩa trước khi bị kiểm tra — kèm họ từ, cụm từ, ghi chú và ví dụ nếu dữ liệu đã có. Lượt giới thiệu không phải câu trả lời: nó không ghi gì vào `localStorage`, không đổi lịch ôn hay streak, và từ đó không được giới thiệu lại trong cùng phiên. Sau khi bấm “Bắt đầu kiểm tra”, từ được hỏi ngay như bình thường nên lần trả lời đầu tiên mới là lượt ôn được ghi lại.
 - Error-based feedback: xem đáp án, nghĩa, metadata có sẵn, ví dụ và số lần sai ngay sau câu trả lời. Nghĩa cũ của ID 448 được giữ nguyên trong `NOTES` nhưng luôn hiển thị dưới nhãn tiếng Việt nói rõ đây là nghĩa của phiên bản ứng dụng trước, chỉ để tham chiếu lịch sử và không phải nghĩa hiện tại; tiền tố metadata nội bộ không hiện cho người học. Mỗi từ trả lời sai được xếp một lượt gõ lại sau các thẻ còn lại (tối đa một lượt/từ). Lượt luyện không đổi progress hay lịch ôn và được báo riêng với độ chính xác lần đầu; `R` sau feedback cũng xếp lượt luyện thay vì tính như lần ôn mới.
-- Tự đánh giá có khóa: khi bấm `Space` để lật đáp án, các lựa chọn hoặc ô gõ bị khóa và lượt đó chỉ được chấm bằng “Nhớ được”/“Chưa nhớ”. Feedback nói rõ đây là tự đánh giá, nên điểm và lịch ôn không bao giờ đến từ một đáp án vừa được hiển thị.
+- Tự đánh giá có khóa: khi bấm `Space` để lật đáp án, các lựa chọn hoặc ô gõ bị khóa và lượt đó chỉ được chấm bằng “Nhớ được”/“Chưa nhớ”; nút “Bỏ qua” cũng bị khóa để lượt đã xem đáp án không thể bỏ qua mà không tự đánh giá. Feedback nói rõ đây là tự đánh giá, nên điểm và lịch ôn không bao giờ đến từ một đáp án vừa được hiển thị. Mỗi lượt chỉ được chấm một lần kể cả khi bấm đúp nút tự đánh giá.
+- Bài gõ chính tả bỏ trống hoặc chỉ có khoảng trắng không phải là một lượt trả lời: ứng dụng bỏ qua và nhắc nhập câu trả lời, không chấm sai hay xếp lượt luyện cho câu hỏi chưa thực sự trả lời.
 - Search local theo English, Vietnamese, POS, tags, word family, metadata và example; filter theo state/favorite/due; pagination chỉ render 50 dòng một lần. Bật/tắt yêu thích ngay trong kết quả tìm kiếm chỉ vẽ lại danh sách kết quả, nên từ khóa, bộ lọc, thứ tự sắp xếp, trang hiện tại và tập kết quả được giữ nguyên (trừ khi chính bộ lọc yêu thích làm mục đó biến mất).
 - Dashboard: tổng số từ, trạng thái học, độ chính xác, chuỗi ngày và lịch sử phiên; nhãn hướng tới người học được hiển thị bằng tiếng Việt. Lịch sử giữ cửa sổ 50 phiên gần nhất ở mọi nơi (`HISTORY_LIMIT`): trong bộ nhớ, trong `localStorage`, trong file export và khi import, nên một vòng export → import không làm mất phiên nào mà file backup đang có.
 - Import/export JSON; import validate trước, lỗi không ghi đè backup cũ; reset tiến độ. Thông báo cho người học và lỗi tệp sao lưu được viết bằng tiếng Việt. Import hoặc reset kết thúc phiên đang học (hàng đợi, câu hỏi, trạng thái giới thiệu/tự đánh giá, thống kê phiên) nên quay lại Học sẽ thấy màn hình chọn phiên thay vì phiên cũ. Ghi `localStorage` được kiểm tra kết quả: khi ghi thất bại, ứng dụng báo lỗi thay vì báo thành công.
@@ -94,9 +95,27 @@ Chỉ cần giữ `index.html` khi sao chép/triển khai ứng dụng. Các t�
 
 Khi nguồn dữ liệu, validator, bộ đồng bộ, kho đề hoặc app thay đổi trên `main`, workflow kiểm tra bảng/JSON/HTML và 106 bản chép đã được nhúng đồng bộ, chạy unit test Python và Node, rồi mới stage và upload **chỉ `index.html`** lên GitHub Pages. File này chứa cả dữ liệu từ vựng lẫn bản chép đề; không cần tệp chạy-time nào khác. Lỗi ở bất kỳ bước kiểm tra nào sẽ chặn deploy. Không có frontend bundler, npm install hay backend.
 
+**Cổng deploy-hold (thứ tự release).** Tệp `DEPLOY_HOLD` ở gốc repo khai báo một tag release phải được publish prerelease trước khi Pages được phép xuất bản; `scripts/deploy_gate.py` đánh giá cổng này ngay sau checkout. Các bước kiểm tra luôn chạy; chỉ các bước stage/upload/deploy bị hoãn khi cổng đóng. Cổng tự mở cho mọi lần deploy sau khi release được khai báo đã là prerelease published, nên các thay đổi tương lai vẫn tự động deploy mà không cần xóa tệp marker; maintainer có thể ép deploy bằng input `force_deploy` khi dispatch thủ công. Thao tác này phục vụ đúng thứ tự: merge → tag → đóng gói/kiểm chứng asset → publish prerelease → deploy.
+
+### Release artifacts `.github/workflows/release-artifacts.yml` + `scripts/release_artifacts.py`
+
+Khi push tag khớp `v1.0.0-dev*`, workflow build artifact từ **đúng commit của tag** (`git archive`), chạy các kiểm tra dữ liệu/unit test ở source revision của tag, rồi đóng gói:
+
+- `chuyen-anh-<tag>.html` — khớp từng byte với `index.html` của commit được tag.
+- `chuyen-anh-<tag>.zip` — đúng ba tệp ở root: `index.html`, `README.md`, `LICENSE`; CRC và nội dung từng tệp được kiểm tra.
+- `chuyen-anh-<tag>-checksums.txt` — manifest SHA-256 cho hai tệp trên, dùng được với `sha256sum -c`.
+
+Script tạo draft prerelease (nếu release chưa tồn tại), upload asset còn thiếu, **tải lại toàn bộ asset từ GitHub và so sánh SHA-256** với artifact vừa build; asset trùng tên khác nội dung bị từ chối thay thế. Việc publish draft thành prerelease là thao tác riêng sau khi kiểm chứng. Release cũ (`dev1`, `dev2`) không bị thay đổi bởi lần chạy theo tag của dev3.
+
+Kiểm chứng một bản tải về:
+
+```bash
+sha256sum -c chuyen-anh-v1.0.0-dev3-checksums.txt
+```
+
 ### CI `.github/workflows/ci.yml`
 
-CI chạy trên PR và push `main` khi các tệp liên quan thay đổi: kiểm tra đồng bộ nguồn từ vựng/kho đề, validator Python, unit test Python và Node built-in tests cho scheduler/search/persistence/import và dữ liệu luyện đề. Thay đổi nguồn Markdown hoặc manifest đề cũng chạy kiểm tra đồng bộ; nội dung mới không được tự chấp nhận khi chưa có trong manifest đã chọn. Workflow deploy tự chạy lại các kiểm tra này trước khi xuất bản, không giả định rằng workflow CI riêng đã chạy hoặc thành công. Node chỉ được dùng trong test; production không cần Node.
+CI chạy trên PR và push `main` khi các tệp liên quan thay đổi: kiểm tra đồng bộ nguồn từ vựng/kho đề, validator Python, unit test Python và Node built-in tests cho scheduler/search/persistence/import, dữ liệu luyện đề và pipeline release/deploy-gate. Thay đổi nguồn Markdown hoặc manifest đề cũng chạy kiểm tra đồng bộ; nội dung mới không được tự chấp nhận khi chưa có trong manifest đã chọn. Workflow deploy tự chạy lại các kiểm tra này trước khi xuất bản, không giả định rằng workflow CI riêng đã chạy hoặc thành công. Node chỉ được dùng trong test; production không cần Node.
 
 GitHub Pages cần được bật với source **GitHub Actions** trong Settings → Pages. Không thể xác nhận deploy thật từ checkout local; sau lần merge, kiểm tra job `Deploy Flashcard` trên GitHub.
 

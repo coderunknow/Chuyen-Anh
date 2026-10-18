@@ -35,6 +35,7 @@ const {
   selectSession,
   needsFirstLook,
   canGradeBySelection,
+  hasSubmissionAnswer,
   createSearchIndex,
   searchVocabulary,
   updateSearchFavorite,
@@ -773,6 +774,21 @@ test('a revealed answer can only be graded by explicit self-assessment', () => {
   assert.equal(canGradeBySelection({ answered: false, revealed: true, hasQuestion: true }), false);
   assert.equal(canGradeBySelection({ answered: false, revealed: false, hasQuestion: false }), false);
   assert.equal(canGradeBySelection({}), false, 'no question means nothing can be graded');
+});
+
+test('a blank spelling submission is not an attempt that can be graded', () => {
+  const spelling = { mode: MODES.SPELLING, answer: 'Adversity' };
+  const choice = { mode: MODES.RECOGNITION, options: [{ id: '1', text: 'a', correct: true }] };
+  assert.equal(hasSubmissionAnswer(spelling, ''), false);
+  assert.equal(hasSubmissionAnswer(spelling, '   '), false);
+  assert.equal(hasSubmissionAnswer(spelling, '\t\n'), false);
+  assert.equal(hasSubmissionAnswer(spelling, null), false);
+  assert.equal(hasSubmissionAnswer(spelling, undefined), false);
+  assert.equal(hasSubmissionAnswer(spelling, 'Adversity'), true);
+  assert.equal(hasSubmissionAnswer(spelling, '  adversity  '), true);
+  assert.equal(hasSubmissionAnswer(choice, '1'), true);
+  assert.equal(hasSubmissionAnswer(choice, ''), false);
+  assert.equal(hasSubmissionAnswer(null, 'x'), false, 'without a question there is nothing to submit');
 });
 
 test('every multiple-choice question offers plausible, distinct options', () => {
