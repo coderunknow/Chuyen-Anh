@@ -13,12 +13,16 @@ on:
       - "scripts/validate_vocab.py"
       - "scripts/audit_learned_vocab.py"
       - "scripts/exams/**"
+      - "scripts/release_artifacts.py"
+      - "scripts/deploy_gate.py"
       - "docs/vocabulary-300-*.json"
       - "docs/vocabulary-300-review.md"
       - "De-chuyen-Anh-vao-10/**"
       - "tests/**"
       - ".github/workflows/ci.yml"
       - ".github/workflows/deploy.yml"
+      - ".github/workflows/release-artifacts.yml"
+      - "DEPLOY_HOLD"
   push:
     branches: [main]
     paths:
@@ -31,12 +35,16 @@ on:
       - "scripts/validate_vocab.py"
       - "scripts/audit_learned_vocab.py"
       - "scripts/exams/**"
+      - "scripts/release_artifacts.py"
+      - "scripts/deploy_gate.py"
       - "docs/vocabulary-300-*.json"
       - "docs/vocabulary-300-review.md"
       - "De-chuyen-Anh-vao-10/**"
       - "tests/**"
       - ".github/workflows/ci.yml"
       - ".github/workflows/deploy.yml"
+      - ".github/workflows/release-artifacts.yml"
+      - "DEPLOY_HOLD"
 
 concurrency:
   group: static-checks-${{ github.ref }}

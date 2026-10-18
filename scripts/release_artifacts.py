@@ -49,6 +49,27 @@ def test_source(source: pathlib.Path) -> None:
             run(["node", "--test", "tests/static-app.test.js"], cwd=source)
 
 
+def write_manifest(artifacts: dict[str, pathlib.Path], manifest_path: pathlib.Path) -> None:
+    """Write a sha256sum-compatible manifest covering the published artifacts.
+
+    The manifest lists only the HTML and ZIP deliverables so `sha256sum -c` on the
+    downloaded pair verifies the release package without extra bookkeeping.
+    """
+    deliverables = [name for name in artifacts if not name.endswith("-checksums.txt")]
+    lines = [f"{sha(artifacts[name])}  {name}" for name in deliverables]
+    manifest_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def verify_zip_contract(zip_path: pathlib.Path, extracted: pathlib.Path) -> None:
+    """The ZIP must unpack to exactly the three root files with byte-identical contents."""
+    with zipfile.ZipFile(zip_path) as bundle:
+        if bundle.testzip() is not None or bundle.namelist() != list(FILES):
+            raise RuntimeError(f"ZIP validation failed for {zip_path.name}")
+        for name in FILES:
+            if bundle.read(name) != (extracted / name).read_bytes():
+                raise RuntimeError(f"ZIP content mismatch for {zip_path.name}: {name}")
+
+
 def build(tag: str, commit: str, temp: pathlib.Path) -> dict[str, pathlib.Path]:
     extracted = temp / "source"
     extracted.mkdir()
@@ -70,22 +91,39 @@ def build(tag: str, commit: str, temp: pathlib.Path) -> dict[str, pathlib.Path]:
 
     html_name = f"chuyen-anh-{tag}.html"
     zip_name = f"chuyen-anh-{tag}.zip"
+    manifest_name = f"chuyen-anh-{tag}-checksums.txt"
     html_path = temp / html_name
     zip_path = temp / zip_name
+    manifest_path = temp / manifest_name
     shutil.copyfile(extracted / "index.html", html_path)
     with zipfile.ZipFile(zip_path, "w", compression=zipfile.ZIP_DEFLATED) as bundle:
         for name in FILES:
             bundle.write(extracted / name, arcname=name)
-    with zipfile.ZipFile(zip_path) as bundle:
-        if bundle.testzip() is not None or bundle.namelist() != list(FILES):
-            raise RuntimeError(f"ZIP validation failed for {tag}")
-        for name in FILES:
-            if bundle.read(name) != (extracted / name).read_bytes():
-                raise RuntimeError(f"ZIP content mismatch for {tag}: {name}")
+    verify_zip_contract(zip_path, extracted)
     if html_path.read_bytes() != (extracted / "index.html").read_bytes():
         raise RuntimeError(f"HTML content mismatch for {tag}")
-    print(f"{tag}: html sha256={sha(html_path)}; zip sha256={sha(zip_path)}", flush=True)
-    return {html_name: html_path, zip_name: zip_path}
+    artifacts = {html_name: html_path, zip_name: zip_path}
+    write_manifest(artifacts, manifest_path)
+    artifacts[manifest_name] = manifest_path
+    print(f"{tag}: html sha256={sha(html_path)}; zip sha256={sha(zip_path)}; "
+          f"manifest sha256={sha(manifest_path)}", flush=True)
+    return artifacts
+
+
+def release_notes(tag: str) -> str:
+    return (
+        f"Automated prerelease draft for `{tag}`, built from the tagged commit by "
+        "`scripts/release_artifacts.py`.\n\n"
+        f"- `chuyen-anh-{tag}.html` is byte-identical to `index.html` at the tag.\n"
+        f"- `chuyen-anh-{tag}.zip` unpacks to exactly `index.html`, `README.md`, `LICENSE` "
+        "at the archive root.\n"
+        f"- `chuyen-anh-{tag}-checksums.txt` lists SHA-256 digests for the HTML and ZIP.\n\n"
+        "Verify a download with:\n\n"
+        "```\n"
+        f"sha256sum -c chuyen-anh-{tag}-checksums.txt\n"
+        "```\n\n"
+        "Review the attached assets, then publish this draft explicitly."
+    )
 
 
 def process(tag: str, *, future: bool = False) -> None:
@@ -109,8 +147,8 @@ def process(tag: str, *, future: bool = False) -> None:
         temp = pathlib.Path(directory)
         artifacts = build(tag, commit, temp)
         if release is None:
-            run(["gh", "release", "create", tag, "--draft", "--prerelease", "--title", tag,
-                 "--notes", "Automated prerelease draft. Review the release and publish explicitly."])
+            run(["gh", "release", "create", tag, "--draft", "--prerelease", "--title", f"Chuyên Anh {tag}",
+                 "--notes", release_notes(tag)])
             release = release_for(tag)
             if release is None or release.get("tagName") != tag or not release.get("isDraft"):
                 raise RuntimeError(f"Could not verify draft release creation for {tag}")
@@ -135,12 +173,31 @@ def process(tag: str, *, future: bool = False) -> None:
         if final is None:
             raise RuntimeError(f"Release disappeared after upload: {tag}")
         final_assets = {asset["name"] for asset in final.get("assets", [])}
-        for name, path in artifacts.items():
+        for name in artifacts:
             if name not in final_assets:
                 raise RuntimeError(f"Asset missing after upload: {name}")
         if release is not None and (final["isDraft"] != release["isDraft"] or final["isPrerelease"] != release["isPrerelease"]):
             raise RuntimeError(f"Release state changed unexpectedly for {tag}")
-        print(f"Verified release {tag}: {commit}; draft={final['isDraft']}; prerelease={final['isPrerelease']}", flush=True)
+        # When GitHub reports a digest, it must match the built artifact.
+        for asset in final.get("assets", []):
+            digest = asset.get("digest")
+            if asset.get("name") in artifacts and digest:
+                expected = f"sha256:{sha(artifacts[asset['name']])}"
+                if digest != expected:
+                    raise RuntimeError(f"Asset {asset['name']} digest {digest} != built {expected}")
+        # "Upload accepted" is not success: re-download every expected asset from
+        # GitHub and compare its bytes with the artifacts built above.
+        verify_dir = temp / "verify"
+        verify_dir.mkdir()
+        run(["gh", "release", "download", tag, "--dir", str(verify_dir)])
+        for name, path in artifacts.items():
+            downloaded = verify_dir / name
+            if not downloaded.exists():
+                raise RuntimeError(f"Asset missing from post-upload download: {name}")
+            if sha(downloaded) != sha(path):
+                raise RuntimeError(f"Asset {name} differs from the built artifact after upload")
+        print(f"Verified release {tag}: {commit}; draft={final['isDraft']}; prerelease={final['isPrerelease']}; "
+              f"assets={sorted(final_assets)}", flush=True)
 
 
 def main() -> None:

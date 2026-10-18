@@ -91,6 +91,16 @@ async function main() {
     await page.locator('#exam-current-question-heading').waitFor();
     assert.equal(await page.locator('[data-question-index]').count(), 49, 'only explicitly parsed items are included in question navigation');
     assert.equal(await page.locator('.exam-practice-option').count(), 3, 'the first question uses the three choices stored in the transcription');
+    // dev3 regression: one double-click on the step buttons must advance exactly one item.
+    const readPracticeIndex = async () => Number(((await page.locator('.exam-question-meta').innerText())
+      .replace(/\s+/g, ' ').match(/Mục trích xuất (\d+)/) || [])[1]);
+    assert.equal(await readPracticeIndex(), 1);
+    await page.locator('#exam-question-next').dblclick();
+    assert.equal(await readPracticeIndex(), 2, 'a double-click on "Câu sau" advances exactly one extracted item');
+    await page.locator('#exam-question-prev').dblclick();
+    assert.equal(await readPracticeIndex(), 1, 'a double-click on "Câu trước" steps back exactly one extracted item');
+    await page.locator('[data-question-index="0"]').click();
+    assert.equal(await readPracticeIndex(), 1);
     const firstChoiceText = (await page.locator('.exam-practice-option').nth(1).innerText()).replace(/^B\.\s*/, '').trim();
     await page.locator('.exam-practice-option').nth(0).click();
     assert.equal(await page.locator('.exam-practice-option').nth(0).getAttribute('aria-pressed'), 'true');
@@ -136,6 +146,14 @@ async function main() {
     assert.equal((await page.locator('[data-review-question="0"] .exam-question-source').innerText()).trim(), `C. ${changedChoiceText}`, 'submitted choice remains available for review');
     assert.equal((await page.locator('[data-review-question="35"] .exam-question-source').innerText()).trim(), textAnswer, 'submitted text response remains available for review');
     await page.locator('#exam-practice-back').click();
+    await page.locator('#exam-submission-summary').waitFor();
+    // dev3 regression: a submitted question view leads straight back to the submission summary.
+    await page.locator('#exam-review-submitted').click();
+    await page.locator('[data-review-question="0"]').click();
+    await page.locator('#exam-current-question-heading').waitFor();
+    assert.match(await page.locator('.exam-practice-actions').innerText(), /Về tóm tắt bài nộp/);
+    await page.locator('#exam-practice-back').click();
+    await page.locator('#exam-submission-summary').waitFor();
     const originalPaperLabel = await page.locator('.exam-page-header .eyebrow').innerText();
     await page.locator('#exam-paper-previous').click();
     await page.locator('.exam-practice').waitFor();
@@ -297,7 +315,7 @@ async function main() {
 
     assert.deepEqual(externalRequests, [], 'offline catalogue and transcription browsing make no network requests');
     assert.deepEqual(errors, [], 'no browser exceptions');
-    console.log(`PASS: Chromium ${browser.version()} — 106-record offline catalogue; accent-insensitive search; year/location/quality filters; source hashes and limitations; raw transcription rendering; no timers, question outlines or grading for unreviewed papers; safe markup; no network requests; 320/375/768/1440px archive and detail layouts; no page errors.`);
+    console.log(`PASS: Chromium ${browser.version()} — 106-record offline catalogue; accent-insensitive search; year/location/quality filters; source hashes and limitations; raw transcription rendering; no timers, question outlines or grading for unreviewed papers; ungraded practice selection/review/submit with single-step double-click navigation and a direct path back to the submission summary; safe markup; no network requests; 320/375/768/1440px archive and detail layouts; no page errors.`);
   } finally {
     if (browser) await browser.close();
     await new Promise(resolve => server.close(resolve));

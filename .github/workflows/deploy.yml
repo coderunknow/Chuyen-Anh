@@ -12,9 +12,17 @@ on:
       - "scripts/learned_vocabulary.py"
       - "scripts/validate_vocab.py"
       - "scripts/exams/**"
+      - "scripts/deploy_gate.py"
       - "De-chuyen-Anh-vao-10/**"
       - ".github/workflows/deploy.yml"
+      - "DEPLOY_HOLD"
   workflow_dispatch:
+    inputs:
+      force_deploy:
+        description: "Deploy even while the release named in DEPLOY_HOLD is unpublished"
+        required: false
+        type: boolean
+        default: false
 
 concurrency:
   group: flashcard-pages
@@ -36,6 +44,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Deploy-hold gate: the v1.0.0-dev3 procedure requires that Pages is not
+      # published before the tagged prerelease assets are built and verified.
+      # Tests below always run; only the publish steps are deferred.
+      - name: Evaluate deploy hold
+        id: gate
+        env:
+          GH_TOKEN: ${{ github.token }}
+          FORCE_DEPLOY: ${{ inputs.force_deploy == true }}
+        run: python3 scripts/deploy_gate.py
+
       - name: Check vocabulary sources and embedded HTML
         run: |
           python scripts/build_vocabulary.py --check
@@ -56,6 +74,7 @@ jobs:
 
       # Publish only the fully self-contained application file.
       - name: Stage standalone HTML
+        if: steps.gate.outputs.deploy == 'true'
         run: |
           rm -rf _site
           mkdir -p _site
@@ -65,13 +84,16 @@ jobs:
       # Pages must be enabled once in Settings → Pages with GitHub Actions.
       # Do not use enablement: true here: GITHUB_TOKEN cannot create a Pages site.
       - name: Configure Pages
+        if: steps.gate.outputs.deploy == 'true'
         uses: actions/configure-pages@v5
 
       - name: Upload Pages artifact
+        if: steps.gate.outputs.deploy == 'true'
         uses: actions/upload-pages-artifact@v4
         with:
           path: _site
 
       - name: Deploy
         id: deployment
+        if: steps.gate.outputs.deploy == 'true'
         uses: actions/deploy-pages@v4

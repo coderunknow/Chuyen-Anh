@@ -1,0 +1,7 @@
+# Deploy hold for the v1.0.0-dev3 release procedure.
+# The Pages deploy job is deferred while the release named below is not yet a
+# published prerelease. Merge, tag, build and verify the release artifacts, then
+# publish the prerelease; the gate opens automatically for this and every later
+# deployment once that release is published. Lines starting with '#' are comments;
+# the first other line is the release tag that must publish first.
+v1.0.0-dev3

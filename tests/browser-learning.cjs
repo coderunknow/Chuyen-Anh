@@ -621,6 +621,66 @@ async function main() {
     assert.equal(restoredHistory.length, 50, 'no session is lost when the roundTripBundle is restored');
     assert.deepEqual(restoredHistory, retentionBundle.history);
 
+    // ---- A blank spelling submission is not a graded attempt. (dev3 regression)
+    async function seedSpellingCard() {
+      await page.evaluate(() => {
+        localStorage.clear();
+        localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['1']));
+        localStorage.setItem('chuyen-anh.progress.v1', JSON.stringify({
+          '1': { id: '1', state: 'learning', correctCount: 2, wrongCount: 0, streak: 2, lastReviewed: 0, nextReview: 0, interval: 1, ease: 2.5, difficulty: 0 }
+        }));
+      });
+      await page.reload();
+      await page.locator('[data-session="favorites"]').click();
+      assert.match(await page.locator('.mode-label').innerText(), /Chính tả/i,
+        'the seeded counters lead the only card to a spelling question');
+    }
+    async function revealFromKeyboard() {
+      await page.locator('#spelling-input').focus();
+      await page.evaluate(() => document.activeElement && document.activeElement.blur());
+      await page.waitForTimeout(30);
+      await page.evaluate(() => document.activeElement && document.activeElement.blur());
+      await page.keyboard.press(' ');
+    }
+    await seedSpellingCard();
+    const beforeBlank = (await read('progress'))['1'];
+    await page.locator('#submit-answer').click();
+    await page.locator('.toast').filter({ hasText: 'Hãy nhập câu trả lời trước khi xác nhận.' }).waitFor();
+    assert.equal(await page.locator('#feedback-area').innerText(), '', 'a blank submission produces no graded feedback');
+    assert.equal(await page.locator('#next-card').count(), 0, 'a blank submission does not advance the session');
+    await page.locator('#spelling-input').fill('   ');
+    await page.locator('#spelling-input').press('Enter');
+    assert.deepEqual((await read('progress'))['1'], beforeBlank,
+      'blank and whitespace-only submissions change no progress');
+    await typeAnswer('Adversity');
+    assert.equal((await read('progress'))['1'].correctCount, beforeBlank.correctCount + 1,
+      'a real submission still grades exactly once');
+    await next();
+
+    // ---- Self-assessment grades exactly once, even when activated twice. (dev3 regression)
+    await seedSpellingCard();
+    await revealFromKeyboard();
+    await page.locator('#reveal-correct').waitFor();
+    const beforeSelfGrade = (await read('progress'))['1'];
+    await page.locator('#reveal-correct').evaluate(element => { element.click(); element.click(); });
+    await page.waitForTimeout(50);
+    const afterSelfGrade = (await read('progress'))['1'];
+    assert.equal(afterSelfGrade.correctCount, beforeSelfGrade.correctCount + 1,
+      'double-activating self-assessment cannot grade the same turn twice');
+    assert.equal(afterSelfGrade.streak, beforeSelfGrade.streak + 1, 'the streak advances once per graded turn');
+    assert.equal(await page.locator('#next-card').count(), 1, 'one turn produces one feedback panel');
+
+    // ---- A revealed card cannot be skipped past its self-assessment. (dev3 regression)
+    await seedSpellingCard();
+    await revealFromKeyboard();
+    await page.locator('#reveal-correct').waitFor();
+    assert.equal(await page.locator('#skip-card').isDisabled(), true,
+      'the self-assessment lock also disables skipping the revealed card');
+    assert.equal(await page.locator('#exit-session').isEnabled(), true, 'leaving the session stays possible');
+    assert.deepEqual((await read('progress'))['1'],
+      { id: '1', state: 'learning', correctCount: 2, wrongCount: 0, streak: 2, lastReviewed: 0, nextReview: 0, interval: 1, ease: 2.5, difficulty: 0 },
+      'revealing and locking writes nothing to progress');
+
     // ---- A failed device write is reported, never replaced by a success message.
     const failing = await browser.newPage({ viewport: { width: 1280, height: 900 }, reducedMotion: 'reduce' });
     const failingErrors = [];
@@ -661,7 +721,7 @@ async function main() {
     await failing.close();
 
     assert.deepEqual(errors, []);
-    console.log(`PASS: Chromium ${browser.version()} — first-look introduction for new words, same-part-of-speech distractors, cloze options absent from the sentence, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, 320/375/768px responsive layout, reduced-motion setting, search state across a favorite toggle, session clearing on reset/import, the ID 448 historical label, named option groups, shortcuts limited to the visible card, failed writes reported truthfully, and JSON backup round-trips that keep every retained session; no page errors.`);
+    console.log(`PASS: Chromium ${browser.version()} — first-look introduction for new words, same-part-of-speech distractors, cloze options absent from the sentence, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, 320/375/768px responsive layout, reduced-motion setting, search state across a favorite toggle, session clearing on reset/import, the ID 448 historical label, named option groups, shortcuts limited to the visible card, failed writes reported truthfully, JSON backup round-trips that keep every retained session, blank spelling submissions ignored, single-graded self-assessment, and skip locked after a reveal; no page errors.`);
   } finally {
     if (browser) await browser.close();
     await new Promise(resolve => server.close(resolve));

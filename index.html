@@ -16077,6 +16077,7 @@ const EN_UI_TRANSLATIONS = Object.freeze({
   'Xem lại lựa chọn đã nộp': 'Review submitted selections',
   'Xem lại câu trả lời trước khi nộp': 'Review answers before submitting',
   'Đây chỉ là xem lại lựa chọn, không kiểm tra đúng/sai.': 'This is a response review only; it does not check correctness.',
+  'Hãy nhập câu trả lời trước khi xác nhận.': 'Enter an answer before submitting.',
   'Về tóm tắt bài nộp': 'Back to submission summary',
   'Về câu hỏi': 'Back to questions',
   'Nộp bài': 'Submit Exam',
@@ -16506,6 +16507,15 @@ export function needsFirstLook(item) {
 // self-assessment, so the reported result never comes from the shown answer.
 export function canGradeBySelection({ answered = false, revealed = false, hasQuestion = false } = {}) {
   return Boolean(hasQuestion && !answered && !revealed);
+}
+
+// A spelling submission must contain typed text. A blank or whitespace-only
+// submission is not an attempt: grading it wrong would inflate the error counters
+// and queue corrective practice for a question the learner never answered.
+export function hasSubmissionAnswer(question, answer) {
+  if (!question) return false;
+  if (question.mode === MODES.SPELLING) return Boolean(String(answer ?? '').trim());
+  return typeof answer === 'string' && answer.length > 0;
 }
 
 function examplesFor(entry) {
@@ -17722,7 +17732,7 @@ export async function createApp(root) {
         <div class="page-header"><div><h1>Phiên học</h1><p>${escapeHtml(sessionModeLabel(sessionStats.mode))} · ${session.length} lượt còn lại</p></div><button class="btn" id="exit-session">Thoát phiên</button></div>
         <div class="session-progress" aria-label="Tiến độ phiên" role="progressbar" aria-valuenow="${percent}" aria-valuemin="0" aria-valuemax="100"><span style="width:${percent}%"></span></div>
         <article class="flashcard">
-          <div class="flashcard-head"><span><b>${done + 1}</b> / ${totalAttempts} lượt · ${session.length} còn lại</span><div class="flashcard-head-actions"><span class="state-pill state-${escapeHtml(item.progress.state)}">${escapeHtml(stateLabel(item.progress.state))}</span><button class="fav ${favorites.has(item.vocab.id) ? 'active' : ''}" id="favorite-card" aria-label="${favorites.has(item.vocab.id) ? 'Bỏ yêu thích' : 'Thêm yêu thích'}">${favorites.has(item.vocab.id) ? '★' : '☆'}</button><button class="btn small" id="skip-card">Bỏ qua</button></div></div>
+          <div class="flashcard-head"><span><b>${done + 1}</b> / ${totalAttempts} lượt · ${session.length} còn lại</span><div class="flashcard-head-actions"><span class="state-pill state-${escapeHtml(item.progress.state)}">${escapeHtml(stateLabel(item.progress.state))}</span><button class="fav ${favorites.has(item.vocab.id) ? 'active' : ''}" id="favorite-card" aria-label="${favorites.has(item.vocab.id) ? 'Bỏ yêu thích' : 'Thêm yêu thích'}">${favorites.has(item.vocab.id) ? '★' : '☆'}</button><button class="btn small" id="skip-card" ${locked ? 'disabled' : ''}>Bỏ qua</button></div></div>
           <div class="flashcard-body">
             ${firstLook ? firstLookBody(item) : `
             <div class="mode-label">${item.practice ? 'Luyện lại · ' : ''}${modeLabel(question.mode)} · ${escapeHtml(item.vocab.pos)}</div>
@@ -17761,7 +17771,11 @@ export async function createApp(root) {
       if (revealed && !answered) container.querySelector('#reveal-correct')?.focus({ preventScroll: true });
     }
     container.querySelector('#favorite-card').addEventListener('click', () => toggleFavorite(item.vocab.id));
-    container.querySelector('#skip-card').addEventListener('click', skipCard);
+    container.querySelector('#skip-card').addEventListener('click', event => {
+      // The second click of a double-click must not rotate the queue twice.
+      if (event.detail > 1) return;
+      skipCard();
+    });
     container.querySelector('#exit-session').addEventListener('click', () => { clearActiveSession(); renderShell(); });
     container.querySelector('#reveal-correct')?.addEventListener('click', () => handleAnswer('__revealed_correct__', true));
     container.querySelector('#reveal-wrong')?.addEventListener('click', () => handleAnswer('__revealed_wrong__', false));
@@ -17771,7 +17785,14 @@ export async function createApp(root) {
   function modeLabel(mode) { return ({ recognition: 'Nhận diện', recall: 'Gợi nhớ ngược', spelling: 'Chính tả', cloze: 'Điền vào ngữ cảnh' })[mode] || mode; }
 
   function handleAnswer(answer, forced = null) {
+    // A graded turn stays graded: re-activating a self-assessment button must not
+    // grade the same answer twice or advance the schedule twice.
+    if (answered) return;
     if (!canGradeBySelection({ answered, revealed, hasQuestion: Boolean(question) }) && forced === null) return;
+    if (forced === null && !hasSubmissionAnswer(question, answer)) {
+      toast('Hãy nhập câu trả lời trước khi xác nhận.');
+      return;
+    }
     if (!session?.length) return;
     const correct = forced === null ? checkAnswer(question, answer) : forced;
     const item = session[0];
@@ -17813,7 +17834,9 @@ export async function createApp(root) {
   }
 
   function skipCard() {
-    if (!session?.length || answered) return;
+    // A revealed answer must still be self-assessed; the lock also disables the
+    // skip control so the turn cannot be abandoned after seeing the answer.
+    if (!session?.length || answered || revealed) return;
     session.push(session.shift());
     nextQuestion();
     renderFlashcard(root.querySelector('#content'));
@@ -18036,7 +18059,7 @@ export async function createApp(root) {
         const status = itemAnswered ? 'đã trả lời' : 'chưa trả lời';
         return `<button class="exam-question-nav ${active ? 'is-current' : ''} ${itemAnswered ? 'is-answered' : ''}" data-question-index="${questionIndex}" aria-label="Câu nguồn ${item.number}, ${status}${active ? ', đang mở' : ''}" ${active ? 'aria-current="step"' : ''}><span>${escapeHtml(item.number)}</span><span class="exam-question-status-mark" aria-hidden="true">${itemAnswered ? '✓' : '—'}</span></button>`;
       }).join('');
-      body = `<div class="exam-practice-status" id="exam-practice-status"><span><b id="exam-practice-answered-count">${summary.answered}</b> <span>đã trả lời</span></span><span><b id="exam-practice-unanswered-count">${summary.unanswered}</b> <span>chưa trả lời</span></span><span><b>${summary.total}</b> mục trích xuất</span>${submitted ? '<span class="state-pill exam-pill-neutral">Đã nộp · không chấm điểm</span>' : ''}</div><section class="exam-practice-question" aria-labelledby="exam-current-question-heading"><p class="exam-question-meta"><span>Câu số trong nguồn</span> <strong>${escapeHtml(question.number)}</strong> · <span>Mục trích xuất</span> <strong>${index + 1}</strong> / <strong>${questions.length}</strong></p><h3 id="exam-current-question-heading" tabindex="-1"><span class="exam-question-source">${escapeHtml(question.prompt)}</span></h3>${question.instruction ? `<p class="exam-question-instruction">${escapeHtml(question.instruction)}</p>` : ''}${options}${submitted && answered ? `<p class="exam-question-instruction" role="status">Lựa chọn đã lưu: <span class="exam-question-source">${escapeHtml(examPracticeResponseLabel(session, question))}</span></p>` : ''}</section><div><h3 class="section-title">Điều hướng các mục đã trích</h3><div class="exam-question-grid">${questionButtons}</div></div><div class="exam-practice-actions"><div><button class="btn" id="exam-question-prev" ${index === 0 ? 'disabled' : ''}>Câu trước</button><button class="btn" id="exam-question-next" ${index >= questions.length - 1 ? 'disabled' : ''}>Câu sau</button></div><div>${!submitted ? '<button class="btn" id="exam-review-answers">Xem lại câu trả lời</button><button class="btn primary" id="exam-submit">Nộp bài</button>' : '<button class="btn primary" id="exam-review-submitted">Xem lại câu trả lời đã nộp</button>'}</div></div>`;
+      body = `<div class="exam-practice-status" id="exam-practice-status"><span><b id="exam-practice-answered-count">${summary.answered}</b> <span>đã trả lời</span></span><span><b id="exam-practice-unanswered-count">${summary.unanswered}</b> <span>chưa trả lời</span></span><span><b>${summary.total}</b> mục trích xuất</span>${submitted ? '<span class="state-pill exam-pill-neutral">Đã nộp · không chấm điểm</span>' : ''}</div><section class="exam-practice-question" aria-labelledby="exam-current-question-heading"><p class="exam-question-meta"><span>Câu số trong nguồn</span> <strong>${escapeHtml(question.number)}</strong> · <span>Mục trích xuất</span> <strong>${index + 1}</strong> / <strong>${questions.length}</strong></p><h3 id="exam-current-question-heading" tabindex="-1"><span class="exam-question-source">${escapeHtml(question.prompt)}</span></h3>${question.instruction ? `<p class="exam-question-instruction">${escapeHtml(question.instruction)}</p>` : ''}${options}${submitted && answered ? `<p class="exam-question-instruction" role="status">Lựa chọn đã lưu: <span class="exam-question-source">${escapeHtml(examPracticeResponseLabel(session, question))}</span></p>` : ''}</section><div><h3 class="section-title">Điều hướng các mục đã trích</h3><div class="exam-question-grid">${questionButtons}</div></div><div class="exam-practice-actions"><div><button class="btn" id="exam-question-prev" ${index === 0 ? 'disabled' : ''}>Câu trước</button><button class="btn" id="exam-question-next" ${index >= questions.length - 1 ? 'disabled' : ''}>Câu sau</button></div><div>${!submitted ? '<button class="btn" id="exam-review-answers">Xem lại câu trả lời</button><button class="btn primary" id="exam-submit">Nộp bài</button>' : '<button class="btn" id="exam-practice-back">Về tóm tắt bài nộp</button><button class="btn primary" id="exam-review-submitted">Xem lại câu trả lời đã nộp</button>'}</div></div>`;
     }
     return `<section class="exam-practice panel" aria-labelledby="exam-practice-title"><h2 class="panel-heading" id="exam-practice-title" tabindex="-1">Luyện tập theo bản chép · không chấm điểm</h2><div class="panel-body">${note}${body}</div></section>`;
   }
@@ -18129,13 +18152,16 @@ export async function createApp(root) {
         if (mark) mark.textContent = isAnswered ? '✓' : '—';
       });
     });
-    practiceRegion.querySelector('#exam-question-prev')?.addEventListener('click', () => {
+    practiceRegion.querySelector('#exam-question-prev')?.addEventListener('click', event => {
+      // The second click of a double-click must not step over an extracted item.
+      if (event.detail > 1) return;
       if (!practiceSession || practiceSession.currentIndex <= 0) return;
       practiceSession.currentIndex -= 1;
       practiceSession.view = 'question';
       rerender('#exam-current-question-heading');
     });
-    practiceRegion.querySelector('#exam-question-next')?.addEventListener('click', () => {
+    practiceRegion.querySelector('#exam-question-next')?.addEventListener('click', event => {
+      if (event.detail > 1) return;
       if (!practiceSession || practiceSession.currentIndex >= questions.length - 1) return;
       practiceSession.currentIndex += 1;
       practiceSession.view = 'question';
