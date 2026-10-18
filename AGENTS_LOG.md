@@ -22,3 +22,10 @@
 - Xác minh asset: kích thước HTML khớp byte-identical cây tag (`git show v1.0.0-dev3:index.html` = 5.135.081 B, hash `40514a1ab12ceb26c4197736273e93e5a6015c7970757b55ba042a0ae0705aa4`); manifest 187 B khớp đúng bố cục 2 dòng; runner GitHub-hosted đã chạy post-upload re-download verify (tải lại toàn bộ asset, so size từng asset; trường digest null trên instance nên so digest bỏ qua có kiểm soát); sandbox không tải được asset do CDN chặn — giới hạn được ghi nhận rõ.
 - Publish prerelease lúc 14:36:01Z: isDraft=false, isPrerelease=true; 3 asset giữ nguyên; dev1/dev2 không bị đụng.
 - `gh workflow run deploy.yml` trả 403 "Resource not accessible by integration" (token sandbox thiếu quyền dispatch) → chuyển sang phương án dự phòng đã thiết kế: kích hoạt deploy bằng push tới main từ log-PR này; `scripts/deploy_gate.py --repo coderunknow/Chuyen-Anh` xác nhận `deploy=true (release v1.0.0-dev3 is published)` trước khi kích hoạt.
+
+## 2026-10-18 (tiếp theo) — hệ chỉnh trigger deploy: xóa DEPLOY_HOLD theo phương án dự phòng #45
+
+- Quan sát: merge PR #23 (8eeecb3c, chỉ đổi log) không sinh run Deploy Flashcard — deploy.yml `paths` loại push docs-only; điều này vô hiệu cách "log-PR làm trigger" ghi ở DESIGN_LOG #46.
+- Đối chiếu gate trước/sau khi xóa marker (local): `deploy=true (release v1.0.0-dev3 is published)` với marker, `deploy=true (no deploy hold marker)` khi thiếu file — khớp unit test 11/11.
+- PR này: xóa `DEPLOY_HOLD` (hold đã hết hiệu lực), cập nhật README vòng đời marker, nối DESIGN_LOG #47; `git rm` có commit (không sửa đổi linh tinh index.html/data/test). Việc xóa nằm trong `paths` của deploy.yml → push main sẽ trigger Deploy Flashcard hợp lệ.
+- `tests/test_deploy_gate.py`: cập nhật contract test marker theo vòng đời mới — `HoldMarkerLifecycleTests` cho phép marker vắng (auto-deploy) nhưng nếu có file phải chứa đúng 1 tag release chuẩn; fail-first xác nhận: marker `not-a-tag` → FAILED, marker vắng → OK, full suite OK. (Test cũ khẳng định đúng nội dung 'v1.0.0-dev3' trở nên lỗi thời khi hold bị gỡ có chủ đích — thay bằng contract chặt cho trạng thái mới, không nới lỏng bảo vệ.)
