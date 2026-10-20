@@ -20,10 +20,36 @@ class VocabularyAuditDev4Tests(unittest.TestCase):
             self.assertIn("url", e["evidence"]["cambridge"])
             # each entry must have provenance
             self.assertIn("provenance", e)
-        # summary
+        # summary: 52 manually verified via Cambridge on 2026-10-20, 861 pending-manual
         self.assertEqual(doc["summary"]["verifiedCompatAuto"], 913)
-        self.assertEqual(doc["summary"]["dictionaryChecked"], 6)
-        self.assertEqual(doc["summary"]["pendingManualDict"], 907)
+        self.assertEqual(doc["summary"]["dictionaryChecked"], 52)
+        self.assertEqual(doc["summary"]["dictionaryVerified"], 52)
+        self.assertEqual(doc["summary"]["pendingManualDict"], 861)
+        self.assertEqual(doc["summary"]["pendingManualDict"], doc["total"] - doc["summary"]["dictionaryChecked"])
+        # verified entries must have evidence
+        verified = [e for e in doc["entries"] if e["evidence"]["cambridge"]["checked"]]
+        self.assertEqual(len(verified), 52)
+        for e in verified:
+            cam = e["evidence"]["cambridge"]
+            self.assertTrue(cam["definitionExcerpt"], f"ID {e['id']} missing definitionExcerpt")
+            self.assertTrue(cam["url"].startswith("https://dictionary.cambridge.org/"), f"ID {e['id']} bad URL")
+            self.assertEqual(cam["posMatch"], "compatible")
+            prov = e["provenance"]
+            # provenance may be dict (ID 1 legacy) or string with Verified
+            if isinstance(prov, dict):
+                self.assertIn("sourceMd", prov)
+            else:
+                self.assertIn("Verified via Cambridge", prov)
+            self.assertEqual(e["status"], "verified-compat")
+        # pending entries must have URL and pending status
+        pending = [e for e in doc["entries"] if not e["evidence"]["cambridge"]["checked"]]
+        self.assertEqual(len(pending), 861)
+        for e in pending[:5]:  # spot-check first 5 pending
+            cam = e["evidence"]["cambridge"]
+            self.assertTrue(cam["url"].startswith("https://dictionary.cambridge.org/"))
+            self.assertEqual(cam["posMatch"], "pending-manual")
+            self.assertIn("pending", cam["notes"].lower())
+            self.assertEqual(e["status"], "pending-manual")
 
     def test_audit_markdown_exists(self):
         p = pathlib.Path("docs/vocabulary-audit-dev4.md")

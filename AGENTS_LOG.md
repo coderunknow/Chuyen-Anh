@@ -55,3 +55,18 @@
 
 8. **Delivery.** Committed branch `arena/c3e0e07d-chuyen-anh`; single PR against `main` to remain open per user (no merge/tag/release/deploy). DESIGN_LOG #2026-10-20 and this entry appended; `git diff --stat` = `index.html` +287/-13, `docs/` +2, `scripts/` +1, `tests/` +2.
 
+
+## 2026-10-20 — v1.0.0-dev4 continuation: 52/913 audit, test hardening, gate verification
+
+1. **Baseline re-established.** Fetched origin, reset to `418d2a1` (PR #26 OPEN, DEPLOY_HOLD v1.0.0-dev4 deploy=false). Verified `build --check` 913, `validate` 0 dups, `embed --check` 913, `embed_archive --check` 106 4,169,772 B. Browser suites PASS (learning + exams Chromium 133). Starting audit 6/907.
+
+2. **Vocabulary audit evidence-first.** Via `web_search` Cambridge for IDs 2–47 (46 additional) each with URL + definitionExcerpt + posMatch compatible + provenance Verified; updated via `/tmp/update_audit*.py` (2-6,7-11,12-16,17-27,28-32,33-37,38-42,43-47) and `/tmp/bulk_update_pending.py` for 861 pending with per-ID Cambridge URL, checked=false, posMatch pending-manual, auto-checked POS/meaning notes + word-family region note, provenance auto-checked. Fixed status mismatch (861 pending had verified-compat with checked=false) via `/tmp/fix_pending_status.py` to pending-manual. Result summary 52/861 (was 6/907), total 913, verifiedCompatAuto 913, correctedWithProof 0.
+
+3. **Tests hardened.** Updated `tests/test_vocabulary_audit_dev4.py` to assert 52/861, pending==total-checked, verified integrity (URL prefix, excerpt, posMatch compatible, provenance Verified/dict, status verified-compat) and pending spot-checks; fixed ID1 dict provenance handling. Python 50 PASS (was 1 fail on old 6 count + status mismatch), Node 41 PASS.
+
+4. **Docs updated.** `docs/vocabulary-audit-dev4.json` 2.1M refreshed 2026-10-20T09:20Z, methodology/limitations revised to 52 manual + 861 pending. `docs/vocabulary-audit-dev4.md` Verdict 52/861, methodology expanded, 52-row table with Cambridge excerpts, suspicious/limitations updated.
+
+5. **Full gate re-verified.** `build/validate/embed/archive --check` PASS, `python -m unittest` 50 PASS, `node --test` 41 PASS, `browser-learning.cjs` PASS (57s), `browser-exams.cjs` PASS (22s) on Chromium 133.0.6943.0, `git diff --check` clean, `deploy_gate.py` deploy=false (hold). No vocab row/scheduler/storage/backup/workflow change beyond audit evidence/hold.
+
+6. **Delivery.** `git add` + commit + push to `arena/c3e0e07d-chuyen-anh` pending; PR #26 remains OPEN, no merge/tag/release/deploy per user gate. Next: continue batch verification toward 100+, run final matrix, push and verify head SHA.
+
