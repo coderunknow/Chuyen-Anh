@@ -29,6 +29,7 @@ on:
       - ".github/workflows/ci.yml"
       - ".github/workflows/deploy.yml"
       - ".github/workflows/release-artifacts.yml"
+      - ".github/workflows/release-published-dispatch.yml"
       - "DEPLOY_HOLD"
   push:
     branches: [main]
@@ -58,6 +59,7 @@ on:
       - ".github/workflows/ci.yml"
       - ".github/workflows/deploy.yml"
       - ".github/workflows/release-artifacts.yml"
+      - ".github/workflows/release-published-dispatch.yml"
       - "DEPLOY_HOLD"
 
 concurrency:

@@ -14,5 +14,5 @@
 
 - Advanced the app version and sprint-version assertion to `v1.0.0-dev5`.
 - Set `DEPLOY_HOLD` to `v1.0.0-dev5`; GitHub Pages is gated until the release-ordering check confirms a published prerelease.
-- Re-run the deploy gate on GitHub's `release.published` event, so publishing the verified prerelease triggers the deferred deployment without removing the hold marker.
+- Route `release.published` through a minimal dispatcher that invokes the gated deploy workflow on `main`, respecting the GitHub Pages environment's main-only branch policy.
 - Updated the README checksum example and documented the dev5 evidence limits. Verify GitHub tag, release, and asset state independently; this changelog records contents, not publication status.

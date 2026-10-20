@@ -106,6 +106,21 @@ class HoldMarkerLifecycleTests(unittest.TestCase):
         self.assertEqual(tags, ['v1.0.0-dev5'])
 
 
+class ReleasePublishedDispatchWorkflowContractTests(unittest.TestCase):
+    def test_published_prerelease_dispatches_gated_main_workflow_with_minimal_permissions(self):
+        path = ROOT / '.github' / 'workflows' / 'release-published-dispatch.yml'
+        text = path.read_text(encoding='utf-8')
+        self.assertIn('release:', text)
+        self.assertIn('types: [published]', text)
+        self.assertIn('if: github.event.release.prerelease == true', text)
+        self.assertIn('actions: write', text)
+        self.assertIn('contents: read', text)
+        self.assertIn('/actions/workflows/deploy.yml/dispatches', text)
+        self.assertIn("--data '{\"ref\":\"main\"}'", text)
+        self.assertNotIn('pages: write', text)
+        self.assertNotIn('environment:', text)
+
+
 class DeployWorkflowContractTests(unittest.TestCase):
     def test_deploy_job_runs_tests_but_gates_every_publish_step(self):
         text = (ROOT / '.github' / 'workflows' / 'deploy.yml').read_text(encoding='utf-8')
@@ -113,7 +128,7 @@ class DeployWorkflowContractTests(unittest.TestCase):
         self.assertIn('id: gate', text)
         checkout = text.index('- name: Checkout')
         self.assertIn('ref: main', text[checkout:checkout + 180],
-                      'release-event deploys must check out main, not an older tag ref')
+                      'release-triggered dispatches must deploy main, not an older tag ref')
         self.assertIn("if: steps.gate.outputs.deploy == 'true'", text)
         for step in ('Stage standalone HTML', 'Configure Pages', 'Upload Pages artifact', 'Deploy'):
             marker = f'- name: {step}'
@@ -121,8 +136,8 @@ class DeployWorkflowContractTests(unittest.TestCase):
             self.assertIn("if: steps.gate.outputs.deploy == 'true'", text[index:index + 200],
                           f'the "{step}" step must be gated')
         self.assertIn('force_deploy', text)
-        self.assertIn('release:', text)
-        self.assertIn('types: [published]', text)
+        self.assertNotIn('types: [published]', text,
+                         'release tags must dispatch the deploy workflow on main through a separate workflow')
         self.assertIn("github.event_name == 'workflow_dispatch'", text)
         self.assertIn('DEPLOY_HOLD', text)
         self.assertIn('scripts/deploy_gate.py', text)
@@ -135,6 +150,9 @@ class DeployWorkflowContractTests(unittest.TestCase):
         self.assertIn('scripts/deploy_gate.py', text)
         self.assertIn('DEPLOY_HOLD', text)
         self.assertIn('.github/workflows/release-artifacts.yml', text)
+        self.assertIn('.github/workflows/release-published-dispatch.yml', text)
+        self.assertEqual(text.count('.github/workflows/release-published-dispatch.yml'), 2,
+                         'both pull_request and push filters must cover the dispatcher')
 
 
 if __name__ == '__main__':
