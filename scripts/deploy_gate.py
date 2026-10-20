@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
 """Decide whether the GitHub Pages deploy may run while a deploy hold is active.
 
-The v1.0.0-dev3 release procedure requires that the merge to `main` does not
-publish GitHub Pages before the tagged prerelease assets have been built and
-verified. The `DEPLOY_HOLD` marker names the release that must be published
-first; once that release is published the gate opens for this and every later
-push, so the marker does not need to be deleted for normal deployments to
-resume. A manual dispatch can force a deploy (for maintainers who know the
-release state better than the gate does).
+A release procedure can require that a merge to `main` does not publish
+GitHub Pages before the tagged prerelease assets have been built and verified.
+The `DEPLOY_HOLD` marker names the release that must be published first; once
+that release is published the gate opens for this and every later push, so the
+marker does not need to be deleted for normal deployments to resume. A manual
+dispatch can force a deploy for maintainers who deliberately override the hold.
 """
 from __future__ import annotations
 
@@ -56,7 +55,18 @@ def release_status(tag: str, repo: str) -> str:
         payload = json.loads(result.stdout)
     except ValueError:
         return 'missing'
-    return 'draft' if payload.get('isDraft') else 'published'
+    # `gh api` returns the REST field names (draft/prerelease), not the
+    # camelCase names used by `gh release view --json`. Missing/type-mismatched
+    # state is not proof of a published prerelease, so fail closed.
+    draft = payload.get('draft')
+    prerelease = payload.get('prerelease')
+    if not isinstance(draft, bool) or not isinstance(prerelease, bool):
+        return 'missing'
+    if draft:
+        return 'draft'
+    if not prerelease:
+        return 'not-prerelease'
+    return 'published'
 
 
 def decide_deploy(*, has_hold: bool, hold_tag: str | None, status: str, force: bool) -> tuple[bool, str]:

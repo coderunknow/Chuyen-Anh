@@ -1,179 +1,181 @@
-# Vocabulary audit — v1.0.0-dev4 (913 entries)
+# Vocabulary audit — v1.0.0-dev4 (corrected evidence ledger)
 
-Generated: 2026-10-20T10:05:00Z
-App version: v1.0.0-dev4 · Schema: 1.0.0
+Original JSON `generatedAt`: `2026-10-20T11:52:18.543065Z`. Evidence-led reconciliation: **2026-10-20**. App checkpoint: `v1.0.0-dev4` · schema `1.0.0`.
 
-## Verdict
+> **Correction notice:** the earlier dev4 Markdown reported 133 verified / 780 pending and listed ID 448 as verified. Entry-level review later showed that ID 448’s generated exact-phrase URL did not resolve to a standalone entry. The corrected totals are **132 verified / 781 pending**. Earlier claims are superseded here; historical logs remain append-only.
 
-- **913 entries** indexed from `data/vocabulary.json` (source `Learned_Vocabulary_List.md` 928 lines, IDs 1–913).
-- **913 verified-compat (auto) — no correction proposed; 82 manually re-checked with Cambridge excerpts (IDs 1–77 plus 5 legacy).**
-- **831 pending-manual dictionary lookup** beyond the 82 re-verified (evidence slots provided with per-ID Cambridge URLs, auto-checked POS/meaning, not claimed complete).
-- **0 needs-manual (suspicious auto-flag)**; **0 corrections with proof** — audit-first, correct only with entry-specific citation.
+This is a corrected dev4 evidence ledger, not an immutable copy of the originally generated document. All 913 IDs remain present. The audit record is synchronized to current source-managed values; 16 later source corrections belong to dev5 and are documented separately in [`vocabulary-audit-dev5.json`](vocabulary-audit-dev5.json).
 
-## Methodology (audit-first)
+## Reconciled counts
 
-1. Parsed source Markdown and generated JSON — IDs 1–913, no duplicates, embedded HTML payload in sync (`python scripts/build_vocabulary.py --check` passes).
-2. Auto-checked POS tokens vs known set (17 tokens: `abbr, adj, adv, collocation, conj, det, grammar, idiom, interj, n, num, phrasal, phrase, prep, pron, structure, v`), meaning presence, tag sanity, word-family region IDs 614–913 (300 cells, synonyms/antonyms/collocations empty in dataset). For pending entries, auto-checks record POS token validity and meaning presence with explicit notes and Cambridge URL, but definition excerpt remains pending-manual.
-3. Manually re-verified 82 IDs with Cambridge excerpts on 2026-10-20 (IDs 1–77 plus 281,283,341,448,913 legacy, via Cambridge web_search): definitionExcerpt + posMatch compatible + provenance Verified via Cambridge URL; no correction proposed, all compatible.
-4. For all 913, generated per-ID evidence slots with dictionary URLs; `checked` is `true` for the 82 manually verified, otherwise `pending-manual` with auto-checked structural notes and per-ID Cambridge URL for manual follow-up.
-5. No vocabulary row changed; any future correction must add `correction` with `proof` citation (Cambridge/Oxford/MW entry excerpt) and be reflected via build scripts.
+- **Structural/automated checks:** 913 entries (not dictionary verification).
+- **Exact-headword Cambridge evidence:** 132 / 913.
+- **Pending exact-headword verification:** 781 / 913.
+- **All entries:** 913; no source rows were removed.
+- Verified IDs: `1–128, 281, 283, 341, 913`.
+- Pending IDs: `129–280, 282, 284–340, 342–912` (complete per-entry status is in the JSON).
+- Tier counts (verified / pending): core 130/170, extended 1/312, word-family 1/299.
 
-Authoritative sources consulted (URLs per ID): Cambridge (primary), Oxford Learner's, Merriam-Webster, Collins (supplementary). Primary verification via Cambridge; other sources provide supplementary POS/CEFR context.
+`automatedChecks` is a structural count only. The obsolete `verifiedCompatAuto: 913` alias was removed because it conflated structural validation with dictionary lookup.
 
-## Tier distribution
+## Verified entries — 132
 
-- Core 1–300: 300
-- Extended 301–613: 313
-- Word-family 614–913: 300 (notes+wordFamily populated for 300 cells; prior review `vocabulary-300-review.md` not a dictionary audit)
+The table reports the stored exact-headword evidence record for each verified row. Five legacy excerpts (IDs 1, 281, 283, 341, 913) were directly re-inspected and replaced with exact Cambridge text on 2026-10-20; the other 127 verified records are carried forward and are not represented as newly rechecked by the dev5 pass.
 
-## Suspicious auto-flags (0)
+| ID | Word | Cambridge excerpt stored in ledger | Headword / POS | Cambridge URL |
+| ---: | --- | --- | --- | --- |
+| 1 | Adversity | “a difficult or unlucky situation or event” | adversity / noun [U or C] | [https://dictionary.cambridge.org/dictionary/english/adversity](https://dictionary.cambridge.org/dictionary/english/adversity) |
+| 2 | Meticulous | “very careful and with great attention to every detail” | meticulous / adjective | [https://dictionary.cambridge.org/dictionary/english/meticulous](https://dictionary.cambridge.org/dictionary/english/meticulous) |
+| 3 | Ambiguity | “(an example of) the fact of something having more than one possible meaning and therefore possibly causing confusion” | ambiguity / noun | [https://dictionary.cambridge.org/dictionary/english/ambiguity](https://dictionary.cambridge.org/dictionary/english/ambiguity) |
+| 4 | Deteriorate | “to become worse” | deteriorate / verb | [https://dictionary.cambridge.org/dictionary/english/deteriorate](https://dictionary.cambridge.org/dictionary/english/deteriorate) |
+| 5 | Exacerbate | “to make something that is already bad even worse” | exacerbate / verb | [https://dictionary.cambridge.org/dictionary/english/exacerbate](https://dictionary.cambridge.org/dictionary/english/exacerbate) |
+| 6 | Discrepancy | “a difference between two things that should be the same” | discrepancy / noun | [https://dictionary.cambridge.org/dictionary/english/discrepancy](https://dictionary.cambridge.org/dictionary/english/discrepancy) |
+| 7 | Constraint | “something that controls what you do by keeping you within particular limits” | constraint / noun | [https://dictionary.cambridge.org/dictionary/english/constraint](https://dictionary.cambridge.org/dictionary/english/constraint) |
+| 8 | Scrutinize | “to examine something very carefully in order to discover information” | scrutinize / verb | [https://dictionary.cambridge.org/dictionary/english/scrutinize](https://dictionary.cambridge.org/dictionary/english/scrutinize) |
+| 9 | Pervasive | “present or noticeable in every part of a thing or place” | pervasive / adjective | [https://dictionary.cambridge.org/dictionary/english/pervasive](https://dictionary.cambridge.org/dictionary/english/pervasive) |
+| 10 | Eloquent | “giving a clear, strong message; expressing ideas clearly and in a way that influences people” | eloquent / adjective | [https://dictionary.cambridge.org/dictionary/english/eloquent](https://dictionary.cambridge.org/dictionary/english/eloquent) |
+| 11 | Plausible | “seeming likely to be true, or able to be believed” | plausible / adjective | [https://dictionary.cambridge.org/dictionary/english/plausible](https://dictionary.cambridge.org/dictionary/english/plausible) |
+| 12 | Conspicuous | “very noticeable or attracting attention, often in a way that is not wanted” | conspicuous / adjective | [https://dictionary.cambridge.org/dictionary/english/conspicuous](https://dictionary.cambridge.org/dictionary/english/conspicuous) |
+| 13 | Relinquish | “to give up something such as a responsibility or claim” | relinquish / verb | [https://dictionary.cambridge.org/dictionary/english/relinquish](https://dictionary.cambridge.org/dictionary/english/relinquish) |
+| 14 | Disparate | “different in every way; completely different” | disparate / adjective | [https://dictionary.cambridge.org/dictionary/english/disparate](https://dictionary.cambridge.org/dictionary/english/disparate) |
+| 15 | Indispensable | “Something or someone that is indispensable is so good or important that you could not manage without it; completely necessary” | indispensable / adjective | [https://dictionary.cambridge.org/dictionary/english/indispensable](https://dictionary.cambridge.org/dictionary/english/indispensable) |
+| 16 | Abundant | “more than enough; existing in large quantities” | abundant / adjective | [https://dictionary.cambridge.org/dictionary/english/abundant](https://dictionary.cambridge.org/dictionary/english/abundant) |
+| 17 | Acquiesce | “to accept or agree to something, often unwillingly” | acquiesce / verb | [https://dictionary.cambridge.org/dictionary/english/acquiesce](https://dictionary.cambridge.org/dictionary/english/acquiesce) |
+| 18 | Alleviate | “to make something bad such as pain or problems less severe” | alleviate / verb | [https://dictionary.cambridge.org/dictionary/english/alleviate](https://dictionary.cambridge.org/dictionary/english/alleviate) |
+| 19 | Audacious | “showing a willingness to take risks or offend people” | audacious / adjective | [https://dictionary.cambridge.org/dictionary/english/audacious](https://dictionary.cambridge.org/dictionary/english/audacious) |
+| 20 | Benevolent | “kind and helpful” | benevolent / adjective | [https://dictionary.cambridge.org/dictionary/english/benevolent](https://dictionary.cambridge.org/dictionary/english/benevolent) |
+| 21 | Coercion | “the use of force to persuade someone to do something that they are unwilling to do” | coercion / noun | [https://dictionary.cambridge.org/dictionary/english/coercion](https://dictionary.cambridge.org/dictionary/english/coercion) |
+| 22 | Comprehensive | “complete and including everything that is necessary” | comprehensive / adjective | [https://dictionary.cambridge.org/dictionary/english/comprehensive](https://dictionary.cambridge.org/dictionary/english/comprehensive) |
+| 23 | Concurrent | “happening or existing at the same time” | concurrent / adjective | [https://dictionary.cambridge.org/dictionary/english/concurrent](https://dictionary.cambridge.org/dictionary/english/concurrent) |
+| 24 | Contingency | “something that might possibly happen in the future, usually causing problems or making further arrangements necessary” | contingency / noun | [https://dictionary.cambridge.org/dictionary/english/contingency](https://dictionary.cambridge.org/dictionary/english/contingency) |
+| 25 | Detrimental | “causing harm or damage” | detrimental / adjective | [https://dictionary.cambridge.org/dictionary/english/detrimental](https://dictionary.cambridge.org/dictionary/english/detrimental) |
+| 26 | Diligent | “careful and using a lot of effort” | diligent / adjective | [https://dictionary.cambridge.org/dictionary/english/diligent](https://dictionary.cambridge.org/dictionary/english/diligent) |
+| 27 | Disseminate | “to spread or give out something, especially news, information, ideas, etc., to a lot of people” | disseminate / verb | [https://dictionary.cambridge.org/dictionary/english/disseminate](https://dictionary.cambridge.org/dictionary/english/disseminate) |
+| 28 | Elusive | “difficult to describe, find, achieve, or remember” | elusive / adjective | [https://dictionary.cambridge.org/dictionary/english/elusive](https://dictionary.cambridge.org/dictionary/english/elusive) |
+| 29 | Endorse | “to make a public statement of your approval or support for something or someone” | endorse / verb | [https://dictionary.cambridge.org/dictionary/english/endorse](https://dictionary.cambridge.org/dictionary/english/endorse) |
+| 30 | Ephemeral | “lasting for only a short time” | ephemeral / adjective | [https://dictionary.cambridge.org/dictionary/english/ephemeral](https://dictionary.cambridge.org/dictionary/english/ephemeral) |
+| 31 | Eradicate | “to get rid of something completely or destroy something bad” | eradicate / verb | [https://dictionary.cambridge.org/dictionary/english/eradicate](https://dictionary.cambridge.org/dictionary/english/eradicate) |
+| 32 | Exemplary | “very good and suitable to be copied by other people” | exemplary / adjective | [https://dictionary.cambridge.org/dictionary/english/exemplary](https://dictionary.cambridge.org/dictionary/english/exemplary) |
+| 33 | Feasible | “able to be made, done, or achieved” | feasible / adjective | [https://dictionary.cambridge.org/dictionary/english/feasible](https://dictionary.cambridge.org/dictionary/english/feasible) |
+| 34 | Formidable | “causing you to have fear or respect for something or someone because that thing or person is large, powerful, or difficult” | formidable / adjective | [https://dictionary.cambridge.org/dictionary/english/formidable](https://dictionary.cambridge.org/dictionary/english/formidable) |
+| 35 | Impede | “to make it more difficult for something to happen or more difficult for someone to do something” | impede / verb | [https://dictionary.cambridge.org/dictionary/english/impede](https://dictionary.cambridge.org/dictionary/english/impede) |
+| 36 | Imperative | “extremely important or urgent” | imperative / adjective | [https://dictionary.cambridge.org/dictionary/english/imperative](https://dictionary.cambridge.org/dictionary/english/imperative) |
+| 37 | Incessant | “never stopping, especially in an annoying or unpleasant way” | incessant / adjective | [https://dictionary.cambridge.org/dictionary/english/incessant](https://dictionary.cambridge.org/dictionary/english/incessant) |
+| 38 | Inevitable | “certain to happen and unable to be avoided or prevented” | inevitable / adjective | [https://dictionary.cambridge.org/dictionary/english/inevitable](https://dictionary.cambridge.org/dictionary/english/inevitable) |
+| 39 | Inherent | “existing as a natural or basic part of something” | inherent / adjective | [https://dictionary.cambridge.org/dictionary/english/inherent](https://dictionary.cambridge.org/dictionary/english/inherent) |
+| 40 | Lucid | “clearly expressed and easy to understand, or (of a person) thinking or speaking clearly” | lucid / adjective | [https://dictionary.cambridge.org/dictionary/english/lucid](https://dictionary.cambridge.org/dictionary/english/lucid) |
+| 41 | Mitigate | “to make something less harmful, unpleasant, or bad” | mitigate / verb | [https://dictionary.cambridge.org/dictionary/english/mitigate](https://dictionary.cambridge.org/dictionary/english/mitigate) |
+| 42 | Negligent | “not being careful or giving enough attention to people or things that are your responsibility” | negligent / adjective | [https://dictionary.cambridge.org/dictionary/english/negligent](https://dictionary.cambridge.org/dictionary/english/negligent) |
+| 43 | Obsolete | “not in use any more, having been replaced by something newer and better or more fashionable” | obsolete / adjective | [https://dictionary.cambridge.org/dictionary/english/obsolete](https://dictionary.cambridge.org/dictionary/english/obsolete) |
+| 44 | Ostentatious | “too obviously showing your money, possessions, or power, in an attempt to make other people notice and admire you” | ostentatious / adjective | [https://dictionary.cambridge.org/dictionary/english/ostentatious](https://dictionary.cambridge.org/dictionary/english/ostentatious) |
+| 45 | Paramount | “more important than anything else” | paramount / adjective | [https://dictionary.cambridge.org/dictionary/english/paramount](https://dictionary.cambridge.org/dictionary/english/paramount) |
+| 46 | Pertinent | “relating directly to the subject being considered” | pertinent / adjective | [https://dictionary.cambridge.org/dictionary/english/pertinent](https://dictionary.cambridge.org/dictionary/english/pertinent) |
+| 47 | Pragmatic | “solving problems in a sensible way that suits the conditions that really exist now, rather than obeying fixed theories, ideas, or rules” | pragmatic / adjective | [https://dictionary.cambridge.org/dictionary/english/pragmatic](https://dictionary.cambridge.org/dictionary/english/pragmatic) |
+| 48 | Prevalent | “existing very commonly or happening often” | prevalent / adjective | [https://dictionary.cambridge.org/dictionary/english/prevalent](https://dictionary.cambridge.org/dictionary/english/prevalent) |
+| 49 | Reluctant | “not willing to do something and therefore slow to do it” | reluctant / adjective | [https://dictionary.cambridge.org/dictionary/english/reluctant](https://dictionary.cambridge.org/dictionary/english/reluctant) |
+| 50 | Substantial | “large in size, value, or importance” | substantial / adjective | [https://dictionary.cambridge.org/dictionary/english/substantial](https://dictionary.cambridge.org/dictionary/english/substantial) |
+| 51 | Subtle | “not loud, bright, noticeable, or obvious in any way; small but important” | subtle / adjective | [https://dictionary.cambridge.org/dictionary/english/subtle](https://dictionary.cambridge.org/dictionary/english/subtle) |
+| 52 | Surmount | “to deal successfully with a difficulty or problem” | surmount / verb | [https://dictionary.cambridge.org/dictionary/english/surmount](https://dictionary.cambridge.org/dictionary/english/surmount) |
+| 53 | Ubiquitous | “seeming to be everywhere; found or existing everywhere” | ubiquitous / adjective | [https://dictionary.cambridge.org/dictionary/english/ubiquitous](https://dictionary.cambridge.org/dictionary/english/ubiquitous) |
+| 54 | Unprecedented | “never having happened or existed in the past” | unprecedented / adjective | [https://dictionary.cambridge.org/dictionary/english/unprecedented](https://dictionary.cambridge.org/dictionary/english/unprecedented) |
+| 55 | Vulnerable | “able to be easily physically or mentally hurt, influenced, or attacked” | vulnerable / adjective | [https://dictionary.cambridge.org/dictionary/english/vulnerable](https://dictionary.cambridge.org/dictionary/english/vulnerable) |
+| 56 | Apprehensive | “feeling worried about something that you are going to do or that is going to happen” | apprehensive / adjective | [https://dictionary.cambridge.org/dictionary/english/apprehensive](https://dictionary.cambridge.org/dictionary/english/apprehensive) |
+| 57 | Complacent | “feeling so satisfied with your own abilities or situation that you feel you do not need to try any harder” | complacent / adjective | [https://dictionary.cambridge.org/dictionary/english/complacent](https://dictionary.cambridge.org/dictionary/english/complacent) |
+| 58 | Corroborate | “to add proof to an account, statement, idea, etc. with new information” | corroborate / verb | [https://dictionary.cambridge.org/dictionary/english/corroborate](https://dictionary.cambridge.org/dictionary/english/corroborate) |
+| 59 | Exonerate | “to show or state that someone or something is not guilty of something” | exonerate / verb | [https://dictionary.cambridge.org/dictionary/english/exonerate](https://dictionary.cambridge.org/dictionary/english/exonerate) |
+| 60 | Indefatigable | “always determined and energetic in trying to achieve something and never willing to admit defeat; never becoming tired” | indefatigable / adjective | [https://dictionary.cambridge.org/dictionary/english/indefatigable](https://dictionary.cambridge.org/dictionary/english/indefatigable) |
+| 61 | Inadvertent | “not intentional” | inadvertent / adjective | [https://dictionary.cambridge.org/dictionary/english/inadvertent](https://dictionary.cambridge.org/dictionary/english/inadvertent) |
+| 62 | Superfluous | “more than is needed or wanted” | superfluous / adjective | [https://dictionary.cambridge.org/dictionary/english/superfluous](https://dictionary.cambridge.org/dictionary/english/superfluous) |
+| 63 | Ambivalent | “having two opposing feelings at the same time, or being uncertain about how you feel” | ambivalent / adjective | [https://dictionary.cambridge.org/dictionary/english/ambivalent](https://dictionary.cambridge.org/dictionary/english/ambivalent) |
+| 64 | Assiduous | “showing hard work, care, and attention to detail” | assiduous / adjective | [https://dictionary.cambridge.org/dictionary/english/assiduous](https://dictionary.cambridge.org/dictionary/english/assiduous) |
+| 65 | Precipitate | “to make something happen suddenly or sooner than expected; happening very quickly without enough thought” | precipitate / v/adj | [https://dictionary.cambridge.org/dictionary/english/precipitate](https://dictionary.cambridge.org/dictionary/english/precipitate) |
+| 66 | Tenacious | “holding tightly onto something, or keeping an opinion in a determined way; unwilling to accept defeat” | tenacious / adjective | [https://dictionary.cambridge.org/dictionary/english/tenacious](https://dictionary.cambridge.org/dictionary/english/tenacious) |
+| 67 | Placate | “to stop someone from feeling angry” | placate / verb | [https://dictionary.cambridge.org/dictionary/english/placate](https://dictionary.cambridge.org/dictionary/english/placate) |
+| 68 | Disparage | “to criticize someone or something in a way that shows you do not respect or value him, her, or it” | disparage / verb | [https://dictionary.cambridge.org/dictionary/english/disparage](https://dictionary.cambridge.org/dictionary/english/disparage) |
+| 69 | Ineffable | “causing so much emotion, especially pleasure, that it cannot be described” | ineffable / adjective | [https://dictionary.cambridge.org/dictionary/english/ineffable](https://dictionary.cambridge.org/dictionary/english/ineffable) |
+| 70 | Scrupulous | “extremely careful to do what is right or moral; doing everything correctly and exactly as it should be done” | scrupulous / adjective | [https://dictionary.cambridge.org/dictionary/english/scrupulous](https://dictionary.cambridge.org/dictionary/english/scrupulous) |
+| 71 | Extraneous | “not directly connected with or related to something” | extraneous / adjective | [https://dictionary.cambridge.org/dictionary/english/extraneous](https://dictionary.cambridge.org/dictionary/english/extraneous) |
+| 72 | Prolific | “producing a great number or amount of something” | prolific / adjective | [https://dictionary.cambridge.org/dictionary/english/prolific](https://dictionary.cambridge.org/dictionary/english/prolific) |
+| 73 | Rectify | “to correct something or make something right” | rectify / verb | [https://dictionary.cambridge.org/dictionary/english/rectify](https://dictionary.cambridge.org/dictionary/english/rectify) |
+| 74 | Fastidious | “giving too much attention to small details and wanting everything to be correct and perfect” | fastidious / adjective | [https://dictionary.cambridge.org/dictionary/english/fastidious](https://dictionary.cambridge.org/dictionary/english/fastidious) |
+| 75 | Equivocal | “not clear and seeming to have two opposing meanings, or confusing and able to be understood in two different ways” | equivocal / adjective | [https://dictionary.cambridge.org/dictionary/english/equivocal](https://dictionary.cambridge.org/dictionary/english/equivocal) |
+| 76 | Impeccable | “perfect, with no problems or bad parts” | impeccable / adjective | [https://dictionary.cambridge.org/dictionary/english/impeccable](https://dictionary.cambridge.org/dictionary/english/impeccable) |
+| 77 | Compensate | “to pay someone money in exchange for something that has been lost or damaged or for some problem; also to provide something good in place of something” | compensate / verb | [https://dictionary.cambridge.org/dictionary/english/compensate](https://dictionary.cambridge.org/dictionary/english/compensate) |
+| 78 | Surreptitious | “done secretly, without anyone seeing or knowing” | surreptitious / adjective | [https://dictionary.cambridge.org/dictionary/english/surreptitious](https://dictionary.cambridge.org/dictionary/english/surreptitious) |
+| 79 | Malign | “causing or intending to cause harm or evil; to say false and unpleasant things about someone, or to criticize someone unfairly” | malign / adjective ; verb [T often passive] | [https://dictionary.cambridge.org/dictionary/english/malign](https://dictionary.cambridge.org/dictionary/english/malign) |
+| 80 | Anomalous | “different from what is usual, or not in agreement with something else and therefore not satisfactory” | anomalous / adjective | [https://dictionary.cambridge.org/dictionary/english/anomalous](https://dictionary.cambridge.org/dictionary/english/anomalous) |
+| 81 | Lethargic | “having little energy; feeling unwilling and unable to do anything” | lethargic / adjective | [https://dictionary.cambridge.org/dictionary/english/lethargic](https://dictionary.cambridge.org/dictionary/english/lethargic) |
+| 82 | Condone | “to accept or allow behaviour that is wrong” | condone / verb [T] | [https://dictionary.cambridge.org/dictionary/english/condone](https://dictionary.cambridge.org/dictionary/english/condone) |
+| 83 | Capricious | “changing mood or behaviour suddenly and unexpectedly” | capricious / adjective | [https://dictionary.cambridge.org/dictionary/english/capricious](https://dictionary.cambridge.org/dictionary/english/capricious) |
+| 84 | Vindicate | “to prove that what someone said or did was right or true, after other people thought it was wrong; to prove that someone is not guilty or is free from blame” | vindicate / verb [T] | [https://dictionary.cambridge.org/dictionary/english/vindicate](https://dictionary.cambridge.org/dictionary/english/vindicate) |
+| 85 | Indignant | “angry because of something that is wrong or not fair” | indignant / adjective | [https://dictionary.cambridge.org/dictionary/english/indignant](https://dictionary.cambridge.org/dictionary/english/indignant) |
+| 86 | Subvert | “to try to destroy or damage something, especially an established political system” | subvert / verb [T] formal | [https://dictionary.cambridge.org/dictionary/english/subvert](https://dictionary.cambridge.org/dictionary/english/subvert) |
+| 87 | Resilient | “able to be happy, successful, etc. again after something difficult or bad has happened; able to quickly return to its usual shape after being bent, stretched, or pressed” | resilient / adjective | [https://dictionary.cambridge.org/dictionary/english/resilient](https://dictionary.cambridge.org/dictionary/english/resilient) |
+| 88 | Commensurate | “in a correct and suitable amount compared to something else” | commensurate / adjective formal | [https://dictionary.cambridge.org/dictionary/english/commensurate](https://dictionary.cambridge.org/dictionary/english/commensurate) |
+| 89 | Dissemble | “to hide your real intentions and feelings or the facts” | dissemble / verb [I] formal | [https://dictionary.cambridge.org/dictionary/english/dissemble](https://dictionary.cambridge.org/dictionary/english/dissemble) |
+| 90 | Perfunctory | “done quickly, without taking care or interest” | perfunctory / adjective | [https://dictionary.cambridge.org/dictionary/english/perfunctory](https://dictionary.cambridge.org/dictionary/english/perfunctory) |
+| 91 | Acumen | “skill in making correct decisions and judgments in a particular subject, such as business or politics” | acumen / noun [U] formal | [https://dictionary.cambridge.org/dictionary/english/acumen](https://dictionary.cambridge.org/dictionary/english/acumen) |
+| 92 | Admonish | “to tell someone that they have done something wrong” | admonish / verb [T] formal | [https://dictionary.cambridge.org/dictionary/english/admonish](https://dictionary.cambridge.org/dictionary/english/admonish) |
+| 93 | Advocate | “to publicly support or suggest an idea, development, or way of doing something” | advocate / verb [I or T] | [https://dictionary.cambridge.org/dictionary/english/advocate](https://dictionary.cambridge.org/dictionary/english/advocate) |
+| 94 | Affluent | “having a lot of money or owning a lot of things” | affluent / adjective | [https://dictionary.cambridge.org/dictionary/english/affluent](https://dictionary.cambridge.org/dictionary/english/affluent) |
+| 95 | Animosity | “strong dislike, opposition, or anger” | animosity / noun [C or U] | [https://dictionary.cambridge.org/dictionary/english/animosity](https://dictionary.cambridge.org/dictionary/english/animosity) |
+| 96 | Apathetic | “showing no interest or energy and unwilling to take action, especially over something important” | apathetic / adjective | [https://dictionary.cambridge.org/dictionary/english/apathetic](https://dictionary.cambridge.org/dictionary/english/apathetic) |
+| 97 | Appraise | “to examine someone or something in order to judge their qualities, success, or needs” | appraise / verb [T] | [https://dictionary.cambridge.org/dictionary/english/appraise](https://dictionary.cambridge.org/dictionary/english/appraise) |
+| 98 | Articulate | “able to express thoughts and feelings easily and clearly, or showing this quality; to express in words” | articulate / adjective ; verb [T] formal | [https://dictionary.cambridge.org/dictionary/english/articulate](https://dictionary.cambridge.org/dictionary/english/articulate) |
+| 99 | Ascertain | “to discover something; to make certain of something” | ascertain / verb [T] formal | [https://dictionary.cambridge.org/dictionary/english/ascertain](https://dictionary.cambridge.org/dictionary/english/ascertain) |
+| 100 | Augment | “to increase the size or value of something by adding something to it” | augment / verb [T] formal | [https://dictionary.cambridge.org/dictionary/english/augment](https://dictionary.cambridge.org/dictionary/english/augment) |
+| 101 | Auspicious | “suggesting a positive and successful future” | auspicious / adjective formal | [https://dictionary.cambridge.org/dictionary/english/auspicious](https://dictionary.cambridge.org/dictionary/english/auspicious) |
+| 102 | Belligerent | “wishing to fight or argue; fighting a war” | belligerent / adjective ; noun [C] formal | [https://dictionary.cambridge.org/dictionary/english/belligerent](https://dictionary.cambridge.org/dictionary/english/belligerent) |
+| 103 | Bolster | “to support or improve something or make it stronger” | bolster / verb [T] ; noun [C] | [https://dictionary.cambridge.org/dictionary/english/bolster](https://dictionary.cambridge.org/dictionary/english/bolster) |
+| 104 | Candid | “honest and telling the truth, especially about something difficult or painful” | candid / adjective approving | [https://dictionary.cambridge.org/dictionary/english/candid](https://dictionary.cambridge.org/dictionary/english/candid) |
+| 105 | Cognizant | “understanding or realizing something” | cognizant / adjective formal (UK usually cognisant) | [https://dictionary.cambridge.org/dictionary/english/cognizant](https://dictionary.cambridge.org/dictionary/english/cognizant) |
+| 106 | Catalyst | “something that makes a chemical reaction happen more quickly without itself being changed; an event or person that causes great change” | catalyst / noun [C] | [https://dictionary.cambridge.org/dictionary/english/catalyst](https://dictionary.cambridge.org/dictionary/english/catalyst) |
+| 107 | Censorship | “the action of preventing part or the whole of a book, film, work of art, document, or other communication from being seen or made available to the public, because it is considered offensive or harmful, or contains information someone wishes to keep secret, often for political reasons” | censorship / noun [U] | [https://dictionary.cambridge.org/dictionary/english/censorship](https://dictionary.cambridge.org/dictionary/english/censorship) |
+| 108 | Chagrin | “disappointment or anger, especially when caused by a failure or mistake” | chagrin / noun [U] formal | [https://dictionary.cambridge.org/dictionary/english/chagrin](https://dictionary.cambridge.org/dictionary/english/chagrin) |
+| 109 | Cogent | “clearly expressed and persuades people to believe it; persuasive and well expressed” | cogent / adjective formal | [https://dictionary.cambridge.org/dictionary/english/cogent](https://dictionary.cambridge.org/dictionary/english/cogent) |
+| 110 | Colloquial | “(of words and expressions) informal and more suitable for use in speech than in writing” | colloquial / adjective | [https://dictionary.cambridge.org/dictionary/english/colloquial](https://dictionary.cambridge.org/dictionary/english/colloquial) |
+| 111 | Commend | “to formally praise someone or something” | commend / verb [T] | [https://dictionary.cambridge.org/dictionary/english/commend](https://dictionary.cambridge.org/dictionary/english/commend) |
+| 112 | Concede | “to admit, often unwillingly, that something is true; to admit that you have lost in a competition” | concede / verb [I or T] | [https://dictionary.cambridge.org/dictionary/english/concede](https://dictionary.cambridge.org/dictionary/english/concede) |
+| 113 | Conciliate | “to end a disagreement or someone's anger by acting in a friendly way or slightly changing your opinions, or to satisfy someone who disagrees with you by acting in this way” | conciliate / verb [I or T] | [https://dictionary.cambridge.org/dictionary/english/conciliate](https://dictionary.cambridge.org/dictionary/english/conciliate) |
+| 114 | Condescend | “to behave in a way which shows that you consider yourself to be better or more intelligent than other people; to agree to do something that you do not consider good enough for your social position” | condescend / verb [I] usually humorous | [https://dictionary.cambridge.org/dictionary/english/condescend](https://dictionary.cambridge.org/dictionary/english/condescend) |
+| 115 | Conducive | “providing the right conditions for something good to happen or exist” | conducive / adjective | [https://dictionary.cambridge.org/dictionary/english/conducive](https://dictionary.cambridge.org/dictionary/english/conducive) |
+| 116 | Conscientious | “putting a lot of effort into your work; feeling a moral responsibility to do your work carefully and to be fair to others” | conscientious / adjective C1 | [https://dictionary.cambridge.org/dictionary/english/conscientious](https://dictionary.cambridge.org/dictionary/english/conscientious) |
+| 117 | Consolidate | “to become, or cause something to become, stronger and more certain; to combine several things, especially businesses, so that they become more effective” | consolidate / verb [I or T] | [https://dictionary.cambridge.org/dictionary/english/consolidate](https://dictionary.cambridge.org/dictionary/english/consolidate) |
+| 118 | Contemplative | “involving quiet and serious thought for a period of time” | contemplative / adjective | [https://dictionary.cambridge.org/dictionary/english/contemplative](https://dictionary.cambridge.org/dictionary/english/contemplative) |
+| 119 | Contention | “the disagreement that results from opposing arguments; an opinion expressed in an argument” | contention / noun [U] disagreement ; noun [C] opinion | [https://dictionary.cambridge.org/dictionary/english/contention](https://dictionary.cambridge.org/dictionary/english/contention) |
+| 120 | Curtail | “to stop something before it is finished, or to reduce or limit something” | curtail / verb [T] | [https://dictionary.cambridge.org/dictionary/english/curtail](https://dictionary.cambridge.org/dictionary/english/curtail) |
+| 121 | Debilitate | “to make someone or something physically weak” | debilitate / verb [T] formal | [https://dictionary.cambridge.org/dictionary/english/debilitate](https://dictionary.cambridge.org/dictionary/english/debilitate) |
+| 122 | Deference | “respect and politeness; respect shown for another person especially because of that person's experience, knowledge, age, or power” | deference / noun [U] formal | [https://dictionary.cambridge.org/dictionary/english/deference](https://dictionary.cambridge.org/dictionary/english/deference) |
+| 123 | Delineate | “to describe or mark the edge of something; to describe something completely, including details” | delineate / verb [T] formal | [https://dictionary.cambridge.org/dictionary/english/delineate](https://dictionary.cambridge.org/dictionary/english/delineate) |
+| 124 | Demeanor | “a way of looking and behaving” | demeanor / noun [U] (US spelling of demeanour) | [https://dictionary.cambridge.org/dictionary/english/demeanor](https://dictionary.cambridge.org/dictionary/english/demeanor) |
+| 125 | Denounce | “to criticize something or someone strongly and publicly; to tell someone in authority about a person's illegal activities” | denounce / verb [T] | [https://dictionary.cambridge.org/dictionary/english/denounce](https://dictionary.cambridge.org/dictionary/english/denounce) |
+| 126 | Depict | “to represent or show something in a picture or story” | depict / verb [T] C2 | [https://dictionary.cambridge.org/dictionary/english/depict](https://dictionary.cambridge.org/dictionary/english/depict) |
+| 127 | Deplete | “to reduce something in size or amount, especially supplies of energy, money, etc.” | deplete / verb [T] | [https://dictionary.cambridge.org/dictionary/english/deplete](https://dictionary.cambridge.org/dictionary/english/deplete) |
+| 128 | Deride | “to laugh at or show no respect for someone or something, because you think they are stupid or of no value; to show that you think someone or something is ridiculous or of no value” | deride / verb [T] formal | [https://dictionary.cambridge.org/dictionary/english/deride](https://dictionary.cambridge.org/dictionary/english/deride) |
+| 281 | Credence | “the belief that something is true” | credence / noun [U] | [https://dictionary.cambridge.org/dictionary/english/credence](https://dictionary.cambridge.org/dictionary/english/credence) |
+| 283 | Culminate | “If an event or series of events culminates in something, it ends with it, having developed until it reaches this point” | culminate / verb | [https://dictionary.cambridge.org/dictionary/english/culminate](https://dictionary.cambridge.org/dictionary/english/culminate) |
+| 341 | Intransigent | “refusing to change your opinions or behaviour” | intransigent / adjective (formal, disapproving) | [https://dictionary.cambridge.org/dictionary/english/intransigent](https://dictionary.cambridge.org/dictionary/english/intransigent) |
+| 913 | Virtually | “almost; using computer technology over the internet, and not involving people physically going somewhere” | virtually / adverb | [https://dictionary.cambridge.org/dictionary/english/virtually](https://dictionary.cambridge.org/dictionary/english/virtually) |
 
-If empty, auto-checks passed; manual dictionary lookup still pending for 831 entries. Auto-checks verified POS token membership and Vietnamese meaning presence for all 913; 82 have manual Cambridge excerpts, 831 have per-ID Cambridge URLs + auto-check notes pending manual verification.
+## Legacy evidence repairs and ID 448
 
+| ID | Reconciled evidence / status |
+| ---: | --- |
+| 1 | Replaced the former paraphrased/annotated excerpt with “a difficult or unlucky situation or event” — [https://dictionary.cambridge.org/dictionary/english/adversity](https://dictionary.cambridge.org/dictionary/english/adversity); retrieved 2026-10-20. |
+| 281 | Replaced the former paraphrased/annotated excerpt with “the belief that something is true” — [https://dictionary.cambridge.org/dictionary/english/credence](https://dictionary.cambridge.org/dictionary/english/credence); retrieved 2026-10-20. |
+| 283 | Replaced the former paraphrased/annotated excerpt with “If an event or series of events culminates in something, it ends with it, having developed until it reaches this point” — [https://dictionary.cambridge.org/dictionary/english/culminate](https://dictionary.cambridge.org/dictionary/english/culminate); retrieved 2026-10-20. |
+| 341 | Replaced the former paraphrased/annotated excerpt with “refusing to change your opinions or behaviour” — [https://dictionary.cambridge.org/dictionary/english/intransigent](https://dictionary.cambridge.org/dictionary/english/intransigent); retrieved 2026-10-20. |
+| 913 | Replaced the former paraphrased/annotated excerpt with “almost; using computer technology over the internet, and not involving people physically going somewhere” — [https://dictionary.cambridge.org/dictionary/english/virtually](https://dictionary.cambridge.org/dictionary/english/virtually); retrieved 2026-10-20. |
+| 448 | **Pending-manual.** Candidate `/menial-task` returned a generic Cambridge dictionary landing page. The inspected component page [https://dictionary.cambridge.org/dictionary/english/menial](https://dictionary.cambridge.org/dictionary/english/menial) includes “menial tasks” in an example but does not establish a standalone phrase headword; excerpt and retrieval date remain null in the audit ledger. |
 
-## Previously re-verified (82 IDs — IDs 1–77 plus 5 legacy via Cambridge 2026-10-20)
+## Method and limits
 
-| ID | Word | Cambridge excerpt (compatible) |
-| --- | --- | --- |
-| 1 | Adversity | noun difficult or unlucky situation or event — compatible “nghịch cảnh” |
-| 2 | Meticulous | adj very careful and with great attention to every detail — “tỉ mỉ” |
-| 3 | Ambiguity | noun fact of something having more than one possible meaning — “sự mơ hồ” |
-| 4 | Deteriorate | verb to become worse — “xấu đi” |
-| 5 | Exacerbate | verb to make something that is already bad even worse — “làm trầm trọng” |
-| 6 | Discrepancy | noun difference between two things that should be the same — “sự khác biệt” |
-| 7 | Constraint | noun something that controls what you do by keeping you within particular limits — “ràng buộc” |
-| 8 | Scrutinize | verb to examine something very carefully — “xem xét kỹ” |
-| 9 | Pervasive | adj present or noticeable in every part — “lan tỏa” |
-| 10 | Eloquent | adj giving a clear, strong message — “hùng biện” |
-| 11 | Plausible | adj seeming likely to be true, or able to be believed — “có vẻ hợp lý” |
-| 12 | Conspicuous | adj very noticeable or attracting attention — “dễ thấy” |
-| 13 | Relinquish | verb to give up something such as a responsibility or claim — “từ bỏ” |
-| 14 | Disparate | adj different in every way — “khác biệt” |
-| 15 | Indispensable | adj so good or important that you could not manage without it — “không thể thiếu” |
-| 16 | Abundant | adj more than enough; existing in large quantities — “phong phú” |
-| 17 | Acquiesce | verb to accept or agree to something, often unwillingly — “miễn cưỡng đồng ý” |
-| 18 | Alleviate | verb to make something bad less severe — “giảm nhẹ” |
-| 19 | Audacious | adj showing a willingness to take risks or offend people — “táo bạo” |
-| 20 | Benevolent | adj kind and helpful — “nhân từ, nhân hậu” |
-| 21 | Coercion | noun use of force to persuade someone to do something unwilling — “ép buộc” |
-| 22 | Comprehensive | adj complete and including everything necessary — “toàn diện” |
-| 23 | Concurrent | adj happening or existing at the same time — “đồng thời” |
-| 24 | Contingency | noun something that might possibly happen in future, causing problems — “dự phòng” |
-| 25 | Detrimental | adj causing harm or damage — “có hại” |
-| 26 | Diligent | adj careful and using a lot of effort — “chuyên cần” |
-| 27 | Disseminate | verb to spread or give out something to a lot of people — “phổ biến” |
-| 28 | Elusive | adj difficult to describe, find, achieve, or remember — “khó nắm bắt” |
-| 29 | Endorse | verb to make a public statement of approval or support — “tán thành” |
-| 30 | Ephemeral | adj lasting for only a short time — “phù du” |
-| 31 | Eradicate | verb to get rid of something completely or destroy something bad — “xóa bỏ” |
-| 32 | Exemplary | adj very good and suitable to be copied by other people — “mẫu mực” |
-| 33 | Feasible | adj able to be made, done, or achieved — “khả thi” |
-| 34 | Formidable | adj causing fear or respect because large/powerful/difficult — “đáng gờm” |
-| 35 | Impede | verb to make it more difficult for something to happen — “cản trở” |
-| 36 | Imperative | adj extremely important or urgent — “cấp thiết” |
-| 37 | Incessant | adj never stopping, especially in annoying way — “liên tục” |
-| 38 | Inevitable | adj certain to happen and unable to be avoided — “không thể tránh khỏi” |
-| 39 | Inherent | adj existing as natural or basic part of something — “vốn có” |
-| 40 | Lucid | adj clearly expressed and easy to understand — “rõ ràng” |
-| 41 | Mitigate | verb to make something less harmful/unpleasant/bad — “giảm nhẹ” |
-| 42 | Negligent | adj not careful or giving enough attention to responsibility — “cẩu thả” |
-| 43 | Obsolete | adj not in use any more, replaced by newer — “lỗi thời” |
-| 44 | Ostentatious | adj too obviously showing money/possessions/power to impress — “phô trương” |
-| 45 | Paramount | adj more important than anything else — “tối quan trọng” |
-| 46 | Pertinent | adj relating directly to subject being considered — “thích đáng” |
-| 47 | Pragmatic | adj solving problems sensibly to suit real conditions — “thực tế” |
-| 48 | Prevalent | adj existing very commonly or happening often — “phổ biến, thịnh hành” |
-| 49 | Reluctant | adj not willing to do something and therefore slow to do it — “miễn cưỡng” |
-| 50 | Substantial | adj large in size, value, or importance — “đáng kể, lớn” |
-| 51 | Subtle | adj not loud, bright, noticeable, or obvious; small but important — “tinh tế” |
-| 52 | Surmount | verb to deal successfully with a difficulty or problem — “vượt qua” |
-| 53 | Ubiquitous | adj seeming to be everywhere; found or existing everywhere — “có mặt khắp nơi” |
-| 54 | Unprecedented | adj never having happened or existed in the past — “chưa từng có” |
-| 55 | Vulnerable | adj able to be easily hurt, influenced, or attacked — “dễ bị tổn thương” |
-| 56 | Apprehensive | adj feeling worried about something going to happen — “lo lắng, e ngại” |
-| 57 | Complacent | adj feeling so satisfied you do not need to try harder — “tự mãn” |
-| 58 | Corroborate | verb to add proof to an account, statement, idea with new information — “xác nhận” |
-| 59 | Exonerate | verb to show someone is not guilty of something — “minh oan” |
-| 60 | Indefatigable | adj always determined, never willing to admit defeat — “không biết mệt mỏi” |
-| 61 | Inadvertent | adj not intentional — “vô ý” |
-| 62 | Superfluous | adj more than is needed or wanted — “thừa thãi” |
-| 63 | Ambivalent | adj having two opposing feelings at same time — “trái chiều” |
-| 64 | Assiduous | adj showing hard work, care, attention to detail — “chăm chỉ” |
-| 65 | Precipitate | verb to make something happen suddenly or sooner than expected — “gây ra đột ngột” |
-| 66 | Tenacious | adj holding tightly onto something, keeping opinion determined — “kiên trì” |
-| 67 | Placate | verb to stop someone from feeling angry — “xoa dịu” |
-| 68 | Disparage | verb to criticize someone/something lacking respect — “coi thường” |
-| 69 | Ineffable | adj causing so much emotion it cannot be described — “không thể diễn tả” |
-| 70 | Scrupulous | adj very careful, honest, detail-attentive — “cẩn trọng, kỹ lưỡng” |
-| 71 | Extraneous | adj not directly connected or related — “không liên quan, thừa” |
-| 72 | Prolific | adj producing great number/amount — “năng suất cao, sáng tác dồi dào” |
-| 73 | Rectify | verb to correct something or make something right — “sửa chữa, khắc phục” |
-| 74 | Fastidious | adj giving too much attention to small details — “khó tính, kỹ tính” |
-| 75 | Equivocal | adj not clear, two opposing meanings — “mập mờ, nước đôi” |
-| 76 | Impeccable | adj perfect, no problems or bad parts — “hoàn hảo” |
-| 77 | Compensate | verb to pay money for loss/problem; to make up for — “bù đắp, đền bù” |
-| 281 | Credence | noun belief that something is true — “sự tin tưởng” |
-| 283 | Culminate | verb to end with a particular result — “lên đến đỉnh điểm” |
-| 341 | Intransigent | adj unwilling to change opinions — “không khoan nhượng” |
-| 448 | Menial task | noun low-social-value work — “công việc tay chân tầm thường” |
-| 913 | Virtually | adv almost; via computer — “hầu như/ảo” |
+- The 132 verified rows have checked Cambridge records with a URL, headword, POS, non-empty source excerpt and retrieval date. The count is calculated from entry-level `evidence.cambridge.checked` values.
+- The remaining 781 rows have `checked: false`, `posMatch: pending-manual`, `definitionExcerpt: null` and `retrievedAt: null`; generated dictionary URLs are not evidence.
+- ID 448 is not an exact-phrase verified entry. ID 456 and ID 579 are handled as grammar/component-only evidence in the dev5 report and remain pending there.
+- The corrected ledger mirrors current source-managed data, while later source corrections are attributed only to dev5. Do not use this historical report as the current app release report.
+- The old dev4 generator is retired because it could recreate unsupported verification statuses and paraphrased excerpts. Use `python scripts/generate_vocab_audit_dev5.py --check` to validate the current audit instead.
 
-All 82 have per-ID `evidence.cambridge{url,checked:true,definitionExcerpt,posMatch:compatible}` and `provenance: Verified via Cambridge <url> on 2026-10-20`.
+## Machine-readable source
 
-## Per-ID evidence slots
-
-See `vocabulary-audit-dev4.json` entries[]. Each entry contains `evidence.cambridge/oxfordLearners/merriamWebster/collins` with `url`, `checked`, `definitionExcerpt`, `posMatch`, `notes`.
-Example (ID 1):
-
-```json
-{
-  "cambridge": {
-    "url": "https://dictionary.cambridge.org/dictionary/english/adversity",
-    "checked": true,
-    "definitionExcerpt": "difficult or unlucky situation/event; compatible with 'nghịch cảnh'",
-    "posMatch": "compatible",
-    "notes": "Checked 2026-10-12; re-verified 2026-10-20 dev4; no correction needed."
-  },
-  "oxfordLearners": {
-    "url": "https://www.oxfordlearnersdictionaries.com/definition/english/adversity",
-    "checked": false,
-    "definitionExcerpt": null,
-    "posMatch": "pending-manual",
-    "notes": "Oxford Learner's entry for POS and CEFR; verify against source meaning."
-  },
-  "merriamWebster": {
-    "url": "https://www.merriam-webster.com/dictionary/adversity",
-    "checked": false,
-    "definitionExcerpt": null,
-    "posMatch": "pending-manual",
-    "notes": "Merriam-Webster for US/UK variation and definition scope."
-  },
-  "collins": {
-    "url": "https://www.collinsdictionary.com/dictionary/english/adversity",
-    "checked": false,
-    "definitionExcerpt": null,
-    "posMatch": "pending-manual",
-    "notes": "Collins for frequency and usage; not a grading authority."
-  }
-}
-```
-
-## Corrections with proof (0)
-
-No row changed in this run. Future corrections must populate `correction: { "from": "...", "to": "...", "proof": {"cambridge": "excerpt + url"} }` and be reflected in `Learned_Vocabulary_List.md` via `scripts/build_vocabulary.py`.
-
-## Limitations
-
-- 831 entries remain pending-manual dictionary lookup beyond the 82 re-verified; this JSON provides per-ID Cambridge URLs + auto-check notes but acknowledges pending manual verification — no unverified corrections applied.
-- Word-family region (614–913) editorial review is documented in `vocabulary-300-review.md` but is not a dictionary audit; those entries have per-ID slots same as core/extended.
-- This audit tests data/dictionary compatibility; runtime association is covered by static tests (3,652 mode/entry combos). Dictionary verification is evidence-first: 82 have Cambridge excerpts with URL+provenance, 831 have pending-manual slots.
-- Methodology updated 2026-10-20: 82 manually verified via Cambridge web_search with URL+excerpt+posMatch, 831 pending-manual with auto-checked POS/meaning + Cambridge URL provision.
-
-## How to verify
-
-```bash
-python -m json.tool docs/vocabulary-audit-dev4.json | head
-python scripts/build_vocabulary.py --check
-python scripts/validate_vocab.py
-```
-
+Per-ID status, evidence fields, and the reconciliation record: [`vocabulary-audit-dev4.json`](vocabulary-audit-dev4.json). The current 16 evidence-backed source corrections and 145/768 evidence accounting are in [`vocabulary-audit-dev5.md`](vocabulary-audit-dev5.md).

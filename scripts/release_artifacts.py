@@ -75,17 +75,22 @@ def build(tag: str, commit: str, temp: pathlib.Path) -> dict[str, pathlib.Path]:
     extracted.mkdir()
     archive = subprocess.Popen(["git", "archive", commit], cwd=ROOT, stdout=subprocess.PIPE)
     assert archive.stdout is not None
-    # Extract git archive without trusting external archive paths.
+    # Extract git archive without trusting external archive paths. Explicitly
+    # close the pipe and reap the child even if validation/extraction raises.
     import tarfile
-    with tarfile.open(fileobj=archive.stdout, mode="r|*") as tar:
-        for member in tar:
-            target = (extracted / member.name).resolve()
-            if extracted.resolve() not in target.parents and target != extracted.resolve():
-                raise RuntimeError(f"Unsafe path in git archive: {member.name}")
-            if member.issym() or member.islnk() or not (member.isfile() or member.isdir()):
-                raise RuntimeError(f"Unexpected archive member type: {member.name}")
-            tar.extract(member, extracted)
-    if archive.wait() != 0:
+    try:
+        with archive.stdout as archive_stream:
+            with tarfile.open(fileobj=archive_stream, mode="r|*") as tar:
+                for member in tar:
+                    target = (extracted / member.name).resolve()
+                    if extracted.resolve() not in target.parents and target != extracted.resolve():
+                        raise RuntimeError(f"Unsafe path in git archive: {member.name}")
+                    if member.issym() or member.islnk() or not (member.isfile() or member.isdir()):
+                        raise RuntimeError(f"Unexpected archive member type: {member.name}")
+                    tar.extract(member, extracted)
+    finally:
+        archive_status = archive.wait()
+    if archive_status != 0:
         raise RuntimeError(f"git archive failed for {tag}")
     test_source(extracted)
 

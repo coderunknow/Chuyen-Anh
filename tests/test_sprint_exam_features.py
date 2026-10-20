@@ -8,7 +8,7 @@ class SprintExamFeatureTests(unittest.TestCase):
         self.script = self.app.group(1)
 
     def test_sprint_constants_and_ui(self):
-        self.assertIn("APP_VERSION = 'v1.0.0-dev4'", self.script)
+        self.assertIn("APP_VERSION = 'v1.0.0-dev5'", self.script)
         self.assertIn("EXAM_RESULT_SCHEMA_VERSION = '1.0.0'", self.script)
         self.assertIn("SPRINT_SIZE = 7", self.script)
         self.assertIn("SPRINT_LABEL", self.script)
