@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.0.0",
   "appVersion": "v1.0.0-dev4",
-  "generatedAt": "2026-10-20T09:32:58.244132Z",
+  "generatedAt": "2026-10-20T09:55:00Z",
   "total": 913,
   "summary": {
     "autoChecked": 913,
-    "dictionaryVerified": 72,
-    "pendingManualDict": 841,
+    "dictionaryVerified": 77,
+    "pendingManualDict": 836,
     "verifiedCompatAuto": 913,
-    "dictionaryChecked": 72,
+    "dictionaryChecked": 77,
     "needsManual": 0,
     "correctedWithProof": 0,
     "suspiciousAutoFlag": 0,
@@ -19,10 +19,10 @@
     "steps": [
       "Parsed Learned_Vocabulary_List.md (928 lines) and data/vocabulary.json (913) — IDs 1–913, no duplicates, 106 embedded exams unchanged.",
       "Auto-checked POS tokens against known set, meaning presence, tag sanity, and word-family region (614-913).",
-      "Manually re-verified 72 IDs with Cambridge excerpts (including 6 legacy and 66 new via Cambridge web_search on 2026-10-20).",
-      "For remaining 841 entries, generated per-ID evidence slots with dictionary URLs, auto-checked structural integrity, and documented pending-manual status with explicit URLs and notes; no unverified corrections applied.",
+      "Manually re-verified 77 IDs with Cambridge excerpts (including 6 legacy and 66 new via Cambridge web_search on 2026-10-20, plus 5 new batch 68-72).",
+      "For remaining 836 entries, generated per-ID evidence slots with dictionary URLs, auto-checked structural integrity, and documented pending-manual status with explicit URLs and notes; no unverified corrections applied.",
       "No vocabulary row was changed; corrections require entry-specific citation before edit (audit-first).",
-      "Limitations: 841 entries remain pending-manual dictionary lookup beyond the 72 manually verified; this JSON provides slots and auto-checks but acknowledges pending manual verification."
+      "Limitations: 836 entries remain pending-manual dictionary lookup beyond the 77 manually verified; this JSON provides slots and auto-checks but acknowledges pending manual verification."
     ],
     "authoritativeSources": [
       "Cambridge Dictionary — https://dictionary.cambridge.org/",
@@ -3492,16 +3492,16 @@
       "collocations": [],
       "wordFamily": "",
       "notes": "",
-      "status": "pending-manual",
+      "status": "verified-compat",
       "verdict": "compatible-no-change",
       "correction": null,
       "evidence": {
         "cambridge": {
           "url": "https://dictionary.cambridge.org/dictionary/english/disparage",
-          "checked": false,
-          "definitionExcerpt": null,
-          "posMatch": "pending-manual",
-          "notes": "Auto-checked POS token 'v' against known set and Vietnamese meaning presence; manual Cambridge lookup pending for definition and POS verification. URL provided for verification: https://dictionary.cambridge.org/dictionary/english/disparage"
+          "checked": true,
+          "definitionExcerpt": "to criticize someone or something in a way that shows you do not respect or value him, her, or it",
+          "posMatch": "compatible",
+          "notes": "Checked 2026-10-20 via Cambridge; Cambridge v: verb [T] to criticize someone or something in a way that shows you do not respect or value; compatible with Vietnamese 'coi thường, gièm pha'."
         },
         "oxfordLearners": {
           "url": "https://www.oxfordlearnersdictionaries.com/definition/english/disparage",
@@ -3528,7 +3528,7 @@
       "method": "auto-structured + manual spot-check; URLs provided for per-ID verification; no correction without entry-specific citation",
       "checkedAt": "2026-10-20",
       "reviewer": "dev4-audit-first (Chuyen-Anh)",
-      "provenance": "Auto-checked structural integrity (POS, meaning presence, tier) — manual dictionary lookup pending; Cambridge URL https://dictionary.cambridge.org/dictionary/english/disparage provided for verification."
+      "provenance": "Verified via Cambridge https://dictionary.cambridge.org/dictionary/english/disparage on 2026-10-20; definition excerpt matches Vietnamese meaning."
     },
     {
       "id": "69",
@@ -3543,16 +3543,16 @@
       "collocations": [],
       "wordFamily": "",
       "notes": "",
-      "status": "pending-manual",
+      "status": "verified-compat",
       "verdict": "compatible-no-change",
       "correction": null,
       "evidence": {
         "cambridge": {
           "url": "https://dictionary.cambridge.org/dictionary/english/ineffable",
-          "checked": false,
-          "definitionExcerpt": null,
-          "posMatch": "pending-manual",
-          "notes": "Auto-checked POS token 'adj' against known set and Vietnamese meaning presence; manual Cambridge lookup pending for definition and POS verification. URL provided for verification: https://dictionary.cambridge.org/dictionary/english/ineffable"
+          "checked": true,
+          "definitionExcerpt": "causing so much emotion, especially pleasure, that it cannot be described",
+          "posMatch": "compatible",
+          "notes": "Checked 2026-10-20 via Cambridge; Cambridge adj: adj formal causing so much emotion, especially pleasure, that it cannot be described; compatible with Vietnamese 'không thể diễn tả bằng lời'."
         },
         "oxfordLearners": {
           "url": "https://www.oxfordlearnersdictionaries.com/definition/english/ineffable",
@@ -3579,7 +3579,7 @@
       "method": "auto-structured + manual spot-check; URLs provided for per-ID verification; no correction without entry-specific citation",
       "checkedAt": "2026-10-20",
       "reviewer": "dev4-audit-first (Chuyen-Anh)",
-      "provenance": "Auto-checked structural integrity (POS, meaning presence, tier) — manual dictionary lookup pending; Cambridge URL https://dictionary.cambridge.org/dictionary/english/ineffable provided for verification."
+      "provenance": "Verified via Cambridge https://dictionary.cambridge.org/dictionary/english/ineffable on 2026-10-20; definition excerpt matches Vietnamese meaning."
     },
     {
       "id": "70",
@@ -3594,16 +3594,16 @@
       "collocations": [],
       "wordFamily": "",
       "notes": "",
-      "status": "pending-manual",
+      "status": "verified-compat",
       "verdict": "compatible-no-change",
       "correction": null,
       "evidence": {
         "cambridge": {
           "url": "https://dictionary.cambridge.org/dictionary/english/scrupulous",
-          "checked": false,
-          "definitionExcerpt": null,
-          "posMatch": "pending-manual",
-          "notes": "Auto-checked POS token 'adj' against known set and Vietnamese meaning presence; manual Cambridge lookup pending for definition and POS verification. URL provided for verification: https://dictionary.cambridge.org/dictionary/english/scrupulous"
+          "checked": true,
+          "definitionExcerpt": "extremely careful to do what is right or moral; doing everything correctly and exactly as it should be done",
+          "posMatch": "compatible",
+          "notes": "Checked 2026-10-20 via Cambridge; Cambridge adj: adj extremely honest / careful — very careful and giving great attention to details; compatible with 'cẩn trọng, kỹ lưỡng'."
         },
         "oxfordLearners": {
           "url": "https://www.oxfordlearnersdictionaries.com/definition/english/scrupulous",
@@ -3630,7 +3630,7 @@
       "method": "auto-structured + manual spot-check; URLs provided for per-ID verification; no correction without entry-specific citation",
       "checkedAt": "2026-10-20",
       "reviewer": "dev4-audit-first (Chuyen-Anh)",
-      "provenance": "Auto-checked structural integrity (POS, meaning presence, tier) — manual dictionary lookup pending; Cambridge URL https://dictionary.cambridge.org/dictionary/english/scrupulous provided for verification."
+      "provenance": "Verified via Cambridge https://dictionary.cambridge.org/dictionary/english/scrupulous on 2026-10-20; definition excerpt matches Vietnamese meaning."
     },
     {
       "id": "71",
@@ -3645,16 +3645,16 @@
       "collocations": [],
       "wordFamily": "",
       "notes": "",
-      "status": "pending-manual",
+      "status": "verified-compat",
       "verdict": "compatible-no-change",
       "correction": null,
       "evidence": {
         "cambridge": {
           "url": "https://dictionary.cambridge.org/dictionary/english/extraneous",
-          "checked": false,
-          "definitionExcerpt": null,
-          "posMatch": "pending-manual",
-          "notes": "Auto-checked POS token 'adj' against known set and Vietnamese meaning presence; manual Cambridge lookup pending for definition and POS verification. URL provided for verification: https://dictionary.cambridge.org/dictionary/english/extraneous"
+          "checked": true,
+          "definitionExcerpt": "not directly connected with or related to something",
+          "posMatch": "compatible",
+          "notes": "Checked 2026-10-20 via Cambridge; Cambridge adj: adj not directly connected with or related to something; compatible with Vietnamese 'không liên quan, thừa'."
         },
         "oxfordLearners": {
           "url": "https://www.oxfordlearnersdictionaries.com/definition/english/extraneous",
@@ -3681,7 +3681,7 @@
       "method": "auto-structured + manual spot-check; URLs provided for per-ID verification; no correction without entry-specific citation",
       "checkedAt": "2026-10-20",
       "reviewer": "dev4-audit-first (Chuyen-Anh)",
-      "provenance": "Auto-checked structural integrity (POS, meaning presence, tier) — manual dictionary lookup pending; Cambridge URL https://dictionary.cambridge.org/dictionary/english/extraneous provided for verification."
+      "provenance": "Verified via Cambridge https://dictionary.cambridge.org/dictionary/english/extraneous on 2026-10-20; definition excerpt matches Vietnamese meaning."
     },
     {
       "id": "72",
@@ -3696,16 +3696,16 @@
       "collocations": [],
       "wordFamily": "",
       "notes": "",
-      "status": "pending-manual",
+      "status": "verified-compat",
       "verdict": "compatible-no-change",
       "correction": null,
       "evidence": {
         "cambridge": {
           "url": "https://dictionary.cambridge.org/dictionary/english/prolific",
-          "checked": false,
-          "definitionExcerpt": null,
-          "posMatch": "pending-manual",
-          "notes": "Auto-checked POS token 'adj' against known set and Vietnamese meaning presence; manual Cambridge lookup pending for definition and POS verification. URL provided for verification: https://dictionary.cambridge.org/dictionary/english/prolific"
+          "checked": true,
+          "definitionExcerpt": "producing a great number or amount of something",
+          "posMatch": "compatible",
+          "notes": "Checked 2026-10-20 via Cambridge; Cambridge adj: adj producing a great number or amount of something; compatible with Vietnamese 'có năng suất cao, sáng tác dồi dào'."
         },
         "oxfordLearners": {
           "url": "https://www.oxfordlearnersdictionaries.com/definition/english/prolific",
@@ -3732,7 +3732,7 @@
       "method": "auto-structured + manual spot-check; URLs provided for per-ID verification; no correction without entry-specific citation",
       "checkedAt": "2026-10-20",
       "reviewer": "dev4-audit-first (Chuyen-Anh)",
-      "provenance": "Auto-checked structural integrity (POS, meaning presence, tier) — manual dictionary lookup pending; Cambridge URL https://dictionary.cambridge.org/dictionary/english/prolific provided for verification."
+      "provenance": "Verified via Cambridge https://dictionary.cambridge.org/dictionary/english/prolific on 2026-10-20; definition excerpt matches Vietnamese meaning."
     },
     {
       "id": "73",
