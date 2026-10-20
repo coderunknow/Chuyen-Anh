@@ -6,7 +6,7 @@ on:
       - 'scripts/exams/**'
       - '.github/workflows/exam-*.yml'
   push:
-    branches: [arena/01a0ba22-chuy-n-anh]
+    branches: [main]
     paths:
       - 'De-chuyen-Anh-vao-10/**'
       - 'scripts/exams/**'

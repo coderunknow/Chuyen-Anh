@@ -47,6 +47,10 @@ python scripts/exams/embed_archive.py --check
 
 Validator kiểm tra schema, kiểu dữ liệu, ID/từ trùng lặp và các trường bắt buộc. CI cũng xác nhận rằng JSON và dữ liệu nhúng trong HTML khớp nhau.
 
+## Phiên bản
+
+Bản ứng dụng hiện tại là candidate `v1.0.0-beta1` (`APP_VERSION` trong `index.html`, hiển thị trong Cài đặt → Thông tin dữ liệu). Tag/release là thao tác riêng sau khi merge và kiểm chứng; tệp trong repo không tự chứng minh đã publish hay deploy.
+
 ## Chạy ứng dụng
 
 Mở `index.html` trực tiếp hoặc phục vụ thư mục bằng static server:
@@ -68,6 +72,7 @@ Chỉ cần giữ `index.html` khi sao chép/triển khai ứng dụng. Các t�
 - Câu hỏi trắc nghiệm: ba phương án nhiễu được lấy cùng từ loại với từ đang hỏi khi dữ liệu có đủ (đo trên ứng dụng thật: 38,2% → 100% số phương án nhiễu cùng từ loại), không lặp lại văn bản của đáp án hay của nhau, và không dùng từ đã in sẵn trong câu cloze. Khi một từ loại quá ít từ (ví dụ `conj`, `grammar`), các chỗ còn lại được lấp bằng từ loại khác để câu hỏi vẫn đủ bốn lựa chọn.
 - Scheduler deterministic: `new`, `learning`, `weak`, `review`, `mastered`; theo dõi đúng/sai, streak, difficulty, interval, last/next review.
 - Session: đến hạn, từ yếu, từ mới, random, yêu thích, 10/20/30/50 từ. Phiên “đến hạn” chỉ lấy từ đã học tới lịch ôn; phiên nhanh ưu tiên từ đến hạn/từ yếu rồi mới lấp chỗ trống. Ở màn hình Học, nút gợi ý mở phiên đến hạn nếu có thẻ cần ôn; nếu không, gợi ý một phiên nhanh 10 từ. Các lựa chọn khác vẫn luôn sẵn có.
+- **Học cấp tốc** (`selectSprintSession`): chế độ học nhanh dùng đúng mục tiêu “Số thẻ mặc định mỗi phiên” trong Cài đặt (10/20/30/50) và lấy từ toàn bộ kho đủ điều kiện, theo thứ tự ưu tiên đến hạn (từ yếu trước) → từ yếu → đang học → từ mới → ôn tập → thành thạo. Chế độ này **không** cắt kho từ xuống một con số cố định: trước v1.0.0-beta1 nó luôn chỉ xếp 7 từ. Tốc độ đến từ nhịp thao tác chứ không phải giảm khối lượng: mỗi từ vẫn có lượt giới thiệu (nếu là từ mới) và một câu hỏi chủ động; sau câu trả lời đúng, thẻ tự chuyển sau 1,6 giây (Enter để tiếp ngay); câu trả lời sai **không** tự chuyển, luôn hiện đáp án và xếp đúng một lượt luyện lại. Lượt luyện lại không tính vào độ chính xác lần đầu. Banner và tiêu đề phiên ghi rõ số từ đủ điều kiện, số từ đã xếp và số lượt còn lại; thoát giữa chừng vẫn giữ tiến độ đã lưu.
 - Giao diện học hiển thị trạng thái từ và loại phiên bằng tiếng Việt, trong khi các khóa scheduler và giá trị lưu trữ vẫn giữ nguyên để tương thích với dữ liệu hiện có.
 - First look: từ đang ở trạng thái `new` được giới thiệu nghĩa trước khi bị kiểm tra — kèm họ từ, cụm từ, ghi chú và ví dụ nếu dữ liệu đã có. Lượt giới thiệu không phải câu trả lời: nó không ghi gì vào `localStorage`, không đổi lịch ôn hay streak, và từ đó không được giới thiệu lại trong cùng phiên. Sau khi bấm “Bắt đầu kiểm tra”, từ được hỏi ngay như bình thường nên lần trả lời đầu tiên mới là lượt ôn được ghi lại.
 - Error-based feedback: xem đáp án, nghĩa, metadata có sẵn, ví dụ và số lần sai ngay sau câu trả lời. Nghĩa cũ của ID 448 được giữ nguyên trong `NOTES` nhưng luôn hiển thị dưới nhãn tiếng Việt nói rõ đây là nghĩa của phiên bản ứng dụng trước, chỉ để tham chiếu lịch sử và không phải nghĩa hiện tại; tiền tố metadata nội bộ không hiện cho người học. Mỗi từ trả lời sai được xếp một lượt gõ lại sau các thẻ còn lại (tối đa một lượt/từ). Lượt luyện không đổi progress hay lịch ôn và được báo riêng với độ chính xác lần đầu; `R` sau feedback cũng xếp lượt luyện thay vì tính như lần ôn mới.
@@ -95,11 +100,11 @@ Chỉ cần giữ `index.html` khi sao chép/triển khai ứng dụng. Các t�
 
 Khi nguồn dữ liệu, validator, bộ đồng bộ, kho đề hoặc app thay đổi trên `main`, workflow kiểm tra bảng/JSON/HTML và 106 bản chép đã được nhúng đồng bộ, chạy unit test Python và Node, rồi mới stage và upload **chỉ `index.html`** lên GitHub Pages. File này chứa cả dữ liệu từ vựng lẫn bản chép đề; không cần tệp chạy-time nào khác. Lỗi ở bất kỳ bước kiểm tra nào sẽ chặn deploy. Không có frontend bundler, npm install hay backend.
 
-**Cổng deploy-hold (thứ tự release).** Tệp `DEPLOY_HOLD` ở gốc repo khai báo tag release phải được publish prerelease trước khi Pages được phép xuất bản; `scripts/deploy_gate.py` đánh giá trạng thái `draft`/`prerelease` qua GitHub API ngay sau checkout và fail-closed nếu trạng thái không rõ. Các bước kiểm tra luôn chạy; chỉ stage/upload/deploy bị hoãn khi cổng đóng. Marker hiện nêu `v1.0.0-dev5`: trước khi prerelease đó được publish, Pages bị giữ. Sự kiện `release.published` khởi chạy workflow dispatcher tối giản; workflow này gửi `workflow_dispatch` cho deploy workflow trên `main`, để tuân thủ chính sách môi trường Pages chỉ cho phép branch `main`. Deploy workflow sau đó đọc trạng thái release thật và đánh giá lại cổng; khi prerelease được publish, cổng mở cho lần deploy đó và mọi lần sau, không cần xóa marker. Thứ tự yêu cầu là merge → xác minh commit/tag → build và tải lại để kiểm chứng asset → publish prerelease → deploy. `force_deploy` chỉ dành cho maintainer chủ động dispatch và không thay thế các bước phát hành/kiểm chứng. Lịch sử: marker của dev3 đã được gỡ sau khi prerelease đó xuất bản; marker dev5 là một hold riêng. Nếu push chỉ đổi log và không khớp bộ lọc `paths`, cần dispatch workflow phù hợp thay vì bỏ qua cổng.
+**Cổng deploy-hold (thứ tự release).** Tệp `DEPLOY_HOLD` ở gốc repo khai báo tag release phải được publish prerelease trước khi Pages được phép xuất bản; `scripts/deploy_gate.py` đánh giá trạng thái `draft`/`prerelease` qua GitHub API ngay sau checkout và fail-closed nếu trạng thái không rõ. Các bước kiểm tra luôn chạy; chỉ stage/upload/deploy bị hoãn khi cổng đóng. Marker hiện nêu `v1.0.0-beta1`: trước khi prerelease đó được publish, Pages bị giữ (fail-closed), kể cả khi `v1.0.0-dev5` đã publish trước đó — cổng chỉ đọc đúng tag được nêu, không suy luận theo thứ tự semver. Sự kiện `release.published` khởi chạy workflow dispatcher tối giản; workflow này gửi `workflow_dispatch` cho deploy workflow trên `main`, để tuân thủ chính sách môi trường Pages chỉ cho phép branch `main`. Deploy workflow sau đó đọc trạng thái release thật và đánh giá lại cổng; khi prerelease được publish, cổng mở cho lần deploy đó và mọi lần sau, không cần xóa marker. Thứ tự yêu cầu là merge → xác minh commit/tag → build và tải lại để kiểm chứng asset → publish prerelease → deploy. `force_deploy` chỉ dành cho maintainer chủ động dispatch và không thay thế các bước phát hành/kiểm chứng. Lịch sử: marker của dev3 đã được gỡ sau khi prerelease đó xuất bản; marker dev5 là một hold riêng. Nếu push chỉ đổi log và không khớp bộ lọc `paths`, cần dispatch workflow phù hợp thay vì bỏ qua cổng.
 
 ### Release artifacts `.github/workflows/release-artifacts.yml` + `scripts/release_artifacts.py`
 
-Khi push tag khớp `v1.0.0-dev*`, workflow build artifact từ **đúng commit của tag** (`git archive`), chạy các kiểm tra dữ liệu/unit test ở source revision của tag, rồi đóng gói:
+Khi push tag khớp `v1.0.0-*` (prerelease `dev`/`beta`/`rc`; script chỉ chấp nhận `vMAJOR.MINOR.PATCH-(dev|beta|rc)N` và từ chối mọi ref khác, kể cả release cuối), workflow build artifact từ **đúng commit của tag** (`git archive`), chạy các kiểm tra dữ liệu/unit test ở source revision của tag, rồi đóng gói:
 
 - `chuyen-anh-<tag>.html` — khớp từng byte với `index.html` của commit được tag.
 - `chuyen-anh-<tag>.zip` — đúng ba tệp ở root: `index.html`, `README.md`, `LICENSE`; CRC và nội dung từng tệp được kiểm tra.
@@ -110,7 +115,7 @@ Script tạo draft prerelease (nếu release chưa tồn tại), upload asset c�
 Kiểm chứng một bản tải về:
 
 ```bash
-sha256sum -c chuyen-anh-v1.0.0-dev5-checksums.txt
+sha256sum -c chuyen-anh-v1.0.0-beta1-checksums.txt
 ```
 
 ### CI `.github/workflows/ci.yml`
@@ -125,7 +130,7 @@ GitHub Pages cần được bật với source **GitHub Actions** trong Settings
 
 ## Kiểm tra luồng học bằng trình duyệt (tùy chọn)
 
-CI và runtime vẫn không có dependency mới. Bộ kiểm tra trình duyệt tùy chọn dùng Playwright Core với Chromium và phục vụ HTML qua static HTTP. `browser-learning.cjs` kiểm tra luồng flashcard, bàn phím/focus, responsive, import/export, reset và lưu trữ; `browser-exams.cjs` kiểm tra archive offline, bộ lọc/provenance, source rendering an toàn, lựa chọn → đổi → review → submit → xem lại đáp án đã nộp, điều hướng giấy thi/câu hỏi, trạng thái answered/unanswered, phiên chỉ tồn tại trong bộ nhớ, fallback chỉ đọc cho HTML/OCR, không có timer/điểm và bố cục mobile/tablet/desktop; đồng thời bảo đảm không phát sinh network request. Để chạy trong sandbox Linux tối giản:
+CI và runtime vẫn không có dependency mới. Bộ kiểm tra trình duyệt tùy chọn dùng Playwright Core với Chromium và phục vụ HTML qua static HTTP. `browser-learning.cjs` kiểm tra luồng flashcard, bàn phím/focus, responsive, import/export, reset và lưu trữ, cùng luồng “Học cấp tốc” thật (10 từ đã chọn, một lượt sửa lỗi, tự chuyển chỉ sau câu đúng, thống kê lần đầu chính xác và tiến độ còn nguyên sau khi tải lại); `browser-exams.cjs` kiểm tra archive offline, bộ lọc/provenance, source rendering an toàn, lựa chọn → đổi → review → submit → xem lại đáp án đã nộp, điều hướng giấy thi/câu hỏi, trạng thái answered/unanswered, phiên chỉ tồn tại trong bộ nhớ, fallback chỉ đọc cho HTML/OCR, không có timer/điểm và bố cục mobile/tablet/desktop; đồng thời bảo đảm không phát sinh network request. Để chạy trong sandbox Linux tối giản:
 
 ```bash
 npm install --no-save --package-lock=false playwright-core @sparticuz/chromium@133.0.0

@@ -9,7 +9,8 @@ on:
         type: string
   push:
     tags:
-      - "v1.0.0-dev*"
+      # dev/beta/rc prereleases; the script validates the exact tag pattern.
+      - "v1.0.0-*"
 
 permissions:
   contents: write

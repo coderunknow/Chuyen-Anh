@@ -6,6 +6,7 @@ import hashlib
 import json
 import os
 import pathlib
+import re
 import shutil
 import subprocess
 import sys
@@ -14,6 +15,16 @@ import zipfile
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 FILES = ("index.html", "README.md", "LICENSE")
+
+# This workflow only ever builds prerelease drafts, so a pushed tag must use the
+# repository's prerelease naming scheme: vMAJOR.MINOR.PATCH-<dev|beta|rc>N.
+# `v1.0.0-beta1` is a supported tag; a final release or an arbitrary ref is not.
+# Refusing unknown refs keeps a mistyped tag from creating or mutating a release.
+TAG_RE = re.compile(r"^v\d+\.\d+\.\d+-(?:dev|beta|rc)\d+$")
+
+
+def is_supported_tag(tag: str) -> bool:
+    return bool(TAG_RE.match(tag or ""))
 
 
 def run(args: list[str], *, cwd: pathlib.Path = ROOT, capture: bool = False) -> str:
@@ -209,7 +220,7 @@ def main() -> None:
     push_tag = os.environ.get("PUSH_TAG", "").strip()
     requested = os.environ.get("INPUT_TAG", "").strip()
     if push_tag:
-        if not push_tag.startswith("v1.0.0-dev"):
+        if not is_supported_tag(push_tag):
             raise RuntimeError(f"Unexpected tag push: {push_tag}")
         process(push_tag, future=True)
     elif requested:
