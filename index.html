@@ -149,6 +149,17 @@ kbd, .kbd { min-width: 24px; padding: 2px 6px; border: 1px solid var(--border-st
 .btn.danger { border-color: color-mix(in srgb, var(--danger) 30%, var(--border)); color: var(--danger); background: var(--danger-soft); }
 .btn.small { min-height: 32px; padding: 5px 9px; font-size: .75rem; }
 .btn.full { width: 100%; }
+.exam-json-view { margin: 16px 0; padding: 12px; background: var(--surface-soft); border: 1px solid var(--border); border-radius: 10px; overflow: auto; max-height: 400px; font-family: ui-monospace, monospace; font-size: .72rem; white-space: pre-wrap; word-break: break-word; }
+.sprint-banner { display: flex; align-items: flex-start; gap: 14px; padding: 16px; border: 1px solid var(--border); border-radius: 14px; background: linear-gradient(135deg, var(--primary-soft), var(--surface-soft)); margin-bottom: 16px; }
+.sprint-badge { display: inline-block; padding: 3px 8px; border-radius: 99px; background: var(--primary); color: #fff; font-size: .68rem; font-weight: 800; letter-spacing: .06em; }
+.weak-spotlight { display: grid; gap: 6px; }
+.weak-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 10px; border-radius: 8px; background: var(--surface-soft); font-size: .8rem; }
+.exam-result-summary { padding: 14px; border-radius: 12px; background: var(--surface); border: 1px solid var(--border); }
+.exam-result-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 12px 0; }
+@media (max-width: 700px) { .exam-result-grid { grid-template-columns: repeat(2, 1fr); } }
+.exam-result-grid div { text-align: center; padding: 10px; border-radius: 10px; background: var(--surface-soft); }
+.exam-result-grid strong { display: block; font-size: 1.2rem; }
+
 
 .session-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 18px; }
 .session-card { min-height: 158px; padding: 17px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); color: var(--text); text-align: left; box-shadow: var(--shadow-sm); transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease; }
@@ -15774,6 +15785,11 @@ export const MODES = Object.freeze({
   CLOZE: 'cloze'
 });
 
+export const APP_VERSION = 'v1.0.0-dev4';
+export const EXAM_RESULT_SCHEMA_VERSION = '1.0.0';
+export const SPRINT_SIZE = 7;
+export const SPRINT_LABEL = 'Học cấp tốc';
+
 export const STATE_LABELS = Object.freeze({
   [STATES.NEW]: 'Chưa học',
   [STATES.LEARNING]: 'Đang học',
@@ -15792,7 +15808,11 @@ const SESSION_LABELS = Object.freeze({
   new: 'Từ mới',
   random: 'Ngẫu nhiên',
   favorites: 'Yêu thích',
-  mixed: 'Phiên nhanh'
+  mixed: 'Phiên nhanh',
+  sprint: 'Học cấp tốc',
+  quick10: 'Nhanh 10 từ',
+  quick20: '20 từ',
+  quick30: '30 từ'
 });
 
 export function sessionModeLabel(mode) {
@@ -16032,6 +16052,25 @@ const EN_UI_TRANSLATIONS = Object.freeze({
   'Ôn tập': 'Review',
   'Lịch sử phiên học': 'Study-session history',
   'Chưa có phiên học.': 'No study sessions yet.',
+  'Học cấp tốc': 'Speed Study',
+  'Học cấp tốc · 7 từ · ~5 phút': 'Speed Study · 7 words · ~5 min',
+  '7 từ ưu tiên: đến hạn, từ yếu, rồi từ mới — tối đa ~5 phút, vẫn giữ gợi nhớ chủ động.': '7 priority words: due, weak, then new — max ~5 min, active recall preserved.',
+  'Bắt đầu học cấp tốc': 'Start speed study',
+  'Chế độ cấp tốc ưu tiên từ đến hạn và từ yếu để tiết kiệm thời gian mà không bỏ qua gợi nhớ chủ động.': 'Speed mode prioritizes due and weak words to save time without skipping active recall.',
+  'Từ yếu cần ôn': 'Weak words to review',
+  'Xem JSON': 'View JSON',
+  'Tải JSON': 'Download JSON',
+  'Kết quả chi tiết (JSON)': 'Detailed result (JSON)',
+  'Chấm điểm dựa trên đáp án đã xác minh': 'Scored from verified answers',
+  'Chưa xác minh — không chấm điểm': 'Unverified — not scored',
+  'Đã chấm': 'Graded',
+  'Chưa chấm': 'Ungraded',
+  'Đúng': 'Correct',
+  'Sai': 'Incorrect',
+  'Tiến độ': 'Progress',
+  'Lượt đầu': 'First pass',
+  'Lượt luyện': 'Practice retries',
+
   'Tra cứu từ vựng': 'Vocabulary search',
   'Tìm theo tiếng Anh, tiếng Việt, từ loại, tag hoặc ví dụ ·': 'Search English, Vietnamese, part of speech, tags, or examples ·',
   'Tìm từ hoặc nghĩa…': 'Search for a word or meaning…',
@@ -16487,6 +16526,36 @@ export function selectSession(vocabulary, progressMap, { size = 20, mode = 'due'
 }
 
 // One corrective retrieval per original card; practice never recursively queues itself.
+export function selectSprintSession(vocabulary, progressMap, { size = SPRINT_SIZE, favorites = new Set(), now = Date.now() } = {}) {
+  const entries = Array.isArray(vocabulary) ? vocabulary : [];
+  const byId = new Map(entries.map(entry => [entry.id, entry]));
+  const make = progress => ({ vocab: byId.get(progress.id), progress });
+  const valid = progress => progress && byId.has(progress.id);
+  const all = Object.values(progressMap || {}).filter(valid);
+  const limit = Number.isFinite(Number(size)) ? Math.max(0, Math.floor(Number(size))) : 0;
+  if (limit === 0) return [];
+  // priority: due first, then weak, then learning, then new, then review, then mastered
+  const priority = { weak: 0, learning: 1, review: 2, new: 3, mastered: 4 };
+  const due = all.filter(p => isDue(p, now))
+    .sort((a,b) => priority[a.state] - priority[b.state] || a.nextReview - b.nextReview || b.wrongCount - a.wrongCount);
+  const dueIds = new Set(due.map(p => p.id));
+  const weak = all.filter(p => !dueIds.has(p.id) && p.state === STATES.WEAK)
+    .sort((a,b) => b.wrongCount - a.wrongCount || a.nextReview - b.nextReview);
+  const weakIds = new Set(weak.map(p=>p.id));
+  const learning = all.filter(p => !dueIds.has(p.id) && !weakIds.has(p.id) && p.state === STATES.LEARNING)
+    .sort((a,b) => a.nextReview - b.nextReview);
+  const learningIds = new Set(learning.map(p=>p.id));
+  const newCards = all.filter(p => !dueIds.has(p.id) && !weakIds.has(p.id) && !learningIds.has(p.id) && p.state === STATES.NEW);
+  const newIds = new Set(newCards.map(p=>p.id));
+  const review = all.filter(p => !dueIds.has(p.id) && !weakIds.has(p.id) && !learningIds.has(p.id) && !newIds.has(p.id) && p.state === STATES.REVIEW)
+    .sort((a,b) => a.nextReview - b.nextReview);
+  const mastered = all.filter(p => !dueIds.has(p.id) && !weakIds.has(p.id) && !learningIds.has(p.id) && !newIds.has(p.id) && p.state !== STATES.REVIEW && p.state !== STATES.NEW && p.state !== STATES.LEARNING && p.state !== STATES.WEAK)
+    .sort((a,b) => a.nextReview - b.nextReview);
+  const ordered = [...due, ...weak, ...learning, ...newCards, ...review, ...mastered];
+  // For sprint, keep deterministic order, no shuffle
+  return ordered.map(make).slice(0, limit);
+}
+
 export function queuePractice(session, item) {
   if (!Array.isArray(session) || !session.includes(item) || item.practice || item.practiceQueued) return false;
   item.practiceQueued = true;
@@ -17265,16 +17334,20 @@ export function parseExamQuestions(markdown) {
 }
 
 export function createExamPracticeSession(examId, questions) {
-  if (typeof examId !== 'string' || !examId || !Array.isArray(questions) || !questions.length) return null;
+  if (!examId || !Array.isArray(questions) || !questions.length) return null;
+  const now = Date.now();
   return {
+    id: String(examId),
+    examId: String(examId),
     schemaVersion: 1,
-    examId,
-    questions,
+    questions: [...questions],
     responses: Object.create(null),
     status: 'in-progress',
     submittedAt: null,
     currentIndex: 0,
-    view: 'question'
+    view: 'question',
+    createdAt: now,
+    startedAt: now
   };
 }
 
@@ -17304,6 +17377,22 @@ export function submitExamPractice(session, now = Date.now()) {
   session.submittedAt = now;
   return summarizeExamPractice(session);
 }
+export function examPracticeQuestionAnswered(session, question) {
+  if (!session || !question) return false;
+  const response = session.responses?.[question.id];
+  return question.responseType === 'choice'
+    ? question.options.some(option => option.id === response)
+    : typeof response === 'string' && Boolean(response.trim());
+}
+export function examPracticeResponseLabel(session, question) {
+  const response = session.responses?.[question.id];
+  if (question.responseType === 'choice') {
+    const opt = question.options.find(o => o.id === response);
+    return opt ? (opt.label + '. ' + opt.text) : (typeof response === 'string' ? response : '');
+  }
+  return typeof response === 'string' ? response : '';
+}
+
 
 function sanitizeExamAttempt(value) {
   if (!value || typeof value !== 'object' || Array.isArray(value)
@@ -17386,6 +17475,86 @@ export function examClockState(attempt, now = Date.now()) {
     ? `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
     : `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
   return { elapsed, remaining, label, expired: countdown && remaining === 0 };
+}
+
+export function getQuestionVerification(question) {
+  // questions may carry verified answer metadata when available; otherwise ungraded
+  if (question && typeof question.verifiedAnswer === 'string' && question.verifiedAnswer.trim() && question.verificationStatus === 'verified') {
+    return { status: 'verified', answer: question.verifiedAnswer, evidence: question.verificationEvidence || null };
+  }
+  return { status: 'unverified', answer: null, evidence: null };
+}
+
+export function gradeExamQuestion(question, learnerAnswer) {
+  const verification = getQuestionVerification(question);
+  if (verification.status !== 'verified') {
+    return { result: 'ungraded', reason: 'Chưa có đáp án được xác minh — không chấm đoán.', officialAnswer: null, verificationStatus: 'unverified', evidence: verification.evidence };
+  }
+  // For choice questions, compare normalized IDs; for text, case-insensitive trim
+  const expected = String(verification.answer).trim().toLowerCase();
+  const got = String(learnerAnswer ?? '').trim().toLowerCase();
+  const correct = got && got === expected;
+  return { result: correct ? 'correct' : 'incorrect', reason: correct ? 'Khớp đáp án đã xác minh.' : 'Không khớp đáp án đã xác minh.', officialAnswer: verification.answer, verificationStatus: 'verified', evidence: verification.evidence };
+}
+
+export function buildExamResultJson(session, record, { now = Date.now(), appVersion = APP_VERSION, schemaVersion = EXAM_RESULT_SCHEMA_VERSION } = {}) {
+  if (!session || !record) throw new Error('Thiếu phiên luyện đề hoặc bản đề để tạo kết quả.');
+  const summary = summarizeExamPractice(session);
+  let graded = 0, correct = 0, incorrect = 0, ungraded = 0;
+  const questions = (session.questions || []).map((q, idx) => {
+    const learnerRaw = session.responses?.[q.id];
+    const answered = q.responseType === 'choice' ? q.options.some(o => o.id === learnerRaw) : (typeof learnerRaw === 'string' && Boolean(learnerRaw.trim()));
+    const grade = gradeExamQuestion(q, learnerRaw);
+    if (grade.result === 'correct') { graded++; correct++; }
+    else if (grade.result === 'incorrect') { graded++; incorrect++; }
+    else ungraded++;
+    return {
+      id: q.id,
+      order: idx + 1,
+      prompt: q.prompt,
+      context: q.sourceBlock || q.prompt,
+      sourceLine: q.sourceLine ?? null,
+      responseType: q.responseType,
+      options: Array.isArray(q.options) ? q.options.map(o => ({ id: o.id, text: o.text })) : null,
+      learnerAnswer: answered ? learnerRaw : null,
+      learnerAnswerHistory: answered ? [learnerRaw] : [],
+      answered,
+      officialAnswer: grade.officialAnswer,
+      verificationStatus: grade.verificationStatus,
+      verificationEvidence: grade.evidence,
+      result: grade.result,
+      reason: grade.reason,
+      explanation: grade.explanation || null
+    };
+  });
+  const accuracy = graded ? Math.round(correct / graded * 100) : 0;
+  const startedAt = session.startedAt || session.createdAt || now;
+  const submittedAt = session.submittedAt || now;
+  return {
+    app: 'Chuyên Anh',
+    version: appVersion,
+    schemaVersion,
+    exam: { id: record.id, name: (record.province + ' ' + record.year + ' ' + record.unitLabel), year: record.year, province: record.province, unit: record.unit, unitLabel: record.unitLabel },
+    attempt: { startedAt, submittedAt, status: session.status, gradingPolicy: 'verified-only' },
+    summary: { total: summary.total, answered: summary.answered, unanswered: summary.unanswered, graded, correct, incorrect, ungraded, accuracy },
+    provenance: {
+      source: record.source,
+      assets: record.assets,
+      contentSha256: record.contentSha256,
+      quality: record.quality,
+      note: record.note,
+      answersField: record.answers,
+      markdownExcerpt: (record.markdown || '').slice(0, 2000)
+    },
+    questions,
+    integrity: { note: 'Các câu hỏi gốc, lựa chọn, câu trả lời người học và đáp án đối chiếu được phân biệt rõ. Giá trị chưa biết là null. JSON hợp lệ, Unicode giữ nguyên.' }
+  };
+}
+
+export function examResultFilename(result) {
+  const safe = String(result.exam?.id || 'exam').replace(/[^a-z0-9\-]/gi, '-');
+  const date = new Date(result.attempt.submittedAt).toISOString().slice(0,10);
+  return 'ket-qua-' + safe + '-' + date + '.json';
 }
 
 export async function createApp(root) {
@@ -17624,8 +17793,27 @@ export async function createApp(root) {
     const favoritesDescription = favorites.size
       ? 'Ôn lại những từ bạn đã đánh dấu.'
       : 'Đánh dấu từ bằng ngôi sao trong Tra cứu để tạo danh sách.';
+    // Sprint stats for banner
+    const sprintCandidates = selectSprintSession(vocabulary, progress, { size: SPRINT_SIZE });
+    const sprintDue = sprintCandidates.filter(c => isDue(c.progress)).length;
+    const sprintWeak = sprintCandidates.filter(c => c.progress.state === STATES.WEAK).length;
     container.innerHTML = `
       <div class="page-header"><div><h1>Học từ vựng Chuyên Anh</h1><p>Ôn chủ động, gặp lại đúng lúc. Từ chưa học được giới thiệu nghĩa trước khi kiểm tra.</p></div></div>
+      <section class="sprint-banner" aria-labelledby="sprint-title">
+        <div style="flex:1">
+          <span class="sprint-badge">HỌC CẤP TỐC</span>
+          <h2 id="sprint-title" style="margin:8px 0 4px">Học cấp tốc · 7 từ · ~5 phút</h2>
+          <p style="margin:0;color:var(--muted);font-size:.82rem">7 từ ưu tiên: đến hạn, từ yếu, rồi từ mới — tối đa ~5 phút, vẫn giữ gợi nhớ chủ động.</p>
+          <p style="margin:6px 0 0;font-size:.75rem;color:var(--faint)">Chế độ cấp tốc ưu tiên từ đến hạn và từ yếu để tiết kiệm thời gian mà không bỏ qua gợi nhớ chủ động. Có giới hạn 7 lượt, tự kết thúc nhanh; thoát giữa chừng không mất tiến độ đã lưu. Lần đầu vs luyện lại được tách riêng trong tổng kết.</p>
+          <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn primary" data-session="sprint">${iconMarkup('bolt')}Bắt đầu học cấp tốc</button>
+            <span style="align-self:center;font-size:.75rem;color:var(--muted)">${sprintCandidates.length} từ sẵn sàng · ${sprintDue} đến hạn · ${sprintWeak} từ yếu</span>
+          </div>
+        </div>
+        <div class="recommendation-mark" aria-hidden="true" style="min-width:80px;text-align:center">
+          ${iconMarkup('bolt')}<strong>7</strong><span>TỪ / PHIÊN</span>
+        </div>
+      </section>
       <section class="study-recommendation" aria-labelledby="recommendation-title">
         <div class="recommendation-copy">
           <span class="eyebrow">Gợi ý tiếp theo</span>
@@ -17669,6 +17857,16 @@ export async function createApp(root) {
   }
 
   function startSession(type) {
+    if (type === 'sprint') {
+      const selected = selectSprintSession(vocabulary, progress, { size: SPRINT_SIZE, favorites });
+      if (!selected.length) { toast('Chưa có từ phù hợp cho phiên cấp tốc. Hãy thử chế độ khác.'); return; }
+      session = selected;
+      sessionStats = { total: selected.length, correct: 0, wrong: 0, practiceTotal: 0, practiceCorrect: 0, practiceWrong: 0, startedAt: Date.now(), mode: 'sprint' };
+      sessionSummary = null;
+      nextQuestion();
+      renderShell();
+      return;
+    }
     const sizes = { quick10: 10, quick20: 20, quick30: 30 };
     // Quick sessions fill spare slots after due cards; the explicit due session never does.
     const mode = type.startsWith('quick') ? 'mixed' : type;
@@ -17801,7 +17999,7 @@ export async function createApp(root) {
       const updated = updateProgress(progress[item.vocab.id], correct, Date.now() - questionStarted);
       progress[item.vocab.id] = updated;
       item.progress = updated;
-      if (!correct && queuePractice(session, item)) sessionStats.practiceTotal += 1;
+      if (sessionStats.mode !== 'sprint' && !correct && queuePractice(session, item)) sessionStats.practiceTotal += 1;
     }
     answered = true;
     answerResult = { correct, selected: answer, revealed };
@@ -17844,7 +18042,7 @@ export async function createApp(root) {
 
   function repeatCurrent() {
     if (!answered || !session?.length) return;
-    if (queuePractice(session, session[0])) {
+    if (sessionStats.mode !== 'sprint' && queuePractice(session, session[0])) {
       sessionStats.practiceTotal += 1;
       toast('Đã xếp một lượt luyện sau các thẻ còn lại, không đổi lịch ôn.');
     }
@@ -17893,7 +18091,15 @@ export async function createApp(root) {
     const totalForBar = Math.max(1, currentStats.total);
     const recent = [...history].reverse().slice(0, 8);
     const distributionLabel = Object.keys(colors).map(state => `${stateLabel(state)} ${currentStats[state]}`).join(', ');
-    container.innerHTML = `<div class="page-header"><div><h1>Tổng quan</h1><p>Tiến độ học trên thiết bị này. Dữ liệu không rời khỏi trình duyệt.</p></div></div><div class="stat-grid">${statCard(currentStats.total, 'Tổng từ')}${statCard(currentStats.new, 'Chưa học')}${statCard(currentStats.learning + currentStats.review, 'Đang học')}${statCard(currentStats.weak, 'Từ yếu')}${statCard(currentStats.mastered, 'Thành thạo')}${statCard(currentStats.due, 'Đến hạn')}${statCard(`${currentStats.accuracy}%`, 'Chính xác')}${statCard(streak.current, 'Ngày liên tiếp')}</div><div class="two-col"><section class="panel"><div class="section-header"><h2 class="section-title">Phân bố trạng thái</h2><span style="color:var(--muted);font-size:.73rem">${currentStats.learned} đã học</span></div><div class="panel-body"><div class="bar" role="img" aria-label="${escapeHtml(distributionLabel)}">${Object.keys(colors).map(state => `<i aria-hidden="true" style="flex:${Math.max(.001, currentStats[state] / totalForBar)};background:${colors[state]}" title="${escapeHtml(stateLabel(state))}: ${currentStats[state]}"></i>`).join('')}</div><div class="legend">${Object.keys(colors).map(state => `<span><i aria-hidden="true" style="background:${colors[state]}"></i>${escapeHtml(stateLabel(state))} · ${currentStats[state]}</span>`).join('')}</div></div></section><section class="panel"><div class="section-header"><h2 class="section-title">Lịch sử phiên học</h2><span style="color:var(--muted);font-size:.73rem">${history.length} phiên</span></div><div class="history">${recent.length ? recent.map(item => `<div class="history-row"><div><b>${escapeHtml(sessionModeLabel(item.mode))}</b><small>${formatDate(item.date, language)} · ${item.total} thẻ</small></div><strong>${item.accuracy}%</strong></div>`).join('') : '<div class="empty" style="padding:20px;border:0">Chưa có phiên học.</div>'}</div></section></div>`;
+    // Build weak spotlight: top 5 weak words by wrongCount
+    const weakList = Object.values(progress).filter(p => p.state === STATES.WEAK).sort((a,b)=>b.wrongCount - a.wrongCount).slice(0,5).map(p => {
+      const entry = vocabulary.find(v=>v.id===p.id);
+      return entry ? { entry, progress: p } : null;
+    }).filter(Boolean);
+    const weakSpotlight = weakList.length ? `<section class="panel"><div class="panel-heading">Từ yếu cần ôn</div><div class="panel-body weak-spotlight">${weakList.map(item => `<div class="weak-row"><span><b>${escapeHtml(item.entry.word)}</b> <small>· ${escapeHtml(item.entry.meaning)}</small></span><span style="color:var(--danger);font-weight:700">${item.progress.wrongCount} lần sai</span></div>`).join('')}<button class="btn small" data-session="weak" style="margin-top:8px">Ôn từ yếu</button></div></section>` : '';
+    container.innerHTML = `<div class="page-header"><div><h1>Tổng quan</h1><p>Tiến độ học trên thiết bị này. Dữ liệu không rời khỏi trình duyệt.</p></div></div><div class="stat-grid">${statCard(currentStats.total, 'Tổng từ')}${statCard(currentStats.new, 'Chưa học')}${statCard(currentStats.learning + currentStats.review, 'Đang học')}${statCard(currentStats.weak, 'Từ yếu')}${statCard(currentStats.mastered, 'Thành thạo')}${statCard(currentStats.due, 'Đến hạn')}${statCard(`${currentStats.accuracy}%`, 'Chính xác')}${statCard(streak.current, 'Ngày liên tiếp')}</div>${weakSpotlight}<div class="two-col"><section class="panel"><div class="section-header"><h2 class="section-title">Phân bố trạng thái</h2><span style="color:var(--muted);font-size:.73rem">${currentStats.learned} đã học</span></div><div class="panel-body"><div class="bar" role="img" aria-label="${escapeHtml(distributionLabel)}">${Object.keys(colors).map(state => `<i aria-hidden="true" style="flex:${Math.max(.001, currentStats[state] / totalForBar)};background:${colors[state]}" title="${escapeHtml(stateLabel(state))}: ${currentStats[state]}"></i>`).join('')}</div><div class="legend">${Object.keys(colors).map(state => `<span><i aria-hidden="true" style="background:${colors[state]}"></i>${escapeHtml(stateLabel(state))} · ${currentStats[state]}</span>`).join('')}</div></div></section><section class="panel"><div class="section-header"><h2 class="section-title">Lịch sử phiên học</h2><span style="color:var(--muted);font-size:.73rem">${history.length} phiên</span></div><div class="history">${recent.length ? recent.map(item => `<div class="history-row"><div><b>${escapeHtml(sessionModeLabel(item.mode))}</b><small>${formatDate(item.date, language)} · ${item.total} thẻ</small></div><strong>${item.accuracy}%</strong></div>`).join('') : '<div class="empty" style="padding:20px;border:0">Chưa có phiên học.</div>'}</div></section></div>`;
+    // weak spotlight button handler
+    container.querySelectorAll('[data-session="weak"]').forEach(btn => btn.addEventListener('click', () => { view='learn'; renderShell(); setTimeout(()=> { const b=document.querySelector('[data-session="weak"]'); b?.click(); }, 50); }));
   }
 
   function statCard(value, label) { return `<div class="stat-card"><strong>${value}</strong><span>${label}</span></div>`; }
@@ -17914,7 +18120,17 @@ export async function createApp(root) {
       const pages = Math.max(1, Math.ceil(matches.length / pageSize));
       page = Math.min(page, pages);
       const visible = matches.slice((page - 1) * pageSize, page * pageSize);
-      results.innerHTML = matches.length ? `<p class="results-meta" role="status" aria-live="polite">${matches.length} kết quả · trang ${page}/${pages}</p><div class="vocab-list">${visible.map(item => `<div class="vocab-row"><span class="vocab-word">${escapeHtml(item.entry.word)}</span><span class="vocab-pos">${escapeHtml(item.entry.pos)}</span><span class="vocab-meaning" title="${escapeHtml(item.entry.meaning)}">${escapeHtml(item.entry.meaning)}</span><span class="state-pill state-${escapeHtml(item.state)}">${escapeHtml(stateLabel(item.state))}</span><button class="fav ${item.favorite ? 'active' : ''}" data-fav="${escapeHtml(item.entry.id)}" aria-label="${item.favorite ? 'Bỏ yêu thích' : 'Thêm yêu thích'}">${item.favorite ? '★' : '☆'}</button></div>`).join('')}</div>${pages > 1 ? `<div class="pagination" aria-label="Trang kết quả">${Array.from({ length: pages }, (_, i) => `<button class="btn small ${i + 1 === page ? 'primary' : ''}" data-page="${i + 1}" aria-label="Trang ${i + 1}" ${i + 1 === page ? 'aria-current="page"' : ''}>${i + 1}</button>`).join('')}</div>` : ''}` : '<div class="empty" role="status"><strong>Không tìm thấy</strong>Thử từ khóa khác hoặc bỏ bớt bộ lọc.</div>';
+      // highlight helper
+      const q = field.value.trim();
+      const hi = (text) => {
+        if (!q) return escapeHtml(text);
+        const esc = escapeHtml(text);
+        try {
+          const re = new RegExp('(' + q.replace(/[.*+?^${}()|[\\]\\]/g, '\\$&') + ')', 'gi');
+          return esc.replace(re, '<mark>$1</mark>');
+        } catch { return esc; }
+      };
+      results.innerHTML = matches.length ? `<p class="results-meta" role="status" aria-live="polite">${matches.length} kết quả · trang ${page}/${pages}</p><div class="vocab-list">${visible.map(item => `<div class="vocab-row"><span class="vocab-word">${hi(item.entry.word)}</span><span class="vocab-pos">${escapeHtml(item.entry.pos)}</span><span class="vocab-meaning" title="${escapeHtml(item.entry.meaning)}">${hi(item.entry.meaning)}</span><span class="state-pill state-${escapeHtml(item.state)}">${escapeHtml(stateLabel(item.state))}</span><button class="fav ${item.favorite ? 'active' : ''}" data-fav="${escapeHtml(item.entry.id)}" aria-label="${item.favorite ? 'Bỏ yêu thích' : 'Thêm yêu thích'}">${item.favorite ? '★' : '☆'}</button></div>`).join('')}</div>${pages > 1 ? `<div class="pagination" aria-label="Trang kết quả">${Array.from({ length: pages }, (_, i) => `<button class="btn small ${i + 1 === page ? 'primary' : ''}" data-page="${i + 1}" aria-label="Trang ${i + 1}" ${i + 1 === page ? 'aria-current="page"' : ''}>${i + 1}</button>`).join('')}</div>` : ''}` : '<div class="empty" role="status"><strong>Không tìm thấy</strong>Thử từ khóa khác hoặc bỏ bớt bộ lọc.</div>';
       results.querySelectorAll('[data-fav]').forEach(button => button.addEventListener('click', () => {
         const id = button.dataset.fav;
         toggleFavorite(id, false); // No shell rerender: the search state must survive.
@@ -18022,7 +18238,11 @@ export async function createApp(root) {
   }
 
   function renderExamPractice(record, questions, session, requiresManualReview) {
-    const note = `<div class="exam-practice-note" role="note"><strong>Luyện theo bản chép — không chấm điểm</strong><span>Chỉ dùng văn bản đã có trong bản chép đang lưu. Ranh giới mục và lựa chọn được trích xuất tự động, chưa xác minh và có thể không đầy đủ. Phần luyện tập không nạp hay tiết lộ đáp án, không có đồng hồ, kiểm tra đúng/sai, điểm số hoặc xếp hạng. Audio nghe không được nhúng. Câu trả lời chỉ được giữ trong bộ nhớ của trang đang mở và mất khi tải lại hoặc đóng trang. Bản chép đầy đủ bên dưới vẫn có thể chứa nội dung đáp án như trong nguồn.</span></div>`;
+    const hasVerified = questions.some(q => getQuestionVerification(q).status === 'verified');
+    const gradingNote = hasVerified
+      ? 'Một số câu có đáp án đã xác minh sẽ được chấm điểm; câu chưa xác minh giữ trạng thái chưa chấm.'
+      : 'Hiện chưa có đáp án được xác minh cho bản này — toàn bộ câu giữ trạng thái chưa chấm; không chấm đoán.';
+    const note = `<div class="exam-practice-note" role="note"><strong>Luyện tập — chấm điểm khi có đáp án đã xác minh</strong><span>Chỉ dùng văn bản đã có trong bản chép. Ranh giới mục/lựa chọn được trích xuất tự động, chưa xác minh và có thể không đầy đủ. ${gradingNote} Câu trả lời chỉ lưu trong bộ nhớ phiên đang mở và mất khi tải lại/đóng trang. Bản chép đầy đủ bên dưới có thể chứa nội dung đáp án như trong nguồn.</span></div>`;
     let body = '';
     if (requiresManualReview) {
       body = `<div class="empty exam-practice-readonly"><strong>Bản chép này chỉ đọc trong chế độ luyện tập</strong><p>Bản này có nhãn HTML/OCR và cần soát thủ công. Để tránh trình bày cách ghép dòng chưa chắc là câu hỏi/lựa chọn, ứng dụng không tự trích mục tương tác. Bản chép lưu trữ vẫn đọc được bên dưới; không có nội dung nào được dựng lại.</p></div>`;
@@ -18032,14 +18252,57 @@ export async function createApp(root) {
       body = `<p class="exam-practice-copy"><b>${questions.length}</b> mục được trích từ văn bản hiện có. Chưa xác minh từng mục với đề gốc; nội dung có thể thiếu.</p><div class="exam-practice-actions"><span class="exam-practice-status"><b>${questions.length}</b> mục trích xuất · không bấm giờ</span><button class="btn primary" id="exam-practice-start">Bắt đầu luyện không chấm điểm</button></div>`;
     } else if (session.status === 'submitted' && session.view === 'summary') {
       const summary = summarizeExamPractice(session);
-      body = `<div id="exam-submission-summary" role="status" aria-live="polite"><h3 tabindex="-1">Tóm tắt bài nộp · không chấm điểm</h3><p>Câu trả lời đã được nộp trong phiên trình duyệt đang mở. Ứng dụng không kiểm tra đúng/sai hoặc tạo điểm.</p><div class="exam-practice-summary-grid"><div class="exam-practice-summary-card"><strong id="exam-practice-answered-count">${summary.answered}</strong><span>Đã trả lời</span></div><div class="exam-practice-summary-card"><strong id="exam-practice-unanswered-count">${summary.unanswered}</strong><span>Chưa trả lời</span></div><div class="exam-practice-summary-card"><strong>${summary.total}</strong><span>Mục trích xuất</span></div></div><p>Lựa chọn chỉ còn trong khi trang này mở; chúng không được ghi vào bộ nhớ trình duyệt, lịch sử học hoặc bản sao v1.</p><div class="exam-practice-actions"><span></span><button class="btn primary" id="exam-review-submitted">Xem lại câu trả lời đã nộp</button></div></div>`;
+      // Build graded stats for display
+      let graded = 0, correct = 0, incorrect = 0, ungraded = 0;
+      for (const q of questions) {
+        const g = gradeExamQuestion(q, session.responses?.[q.id]);
+        if (g.result === 'correct') { graded++; correct++; }
+        else if (g.result === 'incorrect') { graded++; incorrect++; }
+        else ungraded++;
+      }
+      const accuracy = graded ? Math.round(correct / graded * 100) : 0;
+      const gradingPolicy = graded ? ('Đã chấm ' + graded + ' câu · ' + correct + ' đúng · ' + incorrect + ' sai · Chính xác ' + accuracy + '% (trên câu đã chấm)') : 'Chưa có câu được chấm — toàn bộ giữ trạng thái chưa xác minh.';
+      const jsonObj = buildExamResultJson(session, record, { now: session.submittedAt || Date.now() });
+      const jsonText = JSON.stringify(jsonObj, null, 2);
+      const filename = examResultFilename(jsonObj);
+      body = `<div id="exam-submission-summary" role="status" aria-live="polite"><h3 tabindex="-1">Kết quả luyện đề</h3><p>${gradingPolicy}</p><div class="exam-practice-summary-grid"><div class="exam-practice-summary-card"><strong id="exam-practice-answered-count">${summary.answered}</strong><span>Đã trả lời</span></div><div class="exam-practice-summary-card"><strong id="exam-practice-unanswered-count">${summary.unanswered}</strong><span>Chưa trả lời</span></div><div class="exam-practice-summary-card"><strong>${summary.total}</strong><span>Mục trích xuất</span></div><div class="exam-practice-summary-card"><strong>${graded}</strong><span>Đã chấm</span></div><div class="exam-practice-summary-card"><strong style="color:var(--success)">${correct}</strong><span>Đúng</span></div><div class="exam-practice-summary-card"><strong style="color:var(--danger)">${incorrect}</strong><span>Sai</span></div><div class="exam-practice-summary-card"><strong>${ungraded}</strong><span>Chưa chấm</span></div><div class="exam-practice-summary-card"><strong>${accuracy}%</strong><span>Chính xác (đã chấm)</span></div></div>
+      <div class="exam-result-summary"><p><b>Chính sách chấm:</b> chỉ câu có đáp án đã xác minh mới được tính đúng/sai; câu chưa xác minh = <b>ungraded</b>, không tính vào mẫu số accuracy.</p><p><b>Nguồn & xác minh:</b> hiển thị trong JSON theo từng câu, có thể đối chiếu độc lập.</p></div>
+      <div class="exam-practice-actions"><button class="btn" id="exam-view-json">Xem JSON</button><button class="btn primary" id="exam-download-json">Tải JSON</button><button class="btn" id="exam-review-submitted">Xem lại câu trả lời đã nộp</button></div>
+      <div id="exam-json-container" style="display:none"><h4>Kết quả chi tiết (JSON)</h4><p style="font-size:.75rem;color:var(--muted)">JSON hiển thị và tệp tải xuống được tạo từ cùng một object; có thể kiểm tra chéo nguồn/đáp án.</p><pre class="exam-json-view" id="exam-json-view" role="region" aria-label="Kết quả JSON" tabindex="0">${escapeHtml(jsonText)}</pre><p style="font-size:.72rem;color:var(--muted)">Tên tệp: <code>${escapeHtml(filename)}</code></p></div>
+      <p style="font-size:.75rem;color:var(--muted)">Lựa chọn chỉ còn trong khi trang này mở; không ghi vào localStorage hay bản sao v1.</p></div>`;
+      // Store json for download handler via dataset
+      setTimeout(() => {
+        const viewBtn = document.getElementById('exam-view-json');
+        const dlBtn = document.getElementById('exam-download-json');
+        const container = document.getElementById('exam-json-container');
+        const jsonView = document.getElementById('exam-json-view');
+        if (viewBtn && container) viewBtn.addEventListener('click', () => {
+          const hidden = container.style.display === 'none';
+          container.style.display = hidden ? 'block' : 'none';
+          viewBtn.textContent = hidden ? 'Ẩn JSON' : 'Xem JSON';
+          if (hidden) container.scrollIntoView({block:'start'});
+        });
+        if (dlBtn) dlBtn.addEventListener('click', () => {
+          const blob = new Blob([jsonText], {type: 'application/json;charset=utf-8'});
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url; a.download = filename; a.click();
+          setTimeout(()=>URL.revokeObjectURL(url),0);
+        });
+        if (jsonView) jsonView.textContent = jsonText;
+      }, 0);
     } else if (session.view === 'review') {
       const summary = summarizeExamPractice(session);
       const submitted = session.status === 'submitted';
       const rows = questions.map((question, index) => {
         const answered = examPracticeQuestionAnswered(session, question);
         const response = examPracticeResponseLabel(session, question);
-        return `<button class="exam-practice-review-item" data-review-question="${index}" aria-label="Câu nguồn ${question.number}, ${answered ? 'đã trả lời' : 'chưa trả lời'}"><span><b>Câu nguồn ${question.number} · mục trích xuất ${index + 1}</b></span><small class="exam-question-source">${escapeHtml(response)}</small><span class="state-pill ${answered ? 'exam-pill-neutral' : 'exam-pill-warning'}">${answered ? 'Đã trả lời' : 'Chưa trả lời'}</span></button>`;
+        const ver = getQuestionVerification(question);
+        const g = submitted ? gradeExamQuestion(question, session.responses?.[question.id]) : null;
+        const pillClass = g ? (g.result === 'correct' ? 'exam-pill-success' : g.result === 'incorrect' ? 'exam-pill-danger' : 'exam-pill-neutral') : (answered ? 'exam-pill-neutral' : 'exam-pill-warning');
+        const pillText = g ? (g.result === 'correct' ? 'Đúng' : g.result === 'incorrect' ? 'Sai' : 'Chưa chấm') : (answered ? 'Đã trả lời' : 'Chưa trả lời');
+        const prov = ver.status === 'verified' ? `Đã xác minh: ${escapeHtml(ver.answer)}${ver.evidence ? ' · ' + escapeHtml(ver.evidence) : ''}` : 'Chưa xác minh · không chấm';
+        return `<button class="exam-practice-review-item" data-review-question="${index}" aria-label="Câu nguồn ${question.number}, ${pillText}"><span><b>Câu nguồn ${question.number} · mục trích xuất ${index + 1}</b></span><small class="exam-question-source">${escapeHtml(response)}</small><small class="exam-question-source" style="color:var(--faint)">${prov}</small><span class="state-pill ${pillClass}">${pillText}</span></button>`;
       }).join('');
       body = `<div><h3 tabindex="-1">${submitted ? 'Xem lại lựa chọn đã nộp' : 'Xem lại câu trả lời trước khi nộp'}</h3><p><strong>${summary.answered}</strong> đã trả lời · <strong>${summary.unanswered}</strong> chưa trả lời · <strong>${summary.total}</strong> mục trích xuất. Đây chỉ là xem lại lựa chọn, không kiểm tra đúng/sai.</p><div class="exam-practice-review-list">${rows}</div><div class="exam-practice-actions" style="margin-top:12px"><button class="btn" id="exam-practice-back">${submitted ? 'Về tóm tắt bài nộp' : 'Về câu hỏi'}</button><div>${!submitted ? '<button class="btn primary" id="exam-submit">Nộp bài</button>' : ''}</div></div></div>`;
     } else {
@@ -18053,13 +18316,21 @@ export async function createApp(root) {
       const options = question.responseType === 'choice'
         ? `<div class="exam-practice-options" role="group" aria-label="Lựa chọn chép từ bản đề">${question.options.map(option => `<button class="exam-practice-option" data-practice-choice="${escapeHtml(option.id)}" aria-pressed="${response === option.id}" ${submitted ? 'disabled' : ''}><span class="exam-practice-option-label">${escapeHtml(option.label)}.</span><span class="exam-question-source">${escapeHtml(option.text)}</span></button>`).join('')}</div>`
         : `<label for="exam-practice-response">Câu trả lời do bạn nhập (không chấm điểm)</label><textarea class="exam-practice-response" id="exam-practice-response" maxlength="20000" ${submitted ? 'disabled' : ''}>${escapeHtml(response)}</textarea>`;
+      const verInfo = getQuestionVerification(question);
+      const gradeInfo = submitted ? gradeExamQuestion(question, session.responses?.[question.id]) : null;
+      const provenanceLine = verInfo.status === 'verified'
+        ? `<p class="exam-question-instruction">Đã xác minh · Đáp án: <b>${escapeHtml(verInfo.answer)}</b>${verInfo.evidence ? ` · ${escapeHtml(verInfo.evidence)}` : ''} · Nguồn: bản chép ${escapeHtml(record.id)} dòng ${question.sourceLine || '—'}</p>`
+        : `<p class="exam-question-instruction">Chưa xác minh · không chấm · Nguồn: bản chép ${escapeHtml(record.id)} dòng ${question.sourceLine || '—'}</p>`;
+      const gradeLine = submitted && gradeInfo
+        ? `<p class="exam-question-instruction" role="status">Kết quả: <span class="state-pill ${gradeInfo.result === 'correct' ? 'exam-pill-success' : gradeInfo.result === 'incorrect' ? 'exam-pill-danger' : 'exam-pill-neutral'}">${gradeInfo.result === 'correct' ? 'Đúng' : gradeInfo.result === 'incorrect' ? 'Sai' : 'Chưa chấm'}</span> · ${escapeHtml(gradeInfo.reason)}</p>`
+        : '';
       const questionButtons = questions.map((item, questionIndex) => {
         const itemAnswered = examPracticeQuestionAnswered(session, item);
         const active = questionIndex === index;
         const status = itemAnswered ? 'đã trả lời' : 'chưa trả lời';
         return `<button class="exam-question-nav ${active ? 'is-current' : ''} ${itemAnswered ? 'is-answered' : ''}" data-question-index="${questionIndex}" aria-label="Câu nguồn ${item.number}, ${status}${active ? ', đang mở' : ''}" ${active ? 'aria-current="step"' : ''}><span>${escapeHtml(item.number)}</span><span class="exam-question-status-mark" aria-hidden="true">${itemAnswered ? '✓' : '—'}</span></button>`;
       }).join('');
-      body = `<div class="exam-practice-status" id="exam-practice-status"><span><b id="exam-practice-answered-count">${summary.answered}</b> <span>đã trả lời</span></span><span><b id="exam-practice-unanswered-count">${summary.unanswered}</b> <span>chưa trả lời</span></span><span><b>${summary.total}</b> mục trích xuất</span>${submitted ? '<span class="state-pill exam-pill-neutral">Đã nộp · không chấm điểm</span>' : ''}</div><section class="exam-practice-question" aria-labelledby="exam-current-question-heading"><p class="exam-question-meta"><span>Câu số trong nguồn</span> <strong>${escapeHtml(question.number)}</strong> · <span>Mục trích xuất</span> <strong>${index + 1}</strong> / <strong>${questions.length}</strong></p><h3 id="exam-current-question-heading" tabindex="-1"><span class="exam-question-source">${escapeHtml(question.prompt)}</span></h3>${question.instruction ? `<p class="exam-question-instruction">${escapeHtml(question.instruction)}</p>` : ''}${options}${submitted && answered ? `<p class="exam-question-instruction" role="status">Lựa chọn đã lưu: <span class="exam-question-source">${escapeHtml(examPracticeResponseLabel(session, question))}</span></p>` : ''}</section><div><h3 class="section-title">Điều hướng các mục đã trích</h3><div class="exam-question-grid">${questionButtons}</div></div><div class="exam-practice-actions"><div><button class="btn" id="exam-question-prev" ${index === 0 ? 'disabled' : ''}>Câu trước</button><button class="btn" id="exam-question-next" ${index >= questions.length - 1 ? 'disabled' : ''}>Câu sau</button></div><div>${!submitted ? '<button class="btn" id="exam-review-answers">Xem lại câu trả lời</button><button class="btn primary" id="exam-submit">Nộp bài</button>' : '<button class="btn" id="exam-practice-back">Về tóm tắt bài nộp</button><button class="btn primary" id="exam-review-submitted">Xem lại câu trả lời đã nộp</button>'}</div></div>`;
+      body = `<div class="exam-practice-status" id="exam-practice-status"><span><b id="exam-practice-answered-count">${summary.answered}</b> <span>đã trả lời</span></span><span><b id="exam-practice-unanswered-count">${summary.unanswered}</b> <span>chưa trả lời</span></span><span><b>${summary.total}</b> mục trích xuất</span>${submitted ? '<span class="state-pill exam-pill-neutral">Đã nộp · hiển thị kết quả từng câu theo xác minh</span>' : ''}</div><section class="exam-practice-question" aria-labelledby="exam-current-question-heading"><p class="exam-question-meta"><span>Câu số trong nguồn</span> <strong>${escapeHtml(question.number)}</strong> · <span>Mục trích xuất</span> <strong>${index + 1}</strong> / <strong>${questions.length}</strong></p><h3 id="exam-current-question-heading" tabindex="-1"><span class="exam-question-source">${escapeHtml(question.prompt)}</span></h3>${question.instruction ? `<p class="exam-question-instruction">${escapeHtml(question.instruction)}</p>` : ''}${options}${provenanceLine}${gradeLine}${submitted && answered ? `<p class="exam-question-instruction" role="status">Lựa chọn đã lưu: <span class="exam-question-source">${escapeHtml(examPracticeResponseLabel(session, question))}</span></p>` : ''}</section><div><h3 class="section-title">Điều hướng các mục đã trích</h3><div class="exam-question-grid">${questionButtons}</div></div><div class="exam-practice-actions"><div><button class="btn" id="exam-question-prev" ${index === 0 ? 'disabled' : ''}>Câu trước</button><button class="btn" id="exam-question-next" ${index >= questions.length - 1 ? 'disabled' : ''}>Câu sau</button></div><div>${!submitted ? '<button class="btn" id="exam-review-answers">Xem lại câu trả lời</button><button class="btn primary" id="exam-submit">Nộp bài</button>' : '<button class="btn" id="exam-practice-back">Về tóm tắt bài nộp</button><button class="btn primary" id="exam-review-submitted">Xem lại câu trả lời đã nộp</button>'}</div></div>`;
     }
     return `<section class="exam-practice panel" aria-labelledby="exam-practice-title"><h2 class="panel-heading" id="exam-practice-title" tabindex="-1">Luyện tập theo bản chép · không chấm điểm</h2><div class="panel-body">${note}${body}</div></section>`;
   }

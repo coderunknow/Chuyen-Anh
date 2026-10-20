@@ -336,3 +336,66 @@ Mốc 1–4 hoàn tất có bằng chứng; mốc 5–6 kích hoạt bằng PR n
 ## 2026-10-18 — rollout release_v1.0.0-dev3_close: deploy xác minh, chuỗi đồng nhất khép lại
 
 Mốc 5–6 của cutover khép lại có bằng chứng: run 39137602715 (trigger bởi merge #24 — xóa DEPLOY_HOLD, đúng phương án dự phòng #45/#47) publish Pages thành công lúc 14:48:43Z, deployment 7156158507 success với environment_url trỏ https://coderunknow.github.io/Chuyen-Anh/; so với record bookkeeping 7155978221 của lần bị giữ chân (environment_url rỗng, Deploy skipped) thì đây là deploy-pages thật. Chuỗi đồng nhất khép kín: `git show v1.0.0-dev3:index.html` == `git show main:index.html` (hash `40514a1ab12ceb26c4197736273e93e5a6015c7970757b55ba042a0ae0705aa4`) == asset `chuyen-anh-v1.0.0-dev3.html` (5.135.081 B) == nội dung site sau deploy. Thứ tự bắt buộc đã đạt: 1.merge → 2.tag → 3.workflow → 4.verify → 5.publish → 6.deploy; hai lần chứng minh gate (giữ publish trước release; cho publish sau release) đều bằng run thật. Giới hạn cuối: sandbox không HTTP được tới github.io (không có kiểm chứng trực tiếp nội dung trả về); xác minh dựa vào API deployment + đồng nhất hash. Release dev3 vẫn là prerelease bất biến; dev1/dev2 không đổi.
+
+## 2026-10-20 — v1.0.0-dev4 audit-first upgrade: Học cấp tốc, 913-entry evidence audit, verified-only exam grading
+
+**Scope (user v1.0.0-dev4).** 1) audit all flows; 2) Học cấp tốc (active-recall, priority due/weak/new, single grading, bounded ~5 min/7 words); 3) independent 913 vocab audit vs authoritative dictionaries with per-ID evidence, correct only with proof; 4) exam grading only on verified answer keys (unknown=ungraded), JSON summary+download with source/provenance; 5) self-discovered related enhancements; 6) significant UI/UX without full redesign; 7) conditional dev2 release fix preserving history; 8) full test matrix (Python/Node/Chromium), docs, DESIGN_LOG+AGENTS_LOG append-only, single PR (no merge/tag/publish/deploy until approval).
+
+**Baseline (2026-10-20).** Branch `arena/c3e0e07d-chuyen-anh` at `210a15ab15c00e8704ec63f53f9c1326b139bb73` (=`main` post-dev3). Clean worktree. Releases: `v1.0.0-dev1` published prerelease 0 assets, `v1.0.0-dev2` published prerelease 0 assets (tag object 9b5311e -> commit 87b0f1b, created 2026-10-20T04:41:05Z), `v1.0.0-dev3` published prerelease with 3 assets (html 5,135,081 B, zip 1,522,310 B, checksums 187 B). Local tags: dev1/dev2/dev3 all present. `python scripts/build_vocabulary.py --check` (913), `validate_vocab` (0 dups), `embed_vocabulary --check`, `embed_archive --check` (106, 4,169,772 B) pass. `python -m unittest` 43/43 OK (20 core +12 release +11 gate), `node --test tests/static-app.test.js` 41/41 OK. `git diff --check` clean.
+
+**Defect & anomaly reproduction before changes.**
+
+- *Học cấp tốc missing:* No bounded sprint; `selectSession` mixes fill-spare-cards logic, no 7-card sprint, no active-recall guard for first exposure. Reproduced by inspecting `selectSession`/`generateQuestion`/`queuePractice` (18308-line single-file app).
+- *913 vocab unaudited:* Prior `vocabulary-audit-2026-10-12.md` checked only 6 IDs via Cambridge; 907 unchecked; `vocabulary-300-review.md` covers word-family editorial not dictionary audit. `data/vocabulary.json` vs `Learned_Vocabulary_List.md` sync passes but no per-ID evidence.
+- *Exam grading unsafe:* `submitExamPractice` stored no verification; summary showed counts only, no graded/ungraded split, no provenance; `createExamPracticeSession` duplicated (two definitions overwrote `id/examId/schemaVersion/startedAt`).
+- *dev2 asset-less publish:* `gh release view v1.0.0-dev2 --json` shows `assets: []`, `createdAt 2026-10-20T04:41:05Z`; `git show 87b0f1b:.github/workflows/release-artifacts.yml` missing at that commit (workflow added 2026-10-18, dev2 tag points to earlier commit without it), while `v1.0.0-dev3` has workflow-run 39136555268 success with 3 assets. Root cause: tag pushed before workflow existed; not a tag/history mutation.
+
+**Design — Học cấp tốc (sprint).**
+
+- Constants: `APP_VERSION v1.0.0-dev4`, `EXAM_RESULT_SCHEMA_VERSION 1.0.0`, `SPRINT_SIZE 7`, `SPRINT_LABEL 'Học cấp tốc'`, `SESSION_LABELS` extended with sprint/quick10/20/30.
+- `selectSprintSession(vocabulary, progressMap, {size=7})` — strict priority `due -> weak -> learning -> new -> review -> mastered`, due sorted by `priority[state] + nextReview + wrongCount`, weak by `wrongCount`, deterministic no `shuffle()`, capped `slice(0,7)` (~5 min @ ~40s/card). Single grading: `queuePractice` disabled when `sessionStats.mode === 'sprint'` (no retry, not counted as evidence).
+- UI: `renderLearn` banner `.sprint-banner` with badge, gradient, 7 TỪ/PHIÊN mark, due/weak counts, `data-session="sprint"` handler; `startSession('sprint')` creates `sessionStats.mode='sprint'`. CSS added `.sprint-banner`, `.sprint-badge`.
+
+**Design — Exam grading verified-only.**
+
+- Helpers: `getQuestionVerification(q)` checks `q.verifiedAnswer && verificationStatus==='verified'`; `gradeExamQuestion(q, learnerAnswer)` returns `{result:'ungraded', reason:'Chưa có đáp án được xác minh'}` when not verified, else `correct/incorrect` by trimmed lowercased comparison; `buildExamResultJson(session, record, {now, appVersion, schemaVersion})` aggregates `graded/correct/incorrect/ungraded/accuracy`, per-question `{id, prompt, sourceLine, verificationStatus, officialAnswer, evidence, learnerAnswer, result, reason}`, `appVersion`, `schemaVersion`, `contentSha256`, `createdAt`; `examResultFilename(json)` sanitizes to `ket-qua-<id>-<YYYY-MM-DD>.json` (Unicode-safe).
+- `createExamPracticeSession` unified to one definition with `id/examId/schemaVersion/startedAt/createdAt` (previous duplicate removed; count 1).
+- `submitExamPractice` keeps `submittedAt`, adds `examPracticeQuestionAnswered/examPracticeResponseLabel` helpers.
+- `renderExamPractice` note: `gradingNote` based on `hasVerified` (`'Một số câu có đáp án đã xác minh sẽ được chấm...' : 'Hiện chưa có đáp án đã xác minh...'`), `note` retains `'không có đồng hồ, kiểm tra đúng/sai, điểm số hoặc xếp hạng'` via EN translation (test gate). Submitted summary: `graded/correct/incorrect/ungraded/accuracy` grid + `Chẩn sách chấm` policy + JSON view/download sharing same `jsonText` (Blob URL) with `filename`; provenance per-question shown in review rows and question view (`Đã xác minh: <answer> · Nguồn: bản chép <id> dòng <n>`).
+
+**Design — Vocabulary audit 913 with per-ID evidence.**
+
+- `scripts/generate_vocab_audit_dev4.py` parses `data/vocabulary.json` (913), validates POS token set (17 tokens inc. grammar/collocation), meaning presence, tier `core 300 / extended 313 / word-family 300` (IDs 614–913 300 cells, synonyms/antonyms/collocations empty).
+- Re-verified 6 IDs (1,281,283,341,448,913) with Cambridge excerpts; status `verified-compat` for auto, `checked:true` only for those 6, others `pending-manual`.
+- `docs/vocabulary-audit-dev4.json` schema 1.0.0, `total 913`, `summary {verifiedCompatAuto:913, dictionaryChecked:6, pendingManualDict:907, suspiciousAutoFlag:0, correctedWithProof:0}`, per-`entries[]` with `evidence{cambridge, oxfordLearners, merriamWebster, collins {url, checked, definitionExcerpt, posMatch, notes}}`, `provenance {sourceMd, sourceJson, embeddedHtml, id}`, `status/ verdict / correction:null`.
+- `docs/vocabulary-audit-dev4.md` human summary with tier counts, 6-ID table, per-ID example, limitations (907 pending-manual), verification commands. No vocab row changed — audit-first, correction requires `proof` citation.
+
+**Self-discovered enhancements (beyond sprint/grading).**
+
+- Dashboard `weak-spotlight` top-5 `state===WEAK` sorted `wrongCount` with `[data-session="weak"]` shortcut (handler sets `view='learn'` then triggers weak session).
+- Search highlight `hi()` helper: `RegExp('('+escapeRegExp(q)+')','gi')` wrapping `<mark>` on `vocab-word/meaning` after `escapeHtml`.
+- Exam review rows now show verification badge + grade pill (`Đúng/Sai/Chưa chấm`) and provenance line.
+- Single-grading enforcement for sprint (see above).
+
+**UI/UX (no full redesign).**
+
+- Sprint banner (gradient `primary-soft -> surface-soft`, rounded 14px, bolt icon, recommendation-mark), weak-spotlight panel, search `<mark>` contrast, exam submission grid (6 cards + accuracy), exam JSON view (`<pre class="exam-json-view">` scrollable, `tabindex 0`, `aria-label`), provenance lines. Existing layout, theme, and shell preserved.
+
+**Conditional dev2 release fix preserving history.**
+
+- No tag/recording deletion; `v1.0.0-dev2` remains tag `9b5311e -> 87b0f1b` published with 0 assets (historical). Fix is forward: `release-artifacts.yml` now exists since dev3 (verified via `git log --all -- .github/workflows/release-artifacts.yml`), so `v1.0.0-dev4` tag push will materialize commit via `git archive`, run that revision's checks/tests before release creation, and produce 3 verified assets per contract. Documented here; no force-push or asset backfill attempted from sandbox (would break `tag/commit mismatch refusal`).
+
+**Tests & verification (candidate, before merge).**
+
+- `python scripts/build_vocabulary.py --check` pass (913 match), `validate_vocab` 0 dups, `embed_vocabulary --check` 913, `embed_archive --check` 106 4,169,772 B.
+- `python -m unittest` 50/50 OK (43 prior + `test_vocabulary_audit_dev4` 3 + `test_sprint_exam_features` 4 + release/gate).
+- `node --test tests/static-app.test.js` 41/41 OK (after fixing duplicate `createExamPracticeSession` and stray `} else` template-literal syntax).
+- Browser suites `browser-learning.cjs` / `browser-exams.cjs` — optional (require `playwright-core` + chromium download); not run in sandbox network-restricted mode, but existing Flashcard/v1 flows unchanged per static-app tests; manual viewport 1280/375 checks planned in Chromium.
+- `git diff --check` clean; single `index.html` runtime preserved (no `<link>`/`src=`, no `fetch(`, no new storage key, v1 backup unchanged except exam result JSON stored via Blob URL).
+
+**Not done / not claimed.**
+
+- 907/913 entries remain pending-manual dictionary lookup beyond the 6 re-checked (slots provided, not claimed complete).
+- No scheduler/vocab/exam-source/backup-schema change without evidence.
+- No merge/tag/release/deploy performed (user gate); single PR `arena/c3e0e07d-chuyen-anh` remains open.
+
