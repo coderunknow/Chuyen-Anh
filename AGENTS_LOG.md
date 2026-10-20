@@ -101,3 +101,7 @@ Test suite 56/56 OK (audit file 9/9 honest counts), vocab validate 913 OK, no me
 ## 2026-10-20 — Batch 93–108: +16 verified (113/800)
 
 Verified 93 Advocate, 94 Affluent, 95 Animosity, 96 Apathetic, 97 Appraise, 98 Articulate, 99 Ascertain, 100 Augment, 101 Auspicious, 102 Belligerent, 103 Bolster, 104 Candid, 105 Cognizant, 106 Catalyst, 107 Censorship, 108 Chagrin via Cambridge fetch_page 2026-10-20 with verbatim excerpts; JSON 113/800, markdown 113 rows, tests 56/56 OK; next batch from 109 Cogent.
+
+## 2026-10-20 — Batch 109–123: +15 verified (128/785)
+
+Verified 109 Cogent, 110 Colloquial, 111 Commend, 112 Concede, 113 Conciliate, 114 Condescend, 115 Conducive, 116 Conscientious, 117 Consolidate, 118 Contemplative, 119 Contention, 120 Curtail, 121 Debilitate, 122 Deference, 123 Delineate via Cambridge fetch_page 2026-10-20 with verbatim excerpts; JSON 128/785, markdown 128 rows, tests 56/56 OK; next batch from 124 Demeanor.

@@ -564,4 +564,33 @@ All entries recorded with verbatim Cambridge excerpt, headword, Cambridge POS, V
 **Tests:** updated hardcoded counts 97/816→113/800 (summary, markdown rows, pending length, separate reporting). Full suite 56/56 OK.
 
 **Next:** Continue sequential verification from 109 Cogent onward via fetch_page, same evidence fields, preserving honest counts per batch.
+## 2026-10-20 — Batch 109–123 verified (15 entries) — 128/785 checkpoint
+
+**Verified 15 entries via direct Cambridge fetch_page on 2026-10-20:**
+
+- 109 Cogent adj — "clearly expressed and persuades people to believe it; persuasive and well expressed" — Vietnamese thuyết phục có sức thuyết phục — family cogency/cogently — URL .../cogent
+- 110 Colloquial adj — "(of words and expressions) informal and more suitable for use in speech than in writing" — Vietnamese thông tục khẩu ngữ — family colloquially — URL .../colloquial
+- 111 Commend v — "to formally praise someone or something" — Vietnamese khen ngợi tuyên dương — family commendable — URL .../commend
+- 112 Concede v — "to admit, often unwillingly, that something is true; to admit that you have lost in a competition" — Vietnamese thừa nhận nhượng bộ — family concession — URL .../concede
+- 113 Conciliate v — "to end a disagreement or someone's anger by acting friendly/slightly changing opinions, or to satisfy someone who disagrees" — Vietnamese hòa giải xoa dịu — family conciliation/conciliatory — URL .../conciliate
+- 114 Condescend v — "to behave in a way showing you consider yourself better/more intelligent than others; to agree to do something not considered good enough for social position" — Vietnamese tỏ ra kẻ cả hạ cố — family condescension — URL .../condescend
+- 115 Conducive adj — "providing the right conditions for something good to happen or exist" — Vietnamese có lợi thuận lợi cho — pattern conducive to — URL .../conducive
+- 116 Conscientious adj — "putting a lot of effort into your work; feeling moral responsibility to do work carefully and be fair" — Vietnamese tận tâm có trách nhiệm — family conscientiously/conscientiousness — URL .../conscientious
+- 117 Consolidate v — "to become/cause to become stronger and more certain; to combine several things, especially businesses, so they become more effective" — Vietnamese củng cố hợp nhất — URL .../consolidate
+- 118 Contemplative adj — "involving quiet and serious thought for a period of time" — Vietnamese trầm tư suy ngẫm — family contemplation — URL .../contemplative
+- 119 Contention n — "the disagreement that results from opposing arguments; an opinion expressed in an argument" — Vietnamese sự tranh cãi luận điểm gây tranh cãi — family contentious — URL .../contention
+- 120 Curtail v — "to stop something before it is finished, or to reduce or limit something" — Vietnamese cắt giảm hạn chế — family curtailment — URL .../curtail
+- 121 Debilitate v — "to make someone or something physically weak" — Vietnamese làm suy yếu — family debilitating — URL .../debilitate
+- 122 Deference n — "respect and politeness; respect shown for another person esp because of experience/knowledge/age/power" — Vietnamese sự tôn kính kính trọng — family deferential — URL .../deference
+- 123 Delineate v — "to describe or mark the edge of something; to describe something completely, including details" — Vietnamese phác họa mô tả rõ — family delineation — URL .../delineate
+
+All entries recorded with verbatim Cambridge excerpt, headword, Cambridge POS, Vietnamese compatibility, word-family evidence, retrievedAt 2026-10-20, provenance with URL+headword+POS+Vietnamese+retrieval mechanism.
+
+**JSON:** manualDictionaryVerified 113→128 (+15), unresolved 800→785, retrievalMechanism updated, generatedAt refreshed.
+
+**Markdown:** regenerated to 128-row table, summary 128/913 (14.0%) verified 785 pending, retrieval log expanded to 109-123, pending sample updated (124+ remain).
+
+**Tests:** updated hardcoded counts 113/800→128/785 (summary, markdown rows, pending length, separate reporting). Full suite 56/56 OK with placeholder-rejection checks.
+
+**Next:** Continue sequential verification from 124 Demeanor onward via fetch_page, same evidence fields, preserving honest counts per batch.
 
