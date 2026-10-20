@@ -165,7 +165,7 @@ The earlier note that these entries did not replace `data/vocabulary.json` was s
 | 150 | Enigmatic | adj | bí ẩn, khó hiểu |  | [] | [] | [] |  |  |  | [] |
 | 151 | Equanimity | n | sự bình tĩnh, điềm tĩnh |  | [] | [] | [] |  |  |  | [] |
 | 152 | Erudite | adj | uyên bác |  | [] | [] | [] |  |  |  | [] |
-| 153 | Esoteric | adj | thâm sâu, chỉ dành cho người có chuyên môn |  | [] | [] | [] |  |  |  | [] |
+| 153 | Esoteric | adj | chuyên biệt, ít người biết hoặc hiểu; chỉ dành cho số ít người có kiến thức chuyên môn |  | [] | [] | [] |  |  |  | [] |
 | 154 | Evoke | v | gợi lên, khơi dậy |  | [] | [] | [] |  |  |  | [] |
 | 155 | Exasperate | v | làm tức giận, làm bực tức |  | [] | [] | [] |  |  |  | [] |
 | 156 | Exhort | v | thúc giục, khuyên mạnh mẽ |  | [] | [] | [] |  |  |  | [] |
@@ -244,7 +244,7 @@ The earlier note that these entries did not replace `data/vocabulary.json` was s
 | 229 | Bane | n | tai họa, nguyên nhân gây khổ sở |  | [] | [] | [] |  |  |  | [] |
 | 230 | Beneficent | adj | nhân từ, làm điều thiện |  | [] | [] | [] |  |  |  | [] |
 | 231 | Befuddle | v | làm bối rối, khiến khó hiểu |  | [] | [] | [] |  |  |  | [] |
-| 232 | Belie | v | che giấu, phủ nhận hoặc trái với vẻ bề ngoài |  | [] | [] | [] |  |  |  | [] |
+| 232 | Belie | v | cho thấy điều gì đó là sai hoặc trái với thực tế; che giấu (nhất là cảm xúc) |  | [] | [] | [] |  |  |  | [] |
 | 233 | Bereft | adj | mất mát, thiếu thốn; mất đi người hoặc vật quan trọng |  | [] | [] | [] |  |  |  | [] |
 | 234 | Blatant | adj | trắng trợn, lộ liễu |  | [] | [] | [] |  |  |  | [] |
 | 235 | Boisterous | adj | ồn ào, náo nhiệt, hiếu động |  | [] | [] | [] |  |  |  | [] |
@@ -268,7 +268,7 @@ The earlier note that these entries did not replace `data/vocabulary.json` was s
 | 253 | Coeval | adj | cùng thời, đồng thời |  | [] | [] | [] |  |  |  | [] |
 | 254 | Collusion | n | sự thông đồng, cấu kết |  | [] | [] | [] |  |  |  | [] |
 | 255 | Commemorate | v | kỷ niệm, tưởng niệm |  | [] | [] | [] |  |  |  | [] |
-| 256 | Complaisant | adj | chiều lòng người khác, quá dễ làm vừa lòng |  | [] | [] | [] |  |  |  | [] |
+| 256 | Complaisant | adj | sẵn lòng làm vừa lòng người khác bằng cách cư xử lịch sự và hòa theo kế hoạch của họ |  | [] | [] | [] | formal |  |  | [] |
 | 257 | Compliant | adj | tuân thủ, dễ bảo; sẵn sàng làm theo |  | [] | [] | [] |  |  |  | [] |
 | 258 | Compunction | n | sự day dứt, áy náy |  | [] | [] | [] |  |  |  | [] |
 | 259 | Concise | adj | súc tích, ngắn gọn |  | [] | [] | [] |  |  |  | [] |
@@ -283,10 +283,10 @@ The earlier note that these entries did not replace `data/vocabulary.json` was s
 | 268 | Conundrum | n | câu đố khó; vấn đề nan giải |  | [] | [] | [] |  |  |  | [] |
 | 269 | Convivial | adj | vui vẻ, thân thiện, tạo không khí thân mật |  | [] | [] | [] |  |  |  | [] |
 | 270 | Copious | adj | dồi dào, phong phú |  | [] | [] | [] |  |  |  | [] |
-| 271 | Corpulent | adj | béo phì, đẫy đà |  | [] | [] | [] |  |  |  | [] |
+| 271 | Corpulent | adj | béo; có thân hình to béo |  | [] | [] | [] | formal |  |  | [] |
 | 272 | Correlate | v/n | có tương quan / biến hoặc đại lượng tương quan |  | [] | [] | [] |  |  |  | [] |
 | 273 | Corrosive | adj | ăn mòn; có tính hủy hoại |  | [] | [] | [] |  |  |  | [] |
-| 274 | Cosmopolitan | adj/n | mang tính quốc tế, cởi mở / người có tầm nhìn quốc tế |  | [] | [] | [] |  |  |  | [] |
+| 274 | Cosmopolitan | adj/n | có tính quốc tế, đa văn hóa; (người) có trải nghiệm và hiểu biết về nhiều nơi trên thế giới |  | [] | [] | [] |  | usually approving |  | [] |
 | 275 | Counterfeit | adj/n/v | giả, làm giả / hàng giả / làm giả |  | [] | [] | [] |  |  |  | [] |
 | 276 | Covert | adj/n | bí mật, ngầm / nơi trú ẩn hoặc nơi có cây che phủ |  | [] | [] | [] |  |  |  | [] |
 | 277 | Covet | v | thèm muốn, ham muốn thứ thuộc về người khác |  | [] | [] | [] |  |  |  | [] |
@@ -353,7 +353,7 @@ The earlier note that these entries did not replace `data/vocabulary.json` was s
 | 338 | Venerate | v | tôn kính, sùng kính |  | [] | [] | [] |  |  |  | [] |
 | 339 | Prosaic | adj | tầm thường, thiếu trí tưởng tượng; mang tính văn xuôi |  | [] | [] | [] |  |  |  | [] |
 | 340 | Elicit | v | khơi gợi, khiến xuất hiện hoặc thu được |  | [] | [] | [] |  |  |  | [] |
-| 341 | Intransigent | adj | bất khuất, không chịu thỏa hiệp |  | [] | [] | [] |  |  |  | [] |
+| 341 | Intransigent | adj | không chịu thay đổi quan điểm hoặc hành vi; không chịu thỏa hiệp |  | [] | [] | [] | formal | disapproving |  | [] |
 | 342 | Quixotic | adj | lý tưởng hóa, thiếu thực tế nhưng cao đẹp |  | [] | [] | [] |  |  |  | [] |
 | 343 | Sycophantic | adj | nịnh bợ, xu nịnh |  | [] | [] | [] |  |  |  | [] |
 | 344 | Enervate | v | làm suy yếu, làm kiệt sức |  | [] | [] | [] |  |  |  | [] |
@@ -369,7 +369,7 @@ The earlier note that these entries did not replace `data/vocabulary.json` was s
 | 354 | Recondite | adj | khó hiểu, thâm sâu và ít người biết |  | [] | [] | [] |  |  |  | [] |
 | 355 | Incontrovertible | adj | không thể bác bỏ, không thể tranh cãi |  | [] | [] | [] |  |  |  | [] |
 | 356 | Nefarious | adj | xấu xa, đê tiện |  | [] | [] | [] |  |  |  | [] |
-| 357 | Pedantic | adj | mọt sách, quá chú trọng tiểu tiết hoặc quy tắc học thuật |  | [] | [] | [] |  |  |  | [] |
+| 357 | Pedantic | adj | quá chú trọng các quy tắc hình thức hoặc những chi tiết nhỏ, không quan trọng; câu nệ tiểu tiết |  | [] | [] | [] |  | disapproving |  | [] |
 | 358 | Trenchant | adj | sắc bén, gay gắt và hiệu quả |  | [] | [] | [] |  |  |  | [] |
 | 359 | Vicarious | adj | gián tiếp; trải nghiệm thay cho người khác |  | [] | [] | [] |  |  |  | [] |
 | 360 | Wanton | adj | phóng túng, vô trách nhiệm; cố ý tàn nhẫn hoặc vô lý |  | [] | [] | [] |  |  |  | [] |
@@ -468,11 +468,11 @@ The earlier note that these entries did not replace `data/vocabulary.json` was s
 | 453 | Derive | v | bắt nguồn từ (derive from); thu được, rút ra (derive sth from) |  | [] | [] | [] |  |  |  | [] |
 | 454 | A bit of a stretch | idiom | hơi quá, hơi cường điệu; điều khó tin hoặc khó chấp nhận |  | [] | [] | [] |  |  |  | ["easy"] |
 | 455 | Agree to disagree | idiom | chấp nhận bất đồng quan điểm và ngừng tranh cãi |  | [] | [] | [] |  |  |  | ["difficult"] |
-| 456 | Subjunctive structure | grammar | cấu trúc giả định: S + suggest/demand/insist/It is essential... + that + S + V-bare (không chia) |  | [] | [] | [] |  |  |  | [] |
+| 456 | Subjunctive structure | grammar | Khi suggest mang nghĩa đề nghị một hành động, mệnh đề that có thể dùng động từ nguyên mẫu (I suggest (that) you leave); nếu suggest ở quá khứ, tiếng Anh-Anh cũng có thể dùng should + động từ nguyên mẫu. Với insist, phân biệt nghĩa khẳng định (Greg still insists (that) he did nothing wrong) với nghĩa yêu cầu (They insisted that all swear words be deleted). Không áp dụng máy móc một công thức bare-verb cho mọi cách dùng suggest hoặc insist. |  | [] | [] | [] |  |  | Cambridge Grammar Today: “When we suggest an action to someone, we can use a that-clause”; example “I suggest (that) you leave here around four o’clock.” It says “When suggest is in the past, we can use should in the that-clause.” Cambridge Dictionary contrasts “Greg still insists (that) he did nothing wrong” with “They insisted that all swear words be deleted from the article.” Sources: https://dictionary.cambridge.org/grammar/british-grammar/suggest ; https://dictionary.cambridge.org/dictionary/english/insist | [] |
 | 457 | Add up to | phrasal v | tổng cộng thành; dẫn đến, có nghĩa là (một kết quả) |  | [] | [] | [] |  |  |  | [] |
 | 458 | Square away | phrasal v | thu xếp, giải quyết ổn thỏa, hoàn tất (việc gì) |  | [] | [] | [] |  |  |  | ["difficult"] |
-| 459 | Check out with | phrasal v | khớp với, ăn khớp với (thông tin, lời khai, dữ liệu) |  | [] | [] | [] |  |  |  | [] |
-| 460 | Discursive | adj | lan man, tản mạn, nhảy từ ý này sang ý khác |  | [] | [] | [] |  |  |  | ["easy"] |
+| 459 | Check out | phrasal v | được xác nhận là đúng khi kiểm tra; khớp với thông tin khác khi đối chiếu |  | [] | [] | [] |  |  | Headword là phrasal verb check out; with + danh từ có thể nêu nguồn/thông tin để đối chiếu, nhưng with không thuộc headword. Cambridge có ví dụ về lời khai check out with các báo cáo của nhân chứng. Nguồn: https://dictionary.cambridge.org/dictionary/english/check-out | [] |
+| 460 | Discursive | adj | liên quan đến thảo luận; (formal, nói hoặc viết) bàn sang các chủ đề chỉ liên quan lỏng lẻo với chủ đề chính lâu hơn mức cần thiết |  | [] | [] | [] | formal (sense 2) |  |  | ["easy"] |
 | 461 | Discursively | adv | một cách lan man, tản mạn |  | [] | [] | [] |  |  |  | ["easy"] |
 | 462 | Discursiveness | n | tính lan man, tản mạn |  | [] | [] | [] |  |  |  | ["easy"] |
 | 463 | Pretentious | adj | phô trương, làm ra vẻ quan trọng/hiểu biết hơn thực tế |  | [] | [] | [] |  |  |  | ["very-easy"] |
@@ -577,7 +577,7 @@ The earlier note that these entries did not replace `data/vocabulary.json` was s
 | 562 | Ingenuity | n | sự khéo léo, tài xoay xở sáng tạo |  | [] | [] | [] |  |  |  | ["very-difficult"] |
 | 563 | Marginal | adj | nhỏ, không đáng kể; ở bên lề, thứ yếu |  | [] | [] | [] |  |  |  | ["easy"] |
 | 564 | Marginalize | v | gạt ra bên lề, làm cho (nhóm/người) mất tiếng nói và cơ hội |  | [] | [] | [] |  |  |  | ["very-easy"] |
-| 565 | AI slop | n | nội dung do AI tạo hàng loạt, chất lượng thấp, vô giá trị |  | [] | [] | [] |  |  |  | ["very-easy"] |
+| 565 | AI slop | n | nội dung số chất lượng thấp do trí tuệ nhân tạo tạo ra |  | [] | [] | [] | informal | disapproving |  | ["very-easy"] |
 | 566 | Anthropomorphic | adj | nhân hóa, mang hình dáng/đặc điểm con người (vật, động vật, thần thánh) |  | [] | [] | [] |  |  |  | [] |
 | 567 | Soap opera | n | phim truyền hình dài tập nhiều drama tình cảm |  | [] | [] | [] |  |  |  | ["easy"] |
 | 568 | Churn out | phrasal v | sản xuất hàng loạt, nhanh và nhiều (thường kém chất lượng) |  | [] | [] | [] |  |  |  | ["easy"] |
@@ -591,19 +591,19 @@ The earlier note that these entries did not replace `data/vocabulary.json` was s
 | 576 | State-funded | adj | do nhà nước tài trợ, cấp kinh phí |  | [] | [] | [] |  |  |  | [] |
 | 577 | Council estate | n | khu nhà ở xã hội do chính quyền địa phương xây (Anh) |  | [] | [] | [] |  |  |  | [] |
 | 578 | Lark | n | trò vui, trò đùa cho vui không nghiêm túc (for a lark); chim sơn ca |  | [] | [] | [] |  |  |  | ["difficult"] |
-| 579 | Burning social conscience | phrase | ý thức trách nhiệm xã hội mãnh liệt, luôn day dứt thôi thúc |  | [] | [] | [] |  |  |  | ["very-difficult"] |
+| 579 | Burning social conscience | phrase | ý thức xã hội mãnh liệt: sự quan tâm sâu sắc đến người nghèo, người bệnh, người cao tuổi và mong muốn giúp đỡ họ |  | [] | [] | [] |  |  | Diễn giải theo nghĩa kết hợp của các thành phần; không khẳng định đây là thành ngữ cố định. Burning dùng cho mong muốn rất mạnh; social conscience nói về sự quan tâm đến các nhóm yếu thế và cố gắng giúp họ. Nguồn: https://dictionary.cambridge.org/us/dictionary/learner-english/burning ; https://dictionary.cambridge.org/dictionary/english/social-conscience | ["very-difficult"] |
 | 580 | Make a dent in | idiom | tạo ra tiến triển/tác động (dù nhỏ) đối với vấn đề lớn; làm hao hụt (tiền) |  | [] | [] | [] |  |  |  | ["difficult"] |
 | 581 | Shrinking violet | idiom | người cực kỳ nhút nhát, rụt rè |  | [] | [] | [] |  |  |  | ["easy"] |
-| 582 | Strident | adj | chói tai, gay gắt; (quan điểm) quyết liệt, hùng hổ đến khó chịu |  | [] | [] | [] |  |  |  | ["easy"] |
+| 582 | Strident | adj | chói tai, to, thô ráp và khó chịu; (lời nói hoặc quan điểm) được diễn đạt mạnh mẽ, không tránh việc làm người khác khó chịu |  | [] | [] | [] |  |  |  | ["easy"] |
 | 583 | Incendiary device | collocation | thiết bị gây cháy, bom cháy |  | [] | [] | [] |  |  |  | ["very-easy"] |
-| 584 | Streaky bacon | n | thịt ba chỉ xông khói (nạc mỡ xen kẽ) |  | [] | [] | [] |  |  |  | [] |
+| 584 | Streaky bacon | n | thịt lợn kiểu bacon có các dải mỡ xen kẽ các dải thịt; thường được ăn chiên thành lát mỏng |  | [] | [] | [] |  |  | Streaky mô tả các dải mỡ và thịt; không mặc định bacon phải được xông khói. Cambridge ghi smoked streaky bacon như một lựa chọn. Nguồn: https://dictionary.cambridge.org/dictionary/english/streaky-bacon | [] |
 | 585 | Roving | adj | lưu động, nay đây mai đó (roving reporter, roving eye) |  | [] | [] | [] |  |  |  | [] |
 | 586 | Plethora | n | số lượng quá nhiều, thừa mứa (a plethora of) |  | [] | [] | [] |  |  |  | ["easy"] |
 | 587 | Chronically | adv | một cách kinh niên, dai dẳng kéo dài (chronically ill, chronically underfunded) |  | [] | [] | [] |  |  |  | ["easy"] |
 | 588 | Chronic | adj | mãn tính, kinh niên; dai dẳng, kéo dài (bệnh, vấn đề) |  | [] | [] | [] |  |  |  | ["easy"] |
 | 589 | Chronicity | n | tính mãn tính, tính kéo dài dai dẳng (thuật ngữ y khoa) |  | [] | [] | [] |  |  |  | ["easy"] |
 | 590 | Low-hanging fruit | idiom | mục tiêu dễ đạt nhất, việc dễ làm nên làm trước |  | [] | [] | [] |  |  |  | ["difficult"] |
-| 591 | Public purse | n | ngân sách nhà nước, tiền thuế của dân |  | [] | [] | [] |  |  |  | [] |
+| 591 | Public purse | n | ngân quỹ công, tiền của chính phủ |  | [] | [] | [] | mainly UK |  |  | [] |
 | 592 | Allot | v | phân bổ, phân chia, cấp cho (thời gian, tiền, nhiệm vụ) |  | [] | [] | [] |  |  |  | [] |
 | 593 | Allotment | n | phần được phân bổ; sự phân bổ; (Anh) mảnh đất thuê để trồng rau |  | [] | [] | [] |  |  |  | [] |
 | 594 | Extraction | n | sự chiết xuất, khai thác, nhổ (răng); nguồn gốc xuất thân (of Chinese extraction) |  | [] | [] | [] |  |  |  | [] |
@@ -629,7 +629,7 @@ The earlier note that these entries did not replace `data/vocabulary.json` was s
 | 614 | Acquire | v | tiếp thu (kiến thức, kỹ năng); có được qua nỗ lực hoặc mua lại. | acquisition (n: sự tiếp thu/mua lại), acquired (adj: có được, không bẩm sinh). | [] | [] | [] |  |  | **Phân biệt:** Acquire nhấn việc có được hoặc hình thành thứ trước đó chưa có (kỹ năng, tài sản); obtain thường nhấn lấy được thứ cần tìm, hai từ có thể giao nhau. Learn nói quá trình học/biết, không dùng thay acquire khi mua tài sản. **Nguồn:** [2025/ba-ria-vung-tau/so.md:102](https://github.com/coderunknow/Chuyen-Anh/blob/424de9c23bc0398ca58ef627e2aa4dd5129495e8/De-chuyen-Anh-vao-10/2025/ba-ria-vung-tau/so.md#L102) (dạng trong nguồn: acquire). | [] |
 | 615 | Adapt | v | thích nghi; điều chỉnh cho phù hợp; chuyển thể. | adaptation (n: sự thích nghi/bản chuyển thể), adaptable (adj: dễ thích nghi), adaptability (n). | [] | [] | [] |  |  | **Phân biệt:** Adapt là thay đổi cho phù hợp; adopt là nhận nuôi hoặc tiếp nhận một phương pháp, không phải biến thể của adapt. **Nguồn:** [2025/ha-noi/so.md:215](https://github.com/coderunknow/Chuyen-Anh/blob/424de9c23bc0398ca58ef627e2aa4dd5129495e8/De-chuyen-Anh-vao-10/2025/ha-noi/so.md#L215) (dạng trong nguồn: adapt). | [] |
 | 616 | Allocate | v | phân bổ tiền, thời gian hoặc nguồn lực cho mục đích cụ thể. | allocation (n: sự/phần phân bổ), allocated (adj: được phân bổ). | [] | [] | [] |  |  | **Phân biệt:** Allocate nhấn quyết định chia nguồn lực; distribute nhấn việc phân phát tới người hoặc nơi nhận. **Nguồn:** [2025/binh-duong/so.md:562](https://github.com/coderunknow/Chuyen-Anh/blob/424de9c23bc0398ca58ef627e2aa4dd5129495e8/De-chuyen-Anh-vao-10/2025/binh-duong/so.md#L562) (dạng trong nguồn: allocating). | [] |
-| 617 | Anticipate | v | dự đoán và chuẩn bị đón trước; mong đợi. | anticipation (n: sự dự liệu/mong đợi), anticipated (adj: được dự kiến). | [] | [] | [] |  |  | **Phân biệt:** Anticipate thường bao hàm chuẩn bị trước; expect chỉ tin rằng điều gì sẽ xảy ra. **Nguồn:** [2024/tp-ho-chi-minh/so.md:107](https://github.com/coderunknow/Chuyen-Anh/blob/424de9c23bc0398ca58ef627e2aa4dd5129495e8/De-chuyen-Anh-vao-10/2024/tp-ho-chi-minh/so.md#L107) (dạng trong nguồn: anticipate). | [] |
+| 617 | Anticipate | v | dự đoán, mong đợi; (nghĩa riêng) hành động trước để chuẩn bị cho điều mình nghĩ sẽ xảy ra | anticipation (n: sự dự liệu/mong đợi), anticipated (adj: được dự kiến). | [] | [] | [] |  |  | **Phân biệt:** anticipate có nghĩa “dự đoán/mong đợi” và một nghĩa riêng là “hành động để chuẩn bị”; nghĩa thứ nhất không mặc định bao hàm chuẩn bị. **Nguồn:** [2024/tp-ho-chi-minh/so.md:107](https://github.com/coderunknow/Chuyen-Anh/blob/424de9c23bc0398ca58ef627e2aa4dd5129495e8/De-chuyen-Anh-vao-10/2024/tp-ho-chi-minh/so.md#L107) (dạng trong nguồn: anticipate). | [] |
 | 618 | Assess | v | đánh giá mức độ, chất lượng, giá trị hoặc rủi ro. | assessment (n: sự/bài đánh giá), assessor (n: người đánh giá). | [] | [] | [] |  |  | **Phân biệt:** Assess thường xác định mức độ theo tiêu chí; estimate chỉ ước lượng con số hay quy mô. **Nguồn:** [2026/nghe-an/so.md:566](https://github.com/coderunknow/Chuyen-Anh/blob/424de9c23bc0398ca58ef627e2aa4dd5129495e8/De-chuyen-Anh-vao-10/2026/nghe-an/so.md#L566) (dạng trong nguồn: assess). | [] |
 | 619 | Assume | v | cho là đúng khi chưa có đủ bằng chứng; đảm nhận. | assumption (n: giả định), assumed (adj: được giả định). | [] | [] | [] |  |  | **Phân biệt:** Assume là lấy làm tiền đề; infer là suy ra từ bằng chứng. Assume responsibility là đảm nhận trách nhiệm. **Nguồn:** [2026/ha-tinh/so.md:190](https://github.com/coderunknow/Chuyen-Anh/blob/424de9c23bc0398ca58ef627e2aa4dd5129495e8/De-chuyen-Anh-vao-10/2026/ha-tinh/so.md#L190) (dạng trong nguồn: assume). | [] |
 | 620 | Clarification | n | sự làm rõ, lời giải thích giúp hết mơ hồ. | clarify (v: làm rõ), clarity (n: độ rõ ràng). | [] | [] | [] |  |  | **Phân biệt:** Clarification tập trung giải quyết chỗ chưa rõ; explanation rộng hơn, có thể nêu nguyên nhân hoặc cách hoạt động. **Nguồn:** [2025/tuyen-quang/so.md:322](https://github.com/coderunknow/Chuyen-Anh/blob/424de9c23bc0398ca58ef627e2aa4dd5129495e8/De-chuyen-Anh-vao-10/2025/tuyen-quang/so.md#L322) (dạng trong nguồn: clarification). | [] |

@@ -655,3 +655,15 @@ All entries recorded with verbatim Cambridge excerpt, headword, Cambridge POS, V
 
 **Next actions to unblock:** Continue sequential fetch_page verification from ID 129 Despondent onward in batches (same evidence schema), updating JSON/Markdown/tests per batch, re-running full tests, appending logs, until 913/913 verified. Then re-verify CI green, resolve Kilo review if needed, and execute merge/tag/release phases.
 
+
+## 2026-10-20 — v1.0.0-dev5 audit remediation and successor candidate (pre-merge checkpoint)
+
+**Type: audit/remediation and release-gate checkpoint.** The inherited record says all 913 source rows were read in numeric order before dictionary research; the dev5 generator asserts the source/JSON/report mapping and the audit tests assert all IDs and counts. This source coverage is not dictionary completion.
+
+- Corrected 16 source rows on evidence; synchronized `data/vocabulary.json` and the embedded `index.html` payload. The report separates 145 dictionary-evidence rows (127 carried forward without dev5 re-fetch + 18 directly checked), 768 pending (765 not targeted + IDs 448/456/579 with non-exact evidence), and 16 source corrections (14 exact-headword-backed, 2 grammar/component-only). It explicitly does not claim 913/913 dictionary verification.
+- Reconciled the dev4 ledger to 132 verified / 781 pending, repaired five paraphrased legacy excerpts, reclassified ID 448 to pending, and retired the old dev4 generator so it cannot overwrite the corrected ledger. Kept all source rows.
+- Advanced release metadata to dev5, held deployment on `v1.0.0-dev5`, and made a published-release event re-run the deploy gate against `main`; release publication remains a separate, post-merge action.
+- Local verification at this checkpoint: vocabulary build check, validator (913 rows, 0 duplicate IDs/words), HTML embedding check (913 entries), exam archive check (106 records / 4,169,772 text bytes), dev5 report `--check`, Draft 2020-12 schema/report validation, Python 63/63, Node 41/41, Chromium 133 learning and exam suites, workflow YAML parsing, and `git diff --check` all passed. `actionlint` was not installed; GitHub CI has not yet run for the successor.
+- Live gate state: PR #27 remains OPEN/MERGEABLE/UNSTABLE, with Static checks and CodeRabbit passing and Kilo Code Review failing (quota/action-required); its title still claims 913/913 dictionary verification, so it will not be merged. `main` is unprotected and has no rulesets. Published tags/releases dev1–dev4 remain; dev5 tag/release is absent and the live deploy gate returns `deploy=false`.
+
+**Not yet done at this checkpoint:** successor PR creation/review, merge, annotated tag, GitHub release publication, deployment, and closing PR #27. No release or production deployment was attempted.

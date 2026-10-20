@@ -1,0 +1,315 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:chuyen-anh:vocabulary-audit:dev5:2.0.0",
+  "title": "Chuyen Anh v1.0.0-dev5 vocabulary evidence audit",
+  "description": "Versioned, source-led audit. Source-review coverage, structural checks, carried-forward evidence, current exact-headword checks, and pending work are separate measures.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion", "appVersion", "generatedAt", "total", "sourceReview", "summary",
+    "methodology", "entries", "targetedReviews", "corrections", "legacyEvidenceRepairs"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "2.0.0" },
+    "appVersion": { "const": "v1.0.0-dev5" },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "total": { "const": 913 },
+    "sourceReview": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sourceFile", "sourceRowsReadInNumericOrder", "firstId", "lastId",
+        "completedBeforeDictionaryResearch", "comparisonBeforeSourceEdits", "generationParityAssertions"
+      ],
+      "properties": {
+        "sourceFile": { "const": "Learned_Vocabulary_List.md" },
+        "sourceRowsReadInNumericOrder": { "const": 913 },
+        "firstId": { "const": "1" },
+        "lastId": { "const": "913" },
+        "completedBeforeDictionaryResearch": { "const": true },
+        "comparisonBeforeSourceEdits": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["sourceRows", "appJsonRows", "dev4AuditRows", "sourceJsonFieldDifferences", "sourceDev4AuditFieldDifferences", "normalization"],
+          "properties": {
+            "sourceRows": { "const": 913 },
+            "appJsonRows": { "const": 913 },
+            "dev4AuditRows": { "const": 913 },
+            "sourceJsonFieldDifferences": { "const": 0 },
+            "sourceDev4AuditFieldDifferences": { "const": 0 },
+            "normalization": { "type": "string", "minLength": 1 }
+          }
+        },
+        "generationParityAssertions": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["sourceToAppJson", "sourceToDev5Entries", "embeddedHtml"],
+          "properties": {
+            "sourceToAppJson": { "type": "string", "minLength": 1 },
+            "sourceToDev5Entries": { "type": "string", "minLength": 1 },
+            "embeddedHtml": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sourceRowsReviewed", "sourceRowsUnreviewed", "automatedStructuralChecks",
+        "dictionaryVerified", "dictionaryVerifiedCarriedForwardFromDev4",
+        "legacyExactHeadwordsDirectlyRevalidatedInDev5", "newExactHeadwordsDirectlyVerifiedInDev5",
+        "exactHeadwordsDirectlyCheckedInDev5", "dictionaryPending",
+        "dictionaryPendingWithTargetedNonExactEvidence", "dictionaryPendingNotTargetedThisPass",
+        "uniqueDeepReviewIds", "targetedConcernsReviewed", "evidenceBackedSourceCorrections",
+        "sourceCorrectionsWithExactHeadwordDictionaryEvidence",
+        "sourceCorrectionsWithGrammarOrComponentEvidenceOnly", "legacyEvidenceCorrections",
+        "unresolvedTargetedConcerns", "claimsAll913DictionaryVerified"
+      ],
+      "properties": {
+        "sourceRowsReviewed": { "const": 913 },
+        "sourceRowsUnreviewed": { "const": 0 },
+        "automatedStructuralChecks": { "const": 913 },
+        "dictionaryVerified": { "const": 145 },
+        "dictionaryVerifiedCarriedForwardFromDev4": { "const": 127 },
+        "legacyExactHeadwordsDirectlyRevalidatedInDev5": { "const": 5 },
+        "newExactHeadwordsDirectlyVerifiedInDev5": { "const": 13 },
+        "exactHeadwordsDirectlyCheckedInDev5": { "const": 18 },
+        "dictionaryPending": { "const": 768 },
+        "dictionaryPendingWithTargetedNonExactEvidence": { "const": 3 },
+        "dictionaryPendingNotTargetedThisPass": { "const": 765 },
+        "uniqueDeepReviewIds": { "const": 21 },
+        "targetedConcernsReviewed": { "const": 16 },
+        "evidenceBackedSourceCorrections": { "const": 16 },
+        "sourceCorrectionsWithExactHeadwordDictionaryEvidence": { "const": 14 },
+        "sourceCorrectionsWithGrammarOrComponentEvidenceOnly": { "const": 2 },
+        "legacyEvidenceCorrections": { "const": 6 },
+        "unresolvedTargetedConcerns": { "const": 0 },
+        "claimsAll913DictionaryVerified": { "const": false }
+      }
+    },
+    "methodology": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["goal", "steps", "evidenceRules", "limitations", "tierCounts", "primaryDictionary", "reviewDate"],
+      "properties": {
+        "goal": { "type": "string", "minLength": 1 },
+        "steps": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+        "evidenceRules": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+        "limitations": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+        "tierCounts": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["core", "extended", "word-family"],
+          "properties": { "core": { "const": 300 }, "extended": { "const": 313 }, "word-family": { "const": 300 } }
+        },
+        "primaryDictionary": { "const": "Cambridge Dictionary" },
+        "reviewDate": { "const": "2026-10-20" }
+      }
+    },
+    "entries": {
+      "type": "array",
+      "minItems": 913,
+      "maxItems": 913,
+      "items": { "$ref": "#/$defs/entry" }
+    },
+    "targetedReviews": {
+      "type": "array",
+      "minItems": 16,
+      "maxItems": 16,
+      "items": { "$ref": "#/$defs/targetedReview" }
+    },
+    "corrections": {
+      "type": "array",
+      "minItems": 16,
+      "maxItems": 16,
+      "items": { "$ref": "#/$defs/correction" }
+    },
+    "legacyEvidenceRepairs": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "items": { "$ref": "#/$defs/legacyRepair" }
+    }
+  },
+  "$defs": {
+    "vocabularySource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["word", "pos", "meaning", "tags", "wordFamily", "synonyms", "antonyms", "collocations", "register", "connotation", "notes"],
+      "properties": {
+        "word": { "type": "string", "minLength": 1 },
+        "pos": { "type": "string", "minLength": 1 },
+        "meaning": { "type": "string", "minLength": 1 },
+        "tags": { "type": "array", "items": { "type": "string" } },
+        "wordFamily": { "type": "string" },
+        "synonyms": { "type": "array", "items": { "type": "string" } },
+        "antonyms": { "type": "array", "items": { "type": "string" } },
+        "collocations": { "type": "array", "items": { "type": "string" } },
+        "register": { "type": "string" },
+        "connotation": { "type": "string" },
+        "notes": { "type": "string" }
+      }
+    },
+    "evidenceSource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "sourceType", "url", "retrievedAt", "excerpts"],
+      "properties": {
+        "source": { "type": "string", "minLength": 1 },
+        "sourceType": { "type": "string", "minLength": 1 },
+        "url": { "type": "string", "format": "uri" },
+        "retrievedAt": { "type": "string", "format": "date" },
+        "excerpts": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+        "partOfSpeech": { "type": "string", "minLength": 1 },
+        "note": { "type": "string", "minLength": 1 }
+      }
+    },
+    "entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "tier", "source", "appMetadata", "dictionaryVerification", "supplementalEvidence"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^(?:[1-9][0-9]{0,2})$" },
+        "tier": { "enum": ["core", "extended", "word-family"] },
+        "source": { "$ref": "#/$defs/vocabularySource" },
+        "appMetadata": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["examples", "difficulty", "createdAt"],
+          "properties": {
+            "examples": { "type": "array", "items": { "type": "object" } },
+            "difficulty": { "type": ["integer", "null"] },
+            "createdAt": { "type": ["string", "null"] }
+          }
+        },
+        "dictionaryVerification": { "$ref": "#/$defs/dictionaryVerification" },
+        "supplementalEvidence": { "type": "array", "items": { "$ref": "#/$defs/evidenceSource" } }
+      }
+    },
+    "dictionaryVerification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status", "url", "headword", "partOfSpeech", "definitionExcerpt", "additionalDefinitionExcerpts",
+        "exampleExcerpts", "retrievedAt", "evidenceBasis", "revalidatedInDev5", "notes"
+      ],
+      "properties": {
+        "status": { "enum": ["verified", "pending-manual"] },
+        "url": { "type": ["string", "null"], "format": "uri" },
+        "candidateUrl": { "type": "string", "format": "uri" },
+        "headword": { "type": ["string", "null"] },
+        "partOfSpeech": { "type": ["string", "null"] },
+        "definitionExcerpt": { "type": ["string", "null"] },
+        "additionalDefinitionExcerpts": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "exampleExcerpts": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "retrievedAt": { "type": ["string", "null"], "format": "date" },
+        "evidenceBasis": {
+          "enum": [
+            "dev5-direct-revalidation", "dev5-direct-new-check",
+            "dev4-evidence-carried-forward-not-rechecked-in-dev5",
+            "component-only-not-an-exact-phrase-headword",
+            "grammar-or-component-evidence-only-not-an-exact-headword",
+            "generated-candidate-url-only-not-evidence", "not-dictionary-verified"
+          ]
+        },
+        "revalidatedInDev5": { "type": "boolean" },
+        "notes": { "type": "string", "minLength": 1 }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "status": { "const": "verified" } }, "required": ["status"] },
+          "then": {
+            "properties": {
+              "url": { "type": "string", "format": "uri" },
+              "headword": { "type": "string", "minLength": 1 },
+              "partOfSpeech": { "type": "string", "minLength": 1 },
+              "definitionExcerpt": { "type": "string", "minLength": 1 },
+              "retrievedAt": { "type": "string", "format": "date" }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "status": { "const": "pending-manual" } }, "required": ["status"] },
+          "then": {
+            "properties": {
+              "url": { "type": "null" },
+              "headword": { "type": "null" },
+              "partOfSpeech": { "type": "null" },
+              "definitionExcerpt": { "type": "null" },
+              "retrievedAt": { "type": "null" },
+              "revalidatedInDev5": { "const": false }
+            }
+          }
+        }
+      ]
+    },
+    "targetedReview": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "word", "reviewed", "originalConcern", "disposition", "sourceCorrection", "changedFields", "dictionaryVerification", "evidence"],
+      "properties": {
+        "id": { "type": "string" },
+        "word": { "type": "string", "minLength": 1 },
+        "reviewed": { "const": true },
+        "originalConcern": { "type": "string", "minLength": 1 },
+        "disposition": { "type": "string", "minLength": 1 },
+        "sourceCorrection": { "const": true },
+        "changedFields": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+        "dictionaryVerification": { "enum": ["verified", "pending-manual"] },
+        "evidence": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/evidenceSource" } }
+      }
+    },
+    "correction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "word", "changes", "evidence", "dictionaryStatus", "disposition"],
+      "properties": {
+        "id": { "type": "string" },
+        "word": { "type": "string", "minLength": 1 },
+        "changes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "description": "The versioned audit tests enforce that before and after differ.",
+            "additionalProperties": false,
+            "required": ["field", "before", "after"],
+            "properties": {
+              "field": { "enum": ["word", "pos", "meaning", "tags", "wordFamily", "synonyms", "antonyms", "collocations", "register", "connotation", "notes"] },
+              "before": { "type": "string" },
+              "after": { "type": "string" }
+            }
+          }
+        },
+        "evidence": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/evidenceSource" } },
+        "dictionaryStatus": { "enum": ["verified", "pending-manual"] },
+        "disposition": { "enum": [
+          "revalidated-and-source-corrected", "corrected-with-grammar-evidence-not-dictionary-verified",
+          "corrected-with-component-evidence-not-exact-phrase-verified", "corrected-and-exact-headword-verified"
+        ] }
+      }
+    },
+    "legacyRepair": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["id", "action", "oldExcerpt", "newDefinitionExcerpt", "dictionaryStatus", "revalidatedInDev5"],
+      "properties": {
+        "id": { "type": "string" },
+        "action": { "type": "string", "minLength": 1 },
+        "oldExcerpt": { "type": "string", "minLength": 1 },
+        "newDefinitionExcerpt": { "type": ["string", "null"] },
+        "additionalDefinitionExcerpts": { "type": "array", "items": { "type": "string" } },
+        "url": { "type": "string", "format": "uri" },
+        "attemptedExactHeadwordUrl": { "type": "string", "format": "uri" },
+        "inspectedComponentUrl": { "type": "string", "format": "uri" },
+        "componentExcerpt": { "type": "string" },
+        "exampleExcerpt": { "type": "string" },
+        "retrievedAt": { "type": "string", "format": "date" },
+        "dictionaryStatus": { "enum": ["verified", "pending-manual"] },
+        "revalidatedInDev5": { "type": "boolean" },
+        "reason": { "type": "string" }
+      }
+    }
+  }
+}

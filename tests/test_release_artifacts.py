@@ -114,7 +114,7 @@ class ReleaseArtifactUnitTests(unittest.TestCase):
 class ProcessFlowTests(unittest.TestCase):
     """Branch coverage for process(): tag resolution, uploads, and re-verification."""
 
-    TAG = 'v1.0.0-dev3'
+    TAG = 'v1.0.0-dev5'
     COMMIT = 'a' * 40
 
     def setUp(self):

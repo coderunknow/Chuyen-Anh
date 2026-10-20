@@ -17,6 +17,13 @@ on:
       - "scripts/deploy_gate.py"
       - "docs/vocabulary-300-*.json"
       - "docs/vocabulary-300-review.md"
+      - "docs/vocabulary-audit-dev*.json"
+      - "docs/vocabulary-audit-dev*.md"
+      - "scripts/generate_vocab_audit_dev*.py"
+      - "README.md"
+      - "CHANGELOG.md"
+      - "DESIGN_LOG.md"
+      - "AGENTS_LOG.md"
       - "De-chuyen-Anh-vao-10/**"
       - "tests/**"
       - ".github/workflows/ci.yml"
@@ -39,6 +46,13 @@ on:
       - "scripts/deploy_gate.py"
       - "docs/vocabulary-300-*.json"
       - "docs/vocabulary-300-review.md"
+      - "docs/vocabulary-audit-dev*.json"
+      - "docs/vocabulary-audit-dev*.md"
+      - "scripts/generate_vocab_audit_dev*.py"
+      - "README.md"
+      - "CHANGELOG.md"
+      - "DESIGN_LOG.md"
+      - "AGENTS_LOG.md"
       - "De-chuyen-Anh-vao-10/**"
       - "tests/**"
       - ".github/workflows/ci.yml"
@@ -66,6 +80,7 @@ jobs:
       - name: Check vocabulary sources and embedded HTML
         run: |
           python scripts/build_vocabulary.py --check
+          python scripts/generate_vocab_audit_dev5.py --check
           python scripts/validate_vocab.py
           python scripts/embed_vocabulary.py --check
           python scripts/exams/embed_archive.py --check

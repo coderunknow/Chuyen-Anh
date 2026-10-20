@@ -95,7 +95,7 @@ Chỉ cần giữ `index.html` khi sao chép/triển khai ứng dụng. Các t�
 
 Khi nguồn dữ liệu, validator, bộ đồng bộ, kho đề hoặc app thay đổi trên `main`, workflow kiểm tra bảng/JSON/HTML và 106 bản chép đã được nhúng đồng bộ, chạy unit test Python và Node, rồi mới stage và upload **chỉ `index.html`** lên GitHub Pages. File này chứa cả dữ liệu từ vựng lẫn bản chép đề; không cần tệp chạy-time nào khác. Lỗi ở bất kỳ bước kiểm tra nào sẽ chặn deploy. Không có frontend bundler, npm install hay backend.
 
-**Cổng deploy-hold (thứ tự release).** Tệp `DEPLOY_HOLD` ở gốc repo khai báo một tag release phải được publish prerelease trước khi Pages được phép xuất bản; `scripts/deploy_gate.py` đánh giá cổng này ngay sau checkout. Các bước kiểm tra luôn chạy; chỉ các bước stage/upload/deploy bị hoãn khi cổng đóng. Cổng tự mở cho mọi lần deploy sau khi release được khai báo đã là prerelease published, nên các thay đổi tương lai vẫn tự động deploy mà không cần xóa tệp marker; maintainer có thể ép deploy bằng input `force_deploy` khi dispatch thủ công. Thao tác này phục vụ đúng thứ tự: merge → tag → đóng gói/kiểm chứng asset → publish prerelease → deploy. Vòng đời marker: khi release được khai báo đã publish, cổng tự mở vĩnh viễn cho đến khi có marker mới; với v1.0.0-dev3, tệp `DEPLOY_HOLD` bị gỡ sau khi prerelease được publish để kích hoạt lại workflow theo bộ lọc `paths` (push chỉ đổi log sẽ không kích hoạt deploy) và để repo ở trạng thái auto-deploy như trước dev3; muốn giữ deploy của một release tương lai, tạo lại `DEPLOY_HOLD` chứa đúng tag của release đó.
+**Cổng deploy-hold (thứ tự release).** Tệp `DEPLOY_HOLD` ở gốc repo khai báo tag release phải được publish prerelease trước khi Pages được phép xuất bản; `scripts/deploy_gate.py` đánh giá trạng thái `draft`/`prerelease` qua GitHub API ngay sau checkout và fail-closed nếu trạng thái không rõ. Các bước kiểm tra luôn chạy; chỉ stage/upload/deploy bị hoãn khi cổng đóng. Marker hiện nêu `v1.0.0-dev5`: trước khi prerelease đó được publish, Pages bị giữ; sự kiện `release.published` tự chạy lại workflow deploy, và khi GitHub xác nhận release đã publish với cờ prerelease, cổng mở cho lần deploy đó và mọi lần sau, không cần xóa marker. Thứ tự yêu cầu là merge → xác minh commit/tag → build và tải lại để kiểm chứng asset → publish prerelease → deploy. `force_deploy` chỉ dành cho maintainer chủ động dispatch và không thay thế các bước phát hành/kiểm chứng. Lịch sử: marker của dev3 đã được gỡ sau khi prerelease đó xuất bản; marker dev5 là một hold riêng. Nếu push chỉ đổi log và không khớp bộ lọc `paths`, cần dispatch workflow phù hợp thay vì bỏ qua cổng.
 
 ### Release artifacts `.github/workflows/release-artifacts.yml` + `scripts/release_artifacts.py`
 
@@ -105,12 +105,12 @@ Khi push tag khớp `v1.0.0-dev*`, workflow build artifact từ **đúng commit 
 - `chuyen-anh-<tag>.zip` — đúng ba tệp ở root: `index.html`, `README.md`, `LICENSE`; CRC và nội dung từng tệp được kiểm tra.
 - `chuyen-anh-<tag>-checksums.txt` — manifest SHA-256 cho hai tệp trên, dùng được với `sha256sum -c`.
 
-Script tạo draft prerelease (nếu release chưa tồn tại), upload asset còn thiếu, **tải lại toàn bộ asset từ GitHub và so sánh SHA-256** với artifact vừa build; asset trùng tên khác nội dung bị từ chối thay thế. Việc publish draft thành prerelease là thao tác riêng sau khi kiểm chứng. Release cũ (`dev1`, `dev2`) không bị thay đổi bởi lần chạy theo tag của dev3.
+Script tạo draft prerelease (nếu release chưa tồn tại), upload asset còn thiếu, **tải lại toàn bộ asset từ GitHub và so sánh SHA-256** với artifact vừa build; asset trùng tên khác nội dung bị từ chối thay thế. Việc publish draft thành prerelease là thao tác riêng sau khi kiểm chứng. Quy trình có thể chạy lại an toàn với asset trùng khớp; asset hiện hữu khác nội dung sẽ làm quy trình dừng thay vì bị ghi đè.
 
 Kiểm chứng một bản tải về:
 
 ```bash
-sha256sum -c chuyen-anh-v1.0.0-dev3-checksums.txt
+sha256sum -c chuyen-anh-v1.0.0-dev5-checksums.txt
 ```
 
 ### CI `.github/workflows/ci.yml`
@@ -121,7 +121,7 @@ GitHub Pages cần được bật với source **GitHub Actions** trong Settings
 
 ## Kho đề và nguồn dữ liệu
 
-106 tệp Markdown và manifest đã chọn nằm trong `De-chuyen-Anh-vao-10/` và `scripts/exams/selection.json`; build script chỉ nhúng các bản đã có trong manifest, không tự nhận đề mới. Nội dung trong Pages artifact được đóng gói trực tiếp vào `index.html`; GitHub Pages vẫn chỉ nhận một tệp. Các tệp nguồn được giữ nguyên để kiểm tra provenance và tái tạo payload. Phạm vi kho không khẳng định đã thu thập đủ toàn quốc; xem [`De-chuyen-Anh-vao-10/DO-PHU.md`](De-chuyen-Anh-vao-10/DO-PHU.md) và [`NGUON-CHO-XU-LY.md`](De-chuyen-Anh-vao-10/NGUON-CHO-XU-LY.md). Bằng chứng và phương pháp rà soát 300 mục bổ sung được ghi tại [`docs/vocabulary-300-review.md`](docs/vocabulary-300-review.md).
+106 tệp Markdown và manifest đã chọn nằm trong `De-chuyen-Anh-vao-10/` và `scripts/exams/selection.json`; build script chỉ nhúng các bản đã có trong manifest, không tự nhận đề mới. Nội dung trong Pages artifact được đóng gói trực tiếp vào `index.html`; GitHub Pages vẫn chỉ nhận một tệp. Các tệp nguồn được giữ nguyên để kiểm tra provenance và tái tạo payload. Phạm vi kho không khẳng định đã thu thập đủ toàn quốc; xem [`De-chuyen-Anh-vao-10/DO-PHU.md`](De-chuyen-Anh-vao-10/DO-PHU.md) và [`NGUON-CHO-XU-LY.md`](De-chuyen-Anh-vao-10/NGUON-CHO-XU-LY.md). Bằng chứng và phương pháp rà soát 300 mục bổ sung được ghi tại [`docs/vocabulary-300-review.md`](docs/vocabulary-300-review.md). Báo cáo dev5 đọc đủ 913 hàng nguồn nhưng **không** tuyên bố đã tra từ điển cho cả 913: 145 mục có bằng chứng từ điển (127 kế thừa hồ sơ dev4, chưa tra lại trong lượt dev5; 18 được kiểm tra trực tiếp trong lượt này), 768 mục còn chờ xác minh headword; xem [`docs/vocabulary-audit-dev5.md`](docs/vocabulary-audit-dev5.md) và [`docs/vocabulary-audit-dev5.json`](docs/vocabulary-audit-dev5.json).
 
 ## Kiểm tra luồng học bằng trình duyệt (tùy chọn)
 

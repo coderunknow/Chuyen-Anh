@@ -16,6 +16,8 @@ on:
       - "De-chuyen-Anh-vao-10/**"
       - ".github/workflows/deploy.yml"
       - "DEPLOY_HOLD"
+  release:
+    types: [published]
   workflow_dispatch:
     inputs:
       force_deploy:
@@ -43,15 +45,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: main
 
-      # Deploy-hold gate: the v1.0.0-dev3 procedure requires that Pages is not
-      # published before the tagged prerelease assets are built and verified.
+      # The release named in DEPLOY_HOLD must be published before Pages deploys.
       # Tests below always run; only the publish steps are deferred.
       - name: Evaluate deploy hold
         id: gate
         env:
           GH_TOKEN: ${{ github.token }}
-          FORCE_DEPLOY: ${{ inputs.force_deploy == true }}
+          FORCE_DEPLOY: ${{ github.event_name == 'workflow_dispatch' && inputs.force_deploy == true }}
         run: python3 scripts/deploy_gate.py
 
       - name: Check vocabulary sources and embedded HTML

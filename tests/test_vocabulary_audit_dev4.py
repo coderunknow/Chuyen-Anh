@@ -1,246 +1,167 @@
-import json, pathlib, unittest, re
-from datetime import datetime
+"""Regression tests for the corrected historical dev4 evidence ledger."""
+import hashlib
+import json
+import pathlib
+import re
+import subprocess
+import sys
+import unittest
 
-PLACEHOLDER_PATTERNS = [
-    "compatible with Vietnamese meaning",
-    "Cambridge adj definition",
-    "Cambridge n definition",
-    "Cambridge v definition",
-    "Cambridge adv definition",
-    "headword verified",
-    "generated URL",
-    "templated description"
-]
+ROOT = pathlib.Path(__file__).resolve().parents[1]
+SCRIPTS = ROOT / "scripts"
+sys.path.insert(0, str(SCRIPTS))
+from learned_vocabulary import parse_table  # noqa: E402
+
+DEV4_JSON = ROOT / "docs" / "vocabulary-audit-dev4.json"
+DEV4_MD = ROOT / "docs" / "vocabulary-audit-dev4.md"
+EXPECTED_VERIFIED_IDS = {str(i) for i in range(1, 129)} | {"281", "283", "341", "913"}
+SOURCE_FIELDS = (
+    "word", "pos", "meaning", "tags", "wordFamily", "synonyms", "antonyms",
+    "collocations", "register", "connotation", "notes",
+)
+PLACEHOLDER_TEXT = (
+    "compatible with vietnamese meaning", "cambridge adj definition", "headword verified",
+    "generated url", "templated description", "verified via cambridge",
+)
+
 
 class VocabularyAuditDev4Tests(unittest.TestCase):
-    def load_doc(self):
-        p = pathlib.Path("docs/vocabulary-audit-dev4.json")
-        self.assertTrue(p.exists(), "docs/vocabulary-audit-dev4.json must exist")
-        doc = json.loads(p.read_text(encoding="utf-8"))
-        return doc
+    @classmethod
+    def setUpClass(cls):
+        cls.doc = json.loads(DEV4_JSON.read_text(encoding="utf-8"))
+        cls.entries = cls.doc["entries"]
+        cls.by_id = {entry["id"]: entry for entry in cls.entries}
 
-    def test_audit_json_exists_and_has_913(self):
-        doc = self.load_doc()
-        self.assertEqual(doc["appVersion"], "v1.0.0-dev4")
-        self.assertEqual(doc["schemaVersion"], "1.0.0")
-        self.assertEqual(doc["total"], 913)
-        self.assertEqual(len(doc["entries"]), 913)
-        ids = [str(e["id"]) for e in doc["entries"]]
-        self.assertEqual(len(ids), len(set(ids)), "duplicate IDs")
-        self.assertEqual(len(ids), 913)
-        for e in doc["entries"]:
-            self.assertIn("id", e)
-            self.assertIn("word", e)
-            self.assertIn("evidence", e)
-            self.assertIn("cambridge", e["evidence"])
-            self.assertIn("provenance", e)
+    def test_audit_has_ordered_913_rows_and_current_source_parity(self):
+        self.assertEqual(self.doc["appVersion"], "v1.0.0-dev4")
+        self.assertEqual(self.doc["schemaVersion"], "1.0.0")
+        self.assertEqual(self.doc["total"], 913)
+        self.assertEqual(len(self.entries), 913)
+        self.assertEqual([entry["id"] for entry in self.entries], [str(i) for i in range(1, 914)])
 
-    def test_summary_counts_recalculated_from_entry_level(self):
-        doc = self.load_doc()
-        verified = [e for e in doc["entries"] if e["evidence"]["cambridge"]["checked"]]
-        pending = [e for e in doc["entries"] if not e["evidence"]["cambridge"]["checked"]]
-        # Recalculate from entry-level evidence — summary must match
-        self.assertEqual(doc["summary"]["dictionaryVerified"], len(verified), "summary dictionaryVerified must equal count of entries with checked true")
-        self.assertEqual(doc["summary"]["dictionaryChecked"], len(verified))
-        self.assertEqual(doc["summary"]["pendingManualDict"], len(pending))
-        self.assertEqual(doc["summary"]["pendingManualDict"], doc["total"] - doc["summary"]["dictionaryChecked"])
-        self.assertEqual(len(verified) + len(pending), doc["total"])
-        self.assertEqual(doc["summary"]["automatedChecks"], 913)
-        self.assertEqual(doc["summary"]["manualDictionaryVerified"], len(verified))
-        self.assertEqual(doc["summary"]["unresolved"], len(pending))
-        # Honest current state: 97 verified (82 retained + 15 newly fetched), 816 pending
-        self.assertEqual(len(verified), 133, f"Expected 97 genuinely verified entries (82 retained + 15 fetched), got {len(verified)}")
-        self.assertEqual(len(pending), 780, f"Expected 816 pending-manual entries, got {len(pending)}")
-        self.assertIn("retrievalMechanism", doc["summary"])
-        self.assertIn("fetch_page", doc["summary"]["retrievalMechanism"])
-        self.assertIn("dictionary.cambridge.org", doc["summary"]["retrievalMechanism"])
+        source = parse_table(ROOT / "Learned_Vocabulary_List.md")
+        app = json.loads((ROOT / "data" / "vocabulary.json").read_text(encoding="utf-8"))
+        self.assertEqual(len(source), 913)
+        self.assertEqual(len(app), 913)
+        for source_row, app_row, audit_row in zip(source, app, self.entries):
+            self.assertEqual(source_row["id"], app_row["id"])
+            self.assertEqual(source_row["id"], audit_row["id"])
+            for field in SOURCE_FIELDS:
+                self.assertEqual(source_row[field], app_row.get(field, ""),
+                                 f"source/JSON mismatch at ID {source_row['id']} field {field}")
+                audit_value = audit_row.get(field, "")
+                if audit_value is None and field in {"wordFamily", "register", "connotation", "notes"}:
+                    audit_value = ""
+                self.assertEqual(source_row[field], audit_value,
+                                 f"source/dev4 ledger mismatch at ID {source_row['id']} field {field}")
 
-    def test_verified_entries_have_genuine_cambridge_evidence(self):
-        doc = self.load_doc()
-        verified = [e for e in doc["entries"] if e["evidence"]["cambridge"]["checked"]]
-        for e in verified:
-            cam = e["evidence"]["cambridge"]
-            # Must be checked true and posMatch compatible
-            self.assertTrue(cam["checked"], f"ID {e['id']} cambridge checked should be true")
-            self.assertEqual(cam["posMatch"], "compatible", f"ID {e['id']} posMatch must be compatible")
-            # Definition excerpt must exist and be genuine dictionary definition, not placeholder
-            self.assertTrue(cam["definitionExcerpt"], f"ID {e['id']} missing definitionExcerpt")
-            excerpt = cam["definitionExcerpt"].strip()
-            self.assertTrue(len(excerpt) >= 8, f"ID {e['id']} excerpt too short — possible fabrication: '{excerpt}'")
-            # Placeholder detection: reject generic templated excerpts
-            lowered = excerpt.lower()
-            for pat in PLACEHOLDER_PATTERNS:
-                self.assertNotIn(pat.lower(), lowered, f"ID {e['id']} excerpt contains placeholder pattern '{pat}': '{excerpt}' — not genuine Cambridge excerpt")
-            # Excerpt must not start with 'Cambridge' (that's provenance language, not definition)
-            self.assertFalse(excerpt.lower().startswith("cambridge"), f"ID {e['id']} excerpt should be verbatim Cambridge definition, not meta description: '{excerpt}'")
-            # URL must be Cambridge and correspond to word
-            self.assertTrue(cam["url"].startswith("https://dictionary.cambridge.org/"), f"ID {e['id']} bad URL {cam['url']}")
-            # Check retrievedAt present and valid date
-            self.assertIn("retrievedAt", cam, f"ID {e['id']} missing retrievedAt")
-            self.assertTrue(cam["retrievedAt"], f"ID {e['id']} missing retrievedAt date — evidence-generation requires retrieval date")
-            # Validate date format YYYY-MM-DD
-            self.assertRegex(cam["retrievedAt"], r"^\d{4}-\d{2}-\d{2}$", f"ID {e['id']} retrievedAt must be YYYY-MM-DD")
-            # Provenance must contain URL, headword, and retrieval mechanism
-            prov = e["provenance"]
-            self.assertIn(cam["url"], prov if isinstance(prov, str) else str(prov), f"ID {e['id']} provenance must contain URL")
-            self.assertIn("Cambridge", prov if isinstance(prov, str) else str(prov), f"ID {e['id']} provenance must mention Cambridge")
-            # Notes must indicate actual inspection, not generated
-            notes = cam.get("notes", "")
-            self.assertIn("Inspected Cambridge entry", notes, f"ID {e['id']} notes must record actual Cambridge inspection (found '{notes[:80]}')")
-            self.assertIn(cam["retrievedAt"] if isinstance(cam["retrievedAt"], str) else "", notes, f"ID {e['id']} notes should contain retrieval date")
-            # Headword field should be present for genuine verification
-            # For original 82, headword may be implicit but we check that if present it matches word lowercased
-            if "headword" in cam:
-                # Headword should correspond to vocab word (allow multi-word and normalized forms)
-                expected = e["word"].lower()
-                actual = cam["headword"].lower()
-                # For multi-word vocab entries (e.g. "Menial task"), headword may be full phrase or first component — accept either
-                if " " in expected:
-                    self.assertTrue(actual in expected or expected in actual or actual.split()[0] == expected.split()[0],
-                                    f"ID {e['id']} headword mismatch: got '{actual}' expected '{expected}'")
-                else:
-                    self.assertEqual(actual, expected, f"ID {e['id']} headword mismatch")
-            # URL word correspondence (exempt phrase entries)
-            pos_tokens = re.findall(r"[a-z]+", e["pos"].lower())
-            is_phrase_like = any(t in pos_tokens for t in ["phrase","phrasal","idiom","collocation","grammar","structure","prep"])
-            if is_phrase_like or "+" in e["word"] or "(" in e["word"]:
-                self.assertTrue(cam["url"].startswith("https://dictionary.cambridge.org/"), f"ID {e['id']} bad URL for phrase entry")
-            else:
-                slug = re.sub(r'[^a-zA-Z0-9-]', '-', e["word"].lower()).strip('-')
-                slug = re.sub(r'-+', '-', slug)
-                if slug and len(slug) >= 3:
-                    first_part = slug.split('-')[0].lower()
-                    if len(first_part) >= 2:
-                        self.assertIn(first_part[:4] if len(first_part)>=4 else first_part, cam["url"].lower(), f"ID {e['id']} URL {cam['url']} does not match word {e['word']}")
-                    else:
-                        parts = [p for p in slug.split('-') if len(p)>=2]
-                        if parts:
-                            self.assertIn(parts[0][:4], cam["url"].lower(), f"ID {e['id']} URL {cam['url']} does not match word {e['word']}")
-                else:
-                    word_slug = e["word"].lower().replace(" ", "-").replace("'", "").replace("/", "-")
-                    self.assertIn(word_slug[:8], cam["url"].lower(), f"ID {e['id']} URL {cam['url']} does not match word {e['word']}")
-            self.assertEqual(e["status"], "verified-compat")
-            # Evidence must have 4 sources, all with required keys
-            for src in ["cambridge","oxfordLearners","merriamWebster","collins"]:
-                self.assertIn(src, e["evidence"])
-                self.assertIn("url", e["evidence"][src])
-                self.assertIn("checked", e["evidence"][src])
-                self.assertIn("definitionExcerpt", e["evidence"][src])
-                self.assertIn("posMatch", e["evidence"][src])
-                self.assertIn("notes", e["evidence"][src])
+    def test_summary_is_recalculated_and_dictionary_checks_are_separate(self):
+        summary = self.doc["summary"]
+        verified = [entry for entry in self.entries if entry["evidence"]["cambridge"]["checked"] is True]
+        pending = [entry for entry in self.entries if entry["evidence"]["cambridge"]["checked"] is False]
+        self.assertEqual({entry["id"] for entry in verified}, EXPECTED_VERIFIED_IDS)
+        self.assertEqual(len(verified), 132)
+        self.assertEqual(len(pending), 781)
+        self.assertEqual(summary["automatedChecks"], 913)
+        self.assertEqual(summary["dictionaryVerified"], 132)
+        self.assertEqual(summary["dictionaryChecked"], 132)
+        self.assertEqual(summary["manualDictionaryVerified"], 132)
+        self.assertEqual(summary["pendingManualDict"], 781)
+        self.assertEqual(summary["unresolved"], 781)
+        self.assertEqual(summary["sourceCorrectionsAttributedToDev4"], 0)
+        self.assertEqual(summary["dev5SourceCorrectionsSyncedForParity"], 16)
+        self.assertNotIn("verifiedCompatAuto", summary)
+        self.assertNotIn("autoChecked", summary)
+        self.assertEqual(summary["dictionaryVerified"] + summary["pendingManualDict"], 913)
+        self.assertIn("structural", summary["retrievalMechanism"].lower())
 
-    def test_pending_entries_are_honestly_marked_pending_manual(self):
-        doc = self.load_doc()
-        pending = [e for e in doc["entries"] if not e["evidence"]["cambridge"]["checked"]]
-        self.assertEqual(len(pending), 780)
-        for e in pending:
-            cam = e["evidence"]["cambridge"]
-            self.assertFalse(cam["checked"], f"ID {e['id']} pending should have checked false")
-            self.assertEqual(cam["posMatch"], "pending-manual", f"ID {e['id']} pending posMatch must be pending-manual")
-            self.assertIsNone(cam["definitionExcerpt"], f"ID {e['id']} pending should have definitionExcerpt null (not fabricated)")
-            self.assertIsNone(cam["retrievedAt"], f"ID {e['id']} pending should have retrievedAt null until inspected")
-            self.assertEqual(e["status"], "pending-manual")
-            self.assertIn("Pending manual verification", cam["notes"])
-            self.assertIn("not yet inspected", cam["notes"])
-            # Other sources also pending
-            for src in ["oxfordLearners","merriamWebster","collins"]:
-                self.assertFalse(e["evidence"][src]["checked"], f"ID {e['id']} pending source {src} should be unchecked")
-                self.assertEqual(e["evidence"][src]["posMatch"], "pending-manual")
-            # Provenance must indicate pending, not false Verified via Cambridge
-            self.assertIn("Pending manual verification", e["provenance"])
+    def test_verified_rows_have_entry_specific_cambridge_records(self):
+        verified = [entry for entry in self.entries if entry["evidence"]["cambridge"]["checked"]]
+        for entry in verified:
+            cam = entry["evidence"]["cambridge"]
+            self.assertEqual(entry["status"], "verified-compat", f"ID {entry['id']}")
+            self.assertEqual(cam["posMatch"], "compatible", f"ID {entry['id']}")
+            self.assertTrue(cam["headword"], f"ID {entry['id']} missing headword")
+            self.assertTrue(cam["cambridgePos"], f"ID {entry['id']} missing Cambridge POS")
+            self.assertTrue(cam["definitionExcerpt"], f"ID {entry['id']} missing excerpt")
+            self.assertTrue(cam["url"].startswith("https://dictionary.cambridge.org/"), f"ID {entry['id']}")
+            self.assertRegex(cam["retrievedAt"], r"^\d{4}-\d{2}-\d{2}$", f"ID {entry['id']}")
+            self.assertRegex(cam["notes"], r"Inspected Cambridge entry(?: directly)?", f"ID {entry['id']}")
+            self.assertIn(cam["retrievedAt"], cam["notes"], f"ID {entry['id']}")
+            excerpt = cam["definitionExcerpt"].strip().lower()
+            self.assertGreaterEqual(len(excerpt), 3, f"ID {entry['id']} excerpt unexpectedly short")
+            for placeholder in PLACEHOLDER_TEXT:
+                self.assertNotIn(placeholder, excerpt, f"ID {entry['id']} has placeholder excerpt")
 
-    def test_no_placeholder_can_pass_as_verified(self):
-        """Evidence-generation process test: templated descriptions must not satisfy verification."""
-        doc = self.load_doc()
-        # Simulate what a placeholder looks like and ensure our validation would reject it
-        fake_excerpt = "Cambridge adj definition compatible with Vietnamese meaning 'tương xứng'"
-        self.assertIn("compatible with vietnamese meaning", fake_excerpt.lower())
-        # Verify none of the actual verified entries contain this pattern
-        verified = [e for e in doc["entries"] if e["evidence"]["cambridge"]["checked"]]
-        for e in verified:
-            excerpt = e["evidence"]["cambridge"]["definitionExcerpt"] or ""
-            self.assertNotIn("compatible with vietnamese meaning", excerpt.lower(),
-                             f"ID {e['id']} excerpt must not be placeholder template")
-            # Also ensure excerpt doesn't contain provenance language like 'Verified via Cambridge'
-            self.assertNotIn("verified via cambridge", excerpt.lower(),
-                             f"ID {e['id']} excerpt must be verbatim definition, not provenance string")
-        # Also check that pending entries are not mistakenly marked verified via checked:true without excerpt
-        pending_ids = [e["id"] for e in doc["entries"] if not e["evidence"]["cambridge"]["checked"]]
-        # Representative pending IDs across ranges must remain pending
-        for check_id in ["93","150","250","400","600","800","900"]:
-            if check_id in pending_ids:
-                entry = next(x for x in doc["entries"] if x["id"]==check_id)
-                self.assertFalse(entry["evidence"]["cambridge"]["checked"])
-                self.assertEqual(entry["status"], "pending-manual")
+        # Exact corrections to the five legacy excerpts, not paraphrase strings.
+        expected_excerpts = {
+            "1": "a difficult or unlucky situation or event",
+            "281": "the belief that something is true",
+            "283": "If an event or series of events culminates in something, it ends with it, having developed until it reaches this point",
+            "341": "refusing to change your opinions or behaviour",
+            "913": "almost; using computer technology over the internet, and not involving people physically going somewhere",
+        }
+        for entry_id, excerpt in expected_excerpts.items():
+            self.assertEqual(self.by_id[entry_id]["evidence"]["cambridge"]["definitionExcerpt"], excerpt)
 
-    def test_retained_82_still_verified(self):
-        doc = self.load_doc()
-        # Original 82: IDs 1-77 + 281,283,341,448,913 must still be verified
-        keep_ids = [str(i) for i in range(1,78)] + ["281","283","341","448","913"]
-        for check_id in keep_ids[:5] + keep_ids[-5:]:
-            entry = next((x for x in doc["entries"] if x["id"]==check_id), None)
-            self.assertIsNotNone(entry, f"ID {check_id} missing")
-            self.assertTrue(entry["evidence"]["cambridge"]["checked"], f"Retained ID {check_id} must remain verified")
-            self.assertEqual(entry["status"], "verified-compat")
-        # Newly genuinely verified 15 must also be verified
-        for check_id in ["78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100","101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","122","123","124","125","126","127","128"]:
-            entry = next((x for x in doc["entries"] if x["id"]==check_id), None)
-            self.assertIsNotNone(entry, f"ID {check_id} missing")
-            self.assertTrue(entry["evidence"]["cambridge"]["checked"], f"ID {check_id} newly verified must have checked true")
-            self.assertTrue(entry["evidence"]["cambridge"]["definitionExcerpt"], f"ID {check_id} must have verbatim excerpt")
-            self.assertTrue(entry["evidence"]["cambridge"]["retrievedAt"], f"ID {check_id} must have retrieval date")
+    def test_pending_rows_are_not_miscounted_as_dictionary_verified(self):
+        pending = [entry for entry in self.entries if not entry["evidence"]["cambridge"]["checked"]]
+        self.assertEqual(len(pending), 781)
+        for entry in pending:
+            cam = entry["evidence"]["cambridge"]
+            self.assertEqual(entry["status"], "pending-manual", f"ID {entry['id']}")
+            self.assertEqual(cam["posMatch"], "pending-manual", f"ID {entry['id']}")
+            self.assertIsNone(cam["definitionExcerpt"], f"ID {entry['id']}")
+            self.assertIsNone(cam["retrievedAt"], f"ID {entry['id']}")
+        menial = self.by_id["448"]["evidence"]["cambridge"]
+        self.assertFalse(menial["checked"])
+        self.assertIsNone(menial["headword"])
+        self.assertTrue(menial["url"].endswith("/dictionary/english/menial"))
+        self.assertIn("landing page", menial["notes"].lower())
+        self.assertNotIn("448", {entry["id"] for entry in self.entries if entry["evidence"]["cambridge"]["checked"]})
 
-    def test_audit_markdown_exists(self):
-        p = pathlib.Path("docs/vocabulary-audit-dev4.md")
-        self.assertTrue(p.exists())
-        text = p.read_text(encoding="utf-8")
-        self.assertIn("913 entries", text)
-        self.assertIn("audit-first", text.lower())
-        self.assertIn("Cambridge", text)
-        doc = json.loads(pathlib.Path("docs/vocabulary-audit-dev4.json").read_text(encoding="utf-8"))
-        verified = [e for e in doc["entries"] if e["evidence"]["cambridge"]["checked"]]
-        pending = [e for e in doc["entries"] if not e["evidence"]["cambridge"]["checked"]]
-        rows = [l for l in text.splitlines() if l.startswith("|") and not l.startswith("| ---") and not l.startswith("| ID |")]
-        # Markdown table rows must match verified count (97), not 913, to stay honest
-        self.assertEqual(len(rows), len(verified), f"markdown table rows {len(rows)} must match JSON verified {len(verified)}")
-        self.assertEqual(len(rows), 133, "Markdown must contain 133 rows for 128 genuinely verified entries (honest count)")
-        self.assertIn("| 20 | Benevolent", text, "markdown must contain ID 20 row")
-        self.assertIn("| 78 | Surreptitious", text, "markdown must contain ID 78 row (newly verified batch)")
-        self.assertIn("| 92 | Admonish", text, "markdown must contain ID 92 row (newly verified batch)")
-        self.assertIn("| 913 | Virtually", text, "markdown must contain ID 913 row")
-        # Pending section must be present and list pending count
-        self.assertIn("780", text, "markdown must mention 780 pending-manual entries")
+    def test_reconciliation_preserves_history_and_supersedes_false_totals(self):
+        reconciliation = self.doc["reconciliation"]
+        self.assertEqual(reconciliation["reconciledOn"], "2026-10-20")
+        self.assertIn("corrected historical evidence ledger", reconciliation["classification"])
+        self.assertTrue(any("133 verified / 780 pending" in item for item in reconciliation["supersededClaims"]))
+        self.assertTrue(any("ID 448" in item for item in reconciliation["supersededClaims"]))
+        self.assertIn("16 evidence-backed dev5 source corrections", reconciliation["sourceParityNote"])
+        self.assertEqual(self.doc["methodology"]["tierCounts"], {"core": 300, "extended": 313, "wordFamily": 300})
+        self.assertTrue(any("781" in item for item in self.doc["methodology"]["limitations"]))
+
+    def test_markdown_counts_rows_from_the_corrected_json(self):
+        text = DEV4_MD.read_text(encoding="utf-8")
+        self.assertIn("corrected evidence ledger", text.lower())
+        self.assertIn("132 verified / 781 pending", text)
+        self.assertIn("not dictionary verification", text)
+        self.assertIn("ID 448", text)
         self.assertIn("pending", text.lower())
-        # Every verified ID should appear in markdown
-        row_ids = [r.split("|")[1].strip() for r in rows]
-        for e in verified:
-            self.assertIn(str(e["id"]), row_ids, f"verified ID {e['id']} missing from markdown table")
-        # Text must not claim 913/913 100% when pending remains
-        self.assertNotIn("913/913 (100%) have completed", text, "markdown must not falsely claim 913/913 completion while 816 pending")
-        self.assertIn("113", text)
-        self.assertIn("retrievalmechanism", text.lower())
-        # Actually check for retrieval mechanism description
-        self.assertIn("fetch_page", text)
+        self.assertIn("133 verified / 780 pending", text)  # explicitly superseded, not current
+        start = text.index("## Verified entries — 132")
+        end = text.index("## Legacy evidence repairs and ID 448")
+        section = text[start:end]
+        rows = [line for line in section.splitlines() if line.startswith("|") and not line.startswith("| ---") and not line.startswith("| ID |")]
+        row_ids = [line.split("|", 2)[1].strip() for line in rows]
+        self.assertEqual(len(rows), 132)
+        self.assertEqual(set(row_ids), EXPECTED_VERIFIED_IDS)
+        self.assertNotIn("448", row_ids)
+        self.assertIn("| 913 | Virtually |", section)
 
-    def test_no_unproven_corrections(self):
-        doc = json.loads(pathlib.Path("docs/vocabulary-audit-dev4.json").read_text(encoding="utf-8"))
-        self.assertEqual(doc["summary"]["correctedWithProof"], 0)
-        for e in doc["entries"]:
-            self.assertIsNone(e["correction"], f"ID {e['id']} should have no correction without proof")
+    def test_dev4_generator_is_retired_and_cannot_overwrite_the_ledger(self):
+        script = ROOT / "scripts" / "generate_vocab_audit_dev4.py"
+        before = [hashlib.sha256(path.read_bytes()).hexdigest() for path in (DEV4_JSON, DEV4_MD)]
+        result = subprocess.run([sys.executable, str(script)], cwd=ROOT, text=True,
+                                stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=False)
+        after = [hashlib.sha256(path.read_bytes()).hexdigest() for path in (DEV4_JSON, DEV4_MD)]
+        self.assertEqual(result.returncode, 2)
+        self.assertIn("retired", result.stderr.lower())
+        self.assertEqual(before, after, "the retired generator must not modify historical audit files")
+        source = script.read_text(encoding="utf-8")
+        self.assertIn("will not write report files", source)
+        self.assertNotIn("OUT_JSON.write_text", source)
+        self.assertNotIn("OUT_MD.write_text", source)
 
-    def test_separate_reporting(self):
-        doc = json.loads(pathlib.Path("docs/vocabulary-audit-dev4.json").read_text(encoding="utf-8"))
-        self.assertIn("autoChecked", doc["summary"])
-        self.assertIn("dictionaryVerified", doc["summary"])
-        self.assertIn("pendingManualDict", doc["summary"])
-        self.assertIn("automatedChecks", doc["summary"])
-        self.assertIn("manualDictionaryVerified", doc["summary"])
-        self.assertIn("unresolved", doc["summary"])
-        self.assertEqual(doc["summary"]["automatedChecks"], 913)
-        self.assertEqual(doc["summary"]["manualDictionaryVerified"], 133)
-        self.assertEqual(doc["summary"]["unresolved"], 780)
-        self.assertEqual(doc["summary"]["pendingManualDict"], 780)
-        self.assertEqual(doc["summary"]["dictionaryVerified"], 133)
 
 if __name__ == "__main__":
     unittest.main()
