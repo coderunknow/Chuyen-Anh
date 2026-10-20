@@ -151,6 +151,7 @@ kbd, .kbd { min-width: 24px; padding: 2px 6px; border: 1px solid var(--border-st
 .btn.full { width: 100%; }
 .exam-json-view { margin: 16px 0; padding: 12px; background: var(--surface-soft); border: 1px solid var(--border); border-radius: 10px; overflow: auto; max-height: 400px; font-family: ui-monospace, monospace; font-size: .72rem; white-space: pre-wrap; word-break: break-word; }
 .sprint-banner { display: flex; align-items: flex-start; gap: 14px; padding: 16px; border: 1px solid var(--border); border-radius: 14px; background: linear-gradient(135deg, var(--primary-soft), var(--surface-soft)); margin-bottom: 16px; }
+@media (max-width: 480px) { .sprint-banner { padding: 12px; gap: 10px; } .sprint-banner .sprint-longdesc { display: none; } }
 .sprint-badge { display: inline-block; padding: 3px 8px; border-radius: 99px; background: var(--primary); color: #fff; font-size: .68rem; font-weight: 800; letter-spacing: .06em; }
 .weak-spotlight { display: grid; gap: 6px; }
 .weak-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 10px; border-radius: 8px; background: var(--surface-soft); font-size: .8rem; }
@@ -17528,7 +17529,7 @@ export function buildExamResultJson(session, record, { now = Date.now(), appVers
       explanation: grade.explanation || null
     };
   });
-  const accuracy = graded ? Math.round(correct / graded * 100) : 0;
+  const accuracy = graded ? Math.round(correct / graded * 100) : null;
   const startedAt = session.startedAt || session.createdAt || now;
   const submittedAt = session.submittedAt || now;
   return {
@@ -17800,21 +17801,6 @@ export async function createApp(root) {
     const sprintWeak = sprintCandidates.filter(c => c.progress.state === STATES.WEAK).length;
     container.innerHTML = `
       <div class="page-header"><div><h1>Học từ vựng Chuyên Anh</h1><p>Ôn chủ động, gặp lại đúng lúc. Từ chưa học được giới thiệu nghĩa trước khi kiểm tra.</p></div></div>
-      <section class="sprint-banner" aria-labelledby="sprint-title">
-        <div style="flex:1">
-          <span class="sprint-badge">HỌC CẤP TỐC</span>
-          <h2 id="sprint-title" style="margin:8px 0 4px">Học cấp tốc · 7 từ · ~5 phút</h2>
-          <p style="margin:0;color:var(--muted);font-size:.82rem">7 từ ưu tiên: đến hạn, từ yếu, rồi từ mới — tối đa ~5 phút, vẫn giữ gợi nhớ chủ động.</p>
-          <p style="margin:6px 0 0;font-size:.75rem;color:var(--faint)">Chế độ cấp tốc ưu tiên từ đến hạn và từ yếu để tiết kiệm thời gian mà không bỏ qua gợi nhớ chủ động. Có giới hạn 7 lượt, tự kết thúc nhanh; thoát giữa chừng không mất tiến độ đã lưu. Lần đầu vs luyện lại được tách riêng trong tổng kết.</p>
-          <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
-            <button class="btn primary" data-session="sprint">${iconMarkup('bolt')}Bắt đầu học cấp tốc</button>
-            <span style="align-self:center;font-size:.75rem;color:var(--muted)">${sprintCandidates.length} từ sẵn sàng · ${sprintDue} đến hạn · ${sprintWeak} từ yếu</span>
-          </div>
-        </div>
-        <div class="recommendation-mark" aria-hidden="true" style="min-width:80px;text-align:center">
-          ${iconMarkup('bolt')}<strong>7</strong><span>TỪ / PHIÊN</span>
-        </div>
-      </section>
       <section class="study-recommendation" aria-labelledby="recommendation-title">
         <div class="recommendation-copy">
           <span class="eyebrow">Gợi ý tiếp theo</span>
@@ -17824,6 +17810,21 @@ export async function createApp(root) {
         </div>
         <div class="recommendation-mark" aria-hidden="true">
           ${iconMarkup(hasDue ? 'clock' : 'bolt')}<strong>${hasDue ? currentStats.due : 10}</strong><span>${hasDue ? 'TỪ ĐẾN HẠN' : 'TỪ / PHIÊN'}</span>
+        </div>
+      </section>
+      <section class="sprint-banner" aria-labelledby="sprint-title">
+        <div style="flex:1">
+          <span class="sprint-badge">HỌC CẤP TỐC</span>
+          <h2 id="sprint-title" style="margin:8px 0 4px">Học cấp tốc · 7 từ · ~5 phút</h2>
+          <p style="margin:0;color:var(--muted);font-size:.82rem">7 từ ưu tiên: đến hạn, từ yếu, rồi từ mới — tối đa ~5 phút, vẫn giữ gợi nhớ chủ động.</p>
+          <p class="sprint-longdesc" style="margin:6px 0 0;font-size:.75rem;color:var(--faint)">Chế độ cấp tốc ưu tiên từ đến hạn và từ yếu để tiết kiệm thời gian mà không bỏ qua gợi nhớ chủ động. Có giới hạn 7 lượt, tự kết thúc nhanh; thoát giữa chừng không mất tiến độ đã lưu.</p>
+          <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn primary" data-session="sprint">${iconMarkup('bolt')}Bắt đầu học cấp tốc</button>
+            <span style="align-self:center;font-size:.75rem;color:var(--muted)">${sprintCandidates.length} từ sẵn sàng · ${sprintDue} đến hạn · ${sprintWeak} từ yếu</span>
+          </div>
+        </div>
+        <div class="recommendation-mark" aria-hidden="true" style="min-width:80px;text-align:center">
+          ${iconMarkup('bolt')}<strong>7</strong><span>TỪ / PHIÊN</span>
         </div>
       </section>
       <section class="study-section" aria-labelledby="study-goals-title">
@@ -18239,18 +18240,29 @@ export async function createApp(root) {
   }
 
   function renderExamPractice(record, questions, session, requiresManualReview) {
+    const lang = (() => { try { const v = localStorage.getItem('chuyen-anh.language.v1'); return v === 'en' ? 'en' : 'vi'; } catch { return (document.documentElement.lang === 'en' ? 'en' : 'vi'); } })();
     const hasVerified = questions.some(q => getQuestionVerification(q).status === 'verified');
     const gradingNote = hasVerified
-      ? 'Một số câu có đáp án đã xác minh sẽ được chấm điểm; câu chưa xác minh giữ trạng thái chưa chấm.'
-      : 'Hiện chưa có đáp án được xác minh cho bản này — toàn bộ câu giữ trạng thái chưa chấm; không chấm đoán.';
-    const note = `<div class="exam-practice-note" role="note"><strong>Luyện tập — chấm điểm khi có đáp án đã xác minh</strong><span>Chỉ dùng văn bản đã có trong bản chép. Ranh giới mục/lựa chọn được trích xuất tự động, chưa xác minh và có thể không đầy đủ. ${gradingNote} Câu trả lời chỉ lưu trong bộ nhớ phiên đang mở và mất khi tải lại/đóng trang. Bản chép đầy đủ bên dưới có thể chứa nội dung đáp án như trong nguồn.</span></div>`;
+      ? (lang === 'en' ? 'Some items have verified answers and will be graded; unverified items remain ungraded.' : 'Một số câu có đáp án đã xác minh sẽ được chấm điểm; câu chưa xác minh giữ trạng thái chưa chấm.')
+      : (lang === 'en' ? 'No verified answers are available for this paper — all items remain ungraded; no guessing.' : 'Hiện chưa có đáp án được xác minh cho bản này — toàn bộ câu giữ trạng thái chưa chấm; không chấm đoán.');
+    const noteTitle = lang === 'en' ? 'Practice — graded only with verified answers' : 'Luyện tập — chấm điểm khi có đáp án đã xác minh';
+    const safety = lang === 'en'
+      ? `Only text already present in the stored transcription is used. Extracted item boundaries and choices are automatic, unverified, and may be incomplete. ${gradingNote} Responses stay in memory for this open page only and are cleared when it reloads or closes. The full transcription below may itself contain answer material from the source.`
+      : `Chỉ dùng văn bản đã có trong bản chép. Ranh giới mục/lựa chọn được trích xuất tự động, chưa xác minh và có thể không đầy đủ. ${gradingNote} Câu trả lời chỉ lưu trong bộ nhớ phiên đang mở và mất khi tải lại hoặc đóng trang. Bản chép đầy đủ bên dưới có thể chứa nội dung đáp án như trong nguồn.`;
+    const note = `<div class="exam-practice-note" role="note"><strong>${escapeHtml(noteTitle)}</strong><span>${escapeHtml(safety)}</span></div>`;
     let body = '';
     if (requiresManualReview) {
-      body = `<div class="empty exam-practice-readonly"><strong>Bản chép này chỉ đọc trong chế độ luyện tập</strong><p>Bản này có nhãn HTML/OCR và cần soát thủ công. Để tránh trình bày cách ghép dòng chưa chắc là câu hỏi/lựa chọn, ứng dụng không tự trích mục tương tác. Bản chép lưu trữ vẫn đọc được bên dưới; không có nội dung nào được dựng lại.</p></div>`;
+      body = lang === 'en'
+        ? `<div class="empty exam-practice-readonly"><strong>This record is read-only for question practice</strong><p>This transcription is marked HTML/OCR and needs manual review. To avoid presenting uncertain line groupings as questions or choices, the app does not extract interactive items from it. The stored transcription remains readable below; nothing is reconstructed.</p></div>`
+        : `<div class="empty exam-practice-readonly"><strong>Bản chép này chỉ đọc trong chế độ luyện tập</strong><p>Bản này có nhãn HTML/OCR và cần soát thủ công. Để tránh trình bày cách ghép dòng chưa chắc là câu hỏi/lựa chọn, ứng dụng không tự trích mục tương tác. Bản chép lưu trữ vẫn đọc được bên dưới; không có nội dung nào được dựng lại.</p></div>`;
     } else if (!questions.length) {
-      body = `<div class="empty exam-practice-readonly"><strong>Không phát hiện được cấu trúc câu hỏi đủ tin cậy</strong><p>Văn bản đã lưu vẫn đọc được bên dưới. Bài này chỉ đọc thay vì đoán ranh giới câu hỏi hoặc lựa chọn.</p></div>`;
+      body = lang === 'en'
+        ? `<div class="empty exam-practice-readonly"><strong>No reliable question sequence was detected</strong><p>The stored text remains readable below. This paper stays read-only rather than guessing question boundaries or choices.</p></div>`
+        : `<div class="empty exam-practice-readonly"><strong>Không phát hiện được cấu trúc câu hỏi đủ tin cậy</strong><p>Văn bản đã lưu vẫn đọc được bên dưới. Bài này chỉ đọc thay vì đoán ranh giới câu hỏi hoặc lựa chọn.</p></div>`;
     } else if (!session) {
-      body = `<p class="exam-practice-copy"><b>${questions.length}</b> mục được trích từ văn bản hiện có. Chưa xác minh từng mục với đề gốc; nội dung có thể thiếu.</p><div class="exam-practice-actions"><span class="exam-practice-status"><b>${questions.length}</b> mục trích xuất · không bấm giờ</span><button class="btn primary" id="exam-practice-start">Bắt đầu luyện không chấm điểm</button></div>`;
+      body = lang === 'en'
+        ? `<p class="exam-practice-copy"><b>${questions.length}</b> items were extracted from the stored text. Individual items are unverified against the original and may be incomplete.</p><div class="exam-practice-actions"><span class="exam-practice-status"><b>${questions.length}</b> extracted items · no timer</span><button class="btn primary" id="exam-practice-start">Start ungraded practice</button></div>`
+        : `<p class="exam-practice-copy"><b>${questions.length}</b> mục được trích từ văn bản hiện có. Chưa xác minh từng mục với đề gốc; nội dung có thể thiếu.</p><div class="exam-practice-actions"><span class="exam-practice-status"><b>${questions.length}</b> mục trích xuất · không bấm giờ</span><button class="btn primary" id="exam-practice-start">Bắt đầu luyện không chấm điểm</button></div>`;
     } else if (session.status === 'submitted' && session.view === 'summary') {
       const summary = summarizeExamPractice(session);
       // Build graded stats for display
@@ -18261,16 +18273,20 @@ export async function createApp(root) {
         else if (g.result === 'incorrect') { graded++; incorrect++; }
         else ungraded++;
       }
-      const accuracy = graded ? Math.round(correct / graded * 100) : 0;
-      const gradingPolicy = graded ? ('Đã chấm ' + graded + ' câu · ' + correct + ' đúng · ' + incorrect + ' sai · Chính xác ' + accuracy + '% (trên câu đã chấm)') : 'Chưa có câu được chấm — toàn bộ giữ trạng thái chưa xác minh.';
+      const accuracy = graded ? Math.round(correct / graded * 100) : null;
+      const gradingPolicy = graded
+        ? (lang === 'en' ? `Graded ${graded} items · ${correct} correct · ${incorrect} incorrect · ${accuracy}% accuracy (on graded items)` : `Đã chấm ${graded} câu · ${correct} đúng · ${incorrect} sai · Chính xác ${accuracy}% (trên câu đã chấm)`)
+        : (lang === 'en' ? 'No items have been graded — all remain unverified.' : 'Chưa có câu được chấm — toàn bộ giữ trạng thái chưa xác minh.');
+      const submittedNote = lang === 'en' ? 'Your responses were submitted for this open browser session. The app does not check correctness or produce a score.' : 'Câu trả lời đã được nộp trong phiên trình duyệt đang mở. Ứng dụng không kiểm tra đúng/sai hoặc tạo điểm.';
+      const summaryTitle = lang === 'en' ? 'Practice result' : 'Kết quả luyện đề';
       const jsonObj = buildExamResultJson(session, record, { now: session.submittedAt || Date.now() });
       const jsonText = JSON.stringify(jsonObj, null, 2);
       const filename = examResultFilename(jsonObj);
-      body = `<div id="exam-submission-summary" role="status" aria-live="polite"><h3 tabindex="-1">Kết quả luyện đề</h3><p>${gradingPolicy}</p><div class="exam-practice-summary-grid"><div class="exam-practice-summary-card"><strong id="exam-practice-answered-count">${summary.answered}</strong><span>Đã trả lời</span></div><div class="exam-practice-summary-card"><strong id="exam-practice-unanswered-count">${summary.unanswered}</strong><span>Chưa trả lời</span></div><div class="exam-practice-summary-card"><strong>${summary.total}</strong><span>Mục trích xuất</span></div><div class="exam-practice-summary-card"><strong>${graded}</strong><span>Đã chấm</span></div><div class="exam-practice-summary-card"><strong style="color:var(--success)">${correct}</strong><span>Đúng</span></div><div class="exam-practice-summary-card"><strong style="color:var(--danger)">${incorrect}</strong><span>Sai</span></div><div class="exam-practice-summary-card"><strong>${ungraded}</strong><span>Chưa chấm</span></div><div class="exam-practice-summary-card"><strong>${accuracy}%</strong><span>Chính xác (đã chấm)</span></div></div>
-      <div class="exam-result-summary"><p><b>Chính sách chấm:</b> chỉ câu có đáp án đã xác minh mới được tính đúng/sai; câu chưa xác minh = <b>ungraded</b>, không tính vào mẫu số accuracy.</p><p><b>Nguồn & xác minh:</b> hiển thị trong JSON theo từng câu, có thể đối chiếu độc lập.</p></div>
-      <div class="exam-practice-actions"><button class="btn" id="exam-view-json">Xem JSON</button><button class="btn primary" id="exam-download-json">Tải JSON</button><button class="btn" id="exam-review-submitted">Xem lại câu trả lời đã nộp</button></div>
-      <div id="exam-json-container" style="display:none"><h4>Kết quả chi tiết (JSON)</h4><p style="font-size:.75rem;color:var(--muted)">JSON hiển thị và tệp tải xuống được tạo từ cùng một object; có thể kiểm tra chéo nguồn/đáp án.</p><pre class="exam-json-view" id="exam-json-view" role="region" aria-label="Kết quả JSON" tabindex="0">${escapeHtml(jsonText)}</pre><p style="font-size:.72rem;color:var(--muted)">Tên tệp: <code>${escapeHtml(filename)}</code></p></div>
-      <p style="font-size:.75rem;color:var(--muted)">Lựa chọn chỉ còn trong khi trang này mở; không ghi vào localStorage hay bản sao v1.</p></div>`;
+      body = `<div id="exam-submission-summary" role="status" aria-live="polite"><h3 tabindex="-1">${escapeHtml(summaryTitle)}</h3><p>${escapeHtml(gradingPolicy)}</p><p>${escapeHtml(submittedNote)}</p><div class="exam-practice-summary-grid"><div class="exam-practice-summary-card"><strong id="exam-practice-answered-count">${summary.answered}</strong><span>${lang === 'en' ? 'Answered' : 'Đã trả lời'}</span></div><div class="exam-practice-summary-card"><strong id="exam-practice-unanswered-count">${summary.unanswered}</strong><span>${lang === 'en' ? 'Unanswered' : 'Chưa trả lời'}</span></div><div class="exam-practice-summary-card"><strong>${summary.total}</strong><span>${lang === 'en' ? 'Extracted items' : 'Mục trích xuất'}</span></div><div class="exam-practice-summary-card"><strong>${graded}</strong><span>${lang === 'en' ? 'Graded' : 'Đã chấm'}</span></div><div class="exam-practice-summary-card"><strong style="color:var(--success)">${correct}</strong><span>${lang === 'en' ? 'Correct' : 'Đúng'}</span></div><div class="exam-practice-summary-card"><strong style="color:var(--danger)">${incorrect}</strong><span>${lang === 'en' ? 'Incorrect' : 'Sai'}</span></div><div class="exam-practice-summary-card"><strong>${ungraded}</strong><span>${lang === 'en' ? 'Ungraded' : 'Chưa chấm'}</span></div><div class="exam-practice-summary-card"><strong>${accuracy !== null ? accuracy + '%' : '—'}</strong><span>${lang === 'en' ? 'Accuracy (graded)' : 'Chính xác (đã chấm)'}</span></div></div>
+      <div class="exam-result-summary"><p><b>${lang === 'en' ? 'Grading policy:' : 'Chính sách chấm:'}</b> ${lang === 'en' ? 'only items with verified answers are scored; unverified = <b>ungraded</b>, not counted in accuracy denominator.' : 'chỉ câu có đáp án đã xác minh mới được tính đúng/sai; câu chưa xác minh = <b>ungraded</b>, không tính vào mẫu số accuracy.'}</p><p><b>${lang === 'en' ? 'Source & verification:' : 'Nguồn & xác minh:'}</b> ${lang === 'en' ? 'shown per item in JSON, independently verifiable.' : 'hiển thị trong JSON theo từng câu, có thể đối chiếu độc lập.'}</p></div>
+      <div class="exam-practice-actions"><button class="btn" id="exam-view-json">${lang === 'en' ? 'View JSON' : 'Xem JSON'}</button><button class="btn primary" id="exam-download-json">${lang === 'en' ? 'Download JSON' : 'Tải JSON'}</button><button class="btn" id="exam-review-submitted">${lang === 'en' ? 'Review submitted answers' : 'Xem lại câu trả lời đã nộp'}</button></div>
+      <div id="exam-json-container" style="display:none"><h4>${lang === 'en' ? 'Detailed result (JSON)' : 'Kết quả chi tiết (JSON)'}</h4><p style="font-size:.75rem;color:var(--muted)">${lang === 'en' ? 'Displayed JSON and download file are generated from the same object; source/answer can be cross-checked.' : 'JSON hiển thị và tệp tải xuống được tạo từ cùng một object; có thể kiểm tra chéo nguồn/đáp án.'}</p><pre class="exam-json-view" id="exam-json-view" role="region" aria-label="${lang === 'en' ? 'Result JSON' : 'Kết quả JSON'}" tabindex="0">${escapeHtml(jsonText)}</pre><p style="font-size:.72rem;color:var(--muted)">${lang === 'en' ? 'Filename:' : 'Tên tệp:'} <code>${escapeHtml(filename)}</code></p></div>
+      <p style="font-size:.75rem;color:var(--muted)">${lang === 'en' ? 'Selections are kept only while this page remains open; they are not written to browser storage, study history, or the v1 backup.' : 'Lựa chọn chỉ còn trong khi trang này mở; không ghi vào localStorage hay bản sao v1.'}</p></div>`;
       // Store json for download handler via dataset
       setTimeout(() => {
         const viewBtn = document.getElementById('exam-view-json');
@@ -18280,7 +18296,7 @@ export async function createApp(root) {
         if (viewBtn && container) viewBtn.addEventListener('click', () => {
           const hidden = container.style.display === 'none';
           container.style.display = hidden ? 'block' : 'none';
-          viewBtn.textContent = hidden ? 'Ẩn JSON' : 'Xem JSON';
+          viewBtn.textContent = hidden ? (lang === 'en' ? 'Hide JSON' : 'Ẩn JSON') : (lang === 'en' ? 'View JSON' : 'Xem JSON');
           if (hidden) container.scrollIntoView({block:'start'});
         });
         if (dlBtn) dlBtn.addEventListener('click', () => {
@@ -18301,11 +18317,17 @@ export async function createApp(root) {
         const ver = getQuestionVerification(question);
         const g = submitted ? gradeExamQuestion(question, session.responses?.[question.id]) : null;
         const pillClass = g ? (g.result === 'correct' ? 'exam-pill-success' : g.result === 'incorrect' ? 'exam-pill-danger' : 'exam-pill-neutral') : (answered ? 'exam-pill-neutral' : 'exam-pill-warning');
-        const pillText = g ? (g.result === 'correct' ? 'Đúng' : g.result === 'incorrect' ? 'Sai' : 'Chưa chấm') : (answered ? 'Đã trả lời' : 'Chưa trả lời');
-        const prov = ver.status === 'verified' ? `Đã xác minh: ${escapeHtml(ver.answer)}${ver.evidence ? ' · ' + escapeHtml(ver.evidence) : ''}` : 'Chưa xác minh · không chấm';
-        return `<button class="exam-practice-review-item" data-review-question="${index}" aria-label="Câu nguồn ${question.number}, ${pillText}"><span><b>Câu nguồn ${question.number} · mục trích xuất ${index + 1}</b></span><small class="exam-question-source">${escapeHtml(response)}</small><small class="exam-question-source" style="color:var(--faint)">${prov}</small><span class="state-pill ${pillClass}">${pillText}</span></button>`;
+        const pillText = g ? (g.result === 'correct' ? (lang === 'en' ? 'Correct' : 'Đúng') : g.result === 'incorrect' ? (lang === 'en' ? 'Incorrect' : 'Sai') : (lang === 'en' ? 'Ungraded' : 'Chưa chấm')) : (answered ? (lang === 'en' ? 'Answered' : 'Đã trả lời') : (lang === 'en' ? 'Unanswered' : 'Chưa trả lời'));
+        const prov = ver.status === 'verified' ? (lang === 'en' ? `Verified: ${escapeHtml(ver.answer)}${ver.evidence ? ' · ' + escapeHtml(ver.evidence) : ''}` : `Đã xác minh: ${escapeHtml(ver.answer)}${ver.evidence ? ' · ' + escapeHtml(ver.evidence) : ''}`) : (lang === 'en' ? 'Unverified · not graded' : 'Chưa xác minh · không chấm');
+        const qLabel = lang === 'en' ? `Source Q ${question.number}` : `Câu nguồn ${question.number}`;
+        const itemLabel = lang === 'en' ? `extracted item ${index + 1}` : `mục trích xuất ${index + 1}`;
+        return `<button class="exam-practice-review-item" data-review-question="${index}" aria-label="${escapeHtml(qLabel)}, ${escapeHtml(pillText)}"><span><b>${escapeHtml(qLabel)} · ${escapeHtml(itemLabel)}</b></span><small class="exam-question-source">${escapeHtml(response)}</small><small class="exam-question-provenance" style="color:var(--faint)">${prov}</small><span class="state-pill ${pillClass}">${escapeHtml(pillText)}</span></button>`;
       }).join('');
-      body = `<div><h3 tabindex="-1">${submitted ? 'Xem lại lựa chọn đã nộp' : 'Xem lại câu trả lời trước khi nộp'}</h3><p><strong>${summary.answered}</strong> đã trả lời · <strong>${summary.unanswered}</strong> chưa trả lời · <strong>${summary.total}</strong> mục trích xuất. Đây chỉ là xem lại lựa chọn, không kiểm tra đúng/sai.</p><div class="exam-practice-review-list">${rows}</div><div class="exam-practice-actions" style="margin-top:12px"><button class="btn" id="exam-practice-back">${submitted ? 'Về tóm tắt bài nộp' : 'Về câu hỏi'}</button><div>${!submitted ? '<button class="btn primary" id="exam-submit">Nộp bài</button>' : ''}</div></div></div>`;
+      const reviewTitle = submitted ? (lang === 'en' ? 'Review submitted selections' : 'Xem lại lựa chọn đã nộp') : (lang === 'en' ? 'Review answers before submitting' : 'Xem lại câu trả lời trước khi nộp');
+      const reviewDesc = lang === 'en'
+        ? `<strong>${summary.answered}</strong> answered · <strong>${summary.unanswered}</strong> unanswered · <strong>${summary.total}</strong> extracted items. This is a response review only; it does not check correctness.`
+        : `<strong>${summary.answered}</strong> đã trả lời · <strong>${summary.unanswered}</strong> chưa trả lời · <strong>${summary.total}</strong> mục trích xuất. Đây chỉ là xem lại lựa chọn, không kiểm tra đúng/sai.`;
+      body = `<div><h3 tabindex="-1">${escapeHtml(reviewTitle)}</h3><p>${reviewDesc}</p><div class="exam-practice-review-list">${rows}</div><div class="exam-practice-actions" style="margin-top:12px"><button class="btn" id="exam-practice-back">${submitted ? (lang === 'en' ? 'Back to submission summary' : 'Về tóm tắt bài nộp') : (lang === 'en' ? 'Back to question' : 'Về câu hỏi')}</button><div>${!submitted ? `<button class="btn primary" id="exam-submit">${lang === 'en' ? 'Submit Exam' : 'Nộp bài'}</button>` : ''}</div></div></div>`;
     } else {
       const index = Math.min(Math.max(0, Number.isInteger(session.currentIndex) ? session.currentIndex : 0), questions.length - 1);
       session.currentIndex = index;
@@ -18315,25 +18337,28 @@ export async function createApp(root) {
       const response = session.responses?.[question.id] ?? '';
       const summary = summarizeExamPractice(session);
       const options = question.responseType === 'choice'
-        ? `<div class="exam-practice-options" role="group" aria-label="Lựa chọn chép từ bản đề">${question.options.map(option => `<button class="exam-practice-option" data-practice-choice="${escapeHtml(option.id)}" aria-pressed="${response === option.id}" ${submitted ? 'disabled' : ''}><span class="exam-practice-option-label">${escapeHtml(option.label)}.</span><span class="exam-question-source">${escapeHtml(option.text)}</span></button>`).join('')}</div>`
-        : `<label for="exam-practice-response">Câu trả lời do bạn nhập (không chấm điểm)</label><textarea class="exam-practice-response" id="exam-practice-response" maxlength="20000" ${submitted ? 'disabled' : ''}>${escapeHtml(response)}</textarea>`;
+        ? `<div class="exam-practice-options" role="group" aria-label="${lang === 'en' ? 'Choices copied from the transcription' : 'Lựa chọn chép từ bản đề'}">${question.options.map(option => `<button class="exam-practice-option" data-practice-choice="${escapeHtml(option.id)}" aria-pressed="${response === option.id}" ${submitted ? 'disabled' : ''}><span class="exam-practice-option-label">${escapeHtml(option.label)}.</span><span class="exam-question-source">${escapeHtml(option.text)}</span></button>`).join('')}</div>`
+        : `<label for="exam-practice-response">${lang === 'en' ? 'Your answer (not graded)' : 'Câu trả lời do bạn nhập (không chấm điểm)'}</label><textarea class="exam-practice-response" id="exam-practice-response" maxlength="20000" ${submitted ? 'disabled' : ''}>${escapeHtml(response)}</textarea>`;
       const verInfo = getQuestionVerification(question);
       const gradeInfo = submitted ? gradeExamQuestion(question, session.responses?.[question.id]) : null;
       const provenanceLine = verInfo.status === 'verified'
-        ? `<p class="exam-question-instruction">Đã xác minh · Đáp án: <b>${escapeHtml(verInfo.answer)}</b>${verInfo.evidence ? ` · ${escapeHtml(verInfo.evidence)}` : ''} · Nguồn: bản chép ${escapeHtml(record.id)} dòng ${question.sourceLine || '—'}</p>`
-        : `<p class="exam-question-instruction">Chưa xác minh · không chấm · Nguồn: bản chép ${escapeHtml(record.id)} dòng ${question.sourceLine || '—'}</p>`;
+        ? `<p class="exam-question-instruction">${lang === 'en' ? 'Verified' : 'Đã xác minh'} · ${lang === 'en' ? 'Answer' : 'Đáp án'}: <b>${escapeHtml(verInfo.answer)}</b>${verInfo.evidence ? ` · ${escapeHtml(verInfo.evidence)}` : ''} · ${lang === 'en' ? 'Source: transcription' : 'Nguồn: bản chép'} ${escapeHtml(record.id)} ${lang === 'en' ? 'line' : 'dòng'} ${question.sourceLine || '—'}</p>`
+        : `<p class="exam-question-instruction">${lang === 'en' ? 'Unverified · not graded' : 'Chưa xác minh · không chấm'} · ${lang === 'en' ? 'Source: transcription' : 'Nguồn: bản chép'} ${escapeHtml(record.id)} ${lang === 'en' ? 'line' : 'dòng'} ${question.sourceLine || '—'}</p>`;
       const gradeLine = submitted && gradeInfo
-        ? `<p class="exam-question-instruction" role="status">Kết quả: <span class="state-pill ${gradeInfo.result === 'correct' ? 'exam-pill-success' : gradeInfo.result === 'incorrect' ? 'exam-pill-danger' : 'exam-pill-neutral'}">${gradeInfo.result === 'correct' ? 'Đúng' : gradeInfo.result === 'incorrect' ? 'Sai' : 'Chưa chấm'}</span> · ${escapeHtml(gradeInfo.reason)}</p>`
+        ? `<p class="exam-question-instruction" role="status">${lang === 'en' ? 'Result:' : 'Kết quả:'} <span class="state-pill ${gradeInfo.result === 'correct' ? 'exam-pill-success' : gradeInfo.result === 'incorrect' ? 'exam-pill-danger' : 'exam-pill-neutral'}">${gradeInfo.result === 'correct' ? (lang === 'en' ? 'Correct' : 'Đúng') : gradeInfo.result === 'incorrect' ? (lang === 'en' ? 'Incorrect' : 'Sai') : (lang === 'en' ? 'Ungraded' : 'Chưa chấm')}</span> · ${escapeHtml(gradeInfo.reason)}</p>`
         : '';
       const questionButtons = questions.map((item, questionIndex) => {
         const itemAnswered = examPracticeQuestionAnswered(session, item);
         const active = questionIndex === index;
-        const status = itemAnswered ? 'đã trả lời' : 'chưa trả lời';
-        return `<button class="exam-question-nav ${active ? 'is-current' : ''} ${itemAnswered ? 'is-answered' : ''}" data-question-index="${questionIndex}" aria-label="Câu nguồn ${item.number}, ${status}${active ? ', đang mở' : ''}" ${active ? 'aria-current="step"' : ''}><span>${escapeHtml(item.number)}</span><span class="exam-question-status-mark" aria-hidden="true">${itemAnswered ? '✓' : '—'}</span></button>`;
+        const status = itemAnswered ? (lang === 'en' ? 'answered' : 'đã trả lời') : (lang === 'en' ? 'unanswered' : 'chưa trả lời');
+        const qSrcLabel = lang === 'en' ? `Source Q ${item.number}` : `Câu nguồn ${item.number}`;
+        const openLabel = lang === 'en' ? ', open' : ', đang mở';
+        return `<button class="exam-question-nav ${active ? 'is-current' : ''} ${itemAnswered ? 'is-answered' : ''}" data-question-index="${questionIndex}" aria-label="${escapeHtml(qSrcLabel)}, ${escapeHtml(status)}${active ? openLabel : ''}" ${active ? 'aria-current="step"' : ''}><span>${escapeHtml(item.number)}</span><span class="exam-question-status-mark" aria-hidden="true">${itemAnswered ? '✓' : '—'}</span></button>`;
       }).join('');
-      body = `<div class="exam-practice-status" id="exam-practice-status"><span><b id="exam-practice-answered-count">${summary.answered}</b> <span>đã trả lời</span></span><span><b id="exam-practice-unanswered-count">${summary.unanswered}</b> <span>chưa trả lời</span></span><span><b>${summary.total}</b> mục trích xuất</span>${submitted ? '<span class="state-pill exam-pill-neutral">Đã nộp · hiển thị kết quả từng câu theo xác minh</span>' : ''}</div><section class="exam-practice-question" aria-labelledby="exam-current-question-heading"><p class="exam-question-meta"><span>Câu số trong nguồn</span> <strong>${escapeHtml(question.number)}</strong> · <span>Mục trích xuất</span> <strong>${index + 1}</strong> / <strong>${questions.length}</strong></p><h3 id="exam-current-question-heading" tabindex="-1"><span class="exam-question-source">${escapeHtml(question.prompt)}</span></h3>${question.instruction ? `<p class="exam-question-instruction">${escapeHtml(question.instruction)}</p>` : ''}${options}${provenanceLine}${gradeLine}${submitted && answered ? `<p class="exam-question-instruction" role="status">Lựa chọn đã lưu: <span class="exam-question-source">${escapeHtml(examPracticeResponseLabel(session, question))}</span></p>` : ''}</section><div><h3 class="section-title">Điều hướng các mục đã trích</h3><div class="exam-question-grid">${questionButtons}</div></div><div class="exam-practice-actions"><div><button class="btn" id="exam-question-prev" ${index === 0 ? 'disabled' : ''}>Câu trước</button><button class="btn" id="exam-question-next" ${index >= questions.length - 1 ? 'disabled' : ''}>Câu sau</button></div><div>${!submitted ? '<button class="btn" id="exam-review-answers">Xem lại câu trả lời</button><button class="btn primary" id="exam-submit">Nộp bài</button>' : '<button class="btn" id="exam-practice-back">Về tóm tắt bài nộp</button><button class="btn primary" id="exam-review-submitted">Xem lại câu trả lời đã nộp</button>'}</div></div>`;
+      body = `<div class="exam-practice-status" id="exam-practice-status"><span><b id="exam-practice-answered-count">${summary.answered}</b> <span>${lang === 'en' ? 'answered' : 'đã trả lời'}</span></span><span><b id="exam-practice-unanswered-count">${summary.unanswered}</b> <span>${lang === 'en' ? 'unanswered' : 'chưa trả lời'}</span></span><span><b>${summary.total}</b> ${lang === 'en' ? 'extracted items' : 'mục trích xuất'}</span>${submitted ? `<span class="state-pill exam-pill-neutral">${lang === 'en' ? 'Submitted · showing per-item results by verification' : 'Đã nộp · hiển thị kết quả từng câu theo xác minh'}</span>` : ''}</div><section class="exam-practice-question" aria-labelledby="exam-current-question-heading"><p class="exam-question-meta"><span>${lang === 'en' ? 'Source Q' : 'Câu số trong nguồn'}</span> <strong>${escapeHtml(question.number)}</strong> · <span>${lang === 'en' ? 'Extracted item' : 'Mục trích xuất'}</span> <strong>${index + 1}</strong> / <strong>${questions.length}</strong></p><h3 id="exam-current-question-heading" tabindex="-1"><span class="exam-question-source">${escapeHtml(question.prompt)}</span></h3>${question.instruction ? `<p class="exam-question-instruction">${escapeHtml(question.instruction)}</p>` : ''}${options}${provenanceLine}${gradeLine}${submitted && answered ? `<p class="exam-question-instruction" role="status">${lang === 'en' ? 'Saved selection:' : 'Lựa chọn đã lưu:'} <span class="exam-question-source">${escapeHtml(examPracticeResponseLabel(session, question))}</span></p>` : ''}</section><div><h3 class="section-title">${lang === 'en' ? 'Navigate extracted items' : 'Điều hướng các mục đã trích'}</h3><div class="exam-question-grid">${questionButtons}</div></div><div class="exam-practice-actions"><div><button class="btn" id="exam-question-prev" ${index === 0 ? 'disabled' : ''}>${lang === 'en' ? 'Previous' : 'Câu trước'}</button><button class="btn" id="exam-question-next" ${index >= questions.length - 1 ? 'disabled' : ''}>${lang === 'en' ? 'Next' : 'Câu sau'}</button></div><div>${!submitted ? `<button class="btn" id="exam-review-answers">${lang === 'en' ? 'Review answers' : 'Xem lại câu trả lời'}</button><button class="btn primary" id="exam-submit">${lang === 'en' ? 'Submit Exam' : 'Nộp bài'}</button>` : `<button class="btn" id="exam-practice-back">${lang === 'en' ? 'Back to submission summary' : 'Về tóm tắt bài nộp'}</button><button class="btn primary" id="exam-review-submitted">${lang === 'en' ? 'Review submitted answers' : 'Xem lại câu trả lời đã nộp'}</button>`}</div></div>`;
     }
-    return `<section class="exam-practice panel" aria-labelledby="exam-practice-title"><h2 class="panel-heading" id="exam-practice-title" tabindex="-1">Luyện tập theo bản chép · không chấm điểm</h2><div class="panel-body">${note}${body}</div></section>`;
+    const panelHeading = lang === 'en' ? 'Transcript-based practice · ungraded' : 'Luyện tập theo bản chép · không chấm điểm';
+    return `<section class="exam-practice panel" aria-labelledby="exam-practice-title"><h2 class="panel-heading" id="exam-practice-title" tabindex="-1">${escapeHtml(panelHeading)}</h2><div class="panel-body">${note}${body}</div></section>`;
   }
 
   function renderExamDetail(container) {
