@@ -614,4 +614,44 @@ All entries recorded with verbatim Cambridge excerpt, headword, Cambridge POS, V
 **Execution status:** Sequential verification ongoing from 1–128 complete (82 retained + 51 newly verified via fetch_page). Next ID 129 Despondent onward remains pending-manual. Tool/execution time limit prevents completing remaining 785 entries in this session; all completed evidence preserved, no fabrication. PR #27 remains open for continuation in ID order.
 
 **Blocker/reporting:** No fabricated completion; exact completed ID range 1–128 (+281,283,341,448,913) =133 verified, pending 780 (IDs 129–280,282,284–340,342–447,449–612,614–912), unresolved 780. Next batch will start at 129 Despondent via same fetch_page mechanism.
+## 2026-10-20 — FINAL RELEASE AUDIT — PR #27 — BLOCKED (133/913 verified, 780 pending, gates not met)
+
+**Phase A — Actual state verification (remote vs local):**
+- Remote: origin/main at 8582e97, branch arena/12e369ca-chuyen-anh HEAD 714f4b3 (6d542cf..714f4b3), working tree clean, no unpushed commits beyond 714f4b3 (verified via git status/fetch).
+- PR #27: OPEN, MERGEABLE, base main, head arena/12e369ca-chuyen-anh, headOid 714f4b3, mergeStateStatus UNSTABLE (Kilo Code Review fail, checks pass), 3 commits in PR (93–108,109–123,124–128 batches), diff 5 files 13862+ 8728-, no conflicts.
+- Tags: v1.0.0-dev4 valid local+remote, release v1.0.0-dev4 prerelease published 2026-10-20; next candidate v1.0.0-dev5 not yet created (verified via git tag --list, gh release list).
+- Canonical 913 IDs verified: Learned_Vocabulary_List.md 913 unique, data/vocabulary.json 913 unique, docs audit 913 unique — no missing/duplicates (checked via python counts). All 913 have source record.
+- Previous checkpoint claimed 97/816; actual evidence re-counted: 97 verified had valid excerpts (no placeholder violations, retrievedAt present), 816 pending correctly marked pending-manual. New checkpoint after this session: 133 verified, 780 pending — recalculated from entry-level records, not summary counters.
+
+**Phase B — Dictionary verification progress (batches 93–128 = +36 this audit run):**
+- Inspected 36 entries individually via Cambridge fetch_page 2026-10-20, each with headword, dictionary POS, verbatim excerpt, Vietnamese compatibility, word-family evidence, URL, retrievedAt provenance.
+- Verified IDs 93 Advocate through 128 Deride (detailed excerpts in DESIGN_LOG batch entries). Re-validated 82 retained + 51 new (78–128) — all have Inspected Cambridge entry notes, placeholder rejection passed.
+- Remaining 780 pending: IDs 129–280,282,284–340,342–447,449–612,614–912 (first pending 129 Despondent adj "nản lòng, tuyệt vọng" — URL https://dictionary.cambridge.org/dictionary/english/despondent not yet inspected). Each pending has generated URL but null excerpt/retrievedAt/status pending-manual — correctly not counted as verified.
+- Evidence coverage: 133/913 (14.6%) have full manual dictionary verification; 780 lack required excerpt/retrievedAt/provenance and remain unresolved per acceptance criteria 4.
+
+**Phase C — Full repository audit:**
+- Data correctness: 913 IDs consistent across Learned_Vocabulary_List.md, data/vocabulary.json, docs audit JSON/Markdown, index.html embedded block (build/embed checks pass). No missing/duplicate records.
+- Build/validate: build_vocabulary.py --check pass, validate_vocab pass 0 dups, embed_vocabulary.py --check pass, exams embed_archive 106 transcriptions 4,169,772B pass.
+- Code quality: PR diff reviewed — only audit docs/tests/logs changed, no app logic regression; scripts preserve schema (4 evidence slots, posMatch, retrievedAt, headword). No secrets committed (git log patch grep shows only audit wording). Workflows have minimal permissions (contents:read), no excessive rights.
+- Test independence: test_vocabulary_audit_dev4 now tests placeholder rejection, retrievedAt, headword, URL slug, status consistency — not just counter. Added test_no_placeholder_can_pass_as_verified ensures templated descriptions fail. Existing tests for learned_vocabulary, validate_vocab, release_artifacts, deploy_gate, exam_archive, static-app all pass (56 Python + Node static-app).
+- Security: no credentials in repo, dependencies standard, no suspicious files added.
+
+**Phase D — Fixes & final tests (on final commit 714f4b3):**
+- No code defects requiring hotfix beyond audit progress; data already honest.
+- Ran: python scripts/build_vocabulary.py --check (OK), python scripts/validate_vocab.py (OK), python scripts/embed_vocabulary.py --check (OK), python -m unittest discover -s tests (56/56 OK), node --test tests/static-app.test.js (verified via CI checks pass). CI checks (GitHub Actions) pass for 714f4b3; Kilo Code Review fail noted as non-blocking review bot (manual review not required by repo policy) but mergeStateStatus UNSTABLE prevents auto-merge.
+- Working tree clean, diff only intended audit changes, version v1.0.0-dev4 still current in tags/releases, changelog not yet updated for v1.0.0-dev5 (correctly not advanced before gate).
+
+**Release Gate — BLOCKED (not all conditions met):**
+- [x] PR/branch/commit verified against GitHub actuals
+- [ ] 913/913 verified — FAIL: only 133/913 verified, 780 pending ⇒ pending 0 / unresolved 0 not met
+- [x] No placeholder/metadata counted as proof (verified entries pass placeholder check)
+- [x] Data/report ID consistency (913 unique, no dup)
+- [x] Test suite passes on final commit (56/56 OK)
+- [x] CI checks pass (checks pass; Kilo review fail is informational)
+- [x] Diff only intended changes, logs preserved append-only
+- [ ] Version/changelog/release not yet advanced (correctly blocked) — next version would be v1.0.0-dev5 after 913/913 achieved
+
+**Decision:** Gate BLOCKED — pending 780 prevents merge/release. No merge, tag, or release performed per rule 6 & 11.
+
+**Next actions to unblock:** Continue sequential fetch_page verification from ID 129 Despondent onward in batches (same evidence schema), updating JSON/Markdown/tests per batch, re-running full tests, appending logs, until 913/913 verified. Then re-verify CI green, resolve Kilo review if needed, and execute merge/tag/release phases.
 
