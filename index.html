@@ -16527,6 +16527,7 @@ export function selectSession(vocabulary, progressMap, { size = 20, mode = 'due'
 
 // One corrective retrieval per original card; practice never recursively queues itself.
 export function selectSprintSession(vocabulary, progressMap, { size = SPRINT_SIZE, favorites = new Set(), now = Date.now() } = {}) {
+  // favorites reserved for future filtering; current sprint prioritizes due/weak/new regardless of favorites (spec: due/weak/new, bounded 7)
   const entries = Array.isArray(vocabulary) ? vocabulary : [];
   const byId = new Map(entries.map(entry => [entry.id, entry]));
   const make = progress => ({ vocab: byId.get(progress.id), progress });
@@ -17339,7 +17340,7 @@ export function createExamPracticeSession(examId, questions) {
   return {
     id: String(examId),
     examId: String(examId),
-    schemaVersion: 1,
+    schemaVersion: EXAM_RESULT_SCHEMA_VERSION,
     questions: [...questions],
     responses: Object.create(null),
     status: 'in-progress',

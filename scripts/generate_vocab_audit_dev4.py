@@ -171,9 +171,11 @@ doc = {
     "generatedAt": datetime.datetime.utcnow().isoformat() + "Z",
     "total": total,
     "summary": {
-        "verifiedCompatAuto": verified,
-        "dictionaryChecked": 6,
+        "autoChecked": verified,
+        "dictionaryVerified": 6,
         "pendingManualDict": total - 6,
+        "verifiedCompatAuto": verified,  # alias for backwards compat; auto syntax check only, NOT dictionary verified
+        "dictionaryChecked": 6,
         "needsManual": needs,
         "correctedWithProof": 0,
         "suspiciousAutoFlag": len(suspicious),

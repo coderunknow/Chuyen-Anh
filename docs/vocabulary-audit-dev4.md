@@ -1,6 +1,6 @@
 # Vocabulary audit — v1.0.0-dev4 (913 entries)
 
-Generated: 2026-10-20T08:10:15.598301Z
+Generated: 2026-10-20T08:25:06.099814Z
 App version: v1.0.0-dev4 · Schema: 1.0.0
 
 ## Verdict

@@ -1,12 +1,14 @@
 {
   "schemaVersion": "1.0.0",
   "appVersion": "v1.0.0-dev4",
-  "generatedAt": "2026-10-20T08:10:15.598301Z",
+  "generatedAt": "2026-10-20T08:25:06.099814Z",
   "total": 913,
   "summary": {
+    "autoChecked": 913,
+    "dictionaryVerified": 6,
+    "pendingManualDict": 907,
     "verifiedCompatAuto": 913,
     "dictionaryChecked": 6,
-    "pendingManualDict": 907,
     "needsManual": 0,
     "correctedWithProof": 0,
     "suspiciousAutoFlag": 0,
