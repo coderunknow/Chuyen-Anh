@@ -251,6 +251,68 @@ async function main() {
     assert.deepEqual(await sprint.evaluate(() => ({ ...localStorage })), sprintSnapshot,
       'the sprint progress survives a reload unchanged');
 
+    // Navigating away cancels the pending auto-advance: leaving the card must
+    // never shift the hidden queue, fabricate a finished session or lose the
+    // answer that was already graded. (v1.0.0-beta1 regression)
+    await sprint.evaluate(() => {
+      const now = Date.now();
+      const data = JSON.parse(document.getElementById('vocabulary-data').textContent).slice(0, 10);
+      const progress = {};
+      data.forEach((entry, index) => {
+        progress[entry.id] = {
+          id: entry.id, state: 'weak', correctCount: 0, wrongCount: 40 - index * 2, streak: 0,
+          lastReviewed: now - 86400000, nextReview: now - 3600000,
+          interval: 0, ease: 2.3, difficulty: 0.5
+        };
+      });
+      localStorage.clear();
+      localStorage.setItem('chuyen-anh.progress.v1', JSON.stringify(progress));
+      localStorage.setItem('chuyen-anh.prefs.v1', JSON.stringify({ sessionSize: 10, keyboardShortcuts: true, darkMode: false }));
+    });
+    await sprint.reload();
+    await sprint.locator('[data-session="sprint"]').waitFor();
+    await sprint.locator('[data-session="sprint"]').click();
+    const navFirst = (await sprint.evaluate(() => {
+      const data = JSON.parse(document.getElementById('vocabulary-data').textContent).slice(0, 10);
+      return data[0];
+    }));
+    const navLabel = (await sprint.locator('.mode-label').innerText()).toLowerCase();
+    if (navLabel.includes('chính tả')) {
+      await sprint.locator('#spelling-input').fill(navFirst.word);
+      await sprint.locator('#spelling-input').press('Enter');
+    } else {
+      const navCorrect = navLabel.includes('nhận diện') ? navFirst.meaning : navFirst.word;
+      const navOptions = sprint.locator('[data-option]');
+      const navCount = await navOptions.count();
+      let navChosen = false;
+      for (let optionIndex = 0; optionIndex < navCount; optionIndex += 1) {
+        const text = (await navOptions.nth(optionIndex).innerText()).replace(/^\d+\s*/, '').trim();
+        if (text === navCorrect) { await navOptions.nth(optionIndex).click(); navChosen = true; break; }
+      }
+      assert.equal(navChosen, true, 'the first sprint card of the navigation scenario is gradeable');
+    }
+    assert.match(await sprint.locator('#feedback-area').innerText(), /Chính xác!/);
+    const navHeader = await sprint.locator('.page-header p').innerText();
+    const navPrompt = (await sprint.locator('.prompt').innerText()).trim();
+    // Leave the card well inside the 1.6 s auto-advance window.
+    await sprint.locator('[data-view="dashboard"]').click();
+    await sprint.waitForTimeout(2600);
+    assert.equal(await sprint.locator('.flashcard').count(), 0, 'the study card is no longer on screen');
+    assert.equal(await sprint.evaluate(() => JSON.parse(localStorage.getItem('chuyen-anh.history.v1') || '[]').length), 0,
+      'navigating away does not finish or record the session');
+    await sprint.locator('[data-view="learn"]').click();
+    assert.equal(await sprint.locator('.page-header p').innerText(), navHeader,
+      'the pending auto-advance never shifted the queue while another screen was open');
+    assert.equal((await sprint.locator('.prompt').innerText()).trim(), navPrompt,
+      'the same card is still on screen');
+    assert.match(await sprint.locator('#feedback-area').innerText(), /Chính xác!/,
+      'the already-graded answer was not lost');
+    await sprint.locator('#next-card').click();
+    assert.match(await sprint.locator('.page-header p').innerText(), /9 lượt còn lại/,
+      'manual continue advances exactly one card');
+    await sprint.locator('#exit-session').click();
+    assert.equal(await sprint.locator('.flashcard').count(), 0, 'exiting the sprint leaves no active card');
+
     // The shipped build identifies itself.
     await sprint.locator('[data-view="settings"]').click();
     assert.equal(await sprint.locator('#app-version').innerText(), 'v1.0.0-beta1');
@@ -876,7 +938,7 @@ async function main() {
 
 
     assert.deepEqual(errors, []);
-    console.log(`PASS: Chromium ${browser.version()} — first-look introduction for new words, same-part-of-speech distractors, cloze options absent from the sentence, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, 320/375/768px responsive layout, reduced-motion setting, search state across a favorite toggle, session clearing on reset/import, the ID 448 historical label, named option groups, shortcuts limited to the visible card, failed writes reported truthfully, JSON backup round-trips that keep every retained session, blank spelling submissions ignored, single-graded self-assessment, skip locked after a reveal, and 'Học cấp tốc' processing all ten requested words with a truthful single correction, automatic advance only after correct answers, accurate first-pass statistics and persisted progress; no page errors.`);
+    console.log(`PASS: Chromium ${browser.version()} — first-look introduction for new words, same-part-of-speech distractors, cloze options absent from the sentence, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, 320/375/768px responsive layout, reduced-motion setting, search state across a favorite toggle, session clearing on reset/import, the ID 448 historical label, named option groups, shortcuts limited to the visible card, failed writes reported truthfully, JSON backup round-trips that keep every retained session, blank spelling submissions ignored, single-graded self-assessment, skip locked after a reveal, and 'Học cấp tốc' processing all ten requested words with a truthful single correction, automatic advance only after correct answers, accurate first-pass statistics, persisted progress and cancelled auto-advance when leaving the card; no page errors.`);
   } finally {
     if (browser) await browser.close();
     await new Promise(resolve => server.close(resolve));
