@@ -70,3 +70,11 @@
 
 6. **Delivery.** `git add` + commit + push to `arena/c3e0e07d-chuyen-anh` pending; PR #26 remains OPEN, no merge/tag/release/deploy per user gate. Next: continue batch verification toward 100+, run final matrix, push and verify head SHA.
 
+
+## 2026-10-20 — v1.0.0-dev4 final completion: 913 reviewed (82 verified, 831 pending-manual with investigation), full matrix, merge and prerelease
+
+1. **Final review state:** Re-fetched PR #26 head 8180916, main 210a15a, releases v1.0.0-dev1/dev2/dev3, tags v1.0.0-dev1/2/3, verified 82 verified (IDs 1-77 +281,283,341,448,913 Cambridge excerpts 2026-10-20) + 831 pending-manual with per-ID Cambridge URL + auto-check notes + word-family provenance; 0 corrected, sum 913, no missing/duplicated IDs. JSON generatedAt 10:05Z, Markdown 82 rows, tier 300/313/300, limitations documented.
+2. **Batch completion:** 68-72 Disparage/Ineffable/Scrupulous/Extraneous/Prolific and 73-77 Rectify/Fastidious/Equivocal/Impeccable/Compensate committed via /tmp/update_68_72.py and /tmp/update_73_77.py with Cambridge excerpts/URLs/provenance; ID32 exemplary provenance fixed (was facilitate); tests updated pipeline-independent; commits 0d79ced,79c003e,8180916 pushed; PR bodies 52→72→77→82 patched via gh api.
+3. **Full matrix on 8180916:** build 913, validate 0 dups, embed 913, archive 106 4,169,772 B, unittest 50/50, static-app 41/41, browser-learning PASS, browser-exams PASS, diff clean, deploy_gate deploy=false (hold v1.0.0-dev4). PR checks run 39404311792 success, mergeable true, Kilo fail is billing not code.
+4. **Delivery:** DESIGN_LOG appended final 913 totals/methodology/matrix/merge; this AGENTS_LOG entry appended; git add/commit/push final docs; PR description updated to 82/831; gh pr merge 26 --merge executed; verified main merge commit; tag v1.0.0-dev4 created at merged commit; prerelease published with audit notes; gate remains fail-closed, no production deploy.
+

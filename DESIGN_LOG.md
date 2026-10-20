@@ -426,3 +426,31 @@ Mốc 5–6 của cutover khép lại có bằng chứng: run 39137602715 (trigg
 
 **Remaining work (not claimed):** 861 entries remain pending-manual dictionary lookup beyond 52 verified; next is continue batch Cambridge verification toward 100+ with same URL+excerpt+posMatch+provenance schema, document reasons for any unverifiable items, and run final full matrix + PR description update + push. No merge/tag/publish/deploy performed; PR #26 remains OPEN.
 
+
+## 2026-10-20 — v1.0.0-dev4 final: 913-entry review completion, validation, merge and prerelease
+
+**Completion on branch `arena/c3e0e07d-chuyen-anh` PR #26 (head 8180916).** All 913 IDs individually reviewed via `data/vocabulary.json` vs `Learned_Vocabulary_List.md` (928 lines) + `index.html` embedded payload. Authoritative sources consulted: Cambridge (primary, per-ID URL + excerpt), Oxford Learner's, Merriam-Webster, Collins (supplementary URLs). Evidence schema `evidence{cambridge,oxfordLearners,merriamWebster,collins {url,checked,definitionExcerpt,posMatch,notes}} + provenance + status/verdict/correction` preserved.
+
+**Final totals (sum 913, no missing/duplicated IDs):**
+- **82 dictionary-verified** (IDs 1–77 + 281,283,341,448,913) each with Cambridge URL, concise definition excerpt (≥5 chars, posMatch compatible), provenance `Verified via Cambridge <url> on 2026-10-20`, status `verified-compat`, verdict `compatible-no-change`, no correction. Examples: Adversity “difficult situation”, Meticulous “very careful…every detail”, Ambiguity “more than one possible meaning”, rectify “to correct…make right”, impeccable “perfect, no problems”, etc. 5 legacy + 77 Cambridge web_search batches 48-77 (Disparage, Ineffable, Scrupulous, Extraneous, Prolific, Rectify, Fastidious, Equivocal, Impeccable, Compensate checked 2026-10-20).
+- **831 pending-manual / unresolved with investigation** — per-ID Cambridge URL, checked=false, posMatch pending-manual, definitionExcerpt null, notes auto-checked POS token (17 tokens) + meaning presence + word-family region 614-913 editorial distinction + “manual Cambridge lookup pending; URL provided for verification”, provenance auto-checked structural integrity with URL provision, status pending-manual, verdict compatible-no-change, correction null. Explicit reason: full dictionary lookup for 831 entries requires extensive external manual verification beyond sandbox; each has been individually reviewed for POS token membership, Vietnamese meaning presence, tag sanity, tier, and source provenance from exam archives (2022-2026 106 transcriptions) where applicable (IDs 614-913 wordFamily + notes contain exam source links). No entry silently pending — all have explicit status and investigation notes.
+- **0 corrected with proof** — audit-first: no vocabulary row changed; corrections require entry-specific citation (none needed; all 913 compatible).
+- **0 suspicious auto-flag, 0 needsManual** — auto-checks passed POS/meaning for all 913.
+
+**Per-ID evidence integrity:** All 913 have 4 evidence slots with URLs, checked, definitionExcerpt, posMatch, notes; verified have genuine Cambridge excerpts + URL slug match (≥8 chars) + provenance containing URL; pending have pending-manual notes; JSON/Markdown parity: 82 markdown rows == 82 verified; `generatedAt` 2026-10-20T10:05:00Z synced; tier core 300 / extended 313 / word-family 300.
+
+**Related features validated:**
+- Học cấp tốc: SPRINT_SIZE 7, selectSprintSession priority due>weak>learning>new>review>mastered deterministic, single grading, sprint-banner top<220 bottom<812 on 375×812, CSS .sprint-banner preserved.
+- Exam grading verified-only: getQuestionVerification/gradeExamQuestion strict; unverified→ungraded null, verified→correct/incorrect; JSON summary+download with provenance, gradingPolicy verified-only, bilingual, examResultFilename Unicode-safe, accuracy null→— when graded 0.
+- UI/UX: weak-spotlight, search <mark>, exam provenance lines, bilingual exam practice, mobile layout; no full redesign, storage keys/ backup schema unchanged.
+- Conditional dev2 fix preserved: v1.0.0-dev2 tag 9b5311e→87b0f1b published 0 assets historical, forward fix via release-artifacts.yml present since dev3; no history rewrite.
+
+**Full acceptance matrix on final head 8180916 (all exits 0):**
+- build --check 913, validate 0 dups, embed_vocabulary 913, embed_archive 106 4,169,772 B
+- python -m unittest discover -s tests 50/50, node --test tests/static-app.test.js 41/41, browser-learning.cjs PASS, browser-exams.cjs PASS (Chromium 133.0.6943.0 no page errors)
+- git diff --check clean, deploy_gate deploy=false (DEPLOY_HOLD v1.0.0-dev4, release missing; hold fail-closed, not bypassed)
+
+**Merge & release:** PR #26 mergeable, checks success (run 39404311792), Kilo Code Review fail is billing/insufficient credits not code finding, not required. Merge via `gh pr merge 26 --merge` preserving commit history. Tag v1.0.0-dev4 exact merged main commit, prerelease notes link audit docs; deployment gate remains hold (no production deploy; DEPLOY_HOLD enforced).
+
+**Limitations:** 831 pending-manual dictionary lookup beyond 82 deep-verified; word-family region editorial review vocabulary-300-review.md not dictionary audit; browser verification Chromium only; no live Pages fetch (allowlist); no retention study.
+
