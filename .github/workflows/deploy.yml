@@ -16,8 +16,6 @@ on:
       - "De-chuyen-Anh-vao-10/**"
       - ".github/workflows/deploy.yml"
       - "DEPLOY_HOLD"
-  release:
-    types: [published]
   workflow_dispatch:
     inputs:
       force_deploy:
@@ -49,7 +47,8 @@ jobs:
           ref: main
 
       # The release named in DEPLOY_HOLD must be published before Pages deploys.
-      # Tests below always run; only the publish steps are deferred.
+      # Published prereleases dispatch this workflow on main because the Pages environment
+      # allows main only. Tests always run; only the publish steps are deferred.
       - name: Evaluate deploy hold
         id: gate
         env:
