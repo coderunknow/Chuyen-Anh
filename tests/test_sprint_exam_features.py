@@ -1,61 +1,50 @@
-import pathlib, re, unittest
+"""Shipped-file contract for the sprint surface and the release version.
 
-class SprintExamFeatureTests(unittest.TestCase):
+Behavioural coverage lives elsewhere and is the authoritative evidence:
+`tests/static-app.test.js` imports the real module and exercises the sprint
+scheduler, the exam grading policy and the exported result JSON;
+`tests/browser-learning.cjs` and `tests/browser-exams.cjs` drive the real
+application in Chromium. The few checks here only pin facts that those suites
+cannot see about the shipped single file - the release version constant and the
+absence of the retired fixed sprint cap - so a regression fails in two
+independent places instead of being hidden behind a weakened assertion.
+"""
+import pathlib
+import re
+import unittest
+
+
+class ShippedSprintContractTests(unittest.TestCase):
     def setUp(self):
         self.html = pathlib.Path("index.html").read_text(encoding="utf-8")
         self.app = re.search(r'<script type="module" id="app-script">([\s\S]*?)</script>', self.html)
         self.assertIsNotNone(self.app)
         self.script = self.app.group(1)
 
-    def test_sprint_constants_and_ui(self):
-        self.assertIn("APP_VERSION = 'v1.0.0-dev5'", self.script)
+    def test_release_version_is_the_beta1_candidate(self):
+        self.assertIn("APP_VERSION = 'v1.0.0-beta1'", self.script)
         self.assertIn("EXAM_RESULT_SCHEMA_VERSION = '1.0.0'", self.script)
-        self.assertIn("SPRINT_SIZE = 7", self.script)
-        self.assertIn("SPRINT_LABEL", self.script)
-        self.assertIn("selectSprintSession", self.script)
-        self.assertIn("sprint-banner", self.html)
-        self.assertIn("Học cấp tốc", self.html)
-        # bounded session: priority due/weak/new, deterministic, no shuffle in sprint path
-        self.assertRegex(self.script, r"function selectSprintSession")
-        # ensure sprint does not shuffle - extract function body
-        start = self.script.find("function selectSprintSession")
-        sprint_body = self.script[start:start+3000]
-        self.assertIn("return ordered.map", sprint_body)
-        self.assertNotIn("shuffle(", sprint_body.lower())
-        # single grading: sprint mode should not queue practice
-        self.assertIn("sessionStats.mode !== 'sprint'", self.script)
 
-    def test_exam_grading_verified_only(self):
-        self.assertIn("function getQuestionVerification", self.script)
-        self.assertIn("function gradeExamQuestion", self.script)
-        self.assertIn("function buildExamResultJson", self.script)
-        self.assertIn("function examResultFilename", self.script)
-        self.assertIn("ungraded", self.script)
-        # verified-only: returns ungraded when not verified
-        self.assertRegex(self.script, r"if \(verification\.status !== 'verified'\)")
-        self.assertIn("Chưa có đáp án được xác minh", self.script)
-        # JSON summary+download with source/provenance
-        self.assertIn("examResultFilename", self.script)
-        self.assertIn("ket-qua-", self.script)
-        self.assertIn("Blob", self.script)
-        self.assertIn("application/json", self.script)
-        # provenance per-question
-        self.assertIn("sourceLine", self.script)
-        self.assertIn("verificationStatus", self.script)
+    def test_the_fixed_seven_word_sprint_cap_is_gone(self):
+        # The cap was expressed as a constant, a targeted session size and literal
+        # "7 từ" copy. Any return of that hidden truncation fails here first, and
+        # the behavioural suites fail as well.
+        self.assertFalse("SPRINT_SIZE" in self.script, "SPRINT_SIZE must not return")
+        self.assertFalse("Học cấp tốc · 7 từ" in self.html, "the bundled banner must not claim 7 words")
+        self.assertFalse("giới hạn 7 lượt" in self.html, "the bundled copy must not claim a 7-turn limit")
 
-    def test_submission_summary_counts(self):
-        self.assertIn("graded", self.script)
-        self.assertIn("correct", self.script)
-        self.assertIn("incorrect", self.script)
-        self.assertIn("accuracy", self.script.lower())
-        # summary should show graded/correct/incorrect/ungraded
-        self.assertRegex(self.script, r"graded.*correct.*incorrect.*ungraded", re.I | re.S)
+    def test_the_sprint_uses_the_configured_session_size(self):
+        self.assertIn("selectSprintSession(vocabulary, progress, { size: prefs.sessionSize })", self.script)
+        self.assertIn("function sprintEligibleCount", self.script)
+        self.assertIn("SPRINT_AUTO_ADVANCE_MS", self.script)
 
-    def test_dashboard_weak_spotlight_and_search_highlight(self):
-        self.assertIn("weak-spotlight", self.script)
-        self.assertIn('[data-session="weak"]', self.script)
-        self.assertIn("<mark>", self.script)
-        self.assertIn("RegExp", self.script)
+    def test_sprint_is_not_exempt_from_corrective_practice(self):
+        # Sprint once skipped the corrective retry while still telling the learner
+        # a retry had been queued.
+        self.assertFalse("sessionStats.mode !== 'sprint'" in self.script,
+                         "sprint must not be exempt from corrective practice")
+        self.assertIn("if (!correct && queuePractice(session, item))", self.script)
+
 
 if __name__ == "__main__":
     unittest.main()

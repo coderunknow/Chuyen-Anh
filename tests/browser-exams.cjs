@@ -227,7 +227,7 @@ async function main() {
     await page.getByRole('heading', { name: 'Study advanced English vocabulary' }).waitFor();
     await page.locator('.recommendation-copy [data-session="quick10"]').click();
     await page.locator('#start-quiz').waitFor();
-    assert.match(await page.locator('#content').innerText(), /Quick session · 10 turns left/);
+    assert.match(await page.locator('#content').innerText(), /Quick session · 10 words queued · 10 turns left/);
     assert.match(await page.locator('#content').innerText(), /1 \/ 10 turns · 10 left/);
     assert.match(await page.locator('#content').innerText(), /Difficulty 0%/);
     await page.locator('#start-quiz').click();

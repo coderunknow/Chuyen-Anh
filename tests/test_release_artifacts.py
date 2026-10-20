@@ -11,6 +11,7 @@ import subprocess
 import tempfile
 import unittest
 import zipfile
+from unittest.mock import patch
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 
@@ -230,10 +231,44 @@ class ProcessFlowTests(unittest.TestCase):
         self.assertEqual(len(self.uploaded), 3)
 
 
+class PushTagValidationTests(unittest.TestCase):
+    """A pushed tag is the only thing that can create a release draft, so the
+    accepted refs are an explicit prerelease allowlist. The beta1 candidate must
+    pass without weakening the refusal of arbitrary refs."""
+
+    def setUp(self):
+        self.mod = load_module()
+
+    def test_prerelease_candidates_are_supported(self):
+        for tag in ('v1.0.0-beta1', 'v1.0.0-dev5', 'v1.0.0-rc2', 'v12.3.4-beta10'):
+            self.assertTrue(self.mod.is_supported_tag(tag), tag)
+
+    def test_arbitrary_or_final_refs_are_refused(self):
+        for tag in ('', 'v1.0.0', 'v1.0.0-beta1/../x', 'v1.0.0-beta1x', 'v1.0.0-evil1',
+                    'beta1', 'v1.0.0-beta', 'main', 'refs/tags/v1.0.0-beta1'):
+            self.assertFalse(self.mod.is_supported_tag(tag), tag)
+
+    def test_main_packages_a_beta1_tag_push(self):
+        calls = []
+        with patch.dict(os.environ, {'PUSH_TAG': 'v1.0.0-beta1', 'INPUT_TAG': ''}, clear=False), \
+                patch.object(self.mod, 'process', lambda tag, **kw: calls.append((tag, kw))):
+            self.mod.main()
+        self.assertEqual(calls, [('v1.0.0-beta1', {'future': True})])
+
+    def test_main_refuses_an_unsupported_push_before_touching_a_release(self):
+        calls = []
+        with patch.dict(os.environ, {'PUSH_TAG': 'v1.0.0-alpha1', 'INPUT_TAG': ''}, clear=False), \
+                patch.object(self.mod, 'process', lambda tag, **kw: calls.append((tag, kw))):
+            with self.assertRaises(RuntimeError):
+                self.mod.main()
+        self.assertEqual(calls, [], 'no release may be created or mutated for an unknown tag')
+
+
 class ReleaseWorkflowContractTests(unittest.TestCase):
     def test_workflow_packages_the_pushed_tag_with_write_permission_only(self):
         text = (ROOT / '.github' / 'workflows' / 'release-artifacts.yml').read_text(encoding='utf-8')
-        self.assertIn('"v1.0.0-dev*"', text)
+        self.assertIn('"v1.0.0-*"', text, 'beta1 and later prereleases must trigger the workflow')
+        self.assertNotIn('"v1.0.0-dev*"', text, 'the trigger is no longer dev-only')
         self.assertIn('contents: write', text)
         self.assertIn('scripts/release_artifacts.py', text)
         self.assertIn('PUSH_TAG', text)

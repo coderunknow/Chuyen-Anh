@@ -64,6 +64,15 @@ const {
   recordExamPracticeResponse,
   summarizeExamPractice,
   submitExamPractice,
+  buildExamResultJson,
+  gradeExamQuestion,
+  getQuestionVerification,
+  examResultFilename,
+  selectSprintSession,
+  sprintEligibleCount,
+  SPRINT_AUTO_ADVANCE_MS,
+  APP_VERSION,
+  DEFAULT_PREFS,
   loadExamHistory,
   saveExamHistory,
   createExamAttempt,
@@ -926,4 +935,196 @@ test('each failed card gets its own retry, retaining the original queue order', 
   assert.deepEqual(queue.map(item => item.vocab.id), ['1', '2', '3', '1', '2', '3']);
   assert.ok(queue.slice(3).every(item => item.practice));
   assert.ok(originals.every(item => !item.practice));
+});
+
+// ---------------------------------------------------------------------------
+// "Học cấp tốc" — the sprint must learn the requested vocabulary volume faster,
+// never by quietly teaching fewer words. These tests fail if a hidden cap such
+// as the historical SPRINT_SIZE = 7 returns.
+// ---------------------------------------------------------------------------
+
+const sprintPool = Array.from({ length: 30 }, (_, index) => ({
+  id: String(index + 1),
+  word: `Word ${index + 1}`,
+  pos: index % 2 ? 'adj' : 'n',
+  meaning: `nghĩa ${index + 1}`,
+  examples: []
+}));
+
+function sprintProgress(entries, now, nextReviewFor = index => now + index * 1000) {
+  const progress = {};
+  entries.forEach((entry, index) => {
+    progress[entry.id] = createInitialProgress(entry.id, nextReviewFor(index));
+  });
+  return progress;
+}
+
+test('a study sprint queues the configured session size instead of a hidden seven-word cap', () => {
+  const now = Date.parse('2026-10-20T00:00:00Z');
+  const progress = sprintProgress(sprintPool, now);
+
+  const sprint = selectSprintSession(sprintPool, progress, { size: 20, now });
+  assert.equal(sprint.length, 20, '20 requested words over a 30-word pool must queue 20, not 7');
+  assert.deepEqual(sprint.map(item => item.vocab.id), sprintPool.slice(0, 20).map(entry => entry.id),
+    'the deterministic priority order is preserved');
+  assert.equal(new Set(sprint.map(item => item.vocab.id)).size, 20, 'no word is queued twice');
+
+  // The same settings must not produce a smaller lesson just because it is a sprint.
+  const mixed = selectSession(sprintPool, progress, { size: 20, mode: 'mixed', now });
+  assert.equal(sprint.length, mixed.length,
+    'a sprint and a mixed session with the same settings queue the same volume');
+
+  // The size is a real parameter, not a constant with a 7 baked in.
+  assert.equal(selectSprintSession(sprintPool, progress, { size: 7, now }).length, 7,
+    'an explicitly requested 7-word session is still 7');
+  assert.equal(selectSprintSession(sprintPool, progress, { size: 10, now }).length, 10);
+  assert.equal(selectSprintSession(sprintPool, progress, { size: 50, now }).length, 30,
+    'a target larger than the pool queues the whole pool');
+  assert.equal(selectSprintSession(sprintPool, progress, { now }).length, DEFAULT_PREFS.sessionSize,
+    'the default target is the learner-configured session size');
+  assert.equal(sprintEligibleCount(sprintPool, progress), 30);
+});
+
+test('a study sprint ranks due, weak, learning, new, review and mastered cards deterministically', () => {
+  const now = Date.parse('2026-10-20T00:00:00Z');
+  const entries = [
+    { id: 'w1', word: 'W1', pos: 'adj', meaning: 'm1' },
+    { id: 'w2', word: 'W2', pos: 'adj', meaning: 'm2' },
+    { id: 'l1', word: 'L1', pos: 'v', meaning: 'm3' },
+    { id: 'w3', word: 'W3', pos: 'adj', meaning: 'm4' },
+    { id: 'n1', word: 'N1', pos: 'n', meaning: 'm5' },
+    { id: 'n2', word: 'N2', pos: 'n', meaning: 'm6' },
+    { id: 'r1', word: 'R1', pos: 'n', meaning: 'm7' },
+    { id: 'm1', word: 'M1', pos: 'n', meaning: 'm8' }
+  ];
+  const progress = {
+    w1: { ...createInitialProgress('w1'), state: STATES.WEAK, wrongCount: 1, nextReview: now - 500 },
+    w2: { ...createInitialProgress('w2'), state: STATES.WEAK, wrongCount: 9, nextReview: now - 400 },
+    l1: { ...createInitialProgress('l1'), state: STATES.LEARNING, correctCount: 1, nextReview: now - 300 },
+    w3: { ...createInitialProgress('w3'), state: STATES.WEAK, wrongCount: 7, nextReview: now + 5000 },
+    n1: { ...createInitialProgress('n1'), nextReview: now + 100 },
+    n2: { ...createInitialProgress('n2'), nextReview: now + 200 },
+    r1: { ...createInitialProgress('r1'), state: STATES.REVIEW, correctCount: 4, nextReview: now + 1000 },
+    m1: { ...createInitialProgress('m1'), state: STATES.MASTERED, correctCount: 9, nextReview: now + 2000 }
+  };
+
+  const order = selectSprintSession(entries, progress, { size: 8, now }).map(item => item.vocab.id);
+  assert.deepEqual(order, ['w1', 'w2', 'l1', 'w3', 'n1', 'n2', 'r1', 'm1'],
+    'due cards come first (weak before learning), then weak, new, review and mastered');
+  assert.deepEqual(selectSprintSession(entries, progress, { size: 3, now }).map(item => item.vocab.id),
+    ['w1', 'w2', 'l1'], 'a small target keeps the same priority prefix');
+  assert.deepEqual(selectSprintSession(entries, progress, { size: 8, now }), selectSprintSession(entries, progress, { size: 8, now }),
+    'the sprint order is deterministic across calls');
+
+  const masteredOnly = { m1: { ...createInitialProgress('m1'), state: STATES.MASTERED, correctCount: 9, nextReview: now + 2000 } };
+  assert.deepEqual(selectSprintSession(entries, masteredOnly, { size: 5, now }).map(item => item.vocab.id), ['m1'],
+    'mastered cards are still reachable instead of producing an empty session');
+});
+
+test('a study sprint handles small pools, unknown ids and an empty pool without inventing words', () => {
+  const now = Date.parse('2026-10-20T00:00:00Z');
+  const small = sprintPool.slice(0, 5);
+  const progress = sprintProgress(small, now);
+  const queued = selectSprintSession(small, progress, { size: 20, now });
+  assert.equal(queued.length, 5, 'a pool smaller than the target queues exactly the pool');
+  assert.deepEqual(queued.map(item => item.vocab.id), ['1', '2', '3', '4', '5']);
+
+  const stale = { ...progress, gone: { ...createInitialProgress('gone'), state: STATES.WEAK, wrongCount: 3, nextReview: now - 1 } };
+  assert.equal(selectSprintSession(small, stale, { size: 20, now }).length, 5,
+    'progress for an id that is no longer in the vocabulary is ignored');
+  assert.equal(sprintEligibleCount(small, stale), 5);
+
+  assert.deepEqual(selectSprintSession(small, progress, { size: 0, now }), [], 'a zero target queues nothing');
+  assert.deepEqual(selectSprintSession([], {}, { size: 20, now }), [], 'an empty pool queues nothing');
+  assert.deepEqual(selectSprintSession(small, {}, { size: 20, now }), [], 'no stored progress means no eligible card');
+  assert.equal(selectSprintSession(small, progress, { size: Number.NaN, now }).length, 0,
+    'an invalid target is not treated as "unlimited"');
+});
+
+test('exam grading never turns an unverified answer key into a confident grade', () => {
+  const choice = {
+    id: 'q1', prompt: 'Choose the correct option', responseType: 'choice', sourceLine: '1. A',
+    options: [{ id: 'A', label: 'A', text: 'alpha' }, { id: 'B', label: 'B', text: 'beta' }]
+  };
+  const blank = { id: 'q2', prompt: 'Fill in blank 2', responseType: 'text', options: [], sourceLine: '2. ____' };
+
+  assert.deepEqual(getQuestionVerification(choice), { status: 'unverified', answer: null, evidence: null });
+  const ungraded = gradeExamQuestion(choice, 'A');
+  assert.equal(ungraded.result, 'ungraded');
+  assert.equal(ungraded.officialAnswer, null, 'an unknown key is not echoed as an official answer');
+  assert.match(ungraded.reason, /Chưa có đáp án/);
+
+  // A key is only usable when it is explicitly marked verified.
+  const verified = { ...blank, verifiedAnswer: 'resilient', verificationStatus: 'verified', verificationEvidence: 'Cambridge, 2026-10-20' };
+  assert.deepEqual(gradeExamQuestion(verified, 'Resilient').result, 'correct');
+  assert.deepEqual(gradeExamQuestion(verified, 'resilience').result, 'incorrect');
+  assert.equal(getQuestionVerification({ ...blank, verifiedAnswer: 'resilient', verificationStatus: 'pending' }).status, 'unverified',
+    'a pending key is not treated as verified');
+});
+
+test('exported exam results report exactly what the learner did and what could be graded', () => {
+  const record = {
+    id: '2023/dak-lak/so', year: 2023, province: 'Đắk Lắk', unit: 'so',
+    unitLabel: 'Sở GD&ĐT Đắk Lắk', source: 'https://example.test/de-thi',
+    assets: [{ type: 'pdf', sha256: 'a'.repeat(64) }], contentSha256: 'b'.repeat(64),
+    quality: 'PDF-text', note: 'Bản chép tham khảo, chưa đối chiếu từng câu.',
+    answers: 'Chưa lấy được đáp án riêng', markdown: 'x'.repeat(6000)
+  };
+  const questions = [
+    { id: 'q1', prompt: 'Choose the correct option', responseType: 'choice', sourceLine: '1. A', options: [{ id: 'A', label: 'A', text: 'alpha' }, { id: 'B', label: 'B', text: 'beta' }] },
+    { id: 'q2', prompt: 'Fill in blank 2', responseType: 'text', options: [], sourceLine: '2. ____' },
+    { id: 'q3', prompt: 'Fill in blank 3', responseType: 'text', options: [], sourceLine: '3. ____' }
+  ];
+  const session = createExamPracticeSession(record.id, questions);
+  assert.equal(recordExamPracticeResponse(session, 'q1', 'B'), true);
+  assert.equal(recordExamPracticeResponse(session, 'q1', 'Z'), false, 'an option that does not exist is rejected');
+  assert.equal(recordExamPracticeResponse(session, 'q2', '  resilient  '), true);
+  const submitted = submitExamPractice(session, 5000);
+  assert.deepEqual(submitted, { total: 3, answered: 2, unanswered: 1 });
+
+  const result = buildExamResultJson(session, record, { now: 6000 });
+  assert.equal(result.app, 'Chuyên Anh');
+  assert.equal(result.version, APP_VERSION, 'the result carries the application version');
+  assert.equal(result.version, 'v1.0.0-beta1');
+  assert.equal(result.schemaVersion, '1.0.0');
+  assert.deepEqual(result.summary, {
+    total: 3, answered: 2, unanswered: 1,
+    graded: 0, correct: 0, incorrect: 0, ungraded: 3, accuracy: null
+  }, 'with no verified key nothing is graded and accuracy stays unknown');
+  assert.equal(result.questions[0].learnerAnswer, 'B');
+  assert.equal(result.questions[1].learnerAnswer, '  resilient  ', 'the stored response is unchanged');
+  assert.equal(result.questions[2].answered, false);
+  assert.equal(result.questions[2].learnerAnswer, null, 'an unanswered item is null, never a guessed answer');
+  assert.deepEqual(result.questions.map(item => item.result), ['ungraded', 'ungraded', 'ungraded']);
+  assert.equal(result.provenance.answersField, record.answers);
+  assert.equal(result.attempt.gradingPolicy, 'verified-only');
+  assert.deepEqual(JSON.parse(JSON.stringify(result)), result, 'the result survives a JSON round trip');
+
+  assert.equal(examResultFilename(result), 'ket-qua-2023-dak-lak-so-1970-01-01.json');
+  const unicodeRecord = { ...record, id: '2026/hue/chuyên-khoa-học-huế' };
+  const unicodeName = examResultFilename({ ...result, exam: { ...result.exam, id: unicodeRecord.id } });
+  assert.match(unicodeName, /^ket-qua-2026-hue-[a-z0-9-]+-1970-01-01\.json$/,
+    'a Vietnamese source id becomes a stable ASCII-safe download name');
+  assert.equal(/[^a-z0-9.-]/.test(unicodeName), false, 'no separator, accent or space can reach the filename');
+});
+
+test('the sprint pace constant is a bounded delay, not a lesson size', () => {
+  assert.equal(Number.isFinite(SPRINT_AUTO_ADVANCE_MS), true);
+  assert.equal(SPRINT_AUTO_ADVANCE_MS >= 800 && SPRINT_AUTO_ADVANCE_MS <= 5000, true,
+    'auto-advance leaves time to read the feedback');
+});
+
+test('the sprint and session headers translate without leaking Vietnamese fragments', () => {
+  assert.equal(translateUiText('Phiên nhanh · 10 từ đã xếp · 3 lượt còn lại', 'en'),
+    'Quick session · 10 words queued · 3 turns left');
+  assert.equal(translateUiText('Học cấp tốc · 10 từ đã xếp · 10 lượt còn lại', 'en'),
+    'Study sprint · 10 words queued · 10 turns left');
+  assert.equal(translateUiText('Học cấp tốc · 10 từ / phiên', 'en'), 'Study sprint · 10 words / session');
+  assert.equal(translateUiText('913 từ đủ điều kiện · xếp 10 · 10 đến hạn · 2 từ yếu', 'en'),
+    '913 eligible words · 10 queued · 10 due · 2 weak');
+  assert.match(translateUiText('Chế độ cấp tốc: tự chuyển sau 1,6 giây (nhấn Enter để tiếp ngay).', 'en'),
+    /advances automatically/);
+  assert.equal(translateUiText('Phiên nhanh · 1 từ đã xếp · 1 lượt còn lại', 'en'),
+    'Quick session · 1 word queued · 1 turn left', 'counts agree in the singular');
+  assert.equal(translateUiText('Học cấp tốc · 10 từ / phiên', 'vi'), 'Học cấp tốc · 10 từ / phiên');
 });

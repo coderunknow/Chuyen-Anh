@@ -103,6 +103,159 @@ async function main() {
       if (await page.locator('#start-quiz').count()) await page.locator('#start-quiz').click();
     }
 
+    // ---- "Học cấp tốc" processes the requested volume, keeps correction and
+    // ---- never auto-advances past a mistake. (v1.0.0-beta1 regression)
+    // Reuse the open tab: the sandbox browser cannot reliably open a third page
+    // after the storage-failure scenario has closed its own tab.
+    const sprint = page;
+    const sprintErrors = [];
+    sprint.on('pageerror', error => sprintErrors.push(error.message));
+    await sprint.setViewportSize({ width: 1280, height: 900 });
+    await sprint.goto(`http://127.0.0.1:${server.address().port}`);
+    await sprint.locator('[data-session="new"]').waitFor();
+
+    // Ten eligible words is already more than the retired seven-card cap.
+    const sprintPlan = await sprint.evaluate(() => {
+      const now = Date.now();
+      const data = JSON.parse(document.getElementById('vocabulary-data').textContent).slice(0, 10);
+      const progress = {};
+      data.forEach((entry, index) => {
+        const wrongCount = 40 - index * 2; // distinct, so the priority order is deterministic
+        progress[entry.id] = {
+          id: entry.id, state: 'weak', correctCount: 0, wrongCount, streak: 0,
+          lastReviewed: now - 86400000, nextReview: now - 3600000,
+          interval: 0, ease: 2.3, difficulty: 0.5
+        };
+      });
+      localStorage.clear();
+      localStorage.setItem('chuyen-anh.progress.v1', JSON.stringify(progress));
+      localStorage.setItem('chuyen-anh.prefs.v1', JSON.stringify({ sessionSize: 10, keyboardShortcuts: true, darkMode: false }));
+      return data.map((entry, index) => ({ id: entry.id, word: entry.word, meaning: entry.meaning, wrongCount: 40 - index * 2 }));
+    });
+    await sprint.reload();
+    await sprint.locator('[data-session="sprint"]').waitFor();
+
+    // The banner reports the real pool, the real queue and the chosen target.
+    assert.match(await sprint.locator('#sprint-title').innerText(), /Học cấp tốc · 10 từ \/ phiên/);
+    assert.match(await sprint.locator('#sprint-pool').innerText(),
+      /913 từ đủ điều kiện · xếp 10 · 10 đến hạn · 10 từ yếu/,
+      'the banner counts the whole eligible pool and the real queue');
+    assert.equal(await sprint.locator('.sprint-banner .recommendation-mark strong').innerText(), '10',
+      'the banner shows the configured session size, not a fixed 7');
+
+    await sprint.locator('[data-session="sprint"]').click();
+    assert.match(await sprint.locator('.page-header p').innerText(), /Học cấp tốc · 10 từ đã xếp · 10 lượt còn lại/,
+      'starting the sprint queues all ten requested words');
+    assert.match(await sprint.locator('.flashcard-head').innerText(), /1 \/ 10 lượt · 10 còn lại/);
+
+    // The ten queued words are asked in priority order; the wrong answer is
+    // deliberately the third card so later cards still exercise the flow.
+    const ordered = [...sprintPlan].sort((a, b) => b.wrongCount - a.wrongCount);
+    const wrongIndex = 2;
+    let turns = 0;
+    let missed = null;
+    for (let index = 0; index < ordered.length; index += 1) {
+      const entry = ordered[index];
+      if (await sprint.locator('#start-quiz').count()) {
+        await sprint.locator('#start-quiz').click();
+      }
+      const label = (await sprint.locator('.mode-label').innerText()).toLowerCase();
+      const prompt = (await sprint.locator('.prompt').innerText()).trim();
+      turns += 1;
+      if (label.includes('chính tả')) {
+        assert.equal(prompt, entry.meaning, `spelling prompt for ${entry.word}`);
+        await sprint.locator('#spelling-input').fill(index === wrongIndex ? 'definitely not the word' : entry.word);
+        await sprint.locator('#spelling-input').press('Enter');
+      } else {
+        // Recognition asks for the meaning, recall and cloze ask for the word.
+        const correctText = label.includes('nhận diện') ? entry.meaning : entry.word;
+        if (label.includes('nhận diện')) assert.equal(prompt, entry.word, `recognition prompt for ${entry.word}`);
+        else if (label.includes('điền vào ngữ cảnh')) assert.match(prompt, /_____/, `cloze prompt for ${entry.word}`);
+        else assert.equal(prompt, entry.meaning, `recall prompt for ${entry.word}`);
+        const options = sprint.locator('[data-option]');
+        const count = await options.count();
+        let chosen = false;
+        for (let optionIndex = 0; optionIndex < count; optionIndex += 1) {
+          const button = options.nth(optionIndex);
+          const text = (await button.innerText()).replace(/^\d+\s*/, '').trim();
+          const matches = text === correctText;
+          if (matches !== (index === wrongIndex)) {
+            await button.click();
+            chosen = true;
+            break;
+          }
+        }
+        assert.equal(chosen, true, `a gradeable option exists for ${entry.word}`);
+      }
+
+      const feedback = await sprint.locator('#feedback-area').innerText();
+      if (index === wrongIndex) {
+        missed = entry;
+        assert.match(feedback, /Chưa đúng · Đáp án:/, 'a missed sprint word shows the answer');
+        assert.match(feedback, /Đã xếp một lượt gõ lại/, 'the sprint queues a real corrective retry');
+        assert.equal(await sprint.locator('#next-card').count(), 1);
+        const head = await sprint.locator('.flashcard-head').innerText();
+        await sprint.waitForTimeout(2300);
+        assert.equal(await sprint.locator('.flashcard-head').innerText(), head,
+          'a wrong answer never auto-advances past its correction');
+        await sprint.locator('#next-card').click();
+      } else {
+        assert.match(feedback, /Chính xác!/);
+        assert.match(feedback, /tự chuyển sau 1,6 giây/,
+          'a correct sprint answer tells the learner it will advance itself');
+        const head = await sprint.locator('.flashcard-head').innerText();
+        await sprint.waitForFunction(previous => {
+          const current = document.querySelector('.flashcard-head');
+          return !current || current.innerText !== previous;
+        }, head, { timeout: 5000 });
+        assert.match(await sprint.locator('.page-header p').innerText(), /Học cấp tốc/);
+      }
+    }
+    assert.equal(turns, 10, 'the sprint graded all ten requested words, not seven');
+
+    // Exactly one bounded correction, asked as a spelling retry and excluded from
+    // first-pass accuracy and from the scheduler.
+    assert.match(await sprint.locator('.mode-label').innerText(), /LUYỆN LẠI · CHÍNH TẢ/i,
+      'the single correction is a typed retry of the missed word');
+    assert.equal((await sprint.locator('.prompt').innerText()).trim(), missed.meaning);
+    await sprint.locator('#spelling-input').fill(missed.word);
+    await sprint.locator('#spelling-input').press('Enter');
+    assert.match(await sprint.locator('#feedback-area').innerText(), /Lượt luyện đã hoàn tất/);
+    assert.equal(await sprint.locator('#next-card').count(), 1, 'practice keeps an explicit continue');
+    await sprint.waitForTimeout(2300);
+    assert.equal(await sprint.locator('.summary').count(), 0, 'practice does not auto-advance either');
+    await sprint.locator('#next-card').click();
+
+    const sprintSummary = await sprint.locator('.summary').innerText();
+    assert.match(sprintSummary, /10 từ/);
+    assert.match(sprintSummary, /90%/);
+    assert.match(sprintSummary, /Luyện lại: 1 đúng · 0 chưa đúng \/ 1 lượt/,
+      'the correction is reported separately from first-pass accuracy');
+    const sprintHistory = await sprint.evaluate(() => JSON.parse(localStorage.getItem('chuyen-anh.history.v1')));
+    assert.equal(sprintHistory.length, 1);
+    assert.deepEqual(
+      { total: sprintHistory[0].total, correct: sprintHistory[0].correct, wrong: sprintHistory[0].wrong, accuracy: sprintHistory[0].accuracy, mode: sprintHistory[0].mode },
+      { total: 10, correct: 9, wrong: 1, accuracy: 90, mode: 'sprint' });
+    const sprintProgress = await sprint.evaluate(() => JSON.parse(localStorage.getItem('chuyen-anh.progress.v1')));
+    for (const entry of ordered) {
+      if (entry.id === missed.id) {
+        assert.equal(sprintProgress[entry.id].wrongCount, entry.wrongCount + 1, 'the missed word was graded wrong once');
+        assert.equal(sprintProgress[entry.id].correctCount, 0, 'the corrective retry does not add a correct first pass');
+      } else {
+        assert.equal(sprintProgress[entry.id].correctCount, 1, `${entry.word} was graded correct once`);
+      }
+    }
+    const sprintSnapshot = await sprint.evaluate(() => ({ ...localStorage }));
+    await sprint.reload();
+    await sprint.locator('[data-session="sprint"]').waitFor();
+    assert.deepEqual(await sprint.evaluate(() => ({ ...localStorage })), sprintSnapshot,
+      'the sprint progress survives a reload unchanged');
+
+    // The shipped build identifies itself.
+    await sprint.locator('[data-view="settings"]').click();
+    assert.equal(await sprint.locator('#app-version').innerText(), 'v1.0.0-beta1');
+    assert.deepEqual(sprintErrors, []);
+
     // Error -> intervening word -> typed corrective retrieval -> truthful summary.
     await seed(['1', '2']);
     await answer('1', false);
@@ -155,7 +308,8 @@ async function main() {
     await page.locator('.study-recommendation [data-session="due"]').waitFor();
     assert.match(await page.locator('.study-recommendation').innerText(), /1 từ đang đến hạn/);
     await page.locator('.study-recommendation [data-session="due"]').click();
-    assert.match(await page.locator('.page-header').innerText(), /Ôn đến hạn · 1 lượt còn lại/);
+    assert.match(await page.locator('.page-header').innerText(), /Ôn đến hạn · 1 từ đã xếp · 1 lượt còn lại/,
+      'the session header reports the queued word count and the remaining turns');
     assert.equal(await page.locator('.first-look').count(), 0, 'the due review does not introduce a previously studied card');
     await page.locator('#exit-session').click();
 
@@ -720,8 +874,9 @@ async function main() {
     assert.deepEqual(failingErrors, []);
     await failing.close();
 
+
     assert.deepEqual(errors, []);
-    console.log(`PASS: Chromium ${browser.version()} — first-look introduction for new words, same-part-of-speech distractors, cloze options absent from the sentence, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, 320/375/768px responsive layout, reduced-motion setting, search state across a favorite toggle, session clearing on reset/import, the ID 448 historical label, named option groups, shortcuts limited to the visible card, failed writes reported truthfully, JSON backup round-trips that keep every retained session, blank spelling submissions ignored, single-graded self-assessment, and skip locked after a reveal; no page errors.`);
+    console.log(`PASS: Chromium ${browser.version()} — first-look introduction for new words, same-part-of-speech distractors, cloze options absent from the sentence, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, 320/375/768px responsive layout, reduced-motion setting, search state across a favorite toggle, session clearing on reset/import, the ID 448 historical label, named option groups, shortcuts limited to the visible card, failed writes reported truthfully, JSON backup round-trips that keep every retained session, blank spelling submissions ignored, single-graded self-assessment, skip locked after a reveal, and 'Học cấp tốc' processing all ten requested words with a truthful single correction, automatic advance only after correct answers, accurate first-pass statistics and persisted progress; no page errors.`);
   } finally {
     if (browser) await browser.close();
     await new Promise(resolve => server.close(resolve));

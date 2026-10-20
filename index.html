@@ -15786,9 +15786,13 @@ export const MODES = Object.freeze({
   CLOZE: 'cloze'
 });
 
-export const APP_VERSION = 'v1.0.0-dev5';
+export const APP_VERSION = 'v1.0.0-beta1';
 export const EXAM_RESULT_SCHEMA_VERSION = '1.0.0';
-export const SPRINT_SIZE = 7;
+// Sprint pacing: after a correct first-pass answer the next card replaces the
+// feedback automatically, so a fast learner does not pay an extra click per
+// word. A wrong answer never auto-advances: the correction stays on screen until
+// the learner dismisses it.
+export const SPRINT_AUTO_ADVANCE_MS = 1600;
 export const SPRINT_LABEL = 'Học cấp tốc';
 
 export const STATE_LABELS = Object.freeze({
@@ -15992,6 +15996,8 @@ const EN_UI_TRANSLATIONS = Object.freeze({
   'Một phiên ngắn để bắt đầu.': 'A short session to get started.',
   'Phiên vừa phải cho một lượt ôn.': 'A moderate review session.',
   'Phiên dài hơn để luyện tập trung.': 'A longer session for focused practice.',
+  'HỌC CẤP TỐC': 'STUDY SPRINT',
+  'Bắt đầu học cấp tốc': 'Start study sprint',
   'Ba nguyên tắc học': 'Three learning principles',
   'Gợi nhớ chủ động': 'Active recall',
   'Tự nhớ trước khi xem đáp án.': 'Try to recall the answer before revealing it.',
@@ -16053,11 +16059,6 @@ const EN_UI_TRANSLATIONS = Object.freeze({
   'Ôn tập': 'Review',
   'Lịch sử phiên học': 'Study-session history',
   'Chưa có phiên học.': 'No study sessions yet.',
-  'Học cấp tốc': 'Speed Study',
-  'Học cấp tốc · 7 từ · ~5 phút': 'Speed Study · 7 words · ~5 min',
-  '7 từ ưu tiên: đến hạn, từ yếu, rồi từ mới — tối đa ~5 phút, vẫn giữ gợi nhớ chủ động.': '7 priority words: due, weak, then new — max ~5 min, active recall preserved.',
-  'Bắt đầu học cấp tốc': 'Start speed study',
-  'Chế độ cấp tốc ưu tiên từ đến hạn và từ yếu để tiết kiệm thời gian mà không bỏ qua gợi nhớ chủ động.': 'Speed mode prioritizes due and weak words to save time without skipping active recall.',
   'Từ yếu cần ôn': 'Weak words to review',
   'Xem JSON': 'View JSON',
   'Tải JSON': 'Download JSON',
@@ -16210,7 +16211,7 @@ const EN_UI_TRANSLATIONS = Object.freeze({
   'Phím tắt bàn phím': 'Keyboard shortcuts',
   'Tắt nếu bạn thường gõ trên trang học.': 'Turn off if you often type while on the study screen.',
   'Số thẻ mặc định mỗi phiên': 'Default cards per session',
-  'Áp dụng cho Đến hạn, Từ yếu, Từ mới, Ngẫu nhiên và Yêu thích. Phiên nhanh giữ số thẻ ghi trên nút.': 'Applies to Due, Weak, New, Random, and Favorites. Quick sessions keep the size shown on their button.',
+  'Áp dụng cho Đến hạn, Từ yếu, Từ mới, Ngẫu nhiên, Yêu thích và Học cấp tốc. Phiên nhanh 10/20/30 giữ số thẻ ghi trên nút.': 'Applies to Due, Weak, New, Random, Favorites, and Study sprint. Quick 10/20/30 sessions keep the size shown on their button.',
   'Sao lưu tiến độ': 'Progress backup',
   'Bản sao JSON v1 chỉ gồm tiến độ flashcard, từ yêu thích, chuỗi ngày, lịch sử học và cài đặt. Kho đề offline được nhúng trong tệp HTML, không thuộc định dạng sao lưu tiến độ.': 'The v1 JSON backup contains flashcard progress, favorites, streak, study history, and preferences only. The offline exam archive is embedded in the HTML and is not part of the progress backup.',
   'Xuất bản sao JSON': 'Export JSON backup',
@@ -16261,6 +16262,7 @@ const EN_UI_TRANSLATIONS = Object.freeze({
   'Trạng thái khác': 'Other state',
   'Ôn đến hạn': 'Due review',
   'Phiên nhanh': 'Quick session',
+  'Học cấp tốc': 'Study sprint',
   'Phiên học': 'Study session',
   'Ví dụ': 'Example'
 });
@@ -16275,6 +16277,9 @@ const EN_UI_PATTERNS = [
   [/^(\d+) từ$/, (_match, count) => `${count} words`],
   [/^(\d+) thẻ$/, (_match, count) => `${count} cards`],
   [/^(\d+) lượt còn lại$/, (_match, count) => `${count} turns left`],
+  [// Session header: "<mode> · N từ đã xếp · M lượt còn lại".
+   /^(.+) · (\d+) từ đã xếp · (\d+) lượt còn lại$/, (_match, mode, queued, remaining) =>
+    `${EN_UI_TRANSLATIONS[mode] || mode} · ${queued} ${Number(queued) === 1 ? 'word' : 'words'} queued · ${remaining} ${Number(remaining) === 1 ? 'turn' : 'turns'} left`],
   [/^(\d+) phiên$/, (_match, count) => `${count} sessions`],
   [/^(\d+) đã học$/, (_match, count) => `${count} learned`],
   [/^(\d+) từ đang đến hạn$/, (_match, count) => `${count} words are due`],
@@ -16298,6 +16303,14 @@ const EN_UI_PATTERNS = [
   [/^(\d+)\s*\/\s*(\d+) lượt · (\d+) còn lại$/, (_match, current, total, remaining) => `${current} / ${total} turns · ${remaining} left`]
 ];
 
+const EN_UI_SPRINT_PATTERNS = [
+  [/^Học cấp tốc · (\d+) từ \/ phiên$/, (_m, queued) => `Study sprint · ${queued} words / session`],
+  [/^Xếp (\d+) từ ưu tiên: đến hạn, từ yếu, rồi từ mới — không bỏ qua gợi nhớ chủ động\.$/, (_m, queued) => `Queues ${queued} prioritised words: due, then weak, then new — active recall is never skipped.`],
+  [/^Cấp tốc giữ nguyên khối lượng từ bạn đã chọn trong Cài đặt \((\d+) từ\/phiên\) và không cắt bớt kho từ\. Tốc độ đến từ nhịp thao tác: mỗi từ một lượt trả lời, tự chuyển sau câu đúng, mỗi từ sai được luyện lại đúng một lượt \(không tính vào độ chính xác lần đầu\)\. Thoát giữa chừng vẫn giữ tiến độ đã lưu\.$/, (_m, target) => `The sprint keeps the session size you chose in Settings (${target} words per session) and never shrinks the word pool. Speed comes from the interaction flow: one graded retrieval per word, automatic advance after a correct answer, and exactly one corrective retry per missed word (never counted as first-pass accuracy). Leaving mid-session keeps the progress already saved.`],
+  [/^(\d+) từ đủ điều kiện · xếp (\d+) · (\d+) đến hạn · (\d+) từ yếu$/, (_m, pool, queued, due, weak) => `${pool} eligible words · ${queued} queued · ${due} due · ${weak} weak`],
+  [/^Chế độ cấp tốc: tự chuyển sau ([\d,]+) giây \(nhấn Enter để tiếp ngay\)\.$/, (_m, seconds) => `Study sprint: advances automatically after ${seconds} seconds (press Enter to continue now).`]
+];
+
 const EN_UI_DYNAMIC_FRAGMENTS = [
   [/(\d+)\s+từ/g, (_match, count) => `${count} words`],
   [/(\d+)\s+thẻ/g, (_match, count) => `${count} cards`],
@@ -16313,6 +16326,12 @@ export function translateUiText(value, language = 'vi') {
   let translated = EN_UI_TRANSLATIONS[trimmed];
   if (translated === undefined) {
     for (const [pattern, render] of EN_UI_PATTERNS) {
+      const match = trimmed.match(pattern);
+      if (match) { translated = render(...match); break; }
+    }
+  }
+  if (translated === undefined) {
+    for (const [pattern, render] of EN_UI_SPRINT_PATTERNS) {
       const match = trimmed.match(pattern);
       if (match) { translated = render(...match); break; }
     }
@@ -16526,9 +16545,15 @@ export function selectSession(vocabulary, progressMap, { size = 20, mode = 'due'
   return candidates.slice(0, limit);
 }
 
-// One corrective retrieval per original card; practice never recursively queues itself.
-export function selectSprintSession(vocabulary, progressMap, { size = SPRINT_SIZE, favorites = new Set(), now = Date.now() } = {}) {
-  // favorites reserved for future filtering; current sprint prioritizes due/weak/new regardless of favorites (spec: due/weak/new, bounded 7)
+// "Học cấp tốc" is a pacing mode, not a shorter lesson. It fills the learner's
+// configured session size (the same explicit target the other goal sessions use)
+// from the whole eligible pool, so a sprint never queues fewer words merely
+// because it is a sprint. The order is deterministic: due cards first (weak
+// before review), then weak-but-not-due, learning, new, review, mastered.
+// Speed comes from the interaction budget (one graded retrieval per card, a
+// single bounded correction, and automatic advancing after a correct answer),
+// never from silently dropping vocabulary.
+export function selectSprintSession(vocabulary, progressMap, { size = DEFAULT_PREFS.sessionSize, now = Date.now() } = {}) {
   const entries = Array.isArray(vocabulary) ? vocabulary : [];
   const byId = new Map(entries.map(entry => [entry.id, entry]));
   const make = progress => ({ vocab: byId.get(progress.id), progress });
@@ -16536,26 +16561,25 @@ export function selectSprintSession(vocabulary, progressMap, { size = SPRINT_SIZ
   const all = Object.values(progressMap || {}).filter(valid);
   const limit = Number.isFinite(Number(size)) ? Math.max(0, Math.floor(Number(size))) : 0;
   if (limit === 0) return [];
-  // priority: due first, then weak, then learning, then new, then review, then mastered
   const priority = { weak: 0, learning: 1, review: 2, new: 3, mastered: 4 };
   const due = all.filter(p => isDue(p, now))
-    .sort((a,b) => priority[a.state] - priority[b.state] || a.nextReview - b.nextReview || b.wrongCount - a.wrongCount);
+    .sort((a, b) => priority[a.state] - priority[b.state] || a.nextReview - b.nextReview || b.wrongCount - a.wrongCount);
   const dueIds = new Set(due.map(p => p.id));
-  const weak = all.filter(p => !dueIds.has(p.id) && p.state === STATES.WEAK)
-    .sort((a,b) => b.wrongCount - a.wrongCount || a.nextReview - b.nextReview);
-  const weakIds = new Set(weak.map(p=>p.id));
-  const learning = all.filter(p => !dueIds.has(p.id) && !weakIds.has(p.id) && p.state === STATES.LEARNING)
-    .sort((a,b) => a.nextReview - b.nextReview);
-  const learningIds = new Set(learning.map(p=>p.id));
-  const newCards = all.filter(p => !dueIds.has(p.id) && !weakIds.has(p.id) && !learningIds.has(p.id) && p.state === STATES.NEW);
-  const newIds = new Set(newCards.map(p=>p.id));
-  const review = all.filter(p => !dueIds.has(p.id) && !weakIds.has(p.id) && !learningIds.has(p.id) && !newIds.has(p.id) && p.state === STATES.REVIEW)
-    .sort((a,b) => a.nextReview - b.nextReview);
-  const mastered = all.filter(p => !dueIds.has(p.id) && !weakIds.has(p.id) && !learningIds.has(p.id) && !newIds.has(p.id) && p.state !== STATES.REVIEW && p.state !== STATES.NEW && p.state !== STATES.LEARNING && p.state !== STATES.WEAK)
-    .sort((a,b) => a.nextReview - b.nextReview);
+  const rest = all.filter(p => !dueIds.has(p.id));
+  const bucket = state => rest.filter(p => p.state === state);
+  const weak = bucket(STATES.WEAK).sort((a, b) => b.wrongCount - a.wrongCount || a.nextReview - b.nextReview);
+  const learning = bucket(STATES.LEARNING).sort((a, b) => a.nextReview - b.nextReview);
+  const newCards = bucket(STATES.NEW).sort((a, b) => a.nextReview - b.nextReview);
+  const review = bucket(STATES.REVIEW).sort((a, b) => a.nextReview - b.nextReview);
+  const mastered = bucket(STATES.MASTERED).sort((a, b) => a.nextReview - b.nextReview);
   const ordered = [...due, ...weak, ...learning, ...newCards, ...review, ...mastered];
-  // For sprint, keep deterministic order, no shuffle
   return ordered.map(make).slice(0, limit);
+}
+
+// Total pool the sprint can draw from, independent of the session-size target.
+export function sprintEligibleCount(vocabulary, progressMap) {
+  const ids = new Set((Array.isArray(vocabulary) ? vocabulary : []).map(entry => entry?.id));
+  return Object.values(progressMap || {}).filter(progress => progress && ids.has(progress.id)).length;
 }
 
 export function queuePractice(session, item) {
@@ -17588,6 +17612,7 @@ export async function createApp(root) {
   let sessionStats = null;
   let sessionSummary = null;
   let firstLook = false;
+  let autoAdvanceTimer = null;
   let examRecords = null;
   let examArchivePromise = null;
   let examAttempts = loadExamHistory(storage);
@@ -17637,6 +17662,7 @@ export async function createApp(root) {
   // the first-look state, the answer/reveal state and the session statistics.
   // `session` owns the practice queue and each card's `practice`/`taught` marks.
   function clearActiveSession() {
+    cancelAutoAdvance();
     session = null;
     question = null;
     questionStarted = 0;
@@ -17646,6 +17672,25 @@ export async function createApp(root) {
     firstLook = false;
     sessionStats = null;
     sessionSummary = null;
+  }
+
+  // One pending auto-advance at a time. Every transition cancels it first so a
+  // stale timer can never skip the feedback of the card that replaced it.
+  function cancelAutoAdvance() {
+    if (autoAdvanceTimer !== null) {
+      clearTimeout(autoAdvanceTimer);
+      autoAdvanceTimer = null;
+    }
+  }
+
+  function scheduleAutoAdvance() {
+    cancelAutoAdvance();
+    autoAdvanceTimer = setTimeout(() => {
+      autoAdvanceTimer = null;
+      // The learner may have navigated away from the card while the timer ran.
+      if (view !== 'learn' || !session?.length) return;
+      advanceCard();
+    }, SPRINT_AUTO_ADVANCE_MS);
   }
 
   // Returns whether every store was written; callers that report success must
@@ -17750,8 +17795,8 @@ export async function createApp(root) {
       </div>
       <footer class="footer">Ứng dụng chạy từ một tệp HTML độc lập · tiến độ flashcard được lưu riêng trên thiết bị này.</footer>
     `;
-    root.querySelectorAll('[data-view]').forEach(button => button.addEventListener('click', () => { view = button.dataset.view; sessionSummary = null; renderShell(); }));
-    root.querySelector('#brand-link').addEventListener('click', event => { event.preventDefault(); view = 'learn'; sessionSummary = null; renderShell(); });
+    root.querySelectorAll('[data-view]').forEach(button => button.addEventListener('click', () => { cancelAutoAdvance(); view = button.dataset.view; sessionSummary = null; renderShell(); }));
+    root.querySelector('#brand-link').addEventListener('click', event => { event.preventDefault(); cancelAutoAdvance(); view = 'learn'; sessionSummary = null; renderShell(); });
     root.querySelector('#theme-button').addEventListener('click', () => {
       prefs.darkMode = !prefs.darkMode;
       if (!savePrefs(prefs, storage)) toast('Không thể lưu giao diện trên thiết bị này.', 'error');
@@ -17795,10 +17840,12 @@ export async function createApp(root) {
     const favoritesDescription = favorites.size
       ? 'Ôn lại những từ bạn đã đánh dấu.'
       : 'Đánh dấu từ bằng ngôi sao trong Tra cứu để tạo danh sách.';
-    // Sprint stats for banner
-    const sprintCandidates = selectSprintSession(vocabulary, progress, { size: SPRINT_SIZE });
-    const sprintDue = sprintCandidates.filter(c => isDue(c.progress)).length;
-    const sprintWeak = sprintCandidates.filter(c => c.progress.state === STATES.WEAK).length;
+    // Sprint banner reports the real pool and the real queue: the eligible count is
+    // the whole pool, and the queue is min(pool, the learner's configured size).
+    const sprintTarget = prefs.sessionSize;
+    const sprintPool = sprintEligibleCount(vocabulary, progress);
+    const sprintCandidates = selectSprintSession(vocabulary, progress, { size: sprintTarget });
+    const sprintQueued = sprintCandidates.length;
     container.innerHTML = `
       <div class="page-header"><div><h1>Học từ vựng Chuyên Anh</h1><p>Ôn chủ động, gặp lại đúng lúc. Từ chưa học được giới thiệu nghĩa trước khi kiểm tra.</p></div></div>
       <section class="study-recommendation" aria-labelledby="recommendation-title">
@@ -17815,16 +17862,16 @@ export async function createApp(root) {
       <section class="sprint-banner" aria-labelledby="sprint-title">
         <div style="flex:1">
           <span class="sprint-badge">HỌC CẤP TỐC</span>
-          <h2 id="sprint-title" style="margin:8px 0 4px">Học cấp tốc · 7 từ · ~5 phút</h2>
-          <p style="margin:0;color:var(--muted);font-size:.82rem">7 từ ưu tiên: đến hạn, từ yếu, rồi từ mới — tối đa ~5 phút, vẫn giữ gợi nhớ chủ động.</p>
-          <p class="sprint-longdesc" style="margin:6px 0 0;font-size:.75rem;color:var(--faint)">Chế độ cấp tốc ưu tiên từ đến hạn và từ yếu để tiết kiệm thời gian mà không bỏ qua gợi nhớ chủ động. Có giới hạn 7 lượt, tự kết thúc nhanh; thoát giữa chừng không mất tiến độ đã lưu.</p>
+          <h2 id="sprint-title" style="margin:8px 0 4px">Học cấp tốc · ${sprintQueued} từ / phiên</h2>
+          <p style="margin:0;color:var(--muted);font-size:.82rem">Xếp ${sprintQueued} từ ưu tiên: đến hạn, từ yếu, rồi từ mới — không bỏ qua gợi nhớ chủ động.</p>
+          <p class="sprint-longdesc" style="margin:6px 0 0;font-size:.75rem;color:var(--faint)">Cấp tốc giữ nguyên khối lượng từ bạn đã chọn trong Cài đặt (${sprintTarget} từ/phiên) và không cắt bớt kho từ. Tốc độ đến từ nhịp thao tác: mỗi từ một lượt trả lời, tự chuyển sau câu đúng, mỗi từ sai được luyện lại đúng một lượt (không tính vào độ chính xác lần đầu). Thoát giữa chừng vẫn giữ tiến độ đã lưu.</p>
           <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
             <button class="btn primary" data-session="sprint">${iconMarkup('bolt')}Bắt đầu học cấp tốc</button>
-            <span style="align-self:center;font-size:.75rem;color:var(--muted)">${sprintCandidates.length} từ sẵn sàng · ${sprintDue} đến hạn · ${sprintWeak} từ yếu</span>
+            <span id="sprint-pool" style="align-self:center;font-size:.75rem;color:var(--muted)">${sprintPool} từ đủ điều kiện · xếp ${sprintQueued} · ${currentStats.due} đến hạn · ${currentStats.weak} từ yếu</span>
           </div>
         </div>
         <div class="recommendation-mark" aria-hidden="true" style="min-width:80px;text-align:center">
-          ${iconMarkup('bolt')}<strong>7</strong><span>TỪ / PHIÊN</span>
+          ${iconMarkup('bolt')}<strong>${sprintQueued}</strong><span>TỪ / PHIÊN</span>
         </div>
       </section>
       <section class="study-section" aria-labelledby="study-goals-title">
@@ -17859,11 +17906,14 @@ export async function createApp(root) {
   }
 
   function startSession(type) {
+    cancelAutoAdvance();
     if (type === 'sprint') {
-      const selected = selectSprintSession(vocabulary, progress, { size: SPRINT_SIZE, favorites });
+      // The sprint honours the configured session-size target and the whole pool;
+      // it never falls back to a fixed, smaller lesson.
+      const selected = selectSprintSession(vocabulary, progress, { size: prefs.sessionSize });
       if (!selected.length) { toast('Chưa có từ phù hợp cho phiên cấp tốc. Hãy thử chế độ khác.'); return; }
       session = selected;
-      sessionStats = { total: selected.length, correct: 0, wrong: 0, practiceTotal: 0, practiceCorrect: 0, practiceWrong: 0, startedAt: Date.now(), mode: 'sprint' };
+      sessionStats = { total: selected.length, correct: 0, wrong: 0, practiceTotal: 0, practiceCorrect: 0, practiceWrong: 0, startedAt: Date.now(), mode: 'sprint', queued: selected.length };
       sessionSummary = null;
       nextQuestion();
       renderShell();
@@ -17879,13 +17929,14 @@ export async function createApp(root) {
       return;
     }
     session = selected;
-    sessionStats = { total: selected.length, correct: 0, wrong: 0, practiceTotal: 0, practiceCorrect: 0, practiceWrong: 0, startedAt: Date.now(), mode };
+    sessionStats = { total: selected.length, correct: 0, wrong: 0, practiceTotal: 0, practiceCorrect: 0, practiceWrong: 0, startedAt: Date.now(), mode, queued: selected.length };
     sessionSummary = null;
     nextQuestion();
     renderShell();
   }
 
   function nextQuestion() {
+    cancelAutoAdvance();
     if (!session?.length) return finishSession();
     const item = session[0];
     item.progress = progress[item.vocab.id];
@@ -17929,7 +17980,7 @@ export async function createApp(root) {
     const options = question?.options || [];
     container.innerHTML = `
       <div class="flashcard-wrap">
-        <div class="page-header"><div><h1>Phiên học</h1><p>${escapeHtml(sessionModeLabel(sessionStats.mode))} · ${session.length} lượt còn lại</p></div><button class="btn" id="exit-session">Thoát phiên</button></div>
+        <div class="page-header"><div><h1>Phiên học</h1><p>${escapeHtml(sessionModeLabel(sessionStats.mode))} · ${sessionStats.queued ?? sessionStats.total} từ đã xếp · ${session.length} lượt còn lại</p></div><button class="btn" id="exit-session">Thoát phiên</button></div>
         <div class="session-progress" aria-label="Tiến độ phiên" role="progressbar" aria-valuenow="${percent}" aria-valuemin="0" aria-valuemax="100"><span style="width:${percent}%"></span></div>
         <article class="flashcard">
           <div class="flashcard-head"><span><b>${done + 1}</b> / ${totalAttempts} lượt · ${session.length} còn lại</span><div class="flashcard-head-actions"><span class="state-pill state-${escapeHtml(item.progress.state)}">${escapeHtml(stateLabel(item.progress.state))}</span><button class="fav ${favorites.has(item.vocab.id) ? 'active' : ''}" id="favorite-card" aria-label="${favorites.has(item.vocab.id) ? 'Bỏ yêu thích' : 'Thêm yêu thích'}">${favorites.has(item.vocab.id) ? '★' : '☆'}</button><button class="btn small" id="skip-card" ${locked ? 'disabled' : ''}>Bỏ qua</button></div></div>
@@ -18001,7 +18052,10 @@ export async function createApp(root) {
       const updated = updateProgress(progress[item.vocab.id], correct, Date.now() - questionStarted);
       progress[item.vocab.id] = updated;
       item.progress = updated;
-      if (sessionStats.mode !== 'sprint' && !correct && queuePractice(session, item)) sessionStats.practiceTotal += 1;
+      // Every mode, sprint included, queues at most one corrective retrieval per
+      // missed word. Sprint previously skipped it while still telling the learner a
+      // retry had been queued; the correction is what makes speed safe.
+      if (!correct && queuePractice(session, item)) sessionStats.practiceTotal += 1;
     }
     answered = true;
     answerResult = { correct, selected: answer, revealed };
@@ -18013,13 +18067,16 @@ export async function createApp(root) {
     }
     persist();
     renderFlashcard(root.querySelector('#content'));
+    // Sprint throughput: a correct first-pass answer advances itself. A wrong
+    // answer keeps its feedback and correction on screen until acknowledged.
+    if (sessionStats.mode === 'sprint' && correct && !item.practice) scheduleAutoAdvance();
   }
 
   function renderFeedback(container) {
     const item = session[0];
     const correct = answerResult.correct;
     const answerText = question.answer;
-    container.querySelector('#feedback-area').innerHTML = `<div class="feedback ${correct ? 'correct' : 'wrong'}" role="alert"><div class="feedback-title">${correct ? '✓ Chính xác!' : `✕ Chưa đúng · Đáp án: ${escapeHtml(answerText)}`}</div><p><strong>${escapeHtml(item.vocab.word)}</strong> · ${escapeHtml(item.vocab.meaning)}</p>${vocabularyMetadataHtml(item.vocab)}${!correct && !item.practice ? `<p>Bạn sai từ này ${item.progress.wrongCount} lần. Đã xếp một lượt gõ lại sau các thẻ còn lại; từ vẫn đến hạn ôn.</p>` : ''}${item.practice ? '<p>Lượt luyện đã hoàn tất. Lịch ôn và kết quả lần đầu được giữ nguyên; hãy ôn lại khi đến hạn.</p>' : ''}${answerResult.revealed ? '<p>Lượt này được chấm theo tự đánh giá vì bạn đã xem đáp án trước đó.</p>' : ''}${exampleHtml(item.vocab)}<p style="color:var(--muted);font-size:.75rem">Lần ôn tiếp theo: ${formatNextReview(item.progress.nextReview, language)} · trạng thái: ${stateLabel(item.progress.state)}</p><div class="actions" style="margin-top:12px"><button class="btn primary full" id="next-card">Tiếp tục <kbd>Enter</kbd></button></div></div>`;
+    container.querySelector('#feedback-area').innerHTML = `<div class="feedback ${correct ? 'correct' : 'wrong'}" role="alert"><div class="feedback-title">${correct ? '✓ Chính xác!' : `✕ Chưa đúng · Đáp án: ${escapeHtml(answerText)}`}</div><p><strong>${escapeHtml(item.vocab.word)}</strong> · ${escapeHtml(item.vocab.meaning)}</p>${vocabularyMetadataHtml(item.vocab)}${!correct && !item.practice && item.practiceQueued ? `<p>Bạn sai từ này ${item.progress.wrongCount} lần. Đã xếp một lượt gõ lại sau các thẻ còn lại; từ vẫn đến hạn ôn.</p>` : ''}${item.practice ? '<p>Lượt luyện đã hoàn tất. Lịch ôn và kết quả lần đầu được giữ nguyên; hãy ôn lại khi đến hạn.</p>' : ''}${answerResult.revealed ? '<p>Lượt này được chấm theo tự đánh giá vì bạn đã xem đáp án trước đó.</p>' : ''}${exampleHtml(item.vocab)}<p style="color:var(--muted);font-size:.75rem">Lần ôn tiếp theo: ${formatNextReview(item.progress.nextReview, language)} · trạng thái: ${stateLabel(item.progress.state)}</p>${sessionStats.mode === 'sprint' && correct && !item.practice ? `<p class="sprint-auto-hint" style="color:var(--muted);font-size:.75rem">Chế độ cấp tốc: tự chuyển sau ${(SPRINT_AUTO_ADVANCE_MS / 1000).toFixed(1).replace('.', ',')} giây (nhấn Enter để tiếp ngay).</p>` : ''}<div class="actions" style="margin-top:12px"><button class="btn primary full" id="next-card">Tiếp tục <kbd>Enter</kbd></button></div></div>`;
     const nextButton = container.querySelector('#next-card');
     nextButton.addEventListener('click', advanceCard);
     nextButton.focus({ preventScroll: true });
@@ -18027,6 +18084,7 @@ export async function createApp(root) {
 
   function advanceCard() {
     if (!answered || !session?.length) return;
+    cancelAutoAdvance();
     session.shift();
     if (!session.length) return finishSession();
     nextQuestion();
@@ -18044,7 +18102,7 @@ export async function createApp(root) {
 
   function repeatCurrent() {
     if (!answered || !session?.length) return;
-    if (sessionStats.mode !== 'sprint' && queuePractice(session, session[0])) {
+    if (queuePractice(session, session[0])) {
       sessionStats.practiceTotal += 1;
       toast('Đã xếp một lượt luyện sau các thẻ còn lại, không đổi lịch ôn.');
     }
@@ -18489,7 +18547,7 @@ export async function createApp(root) {
   }
 
   function renderSettings(container) {
-    container.innerHTML = `<div class="page-header"><div><h1>Cài đặt & dữ liệu</h1><p>Tiến độ được lưu trong bộ nhớ của trình duyệt. Bạn có thể sao lưu hoặc chuyển sang thiết bị khác bằng tệp JSON.</p></div></div><div class="settings"><section class="panel"><div class="panel-heading">Tùy chọn học</div><div class="panel-body"><div class="setting-row"><div><b id="language-label">Ngôn ngữ giao diện</b><small id="language-help">Chọn ngôn ngữ giao diện. Nội dung từ vựng và bản chép đề giữ nguyên ngôn ngữ nguồn.</small></div><select class="setting-select" id="language-setting" aria-labelledby="language-label" aria-describedby="language-help" style="width:180px;max-width:45%"><option value="vi" ${language === 'vi' ? 'selected' : ''}>Tiếng Việt</option><option value="en" ${language === 'en' ? 'selected' : ''}>English</option></select></div><div class="setting-row"><div><b id="dark-label">Giao diện tối</b><small id="dark-help">Giảm chói khi học buổi tối.</small></div><label class="switch"><input type="checkbox" id="dark-setting" aria-labelledby="dark-label" aria-describedby="dark-help" ${prefs.darkMode ? 'checked' : ''}><span aria-hidden="true"></span></label></div><div class="setting-row"><div><b id="keys-label">Phím tắt bàn phím</b><small id="keys-help">Tắt nếu bạn thường gõ trên trang học.</small></div><label class="switch"><input type="checkbox" id="keys-setting" aria-labelledby="keys-label" aria-describedby="keys-help" ${prefs.keyboardShortcuts ? 'checked' : ''}><span aria-hidden="true"></span></label></div><div class="setting-row"><div><div><b id="size-label">Số thẻ mặc định mỗi phiên</b></div><small id="size-help">Áp dụng cho Đến hạn, Từ yếu, Từ mới, Ngẫu nhiên và Yêu thích. Phiên nhanh giữ số thẻ ghi trên nút.</small></div><select class="setting-select" id="size-setting" aria-labelledby="size-label" aria-describedby="size-help" style="width:100px"><option ${prefs.sessionSize === 10 ? 'selected' : ''}>10</option><option ${prefs.sessionSize === 20 ? 'selected' : ''}>20</option><option ${prefs.sessionSize === 30 ? 'selected' : ''}>30</option><option ${prefs.sessionSize === 50 ? 'selected' : ''}>50</option></select></div></div></section><section class="panel"><div class="panel-heading">Sao lưu tiến độ</div><div class="panel-body"><p class="settings-copy">Bản sao JSON v1 chỉ gồm tiến độ flashcard, từ yêu thích, chuỗi ngày, lịch sử học và cài đặt. Kho đề offline được nhúng trong tệp HTML, không thuộc định dạng sao lưu tiến độ.</p><div class="setting-actions"><button class="btn primary" id="export-setting">${iconMarkup('download')}Xuất bản sao JSON</button><label class="btn" for="import-setting">${iconMarkup('overview')}Nhập bản sao JSON<input id="import-setting" type="file" accept="application/json,.json" hidden></label><button class="btn danger" id="reset-setting">Xóa dữ liệu học</button></div></div></section><section class="panel"><div class="panel-heading">Thông tin dữ liệu</div><div class="panel-body data-info"><p><b>${vocabulary.length} từ</b> · phiên bản dữ liệu <code class="code">${escapeHtml(loaded.version)}</code></p><p>Từ vựng, 106 bản chép đề, giao diện và mã ứng dụng nằm trong chính tệp HTML này. Ứng dụng không tự tải dữ liệu/tài nguyên; chỉ tiến độ flashcard được lưu riêng trên thiết bị.</p></div></section></div>`;
+    container.innerHTML = `<div class="page-header"><div><h1>Cài đặt & dữ liệu</h1><p>Tiến độ được lưu trong bộ nhớ của trình duyệt. Bạn có thể sao lưu hoặc chuyển sang thiết bị khác bằng tệp JSON.</p></div></div><div class="settings"><section class="panel"><div class="panel-heading">Tùy chọn học</div><div class="panel-body"><div class="setting-row"><div><b id="language-label">Ngôn ngữ giao diện</b><small id="language-help">Chọn ngôn ngữ giao diện. Nội dung từ vựng và bản chép đề giữ nguyên ngôn ngữ nguồn.</small></div><select class="setting-select" id="language-setting" aria-labelledby="language-label" aria-describedby="language-help" style="width:180px;max-width:45%"><option value="vi" ${language === 'vi' ? 'selected' : ''}>Tiếng Việt</option><option value="en" ${language === 'en' ? 'selected' : ''}>English</option></select></div><div class="setting-row"><div><b id="dark-label">Giao diện tối</b><small id="dark-help">Giảm chói khi học buổi tối.</small></div><label class="switch"><input type="checkbox" id="dark-setting" aria-labelledby="dark-label" aria-describedby="dark-help" ${prefs.darkMode ? 'checked' : ''}><span aria-hidden="true"></span></label></div><div class="setting-row"><div><b id="keys-label">Phím tắt bàn phím</b><small id="keys-help">Tắt nếu bạn thường gõ trên trang học.</small></div><label class="switch"><input type="checkbox" id="keys-setting" aria-labelledby="keys-label" aria-describedby="keys-help" ${prefs.keyboardShortcuts ? 'checked' : ''}><span aria-hidden="true"></span></label></div><div class="setting-row"><div><div><b id="size-label">Số thẻ mặc định mỗi phiên</b></div><small id="size-help">Áp dụng cho Đến hạn, Từ yếu, Từ mới, Ngẫu nhiên, Yêu thích và Học cấp tốc. Phiên nhanh 10/20/30 giữ số thẻ ghi trên nút.</small></div><select class="setting-select" id="size-setting" aria-labelledby="size-label" aria-describedby="size-help" style="width:100px"><option ${prefs.sessionSize === 10 ? 'selected' : ''}>10</option><option ${prefs.sessionSize === 20 ? 'selected' : ''}>20</option><option ${prefs.sessionSize === 30 ? 'selected' : ''}>30</option><option ${prefs.sessionSize === 50 ? 'selected' : ''}>50</option></select></div></div></section><section class="panel"><div class="panel-heading">Sao lưu tiến độ</div><div class="panel-body"><p class="settings-copy">Bản sao JSON v1 chỉ gồm tiến độ flashcard, từ yêu thích, chuỗi ngày, lịch sử học và cài đặt. Kho đề offline được nhúng trong tệp HTML, không thuộc định dạng sao lưu tiến độ.</p><div class="setting-actions"><button class="btn primary" id="export-setting">${iconMarkup('download')}Xuất bản sao JSON</button><label class="btn" for="import-setting">${iconMarkup('overview')}Nhập bản sao JSON<input id="import-setting" type="file" accept="application/json,.json" hidden></label><button class="btn danger" id="reset-setting">Xóa dữ liệu học</button></div></div></section><section class="panel"><div class="panel-heading">Thông tin dữ liệu</div><div class="panel-body data-info"><p><b>${vocabulary.length} từ</b> · phiên bản dữ liệu <code class="code">${escapeHtml(loaded.version)}</code> · phiên bản ứng dụng <code class="code" id="app-version">${escapeHtml(APP_VERSION)}</code></p><p>Từ vựng, 106 bản chép đề, giao diện và mã ứng dụng nằm trong chính tệp HTML này. Ứng dụng không tự tải dữ liệu/tài nguyên; chỉ tiến độ flashcard được lưu riêng trên thiết bị.</p></div></section></div>`;
     container.querySelector('#language-setting').addEventListener('change', event => {
       const nextLanguage = event.target.value;
       if (!saveLanguage(nextLanguage, storage)) {
