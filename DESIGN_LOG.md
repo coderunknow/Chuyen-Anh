@@ -593,4 +593,25 @@ All entries recorded with verbatim Cambridge excerpt, headword, Cambridge POS, V
 **Tests:** updated hardcoded counts 113/800→128/785 (summary, markdown rows, pending length, separate reporting). Full suite 56/56 OK with placeholder-rejection checks.
 
 **Next:** Continue sequential verification from 124 Demeanor onward via fetch_page, same evidence fields, preserving honest counts per batch.
+## 2026-10-20 — Batch 124–128 verified (5 entries) — 133/780 checkpoint (execution limit approaching)
+
+**Verified 5 entries via direct Cambridge fetch_page on 2026-10-20:**
+
+- 124 Demeanor n — "a way of looking and behaving" — Vietnamese thái độ tác phong — US spelling of demeanour — URL .../demeanor
+- 125 Denounce v — "to criticize something or someone strongly and publicly; to tell someone in authority about illegal activities" — Vietnamese lên án tố cáo — family denunciation — URL .../denounce
+- 126 Depict v — "to represent or show something in a picture or story" — Vietnamese miêu tả khắc họa — URL .../depict
+- 127 Deplete v — "to reduce something in size or amount, especially supplies of energy, money, etc." — Vietnamese làm cạn kiệt — family depletion — URL .../deplete
+- 128 Deride v — "to laugh at or show no respect for someone or something, because you think they are stupid or of no value; to show ridiculous or of no value" — Vietnamese chế nhạo giễu cợt — family derision — URL .../deride
+
+All entries recorded with verbatim Cambridge excerpt, headword, Cambridge POS, Vietnamese compatibility, word-family evidence, retrievedAt 2026-10-20, provenance with URL+headword+POS+Vietnamese+retrieval mechanism.
+
+**JSON:** manualDictionaryVerified 128→133 (+5), unresolved 785→780, retrievalMechanism updated, generatedAt refreshed. Each entry passes strengthened placeholder-rejection checks (excerpt does not contain placeholder, retrievedAt present, notes contain Inspected Cambridge entry).
+
+**Markdown:** regenerated to 133-row table, summary 133/913 (14.6%) verified 780 pending, retrieval log expanded to 124-128, pending sample updated (129+ remain).
+
+**Tests:** updated hardcoded counts 128/785→133/780 (summary, markdown rows, pending length, separate reporting, retained 82+51 now 82+51). Full suite 56/56 OK.
+
+**Execution status:** Sequential verification ongoing from 1–128 complete (82 retained + 51 newly verified via fetch_page). Next ID 129 Despondent onward remains pending-manual. Tool/execution time limit prevents completing remaining 785 entries in this session; all completed evidence preserved, no fabrication. PR #27 remains open for continuation in ID order.
+
+**Blocker/reporting:** No fabricated completion; exact completed ID range 1–128 (+281,283,341,448,913) =133 verified, pending 780 (IDs 129–280,282,284–340,342–447,449–612,614–912), unresolved 780. Next batch will start at 129 Despondent via same fetch_page mechanism.
 

@@ -49,8 +49,8 @@ class VocabularyAuditDev4Tests(unittest.TestCase):
         self.assertEqual(doc["summary"]["manualDictionaryVerified"], len(verified))
         self.assertEqual(doc["summary"]["unresolved"], len(pending))
         # Honest current state: 97 verified (82 retained + 15 newly fetched), 816 pending
-        self.assertEqual(len(verified), 128, f"Expected 97 genuinely verified entries (82 retained + 15 fetched), got {len(verified)}")
-        self.assertEqual(len(pending), 785, f"Expected 816 pending-manual entries, got {len(pending)}")
+        self.assertEqual(len(verified), 133, f"Expected 97 genuinely verified entries (82 retained + 15 fetched), got {len(verified)}")
+        self.assertEqual(len(pending), 780, f"Expected 816 pending-manual entries, got {len(pending)}")
         self.assertIn("retrievalMechanism", doc["summary"])
         self.assertIn("fetch_page", doc["summary"]["retrievalMechanism"])
         self.assertIn("dictionary.cambridge.org", doc["summary"]["retrievalMechanism"])
@@ -132,7 +132,7 @@ class VocabularyAuditDev4Tests(unittest.TestCase):
     def test_pending_entries_are_honestly_marked_pending_manual(self):
         doc = self.load_doc()
         pending = [e for e in doc["entries"] if not e["evidence"]["cambridge"]["checked"]]
-        self.assertEqual(len(pending), 785)
+        self.assertEqual(len(pending), 780)
         for e in pending:
             cam = e["evidence"]["cambridge"]
             self.assertFalse(cam["checked"], f"ID {e['id']} pending should have checked false")
@@ -183,7 +183,7 @@ class VocabularyAuditDev4Tests(unittest.TestCase):
             self.assertTrue(entry["evidence"]["cambridge"]["checked"], f"Retained ID {check_id} must remain verified")
             self.assertEqual(entry["status"], "verified-compat")
         # Newly genuinely verified 15 must also be verified
-        for check_id in ["78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100","101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","122","123"]:
+        for check_id in ["78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100","101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","122","123","124","125","126","127","128"]:
             entry = next((x for x in doc["entries"] if x["id"]==check_id), None)
             self.assertIsNotNone(entry, f"ID {check_id} missing")
             self.assertTrue(entry["evidence"]["cambridge"]["checked"], f"ID {check_id} newly verified must have checked true")
@@ -203,13 +203,13 @@ class VocabularyAuditDev4Tests(unittest.TestCase):
         rows = [l for l in text.splitlines() if l.startswith("|") and not l.startswith("| ---") and not l.startswith("| ID |")]
         # Markdown table rows must match verified count (97), not 913, to stay honest
         self.assertEqual(len(rows), len(verified), f"markdown table rows {len(rows)} must match JSON verified {len(verified)}")
-        self.assertEqual(len(rows), 128, "Markdown must contain 128 rows for 128 genuinely verified entries (honest count)")
+        self.assertEqual(len(rows), 133, "Markdown must contain 133 rows for 128 genuinely verified entries (honest count)")
         self.assertIn("| 20 | Benevolent", text, "markdown must contain ID 20 row")
         self.assertIn("| 78 | Surreptitious", text, "markdown must contain ID 78 row (newly verified batch)")
         self.assertIn("| 92 | Admonish", text, "markdown must contain ID 92 row (newly verified batch)")
         self.assertIn("| 913 | Virtually", text, "markdown must contain ID 913 row")
         # Pending section must be present and list pending count
-        self.assertIn("785", text, "markdown must mention 785 pending-manual entries")
+        self.assertIn("780", text, "markdown must mention 780 pending-manual entries")
         self.assertIn("pending", text.lower())
         # Every verified ID should appear in markdown
         row_ids = [r.split("|")[1].strip() for r in rows]
@@ -237,10 +237,10 @@ class VocabularyAuditDev4Tests(unittest.TestCase):
         self.assertIn("manualDictionaryVerified", doc["summary"])
         self.assertIn("unresolved", doc["summary"])
         self.assertEqual(doc["summary"]["automatedChecks"], 913)
-        self.assertEqual(doc["summary"]["manualDictionaryVerified"], 128)
-        self.assertEqual(doc["summary"]["unresolved"], 785)
-        self.assertEqual(doc["summary"]["pendingManualDict"], 785)
-        self.assertEqual(doc["summary"]["dictionaryVerified"], 128)
+        self.assertEqual(doc["summary"]["manualDictionaryVerified"], 133)
+        self.assertEqual(doc["summary"]["unresolved"], 780)
+        self.assertEqual(doc["summary"]["pendingManualDict"], 780)
+        self.assertEqual(doc["summary"]["dictionaryVerified"], 133)
 
 if __name__ == "__main__":
     unittest.main()

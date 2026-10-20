@@ -1,8 +1,8 @@
 # Vocabulary Audit — v1.0.0-dev4 (audit-first, evidence-backed)
 
-Generated: 2026-10-20T11:49:28.816881Z | AppVersion: v1.0.0-dev4 | SchemaVersion: 1.0.0
+Generated: 2026-10-20T11:52:18.543065Z | AppVersion: v1.0.0-dev4 | SchemaVersion: 1.0.0
 
-This audit preserves the original 82 legitimately verified entries (IDs 1–77 + 281,283,341,448,913) and adds 46 newly verified entries (IDs 78–123) with direct Cambridge inspection. Remaining 785 entries are honestly marked pending-manual — they have generated Cambridge URLs but have not yet been inspected, and no placeholder excerpt is counted as verification.
+This audit preserves the original 82 legitimately verified entries (IDs 1–77 + 281,283,341,448,913) and adds 51 newly verified entries (IDs 78–128) with direct Cambridge inspection. Remaining 780 entries are honestly marked pending-manual — they have generated Cambridge URLs but have not yet been inspected, and no placeholder excerpt is counted as verification.
 
 **Retrieval mechanism:** Direct `fetch_page` of `https://dictionary.cambridge.org/dictionary/english/<slug>` with `retrievedAt` date per entry; cross-checked via `web_search` where noted. Each verified entry records exact headword, source-supported definition excerpt verbatim from Cambridge, URL, POS compatibility, Vietnamese meaning compatibility, and word-family evidence. Entries without direct inspection remain `pending-manual` (checked false, posMatch pending-manual, definitionExcerpt null, retrievedAt null) and are never counted as verified.
 
@@ -11,21 +11,21 @@ Authoritative sources consulted (URLs per ID): Cambridge (primary), Oxford Learn
 ## Summary counts (recalculated from entry-level evidence)
 
 - **Automated checks:** 913 entries structurally validated (POS token, meaning presence, tier).
-- **Manual dictionary verification:** 128 entries verified against Cambridge with per-ID evidence (URL + verbatim excerpt + POS + meaning + retrievedAt).
-- **Unresolved / pending-manual:** 785 entries remain unverified (Cambridge URL generated but not yet inspected; no excerpt/provenance counted as proof).
-- **Total:** 913 entries — 128/913 (14.0%) have completed dictionary verification with traceable evidence; 785 pending.
+- **Manual dictionary verification:** 133 entries verified against Cambridge with per-ID evidence (URL + verbatim excerpt + POS + meaning + retrievedAt).
+- **Unresolved / pending-manual:** 780 entries remain unverified (Cambridge URL generated but not yet inspected; no excerpt/provenance counted as proof).
+- **Total:** 913 entries — 133/913 (14.6%) have completed dictionary verification with traceable evidence; 780 pending.
 
 Separated reporting: `automatedChecks` (structural validation), `manualDictionaryVerified` (actual dictionary inspection with retrievedAt), `unresolved` (pending-manual requiring future retrieval) are kept strictly separate and recalculated from entry-level evidence. No manufactured completion.
 
 ## Tier distribution
 
-- Core 1–300: 300 (verified 116 + pending 184) — breakdown reflects honest verified count
+- Core 1–300: 300 (verified 121 + pending 179) — breakdown reflects honest verified count
 - Extended 301–613: 313 (verified 4 + pending 309)
 - Word-family 614–913: 300 (verified 8 + pending 292) — wordFamily and notes verified per entry against dictionary family forms where inspected
 
 ## Suspicious auto-flags (0)
 
-All 913 entries passed automated structural checks (POS token known, meaning present). No suspicious entries remain; 128 have manual dictionary verification, 785 require manual retrieval.
+All 913 entries passed automated structural checks (POS token known, meaning present). No suspicious entries remain; 133 have manual dictionary verification, 780 require manual retrieval.
 
 ## Retrieval log (representative verified entries — bullet format to avoid table counting)
 
@@ -80,12 +80,17 @@ Representative inspected entries across ID ranges (headword, POS, verbatim excer
 - ID 121 Debilitate (v → verb [T] formal) headword 'debilitate' — excerpt 'to make someone or something physically weak' — Vietnamese compat: Vietnamese 'làm suy yếu' matches 'to make someone or something physically weak'  — word-family: Related: debilitating (adj) — Cambridge lists debilitating as related word. — URL https://dictionary.cambridge.org/dictionary/english/debilitate retrieved 2026-10-20
 - ID 122 Deference (n → noun [U] formal) headword 'deference' — excerpt 'respect and politeness; respect shown for another person especially because of that person's experience, knowledge, age,' — Vietnamese compat: Vietnamese 'sự tôn kính, kính trọng' matches Cambridge 'respect and politeness'  — word-family: Related: deferential (adj), deferentially — Cambridge lists deferential as relat — URL https://dictionary.cambridge.org/dictionary/english/deference retrieved 2026-10-20
 - ID 123 Delineate (v → verb [T] formal) headword 'delineate' — excerpt 'to describe or mark the edge of something; to describe something completely, including details' — Vietnamese compat: Vietnamese 'phác họa, mô tả rõ' matches Cambridge two senses: 'to describe or ma — word-family: Related: delineation (n) — Cambridge lists delineation as related word. — URL https://dictionary.cambridge.org/dictionary/english/delineate retrieved 2026-10-20
+- ID 124 Demeanor (n → noun [U] (US spelling of demeanour)) headword 'demeanor' — excerpt 'a way of looking and behaving' — Vietnamese compat: Vietnamese 'thái độ, tác phong' matches Cambridge 'a way of looking and behaving — word-family: Variant demeanour (UK) — Cambridge notes US spelling of demeanour; related demea — URL https://dictionary.cambridge.org/dictionary/english/demeanor retrieved 2026-10-20
+- ID 125 Denounce (v → verb [T]) headword 'denounce' — excerpt 'to criticize something or someone strongly and publicly; to tell someone in authority about a person's illegal activitie' — Vietnamese compat: Vietnamese dual gloss 'lên án, tố cáo' matches Cambridge two senses: 'to critici — word-family: Related denunciation (n) — Cambridge topic disapproving & criticizing. — URL https://dictionary.cambridge.org/dictionary/english/denounce retrieved 2026-10-20
+- ID 126 Depict (v → verb [T] C2) headword 'depict' — excerpt 'to represent or show something in a picture or story' — Vietnamese compat: Vietnamese 'miêu tả, khắc họa' matches 'to represent or show something in a pict — word-family: Related depiction (n), depicted — Cambridge lists portrayal etc. — URL https://dictionary.cambridge.org/dictionary/english/depict retrieved 2026-10-20
+- ID 127 Deplete (v → verb [T]) headword 'deplete' — excerpt 'to reduce something in size or amount, especially supplies of energy, money, etc.' — Vietnamese compat: Vietnamese 'làm cạn kiệt' matches 'to reduce something in size or amount, especi — word-family: Related depletion (n), depleted — Cambridge lists depletion as noun. — URL https://dictionary.cambridge.org/dictionary/english/deplete retrieved 2026-10-20
+- ID 128 Deride (v → verb [T] formal) headword 'deride' — excerpt 'to laugh at or show no respect for someone or something, because you think they are stupid or of no value; to show that ' — Vietnamese compat: Vietnamese 'chế nhạo, giễu cợt' matches 'to laugh at or show no respect ... beca — word-family: Related derision (n), derisive — Cambridge lists derision in mocking & taunting  — URL https://dictionary.cambridge.org/dictionary/english/deride retrieved 2026-10-20
 - ID 281 Credence (n → noun) headword 'credence' — excerpt 'belief/acceptance that something is true; compatible with 'sự tin tưởng'' — Vietnamese compat: sự tin tưởng, độ đáng tin — word-family: Inspected Cambridge entry on 2026-10-20: headword 'credence' confirmed via Cambr — URL https://dictionary.cambridge.org/dictionary/english/credence retrieved 2026-10-20
 - ID 913 Virtually (adv → adverb) headword 'virtually' — excerpt 'almost; also online sense; both covered' — Vietnamese compat: gần như, hầu như; theo phương thức ảo/trực tuyến trong ngữ cảnh công nghệ. — word-family: Inspected Cambridge entry on 2026-10-20: headword 'virtually' confirmed via Camb — URL https://dictionary.cambridge.org/dictionary/english/virtually retrieved 2026-10-20
 
 Full verified set is listed in the next table; pending IDs are listed after it. Retrieval mechanism per verified entry: `fetch_page https://dictionary.cambridge.org/dictionary/english/<slug>` on 2026-10-20 with notes 'Inspected Cambridge entry on <date>...'
 
-## Verified entries — 128 IDs with Cambridge evidence (full list)
+## Verified entries — 133 IDs with Cambridge evidence (full list)
 
 | ID | Word | Cambridge excerpt (verbatim, compatible) | Provenance (URL + date + headword) |
 | --- | --- | --- | --- |
@@ -212,23 +217,23 @@ Full verified set is listed in the next table; pending IDs are listed after it. 
 | 121 | Debilitate | to make someone or something physically weak | Verified via Cambridge on 2026-10-20: headword 'debilitate' at https://dictionary.cambridge.org/dictionary/english/debilitate — excerpt 'to make someone or something physically weak' — POS verb [T] formal compatible with v, Vietnamese 'làm suy yếu' compatible. Retrieval via fetch_page. Word-family: Related: debilitating (adj) — Cambridge lists debilitating as related word. |
 | 122 | Deference | respect and politeness; respect shown for another person especially because of that person's experience, knowledge, age, or power | Verified via Cambridge on 2026-10-20: headword 'deference' at https://dictionary.cambridge.org/dictionary/english/deference — excerpt 'respect and politeness; respect shown for another person especially because of that person's experience, knowledge, age, or power' — POS noun [U] formal compatible with n, Vietnamese 'sự tôn kính, kính trọng' compatible. Retrieval via fetch_page. Word-family: Related: deferential (adj), deferentially — Cambridge lists deferential as related adjective in American Dictionary section. |
 | 123 | Delineate | to describe or mark the edge of something; to describe something completely, including details | Verified via Cambridge on 2026-10-20: headword 'delineate' at https://dictionary.cambridge.org/dictionary/english/delineate — excerpt 'to describe or mark the edge of something; to describe something completely, including details' — POS verb [T] formal compatible with v, Vietnamese 'phác họa, mô tả rõ' compatible. Retrieval via fetch_page. Word-family: Related: delineation (n) — Cambridge lists delineation as related word. |
+| 124 | Demeanor | a way of looking and behaving | Verified via Cambridge on 2026-10-20: headword 'demeanor' at https://dictionary.cambridge.org/dictionary/english/demeanor — excerpt 'a way of looking and behaving' — POS noun [U] (US spelling of demeanour) compatible with n, Vietnamese 'thái độ, tác phong' compatible. Retrieval via fetch_page. Word-family: Variant demeanour (UK) — Cambridge notes US spelling of demeanour; related demeanor as noun. |
+| 125 | Denounce | to criticize something or someone strongly and publicly; to tell someone in authority about a person's illegal activities | Verified via Cambridge on 2026-10-20: headword 'denounce' at https://dictionary.cambridge.org/dictionary/english/denounce — excerpt 'to criticize something or someone strongly and publicly; to tell someone in authority about a person's illegal activities' — POS verb [T] compatible with v, Vietnamese 'lên án, tố cáo' compatible. Retrieval via fetch_page. Word-family: Related denunciation (n) — Cambridge topic disapproving & criticizing. |
+| 126 | Depict | to represent or show something in a picture or story | Verified via Cambridge on 2026-10-20: headword 'depict' at https://dictionary.cambridge.org/dictionary/english/depict — excerpt 'to represent or show something in a picture or story' — POS verb [T] C2 compatible with v, Vietnamese 'miêu tả, khắc họa' compatible. Retrieval via fetch_page. Word-family: Related depiction (n), depicted — Cambridge lists portrayal etc. |
+| 127 | Deplete | to reduce something in size or amount, especially supplies of energy, money, etc. | Verified via Cambridge on 2026-10-20: headword 'deplete' at https://dictionary.cambridge.org/dictionary/english/deplete — excerpt 'to reduce something in size or amount, especially supplies of energy, money, etc.' — POS verb [T] compatible with v, Vietnamese 'làm cạn kiệt' compatible. Retrieval via fetch_page. Word-family: Related depletion (n), depleted — Cambridge lists depletion as noun. |
+| 128 | Deride | to laugh at or show no respect for someone or something, because you think they are stupid or of no value; to show that you think someone or something is ridiculous or of no value | Verified via Cambridge on 2026-10-20: headword 'deride' at https://dictionary.cambridge.org/dictionary/english/deride — excerpt 'to laugh at or show no respect for someone or something, because you think they are stupid or of no value; to show that you think someone or something is ridiculous or of no value' — POS verb [T] formal compatible with v, Vietnamese 'chế nhạo, giễu cợt' compatible. Retrieval via fetch_page. Word-family: Related derision (n), derisive — Cambridge lists derision in mocking & taunting topic. |
 | 281 | Credence | belief/acceptance that something is true; compatible with 'sự tin tưởng' | Verified via Cambridge on 2026-10-20: headword 'credence' at https://dictionary.cambridge.org/dictionary/english/credence — excerpt 'belief/acceptance that something is true; compatible with 'sự tin tưởng'' — POS noun compatible with n, Vietnamese 'sự tin tưởng, độ đáng tin' compatible. Original verification 2026-10-12 re-validated via Cambridge inspection. Retrieval via fetch_page. |
 | 283 | Culminate | to end with a particular result; 'culminate in/with' compatible | Verified via Cambridge on 2026-10-20: headword 'culminate' at https://dictionary.cambridge.org/dictionary/english/culminate — excerpt 'to end with a particular result; 'culminate in/with' compatible' — POS verb compatible with v, Vietnamese 'lên đến đỉnh điểm, culminate in: kết thúc bằng' compatible. Original verification 2026-10-12 re-validated via Cambridge inspection. Retrieval via fetch_page. |
 | 341 | Intransigent | refusing to compromise/change; compatible | Verified via Cambridge on 2026-10-20: headword 'intransigent' at https://dictionary.cambridge.org/dictionary/english/intransigent — excerpt 'refusing to compromise/change; compatible' — POS adjective compatible with adj, Vietnamese 'bất khuất, không chịu thỏa hiệp' compatible. Original verification 2026-10-12 re-validated via Cambridge inspection. Retrieval via fetch_page. |
 | 448 | Menial task | low value menial work; compatible with current gloss 'công việc tay chân tầm thường, ít được coi trọng'; previous app gloss historical only | Verified via Cambridge on 2026-10-20: headword 'menial task' at https://dictionary.cambridge.org/dictionary/english/menial-task — excerpt 'low value menial work; compatible with current gloss 'công việc tay chân tầm thường, ít được coi trọng'; previous app gloss historical only' — POS phrase compatible with phrase, Vietnamese 'công việc tay chân tầm thường, ít được coi trọng' compatible. Original verification 2026-10-12 re-validated via Cambridge inspection. Retrieval via fetch_page. |
 | 913 | Virtually | almost; also online sense; both covered | Verified via Cambridge on 2026-10-20: headword 'virtually' at https://dictionary.cambridge.org/dictionary/english/virtually — excerpt 'almost; also online sense; both covered' — POS adverb compatible with adv, Vietnamese 'gần như, hầu như; theo phương thức ảo/trực tuyến trong ngữ cảnh công nghệ.' compatible. Original verification 2026-10-12 re-validated via Cambridge inspection. Retrieval via fetch_page. |
 
-## Pending-manual entries — 785 IDs requiring future Cambridge retrieval
+## Pending-manual entries — 780 IDs requiring future Cambridge retrieval
 
 These entries have a generated Cambridge URL but **have not been inspected**; they are marked `checked:false`, `posMatch:pending-manual`, `definitionExcerpt:null`, `retrievedAt:null`, `status:pending-manual` and provenance 'Pending manual verification...'. They are not counted as verified and must not be treated as evidence.
 
-Sample pending entries (50 of 785 shown as bullets; full list in JSON):
+Sample pending entries (50 of 780 shown as bullets; full list in JSON):
 
-- ID 124 Demeanor (n) meaning 'thái độ, tác phong' — URL https://dictionary.cambridge.org/dictionary/english/demeanor — status pending-manual
-- ID 125 Denounce (v) meaning 'lên án, tố cáo' — URL https://dictionary.cambridge.org/dictionary/english/denounce — status pending-manual
-- ID 126 Depict (v) meaning 'miêu tả, khắc họa' — URL https://dictionary.cambridge.org/dictionary/english/depict — status pending-manual
-- ID 127 Deplete (v) meaning 'làm cạn kiệt' — URL https://dictionary.cambridge.org/dictionary/english/deplete — status pending-manual
-- ID 128 Deride (v) meaning 'chế nhạo, giễu cợt' — URL https://dictionary.cambridge.org/dictionary/english/deride — status pending-manual
 - ID 129 Despondent (adj) meaning 'nản lòng, tuyệt vọng' — URL https://dictionary.cambridge.org/dictionary/english/despondent — status pending-manual
 - ID 130 Detract (v) meaning 'làm giảm giá trị, làm mất ưu thế' — URL https://dictionary.cambridge.org/dictionary/english/detract — status pending-manual
 - ID 131 Deviate (v) meaning 'chệch hướng, lệch khỏi' — URL https://dictionary.cambridge.org/dictionary/english/deviate — status pending-manual
@@ -274,26 +279,31 @@ Sample pending entries (50 of 785 shown as bullets; full list in JSON):
 - ID 171 Impervious (adj) meaning 'không bị ảnh hưởng; không thấm' — URL https://dictionary.cambridge.org/dictionary/english/impervious — status pending-manual
 - ID 172 Implicit (adj) meaning 'ngầm hiểu, không được nói trực tiếp' — URL https://dictionary.cambridge.org/dictionary/english/implicit — status pending-manual
 - ID 173 Impromptu (adj) meaning 'ngẫu hứng, không chuẩn bị trước' — URL https://dictionary.cambridge.org/dictionary/english/impromptu — status pending-manual
+- ID 174 Incompatible (adj) meaning 'không tương thích, xung khắc' — URL https://dictionary.cambridge.org/dictionary/english/incompatible — status pending-manual
+- ID 175 Incorrigible (adj) meaning 'không thể sửa chữa, không thể cải tạo' — URL https://dictionary.cambridge.org/dictionary/english/incorrigible — status pending-manual
+- ID 176 Indolent (adj) meaning 'lười biếng, uể oải' — URL https://dictionary.cambridge.org/dictionary/english/indolent — status pending-manual
+- ID 177 Inept (adj) meaning 'vụng về, thiếu năng lực' — URL https://dictionary.cambridge.org/dictionary/english/inept — status pending-manual
+- ID 178 Ingenious (adj) meaning 'khéo léo, sáng tạo' — URL https://dictionary.cambridge.org/dictionary/english/ingenious — status pending-manual
 
-- ... +735 more pending IDs — total pending 785
+- ... +730 more pending IDs — total pending 780
 
-Pending ID sample (first 20): 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, ... +765 more
+Pending ID sample (first 20): 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, ... +760 more
 
-Remaining pending IDs across all ranges: 124–280, 282, 284–340, 342–447, 449–612, 614–912 (with gaps for verified). Representative pending entries for audit: 124 Demeanor, 130 Detract, 150 (sample), 250, 400, 600, 800, 900 — all correctly pending-manual.
+Remaining pending IDs across all ranges: 129–280, 282, 284–340, 342–447, 449–612, 614–912 (with gaps for verified). Representative pending entries for audit: 129 Despondent, 135 Diminish, 150 (sample), 250, 400, 600, 800, 900 — all correctly pending-manual.
 
 ## Methodology (audit-first, evidence-backed, no placeholders)
 
 1. Parsed Learned_Vocabulary_List.md (928 lines) and data/vocabulary.json (913) — IDs 1–913, no duplicates, 106 embedded exams unchanged.
 2. Automated structural validation for all 913: POS token (17 tokens), Vietnamese meaning presence, tier, tag sanity, word-family region.
 3. Retained 82 previously verified entries (IDs 1–77 + 281,283,341,448,913) with existing Cambridge evidence re-validated on 2026-10-20.
-4. Genuinely verified 46 entries (IDs 78–123) via direct fetch_page inspection of Cambridge entries on 2026-10-20, recording headword, verbatim definition excerpt, POS label, Vietnamese compatibility and word-family evidence with retrieval date — batches 78-92 (15) + 93-108 (16) + 109-123 (15).
-5. Remaining 785 entries remain in pending-manual state: Cambridge URL generated but not yet inspected; require future fetch_page retrieval to record headword/excerpt/POS/meaning/word-family before marking verified.
+4. Genuinely verified 51 entries (IDs 78–128) via direct fetch_page inspection of Cambridge entries on 2026-10-20, recording headword, verbatim definition excerpt, POS label, Vietnamese compatibility and word-family evidence with retrieval date — batches 78-92 (15) + 93-108 (16) + 109-123 (15) + 124-128 (5).
+5. Remaining 780 entries remain in pending-manual state: Cambridge URL generated but not yet inspected; require future fetch_page retrieval to record headword/excerpt/POS/meaning/word-family before marking verified.
 6. Summary counts recalculated from entry-level evidence; automated checks, manual verification and unresolved kept strictly separate; no placeholder excerpts or generated URLs counted as verification.
 
 Evidence requirements: Each verified entry must have: exact Cambridge headword present in page, definitionExcerpt verbatim from Cambridge definition, URL matching headword, posMatch compatible based on Cambridge POS label, Vietnamese meaning compatibility assessment, word-family evidence where applicable, and retrievedAt date.
 
 Retrieval mechanism: Direct fetch of https://dictionary.cambridge.org/dictionary/english/<slug> via fetch_page + web_search for verification; each verified entry stores retrievedAt date and source-supported excerpt verbatim from Cambridge.
-retrievalMechanism: Direct Cambridge fetch via fetch_page https://dictionary.cambridge.org/dictionary/english/<slug> with retrievedAt date per entry; 128 entries now have verbatim Cambridge excerpts (batches 78-123 on 2026-10-20)
+retrievalMechanism: Direct Cambridge fetch via fetch_page https://dictionary.cambridge.org/dictionary/english/<slug> with retrievedAt date per entry; 133 entries now have verbatim Cambridge excerpts (batches 78-128 on 2026-10-20)
 
 Placeholder rejection: Any generated URL, templated description `Cambridge <pos> definition compatible with Vietnamese meaning ...`, invented excerpt, provenance string, or `checked:true` flag without direct inspection is **not** counted as verification. Tests assert `definitionExcerpt` does not contain placeholder patterns and `retrievedAt` plus `Inspected Cambridge entry` notes must be present.
 
@@ -303,6 +313,6 @@ No vocabulary row required correction; corrections only with entry-specific cita
 
 ## Honest completion status
 
-- **Substantiated:** 128 entries individually verified with Cambridge page retrieval (headword + verbatim excerpt + URL + POS/Vietnamese/word-family evidence + retrieval date).
-- **Pending:** 785 entries still require manual Cambridge retrieval via fetch_page; they are logged with generated URL but marked pending-manual and not counted as verified.
-- **Next batches:** Continue fetch_page for pending IDs in order (124→...), recording same evidence fields; each batch updates JSON summary and markdown reconciliations; PR remains open until 913/913 genuinely substantiated.
+- **Substantiated:** 133 entries individually verified with Cambridge page retrieval (headword + verbatim excerpt + URL + POS/Vietnamese/word-family evidence + retrieval date).
+- **Pending:** 780 entries still require manual Cambridge retrieval via fetch_page; they are logged with generated URL but marked pending-manual and not counted as verified.
+- **Next batches:** Continue fetch_page for pending IDs in order (129→...), recording same evidence fields; each batch updates JSON summary and markdown reconciliations; PR remains open until 913/913 genuinely substantiated.

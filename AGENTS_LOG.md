@@ -105,3 +105,7 @@ Verified 93 Advocate, 94 Affluent, 95 Animosity, 96 Apathetic, 97 Appraise, 98 A
 ## 2026-10-20 — Batch 109–123: +15 verified (128/785)
 
 Verified 109 Cogent, 110 Colloquial, 111 Commend, 112 Concede, 113 Conciliate, 114 Condescend, 115 Conducive, 116 Conscientious, 117 Consolidate, 118 Contemplative, 119 Contention, 120 Curtail, 121 Debilitate, 122 Deference, 123 Delineate via Cambridge fetch_page 2026-10-20 with verbatim excerpts; JSON 128/785, markdown 128 rows, tests 56/56 OK; next batch from 124 Demeanor.
+
+## 2026-10-20 — Batch 124–128: +5 verified (133/780) — checkpoint
+
+Verified 124 Demeanor, 125 Denounce, 126 Depict, 127 Deplete, 128 Deride via Cambridge fetch_page 2026-10-20 with verbatim excerpts; JSON 133/780, markdown 133 rows, tests 56/56 OK; next batch from 129 Despondent. Execution limit approaching — preserved 1–128 verified (133 total incl. 281,283,341,448,913), 780 pending.
