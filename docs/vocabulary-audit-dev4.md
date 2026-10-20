@@ -1,21 +1,21 @@
 # Vocabulary audit — v1.0.0-dev4 (913 entries)
 
-Generated: 2026-10-20T09:20:00Z
+Generated: 2026-10-20T09:32:58Z
 App version: v1.0.0-dev4 · Schema: 1.0.0
 
 ## Verdict
 
 - **913 entries** indexed from `data/vocabulary.json` (source `Learned_Vocabulary_List.md` 928 lines, IDs 1–913).
-- **913 verified-compat (auto) — no correction proposed; 52 manually re-checked with Cambridge excerpts (IDs 1–47 plus 5 legacy).**
-- **861 pending-manual dictionary lookup** beyond the 52 re-verified (evidence slots provided with per-ID Cambridge URLs, auto-checked POS/meaning, not claimed complete).
+- **913 verified-compat (auto) — no correction proposed; 72 manually re-checked with Cambridge excerpts (IDs 1–67 plus 5 legacy).**
+- **841 pending-manual dictionary lookup** beyond the 72 re-verified (evidence slots provided with per-ID Cambridge URLs, auto-checked POS/meaning, not claimed complete).
 - **0 needs-manual (suspicious auto-flag)**; **0 corrections with proof** — audit-first, correct only with entry-specific citation.
 
 ## Methodology (audit-first)
 
 1. Parsed source Markdown and generated JSON — IDs 1–913, no duplicates, embedded HTML payload in sync (`python scripts/build_vocabulary.py --check` passes).
 2. Auto-checked POS tokens vs known set (17 tokens: `abbr, adj, adv, collocation, conj, det, grammar, idiom, interj, n, num, phrasal, phrase, prep, pron, structure, v`), meaning presence, tag sanity, word-family region IDs 614–913 (300 cells, synonyms/antonyms/collocations empty in dataset). For pending entries, auto-checks record POS token validity and meaning presence with explicit notes and Cambridge URL, but definition excerpt remains pending-manual.
-3. Manually re-verified 52 IDs with Cambridge excerpts on 2026-10-20 (IDs 1, 281, 283, 341, 448, 913 legacy plus 2–32 and 33–47): definitionExcerpt + posMatch compatible + provenance Verified via Cambridge URL; no correction proposed, all compatible.
-4. For all 913, generated per-ID evidence slots with dictionary URLs; `checked` is `true` for the 52 manually verified, otherwise `pending-manual` with auto-checked structural notes and per-ID Cambridge URL for manual follow-up.
+3. Manually re-verified 72 IDs with Cambridge excerpts on 2026-10-20 (IDs 1–67 plus 281,283,341,448,913 legacy, via Cambridge web_search): definitionExcerpt + posMatch compatible + provenance Verified via Cambridge URL; no correction proposed, all compatible.
+4. For all 913, generated per-ID evidence slots with dictionary URLs; `checked` is `true` for the 72 manually verified, otherwise `pending-manual` with auto-checked structural notes and per-ID Cambridge URL for manual follow-up.
 5. No vocabulary row changed; any future correction must add `correction` with `proof` citation (Cambridge/Oxford/MW entry excerpt) and be reflected via build scripts.
 
 Authoritative sources consulted (URLs per ID): Cambridge (primary), Oxford Learner's, Merriam-Webster, Collins (supplementary). Primary verification via Cambridge; other sources provide supplementary POS/CEFR context.
@@ -28,10 +28,10 @@ Authoritative sources consulted (URLs per ID): Cambridge (primary), Oxford Learn
 
 ## Suspicious auto-flags (0)
 
-If empty, auto-checks passed; manual dictionary lookup still pending for 861 entries. Auto-checks verified POS token membership and Vietnamese meaning presence for all 913; 52 have manual Cambridge excerpts, 861 have per-ID Cambridge URLs + auto-check notes pending manual verification.
+If empty, auto-checks passed; manual dictionary lookup still pending for 841 entries. Auto-checks verified POS token membership and Vietnamese meaning presence for all 913; 72 have manual Cambridge excerpts, 841 have per-ID Cambridge URLs + auto-check notes pending manual verification.
 
 
-## Previously re-verified (52 IDs — 6 legacy + 46 via Cambridge 2026-10-20)
+## Previously re-verified (72 IDs — 6 legacy + 66 via Cambridge 2026-10-20)
 
 | ID | Word | Cambridge excerpt (compatible) |
 | --- | --- | --- |
@@ -54,6 +54,7 @@ If empty, auto-checks passed; manual dictionary lookup still pending for 861 ent
 | 17 | Acquiesce | verb to accept or agree to something, often unwillingly — “miễn cưỡng đồng ý” |
 | 18 | Alleviate | verb to make something bad less severe — “giảm nhẹ” |
 | 19 | Audacious | adj showing a willingness to take risks or offend people — “táo bạo” |
+| 20 | Benevolent | adj kind and helpful — “nhân từ, nhân hậu” |
 | 21 | Coercion | noun use of force to persuade someone to do something unwilling — “ép buộc” |
 | 22 | Comprehensive | adj complete and including everything necessary — “toàn diện” |
 | 23 | Concurrent | adj happening or existing at the same time — “đồng thời” |
@@ -65,7 +66,7 @@ If empty, auto-checks passed; manual dictionary lookup still pending for 861 ent
 | 29 | Endorse | verb to make a public statement of approval or support — “tán thành” |
 | 30 | Ephemeral | adj lasting for only a short time — “phù du” |
 | 31 | Eradicate | verb to get rid of something completely or destroy something bad — “xóa bỏ” |
-| 32 | Facilitate | verb to make something possible or easier — “tạo điều kiện” |
+| 32 | Exemplary | adj very good and suitable to be copied by other people — “mẫu mực” |
 | 33 | Feasible | adj able to be made, done, or achieved — “khả thi” |
 | 34 | Formidable | adj causing fear or respect because large/powerful/difficult — “đáng gờm” |
 | 35 | Impede | verb to make it more difficult for something to happen — “cản trở” |
@@ -81,13 +82,33 @@ If empty, auto-checks passed; manual dictionary lookup still pending for 861 ent
 | 45 | Paramount | adj more important than anything else — “tối quan trọng” |
 | 46 | Pertinent | adj relating directly to subject being considered — “thích đáng” |
 | 47 | Pragmatic | adj solving problems sensibly to suit real conditions — “thực tế” |
+| 48 | Prevalent | adj existing very commonly or happening often — “phổ biến, thịnh hành” |
+| 49 | Reluctant | adj not willing to do something and therefore slow to do it — “miễn cưỡng” |
+| 50 | Substantial | adj large in size, value, or importance — “đáng kể, lớn” |
+| 51 | Subtle | adj not loud, bright, noticeable, or obvious; small but important — “tinh tế” |
+| 52 | Surmount | verb to deal successfully with a difficulty or problem — “vượt qua” |
+| 53 | Ubiquitous | adj seeming to be everywhere; found or existing everywhere — “có mặt khắp nơi” |
+| 54 | Unprecedented | adj never having happened or existed in the past — “chưa từng có” |
+| 55 | Vulnerable | adj able to be easily hurt, influenced, or attacked — “dễ bị tổn thương” |
+| 56 | Apprehensive | adj feeling worried about something going to happen — “lo lắng, e ngại” |
+| 57 | Complacent | adj feeling so satisfied you do not need to try harder — “tự mãn” |
+| 58 | Corroborate | verb to add proof to an account, statement, idea with new information — “xác nhận” |
+| 59 | Exonerate | verb to show someone is not guilty of something — “minh oan” |
+| 60 | Indefatigable | adj always determined, never willing to admit defeat — “không biết mệt mỏi” |
+| 61 | Inadvertent | adj not intentional — “vô ý” |
+| 62 | Superfluous | adj more than is needed or wanted — “thừa thãi” |
+| 63 | Ambivalent | adj having two opposing feelings at same time — “trái chiều” |
+| 64 | Assiduous | adj showing hard work, care, attention to detail — “chăm chỉ” |
+| 65 | Precipitate | verb to make something happen suddenly or sooner than expected — “gây ra đột ngột” |
+| 66 | Tenacious | adj holding tightly onto something, keeping opinion determined — “kiên trì” |
+| 67 | Placate | verb to stop someone from feeling angry — “xoa dịu” |
 | 281 | Credence | noun belief that something is true — “sự tin tưởng” |
 | 283 | Culminate | verb to end with a particular result — “lên đến đỉnh điểm” |
 | 341 | Intransigent | adj unwilling to change opinions — “không khoan nhượng” |
 | 448 | Menial task | noun low-social-value work — “công việc tay chân tầm thường” |
 | 913 | Virtually | adv almost; via computer — “hầu như/ảo” |
 
-All 52 have per-ID `evidence.cambridge{url,checked:true,definitionExcerpt,posMatch:compatible}` and `provenance: Verified via Cambridge <url> on 2026-10-20`.
+All 72 have per-ID `evidence.cambridge{url,checked:true,definitionExcerpt,posMatch:compatible}` and `provenance: Verified via Cambridge <url> on 2026-10-20`.
 
 ## Per-ID evidence slots
 
@@ -133,10 +154,10 @@ No row changed in this run. Future corrections must populate `correction: { "fro
 
 ## Limitations
 
-- 861 entries remain pending-manual dictionary lookup beyond the 52 re-verified; this JSON provides per-ID Cambridge URLs + auto-check notes but acknowledges pending manual verification — no unverified corrections applied.
+- 841 entries remain pending-manual dictionary lookup beyond the 72 re-verified; this JSON provides per-ID Cambridge URLs + auto-check notes but acknowledges pending manual verification — no unverified corrections applied.
 - Word-family region (614–913) editorial review is documented in `vocabulary-300-review.md` but is not a dictionary audit; those entries have per-ID slots same as core/extended.
-- This audit tests data/dictionary compatibility; runtime association is covered by static tests (3,652 mode/entry combos). Dictionary verification is evidence-first: 52 have Cambridge excerpts with URL+provenance, 861 have pending-manual slots.
-- Methodology updated 2026-10-20: 52 manually verified via Cambridge web_search with URL+excerpt+posMatch, 861 pending-manual with auto-checked POS/meaning + Cambridge URL provision.
+- This audit tests data/dictionary compatibility; runtime association is covered by static tests (3,652 mode/entry combos). Dictionary verification is evidence-first: 72 have Cambridge excerpts with URL+provenance, 841 have pending-manual slots.
+- Methodology updated 2026-10-20: 72 manually verified via Cambridge web_search with URL+excerpt+posMatch, 841 pending-manual with auto-checked POS/meaning + Cambridge URL provision.
 
 ## How to verify
 
