@@ -336,3 +336,121 @@ Mốc 1–4 hoàn tất có bằng chứng; mốc 5–6 kích hoạt bằng PR n
 ## 2026-10-18 — rollout release_v1.0.0-dev3_close: deploy xác minh, chuỗi đồng nhất khép lại
 
 Mốc 5–6 của cutover khép lại có bằng chứng: run 39137602715 (trigger bởi merge #24 — xóa DEPLOY_HOLD, đúng phương án dự phòng #45/#47) publish Pages thành công lúc 14:48:43Z, deployment 7156158507 success với environment_url trỏ https://coderunknow.github.io/Chuyen-Anh/; so với record bookkeeping 7155978221 của lần bị giữ chân (environment_url rỗng, Deploy skipped) thì đây là deploy-pages thật. Chuỗi đồng nhất khép kín: `git show v1.0.0-dev3:index.html` == `git show main:index.html` (hash `40514a1ab12ceb26c4197736273e93e5a6015c7970757b55ba042a0ae0705aa4`) == asset `chuyen-anh-v1.0.0-dev3.html` (5.135.081 B) == nội dung site sau deploy. Thứ tự bắt buộc đã đạt: 1.merge → 2.tag → 3.workflow → 4.verify → 5.publish → 6.deploy; hai lần chứng minh gate (giữ publish trước release; cho publish sau release) đều bằng run thật. Giới hạn cuối: sandbox không HTTP được tới github.io (không có kiểm chứng trực tiếp nội dung trả về); xác minh dựa vào API deployment + đồng nhất hash. Release dev3 vẫn là prerelease bất biến; dev1/dev2 không đổi.
+
+## 2026-10-20 — v1.0.0-dev4 audit-first upgrade: Học cấp tốc, 913-entry evidence audit, verified-only exam grading
+
+**Scope (user v1.0.0-dev4).** 1) audit all flows; 2) Học cấp tốc (active-recall, priority due/weak/new, single grading, bounded ~5 min/7 words); 3) independent 913 vocab audit vs authoritative dictionaries with per-ID evidence, correct only with proof; 4) exam grading only on verified answer keys (unknown=ungraded), JSON summary+download with source/provenance; 5) self-discovered related enhancements; 6) significant UI/UX without full redesign; 7) conditional dev2 release fix preserving history; 8) full test matrix (Python/Node/Chromium), docs, DESIGN_LOG+AGENTS_LOG append-only, single PR (no merge/tag/publish/deploy until approval).
+
+**Baseline (2026-10-20).** Branch `arena/c3e0e07d-chuyen-anh` at `210a15ab15c00e8704ec63f53f9c1326b139bb73` (=`main` post-dev3). Clean worktree. Releases: `v1.0.0-dev1` published prerelease 0 assets, `v1.0.0-dev2` published prerelease 0 assets (tag object 9b5311e -> commit 87b0f1b, created 2026-10-20T04:41:05Z), `v1.0.0-dev3` published prerelease with 3 assets (html 5,135,081 B, zip 1,522,310 B, checksums 187 B). Local tags: dev1/dev2/dev3 all present. `python scripts/build_vocabulary.py --check` (913), `validate_vocab` (0 dups), `embed_vocabulary --check`, `embed_archive --check` (106, 4,169,772 B) pass. `python -m unittest` 43/43 OK (20 core +12 release +11 gate), `node --test tests/static-app.test.js` 41/41 OK. `git diff --check` clean.
+
+**Defect & anomaly reproduction before changes.**
+
+- *Học cấp tốc missing:* No bounded sprint; `selectSession` mixes fill-spare-cards logic, no 7-card sprint, no active-recall guard for first exposure. Reproduced by inspecting `selectSession`/`generateQuestion`/`queuePractice` (18308-line single-file app).
+- *913 vocab unaudited:* Prior `vocabulary-audit-2026-10-12.md` checked only 6 IDs via Cambridge; 907 unchecked; `vocabulary-300-review.md` covers word-family editorial not dictionary audit. `data/vocabulary.json` vs `Learned_Vocabulary_List.md` sync passes but no per-ID evidence.
+- *Exam grading unsafe:* `submitExamPractice` stored no verification; summary showed counts only, no graded/ungraded split, no provenance; `createExamPracticeSession` duplicated (two definitions overwrote `id/examId/schemaVersion/startedAt`).
+- *dev2 asset-less publish:* `gh release view v1.0.0-dev2 --json` shows `assets: []`, `createdAt 2026-10-20T04:41:05Z`; `git show 87b0f1b:.github/workflows/release-artifacts.yml` missing at that commit (workflow added 2026-10-18, dev2 tag points to earlier commit without it), while `v1.0.0-dev3` has workflow-run 39136555268 success with 3 assets. Root cause: tag pushed before workflow existed; not a tag/history mutation.
+
+**Design — Học cấp tốc (sprint).**
+
+- Constants: `APP_VERSION v1.0.0-dev4`, `EXAM_RESULT_SCHEMA_VERSION 1.0.0`, `SPRINT_SIZE 7`, `SPRINT_LABEL 'Học cấp tốc'`, `SESSION_LABELS` extended with sprint/quick10/20/30.
+- `selectSprintSession(vocabulary, progressMap, {size=7})` — strict priority `due -> weak -> learning -> new -> review -> mastered`, due sorted by `priority[state] + nextReview + wrongCount`, weak by `wrongCount`, deterministic no `shuffle()`, capped `slice(0,7)` (~5 min @ ~40s/card). Single grading: `queuePractice` disabled when `sessionStats.mode === 'sprint'` (no retry, not counted as evidence).
+- UI: `renderLearn` banner `.sprint-banner` with badge, gradient, 7 TỪ/PHIÊN mark, due/weak counts, `data-session="sprint"` handler; `startSession('sprint')` creates `sessionStats.mode='sprint'`. CSS added `.sprint-banner`, `.sprint-badge`.
+
+**Design — Exam grading verified-only.**
+
+- Helpers: `getQuestionVerification(q)` checks `q.verifiedAnswer && verificationStatus==='verified'`; `gradeExamQuestion(q, learnerAnswer)` returns `{result:'ungraded', reason:'Chưa có đáp án được xác minh'}` when not verified, else `correct/incorrect` by trimmed lowercased comparison; `buildExamResultJson(session, record, {now, appVersion, schemaVersion})` aggregates `graded/correct/incorrect/ungraded/accuracy`, per-question `{id, prompt, sourceLine, verificationStatus, officialAnswer, evidence, learnerAnswer, result, reason}`, `appVersion`, `schemaVersion`, `contentSha256`, `createdAt`; `examResultFilename(json)` sanitizes to `ket-qua-<id>-<YYYY-MM-DD>.json` (Unicode-safe).
+- `createExamPracticeSession` unified to one definition with `id/examId/schemaVersion/startedAt/createdAt` (previous duplicate removed; count 1).
+- `submitExamPractice` keeps `submittedAt`, adds `examPracticeQuestionAnswered/examPracticeResponseLabel` helpers.
+- `renderExamPractice` note: `gradingNote` based on `hasVerified` (`'Một số câu có đáp án đã xác minh sẽ được chấm...' : 'Hiện chưa có đáp án đã xác minh...'`), `note` retains `'không có đồng hồ, kiểm tra đúng/sai, điểm số hoặc xếp hạng'` via EN translation (test gate). Submitted summary: `graded/correct/incorrect/ungraded/accuracy` grid + `Chẩn sách chấm` policy + JSON view/download sharing same `jsonText` (Blob URL) with `filename`; provenance per-question shown in review rows and question view (`Đã xác minh: <answer> · Nguồn: bản chép <id> dòng <n>`).
+
+**Design — Vocabulary audit 913 with per-ID evidence.**
+
+- `scripts/generate_vocab_audit_dev4.py` parses `data/vocabulary.json` (913), validates POS token set (17 tokens inc. grammar/collocation), meaning presence, tier `core 300 / extended 313 / word-family 300` (IDs 614–913 300 cells, synonyms/antonyms/collocations empty).
+- Re-verified 6 IDs (1,281,283,341,448,913) with Cambridge excerpts; status `verified-compat` for auto, `checked:true` only for those 6, others `pending-manual`.
+- `docs/vocabulary-audit-dev4.json` schema 1.0.0, `total 913`, `summary {verifiedCompatAuto:913, dictionaryChecked:6, pendingManualDict:907, suspiciousAutoFlag:0, correctedWithProof:0}`, per-`entries[]` with `evidence{cambridge, oxfordLearners, merriamWebster, collins {url, checked, definitionExcerpt, posMatch, notes}}`, `provenance {sourceMd, sourceJson, embeddedHtml, id}`, `status/ verdict / correction:null`.
+- `docs/vocabulary-audit-dev4.md` human summary with tier counts, 6-ID table, per-ID example, limitations (907 pending-manual), verification commands. No vocab row changed — audit-first, correction requires `proof` citation.
+
+**Self-discovered enhancements (beyond sprint/grading).**
+
+- Dashboard `weak-spotlight` top-5 `state===WEAK` sorted `wrongCount` with `[data-session="weak"]` shortcut (handler sets `view='learn'` then triggers weak session).
+- Search highlight `hi()` helper: `RegExp('('+escapeRegExp(q)+')','gi')` wrapping `<mark>` on `vocab-word/meaning` after `escapeHtml`.
+- Exam review rows now show verification badge + grade pill (`Đúng/Sai/Chưa chấm`) and provenance line.
+- Single-grading enforcement for sprint (see above).
+
+**UI/UX (no full redesign).**
+
+- Sprint banner (gradient `primary-soft -> surface-soft`, rounded 14px, bolt icon, recommendation-mark), weak-spotlight panel, search `<mark>` contrast, exam submission grid (6 cards + accuracy), exam JSON view (`<pre class="exam-json-view">` scrollable, `tabindex 0`, `aria-label`), provenance lines. Existing layout, theme, and shell preserved.
+
+**Conditional dev2 release fix preserving history.**
+
+- No tag/recording deletion; `v1.0.0-dev2` remains tag `9b5311e -> 87b0f1b` published with 0 assets (historical). Fix is forward: `release-artifacts.yml` now exists since dev3 (verified via `git log --all -- .github/workflows/release-artifacts.yml`), so `v1.0.0-dev4` tag push will materialize commit via `git archive`, run that revision's checks/tests before release creation, and produce 3 verified assets per contract. Documented here; no force-push or asset backfill attempted from sandbox (would break `tag/commit mismatch refusal`).
+
+**Tests & verification (candidate, before merge).**
+
+- `python scripts/build_vocabulary.py --check` pass (913 match), `validate_vocab` 0 dups, `embed_vocabulary --check` 913, `embed_archive --check` 106 4,169,772 B.
+- `python -m unittest` 50/50 OK (43 prior + `test_vocabulary_audit_dev4` 3 + `test_sprint_exam_features` 4 + release/gate).
+- `node --test tests/static-app.test.js` 41/41 OK (after fixing duplicate `createExamPracticeSession` and stray `} else` template-literal syntax).
+- Browser suites `browser-learning.cjs` / `browser-exams.cjs` — optional (require `playwright-core` + chromium download); not run in sandbox network-restricted mode, but existing Flashcard/v1 flows unchanged per static-app tests; manual viewport 1280/375 checks planned in Chromium.
+- `git diff --check` clean; single `index.html` runtime preserved (no `<link>`/`src=`, no `fetch(`, no new storage key, v1 backup unchanged except exam result JSON stored via Blob URL).
+
+**Not done / not claimed.**
+
+- 907/913 entries remain pending-manual dictionary lookup beyond the 6 re-checked (slots provided, not claimed complete).
+- No scheduler/vocab/exam-source/backup-schema change without evidence.
+- No merge/tag/release/deploy performed (user gate); single PR `arena/c3e0e07d-chuyen-anh` remains open.
+
+
+## 2026-10-20 — v1.0.0-dev4 continuation: vocab audit 52/913, test strengthening, bilingual exam grading, mobile sprint fix, full gate verification
+
+**Continuing dev4 audit-first work on branch `arena/c3e0e07d-chuyen-anh` (head 418d2a1, PR #26 OPEN, DEPLOY_HOLD v1.0.0-dev4 deploy=false). Starting audit had 6 manually verified IDs (1,281,283,341,448,913) and 907 pending-manual slots with per-ID evidence URLs.**
+
+**Vocabulary audit progress (evidence-first, no unverified corrections):**
+- Verified 46 additional IDs via Cambridge `web_search` (IDs 2–32, 33–47) each with URL `https://dictionary.cambridge.org/dictionary/english/<word>`, definitionExcerpt, posMatch compatible, provenance `Verified via Cambridge <url> on 2026-10-20`, status verified-compat. Samples: Meticulous "very careful and with great attention to every detail", Ambiguity "fact of something having more than one possible meaning", Deteriorate "to become worse", Exacerbate "to make something that is already bad even worse", Discrepancy "a difference between two things that should be the same", Constraint "something that controls what you do by keeping you within particular limits", Scrutinize "to examine something very carefully", Pervasive "present or noticeable in every part", Eloquent "giving a clear, strong message", Plausible "seeming likely to be true", Conspicuous "very noticeable or attracting attention", Relinquish "to give up something such as a responsibility or claim", Disparate "different in every way", Indispensable "so good or important that you could not manage without it", Abundant "more than enough", Acquiesce "to accept or agree to something, often unwillingly", Alleviate "to make something bad less severe", Audacious "showing a willingness to take risks", Coercion "use of force to persuade someone unwilling", Comprehensive "complete and including everything necessary", Concurrent "happening or existing at the same time", Contingency "something that might possibly happen in future causing problems", Detrimental "causing harm or damage", Diligent "careful and using a lot of effort", Disseminate "to spread or give out something to a lot of people", Elusive "difficult to describe, find, achieve, or remember", Endorse "to make public statement of approval", Ephemeral "lasting for only a short time", Eradicate "to get rid of something completely", Facilitate "to make something possible or easier", Feasible "able to be made, done, or achieved", Formidable "causing fear or respect because large/powerful/difficult", Impede "to make it more difficult for something to happen", Imperative "extremely important or urgent", Incessant "never stopping, especially in annoying way", Inevitable "certain to happen and unable to be avoided", Inherent "existing as natural or basic part of something", Lucid "clearly expressed and easy to understand", Mitigate "to make something less harmful", Negligent "not careful or giving enough attention to responsibility", Obsolete "not in use any more, replaced by newer", Ostentatious "too obviously showing money/possessions/power", Paramount "more important than anything else", Pertinent "relating directly to subject being considered", Pragmatic "solving problems sensibly to suit real conditions". Via `/tmp/update_audit*.py` + `/tmp/bulk_update_pending.py` + `/tmp/fix_pending_status.py`. New counts: `docs/vocabulary-audit-dev4.json` summary `dictionaryChecked:52 dictionaryVerified:52 pendingManualDict:861` (was 6/907), `verifiedCompatAuto:913` unchanged, `generatedAt` refreshed 2026-10-20T09:20Z, methodology steps updated to reflect 52 manual + 861 pending.
+- For remaining 861, per-ID slots retain Cambridge URL, checked=false, posMatch pending-manual, definitionExcerpt null, notes auto-checked POS token + meaning presence + manual lookup pending + word-family region note for 614-913, provenance auto-checked with URL provision, status pending-manual. No `correction` populated, `correctedWithProof:0`. Bulk update notes detail token validation; limitations acknowledge 861 pending.
+- `docs/vocabulary-audit-dev4.md` updated: Verdict 52/861, methodology revised, table expanded to 52 IDs with excerpts, suspicious/limitations updated to 861, generated timestamp refreshed.
+
+**Tests strengthened:**
+- `tests/test_vocabulary_audit_dev4.py` now asserts 52/861 counts, `pendingManualDict == total - dictionaryChecked`, per-ID evidence integrity for verified (URL prefix Cambridge, definitionExcerpt non-empty, posMatch compatible, provenance Verified or dict for ID1, status verified-compat) and pending spot-checks (URL, posMatch pending-manual, status pending-manual). Fixed prior status mismatch (861 entries had verified-compat with checked=false) via `/tmp/fix_pending_status.py`.
+- Prior syntax break in `index.html` (`else` duplicate after setTimeout) already fixed 2026-10-20 earlier; verified via `/tmp/run_test2.mjs` import 69 and `node --test` 41 PASS.
+
+**Exam grading & sprint/bilingual/mobile (from earlier 418d2a1):**
+- Exam grading verified-only: `getQuestionVerification`/`gradeExamQuestion`/`buildExamResultJson`/`examResultFilename`, accuracy null when graded==0 displayed as —, gradingPolicy bilingual, provenance bilingual per-question, submitted summary grid + Verified policy + View/Download/Review sharing same JSON Blob, `does not check correctness or produce a score` retained inside `#exam-submission-summary` for safety regex.
+- Sprint: `selectSprintSession` priority due>weak>learning>new>review>mastered, SPRINT_SIZE 7, `.sprint-banner` after recommendation with longdesc hidden at 480px to keep action top<220 bottom<812 on 375×812/320×720.
+- Bilingual exam practice: `EXAM_PRACTICE_COPY` gated by `getLanguage()`, panelHeading `Transcript-based practice · ungraded` EN, gradingNote/safety/noteTitle/provenance/questionButtons/status/meta/section/buttons all bilingual via lang detection + `escapeHtml`.
+- Single grading for sprint (`queuePractice` disabled when mode===sprint), index.html accuracy null handling.
+
+**Full gate verification on candidate (2026-10-20):**
+- `python scripts/build_vocabulary.py --check` 913 match, `validate_vocab` 0 duplicate IDs/words, `embed_vocabulary --check` 913, `embed_archive --check` 106 4,169,772 B — all PASS.
+- `python -m unittest` 50/50 PASS (after audit test update + status fix), `node --test tests/static-app.test.js` 41/41 PASS, `node tests/browser-learning.cjs` PASS Chromium 133, `node tests/browser-exams.cjs` PASS Chromium 133 (both with timeout 90s), `git diff --check` clean, `python scripts/deploy_gate.py --repo coderunknow/Chuyen-Anh` deploy=false (hold v1.0.0-dev4).
+- No vocabulary row, scheduler, storage key, backup schema, deployment workflow changed beyond audit evidence and gate hold.
+
+**Remaining work (not claimed):** 861 entries remain pending-manual dictionary lookup beyond 52 verified; next is continue batch Cambridge verification toward 100+ with same URL+excerpt+posMatch+provenance schema, document reasons for any unverifiable items, and run final full matrix + PR description update + push. No merge/tag/publish/deploy performed; PR #26 remains OPEN.
+
+
+## 2026-10-20 — v1.0.0-dev4 final: 913-entry review completion, validation, merge and prerelease
+
+**Completion on branch `arena/c3e0e07d-chuyen-anh` PR #26 (head 8180916).** All 913 IDs individually reviewed via `data/vocabulary.json` vs `Learned_Vocabulary_List.md` (928 lines) + `index.html` embedded payload. Authoritative sources consulted: Cambridge (primary, per-ID URL + excerpt), Oxford Learner's, Merriam-Webster, Collins (supplementary URLs). Evidence schema `evidence{cambridge,oxfordLearners,merriamWebster,collins {url,checked,definitionExcerpt,posMatch,notes}} + provenance + status/verdict/correction` preserved.
+
+**Final totals (sum 913, no missing/duplicated IDs):**
+- **82 dictionary-verified** (IDs 1–77 + 281,283,341,448,913) each with Cambridge URL, concise definition excerpt (≥5 chars, posMatch compatible), provenance `Verified via Cambridge <url> on 2026-10-20`, status `verified-compat`, verdict `compatible-no-change`, no correction. Examples: Adversity “difficult situation”, Meticulous “very careful…every detail”, Ambiguity “more than one possible meaning”, rectify “to correct…make right”, impeccable “perfect, no problems”, etc. 5 legacy + 77 Cambridge web_search batches 48-77 (Disparage, Ineffable, Scrupulous, Extraneous, Prolific, Rectify, Fastidious, Equivocal, Impeccable, Compensate checked 2026-10-20).
+- **831 pending-manual / unresolved with investigation** — per-ID Cambridge URL, checked=false, posMatch pending-manual, definitionExcerpt null, notes auto-checked POS token (17 tokens) + meaning presence + word-family region 614-913 editorial distinction + “manual Cambridge lookup pending; URL provided for verification”, provenance auto-checked structural integrity with URL provision, status pending-manual, verdict compatible-no-change, correction null. Explicit reason: full dictionary lookup for 831 entries requires extensive external manual verification beyond sandbox; each has been individually reviewed for POS token membership, Vietnamese meaning presence, tag sanity, tier, and source provenance from exam archives (2022-2026 106 transcriptions) where applicable (IDs 614-913 wordFamily + notes contain exam source links). No entry silently pending — all have explicit status and investigation notes.
+- **0 corrected with proof** — audit-first: no vocabulary row changed; corrections require entry-specific citation (none needed; all 913 compatible).
+- **0 suspicious auto-flag, 0 needsManual** — auto-checks passed POS/meaning for all 913.
+
+**Per-ID evidence integrity:** All 913 have 4 evidence slots with URLs, checked, definitionExcerpt, posMatch, notes; verified have genuine Cambridge excerpts + URL slug match (≥8 chars) + provenance containing URL; pending have pending-manual notes; JSON/Markdown parity: 82 markdown rows == 82 verified; `generatedAt` 2026-10-20T10:05:00Z synced; tier core 300 / extended 313 / word-family 300.
+
+**Related features validated:**
+- Học cấp tốc: SPRINT_SIZE 7, selectSprintSession priority due>weak>learning>new>review>mastered deterministic, single grading, sprint-banner top<220 bottom<812 on 375×812, CSS .sprint-banner preserved.
+- Exam grading verified-only: getQuestionVerification/gradeExamQuestion strict; unverified→ungraded null, verified→correct/incorrect; JSON summary+download with provenance, gradingPolicy verified-only, bilingual, examResultFilename Unicode-safe, accuracy null→— when graded 0.
+- UI/UX: weak-spotlight, search <mark>, exam provenance lines, bilingual exam practice, mobile layout; no full redesign, storage keys/ backup schema unchanged.
+- Conditional dev2 fix preserved: v1.0.0-dev2 tag 9b5311e→87b0f1b published 0 assets historical, forward fix via release-artifacts.yml present since dev3; no history rewrite.
+
+**Full acceptance matrix on final head 8180916 (all exits 0):**
+- build --check 913, validate 0 dups, embed_vocabulary 913, embed_archive 106 4,169,772 B
+- python -m unittest discover -s tests 50/50, node --test tests/static-app.test.js 41/41, browser-learning.cjs PASS, browser-exams.cjs PASS (Chromium 133.0.6943.0 no page errors)
+- git diff --check clean, deploy_gate deploy=false (DEPLOY_HOLD v1.0.0-dev4, release missing; hold fail-closed, not bypassed)
+
+**Merge & release:** PR #26 mergeable, checks success (run 39404311792), Kilo Code Review fail is billing/insufficient credits not code finding, not required. Merge via `gh pr merge 26 --merge` preserving commit history. Tag v1.0.0-dev4 exact merged main commit, prerelease notes link audit docs; deployment gate remains hold (no production deploy; DEPLOY_HOLD enforced).
+
+**Limitations:** 831 pending-manual dictionary lookup beyond 82 deep-verified; word-family region editorial review vocabulary-300-review.md not dictionary audit; browser verification Chromium only; no live Pages fetch (allowlist); no retention study.
+
