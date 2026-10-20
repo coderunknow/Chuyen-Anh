@@ -1,21 +1,21 @@
 # Vocabulary audit — v1.0.0-dev4 (913 entries)
 
-Generated: 2026-10-20T09:55:00Z
+Generated: 2026-10-20T10:05:00Z
 App version: v1.0.0-dev4 · Schema: 1.0.0
 
 ## Verdict
 
 - **913 entries** indexed from `data/vocabulary.json` (source `Learned_Vocabulary_List.md` 928 lines, IDs 1–913).
-- **913 verified-compat (auto) — no correction proposed; 77 manually re-checked with Cambridge excerpts (IDs 1–72 plus 5 legacy).**
-- **836 pending-manual dictionary lookup** beyond the 77 re-verified (evidence slots provided with per-ID Cambridge URLs, auto-checked POS/meaning, not claimed complete).
+- **913 verified-compat (auto) — no correction proposed; 82 manually re-checked with Cambridge excerpts (IDs 1–77 plus 5 legacy).**
+- **831 pending-manual dictionary lookup** beyond the 82 re-verified (evidence slots provided with per-ID Cambridge URLs, auto-checked POS/meaning, not claimed complete).
 - **0 needs-manual (suspicious auto-flag)**; **0 corrections with proof** — audit-first, correct only with entry-specific citation.
 
 ## Methodology (audit-first)
 
 1. Parsed source Markdown and generated JSON — IDs 1–913, no duplicates, embedded HTML payload in sync (`python scripts/build_vocabulary.py --check` passes).
 2. Auto-checked POS tokens vs known set (17 tokens: `abbr, adj, adv, collocation, conj, det, grammar, idiom, interj, n, num, phrasal, phrase, prep, pron, structure, v`), meaning presence, tag sanity, word-family region IDs 614–913 (300 cells, synonyms/antonyms/collocations empty in dataset). For pending entries, auto-checks record POS token validity and meaning presence with explicit notes and Cambridge URL, but definition excerpt remains pending-manual.
-3. Manually re-verified 77 IDs with Cambridge excerpts on 2026-10-20 (IDs 1–72 plus 281,283,341,448,913 legacy, via Cambridge web_search): definitionExcerpt + posMatch compatible + provenance Verified via Cambridge URL; no correction proposed, all compatible.
-4. For all 913, generated per-ID evidence slots with dictionary URLs; `checked` is `true` for the 77 manually verified, otherwise `pending-manual` with auto-checked structural notes and per-ID Cambridge URL for manual follow-up.
+3. Manually re-verified 82 IDs with Cambridge excerpts on 2026-10-20 (IDs 1–77 plus 281,283,341,448,913 legacy, via Cambridge web_search): definitionExcerpt + posMatch compatible + provenance Verified via Cambridge URL; no correction proposed, all compatible.
+4. For all 913, generated per-ID evidence slots with dictionary URLs; `checked` is `true` for the 82 manually verified, otherwise `pending-manual` with auto-checked structural notes and per-ID Cambridge URL for manual follow-up.
 5. No vocabulary row changed; any future correction must add `correction` with `proof` citation (Cambridge/Oxford/MW entry excerpt) and be reflected via build scripts.
 
 Authoritative sources consulted (URLs per ID): Cambridge (primary), Oxford Learner's, Merriam-Webster, Collins (supplementary). Primary verification via Cambridge; other sources provide supplementary POS/CEFR context.
@@ -28,10 +28,10 @@ Authoritative sources consulted (URLs per ID): Cambridge (primary), Oxford Learn
 
 ## Suspicious auto-flags (0)
 
-If empty, auto-checks passed; manual dictionary lookup still pending for 836 entries. Auto-checks verified POS token membership and Vietnamese meaning presence for all 913; 77 have manual Cambridge excerpts, 836 have per-ID Cambridge URLs + auto-check notes pending manual verification.
+If empty, auto-checks passed; manual dictionary lookup still pending for 831 entries. Auto-checks verified POS token membership and Vietnamese meaning presence for all 913; 82 have manual Cambridge excerpts, 831 have per-ID Cambridge URLs + auto-check notes pending manual verification.
 
 
-## Previously re-verified (77 IDs — IDs 1–72 plus 5 legacy via Cambridge 2026-10-20)
+## Previously re-verified (82 IDs — IDs 1–77 plus 5 legacy via Cambridge 2026-10-20)
 
 | ID | Word | Cambridge excerpt (compatible) |
 | --- | --- | --- |
@@ -107,13 +107,18 @@ If empty, auto-checks passed; manual dictionary lookup still pending for 836 ent
 | 70 | Scrupulous | adj very careful, honest, detail-attentive — “cẩn trọng, kỹ lưỡng” |
 | 71 | Extraneous | adj not directly connected or related — “không liên quan, thừa” |
 | 72 | Prolific | adj producing great number/amount — “năng suất cao, sáng tác dồi dào” |
+| 73 | Rectify | verb to correct something or make something right — “sửa chữa, khắc phục” |
+| 74 | Fastidious | adj giving too much attention to small details — “khó tính, kỹ tính” |
+| 75 | Equivocal | adj not clear, two opposing meanings — “mập mờ, nước đôi” |
+| 76 | Impeccable | adj perfect, no problems or bad parts — “hoàn hảo” |
+| 77 | Compensate | verb to pay money for loss/problem; to make up for — “bù đắp, đền bù” |
 | 281 | Credence | noun belief that something is true — “sự tin tưởng” |
 | 283 | Culminate | verb to end with a particular result — “lên đến đỉnh điểm” |
 | 341 | Intransigent | adj unwilling to change opinions — “không khoan nhượng” |
 | 448 | Menial task | noun low-social-value work — “công việc tay chân tầm thường” |
 | 913 | Virtually | adv almost; via computer — “hầu như/ảo” |
 
-All 77 have per-ID `evidence.cambridge{url,checked:true,definitionExcerpt,posMatch:compatible}` and `provenance: Verified via Cambridge <url> on 2026-10-20`.
+All 82 have per-ID `evidence.cambridge{url,checked:true,definitionExcerpt,posMatch:compatible}` and `provenance: Verified via Cambridge <url> on 2026-10-20`.
 
 ## Per-ID evidence slots
 
@@ -159,10 +164,10 @@ No row changed in this run. Future corrections must populate `correction: { "fro
 
 ## Limitations
 
-- 836 entries remain pending-manual dictionary lookup beyond the 77 re-verified; this JSON provides per-ID Cambridge URLs + auto-check notes but acknowledges pending manual verification — no unverified corrections applied.
+- 831 entries remain pending-manual dictionary lookup beyond the 82 re-verified; this JSON provides per-ID Cambridge URLs + auto-check notes but acknowledges pending manual verification — no unverified corrections applied.
 - Word-family region (614–913) editorial review is documented in `vocabulary-300-review.md` but is not a dictionary audit; those entries have per-ID slots same as core/extended.
-- This audit tests data/dictionary compatibility; runtime association is covered by static tests (3,652 mode/entry combos). Dictionary verification is evidence-first: 77 have Cambridge excerpts with URL+provenance, 836 have pending-manual slots.
-- Methodology updated 2026-10-20: 77 manually verified via Cambridge web_search with URL+excerpt+posMatch, 836 pending-manual with auto-checked POS/meaning + Cambridge URL provision.
+- This audit tests data/dictionary compatibility; runtime association is covered by static tests (3,652 mode/entry combos). Dictionary verification is evidence-first: 82 have Cambridge excerpts with URL+provenance, 831 have pending-manual slots.
+- Methodology updated 2026-10-20: 82 manually verified via Cambridge web_search with URL+excerpt+posMatch, 831 pending-manual with auto-checked POS/meaning + Cambridge URL provision.
 
 ## How to verify
 
