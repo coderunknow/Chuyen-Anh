@@ -49,7 +49,7 @@ Validator kiểm tra schema, kiểu dữ liệu, ID/từ trùng lặp và các t
 
 ## Phiên bản
 
-Bản ứng dụng hiện tại là candidate `v1.0.0-beta1` (`APP_VERSION` trong `index.html`, hiển thị trong Cài đặt → Thông tin dữ liệu). Tag/release là thao tác riêng sau khi merge và kiểm chứng; tệp trong repo không tự chứng minh đã publish hay deploy.
+Bản ứng dụng hiện tại là `v1.0.0-beta1` (`APP_VERSION` trong `index.html`, hiển thị trong Cài đặt → Thông tin dữ liệu). Prerelease [`v1.0.0-beta1`](https://github.com/coderunknow/Chuyen-Anh/releases/tag/v1.0.0-beta1) đã được publish ngày 2026-10-21 từ tag annotated trỏ tới merge commit `8661916`; GitHub Pages **chưa** cập nhật và vẫn phục vụ bản `v1.0.0-dev5`, vì `DEPLOY_HOLD` đang nêu prerelease kế tiếp (`v1.0.0-beta2`).
 
 ## Chạy ứng dụng
 
