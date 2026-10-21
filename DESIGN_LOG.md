@@ -771,3 +771,17 @@ All entries recorded with verbatim Cambridge excerpt, headword, Cambridge POS, V
 **Post-publication notes correction.** The release body had described the item as an unpublished draft; it was rewritten with `tag_name` included in the PATCH — the exact field whose omission detached the tag on 2026-10-20 — to state the published status, keep the provenance table, keep the known limits, and record that Pages still serves dev5. The edit produced no new workflow runs (`release: edited` is not a dispatcher trigger) and did not change `draft`, `prerelease`, `published_at` or the assets.
 
 **State:** release PUBLISHED as a prerelease; tag unchanged; three assets verified by digest; Pages **not** deployed and now held on `v1.0.0-beta2`; `DEPLOY_HOLD` present and effective. Remaining limits are unchanged and restated in the release notes: in-memory sprint queue, fixed 1.6 s auto-advance without screen-reader testing, ungraded exam items (no verified keys), vocabulary evidence 145/913, and sandbox inability to fetch release bytes or job logs directly.
+
+## 2026-10-21 — reopening the normal Pages deploy path: hold returned to v1.0.0-beta1
+
+**Type: DECISION + gate-marker change.** User instruction for Deliverable A of the beta2 task: reopen GitHub Pages by pointing `DEPLOY_HOLD` at `v1.0.0-beta1` now that it is published, merge that as its own small PR, and prove a **real** deployment rather than a green workflow. Scope was explicitly limited to the marker, its pinning test, the README explanation and these logs; no application code and no beta2 work may ride along.
+
+**Chained decision, stated without rewriting history.** The 2026-10-21 entry above repointed the marker to `v1.0.0-beta2` for one reason only: publishing beta1 would otherwise have opened the gate and deployed Pages during a step that forbade deployment. That constraint has now been lifted by the user, so the marker returns to `v1.0.0-beta1`. The intermediate state stays recorded above; this entry supersedes the *policy*, not the record.
+
+**Change.** `DEPLOY_HOLD` = `v1.0.0-beta1`; the pinning assertion in `tests/test_deploy_gate.py` follows it while the prerelease-shape regex `^v\d+\.\d+\.\d+-(dev|beta|rc)\d+$` and every fail-closed branch (`missing`/`draft`/`not-prerelease` → held, unreadable marker → held) are untouched; the README version and gate paragraphs now describe the reopened path. No workflow, no `scripts/deploy_gate.py`, no `index.html`, and no `force_deploy`.
+
+**Live gate evaluation after the change:** `deploy-hold gate: deploy=true (release v1.0.0-beta1 is published)` — the gate opened by reading the real published release, not by bypassing a check.
+
+**Acceptance for this deliverable (to be recorded only once observed):** the merge itself must trigger the `push` deploy path, `Stage standalone HTML` / `Configure Pages` / `Upload Pages artifact` / `Deploy` must all run (not `skipped`), a deployment record must carry a non-empty `environment_url` at the `main` SHA, and the served content must be checked directly. A `success` conclusion or a bookkeeping deployment record with an empty URL is not evidence of a live deployment.
+
+**Not yet done at this entry:** PR merge, workflow run, and site-content verification. Recorded in the following entry once observed.
