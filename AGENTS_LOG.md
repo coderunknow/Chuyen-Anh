@@ -178,3 +178,11 @@ PR #27 HEAD 714f4b3 OPEN MERGEABLE UNSTABLE (checks pass, Kilo review fail). 3 n
 6. **Deployment:** dispatcher `39546357249` → deploy run `39546363903` on `main`; gate `deploy=false (release v1.0.0-beta2 is missing; deployment held)`; all four publish steps skipped; two bookkeeping deployment records with empty `environment_url`; last real deployment still `7201595658` (dev5). No Pages artifact uploaded.
 7. **Release notes:** rewritten post-publication with `tag_name` included, replacing the stale "unpublished draft" wording and recording that Pages remains on dev5; no new runs triggered by the edit.
 8. **Local state:** session branch `arena/8b6b5bce-chuyen-anh` committed this record; working tree clean after push; `DEPLOY_HOLD` = `v1.0.0-beta2`.
+
+## 2026-10-21 — Deliverable A: hold returned to v1.0.0-beta1 to reopen Pages
+
+1. **Pre-change baseline on `main@431f809`:** `build_vocabulary --check` (913), `validate_vocab` (0 duplicates), `embed_vocabulary --check` (913), `exams/embed_archive --check` (106 / 4,169,772 B), Python 68/68, Node 48/48. No open PRs; beta1 published; last real deployment still dev5's `7201595658`; newer deployment records have empty `environment_url` (held bookkeeping).
+2. **Reference sweep before editing:** `v1.0.0-beta2` appeared in `DEPLOY_HOLD`, `tests/test_deploy_gate.py` (pin only), `README.md` (two paragraphs) and inside the two append-only logs. No workflow, script or app reference.
+3. **Change:** `DEPLOY_HOLD` → `v1.0.0-beta1`; test pin updated, prerelease regex and fail-closed branches unchanged; README version + gate paragraphs rewritten to describe the reopened path and preserve the history sentence. `python -m unittest tests.test_deploy_gate` → 13 OK.
+4. **Gate after change:** `deploy=true (release v1.0.0-beta1 is published)`.
+5. **Not yet done at this entry:** PR creation, merge, deploy run verification, live site content check.
