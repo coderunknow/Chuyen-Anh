@@ -1,5 +1,52 @@
 # Changelog
 
+## v1.0.0-beta3 — 2026-10-21
+
+Release state — whether a `v1.0.0-beta3` tag, prerelease and assets exist, and which build Pages serves — must be verified on GitHub; this file records contents, not publication status. At the time of writing nothing was tagged, published or deployed from this change.
+
+### “Học cấp tốc” — an adaptive retrieval ladder plus one delayed re-retrieval
+
+Beta2 made the sprint faster by removing a wait. Beta3 changes what the sprint *asks*, because removing waiting time is not the same as reducing the time needed to learn a word.
+
+- **Retrieval format now follows the learner's own record, not the attempt count.** `sprintRetrievalDemand(progress)` picks the level from stored state: `mastered` → spelling, `review` → spelling after a 3+ streak, `learning` → recall, anything else (including `weak`, i.e. the last answer was wrong) → recognition. Every other session keeps the old rotation, so their behaviour is unchanged. The ladder is exported as `RETRIEVAL_LADDER = [recognition, recall, spelling]`.
+- **One delayed re-retrieval per word.** After a first pass that was missed or only recognised, the word is queued again at least `SPRINT_CONSOLIDATION_GAP = 3` other cards later (`queueConsolidation`), at one level higher after a success and never below recall after a miss (`consolidationDemand`). A correct spelling needs no reminder, so it is not re-queued (`needsConsolidationTurn`). The check is inserted ahead of trailing corrective retries so it is not starved at the end of the queue, and it is bounded to once per word.
+- **Consolidations are practice-class, never evidence of first-pass knowledge.** They do not call `updateProgress`, do not change `state`, `streak`, `ease`, `interval`, `lastReviewed` or `nextReview`, and are counted in their own `consolidationCorrect` / `consolidationWrong` / `consolidationTotal` counters. The summary reports them on a separate “Củng cố” line with an explicit “Không tính vào độ chính xác lần đầu hay lịch ôn”, and the session history entry still reports `{total: 10, correct: 9, wrong: 1, accuracy: 90, mode: 'sprint'}` for the same run.
+- **Session size and corrective work are untouched.** The sprint still queues the configured 10/20/30/50 distinct words from the whole eligible pool in the same priority order, and a miss still queues exactly one corrective retry in every mode. The new cap is a *ceiling on extra turns*: `sprintTurnBudget(size) = size * 3` (first pass + consolidation + one correction), and the queue model is simulated in tests to prove no path can exceed three turns for one word or the budget for the session.
+- **The hand-off gained two guards.** `shouldHandOffImmediately` now also refuses a consolidation or a revealed self-assessment, so a delayed check always keeps its feedback panel and cannot be answered and skipped in one keystroke. `skipCard`, `repeatCurrent`, `queuePractice` and `needsFirstLook` all refuse consolidation turns, and a consolidation is never re-introduced as a new word.
+- **Copy, not just behaviour.** The sprint banner says each word gets a first retrieval plus one delayed re-retrieval that is not counted as first-pass accuracy; the card label shows `Củng cố · …`, the summary and the feedback line explain that the schedule still follows the first answer; Vietnamese copy and its English translations were added together, so no string leaks untranslated.
+
+### What this does *not* do
+
+- No vocabulary row, exam transcription, storage key, backup schema or import/export validation changed; existing `localStorage` data keeps working and no new field is persisted (the level is derived from state that already exists).
+- No timer returned, no click was removed, no session size was reduced, no word was silently dropped, and no accuracy, progress or mastery number is computed differently for first-pass turns.
+- No learner study was run. The 30 %/50 % active-time target and the ≤ 5 percentage-point delayed-recall safety margin from the design review remain **unverified**; nothing here proves retention.
+
+### Measured interaction throughput (synthetic, not a learning claim)
+
+Method: `node tests/speed-benchmark.cjs` with `ROUNDS=3`, one build (`index.html`), think 600 ms / reaction 450 ms, ten words, `wrongAt` word 3. Every latency is measured inside the page with `performance.now()`; `tests/benchmark-contract.cjs` asserts the workload of each flow and exits non-zero on any deviation (turn counts, word order, consolidation order, hand-off counts, page errors).
+
+| flow | turns | elapsed (median of 3) | per turn | hand-offs | manual continues |
+|---|---|---|---|---|---|
+| standard | 11 (10 graded + 1 retry) | 13,831 ms (14,163 / 13,831 / 13,809) | 1,257 ms | 0 | 11 |
+| sprint | 21 (10 graded + 10 consolidation + 1 retry) | 20,905 ms (21,163 / 20,857 / 20,905) | 995 ms | 9 | 12 |
+
+The matrix run (`--matrix`, one round per scenario, single build) gave standard/sprint 14,316/21,197 ms at 600/450, 21,904/34,859 ms at 1200/450, and 12,211/19,313 ms at 600/250.
+
+Read honestly: the sprint is **20.8 % faster per turn** (the beta2 hand-off still removes a click on nine of its turns) but **51.1 % slower per session**, because it performs ten more graded retrievals for the same ten words. That is the intended trade — more retrieval work per word, not less. A beta2-vs-beta3 cross-version table is no longer meaningful: the workloads differ (11 vs 21 turns), so comparing their elapsed times would be exactly the mistake the design review warned about. Sprint timing is **not** a speed claim, and no result here supports or refutes the 30 %/50 % study-time target.
+
+### Tests
+
+- `tests/static-app.test.js` (62 tests) covers the ladder, the consolidation decision, insertion distance and once-per-word bound, the three-turns-per-word simulation, first-look and persistence isolation, the summary/feedback translations, the benchmark contract (per-flow workloads, consolidation order, hand-off counters, median and page-error rejection) and the absence of the retired dwell timer.
+- `tests/test_sprint_exam_features.py` pins `v1.0.0-beta3`, the ladder and consolidation exports, the practice-class grading branch, and the absence of the seven-word cap.
+- `tests/browser-learning.cjs` drives the real 21-turn sprint in Chromium 133.0.6943.0 (per-turn mode and word mapping, consolidation distance, immediate hand-off only on correct first passes), then navigation/skip regressions; `tests/browser-exams.cjs` re-runs the exam surface. Both PASS with no page errors.
+- `python3 -m unittest discover -s tests -p 'test_*.py'` 70 OK; vocabulary 913 records, 0 duplicates, 106 transcriptions (4,169,772 text bytes).
+
+### Release and deployment state
+
+- `APP_VERSION` is `v1.0.0-beta3` and is shown in Settings → data information.
+- `DEPLOY_HOLD` names `v1.0.0-beta3`. The gate is unchanged and fail-closed; immediately after the marker change `scripts/deploy_gate.py --repo coderunknow/Chuyen-Anh` printed `deploy=false (release v1.0.0-beta3 is missing; deployment held)`. No workflow was disabled, no trigger was changed, no `force_deploy` was used.
+- No tag, prerelease, asset or Pages deployment was created by this change.
+
 ## v1.0.0-beta2 — 2026-10-21
 
 Release state — whether the tag, the prerelease and its three assets are published, and which build Pages serves — must be verified on GitHub; this file records contents, not publication status.

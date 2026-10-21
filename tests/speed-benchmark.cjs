@@ -1,10 +1,15 @@
-// Optional real-browser speed benchmark. It measures how long the *same* learning
-// work takes in two flows, so a change can be compared against the beta1 build.
+// Optional real-browser interaction benchmark. It measures how long each flow's
+// own, fully asserted workload takes. From v1.0.0-beta3 the two flows deliberately
+// do different amounts of learning work: the sprint performs a delayed second
+// retrieval of every word whose first pass was not a produced answer, so its total
+// time is expected to be longer than the standard flow's and is NOT a speed claim.
+// Comparing a beta3 sprint time with a beta2 sprint time measures a different
+// workload and is therefore invalid.
 //
 // npm install --no-save --package-lock=false playwright-core @sparticuz/chromium@133.0.0
 //
 //   APP=path/to/index.html FLOW=standard|sprint node tests/speed-benchmark.cjs
-//   APP_BETA1=old.html APP_BETA2=new.html node tests/speed-benchmark.cjs --matrix
+//   APP=path/to/index.html node tests/speed-benchmark.cjs --matrix
 //
 // Environment:
 //   APP          path to the built index.html (default: repository index.html)
@@ -16,9 +21,11 @@
 //
 // The scenario is fixed: ten words, six of them due and weak, two in learning and
 // two never studied; the fourth graded card is answered wrong, which queues the
-// single corrective retry. Both flows therefore perform exactly eleven
-// interactions: ten first-pass retrievals plus one correction. No word is skipped
-// and no turn is removed, so a faster result cannot come from doing less work.
+// single corrective retry. The standard flow performs ten first-pass retrievals
+// plus the retry (eleven turns). The sprint performs the same ten first passes, one
+// delayed consolidation per word and the same retry (twenty-one turns). Those
+// numbers, the word order and the number of hand-offs are asserted per flow in
+// tests/benchmark-contract.cjs, so a "faster" run that skipped a turn is rejected.
 //
 // Timing boundaries. Every latency is measured inside the page with
 // performance.now(): a capture-phase listener stamps the answer (or the continue
@@ -136,12 +143,30 @@ async function readCard(page) {
   if (await page.locator('#start-quiz').count()) return { intro: true };
   const mode = (await page.locator('.mode-label').innerText()).toLowerCase();
   const prompt = (await page.locator('.prompt').innerText()).trim();
-  return { intro: false, mode, prompt };
+  return {
+    intro: false,
+    mode,
+    prompt,
+    // A consolidation and a corrective retry are separate turn classes; neither is
+    // a first-pass retrieval and neither may be counted as one.
+    consolidation: mode.includes('củng cố'),
+    practice: mode.includes('luyện lại')
+  };
 }
 
-// Two observational phases shared by both builds: the answer must register, then a
-// fresh, answerable card (or the summary) must appear. beta1 disables the options
-// during its fixed dwell, beta2 swaps the card at once; both satisfy the same pair.
+// Recognition shows the English word; recall, spelling and consolidation show the
+// meaning. Resolving the visible prompt back to one planned word keeps the recorded
+// order independent of the question format.
+function resolveEntry(card, plan) {
+  return card.mode.includes('nhận diện')
+    ? plan.find(item => item.word === card.prompt)
+    : plan.find(item => item.meaning === card.prompt);
+}
+
+// Two observational phases: the answer must register, then a fresh, answerable card
+// (or the summary) must appear. A turn that hands off swaps the card at once, while a
+// wrong answer, a retry, a consolidation or a revealed self-assessment keeps the
+// options disabled behind its feedback panel; both satisfy the same pair.
 function waitForAnswerRegistered(page, timeout) {
   return page.waitForFunction(() => {
     if (document.querySelector('.summary, .handoff-strip, #feedback-area .feedback')) return true;
@@ -174,20 +199,22 @@ function waitForAnswerable(page, timeout) {
 }
 
 async function answerCard(page, card, plan, correct) {
+  const target = resolveEntry(card, plan);
+  if (!target) throw new Error(`the card could not be traced to a planned word: ${card.mode} / ${card.prompt}`);
   if (card.mode.includes('chính tả')) {
-    const entry = plan.find(item => item.meaning === card.prompt) || { word: 'unknown' };
-    await page.locator('#spelling-input').fill(correct ? entry.word : 'definitely not the word');
+    await page.locator('#spelling-input').fill(correct ? target.word : 'definitely not the word');
     await page.locator('#spelling-input').press('Enter');
     return;
   }
-  const target = card.mode.includes('nhận diện') ? plan.find(item => item.word === card.prompt) : null;
   const wantMeaning = card.mode.includes('nhận diện');
   const options = page.locator('[data-option]');
   const count = await options.count();
   for (let index = 0; index < count; index += 1) {
     const text = (await options.nth(index).innerText()).replace(/^\d+\s*/, '').trim();
     const entry = plan.find(item => (wantMeaning ? item.meaning : item.word) === text);
-    const isCorrect = Boolean(entry) && (!wantMeaning || (target && entry.id === target.id));
+    // Correctness is bound to the planned word, not to "any word in the plan":
+    // picking an arbitrary option would make the benchmark grade a wrong answer.
+    const isCorrect = Boolean(entry) && entry.id === target.id;
     if (isCorrect === correct) {
       await options.nth(index).click();
       return;
@@ -214,14 +241,16 @@ async function runRound(page, url, { flow, thinkMs, reactionMs }) {
   await page.locator(selector).click();
 
   const order = [];
+  const consolidationOrder = [];
   const feedbackLatency = [];
   const handoffLatency = [];
   const continueLatency = [];
   let practiceSeen = 0;
+  let consolidationSeen = 0;
   let graded = 0;
   let wrongAt = -1;
 
-  for (let guard = 0; guard < 40; guard += 1) {
+  for (let guard = 0; guard < 60; guard += 1) {
     if (await page.locator('.summary').count()) break;
     let card = await readCard(page);
 
@@ -237,21 +266,29 @@ async function runRound(page, url, { flow, thinkMs, reactionMs }) {
     if (process.env.BENCH_DEBUG) {
       console.error(`[turn ${graded + practiceSeen + 1}] ${card.mode} | ${card.prompt.slice(0, 40)}`);
     }
-    if (!card.mode.includes('luyện lại')) {
-      order.push(card.prompt);
+    const firstPass = !card.practice && !card.consolidation;
+    const resolved = (firstPass || card.consolidation) ? resolveEntry(card, plan) : null;
+    if ((firstPass || card.consolidation) && !resolved) {
+      throw new Error(`the turn could not be traced to a planned word: ${card.mode} / ${card.prompt}`);
+    }
+    if (firstPass) {
+      order.push(resolved.word);
       graded += 1;
+    } else if (card.consolidation) {
+      consolidationOrder.push(resolved.word);
+      consolidationSeen += 1;
     } else {
       practiceSeen += 1;
     }
 
-    const isWrong = !card.mode.includes('luyện lại') && graded - 1 === WRONG_POSITION;
+    const isWrong = firstPass && graded - 1 === WRONG_POSITION;
     if (isWrong) wrongAt = graded - 1;
 
     // Simulated reading time, identical in both flows.
     await sleep(thinkMs);
     await answerCard(page, card, plan, !isWrong);
 
-    const sprintHandoff = flow === 'sprint' && !isWrong && !card.mode.includes('luyện lại');
+    const sprintHandoff = flow === 'sprint' && firstPass && !isWrong;
     await waitForAnswerRegistered(page, 15000);
 
     if (sprintHandoff) {
@@ -311,8 +348,10 @@ async function runRound(page, url, { flow, thinkMs, reactionMs }) {
     elapsedMs: elapsed,
     gradedTurns: graded,
     practiceTurns: practiceSeen,
+    consolidationTurns: consolidationSeen,
     wordsCompleted: new Set(order).size,
     wordOrder: order,
+    consolidationOrder,
     wrongAt,
     handoffSamples: handoffLatency.length,
     continueSamples: continueLatency.length,
@@ -342,9 +381,11 @@ function summarize(rounds, { app, flow, thinkMs, reactionMs }, browserVersion, e
     throughputPerMinute: Number((first.wordsCompleted / (elapsedMs / 60000)).toFixed(2)),
     gradedTurns: first.gradedTurns,
     practiceTurns: first.practiceTurns,
+    consolidationTurns: first.consolidationTurns,
     wordsCompleted: first.wordsCompleted,
     wrongAt: first.wrongAt,
     wordOrder: first.wordOrder,
+    consolidationOrder: first.consolidationOrder,
     handoffSamples: first.handoffSamples,
     continueSamples: first.continueSamples,
     meanFeedbackLatencyMs: median(rounds.map(round => round.meanFeedbackLatencyMs).filter(value => value !== null)),
@@ -401,34 +442,32 @@ async function main() {
   const browser = await launch();
   try {
     if (MATRIX) {
-      const beta1 = path.resolve(process.env.APP_BETA1 || '');
-      const beta2 = path.resolve(process.env.APP_BETA2 || path.join(__dirname, '../index.html'));
-      for (const app of [beta1, beta2]) {
-        if (!fs.existsSync(app)) throw new Error(`missing build: ${app}`);
-      }
+      // Within one build, because the flows no longer do the same work. A cross-
+      // version comparison would change the workload and is not produced here.
+      const app = path.resolve(process.env.APP || path.join(__dirname, '../index.html'));
+      if (!fs.existsSync(app)) throw new Error(`missing build: ${app}`);
       const scenarios = [];
       let reference = null;
       for (const { thinkMs, reactionMs } of MATRIX_SCENARIOS) {
-        for (const [label, app] of [['beta1', beta1], ['beta2', beta2]]) {
-          for (const flow of ['standard', 'sprint']) {
-            const result = await runScenario(browser, { app, flow, thinkMs, reactionMs, rounds, expectedOrder: reference });
-            if (!reference) reference = result.wordOrder;
-            scenarios.push({ label, ...result });
-          }
+        for (const flow of ['standard', 'sprint']) {
+          const result = await runScenario(browser, { app, flow, thinkMs, reactionMs, rounds, expectedOrder: reference });
+          if (!reference) reference = result.wordOrder;
+          scenarios.push({ flow, ...result });
         }
       }
       // Every combination must exist exactly once; a missing scenario is a failed
       // benchmark, not a smaller table.
-      if (scenarios.length !== MATRIX_SCENARIOS.length * 2 * 2) {
-        throw new Error(`matrix produced ${scenarios.length} scenarios, expected ${MATRIX_SCENARIOS.length * 2 * 2}`);
+      if (scenarios.length !== MATRIX_SCENARIOS.length * 2) {
+        throw new Error(`matrix produced ${scenarios.length} scenarios, expected ${MATRIX_SCENARIOS.length * 2}`);
       }
       for (const scenario of scenarios) {
-        validateResult(scenario, { rounds, expectedOrder: reference, label: `${scenario.label}/${scenario.flow}/${scenario.thinkMs}` });
+        validateResult(scenario, { rounds, expectedOrder: reference, label: `${scenario.flow}/${scenario.thinkMs}` });
       }
       console.log(JSON.stringify({
         matrix: true,
         rounds,
-        builds: { beta1, beta2 },
+        app,
+        note: 'The sprint performs one extra delayed retrieval per word (21 turns vs 11), so its elapsed time is not comparable to the standard flow or to a previous release. No speed claim is derived from this table.',
         referenceOrder: reference,
         scenarios
       }, null, 2));
