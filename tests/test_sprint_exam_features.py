@@ -21,8 +21,8 @@ class ShippedSprintContractTests(unittest.TestCase):
         self.assertIsNotNone(self.app)
         self.script = self.app.group(1)
 
-    def test_release_version_is_the_beta2_candidate(self):
-        self.assertIn("APP_VERSION = 'v1.0.0-beta2'", self.script)
+    def test_release_version_is_the_beta3_candidate(self):
+        self.assertIn("APP_VERSION = 'v1.0.0-beta3'", self.script)
         self.assertIn("EXAM_RESULT_SCHEMA_VERSION = '1.0.0'", self.script)
 
     def test_the_fixed_seven_word_sprint_cap_is_gone(self):
@@ -42,8 +42,33 @@ class ShippedSprintContractTests(unittest.TestCase):
         self.assertFalse(re.search(r"setTimeout\(\s*\(\)\s*=>\s*\{?\s*advanceCard", self.script),
                          "advancing must not be scheduled on a timer")
         self.assertIn("function shouldHandOffImmediately", self.script)
-        self.assertIn("shouldHandOffImmediately({ mode: sessionStats.mode, correct, practice: item.practice, revealed })",
+        self.assertIn("shouldHandOffImmediately({", self.script)
+        self.assertIn("consolidation: item.consolidation, revealed", self.script)
+
+    def test_sprint_uses_the_adaptive_retrieval_ladder(self):
+        # The sprint must not fall back to the attempt-count rotation that the other
+        # sessions still use; that rotation is what made every never-graded word a
+        # four-option recognition question.
+        self.assertIn("export function sprintRetrievalDemand", self.script)
+        self.assertIn("function questionModeFor(item)", self.script)
+        self.assertIn("if (sessionStats?.mode === 'sprint') return sprintRetrievalDemand(item.progress);",
                       self.script)
+        self.assertIn("mode = choices[(progress.correctCount + progress.wrongCount) % choices.length];",
+                      self.script)
+
+    def test_sprint_consolidation_is_bounded_and_practice_class(self):
+        self.assertIn("export function queueConsolidation", self.script)
+        self.assertIn("export function sprintTurnBudget", self.script)
+        self.assertIn("export const SPRINT_CONSOLIDATION_GAP = 3;", self.script)
+        self.assertIn("needsConsolidationTurn({ correct, demand })", self.script)
+        # The delayed check is graded in its own branch, never through updateProgress
+        # and never through the practice counters.
+        self.assertIn("} else if (item.consolidation) {", self.script)
+        self.assertIn("consolidation: item.consolidation === true", self.script)
+        self.assertIn("consolidation: item.consolidation, revealed", self.script)
+        self.assertNotIn("sprintRetrievalDemand(updated)", self.script)
+        self.assertNotIn("updateProgress(progress[item.vocab.id], correct, Date.now() - questionStarted);\n      progress[item.vocab.id] = updated;\n      item.progress = updated;\n    } else if (item.consolidation)",
+                         self.script)
 
     def test_sprint_is_not_exempt_from_corrective_practice(self):
         # Sprint once skipped the corrective retry while still telling the learner

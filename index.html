@@ -194,6 +194,8 @@ kbd, .kbd { min-width: 24px; padding: 2px 6px; border: 1px solid var(--border-st
 .mode-label { color: var(--primary-strong); font-size: .7rem; font-weight: 850; letter-spacing: .08em; text-transform: uppercase; }
 .prompt { margin: 14px 0 4px; font-size: clamp(1.65rem, 5vw, 2.65rem); font-weight: 850; letter-spacing: -.04em; line-height: 1.18; overflow-wrap: anywhere; }
 .sub-prompt { color: var(--muted); font-size: .88rem; }
+/* Fixed interface copy for a turn, translated with the rest of the chrome. */
+.turn-note { color: var(--muted); font-size: .88rem; }
 .options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 26px auto 0; text-align: left; }
 .option { min-height: 60px; display: flex; align-items: center; gap: 12px; padding: 12px 14px; border: 1px solid var(--border); border-radius: 13px; background: var(--surface); color: var(--text); text-align: left; transition: border-color .14s ease, background-color .14s ease, transform .14s ease; }
 .option:hover { border-color: var(--primary); background: var(--surface-soft); }
@@ -15789,7 +15791,7 @@ export const MODES = Object.freeze({
   CLOZE: 'cloze'
 });
 
-export const APP_VERSION = 'v1.0.0-beta2';
+export const APP_VERSION = 'v1.0.0-beta3';
 export const EXAM_RESULT_SCHEMA_VERSION = '1.0.0';
 // Sprint hand-off: a correct first-pass answer moves straight to the next card
 // with no dwell timer, and the answer just graded stays on screen as a compact
@@ -15800,8 +15802,9 @@ export const EXAM_RESULT_SCHEMA_VERSION = '1.0.0';
 // Single decision point for the hand-off, exported so it can be tested without a
 // browser. It intentionally covers the narrow case that is safe to skip a click
 // on: a sprint turn that was answered correctly on the first pass.
-export function shouldHandOffImmediately({ mode, correct, practice, revealed = false } = {}) {
-  return mode === 'sprint' && correct === true && practice !== true && revealed !== true;
+export function shouldHandOffImmediately({ mode, correct, practice, consolidation = false, revealed = false } = {}) {
+  return mode === 'sprint' && correct === true && practice !== true
+    && consolidation !== true && revealed !== true;
 }
 export const SPRINT_LABEL = 'Học cấp tốc';
 
@@ -16027,6 +16030,11 @@ const EN_UI_TRANSLATIONS = Object.freeze({
   'Chính tả': 'Spelling',
   'Điền vào ngữ cảnh': 'Context cloze',
   'Luyện lại': 'Retry',
+  'Củng cố': 'Consolidation',
+  'Lượt củng cố': 'Consolidation turn',
+  'Lượt củng cố: nhắc lại từ này sau vài thẻ khác ở mức khó hơn. Lượt này không đổi lịch ôn hay độ chính xác lần đầu.': 'Consolidation turn: this word returns after a few other cards at a harder level. It does not change the review schedule or first-pass accuracy.',
+  'Củng cố đạt: bạn đã nhớ lại từ này sau vài thẻ khác. Lịch ôn và độ chính xác lần đầu được giữ nguyên.': 'Consolidation passed: you recalled this word after a few other cards. The review schedule and first-pass accuracy are unchanged.',
+  'Củng cố chưa đạt: lịch ôn vẫn theo lần trả lời đầu tiên; từ sẽ gặp lại khi đến hạn.': 'Consolidation not passed: the schedule still follows your first answer, and the word returns when due.',
   'Tự gõ lại từ vừa ôn. Lượt luyện không thay đổi lịch ôn hay độ chính xác lần đầu.': 'Type the word you just reviewed. This practice retry does not change the schedule or first-pass accuracy.',
   'Bạn đã xem đáp án, nên các lựa chọn bên trên đã bị khóa. Hãy tự đánh giá trung thực.': 'You have revealed the answer, so the choices above are locked. Please self-assess honestly.',
   'Nhớ được': 'Remembered',
@@ -16315,8 +16323,9 @@ const EN_UI_PATTERNS = [
 
 const EN_UI_SPRINT_PATTERNS = [
   [/^Học cấp tốc · (\d+) từ \/ phiên$/, (_m, queued) => `Study sprint · ${queued} words / session`],
-  [/^Xếp (\d+) từ ưu tiên: đến hạn, từ yếu, rồi từ mới — không bỏ qua gợi nhớ chủ động\.$/, (_m, queued) => `Queues ${queued} prioritised words: due, then weak, then new — active recall is never skipped.`],
-  [/^Cấp tốc giữ nguyên khối lượng từ bạn đã chọn trong Cài đặt \((\d+) từ\/phiên\) và không cắt bớt kho từ\. Tốc độ đến từ nhịp thao tác: mỗi từ một lượt trả lời, tự chuyển sau câu đúng, mỗi từ sai được luyện lại đúng một lượt \(không tính vào độ chính xác lần đầu\)\. Thoát giữa chừng vẫn giữ tiến độ đã lưu\.$/, (_m, target) => `The sprint keeps the session size you chose in Settings (${target} words per session) and never shrinks the word pool. Speed comes from the interaction flow: one graded retrieval per word, automatic advance after a correct answer, and exactly one corrective retry per missed word (never counted as first-pass accuracy). Leaving mid-session keeps the progress already saved.`],
+  [/^Xếp (\d+) từ ưu tiên: đến hạn, từ yếu, rồi từ mới — mỗi từ được hỏi ở mức bạn đã chứng minh và nhắc lại một lượt sau vài thẻ nếu chưa vững\.$/, (_m, queued) => `Queues ${queued} prioritised words: due, then weak, then new — each word is asked at the level you have demonstrated and repeated once after a few cards if it is not yet solid.`],
+  [/^Cấp tốc giữ nguyên khối lượng từ bạn đã chọn trong Cài đặt \((\d+) từ\/phiên\) và không cắt bớt kho từ\. Thay vì hỏi mọi từ theo cùng một kiểu, mỗi từ được hỏi ở mức phù hợp với những gì bạn đã nhớ \(nhận diện → gợi nhớ ngược → chính tả\); từ mới hoặc từ vừa sai được nhắc lại một lượt sau ít nhất ba thẻ khác\. Lượt nhắc lại không tính vào độ chính xác lần đầu hay lịch ôn\. Thoát giữa chừng vẫn giữ tiến độ đã lưu\.$/, (_m, target) => `The sprint keeps the session size you chose in Settings (${target} words per session) and never shrinks the word pool. Instead of asking every word the same way, each word is asked at the level it has earned (recognition → reverse recall → spelling); a new or recently missed word is repeated once after at least three other cards. The repeat is never counted as first-pass accuracy or added to the review schedule. Leaving mid-session keeps the progress already saved.`],
+  [/^Củng cố: (\d+) đúng · (\d+) chưa đúng \/ (\d+) lượt, kiểm tra lại sau vài thẻ khác\. Không tính vào độ chính xác lần đầu hay lịch ôn\.$/, (_m, correct, wrong, total) => `Consolidation: ${correct} correct · ${wrong} not correct / ${total} turns, checked after a few other cards. Not included in first-pass accuracy or the review schedule.`],
   [/^(\d+) từ đủ điều kiện · xếp (\d+) · (\d+) đến hạn · (\d+) từ yếu$/, (_m, pool, queued, due, weak) => `${pool} eligible words · ${queued} queued · ${due} due · ${weak} weak`],
 ];
 
@@ -16591,8 +16600,82 @@ export function sprintEligibleCount(vocabulary, progressMap) {
   return Object.values(progressMap || {}).filter(progress => progress && ids.has(progress.id)).length;
 }
 
+// The sprint asks each word at a retrieval level the learner has actually earned,
+// instead of rotating question types by attempt count. The levels form a difficulty
+// ladder: recognition (choose the meaning) -> recall (choose the word) -> spelling
+// (produce the word). `updateProgress` sets `weak` on every wrong answer, so the
+// stored state is a reliable record of the last graded outcome and no new persisted
+// field is needed. A `new` word keeps recognition: its first graded contact happens
+// immediately after the introduction (entry #23), and a production-first attempt
+// would record an unsupported guess as a failure.
+export const RETRIEVAL_LADDER = Object.freeze([MODES.RECOGNITION, MODES.RECALL, MODES.SPELLING]);
+// How many other cards are answered between a first pass and its consolidation.
+export const SPRINT_CONSOLIDATION_GAP = 3;
+
+export function sprintRetrievalDemand(progress) {
+  const state = progress?.state;
+  const streak = Number(progress?.streak) || 0;
+  if (state === STATES.MASTERED) return MODES.SPELLING;
+  if (state === STATES.REVIEW) return streak >= 3 ? MODES.SPELLING : MODES.RECALL;
+  if (state === STATES.LEARNING) return MODES.RECALL;
+  // `weak` means the last graded answer was wrong: step back to the supported
+  // level so the word can be rebuilt before production is asked for again.
+  return MODES.RECOGNITION;
+}
+
+// A consolidation is the second, delayed retrieval of the same word. It is asked
+// one level higher after a success, and never lower than recall after a miss, so
+// the extra turn always asks for at least as much as the corrective retry does.
+export function consolidationDemand({ correct, demand } = {}) {
+  const index = RETRIEVAL_LADDER.indexOf(demand);
+  const floor = RETRIEVAL_LADDER.indexOf(MODES.RECALL);
+  if (index < 0) return RETRIEVAL_LADDER[floor];
+  if (correct === true) return RETRIEVAL_LADDER[Math.min(RETRIEVAL_LADDER.length - 1, index + 1)];
+  return RETRIEVAL_LADDER[Math.max(index, floor)];
+}
+
+// One delayed re-retrieval per sprint word, and only when the first pass was not
+// already a produced answer: a correct spelling needs no reminder, while a word
+// that was missed or merely recognised has not been recalled after a gap yet.
+export function needsConsolidationTurn({ correct, demand, practice = false, consolidation = false } = {}) {
+  if (practice || consolidation) return false;
+  if (correct !== true) return true;
+  return demand !== MODES.SPELLING;
+}
+
+// Insert the re-retrieval behind `gap` other cards so at least `gap` answers come
+// between the first pass and the check. When the queue is shorter than the gap the
+// item goes to the end, which is the largest delay still available; later
+// insertions can only increase the distance, never reduce it.
+export function queueConsolidation(session, item, demand, gap = SPRINT_CONSOLIDATION_GAP) {
+  if (!Array.isArray(session) || !session.includes(item)) return false;
+  if (item.practice || item.consolidation || item.consolidationQueued) return false;
+  item.consolidationQueued = true;
+  let index = Math.min(gap + 1, session.length);
+  // A corrective retry promises to come after the remaining cards, so the check
+  // is inserted ahead of trailing practice turns instead of behind them. The
+  // current card stays first and is never displaced.
+  while (index > 1 && session[index - 1]?.practice) index -= 1;
+  session.splice(index, 0, {
+    vocab: item.vocab,
+    progress: item.progress,
+    consolidation: true,
+    demand,
+    scheduledAfter: Math.max(0, index - 1)
+  });
+  return true;
+}
+
+// Worst case for a sprint: one first pass, one consolidation and one corrective
+// retry per queued word. Tests assert the bound so no path can grow it silently.
+export function sprintTurnBudget(size) {
+  const limit = Number.isFinite(Number(size)) ? Math.max(0, Math.floor(Number(size))) : 0;
+  return limit * 3;
+}
+
 export function queuePractice(session, item) {
-  if (!Array.isArray(session) || !session.includes(item) || item.practice || item.practiceQueued) return false;
+  if (!Array.isArray(session) || !session.includes(item)) return false;
+  if (item.practice || item.consolidation || item.practiceQueued) return false;
   item.practiceQueued = true;
   session.push({ vocab: item.vocab, progress: item.progress, practice: true });
   return true;
@@ -16602,7 +16685,7 @@ export function queuePractice(session, item) {
 // first graded answer is a guess between four options, and a lucky guess would
 // be recorded as a successful retrieval and move the review schedule forward.
 export function needsFirstLook(item) {
-  return Boolean(item && item.progress && !item.practice && !item.taught
+  return Boolean(item && item.progress && !item.practice && !item.consolidation && !item.taught
     && item.progress.state === STATES.NEW);
 }
 
@@ -17854,8 +17937,8 @@ export async function createApp(root) {
         <div style="flex:1">
           <span class="sprint-badge">HỌC CẤP TỐC</span>
           <h2 id="sprint-title" style="margin:8px 0 4px">Học cấp tốc · ${sprintQueued} từ / phiên</h2>
-          <p style="margin:0;color:var(--muted);font-size:.82rem">Xếp ${sprintQueued} từ ưu tiên: đến hạn, từ yếu, rồi từ mới — không bỏ qua gợi nhớ chủ động.</p>
-          <p class="sprint-longdesc" style="margin:6px 0 0;font-size:.75rem;color:var(--faint)">Cấp tốc giữ nguyên khối lượng từ bạn đã chọn trong Cài đặt (${sprintTarget} từ/phiên) và không cắt bớt kho từ. Tốc độ đến từ nhịp thao tác: mỗi từ một lượt trả lời, tự chuyển sau câu đúng, mỗi từ sai được luyện lại đúng một lượt (không tính vào độ chính xác lần đầu). Thoát giữa chừng vẫn giữ tiến độ đã lưu.</p>
+          <p style="margin:0;color:var(--muted);font-size:.82rem">Xếp ${sprintQueued} từ ưu tiên: đến hạn, từ yếu, rồi từ mới — mỗi từ được hỏi ở mức bạn đã chứng minh và nhắc lại một lượt sau vài thẻ nếu chưa vững.</p>
+          <p class="sprint-longdesc" style="margin:6px 0 0;font-size:.75rem;color:var(--faint)">Cấp tốc giữ nguyên khối lượng từ bạn đã chọn trong Cài đặt (${sprintTarget} từ/phiên) và không cắt bớt kho từ. Thay vì hỏi mọi từ theo cùng một kiểu, mỗi từ được hỏi ở mức phù hợp với những gì bạn đã nhớ (nhận diện → gợi nhớ ngược → chính tả); từ mới hoặc từ vừa sai được nhắc lại một lượt sau ít nhất ba thẻ khác. Lượt nhắc lại không tính vào độ chính xác lần đầu hay lịch ôn. Thoát giữa chừng vẫn giữ tiến độ đã lưu.</p>
           <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
             <button class="btn primary" data-session="sprint">${iconMarkup('bolt')}Bắt đầu học cấp tốc</button>
             <span id="sprint-pool" style="align-self:center;font-size:.75rem;color:var(--muted)">${sprintPool} từ đủ điều kiện · xếp ${sprintQueued} · ${currentStats.due} đến hạn · ${currentStats.weak} từ yếu</span>
@@ -17904,7 +17987,7 @@ export async function createApp(root) {
       const selected = selectSprintSession(vocabulary, progress, { size: prefs.sessionSize });
       if (!selected.length) { toast('Chưa có từ phù hợp cho phiên cấp tốc. Hãy thử chế độ khác.'); return; }
       session = selected;
-      sessionStats = { total: selected.length, correct: 0, wrong: 0, practiceTotal: 0, practiceCorrect: 0, practiceWrong: 0, startedAt: Date.now(), mode: 'sprint', queued: selected.length };
+      sessionStats = { total: selected.length, correct: 0, wrong: 0, practiceTotal: 0, practiceCorrect: 0, practiceWrong: 0, consolidationTotal: 0, consolidationCorrect: 0, consolidationWrong: 0, startedAt: Date.now(), mode: 'sprint', queued: selected.length };
       sessionSummary = null;
       nextQuestion();
       renderShell();
@@ -17920,7 +18003,7 @@ export async function createApp(root) {
       return;
     }
     session = selected;
-    sessionStats = { total: selected.length, correct: 0, wrong: 0, practiceTotal: 0, practiceCorrect: 0, practiceWrong: 0, startedAt: Date.now(), mode, queued: selected.length };
+    sessionStats = { total: selected.length, correct: 0, wrong: 0, practiceTotal: 0, practiceCorrect: 0, practiceWrong: 0, consolidationTotal: 0, consolidationCorrect: 0, consolidationWrong: 0, startedAt: Date.now(), mode, queued: selected.length };
     sessionSummary = null;
     nextQuestion();
     renderShell();
@@ -17932,11 +18015,21 @@ export async function createApp(root) {
     item.progress = progress[item.vocab.id];
     // Never-studied words get an introduction first; the timer starts with the quiz.
     firstLook = needsFirstLook(item);
-    question = firstLook ? null : generateQuestion(item, vocabulary, item.practice ? MODES.SPELLING : null);
+    question = firstLook ? null : generateQuestion(item, vocabulary, questionModeFor(item));
     questionStarted = Date.now();
     answered = false;
     revealed = false;
     answerResult = null;
+  }
+
+  // Sprint turns take their retrieval level from the learner's own record, and a
+  // consolidation keeps the level chosen when it was queued. Every other session
+  // keeps the existing rotation, so their behaviour is unchanged.
+  function questionModeFor(item) {
+    if (item.practice) return MODES.SPELLING;
+    if (item.consolidation) return item.demand || MODES.RECALL;
+    if (sessionStats?.mode === 'sprint') return sprintRetrievalDemand(item.progress);
+    return null;
   }
 
   function startFirstLookQuiz() {
@@ -17962,29 +18055,34 @@ export async function createApp(root) {
     if (!session?.length) { renderLearn(container); return; }
     const item = session[0];
     const currentStats = stats();
-    const totalAttempts = sessionStats.total + sessionStats.practiceTotal;
+    const consolidationTurn = item.consolidation === true;
+    const totalAttempts = sessionStats.total + sessionStats.practiceTotal + sessionStats.consolidationTotal;
     const done = totalAttempts - session.length;
     const percent = Math.round(done / totalAttempts * 100);
     // A revealed answer locks the answer controls; grading then comes from self-assessment.
     const locked = answered || revealed;
+    // A consolidation turn exists to check that the word is retrievable after a
+    // gap, so skipping it would silently drop the evidence the turn was queued for.
+    const canSkip = !locked && !consolidationTurn;
     const options = question?.options || [];
     container.innerHTML = `
       <div class="flashcard-wrap">
         <div class="page-header"><div><h1>Phiên học</h1><p>${escapeHtml(sessionModeLabel(sessionStats.mode))} · ${sessionStats.queued ?? sessionStats.total} từ đã xếp · ${session.length} lượt còn lại</p></div><button class="btn" id="exit-session">Thoát phiên</button></div>
         <div class="session-progress" aria-label="Tiến độ phiên" role="progressbar" aria-valuenow="${percent}" aria-valuemin="0" aria-valuemax="100"><span style="width:${percent}%"></span></div>
         <article class="flashcard">
-          <div class="flashcard-head"><span><b>${done + 1}</b> / ${totalAttempts} lượt · ${session.length} còn lại</span><div class="flashcard-head-actions"><span class="state-pill state-${escapeHtml(item.progress.state)}">${escapeHtml(stateLabel(item.progress.state))}</span><button class="fav ${favorites.has(item.vocab.id) ? 'active' : ''}" id="favorite-card" aria-label="${favorites.has(item.vocab.id) ? 'Bỏ yêu thích' : 'Thêm yêu thích'}">${favorites.has(item.vocab.id) ? '★' : '☆'}</button><button class="btn small" id="skip-card" ${locked ? 'disabled' : ''}>Bỏ qua</button></div></div>
+          <div class="flashcard-head"><span><b>${done + 1}</b> / ${totalAttempts} lượt · ${session.length} còn lại</span><div class="flashcard-head-actions"><span class="state-pill state-${escapeHtml(item.progress.state)}">${escapeHtml(stateLabel(item.progress.state))}</span><button class="fav ${favorites.has(item.vocab.id) ? 'active' : ''}" id="favorite-card" aria-label="${favorites.has(item.vocab.id) ? 'Bỏ yêu thích' : 'Thêm yêu thích'}">${favorites.has(item.vocab.id) ? '★' : '☆'}</button><button class="btn small" id="skip-card" ${canSkip ? '' : 'disabled'}>Bỏ qua</button></div></div>
           <div class="flashcard-body">
             ${lastAnswer ? `<div class="handoff-strip" role="status" aria-live="polite"><span class="handoff-mark" aria-hidden="true">${lastAnswer.correct ? '✓' : '✕'}</span><span><strong>${escapeHtml(lastAnswer.word)}</strong> · ${escapeHtml(lastAnswer.meaning)}</span><span class="handoff-note">${lastAnswer.correct ? 'Đã trả lời đúng' : 'Chưa đúng'}</span></div>` : ''}
             ${firstLook ? firstLookBody(item) : `
-            <div class="mode-label">${item.practice ? 'Luyện lại · ' : ''}${modeLabel(question.mode)} · ${escapeHtml(item.vocab.pos)}</div>
+            <div class="mode-label">${item.practice ? 'Luyện lại · ' : ''}${consolidationTurn ? 'Củng cố · ' : ''}${modeLabel(question.mode)} · ${escapeHtml(item.vocab.pos)}</div>
             <div class="prompt">${escapeHtml(question.prompt)}</div><div class="sub-prompt">${escapeHtml(question.subPrompt || '')}</div>
-            ${item.practice ? '<p class="sub-prompt">Tự gõ lại từ vừa ôn. Lượt luyện không thay đổi lịch ôn hay độ chính xác lần đầu.</p>' : ''}
+            ${item.practice ? '<p class="turn-note">Tự gõ lại từ vừa ôn. Lượt luyện không thay đổi lịch ôn hay độ chính xác lần đầu.</p>' : ''}
+            ${consolidationTurn ? '<p class="turn-note">Lượt củng cố: nhắc lại từ này sau vài thẻ khác ở mức khó hơn. Lượt này không đổi lịch ôn hay độ chính xác lần đầu.</p>' : ''}
             <div id="question-area"></div>
             ${revealed && !answered ? `<div class="reveal"><strong>${escapeHtml(question.answer)}</strong><span>Bạn đã xem đáp án, nên các lựa chọn bên trên đã bị khóa. Hãy tự đánh giá trung thực.</span><div class="actions" style="justify-content:center;margin-top:10px"><button class="btn primary small" id="reveal-correct">Nhớ được</button><button class="btn danger small" id="reveal-wrong">Chưa nhớ</button></div></div>` : ''}
             <div id="feedback-area"></div>`}
           </div>
-          <div class="card-footer"><span><span>Đúng ${item.progress.correctCount}</span><span>Sai ${item.progress.wrongCount}</span><span>Khó ${Math.round(item.progress.difficulty * 100)}%</span></span><span>${firstLook ? '<kbd>Enter</kbd> bắt đầu kiểm tra' : '<kbd>Space</kbd> lật · <kbd>Enter</kbd> tiếp'}</span></div>
+          <div class="card-footer"><span><span>Đúng ${item.progress.correctCount}</span><span>Sai ${item.progress.wrongCount}</span><span>Khó ${Math.round(item.progress.difficulty * 100)}%</span></span><span>${firstLook ? '<kbd>Enter</kbd> bắt đầu kiểm tra' : consolidationTurn ? 'Lượt củng cố · <kbd>Space</kbd> lật' : '<kbd>Space</kbd> lật · <kbd>Enter</kbd> tiếp'}</span></div>
         </article>
       </div>
     `;
@@ -18043,8 +18141,13 @@ export async function createApp(root) {
     if (!session?.length) return;
     const correct = forced === null ? checkAnswer(question, answer) : forced;
     const item = session[0];
+    const firstPass = !item.practice && !item.consolidation;
+    // The demand this question was actually asked at, read before the answer
+    // changes the stored state. A consolidation carries the level it was queued at.
+    const demand = item.demand || (firstPass && sessionStats.mode === 'sprint'
+      ? sprintRetrievalDemand(item.progress) : null);
     // Immediate post-feedback retrieval is practice, not evidence of spaced retention.
-    if (!item.practice) {
+    if (firstPass) {
       const updated = updateProgress(progress[item.vocab.id], correct, Date.now() - questionStarted);
       progress[item.vocab.id] = updated;
       item.progress = updated;
@@ -18052,17 +18155,33 @@ export async function createApp(root) {
       // missed word. Sprint previously skipped it while still telling the learner a
       // retry had been queued; the correction is what makes speed safe.
       if (!correct && queuePractice(session, item)) sessionStats.practiceTotal += 1;
+      // Sprint only: one delayed re-retrieval of the same word, so a lucky
+      // recognition or a recovered mistake is not the session's only evidence.
+      if (sessionStats.mode === 'sprint'
+        && needsConsolidationTurn({ correct, demand })
+        && queueConsolidation(session, item, consolidationDemand({ correct, demand }))) {
+        sessionStats.consolidationTotal += 1;
+      }
     }
     answered = true;
-    answerResult = { correct, selected: answer, revealed };
+    answerResult = { correct, selected: answer, revealed, consolidation: item.consolidation === true };
     updateStreak();
     if (item.practice) {
       if (correct) sessionStats.practiceCorrect += 1; else sessionStats.practiceWrong += 1;
+    } else if (item.consolidation) {
+      // A consolidation is evidence of the session's learning path, not of
+      // first-pass knowledge: it never touches accuracy, progress or scheduling.
+      if (correct) sessionStats.consolidationCorrect += 1; else sessionStats.consolidationWrong += 1;
     } else {
       if (correct) sessionStats.correct += 1; else sessionStats.wrong += 1;
     }
-    persist();
-    if (shouldHandOffImmediately({ mode: sessionStats.mode, correct, practice: item.practice, revealed })) {
+    // Only a first-pass answer can change persisted progress, so only that turn
+    // needs a write.
+    if (firstPass) persist();
+    if (shouldHandOffImmediately({
+      mode: sessionStats.mode, correct, practice: item.practice,
+      consolidation: item.consolidation, revealed
+    })) {
       // Carry the graded answer onto the next card instead of spending a fixed
       // delay on a panel the learner has already read. Nothing is discarded: the
       // word, its meaning and the verdict stay visible in the strip, and the
@@ -18082,8 +18201,17 @@ export async function createApp(root) {
   function renderFeedback(container) {
     const item = session[0];
     const correct = answerResult.correct;
+    const consolidation = answerResult.consolidation === true;
     const answerText = question.answer;
-    container.querySelector('#feedback-area').innerHTML = `<div class="feedback ${correct ? 'correct' : 'wrong'}" role="alert"><div class="feedback-title">${correct ? '✓ Chính xác!' : `✕ Chưa đúng · Đáp án: ${escapeHtml(answerText)}`}</div><p><strong>${escapeHtml(item.vocab.word)}</strong> · ${escapeHtml(item.vocab.meaning)}</p>${vocabularyMetadataHtml(item.vocab)}${!correct && !item.practice && item.practiceQueued ? `<p>Bạn sai từ này ${item.progress.wrongCount} lần. Đã xếp một lượt gõ lại sau các thẻ còn lại; từ vẫn đến hạn ôn.</p>` : ''}${item.practice ? '<p>Lượt luyện đã hoàn tất. Lịch ôn và kết quả lần đầu được giữ nguyên; hãy ôn lại khi đến hạn.</p>' : ''}${answerResult.revealed ? '<p>Lượt này được chấm theo tự đánh giá vì bạn đã xem đáp án trước đó.</p>' : ''}${exampleHtml(item.vocab)}<p style="color:var(--muted);font-size:.75rem">Lần ôn tiếp theo: ${formatNextReview(item.progress.nextReview, language)} · trạng thái: ${stateLabel(item.progress.state)}</p><div class="actions" style="margin-top:12px"><button class="btn primary full" id="next-card">Tiếp tục <kbd>Enter</kbd></button></div></div>`;
+    const retryNote = !correct && !item.practice && !consolidation && item.practiceQueued
+      ? `<p>Bạn sai từ này ${item.progress.wrongCount} lần. Đã xếp một lượt gõ lại sau các thẻ còn lại; từ vẫn đến hạn ôn.</p>` : '';
+    const practiceNote = item.practice
+      ? '<p>Lượt luyện đã hoàn tất. Lịch ôn và kết quả lần đầu được giữ nguyên; hãy ôn lại khi đến hạn.</p>' : '';
+    const consolidationNote = consolidation
+      ? `<p>${correct
+        ? 'Củng cố đạt: bạn đã nhớ lại từ này sau vài thẻ khác. Lịch ôn và độ chính xác lần đầu được giữ nguyên.'
+        : 'Củng cố chưa đạt: lịch ôn vẫn theo lần trả lời đầu tiên; từ sẽ gặp lại khi đến hạn.'}</p>` : '';
+    container.querySelector('#feedback-area').innerHTML = `<div class="feedback ${correct ? 'correct' : 'wrong'}" role="alert"><div class="feedback-title">${correct ? '✓ Chính xác!' : `✕ Chưa đúng · Đáp án: ${escapeHtml(answerText)}`}</div><p><strong>${escapeHtml(item.vocab.word)}</strong> · ${escapeHtml(item.vocab.meaning)}</p>${vocabularyMetadataHtml(item.vocab)}${retryNote}${practiceNote}${consolidationNote}${answerResult.revealed ? '<p>Lượt này được chấm theo tự đánh giá vì bạn đã xem đáp án trước đó.</p>' : ''}${exampleHtml(item.vocab)}<p style="color:var(--muted);font-size:.75rem">Lần ôn tiếp theo: ${formatNextReview(item.progress.nextReview, language)} · trạng thái: ${stateLabel(item.progress.state)}</p><div class="actions" style="margin-top:12px"><button class="btn primary full" id="next-card">Tiếp tục <kbd>Enter</kbd></button></div></div>`;
     const nextButton = container.querySelector('#next-card');
     nextButton.addEventListener('click', advanceCard);
     nextButton.focus({ preventScroll: true });
@@ -18101,6 +18229,9 @@ export async function createApp(root) {
     // A revealed answer must still be self-assessed; the lock also disables the
     // skip control so the turn cannot be abandoned after seeing the answer.
     if (!session?.length || answered || revealed) return;
+    // A consolidation turn exists to test delayed recall. Skipping it would drop
+    // the evidence it was queued for, so the control is disabled on that turn.
+    if (session[0].consolidation) return;
     // Rotating the queue breaks the adjacency the handoff strip describes: the
     // answer it carries belongs to the card that was just on screen, and after a
     // skip that card is no longer the one before this one. Drop it rather than
@@ -18113,6 +18244,9 @@ export async function createApp(root) {
 
   function repeatCurrent() {
     if (!answered || !session?.length) return;
+    // A consolidation turn is already the second retrieval; it does not spawn a
+    // third one, and it never becomes a first-pass practice retry.
+    if (session[0].consolidation) return;
     if (queuePractice(session, session[0])) {
       sessionStats.practiceTotal += 1;
       toast('Đã xếp một lượt luyện sau các thẻ còn lại, không đổi lịch ôn.');
@@ -18149,7 +18283,7 @@ export async function createApp(root) {
 
   function renderSummary(container) {
     const summary = sessionSummary;
-    container.innerHTML = `<div class="summary"><section class="panel"><div class="panel-body"><div class="summary-mark" aria-hidden="true">${iconMarkup('check')}</div><h2>Hoàn thành phiên học</h2><p>${summary.total} từ · ${formatDuration(summary.duration, language)} · ${escapeHtml(sessionModeLabel(summary.mode))}</p><div class="summary-grid"><div><strong>${summary.accuracy}%</strong><span>Chính xác lần đầu</span></div><div><strong style="color:var(--success)">${summary.correct}</strong><span>Đúng</span></div><div><strong style="color:var(--danger)">${summary.wrong}</strong><span>Sai</span></div><div><strong>${stats().weak}</strong><span>Từ yếu</span></div></div>${summary.practiceTotal ? `<p>Luyện lại: ${summary.practiceCorrect} đúng · ${summary.practiceWrong} chưa đúng / ${summary.practiceTotal} lượt. Không tính vào độ chính xác lần đầu hay lịch ôn.</p>` : ''}<div class="actions" style="justify-content:center"><button class="btn primary" id="again">Học tiếp</button><button class="btn" id="summary-dashboard">Xem tổng quan</button></div></div></section></div>`;
+    container.innerHTML = `<div class="summary"><section class="panel"><div class="panel-body"><div class="summary-mark" aria-hidden="true">${iconMarkup('check')}</div><h2>Hoàn thành phiên học</h2><p>${summary.total} từ · ${formatDuration(summary.duration, language)} · ${escapeHtml(sessionModeLabel(summary.mode))}</p><div class="summary-grid"><div><strong>${summary.accuracy}%</strong><span>Chính xác lần đầu</span></div><div><strong style="color:var(--success)">${summary.correct}</strong><span>Đúng</span></div><div><strong style="color:var(--danger)">${summary.wrong}</strong><span>Sai</span></div><div><strong>${stats().weak}</strong><span>Từ yếu</span></div></div>${summary.practiceTotal ? `<p>Luyện lại: ${summary.practiceCorrect} đúng · ${summary.practiceWrong} chưa đúng / ${summary.practiceTotal} lượt. Không tính vào độ chính xác lần đầu hay lịch ôn.</p>` : ''}${summary.consolidationTotal ? `<p>Củng cố: ${summary.consolidationCorrect} đúng · ${summary.consolidationWrong} chưa đúng / ${summary.consolidationTotal} lượt, kiểm tra lại sau vài thẻ khác. Không tính vào độ chính xác lần đầu hay lịch ôn.</p>` : ''}<div class="actions" style="justify-content:center"><button class="btn primary" id="again">Học tiếp</button><button class="btn" id="summary-dashboard">Xem tổng quan</button></div></div></section></div>`;
     container.querySelector('#again').addEventListener('click', () => { sessionSummary = null; renderLearn(container); });
     container.querySelector('#summary-dashboard').addEventListener('click', () => { view = 'dashboard'; sessionSummary = null; renderShell(); });
   }

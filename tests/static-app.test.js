@@ -70,6 +70,13 @@ const {
   examResultFilename,
   selectSprintSession,
   sprintEligibleCount,
+  sprintRetrievalDemand,
+  consolidationDemand,
+  needsConsolidationTurn,
+  queueConsolidation,
+  sprintTurnBudget,
+  RETRIEVAL_LADDER,
+  SPRINT_CONSOLIDATION_GAP,
   shouldHandOffImmediately,
   APP_VERSION,
   DEFAULT_PREFS,
@@ -1085,7 +1092,7 @@ test('exported exam results report exactly what the learner did and what could b
   const result = buildExamResultJson(session, record, { now: 6000 });
   assert.equal(result.app, 'Chuyên Anh');
   assert.equal(result.version, APP_VERSION, 'the result carries the application version');
-  assert.equal(result.version, 'v1.0.0-beta2');
+  assert.equal(result.version, 'v1.0.0-beta3');
   assert.equal(result.schemaVersion, '1.0.0');
   assert.deepEqual(result.summary, {
     total: 3, answered: 2, unanswered: 1,
@@ -1127,6 +1134,152 @@ test('a sprint hand-off happens only after a correct first-pass answer', () => {
   assert.equal(shouldHandOffImmediately(), false);
 });
 
+test('a sprint asks each word at the retrieval level the learner has demonstrated', () => {
+  // The ladder replaces the attempt-count rotation inside the sprint only. A new
+  // word keeps recognition because it is introduced immediately before this
+  // question; a weak word steps back because its last graded answer was wrong.
+  const state = (name, extra = {}) => ({ ...createInitialProgress('x', 0), state: name, ...extra });
+  assert.deepEqual(RETRIEVAL_LADDER, [MODES.RECOGNITION, MODES.RECALL, MODES.SPELLING]);
+  assert.equal(sprintRetrievalDemand(state(STATES.NEW)), MODES.RECOGNITION);
+  assert.equal(sprintRetrievalDemand(state(STATES.WEAK, { wrongCount: 4 })), MODES.RECOGNITION,
+    'a word whose last answer was wrong gets the supported level back');
+  assert.equal(sprintRetrievalDemand(state(STATES.LEARNING, { correctCount: 1, streak: 1 })), MODES.RECALL,
+    'a word answered correctly once must be produced, not merely recognised');
+  assert.equal(sprintRetrievalDemand(state(STATES.REVIEW, { streak: 2 })), MODES.RECALL);
+  assert.equal(sprintRetrievalDemand(state(STATES.REVIEW, { streak: 3 })), MODES.SPELLING);
+  assert.equal(sprintRetrievalDemand(state(STATES.MASTERED)), MODES.SPELLING);
+  assert.equal(sprintRetrievalDemand(null), MODES.RECOGNITION, 'a missing record is treated as unsupported');
+  assert.equal(sprintRetrievalDemand(state(STATES.LEARNING)), sprintRetrievalDemand(state(STATES.LEARNING)),
+    'the demand is deterministic for the same record');
+});
+
+test('a consolidation is required only when the first pass was not a produced answer', () => {
+  assert.equal(needsConsolidationTurn({ correct: true, demand: MODES.RECOGNITION }), true);
+  assert.equal(needsConsolidationTurn({ correct: true, demand: MODES.RECALL }), true);
+  assert.equal(needsConsolidationTurn({ correct: true, demand: MODES.SPELLING }), false,
+    'a word already produced correctly needs no reminder');
+  assert.equal(needsConsolidationTurn({ correct: false, demand: MODES.SPELLING }), true,
+    'a miss always needs the delayed retrieval, even at the hardest level');
+  assert.equal(needsConsolidationTurn({ correct: false, demand: MODES.RECOGNITION }), true);
+  assert.equal(needsConsolidationTurn({ correct: true, demand: MODES.RECOGNITION, practice: true }), false,
+    'a corrective retry never spawns another turn');
+  assert.equal(needsConsolidationTurn({ correct: true, demand: MODES.RECOGNITION, consolidation: true }), false,
+    'a consolidation cannot re-queue itself');
+
+  assert.equal(consolidationDemand({ correct: true, demand: MODES.RECOGNITION }), MODES.RECALL,
+    'a recognised word is checked by recall next time');
+  assert.equal(consolidationDemand({ correct: true, demand: MODES.RECALL }), MODES.SPELLING);
+  assert.equal(consolidationDemand({ correct: true, demand: MODES.SPELLING }), MODES.SPELLING,
+    'the ladder has a ceiling instead of inventing a harder format');
+  assert.equal(consolidationDemand({ correct: false, demand: MODES.RECOGNITION }), MODES.RECALL);
+  assert.equal(consolidationDemand({ correct: false, demand: MODES.RECALL }), MODES.RECALL);
+  assert.equal(consolidationDemand({ correct: false, demand: MODES.SPELLING }), MODES.SPELLING,
+    'a miss is never re-checked at an easier level than the one that failed');
+  assert.equal(consolidationDemand(), MODES.RECALL, 'an unknown demand falls back to recall');
+});
+
+test('a consolidation is inserted after the gap, bounded to once per word and never practice', () => {
+  const items = Array.from({ length: 6 }, (_, index) => ({
+    vocab: sprintPool[index],
+    progress: createInitialProgress(sprintPool[index].id, 0)
+  }));
+  const session = [...items];
+  assert.equal(SPRINT_CONSOLIDATION_GAP, 3);
+  assert.equal(queueConsolidation(session, items[0], MODES.RECALL), true);
+  assert.equal(session.length, 7);
+  assert.deepEqual(session.slice(1, 4).map(item => item.vocab.id), ['2', '3', '4'],
+    'three other cards sit between the first pass and its consolidation');
+  assert.equal(session[4].consolidation, true);
+  assert.equal(session[4].demand, MODES.RECALL);
+  assert.equal(session[4].scheduledAfter, 3);
+  assert.equal(session[0], items[0], 'the current card is not moved');
+  assert.equal(queueConsolidation(session, items[0], MODES.RECALL), false, 'one consolidation per word');
+  assert.equal(app.queuePractice(session, session[4]), false, 'a consolidation is never turned into practice');
+  assert.equal(queueConsolidation(session, { vocab: sprintPool[6], progress: createInitialProgress('7', 0) }, MODES.RECALL), false,
+    'an item that is not in the queue cannot schedule a turn');
+
+  const shortItem = { vocab: sprintPool[7], progress: createInitialProgress('8', 0) };
+  const short = [shortItem, items[1]];
+  assert.equal(queueConsolidation(short, shortItem, MODES.SPELLING), true);
+  assert.equal(short[2].scheduledAfter, 1, 'a short queue waits until the end instead of dropping the check');
+  assert.equal(short[2].demand, MODES.SPELLING);
+
+  const retryItem = { vocab: sprintPool[9], progress: createInitialProgress('10', 0) };
+  const withRetry = [retryItem, { vocab: sprintPool[1], progress: createInitialProgress('2', 0) },
+    { vocab: sprintPool[0], progress: createInitialProgress('1', 0), practice: true }];
+  assert.equal(queueConsolidation(withRetry, retryItem, MODES.RECALL), true);
+  assert.equal(withRetry[2].consolidation, true, 'the check goes ahead of the trailing retry');
+  assert.equal(withRetry[3].practice, true, 'the retry keeps its promise to come after the other cards');
+
+  assert.equal(sprintTurnBudget(20), 60);
+  assert.equal(sprintTurnBudget('10'), 30);
+  assert.equal(sprintTurnBudget(Number.NaN), 0);
+  assert.equal(sprintTurnBudget(0), 0);
+});
+
+test('a sprint cannot exceed three turns per word, however badly it goes', () => {
+  // Worst case: every first pass is missed, so every word queues both a corrective
+  // retry and a delayed check. The queue model must still stop at three turns per
+  // word - the hard cap that keeps "more turns" from becoming "endless session".
+  const size = 5;
+  const items = Array.from({ length: size }, (_, index) => ({
+    vocab: sprintPool[index],
+    progress: createInitialProgress(sprintPool[index].id, 0)
+  }));
+  const session = [...items];
+  const perWord = new Map();
+  let turns = 0;
+  while (session.length) {
+    assert.ok(turns < 100, 'the queue drained without repeating a word');
+    const item = session[0];
+    turns += 1;
+    perWord.set(item.vocab.id, (perWord.get(item.vocab.id) || 0) + 1);
+    if (!item.practice && !item.consolidation) {
+      const demand = MODES.RECOGNITION;
+      assert.equal(app.queuePractice(session, item), true, 'a miss still queues its retry');
+      assert.equal(needsConsolidationTurn({ correct: false, demand }), true);
+      assert.equal(queueConsolidation(session, item, consolidationDemand({ correct: false, demand })), true);
+    } else {
+      // A retry or a check is terminal: it cannot add another turn for the word.
+      assert.equal(app.queuePractice(session, item), false);
+      assert.equal(queueConsolidation(session, item, MODES.SPELLING), false);
+    }
+    session.shift();
+  }
+  assert.equal(turns, size * 3);
+  assert.equal(turns <= sprintTurnBudget(size), true);
+  assert.deepEqual([...perWord.values()], Array(size).fill(3), 'each word is asked exactly three times');
+});
+
+test('a sprint hand-off never skips a consolidation, a retry or a self-assessment', () => {
+  assert.equal(shouldHandOffImmediately({ mode: 'sprint', correct: true, practice: false, consolidation: false }), true);
+  assert.equal(shouldHandOffImmediately({ mode: 'sprint', correct: true, consolidation: true }), false,
+    'a consolidation keeps its panel so the delayed recall is actually shown');
+  assert.equal(shouldHandOffImmediately({ mode: 'sprint', correct: true, practice: true }), false);
+  assert.equal(shouldHandOffImmediately({ mode: 'sprint', correct: true, revealed: true }), false);
+  assert.equal(shouldHandOffImmediately({ mode: 'mixed', correct: true }), false);
+});
+
+test('a sprint consolidation never mutates the record or the first-look decision', () => {
+  const record = { ...createInitialProgress('1', 0), state: STATES.NEW };
+  const snapshot = JSON.stringify(record);
+  const item = { vocab: sprintPool[0], progress: record, consolidation: true, demand: MODES.RECALL, taught: true };
+  assert.equal(needsFirstLook(item), false, 'a consolidation is not re-introduced');
+  assert.equal(JSON.stringify(record), snapshot, 'deciding what to ask writes nothing');
+  const practiceItem = { vocab: sprintPool[0], progress: record, practice: true, taught: true };
+  assert.equal(needsFirstLook(practiceItem), false);
+});
+
+test('the consolidation summary and sprint banner are translated without leftover Vietnamese', () => {
+  assert.equal(translateUiText('Củng cố: 9 đúng · 1 chưa đúng / 10 lượt, kiểm tra lại sau vài thẻ khác. Không tính vào độ chính xác lần đầu hay lịch ôn.', 'en'),
+    'Consolidation: 9 correct · 1 not correct / 10 turns, checked after a few other cards. Not included in first-pass accuracy or the review schedule.');
+  assert.equal(translateUiText('Củng cố · Gợi nhớ ngược · adj', 'en'), 'Consolidation · Reverse recall · adj');
+  assert.equal(translateUiText('Củng cố đạt: bạn đã nhớ lại từ này sau vài thẻ khác. Lịch ôn và độ chính xác lần đầu được giữ nguyên.', 'en'),
+    'Consolidation passed: you recalled this word after a few other cards. The review schedule and first-pass accuracy are unchanged.');
+  assert.equal(translateUiText('Củng cố chưa đạt: lịch ôn vẫn theo lần trả lời đầu tiên; từ sẽ gặp lại khi đến hạn.', 'en'),
+    'Consolidation not passed: the schedule still follows your first answer, and the word returns when due.');
+});
+
 test('the retired dwell timer is gone rather than re-tuned', async () => {
   const app = await readFile(new URL('../index.html', import.meta.url), 'utf8');
   assert.equal(app.includes('SPRINT_AUTO_ADVANCE_MS'), false, 'no fixed dwell constant may return');
@@ -1159,6 +1312,9 @@ const benchmarkWords = ['Adversity', 'tỉ mỉ, kỹ lưỡng', 'sự mơ hồ,
   'làm trầm trọng thêm', 'sự chênh lệch, bất nhất', 'Constraint', 'Scrutinize', 'Pervasive', 'Eloquent'];
 
 function benchmarkResult(overrides = {}) {
+  // Each flow has its own valid workload: the sprint adds one delayed retrieval per
+  // word, so a standard fixture must not inherit the sprint's counts.
+  const sprint = (overrides.flow || 'sprint') !== 'standard';
   return {
     app: 'index.html',
     flow: 'sprint',
@@ -1169,13 +1325,15 @@ function benchmarkResult(overrides = {}) {
     elapsedMsAllRounds: [9000, 9000, 9000],
     gradedTurns: 10,
     practiceTurns: 1,
+    consolidationTurns: sprint ? 10 : 0,
     wordsCompleted: 10,
     wrongAt: 3,
     wordOrder: [...benchmarkWords],
-    handoffSamples: 9,
-    continueSamples: 2,
+    consolidationOrder: sprint ? [...benchmarkWords] : [],
+    handoffSamples: sprint ? 9 : 0,
+    continueSamples: sprint ? 12 : 11,
     meanFeedbackLatencyMs: 5,
-    meanHandoffLatencyMs: 11,
+    meanHandoffLatencyMs: sprint ? 11 : null,
     meanContinueLatencyMs: 7,
     pageErrors: [],
     ...overrides
@@ -1201,10 +1359,29 @@ test('the benchmark rejects runs that did less work than the fixed workload', ()
     { rounds: 3 }, /gradedTurns was 9, expected 10/);
   rejectsBenchmark(benchmarkResult({ practiceTurns: 0 }), { rounds: 3 }, /practiceTurns was 0, expected 1/);
   rejectsBenchmark(benchmarkResult({ practiceTurns: 2 }), { rounds: 3 }, /practiceTurns was 2, expected 1/);
+  rejectsBenchmark(benchmarkResult({ consolidationTurns: 9, consolidationOrder: benchmarkWords.slice(0, 9) }),
+    { rounds: 3 }, /consolidationTurns was 9, expected 10/);
+  rejectsBenchmark(benchmarkResult({ consolidationOrder: [...benchmarkWords.slice(0, 9), benchmarkWords[0]] }),
+    { rounds: 3 }, /a word was consolidated twice/);
+  rejectsBenchmark(benchmarkResult({ consolidationOrder: [...benchmarkWords.slice(0, 9), 'not a planned word'] }),
+    { rounds: 3 }, /not a planned word was consolidated without being graded on the first pass/);
+  rejectsBenchmark(benchmarkResult({ consolidationOrder: undefined }), { rounds: 3 },
+    /consolidationOrder is missing/);
   rejectsBenchmark(benchmarkResult({ wordsCompleted: 9 }), { rounds: 3 }, /wordsCompleted was 9, expected 10/);
   rejectsBenchmark(benchmarkResult({ wrongAt: -1 }), { rounds: 3 }, /wrongAt was -1, expected 3/);
   rejectsBenchmark(benchmarkResult({ wordOrder: [...benchmarkWords.slice(0, 9), benchmarkWords[0]] }),
     { rounds: 3 }, /wordOrder repeats a word/);
+});
+
+test('the benchmark validates each flow against its own workload', () => {
+  // The standard flow has no consolidation and no hand-off; claiming one is a
+  // contract violation, not extra evidence.
+  const standard = benchmarkResult({ flow: 'standard' });
+  assert.equal(validateResult(standard, { flow: 'standard', rounds: 3 }), standard);
+  rejectsBenchmark(benchmarkResult({ flow: 'standard', consolidationTurns: 10, consolidationOrder: [...benchmarkWords] }),
+    { rounds: 3 }, /consolidationTurns was 10, expected 0/);
+  rejectsBenchmark(benchmarkResult({ flow: 'standard', handoffSamples: 9 }),
+    { rounds: 3 }, /9 hand-off\(s\) measured, expected 0/);
 });
 
 test('the benchmark rejects a different word order, missing rounds and non-median totals', () => {
@@ -1242,5 +1419,8 @@ test('the benchmark rejects a scenario whose recorded settings do not match the 
   rejectsBenchmark(benchmarkResult({ flow: 'sprint' }), { rounds: 3, flow: 'standard' },
     /flow was sprint, expected standard/);
   rejectsBenchmark(benchmarkResult({ meanHandoffLatencyMs: -1 }), { rounds: 3 }, /meanHandoffLatencyMs is invalid/);
+  // A flow the contract does not know must not borrow another flow's workload.
+  rejectsBenchmark(benchmarkResult({ flow: 'turbo' }), { rounds: 3 },
+    /unknown flow "turbo"; expected one of standard, sprint/);
   rejectsBenchmark(null, { rounds: 3 }, /no result object was produced/);
 });

@@ -98,15 +98,15 @@ class HoldMarkerLifecycleTests(unittest.TestCase):
     def test_hold_marker_names_the_release_that_must_publish_first(self):
         # Keep deployment gated until the explicitly named prerelease has been
         # built, verified, and published. The gate reads its live release state, so
-        # the marker simply has to name one valid tag. It names beta2 while that
-        # candidate is still unreleased, so a merge that carries beta2 code cannot
+        # the marker simply has to name one valid tag. It names beta3 while that
+        # candidate is still unreleased, so a merge that carries beta3 code cannot
         # publish it to Pages before its own prerelease exists.
         path = ROOT / 'DEPLOY_HOLD'
         self.assertTrue(path.exists(), 'DEPLOY_HOLD must protect the release sequence')
         text = path.read_text(encoding='utf-8')
         tags = [line.strip() for line in text.splitlines()
                 if line.strip() and not line.strip().startswith('#')]
-        self.assertEqual(tags, ['v1.0.0-beta2'])
+        self.assertEqual(tags, ['v1.0.0-beta3'])
         self.assertRegex(tags[0], r'^v\d+\.\d+\.\d+-(?:dev|beta|rc)\d+$')
 
 
