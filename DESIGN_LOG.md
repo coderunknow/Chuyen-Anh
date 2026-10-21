@@ -823,3 +823,15 @@ All entries recorded with verbatim Cambridge excerpt, headword, Cambridge POS, V
 **Accessibility and keyboard scope.** The strip is a polite live region so the carried answer is announced without stealing focus; focus still lands on the content region after a re-render and the hand-off path needs no click at all. This was verified by assertions on the strip's text, `role` and `aria-live` and by the existing keyboard tests, **not** with a screen reader — that gap is unchanged and still open.
 
 **Not yet done at this entry:** this PR's checks, its merge, the workflow observed on the merge commit and the live-site check. Those are reported to the user with the merge, and appended here once observed.
+
+## 2026-10-21 — observed: beta2 code merged, gate held, Pages untouched
+
+**Type: OBSERVATION (post-merge).** PR #38 (`c29b9d2`) merged as `df7d67bc18195b32ce7404027aaf330d65174768` at 2026-10-21T10:22:49Z. `main` therefore carries beta2 application code — `APP_VERSION = 'v1.0.0-beta2'`, the hand-off strip, no `SPRINT_AUTO_ADVANCE_MS` anywhere — while `DEPLOY_HOLD` still names the unpublished `v1.0.0-beta2`.
+
+**The merge did not publish.** `Deploy Flashcard` run `39584161960` on the merge commit executed every check and skipped all four publishing steps. Two `github-pages` deployment records were created for `f1c000f` and `df7d67b`, both with **empty `environment_url`**; the most recent real deployment is still `7218565169` for `b6cf967` (beta1). A green workflow conclusion is explicitly *not* treated as a deployment here — the skipped steps and the empty URL are.
+
+**Served content.** The Pages URL was fetched after the merge and still serves the beta1 build. It was not possible to hash the response from this sandbox, so the claim rests on the deployment records plus the skipped steps, not on bytes.
+
+**Release integrity.** `v1.0.0-beta1` (annotated `e88d612d…` → `8661916`) and release `418533188` are unchanged, with the same three assets and digests. `v1.0.0-beta2` has no tag and no release: the 404 is a real answer from the releases API, and the same call for beta1 returns a published release. Nothing in this work created, moved or published a tag or release, and no deployment was dispatched by hand.
+
+**What remains, deliberately.** The beta2 release sequence — tag, artifact build and verification, prerelease publication, then the real deployment that the gate will open by itself — is unauthorised here and untouched. The gate is closed, the code is on `main`, and the published site is still beta1.
