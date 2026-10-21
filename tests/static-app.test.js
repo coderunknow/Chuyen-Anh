@@ -70,7 +70,7 @@ const {
   examResultFilename,
   selectSprintSession,
   sprintEligibleCount,
-  SPRINT_AUTO_ADVANCE_MS,
+  shouldHandOffImmediately,
   APP_VERSION,
   DEFAULT_PREFS,
   loadExamHistory,
@@ -1085,7 +1085,7 @@ test('exported exam results report exactly what the learner did and what could b
   const result = buildExamResultJson(session, record, { now: 6000 });
   assert.equal(result.app, 'Chuyên Anh');
   assert.equal(result.version, APP_VERSION, 'the result carries the application version');
-  assert.equal(result.version, 'v1.0.0-beta1');
+  assert.equal(result.version, 'v1.0.0-beta2');
   assert.equal(result.schemaVersion, '1.0.0');
   assert.deepEqual(result.summary, {
     total: 3, answered: 2, unanswered: 1,
@@ -1108,10 +1108,31 @@ test('exported exam results report exactly what the learner did and what could b
   assert.equal(/[^a-z0-9.-]/.test(unicodeName), false, 'no separator, accent or space can reach the filename');
 });
 
-test('the sprint pace constant is a bounded delay, not a lesson size', () => {
-  assert.equal(Number.isFinite(SPRINT_AUTO_ADVANCE_MS), true);
-  assert.equal(SPRINT_AUTO_ADVANCE_MS >= 800 && SPRINT_AUTO_ADVANCE_MS <= 5000, true,
-    'auto-advance leaves time to read the feedback');
+test('a sprint hand-off happens only after a correct first-pass answer', () => {
+  // The hand-off replaces a fixed 1.6 s dwell timer. It must stay narrow: the
+  // learner is never carried past a mistake, a corrective retry or a
+  // self-assessment, and no other flow gains the behaviour.
+  assert.equal(shouldHandOffImmediately({ mode: 'sprint', correct: true, practice: false }), true);
+  assert.equal(shouldHandOffImmediately({ mode: 'sprint', correct: true, practice: true }), false,
+    'a corrective retry keeps its own feedback on screen');
+  assert.equal(shouldHandOffImmediately({ mode: 'sprint', correct: false, practice: false }), false,
+    'a wrong answer must never advance itself');
+  assert.equal(shouldHandOffImmediately({ mode: 'sprint', correct: true, practice: false, revealed: true }), false,
+    'a self-assessed turn keeps its panel');
+  for (const mode of ['mixed', 'due', 'weak', 'new', 'favorites', 'random', undefined, null]) {
+    assert.equal(shouldHandOffImmediately({ mode, correct: true, practice: false }), false,
+      `only the sprint hands off immediately, not ${mode}`);
+  }
+  assert.equal(shouldHandOffImmediately({}), false, 'an empty call decides nothing');
+  assert.equal(shouldHandOffImmediately(), false);
+});
+
+test('the retired dwell timer is gone rather than re-tuned', async () => {
+  const app = await readFile(new URL('../index.html', import.meta.url), 'utf8');
+  assert.equal(app.includes('SPRINT_AUTO_ADVANCE_MS'), false, 'no fixed dwell constant may return');
+  assert.equal(/setTimeout\(\s*\(\)\s*=>\s*\{?\s*advanceCard/.test(app), false,
+    'the card change must not be scheduled on a timer');
+  assert.equal(app.includes('handoff-strip'), true, 'the answer is carried onto the next card');
 });
 
 test('the sprint and session headers translate without leaking Vietnamese fragments', () => {
@@ -1122,9 +1143,104 @@ test('the sprint and session headers translate without leaking Vietnamese fragme
   assert.equal(translateUiText('Học cấp tốc · 10 từ / phiên', 'en'), 'Study sprint · 10 words / session');
   assert.equal(translateUiText('913 từ đủ điều kiện · xếp 10 · 10 đến hạn · 2 từ yếu', 'en'),
     '913 eligible words · 10 queued · 10 due · 2 weak');
-  assert.match(translateUiText('Chế độ cấp tốc: tự chuyển sau 1,6 giây (nhấn Enter để tiếp ngay).', 'en'),
-    /advances automatically/);
   assert.equal(translateUiText('Phiên nhanh · 1 từ đã xếp · 1 lượt còn lại', 'en'),
     'Quick session · 1 word queued · 1 turn left', 'counts agree in the singular');
   assert.equal(translateUiText('Học cấp tốc · 10 từ / phiên', 'vi'), 'Học cấp tốc · 10 từ / phiên');
+});
+
+// The speed benchmark only means something if both builds really did the same
+// work. Those invariants live in a dependency-free module so CI can assert them
+// without Playwright or a browser; a run that breaks one must fail loudly.
+const { createRequire } = await import('node:module');
+const benchRequire = createRequire(import.meta.url);
+const { validateResult, BenchmarkContractError, median } = benchRequire('./benchmark-contract.cjs');
+
+const benchmarkWords = ['Adversity', 'tỉ mỉ, kỹ lưỡng', 'sự mơ hồ, tính đa nghĩa', 'Deteriorate',
+  'làm trầm trọng thêm', 'sự chênh lệch, bất nhất', 'Constraint', 'Scrutinize', 'Pervasive', 'Eloquent'];
+
+function benchmarkResult(overrides = {}) {
+  return {
+    app: 'index.html',
+    flow: 'sprint',
+    thinkMs: 600,
+    reactionMs: 450,
+    rounds: 3,
+    elapsedMs: 9000,
+    elapsedMsAllRounds: [9000, 9000, 9000],
+    gradedTurns: 10,
+    practiceTurns: 1,
+    wordsCompleted: 10,
+    wrongAt: 3,
+    wordOrder: [...benchmarkWords],
+    handoffSamples: 9,
+    continueSamples: 2,
+    meanFeedbackLatencyMs: 5,
+    meanHandoffLatencyMs: 11,
+    meanContinueLatencyMs: 7,
+    pageErrors: [],
+    ...overrides
+  };
+}
+
+function rejectsBenchmark(result, options, pattern) {
+  assert.throws(() => validateResult(result, options), (error) => {
+    assert.ok(error instanceof BenchmarkContractError, `expected a contract error, got ${error}`);
+    assert.match(error.message, pattern);
+    return true;
+  });
+}
+
+test('the benchmark accepts a complete, valid run and reports the median of its rounds', () => {
+  const result = benchmarkResult({ elapsedMs: 9000, elapsedMsAllRounds: [9500, 9000, 8750] });
+  assert.equal(median(result.elapsedMsAllRounds), 9000);
+  assert.equal(validateResult(result, { flow: 'sprint', thinkMs: 600, reactionMs: 450, rounds: 3 }), result);
+});
+
+test('the benchmark rejects runs that did less work than the fixed workload', () => {
+  rejectsBenchmark(benchmarkResult({ gradedTurns: 9, wordOrder: benchmarkWords.slice(0, 9), wordsCompleted: 9 }),
+    { rounds: 3 }, /gradedTurns was 9, expected 10/);
+  rejectsBenchmark(benchmarkResult({ practiceTurns: 0 }), { rounds: 3 }, /practiceTurns was 0, expected 1/);
+  rejectsBenchmark(benchmarkResult({ practiceTurns: 2 }), { rounds: 3 }, /practiceTurns was 2, expected 1/);
+  rejectsBenchmark(benchmarkResult({ wordsCompleted: 9 }), { rounds: 3 }, /wordsCompleted was 9, expected 10/);
+  rejectsBenchmark(benchmarkResult({ wrongAt: -1 }), { rounds: 3 }, /wrongAt was -1, expected 3/);
+  rejectsBenchmark(benchmarkResult({ wordOrder: [...benchmarkWords.slice(0, 9), benchmarkWords[0]] }),
+    { rounds: 3 }, /wordOrder repeats a word/);
+});
+
+test('the benchmark rejects a different word order, missing rounds and non-median totals', () => {
+  const reordered = [...benchmarkWords];
+  reordered.reverse();
+  rejectsBenchmark(benchmarkResult(), { rounds: 3, expectedOrder: reordered }, /graded a different word order/);
+  rejectsBenchmark(benchmarkResult({ elapsedMsAllRounds: [9000, 9000] }), { rounds: 3 },
+    /2 rounds were recorded, expected 3/);
+  rejectsBenchmark(benchmarkResult({ elapsedMsAllRounds: [9000, 10000, 12000] }), { rounds: 3 },
+    /elapsedMs is not the median of the recorded rounds/);
+  rejectsBenchmark(benchmarkResult({ elapsedMsAllRounds: [0, 9000, 9000] }), { rounds: 3 },
+    /invalid elapsed time/);
+});
+
+test('the benchmark rejects page errors and impossible hand-off counters', () => {
+  rejectsBenchmark(benchmarkResult({ pageErrors: ['TypeError: boom'] }), { rounds: 3 },
+    /page error\(s\) occurred: TypeError: boom/);
+  rejectsBenchmark(benchmarkResult({ handoffSamples: 8 }), { rounds: 3 },
+    /8 hand-off\(s\) measured, expected 9/);
+  rejectsBenchmark(benchmarkResult({ flow: 'standard', handoffSamples: 9, continueSamples: 11 }), { rounds: 3 },
+    /9 hand-off\(s\) measured, expected 0/);
+  rejectsBenchmark(benchmarkResult({ flow: 'standard', continueSamples: 11, handoffSamples: 0, meanHandoffLatencyMs: 11 }),
+    { rounds: 3 }, /hand-off latency was reported without any hand-off/);
+  rejectsBenchmark(benchmarkResult({ meanHandoffLatencyMs: null }), { rounds: 3 },
+    /hand-offs were measured without a latency/);
+  // A valid standard run stays valid: eleven manual continues, no hand-off.
+  assert.equal(validateResult(benchmarkResult({ flow: 'standard', continueSamples: 11, handoffSamples: 0, meanHandoffLatencyMs: null }),
+    { rounds: 3, flow: 'standard' }).continueSamples, 11);
+  rejectsBenchmark(benchmarkResult({ flow: 'standard', continueSamples: 11, handoffSamples: 2 }), { rounds: 3 },
+    /2 hand-off\(s\) measured, expected 0/);
+});
+
+test('the benchmark rejects a scenario whose recorded settings do not match the request', () => {
+  rejectsBenchmark(benchmarkResult({ thinkMs: 1200 }), { rounds: 3, thinkMs: 600 }, /thinkMs was 1200, expected 600/);
+  rejectsBenchmark(benchmarkResult({ flow: 'sprint' }), { rounds: 3, flow: 'standard' },
+    /flow was sprint, expected standard/);
+  rejectsBenchmark(benchmarkResult({ meanHandoffLatencyMs: -1 }), { rounds: 3 }, /meanHandoffLatencyMs is invalid/);
+  rejectsBenchmark(null, { rounds: 3 }, /no result object was produced/);
 });

@@ -1,5 +1,37 @@
 # Changelog
 
+## v1.0.0-beta2 — 2026-10-21 (unreleased)
+
+### “Học cấp tốc” — hand-off without the fixed dwell
+
+- Removed the 1.6 s auto-advance timer. `SPRINT_AUTO_ADVANCE_MS`, the pending-timer variable, `scheduleAutoAdvance()`/`cancelAutoAdvance()`, their call sites and the “tự chuyển sau 1,6 giây” hint (plus its translation) are gone, not merely set to zero. A correct first-pass answer in sprint now advances within the same turn.
+- The graded answer is carried onto the next card instead of holding the old one still: a `.handoff-strip` live region (`role="status"`, `aria-live="polite"`) shows the word, its meaning and `Đã trả lời đúng` / `Chưa đúng`, and it also appears after the first-look introduction so that path keeps its answer too.
+- Skipping a card rotates the queue, which breaks the adjacency the strip describes, so a skip clears it. Previously the strip survived the rotation and labelled an unrelated word with an older verdict.
+- Nothing about the learning work was shortened: a wrong answer still never advances and keeps its full correction, the single practice retry still waits for acknowledgement, and first-pass accuracy, scheduling and mastery are computed as before. Self-assessment after a reveal does not hand off.
+- The rule is now a pure exported function, `shouldHandOffImmediately({ mode, correct, practice, revealed })`, and `lastAnswer` is cleared on every reset, on a skip, and before any detailed feedback panel so a strip cannot outlive its card. Skip ignores the second click of a double-click.
+
+### Measured against beta1 on identical work
+
+Method: `node tests/speed-benchmark.cjs --matrix` with `APP_BETA1` = `index.html` from `main` at the beta1 commit (`8661916`) and `APP_BETA2` = this tree; three rounds per scenario, median reported. Every latency is measured **inside the page** with `performance.now()` — a capture-phase listener stamps the answer when the app receives it and a `MutationObserver` stamps when the visible card actually changes. The earlier 1,322–1,328 ms figure came from a harness that stamped the answer before Playwright clicked and the card after the click promise resolved, so it under-reported beta1's dwell by roughly the click overhead; the corrected harness reports ~1,611 ms, which agrees with a separate in-page probe (1,622–1,636 ms).
+
+All twelve runs graded ten words plus exactly one corrective retry, in the same order, with no page errors; the harness asserts these conditions and exits non-zero otherwise.
+
+| scenario | beta1 standard | beta1 sprint | beta2 standard | beta2 sprint | sprint vs standard (beta2) | sprint vs beta1 sprint |
+|---|---|---|---|---|---|---|
+| think 600 ms / react 450 ms | 14,020 ms | 23,910 ms | 13,806 ms | 9,766 ms | −29.3 % | −59.2 % |
+| think 1200 ms / react 450 ms | 21,662 ms | 31,920 ms | 21,646 ms | 17,466 ms | −19.3 % | −45.3 % |
+| think 600 ms / react 250 ms | 11,780 ms | 23,646 ms | 11,790 ms | 9,486 ms | −19.5 % | −59.9 % |
+
+Mean hand-off latency: 9 × 1,611–1,612 ms in beta1 sprint versus 9 × 9–10 ms in beta2 sprint; the standard flow needs eleven manual continues and no hand-off. These are synthetic-browser timings of one fixed workload — not learner outcomes. No retention, learning-quality or equivalence claim is made.
+
+### Tests
+
+- `tests/static-app.test.js` (54 tests) covers `shouldHandOffImmediately` across every non-sprint mode, wrong answers, practice retries and revealed answers, asserts the retired dwell timer is gone, and exercises `tests/benchmark-contract.cjs` so an invalid benchmark run is rejected.
+- `tests/test_sprint_exam_features.py` pins beta2, asserts the retired constant is absent and that no `setTimeout(… advanceCard` survives.
+- `tests/browser-learning.cjs` drives the real sprint in Chromium: hand-off under 800 ms, strip content and live-region roles, no strip after a wrong answer, the strip dropped on a skip, and the queue/navigation state machine across another screen.
+- `tests/speed-benchmark.cjs` runs one scenario or the full `--matrix`, never clicks on the hand-off path, and fails on any workload invariant breach; `tests/benchmark-contract.cjs` holds those invariants without depending on Playwright.
+
+
 ## v1.0.0-beta1 — 2026-10-20 (release candidate; not published by this change)
 
 ### “Học cấp tốc” — semantics corrected
