@@ -167,3 +167,14 @@ PR #27 HEAD 714f4b3 OPEN MERGEABLE UNSTABLE (checks pass, Kilo review fail). 3 n
 3. **Attempted remedy that is unavailable:** `PUT /repos/coderunknow/Chuyen-Anh/actions/workflows/390606492/disable` → `403 Resource not accessible by integration`; workflow state remains `active`. This token cannot toggle workflows.
 4. **Applied remedy:** `DEPLOY_HOLD` → `v1.0.0-beta2` (unpublished, valid prerelease tag); `tests/test_deploy_gate.py` expected tag updated while keeping the `^v\d+\.\d+\.\d+-(dev|beta|rc)\d+$` invariant; README marker paragraph updated. `python -m unittest tests.test_deploy_gate` → 13 OK.
 5. **Not yet done at this entry:** merge of this change, publication of `v1.0.0-beta1`, and its verification.
+
+## 2026-10-21 — v1.0.0-beta1 published as prerelease; Pages held (verified)
+
+1. **PR #32 merged:** re-verified docs-only (`AGENTS_LOG.md`, `DESIGN_LOG.md`, `+31/−0`), `checks` success, zero threads → `gh pr merge 32 --merge` → merge commit `61bebc8d32bff1a0148179601a3524ba5f33a858` (2026-10-21T04:48:56Z).
+2. **Pre-publication gate fix:** `DEPLOY_HOLD` → `v1.0.0-beta2` via PR #33 (`89be48b`, merged as `500c3a625b2febc18171032c80aa17c43507a2a7`), because publishing `v1.0.0-beta1` would otherwise set `deploy=true`. Disabling the dispatcher was refused (`403`). PR #33's merge run `39546302518` held: all four publish steps skipped.
+3. **Published:** `PATCH /releases/418533188` with `tag_name`, `draft=false`, `prerelease=true` → `published_at 2026-10-21T04:51:53Z`, `html_url https://github.com/coderunknow/Chuyen-Anh/releases/tag/v1.0.0-beta1`. Public page fetched and confirmed as Pre-release at `8661916`.
+4. **Tag:** annotated `e88d612d…` → `8661916…`, unchanged; still the only beta1 tag/release.
+5. **Assets:** three, with GitHub-reported digests matching the local rebuild (`ce55b9b9…`, `39140ed4…`, `3c79231c…`); `git show v1.0.0-beta1:index.html` reproduces the HTML digest. Direct download from the sandbox still fails (`release-assets.githubusercontent.com` EOF), so no local re-hash of remote bytes.
+6. **Deployment:** dispatcher `39546357249` → deploy run `39546363903` on `main`; gate `deploy=false (release v1.0.0-beta2 is missing; deployment held)`; all four publish steps skipped; two bookkeeping deployment records with empty `environment_url`; last real deployment still `7201595658` (dev5). No Pages artifact uploaded.
+7. **Release notes:** rewritten post-publication with `tag_name` included, replacing the stale "unpublished draft" wording and recording that Pages remains on dev5; no new runs triggered by the edit.
+8. **Local state:** session branch `arena/8b6b5bce-chuyen-anh` committed this record; working tree clean after push; `DEPLOY_HOLD` = `v1.0.0-beta2`.
