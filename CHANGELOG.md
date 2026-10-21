@@ -2,7 +2,7 @@
 
 ## v1.0.0-beta3 — 2026-10-21
 
-Release state — whether a `v1.0.0-beta3` tag, prerelease and assets exist, and which build Pages serves — must be verified on GitHub; this file records contents, not publication status. At the time of writing nothing was tagged, published or deployed from this change.
+Release state — whether a `v1.0.0-beta3` tag, prerelease and assets exist, and which build Pages serves — must be verified on GitHub; this file records contents, not publication status.
 
 ### “Học cấp tốc” — an adaptive retrieval ladder plus one delayed re-retrieval
 
@@ -13,6 +13,7 @@ Beta2 made the sprint faster by removing a wait. Beta3 changes what the sprint *
 - **Consolidations are practice-class, never evidence of first-pass knowledge.** They do not call `updateProgress`, do not change `state`, `streak`, `ease`, `interval`, `lastReviewed` or `nextReview`, and are counted in their own `consolidationCorrect` / `consolidationWrong` / `consolidationTotal` counters. The summary reports them on a separate “Củng cố” line with an explicit “Không tính vào độ chính xác lần đầu hay lịch ôn”, and the session history entry still reports `{total: 10, correct: 9, wrong: 1, accuracy: 90, mode: 'sprint'}` for the same run.
 - **Session size and corrective work are untouched.** The sprint still queues the configured 10/20/30/50 distinct words from the whole eligible pool in the same priority order, and a miss still queues exactly one corrective retry in every mode. The new cap is a *ceiling on extra turns*: `sprintTurnBudget(size) = size * 3` (first pass + consolidation + one correction), and the queue model is simulated in tests to prove no path can exceed three turns for one word or the budget for the session.
 - **The hand-off gained two guards.** `shouldHandOffImmediately` now also refuses a consolidation or a revealed self-assessment, so a delayed check always keeps its feedback panel and cannot be answered and skipped in one keystroke. `skipCard`, `repeatCurrent`, `queuePractice` and `needsFirstLook` all refuse consolidation turns, and a consolidation is never re-introduced as a new word.
+- **The explanation of a turn is interface copy, so it is translated.** The consolidation and retry notes used `.sub-prompt`, which the English localizer deliberately protects because it also carries prompt content, so an English interface showed a Vietnamese sentence. They now render in a `.turn-note` class with identical styling and are translated; the protected prompt content is unchanged. Regression: `tests/browser-learning.cjs` drives a sprint with the English interface and asserts the note is English and outside the protected class.
 - **Copy, not just behaviour.** The sprint banner says each word gets a first retrieval plus one delayed re-retrieval that is not counted as first-pass accuracy; the card label shows `Củng cố · …`, the summary and the feedback line explain that the schedule still follows the first answer; Vietnamese copy and its English translations were added together, so no string leaks untranslated.
 
 ### What this does *not* do
@@ -38,14 +39,15 @@ Read honestly: the sprint is **20.8 % faster per turn** (the beta2 hand-off stil
 
 - `tests/static-app.test.js` (62 tests) covers the ladder, the consolidation decision, insertion distance and once-per-word bound, the three-turns-per-word simulation, first-look and persistence isolation, the summary/feedback translations, the benchmark contract (per-flow workloads, consolidation order, hand-off counters, median and page-error rejection) and the absence of the retired dwell timer.
 - `tests/test_sprint_exam_features.py` pins `v1.0.0-beta3`, the ladder and consolidation exports, the practice-class grading branch, and the absence of the seven-word cap.
-- `tests/browser-learning.cjs` drives the real 21-turn sprint in Chromium 133.0.6943.0 (per-turn mode and word mapping, consolidation distance, immediate hand-off only on correct first passes), then navigation/skip regressions; `tests/browser-exams.cjs` re-runs the exam surface. Both PASS with no page errors.
+- `tests/browser-learning.cjs` drives the real 21-turn sprint in Chromium 133.0.6943.0 (per-turn mode and word mapping, consolidation distance, immediate hand-off only on correct first passes), plus a sprint in the English interface that asserts a consolidation's explanatory note is translated, then navigation/skip regressions; `tests/browser-exams.cjs` re-runs the exam surface. Both PASS with no page errors.
 - `python3 -m unittest discover -s tests -p 'test_*.py'` 70 OK; vocabulary 913 records, 0 duplicates, 106 transcriptions (4,169,772 text bytes).
 
 ### Release and deployment state
 
 - `APP_VERSION` is `v1.0.0-beta3` and is shown in Settings → data information.
-- `DEPLOY_HOLD` names `v1.0.0-beta3`. The gate is unchanged and fail-closed; immediately after the marker change `scripts/deploy_gate.py --repo coderunknow/Chuyen-Anh` printed `deploy=false (release v1.0.0-beta3 is missing; deployment held)`. No workflow was disabled, no trigger was changed, no `force_deploy` was used.
-- No tag, prerelease, asset or Pages deployment was created by this change.
+- `DEPLOY_HOLD` names `v1.0.0-beta3`. The gate is unchanged and fail-closed: it reads the live state of that exact tag, so it stays held for `missing`, `draft` and `not-prerelease` and opens only when `v1.0.0-beta3` is a published prerelease. No workflow was disabled, no trigger was changed and `force_deploy` was not used.
+- At candidate time `scripts/deploy_gate.py --repo coderunknow/Chuyen-Anh` printed `deploy=false (release v1.0.0-beta3 is missing; deployment held)`; the same command is the only way to read the gate's current decision, and it prints `deploy=true (release v1.0.0-beta3 is published)` only after that prerelease exists.
+- Tag, release assets and the build Pages actually serves must be confirmed on GitHub: this file records contents, not publication or deployment status.
 
 ## v1.0.0-beta2 — 2026-10-21
 

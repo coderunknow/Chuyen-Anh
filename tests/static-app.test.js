@@ -1419,5 +1419,8 @@ test('the benchmark rejects a scenario whose recorded settings do not match the 
   rejectsBenchmark(benchmarkResult({ flow: 'sprint' }), { rounds: 3, flow: 'standard' },
     /flow was sprint, expected standard/);
   rejectsBenchmark(benchmarkResult({ meanHandoffLatencyMs: -1 }), { rounds: 3 }, /meanHandoffLatencyMs is invalid/);
+  // A flow the contract does not know must not borrow another flow's workload.
+  rejectsBenchmark(benchmarkResult({ flow: 'turbo' }), { rounds: 3 },
+    /unknown flow "turbo"; expected one of standard, sprint/);
   rejectsBenchmark(null, { rounds: 3 }, /no result object was produced/);
 });

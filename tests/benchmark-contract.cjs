@@ -65,7 +65,12 @@ function validateResult(result, options = {}) {
   const { flow, thinkMs, reactionMs, rounds, expectedOrder, label = 'scenario', round = false } = options;
   if (!result || typeof result !== 'object') fail(`${label}: no result object was produced`);
 
-  const workload = WORKLOAD[result.flow] || WORKLOAD.sprint;
+  // An unrecognised flow must be rejected, not silently checked against the sprint
+  // workload: otherwise a typo would validate whatever numbers it was given.
+  const workload = WORKLOAD[result.flow];
+  if (!workload) {
+    fail(`${label}: unknown flow ${JSON.stringify(result.flow)}; expected one of ${Object.keys(WORKLOAD).join(', ')}`);
+  }
   for (const [key, value] of Object.entries(workload)) {
     if (key === 'wrongAt') continue;
     if (result[key] !== value) fail(`${label}: ${key} was ${result[key]}, expected ${value}`);

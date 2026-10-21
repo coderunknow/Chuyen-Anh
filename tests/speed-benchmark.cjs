@@ -17,7 +17,7 @@
 //   THINK_MS     simulated time the learner spends reading each question (default 600)
 //   REACTION_MS  simulated time to reach and press the manual "Tiếp tục" control (default 450)
 //   ROUNDS       repetitions; the median is reported (default 3)
-//   APP_BETA1 / APP_BETA2   the two builds compared by --matrix
+//   --matrix     run both flows at three learner paces against this one build
 //
 // The scenario is fixed: ten words, six of them due and weak, two in learning and
 // two never studied; the fourth graded card is answered wrong, which queues the
@@ -184,9 +184,9 @@ function waitForAdvance(page, previousPrompt, timeout) {
   }, previousPrompt, { timeout, polling: 25 });
 }
 
-// Only a card that can accept input counts. beta1 keeps its feedback panel (and its
-// `#next-card`) visible during the dwell, so the presence of that button says
-// nothing about whether a new card has arrived.
+// Only a card that can accept input counts. A turn that hands off keeps no feedback
+// panel, while a wrong, retried or consolidated turn keeps one on screen, so the
+// presence of `#next-card` says nothing about whether a new card has arrived.
 function waitForAnswerable(page, timeout) {
   return page.waitForFunction(() => {
     if (document.querySelector('.summary')) return true;

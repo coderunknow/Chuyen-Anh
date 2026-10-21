@@ -194,6 +194,8 @@ kbd, .kbd { min-width: 24px; padding: 2px 6px; border: 1px solid var(--border-st
 .mode-label { color: var(--primary-strong); font-size: .7rem; font-weight: 850; letter-spacing: .08em; text-transform: uppercase; }
 .prompt { margin: 14px 0 4px; font-size: clamp(1.65rem, 5vw, 2.65rem); font-weight: 850; letter-spacing: -.04em; line-height: 1.18; overflow-wrap: anywhere; }
 .sub-prompt { color: var(--muted); font-size: .88rem; }
+/* Fixed interface copy for a turn, translated with the rest of the chrome. */
+.turn-note { color: var(--muted); font-size: .88rem; }
 .options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 26px auto 0; text-align: left; }
 .option { min-height: 60px; display: flex; align-items: center; gap: 12px; padding: 12px 14px; border: 1px solid var(--border); border-radius: 13px; background: var(--surface); color: var(--text); text-align: left; transition: border-color .14s ease, background-color .14s ease, transform .14s ease; }
 .option:hover { border-color: var(--primary); background: var(--surface-soft); }
@@ -18074,8 +18076,8 @@ export async function createApp(root) {
             ${firstLook ? firstLookBody(item) : `
             <div class="mode-label">${item.practice ? 'Luyện lại · ' : ''}${consolidationTurn ? 'Củng cố · ' : ''}${modeLabel(question.mode)} · ${escapeHtml(item.vocab.pos)}</div>
             <div class="prompt">${escapeHtml(question.prompt)}</div><div class="sub-prompt">${escapeHtml(question.subPrompt || '')}</div>
-            ${item.practice ? '<p class="sub-prompt">Tự gõ lại từ vừa ôn. Lượt luyện không thay đổi lịch ôn hay độ chính xác lần đầu.</p>' : ''}
-            ${consolidationTurn ? '<p class="sub-prompt">Lượt củng cố: nhắc lại từ này sau vài thẻ khác ở mức khó hơn. Lượt này không đổi lịch ôn hay độ chính xác lần đầu.</p>' : ''}
+            ${item.practice ? '<p class="turn-note">Tự gõ lại từ vừa ôn. Lượt luyện không thay đổi lịch ôn hay độ chính xác lần đầu.</p>' : ''}
+            ${consolidationTurn ? '<p class="turn-note">Lượt củng cố: nhắc lại từ này sau vài thẻ khác ở mức khó hơn. Lượt này không đổi lịch ôn hay độ chính xác lần đầu.</p>' : ''}
             <div id="question-area"></div>
             ${revealed && !answered ? `<div class="reveal"><strong>${escapeHtml(question.answer)}</strong><span>Bạn đã xem đáp án, nên các lựa chọn bên trên đã bị khóa. Hãy tự đánh giá trung thực.</span><div class="actions" style="justify-content:center;margin-top:10px"><button class="btn primary small" id="reveal-correct">Nhớ được</button><button class="btn danger small" id="reveal-wrong">Chưa nhớ</button></div></div>` : ''}
             <div id="feedback-area"></div>`}

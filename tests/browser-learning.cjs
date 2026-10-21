@@ -953,6 +953,75 @@ async function main() {
     assert.equal(restoredHistory.length, 50, 'no session is lost when the roundTripBundle is restored');
     assert.deepEqual(restoredHistory, retentionBundle.history);
 
+
+    // ---- English interface: the note that explains a turn is interface copy and
+    // must be translated. Regression: it was rendered inside `.sub-prompt`, which
+    // the localizer protects because it also carries prompt content, so an English
+    // learner read a Vietnamese sentence. Ten weak words keep the queue at exactly
+    // ten, so the first word's delayed check arrives after four turns.
+    const englishPlan = await page.evaluate(() => {
+      const now = Date.now();
+      const data = JSON.parse(document.getElementById('vocabulary-data').textContent).slice(0, 10);
+      const progress = {};
+      data.forEach((entry, index) => {
+        progress[entry.id] = {
+          id: entry.id, state: 'weak', correctCount: 0, wrongCount: 40 - index, streak: 0,
+          lastReviewed: now - 86400000, nextReview: now - 3600000,
+          interval: 0, ease: 2.3, difficulty: 0.5
+        };
+      });
+      localStorage.clear();
+      localStorage.setItem('chuyen-anh.progress.v1', JSON.stringify(progress));
+      localStorage.setItem('chuyen-anh.prefs.v1', JSON.stringify({ sessionSize: 10, keyboardShortcuts: false, darkMode: false }));
+      localStorage.setItem('chuyen-anh.language.v1', 'en');
+      return data.map(entry => ({ word: entry.word, meaning: entry.meaning }));
+    });
+    await page.reload();
+    await page.locator('[data-session="sprint"]').waitFor();
+    await page.locator('[data-session="sprint"]').click();
+    assert.match(await page.locator('.mode-label').innerText(), /RECOGNITION/i,
+      'an English sprint card shows an English retrieval label');
+    let englishCheck = null;
+    for (let turn = 0; turn < 6 && !englishCheck; turn += 1) {
+      const label = await page.locator('.mode-label').innerText();
+      if (/CONSOLIDATION/i.test(label)) {
+        // Read the explanatory paragraph through either class so a regression is
+        // reported as untranslated copy instead of a locator timeout.
+        const noteHolder = await page.locator('.turn-note').count() ? page.locator('.turn-note') : page.locator('.sub-prompt').last();
+        const note = (await noteHolder.innerText()).trim();
+        englishCheck = {
+          note,
+          translated: /^Consolidation turn: this word returns after a few other cards/.test(note),
+          vietnamese: /[àáảãạăâđêôơư]/i.test(note.replace(/[·→]/g, '')),
+          nested: await page.locator('.sub-prompt.turn-note').count()
+        };
+        break;
+      }
+      const prompt = (await page.locator('.prompt').innerText()).trim();
+      const entry = englishPlan.find(item => item.word === prompt || item.meaning === prompt);
+      assert.ok(entry, `the English card is one of the queued words: ${prompt}`);
+      const options = page.locator('[data-option]');
+      const wantMeaning = /RECOGNITION/i.test(label);
+      let chosen = false;
+      for (let index = 0; index < await options.count(); index += 1) {
+        const text = (await options.nth(index).innerText()).replace(/^\d+\s*/, '').trim();
+        if (text === (wantMeaning ? entry.meaning : entry.word)) { await options.nth(index).click(); chosen = true; break; }
+      }
+      assert.equal(chosen, true, `an answerable option exists for ${entry.word} in the English interface`);
+      await page.locator('.handoff-strip').waitFor({ timeout: 2000 });
+    }
+    assert.ok(englishCheck, 'the delayed check of the first word appeared inside six turns');
+    assert.equal(englishCheck.translated, true,
+      `the consolidation note is translated in the English interface: ${englishCheck.note}`);
+    assert.equal(englishCheck.vietnamese, false,
+      `the translated note keeps no Vietnamese copy: ${englishCheck.note}`);
+    assert.equal(englishCheck.nested, 0,
+      'interface copy is not rendered inside the protected prompt class');
+    // Leave the device in the default interface language for the scenarios below.
+    await page.evaluate(() => localStorage.removeItem('chuyen-anh.language.v1'));
+    await page.reload();
+    await page.locator('[data-session="new"]').waitFor();
+
     // ---- A blank spelling submission is not a graded attempt. (dev3 regression)
     async function seedSpellingCard() {
       await page.evaluate(() => {
@@ -1054,7 +1123,7 @@ async function main() {
 
 
     assert.deepEqual(errors, []);
-    console.log(`PASS: Chromium ${browser.version()} — first-look introduction for new words, same-part-of-speech distractors, cloze options absent from the sentence, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, 320/375/768px responsive layout, reduced-motion setting, search state across a favorite toggle, session clearing on reset/import, the ID 448 historical label, named option groups, shortcuts limited to the visible card, failed writes reported truthfully, JSON backup round-trips that keep every retained session, blank spelling submissions ignored, single-graded self-assessment, skip locked after a reveal, and 'Học cấp tốc' processing all ten requested words with a truthful single correction, automatic advance only after correct answers, accurate first-pass statistics, persisted progress, an immediate hand-off with the graded answer carried onto the next card, and a queue that never shifts while another screen is open; no page errors.`);
+    console.log(`PASS: Chromium ${browser.version()} — first-look introduction for new words, same-part-of-speech distractors, cloze options absent from the sentence, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, 320/375/768px responsive layout, reduced-motion setting, search state across a favorite toggle, session clearing on reset/import, the ID 448 historical label, named option groups, shortcuts limited to the visible card, failed writes reported truthfully, JSON backup round-trips that keep every retained session, blank spelling submissions ignored, single-graded self-assessment, skip locked after a reveal, and 'Học cấp tốc' processing all ten requested words with a truthful single correction, automatic advance only after correct answers, accurate first-pass statistics, persisted progress, an immediate hand-off with the graded answer carried onto the next card, a queue that never shifts while another screen is open, and interface copy on a consolidation turn translated in the English interface; no page errors.`);
   } finally {
     if (browser) await browser.close();
     await new Promise(resolve => server.close(resolve));
