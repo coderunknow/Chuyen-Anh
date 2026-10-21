@@ -49,7 +49,7 @@ Validator kiểm tra schema, kiểu dữ liệu, ID/từ trùng lặp và các t
 
 ## Phiên bản
 
-`index.html` trên `main` mang `APP_VERSION` = `v1.0.0-beta2` (hiển thị trong Cài đặt → Thông tin dữ liệu). Đây là **mã beta2 chưa phát hành**: chưa có tag, chưa có release, và GitHub Pages vẫn đang phục vụ prerelease [`v1.0.0-beta1`](https://github.com/coderunknow/Chuyen-Anh/releases/tag/v1.0.0-beta1) (publish ngày 2026-10-21 từ tag annotated trỏ tới merge commit `8661916`). `DEPLOY_HOLD` nêu `v1.0.0-beta2`, nên cổng deploy **đóng** và Pages giữ nguyên bản beta1 cho tới khi prerelease beta2 thật sự được publish.
+`index.html` trên `main` mang `APP_VERSION` = `v1.0.0-beta2` (hiển thị trong Cài đặt → Thông tin dữ liệu). Bản `v1.0.0-beta2` được đóng gói từ commit đã tag và công bố dưới dạng GitHub **prerelease**; trạng thái publish của release, danh sách asset và digest phải được xác minh trực tiếp trên GitHub, không suy ra từ tệp này. Prerelease trước đó là [`v1.0.0-beta1`](https://github.com/coderunknow/Chuyen-Anh/releases/tag/v1.0.0-beta1) (publish ngày 2026-10-21 từ tag annotated trỏ tới merge commit `8661916`). `DEPLOY_HOLD` nêu `v1.0.0-beta2`: trong khi prerelease đó chưa publish thì cổng deploy **đóng** và Pages giữ bản trước; ngay khi prerelease được publish, cổng mở và Pages deploy bản beta2 qua workflow thường.
 
 ## Chạy ứng dụng
 

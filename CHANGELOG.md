@@ -1,6 +1,8 @@
 # Changelog
 
-## v1.0.0-beta2 — 2026-10-21 (unreleased)
+## v1.0.0-beta2 — 2026-10-21
+
+Release state — whether the tag, the prerelease and its three assets are published, and which build Pages serves — must be verified on GitHub; this file records contents, not publication status.
 
 ### “Học cấp tốc” — hand-off without the fixed dwell
 
