@@ -785,3 +785,15 @@ All entries recorded with verbatim Cambridge excerpt, headword, Cambridge POS, V
 **Acceptance for this deliverable (to be recorded only once observed):** the merge itself must trigger the `push` deploy path, `Stage standalone HTML` / `Configure Pages` / `Upload Pages artifact` / `Deploy` must all run (not `skipped`), a deployment record must carry a non-empty `environment_url` at the `main` SHA, and the served content must be checked directly. A `success` conclusion or a bookkeeping deployment record with an empty URL is not evidence of a live deployment.
 
 **Not yet done at this entry:** PR merge, workflow run, and site-content verification. Recorded in the following entry once observed.
+
+## 2026-10-21 — decision: hold Pages on the unreleased beta2 candidate (gate closed, no publication)
+
+**Type: DECISION + gate-marker change.** PR #36 carries the beta2 sprint work and touches `index.html`, which is one of the paths that triggers `Deploy Flashcard` on a push to `main`. The marker on `main` named `v1.0.0-beta1`, and that prerelease is published, so the gate evaluated to `deploy=true` and a merge would have published beta2 code that has no tag, no release and no verified artifact. That inverts the order the repository's own release procedure depends on.
+
+**Decision: name the candidate instead of the published release.** `DEPLOY_HOLD` now names `v1.0.0-beta2`, which does not exist yet. The gate reads the *named* tag's live state and fails closed for `missing`, `draft`, `not-prerelease` and unreadable markers, so this both keeps Pages on beta1 and opens automatically once the exact beta2 prerelease is published — no marker edit, no `force_deploy`, no workflow disabled, no trigger changed. The pinning test moves with the marker; the prerelease-shape regex and the fail-closed branches are unchanged, so the policy is not weakened to get a green run.
+
+**Evidence the gate is closed for the right reason.** `scripts/deploy_gate.py` printed `deploy=false (release v1.0.0-beta2 is missing; deployment held)` while the same `gh api` lookup for `v1.0.0-beta1` returns a published release in the same session. A 404 for every tag would have been indistinguishable from a network failure; this is not that case. `--force` continues to exist for a maintainer-driven dispatch and was not used.
+
+**Scope kept deliberately small.** Marker, its pinning test, the two README passages that described the old marker, and these logs. No application code, no workflow edit, no changelog entry: `main` has no beta2 section yet, and the beta2 changelog section is introduced together with the beta2 change so the release notes and the code they describe cannot drift apart.
+
+**Not yet done at this entry:** push, PR, required checks on the head, merge, and the workflow observed on the merge commit. Those are recorded in the following entry once observed.
