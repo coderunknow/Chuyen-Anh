@@ -188,26 +188,35 @@ async function main() {
         assert.equal(chosen, true, `a gradeable option exists for ${entry.word}`);
       }
 
-      const feedback = await sprint.locator('#feedback-area').innerText();
       if (index === wrongIndex) {
         missed = entry;
+        const feedback = await sprint.locator('#feedback-area').innerText();
         assert.match(feedback, /Chưa đúng · Đáp án:/, 'a missed sprint word shows the answer');
         assert.match(feedback, /Đã xếp một lượt gõ lại/, 'the sprint queues a real corrective retry');
         assert.equal(await sprint.locator('#next-card').count(), 1);
+        assert.equal(await sprint.locator('.handoff-strip').count(), 0,
+          'a wrong answer is not carried away as a strip');
         const head = await sprint.locator('.flashcard-head').innerText();
         await sprint.waitForTimeout(2300);
         assert.equal(await sprint.locator('.flashcard-head').innerText(), head,
-          'a wrong answer never auto-advances past its correction');
+          'a wrong answer never advances itself');
         await sprint.locator('#next-card').click();
       } else {
-        assert.match(feedback, /Chính xác!/);
-        assert.match(feedback, /tự chuyển sau 1,6 giây/,
-          'a correct sprint answer tells the learner it will advance itself');
-        const head = await sprint.locator('.flashcard-head').innerText();
-        await sprint.waitForFunction(previous => {
-          const current = document.querySelector('.flashcard-head');
-          return !current || current.innerText !== previous;
-        }, head, { timeout: 5000 });
+        // Correct first-pass answer: the next card replaces it immediately and the
+        // graded answer survives as a strip. No dwell timer, no extra click.
+        const started = Date.now();
+        const strip = sprint.locator('.handoff-strip');
+        await strip.waitFor({ timeout: 2000 });
+        assert.equal(Date.now() - started < 800, true,
+          'the hand-off is immediate rather than a fixed dwell');
+        const stripText = await strip.innerText();
+        assert.match(stripText, /Đã trả lời đúng/);
+        assert.equal(stripText.includes(entry.word) || stripText.includes(entry.meaning), true,
+          'the strip carries the word that was just graded');
+        assert.equal(await sprint.locator('.handoff-strip').getAttribute('role'), 'status',
+          'the carried answer is announced politely');
+        assert.equal(await sprint.locator('#next-card').count(), 0,
+          'a correct sprint answer needs no continue control');
         assert.match(await sprint.locator('.page-header p').innerText(), /Học cấp tốc/);
       }
     }
@@ -251,9 +260,9 @@ async function main() {
     assert.deepEqual(await sprint.evaluate(() => ({ ...localStorage })), sprintSnapshot,
       'the sprint progress survives a reload unchanged');
 
-    // Navigating away cancels the pending auto-advance: leaving the card must
-    // never shift the hidden queue, fabricate a finished session or lose the
-    // answer that was already graded. (v1.0.0-beta1 regression)
+    // Navigating away mid-sprint must not shift the queue, fabricate a finished
+    // session or lose a graded answer. The beta1 fixed timer is gone, so this
+    // regression now guards the state machine rather than the timer.
     await sprint.evaluate(() => {
       const now = Date.now();
       const data = JSON.parse(document.getElementById('vocabulary-data').textContent).slice(0, 10);
@@ -272,50 +281,109 @@ async function main() {
     await sprint.reload();
     await sprint.locator('[data-session="sprint"]').waitFor();
     await sprint.locator('[data-session="sprint"]').click();
-    const navFirst = (await sprint.evaluate(() => {
+    const navPlan = await sprint.evaluate(() => {
       const data = JSON.parse(document.getElementById('vocabulary-data').textContent).slice(0, 10);
-      return data[0];
-    }));
-    const navLabel = (await sprint.locator('.mode-label').innerText()).toLowerCase();
-    if (navLabel.includes('chính tả')) {
-      await sprint.locator('#spelling-input').fill(navFirst.word);
-      await sprint.locator('#spelling-input').press('Enter');
-    } else {
-      const navCorrect = navLabel.includes('nhận diện') ? navFirst.meaning : navFirst.word;
-      const navOptions = sprint.locator('[data-option]');
-      const navCount = await navOptions.count();
-      let navChosen = false;
-      for (let optionIndex = 0; optionIndex < navCount; optionIndex += 1) {
-        const text = (await navOptions.nth(optionIndex).innerText()).replace(/^\d+\s*/, '').trim();
-        if (text === navCorrect) { await navOptions.nth(optionIndex).click(); navChosen = true; break; }
+      return data.map(entry => ({ id: entry.id, word: entry.word, meaning: entry.meaning }));
+    });
+
+    const gradeCard = async (entry, correct) => {
+      const label = (await sprint.locator('.mode-label').innerText()).toLowerCase();
+      if (label.includes('chính tả')) {
+        await sprint.locator('#spelling-input').fill(correct ? entry.word : 'definitely not the word');
+        await sprint.locator('#spelling-input').press('Enter');
+        return;
       }
-      assert.equal(navChosen, true, 'the first sprint card of the navigation scenario is gradeable');
-    }
-    assert.match(await sprint.locator('#feedback-area').innerText(), /Chính xác!/);
-    const navHeader = await sprint.locator('.page-header p').innerText();
-    const navPrompt = (await sprint.locator('.prompt').innerText()).trim();
-    // Leave the card well inside the 1.6 s auto-advance window.
+      const wantMeaning = label.includes('nhận diện');
+      const options = sprint.locator('[data-option]');
+      const count = await options.count();
+      for (let index = 0; index < count; index += 1) {
+        const text = (await options.nth(index).innerText()).replace(/^\d+\s*/, '').trim();
+        const matched = navPlan.find(item => (wantMeaning ? item.meaning : item.word) === text);
+        const isCorrect = wantMeaning
+          ? Boolean(matched) && matched.id === entry.id
+          : Boolean(matched) && matched.id === entry.id;
+        if (isCorrect === correct) { await options.nth(index).click(); return; }
+      }
+      throw new Error('no matching option for the navigation scenario');
+    };
+
+    // First card: answered correctly, so the sprint hands off instantly.
+    await gradeCard(navPlan[0], true);
+    await sprint.locator('.handoff-strip').waitFor();
+    assert.match(await sprint.locator('.handoff-strip').innerText(), new RegExp(navPlan[0].word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')),
+      'the graded word is carried onto the next card');
+
     await sprint.locator('[data-view="dashboard"]').click();
-    await sprint.waitForTimeout(2600);
+    await sprint.waitForTimeout(600);
     assert.equal(await sprint.locator('.flashcard').count(), 0, 'the study card is no longer on screen');
     assert.equal(await sprint.evaluate(() => JSON.parse(localStorage.getItem('chuyen-anh.history.v1') || '[]').length), 0,
       'navigating away does not finish or record the session');
     await sprint.locator('[data-view="learn"]').click();
-    assert.equal(await sprint.locator('.page-header p').innerText(), navHeader,
-      'the pending auto-advance never shifted the queue while another screen was open');
-    assert.equal((await sprint.locator('.prompt').innerText()).trim(), navPrompt,
-      'the same card is still on screen');
-    assert.match(await sprint.locator('#feedback-area').innerText(), /Chính xác!/,
-      'the already-graded answer was not lost');
+    const navHeader = await sprint.locator('.page-header p').innerText();
+    assert.match(navHeader, /Học cấp tốc · 10 từ đã xếp · 9 lượt còn lại/,
+      'the queue advanced exactly once and is still the same session');
+    assert.match(await sprint.locator('.handoff-strip').innerText(), /Đã trả lời đúng/,
+      'the carried answer survives navigation inside the session');
+
+    // Second card: answered wrong. Nothing may advance, and the panel must survive
+    // a trip to another screen and back.
+    await gradeCard(navPlan[1], false);
+    assert.match(await sprint.locator('#feedback-area').innerText(), /Chưa đúng/);
+    const wrongPrompt = (await sprint.locator('.prompt').innerText()).trim();
+    await sprint.locator('[data-view="search"]').click();
+    await sprint.waitForTimeout(300);
+    await sprint.locator('[data-view="learn"]').click();
+    assert.equal((await sprint.locator('.prompt').innerText()).trim(), wrongPrompt,
+      'an unanswered correction keeps its card');
+    assert.match(await sprint.locator('#feedback-area').innerText(), /Chưa đúng/,
+      'the graded answer was not lost while another screen was open');
     await sprint.locator('#next-card').click();
     assert.match(await sprint.locator('.page-header p').innerText(), /9 lượt còn lại/,
       'manual continue advances exactly one card');
     await sprint.locator('#exit-session').click();
     assert.equal(await sprint.locator('.flashcard').count(), 0, 'exiting the sprint leaves no active card');
 
+    // A skip rotates the queue, so the answer carried by the strip no longer
+    // describes the card that came before the visible one. Regression: the strip
+    // survived the rotation and labelled an unrelated word with an old verdict.
+    await sprint.evaluate(() => {
+      const now = Date.now();
+      const data = JSON.parse(document.getElementById('vocabulary-data').textContent).slice(0, 10);
+      const progress = {};
+      data.forEach((entry, index) => {
+        progress[entry.id] = {
+          id: entry.id, state: 'weak', correctCount: 0, wrongCount: 40 - index * 2, streak: 0,
+          lastReviewed: now - 86400000, nextReview: now - 3600000,
+          interval: 0, ease: 2.3, difficulty: 0.5
+        };
+      });
+      localStorage.clear();
+      localStorage.setItem('chuyen-anh.progress.v1', JSON.stringify(progress));
+      localStorage.setItem('chuyen-anh.prefs.v1', JSON.stringify({ sessionSize: 10, keyboardShortcuts: true, darkMode: false }));
+    });
+    await sprint.reload();
+    await sprint.locator('[data-session="sprint"]').waitFor();
+    await sprint.locator('[data-session="sprint"]').click();
+    await gradeCard(navPlan[0], true);
+    await sprint.locator('.handoff-strip').waitFor();
+    const carriedBeforeSkip = (await sprint.locator('.handoff-strip').innerText()).replace(/\s+/g, ' ').trim();
+    assert.match(carriedBeforeSkip, new RegExp(navPlan[0].word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')),
+      'the strip carries the word graded on the previous card');
+    const promptBeforeSkip = (await sprint.locator('.prompt').innerText()).trim();
+    await sprint.locator('#skip-card').click();
+    assert.equal(await sprint.locator('.handoff-strip').count(), 0,
+      'the carried answer is dropped when a skip breaks its adjacency');
+    const promptAfterSkip = (await sprint.locator('.prompt').innerText()).trim();
+    assert.notEqual(promptAfterSkip, promptBeforeSkip, 'skip moves the session to a different card');
+    assert.equal(await sprint.locator('#feedback-area .feedback').count(), 0,
+      'a skipped card shows no leftover feedback from the previous answer');
+    assert.match(await sprint.locator('.page-header p').innerText(), /9 lượt còn lại/,
+      'a skip rotates the queue without consuming a graded turn');
+    await sprint.locator('#exit-session').click();
+
     // The shipped build identifies itself.
     await sprint.locator('[data-view="settings"]').click();
-    assert.equal(await sprint.locator('#app-version').innerText(), 'v1.0.0-beta1');
+    assert.equal(await sprint.locator('#app-version').innerText(), 'v1.0.0-beta2');
     assert.deepEqual(sprintErrors, []);
 
     // Error -> intervening word -> typed corrective retrieval -> truthful summary.
@@ -938,7 +1006,7 @@ async function main() {
 
 
     assert.deepEqual(errors, []);
-    console.log(`PASS: Chromium ${browser.version()} — first-look introduction for new words, same-part-of-speech distractors, cloze options absent from the sentence, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, 320/375/768px responsive layout, reduced-motion setting, search state across a favorite toggle, session clearing on reset/import, the ID 448 historical label, named option groups, shortcuts limited to the visible card, failed writes reported truthfully, JSON backup round-trips that keep every retained session, blank spelling submissions ignored, single-graded self-assessment, skip locked after a reveal, and 'Học cấp tốc' processing all ten requested words with a truthful single correction, automatic advance only after correct answers, accurate first-pass statistics, persisted progress and cancelled auto-advance when leaving the card; no page errors.`);
+    console.log(`PASS: Chromium ${browser.version()} — first-look introduction for new words, same-part-of-speech distractors, cloze options absent from the sentence, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, 320/375/768px responsive layout, reduced-motion setting, search state across a favorite toggle, session clearing on reset/import, the ID 448 historical label, named option groups, shortcuts limited to the visible card, failed writes reported truthfully, JSON backup round-trips that keep every retained session, blank spelling submissions ignored, single-graded self-assessment, skip locked after a reveal, and 'Học cấp tốc' processing all ten requested words with a truthful single correction, automatic advance only after correct answers, accurate first-pass statistics, persisted progress, an immediate hand-off with the graded answer carried onto the next card, and a queue that never shifts while another screen is open; no page errors.`);
   } finally {
     if (browser) await browser.close();
     await new Promise(resolve => server.close(resolve));

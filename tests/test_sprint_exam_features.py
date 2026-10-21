@@ -21,8 +21,8 @@ class ShippedSprintContractTests(unittest.TestCase):
         self.assertIsNotNone(self.app)
         self.script = self.app.group(1)
 
-    def test_release_version_is_the_beta1_candidate(self):
-        self.assertIn("APP_VERSION = 'v1.0.0-beta1'", self.script)
+    def test_release_version_is_the_beta2_candidate(self):
+        self.assertIn("APP_VERSION = 'v1.0.0-beta2'", self.script)
         self.assertIn("EXAM_RESULT_SCHEMA_VERSION = '1.0.0'", self.script)
 
     def test_the_fixed_seven_word_sprint_cap_is_gone(self):
@@ -36,7 +36,14 @@ class ShippedSprintContractTests(unittest.TestCase):
     def test_the_sprint_uses_the_configured_session_size(self):
         self.assertIn("selectSprintSession(vocabulary, progress, { size: prefs.sessionSize })", self.script)
         self.assertIn("function sprintEligibleCount", self.script)
-        self.assertIn("SPRINT_AUTO_ADVANCE_MS", self.script)
+        # Throughput work must not reintroduce a fixed dwell timer; the hand-off is
+        # decided by one exported predicate and happens immediately.
+        self.assertNotIn("SPRINT_AUTO_ADVANCE_MS", self.script)
+        self.assertFalse(re.search(r"setTimeout\(\s*\(\)\s*=>\s*\{?\s*advanceCard", self.script),
+                         "advancing must not be scheduled on a timer")
+        self.assertIn("function shouldHandOffImmediately", self.script)
+        self.assertIn("shouldHandOffImmediately({ mode: sessionStats.mode, correct, practice: item.practice, revealed })",
+                      self.script)
 
     def test_sprint_is_not_exempt_from_corrective_practice(self):
         # Sprint once skipped the corrective retry while still telling the learner
