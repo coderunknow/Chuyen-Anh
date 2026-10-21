@@ -1,5 +1,34 @@
 # Changelog
 
+## v1.0.0-beta2 — 2026-10-21 (unreleased)
+
+### “Học cấp tốc” — hand-off without the fixed dwell
+
+- Removed the 1.6 s auto-advance timer. `SPRINT_AUTO_ADVANCE_MS`, the pending-timer variable, `scheduleAutoAdvance()`/`cancelAutoAdvance()`, their call sites and the “tự chuyển sau 1,6 giây” hint (plus its translation) are gone, not merely set to zero. A correct first-pass answer in sprint now advances within the same turn.
+- The graded answer is carried onto the next card instead of holding the old one still: a `.handoff-strip` live region (`role="status"`, `aria-live="polite"`) shows the word, its meaning and `Đã trả lời đúng` / `Chưa đúng`, and it also appears after the first-look introduction so that path keeps its answer too.
+- Nothing about the learning work was shortened: a wrong answer still never advances and keeps its full correction, the single practice retry still waits for acknowledgement, and first-pass accuracy, scheduling and mastery are computed as before. Self-assessment after a reveal does not hand off.
+- The rule is now a pure exported function, `shouldHandOffImmediately({ mode, correct, practice, revealed })`, and `lastAnswer` is cleared on every reset and before any detailed feedback panel so a strip cannot outlive its card. Skip ignores the second click of a double-click.
+
+### Measured against beta1 on identical work
+
+Each run grades ten words plus exactly one corrective retry, at three simulated learner speeds, median of three rounds; every run recorded `pageErrors: []`.
+
+| scenario | beta1 standard | beta1 sprint | beta2 standard | beta2 sprint |
+|---|---|---|---|---|
+| think 600 ms / reaction 450 ms | 13,794 ms | 23,929 ms | 13,864 ms | 9,521 ms |
+| think 1200 ms / reaction 450 ms | 21,678 ms | 31,856 ms | 21,661 ms | 17,387 ms |
+| think 600 ms / reaction 250 ms | 11,829 ms | 23,490 ms | 11,611 ms | 9,263 ms |
+
+Mean hand-off latency fell from 1,322–1,328 ms to 7–10 ms, so sprint is now faster than the standard flow in all three scenarios (−31.3 %, −19.7 %, −20.2 % total wall clock) instead of being the slowest option. These are synthetic-browser timings of a fixed workload, not learner outcomes; no retention equivalence is claimed.
+
+### Tests
+
+- `tests/static-app.test.js` (49 tests) replaces the timer-unit assertion with behavioural coverage of `shouldHandOffImmediately` across every non-sprint mode, wrong answers, practice retries and revealed answers, and asserts that no dwell timer remains; the version pin is beta2.
+- `tests/test_sprint_exam_features.py` pins beta2, asserts the retired constant is absent and that no `setTimeout(… advanceCard` survives, and checks the new call site.
+- `tests/browser-learning.cjs` drives the real sprint in Chromium: the hand-off happens in under 800 ms, the strip carries the graded word and meaning with its live-region roles, a wrong answer shows no strip, and the queue/navigation state machine still behaves across a trip to another screen.
+- New optional `tests/speed-benchmark.cjs` runs the same fixed workload against two builds (`APP`, `FLOW`, `THINK_MS`, `REACTION_MS`, `ROUNDS`) and never clicks on the hand-off path, so a dwell cannot be hidden by a fast synthetic learner.
+
+
 ## v1.0.0-beta1 — 2026-10-20 (release candidate; not published by this change)
 
 ### “Học cấp tốc” — semantics corrected

@@ -70,7 +70,7 @@ const {
   examResultFilename,
   selectSprintSession,
   sprintEligibleCount,
-  SPRINT_AUTO_ADVANCE_MS,
+  shouldHandOffImmediately,
   APP_VERSION,
   DEFAULT_PREFS,
   loadExamHistory,
@@ -1085,7 +1085,7 @@ test('exported exam results report exactly what the learner did and what could b
   const result = buildExamResultJson(session, record, { now: 6000 });
   assert.equal(result.app, 'Chuyên Anh');
   assert.equal(result.version, APP_VERSION, 'the result carries the application version');
-  assert.equal(result.version, 'v1.0.0-beta1');
+  assert.equal(result.version, 'v1.0.0-beta2');
   assert.equal(result.schemaVersion, '1.0.0');
   assert.deepEqual(result.summary, {
     total: 3, answered: 2, unanswered: 1,
@@ -1108,10 +1108,31 @@ test('exported exam results report exactly what the learner did and what could b
   assert.equal(/[^a-z0-9.-]/.test(unicodeName), false, 'no separator, accent or space can reach the filename');
 });
 
-test('the sprint pace constant is a bounded delay, not a lesson size', () => {
-  assert.equal(Number.isFinite(SPRINT_AUTO_ADVANCE_MS), true);
-  assert.equal(SPRINT_AUTO_ADVANCE_MS >= 800 && SPRINT_AUTO_ADVANCE_MS <= 5000, true,
-    'auto-advance leaves time to read the feedback');
+test('a sprint hand-off happens only after a correct first-pass answer', () => {
+  // The hand-off replaces a fixed 1.6 s dwell timer. It must stay narrow: the
+  // learner is never carried past a mistake, a corrective retry or a
+  // self-assessment, and no other flow gains the behaviour.
+  assert.equal(shouldHandOffImmediately({ mode: 'sprint', correct: true, practice: false }), true);
+  assert.equal(shouldHandOffImmediately({ mode: 'sprint', correct: true, practice: true }), false,
+    'a corrective retry keeps its own feedback on screen');
+  assert.equal(shouldHandOffImmediately({ mode: 'sprint', correct: false, practice: false }), false,
+    'a wrong answer must never advance itself');
+  assert.equal(shouldHandOffImmediately({ mode: 'sprint', correct: true, practice: false, revealed: true }), false,
+    'a self-assessed turn keeps its panel');
+  for (const mode of ['mixed', 'due', 'weak', 'new', 'favorites', 'random', undefined, null]) {
+    assert.equal(shouldHandOffImmediately({ mode, correct: true, practice: false }), false,
+      `only the sprint hands off immediately, not ${mode}`);
+  }
+  assert.equal(shouldHandOffImmediately({}), false, 'an empty call decides nothing');
+  assert.equal(shouldHandOffImmediately(), false);
+});
+
+test('the retired dwell timer is gone rather than re-tuned', async () => {
+  const app = await readFile(new URL('../index.html', import.meta.url), 'utf8');
+  assert.equal(app.includes('SPRINT_AUTO_ADVANCE_MS'), false, 'no fixed dwell constant may return');
+  assert.equal(/setTimeout\(\s*\(\)\s*=>\s*\{?\s*advanceCard/.test(app), false,
+    'the card change must not be scheduled on a timer');
+  assert.equal(app.includes('handoff-strip'), true, 'the answer is carried onto the next card');
 });
 
 test('the sprint and session headers translate without leaking Vietnamese fragments', () => {
@@ -1122,8 +1143,6 @@ test('the sprint and session headers translate without leaking Vietnamese fragme
   assert.equal(translateUiText('Học cấp tốc · 10 từ / phiên', 'en'), 'Study sprint · 10 words / session');
   assert.equal(translateUiText('913 từ đủ điều kiện · xếp 10 · 10 đến hạn · 2 từ yếu', 'en'),
     '913 eligible words · 10 queued · 10 due · 2 weak');
-  assert.match(translateUiText('Chế độ cấp tốc: tự chuyển sau 1,6 giây (nhấn Enter để tiếp ngay).', 'en'),
-    /advances automatically/);
   assert.equal(translateUiText('Phiên nhanh · 1 từ đã xếp · 1 lượt còn lại', 'en'),
     'Quick session · 1 word queued · 1 turn left', 'counts agree in the singular');
   assert.equal(translateUiText('Học cấp tốc · 10 từ / phiên', 'vi'), 'Học cấp tốc · 10 từ / phiên');

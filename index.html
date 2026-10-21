@@ -393,6 +393,9 @@ kbd, .kbd { min-width: 24px; padding: 2px 6px; border: 1px solid var(--border-st
   .support-sidebar { grid-template-columns: minmax(0, 1fr); }
   .session-grid--focus, .session-grid--quick { grid-template-columns: 1fr; }
 }
+.handoff-strip { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin: 0 0 12px; padding: 8px 12px; border: 1px solid color-mix(in srgb, var(--success) 34%, var(--border)); border-radius: 12px; background: color-mix(in srgb, var(--success) 10%, transparent); font-size: .85rem; }
+.handoff-mark { font-weight: 700; color: var(--success); }
+.handoff-note { margin-left: auto; color: var(--muted); font-size: .75rem; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0s !important; animation-duration: 0s !important; }
 }
@@ -15786,13 +15789,20 @@ export const MODES = Object.freeze({
   CLOZE: 'cloze'
 });
 
-export const APP_VERSION = 'v1.0.0-beta1';
+export const APP_VERSION = 'v1.0.0-beta2';
 export const EXAM_RESULT_SCHEMA_VERSION = '1.0.0';
-// Sprint pacing: after a correct first-pass answer the next card replaces the
-// feedback automatically, so a fast learner does not pay an extra click per
-// word. A wrong answer never auto-advances: the correction stays on screen until
-// the learner dismisses it.
-export const SPRINT_AUTO_ADVANCE_MS = 1600;
+// Sprint hand-off: a correct first-pass answer moves straight to the next card
+// with no dwell timer, and the answer just graded stays on screen as a compact
+// strip on that next card. The 1.6 s wait this replaces was pure dead time: it
+// made "Học cấp tốc" slower than the ordinary flow for an engaged learner while
+// keeping the information on screen no longer than a fixed delay. A wrong answer
+// still never advances itself, and practice turns still wait for the learner.
+// Single decision point for the hand-off, exported so it can be tested without a
+// browser. It intentionally covers the narrow case that is safe to skip a click
+// on: a sprint turn that was answered correctly on the first pass.
+export function shouldHandOffImmediately({ mode, correct, practice, revealed = false } = {}) {
+  return mode === 'sprint' && correct === true && practice !== true && revealed !== true;
+}
 export const SPRINT_LABEL = 'Học cấp tốc';
 
 export const STATE_LABELS = Object.freeze({
@@ -16308,7 +16318,6 @@ const EN_UI_SPRINT_PATTERNS = [
   [/^Xếp (\d+) từ ưu tiên: đến hạn, từ yếu, rồi từ mới — không bỏ qua gợi nhớ chủ động\.$/, (_m, queued) => `Queues ${queued} prioritised words: due, then weak, then new — active recall is never skipped.`],
   [/^Cấp tốc giữ nguyên khối lượng từ bạn đã chọn trong Cài đặt \((\d+) từ\/phiên\) và không cắt bớt kho từ\. Tốc độ đến từ nhịp thao tác: mỗi từ một lượt trả lời, tự chuyển sau câu đúng, mỗi từ sai được luyện lại đúng một lượt \(không tính vào độ chính xác lần đầu\)\. Thoát giữa chừng vẫn giữ tiến độ đã lưu\.$/, (_m, target) => `The sprint keeps the session size you chose in Settings (${target} words per session) and never shrinks the word pool. Speed comes from the interaction flow: one graded retrieval per word, automatic advance after a correct answer, and exactly one corrective retry per missed word (never counted as first-pass accuracy). Leaving mid-session keeps the progress already saved.`],
   [/^(\d+) từ đủ điều kiện · xếp (\d+) · (\d+) đến hạn · (\d+) từ yếu$/, (_m, pool, queued, due, weak) => `${pool} eligible words · ${queued} queued · ${due} due · ${weak} weak`],
-  [/^Chế độ cấp tốc: tự chuyển sau ([\d,]+) giây \(nhấn Enter để tiếp ngay\)\.$/, (_m, seconds) => `Study sprint: advances automatically after ${seconds} seconds (press Enter to continue now).`]
 ];
 
 const EN_UI_DYNAMIC_FRAGMENTS = [
@@ -17612,7 +17621,8 @@ export async function createApp(root) {
   let sessionStats = null;
   let sessionSummary = null;
   let firstLook = false;
-  let autoAdvanceTimer = null;
+  // The answer shown as a strip on the card that replaced it (sprint hand-off).
+  let lastAnswer = null;
   let examRecords = null;
   let examArchivePromise = null;
   let examAttempts = loadExamHistory(storage);
@@ -17662,7 +17672,7 @@ export async function createApp(root) {
   // the first-look state, the answer/reveal state and the session statistics.
   // `session` owns the practice queue and each card's `practice`/`taught` marks.
   function clearActiveSession() {
-    cancelAutoAdvance();
+    lastAnswer = null;
     session = null;
     question = null;
     questionStarted = 0;
@@ -17672,25 +17682,6 @@ export async function createApp(root) {
     firstLook = false;
     sessionStats = null;
     sessionSummary = null;
-  }
-
-  // One pending auto-advance at a time. Every transition cancels it first so a
-  // stale timer can never skip the feedback of the card that replaced it.
-  function cancelAutoAdvance() {
-    if (autoAdvanceTimer !== null) {
-      clearTimeout(autoAdvanceTimer);
-      autoAdvanceTimer = null;
-    }
-  }
-
-  function scheduleAutoAdvance() {
-    cancelAutoAdvance();
-    autoAdvanceTimer = setTimeout(() => {
-      autoAdvanceTimer = null;
-      // The learner may have navigated away from the card while the timer ran.
-      if (view !== 'learn' || !session?.length) return;
-      advanceCard();
-    }, SPRINT_AUTO_ADVANCE_MS);
   }
 
   // Returns whether every store was written; callers that report success must
@@ -17795,8 +17786,8 @@ export async function createApp(root) {
       </div>
       <footer class="footer">Ứng dụng chạy từ một tệp HTML độc lập · tiến độ flashcard được lưu riêng trên thiết bị này.</footer>
     `;
-    root.querySelectorAll('[data-view]').forEach(button => button.addEventListener('click', () => { cancelAutoAdvance(); view = button.dataset.view; sessionSummary = null; renderShell(); }));
-    root.querySelector('#brand-link').addEventListener('click', event => { event.preventDefault(); cancelAutoAdvance(); view = 'learn'; sessionSummary = null; renderShell(); });
+    root.querySelectorAll('[data-view]').forEach(button => button.addEventListener('click', () => { view = button.dataset.view; sessionSummary = null; renderShell(); }));
+    root.querySelector('#brand-link').addEventListener('click', event => { event.preventDefault(); view = 'learn'; sessionSummary = null; renderShell(); });
     root.querySelector('#theme-button').addEventListener('click', () => {
       prefs.darkMode = !prefs.darkMode;
       if (!savePrefs(prefs, storage)) toast('Không thể lưu giao diện trên thiết bị này.', 'error');
@@ -17906,7 +17897,7 @@ export async function createApp(root) {
   }
 
   function startSession(type) {
-    cancelAutoAdvance();
+    lastAnswer = null;
     if (type === 'sprint') {
       // The sprint honours the configured session-size target and the whole pool;
       // it never falls back to a fixed, smaller lesson.
@@ -17936,7 +17927,6 @@ export async function createApp(root) {
   }
 
   function nextQuestion() {
-    cancelAutoAdvance();
     if (!session?.length) return finishSession();
     const item = session[0];
     item.progress = progress[item.vocab.id];
@@ -17985,6 +17975,7 @@ export async function createApp(root) {
         <article class="flashcard">
           <div class="flashcard-head"><span><b>${done + 1}</b> / ${totalAttempts} lượt · ${session.length} còn lại</span><div class="flashcard-head-actions"><span class="state-pill state-${escapeHtml(item.progress.state)}">${escapeHtml(stateLabel(item.progress.state))}</span><button class="fav ${favorites.has(item.vocab.id) ? 'active' : ''}" id="favorite-card" aria-label="${favorites.has(item.vocab.id) ? 'Bỏ yêu thích' : 'Thêm yêu thích'}">${favorites.has(item.vocab.id) ? '★' : '☆'}</button><button class="btn small" id="skip-card" ${locked ? 'disabled' : ''}>Bỏ qua</button></div></div>
           <div class="flashcard-body">
+            ${lastAnswer ? `<div class="handoff-strip" role="status" aria-live="polite"><span class="handoff-mark" aria-hidden="true">${lastAnswer.correct ? '✓' : '✕'}</span><span><strong>${escapeHtml(lastAnswer.word)}</strong> · ${escapeHtml(lastAnswer.meaning)}</span><span class="handoff-note">${lastAnswer.correct ? 'Đã trả lời đúng' : 'Chưa đúng'}</span></div>` : ''}
             ${firstLook ? firstLookBody(item) : `
             <div class="mode-label">${item.practice ? 'Luyện lại · ' : ''}${modeLabel(question.mode)} · ${escapeHtml(item.vocab.pos)}</div>
             <div class="prompt">${escapeHtml(question.prompt)}</div><div class="sub-prompt">${escapeHtml(question.subPrompt || '')}</div>
@@ -18017,7 +18008,12 @@ export async function createApp(root) {
         // group is labelled for what it actually contains.
         const optionsLabel = question.mode === MODES.RECOGNITION ? 'Chọn nghĩa tiếng Việt' : 'Chọn từ tiếng Anh';
         questionArea.innerHTML = `<div class="options" role="group" aria-label="${optionsLabel}">${options.map((option, index) => `<button class="option ${answerResult && option.correct ? 'correct' : ''} ${answerResult && answerResult.selected === option.id && !answerResult.correct ? 'wrong' : ''} ${revealed && !answered ? 'locked' : ''}" data-option="${escapeHtml(option.id)}" ${locked ? 'disabled' : ''}><span class="option-index">${index + 1}</span><span>${escapeHtml(option.text)}</span></button>`).join('')}</div>`;
-        questionArea.querySelectorAll('[data-option]').forEach(button => button.addEventListener('click', () => handleAnswer(button.dataset.option)));
+        questionArea.querySelectorAll('[data-option]').forEach(button => button.addEventListener('click', event => {
+          // The second click of a double-click must not grade the card that the
+          // first click just replaced.
+          if (event.detail > 1) return;
+          handleAnswer(button.dataset.option);
+        }));
       }
       if (revealed && !answered) container.querySelector('#reveal-correct')?.focus({ preventScroll: true });
     }
@@ -18066,17 +18062,28 @@ export async function createApp(root) {
       if (correct) sessionStats.correct += 1; else sessionStats.wrong += 1;
     }
     persist();
+    if (shouldHandOffImmediately({ mode: sessionStats.mode, correct, practice: item.practice, revealed })) {
+      // Carry the graded answer onto the next card instead of spending a fixed
+      // delay on a panel the learner has already read. Nothing is discarded: the
+      // word, its meaning and the verdict stay visible in the strip, and the
+      // detailed panel is still used for wrong, practice and self-assessed turns.
+      lastAnswer = { correct, word: item.vocab.word, meaning: item.vocab.meaning };
+      // Nothing is pending afterwards: the exchange ends here, so no timer can
+      // fire against a card the learner has already left.
+      advanceCard();
+      return;
+    }
+    // This turn keeps its own detailed panel, so a strip from an earlier card
+    // would describe the wrong exchange and is cleared first.
+    lastAnswer = null;
     renderFlashcard(root.querySelector('#content'));
-    // Sprint throughput: a correct first-pass answer advances itself. A wrong
-    // answer keeps its feedback and correction on screen until acknowledged.
-    if (sessionStats.mode === 'sprint' && correct && !item.practice) scheduleAutoAdvance();
   }
 
   function renderFeedback(container) {
     const item = session[0];
     const correct = answerResult.correct;
     const answerText = question.answer;
-    container.querySelector('#feedback-area').innerHTML = `<div class="feedback ${correct ? 'correct' : 'wrong'}" role="alert"><div class="feedback-title">${correct ? '✓ Chính xác!' : `✕ Chưa đúng · Đáp án: ${escapeHtml(answerText)}`}</div><p><strong>${escapeHtml(item.vocab.word)}</strong> · ${escapeHtml(item.vocab.meaning)}</p>${vocabularyMetadataHtml(item.vocab)}${!correct && !item.practice && item.practiceQueued ? `<p>Bạn sai từ này ${item.progress.wrongCount} lần. Đã xếp một lượt gõ lại sau các thẻ còn lại; từ vẫn đến hạn ôn.</p>` : ''}${item.practice ? '<p>Lượt luyện đã hoàn tất. Lịch ôn và kết quả lần đầu được giữ nguyên; hãy ôn lại khi đến hạn.</p>' : ''}${answerResult.revealed ? '<p>Lượt này được chấm theo tự đánh giá vì bạn đã xem đáp án trước đó.</p>' : ''}${exampleHtml(item.vocab)}<p style="color:var(--muted);font-size:.75rem">Lần ôn tiếp theo: ${formatNextReview(item.progress.nextReview, language)} · trạng thái: ${stateLabel(item.progress.state)}</p>${sessionStats.mode === 'sprint' && correct && !item.practice ? `<p class="sprint-auto-hint" style="color:var(--muted);font-size:.75rem">Chế độ cấp tốc: tự chuyển sau ${(SPRINT_AUTO_ADVANCE_MS / 1000).toFixed(1).replace('.', ',')} giây (nhấn Enter để tiếp ngay).</p>` : ''}<div class="actions" style="margin-top:12px"><button class="btn primary full" id="next-card">Tiếp tục <kbd>Enter</kbd></button></div></div>`;
+    container.querySelector('#feedback-area').innerHTML = `<div class="feedback ${correct ? 'correct' : 'wrong'}" role="alert"><div class="feedback-title">${correct ? '✓ Chính xác!' : `✕ Chưa đúng · Đáp án: ${escapeHtml(answerText)}`}</div><p><strong>${escapeHtml(item.vocab.word)}</strong> · ${escapeHtml(item.vocab.meaning)}</p>${vocabularyMetadataHtml(item.vocab)}${!correct && !item.practice && item.practiceQueued ? `<p>Bạn sai từ này ${item.progress.wrongCount} lần. Đã xếp một lượt gõ lại sau các thẻ còn lại; từ vẫn đến hạn ôn.</p>` : ''}${item.practice ? '<p>Lượt luyện đã hoàn tất. Lịch ôn và kết quả lần đầu được giữ nguyên; hãy ôn lại khi đến hạn.</p>' : ''}${answerResult.revealed ? '<p>Lượt này được chấm theo tự đánh giá vì bạn đã xem đáp án trước đó.</p>' : ''}${exampleHtml(item.vocab)}<p style="color:var(--muted);font-size:.75rem">Lần ôn tiếp theo: ${formatNextReview(item.progress.nextReview, language)} · trạng thái: ${stateLabel(item.progress.state)}</p><div class="actions" style="margin-top:12px"><button class="btn primary full" id="next-card">Tiếp tục <kbd>Enter</kbd></button></div></div>`;
     const nextButton = container.querySelector('#next-card');
     nextButton.addEventListener('click', advanceCard);
     nextButton.focus({ preventScroll: true });
@@ -18084,7 +18091,6 @@ export async function createApp(root) {
 
   function advanceCard() {
     if (!answered || !session?.length) return;
-    cancelAutoAdvance();
     session.shift();
     if (!session.length) return finishSession();
     nextQuestion();
@@ -18132,6 +18138,7 @@ export async function createApp(root) {
     history = history.slice(-HISTORY_LIMIT);
     saveHistory(history, storage);
     session = null; question = null; answered = false; firstLook = false;
+    lastAnswer = null;
     renderShell();
   }
 
