@@ -10,6 +10,7 @@
 - [Độ phủ tỉnh/thành × năm thi, bao gồm những ô còn thiếu](DO-PHU.md)
 - [Nguồn chờ bổ sung và các trường hợp không nhập](NGUON-CHO-XU-LY.md)
 - [Quy trình, kiểm tra và giới hạn](QUY-TRINH.md)
+- [Sổ kiểm toán chi tiết toàn bộ 106 bản chép & phân tầng bằng chứng](../docs/EXAM_AUDIT_LEDGER.md)
 
 ## Phạm vi
 

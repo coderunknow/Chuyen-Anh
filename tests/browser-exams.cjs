@@ -277,6 +277,11 @@ async function main() {
     await page.locator('#exam-submit').click();
     await page.locator('#exam-submission-summary').waitFor();
     assert.equal(await page.locator('#exam-practice-answered-count').innerText(), '1');
+    // Scope A + F check on Exam Archive & Detail in English UI: aria-labels are localized and 1280px fits cleanly
+    assert.equal(await page.locator('.exam-document').getAttribute('aria-label'), 'Exam transcription');
+    assert.equal(await page.locator('.exam-paper-nav').getAttribute('aria-label'), 'Navigate between papers');
+    await page.setViewportSize({ width: 1280, height: 900 });
+    assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, '1280px fits without horizontal overflow');
     assert.match(await page.locator('#exam-submission-summary').innerText(), /does not check correctness or produce a score/i);
     for (const viewport of [
       { width: 320, height: 720 },

@@ -126,6 +126,45 @@ function validateResult(result, options = {}) {
     if (value !== null && (!isFiniteNumber(value) || value < 0)) fail(`${label}: ${key} is invalid (${value})`);
   }
 
+  if (result.turnTimingsByClass !== undefined) {
+    if (!result.turnTimingsByClass || typeof result.turnTimingsByClass !== 'object' || Array.isArray(result.turnTimingsByClass)) {
+      fail(`${label}: turnTimingsByClass must be an object`);
+    }
+    for (const bucketName of ['firstPass', 'handOff', 'consolidation', 'retry']) {
+      const bucket = result.turnTimingsByClass[bucketName];
+      if (!bucket || typeof bucket !== 'object') {
+        fail(`${label}: turnTimingsByClass.${bucketName} is missing`);
+      }
+      if (!Number.isInteger(bucket.samples) || bucket.samples < 0) {
+        fail(`${label}: turnTimingsByClass.${bucketName}.samples is invalid (${bucket.samples})`);
+      }
+      for (const metric of ['medianMs', 'meanMs']) {
+        if (bucket.samples === 0) {
+          if (bucket[metric] !== null) fail(`${label}: turnTimingsByClass.${bucketName}.${metric} must be null when 0 samples exist`);
+        } else if (!isFiniteNumber(bucket[metric]) || bucket[metric] < 0) {
+          fail(`${label}: turnTimingsByClass.${bucketName}.${metric} is invalid (${bucket[metric]})`);
+        }
+      }
+    }
+  }
+
+  if (result.consolidationGaps !== undefined) {
+    if (!Array.isArray(result.consolidationGaps) || result.consolidationGaps.length !== workload.consolidationTurns) {
+      fail(`${label}: consolidationGaps length must match expected consolidationTurns (${workload.consolidationTurns})`);
+    }
+    if (workload.consolidationTurns > 0) {
+      const minExpectedGap = Math.min(3, workload.wordsCompleted - 1);
+      const minObservedGap = Math.min(...result.consolidationGaps);
+      if (minObservedGap < minExpectedGap) {
+        fail(`${label}: minConsolidationGap was ${minObservedGap}, expected at least ${minExpectedGap}`);
+      }
+    }
+  }
+
+  if (result.outliersDropped !== undefined && result.outliersDropped !== 0) {
+    fail(`${label}: outliersDropped was ${result.outliersDropped}; benchmark rounds must not be silently discarded`);
+  }
+
   if (flow !== undefined && result.flow !== flow) fail(`${label}: flow was ${result.flow}, expected ${flow}`);
   for (const [key, expected] of [['thinkMs', thinkMs], ['reactionMs', reactionMs]]) {
     if (expected !== undefined && result[key] !== expected) {

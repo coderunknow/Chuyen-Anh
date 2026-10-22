@@ -431,7 +431,7 @@ async function main() {
 
     // The shipped build identifies itself.
     await sprint.locator('[data-view="settings"]').click();
-    assert.equal(await sprint.locator('#app-version').innerText(), 'v1.0.0-beta3');
+    assert.equal(await sprint.locator('#app-version').innerText(), 'v1.0.0-beta4');
     assert.deepEqual(sprintErrors, []);
 
     // Error -> intervening word -> typed corrective retrieval -> truthful summary.
@@ -1081,6 +1081,113 @@ async function main() {
     assert.deepEqual((await read('progress'))['1'],
       { id: '1', state: 'learning', correctCount: 2, wrongCount: 0, streak: 2, lastReviewed: 0, nextReview: 0, interval: 1, ease: 2.5, difficulty: 0 },
       'revealing and locking writes nothing to progress');
+
+    // ---- beta4 regressions (Scopes A, B, E, F) on live Chromium page before quota-failure scenario
+    {
+      const netRequests = [];
+      const onNetReq = req => {
+        if (!req.url().startsWith(`http://127.0.0.1:${server.address().port}`) && !req.url().startsWith('blob:') && !req.url().startsWith('data:')) {
+          netRequests.push(req.url());
+        }
+      };
+      page.on('request', onNetReq);
+      await page.setViewportSize({ width: 1280, height: 900 });
+      await page.clock.setFixedTime(new Date('2026-10-20T12:00:00Z'));
+      await page.evaluate(() => {
+        localStorage.clear();
+        localStorage.setItem('chuyen-anh.language.v1', 'en');
+        localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['1', '2']));
+      });
+      await page.reload();
+      await page.locator('[data-session="favorites"]').waitFor();
+
+      // Scope E: unstudied favorite in English mode opens on First-Look with zero progress/streak storage writes
+      await page.locator('[data-session="favorites"]').click();
+      await page.locator('#start-quiz').waitFor();
+      assert.equal(await page.evaluate(() => localStorage.getItem('chuyen-anh.progress.v1')), null,
+        'opening first-look in favorites mode writes zero progress to localStorage');
+      assert.equal(await page.evaluate(() => localStorage.getItem('chuyen-anh.streak.v1')), null,
+        'opening first-look writes zero streak to localStorage');
+
+      // Scope A: Search view in English mode never corrupts real Vietnamese meanings containing UI tokens (Assimilate = "tiếp thu, đồng hóa")
+      await page.locator('#exit-session').click();
+      await page.locator('[data-view="search"]').click();
+      await page.locator('#search-field').fill('Assimilate');
+      await page.locator('#results .vocab-row').first().waitFor();
+      assert.match(await page.locator('#results .vocab-row .vocab-meaning').first().innerText(), /tiếp thu, đồng hóa/,
+        'English UI never corrupts Vietnamese vocabulary meanings containing "tiếp"');
+
+      // Scope B.1 + B.2 + Scope A shortcut check in a real 5-word English Sprint session
+      await page.evaluate(() => {
+        const vocabData = JSON.parse(document.getElementById('vocabulary-data').textContent);
+        const keep = vocabData.slice(0, 5);
+        const assim = vocabData.find(v => v.word === 'Assimilate');
+        if (assim && !keep.some(v => v.id === assim.id)) keep[0] = assim;
+        localStorage.clear();
+        localStorage.setItem('chuyen-anh.language.v1', 'en');
+        localStorage.setItem('chuyen-anh.prefs.v1', JSON.stringify({ sessionSize: 10, darkMode: false, keyboardShortcuts: true }));
+        document.getElementById('vocabulary-data').textContent = JSON.stringify(keep);
+      });
+      await page.evaluate(async () => {
+        const mod = await import(URL.createObjectURL(new Blob([document.getElementById('app-script').textContent], { type: 'text/javascript' })));
+        document.getElementById('app').innerHTML = '';
+        await mod.createApp(document.getElementById('app'));
+      });
+      await page.locator('[data-session="sprint"]').click();
+      const sprintTurnSeq = [];
+      for (let guard = 0; guard < 25; guard += 1) {
+        if (await page.locator('.summary').count()) break;
+        if (await page.locator('#start-quiz').count()) {
+          const flText = await page.locator('.first-look').innerText();
+          assert.doesNotMatch(flText, /\bnext thu\b/i, 'First-look never mangles "tiếp thu" into "next thu"');
+          await page.locator('#start-quiz').click();
+        }
+        const modeTxt = await page.locator('.mode-label').innerText();
+        const promptTxt = (await page.locator('.prompt').innerText()).trim();
+        const isConsol = /Consolidation/i.test(modeTxt);
+        const footerTxt = await page.locator('.card-footer').innerText();
+        assert.doesNotMatch(footerTxt, /\blật\b|\btiếp\b|\bLượt củng cố\b/i,
+          `English card footer leaked Vietnamese UI text: ${footerTxt}`);
+        sprintTurnSeq.push({ promptTxt, isConsol });
+        if (isConsol) {
+          const progBefore = await page.evaluate(() => localStorage.getItem('chuyen-anh.progress.v1'));
+          await page.evaluate(() => localStorage.setItem('chuyen-anh.streak.v1', JSON.stringify({ current: 4, longest: 4, lastDate: '2026-10-19' })));
+          if (await page.locator('#spelling-input').count()) {
+            await page.locator('#spelling-input').fill('wrong_answer');
+            await page.locator('#submit-answer').click();
+          } else {
+            await page.locator('[data-option]').first().click();
+          }
+          await page.locator('#next-card').waitFor();
+          const streakAfterConsol = await page.evaluate(() => JSON.parse(localStorage.getItem('chuyen-anh.streak.v1')));
+          const progAfter = await page.evaluate(() => localStorage.getItem('chuyen-anh.progress.v1'));
+          assert.deepEqual(streakAfterConsol, { current: 4, longest: 4, lastDate: '2026-10-19' },
+            'Answering a consolidation turn must never update streak');
+          assert.equal(progAfter, progBefore, 'Answering a consolidation turn must never mutate stored progress');
+          await page.locator('#next-card').click();
+        } else {
+          const rightId = await page.evaluate(() => {
+            const p = document.querySelector('.prompt').innerText.trim();
+            const vocabData = JSON.parse(document.getElementById('vocabulary-data').textContent);
+            const match = vocabData.find(v => v.word === p || v.meaning === p);
+            return match?.id;
+          });
+          await page.locator(`[data-option="${rightId}"]`).click();
+        }
+      }
+      assert.equal(sprintTurnSeq.length, 10, '5-word consolidated sprint executes all 10 turns');
+      const turnWords = await page.evaluate((seq) => {
+        const vocabData = JSON.parse(document.getElementById('vocabulary-data').textContent);
+        return seq.map(item => vocabData.find(v => v.word === item.promptTxt || v.meaning === item.promptTxt)?.id);
+      }, sprintTurnSeq);
+      for (const id of new Set(turnWords)) {
+        const firstIdx = turnWords.indexOf(id);
+        const consolIdx = turnWords.lastIndexOf(id);
+        assert.ok(consolIdx - firstIdx - 1 >= 3, `5-word browser sprint achieved gap ${consolIdx - firstIdx - 1} (< 3) for word ${id}`);
+      }
+      assert.deepEqual(netRequests, [], 'Standalone app made zero external network requests');
+      page.off('request', onNetReq);
+    }
 
     // ---- A failed device write is reported, never replaced by a success message.
     const failing = await browser.newPage({ viewport: { width: 1280, height: 900 }, reducedMotion: 'reduce' });

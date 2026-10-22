@@ -106,7 +106,7 @@ class HoldMarkerLifecycleTests(unittest.TestCase):
         text = path.read_text(encoding='utf-8')
         tags = [line.strip() for line in text.splitlines()
                 if line.strip() and not line.strip().startswith('#')]
-        self.assertEqual(tags, ['v1.0.0-beta3'])
+        self.assertEqual(tags, ['v1.0.0-beta4'])
         self.assertRegex(tags[0], r'^v\d+\.\d+\.\d+-(?:dev|beta|rc)\d+$')
 
 

@@ -1092,7 +1092,7 @@ test('exported exam results report exactly what the learner did and what could b
   const result = buildExamResultJson(session, record, { now: 6000 });
   assert.equal(result.app, 'Chuyên Anh');
   assert.equal(result.version, APP_VERSION, 'the result carries the application version');
-  assert.equal(result.version, 'v1.0.0-beta3');
+  assert.equal(result.version, 'v1.0.0-beta4');
   assert.equal(result.schemaVersion, '1.0.0');
   assert.deepEqual(result.summary, {
     total: 3, answered: 2, unanswered: 1,
@@ -1423,4 +1423,239 @@ test('the benchmark rejects a scenario whose recorded settings do not match the 
   rejectsBenchmark(benchmarkResult({ flow: 'turbo' }), { rounds: 3 },
     /unknown flow "turbo"; expected one of standard, sprint/);
   rejectsBenchmark(null, { rounds: 3 }, /no result object was produced/);
+});
+
+// ============================================================================
+// beta4 fail-first regression tests (Scopes A, B, C, E, F)
+// ============================================================================
+
+test('Scope A: English UI localization translates all shortcut hints and UI chrome without corrupting any vocabulary or exam text', async () => {
+  // 1. Shortcut & card-footer UI strings (including consolidation Space flip hint) translate cleanly
+  assert.equal(translateUiText('Lượt củng cố · Space lật', 'en'), 'Consolidation turn · Space reveal');
+  assert.equal(translateUiText('lật', 'en'), 'reveal');
+  assert.equal(translateUiText('Tiến độ phiên', 'en'), 'Session progress');
+  assert.equal(translateUiText('Đã trả lời đúng', 'en'), 'Answered correctly');
+  assert.equal(translateUiText('Chưa đúng', 'en'), 'Incorrect');
+  assert.equal(translateUiText('Gõ từ tiếng Anh…', 'en'), 'Type the English word…');
+  assert.equal(translateUiText('Việt → Anh', 'en'), 'Vietnamese → English');
+  assert.equal(translateUiText('n · chọn nghĩa đúng', 'en'), 'n · choose the correct meaning');
+  assert.equal(translateUiText('v · gõ từ tiếng Anh', 'en'), 'v · type the English word');
+  assert.equal(translateUiText('adj · chọn từ phù hợp', 'en'), 'adj · choose the fitting word');
+  assert.equal(translateUiText('3 lần sai', 'en'), 'Missed 3 times');
+  assert.equal(translateUiText('Ôn từ yếu', 'en'), 'Review weak words');
+  assert.equal(translateUiText('TỪ ĐẾN HẠN', 'en'), 'WORDS DUE');
+  assert.equal(translateUiText('Lọc kho đề', 'en'), 'Filter exam archive');
+  assert.equal(translateUiText('Trang kho đề', 'en'), 'Archive pagination');
+  assert.equal(translateUiText('/ 10 lượt · 10 còn lại', 'en'), '/ 10 turns · 10 left');
+  // Preserve Vietnamese untouched in default 'vi' mode
+  assert.equal(translateUiText('Lượt củng cố · Space lật', 'vi'), 'Lượt củng cố · Space lật');
+
+  // Verify localizeSubtree translates accessible attributes on protected containers before stopping recursion
+  const localizeBlock = html.slice(
+    html.indexOf('function localizeSubtree('),
+    html.indexOf('function renderShell(')
+  );
+  const attrLoopIdx = localizeBlock.indexOf("for (const name of ['aria-label', 'placeholder', 'title', 'alt'])");
+  const stopMatchIdx = localizeBlock.indexOf('if (current.matches(protectedSelectors)) return;');
+  assert.ok(attrLoopIdx > -1 && stopMatchIdx > attrLoopIdx, 'localizeSubtree must translate ARIA attributes before returning on protected elements');
+
+  // 2. Zero corruption of any of the 913 vocabulary headwords, meanings, examples, or notes
+  for (const entry of embeddedVocabulary) {
+    assert.equal(
+      translateUiText(entry.meaning, 'en'),
+      entry.meaning,
+      `Vocabulary ID ${entry.id} (${entry.word}) meaning was corrupted by translateUiText`
+    );
+    assert.equal(
+      translateUiText(entry.word, 'en'),
+      entry.word,
+      `Vocabulary ID ${entry.id} headword was corrupted by translateUiText`
+    );
+  }
+
+  // 3. Zero corruption across multi-word lines of all 106 embedded exam transcriptions
+  const uiExactKeys = new Set(['Đúng', 'Sai', 'Nghĩa', 'Ví dụ', 'Củng cố', 'Tiếp tục', 'Xóa']);
+  for (const paper of embeddedExamRecords) {
+    for (const line of paper.markdown.split('\n')) {
+      const trimmed = line.trim();
+      if (!trimmed || uiExactKeys.has(trimmed)) continue;
+      if (/^\d+\s+(?:từ|thẻ|lượt|phiên)\.?$/.test(trimmed)) continue;
+      if (/^Trang\s+\d+(?:\s*\/\s*\d+)?$/.test(trimmed)) continue;
+      assert.equal(
+        translateUiText(line, 'en'),
+        line,
+        `Exam ${paper.id} line mutated by translateUiText: ${line.slice(0, 80)}`
+      );
+    }
+  }
+});
+
+test('Scope B.1: queueConsolidation maintains gap >= min(3, N-1) for every session size N = 1..25 and never drops or loops across skips and retries', () => {
+  const simulateSprint = (size, { wrongIds = new Set(), spellingIds = new Set(), skipTurns = new Set() } = {}) => {
+    const session = Array.from({ length: size }, (_, i) => ({
+      vocab: embeddedVocabulary[i],
+      progress: createInitialProgress(embeddedVocabulary[i].id, 0)
+    }));
+    const log = [];
+    let guard = 0;
+    while (session.length) {
+      guard += 1;
+      assert.ok(guard < 500, `Queue failed to drain within bound for N=${size}`);
+      const cur = session[0];
+      const kind = cur.consolidation ? 'consolidation' : cur.practice ? 'practice' : 'first';
+      if (skipTurns.has(guard) && kind !== 'consolidation') {
+        assert.equal(typeof app.skipSessionCard, 'function', 'skipSessionCard helper must be exported');
+        app.skipSessionCard(session, log.length, SPRINT_CONSOLIDATION_GAP);
+        continue;
+      }
+      const turnIndex = log.length;
+      log.push({ id: cur.vocab.id, kind, scheduledAfter: cur.scheduledAfter, firstPassTurn: cur.firstPassTurn });
+      if (kind === 'first') {
+        const idxNum = Number(cur.vocab.id);
+        const correct = !wrongIds.has(idxNum);
+        const demand = spellingIds.has(idxNum) ? MODES.SPELLING : MODES.RECOGNITION;
+        if (!correct) app.queuePractice(session, cur);
+        if (app.needsConsolidationTurn({ correct, demand })) {
+          assert.equal(
+            app.queueConsolidation(session, cur, app.consolidationDemand({ correct, demand }), SPRINT_CONSOLIDATION_GAP, turnIndex),
+            true,
+            `Consolidation was dropped for word ${cur.vocab.id} in N=${size}`
+          );
+        }
+      }
+      session.shift();
+    }
+    return log;
+  };
+
+  // Every consolidated session N = 1..25 achieves the exact mathematical bound min(3, N - 1)
+  for (let n = 1; n <= 25; n += 1) {
+    const log = simulateSprint(n);
+    const distinctFirst = new Set(log.filter(x => x.kind === 'first').map(x => x.id));
+    assert.equal(distinctFirst.size, n, `All ${n} distinct words completed`);
+    assert.ok(log.length <= app.sprintTurnBudget(n), `Turn count ${log.length} stays within budget ${app.sprintTurnBudget(n)}`);
+    const expectedMinGap = Math.min(SPRINT_CONSOLIDATION_GAP, n - 1);
+    for (let i = 0; i < n; i += 1) {
+      const id = embeddedVocabulary[i].id;
+      const turnsForWord = log.filter(x => x.id === id);
+      assert.ok(turnsForWord.length <= 3, `At most 3 turns per word for ${id}`);
+      const firstIdx = log.findIndex(x => x.id === id && x.kind === 'first');
+      const consolIdx = log.findIndex(x => x.id === id && x.kind === 'consolidation');
+      assert.ok(consolIdx > firstIdx, `Consolidation preserved for ${id} at N=${n}`);
+      const actualGap = consolIdx - firstIdx - 1;
+      assert.ok(
+        actualGap >= expectedMinGap,
+        `Expected actualGap >= ${expectedMinGap} at N=${n} for word ${id}, got ${actualGap}`
+      );
+    }
+  }
+
+  // All-wrong 5-word sprint still preserves minGap >= 3 and <= 3 turns/word (total 15 turns)
+  const allWrong5 = simulateSprint(5, { wrongIds: new Set([1, 2, 3, 4, 5]) });
+  assert.equal(allWrong5.length, 15);
+  for (let i = 0; i < 5; i += 1) {
+    const id = embeddedVocabulary[i].id;
+    const f = allWrong5.findIndex(x => x.id === id && x.kind === 'first');
+    const c = allWrong5.findIndex(x => x.id === id && x.kind === 'consolidation');
+    assert.ok(c - f - 1 >= 3, `All-wrong 5-word sprint keeps gap >= 3 for word ${id}`);
+  }
+
+  // Skipping 3 unseen cards right after queueing a consolidation still keeps gap >= 3 when >= 3 other cards exist
+  const skipped6 = simulateSprint(6, { skipTurns: new Set([2, 3, 4]) });
+  const first1 = skipped6.findIndex(x => x.id === embeddedVocabulary[0].id && x.kind === 'first');
+  const consol1 = skipped6.findIndex(x => x.id === embeddedVocabulary[0].id && x.kind === 'consolidation');
+  assert.ok(consol1 - first1 - 1 >= 3, `Repeated skips did not collapse consolidation spacing (${consol1 - first1 - 1})`);
+
+  // Honest short-gap consolidation messaging when actualGap is 0, 1, or 2
+  assert.equal(typeof app.consolidationTurnNote, 'function');
+  assert.doesNotMatch(app.consolidationTurnNote(0), /vài thẻ khác|ba thẻ khác/);
+  assert.doesNotMatch(app.consolidationTurnNote(1), /ba thẻ khác/);
+  assert.match(app.consolidationTurnNote(3), /ba thẻ khác|vài thẻ khác/);
+});
+
+test('Scope B.2: handleAnswer strictly isolates updateStreak and progress writes to firstPass turns only', () => {
+  const handleStart = appScript[1].indexOf('function handleAnswer(');
+  const handleEnd = appScript[1].indexOf('function renderFeedback(', handleStart);
+  const handleBody = appScript[1].slice(handleStart, handleEnd);
+  // Every streak update must occur strictly inside the firstPass branch, never unconditionally.
+  const firstPassBlockMatch = handleBody.match(/if\s*\(firstPass\)\s*\{([\s\S]*?)\n    \}/);
+  assert.ok(firstPassBlockMatch, 'handleAnswer must have an explicit if (firstPass) block');
+  const outsideFirstPass = handleBody.replace(firstPassBlockMatch[0], '');
+  assert.doesNotMatch(outsideFirstPass, /\bupdateStreak\s*\(/,
+    'updateStreak() must never execute outside if (firstPass)');
+  assert.doesNotMatch(outsideFirstPass, /\bupdateProgress\s*\(/,
+    'updateProgress() must never execute outside if (firstPass)');
+});
+
+test('Scope C: benchmark contract rejects under-spaced sprint consolidations, dropped outliers, and malformed turnTimingsByClass', async () => {
+  const { createRequire } = await import('node:module');
+  const req = createRequire(import.meta.url);
+  const { validateResult } = req('./benchmark-contract.cjs');
+  assert.throws(
+    () => validateResult({ ...benchmarkResult(), consolidationGaps: [3, 3, 3, 3, 3, 3, 3, 3, 1, 1] }, { rounds: 3 }),
+    /minConsolidationGap was 1, expected at least 3/
+  );
+  assert.throws(
+    () => validateResult({ ...benchmarkResult(), outliersDropped: 1 }, { rounds: 3 }),
+    /outliersDropped was 1/
+  );
+  assert.throws(
+    () => validateResult({ ...benchmarkResult(), turnTimingsByClass: { firstPass: { samples: 1, medianMs: -5, meanMs: 1 } } }, { rounds: 3 }),
+    /turnTimingsByClass\.firstPass\.medianMs is invalid/
+  );
+});
+
+test('Scope E: unstudied vocabulary items normalize to new across all modes while preserving valid/legacy studied progress', async () => {
+  const md = await readFile(new URL('Learned_Vocabulary_List.md', root), 'utf8');
+  assert.doesNotMatch(md.split('\n')[0] + '\n' + md.split('\n').slice(0, 15).join('\n'),
+    /\|\s*(?:state|progress|lastReviewed|nextReview|correctCount|wrongCount|streak|ease|interval)\s*\|/i,
+    'Learned_Vocabulary_List.md must never store personal learner progress');
+
+  const now = 1_760_000_000_000;
+  const storage = store();
+  saveProgress({
+    // Unstudied entries mistakenly tagged with non-new states and zero history must normalize to 'new'
+    '1': { id: '1', state: 'learning', correctCount: 0, wrongCount: 0, streak: 0, lastReviewed: null, nextReview: now, interval: 0, ease: 2.5, difficulty: 0 },
+    '2': { id: '2', state: 'weak', correctCount: 0, wrongCount: 0, streak: 0, lastReviewed: null, nextReview: now, interval: 0, ease: 2.5, difficulty: 0 },
+    // Polluted 'new' entry with stale scheduling fields and zero answers resets scheduling metadata cleanly
+    '3': { id: '3', state: 'new', correctCount: 0, wrongCount: 0, streak: 0, lastReviewed: now - 86_400_000, nextReview: now, interval: 4, ease: 2.1, difficulty: 0.5 },
+    // Legacy studied entries without valid state or stuck on 'new' despite real answers preserve studied state!
+    '4': { id: '4', correctCount: 4, wrongCount: 0, streak: 3, lastReviewed: now - 10_000, nextReview: now + 86_400_000, interval: 3, ease: 2.6, difficulty: 0.1 },
+    '5': { id: '5', state: 'new', correctCount: 0, wrongCount: 2, streak: 0, lastReviewed: now - 5_000, nextReview: now, interval: 0, ease: 2.1, difficulty: 0.7 }
+  }, storage);
+
+  const loaded = ensureProgress(loadProgress(storage), embeddedVocabulary.slice(0, 8), now);
+  assert.equal(loaded['1'].state, STATES.NEW, 'unstudied learning-tagged item normalized to new');
+  assert.equal(loaded['2'].state, STATES.NEW, 'unstudied weak-tagged item normalized to new');
+  assert.equal(loaded['3'].state, STATES.NEW, 'polluted new item remains new');
+  assert.equal(loaded['3'].lastReviewed, null, 'polluted new item clears stale lastReviewed');
+  assert.equal(loaded['3'].interval, 0, 'polluted new item clears stale interval');
+  assert.equal(loaded['4'].state, STATES.REVIEW, 'legacy studied item without state derives review instead of resetting to new');
+  assert.equal(loaded['5'].state, STATES.WEAK, 'studied missed item stuck on new derives weak');
+
+  // Verify every session mode treats genuinely unstudied items consistently
+  const favs = new Set(['1', '2', '4', '5']);
+  for (const mode of ['new', 'random', 'favorites', 'mixed']) {
+    const picked = selectSession(embeddedVocabulary.slice(0, 8), loaded, { size: 8, mode, favorites: favs, now });
+    for (const item of picked) {
+      if (['1', '2', '3', '6', '7', '8'].includes(item.vocab.id)) {
+        assert.equal(item.progress.state, STATES.NEW, `Unstudied word ${item.vocab.id} must have state 'new' in ${mode}`);
+        assert.equal(needsFirstLook(item), true, `Unstudied word ${item.vocab.id} must require first-look in ${mode}`);
+      } else {
+        assert.notEqual(item.progress.state, STATES.NEW, `Studied word ${item.vocab.id} keeps studied state in ${mode}`);
+        assert.equal(needsFirstLook(item), false, `Studied word ${item.vocab.id} skips first-look in ${mode}`);
+      }
+    }
+  }
+  assert.deepEqual(selectSession(embeddedVocabulary.slice(0, 8), loaded, { size: 8, mode: 'due', now }).map(x => x.vocab.id), ['5'],
+    'due mode includes only genuinely studied due items, never unstudied new items');
+  assert.deepEqual(selectSession(embeddedVocabulary.slice(0, 8), loaded, { size: 8, mode: 'weak', now }).map(x => x.vocab.id), ['5'],
+    'weak mode includes only genuinely studied weak items');
+  const sprintPicked = app.selectSprintSession(embeddedVocabulary.slice(0, 8), loaded, { size: 8, now });
+  for (const item of sprintPicked) {
+    if (['1', '2', '3', '6', '7', '8'].includes(item.vocab.id)) {
+      assert.equal(item.progress.state, STATES.NEW);
+      assert.equal(needsFirstLook(item), true);
+    }
+  }
 });

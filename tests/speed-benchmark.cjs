@@ -1,86 +1,97 @@
-// Optional real-browser interaction benchmark. It measures how long each flow's
-// own, fully asserted workload takes. From v1.0.0-beta3 the two flows deliberately
-// do different amounts of learning work: the sprint performs a delayed second
-// retrieval of every word whose first pass was not a produced answer, so its total
-// time is expected to be longer than the standard flow's and is NOT a speed claim.
-// Comparing a beta3 sprint time with a beta2 sprint time measures a different
-// workload and is therefore invalid.
+// Measures the wall-clock duration and per-turn-class DOM transition latency of
+// a fixed ten-word study session, and fails if the session did less work than
+// expected or violated any queue/spacing contract. Run manually with:
+//   npm install --no-save --package-lock=false playwright-core @sparticuz/chromium@133.0.0
+//   node tests/speed-benchmark.cjs
+//   node tests/speed-benchmark.cjs --matrix
+// Optional environment:
+//   APP=path/to/index.html   build under test (default: ./index.html)
+//   FLOW=sprint|standard     flow under test when --matrix is omitted (default: sprint)
+//   THINK_MS=600             simulated reading/thinking time per turn (non-negative finite ms)
+//   REACTION_MS=450          simulated delay before pressing manual Continue (non-negative finite ms)
+//   ROUNDS=3                 independent runs; ALL rounds are retained and median + range reported
+//   BROWSER_EXECUTABLE=...   local Chrome/Chromium instead of @sparticuz/chromium
 //
-// npm install --no-save --package-lock=false playwright-core @sparticuz/chromium@133.0.0
-//
-//   APP=path/to/index.html FLOW=standard|sprint node tests/speed-benchmark.cjs
-//   APP=path/to/index.html node tests/speed-benchmark.cjs --matrix
-//
-// Environment:
-//   APP          path to the built index.html (default: repository index.html)
-//   FLOW         "standard" = quick10 mixed session (control), "sprint" = Học cấp tốc
-//   THINK_MS     simulated time the learner spends reading each question (default 600)
-//   REACTION_MS  simulated time to reach and press the manual "Tiếp tục" control (default 450)
-//   ROUNDS       repetitions; the median is reported (default 3)
-//   --matrix     run both flows at three learner paces against this one build
-//
-// The scenario is fixed: ten words, six of them due and weak, two in learning and
-// two never studied; the fourth graded card is answered wrong, which queues the
-// single corrective retry. The standard flow performs ten first-pass retrievals
-// plus the retry (eleven turns). The sprint performs the same ten first passes, one
-// delayed consolidation per word and the same retry (twenty-one turns). Those
-// numbers, the word order and the number of hand-offs are asserted per flow in
-// tests/benchmark-contract.cjs, so a "faster" run that skipped a turn is rejected.
-//
-// Timing boundaries. Every latency is measured inside the page with
-// performance.now(): a capture-phase listener stamps the answer (or the continue
-// click) when the app receives it, and a MutationObserver stamps the moment the
-// visible card actually changes. Measuring outside the page is what went wrong in
-// the first version of this file: it stamped the answer before Playwright clicked
-// and the card after the click promise resolved, which under-reported a fixed
-// dwell by roughly the click overhead.
-//
-// Nothing here clicks on the automatic hand-off path. The sprint must move the
-// card by itself, so a fixed dwell cannot be hidden by a fast synthetic learner.
-// tests/benchmark-contract.cjs turns the workload invariants into assertions; a
-// run that graded fewer words, lost the retry, changed the order or logged a page
-// error fails the benchmark with a non-zero exit instead of printing a result.
+// Scientific & engineering note:
+// This benchmark measures software interaction & DOM rendering overhead under a
+// fixed, deterministic 10-word workload (standard = 11 turns vs sprint = 21 turns).
+// It does NOT measure human memory retention, recall durability, or real learning
+// speed; see README.md and DESIGN_LOG.md for the empirical learner-study protocol.
+'use strict';
+
 const fs = require('node:fs');
 const http = require('node:http');
 const path = require('node:path');
 const { chromium } = require('playwright-core');
-const { EXPECTED, median, validateResult } = require('./benchmark-contract.cjs');
+const {
+  EXPECTED,
+  median,
+  validateResult
+} = require('./benchmark-contract.cjs');
 
-const WORDS = EXPECTED.gradedTurns;
+const WORDS = EXPECTED.wordsCompleted;
 const WRONG_POSITION = EXPECTED.wrongAt;
 const MATRIX = process.argv.includes('--matrix');
-// The three learner speeds the comparison is reported at. Reading time and the
-// time to reach the manual continue control are varied independently so the result
-// cannot hinge on one synthetic pace.
+// The three learner paces the matrix is reported at. Reading time and manual
+// continue reaction time are varied independently so the comparison never rests
+// on one synthetic pace.
 const MATRIX_SCENARIOS = Object.freeze([
   { thinkMs: 600, reactionMs: 450 },
   { thinkMs: 1200, reactionMs: 450 },
   { thinkMs: 600, reactionMs: 250 }
 ]);
 
+const SCIENTIFIC_LIMITATION_NOTE =
+  'Software-only DOM & interaction benchmark: sprint performs 21 turns (10 first-pass + 10 delayed consolidations + 1 corrective retry) vs 11 turns in standard mode (10 first-pass + 1 corrective retry). Synthetic timings never establish human learning speed or retention.';
+
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
+function parsePositiveIntEnv(name, fallback) {
+  if (process.env[name] === undefined || process.env[name] === '') return fallback;
+  const parsed = Number(process.env[name]);
+  if (!Number.isInteger(parsed) || parsed < 1) {
+    throw new Error(`${name} must be an integer >= 1 (received ${JSON.stringify(process.env[name])})`);
+  }
+  return parsed;
+}
+
+function parseNonNegativeMsEnv(name, fallback) {
+  if (process.env[name] === undefined || process.env[name] === '') return fallback;
+  const parsed = Number(process.env[name]);
+  if (!Number.isFinite(parsed) || parsed < 0) {
+    throw new Error(`${name} must be a finite number >= 0 (received ${JSON.stringify(process.env[name])})`);
+  }
+  return parsed;
+}
+
 function seedScript() {
-  // Six weak cards that are due, ordered by nextReview; two in learning; two never
-  // studied. Both selectSession('mixed') and selectSprintSession therefore produce
-  // the same sequence: weak (oldest review first), then learning, then new.
+  // Six due weak cards ordered deterministically by nextReview, two genuinely studied
+  // learning cards (correctCount: 1, streak: 1), and two genuinely unstudied new cards
+  // (canonical state: 'new', zero counts, null lastReviewed). Both selectSession('mixed')
+  // and selectSprintSession therefore select the exact same 10-word sequence.
   return `(() => {
     const now = Date.now();
     const data = JSON.parse(document.getElementById('vocabulary-data').textContent).slice(0, ${WORDS});
     const progress = {};
     data.forEach((entry, index) => {
-      const base = {
-        id: entry.id, correctCount: 0, wrongCount: 0, streak: 0,
-        lastReviewed: now - 86400000, nextReview: now + 86400000,
-        interval: 1, ease: 2.3, difficulty: 0.4
-      };
       if (index < 6) {
-        progress[entry.id] = { ...base, state: 'weak', wrongCount: 3 + index,
-          lastReviewed: now - 3600000, nextReview: now - (6 - index) * 60000 };
+        progress[entry.id] = {
+          id: entry.id, state: 'weak', correctCount: 0, wrongCount: 3 + index, streak: 0,
+          lastReviewed: now - 3600000, nextReview: now - (6 - index) * 60000,
+          interval: 0, ease: 2.3, difficulty: 0.4
+        };
       } else if (index < 8) {
-        progress[entry.id] = { ...base, state: 'learning', nextReview: now + 3600000 + index };
+        progress[entry.id] = {
+          id: entry.id, state: 'learning', correctCount: 1, wrongCount: 0, streak: 1,
+          lastReviewed: now - 86400000, nextReview: now + 3600000 + index,
+          interval: 1, ease: 2.5, difficulty: 0.1
+        };
       } else {
-        progress[entry.id] = { ...base, state: 'new', nextReview: now };
+        progress[entry.id] = {
+          id: entry.id, state: 'new', correctCount: 0, wrongCount: 0, streak: 0,
+          lastReviewed: null, nextReview: now,
+          interval: 0, ease: 2.5, difficulty: 0
+        };
       }
     });
     localStorage.clear();
@@ -90,37 +101,51 @@ function seedScript() {
   })()`;
 }
 
-// Installed once per page. Records, in the page's own clock: when the app received
-// the answer, when it received the manual continue click, when feedback appeared
-// and when the visible card actually changed.
+// Installed once per page. Stamps all input and DOM transition timestamps strictly
+// inside the page's own clock (`performance.now()`) via capture listeners + a single
+// MutationObserver so outer Playwright RPC round-trip jitter never contaminates latency.
 async function installProbe(page) {
   await page.evaluate(() => {
+    const turnIdentity = () => {
+      if (document.querySelector('.summary')) return 'summary';
+      const card = document.querySelector('.flashcard');
+      const seq = card?.dataset?.turnSeq;
+      const head = document.querySelector('.flashcard-head b')?.innerText ?? '';
+      const mode = document.querySelector('.mode-label')?.innerText ?? '';
+      const prompt = document.querySelector('.prompt')?.innerText ?? '';
+      return seq ? `seq:${seq}` : `${head}|${mode}|${prompt}`;
+    };
     window.__bench = { baseline: '', answerAt: null, continueAt: null, changeAt: null, feedbackAt: null };
-    const stampPrompt = () => (document.querySelector('.prompt')?.innerText ?? '');
+    window.__benchIdentity = turnIdentity;
     document.addEventListener('click', event => {
-      const node = event.target instanceof Element ? event.target.closest('[data-option], #next-card, #submit-answer, #reveal-correct, #reveal-wrong') : null;
+      const node = event.target instanceof Element
+        ? event.target.closest('[data-option], #next-card, #submit-answer, #reveal-correct, #reveal-wrong')
+        : null;
       if (!node) return;
       if (node.id === 'next-card') {
-        if (window.__bench.continueAt === null) window.__bench.continueAt = performance.now();
+        if (window.__bench.continueAt === null) {
+          window.__bench.baseline = turnIdentity();
+          window.__bench.continueAt = performance.now();
+        }
         return;
       }
       if (window.__bench.answerAt === null) {
+        window.__bench.baseline = turnIdentity();
         window.__bench.answerAt = performance.now();
-        window.__bench.baseline = stampPrompt();
       }
     }, true);
     document.addEventListener('keydown', event => {
       if (event.key !== 'Enter') return;
       if (event.target?.id !== 'spelling-input') return;
       if (window.__bench.answerAt !== null) return;
+      window.__bench.baseline = turnIdentity();
       window.__bench.answerAt = performance.now();
-      window.__bench.baseline = stampPrompt();
     }, true);
     new MutationObserver(() => {
       if (window.__bench.feedbackAt === null && document.querySelector('#feedback-area .feedback, .handoff-strip')) {
         window.__bench.feedbackAt = performance.now();
       }
-      if (window.__bench.changeAt === null && stampPrompt() !== window.__bench.baseline) {
+      if (window.__bench.changeAt === null && turnIdentity() !== window.__bench.baseline) {
         window.__bench.changeAt = performance.now();
       }
     }).observe(document.body, { childList: true, subtree: true, characterData: true });
@@ -133,7 +158,7 @@ async function resetProbe(page) {
     window.__bench.continueAt = null;
     window.__bench.changeAt = null;
     window.__bench.feedbackAt = null;
-    window.__bench.baseline = document.querySelector('.prompt')?.innerText ?? '';
+    window.__bench.baseline = window.__benchIdentity();
   });
 }
 
@@ -143,30 +168,23 @@ async function readCard(page) {
   if (await page.locator('#start-quiz').count()) return { intro: true };
   const mode = (await page.locator('.mode-label').innerText()).toLowerCase();
   const prompt = (await page.locator('.prompt').innerText()).trim();
+  const identity = await page.evaluate(() => window.__benchIdentity());
   return {
     intro: false,
     mode,
     prompt,
-    // A consolidation and a corrective retry are separate turn classes; neither is
-    // a first-pass retrieval and neither may be counted as one.
+    identity,
     consolidation: mode.includes('củng cố'),
     practice: mode.includes('luyện lại')
   };
 }
 
-// Recognition shows the English word; recall, spelling and consolidation show the
-// meaning. Resolving the visible prompt back to one planned word keeps the recorded
-// order independent of the question format.
 function resolveEntry(card, plan) {
   return card.mode.includes('nhận diện')
     ? plan.find(item => item.word === card.prompt)
     : plan.find(item => item.meaning === card.prompt);
 }
 
-// Two observational phases: the answer must register, then a fresh, answerable card
-// (or the summary) must appear. A turn that hands off swaps the card at once, while a
-// wrong answer, a retry, a consolidation or a revealed self-assessment keeps the
-// options disabled behind its feedback panel; both satisfy the same pair.
 function waitForAnswerRegistered(page, timeout) {
   return page.waitForFunction(() => {
     if (document.querySelector('.summary, .handoff-strip, #feedback-area .feedback')) return true;
@@ -174,26 +192,18 @@ function waitForAnswerRegistered(page, timeout) {
   }, null, { timeout, polling: 25 });
 }
 
-// The card must actually be gone before the loop reads the next one. Without this
-// the loop can re-read the card it just answered (the panel is still on screen for
-// a frame), count a second turn and then grade the same card twice.
-function waitForAdvance(page, previousPrompt, timeout) {
+function waitForAdvance(page, previousIdentity, timeout) {
   return page.waitForFunction(previous => {
     if (document.querySelector('.summary')) return true;
-    return (document.querySelector('.prompt')?.innerText ?? '') !== previous;
-  }, previousPrompt, { timeout, polling: 25 });
+    return window.__benchIdentity() !== previous;
+  }, previousIdentity, { timeout, polling: 25 });
 }
 
-// Only a card that can accept input counts. A turn that hands off keeps no feedback
-// panel, while a wrong, retried or consolidated turn keeps one on screen, so the
-// presence of `#next-card` says nothing about whether a new card has arrived.
 function waitForAnswerable(page, timeout) {
   return page.waitForFunction(() => {
     if (document.querySelector('.summary')) return true;
     if (document.querySelector('#spelling-input:not([disabled])')) return true;
     if (document.querySelector('[data-option]:not([disabled])')) return true;
-    // A never-studied word opens on its first-look panel; the session continues
-    // once the learner starts the check, so that panel is a valid next state too.
     return Boolean(document.querySelector('#start-quiz'));
   }, null, { timeout, polling: 25 });
 }
@@ -212,8 +222,6 @@ async function answerCard(page, card, plan, correct) {
   for (let index = 0; index < count; index += 1) {
     const text = (await options.nth(index).innerText()).replace(/^\d+\s*/, '').trim();
     const entry = plan.find(item => (wantMeaning ? item.meaning : item.word) === text);
-    // Correctness is bound to the planned word, not to "any word in the plan":
-    // picking an arbitrary option would make the benchmark grade a wrong answer.
     const isCorrect = Boolean(entry) && entry.id === target.id;
     if (isCorrect === correct) {
       await options.nth(index).click();
@@ -223,8 +231,18 @@ async function answerCard(page, card, plan, correct) {
   throw new Error(`no ${correct ? 'correct' : 'wrong'} option found for ${card.mode} / ${card.prompt}`);
 }
 
-// The headless shell in this sandbox supports a single page, so rounds reuse one
-// page and reset storage instead of opening a fresh tab each time.
+function summarizeBucket(samples) {
+  if (!samples.length) return { samples: 0, medianMs: null, meanMs: null, minMs: null, maxMs: null };
+  const meanVal = Number((samples.reduce((acc, v) => acc + v, 0) / samples.length).toFixed(2));
+  return {
+    samples: samples.length,
+    medianMs: median(samples),
+    meanMs: meanVal,
+    minMs: Math.min(...samples),
+    maxMs: Math.max(...samples)
+  };
+}
+
 async function runRound(page, url, { flow, thinkMs, reactionMs }) {
   const errors = [];
   const onError = error => errors.push(error.message);
@@ -242,9 +260,16 @@ async function runRound(page, url, { flow, thinkMs, reactionMs }) {
 
   const order = [];
   const consolidationOrder = [];
+  const turnSequence = []; // every answered turn `{ word, kind }` in real execution order
   const feedbackLatency = [];
   const handoffLatency = [];
   const continueLatency = [];
+  const classSamples = {
+    firstPass: [],
+    handOff: [],
+    consolidation: [],
+    retry: []
+  };
   let practiceSeen = 0;
   let consolidationSeen = 0;
   let graded = 0;
@@ -254,8 +279,6 @@ async function runRound(page, url, { flow, thinkMs, reactionMs }) {
     if (await page.locator('.summary').count()) break;
     let card = await readCard(page);
 
-    // The introduction is part of the existing contract: a never-studied word is
-    // shown first. Both flows pay this step; it is not removed by the benchmark.
     if (card.intro) {
       await sleep(thinkMs);
       await page.locator('#start-quiz').click();
@@ -264,13 +287,16 @@ async function runRound(page, url, { flow, thinkMs, reactionMs }) {
     await resetProbe(page);
 
     if (process.env.BENCH_DEBUG) {
-      console.error(`[turn ${graded + practiceSeen + 1}] ${card.mode} | ${card.prompt.slice(0, 40)}`);
+      console.error(`[turn ${turnSequence.length + 1}] ${card.mode} | ${card.prompt.slice(0, 40)}`);
     }
     const firstPass = !card.practice && !card.consolidation;
-    const resolved = (firstPass || card.consolidation) ? resolveEntry(card, plan) : null;
-    if ((firstPass || card.consolidation) && !resolved) {
+    const resolved = resolveEntry(card, plan);
+    if (!resolved) {
       throw new Error(`the turn could not be traced to a planned word: ${card.mode} / ${card.prompt}`);
     }
+    const turnKind = firstPass ? 'firstPass' : (card.consolidation ? 'consolidation' : 'retry');
+    turnSequence.push({ id: resolved.id, word: resolved.word, kind: turnKind });
+
     if (firstPass) {
       order.push(resolved.word);
       graded += 1;
@@ -284,7 +310,6 @@ async function runRound(page, url, { flow, thinkMs, reactionMs }) {
     const isWrong = firstPass && graded - 1 === WRONG_POSITION;
     if (isWrong) wrongAt = graded - 1;
 
-    // Simulated reading time, identical in both flows.
     await sleep(thinkMs);
     await answerCard(page, card, plan, !isWrong);
 
@@ -292,37 +317,36 @@ async function runRound(page, url, { flow, thinkMs, reactionMs }) {
     await waitForAnswerRegistered(page, 15000);
 
     if (sprintHandoff) {
-      // The sprint hands the learner on by itself. No click is simulated here, so a
-      // fixed dwell cannot be hidden; the in-page observer stamps the real change.
-      // Wait for the app itself to replace the card; a build that keeps the panel
-      // waiting for a click fails here with a precise message instead of a timeout
-      // somewhere later in the loop.
       const replaced = await page.waitForFunction(() => window.__bench.changeAt !== null, null, { timeout: 15000, polling: 25 })
         .then(() => true).catch(() => false);
       if (!replaced) throw new Error('the sprint did not replace the card after a correct answer');
-      // The next card must also be genuinely answerable, not merely re-rendered.
       await waitForAnswerable(page, 15000);
       const afterAnswer = await readProbe(page);
       if (Number.isFinite(afterAnswer.feedbackAt) && Number.isFinite(afterAnswer.answerAt)) {
-        feedbackLatency.push(Math.round(afterAnswer.feedbackAt - afterAnswer.answerAt));
+        const fbMs = Math.round(afterAnswer.feedbackAt - afterAnswer.answerAt);
+        feedbackLatency.push(fbMs);
+        classSamples.firstPass.push(fbMs);
       }
       if (!Number.isFinite(afterAnswer.changeAt) || !Number.isFinite(afterAnswer.answerAt)) {
         throw new Error('the sprint did not replace the card after a correct answer');
       }
-      handoffLatency.push(Math.round(afterAnswer.changeAt - afterAnswer.answerAt));
+      const hoMs = Math.round(afterAnswer.changeAt - afterAnswer.answerAt);
+      handoffLatency.push(hoMs);
+      classSamples.handOff.push(hoMs);
     } else {
-      // Every other turn keeps a feedback panel and needs the learner to continue.
       await page.locator('#feedback-area .feedback, .summary').first().waitFor({ timeout: 15000 });
       const afterAnswer = await readProbe(page);
       if (Number.isFinite(afterAnswer.feedbackAt) && Number.isFinite(afterAnswer.answerAt)) {
-        feedbackLatency.push(Math.round(afterAnswer.feedbackAt - afterAnswer.answerAt));
+        const fbMs = Math.round(afterAnswer.feedbackAt - afterAnswer.answerAt);
+        feedbackLatency.push(fbMs);
+        classSamples[turnKind].push(fbMs);
       }
       if (await page.locator('.summary').count()) continue;
       await sleep(reactionMs);
       await resetProbe(page);
-      const promptBeforeContinue = (await page.locator('.prompt').innerText()).trim();
+      const identityBeforeContinue = await page.evaluate(() => window.__benchIdentity());
       await page.locator('#next-card').click();
-      await waitForAdvance(page, promptBeforeContinue, 15000);
+      await waitForAdvance(page, identityBeforeContinue, 15000);
       await waitForAnswerable(page, 15000);
       const afterContinue = await readProbe(page);
       if (Number.isFinite(afterContinue.changeAt) && Number.isFinite(afterContinue.continueAt)) {
@@ -340,6 +364,12 @@ async function runRound(page, url, { flow, thinkMs, reactionMs }) {
   }));
   page.off('pageerror', onError);
 
+  const consolidationGaps = consolidationOrder.map(word => {
+    const fIdx = turnSequence.findIndex(t => t.word === word && t.kind === 'firstPass');
+    const cIdx = turnSequence.findIndex(t => t.word === word && t.kind === 'consolidation');
+    return fIdx >= 0 && cIdx > fIdx ? cIdx - fIdx - 1 : -1;
+  });
+
   const mean = values => (values.length ? Math.round(values.reduce((a, b) => a + b, 0) / values.length) : null);
   return {
     flow,
@@ -352,12 +382,21 @@ async function runRound(page, url, { flow, thinkMs, reactionMs }) {
     wordsCompleted: new Set(order).size,
     wordOrder: order,
     consolidationOrder,
+    consolidationGaps,
+    minConsolidationGap: consolidationGaps.length ? Math.min(...consolidationGaps) : null,
     wrongAt,
     handoffSamples: handoffLatency.length,
     continueSamples: continueLatency.length,
     meanFeedbackLatencyMs: mean(feedbackLatency),
     meanHandoffLatencyMs: mean(handoffLatency),
     meanContinueLatencyMs: mean(continueLatency),
+    turnTimingsByClass: {
+      firstPass: summarizeBucket(classSamples.firstPass),
+      handOff: summarizeBucket(classSamples.handOff),
+      consolidation: summarizeBucket(classSamples.consolidation),
+      retry: summarizeBucket(classSamples.retry)
+    },
+    outliersDropped: 0,
     summary: summary.replace(/\s+/g, ' ').trim(),
     history: stored.history,
     pageErrors: errors
@@ -369,15 +408,32 @@ function summarize(rounds, { app, flow, thinkMs, reactionMs }, browserVersion, e
   for (const [index, round] of rounds.entries()) {
     validateResult(round, { flow, thinkMs, reactionMs, expectedOrder, round: true, label: `${path.basename(app)} ${flow} think=${thinkMs} round ${index + 1}` });
   }
-  const elapsedMs = median(rounds.map(round => round.elapsedMs));
+  const allElapsed = rounds.map(round => round.elapsedMs);
+  const elapsedMs = median(allElapsed);
+  const meanElapsedMs = Math.round(allElapsed.reduce((acc, v) => acc + v, 0) / allElapsed.length);
+  const aggregateClass = bucketName => {
+    const nonEmpty = rounds.map(r => r.turnTimingsByClass[bucketName]).filter(b => b.samples > 0);
+    if (!nonEmpty.length) return { samples: 0, medianMs: null, meanMs: null };
+    return {
+      samples: first.turnTimingsByClass[bucketName].samples,
+      medianMs: median(nonEmpty.map(b => b.medianMs)),
+      meanMs: Number((nonEmpty.reduce((acc, b) => acc + b.meanMs, 0) / nonEmpty.length).toFixed(2))
+    };
+  };
   const result = {
     app,
     flow,
     thinkMs,
     reactionMs,
     rounds: rounds.length,
+    aggregation: 'median',
+    outlierPolicy: 'retain-all-rounds-report-median-mean-and-range',
+    outliersDropped: 0,
     elapsedMs,
-    elapsedMsAllRounds: rounds.map(round => round.elapsedMs),
+    meanElapsedMs,
+    minElapsedMs: Math.min(...allElapsed),
+    maxElapsedMs: Math.max(...allElapsed),
+    elapsedMsAllRounds: allElapsed,
     throughputPerMinute: Number((first.wordsCompleted / (elapsedMs / 60000)).toFixed(2)),
     gradedTurns: first.gradedTurns,
     practiceTurns: first.practiceTurns,
@@ -386,11 +442,20 @@ function summarize(rounds, { app, flow, thinkMs, reactionMs }, browserVersion, e
     wrongAt: first.wrongAt,
     wordOrder: first.wordOrder,
     consolidationOrder: first.consolidationOrder,
+    consolidationGaps: first.consolidationGaps,
+    minConsolidationGap: first.minConsolidationGap,
     handoffSamples: first.handoffSamples,
     continueSamples: first.continueSamples,
     meanFeedbackLatencyMs: median(rounds.map(round => round.meanFeedbackLatencyMs).filter(value => value !== null)),
     meanHandoffLatencyMs: first.meanHandoffLatencyMs === null ? null : median(rounds.map(round => round.meanHandoffLatencyMs).filter(value => value !== null)),
     meanContinueLatencyMs: first.meanContinueLatencyMs === null ? null : median(rounds.map(round => round.meanContinueLatencyMs).filter(value => value !== null)),
+    turnTimingsByClass: {
+      firstPass: aggregateClass('firstPass'),
+      handOff: aggregateClass('handOff'),
+      consolidation: aggregateClass('consolidation'),
+      retry: aggregateClass('retry')
+    },
+    limitations: SCIENTIFIC_LIMITATION_NOTE,
     summary: first.summary,
     history: first.history,
     pageErrors: first.pageErrors,
@@ -399,7 +464,7 @@ function summarize(rounds, { app, flow, thinkMs, reactionMs }, browserVersion, e
   return validateResult(result, { flow, thinkMs, reactionMs, rounds: rounds.length, expectedOrder });
 }
 
-async function openPage(url, html) {
+async function openPage(_url, html) {
   const server = http.createServer((_req, res) => {
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
     res.end(html);
@@ -438,12 +503,14 @@ async function launch() {
 }
 
 async function main() {
-  const rounds = Math.max(1, Number(process.env.ROUNDS || 3));
+  const unknownFlags = process.argv.slice(2).filter(arg => arg !== '--matrix');
+  if (unknownFlags.length) {
+    throw new Error(`unknown flag(s): ${unknownFlags.join(', ')}`);
+  }
+  const rounds = parsePositiveIntEnv('ROUNDS', 3);
   const browser = await launch();
   try {
     if (MATRIX) {
-      // Within one build, because the flows no longer do the same work. A cross-
-      // version comparison would change the workload and is not produced here.
       const app = path.resolve(process.env.APP || path.join(__dirname, '../index.html'));
       if (!fs.existsSync(app)) throw new Error(`missing build: ${app}`);
       const scenarios = [];
@@ -455,8 +522,6 @@ async function main() {
           scenarios.push({ flow, ...result });
         }
       }
-      // Every combination must exist exactly once; a missing scenario is a failed
-      // benchmark, not a smaller table.
       if (scenarios.length !== MATRIX_SCENARIOS.length * 2) {
         throw new Error(`matrix produced ${scenarios.length} scenarios, expected ${MATRIX_SCENARIOS.length * 2}`);
       }
@@ -466,16 +531,23 @@ async function main() {
       console.log(JSON.stringify({
         matrix: true,
         rounds,
+        aggregation: 'median',
+        outlierPolicy: 'retain-all-rounds-report-median-mean-and-range',
+        outliersDropped: 0,
         app,
-        note: 'The sprint performs one extra delayed retrieval per word (21 turns vs 11), so its elapsed time is not comparable to the standard flow or to a previous release. No speed claim is derived from this table.',
+        note: SCIENTIFIC_LIMITATION_NOTE,
         referenceOrder: reference,
         scenarios
       }, null, 2));
     } else {
       const app = path.resolve(process.env.APP || path.join(__dirname, '../index.html'));
+      if (!fs.existsSync(app)) throw new Error(`missing build: ${app}`);
       const flow = (process.env.FLOW || 'sprint').toLowerCase();
-      const thinkMs = Number(process.env.THINK_MS || 600);
-      const reactionMs = Number(process.env.REACTION_MS || 450);
+      if (!['sprint', 'standard'].includes(flow)) {
+        throw new Error(`FLOW must be 'sprint' or 'standard' (received ${JSON.stringify(process.env.FLOW)})`);
+      }
+      const thinkMs = parseNonNegativeMsEnv('THINK_MS', 600);
+      const reactionMs = parseNonNegativeMsEnv('REACTION_MS', 450);
       const result = await runScenario(browser, { app, flow, thinkMs, reactionMs, rounds });
       console.log(JSON.stringify(result, null, 2));
     }
