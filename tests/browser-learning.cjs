@@ -1022,6 +1022,216 @@ async function main() {
     await page.reload();
     await page.locator('[data-session="new"]').waitFor();
 
+    // ---- Scope A (beta4 follow-up): the card-footer keyboard hints are interface
+    // copy, asserted as rendered behaviour on every turn kind. The static suite
+    // checks the dictionary entries; this pins what the learner actually sees on
+    // first-pass, hand-off, consolidation and first-look cards in English.
+    const footerText = async () => (await page.locator('.card-footer span').last().innerText()).replace(/\s+/g, ' ').trim();
+    await page.evaluate(() => {
+      const now = Date.now();
+      const data = JSON.parse(document.getElementById('vocabulary-data').textContent).slice(0, 10);
+      const progress = {};
+      data.forEach((entry, index) => {
+        progress[entry.id] = {
+          id: entry.id, state: 'weak', correctCount: 0, wrongCount: 40 - index, streak: 0,
+          lastReviewed: now - 86400000, nextReview: now - 3600000,
+          interval: 0, ease: 2.3, difficulty: 0.5
+        };
+      });
+      localStorage.clear();
+      localStorage.setItem('chuyen-anh.progress.v1', JSON.stringify(progress));
+      localStorage.setItem('chuyen-anh.prefs.v1', JSON.stringify({ sessionSize: 10, keyboardShortcuts: false, darkMode: false }));
+      localStorage.setItem('chuyen-anh.language.v1', 'en');
+    });
+    await page.reload();
+    await page.locator('[data-session="sprint"]').waitFor();
+    await page.locator('[data-session="sprint"]').click();
+    const footerPlan = await page.evaluate(() => JSON.parse(document.getElementById('vocabulary-data').textContent)
+      .slice(0, 10).map(entry => ({ word: entry.word, meaning: entry.meaning })));
+    assert.equal(await footerText(), 'Space reveal · Enter next',
+      `the English first-pass footer is complete: "${await footerText()}"`);
+    let footerSawConsolidation = null;
+    for (let turn = 0; turn < 8 && !footerSawConsolidation; turn += 1) {
+      const label = await page.locator('.mode-label').innerText();
+      if (/CONSOLIDATION/i.test(label)) {
+        footerSawConsolidation = await footerText();
+        break;
+      }
+      const prompt = (await page.locator('.prompt').innerText()).trim();
+      const entry = footerPlan.find(item => item.word === prompt || item.meaning === prompt);
+      const options = page.locator('[data-option]');
+      // Recognition shows the English word, so the options are the meanings.
+      const wantMeaning = footerPlan.some(item => item.word === prompt);
+      for (let index = 0; index < await options.count(); index += 1) {
+        const text = (await options.nth(index).innerText()).replace(/^\d+\s*/, '').trim();
+        if (text === (wantMeaning ? entry.meaning : entry.word)) { await options.nth(index).click(); break; }
+      }
+      await page.locator('.handoff-strip').waitFor({ timeout: 2000 });
+      const nextLabel = await page.locator('.mode-label').innerText();
+      if (!/CONSOLIDATION/i.test(nextLabel)) {
+        assert.equal(await footerText(), 'Space reveal · Enter next',
+          'the hand-off card keeps the complete English hint');
+      }
+    }
+    assert.equal(footerSawConsolidation, 'Consolidation turn · Space reveal',
+      `the consolidation footer is fully English: "${footerSawConsolidation}"`);
+    await page.locator('#exit-session').click();
+    // The first-look footer.
+    await page.evaluate(() => {
+      localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['3']));
+      localStorage.setItem('chuyen-anh.progress.v1', JSON.stringify({
+        '3': { id: '3', state: 'new', correctCount: 0, wrongCount: 0, streak: 0, lastReviewed: null, nextReview: Date.now(), interval: 0, ease: 2.5, difficulty: 0 }
+      }));
+    });
+    await page.reload();
+    await page.locator('[data-session="favorites"]').waitFor();
+    await page.locator('[data-session="favorites"]').click();
+    assert.match(await page.locator('.mode-label').innerText(), /NEW/i,
+      'a never-studied favorite opens on its introduction');
+    assert.equal(await footerText(), 'Enter start quiz',
+      `the first-look footer is fully English: "${await footerText()}"`);
+    await page.locator('#start-quiz').click();
+    assert.equal(await footerText(), 'Space reveal · Enter next',
+      'after the introduction the footer returns to the graded-card hint');
+    await page.locator('#exit-session').click();
+    await page.evaluate(() => localStorage.removeItem('chuyen-anh.language.v1'));
+
+    // ---- Scope B (beta4 follow-up): the daily streak is written by first-pass
+    // turns only, and a first-look introduction writes nothing. The static suite
+    // pins the code shape; this scenario makes the contract observable at runtime
+    // by moving the clock across midnight so the first turn answered on the new
+    // day is a consolidation. Only streak writes that change the stored value are
+    // counted: the generic persist() rewrites an unchanged streak alongside
+    // progress, and only updateStreak() can alter the value itself.
+    const streakDateKey = () => page.evaluate(() => {
+      const d = new Date();
+      return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    });
+    const readStreak = () => page.evaluate(() => ({
+      writes: window.__streakWrites,
+      streak: JSON.parse(localStorage.getItem('chuyen-anh.streak.v1') || 'null')
+    }));
+    await page.addInitScript(() => {
+      window.__streakWrites = 0;
+      const nativeSetItem = Storage.prototype.setItem;
+      Storage.prototype.setItem = function (key, value) {
+        if (key === 'chuyen-anh.streak.v1' && this.getItem(key) !== value) window.__streakWrites += 1;
+        return nativeSetItem.call(this, key, value);
+      };
+    });
+    await page.clock.setFixedTime(new Date('2026-10-20T12:00:00Z'));
+    await page.evaluate(() => {
+      const now = Date.now();
+      const data = JSON.parse(document.getElementById('vocabulary-data').textContent).slice(0, 4);
+      const progress = {};
+      data.forEach((entry, index) => {
+        progress[entry.id] = {
+          id: entry.id, state: 'weak', correctCount: 0, wrongCount: 40 - index, streak: 0,
+          lastReviewed: now - 86400000, nextReview: now - 3600000,
+          interval: 0, ease: 2.3, difficulty: 0.5
+        };
+      });
+      localStorage.clear();
+      localStorage.setItem('chuyen-anh.progress.v1', JSON.stringify(progress));
+      localStorage.setItem('chuyen-anh.prefs.v1', JSON.stringify({ sessionSize: 10, keyboardShortcuts: false, darkMode: false }));
+      localStorage.setItem('chuyen-anh.streak.v1', JSON.stringify({ current: 2, longest: 5, lastDate: '2026-10-19' }));
+    });
+    await page.reload();
+    await page.locator('[data-session="sprint"]').waitFor();
+    await page.locator('[data-session="sprint"]').click();
+    const streakPlan = await page.evaluate(() => JSON.parse(document.getElementById('vocabulary-data').textContent)
+      .slice(0, 4).map(entry => ({ id: entry.id, word: entry.word, meaning: entry.meaning })));
+    const streakAnswer = async plan => {
+      const prompt = (await page.locator('.prompt').innerText()).trim();
+      const entry = plan.find(item => item.word === prompt || item.meaning === prompt);
+      assert.ok(entry, `the streak scenario card is a seeded word: ${prompt}`);
+      const options = page.locator('[data-option]');
+      const wantMeaning = plan.some(item => item.word === prompt);
+      for (let index = 0; index < await options.count(); index += 1) {
+        const text = (await options.nth(index).innerText()).replace(/^\d+\s*/, '').trim();
+        if (text === (wantMeaning ? entry.meaning : entry.word)) { await options.nth(index).click(); return; }
+      }
+      throw new Error('no option matched in the streak scenario');
+    };
+    // Day one (2026-10-20): four correct first passes. Exactly one write.
+    for (let index = 0; index < 4; index += 1) {
+      await streakAnswer(streakPlan);
+      await page.locator('.handoff-strip').waitFor({ timeout: 3000 });
+    }
+    let streakState = await readStreak();
+    assert.equal(streakState.writes, 1, 'the first graded turn of the day writes the streak once');
+    assert.equal(streakState.streak.current, 3, 'the streak continues from the seeded value');
+    assert.equal(streakState.streak.lastDate, '2026-10-20');
+    // Day two begins without a reload. The first turn answered on the new day is
+    // word 1's delayed consolidation.
+    await page.clock.setFixedTime(new Date('2026-10-21T12:00:00Z'));
+    assert.equal(await streakDateKey(), '2026-10-21', 'the shifted clock really crossed midnight');
+    for (let index = 0; index < 4; index += 1) {
+      assert.match((await page.locator('.mode-label').innerText()).toLowerCase(), /củng cố/,
+        'the new day opens with the delayed checks');
+      await streakAnswer(streakPlan);
+      await page.locator('#next-card').click();
+      if (index === 0) {
+        streakState = await readStreak();
+        assert.equal(streakState.writes, 1,
+          'a consolidation turn must not write the daily streak, even across midnight');
+      }
+    }
+    streakState = await readStreak();
+    assert.equal(streakState.writes, 1, 'an all-consolidation day leaves the streak untouched');
+    assert.equal(streakState.streak.lastDate, '2026-10-20', 'the recorded day is still the previous day');
+    assert.equal(streakState.streak.current, 3, 'the consolidation did not extend the streak');
+    // Day three: the first graded turn is a wrong first pass (a favourites
+    // session on an already-studied word is a first-pass turn, not a practice
+    // turn), and it does record the day.
+    await page.clock.setFixedTime(new Date('2026-10-22T12:00:00Z'));
+    await page.evaluate(() => {
+      const now = Date.now();
+      localStorage.setItem('chuyen-anh.progress.v1', JSON.stringify({
+        '1': { id: '1', state: 'learning', correctCount: 2, wrongCount: 0, streak: 2, lastReviewed: now, nextReview: now + 3600000, interval: 1, ease: 2.5, difficulty: 0 }
+      }));
+      localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['1']));
+    });
+    await page.reload(); // the write counter restarts with the document
+    await page.locator('[data-session="favorites"]').waitFor();
+    await page.locator('[data-session="favorites"]').click();
+    await page.locator('#spelling-input').fill('wrong on purpose');
+    await page.locator('#submit-answer').click();
+    assert.match(await page.locator('#feedback-area').innerText(), /Chưa đúng/);
+    streakState = await readStreak();
+    assert.equal(streakState.writes, 1, 'the wrong first pass records the day');
+    assert.equal(streakState.streak.lastDate, '2026-10-22', 'the graded answer marked the new day');
+    await page.locator('#exit-session').click();
+    // Day five: a first-look introduction is not a graded turn and records
+    // nothing; the first real answer of the day does.
+    await page.clock.setFixedTime(new Date('2026-10-24T12:00:00Z'));
+    await page.evaluate(() => {
+      const now = Date.now();
+      localStorage.setItem('chuyen-anh.progress.v1', JSON.stringify({
+        '2': { id: '2', state: 'new', correctCount: 0, wrongCount: 0, streak: 0, lastReviewed: null, nextReview: now, interval: 0, ease: 2.5, difficulty: 0 }
+      }));
+      localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['2']));
+    });
+    await page.reload();
+    await page.locator('[data-session="favorites"]').waitFor();
+    await page.locator('[data-session="favorites"]').click();
+    assert.ok(await page.locator('#start-quiz').count(), 'the new word opens on its introduction');
+    const progressBeforeIntro = await page.evaluate(() => localStorage.getItem('chuyen-anh.progress.v1'));
+    assert.equal((await readStreak()).writes, 0, 'rendering an introduction writes no streak');
+    await page.locator('#start-quiz').click();
+    assert.equal((await readStreak()).writes, 0, 'starting the quiz is still not an answer');
+    assert.equal(await page.evaluate(() => localStorage.getItem('chuyen-anh.progress.v1')), progressBeforeIntro,
+      'the introduction records no progress');
+    const introCard = await page.evaluate(() => {
+      const entry = JSON.parse(document.getElementById('vocabulary-data').textContent).find(item => item.id === '2');
+      return { word: entry.word, meaning: entry.meaning };
+    });
+    await streakAnswer([introCard]);
+    streakState = await readStreak();
+    assert.equal(streakState.writes, 1, 'the first real answer of the day records the day');
+    assert.equal(streakState.streak.current, 1, 'a skipped day resets the run before this answer');
+
+
     // ---- A blank spelling submission is not a graded attempt. (dev3 regression)
     async function seedSpellingCard() {
       await page.evaluate(() => {
