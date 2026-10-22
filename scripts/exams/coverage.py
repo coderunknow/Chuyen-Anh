@@ -56,7 +56,7 @@ def main():
               '1. Xin bản gốc/nguồn chính thức cho các ô thiếu; đặc biệt mùa 2024 còn ít bản.\n'
               '2. Xử lý danh sách [nguồn đang vướng](NGUON-CHO-XU-LY.md), không điền đề trống để làm đẹp độ phủ.\n'
               '3. Đối chiếu từng trang/câu, gạch chân, bảng và phần nghe của các bản O trước khi dùng để chấm điểm.\n'
-              '4. Bổ sung nguồn độc lập từ Sở/trường; không dựa hoàn toàn vào một trang đăng lại.\n']
+              '4. Bổ sung nguồn độc lập từ Sở/trường; không dựa hoàn toàn vào một trang đăng lại. Xem phân tầng bằng chứng và danh mục lỗi trích xuất cho từng đề trong [`../docs/EXAM_AUDIT_LEDGER.md`](../docs/EXAM_AUDIT_LEDGER.md) (`official-verified`: `0`, `non-official-source-compared`: `0`, `partially-supported`: `61`, `structure-metadata-only`: `21`, `insufficient-source`: `24`).\n']
     (OUT / 'DO-PHU.md').write_text('\n'.join(lines).rstrip() + '\n')
     print('Records:', len(plan), 'PDF/DOCX:', len(plan)-ocr, 'HTML/OCR:', ocr, 'With answers:', n_answers)
 
