@@ -423,6 +423,8 @@ kbd, .kbd { min-width: 24px; padding: 2px 6px; border: 1px solid var(--border-st
 .exam-card-actions .btn { min-width: 118px; }
 .exam-pill-warning { color: var(--warning); background: var(--warning-soft); }
 .exam-pill-neutral { color: var(--primary-strong); background: var(--primary-soft); }
+.exam-pill-success { color: var(--success); background: var(--primary-soft); }
+.exam-pill-danger { color: var(--danger); background: var(--danger-soft); }
 .exam-pagination { display: flex; align-items: center; justify-content: center; gap: 13px; min-height: 48px; margin: 8px 0 16px; color: var(--muted); font-size: .8rem; }
 .exam-source-metadata .data-info p { overflow-wrap: anywhere; }
 .exam-source-metadata .data-info ul { padding-left: 19px; color: var(--muted); font-size: .75rem; }
@@ -15791,7 +15793,7 @@ export const MODES = Object.freeze({
   CLOZE: 'cloze'
 });
 
-export const APP_VERSION = 'v1.0.0-beta3';
+export const APP_VERSION = 'v1.0.0-beta4';
 export const EXAM_RESULT_SCHEMA_VERSION = '1.0.0';
 // Sprint hand-off: a correct first-pass answer moves straight to the next card
 // with no dwell timer, and the answer just graded stays on screen as a compact
@@ -16282,11 +16284,75 @@ const EN_UI_TRANSLATIONS = Object.freeze({
   'Phiên nhanh': 'Quick session',
   'Học cấp tốc': 'Study sprint',
   'Phiên học': 'Study session',
-  'Ví dụ': 'Example'
+  'Ví dụ': 'Example',
+  'lật': 'reveal',
+  'Lượt củng cố ·': 'Consolidation turn ·',
+  'Lượt củng cố · Space lật': 'Consolidation turn · Space reveal',
+  'Tiến độ phiên': 'Session progress',
+  'Đã trả lời đúng': 'Answered correctly',
+  'Chưa đúng': 'Incorrect',
+  'Gõ từ tiếng Anh…': 'Type the English word…',
+  'Việt → Anh': 'Vietnamese → English',
+  'Ôn các thẻ đã đến lịch trước; phiên này không kéo thẻ tương lai lên sớm.': 'Review scheduled due cards first; future reviews are never pulled forward.',
+  'Ôn lại những từ bạn đã đánh dấu.': 'Review the words you have starred.',
+  'TỪ ĐẾN HẠN': 'WORDS DUE',
+  'Ôn từ yếu': 'Review weak words',
+  'phiên bản ứng dụng': 'app version',
+  'Lọc kho đề': 'Filter exam archive',
+  'Trang kho đề': 'Archive pagination',
+  'Không tìm thấy bản chép': 'Transcription not found',
+  'Về kho đề': 'Back to archive',
+  'Chưa có từ phù hợp cho phiên cấp tốc. Hãy thử chế độ khác.': 'No eligible words for a study sprint. Try another mode.',
+  'Có, bản tham khảo': 'Yes, reference key',
+  'Hướng dẫn chấm thi nói trong nguồn': 'Speaking marking guide in source',
+  ', đang mở': ', open',
+  'Chính sách chấm:': 'Grading policy:',
+  'Chính xác (đã chấm)': 'Accuracy (graded)',
+  'Chưa': 'Not yet',
+  'Chưa có câu được chấm — toàn bộ giữ trạng thái chưa xác minh.': 'No questions were graded — all remain unverified.',
+  'Chưa xác minh · không chấm': 'Unverified · ungraded',
+  'Flashcard từ vựng Chuyên Anh và kho bản chép đề offline 2022–2026': 'Chuyên Anh vocabulary flashcards and offline exam archive 2022–2026',
+  'Hiện chưa có đáp án được xác minh cho bản này — toàn bộ câu giữ trạng thái chưa chấm; không chấm đoán.': 'No verified answer key is available for this transcription — all items remain ungraded; no answers are guessed.',
+  'JSON hiển thị và tệp tải xuống được tạo từ cùng một object; có thể kiểm tra chéo nguồn/đáp án.': 'The displayed JSON and downloaded file come from the same object; source and answers can be cross-checked.',
+  'Kết quả JSON': 'Result JSON',
+  'Kết quả luyện đề': 'Practice results',
+  'Kết quả:': 'Result:',
+  'Luyện lại ·': 'Retry ·',
+  'Luyện tập — chấm điểm khi có đáp án đã xác minh': 'Practice — graded when a verified answer key exists',
+  'Lỗi:': 'Error:',
+  'Lựa chọn chỉ còn trong khi trang này mở; không ghi vào localStorage hay bản sao v1.': 'Selections stay only while this page is open; nothing is written to localStorage or v1 backups.',
+  'Một số câu có đáp án đã xác minh sẽ được chấm điểm; câu chưa xác minh giữ trạng thái chưa chấm.': 'Questions with a verified key are graded; unverified questions remain ungraded.',
+  'Nguồn & xác minh:': 'Source & verification:',
+  'Nguồn: bản chép': 'Source: transcription',
+  'Tên tệp:': 'Filename:',
+  'chưa trả lời ·': 'unanswered ·',
+  'chỉ câu có đáp án đã xác minh mới được tính đúng/sai; câu chưa xác minh =': 'only questions with a verified key count as right/wrong; unverified items =',
+  ', không tính vào mẫu số accuracy.': ', excluded from the accuracy denominator.',
+  'dòng': 'line',
+  'hiển thị trong JSON theo từng câu, có thể đối chiếu độc lập.': 'shown per item in JSON for independent verification.',
+  'mục trích xuất': 'extracted items',
+  'mục trích xuất. Đây chỉ là xem lại lựa chọn, không kiểm tra đúng/sai.': 'extracted items. This reviews your selections only and does not check correctness.',
+  'Đáp án': 'Answer',
+  'Đã nộp · hiển thị kết quả từng câu theo xác minh': 'Submitted · per-item results shown by verification status',
+  'Đã xong:': 'Completed:',
+  'Đã xác minh': 'Verified',
+  'đã trả lời ·': 'answered ·',
+  'Ẩn JSON': 'Hide JSON',
+  'Họ từ': 'Word family',
+  'Đồng nghĩa': 'Synonyms',
+  'Trái nghĩa': 'Antonyms',
+  'Kết hợp từ': 'Collocations',
+  'Sắc thái': 'Register',
+  'Hàm ý': 'Connotation',
+  'Ghi chú': 'Notes',
+  'Nghĩa của phiên bản ứng dụng trước (giữ lại để đối chiếu)': 'Previous app definition (retained for reference)',
+  'Lượt củng cố cuối phiên: kiểm tra lại từ này ngay ở mức khó hơn vì không còn thẻ nào khác phía sau. Lượt này không đổi lịch ôn hay độ chính xác lần đầu.': 'End-of-session consolidation turn: rechecks this word immediately at a harder level because no other cards remain. It does not change the review schedule or first-pass accuracy.',
+  'Củng cố đạt: bạn đã nhớ lại từ này ở lượt kiểm tra cuối phiên. Lịch ôn và độ chính xác lần đầu được giữ nguyên.': 'Consolidation passed: you recalled this word in its end-of-session check. The review schedule and first-pass accuracy are unchanged.'
 });
 
 const EN_UI_PATTERNS = [
   [/^Flashcard · (\d+) từ · kho đề offline$/, (_match, count) => `Flashcards · ${count} words · offline exam archive`],
+  [/^Tìm theo tiếng Anh, tiếng Việt, từ loại, tag hoặc ví dụ · (\d+) từ\.$/, (_match, count) => `Search English, Vietnamese, part of speech, tags, or examples · ${count} words.`],
   [/^(\d+) đến hạn$/, (_match, count) => `${count} due`],
   [/^(\d+) ngày liên tiếp$/, (_match, count) => `${count}-day streak`],
   [/^(\d+) bản chép(?: · trang (\d+)\/(\d+))?$/, (_match, count, page, pages) => `${count} transcriptions${page ? ` · page ${page} of ${pages}` : ''}`],
@@ -16294,13 +16360,37 @@ const EN_UI_PATTERNS = [
   [/^(\d+) từ\.$/, (_match, count) => `${count} words.`],
   [/^(\d+) từ$/, (_match, count) => `${count} words`],
   [/^(\d+) thẻ$/, (_match, count) => `${count} cards`],
+  [/^(\d+) lượt$/, (_match, count) => `${count} turns`],
   [/^(\d+) lượt còn lại$/, (_match, count) => `${count} turns left`],
+  [/^(\d{2}\/\d{2}\/\d{4}) · (\d+) thẻ$/, (_match, date, count) => `${date} · ${count} cards`],
+  [/^(\d+) từ · (.+) · (.+)$/, (_match, count, dur, mode) => `${count} words · ${translateUiText(dur, 'en')} · ${EN_UI_TRANSLATIONS[mode] || mode}`],
   [// Session header: "<mode> · N từ đã xếp · M lượt còn lại".
    /^(.+) · (\d+) từ đã xếp · (\d+) lượt còn lại$/, (_match, mode, queued, remaining) =>
     `${EN_UI_TRANSLATIONS[mode] || mode} · ${queued} ${Number(queued) === 1 ? 'word' : 'words'} queued · ${remaining} ${Number(remaining) === 1 ? 'turn' : 'turns'} left`],
   [/^(\d+) phiên$/, (_match, count) => `${count} sessions`],
   [/^(\d+) đã học$/, (_match, count) => `${count} learned`],
   [/^(\d+) từ đang đến hạn$/, (_match, count) => `${count} words are due`],
+  [/^(\d+) lần sai$/, (_match, count) => `Missed ${count} times`],
+  [/^Đúng (\d+)$/, (_match, count) => `Correct ${count}`],
+  [/^Sai (\d+)$/, (_match, count) => `Incorrect ${count}`],
+  [/^Khó (\d+)%$/, (_match, count) => `Difficulty ${count}%`],
+  [/^(.+) · chọn nghĩa đúng$/, (_match, pos) => `${pos} · choose the correct meaning`],
+  [/^(.+) · gõ từ tiếng Anh$/, (_match, pos) => `${pos} · type the English word`],
+  [/^(.+) · chọn từ phù hợp$/, (_match, pos) => `${pos} · choose the fitting word`],
+  [/^Luyện lại · (Nhận diện|Gợi nhớ ngược|Chính tả|Điền vào ngữ cảnh) · (.+)$/, (_match, mode, pos) => `Retry · ${EN_UI_TRANSLATIONS[mode] || mode} · ${pos}`],
+  [/^Củng cố · (Nhận diện|Gợi nhớ ngược|Chính tả|Điền vào ngữ cảnh) · (.+)$/, (_match, mode, pos) => `Consolidation · ${EN_UI_TRANSLATIONS[mode] || mode} · ${pos}`],
+  [/^(Nhận diện|Gợi nhớ ngược|Chính tả|Điền vào ngữ cảnh) · (.+)$/, (_match, mode, pos) => `${EN_UI_TRANSLATIONS[mode] || mode} · ${pos}`],
+  [/^(.+) · (\d+)$/, (_match, label, count) => EN_UI_TRANSLATIONS[label] ? `${EN_UI_TRANSLATIONS[label]} · ${count}` : `${label} · ${count}`],
+  [/^(Chưa học|Đang học|Từ yếu|Ôn tập|Thành thạo): (\d+)$/, (_match, label, count) => `${EN_UI_TRANSLATIONS[label]}: ${count}`],
+  [/^Chưa học (\d+), Đang học (\d+), Từ yếu (\d+), Ôn tập (\d+), Thành thạo (\d+)$/, (_m, n, l, w, r, m) => `New ${n}, Learning ${l}, Weak ${w}, Review ${r}, Mastered ${m}`],
+  [/^Luyện lại: (\d+) đúng · (\d+) chưa đúng \/ (\d+) lượt\. Không tính vào độ chính xác lần đầu hay lịch ôn\.$/, (_m, c, w, t) => `Practice retries: ${c} correct · ${w} not correct / ${t} turns. Not included in first-pass accuracy or the review schedule.`],
+  [/^Lần ôn tiếp theo: (.+) · trạng thái: (.+)$/, (_m, when, st) => `Next review: ${translateUiText(when, 'en')} · state: ${EN_UI_TRANSLATIONS[st] || st}`],
+  [/^· phiên bản dữ liệu$/, () => '· data version'],
+  [/^· phiên bản ứng dụng$/, () => '· app version'],
+  [/^· không được dùng để chấm tự động\.$/, () => '· not used for automatic grading.'],
+  [/^· (\d+) trang · SHA-256$/, (_m, pages) => `· ${pages} pages · SHA-256`],
+  [/^← (.+) · (\d{4})$/, (_m, place, yr) => `← ${place} · ${yr}`],
+  [/^(.+) · (\d{4}) →$/, (_m, place, yr) => `${place} · ${yr} →`],
   [/^(\d+) ngày nữa$/, (_match, count) => `in ${count} days`],
   [/^(\d+) giờ nữa$/, (_match, count) => `in ${count} hours`],
   [/^(\d+) phút(?: (\d+) giây)?$/, (_match, minutes, seconds) => seconds ? `${minutes} min ${seconds} sec` : `${minutes} min`],
@@ -16318,7 +16408,15 @@ const EN_UI_PATTERNS = [
   [/^Trang (\d+)$/, (_match, page) => `Page ${page}`],
   [/^✕ Chưa đúng · Đáp án: (.+)$/, (_match, answer) => `✕ Not quite · Answer: ${answer}`],
   [/^Bạn sai từ này (\d+) lần\. Đã xếp một lượt gõ lại sau các thẻ còn lại; từ vẫn đến hạn ôn\.$/, (_match, count) => `You have missed this word ${count} times. A typed retry is queued after the remaining cards; the word is still due for review.`],
-  [/^(\d+)\s*\/\s*(\d+) lượt · (\d+) còn lại$/, (_match, current, total, remaining) => `${current} / ${total} turns · ${remaining} left`]
+  [/^(\d+)\s*\/\s*(\d+) lượt · (\d+) còn lại$/, (_match, current, total, remaining) => `${current} / ${total} turns · ${remaining} left`],
+  [/^\/\s*(\d+) lượt · (\d+) còn lại$/, (_match, total, remaining) => `/ ${total} turns · ${remaining} left`],
+  [/^Câu nguồn (\d+)$/, (_match, n) => `Source item ${n}`],
+  [/^mục trích xuất (.+)$/, (_match, rest) => `extracted items ${translateUiText(rest, 'en')}`],
+  [/^(.+) · không được dùng để chấm tự động\.$/, (_match, status) => `${translateUiText(status, 'en')} · not used for automatic grading.`],
+  [/^Đã xác minh: (.+)$/, (_match, val) => `Verified: ${val}`],
+  [/^Đã chấm (\d+) câu · (\d+) đúng · (\d+) sai · Chính xác (\d+)% \(trên câu đã chấm\)$/, (_m, g, c, w, acc) => `Graded ${g} items · ${c} correct · ${w} incorrect · Accuracy ${acc}% (graded items)`],
+  [/^Chỉ dùng văn bản đã có trong bản chép\. Ranh giới mục\/lựa chọn được trích xuất tự động, chưa xác minh và có thể không đầy đủ\. (.+) Câu trả lời chỉ lưu trong bộ nhớ phiên đang mở và mất khi tải lại hoặc đóng trang\. Bản chép đầy đủ bên dưới có thể chứa nội dung đáp án như trong nguồn\.$/, (_m, mid) => `Only text already present in the transcription is used. Extracted item and choice boundaries are automatic, unverified, and may be incomplete. ${translateUiText(mid, 'en')} Responses stay in memory for this open session only and are cleared when reloading or closing the page. The full transcription below may include reference answer content from the source.`],
+  [/^Import thất bại: (.+)$/, (_match, msg) => `Import failed: ${translateUiText(msg, 'en')}`]
 ];
 
 const EN_UI_SPRINT_PATTERNS = [
@@ -16326,42 +16424,45 @@ const EN_UI_SPRINT_PATTERNS = [
   [/^Xếp (\d+) từ ưu tiên: đến hạn, từ yếu, rồi từ mới — mỗi từ được hỏi ở mức bạn đã chứng minh và nhắc lại một lượt sau vài thẻ nếu chưa vững\.$/, (_m, queued) => `Queues ${queued} prioritised words: due, then weak, then new — each word is asked at the level you have demonstrated and repeated once after a few cards if it is not yet solid.`],
   [/^Cấp tốc giữ nguyên khối lượng từ bạn đã chọn trong Cài đặt \((\d+) từ\/phiên\) và không cắt bớt kho từ\. Thay vì hỏi mọi từ theo cùng một kiểu, mỗi từ được hỏi ở mức phù hợp với những gì bạn đã nhớ \(nhận diện → gợi nhớ ngược → chính tả\); từ mới hoặc từ vừa sai được nhắc lại một lượt sau ít nhất ba thẻ khác\. Lượt nhắc lại không tính vào độ chính xác lần đầu hay lịch ôn\. Thoát giữa chừng vẫn giữ tiến độ đã lưu\.$/, (_m, target) => `The sprint keeps the session size you chose in Settings (${target} words per session) and never shrinks the word pool. Instead of asking every word the same way, each word is asked at the level it has earned (recognition → reverse recall → spelling); a new or recently missed word is repeated once after at least three other cards. The repeat is never counted as first-pass accuracy or added to the review schedule. Leaving mid-session keeps the progress already saved.`],
   [/^Củng cố: (\d+) đúng · (\d+) chưa đúng \/ (\d+) lượt, kiểm tra lại sau vài thẻ khác\. Không tính vào độ chính xác lần đầu hay lịch ôn\.$/, (_m, correct, wrong, total) => `Consolidation: ${correct} correct · ${wrong} not correct / ${total} turns, checked after a few other cards. Not included in first-pass accuracy or the review schedule.`],
+  [/^Lượt củng cố cuối phiên: nhắc lại từ này sau (\d+) thẻ còn lại ở mức khó hơn\. Lượt này không đổi lịch ôn hay độ chính xác lần đầu\.$/, (_m, gap) => `End-of-session consolidation turn: rechecks this word after ${gap} remaining ${Number(gap) === 1 ? 'card' : 'cards'} at a harder level. It does not change the review schedule or first-pass accuracy.`],
+  [/^Củng cố đạt: bạn đã nhớ lại từ này sau (\d+) thẻ còn lại cuối phiên\. Lịch ôn và độ chính xác lần đầu được giữ nguyên\.$/, (_m, gap) => `Consolidation passed: you recalled this word after ${gap} remaining ${Number(gap) === 1 ? 'card' : 'cards'} at the end of the session. The review schedule and first-pass accuracy are unchanged.`],
   [/^(\d+) từ đủ điều kiện · xếp (\d+) · (\d+) đến hạn · (\d+) từ yếu$/, (_m, pool, queued, due, weak) => `${pool} eligible words · ${queued} queued · ${due} due · ${weak} weak`],
 ];
 
-const EN_UI_DYNAMIC_FRAGMENTS = [
-  [/(\d+)\s+từ/g, (_match, count) => `${count} words`],
-  [/(\d+)\s+thẻ/g, (_match, count) => `${count} cards`],
-  [/(\d+)\s+lượt/g, (_match, count) => `${count} turns`],
-  [/(\d+)\s+phiên/g, (_match, count) => `${count} sessions`]
-];
+function lookupSingleUiText(trimmed) {
+  let translated = EN_UI_TRANSLATIONS[trimmed];
+  if (translated !== undefined) return translated;
+  for (const [pattern, render] of EN_UI_PATTERNS) {
+    const match = trimmed.match(pattern);
+    if (match) return render(...match);
+  }
+  for (const [pattern, render] of EN_UI_SPRINT_PATTERNS) {
+    const match = trimmed.match(pattern);
+    if (match) return render(...match);
+  }
+  return undefined;
+}
 
 export function translateUiText(value, language = 'vi') {
   const source = String(value ?? '');
   if (language !== 'en') return source;
   const trimmed = source.trim();
   if (!trimmed) return source;
-  let translated = EN_UI_TRANSLATIONS[trimmed];
-  if (translated === undefined) {
-    for (const [pattern, render] of EN_UI_PATTERNS) {
-      const match = trimmed.match(pattern);
-      if (match) { translated = render(...match); break; }
+  let translated = lookupSingleUiText(trimmed);
+  if (translated === undefined && trimmed.includes('. ')) {
+    const sentences = trimmed.split(/(?<=\.)\s+/).filter(Boolean);
+    if (sentences.length > 1) {
+      const mapped = sentences.map(sentence => {
+        const direct = lookupSingleUiText(sentence);
+        if (direct !== undefined) return direct;
+        if (sentence.endsWith('.')) {
+          const withoutDot = lookupSingleUiText(sentence.slice(0, -1).trim());
+          if (withoutDot !== undefined) return `${withoutDot}.`;
+        }
+        return undefined;
+      });
+      if (mapped.every(item => item !== undefined)) translated = mapped.join(' ');
     }
-  }
-  if (translated === undefined) {
-    for (const [pattern, render] of EN_UI_SPRINT_PATTERNS) {
-      const match = trimmed.match(pattern);
-      if (match) { translated = render(...match); break; }
-    }
-  }
-  if (translated === undefined) {
-    let composed = trimmed;
-    const keys = Object.keys(EN_UI_TRANSLATIONS).sort((a, b) => b.length - a.length);
-    for (const key of keys) {
-      if (composed.includes(key)) composed = composed.split(key).join(EN_UI_TRANSLATIONS[key]);
-    }
-    for (const [pattern, render] of EN_UI_DYNAMIC_FRAGMENTS) composed = composed.replace(pattern, render);
-    if (composed !== trimmed) translated = composed;
   }
   if (translated === undefined) return source;
   const leading = source.match(/^\s*/)?.[0] || '';
@@ -16384,22 +16485,62 @@ export function createInitialProgress(id, now = Date.now()) {
   };
 }
 
+function deriveStudiedState({ correctCount, wrongCount, streak, interval }) {
+  if (wrongCount > 0 && streak === 0) return STATES.WEAK;
+  if (interval >= 21 && correctCount >= 5 && streak >= 3) return STATES.MASTERED;
+  if (streak >= 2 && (correctCount >= 3 || interval >= 2)) return STATES.REVIEW;
+  return STATES.LEARNING;
+}
+
 function sanitizeProgress(value, id, now = Date.now()) {
   if (!value || typeof value !== 'object' || Array.isArray(value)) return null;
   const numeric = ['correctCount', 'wrongCount', 'streak', 'nextReview', 'interval', 'ease', 'difficulty'];
   if (numeric.some(key => value[key] !== undefined && (!Number.isFinite(value[key]) || value[key] < 0))) return null;
-  const state = VALID_STATES.has(value.state) ? value.state : STATES.NEW;
+  const correctCount = Math.floor(value.correctCount || 0);
+  const wrongCount = Math.floor(value.wrongCount || 0);
+  const streak = Math.floor(value.streak || 0);
+  const lastReviewed = Number.isFinite(value.lastReviewed) ? value.lastReviewed : null;
+  const nextReview = Number.isFinite(value.nextReview) ? value.nextReview : now;
+  const interval = Math.min(180, value.interval || 0);
+  const ease = Math.min(2.8, Math.max(1.3, value.ease || 2.5));
+  const difficulty = Math.min(1, Math.max(0, value.difficulty || 0));
+  const hasGradedHistory = correctCount > 0 || wrongCount > 0;
+  const hasScheduleEvidence = hasGradedHistory || lastReviewed !== null || interval > 0 || streak > 0;
+
+  // Unstudied entries (or ungraded `new` entries carrying stale seed metadata)
+  // always normalize cleanly to `new` so every session mode treats them identically.
+  if (!hasScheduleEvidence || (value.state === STATES.NEW && !hasGradedHistory)) {
+    return {
+      id: String(id),
+      state: STATES.NEW,
+      correctCount: 0,
+      wrongCount: 0,
+      streak: 0,
+      lastReviewed: null,
+      nextReview,
+      interval: 0,
+      ease: 2.5,
+      difficulty: 0
+    };
+  }
+
+  // Legacy studied entries without a valid state (or stuck on `new` despite real
+  // graded answers) derive their studied state instead of resetting to `new`.
+  const state = VALID_STATES.has(value.state) && value.state !== STATES.NEW
+    ? value.state
+    : deriveStudiedState({ correctCount, wrongCount, streak, interval });
+
   return {
     id: String(id),
     state,
-    correctCount: Math.floor(value.correctCount || 0),
-    wrongCount: Math.floor(value.wrongCount || 0),
-    streak: Math.floor(value.streak || 0),
-    lastReviewed: Number.isFinite(value.lastReviewed) ? value.lastReviewed : null,
-    nextReview: Number.isFinite(value.nextReview) ? value.nextReview : now,
-    interval: Math.min(180, value.interval || 0),
-    ease: Math.min(2.8, Math.max(1.3, value.ease || 2.5)),
-    difficulty: Math.min(1, Math.max(0, value.difficulty || 0))
+    correctCount,
+    wrongCount,
+    streak,
+    lastReviewed,
+    nextReview,
+    interval,
+    ease,
+    difficulty
   };
 }
 
@@ -16643,26 +16784,91 @@ export function needsConsolidationTurn({ correct, demand, practice = false, cons
   return demand !== MODES.SPELLING;
 }
 
-// Insert the re-retrieval behind `gap` other cards so at least `gap` answers come
-// between the first pass and the check. When the queue is shorter than the gap the
-// item goes to the end, which is the largest delay still available; later
-// insertions can only increase the distance, never reduce it.
-export function queueConsolidation(session, item, demand, gap = SPRINT_CONSOLIDATION_GAP) {
+export function consolidationTurnNote(actualGap = SPRINT_CONSOLIDATION_GAP) {
+  const gap = Number.isFinite(actualGap) ? Math.max(0, Math.floor(actualGap)) : SPRINT_CONSOLIDATION_GAP;
+  if (gap === 0) {
+    return 'Lượt củng cố cuối phiên: kiểm tra lại từ này ngay ở mức khó hơn vì không còn thẻ nào khác phía sau. Lượt này không đổi lịch ôn hay độ chính xác lần đầu.';
+  }
+  if (gap < SPRINT_CONSOLIDATION_GAP) {
+    return `Lượt củng cố cuối phiên: nhắc lại từ này sau ${gap} thẻ còn lại ở mức khó hơn. Lượt này không đổi lịch ôn hay độ chính xác lần đầu.`;
+  }
+  return 'Lượt củng cố: nhắc lại từ này sau vài thẻ khác ở mức khó hơn. Lượt này không đổi lịch ôn hay độ chính xác lần đầu.';
+}
+
+export function consolidationResultNote(correct, actualGap = SPRINT_CONSOLIDATION_GAP) {
+  if (!correct) {
+    return 'Củng cố chưa đạt: lịch ôn vẫn theo lần trả lời đầu tiên; từ sẽ gặp lại khi đến hạn.';
+  }
+  const gap = Number.isFinite(actualGap) ? Math.max(0, Math.floor(actualGap)) : SPRINT_CONSOLIDATION_GAP;
+  if (gap === 0) {
+    return 'Củng cố đạt: bạn đã nhớ lại từ này ở lượt kiểm tra cuối phiên. Lịch ôn và độ chính xác lần đầu được giữ nguyên.';
+  }
+  if (gap < SPRINT_CONSOLIDATION_GAP) {
+    return `Củng cố đạt: bạn đã nhớ lại từ này sau ${gap} thẻ còn lại cuối phiên. Lịch ôn và độ chính xác lần đầu được giữ nguyên.`;
+  }
+  return 'Củng cố đạt: bạn đã nhớ lại từ này sau vài thẻ khác. Lịch ôn và độ chính xác lần đầu được giữ nguyên.';
+}
+
+// Insert the re-retrieval behind `gap` other cards whenever the remaining unseen
+// queue makes `gap` achievable, and at `nonPracticeEnd` near the end of the
+// session so final unseen cards run ahead of trailing consolidations and inherit
+// those consolidations as real spacing. Never drops a consolidation turn, even
+// when 0, 1, or 2 cards remain, and always keeps corrective retries last.
+export function queueConsolidation(session, item, demand, gap = SPRINT_CONSOLIDATION_GAP, firstPassTurn = null) {
   if (!Array.isArray(session) || !session.includes(item)) return false;
   if (item.practice || item.consolidation || item.consolidationQueued) return false;
   item.consolidationQueued = true;
-  let index = Math.min(gap + 1, session.length);
-  // A corrective retry promises to come after the remaining cards, so the check
-  // is inserted ahead of trailing practice turns instead of behind them. The
-  // current card stays first and is never displaced.
-  while (index > 1 && session[index - 1]?.practice) index -= 1;
+  let nonPracticeEnd = session.length;
+  while (nonPracticeEnd > 1 && session[nonPracticeEnd - 1]?.practice) nonPracticeEnd -= 1;
+  let unseenRemaining = 0;
+  for (let i = 1; i < nonPracticeEnd; i += 1) {
+    if (!session[i]?.practice && !session[i]?.consolidation) unseenRemaining += 1;
+  }
+  const index = unseenRemaining > gap
+    ? Math.min(gap + 1, nonPracticeEnd)
+    : nonPracticeEnd;
   session.splice(index, 0, {
     vocab: item.vocab,
     progress: item.progress,
     consolidation: true,
     demand,
+    firstPassTurn: Number.isInteger(firstPassTurn) ? firstPassTurn : null,
     scheduledAfter: Math.max(0, index - 1)
   });
+  return true;
+}
+
+// Rotates a skipped non-consolidation card to the back of `session` while
+// keeping any queued consolidation behind enough non-skipped cards to preserve
+// its remaining required gap whenever enough other cards exist, without ever
+// leaving `skipped` at index 0 when another card is available.
+export function skipSessionCard(session, completedTurns = 0, gap = SPRINT_CONSOLIDATION_GAP) {
+  const current = session?.[0];
+  if (!current || current.consolidation) return false;
+  if (session.length <= 1) return true;
+  const skipped = session.shift();
+  session.push(skipped);
+  const consolidations = [];
+  const rest = [];
+  for (let i = 0; i < session.length; i += 1) {
+    if (session[i]?.consolidation) consolidations.push(session[i]);
+    else rest.push(session[i]);
+  }
+  if (!consolidations.length) return true;
+  session.length = 0;
+  session.push(...rest);
+  for (const c of consolidations) {
+    const elapsed = Number.isInteger(c.firstPassTurn)
+      ? Math.max(0, completedTurns - c.firstPassTurn - 1)
+      : Math.max(0, gap - (Number.isFinite(c.scheduledAfter) ? c.scheduledAfter : gap));
+    const needed = Math.max(0, gap - elapsed);
+    let nonPracticeBeforeSkipped = Math.max(0, session.length - 1);
+    while (nonPracticeBeforeSkipped > 0 && session[nonPracticeBeforeSkipped - 1]?.practice) {
+      nonPracticeBeforeSkipped -= 1;
+    }
+    const target = Math.min(needed, nonPracticeBeforeSkipped);
+    session.splice(target, 0, c);
+  }
   return true;
 }
 
@@ -17725,19 +17931,19 @@ export async function createApp(root) {
 
   function localizeSubtree(node) {
     if (language !== 'en' || !node) return;
-    const protectedSelectors = '.exam-document, .exam-question-source, .vocab-word, .vocab-meaning, .vocab-pos, .vocab-detail dd, .prompt, .sub-prompt, .option, .example em, .example span, .code';
+    const protectedSelectors = '.exam-document, .exam-question-source, .vocab-word, .vocab-meaning, .vocab-pos, .vocabulary-metadata dd, .prompt, .option, .example em, .example span, .code';
     const visit = current => {
       if (current.nodeType === 3) {
         if (!current.parentElement?.closest(protectedSelectors)) current.nodeValue = translateUiText(current.nodeValue, language);
         return;
       }
       if (current.nodeType !== 1 && current.nodeType !== 9 && current.nodeType !== 11) return;
-      if (current.nodeType === 1 && current.matches('.exam-document, .exam-question-source, .vocab-word, .vocab-meaning, .vocab-pos, .vocab-detail dd, .prompt, .sub-prompt, .option, .example em, .example span, .code')) return;
       if (current.nodeType === 1) {
         for (const name of ['aria-label', 'placeholder', 'title', 'alt']) {
           const value = current.getAttribute(name);
           if (value) current.setAttribute(name, translateUiText(value, language));
         }
+        if (current.matches(protectedSelectors)) return;
       }
       for (const child of [...current.childNodes]) visit(child);
     };
@@ -17987,7 +18193,7 @@ export async function createApp(root) {
       const selected = selectSprintSession(vocabulary, progress, { size: prefs.sessionSize });
       if (!selected.length) { toast('Chưa có từ phù hợp cho phiên cấp tốc. Hãy thử chế độ khác.'); return; }
       session = selected;
-      sessionStats = { total: selected.length, correct: 0, wrong: 0, practiceTotal: 0, practiceCorrect: 0, practiceWrong: 0, consolidationTotal: 0, consolidationCorrect: 0, consolidationWrong: 0, startedAt: Date.now(), mode: 'sprint', queued: selected.length };
+      sessionStats = { total: selected.length, correct: 0, wrong: 0, practiceTotal: 0, practiceCorrect: 0, practiceWrong: 0, consolidationTotal: 0, consolidationCorrect: 0, consolidationWrong: 0, completedTurns: 0, turnSeq: 0, startedAt: Date.now(), mode: 'sprint', queued: selected.length };
       sessionSummary = null;
       nextQuestion();
       renderShell();
@@ -18003,7 +18209,7 @@ export async function createApp(root) {
       return;
     }
     session = selected;
-    sessionStats = { total: selected.length, correct: 0, wrong: 0, practiceTotal: 0, practiceCorrect: 0, practiceWrong: 0, consolidationTotal: 0, consolidationCorrect: 0, consolidationWrong: 0, startedAt: Date.now(), mode, queued: selected.length };
+    sessionStats = { total: selected.length, correct: 0, wrong: 0, practiceTotal: 0, practiceCorrect: 0, practiceWrong: 0, consolidationTotal: 0, consolidationCorrect: 0, consolidationWrong: 0, completedTurns: 0, turnSeq: 0, startedAt: Date.now(), mode, queued: selected.length };
     sessionSummary = null;
     nextQuestion();
     renderShell();
@@ -18013,6 +18219,7 @@ export async function createApp(root) {
     if (!session?.length) return finishSession();
     const item = session[0];
     item.progress = progress[item.vocab.id];
+    if (sessionStats) sessionStats.turnSeq = (sessionStats.turnSeq || 0) + 1;
     // Never-studied words get an introduction first; the timer starts with the quiz.
     firstLook = needsFirstLook(item);
     question = firstLook ? null : generateQuestion(item, vocabulary, questionModeFor(item));
@@ -18042,20 +18249,28 @@ export async function createApp(root) {
   function firstLookBody(item) {
     return `
             <div class="mode-label">Từ mới · học trước khi kiểm tra</div>
-            <div class="prompt">${escapeHtml(item.vocab.word)}</div><div class="sub-prompt">${escapeHtml(item.vocab.pos)}</div>
+            <div class="prompt"><span class="vocab-word">${escapeHtml(item.vocab.word)}</span></div><div class="sub-prompt"><span class="vocab-pos">${escapeHtml(item.vocab.pos)}</span></div>
             <div class="first-look">
-              <p class="first-look-meaning"><span>Nghĩa</span><strong>${escapeHtml(item.vocab.meaning)}</strong></p>
+              <p class="first-look-meaning"><span>Nghĩa</span><strong class="vocab-meaning">${escapeHtml(item.vocab.meaning)}</strong></p>
               ${vocabularyMetadataHtml(item.vocab)}${exampleHtml(item.vocab)}
               <p class="first-look-note">Lượt giới thiệu này không phải là câu trả lời và không thay đổi lịch ôn. Sau khi bấm nút, từ sẽ được kiểm tra ngay bằng một câu hỏi ngắn.</p>
               <div class="actions"><button class="btn primary" id="start-quiz">Bắt đầu kiểm tra <kbd>Enter</kbd></button></div>
             </div>`;
   }
 
+  function currentConsolidationGap(item) {
+    if (!item?.consolidation) return SPRINT_CONSOLIDATION_GAP;
+    if (Number.isInteger(item.firstPassTurn) && Number.isInteger(sessionStats?.completedTurns)) {
+      return Math.max(0, sessionStats.completedTurns - item.firstPassTurn - 1);
+    }
+    return Number.isFinite(item.scheduledAfter) ? item.scheduledAfter : SPRINT_CONSOLIDATION_GAP;
+  }
+
   function renderFlashcard(container) {
     if (!session?.length) { renderLearn(container); return; }
     const item = session[0];
-    const currentStats = stats();
     const consolidationTurn = item.consolidation === true;
+    const actualGap = consolidationTurn ? currentConsolidationGap(item) : null;
     const totalAttempts = sessionStats.total + sessionStats.practiceTotal + sessionStats.consolidationTotal;
     const done = totalAttempts - session.length;
     const percent = Math.round(done / totalAttempts * 100);
@@ -18069,17 +18284,17 @@ export async function createApp(root) {
       <div class="flashcard-wrap">
         <div class="page-header"><div><h1>Phiên học</h1><p>${escapeHtml(sessionModeLabel(sessionStats.mode))} · ${sessionStats.queued ?? sessionStats.total} từ đã xếp · ${session.length} lượt còn lại</p></div><button class="btn" id="exit-session">Thoát phiên</button></div>
         <div class="session-progress" aria-label="Tiến độ phiên" role="progressbar" aria-valuenow="${percent}" aria-valuemin="0" aria-valuemax="100"><span style="width:${percent}%"></span></div>
-        <article class="flashcard">
+        <article class="flashcard" data-turn-seq="${sessionStats.turnSeq || 0}" ${consolidationTurn ? `data-scheduled-gap="${item.scheduledAfter ?? 0}" data-actual-gap="${actualGap}"` : ''}>
           <div class="flashcard-head"><span><b>${done + 1}</b> / ${totalAttempts} lượt · ${session.length} còn lại</span><div class="flashcard-head-actions"><span class="state-pill state-${escapeHtml(item.progress.state)}">${escapeHtml(stateLabel(item.progress.state))}</span><button class="fav ${favorites.has(item.vocab.id) ? 'active' : ''}" id="favorite-card" aria-label="${favorites.has(item.vocab.id) ? 'Bỏ yêu thích' : 'Thêm yêu thích'}">${favorites.has(item.vocab.id) ? '★' : '☆'}</button><button class="btn small" id="skip-card" ${canSkip ? '' : 'disabled'}>Bỏ qua</button></div></div>
           <div class="flashcard-body">
-            ${lastAnswer ? `<div class="handoff-strip" role="status" aria-live="polite"><span class="handoff-mark" aria-hidden="true">${lastAnswer.correct ? '✓' : '✕'}</span><span><strong>${escapeHtml(lastAnswer.word)}</strong> · ${escapeHtml(lastAnswer.meaning)}</span><span class="handoff-note">${lastAnswer.correct ? 'Đã trả lời đúng' : 'Chưa đúng'}</span></div>` : ''}
+            ${lastAnswer ? `<div class="handoff-strip" role="status" aria-live="polite"><span class="handoff-mark" aria-hidden="true">${lastAnswer.correct ? '✓' : '✕'}</span><span><strong class="vocab-word">${escapeHtml(lastAnswer.word)}</strong> · <span class="vocab-meaning">${escapeHtml(lastAnswer.meaning)}</span></span><span class="handoff-note">${lastAnswer.correct ? 'Đã trả lời đúng' : 'Chưa đúng'}</span></div>` : ''}
             ${firstLook ? firstLookBody(item) : `
             <div class="mode-label">${item.practice ? 'Luyện lại · ' : ''}${consolidationTurn ? 'Củng cố · ' : ''}${modeLabel(question.mode)} · ${escapeHtml(item.vocab.pos)}</div>
             <div class="prompt">${escapeHtml(question.prompt)}</div><div class="sub-prompt">${escapeHtml(question.subPrompt || '')}</div>
             ${item.practice ? '<p class="turn-note">Tự gõ lại từ vừa ôn. Lượt luyện không thay đổi lịch ôn hay độ chính xác lần đầu.</p>' : ''}
-            ${consolidationTurn ? '<p class="turn-note">Lượt củng cố: nhắc lại từ này sau vài thẻ khác ở mức khó hơn. Lượt này không đổi lịch ôn hay độ chính xác lần đầu.</p>' : ''}
+            ${consolidationTurn ? `<p class="turn-note">${escapeHtml(consolidationTurnNote(actualGap))}</p>` : ''}
             <div id="question-area"></div>
-            ${revealed && !answered ? `<div class="reveal"><strong>${escapeHtml(question.answer)}</strong><span>Bạn đã xem đáp án, nên các lựa chọn bên trên đã bị khóa. Hãy tự đánh giá trung thực.</span><div class="actions" style="justify-content:center;margin-top:10px"><button class="btn primary small" id="reveal-correct">Nhớ được</button><button class="btn danger small" id="reveal-wrong">Chưa nhớ</button></div></div>` : ''}
+            ${revealed && !answered ? `<div class="reveal"><strong class="vocab-word">${escapeHtml(question.answer)}</strong><span>Bạn đã xem đáp án, nên các lựa chọn bên trên đã bị khóa. Hãy tự đánh giá trung thực.</span><div class="actions" style="justify-content:center;margin-top:10px"><button class="btn primary small" id="reveal-correct">Nhớ được</button><button class="btn danger small" id="reveal-wrong">Chưa nhớ</button></div></div>` : ''}
             <div id="feedback-area"></div>`}
           </div>
           <div class="card-footer"><span><span>Đúng ${item.progress.correctCount}</span><span>Sai ${item.progress.wrongCount}</span><span>Khó ${Math.round(item.progress.difficulty * 100)}%</span></span><span>${firstLook ? '<kbd>Enter</kbd> bắt đầu kiểm tra' : consolidationTurn ? 'Lượt củng cố · <kbd>Space</kbd> lật' : '<kbd>Space</kbd> lật · <kbd>Enter</kbd> tiếp'}</span></div>
@@ -18146,54 +18361,41 @@ export async function createApp(root) {
     // changes the stored state. A consolidation carries the level it was queued at.
     const demand = item.demand || (firstPass && sessionStats.mode === 'sprint'
       ? sprintRetrievalDemand(item.progress) : null);
-    // Immediate post-feedback retrieval is practice, not evidence of spaced retention.
+    const turnIndex = sessionStats.completedTurns || 0;
+    const actualGap = item.consolidation ? currentConsolidationGap(item) : null;
+    // Immediate post-feedback retrieval and delayed consolidation are session
+    // practice turns, not scheduled reviews: neither may alter progress or streak.
     if (firstPass) {
       const updated = updateProgress(progress[item.vocab.id], correct, Date.now() - questionStarted);
       progress[item.vocab.id] = updated;
       item.progress = updated;
-      // Every mode, sprint included, queues at most one corrective retrieval per
-      // missed word. Sprint previously skipped it while still telling the learner a
-      // retry had been queued; the correction is what makes speed safe.
       if (!correct && queuePractice(session, item)) sessionStats.practiceTotal += 1;
-      // Sprint only: one delayed re-retrieval of the same word, so a lucky
-      // recognition or a recovered mistake is not the session's only evidence.
       if (sessionStats.mode === 'sprint'
         && needsConsolidationTurn({ correct, demand })
-        && queueConsolidation(session, item, consolidationDemand({ correct, demand }))) {
+        && queueConsolidation(session, item, consolidationDemand({ correct, demand }), SPRINT_CONSOLIDATION_GAP, turnIndex)) {
         sessionStats.consolidationTotal += 1;
       }
+      updateStreak();
+      persist();
     }
+    sessionStats.completedTurns = turnIndex + 1;
     answered = true;
-    answerResult = { correct, selected: answer, revealed, consolidation: item.consolidation === true };
-    updateStreak();
+    answerResult = { correct, selected: answer, revealed, consolidation: item.consolidation === true, actualGap };
     if (item.practice) {
       if (correct) sessionStats.practiceCorrect += 1; else sessionStats.practiceWrong += 1;
     } else if (item.consolidation) {
-      // A consolidation is evidence of the session's learning path, not of
-      // first-pass knowledge: it never touches accuracy, progress or scheduling.
       if (correct) sessionStats.consolidationCorrect += 1; else sessionStats.consolidationWrong += 1;
     } else {
       if (correct) sessionStats.correct += 1; else sessionStats.wrong += 1;
     }
-    // Only a first-pass answer can change persisted progress, so only that turn
-    // needs a write.
-    if (firstPass) persist();
     if (shouldHandOffImmediately({
       mode: sessionStats.mode, correct, practice: item.practice,
       consolidation: item.consolidation, revealed
     })) {
-      // Carry the graded answer onto the next card instead of spending a fixed
-      // delay on a panel the learner has already read. Nothing is discarded: the
-      // word, its meaning and the verdict stay visible in the strip, and the
-      // detailed panel is still used for wrong, practice and self-assessed turns.
       lastAnswer = { correct, word: item.vocab.word, meaning: item.vocab.meaning };
-      // Nothing is pending afterwards: the exchange ends here, so no timer can
-      // fire against a card the learner has already left.
       advanceCard();
       return;
     }
-    // This turn keeps its own detailed panel, so a strip from an earlier card
-    // would describe the wrong exchange and is cleared first.
     lastAnswer = null;
     renderFlashcard(root.querySelector('#content'));
   }
@@ -18208,10 +18410,8 @@ export async function createApp(root) {
     const practiceNote = item.practice
       ? '<p>Lượt luyện đã hoàn tất. Lịch ôn và kết quả lần đầu được giữ nguyên; hãy ôn lại khi đến hạn.</p>' : '';
     const consolidationNote = consolidation
-      ? `<p>${correct
-        ? 'Củng cố đạt: bạn đã nhớ lại từ này sau vài thẻ khác. Lịch ôn và độ chính xác lần đầu được giữ nguyên.'
-        : 'Củng cố chưa đạt: lịch ôn vẫn theo lần trả lời đầu tiên; từ sẽ gặp lại khi đến hạn.'}</p>` : '';
-    container.querySelector('#feedback-area').innerHTML = `<div class="feedback ${correct ? 'correct' : 'wrong'}" role="alert"><div class="feedback-title">${correct ? '✓ Chính xác!' : `✕ Chưa đúng · Đáp án: ${escapeHtml(answerText)}`}</div><p><strong>${escapeHtml(item.vocab.word)}</strong> · ${escapeHtml(item.vocab.meaning)}</p>${vocabularyMetadataHtml(item.vocab)}${retryNote}${practiceNote}${consolidationNote}${answerResult.revealed ? '<p>Lượt này được chấm theo tự đánh giá vì bạn đã xem đáp án trước đó.</p>' : ''}${exampleHtml(item.vocab)}<p style="color:var(--muted);font-size:.75rem">Lần ôn tiếp theo: ${formatNextReview(item.progress.nextReview, language)} · trạng thái: ${stateLabel(item.progress.state)}</p><div class="actions" style="margin-top:12px"><button class="btn primary full" id="next-card">Tiếp tục <kbd>Enter</kbd></button></div></div>`;
+      ? `<p>${escapeHtml(consolidationResultNote(correct, answerResult.actualGap))}</p>` : '';
+    container.querySelector('#feedback-area').innerHTML = `<div class="feedback ${correct ? 'correct' : 'wrong'}" role="alert"><div class="feedback-title">${correct ? '✓ Chính xác!' : `✕ Chưa đúng · Đáp án: ${escapeHtml(answerText)}`}</div><p><strong class="vocab-word">${escapeHtml(item.vocab.word)}</strong> · <span class="vocab-meaning">${escapeHtml(item.vocab.meaning)}</span></p>${vocabularyMetadataHtml(item.vocab)}${retryNote}${practiceNote}${consolidationNote}${answerResult.revealed ? '<p>Lượt này được chấm theo tự đánh giá vì bạn đã xem đáp án trước đó.</p>' : ''}${exampleHtml(item.vocab)}<p style="color:var(--muted);font-size:.75rem">Lần ôn tiếp theo: ${formatNextReview(item.progress.nextReview, language)} · trạng thái: ${stateLabel(item.progress.state)}</p><div class="actions" style="margin-top:12px"><button class="btn primary full" id="next-card">Tiếp tục <kbd>Enter</kbd></button></div></div>`;
     const nextButton = container.querySelector('#next-card');
     nextButton.addEventListener('click', advanceCard);
     nextButton.focus({ preventScroll: true });
@@ -18226,18 +18426,10 @@ export async function createApp(root) {
   }
 
   function skipCard() {
-    // A revealed answer must still be self-assessed; the lock also disables the
-    // skip control so the turn cannot be abandoned after seeing the answer.
     if (!session?.length || answered || revealed) return;
-    // A consolidation turn exists to test delayed recall. Skipping it would drop
-    // the evidence it was queued for, so the control is disabled on that turn.
     if (session[0].consolidation) return;
-    // Rotating the queue breaks the adjacency the handoff strip describes: the
-    // answer it carries belongs to the card that was just on screen, and after a
-    // skip that card is no longer the one before this one. Drop it rather than
-    // label an unrelated word with someone else's verdict.
     lastAnswer = null;
-    session.push(session.shift());
+    skipSessionCard(session, sessionStats?.completedTurns || 0, SPRINT_CONSOLIDATION_GAP);
     nextQuestion();
     renderFlashcard(root.querySelector('#content'));
   }
@@ -18302,7 +18494,7 @@ export async function createApp(root) {
       const entry = vocabulary.find(v=>v.id===p.id);
       return entry ? { entry, progress: p } : null;
     }).filter(Boolean);
-    const weakSpotlight = weakList.length ? `<section class="panel"><div class="panel-heading">Từ yếu cần ôn</div><div class="panel-body weak-spotlight">${weakList.map(item => `<div class="weak-row"><span><b>${escapeHtml(item.entry.word)}</b> <small>· ${escapeHtml(item.entry.meaning)}</small></span><span style="color:var(--danger);font-weight:700">${item.progress.wrongCount} lần sai</span></div>`).join('')}<button class="btn small" data-session="weak" style="margin-top:8px">Ôn từ yếu</button></div></section>` : '';
+    const weakSpotlight = weakList.length ? `<section class="panel"><div class="panel-heading">Từ yếu cần ôn</div><div class="panel-body weak-spotlight">${weakList.map(item => `<div class="weak-row"><span><b class="vocab-word">${escapeHtml(item.entry.word)}</b> · <small class="vocab-meaning">${escapeHtml(item.entry.meaning)}</small></span><span style="color:var(--danger);font-weight:700">${item.progress.wrongCount} lần sai</span></div>`).join('')}<button class="btn small" data-session="weak" style="margin-top:8px">Ôn từ yếu</button></div></section>` : '';
     container.innerHTML = `<div class="page-header"><div><h1>Tổng quan</h1><p>Tiến độ học trên thiết bị này. Dữ liệu không rời khỏi trình duyệt.</p></div></div><div class="stat-grid">${statCard(currentStats.total, 'Tổng từ')}${statCard(currentStats.new, 'Chưa học')}${statCard(currentStats.learning + currentStats.review, 'Đang học')}${statCard(currentStats.weak, 'Từ yếu')}${statCard(currentStats.mastered, 'Thành thạo')}${statCard(currentStats.due, 'Đến hạn')}${statCard(`${currentStats.accuracy}%`, 'Chính xác')}${statCard(streak.current, 'Ngày liên tiếp')}</div>${weakSpotlight}<div class="two-col"><section class="panel"><div class="section-header"><h2 class="section-title">Phân bố trạng thái</h2><span style="color:var(--muted);font-size:.73rem">${currentStats.learned} đã học</span></div><div class="panel-body"><div class="bar" role="img" aria-label="${escapeHtml(distributionLabel)}">${Object.keys(colors).map(state => `<i aria-hidden="true" style="flex:${Math.max(.001, currentStats[state] / totalForBar)};background:${colors[state]}" title="${escapeHtml(stateLabel(state))}: ${currentStats[state]}"></i>`).join('')}</div><div class="legend">${Object.keys(colors).map(state => `<span><i aria-hidden="true" style="background:${colors[state]}"></i>${escapeHtml(stateLabel(state))} · ${currentStats[state]}</span>`).join('')}</div></div></section><section class="panel"><div class="section-header"><h2 class="section-title">Lịch sử phiên học</h2><span style="color:var(--muted);font-size:.73rem">${history.length} phiên</span></div><div class="history">${recent.length ? recent.map(item => `<div class="history-row"><div><b>${escapeHtml(sessionModeLabel(item.mode))}</b><small>${formatDate(item.date, language)} · ${item.total} thẻ</small></div><strong>${item.accuracy}%</strong></div>`).join('') : '<div class="empty" style="padding:20px;border:0">Chưa có phiên học.</div>'}</div></section></div>`;
     // weak spotlight button handler
     container.querySelectorAll('[data-session="weak"]').forEach(btn => btn.addEventListener('click', () => { view='learn'; renderShell(); setTimeout(()=> { const b=document.querySelector('[data-session="weak"]'); b?.click(); }, 50); }));
