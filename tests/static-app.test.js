@@ -229,7 +229,11 @@ test('unreviewed corpus uses conservative transcript-only parsing and leaves OCR
   assert.match(appScript[1], /if \(\/HTML\|OCR\|cần-soát\/i\.test\(record\.quality\)\) return \[\];/);
   assert.match(appScript[1], /unverified.{0,20}may be incomplete/i);
   assert.match(appScript[1], /không có đồng hồ, kiểm tra đúng\/sai, điểm số hoặc xếp hạng/);
-  assert.doesNotMatch(appScript[1], /name="exam-timer-mode"|id="exam-start"|id="exam-duration"|role="timer"|class="exam-outline"/);
+  const examUiStart = appScript[1].indexOf('async function renderExams(container)');
+  const examUiEnd = appScript[1].indexOf('function renderSettings(container)');
+  assert.ok(examUiStart >= 0 && examUiEnd > examUiStart, 'the exam reader must be locatable');
+  assert.doesNotMatch(appScript[1].slice(examUiStart, examUiEnd), /name="exam-timer-mode"|id="exam-start"|id="exam-duration"|role="timer"|class="exam-outline"/,
+    'transcript practice is ungraded and untimed; the study-session timer is a separate view');
   assert.match(appScript[1], /examPracticeSessions = new Map\(\)/);
   assert.doesNotMatch(appScript[1], /examPracticeSessions[^;]*localStorage|localStorage[^;]*examPracticeSessions/);
 });
@@ -361,8 +365,9 @@ test('exam attempts use a separate local-only history and never extend the v1 fl
   const bundle = exportProgressBundle({
     progress: {}, prefs: {}, favorites: new Set(), history: [], streak: { current: 0, longest: 0, lastDate: null }
   });
-  assert.deepEqual(Object.keys(bundle).sort(), ['app', 'exportedAt', 'favorites', 'history', 'prefs', 'progress', 'streak', 'version']);
-  assert.equal('examAttempts' in bundle, false);
+  assert.deepEqual(Object.keys(bundle).sort(), ['achievements', 'app', 'exportedAt', 'favorites', 'flagged', 'history', 'prefs', 'progress', 'streak', 'study', 'version']);
+  assert.equal('examAttempts' in bundle, false, 'exam attempts never enter the flashcard backup');
+  assert.deepEqual(Object.keys(bundle.achievements), ['seenBadges']);
 });
 
 test('learner-facing labels stay local while persisted scheduler keys remain stable', () => {
@@ -516,7 +521,9 @@ test('answer choices are a named button group rather than a radio group', () => 
   assert.ok(optionRendererStart >= 0 && optionRendererEnd > optionRendererStart);
   assert.doesNotMatch(appScript[1].slice(optionRendererStart, optionRendererEnd), /type="radio"/);
   // Transcript-derived practice is ungraded and untimed; OCR-only records retain a read-only fallback.
-  assert.doesNotMatch(appScript[1], /name="exam-timer-mode"|id="exam-start"|id="exam-duration"|role="timer"|class="exam-outline"/);
+  const examViewStart = appScript[1].indexOf('async function renderExams(container)');
+  const examViewEnd = appScript[1].indexOf('function renderSettings(container)');
+  assert.doesNotMatch(appScript[1].slice(examViewStart, examViewEnd), /name="exam-timer-mode"|id="exam-start"|id="exam-duration"|role="timer"|class="exam-outline"/);
   assert.match(appScript[1], /id="exam-submit"/);
   assert.match(appScript[1], /function parseExamQuestions\(markdown\)/);
   assert.match(appScript[1], /Bản chép này chỉ đọc trong chế độ luyện tập/);
@@ -562,23 +569,26 @@ test('a failed write is reported instead of being followed by a success message'
   const resetStart = appScript[1].indexOf('function resetProgress()');
   const importBody = appScript[1].slice(importStart, resetStart);
   const resetBody = appScript[1].slice(resetStart, appScript[1].indexOf("document.addEventListener('keydown'", resetStart));
+  // The import tells a v1 restore apart from a full restore, so only the shared
+  // prefix of the success message is pinned; both variants come after the guard.
   for (const [name, body, successToast] of [
-    ['import', importBody, "toast('Đã khôi phục tiến độ từ bản sao lưu.', 'success')"],
+    ['import', importBody, 'Đã khôi phục tiến độ'],
     ['reset', resetBody, "toast('Đã xóa dữ liệu học.', 'success')"]
   ]) {
     const guard = body.indexOf('if (!persist())');
     assert.ok(guard >= 0, `${name} must check the persistence result`);
     assert.ok(body.indexOf(successToast) > guard, `${name} must not toast success before the write is confirmed`);
   }
-  // The theme toggle is a direct prefs write and reports its own failure.
-  assert.match(appScript[1], /if \(!savePrefs\(prefs, storage\)\) toast\('Không thể lưu giao diện trên thiết bị này\.', 'error'\);/);
+  // The theme is its own namespaced store; a failed write is reported, never
+  // followed by a success message.
+  assert.match(appScript[1], /if \(!saveTheme\(next, storage\)\) \{[\s\S]{0,160}toast\('Không thể lưu giao diện trên thiết bị này\.', 'error'\);/);
   assert.match(appScript[1], /if \(saveFavorites\(favorites, storage\)\) \{/);
 });
 
 test('programmatic page focus stays visually quiet while settings switches have names and focus', () => {
   assert.ok(styleBlock);
   assert.match(styleBlock[1], /\.content:focus \{ outline: none; \}/);
-  assert.match(appScript[1], /aria-labelledby=\"dark-label\" aria-describedby=\"dark-help\"/);
+  assert.match(appScript[1], /aria-labelledby=\"theme-label\" aria-describedby=\"theme-help\"/);
   assert.match(appScript[1], /aria-labelledby=\"keys-label\" aria-describedby=\"keys-help\"/);
   assert.match(styleBlock[1], /\.switch input:focus-visible \+ span \{ outline: 3px solid/);
   assert.match(appScript[1], /aria-labelledby=\"size-label\" aria-describedby=\"size-help\"/);
@@ -689,7 +699,7 @@ test('session history keeps one retention window across storage, export and impo
 
   // The in-memory window is trimmed with the same constant, so an export can never
   // contain more rows than the importer keeps.
-  const finishStart = appScript[1].indexOf('function finishSession()');
+  const finishStart = appScript[1].indexOf('function finishSession(');
   const finishBody = appScript[1].slice(finishStart, appScript[1].indexOf('function renderSummary', finishStart));
   assert.match(finishBody, /history = history\.slice\(-HISTORY_LIMIT\);/);
   assert.match(appScript[1], /const HISTORY_LIMIT = 50;/);
@@ -872,7 +882,7 @@ test('every multiple-choice question offers plausible, distinct options', () => 
 });
 
 test('every generated mode keeps prompt, answer and options bound to its own record', () => {
-  // 913 records x 4 requested learning modes = 3,652 generated questions. This
+  // 913 records x 6 requested learning modes = 5,478 generated questions. This
   // checks application/data association; it is not a dictionary review.
   let generated = 0;
   let cloze = 0;
@@ -899,17 +909,26 @@ test('every generated mode keeps prompt, answer and options bound to its own rec
         assert.equal(question.prompt, entry.meaning, `${entry.id} spelling prompt`);
         assert.equal(question.answer, entry.word, `${entry.id} spelling answer`);
         assert.equal(question.options, null, `${entry.id} spelling options`);
-      } else {
-        assert.equal(question.mode, MODES.CLOZE, `${entry.id} mode`);
+      } else if (question.mode === MODES.CLOZE) {
         assert.equal(question.answer, entry.word, `${entry.id} cloze answer`);
         assert.deepEqual(question.example, entry.examples[0], `${entry.id} cloze example`);
         assert.deepEqual(correct, [[entry.id, entry.word]], `${entry.id} cloze option`);
         cloze += 1;
+      } else if (question.mode === MODES.FILL_VI) {
+        assert.equal(question.prompt, entry.word, `${entry.id} fill-vi prompt`);
+        assert.equal(question.answer, entry.meaning, `${entry.id} fill-vi answer`);
+        assert.equal(question.options, null, `${entry.id} fill-vi options`);
+        assert.equal(question.exercise, 'fill_vi', `${entry.id} fill-vi exercise id`);
+      } else {
+        assert.equal(question.mode, MODES.FLASHCARD, `${entry.id} mode`);
+        assert.equal(question.prompt, entry.word, `${entry.id} flashcard prompt`);
+        assert.equal(question.answer, entry.meaning, `${entry.id} flashcard answer`);
+        assert.equal(question.selfAssess, true, `${entry.id} flashcard self-assessment`);
       }
     }
     assert.deepEqual(entry, snapshot, `${entry.id} was mutated while generating questions`);
   }
-  assert.equal(generated, embeddedVocabulary.length * 4);
+  assert.equal(generated, embeddedVocabulary.length * 6);
   assert.equal(cloze, 1, 'only the record with an example sentence is asked as cloze');
 });
 
@@ -1092,7 +1111,7 @@ test('exported exam results report exactly what the learner did and what could b
   const result = buildExamResultJson(session, record, { now: 6000 });
   assert.equal(result.app, 'Chuyên Anh');
   assert.equal(result.version, APP_VERSION, 'the result carries the application version');
-  assert.equal(result.version, 'v1.0.0-beta4');
+  assert.equal(result.version, 'v1.0.0-beta5');
   assert.equal(result.schemaVersion, '1.0.0');
   assert.deepEqual(result.summary, {
     total: 3, answered: 2, unanswered: 1,
@@ -1658,4 +1677,409 @@ test('Scope E: unstudied vocabulary items normalize to new across all modes whil
       assert.equal(needsFirstLook(item), true);
     }
   }
+});
+
+/* ---------------------------------------------------------------------------
+ * beta5: exercise types, priority selection, typed grading, timer, XP/badges,
+ * study configuration persistence and the v1 ↔ beta5 backup contract.
+ * ------------------------------------------------------------------------- */
+
+// The first 60 records plus the one entry that carries a vetted example sentence:
+// cloze availability is data-driven, so the fixture has to include real cloze data.
+const modeItems = [...embeddedVocabulary.slice(0, 60), ...embeddedVocabulary.filter(entry => entry.examples?.length)]
+  .map(vocab => ({ vocab, progress: createInitialProgress(vocab.id, 0) }));
+
+test('every one of the seven exercise types is generated from its own record and grades once', () => {
+  assert.deepEqual([...app.EXERCISE_ORDER], ['mc_en_vi', 'mc_vi_en', 'fill_vi', 'fill_en', 'cloze', 'match', 'flashcard']);
+  assert.equal(Object.keys(app.EXERCISE_LABELS).length, 7);
+  const seenModes = new Set();
+  for (const type of app.EXERCISE_ORDER) {
+    if (type === app.EXERCISE_TYPES.MATCH) {
+      // A matching board is built by the plan, never by generateQuestion.
+      assert.equal(app.EXERCISE_TO_MODE[type], undefined);
+      const plan = app.buildExercisePlan(modeItems.slice(0, 8), {
+        exercises: { ...app.DEFAULT_EXERCISES, match: true }, vocabulary: embeddedVocabulary
+      });
+      const board = plan.turns.find(turn => turn.type === app.EXERCISE_TYPES.MATCH);
+      assert.ok(board, 'a four-word pool builds one matching board');
+      assert.equal(board.items.length, app.MATCH_PAIRS_PER_BOARD);
+      assert.equal(new Set(board.items.map(item => item.vocab.id)).size, app.MATCH_PAIRS_PER_BOARD);
+      continue;
+    }
+    const usable = modeItems.filter(item => app.exerciseAvailability(type, item, embeddedVocabulary));
+    assert.ok(usable.length > 0, `${type} is available for real data`);
+    for (const item of usable.slice(0, 6)) {
+      const question = generateQuestion(item, embeddedVocabulary, type);
+      assert.equal(question.exercise, type, `${type} keeps its own exercise label`);
+      assert.equal(question.id, item.vocab.id);
+      seenModes.add(question.mode);
+      assert.equal(question.prompt.length > 0, true);
+      // Asking for the meaning keeps the English headword as the answer, and a
+      // cloze asks for the word that fills its recorded sentence.
+      const asksForWord = ['mc_vi_en', 'fill_en', 'cloze'].includes(type);
+      assert.equal(question.answer, asksForWord ? item.vocab.word : item.vocab.meaning);
+      if (question.options) {
+        assert.equal(question.options.filter(option => option.correct).length, 1, `${type} has exactly one correct option`);
+        assert.equal(new Set(question.options.map(option => option.text)).size, question.options.length,
+          `${type} never repeats an option text`);
+      }
+      if (question.mode === 'flashcard') {
+        // The card reveals its own answer and is graded by self-assessment only.
+        assert.equal(app.gradeAnswer(question, true).correct, true);
+        assert.equal(app.gradeAnswer(question, false).correct, false);
+        assert.equal(app.gradeAnswer(question, null).status, 'empty');
+      } else if (question.options) {
+        const right = question.options.find(option => option.correct);
+        const wrong = question.options.find(option => !option.correct);
+        assert.equal(app.gradeAnswer(question, right.id).correct, true);
+        assert.equal(app.gradeAnswer(question, wrong.id).correct, false);
+        assert.equal(app.gradeAnswer(question, '').correct, false);
+      } else {
+        assert.equal(app.gradeAnswer(question, question.answer).status, 'correct');
+        assert.equal(app.gradeAnswer(question, 'zzzz').status, 'incorrect');
+        assert.equal(app.gradeAnswer(question, '   ').status, 'empty');
+      }
+    }
+  }
+  // Six card modes exist; matching is a board and deliberately has none.
+  assert.equal(seenModes.size, 6);
+});
+
+test('a typed answer accepts the canonical wording and recorded senses, never a synonym column', () => {
+  const multi = embeddedVocabulary.find(entry => app.meaningSegments(entry.meaning).length > 1);
+  assert.ok(multi, 'the dataset contains a multi-sense gloss');
+  const item = { vocab: multi, progress: createInitialProgress(multi.id, 0) };
+  const question = generateQuestion(item, embeddedVocabulary, 'fill_vi');
+  const [, second] = app.meaningSegments(multi.meaning);
+  assert.equal(app.gradeAnswer(question, multi.meaning).status, 'correct');
+  assert.equal(app.gradeAnswer(question, second).status, 'alias');
+  assert.equal(app.gradeAnswer(question, second).correct, true);
+  // Unicode/case/whitespace normalisation, without touching Vietnamese marks.
+  const spaced = `  ${multi.meaning.toUpperCase().replace(/\s+/g, '   ')}  `;
+  assert.equal(app.gradeAnswer(question, spaced).status, 'correct');
+  assert.equal(app.normalizeTyped('Nghịch cảnh'), app.normalizeTyped('  nghịch   cảnh '));
+  assert.notEqual(app.normalizeTyped('nghich canh'), app.normalizeTyped('nghịch cảnh'));
+  assert.equal(app.gradeAnswer(question, 'nghich canh').correct, false);
+  // An answer that is another entry's gloss is evidence, not a mistake. A
+  // two-entry fixture states the contract without depending on dataset wording.
+  const fixture = [
+    { id: 'a', word: 'alpha', meaning: 'một' },
+    { id: 'b', word: 'beta', meaning: 'một' },
+    { id: 'c', word: 'gamma', meaning: 'hai' }
+  ];
+  const typedVi = { id: 'a', mode: app.MODES.FILL_VI, prompt: 'alpha', answer: 'một' };
+  const ambiguous = app.gradeAnswer(typedVi, 'hai', { vocabulary: fixture });
+  assert.equal(ambiguous.status, 'ambiguous');
+  assert.equal(ambiguous.correct, false, 'an ambiguous answer is never silently accepted');
+  assert.equal(ambiguous.requiresSelfAssessment, true);
+  const typedEn = { id: 'a', mode: app.MODES.SPELLING, prompt: 'một', answer: 'alpha' };
+  assert.equal(app.gradeAnswer(typedEn, 'beta', { vocabulary: fixture }).status, 'ambiguous',
+    'typing the word that owns the prompt gloss is ambiguous, not wrong');
+  assert.equal(app.gradeAnswer(typedEn, 'gamma', { vocabulary: fixture }).status, 'incorrect',
+    'an unrelated word that owns another gloss is a plain mistake');
+  assert.equal(app.gradeAnswer(typedVi, 'một', { vocabulary: fixture }).status, 'correct');
+  // A declared alias is accepted; the synonym column is not consulted.
+  const withAlias = { ...question, aliases: ['một cách khác'] };
+  assert.equal(app.gradeAnswer(withAlias, 'một cách khác').status, 'alias');
+  assert.equal(app.typedAliases(withAlias).includes('một cách khác'), true);
+  const synonymEntry = embeddedVocabulary.find(entry => Array.isArray(entry.synonyms) && entry.synonyms.length);
+  if (synonymEntry) {
+    const synonymQuestion = generateQuestion({ vocab: synonymEntry, progress: createInitialProgress(synonymEntry.id, 0) }, embeddedVocabulary, 'fill_vi');
+    assert.equal(app.gradeAnswer(synonymQuestion, synonymEntry.synonyms[0]).correct, false,
+      'a synonym is not accepted as the recorded meaning');
+  }
+});
+
+test('a mixed plan interleaves modes, spaces matching boards and reports unusable words', () => {
+  const pool = modeItems.slice(0, 20);
+  const plan = app.buildExercisePlan(pool, {
+    exercises: { ...app.DEFAULT_EXERCISES, match: true }, vocabulary: embeddedVocabulary
+  });
+  const cards = plan.turns.reduce((total, turn) => total + (turn.type === app.EXERCISE_TYPES.MATCH ? turn.items.length : 1), 0);
+  assert.equal(cards, 20, 'no eligible word is dropped when its modes have data');
+  const boards = plan.turns.filter(turn => turn.type === app.EXERCISE_TYPES.MATCH);
+  assert.equal(boards.length, 2, 'a 20-word pool spends at most half its words on boards');
+  assert.equal(new Set(plan.turns.map(turn => turn.type)).size >= 4, true, 'the plan mixes several modes');
+  const singles = plan.turns.filter(turn => turn.type !== app.EXERCISE_TYPES.MATCH);
+  for (let index = 1; index < singles.length; index += 1) {
+    assert.notEqual(singles[index].type, singles[index - 1].type, 'two single-card turns never repeat the same mode');
+  }
+  const boardIndexes = plan.turns.map((turn, index) => (turn.type === app.EXERCISE_TYPES.MATCH ? index : -1)).filter(index => index >= 0);
+  for (let index = 1; index < boardIndexes.length; index += 1) {
+    assert.ok(boardIndexes[index] - boardIndexes[index - 1] > 1, 'two matching boards never sit next to each other');
+  }
+  // Cloze only ships where a vetted example sentence exists.
+  const clozeOnly = app.buildExercisePlan(pool, { exercises: { cloze: true }, vocabulary: embeddedVocabulary });
+  assert.equal(clozeOnly.turns.length, 0, 'a cloze-only plan refuses words without examples');
+  assert.equal(clozeOnly.dropped.length > 0, true);
+  const lucky = app.buildExercisePlan(pool, { exercises: { cloze: true, flashcard: true }, vocabulary: embeddedVocabulary });
+  assert.ok(lucky.turns.every(turn => turn.type === app.EXERCISE_TYPES.FLASHCARD),
+    'a word without cloze data is offered the mode that can use it, not a broken cloze');
+  assert.deepEqual(plan.enabled.includes(app.EXERCISE_TYPES.CLOZE), false, 'disabled modes stay out of the plan');
+});
+
+test('the priority selection deduplicates overlapping groups and honours focus without touching progress', () => {
+  const now = Date.UTC(2026, 9, 20, 12);
+  const vocab = embeddedVocabulary.slice(0, 30);
+  const progressMap = {};
+  vocab.forEach((entry, index) => {
+    progressMap[entry.id] = {
+      ...createInitialProgress(entry.id, now - 86400000 * 3),
+      state: ['due', 'weak', 'new', 'review'][index % 4] === 'new' ? 'new' : ['learning', 'weak', 'review', 'mastered'][index % 4],
+      nextReview: index % 2 ? now - 3600000 : now + 86400000 * 5,
+      wrongCount: index % 5,
+      correctCount: index % 3
+    };
+  });
+  const snapshot = JSON.stringify(progressMap);
+  const all = app.selectPrioritySession(vocab, progressMap, { size: 10, now });
+  const ids = all.items.map(item => item.progress.id);
+  assert.equal(new Set(ids).size, ids.length, 'each word enters the session once');
+  assert.equal(all.items.length <= 10, true);
+  assert.equal(all.counts.unique >= all.items.length, true, 'the reported eligible count is the unique union');
+  assert.equal(all.shortfall, 0, 'a large enough pool fills the session');
+  for (const group of app.STUDY_GROUP_ORDER) {
+    assert.equal(Array.isArray(app.studyGroupCandidates(vocab, progressMap, now)[group]), true);
+  }
+  // Focus changes the allocation while the scheduler records stay byte-identical.
+  const weakFocus = app.selectPrioritySession(vocab, progressMap, { size: 10, now, focus: 'weak' });
+  const newFocus = app.selectPrioritySession(vocab, progressMap, { size: 10, now, focus: 'new' });
+  assert.ok(weakFocus.focusTaken >= 1, 'the focus group is represented');
+  assert.notDeepEqual(weakFocus.items.map(item => item.progress.id), newFocus.items.map(item => item.progress.id));
+  for (const item of [...all.items, ...weakFocus.items, ...newFocus.items]) {
+    assert.equal(snapshot.includes(item.progress.id), true);
+  }
+  assert.equal(JSON.stringify(progressMap), snapshot, 'selection never mutates a progress record');
+  // A disabled group only leaves its words out; the remaining pool still builds.
+  const onlyWeak = app.selectPrioritySession(vocab, progressMap, {
+    size: 10, now, groups: { due: false, weak: true, new: false, review: false }
+  });
+  assert.deepEqual(onlyWeak.groups, ['weak']);
+  assert.equal(onlyWeak.items.every(item => item.progress.state === 'weak'), true);
+  // An empty filter set reports zero candidates instead of silently falling back.
+  const empty = app.selectPrioritySession(vocab, progressMap, {
+    size: 10, now, groups: { due: false, weak: false, new: false, review: false }
+  });
+  assert.equal(empty.items.length, 0);
+  assert.equal(empty.counts.unique, 0);
+  // A hard-word pool is intersected with the enabled groups and keeps its own size.
+  const flagged = new Set([vocab[0].id, vocab[1].id, 'not-a-word']);
+  const pool = app.selectPrioritySession(vocab, progressMap, { size: 10, now, poolIds: flagged });
+  assert.equal(pool.items.every(item => flagged.has(item.progress.id)), true);
+});
+
+test('study configuration survives storage, rejects impossible states and never blocks boot', () => {
+  const store = () => {
+    const map = new Map();
+    return { getItem: key => (map.has(key) ? map.get(key) : null), setItem: (key, value) => map.set(key, String(value)), map };
+  };
+  const storage = store();
+  assert.deepEqual(app.loadStudyConfig(storage), app.DEFAULT_STUDY_CONFIG, 'a fresh device gets the defaults');
+  const custom = app.sanitizeStudyConfig({
+    groups: { due: false, weak: true, new: false, review: true },
+    focus: 'review',
+    exercises: { mc_en_vi: false, mc_vi_en: false, fill_vi: false, fill_en: false, cloze: false, match: true, flashcard: false },
+    size: 30, timed: true, timerMinutes: 15
+  });
+  assert.equal(app.saveStudyConfig(custom, storage), true);
+  assert.deepEqual(app.loadStudyConfig(storage), custom, 'the saved configuration round-trips');
+  // Impossible or hostile values fall back to a usable configuration.
+  storage.setItem(app.STUDY_STORAGE_KEYS.study, '{not json');
+  assert.deepEqual(app.loadStudyConfig(storage), app.DEFAULT_STUDY_CONFIG, 'a corrupt value falls back instead of throwing');
+  storage.setItem(app.STUDY_STORAGE_KEYS.study, JSON.stringify({ groups: {}, exercises: {}, size: 7, focus: 'nope', timed: 'yes', timerMinutes: 999 }));
+  const repaired = app.loadStudyConfig(storage);
+  assert.equal(app.SESSION_SIZES.includes(repaired.size), true);
+  assert.equal(app.STUDY_GROUP_ORDER.some(group => repaired.groups[group]), true, 'at least one group stays enabled');
+  assert.equal(app.EXERCISE_ORDER.some(type => repaired.exercises[type]), true, 'at least one exercise stays enabled');
+  assert.equal(app.STUDY_GROUP_ORDER.includes(repaired.focus), true);
+  assert.equal(repaired.timed, false);
+  assert.equal(repaired.timerMinutes, 60);
+  // Hard words are stored apart from the vocabulary and survive a bad value.
+  assert.equal(app.saveFlagged(new Set(['1', '2']), storage), true);
+  assert.deepEqual([...app.loadFlagged(storage)], ['1', '2']);
+  storage.setItem(app.STUDY_STORAGE_KEYS.flagged, '{}');
+  assert.deepEqual([...app.loadFlagged(storage)], []);
+  const broken = { getItem: () => { throw new Error('denied'); }, setItem: () => { throw new Error('denied'); } };
+  assert.deepEqual(app.loadStudyConfig(broken), app.DEFAULT_STUDY_CONFIG);
+  assert.deepEqual([...app.loadFlagged(broken)], []);
+  assert.equal(app.saveStudyConfig(custom, broken), false);
+  assert.deepEqual(app.THEMES, ['system', 'light', 'dark']);
+  assert.equal(app.resolveTheme('system', true), 'dark');
+  assert.equal(app.resolveTheme('system', false), 'light');
+  assert.equal(app.resolveTheme('light', true), 'light');
+  assert.equal(app.resolveTheme('dark', false), 'dark');
+});
+
+test('a v1 backup still imports and an absent block keeps the device list instead of wiping it', () => {
+  const v1 = {
+    app: 'chuyen-anh-flashcard',
+    version: 1,
+    exportedAt: '2026-10-01T00:00:00.000Z',
+    progress: { 1: createInitialProgress('1', 0) },
+    prefs: { sessionSize: 20, keyboardShortcuts: true, darkMode: false },
+    favorites: ['1'],
+    history: [],
+    streak: { current: 0, longest: 0, lastDate: null }
+  };
+  const imported = validateImportPayload(v1, new Set(['1']));
+  assert.equal(imported.study, null, 'a v1 file has no opinion about the study configuration');
+  assert.equal(imported.flagged, null, 'a v1 file has no opinion about the hard-word list');
+  assert.equal(imported.seenBadges, null, 'a v1 file has no opinion about unlocked badges');
+  assert.deepEqual([...imported.favorites], ['1']);
+  assert.equal(imported.version, undefined);
+
+  const full = exportProgressBundle({
+    progress: v1.progress,
+    prefs: v1.prefs,
+    favorites: new Set(['1']),
+    history: [],
+    streak: v1.streak,
+    study: { ...app.DEFAULT_STUDY_CONFIG, size: 30, focus: 'weak' },
+    flagged: new Set(['2']),
+    achievements: { seenBadges: ['first_steps'] }
+  });
+  assert.equal(full.version, 1, 'the export schema stays v1 until a new version is defined');
+  assert.deepEqual(Object.keys(full).sort(), ['achievements', 'app', 'exportedAt', 'favorites', 'flagged', 'history', 'prefs', 'progress', 'streak', 'study', 'version']);
+  assert.deepEqual(full.flagged, ['2']);
+  assert.deepEqual(full.achievements.seenBadges, ['first_steps']);
+  assert.equal(full.study.size, 30);
+  const roundTrip = validateImportPayload(JSON.parse(JSON.stringify(full)), new Set(['1', '2']));
+  assert.equal(roundTrip.study.size, 30);
+  assert.deepEqual([...roundTrip.flagged], ['2']);
+  assert.deepEqual([...roundTrip.seenBadges], ['first_steps']);
+  // Malformed optional blocks are refused instead of being half-applied.
+  assert.throws(() => validateImportPayload({ ...v1, study: [] }), /Cài đặt phiên học/);
+  assert.throws(() => validateImportPayload({ ...v1, flagged: [1] }), /từ khó/);
+  assert.throws(() => validateImportPayload({ ...v1, achievements: { seenBadges: [1] } }), /Huy hiệu/);
+  // This build always writes the optional blocks, explicitly empty when the caller
+  // has none; a file produced by an older build simply lacks them.
+  const explicit = exportProgressBundle({ ...v1, favorites: new Set(['1']), study: null, flagged: null, achievements: null });
+  assert.deepEqual(explicit.flagged, []);
+  assert.deepEqual(explicit.achievements.seenBadges, []);
+  assert.deepEqual(validateImportPayload(JSON.parse(JSON.stringify(explicit))).flagged, new Set(),
+    'an empty hard-word list in the file is a real value, not "no opinion"');
+  const older = JSON.parse(JSON.stringify(explicit));
+  delete older.study; delete older.flagged; delete older.achievements;
+  const olderImport = validateImportPayload(older);
+  assert.equal(olderImport.study, null);
+  assert.equal(olderImport.flagged, null);
+  assert.equal(olderImport.seenBadges, null);
+});
+
+test('timed practice is bounded, formatted and never negative', () => {
+  assert.equal(app.sessionTimeLimit(10, { timed: false, timerMinutes: 15 }), 0, 'an untimed session has no limit');
+  assert.equal(app.sessionTimeLimit(10, { timed: true, timerMinutes: 0 }), 200);
+  assert.equal(app.sessionTimeLimit(1, { timed: true, timerMinutes: 0 }), 120, 'the automatic limit has a two-minute floor');
+  assert.equal(app.sessionTimeLimit(200, { timed: true, timerMinutes: 0 }), 4000);
+  assert.equal(app.sessionTimeLimit(10, { timed: true, timerMinutes: 15 }), 900);
+  assert.equal(app.sessionTimeLimit(10, { timed: true, timerMinutes: 999 }), 3600, 'an explicit limit is capped at one hour');
+  assert.equal(app.sessionTimeLimit(10, { timed: true, timerMinutes: -5 }), 200, 'a negative choice falls back to the automatic limit');
+  assert.equal(app.remainingSeconds(1000, 0), 1);
+  assert.equal(app.remainingSeconds(1000, 1000), 0);
+  assert.equal(app.remainingSeconds(1000, 5000), 0, 'elapsed time never becomes negative');
+  assert.equal(app.remainingSeconds(Number.NaN), 0);
+  assert.equal(app.formatClock(0), '00:00');
+  assert.equal(app.formatClock(75), '01:15');
+  assert.equal(app.formatClock(3599), '59:59');
+  assert.equal(app.formatClock(-4), '00:00');
+  // The session timer is a single interval owned by startSessionTimer.
+  const timerBody = appScript[1].slice(appScript[1].indexOf('function startSessionTimer('), appScript[1].indexOf('function expireSession('));
+  assert.equal((timerBody.match(/setInterval/g) || []).length, 1);
+  assert.match(timerBody, /stopSessionTimer\(\);/);
+  assert.match(appScript[1], /function tickSessionTimer\(\)[\s\S]{0,400}expireSession\(\);/);
+  assert.match(appScript[1], /if \(token !== confettiToken\) \{ canvas\.remove\(\); return; \}/, 'a stale confetti frame loop stops itself');
+});
+
+test('XP and badges are derived from real first-pass records and are announced once', () => {
+  const progressMap = {};
+  const id = embeddedVocabulary[0].id;
+  progressMap[id] = createInitialProgress(id, 0);
+  const baseXp = app.calculateXp({ progressMap, history: [] });
+  assert.equal(baseXp, 0, 'an untouched record earns nothing');
+  const afterCorrect = updateProgress(progressMap[id], true, 1000, 0);
+  progressMap[id] = afterCorrect;
+  const earnedXp = app.calculateXp({ progressMap, history: [] });
+  assert.equal(earnedXp, app.XP_RULES.correctFirstPass);
+  // Re-reading the same records never doubles XP: no counter, no extra award.
+  assert.equal(app.calculateXp({ progressMap, history: [] }), earnedXp);
+  // A retry/consolidation turn never calls updateProgress, so simulating one leaves XP intact.
+  const session = [{ vocab: embeddedVocabulary[0], progress: afterCorrect }];
+  app.queuePractice(session, session[0]);
+  assert.equal(app.calculateXp({ progressMap, history: [] }), earnedXp, 'a queued retry earns no XP');
+  assert.equal(progressMap[id].correctCount, 1);
+  // A finished session adds the session bonus exactly once per history entry.
+  const history = [{ date: '2026-10-01T00:00:00.000Z', total: 5, correct: 5, wrong: 0, accuracy: 100, mode: 'due', durationSec: 60 }];
+  assert.equal(app.calculateXp({ progressMap, history }), earnedXp + app.XP_RULES.completedSession);
+  const level = app.xpLevel(earnedXp + app.XP_RULES.completedSession);
+  assert.equal(level.level, 1);
+  assert.equal(app.xpLevel(app.XP_RULES.levelStep).level, 2);
+  // Badges are deterministic and stay earned once unlocked, even if the
+  // underlying condition is transient.
+  const stats = calculateStats(progressMap, 0);
+  const badges = app.evaluateBadges({ stats, streak: { current: 0 }, xp: 0 });
+  assert.equal(badges.length, app.BADGE_DEFINITIONS.length);
+  assert.equal(badges.find(badge => badge.id === 'first_steps').earned, true);
+  const seen = new Set(app.unseenBadges(badges, new Set()));
+  assert.ok(seen.size >= 1);
+  assert.deepEqual(app.unseenBadges(badges, seen), [], 'an announced badge is not announced again');
+  const later = app.evaluateBadges({ stats: { ...stats, correct: 0, wrong: 0 }, streak: { current: 0 }, xp: 0, seen });
+  assert.equal(later.find(badge => badge.id === 'first_steps').earned, true, 'a seen badge stays earned');
+  assert.equal(later.find(badge => badge.id === 'first_steps').conditionMet, false);
+  // The dashboard's five metrics keep their existing statistical meaning.
+  const dashboardStats = calculateStats({
+    [id]: { ...afterCorrect, state: 'weak' },
+    [embeddedVocabulary[1].id]: { ...createInitialProgress(embeddedVocabulary[1].id, 0), state: 'new' }
+  }, 0);
+  assert.equal(dashboardStats.accuracy, 100, 'accuracy is correct/(correct+wrong)');
+  const mastery = Math.round(dashboardStats.mastered / dashboardStats.total * 100);
+  assert.equal(mastery, 0, 'mastery counts mastered records, not XP');
+  assert.equal(app.BADGE_DEFINITIONS.some(badge => JSON.stringify(badge.test({ stats: dashboardStats, streak: { current: 0 }, xp: 0 })) === 'true'
+    && badge.id === 'xp_1000'), false, 'XP alone never sets mastery');
+});
+
+test('skipped questions stay pending and can be reopened without being graded', () => {
+  const session = embeddedVocabulary.slice(0, 3).map(vocab => ({ vocab, progress: createInitialProgress(vocab.id, 0) }));
+  const skipped = session[0];
+  const before = JSON.stringify(session.map(item => item.progress));
+  assert.equal(app.skipSessionCard(session, 0, 3), true);
+  assert.equal(session.length, 3, 'a skip rotates the queue, it never removes a word');
+  assert.equal(session[2].vocab.id, skipped.vocab.id);
+  assert.equal(app.bringSessionCardToFront(session, skipped.vocab.id), true);
+  assert.equal(session[0].vocab.id, skipped.vocab.id);
+  assert.equal(app.bringSessionCardToFront(session, 'not-queued'), false);
+  assert.equal(JSON.stringify(session.map(item => item.progress)), before, 'rotating and reopening grade nothing');
+  assert.equal(app.sessionPendingCount(session), 3);
+  assert.equal(app.sessionPendingCount([{ practice: true }, ...session]), 3, 'a practice retry is not a pending first pass');
+});
+
+test('the new interface copy exists in both languages and keeps dataset text intact', () => {
+  const samples = [
+    ['Phiên ưu tiên', 'Priority session'],
+    ['Bắt đầu phiên ưu tiên', 'Start priority session'],
+    ['Số từ mỗi phiên', 'Words per session'],
+    ['Học từ khó (3)', 'Hard words (3)'],
+    ['913 từ đủ điều kiện', '913 words eligible'],
+    ['4 nhóm · Đến hạn cần ôn · Từ mới', '4 groups · Due for review · New words'],
+    ['Trọng tâm: Từ yếu hoặc thường sai', 'Focus: Weak or often missed'],
+    ['Giới hạn 03:20 · câu bỏ trống không bị chấm sai', 'Limit 03:20 · blank answers are not marked wrong'],
+    ['Đã bỏ qua (2)', 'Skipped (2)'],
+    ['Nối cặp · 2/4 cặp', 'Match pairs · 2/4 pairs'],
+    ['Dài nhất 5 ngày', 'Longest 5 days'],
+    ['Tổng 830 XP', 'Total 830 XP'],
+    ['Trăm từ', 'Hundred words'],
+    ['Huy hiệu mới: Trăm từ', 'New badge: Hundred words']
+  ];
+  for (const [source, english] of samples) {
+    assert.equal(translateUiText(source, 'en'), english, `${source} is translated`);
+    assert.equal(translateUiText(source, 'vi'), source, `${source} stays Vietnamese in the Vietnamese interface`);
+  }
+  for (const entry of embeddedVocabulary) {
+    assert.equal(translateUiText(entry.meaning, 'en'), entry.meaning);
+    assert.equal(translateUiText(entry.notes || '', 'en'), entry.notes || '');
+    assert.equal(translateUiText(entry.collocations?.[0] || '', 'en'), entry.collocations?.[0] || '');
+  }
+  // The new strings are rendered inside localizable elements, not protected ones.
+  const settingsSlice = appScript[1].slice(appScript[1].indexOf('function renderSettings('), appScript[1].indexOf('function exportDownload('));
+  assert.doesNotMatch(settingsSlice, /<span class="vocab-meaning">\$\{escapeHtml\(STUDY_GROUP_LABELS/);
+  assert.match(appScript[1], /node\.setAttribute\('aria-label', translateUiText\(`Thời gian còn lại \$\{formatClock\(secondsLeft\)\}`, language\)\)/, 'the ticking timer label is translated where it is written');
 });
