@@ -3,6 +3,7 @@ import importlib.util
 import json
 import pathlib
 import tempfile
+import re
 import unittest
 from unittest.mock import patch
 
@@ -98,16 +99,21 @@ class HoldMarkerLifecycleTests(unittest.TestCase):
     def test_hold_marker_names_the_release_that_must_publish_first(self):
         # Keep deployment gated until the explicitly named prerelease has been
         # built, verified, and published. The gate reads its live release state, so
-        # the marker simply has to name one valid tag. It names beta3 while that
-        # candidate is still unreleased, so a merge that carries beta3 code cannot
-        # publish it to Pages before its own prerelease exists.
+        # the marker simply has to name one valid tag: it must be the version the
+        # shipped file declares, otherwise a merge could publish code whose own
+        # prerelease does not exist yet under cover of an unrelated, older release.
         path = ROOT / 'DEPLOY_HOLD'
         self.assertTrue(path.exists(), 'DEPLOY_HOLD must protect the release sequence')
         text = path.read_text(encoding='utf-8')
         tags = [line.strip() for line in text.splitlines()
                 if line.strip() and not line.strip().startswith('#')]
-        self.assertEqual(tags, ['v1.0.0-beta4'])
+        self.assertEqual(tags, ['v1.0.0-beta5'])
         self.assertRegex(tags[0], r'^v\d+\.\d+\.\d+-(?:dev|beta|rc)\d+$')
+        html = (ROOT / 'index.html').read_text(encoding='utf-8')
+        live = re.search(r"APP_VERSION = '([^']+)'", html)
+        self.assertIsNotNone(live, 'the shipped file declares its version')
+        self.assertEqual(tags[0], live.group(1),
+                         'the hold names the release of the version actually shipped')
 
 
 class ReleasePublishedDispatchWorkflowContractTests(unittest.TestCase):
