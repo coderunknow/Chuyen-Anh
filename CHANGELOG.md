@@ -2,7 +2,7 @@
 
 ## v1.0.0-beta5 — 2026-10-23
 
-Release state — whether a `v1.0.0-beta5` tag, prerelease and assets exist, and which build Pages serves — must be verified live on GitHub; this file records contents, not publication status. `v1.0.0-beta5` is a **candidate on a branch**: `DEPLOY_HOLD` deliberately still names `v1.0.0-beta4`, because beta4 has no tag, release or Pages deployment yet, and this candidate is not merged.
+Release state — whether a `v1.0.0-beta5` tag, prerelease and assets exist, and which build Pages serves — must be verified live on GitHub; this file records contents, not publication status. `v1.0.0-beta5` was merged to `main` as PR #47 (merge commit `5cb35eb2fab04f0a1acd3c636011f25306c7f878`) and `DEPLOY_HOLD` names `v1.0.0-beta5`; the release itself is built from the tag and must be verified on GitHub before any retention or deployment claim is repeated.
 
 ### Priority/focus sessions, seven exercise types, timed practice, hard-word list, XP & badges, and the "Premium Academic" interface
 
@@ -34,7 +34,7 @@ Turn-class medians (sprint): `firstPass` `8 → 9 ms`, `handOff` `8 → 10 ms`, 
 - `python3 -m unittest discover -s tests -p 'test_*.py'` **72 OK**; `python3 -m unittest discover -s scripts/exams -p 'test_*.py'` **5 OK** once `pymupdf`, `requests`, `beautifulsoup4` and `markdownify` are available (a throwaway venv outside the repository; nothing was added to the repo).
 - `node tests/browser-learning.cjs` **PASS** (193 s) and `node tests/browser-exams.cjs` **PASS** (98 s), both in Chromium `133.0.6943.0` with no page errors; the same two suites also **PASS** against the unmodified beta4 tree.
 - `build_vocabulary.py --check` (913), `embed_vocabulary.py --check` (913), `exams/embed_archive.py --check` (106), `validate_vocab.py` and `generate_vocab_audit_dev5.py --check` are all current; no vocabulary, exam or ledger file was edited.
-- `APP_VERSION` = `v1.0.0-beta5`, `DEPLOY_HOLD` = `v1.0.0-beta4`; `python3 scripts/deploy_gate.py --repo coderunknow/Chuyen-Anh` prints `deploy=false (release v1.0.0-beta4 is missing; deployment held)`. No learner study was run: the 30 %/50 % and ≤5 pp targets remain unverified, and no screen-reader or full WCAG audit was performed.
+- `APP_VERSION` = `v1.0.0-beta5`, `DEPLOY_HOLD` = `v1.0.0-beta5` after the merge of PR #47; `python3 scripts/deploy_gate.py --repo coderunknow/Chuyen-Anh` reports whether the `v1.0.0-beta5` release is published and therefore whether Pages may deploy it. No learner study was run: the 30 %/50 % and ≤5 pp targets remain unverified, and no screen-reader or full WCAG audit was performed.
 
 
 ## v1.0.0-beta4 — 2026-10-22
