@@ -1111,7 +1111,7 @@ test('exported exam results report exactly what the learner did and what could b
   const result = buildExamResultJson(session, record, { now: 6000 });
   assert.equal(result.app, 'Chuyên Anh');
   assert.equal(result.version, APP_VERSION, 'the result carries the application version');
-  assert.equal(result.version, 'v1.0.0-beta5');
+  assert.equal(result.version, 'v1.0.0-beta6');
   assert.equal(result.schemaVersion, '1.0.0');
   assert.deepEqual(result.summary, {
     total: 3, answered: 2, unanswered: 1,
@@ -2082,4 +2082,73 @@ test('the new interface copy exists in both languages and keeps dataset text int
   const settingsSlice = appScript[1].slice(appScript[1].indexOf('function renderSettings('), appScript[1].indexOf('function exportDownload('));
   assert.doesNotMatch(settingsSlice, /<span class="vocab-meaning">\$\{escapeHtml\(STUDY_GROUP_LABELS/);
   assert.match(appScript[1], /node\.setAttribute\('aria-label', translateUiText\(`Thời gian còn lại \$\{formatClock\(secondsLeft\)\}`, language\)\)/, 'the ticking timer label is translated where it is written');
+});
+
+/* -------------------------------------------------------------------------
+ * beta6: every session starter owns the same three things — the view it lands
+ * on, the XP baseline its summary measures against, and a clean session state.
+ * These are the differences between "the button works" and "the button looks
+ * like it works", so they are pinned on the shipped module, not on a helper.
+ * ------------------------------------------------------------------------- */
+
+// The shipped module source, used only for the structural guards below: the
+// behaviour itself is asserted in the browser suite.
+const appSource = appScript[1];
+
+function sessionStarterBody(name) {
+  const start = appSource.indexOf(`function ${name}(`);
+  assert.notEqual(start, -1, `${name} exists in the shipped module`);
+  // Slice to the next top-level function: the starters are small and flat.
+  const rest = appSource.slice(start + 10);
+  const end = rest.search(/\n  function [a-zA-Z]/);
+  return end === -1 ? rest : rest.slice(0, end);
+}
+
+test('starting a session always lands on the study view', () => {
+  for (const name of ['startPrioritySession', 'startSession']) {
+    const body = sessionStarterBody(name);
+    assert.match(body, /view = 'learn'/, `${name} switches to the study view before rendering`);
+  }
+  // A start from another screen must render the study view, not the old one.
+  assert.match(sessionStarterBody('startPrioritySession'), /view = 'learn';[\s\S]*renderShell\(\)/,
+    'the view switch happens before the render that shows the session');
+});
+
+test('every session starter captures its own XP baseline and resets session state', () => {
+  const priority = sessionStarterBody('startPrioritySession');
+  const classic = sessionStarterBody('startSession');
+  for (const [name, body] of [['startPrioritySession', priority], ['startSession', classic]]) {
+    assert.match(body, /sessionXpStart = calculateXp\(/, `${name} records the XP baseline for its summary`);
+    assert.match(body, /skippedIds = new Set\(\)/, `${name} starts with no inherited skipped questions`);
+  }
+  // The sprint is the early-return branch inside startSession and needs them too.
+  const sprintBranch = classic.slice(classic.indexOf("if (type === 'sprint')"), classic.indexOf('const sizes'));
+  assert.match(sprintBranch, /sessionXpStart = calculateXp\(/,
+    'the sprint branch records its own XP baseline');
+  assert.match(sprintBranch, /timed: studyConfig\.timed/,
+    'the sprint honours the timed-practice toggle');
+  assert.match(sprintBranch, /startSessionTimer\(/, 'the sprint starts the countdown it configured');
+});
+
+test('a start that cannot run explains itself instead of being a dead click', () => {
+  // The blocked button stays operable and carries its reason, because a disabled
+  // button is exactly the "nothing happens" experience this guard exists for.
+  assert.match(appSource, /data-session="priority" aria-describedby="priority-summary"[\s\S]{0,120}data-blocked="true"/,
+    'the start button links to the explanation and marks itself blocked');
+  assert.doesNotMatch(appSource, /button\.disabled = summary\.disabled/,
+    'the blocked start is not silently disabled');
+  assert.match(appSource, /Không có từ nào thuộc nhóm đang bật\. Hãy bật thêm nhóm từ hoặc đổi trọng tâm\./,
+    'the reason names the fix');
+  assert.match(appSource, /'Không có từ nào thuộc nhóm đang bật\. Hãy bật thêm nhóm từ hoặc đổi trọng tâm\.':/,
+    'the reason is translated in the English interface');
+});
+
+test('card toggles update in place so a typed answer is never discarded', () => {
+  assert.match(appSource, /function refreshCardToggles\(/, 'the in-place refresh exists');
+  assert.match(appSource, /if \(rerender && !refreshCardToggles\(id\)\) renderShell\(\);/,
+    'the favourite toggle refreshes the card instead of re-rendering the shell');
+  assert.match(appSource, /if \(!refreshCardToggles\(id\)\) renderShell\(\);/,
+    'the hard-word toggle refreshes the card instead of re-rendering the shell');
+  assert.match(appSource, /translateUiText\(on \? 'Bỏ đánh dấu từ khó' : 'Đánh dấu từ khó', language\)/,
+    'the refreshed accessible name is translated where it is written');
 });

@@ -1,5 +1,27 @@
 # Changelog
 
+## v1.0.0-beta6 — 2026-10-23
+
+Release state — whether a `v1.0.0-beta6` tag, prerelease and assets exist, and which build Pages serves — must be verified live on GitHub; this file records contents, not publication status.
+
+### Fixes: the priority session that started invisibly, and seven defects found auditing around it
+
+- **“Bắt đầu phiên ưu tiên” did nothing when pressed in Settings.** The session was created, its timer started and its queue filled, but the app never left the Settings screen, so the learner saw only the button's press animation. Every session starter now lands on the study view. The same omission existed in the dashboard's “Từ yếu” card.
+- **A session reported the whole lifetime XP total as its own gain.** `sessionXpStart` was only captured for priority sessions, so a classic or sprint session measured itself against `0` — measured on the shipped beta5 build, a 10-word session that earned 61 XP displayed **“+10861”** on a 10,800-XP profile. All three starters capture their own baseline; the summary now always equals `total − before`.
+- **A new session inherited the previous session's skipped questions.** `skippedIds` and `matchState` are now reset by every starter, so the pending list, the unanswered count and the accuracy figures describe only the session on screen.
+- **A start that cannot run was a dead click.** When no word matches the enabled groups the button used to be `disabled`: nothing happened and nothing explained why. It now stays operable, points at the empty-state explanation through `aria-describedby`, is dimmed via `data-blocked="true"`, and answers with the actual reason (“Không có từ nào thuộc nhóm đang bật…” / “No words belong to the enabled groups…”).
+- **A sprint ignored the timed-practice toggle.** Sprint sessions now carry the same limit, countdown and expiry path as every other session.
+- **Marking a hard word or a favourite discarded a typed answer.** Both toggles re-rendered the whole shell mid-card; they now refresh only their own button (state, `aria-pressed`, translated accessible name) while a card is on screen, and still re-render surrounding lists from other views.
+- **“Học tiếp” left the shell stale.** The continue button now re-renders the shell, so the due count, streak and XP reflect the session that just ended.
+
+### Verification
+
+- `node --test tests/static-app.test.js` **81 pass / 0 fail** (beta5: 77). The four new guards fail on the beta5 build (`# pass 77 / # fail 4`) and pass on this one.
+- `python3 -m unittest discover -s tests -p 'test_*.py'` **72 OK**; `node tests/browser-learning.cjs` **PASS** (218 s) — including six new interface scenarios: a session started from Settings opens in the study view, a sprint honours its timer, a blocked start explains itself, the reported XP gain equals the session's own gain, a typed answer survives the star/flag toggles, and a new session inherits no pending questions (“Học tiếp” also returns to the picker).
+- `node tests/browser-exams.cjs` **PASS** (106 s); `build_vocabulary.py --check`, `embed_vocabulary.py --check`, `exams/embed_archive.py --check` (913 / 913 / 106) and `validate_vocab.py` are current. No vocabulary, exam or ledger content changed.
+- Also verified while auditing: a timed session that expires while the learner is on another screen still lands on its results with unanswered questions reported blank.
+- `APP_VERSION` = `v1.0.0-beta6`, `DEPLOY_HOLD` = `v1.0.0-beta6`. No learner study was run, and no screen-reader or full WCAG audit was performed.
+
 ## v1.0.0-beta5 — 2026-10-23
 
 Release state — whether a `v1.0.0-beta5` tag, prerelease and assets exist, and which build Pages serves — must be verified live on GitHub; this file records contents, not publication status. `v1.0.0-beta5` was merged to `main` as PR #47 (merge commit `5cb35eb2fab04f0a1acd3c636011f25306c7f878`) and `DEPLOY_HOLD` names `v1.0.0-beta5`; the release itself is built from the tag and must be verified on GitHub before any retention or deployment claim is repeated.

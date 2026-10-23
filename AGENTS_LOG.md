@@ -402,3 +402,32 @@ Startup (local, uncommitted probe: navigation start → `[data-session="new"]` v
 3. **Publish → dispatch → deploy.** Publishing the draft (`isDraft=false`, `isPrerelease=true`, `publishedAt 2026-10-23T12:56:55Z`) triggered `Dispatch main deploy after prerelease publication` **`39957216789`** (`success`, 6 s), which dispatched `Deploy Flashcard` **`39957226021`** on `main@174126a`: `Evaluate deploy hold`, vocabulary checks, Python tests, Node tests, `Stage standalone HTML`, `Configure Pages`, `Upload Pages artifact` and `Deploy` **all `success`**. Deployment record **`7278758757`** (environment `github-pages`, sha `174126a`) reached state `success` with `environment_url https://coderunknow.github.io/Chuyen-Anh/`.
 4. **Honest limits.** The served bytes could not be fetched from this sandbox (`curl` → `SSL_ERROR_SYSCALL` on `coderunknow.github.io`), so "Pages serves beta5" rests on the deployment record, the executed `Deploy` step, and the identity of the tagged commit's `index.html` with the published HTML asset digest. The manual `force_deploy` path remains unusable here (HTTP 403 `Resource not accessible by integration`; the token has contents/PR rights but not `actions: write`); the release flow was used instead, which is the repository's documented order.
 5. **Test state at release time.** `checks` green on `8a830e1` (`static-app` **77/77**, Python **72 OK**); `CodeRabbit` reports a skip (repository under 10 stars); Copilot (quota) and Qodo (billing) did not review; `Kilo Code Review` failed on `Environment preparation timed out` — infrastructure, not a finding. No substantive third-party code review exists for this release.
+
+## 2026-10-23 — v1.0.0-beta6: fixing the dead “Bắt đầu phiên ưu tiên” button and the audit it exposed
+
+**Baseline on this sandbox (measured, not copied):** `git rev-parse HEAD` = `c1d5583`, clean tree, `APP_VERSION = v1.0.0-beta5`, `DEPLOY_HOLD = v1.0.0-beta5`, `deploy_gate.py` → `deploy=true (release v1.0.0-beta5 is published)`. Suites before editing: `node --test tests/static-app.test.js` **77 pass / 0 fail**, `python3 -m unittest discover -s tests` **72 OK**, `node tests/browser-learning.cjs` **PASS**, `node tests/browser-exams.cjs` **PASS**.
+
+**Reproduction.** A scripted walk of every `[data-session]` button from every view it is rendered in (`probe3`) showed the home buttons working and produced a hard failure for the Settings entry point; `probe2` recorded the Settings click leaving the view on “Cài đặt & dữ liệu” with no card, no summary and no toast.
+
+**Defects confirmed and fixed (each with fail-first evidence):**
+
+| # | Defect | Evidence before the fix | Fix |
+|---|---|---|---|
+| 1 | A priority session started from Settings ran invisibly | `probe2` case A: header stayed “Cài đặt & dữ liệu”, no `.flashcard`, no toast | `view = 'learn'` in `startPrioritySession()` |
+| 2 | A classic/sprint session reported lifetime XP as its own gain | `probe5`: 10,800-XP profile, one quick session → **“+10861”** | `sessionXpStart` captured in all three starters |
+| 3 | The dashboard “Từ yếu” card also started invisibly | same omission in `startSession()` | `view = 'learn'` there too |
+| 4 | New sessions inherited the previous session’s skipped list | `probe6`/verify case 6: `.pending-row` present after starting a second session | reset `skippedIds`/`matchState` in all starters |
+| 5 | A blocked start was a silent dead click | blocked button was `disabled`; clicking produced nothing | button stays operable, `aria-describedby`, `data-blocked`, explains itself, translated |
+| 6 | A sprint ignored the timed toggle | `startSession('sprint')` returned before the timer code | sprint carries `timed`/`timeLimit` and starts the countdown |
+| 7 | Star/flag discarded a typed answer | both called `renderShell()` mid-card | `refreshCardToggles()` updates only the toggles while a card is shown |
+| 8 | “Học tiếp” left the shell’s numbers stale | `renderLearn(container)` only | `renderShell()` |
+
+**Fail-first proof.** With the beta5 `index.html` restored (`git show HEAD:index.html`), the four new static guards fail — `# pass 77 / # fail 4`; with the fixed build they pass (`# pass 81 / # fail 0`). The browser scenarios added to `tests/browser-learning.cjs` cover six of those behaviours through the interface (start from Settings, sprint timer, blocked start, XP gain, typed answer, no inherited pending list); the two invisible-start paths are also guarded structurally, and the dashboard “Từ yếu” entry point is covered by the same `startSession()` reset.
+
+**Results on the fixed tree.** `node --test tests/static-app.test.js` **81 pass / 0 fail**; `python3 -m unittest discover -s tests` **72 OK**; `node tests/browser-learning.cjs` **PASS** (218 s, Chromium 133.0.6943.0, no page errors); `node tests/browser-exams.cjs` **PASS** (106 s); `build_vocabulary.py --check` 913; `embed_vocabulary.py --check` 913; `exams/embed_archive.py --check` 106; `validate_vocab.py` clean. No vocabulary, exam or ledger file changed.
+
+**Additional audit checks that passed (not fixes).** Timer expiry while the learner is on another screen still lands on the results (`expire-tmp`: “Hết giờ · phiên đã kết thúc”, 0 % accuracy, no page errors); a full 7-exercise priority session completes 20 words / 23 turns with self-consistent XP (13 correct × 10 + 7 wrong × 2 + 25 = 169); the English interface renders the new refusal and the refreshed toggle labels in English; `refreshCardToggles` only runs on the study view so Settings lists still re-render.
+
+**Version and boundary.** `APP_VERSION` → `v1.0.0-beta6`, `DEPLOY_HOLD` → `v1.0.0-beta6`; `deploy_gate.py` → `deploy=false (release v1.0.0-beta6 is missing; deployment held)` until that prerelease exists. `AGENT.md` untouched; `git diff -- AGENT.md` empty.
+
+**Not claimed.** No learner study; the 30 %/50 % and ≤5 pp targets remain unverified. No screen-reader session or full WCAG audit was run. The fix is verified in Chromium 133 only.

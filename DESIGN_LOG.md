@@ -981,3 +981,26 @@ Take the single-file Chuyên Anh flashcard runtime from a four-mode, chooser-dri
 - **Additive backup fields beat a version bump.** Keeping `version: 1` and treating an absent block as "no opinion" means a beta4 file still imports, and restoring one cannot silently delete a new list. The trade-off is documented in README: the new blocks are optional and older builds ignore them.
 - **Localization is a rendering constraint, not a lookup table.** Strings split across inline elements cannot be translated safely; the new markup keeps one phrase per text node, which is why some bold counts became plain text.
 - **Tests found four real defects** (disabled-group counts, back-to-back boards, unreachable English ambiguity branch, empty-session XP/history) and one performance regression (distractor construction) before any of them reached a learner.
+
+## 2026-10-23 — v1.0.0-beta6: the priority start that did nothing, and the audit behind it
+
+### User Intent
+
+A learner reported that pressing **“Bắt đầu phiên ưu tiên”** showed the press animation but nothing else happened. The request was to fix that, audit the rest of the app for serious defects, and ship the result (merge + Pages update).
+
+### Implementation History
+
+1. **Reproduced, then located, the reported symptom.** The button works from the study home (it was covered by the beta5 browser scenario), so the report had to come from another entry point. A scripted walk of every `[data-session]` button from every view it appears in found the real defect: **starting a session from Settings created the session, started its timer and rendered nothing**, because `startPrioritySession()` never set `view = 'learn'`. The learner stayed on Settings while a hidden session (and, with the timer on, a hidden countdown) ran in the background. The same omission existed in `startSession()`, which is how the dashboard’s “Từ yếu” card starts a session.
+2. **The XP baseline belonged to only one of the three session starters.** `sessionXpStart` was assigned inside `startPrioritySession()` only, so any classic or sprint session computed “XP earned this session” against whatever value was left from an earlier priority session — or `0`. Measured on the shipped beta5 build: a 10-word quick session that earned 61 XP displayed **“XP nhận trong phiên +10861”** with a 10,800-XP profile, because the baseline was zero. The summary now equals `xpTotal − xpBefore` for every starter.
+3. **Session-scoped state leaked between sessions.** `startSession()` reset neither `skippedIds` nor `matchState`, so a new session opened with the previous session’s skipped-question chips (and counted them as unanswered). A shared reset now runs in all three starters.
+4. **A start that cannot run was a dead click.** With every group but an empty one switched off, the start button was `disabled`: no toast, no focus change, no explanation anywhere near the pointer — the same experience as the reported bug. The button is now kept operable, carries `aria-describedby="priority-summary"`, is dimmed through `data-blocked="true"`, and states the actual reason on activation (“Không có từ nào thuộc nhóm đang bật. Hãy bật thêm nhóm từ hoặc đổi trọng tâm.”), translated in English.
+5. **A sprint ignored the timed-practice toggle.** `startSession('sprint')` returned before the timer code, so a learner who had switched the limit on got an untimed sprint. It now carries the same `timed`/`timeLimit`/`startSessionTimer` path as every other session.
+6. **The star and flag buttons threw away a typed answer.** Both re-rendered the whole shell, rebuilding the card and clearing the spelling/fill input. They now refresh only their own button (state, `aria-pressed`, translated accessible name) while a card is on screen, and still re-render the surrounding list from other views.
+7. **“Học tiếp” left the shell stale.** The summary’s continue button re-rendered only the content pane, so the due count, streak and XP in the shell kept the finished session’s numbers until the next navigation. It now re-renders the shell.
+
+### Decisions & Lessons
+
+- **A session is only real where the learner can see it.** Every entry point now owns three things explicitly: the view it lands on, the XP baseline its summary measures against, and a clean session state. Those three are pinned by structural guards on the shipped module and by browser scenarios that start sessions from Settings, the dashboard and the home panel.
+- **A blocked primary action must explain itself.** Semantically disabling the start button is honest but useless after a click; the button therefore stays in the tab order, points at the explanation, and answers when activated. This is the second half of the reported symptom, and the reason the fix is not just `view = 'learn'`.
+- **The reported bug was narrower than the class of bug.** The user saw one dead button; the same omission affected a second starter and three different properties. Auditing by *entry point* rather than by *symptom* is what surfaced the XP and state-leak defects.
+- **In-place refresh beats a full re-render when the user is typing.** A shell re-render is simple and correct for lists, but it silently discards unsubmitted input; the two toggles that can be pressed mid-answer now update just themselves.

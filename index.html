@@ -1079,6 +1079,12 @@ mark { padding: 0 2px; border-radius: 4px; background: color-mix(in srgb, var(--
     animation-iteration-count: 1 !important;
   }
 }
+
+
+/* A start button that cannot start stays operable (it explains why) but reads as
+   unavailable, so it never looks like a normal primary action. */
+.btn[data-blocked="true"] { opacity: .6; filter: saturate(.7); }
+.btn[data-blocked="true"]:hover { opacity: .78; }
   </style>
 </head>
 <body>
@@ -16349,7 +16355,7 @@ export const MODES = Object.freeze({
   FLASHCARD: 'flashcard'
 });
 
-export const APP_VERSION = 'v1.0.0-beta5';
+export const APP_VERSION = 'v1.0.0-beta6';
 export const EXAM_RESULT_SCHEMA_VERSION = '1.0.0';
 // Sprint hand-off: a correct first-pass answer moves straight to the next card
 // with no dwell timer, and the answer just graded stays on screen as a compact
@@ -16936,6 +16942,9 @@ const EN_UI_TRANSLATIONS = Object.freeze({
   'Trọng tâm chỉ đổi cách phân bổ từ trong phiên.': 'The focus only changes how words are allocated within the session.',
   'Nhóm có thể giao nhau nhưng mỗi từ chỉ vào phiên một lần; lịch ôn và trạng thái từ không đổi.': 'Groups can overlap, but each word enters the session once; review dates and word state do not change.',
   'Không có từ nào thuộc nhóm đang bật': 'No words belong to the enabled groups',
+  'Không có từ nào thuộc nhóm đang bật. Hãy bật thêm nhóm từ hoặc đổi trọng tâm.': 'No words belong to the enabled groups. Turn on another group or change the focus.',
+  'Dạng bài đang bật chưa có dữ liệu phù hợp với các từ đã chọn. Hãy bật thêm một dạng bài khác.': 'The enabled exercises have no matching data for these words. Turn on another exercise type.',
+  'Chưa có từ khó nào được đánh dấu. Hãy đánh dấu từ bằng biểu tượng cờ trong phiên học.': 'No hard words are marked yet. Mark a word with the flag button during a session.',
   'Hãy bật thêm nhóm từ hoặc đổi trọng tâm.': 'Enable another group or choose a different focus.',
   'Ứng dụng không tự chọn một nhóm khác thay bạn.': 'The app will not pick another group for you.',
   'Dạng bài đang bật chưa có dữ liệu phù hợp': 'The enabled exercises have no matching data',
@@ -19863,8 +19872,11 @@ export async function createApp(root) {
         const summary = prioritySummaryMarkup();
         summaryHost.innerHTML = summary.html;
         container.querySelectorAll('[data-session="priority"]').forEach(button => {
-          button.disabled = summary.disabled;
-          button.setAttribute('aria-disabled', String(summary.disabled));
+          // Kept operable on purpose: a disabled button gives a click that does
+          // nothing, which reads as a broken app. The reason is attached through
+          // aria-describedby and is also stated when the button is activated.
+          if (summary.disabled) button.dataset.blocked = 'true';
+          else delete button.dataset.blocked;
         });
       }
       bindStudyConfig(container, { prefix, onRefresh });
@@ -19935,12 +19947,15 @@ export async function createApp(root) {
       poolIds
     });
     if (!selection.items.length) {
-      toast(poolIds ? 'Chưa có từ khó nào được đánh dấu.' : 'Không có từ phù hợp với bộ lọc hiện tại.');
+      toast(poolIds
+        ? 'Chưa có từ khó nào được đánh dấu. Hãy đánh dấu từ bằng biểu tượng cờ trong phiên học.'
+        : 'Không có từ nào thuộc nhóm đang bật. Hãy bật thêm nhóm từ hoặc đổi trọng tâm.');
+      root.querySelector('#priority-summary')?.focus({ preventScroll: true });
       return;
     }
     const plan = buildExercisePlan(selection.items, { exercises: config.exercises, vocabulary });
     if (!plan.turns.length) {
-      toast('Dạng bài đang bật không có dữ liệu phù hợp với các từ đã chọn.');
+      toast('Dạng bài đang bật chưa có dữ liệu phù hợp với các từ đã chọn. Hãy bật thêm một dạng bài khác.');
       return;
     }
     const turns = plan.turns.map(turn => {
@@ -20003,6 +20018,10 @@ export async function createApp(root) {
       timeLimit: sessionTimeLimit(words, config)
     };
     sessionSummary = null;
+    // A session is only useful where it is rendered: starting one from Settings
+    // (or anywhere else) must move the learner to the study view instead of
+    // leaving an invisible session and a hidden timer behind.
+    view = 'learn';
     nextQuestion();
     startSessionTimer(sessionStats.timeLimit);
     renderShell();
@@ -20259,12 +20278,12 @@ export async function createApp(root) {
             <p class="panel-sub">Chọn nhóm từ, trọng tâm và dạng bài. Cấu hình bên dưới áp dụng đúng cho phiên bạn bắt đầu.</p>
           </div>
           <div class="priority-head-actions">
-            <button class="btn primary" data-session="priority" ${summary.disabled ? 'disabled aria-disabled="true"' : ''}>${iconMarkup('target')}Bắt đầu phiên ưu tiên</button>
+            <button class="btn primary" data-session="priority" aria-describedby="priority-summary" ${summary.disabled ? 'data-blocked="true"' : ''}>${iconMarkup('target')}Bắt đầu phiên ưu tiên</button>
             <button class="btn" data-session="flagged">${iconMarkup('flag')}Học từ khó (${flagged.size})</button>
           </div>
         </div>
         <div class="panel-body">
-          <div id="priority-summary">${summary.html}</div>
+          <div id="priority-summary" tabindex="-1">${summary.html}</div>
           <div class="config-effective" id="priority-effective">${configEffectiveMarkup()}</div>
           <details class="config-details" id="priority-details">
             <summary>Điều chỉnh nhóm từ, trọng tâm, dạng bài và thời gian</summary>
@@ -20352,9 +20371,15 @@ export async function createApp(root) {
       if (!selected.length) { toast('Chưa có từ phù hợp cho phiên cấp tốc. Hãy thử chế độ khác.'); return; }
       session = selected;
       sessionBadges = [];
-      sessionStats = { total: selected.length, correct: 0, wrong: 0, practiceTotal: 0, practiceCorrect: 0, practiceWrong: 0, consolidationTotal: 0, consolidationCorrect: 0, consolidationWrong: 0, completedTurns: 0, turnSeq: 0, startedAt: Date.now(), mode: 'sprint', queued: selected.length };
+      // Session-scoped state from an earlier session must not leak into this one.
+      skippedIds = new Set();
+      matchState = null;
+      sessionXpStart = calculateXp({ progressMap: progress, history });
+      sessionStats = { total: selected.length, correct: 0, wrong: 0, practiceTotal: 0, practiceCorrect: 0, practiceWrong: 0, consolidationTotal: 0, consolidationCorrect: 0, consolidationWrong: 0, completedTurns: 0, turnSeq: 0, startedAt: Date.now(), mode: 'sprint', queued: selected.length, timed: studyConfig.timed, timeLimit: sessionTimeLimit(selected.length, studyConfig) };
       sessionSummary = null;
+      view = 'learn';
       nextQuestion();
+      startSessionTimer(sessionStats.timeLimit);
       renderShell();
       return;
     }
@@ -20369,8 +20394,14 @@ export async function createApp(root) {
     }
     session = selected;
     sessionBadges = [];
+    skippedIds = new Set();
+    matchState = null;
+    // The XP baseline belongs to this session: without it the summary reports
+    // the whole lifetime total as if it had been earned in this one session.
+    sessionXpStart = calculateXp({ progressMap: progress, history });
     sessionStats = { total: selected.length, correct: 0, wrong: 0, practiceTotal: 0, practiceCorrect: 0, practiceWrong: 0, consolidationTotal: 0, consolidationCorrect: 0, consolidationWrong: 0, completedTurns: 0, turnSeq: 0, startedAt: Date.now(), mode, queued: selected.length, timed: studyConfig.timed, timeLimit: sessionTimeLimit(selected.length, studyConfig) };
     sessionSummary = null;
+    view = 'learn';
     nextQuestion();
     startSessionTimer(sessionStats.timeLimit);
     renderShell();
@@ -20782,6 +20813,34 @@ export async function createApp(root) {
     root.querySelector('#content')?.focus({ preventScroll: true });
   }
 
+  // A full shell re-render loses whatever the learner already typed. When a card
+  // is on screen the star/flag buttons are the only things that changed, so they
+  // are refreshed in place.
+  function refreshCardToggles(id = null) {
+    // Only the card on screen can be refreshed in place; from any other view the
+    // surrounding list is what changed.
+    if (view !== 'learn') return false;
+    const item = session?.[0];
+    if (!item) return false;
+    if (id !== null && item.vocab.id !== id) return false;
+    const fav = document.querySelector('#favorite-card');
+    if (fav) {
+      const on = favorites.has(item.vocab.id);
+      fav.classList.toggle('active', on);
+      fav.textContent = on ? '★' : '☆';
+      fav.setAttribute('aria-pressed', String(on));
+      fav.setAttribute('aria-label', translateUiText(on ? 'Bỏ yêu thích' : 'Thêm yêu thích', language));
+    }
+    const flag = document.querySelector('#flag-card');
+    if (flag) {
+      const on = flagged.has(item.vocab.id);
+      flag.classList.toggle('active', on);
+      flag.setAttribute('aria-pressed', String(on));
+      flag.setAttribute('aria-label', translateUiText(on ? 'Bỏ đánh dấu từ khó' : 'Đánh dấu từ khó', language));
+    }
+    return true;
+  }
+
   function toggleFlagged(id) {
     if (!validIds.has(id)) return;
     const removing = flagged.has(id);
@@ -20792,7 +20851,7 @@ export async function createApp(root) {
       return;
     }
     toast(removing ? 'Đã bỏ đánh dấu từ khó.' : 'Đã đánh dấu từ khó.', removing ? 'info' : 'success');
-    renderShell();
+    if (!refreshCardToggles(id)) renderShell();
   }
 
   function renderMatchFeedback(container) {
@@ -20836,7 +20895,7 @@ export async function createApp(root) {
     } else {
       toast('Không thể lưu danh sách yêu thích trên thiết bị này.', 'error');
     }
-    if (rerender) renderShell();
+    if (rerender && !refreshCardToggles(id)) renderShell();
   }
 
   function finishSession({ expired = false } = {}) {
@@ -20933,7 +20992,7 @@ export async function createApp(root) {
         </div>
       </section>
     </div>`;
-    container.querySelector('#again').addEventListener('click', () => { sessionSummary = null; renderLearn(container); });
+    container.querySelector('#again').addEventListener('click', () => { sessionSummary = null; view = 'learn'; renderShell(); });
     container.querySelector('#summary-dashboard').addEventListener('click', () => { view = 'dashboard'; sessionSummary = null; renderShell(); });
   }
 
@@ -21388,7 +21447,7 @@ export async function createApp(root) {
       <section class="panel"><div class="panel-heading">Phiên ưu tiên</div><div class="panel-body">
         <p class="settings-copy">Cấu hình này được dùng cho “Phiên ưu tiên” trên trang Học và được giữ sau khi tải lại.</p>
         <div id="settings-config">${studyConfigMarkup({ prefix: 'settings' })}</div>
-        <div id="priority-summary">${prioritySummaryMarkup().html}</div>
+        <div id="priority-summary" tabindex="-1">${prioritySummaryMarkup().html}</div>
         <div class="setting-actions"><button class="btn primary" data-session="priority">Bắt đầu phiên ưu tiên</button><button class="btn" data-session="flagged">Học từ khó (${flagged.size})</button></div>
       </div></section>
       <section class="panel"><div class="panel-heading">Từ khó</div><div class="panel-body">

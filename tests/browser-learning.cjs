@@ -470,7 +470,7 @@ async function main() {
 
     // The shipped build identifies itself.
     await sprint.locator('[data-view="settings"]').click();
-    assert.equal(await sprint.locator('#app-version').innerText(), 'v1.0.0-beta5');
+    assert.equal(await sprint.locator('#app-version').innerText(), 'v1.0.0-beta6');
     assert.deepEqual(sprintErrors, []);
 
     // Error -> intervening word -> typed corrective retrieval -> truthful summary.
@@ -1679,6 +1679,166 @@ async function main() {
     await page.reload();
     await page.locator('[data-session="priority"]').waitFor();
 
+    // ---- beta6: a session always opens where the learner can see it, the XP a
+    // summary reports is the XP that session earned, a typed answer survives the
+    // star/flag toggles, sprints honour the timer, and a start that cannot run
+    // explains itself instead of doing nothing.
+    const answerEverything = async () => {
+      for (let turn = 0; turn < 80; turn += 1) {
+        if (await page.locator('.summary').count()) return;
+        if (await page.locator('#next-card').count()) { await page.locator('#next-card').click(); await page.waitForTimeout(40); continue; }
+        if (await page.locator('#start-quiz').count()) { await page.locator('#start-quiz').click(); await page.waitForTimeout(60); continue; }
+        if (await page.locator('#flip-card').count()) { await page.locator('#flip-card').click(); await page.waitForTimeout(60); continue; }
+        if (await page.locator('#reveal-correct').count()) { await page.locator('#reveal-correct').click(); await page.waitForTimeout(60); continue; }
+        if (await page.locator('[data-option]:enabled').count()) { await page.locator('[data-option]:enabled').first().click(); await page.waitForTimeout(60); continue; }
+        if (await page.locator('#spelling-input').count()) {
+          await page.locator('#spelling-input').fill('not-the-answer');
+          await page.locator('#submit-answer').click();
+          await page.waitForTimeout(60);
+          continue;
+        }
+        if (await page.locator('.match-board').count()) {
+          for (let pair = 0; pair < 6; pair += 1) {
+            const ids = await page.evaluate(() => [...document.querySelectorAll('[data-match-word]')]
+              .filter(node => !node.disabled).map(node => node.dataset.matchWord));
+            if (!ids.length) break;
+            await page.locator(`[data-match-word="${ids[0]}"]`).click();
+            await page.locator(`[data-match-meaning="${ids[0]}"]`).click();
+            await page.waitForTimeout(50);
+            if (await page.locator('#next-card').count()) break;
+          }
+          continue;
+        }
+        return;
+      }
+    };
+
+    await page.evaluate(() => localStorage.clear());
+    await page.reload();
+    await page.locator('[data-session="new"]').waitFor();
+    await page.locator('[data-view="settings"]').click();
+    await page.locator('.setting-actions [data-session="priority"]').click();
+    await page.waitForTimeout(400);
+    assert.equal(await page.locator('.flashcard').count(), 1,
+      'starting a priority session from Settings opens the card instead of doing nothing');
+    assert.match(await page.locator('.nav-button.active').innerText(), /Học/,
+      'the study view becomes the active view');
+    await page.locator('#exit-session').click();
+
+    // The summary's "XP earned" must equal the increase in the total XP.
+    await page.evaluate(() => {
+      const progress = {};
+      for (let index = 1; index <= 120; index += 1) {
+        progress[String(index)] = {
+          id: String(index), state: 'review', ease: 2.5, interval: 10,
+          correctCount: 9, wrongCount: 0, streak: 9,
+          lastReviewed: Date.now() - 86400000, nextReview: Date.now() + 9 * 86400000, lapses: 0
+        };
+      }
+      localStorage.clear();
+      localStorage.setItem('chuyen-anh.progress.v1', JSON.stringify(progress));
+      localStorage.setItem('chuyen-anh.prefs.v1', JSON.stringify({ sessionSize: 10, keyboardShortcuts: true, darkMode: false }));
+    });
+    await page.reload();
+    await page.locator('[data-session="new"]').waitFor();
+    const xpBeforeQuick = Number((await page.locator('.hero-metric strong').last().innerText()).replace(/\D/g, ''));
+    assert.equal(xpBeforeQuick, 10800, 'the seeded profile really carries 10,800 XP');
+    await page.locator('.session-card[data-session="quick10"]').click();
+    await answerEverything();
+    const quickSummary = await page.locator('.summary').innerText();
+    const xpGainedShown = Number((quickSummary.match(/\+(\d+)/) || [])[1]);
+    const xpTotalShown = Number((quickSummary.match(/Tổng (\d+) XP/) || [])[1]);
+    assert.equal(xpTotalShown - xpBeforeQuick, xpGainedShown,
+      `a classic session reports only its own XP (shown +${xpGainedShown} of ${xpTotalShown}, baseline ${xpBeforeQuick})`);
+    assert.ok(xpGainedShown > 0 && xpGainedShown < 500, `the reported gain is session-sized, got ${xpGainedShown}`);
+    await page.locator('#again').click();
+    assert.equal(await page.locator('.flashcard').count(), 0, 'Học tiếp returns to the session picker');
+    assert.equal(await page.locator('.hero-metric strong').first().innerText() !== null, true);
+
+    // A typed answer is not thrown away by the star or flag button.
+    await page.evaluate(() => {
+      localStorage.clear();
+      localStorage.setItem('chuyen-anh.study.v1', JSON.stringify({
+        groups: { due: true, weak: true, new: true, review: true }, focus: 'new',
+        exercises: { mc_en_vi: false, mc_vi_en: false, fill_vi: false, fill_en: true, cloze: false, match: false, flashcard: false },
+        size: 10, timed: false, timerMinutes: 0
+      }));
+    });
+    await page.reload();
+    await page.locator('[data-session="priority"]').waitFor();
+    await page.locator('.priority-head-actions [data-session="priority"]').click();
+    await page.locator('#start-quiz').click();
+    await page.locator('#spelling-input').waitFor();
+    await page.locator('#spelling-input').fill('half-typed');
+    await page.locator('#flag-card').click();
+    await page.waitForTimeout(120);
+    assert.equal(await page.locator('#spelling-input').inputValue(), 'half-typed',
+      'marking a hard word keeps the typed answer');
+    assert.equal(await page.locator('#flag-card').getAttribute('aria-pressed'), 'true');
+    await page.locator('#favorite-card').click();
+    await page.waitForTimeout(120);
+    assert.equal(await page.locator('#spelling-input').inputValue(), 'half-typed',
+      'favouriting a word keeps the typed answer');
+    await page.locator('#exit-session').click();
+    await page.evaluate(() => { localStorage.removeItem('chuyen-anh.favorites.v1'); });
+
+    // A sprint honours the timer the learner switched on.
+    await page.evaluate(() => {
+      localStorage.setItem('chuyen-anh.study.v1', JSON.stringify({
+        groups: { due: true, weak: true, new: true, review: true }, focus: 'new',
+        exercises: { mc_en_vi: true, mc_vi_en: true, fill_vi: true, fill_en: true, cloze: false, match: false, flashcard: true },
+        size: 10, timed: true, timerMinutes: 1
+      }));
+    });
+    await page.reload();
+    await page.locator('[data-session="new"]').waitFor();
+    await page.locator('.sprint-banner [data-session="sprint"]').click();
+    await page.locator('#session-timer').waitFor({ timeout: 5000 });
+    assert.match(await page.locator('#session-timer').innerText(), /^0[01]:\d\d$/,
+      'a timed sprint shows a real countdown');
+    await page.locator('#exit-session').click();
+    await page.locator('[data-view="settings"]');
+    await page.evaluate(() => {
+      localStorage.setItem('chuyen-anh.study.v1', JSON.stringify({
+        groups: { due: false, weak: false, new: false, review: true }, focus: 'review',
+        exercises: { mc_en_vi: true, mc_vi_en: false, fill_vi: false, fill_en: false, cloze: false, match: false, flashcard: false },
+        size: 10, timed: false, timerMinutes: 0
+      }));
+    });
+    await page.reload();
+    await page.locator('[data-session="new"]').waitFor();
+
+    // A start that cannot run explains itself rather than swallowing the click.
+    const blockedStart = page.locator('.priority-head-actions [data-session="priority"]');
+    assert.equal(await blockedStart.getAttribute('data-blocked'), 'true', 'the blocked start is marked');
+    assert.equal(await blockedStart.getAttribute('aria-describedby'), 'priority-summary', 'the reason is announced');
+    assert.equal(await blockedStart.isDisabled(), false, 'the blocked start is still operable');
+    await blockedStart.click();
+    await page.locator('.toast').filter({ hasText: 'Không có từ nào thuộc nhóm đang bật' }).waitFor();
+    assert.equal(await page.locator('.flashcard').count(), 0, 'a refused start opens no card');
+    assert.equal(await page.evaluate(() => localStorage.getItem('chuyen-anh.history.v1')), null,
+      'a refused start writes no session');
+
+    // A new session never inherits the previous one's skipped questions.
+    await page.evaluate(() => {
+      localStorage.setItem('chuyen-anh.study.v1', JSON.stringify({
+        groups: { due: true, weak: true, new: true, review: true }, focus: 'new',
+        exercises: { mc_en_vi: true, mc_vi_en: true, fill_vi: true, fill_en: true, cloze: false, match: false, flashcard: true },
+        size: 10, timed: false, timerMinutes: 0
+      }));
+    });
+    await page.reload();
+    await page.locator('[data-session="new"]').waitFor();
+    await page.locator('.priority-head-actions [data-session="priority"]').click();
+    await page.locator('#skip-card').click();
+    assert.equal(await page.locator('.pending-row').count(), 1, 'a skipped question is listed');
+    await page.locator('[data-view="settings"]').click();
+    await page.locator('.setting-actions [data-session="priority"]').click();
+    await page.waitForTimeout(300);
+    assert.equal(await page.locator('.pending-row').count(), 0,
+      'a new session starts with no pending list from the previous one');
+    await page.locator('#exit-session').click();
+
     // ---- A failed device write is reported, never replaced by a success message.
     const failing = await browser.newPage({ viewport: { width: 1280, height: 900 }, reducedMotion: 'reduce' });
     const failingErrors = [];
@@ -1720,7 +1880,7 @@ async function main() {
 
 
     assert.deepEqual(errors, []);
-    console.log(`PASS: Chromium ${browser.version()} — first-look introduction for new words, same-part-of-speech distractors, cloze options absent from the sentence, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, 320/375/768px responsive layout, reduced-motion setting, search state across a favorite toggle, session clearing on reset/import, the ID 448 historical label, named option groups, shortcuts limited to the visible card, failed writes reported truthfully, JSON backup round-trips that keep every retained session, blank spelling submissions ignored, single-graded self-assessment, skip locked after a reveal, and 'Học cấp tốc' processing all ten requested words with a truthful single correction, automatic advance only after correct answers, accurate first-pass statistics, persisted progress, an immediate hand-off with the graded answer carried onto the next card, a queue that never shifts while another screen is open, and interface copy on a consolidation turn translated in the English interface; the beta5 priority configuration with all seven exercise types, a matching board driven from the keyboard, a skipped question reopened from the pending list, a hard word marked and unmarked, a real one-minute timed session that ends on its results with unanswered questions reported as blank, a v1 backup that keeps the device hard-word list, and English rendering of every new screen; no page errors.`);
+    console.log(`PASS: Chromium ${browser.version()} — first-look introduction for new words, same-part-of-speech distractors, cloze options absent from the sentence, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, 320/375/768px responsive layout, reduced-motion setting, search state across a favorite toggle, session clearing on reset/import, the ID 448 historical label, named option groups, shortcuts limited to the visible card, failed writes reported truthfully, JSON backup round-trips that keep every retained session, blank spelling submissions ignored, single-graded self-assessment, skip locked after a reveal, and 'Học cấp tốc' processing all ten requested words with a truthful single correction, automatic advance only after correct answers, accurate first-pass statistics, persisted progress, an immediate hand-off with the graded answer carried onto the next card, a queue that never shifts while another screen is open, and interface copy on a consolidation turn translated in the English interface; the beta5 priority configuration with all seven exercise types, a matching board driven from the keyboard, a skipped question reopened from the pending list, a hard word marked and unmarked, a real one-minute timed session that ends on its results with unanswered questions reported as blank, a v1 backup that keeps the device hard-word list, English rendering of every new screen, and the beta6 regressions: a priority session started from Settings opens where the learner can see it, a classic session reports only its own XP, a typed answer survives the star/flag toggles, a sprint honours the timer, a start that cannot run explains itself, and a new session inherits no skipped questions; no page errors.`);
   } finally {
     if (browser) await browser.close();
     await new Promise(resolve => server.close(resolve));
