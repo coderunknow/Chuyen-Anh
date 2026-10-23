@@ -320,3 +320,68 @@ PR #27 HEAD 714f4b3 OPEN MERGEABLE UNSTABLE (checks pass, Kilo review fail). 3 n
 5. **Clock note.** Main's harness fixes the page clock (`page.clock.setFixedTime`, 2026-10-13) for the whole run, so the new scenario re-fixes the clock per phase (2026-10-20/21/22/24) instead of subclassing `Date`, and counts only streak writes that change the stored value (the generic `persist()` rewrites an unchanged streak on every first-pass turn).
 6. **Full gate on the rebased tree.** `node --test tests/static-app.test.js` **67 pass / 0 fail**; `python3 -m unittest discover -s tests -p 'test_*.py'` **72 OK**; `node tests/browser-learning.cjs` **PASS** (~87 s, Chromium 133.0.6943.0, both new scenarios included, no page errors); `node tests/browser-exams.cjs` **PASS**; `build_vocabulary.py --check` 913; `validate_vocab.py` clean; `embed_vocabulary.py --check` 913; `scripts/exams/embed_archive.py --check` 106 / 4,169,772 B; `scripts/exams/test_archive.py` OK; `scripts/deploy_gate.py --repo coderunknow/Chuyen-Anh` → `deploy=false (release v1.0.0-beta4 is missing; deployment held)`.
 7. **Not claimed.** No learner study; the 30 %/50 % and ≤5 pp targets remain unverified; no tag, release, or deployment was created or altered by this branch; beta3's published state and Pages deployment are untouched.
+
+## 2026-10-23 — v1.0.0-beta5 candidate on `arena/ba822f59-chuyen-anh` (single PR, left open and unmerged)
+
+**Scope and boundary.** Built the beta5 candidate described in the `DESIGN_LOG.md` entry of the same date. `APP_VERSION` in the shipped `index.html` is `v1.0.0-beta5`; `DEPLOY_HOLD` is deliberately left at `v1.0.0-beta4`, because beta4 has no tag, no release and no Pages deployment yet and the handoff must not be broken by this branch. No tag, release, asset upload, prerelease, Pages deploy and no `main` merge was performed or attempted; `AGENT.md` is untouched (`git diff -- AGENT.md` empty).
+
+### Baseline measured before editing (this sandbox, not copied from older runs)
+
+- `git rev-parse HEAD` = `9b9de43`, branch `arena/ba822f59-chuyen-anh`, clean tree; `APP_VERSION` = `v1.0.0-beta4`; `DEPLOY_HOLD` = `v1.0.0-beta4`.
+- `python3 scripts/deploy_gate.py --repo coderunknow/Chuyen-Anh` → `deploy=false (release v1.0.0-beta4 is missing; deployment held)`.
+- Baseline suites, measured on the untouched beta4 tree in a detached worktree of `9b9de43` (`git worktree add --detach /tmp/an/base-tree HEAD`, `NODE_PATH` pointed at this checkout's `node_modules`): `node --test tests/static-app.test.js` **67 pass / 0 fail** — `DESIGN_LOG.md`'s "68" for beta4 counts the same run with `tests/benchmark-contract.cjs` appended, which contributes one more test; `python3 -m unittest discover -s tests -p 'test_*.py'` **72 OK**; `node tests/browser-learning.cjs` **PASS** (89 s); `node tests/browser-exams.cjs` **PASS** (21 s). No pre-existing failure was carried into this candidate.
+- Baseline artifact: `git show HEAD:index.html` → `/tmp/an/index.baseline.html`, **5,194,482 B**. The worktree was removed after the measurement (`git worktree remove`), so the repository keeps its single branch.
+
+### Changes
+
+1. `index.html` (regenerated from the authoring copies of the module and the appended stylesheet, never hand-edited): priority/focus system, the seven exercise types and the mixed-session planner, typed grading with declared aliases only, the corrective practice queue, the hard-word list, timed practice, the skip/pending state machine, XP/levels/badges, `chuyen-anh.study.v1` + `chuyen-anh.flagged.v1` + `chuyen-anh.theme.v1` + `chuyen-anh.badges.v1` storage with a v1-compatible backup extension, the "Premium Academic" design layer with light/dark/system themes, bounded "dynamic" motion, and the localized copy for every new screen. Diff: **+2,697 / −94** lines in `index.html`.
+2. `tests/static-app.test.js`: **+450 / −** lines, 10 new unit groups (68 → 77 tests) covering priority allocation and its zero effect on records, availability and plan spacing, typed grading incl. diacritics and ambiguity, the timer math, XP/badge idempotency, hard-word storage, study-config repair, and the v1 ↔ beta5 backup contract.
+3. `tests/browser-learning.cjs`: **+302 / −** lines, a beta5 scenario block on the live page — priority configuration and disabled groups, a mixed session that reaches all seven exercise types, a matching board completed from the keyboard, a skipped question reopened from the pending list, a hard word marked and unmarked, a **real-clock** one-minute timed session that ends on the results with unanswered questions reported blank and no XP, a v1 import that keeps the device hard-word list, and English rendering sweeps of the home, Settings, dashboard and session.
+4. `tests/browser-exams.cjs`: one heading assertion renamed after the home H1 changed to `Học từ vựng theo trọng tâm của bạn` / `Study vocabulary around your focus`; the English 320 px overflow it caught was fixed in the stylesheet (icon-only backup button under 380 px), not by weakening the assertion.
+5. `tests/test_sprint_exam_features.py`: version pin follows the candidate (`v1.0.0-beta5`).
+
+### Fail-first evidence actually observed
+
+- `scripts/…` plan test failed with two matching boards emitted concurrently (`singleIndex === 0` true for every board) before the `boardIndex === 0` guard.
+- The static priority test failed because `selectPrioritySession`/`priorityPool` counted words from disabled groups; fixed by filtering the counted buckets to the enabled set.
+- A CDP sampling profile taken while opening the priority panel attributed ≈2.1 s to `distractors` and ≈1.0 s to `normalize`; `hasDistractor()` short-circuit + a `Set` of part-of-speech tokens brought the same render to ≈4 ms.
+- `tests/browser-learning.cjs` failed at `English settings fit 320px without horizontal overflow` (`scrollWidth` 323); a temporary probe located `.top-actions`/`#export-top`, and the narrow-breakpoint rule fixed it.
+- The timed scenario initially exposed +25 XP for a session with zero graded answers; `finishSession()` now gates history and the session bonus on `gradedAnswers > 0`.
+
+### Commands and results (final tree)
+
+| command | result |
+|---|---|
+| `python3 scripts/build_vocabulary.py --check` | 913 Markdown records match |
+| `python3 scripts/embed_vocabulary.py --check` | all 913 records embedded |
+| `python3 scripts/exams/embed_archive.py --check` | 106 transcriptions, 4,169,772 text bytes |
+| `python3 scripts/validate_vocab.py` | passed |
+| `python3 scripts/generate_vocab_audit_dev5.py --check` | report current |
+| `node --test tests/static-app.test.js` | **77 pass / 0 fail** (15.6 s) |
+| `python3 -m unittest discover -s tests -p 'test_*.py'` | **72 OK** |
+| `python3 -m unittest discover -s scripts/exams -p 'test_*.py'` | **5 OK** — only after installing `pymupdf`, `requests`, `beautifulsoup4`, `markdownify` into a throwaway venv at `/tmp/venv-fitz`; the repository has no venv and the sandbox Python is PEP-668 locked, so without those four packages 2 of the 5 error at import. Nothing was added to the repository. |
+| `node tests/browser-learning.cjs` | **PASS** (193 s, Chromium 133.0.6943.0, no page errors) |
+| `node tests/browser-exams.cjs` | **PASS** (98 s) |
+| `python3 scripts/deploy_gate.py --repo coderunknow/Chuyen-Anh` | `deploy=false (release v1.0.0-beta4 is missing; deployment held)` |
+| `git diff -- AGENT.md` | empty |
+| `git diff --check` | clean |
+
+### Benchmarks re-run on the final tree (`tests/speed-benchmark.cjs`, `ROUNDS=3`, `outliersDropped=0`, `pageErrors: []`, Chromium 133.0.6943.0, 600/450 ms)
+
+| flow | build | median | all rounds | range | turns |
+|---|---|---|---|---|---|
+| standard | baseline | 14,046 ms | 14,398 / 14,046 / 13,925 | 13,925–14,398 | 11 |
+| standard | candidate | 14,412 ms | 15,306 / 14,412 / 14,070 | 14,070–15,306 | 11 |
+| sprint | baseline | 21,275 ms | 21,395 / 21,275 / 21,107 | 21,107–21,395 | 21 |
+| sprint | candidate | 21,344 ms | 22,567 / 21,344 / 21,326 | 21,326–22,567 | 21 |
+
+Delta on medians: standard **+366 ms (+2.6 %)**, sprint **+69 ms (+0.3 %)**; per-turn 1,277 → 1,310 ms (standard) and 1,013 → 1,016 ms (sprint). Turn-class medians (sprint): `firstPass` 8 → 9 ms, `handOff` 8 → 10 ms, `consolidation` 2 → 3 ms, `retry` 2 → 3 ms; `minConsolidationGap` = 3 on both builds. Ranges overlap on both flows, so the honest reading is *no measurable speed change beyond run-to-run noise*, not a speed-up. An earlier run in this same session measured sprint 21,103 → 21,435 ms, i.e. the same conclusion at a different offset; both raw sets are kept in `/tmp/an/`.
+
+Startup (local, uncommitted probe: navigation start → `[data-session="new"]` visible in a 1280×900 page, 5 cold loads × 3 interleaved repetitions, same Chromium): baseline median **218 ms** (178–325, n=15), candidate median **237 ms** (208–303, n=15) — **+19 ms (+8.7 %)** with heavy overlap. File size: **5,194,482 B → 5,330,154 B** (`wc -c`, +135,672 B, +2.6 %). The apparent 220 KB discrepancy against the authoring helper's `index.html rebuilt: 5,109,953 bytes` is character count vs UTF-8 bytes, not duplicated CSS: the appended design layer appears exactly once (`grep -c 'design-system: appended working layer' index.html` → `1`).
+
+### Not tested / not claimed
+
+- No learner study was run; the 30 %/50 % active-time target and the ≤5 pp delayed-recall margin remain **NOT VERIFIED**, and the benchmark above measures browser interaction only.
+- Screen-reader behaviour was verified only structurally (roles, names, live regions, focus order) — no NVDA/VoiceOver run: **NOT VERIFIED**.
+- WCAG 2.2 AA is claimed only for the checks the suites assert (focus visibility, hit sizes, contrast of the defined tokens, labelled controls, no keyboard trap); no full audit tool run.
+- `push` and PR creation with `gh` were exercised from this sandbox; if the PR could not be created the branch state is the deliverable.

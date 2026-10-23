@@ -30,7 +30,6 @@ async function main() {
   try {
     browser = await chromium.launch({ executablePath, args, headless: true });
     const page = await browser.newPage({ viewport: { width: 1280, height: 900 }, reducedMotion: 'reduce' });
-    await page.clock.setFixedTime(new Date('2026-10-13T12:00:00Z'));
     const errors = [];
     page.on('pageerror', error => errors.push(error.message));
     await page.goto(`http://127.0.0.1:${server.address().port}`);
@@ -40,14 +39,16 @@ async function main() {
       'a fresh profile is offered a short mixed session instead of an empty due queue');
     assert.equal(await page.evaluate(() => getComputedStyle(document.querySelector('#content')).outlineWidth), '0px',
       'programmatic focus does not draw a frame around the whole page');
-    assert.equal(await page.locator('meta[name="theme-color"]').getAttribute('content'), '#f4f7f5', 'the browser chrome starts in the light theme');
+    assert.equal(await page.locator('meta[name="theme-color"]').getAttribute('content'), '#f5f7fb', 'the browser chrome starts in the light theme');
+    assert.equal(await page.evaluate(() => document.documentElement.dataset.themeChoice), 'system',
+      'a fresh profile follows prefers-color-scheme until the learner chooses a theme');
     await page.setViewportSize({ width: 375, height: 812 });
     const homeMobile = await page.evaluate(() => {
       const rect = selector => { const { top, bottom, width } = document.querySelector(selector).getBoundingClientRect(); return { top, bottom, width }; };
-      return { main: rect('#content'), action: rect('.study-recommendation button'), nav: rect('.sidebar'), support: rect('.support-sidebar'), scrollWidth: document.documentElement.scrollWidth };
+      return { main: rect('#content'), action: rect('[data-session="priority"]'), nav: rect('.sidebar'), support: rect('.support-sidebar'), scrollWidth: document.documentElement.scrollWidth };
     });
     assert.equal(homeMobile.main.top < 220, true, 'the main study choice follows compact mobile navigation');
-    assert.equal(homeMobile.action.bottom < 812, true, 'the recommended study action is in the first 375×812 viewport');
+    assert.equal(homeMobile.action.bottom < 812, true, 'the primary study action is in the first 375×812 viewport');
     assert.equal(homeMobile.support.top > homeMobile.main.top, true, 'secondary progress/help follows the study entry point on mobile');
     assert.equal(homeMobile.scrollWidth <= 375, true, 'the homepage does not overflow horizontally');
     assert.equal(await page.locator('.session-card .icon').count() > 0, true, 'session icons are self-contained SVGs');
@@ -56,7 +57,7 @@ async function main() {
     const homeNarrow = await page.evaluate(() => ({
       width: document.documentElement.scrollWidth,
       mainTop: document.querySelector('#content').getBoundingClientRect().top,
-      actionBottom: document.querySelector('.study-recommendation button').getBoundingClientRect().bottom
+      actionBottom: document.querySelector('[data-session="priority"]').getBoundingClientRect().bottom
     }));
     assert.equal(homeNarrow.width <= 320, true, 'the minimum supported 320px viewport has no horizontal overflow');
     assert.equal(homeNarrow.mainTop < 220, true, 'the primary study content stays near the top at 320px');
@@ -64,6 +65,44 @@ async function main() {
     await page.setViewportSize({ width: 768, height: 900 });
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, 'the tablet breakpoint does not introduce horizontal overflow');
     await page.setViewportSize({ width: 1280, height: 900 });
+
+    // ---- Timed practice: a real clock, unanswered questions are blank, not wrong.
+    // This runs on the real clock before the date is frozen for the date-sensitive
+    // scenarios below; the minimum selectable limit is one minute, so the wait is
+    // a real minute rather than a simulated one.
+    await page.evaluate(() => {
+      localStorage.clear();
+      localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['1', '2', '3']));
+      localStorage.setItem('chuyen-anh.study.v1', JSON.stringify({
+        groups: { due: true, weak: true, new: true, review: true },
+        focus: 'due',
+        exercises: { mc_en_vi: true, mc_vi_en: false, fill_vi: false, fill_en: false, cloze: false, match: false, flashcard: false },
+        size: 10, timed: true, timerMinutes: 1
+      }));
+    });
+    await page.reload();
+    await page.locator('[data-session="favorites"]').click();
+    assert.equal(await page.locator('#session-timer').count(), 1, 'a timed session shows its remaining time');
+    assert.equal(await page.locator('#session-timer').innerText(), '01:00');
+    assert.equal(await page.locator('#session-timer').getAttribute('role'), 'timer');
+    const progressBeforeTimeout = await page.evaluate(() => localStorage.getItem('chuyen-anh.progress.v1'));
+    const historyBeforeTimeout = await page.evaluate(() => localStorage.getItem('chuyen-anh.history.v1'));
+    await page.locator('#session-timer').filter({ hasText: /^00:4\d$/ }).waitFor({ timeout: 40000 });
+    assert.equal(await page.locator('#session-timer').count(), 1, 're-rendering a card never duplicates the timer');
+    await page.locator('.summary').waitFor({ timeout: 60000 });
+    assert.equal(await page.locator('#session-timer').count(), 0, 'the timer stops when it reaches zero');
+    const timeoutSummary = await page.locator('.summary').innerText();
+    assert.match(timeoutSummary, /Hết giờ/, 'an expired session lands on its results');
+    assert.match(timeoutSummary, /3\s*\n?\s*Bỏ trống/, 'unanswered questions are reported as blank');
+    assert.match(timeoutSummary, /XP nhận trong phiên\s*\n?\s*\+0/, 'a session with no graded answer earns no XP');
+    assert.equal(await page.evaluate(() => localStorage.getItem('chuyen-anh.history.v1')), historyBeforeTimeout,
+      'an unanswered session does not enter the accuracy history');
+    assert.equal(await page.evaluate(() => localStorage.getItem('chuyen-anh.progress.v1')), progressBeforeTimeout,
+      'an unanswered session writes no scheduling state');
+    await page.evaluate(() => localStorage.clear());
+    await page.reload();
+    await page.locator('[data-session="new"]').waitFor();
+    await page.clock.setFixedTime(new Date('2026-10-13T12:00:00Z'));
 
     const key = name => `chuyen-anh.${name}.v1`;
     const read = name => page.evaluate(k => JSON.parse(localStorage.getItem(k)), key(name));
@@ -431,7 +470,7 @@ async function main() {
 
     // The shipped build identifies itself.
     await sprint.locator('[data-view="settings"]').click();
-    assert.equal(await sprint.locator('#app-version').innerText(), 'v1.0.0-beta4');
+    assert.equal(await sprint.locator('#app-version').innerText(), 'v1.0.0-beta5');
     assert.deepEqual(sprintErrors, []);
 
     // Error -> intervening word -> typed corrective retrieval -> truthful summary.
@@ -454,9 +493,9 @@ async function main() {
     await page.locator('#favorite-card').click(); // Restore favorite.
     await page.locator('#theme-button').click();
     assert.equal(await page.locator('html').getAttribute('data-theme'), 'dark');
-    assert.equal(await page.locator('meta[name="theme-color"]').getAttribute('content'), '#101a18', 'the browser chrome follows the dark theme');
+    assert.equal(await page.locator('meta[name="theme-color"]').getAttribute('content'), '#0d1526', 'the browser chrome follows the dark theme');
     await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
-    assert.equal(await page.locator('.prompt').evaluate(el => getComputedStyle(el).color), 'rgb(232, 242, 237)');
+    assert.equal(await page.locator('.prompt').evaluate(el => getComputedStyle(el).color), 'rgb(238, 242, 250)');
     if (process.env.BROWSER_SCREENSHOT) await page.screenshot({ path: process.env.BROWSER_SCREENSHOT, fullPage: true });
     await page.setViewportSize({ width: 375, height: 812 });
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
@@ -493,15 +532,18 @@ async function main() {
 
     // Export and valid/invalid import preserve the post-session backup.
     await page.locator('[data-view="settings"]').click();
-    assert.equal(await page.getByRole('checkbox', { name: 'Giao diện tối' }).count(), 1, 'the theme switch has a learner-facing accessible name');
+    assert.equal(await page.getByRole('combobox', { name: 'Giao diện', exact: true }).count(), 1, 'the theme choice has a learner-facing accessible name');
+    assert.equal(await page.locator('#theme-setting option').count(), 3, 'system, light and dark are all selectable');
     assert.equal(await page.getByRole('checkbox', { name: 'Phím tắt bàn phím' }).count(), 1, 'the shortcut switch has a learner-facing accessible name');
     assert.equal(await page.getByRole('combobox', { name: 'Ngôn ngữ giao diện' }).count(), 1, 'the interface-language select has a name');
     assert.equal(await page.getByRole('combobox', { name: 'Số thẻ mặc định mỗi phiên' }).count(), 1, 'the session-size select has a name');
     await page.keyboard.press('Tab');
     assert.equal(await page.evaluate(() => document.activeElement.id), 'language-setting', 'keyboard navigation reaches the interface-language selector first');
     await page.keyboard.press('Tab');
-    assert.equal(await page.evaluate(() => document.activeElement.id), 'dark-setting', 'keyboard navigation reaches the named theme switch');
-    const switchFocus = await page.locator('#dark-setting').evaluate(input => ({
+    assert.equal(await page.evaluate(() => document.activeElement.id), 'theme-setting', 'keyboard navigation reaches the named theme selector');
+    await page.keyboard.press('Tab');
+    assert.equal(await page.evaluate(() => document.activeElement.id), 'keys-setting', 'keyboard navigation reaches the named shortcut switch');
+    const switchFocus = await page.locator('#keys-setting').evaluate(input => ({
       visible: input.matches(':focus-visible'),
       outlineStyle: getComputedStyle(input.nextElementSibling).outlineStyle,
       outlineWidth: getComputedStyle(input.nextElementSibling).outlineWidth
@@ -1399,6 +1441,244 @@ async function main() {
       page.off('request', onNetReq);
     }
 
+
+    // ---- beta5: the priority configuration, all seven exercise types, skipped
+    // questions, hard words, XP/badges and the v1 backup contract are exercised
+    // through the interface, in the learner's own workflow.
+    const beta5Seed = await page.evaluate(() => {
+      const now = Date.now();
+      const data = JSON.parse(document.getElementById('vocabulary-data').textContent).slice(0, 12);
+      const progress = {};
+      data.forEach((entry, index) => {
+        progress[entry.id] = {
+          id: entry.id,
+          state: ['weak', 'learning', 'review', 'new'][index % 4],
+          correctCount: index % 3,
+          wrongCount: index % 4,
+          streak: 1,
+          lastReviewed: now - 86400000,
+          nextReview: index % 2 ? now - 3600000 : now + 86400000 * 4,
+          interval: 2,
+          ease: 2.4,
+          difficulty: 0.3
+        };
+      });
+      localStorage.clear();
+      localStorage.setItem('chuyen-anh.progress.v1', JSON.stringify(progress));
+      return data.map(entry => ({ id: entry.id, word: entry.word, meaning: entry.meaning }));
+    });
+    await page.reload();
+    await page.locator('[data-session="priority"]').waitFor();
+    // The detailed controls live in a collapsed <details>; open it like a learner would.
+    const openPriorityDetails = () => page.evaluate(() => document.querySelector('#priority-details')?.setAttribute('open', ''));
+    await openPriorityDetails();
+    assert.match(await page.locator('#priority-summary').innerText(), /\d+ từ đủ điều kiện/,
+      'the priority panel reports the eligible pool before a session starts');
+    assert.match(await page.locator('#priority-effective').innerText(), /Trọng tâm: /);
+    // Disabling a group removes its words from the promised pool and is persisted.
+    const beforeGroupOff = Number((await page.locator('#priority-summary').innerText()).match(/(\d+) từ đủ điều kiện/)[1]);
+    await page.locator('#priority-config [data-group="review"]').click();
+    const afterGroupOff = Number((await page.locator('#priority-summary').innerText()).match(/(\d+) từ đủ điều kiện/)[1]);
+    assert.equal(afterGroupOff < beforeGroupOff, true, 'switching a group off shrinks the reported eligible count');
+    assert.equal((await page.evaluate(() => JSON.parse(localStorage.getItem('chuyen-anh.study.v1')))).groups.review, false,
+      'the group choice is stored');
+    await page.reload();
+    await page.locator('[data-session="priority"]').waitFor();
+    await openPriorityDetails();
+    assert.equal(await page.locator('#priority-config [data-group="review"]').getAttribute('aria-pressed'), 'false',
+      'the group choice survives a reload');
+    await page.locator('#priority-config [data-group="review"]').click();
+    // Focus visibly changes the allocation.
+    await page.locator('#priority-config [data-focus="weak"]').click();
+    assert.match(await page.locator('#priority-effective').innerText(), /Trọng tâm: Từ yếu hoặc thường sai/);
+    // All seven exercise types, including the two that are off by default.
+    for (const type of ['cloze', 'match', 'flashcard']) {
+      const chip = page.locator(`#priority-config [data-exercise="${type}"]`);
+      if (await chip.getAttribute('aria-pressed') === 'false') await chip.click();
+    }
+    const storedConfig = await page.evaluate(() => JSON.parse(localStorage.getItem('chuyen-anh.study.v1')));
+    assert.equal(Object.values(storedConfig.exercises).filter(Boolean).length, 7, 'every exercise type can be enabled');
+    assert.equal(storedConfig.focus, 'weak');
+    await page.locator('#priority-config #priority-size').selectOption('10');
+    assert.equal((await page.evaluate(() => JSON.parse(localStorage.getItem('chuyen-anh.study.v1')))).size, 10);
+
+    await page.locator('[data-session="priority"]').click();
+    await page.locator('.flashcard').waitFor();
+    assert.match(await page.locator('.page-header').innerText(), /Phiên ưu tiên/);
+    const seenExercises = new Set();
+    const turnLog = [];
+    let lastTurnSeq = null;
+    let handled = 0;
+    let skipChecked = false;
+    let flagChecked = false;
+    while (await page.locator('.summary').count() === 0) {
+      handled += 1;
+      assert.ok(handled < 60, 'the priority session terminates');
+      const exercise = await page.locator('.flashcard').getAttribute('data-exercise');
+      // A matching board re-renders after every pair, so the turn log records one
+      // entry per turn (turnSeq) rather than one per paint.
+      const turnSeq = await page.locator('.flashcard').getAttribute('data-turn-seq');
+      if (turnSeq !== lastTurnSeq) {
+        seenExercises.add(exercise);
+        turnLog.push(exercise);
+        lastTurnSeq = turnSeq;
+      }
+      if (await page.locator('#start-quiz').count()) {
+        await page.locator('#start-quiz').click();
+        continue;
+      }
+      if (!flagChecked) {
+        await page.locator('#flag-card').click();
+        flagChecked = true;
+        assert.equal((await page.evaluate(() => JSON.parse(localStorage.getItem('chuyen-anh.flagged.v1') || '[]'))).length, 1,
+          'marking a hard word writes only the separate hard-word list');
+        continue;
+      }
+      if (!skipChecked && await page.locator('#skip-card:enabled').count()) {
+        const skippedWord = (await page.locator('.prompt').innerText()).trim();
+        await page.locator('#skip-card').click();
+        skipChecked = true;
+        assert.match(await page.locator('.pending-row').innerText(), /Đã bỏ qua \(1\)/,
+          'a skipped question is listed as pending');
+        await page.locator('[data-return-id]').first().click();
+        assert.equal((await page.locator('.prompt').innerText()).trim(), skippedWord,
+          'a pending question can be reopened at the front of the queue');
+        continue;
+      }
+      if (await page.locator('.match-board').count()) {
+        // Keyboard parity: tiles are buttons, so Tab + Enter selects them.
+        const target = await page.evaluate(() => {
+          const vocab = JSON.parse(document.getElementById('vocabulary-data').textContent);
+          const word = document.querySelector('[data-match-word]:not([disabled])');
+          const entry = vocab.find(item => item.id === word.dataset.matchWord);
+          const meaning = [...document.querySelectorAll('[data-match-meaning]:not([disabled])')]
+            .find(node => node.textContent.trim() === entry.meaning.trim());
+          return { word: word.dataset.matchWord, meaning: meaning?.dataset.matchMeaning };
+        });
+        assert.ok(target.meaning, 'each word tile has a matching meaning tile');
+        await page.locator(`[data-match-word="${target.word}"]`).focus();
+        await page.keyboard.press('Enter');
+        await page.locator(`[data-match-meaning="${target.meaning}"]`).focus();
+        await page.keyboard.press('Enter');
+        await page.waitForTimeout(80);
+        if (await page.locator('#next-card').count()) await page.locator('#next-card').click();
+        continue;
+      }
+      if (await page.locator('#flip-card').count()) {
+        await page.locator('#flip-card').click();
+        assert.equal(await page.locator('.reveal').count(), 1, 'a flashcard reveals its own answer');
+        assert.equal(await page.locator('[data-option]').count(), 0);
+        await page.locator('#reveal-correct').click();
+        continue;
+      }
+      if (await page.locator('#ambiguous-correct').count()) {
+        await page.locator('#ambiguous-correct').click();
+        continue;
+      }
+      if (await page.locator('#spelling-input').count()) {
+        const label = await page.locator('.mode-label').innerText();
+        const prompt = (await page.locator('.prompt').innerText()).trim();
+        const entry = beta5Seed.find(item => item.word === prompt || item.meaning === prompt);
+        const vi = /GÕ NGHĨA|Gõ nghĩa/.test(label);
+        // Vietnamese diacritics are required: a folded spelling is not correct.
+        if (vi) await page.locator('#spelling-input').fill('nghich canh');
+        else await page.locator('#spelling-input').fill(entry ? entry.word : 'wrong');
+        await page.locator('#submit-answer').click();
+        if (vi) {
+          const progress = await page.evaluate(() => JSON.parse(localStorage.getItem('chuyen-anh.progress.v1')));
+          const wrongIds = Object.values(progress).filter(record => record.wrongCount > 0).map(record => record.id);
+          assert.ok(wrongIds.length >= 1, 'a diacritic-free Vietnamese answer is graded, not ignored');
+        }
+        if (await page.locator('#next-card').count()) await page.locator('#next-card').click();
+        continue;
+      }
+      if (await page.locator('[data-option]:enabled').count()) {
+        await page.locator('[data-option]:enabled').first().click();
+        if (await page.locator('#next-card').count()) await page.locator('#next-card').click();
+        continue;
+      }
+      if (await page.locator('#next-card').count()) {
+        await page.locator('#next-card').click();
+        continue;
+      }
+    }
+    assert.equal(seenExercises.size >= 4, true, `the mixed session uses several exercise types: ${[...seenExercises].join(',')}`);
+    assert.equal(seenExercises.has('match'), true, 'the matching board appears in a mixed session');
+    for (let index = 1; index < turnLog.length; index += 1) {
+      assert.equal(turnLog[index] === 'match' && turnLog[index - 1] === 'match', false, 'two matching boards never sit together');
+    }
+    const summaryText = await page.locator('.summary').innerText();
+    assert.match(summaryText, /XP nhận trong phiên/);
+    assert.match(summaryText, /Huy hiệu/);
+    assert.match(summaryText, /Dạng bài trong phiên/);
+    const xpAfterSession = await page.evaluate(() => JSON.parse(localStorage.getItem('chuyen-anh.badges.v1') || '[]'));
+    assert.ok(Array.isArray(xpAfterSession));
+    // The hard word is listed in Settings and starts its own session.
+    await page.locator('[data-view="settings"]').click();
+    assert.equal(await page.locator('.flagged-row').count(), 1, 'the marked hard word is listed in the manage view');
+    await page.locator('.flagged-row [data-unflag]').click();
+    assert.equal(await page.locator('.flagged-row').count(), 0);
+    assert.deepEqual(await page.evaluate(() => JSON.parse(localStorage.getItem('chuyen-anh.flagged.v1'))), []);
+
+    // ---- A v1 file from an older build keeps this device's hard words and config.
+    await page.evaluate(() => {
+      localStorage.setItem('chuyen-anh.flagged.v1', JSON.stringify(['3']));
+    });
+    await page.reload();
+    await page.locator('[data-session="priority"]').waitFor();
+    const studyBeforeV1 = await page.evaluate(() => localStorage.getItem('chuyen-anh.study.v1'));
+    await page.locator('[data-view="settings"]').click();
+    const v1Bundle = {
+      app: 'chuyen-anh-flashcard',
+      version: 1,
+      exportedAt: '2026-09-01T00:00:00.000Z',
+      progress: {},
+      prefs: { sessionSize: 20, keyboardShortcuts: true, darkMode: false },
+      favorites: [],
+      history: [],
+      streak: { current: 0, longest: 0, lastDate: null }
+    };
+    await page.locator('#import-setting').setInputFiles({ name: 'v1.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify(v1Bundle)) });
+    await page.locator('.toast').filter({ hasText: 'Đã khôi phục tiến độ' }).waitFor();
+    assert.deepEqual(await page.evaluate(() => JSON.parse(localStorage.getItem('chuyen-anh.flagged.v1'))), ['3'],
+      'a v1 backup does not wipe the hard-word list');
+    assert.equal(await page.evaluate(() => localStorage.getItem('chuyen-anh.study.v1')), studyBeforeV1,
+      'a v1 backup does not reset the study configuration');
+
+    // ---- Every new interface string is translated in the English interface.
+    await page.evaluate(() => { localStorage.setItem('chuyen-anh.language.v1', 'en'); });
+    await page.reload();
+    await page.locator('[data-session="priority"]').waitFor();
+    const untranslated = async () => page.evaluate(() => {
+      // The product name stays Vietnamese in both interfaces; everything else must translate.
+      const protectedSelectors = '.exam-document, .exam-question-source, .vocab-word, .vocab-meaning, .vocab-pos, .vocabulary-metadata dd, .prompt, .option, .example em, .example span, .code, .brand-name, .brand-detail, .eyebrow--brand, script, style';
+      const vietnamese = /[àáảãạăâđêôơưèéẻẽẹìíỉĩịòóỏõọùúủũụỳýỷỹỵ]/i;
+      const found = [];
+      const walk = node => {
+        if (node.nodeType === 3) {
+          const text = node.nodeValue.trim();
+          if (text && !node.parentElement?.closest(protectedSelectors) && vietnamese.test(text)) found.push(text.slice(0, 90));
+          return;
+        }
+        if (node.nodeType !== 1) return;
+        for (const name of ['aria-label', 'placeholder', 'title', 'alt']) {
+          const value = node.getAttribute?.(name);
+          if (value && vietnamese.test(value)) found.push(`${name}=${value.slice(0, 60)}`);
+        }
+        for (const child of node.childNodes) walk(child);
+      };
+      walk(document.getElementById('app'));
+      return [...new Set(found)];
+    });
+    assert.deepEqual(await untranslated(), [], 'the study home has no untranslated beta5 copy');
+    await page.locator('[data-view="settings"]').click();
+    assert.deepEqual(await untranslated(), [], 'Settings has no untranslated beta5 copy');
+    await page.locator('[data-view="dashboard"]').click();
+    assert.deepEqual(await untranslated(), [], 'the dashboard has no untranslated beta5 copy');
+    await page.evaluate(() => localStorage.removeItem('chuyen-anh.language.v1'));
+    await page.reload();
+    await page.locator('[data-session="priority"]').waitFor();
+
     // ---- A failed device write is reported, never replaced by a success message.
     const failing = await browser.newPage({ viewport: { width: 1280, height: 900 }, reducedMotion: 'reduce' });
     const failingErrors = [];
@@ -1440,7 +1720,7 @@ async function main() {
 
 
     assert.deepEqual(errors, []);
-    console.log(`PASS: Chromium ${browser.version()} — first-look introduction for new words, same-part-of-speech distractors, cloze options absent from the sentence, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, 320/375/768px responsive layout, reduced-motion setting, search state across a favorite toggle, session clearing on reset/import, the ID 448 historical label, named option groups, shortcuts limited to the visible card, failed writes reported truthfully, JSON backup round-trips that keep every retained session, blank spelling submissions ignored, single-graded self-assessment, skip locked after a reveal, and 'Học cấp tốc' processing all ten requested words with a truthful single correction, automatic advance only after correct answers, accurate first-pass statistics, persisted progress, an immediate hand-off with the graded answer carried onto the next card, a queue that never shifts while another screen is open, and interface copy on a consolidation turn translated in the English interface; no page errors.`);
+    console.log(`PASS: Chromium ${browser.version()} — first-look introduction for new words, same-part-of-speech distractors, cloze options absent from the sentence, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, 320/375/768px responsive layout, reduced-motion setting, search state across a favorite toggle, session clearing on reset/import, the ID 448 historical label, named option groups, shortcuts limited to the visible card, failed writes reported truthfully, JSON backup round-trips that keep every retained session, blank spelling submissions ignored, single-graded self-assessment, skip locked after a reveal, and 'Học cấp tốc' processing all ten requested words with a truthful single correction, automatic advance only after correct answers, accurate first-pass statistics, persisted progress, an immediate hand-off with the graded answer carried onto the next card, a queue that never shifts while another screen is open, and interface copy on a consolidation turn translated in the English interface; the beta5 priority configuration with all seven exercise types, a matching board driven from the keyboard, a skipped question reopened from the pending list, a hard word marked and unmarked, a real one-minute timed session that ends on its results with unanswered questions reported as blank, a v1 backup that keeps the device hard-word list, and English rendering of every new screen; no page errors.`);
   } finally {
     if (browser) await browser.close();
     await new Promise(resolve => server.close(resolve));

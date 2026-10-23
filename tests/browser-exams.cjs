@@ -224,7 +224,7 @@ async function main() {
     assert.match(await page.locator('.history-row').innerText(), /4 cards/);
     assert.match(await page.locator('.history-row').innerText(), /13\/10\/2026/);
     await page.locator('[data-view="learn"]').click();
-    await page.getByRole('heading', { name: 'Study advanced English vocabulary' }).waitFor();
+    await page.getByRole('heading', { name: 'Study vocabulary around your focus' }).waitFor();
     await page.locator('.recommendation-copy [data-session="quick10"]').click();
     await page.locator('#start-quiz').waitFor();
     assert.match(await page.locator('#content').innerText(), /Quick session · 10 words queued · 10 turns left/);
