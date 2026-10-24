@@ -318,6 +318,10 @@ test('the learner-facing word count is a headword count', async () => {
   assert.equal(translateUiText('647 dạng cùng gốc', 'en'), '647 same-root forms');
   assert.equal(translateUiText('Tìm theo tiếng Anh, tiếng Việt, từ loại, tag hoặc ví dụ · 5.205 từ gốc.', 'en'),
     'Search English, Vietnamese, part of speech, tags, or examples · 5,205 headwords.');
+  // Merged forms are explained as notes in both languages, not as words.
+  assert.equal(translateUiText('Quy tắc gốc từ:', 'en'), 'Root rule:');
+  assert.equal(translateUiText('mỗi gốc từ chỉ tính là một từ vựng. Các dạng cùng gốc (ví dụ số nhiều, thì, phái sinh) không phải mục riêng; chúng được ghi ở dòng “Họ từ” của từ gốc.', 'en'),
+    'each word root counts as one vocabulary item. Same-root forms (for example plurals, tenses and derivations) are not separate entries; they are recorded in the “Word family” line of the headword.');
   // The phrase bank keeps its own count and is not folded into the word count.
   assert.equal(translateUiText('780 cụm từ', 'en'), '780 phrases');
   assert.equal(translateUiText('5.205 từ gốc', 'vi'), '5.205 từ gốc');
