@@ -109,7 +109,12 @@ const {
   buildPhraseQuestion,
   gradePhraseAnswer,
   recordPhraseAttempt,
-  validatePhraseEntry
+  validatePhraseEntry,
+  highlightMatch,
+  formatNextReview,
+  isTypableHeadword,
+  exerciseAvailability,
+  EXERCISE_TYPES
 } = app;
 
 const vocab = [
@@ -242,8 +247,8 @@ test('same-root forms are folded into their headword, never counted as words', a
 
   // The dataset keeps every audited row, but only one row per root is a word.
   assert.equal(loaded.data.length, 5852);
-  assert.equal(headwords.length, 5205);
-  assert.equal(familyHeadOf.size, 647);
+  assert.equal(headwords.length, 5112);
+  assert.equal(familyHeadOf.size, 740);
   assert.equal(headwords.length + familyHeadOf.size, loaded.data.length);
 
   // A merged row names a real headword and that headword's note lists the form.
@@ -296,7 +301,7 @@ test('same-root forms are folded into their headword, never counted as words', a
 test('the learner-facing word count is a headword count', async () => {
   const loaded = await loadVocabulary(embeddedRaw);
   const active = loaded.data.filter(entry => !entry.familyHead);
-  assert.equal(active.length, 5205);
+  assert.equal(active.length, 5112);
   // The table and the JSON keep the merged rows for audit; the UI count is the
   // number of roots, and the data panel states the family rule explicitly.
   assert.match(appScript[1], /formatCount\(vocabulary\.length\)/);
@@ -307,24 +312,24 @@ test('the learner-facing word count is a headword count', async () => {
   // every headword label interpolates the live total instead of a literal.
   assert.equal(countNumber('5.345'), 5345);
   assert.equal(countNumber('5,345'), 5345);
-  assert.equal(formatCount(5205), '5.205');
-  assert.equal(formatCount(5205, 'en'), '5,205');
+  assert.equal(formatCount(5112), '5.112');
+  assert.equal(formatCount(5112, 'en'), '5,112');
   assert.equal(formatCount(0), '0');
-  assert.equal(translateUiText('5.205 từ gốc', 'en'), '5,205 headwords');
-  assert.equal(translateUiText('5205 từ gốc', 'en'), '5,205 headwords');
+  assert.equal(translateUiText('5.112 từ gốc', 'en'), '5,112 headwords');
+  assert.equal(translateUiText('5112 từ gốc', 'en'), '5,112 headwords');
   assert.equal(translateUiText('1 từ gốc', 'en'), '1 headword');
-  assert.equal(translateUiText('Flashcard · 5.205 từ gốc · kho đề offline', 'en'),
-    'Flashcards · 5,205 headwords · offline exam archive');
-  assert.equal(translateUiText('647 dạng cùng gốc', 'en'), '647 same-root forms');
-  assert.equal(translateUiText('Tìm theo tiếng Anh, tiếng Việt, từ loại, tag hoặc ví dụ · 5.205 từ gốc.', 'en'),
-    'Search English, Vietnamese, part of speech, tags, or examples · 5,205 headwords.');
+  assert.equal(translateUiText('Flashcard · 5.112 từ gốc · kho đề offline', 'en'),
+    'Flashcards · 5,112 headwords · offline exam archive');
+  assert.equal(translateUiText('740 dạng cùng gốc', 'en'), '740 same-root forms');
+  assert.equal(translateUiText('Tìm theo tiếng Anh, tiếng Việt, từ loại, tag hoặc ví dụ · 5.112 từ gốc.', 'en'),
+    'Search English, Vietnamese, part of speech, tags, or examples · 5,112 headwords.');
   // Merged forms are explained as notes in both languages, not as words.
   assert.equal(translateUiText('Quy tắc gốc từ:', 'en'), 'Root rule:');
   assert.equal(translateUiText('mỗi gốc từ chỉ tính là một từ vựng. Các dạng cùng gốc (ví dụ số nhiều, thì, phái sinh) không phải mục riêng; chúng được ghi ở dòng “Họ từ” của từ gốc.', 'en'),
     'each word root counts as one vocabulary item. Same-root forms (for example plurals, tenses and derivations) are not separate entries; they are recorded in the “Word family” line of the headword.');
   // The phrase bank keeps its own count and is not folded into the word count.
   assert.equal(translateUiText('780 cụm từ', 'en'), '780 phrases');
-  assert.equal(translateUiText('5.205 từ gốc', 'vi'), '5.205 từ gốc');
+  assert.equal(translateUiText('5.112 từ gốc', 'vi'), '5.112 từ gốc');
 });
 
 test('exam archive filters by year, location, format and unit', () => {
@@ -1229,7 +1234,7 @@ test('exported exam results report exactly what the learner did and what could b
   const result = buildExamResultJson(session, record, { now: 6000 });
   assert.equal(result.app, 'Chuyên Anh');
   assert.equal(result.version, APP_VERSION, 'the result carries the application version');
-  assert.equal(result.version, 'v1.0.0-beta7');
+  assert.equal(result.version, 'v1.0.0-beta8');
   assert.equal(result.schemaVersion, '1.0.0');
   assert.deepEqual(result.summary, {
     total: 3, answered: 2, unanswered: 1,
@@ -2463,4 +2468,52 @@ test('the phrase bank is wired into the shell, reset and localisation', () => {
   assert.equal(translateUiText('Cụm từ', 'en'), 'Phrases');
   assert.equal(translateUiText('Luyện 10 cụm', 'en'), 'Practise 10 phrases');
   assert.equal(translateUiText('4 cụm · hiển thị 4 cụm đầu', 'en'), '4 phrases · first 4 shown');
+});
+
+test('search highlighting never breaks the text it escapes', () => {
+  // Highlighting used to run on the escaped string, so a query that matched an
+  // entity name split the entity and the learner saw "A &amp; B".
+  assert.equal(highlightMatch('A & B', '&'), 'A <mark>&amp;</mark> B');
+  assert.equal(highlightMatch('A & B', 'amp'), 'A &amp; B');
+  assert.equal(highlightMatch("don't", '#39'), 'don&#39;t');
+  assert.equal(highlightMatch('A < B', 'lt'), 'A &lt; B');
+  assert.equal(highlightMatch('Adverse conditions', 'vers'), 'Ad<mark>vers</mark>e conditions');
+  assert.equal(highlightMatch('<script>', 'SCRIPT'), '&lt;<mark>script</mark>&gt;');
+  assert.equal(highlightMatch('a+b', 'a+b'), '<mark>a+b</mark>');
+  assert.equal(highlightMatch('anything', '   '), 'anything');
+  assert.equal(highlightMatch(undefined, 'x'), '');
+});
+
+test('relative review times are plural-correct in both languages', () => {
+  const now = Date.now();
+  assert.equal(formatNextReview(now - 1000, 'en'), 'due now');
+  assert.equal(formatNextReview(now - 1000, 'vi'), 'đến hạn');
+  assert.equal(formatNextReview(now + 30 * 60000, 'en'), 'in 1 hour');
+  assert.equal(formatNextReview(now + 30 * 60000, 'vi'), '1 giờ nữa');
+  assert.equal(formatNextReview(now + 3 * 3600000, 'en'), 'in 3 hours');
+  assert.equal(formatNextReview(now + 25 * 3600000, 'en'), 'in 2 days');
+  assert.equal(formatNextReview(now + 5 * 86400000, 'en'), 'in 5 days');
+  assert.equal(formatNextReview(now + 5 * 86400000, 'vi'), '5 ngày nữa');
+});
+
+test('a headword a learner cannot type is never asked as a typed exercise', () => {
+  // "Lest + S + (should) V-bare" and the two idiom rows carry dictionary
+  // notation. A spelling card for them asks for an impossible answer, so the
+  // planner must not offer fill-en and the generator must fall back to a mode
+  // that shows options.
+  assert.equal(isTypableHeadword('Adverse'), true);
+  assert.equal(isTypableHeadword('give up'), true);
+  assert.equal(isTypableHeadword("burn one's bridges/boats"), false);
+  assert.equal(isTypableHeadword('Lest + S + (should) V-bare'), false);
+  assert.equal(isTypableHeadword('Rear its (ugly) head'), false);
+  const untypable = embeddedVocabulary.filter(entry => !isTypableHeadword(entry.word));
+  assert.ok(untypable.length >= 3, 'the dataset still contains notation headwords');
+  for (const entry of untypable) {
+    const item = { vocab: entry, progress: createInitialProgress(entry.id, 0) };
+    assert.equal(exerciseAvailability(EXERCISE_TYPES.FILL_EN, item, embeddedVocabulary), false,
+      `${entry.word} must not be offered as fill-en`);
+    assert.notEqual(generateQuestion(item, embeddedVocabulary, 'spelling').mode, 'spelling',
+      `${entry.word} must not be asked as a spelling card`);
+  }
+  assert.ok(embeddedVocabulary.some(entry => isTypableHeadword(entry.word)), 'typable words still get spelling');
 });

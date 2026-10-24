@@ -1,6 +1,43 @@
 # Changelog
 
+## v1.0.0-beta8 — audit release (2026-10-24)
+
+Release state — whether a `v1.0.0-beta8` tag, prerelease and assets exist, and which build Pages serves — must be verified live on GitHub; this file records contents, not publication status. This build was prepared with the gate **held** (`DEPLOY_HOLD` = `v1.0.0-beta8`) and is released after the merge.
+
+### What this release is
+
+An audit build, not a feature build. The target was fatal and high-risk behaviour, and every claim below is backed by a command or a test that would fail if the defect came back. Three code defects and one data defect were found and fixed; several suspicions were checked and documented as *not* defects, so later reviews do not re-litigate them.
+
+### Data: the root-rule map was incomplete, and one headword was counted twice
+
+- **A real duplicate:** `licence` (ID 5144) and `license` (ID 3026) were both active headwords with the same noun gloss. They are the British and American spellings of one word, so `licence` is now a merged form of `license` (`kind: inflection` in `docs/vocabulary-families.json`).
+- **Derivations that were still counted as headwords** were merged after a hand review of every suffix candidate: 83 new families covering 93 forms, for example `actually ← actual`, `weakness ← weak`, `strengthen ← strength`, `harmful`/`harmless ← harm`, `emotional ← emotion`, `invitation ← invite`, `occurrence ← occur`, `uncertainty ← uncertain`, `calculator ← calculate`, `streaming ← stream`, `meeting ← meet`, `dressing ← dress`, `blender ← blend`, `washer ← wash`, `cyclist ← cycle`, `psychologist ← psychology`, `crimes ← crime` (plural) and `obesity ← obese`. Eight heads that already had families (`weak`, `examine`, `indicate`, `install`, `start`, `revolution`, `revere`, `exhaust`) had the new forms appended instead of being declared twice.
+- **Look-alikes stayed separate, with a reason on the record.** The same review appended 54 rejections to `reviewed.rejectedMerges`: `author/authority`, `fact/factor`, `improve/improvise`, `media/mediation`, `pass/passive`, `decade/decadence`, `import/importance`, `allergy/allergen`, `custom/customer`, `element/elementary`, `limit/limited`, `concern/concerning`, `belong/belonging`, `teenage/teenager`, `disadvantage/disadvantaged`, `wire/wireless`, `handy/handful`, `fur/furious`, `poll/pollen`, `chick/chicken`, `moth/mother`, `pond/ponder`, `sand/sandal`, `sauce/saucer`, `latte/latter`, `badge/badger`, `gravy/gravity`, `loaf/loafer`, `probe/probation`, `probe/probable`, `discus/discuss`, `grate/grateful`, `relay/relation`, `treaty/treatment`, `inform/informal`, `apart/apartment`, `potent/potential`, `kettle/kettleful`, `bucket/bucketful`, `intern/internal`, `equate/equator`, `escalate/escalator`, `forge/forgive`, `spur/spurious`, `protract/protractor`, `coal/coalition`, `metre/metric`, `blaze/blazer`, `lone/lonely`, `globe/global` (global already heads its own family, so merging would nest families).
+- **Counts after the change:** 5,852 rows, **5,112 headwords**, **740 same-root forms**, **581 families**. 5,852 − 740 = 5,112, and the app derives the figure it shows from the data, so the brand bar, session header, lookup header and Settings panel moved together. The ≥5,000 headword target still holds.
+
+### Code: three defects, each with a regression test
+
+- **Search highlighting could split an HTML entity.** The lookup view escaped a row and then ran the highlight regex over the *escaped* string, so a query that matched inside an entity corrupted the visible text: searching `&` rendered `A &amp; B` in a row that read `A & B`, and `amp`, `lt`, `#39` did the same. `highlightMatch(text, query)` now marks the raw text first and escapes each piece afterwards, and the view calls it. Covered by *search highlighting never breaks the text it escapes*.
+- **English relative review times were ungrammatical.** `formatNextReview` produced `in 1 hours` and `in 1 day`-scale strings without singular forms. It now returns `in 1 hour` / `in 1 day` and keeps the Vietnamese strings unchanged; the helper is exported and covered by *relative review times are plural-correct in both languages*.
+- **Notation headwords were asked as typed exercises.** Three legacy rows are dictionary patterns rather than words (`Lest + S + (should) V-bare`, `Burn one's bridges/boats`, `Rear its (ugly) head`). They were offered as `fill_en` and could be drawn as a spelling card whose hint was `L••••••…`, which no learner can answer. A single predicate, `isTypableHeadword` (letters, spaces, apostrophes, hyphens), now gates `fill_en` availability and makes the generator fall back to recall instead of spelling, so the planner and the generator cannot disagree. Covered by *a headword a learner cannot type is never asked as a typed exercise*.
+
+### Checked and deliberately not changed
+
+- **“73 glosses without Vietnamese diacritics” is not a defect.** A diacritic-only scan flags `nhanh`, `phim`, `tim`, `cao`, `phanh`, `bia`, `tem`, `cua`, `men`, `len`, `vai`, `chai`, `ao`, `cam` and similar words that are correctly written without diacritics in Vietnamese. The scan is recorded as a false positive; no gloss was rewritten to satisfy it.
+- **Duplicate glosses are synonyms, not duplicates.** 124 gloss groups (256 rows) share a Vietnamese gloss; inspection shows unrelated words with the same translation (`high`/`tall` → `cao`), which is correct. Only the `licence`/`license` pair was the same headword twice.
+- **Exam practice still writes no exam history.** `createExamAttempt`/`updateExamAttempt` exist and are tested, but ungraded transcript practice deliberately does not create an attempt record, so `chuyen-anh.exam-history.v1` stays absent. This matches the browser contract that asserts the key is `null` after a practice submission; the loaders remain for the timed-attempt contract.
+- **Malformed-payload fuzzing found no crash.** Every loader (`loadProgress`, `loadPrefs`, `loadFavorites`, `loadHistory`, `loadStreak`, `loadStudyConfig`, `loadFlagged`, `loadTheme`, `loadSeenBadges`, `loadPhraseProgress`, `loadExamHistory`, `loadLanguage`) was fed 15 malformed values (truncated JSON, arrays, scalars, `__proto__` keys, negative counters); none throws, and each returns its documented sanitised default.
+
+### Verification for this build
+
+- Regenerated through the single writer chain: `expand_vocabulary.py` (5,852 rows; 5,112 headwords; 740 merged), `build_vocabulary.py` (5,852 records), `embed_vocabulary.py` (5,852 embedded). `--check` passes for all three, and `vocabulary_families.py` prints `581 families; 740 merged rows; 5112 active headwords` with no problems.
+- `node --test tests/static-app.test.js` → **93 pass / 0 fail** (485 s), including the three new regression tests.
+- `python3 -m unittest discover -s tests -q` → **91 tests OK**, including the version, hold-marker and count assertions updated for this build.
+- `git diff --check` clean; no seed file, no ID and no legacy row was edited other than through the family map.
+
 ## Unreleased — one headword per word root (2026-10-24)
+
+> Numbers in this section are the beta7 state (5,205 headwords / 647 forms / 498 families). The beta8 audit above raised the map to 5,112 / 740 / 581; the mechanism described here is unchanged.
 
 The vocabulary stops counting forms. Two rows that share a root are now one vocabulary item: the root is the headword, and every other form is a note on that headword. Nothing is deleted and no ID moves, so existing progress still resolves.
 

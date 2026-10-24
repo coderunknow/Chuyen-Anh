@@ -30,12 +30,12 @@ class LearnedVocabularyTests(unittest.TestCase):
         cls.app_by_id = {entry["id"]: entry for entry in cls.app_data}
 
     def test_table_is_sequential_complete_and_machine_readable(self):
-        # 5,852 rows = 5,205 headwords + 647 same-root forms. The root rule counts
-        # roots, so the vocabulary figure is 5,205, not the row count.
+        # 5,852 rows = 5,112 headwords + 740 same-root forms. The root rule counts
+        # roots, so the vocabulary figure is 5,112, not the row count.
         self.assertEqual(len(self.records), 5852)
         merged = [record for record in self.records if MERGED_TAG in record["tags"]]
-        self.assertEqual(len(merged), 647)
-        self.assertEqual(len(self.records) - len(merged), 5205)
+        self.assertEqual(len(merged), 740)
+        self.assertEqual(len(self.records) - len(merged), 5112)
         self.assertEqual([record["id"] for record in self.records], [str(i) for i in range(1, 5853)])
         words = [normalized(record["word"]) for record in self.records]
         self.assertEqual(len(words), len(set(words)), "Duplicate headwords")
