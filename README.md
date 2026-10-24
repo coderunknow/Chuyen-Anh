@@ -100,7 +100,7 @@ Chỉ cần giữ `index.html` khi sao chép/triển khai ứng dụng. Các t�
 ## Tính năng học
 
 - Ngôn ngữ giao diện Tiếng Việt/English trong Cài đặt; lựa chọn được lưu riêng trên thiết bị (`chuyen-anh.language.v1`), không thêm vào JSON sao lưu tiến độ v1. Nghĩa từ vựng và nội dung đề giữ nguyên ngôn ngữ nguồn.
-- **Nhãn đếm từ là nhãn "từ gốc".** Mọi chỗ hiển thị số từ (thanh thương hiệu, thẻ phiên học, trang tra cứu, Cài đặt → Thông tin dữ liệu) đều nội suy `${vocabulary.length}` và đi qua `formatCount()`, nên số được nhóm theo ngôn ngữ đang xem (`5.205` khi giao diện tiếng Việt, `5,205` khi giao diện tiếng Anh). Bản dịch dùng chữ **headwords** cho "từ gốc" và **same-root forms** cho "dạng cùng gốc"; số cụm từ (`780 cụm từ`) là kho riêng và không bao giờ cộng vào số từ. Dạng cùng gốc không có thẻ học riêng — các dạng đó chỉ xuất hiện trong ghi chú `Cùng gốc:` của từ gốc.
+- **Nhãn đếm từ là nhãn "từ gốc".** Mọi chỗ hiển thị số từ (thanh thương hiệu, thẻ phiên học, trang tra cứu, Cài đặt → Thông tin dữ liệu) đều nội suy `${vocabulary.length}` và đi qua `formatCount()`, nên số được nhóm theo ngôn ngữ đang xem (`5.205` khi giao diện tiếng Việt, `5,205` khi giao diện tiếng Anh). Bản dịch dùng chữ **headwords** cho "từ gốc", **same-root forms** cho "dạng cùng gốc", **Root rule:** cho "Quy tắc gốc từ:" và dịch cả câu giải thích rằng dạng cùng gốc không phải mục riêng mà chỉ là ghi chú; số cụm từ (`780 cụm từ`) là kho riêng và không bao giờ cộng vào số từ. Dạng cùng gốc không có thẻ học riêng — các dạng đó chỉ xuất hiện trong ghi chú `Cùng gốc:` của từ gốc.
 - Recognition: English → Vietnamese.
 - Recall: Vietnamese → English.
 - Spelling: gõ từ tiếng Anh.
