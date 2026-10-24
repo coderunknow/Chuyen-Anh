@@ -54,6 +54,8 @@ const {
   loadLanguage,
   saveLanguage,
   translateUiText,
+  countNumber,
+  formatCount,
   loadHistory,
   ensureProgress,
   loadProgress,
@@ -132,7 +134,7 @@ function failingStore() {
 test('the only runtime deliverable is a self-contained HTML document', async () => {
   const sourceData = JSON.parse(await readFile(new URL('data/vocabulary.json', root), 'utf8'));
   assert.deepEqual(embeddedVocabulary, sourceData);
-  assert.equal(embeddedVocabulary.length, 3215);
+  assert.equal(embeddedVocabulary.length, 5852);
   assert.equal(embeddedVocabulary.slice(0, 913).length, 913, 'the legacy block keeps IDs 1-913');
   assert.match(html, /<style>[\s\S]*?<\/style>/i);
   assert.doesNotMatch(html, /<link\b/i);
@@ -211,7 +213,7 @@ test('English interface labels are localized while unknown source text and Vietn
 
 test('embedded vocabulary loads without fetch and passes runtime validation', async () => {
   const loaded = await loadVocabulary(embeddedRaw);
-  assert.equal(loaded.data.length, 3215);
+  assert.equal(loaded.data.length, 5852);
   assert.equal(loaded.data[0].word, 'Adversity');
   assert.equal(loaded.data[912].word, 'Virtually');
   assert.match(loaded.version, /^[0-9a-f]+-[0-9a-f]{8}$/);
@@ -226,7 +228,7 @@ test('embedded vocabulary loads without fetch and passes runtime validation', as
   };
   try {
     const fromPage = await loadVocabulary();
-    assert.equal(fromPage.data.length, 3215);
+    assert.equal(fromPage.data.length, 5852);
   } finally {
     if (previousDocument === undefined) delete globalThis.document;
     else globalThis.document = previousDocument;
@@ -239,9 +241,9 @@ test('same-root forms are folded into their headword, never counted as words', a
   const headwords = loaded.data.filter(entry => !entry.familyHead);
 
   // The dataset keeps every audited row, but only one row per root is a word.
-  assert.equal(loaded.data.length, 3215);
-  assert.equal(headwords.length, 2706);
-  assert.equal(familyHeadOf.size, 509);
+  assert.equal(loaded.data.length, 5852);
+  assert.equal(headwords.length, 5205);
+  assert.equal(familyHeadOf.size, 647);
   assert.equal(headwords.length + familyHeadOf.size, loaded.data.length);
 
   // A merged row names a real headword and that headword's note lists the form.
@@ -294,15 +296,31 @@ test('same-root forms are folded into their headword, never counted as words', a
 test('the learner-facing word count is a headword count', async () => {
   const loaded = await loadVocabulary(embeddedRaw);
   const active = loaded.data.filter(entry => !entry.familyHead);
-  assert.equal(active.length, 2706);
+  assert.equal(active.length, 5205);
   // The table and the JSON keep the merged rows for audit; the UI count is the
   // number of roots, and the data panel states the family rule explicitly.
-  assert.match(appScript[1], /vocabulary\.length} từ gốc/);
+  assert.match(appScript[1], /formatCount\(vocabulary\.length\)/);
+  assert.match(appScript[1], /formatCount\(familyHeadOf\.size\)/);
   assert.match(appScript[1], /Quy tắc gốc từ/);
-  assert.equal(translateUiText('2706 từ gốc', 'en'), '2706 root words');
-  assert.equal(translateUiText('Flashcard · 2706 từ gốc · kho đề offline', 'en'),
-    'Flashcards · 2706 root words · offline exam archive');
-  assert.equal(translateUiText('509 dạng cùng gốc', 'en'), '509 same-root forms');
+
+  // Counts are grouped for the reader's locale (vi-VN dot, en-US comma) and
+  // every headword label interpolates the live total instead of a literal.
+  assert.equal(countNumber('5.345'), 5345);
+  assert.equal(countNumber('5,345'), 5345);
+  assert.equal(formatCount(5205), '5.205');
+  assert.equal(formatCount(5205, 'en'), '5,205');
+  assert.equal(formatCount(0), '0');
+  assert.equal(translateUiText('5.205 từ gốc', 'en'), '5,205 headwords');
+  assert.equal(translateUiText('5205 từ gốc', 'en'), '5,205 headwords');
+  assert.equal(translateUiText('1 từ gốc', 'en'), '1 headword');
+  assert.equal(translateUiText('Flashcard · 5.205 từ gốc · kho đề offline', 'en'),
+    'Flashcards · 5,205 headwords · offline exam archive');
+  assert.equal(translateUiText('647 dạng cùng gốc', 'en'), '647 same-root forms');
+  assert.equal(translateUiText('Tìm theo tiếng Anh, tiếng Việt, từ loại, tag hoặc ví dụ · 5.205 từ gốc.', 'en'),
+    'Search English, Vietnamese, part of speech, tags, or examples · 5,205 headwords.');
+  // The phrase bank keeps its own count and is not folded into the word count.
+  assert.equal(translateUiText('780 cụm từ', 'en'), '780 phrases');
+  assert.equal(translateUiText('5.205 từ gốc', 'vi'), '5.205 từ gốc');
 });
 
 test('exam archive filters by year, location, format and unit', () => {
@@ -978,7 +996,7 @@ test('every multiple-choice question offers plausible, distinct options', () => 
 });
 
 test('every generated mode keeps prompt, answer and options bound to its own record', () => {
-  // 3,215 records x 6 requested learning modes. This
+  // 5,852 records x 6 requested learning modes. This
   // checks application/data association; it is not a dictionary review.
   let generated = 0;
   let cloze = 0;
@@ -1574,7 +1592,7 @@ test('Scope A: English UI localization translates all shortcut hints and UI chro
   const stopMatchIdx = localizeBlock.indexOf('if (current.matches(protectedSelectors)) return;');
   assert.ok(attrLoopIdx > -1 && stopMatchIdx > attrLoopIdx, 'localizeSubtree must translate ARIA attributes before returning on protected elements');
 
-  // 2. Zero corruption of any of the 3,215 vocabulary headwords, meanings, examples, or notes
+  // 2. Zero corruption of any of the 5,852 vocabulary headwords, meanings, examples, or notes
   for (const entry of embeddedVocabulary) {
     assert.equal(
       translateUiText(entry.meaning, 'en'),

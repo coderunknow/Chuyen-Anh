@@ -1,0 +1,322 @@
+# Nature, animals, plants, weather, landscapes and materials (B1–C1).
+# word	pos	meaning	level	topic	type	skills
+squirrel	n	sóc	B1	environment	topic	reading
+hedgehog	n	nhím	B2	environment	topic	reading
+badger	n	lửng	B2	environment	topic	reading
+otter	n	rái cá	B2	environment	topic	reading
+beaver	n	hải ly	B2	environment	topic	reading
+moose	n	nai sừng tấm	C1	environment	topic	reading
+reindeer	n	tuần lộc	B1	environment	topic	reading
+gazelle	n	linh dương	C1	environment	topic	reading
+antelope	n	linh dương	C1	environment	topic	reading
+buffalo	n	trâu, bò rừng	B1	environment	topic	reading
+donkey	n	lừa	B1	environment	topic	reading
+mule	n	la	B2	environment	topic	reading
+camel	n	lạc đà	B1	environment	topic	reading
+leopard	n	báo hoa mai	B1	environment	topic	reading
+cheetah	n	báo gêpa	B1	environment	topic	reading
+panther	n	báo đen	B2	environment	topic	reading
+jaguar	n	báo đốm	B2	environment	topic	reading
+lynx	n	mèo rừng	B2	environment	topic	reading
+raccoon	n	gấu mèo	B2	environment	topic	reading
+baboon	n	khỉ đầu chó	C1	environment	topic	reading
+gorilla	n	khỉ đột	B1	environment	topic	reading
+chimpanzee	n	tinh tinh	B2	environment	topic	reading
+orangutan	n	đười ươi	C1	environment	topic	reading
+lemur	n	khỉ lémua	C1	environment	topic	reading
+walrus	n	hải mã	B2	environment	topic	reading
+seal	n	hải cẩu	B1	environment	topic	reading
+dolphin	n	cá heo	B1	environment	topic	reading
+whale	n	cá voi	B1	environment	topic	reading
+shark	n	cá mập	B1	environment	topic	reading
+octopus	n	bạch tuộc	B1	environment	topic	reading
+jellyfish	n	sứa	B1	environment	topic	reading
+starfish	n	sao biển	B1	environment	topic	reading
+crab	n	cua	B1	environment	topic	reading
+lobster	n	tôm hùm	B1	environment	topic	reading
+prawn	n	tôm	B1	environment	topic	reading
+squid	n	mực	B1	environment	topic	reading
+oyster	n	hàu	B2	environment	topic	reading
+mussel	n	vẹm	C1	environment	topic	reading
+clam	n	nghêu	C1	environment	topic	reading
+herring	n	cá trích	C1	environment	topic	reading
+salmon	n	cá hồi	B1	environment	topic	reading
+trout	n	cá hồi nước ngọt	B2	environment	topic	reading
+cod	n	cá tuyết	B2	environment	topic	reading
+tuna	n	cá ngừ	B1	environment	topic	reading
+eel	n	lươn	B1	environment	topic	reading
+carp	n	cá chép	B2	environment	topic	reading
+perch	n	cá rô	C1	environment	topic	reading
+heron	n	diệc	C1	environment	topic	reading
+stork	n	cò	C1	environment	topic	reading
+crane	n	sếu	B2	environment	topic	reading
+pelican	n	bồ nông	C1	environment	topic	reading
+seagull	n	mòng biển	B1	environment	topic	reading
+swan	n	thiên nga	B1	environment	topic	reading
+goose	n	ngỗng	B1	environment	topic	reading
+duckling	n	vịt con	B1	environment	topic	reading
+rooster	n	gà trống	B1	environment	topic	reading
+hen	n	gà mái	B1	environment	topic	reading
+chick	n	gà con	B1	environment	topic	reading
+turkey	n	gà tây	B1	environment	topic	reading
+peacock	n	công	C1	environment	topic	reading
+parrot	n	vẹt	B1	environment	topic	reading
+sparrow	n	chim sẻ	B1	environment	topic	reading
+robin	n	chim cổ đỏ	B2	environment	topic	reading
+nightingale	n	chim hoạ mi	C1	environment	topic	reading
+swallow	n	chim én	B2	environment	topic	reading
+magpie	n	chim ác là	C1	environment	topic	reading
+crow	n	quạ	B2	environment	topic	reading
+raven	n	quạ đen	C1	environment	topic	reading
+owl	n	cú mèo	B1	environment	topic	reading
+falcon	n	chim ưng	C1	environment	topic	reading
+hawk	n	diều hâu	B2	environment	topic	reading
+vulture	n	kền kền	B2	environment	topic	reading
+eagle	n	đại bàng	B1	environment	topic	reading
+osprey	n	chim ưng biển	C2	environment	topic	reading
+penguin	n	chim cánh cụt	B1	environment	topic	reading
+ostrich	n	đà điểu	B1	environment	topic	reading
+flamingo	n	hồng hạc	C1	environment	topic	reading
+lizard	n	thằn lằn	B1	environment	topic	reading
+gecko	n	tắc kè	C1	environment	topic	reading
+iguana	n	kỳ nhông	C1	environment	topic	reading
+cobra	n	rắn hổ mang	B1	environment	topic	reading
+python	n	trăn	B2	environment	topic	reading
+viper	n	rắn lục	C1	environment	topic	reading
+tortoise	n	rùa cạn	B2	environment	topic	reading
+turtle	n	rùa biển	B1	environment	topic	reading
+crocodile	n	cá sấu	B1	environment	topic	reading
+alligator	n	cá sấu mõm ngắn	B2	environment	topic	reading
+frog	n	ếch	B1	environment	topic	reading
+toad	n	cóc	B2	environment	topic	reading
+tadpole	n	nòng nọc	C1	environment	topic	reading
+salamander	n	kỳ giông	C1	environment	topic	reading
+newt	n	sa giông	C2	environment	topic	reading
+beetle	n	bọ cánh cứng	B1	environment	topic	reading
+moth	n	bướm đêm	B1	environment	topic	reading
+butterfly	n	bướm	B1	environment	topic	reading
+dragonfly	n	chuồn chuồn	B2	environment	topic	reading
+grasshopper	n	châu chấu	B2	environment	topic	reading
+cricket	n	dế	B2	environment	topic	reading
+locust	n	châu chấu rầy	C1	environment	topic	reading
+wasp	n	ong bắp cày	B1	environment	topic	reading
+ant	n	kiến	B1	environment	topic	reading
+termite	n	mối	C1	environment	topic	reading
+cockroach	n	gián	B1	environment	topic	reading
+spider	n	nhện	B1	environment	topic	reading
+scorpion	n	bọ cạp	B2	environment	topic	reading
+centipede	n	rết	C1	environment	topic	reading
+snail	n	ốc sên	B1	environment	topic	reading
+slug	n	con sên trần	B2	environment	topic	reading
+worm	n	giun	B1	environment	topic	reading
+leech	n	đỉa	C1	environment	topic	reading
+oak	n	cây sồi	B2	environment	topic	reading
+maple	n	cây phong	B2	environment	topic	reading
+birch	n	cây bạch dương	C1	environment	topic	reading
+pine	n	cây thông	B1	environment	topic	reading
+cedar	n	cây tuyết tùng	C1	environment	topic	reading
+willow	n	cây liễu	C1	environment	topic	reading
+bamboo	n	cây tre	B1	environment	topic	reading
+sapling	n	cây non	C1	environment	topic	reading
+seedling	n	cây giống	C1	environment	topic	reading
+shrub	n	cây bụi	B2	environment	topic	reading
+fern	n	cây dương xỉ	B2	environment	topic	reading
+moss	n	rêu	B2	environment	topic	reading
+ivy	n	cây thường xuân	C1	environment	topic	reading
+vine	n	dây leo	B2	environment	topic	reading
+thorn	n	gai	B2	environment	topic	reading
+twig	n	cành nhỏ	B2	environment	topic	reading
+branch	n	cành cây	B1	environment	topic	reading
+trunk	n	thân cây	B1	environment	topic	reading
+bark	n	vỏ cây	B2	environment	topic	reading
+root	n	rễ cây	B1	environment	topic	reading
+petal	n	cánh hoa	B1	environment	topic	reading
+pollen	n	phấn hoa	B2	environment	topic	reading
+nectar	n	mật hoa	C1	environment	topic	reading
+bud	n	nụ hoa	B1	environment	topic	reading
+blossom	n	hoa nở	B2	environment	topic	reading
+tulip	n	hoa tulip	B1	environment	topic	reading
+daffodil	n	hoa thuỷ tiên	C1	environment	topic	reading
+orchid	n	hoa lan	C1	environment	topic	reading
+sunflower	n	hoa hướng dương	B1	environment	topic	reading
+daisy	n	hoa cúc	B1	environment	topic	reading
+lavender	n	cây oải hương	C1	environment	topic	reading
+mushroom	n	nấm	B1	food	topic	reading
+fungus	n	nấm, loại nấm	C1	science	topic	reading
+algae	n	tảo	C1	environment	topic	reading
+seaweed	n	tảo biển	B2	environment	topic	reading
+coral	n	san hô	B2	environment	topic	reading
+reef	n	rạn san hô	B2	environment	topic	reading
+lagoon	n	đầm phá	C1	environment	topic	reading
+estuary	n	cửa sông	C1	environment	topic	reading
+marsh	n	đầm lầy	B2	environment	topic	reading
+swamp	n	đầm lầy	C1	environment	topic	reading
+bog	n	đầm than bùn	C1	environment	topic	reading
+pond	n	ao	B1	environment	topic	reading
+stream	n	suối	B1	environment	topic	reading
+brook	n	dòng suối nhỏ	C1	environment	topic	reading
+creek	n	lạch	C1	environment	topic	reading
+waterfall	n	thác nước	B1	environment	topic	reading
+rapids	n	ghềnh thác	C1	environment	topic	reading
+delta	n	châu thổ	C1	environment	topic	reading
+glacier	n	sông băng	B2	environment	topic	reading
+iceberg	n	tảng băng trôi	B1	environment	topic	reading
+canyon	n	hẻm núi	B2	environment	topic	reading
+gorge	n	hẻm núi	C1	environment	topic	reading
+ravine	n	khe núi	C1	environment	topic	reading
+cliff	n	vách đá	B1	environment	topic	reading
+ridge	n	sống núi	B2	environment	topic	reading
+slope	n	sườn dốc	B1	environment	topic	reading
+peak	n	đỉnh núi	B1	environment	topic	reading
+summit	n	đỉnh cao nhất	B2	environment	topic	reading
+plateau	n	cao nguyên	C1	environment	topic	reading
+valley	n	thung lũng	B1	environment	topic	reading
+plain	n	đồng bằng	B2	environment	topic	reading
+prairie	n	đồng cỏ	C1	environment	topic	reading
+meadow	n	đồng cỏ	B2	environment	topic	reading
+pasture	n	đồng cỏ chăn thả	C1	environment	topic	reading
+orchard	n	vườn cây ăn quả	C1	environment	topic	reading
+vineyard	n	vườn nho	C1	environment	topic	reading
+plantation	n	đồn điền	C1	environment	topic	reading
+farmland	n	đất nông nghiệp	B2	environment	topic	reading
+soil	n	đất trồng	B1	environment	topic	reading
+loam	n	đất thịt	C2	environment	topic	reading
+clay	n	đất sét	B1	environment	topic	reading
+sand	n	cát	B1	environment	topic	reading
+gravel	n	sỏi	B2	environment	topic	reading
+pebble	n	sỏi cuội	B2	environment	topic	reading
+boulder	n	tảng đá lớn	C1	environment	topic	reading
+limestone	n	đá vôi	C1	environment	topic	reading
+granite	n	đá hoa cương	C1	environment	topic	reading
+marble	n	đá cẩm thạch	B2	environment	topic	reading
+quartz	n	thạch anh	C1	environment	topic	reading
+copper	n	đồng	B2	environment	topic	reading
+bronze	n	đồng thiếc	B1	environment	topic	reading
+brass	n	đồng thau	C1	environment	topic	reading
+steel	n	thép	B1	environment	topic	reading
+aluminium	n	nhôm	B2	environment	topic	reading
+tin	n	thiếc	B2	environment	topic	reading
+zinc	n	kẽm	C1	environment	topic	reading
+lead	n	chì	B2	environment	topic	reading
+mercury	n	thuỷ ngân	C1	science	topic	reading
+rubber	n	cao su	B1	environment	topic	reading
+plastic	n	nhựa	B1	environment	topic	reading
+fibreglass	n	sợi thuỷ tinh	C1	environment	topic	reading
+concrete	n	bê tông	B1	environment	topic	reading
+plaster	n	thạch cao	B2	environment	topic	reading
+ceramic	n	gốm sứ	B2	environment	topic	reading
+porcelain	n	đồ sứ	C1	environment	topic	reading
+glass	n	thuỷ tinh	B1	environment	topic	reading
+drought	n	hạn hán	B1	environment	topic	reading
+flood	n	lũ lụt	B1	environment	topic	reading
+deluge	n	trận lụt lớn	C1	environment	topic	reading
+landslide	n	sạt lở đất	B2	environment	topic	reading
+avalanche	n	tuyết lở	C1	environment	topic	reading
+earthquake	n	động đất	B1	environment	topic	reading
+tremor	n	rung chấn nhẹ	C1	environment	topic	reading
+aftershock	n	dư chấn	C1	environment	topic	reading
+tsunami	n	sóng thần	B1	environment	topic	reading
+hurricane	n	bão cuồng phong	B1	environment	topic	reading
+typhoon	n	bão nhiệt đới	B1	environment	topic	reading
+cyclone	n	lốc xoáy	B2	environment	topic	reading
+tornado	n	vòi rồng	B1	environment	topic	reading
+blizzard	n	bão tuyết	B2	environment	topic	reading
+hail	n	mưa đá	B1	environment	topic	reading
+sleet	n	mưa tuyết	B2	environment	topic	reading
+drizzle	n	mưa phùn	B2	environment	topic	reading
+downpour	n	trận mưa lớn	C1	environment	topic	reading
+thunderstorm	n	dông bão	B1	environment	topic	reading
+lightning	n	tia chớp	B1	environment	topic	reading
+thunder	n	sấm	B1	environment	topic	reading
+breeze	n	gió nhẹ	B1	environment	topic	reading
+gale	n	gió mạnh	C1	environment	topic	reading
+gust	n	cơn gió giật	C1	environment	topic	reading
+whirlwind	n	cơn lốc	C1	environment	topic	reading
+monsoon	n	gió mùa	C1	environment	topic	reading
+humidity	n	độ ẩm	B2	environment	topic	reading
+muggy	adj	oi bức, ẩm nóng	C1	environment	topic	reading
+humid	adj	ẩm	B2	environment	topic	reading
+arid	adj	khô cằn	C1	environment	topic	reading
+barren	adj	cằn cỗi, trơ trọi	C1	environment	topic	reading
+fertile	adj	màu mỡ, phì nhiêu	B2	environment	topic	reading
+frigid	adj	lạnh giá	C1	environment	topic	reading
+temperate	adj	ôn hoà	C1	environment	topic	reading
+tropical	adj	nhiệt đới	B1	environment	topic	reading
+polar	adj	thuộc vùng cực	B2	environment	topic	reading
+equator	n	đường xích đạo	B2	environment	topic	reading
+latitude	n	vĩ độ	B2	environment	topic	reading
+longitude	n	kinh độ	C1	environment	topic	reading
+altitude	n	độ cao	C1	environment	topic	reading
+horizon	n	đường chân trời	B2	environment	topic	reading
+dusk	n	chạng vạng	C1	environment	topic	reading
+dawn	n	bình minh	B2	environment	topic	reading
+sunrise	n	bình minh	B1	environment	topic	reading
+sunset	n	hoàng hôn	B1	environment	topic	reading
+twilight	n	ánh hoàng hôn	C1	environment	topic	reading
+eclipse	n	nhật thực, nguyệt thực	B2	science	topic	reading
+constellation	n	chòm sao	C1	science	topic	reading
+galaxy	n	thiên hà	B2	science	topic	reading
+meteor	n	sao băng	C1	science	topic	reading
+asteroid	n	tiểu hành tinh	C1	science	topic	reading
+comet	n	sao chổi	B1	science	topic	reading
+orbit	n	quỹ đạo	B2	science	topic	reading
+gravity	n	trọng lực	B1	science	topic	reading
+friction	n	ma sát	C1	science	topic	reading
+momentum	n	động lượng	C1	science	topic	reading
+velocity	n	vận tốc	C1	science	topic	reading
+density	n	mật độ	B2	science	topic	reading
+molecule	n	phân tử	B2	science	topic	reading
+atom	n	nguyên tử	B1	science	topic	reading
+electron	n	điện tử	C1	science	topic	reading
+proton	n	proton	C1	science	topic	reading
+neutron	n	nơtron	C1	science	topic	reading
+isotope	n	đồng vị	C1	science	topic	reading
+enzyme	n	enzym	C1	science	topic	reading
+protein	n	protein	B1	science	topic	reading
+carbohydrate	n	cacbohydrat	B2	science	topic	reading
+vitamin	n	vitamin	B1	health	topic	reading
+mineral	n	khoáng chất	B2	science	topic	reading
+nutrient	n	chất dinh dưỡng	B2	health	topic	reading
+calorie	n	calo	B1	health	topic	reading
+fibre	n	chất xơ	B2	health	topic	reading
+bacteria	n	vi khuẩn	B2	science	topic	reading
+virus	n	vi-rút	B1	science	topic	reading
+fungal	adj	do nấm	C1	science	topic	reading
+immune	adj	thuộc miễn dịch	B2	health	topic	reading
+antibiotic	n	thuốc kháng sinh	B2	health	topic	reading
+antibody	n	kháng thể	C1	health	topic	reading
+vaccine	n	vắc-xin	B1	health	topic	reading
+epidemic	n	dịch bệnh	B2	health	topic	reading
+pandemic	n	đại dịch	B2	health	topic	reading
+outbreak	n	sự bùng phát	B2	health	topic	reading
+contagious	adj	dễ lây nhiễm	B2	health	topic	reading
+hygiene	n	vệ sinh	B2	health	topic	reading
+sanitation	n	điều kiện vệ sinh	C1	society	topic	reading
+sewage	n	nước thải	C1	environment	topic	reading
+landfill	n	bãi chôn lấp	C1	environment	topic	reading
+incinerator	n	lò đốt rác	C1	environment	topic	reading
+compostable	adj	có thể ủ phân	C2	environment	topic	reading
+biodegradable	adj	phân huỷ sinh học	C1	environment	topic	reading
+recyclable	adj	có thể tái chế	B2	environment	topic	reading
+renewable	adj	có thể tái tạo	B2	environment	topic	reading
+sustainable	adj	bền vững	B2	environment	topic	reading
+emission	n	khí thải, sự phát thải	B2	environment	topic	reading
+pollutant	n	chất gây ô nhiễm	C1	environment	topic	reading
+contaminant	n	chất nhiễm bẩn	C1	environment	topic	reading
+toxic	adj	độc hại	B2	environment	topic	reading
+hazardous	adj	nguy hiểm	C1	environment	topic	reading
+deforestation	n	sự phá rừng	B2	environment	topic	reading
+reforestation	n	sự trồng lại rừng	C1	environment	topic	reading
+irrigation	n	sự tưới tiêu	C1	environment	topic	reading
+fertiliser	n	phân bón	B2	environment	topic	reading
+pesticide	n	thuốc trừ sâu	B2	environment	topic	reading
+herbicide	n	thuốc diệt cỏ	C1	environment	topic	reading
+harvest	n	vụ thu hoạch	B1	environment	topic	reading
+yield	n	sản lượng	B2	environment	topic	reading
+crop	n	cây trồng, vụ mùa	B1	environment	topic	reading
+livestock	n	gia súc	B2	environment	topic	reading
+poultry	n	gia cầm	C1	environment	topic	reading
+pastureland	n	đồng cỏ chăn thả	C2	environment	topic	reading
+fishery	n	ngư trường	C1	environment	topic	reading
+aquaculture	n	nuôi trồng thuỷ sản	C1	environment	topic	reading
+hatchery	n	trại ấp trứng	C1	environment	topic	reading

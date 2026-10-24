@@ -1,0 +1,478 @@
+# B1–B2 mid-frequency extension: society, health, culture and science words
+# attested in the exam corpus but missing from the table (mining pass, 2026-10).
+# word	pos	meaning	level	topic	type	skills
+clinical	adj	thuộc lâm sàng	C2	health	topic	reading
+loose	adj	lỏng, rộng	B2	daily-life	topic	reading
+rear	adj	phía sau	B2	travel	topic	reading
+ugly	adj	xấu xí	B1	psychology	topic	reading
+steal	v	ăn trộm	B1	law	topic	reading
+narrative	n	câu chuyện kể, tự sự	B2	media	topic	reading
+honour	n	danh dự	B2	society	topic	reading
+knee	n	đầu gối	B1	health	topic	reading
+pretend	v	giả vờ	B1	psychology	topic	reading
+transmission	n	sự truyền, hộp số	C1	technology	topic	reading
+dialogue	n	cuộc đối thoại	B2	media	topic	reading
+tale	n	câu chuyện	B1	culture	topic	reading
+revenge	n	sự trả thù	C1	psychology	topic	reading
+seventh	n	thứ bảy	B1	academic	topic	reading
+pub	n	quán rượu	B1	culture	topic	reading
+canal	n	kênh đào	B2	travel	topic	reading
+delete	v	xoá	B1	technology	topic	reading
+fluid	n	chất lỏng	C1	science	topic	reading
+folk	n	dân gian, người dân	B2	culture	topic	reading
+nasty	adj	khó chịu, xấu tính	B2	psychology	topic	reading
+operational	adj	đang hoạt động, vận hành	C1	work	topic	reading
+snap	v	bẻ gãy, tách	B2	daily-life	topic	reading
+tobacco	n	thuốc lá	B2	health	topic	reading
+clue	n	manh mối	B1	law	topic	reading
+compliance	n	sự tuân thủ	C2	law	topic	reading
+genre	n	thể loại	C1	culture	topic	reading
+revolutionary	adj	mang tính cách mạng	C1	politics	topic	reading
+bubble	n	bong bóng	B1	science	topic	reading
+mud	n	bùn	B1	environment	topic	reading
+separation	n	sự chia tách	C1	society	topic	reading
+linear	adj	theo đường thẳng, tuyến tính	C2	academic	topic	reading
+unfortunate	adj	không may	B2	psychology	topic	reading
+closure	n	sự đóng cửa, sự khép lại	C1	psychology	topic	reading
+restoration	n	sự phục hồi, trùng tu	C1	culture	topic	reading
+selfish	adj	ích kỷ	B1	psychology	topic	reading
+tender	adj	mềm mại, dịu dàng	C1	food	topic	reading
+merit	n	giá trị, công lao	C1	academic	topic	reading
+rotation	n	sự quay, sự luân phiên	C1	science	topic	reading
+excellence	n	sự xuất sắc	C1	education	topic	reading
+hint	n	gợi ý, dấu hiệu	B2	academic	topic	reading
+scare	v	làm sợ	B1	psychology	topic	reading
+ambulance	n	xe cứu thương	B1	health	topic	reading
+cheat	v	gian lận	B1	education	topic	reading
+intimate	adj	thân mật, gần gũi	C1	society	topic	reading
+pulse	n	mạch đập	B2	health	topic	reading
+accomplish	v	hoàn thành	C1	academic	topic	reading
+beg	v	cầu xin, ăn xin	B2	society	topic	reading
+dip	v	nhúng, ngâm	B2	food	topic	reading
+lamp	n	đèn	B1	daily-life	topic	reading
+stack	n	chồng, đống	B2	daily-life	topic	reading
+stance	n	lập trường, tư thế	C1	politics	topic	reading
+surgical	adj	thuộc phẫu thuật	C1	health	topic	reading
+meantime	n	khoảng thời gian chờ	C1	academic	topic	reading
+navigation	n	sự điều hướng	C1	travel	topic	reading
+goat	n	con dê	B1	environment	topic	reading
+subscribe	v	đăng ký theo dõi	B1	media	topic	reading
+clerk	n	nhân viên bàn giấy	B2	work	topic	reading
+cathedral	n	nhà thờ lớn	C1	culture	topic	reading
+insult	n	lời lăng mạ	C1	society	topic	reading
+interference	n	sự can thiệp, nhiễu	C1	science	topic	reading
+probe	n	cuộc điều tra, đầu dò	C2	science	topic	reading
+certification	n	sự chứng nhận	C1	work	topic	reading
+circular	adj	hình tròn, vòng tròn	C1	academic	topic	reading
+clearance	n	sự dọn sạch, giấy phép	C2	law	topic	reading
+coincidence	n	sự trùng hợp	C1	academic	topic	reading
+puzzle	n	câu đố	C1	culture	topic	reading
+superb	adj	tuyệt vời	C1	psychology	topic	reading
+businessman	n	doanh nhân	B2	economics	topic	reading
+collision	n	vụ va chạm	C1	travel	topic	reading
+elegant	adj	thanh lịch	C1	culture	topic	reading
+rebellion	n	cuộc nổi loạn	C2	politics	topic	reading
+swap	v	đổi, hoán đổi	B2	daily-life	topic	reading
+conjunction	n	sự kết hợp, liên từ	C1	education	topic	reading
+unclear	adj	không rõ ràng	B2	academic	topic	reading
+lone	adj	đơn độc, duy nhất	C1	academic	topic	reading
+offshore	adj	ngoài khơi	C2	environment	topic	reading
+sphere	n	hình cầu, lĩnh vực	C1	science	topic	reading
+obsession	n	nỗi ám ảnh	C1	psychology	topic	reading
+shuttle	n	tàu con thoi, xe đưa đón	C1	travel	topic	reading
+stiff	adj	cứng, cứng nhắc	B2	health	topic	reading
+farewell	n	lời tạm biệt	C1	society	topic	reading
+foolish	adj	dại dột	B2	psychology	topic	reading
+immense	adj	mênh mông, to lớn	C1	academic	topic	reading
+spoon	n	cái thìa	B1	food	topic	reading
+whistle	n	tiếng huýt sáo	C1	sport	topic	reading
+promotional	adj	mang tính quảng bá	C1	media	topic	reading
+renaissance	n	thời Phục hưng	C2	culture	topic	reading
+seventeen	n	mười bảy	B1	academic	topic	reading
+unacceptable	adj	không thể chấp nhận	B2	society	topic	reading
+uncommon	adj	không phổ biến	C1	academic	topic	reading
+unstable	adj	không ổn định	C1	science	topic	reading
+carriage	n	toa tàu, xe ngựa	C1	travel	topic	reading
+correspondence	n	thư từ, sự tương ứng	C2	media	topic	reading
+therapeutic	adj	có tác dụng trị liệu	C2	health	topic	reading
+tomato	n	cà chua	B1	food	topic	reading
+sincere	adj	chân thành	C1	psychology	topic	reading
+drift	v	trôi dạt	C1	environment	topic	reading
+geological	adj	thuộc địa chất	C2	science	topic	reading
+hatch	v	nở (trứng)	C1	environment	topic	reading
+accompany	v	đi cùng, kèm theo	C1	academic	topic	reading
+eighteen	n	mười tám	B1	academic	topic	reading
+inferior	adj	thấp kém hơn	C1	academic	topic	reading
+sympathetic	adj	thông cảm, đồng cảm	C1	psychology	topic	reading
+unpleasant	adj	khó chịu	B2	psychology	topic	reading
+vicinity	n	vùng lân cận	C2	travel	topic	reading
+surround	v	bao quanh	B2	environment	topic	reading
+definite	adj	chắc chắn, rõ ràng	C1	academic	topic	reading
+seventy	n	bảy mươi	B1	academic	topic	reading
+continuity	n	tính liên tục	C1	academic	topic	reading
+embarrassment	n	sự xấu hổ	C1	psychology	topic	reading
+herd	n	bầy, đàn gia súc	C1	environment	topic	reading
+interval	n	khoảng thời gian, khoảng nghỉ	C1	academic	topic	reading
+simplicity	n	sự đơn giản	C1	academic	topic	reading
+cancellation	n	sự huỷ bỏ	C1	travel	topic	reading
+relevance	n	sự liên quan	C1	academic	topic	reading
+spacecraft	n	tàu vũ trụ	C1	science	topic	reading
+telescope	n	kính viễn vọng	B2	science	topic	reading
+unsure	adj	không chắc chắn	B2	psychology	topic	reading
+baggage	n	hành lý	B2	travel	topic	reading
+comfortably	adv	một cách thoải mái	B2	daily-life	topic	reading
+salty	adj	mặn	B1	food	topic	reading
+lava	n	dung nham	C1	environment	topic	reading
+resemble	v	giống với	C1	academic	topic	reading
+hallway	n	hành lang	B1	daily-life	topic	reading
+realization	n	sự nhận ra	C1	psychology	topic	reading
+steer	v	lái, điều khiển	C1	travel	topic	reading
+temptation	n	sự cám dỗ	C1	psychology	topic	reading
+limitation	n	hạn chế	C1	academic	topic	reading
+linguistic	adj	thuộc ngôn ngữ học	C2	education	topic	reading
+proudly	adv	một cách tự hào	B2	psychology	topic	reading
+alphabet	n	bảng chữ cái	B1	education	topic	reading
+haircut	n	kiểu tóc, việc cắt tóc	B1	daily-life	topic	reading
+pottery	n	đồ gốm	C1	culture	topic	reading
+blaze	n	đám cháy lớn	C2	environment	topic	reading
+flock	n	đàn (chim, cừu)	C1	environment	topic	reading
+terminology	n	thuật ngữ	C2	academic	topic	reading
+ripe	adj	chín (quả)	B1	food	topic	reading
+scenic	adj	có phong cảnh đẹp	C1	travel	topic	reading
+strangely	adv	một cách kỳ lạ	B2	psychology	topic	reading
+casually	adv	một cách tình cờ, thoải mái	C1	academic	topic	reading
+dreadful	adj	kinh khủng	C1	psychology	topic	reading
+hugely	adv	cực kỳ	C1	academic	topic	reading
+negligence	n	sự sơ suất	C2	law	topic	reading
+resonance	n	sự cộng hưởng	C2	science	topic	reading
+amazingly	adv	đáng kinh ngạc	B2	academic	topic	reading
+incidence	n	tỷ lệ mắc, sự xuất hiện	C2	health	topic	reading
+intimacy	n	sự thân mật	C2	psychology	topic	reading
+align	v	căn chỉnh, xếp thẳng	C1	technology	topic	reading
+criticize	v	phê bình, chỉ trích	B2	media	topic	reading
+gigantic	adj	khổng lồ	B2	environment	topic	reading
+maximize	v	tối đa hoá	C1	economics	topic	reading
+periodic	adj	định kỳ, tuần hoàn	C2	science	topic	reading
+aquatic	adj	thuộc nước	C1	environment	topic	reading
+faulty	adj	bị lỗi	C1	technology	topic	reading
+metabolic	adj	thuộc trao đổi chất	C2	health	topic	reading
+wisely	adv	một cách khôn ngoan	C1	academic	topic	reading
+hostility	n	sự thù địch	C2	society	topic	reading
+refrigerator	n	tủ lạnh	B1	daily-life	topic	reading
+utmost	adj	tột cùng, hết mức	C2	academic	topic	reading
+cheerful	adj	vui vẻ	B1	psychology	topic	reading
+abide	v	tuân theo, chịu đựng	C2	law	topic	reading
+admiration	n	sự ngưỡng mộ	C1	psychology	topic	reading
+librarian	n	thủ thư	B1	education	topic	reading
+nineteen	n	mười chín	B1	academic	topic	reading
+periodically	adv	định kỳ	C1	academic	topic	reading
+societal	adj	thuộc xã hội	C2	society	topic	reading
+superiority	n	sự vượt trội	C2	academic	topic	reading
+influx	n	dòng chảy vào, sự tràn vào	C2	economics	topic	reading
+disposable	adj	dùng một lần	C1	environment	topic	reading
+majestic	adj	hùng vĩ	C1	environment	topic	reading
+mastery	n	sự tinh thông	C2	education	topic	reading
+relocation	n	sự di chuyển chỗ ở	C1	work	topic	reading
+secrecy	n	sự bí mật	C2	media	topic	reading
+calmly	adv	một cách bình tĩnh	B2	psychology	topic	reading
+catastrophe	n	thảm hoạ	C2	environment	topic	reading
+hardship	n	khó khăn, gian khổ	C1	society	topic	reading
+insecurity	n	sự bất an	C1	psychology	topic	reading
+superficial	adj	hời hợt, bề mặt	C1	academic	topic	reading
+summon	v	triệu tập	C2	law	topic	reading
+downfall	n	sự sụp đổ	C2	politics	topic	reading
+customary	adj	theo phong tục	C1	culture	topic	reading
+favourable	adj	thuận lợi	C1	academic	topic	reading
+sentimental	adj	đa cảm	C1	psychology	topic	reading
+adrenaline	n	hoóc-môn a-đrê-na-lin	C2	health	topic	reading
+recreate	v	tái tạo	C1	culture	topic	reading
+inbox	n	hộp thư đến	B1	technology	topic	reading
+persistence	n	sự kiên trì	C1	psychology	topic	reading
+havoc	n	sự tàn phá	C2	environment	topic	reading
+astronomical	adj	thuộc thiên văn, cực lớn	C2	science	topic	reading
+unforgettable	adj	không thể quên	B2	psychology	topic	reading
+admirable	adj	đáng khâm phục	C1	psychology	topic	reading
+motivational	adj	tạo động lực	C1	education	topic	reading
+speculate	v	suy đoán, đầu cơ	C2	academic	topic	reading
+unstoppable	adj	không thể ngăn cản	C1	sport	topic	reading
+breadth	n	bề rộng, phạm vi	C2	academic	topic	reading
+immersion	n	sự đắm chìm, ngâm	C2	education	topic	reading
+puberty	n	tuổi dậy thì	C1	health	topic	reading
+trendy	adj	hợp mốt	B2	culture	topic	reading
+unbearable	adj	không thể chịu đựng	B2	psychology	topic	reading
+boredom	n	sự buồn chán	C1	psychology	topic	reading
+compose	v	sáng tác, cấu thành	C1	culture	topic	reading
+consultancy	n	công ty tư vấn	C1	work	topic	reading
+digestive	adj	thuộc tiêu hoá	C1	health	topic	reading
+endlessly	adv	không ngừng	C1	academic	topic	reading
+estimation	n	sự ước tính	C1	academic	topic	reading
+stormy	adj	có bão, dữ dội	B2	environment	topic	reading
+suffice	v	đủ, đáp ứng	C2	academic	topic	reading
+shaky	adj	run rẩy, không vững	C1	health	topic	reading
+feasibility	n	tính khả thi	C2	academic	topic	reading
+deterioration	n	sự suy thoái	C2	environment	topic	reading
+ascent	n	sự đi lên	C2	travel	topic	reading
+solitude	n	sự tĩnh lặng, cô độc	C1	psychology	topic	reading
+unconventional	adj	không theo lối mòn	C2	culture	topic	reading
+authoritative	adj	có thẩm quyền	C2	academic	topic	reading
+familiarity	n	sự quen thuộc	C1	psychology	topic	reading
+joyful	adj	vui sướng	B2	psychology	topic	reading
+reliably	adv	một cách đáng tin cậy	C1	technology	topic	reading
+enormously	adv	vô cùng, hết sức	C1	academic	topic	reading
+gloomy	adj	ảm đạm, u sầu	B2	psychology	topic	reading
+infancy	n	thời thơ ấu	C2	family	topic	reading
+inquire	v	hỏi, điều tra	C1	media	topic	reading
+misfortune	n	sự rủi ro, bất hạnh	C1	psychology	topic	reading
+uphill	adj	dốc lên, gian nan	B2	travel	topic	reading
+lessen	v	làm giảm	C1	academic	topic	reading
+microscopic	adj	cực nhỏ, thuộc kính hiển vi	C1	science	topic	reading
+equitable	adj	công bằng	C2	society	topic	reading
+handshake	n	cái bắt tay	B2	society	topic	reading
+plentiful	adj	dồi dào	C1	environment	topic	reading
+spaceship	n	tàu vũ trụ	C1	science	topic	reading
+unattractive	adj	kém hấp dẫn	B2	psychology	topic	reading
+outspoken	adj	thẳng thắn	C2	society	topic	reading
+seventeenth	n	thứ mười bảy	B1	academic	topic	reading
+burglar	n	kẻ trộm	C1	law	topic	reading
+cognition	n	nhận thức	C2	psychology	topic	reading
+spontaneously	adv	một cách tự phát	C2	psychology	topic	reading
+agility	n	sự nhanh nhẹn	C2	sport	topic	reading
+hairstyle	n	kiểu tóc	B1	culture	topic	reading
+molten	adj	nóng chảy	C2	environment	topic	reading
+ultraviolet	adj	cực tím	C1	science	topic	reading
+characterize	v	mô tả đặc điểm	C1	academic	topic	reading
+dissatisfaction	n	sự không hài lòng	C1	work	topic	reading
+exponentially	adv	theo cấp số nhân	C2	science	topic	reading
+fruitful	adj	mang lại kết quả tốt	C1	academic	topic	reading
+hurtful	adj	gây tổn thương	B2	psychology	topic	reading
+inaccessible	adj	không thể tiếp cận	C1	travel	topic	reading
+subtly	adv	một cách tinh tế	C2	academic	topic	reading
+toxin	n	độc tố	C2	health	topic	reading
+bitterly	adv	một cách cay đắng	C1	psychology	topic	reading
+markedly	adv	rõ rệt	C2	academic	topic	reading
+impractical	adj	không thực tế	C1	academic	topic	reading
+monoxide	n	ô-xít các-bon	C2	environment	topic	reading
+nighttime	n	ban đêm	C1	environment	topic	reading
+wasteful	adj	lãng phí	C1	environment	topic	reading
+complicate	v	làm phức tạp	C1	academic	topic	reading
+sunken	adj	chìm, trũng	C2	environment	topic	reading
+dependable	adj	đáng tin cậy	C1	work	topic	reading
+grassy	adj	đầy cỏ	C1	environment	topic	reading
+revolve	v	quay quanh	C1	science	topic	reading
+sizeable	adj	khá lớn	C1	economics	topic	reading
+effortlessly	adv	một cách dễ dàng	C1	sport	topic	reading
+signify	v	biểu thị, có nghĩa là	C1	academic	topic	reading
+snowfall	n	lượng tuyết rơi	C1	environment	topic	reading
+reusable	adj	có thể tái sử dụng	C1	environment	topic	reading
+deepen	v	làm sâu sắc thêm	C1	academic	topic	reading
+motorbike	n	xe máy	B1	travel	topic	reading
+incomprehensible	adj	không thể hiểu nổi	C2	academic	topic	reading
+intensify	v	tăng cường	C1	environment	topic	reading
+mischievous	adj	tinh nghịch	C2	psychology	topic	reading
+skillful	adj	khéo léo	C1	sport	topic	reading
+cookery	n	nghệ thuật nấu ăn	B2	food	topic	reading
+disapprove	v	không tán thành	C1	society	topic	reading
+industrialization	n	sự công nghiệp hoá	C1	economics	topic	reading
+palatable	adj	ngon miệng, dễ chấp nhận	C2	food	topic	reading
+worsen	v	làm tồi tệ hơn	C1	health	topic	reading
+dismissive	adj	xem nhẹ, khinh miệt	C2	psychology	topic	reading
+persistently	adv	một cách dai dẳng	C1	psychology	topic	reading
+symbolize	v	tượng trưng cho	C1	culture	topic	reading
+regularity	n	tính đều đặn	C1	academic	topic	reading
+speck	n	hạt nhỏ, vết nhỏ	C2	environment	topic	reading
+evaporate	v	bay hơi	C1	science	topic	reading
+hindrance	n	trở ngại	C2	work	topic	reading
+bustle	n	sự nhộn nhịp	C1	travel	topic	reading
+fragility	n	tính dễ vỡ, mong manh	C2	health	topic	reading
+inexperience	n	sự thiếu kinh nghiệm	C1	work	topic	reading
+arable	adj	có thể trồng trọt	C2	environment	topic	reading
+hospitable	adj	hiếu khách	C1	travel	topic	reading
+melatonin	n	hoóc-môn mê-la-tô-nin	C2	health	topic	reading
+runny	adj	chảy nước	B1	health	topic	reading
+congregate	v	tụ tập	C2	society	topic	reading
+fluently	adv	một cách trôi chảy	B2	education	topic	reading
+biosphere	n	sinh quyển	C2	environment	topic	reading
+finalize	v	hoàn tất	C1	work	topic	reading
+regrettably	adv	đáng tiếc thay	C1	academic	topic	reading
+uptight	adj	căng thẳng, cứng nhắc	C2	psychology	topic	reading
+forgetful	adj	hay quên	B2	psychology	topic	reading
+subliminal	adj	dưới ngưỡng ý thức	C2	psychology	topic	reading
+punctual	adj	đúng giờ	B2	work	topic	reading
+fizzy	adj	có ga	B1	food	topic	reading
+savoury	adj	mặn, thơm ngon	B2	food	topic	reading
+energetically	adv	một cách đầy năng lượng	C1	health	topic	reading
+irritability	n	tính dễ cáu	C2	health	topic	reading
+changeable	adj	hay thay đổi	C1	environment	topic	reading
+schoolwork	n	bài vở ở trường	B1	education	topic	reading
+speedily	adv	một cách nhanh chóng	C1	academic	topic	reading
+rustle	v	xào xạc	C1	environment	topic	reading
+elation	n	sự phấn chấn	C2	psychology	topic	reading
+immeasurably	adv	không thể đo đếm	C2	academic	topic	reading
+alarmingly	adv	đáng báo động	C1	environment	topic	reading
+overhear	v	tình cờ nghe được	C1	media	topic	reading
+vegetarianism	n	chủ nghĩa ăn chay	C1	food	topic	reading
+alternation	n	sự luân phiên	C2	academic	topic	reading
+upturn	n	sự khởi sắc	C2	economics	topic	reading
+ecotourism	n	du lịch sinh thái	C1	travel	topic	reading
+unfailingly	adv	luôn luôn, không bao giờ sai	C2	psychology	topic	reading
+intriguingly	adv	một cách hấp dẫn	C2	academic	topic	reading
+ministry	n	bộ, cơ quan bộ	C2	politics	topic	reading
+jail	n	nhà tù	B2	law	topic	reading
+boyfriend	n	bạn trai	B1	family	topic	reading
+bunch	n	chùm, nhóm	B1	daily-life	topic	reading
+basketball	n	bóng rổ	B1	sport	topic	reading
+deputy	n	cấp phó	C2	politics	topic	reading
+presidential	adj	thuộc tổng thống	C1	politics	topic	reading
+offensive	adj	xúc phạm	C1	society	topic	reading
+silent	adj	im lặng	B1	psychology	topic	reading
+bureau	n	cục, văn phòng	C2	politics	topic	reading
+deck	n	boong tàu, bộ bài	B2	travel	topic	reading
+knife	n	con dao	B1	food	topic	reading
+rugby	n	bóng bầu dục	B1	sport	topic	reading
+makeup	n	đồ trang điểm	B1	culture	topic	reading
+silly	adj	ngớ ngẩn	B1	psychology	topic	reading
+angle	n	góc	B2	science	topic	reading
+ratio	n	tỷ lệ	C1	academic	topic	reading
+progressive	adj	tiến bộ, dần dần	C1	politics	topic	reading
+elementary	adj	cơ bản, sơ cấp	B2	education	topic	reading
+legislative	adj	thuộc lập pháp	C2	law	topic	reading
+purple	adj	tím	B1	daily-life	topic	reading
+bite	v	cắn	B1	food	topic	reading
+dare	v	dám	B1	psychology	topic	reading
+implementation	n	việc thực hiện	C1	work	topic	reading
+default	n	mặc định, sự vỡ nợ	C1	technology	topic	reading
+drag	v	kéo lê	C1	daily-life	topic	reading
+sacrifice	n	sự hy sinh	C1	psychology	topic	reading
+worship	n	sự thờ phụng	C1	culture	topic	reading
+experimental	adj	mang tính thử nghiệm	C1	science	topic	reading
+gulf	n	vịnh, khoảng cách lớn	C1	environment	topic	reading
+auction	n	cuộc đấu giá	C1	economics	topic	reading
+utility	n	tính hữu dụng, tiện ích	C1	economics	topic	reading
+conspiracy	n	âm mưu	C2	politics	topic	reading
+federation	n	liên đoàn, liên bang	C2	politics	topic	reading
+forgive	v	tha thứ	B1	psychology	topic	reading
+pipe	n	ống dẫn	C1	technology	topic	reading
+formerly	adv	trước kia	C1	academic	topic	reading
+shoe	n	chiếc giày	B1	daily-life	topic	reading
+magical	adj	huyền diệu, kỳ ảo	B2	culture	topic	reading
+twist	n	khúc quanh, sự xoắn	C1	culture	topic	reading
+skip	v	nhảy, bỏ qua	B1	sport	topic	reading
+eighth	n	thứ tám	B1	academic	topic	reading
+wrap	v	gói, quấn	B1	food	topic	reading
+metropolitan	adj	thuộc đô thị	C1	society	topic	reading
+spray	v	phun	C1	environment	topic	reading
+harbor	n	bến cảng	B2	travel	topic	reading
+aboard	adv	trên tàu, trên máy bay	C2	travel	topic	reading
+duration	n	thời lượng	C1	academic	topic	reading
+patrol	v	tuần tra	C2	law	topic	reading
+iconic	adj	mang tính biểu tượng	C1	culture	topic	reading
+reportedly	adv	theo báo cáo	C1	media	topic	reading
+athletic	adj	thuộc thể thao	C1	sport	topic	reading
+jewelry	n	trang sức	B1	culture	topic	reading
+artwork	n	tác phẩm nghệ thuật	B1	culture	topic	reading
+noon	n	buổi trưa	B1	daily-life	topic	reading
+pathetic	adj	thảm hại	C1	psychology	topic	reading
+throne	n	ngai vàng	C1	culture	topic	reading
+faithful	adj	trung thành	C1	psychology	topic	reading
+hug	v	ôm	C1	psychology	topic	reading
+lawsuit	n	vụ kiện	C2	law	topic	reading
+gently	adv	một cách nhẹ nhàng	B1	psychology	topic	reading
+poison	n	chất độc	B2	health	topic	reading
+separately	adv	một cách riêng rẽ	B2	academic	topic	reading
+tooth	n	răng	B1	health	topic	reading
+capability	n	khả năng, năng lực	C1	academic	topic	reading
+flame	n	ngọn lửa	B2	environment	topic	reading
+motorcycle	n	mô tô	B1	travel	topic	reading
+nationwide	adj	trên toàn quốc	C1	politics	topic	reading
+nicely	adv	một cách dễ chịu, khéo	B1	psychology	topic	reading
+ninth	n	thứ chín	B1	academic	topic	reading
+quantum	n	lượng tử	C2	science	topic	reading
+reign	n	triều đại, sự trị vì	C2	politics	topic	reading
+cheer	v	cổ vũ, hoan hô	B2	sport	topic	reading
+politically	adv	về mặt chính trị	C1	politics	topic	reading
+shout	v	hét lên	B1	psychology	topic	reading
+ignorant	adj	thiếu hiểu biết	C1	society	topic	reading
+someday	adv	một ngày nào đó	B1	daily-life	topic	reading
+static	adj	tĩnh, không đổi	C1	science	topic	reading
+warfare	n	chiến tranh	C2	politics	topic	reading
+flavor	n	hương vị	B1	food	topic	reading
+fork	n	cái nĩa	B1	food	topic	reading
+hype	n	sự thổi phồng	C1	media	topic	reading
+badge	n	huy hiệu	C1	society	topic	reading
+gut	n	ruột, sự trực giác	B2	health	topic	reading
+tire	n	lốp xe	B1	technology	topic	reading
+secretly	adv	một cách bí mật	C1	media	topic	reading
+thumb	n	ngón tay cái	B1	health	topic	reading
+dash	n	sự lao nhanh, dấu gạch	C1	academic	topic	reading
+outlet	n	cửa hàng, lối thoát	C1	economics	topic	reading
+publicity	n	sự quảng bá, dư luận	C1	media	topic	reading
+clause	n	điều khoản, mệnh đề	C2	law	topic	reading
+infant	n	trẻ sơ sinh	C1	family	topic	reading
+cart	n	xe đẩy, xe kéo	B1	daily-life	topic	reading
+circus	n	rạp xiếc	B1	culture	topic	reading
+autism	n	tự kỷ	C1	health	topic	reading
+slap	v	tát, vỗ	C1	psychology	topic	reading
+cheek	n	má	B1	health	topic	reading
+comedian	n	danh hài	B1	culture	topic	reading
+conscience	n	lương tâm	C2	psychology	topic	reading
+reconstruction	n	sự tái thiết	C1	politics	topic	reading
+waist	n	phần eo	B1	health	topic	reading
+wit	n	sự hóm hỉnh, trí tuệ	C2	psychology	topic	reading
+amid	prep	giữa, trong bối cảnh	C1	academic	topic	reading
+documentation	n	tài liệu, sự ghi chép	C1	work	topic	reading
+feast	n	bữa tiệc lớn	C1	food	topic	reading
+mainland	n	lục địa, đất liền	C1	travel	topic	reading
+automobile	n	ô tô	C1	travel	topic	reading
+float	v	nổi, trôi	C1	science	topic	reading
+junction	n	ngã ba, điểm giao	C2	travel	topic	reading
+descent	n	sự đi xuống, nguồn gốc	C2	academic	topic	reading
+monk	n	nhà sư	C1	culture	topic	reading
+overhead	adv	phía trên đầu	C1	travel	topic	reading
+sanctuary	n	nơi trú ẩn, thánh địa	C2	environment	topic	reading
+thankful	adj	biết ơn	B2	psychology	topic	reading
+exterior	n	bên ngoài	C1	culture	topic	reading
+fountain	n	đài phun nước	B1	travel	topic	reading
+humanitarian	adj	mang tính nhân đạo	C2	society	topic	reading
+sack	n	bao tải	C1	daily-life	topic	reading
+stare	v	nhìn chằm chằm	B1	psychology	topic	reading
+aggression	n	sự gây hấn	C1	psychology	topic	reading
+burial	n	sự chôn cất	C2	culture	topic	reading
+elevation	n	độ cao	C2	environment	topic	reading
+esteem	n	lòng tự trọng, sự kính trọng	C2	psychology	topic	reading
+petroleum	n	dầu mỏ	C2	economics	topic	reading
+biography	n	tiểu sử	C1	culture	topic	reading
+cellular	adj	thuộc tế bào	C2	science	topic	reading
+misery	n	nỗi khổ sở	C1	psychology	topic	reading
+nursery	n	nhà trẻ, vườn ươm	C1	family	topic	reading
+plague	n	bệnh dịch	C2	health	topic	reading
+thirteen	n	mười ba	B1	academic	topic	reading
+metric	n	chỉ số đo lường	C2	science	topic	reading
+terrace	n	sân thượng, hiên	C1	travel	topic	reading
+messy	adj	bừa bộn	B1	daily-life	topic	reading
+systematic	adj	có hệ thống	C1	academic	topic	reading
+underway	adj	đang tiến hành	C1	work	topic	reading
+correlation	n	mối tương quan	C2	science	topic	reading
+scroll	v	cuộn (trang)	B1	technology	topic	reading
+surf	v	lướt sóng, lướt mạng	B2	sport	topic	reading
+diagram	n	sơ đồ	C1	science	topic	reading
+manipulation	n	sự thao túng	C2	media	topic	reading
+heroic	adj	anh hùng	C1	culture	topic	reading
+paperwork	n	giấy tờ công việc	B2	work	topic	reading
+cone	n	hình nón, ốc quế	B2	science	topic	reading
+isle	n	hòn đảo nhỏ	C2	travel	topic	reading
+overly	adv	quá mức	C1	academic	topic	reading
+bibliography	n	danh mục tài liệu tham khảo	C2	academic	topic	reading
+collectively	adv	một cách tập thể	C1	society	topic	reading
+methodology	n	phương pháp luận	C2	academic	topic	reading
+quiz	n	bài kiểm tra ngắn	B1	education	topic	reading
+masterpiece	n	kiệt tác	C1	culture	topic	reading
+memo	n	bản ghi nhớ	B2	work	topic	reading
+roommate	n	bạn cùng phòng	B1	family	topic	reading
+altar	n	bàn thờ	C2	culture	topic	reading
+coffin	n	quan tài	C2	culture	topic	reading
+filthy	adj	bẩn thỉu	C1	environment	topic	reading
+inheritance	n	tài sản thừa kế	C2	law	topic	reading
+spicy	adj	cay	B1	food	topic	reading
+thankfully	adv	may mắn thay	C1	psychology	topic	reading
+kindergarten	n	trường mẫu giáo	B1	education	topic	reading
+circadian	adj	thuộc nhịp sinh học	C2	health	topic	reading

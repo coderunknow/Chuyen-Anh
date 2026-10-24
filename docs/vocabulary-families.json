@@ -2,10 +2,10 @@
   "generatedBy": "scripts/expand_vocabulary.py (curated input, reviewed by hand 2026-10-24)",
   "rule": "One headword per word root. A form that shares another headword's root is not counted as a separate headword: it is listed in that headword's WORD_FAMILY note and its own row carries family:merged plus family-head:<id>. Inflections, spelling variants and derivations all follow this rule, so the headword count is a count of roots.",
   "counts": {
-    "families": 380,
-    "mergedRows": 509,
-    "activeHeadwords": 2706,
-    "rowsInTable": 3215
+    "families": 498,
+    "mergedRows": 647,
+    "activeHeadwords": 5205,
+    "rowsInTable": 5852
   },
   "kinds": {
     "derived": "the member is a derivational form of the head",
@@ -804,6 +804,12 @@
           "word": "acceptance",
           "pos": "n",
           "meaning": "sự chấp nhận"
+        },
+        {
+          "id": "4967",
+          "word": "acceptable",
+          "pos": "adj",
+          "meaning": "chấp nhận được"
         }
       ]
     },
@@ -1122,6 +1128,12 @@
           "word": "continual",
           "pos": "adj",
           "meaning": "lặp đi lặp lại"
+        },
+        {
+          "id": "5511",
+          "word": "continuity",
+          "pos": "n",
+          "meaning": "tính liên tục"
         }
       ]
     },
@@ -1944,6 +1956,12 @@
           "word": "publicise",
           "pos": "v",
           "meaning": "công khai hóa, quảng bá"
+        },
+        {
+          "id": "5783",
+          "word": "publicity",
+          "pos": "n",
+          "meaning": "sự quảng bá, dư luận"
         }
       ]
     },
@@ -2457,6 +2475,12 @@
           "word": "correspondingly",
           "pos": "adv",
           "meaning": "tương ứng"
+        },
+        {
+          "id": "5495",
+          "word": "correspondence",
+          "pos": "n",
+          "meaning": "thư từ, sự tương ứng"
         }
       ]
     },
@@ -2528,6 +2552,12 @@
           "word": "documentary",
           "pos": "n",
           "meaning": "phim tài liệu"
+        },
+        {
+          "id": "5797",
+          "word": "documentation",
+          "pos": "n",
+          "meaning": "tài liệu, sự ghi chép"
         }
       ]
     },
@@ -2682,6 +2712,12 @@
           "word": "observance",
           "pos": "n",
           "meaning": "việc tuân thủ, sự kỷ niệm"
+        },
+        {
+          "id": "5392",
+          "word": "observable",
+          "pos": "adj",
+          "meaning": "có thể quan sát"
         }
       ]
     },
@@ -2707,6 +2743,12 @@
           "id": "2746",
           "word": "occasionally",
           "pos": "adv",
+          "meaning": "thỉnh thoảng"
+        },
+        {
+          "id": "5036",
+          "word": "occasional",
+          "pos": "adj",
           "meaning": "thỉnh thoảng"
         }
       ]
@@ -2734,6 +2776,12 @@
           "word": "preferable",
           "pos": "adj",
           "meaning": "đáng thích hơn"
+        },
+        {
+          "id": "4974",
+          "word": "preference",
+          "pos": "n",
+          "meaning": "sự ưu tiên, sở thích"
         }
       ]
     },
@@ -3241,6 +3289,12 @@
           "word": "electrician",
           "pos": "n",
           "meaning": "thợ điện"
+        },
+        {
+          "id": "4815",
+          "word": "electrical",
+          "pos": "adj",
+          "meaning": "thuộc điện"
         }
       ]
     },
@@ -4042,6 +4096,12 @@
           "word": "architect",
           "pos": "n",
           "meaning": "kiến trúc sư"
+        },
+        {
+          "id": "5283",
+          "word": "architectural",
+          "pos": "adj",
+          "meaning": "thuộc kiến trúc"
         }
       ]
     },
@@ -5575,6 +5635,12 @@
           "word": "offence",
           "pos": "n",
           "meaning": "hành vi phạm tội"
+        },
+        {
+          "id": "5705",
+          "word": "offensive",
+          "pos": "adj",
+          "meaning": "xúc phạm"
         }
       ]
     },
@@ -5679,6 +5745,12 @@
           "word": "resident",
           "pos": "n",
           "meaning": "cư dân"
+        },
+        {
+          "id": "5226",
+          "word": "residence",
+          "pos": "n",
+          "meaning": "nơi cư trú"
         }
       ]
     },
@@ -5726,6 +5798,1588 @@
           "meaning": "thuộc hướng nghiệp, dạy nghề"
         }
       ]
+    },
+    {
+      "head": "admire",
+      "headId": "4856",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5585",
+          "word": "admirable",
+          "pos": "adj",
+          "meaning": "đáng khâm phục"
+        },
+        {
+          "id": "5561",
+          "word": "admiration",
+          "pos": "n",
+          "meaning": "sự ngưỡng mộ"
+        }
+      ]
+    },
+    {
+      "head": "advise",
+      "headId": "2479",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "4941",
+          "word": "advisable",
+          "pos": "adj",
+          "meaning": "nên làm, đáng khuyến nghị"
+        }
+      ]
+    },
+    {
+      "head": "agile",
+      "headId": "2790",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5624",
+          "word": "agility",
+          "pos": "n",
+          "meaning": "sự nhanh nhẹn"
+        }
+      ]
+    },
+    {
+      "head": "athlete",
+      "headId": "2349",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5747",
+          "word": "athletic",
+          "pos": "adj",
+          "meaning": "thuộc thể thao"
+        }
+      ]
+    },
+    {
+      "head": "atmosphere",
+      "headId": "1572",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5165",
+          "word": "atmospheric",
+          "pos": "adj",
+          "meaning": "thuộc khí quyển"
+        }
+      ]
+    },
+    {
+      "head": "biological",
+      "headId": "4819",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5206",
+          "word": "biologically",
+          "pos": "adv",
+          "meaning": "về mặt sinh học"
+        }
+      ]
+    },
+    {
+      "head": "bitter",
+      "headId": "5025",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5635",
+          "word": "bitterly",
+          "pos": "adv",
+          "meaning": "một cách cay đắng"
+        }
+      ]
+    },
+    {
+      "head": "calm",
+      "headId": "4732",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5571",
+          "word": "calmly",
+          "pos": "adv",
+          "meaning": "một cách bình tĩnh"
+        }
+      ]
+    },
+    {
+      "head": "casual",
+      "headId": "5021",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5541",
+          "word": "casually",
+          "pos": "adv",
+          "meaning": "một cách tình cờ, thoải mái"
+        }
+      ]
+    },
+    {
+      "head": "change",
+      "headId": "960",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5684",
+          "word": "changeable",
+          "pos": "adj",
+          "meaning": "hay thay đổi"
+        }
+      ]
+    },
+    {
+      "head": "cheap",
+      "headId": "4702",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5378",
+          "word": "cheaply",
+          "pos": "adv",
+          "meaning": "một cách rẻ"
+        }
+      ]
+    },
+    {
+      "head": "cheer",
+      "headId": "5767",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5559",
+          "word": "cheerful",
+          "pos": "adj",
+          "meaning": "vui vẻ"
+        }
+      ]
+    },
+    {
+      "head": "clinic",
+      "headId": "1889",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5407",
+          "word": "clinical",
+          "pos": "adj",
+          "meaning": "thuộc lâm sàng"
+        }
+      ]
+    },
+    {
+      "head": "coincide",
+      "headId": "2867",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5468",
+          "word": "coincidence",
+          "pos": "n",
+          "meaning": "sự trùng hợp"
+        }
+      ]
+    },
+    {
+      "head": "collaborate",
+      "headId": "2868",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5167",
+          "word": "collaborative",
+          "pos": "adj",
+          "meaning": "mang tính hợp tác"
+        }
+      ]
+    },
+    {
+      "head": "colour",
+      "headId": "4793",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5348",
+          "word": "colourful",
+          "pos": "adj",
+          "meaning": "sặc sỡ"
+        }
+      ]
+    },
+    {
+      "head": "culture",
+      "headId": "982",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "4645",
+          "word": "cultural",
+          "pos": "adj",
+          "meaning": "thuộc văn hoá"
+        },
+        {
+          "id": "5079",
+          "word": "culturally",
+          "pos": "adv",
+          "meaning": "về mặt văn hoá"
+        }
+      ]
+    },
+    {
+      "head": "deep",
+      "headId": "992",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5651",
+          "word": "deepen",
+          "pos": "v",
+          "meaning": "làm sâu sắc thêm"
+        }
+      ]
+    },
+    {
+      "head": "desperate",
+      "headId": "5233",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5281",
+          "word": "desperately",
+          "pos": "adv",
+          "meaning": "một cách tuyệt vọng"
+        }
+      ]
+    },
+    {
+      "head": "dismiss",
+      "headId": "2046",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "4225",
+          "word": "dismissal",
+          "pos": "n",
+          "meaning": "sự sa thải"
+        },
+        {
+          "id": "5660",
+          "word": "dismissive",
+          "pos": "adj",
+          "meaning": "xem nhẹ, khinh miệt"
+        }
+      ]
+    },
+    {
+      "head": "doubt",
+      "headId": "1004",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5194",
+          "word": "doubtful",
+          "pos": "adj",
+          "meaning": "đáng ngờ"
+        }
+      ]
+    },
+    {
+      "head": "dread",
+      "headId": "5339",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5542",
+          "word": "dreadful",
+          "pos": "adj",
+          "meaning": "kinh khủng"
+        }
+      ]
+    },
+    {
+      "head": "enormous",
+      "headId": "4648",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5607",
+          "word": "enormously",
+          "pos": "adv",
+          "meaning": "vô cùng, hết sức"
+        }
+      ]
+    },
+    {
+      "head": "examine",
+      "headId": "1390",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "4799",
+          "word": "examination",
+          "pos": "n",
+          "meaning": "kỳ thi, sự kiểm tra"
+        }
+      ]
+    },
+    {
+      "head": "experiment",
+      "headId": "1598",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5725",
+          "word": "experimental",
+          "pos": "adj",
+          "meaning": "mang tính thử nghiệm"
+        }
+      ]
+    },
+    {
+      "head": "familiar",
+      "headId": "4670",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5605",
+          "word": "familiarity",
+          "pos": "n",
+          "meaning": "sự quen thuộc"
+        }
+      ]
+    },
+    {
+      "head": "fault",
+      "headId": "2964",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5554",
+          "word": "faulty",
+          "pos": "adj",
+          "meaning": "bị lỗi"
+        }
+      ]
+    },
+    {
+      "head": "favour",
+      "headId": "1513",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5577",
+          "word": "favourable",
+          "pos": "adj",
+          "meaning": "thuận lợi"
+        }
+      ]
+    },
+    {
+      "head": "final",
+      "headId": "1397",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5674",
+          "word": "finalize",
+          "pos": "v",
+          "meaning": "hoàn tất"
+        }
+      ]
+    },
+    {
+      "head": "firm",
+      "headId": "4779",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5136",
+          "word": "firmly",
+          "pos": "adv",
+          "meaning": "một cách vững chắc"
+        }
+      ]
+    },
+    {
+      "head": "forget",
+      "headId": "1051",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5677",
+          "word": "forgetful",
+          "pos": "adj",
+          "meaning": "hay quên"
+        }
+      ]
+    },
+    {
+      "head": "form",
+      "headId": "1052",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "4722",
+          "word": "formation",
+          "pos": "n",
+          "meaning": "sự hình thành"
+        }
+      ]
+    },
+    {
+      "head": "fruit",
+      "headId": "4656",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5630",
+          "word": "fruitful",
+          "pos": "adj",
+          "meaning": "mang lại kết quả tốt"
+        }
+      ]
+    },
+    {
+      "head": "function",
+      "headId": "1399",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5020",
+          "word": "functional",
+          "pos": "adj",
+          "meaning": "có chức năng, hoạt động được"
+        }
+      ]
+    },
+    {
+      "head": "gentle",
+      "headId": "5030",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5756",
+          "word": "gently",
+          "pos": "adv",
+          "meaning": "một cách nhẹ nhàng"
+        }
+      ]
+    },
+    {
+      "head": "grass",
+      "headId": "4961",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5644",
+          "word": "grassy",
+          "pos": "adj",
+          "meaning": "đầy cỏ"
+        }
+      ]
+    },
+    {
+      "head": "hope",
+      "headId": "1075",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5312",
+          "word": "hopeful",
+          "pos": "adj",
+          "meaning": "đầy hy vọng"
+        },
+        {
+          "id": "4999",
+          "word": "hopefully",
+          "pos": "adv",
+          "meaning": "hy vọng rằng"
+        }
+      ]
+    },
+    {
+      "head": "human",
+      "headId": "1077",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "4912",
+          "word": "humanity",
+          "pos": "n",
+          "meaning": "nhân loại, lòng nhân đạo"
+        }
+      ]
+    },
+    {
+      "head": "immense",
+      "headId": "5486",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "4991",
+          "word": "immensely",
+          "pos": "adv",
+          "meaning": "vô cùng, hết sức"
+        }
+      ]
+    },
+    {
+      "head": "impulse",
+      "headId": "2989",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5382",
+          "word": "impulsive",
+          "pos": "adj",
+          "meaning": "bốc đồng"
+        }
+      ]
+    },
+    {
+      "head": "inherit",
+      "headId": "2995",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5848",
+          "word": "inheritance",
+          "pos": "n",
+          "meaning": "tài sản thừa kế"
+        }
+      ]
+    },
+    {
+      "head": "instant",
+      "headId": "4965",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "4919",
+          "word": "instantly",
+          "pos": "adv",
+          "meaning": "ngay lập tức"
+        }
+      ]
+    },
+    {
+      "head": "institution",
+      "headId": "5007",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5137",
+          "word": "institutional",
+          "pos": "adj",
+          "meaning": "thuộc thể chế"
+        }
+      ]
+    },
+    {
+      "head": "instrument",
+      "headId": "4800",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5278",
+          "word": "instrumental",
+          "pos": "adj",
+          "meaning": "giữ vai trò quan trọng"
+        }
+      ]
+    },
+    {
+      "head": "irony",
+      "headId": "3413",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5309",
+          "word": "ironic",
+          "pos": "adj",
+          "meaning": "mỉa mai, trớ trêu"
+        }
+      ]
+    },
+    {
+      "head": "limit",
+      "headId": "4662",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5529",
+          "word": "limitation",
+          "pos": "n",
+          "meaning": "hạn chế"
+        }
+      ]
+    },
+    {
+      "head": "logic",
+      "headId": "1419",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "4851",
+          "word": "logical",
+          "pos": "adj",
+          "meaning": "hợp logic"
+        },
+        {
+          "id": "5363",
+          "word": "logically",
+          "pos": "adv",
+          "meaning": "một cách logic"
+        }
+      ]
+    },
+    {
+      "head": "loose",
+      "headId": "5408",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "3909",
+          "word": "loosen",
+          "pos": "v",
+          "meaning": "nới lỏng"
+        }
+      ]
+    },
+    {
+      "head": "mature",
+      "headId": "5015",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5160",
+          "word": "maturity",
+          "pos": "n",
+          "meaning": "sự trưởng thành"
+        }
+      ]
+    },
+    {
+      "head": "mechanic",
+      "headId": "2387",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5011",
+          "word": "mechanical",
+          "pos": "adj",
+          "meaning": "thuộc cơ khí, máy móc"
+        }
+      ]
+    },
+    {
+      "head": "memory",
+      "headId": "1129",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "4826",
+          "word": "memorable",
+          "pos": "adj",
+          "meaning": "đáng nhớ"
+        }
+      ]
+    },
+    {
+      "head": "milk",
+      "headId": "4406",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5356",
+          "word": "milky",
+          "pos": "adj",
+          "meaning": "có màu sữa"
+        }
+      ]
+    },
+    {
+      "head": "mind",
+      "headId": "1133",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5359",
+          "word": "mindful",
+          "pos": "adj",
+          "meaning": "hay để ý, chánh niệm"
+        }
+      ]
+    },
+    {
+      "head": "misery",
+      "headId": "5820",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5267",
+          "word": "miserable",
+          "pos": "adj",
+          "meaning": "khổ sở"
+        }
+      ]
+    },
+    {
+      "head": "music",
+      "headId": "1142",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "4766",
+          "word": "musical",
+          "pos": "adj",
+          "meaning": "thuộc âm nhạc"
+        }
+      ]
+    },
+    {
+      "head": "narrate",
+      "headId": "3053",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5412",
+          "word": "narrative",
+          "pos": "n",
+          "meaning": "câu chuyện kể, tự sự"
+        }
+      ]
+    },
+    {
+      "head": "nerve",
+      "headId": "3734",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "4685",
+          "word": "nervous",
+          "pos": "adj",
+          "meaning": "lo lắng, bồn chồn"
+        }
+      ]
+    },
+    {
+      "head": "noise",
+      "headId": "4712",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5078",
+          "word": "noisy",
+          "pos": "adj",
+          "meaning": "ồn ào"
+        }
+      ]
+    },
+    {
+      "head": "notice",
+      "headId": "4672",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5070",
+          "word": "noticeable",
+          "pos": "adj",
+          "meaning": "đáng chú ý"
+        }
+      ]
+    },
+    {
+      "head": "option",
+      "headId": "1432",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5058",
+          "word": "optional",
+          "pos": "adj",
+          "meaning": "tự chọn, không bắt buộc"
+        }
+      ]
+    },
+    {
+      "head": "orient",
+      "headId": "3067",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5131",
+          "word": "orientation",
+          "pos": "n",
+          "meaning": "sự định hướng"
+        }
+      ]
+    },
+    {
+      "head": "parent",
+      "headId": "1169",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "4828",
+          "word": "parental",
+          "pos": "adj",
+          "meaning": "thuộc cha mẹ"
+        }
+      ]
+    },
+    {
+      "head": "peace",
+      "headId": "2489",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "4916",
+          "word": "peaceful",
+          "pos": "adj",
+          "meaning": "yên bình"
+        }
+      ]
+    },
+    {
+      "head": "period",
+      "headId": "1179",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5552",
+          "word": "periodic",
+          "pos": "adj",
+          "meaning": "định kỳ, tuần hoàn"
+        }
+      ]
+    },
+    {
+      "head": "photograph",
+      "headId": "5022",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "4864",
+          "word": "photography",
+          "pos": "n",
+          "meaning": "nhiếp ảnh"
+        }
+      ]
+    },
+    {
+      "head": "phrase",
+      "headId": "1440",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "4859",
+          "word": "phrasal",
+          "pos": "adj",
+          "meaning": "thuộc cụm động từ"
+        }
+      ]
+    },
+    {
+      "head": "place",
+      "headId": "1183",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5272",
+          "word": "placement",
+          "pos": "n",
+          "meaning": "sự sắp xếp, vị trí thực tập"
+        }
+      ]
+    },
+    {
+      "head": "pleasant",
+      "headId": "4847",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5200",
+          "word": "pleasantly",
+          "pos": "adv",
+          "meaning": "một cách dễ chịu"
+        }
+      ]
+    },
+    {
+      "head": "poison",
+      "headId": "5757",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5082",
+          "word": "poisonous",
+          "pos": "adj",
+          "meaning": "độc hại"
+        }
+      ]
+    },
+    {
+      "head": "polite",
+      "headId": "4752",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5089",
+          "word": "politely",
+          "pos": "adv",
+          "meaning": "một cách lịch sự"
+        }
+      ]
+    },
+    {
+      "head": "popular",
+      "headId": "1190",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "4652",
+          "word": "popularity",
+          "pos": "n",
+          "meaning": "sự phổ biến"
+        }
+      ]
+    },
+    {
+      "head": "power",
+      "headId": "1194",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "4635",
+          "word": "powerful",
+          "pos": "adj",
+          "meaning": "mạnh mẽ"
+        }
+      ]
+    },
+    {
+      "head": "present",
+      "headId": "1198",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "4651",
+          "word": "presentation",
+          "pos": "n",
+          "meaning": "bài thuyết trình"
+        }
+      ]
+    },
+    {
+      "head": "profit",
+      "headId": "1997",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5274",
+          "word": "profitable",
+          "pos": "adj",
+          "meaning": "có lợi nhuận"
+        }
+      ]
+    },
+    {
+      "head": "progress",
+      "headId": "1206",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5715",
+          "word": "progressive",
+          "pos": "adj",
+          "meaning": "tiến bộ, dần dần"
+        }
+      ]
+    },
+    {
+      "head": "propose",
+      "headId": "1449",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5003",
+          "word": "proposal",
+          "pos": "n",
+          "meaning": "đề xuất"
+        }
+      ]
+    },
+    {
+      "head": "proud",
+      "headId": "4644",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5531",
+          "word": "proudly",
+          "pos": "adv",
+          "meaning": "một cách tự hào"
+        }
+      ]
+    },
+    {
+      "head": "realize",
+      "headId": "4639",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5526",
+          "word": "realization",
+          "pos": "n",
+          "meaning": "sự nhận ra"
+        }
+      ]
+    },
+    {
+      "head": "reason",
+      "headId": "1220",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "4741",
+          "word": "reasonable",
+          "pos": "adj",
+          "meaning": "hợp lý"
+        },
+        {
+          "id": "5044",
+          "word": "reasonably",
+          "pos": "adv",
+          "meaning": "một cách hợp lý"
+        }
+      ]
+    },
+    {
+      "head": "recreation",
+      "headId": "5041",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5152",
+          "word": "recreational",
+          "pos": "adj",
+          "meaning": "thuộc giải trí"
+        }
+      ]
+    },
+    {
+      "head": "region",
+      "headId": "1460",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5095",
+          "word": "regional",
+          "pos": "adj",
+          "meaning": "thuộc vùng, khu vực"
+        }
+      ]
+    },
+    {
+      "head": "regular",
+      "headId": "1225",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5662",
+          "word": "regularity",
+          "pos": "n",
+          "meaning": "tính đều đặn"
+        }
+      ]
+    },
+    {
+      "head": "remove",
+      "headId": "4738",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5230",
+          "word": "removal",
+          "pos": "n",
+          "meaning": "sự loại bỏ"
+        }
+      ]
+    },
+    {
+      "head": "reproduce",
+      "headId": "3145",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5314",
+          "word": "reproduction",
+          "pos": "n",
+          "meaning": "sự sinh sản, sự sao chép"
+        }
+      ]
+    },
+    {
+      "head": "resemble",
+      "headId": "5524",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "4897",
+          "word": "resemblance",
+          "pos": "n",
+          "meaning": "sự giống nhau"
+        }
+      ]
+    },
+    {
+      "head": "reuse",
+      "headId": "1544",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5650",
+          "word": "reusable",
+          "pos": "adj",
+          "meaning": "có thể tái sử dụng"
+        }
+      ]
+    },
+    {
+      "head": "revive",
+      "headId": "5181",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5149",
+          "word": "revival",
+          "pos": "n",
+          "meaning": "sự phục hồi, sự hồi sinh"
+        }
+      ]
+    },
+    {
+      "head": "risk",
+      "headId": "1234",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "4931",
+          "word": "risky",
+          "pos": "adj",
+          "meaning": "rủi ro"
+        }
+      ]
+    },
+    {
+      "head": "salt",
+      "headId": "4381",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5522",
+          "word": "salty",
+          "pos": "adj",
+          "meaning": "mặn"
+        }
+      ]
+    },
+    {
+      "head": "season",
+      "headId": "1242",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5142",
+          "word": "seasonal",
+          "pos": "adj",
+          "meaning": "theo mùa"
+        }
+      ]
+    },
+    {
+      "head": "separate",
+      "headId": "4759",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5758",
+          "word": "separately",
+          "pos": "adv",
+          "meaning": "một cách riêng rẽ"
+        }
+      ]
+    },
+    {
+      "head": "severe",
+      "headId": "1531",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5331",
+          "word": "severity",
+          "pos": "n",
+          "meaning": "mức độ nghiêm trọng"
+        }
+      ]
+    },
+    {
+      "head": "sincere",
+      "headId": "5498",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5158",
+          "word": "sincerely",
+          "pos": "adv",
+          "meaning": "một cách chân thành"
+        }
+      ]
+    },
+    {
+      "head": "size",
+      "headId": "1251",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5646",
+          "word": "sizeable",
+          "pos": "adj",
+          "meaning": "khá lớn"
+        }
+      ]
+    },
+    {
+      "head": "skill",
+      "headId": "1252",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5655",
+          "word": "skillful",
+          "pos": "adj",
+          "meaning": "khéo léo"
+        }
+      ]
+    },
+    {
+      "head": "smooth",
+      "headId": "4960",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5076",
+          "word": "smoothly",
+          "pos": "adv",
+          "meaning": "một cách trôi chảy"
+        }
+      ]
+    },
+    {
+      "head": "society",
+      "headId": "1256",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5565",
+          "word": "societal",
+          "pos": "adj",
+          "meaning": "thuộc xã hội"
+        }
+      ]
+    },
+    {
+      "head": "special",
+      "headId": "1262",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5380",
+          "word": "specialize",
+          "pos": "v",
+          "meaning": "chuyên môn hoá"
+        }
+      ]
+    },
+    {
+      "head": "spice",
+      "headId": "2324",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5849",
+          "word": "spicy",
+          "pos": "adj",
+          "meaning": "cay"
+        }
+      ]
+    },
+    {
+      "head": "strict",
+      "headId": "4749",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "4926",
+          "word": "strictly",
+          "pos": "adv",
+          "meaning": "nghiêm ngặt"
+        }
+      ]
+    },
+    {
+      "head": "Subtle",
+      "headId": "51",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5633",
+          "word": "subtly",
+          "pos": "adv",
+          "meaning": "một cách tinh tế"
+        }
+      ]
+    },
+    {
+      "head": "sudden",
+      "headId": "4725",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "4678",
+          "word": "suddenly",
+          "pos": "adv",
+          "meaning": "đột nhiên"
+        }
+      ]
+    },
+    {
+      "head": "sugar",
+      "headId": "4382",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5390",
+          "word": "sugary",
+          "pos": "adj",
+          "meaning": "ngọt, nhiều đường"
+        }
+      ]
+    },
+    {
+      "head": "suit",
+      "headId": "4602",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "4627",
+          "word": "suitable",
+          "pos": "adj",
+          "meaning": "phù hợp"
+        }
+      ]
+    },
+    {
+      "head": "symbol",
+      "headId": "4874",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5062",
+          "word": "symbolic",
+          "pos": "adj",
+          "meaning": "mang tính biểu tượng"
+        },
+        {
+          "id": "5661",
+          "word": "symbolize",
+          "pos": "v",
+          "meaning": "tượng trưng cho"
+        }
+      ]
+    },
+    {
+      "head": "taste",
+      "headId": "4718",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5304",
+          "word": "tasty",
+          "pos": "adj",
+          "meaning": "ngon"
+        }
+      ]
+    },
+    {
+      "head": "terrible",
+      "headId": "4708",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5291",
+          "word": "terribly",
+          "pos": "adv",
+          "meaning": "hết sức, tồi tệ"
+        }
+      ]
+    },
+    {
+      "head": "thankful",
+      "headId": "5807",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5850",
+          "word": "thankfully",
+          "pos": "adv",
+          "meaning": "may mắn thay"
+        }
+      ]
+    },
+    {
+      "head": "tight",
+      "headId": "4947",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "3908",
+          "word": "tighten",
+          "pos": "v",
+          "meaning": "siết chặt"
+        },
+        {
+          "id": "5170",
+          "word": "tightly",
+          "pos": "adv",
+          "meaning": "một cách chặt chẽ"
+        }
+      ]
+    },
+    {
+      "head": "transport",
+      "headId": "1306",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "4765",
+          "word": "transportation",
+          "pos": "n",
+          "meaning": "giao thông, vận tải"
+        }
+      ]
+    },
+    {
+      "head": "undeniable",
+      "headId": "5373",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5388",
+          "word": "undeniably",
+          "pos": "adv",
+          "meaning": "không thể phủ nhận"
+        }
+      ]
+    },
+    {
+      "head": "understand",
+      "headId": "1316",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5071",
+          "word": "understandable",
+          "pos": "adj",
+          "meaning": "có thể hiểu được"
+        }
+      ]
+    },
+    {
+      "head": "unusual",
+      "headId": "4646",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "4987",
+          "word": "unusually",
+          "pos": "adv",
+          "meaning": "một cách khác thường"
+        }
+      ]
+    },
+    {
+      "head": "utter",
+      "headId": "5164",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "4887",
+          "word": "utterly",
+          "pos": "adv",
+          "meaning": "hoàn toàn"
+        }
+      ]
+    },
+    {
+      "head": "vegetarian",
+      "headId": "2319",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5692",
+          "word": "vegetarianism",
+          "pos": "n",
+          "meaning": "chủ nghĩa ăn chay"
+        }
+      ]
+    },
+    {
+      "head": "waste",
+      "headId": "1328",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5640",
+          "word": "wasteful",
+          "pos": "adj",
+          "meaning": "lãng phí"
+        }
+      ]
+    },
+    {
+      "head": "weak",
+      "headId": "4730",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "5361",
+          "word": "weaken",
+          "pos": "v",
+          "meaning": "làm yếu đi"
+        }
+      ]
+    },
+    {
+      "head": "wealth",
+      "headId": "2027",
+      "kind": "derived",
+      "members": [
+        {
+          "id": "4922",
+          "word": "wealthy",
+          "pos": "adj",
+          "meaning": "giàu có"
+        }
+      ]
     }
   ],
   "reviewed": {
@@ -5738,7 +7392,17 @@
       "define/definitely": "definitely belongs to definite, not define",
       "technology/technically": "technically belongs to technical, not technology",
       "organise/organic": "organic belongs to organ, not organise",
-      "other separate entries": "prior, regular, Competent, population, Variation, literal/literary/literature, conceive, Distinguish, expedition, attendance/attendant, integrity"
+      "other separate entries": "prior, regular, Competent, population, Variation, literal/literary/literature, conceive, Distinguish, expedition, attendance/attendant, integrity",
+      "bare/barely": "barely is a lexicalised adverb (hardly), not a form of bare",
+      "real/realize": "realize is a verb of its own; only its own derivation realization is merged",
+      "verb/verbal": "verbal is a separate adjective of Latin origin, not a form of verb",
+      "rot/rotation": "rotation belongs to rotate, not rot",
+      "success/successive": "successive belongs to succeed; success is a separate noun",
+      "complex/complicate": "complicate is a separate verb; the shared Latin root is not a derivation",
+      "content/contentious": "contentious is not a form of content",
+      "infer/inferior": "inferior is not a form of infer",
+      "form/formal": "formal is a separate adjective; only formation is merged into form",
+      "other look-alikes": "badger/badge, baker/bake, chicken/chick, pollen/poll, levity/levy, cursor/cursory, equator/equate, escalator/escalate, tunic/tune, whisky/whisk, warranty/warrant, protractor/protract, saucer/sauce, loafer/loaf, liner/line"
     }
   }
 }
