@@ -1,0 +1,124 @@
+# Linking words, discourse markers and stance adverbs used to organise an argument.
+# word<TAB>pos<TAB>meaning<TAB>level<TAB>topic<TAB>type<TAB>skills
+therefore	adv	do đó, vì thế	B2	academic	linker	writing
+thus	adv	do vậy, theo cách đó	C1	academic	linker	writing
+hence	adv	vì thế, kể từ đây	C1	academic	linker	writing
+consequently	adv	hậu quả là, do đó	C1	academic	linker	writing
+accordingly	adv	tương ứng với điều đó	C1	academic	linker	writing
+nonetheless	adv	tuy vậy	C1	academic	linker	writing
+notwithstanding	prep	mặc dù, bất chấp	C2	academic	linker	writing
+albeit	conj	mặc dù	C2	academic	linker	writing
+whilst	conj	trong khi	C1	academic	linker	writing
+since	conj	bởi vì, kể từ khi	B1	academic	linker	writing
+although	conj	mặc dù	B1	academic	linker	writing
+though	conj	dù rằng	B2	academic	linker	writing
+regardless	adv	bất kể	B2	academic	linker	writing
+besides	adv	ngoài ra	C1	academic	linker	writing
+likewise	adv	tương tự như vậy	C1	academic	linker	writing
+similarly	adv	tương tự	C1	academic	linker	writing
+equally	adv	ngang bằng, không kém	C1	academic	linker	writing
+conversely	adv	ngược lại	C1	academic	linker	writing
+alternatively	adv	một cách khác, hoặc là	C1	academic	linker	writing
+instead	adv	thay vào đó	B2	academic	linker	writing
+otherwise	adv	nếu không thì	C1	academic	linker	writing
+meanwhile	adv	trong lúc đó	B2	academic	linker	writing
+subsequently	adv	sau đó	C1	academic	linker	writing
+eventually	adv	cuối cùng thì	B2	academic	linker	writing
+ultimately	adv	xét cho cùng	C1	academic	linker	writing
+firstly	adv	thứ nhất	B2	academic	linker	writing
+secondly	adv	thứ hai	B2	academic	linker	writing
+thirdly	adv	thứ ba	B2	academic	linker	writing
+lastly	adv	cuối cùng	B2	academic	linker	writing
+notably	adv	đáng chú ý là	C1	academic	linker	writing
+particularly	adv	đặc biệt là	B2	academic	linker	writing
+specifically	adv	cụ thể là	B2	academic	linker	writing
+especially	adv	đặc biệt	B2	academic	linker	writing
+namely	adv	cụ thể là, tức là	C1	academic	linker	writing
+indeed	adv	thật vậy	C1	academic	linker	writing
+apparently	adv	có vẻ như	B2	academic	linker	writing
+evidently	adv	rõ ràng là	C1	academic	linker	writing
+arguably	adv	có thể cho rằng	C2	academic	linker	writing
+presumably	adv	có lẽ, theo suy đoán	C1	academic	linker	writing
+supposedly	adv	tương truyền là	C1	academic	linker	writing
+frankly	adv	thẳng thắn mà nói	C1	academic	linker	writing
+honestly	adv	thành thật mà nói	B2	academic	linker	writing
+basically	adv	về cơ bản	B2	academic	linker	writing
+essentially	adv	về bản chất	C1	academic	linker	writing
+generally	adv	nhìn chung	B2	academic	linker	writing
+broadly	adv	nhìn chung, theo nghĩa rộng	C1	academic	linker	writing
+roughly	adv	chừng, khoảng	C1	academic	linker	writing
+approximately	adv	xấp xỉ	C1	academic	linker	writing
+precisely	adv	chính xác là	C1	academic	linker	writing
+exactly	adv	đúng là	B1	academic	linker	writing
+relatively	adv	tương đối	C1	academic	linker	writing
+comparatively	adv	so sánh ra thì	C1	academic	linker	writing
+considerably	adv	đáng kể	C1	academic	linker	writing
+significantly	adv	một cách đáng kể	C1	academic	linker	writing
+substantially	adv	về cơ bản là, đáng kể	C1	academic	linker	writing
+slightly	adv	hơi, một chút	B2	academic	linker	writing
+marginally	adv	chỉ một chút	C2	academic	linker	writing
+increasingly	adv	ngày càng	B2	academic	linker	writing
+gradually	adv	dần dần	B2	academic	linker	writing
+steadily	adv	đều đặn	C1	academic	linker	writing
+sharply	adv	mạnh, đột ngột	C1	academic	linker	writing
+dramatically	adv	rất mạnh mẽ	C1	academic	linker	writing
+moderately	adv	ở mức vừa phải	C1	academic	linker	writing
+undoubtedly	adv	không còn nghi ngờ gì	C1	academic	linker	writing
+certainly	adv	chắc chắn	B1	academic	linker	writing
+definitely	adv	chắc chắn là	B1	academic	linker	writing
+possibly	adv	có thể	B1	academic	linker	writing
+probably	adv	có lẽ	B1	academic	linker	writing
+perhaps	adv	có lẽ	B1	academic	linker	writing
+obviously	adv	hiển nhiên	B2	academic	linker	writing
+clearly	adv	rõ ràng	B2	academic	linker	writing
+additionally	adv	thêm vào đó	C1	academic	linker	writing
+correspondingly	adv	tương ứng	C2	academic	linker	writing
+actually	adv	thực ra	B1	academic	linker	writing
+anyway	adv	dù sao	B1	academic	linker	writing
+henceforth	adv	từ nay về sau	C2	academic	linker	writing
+thereby	adv	bằng cách đó	C2	academic	linker	writing
+whereby	adv	theo đó	C1	academic	linker	writing
+rarely	adv	hiếm khi	B1	academic	linker	writing
+seldom	adv	ít khi	C1	academic	linker	writing
+occasionally	adv	thỉnh thoảng	B2	academic	linker	writing
+frequently	adv	thường xuyên	C1	academic	linker	writing
+constantly	adv	liên tục	C1	academic	linker	writing
+consistently	adv	một cách nhất quán	C1	academic	linker	writing
+invariably	adv	luôn luôn như vậy	C2	academic	linker	writing
+inevitably	adv	không tránh khỏi	C1	academic	linker	writing
+predictably	adv	như có thể đoán trước	C2	academic	linker	writing
+surprisingly	adv	đáng ngạc nhiên	B2	academic	linker	writing
+fortunately	adv	may thay	B2	academic	linker	writing
+ideally	adv	lý tưởng nhất là	C1	academic	linker	writing
+theoretically	adv	về mặt lý thuyết	C1	academic	linker	writing
+practically	adv	trên thực tế, gần như	C1	academic	linker	writing
+technically	adv	về mặt kỹ thuật	C1	academic	linker	writing
+normally	adv	thông thường	B1	academic	linker	writing
+commonly	adv	phổ biến là	B2	academic	linker	writing
+mainly	adv	chủ yếu	B1	academic	linker	writing
+mostly	adv	phần lớn	B1	academic	linker	writing
+largely	adv	phần lớn là	C1	academic	linker	writing
+partly	adv	một phần	B2	academic	linker	writing
+primarily	adv	trước hết là	C1	academic	linker	writing
+chiefly	adv	chủ yếu là	C2	academic	linker	writing
+thereafter	adv	sau đó	C2	academic	linker	writing
+whereas	conj	trong khi đó	B2	academic	linker	writing
+unlike	prep	không giống	B2	academic	linker	writing
+despite	prep	mặc dù	B2	academic	linker	writing
+regarding	prep	về vấn đề	C1	academic	linker	writing
+concerning	prep	liên quan đến	C1	academic	linker	writing
+considering	prep	xét đến	C1	academic	linker	writing
+throughout	prep	xuyết suốt	B2	academic	linker	writing
+within	prep	trong vòng, bên trong	B2	academic	linker	writing
+beyond	prep	vượt ra ngoài	B2	academic	linker	writing
+upon	prep	trên, ngay sau	C1	academic	linker	writing
+towards	prep	hướng tới	B2	academic	linker	writing
+among	prep	trong số	B2	academic	linker	writing
+across	prep	khắp, xuyên suốt	B1	academic	linker	writing
+apart	adv	tách ra, ngoài ra	B2	academic	linker	writing
+aside	adv	sang một bên	C1	academic	linker	writing
+further	adv	hơn nữa	B2	academic	linker	writing
+furthermore	adv	hơn nữa, thêm vào	C1	academic	linker	writing
+moreover	adv	hơn thế nữa	C1	academic	linker	writing
+nevertheless	adv	tuy nhiên	C1	academic	linker	writing
+however	adv	tuy nhiên	B1	academic	linker	writing

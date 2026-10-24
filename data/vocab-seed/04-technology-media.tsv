@@ -1,0 +1,202 @@
+# Technology and media vocabulary.
+# word<TAB>pos<TAB>meaning<TAB>level<TAB>topic<TAB>type<TAB>skills
+algorithm	n	thuật toán	C1	technology	topic	reading
+algorithmic	adj	thuộc thuật toán	C1	technology	topic	reading
+automate	v	tự động hóa	C1	technology	academic	reading
+automation	n	sự tự động hóa	C1	technology	topic	reading
+autonomous	adj	tự hành, tự chủ	C1	technology	topic	reading
+device	n	thiết bị	B1	technology	topic	reading
+gadget	n	thiết bị nhỏ tiện dụng	B2	technology	topic	reading
+hardware	n	phần cứng	C1	technology	topic	reading
+software	n	phần mềm	B2	technology	topic	reading
+network	n	mạng lưới, mạng máy tính	B2	technology	topic	reading
+database	n	cơ sở dữ liệu	C1	technology	topic	reading
+cybersecurity	n	an ninh mạng	C1	technology	topic	reading
+surveillance	n	sự giám sát	C1	society	topic	reading
+encryption	n	sự mã hóa	C1	technology	topic	reading
+malware	n	phần mềm độc hại	C1	technology	topic	reading
+phishing	n	việc lừa đảo trực tuyến	C2	technology	topic	reading
+firewall	n	tường lửa	C1	technology	topic	reading
+hacker	n	tin tặc	C1	technology	topic	reading
+hacking	n	việc xâm nhập máy tính	C1	technology	topic	reading
+platform	n	nền tảng	C1	technology	topic	reading
+startup	n	công ty khởi nghiệp	C1	economics	topic	reading
+virtual	adj	ảo, mô phỏng	B2	technology	topic	reading
+robot	n	rô-bốt	B1	technology	topic	reading
+robotics	n	ngành rô-bốt học	C2	technology	topic	reading
+sensor	n	cảm biến	C1	technology	topic	reading
+drone	n	máy bay không người lái	C1	technology	topic	reading
+satellite	n	vệ tinh	B2	technology	topic	reading
+wireless	adj	không dây	B2	technology	topic	reading
+broadband	n	băng thông rộng	C1	technology	topic	reading
+bandwidth	n	băng thông	C2	technology	topic	reading
+browser	n	trình duyệt	C1	technology	topic	reading
+server	n	máy chủ	C1	technology	topic	reading
+install	v	cài đặt	B1	technology	topic	reading
+installation	n	việc cài đặt, sự lắp đặt	B2	technology	topic	reading
+upgrade	v	nâng cấp	B2	technology	topic	reading
+update	v	cập nhật	B1	technology	core	reading
+download	v	tải xuống	B1	technology	core	reading
+upload	v	tải lên	B1	technology	core	reading
+streaming	n	việc phát trực tuyến	B2	media	topic	reading
+stream	v	phát trực tuyến	B2	media	topic	reading
+subscription	n	đăng ký trả phí	C1	media	topic	reading
+subscriber	n	người đăng ký	C1	media	topic	reading
+connectivity	n	khả năng kết nối	C1	technology	topic	reading
+digital	adj	kỹ thuật số	B1	technology	core	reading
+offline	adj	ngoại tuyến	B2	technology	topic	reading
+interface	n	giao diện	C1	technology	topic	reading
+keyboard	n	bàn phím	B1	technology	core	reading
+screen	n	màn hình	B1	technology	core	reading
+smartphone	n	điện thoại thông minh	B1	technology	core	reading
+tablet	n	máy tính bảng	B1	technology	core	reading
+laptop	n	máy tính xách tay	B1	technology	core	reading
+desktop	n	máy tính để bàn	C1	technology	topic	reading
+charger	n	bộ sạc	B2	technology	topic	reading
+processor	n	bộ xử lý	C1	technology	topic	reading
+storage	n	dung lượng lưu trữ	C1	technology	topic	reading
+backup	n	bản sao lưu	B2	technology	topic	reading
+synchronise	v	đồng bộ hóa	C1	technology	topic	reading
+glitch	n	lỗi nhỏ, trục trặc	C1	technology	topic	reading
+bug	n	lỗi phần mềm	C1	technology	topic	reading
+crash	v	bị treo, sụp đổ	C1	technology	topic	reading
+reboot	v	khởi động lại	C1	technology	topic	reading
+login	n	việc đăng nhập	C1	technology	topic	reading
+password	n	mật khẩu	B1	technology	core	reading
+username	n	tên đăng nhập	B2	technology	topic	reading
+profile	n	hồ sơ cá nhân	B2	media	topic	reading
+notification	n	thông báo	C1	technology	topic	reading
+spam	n	thư rác	C1	media	topic	reading
+tracker	n	công cụ theo dõi	C2	technology	topic	reading
+anonymity	n	sự ẩn danh	C1	technology	topic	reading
+anonymous	adj	ẩn danh	B2	technology	academic	reading
+biometric	adj	sinh trắc học	C2	technology	topic	reading
+facial	adj	thuộc khuôn mặt	C1	technology	topic	reading
+recognition	n	sự nhận diện	C1	technology	topic	reading
+immersive	adj	mang tính đắm chìm	C2	technology	topic	reading
+simulation	n	sự mô phỏng	C1	technology	topic	reading
+gamification	n	việc trò chơi hóa	C2	technology	topic	reading
+chatbot	n	trợ lý ảo trò chuyện	C1	technology	topic	reading
+prototype	n	nguyên mẫu	C1	technology	topic	reading
+innovate	v	đổi mới, sáng tạo	C1	technology	academic	writing
+disruptive	adj	mang tính đột phá	C2	technology	academic	reading
+outdated	adj	lỗi thời	B2	technology	topic	reading
+telecommute	v	làm việc từ xa	C2	work	topic	reading
+teleconference	n	hội nghị từ xa	C2	work	topic	reading
+journalism	n	nghề báo, báo chí	C1	media	topic	reading
+journalist	n	nhà báo	B2	media	topic	reading
+broadcast	v	phát sóng	B2	media	topic	reading
+headline	n	tiêu đề bài báo	B2	media	topic	reading
+editorial	n	bài xã luận	C1	media	topic	reading
+column	n	chuyên mục, cột	C1	media	topic	reading
+columnist	n	cây bút chuyên mục	C2	media	topic	reading
+advertisement	n	mẩu quảng cáo	B2	media	topic	reading
+advertise	v	quảng cáo	B2	media	academic	writing
+advertising	n	ngành quảng cáo	C1	media	topic	reading
+campaign	n	chiến dịch	C1	media	topic	reading
+propaganda	n	tuyên truyền	C1	media	topic	reading
+rumour	n	tin đồn	C1	media	topic	reading
+scandal	n	vụ bê bối	C1	media	topic	reading
+coverage	n	việc đưa tin, phạm vi bao phủ	C1	media	topic	reading
+viewer	n	khán giả truyền hình	C1	media	topic	reading
+listener	n	người nghe	C1	media	topic	reading
+podcast	n	pốt-cát	C1	media	topic	reading
+influencer	n	người có ảnh hưởng trên mạng	C1	media	topic	reading
+viral	adj	lan truyền nhanh	C1	media	topic	reading
+clickbait	n	tiêu đề giật gân	C2	media	topic	reading
+misinformation	n	thông tin sai lệch	C1	media	topic	reading
+disinformation	n	thông tin sai lệch cố ý	C2	media	topic	reading
+credibility	n	độ tin cậy	C2	media	academic	writing
+impartial	adj	khách quan, không thiên vị	C1	media	academic	writing
+objectivity	n	tính khách quan	C2	media	academic	writing
+tabloid	n	báo lá cải	C1	media	topic	reading
+magazine	n	tạp chí	B1	media	core	reading
+newspaper	n	báo giấy	B1	media	core	reading
+reporter	n	phóng viên	B2	media	topic	reading
+correspondent	n	thông tín viên	C1	media	topic	reading
+press	n	báo chí	C1	media	topic	reading
+leak	n	sự rò rỉ thông tin	C1	media	topic	reading
+whistleblower	n	người tố giác	C2	media	topic	reading
+exclusive	n	tin độc quyền	C1	media	topic	reading
+documentary	n	phim tài liệu	B2	media	topic	reading
+sitcom	n	phim hài tình huống	C1	media	topic	reading
+episode	n	tập phim	C1	media	topic	reading
+plot	n	cốt truyện	C1	culture	topic	reading
+character	n	nhân vật	C1	culture	topic	reading
+screenplay	n	kịch bản phim	C2	culture	topic	reading
+subtitle	n	phụ đề	C1	media	topic	reading
+caption	n	chú thích ảnh	C1	media	topic	reading
+footage	n	đoạn phim ghi lại	C2	media	topic	reading
+livestream	n	buổi phát trực tiếp	C1	media	topic	reading
+hashtag	n	thẻ bắt đầu bằng dấu thăng	C1	media	topic	reading
+meme	n	mẩu nội dung lan truyền	C2	media	topic	reading
+engagement	n	mức tương tác	C1	media	academic	reading
+monetise	v	kiếm tiền từ	C2	economics	topic	reading
+feed	n	bảng tin, nguồn cấp	C1	media	topic	reading
+tailor	v	điều chỉnh cho phù hợp	C1	media	academic	reading
+promote	v	quảng bá, thúc đẩy	B2	media	academic	writing
+sponsor	v	tài trợ, bảo trợ	B2	media	topic	reading
+brand	n	thương hiệu	B2	economics	topic	reading
+logo	n	biểu trưng	C1	economics	topic	reading
+slogan	n	khẩu hiệu	B2	media	topic	reading
+commercial	n	đoạn quảng cáo truyền hình	B2	media	topic	reading
+rating	n	xếp hạng, tỷ suất	C1	media	topic	reading
+audience	n	nhóm công chúng	C1	media	topic	reading
+censorship	n	kiểm duyệt	C1	media	topic	reading
+censor	v	kiểm duyệt	C2	media	topic	reading
+freedom	n	sự tự do	B1	society	core	reading
+anonymise	v	ẩn danh hóa	C2	technology	topic	reading
+empower	v	trao quyền, tạo năng lực	C1	society	academic	writing
+enable	v	kích hoạt, cho phép	B2	technology	academic	reading
+simplify	v	đơn giản hóa	B2	technology	academic	writing
+optimise	v	tối ưu hóa	C1	technology	academic	reading
+accelerate	v	tăng tốc	C1	technology	academic	writing
+transform	v	biến đổi	B2	society	academic	writing
+integrate	v	tích hợp	B2	technology	academic	writing
+interactive	adj	tương tác	B2	technology	academic	reading
+portable	adj	xách tay, di động	B2	technology	topic	reading
+responsive	adj	phản hồi nhanh	B2	technology	academic	reading
+compatible	adj	tương thích	C1	technology	academic	reading
+cumbersome	adj	cồng kềnh, rườm rà	C1	technology	academic	reading
+intuitive	adj	trực quan, dễ dùng	C1	technology	academic	reading
+seamless	adj	liền mạch	C2	technology	academic	reading
+cutting-edge	adj	tiên tiến nhất	C1	technology	academic	reading
+breakthrough	n	bước đột phá	B2	science	topic	writing
+milestone	n	cột mốc	C1	society	topic	reading
+revolution	n	cuộc cách mạng	B2	politics	topic	reading
+revolutionise	v	cách mạng hóa	C2	technology	academic	writing
+disrupt	v	làm gián đoạn	C2	technology	academic	reading
+overload	n	sự quá tải	C1	technology	academic	reading
+distraction	n	sự xao nhãng	C1	psychology	topic	reading
+multitask	v	làm nhiều việc cùng lúc	C1	psychology	topic	reading
+addictive	adj	gây nghiện	C1	health	topic	reading
+addiction	n	sự nghiện	C1	health	topic	reading
+notify	v	thông báo	C1	technology	topic	reading
+scan	v	quét	C1	technology	topic	reading
+barcode	n	mã vạch	C1	economics	topic	reading
+transaction	n	giao dịch	C1	economics	academic	reading
+e-commerce	n	thương mại điện tử	C1	economics	topic	reading
+delivery	n	việc giao hàng	C1	economics	topic	reading
+courier	n	người chuyển phát	C1	economics	topic	reading
+warehouse	n	kho hàng	C1	economics	topic	reading
+inventory	n	hàng tồn kho	C2	economics	topic	reading
+logistics	n	hậu cần, vận tải	C2	economics	topic	reading
+distribute	v	phân phát	B2	economics	academic	reading
+retail	n	bán lẻ	C1	economics	topic	reading
+wholesale	n	bán buôn	C2	economics	topic	reading
+franchise	n	nhượng quyền thương mại	C2	economics	topic	reading
+outsource	v	thuê ngoài	C2	economics	topic	reading
+crowdfunding	n	gọi vốn cộng đồng	C2	economics	topic	reading
+cryptocurrency	n	tiền mã hóa	C2	economics	topic	reading
+blockchain	n	chuỗi khối	C2	technology	topic	reading
+open-source	adj	mã nguồn mở	C2	technology	topic	reading
+template	n	mẫu sẵn	C1	technology	topic	reading
+automated	adj	được tự động hóa	C1	technology	academic	reading
+chat	n	cuộc trò chuyện trực tuyến	B1	technology	core	reading
+browse	v	duyệt, lướt	C1	technology	topic	reading
+bookmark	n	dấu trang	C1	technology	topic	reading
+hyperlink	n	siêu liên kết	C2	technology	topic	reading
+cursor	n	con trỏ	C2	technology	topic	reading
+font	n	phông chữ	C1	technology	topic	reading
+pixel	n	điểm ảnh	C2	technology	topic	reading
+resolution	n	độ phân giải	C2	technology	topic	reading

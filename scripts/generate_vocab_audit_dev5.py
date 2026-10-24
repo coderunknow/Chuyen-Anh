@@ -351,9 +351,27 @@ def evidence_record(entry_id: str, old: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+LEGACY_ROWS = 913
+
+
+def legacy_slice(records: list[dict[str, Any]], label: str) -> list[dict[str, Any]]:
+    """Keep the audited legacy block and prove the appended rows never intrude.
+
+    beta7 appends new headwords after ID 913. This audit is a historical record of
+    the 913 rows reviewed for dev5, so it audits that prefix and rejects a table
+    where a later row claims a legacy ID.
+    """
+    if len(records) < LEGACY_ROWS:
+        raise ValueError(f"{label} has {len(records)} rows, fewer than the {LEGACY_ROWS} legacy rows")
+    for record in records[LEGACY_ROWS:]:
+        if int(record["id"]) <= LEGACY_ROWS:
+            raise ValueError(f"{label} has a row with legacy ID {record['id']} after index {LEGACY_ROWS}")
+    return records[:LEGACY_ROWS]
+
+
 def build_document() -> dict[str, Any]:
-    source_records = parse_table(SOURCE_PATH)
-    app_data = load_json(DATA_PATH)
+    source_records = legacy_slice(parse_table(SOURCE_PATH), "source")
+    app_data = legacy_slice(load_json(DATA_PATH), "app JSON")
     dev4 = load_json(DEV4_PATH)
     source_by_id = {record["id"]: record for record in source_records}
     app_by_id = {record["id"]: record for record in app_data}

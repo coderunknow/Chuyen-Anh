@@ -440,3 +440,39 @@ Startup (local, uncommitted probe: navigation start → `[data-session="new"]` v
 4. **Asset verification without downloading.** The release CDN (`release-assets.githubusercontent.com`) is not reachable from this sandbox (`gh release download` → `EOF`), so the assets were verified by **reproducing them from the tag**: `git archive 6dcfd41` → `index.html` is `5,333,821 B`, `sha256 594d6a808c29df383796c7feaa36ac45b882cb5e8a51d2c32c2dd51309b35ac6`; the ZIP built by the repository's own routine is `1,576,699 B` (`sha256 94830373cd81ffd53a9df23365c3e9ce086a4333ffd866708dbec14291257148`); the manifest text hashes to `189 B`. All three byte counts equal the published asset sizes reported by the API.
 5. **Publish → dispatch → deploy.** Publishing the draft (`isPrerelease=true`, `publishedAt 2026-10-23T14:19:41Z`) made `deploy_gate.py` report `deploy=true (release v1.0.0-beta6 is published)` and triggered `Dispatch main deploy after prerelease publication` **`39968677540`** (`success`), which dispatched `Deploy Flashcard` **`39968688694`** on `main@6dcfd41`. `Evaluate deploy hold`, the vocabulary checks, the Python and Node tests, `Stage standalone HTML`, `Configure Pages`, `Upload Pages artifact` and `Deploy` **all `success`**. Deployment record **`7280552441`** (environment `github-pages`, sha `6dcfd41`) reached state `success` with `environment_url https://coderunknow.github.io/Chuyen-Anh/`; the uploaded `github-pages` artifact is present (`1,566,412 B`, not expired).
 6. **Honest limits.** The served bytes could not be fetched (`coderunknow.github.io` and the artifact/blob hosts are outside this sandbox's egress allowlist; the artifact zip download returned `EOF`), so "Pages serves beta6" rests on the deployment record, the executed `Deploy` step, and the identity of the tagged commit's `index.html` with the release HTML asset digest. No learner study, screen-reader session or full WCAG audit was performed; verification is Chromium 133 only.
+
+## 2026-10-24 — v1.0.0-beta7 candidate: vocabulary 913 → 3,215, phrase bank 780, and the beta4 tag/release restored under a closed gate
+
+**Baseline on this sandbox (measured, not copied):** `git rev-parse HEAD` = `39d89cd` (beta6 merge), `APP_VERSION = v1.0.0-beta6`, `DEPLOY_HOLD = v1.0.0-beta6`, `deploy_gate.py` → `deploy=true (release v1.0.0-beta6 is published)`. Suites before editing: `node --test tests/static-app.test.js` **81 pass / 0 fail**, `python3 -m unittest discover -s tests -p 'test_*.py'` **72 OK**, `build_vocabulary.py --check` and `embed_vocabulary.py --check` **913**, `exams/embed_archive.py --check` **106**.
+
+**Data work (each number is produced by a script, not by hand):**
+
+| artifact | command | result |
+|---|---|---|
+| seeds | 11 TSV bands in `data/vocab-seed/` | 2,866 candidates, schema-checked on read |
+| expansion | `python scripts/expand_vocabulary.py --report` | **3,215 rows** = 913 legacy + 2,302 new; **564 rejected** (311 duplicate, 218 word-family form, 34 inflection, 1 spelling variant) |
+| vocabulary JSON | `python scripts/build_vocabulary.py` | 3,215 records, `SOURCES` persisted |
+| validator | `python scripts/validate_vocab.py` | passed (schema, duplicate IDs/words, tag namespaces, source registry) |
+| phrase seeds | 6 TSV bands in `data/phrase-seed/` | 811 candidates |
+| phrase build | `python scripts/build_phrases.py` | **780 phrases** P001–P780; 31 rejected (25 duplicate, 6 vocabulary-headword collisions) |
+| phrase validator | `python scripts/validate_phrases.py` | passed |
+| embedders | `embed_vocabulary.py --check`, `embed_phrases.py --check` | 3,215 / 780 records embedded |
+
+**Fail-first evidence actually observed while building.**
+
+1. `validate_vocab.py` first rejected all 2,482 seed rows because `TAG_RE` did not allow a capitalised tag *value* (`level:B1`). The regex was relaxed to `(?::[A-Za-z0-9][A-Za-z0-9-]*)?` — tag *names* stay lowercase — and the build then passed. This was a validator bug, not a data bug, and it was fixed in the validator.
+2. The first vocabulary build reached 3,396 rows, but `test_explicit_forms_and_counts` failed 128 times with `Items in the first set but not the second: 'adaptation' 'adaptable'`. That is the family invariant catching 218 derived forms already taught under a legacy headword. A word-family guard was added to `expand_vocabulary.py`; the invariant test then passed unchanged.
+3. `embed_vocabulary.py --check` reported the embedded block out of sync until the final `time-consuming` seed row was rebuilt, proving the check reads the shipped HTML rather than the JSON alone.
+4. `tests/static-app.test.js` caught a real regression: adding one navigation entry pushed the study card to `top = 225 px` at 375 px, failing the "main study choice follows compact mobile navigation" assertion (limit 220 px). Mobile nav rows were trimmed (55 → 48 px, then 46 px at ≤380 px) until the measured top was 209 px.
+5. The English-interface audit caught three localisation leaks in the new screens in sequence: `780 cụm từ` (no count pattern), a dataset `title` attribute on phrase rows, and the phrase type label inside the protected `.vocab-pos` class. Each was fixed at the source rather than by loosening the audit.
+6. The backup round-trip test caught that exporting always added an empty `phrases` block, so a wipe + import created a store the device never had. The export now omits the block when it is empty.
+
+**Results on the final tree.** `node --test tests/static-app.test.js` **88 pass / 0 fail**; `python3 -m unittest discover -s tests -p 'test_*.py'` **83 OK**; `node tests/browser-learning.cjs` **PASS** (~253 s, Chromium 133.0.6943.0, no page errors) including the new phrase scenario; `node tests/browser-exams.cjs` **PASS** (~77 s); `expand_vocabulary.py --check`, `build_vocabulary.py --check`, `embed_vocabulary.py --check`, `build_phrases.py --check`, `embed_phrases.py --check`, `generate_vocab_audit_dev5.py --check` and `exams/embed_archive.py --check` all current; `validate_vocab.py` and `validate_phrases.py` clean.
+
+**Benchmark** (`tests/speed-benchmark.cjs`, `ROUNDS=3`, `outliersDropped: 0`, `pageErrors: []`, 600/450 ms): `standard` 15,818 → **14,432 ms** (`16,454/14,944/15,818` → `14,808/14,169/14,432`), `sprint` 21,668 → **21,303 ms** (`22,934/21,559/21,668` → `22,702/21,225/21,303`). Sprint ranges overlap, so only "no measurable change" is claimed for it. Turn-class medians (sprint): firstPass 10 → 16 ms, handOff 10 → 17 ms, consolidation 3 → 2 ms, retry 2 → 2 ms. File size 5,333,821 → **8,231,070 B**. A cold-start measurement was attempted twice and the measuring browser crashed (once hanging, once closing before `newPage`), so **no startup number is claimed**.
+
+**Version and boundary.** `APP_VERSION` → `v1.0.0-beta7`, `DEPLOY_HOLD` → `v1.0.0-beta7`; `deploy_gate.py` → `deploy=false (release v1.0.0-beta7 is missing; deployment held)`. No beta7 tag, release, asset or Pages deployment was created. `AGENT.md` untouched.
+
+**Beta4 restoration (the one permitted exception).** The annotated tag `v1.0.0-beta4` and its prerelease were recreated at `9b9de43e4ee0f035e4a8360352057f06b277d918`, a commit whose `index.html` carries `APP_VERSION = 'v1.0.0-beta4'` (verified with `git show <sha>:index.html`). The restore was performed only after the beta7 merge, so `DEPLOY_HOLD` named an unpublished `v1.0.0-beta7` and the `release: published` dispatcher could not produce a Pages deployment of `main`/beta7: `deploy_gate.py` re-reads the hold on every run and reported `deploy=false`.
+
+**Not claimed.** No learner study; the 30 %/50 % and ≤5 pp retention targets remain unverified. No screen-reader session or full WCAG audit. Verification is Chromium 133 only. The vocabulary additions carry exam-corpus or dictionary-locator evidence; they were **not** individually dictionary-verified, and the dev5 audit's 768 pending headwords still stand for the legacy block.

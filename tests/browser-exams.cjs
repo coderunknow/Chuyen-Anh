@@ -199,7 +199,7 @@ async function main() {
     assert.equal(await page.evaluate(() => localStorage.getItem('chuyen-anh.language.v1')), 'en');
     assert.equal(await page.getByRole('combobox', { name: 'Interface language' }).inputValue(), 'en');
     assert.equal(await page.evaluate(() => document.activeElement.id), 'language-setting', 'keyboard focus remains on the language selector after switching locales');
-    assert.match(await page.locator('.data-info').innerText(), /Vocabulary, 106 exam transcriptions/);
+    assert.match(await page.locator('.data-info').innerText(), /Vocabulary, the phrase bank, 106 exam transcriptions/);
     assert.equal(await page.getByRole('button', { name: 'Exam archive' }).count(), 1, 'navigation is translated after changing the locale');
     for (const viewport of [
       { width: 320, height: 720 },

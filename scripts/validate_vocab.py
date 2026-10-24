@@ -15,9 +15,14 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
-DEFAULT_PATH = Path(__file__).resolve().parents[1] / "data" / "vocabulary.json"
+ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_PATH = ROOT / "data" / "vocabulary.json"
+REGISTRY_PATH = ROOT / "docs" / "vocabulary-sources.json"
 ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*$")
 COMBINING_MARKS_RE = re.compile(r"[\u0300-\u036f]")
+TAG_NAMESPACES = {"level", "level-source", "topic", "type", "skill", "source"}
+TAG_RE = re.compile(r"^[a-z][a-z-]*(?::[A-Za-z0-9][A-Za-z0-9-]*)?$")
+SOURCE_KEYS = {"ref", "supports", "locator", "url"}
 
 
 def normalize_word(value: str) -> str:
@@ -29,6 +34,30 @@ def normalize_word(value: str) -> str:
     decomposed = unicodedata.normalize("NFD", value)
     decomposed = COMBINING_MARKS_RE.sub("", decomposed).replace("đ", "d").replace("Đ", "d")
     return " ".join(decomposed.lower().split())
+
+
+def load_source_registry(path: Path = REGISTRY_PATH) -> set[str]:
+    """Return the set of known provenance source ids (empty when unreadable)."""
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+        sources = data["sources"] if isinstance(data, dict) else data
+        return {item["id"] for item in sources if isinstance(item, dict) and isinstance(item.get("id"), str)}
+    except (OSError, json.JSONDecodeError, KeyError, TypeError):
+        return set()
+
+
+def lexical_key(value: str) -> str:
+    """Collision key that also folds hyphens and edge punctuation.
+
+    `well-being` and `wellbeing`, or `co-operate` and `cooperate`, are one
+    vocabulary unit; the runtime key alone (word boundaries) would keep both.
+    The fold stops at hyphens and punctuation: nothing else is rewritten, so
+    unrelated words never collapse into each other.
+    """
+    text = normalize_word(value)
+    text = re.sub(r"[\u2010-\u2015-]", " ", text)
+    text = re.sub(r"[^a-z0-9 ]+", "", text)
+    return " ".join(text.split())
 
 
 def problem(errors: list[str], index: int, entry: Any, message: str) -> None:
@@ -49,8 +78,10 @@ def validate(data: Any) -> list[str]:
     if not data:
         return ["Document\nWord: (none)\nProblem: vocabulary must not be empty"]
 
+    registry = load_source_registry()
     ids: dict[str, list[int]] = defaultdict(list)
     words: dict[str, list[int]] = defaultdict(list)
+    lexical: dict[str, list[int]] = defaultdict(list)
     for index, entry in enumerate(data, start=1):
         if not isinstance(entry, dict):
             problem(errors, index, entry, "entry must be an object")
@@ -73,6 +104,7 @@ def validate(data: Any) -> list[str]:
             problem(errors, index, entry, f"word is too long ({len(word.strip())} characters)")
         else:
             words[normalize_word(word.strip())].append(index)
+            lexical[lexical_key(word.strip())].append(index)
 
         if not isinstance(pos, str) or not pos.strip():
             problem(errors, index, entry, "missing or empty pos")
@@ -105,6 +137,33 @@ def validate(data: Any) -> list[str]:
         tags = entry.get("tags")
         if not isinstance(tags, list) or any(not isinstance(tag, str) or not tag.strip() for tag in tags):
             problem(errors, index, entry, "tags must be an array of non-empty strings")
+        else:
+            for tag in tags:
+                if not TAG_RE.fullmatch(tag):
+                    problem(errors, index, entry, f"tag {tag!r} must be a lowercase slug, optionally namespaced (e.g. topic:environment, level:B2)")
+                elif ":" in tag and tag.split(":", 1)[0] not in TAG_NAMESPACES:
+                    problem(errors, index, entry, f"tag {tag!r} uses an unknown namespace; expected one of {sorted(TAG_NAMESPACES)}")
+
+        sources = entry.get("sources")
+        if not isinstance(sources, list) or not sources:
+            problem(errors, index, entry, "sources must be a non-empty array of source objects")
+        else:
+            for source_index, source in enumerate(sources, start=1):
+                if not isinstance(source, dict):
+                    problem(errors, index, entry, f"sources[{source_index}] must be an object")
+                    continue
+                unknown = set(source) - SOURCE_KEYS
+                if unknown:
+                    problem(errors, index, entry, f"sources[{source_index}] has unknown keys {sorted(unknown)}")
+                ref = source.get("ref")
+                if not isinstance(ref, str) or not ref.strip():
+                    problem(errors, index, entry, f"sources[{source_index}] has no ref")
+                elif registry and ref not in registry:
+                    problem(errors, index, entry, f"sources[{source_index}] ref {ref!r} is not in docs/vocabulary-sources.json")
+                if not isinstance(source.get("supports"), str) or not source["supports"].strip():
+                    problem(errors, index, entry, f"sources[{source_index}] has no supports statement")
+                if "url" in source and not str(source["url"]).startswith("https://"):
+                    problem(errors, index, entry, f"sources[{source_index}].url must be an https URL")
         difficulty = entry.get("difficulty")
         if "difficulty" in entry and (isinstance(difficulty, bool) or not isinstance(difficulty, (int, float)) or not 0 <= difficulty <= 5):
             problem(errors, index, entry, "difficulty, when provided, must be a number from 0 to 5")
@@ -118,6 +177,13 @@ def validate(data: Any) -> list[str]:
                 f"Entry: {', '.join(map(str, indexes))}\n"
                 f"Word: {word}\n"
                 f"Problem: duplicate word (same after the app's case, accent and whitespace normalization)"
+            )
+    for word, indexes in lexical.items():
+        if len(indexes) > 1 and words.get(word, []) != indexes:
+            errors.append(
+                f"Entry: {', '.join(map(str, indexes))}\n"
+                f"Word: {word}\n"
+                f"Problem: duplicate headword once hyphens, edge punctuation and spacing are folded"
             )
     return errors
 

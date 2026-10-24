@@ -29,8 +29,9 @@ class LearnedVocabularyTests(unittest.TestCase):
         cls.app_by_id = {entry["id"]: entry for entry in cls.app_data}
 
     def test_table_is_sequential_complete_and_machine_readable(self):
-        self.assertEqual(len(self.records), 913)
-        self.assertEqual([record["id"] for record in self.records], [str(i) for i in range(1, 914)])
+        self.assertEqual(len(self.records), 3215)
+        self.assertGreaterEqual(len(self.records), 3000)
+        self.assertEqual([record["id"] for record in self.records], [str(i) for i in range(1, 3216)])
         words = [normalized(record["word"]) for record in self.records]
         self.assertEqual(len(words), len(set(words)), "Duplicate headwords")
         for record in self.records:
@@ -42,7 +43,7 @@ class LearnedVocabularyTests(unittest.TestCase):
                     self.assertTrue(all(isinstance(value, str) and value.strip() for value in record[field]))
 
     def test_source_and_app_vocabulary_match_and_legacy_fields_exist(self):
-        self.assertEqual(len(self.app_data), 913)
+        self.assertEqual(len(self.app_data), 3215)
         for record, entry in zip(self.records, self.app_data):
             with self.subTest(word=record["word"]):
                 self.assertEqual(record["id"], entry["id"])
@@ -59,6 +60,11 @@ class LearnedVocabularyTests(unittest.TestCase):
                     self.assertEqual(entry["examples"], [])
                     self.assertNotIn("difficulty", entry)
                     self.assertNotIn("createdAt", entry)
+                # Structured provenance is mandatory for every row, legacy or new.
+                self.assertTrue(record["sources"], f'{record["id"]} has no sources')
+                for source in json.loads(record["sources"]) if isinstance(record["sources"], str) else record["sources"]:
+                    self.assertTrue(source["ref"].strip())
+                    self.assertTrue(source["supports"].strip())
 
         menial = self.app_by_id["448"]
         self.assertEqual(menial["meaning"], "công việc tay chân tầm thường, ít được coi trọng")

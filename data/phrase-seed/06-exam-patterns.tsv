@@ -1,0 +1,85 @@
+# Structures repeatedly tested in word formation, sentence transformation and error identification.
+# phrase<TAB>type<TAB>meaning<TAB>usage<TAB>pattern<TAB>level<TAB>topic<TAB>skills
+be used to	pattern	đã quen với	Diễn tả thói quen đã hình thành.	be used to + N/V-ing	B2	academic	sentence-transformation,grammar
+get used to	pattern	dần quen với	Quá trình trở nên quen.	get used to + N/V-ing	B2	academic	sentence-transformation,grammar
+used to	pattern	từng (làm gì trong quá khứ)	Thói quen không còn ở hiện tại.	used to + V	B1	academic	sentence-transformation,grammar
+had better	pattern	nên (khuyên mạnh)	Khuyên ai nên làm gì.	had better + V	B2	academic	grammar
+would rather	pattern	thà rằng	Diễn tả mong muốn ưu tiên.	would rather + V (than + V)	B2	academic	sentence-transformation
+would prefer	pattern	thích hơn	Chọn phương án ưa hơn.	would prefer + N/to V	B2	academic	sentence-transformation
+no point in	pattern	chẳng ích gì khi	Việc vô nghĩa để làm.	There is no point in + V-ing	C1	academic	sentence-transformation
+no use	pattern	vô ích khi	Không đem lại kết quả.	It is no use + V-ing	B2	academic	sentence-transformation
+busy doing	pattern	đang bận làm gì	Đang mải làm việc gì.	be busy + V-ing	B1	academic	grammar
+look forward to	pattern	mong chờ	Chờ đợi háo hức.	look forward to + V-ing	B2	academic	sentence-transformation
+object to	pattern	phản đối việc	Không đồng ý làm gì.	object to + V-ing	C1	academic	sentence-transformation
+insist on	pattern	khăng khăng đòi	Đòi bằng được.	insist on + V-ing	C1	academic	sentence-transformation
+suggest doing	pattern	đề nghị làm gì	Nêu ý kiến hành động.	suggest + V-ing	B2	academic	sentence-transformation
+recommend doing	pattern	khuyên nên làm	Đưa lời khuyên hành động.	recommend + V-ing	B2	academic	sentence-transformation
+recommend that	pattern	khuyên rằng	Đưa lời khuyên bằng mệnh đề.	recommend that + S + (should) V	C1	academic	grammar
+it is high time	pattern	đã đến lúc phải	Nhấn mạnh việc cần làm ngay.	It is (high) time + S + V-ed	C1	academic	sentence-transformation,grammar
+it is essential that	pattern	cần thiết rằng	Nhấn mạnh yêu cầu.	It is essential that + S + (should) V	C1	academic	grammar
+supposing that	pattern	giả sử rằng	Nêu giả định.	Supposing (that) + clause	C2	academic	grammar
+on condition that	pattern	với điều kiện là	Điều kiện bắt buộc.	on condition that + clause	C1	academic	sentence-transformation
+in case of	pattern	trong trường hợp (danh từ)	Chuẩn bị cho sự cố.	in case of + N	C1	academic	sentence-transformation
+despite the fact that	pattern	mặc dù thực tế là	Tương phản với mệnh đề.	despite the fact that + clause	C1	academic	sentence-transformation
+because of	pattern	bởi vì (danh từ)	Nêu nguyên nhân bằng cụm danh từ.	because of + N	B1	academic	sentence-transformation
+due to the fact that	pattern	do thực tế là	Nêu nguyên nhân trang trọng.	due to the fact that + clause	C1	academic	sentence-transformation
+so that	pattern	để mà	Nêu mục đích.	so that + S + V	B1	academic	grammar
+in order that	pattern	để mà (trang trọng)	Nêu mục đích.	in order that + S + V	C1	academic	grammar
+such that	pattern	đến mức mà	Diễn tả kết quả.	such + N + that + clause	C2	academic	grammar
+hardly any	pattern	hầu như không có	Rất ít.	hardly any + N	B2	academic	grammar
+little did	pattern	ít ai ngờ	Đảo ngữ nhấn mạnh.	Little did + S + V	C2	academic	sentence-transformation
+never before	pattern	chưa bao giờ trước đó	Đảo ngữ nhấn mạnh.	Never before + aux + S + V	C2	academic	sentence-transformation
+not only	pattern	không những	Đảo ngữ nhấn mạnh.	Not only + aux + S + V	C1	academic	sentence-transformation
+so as not to	pattern	để không	Nêu mục đích phủ định.	so as not to + V	C1	academic	grammar
+in order not to	pattern	để không	Nêu mục đích phủ định.	in order not to + V	B2	academic	grammar
+too much	pattern	quá nhiều	Vượt mức cần.	too much + N	B1	academic	grammar
+too many	pattern	quá nhiều (đếm được)	Vượt số lượng cho phép.	too many + plural N	B1	academic	grammar
+not enough	pattern	không đủ	Thiếu mức cần.	not enough + N	B1	academic	grammar
+a number of	pattern	một số (nhiều)	Đi với danh từ đếm được số nhiều.	a number of + plural N	B2	academic	grammar
+the number of	pattern	số lượng của	Chủ ngữ số ít.	the number of + plural N + V-sg	B2	academic	grammar
+the amount of	pattern	lượng của	Đi với danh từ không đếm được.	the amount of + uncountable N	B2	academic	grammar
+a great deal of	pattern	rất nhiều (không đếm được)	Lượng lớn.	a great deal of + uncountable N	C1	academic	grammar
+a large number of	pattern	số lượng lớn	Đếm được.	a large number of + plural N	B2	academic	grammar
+plenty of	pattern	nhiều, đủ nhiều	Dùng cho cả hai loại danh từ.	plenty of + N	B1	academic	grammar
+hardly ever	pattern	hầu như không bao giờ	Trạng từ tần suất phủ định.	hardly ever + V	B2	academic	grammar
+every now and then	pattern	thỉnh thoảng	Không thường xuyên.	every now and then	B2	academic	grammar
+as soon as	pattern	ngay khi	Hai việc liền nhau.	as soon as + clause	B1	academic	grammar
+by the time	pattern	tính đến lúc	Mốc thời gian so sánh.	By the time + clause, + clause	B2	academic	grammar
+in spite of the fact that	pattern	mặc dù thực tế rằng	Tương phản trang trọng.	in spite of the fact that + clause	C1	academic	sentence-transformation
+regardless of whether	pattern	bất kể là có hay không	Không phụ thuộc điều kiện.	regardless of whether + clause	C2	academic	grammar
+whether or not	pattern	dù có hay không	Hai khả năng đều như nhau.	whether (or not) + clause	B2	academic	grammar
+as if	pattern	như thể là	So sánh giả định.	as if + clause (past subjunctive)	B2	academic	grammar
+as though	pattern	cứ như là	So sánh giả định.	as though + clause	B2	academic	grammar
+the more ... the more	pattern	càng ... càng	Tương quan tăng dần.	The + comparative + S + V, the + comparative + S + V	C1	academic	sentence-transformation,grammar
+no matter how	pattern	dù thế nào đi nữa	Nhượng bộ mạnh.	No matter how + adj + S + V	C1	academic	grammar
+however much	pattern	dù nhiều đến đâu	Nhượng bộ về lượng.	However much + S + V	C1	academic	grammar
+in that	pattern	ở chỗ là	Giải thích nguyên nhân.	clause + in that + clause	C2	academic	grammar
+now that	pattern	giờ đây khi	Vì tình hình đã thay đổi.	now that + clause	B2	academic	grammar
+seeing that	pattern	xét thấy rằng	Vì lý do quan sát được.	seeing that + clause	C1	academic	grammar
+on the point of	pattern	sắp sửa	Rất gần lúc làm gì.	be on the point of + V-ing	C1	academic	sentence-transformation
+about to	pattern	sắp (làm gì)	Hành động chuẩn bị xảy ra.	be about to + V	B2	academic	grammar
+by no means	pattern	không hề	Phủ định mạnh.	by no means + adj	B2	academic	grammar
+far from	pattern	hoàn toàn không	Nói cách phủ định mạnh.	be far from + adj/V-ing	C1	academic	grammar
+anything but	pattern	không hề mà hoàn toàn ngược lại	Nhấn mạnh phủ định.	be anything but + adj	C2	academic	grammar
+nothing but	pattern	chỉ là, không gì khác ngoài	Nhấn mạnh duy nhất.	nothing but + N	C1	academic	grammar
+none other than	pattern	không ai khác ngoài	Nhấn mạnh danh tính.	none other than + N	C2	academic	grammar
+such as to	pattern	đến mức mà	Diễn tả kết quả.	such as to + V	C2	academic	grammar
+be supposed to	pattern	được cho là phải	Kỳ vọng hoặc quy định.	be supposed to + V	B2	academic	grammar
+be bound to	pattern	chắc chắn sẽ	Không tránh khỏi.	be bound to + V	C1	academic	grammar
+be likely to	pattern	có khả năng sẽ	Xác suất cao.	be likely to + V	B2	academic	grammar
+be unlikely to	pattern	khó có khả năng	Xác suất thấp.	be unlikely to + V	B2	academic	grammar
+be able to	pattern	có thể (làm)	Có khả năng thực hiện.	be able to + V	B1	academic	grammar
+be capable of	pattern	có năng lực làm	Có khả năng thực hiện.	be capable of + V-ing	B2	academic	sentence-transformation
+have difficulty	pattern	gặp khó khăn khi	Vất vả làm việc gì.	have difficulty (in) + V-ing	B2	academic	sentence-transformation
+make it possible	pattern	làm cho có thể	Giúp việc gì xảy ra.	make it possible (for + N) + to V	C1	academic	sentence-transformation
+find it difficult	pattern	thấy khó	Đánh giá mức khó.	find it + adj + to V	B2	academic	sentence-transformation
+consider it necessary	pattern	cho là cần thiết	Đánh giá sự cần thiết.	consider it + adj + to V	C1	academic	sentence-transformation
+it is said that	pattern	người ta nói rằng	Nguồn tin không xác định.	It is said that + clause	B2	academic	sentence-transformation
+be believed to	pattern	được cho là	Bị động tường thuật.	be believed to + V	C1	academic	sentence-transformation
+be said to	pattern	được nói là	Bị động tường thuật.	be said to + V	C1	academic	sentence-transformation
+there is no denying	pattern	không thể phủ nhận	Nhấn mạnh thực tế.	There is no denying that + clause	C2	academic	writing
+it is widely acknowledged	pattern	nhiều người thừa nhận	Ý được chấp nhận rộng.	It is widely acknowledged that + clause	C1	academic	writing
+it is worth noting	pattern	đáng lưu ý	Thu hút chú ý tới chi tiết.	It is worth noting that + clause	C1	academic	writing
+a case in point	pattern	một ví dụ điển hình	Ví dụ chứng minh cho ý vừa nêu.	a case in point	B2	academic	writing
+needless to say	pattern	không cần nói cũng rõ	Nhấn mạnh điều hiển nhiên.	needless to say, + clause	C1	academic	writing
+there is no doubt that	pattern	chắc chắn rằng	Khẳng định mạnh.	There is no doubt that + clause	B2	academic	writing

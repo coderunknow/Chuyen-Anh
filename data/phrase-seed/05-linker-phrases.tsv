@@ -1,0 +1,95 @@
+# Discourse markers and sentence-level linkers for writing and sentence transformation.
+# phrase<TAB>type<TAB>meaning<TAB>usage<TAB>pattern<TAB>level<TAB>topic<TAB>skills
+to begin with	linker-phrase	trước hết	Nêu ý đầu tiên trong chuỗi lập luận.	To begin with, + clause	B2	academic	writing
+first of all	linker-phrase	trước tiên	Ý mở đầu danh sách.	First of all, + clause	B1	academic	writing
+in the first place	linker-phrase	ngay từ đầu, vốn dĩ	Nói lý do căn bản hoặc phản bác.	In the first place, + clause	C1	academic	writing
+in addition	linker-phrase	thêm vào đó	Bổ sung ý cùng hướng.	In addition, + clause	B2	academic	writing
+what is more	linker-phrase	hơn nữa	Thêm ý mạnh hơn.	What is more, + clause	C1	academic	writing
+on top of that	linker-phrase	thêm vào đó (thân mật)	Bổ sung ý, thường trong văn nói.	On top of that, + clause	C1	academic	writing
+not only ... but also	linker-phrase	không những ... mà còn	Nhấn mạnh hai ý cùng đúng.	Not only + aux + S + V, but S + also + V	C1	academic	writing,sentence-transformation
+as well as	linker-phrase	cũng như	Thêm một yếu tố ngang hàng.	as well as + N/V-ing	B2	academic	writing
+together with	linker-phrase	cùng với	Kết hợp hai chủ thể.	together with + N	C1	academic	writing
+along with	linker-phrase	cùng với	Đi kèm.	along with + N	B2	academic	writing
+in the same way	linker-phrase	tương tự như vậy	So sánh giống nhau.	In the same way, + clause	B2	academic	writing
+by the same token	linker-phrase	cũng vì lý do đó	Mở rộng lập luận tương tự.	By the same token, + clause	C2	academic	writing
+in contrast	linker-phrase	ngược lại	Chuyển sang ý đối lập.	In contrast, + clause	B2	academic	writing
+on the other hand	linker-phrase	mặt khác	Nêu mặt còn lại của vấn đề.	On the other hand, + clause	B1	academic	writing
+on the one hand	linker-phrase	một mặt	Nêu mặt thứ nhất của vấn đề.	On the one hand, + clause	B2	academic	writing
+even though	linker-phrase	mặc dù (nhấn mạnh)	Nêu sự tương phản mạnh.	even though + clause	B2	academic	writing
+even if	linker-phrase	kể cả nếu	Nêu điều kiện giả định không đổi kết quả.	even if + clause	B2	academic	writing
+provided that	linker-phrase	với điều kiện là	Nêu điều kiện bắt buộc.	provided (that) + clause	C1	academic	writing
+as long as	linker-phrase	miễn là	Điều kiện đủ.	as long as + clause	B2	academic	writing
+in case	linker-phrase	phòng khi	Chuẩn bị cho khả năng.	in case + clause	B2	academic	writing
+as a result	linker-phrase	kết quả là	Nêu hệ quả.	As a result, + clause	B1	academic	writing
+for this reason	linker-phrase	vì lý do này	Nêu nguyên nhân.	For this reason, + clause	B2	academic	writing
+because of this	linker-phrase	vì thế	Chỉ nguyên nhân vừa nêu.	Because of this, + clause	B1	academic	writing
+as a consequence	linker-phrase	hệ quả là	Kết quả kéo theo.	As a consequence, + clause	C1	academic	writing
+in that case	linker-phrase	trong trường hợp đó	Nếu tình huống như vậy.	In that case, + clause	B1	academic	writing
+under these circumstances	linker-phrase	trong hoàn cảnh này	Xét bối cảnh vừa nêu.	Under these circumstances, + clause	C1	academic	writing
+in other words	linker-phrase	nói cách khác	Diễn đạt lại cho rõ.	In other words, + clause	B1	academic	writing
+that is to say	linker-phrase	tức là	Giải thích lại chính xác hơn.	That is to say, + clause	C1	academic	writing
+to put it another way	linker-phrase	nói theo cách khác	Diễn đạt lại ý.	To put it another way, + clause	C1	academic	writing
+for instance	linker-phrase	chẳng hạn	Nêu ví dụ.	For instance, + clause	B1	academic	writing
+for example	linker-phrase	vì dụ	Nêu ví dụ minh họa.	For example, + clause	B1	academic	writing
+such as	linker-phrase	như là	Liệt kê ví dụ trong câu.	such as + N	B1	academic	writing
+in particular	linker-phrase	đặc biệt là	Nhấn mạnh một trường hợp.	In particular, + clause	C1	academic	writing
+in summary	linker-phrase	tóm lại	Kết thúc bằng tóm tắt.	In summary, + clause	B2	academic	writing
+to sum up	linker-phrase	tóm gọn lại	Khép lại lập luận.	To sum up, + clause	C1	academic	writing
+in conclusion	linker-phrase	kết luận lại	Kết thúc bài viết.	In conclusion, + clause	B2	academic	writing
+on balance	linker-phrase	cân nhắc tổng thể	Kết luận sau khi so sánh hai mặt.	On balance, + clause	C1	academic	writing
+all things considered	linker-phrase	xét mọi mặt	Kết luận sau khi cân nhắc.	All things considered, + clause	C1	academic	writing
+in the final analysis	linker-phrase	suy cho cùng	Kết luận cuối cùng.	In the final analysis, + clause	C2	academic	writing
+as far as ... is concerned	linker-phrase	theo như ... thì	Giới hạn phạm vi bàn.	As far as + N + is concerned, + clause	C1	academic	writing
+when it comes to	linker-phrase	khi nói đến	Chuyển chủ đề.	When it comes to + N, + clause	B2	academic	writing
+with reference to	linker-phrase	liên quan tới (trang trọng)	Nhắc tới vấn đề.	With reference to + N, + clause	C2	academic	writing
+as regards	linker-phrase	về phương diện	Liên quan đến.	As regards + N, + clause	C2	academic	writing
+in respect of	linker-phrase	về mặt	Xét trên phương diện.	In respect of + N, + clause	C2	academic	writing
+as opposed to	linker-phrase	trái với	So sánh đối lập.	as opposed to + N	C1	academic	writing
+rather than	linker-phrase	thay vì	Ưu tiên lựa chọn này.	rather than + N/V	B2	academic	writing
+if anything	linker-phrase	nếu có thì ngược lại	Phản bác nhẹ ý trước.	If anything, + clause	C2	academic	writing
+by no means	linker-phrase	hoàn toàn không	Phủ định mạnh.	by no means + adj/clause	C1	academic	writing
+under no circumstances	linker-phrase	trong bất kỳ trường hợp nào cũng không	Phủ định tuyệt đối.	Under no circumstances + aux + S + V	C1	academic	writing,sentence-transformation
+at no time	linker-phrase	không lúc nào	Phủ định mạnh về thời gian.	At no time + aux + S + V	C2	academic	writing,sentence-transformation
+not until	linker-phrase	mãi đến khi	Nhấn mạnh thời điểm.	Not until + N + aux + S + V	C1	academic	writing,sentence-transformation
+no sooner ... than	linker-phrase	vừa mới ... thì đã	Diễn tả hai việc liền nhau.	No sooner had + S + V3 than + clause	C2	academic	writing,sentence-transformation
+hardly ... when	linker-phrase	vừa mới ... thì	Nhấn mạnh sự liền kề.	Hardly had + S + V3 when + clause	C2	academic	writing,sentence-transformation
+scarcely ... when	linker-phrase	vừa mới ... thì	Biến thể trang trọng của hardly when.	Scarcely had + S + V3 when + clause	C2	academic	writing
+only when	linker-phrase	chỉ khi	Nêu điều kiện duy nhất.	Only when + clause + aux + S + V	C1	academic	writing,sentence-transformation
+only after	linker-phrase	chỉ sau khi	Nêu trình tự bắt buộc.	Only after + N + aux + S + V	C1	academic	writing,sentence-transformation
+such was	linker-phrase	đến mức mà	Đảo ngữ nhấn mạnh mức độ.	Such was + N + that + clause	C2	academic	writing
+so ... that	linker-phrase	quá ... đến nỗi	Diễn tả kết quả do mức độ.	so + adj/adv + that + clause	B2	academic	writing,sentence-transformation
+such ... that	linker-phrase	... đến nỗi mà	Diễn tả kết quả do tính chất.	such + (a/an) + adj + N + that + clause	B2	academic	writing,sentence-transformation
+too ... to	linker-phrase	quá ... không thể	Không đủ khả năng làm.	too + adj + (for + N) + to V	B2	academic	writing,sentence-transformation
+enough ... to	linker-phrase	đủ ... để	Có đủ mức để làm.	adj + enough + to V	B1	academic	writing,sentence-transformation
+in order to	linker-phrase	để	Nêu mục đích.	in order to + V	B1	academic	writing
+so as to	linker-phrase	để (trang trọng)	Nêu mục đích.	so as to + V	C1	academic	writing
+with a view to	linker-phrase	nhằm mục đích	Theo đuổi mục tiêu.	with a view to + V-ing	C2	academic	writing
+for fear that	linker-phrase	vì sợ rằng	Vì lo điều gì xảy ra.	for fear that + clause	C2	academic	writing
+in the event that	linker-phrase	trong trường hợp	Nếu việc gì xảy ra.	In the event that + clause	C1	academic	writing
+should ...	linker-phrase	nếu (đảo ngữ điều kiện)	Điều kiện giả định trang trọng.	Should + S + V, + clause	C2	academic	writing,sentence-transformation
+were it not for	linker-phrase	nếu không vì	Điều kiện giả định phủ định.	Were it not for + N, + clause	C2	academic	writing,sentence-transformation
+had it not been for	linker-phrase	nếu không nhờ (quá khứ)	Điều kiện quá khứ giả định.	Had it not been for + N, + clause	C2	academic	writing,sentence-transformation
+but for	linker-phrase	nếu không có	Điều kiện giả định.	But for + N, + clause	C2	academic	writing,sentence-transformation
+given that	linker-phrase	xét rằng	Với tiền đề nào đó.	Given that + clause	C1	academic	writing
+considering that	linker-phrase	xét đến việc	Vì lý do nào đó.	Considering that + clause	C1	academic	writing
+granted that	linker-phrase	thừa nhận rằng	Chấp nhận tiền đề.	Granted that + clause	C2	academic	writing
+to some degree	linker-phrase	ở mức nào đó	Đúng một phần.	to some degree	C1	academic	writing
+more often than not	linker-phrase	phần lớn thời gian	Thường xảy ra hơn là không.	more often than not	C1	academic	writing
+in many respects	linker-phrase	ở nhiều phương diện	Đúng trên nhiều mặt.	In many respects, + clause	C1	academic	writing
+to make matters worse	linker-phrase	tệ hơn nữa	Thêm yếu tố tiêu cực.	To make matters worse, + clause	C1	academic	writing
+on the whole	linker-phrase	nhìn chung	Đánh giá tổng thể.	On the whole, + clause	B2	academic	writing
+in general	linker-phrase	nói chung	Quy luật chung.	In general, + clause	B1	academic	writing
+broadly speaking	linker-phrase	nói rộng ra	Khái quát hóa có giới hạn.	Broadly speaking, + clause	C1	academic	writing
+strictly speaking	linker-phrase	nói chặt chẽ ra	Đúng theo nghĩa chính xác.	Strictly speaking, + clause	C2	academic	writing
+generally speaking	linker-phrase	nói chung là	Quy luật thông thường.	Generally speaking, + clause	B2	academic	writing
+needless to say	linker-phrase	khỏi phải nói	Điều hiển nhiên.	Needless to say, + clause	C1	academic	writing
+as a matter of fact	linker-phrase	thực ra	Đính chính hoặc làm rõ.	As a matter of fact, + clause	C1	academic	writing
+in fact	linker-phrase	thực tế là	Nhấn mạnh sự thật.	In fact, + clause	B1	academic	writing
+after all	linker-phrase	suy cho cùng, dù sao	Nhắc lý do nền tảng.	After all, + clause	B2	academic	writing
+all the same	linker-phrase	dù vậy, vẫn	Tuy thế nhưng vẫn đúng.	All the same, + clause	C1	academic	writing
+even so	linker-phrase	dù vậy	Tương phản với ý trước.	Even so, + clause	C1	academic	writing
+that said	linker-phrase	nói vậy nhưng	Chuyển sang ý đối lập.	That said, + clause	C1	academic	writing
+having said that	linker-phrase	nói vậy thì	Đưa ra ngoại lệ.	Having said that, + clause	C1	academic	writing
+then again	linker-phrase	mặt khác thì	Đưa ý cân nhắc ngược lại.	Then again, + clause	C1	academic	writing
+in the meantime	linker-phrase	trong lúc đó	Việc xảy ra cùng khoảng thời gian.	In the meantime, + clause	B2	academic	writing
+since then	linker-phrase	từ đó đến nay	Từ mốc thời gian đã nêu.	since then	B1	academic	writing

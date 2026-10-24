@@ -3,7 +3,8 @@
 
 App-only metadata already present for an ID (examples, difficulty, createdAt,
 and other unmodelled fields) is retained. Missing new metadata is left empty or
-omitted; this script does not infer vocabulary facts.
+omitted; this script does not infer vocabulary facts. Structured provenance
+(`sources`) is managed by the Markdown table like every other source field.
 """
 from __future__ import annotations
 
@@ -45,6 +46,7 @@ def build_vocabulary(records: list[dict[str, Any]], existing: list[dict[str, Any
             "register": record["register"],
             "connotation": record["connotation"],
             "notes": record["notes"],
+            "sources": record["sources"],
         })
         result.append(entry)
     return result
