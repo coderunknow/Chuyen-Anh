@@ -2,7 +2,7 @@
 
 ## v1.0.0-beta8 — audit release (2026-10-24)
 
-Release state — whether a `v1.0.0-beta8` tag, prerelease and assets exist, and which build Pages serves — must be verified live on GitHub; this file records contents, not publication status. This build was prepared with the gate **held** (`DEPLOY_HOLD` = `v1.0.0-beta8`) and is released after the merge.
+Release state — whether a `v1.0.0-beta8` tag, prerelease and assets exist, and which build Pages serves — must be verified live on GitHub; this file records contents, not publication status. This build was prepared with the gate **held** (`DEPLOY_HOLD` = `v1.0.0-beta8`). Sequence actually executed: merge commit `fe45a96192339ca26e7e5c94bcdb8033c968280f`, annotated tag `v1.0.0-beta8` on it, assets built from the tag by `Release artifacts` run `40087575768` (HTML `10,376,145 B`, `sha256 d66491e4…b474b74c`, identical to the tag's `index.html`), prerelease published 10:59:46Z, then `Deploy Flashcard` run `40088098400` success and deployment `7297681926` (`success`). The push-triggered run `40087543579` ran every test and skipped the Pages steps while the gate was still closed.
 
 ### What this release is
 
