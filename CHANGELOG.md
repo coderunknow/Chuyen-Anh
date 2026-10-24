@@ -2,7 +2,7 @@
 
 ## v1.0.0-beta7 — 2026-10-24
 
-Release state — whether a `v1.0.0-beta7` tag, prerelease and assets exist, and which build Pages serves — must be verified live on GitHub; this file records contents, not publication status. The `v1.0.0-beta7` gate is deliberately **closed**: no tag and no prerelease were created for this build.
+Release state — whether a `v1.0.0-beta7` tag, prerelease and assets exist, and which build Pages serves — must be verified live on GitHub; this file records contents, not publication status. This build was prepared with the gate **held** (no tag, no prerelease) and was released afterwards on an explicit maintainer decision: annotated tag `v1.0.0-beta7` on `1181a654d9f2df23a0a55888a4990bc181b4eb81`, then a published prerelease whose HTML asset is byte-identical to that tag's `index.html` (`8,231,070 B`, `sha256 74fc0a8a…d69080`), which opened the deploy gate and published the same file to GitHub Pages.
 
 ### The vocabulary grows from 913 to 3,215 headwords, and the phrase bank ships as a second data set
 
@@ -14,7 +14,7 @@ Release state — whether a `v1.0.0-beta7` tag, prerelease and assets exist, and
 - **Backup compatibility, non-breaking.** The v1 export gains an optional `phrases` block only when the device actually has phrase progress; `validateImportPayload` accepts files with or without it, rejects a malformed block before writing anything, and an import without the block keeps the device's own phrase progress. Reset clears the phrase store alongside the word stores. The English interface covers the new screens (dictionary entries plus count patterns); phrase text itself stays untranslated because it is data.
 - **Reproducibility and tests.** `scripts/expand_vocabulary.py`, `build_vocabulary.py`, `embed_vocabulary.py`, `build_phrases.py`, `embed_phrases.py` and `generate_vocab_audit_dev5.py` all pass `--check` and never rewrite their outputs. The dev4/dev5 audits were scoped to the 913-row legacy block they actually reviewed, and now also assert that no appended row claims a legacy ID.
 - `node --test tests/static-app.test.js` **88 pass / 0 fail** (beta6: 81); `python3 -m unittest discover -s tests -p 'test_*.py'` **83 OK** (beta6: 72) including the new `tests/test_learned_phrases.py`; `node tests/browser-learning.cjs` **PASS** with a new phrase scenario (browse, search, type/level filters, ten practice turns, separate store, English interface, reset); `node tests/browser-exams.cjs` **PASS**.
-- `APP_VERSION` = `v1.0.0-beta7`, `DEPLOY_HOLD` = `v1.0.0-beta7`; `python3 scripts/deploy_gate.py --repo coderunknow/Chuyen-Anh` reports `deploy=false (release v1.0.0-beta7 is missing; deployment held)`.
+- `APP_VERSION` = `v1.0.0-beta7`, `DEPLOY_HOLD` = `v1.0.0-beta7` (the marker stays: once the named release is published the gate opens for this and every later deploy). While the candidate was being prepared, `python3 scripts/deploy_gate.py --repo coderunknow/Chuyen-Anh` reported `deploy=false (release v1.0.0-beta7 is missing; deployment held)`; after the prerelease was published it reports `deploy=true (release v1.0.0-beta7 is published)`.
 - `v1.0.0-beta4` was restored as an annotated tag and a prerelease on `9b9de43e4ee0f035e4a8360352057f06b277d918` (that commit's `APP_VERSION` is `v1.0.0-beta4`), under the closed `v1.0.0-beta7` gate, so publishing it cannot deploy `main`/beta7 to Pages.
 
 ### Measured interaction cost (`tests/speed-benchmark.cjs`, `ROUNDS=3`, `outliersDropped: 0`, `pageErrors: []`, Chromium 133.0.6943.0, 600/450 ms)
