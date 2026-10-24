@@ -1,0 +1,245 @@
+# Jobs, workplace, office, money, shopping and services (B1–C1).
+# word	pos	meaning	level	topic	type	skills
+carpenter	n	thợ mộc	B1	work	topic	reading
+plumber	n	thợ sửa ống nước	B1	work	topic	reading
+electrician	n	thợ điện	B1	work	topic	reading
+mechanic	n	thợ máy	B1	work	topic	reading
+welder	n	thợ hàn	C1	work	topic	reading
+mason	n	thợ nề	C1	work	topic	reading
+painter	n	thợ sơn, hoạ sĩ	B1	work	topic	reading
+bricklayer	n	thợ xây	C1	work	topic	reading
+roofer	n	thợ lợp mái	C1	work	topic	reading
+glazier	n	thợ lắp kính	C2	work	topic	reading
+locksmith	n	thợ sửa khoá	C1	work	topic	reading
+tailor	n	thợ may	B1	work	topic	reading
+barber	n	thợ cắt tóc nam	B1	work	topic	reading
+hairdresser	n	thợ làm tóc	B1	work	topic	reading
+florist	n	người bán hoa	B1	work	topic	reading
+butcher	n	người bán thịt	B1	work	topic	reading
+baker	n	thợ làm bánh	B1	work	topic	reading
+grocer	n	người bán tạp hoá	B2	work	topic	reading
+fishmonger	n	người bán cá	C1	work	topic	reading
+greengrocer	n	người bán rau quả	C1	work	topic	reading
+cashier	n	thu ngân	B1	work	topic	reading
+shopkeeper	n	chủ cửa hàng	B1	work	topic	reading
+merchant	n	thương nhân	B2	work	topic	reading
+wholesaler	n	nhà bán buôn	C1	work	topic	reading
+retailer	n	nhà bán lẻ	B2	work	topic	reading
+supplier	n	nhà cung cấp	B2	work	topic	reading
+contractor	n	nhà thầu	B2	work	topic	reading
+foreman	n	đốc công	C1	work	topic	reading
+apprentice	n	người học việc	B2	work	topic	reading
+trainee	n	thực tập sinh	B1	work	topic	reading
+intern	n	thực tập sinh	C1	work	topic	reading
+mentor	n	người hướng dẫn	B2	work	topic	reading
+mentee	n	người được hướng dẫn	C2	work	topic	reading
+colleague	n	đồng nghiệp	B1	work	topic	reading
+recruiter	n	nhà tuyển dụng	C1	work	topic	reading
+applicant	n	ứng viên	B2	work	topic	reading
+candidate	n	ứng cử viên	B1	work	topic	reading
+employer	n	người sử dụng lao động	B1	work	topic	reading
+employee	n	nhân viên	B1	work	topic	reading
+workforce	n	lực lượng lao động	B2	work	topic	reading
+payroll	n	bảng lương	C1	economics	topic	reading
+pension	n	lương hưu	B1	economics	topic	reading
+allowance	n	trợ cấp, phụ cấp	B2	economics	topic	reading
+bonus	n	tiền thưởng	B1	economics	topic	reading
+wage	n	tiền công	B1	economics	topic	reading
+salary	n	lương	B1	economics	topic	reading
+overtime	n	giờ làm thêm	B2	work	topic	reading
+shift	n	ca làm	B1	work	topic	reading
+roster	n	lịch phân ca	C1	work	topic	reading
+deadline	n	hạn chót	B1	work	topic	reading
+workload	n	khối lượng công việc	B2	work	topic	reading
+promotion	n	sự thăng chức	B1	work	topic	reading
+resignation	n	sự từ chức	B2	work	topic	reading
+redundancy	n	sự cho thôi việc	C1	work	topic	reading
+dismissal	n	sự sa thải	C1	work	topic	reading
+layoff	n	việc cắt giảm nhân sự	C1	work	topic	reading
+vacancy	n	vị trí trống	B2	work	topic	reading
+interview	n	buổi phỏng vấn	B1	work	topic	reading
+résumé	n	sơ yếu lý lịch	B2	work	topic	reading
+portfolio	n	hồ sơ năng lực, danh mục	C1	work	topic	reading
+reference	n	thư giới thiệu	B2	work	topic	reading
+probation	n	thời gian thử việc	C1	work	topic	reading
+appraisal	n	đánh giá năng lực	C1	work	topic	reading
+supervision	n	sự giám sát	B2	work	topic	reading
+delegation	n	sự uỷ quyền	C1	work	topic	reading
+collaboration	n	sự hợp tác	B2	work	topic	reading
+partnership	n	quan hệ đối tác	B1	economics	topic	reading
+startup	n	công ty khởi nghiệp	B1	economics	topic	reading
+enterprise	n	doanh nghiệp	B1	economics	topic	reading
+franchise	n	nhượng quyền thương mại	C1	economics	topic	reading
+merger	n	sự sáp nhập	B2	economics	topic	reading
+acquisition	n	sự thâu tóm	C1	economics	topic	reading
+shareholder	n	cổ đông	B2	economics	topic	reading
+stakeholder	n	bên liên quan	C1	economics	topic	reading
+dividend	n	cổ tức	C1	economics	topic	reading
+equity	n	vốn chủ sở hữu	C1	economics	topic	reading
+liability	n	khoản nợ phải trả	C1	economics	topic	reading
+asset	n	tài sản	B2	economics	topic	reading
+turnover	n	doanh thu	C1	economics	topic	reading
+profit	n	lợi nhuận	B1	economics	topic	reading
+loss	n	sự thua lỗ	B1	economics	topic	reading
+margin	n	tỷ suất lợi nhuận, lề	C1	economics	topic	reading
+revenue	n	doanh thu	C1	economics	topic	reading
+expenditure	n	chi tiêu	C1	economics	topic	reading
+budget	n	ngân sách	B1	economics	topic	reading
+invoice	n	hoá đơn	C1	work	topic	reading
+receipt	n	biên lai	B1	work	topic	reading
+refund	n	sự hoàn tiền	B1	work	topic	reading
+discount	n	giảm giá	B1	work	topic	reading
+voucher	n	phiếu mua hàng	C1	work	topic	reading
+coupon	n	phiếu giảm giá	B2	work	topic	reading
+warranty	n	bảo hành	C1	work	topic	reading
+receipts	n	các khoản thu	C2	economics	topic	reading
+cheque	n	séc	B1	economics	topic	reading
+mortgage	n	thế chấp	B2	economics	topic	reading
+loan	n	khoản vay	B1	economics	topic	reading
+interest	n	lãi suất	B1	economics	topic	reading
+instalment	n	khoản trả góp	C1	economics	topic	reading
+deposit	n	tiền đặt cọc	B1	economics	topic	reading
+withdrawal	n	việc rút tiền	C1	economics	topic	reading
+savings	n	tiền tiết kiệm	B1	economics	topic	reading
+currency	n	tiền tệ	B1	economics	topic	reading
+inflation	n	lạm phát	B2	economics	topic	reading
+recession	n	suy thoái kinh tế	B2	economics	topic	reading
+bankruptcy	n	sự phá sản	B2	economics	topic	reading
+tariff	n	thuế quan	C1	economics	topic	reading
+subsidy	n	trợ cấp	C1	economics	topic	reading
+taxation	n	việc đánh thuế	C1	economics	topic	reading
+levy	n	khoản thuế	C1	economics	topic	reading
+audit	n	kiểm toán	B2	economics	topic	reading
+accountant	n	kế toán	B1	work	topic	reading
+bookkeeping	n	việc ghi sổ sách	C1	economics	topic	reading
+entrepreneur	n	doanh nhân	B2	economics	topic	reading
+investor	n	nhà đầu tư	B2	economics	topic	reading
+broker	n	người môi giới	C1	economics	topic	reading
+franchisee	n	người nhận nhượng quyền	C2	economics	topic	reading
+banknote	n	tờ tiền giấy	C1	economics	topic	reading
+coin	n	đồng xu	B1	economics	topic	reading
+change	n	tiền lẻ trả lại	B1	economics	topic	reading
+trolley	n	xe đẩy	B1	work	topic	reading
+basket	n	cái giỏ	B1	work	topic	reading
+aisle	n	lối đi giữa các kệ	B2	work	topic	reading
+checkout	n	quầy thu ngân	B1	work	topic	reading
+counter	n	quầy	B1	work	topic	reading
+till	n	ngăn kéo tiền	B2	work	topic	reading
+stall	n	quầy hàng, sạp	B2	work	topic	reading
+mall	n	trung tâm thương mại	B1	work	topic	reading
+boutique	n	cửa hàng thời trang nhỏ	C1	work	topic	reading
+showroom	n	phòng trưng bày	C1	work	topic	reading
+warehouse	n	kho hàng	B2	work	topic	reading
+inventory	n	hàng tồn kho	C1	work	topic	reading
+stock	n	hàng dự trữ	B1	work	topic	reading
+dispatch	n	việc gửi hàng	C1	work	topic	reading
+courier	n	người giao hàng	B2	work	topic	reading
+parcel	n	bưu kiện	B1	work	topic	reading
+postage	n	bưu phí	C1	work	topic	reading
+envelope	n	phong bì	B1	work	topic	reading
+stamp	n	tem	B1	work	topic	reading
+address	n	địa chỉ	B1	work	topic	reading
+postcode	n	mã bưu chính	B2	work	topic	reading
+stationery	n	văn phòng phẩm	C1	work	topic	reading
+folder	n	kẹp tài liệu	B1	work	topic	reading
+stapler	n	cái bấm ghim	B2	work	topic	reading
+clipboard	n	bảng kẹp giấy	C1	work	topic	reading
+scissors	n	cái kéo	B1	work	topic	reading
+printer	n	máy in	B1	work	topic	reading
+scanner	n	máy quét	B1	work	topic	reading
+photocopier	n	máy photocopy	B2	work	topic	reading
+shredder	n	máy huỷ giấy	C1	work	topic	reading
+keyboard	n	bàn phím	B1	work	topic	reading
+monitor	n	màn hình	B1	work	topic	reading
+desktop	n	máy tính để bàn	B1	technology	topic	reading
+laptop	n	máy tính xách tay	B1	technology	topic	reading
+tablet	n	máy tính bảng	B1	technology	topic	reading
+charger	n	bộ sạc	B1	technology	topic	reading
+headphones	n	tai nghe	B1	technology	topic	reading
+earbuds	n	tai nghe nhét tai	C1	technology	topic	reading
+speaker	n	loa	B1	technology	topic	reading
+microphone	n	mi-crô	B1	technology	topic	reading
+webcam	n	camera mạng	C1	technology	topic	reading
+router	n	bộ định tuyến	C1	technology	topic	reading
+modem	n	modem	C1	technology	topic	reading
+bandwidth	n	băng thông	C1	technology	topic	reading
+server	n	máy chủ	B2	technology	topic	reading
+backup	n	bản sao lưu	B2	technology	topic	reading
+firewall	n	tường lửa	C1	technology	topic	reading
+malware	n	phần mềm độc hại	C1	technology	topic	reading
+phishing	n	tấn công lừa đảo	C1	technology	topic	reading
+hacker	n	tin tặc	B2	technology	topic	reading
+password	n	mật khẩu	B1	technology	topic	reading
+username	n	tên đăng nhập	B1	technology	topic	reading
+login	n	đăng nhập	B1	technology	topic	reading
+subscription	n	đăng ký định kỳ	B2	technology	topic	reading
+download	n	sự tải xuống	B1	technology	topic	reading
+upload	n	sự tải lên	B1	technology	topic	reading
+update	n	bản cập nhật	B1	technology	topic	reading
+installer	n	trình cài đặt	C1	technology	topic	reading
+shortcut	n	phím tắt, lối tắt	B1	technology	topic	reading
+bookmark	n	dấu trang	B2	technology	topic	reading
+browser	n	trình duyệt	B1	technology	topic	reading
+website	n	trang web	B1	technology	topic	reading
+webpage	n	trang web	B1	technology	topic	reading
+homepage	n	trang chủ	B1	technology	topic	reading
+link	n	đường liên kết	B1	technology	topic	reading
+banner	n	biểu ngữ quảng cáo	B2	technology	topic	reading
+popup	n	cửa sổ bật lên	C1	technology	topic	reading
+cookie	n	tệp lưu phiên	C1	technology	topic	reading
+chatbot	n	trợ lý ảo trò chuyện	C1	technology	topic	reading
+podcast	n	podcast	B1	media	topic	reading
+headline	n	tiêu đề tin	B1	media	topic	reading
+columnist	n	người viết chuyên mục	B2	media	topic	reading
+editorial	n	bài xã luận	C1	media	topic	reading
+broadcast	n	chương trình phát sóng	B1	media	topic	reading
+bulletin	n	bản tin	C1	media	topic	reading
+newsletter	n	bản tin điện tử	B2	media	topic	reading
+tabloid	n	báo lá cải	C1	media	topic	reading
+journalist	n	nhà báo	B1	media	topic	reading
+reporter	n	phóng viên	B1	media	topic	reading
+correspondent	n	thông tín viên	C1	media	topic	reading
+anchor	n	người dẫn chương trình	C1	media	topic	reading
+producer	n	nhà sản xuất	B1	media	topic	reading
+screenwriter	n	biên kịch	C1	media	topic	reading
+subtitle	n	phụ đề	B2	media	topic	reading
+dubbing	n	việc lồng tiếng	C1	media	topic	reading
+footage	n	đoạn phim tư liệu	C1	media	topic	reading
+documentary	n	phim tài liệu	B1	media	topic	reading
+trailer	n	đoạn phim giới thiệu	B2	media	topic	reading
+blockbuster	n	phim bom tấn	C1	media	topic	reading
+premiere	n	buổi công chiếu	C1	media	topic	reading
+audience	n	khán giả	B1	media	topic	reading
+viewership	n	lượng người xem	C2	media	topic	reading
+circulation	n	lượng phát hành	C1	media	topic	reading
+censorship	n	việc kiểm duyệt	B2	media	topic	reading
+propaganda	n	tuyên truyền	C1	media	topic	reading
+advertisement	n	quảng cáo	B1	media	topic	reading
+billboard	n	biển quảng cáo	C1	media	topic	reading
+slogan	n	khẩu hiệu	B2	media	topic	reading
+campaign	n	chiến dịch	B1	media	topic	reading
+influencer	n	người có ảnh hưởng	C1	media	topic	reading
+podcaster	n	người làm podcast	C1	media	topic	reading
+livestream	n	buổi phát trực tiếp	C1	media	topic	reading
+webinar	n	hội thảo trực tuyến	C1	technology	topic	reading
+tutorial	n	bài hướng dẫn	B2	technology	topic	reading
+spreadsheet	n	bảng tính	C1	technology	topic	reading
+database	n	cơ sở dữ liệu	B2	technology	topic	reading
+algorithmic	adj	thuộc thuật toán	C1	technology	topic	reading
+automation	n	sự tự động hoá	B2	technology	topic	reading
+innovator	n	nhà đổi mới	C1	technology	topic	reading
+prototype	n	nguyên mẫu	B2	technology	topic	reading
+gadget	n	thiết bị tiện ích	B2	technology	topic	reading
+appliance	n	thiết bị gia dụng	B2	technology	topic	reading
+device	n	thiết bị	B1	technology	topic	reading
+sensor	n	cảm biến	B2	technology	topic	reading
+drone	n	máy bay không người lái	B2	technology	topic	reading
+robotics	n	ngành robot	C1	technology	topic	reading
+semiconductor	n	chất bán dẫn	C1	technology	topic	reading
+circuit	n	mạch điện	B2	technology	topic	reading
+battery	n	pin	B1	technology	topic	reading
+voltage	n	điện áp	C1	science	topic	reading
+generator	n	máy phát điện	B2	technology	topic	reading
+turbine	n	tuabin	C1	technology	topic	reading
+grid	n	lưới điện	C1	technology	topic	reading
+pipeline	n	đường ống	C1	technology	topic	reading

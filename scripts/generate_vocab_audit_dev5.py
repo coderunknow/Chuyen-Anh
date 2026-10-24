@@ -12,6 +12,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 from learned_vocabulary import parse_table  # noqa: E402
+from vocabulary_families import audit_view  # noqa: E402
 
 SOURCE_PATH = ROOT / "Learned_Vocabulary_List.md"
 DATA_PATH = ROOT / "data" / "vocabulary.json"
@@ -372,6 +373,11 @@ def legacy_slice(records: list[dict[str, Any]], label: str) -> list[dict[str, An
 def build_document() -> dict[str, Any]:
     source_records = legacy_slice(parse_table(SOURCE_PATH), "source")
     app_data = legacy_slice(load_json(DATA_PATH), "app JSON")
+    # The root rule (family tags and the generated "Cùng gốc:" note) was added
+    # after this ledger was frozen. It is bookkeeping, not dictionary evidence,
+    # so it is normalized away instead of rewriting 913 audited rows.
+    source_records = [{**record, **{field: audit_view(field, record[field]) for field in SOURCE_FIELDS}} for record in source_records]
+    app_data = [{**record, **{field: audit_view(field, record.get(field, "")) for field in SOURCE_FIELDS}} for record in app_data]
     dev4 = load_json(DEV4_PATH)
     source_by_id = {record["id"]: record for record in source_records}
     app_by_id = {record["id"]: record for record in app_data}

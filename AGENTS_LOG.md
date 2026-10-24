@@ -559,3 +559,52 @@ In both `Deploy Flashcard` runs the steps `Evaluate deploy hold`, `Check vocabul
 **Tests (documentation-only change, rerun on the final tree).** `node --test tests/static-app.test.js` 88/88 and `python3 -m unittest discover -s tests -p 'test_*.py'` 83 OK; the deploy run above also executed both suites against `1181a65` and passed. No application file changed in this step — `index.html`, `data/**`, `scripts/**`, `DEPLOY_HOLD` and `AGENT.md` are untouched, so no re-embed was required.
 
 **Not claimed / limits.** The served bytes were **not** fetched: `curl https://coderunknow.github.io/Chuyen-Anh/` fails at TLS (`SSL_ERROR_SYSCALL`) because the host is outside this sandbox's egress allowlist, and `release-assets.githubusercontent.com` still returns `EOF`, so the ZIP and manifest were verified by the API's reported size and digest only. "Pages serves beta7" therefore rests on the deployment record for `1181a65` with a site URL, the executed `Upload Pages artifact`/`Deploy` steps, and the byte identity between the staged `index.html`, the tagged blob and the release asset. No learner study, screen-reader session or full WCAG audit was performed; verification is Chromium 133 only.
+
+## 2026-10-24 — vocabulary root rule: 3,215 rows → 2,706 headwords (509 merged forms, 380 families)
+
+**Trigger.** Maintainer instruction: words sharing a root must count as one vocabulary item with an added note, and same-root forms must not be counted separately. Beta7 had just shipped 3,215 headwords, including forms such as `abundance`/`abundant` and `consistently`/`consistent`.
+
+**Executed.**
+
+| step | command | result |
+|---|---|---|
+| curated map | `docs/vocabulary-families.json` (hand-reviewed, then pruned of 22 false merges) | `families 380 merged 509 active 2706 rows 3215`, `missing: []` |
+| rule module | `scripts/vocabulary_families.py` (new) | `load_spec`, `note_for`, `append_note`, `apply_families`, `head_id_of`, `is_merged`, `audit_view`, `validate`, `main(--json)`; import smoke test printed `ok 392` |
+| table rebuild | `python3 scripts/expand_vocabulary.py` | `Wrote 3215 rows … 509 merged family form(s), 2706 headwords`; `--report` gives `activeRows 2706`, `rowsInTable 3215`, `mergedRows 509` |
+| JSON | `python3 scripts/build_vocabulary.py` | patched to derive `familyHead` from the `family-head:<id>` tag; `3215 records`, `--check` prints `3215 Markdown records (2706 headwords, 509 merged family forms)` |
+| embed | `python3 scripts/embed_vocabulary.py` | `Embedded 3215 vocabulary records`; `--check` passes |
+| validation | `python3 scripts/validate_vocab.py` | `Duplicate IDs: 0`, `Duplicate words: 0`, `✅ Vocabulary validation passed` (new `family`/`family-head` namespaces and `familyHead` rules) |
+| audits | `python3 scripts/generate_vocab_audit_dev5.py --check` | `dev5 JSON/Markdown report is current; no files written` (after `audit_view()` normalization) |
+| app | `index.html` | `familyHeadMap`/`foldFamilyIds`/`foldFamilyProgress`, active-row filtering at boot, folded progress/favorites/flags, `familyHead` runtime validation, `từ gốc` labels + data-panel rule note, English patterns for both counts |
+| tests | `node --test tests/static-app.test.js`; `python3 -m unittest discover -s tests -p 'test_*.py'` | **90 pass / 0 fail** (88 before); **91 OK** (83 before), incl. new `tests/test_vocabulary_families.py` |
+
+**Decisions recorded.** Merged rows are kept, not deleted (audit trail; IDs never reused; progress foldable). The four dangling heads from the curated map were re-pointed instead of dropped: `government ← governance`, `infection ← infectious`, `substance ← substantial, substantially`, `temperature ← temperate`. **A quality pass then removed 22 false merges** (`virtue ← Virtually`, `Principle ← principal`, `person ← people`, `quality ← Qualification`, `define ← definitely`, `technology ← technically`, `organise ← organic`, plus `prior`, `regular`, `Competent`, `population`, `Variation`, `literal/literary/literature`, `conceive`, `Distinguish`, `expedition`, `attendance/attendant`, `integrity`), each a separate dictionary entry or a different root; `note ← notification, notify` became `notify ← notification`. The rejected pairs are listed in `docs/vocabulary-families.json` under `reviewed.rejectedMerges`, and `strip_family_bookkeeping()` makes the map re-appliable so a removed family leaves no stale tag or note. Merged rows keep their own historical `WORD_FAMILY` text; a first attempt that cleared it conflicted with the frozen dev4/dev5 ledgers, so the comparison normalizes (`audit_view`) instead of the data being rewritten. `expand_vocabulary.py` now ignores its own generated `Cùng gốc:` note when parsing legacy family tokens, so `--check` is idempotent.
+
+**Counts, stated honestly.** 3,215 − 509 = **2,706 headwords**. The earlier ≥3,000 target was satisfied by rows, not roots, so it is **not** met; `README.md` says so and states that ≥294 new roots would be needed.
+
+**Not claimed.** `tests/browser-learning.cjs` was updated (count 2706, headword seeding, id `1` `Adversity` → headword id `298` `Adverse`) but **not run** — no Playwright/browser in this sandbox, so no Chromium result is claimed. No learner study. `APP_VERSION` stays `v1.0.0-beta7`; no tag, release or deploy was created, and `AGENT.md` / `DEPLOY_HOLD` were not touched.
+
+## 2026-10-24 — vocabulary expansion to 5,205 roots (9 new seed files, 118 new families, localised counts)
+
+**Trigger.** Maintainer instruction to continue the root-rule work until the vocabulary reaches **≥5,000 genuinely distinct headwords**, with related forms organised under their canonical headword (never counted), all "từ gốc"/headword-count labels finished in both languages, documentation and append-only logs updated, every artifact regenerated so `--check` is clean, all suites run, and PR #55 merged with the Pages build verified afterwards.
+
+**Executed.**
+
+| step | command | result |
+|---|---|---|
+| seed authoring | `data/vocab-seed/12-…` … `20-…` (new) | 3,364 candidate rows (752 / 349 / 320 / 243 / 238 / 143 / 374 / 465 / 476 data lines) |
+| candidate generation | `/tmp` mining script over `vocab_sources.build_exam_index()` + `wordfreq` + `lemminflect` | proposals only; each accepted word hand-glossed with dictionary provenance generated by the pipeline |
+| table rebuild | `python3 scripts/expand_vocabulary.py --report /tmp/w/seed-report.json` | `Wrote 5852 rows … 647 merged family form(s), 5205 headwords`; report `seedsRead 6224`, `newRows 4939`, `skippedSeeds 1285` (897 duplicate, 327 family form, 46 inflection, 14 spelling variant, 1 comparative) |
+| family map | `docs/vocabulary-families.json` (hand-reviewed) | 380 → **498 families**, 509 → **647 merged rows**, `activeHeadwords 5205`, `rowsInTable 5852`; derivatives added (e.g. `weaken ← weak`, `colourful ← colour`, `documentation ← document`), look-alikes rejected (`bare/barely`, `form/formal`, `real/realize`, `verb/verbal`, `rot/rotation`) |
+| variant cleanup | seeds edited | `colorful` removed (keep `colourful`), `offense` removed (keep existing `offence`); both were detected as spelling-variant pairs among the new rows |
+| JSON | `python3 scripts/build_vocabulary.py` and `--check` | `Wrote 5852 records`; `--check` → `5852 Markdown records (5205 headwords, 647 merged family forms)` |
+| embed | `python3 scripts/embed_vocabulary.py` and `--check` | `Embedded 5852 vocabulary records`; `--check` passes |
+| validation | `python3 scripts/validate_vocab.py`; `python3 scripts/vocabulary_families.py` | `Duplicate IDs: 0`, `Duplicate words: 0`, `✅ Vocabulary validation passed`; `498 families; 647 merged rows; 5205 active headwords`, no problems |
+| audits | `python3 scripts/generate_vocab_audit_dev5.py --check` | `dev5 JSON/Markdown report is current; no files written` |
+| app i18n | `index.html` | `countNumber()`, `formatCount(value, language)`; brand bar / random-session card / lookup header / data info now use `${formatCount(vocabulary.length)}`; EN patterns return `headwords` / `same-root forms` and accept grouped numbers |
+| tests | `node --test tests/static-app.test.js`; `python3 -m unittest discover -s tests -p 'test_*.py'` | **90 pass / 0 fail**; **91 OK** (counts updated to 5,852 rows / 5,205 headwords / 647 merged forms) |
+| static checks | `expand_vocabulary.py --check`, `build_vocabulary.py --check`, `generate_vocab_audit_dev5.py --check`, `validate_vocab.py`, `embed_vocabulary.py --check`, `build_phrases.py --check`, `validate_phrases.py`, `embed_phrases.py --check`, `exams/embed_archive.py --check` | all pass (see the verification run recorded below) |
+
+**Decisions recorded.** The nine new files use the existing seven-column seed schema and single-word rule; the mining pass is a proposal step only, never a source for a gloss or a level; every new row's `SOURCES` cell comes from the repository registry (dictionary locator always, exam locator only when the index finds the form). Derived forms found in the new stock were merged into the curated map instead of being counted, and the ambiguous look-alikes were recorded as rejected rather than merged. `APP_VERSION` and `DEPLOY_HOLD` stay at `v1.0.0-beta7` (that release is published, so the Pages gate is open); inventing a new label without a matching release would misstate the Settings version.
+
+**Not claimed.** `tests/browser-learning.cjs` and `tests/browser-exams.cjs` were updated for the new count but are **not run**: this sandbox has no Playwright/Chromium, so no browser result is reported. No learner study was performed; nothing here is a learning-outcome claim.

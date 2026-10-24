@@ -1,0 +1,240 @@
+# Food, drink, dishes, ingredients and cooking equipment (B1–C1).
+# word	pos	meaning	level	topic	type	skills
+apricot	n	quả mơ	B1	food	topic	reading
+peach	n	quả đào	B1	food	topic	reading
+plum	n	quả mận	B1	food	topic	reading
+pear	n	quả lê	B1	food	topic	reading
+fig	n	quả sung	B1	food	topic	reading
+date	n	quả chà là	B2	food	topic	reading
+raisin	n	nho khô	B1	food	topic	reading
+currant	n	nho khô nhỏ	C1	food	topic	reading
+cranberry	n	quả nam việt quất	C1	food	topic	reading
+raspberry	n	quả mâm xôi	B1	food	topic	reading
+blackberry	n	quả mâm xôi đen	B1	food	topic	reading
+blueberry	n	quả việt quất	B1	food	topic	reading
+strawberry	n	quả dâu tây	B1	food	topic	reading
+gooseberry	n	quả lý gai	C1	food	topic	reading
+grapefruit	n	bưởi chùm	B1	food	topic	reading
+pomelo	n	bưởi	C1	food	topic	reading
+tangerine	n	quýt	C1	food	topic	reading
+mandarin	n	quýt ngọt	C1	food	topic	reading
+lime	n	chanh xanh	B1	food	topic	reading
+lemon	n	chanh vàng	B1	food	topic	reading
+papaya	n	đu đủ	B1	food	topic	reading
+mango	n	xoài	B1	food	topic	reading
+guava	n	ổi	B1	food	topic	reading
+lychee	n	vải thiều	B1	food	topic	reading
+longan	n	nhãn	B1	food	topic	reading
+rambutan	n	chôm chôm	B1	food	topic	reading
+mangosteen	n	măng cụt	B1	food	topic	reading
+durian	n	sầu riêng	B1	food	topic	reading
+jackfruit	n	mít	B1	food	topic	reading
+starfruit	n	khế	B1	food	topic	reading
+persimmon	n	hồng	B2	food	topic	reading
+pomegranate	n	lựu	B2	food	topic	reading
+avocado	n	bơ	B1	food	topic	reading
+coconut	n	dừa	B1	food	topic	reading
+pineapple	n	dứa	B1	food	topic	reading
+watermelon	n	dưa hấu	B1	food	topic	reading
+melon	n	dưa	B1	food	topic	reading
+kiwi	n	kiwi	C1	food	topic	reading
+banana	n	chuối	B1	food	topic	reading
+orange	n	cam	B1	food	topic	reading
+grape	n	nho	B1	food	topic	reading
+cherry	n	anh đào	B1	food	topic	reading
+peanut	n	đậu phộng	B1	food	topic	reading
+walnut	n	hạt óc chó	B2	food	topic	reading
+almond	n	hạnh nhân	B1	food	topic	reading
+cashew	n	hạt điều	B1	food	topic	reading
+pistachio	n	hạt dẻ cười	C1	food	topic	reading
+hazelnut	n	hạt phỉ	C1	food	topic	reading
+chestnut	n	hạt dẻ	B1	food	topic	reading
+sesame	n	vừng, mè	B1	food	topic	reading
+lentil	n	đậu lăng	C1	food	topic	reading
+chickpea	n	đậu gà	C1	food	topic	reading
+soybean	n	đậu nành	B2	food	topic	reading
+barley	n	lúa mạch	B2	food	topic	reading
+oats	n	yến mạch	B1	food	topic	reading
+rye	n	lúa mạch đen	C1	food	topic	reading
+wheat	n	lúa mì	B1	food	topic	reading
+rice	n	gạo, cơm	B1	food	topic	reading
+noodle	n	mì sợi	B1	food	topic	reading
+pasta	n	mì Ý	B1	food	topic	reading
+spaghetti	n	mì spaghetti	B1	food	topic	reading
+macaroni	n	mì ống	C1	food	topic	reading
+dumpling	n	bánh bao, há cảo	B1	food	topic	reading
+pancake	n	bánh kếp	B1	food	topic	reading
+wafer	n	bánh xốp	C1	food	topic	reading
+biscuit	n	bánh quy	B1	food	topic	reading
+cracker	n	bánh quy giòn	B2	food	topic	reading
+pudding	n	bánh pudding	B1	food	topic	reading
+custard	n	món kem trứng	C1	food	topic	reading
+pastry	n	bánh nướng ngọt	B2	food	topic	reading
+croissant	n	bánh sừng bò	B1	food	topic	reading
+muffin	n	bánh muffin	B1	food	topic	reading
+brownie	n	bánh brownie	B2	food	topic	reading
+doughnut	n	bánh vòng	B1	food	topic	reading
+toast	n	bánh mì nướng	B1	food	topic	reading
+loaf	n	ổ bánh mì	B1	food	topic	reading
+crumb	n	vụn bánh mì	B2	food	topic	reading
+crust	n	vỏ bánh, lớp vỏ giòn	B2	food	topic	reading
+filling	n	nhân bánh	B2	food	topic	reading
+icing	n	lớp kem phủ	C1	food	topic	reading
+frosting	n	lớp kem phủ bánh	C2	food	topic	reading
+syrup	n	siro	B2	food	topic	reading
+honey	n	mật ong	B1	food	topic	reading
+jam	n	mứt	B1	food	topic	reading
+marmalade	n	mứt cam	C1	food	topic	reading
+pepper	n	hạt tiêu	B1	food	topic	reading
+salt	n	muối	B1	food	topic	reading
+sugar	n	đường	B1	food	topic	reading
+spice	n	gia vị	B1	food	topic	reading
+herb	n	thảo mộc	B2	food	topic	reading
+basil	n	húng quế	B1	food	topic	reading
+oregano	n	kinh giới oregano	C1	food	topic	reading
+thyme	n	cỏ xạ hương	C1	food	topic	reading
+rosemary	n	hương thảo	C1	food	topic	reading
+sage	n	xô thơm	C1	food	topic	reading
+dill	n	thì là	B1	food	topic	reading
+fennel	n	thì là củ	C1	food	topic	reading
+chilli	n	ớt	C1	food	topic	reading
+paprika	n	ớt bột	C1	food	topic	reading
+saffron	n	nghệ tây	C1	food	topic	reading
+cumin	n	thì là Ai Cập	C1	food	topic	reading
+broth	n	nước dùng	B2	food	topic	reading
+stock	n	nước dùng hầm	B2	food	topic	reading
+bouillon	n	viên nước dùng	C2	food	topic	reading
+gravy	n	nước sốt thịt	B2	food	topic	reading
+sauce	n	nước sốt	B1	food	topic	reading
+ketchup	n	tương cà	B1	food	topic	reading
+mayonnaise	n	sốt mayonnaise	B1	food	topic	reading
+dressing	n	nước sốt trộn salad	B2	food	topic	reading
+yoghurt	n	sữa chua	B1	food	topic	reading
+cheese	n	phô mai	B1	food	topic	reading
+butter	n	bơ	B1	food	topic	reading
+cream	n	kem tươi, kem	B1	food	topic	reading
+milk	n	sữa	B1	food	topic	reading
+porridge	n	cháo yến mạch	B1	food	topic	reading
+cereal	n	ngũ cốc ăn sáng	B1	food	topic	reading
+granola	n	ngũ cốc granola	C1	food	topic	reading
+muesli	n	ngũ cốc trộn	C1	food	topic	reading
+omelette	n	trứng tráng	B1	food	topic	reading
+bacon	n	thịt xông khói	B1	food	topic	reading
+sausage	n	xúc xích	B1	food	topic	reading
+ham	n	thịt nguội	B1	food	topic	reading
+beef	n	thịt bò	B1	food	topic	reading
+pork	n	thịt lợn	B1	food	topic	reading
+lamb	n	thịt cừu non	B1	food	topic	reading
+mutton	n	thịt cừu	B2	food	topic	reading
+veal	n	thịt bê	C1	food	topic	reading
+poultry	n	thịt gia cầm	C1	food	topic	reading
+chicken	n	gà, thịt gà	B1	food	topic	reading
+duck	n	vịt, thịt vịt	B1	food	topic	reading
+steak	n	bít tết	B1	food	topic	reading
+mince	n	thịt băm	C1	food	topic	reading
+fillet	n	phi lê	C1	food	topic	reading
+ribs	n	sườn	B1	food	topic	reading
+meatball	n	thịt viên	B1	food	topic	reading
+burger	n	bánh burger	B1	food	topic	reading
+sandwich	n	bánh sandwich	B1	food	topic	reading
+pizza	n	bánh pizza	B1	food	topic	reading
+salad	n	món rau trộn	B1	food	topic	reading
+soup	n	món súp	B1	food	topic	reading
+stew	n	món hầm	B2	food	topic	reading
+casserole	n	món nấu trong nồi đất	C1	food	topic	reading
+curry	n	món cà ri	B1	food	topic	reading
+stir-fry	n	món xào	B2	food	topic	reading
+crispbread	n	bánh mì giòn	C2	food	topic	reading
+dumplings	n	bánh há cảo	B2	food	topic	reading
+sushi	n	sushi	B1	food	topic	reading
+taco	n	bánh taco	B2	food	topic	reading
+kebab	n	thịt nướng xiên	C1	food	topic	reading
+pickle	n	dưa muối	B2	food	topic	reading
+relish	n	đồ ăn kèm tạo vị	C1	food	topic	reading
+chutney	n	tương ớt chua ngọt	C2	food	topic	reading
+salsa	n	sốt salsa	C1	food	topic	reading
+guacamole	n	sốt bơ nghiền	C2	food	topic	reading
+hummus	n	sốt đậu gà	C1	food	topic	reading
+pate	n	pate	C1	food	topic	reading
+cider	n	rượu táo	C1	food	topic	reading
+beer	n	bia	B1	food	topic	reading
+wine	n	rượu vang	B1	food	topic	reading
+champagne	n	sâm panh	B2	food	topic	reading
+whisky	n	uýt-ki	B1	food	topic	reading
+vodka	n	rượu vodka	B2	food	topic	reading
+cocktail	n	cocktail	B2	food	topic	reading
+mocktail	n	đồ uống không cồn	C1	food	topic	reading
+lemonade	n	nước chanh	B1	food	topic	reading
+smoothie	n	sinh tố	B1	food	topic	reading
+milkshake	n	sữa lắc	B1	food	topic	reading
+juice	n	nước ép	B1	food	topic	reading
+soda	n	nước có ga	B1	food	topic	reading
+cordial	n	siro pha nước	C1	food	topic	reading
+espresso	n	cà phê espresso	B1	food	topic	reading
+cappuccino	n	cà phê cappuccino	B1	food	topic	reading
+latte	n	cà phê sữa	B1	food	topic	reading
+cocoa	n	ca cao	B2	food	topic	reading
+saucepan	n	nồi nhỏ có cán	C1	food	topic	reading
+griddle	n	chảo gang phẳng	C1	food	topic	reading
+wok	n	chảo xào	C1	food	topic	reading
+skillet	n	chảo gang	C1	food	topic	reading
+corkscrew	n	đồ mở nút chai	C1	food	topic	reading
+colander	n	cái rổ lọc	C1	food	topic	reading
+mixer	n	máy trộn	B1	food	topic	reading
+blender	n	máy xay sinh tố	B1	food	topic	reading
+grater	n	cái nạo	C1	food	topic	reading
+peeler	n	đồ bóc vỏ	C1	food	topic	reading
+teaspoon	n	thìa cà phê	B1	food	topic	reading
+tablespoon	n	thìa canh	B1	food	topic	reading
+tumbler	n	cốc không quai	C1	food	topic	reading
+mug	n	cốc có quai	B1	food	topic	reading
+goblet	n	cốc chân cao	C1	food	topic	reading
+flask	n	bình giữ nhiệt	B2	food	topic	reading
+cafeteria	n	quán cà phê tự phục vụ	B1	food	topic	reading
+diner	n	quán ăn nhỏ	C1	food	topic	reading
+bistro	n	quán ăn nhỏ kiểu Pháp	C1	food	topic	reading
+canteen	n	căng tin	B1	food	topic	reading
+buffet	n	tiệc đứng tự chọn	B2	food	topic	reading
+takeaway	n	đồ ăn mang đi	B1	food	topic	reading
+menu	n	thực đơn	B1	food	topic	reading
+portion	n	khẩu phần	B2	food	topic	reading
+leftovers	n	đồ ăn thừa	B2	food	topic	reading
+waiter	n	bồi bàn	B1	food	topic	reading
+waitress	n	nữ bồi bàn	B1	food	topic	reading
+chef	n	đầu bếp	B1	food	topic	reading
+barista	n	nhân viên pha chế cà phê	C1	food	topic	reading
+sommelier	n	chuyên gia rượu vang	C2	food	topic	reading
+recipe	n	công thức nấu ăn	B1	food	topic	reading
+ingredient	n	nguyên liệu	B1	food	topic	reading
+nutritional	adj	thuộc dinh dưỡng	B2	health	topic	reading
+organic	adj	hữu cơ	B1	environment	topic	reading
+processed	adj	đã qua chế biến	B2	food	topic	reading
+preservative	n	chất bảo quản	C1	food	topic	reading
+additive	n	phụ gia	C1	food	topic	reading
+colourant	n	chất tạo màu	C1	food	topic	reading
+flavouring	n	chất tạo hương	C1	food	topic	reading
+thickener	n	chất làm đặc	C1	food	topic	reading
+allergen	n	chất gây dị ứng	C1	health	topic	reading
+intolerance	n	sự không dung nạp	C1	health	topic	reading
+vegan	n	người ăn thuần chay	B1	food	topic	reading
+vegetarian	n	người ăn chay	B1	food	topic	reading
+gluten	n	gluten	C1	health	topic	reading
+lactose	n	lactose (đường sữa)	C1	health	topic	reading
+cholesterol	n	cholesterol	B2	health	topic	reading
+obesity	n	béo phì	B2	health	topic	reading
+malnutrition	n	suy dinh dưỡng	C1	health	topic	reading
+famine	n	nạn đói	C1	society	topic	reading
+cuisine	n	ẩm thực	B1	food	topic	reading
+delicacy	n	món ăn đặc sản	C1	food	topic	reading
+gourmet	n	người sành ăn	C2	food	topic	reading
+seasoning	n	gia vị nêm nếm	C1	food	topic	reading
+marinade	n	nước ướp	C1	food	topic	reading
+garnish	n	đồ trang trí món ăn	C1	food	topic	reading
+starter	n	món khai vị	B1	food	topic	reading
+dessert	n	món tráng miệng	B1	food	topic	reading
+appetiser	n	món khai vị	C1	food	topic	reading
+samosa	n	bánh samosa	C2	food	topic	reading
+paella	n	cơm paella	C1	food	topic	reading
+risotto	n	cơm risotto	C1	food	topic	reading
+lasagne	n	mì lasagne	B2	food	topic	reading
+meatloaf	n	thịt nướng dạng khối	C1	food	topic	reading

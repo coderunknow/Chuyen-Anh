@@ -72,7 +72,7 @@ async function main() {
     // a real minute rather than a simulated one.
     await page.evaluate(() => {
       localStorage.clear();
-      localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['1', '2', '3']));
+      localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['298', '2', '3']));
       localStorage.setItem('chuyen-anh.study.v1', JSON.stringify({
         groups: { due: true, weak: true, new: true, review: true },
         focus: 'due',
@@ -158,7 +158,7 @@ async function main() {
     // Ten eligible words is already more than the retired seven-card cap.
     const sprintPlan = await sprint.evaluate(() => {
       const now = Date.now();
-      const data = JSON.parse(document.getElementById('vocabulary-data').textContent).slice(0, 10);
+      const data = JSON.parse(document.getElementById('vocabulary-data').textContent).filter(entry => !entry.familyHead).slice(0, 10);
       const progress = {};
       data.forEach((entry, index) => {
         const wrongCount = 40 - index * 2; // distinct, so the priority order is deterministic
@@ -179,7 +179,7 @@ async function main() {
     // The banner reports the real pool, the real queue and the chosen target.
     assert.match(await sprint.locator('#sprint-title').innerText(), /Học cấp tốc · 10 từ \/ phiên/);
     assert.match(await sprint.locator('#sprint-pool').innerText(),
-      /3215 từ đủ điều kiện · xếp 10 · 10 đến hạn · 10 từ yếu/,
+      /5205 từ đủ điều kiện · xếp 10 · 10 đến hạn · 10 từ yếu/,
       'the banner counts the whole eligible pool and the real queue');
     assert.equal(await sprint.locator('.sprint-banner .recommendation-mark strong').innerText(), '10',
       'the banner shows the configured session size, not a fixed 7');
@@ -346,7 +346,7 @@ async function main() {
     // there when the learner returns.
     await sprint.evaluate(() => {
       const now = Date.now();
-      const data = JSON.parse(document.getElementById('vocabulary-data').textContent).slice(0, 10);
+      const data = JSON.parse(document.getElementById('vocabulary-data').textContent).filter(entry => !entry.familyHead).slice(0, 10);
       const progress = {};
       data.forEach((entry, index) => {
         progress[entry.id] = {
@@ -363,7 +363,7 @@ async function main() {
     await sprint.locator('[data-session="sprint"]').waitFor();
     await sprint.locator('[data-session="sprint"]').click();
     const navPlan = await sprint.evaluate(() => {
-      const data = JSON.parse(document.getElementById('vocabulary-data').textContent).slice(0, 10);
+      const data = JSON.parse(document.getElementById('vocabulary-data').textContent).filter(entry => !entry.familyHead).slice(0, 10);
       return data.map(entry => ({ id: entry.id, word: entry.word, meaning: entry.meaning }));
     });
 
@@ -435,7 +435,7 @@ async function main() {
     // survived the rotation and labelled an unrelated word with an old verdict.
     await sprint.evaluate(() => {
       const now = Date.now();
-      const data = JSON.parse(document.getElementById('vocabulary-data').textContent).slice(0, 10);
+      const data = JSON.parse(document.getElementById('vocabulary-data').textContent).filter(entry => !entry.familyHead).slice(0, 10);
       const progress = {};
       data.forEach((entry, index) => {
         progress[entry.id] = {
@@ -474,9 +474,9 @@ async function main() {
     assert.deepEqual(sprintErrors, []);
 
     // Error -> intervening word -> typed corrective retrieval -> truthful summary.
-    await seed(['1', '2']);
-    await answer('1', false);
-    const failedProgress = (await read('progress'))['1'];
+    await seed(['298', '2']);
+    await answer('298', false);
+    const failedProgress = (await read('progress'))['298'];
     assert.equal(failedProgress.state, 'weak');
     assert.match(await page.locator('#feedback-area').innerText(), /Đã xếp một lượt gõ lại/);
     await next();
@@ -500,8 +500,8 @@ async function main() {
     await page.setViewportSize({ width: 375, height: 812 });
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
     assert.equal(await page.locator('#spelling-input').isVisible(), true);
-    await typeAnswer('Adversity');
-    assert.deepEqual((await read('progress'))['1'], failedProgress);
+    await typeAnswer('Adverse');
+    assert.deepEqual((await read('progress'))['298'], failedProgress);
     await next();
     assert.match(await page.locator('.summary').innerText(), /50%/);
     assert.match(await page.locator('.summary').innerText(), /Luyện lại: 1 đúng · 0 chưa đúng \/ 1 lượt/);
@@ -509,16 +509,16 @@ async function main() {
     await page.locator('#summary-dashboard').click();
     assert.match(await page.locator('.history').innerText(), /50%/);
     await page.reload();
-    assert.deepEqual((await read('progress'))['1'], failedProgress);
+    assert.deepEqual((await read('progress'))['298'], failedProgress);
     assert.equal((await read('prefs')).darkMode, true);
-    assert.deepEqual((await read('favorites')).sort(), ['1', '2']);
+    assert.deepEqual((await read('favorites')).sort(), ['2', '298']);
     assert.match(await page.locator('.session-grid--focus [data-session="due"]').innerText(), /1 từ/);
 
     // A genuinely due review becomes the recommended action; it is not filled with future cards.
     await page.evaluate(() => {
       localStorage.clear();
       localStorage.setItem('chuyen-anh.progress.v1', JSON.stringify({
-        '1': { id: '1', state: 'review', correctCount: 2, wrongCount: 0, streak: 2, lastReviewed: 0, nextReview: 0, interval: 1, ease: 2.5, difficulty: 0 }
+        '298': { id: '298', state: 'review', correctCount: 2, wrongCount: 0, streak: 2, lastReviewed: 0, nextReview: 0, interval: 1, ease: 2.5, difficulty: 0 }
       }));
     });
     await page.reload();
@@ -561,36 +561,36 @@ async function main() {
     assert.deepEqual(await page.evaluate(() => ({ ...localStorage })), beforeBadImport);
 
     // Last-card failure gets exactly one retry; another failure cannot loop.
-    await seed(['1']);
-    await answer('1', false);
-    const lastFailed = (await read('progress'))['1'];
+    await seed(['298']);
+    await answer('298', false);
+    const lastFailed = (await read('progress'))['298'];
     await page.keyboard.press('r'); // Already auto-queued: no duplicate.
     await typeAnswer('wrong');
-    assert.deepEqual((await read('progress'))['1'], lastFailed);
+    assert.deepEqual((await read('progress'))['298'], lastFailed);
     await next();
     assert.match(await page.locator('.summary').innerText(), /Luyện lại: 0 đúng · 1 chưa đúng \/ 1 lượt/);
     await history({ total: 1, correct: 0, wrong: 1, accuracy: 0 });
 
     // An all-correct session ends without adding practice.
-    await seed(['1']);
-    await answer('1', true);
+    await seed(['298']);
+    await answer('298', true);
     await next();
     assert.doesNotMatch(await page.locator('.summary').innerText(), /Luyện lại:/);
     await history({ total: 1, correct: 1, wrong: 0, accuracy: 100 });
 
     // Optional R after a correct answer also stays practice-only.
-    await seed(['1']);
-    await answer('1', true);
-    const correctProgress = (await read('progress'))['1'];
+    await seed(['298']);
+    await answer('298', true);
+    const correctProgress = (await read('progress'))['298'];
     await page.keyboard.press('r');
     await typeAnswer('wrong');
-    assert.deepEqual((await read('progress'))['1'], correctProgress);
+    assert.deepEqual((await read('progress'))['298'], correctProgress);
     await next();
     await history({ total: 1, correct: 1, wrong: 0, accuracy: 100 });
 
     // Multiple errors retain order; skipping practice does not add work.
-    await seed(['1', '2']);
-    await answer('1', false);
+    await seed(['298', '2']);
+    await answer('298', false);
     await next();
     await answer('2', false);
     await next();
@@ -598,7 +598,7 @@ async function main() {
     assert.match(await page.locator('.prompt').innerText(), /tỉ mỉ/);
     await typeAnswer('Meticulous');
     await next();
-    await typeAnswer('Adversity');
+    await typeAnswer('Adverse');
     await next();
     assert.match(await page.locator('.summary').innerText(), /Luyện lại: 2 đúng · 0 chưa đúng \/ 2 lượt/);
     await history({ total: 2, correct: 0, wrong: 2, accuracy: 0 });
@@ -691,10 +691,10 @@ async function main() {
     await next();
 
     // An introduced word is not introduced again when it returns in the same session.
-    await seed(['1', '2', '3']);
+    await seed(['298', '2', '3']);
     assert.equal(await page.locator('#start-quiz').count(), 1);
     await page.locator('#start-quiz').click();
-    await page.locator('[data-option="1"]').click();
+    await page.locator('[data-option="298"]').click();
     await next();
     assert.equal(await page.locator('#start-quiz').count(), 1, 'the second never-studied word is introduced');
     await page.locator('#start-quiz').click();
@@ -706,9 +706,9 @@ async function main() {
     assert.equal(await page.locator('[data-option]').count(), 4);
 
     // A revealed typed card locks its input as well, and practice stays practice.
-    await seed(['1']);
+    await seed(['298']);
     await page.locator('#start-quiz').click();
-    await page.locator('[data-option]:not([data-option="1"])').first().click();
+    await page.locator('[data-option]:not([data-option="298"])').first().click();
     await next();
     assert.equal(await page.locator('#spelling-input').isEnabled(), true);
     // Space is a normal character while typing, so reveal from the card shortcut.
@@ -723,7 +723,7 @@ async function main() {
     await history({ total: 1, correct: 0, wrong: 1, accuracy: 0 });
 
     // The introduction is not persisted: a reload mid-session re-introduces the word.
-    await seed(['1']);
+    await seed(['298']);
     assert.equal(await page.locator('#start-quiz').count(), 1);
     await page.reload();
     await page.locator('[data-session="favorites"]').click();
@@ -756,9 +756,9 @@ async function main() {
     // Existing saved progress is untouched: a scheduled card is never introduced.
     await page.evaluate(() => {
       localStorage.clear();
-      localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['1']));
+      localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['298']));
       localStorage.setItem('chuyen-anh.progress.v1', JSON.stringify({
-        '1': { id: '1', state: 'review', correctCount: 3, wrongCount: 0, streak: 2, lastReviewed: 0, nextReview: 0, interval: 5, ease: 2.4, difficulty: 0.2 }
+        '298': { id: '298', state: 'review', correctCount: 3, wrongCount: 0, streak: 2, lastReviewed: 0, nextReview: 0, interval: 5, ease: 2.4, difficulty: 0.2 }
       }));
     });
     await page.reload();
@@ -766,9 +766,9 @@ async function main() {
     assert.equal(await page.locator('#start-quiz').count(), 0, 'a card with existing progress is not reintroduced');
     assert.equal(await page.locator('[data-option]').count(), 4);
     assert.equal(await page.locator('.state-pill').innerText(), 'Ôn tập');
-    assert.equal((await read('progress'))['1'].correctCount, 3);
-    await page.locator('[data-option="1"]').click();
-    const continued = (await read('progress'))['1'];
+    assert.equal((await read('progress'))['298'].correctCount, 3);
+    await page.locator('[data-option="298"]').click();
+    const continued = (await read('progress'))['298'];
     assert.equal(continued.correctCount, 4, 'the stored counters keep growing from their old value');
     assert.equal(continued.wrongCount, 0);
 
@@ -804,7 +804,7 @@ async function main() {
     await page.locator('#clear-search').click();
 
     // ---- Reset and import end the running session instead of resurrecting it.
-    await seed(['1', '2']);
+    await seed(['298', '2']);
     await page.locator('#start-quiz').click();
     assert.equal(await page.locator('.flashcard').count(), 1);
     await page.locator('[data-view="settings"]').click();
@@ -816,9 +816,9 @@ async function main() {
     assert.equal(await page.locator('.flashcard').count(), 0, 'a reset session is not resurrected');
     assert.equal(await page.locator('#exit-session').count(), 0);
     assert.equal(await page.locator('.prompt').count(), 0);
-    assert.equal((await read('progress'))['1'].correctCount, 0);
+    assert.equal((await read('progress'))['298'].correctCount, 0);
 
-    await seed(['1', '2']);
+    await seed(['298', '2']);
     await page.locator('#start-quiz').click();
     const importPrompt = (await page.locator('.prompt').innerText()).trim();
     await page.locator('[data-view="settings"]').click();
@@ -890,7 +890,7 @@ async function main() {
     }
 
     // ---- Shortcuts belong to the visible card, not to a hidden session.
-    await seed(['1', '2']);
+    await seed(['298', '2']);
     await page.locator('#start-quiz').click();
     const hiddenPrompt = (await page.locator('.prompt').innerText()).trim();
     await page.locator('[data-view="search"]').click();
@@ -912,8 +912,8 @@ async function main() {
     // ---- A backup file round-trips: export → wipe → import → export preserves data.
     await page.evaluate(() => localStorage.clear());
     await page.reload();
-    await seed(['1']);
-    await answer('1', true);
+    await seed(['298']);
+    await answer('298', true);
     await next();
     await page.locator('.summary').waitFor();
     const stateAfterSession = await page.evaluate(() => ({ ...localStorage }));
@@ -929,9 +929,9 @@ async function main() {
     assert.equal(roundTripBundle.history.length, 1);
     assert.equal(roundTripBundle.history[0].total, 1);
     assert.equal(roundTripBundle.history[0].correct, 1);
-    assert.deepEqual(roundTripBundle.favorites, ['1']);
-    assert.equal(roundTripBundle.progress['1'].correctCount, 1);
-    assert.equal(roundTripBundle.progress['1'].state, 'learning');
+    assert.deepEqual(roundTripBundle.favorites, ['298']);
+    assert.equal(roundTripBundle.progress['298'].correctCount, 1);
+    assert.equal(roundTripBundle.progress['298'].state, 'learning');
     assert.equal(typeof roundTripBundle.exportedAt, 'string');
 
     // Wipe the device, then restore from the file: the state must come back.
@@ -967,12 +967,12 @@ async function main() {
     }));
     await page.evaluate(entries => {
       localStorage.clear();
-      localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['1']));
+      localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['298']));
       localStorage.setItem('chuyen-anh.history.v1', JSON.stringify(entries));
     }, seededHistory);
     await page.reload();
     await page.locator('[data-session="favorites"]').click();
-    await answer('1', true);
+    await answer('298', true);
     await next();
     await page.locator('.summary').waitFor();
     const retained = await read('history');
@@ -1003,7 +1003,7 @@ async function main() {
     // ten, so the first word's delayed check arrives after four turns.
     const englishPlan = await page.evaluate(() => {
       const now = Date.now();
-      const data = JSON.parse(document.getElementById('vocabulary-data').textContent).slice(0, 10);
+      const data = JSON.parse(document.getElementById('vocabulary-data').textContent).filter(entry => !entry.familyHead).slice(0, 10);
       const progress = {};
       data.forEach((entry, index) => {
         progress[entry.id] = {
@@ -1071,7 +1071,7 @@ async function main() {
     const footerText = async () => (await page.locator('.card-footer span').last().innerText()).replace(/\s+/g, ' ').trim();
     await page.evaluate(() => {
       const now = Date.now();
-      const data = JSON.parse(document.getElementById('vocabulary-data').textContent).slice(0, 10);
+      const data = JSON.parse(document.getElementById('vocabulary-data').textContent).filter(entry => !entry.familyHead).slice(0, 10);
       const progress = {};
       data.forEach((entry, index) => {
         progress[entry.id] = {
@@ -1089,6 +1089,7 @@ async function main() {
     await page.locator('[data-session="sprint"]').waitFor();
     await page.locator('[data-session="sprint"]').click();
     const footerPlan = await page.evaluate(() => JSON.parse(document.getElementById('vocabulary-data').textContent)
+      .filter(entry => !entry.familyHead)
       .slice(0, 10).map(entry => ({ word: entry.word, meaning: entry.meaning })));
     assert.equal(await footerText(), 'Space reveal · Enter next',
       `the English first-pass footer is complete: "${await footerText()}"`);
@@ -1164,7 +1165,7 @@ async function main() {
     await page.clock.setFixedTime(new Date('2026-10-20T12:00:00Z'));
     await page.evaluate(() => {
       const now = Date.now();
-      const data = JSON.parse(document.getElementById('vocabulary-data').textContent).slice(0, 4);
+      const data = JSON.parse(document.getElementById('vocabulary-data').textContent).filter(entry => !entry.familyHead).slice(0, 4);
       const progress = {};
       data.forEach((entry, index) => {
         progress[entry.id] = {
@@ -1182,6 +1183,7 @@ async function main() {
     await page.locator('[data-session="sprint"]').waitFor();
     await page.locator('[data-session="sprint"]').click();
     const streakPlan = await page.evaluate(() => JSON.parse(document.getElementById('vocabulary-data').textContent)
+      .filter(entry => !entry.familyHead)
       .slice(0, 4).map(entry => ({ id: entry.id, word: entry.word, meaning: entry.meaning })));
     const streakAnswer = async plan => {
       const prompt = (await page.locator('.prompt').innerText()).trim();
@@ -1230,9 +1232,9 @@ async function main() {
     await page.evaluate(() => {
       const now = Date.now();
       localStorage.setItem('chuyen-anh.progress.v1', JSON.stringify({
-        '1': { id: '1', state: 'learning', correctCount: 2, wrongCount: 0, streak: 2, lastReviewed: now, nextReview: now + 3600000, interval: 1, ease: 2.5, difficulty: 0 }
+        '298': { id: '298', state: 'learning', correctCount: 2, wrongCount: 0, streak: 2, lastReviewed: now, nextReview: now + 3600000, interval: 1, ease: 2.5, difficulty: 0 }
       }));
-      localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['1']));
+      localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['298']));
     });
     await page.reload(); // the write counter restarts with the document
     await page.locator('[data-session="favorites"]').waitFor();
@@ -1278,9 +1280,9 @@ async function main() {
     async function seedSpellingCard() {
       await page.evaluate(() => {
         localStorage.clear();
-        localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['1']));
+        localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['298']));
         localStorage.setItem('chuyen-anh.progress.v1', JSON.stringify({
-          '1': { id: '1', state: 'learning', correctCount: 2, wrongCount: 0, streak: 2, lastReviewed: 0, nextReview: 0, interval: 1, ease: 2.5, difficulty: 0 }
+          '298': { id: '298', state: 'learning', correctCount: 2, wrongCount: 0, streak: 2, lastReviewed: 0, nextReview: 0, interval: 1, ease: 2.5, difficulty: 0 }
         }));
       });
       await page.reload();
@@ -1296,17 +1298,17 @@ async function main() {
       await page.keyboard.press(' ');
     }
     await seedSpellingCard();
-    const beforeBlank = (await read('progress'))['1'];
+    const beforeBlank = (await read('progress'))['298'];
     await page.locator('#submit-answer').click();
     await page.locator('.toast').filter({ hasText: 'Hãy nhập câu trả lời trước khi xác nhận.' }).waitFor();
     assert.equal(await page.locator('#feedback-area').innerText(), '', 'a blank submission produces no graded feedback');
     assert.equal(await page.locator('#next-card').count(), 0, 'a blank submission does not advance the session');
     await page.locator('#spelling-input').fill('   ');
     await page.locator('#spelling-input').press('Enter');
-    assert.deepEqual((await read('progress'))['1'], beforeBlank,
+    assert.deepEqual((await read('progress'))['298'], beforeBlank,
       'blank and whitespace-only submissions change no progress');
-    await typeAnswer('Adversity');
-    assert.equal((await read('progress'))['1'].correctCount, beforeBlank.correctCount + 1,
+    await typeAnswer('Adverse');
+    assert.equal((await read('progress'))['298'].correctCount, beforeBlank.correctCount + 1,
       'a real submission still grades exactly once');
     await next();
 
@@ -1314,10 +1316,10 @@ async function main() {
     await seedSpellingCard();
     await revealFromKeyboard();
     await page.locator('#reveal-correct').waitFor();
-    const beforeSelfGrade = (await read('progress'))['1'];
+    const beforeSelfGrade = (await read('progress'))['298'];
     await page.locator('#reveal-correct').evaluate(element => { element.click(); element.click(); });
     await page.waitForTimeout(50);
-    const afterSelfGrade = (await read('progress'))['1'];
+    const afterSelfGrade = (await read('progress'))['298'];
     assert.equal(afterSelfGrade.correctCount, beforeSelfGrade.correctCount + 1,
       'double-activating self-assessment cannot grade the same turn twice');
     assert.equal(afterSelfGrade.streak, beforeSelfGrade.streak + 1, 'the streak advances once per graded turn');
@@ -1330,8 +1332,8 @@ async function main() {
     assert.equal(await page.locator('#skip-card').isDisabled(), true,
       'the self-assessment lock also disables skipping the revealed card');
     assert.equal(await page.locator('#exit-session').isEnabled(), true, 'leaving the session stays possible');
-    assert.deepEqual((await read('progress'))['1'],
-      { id: '1', state: 'learning', correctCount: 2, wrongCount: 0, streak: 2, lastReviewed: 0, nextReview: 0, interval: 1, ease: 2.5, difficulty: 0 },
+    assert.deepEqual((await read('progress'))['298'],
+      { id: '298', state: 'learning', correctCount: 2, wrongCount: 0, streak: 2, lastReviewed: 0, nextReview: 0, interval: 1, ease: 2.5, difficulty: 0 },
       'revealing and locking writes nothing to progress');
 
     // ---- beta4 regressions (Scopes A, B, E, F) on live Chromium page before quota-failure scenario
@@ -1348,7 +1350,7 @@ async function main() {
       await page.evaluate(() => {
         localStorage.clear();
         localStorage.setItem('chuyen-anh.language.v1', 'en');
-        localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['1', '2']));
+        localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['298', '2']));
       });
       await page.reload();
       await page.locator('[data-session="favorites"]').waitFor();
@@ -1372,7 +1374,7 @@ async function main() {
       // Scope B.1 + B.2 + Scope A shortcut check in a real 5-word English Sprint session
       await page.evaluate(() => {
         const vocabData = JSON.parse(document.getElementById('vocabulary-data').textContent);
-        const keep = vocabData.slice(0, 5);
+        const keep = vocabData.filter(entry => !entry.familyHead).slice(0, 5);
         const assim = vocabData.find(v => v.word === 'Assimilate');
         if (assim && !keep.some(v => v.id === assim.id)) keep[0] = assim;
         localStorage.clear();
@@ -1447,7 +1449,7 @@ async function main() {
     // through the interface, in the learner's own workflow.
     const beta5Seed = await page.evaluate(() => {
       const now = Date.now();
-      const data = JSON.parse(document.getElementById('vocabulary-data').textContent).slice(0, 12);
+      const data = JSON.parse(document.getElementById('vocabulary-data').textContent).filter(entry => !entry.familyHead).slice(0, 12);
       const progress = {};
       data.forEach((entry, index) => {
         progress[entry.id] = {

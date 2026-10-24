@@ -1,0 +1,351 @@
+# Everyday home, furniture, tools, containers and household actions (B1–B2).
+# word	pos	meaning	level	topic	type	skills
+kettle	n	ấm đun nước	B1	daily-life	topic	reading
+cupboard	n	tủ đựng chén bát	B1	daily-life	topic	reading
+wardrobe	n	tủ quần áo	B1	daily-life	topic	reading
+drawer	n	ngăn kéo	B1	daily-life	topic	reading
+cushion	n	đệm ngồi, gối tựa	B1	daily-life	topic	reading
+bucket	n	cái xô	B1	daily-life	topic	reading
+broom	n	cái chổi	B1	daily-life	topic	reading
+sponge	n	bọt biển, miếng rửa bát	B1	daily-life	topic	reading
+needle	n	cây kim	B1	daily-life	topic	reading
+hammer	n	búa	B1	daily-life	topic	reading
+screwdriver	n	tuốc-nơ-vít	B1	daily-life	topic	reading
+spanner	n	cờ lê	B1	daily-life	topic	reading
+ladder	n	cái thang	B1	daily-life	topic	reading
+fence	n	hàng rào	B1	daily-life	topic	reading
+gate	n	cổng	B1	daily-life	topic	reading
+shed	n	nhà kho nhỏ	B1	daily-life	topic	reading
+garage	n	ga-ra, nhà để xe	B1	daily-life	topic	reading
+balcony	n	ban công	B1	daily-life	topic	reading
+ceiling	n	trần nhà	B1	daily-life	topic	reading
+basement	n	tầng hầm	B1	daily-life	topic	reading
+attic	n	gác mái	B1	daily-life	topic	reading
+chimney	n	ống khói	B1	daily-life	topic	reading
+roof	n	mái nhà	B1	daily-life	topic	reading
+pavement	n	vỉa hè	B1	daily-life	topic	reading
+kerb	n	lề đường	B2	daily-life	topic	reading
+roundabout	n	vòng xuyến	B2	travel	topic	reading
+crossroads	n	ngã tư	B2	travel	topic	reading
+pedestrian	n	người đi bộ	B1	travel	topic	reading
+cyclist	n	người đi xe đạp	B1	travel	topic	reading
+scooter	n	xe ga, xe trượt	B2	travel	topic	reading
+van	n	xe tải nhỏ	B1	travel	topic	reading
+lorry	n	xe tải	B1	travel	topic	reading
+tram	n	tàu điện	B2	travel	topic	reading
+ferry	n	phà	B1	travel	topic	reading
+harbour	n	bến cảng	B2	travel	topic	reading
+platform	n	sân ga, bục	B1	travel	topic	reading
+timetable	n	thời khoá biểu	B1	education	topic	reading
+fare	n	tiền vé	B2	travel	topic	reading
+luggage	n	hành lý	B1	travel	topic	reading
+passport	n	hộ chiếu	B1	travel	topic	reading
+visa	n	thị thực	B1	travel	topic	reading
+itinerary	n	lịch trình chuyến đi	C1	travel	topic	reading
+souvenir	n	đồ lưu niệm	B2	travel	topic	reading
+excursion	n	chuyến tham quan	C1	travel	topic	reading
+campsite	n	khu cắm trại	B2	travel	topic	reading
+tent	n	lều	B1	travel	topic	reading
+torch	n	đèn pin	B2	travel	topic	reading
+compass	n	la bàn	B2	travel	topic	reading
+binoculars	n	ống nhòm	B2	travel	topic	reading
+kettleful	n	lượng nước một ấm	C2	daily-life	topic	reading
+dough	n	bột nhào	B2	food	topic	reading
+batter	n	hỗn hợp bột lỏng	B2	food	topic	reading
+whisk	n	cái đánh trứng	B2	food	topic	reading
+sieve	n	cái rây	B2	food	topic	reading
+ladle	n	cái muôi	B2	food	topic	reading
+grill	n	vỉ nướng	B1	food	topic	reading
+roast	v	quay, nướng	B1	food	topic	reading
+simmer	v	đun liu riu	B2	food	topic	reading
+steam	v	hấp	B2	food	topic	reading
+chop	v	chặt, cắt nhỏ	B1	food	topic	reading
+slice	v	thái lát	B1	food	topic	reading
+dice	v	thái hạt lựu	C1	food	topic	reading
+peel	v	bóc vỏ	B1	food	topic	reading
+grate	v	mài, nạo	B2	food	topic	reading
+squeeze	v	vắt, ép	B1	food	topic	reading
+sprinkle	v	rắc	B2	food	topic	reading
+stir	v	khuấy	B1	food	topic	reading
+pour	v	rót, đổ	B1	food	topic	reading
+drain	v	để ráo, xả nước	B2	food	topic	reading
+rinse	v	tráng, rửa sơ	B2	food	topic	reading
+soak	v	ngâm	B2	food	topic	reading
+marinade	n	nước ướp	B2	food	topic	reading
+vinegar	n	giấm	B1	food	topic	reading
+mustard	n	mù tạt	B2	food	topic	reading
+garlic	n	tỏi	B1	food	topic	reading
+onion	n	hành	B1	food	topic	reading
+leek	n	tỏi tây	B2	food	topic	reading
+celery	n	cần tây	B2	food	topic	reading
+lettuce	n	xà lách	B1	food	topic	reading
+cabbage	n	bắp cải	B1	food	topic	reading
+spinach	n	cải bó xôi	B2	food	topic	reading
+pumpkin	n	bí ngô	B1	food	topic	reading
+courgette	n	bí ngòi	B2	food	topic	reading
+aubergine	n	cà tím	B2	food	topic	reading
+beetroot	n	củ dền	B2	food	topic	reading
+radish	n	củ cải đỏ	B2	food	topic	reading
+parsley	n	mùi tây	B2	food	topic	reading
+coriander	n	rau mùi	B2	food	topic	reading
+mint	n	bạc hà	B1	food	topic	reading
+ginger	n	gừng	B1	food	topic	reading
+turmeric	n	nghệ	B2	food	topic	reading
+cinnamon	n	quế	B2	food	topic	reading
+nutmeg	n	nhục đậu khấu	C1	food	topic	reading
+vanilla	n	vani	B2	food	topic	reading
+yeast	n	men	B2	food	topic	reading
+flour	n	bột mì	B1	food	topic	reading
+eyebrow	n	lông mày	B1	health	topic	reading
+eyelash	n	lông mi	B2	health	topic	reading
+jaw	n	hàm	B1	health	topic	reading
+forehead	n	trán	B1	health	topic	reading
+wrist	n	cổ tay	B1	health	topic	reading
+ankle	n	cổ chân	B1	health	topic	reading
+elbow	n	khuỷu tay	B1	health	topic	reading
+shoulder	n	vai	B1	health	topic	reading
+spine	n	xương sống	B2	health	topic	reading
+rib	n	xương sườn	B1	health	topic	reading
+lung	n	phổi	B2	health	topic	reading
+kidney	n	thận	B2	health	topic	reading
+liver	n	gan	B2	health	topic	reading
+intestine	n	ruột	C1	health	topic	reading
+vein	n	tĩnh mạch	B2	health	topic	reading
+artery	n	động mạch	B2	health	topic	reading
+muscle	n	cơ bắp	B1	health	topic	reading
+tendon	n	gân	C1	health	topic	reading
+ligament	n	dây chằng	C1	health	topic	reading
+nerve	n	dây thần kinh	B2	health	topic	reading
+skull	n	hộp sọ	B2	health	topic	reading
+palm	n	lòng bàn tay	B1	health	topic	reading
+knuckle	n	đốt ngón tay	C1	health	topic	reading
+freckle	n	tàn nhang	C1	health	topic	reading
+wrinkle	n	nếp nhăn	B2	health	topic	reading
+bruise	n	vết bầm	B2	health	topic	reading
+swelling	n	vết sưng	B2	health	topic	reading
+rash	n	phát ban	B2	health	topic	reading
+sneeze	v	hắt hơi	B1	health	topic	reading
+cough	v	ho	B1	health	topic	reading
+wheeze	v	thở khò khè	C1	health	topic	reading
+dizzy	adj	chóng mặt	B1	health	topic	reading
+nausea	n	buồn nôn	B2	health	topic	reading
+headache	n	đau đầu	B1	health	topic	reading
+toothache	n	đau răng	B1	health	topic	reading
+backache	n	đau lưng	B1	health	topic	reading
+sunburn	n	cháy nắng	B2	health	topic	reading
+frostbite	n	tê cóng	C1	health	topic	reading
+syringe	n	ống tiêm	C1	health	topic	reading
+bandage	n	băng gạc	B1	health	topic	reading
+plaster	n	băng dính y tế	B2	health	topic	reading
+crutch	n	nạng	C1	health	topic	reading
+stretcher	n	cáng	C1	health	topic	reading
+ward	n	khoa bệnh viện	B2	health	topic	reading
+surgeon	n	bác sĩ phẫu thuật	B1	health	topic	reading
+midwife	n	nữ hộ sinh	C1	health	topic	reading
+pharmacist	n	dược sĩ	B1	health	topic	reading
+racket	n	vợt	B1	sport	topic	reading
+shuttlecock	n	cầu lông	C1	sport	topic	reading
+wicket	n	khung thành cricket	C2	sport	topic	reading
+umpire	n	trọng tài	B2	sport	topic	reading
+goalkeeper	n	thủ môn	B1	sport	topic	reading
+striker	n	tiền đạo	B2	sport	topic	reading
+defender	n	hậu vệ	B2	sport	topic	reading
+midfielder	n	tiền vệ	C1	sport	topic	reading
+dribble	v	dắt bóng	B2	sport	topic	reading
+header	n	cú đánh đầu	B2	sport	topic	reading
+kickoff	n	giờ bắt đầu trận	C1	sport	topic	reading
+offside	adj	việt vị	C1	sport	topic	reading
+relay	n	cuộc chạy tiếp sức	B2	sport	topic	reading
+hurdle	n	rào chắn, chướng ngại	B2	sport	topic	reading
+javelin	n	lao	B2	sport	topic	reading
+discus	n	đĩa ném	C1	sport	topic	reading
+sprint	v	chạy nước rút	B2	sport	topic	reading
+jogging	n	chạy bộ nhẹ	B1	sport	topic	reading
+aerobics	n	thể dục nhịp điệu	B1	sport	topic	reading
+pilates	n	bài tập pilates	C1	sport	topic	reading
+stretching	n	sự giãn cơ	B2	sport	topic	reading
+treadmill	n	máy chạy bộ	C1	sport	topic	reading
+dumbbell	n	tạ tay	C1	sport	topic	reading
+barbell	n	tạ đòn	C1	sport	topic	reading
+squat	n	động tác ngồi xổm	C1	sport	topic	reading
+lunge	n	động tác bước tới	C2	sport	topic	reading
+pushup	n	động tác chống đẩy	C1	sport	topic	reading
+situp	n	động tác gập bụng	C1	sport	topic	reading
+plank	n	động tác plank	C1	sport	topic	reading
+diving	n	môn lặn, nhảy cầu	B2	sport	topic	reading
+surfing	n	môn lướt sóng	B1	sport	topic	reading
+sailing	n	môn chèo thuyền	B2	sport	topic	reading
+rowing	n	môn chèo thuyền	B2	sport	topic	reading
+climbing	n	môn leo núi	B1	sport	topic	reading
+hiking	n	đi bộ đường dài	B1	sport	topic	reading
+camping	n	cắm trại	B1	sport	topic	reading
+fishing	n	câu cá	B1	sport	topic	reading
+hunting	n	săn bắn	B2	sport	topic	reading
+workbook	n	sách bài tập	B1	education	topic	reading
+binder	n	bìa kẹp tài liệu	B2	education	topic	reading
+highlighter	n	bút dạ quang	B1	education	topic	reading
+ruler	n	thước kẻ	B1	education	topic	reading
+protractor	n	thước đo góc	C1	education	topic	reading
+calculator	n	máy tính	B1	education	topic	reading
+whiteboard	n	bảng trắng	B1	education	topic	reading
+projector	n	máy chiếu	B2	education	topic	reading
+tutorial	n	buổi hướng dẫn	B2	education	topic	reading
+workshop	n	hội thảo thực hành	B2	education	topic	reading
+examiner	n	giám khảo	B2	education	topic	reading
+invigilator	n	giám thị	C1	education	topic	reading
+diploma	n	bằng tốt nghiệp	B2	education	topic	reading
+dissertation	n	luận văn	C1	education	topic	reading
+coursework	n	bài tập khoá học	C1	education	topic	reading
+apron	n	tạp dề	B1	daily-life	topic	reading
+mitten	n	găng tay hở ngón	B2	daily-life	topic	reading
+scarf	n	khăn quàng	B1	daily-life	topic	reading
+glove	n	găng tay	B1	daily-life	topic	reading
+sleeve	n	tay áo	B1	daily-life	topic	reading
+collar	n	cổ áo	B1	daily-life	topic	reading
+button	n	cúc áo	B1	daily-life	topic	reading
+zip	n	khoá kéo	B1	daily-life	topic	reading
+hem	n	gấu áo	C1	daily-life	topic	reading
+stitch	n	mũi khâu	B2	daily-life	topic	reading
+fabric	n	vải, chất liệu	B2	daily-life	topic	reading
+linen	n	vải lanh, khăn trải giường	B2	daily-life	topic	reading
+wool	n	len	B1	daily-life	topic	reading
+silk	n	lụa	B1	daily-life	topic	reading
+leather	n	da thuộc	B1	daily-life	topic	reading
+cotton	n	bông, vải cotton	B1	daily-life	topic	reading
+velvet	n	nhung	B2	daily-life	topic	reading
+denim	n	vải bò	C1	daily-life	topic	reading
+canvas	n	vải bạt, toan	C1	daily-life	topic	reading
+sandal	n	dép quai	B1	daily-life	topic	reading
+slipper	n	dép đi trong nhà	B1	daily-life	topic	reading
+boot	n	bốt	B1	daily-life	topic	reading
+trainer	n	giày thể thao	B2	daily-life	topic	reading
+bracelet	n	vòng tay	B1	daily-life	topic	reading
+necklace	n	dây chuyền	B1	daily-life	topic	reading
+brooch	n	trâm cài	C1	daily-life	topic	reading
+earring	n	khuyên tai	B1	daily-life	topic	reading
+ring	n	nhẫn	B1	daily-life	topic	reading
+wallet	n	ví da	B1	daily-life	topic	reading
+purse	n	túi xách nhỏ	B1	daily-life	topic	reading
+backpack	n	ba lô	B1	travel	topic	reading
+suitcase	n	va li	B1	travel	topic	reading
+handbag	n	túi xách	B1	daily-life	topic	reading
+bucketful	n	một xô đầy	C2	daily-life	topic	reading
+cutlery	n	bộ dao thìa dĩa	B2	food	topic	reading
+crockery	n	bát đĩa sành sứ	C1	food	topic	reading
+saucer	n	đĩa lót tách	B2	food	topic	reading
+teapot	n	ấm trà	B1	food	topic	reading
+jug	n	bình rót	B2	food	topic	reading
+tray	n	cái khay	B1	food	topic	reading
+napkin	n	khăn ăn	B1	food	topic	reading
+tablecloth	n	khăn trải bàn	B1	food	topic	reading
+straw	n	ống hút	B1	food	topic	reading
+lid	n	nắp đậy	B1	food	topic	reading
+jar	n	lọ, hũ	B1	food	topic	reading
+tin	n	hộp thiếc	B1	food	topic	reading
+carton	n	hộp giấy	B2	food	topic	reading
+packet	n	gói nhỏ	B1	food	topic	reading
+sachet	n	gói nhỏ một lần dùng	C1	food	topic	reading
+tub	n	thùng, hộp nhựa	B2	food	topic	reading
+warehouse	n	nhà kho	B2	economics	topic	reading
+shelf	n	kệ, giá	B1	daily-life	topic	reading
+stool	n	ghế đẩu	B1	daily-life	topic	reading
+bench	n	ghế dài	B1	daily-life	topic	reading
+armchair	n	ghế bành	B1	daily-life	topic	reading
+sofa	n	ghế sofa	B1	daily-life	topic	reading
+mattress	n	đệm giường	B2	daily-life	topic	reading
+pillow	n	gối	B1	daily-life	topic	reading
+blanket	n	chăn	B1	daily-life	topic	reading
+duvet	n	chăn bông	C1	daily-life	topic	reading
+sheet	n	khăn trải giường	B1	daily-life	topic	reading
+curtain	n	rèm cửa	B1	daily-life	topic	reading
+carpet	n	thảm trải sàn	B1	daily-life	topic	reading
+rug	n	thảm nhỏ	B2	daily-life	topic	reading
+lampshade	n	chụp đèn	C1	daily-life	topic	reading
+plug	n	phích cắm	B1	daily-life	topic	reading
+socket	n	ổ cắm điện	B2	daily-life	topic	reading
+switch	n	công tắc	B1	daily-life	topic	reading
+bulb	n	bóng đèn	B1	daily-life	topic	reading
+fuse	n	cầu chì	C1	daily-life	topic	reading
+wire	n	dây điện	B1	daily-life	topic	reading
+tap	n	vòi nước	B1	daily-life	topic	reading
+sink	n	bồn rửa	B1	daily-life	topic	reading
+drainpipe	n	ống thoát nước	C1	daily-life	topic	reading
+radiator	n	lò sưởi	B2	daily-life	topic	reading
+boiler	n	nồi hơi, bình nóng lạnh	C1	daily-life	topic	reading
+heater	n	máy sưởi	B1	daily-life	topic	reading
+fan	n	quạt	B1	daily-life	topic	reading
+vacuum	n	máy hút bụi	B2	daily-life	topic	reading
+mop	n	cây lau nhà	B2	daily-life	topic	reading
+dustpan	n	đồ hốt rác	C1	daily-life	topic	reading
+detergent	n	chất tẩy rửa	B2	daily-life	topic	reading
+bleach	n	thuốc tẩy	C1	daily-life	topic	reading
+laundry	n	quần áo giặt, việc giặt giũ	B2	daily-life	topic	reading
+iron	n	bàn là	B1	daily-life	topic	reading
+pegs	n	kẹp phơi đồ	C1	daily-life	topic	reading
+clothesline	n	dây phơi quần áo	C1	daily-life	topic	reading
+hanger	n	móc treo quần áo	B2	daily-life	topic	reading
+sweep	v	quét	B1	daily-life	topic	reading
+scrub	v	cọ rửa	B2	daily-life	topic	reading
+polish	v	đánh bóng	B2	daily-life	topic	reading
+wipe	v	lau	B1	daily-life	topic	reading
+sew	v	khâu	B1	daily-life	topic	reading
+fold	v	gấp lại	B1	daily-life	topic	reading
+hang	v	treo	B1	daily-life	topic	reading
+tidy	v	dọn dẹp	B1	daily-life	topic	reading
+declutter	v	dọn bớt đồ đạc	C1	daily-life	topic	reading
+repair	v	sửa chữa	B1	daily-life	topic	reading
+fix	v	sửa	B1	daily-life	topic	reading
+assemble	v	lắp ráp	B1	daily-life	topic	reading
+install	v	lắp đặt	B1	daily-life	topic	reading
+unplug	v	rút phích cắm	C1	daily-life	topic	reading
+tighten	v	siết chặt	B2	daily-life	topic	reading
+loosen	v	nới lỏng	B2	daily-life	topic	reading
+nail	n	đinh	B1	daily-life	topic	reading
+screw	n	ốc vít	B1	daily-life	topic	reading
+bolt	n	bu lông	B2	daily-life	topic	reading
+nut	n	đai ốc	B2	daily-life	topic	reading
+drill	n	máy khoan	B1	daily-life	topic	reading
+saw	n	cái cưa	B1	daily-life	topic	reading
+chisel	n	cái đục	C1	daily-life	topic	reading
+pliers	n	kìm	C1	daily-life	topic	reading
+glue	n	keo dính	B1	daily-life	topic	reading
+tape	n	băng dính	B1	daily-life	topic	reading
+rope	n	dây thừng	B1	daily-life	topic	reading
+string	n	sợi dây nhỏ	B1	daily-life	topic	reading
+hook	n	cái móc	B1	daily-life	topic	reading
+handle	n	tay cầm	B1	daily-life	topic	reading
+hinge	n	bản lề	C1	daily-life	topic	reading
+lock	n	khoá	B1	daily-life	topic	reading
+keyhole	n	lỗ khoá	C1	daily-life	topic	reading
+padlock	n	khoá móc	C1	daily-life	topic	reading
+label	n	nhãn	B1	daily-life	topic	reading
+sticker	n	nhãn dán	B1	daily-life	topic	reading
+wrapper	n	vỏ bọc, giấy gói	B2	daily-life	topic	reading
+cork	n	nút bần	B2	food	topic	reading
+bottle	n	chai	B1	food	topic	reading
+flask	n	bình thót cổ, bình giữ nhiệt	B2	daily-life	topic	reading
+thermos	n	bình giữ nhiệt	C1	daily-life	topic	reading
+canteen	n	căng tin, bình nước	B1	education	topic	reading
+escalator	n	thang cuốn	B1	daily-life	topic	reading
+lift	n	thang máy	B1	daily-life	topic	reading
+corridor	n	hành lang	B1	daily-life	topic	reading
+staircase	n	cầu thang	B1	daily-life	topic	reading
+landing	n	chiếu nghỉ cầu thang	B2	daily-life	topic	reading
+porch	n	hiên nhà	B2	daily-life	topic	reading
+patio	n	sân trong nhà	C1	daily-life	topic	reading
+driveway	n	đường vào nhà	C1	daily-life	topic	reading
+lawn	n	bãi cỏ	B1	daily-life	topic	reading
+hedge	n	hàng rào cây	B2	daily-life	topic	reading
+flowerbed	n	luống hoa	C1	daily-life	topic	reading
+greenhouse	n	nhà kính	B1	environment	topic	reading
+compost	n	phân hữu cơ	C1	environment	topic	reading
+spade	n	cái xẻng	B1	daily-life	topic	reading
+shovel	n	cái xẻng xúc	C1	daily-life	topic	reading
+rake	n	cái cào	B1	daily-life	topic	reading
+wheelbarrow	n	xe cút kít	C1	daily-life	topic	reading
+hose	n	ống nước mềm	B2	daily-life	topic	reading
+sprinkler	n	vòi phun nước	C1	daily-life	topic	reading
+pave	v	lát đường	B2	daily-life	topic	reading
+tile	n	gạch lát	B1	daily-life	topic	reading
+cement	n	xi măng	B2	daily-life	topic	reading
+brick	n	gạch	B2	daily-life	topic	reading

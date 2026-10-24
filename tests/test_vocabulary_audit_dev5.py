@@ -10,6 +10,7 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 SCRIPTS = ROOT / "scripts"
 sys.path.insert(0, str(SCRIPTS))
 from learned_vocabulary import parse_table  # noqa: E402
+from vocabulary_families import audit_view  # noqa: E402
 
 REPORT_JSON = ROOT / "docs" / "vocabulary-audit-dev5.json"
 REPORT_MD = ROOT / "docs" / "vocabulary-audit-dev5.md"
@@ -75,8 +76,11 @@ class VocabularyAuditDev5Tests(unittest.TestCase):
             app_row = app_by_id[entry_id]
             audit_row = self.by_id[entry_id]
             for field in SOURCE_FIELDS:
-                self.assertEqual(source_row[field], app_row.get(field, ""), f"source/JSON {entry_id}.{field}")
-                self.assertEqual(source_row[field], audit_row["source"][field], f"source/report {entry_id}.{field}")
+                # Family bookkeeping post-dates this frozen ledger and is not
+                # dictionary evidence; comparing it away keeps the record intact.
+                expected = audit_view(field, source_row[field])
+                self.assertEqual(expected, audit_view(field, app_row.get(field, "")), f"source/JSON {entry_id}.{field}")
+                self.assertEqual(expected, audit_row["source"][field], f"source/report {entry_id}.{field}")
             self.assertEqual(audit_row["appMetadata"]["examples"], app_row.get("examples", []), entry_id)
             self.assertEqual(audit_row["appMetadata"]["difficulty"], app_row.get("difficulty"), entry_id)
             self.assertEqual(audit_row["appMetadata"]["createdAt"], app_row.get("createdAt"), entry_id)

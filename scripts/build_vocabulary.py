@@ -32,6 +32,9 @@ def build_vocabulary(records: list[dict[str, Any]], existing: list[dict[str, Any
     result: list[dict[str, Any]] = []
     for record in records:
         entry = dict(by_id.get(record["id"], {}))
+        # The root rule travels as data: a merged form carries the id of the
+        # headword that now lists it, so the app can hide it and fold its progress.
+        family_head = next((tag.split(":", 1)[1] for tag in record["tags"] if tag.startswith("family-head:")), None)
         entry.update({
             "id": record["id"],
             "word": record["word"],
@@ -48,6 +51,10 @@ def build_vocabulary(records: list[dict[str, Any]], existing: list[dict[str, Any
             "notes": record["notes"],
             "sources": record["sources"],
         })
+        if family_head:
+            entry["familyHead"] = family_head
+        else:
+            entry.pop("familyHead", None)
         result.append(entry)
     return result
 
@@ -74,7 +81,8 @@ def main() -> int:
         if args.json.read_text(encoding="utf-8") != serialized:
             print("Vocabulary JSON is out of sync; run python scripts/build_vocabulary.py")
             return 1
-        print(f"Vocabulary JSON matches {len(records)} Markdown records.")
+        merged = sum(1 for entry in expected if entry.get("familyHead"))
+        print(f"Vocabulary JSON matches {len(records)} Markdown records ({len(records) - merged} headwords, {merged} merged family forms).")
         return 0
 
     args.json.write_text(serialized, encoding="utf-8")

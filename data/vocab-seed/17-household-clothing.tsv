@@ -1,0 +1,145 @@
+# Bathroom, cleaning, bedding, clothing, accessories, hardware (B1–C1).
+# word	pos	meaning	level	topic	type	skills
+toothbrush	n	bàn chải đánh răng	B1	daily-life	topic	reading
+toothpaste	n	kem đánh răng	B1	daily-life	topic	reading
+floss	n	chỉ nha khoa	C1	daily-life	topic	reading
+mouthwash	n	nước súc miệng	B2	daily-life	topic	reading
+shampoo	n	dầu gội	B1	daily-life	topic	reading
+conditioner	n	dầu xả	B1	daily-life	topic	reading
+lotion	n	kem dưỡng da	B2	daily-life	topic	reading
+moisturiser	n	kem dưỡng ẩm	C1	daily-life	topic	reading
+sunscreen	n	kem chống nắng	B1	daily-life	topic	reading
+deodorant	n	lăn khử mùi	B2	daily-life	topic	reading
+perfume	n	nước hoa	B1	daily-life	topic	reading
+cologne	n	nước hoa nam	C1	daily-life	topic	reading
+razor	n	dao cạo	B1	daily-life	topic	reading
+comb	n	cái lược	B1	daily-life	topic	reading
+brush	n	bàn chải	B1	daily-life	topic	reading
+towel	n	khăn tắm	B1	daily-life	topic	reading
+flannel	n	khăn mặt mềm	B2	daily-life	topic	reading
+bathrobe	n	áo choàng tắm	C1	daily-life	topic	reading
+slippers	n	dép đi trong nhà	B1	daily-life	topic	reading
+bathtub	n	bồn tắm	B1	daily-life	topic	reading
+showerhead	n	đầu vòi sen	C1	daily-life	topic	reading
+drain	n	ống thoát nước	B2	daily-life	topic	reading
+plunger	n	đồ thông bồn cầu	C1	daily-life	topic	reading
+loo	n	nhà vệ sinh	C1	daily-life	topic	reading
+toilet	n	nhà vệ sinh, bồn cầu	B1	daily-life	topic	reading
+basin	n	chậu rửa	B2	daily-life	topic	reading
+mirror	n	gương	B1	daily-life	topic	reading
+shelf	n	kệ	B1	daily-life	topic	reading
+basket	n	cái giỏ	B1	daily-life	topic	reading
+hamper	n	giỏ đựng đồ giặt	C1	daily-life	topic	reading
+bin	n	thùng rác	B1	daily-life	topic	reading
+binliner	n	túi lót thùng rác	C2	daily-life	topic	reading
+dishcloth	n	khăn lau bát	C1	daily-life	topic	reading
+apron	n	tạp dề	B1	daily-life	topic	reading
+tongs	n	cái gắp	C1	daily-life	topic	reading
+spatula	n	đồ lật thức ăn	C1	daily-life	topic	reading
+ladle	n	cái muôi múc canh	B2	daily-life	topic	reading
+thermometer	n	nhiệt kế	B1	health	topic	reading
+scales	n	cân	C1	daily-life	topic	reading
+timer	n	đồng hồ hẹn giờ	B1	daily-life	topic	reading
+toaster	n	máy nướng bánh mì	B1	daily-life	topic	reading
+kettle	n	ấm đun nước	B1	daily-life	topic	reading
+microwave	n	lò vi sóng	B1	daily-life	topic	reading
+dishwasher	n	máy rửa bát	B1	daily-life	topic	reading
+freezer	n	ngăn đá, tủ đông	B1	daily-life	topic	reading
+fridge	n	tủ lạnh	B1	daily-life	topic	reading
+cooker	n	bếp nấu	B1	daily-life	topic	reading
+hob	n	bếp điện, bếp ga	B2	daily-life	topic	reading
+oven	n	lò nướng	B1	daily-life	topic	reading
+soap	n	xà phòng	B1	daily-life	topic	reading
+handwash	n	nước rửa tay	C1	daily-life	topic	reading
+bleach	n	thuốc tẩy	B2	daily-life	topic	reading
+disinfectant	n	chất khử trùng	C1	daily-life	topic	reading
+mothball	n	băng phiến	C1	daily-life	topic	reading
+duster	n	khăn lau bụi	C1	daily-life	topic	reading
+cloth	n	khăn lau, vải	B1	daily-life	topic	reading
+scrubber	n	đồ cọ rửa	C1	daily-life	topic	reading
+scourer	n	miếng cọ nồi	C1	daily-life	topic	reading
+washboard	n	bàn giặt	C2	daily-life	topic	reading
+shoelace	n	dây giày	B1	daily-life	topic	reading
+sandal	n	dép quai	B1	daily-life	topic	reading
+boot	n	bốt	B1	daily-life	topic	reading
+wellington	n	ủng cao su	C1	daily-life	topic	reading
+sneaker	n	giày thể thao	C1	daily-life	topic	reading
+loafer	n	giày lười	C1	daily-life	topic	reading
+moccasin	n	giày da mềm	C2	daily-life	topic	reading
+heel	n	gót giày	B1	daily-life	topic	reading
+sole	n	đế giày	C1	daily-life	topic	reading
+buttonhole	n	khuy cài	C1	daily-life	topic	reading
+cuff	n	cổ tay áo	C1	daily-life	topic	reading
+lapel	n	ve áo	C1	daily-life	topic	reading
+pocket	n	túi áo	B1	daily-life	topic	reading
+hood	n	mũ trùm đầu	B1	daily-life	topic	reading
+sleeve	n	tay áo	B1	daily-life	topic	reading
+waistband	n	cạp quần	C1	daily-life	topic	reading
+belt	n	thắt lưng	B1	daily-life	topic	reading
+buckle	n	khoá thắt lưng	C1	daily-life	topic	reading
+bracelet	n	vòng tay	B1	daily-life	topic	reading
+pendant	n	mặt dây chuyền	C1	daily-life	topic	reading
+locket	n	mặt dây chuyền có nắp	C1	daily-life	topic	reading
+cufflink	n	khuy măng sét	C1	daily-life	topic	reading
+tie	n	cà vạt	B1	daily-life	topic	reading
+scarf	n	khăn quàng	B1	daily-life	topic	reading
+shawl	n	khăn choàng	C1	daily-life	topic	reading
+veil	n	mạng che mặt	C1	daily-life	topic	reading
+glove	n	găng tay	B1	daily-life	topic	reading
+mitten	n	găng tay hở ngón	B2	daily-life	topic	reading
+wristband	n	băng đeo tay	C1	daily-life	topic	reading
+headband	n	băng đô	C1	daily-life	topic	reading
+hairpin	n	kẹp tóc	C1	daily-life	topic	reading
+hairbrush	n	lược chải tóc	B1	daily-life	topic	reading
+hairdryer	n	máy sấy tóc	B1	daily-life	topic	reading
+nightdress	n	áo ngủ nữ	C1	daily-life	topic	reading
+pyjamas	n	bộ đồ ngủ	B1	daily-life	topic	reading
+nightgown	n	áo ngủ dài	C1	daily-life	topic	reading
+cardigan	n	áo len cài khuy	B1	daily-life	topic	reading
+jumper	n	áo len	B1	daily-life	topic	reading
+sweatshirt	n	áo nỉ	B1	daily-life	topic	reading
+hoodie	n	áo nỉ có mũ	B2	daily-life	topic	reading
+blazer	n	áo khoác vest	B2	daily-life	topic	reading
+jacket	n	áo khoác	B1	daily-life	topic	reading
+overcoat	n	áo khoác dài	C1	daily-life	topic	reading
+raincoat	n	áo mưa	B1	daily-life	topic	reading
+poncho	n	áo choàng không tay	C1	daily-life	topic	reading
+waistcoat	n	áo gi-lê	C1	daily-life	topic	reading
+tunic	n	áo dài rộng	C1	daily-life	topic	reading
+sarong	n	xiêm quấn	C2	daily-life	topic	reading
+trousers	n	quần dài	B1	daily-life	topic	reading
+joggers	n	quần thể thao	C1	daily-life	topic	reading
+leggings	n	quần legging	C1	daily-life	topic	reading
+shorts	n	quần đùi	B1	daily-life	topic	reading
+jeans	n	quần bò	B1	daily-life	topic	reading
+skirt	n	chân váy	B1	daily-life	topic	reading
+dress	n	đầm, váy liền	B1	daily-life	topic	reading
+gown	n	váy dạ hội	C1	daily-life	topic	reading
+suit	n	bộ comple	B1	daily-life	topic	reading
+blouse	n	áo sơ mi nữ	C1	daily-life	topic	reading
+shirt	n	áo sơ mi	B1	daily-life	topic	reading
+vest	n	áo ba lỗ	C1	daily-life	topic	reading
+sock	n	tất	B1	daily-life	topic	reading
+tights	n	quần tất	C1	daily-life	topic	reading
+stocking	n	bít tất dài	C1	daily-life	topic	reading
+underwear	n	đồ lót	B1	daily-life	topic	reading
+bra	n	áo ngực	B1	daily-life	topic	reading
+wrench	n	cờ lê	C1	daily-life	topic	reading
+clamp	n	cái kẹp	C1	daily-life	topic	reading
+vice	n	ê-tô	C1	daily-life	topic	reading
+file	n	cái giũa	B1	daily-life	topic	reading
+sandpaper	n	giấy nhám	C1	daily-life	topic	reading
+varnish	n	vec-ni	C1	daily-life	topic	reading
+paintbrush	n	cọ sơn	B1	daily-life	topic	reading
+roller	n	con lăn sơn	C1	daily-life	topic	reading
+scaffold	n	giàn giáo	C1	daily-life	topic	reading
+wheelbarrow	n	xe rùa	C1	daily-life	topic	reading
+crowbar	n	xà beng	C1	daily-life	topic	reading
+pickaxe	n	cuốc chim	C1	daily-life	topic	reading
+hoe	n	cái cuốc	B2	daily-life	topic	reading
+trowel	n	cái bay	C1	daily-life	topic	reading
+chainsaw	n	máy cưa xích	C1	daily-life	topic	reading
+lawnmower	n	máy cắt cỏ	C1	daily-life	topic	reading
+secateurs	n	kéo cắt cành	C2	daily-life	topic	reading
+hacksaw	n	cưa sắt	C1	daily-life	topic	reading
+washer	n	vòng đệm	C1	daily-life	topic	reading
