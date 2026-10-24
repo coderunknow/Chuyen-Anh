@@ -624,3 +624,50 @@ In both `Deploy Flashcard` runs the steps `Evaluate deploy hold`, `Check vocabul
 **Known limitation, unchanged.** `gh run download -n github-pages` still fails with `EOF` because the artifact blobs live on `productionresultssa12.blob.core.windows.net`, outside the egress allowlist; the deployed build was therefore verified through the deployment status plus the fetched live page, not by hashing the uploaded artifact.
 
 **Update — the follow-up deploy.** PR #57 (root-rule translation + this ledger) merged as `90c2fa5d45bf6ab11321b08e9f85970595c339a1`; `Deploy Flashcard` run `40084257395` completed every step (`Evaluate deploy hold` → `Configure Pages` → `Upload Pages artifact` → `Deploy`), `github-pages` deployment `7297102929` reports `state: success` with `environment_url: https://coderunknow.github.io/Chuyen-Anh/` at `2026-10-24T10:04:55Z`, and the live page re-fetched through this session's page reader still renders **`5.205 từ gốc`** and **`5205 từ đủ điều kiện`**.
+
+## 2026-10-24 — v1.0.0-beta8 audit release (merge → tag → assets → prerelease → Pages)
+
+**Branch and base.** Work stayed on `arena/383102cd-chuyen-anh`, created from `01124b09cc52d0e1994b7c749007511abebcb973` (= `main` at the start of the session). Tree was clean before editing.
+
+**What was audited and fixed.** A read-only data audit plus a jsdom execution of the real module (session, lookup, settings, language switch, transcript practice, result JSON) found three code defects and one data defect, each fixed with a regression test: entity-splitting search highlighting (`highlightMatch`), ungrammatical `in 1 hours` (`formatNextReview`), notation headwords offered as `fill_en`/spelling (`isTypableHeadword`), and `licence`/`license` counted as two headwords. The root map gained 83 hand-reviewed families (93 forms) and 54 named rejections; counts moved to 5,852 rows / **5,112 headwords** / 740 forms / 581 families.
+
+**Verification before the merge (local).**
+
+| check | command | result |
+| --- | --- | --- |
+| single writer chain | `expand_vocabulary.py` → `build_vocabulary.py` → `embed_vocabulary.py` | 5,852 rows; 5,112 headwords; 740 merged; 5,852 embedded |
+| staged checks | `--check` on table, JSON, HTML, phrases, exam archive | all current, no writes |
+| family map | `python3 scripts/vocabulary_families.py` | `581 families; 740 merged rows; 5112 active headwords`, no problems |
+| vocab integrity | `python3 scripts/validate_vocab.py` | 0 duplicate IDs, 0 duplicate words |
+| dev5 ledger | `generate_vocab_audit_dev5.py --check` | current, no rewrite |
+| app logic | `node --test tests/static-app.test.js` | **93 pass / 0 fail** (485 s) |
+| python suites | `python3 -m unittest discover -s tests -q` | **91 tests OK** |
+| whitespace | `git diff --check` | clean |
+| app smoke (jsdom) | 20-card session + lookup + EN switch | no runtime errors; data panel `5,112 headwords · 740 same-root forms · 780 phrases · app version v1.0.0-beta8` |
+
+**Merge.** Commit `18d7a169…`; PR **#59**; PR `checks` run `40087121900` → **success** (10:50:29Z); `gh pr merge 59 --merge` → **MERGED** at 10:51:05Z, merge commit `fe45a96192339ca26e7e5c94bcdb8033c968280f`.
+
+**Post-merge runs on `main`.**
+
+| run | id | outcome |
+| --- | --- | --- |
+| `Static checks` | `40087543597` | success |
+| `Deploy Flashcard` (push, gate closed) | `40087543579` | success; steps `Stage standalone HTML`, `Configure Pages`, `Upload Pages artifact`, `Deploy` **skipped** by the deploy hold (release not yet published); tests passed in CI |
+| `Release artifacts` (tag push) | `40087575768` | success; created draft prerelease `v1.0.0-beta8` with three assets |
+
+**Tag and assets.** Annotated tag `v1.0.0-beta8` on `fe45a96192339ca26e7e5c94bcdb8033c968280f`; `git rev-parse v1.0.0-beta8^{commit}` and `gh api .../commits/v1.0.0-beta8` both return `fe45a961…`. Release assets (draft id `422675388`): `chuyen-anh-v1.0.0-beta8.html` **10,376,145 B**, digest `sha256:d66491e45d52a3c367c0fa1e9fb58e53f007aa25a299927a16487f39b474b74c`; `.zip` `1,914,873 B`, digest `sha256:481c53f894771d1446ed4717e133697228fd90b0a6e1f7894ab72364ce264ca9`; checksums manifest `189 B`. The HTML digest equals `sha256sum` of `git show v1.0.0-beta8:index.html`, so the published binary is the tagged file.
+
+**Two draft releases, one deleted.** A local `PUSH_TAG=v1.0.0-beta8 python3 scripts/release_artifacts.py` run started before the workflow's draft was visible here; it re-ran the suites and created a second, **empty** draft (`422676900`) before failing on `gh release download` of a draft asset. The empty duplicate was deleted (`DELETE /releases/422676900`); the workflow's draft with the verified assets was kept. Nothing was replaced or overwritten. (Draft assets cannot be downloaded by `gh` or by this sandbox, so asset bytes were verified through the API-reported digests against the tag blob instead.)
+
+**Publish and deploy.**
+
+| step | command | outcome |
+| --- | --- | --- |
+| publish | `gh release edit v1.0.0-beta8 --draft=false --prerelease` | `draft=false`, `prerelease=true`, published 10:59:46Z |
+| dispatch | run `40088093453` (`Dispatch main deploy after prerelease publication`) | success |
+| deploy | run `40088098400` (`Deploy Flashcard`, workflow_dispatch) | **success** 11:04:33Z (≈281 s) |
+| deployment | `gh api .../deployments?environment=github-pages` | `7297681926` for `fe45a961…`, status `success`, `environment_url https://coderunknow.github.io/Chuyen-Anh/` |
+
+**Served build verified.** `contents/index.html?ref=main` → blob `c7d6898c42389519a6fd09450d9463720516f420`, 10,376,145 B, sha256 `d66491e4…` — identical to `git rev-parse fe45a96:index.html` and to the release asset digest. `fetch_page` of the Pages URL renders `5112 từ đủ điều kiện`, `5.112 từ gốc`, and `Gõ từ 5109 từ` (three fewer than 5,112: exactly the three notation headwords now excluded from typed exercises).
+
+**Not claimed.** `tests/browser-learning.cjs` and `tests/browser-exams.cjs` were **not executed** (no Playwright in this sandbox); their literals were updated for 5,112 / v1.0.0-beta8. No learner study was performed. `v1.0.0-beta7` was not moved or modified; no existing tag was rewritten.
