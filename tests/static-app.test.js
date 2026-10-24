@@ -58,6 +58,9 @@ const {
   ensureProgress,
   loadProgress,
   loadVocabulary,
+  familyHeadMap,
+  foldFamilyIds,
+  foldFamilyProgress,
   vocabularyMetadataHtml,
   normalize,
   loadExamArchive,
@@ -228,6 +231,78 @@ test('embedded vocabulary loads without fetch and passes runtime validation', as
     if (previousDocument === undefined) delete globalThis.document;
     else globalThis.document = previousDocument;
   }
+});
+
+test('same-root forms are folded into their headword, never counted as words', async () => {
+  const loaded = await loadVocabulary(embeddedRaw);
+  const familyHeadOf = familyHeadMap(loaded.data);
+  const headwords = loaded.data.filter(entry => !entry.familyHead);
+
+  // The dataset keeps every audited row, but only one row per root is a word.
+  assert.equal(loaded.data.length, 3215);
+  assert.equal(headwords.length, 2706);
+  assert.equal(familyHeadOf.size, 509);
+  assert.equal(headwords.length + familyHeadOf.size, loaded.data.length);
+
+  // A merged row names a real headword and that headword's note lists the form.
+  const byId = new Map(loaded.data.map(entry => [entry.id, entry]));
+  for (const [memberId, headId] of familyHeadOf) {
+    const head = byId.get(headId);
+    assert.ok(head, `headword ${headId} missing for merged row ${memberId}`);
+    assert.equal(head.familyHead, undefined, `${headId} is itself merged`);
+    assert.match(head.wordFamily, /Cùng gốc: /, `${headId} does not list its family`);
+    assert.ok(head.wordFamily.toLowerCase().includes(byId.get(memberId).word.toLowerCase()),
+      `${headId} does not name ${byId.get(memberId).word}`);
+  }
+
+  // Studying a merged form keeps the evidence under the headword rather than
+  // losing it when the merged row stops being a schedulable word.
+  const [memberId, headId] = [...familyHeadOf].find(([, head]) => !familyHeadOf.has(head));
+  const progress = {
+    [headId]: { id: headId, correctCount: 2, wrongCount: 1, streak: 2, interval: 3, lastReviewed: Date.now(), nextReview: Date.now() + 86400000 },
+    [memberId]: { id: memberId, correctCount: 1, wrongCount: 0, streak: 1, interval: 7, lastReviewed: Date.now() - 1000, nextReview: Date.now() + 7 * 86400000 }
+  };
+  const folded = foldFamilyProgress(progress, familyHeadOf);
+  assert.equal(Object.hasOwn(folded, memberId), false, 'a merged form must not keep its own schedule');
+  assert.equal(folded[headId].correctCount, 3);
+  assert.equal(folded[headId].wrongCount, 1);
+  assert.equal(folded[headId].streak, 2);
+  assert.equal(folded[headId].interval, 7);
+  assert.equal(folded[headId].nextReview, progress[headId].nextReview, 'the earlier review date wins');
+  assert.equal(folded[headId].id, headId);
+
+  // Progress for a merged form and no headword progress still lands on the head.
+  const onlyMember = foldFamilyProgress({ [memberId]: progress[memberId] }, familyHeadOf);
+  assert.deepEqual(Object.keys(onlyMember), [headId]);
+  assert.equal(onlyMember[headId].correctCount, 1);
+
+  // Favorites/flags follow the same rule and never duplicate the headword.
+  const ids = foldFamilyIds([headId, memberId], familyHeadOf);
+  assert.deepEqual([...ids], [headId]);
+  const otherHead = loaded.data.find(entry => !entry.familyHead && !familyHeadOf.has(entry.id) && entry.id !== headId).id;
+  assert.deepEqual([...foldFamilyIds([otherHead], familyHeadOf)], [otherHead]);
+
+  // Search still reaches a merged form — through its headword's family note.
+  const index = createSearchIndex(headwords);
+  const adversity = searchVocabulary(index, 'adversity');
+  assert.ok(adversity.length >= 1, 'searching a merged form must not dead-end');
+  assert.equal(adversity[0].word, 'Adverse');
+  assert.equal(adversity[0].entry.id, '298');
+  for (const item of adversity) assert.equal(item.entry.familyHead, undefined);
+});
+
+test('the learner-facing word count is a headword count', async () => {
+  const loaded = await loadVocabulary(embeddedRaw);
+  const active = loaded.data.filter(entry => !entry.familyHead);
+  assert.equal(active.length, 2706);
+  // The table and the JSON keep the merged rows for audit; the UI count is the
+  // number of roots, and the data panel states the family rule explicitly.
+  assert.match(appScript[1], /vocabulary\.length} từ gốc/);
+  assert.match(appScript[1], /Quy tắc gốc từ/);
+  assert.equal(translateUiText('2706 từ gốc', 'en'), '2706 root words');
+  assert.equal(translateUiText('Flashcard · 2706 từ gốc · kho đề offline', 'en'),
+    'Flashcards · 2706 root words · offline exam archive');
+  assert.equal(translateUiText('509 dạng cùng gốc', 'en'), '509 same-root forms');
 });
 
 test('exam archive filters by year, location, format and unit', () => {

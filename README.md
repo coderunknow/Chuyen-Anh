@@ -1,13 +1,13 @@
 # Chuyên Anh — flashcards & kho đề offline
 
-Ứng dụng flashcard Chuyên Anh và kho bản chép đề offline, chạy như **một file HTML độc lập**. `index.html` chứa HTML, CSS, JavaScript, **3.215 mục từ**, **780 cụm từ** (kho riêng, không tính vào chỉ tiêu từ vựng) và toàn bộ 106 bản chép đề thi 2022–2026. Không có API, backend hay tài nguyên tự tải; có thể mở trực tiếp trên trình duyệt. Chỉ tiến độ flashcard và tiến độ cụm từ được lưu trong `localStorage`; kho đề là dữ liệu đọc trong file.
+Ứng dụng flashcard Chuyên Anh và kho bản chép đề offline, chạy như **một file HTML độc lập**. `index.html` chứa HTML, CSS, JavaScript, **2.706 từ gốc** (bảng có 3.215 hàng: 509 dạng cùng gốc được ghi trong cột `WORD_FAMILY` của từ gốc, không phải mục riêng), **780 cụm từ** (kho riêng, không tính vào chỉ tiêu từ vựng) và toàn bộ 106 bản chép đề thi 2022–2026. Không có API, backend hay tài nguyên tự tải; có thể mở trực tiếp trên trình duyệt. Chỉ tiến độ flashcard và tiến độ cụm từ được lưu trong `localStorage`; kho đề là dữ liệu đọc trong file.
 
 ## Dữ liệu và quy trình cập nhật
 
 ```text
 data/vocab-seed/*.tsv      (hạt giống từ vựng mới, có kiểm tra schema)
            ↓ python scripts/expand_vocabulary.py
-Learned_Vocabulary_List.md  (bảng từ vựng có cấu trúc, ID 1–3215)
+Learned_Vocabulary_List.md  (bảng từ vựng có cấu trúc, ID 1–3215; 2.706 hàng là từ gốc)
            ↓ python scripts/build_vocabulary.py
  data/vocabulary.json       (dữ liệu ứng dụng + metadata cũ được giữ lại)
            ↓ python scripts/embed_vocabulary.py
@@ -33,7 +33,9 @@ COLLOCATIONS | REGISTER | CONNOTATION | NOTES | TAGS | SOURCES
 - Các ô văn bản để trống khi chưa có thông tin. Dấu `|` có trong nội dung được escape theo Markdown; parser đọc lại nguyên vẹn.
 - Từ ID 614–913, `WORD_FAMILY` chỉ lấy nội dung đã được ghi nhãn là họ từ. `NOTES` giữ nguyên phần phân biệt và nguồn trích dẫn; không tự phân loại chúng thành từ đồng nghĩa, trái nghĩa, kết hợp từ, văn phong hoặc sắc thái.
 - `SOURCES` (từ beta7) là mảng JSON các đối tượng nguồn `{ref, locator, supports, url}` trỏ tới registry [`docs/vocabulary-sources.json`](docs/vocabulary-sources.json). `ref` phải có trong registry, `supports` phải nói nguồn chứng minh điều gì; không có nguồn thì hàng không được đưa vào bảng.
-- Từ ID 914 trở đi do `scripts/expand_vocabulary.py` sinh từ `data/vocab-seed/*.tsv` (11 tệp, 2.866 hạt giống). Script bỏ qua từ trùng, từ chỉ là biến thể số nhiều/-ed/-ing/so sánh hơn, biến thể chính tả `-ise/-ize`, và **dạng thuộc họ từ đã được dạy trong một mục cũ** — mỗi lần bỏ qua đều ghi lý do vào `--report`, nên không có mục nào bị đếm hai lần. Kết quả hiện tại: 913 hàng cũ + 2.302 hàng mới = **3.215**; 564 hạt giống bị bỏ (311 trùng, 218 thuộc họ từ, 34 biến thể hình thái, 1 biến thể chính tả).
+- Từ ID 914 trở đi do `scripts/expand_vocabulary.py` sinh từ `data/vocab-seed/*.tsv` (11 tệp, 2.866 hạt giống). Script bỏ qua từ trùng, từ chỉ là biến thể số nhiều/-ed/-ing/so sánh hơn, biến thể chính tả `-ise/-ize`, và **dạng thuộc họ từ đã được dạy trong một mục cũ** — mỗi lần bỏ qua đều ghi lý do vào `--report`, nên không có mục nào bị đếm hai lần. Kết quả hiện tại: 913 hàng cũ + 2.302 hàng mới = **3.215 hàng**; 564 hạt giống bị bỏ (311 trùng, 218 thuộc họ từ, 34 biến thể hình thái, 1 biến thể chính tả).
+- **Quy tắc gốc từ (từ 2026-10-24): mỗi gốc từ chỉ là một mục từ vựng.** `docs/vocabulary-families.json` là bản đặc tả đã được rà tay (380 họ, 509 dạng); `scripts/vocabulary_families.py` áp nó trong `expand_vocabulary.py`: hàng của dạng cùng gốc **vẫn nằm trong bảng** (audit, giữ nguyên ID) nhưng mang tag `family:merged` + `family-head:<id>`, còn từ gốc nhận thêm ghi chú `Cùng gốc: <dạng> (<từ loại>: <nghĩa>); …` trong `WORD_FAMILY`. Vì vậy **3.215 − 509 = 2.706 từ gốc**; app chỉ hiển thị và lên lịch cho 2.706 hàng này, và số từ hiển thị cho người học là **số từ gốc**. Tiến độ đã lưu cho một dạng cùng gốc được gộp vào từ gốc (cộng đúng/sai, giữ streak/interval xa nhất, lấy ngày ôn sớm hơn) nên không mất dữ liệu học cũ.
+- `data/vocabulary.json` giữ `familyHead` cho hàng đã gộp (trỏ tới ID từ gốc) để app nhận ra chúng; `scripts/build_vocabulary.py` lấy giá trị này từ tag `family-head:<id>` và `scripts/validate_vocab.py` kiểm tra cả hai chiều (hàng gộp phải trỏ tới một hàng không gộp, và ghi chú của từ gốc phải nêu đúng dạng đó).
 - ID 448 dùng nghĩa trong danh sách làm nghĩa chính. Nghĩa trước đây trong app được giữ trong `NOTES` và ghi rõ là định nghĩa app cũ.
 - Khi đồng bộ theo ID, `data/vocabulary.json` giữ metadata chỉ có trong ứng dụng (ví dụ: ví dụ, difficulty, ngày tạo và các trường chưa có trong bảng). Các trường do bảng nguồn quản lý, gồm cả `TAGS`, được đồng bộ từ Markdown. ID 448 giữ các tag app cũ `work` và `daily-life`, đồng thời thêm `easy` để chuyển dấu difficulty `-` trong bảng cũ thành tag; difficulty số `2` vẫn được giữ. Nghĩa chính dùng cách viết đã chọn từ Markdown; nghĩa app cũ được giữ trong `NOTES`. Với 300 mục mới, không có ví dụ, điểm difficulty hay ngày tạo nào được tự bịa; trường không có nguồn sẽ để rỗng hoặc không xuất hiện.
 
@@ -61,11 +63,11 @@ python scripts/embed_phrases.py --check
 python scripts/exams/embed_archive.py --check
 ```
 
-Validator kiểm tra schema, kiểu dữ liệu, ID/từ trùng lặp, namespace của tag và tính đầy đủ của `SOURCES`. CI cũng xác nhận rằng JSON và dữ liệu nhúng trong HTML khớp nhau.
+Validator kiểm tra schema, kiểu dữ liệu, ID/từ trùng lặp, namespace của tag (gồm `family` và `family-head`), quan hệ gốc từ và tính đầy đủ của `SOURCES`. CI cũng xác nhận rằng JSON và dữ liệu nhúng trong HTML khớp nhau.
 
 ### Kho cụm từ (từ beta7)
 
-`Learned_Phrase_List.md` và `data/phrases.json` là **kho riêng** với ID `P001…P780`, không nằm trong chỉ tiêu 3.000 từ vựng:
+`Learned_Phrase_List.md` và `data/phrases.json` là **kho riêng** với ID `P001…P780`, không nằm trong số từ vựng (2.706 từ gốc sau quy tắc gốc từ):
 
 ```text
 ID | PHRASE | TYPE | MEANING | USAGE | PATTERN | TAGS | SOURCES
@@ -75,6 +77,10 @@ ID | PHRASE | TYPE | MEANING | USAGE | PATTERN | TAGS | SOURCES
 - Hạt giống nằm ở `data/phrase-seed/*.tsv` (8 cột, cùng thứ tự); `scripts/build_phrases.py` gán ID tuần tự, từ chối cụm trùng sau khi gộp hoa/thường, Unicode, dấu câu và khoảng trắng, và ghi nguồn `exam` khi cụm thực sự xuất hiện trong bản chép đề (492 cụm), còn lại là locator từ điển (288 cụm).
 - Trong ứng dụng: màn hình **Cụm từ** cho phép tìm theo cụm/nghĩa/cách dùng/mẫu, lọc theo loại và trình độ, và luyện 10 cụm. Cụm chưa từng luyện được hỏi dạng nhận diện (nghĩa → chọn cụm); cụm đã trả lời đúng ít nhất một lần được hỏi dạng gõ lại. Điểm đúng/sai chỉ ghi vào `chuyen-anh.phrases.v1`; **không** đụng tới `ease`, `interval`, `state`, streak hay XP của từ vựng, và không ghi vào `chuyen-anh.progress.v1`.
 - Bản sao lưu v1 nhận thêm khối `phrases` **tùy chọn**: file cũ không có khối này vẫn hợp lệ (thiết bị giữ tiến độ cụm từ của mình), khối sai kiểu bị từ chối trước khi ghi, và bản xuất chỉ chứa khối khi thật sự có tiến độ.
+
+### Chỉ tiêu từ vựng sau quy tắc gốc từ
+
+Chỉ tiêu cũ (≥3.000 **mục**) đã đạt bằng 3.215 hàng, nhưng sau khi áp quy tắc gốc từ thì số **từ gốc** là **2.706** — tức chỉ tiêu 3.000 từ gốc **chưa đạt**. Con số 2.706 là con số trung thực để đánh giá độ phủ từ vựng; 509 hàng còn lại là biến thể cùng gốc và không được tính. Muốn đạt 3.000 từ gốc cần thêm ít nhất 294 gốc mới (dạng cùng gốc của các gốc đã có không được tính), theo đúng quy trình hạt giống → kiểm tra → nguồn ở trên.
 
 ## Phiên bản
 

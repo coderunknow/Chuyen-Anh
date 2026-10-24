@@ -16,6 +16,14 @@ Duplicate rules are enforced here, not by hand:
   (`wordFamily` prose and `docs/vocabulary-300-families.json`) is skipped, so a
   derived form is never counted twice as a headword of its own.
 
+The table also carries the **root rule**: one headword per word root. A row whose
+word shares another headword's root is kept in the table as an audit record but
+tagged `family:merged` + `family-head:<id>`, and its form is listed in the
+headword's `WORD_FAMILY` note. `docs/vocabulary-families.json` is the reviewed
+source of that rule; `scripts/vocabulary_families.py` applies and validates it.
+Only active rows (every row without `family:merged`) are headwords, so every
+count in the app and the docs is a count of roots.
+
 Every skip is reported by `--report` and by `scripts/audit_vocabulary.py`, so
 the number of dropped candidates is auditable instead of silent.
 """
@@ -32,6 +40,12 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from learned_vocabulary import display_table, parse_table  # noqa: E402
+from vocabulary_families import (  # noqa: E402
+    NOTE_PREFIX,
+    apply_families,
+    is_merged,
+    validate as validate_families,
+)
 from vocab_sources import (  # noqa: E402
     build_exam_index,
     dedupe_sources,
@@ -126,7 +140,11 @@ def family_forms(legacy: list[dict[str, Any]]) -> dict[str, str]:
                     forms.setdefault(key, entry["word"])
     for record in legacy:
         head = word_key(record["word"])
-        for token in FAMILY_TOKEN_RE.findall(record.get("wordFamily") or ""):
+        # The curated "Cùng gốc:" note is this script's own output: parsing it
+        # back would reject the merged rows on the next run and make the build
+        # non-idempotent. Only the hand-written prose before it is evidence.
+        prose = (record.get("wordFamily") or "").split(NOTE_PREFIX, 1)[0]
+        for token in FAMILY_TOKEN_RE.findall(prose):
             key = word_key(token)
             if len(key) > 2 and key != head:
                 forms.setdefault(key, record["word"])
@@ -270,6 +288,10 @@ def build_table(records: list[dict[str, Any]], index: dict[str, dict[str, Any]])
         rows.append(row)
         known[token_key(seed["word"])] = (row["id"], row["pos"])
 
+    # One headword per root: mark merged rows and write the headword's family note.
+    apply_families(rows)
+    problems.extend(validate_families(rows))
+
     registry = load_registry()
     for row in rows:
         for message in validate_sources(row["sources"], registry):
@@ -299,6 +321,8 @@ def main(argv: Iterable[str] | None = None) -> int:
         print(f"Vocabulary table build failed: {error}", file=sys.stderr)
         return 1
 
+    active_rows = [row for row in rows if not is_merged(row["tags"])]
+
     if args.report:
         by_level: dict[str, int] = {}
         by_type: dict[str, int] = {}
@@ -318,7 +342,9 @@ def main(argv: Iterable[str] | None = None) -> int:
         args.report.write_text(json.dumps({
             "generatedBy": "scripts/expand_vocabulary.py",
             "legacyRows": LEGACY_COUNT,
-            "activeRows": len(rows),
+            "activeRows": len(active_rows),
+            "rowsInTable": len(rows),
+            "mergedRows": len(rows) - len(active_rows),
             "newRows": len(rows) - LEGACY_COUNT,
             "seedsRead": len(rows) - LEGACY_COUNT + len(skipped),
             "skippedSeeds": skipped,
@@ -333,11 +359,13 @@ def main(argv: Iterable[str] | None = None) -> int:
         if current != rendered:
             print("Learned_Vocabulary_List.md is out of sync; run python scripts/expand_vocabulary.py", file=sys.stderr)
             return 1
-        print(f"Vocabulary table matches {len(rows)} rows ({LEGACY_COUNT} legacy + {len(rows) - LEGACY_COUNT} seed).")
+        print(f"Vocabulary table matches {len(rows)} rows ({LEGACY_COUNT} legacy + {len(rows) - LEGACY_COUNT} seed); "
+              f"{len(active_rows)} active headwords, {len(rows) - len(active_rows)} merged family forms.")
         return 0
 
     args.markdown.write_text(rendered, encoding="utf-8")
-    print(f"Wrote {len(rows)} rows to {args.markdown.relative_to(ROOT)} ({LEGACY_COUNT} legacy + {len(rows) - LEGACY_COUNT} seed, {len(skipped)} seed(s) skipped).")
+    print(f"Wrote {len(rows)} rows to {args.markdown.relative_to(ROOT)} ({LEGACY_COUNT} legacy + {len(rows) - LEGACY_COUNT} seed, "
+          f"{len(skipped)} seed(s) skipped, {len(rows) - len(active_rows)} merged family form(s), {len(active_rows)} headwords).")
     return 0
 
 

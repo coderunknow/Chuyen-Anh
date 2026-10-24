@@ -10,6 +10,9 @@ spec = importlib.util.spec_from_file_location(
 )
 validator = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(validator)
+import sys  # noqa: E402
+sys.path.insert(0, str(ROOT / "scripts"))
+from vocabulary_families import MERGED_TAG  # noqa: E402
 
 
 def entry(**overrides):
@@ -86,13 +89,16 @@ class VocabularyValidatorTest(unittest.TestCase):
         self.assertEqual(validator.normalize_word("résumé"), "resume")
 
     def test_shipped_dataset_has_no_headword_collision_under_that_normalization(self):
-        # Reported fact for this data set: 3,215 records and 3,215 distinct
-        # normalized words, of which the first 913 are the untouched legacy rows.
+        # Reported fact for this data set: 3,215 rows with 3,215 distinct normalized
+        # words, of which the first 913 are the untouched legacy rows; 531 of the
+        # rows are same-root forms, so there are 2,706 headwords (the counted words).
         data = json.loads((ROOT / "data" / "vocabulary.json").read_text(encoding="utf-8"))
         keys = [validator.normalize_word(item["word"]) for item in data]
         self.assertEqual(len(keys), 3215)
         self.assertEqual(len(set(keys)), 3215)
-        self.assertGreaterEqual(len(keys), 3000)
+        merged = [item for item in data if MERGED_TAG in item.get("tags", [])]
+        self.assertEqual(len(merged), 509)
+        self.assertEqual(len(data) - len(merged), 2706)
         self.assertEqual([item["id"] for item in data[:913]], [str(number) for number in range(1, 914)])
         self.assertEqual(validator.validate(data), [])
 

@@ -20,7 +20,7 @@ DEFAULT_PATH = ROOT / "data" / "vocabulary.json"
 REGISTRY_PATH = ROOT / "docs" / "vocabulary-sources.json"
 ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*$")
 COMBINING_MARKS_RE = re.compile(r"[\u0300-\u036f]")
-TAG_NAMESPACES = {"level", "level-source", "topic", "type", "skill", "source"}
+TAG_NAMESPACES = {"level", "level-source", "topic", "type", "skill", "source", "family", "family-head"}
 TAG_RE = re.compile(r"^[a-z][a-z-]*(?::[A-Za-z0-9][A-Za-z0-9-]*)?$")
 SOURCE_KEYS = {"ref", "supports", "locator", "url"}
 
@@ -168,6 +168,19 @@ def validate(data: Any) -> list[str]:
         if "difficulty" in entry and (isinstance(difficulty, bool) or not isinstance(difficulty, (int, float)) or not 0 <= difficulty <= 5):
             problem(errors, index, entry, "difficulty, when provided, must be a number from 0 to 5")
 
+        # The root rule: a merged form points at its headword and is not a headword itself.
+        merged = isinstance(tags, list) and "family:merged" in tags
+        family_head = entry.get("familyHead")
+        if family_head is not None:
+            if not isinstance(family_head, str) or not family_head.strip():
+                problem(errors, index, entry, "familyHead, when provided, must be a non-empty string id")
+            elif family_head.strip() == str(entry_id).strip():
+                problem(errors, index, entry, "familyHead must not point at the entry itself")
+        if merged and family_head is None:
+            problem(errors, index, entry, "a family:merged row must name its headword in familyHead")
+        if not merged and family_head is not None:
+            problem(errors, index, entry, "familyHead is only valid on a family:merged row")
+
     for entry_id, indexes in ids.items():
         if len(indexes) > 1:
             errors.append(f"Entry: {', '.join(map(str, indexes))}\nWord: (duplicate id)\nProblem: duplicate id {entry_id!r}")
@@ -185,6 +198,22 @@ def validate(data: Any) -> list[str]:
                 f"Word: {word}\n"
                 f"Problem: duplicate headword once hyphens, edge punctuation and spacing are folded"
             )
+
+    # Every familyHead must resolve to an entry that is not itself merged, and the
+    # headword's note must name the form, so a merged row can never be orphaned.
+    by_id = {str(entry.get("id")).strip(): entry for entry in data if isinstance(entry, dict) and isinstance(entry.get("id"), str)}
+    for index, entry in enumerate(data, start=1):
+        if not isinstance(entry, dict) or entry.get("familyHead") is None:
+            continue
+        head = by_id.get(str(entry["familyHead"]).strip())
+        if head is None:
+            problem(errors, index, entry, f"familyHead {entry['familyHead']!r} does not resolve to an entry")
+            continue
+        if head.get("familyHead") is not None:
+            problem(errors, index, entry, f"familyHead {entry['familyHead']!r} is itself a merged form")
+        note = head.get("wordFamily") if isinstance(head.get("wordFamily"), str) else ""
+        if str(entry.get("word")).lower() not in note.lower():
+            problem(errors, index, entry, f"headword {head.get('word')!r} does not list {entry.get('word')!r} in WORD_FAMILY")
     return errors
 
 

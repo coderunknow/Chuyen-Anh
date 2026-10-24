@@ -11,6 +11,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from learned_vocabulary import escape_cell, parse_table, split_table_row  # noqa: E402
 from audit_learned_vocab import recount, tokens  # noqa: E402
 from build_vocabulary import build_vocabulary  # noqa: E402
+from vocabulary_families import MERGED_TAG  # noqa: E402
 
 
 def normalized(word):
@@ -29,8 +30,13 @@ class LearnedVocabularyTests(unittest.TestCase):
         cls.app_by_id = {entry["id"]: entry for entry in cls.app_data}
 
     def test_table_is_sequential_complete_and_machine_readable(self):
+        # 3,215 rows = 2,706 headwords + 509 same-root forms. The root rule counts
+        # roots, so the vocabulary figure is 2,706, not the row count; the old
+        # ≥3,000 target was measured in rows and stays unmet for headwords.
         self.assertEqual(len(self.records), 3215)
-        self.assertGreaterEqual(len(self.records), 3000)
+        merged = [record for record in self.records if MERGED_TAG in record["tags"]]
+        self.assertEqual(len(merged), 509)
+        self.assertEqual(len(self.records) - len(merged), 2706)
         self.assertEqual([record["id"] for record in self.records], [str(i) for i in range(1, 3216)])
         words = [normalized(record["word"]) for record in self.records]
         self.assertEqual(len(words), len(set(words)), "Duplicate headwords")

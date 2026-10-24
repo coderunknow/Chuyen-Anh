@@ -11,6 +11,7 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 SCRIPTS = ROOT / "scripts"
 sys.path.insert(0, str(SCRIPTS))
 from learned_vocabulary import parse_table  # noqa: E402
+from vocabulary_families import audit_view  # noqa: E402
 
 DEV4_JSON = ROOT / "docs" / "vocabulary-audit-dev4.json"
 DEV4_MD = ROOT / "docs" / "vocabulary-audit-dev4.md"
@@ -51,12 +52,16 @@ class VocabularyAuditDev4Tests(unittest.TestCase):
             self.assertEqual(source_row["id"], app_row["id"])
             self.assertEqual(source_row["id"], audit_row["id"])
             for field in SOURCE_FIELDS:
-                self.assertEqual(source_row[field], app_row.get(field, ""),
+                # The family bookkeeping added after this ledger was frozen is not
+                # dictionary evidence, so it is compared away rather than rewriting
+                # a historical record.
+                expected = audit_view(field, source_row[field])
+                self.assertEqual(expected, audit_view(field, app_row.get(field, "")),
                                  f"source/JSON mismatch at ID {source_row['id']} field {field}")
                 audit_value = audit_row.get(field, "")
                 if audit_value is None and field in {"wordFamily", "register", "connotation", "notes"}:
                     audit_value = ""
-                self.assertEqual(source_row[field], audit_value,
+                self.assertEqual(expected, audit_value,
                                  f"source/dev4 ledger mismatch at ID {source_row['id']} field {field}")
 
     def test_summary_is_recalculated_and_dictionary_checks_are_separate(self):
