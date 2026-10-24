@@ -7,15 +7,19 @@ const root = new URL('../', import.meta.url);
 const html = await readFile(new URL('index.html', root), 'utf8');
 const vocabularyScript = html.match(/<script id="vocabulary-data" type="application\/json">([\s\S]*?)<\/script>/i);
 const examScript = html.match(/<script id="exam-data" type="application\/json">([\s\S]*?)<\/script>/i);
+const phraseScript = html.match(/<script id="phrase-data" type="application\/json">([\s\S]*?)<\/script>/i);
 const styleBlock = html.match(/<style>([\s\S]*?)<\/style>/i);
 const appScript = html.match(/<script type="module" id="app-script">([\s\S]*?)<\/script>/i);
 assert.ok(vocabularyScript, 'index.html must contain its vocabulary JSON');
 assert.ok(examScript, 'index.html must contain the offline exam archive JSON');
+assert.ok(phraseScript, 'index.html must contain its phrase bank JSON');
 assert.ok(appScript, 'index.html must contain its application module');
 const embeddedRaw = vocabularyScript[1].trim();
 const embeddedVocabulary = JSON.parse(embeddedRaw);
 const embeddedExamRaw = examScript[1].trim();
 const embeddedExamRecords = JSON.parse(embeddedExamRaw);
+const embeddedPhraseRaw = phraseScript[1].trim();
+const embeddedPhrases = JSON.parse(embeddedPhraseRaw);
 const app = await import(`data:text/javascript;base64,${Buffer.from(appScript[1], 'utf8').toString('base64')}`);
 
 const {
@@ -84,7 +88,23 @@ const {
   saveExamHistory,
   createExamAttempt,
   updateExamAttempt,
-  examClockState
+  examClockState,
+  PHRASE_TYPES,
+  PHRASE_STORAGE_KEY,
+  loadPhrases,
+  phraseKey,
+  searchPhrases,
+  sanitizePhraseProgress,
+  loadPhraseProgress,
+  savePhraseProgress,
+  phraseState,
+  phraseStats,
+  selectPhraseSession,
+  phraseExerciseFor,
+  buildPhraseQuestion,
+  gradePhraseAnswer,
+  recordPhraseAttempt,
+  validatePhraseEntry
 } = app;
 
 const vocab = [
@@ -109,7 +129,8 @@ function failingStore() {
 test('the only runtime deliverable is a self-contained HTML document', async () => {
   const sourceData = JSON.parse(await readFile(new URL('data/vocabulary.json', root), 'utf8'));
   assert.deepEqual(embeddedVocabulary, sourceData);
-  assert.equal(embeddedVocabulary.length, 913);
+  assert.equal(embeddedVocabulary.length, 3215);
+  assert.equal(embeddedVocabulary.slice(0, 913).length, 913, 'the legacy block keeps IDs 1-913');
   assert.match(html, /<style>[\s\S]*?<\/style>/i);
   assert.doesNotMatch(html, /<link\b/i);
   assert.doesNotMatch(html, /<script\b[^>]*\bsrc\s*=/i);
@@ -187,7 +208,7 @@ test('English interface labels are localized while unknown source text and Vietn
 
 test('embedded vocabulary loads without fetch and passes runtime validation', async () => {
   const loaded = await loadVocabulary(embeddedRaw);
-  assert.equal(loaded.data.length, 913);
+  assert.equal(loaded.data.length, 3215);
   assert.equal(loaded.data[0].word, 'Adversity');
   assert.equal(loaded.data[912].word, 'Virtually');
   assert.match(loaded.version, /^[0-9a-f]+-[0-9a-f]{8}$/);
@@ -202,7 +223,7 @@ test('embedded vocabulary loads without fetch and passes runtime validation', as
   };
   try {
     const fromPage = await loadVocabulary();
-    assert.equal(fromPage.data.length, 913);
+    assert.equal(fromPage.data.length, 3215);
   } finally {
     if (previousDocument === undefined) delete globalThis.document;
     else globalThis.document = previousDocument;
@@ -882,7 +903,7 @@ test('every multiple-choice question offers plausible, distinct options', () => 
 });
 
 test('every generated mode keeps prompt, answer and options bound to its own record', () => {
-  // 913 records x 6 requested learning modes = 5,478 generated questions. This
+  // 3,215 records x 6 requested learning modes. This
   // checks application/data association; it is not a dictionary review.
   let generated = 0;
   let cloze = 0;
@@ -1111,7 +1132,7 @@ test('exported exam results report exactly what the learner did and what could b
   const result = buildExamResultJson(session, record, { now: 6000 });
   assert.equal(result.app, 'Chuyên Anh');
   assert.equal(result.version, APP_VERSION, 'the result carries the application version');
-  assert.equal(result.version, 'v1.0.0-beta6');
+  assert.equal(result.version, 'v1.0.0-beta7');
   assert.equal(result.schemaVersion, '1.0.0');
   assert.deepEqual(result.summary, {
     total: 3, answered: 2, unanswered: 1,
@@ -1478,7 +1499,7 @@ test('Scope A: English UI localization translates all shortcut hints and UI chro
   const stopMatchIdx = localizeBlock.indexOf('if (current.matches(protectedSelectors)) return;');
   assert.ok(attrLoopIdx > -1 && stopMatchIdx > attrLoopIdx, 'localizeSubtree must translate ARIA attributes before returning on protected elements');
 
-  // 2. Zero corruption of any of the 913 vocabulary headwords, meanings, examples, or notes
+  // 2. Zero corruption of any of the 3,215 vocabulary headwords, meanings, examples, or notes
   for (const entry of embeddedVocabulary) {
     assert.equal(
       translateUiText(entry.meaning, 'en'),
@@ -2151,4 +2172,198 @@ test('card toggles update in place so a typed answer is never discarded', () => 
     'the hard-word toggle refreshes the card instead of re-rendering the shell');
   assert.match(appSource, /translateUiText\(on \? 'Bỏ đánh dấu từ khó' : 'Đánh dấu từ khó', language\)/,
     'the refreshed accessible name is translated where it is written');
+});
+
+/* -------------------------------------------------------------------------
+ * beta7: the phrase bank is a second data source with its own IDs, its own
+ * storage key and its own practice flow. These tests pin the separation: a
+ * phrase can never be counted, stored or graded as a vocabulary word.
+ * ---------------------------------------------------------------------- */
+
+test('the embedded phrase bank loads, validates and stays separate from the vocabulary', async () => {
+  assert.equal(embeddedPhrases.length, 780);
+  assert.equal(embeddedPhrases[0].id, 'P001');
+  assert.equal(embeddedPhrases.at(-1).id, 'P780');
+  assert.match(embeddedPhraseRaw, /^\[/);
+  assert.doesNotMatch(embeddedPhraseRaw, /<\/script/i);
+  assert.ok(Object.keys(PHRASE_TYPES).includes('phrasal-verb'));
+  assert.equal(PHRASE_STORAGE_KEY, 'chuyen-anh.phrases.v1');
+  assert.notEqual(PHRASE_STORAGE_KEY, 'chuyen-anh.progress.v1');
+
+  const loaded = await loadPhrases(embeddedPhraseRaw);
+  assert.equal(loaded.data.length, embeddedPhrases.length);
+  assert.match(loaded.version, /^[0-9a-f]+-[0-9a-f]{8}$/);
+
+  const vocabularyKeys = new Set(embeddedVocabulary.map(entry => normalize(entry.word)));
+  for (const entry of loaded.data) {
+    assert.ok(entry.phrase.trim().split(/\s+/).length >= 2, `${entry.id} is a phrase`);
+    assert.ok(Object.hasOwn(PHRASE_TYPES, entry.type), `${entry.id} has a known type`);
+    assert.ok(entry.sources.length > 0, `${entry.id} carries provenance`);
+    assert.ok(!vocabularyKeys.has(normalize(entry.phrase)), `${entry.id} is not a vocabulary headword`);
+    assert.equal(validatePhraseEntry(entry, 0), null);
+  }
+
+  await assert.rejects(() => loadPhrases('not json'), /JSON không hợp lệ/);
+  await assert.rejects(() => loadPhrases(''), /Không tìm thấy dữ liệu cụm từ/);
+  await assert.rejects(() => loadPhrases(JSON.stringify([{ ...embeddedPhrases[0], phrase: 'single' }])),
+    /ít nhất hai từ/);
+  await assert.rejects(() => loadPhrases(JSON.stringify([embeddedPhrases[0], { ...embeddedPhrases[1], phrase: embeddedPhrases[0].phrase }])),
+    /Trùng cụm từ/);
+  await assert.rejects(() => loadPhrases(JSON.stringify([embeddedPhrases[0], { ...embeddedPhrases[1], id: embeddedPhrases[0].id }])),
+    /Trùng ID cụm từ/);
+
+  const previousDocument = globalThis.document;
+  globalThis.document = { getElementById: id => (id === 'phrase-data' ? { textContent: embeddedPhraseRaw } : null) };
+  try {
+    assert.equal((await loadPhrases()).data.length, embeddedPhrases.length);
+  } finally {
+    globalThis.document = previousDocument;
+  }
+});
+
+test('phrase search covers type, level and Vietnamese meaning without touching word search', () => {
+  const byType = searchPhrases(embeddedPhrases, '', { type: 'phrasal-verb' });
+  assert.ok(byType.length > 0);
+  assert.ok(byType.every(entry => entry.type === 'phrasal-verb'));
+
+  const byLevel = searchPhrases(embeddedPhrases, '', { level: 'C1' });
+  assert.ok(byLevel.length > 0);
+  assert.ok(byLevel.every(entry => entry.tags.includes('level:C1')));
+
+  const sample = embeddedPhrases.find(entry => entry.type === 'idiom');
+  const hit = searchPhrases(embeddedPhrases, sample.phrase.split(' ')[0], { type: 'idiom' });
+  assert.ok(hit.some(entry => entry.id === sample.id), 'the English phrase is searchable');
+  const vietnamese = searchPhrases(embeddedPhrases, sample.meaning.split(',')[0].slice(0, 6));
+  assert.ok(vietnamese.length > 0, 'the Vietnamese meaning is searchable');
+  assert.equal(searchPhrases(embeddedPhrases, 'zzzz-not-a-phrase').length, 0);
+  assert.equal(searchPhrases(embeddedPhrases, '', { type: 'all', level: 'all' }).length, embeddedPhrases.length);
+});
+
+test('a phrase question is generated from its own record and graded once', () => {
+  const entry = embeddedPhrases.find(candidate => candidate.type === 'collocation');
+  const unseen = buildPhraseQuestion(entry, embeddedPhrases, { phraseProgress: {} });
+  assert.equal(unseen.mode, 'recognition', 'an unseen phrase is recognised first');
+  assert.equal(unseen.answer, entry.phrase);
+  assert.equal(unseen.prompt, entry.meaning);
+  assert.equal(unseen.options.length, 4);
+  assert.equal(unseen.options.filter(option => option.correct).length, 1);
+  assert.equal(new Set(unseen.options.map(option => phraseKey(option.text))).size, 4, 'distractors are distinct');
+  assert.ok(unseen.options.every(option => option.correct ? option.text === entry.phrase : embeddedPhrases.some(other => other.phrase === option.text)));
+
+  const correctId = unseen.options.find(option => option.correct).id;
+  assert.deepEqual(gradePhraseAnswer(unseen, correctId), { status: 'correct', correct: true, expected: entry.phrase });
+  const wrongId = unseen.options.find(option => !option.correct).id;
+  assert.equal(gradePhraseAnswer(unseen, wrongId).status, 'incorrect');
+  assert.equal(gradePhraseAnswer(unseen, 'missing-option').status, 'empty');
+
+  const practised = { [entry.id]: { attempts: 2, correct: 2, wrong: 0, lastPracticed: 1 } };
+  assert.equal(phraseExerciseFor(entry, practised), 'recall');
+  const recall = buildPhraseQuestion(entry, embeddedPhrases, { phraseProgress: practised });
+  assert.equal(recall.mode, 'recall');
+  assert.equal(recall.options, null);
+  assert.equal(gradePhraseAnswer(recall, entry.phrase.toUpperCase()).status, 'correct', 'case is ignored');
+  assert.equal(gradePhraseAnswer(recall, entry.phrase.replace(/ /g, '  ')).status, 'correct', 'spacing is ignored');
+  assert.equal(gradePhraseAnswer(recall, '').status, 'empty');
+  assert.equal(gradePhraseAnswer(recall, `${entry.phrase}zz`).status, 'incorrect');
+
+  const withDash = embeddedPhrases.find(candidate => candidate.phrase.includes(' '));
+  assert.equal(phraseKey('  Well—being '), phraseKey('well being'), 'dash and spacing fold');
+  assert.equal(phraseKey('put  OFF'), phraseKey('put off'));
+  assert.notEqual(phraseKey('give up'), phraseKey('give in'));
+  assert.ok(withDash);
+});
+
+test('phrase progress has its own store and sanitises whatever it is given', () => {
+  const sanitised = sanitizePhraseProgress({
+    P001: { attempts: 3, correct: 2, wrong: 5, lastPracticed: 10 },
+    P002: { attempts: 0, correct: 0, wrong: 0 },
+    'not-an-id': { attempts: 2, correct: 1, wrong: 1 },
+    P003: 'nonsense',
+    P004: { attempts: '2', correct: '9', wrong: '-3', lastPracticed: 'soon' }
+  });
+  assert.deepEqual(Object.keys(sanitised), ['P001', 'P004']);
+  assert.deepEqual(sanitised.P001, { attempts: 3, correct: 2, wrong: 1, lastPracticed: 10 });
+  assert.deepEqual(sanitised.P004, { attempts: 2, correct: 2, wrong: 0, lastPracticed: null });
+  assert.deepEqual(sanitizePhraseProgress(null), {});
+
+  const storage = store();
+  assert.equal(savePhraseProgress({ P001: { attempts: 1, correct: 1, wrong: 0, lastPracticed: 5 } }, storage), true);
+  assert.equal(storage.getItem('chuyen-anh.phrases.v1'), JSON.stringify({ P001: { attempts: 1, correct: 1, wrong: 0, lastPracticed: 5 } }));
+  assert.equal(storage.getItem('chuyen-anh.progress.v1'), null, 'phrase progress never writes the word store');
+  assert.deepEqual(loadPhraseProgress(storage), { P001: { attempts: 1, correct: 1, wrong: 0, lastPracticed: 5 } });
+  assert.equal(savePhraseProgress({}, failingStore()), false);
+
+  const recorded = recordPhraseAttempt({}, 'P001', true, 1234);
+  assert.deepEqual(recorded.P001, { attempts: 1, correct: 1, wrong: 0, lastPracticed: 1234 });
+  assert.deepEqual(recordPhraseAttempt(recorded, 'bad-id', true), recorded, 'an unknown id is ignored');
+  assert.equal(recordPhraseAttempt(recorded, 'P001', false).P001.wrong, 1);
+  assert.equal(phraseState(recorded.P001), STATES.LEARNING);
+  assert.equal(phraseState({ attempts: 3, correct: 3, wrong: 0 }), STATES.REVIEW);
+  assert.equal(phraseState({ attempts: 2, correct: 0, wrong: 2 }), STATES.WEAK);
+  assert.equal(phraseState(undefined), STATES.NEW);
+  assert.deepEqual(phraseStats({ P001: { attempts: 2, correct: 1, wrong: 1 } }, [{ id: 'P001' }, { id: 'P002' }]),
+    { total: 2, practiced: 1, attempts: 2, correct: 1, accuracy: 50 });
+});
+
+test('a phrase session prefers unseen and weak phrases and honours the filters', () => {
+  const pool = embeddedPhrases.slice(0, 4);
+  const progress = {
+    [pool[0].id]: { attempts: 4, correct: 4, wrong: 0, lastPracticed: 99 }, // mastered
+    [pool[1].id]: { attempts: 2, correct: 0, wrong: 2, lastPracticed: 50 }, // weakest
+    [pool[2].id]: { attempts: 1, correct: 1, wrong: 0, lastPracticed: 10 }  // learned once
+  };
+  const session = selectPhraseSession(pool, progress, { size: 4 });
+  assert.deepEqual(session.map(entry => entry.id), [pool[3].id, pool[1].id, pool[2].id, pool[0].id],
+    'never practised first, then the least accurate, then the stalest');
+  assert.equal(selectPhraseSession(pool, progress, { size: 2 }).length, 2);
+  assert.equal(selectPhraseSession([], {}, { size: 10 }).length, 0);
+
+  const typed = selectPhraseSession(embeddedPhrases, {}, { size: 6, type: 'idiom', level: 'C1' });
+  assert.ok(typed.length > 0);
+  assert.ok(typed.every(entry => entry.type === 'idiom' && entry.tags.includes('level:C1')));
+  assert.equal(selectPhraseSession(embeddedPhrases, {}, { size: 9999 }).length, embeddedPhrases.length);
+});
+
+test('phrase progress rides along in the backup without breaking v1 files', () => {
+  const full = createInitialProgress('1', 0);
+  const base = {
+    progress: { '1': full },
+    prefs: { ...DEFAULT_PREFS },
+    favorites: new Set(['1']),
+    history: [],
+    streak: { current: 0, longest: 0, lastDate: null }
+  };
+  const withoutPhrases = exportProgressBundle(base);
+  assert.equal('phrases' in withoutPhrases, false, 'a file exported without phrase data carries no phrase block');
+  const withPhrases = exportProgressBundle({ ...base, phrases: { P001: { attempts: 2, correct: 1, wrong: 1, lastPracticed: 7 } } });
+  assert.deepEqual(withPhrases.phrases, { P001: { attempts: 2, correct: 1, wrong: 1, lastPracticed: 7 } });
+
+  assert.equal(validateImportPayload(withoutPhrases).phrases, null, 'an older file says nothing about phrases');
+  const imported = validateImportPayload(withPhrases);
+  assert.deepEqual(imported.phrases, { P001: { attempts: 2, correct: 1, wrong: 1, lastPracticed: 7 } });
+  assert.throws(() => validateImportPayload({ ...withPhrases, phrases: 'nope' }), /Tiến độ cụm từ không hợp lệ/);
+  assert.throws(() => validateImportPayload({ ...withPhrases, phrases: ['P001'] }), /Tiến độ cụm từ không hợp lệ/);
+  assert.throws(() => validateImportPayload({ ...withPhrases, phrases: null }), /Tiến độ cụm từ không hợp lệ/);
+});
+
+test('the phrase bank is wired into the shell, reset and localisation', () => {
+  assert.match(appSource, /navButton\('phrases', 'layers', 'Cụm từ'\)/, 'the phrase view has a navigation entry');
+  assert.match(appSource, /else if \(view === 'phrases'\) renderPhrases\(content\)/);
+  assert.match(appSource, /else if \(view === 'phrase-practice'\) renderPhrasePractice\(content\)/);
+  assert.match(appSource, /phraseProgress = loadPhraseProgress\(storage\)/);
+  assert.match(appSource, /phrases: phraseProgress/, 'the backup exports phrase progress');
+  assert.match(appSource, /phraseProgress = \{\};[\s\S]{0,120}savePhraseProgress\(phraseProgress, storage\)/,
+    'resetting the profile clears the phrase store too');
+  assert.match(appSource, /if \(!savePhraseProgress\(phraseProgress, storage\)\) toast\('Không thể lưu tiến độ cụm từ trên thiết bị này\.', 'error'\)/,
+    'a failed phrase write is reported, never followed by a success toast');
+  assert.match(appSource, /await loadPhrases\(\)[\s\S]{0,200}phraseBankError/,
+    'a broken phrase block is reported instead of stopping the word app');
+  // Dataset text stays untranslated in both interfaces.
+  for (const entry of embeddedPhrases.slice(0, 60)) {
+    assert.equal(translateUiText(entry.meaning, 'en'), entry.meaning);
+    assert.equal(translateUiText(entry.phrase, 'en'), entry.phrase);
+  }
+  assert.equal(translateUiText('Cụm từ', 'en'), 'Phrases');
+  assert.equal(translateUiText('Luyện 10 cụm', 'en'), 'Practise 10 phrases');
+  assert.equal(translateUiText('4 cụm · hiển thị 4 cụm đầu', 'en'), '4 phrases · first 4 shown');
 });

@@ -1,0 +1,204 @@
+# Society, politics, citizenship and law vocabulary.
+# word<TAB>pos<TAB>meaning<TAB>level<TAB>topic<TAB>type<TAB>skills
+democracy	n	nền dân chủ	C1	politics	topic	reading
+democratic	adj	dân chủ	C1	politics	academic	reading
+dictatorship	n	chế độ độc tài	C1	politics	topic	reading
+election	n	cuộc bầu cử	B2	politics	topic	reading
+vote	v	bỏ phiếu	B1	politics	core	reading
+ballot	n	phiếu bầu	C1	politics	topic	reading
+campaign	n	chiến dịch vận động	C1	politics	topic	reading
+protest	n	cuộc biểu tình	B2	politics	topic	reading
+reform	n	cải cách	B2	politics	topic	reading
+parliament	n	nghị viện	C1	politics	topic	reading
+constitution	n	hiến pháp	C1	politics	topic	reading
+citizen	n	công dân	B2	politics	topic	reading
+citizenship	n	quyền công dân	C1	politics	topic	reading
+immigration	n	nhập cư	C1	society	topic	reading
+immigrant	n	người nhập cư	C1	society	topic	reading
+refugee	n	người tị nạn	C1	society	topic	reading
+asylum	n	tị nạn chính trị	C2	politics	topic	reading
+migrant	n	người di cư	C1	society	topic	reading
+diaspora	n	cộng đồng ly hương	C2	society	topic	reading
+minority	n	nhóm thiểu số	C1	society	topic	reading
+ethnic	adj	thuộc dân tộc	C1	society	academic	reading
+indigenous	adj	bản địa	C1	society	topic	reading
+heritage	n	di sản	B2	culture	topic	reading
+tradition	n	truyền thống	B1	culture	core	reading
+custom	n	phong tục	C1	culture	topic	reading
+ritual	n	nghi lễ	C1	culture	topic	reading
+ceremony	n	nghi lễ, buổi lễ	B2	culture	topic	reading
+festival	n	lễ hội	B1	culture	core	reading
+carnival	n	lễ hội hóa trang	C1	culture	topic	reading
+parade	n	cuộc diễu hành	C1	culture	topic	reading
+costume	n	trang phục	C1	culture	topic	reading
+cuisine	n	ẩm thực	C1	culture	topic	reading
+architecture	n	kiến trúc	B2	culture	topic	reading
+sculpture	n	tác phẩm điêu khắc	C1	culture	topic	reading
+painting	n	bức tranh	C1	culture	topic	reading
+portrait	n	chân dung	C1	culture	topic	reading
+gallery	n	phòng tranh	C1	culture	topic	reading
+museum	n	bảo tàng	B1	culture	core	reading
+monument	n	tượng đài, công trình kỷ niệm	C1	culture	topic	reading
+landmark	n	địa danh nổi bật	C1	travel	topic	reading
+orchestra	n	dàn nhạc	C1	culture	topic	reading
+melody	n	giai điệu	C1	culture	topic	reading
+rhythm	n	nhịp điệu	C1	culture	topic	reading
+lyric	n	lời bài hát	C1	culture	topic	reading
+novel	n	tiểu thuyết	B2	culture	topic	reading
+poetry	n	thơ ca	B2	culture	topic	reading
+poem	n	bài thơ	B1	culture	core	reading
+translation	n	bản dịch	C1	culture	academic	reading
+literacy	n	khả năng đọc viết	C1	education	topic	reading
+numeracy	n	khả năng tính toán	C2	education	topic	reading
+curriculum	n	chương trình học	C1	education	topic	reading
+syllabus	n	đề cương môn học	C2	education	topic	reading
+tuition	n	học phí; việc dạy kèm	C1	education	topic	reading
+scholarship	n	học bổng	B2	education	topic	reading
+graduate	n	người tốt nghiệp	B2	education	topic	reading
+postgraduate	n	học viên sau đại học	C1	education	topic	reading
+undergraduate	n	sinh viên đại học	C1	education	topic	reading
+lecturer	n	giảng viên	C1	education	topic	reading
+tutor	n	gia sư, trợ giảng	C1	education	topic	reading
+semester	n	học kỳ	B2	education	topic	reading
+assignment	n	bài tập được giao	B2	education	topic	reading
+assessment	n	bài đánh giá	C1	education	academic	reading
+plagiarism	n	việc đạo văn	C1	education	topic	reading
+dropout	n	việc bỏ học	C2	education	topic	reading
+aptitude	n	năng khiếu	C1	education	academic	reading
+vocational	adj	thuộc hướng nghiệp, dạy nghề	C1	education	topic	reading
+apprenticeship	n	việc học nghề	C2	education	topic	reading
+discipline	n	kỷ luật, môn học	B2	education	academic	reading
+motivation	n	động lực học tập	C1	education	topic	writing
+concentration	n	sự tập trung	C1	education	academic	reading
+comprehension	n	sự hiểu, kỹ năng đọc hiểu	C1	education	topic	reading
+pronunciation	n	cách phát âm	B1	education	topic	reading
+grammar	n	ngữ pháp	B1	education	topic	reading
+dictation	n	việc viết chính tả	C1	education	topic	reading
+notebook	n	quyển vở	B1	education	core	reading
+library	n	thư viện	B1	education	core	reading
+pupil	n	học sinh (tiểu học)	C1	education	topic	reading
+timetable	n	thời khóa biểu	B1	education	core	reading
+revision	n	việc ôn tập	C1	education	topic	reading
+portfolio	n	hồ sơ năng lực	B2	education	topic	reading
+certificate	n	chứng chỉ	B2	education	topic	reading
+qualification	n	bằng cấp, trình độ chuyên môn	C1	education	academic	reading
+degree	n	bằng đại học, mức độ	B2	education	core	reading
+admission	n	sự nhập học, sự thừa nhận	C1	education	topic	reading
+enrol	v	ghi danh	C1	education	topic	reading
+enrolment	n	sự ghi danh	C2	education	topic	reading
+attendance	n	sự tham dự, điểm danh	C1	education	academic	reading
+absence	n	sự vắng mặt	C1	education	academic	reading
+absent	adj	vắng mặt	B1	education	core	reading
+behaviour	n	hạnh kiểm, cách cư xử	B2	education	academic	reading
+reward	n	phần thưởng học tập	B2	education	core	reading
+punish	v	trừng phạt	B2	education	core	reading
+supervision	n	sự giám sát	C1	education	academic	reading
+counsel	n	lời khuyên, tư vấn	C2	education	academic	reading
+counsellor	n	người tư vấn	C2	education	topic	reading
+family	n	gia đình ruột thịt	B1	family	core	reading
+household	n	hộ gia đình	C1	family	topic	reading
+relative	n	họ hàng	C1	family	topic	reading
+generation	n	thế hệ nối tiếp	C1	family	topic	reading
+upbringing	n	sự nuôi dạy	C1	family	topic	reading
+parenting	n	việc nuôi dạy con	C1	family	topic	reading
+guardian	n	người giám hộ	C1	family	topic	reading
+adolescence	n	tuổi vị thành niên	C1	psychology	topic	reading
+adulthood	n	tuổi trưởng thành	C1	psychology	topic	reading
+childhood	n	tuổi thơ	B2	family	topic	reading
+elderly	adj	cao tuổi	C1	society	topic	reading
+senior	adj	cấp cao, lớn tuổi	B2	society	topic	reading
+retirement	n	việc nghỉ hưu	C1	work	topic	reading
+divorce	n	sự ly hôn	B2	family	topic	reading
+marriage	n	hôn nhân	B1	family	core	reading
+spouse	n	vợ hoặc chồng	C2	family	topic	reading
+orphan	n	trẻ mồ côi	C1	family	topic	reading
+adoption	n	việc nhận nuôi	C1	family	topic	reading
+crimes	n	tội phạm (số nhiều)	B2	law	topic	reading
+criminal	n	tội phạm	C1	law	topic	reading
+offence	n	hành vi phạm tội	C1	law	topic	reading
+prosecution	n	việc truy tố	C2	law	topic	reading
+defendant	n	bị cáo	C2	law	topic	reading
+verdict	n	phán quyết	C2	law	topic	reading
+witness	n	nhân chứng	C1	law	topic	reading
+testimony	n	lời khai	C2	law	topic	reading
+arrest	v	bắt giữ	C1	law	topic	reading
+detention	n	việc giam giữ	C2	law	topic	reading
+custody	n	quyền giám hộ, sự giam giữ	C2	law	topic	reading
+bail	n	tiền tại ngoại	C2	law	topic	reading
+fraud	n	sự gian lận	C1	law	topic	reading
+theft	n	tội trộm cắp	B2	law	topic	reading
+burglary	n	tội đột nhập	C2	law	topic	reading
+robbery	n	tội cướp	C1	law	topic	reading
+assault	n	tội hành hung	C2	law	topic	reading
+homicide	n	tội giết người	C2	law	topic	reading
+corruption	n	tham nhũng	C1	politics	topic	reading
+bribery	n	việc hối lộ	C2	law	topic	reading
+smuggling	n	việc buôn lậu	C2	law	topic	reading
+trafficking	n	việc buôn bán bất hợp pháp	C2	law	topic	reading
+juvenile	adj	thuộc vị thành niên	C2	law	topic	reading
+probation	n	án treo, thời gian thử thách	C2	law	topic	reading
+penalty	n	hình phạt	C1	law	topic	reading
+fine	n	tiền phạt	B2	law	topic	reading
+imprisonment	n	việc bỏ tù	C2	law	topic	reading
+enforcement	n	sự thực thi	C1	law	academic	reading
+justice	n	công lý	B2	law	core	reading
+fairness	n	sự công bằng	C1	law	academic	writing
+legitimate	adj	hợp pháp, chính đáng	C1	law	academic	reading
+illegal	adj	bất hợp pháp	B1	law	core	reading
+legal	adj	hợp pháp, thuộc pháp luật	B2	law	core	reading
+lawful	adj	đúng luật	C2	law	academic	reading
+ethic	n	chuẩn mực đạo đức	C2	academic	academic	reading
+ethics	n	đạo đức học	C1	academic	academic	reading
+moral	adj	thuộc đạo đức	B2	academic	academic	writing
+morality	n	đạo đức	C1	academic	academic	writing
+integrity	n	tính liêm chính	C1	society	academic	writing
+transparency	n	sự minh bạch	C1	politics	academic	writing
+accountability	n	trách nhiệm giải trình	C1	politics	academic	writing
+governance	n	việc quản trị	C2	politics	academic	reading
+bureaucracy	n	bộ máy quan liêu	C2	politics	topic	reading
+corruption-free	adj	không tham nhũng	C2	politics	topic	reading
+civic	adj	thuộc công dân	C2	society	academic	reading
+community	n	cộng đồng dân cư	B2	society	topic	reading
+neighbourhood	n	khu dân cư	B2	society	topic	reading
+resident	n	cư dân	B2	society	topic	reading
+volunteering	n	hoạt động tình nguyện	C1	society	topic	reading
+solidarity	n	sự đoàn kết	C2	society	academic	writing
+activism	n	chủ nghĩa hoạt động xã hội	C2	society	topic	reading
+advocacy	n	việc vận động, ủng hộ	C2	society	academic	reading
+lobby	v	vận động hành lang	C2	politics	topic	reading
+referendum	n	cuộc trưng cầu dân ý	C2	politics	topic	reading
+coalition	n	liên minh	C2	politics	topic	reading
+opposition	n	sự phản đối, phe đối lập	C1	politics	academic	reading
+majority	n	đa số phiếu	C1	politics	academic	reading
+consensus	n	sự đồng thuận	C1	politics	academic	writing
+diplomacy	n	ngoại giao	C2	politics	topic	reading
+diplomatic	adj	mang tính ngoại giao, khéo léo	C1	politics	academic	reading
+treaty	n	hiệp ước	C2	politics	topic	reading
+alliance	n	liên minh	C1	politics	topic	reading
+sovereignty	n	chủ quyền	C2	politics	topic	reading
+border	n	biên giới	B2	politics	core	reading
+territory	n	lãnh thổ	C1	politics	topic	reading
+nation	n	quốc gia, dân tộc	B2	politics	core	reading
+nationalism	n	chủ nghĩa dân tộc	C2	politics	topic	reading
+globalisation	n	sự toàn cầu hóa	C1	economics	topic	writing
+integration	n	sự hội nhập	C1	politics	academic	writing
+multicultural	adj	đa văn hóa	C1	culture	topic	reading
+cosmopolitan	adj	mang tính quốc tế	C2	culture	topic	reading
+urbanisation	n	sự đô thị hóa đô thị	C1	society	topic	reading
+migration	n	sự di cư	C1	society	topic	reading
+population	n	dân số của một vùng	C1	society	topic	reading
+census	n	cuộc tổng điều tra dân số	C2	society	topic	reading
+demographic	n	nhân khẩu học	C2	society	academic	reading
+inequality	n	khoảng cách giàu nghèo	C1	society	topic	writing
+deprivation	n	sự thiếu thốn	C2	society	academic	reading
+disadvantaged	adj	chịu thiệt thòi	C1	society	academic	writing
+marginalised	adj	bị gạt ra ngoài lề	C2	society	academic	writing
+vulnerable	adj	dễ bị tổn thương	B2	society	academic	writing
+resilient	adj	kiên cường, phục hồi tốt	B2	society	academic	writing
+welfare	n	phúc lợi	C1	society	topic	reading
+benefit	n	trợ cấp phúc lợi	C1	society	topic	reading
+housing	n	nhà ở	C1	society	topic	reading
+homelessness	n	tình trạng vô gia cư	C2	society	topic	reading
+shelter	n	nơi trú ẩn	C1	society	topic	reading
+charitable	adj	có tính từ thiện	C1	society	academic	reading
+nonprofit	adj	phi lợi nhuận	C1	economics	topic	reading

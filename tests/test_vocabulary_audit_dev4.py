@@ -41,8 +41,12 @@ class VocabularyAuditDev4Tests(unittest.TestCase):
 
         source = parse_table(ROOT / "Learned_Vocabulary_List.md")
         app = json.loads((ROOT / "data" / "vocabulary.json").read_text(encoding="utf-8"))
-        self.assertEqual(len(source), 913)
-        self.assertEqual(len(app), 913)
+        # beta7 appends new headwords after ID 913; this audit keeps covering the
+        # legacy block it reviewed, and the append must not touch those IDs.
+        self.assertGreaterEqual(len(source), 913)
+        self.assertEqual(len(app), len(source))
+        self.assertFalse([row for row in source[913:] if int(row["id"]) <= 913])
+        source, app = source[:913], app[:913]
         for source_row, app_row, audit_row in zip(source, app, self.entries):
             self.assertEqual(source_row["id"], app_row["id"])
             self.assertEqual(source_row["id"], audit_row["id"])

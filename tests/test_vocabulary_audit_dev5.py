@@ -60,8 +60,12 @@ class VocabularyAuditDev5Tests(unittest.TestCase):
         self.assertEqual(len(self.by_id), 913)
         source = parse_table(ROOT / "Learned_Vocabulary_List.md")
         app = load_json(ROOT / "data" / "vocabulary.json")
-        self.assertEqual(len(source), 913)
-        self.assertEqual(len(app), 913)
+        # beta7 appends new headwords after ID 913; the dev5 audit covers the
+        # legacy prefix and must never see an appended row inside it.
+        self.assertGreaterEqual(len(source), 913)
+        self.assertEqual(len(app), len(source))
+        self.assertFalse([row for row in source[913:] if int(row["id"]) <= 913])
+        source, app = source[:913], app[:913]
         source_by_id = {row["id"]: row for row in source}
         app_by_id = {row["id"]: row for row in app}
         self.assertEqual(list(source_by_id), expected_ids)

@@ -1,0 +1,118 @@
+# Verb/adjective/noun + preposition patterns tested by gap-fill items.
+# phrase<TAB>type<TAB>meaning<TAB>usage<TAB>pattern<TAB>level<TAB>topic<TAB>skills
+depend on	dependent-preposition	phụ thuộc vào	Cần thứ khác để tồn tại hoặc hoạt động.	depend on + N/V-ing	B1	academic	cloze
+rely on	dependent-preposition	trông cậy vào	Tin tưởng vào ai hoặc thứ gì.	rely on + N/V-ing	B2	academic	cloze
+insist on	dependent-preposition	khăng khăng đòi	Kiên quyết yêu cầu điều gì.	insist on + N/V-ing	B2	society	cloze
+focus on	dependent-preposition	tập trung vào	Dành chú ý chính cho.	focus on + N/V-ing	B1	academic	cloze
+concentrate on	dependent-preposition	tập trung vào	Dồn sự chú ý vào việc gì.	concentrate on + N/V-ing	B2	education	cloze
+congratulate on	dependent-preposition	chúc mừng về	Chúc mừng ai vì việc gì.	congratulate + N + on + N/V-ing	B1	society	cloze
+spend on	dependent-preposition	dành (tiền, thời gian) cho	Dùng tiền hoặc thời gian cho việc gì.	spend + N + on + N	B1	economics	cloze
+succeed in	dependent-preposition	thành công trong	Đạt kết quả trong việc gì.	succeed in + N/V-ing	B2	work	cloze
+believe in	dependent-preposition	tin vào	Có niềm tin vào ai hoặc điều gì.	believe in + N	B1	society	cloze
+result in	dependent-preposition	dẫn đến	Gây ra kết quả.	result in + N	B2	academic	cloze
+result from	dependent-preposition	bắt nguồn từ	Do nguyên nhân nào đó.	result from + N	B2	academic	cloze
+lead to	dependent-preposition	dẫn tới	Gây ra kết quả.	lead to + N	B1	academic	cloze
+contribute to	dependent-preposition	góp phần vào	Giúp tạo nên kết quả.	contribute to + N/V-ing	B2	academic	cloze
+belong to	dependent-preposition	thuộc về	Là tài sản hoặc phần của.	belong to + N	B1	society	cloze
+apologise for	dependent-preposition	xin lỗi vì	Bày tỏ lấy làm tiếc về việc gì.	apologise for + N/V-ing	B1	society	cloze
+blame for	dependent-preposition	đổ lỗi về	Cho rằng ai chịu trách nhiệm.	blame + N + for + N	B2	society	cloze
+accuse of	dependent-preposition	buộc tội về	Cho rằng ai đã làm sai.	accuse + N + of + N/V-ing	B2	law	cloze
+suspect of	dependent-preposition	nghi ngờ về	Nghĩ ai đã làm việc gì.	suspect + N + of + N/V-ing	C1	law	cloze
+approve of	dependent-preposition	tán thành về	Đồng ý với việc gì.	approve of + N/V-ing	B2	society	cloze
+disapprove of	dependent-preposition	không tán thành về	Không đồng ý với.	disapprove of + N/V-ing	C1	society	cloze
+capable of	dependent-preposition	có khả năng làm	Có thể làm được việc gì.	capable of + N/V-ing	B2	academic	cloze
+aware of	dependent-preposition	nhận thức được	Biết rõ điều gì.	aware of + N	B2	psychology	cloze
+conscious of	dependent-preposition	ý thức được	Biết mình đang làm gì.	conscious of + N	B2	psychology	cloze
+cautious of	dependent-preposition	thận trọng về	Dè chừng điều gì.	cautious of/about + N	C1	health	cloze
+suspicious of	dependent-preposition	nghi ngờ về	Cảm thấy có gì không ổn.	suspicious of + N	C1	law	cloze
+fond of	dependent-preposition	thích	Yêu thích điều gì.	fond of + N/V-ing	B1	daily-life	cloze
+keen on	dependent-preposition	hăng hái về	Rất thích hoặc quan tâm.	keen on + N/V-ing	B2	sport	cloze
+interested in	dependent-preposition	quan tâm đến	Có hứng thú với.	interested in + N/V-ing	B1	education	cloze
+worried about	dependent-preposition	lo lắng về	Băn khoăn điều gì.	worried about + N	B1	health	cloze
+concerned about	dependent-preposition	lo ngại về	Thấy có vấn đề.	concerned about + N	B2	society	cloze
+anxious about	dependent-preposition	lo âu về	Lo lắng chuyện gì.	anxious about + N	B2	psychology	cloze
+curious about	dependent-preposition	tò mò về	Muốn biết thêm.	curious about + N	B1	education	cloze
+enthusiastic about	dependent-preposition	nhiệt tình với	Hăng hái với việc gì.	enthusiastic about + N/V-ing	B2	psychology	cloze
+optimistic about	dependent-preposition	lạc quan về	Tin là sẽ tốt.	optimistic about + N	B2	psychology	cloze
+pessimistic about	dependent-preposition	bi quan về	Tin là sẽ xấu.	pessimistic about + N	C1	psychology	cloze
+doubtful about	dependent-preposition	hoài nghi về	Không chắc điều gì.	doubtful about + N	C1	academic	cloze
+certain about	dependent-preposition	chắc chắn về	Không còn nghi ngờ.	certain about + N	C1	academic	cloze
+confident of	dependent-preposition	tự tin về	Tin mình sẽ thành công.	confident of/about + N	C1	psychology	cloze
+guilty of	dependent-preposition	phạm (tội)	Đã làm việc sai trái.	guilty of + N	B2	law	cloze
+innocent of	dependent-preposition	vô tội về	Không làm việc bị buộc.	innocent of + N	C1	law	cloze
+worthy of	dependent-preposition	xứng đáng với	Đáng được nhận.	worthy of + N	C1	academic	cloze
+typical of	dependent-preposition	điển hình của	Mang nét đặc trưng.	typical of + N	B2	academic	cloze
+characteristic of	dependent-preposition	đặc trưng của	Là nét riêng.	characteristic of + N	C1	academic	cloze
+independent of	dependent-preposition	độc lập với	Không phụ thuộc vào.	independent of + N	C1	academic	cloze
+regardless of	dependent-preposition	bất kể	Không xét tới.	regardless of + N	B2	academic	cloze
+instead of	dependent-preposition	thay vì	Chọn cái khác.	instead of + N/V-ing	B1	academic	cloze
+in charge of	dependent-preposition	phụ trách	Chịu trách nhiệm quản lý.	in charge of + N	B1	work	cloze
+in favour of	dependent-preposition	ủng hộ	Nghiêng về phương án.	in favour of + N	B2	academic	cloze
+in need of	dependent-preposition	cần đến	Đang thiếu thứ gì.	in need of + N	C1	society	cloze
+in danger of	dependent-preposition	đứng trước nguy cơ	Có khả năng bị.	in danger of + N/V-ing	B2	environment	cloze
+in terms of	dependent-preposition	xét về mặt	Xét theo khía cạnh.	in terms of + N	C1	academic	cloze
+on the basis of	dependent-preposition	dựa trên cơ sở	Dựa vào thông tin, bằng chứng.	on the basis of + N	C1	academic	cloze
+on the grounds of	dependent-preposition	vì lý do	Với căn cứ nào đó.	on the grounds of + N	C2	law	cloze
+in the event of	dependent-preposition	trong trường hợp	Nếu việc gì xảy ra.	in the event of + N	C1	academic	cloze
+at the risk of	dependent-preposition	liều mất	Chấp nhận nguy cơ.	at the risk of + N/V-ing	C1	academic	cloze
+for the purpose of	dependent-preposition	nhằm mục đích	Với mục tiêu.	for the purpose of + N/V-ing	C1	academic	cloze
+with the aim of	dependent-preposition	với mục tiêu	Nhằm đạt điều gì.	with the aim of + V-ing	C1	academic	cloze
+object to	dependent-preposition	phản đối	Không đồng ý với.	object to + N/V-ing	C1	society	cloze
+oppose to	dependent-preposition	phản đối (bị động: be opposed to)	Chống lại việc gì.	be opposed to + N/V-ing	C1	politics	cloze
+adapt to	dependent-preposition	thích nghi với	Thay đổi để phù hợp.	adapt to + N	B2	environment	cloze
+adjust to	dependent-preposition	điều chỉnh cho phù hợp	Thay đổi theo hoàn cảnh.	adjust to + N	B2	society	cloze
+react to	dependent-preposition	phản ứng với	Có phản hồi trước việc gì.	react to + N	B2	psychology	cloze
+respond to	dependent-preposition	phản hồi lại	Trả lời hoặc xử lý.	respond to + N	B2	academic	cloze
+refer to	dependent-preposition	ám chỉ, dẫn tới	Nhắc tới hoặc tra cứu.	refer to + N	B1	academic	cloze
+relate to	dependent-preposition	liên quan tới	Có mối liên hệ.	relate to + N	B2	academic	cloze
+apply for	dependent-preposition	nộp đơn xin	Đăng ký công việc, học bổng.	apply for + N	B1	work	cloze
+apply to	dependent-preposition	áp dụng cho	Có hiệu lực với.	apply to + N	B2	law	cloze
+cater to	dependent-preposition	chiều theo, phục vụ	Đáp ứng nhu cầu.	cater to + N	C1	economics	cloze
+cater for	dependent-preposition	cung cấp cho (nhu cầu)	Phục vụ nhu cầu nhóm người.	cater for + N	C1	economics	cloze
+account for	dependent-preposition	chiếm; giải thích	Chiếm tỷ lệ hoặc giải thích.	account for + N	B2	academic	cloze
+allow for	dependent-preposition	tính đến	Chuẩn bị cho khả năng nào.	allow for + N	C1	academic	cloze
+compensate for	dependent-preposition	đền bù cho	Bù lại thiệt hại.	compensate for + N	C1	economics	cloze
+substitute for	dependent-preposition	thay thế cho	Dùng thay vị trí.	substitute for + N	C1	economics	cloze
+long for	dependent-preposition	khao khát	Mong mỏi điều gì tha thiết.	long for + N	C2	psychology	cloze
+strive for	dependent-preposition	phấn đấu vì	Nỗ lực đạt điều gì.	strive for + N	C1	psychology	cloze
+aim at	dependent-preposition	nhắm vào	Nỗ lực hướng tới.	aim at + N/V-ing	C1	academic	cloze
+hint at	dependent-preposition	ám chỉ về	Nói bóng gió.	hint at + N	C2	media	cloze
+glance at	dependent-preposition	liếc nhìn	Nhìn nhanh.	glance at + N	B2	daily-life	cloze
+stare at	dependent-preposition	nhìn chằm chằm	Nhìn lâu không rời mắt.	stare at + N	B1	daily-life	cloze
+laugh at	dependent-preposition	cười nhạo	Cười vì thấy buồn cười hoặc chế giễu.	laugh at + N	B1	society	cloze
+arrive at	dependent-preposition	đạt tới (quyết định, kết luận)	Đi đến kết quả sau khi bàn.	arrive at + N	C1	academic	cloze
+arrive in	dependent-preposition	đến (thành phố, quốc gia)	Tới một địa điểm lớn.	arrive in + N	B1	travel	cloze
+suffer from	dependent-preposition	chịu đựng (bệnh, vấn đề)	Bị ảnh hưởng bởi.	suffer from + N	B1	health	cloze
+benefit from	dependent-preposition	hưởng lợi từ	Được lợi nhờ.	benefit from + N	B2	economics	cloze
+profit from	dependent-preposition	thu lợi từ	Được lợi từ việc gì.	profit from + N	C1	economics	cloze
+recover from	dependent-preposition	hồi phục sau	Trở lại bình thường sau bệnh.	recover from + N	B2	health	cloze
+withdraw from	dependent-preposition	rút khỏi	Ngừng tham gia.	withdraw from + N	C1	politics	cloze
+resign from	dependent-preposition	từ chức khỏi	Rời vị trí.	resign from + N	C1	work	cloze
+escape from	dependent-preposition	thoát khỏi	Thoát khỏi nơi hoặc tình cảnh.	escape from + N	B2	law	cloze
+prevent from	dependent-preposition	ngăn không cho	Làm ai không làm được gì.	prevent + N + from + V-ing	B2	health	cloze
+stop from	dependent-preposition	ngăn cản không cho	Cản trở ai làm.	stop + N + from + V-ing	B1	daily-life	cloze
+discourage from	dependent-preposition	khuyên can không nên	Làm ai mất ý muốn.	discourage + N + from + V-ing	C1	psychology	cloze
+protect from	dependent-preposition	bảo vệ khỏi	Che chở khỏi nguy hiểm.	protect + N + from + N	B2	health	cloze
+distinguish between	dependent-preposition	phân biệt giữa	Chỉ ra khác nhau giữa hai thứ.	distinguish between + N	B2	academic	cloze
+differ from	dependent-preposition	khác với	Không giống.	differ from + N	B2	academic	cloze
+compare with	dependent-preposition	so sánh với	Đặt cạnh để so sánh.	compare with/to + N	B1	academic	cloze
+associate with	dependent-preposition	liên tưởng với	Nghĩ hai thứ đi cùng nhau.	associate + N + with + N	B2	psychology	cloze
+equate with	dependent-preposition	đánh đồng với	Coi hai điều như nhau.	equate + N + with + N	C2	academic	cloze
+interfere with	dependent-preposition	cản trở, can thiệp vào	Làm ảnh hưởng xấu.	interfere with + N	C1	technology	cloze
+comply with	dependent-preposition	tuân theo	Làm đúng quy định.	comply with + N	C1	law	cloze
+cope with	dependent-preposition	đối phó được với	Xử lý được khó khăn.	cope with + N	B2	psychology	cloze
+agree with	dependent-preposition	đồng ý với (người, ý)	Tán thành quan điểm.	agree with + N	B1	society	cloze
+agree to	dependent-preposition	đồng ý (đề nghị, kế hoạch)	Chấp nhận phương án.	agree to + N	B2	work	cloze
+agree on	dependent-preposition	thống nhất về	Đạt đồng thuận điều gì.	agree on + N	B2	work	cloze
+provide with	dependent-preposition	cung cấp cho	Đưa cho ai thứ cần.	provide + N + with + N	B2	academic	cloze
+supply with	dependent-preposition	cung ứng cho	Cung cấp thứ gì.	supply + N + with + N	B2	economics	cloze
+charge with	dependent-preposition	buộc tội; giao trách nhiệm	Cho rằng phạm tội hoặc giao việc.	charge + N + with + N	C1	law	cloze
+equip with	dependent-preposition	trang bị cho	Cung cấp dụng cụ, kỹ năng.	equip + N + with + N	C1	education	cloze
+familiar with	dependent-preposition	quen thuộc với	Biết rõ.	familiar with + N	B2	academic	cloze
+familiar to	dependent-preposition	quen thuộc đối với	Được biết tới.	familiar to + N	C1	academic	cloze
+similar to	dependent-preposition	tương tự với	Giống ở điểm nào.	similar to + N	B1	academic	cloze
+superior to	dependent-preposition	cao hơn, tốt hơn	Tốt hơn mức khác.	superior to + N	C1	academic	cloze
+inferior to	dependent-preposition	kém hơn	Thấp hơn mức khác.	inferior to + N	C1	academic	cloze
+preferable to	dependent-preposition	đáng chọn hơn	Được ưa hơn.	preferable to + N	C1	academic	cloze
+according to	dependent-preposition	theo (nguồn)	Như được nêu bởi.	according to + N	B1	academic	cloze
+owing to	dependent-preposition	do, vì	Bởi nguyên nhân.	owing to + N	C1	academic	cloze

@@ -1,0 +1,178 @@
+# Health, medicine and psychology vocabulary.
+# word<TAB>pos<TAB>meaning<TAB>level<TAB>topic<TAB>type<TAB>skills
+symptom	n	triệu chứng	B2	health	topic	reading
+diagnosis	n	chẩn đoán	C1	health	topic	reading
+diagnose	v	chẩn đoán	C1	health	topic	reading
+therapy	n	liệu pháp, trị liệu	C1	health	topic	reading
+therapist	n	nhà trị liệu	C1	health	topic	reading
+vaccination	n	việc tiêm chủng	C1	health	topic	reading
+immunity	n	khả năng miễn dịch	C1	health	topic	reading
+infection	n	sự nhiễm trùng	C1	health	topic	reading
+infectious	adj	lây nhiễm	C1	health	topic	reading
+contagious	adj	dễ lây	C1	health	topic	reading
+chronic	adj	mãn tính	B2	health	topic	reading
+acute	adj	cấp tính, gay gắt	C1	health	topic	reading
+nutrition	n	dinh dưỡng	C1	health	topic	reading
+nutritious	adj	bổ dưỡng	C1	health	topic	reading
+obesity	n	sự béo phì	C1	health	topic	reading
+calorie	n	ca-lo	C1	health	topic	reading
+protein	n	chất đạm	C1	health	topic	reading
+vitamin	n	vi-ta-min	B2	health	topic	reading
+surgery	n	ca phẫu thuật	C1	health	topic	reading
+surgeon	n	bác sĩ phẫu thuật	C1	health	topic	reading
+prescription	n	đơn thuốc	C1	health	topic	reading
+recovery	n	sự hồi phục	B2	health	topic	reading
+wellbeing	n	sức khỏe tinh thần, hạnh phúc	C1	health	topic	reading
+insomnia	n	chứng mất ngủ	C2	health	topic	reading
+depression	n	chứng trầm cảm	C1	health	topic	reading
+depressed	adj	trầm cảm, chán nản	B2	psychology	topic	reading
+sedentary	adj	ít vận động	C2	health	topic	reading
+diabetes	n	bệnh tiểu đường	C1	health	topic	reading
+epidemic	n	dịch bệnh	C1	health	topic	reading
+pandemic	n	đại dịch	C1	health	topic	reading
+hygiene	n	phép vệ sinh	C1	health	topic	reading
+sanitary	adj	thuộc vệ sinh	C1	health	topic	reading
+allergy	n	dị ứng	C1	health	topic	reading
+allergic	adj	bị dị ứng	B2	health	topic	reading
+asthma	n	bệnh hen suyễn	C1	health	topic	reading
+rehabilitation	n	phục hồi chức năng	C1	health	topic	reading
+patient	n	bệnh nhân	B1	health	core	reading
+clinic	n	phòng khám	B1	health	topic	reading
+pharmacy	n	hiệu thuốc	B1	health	topic	reading
+medicine	n	thuốc, y học	B1	health	core	reading
+dose	n	liều lượng	C1	health	topic	reading
+side-effect	n	tác dụng phụ	C1	health	topic	reading
+painkiller	n	thuốc giảm đau	C1	health	topic	reading
+antibiotic	n	thuốc kháng sinh	C1	health	topic	reading
+antibody	n	kháng thể	C2	health	topic	reading
+immune	adj	miễn dịch	B2	health	academic	reading
+outbreak	n	sự bùng phát dịch	C1	health	topic	reading
+quarantine	n	việc cách ly	C1	health	topic	reading
+isolation	n	sự cách ly	C1	health	topic	reading
+hygienic	adj	hợp vệ sinh	C1	health	topic	reading
+mental	adj	thuộc tâm thần	B2	health	academic	reading
+stressful	adj	căng thẳng	B2	health	topic	reading
+burnout	n	sự kiệt sức	C1	work	topic	reading
+exhaustion	n	sự kiệt sức	C1	health	topic	reading
+fatigue	n	sự mệt mỏi	C1	health	topic	reading
+rest	n	sự nghỉ ngơi	B1	health	core	reading
+relax	v	thư giãn	B1	health	core	reading
+refresh	v	làm mới, sảng khoái	C1	health	topic	reading
+meditation	n	thiền	C1	health	topic	reading
+mindfulness	n	sự chánh niệm	C2	psychology	topic	reading
+yoga	n	y-ga	B2	health	topic	reading
+workout	n	buổi tập luyện	B1	health	topic	reading
+fitness	n	thể lực	C1	health	topic	reading
+endurance	n	sức bền	C1	sport	topic	reading
+stamina	n	sức chịu đựng	C1	sport	topic	reading
+posture	n	tư thế	C1	health	topic	reading
+injury	n	chấn thương	B2	health	topic	reading
+wound	n	vết thương	C1	health	topic	reading
+scar	n	vết sẹo	C1	health	topic	reading
+bandage	n	băng gạc	C2	health	topic	reading
+fracture	n	sự gãy xương	C2	health	topic	reading
+sprain	v	bong gân	C2	health	topic	reading
+symptomatic	adj	có triệu chứng	C2	health	topic	reading
+perception	n	sự nhận thức, tri giác	C1	psychology	academic	reading
+motivation	n	động lực	C1	psychology	topic	reading
+motivate	v	tạo động lực	C1	psychology	academic	writing
+mindset	n	tư duy, lối nghĩ	C1	psychology	topic	reading
+personality	n	tính cách	C1	psychology	topic	reading
+trait	n	nét tính cách	C2	psychology	academic	reading
+temperament	n	tính khí	C2	psychology	academic	reading
+intuition	n	trực giác	C2	psychology	academic	reading
+subconscious	n	tầm thức, vô thức	C2	psychology	academic	reading
+self-esteem	n	lòng tự trọng	C1	psychology	topic	reading
+self-confidence	n	sự tự tin	C1	psychology	topic	reading
+peer	n	bạn đồng trang lứa	C1	education	topic	reading
+bullying	n	bắt nạt	C1	education	topic	reading
+harassment	n	sự quấy rối	C2	society	topic	reading
+trauma	n	tổn thương tâm lý	C1	psychology	topic	reading
+resilience	n	khả năng phục hồi	C1	psychology	topic	reading
+coping	n	cách đương đầu	C2	psychology	topic	reading
+anxiety	n	sự lo âu	C1	psychology	topic	reading
+panic	n	sự hoảng loạn	B2	psychology	topic	reading
+phobia	n	nỗi ám ảnh sợ	C2	psychology	topic	reading
+mania	n	cơn hưng phấn, sự cuồng	C2	psychology	topic	reading
+cognitive	adj	thuộc nhận thức	C1	psychology	academic	reading
+behavioural	adj	thuộc hành vi	C1	psychology	academic	reading
+stimulus	n	tác nhân kích thích	C2	psychology	academic	reading
+response	n	sự phản ứng	C1	psychology	academic	reading
+conditioning	n	sự điều kiện hóa	C2	psychology	academic	reading
+reinforce	v	củng cố	C1	psychology	academic	reading
+feedback	n	phản hồi	C1	education	academic	reading
+reward	n	phần thưởng	B2	psychology	topic	reading
+punishment	n	hình phạt	B2	society	topic	reading
+consequence	n	kết quả, hậu quả	B2	academic	academic	writing
+willpower	n	ý chí	C2	psychology	topic	reading
+perseverance	n	sự kiên trì	C1	psychology	topic	writing
+determination	n	sự quyết tâm	C1	psychology	topic	writing
+optimism	n	sự lạc quan	C1	psychology	topic	reading
+pessimism	n	sự bi quan	C1	psychology	topic	reading
+optimistic	adj	lạc quan	B2	psychology	topic	reading
+pessimistic	adj	bi quan	B2	psychology	topic	reading
+empathy	n	sự đồng cảm	C1	psychology	topic	reading
+sympathy	n	sự thông cảm	C1	psychology	topic	reading
+compassion	n	lòng trắc ẩn	C1	psychology	topic	reading
+gratitude	n	lòng biết ơn	C1	psychology	topic	writing
+frustration	n	sự bực bội	C1	psychology	topic	reading
+anger	n	sự tức giận	B1	psychology	core	reading
+jealousy	n	sự ghen tị	C1	psychology	topic	reading
+guilt	n	cảm giác tội lỗi	C1	psychology	topic	reading
+shame	n	nỗi xấu hổ	C1	psychology	topic	reading
+pride	n	lòng tự hào	C1	psychology	topic	reading
+loneliness	n	sự cô đơn	C1	psychology	topic	reading
+lonely	adj	cô đơn	B1	psychology	core	reading
+belonging	n	cảm giác thuộc về	C2	psychology	topic	reading
+identity	n	bản sắc, danh tính	B2	society	academic	reading
+self-image	n	hình ảnh bản thân	C2	psychology	topic	reading
+attitude	n	thái độ sống	C1	psychology	topic	writing
+belief	n	niềm tin	B2	psychology	core	reading
+value	n	giá trị sống	C1	psychology	academic	reading
+norm	n	chuẩn mực	C1	society	academic	reading
+stereotype	n	định kiến, khuôn mẫu	C1	society	topic	reading
+prejudice	n	thành kiến	C1	society	topic	reading
+discrimination	n	sự phân biệt đối xử	C1	society	topic	reading
+racism	n	phân biệt chủng tộc	C1	society	topic	reading
+sexism	n	phân biệt giới tính	C2	society	topic	reading
+equality	n	sự bình đẳng	B2	society	topic	writing
+inequality	n	sự bất bình đẳng	C1	society	topic	writing
+diversity	n	sự đa dạng	C1	society	topic	writing
+inclusion	n	sự hòa nhập	C2	society	topic	writing
+exclusion	n	sự loại trừ	C2	society	topic	reading
+tolerance	n	lòng khoan dung	C1	society	topic	reading
+respect	n	sự tôn trọng	B1	society	core	reading
+dignity	n	phẩm giá	C1	society	academic	writing
+integrity	n	sự chính trực	C1	society	academic	writing
+honesty	n	sự trung thực	B2	society	topic	writing
+loyalty	n	lòng trung thành	C1	society	topic	writing
+trust	n	sự tin tưởng	B2	society	core	reading
+cooperation	n	sự hợp tác	B2	society	topic	writing
+collaboration	n	sự cộng tác	C1	work	topic	writing
+conflict	n	sự xung đột	C1	society	topic	reading
+resolution	n	cách giải quyết	C1	society	academic	writing
+negotiation	n	cuộc thương lượng	C1	work	topic	reading
+compromise	n	sự thỏa hiệp	C1	society	topic	reading
+concession	n	sự nhượng bộ	C2	society	academic	reading
+mediation	n	sự hòa giải	C2	society	academic	reading
+obesity-related	adj	liên quan béo phì	C2	health	topic	reading
+nutritional	adj	thuộc dinh dưỡng	C1	health	academic	reading
+dietary	adj	thuộc chế độ ăn	C1	health	academic	reading
+supplement	n	thực phẩm bổ sung	C1	health	topic	reading
+hydration	n	việc cấp nước	C2	health	topic	reading
+dehydration	n	sự mất nước	C2	health	topic	reading
+caffeine	n	ca-phê-in	C1	health	topic	reading
+sugar-free	adj	không đường	C1	health	topic	reading
+processed	adj	đã qua chế biến	C1	health	topic	reading
+preservative	n	chất bảo quản	C2	health	topic	reading
+additive	n	phụ gia	C2	health	topic	reading
+hygienically	adv	một cách hợp vệ sinh	C2	health	topic	reading
+preventive	adj	mang tính phòng ngừa	C1	health	academic	reading
+prevention	n	sự phòng ngừa	B2	health	topic	writing
+treatment	n	phương pháp điều trị	B2	health	topic	reading
+cure	n	cách chữa trị	B2	health	topic	reading
+heal	v	lành lại, chữa lành	B2	health	core	reading
+recover	v	hồi phục	B2	health	core	reading
+relapse	n	sự tái phát	C2	health	topic	reading
+terminal	adj	giai đoạn cuối	C2	health	topic	reading
+palliative	adj	giảm đau, chăm sóc tạm thời	C2	health	topic	reading

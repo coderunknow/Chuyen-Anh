@@ -1,0 +1,478 @@
+# B1–B2 core vocabulary for everyday, school and social texts.
+# word<TAB>pos<TAB>meaning<TAB>level<TAB>topic<TAB>type<TAB>skills
+ability	n	khả năng, năng lực	B1	daily-life	core	reading
+accept	v	chấp nhận, đồng ý	B1	daily-life	core	reading
+accident	n	tai nạn	B1	daily-life	topic	reading
+achieve	v	đạt được (mục tiêu)	B1	education	core	reading,writing
+active	adj	năng động, tích cực	B1	daily-life	core	reading
+activity	n	hoạt động	B1	daily-life	core	reading
+adult	n	người lớn	B1	society	core	reading
+advice	n	lời khuyên	B1	daily-life	core	reading
+afford	v	có khả năng chi trả	B1	economics	core	reading
+afraid	adj	sợ, e ngại	B1	daily-life	core	reading
+agree	v	đồng ý	B1	daily-life	core	reading
+allow	v	cho phép	B1	daily-life	core	grammar
+amount	n	số lượng, khối lượng	B1	science	core	reading
+ancient	adj	cổ đại, xa xưa	B2	culture	topic	reading
+animal	n	động vật	B1	environment	core	reading
+appear	v	xuất hiện, có vẻ	B1	daily-life	core	reading
+appreciate	v	trân trọng, cảm kích	B2	society	core	writing
+approach	n	cách tiếp cận	B2	academic	academic	writing
+area	n	khu vực, lĩnh vực	B1	daily-life	core	reading
+argue	v	tranh luận, lập luận	B2	society	academic	writing
+argument	n	lập luận, cuộc tranh cãi	B2	academic	academic	writing
+arrive	v	đến nơi	B1	travel	core	grammar
+article	n	bài báo	B1	media	core	reading
+attention	n	sự chú ý	B1	education	core	reading
+attitude	n	thái độ	B2	psychology	topic	reading
+attract	v	thu hút	B2	society	academic	reading
+audience	n	khán giả, người nghe	B1	media	topic	reading
+author	n	tác giả	B1	media	core	reading
+average	adj	trung bình	B2	science	academic	reading
+avoid	v	tránh	B1	health	core	reading,writing
+aware	adj	nhận thức được	B2	psychology	academic	reading
+balance	n	sự cân bằng	B2	daily-life	core	writing
+beautiful	adj	đẹp	B1	daily-life	core	reading
+begin	v	bắt đầu	B1	daily-life	core	grammar
+behaviour	n	hành vi, cách cư xử	B2	psychology	academic	reading
+believe	v	tin, cho là	B1	daily-life	core	reading
+benefit	n	lợi ích	B2	society	academic	writing
+body	n	cơ thể	B1	health	core	reading
+book	n	cuốn sách	B1	education	core	reading
+brain	n	bộ não	B2	health	topic	reading
+bring	v	mang lại	B1	daily-life	core	grammar
+build	v	xây dựng	B1	society	core	grammar
+business	n	kinh doanh, doanh nghiệp	B1	economics	topic	reading
+busy	adj	bận rộn	B1	daily-life	core	reading
+care	n	sự chăm sóc	B1	health	core	reading
+career	n	sự nghiệp	B2	work	topic	reading
+careful	adj	cẩn thận	B1	daily-life	core	reading
+cause	v	gây ra	B2	academic	academic	writing
+century	n	thế kỷ	B1	culture	core	reading
+certain	adj	chắc chắn, nào đó	B2	academic	core	reading
+chance	n	cơ hội	B1	daily-life	core	reading
+change	v	thay đổi	B1	society	core	reading,writing
+child	n	đứa trẻ	B1	family	core	reading
+choice	n	sự lựa chọn	B1	daily-life	core	reading
+city	n	thành phố	B1	society	core	reading
+class	n	lớp học	B1	education	core	reading
+climate	n	khí hậu	B2	environment	topic	reading
+common	adj	phổ biến, chung	B1	academic	core	reading
+community	n	cộng đồng	B2	society	topic	reading,writing
+company	n	công ty	B1	economics	core	reading
+compare	v	so sánh	B2	academic	academic	writing
+complex	adj	phức tạp	B2	academic	academic	reading
+computer	n	máy tính	B1	technology	core	reading
+condition	n	điều kiện, tình trạng	B2	science	academic	reading
+confidence	n	sự tự tin	B2	psychology	topic	writing
+confident	adj	tự tin	B2	psychology	topic	writing
+consider	v	xem xét, cân nhắc	B2	academic	academic	writing
+contact	n	sự liên lạc	B1	work	core	reading
+content	n	nội dung	B2	media	academic	reading
+continue	v	tiếp tục	B1	daily-life	core	reading
+control	n	sự kiểm soát	B2	society	academic	reading
+conversation	n	cuộc trò chuyện	B1	daily-life	core	reading
+cost	n	chi phí	B1	economics	core	reading
+country	n	quốc gia, đất nước	B1	society	core	reading
+course	n	khóa học	B1	education	core	reading
+create	v	tạo ra	B1	academic	core	writing
+culture	n	văn hóa	B2	culture	topic	reading
+current	adj	hiện tại	B2	media	academic	reading
+customer	n	khách hàng	B2	economics	topic	reading
+daily	adj	hằng ngày	B1	daily-life	core	reading
+danger	n	mối nguy hiểm	B1	health	core	reading
+dangerous	adj	nguy hiểm	B1	health	core	reading
+data	n	dữ liệu	B2	science	academic	reading
+deal	n	thỏa thuận	B2	economics	core	reading
+decide	v	quyết định	B1	daily-life	core	reading
+decision	n	quyết định	B2	daily-life	core	reading,writing
+deep	adj	sâu	B1	science	core	reading
+demand	n	nhu cầu	B2	economics	academic	reading
+design	n	thiết kế	B2	technology	topic	reading
+develop	v	phát triển	B2	society	academic	writing
+development	n	sự phát triển	B2	society	academic	writing
+difference	n	sự khác biệt	B1	society	core	reading
+different	adj	khác nhau	B1	daily-life	core	reading
+difficult	adj	khó	B1	education	core	reading
+difficulty	n	khó khăn	B2	education	core	reading
+diet	n	chế độ ăn	B2	health	topic	reading
+direct	adj	trực tiếp	B2	media	academic	reading
+discuss	v	thảo luận	B2	education	academic	writing
+disease	n	bệnh	B2	health	topic	reading
+doubt	n	nghi ngờ	B2	psychology	academic	reading
+drink	v	uống	B1	health	core	reading
+drive	v	lái xe	B1	travel	core	reading
+early	adj	sớm	B1	daily-life	core	reading
+earth	n	trái đất	B1	environment	core	reading
+easily	adv	một cách dễ dàng	B1	daily-life	core	reading
+easy	adj	dễ	B1	daily-life	core	reading
+economic	adj	thuộc kinh tế	B2	economics	academic	reading
+economy	n	nền kinh tế	B2	economics	topic	reading
+education	n	giáo dục	B1	education	topic	reading,writing
+effect	n	tác động, hiệu ứng	B2	academic	academic	writing
+effective	adj	hiệu quả	B2	academic	academic	writing
+efficient	adj	hiệu suất cao	B2	technology	academic	reading
+effort	n	nỗ lực	B2	daily-life	core	reading
+electricity	n	điện	B2	technology	topic	reading
+emotional	adj	thuộc cảm xúc	B2	psychology	topic	writing
+encourage	v	khuyến khích	B2	education	academic	writing
+energy	n	năng lượng	B1	environment	topic	reading
+enjoy	v	thưởng thức, thích	B1	daily-life	core	reading
+ensure	v	bảo đảm	B2	academic	academic	writing
+environment	n	môi trường	B1	environment	topic	reading,writing
+equipment	n	thiết bị	B2	technology	topic	reading
+error	n	lỗi	B2	academic	academic	reading
+essay	n	bài luận	B2	education	topic	writing
+essential	adj	thiết yếu	B2	academic	academic	writing
+event	n	sự kiện	B1	society	core	reading
+everyday	adj	thông thường, hằng ngày	B2	daily-life	core	writing
+evidence	n	bằng chứng	B2	academic	academic	reading,writing
+exam	n	kỳ thi	B1	education	core	reading
+example	n	ví dụ	B1	academic	core	reading,writing
+exercise	n	bài tập	B1	health	core	reading
+expect	v	mong đợi	B2	psychology	core	reading
+experience	n	kinh nghiệm, trải nghiệm	B2	work	core	writing
+explain	v	giải thích	B2	education	academic	writing
+expression	n	cách diễn đạt	B2	academic	academic	writing
+extreme	adj	cực đoan, cực độ	B2	society	academic	reading
+face	v	đối mặt	B2	psychology	core	writing
+fact	n	sự thật, dữ kiện	B1	academic	core	reading
+fail	v	thất bại	B2	education	core	reading
+failure	n	sự thất bại	B2	education	academic	writing
+fall	v	rơi, giảm	B1	daily-life	core	reading
+family	n	gia đình	B1	family	core	reading
+famous	adj	nổi tiếng	B1	media	core	reading
+fast	adj	nhanh	B1	daily-life	core	reading
+father	n	bố	B1	family	core	reading
+fear	n	nỗi sợ	B2	psychology	topic	reading
+feel	v	cảm thấy	B1	daily-life	core	reading
+feeling	n	cảm giác	B1	psychology	core	reading
+field	n	lĩnh vực, cánh đồng	B1	academic	academic	reading
+film	n	phim	B1	media	core	reading
+find	v	tìm thấy	B1	daily-life	core	reading
+finish	v	kết thúc, hoàn thành	B1	daily-life	core	reading
+focus	v	tập trung	B2	education	academic	reading,writing
+food	n	thức ăn	B1	health	core	reading
+football	n	bóng đá	B1	sport	core	reading
+forget	v	quên	B1	daily-life	core	reading
+form	n	hình thức, mẫu đơn	B2	academic	academic	reading
+free	adj	miễn phí, tự do	B1	daily-life	core	reading
+friend	n	bạn bè	B1	daily-life	core	reading
+friendly	adj	thân thiện	B1	daily-life	core	reading
+future	n	tương lai	B1	society	core	reading
+game	n	trò chơi	B1	daily-life	core	reading
+general	adj	chung, tổng quát	B2	academic	academic	reading
+generation	n	thế hệ	B2	society	topic	reading
+global	adj	toàn cầu	B2	environment	academic	reading
+goal	n	mục tiêu	B1	education	core	writing
+government	n	chính phủ	B2	politics	topic	reading
+grow	v	phát triển, trồng	B1	environment	core	reading
+growth	n	sự tăng trưởng	B2	economics	academic	reading
+habit	n	thói quen	B2	psychology	topic	reading
+happy	adj	vui vẻ	B1	daily-life	core	reading
+health	n	sức khỏe	B1	health	topic	reading,writing
+healthy	adj	khỏe mạnh	B1	health	core	reading
+heart	n	tim	B1	health	core	reading
+help	v	giúp đỡ	B1	daily-life	core	reading
+high	adj	cao	B1	daily-life	core	reading
+history	n	lịch sử	B1	culture	core	reading
+holiday	n	kỳ nghỉ	B1	travel	core	reading
+home	n	nhà, nơi ở	B1	family	core	reading
+homework	n	bài tập về nhà	B1	education	core	reading
+hope	v	hy vọng	B1	psychology	core	reading
+house	n	ngôi nhà	B1	daily-life	core	reading
+human	n	con người	B2	society	academic	reading
+idea	n	ý tưởng	B1	academic	core	reading,writing
+identify	v	nhận diện, xác định	B2	academic	academic	reading
+impact	n	tác động	B2	academic	academic	writing
+important	adj	quan trọng	B1	academic	core	reading,writing
+improve	v	cải thiện	B1	education	core	writing
+increase	v	tăng lên	B1	economics	core	reading,writing
+individual	n	cá nhân	B2	society	academic	writing
+industry	n	ngành công nghiệp	B2	economics	topic	reading
+influence	n	ảnh hưởng	B2	society	academic	writing
+information	n	thông tin	B1	media	core	reading
+interest	n	sự quan tâm	B1	daily-life	core	reading
+interesting	adj	thú vị	B1	daily-life	core	reading
+international	adj	quốc tế	B2	politics	academic	reading
+internet	n	internet	B1	technology	core	reading
+interview	n	cuộc phỏng vấn	B2	work	topic	reading
+issue	n	vấn đề	B2	society	academic	writing
+job	n	công việc	B1	work	core	reading
+journey	n	hành trình	B2	travel	topic	reading
+keep	v	giữ	B1	daily-life	core	reading
+kind	n	loại	B1	daily-life	core	reading
+knowledge	n	kiến thức	B2	education	academic	reading
+land	n	đất	B1	environment	core	reading
+language	n	ngôn ngữ	B1	culture	core	reading
+large	adj	lớn	B1	daily-life	core	reading
+late	adj	muộn	B1	daily-life	core	reading
+learn	v	học	B1	education	core	reading
+learning	n	việc học, sự học	B2	education	topic	writing
+lesson	n	bài học	B1	education	core	reading
+letter	n	lá thư, chữ cái	B1	daily-life	core	reading
+level	n	mức độ, trình độ	B2	education	academic	reading
+life	n	cuộc sống	B1	daily-life	core	reading
+light	n	ánh sáng	B1	science	core	reading
+likely	adj	có khả năng xảy ra	B2	academic	academic	reading
+limited	adj	hạn chế	B2	economics	academic	reading
+line	n	dòng, đường	B1	academic	core	reading
+live	v	sống	B1	daily-life	core	reading
+local	adj	địa phương	B2	society	topic	reading
+long	adj	dài	B1	daily-life	core	reading
+look	v	nhìn	B1	daily-life	core	reading
+lose	v	mất, thua	B1	daily-life	core	reading
+loss	n	sự mất mát, thua lỗ	B2	economics	academic	reading
+love	v	yêu	B1	daily-life	core	reading
+low	adj	thấp	B1	daily-life	core	reading
+main	adj	chính	B2	academic	academic	reading
+major	adj	lớn, quan trọng	B2	academic	academic	reading
+make	v	làm, tạo	B1	daily-life	core	reading
+manage	v	quản lý, xoay xở	B2	work	academic	reading
+management	n	sự quản lý	B2	work	topic	reading,writing
+manager	n	người quản lý	B1	work	core	reading
+market	n	thị trường	B2	economics	topic	reading
+material	n	vật liệu, tài liệu	B2	science	academic	reading
+matter	n	vấn đề, chuyện	B2	academic	academic	reading
+mean	v	nghĩa là	B1	daily-life	core	reading
+meaning	n	ý nghĩa	B1	culture	core	reading
+measure	v	đo lường	B2	science	academic	reading
+media	n	truyền thông	B2	media	topic	reading,writing
+medical	adj	thuộc y tế	B2	health	topic	reading
+meeting	n	cuộc họp	B1	work	core	reading
+memory	n	trí nhớ	B2	psychology	topic	reading
+mental	adj	thuộc tinh thần	B2	health	academic	reading
+method	n	phương pháp	B2	academic	academic	reading,writing
+middle	adj	ở giữa	B1	daily-life	core	reading
+mind	n	tâm trí	B2	psychology	topic	reading
+minute	n	phút	B1	daily-life	core	reading
+mistake	n	lỗi lầm	B1	education	core	reading
+modern	adj	hiện đại	B2	society	academic	reading
+money	n	tiền	B1	economics	core	reading
+month	n	tháng	B1	daily-life	core	reading
+morning	n	buổi sáng	B1	daily-life	core	reading
+mother	n	mẹ	B1	family	core	reading
+move	v	di chuyển, dời	B1	daily-life	core	reading
+music	n	âm nhạc	B1	culture	core	reading
+national	adj	thuộc quốc gia	B2	politics	academic	reading
+natural	adj	tự nhiên	B1	environment	core	reading
+nature	n	tự nhiên, bản chất	B1	environment	topic	reading,writing
+near	adj	gần	B1	daily-life	core	reading
+necessary	adj	cần thiết	B2	academic	academic	writing
+need	v	cần	B1	daily-life	core	reading
+negative	adj	tiêu cực	B2	psychology	academic	reading
+news	n	tin tức	B1	media	core	reading
+night	n	đêm	B1	daily-life	core	reading
+normal	adj	bình thường	B1	daily-life	core	reading
+note	n	ghi chú	B2	academic	academic	reading
+nowadays	adv	ngày nay	B2	society	academic	writing
+number	n	con số	B1	academic	core	reading
+offer	v	đề nghị, cung cấp	B2	economics	core	reading
+office	n	văn phòng	B1	work	core	reading
+often	adv	thường xuyên	B1	daily-life	core	reading
+old	adj	già, cũ	B1	daily-life	core	reading
+online	adj	trực tuyến	B2	technology	topic	reading
+open	adj	mở	B1	daily-life	core	reading
+opinion	n	ý kiến	B2	society	academic	writing
+opportunity	n	cơ hội	B2	work	academic	reading
+opposite	adj	đối diện, ngược lại	B1	daily-life	core	reading
+order	n	thứ tự, mệnh lệnh	B1	daily-life	core	reading
+organization	n	tổ chức	B2	society	topic	reading
+original	adj	nguyên bản, gốc	B2	media	academic	reading
+outside	adv	bên ngoài	B1	daily-life	core	reading
+paper	n	giấy, bài báo cáo	B1	education	core	reading
+parent	n	phụ huynh	B1	family	core	reading
+park	n	công viên	B1	daily-life	core	reading
+part	n	phần	B1	academic	core	reading
+particular	adj	riêng biệt, cụ thể	B2	academic	academic	reading
+pass	v	vượt qua, chuyển	B2	education	core	reading
+past	n	quá khứ	B1	culture	core	reading
+pattern	n	kiểu mẫu, mô hình	B2	science	academic	reading
+people	n	người, mọi người	B1	society	core	reading
+percent	n	phần trăm	B2	economics	academic	reading
+performance	n	hiệu suất, phần trình diễn	B2	work	academic	reading
+period	n	khoảng thời gian, thời kỳ	B2	academic	academic	reading
+person	n	người	B1	daily-life	core	reading
+personal	adj	cá nhân	B2	daily-life	core	writing
+phone	n	điện thoại	B1	technology	core	reading
+physical	adj	thuộc thể chất	B2	health	academic	reading
+place	n	nơi chốn	B1	daily-life	core	reading
+plan	n	kế hoạch	B1	work	core	reading
+planet	n	hành tinh	B2	environment	topic	reading
+plant	n	thực vật	B2	environment	topic	reading
+play	v	chơi, chơi nhạc	B1	daily-life	core	reading
+point	n	điểm, ý	B1	academic	core	reading
+pollution	n	sự ô nhiễm	B2	environment	topic	reading,cloze
+poor	adj	nghèo, kém	B1	society	core	reading
+popular	adj	phổ biến, được ưa chuộng	B1	media	core	reading
+population	n	dân số	B2	society	topic	reading
+positive	adj	tích cực	B2	psychology	academic	reading
+possible	adj	có thể	B1	academic	core	reading
+power	n	sức mạnh, quyền lực	B2	politics	academic	reading
+practical	adj	thực tiễn	B2	academic	academic	writing
+practice	n	sự thực hành	B2	education	topic	reading
+prepare	v	chuẩn bị	B1	education	core	reading
+present	adj	hiện tại, có mặt	B2	academic	academic	writing
+pressure	n	áp lực	B2	psychology	topic	reading
+prevent	v	ngăn ngừa	B2	health	academic	writing
+price	n	giá cả	B1	economics	core	reading
+problem	n	vấn đề	B1	academic	core	reading,writing
+process	n	quá trình	B2	academic	academic	reading
+produce	v	sản xuất, tạo ra	B2	economics	academic	writing
+product	n	sản phẩm	B2	economics	core	reading
+professional	adj	chuyên nghiệp	B2	work	academic	reading
+professor	n	giáo sư	B1	education	core	reading
+progress	n	tiến bộ	B2	education	academic	writing
+project	n	dự án	B1	work	core	reading
+protect	v	bảo vệ	B2	environment	academic	writing
+provide	v	cung cấp	B1	academic	academic	writing
+public	adj	công cộng	B2	society	academic	reading
+purpose	n	mục đích	B2	academic	academic	writing
+quality	n	chất lượng	B2	economics	academic	reading
+question	n	câu hỏi	B1	education	core	reading
+quickly	adv	một cách nhanh chóng	B1	daily-life	core	reading
+quite	adv	khá, hoàn toàn	B1	daily-life	core	grammar
+rate	n	tỷ lệ	B2	economics	academic	reading
+reach	v	đạt tới, chạm tới	B2	academic	academic	reading
+ready	adj	sẵn sàng	B1	daily-life	core	reading
+real	adj	thật, thực sự	B1	daily-life	core	reading
+reason	n	lý do	B2	academic	academic	writing
+receive	v	nhận được	B2	work	core	reading
+recent	adj	gần đây	B2	media	academic	reading
+record	n	bản ghi, hồ sơ	B2	science	academic	reading
+reduce	v	làm giảm	B2	environment	academic	writing
+regular	adj	đều đặn, thường xuyên	B2	health	academic	reading
+relationship	n	mối quan hệ	B2	society	topic	writing
+remain	v	còn lại, duy trì	B2	academic	academic	reading
+remember	v	nhớ	B1	education	core	reading
+report	n	báo cáo	B2	media	academic	reading,writing
+research	n	nghiên cứu	B2	academic	academic	reading,writing
+resource	n	nguồn lực, tài nguyên	B2	economics	academic	reading
+result	n	kết quả, điều thu được sau một quá trình	B1	academic	core	reading,writing
+return	v	trở lại	B1	travel	core	reading
+right	adj	đúng, phải	B1	daily-life	core	reading
+risk	n	rủi ro	B2	health	academic	reading
+river	n	con sông	B1	environment	core	reading
+role	n	vai trò	B2	society	academic	writing
+room	n	căn phòng	B1	daily-life	core	reading
+safe	adj	an toàn	B1	health	core	reading
+school	n	trường học	B1	education	core	reading
+science	n	khoa học	B1	science	topic	reading
+scientist	n	nhà khoa học	B2	science	topic	reading
+season	n	mùa	B1	environment	core	reading
+sense	n	giác quan, ý nghĩa	B2	psychology	academic	reading
+sentence	n	câu	B1	education	core	reading
+serious	adj	nghiêm trọng, nghiêm túc	B2	health	academic	reading
+service	n	dịch vụ	B2	economics	core	reading
+share	v	chia sẻ	B2	society	core	reading
+short	adj	ngắn	B1	daily-life	core	reading
+similar	adj	tương tự	B2	academic	academic	writing
+simple	adj	đơn giản	B1	academic	core	reading
+situation	n	tình huống	B2	society	academic	writing
+size	n	kích cỡ	B1	daily-life	core	reading
+skill	n	kỹ năng	B2	education	topic	reading,writing
+sleep	n	giấc ngủ	B1	health	core	reading
+small	adj	nhỏ	B1	daily-life	core	reading
+social	adj	thuộc xã hội	B2	society	academic	reading,writing
+society	n	xã hội	B2	society	topic	reading,writing
+solve	v	giải quyết	B2	academic	academic	writing
+sound	n	âm thanh	B1	media	core	reading
+source	n	nguồn	B2	academic	academic	reading,writing
+space	n	không gian, vũ trụ	B2	science	topic	reading
+speak	v	nói	B1	daily-life	core	reading
+special	adj	đặc biệt	B1	daily-life	core	reading
+species	n	loài	B2	environment	topic	reading
+specific	adj	cụ thể	B2	academic	academic	writing
+speech	n	bài phát biểu	B2	media	academic	reading
+sport	n	thể thao	B1	sport	core	reading
+staff	n	nhân viên	B2	work	topic	reading
+standard	n	tiêu chuẩn	B2	academic	academic	reading
+start	v	bắt đầu	B1	daily-life	core	reading
+state	n	bang, nhà nước	B2	politics	academic	reading
+statement	n	lời tuyên bố	B2	media	academic	reading
+story	n	câu chuyện	B1	culture	core	reading
+street	n	con phố	B1	daily-life	core	reading
+strong	adj	mạnh	B1	daily-life	core	reading
+structure	n	cấu trúc	B2	academic	academic	reading
+student	n	học sinh, sinh viên	B1	education	core	reading
+study	n	việc học, nghiên cứu	B1	education	core	reading,writing
+style	n	phong cách	B2	culture	academic	reading
+subject	n	môn học, chủ thể	B1	education	core	reading
+success	n	thành công	B2	work	core	writing
+successful	adj	thành công	B2	work	academic	writing
+suggest	v	đề xuất	B2	academic	academic	writing
+summer	n	mùa hè	B1	daily-life	core	reading
+support	v	ủng hộ, hỗ trợ	B2	society	academic	writing
+surface	n	bề mặt	B2	science	academic	reading
+system	n	hệ thống	B2	technology	academic	reading
+task	n	nhiệm vụ	B2	work	academic	reading
+teach	v	dạy	B1	education	core	reading
+teacher	n	giáo viên	B1	education	core	reading
+teaching	n	việc giảng dạy	B2	education	topic	writing
+team	n	đội, nhóm	B1	work	core	reading
+technology	n	công nghệ	B2	technology	topic	reading,writing
+teenager	n	thanh thiếu niên	B2	society	topic	reading
+television	n	truyền hình	B1	media	core	reading
+tell	v	kể, nói với	B1	daily-life	core	reading
+term	n	thuật ngữ, học kỳ	B2	education	academic	reading
+test	n	bài kiểm tra	B1	education	core	reading
+text	n	văn bản	B1	academic	core	reading
+theory	n	lý thuyết	B2	science	academic	reading
+thing	n	đồ vật, điều	B1	daily-life	core	reading
+think	v	nghĩ	B1	daily-life	core	reading
+threat	n	mối đe dọa	B2	environment	academic	reading
+time	n	thời gian, lần	B1	daily-life	core	reading
+today	adv	hôm nay	B1	daily-life	core	reading
+together	adv	cùng nhau	B1	daily-life	core	reading
+topic	n	chủ đề	B2	education	academic	reading
+total	adj	tổng cộng	B2	economics	academic	reading
+town	n	thị trấn	B1	society	core	reading
+traditional	adj	truyền thống	B2	culture	academic	reading
+training	n	việc đào tạo	B2	work	topic	reading
+transport	n	giao thông, vận tải	B2	environment	topic	reading
+travel	v	du lịch, đi lại	B2	travel	topic	reading
+treatment	n	sự điều trị	B2	health	topic	reading
+tree	n	cái cây	B1	environment	core	reading
+trip	n	chuyến đi	B1	travel	core	reading
+trouble	n	rắc rối	B1	daily-life	core	reading
+true	adj	đúng, thật	B1	academic	core	reading
+truth	n	sự thật	B2	academic	academic	writing
+try	v	thử, cố gắng	B1	daily-life	core	reading
+turn	v	quay, chuyển	B1	daily-life	core	reading
+type	n	loại, kiểu	B2	academic	core	reading
+understand	v	hiểu	B1	education	core	reading
+understanding	n	sự hiểu biết	B2	education	academic	writing
+university	n	trường đại học	B1	education	core	reading
+useful	adj	hữu ích	B1	academic	core	writing
+usually	adv	thường	B1	daily-life	core	reading
+value	n	giá trị	B2	economics	academic	reading
+variety	n	sự đa dạng	B2	academic	academic	reading
+various	adj	nhiều loại, khác nhau	B2	academic	academic	writing
+view	n	quan điểm, cảnh	B2	society	academic	writing
+visit	v	thăm, ghé	B1	travel	core	reading
+vocabulary	n	từ vựng	B2	education	topic	reading,writing
+wait	v	chờ đợi	B1	daily-life	core	reading
+walk	v	đi bộ	B1	daily-life	core	reading
+want	v	muốn	B1	daily-life	core	reading
+waste	n	chất thải, sự lãng phí	B2	environment	topic	reading
+water	n	nước	B1	environment	core	reading
+watch	v	xem, theo dõi	B1	media	core	reading
+weather	n	thời tiết	B1	environment	core	reading
+week	n	tuần	B1	daily-life	core	reading
+well	adv	tốt, giỏi	B1	daily-life	core	grammar
+whole	adj	toàn bộ	B2	academic	academic	reading
+wild	adj	hoang dã	B2	environment	topic	reading
+wildlife	n	động vật hoang dã	B2	environment	topic	reading
+woman	n	người phụ nữ	B1	society	core	reading
+wonder	v	tự hỏi, thắc mắc	B1	daily-life	core	reading
+word	n	từ, chữ	B1	education	core	reading
+work	v	làm việc	B1	work	core	reading
+worker	n	người lao động	B1	work	core	reading
+world	n	thế giới	B1	society	core	reading
+worry	v	lo lắng	B1	psychology	core	reading
+write	v	viết	B1	education	core	reading
+writer	n	nhà văn, người viết	B2	culture	topic	reading
+writing	n	việc viết, bài viết	B2	education	topic	writing
+wrong	adj	sai	B1	daily-life	core	reading
+year	n	năm	B1	daily-life	core	reading
+young	adj	trẻ	B1	daily-life	core	reading

@@ -1,0 +1,164 @@
+# Economy, money and work vocabulary.
+# word<TAB>pos<TAB>meaning<TAB>level<TAB>topic<TAB>type<TAB>skills
+inflation	n	lạm phát	C1	economics	topic	reading
+unemployment	n	tình trạng thất nghiệp	B2	economics	topic	reading
+wage	n	tiền công theo giờ	C1	economics	topic	reading
+income	n	thu nhập	B2	economics	topic	reading
+tax	n	thuế	B1	economics	topic	reading
+budget	n	ngân sách	B2	economics	topic	reading
+investment	n	sự đầu tư	B2	economics	topic	reading
+investor	n	nhà đầu tư	C1	economics	topic	reading
+profit	n	lợi nhuận	B2	economics	core	reading
+debt	n	khoản nợ	B2	economics	topic	reading
+loan	n	khoản vay	B2	economics	topic	reading
+mortgage	n	thế chấp nhà	C2	economics	topic	reading
+subsidy	n	tiền trợ cấp	C1	economics	topic	reading
+tariff	n	thuế quan	C2	economics	topic	reading
+trade	n	thương mại	B2	economics	topic	reading
+export	n	hàng xuất khẩu	B2	economics	topic	reading
+import	n	hàng nhập khẩu	B2	economics	topic	reading
+consume	v	tiêu thụ	C1	economics	academic	reading
+consumer	n	người tiêu dùng	B2	economics	topic	reading
+monopoly	n	thế độc quyền	C2	economics	topic	reading
+entrepreneur	n	doanh nhân	C1	economics	topic	reading
+salary	n	lương tháng	B1	work	core	reading
+pension	n	lương hưu	C1	economics	topic	reading
+bonus	n	tiền thưởng	B2	work	topic	reading
+promotion	n	sự thăng chức	B2	work	topic	reading
+resign	v	từ chức	C1	work	topic	reading
+retire	v	nghỉ hưu	B1	work	core	reading
+candidate	n	ứng viên	B2	work	topic	reading
+vacancy	n	vị trí tuyển dụng	C1	work	topic	reading
+contract	n	hợp đồng	B2	work	topic	reading
+negotiate	v	thương lượng	C1	work	academic	reading
+merger	n	sự sáp nhập	C2	economics	topic	reading
+stock	n	cổ phiếu, hàng tồn	C1	economics	topic	reading
+shareholder	n	cổ đông	C2	economics	topic	reading
+boom	n	sự bùng nổ kinh tế	C1	economics	topic	reading
+downturn	n	sự suy thoái	C1	economics	topic	reading
+audit	n	cuộc kiểm toán	C2	economics	topic	reading
+finance	n	tài chính	B2	economics	topic	reading
+financial	adj	thuộc tài chính	B2	economics	academic	reading
+monetary	adj	thuộc tiền tệ	C2	economics	academic	reading
+fiscal	adj	thuộc ngân sách, tài khóa	C2	economics	academic	reading
+revenue	n	doanh thu	C1	economics	academic	reading
+expenditure	n	chi tiêu	C1	economics	academic	reading
+deficit	n	sự thâm hụt	C1	economics	academic	reading
+surplus	n	thặng dư	C1	economics	academic	reading
+affluent	adj	giàu có	C1	economics	academic	reading
+wealth	n	sự giàu có	B2	economics	topic	reading
+poverty	n	sự nghèo đói	B2	society	topic	writing
+prosperity	n	sự thịnh vượng	C1	economics	academic	writing
+standard	n	mức sống chuẩn	C1	economics	academic	reading
+workforce	n	lực lượng lao động	C1	work	topic	reading
+employer	n	người sử dụng lao động	B2	work	topic	reading
+employee	n	người lao động	B2	work	topic	reading
+employment	n	việc làm	C1	work	topic	reading
+recruitment	n	sự tuyển dụng	C1	work	topic	reading
+workload	n	khối lượng công việc	C1	work	topic	reading
+deadline	n	hạn chót	B1	work	core	reading
+overtime	n	giờ làm thêm	C1	work	topic	reading
+shift	n	ca làm việc	B2	work	topic	reading
+internship	n	kỳ thực tập	C1	work	topic	reading
+apprentice	n	người học nghề	C2	work	topic	reading
+mentor	n	người cố vấn	C1	work	topic	reading
+supervisor	n	người giám sát	C1	work	topic	reading
+colleague	n	đồng nghiệp	B2	work	topic	reading
+teamwork	n	làm việc nhóm	B1	work	core	reading
+leadership	n	năng lực lãnh đạo	B2	work	topic	writing
+delegate	v	giao phó, ủy thác	C2	work	academic	reading
+supervise	v	giám sát	C1	work	academic	reading
+coordinate	v	điều phối	C1	work	academic	reading
+allocate	v	phân bổ	C1	work	academic	reading
+prioritise	v	ưu tiên hóa	C1	work	academic	reading
+multitasking	n	việc làm đa nhiệm	C2	work	topic	reading
+productivity	n	năng suất	C1	economics	academic	writing
+efficiency	n	hiệu quả, hiệu suất	B2	economics	academic	writing
+performance	n	kết quả thực hiện	B2	work	academic	reading
+assessment	n	sự đánh giá	C1	work	academic	reading
+appraisal	n	sự đánh giá định kỳ	C2	work	academic	reading
+incentive	n	biện pháp khuyến khích	C1	economics	topic	reading
+rewarding	adj	đáng giá, bổ ích	B2	work	topic	reading
+demanding	adj	đòi hỏi cao	B2	work	topic	reading
+stressful	adj	gây căng thẳng	B2	work	topic	reading
+reward	n	phần thưởng công việc	C1	work	core	reading
+satisfaction	n	sự hài lòng	C1	work	topic	writing
+morale	n	tinh thần làm việc	C2	work	topic	reading
+turnover	n	tỷ lệ nhân viên rời đi	C2	work	topic	reading
+redundancy	n	sự sa thải do dư thừa	C2	work	topic	reading
+layoff	n	việc cho nghỉ việc	C2	work	topic	reading
+dismiss	v	sa thải	C1	work	academic	reading
+suspend	v	đình chỉ	C1	work	academic	reading
+resignation	n	sự từ chức	C1	work	topic	reading
+prospect	n	triển vọng	B2	work	academic	reading
+ambition	n	hoài bão	B2	work	topic	writing
+aspiration	n	khát vọng	C1	work	academic	writing
+career-oriented	adj	định hướng sự nghiệp	C2	work	topic	reading
+freelance	adj	lao động tự do	C1	work	topic	reading
+remote	adj	từ xa	B2	work	topic	reading
+flexitime	n	giờ làm linh hoạt	C2	work	topic	reading
+part-time	adj	bán thời gian	B1	work	core	reading
+full-time	adj	toàn thời gian	B1	work	core	reading
+volunteer	n	tình nguyện viên	B2	society	topic	reading
+charity	n	tổ chức từ thiện	B2	society	topic	reading
+donation	n	khoản quyên góp	B2	society	topic	reading
+fundraising	n	việc gây quỹ	C1	society	topic	reading
+philanthropy	n	lòng từ thiện, hoạt động thiện nguyện	C2	society	topic	reading
+sponsorship	n	sự tài trợ	C1	economics	topic	reading
+investment-friendly	adj	thuận lợi cho đầu tư	C2	economics	topic	reading
+industry	n	ngành nghề	B2	economics	topic	reading
+manufacture	v	sản xuất (công nghiệp)	B2	economics	academic	reading
+manufacturer	n	nhà sản xuất	B2	economics	topic	reading
+factory	n	nhà máy	B1	economics	core	reading
+machinery	n	máy móc	C1	economics	topic	reading
+assembly	n	việc lắp ráp	C1	economics	topic	reading
+automation	n	việc tự động hóa sản xuất	C1	economics	topic	reading
+craftsmanship	n	tay nghề thủ công	C2	culture	topic	reading
+handicraft	n	đồ thủ công	C1	culture	topic	reading
+artisan	n	nghệ nhân	C1	culture	topic	reading
+livelihood	n	kế sinh nhai	C2	economics	topic	reading
+subsistence	n	việc sống tự cung tự cấp	C2	economics	topic	reading
+agriculture	n	nông nghiệp	B2	economics	topic	reading
+agribusiness	n	kinh doanh nông nghiệp	C2	economics	topic	reading
+tourism	n	ngành du lịch	B2	travel	topic	reading
+tourist	n	du khách	B1	travel	core	reading
+currency	n	tiền tệ	C1	economics	topic	reading
+exchange	n	trao đổi, hối đoái	B2	economics	topic	reading
+interest	n	lãi suất	B2	economics	core	reading
+charge	n	phí, khoản tính tiền	B2	economics	core	reading
+refund	n	việc hoàn tiền	C1	economics	topic	reading
+receipt	n	hóa đơn	C1	economics	topic	reading
+invoice	n	hóa đơn thương mại	C2	economics	topic	reading
+bargain	n	món hời	B2	economics	topic	reading
+discount	n	sự giảm giá	B1	economics	core	reading
+expensive	adj	đắt	B1	economics	core	reading
+affordable	adj	giá phải chăng	B2	economics	academic	reading
+luxury	n	sự xa xỉ	C1	economics	topic	reading
+frugal	adj	tiết kiệm	C2	economics	academic	reading
+extravagant	adj	phung phí	C1	economics	academic	reading
+generate	v	tạo ra (doanh thu)	C1	economics	academic	reading
+sustain	v	duy trì (tăng trưởng)	C1	economics	academic	reading
+stagnate	v	trì trệ	C2	economics	academic	reading
+fluctuate	v	dao động	C1	economics	academic	reading
+recover	v	phục hồi (kinh tế)	B2	economics	academic	reading
+boost	v	thúc đẩy	C1	economics	academic	writing
+stimulate	v	kích thích	C1	economics	academic	writing
+regulate	v	điều tiết	C1	economics	academic	reading
+deregulate	v	bãi bỏ quy định	C2	economics	academic	reading
+nationalise	v	quốc hữu hóa	C2	economics	academic	reading
+privatise	v	tư nhân hóa	C2	economics	academic	reading
+bankrupt	adj	phá sản	C1	economics	topic	reading
+bankruptcy	n	sự phá sản	C1	economics	topic	reading
+liability	n	khoản nợ phải trả, trách nhiệm	C2	economics	academic	reading
+asset	n	tài sản	C1	economics	academic	reading
+capital	n	vốn	C1	economics	academic	reading
+equity	n	vốn chủ sở hữu, sự công bằng	C2	economics	academic	reading
+collateral	n	tài sản thế chấp	C2	economics	topic	reading
+dividend	n	cổ tức	C2	economics	topic	reading
+portfolio	n	danh mục đầu tư	C2	economics	topic	reading
+diversify	v	đa dạng hóa	C1	economics	academic	reading
+competitiveness	n	năng lực cạnh tranh	C1	economics	academic	writing
+benchmark	n	chuẩn so sánh	C1	economics	academic	reading
+quota	n	hạn ngạch	C2	economics	topic	reading
+embargo	n	lệnh cấm vận	C2	economics	topic	reading
+sanction	n	biện pháp trừng phạt	C2	politics	topic	reading

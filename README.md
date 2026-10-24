@@ -1,55 +1,84 @@
 # Chuyên Anh — flashcards & kho đề offline
 
-Ứng dụng flashcard Chuyên Anh và kho bản chép đề offline, chạy như **một file HTML độc lập**. `index.html` chứa HTML, CSS, JavaScript, 913 mục từ và toàn bộ 106 bản chép đề thi 2022–2026. Không có API, backend hay tài nguyên tự tải; có thể mở trực tiếp trên trình duyệt. Chỉ tiến độ flashcard được lưu trong `localStorage`; kho đề là dữ liệu đọc trong file.
+Ứng dụng flashcard Chuyên Anh và kho bản chép đề offline, chạy như **một file HTML độc lập**. `index.html` chứa HTML, CSS, JavaScript, **3.215 mục từ**, **780 cụm từ** (kho riêng, không tính vào chỉ tiêu từ vựng) và toàn bộ 106 bản chép đề thi 2022–2026. Không có API, backend hay tài nguyên tự tải; có thể mở trực tiếp trên trình duyệt. Chỉ tiến độ flashcard và tiến độ cụm từ được lưu trong `localStorage`; kho đề là dữ liệu đọc trong file.
 
 ## Dữ liệu và quy trình cập nhật
 
 ```text
-Learned_Vocabulary_List.md  (bảng từ vựng có cấu trúc)
+data/vocab-seed/*.tsv      (hạt giống từ vựng mới, có kiểm tra schema)
+           ↓ python scripts/expand_vocabulary.py
+Learned_Vocabulary_List.md  (bảng từ vựng có cấu trúc, ID 1–3215)
            ↓ python scripts/build_vocabulary.py
  data/vocabulary.json       (dữ liệu ứng dụng + metadata cũ được giữ lại)
            ↓ python scripts/embed_vocabulary.py
 
+data/phrase-seed/*.tsv     (hạt giống cụm từ, ID P001…)
+           ↓ python scripts/build_phrases.py
+Learned_Phrase_List.md → data/phrases.json
+           ↓ python scripts/embed_phrases.py
+
 De-chuyen-Anh-vao-10/*.md + scripts/exams/selection.json
            ↓ python scripts/exams/embed_archive.py
-index.html                  (vocabulary-data + exam-data; file duy nhất cần triển khai)
+index.html                  (vocabulary-data + phrase-data + exam-data; file duy nhất cần triển khai)
 ```
 
 `Learned_Vocabulary_List.md` là bảng Markdown có các cột:
 
 ```text
 ID | WORD | POS | MEANING | WORD_FAMILY | SYNONYMS | ANTONYMS |
-COLLOCATIONS | REGISTER | CONNOTATION | NOTES | TAGS
+COLLOCATIONS | REGISTER | CONNOTATION | NOTES | TAGS | SOURCES
 ```
 
 - `ID` là số; `WORD`, `POS`, `MEANING`, `WORD_FAMILY`, `REGISTER`, `CONNOTATION` và `NOTES` là ô văn bản. `SYNONYMS`, `ANTONYMS`, `COLLOCATIONS` và `TAGS` là mảng JSON trong từng ô; dùng `[]` khi nguồn không cung cấp dữ liệu.
 - Các ô văn bản để trống khi chưa có thông tin. Dấu `|` có trong nội dung được escape theo Markdown; parser đọc lại nguyên vẹn.
 - Từ ID 614–913, `WORD_FAMILY` chỉ lấy nội dung đã được ghi nhãn là họ từ. `NOTES` giữ nguyên phần phân biệt và nguồn trích dẫn; không tự phân loại chúng thành từ đồng nghĩa, trái nghĩa, kết hợp từ, văn phong hoặc sắc thái.
+- `SOURCES` (từ beta7) là mảng JSON các đối tượng nguồn `{ref, locator, supports, url}` trỏ tới registry [`docs/vocabulary-sources.json`](docs/vocabulary-sources.json). `ref` phải có trong registry, `supports` phải nói nguồn chứng minh điều gì; không có nguồn thì hàng không được đưa vào bảng.
+- Từ ID 914 trở đi do `scripts/expand_vocabulary.py` sinh từ `data/vocab-seed/*.tsv` (11 tệp, 2.866 hạt giống). Script bỏ qua từ trùng, từ chỉ là biến thể số nhiều/-ed/-ing/so sánh hơn, biến thể chính tả `-ise/-ize`, và **dạng thuộc họ từ đã được dạy trong một mục cũ** — mỗi lần bỏ qua đều ghi lý do vào `--report`, nên không có mục nào bị đếm hai lần. Kết quả hiện tại: 913 hàng cũ + 2.302 hàng mới = **3.215**; 564 hạt giống bị bỏ (311 trùng, 218 thuộc họ từ, 34 biến thể hình thái, 1 biến thể chính tả).
 - ID 448 dùng nghĩa trong danh sách làm nghĩa chính. Nghĩa trước đây trong app được giữ trong `NOTES` và ghi rõ là định nghĩa app cũ.
 - Khi đồng bộ theo ID, `data/vocabulary.json` giữ metadata chỉ có trong ứng dụng (ví dụ: ví dụ, difficulty, ngày tạo và các trường chưa có trong bảng). Các trường do bảng nguồn quản lý, gồm cả `TAGS`, được đồng bộ từ Markdown. ID 448 giữ các tag app cũ `work` và `daily-life`, đồng thời thêm `easy` để chuyển dấu difficulty `-` trong bảng cũ thành tag; difficulty số `2` vẫn được giữ. Nghĩa chính dùng cách viết đã chọn từ Markdown; nghĩa app cũ được giữ trong `NOTES`. Với 300 mục mới, không có ví dụ, điểm difficulty hay ngày tạo nào được tự bịa; trường không có nguồn sẽ để rỗng hoặc không xuất hiện.
 
-Sau khi chỉnh bảng từ vựng, chạy:
+Sau khi chỉnh bảng từ vựng hoặc hạt giống, chạy:
 
 ```bash
+python scripts/expand_vocabulary.py
 python scripts/build_vocabulary.py
 python scripts/embed_vocabulary.py
+python scripts/build_phrases.py
+python scripts/embed_phrases.py
 python scripts/exams/embed_archive.py
 python scripts/validate_vocab.py
+python scripts/validate_phrases.py
 ```
 
 Có thể kiểm tra hai bước đồng bộ mà không ghi tệp:
 
 ```bash
+python scripts/expand_vocabulary.py --check
 python scripts/build_vocabulary.py --check
 python scripts/embed_vocabulary.py --check
+python scripts/build_phrases.py --check
+python scripts/embed_phrases.py --check
 python scripts/exams/embed_archive.py --check
 ```
 
-Validator kiểm tra schema, kiểu dữ liệu, ID/từ trùng lặp và các trường bắt buộc. CI cũng xác nhận rằng JSON và dữ liệu nhúng trong HTML khớp nhau.
+Validator kiểm tra schema, kiểu dữ liệu, ID/từ trùng lặp, namespace của tag và tính đầy đủ của `SOURCES`. CI cũng xác nhận rằng JSON và dữ liệu nhúng trong HTML khớp nhau.
+
+### Kho cụm từ (từ beta7)
+
+`Learned_Phrase_List.md` và `data/phrases.json` là **kho riêng** với ID `P001…P780`, không nằm trong chỉ tiêu 3.000 từ vựng:
+
+```text
+ID | PHRASE | TYPE | MEANING | USAGE | PATTERN | TAGS | SOURCES
+```
+
+- `TYPE` ∈ `phrasal-verb`, `idiom`, `collocation`, `dependent-preposition`, `linker-phrase`, `pattern`, `fixed-expression`. Hiện có 192 collocation, 184 cụm động từ, 133 thành ngữ, 105 giới từ đi kèm, 90 cụm nối ý, 76 mẫu cấu trúc.
+- Hạt giống nằm ở `data/phrase-seed/*.tsv` (8 cột, cùng thứ tự); `scripts/build_phrases.py` gán ID tuần tự, từ chối cụm trùng sau khi gộp hoa/thường, Unicode, dấu câu và khoảng trắng, và ghi nguồn `exam` khi cụm thực sự xuất hiện trong bản chép đề (492 cụm), còn lại là locator từ điển (288 cụm).
+- Trong ứng dụng: màn hình **Cụm từ** cho phép tìm theo cụm/nghĩa/cách dùng/mẫu, lọc theo loại và trình độ, và luyện 10 cụm. Cụm chưa từng luyện được hỏi dạng nhận diện (nghĩa → chọn cụm); cụm đã trả lời đúng ít nhất một lần được hỏi dạng gõ lại. Điểm đúng/sai chỉ ghi vào `chuyen-anh.phrases.v1`; **không** đụng tới `ease`, `interval`, `state`, streak hay XP của từ vựng, và không ghi vào `chuyen-anh.progress.v1`.
+- Bản sao lưu v1 nhận thêm khối `phrases` **tùy chọn**: file cũ không có khối này vẫn hợp lệ (thiết bị giữ tiến độ cụm từ của mình), khối sai kiểu bị từ chối trước khi ghi, và bản xuất chỉ chứa khối khi thật sự có tiến độ.
 
 ## Phiên bản
 
-`index.html` trong cây nguồn này mang `APP_VERSION` = `v1.0.0-beta6` (hiển thị trong Cài đặt → Thông tin dữ liệu); các prerelease đã xuất bản trước đó là [`v1.0.0-beta3`](https://github.com/coderunknow/Chuyen-Anh/releases/tag/v1.0.0-beta3), [`v1.0.0-beta2`](https://github.com/coderunknow/Chuyen-Anh/releases/tag/v1.0.0-beta2) và [`v1.0.0-beta1`](https://github.com/coderunknow/Chuyen-Anh/releases/tag/v1.0.0-beta1). Trạng thái tag, release, danh sách asset, digest và bản build mà GitHub Pages đang phục vụ phải được xác minh trực tiếp trên GitHub; tệp này ghi nội dung mã nguồn, không ghi trạng thái publish. `DEPLOY_HOLD` nêu `v1.0.0-beta6`: cổng deploy chỉ đọc trạng thái publish thật của đúng tag trong `DEPLOY_HOLD`: khi prerelease đó chưa publish (`deploy=false (release v1.0.0-beta6 is missing; deployment held)`) thì cổng **đóng** và Pages giữ nguyên bản đã publish trước đó; chỉ khi prerelease đó được publish thì cổng mới mở. Thứ tự phát hành bắt buộc là merge → tag annotated trên merge commit → build và xác minh asset từ tag → publish prerelease → Pages deploy bản trên `main`. Kiểm tra cổng bằng `python scripts/deploy_gate.py --repo coderunknow/Chuyen-Anh`.
+`index.html` trong cây nguồn này mang `APP_VERSION` = `v1.0.0-beta7` (hiển thị trong Cài đặt → Thông tin dữ liệu); các prerelease đã xuất bản trước đó là [`v1.0.0-beta6`](https://github.com/coderunknow/Chuyen-Anh/releases/tag/v1.0.0-beta6), [`v1.0.0-beta5`](https://github.com/coderunknow/Chuyen-Anh/releases/tag/v1.0.0-beta5), [`v1.0.0-beta3`](https://github.com/coderunknow/Chuyen-Anh/releases/tag/v1.0.0-beta3), [`v1.0.0-beta2`](https://github.com/coderunknow/Chuyen-Anh/releases/tag/v1.0.0-beta2) và [`v1.0.0-beta1`](https://github.com/coderunknow/Chuyen-Anh/releases/tag/v1.0.0-beta1). Trạng thái tag, release, danh sách asset, digest và bản build mà GitHub Pages đang phục vụ phải được xác minh trực tiếp trên GitHub; tệp này ghi nội dung mã nguồn, không ghi trạng thái publish. `DEPLOY_HOLD` nêu `v1.0.0-beta7`: cổng deploy chỉ đọc trạng thái publish thật của đúng tag trong `DEPLOY_HOLD`: khi prerelease đó chưa publish (`deploy=false (release v1.0.0-beta7 is missing; deployment held)`) thì cổng **đóng** và Pages giữ nguyên bản đã publish trước đó; chỉ khi prerelease đó được publish thì cổng mới mở. Thứ tự phát hành bắt buộc là merge → tag annotated trên merge commit → build và xác minh asset từ tag → publish prerelease → Pages deploy bản trên `main`. Kiểm tra cổng bằng `python scripts/deploy_gate.py --repo coderunknow/Chuyen-Anh`.
 
 ## Chạy ứng dụng
 
@@ -111,7 +140,7 @@ Chỉ cần giữ `index.html` khi sao chép/triển khai ứng dụng. Các t�
 
 Khi nguồn dữ liệu, validator, bộ đồng bộ, kho đề hoặc app thay đổi trên `main`, workflow kiểm tra bảng/JSON/HTML và 106 bản chép đã được nhúng đồng bộ, chạy unit test Python và Node, rồi mới stage và upload **chỉ `index.html`** lên GitHub Pages. File này chứa cả dữ liệu từ vựng lẫn bản chép đề; không cần tệp chạy-time nào khác. Lỗi ở bất kỳ bước kiểm tra nào sẽ chặn deploy. Không có frontend bundler, npm install hay backend.
 
-**Cổng deploy-hold (thứ tự release).** Tệp `DEPLOY_HOLD` ở gốc repo khai báo tag release phải được publish prerelease trước khi Pages được phép xuất bản; `scripts/deploy_gate.py` đánh giá trạng thái `draft`/`prerelease` qua GitHub API ngay sau checkout và fail-closed nếu trạng thái không rõ. Các bước kiểm tra luôn chạy; chỉ stage/upload/deploy bị hoãn khi cổng đóng. Marker hiện nêu `v1.0.0-beta4`; cổng ánh xạ trạng thái publish của đúng tag đó thành quyết định deploy (`missing`/`draft`/`not-prerelease` → giữ, `published` → mở), nên merge mang mã beta4 **không thể** publish beta4 lên Pages trước khi chính prerelease đó được tạo và publish. Trạng thái hiện tại của cổng phải được đọc bằng `python scripts/deploy_gate.py --repo coderunknow/Chuyen-Anh`, không suy ra từ tệp này; ở thời điểm chuẩn bị ứng viên beta4 cổng trả `deploy=false (release v1.0.0-beta4 is missing; deployment held)`. Cổng chỉ đọc đúng tag được nêu, không suy luận theo thứ tự semver. Lịch sử: marker lần lượt đi qua `v1.0.0-beta1`, `v1.0.0-beta2`, `v1.0.0-beta3` và nay nêu `v1.0.0-beta4` cho chu kỳ beta4. Muốn giữ deploy của một release tương lai thì đặt marker thành tag của release đó; nếu marker trỏ tới tag chưa publish thì Pages bị giữ (fail-closed). Không workflow nào bị tắt và không dùng `force_deploy`. Sự kiện `release.published` khởi chạy workflow dispatcher tối giản; workflow này gửi `workflow_dispatch` cho deploy workflow trên `main`, để tuân thủ chính sách môi trường Pages chỉ cho phép branch `main`. Deploy workflow sau đó đọc trạng thái release thật và đánh giá lại cổng; khi prerelease được publish, cổng mở cho lần deploy đó và mọi lần sau, không cần xóa marker. Thứ tự yêu cầu là merge → xác minh commit/tag → build và tải lại để kiểm chứng asset → publish prerelease → deploy. `force_deploy` chỉ dành cho maintainer chủ động dispatch và không thay thế các bước phát hành/kiểm chứng. Lịch sử: marker của dev3 đã được gỡ sau khi prerelease đó xuất bản; marker dev5 là một hold riêng. Nếu push chỉ đổi log và không khớp bộ lọc `paths`, cần dispatch workflow phù hợp thay vì bỏ qua cổng.
+**Cổng deploy-hold (thứ tự release).** Tệp `DEPLOY_HOLD` ở gốc repo khai báo tag release phải được publish prerelease trước khi Pages được phép xuất bản; `scripts/deploy_gate.py` đánh giá trạng thái `draft`/`prerelease` qua GitHub API ngay sau checkout và fail-closed nếu trạng thái không rõ. Các bước kiểm tra luôn chạy; chỉ stage/upload/deploy bị hoãn khi cổng đóng. Marker hiện nêu `v1.0.0-beta7`; cổng ánh xạ trạng thái publish của đúng tag đó thành quyết định deploy (`missing`/`draft`/`not-prerelease` → giữ, `published` → mở), nên merge mang mã beta7 **không thể** publish beta7 lên Pages trước khi chính prerelease đó được tạo và publish. Trạng thái hiện tại của cổng phải được đọc bằng `python scripts/deploy_gate.py --repo coderunknow/Chuyen-Anh`, không suy ra từ tệp này; ở thời điểm chuẩn bị ứng viên beta7 cổng trả `deploy=false (release v1.0.0-beta7 is missing; deployment held)`. Cổng chỉ đọc đúng tag được nêu, không suy luận theo thứ tự semver. Lịch sử: marker lần lượt đi qua `v1.0.0-beta1`, `v1.0.0-beta2`, `v1.0.0-beta3`, `v1.0.0-beta4`, `v1.0.0-beta5`, `v1.0.0-beta6` và nay nêu `v1.0.0-beta7` cho chu kỳ beta7. Muốn giữ deploy của một release tương lai thì đặt marker thành tag của release đó; nếu marker trỏ tới tag chưa publish thì Pages bị giữ (fail-closed). Không workflow nào bị tắt và không dùng `force_deploy`. Sự kiện `release.published` khởi chạy workflow dispatcher tối giản; workflow này gửi `workflow_dispatch` cho deploy workflow trên `main`, để tuân thủ chính sách môi trường Pages chỉ cho phép branch `main`. Deploy workflow sau đó đọc trạng thái release thật và đánh giá lại cổng; khi prerelease được publish, cổng mở cho lần deploy đó và mọi lần sau, không cần xóa marker. Thứ tự yêu cầu là merge → xác minh commit/tag → build và tải lại để kiểm chứng asset → publish prerelease → deploy. `force_deploy` chỉ dành cho maintainer chủ động dispatch và không thay thế các bước phát hành/kiểm chứng. Lịch sử: marker của dev3 đã được gỡ sau khi prerelease đó xuất bản; marker dev5 là một hold riêng. Nếu push chỉ đổi log và không khớp bộ lọc `paths`, cần dispatch workflow phù hợp thay vì bỏ qua cổng.
 
 ### Release artifacts `.github/workflows/release-artifacts.yml` + `scripts/release_artifacts.py`
 
@@ -141,7 +170,7 @@ GitHub Pages cần được bật với source **GitHub Actions** trong Settings
 
 ## Kiểm tra luồng học bằng trình duyệt (tùy chọn)
 
-CI và runtime vẫn không có dependency mới. Bộ kiểm tra trình duyệt tùy chọn dùng Playwright Core với Chromium và phục vụ HTML qua static HTTP. `browser-learning.cjs` kiểm tra luồng flashcard, bàn phím/focus, responsive, import/export, reset và lưu trữ, cấu hình phiên ưu tiên (kể cả nhóm bị tắt), một phiên trộn chạm tới cả bảy kiểu bài tập, bàn nối cặp hoàn thành bằng bàn phím, câu bỏ qua được mở lại, một từ khó được đánh dấu rồi bỏ đánh dấu, một phiên có giới hạn thời gian **thật** (đồng hồ hệ thống, một phút) kết thúc ở màn hình kết quả với câu bỏ trống không bị tính sai và không cộng XP, một bản sao lưu v1 giữ danh sách từ khó trên thiết bị, và việc hiển thị tiếng Anh của mọi màn hình mới, cùng luồng “Học cấp tốc” thật (10 từ đã chọn, 21 lượt gồm 10 lượt đầu + 10 lượt củng cố + 1 lượt sửa lỗi, khoảng cách củng cố, tự chuyển chỉ sau câu đúng ở lượt đầu, thống kê lần đầu 90 % tách khỏi lượt củng cố, tiến độ còn nguyên sau khi tải lại và câu giải thích của lượt củng cố được dịch trong giao diện tiếng Anh); `browser-exams.cjs` kiểm tra archive offline, bộ lọc/provenance, source rendering an toàn, lựa chọn → đổi → review → submit → xem lại đáp án đã nộp, điều hướng giấy thi/câu hỏi, trạng thái answered/unanswered, phiên chỉ tồn tại trong bộ nhớ, fallback chỉ đọc cho HTML/OCR, không có timer/điểm và bố cục mobile/tablet/desktop; đồng thời bảo đảm không phát sinh network request. Để chạy trong sandbox Linux tối giản:
+CI và runtime vẫn không có dependency mới. Bộ kiểm tra trình duyệt tùy chọn dùng Playwright Core với Chromium và phục vụ HTML qua static HTTP. `browser-learning.cjs` kiểm tra luồng flashcard, bàn phím/focus, responsive, import/export, reset và lưu trữ, cấu hình phiên ưu tiên (kể cả nhóm bị tắt), một phiên trộn chạm tới cả bảy kiểu bài tập, bàn nối cặp hoàn thành bằng bàn phím, câu bỏ qua được mở lại, một từ khó được đánh dấu rồi bỏ đánh dấu, một phiên có giới hạn thời gian **thật** (đồng hồ hệ thống, một phút) kết thúc ở màn hình kết quả với câu bỏ trống không bị tính sai và không cộng XP, một bản sao lưu v1 giữ danh sách từ khó trên thiết bị, và việc hiển thị tiếng Anh của mọi màn hình mới, cùng luồng “Học cấp tốc” thật (10 từ đã chọn, 21 lượt gồm 10 lượt đầu + 10 lượt củng cố + 1 lượt sửa lỗi, khoảng cách củng cố, tự chuyển chỉ sau câu đúng ở lượt đầu, thống kê lần đầu 90 % tách khỏi lượt củng cố, tiến độ còn nguyên sau khi tải lại và câu giải thích của lượt củng cố được dịch trong giao diện tiếng Anh); `browser-learning.cjs` cũng đi qua **kho cụm từ** từ beta7: 780 cụm được duyệt, tìm, lọc theo loại/trình độ, luyện 10 lượt, ghi tiến độ vào đúng khóa `chuyen-anh.phrases.v1` trong khi `chuyen-anh.progress.v1` không đổi một byte, giao diện tiếng Anh của các màn hình cụm từ, và reset xóa cả tiến độ cụm từ. `browser-exams.cjs` kiểm tra archive offline, bộ lọc/provenance, source rendering an toàn, lựa chọn → đổi → review → submit → xem lại đáp án đã nộp, điều hướng giấy thi/câu hỏi, trạng thái answered/unanswered, phiên chỉ tồn tại trong bộ nhớ, fallback chỉ đọc cho HTML/OCR, không có timer/điểm và bố cục mobile/tablet/desktop; đồng thời bảo đảm không phát sinh network request. Để chạy trong sandbox Linux tối giản:
 
 ```bash
 npm install --no-save --package-lock=false playwright-core @sparticuz/chromium@133.0.0

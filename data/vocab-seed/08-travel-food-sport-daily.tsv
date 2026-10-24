@@ -1,0 +1,176 @@
+# Travel, food, sport and everyday-life vocabulary.
+# word<TAB>pos<TAB>meaning<TAB>level<TAB>topic<TAB>type<TAB>skills
+itinerary	n	lịch trình chuyến đi	C1	travel	topic	reading
+destination	n	điểm đến	B2	travel	topic	reading
+accommodation	n	chỗ ở	C1	travel	topic	reading
+souvenir	n	đồ lưu niệm	B2	travel	topic	reading
+luggage	n	hành lý	B1	travel	core	reading
+passport	n	hộ chiếu	B1	travel	core	reading
+visa	n	thị thực	B1	travel	core	reading
+boarding	n	việc lên máy bay/tàu	C1	travel	topic	reading
+transit	n	việc quá cảnh	C2	travel	topic	reading
+commute	v	đi lại hằng ngày	C1	travel	topic	reading
+pedestrian	n	người đi bộ	C1	travel	topic	reading
+traffic	n	giao thông	B1	travel	core	reading
+congestion	n	sự tắc nghẽn	C1	travel	topic	reading
+vehicle	n	phương tiện	C1	travel	topic	reading
+railway	n	đường sắt	B2	travel	topic	reading
+subway	n	tàu điện ngầm	B2	travel	topic	reading
+harbour	n	bến cảng	C1	travel	topic	reading
+resort	n	khu nghỉ dưỡng	B2	travel	topic	reading
+sightseeing	n	việc tham quan	B2	travel	topic	reading
+backpacker	n	người du lịch bụi	C1	travel	topic	reading
+adventure	n	cuộc phiêu lưu	B2	travel	topic	reading
+expedition	n	cuộc thám hiểm	C1	travel	topic	reading
+landscape	n	phong cảnh	C1	travel	topic	reading
+scenery	n	cảnh vật	C1	travel	topic	reading
+panorama	n	toàn cảnh	C2	travel	topic	reading
+peak	n	đỉnh núi	C1	environment	topic	reading
+valley	n	thung lũng	B2	environment	topic	reading
+coastline	n	đường bờ biển	C2	environment	topic	reading
+shore	n	bờ biển, bờ hồ	C1	environment	topic	reading
+island	n	hòn đảo	B1	environment	core	reading
+peninsula	n	bán đảo	C2	environment	topic	reading
+bay	n	vịnh	B2	environment	topic	reading
+cave	n	hang động	C1	environment	topic	reading
+waterfall	n	thác nước	B2	environment	topic	reading
+stream	n	con suối	C1	environment	topic	reading
+desert	n	sa mạc	B1	environment	core	reading
+jungle	n	rừng rậm	C1	environment	topic	reading
+tropical	adj	nhiệt đới	B2	environment	topic	reading
+temperate	adj	ôn hòa	C2	environment	topic	reading
+climate	type	khí hậu đặc trưng	B1	environment	topic	reading
+homestay	n	hình thức ở cùng nhà dân	C1	travel	topic	reading
+hostel	n	nhà nghỉ tập thể	B2	travel	topic	reading
+reservation	n	việc đặt chỗ	C1	travel	topic	reading
+booking	n	việc đặt vé	C1	travel	topic	reading
+departure	n	sự khởi hành	C1	travel	topic	reading
+arrival	n	sự đến nơi	C1	travel	topic	reading
+delay	n	sự chậm trễ	B2	travel	topic	reading
+cancel	v	hủy bỏ	B1	travel	core	reading
+postpone	v	hoãn lại	C1	travel	academic	reading
+detour	n	đường vòng	C2	travel	topic	reading
+route	n	tuyến đường	B2	travel	topic	reading
+journey	n	chuyến đi dài	B2	travel	topic	reading
+voyage	n	chuyến hải trình	C2	travel	topic	reading
+fare	n	giá vé	C1	travel	topic	reading
+ticket	n	vé	B1	travel	core	reading
+terminal	n	nhà ga đầu cuối	C2	travel	topic	reading
+runway	n	đường băng	C2	travel	topic	reading
+crew	n	đoàn thủy thủ, tổ bay	C1	travel	topic	reading
+customs	n	hải quan	C1	travel	topic	reading
+smuggler	n	kẻ buôn lậu	C2	law	topic	reading
+ingredient	n	nguyên liệu	C1	food	topic	reading
+recipe	n	công thức nấu ăn	B2	food	topic	reading
+vegetarian	n	người ăn chay	B2	food	topic	reading
+vegan	n	người ăn thuần chay	C1	food	topic	reading
+dairy	n	sản phẩm từ sữa	C1	food	topic	reading
+poultry	n	thịt gia cầm	C1	food	topic	reading
+seafood	n	hải sản	B2	food	topic	reading
+spice	n	gia vị	C1	food	topic	reading
+flavour	n	hương vị	C1	food	topic	reading
+seasoning	n	gia vị nêm	C2	food	topic	reading
+boil	v	luộc, đun sôi	B1	food	core	reading
+grill	v	nướng	B2	food	topic	reading
+roast	v	quay, nướng	C1	food	topic	reading
+bake	v	nướng bánh	B1	food	core	reading
+fry	v	chiên, rán	B1	food	core	reading
+stir	v	khuấy	B2	food	topic	reading
+chop	v	thái, băm	C1	food	topic	reading
+peel	v	bóc vỏ	B2	food	topic	reading
+blend	v	xay, trộn	C1	food	topic	reading
+supermarket	n	siêu thị	B1	food	core	reading
+grocery	n	thực phẩm tạp hóa	B2	food	topic	reading
+bakery	n	tiệm bánh	C1	food	topic	reading
+butcher	n	người bán thịt	C1	food	topic	reading
+stall	n	quầy hàng	C1	food	topic	reading
+marketplace	n	chợ, nơi giao thương	C2	food	topic	reading
+meal	n	bữa ăn	B1	food	core	reading
+snack	n	đồ ăn vặt	B1	food	core	reading
+dessert	n	món tráng miệng	B2	food	topic	reading
+appetiser	n	món khai vị	C2	food	topic	reading
+menu	n	thực đơn	B1	food	core	reading
+order	v	gọi món	B1	food	core	reading
+waiter	n	bồi bàn	B1	food	core	reading
+bill	n	hóa đơn thanh toán	B1	food	core	reading
+tip	n	tiền boa	C1	food	topic	reading
+athlete	n	vận động viên	B2	sport	topic	reading
+tournament	n	giải đấu	C1	sport	topic	reading
+championship	n	chức vô địch	C1	sport	topic	reading
+referee	n	trọng tài	C1	sport	topic	reading
+spectator	n	khán giả thể thao	C1	sport	topic	reading
+coach	n	huấn luyện viên	B2	sport	topic	reading
+fitness	n	thể trạng khỏe mạnh	C1	sport	topic	reading
+injury	n	thương tích thể thao	B2	sport	topic	reading
+doping	n	việc dùng chất kích thích	C2	sport	topic	reading
+sportsmanship	n	tinh thần thể thao	C2	sport	topic	reading
+marathon	n	cuộc chạy ma-ra-tông	C1	sport	topic	reading
+opponent	n	đối thủ	C1	sport	topic	reading
+teammate	n	đồng đội	B2	sport	topic	reading
+stadium	n	sân vận động	C1	sport	topic	reading
+medal	n	huy chương	B2	sport	topic	reading
+trophy	n	cúp	C1	sport	topic	reading
+score	n	tỷ số	B1	sport	core	reading
+defeat	v	đánh bại	C1	sport	topic	reading
+qualify	v	vượt qua vòng loại	C1	sport	topic	reading
+eliminate	v	loại khỏi cuộc thi	C1	sport	academic	reading
+training	n	việc rèn luyện	B2	sport	topic	reading
+routine	n	thói quen, lịch trình đều đặn	B2	health	topic	reading
+schedule	n	lịch trình	B2	work	topic	reading
+appointment	n	cuộc hẹn	B2	health	topic	reading
+calendar	n	lịch	B1	daily-life	core	reading
+alarm	n	chuông báo thức	C1	daily-life	topic	reading
+chore	n	việc nhà	C1	daily-life	topic	reading
+laundry	n	đồ giặt, việc giặt giũ	C1	daily-life	topic	reading
+groceries	n	đồ tạp hóa	B2	daily-life	topic	reading
+budgeting	n	việc lập ngân sách	C1	daily-life	topic	reading
+saving	n	khoản tiết kiệm	C1	daily-life	topic	reading
+expense	n	chi phí	C1	economics	topic	reading
+subscription	n	khoản đăng ký định kỳ	C1	media	topic	reading
+landlord	n	chủ nhà cho thuê	C1	daily-life	topic	reading
+tenant	n	người thuê nhà	C1	daily-life	topic	reading
+rent	n	tiền thuê nhà	B2	daily-life	topic	reading
+neighbour	n	hàng xóm	B1	daily-life	core	reading
+flat	n	căn hộ	B2	daily-life	topic	reading
+apartment	n	căn hộ chung cư	B1	daily-life	core	reading
+furniture	n	đồ nội thất	B2	daily-life	topic	reading
+appliance	n	thiết bị gia dụng	C1	daily-life	topic	reading
+kettle	n	ấm đun nước	C1	daily-life	topic	reading
+utensil	n	dụng cụ nhà bếp	C2	daily-life	topic	reading
+repair	v	sửa chữa	B2	daily-life	core	reading
+maintenance	n	việc bảo trì	C1	technology	topic	reading
+plumber	n	thợ ống nước	C2	daily-life	topic	reading
+electrician	n	thợ điện	C1	daily-life	topic	reading
+carpenter	n	thợ mộc	C1	daily-life	topic	reading
+mechanic	n	thợ máy	C1	work	topic	reading
+hairdresser	n	thợ làm tóc	C1	work	topic	reading
+barber	n	thợ cắt tóc nam	C1	work	topic	reading
+tailor	n	thợ may	C1	work	topic	reading
+florist	n	người bán hoa	C2	work	topic	reading
+architect	n	kiến trúc sư	B2	work	topic	reading
+engineer	n	kỹ sư	B1	work	core	reading
+journalist	n	phóng viên chuyên nghiệp	B2	work	topic	reading
+accountant	n	kế toán	C1	work	topic	reading
+lawyer	n	luật sư	B1	work	core	reading
+physician	n	bác sĩ nội khoa	C2	health	topic	reading
+dentist	n	nha sĩ	B1	health	core	reading
+veterinarian	n	bác sĩ thú y	C1	work	topic	reading
+pharmacist	n	dược sĩ	C1	health	topic	reading
+nutritionist	n	chuyên gia dinh dưỡng	C2	health	topic	reading
+psychologist	n	nhà tâm lý học	C1	psychology	topic	reading
+sociologist	n	nhà xã hội học	C2	society	topic	reading
+economist	n	nhà kinh tế học	C1	economics	topic	reading
+analyst	n	nhà phân tích	C1	work	topic	reading
+consultant	n	chuyên gia tư vấn	C1	work	topic	reading
+receptionist	n	lễ tân	C1	work	topic	reading
+secretary	n	thư ký	B1	work	core	reading
+assistant	n	trợ lý	B1	work	core	reading
+director	n	giám đốc	C1	work	topic	reading
+executive	n	người điều hành	C1	work	topic	reading
+founder	n	người sáng lập	C1	work	topic	reading
+chairperson	n	chủ tọa	C2	work	topic	reading
+spokesperson	n	người phát ngôn	C1	media	topic	reading
+representative	n	người đại diện	C1	politics	topic	reading
+delegate	n	đại biểu	C2	politics	topic	reading
+ambassador	n	đại sứ	C1	politics	topic	reading
+bureaucrat	n	quan chức	C2	politics	topic	reading

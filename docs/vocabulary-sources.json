@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "description": "Registry of every source referenced by the SOURCES column of Learned_Vocabulary_List.md and Learned_Phrase_List.md. Each row cites registry ids and a locator; the registry states what the source can and cannot back.",
+  "accessed": "2026-10-24",
+  "sources": [
+    {
+      "id": "exam-corpus",
+      "type": "exam",
+      "title": "Bản chép đề thi chuyên Anh vào lớp 10, 2022–2026 (106 bản chép trong repository)",
+      "publisher": "De-chuyen-Anh-vao-10/ — bản đăng lại có ghi nguồn, không phải bản phát hành của Sở/trường",
+      "url": "https://github.com/coderunknow/Chuyen-Anh/tree/main/De-chuyen-Anh-vao-10",
+      "locatorScheme": "<year>/<province>/<paper>.md:L<line> — dòng đầu tiên trong bản chép chứa dạng từ",
+      "access": "file-in-repo",
+      "supports": "Sự xuất hiện của một dạng từ trong văn bản đề được chép lại. Không chứng minh nghĩa, từ loại, hay việc dạng đó là đáp án đúng của một câu hỏi.",
+      "limits": "Bản chép có thể lẫn lỗi OCR và không đại diện toàn quốc; tần suất trong kho đề không phải xác suất ra đề."
+    },
+    {
+      "id": "cambridge",
+      "type": "dictionary",
+      "title": "Cambridge Dictionary — English (Cambridge University Press)",
+      "publisher": "Cambridge University Press & Assessment",
+      "urlTemplate": "https://dictionary.cambridge.org/dictionary/english/{entry}",
+      "locatorScheme": "entry:<headword> — mục từ tra cứu được; trường url của từng dòng là liên kết trực tiếp",
+      "access": "url-template",
+      "supports": "Cách viết của headword và từ loại chính được dùng trong bảng. Không dùng làm bằng chứng cho mức CEFR hay cho tần suất.",
+      "limits": "Bản dựng offline trong sandbox không truy cập được dictionary.cambridge.org, nên các mục từ điển là tham chiếu để người đọc mở và đối chiếu, không phải bằng chứng đã tải và đọc trong phiên này. Không có dòng nào ghi 'đã kiểm chứng từ điển' nếu chưa thực sự tra."
+    },
+    {
+      "id": "learner-list",
+      "type": "repository-origin",
+      "title": "Danh sách từ vựng Chuyên Anh có sẵn trong repository (ID 1–613)",
+      "publisher": "coderunknow/Chuyen-Anh — lịch sử git trước 2026-10-24",
+      "url": "https://github.com/coderunknow/Chuyen-Anh/commits/main/Learned_Vocabulary_List.md",
+      "locatorScheme": "id:<ID> — dòng trong bảng ở commit 39d89cd",
+      "access": "file-in-repo",
+      "supports": "Nguồn gốc của headword, nghĩa tiếng Việt và từ loại: các giá trị này do chủ repository ghi trước beta7 và được giữ nguyên khi chưa có bằng chứng sửa.",
+      "limits": "Không phải nguồn học thuật độc lập. Việc một từ nằm trong danh sách cũ không chứng minh nghĩa hay độ phù hợp thi chuyên Anh."
+    },
+    {
+      "id": "phrase-corpus",
+      "type": "exam",
+      "title": "Bản chép đề thi chuyên Anh vào lớp 10, 2022–2026 — bằng chứng cho cụm từ",
+      "publisher": "De-chuyen-Anh-vao-10/ — bản đăng lại có ghi nguồn",
+      "url": "https://github.com/coderunknow/Chuyen-Anh/tree/main/De-chuyen-Anh-vao-10",
+      "locatorScheme": "<year>/<province>/<paper>.md:L<line> — dòng chứa cụm từ sau khi chuẩn hóa khoảng trắng",
+      "access": "file-in-repo",
+      "supports": "Cụm từ xuất hiện nguyên dạng trong một bản chép đề.",
+      "limits": "Như exam-corpus: bản chép, có thể lỗi OCR; không suy ra đáp án."
+    }
+  ]
+}

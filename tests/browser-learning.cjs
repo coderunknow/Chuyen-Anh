@@ -179,7 +179,7 @@ async function main() {
     // The banner reports the real pool, the real queue and the chosen target.
     assert.match(await sprint.locator('#sprint-title').innerText(), /Học cấp tốc · 10 từ \/ phiên/);
     assert.match(await sprint.locator('#sprint-pool').innerText(),
-      /913 từ đủ điều kiện · xếp 10 · 10 đến hạn · 10 từ yếu/,
+      /3215 từ đủ điều kiện · xếp 10 · 10 đến hạn · 10 từ yếu/,
       'the banner counts the whole eligible pool and the real queue');
     assert.equal(await sprint.locator('.sprint-banner .recommendation-mark strong').innerText(), '10',
       'the banner shows the configured session size, not a fixed 7');
@@ -1840,6 +1840,120 @@ async function main() {
     await page.locator('#exit-session').click();
 
     // ---- A failed device write is reported, never replaced by a success message.
+    // ---- beta7: the phrase bank browses, searches, filters and practises on its
+    // own storage key; word progress must be untouched by any of it.
+    await page.evaluate(() => localStorage.clear());
+    await page.reload();
+    await page.locator('[data-session="new"]').waitFor();
+    await page.locator('[data-view="phrases"]').click();
+    await page.locator('#phrase-results .vocab-row').first().waitFor();
+    assert.match(await page.locator('.page-header p').innerText(), /780 cụm\b/, 'the header reports the real phrase count');
+    assert.equal(await page.locator('#phrase-results .vocab-row').count(), 80, 'the list is capped for rendering');
+    const wordProgressBeforePhrases = await page.evaluate(() => localStorage.getItem('chuyen-anh.progress.v1'));
+
+    await page.locator('#phrase-field').fill('take');
+    const takeRows = await page.locator('#phrase-results .vocab-row').count();
+    assert.ok(takeRows > 0 && takeRows < 80, `searching narrows the list (got ${takeRows})`);
+    await page.locator('#phrase-field').fill('không tồn tại zzz');
+    await page.locator('#phrase-results .empty').waitFor();
+    assert.equal(await page.locator('#phrase-practice-start').isDisabled(), true, 'an empty result cannot start a session');
+    await page.locator('#phrase-field').fill('');
+
+    await page.locator('#phrase-type').selectOption('idiom');
+    await page.locator('#phrase-results .vocab-row').first().waitFor();
+    const typeLabels = await page.locator('#phrase-results .vocab-row .vocab-pos').allInnerTexts();
+    assert.ok(typeLabels.every(text => text === 'Thành ngữ'), 'the type filter shows only idioms');
+    await page.locator('#phrase-type').selectOption('all');
+    await page.locator('#phrase-level').selectOption('C1');
+    await page.locator('#phrase-results .vocab-row').first().waitFor();
+    const c1Count = await page.locator('#phrase-results .vocab-row').count();
+    assert.ok(c1Count > 0 && c1Count < 780, `the level filter narrows the list (${c1Count} C1 phrases)`);
+    await page.locator('#phrase-level').selectOption('all');
+
+    await page.locator('#phrase-practice-start').click();
+    await page.locator('.flashcard').waitFor();
+    let phraseTurns = 0;
+    for (let turn = 0; turn < 60; turn += 1) {
+      if (await page.locator('.summary').count()) break;
+      if (await page.locator('#phrase-next').count()) { await page.locator('#phrase-next').click(); await page.waitForTimeout(30); continue; }
+      if (await page.locator('[data-phrase-option]:enabled').count()) {
+        await page.locator('[data-phrase-option]:enabled').first().click();
+        phraseTurns += 1;
+        await page.waitForTimeout(30);
+        continue;
+      }
+      if (await page.locator('#phrase-answer').count()) {
+        await page.locator('#phrase-answer').fill('một cụm từ sai');
+        await page.locator('#phrase-submit').click();
+        phraseTurns += 1;
+        await page.waitForTimeout(30);
+        continue;
+      }
+      await page.waitForTimeout(30);
+    }
+    await page.locator('.summary').waitFor();
+    assert.ok(phraseTurns > 0, 'the phrase session asked questions');
+    assert.match(await page.locator('.summary-hero').innerText(), /\d+\/10/);
+    const phraseStore = await page.evaluate(() => JSON.parse(localStorage.getItem('chuyen-anh.phrases.v1') || 'null'));
+    assert.ok(phraseStore && Object.keys(phraseStore).length === 10, 'ten phrases were recorded in the phrase store');
+    for (const record of Object.values(phraseStore)) {
+      assert.equal(record.attempts, 1, 'each phrase was graded once');
+      assert.equal(record.correct + record.wrong, 1, 'every attempt is recorded as right or wrong');
+      assert.ok(record.lastPracticed > 0, 'the attempt carries a timestamp');
+    }
+    assert.equal(await page.evaluate(() => localStorage.getItem('chuyen-anh.progress.v1')), wordProgressBeforePhrases,
+      'practising phrases never writes word progress');
+    await page.locator('#phrase-back').click();
+    await page.locator('#phrase-results .vocab-row').first().waitFor();
+
+    // The list now reflects the practised phrases: their state is no longer "new".
+    const practisedPills = await page.locator('#phrase-results .vocab-row .state-pill').allInnerTexts();
+    assert.ok(practisedPills.some(text => text !== 'Từ mới'), 'a practised phrase leaves the new state');
+
+    // The English interface translates the phrase screens without touching phrase text.
+    await page.evaluate(() => localStorage.setItem('chuyen-anh.language.v1', 'en'));
+    await page.reload();
+    await page.locator('[data-session="new"]').waitFor();
+    await page.locator('[data-view="phrases"]').click();
+    await page.locator('#phrase-results .vocab-row').first().waitFor();
+    const phraseUntranslated = () => page.evaluate(() => {
+      const protectedSelectors = '.vocab-word, .vocab-meaning, .vocab-pos, .vocabulary-metadata dd, .prompt, .option, .example em, .example span, .code, .brand-name, .brand-detail, script, style';
+      const vietnamese = /[àáảãạăâđêôơưèéẻẽẹìíỉĩịòóỏõọùúủũụỳýỷỹỵ]/i;
+      const found = [];
+      const walk = node => {
+        if (node.nodeType === 3) {
+          const text = node.nodeValue.trim();
+          if (text && !node.parentElement?.closest(protectedSelectors) && vietnamese.test(text)) found.push(text.slice(0, 90));
+          return;
+        }
+        if (node.nodeType !== 1) return;
+        for (const name of ['aria-label', 'placeholder', 'title', 'alt']) {
+          const value = node.getAttribute?.(name);
+          if (value && vietnamese.test(value)) found.push(`${name}=${value.slice(0, 60)}`);
+        }
+        for (const child of node.childNodes) walk(child);
+      };
+      walk(document.getElementById('app'));
+      return [...new Set(found)];
+    });
+    assert.deepEqual(await phraseUntranslated(), [], 'the phrase list has no untranslated interface copy');
+    assert.match(await page.locator('.page-header h1').innerText(), /Phrases/);
+    await page.locator('#phrase-practice-start').click();
+    await page.locator('.flashcard').waitFor();
+    await page.waitForTimeout(80);
+    assert.deepEqual(await phraseUntranslated(), [], 'the phrase practice screen has no untranslated interface copy');
+    await page.evaluate(() => localStorage.removeItem('chuyen-anh.language.v1'));
+    await page.reload();
+    await page.locator('[data-session="new"]').waitFor();
+
+    // Resetting the profile clears the phrase store as well as the word store.
+    await page.locator('[data-view="settings"]').click();
+    // The suite already accepts dialogs for this page (see the reset scenario above).
+    await page.locator('#reset-setting').click();
+    await page.locator('.toast').filter({ hasText: 'Đã xóa dữ liệu học' }).waitFor();
+    assert.deepEqual(await page.evaluate(() => JSON.parse(localStorage.getItem('chuyen-anh.phrases.v1') || '{}')), {},
+      'reset clears phrase progress');
+
     const failing = await browser.newPage({ viewport: { width: 1280, height: 900 }, reducedMotion: 'reduce' });
     const failingErrors = [];
     failing.on('pageerror', error => failingErrors.push(error.message));
@@ -1880,7 +1994,7 @@ async function main() {
 
 
     assert.deepEqual(errors, []);
-    console.log(`PASS: Chromium ${browser.version()} — first-look introduction for new words, same-part-of-speech distractors, cloze options absent from the sentence, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, 320/375/768px responsive layout, reduced-motion setting, search state across a favorite toggle, session clearing on reset/import, the ID 448 historical label, named option groups, shortcuts limited to the visible card, failed writes reported truthfully, JSON backup round-trips that keep every retained session, blank spelling submissions ignored, single-graded self-assessment, skip locked after a reveal, and 'Học cấp tốc' processing all ten requested words with a truthful single correction, automatic advance only after correct answers, accurate first-pass statistics, persisted progress, an immediate hand-off with the graded answer carried onto the next card, a queue that never shifts while another screen is open, and interface copy on a consolidation turn translated in the English interface; the beta5 priority configuration with all seven exercise types, a matching board driven from the keyboard, a skipped question reopened from the pending list, a hard word marked and unmarked, a real one-minute timed session that ends on its results with unanswered questions reported as blank, a v1 backup that keeps the device hard-word list, English rendering of every new screen, and the beta6 regressions: a priority session started from Settings opens where the learner can see it, a classic session reports only its own XP, a typed answer survives the star/flag toggles, a sprint honours the timer, a start that cannot run explains itself, and a new session inherits no skipped questions; no page errors.`);
+    console.log(`PASS: Chromium ${browser.version()} — first-look introduction for new words, same-part-of-speech distractors, cloze options absent from the sentence, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, 320/375/768px responsive layout, reduced-motion setting, search state across a favorite toggle, session clearing on reset/import, the ID 448 historical label, named option groups, shortcuts limited to the visible card, failed writes reported truthfully, JSON backup round-trips that keep every retained session, blank spelling submissions ignored, single-graded self-assessment, skip locked after a reveal, and 'Học cấp tốc' processing all ten requested words with a truthful single correction, automatic advance only after correct answers, accurate first-pass statistics, persisted progress, an immediate hand-off with the graded answer carried onto the next card, a queue that never shifts while another screen is open, and interface copy on a consolidation turn translated in the English interface; the beta5 priority configuration with all seven exercise types, a matching board driven from the keyboard, a skipped question reopened from the pending list, a hard word marked and unmarked, a real one-minute timed session that ends on its results with unanswered questions reported as blank, a v1 backup that keeps the device hard-word list, English rendering of every new screen, and the beta6 regressions: a priority session started from Settings opens where the learner can see it, a classic session reports only its own XP, a typed answer survives the star/flag toggles, a sprint honours the timer, a start that cannot run explains itself, a new session inherits no skipped questions, and the beta7 phrase bank: 780 phrases browsed, searched, filtered by type and level, practised for ten turns with typed and multiple-choice retrieval recorded in its own store while word progress stayed byte-identical, English rendering of the phrase screens, and a reset that clears phrase progress; no page errors.`);
   } finally {
     if (browser) await browser.close();
     await new Promise(resolve => server.close(resolve));

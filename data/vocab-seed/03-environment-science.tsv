@@ -1,0 +1,192 @@
+# Environment and science vocabulary for reading, cloze and word formation.
+# word<TAB>pos<TAB>meaning<TAB>level<TAB>topic<TAB>type<TAB>skills
+biodiversity	n	đa dạng sinh học	C1	environment	topic	reading,writing
+ecosystem	n	hệ sinh thái	C1	environment	topic	reading,writing
+ecology	n	sinh thái học	C1	environment	topic	reading
+ecologist	n	nhà sinh thái học	C1	environment	topic	reading
+recycle	v	tái chế	B1	environment	topic	reading
+recycling	n	việc tái chế	B2	environment	topic	reading
+reuse	v	tái sử dụng	B2	environment	topic	reading
+biodegradable	adj	phân hủy sinh học	C1	environment	topic	reading
+greenhouse	n	nhà kính	C1	environment	topic	reading
+carbon	n	các-bon	C1	environment	topic	reading
+solar	adj	thuộc mặt trời	B2	environment	topic	reading
+geothermal	adj	thuộc địa nhiệt	C2	environment	topic	reading
+hydropower	n	thủy điện	C1	environment	topic	reading
+turbine	n	tuabin	C1	technology	topic	reading
+pesticide	n	thuốc trừ sâu	B2	environment	topic	reading
+fertilizer	n	phân bón	B2	environment	topic	reading
+irrigation	n	sự tưới tiêu	B2	environment	topic	reading
+harvest	n	vụ thu hoạch	B2	environment	topic	reading
+crop	n	cây trồng, vụ mùa	B2	environment	topic	reading
+livestock	n	gia súc, vật nuôi	B2	environment	topic	reading
+organic	adj	hữu cơ	B2	environment	topic	reading
+forestry	n	lâm nghiệp	C1	environment	topic	reading
+logging	n	việc khai thác gỗ	C1	environment	topic	reading
+poaching	n	nạn săn trộm	C1	environment	topic	reading
+endangered	adj	có nguy cơ tuyệt chủng	B2	environment	topic	reading,writing
+wilderness	n	vùng hoang dã	C1	environment	topic	reading
+rainforest	n	rừng nhiệt đới	B2	environment	topic	reading
+wetland	n	vùng đất ngập nước	C1	environment	topic	reading
+coral	n	san hô	C1	environment	topic	reading
+marine	adj	thuộc biển	C1	environment	topic	reading
+sewage	n	nước thải	C1	environment	topic	reading
+landfill	n	bãi chôn lấp	C1	environment	topic	reading
+pollutant	n	chất gây ô nhiễm	C1	environment	topic	reading
+toxic	adj	độc hại	B2	environment	topic	reading
+radiation	n	bức xạ	C1	science	topic	reading
+nuclear	adj	hạt nhân	B2	science	topic	reading
+atmosphere	n	khí quyển, bầu không khí	B2	environment	topic	reading
+temperature	n	nhiệt độ	B1	science	topic	reading
+ozone	n	tầng ô-zôn	C1	environment	topic	reading
+glacier	n	sông băng	C1	environment	topic	reading
+erosion	n	sự xói mòn	C1	environment	topic	reading
+flood	n	lũ lụt	B1	environment	topic	reading
+famine	n	nạn đói	C1	society	topic	reading
+disaster	n	thảm họa	B2	environment	topic	reading
+earthquake	n	động đất	B2	environment	topic	reading
+hurricane	n	bão lớn	B2	environment	topic	reading
+tsunami	n	sóng thần	C1	environment	topic	reading
+volcano	n	núi lửa	B2	environment	topic	reading
+wildfire	n	cháy rừng	C1	environment	topic	reading
+drought	n	hạn hán	B2	environment	topic	reading
+biology	n	sinh học	B1	science	topic	reading
+chemistry	n	hóa học	B1	science	topic	reading
+physics	n	vật lý	B1	science	topic	reading
+geology	n	địa chất học	C1	science	topic	reading
+astronomy	n	thiên văn học	C1	science	topic	reading
+gravity	n	trọng lực	B2	science	topic	reading
+molecule	n	phân tử	C1	science	topic	reading
+atom	n	nguyên tử	B2	science	topic	reading
+cell	n	tế bào	B1	science	topic	reading
+gene	n	gien	B2	science	topic	reading
+virus	n	vi-rút	B2	health	topic	reading
+bacteria	n	vi khuẩn	B2	science	topic	reading
+vaccine	n	vắc-xin	B2	health	topic	reading
+laboratory	n	phòng thí nghiệm	B2	science	topic	reading
+experiment	n	thí nghiệm	B2	science	topic	reading
+formula	n	công thức	B2	science	topic	reading
+equation	n	phương trình	B2	science	topic	reading
+measurement	n	phép đo	B2	science	topic	reading
+observation	n	sự quan sát	B2	science	topic	reading
+probability	n	xác suất	B2	science	topic	reading
+investigate	v	điều tra khoa học	B2	science	academic	reading
+verify	v	xác minh	B2	science	academic	reading
+replicate	v	tái lập (thí nghiệm)	C1	science	academic	reading
+prediction	n	dự đoán	B2	science	topic	reading
+calculate	v	tính toán	B1	science	topic	reading
+estimate	n	ước tính	B2	science	topic	reading
+quantity	n	đại lượng, số lượng	B2	science	topic	reading
+substance	n	chất, vật chất	B2	science	topic	reading
+liquid	n	chất lỏng	B1	science	topic	reading
+solid	adj	rắn	B1	science	topic	reading
+gas	n	khí	B1	science	topic	reading
+pressure	n	áp suất	B2	science	topic	reading
+friction	n	ma sát	C1	science	topic	reading
+velocity	n	vận tốc	C1	science	topic	reading
+density	n	mật độ	C1	science	topic	reading
+energy-efficient	adj	tiết kiệm năng lượng	C1	environment	topic	reading
+renewable	adj	có thể tái tạo	B2	environment	topic	reading
+sustain	v	duy trì, nuôi dưỡng	C1	environment	academic	writing
+preserve	v	bảo tồn, giữ gìn	B2	environment	academic	writing
+conserve	v	tiết kiệm, bảo tồn	B2	environment	academic	writing
+deplete	v	làm cạn kiệt	C1	environment	academic	reading
+degrade	v	làm suy thoái, hạ thấp	C1	environment	academic	reading
+emit	v	phát thải, phát ra	B2	environment	academic	reading
+discharge	v	xả thải	C1	environment	academic	reading
+dump	v	đổ (rác), bỏ	B2	environment	topic	reading
+litter	n	rác vương vãi	B2	environment	topic	reading
+rubbish	n	rác	B1	environment	core	reading
+plastic	n	nhựa	B1	environment	topic	reading
+package	n	bao bì, gói hàng	B1	economics	core	reading
+packaging	n	bao bì đóng gói	B2	economics	topic	reading
+consumerism	n	chủ nghĩa tiêu dùng	C1	society	topic	writing
+overpopulated	adj	quá đông dân	C1	society	topic	reading
+urbanisation	n	sự đô thị hóa	C1	society	topic	reading
+urban	adj	thuộc thành thị	B2	society	topic	reading
+rural	adj	thuộc nông thôn	B2	society	topic	reading
+suburb	n	vùng ngoại ô	B2	society	topic	reading
+infrastructure	n	cơ sở hạ tầng	C1	society	topic	reading
+facility	n	cơ sở vật chất, tiện ích	B2	society	topic	reading
+sanitation	n	vệ sinh môi trường	C1	health	topic	reading
+hygiene	n	vệ sinh cá nhân	B2	health	topic	reading
+climate-friendly	adj	thân thiện với khí hậu	C1	environment	topic	writing
+footprint	n	dấu chân; tác động (carbon footprint)	B2	environment	topic	reading
+carbon-neutral	adj	trung hòa các-bon	C2	environment	topic	reading
+emission	n	khí thải, sự phát thải	B2	environment	topic	reading
+exhaust	n	khí xả	C1	environment	topic	reading
+fuel	n	nhiên liệu	B1	environment	core	reading
+petrol	n	xăng	B1	environment	core	reading
+diesel	n	dầu diesel	B2	environment	topic	reading
+electric	adj	chạy bằng điện	B1	technology	core	reading
+battery	n	pin, ắc quy	B1	technology	core	reading
+solar-powered	adj	chạy bằng năng lượng mặt trời	C1	environment	topic	reading
+sustainable	adj	bền vững	B2	environment	academic	writing
+habitat	n	môi trường sống	B2	environment	topic	reading
+predator	n	động vật ăn thịt	C1	environment	topic	reading
+prey	n	con mồi	B2	environment	topic	reading
+extinct	adj	tuyệt chủng	B2	environment	topic	reading
+survive	v	sống sót	B1	environment	core	reading
+survival	n	sự sống còn	B2	environment	topic	reading
+adaptation	n	sự thích nghi	C1	environment	academic	reading
+evolution	n	sự tiến hóa	B2	science	topic	reading
+evolve	v	tiến hóa	B2	science	academic	reading
+species-rich	adj	giàu loài	C1	environment	topic	reading
+vegetation	n	thảm thực vật	C1	environment	topic	reading
+fertile	adj	màu mỡ, phì nhiêu	C1	environment	topic	reading
+barren	adj	cằn cỗi, trơ trọi	C1	environment	topic	reading
+moisture	n	độ ẩm	C1	environment	topic	reading
+humidity	n	độ ẩm không khí	C1	environment	topic	reading
+rainfall	n	lượng mưa	C1	environment	topic	reading
+resource	n	tài nguyên	B2	environment	academic	reading
+mineral	n	khoáng sản	B2	environment	topic	reading
+fossil	n	hóa thạch; nhiên liệu hóa thạch	B2	science	topic	reading
+crude	adj	thô, chưa tinh chế	C1	economics	topic	reading
+refinery	n	nhà máy lọc dầu	C2	economics	topic	reading
+drill	v	khoan	B2	environment	topic	reading
+mining	n	việc khai mỏ	B2	environment	topic	reading
+quarry	n	mỏ đá	C1	environment	topic	reading
+wasteland	n	vùng đất hoang	C1	environment	topic	reading
+compost	n	phân hữu cơ	C1	environment	topic	reading
+incinerator	n	lò đốt rác	C2	environment	topic	reading
+scarcity	n	sự khan hiếm	C1	economics	academic	writing
+abundance	n	sự phong phú	C1	environment	academic	reading
+depletion	n	sự cạn kiệt	C1	environment	academic	writing
+degradation	n	sự suy thoái	C1	environment	academic	writing
+contamination	n	sự nhiễm bẩn	C1	environment	academic	reading
+extraction	n	việc khai thác	C1	environment	academic	reading
+conservationist	n	nhà bảo tồn	C1	environment	topic	reading
+activist	n	nhà hoạt động	C1	society	topic	reading
+campaigner	n	người vận động	C1	society	topic	reading
+petition	n	đơn thỉnh nguyện	C1	politics	topic	reading
+boycott	n	sự tẩy chay	C1	society	topic	reading
+slogan	n	khẩu hiệu	C1	media	topic	reading
+awareness	n	nhận thức	B2	society	topic	writing
+incentive	n	động cơ khuyến khích	C1	economics	topic	reading
+subsidy	n	trợ cấp	C1	economics	topic	reading
+legislation	n	pháp luật, việc lập pháp	C1	politics	topic	reading
+regulation	n	quy định	C1	politics	academic	reading
+enforce	v	thực thi	B2	politics	academic	writing
+comply	v	tuân thủ	C1	politics	academic	reading
+penalty	n	hình phạt, tiền phạt	B2	law	topic	reading
+inspection	n	sự thanh tra	B2	law	topic	reading
+monitor	v	giám sát	B2	environment	academic	reading
+assess	v	đánh giá	B2	environment	academic	reading
+mitigate	v	làm giảm nhẹ (tác động)	C1	environment	academic	writing
+alleviate	v	làm dịu bớt	C1	health	academic	writing
+combat	v	chống lại	C1	society	academic	writing
+tackle	v	đối phó, giải quyết	C1	society	academic	writing
+curb	v	kiềm chế	C1	politics	academic	writing
+avert	v	ngăn chặn, tránh	C1	environment	academic	writing
+remedy	n	cách khắc phục	C1	health	academic	writing
+restore	v	khôi phục	B2	environment	academic	writing
+reclaim	v	cải tạo, lấy lại	C1	environment	academic	reading
+reforest	v	trồng rừng lại	C2	environment	topic	reading
+afforest	v	trồng rừng mới	C2	environment	topic	reading
+irrigate	v	tưới tiêu	C1	environment	topic	reading
+cultivate	v	canh tác, trau dồi	C1	environment	academic	reading
+cultivation	n	sự canh tác	C1	environment	topic	reading
+fertility	n	độ phì nhiêu	C1	environment	topic	reading
+yield	n	sản lượng	C1	environment	academic	reading
+surplus	n	phần dư, thặng dư	C1	economics	academic	reading
+shortage	n	sự thiếu hụt	B2	economics	academic	writing
