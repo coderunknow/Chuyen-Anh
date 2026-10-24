@@ -179,7 +179,7 @@ async function main() {
     // The banner reports the real pool, the real queue and the chosen target.
     assert.match(await sprint.locator('#sprint-title').innerText(), /Học cấp tốc · 10 từ \/ phiên/);
     assert.match(await sprint.locator('#sprint-pool').innerText(),
-      /5205 từ đủ điều kiện · xếp 10 · 10 đến hạn · 10 từ yếu/,
+      /5112 từ đủ điều kiện · xếp 10 · 10 đến hạn · 10 từ yếu/,
       'the banner counts the whole eligible pool and the real queue');
     assert.equal(await sprint.locator('.sprint-banner .recommendation-mark strong').innerText(), '10',
       'the banner shows the configured session size, not a fixed 7');
@@ -470,7 +470,7 @@ async function main() {
 
     // The shipped build identifies itself.
     await sprint.locator('[data-view="settings"]').click();
-    assert.equal(await sprint.locator('#app-version').innerText(), 'v1.0.0-beta7');
+    assert.equal(await sprint.locator('#app-version').innerText(), 'v1.0.0-beta8');
     assert.deepEqual(sprintErrors, []);
 
     // Error -> intervening word -> typed corrective retrieval -> truthful summary.

@@ -246,7 +246,10 @@
     "pos": "v",
     "meaning": "xem xét kỹ lưỡng",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "family:merged",
+      "family-head:5324"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22",
     "wordFamily": "",
@@ -272,7 +275,8 @@
         "supports": "form occurs in 1 transcribed exam(s)",
         "locator": "2024/ha-noi/chuyen-su-pham.md:L326"
       }
-    ]
+    ],
+    "familyHead": "5324"
   },
   {
     "id": "9",
@@ -2558,7 +2562,10 @@
     "pos": "adj",
     "meaning": "bất thường, khác với thông thường",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "family:merged",
+      "family-head:3237"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22",
     "wordFamily": "",
@@ -2579,7 +2586,8 @@
         "locator": "entry:anomalous",
         "url": "https://dictionary.cambridge.org/dictionary/english/anomalous"
       }
-    ]
+    ],
+    "familyHead": "3237"
   },
   {
     "id": "81",
@@ -2587,7 +2595,10 @@
     "pos": "adj",
     "meaning": "uể oải, lờ đờ",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "family:merged",
+      "family-head:3425"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22",
     "wordFamily": "",
@@ -2608,7 +2619,8 @@
         "locator": "entry:lethargic",
         "url": "https://dictionary.cambridge.org/dictionary/english/lethargic"
       }
-    ]
+    ],
+    "familyHead": "3425"
   },
   {
     "id": "82",
@@ -3744,7 +3756,10 @@
     "pos": "adj",
     "meaning": "trầm tư, suy ngẫm",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "family:merged",
+      "family-head:3270"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22",
     "wordFamily": "",
@@ -3765,7 +3780,8 @@
         "locator": "entry:contemplative",
         "url": "https://dictionary.cambridge.org/dictionary/english/contemplative"
       }
-    ]
+    ],
+    "familyHead": "3270"
   },
   {
     "id": "119",
@@ -4296,7 +4312,10 @@
     "pos": "adj",
     "meaning": "sáng suốt, tinh tế",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "family:merged",
+      "family-head:3290"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22",
     "wordFamily": "",
@@ -4322,7 +4341,8 @@
         "supports": "form occurs in 1 transcribed exam(s)",
         "locator": "2022/quang-ninh/so.md:L513"
       }
-    ]
+    ],
+    "familyHead": "3290"
   },
   {
     "id": "137",
@@ -5643,7 +5663,10 @@
     "pos": "adj",
     "meaning": "e dè, mất tự nhiên",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "family:merged",
+      "family-head:3394"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22",
     "wordFamily": "",
@@ -5664,7 +5687,8 @@
         "locator": "entry:inhibited",
         "url": "https://dictionary.cambridge.org/dictionary/english/inhibited"
       }
-    ]
+    ],
+    "familyHead": "3394"
   },
   {
     "id": "180",
@@ -9802,7 +9826,7 @@
     "tags": [],
     "difficulty": 0,
     "createdAt": "2026-09-22",
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: analogous (adj: tương tự, tương đương)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -9831,7 +9855,7 @@
     "tags": [],
     "difficulty": 0,
     "createdAt": "2026-09-22",
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: anecdotal (adj: theo giai thoại, chưa kiểm chứng)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -10413,7 +10437,10 @@
     "pos": "n",
     "meaning": "khát vọng, hoài bão",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "family:merged",
+      "family-head:2813"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22",
     "wordFamily": "",
@@ -10439,7 +10466,8 @@
         "supports": "form occurs in 2 transcribed exam(s)",
         "locator": "2022/ha-nam/so.md:L140"
       }
-    ]
+    ],
+    "familyHead": "2813"
   },
   {
     "id": "337",
@@ -10631,7 +10659,10 @@
     "pos": "adj",
     "meaning": "nịnh bợ, xu nịnh",
     "examples": [],
-    "tags": [],
+    "tags": [
+      "family:merged",
+      "family-head:3596"
+    ],
     "difficulty": 0,
     "createdAt": "2026-09-22",
     "wordFamily": "",
@@ -10652,7 +10683,8 @@
         "locator": "entry:sycophantic",
         "url": "https://dictionary.cambridge.org/dictionary/english/sycophantic"
       }
-    ]
+    ],
+    "familyHead": "3596"
   },
   {
     "id": "344",
@@ -11725,7 +11757,7 @@
     ],
     "difficulty": 0,
     "createdAt": "2026-09-22",
-    "wordFamily": "Cùng gốc: Reverent (adj: tôn kính, thành kính); Irreverent (adj: bất kính, thiếu tôn trọng (thường theo lối hài hước, châm biếm)); Irreverence (n: sự bất kính, thái độ thiếu tôn trọng)",
+    "wordFamily": "Cùng gốc: Reverent (adj: tôn kính, thành kính); Irreverent (adj: bất kính, thiếu tôn trọng (thường theo lối hài hước, châm biếm)); Irreverence (n: sự bất kính, thái độ thiếu tôn trọng); reverence (n: sự tôn kính)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -30288,7 +30320,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: believable (adj: có thể tin được)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -31168,7 +31200,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: conditioner (n: dầu xả)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -32814,7 +32846,9 @@
       "topic:psychology",
       "type:topic",
       "source:exam",
-      "skill:writing"
+      "skill:writing",
+      "family:merged",
+      "family-head:4881"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -32835,7 +32869,8 @@
         "supports": "form occurs in 29 transcribed exam(s)",
         "locator": "2022/an-giang/so.md:L214"
       }
-    ]
+    ],
+    "familyHead": "4881"
   },
   {
     "id": "1017",
@@ -34690,7 +34725,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: helpful (adj: hữu ích, hay giúp đỡ)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -36769,7 +36804,9 @@
       "topic:work",
       "type:core",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:2494"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -36790,7 +36827,8 @@
         "supports": "form occurs in 37 transcribed exam(s)",
         "locator": "2022/bac-kan/so.md:L57"
       }
-    ]
+    ],
+    "familyHead": "2494"
   },
   {
     "id": "1129",
@@ -38789,7 +38827,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: planetary (adj: thuộc hành tinh)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -38824,7 +38862,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: plantation (n: đồn điền)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -39573,7 +39611,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: projector (n: máy chiếu)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -41476,7 +41514,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: speaker (n: loa)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -41686,7 +41724,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "Cùng gốc: startup (n: công ty khởi nghiệp)",
+    "wordFamily": "Cùng gốc: startup (n: công ty khởi nghiệp); starter (n: món khai vị)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -43521,7 +43559,9 @@
       "topic:daily-life",
       "type:core",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:4787"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -43542,7 +43582,8 @@
         "supports": "form occurs in 58 transcribed exam(s)",
         "locator": "2022/bac-ninh/so.md:L374"
       }
-    ]
+    ],
+    "familyHead": "4787"
   },
   {
     "id": "1320",
@@ -45066,7 +45107,7 @@
       "source:exam",
       "skill:writing"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: communicative (adj: có tính giao tiếp)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -46022,7 +46063,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "Cùng gốc: examination (n: kỳ thi, sự kiểm tra)",
+    "wordFamily": "Cùng gốc: examination (n: kỳ thi, sự kiểm tra); examiner (n: giám khảo)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -46478,7 +46519,7 @@
       "source:exam",
       "skill:writing"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: highlighter (n: bút dạ quang)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -46583,7 +46624,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "Cùng gốc: indication (n: dấu hiệu)",
+    "wordFamily": "Cùng gốc: indication (n: dấu hiệu); indicative (adj: biểu hiện, cho thấy)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -47464,7 +47505,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: occurrence (n: sự xuất hiện)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -51435,7 +51476,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: recyclable (adj: có thể tái chế)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -53606,7 +53647,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: calculator (n: máy tính)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -54532,7 +54573,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "Cùng gốc: exhaustion (n: sự kiệt sức)",
+    "wordFamily": "Cùng gốc: exhaustion (n: sự kiệt sức); exhaustive (adj: đầy đủ, toàn diện)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -55043,7 +55084,9 @@
       "topic:environment",
       "type:topic",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:4168"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -55064,7 +55107,8 @@
         "supports": "form occurs in 2 transcribed exam(s)",
         "locator": "2023/dong-nai/so.md:L160"
       }
-    ]
+    ],
+    "familyHead": "4168"
   },
   {
     "id": "1648",
@@ -55355,7 +55399,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: compostable (adj: có thể ủ phân)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -57252,7 +57296,9 @@
       "topic:technology",
       "type:topic",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:4675"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -57273,7 +57319,8 @@
         "supports": "form occurs in 1 transcribed exam(s)",
         "locator": "2024/ha-noi/chuyen-su-pham.md:L51"
       }
-    ]
+    ],
+    "familyHead": "4675"
   },
   {
     "id": "1712",
@@ -57289,7 +57336,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "Cùng gốc: installation (n: việc cài đặt, sự lắp đặt)",
+    "wordFamily": "Cùng gốc: installation (n: việc cài đặt, sự lắp đặt); installer (n: trình cài đặt)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -57495,7 +57542,9 @@
       "topic:media",
       "type:topic",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:1719"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -57516,7 +57565,8 @@
         "supports": "form occurs in 3 transcribed exam(s)",
         "locator": "2025/binh-duong/so.md:L280"
       }
-    ]
+    ],
+    "familyHead": "1719"
   },
   {
     "id": "1719",
@@ -57532,7 +57582,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: streaming (n: việc phát trực tuyến)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -59497,7 +59547,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: podcaster (n: người làm podcast)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -60191,7 +60241,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: characterise (v: mô tả đặc điểm)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -61172,7 +61222,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "Cùng gốc: revolutionise (v: cách mạng hóa)",
+    "wordFamily": "Cùng gốc: revolutionise (v: cách mạng hóa); revolutionary (adj: mang tính cách mạng)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -61726,7 +61776,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: retailer (n: nhà bán lẻ)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -61761,7 +61811,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: wholesaler (n: nhà bán buôn)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -62591,7 +62641,9 @@
       "topic:health",
       "type:topic",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:5180"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -62612,7 +62664,8 @@
         "supports": "form occurs in 6 transcribed exam(s)",
         "locator": "2023/da-nang/so.md:L277"
       }
-    ]
+    ],
+    "familyHead": "5180"
   },
   {
     "id": "1868",
@@ -64102,7 +64155,9 @@
       "topic:sport",
       "type:topic",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:5307"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -64123,7 +64178,8 @@
         "supports": "form occurs in 6 transcribed exam(s)",
         "locator": "2023/bac-ninh/so.md:L130"
       }
-    ]
+    ],
+    "familyHead": "5307"
   },
   {
     "id": "1911",
@@ -65164,7 +65220,9 @@
       "topic:psychology",
       "type:topic",
       "source:exam",
-      "skill:writing"
+      "skill:writing",
+      "family:merged",
+      "family-head:5209"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -65185,7 +65243,8 @@
         "supports": "form occurs in 3 transcribed exam(s)",
         "locator": "2023/tp-ho-chi-minh/ptnk.md:L265"
       }
-    ]
+    ],
+    "familyHead": "5209"
   },
   {
     "id": "1942",
@@ -67678,7 +67737,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: contractor (n: nhà thầu)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -70400,7 +70459,7 @@
       "source:dictionary",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: equitable (adj: công bằng)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -73224,7 +73283,9 @@
       "topic:education",
       "type:academic",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:4643"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -73245,7 +73306,8 @@
         "supports": "form occurs in 6 transcribed exam(s)",
         "locator": "2022/binh-thuan/so.md:L649"
       }
-    ]
+    ],
+    "familyHead": "4643"
   },
   {
     "id": "2176",
@@ -73970,7 +74032,9 @@
       "topic:law",
       "type:topic",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:4689"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -73991,7 +74055,8 @@
         "supports": "form occurs in 5 transcribed exam(s)",
         "locator": "2022/ha-nam/so.md:L206"
       }
-    ]
+    ],
+    "familyHead": "4689"
   },
   {
     "id": "2197",
@@ -76944,7 +77009,9 @@
       "topic:travel",
       "type:topic",
       "source:dictionary",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:3842"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -76960,7 +77027,8 @@
         "locator": "entry:backpacker",
         "url": "https://dictionary.cambridge.org/dictionary/english/backpacker"
       }
-    ]
+    ],
+    "familyHead": "3842"
   },
   {
     "id": "2283",
@@ -77920,7 +77988,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: router (n: bộ định tuyến)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -78473,7 +78541,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: boiler (n: nồi hơi, bình nóng lạnh)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -78703,7 +78771,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: peeler (n: đồ bóc vỏ)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -78738,7 +78806,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: blender (n: máy xay sinh tố)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -81032,7 +81100,9 @@
       "topic:psychology",
       "type:topic",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:4735"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -81053,7 +81123,8 @@
         "supports": "form occurs in 18 transcribed exam(s)",
         "locator": "2022/bac-giang/so.md:L292"
       }
-    ]
+    ],
+    "familyHead": "4735"
   },
   {
     "id": "2401",
@@ -81140,7 +81211,9 @@
       "topic:work",
       "type:topic",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:5245"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -81161,7 +81234,8 @@
         "supports": "form occurs in 11 transcribed exam(s)",
         "locator": "2022/quang-ninh/so.md:L116"
       }
-    ]
+    ],
+    "familyHead": "5245"
   },
   {
     "id": "2404",
@@ -81976,7 +82050,9 @@
       "topic:academic",
       "type:word-formation",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:1363"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -81997,7 +82073,8 @@
         "supports": "form occurs in 3 transcribed exam(s)",
         "locator": "2025/nghe-an/so.md:L1017"
       }
-    ]
+    ],
+    "familyHead": "1363"
   },
   {
     "id": "2427",
@@ -82677,7 +82754,9 @@
       "topic:daily-life",
       "type:word-formation",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:4914"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -82698,7 +82777,8 @@
         "supports": "form occurs in 5 transcribed exam(s)",
         "locator": "2022/vinh-phuc/so.md:L350"
       }
-    ]
+    ],
+    "familyHead": "4914"
   },
   {
     "id": "2446",
@@ -83523,7 +83603,9 @@
       "topic:media",
       "type:word-formation",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:945"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -83544,7 +83626,8 @@
         "supports": "form occurs in 2 transcribed exam(s)",
         "locator": "2023/phu-yen/so.md:L81"
       }
-    ]
+    ],
+    "familyHead": "945"
   },
   {
     "id": "2469",
@@ -84440,7 +84523,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: meeting (n: cuộc họp)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -84545,7 +84628,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: roller (n: con lăn sơn)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -85990,7 +86073,9 @@
       "topic:academic",
       "type:word-formation",
       "source:dictionary",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:1796"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -86006,7 +86091,8 @@
         "locator": "entry:characterise",
         "url": "https://dictionary.cambridge.org/dictionary/english/characterise"
       }
-    ]
+    ],
+    "familyHead": "1796"
   },
   {
     "id": "2538",
@@ -87337,7 +87423,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: excitement (n: sự phấn khích)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -87370,7 +87456,9 @@
       "topic:psychology",
       "type:word-formation",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:2574"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -87391,7 +87479,8 @@
         "supports": "form occurs in 8 transcribed exam(s)",
         "locator": "2023/dak-lak/so.md:L839"
       }
-    ]
+    ],
+    "familyHead": "2574"
   },
   {
     "id": "2576",
@@ -87998,7 +88087,9 @@
       "topic:health",
       "type:word-formation",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:4705"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -88019,7 +88110,8 @@
         "supports": "form occurs in 40 transcribed exam(s)",
         "locator": "2022/binh-duong/so.md:L1255"
       }
-    ]
+    ],
+    "familyHead": "4705"
   },
   {
     "id": "2593",
@@ -88033,7 +88125,9 @@
       "topic:health",
       "type:word-formation",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:4705"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -88054,7 +88148,8 @@
         "supports": "form occurs in 5 transcribed exam(s)",
         "locator": "2022/an-giang/so.md:L259"
       }
-    ]
+    ],
+    "familyHead": "4705"
   },
   {
     "id": "2594",
@@ -89163,7 +89258,9 @@
       "topic:academic",
       "type:word-formation",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:1431"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -89184,7 +89281,8 @@
         "supports": "form occurs in 3 transcribed exam(s)",
         "locator": "2022/vinh-phuc/so.md:L578"
       }
-    ]
+    ],
+    "familyHead": "1431"
   },
   {
     "id": "2625",
@@ -91059,7 +91157,9 @@
       "topic:psychology",
       "type:word-formation",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:4730"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -91080,7 +91180,8 @@
         "supports": "form occurs in 6 transcribed exam(s)",
         "locator": "2022/ha-noi/chuyen-su-pham.md:L159"
       }
-    ]
+    ],
+    "familyHead": "4730"
   },
   {
     "id": "2677",
@@ -91094,7 +91195,9 @@
       "topic:health",
       "type:word-formation",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:4676"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -91115,7 +91218,8 @@
         "supports": "form occurs in 12 transcribed exam(s)",
         "locator": "2022/binh-thuan/so.md:L569"
       }
-    ]
+    ],
+    "familyHead": "4676"
   },
   {
     "id": "2678",
@@ -92524,7 +92628,9 @@
       "topic:academic",
       "type:linker",
       "source:exam",
-      "skill:writing"
+      "skill:writing",
+      "family:merged",
+      "family-head:4842"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -92545,7 +92651,8 @@
         "supports": "form occurs in 10 transcribed exam(s)",
         "locator": "2022/dong-thap/so.md:L335"
       }
-    ]
+    ],
+    "familyHead": "4842"
   },
   {
     "id": "2718",
@@ -92594,7 +92701,9 @@
       "topic:academic",
       "type:linker",
       "source:exam",
-      "skill:writing"
+      "skill:writing",
+      "family:merged",
+      "family-head:4790"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -92615,7 +92724,8 @@
         "supports": "form occurs in 47 transcribed exam(s)",
         "locator": "2022/bac-kan/so.md:L366"
       }
-    ]
+    ],
+    "familyHead": "4790"
   },
   {
     "id": "2720",
@@ -92743,7 +92853,9 @@
       "topic:academic",
       "type:linker",
       "source:exam",
-      "skill:writing"
+      "skill:writing",
+      "family:merged",
+      "family-head:4920"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -92764,7 +92876,8 @@
         "supports": "form occurs in 24 transcribed exam(s)",
         "locator": "2022/binh-thuan/so.md:L683"
       }
-    ]
+    ],
+    "familyHead": "4920"
   },
   {
     "id": "2724",
@@ -93032,7 +93145,9 @@
       "topic:academic",
       "type:linker",
       "source:exam",
-      "skill:writing"
+      "skill:writing",
+      "family:merged",
+      "family-head:5509"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -93053,7 +93168,8 @@
         "supports": "form occurs in 22 transcribed exam(s)",
         "locator": "2022/vinh-phuc/so.md:L1132"
       }
-    ]
+    ],
+    "familyHead": "5509"
   },
   {
     "id": "2732",
@@ -93322,7 +93438,9 @@
       "topic:academic",
       "type:linker",
       "source:exam",
-      "skill:writing"
+      "skill:writing",
+      "family:merged",
+      "family-head:4668"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -93343,7 +93461,8 @@
         "supports": "form occurs in 62 transcribed exam(s)",
         "locator": "2022/binh-thuan/so.md:L541"
       }
-    ]
+    ],
+    "familyHead": "4668"
   },
   {
     "id": "2740",
@@ -93495,7 +93614,9 @@
       "topic:academic",
       "type:linker",
       "source:exam",
-      "skill:writing"
+      "skill:writing",
+      "family:merged",
+      "family-head:4737"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -93516,7 +93637,8 @@
         "supports": "form occurs in 24 transcribed exam(s)",
         "locator": "2022/binh-duong/so.md:L727"
       }
-    ]
+    ],
+    "familyHead": "4737"
   },
   {
     "id": "2745",
@@ -93825,7 +93947,9 @@
       "topic:academic",
       "type:linker",
       "source:exam",
-      "skill:writing"
+      "skill:writing",
+      "family:merged",
+      "family-head:4714"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -93846,7 +93970,8 @@
         "supports": "form occurs in 4 transcribed exam(s)",
         "locator": "2022/dong-thap/so.md:L295"
       }
-    ]
+    ],
+    "familyHead": "4714"
   },
   {
     "id": "2754",
@@ -93936,7 +94061,9 @@
       "topic:academic",
       "type:linker",
       "source:exam",
-      "skill:writing"
+      "skill:writing",
+      "family:merged",
+      "family-head:4717"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -93957,7 +94084,8 @@
         "supports": "form occurs in 4 transcribed exam(s)",
         "locator": "2025/thai-binh/so.md:L181"
       }
-    ]
+    ],
+    "familyHead": "4717"
   },
   {
     "id": "2757",
@@ -95903,7 +96031,7 @@
       "source:exam",
       "skill:writing"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: Aspiration (n: khát vọng, hoài bão)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -103132,7 +103260,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: licence (n: giấy phép)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -105174,7 +105302,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: perilous (adj: hiểm nghèo)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -109293,7 +109421,7 @@
       "source:exam",
       "skill:writing"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: virtuous (adj: đức hạnh, trong sạch)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -110218,7 +110346,9 @@
       "type:academic",
       "source:exam",
       "skill:reading",
-      "skill:writing"
+      "skill:writing",
+      "family:merged",
+      "family-head:316"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -110239,7 +110369,8 @@
         "supports": "form occurs in 1 transcribed exam(s)",
         "locator": "2026/dien-bien/so.md:L181"
       }
-    ]
+    ],
+    "familyHead": "316"
   },
   {
     "id": "3236",
@@ -110253,7 +110384,9 @@
       "topic:academic",
       "type:academic",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:317"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -110274,7 +110407,8 @@
         "supports": "form occurs in 2 transcribed exam(s)",
         "locator": "2022/tien-giang/so.md:L731"
       }
-    ]
+    ],
+    "familyHead": "317"
   },
   {
     "id": "3237",
@@ -110291,7 +110425,7 @@
       "skill:reading",
       "skill:writing"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: Anomalous (adj: bất thường, khác với thông thường)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -111343,7 +111477,7 @@
       "skill:reading",
       "skill:writing"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: Contemplative (adj: trầm tư, suy ngẫm)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -111970,7 +112104,7 @@
       "skill:reading",
       "skill:writing"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: Discerning (adj: sáng suốt, tinh tế)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -113148,7 +113282,9 @@
       "topic:academic",
       "type:academic",
       "source:exam",
-      "skill:writing"
+      "skill:writing",
+      "family:merged",
+      "family-head:1632"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -113169,7 +113305,8 @@
         "supports": "form occurs in 4 transcribed exam(s)",
         "locator": "2022/tay-ninh/so.md:L304"
       }
-    ]
+    ],
+    "familyHead": "1632"
   },
   {
     "id": "3328",
@@ -115045,7 +115182,9 @@
       "topic:academic",
       "type:academic",
       "source:dictionary",
-      "skill:writing"
+      "skill:writing",
+      "family:merged",
+      "family-head:1406"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -115061,7 +115200,8 @@
         "locator": "entry:indicative",
         "url": "https://dictionary.cambridge.org/dictionary/english/indicative"
       }
-    ]
+    ],
+    "familyHead": "1406"
   },
   {
     "id": "3389",
@@ -115242,7 +115382,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: Inhibited (adj: e dè, mất tự nhiên)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -116223,7 +116363,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: Lethargic (adj: uể oải, lờ đờ)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -118042,7 +118182,9 @@
       "topic:academic",
       "type:academic",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:3086"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -118063,7 +118205,8 @@
         "supports": "form occurs in 1 transcribed exam(s)",
         "locator": "2024/tp-ho-chi-minh/so.md:L142"
       }
-    ]
+    ],
+    "familyHead": "3086"
   },
   {
     "id": "3483",
@@ -120418,7 +120561,9 @@
       "topic:academic",
       "type:academic",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:379"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -120439,7 +120584,8 @@
         "supports": "form occurs in 2 transcribed exam(s)",
         "locator": "2022/ha-noi/so.md:L303"
       }
-    ]
+    ],
+    "familyHead": "379"
   },
   {
     "id": "3559",
@@ -121631,7 +121777,7 @@
       "source:dictionary",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: Sycophantic (adj: nịnh bợ, xu nịnh)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -122684,7 +122830,9 @@
       "topic:academic",
       "type:academic",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:3207"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -122705,7 +122853,8 @@
         "supports": "form occurs in 3 transcribed exam(s)",
         "locator": "2022/tp-ho-chi-minh/ptnk.md:L287"
       }
-    ]
+    ],
+    "familyHead": "3207"
   },
   {
     "id": "3631",
@@ -123591,7 +123740,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: roofer (n: thợ lợp mái)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -123624,7 +123773,9 @@
       "topic:daily-life",
       "type:topic",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:3951"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -123645,7 +123796,8 @@
         "supports": "form occurs in 1 transcribed exam(s)",
         "locator": "2026/an-giang/so.md:L428"
       }
-    ]
+    ],
+    "familyHead": "3951"
   },
   {
     "id": "3659",
@@ -123754,7 +123906,9 @@
       "topic:travel",
       "type:topic",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:4731"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -123775,7 +123929,8 @@
         "supports": "form occurs in 1 transcribed exam(s)",
         "locator": "2024/ha-noi/so.md:L157"
       }
-    ]
+    ],
+    "familyHead": "4731"
   },
   {
     "id": "3663",
@@ -124471,7 +124626,7 @@
       "source:dictionary",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: grater (n: cái nạo)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -124536,7 +124691,7 @@
       "source:dictionary",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: sprinkler (n: vòi phun nước)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -126799,7 +126954,9 @@
       "topic:health",
       "type:topic",
       "source:dictionary",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:5116"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -126815,7 +126972,8 @@
         "locator": "entry:stretcher",
         "url": "https://dictionary.cambridge.org/dictionary/english/stretcher"
       }
-    ]
+    ],
+    "familyHead": "5116"
   },
   {
     "id": "3757",
@@ -127079,7 +127237,9 @@
       "topic:sport",
       "type:topic",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:5104"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -127100,7 +127260,8 @@
         "supports": "form occurs in 1 transcribed exam(s)",
         "locator": "2026/dien-bien/so.md:L119"
       }
-    ]
+    ],
+    "familyHead": "5104"
   },
   {
     "id": "3766",
@@ -127529,7 +127690,9 @@
       "topic:sport",
       "type:topic",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:5116"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -127550,7 +127713,8 @@
         "supports": "form occurs in 6 transcribed exam(s)",
         "locator": "2022/dak-lak/so.md:L181"
       }
-    ]
+    ],
+    "familyHead": "5116"
   },
   {
     "id": "3780",
@@ -127839,7 +128003,9 @@
       "topic:sport",
       "type:topic",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:5831"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -127860,7 +128026,8 @@
         "supports": "form occurs in 3 transcribed exam(s)",
         "locator": "2022/ha-noi/chuyen-su-pham.md:L198"
       }
-    ]
+    ],
+    "familyHead": "5831"
   },
   {
     "id": "3790",
@@ -127874,7 +128041,9 @@
       "topic:sport",
       "type:topic",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:5275"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -127895,7 +128064,8 @@
         "supports": "form occurs in 10 transcribed exam(s)",
         "locator": "2022/dong-nai/so.md:L391"
       }
-    ]
+    ],
+    "familyHead": "5275"
   },
   {
     "id": "3791",
@@ -127944,7 +128114,9 @@
       "topic:sport",
       "type:topic",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:4876"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -127965,7 +128137,8 @@
         "supports": "form occurs in 14 transcribed exam(s)",
         "locator": "2022/ca-mau/so.md:L181"
       }
-    ]
+    ],
+    "familyHead": "4876"
   },
   {
     "id": "3793",
@@ -128179,7 +128352,9 @@
       "topic:education",
       "type:topic",
       "source:dictionary",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:1403"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -128195,7 +128370,8 @@
         "locator": "entry:highlighter",
         "url": "https://dictionary.cambridge.org/dictionary/english/highlighter"
       }
-    ]
+    ],
+    "familyHead": "1403"
   },
   {
     "id": "3800",
@@ -128274,7 +128450,9 @@
       "topic:education",
       "type:topic",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:1605"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -128295,7 +128473,8 @@
         "supports": "form occurs in 4 transcribed exam(s)",
         "locator": "2022/dong-nai/so.md:L355"
       }
-    ]
+    ],
+    "familyHead": "1605"
   },
   {
     "id": "3803",
@@ -128344,7 +128523,9 @@
       "topic:education",
       "type:topic",
       "source:dictionary",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:1207"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -128360,7 +128541,8 @@
         "locator": "entry:projector",
         "url": "https://dictionary.cambridge.org/dictionary/english/projector"
       }
-    ]
+    ],
+    "familyHead": "1207"
   },
   {
     "id": "3805",
@@ -128439,7 +128621,9 @@
       "topic:education",
       "type:topic",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:1390"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -128460,7 +128644,8 @@
         "supports": "form occurs in 2 transcribed exam(s)",
         "locator": "2023/ha-noi/so.md:L261"
       }
-    ]
+    ],
+    "familyHead": "1390"
   },
   {
     "id": "3808",
@@ -129616,7 +129801,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: backpacker (n: người du lịch bụi)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -131054,7 +131239,9 @@
       "topic:daily-life",
       "type:topic",
       "source:dictionary",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:2326"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -131070,7 +131257,8 @@
         "locator": "entry:boiler",
         "url": "https://dictionary.cambridge.org/dictionary/english/boiler"
       }
-    ]
+    ],
+    "familyHead": "2326"
   },
   {
     "id": "3886",
@@ -131419,7 +131607,9 @@
       "topic:daily-life",
       "type:topic",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:3903"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -131440,7 +131630,8 @@
         "supports": "form occurs in 1 transcribed exam(s)",
         "locator": "2025/thai-nguyen/so.md:L241"
       }
-    ]
+    ],
+    "familyHead": "3903"
   },
   {
     "id": "3897",
@@ -131626,7 +131817,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: folder (n: kẹp tài liệu)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -131661,7 +131852,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: hanger (n: móc treo quần áo)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -133190,7 +133381,9 @@
       "topic:daily-life",
       "type:topic",
       "source:dictionary",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:3686"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -133206,7 +133399,8 @@
         "locator": "entry:sprinkler",
         "url": "https://dictionary.cambridge.org/dictionary/english/sprinkler"
       }
-    ]
+    ],
+    "familyHead": "3686"
   },
   {
     "id": "3951",
@@ -133222,7 +133416,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: pavement (n: vỉa hè)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -138790,7 +138984,9 @@
       "topic:environment",
       "type:topic",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:1186"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -138811,7 +139007,8 @@
         "supports": "form occurs in 1 transcribed exam(s)",
         "locator": "2026/tp-ho-chi-minh/ptnk.md:L440"
       }
-    ]
+    ],
+    "familyHead": "1186"
   },
   {
     "id": "4123",
@@ -140317,7 +140514,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: humidity (n: độ ẩm không khí)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -141215,7 +141412,9 @@
       "topic:environment",
       "type:topic",
       "source:dictionary",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:1656"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -141231,7 +141430,8 @@
         "locator": "entry:compostable",
         "url": "https://dictionary.cambridge.org/dictionary/english/compostable"
       }
-    ]
+    ],
+    "familyHead": "1656"
   },
   {
     "id": "4196",
@@ -141245,7 +141445,9 @@
       "topic:environment",
       "type:topic",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:1543"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -141266,7 +141468,8 @@
         "supports": "form occurs in 1 transcribed exam(s)",
         "locator": "2026/gia-lai/so.md:L72"
       }
-    ]
+    ],
+    "familyHead": "1543"
   },
   {
     "id": "4197",
@@ -141530,7 +141733,9 @@
       "topic:work",
       "type:topic",
       "source:dictionary",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:3657"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -141546,7 +141751,8 @@
         "locator": "entry:roofer",
         "url": "https://dictionary.cambridge.org/dictionary/english/roofer"
       }
-    ]
+    ],
+    "familyHead": "3657"
   },
   {
     "id": "4206",
@@ -141850,7 +142056,9 @@
       "topic:work",
       "type:topic",
       "source:dictionary",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:1842"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -141866,7 +142074,8 @@
         "locator": "entry:wholesaler",
         "url": "https://dictionary.cambridge.org/dictionary/english/wholesaler"
       }
-    ]
+    ],
+    "familyHead": "1842"
   },
   {
     "id": "4216",
@@ -141880,7 +142089,9 @@
       "topic:work",
       "type:topic",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:1841"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -141901,7 +142112,8 @@
         "supports": "form occurs in 2 transcribed exam(s)",
         "locator": "2024/ha-noi/so.md:L364"
       }
-    ]
+    ],
+    "familyHead": "1841"
   },
   {
     "id": "4217",
@@ -141950,7 +142162,9 @@
       "topic:work",
       "type:topic",
       "source:dictionary",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:2014"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -141966,7 +142180,8 @@
         "locator": "entry:contractor",
         "url": "https://dictionary.cambridge.org/dictionary/english/contractor"
       }
-    ]
+    ],
+    "familyHead": "2014"
   },
   {
     "id": "4219",
@@ -143148,7 +143363,9 @@
       "topic:work",
       "type:topic",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:3902"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -143169,7 +143386,8 @@
         "supports": "form occurs in 2 transcribed exam(s)",
         "locator": "2022/binh-duong/so.md:L307"
       }
-    ]
+    ],
+    "familyHead": "3902"
   },
   {
     "id": "4256",
@@ -143448,7 +143666,9 @@
       "topic:technology",
       "type:topic",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:1261"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -143469,7 +143689,8 @@
         "supports": "form occurs in 34 transcribed exam(s)",
         "locator": "2022/binh-duong/so.md:L131"
       }
-    ]
+    ],
+    "familyHead": "1261"
   },
   {
     "id": "4265",
@@ -143553,7 +143774,9 @@
       "topic:technology",
       "type:topic",
       "source:dictionary",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:2310"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -143569,7 +143792,8 @@
         "locator": "entry:router",
         "url": "https://dictionary.cambridge.org/dictionary/english/router"
       }
-    ]
+    ],
+    "familyHead": "2310"
   },
   {
     "id": "4268",
@@ -143618,7 +143842,9 @@
       "topic:technology",
       "type:topic",
       "source:dictionary",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:1712"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -143634,7 +143860,8 @@
         "locator": "entry:installer",
         "url": "https://dictionary.cambridge.org/dictionary/english/installer"
       }
-    ]
+    ],
+    "familyHead": "1712"
   },
   {
     "id": "4270",
@@ -144193,7 +144420,9 @@
       "topic:media",
       "type:topic",
       "source:dictionary",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:1776"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -144209,7 +144438,8 @@
         "locator": "entry:podcaster",
         "url": "https://dictionary.cambridge.org/dictionary/english/podcaster"
       }
-    ]
+    ],
+    "familyHead": "1776"
   },
   {
     "id": "4288",
@@ -146755,7 +146985,7 @@
       "source:dictionary",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: toaster (n: máy nướng bánh mì)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -146883,7 +147113,9 @@
       "topic:food",
       "type:topic",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:4628"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -146904,7 +147136,8 @@
         "supports": "form occurs in 12 transcribed exam(s)",
         "locator": "2022/bac-kan/so.md:L141"
       }
-    ]
+    ],
+    "familyHead": "4628"
   },
   {
     "id": "4374",
@@ -147778,7 +148011,9 @@
       "topic:food",
       "type:topic",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:4600"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -147799,7 +148034,8 @@
         "supports": "form occurs in 4 transcribed exam(s)",
         "locator": "2022/ha-nam/so.md:L288"
       }
-    ]
+    ],
+    "familyHead": "4600"
   },
   {
     "id": "4402",
@@ -150023,7 +150259,9 @@
       "topic:food",
       "type:topic",
       "source:dictionary",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:2334"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -150039,7 +150277,8 @@
         "locator": "entry:blender",
         "url": "https://dictionary.cambridge.org/dictionary/english/blender"
       }
-    ]
+    ],
+    "familyHead": "2334"
   },
   {
     "id": "4472",
@@ -150053,7 +150292,9 @@
       "topic:food",
       "type:topic",
       "source:dictionary",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:3684"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -150069,7 +150310,8 @@
         "locator": "entry:grater",
         "url": "https://dictionary.cambridge.org/dictionary/english/grater"
       }
-    ]
+    ],
+    "familyHead": "3684"
   },
   {
     "id": "4473",
@@ -150083,7 +150325,9 @@
       "topic:food",
       "type:topic",
       "source:dictionary",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:2333"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -150099,7 +150343,8 @@
         "locator": "entry:peeler",
         "url": "https://dictionary.cambridge.org/dictionary/english/peeler"
       }
-    ]
+    ],
+    "familyHead": "2333"
   },
   {
     "id": "4474",
@@ -150928,7 +151173,9 @@
       "topic:food",
       "type:topic",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:1267"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -150949,7 +151196,8 @@
         "supports": "form occurs in 1 transcribed exam(s)",
         "locator": "2022/an-giang/so.md:L157"
       }
-    ]
+    ],
+    "familyHead": "1267"
   },
   {
     "id": "4500",
@@ -151273,7 +151521,9 @@
       "topic:daily-life",
       "type:topic",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:970"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -151294,7 +151544,8 @@
         "supports": "form occurs in 1 transcribed exam(s)",
         "locator": "2025/thai-binh/so.md:L308"
       }
-    ]
+    ],
+    "familyHead": "970"
   },
   {
     "id": "4511",
@@ -152148,7 +152399,9 @@
       "topic:daily-life",
       "type:topic",
       "source:dictionary",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:4369"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -152164,7 +152417,8 @@
         "locator": "entry:toaster",
         "url": "https://dictionary.cambridge.org/dictionary/english/toaster"
       }
-    ]
+    ],
+    "familyHead": "4369"
   },
   {
     "id": "4538",
@@ -152248,7 +152502,9 @@
       "topic:daily-life",
       "type:topic",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:5265"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -152269,7 +152525,8 @@
         "supports": "form occurs in 1 transcribed exam(s)",
         "locator": "2026/vinh-long/so.md:L150"
       }
-    ]
+    ],
+    "familyHead": "5265"
   },
   {
     "id": "4541",
@@ -152548,7 +152805,9 @@
       "topic:daily-life",
       "type:topic",
       "source:dictionary",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:4867"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -152564,7 +152823,8 @@
         "locator": "entry:duster",
         "url": "https://dictionary.cambridge.org/dictionary/english/duster"
       }
-    ]
+    ],
+    "familyHead": "4867"
   },
   {
     "id": "4550",
@@ -154135,7 +154395,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: dressing (n: nước sốt trộn salad)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -154673,7 +154933,9 @@
       "topic:daily-life",
       "type:topic",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:2497"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -154694,7 +154956,8 @@
         "supports": "form occurs in 1 transcribed exam(s)",
         "locator": "2022/quang-ninh/so.md:L391"
       }
-    ]
+    ],
+    "familyHead": "2497"
   },
   {
     "id": "4618",
@@ -154948,7 +155211,9 @@
       "topic:daily-life",
       "type:topic",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:4813"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -154969,7 +155234,8 @@
         "supports": "form occurs in 2 transcribed exam(s)",
         "locator": "2025/ha-nam/so.md:L871"
       }
-    ]
+    ],
+    "familyHead": "4813"
   },
   {
     "id": "4627",
@@ -155023,7 +155289,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: filling (n: nhân bánh)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -155551,7 +155817,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: attendance (n: sự tham dự, điểm danh)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -156435,7 +156701,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: actually (adv: thực ra)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -156680,7 +156946,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: server (n: máy chủ)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -156715,7 +156981,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: strengthen (v: làm mạnh thêm)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -156963,7 +157229,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: formally (adv: một cách chính thức)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -156996,7 +157262,9 @@
       "topic:psychology",
       "type:topic",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:1069"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -157017,7 +157285,8 @@
         "supports": "form occurs in 20 transcribed exam(s)",
         "locator": "2022/bac-giang/so.md:L434"
       }
-    ]
+    ],
+    "familyHead": "1069"
   },
   {
     "id": "4685",
@@ -157176,7 +157445,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: crimes (n: tội phạm (số nhiều))",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -157736,7 +158005,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: harmful (adj: có hại); harmless (adj: vô hại)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -158051,7 +158320,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: ideally (adv: lý tưởng nhất là)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -158156,7 +158425,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: technically (adv: về mặt kỹ thuật)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -158614,7 +158883,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "Cùng gốc: weaken (v: làm yếu đi)",
+    "wordFamily": "Cùng gốc: weaken (v: làm yếu đi); weakness (n: điểm yếu)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -158649,7 +158918,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: cyclist (n: người đi xe đạp)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -158789,7 +159058,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: psychologist (n: nhà tâm lý học)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -158859,7 +159128,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: rarely (adv: hiếm khi)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -160618,7 +160887,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: usually (adv: thường)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -160723,7 +160992,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: exactly (adv: đúng là)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -161531,7 +161800,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: washer (n: vòng đệm)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -162555,7 +162824,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: roughly (adv: chừng, khoảng)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -163439,7 +163708,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: duster (n: khăn lau bụi)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -163754,7 +164023,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: climbing (n: môn leo núi)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -163929,7 +164198,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: emotional (adj: thuộc cảm xúc)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -165093,7 +165362,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: invitation (n: lời mời)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -165309,7 +165578,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: slightly (adv: hơi, một chút)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -167425,7 +167694,9 @@
       "topic:academic",
       "type:topic",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:5139"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -167446,7 +167717,8 @@
         "supports": "form occurs in 7 transcribed exam(s)",
         "locator": "2025/da-nang/so.md:L406"
       }
-    ]
+    ],
+    "familyHead": "5139"
   },
   {
     "id": "4981",
@@ -171821,7 +172093,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: defender (n: hậu vệ)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -172241,7 +172513,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: stretcher (n: cáng); stretching (n: sự giãn cơ)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -172837,7 +173109,9 @@
       "topic:politics",
       "type:topic",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:4683"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -172858,7 +173132,8 @@
         "supports": "form occurs in 5 transcribed exam(s)",
         "locator": "2022/tien-giang/so.md:L763"
       }
-    ]
+    ],
+    "familyHead": "4683"
   },
   {
     "id": "5134",
@@ -173055,7 +173330,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: uncertainty (n: sự không chắc chắn)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -173231,7 +173506,9 @@
       "topic:law",
       "type:topic",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:3026"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -173252,7 +173529,8 @@
         "supports": "form occurs in 5 transcribed exam(s)",
         "locator": "2023/binh-duong/so.md:L47"
       }
-    ]
+    ],
+    "familyHead": "3026"
   },
   {
     "id": "5145",
@@ -174514,7 +174792,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: obesity (n: sự béo phì)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -175538,7 +175816,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: perseverance (n: sự kiên trì)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -176804,7 +177082,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: receptionist (n: lễ tân)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -177504,7 +177782,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: freezer (n: ngăn đá, tủ đông)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -177863,7 +178141,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: sailing (n: môn chèo thuyền)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -178998,7 +179276,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: endurance (n: sức bền)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -179602,7 +179880,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: Scrutinize (v: xem xét kỹ lưỡng)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -180338,7 +180616,9 @@
       "topic:science",
       "type:topic",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:1185"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -180359,7 +180639,8 @@
         "supports": "form occurs in 4 transcribed exam(s)",
         "locator": "2022/vinh-phuc/so.md:L679"
       }
-    ]
+    ],
+    "familyHead": "1185"
   },
   {
     "id": "5346",
@@ -183422,7 +183703,9 @@
       "topic:politics",
       "type:topic",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:1825"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -183443,7 +183726,8 @@
         "supports": "form occurs in 3 transcribed exam(s)",
         "locator": "2025/ba-ria-vung-tau/so.md:L165"
       }
-    ]
+    ],
+    "familyHead": "1825"
   },
   {
     "id": "5433",
@@ -186125,7 +186409,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: definitely (adv: chắc chắn là)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
@@ -189884,7 +190168,9 @@
       "topic:society",
       "type:topic",
       "source:exam",
-      "skill:reading"
+      "skill:reading",
+      "family:merged",
+      "family-head:2093"
     ],
     "wordFamily": "",
     "synonyms": [],
@@ -189905,7 +190191,8 @@
         "supports": "form occurs in 3 transcribed exam(s)",
         "locator": "2023/dong-nai/so.md:L308"
       }
-    ]
+    ],
+    "familyHead": "2093"
   },
   {
     "id": "5616",
@@ -197521,7 +197808,7 @@
       "source:exam",
       "skill:reading"
     ],
-    "wordFamily": "",
+    "wordFamily": "Cùng gốc: surfing (n: môn lướt sóng)",
     "synonyms": [],
     "antonyms": [],
     "collocations": [],
