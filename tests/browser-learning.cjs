@@ -470,7 +470,7 @@ async function main() {
 
     // The shipped build identifies itself.
     await sprint.locator('[data-view="settings"]').click();
-    assert.equal(await sprint.locator('#app-version').innerText(), 'v1.0.0-beta6');
+    assert.equal(await sprint.locator('#app-version').innerText(), 'v1.0.0-beta7');
     assert.deepEqual(sprintErrors, []);
 
     // Error -> intervening word -> typed corrective retrieval -> truthful summary.

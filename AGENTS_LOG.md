@@ -476,3 +476,60 @@ Startup (local, uncommitted probe: navigation start → `[data-session="new"]` v
 **Beta4 restoration (the one permitted exception).** The annotated tag `v1.0.0-beta4` and its prerelease were recreated at `9b9de43e4ee0f035e4a8360352057f06b277d918`, a commit whose `index.html` carries `APP_VERSION = 'v1.0.0-beta4'` (verified with `git show <sha>:index.html`). The restore was performed only after the beta7 merge, so `DEPLOY_HOLD` named an unpublished `v1.0.0-beta7` and the `release: published` dispatcher could not produce a Pages deployment of `main`/beta7: `deploy_gate.py` re-reads the hold on every run and reported `deploy=false`.
 
 **Not claimed.** No learner study; the 30 %/50 % and ≤5 pp retention targets remain unverified. No screen-reader session or full WCAG audit. Verification is Chromium 133 only. The vocabulary additions carry exam-corpus or dictionary-locator evidence; they were **not** individually dictionary-verified, and the dev5 audit's 768 pending headwords still stand for the legacy block.
+
+## 2026-10-24 — post-merge: beta7 version pin fixed and verified in the tree, beta4 restoration ledger
+
+**Branch and base (checked before editing).** Session branch `arena/f9565e00-chuyen-anh`, created from `a5ea9fcf6c9096698a7c2aa411edcf9a50292afb` = `main` on GitHub at the time of the work (`gh api repos/coderunknow/Chuyen-Anh/git/ref/heads/main`). `git status --porcelain` empty; no upstream configured. PR #52 (`arena/9a4e5ab8-chuyen-anh` → `main`) is `MERGED`, `mergedAt 2026-10-24T05:42:22Z`, merge commit `a5ea9fc`. `APP_VERSION` and `DEPLOY_HOLD` both `v1.0.0-beta7`.
+
+**The one defect and the one-line fix.** `tests/browser-learning.cjs:473` asserted `#app-version` = `'v1.0.0-beta6'`; the shipped module declares `export const APP_VERSION = 'v1.0.0-beta7';`, so the optional browser suite failed on the merged tree. Changed only that expected string to `'v1.0.0-beta7'`. `grep -rn "beta[0-9]" tests/` afterwards shows the remaining `beta6` occurrences are comments describing which release introduced a behaviour (`// ---- beta6: ...` at `browser-learning.cjs:1682`, `static-app.test.js:2109`), not version assertions; the other version assertions already expect beta7 (`static-app.test.js:1135`, `test_sprint_exam_features.py:25`, `test_deploy_gate.py:110`). No application file, algorithm, scheduler or unrelated test was touched.
+
+**Commands run in the repository tree (not a copy), with exit codes.**
+
+| command | result | exit |
+|---|---|---|
+| `node --test tests/static-app.test.js` | **88 pass / 0 fail** (119,033 ms) | `0` |
+| `python3 -m unittest discover -s tests -p 'test_*.py'` | **83 tests OK** (3.8 s) | `0` |
+| `node tests/browser-learning.cjs` | **PASS**, Chromium `133.0.6943.0`, ~231 s, "no page errors" | `0` |
+| `node tests/browser-exams.cjs` | **PASS**, 106-record catalogue, 320/375/768/1440 px, "no page errors" | `0` |
+| `scripts/expand_vocabulary.py --check` | matches 3,215 rows (913 legacy + 2,302 seed) | `0` |
+| `scripts/build_vocabulary.py --check` | JSON matches 3,215 Markdown records | `0` |
+| `scripts/generate_vocab_audit_dev5.py --check` | dev5 report current, no files written | `0` |
+| `scripts/validate_vocab.py` | duplicate words 0, validation passed | `0` |
+| `scripts/embed_vocabulary.py --check` | HTML embeds 3,215 records | `0` |
+| `scripts/build_phrases.py --check` | 780 phrases | `0` |
+| `scripts/validate_phrases.py` | duplicate phrases 0, validation passed | `0` |
+| `scripts/embed_phrases.py --check` | HTML embeds 780 phrase records | `0` |
+| `scripts/exams/embed_archive.py --check` | 106 transcriptions (4,169,772 text bytes) | `0` |
+
+The browser-learning run exercised the scenarios that were already in the suite: first-look introduction, distractor and cloze rules, corrective retrieval, R/skips, persistence, import/export, keyboard focus, light/dark, 320/375/768 px layouts, reduced motion, search state across a favourite toggle, reset/import clearing, the ID 448 historical label, the beta5 priority stack and seven exercise types with a matching board and a timed session, the beta6 regressions, and the beta7 phrase bank (780 phrases browsed, searched, filtered by type, filtered by level, ten practice turns with typed and multiple-choice retrieval in `chuyen-anh.phrases.v1` while `chuyen-anh.progress.v1` stayed byte-identical, English rendering of the phrase screens, and reset clearing phrase progress). `playwright-core` and `@sparticuz/chromium@133.0.0` were reinstalled for the run with `npm install --no-save --package-lock=false ...`; `node_modules/` is git-ignored, so the tree stayed clean apart from the intended edit.
+
+**Beta4 restoration — verified from GitHub, not restated.**
+
+| item | verified value |
+|---|---|
+| tag | annotated, tag object `bdb4421443b22bb88d58171328279d8d3033d4f4`, tagger timestamp `1792820972` = `2026-10-24T05:49:32Z`, message `Chuyên Anh v1.0.0-beta4 (restored)` |
+| tag target | commit `9b9de43e4ee0f035e4a8360352057f06b277d918` |
+| source at that commit | `export const APP_VERSION = 'v1.0.0-beta4';`, `index.html` = `5,194,482 B`, `sha256 249b5c357797dcbe5d4b1140b7ac3d148d090bc6aad009460ccbe0888c7e2df8` |
+| release | `Chuyên Anh v1.0.0-beta4`, `draft=false`, `prerelease=true`, `target_commitish 9b9de43e…`, `created_at 2026-10-24T05:49:32Z`, `published_at 2026-10-24T05:50:20Z` |
+| assets (uploaded `2026-10-24T05:45:27Z`, `created_at` = `updated_at` for all three) | html `5,194,482 B` `sha256:249b5c35…e2df8`; zip `1,540,812 B` `sha256:acf74671…61c8ba`; checksums `189 B` `sha256:859adc16…4633f0` |
+
+The published HTML asset's digest equals the digest of `git show v1.0.0-beta4:index.html`, so the asset is byte-identical to the tagged source without downloading it — `gh release download` still fails here because `release-assets.githubusercontent.com` returns `EOF` (the same egress limitation recorded for beta6).
+
+**Workflow runs produced by the restoration (all `completed/success`).**
+
+| run | workflow | event | head | window | URL |
+|---|---|---|---|---|---|
+| `40067467969` | Release artifacts | push | `9b9de43` | 05:45:02 → 05:45:32 | `https://github.com/coderunknow/Chuyen-Anh/actions/runs/40067467969` |
+| `40067468407` | Dispatch main deploy after prerelease publication | release | `9b9de43` | 05:45:02 → 05:45:10 | `…/runs/40067468407` |
+| `40067474280` | Deploy Flashcard | workflow_dispatch | `a5ea9fc` | 05:45:07 → 05:47:07 | `…/runs/40067474280` |
+| `40067769608` | Release artifacts | push | `9b9de43` | 05:49:34 → 05:50:06 | `…/runs/40067769608` |
+| `40067822517` | Dispatch main deploy after prerelease publication | release | `9b9de43` | 05:50:22 → 05:50:29 | `…/runs/40067822517` |
+| `40067828017` | Deploy Flashcard | workflow_dispatch | `a5ea9fc` | 05:50:26 → 05:52:28 | `…/runs/40067828017` |
+
+In both `Deploy Flashcard` runs the steps `Evaluate deploy hold`, `Check vocabulary sources and embedded HTML`, `Run Python unit tests` and `Run static app logic and single-file tests` were `success`, while `Stage standalone HTML`, `Configure Pages`, `Upload Pages artifact` and `Deploy` were **`skipped`** — the gate held and nothing was published. Two artifact runs exist because the tag was pushed twice: the first push came from `gh release create --target 9b9de43…` (a lightweight tag), which was then deleted locally and on the remote, replaced by the annotated tag above, and pushed again. No other tag was touched: `v1.0.0-beta1/2/3/5/6` and the `dev1…dev5` tags still dereference to their original commits.
+
+**Deployment records.** `7294668626` (push-triggered, 05:42:25Z), `7294692298` (05:45:08Z) and `7294741161` (05:50:27Z) are all `github-pages`/`main`/`a5ea9fc` with an empty `environment_url`; `7294668626` is now `inactive`. The newest record carrying the site URL is `7280552441` (`success`, `https://coderunknow.github.io/Chuyen-Anh/`, sha `6dcfd41`, `2026-10-23T14:19:50Z`, i.e. the beta6 release). GitHub's Pages builds API reports no builds, and `gh api repos/.../releases` lists no `v1.0.0-beta7`; `git ls-remote --tags origin` has no `v1.0.0-beta7` either. So: beta4 was published, beta7 was not, and Pages still serves the beta6 build.
+
+**Gate after the restoration.** `python3 scripts/deploy_gate.py --repo coderunknow/Chuyen-Anh` on the merged `main` (`.git/HEAD` = `a5ea9fc`, clean tree) prints `deploy-hold gate: deploy=false (release v1.0.0-beta7 is missing; deployment held)`, exit `0` — the same decision the deploy runs acted on.
+
+**Limits of this record.** Job logs of runs `40067474280`/`40067828017` could not be read: `gh run view --job … --log` requests `results-receiver.actions.githubusercontent.com`, which answers `EOF` from this sandbox, so the literal `deploy=false` line printed by those runs is not quoted — the decision is evidenced by the skipped steps, the URL-less deployment records and the gate run above. The release object's `created_at` (`05:49:32Z`) is later than its assets' upload time (`05:45:27Z`); the exact sequence by which the second `Release artifacts` run handled the already-existing draft release cannot be reconstructed without those logs, so only the final state (published, three assets, digests above) is asserted. The served Pages bytes were not fetched (`coderunknow.github.io` is outside the egress allowlist); "Pages still serves beta6" rests on the deployment records. No learner study, screen-reader session or full WCAG audit was performed; the browser suites ran in Chromium 133 only.
