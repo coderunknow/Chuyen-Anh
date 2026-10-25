@@ -1183,3 +1183,23 @@ Report the optional Chromium suite honestly as part of the RC1 evidence, which m
 - **A test that is not run is not a test.** These suites are optional (no Playwright in CI), so a fixture could rot across three releases while the changelog kept promising browser coverage. The honest record is the run, its failure and its repair — not the claim that the suite exists.
 - **Assert properties, not sequences.** Card order, queue rotation and match counts are data and policy; a fixture that hard-codes them re-breaks whenever the data or the policy improves. Deriving the card from its prompt and the count from the payload keeps the same behavioural guarantees without pinning a build.
 - **Attribute before fixing.** Both fixes were justified by reproducing the failure on the base commit, and by a diff showing the relevant app code was untouched — the test was wrong, the application was not, and the report says exactly that.
+
+## 2026-10-25 — review round on PR #61: what a review is worth when it is checked
+
+### User Intent
+
+Take the CodeRabbit review of the RC1 candidate seriously without treating it as ground truth: assess every finding against the code, keep auditing independently while the review was still running, fix only what reproduces, add regression tests, and re-verify the whole matrix on the new head — while the PR stays a draft and nothing is released.
+
+### Implementation History
+
+1. **Waited for the review to finish rather than editing under it.** The review arrived on `edd2ede` (run `720376d2-2fb7-49d6-aed8-281d489176c1`, review `5641478931`), so the audit continued read-only — data recounts, XSS and storage probes in Chromium — until it had a final result.
+2. **Six of CodeRabbit's seven findings were real; one was corrected on its own terms.** The `Shift` gap (D-13), the stale `beta7` gate paragraph, the broken table row, the `CHANGELOG` count and the "unit test only calls the helper" nitpick were all reproduced as described. The tier finding was right that §C.2 was wrong, but its suggested "82 → 84" would have left the tiers summing to 108; the tiers stay 61/21/24 = 106 and technical integrity is described as a cross-cutting check over all 106 (D-15). The docstring-coverage check was declined with a reason: this codebase has no docstring convention.
+3. **The most valuable finding came from testing our own claim.** D-4's "one helper backs every counted pattern" was an assertion about a set that had never been enumerated. Writing the enumeration (a sweep that builds a count-of-one sample from every pattern) found ten plural-only strings, five reachable, including the note a learner sees on their *first* wrong answer. Fixed, and the sweep is now a test.
+4. **Verification.** Every new test was shown to fail on `edd2ede` before passing on the fixed tree; the full matrix was re-run on the fixed tree (`103` Python tests, `97` Node tests, both Chromium suites, ten validators, `git diff --check`, the deploy gate).
+
+### Decisions & Lessons
+
+- **A review is a source of hypotheses, not of facts.** Every finding was checked against the code and the data; the one whose suggested fix was wrong shows why that matters. A bot can find a real defect and still propose a patch that makes the document less true.
+- **Enumerate before you say "every".** The defect behind D-14 was not the ten strings; it was the sentence claiming there were none left. The fix that lasts is the test that walks the set.
+- **A browser test is not a unit test wearing a hat.** The nitpick about calling `acceptsShortcutKey` directly is exactly right: the guard can be correct while the handler stops using it. The new scenario presses real chords and asserts that storage, the card and the answer are untouched.
+- **Keeping the review session intact is part of the job.** Editing the branch under an in-flight review would have reviewed a tree nobody could reproduce; the audit waited, and the review result is attached to the commit it actually examined.

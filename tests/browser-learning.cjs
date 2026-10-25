@@ -963,6 +963,44 @@ async function main() {
     assert.equal(await page.locator('#next-card').count(), 0);
     assert.deepEqual(await page.evaluate(() => ({ ...localStorage })), storageBeforeShortcuts, 'the hidden card was not graded or rescheduled');
 
+    // ---- A chord belongs to the browser, never to the card (review round 2).
+    // This drives the *registered* document keydown handler with real key presses,
+    // so a regression that stops calling acceptsShortcutKey() fails here even if the
+    // helper itself still returns the right answer. Ctrl+F used to add the current
+    // word to the hard-word list, Ctrl+R queued a retry, and Shift+F / Shift+Space
+    // did the same through a capital letter and a scroll-up chord.
+    await seed(['298']);
+    await startQuizFromIntroduction();
+    const chordPrompt = (await page.locator('.prompt').innerText()).trim();
+    const beforeChords = await page.evaluate(() => ({ ...localStorage }));
+    const chords = [
+      ['Control+F', 'find in page'], ['Control+R', 'reload'], ['Control+1', 'switch tab'],
+      ['Control+Space', 'input method'], ['Alt+1', 'menu accelerator'],
+      ['Shift+F', 'capital F'], ['Shift+R', 'capital R'], ['Shift+Space', 'scroll up'],
+      ['Shift+Enter', 'modified submit'], ['Control+Shift+F', 'combined chord']
+    ];
+    for (const [chord, reason] of chords) {
+      await page.evaluate(() => document.activeElement && document.activeElement.blur());
+      await page.keyboard.press(chord);
+      await page.waitForTimeout(60);
+      assert.equal(await page.locator('.reveal').count(), 0, `${chord} (${reason}) must not reveal the answer`);
+      assert.equal(await page.locator('#next-card').count(), 0, `${chord} (${reason}) must not grade the card`);
+      assert.equal(await page.locator('#feedback-area').innerText(), '', `${chord} (${reason}) must not answer the card`);
+      assert.deepEqual(await page.evaluate(() => ({ ...localStorage })), beforeChords,
+        `${chord} (${reason}) must leave learner storage untouched`);
+    }
+    assert.equal((await page.locator('.prompt').innerText()).trim(), chordPrompt, 'the card was neither answered nor skipped');
+    // The plain keys the app documents still work on the same card.
+    await page.keyboard.press('f');
+    assert.deepEqual(await read('flagged'), ['298'], 'the unmodified f shortcut still flags the word');
+    await page.keyboard.press('f');
+    assert.deepEqual(await read('flagged'), []);
+    await page.evaluate(() => document.activeElement && document.activeElement.blur());
+    await page.keyboard.press(' ');
+    assert.equal(await page.locator('.reveal').count(), 1, 'the unmodified Space shortcut still reveals');
+    await page.locator('#reveal-correct').click();
+    await next();
+
     // ---- A backup file round-trips: export → wipe → import → export preserves data.
     await page.evaluate(() => localStorage.clear());
     await page.reload();

@@ -27,7 +27,7 @@
 
 ### Result in one paragraph
 
-Five product defects were confirmed by reproduction and fixed (one behavioural security/UX defect in keyboard handling, one self-contradicting audit document, one stale README count, and two classes of English-language defects). Two further findings are defects in the optional browser suite's own fixtures rather than in the application — a stale favourites-ordering assumption (**D-11**) and three stale queue/data expectations (**D-12**) — and had been failing, unnoticed because those suites are not part of CI, since before the base commit; both were corrected without changing application behaviour. Every claimed number in the documentation was recomputed from the data before it was repeated. The data itself — 5,852 rows, 5,112 headwords, 740 same-root forms, 581 hand-reviewed families, 780 phrases, 106 exam transcriptions, 3,472 parsed questions — was found **consistent**; no vocabulary meaning, exam sentence or answer key was rewritten, and no row was added to make a number match a document. Nothing was published, tagged or deployed.
+Five product defects were confirmed by reproduction and fixed in the first pass; a review round (CodeRabbit plus an independent sweep) then found **two more product defects** — a `Shift` chord still reaching the shortcut handler (**D-13**) and ten plural-only English counted labels behind an overstated "every counted pattern" claim (**D-14**) — both reproduced and fixed with new regression tests. Counted by kind, ten findings were fixed: **five in the application** (two keyboard-handling: D-1 and its `Shift` gap D-13; two English-presentation: D-4 with D-14, and D-5), **three in the documents that describe it** (D-2 the exam ledger, D-3 the README counts, and D-15 — four further inconsistencies this round found while checking the review's claims: a broken Markdown table row, a stale byte count, an evidence-tier definition that double-counted two papers, and a listening tally that disagreed with the ledger by one), and **two in the optional browser suite's fixtures** (D-11, D-12). The D-11/D-12 fixtures had been failing unnoticed since before the base commit because those suites are not part of CI, and were corrected without changing application behaviour. Every claimed number in the documentation was recomputed from the data before it was repeated. The data itself — 5,852 rows, 5,112 headwords, 740 same-root forms, 581 hand-reviewed families, 780 phrases, 106 exam transcriptions, 3,472 parsed questions — was found **consistent**; no vocabulary meaning, exam sentence or answer key was rewritten, and no row was added to make a number match a document. Nothing was published, tagged or deployed.
 
 ### Verification limits stated up front
 
@@ -63,7 +63,7 @@ Before the fix, `README.md`'s opening paragraph said **5,205 headwords / 647 for
 | Duplicate headword strings | 0 (`validate_vocab.py`), plus manual confirmation that spellings differing only by `-ise/-ize` are merged, not duplicated |
 | Missing `meaning` | 0 |
 | Missing `pos` | 0 (20 distinct values, all sensible: `n`, `adj`, `v`, `adv`, `v/n`, `idiom`, `phrasal v`, `collocation`, `prep`, `conj`, `pron`, `grammar`, `phrase`, `prep phrase`) |
-| JSON/CSV hostility (`|`, quotes, newlines) in cells | escaped in Markdown; `splitExamTableRow`-style parsing is not used for vocabulary; the embedded JSON parses cleanly (4,836,432 bytes) |
+| JSON/CSV hostility (pipe characters, quotes, newlines) in cells | escaped in Markdown; `splitExamTableRow`-style parsing is not used for vocabulary; the embedded JSON parses cleanly (**4,890,492 bytes**, 4,836,432 characters — §E.1) |
 | `familyHead` points at a non-merged row | 740/740 correct; 0 dangling, 0 self-references, 0 merged heads |
 | Family coverage | the 740 merged IDs and the family members are the **same set** (no uncovered merged row, no orphan family entry) |
 | Head note mentions each member | every family head's `WORD_FAMILY` note names every member; checked for all 740 |
@@ -101,15 +101,15 @@ The four-tier distinction the mission asks for, as it applies to this archive:
 
 1. **Verified against an authoritative source:** **0 papers.** No primary `Sở GD&ĐT` scan, audio bundle or signed scoring sheet is in the repository.
 2. **Compared with an independent secondary source:** **0 papers.** Every record comes from the same aggregator; raw upstream binaries are not stored in Git.
-3. **Technical integrity checked, original not verified:** **82 papers** (the 61 + 21 mechanical tiers, plus the two digital extractions whose defect is documented rather than repaired). Text↔MD↔HTML parity, table structure, digest equality, row counts and parser agreement are verified.
-4. **Not enough evidence to conclude:** **24 papers** (`22` `HTML/OCR-cần-soát` + `2022/ha-noi/so` + `2025/thai-nguyen/so`), where the source itself is OCR-derived or materially incomplete.
+3. **Technical integrity checked, original not verified (a cross-cutting dimension, *not* an evidence tier):** text↔MD↔HTML parity, table structure, digest equality, row counts and parser agreement are verified for **all 106 papers**, including the 24 whose source is defective. It is therefore not additive with the tiers below: `61 + 21 + 24 = 106` already accounts for every paper, and the two digital extractions named in the next tier are counted there, not here.
+4. **Not enough evidence to conclude:** **24 papers** (`22` `HTML/OCR-cần-soát` + `2022/ha-noi/so` + `2025/thai-nguyen/so`), where the source itself is OCR-derived or materially incomplete. Technical parity was still verified for these 24; what is missing is evidence of fidelity, not integrity.
 
 **A checksum is not a proof of accuracy.** Nothing in this audit moves a paper up a tier, and no exam sentence, option or answer was edited.
 
 ### C.3 Defects found in this area
 
 - **C-1 (Medium, fixed):** `docs/EXAM_AUDIT_LEDGER.md` shipped three unrendered template placeholders and a wrong `insufficient-source` description. Details and evidence in §D.
-- Remaining, documented-but-unresolved limits (not defects to fix by guessing): 55 papers have a listening section with **no audio and no transcript**, 4 have truncated transcripts, 2 no longer exist as full text… see the ledger's own listening column; 8 papers reference a figure/chart that is not in the text; 2 papers contain embedded tutor annotations; 3 papers contain OCR token collisions. All of these are recorded in the ledger and none can be repaired without the primary source.
+- Remaining, documented-but-unresolved limits (not defects to fix by guessing): 56 papers have a listening section with **no audio and no transcript**, 4 have truncated transcripts, 2 carry speaking prompt/marking-guide assets (`2025/quang-ngai/so`, `2026/quang-tri/so`)… see the ledger's own listening column; 8 papers reference a figure/chart that is not in the text; 2 papers contain embedded tutor annotations; 3 papers contain OCR token collisions. All of these are recorded in the ledger and none can be repaired without the primary source.
 
 ---
 
@@ -129,6 +129,9 @@ The four-tier distinction the mission asks for, as it applies to this archive:
 | D-10 | Note | Deploy gate is *open* for `beta8` at base commit; see §G | **addressed by repointing the hold to the unreleased rc1 (gate now closed)** |
 | D-11 | Medium (test, pre-existing) | `tests/browser-learning.cjs` — stale favourites fixture graded the wrong word | **fixed (test only; the app was correct)** |
 | D-12 | Medium/Low (test, pre-existing) | `tests/browser-learning.cjs` — three fixtures encoded queue rotation / pre-beta7 data as fixed expectations | **fixed (test only; the app was correct)** |
+| D-13 | Low/Medium | `index.html` — `Shift`-modified keys still reached the shortcut handler (Shift+F wrote the hold list, Shift+Space revealed the answer) | **fixed (review round 2; reported by CodeRabbit, independently reproduced)** |
+| D-14 | Low | `index.html` — ten English counted labels were still plural-only, five of them reachable; the D-4 claim of covering "every counted pattern" was too strong | **fixed (review round 2; found by the new sweep test)** |
+| D-15 | Note | Audit report — four internal inconsistencies found while checking the review's claims: a table row broken by a literal pipe, a stale byte count, an evidence tier that double-counted two papers, and a listening tally off by one | **fixed (review round 2)** |
 
 ### D-1 — A modified key pressed a flashcard shortcut (High, fixed)
 
@@ -164,7 +167,7 @@ The four-tier distinction the mission asks for, as it applies to this archive:
 | `1 kết quả` | `1 results` | `1 result` |
 | `1 thẻ` / `1 phiên` | `1 cards` / `1 sessions` | `1 card` / `1 session` |
 
-- **Fix:** one exported `pluralCount(count, singular, plural)` helper now backs every counted English pattern; plural cases keep their previous wording.
+- **Fix:** one exported `pluralCount(count, singular, plural)` helper now backs every counted English pattern found in this pass; plural cases keep their previous wording. **This pass missed ten of them** — the count came from the labels that had been observed, not from an enumeration — and the over-broad claim that every pattern was covered is corrected in **D-14**, together with the enumeration test that now enforces it.
 - **Regression test:** *English counted labels use singular and plural forms* (10 singular + 5 plural cases).
 
 ### D-5 — Two strings stayed Vietnamese in the English interface (Low, fixed)
@@ -203,6 +206,38 @@ All twelve loaders (`progress`, `prefs`, `favorites`, `history`, `streak`, `stud
 - **(c) The search count was written before the beta7 family merge.** `advers` matches **one** headword, not two: `Adversity` (id 1) carries `familyHead: "298"`, and the app builds its vocabulary, search index and sessions from `loaded.data.filter(entry => !entry.familyHead)`, so `Adverse` (id 298) is the only separate record. **Attribution:** the base commit's own file (`git show 38f92a3:index.html`, `v1.0.0-beta8`) was served in Chromium and produced `1 kết quả · trang 1/1` with the single row `Adverse` and 740 merged rows — so the expectation was already wrong on `main` and is not caused by this branch. `git diff 38f92a3 -- index.html` touches no ordering, `skipSessionCard` or search code; the only app changes are D-1/D-4/D-5 plus the version string.
 - **Fix (test only):** the two queue scenarios now resolve the card on screen from its own prompt (`currentEntry`, added for this) and assert the *properties* — the first practice turn belongs to the first missed word, a skip shows the other pending word without changing the turn count, the skipped word still gets exactly one practice turn, and an introduced word returns without a second introduction. The search scenario derives the expected number of headword records from the shipped data and keeps the meta/rows consistency assertions (query and sort survive a favourite toggle, one row star toggles, favourite persisted). No assertion was deleted or weakened and the application was not changed.
 - **Verified:** §F row 15 — `node tests/browser-learning.cjs` **PASS, exit 0, 208 s** on the final tree.
+
+### D-13 — Shift-modified keys still reached the shortcut handler (Low/Medium, fixed in review round 2)
+
+- **Attribution:** raised by CodeRabbit on `index.html:221886` and confirmed independently against the reviewed head `edd2ede`, so it is a real gap in D-1 rather than a false positive. D-1 rejected `Ctrl`/`Cmd`/`Alt` but not `Shift`.
+- **Reproduction (real Chromium, head `edd2ede`):** with a session open and focus outside any input, **Shift+F** wrote the current word into `chuyen-anh.flagged.v1` (`[]` → `["298"]`) and **Shift+Space** revealed the answer (`#reveal` count 1). Both chords are the learner's, not the app's: Shift+Space scrolls a page up, and Shift+letter is how a capital letter is typed. `Ctrl+F`, `Ctrl+R`, `Ctrl+1`, `Alt+1` were already refused (storage unchanged, no reveal), so the D-1 fix itself held.
+- **Fix:** `acceptsShortcutKey` now rejects `event.shiftKey` as well. Unmodified keys are untouched: plain `f` still flags (verified: `[]` → `["298"]` → `[]`) and plain `Space` still reveals.
+- **Regression tests:** `tests/static-app.test.js` (*a modified key is never a flashcard shortcut*, four Shift cases added — fails on `edd2ede` with "Shift+F is a capital letter, not a shortcut") and a new dispatched-event scenario in `tests/browser-learning.cjs` that presses ten real chords (`Ctrl+F`, `Ctrl+R`, `Ctrl+1`, `Ctrl+Space`, `Alt+1`, `Shift+F`, `Shift+R`, `Shift+Space`, `Shift+Enter`, `Ctrl+Shift+F`) through the registered `document.addEventListener('keydown')` handler and asserts, after each, that nothing was revealed, graded or written to storage. That scenario addresses the review nitpick that the unit test only called the helper directly: if the handler ever stops calling `acceptsShortcutKey`, the unit test would still pass and the browser scenario fails.
+
+### D-14 — "Every counted pattern" was too strong: ten English labels were still plural-only (Low, fixed in review round 2)
+
+- **What the first pass got wrong.** D-4 fixed the seven labels it had found and this report then stated that one helper "backs every counted pattern". A sweep written in review round 2 (now a permanent test) derives a count-of-one sample from **every** counted pattern in the shipped translation table and found **ten** more strings that hard-coded the plural. Five are reachable with ordinary data and were reproduced in the English interface of head `edd2ede`:
+  - `1 / 1 turns · 1 left` — the card header of any one-card session;
+  - `Practice retries: 1 correct · 0 not correct / 1 turns.` — the summary after exactly one practice retry;
+  - `You have missed this word 1 times.` — the retry note on the **first** wrong answer to a word;
+  - `in 1 days` / `in 1 hours` — latent, because `formatNextReview` already singularises before translation;
+  - `1 phrases`, `1 phrases.`, `1 phrases · first 1 shown`, `Flashcards · 1 words …`, `Graded 1 items …`, `Match pairs · 1/1 pairs` — latent with the current data (780 phrases, 5,112 headwords, four-pair boards), wrong as soon as that data or a filter changes.
+- **Fix:** all ten now go through `pluralCount` (and `Graded N items` through it as well, so the count and the noun cannot drift apart). No wording, translation or behaviour was changed beyond the singular/plural noun.
+- **Regression tests:** the exact strings are pinned in *English counted labels use singular and plural forms*, and the durable guard is the new *every counted English pattern agrees with a count of one*: it fails on `edd2ede` with `Flashcards · 1 words · offline exam archive` and passes on the fixed tree over 101 translated patterns. Live re-check in Chromium after the fix: `1 / 1 turn · 1 left`, `… / 1 turn.`, `You have missed this word 1 time.`
+- **Lesson recorded:** a claim of the form "every X" needs a test that enumerates X, not a list of the instances that happened to be found.
+
+### D-15 — Four inconsistencies in the audit report itself (Note, fixed in review round 2)
+
+A review of the report against the data it cites found four errors in this document. Each is recorded here rather than silently corrected, because a report that miscounts is evidence about the audit, not only about the code.
+
+| Item | Was | Now | How it was caught |
+| --- | --- | --- | --- |
+| Markdown table, §B.2 | a literal pipe character inside the "JSON/CSV hostility" cell split the row into three columns | "pipe characters" | CodeRabbit; confirmed by counting cells per row (that row was the only mismatch in 6 documents) |
+| §B.2 byte count | `4,836,432 bytes` — the **character** count of an older build, contradicting §E.1 | `4,890,492 bytes` (4,836,432 characters) | recomputed with `len(block.encode())` vs `len(block)` |
+| §C.2 evidence tiers | "82 papers (61 + 21, plus 2 digital)" — 82 + 24 = 106 already, so the two extra papers were double-counted and the tier was not exclusive | technical integrity restated as a cross-cutting dimension verified for all 106, with `61 + 21 + 24 = 106` unchanged | CodeRabbit, then checked against the ledger's own tier table |
+| §C.3 listening tally | "55 papers have a listening section with no audio and no transcript … 2 no longer exist as full text" | **56**, and the 2 are the papers with speaking prompt/marking-guide assets | recount of the ledger's listening column: 56 + 23 (full transcript) + 4 (truncated) + 23 (no section) = 106 |
+
+No number in the *data* changed: the ledger, the tiers, the question counts and the vocabulary counts are the same values this report published, and the recount that produced them reproduces again in review round 2 (3,472 questions = 2,402 + 1,070 over 91 papers; 11 papers / 248 Private-Use-Area codepoints; 61 / 21 / 24).
 
 ### D-9 — Historical changelog heading (unresolved, intentional)
 
@@ -266,12 +301,28 @@ All commands were run on the candidate tree (branch `arena/1ace764a-chuyen-anh`)
 | 8 | `python scripts/embed_phrases.py --check` | PASS (0) | `embeds all 780 phrase records` |
 | 9 | `python scripts/exams/embed_archive.py --check` | PASS (0) | `106 exam transcriptions (4,169,772 text bytes)` |
 | 10 | `python scripts/generate_vocab_audit_dev5.py --check` | PASS (0) | report current, no files written |
-| 11 | `python -m unittest discover -s tests -p 'test_*.py'` | PASS (0) | **98 tests OK** (91 before this audit; +7 new) |
-| 12 | `node --test tests/static-app.test.js` | PASS (0) | **96 pass / 0 fail** in 261 s on the final tree (230 s on the earlier identical run; 93 tests before this audit, +3 new) |
+| 11 | `python -m unittest discover -s tests -p 'test_*.py'` | PASS (0) | **98 tests OK** on `edd2ede` (91 before this audit; +7 new); **103 OK** after review round 2 (§F.1) |
+| 12 | `node --test tests/static-app.test.js` | PASS (0) | **96 pass / 0 fail** in 261 s on `edd2ede` (93 tests before this audit, +3 new); **97 pass / 0 fail in 265 s** after review round 2 (§F.1) |
 | 13 | `git diff --check` | PASS (0) | no whitespace errors |
-| 14 | `node tests/browser-exams.cjs` (real Chromium) | PASS (0) | 106-record catalogue, filters, digests, safe markup, 320/375/768/1440 px layouts, no network requests, no page errors |
-| 15 | `node tests/browser-learning.cjs` (real Chromium) | PASS (0) | **208 s** wall time, driven with `NODE_PATH` to a `--no-save` install outside the repo. Three fixture defects had to be corrected first (D-11, D-12); on the base commit the same suite aborts at line 480 |
+| 14 | `node tests/browser-exams.cjs` (real Chromium) | PASS (0) | 106-record catalogue, filters, digests, safe markup, 320/375/768/1440 px layouts, no network requests, no page errors (58 s in review round 2) |
+| 15 | `node tests/browser-learning.cjs` (real Chromium) | PASS (0) | 208 s on `edd2ede`, **213 s** after review round 2; driven with `NODE_PATH` to a `--no-save` install outside the repo. Fixture defects had to be corrected first (D-11, D-12); on the base commit the same suite aborts at line 480 |
 | 16 | `python scripts/deploy_gate.py` | `deploy=false` | gate closed: `release v1.0.0-rc1 is missing; deployment held` |
+
+### F.1 Review round 2 — remediation verification
+
+The table above records the first pass on `edd2ede`. After the review round (CodeRabbit review `5641478931`, run `720376d2-2fb7-49d6-aed8-281d489176c1`, plus this audit's own re-checks) the following was re-run on the fixed tree, with the exit codes actually observed:
+
+| Command | Result on the fixed tree |
+| --- | --- |
+| `python -m unittest discover -s tests -p 'test_*.py'` | **103 tests OK**, 4.1 s (98 before this round, +5 documentation-consistency tests) |
+| `node --test tests/static-app.test.js` | **97 pass / 0 fail**, 265 s (96 before; the count-of-one sweep is the addition) |
+| `node tests/browser-learning.cjs` (real Chromium) | **PASS**, 213 s, including the new ten-chord scenario |
+| `node tests/browser-exams.cjs` (real Chromium) | **PASS**, 58 s |
+| ten `--check`/validator pipeline commands | all exit 0; counts unchanged (5,852 rows · 5,112 headwords · 740 forms · 581 families · 780 phrases · 106 transcriptions, 4,169,772 text bytes) |
+| `git diff --check` | clean |
+| `python scripts/deploy_gate.py` | `deploy=false (release v1.0.0-rc1 is missing; deployment held)` |
+
+Every fix in this round is guarded by a test that **fails on `edd2ede`** and passes on the fixed tree; the fail-first runs are quoted in D-13, D-14 and D-15. As a direct check that the browser scenario protects the handler and not just the helper, the guard `if (!acceptsShortcutKey(event)) return;` was deleted in a scratch copy of `index.html`: the suite then fails with `Control+F (find in page) must leave learner storage untouched` and `chuyen-anh.flagged.v1` changed from `[]` to `["298"]`. The mutation and its directory were temporary and are not part of the repository.
 
 **Not run, with reasons:**
 

@@ -221725,13 +221725,13 @@ const EN_UI_TRANSLATIONS = Object.freeze({
 });
 
 const EN_UI_PATTERNS = [
-  [/^Flashcard · ([\d.,]+) từ · kho đề offline$/, (_match, count) => `Flashcards · ${formatCount(count, 'en')} words · offline exam archive`],
+  [/^Flashcard · ([\d.,]+) từ · kho đề offline$/, (_match, count) => `Flashcards · ${pluralCount(formatCount(count, 'en'), 'word', 'words')} · offline exam archive`],
   // One headword per root: the counts shown to learners are headword counts.
-  [/^Flashcard · ([\d.,]+) từ gốc · kho đề offline$/, (_match, count) => `Flashcards · ${formatCount(count, 'en')} headwords · offline exam archive`],
+  [/^Flashcard · ([\d.,]+) từ gốc · kho đề offline$/, (_match, count) => `Flashcards · ${pluralCount(formatCount(count, 'en'), 'headword', 'headwords')} · offline exam archive`],
   [/^([\d.,]+) từ gốc$/, (_match, count) => `${formatCount(count, 'en')} ${countNumber(count) === 1 ? 'headword' : 'headwords'}`],
   [/^([\d.,]+) dạng cùng gốc$/, (_match, count) => `${formatCount(count, 'en')} same-root ${countNumber(count) === 1 ? 'form' : 'forms'}`],
-  [/^Tìm theo tiếng Anh, tiếng Việt, từ loại, tag hoặc ví dụ · ([\d.,]+) từ\.$/, (_match, count) => `Search English, Vietnamese, part of speech, tags, or examples · ${count} words.`],
-  [/^Tìm theo tiếng Anh, tiếng Việt, từ loại, tag hoặc ví dụ · ([\d.,]+) từ gốc\.$/, (_match, count) => `Search English, Vietnamese, part of speech, tags, or examples · ${formatCount(count, 'en')} headwords.`],
+  [/^Tìm theo tiếng Anh, tiếng Việt, từ loại, tag hoặc ví dụ · ([\d.,]+) từ\.$/, (_match, count) => `Search English, Vietnamese, part of speech, tags, or examples · ${pluralCount(count, 'word', 'words')}.`],
+  [/^Tìm theo tiếng Anh, tiếng Việt, từ loại, tag hoặc ví dụ · ([\d.,]+) từ gốc\.$/, (_match, count) => `Search English, Vietnamese, part of speech, tags, or examples · ${pluralCount(formatCount(count, 'en'), 'headword', 'headwords')}.`],
   [/^(\d+) đến hạn$/, (_match, count) => `${count} due`],
   [/^(\d+) ngày liên tiếp$/, (_match, count) => `${count}-day streak`],
   [/^(\d+) bản chép(?: · trang (\d+)\/(\d+))?$/, (_match, count, page, pages) => `${pluralCount(count, 'transcription', 'transcriptions')}${page ? ` · page ${page} of ${pages}` : ''}`],
@@ -221739,10 +221739,10 @@ const EN_UI_PATTERNS = [
   [/^(\d+) từ\.$/, (_match, count) => `${pluralCount(count, 'word', 'words')}.`],
   [/^(\d+) từ$/, (_match, count) => pluralCount(count, 'word', 'words')],
   [/^(\d+) cụm$/, (_match, count) => pluralCount(count, 'phrase', 'phrases')],
-  [/^(\d+) cụm từ$/, (_match, count) => `${count} phrases`],
-  [/^(\d+) cụm từ · hiển thị (\d+) cụm đầu$/, (_match, count, shown) => `${count} phrases · first ${shown} shown`],
-  [/^(\d+) cụm\.$/, (_match, count) => `${count} phrases.`],
-  [/^(\d+) cụm · hiển thị (\d+) cụm đầu$/, (_match, count, shown) => `${count} phrases · first ${shown} shown`],
+  [/^(\d+) cụm từ$/, (_match, count) => pluralCount(count, 'phrase', 'phrases')],
+  [/^(\d+) cụm từ · hiển thị (\d+) cụm đầu$/, (_match, count, shown) => `${pluralCount(count, 'phrase', 'phrases')} · first ${shown} shown`],
+  [/^(\d+) cụm\.$/, (_match, count) => `${pluralCount(count, 'phrase', 'phrases')}.`],
+  [/^(\d+) cụm · hiển thị (\d+) cụm đầu$/, (_match, count, shown) => `${pluralCount(count, 'phrase', 'phrases')} · first ${shown} shown`],
   [/^Phrasal verbs, thành ngữ, collocations, giới từ đi kèm, cụm nối ý và mẫu cấu trúc · (\d+) cụm\.$/, (_match, count) => `Phrasal verbs, idioms, collocations, dependent prepositions, linking phrases and structure patterns · ${pluralCount(count, 'phrase', 'phrases')}.`],
   [/^Luyện (\d+) cụm$/, (_match, count) => `Practise ${pluralCount(count, 'phrase', 'phrases')}`],
   [/^(\d+)\/(\d+)$/, (_match, a, b) => `${a}/${b}`],
@@ -221770,7 +221770,7 @@ const EN_UI_PATTERNS = [
   [/^(.+) · (\d+)$/, (_match, label, count) => EN_UI_TRANSLATIONS[label] ? `${EN_UI_TRANSLATIONS[label]} · ${count}` : `${label} · ${count}`],
   [/^(Chưa học|Đang học|Từ yếu|Ôn tập|Thành thạo): (\d+)$/, (_match, label, count) => `${EN_UI_TRANSLATIONS[label]}: ${count}`],
   [/^Chưa học (\d+), Đang học (\d+), Từ yếu (\d+), Ôn tập (\d+), Thành thạo (\d+)$/, (_m, n, l, w, r, m) => `New ${n}, Learning ${l}, Weak ${w}, Review ${r}, Mastered ${m}`],
-  [/^Luyện lại: (\d+) đúng · (\d+) chưa đúng \/ (\d+) lượt\. Không tính vào độ chính xác lần đầu hay lịch ôn\.$/, (_m, c, w, t) => `Practice retries: ${c} correct · ${w} not correct / ${t} turns. Not included in first-pass accuracy or the review schedule.`],
+  [/^Luyện lại: (\d+) đúng · (\d+) chưa đúng \/ (\d+) lượt\. Không tính vào độ chính xác lần đầu hay lịch ôn\.$/, (_m, c, w, t) => `Practice retries: ${c} correct · ${w} not correct / ${pluralCount(t, 'turn', 'turns')}. Not included in first-pass accuracy or the review schedule.`],
   [/^Lần ôn tiếp theo: (.+) · trạng thái: (.+)$/, (_m, when, st) => `Next review: ${translateUiText(when, 'en')} · state: ${EN_UI_TRANSLATIONS[st] || st}`],
   [/^· phiên bản dữ liệu$/, () => '· data version'],
   [/^· phiên bản ứng dụng$/, () => '· app version'],
@@ -221778,8 +221778,8 @@ const EN_UI_PATTERNS = [
   [/^· (\d+) trang · SHA-256$/, (_m, pages) => `· ${pages} pages · SHA-256`],
   [/^← (.+) · (\d{4})$/, (_m, place, yr) => `← ${place} · ${yr}`],
   [/^(.+) · (\d{4}) →$/, (_m, place, yr) => `${place} · ${yr} →`],
-  [/^(\d+) ngày nữa$/, (_match, count) => `in ${count} days`],
-  [/^(\d+) giờ nữa$/, (_match, count) => `in ${count} hours`],
+  [/^(\d+) ngày nữa$/, (_match, count) => `in ${pluralCount(count, 'day', 'days')}`],
+  [/^(\d+) giờ nữa$/, (_match, count) => `in ${pluralCount(count, 'hour', 'hours')}`],
   [/^(\d+) phút(?: (\d+) giây)?$/, (_match, minutes, seconds) => seconds ? `${minutes} min ${seconds} sec` : `${minutes} min`],
   [/^(\d+) giây$/, (_match, seconds) => `${seconds} sec`],
   [/^Tiến độ của từ (.+) không hợp lệ\.$/, (_match, id) => `Progress for word ${id} is invalid.`],
@@ -221794,14 +221794,14 @@ const EN_UI_PATTERNS = [
   [/^Trang (\d+)\s*\/\s*(\d+)$/, (_match, page, pages) => `Page ${page} of ${pages}`],
   [/^Trang (\d+)$/, (_match, page) => `Page ${page}`],
   [/^✕ Chưa đúng · Đáp án: (.+)$/, (_match, answer) => `✕ Not quite · Answer: ${answer}`],
-  [/^Bạn sai từ này (\d+) lần\. Đã xếp một lượt gõ lại sau các thẻ còn lại; từ vẫn đến hạn ôn\.$/, (_match, count) => `You have missed this word ${count} times. A typed retry is queued after the remaining cards; the word is still due for review.`],
-  [/^(\d+)\s*\/\s*(\d+) lượt · (\d+) còn lại$/, (_match, current, total, remaining) => `${current} / ${total} turns · ${remaining} left`],
-  [/^\/\s*(\d+) lượt · (\d+) còn lại$/, (_match, total, remaining) => `/ ${total} turns · ${remaining} left`],
+  [/^Bạn sai từ này (\d+) lần\. Đã xếp một lượt gõ lại sau các thẻ còn lại; từ vẫn đến hạn ôn\.$/, (_match, count) => `You have missed this word ${pluralCount(count, 'time', 'times')}. A typed retry is queued after the remaining cards; the word is still due for review.`],
+  [/^(\d+)\s*\/\s*(\d+) lượt · (\d+) còn lại$/, (_match, current, total, remaining) => `${current} / ${pluralCount(total, 'turn', 'turns')} · ${remaining} left`],
+  [/^\/\s*(\d+) lượt · (\d+) còn lại$/, (_match, total, remaining) => `/ ${pluralCount(total, 'turn', 'turns')} · ${remaining} left`],
   [/^Câu nguồn (\d+)$/, (_match, n) => `Source item ${n}`],
   [/^mục trích xuất (.+)$/, (_match, rest) => `extracted items ${translateUiText(rest, 'en')}`],
   [/^(.+) · không được dùng để chấm tự động\.$/, (_match, status) => `${translateUiText(status, 'en')} · not used for automatic grading.`],
   [/^Đã xác minh: (.+)$/, (_match, val) => `Verified: ${val}`],
-  [/^Đã chấm (\d+) câu · (\d+) đúng · (\d+) sai · Chính xác (\d+)% \(trên câu đã chấm\)$/, (_m, g, c, w, acc) => `Graded ${g} items · ${c} correct · ${w} incorrect · Accuracy ${acc}% (graded items)`],
+  [/^Đã chấm (\d+) câu · (\d+) đúng · (\d+) sai · Chính xác (\d+)% \(trên câu đã chấm\)$/, (_m, g, c, w, acc) => `Graded ${pluralCount(g, 'item', 'items')} · ${c} correct · ${w} incorrect · Accuracy ${acc}% (graded items)`],
   [/^Chỉ dùng văn bản đã có trong bản chép\. Ranh giới mục\/lựa chọn được trích xuất tự động, chưa xác minh và có thể không đầy đủ\. (.+) Câu trả lời chỉ lưu trong bộ nhớ phiên đang mở và mất khi tải lại hoặc đóng trang\. Bản chép đầy đủ bên dưới có thể chứa nội dung đáp án như trong nguồn\.$/, (_m, mid) => `Only text already present in the transcription is used. Extracted item and choice boundaries are automatic, unverified, and may be incomplete. ${translateUiText(mid, 'en')} Responses stay in memory for this open session only and are cleared when reloading or closing the page. The full transcription below may include reference answer content from the source.`],
   [/^Import thất bại: (.+)$/, (_match, msg) => `Import failed: ${translateUiText(msg, 'en')}`],
   // ---- beta5: counted phrases from the priority panel, timer, boards, XP.
@@ -221818,7 +221818,7 @@ const EN_UI_PATTERNS = [
   [/^Giới hạn (\d{2}:\d{2}) · câu bỏ trống không bị chấm sai$/, (_m, clock) => `Limit ${clock} · blank answers are not marked wrong`],
   [/^Thời gian còn lại (\d{2}:\d{2})$/, (_m, clock) => `Time remaining ${clock}`],
   [/^Đã bỏ qua \((\d+)\)$/, (_m, n) => `Skipped (${n})`],
-  [/^Nối cặp · (\d+)\/(\d+) cặp$/, (_m, done, total) => `Match pairs · ${done}/${total} pairs`],
+  [/^Nối cặp · (\d+)\/(\d+) cặp$/, (_m, done, total) => `Match pairs · ${done}/${pluralCount(total, 'pair', 'pairs')}`],
   [/^(\d+) bàn$/, (_m, n) => `${n} ${Number(n) === 1 ? 'board' : 'boards'}`],
   [/^(\d+) cặp$/, (_m, n) => `${n} ${Number(n) === 1 ? 'pair' : 'pairs'}`],
   [/^(Gõ nghĩa|Flashcard|Nối cặp) · (.+)$/, (_m, label, pos) => `${EN_UI_TRANSLATIONS[label] || label} · ${pos}`],
@@ -221837,13 +221837,13 @@ const EN_UI_PATTERNS = [
 ];
 
 const EN_UI_SPRINT_PATTERNS = [
-  [/^Học cấp tốc · (\d+) từ \/ phiên$/, (_m, queued) => `Study sprint · ${queued} words / session`],
-  [/^Xếp (\d+) từ ưu tiên: đến hạn, từ yếu, rồi từ mới — mỗi từ được hỏi ở mức bạn đã chứng minh và nhắc lại một lượt sau vài thẻ nếu chưa vững\.$/, (_m, queued) => `Queues ${queued} prioritised words: due, then weak, then new — each word is asked at the level you have demonstrated and repeated once after a few cards if it is not yet solid.`],
-  [/^Cấp tốc giữ nguyên khối lượng từ bạn đã chọn trong Cài đặt \((\d+) từ\/phiên\) và không cắt bớt kho từ\. Thay vì hỏi mọi từ theo cùng một kiểu, mỗi từ được hỏi ở mức phù hợp với những gì bạn đã nhớ \(nhận diện → gợi nhớ ngược → chính tả\); từ mới hoặc từ vừa sai được nhắc lại một lượt sau ít nhất ba thẻ khác\. Lượt nhắc lại không tính vào độ chính xác lần đầu hay lịch ôn\. Thoát giữa chừng vẫn giữ tiến độ đã lưu\.$/, (_m, target) => `The sprint keeps the session size you chose in Settings (${target} words per session) and never shrinks the word pool. Instead of asking every word the same way, each word is asked at the level it has earned (recognition → reverse recall → spelling); a new or recently missed word is repeated once after at least three other cards. The repeat is never counted as first-pass accuracy or added to the review schedule. Leaving mid-session keeps the progress already saved.`],
-  [/^Củng cố: (\d+) đúng · (\d+) chưa đúng \/ (\d+) lượt, kiểm tra lại sau vài thẻ khác\. Không tính vào độ chính xác lần đầu hay lịch ôn\.$/, (_m, correct, wrong, total) => `Consolidation: ${correct} correct · ${wrong} not correct / ${total} turns, checked after a few other cards. Not included in first-pass accuracy or the review schedule.`],
+  [/^Học cấp tốc · (\d+) từ \/ phiên$/, (_m, queued) => `Study sprint · ${pluralCount(queued, 'word', 'words')} / session`],
+  [/^Xếp (\d+) từ ưu tiên: đến hạn, từ yếu, rồi từ mới — mỗi từ được hỏi ở mức bạn đã chứng minh và nhắc lại một lượt sau vài thẻ nếu chưa vững\.$/, (_m, queued) => `Queues ${pluralCount(queued, 'prioritised word', 'prioritised words')}: due, then weak, then new — each word is asked at the level you have demonstrated and repeated once after a few cards if it is not yet solid.`],
+  [/^Cấp tốc giữ nguyên khối lượng từ bạn đã chọn trong Cài đặt \((\d+) từ\/phiên\) và không cắt bớt kho từ\. Thay vì hỏi mọi từ theo cùng một kiểu, mỗi từ được hỏi ở mức phù hợp với những gì bạn đã nhớ \(nhận diện → gợi nhớ ngược → chính tả\); từ mới hoặc từ vừa sai được nhắc lại một lượt sau ít nhất ba thẻ khác\. Lượt nhắc lại không tính vào độ chính xác lần đầu hay lịch ôn\. Thoát giữa chừng vẫn giữ tiến độ đã lưu\.$/, (_m, target) => `The sprint keeps the session size you chose in Settings (${pluralCount(target, 'word', 'words')} per session) and never shrinks the word pool. Instead of asking every word the same way, each word is asked at the level it has earned (recognition → reverse recall → spelling); a new or recently missed word is repeated once after at least three other cards. The repeat is never counted as first-pass accuracy or added to the review schedule. Leaving mid-session keeps the progress already saved.`],
+  [/^Củng cố: (\d+) đúng · (\d+) chưa đúng \/ (\d+) lượt, kiểm tra lại sau vài thẻ khác\. Không tính vào độ chính xác lần đầu hay lịch ôn\.$/, (_m, correct, wrong, total) => `Consolidation: ${correct} correct · ${wrong} not correct / ${pluralCount(total, 'turn', 'turns')}, checked after a few other cards. Not included in first-pass accuracy or the review schedule.`],
   [/^Lượt củng cố cuối phiên: nhắc lại từ này sau (\d+) thẻ còn lại ở mức khó hơn\. Lượt này không đổi lịch ôn hay độ chính xác lần đầu\.$/, (_m, gap) => `End-of-session consolidation turn: rechecks this word after ${gap} remaining ${Number(gap) === 1 ? 'card' : 'cards'} at a harder level. It does not change the review schedule or first-pass accuracy.`],
   [/^Củng cố đạt: bạn đã nhớ lại từ này sau (\d+) thẻ còn lại cuối phiên\. Lịch ôn và độ chính xác lần đầu được giữ nguyên\.$/, (_m, gap) => `Consolidation passed: you recalled this word after ${gap} remaining ${Number(gap) === 1 ? 'card' : 'cards'} at the end of the session. The review schedule and first-pass accuracy are unchanged.`],
-  [/^(\d+) từ đủ điều kiện · xếp (\d+) · (\d+) đến hạn · (\d+) từ yếu$/, (_m, pool, queued, due, weak) => `${pool} eligible words · ${queued} queued · ${due} due · ${weak} weak`],
+  [/^(\d+) từ đủ điều kiện · xếp (\d+) · (\d+) đến hạn · (\d+) từ yếu$/, (_m, pool, queued, due, weak) => `${pluralCount(pool, 'eligible word', 'eligible words')} · ${queued} queued · ${due} due · ${weak} weak`],
 ];
 
 function lookupSingleUiText(trimmed) {
@@ -221883,7 +221883,10 @@ export function formatCount(value, language = 'vi') {
 // flags the current word), so a modified key is never a shortcut.
 export function acceptsShortcutKey(event) {
   if (!event || typeof event !== 'object') return false;
-  if (event.ctrlKey || event.metaKey || event.altKey) return false;
+  // Shift belongs to the browser and the operating system as well: Shift+Space
+  // scrolls a page up, and Shift+<letter> is how a capital letter is typed. A
+  // chord must never reveal an answer or write learner state.
+  if (event.ctrlKey || event.metaKey || event.altKey || event.shiftKey) return false;
   if (event.isComposing) return false;
   return true;
 }
@@ -226429,7 +226432,7 @@ export async function createApp(root) {
       }
       const accuracy = graded ? Math.round(correct / graded * 100) : null;
       const gradingPolicy = graded
-        ? (lang === 'en' ? `Graded ${graded} items · ${correct} correct · ${incorrect} incorrect · ${accuracy}% accuracy (on graded items)` : `Đã chấm ${graded} câu · ${correct} đúng · ${incorrect} sai · Chính xác ${accuracy}% (trên câu đã chấm)`)
+        ? (lang === 'en' ? `Graded ${pluralCount(graded, 'item', 'items')} · ${correct} correct · ${incorrect} incorrect · ${accuracy}% accuracy (on graded items)` : `Đã chấm ${graded} câu · ${correct} đúng · ${incorrect} sai · Chính xác ${accuracy}% (trên câu đã chấm)`)
         : (lang === 'en' ? 'No items have been graded — all remain unverified.' : 'Chưa có câu được chấm — toàn bộ giữ trạng thái chưa xác minh.');
       const submittedNote = lang === 'en' ? 'Your responses were submitted for this open browser session. The app does not check correctness or produce a score.' : 'Câu trả lời đã được nộp trong phiên trình duyệt đang mở. Ứng dụng không kiểm tra đúng/sai hoặc tạo điểm.';
       const summaryTitle = lang === 'en' ? 'Practice result' : 'Kết quả luyện đề';

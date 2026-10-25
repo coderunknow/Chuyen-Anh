@@ -87,5 +87,79 @@ class ReadmeCountTests(unittest.TestCase):
         self.assertNotIn(f"{count + 5112:,} ", self.readme)
 
 
+class DocumentationConsistencyTests(unittest.TestCase):
+    """RC1 review round 2: the documents must agree with the data and each other.
+
+    Four inconsistencies were found by reading the report against its sources: a
+    Markdown table row broken by a literal pipe inside a cell, a byte count that was
+    really a character count of an older build, an evidence tier that double-counted
+    two papers, and a listening tally that disagreed with the ledger by one. Each
+    check below is derived from the data, so a later edit cannot quietly reintroduce
+    them.
+    """
+
+    DOCUMENTS = ("README.md", "CHANGELOG.md", "docs/RC1_AUDIT_REPORT.md",
+                 "docs/EXAM_AUDIT_LEDGER.md", "AGENTS_LOG.md", "DESIGN_LOG.md")
+
+    def test_markdown_tables_keep_one_column_count_per_table(self) -> None:
+        for name in self.DOCUMENTS:
+            header = None
+            for number, line in enumerate((ROOT / name).read_text(encoding="utf-8").splitlines(), 1):
+                if not line.startswith("|"):
+                    header = None
+                    continue
+                cells = len(re.split(r"(?<!\\)\|", line)) - 2
+                if header is None:
+                    header = cells
+                    continue
+                self.assertEqual(cells, header,
+                                 f"{name}:{number} has {cells} columns, the table header has {header}")
+
+    def test_report_byte_count_matches_the_embedded_data(self) -> None:
+        html = (ROOT / "index.html").read_text(encoding="utf-8")
+        block = re.search(r'<script id="vocabulary-data" type="application/json">(.*?)</script>', html, re.S)
+        self.assertIsNotNone(block)
+        real_bytes = len(block.group(1).encode("utf-8"))
+        real_chars = len(block.group(1))
+        report = (ROOT / "docs" / "RC1_AUDIT_REPORT.md").read_text(encoding="utf-8")
+        self.assertIn(f"{real_bytes:,} bytes", report, "the report must quote the real byte count")
+        self.assertIn(f"{real_chars:,} characters", report, "and the character count it used to quote as bytes")
+
+    def test_report_evidence_tiers_are_mutually_exclusive(self) -> None:
+        ledger = (ROOT / "docs" / "EXAM_AUDIT_LEDGER.md").read_text(encoding="utf-8")
+        counts = {
+            tier: int(re.search(rf"\| `{tier}` \| `(\d+)`", ledger).group(1))
+            for tier in ("partially-supported", "structure-metadata-only", "insufficient-source")
+        }
+        self.assertEqual(sum(counts.values()), 106)
+        report = (ROOT / "docs" / "RC1_AUDIT_REPORT.md").read_text(encoding="utf-8")
+        section = report.split("### C.2", 1)[1].split("### C.3", 1)[0]
+        for tier, value in counts.items():
+            self.assertIn(f"{value} `{tier}`" if False else str(value), section)
+        self.assertNotIn("82 papers", section,
+                         "the old tier description double-counted two papers already in insufficient-source")
+        self.assertIn("all 106 papers", section,
+                      "technical integrity is verified for every paper, not for a subset")
+
+    def test_report_listening_tally_matches_the_ledger(self) -> None:
+        ledger = (ROOT / "docs" / "EXAM_AUDIT_LEDGER.md").read_text(encoding="utf-8")
+        silent = int(re.search(r"and `(\d+)` omit both audio and transcript", ledger).group(1))
+        report = (ROOT / "docs" / "RC1_AUDIT_REPORT.md").read_text(encoding="utf-8")
+        claimed = re.search(r"(\d+) papers have a listening section with \*\*no audio and no transcript\*\*", report)
+        self.assertIsNotNone(claimed, "the report must state the silent-listening count")
+        self.assertEqual(int(claimed.group(1)), silent,
+                         "the report's listening tally disagrees with the ledger summary")
+
+    def test_readme_current_deploy_hold_marker_matches_the_gate_file(self) -> None:
+        hold = (ROOT / "DEPLOY_HOLD").read_text(encoding="utf-8").strip()
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        paragraph = next(line for line in readme.splitlines() if line.startswith("**Cổng deploy-hold"))
+        current = re.search(r"Marker hiện nêu `([^`]+)`", paragraph)
+        self.assertIsNotNone(current, "the deploy-hold paragraph must state the current marker in the present tense")
+        self.assertEqual(current.group(1), hold,
+                         "the present-tense marker must be the tag DEPLOY_HOLD actually names")
+        self.assertIn(f"`{hold}`", paragraph)
+
+
 if __name__ == "__main__":
     unittest.main()
