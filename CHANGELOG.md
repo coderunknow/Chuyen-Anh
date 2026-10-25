@@ -53,6 +53,8 @@ Five findings, all reproduced before being changed; nothing in the data, the voc
 
 `.coderabbit.yaml` now configures CodeRabbit for this repository, so reviews no longer depend on account-level defaults: every push to every open pull request is reviewed (`auto_review.enabled` and `auto_incremental_review`), draft pull requests included (`drafts: true`), in any target branch (`base_branches: [".*"]`), with the five-commit auto-pause disabled (`auto_pause_after_reviewed_commits: 0`) and no title, author, label or description exclusions. `abort_on_close` stops a review of a closed or merged PR. `path_filters` excludes exactly two machine-generated audit files (`docs/vocabulary-audit-dev5.json`, `docs/vocabulary-300-counts.json`) that their generators already `--check`; the application, the shipped data, the scripts, tests, workflows, documentation and the exam sources all stay in scope. Configuration only: no dependency, workflow or application change, and excluding files does not reduce the review allowance that reviews themselves consume.
 
+The first review that ran under this file caught a scope claim that was false (D-20): `**/*.tsv` is on CodeRabbit's default ignored list, so the seed tables would not have been reviewed even though nothing here excluded them. The documented override for a default exclusion — the same pattern without the leading `!` — now re-includes them without turning the list into an allowlist.
+
 ### Version
 
 `APP_VERSION` is `v1.0.0-rc1`, `DEPLOY_HOLD` names the same candidate (gate closed until that release exists), and the version pins in `tests/static-app.test.js`, `tests/browser-learning.cjs`, `tests/test_sprint_exam_features.py` and `tests/test_deploy_gate.py` moved with it.

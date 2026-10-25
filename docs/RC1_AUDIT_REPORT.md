@@ -136,6 +136,7 @@ The four-tier distinction the mission asks for, as it applies to this archive:
 | D-17 | Low/Medium | `index.html` — the search-count label decided its noun from a Vietnamese-grouped number (`1.000 từ` → `1.000 word.`) | **fixed (review round 3; reported by CodeRabbit)** |
 | D-18 | Note (test) | `tests/test_exam_audit_ledger.py` read the listening column by prose match; `tests/test_readme_counts.py` compared tier numbers by membership, so a swap passed | **fixed (review round 3; reported by CodeRabbit)** |
 | D-19 | Minor (docs) | `docs/RC1_AUDIT_REPORT.md` — the historical assertion in D-18 was wrapped in single backticks while it contained two more, so it rendered as broken inline code | **fixed (review round 4; reported by CodeRabbit)** |
+| D-20 | Major (review-config scope) | `.coderabbit.yaml` — the file claimed the seed TSVs stayed reviewed, but CodeRabbit excludes `**/*.tsv` by default | **fixed (review round 4; reported by CodeRabbit)** |
 
 ### D-1 — A modified key pressed a flashcard shortcut (High, fixed)
 
@@ -277,6 +278,14 @@ No number in the *data* changed: the ledger, the tiers, the question counts and 
 - **Fix.** The assertion moved into a fenced `python` block, with the surrounding explanation left outside it, and the paragraph re-wrapped so the list item still reads correctly. Documentation only — no code, data or test change.
 - **Guard.** The check is mechanical and stays in the verification pass: a small scan for an inline code span whose contents still contain a backtick now reports 0 occurrences across the changed documents.
 
+### D-20 — The review configuration promised a scope it did not have (Major, fixed in review round 4)
+
+- **Finding.** CodeRabbit's review of `f1c287e` (review `5642577787`, run `c2583a15-b31c-46eb-acde-14fe3e9b874e`) flagged `.coderabbit.yaml:66`: the file states that the seed tables under `data/vocab-seed/` and `data/phrase-seed/` stay reviewed, but `**/*.tsv` is on CodeRabbit's *default* ignored list, and the two configured exclusions do nothing to change that. The claim was therefore false for the files it named.
+- **Verified** against the documented default list (TSV is listed as a default exclusion) and by evaluating the configured globs with `minimatch`: the TSV paths matched no configured pattern, so they would receive their default treatment — skipped. This is a documentation-of-configuration defect, not a data defect: the seed tables were never modified by this PR, and the vocabulary and phrase validators were unaffected.
+- **Fix.** The documented override for a default exclusion — the exact default pattern repeated **without** its leading `!` (`**/*.tsv`) — was added to `path_filters`. Per the documentation that form disables the default for that pattern without turning the list into an allowlist, so every other path keeps its default treatment. The comment above the list now explains the override and why it exists.
+- **Verification.** Thirteen paths were evaluated against the final globs: the two generated audit JSON files are excluded, the two seed TSVs are explicitly re-included, and `index.html`, `data/vocabulary.json`, `data/phrases.json`, `tests/`, `scripts/`, `.github/workflows/`, `AGENTS_LOG.md`, `docs/vocabulary-audit-dev5.md` and the exam sources all remain in scope. Nothing else was added to the list, and no file was excluded to make a review shorter.
+- **Note on evidence quality.** The review that raised this finding also confirmed the file is actually in force: its run metadata lists `.coderabbit.yaml` as the configuration source and `Repository YAML` as the layer, which is the first direct evidence in this PR that the committed configuration — rather than account defaults — governed a review.
+
 ### D-9 — Historical changelog heading (unresolved, intentional)
 
 `CHANGELOG.md` still contains a section titled "Unreleased — one headword per word root" describing data that shipped in beta8. It carries an explicit note that its numbers are the beta7 state, and rewriting a historical changelog entry would destroy evidence, so it was left as-is and recorded here instead.
@@ -416,7 +425,7 @@ CodeRabbit's review of head `4059737` (`5642297386`, run `4661514b-e177-4ef5-914
 - The two behavioural sweeps were re-run on this tree: 104 translated count-of-one samples produce **0** plural-after-one offences, and the search label returns `1 word` / `5 words` / `1,000 words` / `5,112 words` while Vietnamese output is byte-identical to its input. `acceptsShortcutKey` rejects Ctrl, Cmd, Alt, Shift and IME composition and accepts unmodified `f` and `Space`.
 - Version and gate: `APP_VERSION` and `DEPLOY_HOLD` both name the unpublished `v1.0.0-rc1`; the gate reports `deploy=false`. No workflow file is modified by this PR.
 
-The review status of the head that carries this paragraph is recorded in the PR description rather than here: a documentation commit made after a review would change the head and invalidate that review.
+CodeRabbit then reviewed `f1c287e` itself (review `5642577787`, run `c2583a15-b31c-46eb-acde-14fe3e9b874e`, submitted 2026-10-25T09:45:19Z) — the first review whose run metadata names this repository's own `.coderabbit.yaml` as the configuration source (`Layers: Repository YAML`). It raised **one actionable comment**, D-20, which is fixed in the head that carries this paragraph; its own review of that head is recorded in the PR description, because a commit made after a review necessarily changes the head.
 
 ---
 

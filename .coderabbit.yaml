@@ -64,6 +64,15 @@ reviews:
   path_filters:
     - "!docs/vocabulary-audit-dev5.json"
     - "!docs/vocabulary-300-counts.json"
+    # CodeRabbit skips `**/*.tsv` by default (TSV is on its default ignored list),
+    # so the seed tables under data/vocab-seed/ and data/phrase-seed/ would not be
+    # reviewed even though nothing here excludes them. Repeating the default pattern
+    # without its leading `!` is the documented override for a default exclusion:
+    # it re-includes these files without turning this list into an allowlist, so
+    # every other path keeps its default treatment. Review round 4 caught that the
+    # paragraph above claimed these files were in scope while the default still
+    # excluded them.
+    - "**/*.tsv"
 
 # Trade-off, stated so it is not rediscovered the hard way:
 # every automatic incremental review counts against the same per-developer review

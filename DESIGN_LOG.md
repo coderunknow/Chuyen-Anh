@@ -1251,3 +1251,12 @@ A configuration file that is merely plausible is worse than none, so the committ
 ### One documentation defect found by the review of the previous head
 
 The D-18 passage quoted the removed assertion inside a single-backtick span while the quoted text contained two more backticks, so the span closed early and rendered as prose (MD038). Fixed by moving the assertion into a fenced block. It is a good reminder that the audit report is itself a rendering surface: a claim can be true and still be unreadable, and the review caught a defect the report's own tests could not.
+
+### Round 4 addendum — a configuration claim is a claim
+
+The first review that ran under the committed `.coderabbit.yaml` did something a configuration file cannot do for itself: it checked whether the file's prose matched its effect. The comment said the seed TSVs stayed in scope; CodeRabbit excludes `**/*.tsv` by default, and neither configured exclusion touched that default, so the sentence was false for exactly the files it named.
+
+Two lessons, both familiar from earlier rounds in a different disguise:
+
+- **A default is part of your configuration.** Writing only two `!` exclusions did not mean "everything else is reviewed"; it meant "everything else is reviewed except what the tool silently drops". The list of things a reviewer skips is a fact about the review, so it has to be established, not assumed.
+- **Documentation of behaviour needs the same evidence as the behaviour.** The earlier rounds learned this about test assertions ("a test that cannot fail certifies nothing"); here the same failure appeared in a comment. The fix is the documented override — the default pattern without its leading `!`, which re-includes the files without converting the filter into an allowlist — plus a scope evaluation of thirteen real paths against the final globs, so the paragraph and the effect are verified together.
