@@ -2579,7 +2579,10 @@ test('English counted labels use singular and plural forms', () => {
     ['1 cụm.', '1 phrase.'],
     ['Học cấp tốc · 1 từ / phiên', 'Study sprint · 1 word / session'],
     ['Xếp 1 từ ưu tiên: đến hạn, từ yếu, rồi từ mới — mỗi từ được hỏi ở mức bạn đã chứng minh và nhắc lại một lượt sau vài thẻ nếu chưa vững.',
-      'Queues 1 prioritised word: due, then weak, then new — each word is asked at the level you have demonstrated and repeated once after a few cards if it is not yet solid.']
+      'Queues 1 prioritised word: due, then weak, then new — each word is asked at the level you have demonstrated and repeated once after a few cards if it is not yet solid.'],
+    // These two labels carry an adjective between the count and the noun, so the
+    // count-of-one sweep in the next test cannot inspect them; they are pinned here.
+    ['1 từ đủ điều kiện · xếp 1 · 1 đến hạn · 1 từ yếu', '1 eligible word · 1 queued · 1 due · 1 weak']
   ];
   for (const [source, expected] of singularCases) {
     assert.equal(translateUiText(source, 'en'), expected, `singular form for "${source}"`);
@@ -2596,14 +2599,46 @@ test('English counted labels use singular and plural forms', () => {
   }
 });
 
+// RC1 review round 3: the search-count pattern handed the raw Vietnamese number to
+// pluralCount. pluralCount decides with Number(count), so Vietnamese "1.000" (one
+// thousand) read as the decimal 1.0 and produced "1.000 word" — singular, *and*
+// still grouped the Vietnamese way inside the English interface. The count is now
+// normalised with the same formatCount helper the sibling "từ gốc" pattern and the
+// real page header already use, so the noun and the digits cannot disagree.
+test('the search count is normalised before its noun is chosen', () => {
+  const header = count => `Tìm theo tiếng Anh, tiếng Việt, từ loại, tag hoặc ví dụ · ${count} từ.`;
+  const english = count => translateUiText(header(count), 'en');
+  const prefix = 'Search English, Vietnamese, part of speech, tags, or examples · ';
+  assert.equal(english('1'), `${prefix}1 word.`, 'a count of one must stay singular');
+  assert.equal(english('0'), `${prefix}0 words.`, 'zero takes the plural');
+  assert.equal(english('5'), `${prefix}5 words.`);
+  assert.equal(english('1.000'), `${prefix}1,000 words.`,
+    'a Vietnamese-grouped thousand is grouped the English way and stays plural');
+  assert.equal(english('1.001'), `${prefix}1,001 words.`);
+  assert.equal(english('5.112'), `${prefix}5,112 words.`);
+  assert.equal(english('10.000'), `${prefix}10,000 words.`);
+  // The sibling pattern behind the real page header keeps the same behaviour.
+  assert.equal(translateUiText('Tìm theo tiếng Anh, tiếng Việt, từ loại, tag hoặc ví dụ · 5.112 từ gốc.', 'en'),
+    `${prefix}5,112 headwords.`);
+  // Vietnamese rendering is untouched.
+  assert.equal(translateUiText(header('1.000'), 'vi'), header('1.000'));
+});
+
 // RC1 follow-up (review round 2): the first pass fixed the labels it had found, and
 // its report then claimed the helper backed "every counted pattern". A sweep of the
-// translation table proved that claim too strong: ten strings still hard-coded the
-// plural, five of them reachable with ordinary data (a one-card session, one practice
-// retry, the first wrong answer on a word, and a next review one day away). Instead of
-// adding one assertion per string found, this test derives a count-of-one sample from
-// every counted pattern in the shipped table, so a *new* pattern that forgets the
-// singular fails here instead of reaching a learner.
+// translation table proved that claim too strong: 22 translation sites (21 pattern
+// entries plus one inline summary line) still hard-coded the plural, yielding 20
+// distinct English labels on the pre-fix build; three of them were reproduced in
+// Chromium (a one-card session, one practice retry, the first wrong answer on a word).
+// Instead of adding one assertion per string found, this test derives a count-of-one
+// sample from every counted pattern in the shipped table, so a *new* pattern that
+// forgets the singular fails here instead of reaching a learner.
+//
+// Known limits of the sweep, stated so they are not mistaken for coverage: it only
+// inspects the token immediately after a count, so a plural that follows an adjective
+// ("1 eligible words") escapes it and has to be pinned explicitly above; and it only
+// exercises a count of one, so a grouping-separator bug ("1.000 words") is covered by
+// the search-count test instead.
 test('every counted English pattern agrees with a count of one', () => {
   const pluralNouns = new Set(['words', 'turns', 'phrases', 'cards', 'days', 'hours', 'times', 'pairs',
     'boards', 'results', 'sessions', 'items', 'headwords', 'questions']);
@@ -2659,7 +2694,9 @@ test('every counted English pattern agrees with a count of one', () => {
     const english = translateUiText(vietnamese, 'en');
     if (english === vietnamese) continue; // the generated sample does not match this pattern
     checked.push(english);
-    const words = english.split(/[\s·,;:/()]+/);
+    // Review round 3: a full stop used to stay glued to the noun ("1 phrases."), so a
+    // plural at the end of a sentence was invisible to this check.
+    const words = english.split(/[\s·,;:/().]+/);
     for (let index = 0; index < words.length - 1; index += 1) {
       if (words[index] !== '1') continue;
       assert.equal(pluralNouns.has(words[index + 1]), false,

@@ -125,7 +125,14 @@ class DocumentationConsistencyTests(unittest.TestCase):
         self.assertIn(f"{real_bytes:,} bytes", report, "the report must quote the real byte count")
         self.assertIn(f"{real_chars:,} characters", report, "and the character count it used to quote as bytes")
 
-    def test_report_evidence_tiers_are_mutually_exclusive(self) -> None:
+    def test_report_evidence_tiers_pair_each_count_with_its_own_label(self) -> None:
+        """Each tier label must carry *its own* count, not merely appear somewhere.
+
+        Review round 3: the previous assertion was a membership check (it was even
+        written as ``f"... " if False else str(value)``), so a report that swapped
+        ``61`` and ``24`` still passed. The pairs are now compared as a mapping,
+        which fails on any swap, and the arithmetic total is pinned separately.
+        """
         ledger = (ROOT / "docs" / "EXAM_AUDIT_LEDGER.md").read_text(encoding="utf-8")
         counts = {
             tier: int(re.search(rf"\| `{tier}` \| `(\d+)`", ledger).group(1))
@@ -133,22 +140,69 @@ class DocumentationConsistencyTests(unittest.TestCase):
         }
         self.assertEqual(sum(counts.values()), 106)
         report = (ROOT / "docs" / "RC1_AUDIT_REPORT.md").read_text(encoding="utf-8")
-        section = report.split("### C.2", 1)[1].split("### C.3", 1)[0]
-        for tier, value in counts.items():
-            self.assertIn(f"{value} `{tier}`" if False else str(value), section)
-        self.assertNotIn("82 papers", section,
+        section = report.split("### C.1", 1)[1].split("### C.2", 1)[0]
+        line = next((line for line in section.splitlines() if "Tier distribution recomputed" in line), None)
+        self.assertIsNotNone(line, "the report must recompute the tier distribution")
+        pairs = re.findall(r"(\d+) `([a-z-]+)`", line)
+        self.assertEqual(len(pairs), 3, f"expected three tier/count pairs on one line, got {pairs}")
+        self.assertEqual({tier: int(value) for value, tier in pairs}, counts,
+                         "each tier label must carry its own count (a swapped pair must fail here)")
+        total = re.search(r"=\s*(\d+)\*\*", line)
+        self.assertIsNotNone(total, "the recomputed distribution must state its total")
+        self.assertEqual(int(total.group(1)), 106)
+        self.assertEqual(sum(int(value) for value, _tier in pairs), 106,
+                         "61 + 21 + 24 must still account for every paper exactly once")
+        disclaimer = report.split("### C.2", 1)[1].split("### C.3", 1)[0]
+        self.assertNotIn("82 papers", disclaimer,
                          "the old tier description double-counted two papers already in insufficient-source")
-        self.assertIn("all 106 papers", section,
+        self.assertIn("all 106 papers", disclaimer,
                       "technical integrity is verified for every paper, not for a subset")
 
     def test_report_listening_tally_matches_the_ledger(self) -> None:
+        """The report's listening figures must come from the ledger's four categories.
+
+        Review round 3: the §C.3 sentence had been corrected from 55 to 56 while the
+        same sentence in §G (residual risk) still said 55, so the two sections
+        disagreed with each other and with the ledger. Both are now checked, and the
+        "no listening section" category is asserted separately so it cannot be folded
+        into the silent-listening figure again.
+        """
         ledger = (ROOT / "docs" / "EXAM_AUDIT_LEDGER.md").read_text(encoding="utf-8")
-        silent = int(re.search(r"and `(\d+)` omit both audio and transcript", ledger).group(1))
+        figures = {}
+        for key, pattern in (
+            ("with_listening", r"Across `(\d+)` papers with listening sections"),
+            ("full", r"`(\d+)` include full written transcripts"),
+            ("truncated", r"`(\d+)` contain truncated/incomplete transcripts"),
+            ("silent", r"and `(\d+)` omit both audio and transcript"),
+            ("no_section", r"`(\d+)` papers contain no listening section"),
+        ):
+            found = re.search(pattern, ledger)
+            self.assertIsNotNone(found, f"the ledger summary lost its claim: {pattern}")
+            figures[key] = int(found.group(1))
+        self.assertEqual(figures["with_listening"] + figures["no_section"], 106)
+        self.assertEqual(figures["full"] + figures["truncated"] + figures["silent"], figures["with_listening"])
+
         report = (ROOT / "docs" / "RC1_AUDIT_REPORT.md").read_text(encoding="utf-8")
         claimed = re.search(r"(\d+) papers have a listening section with \*\*no audio and no transcript\*\*", report)
         self.assertIsNotNone(claimed, "the report must state the silent-listening count")
-        self.assertEqual(int(claimed.group(1)), silent,
-                         "the report's listening tally disagrees with the ledger summary")
+        self.assertEqual(int(claimed.group(1)), figures["silent"],
+                         "the report's C.3 listening tally disagrees with the ledger summary")
+        self.assertEqual(int(claimed.group(1)), 56)
+
+        residual = report.split("## G. Residual risk", 1)[1]
+        stated = re.search(
+            r"(\d+) of the (\d+) papers that contain a listening section have neither audio nor a written transcript",
+            residual)
+        self.assertIsNotNone(stated, "residual risk must state the silent-listening count the same way")
+        self.assertEqual(int(stated.group(1)), figures["silent"],
+                         "the residual-risk section disagrees with the ledger (it said 55 before review round 3)")
+        self.assertEqual(int(stated.group(2)), figures["with_listening"])
+        truncated = re.search(r"a further (\d+) carry only a truncated transcript", residual)
+        self.assertIsNotNone(truncated, "residual risk must keep the truncated category separate")
+        self.assertEqual(int(truncated.group(1)), figures["truncated"])
+        no_section = re.search(r"(\d+) papers have no listening section at all", residual)
+        self.assertIsNotNone(no_section, "residual risk must keep the no-listening category separate")
+        self.assertEqual(int(no_section.group(1)), figures["no_section"])
 
     def test_readme_current_deploy_hold_marker_matches_the_gate_file(self) -> None:
         hold = (ROOT / "DEPLOY_HOLD").read_text(encoding="utf-8").strip()

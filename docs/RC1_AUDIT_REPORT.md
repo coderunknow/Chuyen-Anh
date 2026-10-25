@@ -130,8 +130,11 @@ The four-tier distinction the mission asks for, as it applies to this archive:
 | D-11 | Medium (test, pre-existing) | `tests/browser-learning.cjs` — stale favourites fixture graded the wrong word | **fixed (test only; the app was correct)** |
 | D-12 | Medium/Low (test, pre-existing) | `tests/browser-learning.cjs` — three fixtures encoded queue rotation / pre-beta7 data as fixed expectations | **fixed (test only; the app was correct)** |
 | D-13 | Low/Medium | `index.html` — `Shift`-modified keys still reached the shortcut handler (Shift+F wrote the hold list, Shift+Space revealed the answer) | **fixed (review round 2; reported by CodeRabbit, independently reproduced)** |
-| D-14 | Low | `index.html` — ten English counted labels were still plural-only, five of them reachable; the D-4 claim of covering "every counted pattern" was too strong | **fixed (review round 2; found by the new sweep test)** |
+| D-14 | Low | `index.html` — twenty distinct English counted labels (from 22 translation sites) were still plural-only, three of them reproduced in the browser; the D-4 claim of covering "every counted pattern" was too strong | **fixed (review round 2; found by the new sweep test; count corrected in review round 3)** |
 | D-15 | Note | Audit report — four internal inconsistencies found while checking the review's claims: a table row broken by a literal pipe, a stale byte count, an evidence tier that double-counted two papers, and a listening tally off by one | **fixed (review round 2)** |
+| D-16 | Low | Audit report — §G still said "55 lack any listening material" after §C.3 had been corrected to 56 | **fixed (review round 3; reported by CodeRabbit)** |
+| D-17 | Low/Medium | `index.html` — the search-count label decided its noun from a Vietnamese-grouped number (`1.000 từ` → `1.000 word.`) | **fixed (review round 3; reported by CodeRabbit)** |
+| D-18 | Note (test) | `tests/test_exam_audit_ledger.py` read the listening column by prose match; `tests/test_readme_counts.py` compared tier numbers by membership, so a swap passed | **fixed (review round 3; reported by CodeRabbit)** |
 
 ### D-1 — A modified key pressed a flashcard shortcut (High, fixed)
 
@@ -214,17 +217,16 @@ All twelve loaders (`progress`, `prefs`, `favorites`, `history`, `streak`, `stud
 - **Fix:** `acceptsShortcutKey` now rejects `event.shiftKey` as well. Unmodified keys are untouched: plain `f` still flags (verified: `[]` → `["298"]` → `[]`) and plain `Space` still reveals.
 - **Regression tests:** `tests/static-app.test.js` (*a modified key is never a flashcard shortcut*, four Shift cases added — fails on `edd2ede` with "Shift+F is a capital letter, not a shortcut") and a new dispatched-event scenario in `tests/browser-learning.cjs` that presses ten real chords (`Ctrl+F`, `Ctrl+R`, `Ctrl+1`, `Ctrl+Space`, `Alt+1`, `Shift+F`, `Shift+R`, `Shift+Space`, `Shift+Enter`, `Ctrl+Shift+F`) through the registered `document.addEventListener('keydown')` handler and asserts, after each, that nothing was revealed, graded or written to storage. That scenario addresses the review nitpick that the unit test only called the helper directly: if the handler ever stops calling `acceptsShortcutKey`, the unit test would still pass and the browser scenario fails.
 
-### D-14 — "Every counted pattern" was too strong: ten English labels were still plural-only (Low, fixed in review round 2)
+### D-14 — "Every counted pattern" was too strong: twenty English labels were still plural-only (Low, fixed in review round 2; count corrected in review round 3)
 
-- **What the first pass got wrong.** D-4 fixed the seven labels it had found and this report then stated that one helper "backs every counted pattern". A sweep written in review round 2 (now a permanent test) derives a count-of-one sample from **every** counted pattern in the shipped translation table and found **ten** more strings that hard-coded the plural. Five are reachable with ordinary data and were reproduced in the English interface of head `edd2ede`:
-  - `1 / 1 turns · 1 left` — the card header of any one-card session;
-  - `Practice retries: 1 correct · 0 not correct / 1 turns.` — the summary after exactly one practice retry;
-  - `You have missed this word 1 times.` — the retry note on the **first** wrong answer to a word;
-  - `in 1 days` / `in 1 hours` — latent, because `formatNextReview` already singularises before translation;
-  - `1 phrases`, `1 phrases.`, `1 phrases · first 1 shown`, `Flashcards · 1 words …`, `Graded 1 items …`, `Match pairs · 1/1 pairs` — latent with the current data (780 phrases, 5,112 headwords, four-pair boards), wrong as soon as that data or a filter changes.
-- **Fix:** all ten now go through `pluralCount` (and `Graded N items` through it as well, so the count and the noun cannot drift apart). No wording, translation or behaviour was changed beyond the singular/plural noun.
-- **Regression tests:** the exact strings are pinned in *English counted labels use singular and plural forms*, and the durable guard is the new *every counted English pattern agrees with a count of one*: it fails on `edd2ede` with `Flashcards · 1 words · offline exam archive` and passes on the fixed tree over 101 translated patterns. Live re-check in Chromium after the fix: `1 / 1 turn · 1 left`, `… / 1 turn.`, `You have missed this word 1 time.`
-- **Lesson recorded:** a claim of the form "every X" needs a test that enumerates X, not a list of the instances that happened to be found.
+- **What the first pass got wrong.** D-4 fixed the seven labels it had found, and this report then stated that one helper "backs every counted pattern". A sweep written in review round 2 (now a permanent test) derives a count-of-one sample from **every** counted pattern in the shipped translation table and found strings that hard-coded the plural. Round 2 changed **22 sites**: 21 entries across the two translation tables plus one inline summary line (`Graded … items`, which duplicates a table entry). Two entries render the same label (`1 cụm từ · hiển thị 1 cụm đầu` and `1 cụm · hiển thị 1 cụm đầu`, both `1 phrases · first 1 shown`), so those sites produced **20 distinct English labels**, every one of them plural-only at a count of one on `edd2ede`.
+- **The earlier "ten" was wrong.** It came from an eyeball tally of the diff, not from the enumerating test, and it called five labels "reachable" while listing three reproductions plus two explicitly latent cases. Review round 3 recomputed the figure from the diff and from the pre-fix build instead of restating the prose.
+- **Reproduced end-to-end in Chromium on `edd2ede`** (the three states the round-2 browser work actually created): `1 / 1 turns · 1 left` (one-card session header), `Practice retries: 1 correct · 0 not correct / 1 turns.` (one retry), `You have missed this word 1 times.` (the first wrong answer to a word).
+- **Provably latent:** `in 1 days` / `in 1 hours` — `formatNextReview` already builds English directly (`in ${hours} hour(s)`), so a Vietnamese count-of-one never reaches the table in English mode.
+- **Neither reproduced nor proven unreachable (15 labels):** `Flashcards · 1 words`, `Flashcards · 1 headwords`, `Search … · 1 words.`, `Search … · 1 headwords.`, `1 phrases`, `1 phrases.`, `1 phrases · first 1 shown`, `/ 1 turns · 1 left`, `Graded 1 items`, `Match pairs · 1/1 pairs`, `Study sprint · 1 words / session`, `Queues 1 prioritised words`, `The sprint keeps … (1 words per session)`, `Consolidation: … / 1 turns`, `1 eligible words · 1 queued · 1 due · 1 weak`. With today's data each needs a one-item data set or a screen state this audit did not build, so they are recorded as latent rather than claimed as reproductions.
+- **Fix:** all 22 sites now go through `pluralCount`, so the count and the noun cannot drift apart. Review round 3 additionally normalised the search-count entry with `formatCount` before `pluralCount` (see D-17).
+- **Regression tests:** the exact strings are pinned in *English counted labels use singular and plural forms* — including the two labels whose noun follows an adjective, which the sweep cannot see — and the durable guard is *every counted English pattern agrees with a count of one*: it derives **104 samples from the 108 shipped patterns** (four are non-counted selectors whose generated sample never matches) and fails on `edd2ede` with `Flashcards · 1 words · offline exam archive`. Review round 3 also made that guard split on full stops, because `1 phrases.` used to survive the check as the token `phrases.`.
+- **Lesson recorded:** a claim of the form "every X" needs a test that enumerates X, not a list of the instances that happened to be found — and a count in prose needs the same enumeration as the test, not a second look at the diff.
 
 ### D-15 — Four inconsistencies in the audit report itself (Note, fixed in review round 2)
 
@@ -238,6 +240,28 @@ A review of the report against the data it cites found four errors in this docum
 | §C.3 listening tally | "55 papers have a listening section with no audio and no transcript … 2 no longer exist as full text" | **56**, and the 2 are the papers with speaking prompt/marking-guide assets | recount of the ledger's listening column: 56 + 23 (full transcript) + 4 (truncated) + 23 (no section) = 106 |
 
 No number in the *data* changed: the ledger, the tiers, the question counts and the vocabulary counts are the same values this report published, and the recount that produced them reproduces again in review round 2 (3,472 questions = 2,402 + 1,070 over 91 papers; 11 papers / 248 Private-Use-Area codepoints; 61 / 21 / 24).
+
+### D-16 — The residual-risk section still quoted the pre-recount listening number (Low, fixed in review round 3)
+
+- **Finding.** D-15 recorded that §C.3's "55 papers have a listening section with no audio and no transcript" was corrected to **56**, but the same sentence in §G was missed, so two sections of this report disagreed with each other and with the ledger. CodeRabbit flagged §G in review round 3.
+- **Recomputed from the ledger's listening column** (selected by header name, not by "the first cell that mentions listening"): 83 papers contain a listening section — of those **23** include a full written transcript, **4** a partial/truncated one, and **56** neither audio nor transcript; the remaining **23** papers have no listening section at all (83 + 23 = 106). The two categories stay separate: "no listening section" is not "a listening section that is silent".
+- **Fix.** §G now states 56 of 83 papers with neither audio nor transcript, 4 with a truncated transcript, and 23 with no listening section at all.
+- **Guard.** `tests/test_readme_counts.py` reads all four figures out of the ledger and asserts §G quotes them, so the two sections cannot drift apart again.
+
+### D-17 — A counted label decided its noun from a Vietnamese-grouped number (Low/Medium, fixed in review round 3)
+
+- **Finding.** CodeRabbit, `index.html:221733`: the search-count pattern passed the raw captured number to `pluralCount`, while its `từ gốc` sibling called `formatCount` first.
+- **Reproduced with the shipped module (pre-fix tree).** `Tìm theo tiếng Anh, … · 1.000 từ.` → `Search English, … · 1.000 word.` — `pluralCount` decides with `Number(count)`, and `Number('1.000')` is the decimal `1`, so one thousand printed as a singular *and* kept Vietnamese grouping inside the English interface. `5.112` → `5.112 words.` (right noun, wrong separator). Vietnamese rendering was unaffected.
+- **Fix.** `pluralCount(formatCount(count, 'en'), 'word', 'words')`, reusing the existing helper — no second formatter, no wording change, no behaviour change in Vietnamese (`translateUiText(..., 'vi')` still returns the source untouched).
+- **Guard.** *the search count is normalised before its noun is chosen* pins `1`, `0`, `5`, `1.000`, `1.001`, `5.112`, `10.000`, the sibling `từ gốc` label and the Vietnamese pass-through. It fails on the pre-fix tree with `… · 1.000 word.` where `… · 1,000 words.` is required.
+- **Scope check.** It was the only entry in the translation table that captured a grouped number without normalising it: every other `([\d.,]+)` pattern already calls `formatCount`.
+
+### D-18 — Two ledger/report tests could not fail (Note, fixed in review round 3)
+
+- **Listening tally read the wrong column.** `tests/test_exam_audit_ledger.py` picked "the first cell containing *listening*", and eight rows mention listening in their *completeness* description, so the tally depended on prose in a neighbouring column. Demonstrated: rewriting one row's listening cell (leaving its completeness cell untouched) kept the old assertion green while the correct figure moved by one. The column is now selected by header name; the truncated category matches the ledger's own wording (`partial/truncated written transcript`); a renamed or removed header fails loudly instead of silently measuring something else.
+- **Tier counts were a membership check.** `tests/test_readme_counts.py` contained `self.assertIn(f"{value} `{tier}`" if False else str(value), section)`, i.e. it only asserted that each number appeared *somewhere* in the section, so swapping `61` and `24` still passed. It now compares label→count pairs; the swap fails.
+- **Guards.** *every listening claim is derived from the Listening column only* (with the completeness-column and listening-column mutation assertions) and *each tier label carries its own count* (with `61 + 21 + 24 = 106` still pinned as the total).
+- **Lesson recorded:** a test that passes is not evidence unless the change it is meant to catch has been shown to fail it.
 
 ### D-9 — Historical changelog heading (unresolved, intentional)
 
@@ -330,11 +354,35 @@ Every fix in this round is guarded by a test that **fails on `edd2ede`** and pas
 - A GitHub Actions run: this branch is a candidate branch; CI will run when the PR is opened. No workflow was dispatched by this audit, and no release/deploy workflow was triggered.
 - Screen-reader testing: no screen reader is available in the sandbox.
 
+### F.2 Review round 3 — remediation verification
+
+CodeRabbit's third review (`5641732787`, run `0ae4c588-673b-479d-bd7f-a1c871edd72e`, submitted against `706c247`) posted five actionable comments. All five were reproduced against the tree before anything was changed; the table below is what was actually run afterwards.
+
+| Command | Result on this tree |
+| --- | --- |
+| `python -m unittest discover -s tests -p 'test_*.py'` | **104 tests OK**, 5.3 s (103 before this round: one test replaced, two added) |
+| `node --test tests/static-app.test.js` | **98 pass / 0 fail**, 255 s (97 before; the search-count test is the addition) |
+| `node tests/browser-learning.cjs` (real Chromium) | **PASS**, 206 s |
+| `node tests/browser-exams.cjs` (real Chromium) | **PASS**, 66 s |
+| ten `--check`/validator pipeline commands | all exit 0; counts unchanged (5,852 rows · 5,112 headwords · 740 forms · 581 families · 780 phrases · 106 transcriptions, 4,169,772 text bytes) |
+| `git diff --check` | clean |
+| `python scripts/deploy_gate.py` | `deploy=false (release v1.0.0-rc1 is missing; deployment held)` |
+
+**Fail-first evidence, one line per finding** (each was run before the corresponding fix):
+
+1. *Reproduced-label count (D-14).* An enumeration of the pre-fix build (`edd2ede`) found 22 changed translation sites rendering **20 distinct labels**, all plural-only at a count of one; a browser reproduction existed for 3. The prose figure "ten" was corrected, not defended.
+2. *Listening tally (D-16).* The report's §G sentence was reverted to "55 lack any listening material" in a scratch copy; the new documentation test fails (`residual risk must state the silent-listening count the same way`).
+3. *Search count (D-17).* The new Node test fails on the pre-fix tree with `… · 1.000 word.` where `… · 1,000 words.` is required, and passes after the one-expression fix.
+4. *Listening column (D-18).* With one row's **listening** cell rewritten to "full written transcript included" and its completeness cell untouched, the old assertion stayed green (`OLD_RESULT PASS`) while the new one failed (`23 != 24`). Renaming the column header makes the new test fail loudly instead of measuring a different column.
+5. *Tier pairs (D-18).* With `61` and `24` swapped in the report, the old membership assertion passed (`OLD_RESULT PASS`) and the new pair comparison failed.
+
+**Not run, with reasons:** no `pytest` (this repository uses `unittest` + `node --test`); no GitHub Actions dispatch (CI runs on the push itself and is reported separately); no screen-reader pass (no screen reader in the sandbox); no CodeRabbit review of the *new* head was requested in this round — its hourly allowance was exhausted by review `5641732787`, so the head that carries these fixes is reported as **not reviewed** until a review is actually attached to it.
+
 ---
 
 ## G. Residual risk
 
-1. **Exam fidelity.** The strongest remaining risk is content accuracy of the 106 transcriptions and their reference keys: 0 papers are verified against a primary source, 24 are officially "not enough evidence", and 55 lack any listening material. Checksums and parser agreement cannot raise this. Fixing it needs the original PDFs/audio, which are not in the repository and are not reachable from this sandbox.
+1. **Exam fidelity.** The strongest remaining risk is content accuracy of the 106 transcriptions and their reference keys: 0 papers are verified against a primary source, 24 are officially "not enough evidence", and 56 of the 83 papers that contain a listening section have neither audio nor a written transcript (a further 4 carry only a truncated transcript, and 23 papers have no listening section at all). Checksums and parser agreement cannot raise this. Fixing it needs the original PDFs/audio, which are not in the repository and are not reachable from this sandbox.
 2. **Release-gate coupling (operational, not changed by code).** `DEPLOY_HOLD` must name the version the shipped file declares (`tests/test_deploy_gate.py` encodes that invariant). At the base commit the hold named the *published* `v1.0.0-beta8`, so the gate was **open** and a merge would have published the new build to Pages without any release of its own. RC1 repoints the hold to the unpublished `v1.0.0-rc1`, which closes the gate (`deploy=false`). This cannot publish anything; it is the same pre-release pattern used for every beta. **The maintainer must still decide** whether to tag `v1.0.0-rc1` and publish it, or to point the hold elsewhere, before merging if a deploy must be prevented or required.
 3. **Gloss semantics.** ~5,000 editor-written Vietnamese glosses were not re-verified row by row; a systematic semantic error would not be caught by any validator here.
 4. **English coverage.** Translation is a lookup/pattern system, so any new UI string silently falls back to Vietnamese. This audit added the two missing strings it could observe; it cannot prove total coverage, and a future string can reintroduce the gap. (The sweep covers the six screens reachable without a session; session-internal strings were exercised only through the existing pinned tests.)

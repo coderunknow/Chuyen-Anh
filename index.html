@@ -221730,7 +221730,7 @@ const EN_UI_PATTERNS = [
   [/^Flashcard · ([\d.,]+) từ gốc · kho đề offline$/, (_match, count) => `Flashcards · ${pluralCount(formatCount(count, 'en'), 'headword', 'headwords')} · offline exam archive`],
   [/^([\d.,]+) từ gốc$/, (_match, count) => `${formatCount(count, 'en')} ${countNumber(count) === 1 ? 'headword' : 'headwords'}`],
   [/^([\d.,]+) dạng cùng gốc$/, (_match, count) => `${formatCount(count, 'en')} same-root ${countNumber(count) === 1 ? 'form' : 'forms'}`],
-  [/^Tìm theo tiếng Anh, tiếng Việt, từ loại, tag hoặc ví dụ · ([\d.,]+) từ\.$/, (_match, count) => `Search English, Vietnamese, part of speech, tags, or examples · ${pluralCount(count, 'word', 'words')}.`],
+  [/^Tìm theo tiếng Anh, tiếng Việt, từ loại, tag hoặc ví dụ · ([\d.,]+) từ\.$/, (_match, count) => `Search English, Vietnamese, part of speech, tags, or examples · ${pluralCount(formatCount(count, 'en'), 'word', 'words')}.`],
   [/^Tìm theo tiếng Anh, tiếng Việt, từ loại, tag hoặc ví dụ · ([\d.,]+) từ gốc\.$/, (_match, count) => `Search English, Vietnamese, part of speech, tags, or examples · ${pluralCount(formatCount(count, 'en'), 'headword', 'headwords')}.`],
   [/^(\d+) đến hạn$/, (_match, count) => `${count} due`],
   [/^(\d+) ngày liên tiếp$/, (_match, count) => `${count}-day streak`],

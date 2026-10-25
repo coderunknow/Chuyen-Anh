@@ -1203,3 +1203,25 @@ Take the CodeRabbit review of the RC1 candidate seriously without treating it as
 - **Enumerate before you say "every".** The defect behind D-14 was not the ten strings; it was the sentence claiming there were none left. The fix that lasts is the test that walks the set.
 - **A browser test is not a unit test wearing a hat.** The nitpick about calling `acceptsShortcutKey` directly is exactly right: the guard can be correct while the handler stops using it. The new scenario presses real chords and asserts that storage, the card and the answer are untouched.
 - **Keeping the review session intact is part of the job.** Editing the branch under an in-flight review would have reviewed a tree nobody could reproduce; the audit waited, and the review result is attached to the commit it actually examined.
+
+## 2026-10-25 (review round 3) — correcting a number we had published, and making two tests able to fail
+
+### The shape of the round
+
+CodeRabbit's third review (`5641732787`, attached to `706c247`) raised five actionable comments. All five turned out to be real. Three were small code-and-test repairs; two were about evidence this project had produced itself — a count in the audit report that was never enumerated, and two tests whose assertions could not fail.
+
+### Decisions
+
+1. **A published count was corrected, not defended.** D-14 said "ten" labels had been plural-only. It came from an eyeball tally of the diff; the enumerating test had never produced it. Recomputing from the diff and from the pre-fix build gives 22 changed sites rendering 20 distinct labels. The report, the changelog entry and the D-table row now carry 20, and the text separates the 3 labels actually reproduced in a browser from the 2 that are provably masked and the 15 that remain unproven either way. Keeping those three groups apart matters more than the total: the earlier sentence quietly promoted latent cases to "reachable".
+2. **The round-2 log entry was left standing.** `AGENTS_LOG.md` (addendum 2) still says "ten strings, five reachable". It is a dated record of what was believed when it was written; the new addendum supersedes the figure and says so explicitly. Rewriting the older entry would have destroyed the only evidence that we published a wrong number and how it was caught.
+3. **The count bug was fixed at the call site, not in the helper.** `pluralCount` uses `Number(count)`, which reads Vietnamese-grouped `"1.000"` as the decimal 1. Changing the helper to strip non-digits would fix that input and break `"1.0"` (it would read 10) and any future decimal count. The defect was the caller passing an ungrouped-in-the-wrong-locale string, so the caller now normalises with `formatCount` — the same helper its `từ gốc` sibling and the real page header already used.
+4. **Tests were made to measure the requirement, not the words around it.** A ledger test that searched for the first cell containing "listening" now maps columns from the header row and raises on an unknown cell; a report test that asked "does 61 appear somewhere in this section" now compares label→count pairs. Both were demonstrated to fail on the change they are meant to catch (a mutated listening cell; swapped tier numbers), because a test that cannot fail is worse than no test — it certifies.
+5. **The guards were hardened where measurement showed they were blind.** The count-of-one sweep could not see `1 phrases.` because the full stop stayed attached to the noun; splitting on `.` as well makes it visible. The same sweep cannot see `1 eligible words`, because the noun does not follow the count directly, so that label is pinned explicitly and the limitation is written into the test instead of being implied away.
+6. **No new review was requested.** The hourly allowance was spent by the review we were answering ("0 included reviews remain"). Asking again would have produced a rate-limited status that is easy to mistake for a review; the new head is reported as unreviewed.
+
+### Lessons
+
+- **A number in prose is a claim like any other.** If the test derived it, quote the test; if a human counted it by eye, say so or do not publish it.
+- **Membership is not agreement.** "The number appears in this section" passes for a swap, for a typo elsewhere and for a deleted sentence. Compare the pair.
+- **Prose in a neighbouring column is data too.** A test that pattern-matches cell text across a table will eventually read the wrong column and keep passing; select by header and fail loudly when the shape changes.
+- **When a helper's input is locale-shaped, normalise at the boundary.** The cheapest fix (teach the helper to guess) would have broken the cases that currently work.
