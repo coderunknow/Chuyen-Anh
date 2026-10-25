@@ -367,6 +367,8 @@ CodeRabbit's third review (`5641732787`, run `0ae4c588-673b-479d-bd7f-a1c871edd7
 | ten `--check`/validator pipeline commands | all exit 0; counts unchanged (5,852 rows · 5,112 headwords · 740 forms · 581 families · 780 phrases · 106 transcriptions, 4,169,772 text bytes) |
 | `git diff --check` | clean |
 | `python scripts/deploy_gate.py` | `deploy=false (release v1.0.0-rc1 is missing; deployment held)` |
+| CI on the pushed commit `87e44b8` | `Static checks` run `40167440981` → **success**, job `checks` 05:58:35Z–06:02:55Z |
+| CodeRabbit on `87e44b8` | commit status **"Review skipped: draft pull request"** — the head has **not** been reviewed |
 
 **Fail-first evidence, one line per finding** (each was run before the corresponding fix):
 
