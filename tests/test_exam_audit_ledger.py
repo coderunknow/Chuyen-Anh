@@ -72,5 +72,83 @@ class ExamAuditLedgerTests(unittest.TestCase):
             self.assertNotIn(forbidden, joined)
 
 
+def ledger_rows(text: str):
+    """Return the 106 per-paper table rows as (key, cells) pairs."""
+    rows = []
+    for line in text.splitlines():
+        match = re.match(r"^\|\s*(\d{3})\s*\|\s*`([0-9]{4}/[a-z0-9-]+/[a-z0-9-]+)`\s*\|", line)
+        if match:
+            rows.append((match.group(2), [cell.strip() for cell in line.strip().strip("|").split("|")]))
+    return rows
+
+
+class ExamAuditLedgerConsistencyTests(unittest.TestCase):
+    """RC1: the ledger's prose must agree with its own per-paper table.
+
+    The per-paper rows are pinned by ExamAuditLedgerTests above; these tests keep
+    the summary paragraphs from drifting away from them (and from the archive it
+    describes). They are regression tests for three defects found in RC1:
+    three unrendered ``{len(...)}`` template placeholders, an ``insufficient-source``
+    description that named the wrong second digital paper and asserted Private-Use
+    glyphs that the file does not contain.
+    """
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.text = LEDGER_PATH.read_text(encoding="utf-8")
+        cls.rows = ledger_rows(cls.text)
+        cls.selection = json.loads(SELECTION_PATH.read_text(encoding="utf-8"))
+
+    def test_no_unrendered_template_placeholders(self) -> None:
+        # A generator bug once committed the literal text "{len(listen_missing)}".
+        placeholders = re.findall(r"\{(?:len\([^)]*\)|[a-z_]+)\}", self.text)
+        self.assertEqual(placeholders, [], f"unrendered placeholders in the ledger: {placeholders}")
+
+    def test_insufficient_source_description_names_the_rows_that_carry_the_tier(self) -> None:
+        digital = [
+            key for key, cells in self.rows
+            if "`insufficient-source`" in cells
+            and next(paper["quality"] for paper in self.selection if paper["key"] == key) != "HTML/OCR-cần-soát"
+        ]
+        self.assertEqual(sorted(digital), ["2022/ha-noi/so", "2025/thai-nguyen/so"])
+        tier_sentence = next(
+            line for line in self.text.splitlines()
+            if line.startswith("| `insufficient-source`")
+        )
+        for key in digital:
+            self.assertIn(f"`{key}`", tier_sentence, f"{key} carries the tier but is not named in its definition")
+        # The file must not be described as containing glyphs it does not contain.
+        binh_thuan = ROOT / "De-chuyen-Anh-vao-10" / "2023" / "binh-thuan" / "so.md"
+        has_pua = bool(re.search(r"[\ue000-\uf8ff]", binh_thuan.read_text(encoding="utf-8")))
+        self.assertFalse(has_pua, "the fixture assumption changed: 2023/binh-thuan/so now has PUA glyphs")
+        self.assertNotIn("2023/binh-thuan/so` with `18`", tier_sentence)
+
+    def test_listening_summary_matches_the_per_paper_columns(self) -> None:
+        def listening_cell(cells):
+            return next((cell for cell in cells if "istening" in cell), "")
+
+        cells = [listening_cell(row) for _, row in self.rows]
+        with_listening = sum(1 for cell in cells if cell.startswith("Listening section present") or "listening transcript incomplete" in cell)
+        without_listening = sum(1 for cell in cells if cell.startswith("No listening section"))
+        full = sum(1 for cell in cells if "full written transcript included" in cell)
+        incomplete = sum(1 for cell in cells if "transcript incomplete" in cell)
+        missing = sum(1 for cell in cells if cell.startswith("Listening section present") and "no transcript" in cell)
+        speaking = sum(1 for cell in cells if "speaking guide asset" in cell)
+
+        self.assertEqual(with_listening + without_listening, 106)
+        self.assertEqual(full + incomplete + missing, with_listening)
+        for pattern, value in (
+            (r"Across `(\d+)` papers with listening sections", with_listening),
+            (r"`(\d+)` include full written transcripts", full),
+            (r"`(\d+)` contain truncated/incomplete transcripts", incomplete),
+            (r"and `(\d+)` omit both audio and transcript", missing),
+            (r"`(\d+)` papers contain no listening section", without_listening),
+            (r"`(\d+)` papers include speaking prompt/marking guide assets", speaking),
+        ):
+            found = re.search(pattern, self.text)
+            self.assertIsNotNone(found, f"missing claim: {pattern}")
+            self.assertEqual(int(found.group(1)), value, f"claim does not match the per-paper rows: {pattern}")
+
+
 if __name__ == "__main__":
     unittest.main()

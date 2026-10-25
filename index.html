@@ -220924,7 +220924,7 @@ export const MODES = Object.freeze({
   FLASHCARD: 'flashcard'
 });
 
-export const APP_VERSION = 'v1.0.0-beta8';
+export const APP_VERSION = 'v1.0.0-rc1';
 export const EXAM_RESULT_SCHEMA_VERSION = '1.0.0';
 // Sprint hand-off: a correct first-pass answer moves straight to the next card
 // with no dwell timer, and the answer just graded stays on screen as a compact
@@ -221438,6 +221438,7 @@ const EN_UI_TRANSLATIONS = Object.freeze({
   'Xóa dữ liệu học': 'Delete study data',
   'Thông tin dữ liệu': 'Data information',
   'Từ vựng, 106 bản chép đề, giao diện và mã ứng dụng nằm trong chính tệp HTML này. Ứng dụng không tự tải dữ liệu/tài nguyên; chỉ tiến độ flashcard được lưu riêng trên thiết bị.': 'Vocabulary, 106 exam transcriptions, the interface, and application code are all in this HTML file. The app does not download data or assets; only flashcard progress is stored separately on this device.',
+  'Nguồn đăng lại; 22 bản HTML/OCR cần soát và chỉ đọc. Các mục trích xuất khác chưa được xác minh từng câu.': 'Republished sources; 22 HTML/OCR copies need review and are read-only. The other extracted items have not been verified line by line.',
   'Từ vựng, kho cụm từ, 106 bản chép đề, giao diện và mã ứng dụng nằm trong chính tệp HTML này. Ứng dụng không tự tải dữ liệu/tài nguyên; chỉ tiến độ flashcard và tiến độ cụm từ được lưu riêng trên thiết bị.': 'Vocabulary, the phrase bank, 106 exam transcriptions, the interface and application code are all in this HTML file. The app does not download data or assets; only flashcard progress and phrase progress are stored separately on this device.',
   'Quy tắc gốc từ:': 'Root rule:',
   'mỗi gốc từ chỉ tính là một từ vựng. Các dạng cùng gốc (ví dụ số nhiều, thì, phái sinh) không phải mục riêng; chúng được ghi ở dòng “Họ từ” của từ gốc.': 'each word root counts as one vocabulary item. Same-root forms (for example plurals, tenses and derivations) are not separate entries; they are recorded in the “Word family” line of the headword.',
@@ -221733,30 +221734,30 @@ const EN_UI_PATTERNS = [
   [/^Tìm theo tiếng Anh, tiếng Việt, từ loại, tag hoặc ví dụ · ([\d.,]+) từ gốc\.$/, (_match, count) => `Search English, Vietnamese, part of speech, tags, or examples · ${formatCount(count, 'en')} headwords.`],
   [/^(\d+) đến hạn$/, (_match, count) => `${count} due`],
   [/^(\d+) ngày liên tiếp$/, (_match, count) => `${count}-day streak`],
-  [/^(\d+) bản chép(?: · trang (\d+)\/(\d+))?$/, (_match, count, page, pages) => `${count} transcriptions${page ? ` · page ${page} of ${pages}` : ''}`],
-  [/^(\d+) kết quả(?: · trang (\d+)\/(\d+))?$/, (_match, count, page, pages) => `${count} results${page ? ` · page ${page} of ${pages}` : ''}`],
-  [/^(\d+) từ\.$/, (_match, count) => `${count} words.`],
-  [/^(\d+) từ$/, (_match, count) => `${count} words`],
-  [/^(\d+) cụm$/, (_match, count) => `${count} phrases`],
+  [/^(\d+) bản chép(?: · trang (\d+)\/(\d+))?$/, (_match, count, page, pages) => `${pluralCount(count, 'transcription', 'transcriptions')}${page ? ` · page ${page} of ${pages}` : ''}`],
+  [/^(\d+) kết quả(?: · trang (\d+)\/(\d+))?$/, (_match, count, page, pages) => `${pluralCount(count, 'result', 'results')}${page ? ` · page ${page} of ${pages}` : ''}`],
+  [/^(\d+) từ\.$/, (_match, count) => `${pluralCount(count, 'word', 'words')}.`],
+  [/^(\d+) từ$/, (_match, count) => pluralCount(count, 'word', 'words')],
+  [/^(\d+) cụm$/, (_match, count) => pluralCount(count, 'phrase', 'phrases')],
   [/^(\d+) cụm từ$/, (_match, count) => `${count} phrases`],
   [/^(\d+) cụm từ · hiển thị (\d+) cụm đầu$/, (_match, count, shown) => `${count} phrases · first ${shown} shown`],
   [/^(\d+) cụm\.$/, (_match, count) => `${count} phrases.`],
   [/^(\d+) cụm · hiển thị (\d+) cụm đầu$/, (_match, count, shown) => `${count} phrases · first ${shown} shown`],
-  [/^Phrasal verbs, thành ngữ, collocations, giới từ đi kèm, cụm nối ý và mẫu cấu trúc · (\d+) cụm\.$/, (_match, count) => `Phrasal verbs, idioms, collocations, dependent prepositions, linking phrases and structure patterns · ${count} phrases.`],
-  [/^Luyện (\d+) cụm$/, (_match, count) => `Practise ${count} phrases`],
+  [/^Phrasal verbs, thành ngữ, collocations, giới từ đi kèm, cụm nối ý và mẫu cấu trúc · (\d+) cụm\.$/, (_match, count) => `Phrasal verbs, idioms, collocations, dependent prepositions, linking phrases and structure patterns · ${pluralCount(count, 'phrase', 'phrases')}.`],
+  [/^Luyện (\d+) cụm$/, (_match, count) => `Practise ${pluralCount(count, 'phrase', 'phrases')}`],
   [/^(\d+)\/(\d+)$/, (_match, a, b) => `${a}/${b}`],
-  [/^(\d+) thẻ$/, (_match, count) => `${count} cards`],
-  [/^(\d+) lượt$/, (_match, count) => `${count} turns`],
-  [/^(\d+) lượt còn lại$/, (_match, count) => `${count} turns left`],
-  [/^(\d{2}\/\d{2}\/\d{4}) · (\d+) thẻ$/, (_match, date, count) => `${date} · ${count} cards`],
-  [/^(\d+) từ · (.+) · (.+)$/, (_match, count, dur, mode) => `${count} words · ${translateUiText(dur, 'en')} · ${EN_UI_TRANSLATIONS[mode] || mode}`],
+  [/^(\d+) thẻ$/, (_match, count) => pluralCount(count, 'card', 'cards')],
+  [/^(\d+) lượt$/, (_match, count) => pluralCount(count, 'turn', 'turns')],
+  [/^(\d+) lượt còn lại$/, (_match, count) => `${pluralCount(count, 'turn', 'turns')} left`],
+  [/^(\d{2}\/\d{2}\/\d{4}) · (\d+) thẻ$/, (_match, date, count) => `${date} · ${pluralCount(count, 'card', 'cards')}`],
+  [/^(\d+) từ · (.+) · (.+)$/, (_match, count, dur, mode) => `${pluralCount(count, 'word', 'words')} · ${translateUiText(dur, 'en')} · ${EN_UI_TRANSLATIONS[mode] || mode}`],
   [// Session header: "<mode> · N từ đã xếp · M lượt còn lại".
    /^(.+) · (\d+) từ đã xếp · (\d+) lượt còn lại$/, (_match, mode, queued, remaining) =>
     `${EN_UI_TRANSLATIONS[mode] || mode} · ${queued} ${Number(queued) === 1 ? 'word' : 'words'} queued · ${remaining} ${Number(remaining) === 1 ? 'turn' : 'turns'} left`],
-  [/^(\d+) phiên$/, (_match, count) => `${count} sessions`],
+  [/^(\d+) phiên$/, (_match, count) => pluralCount(count, 'session', 'sessions')],
   [/^(\d+) đã học$/, (_match, count) => `${count} learned`],
-  [/^(\d+) từ đang đến hạn$/, (_match, count) => `${count} words are due`],
-  [/^(\d+) lần sai$/, (_match, count) => `Missed ${count} times`],
+  [/^(\d+) từ đang đến hạn$/, (_match, count) => `${pluralCount(count, 'word', 'words')} ${Number(count) === 1 ? 'is' : 'are'} due`],
+  [/^(\d+) lần sai$/, (_match, count) => `Missed ${pluralCount(count, 'time', 'times')}`],
   [/^Đúng (\d+)$/, (_match, count) => `Correct ${count}`],
   [/^Sai (\d+)$/, (_match, count) => `Incorrect ${count}`],
   [/^Khó (\d+)%$/, (_match, count) => `Difficulty ${count}%`],
@@ -221807,8 +221808,9 @@ const EN_UI_PATTERNS = [
   [/^(\d+) từ đủ điều kiện$/, (_m, n) => `${n} ${Number(n) === 1 ? 'word' : 'words'} eligible`],
   [/^(\d+) từ trong phiên$/, (_m, n) => `${n} ${Number(n) === 1 ? 'word' : 'words'} in the session`],
   [/^(\d+) từ không có dạng bài phù hợp$/, (_m, n) => `${n} ${Number(n) === 1 ? 'word has' : 'words have'} no matching exercise`],
+  [/^(\d+) từ mới$/, (_m, n) => `${pluralCount(n, 'new word', 'new words')}`],
   [/^(\d+) dạng bài đang bật$/, (_m, n) => `${n} exercise ${Number(n) === 1 ? 'type' : 'types'} on`],
-  [/^(\d+) từ \/ phiên$/, (_m, n) => `${n} words / session`],
+  [/^(\d+) từ \/ phiên$/, (_m, n) => `${pluralCount(n, 'word', 'words')} / session`],
   [/^(\d+) nhóm · (.+)$/, (_m, n, labels) => `${n} ${Number(n) === 1 ? 'group' : 'groups'} · ${labels.split(' · ').map(label => EN_UI_TRANSLATIONS[label] || label).join(' · ')}`],
   [/^Trọng tâm: (.+)$/, (_m, label) => `Focus: ${EN_UI_TRANSLATIONS[label] || label}`],
   [/^Bấm giờ · (\d{2}:\d{2})$/, (_m, clock) => `Timed · ${clock}`],
@@ -221821,14 +221823,14 @@ const EN_UI_PATTERNS = [
   [/^(\d+) cặp$/, (_m, n) => `${n} ${Number(n) === 1 ? 'pair' : 'pairs'}`],
   [/^(Gõ nghĩa|Flashcard|Nối cặp) · (.+)$/, (_m, label, pos) => `${EN_UI_TRANSLATIONS[label] || label} · ${pos}`],
   [/^(.+) · gõ nghĩa tiếng Việt$/, (_m, pos) => `${pos} · type the Vietnamese meaning`],
-  [/^(\d+) cặp · (\d+) bàn$/, (_m, pairs, boards) => `${pairs} pairs · ${boards} ${Number(boards) === 1 ? 'board' : 'boards'}`],
-  [/^(\d+) từ · (\d+) bàn$/, (_m, words, boards) => `${words} words · ${boards} ${Number(boards) === 1 ? 'board' : 'boards'}`],
+  [/^(\d+) cặp · (\d+) bàn$/, (_m, pairs, boards) => `${pluralCount(pairs, 'pair', 'pairs')} · ${pluralCount(boards, 'board', 'boards')}`],
+  [/^(\d+) từ · (\d+) bàn$/, (_m, words, boards) => `${pluralCount(words, 'word', 'words')} · ${pluralCount(boards, 'board', 'boards')}`],
   [/^Bạn nhập “(.+)”\.$/, (_m, typed) => `You typed “${typed}”.`],
   [/^Tổng (\d+) XP$/, (_m, xp) => `Total ${xp} XP`],
   [/^XP · cấp (\d+)$/, (_m, level) => `XP · level ${level}`],
-  [/^Dài nhất (\d+) ngày$/, (_m, days) => `Longest ${days} days`],
+  [/^Dài nhất (\d+) ngày$/, (_m, days) => `Longest ${pluralCount(days, 'day', 'days')}`],
   [/^Trên (\d+) lượt chấm lần đầu$/, (_m, n) => `Over ${n} first-pass ${Number(n) === 1 ? 'answer' : 'answers'}`],
-  [/^(\d+)\/(\d+) từ đạt thành thạo$/, (_m, done, total) => `${done}/${total} words mastered`],
+  [/^(\d+)\/(\d+) từ đạt thành thạo$/, (_m, done, total) => `${done}/${pluralCount(total, 'word', 'words')} mastered`],
   [/^\+(\d+) XP mỗi câu đúng lần đầu · \+(\d+) XP mỗi câu sai lần đầu · \+(\d+) XP mỗi phiên hoàn tất\.$/, (_m, c, w, s) => `+${c} XP per correct first pass · +${w} XP per incorrect first pass · +${s} XP per completed session.`],
   [/^Học từ khó \((\d+)\)$/, (_m, n) => `Hard words (${n})`],
   [/^Huy hiệu mới: (.+)$/, (_m, labels) => `New ${labels.includes(' · ') ? 'badges' : 'badge'}: ${labels.split(' · ').map(label => EN_UI_TRANSLATIONS[label] || label).join(' · ')}`]
@@ -221872,6 +221874,25 @@ export function formatCount(value, language = 'vi') {
   const number = countNumber(value);
   if (number === null) return String(value ?? '');
   return new Intl.NumberFormat(language === 'en' ? 'en-US' : 'vi-VN').format(number);
+}
+
+// Flashcard shortcuts are single, unmodified keys. A chord belongs to the
+// browser or the operating system: Ctrl/Cmd+F (find in page), Cmd+R (reload),
+// Ctrl+1..4 (switch tab), Alt+Left (back). Letting the card handle those both
+// blocks the browser action and silently mutates learner data (for example "f"
+// flags the current word), so a modified key is never a shortcut.
+export function acceptsShortcutKey(event) {
+  if (!event || typeof event !== 'object') return false;
+  if (event.ctrlKey || event.metaKey || event.altKey) return false;
+  if (event.isComposing) return false;
+  return true;
+}
+
+// English UI strings that carry a count must agree with it: "1 turn", not
+// "1 turns". One helper keeps every counted label consistent.
+export function pluralCount(count, singular, plural) {
+  const value = Number(count);
+  return `${count} ${value === 1 ? singular : plural}`;
 }
 
 export function translateUiText(value, language = 'vi') {
@@ -226779,6 +226800,7 @@ export async function createApp(root) {
     // Shortcuts belong to the visible flashcard: from another view they would grade
     // or replace the hidden session (and wipe, for example, an active search).
     if (!prefs.keyboardShortcuts || view !== 'learn' || !session?.length) return;
+    if (!acceptsShortcutKey(event)) return;
     const tag = event.target?.tagName;
     if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || event.target?.isContentEditable) return;
     if (event.defaultPrevented || (tag === 'BUTTON' && [' ', 'Enter'].includes(event.key))) return;

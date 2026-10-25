@@ -1139,3 +1139,47 @@ The maintainer asked for the app to be hunted for **fatal and high-risk bugs**, 
 - **The root rule is only as good as its map.** The rule shipped in beta7 with 647 forms; a suffix review still found 93 more, including a genuine duplicate headword (`licence`/`license`). The map is the authority, and every merge and every rejection is now named in `docs/vocabulary-families.json`.
 - **Notation is data, not a typo.** The three pattern headwords are legitimate grammar/idiom entries and were kept; the defect was letting a typed exercise ask for them. Fixing the capability, not the row, keeps the audited legacy record intact.
 - **Bugs found by running, not by reading.** Driving a real session in a DOM produced the evidence (progress writes, folding, summary, translations) that no amount of static reading would have; the same harness is what proved the fixes had not broken the flows.
+
+## 2026-10-25 — v1.0.0-rc1: a release candidate audited against its own claims
+
+### User Intent
+
+Prepare `v1.0.0-rc1` as a candidate that can be *inspected* before any release: audit the whole application, data, learning system, interface, build pipeline, security, accessibility, performance and release process; verify rather than inherit the conclusions of the beta8 audit and PRs #59/#60; fix only defects that can be reproduced; add a regression test for each; re-run every mandated check on the final tree; update the documentation honestly; then push a task branch and open a pull request **without** merging, tagging, releasing, dispatching a workflow or deploying. The release itself is explicitly out of scope.
+
+### Implementation History
+
+1. **Preflight was verified, not assumed.** `origin/main` = `38f92a3c2129a08349dc99deac6e675a722c099f` (merge of #60), working tree clean, no local tags before `git fetch --tags`, 13 published prereleases (`dev1`–`dev5`, `beta1`–`beta8`), PRs #59/#60 MERGED, six workflows. `DEPLOY_HOLD` was `v1.0.0-beta8`, so the gate was **open** at the base commit.
+2. **Every number was recomputed from the data before being repeated.** 5,852 rows, **5,112 headwords**, **740 same-root forms**, **581 families**, 69 recorded rejections, **780 phrases** (192 collocation / 184 phrasal verb / 133 idiom / 105 dependent preposition / 90 linker phrase / 76 pattern), **106** transcriptions, **3,472** parsed questions (2,402 multiple-choice + 1,070 short-answer) over **91** papers. All 740 `familyHead` links resolve to non-merged rows, family membership and the family map are the same set, and every headword's `WORD_FAMILY` note names every member. ID 1…5852 is dense and unique. **No vocabulary row, phrase, exam sentence or answer key was edited.**
+3. **The exam ledger was re-derived from its own rows.** Tier distribution 61 `partially-supported` / 21 `structure-metadata-only` / 24 `insufficient-source` reproduces exactly; the Private-Use-Area inventory (11 papers, 248 codepoints, per-paper counts) reproduces exactly; every one of the 106 rows' `parsed:N Qs` claim matches the shipped parser, and the aggregate 91/3,472 reproduces.
+4. **Five defects were reproduced before being fixed.** (a) A modified key pressed a flashcard shortcut: in Chromium, **Ctrl+F** wrote the current word into `chuyen-anh.flagged.v1` (`[]` → `["2"]`) and called `preventDefault()` so Find-in-page never opened (`acceptsShortcutKey`, regression test + browser re-run). (b) The exam ledger shipped three unrendered `{len(...)}` placeholders and described the wrong second digital `insufficient-source` paper with glyphs the file does not contain (`56`/`23`/`2`; `2022/ha-noi/so` + `2025/thai-nguyen/so`; three new tests that fail on the old ledger). (c) `README.md` opened with the beta7 counts (5,205 / 647) while the data and its own later sections say 5,112 / 740 (`tests/test_readme_counts.py`). (d) Seven counted English labels never used a singular (`1 turns`, `Longest 1 days`, `1 pairs · 1 board`, `1 results`…), now routed through one `pluralCount` helper across every counted pattern, including `1 transcription`, `1 word is due`, `Missed 1 time`. (e) Two learner-visible strings stayed Vietnamese in English mode (`N từ mới` and the archive-scope sentence).
+5. **Release identity moved as one unit.** `APP_VERSION` and `DEPLOY_HOLD` are both `v1.0.0-rc1`, and the four version pins (`static-app.test.js`, `browser-learning.cjs`, `test_sprint_exam_features.py`, `test_deploy_gate.py`) moved with them. The gate now reports `deploy=false (release v1.0.0-rc1 is missing; deployment held)`.
+6. **Everything was re-run on the final tree**, including the two optional Chromium suites, which this sandbox could run because `playwright-core` + `@sparticuz/chromium@133.0.0` were installed with `--no-save` **outside** the repository. The audit report is `docs/RC1_AUDIT_REPORT.md`.
+7. **Nothing was released.** No tag, no GitHub Release, no prerelease, no `workflow_dispatch`, no merge, no push to `main`.
+
+### Decisions & Lessons
+
+- **A document that is not pinned by a test drifts.** The per-paper exam table was protected by tests and stayed correct; the summary paragraph above it silently kept generator placeholders and a stale claim for three releases. Prose that states a number is data and needs the same treatment as the table.
+- **"Verified" has two meanings and they must not be merged.** Checksums proved the Markdown matches the embedded copy for all 106 papers; they say nothing about fidelity to the original. The ledger keeps `official-verified: 0` and this audit did not move a single paper up a tier.
+- **The highest-impact bug was not in the data.** A keyboard handler that ignored modifier keys could mutate learner state and block a browser affordance from a keystroke the learner meant for the browser. Reading the handler looked fine; only driving Chromium with a real `Ctrl+F` showed the write.
+- **Fixing a class, not an instance.** The "1 turns" report was one symptom of a pattern-level habit. Because the fix is one helper applied to every counted pattern, a reviewer can check the invariant once instead of auditing each string.
+- **Closing a gate is not bypassing it.** Repointing `DEPLOY_HOLD` to the *unpublished* candidate keeps the documented pre-release order intact and cannot deploy anything; at the base commit the open gate meant a merge would have published an untagged build. The maintainer still owns the decision to tag, publish or hold.
+- **Not tested, and said so:** no screen-reader session, no real-device performance run, no primary-source exam verification, and ~5,000 glosses were not semantically re-edited. The report lists each limit beside the claim it limits.
+
+## 2026-10-25 — v1.0.0-rc1 addendum: the browser suite was testing a build that no longer existed
+
+### User Intent
+
+Report the optional Chromium suite honestly as part of the RC1 evidence, which means running it, and — if it fails — establishing whether the application or the test is wrong before touching either.
+
+### Implementation History
+
+1. Running `tests/browser-learning.cjs` on this branch aborted at line 480 (`'new' !== 'weak'`). The same suite against `git show 38f92a3:index.html` in an isolated directory failed identically, so the defect predates the candidate.
+2. **D-11 (ordering).** The fixture assumed a favourites session starts with id `298`; the app follows vocabulary order (`2` = `Meticulous` first, `298` = `Adverse` second). The scenario now reads the word on screen, resolves its entry, grades that card and checks the retry belongs to the same word.
+3. **D-12 (queue rotation and pre-merge data).** Two more scenarios failed for the same reason — they encoded behaviour, not invariants: `#skip-card` rotates the card to the back of the queue (same turn count, other pending card next), and `advers` matches one headword because `Adversity` (id 1) has been a form of `Adverse` (id 298) since the beta7 merge. Both were reproduced in the shipped app (a queue probe, and the base build served in Chromium: `1 kết quả · trang 1/1`, 740 merged rows), then rewritten to assert the properties: first practice turn belongs to the first missed word, a skip does not add a turn, the skipped word gets exactly one practice turn, an introduced word returns as a quiz.
+4. After the corrections: `node tests/browser-learning.cjs` **PASS in 208 s**; `node --test tests/static-app.test.js` 96/96 in 230 s; `python -m unittest discover` 98 OK. No application code changed for these two findings.
+
+### Decisions & Lessons
+
+- **A test that is not run is not a test.** These suites are optional (no Playwright in CI), so a fixture could rot across three releases while the changelog kept promising browser coverage. The honest record is the run, its failure and its repair — not the claim that the suite exists.
+- **Assert properties, not sequences.** Card order, queue rotation and match counts are data and policy; a fixture that hard-codes them re-breaks whenever the data or the policy improves. Deriving the card from its prompt and the count from the payload keeps the same behavioural guarantees without pinning a build.
+- **Attribute before fixing.** Both fixes were justified by reproducing the failure on the base commit, and by a diff showing the relevant app code was untouched — the test was wrong, the application was not, and the report says exactly that.

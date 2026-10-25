@@ -1,5 +1,37 @@
 # Changelog
 
+## v1.0.0-rc1 — release candidate, NOT released (2026-10-25)
+
+**Status: unreleased candidate.** This section describes the state of the RC1 branch. No `v1.0.0-rc1` tag, GitHub Release or prerelease exists, no deployment was performed or dispatched, and Pages is unchanged. `DEPLOY_HOLD` names `v1.0.0-rc1`, which has no published release yet, so the deploy gate reports `deploy=false (release v1.0.0-rc1 is missing; deployment held)` and the gate is **closed**. The published prereleases are still `v1.0.0-dev1`…`dev5` and `v1.0.0-beta1`…`beta8`; `v1.0.0-beta8` remains the newest published build.
+
+### What this candidate is
+
+A full audit build on top of `v1.0.0-beta8` (`38f92a3c2129a08349dc99deac6e675a722c099f`): every claimed number was recomputed from the data, every defect below was reproduced before it was fixed, and each fix carries a regression test. The audit report with the full evidence, test matrix, performance figures and residual risks is [`docs/RC1_AUDIT_REPORT.md`](docs/RC1_AUDIT_REPORT.md).
+
+### Fixed: a modified key pressed a flashcard shortcut (highest-impact defect)
+
+While a session was open, `Ctrl`/`Cmd`/`Alt` combinations reached the flashcard shortcut handler. Reproduced in Chromium at RC1: pressing **Ctrl+F** added the current word to the hard-word list (`chuyen-anh.flagged.v1` went from `[]` to `["2"]`) and called `preventDefault()`, so the browser's Find-in-page never opened; `Ctrl+R` would have queued a practice retry instead of reloading, and `Ctrl+1…4` would have answered a card instead of switching tabs. The handler now ignores any chord (`acceptsShortcutKey`), while single unmodified keys keep working. Covered by *a modified key is never a flashcard shortcut* plus a real-browser reproduction.
+
+### Fixed: the exam audit ledger contradicted itself
+
+`docs/EXAM_AUDIT_LEDGER.md` shipped three unrendered template placeholders (`{len(listen_missing)}`, `{len(no_listen)}`, `{len(speaking_papers)}`) in its listening summary, and its `insufficient-source` definition named the wrong second digital paper: it claimed `2023/binh-thuan/so` carried "18 Private-Use-Area glyph substitutions and incomplete listening material", while the file contains no Private-Use-Area codepoints, the row is `partially-supported`, and the second digital paper that actually carries the tier is `2025/thai-nguyen/so` (partial multiple-choice key). The placeholders are now `56` / `23` / `2` and the definition names `2022/ha-noi/so` and `2025/thai-nguyen/so`. Every figure was derived from the ledger's own per-paper rows, and the 106 rows, the tier distribution (61/21/24), the 11-paper/248-codepoint Private-Use-Area inventory, the 91 graded papers and the 3,472 parsed questions (2,402 multiple-choice + 1,070 short-answer) were independently re-verified against the archive. Covered by three new tests in `tests/test_exam_audit_ledger.py`.
+
+### Fixed: README stated a stale vocabulary size
+
+The opening paragraph claimed **5,205 headwords** and **647 same-root forms** while the data holds **5,112** and **740**, and while the same file stated the correct numbers further down. Corrected, and pinned by `tests/test_readme_counts.py`, which recomputes every stated count from `data/vocabulary.json` and `docs/vocabulary-families.json`.
+
+### Fixed: English counted labels did not agree with their count
+
+Seven learner-facing labels always used the plural: `1 turns`, `1 turns left`, `Longest 1 days`, `1 pairs · 1 board`, `1 words · 1 board`, `1 words / session`, `1 results` (and `1 cards` in the session/mode lines). A single `pluralCount(count, singular, plural)` helper now backs every counted pattern. Two strings also stayed Vietnamese in English mode — the `N từ mới` counter in the priority panel and the archive-scope sentence in the exam sidebar ("Nguồn đăng lại; 22 bản HTML/OCR cần soát…") — and are now translated. Covered by *English counted labels use singular and plural forms* and *the exam archive scope panel is localised in English*.
+
+### Fixed: three stale expectations in the optional browser suite (test-only)
+
+`tests/browser-learning.cjs` had not been able to pass since before this branch, and because it is not part of CI nobody saw it fail. It assumed a favourites session starts with the first seeded id (`298` before `2`), that `#skip-card` leaves the same card in front (the app rotates the skipped card behind the other pending one and adds no turn), that a skipped introduction returns in a fixed order, and that searching `advers` matches two records (since the beta7 family merge, `Adversity` id 1 is a form of `Adverse` id 298, so exactly one headword matches). The fixtures now resolve the card on screen from its own prompt and derive the expected number of matching headwords from the shipped data; every behavioural assertion is kept, and the application was **not** changed for these findings. `node tests/browser-learning.cjs` now passes in 208 s.
+
+### Version
+
+`APP_VERSION` is `v1.0.0-rc1`, `DEPLOY_HOLD` names the same candidate (gate closed until that release exists), and the version pins in `tests/static-app.test.js`, `tests/browser-learning.cjs`, `tests/test_sprint_exam_features.py` and `tests/test_deploy_gate.py` moved with it.
+
 ## v1.0.0-beta8 — audit release (2026-10-24)
 
 Release state — whether a `v1.0.0-beta8` tag, prerelease and assets exist, and which build Pages serves — must be verified live on GitHub; this file records contents, not publication status. This build was prepared with the gate **held** (`DEPLOY_HOLD` = `v1.0.0-beta8`). Sequence actually executed: merge commit `fe45a96192339ca26e7e5c94bcdb8033c968280f`, annotated tag `v1.0.0-beta8` on it, assets built from the tag by `Release artifacts` run `40087575768` (HTML `10,376,145 B`, `sha256 d66491e4…b474b74c`, identical to the tag's `index.html`), prerelease published 10:59:46Z, then `Deploy Flashcard` run `40088098400` success and deployment `7297681926` (`success`). The push-triggered run `40087543579` ran every test and skipped the Pages steps while the gate was still closed.

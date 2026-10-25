@@ -114,7 +114,9 @@ const {
   formatNextReview,
   isTypableHeadword,
   exerciseAvailability,
-  EXERCISE_TYPES
+  EXERCISE_TYPES,
+  acceptsShortcutKey,
+  pluralCount
 } = app;
 
 const vocab = [
@@ -1234,7 +1236,7 @@ test('exported exam results report exactly what the learner did and what could b
   const result = buildExamResultJson(session, record, { now: 6000 });
   assert.equal(result.app, 'Chuyên Anh');
   assert.equal(result.version, APP_VERSION, 'the result carries the application version');
-  assert.equal(result.version, 'v1.0.0-beta8');
+  assert.equal(result.version, 'v1.0.0-rc1');
   assert.equal(result.schemaVersion, '1.0.0');
   assert.deepEqual(result.summary, {
     total: 3, answered: 2, unanswered: 1,
@@ -2516,4 +2518,66 @@ test('a headword a learner cannot type is never asked as a typed exercise', () =
       `${entry.word} must not be asked as a spelling card`);
   }
   assert.ok(embeddedVocabulary.some(entry => isTypableHeadword(entry.word)), 'typable words still get spelling');
+});
+
+/* ---------------------------------------------------------------------------
+ * RC1 regressions.
+ * ------------------------------------------------------------------------- */
+
+// RC1 finding: while a session was open, a *modified* key pressed the flashcard
+// shortcut. Ctrl+F added the current word to the hard-word list and blocked the
+// browser's Find; Ctrl+R would have queued a practice retry instead of reloading.
+test('a modified key is never a flashcard shortcut', () => {
+  assert.equal(acceptsShortcutKey({ key: 'f' }), true, 'the documented shortcut still works');
+  assert.equal(acceptsShortcutKey({ key: '1', ctrlKey: true }), false, 'Ctrl+1 switches browser tabs');
+  assert.equal(acceptsShortcutKey({ key: 'f', ctrlKey: true }), false, 'Ctrl+F is find in page');
+  assert.equal(acceptsShortcutKey({ key: 'r', metaKey: true }), false, 'Cmd+R reloads the page');
+  assert.equal(acceptsShortcutKey({ key: 'f', ctrlKey: true, metaKey: true }), false);
+  assert.equal(acceptsShortcutKey({ key: ' ', altKey: true }), false);
+  assert.equal(acceptsShortcutKey({ key: 'f', isComposing: true }), false, 'IME composition is not a shortcut');
+  assert.equal(acceptsShortcutKey(null), false, 'no event is not a shortcut');
+});
+
+// RC1 finding: English counted labels did not agree with their count
+// ("1 turns", "Longest 1 days", "1 pairs · 1 board", "1 results").
+test('English counted labels use singular and plural forms', () => {
+  assert.equal(pluralCount(1, 'turn', 'turns'), '1 turn');
+  assert.equal(pluralCount(2, 'turn', 'turns'), '2 turns');
+  const singularCases = [
+    ['1 lượt', '1 turn'],
+    ['1 lượt còn lại', '1 turn left'],
+    ['Dài nhất 1 ngày', 'Longest 1 day'],
+    ['1 cặp · 1 bàn', '1 pair · 1 board'],
+    ['1 từ · 1 bàn', '1 word · 1 board'],
+    ['1 từ / phiên', '1 word / session'],
+    ['1 kết quả', '1 result'],
+    ['1 thẻ', '1 card'],
+    ['1 phiên', '1 session'],
+    ['1 từ mới', '1 new word']
+  ];
+  for (const [source, expected] of singularCases) {
+    assert.equal(translateUiText(source, 'en'), expected, `singular form for "${source}"`);
+  }
+  const pluralCases = [
+    ['4 lượt', '4 turns'],
+    ['Dài nhất 3 ngày', 'Longest 3 days'],
+    ['2 cặp · 2 bàn', '2 pairs · 2 boards'],
+    ['20 từ mới', '20 new words'],
+    ['13/10/2026 · 4 thẻ', '13/10/2026 · 4 cards']
+  ];
+  for (const [source, expected] of pluralCases) {
+    assert.equal(translateUiText(source, 'en'), expected, `plural form for "${source}"`);
+  }
+});
+
+// RC1 finding: two strings in the exam screen stayed Vietnamese in English mode.
+test('the exam archive scope panel is localised in English', () => {
+  assert.equal(translateUiText('1 từ mới', 'en'), '1 new word');
+  const scope = 'Nguồn đăng lại; 22 bản HTML/OCR cần soát và chỉ đọc. Các mục trích xuất khác chưa được xác minh từng câu.';
+  const translated = translateUiText(scope, 'en');
+  assert.notEqual(translated, scope, 'the archive scope sentence must not stay Vietnamese');
+  assert.match(translated, /Republished sources/);
+  assert.doesNotMatch(translated, /[ăâđêôơưàáảãạ]/, 'no Vietnamese diacritics are left behind');
+  // Vietnamese mode is untouched.
+  assert.equal(translateUiText(scope, 'vi'), scope);
 });
