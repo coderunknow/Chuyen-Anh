@@ -1225,3 +1225,29 @@ CodeRabbit's third review (`5641732787`, attached to `706c247`) raised five acti
 - **Membership is not agreement.** "The number appears in this section" passes for a swap, for a typo elsewhere and for a deleted sentence. Compare the pair.
 - **Prose in a neighbouring column is data too.** A test that pattern-matches cell text across a table will eventually read the wrong column and keep passing; select by header and fail loudly when the shape changes.
 - **When a helper's input is locale-shaped, normalise at the boundary.** The cheapest fix (teach the helper to guess) would have broken the cases that currently work.
+
+## 2026-10-25 (review round 4) — making the review configuration part of the repository
+
+### The decision
+
+The two previous review rounds depended on account-level CodeRabbit defaults rather than on anything this repository declared, and the most direct evidence of that was a commit status reading "Review skipped: draft pull request" on a head that had asked for review. The fix is a committed `.coderabbit.yaml`: every push to every open pull request, drafts included, any target branch, no commit-count pause and no title/author/label escape hatches.
+
+### Why the file is small
+
+- **Only two exclusions, both machine-generated.** `docs/vocabulary-audit-dev5.json` and `docs/vocabulary-300-counts.json` are rewritten wholesale by `scripts/generate_vocab_audit_dev5.py` and `scripts/audit_learned_vocab.py`, both of which fail a `--check` run when stale. Reviewing their line diff buries the change that caused it. Their generators, their inputs and the prose report stay in scope.
+- **Nothing that carries product meaning was excluded.** `index.html` is the shipped application and the source of truth for its embedded data; `data/vocabulary.json` and `data/phrases.json` are what the app actually serves; the exam transcriptions are the audit's subject. Excluding any of them to make reviews smaller would have traded correctness for convenience.
+- **No allowlist.** Only exclusions are configured, so files added later are reviewed by default rather than silently skipped — the failure mode of a fragile include-only filter.
+
+### Trade-offs stated rather than discovered later
+
+- **Every automatic incremental review consumes the same allowance as a manual one.** With the pause disabled and drafts included, an active branch can spend the hourly allowance quickly; when it runs out CodeRabbit reports a rate-limited review instead of reviewing. That is the requested behaviour, written into the file so a future maintainer sees it before changing it.
+- **Filtering files does not save allowance.** The limit is per review, not per file; the exclusions shorten a review, they do not buy another one.
+- **No scheduled reviews.** The schema has no such key — scheduling is an account setting — so the file cannot and does not claim to enable it.
+
+### Verification of the configuration itself
+
+A configuration file that is merely plausible is worse than none, so the committed file was asserted rather than eyeballed: parsed with duplicate-key detection, every mandatory `auto_review` value compared against the requirement, `abort_on_close` checked, and the two globs run through `minimatch` against a list of files that must be excluded and a list that must stay in scope. The lists, not just the file, are the evidence.
+
+### One documentation defect found by the review of the previous head
+
+The D-18 passage quoted the removed assertion inside a single-backtick span while the quoted text contained two more backticks, so the span closed early and rendered as prose (MD038). Fixed by moving the assertion into a fenced block. It is a good reminder that the audit report is itself a rendering surface: a claim can be true and still be unreadable, and the review caught a defect the report's own tests could not.

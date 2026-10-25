@@ -135,6 +135,7 @@ The four-tier distinction the mission asks for, as it applies to this archive:
 | D-16 | Low | Audit report — §G still said "55 lack any listening material" after §C.3 had been corrected to 56 | **fixed (review round 3; reported by CodeRabbit)** |
 | D-17 | Low/Medium | `index.html` — the search-count label decided its noun from a Vietnamese-grouped number (`1.000 từ` → `1.000 word.`) | **fixed (review round 3; reported by CodeRabbit)** |
 | D-18 | Note (test) | `tests/test_exam_audit_ledger.py` read the listening column by prose match; `tests/test_readme_counts.py` compared tier numbers by membership, so a swap passed | **fixed (review round 3; reported by CodeRabbit)** |
+| D-19 | Minor (docs) | `docs/RC1_AUDIT_REPORT.md` — the historical assertion in D-18 was wrapped in single backticks while it contained two more, so it rendered as broken inline code | **fixed (review round 4; reported by CodeRabbit)** |
 
 ### D-1 — A modified key pressed a flashcard shortcut (High, fixed)
 
@@ -259,9 +260,22 @@ No number in the *data* changed: the ledger, the tiers, the question counts and 
 ### D-18 — Two ledger/report tests could not fail (Note, fixed in review round 3)
 
 - **Listening tally read the wrong column.** `tests/test_exam_audit_ledger.py` picked "the first cell containing *listening*", and eight rows mention listening in their *completeness* description, so the tally depended on prose in a neighbouring column. Demonstrated: rewriting one row's listening cell (leaving its completeness cell untouched) kept the old assertion green while the correct figure moved by one. The column is now selected by header name; the truncated category matches the ledger's own wording (`partial/truncated written transcript`); a renamed or removed header fails loudly instead of silently measuring something else.
-- **Tier counts were a membership check.** `tests/test_readme_counts.py` contained `self.assertIn(f"{value} `{tier}`" if False else str(value), section)`, i.e. it only asserted that each number appeared *somewhere* in the section, so swapping `61` and `24` still passed. It now compares label→count pairs; the swap fails.
+- **Tier counts were a membership check.** `tests/test_readme_counts.py` contained this assertion:
+
+  ```python
+  self.assertIn(f"{value} `{tier}`" if False else str(value), section)
+  ```
+
+  It only asserted that each number appeared *somewhere* in the section, so swapping `61` and `24` still passed. It now compares label→count pairs; the swap fails.
 - **Guards.** *every listening claim is derived from the Listening column only* (with the completeness-column and listening-column mutation assertions) and *each tier label carries its own count* (with `61 + 21 + 24 = 106` still pinned as the total).
 - **Lesson recorded:** a test that passes is not evidence unless the change it is meant to catch has been shown to fail it.
+
+### D-19 — Nested backticks broke a code span in this report (Minor, fixed in review round 4)
+
+- **Finding.** CodeRabbit's review of `4059737` flagged `docs/RC1_AUDIT_REPORT.md:262` (MD038, and a plain-Markdown rendering fact independent of any lint config): D-18 illustrated the old membership assertion inside a single-backtick code span, but that text itself contains two backticks, so the span ended at the first inner delimiter and the rest rendered as prose.
+- **Verified** by counting inline spans on every changed Markdown file: one occurrence, exactly the flagged line. No other changed Markdown file had the same defect.
+- **Fix.** The assertion moved into a fenced `python` block, with the surrounding explanation left outside it, and the paragraph re-wrapped so the list item still reads correctly. Documentation only — no code, data or test change.
+- **Guard.** The check is mechanical and stays in the verification pass: a small scan for an inline code span whose contents still contain a backtick now reports 0 occurrences across the changed documents.
 
 ### D-9 — Historical changelog heading (unresolved, intentional)
 
@@ -379,6 +393,30 @@ CodeRabbit's third review (`5641732787`, run `0ae4c588-673b-479d-bd7f-a1c871edd7
 5. *Tier pairs (D-18).* With `61` and `24` swapped in the report, the old membership assertion passed (`OLD_RESULT PASS`) and the new pair comparison failed.
 
 **Not run, with reasons:** no `pytest` (this repository uses `unittest` + `node --test`); no GitHub Actions dispatch (CI runs on the push itself and is reported separately); no screen-reader pass (no screen reader in the sandbox); no CodeRabbit review of the *new* head was requested in this round — its hourly allowance was exhausted by review `5641732787`, so the head that carries these fixes is reported as **not reviewed** until a review is actually attached to it.
+
+### F.3 Review round 4 — review of the previous head, one documentation defect, final verification
+
+CodeRabbit's review of head `4059737` (`5642297386`, run `4661514b-e177-4ef5-914e-dc13b67e0cd3`, submitted 2026-10-25T08:39:59Z) posted **one actionable comment** — the rendered-code defect fixed as D-19 — and no other finding. That review was produced before this repository had a committed configuration file ("No configuration file from this repository applied"), which is why the configuration now shipped in `.coderabbit.yaml` was committed before the final review was requested.
+
+| Command | Result on this tree |
+| --- | --- |
+| `python -m unittest discover -s tests -p 'test_*.py'` | **104 tests OK**, 3.8 s |
+| `node --test tests/static-app.test.js` | **98 pass / 0 fail**, 242 s |
+| `node tests/browser-learning.cjs` (real Chromium) | **PASS**, 205 s |
+| `node tests/browser-exams.cjs` (real Chromium) | **PASS**, 40 s |
+| eleven `--check`/validator commands | all exit 0; counts unchanged (5,852 rows · 5,112 headwords · 740 forms · 581 families · 780 phrases · 106 transcriptions, 4,169,772 text bytes) |
+| `git diff --check` | clean |
+| `python scripts/deploy_gate.py` | `deploy=false (release v1.0.0-rc1 is missing; deployment held)` |
+
+**Independent re-audit performed in this round** (all recomputed from source, not restated):
+
+- Documents and data are unchanged in meaning: no file under `data/`, `De-chuyen-Anh-vao-10/` or `Learned_*` is touched by this PR, and the three embedded JSON payloads (`vocabulary-data`, `exam-data`, `phrase-data`) are byte-identical to `main` (4,890,492 / 4,471,838 / 575,209 bytes, same digests). Vocabulary 5,852 rows / 5,112 headwords / 740 merged forms / 581 families, 780 phrases, 106 ledger rows with tiers 61/21/24, questions 3,472 = 2,402 multiple-choice + 1,070 written over 91 papers — each recomputed from `data/vocabulary.json`, `docs/vocabulary-families.json`, `data/phrases.json`, `docs/EXAM_AUDIT_LEDGER.md` and the shipped parser.
+- The four listening categories recomputed straight from the ledger's header-mapped column: 83 with a section (23 full transcript, 4 truncated, **56 neither audio nor transcript**) + 23 with no listening section = 106.
+- The three guards were re-shown to fail on the defects they target: swapped tier counts, the reverted "55" sentence, and one rewritten listening cell each produce a failing test.
+- The two behavioural sweeps were re-run on this tree: 104 translated count-of-one samples produce **0** plural-after-one offences, and the search label returns `1 word` / `5 words` / `1,000 words` / `5,112 words` while Vietnamese output is byte-identical to its input. `acceptsShortcutKey` rejects Ctrl, Cmd, Alt, Shift and IME composition and accepts unmodified `f` and `Space`.
+- Version and gate: `APP_VERSION` and `DEPLOY_HOLD` both name the unpublished `v1.0.0-rc1`; the gate reports `deploy=false`. No workflow file is modified by this PR.
+
+The review status of the head that carries this paragraph is recorded in the PR description rather than here: a documentation commit made after a review would change the head and invalidate that review.
 
 ---
 
