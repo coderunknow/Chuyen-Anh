@@ -55,6 +55,10 @@ Five findings, all reproduced before being changed; nothing in the data, the voc
 
 The first review that ran under this file caught a scope claim that was false (D-20): `**/*.tsv` is on CodeRabbit's default ignored list, so the seed tables would not have been reviewed even though nothing here excluded them. The documented override for a default exclusion — the same pattern without the leading `!` — now re-includes them without turning the list into an allowlist.
 
+### Test coverage closed in review round 4 (D-21)
+
+Two browser scenarios covered less than they claimed, and both gaps were in the behaviour this branch changes. `tests/browser-learning.cjs` proved that modified chords cannot grade, reveal or write, but never drove a composing `keydown` through the registered handler — a composing key carries no modifier, so only the handler's own guard can stop it. It now dispatches composing `f` and `Space` and asserts the card, the feedback area and learner storage are untouched. `tests/browser-exams.cjs` asserted the archive count only in Vietnamese (`106 bản chép`), so the English flow would have passed even if the count stayed untranslated; it now waits for `106 transcriptions`. Both assertions were shown to fail when the guarded behaviour was deliberately broken (`isComposing` removed; the pattern reverted to Vietnamese) and pass on the restored tree. Test-only: no application, data or gate change.
+
 ### Version
 
 `APP_VERSION` is `v1.0.0-rc1`, `DEPLOY_HOLD` names the same candidate (gate closed until that release exists), and the version pins in `tests/static-app.test.js`, `tests/browser-learning.cjs`, `tests/test_sprint_exam_features.py` and `tests/test_deploy_gate.py` moved with it.

@@ -989,6 +989,20 @@ async function main() {
       assert.deepEqual(await page.evaluate(() => ({ ...localStorage })), beforeChords,
         `${chord} (${reason}) must leave learner storage untouched`);
     }
+    // IME composition is the one guard the helper test cannot protect: a composing
+    // keydown carries no modifier, so only the handler's use of acceptsShortcutKey()
+    // decides whether it reaches the card. Dispatch it on the document the handler is
+    // registered on, exactly as a real IME would.
+    await page.evaluate(() => {
+      document.dispatchEvent(new KeyboardEvent('keydown', { key: 'f', isComposing: true, bubbles: true }));
+      document.dispatchEvent(new KeyboardEvent('keydown', { key: ' ', isComposing: true, bubbles: true }));
+    });
+    await page.waitForTimeout(60);
+    assert.equal(await page.locator('.reveal').count(), 0, 'a composing key must not reveal the answer');
+    assert.equal(await page.locator('#next-card').count(), 0, 'a composing key must not grade the card');
+    assert.equal(await page.locator('#feedback-area').innerText(), '', 'a composing key must not answer the card');
+    assert.deepEqual(await page.evaluate(() => ({ ...localStorage })), beforeChords,
+      'a composing key must leave learner storage untouched');
     assert.equal((await page.locator('.prompt').innerText()).trim(), chordPrompt, 'the card was neither answered nor skipped');
     // The plain keys the app documents still work on the same card.
     await page.keyboard.press('f');

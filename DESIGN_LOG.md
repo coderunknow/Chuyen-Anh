@@ -1260,3 +1260,12 @@ Two lessons, both familiar from earlier rounds in a different disguise:
 
 - **A default is part of your configuration.** Writing only two `!` exclusions did not mean "everything else is reviewed"; it meant "everything else is reviewed except what the tool silently drops". The list of things a reviewer skips is a fact about the review, so it has to be established, not assumed.
 - **Documentation of behaviour needs the same evidence as the behaviour.** The earlier rounds learned this about test assertions ("a test that cannot fail certifies nothing"); here the same failure appeared in a comment. The fix is the documented override — the default pattern without its leading `!`, which re-includes the files without converting the filter into an allowlist — plus a scope evaluation of thirteen real paths against the final globs, so the paragraph and the effect are verified together.
+
+### Round 4 addendum 2 — nitpicks that were real
+
+The review of `e0c566b` returned no actionable comments and two nitpicks. It would have been easy to treat "no actionable comments" as "nothing to do"; both nitpicks were checked instead, and both were genuine holes in tests this branch had just written:
+
+- **A guard that only a handler can exercise.** The ten-chord scenario proves modified keys cannot reach the card, but a composing key carries no modifier at all — the helper test calls `acceptsShortcutKey` directly, so a handler that stopped calling it would keep that test green. Dispatching a composing `f` and `Space` on the document closes the gap, and deleting the guard makes the scenario fail.
+- **A count asserted only in the other language.** Every browser assertion about the archive count used Vietnamese, in a branch whose subject is English counted labels. The English flow now waits for `106 transcriptions`, and reverting the pattern to Vietnamese makes it time out.
+
+The pattern from earlier rounds repeated one level up: a test that covers the *category* of behaviour is not a test of the specific path, and "the reviewer said nothing blocking" is not the same as "there is nothing to fix". Both fixes were kept test-only, and both were demonstrated to fail before the guard they protect was restored.

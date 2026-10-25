@@ -238,6 +238,11 @@ async function main() {
 
     await page.locator('[data-view="exams"]').click();
     await page.getByRole('heading', { name: 'Specialized English exam archive', level: 1 }).waitFor();
+    // The Vietnamese flow asserts this element as "106 bản chép"; in English the same
+    // label must render the translated, correctly pluralised count. Without this the
+    // count could regress to Vietnamese (or to a wrong noun form) and every English
+    // assertion here would still pass.
+    await page.locator('#exam-results-count').filter({ hasText: '106 transcriptions' }).waitFor();
     for (const viewport of [
       { width: 320, height: 720 },
       { width: 375, height: 812 },

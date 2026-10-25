@@ -137,6 +137,7 @@ The four-tier distinction the mission asks for, as it applies to this archive:
 | D-18 | Note (test) | `tests/test_exam_audit_ledger.py` read the listening column by prose match; `tests/test_readme_counts.py` compared tier numbers by membership, so a swap passed | **fixed (review round 3; reported by CodeRabbit)** |
 | D-19 | Minor (docs) | `docs/RC1_AUDIT_REPORT.md` — the historical assertion in D-18 was wrapped in single backticks while it contained two more, so it rendered as broken inline code | **fixed (review round 4; reported by CodeRabbit)** |
 | D-20 | Major (review-config scope) | `.coderabbit.yaml` — the file claimed the seed TSVs stayed reviewed, but CodeRabbit excludes `**/*.tsv` by default | **fixed (review round 4; reported by CodeRabbit)** |
+| D-21 | Trivial (test coverage) | `tests/browser-learning.cjs` did not drive a composing `keydown` through the registered handler, and `tests/browser-exams.cjs` never asserted the archive count in English | **fixed (review round 4; nitpicks from CodeRabbit)** |
 
 ### D-1 — A modified key pressed a flashcard shortcut (High, fixed)
 
@@ -286,6 +287,17 @@ No number in the *data* changed: the ledger, the tiers, the question counts and 
 - **Verification.** Thirteen paths were evaluated against the final globs: the two generated audit JSON files are excluded, the two seed TSVs are explicitly re-included, and `index.html`, `data/vocabulary.json`, `data/phrases.json`, `tests/`, `scripts/`, `.github/workflows/`, `AGENTS_LOG.md`, `docs/vocabulary-audit-dev5.md` and the exam sources all remain in scope. Nothing else was added to the list, and no file was excluded to make a review shorter.
 - **Note on evidence quality.** The review that raised this finding also confirmed the file is actually in force: its run metadata lists `.coderabbit.yaml` as the configuration source and `Repository YAML` as the layer, which is the first direct evidence in this PR that the committed configuration — rather than account defaults — governed a review.
 
+### D-21 — Two browser scenarios did not cover the behaviour this branch changed (Trivial, fixed in review round 4)
+
+CodeRabbit's review of `e0c566b` (`5642826561`, run `ff434cd5-2a82-4939-8126-ba58d04d21d3`) posted **no actionable comments** and two nitpicks. Both were checked against the code, both were real coverage gaps in exactly the behaviour this branch changed, and both were fixed rather than deferred.
+
+- **IME composition never reached the handler.** *`tests/browser-learning.cjs`.* The ten-chord scenario proved that modified keys cannot grade, reveal or write, but a composing `keydown` carries no modifier: only the handler's own call to `acceptsShortcutKey` can stop it, and the unit test calls the helper directly. A composing `f` and a composing `Space` are now dispatched on the document the handler is registered on, followed by the same four assertions (no reveal, no grading, no feedback, storage unchanged).
+  **Fail-first:** removing `if (event.isComposing) return false;` from `index.html` makes the scenario fail with `a composing key must not reveal the answer` (`actual: 1`); the guard was restored from `git checkout` and the pristine file compared byte-for-byte.
+- **The English archive count was never rendered in a browser.** *`tests/browser-exams.cjs`.* Every browser assertion about the archive count used Vietnamese (`106 bản chép`), so a regression that left the count untranslated — or picked the wrong noun form — would have passed the English flow, which is the flow this branch's `pluralCount` work exists to protect. The English flow now waits for `#exam-results-count` containing `106 transcriptions`.
+  **Fail-first:** reverting the `bản chép` pattern to emit Vietnamese makes the suite fail with `Timeout 30000ms exceeded … waiting for locator('#exam-results-count').filter({ hasText: '106 transcriptions' })`; `index.html` was restored and verified identical.
+
+Both changes are test-only. Neither touches the application, the data or the release gate, and both suites pass on the restored tree (`browser-exams` PASS, `browser-learning` PASS).
+
 ### D-9 — Historical changelog heading (unresolved, intentional)
 
 `CHANGELOG.md` still contains a section titled "Unreleased — one headword per word root" describing data that shipped in beta8. It carries an explicit note that its numbers are the beta7 state, and rewriting a historical changelog entry would destroy evidence, so it was left as-is and recorded here instead.
@@ -425,7 +437,7 @@ CodeRabbit's review of head `4059737` (`5642297386`, run `4661514b-e177-4ef5-914
 - The two behavioural sweeps were re-run on this tree: 104 translated count-of-one samples produce **0** plural-after-one offences, and the search label returns `1 word` / `5 words` / `1,000 words` / `5,112 words` while Vietnamese output is byte-identical to its input. `acceptsShortcutKey` rejects Ctrl, Cmd, Alt, Shift and IME composition and accepts unmodified `f` and `Space`.
 - Version and gate: `APP_VERSION` and `DEPLOY_HOLD` both name the unpublished `v1.0.0-rc1`; the gate reports `deploy=false`. No workflow file is modified by this PR.
 
-CodeRabbit then reviewed `f1c287e` itself (review `5642577787`, run `c2583a15-b31c-46eb-acde-14fe3e9b874e`, submitted 2026-10-25T09:45:19Z) — the first review whose run metadata names this repository's own `.coderabbit.yaml` as the configuration source (`Layers: Repository YAML`). It raised **one actionable comment**, D-20, which is fixed in the head that carries this paragraph; its own review of that head is recorded in the PR description, because a commit made after a review necessarily changes the head.
+CodeRabbit then reviewed `f1c287e` itself (review `5642577787`, run `c2583a15-b31c-46eb-acde-14fe3e9b874e`, submitted 2026-10-25T09:45:19Z) — the first review whose run metadata names this repository's own `.coderabbit.yaml` as the configuration source (`Layers: Repository YAML`). It raised **one actionable comment** (D-20), fixed in `e0c566b`. The review of `e0c566b` (`5642826561`, run `ff434cd5-2a82-4939-8126-ba58d04d21d3`) posted **no actionable comments** and two nitpicks, both of which were reproduced as real gaps and fixed as D-21. The review status of the head that carries this paragraph is recorded in the PR description, because a commit made after a review necessarily changes the head.
 
 ---
 
