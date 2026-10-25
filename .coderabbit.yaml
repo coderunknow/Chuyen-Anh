@@ -1,0 +1,93 @@
+# CodeRabbit configuration for coderunknow/Chuyen-Anh.
+# Schema: https://docs.coderabbit.ai/reference/configuration (v2), last checked 2026-10-25.
+#
+# Intent of this file: review every push to every open pull request, in every target
+# branch, including draft pull requests, and never pause on commit count. Verification
+# costs review allowance — see the trade-off note at the bottom before changing anything.
+#
+# This is configuration only. It changes nothing about CI, dependencies or the app.
+
+language: "en-US"
+
+reviews:
+  auto_review:
+    # Review eligible pull requests without waiting for a manual command.
+    enabled: true
+    # Re-review after every push to a pull request, focusing on the new commits.
+    # This is what makes a fresh commit on an open PR get its own review.
+    auto_incremental_review: true
+    # 0 disables the automatic pause. The default (5) stops incremental reviews
+    # after five reviewed commits until someone comments @coderabbitai review;
+    # this repository asks for a review on every eligible push instead.
+    auto_pause_after_reviewed_commits: 0
+    # Include draft pull requests. Without this, a draft PR is skipped entirely —
+    # and this project deliberately keeps its candidate branches in draft.
+    drafts: true
+    # Regexes tested (unanchored) against the target branch. ".*" matches every
+    # branch name, so a PR into a release or maintenance branch is reviewed too.
+    # The default branch is always included regardless of this list.
+    base_branches:
+      - ".*"
+    # No label filter: every PR qualifies, no "!label" exclusions are configured.
+    labels: []
+    # No title-keyword exclusions (no WIP / DO NOT MERGE escape hatch).
+    ignore_title_keywords: []
+    # No author exclusions, so automated commits are reviewed like any other.
+    ignore_usernames: []
+    # Only meaningful when auto_review.enabled is false; empty keeps it inert.
+    description_keyword: ""
+  # Stop an in-progress review as soon as the PR is closed or merged, instead of
+  # spending allowance on a review nobody can act on.
+  abort_on_close: true
+  # Exclusions, justified one by one. Everything not listed here stays in scope —
+  # including index.html (the shipped application), scripts/, tests/, .github/,
+  # data/ and the exam transcriptions.
+  #
+  # The entries below are the only files in this repository that a generator
+  # rewrites wholesale; reviewing their line-by-line diff would bury the change
+  # that caused it. Both are reproduced by the pipeline that `--check`s them:
+  #   docs/vocabulary-audit-dev5.json  -> scripts/generate_vocab_audit_dev5.py
+  #     (`python scripts/generate_vocab_audit_dev5.py --check`, exit 0)
+  #   docs/vocabulary-300-counts.json  -> scripts/audit_learned_vocab.py
+  #     (`python scripts/audit_learned_vocab.py --check`, exit 0; it fails if the
+  #      saved counts are stale)
+  # What stays reviewed instead: the generators themselves, the Markdown/JSON
+  # inputs they read (docs/vocabulary-300-families.json, docs/vocabulary-300-evidence.json,
+  # docs/vocabulary-audit-dev4.json, the seed TSVs and Learned_Vocabulary_List.md),
+  # and the prose report docs/vocabulary-audit-dev5.md.
+  #
+  # Deliberately NOT excluded, although they are also generated:
+  #   data/vocabulary.json, data/phrases.json — these are the shipped data, and
+  #     index.html embeds them; excluding them would hide the product's own data.
+  #   index.html — hand-authored 10 MB single-file app; it is the source of truth.
+  #   De-chuyen-Anh-vao-10/** — the exam transcriptions and their supporting files.
+  path_filters:
+    - "!docs/vocabulary-audit-dev5.json"
+    - "!docs/vocabulary-300-counts.json"
+    # CodeRabbit skips `**/*.tsv` by default (TSV is on its default ignored list),
+    # so the seed tables under data/vocab-seed/ and data/phrase-seed/ would not be
+    # reviewed even though nothing here excludes them. Repeating the default pattern
+    # without its leading `!` is the documented override for a default exclusion:
+    # it re-includes these files without turning this list into an allowlist, so
+    # every other path keeps its default treatment. Review round 4 caught that the
+    # paragraph above claimed these files were in scope while the default still
+    # excluded them.
+    - "**/*.tsv"
+
+# Trade-off, stated so it is not rediscovered the hard way:
+# every automatic incremental review counts against the same per-developer review
+# limit as a manual `@coderabbitai review`. With auto_pause_after_reviewed_commits: 0
+# and drafts: true, an active branch can consume that allowance quickly; when it runs
+# out, CodeRabbit reports the review as rate-limited instead of reviewing. That is the
+# intended behaviour for this repository, not an accident of the defaults.
+#
+# Excluding files with path_filters shortens a review; it does not save review
+# allowance. The documentation ties the limit to reviews, not to the number of files.
+#
+# Not configured here on purpose:
+#   - post_merge_actions (empty by default): no review-shaped work after a merge.
+#   - auto_approvals (off by default): CodeRabbit never approves on its own.
+#   - any scheduled review: there is no scheduled-review key in this schema; that is
+#     a repository setting in the CodeRabbit app, not something this file can enable.
+#   - chat / knowledge base / path_instructions: left at their defaults, so this file
+#     changes review timing and scope only.

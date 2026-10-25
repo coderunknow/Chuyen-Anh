@@ -1139,3 +1139,133 @@ The maintainer asked for the app to be hunted for **fatal and high-risk bugs**, 
 - **The root rule is only as good as its map.** The rule shipped in beta7 with 647 forms; a suffix review still found 93 more, including a genuine duplicate headword (`licence`/`license`). The map is the authority, and every merge and every rejection is now named in `docs/vocabulary-families.json`.
 - **Notation is data, not a typo.** The three pattern headwords are legitimate grammar/idiom entries and were kept; the defect was letting a typed exercise ask for them. Fixing the capability, not the row, keeps the audited legacy record intact.
 - **Bugs found by running, not by reading.** Driving a real session in a DOM produced the evidence (progress writes, folding, summary, translations) that no amount of static reading would have; the same harness is what proved the fixes had not broken the flows.
+
+## 2026-10-25 — v1.0.0-rc1: a release candidate audited against its own claims
+
+### User Intent
+
+Prepare `v1.0.0-rc1` as a candidate that can be *inspected* before any release: audit the whole application, data, learning system, interface, build pipeline, security, accessibility, performance and release process; verify rather than inherit the conclusions of the beta8 audit and PRs #59/#60; fix only defects that can be reproduced; add a regression test for each; re-run every mandated check on the final tree; update the documentation honestly; then push a task branch and open a pull request **without** merging, tagging, releasing, dispatching a workflow or deploying. The release itself is explicitly out of scope.
+
+### Implementation History
+
+1. **Preflight was verified, not assumed.** `origin/main` = `38f92a3c2129a08349dc99deac6e675a722c099f` (merge of #60), working tree clean, no local tags before `git fetch --tags`, 13 published prereleases (`dev1`–`dev5`, `beta1`–`beta8`), PRs #59/#60 MERGED, six workflows. `DEPLOY_HOLD` was `v1.0.0-beta8`, so the gate was **open** at the base commit.
+2. **Every number was recomputed from the data before being repeated.** 5,852 rows, **5,112 headwords**, **740 same-root forms**, **581 families**, 69 recorded rejections, **780 phrases** (192 collocation / 184 phrasal verb / 133 idiom / 105 dependent preposition / 90 linker phrase / 76 pattern), **106** transcriptions, **3,472** parsed questions (2,402 multiple-choice + 1,070 short-answer) over **91** papers. All 740 `familyHead` links resolve to non-merged rows, family membership and the family map are the same set, and every headword's `WORD_FAMILY` note names every member. ID 1…5852 is dense and unique. **No vocabulary row, phrase, exam sentence or answer key was edited.**
+3. **The exam ledger was re-derived from its own rows.** Tier distribution 61 `partially-supported` / 21 `structure-metadata-only` / 24 `insufficient-source` reproduces exactly; the Private-Use-Area inventory (11 papers, 248 codepoints, per-paper counts) reproduces exactly; every one of the 106 rows' `parsed:N Qs` claim matches the shipped parser, and the aggregate 91/3,472 reproduces.
+4. **Five defects were reproduced before being fixed.** (a) A modified key pressed a flashcard shortcut: in Chromium, **Ctrl+F** wrote the current word into `chuyen-anh.flagged.v1` (`[]` → `["2"]`) and called `preventDefault()` so Find-in-page never opened (`acceptsShortcutKey`, regression test + browser re-run). (b) The exam ledger shipped three unrendered `{len(...)}` placeholders and described the wrong second digital `insufficient-source` paper with glyphs the file does not contain (`56`/`23`/`2`; `2022/ha-noi/so` + `2025/thai-nguyen/so`; three new tests that fail on the old ledger). (c) `README.md` opened with the beta7 counts (5,205 / 647) while the data and its own later sections say 5,112 / 740 (`tests/test_readme_counts.py`). (d) Seven counted English labels never used a singular (`1 turns`, `Longest 1 days`, `1 pairs · 1 board`, `1 results`…), now routed through one `pluralCount` helper across every counted pattern, including `1 transcription`, `1 word is due`, `Missed 1 time`. (e) Two learner-visible strings stayed Vietnamese in English mode (`N từ mới` and the archive-scope sentence).
+5. **Release identity moved as one unit.** `APP_VERSION` and `DEPLOY_HOLD` are both `v1.0.0-rc1`, and the four version pins (`static-app.test.js`, `browser-learning.cjs`, `test_sprint_exam_features.py`, `test_deploy_gate.py`) moved with them. The gate now reports `deploy=false (release v1.0.0-rc1 is missing; deployment held)`.
+6. **Everything was re-run on the final tree**, including the two optional Chromium suites, which this sandbox could run because `playwright-core` + `@sparticuz/chromium@133.0.0` were installed with `--no-save` **outside** the repository. The audit report is `docs/RC1_AUDIT_REPORT.md`.
+7. **Nothing was released.** No tag, no GitHub Release, no prerelease, no `workflow_dispatch`, no merge, no push to `main`.
+
+### Decisions & Lessons
+
+- **A document that is not pinned by a test drifts.** The per-paper exam table was protected by tests and stayed correct; the summary paragraph above it silently kept generator placeholders and a stale claim for three releases. Prose that states a number is data and needs the same treatment as the table.
+- **"Verified" has two meanings and they must not be merged.** Checksums proved the Markdown matches the embedded copy for all 106 papers; they say nothing about fidelity to the original. The ledger keeps `official-verified: 0` and this audit did not move a single paper up a tier.
+- **The highest-impact bug was not in the data.** A keyboard handler that ignored modifier keys could mutate learner state and block a browser affordance from a keystroke the learner meant for the browser. Reading the handler looked fine; only driving Chromium with a real `Ctrl+F` showed the write.
+- **Fixing a class, not an instance.** The "1 turns" report was one symptom of a pattern-level habit. Because the fix is one helper applied to every counted pattern, a reviewer can check the invariant once instead of auditing each string.
+- **Closing a gate is not bypassing it.** Repointing `DEPLOY_HOLD` to the *unpublished* candidate keeps the documented pre-release order intact and cannot deploy anything; at the base commit the open gate meant a merge would have published an untagged build. The maintainer still owns the decision to tag, publish or hold.
+- **Not tested, and said so:** no screen-reader session, no real-device performance run, no primary-source exam verification, and ~5,000 glosses were not semantically re-edited. The report lists each limit beside the claim it limits.
+
+## 2026-10-25 — v1.0.0-rc1 addendum: the browser suite was testing a build that no longer existed
+
+### User Intent
+
+Report the optional Chromium suite honestly as part of the RC1 evidence, which means running it, and — if it fails — establishing whether the application or the test is wrong before touching either.
+
+### Implementation History
+
+1. Running `tests/browser-learning.cjs` on this branch aborted at line 480 (`'new' !== 'weak'`). The same suite against `git show 38f92a3:index.html` in an isolated directory failed identically, so the defect predates the candidate.
+2. **D-11 (ordering).** The fixture assumed a favourites session starts with id `298`; the app follows vocabulary order (`2` = `Meticulous` first, `298` = `Adverse` second). The scenario now reads the word on screen, resolves its entry, grades that card and checks the retry belongs to the same word.
+3. **D-12 (queue rotation and pre-merge data).** Two more scenarios failed for the same reason — they encoded behaviour, not invariants: `#skip-card` rotates the card to the back of the queue (same turn count, other pending card next), and `advers` matches one headword because `Adversity` (id 1) has been a form of `Adverse` (id 298) since the beta7 merge. Both were reproduced in the shipped app (a queue probe, and the base build served in Chromium: `1 kết quả · trang 1/1`, 740 merged rows), then rewritten to assert the properties: first practice turn belongs to the first missed word, a skip does not add a turn, the skipped word gets exactly one practice turn, an introduced word returns as a quiz.
+4. After the corrections: `node tests/browser-learning.cjs` **PASS in 208 s**; `node --test tests/static-app.test.js` 96/96 in 230 s; `python -m unittest discover` 98 OK. No application code changed for these two findings.
+
+### Decisions & Lessons
+
+- **A test that is not run is not a test.** These suites are optional (no Playwright in CI), so a fixture could rot across three releases while the changelog kept promising browser coverage. The honest record is the run, its failure and its repair — not the claim that the suite exists.
+- **Assert properties, not sequences.** Card order, queue rotation and match counts are data and policy; a fixture that hard-codes them re-breaks whenever the data or the policy improves. Deriving the card from its prompt and the count from the payload keeps the same behavioural guarantees without pinning a build.
+- **Attribute before fixing.** Both fixes were justified by reproducing the failure on the base commit, and by a diff showing the relevant app code was untouched — the test was wrong, the application was not, and the report says exactly that.
+
+## 2026-10-25 — review round on PR #61: what a review is worth when it is checked
+
+### User Intent
+
+Take the CodeRabbit review of the RC1 candidate seriously without treating it as ground truth: assess every finding against the code, keep auditing independently while the review was still running, fix only what reproduces, add regression tests, and re-verify the whole matrix on the new head — while the PR stays a draft and nothing is released.
+
+### Implementation History
+
+1. **Waited for the review to finish rather than editing under it.** The review arrived on `edd2ede` (run `720376d2-2fb7-49d6-aed8-281d489176c1`, review `5641478931`), so the audit continued read-only — data recounts, XSS and storage probes in Chromium — until it had a final result.
+2. **Six of CodeRabbit's seven findings were real; one was corrected on its own terms.** The `Shift` gap (D-13), the stale `beta7` gate paragraph, the broken table row, the `CHANGELOG` count and the "unit test only calls the helper" nitpick were all reproduced as described. The tier finding was right that §C.2 was wrong, but its suggested "82 → 84" would have left the tiers summing to 108; the tiers stay 61/21/24 = 106 and technical integrity is described as a cross-cutting check over all 106 (D-15). The docstring-coverage check was declined with a reason: this codebase has no docstring convention.
+3. **The most valuable finding came from testing our own claim.** D-4's "one helper backs every counted pattern" was an assertion about a set that had never been enumerated. Writing the enumeration (a sweep that builds a count-of-one sample from every pattern) found ten plural-only strings, five reachable, including the note a learner sees on their *first* wrong answer. Fixed, and the sweep is now a test.
+4. **Verification.** Every new test was shown to fail on `edd2ede` before passing on the fixed tree; the full matrix was re-run on the fixed tree (`103` Python tests, `97` Node tests, both Chromium suites, ten validators, `git diff --check`, the deploy gate).
+
+### Decisions & Lessons
+
+- **A review is a source of hypotheses, not of facts.** Every finding was checked against the code and the data; the one whose suggested fix was wrong shows why that matters. A bot can find a real defect and still propose a patch that makes the document less true.
+- **Enumerate before you say "every".** The defect behind D-14 was not the ten strings; it was the sentence claiming there were none left. The fix that lasts is the test that walks the set.
+- **A browser test is not a unit test wearing a hat.** The nitpick about calling `acceptsShortcutKey` directly is exactly right: the guard can be correct while the handler stops using it. The new scenario presses real chords and asserts that storage, the card and the answer are untouched.
+- **Keeping the review session intact is part of the job.** Editing the branch under an in-flight review would have reviewed a tree nobody could reproduce; the audit waited, and the review result is attached to the commit it actually examined.
+
+## 2026-10-25 (review round 3) — correcting a number we had published, and making two tests able to fail
+
+### The shape of the round
+
+CodeRabbit's third review (`5641732787`, attached to `706c247`) raised five actionable comments. All five turned out to be real. Three were small code-and-test repairs; two were about evidence this project had produced itself — a count in the audit report that was never enumerated, and two tests whose assertions could not fail.
+
+### Decisions
+
+1. **A published count was corrected, not defended.** D-14 said "ten" labels had been plural-only. It came from an eyeball tally of the diff; the enumerating test had never produced it. Recomputing from the diff and from the pre-fix build gives 22 changed sites rendering 20 distinct labels. The report, the changelog entry and the D-table row now carry 20, and the text separates the 3 labels actually reproduced in a browser from the 2 that are provably masked and the 15 that remain unproven either way. Keeping those three groups apart matters more than the total: the earlier sentence quietly promoted latent cases to "reachable".
+2. **The round-2 log entry was left standing.** `AGENTS_LOG.md` (addendum 2) still says "ten strings, five reachable". It is a dated record of what was believed when it was written; the new addendum supersedes the figure and says so explicitly. Rewriting the older entry would have destroyed the only evidence that we published a wrong number and how it was caught.
+3. **The count bug was fixed at the call site, not in the helper.** `pluralCount` uses `Number(count)`, which reads Vietnamese-grouped `"1.000"` as the decimal 1. Changing the helper to strip non-digits would fix that input and break `"1.0"` (it would read 10) and any future decimal count. The defect was the caller passing an ungrouped-in-the-wrong-locale string, so the caller now normalises with `formatCount` — the same helper its `từ gốc` sibling and the real page header already used.
+4. **Tests were made to measure the requirement, not the words around it.** A ledger test that searched for the first cell containing "listening" now maps columns from the header row and raises on an unknown cell; a report test that asked "does 61 appear somewhere in this section" now compares label→count pairs. Both were demonstrated to fail on the change they are meant to catch (a mutated listening cell; swapped tier numbers), because a test that cannot fail is worse than no test — it certifies.
+5. **The guards were hardened where measurement showed they were blind.** The count-of-one sweep could not see `1 phrases.` because the full stop stayed attached to the noun; splitting on `.` as well makes it visible. The same sweep cannot see `1 eligible words`, because the noun does not follow the count directly, so that label is pinned explicitly and the limitation is written into the test instead of being implied away.
+6. **No new review was requested.** The hourly allowance was spent by the review we were answering ("0 included reviews remain"). Asking again would have produced a rate-limited status that is easy to mistake for a review; the new head is reported as unreviewed.
+
+### Lessons
+
+- **A number in prose is a claim like any other.** If the test derived it, quote the test; if a human counted it by eye, say so or do not publish it.
+- **Membership is not agreement.** "The number appears in this section" passes for a swap, for a typo elsewhere and for a deleted sentence. Compare the pair.
+- **Prose in a neighbouring column is data too.** A test that pattern-matches cell text across a table will eventually read the wrong column and keep passing; select by header and fail loudly when the shape changes.
+- **When a helper's input is locale-shaped, normalise at the boundary.** The cheapest fix (teach the helper to guess) would have broken the cases that currently work.
+
+## 2026-10-25 (review round 4) — making the review configuration part of the repository
+
+### The decision
+
+The two previous review rounds depended on account-level CodeRabbit defaults rather than on anything this repository declared, and the most direct evidence of that was a commit status reading "Review skipped: draft pull request" on a head that had asked for review. The fix is a committed `.coderabbit.yaml`: every push to every open pull request, drafts included, any target branch, no commit-count pause and no title/author/label escape hatches.
+
+### Why the file is small
+
+- **Only two exclusions, both machine-generated.** `docs/vocabulary-audit-dev5.json` and `docs/vocabulary-300-counts.json` are rewritten wholesale by `scripts/generate_vocab_audit_dev5.py` and `scripts/audit_learned_vocab.py`, both of which fail a `--check` run when stale. Reviewing their line diff buries the change that caused it. Their generators, their inputs and the prose report stay in scope.
+- **Nothing that carries product meaning was excluded.** `index.html` is the shipped application and the source of truth for its embedded data; `data/vocabulary.json` and `data/phrases.json` are what the app actually serves; the exam transcriptions are the audit's subject. Excluding any of them to make reviews smaller would have traded correctness for convenience.
+- **No allowlist.** Only exclusions are configured, so files added later are reviewed by default rather than silently skipped — the failure mode of a fragile include-only filter.
+
+### Trade-offs stated rather than discovered later
+
+- **Every automatic incremental review consumes the same allowance as a manual one.** With the pause disabled and drafts included, an active branch can spend the hourly allowance quickly; when it runs out CodeRabbit reports a rate-limited review instead of reviewing. That is the requested behaviour, written into the file so a future maintainer sees it before changing it.
+- **Filtering files does not save allowance.** The limit is per review, not per file; the exclusions shorten a review, they do not buy another one.
+- **No scheduled reviews.** The schema has no such key — scheduling is an account setting — so the file cannot and does not claim to enable it.
+
+### Verification of the configuration itself
+
+A configuration file that is merely plausible is worse than none, so the committed file was asserted rather than eyeballed: parsed with duplicate-key detection, every mandatory `auto_review` value compared against the requirement, `abort_on_close` checked, and the two globs run through `minimatch` against a list of files that must be excluded and a list that must stay in scope. The lists, not just the file, are the evidence.
+
+### One documentation defect found by the review of the previous head
+
+The D-18 passage quoted the removed assertion inside a single-backtick span while the quoted text contained two more backticks, so the span closed early and rendered as prose (MD038). Fixed by moving the assertion into a fenced block. It is a good reminder that the audit report is itself a rendering surface: a claim can be true and still be unreadable, and the review caught a defect the report's own tests could not.
+
+### Round 4 addendum — a configuration claim is a claim
+
+The first review that ran under the committed `.coderabbit.yaml` did something a configuration file cannot do for itself: it checked whether the file's prose matched its effect. The comment said the seed TSVs stayed in scope; CodeRabbit excludes `**/*.tsv` by default, and neither configured exclusion touched that default, so the sentence was false for exactly the files it named.
+
+Two lessons, both familiar from earlier rounds in a different disguise:
+
+- **A default is part of your configuration.** Writing only two `!` exclusions did not mean "everything else is reviewed"; it meant "everything else is reviewed except what the tool silently drops". The list of things a reviewer skips is a fact about the review, so it has to be established, not assumed.
+- **Documentation of behaviour needs the same evidence as the behaviour.** The earlier rounds learned this about test assertions ("a test that cannot fail certifies nothing"); here the same failure appeared in a comment. The fix is the documented override — the default pattern without its leading `!`, which re-includes the files without converting the filter into an allowlist — plus a scope evaluation of thirteen real paths against the final globs, so the paragraph and the effect are verified together.
+
+### Round 4 addendum 2 — nitpicks that were real
+
+The review of `e0c566b` returned no actionable comments and two nitpicks. It would have been easy to treat "no actionable comments" as "nothing to do"; both nitpicks were checked instead, and both were genuine holes in tests this branch had just written:
+
+- **A guard that only a handler can exercise.** The ten-chord scenario proves modified keys cannot reach the card, but a composing key carries no modifier at all — the helper test calls `acceptsShortcutKey` directly, so a handler that stopped calling it would keep that test green. Dispatching `f` and `Space` keydowns with composition active on the document closes the gap, and deleting the guard makes the scenario fail.
+- **A count asserted only in the other language.** Every browser assertion about the archive count used Vietnamese, in a branch whose subject is English counted labels. The English flow now waits for `106 transcriptions`, and reverting the pattern to Vietnamese makes it time out.
+
+The pattern from earlier rounds repeated one level up: a test that covers the *category* of behaviour is not a test of the specific path, and "the reviewer said nothing blocking" is not the same as "there is nothing to fix". Both fixes were kept test-only, and both were demonstrated to fail before the guard they protect was restored.

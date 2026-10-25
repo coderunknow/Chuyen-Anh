@@ -114,7 +114,9 @@ const {
   formatNextReview,
   isTypableHeadword,
   exerciseAvailability,
-  EXERCISE_TYPES
+  EXERCISE_TYPES,
+  acceptsShortcutKey,
+  pluralCount
 } = app;
 
 const vocab = [
@@ -1234,7 +1236,7 @@ test('exported exam results report exactly what the learner did and what could b
   const result = buildExamResultJson(session, record, { now: 6000 });
   assert.equal(result.app, 'Chuyên Anh');
   assert.equal(result.version, APP_VERSION, 'the result carries the application version');
-  assert.equal(result.version, 'v1.0.0-beta8');
+  assert.equal(result.version, 'v1.0.0-rc1');
   assert.equal(result.schemaVersion, '1.0.0');
   assert.deepEqual(result.summary, {
     total: 3, answered: 2, unanswered: 1,
@@ -2516,4 +2518,202 @@ test('a headword a learner cannot type is never asked as a typed exercise', () =
       `${entry.word} must not be asked as a spelling card`);
   }
   assert.ok(embeddedVocabulary.some(entry => isTypableHeadword(entry.word)), 'typable words still get spelling');
+});
+
+/* ---------------------------------------------------------------------------
+ * RC1 regressions.
+ * ------------------------------------------------------------------------- */
+
+// RC1 finding: while a session was open, a *modified* key pressed the flashcard
+// shortcut. Ctrl+F added the current word to the hard-word list and blocked the
+// browser's Find; Ctrl+R would have queued a practice retry instead of reloading.
+test('a modified key is never a flashcard shortcut', () => {
+  assert.equal(acceptsShortcutKey({ key: 'f' }), true, 'the documented shortcut still works');
+  assert.equal(acceptsShortcutKey({ key: '1', ctrlKey: true }), false, 'Ctrl+1 switches browser tabs');
+  assert.equal(acceptsShortcutKey({ key: 'f', ctrlKey: true }), false, 'Ctrl+F is find in page');
+  assert.equal(acceptsShortcutKey({ key: 'r', metaKey: true }), false, 'Cmd+R reloads the page');
+  assert.equal(acceptsShortcutKey({ key: 'f', ctrlKey: true, metaKey: true }), false);
+  assert.equal(acceptsShortcutKey({ key: ' ', altKey: true }), false);
+  // RC1 follow-up (review round 2): Shift is a browser/OS modifier too. Shift+Space
+  // scrolls a page up, and Shift+<letter> is simply how a capital letter is typed;
+  // before this was rejected, Shift+F wrote the hard-word list and Shift+Space
+  // revealed the answer.
+  assert.equal(acceptsShortcutKey({ key: 'F', shiftKey: true }), false, 'Shift+F is a capital letter, not a shortcut');
+  assert.equal(acceptsShortcutKey({ key: ' ', shiftKey: true }), false, 'Shift+Space scrolls back up');
+  assert.equal(acceptsShortcutKey({ key: 'R', shiftKey: true }), false);
+  assert.equal(acceptsShortcutKey({ key: 'Enter', shiftKey: true }), false);
+  assert.equal(acceptsShortcutKey({ key: 'f', isComposing: true }), false, 'IME composition is not a shortcut');
+  assert.equal(acceptsShortcutKey(null), false, 'no event is not a shortcut');
+});
+
+// RC1 finding: English counted labels did not agree with their count
+// ("1 turns", "Longest 1 days", "1 pairs · 1 board", "1 results").
+test('English counted labels use singular and plural forms', () => {
+  assert.equal(pluralCount(1, 'turn', 'turns'), '1 turn');
+  assert.equal(pluralCount(2, 'turn', 'turns'), '2 turns');
+  const singularCases = [
+    ['1 lượt', '1 turn'],
+    ['1 lượt còn lại', '1 turn left'],
+    ['Dài nhất 1 ngày', 'Longest 1 day'],
+    ['1 cặp · 1 bàn', '1 pair · 1 board'],
+    ['1 từ · 1 bàn', '1 word · 1 board'],
+    ['1 từ / phiên', '1 word / session'],
+    ['1 kết quả', '1 result'],
+    ['1 thẻ', '1 card'],
+    ['1 phiên', '1 session'],
+    ['1 từ mới', '1 new word'],
+    // RC1 follow-up: counted labels the first pass left plural-only. Each one is
+    // reachable with ordinary data: a one-card session, one practice retry, the
+    // first wrong answer on a word, and a next review one day away.
+    ['1 / 1 lượt · 1 còn lại', '1 / 1 turn · 1 left'],
+    ['Luyện lại: 1 đúng · 0 chưa đúng / 1 lượt. Không tính vào độ chính xác lần đầu hay lịch ôn.',
+      'Practice retries: 1 correct · 0 not correct / 1 turn. Not included in first-pass accuracy or the review schedule.'],
+    ['Củng cố: 1 đúng · 0 chưa đúng / 1 lượt, kiểm tra lại sau vài thẻ khác. Không tính vào độ chính xác lần đầu hay lịch ôn.',
+      'Consolidation: 1 correct · 0 not correct / 1 turn, checked after a few other cards. Not included in first-pass accuracy or the review schedule.'],
+    ['Bạn sai từ này 1 lần. Đã xếp một lượt gõ lại sau các thẻ còn lại; từ vẫn đến hạn ôn.',
+      'You have missed this word 1 time. A typed retry is queued after the remaining cards; the word is still due for review.'],
+    ['1 ngày nữa', 'in 1 day'],
+    ['1 giờ nữa', 'in 1 hour'],
+    ['1 cụm từ', '1 phrase'],
+    ['1 cụm từ · hiển thị 1 cụm đầu', '1 phrase · first 1 shown'],
+    ['1 cụm.', '1 phrase.'],
+    ['Học cấp tốc · 1 từ / phiên', 'Study sprint · 1 word / session'],
+    ['Xếp 1 từ ưu tiên: đến hạn, từ yếu, rồi từ mới — mỗi từ được hỏi ở mức bạn đã chứng minh và nhắc lại một lượt sau vài thẻ nếu chưa vững.',
+      'Queues 1 prioritised word: due, then weak, then new — each word is asked at the level you have demonstrated and repeated once after a few cards if it is not yet solid.'],
+    // These two labels carry an adjective between the count and the noun, so the
+    // count-of-one sweep in the next test cannot inspect them; they are pinned here.
+    ['1 từ đủ điều kiện · xếp 1 · 1 đến hạn · 1 từ yếu', '1 eligible word · 1 queued · 1 due · 1 weak']
+  ];
+  for (const [source, expected] of singularCases) {
+    assert.equal(translateUiText(source, 'en'), expected, `singular form for "${source}"`);
+  }
+  const pluralCases = [
+    ['4 lượt', '4 turns'],
+    ['Dài nhất 3 ngày', 'Longest 3 days'],
+    ['2 cặp · 2 bàn', '2 pairs · 2 boards'],
+    ['20 từ mới', '20 new words'],
+    ['13/10/2026 · 4 thẻ', '13/10/2026 · 4 cards']
+  ];
+  for (const [source, expected] of pluralCases) {
+    assert.equal(translateUiText(source, 'en'), expected, `plural form for "${source}"`);
+  }
+});
+
+// RC1 review round 3: the search-count pattern handed the raw Vietnamese number to
+// pluralCount. pluralCount decides with Number(count), so Vietnamese "1.000" (one
+// thousand) read as the decimal 1.0 and produced "1.000 word" — singular, *and*
+// still grouped the Vietnamese way inside the English interface. The count is now
+// normalised with the same formatCount helper the sibling "từ gốc" pattern and the
+// real page header already use, so the noun and the digits cannot disagree.
+test('the search count is normalised before its noun is chosen', () => {
+  const header = count => `Tìm theo tiếng Anh, tiếng Việt, từ loại, tag hoặc ví dụ · ${count} từ.`;
+  const english = count => translateUiText(header(count), 'en');
+  const prefix = 'Search English, Vietnamese, part of speech, tags, or examples · ';
+  assert.equal(english('1'), `${prefix}1 word.`, 'a count of one must stay singular');
+  assert.equal(english('0'), `${prefix}0 words.`, 'zero takes the plural');
+  assert.equal(english('5'), `${prefix}5 words.`);
+  assert.equal(english('1.000'), `${prefix}1,000 words.`,
+    'a Vietnamese-grouped thousand is grouped the English way and stays plural');
+  assert.equal(english('1.001'), `${prefix}1,001 words.`);
+  assert.equal(english('5.112'), `${prefix}5,112 words.`);
+  assert.equal(english('10.000'), `${prefix}10,000 words.`);
+  // The sibling pattern behind the real page header keeps the same behaviour.
+  assert.equal(translateUiText('Tìm theo tiếng Anh, tiếng Việt, từ loại, tag hoặc ví dụ · 5.112 từ gốc.', 'en'),
+    `${prefix}5,112 headwords.`);
+  // Vietnamese rendering is untouched.
+  assert.equal(translateUiText(header('1.000'), 'vi'), header('1.000'));
+});
+
+// RC1 follow-up (review round 2): the first pass fixed the labels it had found, and
+// its report then claimed the helper backed "every counted pattern". A sweep of the
+// translation table proved that claim too strong: 22 translation sites (21 pattern
+// entries plus one inline summary line) still hard-coded the plural, yielding 20
+// distinct English labels on the pre-fix build; three of them were reproduced in
+// Chromium (a one-card session, one practice retry, the first wrong answer on a word).
+// Instead of adding one assertion per string found, this test derives a count-of-one
+// sample from every counted pattern in the shipped table, so a *new* pattern that
+// forgets the singular fails here instead of reaching a learner.
+//
+// Known limits of the sweep, stated so they are not mistaken for coverage: it only
+// inspects the token immediately after a count, so a plural that follows an adjective
+// ("1 eligible words") escapes it and has to be pinned explicitly above; and it only
+// exercises a count of one, so a grouping-separator bug ("1.000 words") is covered by
+// the search-count test instead.
+test('every counted English pattern agrees with a count of one', () => {
+  const pluralNouns = new Set(['words', 'turns', 'phrases', 'cards', 'days', 'hours', 'times', 'pairs',
+    'boards', 'results', 'sessions', 'items', 'headwords', 'questions']);
+  const blocks = [
+    html.match(/EN_UI_PATTERNS = \[([\s\S]*?)\n\];/),
+    html.match(/EN_UI_SPRINT_PATTERNS = \[([\s\S]*?)\n\];/)
+  ];
+  assert.ok(blocks[0] && blocks[1], 'both translation pattern tables must be present');
+  const patterns = [];
+  for (const block of blocks) {
+    for (const line of block[1].split('\n')) {
+      const found = line.match(/^\s*\[\/\^(.*?)\$\/,\s*\(_m/);
+      if (found) patterns.push(found[1]);
+    }
+  }
+  assert.ok(patterns.length > 90, `the sweep must cover the shipped table (found ${patterns.length})`);
+
+  // Turn one Vietnamese pattern into a sample sentence whose counts are all 1.
+  // Non-capturing optional groups are dropped with a paren scan so nested counts
+  // (for example "(?: · trang 1/1)?") do not survive as regex syntax.
+  const sample = source => {
+    let text = '';
+    for (let index = 0; index < source.length; index += 1) {
+      if (!source.startsWith('(?:', index)) { text += source[index]; continue; }
+      let depth = 0;
+      let close = index;
+      for (; close < source.length; close += 1) {
+        if (source[close] === '(') depth += 1;
+        else if (source[close] === ')') { depth -= 1; if (depth === 0) break; }
+      }
+      if (source[close + 1] === '?') { index = close + 1; continue; }
+      text += source.slice(index + 3, close);
+      index = close;
+    }
+    const swap = (from, to) => { text = text.split(from).join(to); };
+    swap('(\\d{2}:\\d{2})', '00:00');
+    swap('(\\d{2}\\/\\d{2}\\/\\d{4})', '01/01/2026');
+    swap('(\\d{4})', '2026');
+    swap('([\\d.,]+)', '1');
+    swap('(\\d+)', '1');
+    swap('(.+)', 'x');
+    text = text.replace(/\(([^|()]+)\|[^()]*\)/g, '$1');
+    swap('\\s*', ' ');
+    swap('\\s', ' ');
+    swap('\\/', '/');
+    swap('\\.', '.');
+    return text.replace(/\\(.)/g, '$1');
+  };
+
+  const checked = [];
+  for (const source of patterns) {
+    const vietnamese = sample(source);
+    const english = translateUiText(vietnamese, 'en');
+    if (english === vietnamese) continue; // the generated sample does not match this pattern
+    checked.push(english);
+    // Review round 3: a full stop used to stay glued to the noun ("1 phrases."), so a
+    // plural at the end of a sentence was invisible to this check.
+    const words = english.split(/[\s·,;:/().]+/);
+    for (let index = 0; index < words.length - 1; index += 1) {
+      if (words[index] !== '1') continue;
+      assert.equal(pluralNouns.has(words[index + 1]), false,
+        `"${vietnamese}" became "${english}", which puts a plural after 1`);
+    }
+  }
+  assert.ok(checked.length > 90, `the sweep must actually translate samples (translated ${checked.length})`);
+});
+
+// RC1 finding: two strings in the exam screen stayed Vietnamese in English mode.
+test('the exam archive scope panel is localised in English', () => {
+  assert.equal(translateUiText('1 từ mới', 'en'), '1 new word');
+  const scope = 'Nguồn đăng lại; 22 bản HTML/OCR cần soát và chỉ đọc. Các mục trích xuất khác chưa được xác minh từng câu.';
+  const translated = translateUiText(scope, 'en');
+  assert.notEqual(translated, scope, 'the archive scope sentence must not stay Vietnamese');
+  assert.match(translated, /Republished sources/);
+  assert.doesNotMatch(translated, /[ăâđêôơưàáảãạ]/, 'no Vietnamese diacritics are left behind');
+  // Vietnamese mode is untouched.
+  assert.equal(translateUiText(scope, 'vi'), scope);
 });

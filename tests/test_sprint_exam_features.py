@@ -21,8 +21,8 @@ class ShippedSprintContractTests(unittest.TestCase):
         self.assertIsNotNone(self.app)
         self.script = self.app.group(1)
 
-    def test_release_version_is_the_beta8_candidate(self):
-        self.assertIn("APP_VERSION = 'v1.0.0-beta8'", self.script)
+    def test_release_version_is_the_rc1_candidate(self):
+        self.assertIn("APP_VERSION = 'v1.0.0-rc1'", self.script)
         self.assertIn("export function skipSessionCard(", self.script)
         self.assertIn("export function consolidationTurnNote(", self.script)
         self.assertIn("EXAM_RESULT_SCHEMA_VERSION = '1.0.0'", self.script)

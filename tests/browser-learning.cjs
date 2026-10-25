@@ -137,6 +137,22 @@ async function main() {
       return page.evaluate(w => JSON.parse(document.getElementById('vocabulary-data').textContent)
         .find(item => item.word.toLowerCase() === w.toLowerCase()), word);
     }
+    // A recognition card prompts with the English word, a recall/spelling card with
+    // the meaning, so the card on screen is resolved from its own prompt instead of
+    // assuming which of the seeded favourites comes first. A favourites session
+    // follows vocabulary order, which is data rather than a fixture constant.
+    async function currentEntry(ids) {
+      const prompt = (await page.locator('.prompt').innerText()).trim().toLowerCase();
+      const matches = await page.evaluate(({ prompt, ids }) => {
+        const wanted = new Set(ids);
+        return JSON.parse(document.getElementById('vocabulary-data').textContent)
+          .filter(item => wanted.has(item.id)
+            && (item.word.trim().toLowerCase() === prompt || item.meaning.trim().toLowerCase() === prompt))
+          .map(item => ({ id: item.id, word: item.word, meaning: item.meaning }));
+      }, { prompt, ids });
+      assert.equal(matches.length, 1, `the prompt identifies exactly one seeded card: ${prompt}`);
+      return matches[0];
+    }
     // A never-studied card opens on its introduction; the quiz starts from there.
     async function startQuizFromIntroduction() {
       if (await page.locator('#start-quiz').count()) await page.locator('#start-quiz').click();
@@ -470,18 +486,26 @@ async function main() {
 
     // The shipped build identifies itself.
     await sprint.locator('[data-view="settings"]').click();
-    assert.equal(await sprint.locator('#app-version').innerText(), 'v1.0.0-beta8');
+    assert.equal(await sprint.locator('#app-version').innerText(), 'v1.0.0-rc1');
     assert.deepEqual(sprintErrors, []);
 
     // Error -> intervening word -> typed corrective retrieval -> truthful summary.
+    // A favourites session follows vocabulary order, so the card order is data, not
+    // a constant: read the word on screen instead of assuming which id comes first
+    // (an earlier version assumed 298 preceded 2 and silently graded the wrong word).
     await seed(['298', '2']);
-    await answer('298', false);
-    const failedProgress = (await read('progress'))['298'];
+    await startQuizFromIntroduction();
+    const firstWord = (await page.locator('.prompt').innerText()).trim();
+    const firstEntry = await entryFor(firstWord);
+    assert.ok(firstEntry && ['2', '298'].includes(firstEntry.id), `unexpected first favourites card: ${firstWord}`);
+    await page.locator(`[data-option]:not([data-option="${firstEntry.id}"])`).first().click();
+    const failedProgress = (await read('progress'))[firstEntry.id];
     assert.equal(failedProgress.state, 'weak');
     assert.match(await page.locator('#feedback-area').innerText(), /Đã xếp một lượt gõ lại/);
     await next();
-    assert.equal(await page.locator('.prompt').innerText(), 'Meticulous');
-    await answer('2', true);
+    const secondWord = (await page.locator('.prompt').innerText()).trim();
+    assert.notEqual(secondWord, firstWord, 'the second card is the other favourite');
+    await answer((await entryFor(secondWord)).id, true);
     await next();
     assert.match(await page.locator('.mode-label').innerText(), /Luyện lại.*Chính tả/i);
     assert.equal(await page.locator('[role="progressbar"]').getAttribute('aria-valuenow'), '67');
@@ -500,8 +524,8 @@ async function main() {
     await page.setViewportSize({ width: 375, height: 812 });
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
     assert.equal(await page.locator('#spelling-input').isVisible(), true);
-    await typeAnswer('Adverse');
-    assert.deepEqual((await read('progress'))['298'], failedProgress);
+    await typeAnswer(firstWord);
+    assert.deepEqual((await read('progress'))[firstEntry.id], failedProgress);
     await next();
     assert.match(await page.locator('.summary').innerText(), /50%/);
     assert.match(await page.locator('.summary').innerText(), /Luyện lại: 1 đúng · 0 chưa đúng \/ 1 lượt/);
@@ -509,7 +533,7 @@ async function main() {
     await page.locator('#summary-dashboard').click();
     assert.match(await page.locator('.history').innerText(), /50%/);
     await page.reload();
-    assert.deepEqual((await read('progress'))['298'], failedProgress);
+    assert.deepEqual((await read('progress'))[firstEntry.id], failedProgress);
     assert.equal((await read('prefs')).darkMode, true);
     assert.deepEqual((await read('favorites')).sort(), ['2', '298']);
     assert.match(await page.locator('.session-grid--focus [data-session="due"]').innerText(), /1 từ/);
@@ -588,17 +612,32 @@ async function main() {
     await next();
     await history({ total: 1, correct: 1, wrong: 0, accuracy: 100 });
 
-    // Multiple errors retain order; skipping practice does not add work.
+    // Multiple errors queue one practice turn each in the order they were missed;
+    // skipping a practice card defers it behind the next pending one instead of
+    // adding another turn.
     await seed(['298', '2']);
-    await answer('298', false);
-    await next();
-    await answer('2', false);
-    await next();
+    const missedCards = [];
+    for (let index = 0; index < 2; index += 1) {
+      await startQuizFromIntroduction();
+      const card = await currentEntry(['298', '2']);
+      assert.equal(missedCards.some(missed => missed.id === card.id), false, 'each card is missed once');
+      missedCards.push(card);
+      await page.locator(`[data-option]:not([data-option="${card.id}"])`).first().click();
+      await next();
+    }
+    const practiceHead = await page.locator('.flashcard-head').innerText();
+    assert.equal((await currentEntry(['298', '2'])).id, missedCards[0].id,
+      'the first practice turn belongs to the first missed word');
     await page.locator('#skip-card').click();
-    assert.match(await page.locator('.prompt').innerText(), /tỉ mỉ/);
-    await typeAnswer('Meticulous');
+    assert.equal((await currentEntry(['298', '2'])).id, missedCards[1].id,
+      'skipping a practice card shows the other pending word instead of repeating the same card');
+    assert.equal((await page.locator('.flashcard-head').innerText()).replace(/\s+/g, ' ').trim(),
+      practiceHead.replace(/\s+/g, ' ').trim(), 'a skip rotates the practice card without adding a turn');
+    await typeAnswer(missedCards[1].word);
     await next();
-    await typeAnswer('Adverse');
+    assert.equal((await currentEntry(['298', '2'])).id, missedCards[0].id,
+      'the skipped word still gets exactly one practice turn of its own');
+    await typeAnswer(missedCards[0].word);
     await next();
     assert.match(await page.locator('.summary').innerText(), /Luyện lại: 2 đúng · 0 chưa đúng \/ 2 lượt/);
     await history({ total: 2, correct: 0, wrong: 2, accuracy: 0 });
@@ -694,15 +733,20 @@ async function main() {
     await seed(['298', '2', '3']);
     assert.equal(await page.locator('#start-quiz').count(), 1);
     await page.locator('#start-quiz').click();
-    await page.locator('[data-option="298"]').click();
+    const gradedFirst = await currentEntry(['298', '2', '3']);
+    await page.locator(`[data-option="${gradedFirst.id}"]`).click();
     await next();
     assert.equal(await page.locator('#start-quiz').count(), 1, 'the second never-studied word is introduced');
     await page.locator('#start-quiz').click();
+    const introduced = await currentEntry(['298', '2', '3']);
     await page.locator('#skip-card').click();
-    assert.equal((await page.locator('.prompt').innerText()).trim(), 'Ambiguity');
+    const rotated = await currentEntry(['298', '2', '3']);
+    assert.notEqual(rotated.id, introduced.id, 'a skip moves on to another pending word');
     await page.locator('#skip-card').click();
-    assert.equal((await page.locator('.prompt').innerText()).trim(), 'Meticulous');
+    assert.equal((await currentEntry(['298', '2', '3'])).id, introduced.id,
+      'the skipped word comes back later in the same session');
     assert.equal(await page.locator('#start-quiz').count(), 0, 'an introduced word is not introduced again in the same session');
+    assert.equal(await page.locator('.first-look').count(), 0);
     assert.equal(await page.locator('[data-option]').count(), 4);
 
     // A revealed typed card locks its input as well, and practice stays practice.
@@ -780,7 +824,17 @@ async function main() {
     await page.locator('#results .vocab-row').first().waitFor();
     const searchMetaBefore = await page.locator('#results .results-meta').innerText();
     const searchRowsBefore = await page.locator('#results .vocab-row').count();
-    assert.match(searchMetaBefore, /2 kết quả · trang 1\/1/, 'the query matches its two records');
+    // Only headwords are separate records: a fixed-size expectation goes stale as
+    // soon as a family member is merged into its headword (`Adversity` id 1 has been
+    // folded into `Adverse` id 298 since beta7), so the expected count is derived.
+    const searchMatches = await page.evaluate(() => JSON.parse(document.getElementById('vocabulary-data').textContent)
+      .filter(entry => !entry.familyHead)
+      .filter(entry => `${entry.word} ${entry.meaning}`.toLowerCase().includes('advers'))
+      .map(entry => entry.word));
+    assert.ok(searchMatches.length >= 1, 'the query matches at least one headword');
+    assert.match(searchMetaBefore, new RegExp(`${searchMatches.length} kết quả · trang 1/1`),
+      `the query matches its ${searchMatches.length} headword record(s)`);
+    assert.equal(searchRowsBefore, searchMatches.length, 'the visible rows are the matching headwords');
     await page.locator('#sort-filter').selectOption('za');
     const targetWord = (await page.locator('#results .vocab-row .vocab-word').first().innerText()).trim();
     const targetEntry = await entryFor(targetWord);
@@ -908,6 +962,58 @@ async function main() {
     assert.equal(await page.locator('.reveal').count(), 0);
     assert.equal(await page.locator('#next-card').count(), 0);
     assert.deepEqual(await page.evaluate(() => ({ ...localStorage })), storageBeforeShortcuts, 'the hidden card was not graded or rescheduled');
+
+    // ---- A chord belongs to the browser, never to the card (review round 2).
+    // This drives the *registered* document keydown handler with real key presses,
+    // so a regression that stops calling acceptsShortcutKey() fails here even if the
+    // helper itself still returns the right answer. Ctrl+F used to add the current
+    // word to the hard-word list, Ctrl+R queued a retry, and Shift+F / Shift+Space
+    // did the same through a capital letter and a scroll-up chord.
+    await seed(['298']);
+    await startQuizFromIntroduction();
+    const chordPrompt = (await page.locator('.prompt').innerText()).trim();
+    const beforeChords = await page.evaluate(() => ({ ...localStorage }));
+    const chords = [
+      ['Control+F', 'find in page'], ['Control+R', 'reload'], ['Control+1', 'switch tab'],
+      ['Control+Space', 'input method'], ['Alt+1', 'menu accelerator'],
+      ['Shift+F', 'capital F'], ['Shift+R', 'capital R'], ['Shift+Space', 'scroll up'],
+      ['Shift+Enter', 'modified submit'], ['Control+Shift+F', 'combined chord']
+    ];
+    for (const [chord, reason] of chords) {
+      await page.evaluate(() => document.activeElement && document.activeElement.blur());
+      await page.keyboard.press(chord);
+      await page.waitForTimeout(60);
+      assert.equal(await page.locator('.reveal').count(), 0, `${chord} (${reason}) must not reveal the answer`);
+      assert.equal(await page.locator('#next-card').count(), 0, `${chord} (${reason}) must not grade the card`);
+      assert.equal(await page.locator('#feedback-area').innerText(), '', `${chord} (${reason}) must not answer the card`);
+      assert.deepEqual(await page.evaluate(() => ({ ...localStorage })), beforeChords,
+        `${chord} (${reason}) must leave learner storage untouched`);
+    }
+    // IME composition is the one guard the helper test cannot protect: a composing
+    // keydown carries no modifier, so only the handler's use of acceptsShortcutKey()
+    // decides whether it reaches the card. Dispatch it on the document the handler is
+    // registered on, exactly as a real IME would.
+    await page.evaluate(() => {
+      document.dispatchEvent(new KeyboardEvent('keydown', { key: 'f', isComposing: true, bubbles: true }));
+      document.dispatchEvent(new KeyboardEvent('keydown', { key: ' ', isComposing: true, bubbles: true }));
+    });
+    await page.waitForTimeout(60);
+    assert.equal(await page.locator('.reveal').count(), 0, 'a composing key must not reveal the answer');
+    assert.equal(await page.locator('#next-card').count(), 0, 'a composing key must not grade the card');
+    assert.equal(await page.locator('#feedback-area').innerText(), '', 'a composing key must not answer the card');
+    assert.deepEqual(await page.evaluate(() => ({ ...localStorage })), beforeChords,
+      'a composing key must leave learner storage untouched');
+    assert.equal((await page.locator('.prompt').innerText()).trim(), chordPrompt, 'the card was neither answered nor skipped');
+    // The plain keys the app documents still work on the same card.
+    await page.keyboard.press('f');
+    assert.deepEqual(await read('flagged'), ['298'], 'the unmodified f shortcut still flags the word');
+    await page.keyboard.press('f');
+    assert.deepEqual(await read('flagged'), []);
+    await page.evaluate(() => document.activeElement && document.activeElement.blur());
+    await page.keyboard.press(' ');
+    assert.equal(await page.locator('.reveal').count(), 1, 'the unmodified Space shortcut still reveals');
+    await page.locator('#reveal-correct').click();
+    await next();
 
     // ---- A backup file round-trips: export → wipe → import → export preserves data.
     await page.evaluate(() => localStorage.clear());
