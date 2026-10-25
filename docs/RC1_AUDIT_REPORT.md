@@ -138,6 +138,7 @@ The four-tier distinction the mission asks for, as it applies to this archive:
 | D-19 | Minor (docs) | `docs/RC1_AUDIT_REPORT.md` — the historical assertion in D-18 was wrapped in single backticks while it contained two more, so it rendered as broken inline code | **fixed (review round 4; reported by CodeRabbit)** |
 | D-20 | Major (review-config scope) | `.coderabbit.yaml` — the file claimed the seed TSVs stayed reviewed, but CodeRabbit excludes `**/*.tsv` by default | **fixed (review round 4; reported by CodeRabbit)** |
 | D-21 | Trivial (test coverage) | `tests/browser-learning.cjs` did not drive a composing `keydown` through the registered handler, and `tests/browser-exams.cjs` never asserted the archive count in English | **fixed (review round 4; nitpicks from CodeRabbit)** |
+| D-22 | Trivial (wording) | `DESIGN_LOG.md` — "a composing `f` and `Space`" described the dispatched events imprecisely | **fixed (review round 4; reported by CodeRabbit)** |
 
 ### D-1 — A modified key pressed a flashcard shortcut (High, fixed)
 
