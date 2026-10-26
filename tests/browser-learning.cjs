@@ -486,7 +486,7 @@ async function main() {
 
     // The shipped build identifies itself.
     await sprint.locator('[data-view="settings"]').click();
-    assert.equal(await sprint.locator('#app-version').innerText(), 'v1.0.0-rc1');
+    assert.equal(await sprint.locator('#app-version').innerText(), 'v1.0.0-rc2');
     assert.deepEqual(sprintErrors, []);
 
     // Error -> intervening word -> typed corrective retrieval -> truthful summary.
@@ -1599,13 +1599,13 @@ async function main() {
     // Focus visibly changes the allocation.
     await page.locator('#priority-config [data-focus="weak"]').click();
     assert.match(await page.locator('#priority-effective').innerText(), /Trọng tâm: Từ yếu hoặc thường sai/);
-    // All seven exercise types, including the two that are off by default.
-    for (const type of ['cloze', 'match', 'flashcard']) {
+    // All eight exercise types, including the ones that are off by default.
+    for (const type of ['cloze', 'match', 'flashcard', 'mc4']) {
       const chip = page.locator(`#priority-config [data-exercise="${type}"]`);
       if (await chip.getAttribute('aria-pressed') === 'false') await chip.click();
     }
     const storedConfig = await page.evaluate(() => JSON.parse(localStorage.getItem('chuyen-anh.study.v1')));
-    assert.equal(Object.values(storedConfig.exercises).filter(Boolean).length, 7, 'every exercise type can be enabled');
+    assert.equal(Object.values(storedConfig.exercises).filter(Boolean).length, 8, 'every exercise type can be enabled');
     assert.equal(storedConfig.focus, 'weak');
     await page.locator('#priority-config #priority-size').selectOption('10');
     assert.equal((await page.evaluate(() => JSON.parse(localStorage.getItem('chuyen-anh.study.v1')))).size, 10);
@@ -1622,6 +1622,12 @@ async function main() {
     while (await page.locator('.summary').count() === 0) {
       handled += 1;
       assert.ok(handled < 60, 'the priority session terminates');
+      // An introduction is the same turn as the question that follows it, so
+      // it is confirmed before the turn is logged.
+      if (await page.locator('#start-quiz').count()) {
+        await page.locator('#start-quiz').click();
+        continue;
+      }
       const exercise = await page.locator('.flashcard').getAttribute('data-exercise');
       // A matching board re-renders after every pair, so the turn log records one
       // entry per turn (turnSeq) rather than one per paint.
@@ -1630,10 +1636,6 @@ async function main() {
         seenExercises.add(exercise);
         turnLog.push(exercise);
         lastTurnSeq = turnSeq;
-      }
-      if (await page.locator('#start-quiz').count()) {
-        await page.locator('#start-quiz').click();
-        continue;
       }
       if (!flagChecked) {
         await page.locator('#flag-card').click();
@@ -1981,9 +1983,11 @@ async function main() {
     await page.locator('#phrase-practice-start').click();
     await page.locator('.flashcard').waitFor();
     let phraseTurns = 0;
-    for (let turn = 0; turn < 60; turn += 1) {
+    for (let turn = 0; turn < 80; turn += 1) {
       if (await page.locator('.summary').count()) break;
       if (await page.locator('#phrase-next').count()) { await page.locator('#phrase-next').click(); await page.waitForTimeout(30); continue; }
+      // An unseen phrase is introduced first; confirming it records nothing.
+      if (await page.locator('#phrase-start-quiz').count()) { await page.locator('#phrase-start-quiz').click(); await page.waitForTimeout(30); continue; }
       if (await page.locator('[data-phrase-option]:enabled').count()) {
         await page.locator('[data-phrase-option]:enabled').first().click();
         phraseTurns += 1;
@@ -2062,6 +2066,102 @@ async function main() {
     assert.deepEqual(await page.evaluate(() => JSON.parse(localStorage.getItem('chuyen-anh.phrases.v1') || '{}')), {},
       'reset clears phrase progress');
 
+    // ---- RC2: a matching board introduces new words first, changing the left
+    // selection never grades, and the four-option exercise is selectable.
+    await page.evaluate(() => {
+      localStorage.clear();
+      localStorage.setItem('chuyen-anh.study.v1', JSON.stringify({
+        groups: { due: false, weak: false, new: true, review: false },
+        focus: 'new',
+        exercises: { mc_en_vi: false, mc_vi_en: false, mc4: false, fill_vi: false, fill_en: false, cloze: false, match: true, flashcard: false },
+        size: 10, timed: false, timerMinutes: 0
+      }));
+    });
+    await page.reload();
+    await page.locator('[data-session="priority"]').waitFor();
+    await page.locator('[data-session="priority"]').click();
+    // The board holds only never-studied words, so it opens with an
+    // introduction, not with a graded board.
+    await page.locator('.first-look--board').waitFor();
+    assert.equal(await page.locator('.first-look--board .first-look-row').count(), 4,
+      'every new word on the board is introduced with its meaning');
+    assert.equal(await page.locator('.match-board').count(), 0, 'no board is playable before the introduction');
+    const gradedTotal = () => page.evaluate(() => Object.values(
+      JSON.parse(localStorage.getItem('chuyen-anh.progress.v1') || '{}')
+    ).reduce((sum, record) => sum + (record.correctCount || 0) + (record.wrongCount || 0), 0));
+    assert.equal(await gradedTotal(), 0, 'viewing the introduction grades nothing');
+    await page.locator('#start-quiz').click();
+    await page.locator('.match-board').waitFor();
+    assert.equal(await gradedTotal(), 0, 'confirming the introduction still grades nothing');
+    const boardIds = await page.evaluate(() => [...document.querySelectorAll('[data-match-word]')]
+      .map(node => node.dataset.matchWord));
+    assert.equal(boardIds.length, 4);
+    const countsOf = id => page.evaluate(wordId => {
+      const record = JSON.parse(localStorage.getItem('chuyen-anh.progress.v1') || '{}')[wordId];
+      return { correct: record?.correctCount || 0, wrong: record?.wrongCount || 0 };
+    }, id);
+    // Changing the left-column selection is only a selection.
+    await page.locator(`[data-match-word="${boardIds[0]}"]`).click();
+    await page.locator(`[data-match-word="${boardIds[1]}"]`).click();
+    assert.equal(await page.locator('.match-error').count(), 0,
+      'changing the left selection shows no wrong-answer feedback');
+    assert.equal(await page.locator(`[data-match-word="${boardIds[1]}"]`).getAttribute('aria-pressed'), 'true');
+    assert.equal(await gradedTotal(), 0, 'changing the left selection writes no grade');
+    // Completing the pair grades that word exactly once.
+    await page.locator(`[data-match-meaning="${boardIds[1]}"]`).click();
+    assert.deepEqual(await countsOf(boardIds[1]), { correct: 1, wrong: 0 });
+    assert.equal(await gradedTotal(), 1);
+    // A completed wrong pair flags only the selected word, and only when it
+    // is finally matched; the owner of the misused meaning tile is untouched.
+    await page.locator(`[data-match-word="${boardIds[2]}"]`).click();
+    await page.locator(`[data-match-meaning="${boardIds[3]}"]`).click();
+    assert.equal(await page.locator('.match-error').count(), 1, 'a completed wrong pair is reported');
+    assert.equal(await gradedTotal(), 1, 'the wrong pair itself persists no grade yet');
+    await page.locator(`[data-match-word="${boardIds[2]}"]`).click();
+    await page.locator(`[data-match-meaning="${boardIds[2]}"]`).click();
+    assert.deepEqual(await countsOf(boardIds[2]), { correct: 0, wrong: 1 });
+    await page.locator(`[data-match-word="${boardIds[3]}"]`).click();
+    await page.locator(`[data-match-meaning="${boardIds[3]}"]`).click();
+    assert.deepEqual(await countsOf(boardIds[3]), { correct: 1, wrong: 0 },
+      'the word whose meaning tile was misused keeps its own first pass');
+    await page.locator('[data-match-word]:enabled').first().click();
+    const lastId = boardIds[0];
+    await page.locator(`[data-match-meaning="${lastId}"]`).click();
+    await page.locator('#next-card').waitFor();
+    assert.equal(await gradedTotal(), 4, 'the finished board graded each word once');
+    await page.locator('#next-card').click();
+    await page.locator('.summary').waitFor();
+    // The four-option exercise is selectable on its own and offers four options.
+    await page.locator('#again').click();
+    await page.locator('[data-session="priority"]').waitFor();
+    await page.evaluate(() => {
+      const config = JSON.parse(localStorage.getItem('chuyen-anh.study.v1'));
+      config.exercises = { mc_en_vi: false, mc_vi_en: false, mc4: true, fill_vi: false, fill_en: false, cloze: false, match: false, flashcard: false };
+      localStorage.setItem('chuyen-anh.study.v1', JSON.stringify(config));
+    });
+    await page.reload();
+    await page.locator('[data-session="priority"]').waitFor();
+    const gradedBeforeMc4 = await gradedTotal();
+    await page.locator('[data-session="priority"]').click();
+    if (await page.locator('#start-quiz').count()) await page.locator('#start-quiz').click();
+    await page.locator('[data-option]:enabled').first().waitFor();
+    assert.equal(await page.locator('.flashcard').getAttribute('data-exercise'), 'mc4');
+    assert.equal(await page.locator('[data-option]').count(), 4, 'a four-option turn shows four options');
+    assert.match(await page.locator('.mode-label').innerText(), /Trắc nghiệm 4 phương án/i);
+    await page.locator('[data-option]:enabled').first().click();
+    await page.locator('#next-card').waitFor();
+    assert.equal(await gradedTotal(), gradedBeforeMc4 + 1, 'one four-option answer grades exactly once');
+    await page.locator('#exit-session').click();
+    await page.locator('[data-session="priority"]').waitFor();
+    await page.evaluate(() => localStorage.setItem('chuyen-anh.language.v1', 'en'));
+    await page.reload();
+    await page.locator('[data-session="priority"]').waitFor();
+    await page.evaluate(() => document.querySelector('#priority-details')?.setAttribute('open', ''));
+    assert.match(await page.locator('#priority-config [data-exercise="mc4"]').innerText(), /Four-option multiple choice/);
+    await page.evaluate(() => localStorage.removeItem('chuyen-anh.language.v1'));
+    await page.reload();
+    await page.locator('[data-session="priority"]').waitFor();
+
     const failing = await browser.newPage({ viewport: { width: 1280, height: 900 }, reducedMotion: 'reduce' });
     const failingErrors = [];
     failing.on('pageerror', error => failingErrors.push(error.message));
@@ -2102,7 +2202,7 @@ async function main() {
 
 
     assert.deepEqual(errors, []);
-    console.log(`PASS: Chromium ${browser.version()} — first-look introduction for new words, same-part-of-speech distractors, cloze options absent from the sentence, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, 320/375/768px responsive layout, reduced-motion setting, search state across a favorite toggle, session clearing on reset/import, the ID 448 historical label, named option groups, shortcuts limited to the visible card, failed writes reported truthfully, JSON backup round-trips that keep every retained session, blank spelling submissions ignored, single-graded self-assessment, skip locked after a reveal, and 'Học cấp tốc' processing all ten requested words with a truthful single correction, automatic advance only after correct answers, accurate first-pass statistics, persisted progress, an immediate hand-off with the graded answer carried onto the next card, a queue that never shifts while another screen is open, and interface copy on a consolidation turn translated in the English interface; the beta5 priority configuration with all seven exercise types, a matching board driven from the keyboard, a skipped question reopened from the pending list, a hard word marked and unmarked, a real one-minute timed session that ends on its results with unanswered questions reported as blank, a v1 backup that keeps the device hard-word list, English rendering of every new screen, and the beta6 regressions: a priority session started from Settings opens where the learner can see it, a classic session reports only its own XP, a typed answer survives the star/flag toggles, a sprint honours the timer, a start that cannot run explains itself, a new session inherits no skipped questions, and the beta7 phrase bank: 780 phrases browsed, searched, filtered by type and level, practised for ten turns with typed and multiple-choice retrieval recorded in its own store while word progress stayed byte-identical, English rendering of the phrase screens, and a reset that clears phrase progress; no page errors.`);
+    console.log(`PASS: Chromium ${browser.version()} — first-look introduction for new words, same-part-of-speech distractors, cloze options absent from the sentence, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, 320/375/768px responsive layout, reduced-motion setting, search state across a favorite toggle, session clearing on reset/import, the ID 448 historical label, named option groups, shortcuts limited to the visible card, failed writes reported truthfully, JSON backup round-trips that keep every retained session, blank spelling submissions ignored, single-graded self-assessment, skip locked after a reveal, and 'Học cấp tốc' processing all ten requested words with a truthful single correction, automatic advance only after correct answers, accurate first-pass statistics, persisted progress, an immediate hand-off with the graded answer carried onto the next card, a queue that never shifts while another screen is open, and interface copy on a consolidation turn translated in the English interface; the beta5 priority configuration with all eight exercise types, a matching board driven from the keyboard, a skipped question reopened from the pending list, a hard word marked and unmarked, a real one-minute timed session that ends on its results with unanswered questions reported as blank, a v1 backup that keeps the device hard-word list, English rendering of every new screen, and the beta6 regressions: a priority session started from Settings opens where the learner can see it, a classic session reports only its own XP, a typed answer survives the star/flag toggles, a sprint honours the timer, a start that cannot run explains itself, a new session inherits no skipped questions, and the beta7 phrase bank: 780 phrases browsed, searched, filtered by type and level, practised for ten turns with typed and multiple-choice retrieval recorded in its own store while word progress stayed byte-identical, English rendering of the phrase screens, and a reset that clears phrase progress; no page errors.`);
   } finally {
     if (browser) await browser.close();
     await new Promise(resolve => server.close(resolve));

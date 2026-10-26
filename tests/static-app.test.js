@@ -1236,7 +1236,7 @@ test('exported exam results report exactly what the learner did and what could b
   const result = buildExamResultJson(session, record, { now: 6000 });
   assert.equal(result.app, 'Chuyên Anh');
   assert.equal(result.version, APP_VERSION, 'the result carries the application version');
-  assert.equal(result.version, 'v1.0.0-rc1');
+  assert.equal(result.version, 'v1.0.0-rc2');
   assert.equal(result.schemaVersion, '1.0.0');
   assert.deepEqual(result.summary, {
     total: 3, answered: 2, unanswered: 1,
@@ -1814,9 +1814,11 @@ test('Scope E: unstudied vocabulary items normalize to new across all modes whil
 const modeItems = [...embeddedVocabulary.slice(0, 60), ...embeddedVocabulary.filter(entry => entry.examples?.length)]
   .map(vocab => ({ vocab, progress: createInitialProgress(vocab.id, 0) }));
 
-test('every one of the seven exercise types is generated from its own record and grades once', () => {
-  assert.deepEqual([...app.EXERCISE_ORDER], ['mc_en_vi', 'mc_vi_en', 'fill_vi', 'fill_en', 'cloze', 'match', 'flashcard']);
-  assert.equal(Object.keys(app.EXERCISE_LABELS).length, 7);
+test('every one of the eight exercise types is generated from its own record and grades once', () => {
+  assert.deepEqual([...app.EXERCISE_ORDER], ['mc_en_vi', 'mc_vi_en', 'mc4', 'fill_vi', 'fill_en', 'cloze', 'match', 'flashcard']);
+  assert.equal(Object.keys(app.EXERCISE_LABELS).length, 8);
+  assert.equal(app.EXERCISE_LABELS[app.EXERCISE_TYPES.MC4], 'Trắc nghiệm 4 phương án');
+  assert.equal(app.translateUiText('Trắc nghiệm 4 phương án', 'en'), 'Four-option multiple choice');
   const seenModes = new Set();
   for (const type of app.EXERCISE_ORDER) {
     if (type === app.EXERCISE_TYPES.MATCH) {
@@ -2716,4 +2718,262 @@ test('the exam archive scope panel is localised in English', () => {
   assert.doesNotMatch(translated, /[ăâđêôơưàáảãạ]/, 'no Vietnamese diacritics are left behind');
   // Vietnamese mode is untouched.
   assert.equal(translateUiText(scope, 'vi'), scope);
+});
+
+
+/* ------------------------------------------------------------------ *
+ * RC2 regressions: four-option contract, matching selection machine,
+ * first-look coverage and vocabulary reconciliation.
+ * ------------------------------------------------------------------ */
+
+const rc2Heads = embeddedVocabulary.filter(entry => !entry.familyHead);
+const rc2Item = entry => ({ vocab: entry, progress: createInitialProgress(entry.id, 0), taught: true });
+
+test('rc2: a four-option question offers exactly four distinct options or is explicitly unavailable', () => {
+  // Real data: a deterministic stride across the whole headword inventory.
+  let generated = 0;
+  for (let index = 0; index < rc2Heads.length; index += 211) {
+    const entry = rc2Heads[index];
+    const question = generateQuestion(rc2Item(entry), rc2Heads, 'mc4');
+    generated += 1;
+    assert.equal(question.exercise, 'mc4', `${entry.word}: the turn keeps its mc4 identity`);
+    assert.equal(question.mode, MODES.RECOGNITION, 'mc4 shares the recognition generation path');
+    assert.equal(question.options.length, 4, `${entry.word}: exactly four options`);
+    assert.equal(question.options.filter(option => option.correct).length, 1, 'exactly one correct option');
+    const correct = question.options.find(option => option.correct);
+    assert.equal(correct.id, entry.id, 'the correct key stays attached to the answer option after shuffling');
+    assert.equal(correct.text, entry.meaning);
+    assert.equal(new Set(question.options.map(option => normalize(option.text))).size, 4,
+      `${entry.word}: no duplicated answer text after normalization`);
+    assert.equal(question.options.filter(option => option.id === entry.id).length, 1, 'the answer appears once');
+    assert.equal(app.gradeAnswer(question, correct.id).correct, true);
+    const wrong = question.options.find(option => !option.correct);
+    assert.equal(app.gradeAnswer(question, wrong.id).correct, false);
+  }
+  assert.ok(generated >= 20, 'the stride really sampled the inventory');
+  // Insufficient candidate pool: the exercise is unavailable and a generated
+  // question says so instead of silently offering fewer than four options.
+  const tiny = rc2Heads.slice(0, 3);
+  assert.equal(app.exerciseAvailability('mc4', rc2Item(tiny[0]), tiny), false);
+  assert.equal(app.countDistractorCandidates(tiny, tiny[0], 'meaning'), 2);
+  const unavailable = generateQuestion(rc2Item(tiny[0]), tiny, 'mc4');
+  assert.equal(unavailable.unavailable, true);
+  assert.equal(unavailable.unavailableReason, 'insufficient-distractors');
+  assert.equal(unavailable.options.length, 0, 'an unavailable question exposes no short option list');
+  // The directional multiple-choice types share the same full-pool rule.
+  assert.equal(app.exerciseAvailability('mc_en_vi', rc2Item(tiny[0]), tiny), false,
+    'a two-option set is not presented as an available multiple-choice exercise');
+});
+
+test('rc2: four-option configuration round-trips and older configurations stay usable', () => {
+  const map = new Map();
+  const storage = { getItem: key => (map.has(key) ? map.get(key) : null), setItem: (key, value) => map.set(key, String(value)) };
+  const enabledOnly = app.sanitizeStudyConfig({
+    exercises: { mc_en_vi: false, mc_vi_en: false, mc4: true, fill_vi: false, fill_en: false, cloze: false, match: false, flashcard: false }
+  });
+  assert.equal(app.saveStudyConfig(enabledOnly, storage), true);
+  assert.deepEqual(app.loadStudyConfig(storage).exercises, enabledOnly.exercises,
+    'an mc4-only configuration survives save/load');
+  // A stored rc1 configuration has no mc4 key: its own choices keep their
+  // meaning and the new type simply starts off.
+  const rc1Shape = app.sanitizeStudyConfig({
+    exercises: { mc_en_vi: true, mc_vi_en: false, fill_vi: true, fill_en: false, cloze: false, match: true, flashcard: false }
+  });
+  assert.equal(rc1Shape.exercises.mc4, false);
+  assert.equal(rc1Shape.exercises.mc_en_vi, true);
+  assert.equal(rc1Shape.exercises.match, true);
+  // A backup whose study block predates mc4 still imports; one carrying mc4
+  // keeps it. The v1 schema itself is unchanged.
+  const bundle = exportProgressBundle({
+    progress: {}, prefs: DEFAULT_PREFS, favorites: new Set(), history: [],
+    streak: { current: 0, longest: 0, lastDate: null }, study: enabledOnly
+  });
+  assert.equal(bundle.version, 1);
+  assert.equal(validateImportPayload(JSON.parse(JSON.stringify(bundle))).study.exercises.mc4, true);
+});
+
+test('rc2: changing a matching selection never grades; only completing a pair does', () => {
+  const empty = { selectedWord: null, selectedMeaning: null, resolvedIds: new Set() };
+  // Left-column changes are pure selection moves, however often they repeat.
+  let state = app.applyMatchSelection(empty, 'word', 'A');
+  assert.equal(state.attempt, null);
+  assert.equal(state.selectedWord, 'A');
+  state = app.applyMatchSelection(state, 'word', 'B');
+  assert.equal(state.attempt, null, 'picking a different word is not an attempt');
+  assert.equal(state.selectedWord, 'B');
+  state = app.applyMatchSelection(state, 'word', 'C');
+  assert.equal(state.attempt, null);
+  // The click that fills the empty column completes the one attempt.
+  state = app.applyMatchSelection(state, 'meaning', 'M');
+  assert.deepEqual(state.attempt, { wordId: 'C', meaningId: 'M' });
+  assert.equal(state.selectedWord, null, 'selections clear with the attempt');
+  assert.equal(state.selectedMeaning, null);
+  // Replaying either half after the attempt cannot grade it twice.
+  const replay = app.applyMatchSelection(state, 'meaning', 'M');
+  assert.equal(replay.attempt, null);
+  assert.equal(replay.selectedMeaning, 'M');
+  // Meaning-first play is symmetric, and re-picking a meaning only moves it.
+  let mirror = app.applyMatchSelection(empty, 'meaning', 'M');
+  mirror = app.applyMatchSelection(mirror, 'meaning', 'N');
+  assert.equal(mirror.attempt, null, 'picking a different meaning is not an attempt');
+  mirror = app.applyMatchSelection(mirror, 'word', 'A');
+  assert.deepEqual(mirror.attempt, { wordId: 'A', meaningId: 'N' });
+  // Picking the selected tile again deselects it, ungraded.
+  const toggled = app.applyMatchSelection(app.applyMatchSelection(empty, 'word', 'A'), 'word', 'A');
+  assert.equal(toggled.selectedWord, null);
+  assert.equal(toggled.attempt, null);
+  // A stale both-selected state restarts from the new pick, never an attempt.
+  const stale = app.applyMatchSelection({ selectedWord: 'A', selectedMeaning: 'M' }, 'word', 'B');
+  assert.equal(stale.attempt, null);
+  assert.equal(stale.selectedWord, 'B');
+  assert.equal(stale.selectedMeaning, null);
+  // Resolved tiles and malformed input are ignored.
+  assert.equal(app.applyMatchSelection({ ...empty, resolvedIds: new Set(['A']) }, 'word', 'A').selectedWord, null);
+  assert.equal(app.applyMatchSelection(empty, 'middle', 'A').attempt, null);
+  assert.equal(app.applyMatchSelection(null, 'word', 'A').selectedWord, 'A');
+  assert.equal(app.applyMatchSelection(empty, 'word', '').selectedWord, null);
+});
+
+test('rc2: a matching board never repeats a word or a meaning', () => {
+  const mk = (id, word, meaning) => ({
+    id, word, pos: 'v', meaning, examples: [], tags: [], synonyms: [], antonyms: [],
+    collocations: [], wordFamily: '', register: '', connotation: '', notes: ''
+  });
+  const fixture = [
+    mk('1', 'allow', 'cho phép'), mk('2', 'permit', 'cho phép'), mk('3', 'deny', 'từ chối'),
+    mk('4', 'refuse', 'khước từ'), mk('5', 'accept', 'chấp nhận'), mk('6', 'offer', 'đề nghị'),
+    mk('7', 'ask', 'hỏi'), mk('8', 'tell', 'nói')
+  ];
+  assert.equal(app.isUnambiguousMatchGroup(fixture.slice(0, 4)), false,
+    'the first four entries repeat one gloss, so they cannot share a board');
+  const plan = app.buildExercisePlan(fixture.map(rc2Item), {
+    exercises: { ...app.DEFAULT_EXERCISES, match: true }, vocabulary: fixture
+  });
+  const boards = plan.turns.filter(turn => turn.type === 'match');
+  assert.ok(boards.length >= 1, 'a board is still built from the unambiguous subset');
+  for (const board of boards) assert.equal(app.isUnambiguousMatchGroup(board.items), true);
+  const cards = plan.turns.reduce((total, turn) => total + (turn.type === 'match' ? turn.items.length : 1), 0);
+  assert.equal(cards, fixture.length, 'no eligible word is lost when a board skips a duplicate gloss');
+  // Real data: every board in a large mixed plan is unambiguous.
+  const realPlan = app.buildExercisePlan(rc2Heads.slice(0, 60).map(rc2Item), {
+    exercises: { ...app.DEFAULT_EXERCISES, match: true }, vocabulary: rc2Heads
+  });
+  for (const turn of realPlan.turns) {
+    if (turn.type === 'match') assert.equal(app.isUnambiguousMatchGroup(turn.items), true);
+  }
+});
+
+test('rc2: recall distractors never repeat the prompt gloss', () => {
+  const mk = (id, word, meaning) => ({
+    id, word, pos: 'v', meaning, examples: [], tags: [], synonyms: [], antonyms: [],
+    collocations: [], wordFamily: '', register: '', connotation: '', notes: ''
+  });
+  const fixture = [
+    mk('1', 'allow', 'cho phép'), mk('2', 'permit', 'cho phép'), mk('3', 'deny', 'từ chối'),
+    mk('4', 'refuse', 'khước từ'), mk('5', 'accept', 'chấp nhận')
+  ];
+  for (let attempt = 0; attempt < 25; attempt += 1) {
+    const question = generateQuestion(rc2Item(fixture[0]), fixture, MODES.RECALL);
+    assert.equal(question.options.some(option => option.text === 'permit'), false,
+      'another headword with the same recorded gloss is not a wrong option');
+  }
+  // Real data: for every headword sharing its gloss, a generated recall
+  // question offers no distractor that owns that gloss.
+  const byMeaning = new Map();
+  for (const entry of rc2Heads) {
+    const key = normalize(entry.meaning);
+    if (!byMeaning.has(key)) byMeaning.set(key, []);
+    byMeaning.get(key).push(entry);
+  }
+  const shared = [...byMeaning.values()].filter(group => group.length > 1);
+  assert.ok(shared.length > 100, 'the shipped data really contains shared glosses');
+  const byId = new Map(rc2Heads.map(entry => [entry.id, entry]));
+  let checked = 0;
+  for (const group of shared.slice(0, 40)) {
+    const entry = group[0];
+    const question = generateQuestion(rc2Item(entry), rc2Heads, MODES.RECALL);
+    checked += 1;
+    for (const option of question.options) {
+      if (option.id === entry.id) continue;
+      assert.notEqual(normalize(byId.get(option.id).meaning), normalize(entry.meaning),
+        `${entry.word}: distractor ${option.text} shares the prompt gloss`);
+    }
+  }
+  assert.equal(checked, 40);
+});
+
+test('rc2: every turn shape introduces a new word before grading it', () => {
+  const fresh = entry => ({ vocab: entry, progress: createInitialProgress(entry.id, 0) });
+  const studied = entry => ({
+    vocab: entry,
+    progress: { ...createInitialProgress(entry.id, 0), state: STATES.LEARNING, correctCount: 1 }
+  });
+  // Single cards keep the established rule, whatever the exercise.
+  assert.equal(app.turnNeedsFirstLook(fresh(rc2Heads[0])), true);
+  assert.equal(app.turnNeedsFirstLook(studied(rc2Heads[0])), false);
+  // A board needs an introduction while any pair is new; only those pairs
+  // are introduced, and marking them taught ends the introduction.
+  const board = {
+    match: true,
+    pairs: [fresh(rc2Heads[0]), studied(rc2Heads[1]), fresh(rc2Heads[2]), studied(rc2Heads[3])]
+      .map(item => ({ vocab: item.vocab, progress: item.progress, resolved: false, missed: false }))
+  };
+  assert.equal(app.turnNeedsFirstLook(board), true);
+  assert.deepEqual(app.matchFirstLookPairs(board).map(pair => pair.vocab.id),
+    [rc2Heads[0].id, rc2Heads[2].id]);
+  const before = structuredClone(board.pairs.map(pair => pair.progress));
+  for (const pair of app.matchFirstLookPairs(board)) pair.taught = true;
+  assert.equal(app.turnNeedsFirstLook(board), false, 'the introduction is shown once per board per session');
+  assert.deepEqual(board.pairs.map(pair => pair.progress), before,
+    'introducing a pair changes no counter, state or schedule');
+  // The shipped wiring uses the shared predicate for boards too.
+  assert.match(appScript[1], /firstLook = turnNeedsFirstLook\(item\);/);
+  assert.equal(/item\.match\) \{\s*firstLook = false;/.test(appScript[1]), false,
+    'a matching turn must not bypass the introduction');
+  // Phrases follow the same contract in their own store.
+  const phrase = embeddedPhrases[0];
+  assert.equal(app.needsPhraseFirstLook(phrase, {}), true);
+  assert.equal(app.needsPhraseFirstLook(phrase, {}, new Set([phrase.id])), false);
+  assert.equal(app.needsPhraseFirstLook(phrase, {
+    [phrase.id]: { attempts: 1, correct: 0, wrong: 1, lastPracticed: 1 }
+  }), false, 'a phrase with graded history is tested directly');
+});
+
+test('rc2: vocabulary coverage reconciles the full headword inventory', () => {
+  assert.equal(rc2Heads.length, 5112, 'active headwords');
+  assert.equal(embeddedVocabulary.filter(entry => entry.familyHead).length, 740, 'merged same-root forms');
+  // Every headword is reachable through lookup and through a new-word session.
+  const progress = ensureProgress({}, rc2Heads);
+  assert.equal(Object.keys(progress).length, 5112);
+  assert.ok(Object.values(progress).every(record => record.state === STATES.NEW),
+    'an untouched profile normalises every headword to new');
+  const allNew = selectSession(rc2Heads, progress, { size: rc2Heads.length, mode: 'new' });
+  assert.equal(new Set(allNew.map(item => item.vocab.id)).size, 5112,
+    'a new-word session can queue every headword exactly once');
+  const index = createSearchIndex(rc2Heads, progress, new Set());
+  assert.equal(new Set(searchVocabulary(index, '', {}).map(item => item.entry.id)).size, 5112,
+    'lookup reaches every headword');
+  // No merged form is a schedulable card or a lookup row of its own.
+  const headIds = new Set(rc2Heads.map(entry => entry.id));
+  const familyHeadOf = familyHeadMap(embeddedVocabulary);
+  assert.equal(familyHeadOf.size, 740);
+  for (const mergedId of familyHeadOf.keys()) assert.equal(headIds.has(mergedId), false);
+  // Per-exercise availability reconciles against independently stated data
+  // requirements; a word missing one mode always keeps another path.
+  const availability = {};
+  for (const type of app.EXERCISE_ORDER) {
+    availability[type] = rc2Heads.filter(entry => app.exerciseAvailability(type, entry, rc2Heads)).length;
+  }
+  assert.equal(availability.flashcard, 5112);
+  assert.equal(availability.fill_vi, 5112);
+  assert.equal(availability.match, 5112);
+  assert.equal(availability.mc4, 5112, 'every headword has three distinct meaning distractors');
+  assert.equal(availability.cloze, rc2Heads.filter(entry => entry.examples?.length).length,
+    'cloze reaches exactly the headwords with a recorded example');
+  assert.equal(availability.fill_en, rc2Heads.filter(entry => isTypableHeadword(entry.word)).length,
+    'typed English reaches exactly the typable headwords');
+  for (const entry of rc2Heads) {
+    assert.ok(app.EXERCISE_ORDER.some(type => app.exerciseAvailability(type, entry, rc2Heads)),
+      `${entry.word} keeps at least one learning path`);
+  }
 });
