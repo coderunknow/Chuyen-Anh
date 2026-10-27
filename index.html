@@ -980,7 +980,11 @@ h1, h2, h3 { font-family: var(--font-serif); font-weight: 700; letter-spacing: -
 .badge strong { color: var(--text); font-size: .78rem; }
 .badge--earned { border-color: color-mix(in srgb, var(--accent) 38%, var(--border)); background: var(--accent-soft); }
 .badge--earned strong { color: var(--accent); }
-.badge--locked { opacity: .64; }
+/* A parent opacity faded the text itself below WCAG contrast (2.77:1).
+   Distinguish locked badges with a dashed edge and muted text tokens
+   instead, which hold >= 4.5:1 on every shipped palette. */
+.badge--locked { border-style: dashed; }
+.badge--locked strong { color: var(--muted); }
 .badge--new { animation: pop var(--dur-slow) var(--ease); box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 22%, transparent); }
 .weak-row { border-radius: 10px; background: var(--surface-soft); }
 .stat-card { border-radius: 13px; }
@@ -221100,6 +221104,87 @@ function writeJson(storage, key, value) {
   }
 }
 
+// Staged all-or-nothing writes for the importer: the save functions run against
+// a recording proxy first, so the exact payloads are known before a single real
+// key changes (RT-07). commit() preflights the quota, writes the shrinking keys
+// first and rolls every key back to its snapshot if any write still fails, so a
+// failed import never leaves a half-written store behind and a successful one
+// never reports success with a block missing.
+export function createWriteStaging(realStorage) {
+  const writes = new Map();
+  const stagedStorage = {
+    getItem: key => (realStorage ? realStorage.getItem(key) : null),
+    setItem: (key, value) => { writes.set(key, String(value)); },
+    removeItem: key => { writes.set(key, null); }
+  };
+  return {
+    storage: stagedStorage,
+    writes,
+    commit: () => commitStagedWrites(realStorage, writes)
+  };
+}
+
+export function commitStagedWrites(realStorage, writes) {
+  if (!realStorage) return false;
+  if (!writes || writes.size === 0) return true;
+  const snapshot = new Map();
+  try {
+    for (const key of writes.keys()) snapshot.set(key, realStorage.getItem(key));
+  } catch {
+    return false;
+  }
+  const byteLength = value => new TextEncoder().encode(String(value)).length;
+  const restore = () => {
+    let ok = true;
+    for (const [key, value] of snapshot) {
+      try {
+        if (value === null || value === undefined) realStorage.removeItem(key);
+        else realStorage.setItem(key, value);
+      } catch {
+        ok = false;
+      }
+    }
+    return ok;
+  };
+  // Byte deltas, shrinking keys first: while the whole set fits, every prefix
+  // of this order also fits, so progress can free its space before phrases
+  // consumes theirs.
+  const entries = [...writes.entries()].map(([key, value]) => {
+    const before = snapshot.get(key);
+    const delta = (value === null ? 0 : byteLength(value))
+      - (before === null || before === undefined ? 0 : byteLength(before));
+    return { key, value, delta };
+  }).sort((a, b) => a.delta - b.delta);
+  const netNeed = entries.reduce((sum, entry) => sum + entry.delta, 0);
+  if (netNeed > 0) {
+    // Probe with the net growth plus a safety margin before touching any real
+    // key; a short store must fail cleanly, not halfway through the set.
+    const probeKey = '__chuyen-anh.import.probe';
+    const probeSize = netNeed + 4096 + Math.ceil(netNeed / 2);
+    let fits = false;
+    try {
+      realStorage.setItem(probeKey, 'x'.repeat(probeSize));
+      realStorage.removeItem(probeKey);
+      fits = true;
+    } catch {
+      try { realStorage.removeItem(probeKey); } catch { /* nothing landed */ }
+    }
+    if (!fits) return false;
+  }
+  try {
+    for (const entry of entries) {
+      if (entry.value === null) realStorage.removeItem(entry.key);
+      else realStorage.setItem(entry.key, entry.value);
+    }
+    return true;
+  } catch {
+    // Restore the original values; either way the commit itself failed, so the
+    // caller must see false — a clean rollback is not a successful import.
+    restore();
+    return false;
+  }
+}
+
 export function loadLanguage(storage = memorySafeStorage()) {
   try { return storage?.getItem(LANGUAGE_STORAGE_KEY) === 'en' ? 'en' : 'vi'; }
   catch { return 'vi'; }
@@ -223105,6 +223190,14 @@ export function aliasNote(question, answer) {
   return 'Đáp án của bạn khớp một cách diễn đạt khác đã được chấp nhận cho từ này.';
 }
 
+// README: "Chuỗi ngày vẫn chỉ tính lượt trả lời đúng ở lần đầu." The day
+// streak moves only for a first-pass correct answer: a wrong first attempt,
+// the queued practice/consolidation turns, re-grades and a match resolution
+// after a missed claim never extend it.
+export function streakCountsAnswer({ firstPass = false, correct = false } = {}) {
+  return Boolean(firstPass && correct);
+}
+
 /* -------------------------------- timer ---------------------------------- */
 
 // A timed session is bounded by an explicit minute choice, or by 20 seconds per
@@ -223269,20 +223362,27 @@ function hasDistractor(vocabulary, current, field) {
 // into a free pick. Candidates whose text repeats the answer or another option are
 // skipped, because the dataset really does contain entries sharing one gloss.
 function distractors(vocabulary, current, field, { usable = () => true } = {}) {
-  const seen = new Set([normalize(current[field])]);
+  // Options are keyed two ways: normalize() for visual distinctness and
+  // normalizeTyped() — the typed-answer contract from README (edge punctuation
+  // folded) — so a gloss pair like "bao gồm, gồm có." / "bao gồm, gồm có"
+  // (ids 838/1505) never shows up twice or as a wrong option.
+  const keys = value => [normalize(value), normalizeTyped(value)].filter(Boolean);
+  const seen = new Set(keys(current[field]));
   const currentPos = new Set(posTokens(current));
   const currentMeaning = field === 'word' ? normalize(current.meaning) : null;
+  const currentMeaningTyped = field === 'word' ? normalizeTyped(current.meaning) : null;
   const samePos = [];
   const otherPos = [];
   for (const entry of Array.isArray(vocabulary) ? vocabulary : []) {
     if (!entry || entry.id === current.id || !entry[field] || !usable(entry)) continue;
-    const key = normalize(entry[field]);
-    if (!key || seen.has(key)) continue;
+    const fieldKeys = keys(entry[field]);
+    if (!fieldKeys[0] || fieldKeys.some(key => seen.has(key))) continue;
     // A word-field question is prompted by the gloss, so another headword
     // recorded with the same gloss would be an equally correct answer. It
     // can never be offered as a wrong option.
-    if (currentMeaning && normalize(entry.meaning) === currentMeaning) continue;
-    seen.add(key);
+    if (currentMeaning && (normalize(entry.meaning) === currentMeaning
+      || (currentMeaningTyped && normalizeTyped(entry.meaning) === currentMeaningTyped))) continue;
+    fieldKeys.forEach(key => seen.add(key));
     (posTokens(entry).some(token => currentPos.has(token)) ? samePos : otherPos).push(entry);
   }
   return [...shuffle(samePos), ...shuffle(otherPos)].slice(0, OPTION_COUNT - 1);
@@ -223741,6 +223841,22 @@ export const PHRASE_TYPES = Object.freeze({
 });
 
 export const PHRASE_STORAGE_KEY = 'chuyen-anh.phrases.v1';
+
+// Every learner-owned key whose writers in another tab must be mirrored into
+// this tab before the next persist(). A tab that keeps a boot-time snapshot of
+// these stores would overwrite newer data written by the other tab (RT-01).
+export const SYNCED_STORAGE_KEYS = Object.freeze([
+  ...Object.values(STORAGE_KEYS),
+  LANGUAGE_STORAGE_KEY,
+  ...Object.values(STUDY_STORAGE_KEYS),
+  PHRASE_STORAGE_KEY
+]);
+
+export function isSyncedStorageKey(key) {
+  // key === null is the payload of the single event fired by localStorage.clear().
+  return key === null || SYNCED_STORAGE_KEYS.includes(key);
+}
+
 const PHRASE_ID_RE = /^P\d{3,4}$/;
 const PHRASE_LEVELS = ['B1', 'B2', 'C1', 'C2'];
 
@@ -224672,6 +224788,33 @@ export async function createApp(root) {
   let phraseProgress = loadPhraseProgress(storage);
   let phraseSession = null;
   let phraseFilters = { type: 'all', level: 'all' };
+
+  // Cross-tab safety (RT-01): these in-memory snapshots were taken at boot, and
+  // persist() writes whole maps. When another tab grades, imports or resets, the
+  // `storage` event fires here first, so the next write from this tab carries
+  // the other tab's data instead of resurrecting this tab's stale snapshot.
+  function reloadLearnerStores() {
+    progress = ensureProgress(foldFamilyProgress(loadProgress(storage), familyHeadOf), vocabulary);
+    prefs = loadPrefs(storage);
+    favorites = new Set([...foldFamilyIds(loadFavorites(storage), familyHeadOf)].filter(id => validIds.has(id)));
+    history = loadHistory(storage);
+    streak = loadStreak(storage);
+    studyConfig = loadStudyConfig(storage);
+    flagged = new Set([...foldFamilyIds(loadFlagged(storage), familyHeadOf)].filter(id => validIds.has(id)));
+    theme = loadTheme(storage, prefs);
+    seenBadges = loadSeenBadges(storage);
+    phraseProgress = loadPhraseProgress(storage);
+    language = loadLanguage(storage);
+  }
+
+  window.addEventListener('storage', event => {
+    if (event.storageArea && storage && event.storageArea !== storage) return;
+    if (!isSyncedStorageKey(event.key)) return;
+    reloadLearnerStores();
+    applyTheme();
+    renderShell();
+  });
+
   // Session-scoped timer and pending-question state. The timer interval is a
   // single module-level handle: re-rendering a card must not start a second one.
   let sessionTimer = null;
@@ -224723,7 +224866,7 @@ export async function createApp(root) {
       if (current.nodeType === 1) {
         for (const name of ['aria-label', 'placeholder', 'title', 'alt']) {
           const value = current.getAttribute(name);
-          if (value) current.setAttribute(name, translateUiText(value, language));
+          if (value) current.setAttribute(name, value.split(' — ').map(part => translateUiText(part, language)).join(' — '));
         }
         if (current.matches(protectedSelectors)) return;
       }
@@ -224760,9 +224903,10 @@ export async function createApp(root) {
   }
 
   // Returns whether every store was written; callers that report success must
-  // check it instead of assuming the write succeeded.
-  function persist() {
-    const ok = [saveProgress(progress, storage), savePrefs(prefs, storage), saveFavorites(favorites, storage), saveHistory(history, storage), saveStreak(streak, storage)].every(Boolean);
+  // check it instead of assuming the write succeeded. `target` lets the importer
+  // stage the same five writes into a transaction instead of the live store.
+  function persist(target = storage) {
+    const ok = [saveProgress(progress, target), savePrefs(prefs, target), saveFavorites(favorites, target), saveHistory(history, target), saveStreak(streak, target)].every(Boolean);
     if (!ok) toast('Không thể lưu dữ liệu trên thiết bị này.', 'error');
     return ok;
   }
@@ -224854,12 +224998,12 @@ export async function createApp(root) {
     root.innerHTML = `
       <header class="topbar">
         <div class="topbar-inner">
-          <a class="brand" href="#learn" id="brand-link" aria-label="Về trang học">
+          <a class="brand" href="#learn" id="brand-link">
             <span class="brand-mark">CA</span>
             <span><span class="brand-name">Chuyên Anh</span><span class="brand-detail">Flashcard · ${formatCount(vocabulary.length)} từ gốc · kho đề offline</span></span>
           </a>
           <div class="top-meta"><span class="top-stat">${iconMarkup('clock')}<span>${currentStats.due} đến hạn</span></span><i class="dot" aria-hidden="true"></i><span class="top-stat">${iconMarkup('flame')}<span>${streak.current} ngày liên tiếp</span></span></div>
-          <div class="top-actions"><button class="btn subtle small" id="theme-button" aria-label="${prefs.darkMode ? 'Dùng giao diện sáng' : 'Bật giao diện tối'}" aria-pressed="${prefs.darkMode}">${iconMarkup(prefs.darkMode ? 'sun' : 'moon')}</button><button class="btn small" id="export-top" aria-label="Xuất bản sao tiến độ học">${iconMarkup('download')}Sao lưu</button></div>
+          <div class="top-actions"><button class="btn subtle small" id="theme-button" aria-label="${prefs.darkMode ? 'Dùng giao diện sáng' : 'Bật giao diện tối'}" aria-pressed="${prefs.darkMode}">${iconMarkup(prefs.darkMode ? 'sun' : 'moon')}</button><button class="btn small" id="export-top" aria-label="Sao lưu — Xuất bản sao tiến độ học">${iconMarkup('download')}Sao lưu</button></div>
         </div>
       </header>
       <div class="layout">
@@ -225308,7 +225452,9 @@ export async function createApp(root) {
       ? turn.pairs.filter(pair => !pair.resolved).length
       : (turn.practice || turn.consolidation ? 0 : 1)), 0);
     sessionStats.expired = true;
-    sessionStats.unanswered = pendingWords + skippedIds.size;
+    // Skipped cards never left the queue, so pendingWords already includes
+    // each of them exactly once; adding skippedIds here counted them twice.
+    sessionStats.unanswered = pendingWords;
     sessionStats.completedTurns = sessionStats.completedTurns || 0;
     answered = false;
     session = null;
@@ -225357,8 +225503,10 @@ export async function createApp(root) {
     const meaningPair = matchState.turn.pairs.find(pair => pair.vocab.id === attempt.meaningId);
     if (!wordPair || wordPair.resolved || !meaningPair || meaningPair.resolved) return;
     if (attempt.wordId === attempt.meaningId) {
-      gradeMatchPair(wordPair, !wordPair.missed);
-      updateStreak();
+      // A resolution after a missed claim is neither first-pass nor correct.
+      const resolvedCorrectly = !wordPair.missed;
+      gradeMatchPair(wordPair, resolvedCorrectly);
+      if (streakCountsAnswer({ firstPass: resolvedCorrectly, correct: resolvedCorrectly })) updateStreak();
       persist();
       if (matchState.turn.pairs.every(pair => pair.resolved)) {
         answered = true;
@@ -226007,11 +226155,13 @@ export async function createApp(root) {
         && queueConsolidation(session, item, consolidationDemand({ correct, demand }), SPRINT_CONSOLIDATION_GAP, turnIndex)) {
         sessionStats.consolidationTotal += 1;
       }
-      skippedIds.delete(item.vocab.id);
-      updateStreak();
+      if (streakCountsAnswer({ firstPass, correct })) updateStreak();
       persist();
       celebrateIfEarned();
     }
+    // Whatever kind of turn this was, it graded: the pending-skip marker (if a
+    // practice retry was skipped while it waited) no longer describes the word.
+    skippedIds.delete(item.vocab.id);
     sessionStats.completedTurns = turnIndex + 1;
     answered = true;
     answerResult = {
@@ -226185,7 +226335,7 @@ export async function createApp(root) {
     // reported as pending, and it is not part of correct/wrong.
     const stillQueued = session ? pendingTurnWords(session) : 0;
     const unanswered = expired
-      ? Math.max(sessionStats.unanswered || 0, stillQueued + skippedIds.size)
+      ? Math.max(sessionStats.unanswered || 0, stillQueued)
       : skippedIds.size;
     const duration = Math.max(1, Math.round((Date.now() - sessionStats.startedAt) / 1000));
     // Only a session with at least one graded answer is a learning event. An
@@ -227004,14 +227154,21 @@ export async function createApp(root) {
         phraseProgress = sanitizePhraseProgress(Object.fromEntries(
           Object.entries(imported.phrases).filter(([id]) => phraseIds.has(id))
         ));
-        savePhraseProgress(phraseProgress, storage);
       }
       const keptBlocks = [imported.study, imported.flagged, imported.seenBadges, imported.phrases].filter(value => value === null).length;
-      saveStudyConfig(studyConfig, storage);
-      saveFlagged(flagged, storage);
-      saveSeenBadges(seenBadges, storage);
-      if (!persist()) {
-        // The imported data is only in memory: say so instead of claiming success.
+      // Every write is staged first and committed as one all-or-nothing step
+      // (RT-07): a near-quota restore frees the big stores before the phrase
+      // block is written, and a genuinely short store fails before any key
+      // changes — no success toast with a block missing, no half-written state.
+      const staged = createWriteStaging(storage);
+      if (imported.phrases) savePhraseProgress(phraseProgress, staged.storage);
+      saveStudyConfig(studyConfig, staged.storage);
+      saveFlagged(flagged, staged.storage);
+      saveSeenBadges(seenBadges, staged.storage);
+      if (!persist(staged.storage) || !staged.commit()) {
+        // Storage still holds the previous data: bring memory back to it so the
+        // interface and the store agree, and report the failure honestly.
+        reloadLearnerStores();
         toast('Không thể lưu dữ liệu vừa nhập; tải lại trang sẽ khôi phục dữ liệu cũ.', 'error');
         renderShell();
         return;

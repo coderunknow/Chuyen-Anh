@@ -657,7 +657,8 @@ test('answer choices are a named button group rather than a radio group', () => 
 
 test('resetting or importing progress clears the whole running session', () => {
   const start = appScript[1].indexOf('function clearActiveSession()');
-  const end = appScript[1].indexOf('function persist()', start);
+  // persist() gained its staging parameter but still sits after clearActiveSession.
+  const end = appScript[1].indexOf('function persist(target = storage)', start);
   assert.ok(start >= 0 && end > start, 'clearActiveSession must be defined before persist');
   const clearBody = appScript[1].slice(start, end);
   for (const reset of [
@@ -681,7 +682,7 @@ test('resetting or importing progress clears the whole running session', () => {
 
 test('a failed write is reported instead of being followed by a success message', () => {
   // Persistence itself returns the outcome and never claims success.
-  assert.match(appScript[1], /function persist\(\)[\s\S]*?return ok;/);
+  assert.match(appScript[1], /function persist\(target = storage\)[\s\S]*?return ok;/);
   const storage = failingStore();
   assert.equal(saveProgress({ '1': createInitialProgress('1', 0) }, storage), false);
   assert.equal(savePrefs({}, storage), false);
@@ -696,11 +697,11 @@ test('a failed write is reported instead of being followed by a success message'
   const resetBody = appScript[1].slice(resetStart, appScript[1].indexOf("document.addEventListener('keydown'", resetStart));
   // The import tells a v1 restore apart from a full restore, so only the shared
   // prefix of the success message is pinned; both variants come after the guard.
-  for (const [name, body, successToast] of [
-    ['import', importBody, 'Đã khôi phục tiến độ'],
-    ['reset', resetBody, "toast('Đã xóa dữ liệu học.', 'success')"]
+  for (const [name, body, successToast, guardNeedle] of [
+    ['import', importBody, 'Đã khôi phục tiến độ', 'if (!persist(staged.storage) || !staged.commit())'],
+    ['reset', resetBody, "toast('Đã xóa dữ liệu học.', 'success')", 'if (!persist())']
   ]) {
-    const guard = body.indexOf('if (!persist())');
+    const guard = body.indexOf(guardNeedle);
     assert.ok(guard >= 0, `${name} must check the persistence result`);
     assert.ok(body.indexOf(successToast) > guard, `${name} must not toast success before the write is confirmed`);
   }
@@ -2976,4 +2977,185 @@ test('rc2: vocabulary coverage reconciles the full headword inventory', () => {
     assert.ok(app.EXERCISE_ORDER.some(type => app.exerciseAvailability(type, entry, rc2Heads)),
       `${entry.word} keeps at least one learning path`);
   }
+});
+
+// ---------------------------------------------------------------------------
+// RC2 remediation regressions (red-team RT-01 / RT-07).
+// ---------------------------------------------------------------------------
+
+test('remediation: every learner store is synced across tabs and the listener is wired', () => {
+  const expected = [
+    'chuyen-anh.progress.v1',
+    'chuyen-anh.prefs.v1',
+    'chuyen-anh.favorites.v1',
+    'chuyen-anh.history.v1',
+    'chuyen-anh.streak.v1',
+    'chuyen-anh.language.v1',
+    'chuyen-anh.study.v1',
+    'chuyen-anh.flagged.v1',
+    'chuyen-anh.theme.v1',
+    'chuyen-anh.badges.v1',
+    'chuyen-anh.phrases.v1'
+  ];
+  for (const key of expected) assert.equal(app.isSyncedStorageKey(key), true, key);
+  assert.equal(app.SYNCED_STORAGE_KEYS.length, expected.length, 'the sync set covers each store exactly once');
+  assert.equal(app.isSyncedStorageKey('chuyen-anh.unrelated.v1'), false, 'unknown keys do not trigger a reload');
+  assert.equal(app.isSyncedStorageKey(null), true, 'localStorage.clear() reports key null and must reload everything');
+  assert.match(appScript[1], /addEventListener\('storage'/, 'the app listens for writes from other tabs');
+  assert.match(appScript[1], /isSyncedStorageKey\(event\.key\)/, 'the listener filters through the synced-key contract');
+  assert.match(appScript[1], /reloadLearnerStores\(\);/, 'a synced event reloads the in-memory snapshots');
+});
+
+test('remediation: the importer commits staged writes as one all-or-nothing step', () => {
+  assert.match(appScript[1], /function persist\(target = storage\)/,
+    'persist() can stage its five writes inside the import transaction');
+  assert.match(appScript[1], /createWriteStaging\(storage\)/, 'importFile stages every write before touching storage');
+  assert.match(appScript[1], /staged\.commit\(\)/, 'importFile commits the staged set explicitly');
+  assert.match(appScript[1], /async function importFile([\s\S]{0,6000})reloadLearnerStores\(\);/,
+    'a failed import brings memory back to the untouched store before reporting');
+  assert.match(appScript[1], /if \(imported\.phrases\) savePhraseProgress\(phraseProgress, staged\.storage\);/,
+    'the phrase block flows through the same transaction');
+});
+
+test('remediation: staged writes are all-or-nothing (shrink first, preflight, rollback)', () => {
+  const makeStorage = budget => {
+    const data = new Map();
+    let writes = 0;
+    let faultAt = null;
+    const bytes = s => Buffer.byteLength(String(s), 'utf8');
+    const used = () => [...data.values()].reduce((n, v) => n + bytes(v), 0);
+    return {
+      data,
+      get writeCount() { return writes; },
+      setFault(n) { faultAt = n; },
+      getItem: key => (data.has(key) ? data.get(key) : null),
+      setItem: (key, value) => {
+        writes += 1;
+        if (faultAt !== null && writes === faultAt) throw new Error('injected write failure');
+        const before = data.has(key) ? bytes(data.get(key)) : 0;
+        if (used() - before + bytes(value) > budget) {
+          const err = new Error('QuotaExceededError');
+          err.name = 'QuotaExceededError';
+          throw err;
+        }
+        data.set(key, String(value));
+      },
+      removeItem: key => { writes += 1; data.delete(key); }
+    };
+  };
+
+  // Shrink-first ordering is what makes a tight budget feasible: freeing k1
+  // before growing k2 keeps every prefix inside the budget.
+  const store = makeStorage(1000);
+  store.setItem('k1', 'x'.repeat(900));
+  const staged = app.createWriteStaging(store);
+  staged.storage.setItem('k1', 'y'.repeat(100));   // frees 800
+  staged.storage.setItem('k2', 'z'.repeat(500));   // needs 500
+  assert.equal(store.data.get('k1'), 'x'.repeat(900), 'nothing is written before commit');
+  assert.equal(staged.commit(), true, 'net-shrinking commit fits and succeeds');
+  assert.equal(store.data.get('k1'), 'y'.repeat(100));
+  assert.equal(store.data.get('k2'), 'z'.repeat(500));
+
+  // A genuinely short store fails the preflight WITHOUT touching any real key.
+  const short = makeStorage(1500);
+  const staged2 = app.createWriteStaging(short);
+  staged2.storage.setItem('growth', 'g'.repeat(2000));
+  assert.equal(staged2.commit(), false, 'infeasible net growth is refused');
+  assert.equal(short.data.size, 0, 'no key was written and no probe remains');
+
+  // A failure halfway through the real writes rolls every key back.
+  const rollback = makeStorage(1000);
+  rollback.setItem('a', 'x'.repeat(600));
+  rollback.setItem('b', 'q');
+  rollback.setFault(rollback.writeCount + 2);  // the SECOND commit write fails
+  const staged3 = app.createWriteStaging(rollback);
+  staged3.storage.setItem('a', 'y'.repeat(100));   // shrink first
+  staged3.storage.setItem('b', 'w'.repeat(400));   // then grow b (write #2 fails)
+  staged3.storage.setItem('c', 'n'.repeat(50));
+  assert.equal(staged3.commit(), false, 'an injected write failure fails the commit');
+  assert.equal(rollback.data.get('a'), 'x'.repeat(600), 'a restored');
+  assert.equal(rollback.data.get('b'), 'q', 'b restored');
+  assert.equal(rollback.data.has('c'), false, 'c never landed');
+
+  // Defence in depth for environments without storage.
+  assert.equal(app.commitStagedWrites(null, new Map()), false, 'no storage => commit refuses');
+  const idle = makeStorage(100);
+  assert.equal(app.commitStagedWrites(idle, new Map()), true, 'an empty transaction is a no-op');
+});
+
+test('remediation: the 838/1505 punctuation gloss pair never becomes a wrong option', () => {
+  const byId = new Map(embeddedVocabulary.map(entry => [String(entry.id), entry]));
+  const e838 = byId.get('838');
+  const e1505 = byId.get('1505');
+  assert.ok(e838 && e1505, 'the punctuation pair exists in the dataset');
+  // The two glosses differ only by a trailing period — exactly the edge
+  // punctuation the typed-answer contract folds (README "dấu câu hai đầu").
+  assert.equal(e838.meaning, 'bao gồm, gồm có.');
+  assert.equal(e1505.meaning, 'bao gồm, gồm có');
+  const heads = embeddedVocabulary.filter(entry => !entry.familyHead);
+  const fillers = heads.filter(entry => !['838', '1505'].includes(String(entry.id))).slice(0, 4);
+  const mini = [e838, e1505, ...fillers];
+  for (let run = 0; run < 8; run += 1) {
+    for (const [subject, twinId, label] of [
+      [e838, '1505', 'recognition(838)'],
+      [e1505, '838', 'recognition(1505)']
+    ]) {
+      const recognition = generateQuestion({ vocab: subject }, mini, 'mc_en_vi');
+      assert.equal(recognition.options.length, 4, `${label} keeps four options`);
+      assert.equal(recognition.options.some(option => String(option.id) === twinId), false,
+        `${label}: the punctuation twin ${twinId} must not be offered as a wrong option`);
+    }
+    for (const [subject, twinId, label] of [
+      [e838, '1505', 'recall(838)'],
+      [e1505, '838', 'recall(1505)']
+    ]) {
+      const recall = generateQuestion({ vocab: subject }, mini, 'mc_vi_en');
+      assert.equal(recall.options.length, 4, `${label} keeps four options`);
+      assert.equal(recall.options.some(option => String(option.id) === twinId), false,
+        `${label}: another headword with the same gloss (${twinId}) must not be a wrong option`);
+    }
+  }
+  // Whole-dataset guard: a typed-equivalent gloss cluster can never eat the
+  // distractor pool below the four-option contract (3 distractors).
+  const edgeStrip = value => String(value ?? '').normalize('NFC').trim()
+    .replace(/^[\s"'“”‘’«»().,;:!?¡¿\-–—]+|[\s"'“”‘’«»().,;:!?¡¿\-–—]+$/gu, '')
+    .trim().toLowerCase();
+  const clusters = new Map();
+  for (const entry of heads) {
+    const key = edgeStrip(entry.meaning);
+    clusters.set(key, (clusters.get(key) || 0) + 1);
+  }
+  const largestCluster = Math.max(...clusters.values());
+  assert.ok(heads.length - largestCluster >= 3,
+    `every head keeps at least three typed-distinct distractors (largest gloss cluster ${largestCluster})`);
+});
+
+test('remediation: the day streak only counts first-pass correct answers (README)', () => {
+  assert.equal(app.streakCountsAnswer({ firstPass: true, correct: true }), true);
+  assert.equal(app.streakCountsAnswer({ firstPass: true, correct: false }), false,
+    'a wrong first answer never extends the streak');
+  assert.equal(app.streakCountsAnswer({ firstPass: false, correct: true }), false,
+    'practice, consolidation and re-grade turns never extend the streak');
+  assert.equal(app.streakCountsAnswer({ firstPass: false, correct: false }), false);
+  assert.equal(app.streakCountsAnswer(), false);
+  assert.equal(app.streakCountsAnswer(undefined), false);
+  // Both real call sites run through the predicate — no ungated updateStreak.
+  assert.match(appScript[1], /if \(streakCountsAnswer\(\{ firstPass, correct \}\)\) updateStreak\(\);/,
+    'card grading gates the streak on first-pass correctness');
+  assert.match(appScript[1], /if \(streakCountsAnswer\(\{ firstPass: resolvedCorrectly, correct: resolvedCorrectly \}\)\) updateStreak\(\);/,
+    'match resolutions gate the streak the same way');
+  assert.equal((appScript[1].match(/updateStreak\(\);/g) || []).length, 2,
+    'exactly the two guarded call sites remain');
+});
+
+test('remediation: a skipped card is counted exactly once (RT-08)', () => {
+  // Expiry counts every still-queued word; skipped cards never left the queue.
+  assert.match(appScript[1], /sessionStats\.unanswered = pendingWords;/);
+  assert.doesNotMatch(appScript[1], /pendingWords \+ skippedIds\.size/,
+    'expiry must not add skipped ids on top of the queued words they belong to');
+  assert.doesNotMatch(appScript[1], /stillQueued \+ skippedIds\.size/,
+    'the finished summary must not re-add skipped ids either');
+  // Any graded turn — first pass or practice retry — clears its skip marker.
+  assert.match(appScript[1], /skippedIds\.delete\(item\.vocab\.id\);\n    sessionStats\.completedTurns/,
+    'the marker clears when the turn finally grades, outside the first-pass-only branch');
 });
