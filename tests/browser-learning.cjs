@@ -1,5 +1,5 @@
 // Optional real-browser regression suite. No production or CI dependency is added.
-// npm install --no-save --package-lock=false playwright-core @sparticuz/chromium@133.0.0
+// npm install --no-save --package-lock=false playwright-core @sparticuz/chromium@133.0.0 axe-core@4.14.0
 // node tests/browser-learning.cjs
 // Alternatively provide BROWSER_EXECUTABLE with playwright-core installed.
 const assert = require('node:assert/strict');
@@ -2477,8 +2477,8 @@ async function main() {
           return hit ? String(hit.id) : null;
         });
         // (1) typed first answer wrong — the streak must not move.
-        seedStreak();
-        seedStudy({ mc_en_vi: false, mc_vi_en: false, mc4: false, fill_vi: false, fill_en: true, cloze: false, match: false, flashcard: false });
+        await seedStreak();
+        await seedStudy({ mc_en_vi: false, mc_vi_en: false, mc4: false, fill_vi: false, fill_en: true, cloze: false, match: false, flashcard: false });
         await page.reload();
         await page.locator('[data-session="priority"]').waitFor();
         await startPrioritySession();
@@ -2506,8 +2506,8 @@ async function main() {
         assert.equal(isToday(streak.lastDate), true, 'the streak lands on today');
 
         // (2) multiple-choice first answer wrong — same rule.
-        seedStreak();
-        seedStudy({ mc_en_vi: true, mc_vi_en: false, mc4: false, fill_vi: false, fill_en: false, cloze: false, match: false, flashcard: false });
+        await seedStreak();
+        await seedStudy({ mc_en_vi: true, mc_vi_en: false, mc4: false, fill_vi: false, fill_en: false, cloze: false, match: false, flashcard: false });
         await page.reload();
         await page.locator('[data-session="priority"]').waitFor();
         await startPrioritySession();
@@ -2532,8 +2532,8 @@ async function main() {
         assert.equal(streak.current, 2, 'a correct first selection extends the streak');
 
         // (3) flashcard self-assessed wrong — same rule.
-        seedStreak();
-        seedStudy({ mc_en_vi: false, mc_vi_en: false, mc4: false, fill_vi: false, fill_en: false, cloze: false, match: false, flashcard: true });
+        await seedStreak();
+        await seedStudy({ mc_en_vi: false, mc_vi_en: false, mc4: false, fill_vi: false, fill_en: false, cloze: false, match: false, flashcard: true });
         await page.reload();
         await page.locator('[data-session="priority"]').waitFor();
         await startPrioritySession();

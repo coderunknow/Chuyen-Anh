@@ -698,11 +698,16 @@ test('a failed write is reported instead of being followed by a success message'
   // The import tells a v1 restore apart from a full restore, so only the shared
   // prefix of the success message is pinned; both variants come after the guard.
   for (const [name, body, successToast, guardNeedle] of [
-    ['import', importBody, 'Đã khôi phục tiến độ', 'if (!persist(staged.storage) || !staged.commit())'],
+    ['import', importBody, 'Đã khôi phục tiến độ', 'if (!persisted || commitResult !== true)'],
     ['reset', resetBody, "toast('Đã xóa dữ liệu học.', 'success')", 'if (!persist())']
   ]) {
     const guard = body.indexOf(guardNeedle);
     assert.ok(guard >= 0, `${name} must check the persistence result`);
+    if (name === 'import') {
+      assert.ok(body.indexOf('const persisted = persist(staged.storage);') >= 0
+        && body.indexOf('const commitResult = persisted ? staged.commit() : false;') >= 0,
+        'import must consult both the persist result and the commit result');
+    }
     assert.ok(body.indexOf(successToast) > guard, `${name} must not toast success before the write is confirmed`);
   }
   // The theme is its own namespaced store; a failed write is reported, never
@@ -3158,4 +3163,45 @@ test('remediation: a skipped card is counted exactly once (RT-08)', () => {
   // Any graded turn — first pass or practice retry — clears its skip marker.
   assert.match(appScript[1], /skippedIds\.delete\(item\.vocab\.id\);\n    sessionStats\.completedTurns/,
     'the marker clears when the turn finally grades, outside the first-pass-only branch');
+});
+
+test('remediation: a failed commit rolls back in reverse order and reports a failed rollback', () => {
+  // Commit grows A and shrinks B (so B is written first, A last); A's grow
+  // write throws. The rollback must put A back BEFORE B — reverse commit
+  // order — so freed space is available for B's larger original.
+  const small = 'x'.repeat(10);
+  const big = 'y'.repeat(500);
+  const grown = 'z'.repeat(200);
+  const makeStorage = ({ failGrow, failRestoreBig } = {}) => {
+    const state = new Map([['A', small], ['B', big]]);
+    const successfulOps = [];
+    return {
+      state, successfulOps,
+      getItem: key => (state.has(key) ? state.get(key) : null),
+      setItem: (key, value) => {
+        if (key === 'A' && value === grown && failGrow) throw new Error('quota');
+        if (key === 'B' && value === big && failRestoreBig) throw new Error('quota');
+        state.set(key, String(value));
+        successfulOps.push(key);
+      },
+      removeItem: key => { state.delete(key); successfulOps.push('rm:' + key); }
+    };
+  };
+
+  const clean = makeStorage({ failGrow: true });
+  const cleanResult = app.commitStagedWrites(clean, new Map([['A', grown], ['B', small]]));
+  assert.equal(cleanResult, false, 'a commit with a completed rollback reports false, not a rollback failure');
+  assert.deepEqual(clean.successfulOps.slice(-2), ['A', 'B'],
+    'rollback must restore in reverse commit order: the grown key returns to its smaller original first');
+
+  const broken = makeStorage({ failGrow: true, failRestoreBig: true });
+  const brokenResult = app.commitStagedWrites(broken, new Map([['A', grown], ['B', small]]));
+  assert.equal(brokenResult, 'rollback-failed',
+    'when the rollback itself cannot finish, the caller must be told the store may be inconsistent');
+
+  // The import toast only claims "reloading restores the old data" when the
+  // rollback completed; a failed rollback takes the honest inconsistent-data path.
+  assert.match(appScript[1], /commitResult === 'rollback-failed'/);
+  assert.match(appScript[1], /dữ liệu trên máy có thể chưa nhất quán\./);
+  assert.match(appScript[1], /'Could not save the imported data and the rollback may be incomplete; data on this device may be inconsistent\.'/);
 });

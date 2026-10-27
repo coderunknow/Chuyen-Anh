@@ -167,8 +167,6 @@ class DeployWorkflowContractTests(unittest.TestCase):
                          'both pull_request and push filters must cover the dispatcher')
 
 
-if __name__ == '__main__':
-    unittest.main()
 
 
 class ReleaseStatusFailureModesTests(unittest.TestCase):
@@ -313,3 +311,7 @@ class WorkflowTimeoutAndHoldPathsContractTests(unittest.TestCase):
         step = text[start:start + 400]
         self.assertIn('GH_TOKEN', step,
                       'the release lookup must run authenticated or it degrades to constant failures')
+
+
+if __name__ == '__main__':
+    unittest.main()

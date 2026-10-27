@@ -221134,9 +221134,10 @@ export function commitStagedWrites(realStorage, writes) {
     return false;
   }
   const byteLength = value => new TextEncoder().encode(String(value)).length;
-  const restore = () => {
+  const restore = order => {
     let ok = true;
-    for (const [key, value] of snapshot) {
+    for (const key of order) {
+      const value = snapshot.get(key);
       try {
         if (value === null || value === undefined) realStorage.removeItem(key);
         else realStorage.setItem(key, value);
@@ -221178,10 +221179,13 @@ export function commitStagedWrites(realStorage, writes) {
     }
     return true;
   } catch {
-    // Restore the original values; either way the commit itself failed, so the
-    // caller must see false — a clean rollback is not a successful import.
-    restore();
-    return false;
+    // Roll back in reverse commit order: keys that grew give their space back
+    // first (they return to their smaller originals), so a shrunken key can put
+    // its larger original back without tripping the quota again. Either way the
+    // commit itself failed — but if the rollback also fails the store is half
+    // written, so report that distinctly instead of a plain false.
+    const rolledBack = restore(entries.map(entry => entry.key).reverse());
+    return rolledBack ? false : 'rollback-failed';
   }
 }
 
@@ -221551,6 +221555,7 @@ const EN_UI_TRANSLATIONS = Object.freeze({
   'Không thể lưu danh sách yêu thích trên thiết bị này.': 'Could not save favorites on this device.',
   'Đã xuất bản sao JSON.': 'JSON backup exported.',
   'Không thể lưu dữ liệu vừa nhập; tải lại trang sẽ khôi phục dữ liệu cũ.': 'Could not save the imported data; reloading will restore the previous data.',
+  'Không thể lưu dữ liệu vừa nhập và việc khôi phục có thể chưa hoàn tất; dữ liệu trên máy có thể chưa nhất quán.': 'Could not save the imported data and the rollback may be incomplete; data on this device may be inconsistent.',
   'Đã khôi phục tiến độ từ bản sao lưu.': 'Progress restored from backup.',
   'Xóa toàn bộ tiến độ flashcard, yêu thích, chuỗi ngày và lịch sử học trên thiết bị này? Lịch sử luyện đề đã lưu riêng (nếu có) sẽ không bị xóa.': 'Delete all flashcard progress, favorites, streak, and study history on this device? Separately stored exam practice history, if any, will not be deleted.',
   'Không thể xóa dữ liệu trên thiết bị này; dữ liệu cũ vẫn có thể còn trong bộ nhớ trình duyệt.': 'Could not delete data on this device; some previous data may remain in browser storage.',
@@ -227165,11 +227170,17 @@ export async function createApp(root) {
       saveStudyConfig(studyConfig, staged.storage);
       saveFlagged(flagged, staged.storage);
       saveSeenBadges(seenBadges, staged.storage);
-      if (!persist(staged.storage) || !staged.commit()) {
-        // Storage still holds the previous data: bring memory back to it so the
-        // interface and the store agree, and report the failure honestly.
+      const persisted = persist(staged.storage);
+      const commitResult = persisted ? staged.commit() : false;
+      if (!persisted || commitResult !== true) {
+        // Bring memory back to whatever storage really holds, and report the
+        // failure honestly: the "reloading restores the old data" reassurance
+        // is only true when the rollback completed ('rollback-failed' means
+        // the store may be half written).
         reloadLearnerStores();
-        toast('Không thể lưu dữ liệu vừa nhập; tải lại trang sẽ khôi phục dữ liệu cũ.', 'error');
+        toast(commitResult === 'rollback-failed'
+          ? 'Không thể lưu dữ liệu vừa nhập và việc khôi phục có thể chưa hoàn tất; dữ liệu trên máy có thể chưa nhất quán.'
+          : 'Không thể lưu dữ liệu vừa nhập; tải lại trang sẽ khôi phục dữ liệu cũ.', 'error');
         renderShell();
         return;
       }
