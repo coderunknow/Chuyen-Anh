@@ -1,5 +1,34 @@
 # Changelog
 
+## v1.0.0-rc2 — release candidate, NOT released (2026-10-26)
+
+**Status: unreleased candidate.** This section describes the state of the RC2 branch (`arena/526d4d8f-chuyen-anh`) on top of `b72a9c6`, the merged `v1.0.0-rc1` candidate, which was tagged `v1.0.0-rc1` on that merge commit and published as a prerelease on 2026-10-25 (verified on GitHub before this work started; the rc1 section below predates that publication and its "NOT released" status line is corrected by this note). No `v1.0.0-rc2` tag, GitHub Release or prerelease exists, no deployment was performed or dispatched, and Pages is unchanged. `DEPLOY_HOLD` names `v1.0.0-rc2`, which has no published release, so the deploy gate reports `deploy=false (release v1.0.0-rc2 is missing; deployment held)` and the gate is **closed**. The audit report is [`docs/RC2_AUDIT_REPORT.md`](docs/RC2_AUDIT_REPORT.md).
+
+### Added: a selectable four-option multiple-choice exercise
+
+- A new exercise type **Trắc nghiệm 4 phương án / Four-option multiple choice** (`mc4`) appears in the study configuration alongside the existing types and mixes into priority sessions like any of them. It generates through the same recognition path and grader as `MC_EN_VI` — one authoritative implementation — under an explicit contract: exactly four distinct options (same part of speech first), exactly one correct option whose key follows the option through the shuffle, and never a distractor recorded with the same gloss as the answer. If three distinct distractors genuinely do not exist, the question is flagged `unavailable`, counted as dropped and skipped ungraded instead of being shown short. Off by default (the directional multiple-choice types are already on); rc1 study configurations and v1 backups keep their exact meaning.
+
+### Fixed: changing a matching selection could grade a pair the learner never completed
+
+- Matching resolution used to be render-driven: a both-selected state was resolved on a timer after a re-render, so grading was a property of rendered state rather than of the completing click, and a wrong pair marked **both** implicated words as missed. Selection is now one pure transition (`applyMatchSelection`): picking another tile in the same column only moves (or clears) the selection and can never grade, persist or count; an attempt exists only in the transition that fills the empty column, clears both selections with it, and cannot repeat. A wrong pair now misses only the selected word's first pass; the word owning the misused meaning tile keeps its own. The wrong-pair flash marks exactly the two clicked tiles (it previously marked the meaning belonging to the picked word, leaking the pairing) and clears on the next selection.
+
+### Fixed: matching boards and unseen phrases skipped the new-word introduction
+
+- Every match turn forced `firstLook = false`, so never-studied words were graded on a board before their meaning had ever been shown. One predicate (`turnNeedsFirstLook`) now covers single cards and boards: a board with still-new pairs opens on a board introduction (word, part of speech, meaning, recorded metadata and examples) and is only built after it is confirmed; confirming an introduction writes nothing. Unseen phrases get the same introduction stage in the phrase bank (`needsPhraseFirstLook`).
+
+### Fixed: questions could mark an equally correct answer wrong, and boards could be ambiguous
+
+- The data records one gloss for several headwords (150 shared-gloss groups, 319 headwords). Recall questions could offer a same-gloss headword as a wrong option, phrase questions likewise (23 groups, 48 phrases), and a matching board could contain two identical meaning tiles. Distractor construction now excludes same-gloss candidates for gloss-prompted questions, and boards are grouped only from distinct words and distinct meanings (`isUnambiguousMatchGroup`); words that cannot join a board stay in single-card turns. Multiple-choice availability now requires a full three-distractor pool (`countDistractorCandidates`) instead of a single distractor, so a short option set is never presented as available. No vocabulary row was changed: the embedded data blocks are byte-identical to rc1.
+
+### Audited: vocabulary coverage reconciles completely
+
+- 5,852 rows, 5,112 headwords, 740 merged same-root forms, 780 phrases, 106 exam transcriptions — recomputed, with Markdown/JSON/embedded synchronization clean. Every headword is reachable through lookup and a new-word session (all 5,112 exactly once), and per-exercise eligibility is: `mc_en_vi`/`mc_vi_en`/`mc4`/`fill_vi`/`match`/`flashcard` 5,112; `fill_en` 5,109 (three notation entries — IDs 522, 526, 547 — fall back to recall); `cloze` 1 (only ID 448 has a recorded example; none is invented). The priority groups' exclusion of not-yet-due `learning`/`mastered` words is documented product semantics, with classic/sprint/random/favourites as the reaching paths. Encoded as a reconciliation test so drift fails loudly.
+
+### Tests
+
+- Seven new Node regression tests (`rc2: …`) plus the eight-exercise inventory test; all eight **fail on the rc1 tree** and pass here. A new Chromium scenario drives a board of new words (introduction first, storage untouched), left-selection changes (no grade, no error), wrong-pair semantics, and an `mc4`-only session; two browser driver fixtures were aligned with the introduction stages. Final matrix on this tree: Python 104 OK; Node 105 pass / 0 fail; both Chromium suites PASS; all pipeline `--check` commands clean; deploy gate closed.
+
+
 ## v1.0.0-rc1 — release candidate, NOT released (2026-10-25)
 
 **Status: unreleased candidate.** This section describes the state of the RC1 branch. No `v1.0.0-rc1` tag, GitHub Release or prerelease exists, no deployment was performed or dispatched, and Pages is unchanged. `DEPLOY_HOLD` names `v1.0.0-rc1`, which has no published release yet, so the deploy gate reports `deploy=false (release v1.0.0-rc1 is missing; deployment held)` and the gate is **closed**. The published prereleases are still `v1.0.0-dev1`…`dev5` and `v1.0.0-beta1`…`beta8`; `v1.0.0-beta8` remains the newest published build.

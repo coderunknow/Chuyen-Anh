@@ -1,5 +1,5 @@
 // Optional real-browser regression suite. No production or CI dependency is added.
-// npm install --no-save --package-lock=false playwright-core @sparticuz/chromium@133.0.0
+// npm install --no-save --package-lock=false playwright-core @sparticuz/chromium@133.0.0 axe-core@4.14.0
 // node tests/browser-learning.cjs
 // Alternatively provide BROWSER_EXECUTABLE with playwright-core installed.
 const assert = require('node:assert/strict');
@@ -486,7 +486,7 @@ async function main() {
 
     // The shipped build identifies itself.
     await sprint.locator('[data-view="settings"]').click();
-    assert.equal(await sprint.locator('#app-version').innerText(), 'v1.0.0-rc1');
+    assert.equal(await sprint.locator('#app-version').innerText(), 'v1.0.0-rc2');
     assert.deepEqual(sprintErrors, []);
 
     // Error -> intervening word -> typed corrective retrieval -> truthful summary.
@@ -1246,7 +1246,8 @@ async function main() {
     await page.evaluate(() => localStorage.removeItem('chuyen-anh.language.v1'));
 
     // ---- Scope B (beta4 follow-up): the daily streak is written by first-pass
-    // turns only, and a first-look introduction writes nothing. The static suite
+    // CORRECT turns only (README L127: "Chuỗi ngày vẫn chỉ tính lượt trả lời
+    // đúng ở lần đầu"), and a first-look introduction writes nothing. The static suite
     // pins the code shape; this scenario makes the contract observable at runtime
     // by moving the clock across midnight so the first turn answered on the new
     // day is a consolidation. Only streak writes that change the stored value are
@@ -1333,7 +1334,8 @@ async function main() {
     assert.equal(streakState.streak.current, 3, 'the consolidation did not extend the streak');
     // Day three: the first graded turn is a wrong first pass (a favourites
     // session on an already-studied word is a first-pass turn, not a practice
-    // turn), and it does record the day.
+    // turn). README counts only first-pass CORRECT answers, so it writes
+    // nothing and the streak day stands.
     await page.clock.setFixedTime(new Date('2026-10-22T12:00:00Z'));
     await page.evaluate(() => {
       const now = Date.now();
@@ -1349,8 +1351,9 @@ async function main() {
     await page.locator('#submit-answer').click();
     assert.match(await page.locator('#feedback-area').innerText(), /Chưa đúng/);
     streakState = await readStreak();
-    assert.equal(streakState.writes, 1, 'the wrong first pass records the day');
-    assert.equal(streakState.streak.lastDate, '2026-10-22', 'the graded answer marked the new day');
+    assert.equal(streakState.writes, 0, 'a wrong first pass records no streak day');
+    assert.equal(streakState.streak.lastDate, '2026-10-20', 'the wrong answer leaves the streak day unchanged');
+    assert.equal(streakState.streak.current, 3, 'a wrong first pass never extends the run');
     await page.locator('#exit-session').click();
     // Day five: a first-look introduction is not a graded turn and records
     // nothing; the first real answer of the day does.
@@ -1599,13 +1602,13 @@ async function main() {
     // Focus visibly changes the allocation.
     await page.locator('#priority-config [data-focus="weak"]').click();
     assert.match(await page.locator('#priority-effective').innerText(), /Trọng tâm: Từ yếu hoặc thường sai/);
-    // All seven exercise types, including the two that are off by default.
-    for (const type of ['cloze', 'match', 'flashcard']) {
+    // All eight exercise types, including the ones that are off by default.
+    for (const type of ['cloze', 'match', 'flashcard', 'mc4']) {
       const chip = page.locator(`#priority-config [data-exercise="${type}"]`);
       if (await chip.getAttribute('aria-pressed') === 'false') await chip.click();
     }
     const storedConfig = await page.evaluate(() => JSON.parse(localStorage.getItem('chuyen-anh.study.v1')));
-    assert.equal(Object.values(storedConfig.exercises).filter(Boolean).length, 7, 'every exercise type can be enabled');
+    assert.equal(Object.values(storedConfig.exercises).filter(Boolean).length, 8, 'every exercise type can be enabled');
     assert.equal(storedConfig.focus, 'weak');
     await page.locator('#priority-config #priority-size').selectOption('10');
     assert.equal((await page.evaluate(() => JSON.parse(localStorage.getItem('chuyen-anh.study.v1')))).size, 10);
@@ -1622,6 +1625,12 @@ async function main() {
     while (await page.locator('.summary').count() === 0) {
       handled += 1;
       assert.ok(handled < 60, 'the priority session terminates');
+      // An introduction is the same turn as the question that follows it, so
+      // it is confirmed before the turn is logged.
+      if (await page.locator('#start-quiz').count()) {
+        await page.locator('#start-quiz').click();
+        continue;
+      }
       const exercise = await page.locator('.flashcard').getAttribute('data-exercise');
       // A matching board re-renders after every pair, so the turn log records one
       // entry per turn (turnSeq) rather than one per paint.
@@ -1630,10 +1639,6 @@ async function main() {
         seenExercises.add(exercise);
         turnLog.push(exercise);
         lastTurnSeq = turnSeq;
-      }
-      if (await page.locator('#start-quiz').count()) {
-        await page.locator('#start-quiz').click();
-        continue;
       }
       if (!flagChecked) {
         await page.locator('#flag-card').click();
@@ -1981,9 +1986,11 @@ async function main() {
     await page.locator('#phrase-practice-start').click();
     await page.locator('.flashcard').waitFor();
     let phraseTurns = 0;
-    for (let turn = 0; turn < 60; turn += 1) {
+    for (let turn = 0; turn < 80; turn += 1) {
       if (await page.locator('.summary').count()) break;
       if (await page.locator('#phrase-next').count()) { await page.locator('#phrase-next').click(); await page.waitForTimeout(30); continue; }
+      // An unseen phrase is introduced first; confirming it records nothing.
+      if (await page.locator('#phrase-start-quiz').count()) { await page.locator('#phrase-start-quiz').click(); await page.waitForTimeout(30); continue; }
       if (await page.locator('[data-phrase-option]:enabled').count()) {
         await page.locator('[data-phrase-option]:enabled').first().click();
         phraseTurns += 1;
@@ -2062,6 +2069,721 @@ async function main() {
     assert.deepEqual(await page.evaluate(() => JSON.parse(localStorage.getItem('chuyen-anh.phrases.v1') || '{}')), {},
       'reset clears phrase progress');
 
+    // ---- RC2: a matching board introduces new words first, changing the left
+    // selection never grades, and the four-option exercise is selectable.
+    await page.evaluate(() => {
+      localStorage.clear();
+      localStorage.setItem('chuyen-anh.study.v1', JSON.stringify({
+        groups: { due: false, weak: false, new: true, review: false },
+        focus: 'new',
+        exercises: { mc_en_vi: false, mc_vi_en: false, mc4: false, fill_vi: false, fill_en: false, cloze: false, match: true, flashcard: false },
+        size: 10, timed: false, timerMinutes: 0
+      }));
+    });
+    await page.reload();
+    await page.locator('[data-session="priority"]').waitFor();
+    await page.locator('[data-session="priority"]').click();
+    // The board holds only never-studied words, so it opens with an
+    // introduction, not with a graded board.
+    await page.locator('.first-look--board').waitFor();
+    assert.equal(await page.locator('.first-look--board .first-look-row').count(), 4,
+      'every new word on the board is introduced with its meaning');
+    assert.equal(await page.locator('.match-board').count(), 0, 'no board is playable before the introduction');
+    const gradedTotal = () => page.evaluate(() => Object.values(
+      JSON.parse(localStorage.getItem('chuyen-anh.progress.v1') || '{}')
+    ).reduce((sum, record) => sum + (record.correctCount || 0) + (record.wrongCount || 0), 0));
+    assert.equal(await gradedTotal(), 0, 'viewing the introduction grades nothing');
+    await page.locator('#start-quiz').click();
+    await page.locator('.match-board').waitFor();
+    assert.equal(await gradedTotal(), 0, 'confirming the introduction still grades nothing');
+    const boardIds = await page.evaluate(() => [...document.querySelectorAll('[data-match-word]')]
+      .map(node => node.dataset.matchWord));
+    assert.equal(boardIds.length, 4);
+    const countsOf = id => page.evaluate(wordId => {
+      const record = JSON.parse(localStorage.getItem('chuyen-anh.progress.v1') || '{}')[wordId];
+      return { correct: record?.correctCount || 0, wrong: record?.wrongCount || 0 };
+    }, id);
+    // Changing the left-column selection is only a selection.
+    await page.locator(`[data-match-word="${boardIds[0]}"]`).click();
+    await page.locator(`[data-match-word="${boardIds[1]}"]`).click();
+    assert.equal(await page.locator('.match-error').count(), 0,
+      'changing the left selection shows no wrong-answer feedback');
+    assert.equal(await page.locator(`[data-match-word="${boardIds[1]}"]`).getAttribute('aria-pressed'), 'true');
+    assert.equal(await gradedTotal(), 0, 'changing the left selection writes no grade');
+    // Completing the pair grades that word exactly once.
+    await page.locator(`[data-match-meaning="${boardIds[1]}"]`).click();
+    assert.deepEqual(await countsOf(boardIds[1]), { correct: 1, wrong: 0 });
+    assert.equal(await gradedTotal(), 1);
+    // A completed wrong pair flags only the selected word, and only when it
+    // is finally matched; the owner of the misused meaning tile is untouched.
+    await page.locator(`[data-match-word="${boardIds[2]}"]`).click();
+    await page.locator(`[data-match-meaning="${boardIds[3]}"]`).click();
+    assert.equal(await page.locator('.match-error').count(), 1, 'a completed wrong pair is reported');
+    assert.equal(await gradedTotal(), 1, 'the wrong pair itself persists no grade yet');
+    await page.locator(`[data-match-word="${boardIds[2]}"]`).click();
+    await page.locator(`[data-match-meaning="${boardIds[2]}"]`).click();
+    assert.deepEqual(await countsOf(boardIds[2]), { correct: 0, wrong: 1 });
+    await page.locator(`[data-match-word="${boardIds[3]}"]`).click();
+    await page.locator(`[data-match-meaning="${boardIds[3]}"]`).click();
+    assert.deepEqual(await countsOf(boardIds[3]), { correct: 1, wrong: 0 },
+      'the word whose meaning tile was misused keeps its own first pass');
+    await page.locator('[data-match-word]:enabled').first().click();
+    const lastId = boardIds[0];
+    await page.locator(`[data-match-meaning="${lastId}"]`).click();
+    await page.locator('#next-card').waitFor();
+    assert.equal(await gradedTotal(), 4, 'the finished board graded each word once');
+    await page.locator('#next-card').click();
+    await page.locator('.summary').waitFor();
+    // The four-option exercise is selectable on its own and offers four options.
+    await page.locator('#again').click();
+    await page.locator('[data-session="priority"]').waitFor();
+    await page.evaluate(() => {
+      const config = JSON.parse(localStorage.getItem('chuyen-anh.study.v1'));
+      config.exercises = { mc_en_vi: false, mc_vi_en: false, mc4: true, fill_vi: false, fill_en: false, cloze: false, match: false, flashcard: false };
+      localStorage.setItem('chuyen-anh.study.v1', JSON.stringify(config));
+    });
+    await page.reload();
+    await page.locator('[data-session="priority"]').waitFor();
+    const gradedBeforeMc4 = await gradedTotal();
+    await page.locator('[data-session="priority"]').click();
+    if (await page.locator('#start-quiz').count()) await page.locator('#start-quiz').click();
+    await page.locator('[data-option]:enabled').first().waitFor();
+    assert.equal(await page.locator('.flashcard').getAttribute('data-exercise'), 'mc4');
+    assert.equal(await page.locator('[data-option]').count(), 4, 'a four-option turn shows four options');
+    assert.match(await page.locator('.mode-label').innerText(), /Trắc nghiệm 4 phương án/i);
+    await page.locator('[data-option]:enabled').first().click();
+    await page.locator('#next-card').waitFor();
+    assert.equal(await gradedTotal(), gradedBeforeMc4 + 1, 'one four-option answer grades exactly once');
+    await page.locator('#exit-session').click();
+    await page.locator('[data-session="priority"]').waitFor();
+    await page.evaluate(() => localStorage.setItem('chuyen-anh.language.v1', 'en'));
+    await page.reload();
+    await page.locator('[data-session="priority"]').waitFor();
+    await page.evaluate(() => document.querySelector('#priority-details')?.setAttribute('open', ''));
+    assert.match(await page.locator('#priority-config [data-exercise="mc4"]').innerText(), /Four-option multiple choice/);
+    await page.evaluate(() => localStorage.removeItem('chuyen-anh.language.v1'));
+    await page.reload();
+    await page.locator('[data-session="priority"]').waitFor();
+
+    // ---- RC2 remediation regressions: RT-01 / RT-07 ----
+    // Each scenario runs in its own freshly launched browser: in this
+    // environment closing a context tears down its single-process browser, so
+    // the regression scenarios must not share the suite's main browser.
+    const origin = `http://127.0.0.1:${server.address().port}`;
+    const seedStudy = {
+      groups: { due: true, weak: true, new: true, review: true },
+      focus: 'due',
+      exercises: { mc_en_vi: true, mc_vi_en: false, mc4: false, fill_vi: false, fill_en: false, cloze: false, match: false, flashcard: false },
+      size: 10, timed: false, timerMinutes: 1
+    };
+    const freshWorld = async () => {
+      const ownBrowser = await chromium.launch({ executablePath, args, headless: true });
+      const ownErrors = [];
+      const ownContext = await ownBrowser.newContext();
+      const openTab = async () => {
+        const page = await ownContext.newPage();
+        page.on('pageerror', error => ownErrors.push(error.message));
+        await page.goto(origin);
+        // The first navigation can settle a beat after goto resolves in this
+        // single-process Chromium; bounded retries classify it instead of
+        // crashing the scenario (see the remediation notes for RT-04).
+        let ready = false;
+        for (let attempt = 0; attempt < 5 && !ready; attempt += 1) {
+          try {
+            await page.waitForLoadState('load');
+            ready = await page.evaluate(() => document.readyState === 'complete');
+          } catch {
+            await page.waitForTimeout(100);
+          }
+        }
+        if (!ready) throw new Error('the regression page never reached a stable document');
+        return page;
+      };
+      const seedRace = async page => {
+        await page.evaluate(study => {
+          localStorage.clear();
+          localStorage.setItem('chuyen-anh.study.v1', JSON.stringify(study));
+          localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['2', '3']));
+          localStorage.setItem('chuyen-anh.prefs.v1', JSON.stringify({ sessionSize: 10, keyboardShortcuts: true, darkMode: false }));
+        }, seedStudy);
+        await page.reload();
+        await page.locator('[data-session="favorites"]').waitFor();
+      };
+      const startRaceSession = async page => {
+        await page.locator('[data-session="favorites"]').click();
+        await page.locator('#start-quiz').waitFor();
+        await page.locator('#start-quiz').click();
+        await page.locator('[data-option]:enabled').first().waitFor();
+      };
+      const gradeRace = async (page, id, correct) => {
+        if (correct) {
+          await page.locator(`[data-option="${id}"]`).click();
+        } else {
+          const other = await page.evaluate(rid => [...document.querySelectorAll('[data-option]')]
+            .find(node => node.dataset.option !== String(rid) && !node.disabled)?.dataset.option, id);
+          await page.locator(`[data-option="${other}"]`).click();
+        }
+        await page.waitForFunction(sid => {
+          try {
+            const rec = (JSON.parse(localStorage.getItem('chuyen-anh.progress.v1') || '{}'))[sid];
+            return !!rec && (rec.correctCount || 0) + (rec.wrongCount || 0) >= 1;
+          } catch { return false; }
+        }, id, { timeout: 8000 });
+        const next = page.locator('#next-card');
+        if (await next.isVisible().catch(() => false)) await next.click().catch(() => null);
+      };
+      const raceRec = (page, id) => page.evaluate(sid => {
+        try {
+          const rec = JSON.parse(localStorage.getItem('chuyen-anh.progress.v1') || '{}')[sid];
+          return rec ? { state: rec.state, correct: rec.correctCount, wrong: rec.wrongCount } : null;
+        } catch { return null; }
+      }, id);
+      return { ownBrowser, ownContext, ownErrors, openTab, seedRace, startRaceSession, gradeRace, raceRec };
+    };
+
+    // RT-01 core: B skips id2, A grades id2, B grades id3 — id2 must survive.
+    {
+      const world = await freshWorld();
+      try {
+        const tabA = await world.openTab();
+        await world.seedRace(tabA);
+        const tabB = await world.openTab();
+        await tabB.locator('[data-session="favorites"]').waitFor();
+        await world.startRaceSession(tabA);
+        await world.startRaceSession(tabB);
+        await tabB.locator('#skip-card').click();
+        if (await tabB.locator('#start-quiz').isVisible().catch(() => false)) {
+          await tabB.locator('#start-quiz').click();
+          await tabB.locator('[data-option]:enabled').first().waitFor();
+        }
+        await world.gradeRace(tabA, '2', true);
+        await new Promise(resolve => setTimeout(resolve, 300));
+        await world.gradeRace(tabB, '3', true);
+        assert.deepEqual(await world.raceRec(tabB, '2'), { state: 'learning', correct: 1, wrong: 0 },
+          'a grade written by another tab survives this tab\'s write (RT-01)');
+        await tabA.reload();
+        await tabA.locator('[data-session="favorites"]').waitFor();
+        assert.deepEqual(await world.raceRec(tabA, '2'), { state: 'learning', correct: 1, wrong: 0 },
+          'a reload keeps the other tab\'s grade instead of reverting to the boot snapshot (RT-01)');
+        assert.deepEqual(world.ownErrors, [], 'RT-01 core ran without page errors');
+      } finally {
+        await world.ownBrowser.close().catch(() => null);
+      }
+    }
+
+    // RT-01 sameid: both tabs grade id2 (correct, then wrong) — counts accumulate.
+    {
+      const world = await freshWorld();
+      try {
+        const tabA = await world.openTab();
+        await world.seedRace(tabA);
+        const tabB = await world.openTab();
+        await tabB.locator('[data-session="favorites"]').waitFor();
+        await world.startRaceSession(tabA);
+        await world.startRaceSession(tabB);
+        await world.gradeRace(tabA, '2', true);
+        await new Promise(resolve => setTimeout(resolve, 300));
+        await world.gradeRace(tabB, '2', false);
+        const rec = await world.raceRec(tabB, '2');
+        assert.equal(rec.correct, 1, 'the correct answer from the other tab is kept (RT-01 sameid)');
+        assert.equal(rec.wrong, 1, 'the wrong answer of this tab is added, not substituted (RT-01 sameid)');
+        assert.deepEqual(world.ownErrors, [], 'RT-01 sameid ran without page errors');
+      } finally {
+        await world.ownBrowser.close().catch(() => null);
+      }
+    }
+
+    // RT-01 reset: a wipe in one tab must not be resurrected by the other tab.
+    {
+      const world = await freshWorld();
+      try {
+        const tabA = await world.openTab();
+        await world.seedRace(tabA);
+        const tabB = await world.openTab();
+        await tabB.locator('[data-session="favorites"]').waitFor();
+        await world.startRaceSession(tabA);
+        await world.gradeRace(tabA, '2', true);
+        tabB.on('dialog', dialog => dialog.accept());
+        await tabB.locator('[data-view="settings"]').click();
+        await tabB.locator('#reset-setting').click();
+        await tabB.locator('.toast').filter({ hasText: 'Đã xóa dữ liệu học' }).waitFor();
+        await new Promise(resolve => setTimeout(resolve, 400));
+        if (await tabA.locator('#start-quiz').isVisible().catch(() => false)) {
+          await tabA.locator('#start-quiz').click();
+          await tabA.locator('[data-option]:enabled').first().waitFor();
+        }
+        await world.gradeRace(tabA, '3', true);
+        const resurrected = await world.raceRec(tabA, '2');
+        assert.ok(resurrected === null || (resurrected.state === 'new' && resurrected.correct === 0 && resurrected.wrong === 0),
+          `a wiped grade must not be resurrected by the other tab (RT-01), saw ${JSON.stringify(resurrected)}`);
+        assert.deepEqual(await world.raceRec(tabA, '3'), { state: 'learning', correct: 1, wrong: 0 },
+          'the post-wipe grade is recorded normally');
+        assert.deepEqual(world.ownErrors, [], 'RT-01 reset ran without page errors');
+      } finally {
+        await world.ownBrowser.close().catch(() => null);
+      }
+    }
+
+    // RT-07: a restore that cannot fit must fail before any key changes, report
+    // honestly, and fully succeed once space is freed.
+    {
+      const world = await freshWorld();
+      try {
+        const quota = await world.openTab();
+        const quotaBundle = await quota.evaluate(() => {
+          const ids = JSON.parse(document.getElementById('vocabulary-data').textContent)
+            .filter(entry => !entry.familyHead).map(entry => String(entry.id));
+          const pids = JSON.parse(document.getElementById('phrase-data').textContent).map(entry => entry.id);
+          const progress = {};
+          for (const id of ids.slice(0, 19)) {
+            progress[id] = { id, state: 'review', correctCount: 5, wrongCount: 1, streak: 3,
+              lastReviewed: 1760000000000, nextReview: 1760003600000, interval: 3, ease: 2.5, difficulty: 0.2 };
+          }
+          progress['2'] = { id: '2', state: 'learning', correctCount: 7, wrongCount: 2, streak: 2,
+            lastReviewed: 1760000000000, nextReview: 1760003600000, interval: 1, ease: 2.5, difficulty: 0.3 };
+          const phrases = {};
+          for (const pid of pids) phrases[pid] = { attempts: 2, correct: 1, wrong: 1, lastPracticed: 1760000000000 };
+          return JSON.stringify({
+            app: 'chuyen-anh-flashcard', version: 1, exportedAt: '2026-10-20T00:00:00.000Z',
+            progress, prefs: { sessionSize: 10, keyboardShortcuts: true, darkMode: false },
+            favorites: ['2', '3'], history: [], streak: { current: 4, longest: 6, lastDate: '2026-10-19' },
+            phrases
+          });
+        });
+        await quota.evaluate(() => {
+          const chunk = 262144;
+          let index = 0;
+          const fits = (key, size) => {
+            try { localStorage.setItem(key, 'x'.repeat(size)); return true; } catch { return false; }
+          };
+          while (fits(`__quota.filler.${index}`, chunk)) index += 1;
+          let lo = 0; let hi = chunk;
+          const probe = size => {
+            try { localStorage.setItem('__quota.probe', 'x'.repeat(size)); localStorage.removeItem('__quota.probe'); return true; }
+            catch { return false; }
+          };
+          if (!probe(hi)) hi = Math.max(0, hi - 1); else lo = hi;
+          while (lo < hi) {
+            const mid = Math.ceil((lo + hi) / 2);
+            if (probe(mid)) lo = mid; else hi = mid - 1;
+          }
+          const tail = lo - 2048;
+          if (tail > 0) fits(`__quota.filler.${index}`, tail);
+        });
+        const storesSnapshot = () => quota.evaluate(() => {
+          const out = {};
+          for (let i = 0; i < localStorage.length; i += 1) {
+            const key = localStorage.key(i);
+            if (!key.startsWith('__quota.')) out[key] = localStorage.getItem(key);
+          }
+          return out;
+        });
+        const quotaBefore = await storesSnapshot();
+        await quota.locator('[data-view="settings"]').click();
+        const quotaImport = async () => {
+          // Any earlier toast must be gone so the text read belongs to THIS import.
+          await quota.locator('.toast').first().waitFor({ state: 'detached', timeout: 7000 }).catch(() => null);
+          await quota.locator('#import-setting').setInputFiles({
+            name: 'quota.json', mimeType: 'application/json', buffer: Buffer.from(quotaBundle)
+          });
+          try {
+            await quota.locator('.toast').first().waitFor({ timeout: 8000 });
+            return await quota.locator('.toast').first().innerText();
+          } catch { return null; }
+        };
+        const quotaToast = await quotaImport();
+        assert.match(quotaToast || '', /Không thể lưu dữ liệu vừa nhập/,
+          'an import that cannot fit reports failure instead of success (RT-07)');
+        assert.equal((quotaToast || '').includes('Đã khôi phục'), false, 'no success toast on a failed restore');
+        assert.deepEqual(await storesSnapshot(), quotaBefore, 'a failed import changes not a single store (all-or-nothing)');
+        await quota.evaluate(() => {
+          const keys = [];
+          for (let i = 0; i < localStorage.length; i += 1) {
+            const key = localStorage.key(i);
+            if (key.startsWith('__quota.filler')) keys.push(key);
+          }
+          keys.forEach(key => localStorage.removeItem(key));
+        });
+        const quotaRetryToast = await quotaImport();
+        assert.match(quotaRetryToast || '', /Đã khôi phục/, 'retry after freeing the quota succeeds');
+        await quota.reload();
+        await quota.locator('[data-view="settings"]').waitFor();
+        const quotaFinal = await quota.evaluate(() => {
+          const progress = JSON.parse(localStorage.getItem('chuyen-anh.progress.v1') || '{}');
+          const phrases = JSON.parse(localStorage.getItem('chuyen-anh.phrases.v1') || '{}');
+          return { id2: progress['2'] ? `${progress['2'].state}/${progress['2'].correctCount}` : null, phrases: Object.keys(phrases).length };
+        });
+        assert.equal(quotaFinal.id2, 'learning/7', 'the retry stores the imported progress');
+        assert.equal(quotaFinal.phrases, 780, 'the retry stores all 780 phrase records (no silent loss)');
+        assert.deepEqual(world.ownErrors, [], 'RT-07 ran without page errors');
+      } finally {
+        await world.ownBrowser.close().catch(() => null);
+      }
+    }
+
+    // ---- RC2 remediation regression: RT-04 first-pass-correct streak ----
+    // README: "Chuỗi ngày vẫn chỉ tính lượt trả lời đúng ở lần đầu." A wrong
+    // first answer — typed, chosen, self-assessed, or a failed match claim —
+    // must never extend the day streak; the next first-pass correct answer must.
+    {
+      const world = await freshWorld();
+      try {
+        const page = await world.openTab();
+        const seedStreak = () => page.evaluate(() => {
+          const yesterday = new Date();
+          yesterday.setDate(yesterday.getDate() - 1);
+          const key = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+          localStorage.setItem('chuyen-anh.streak.v1',
+            JSON.stringify({ current: 1, longest: 9, lastDate: key(yesterday) }));
+        });
+        const seedStudy = exercises => page.evaluate(ex => {
+          localStorage.setItem('chuyen-anh.study.v1', JSON.stringify({
+            groups: { due: true, weak: true, new: true, review: true },
+            focus: 'due', exercises: ex, size: 10, timed: false, timerMinutes: 0
+          }));
+          localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['2', '3', '4']));
+        }, exercises);
+        const readStreak = () => page.evaluate(() => JSON.parse(localStorage.getItem('chuyen-anh.streak.v1')));
+        const isToday = value => {
+          const now = new Date();
+          const key = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+          return value === key;
+        };
+        const yesterdayKey = () => {
+          const d = new Date();
+          d.setDate(d.getDate() - 1);
+          return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+        };
+        const startPrioritySession = async () => {
+          await page.locator('[data-session="priority"]').click();
+          // A first-look introduction or the card itself may come up; keep
+          // confirming introductions until the card is on screen.
+          for (let turn = 0; turn < 12; turn += 1) {
+            const intro = page.locator('#start-quiz');
+            const card = page.locator('.flashcard');
+            await intro.or(card).first().waitFor({ timeout: 15000 }).catch(() => null);
+            if (await intro.isVisible().catch(() => false)) {
+              await intro.click();
+              continue;
+            }
+            if (await card.isVisible().catch(() => false)) return;
+          }
+          await page.locator('.flashcard').waitFor({ timeout: 15000 });
+        };
+        const promptWordId = () => page.evaluate(() => {
+          const prompt = (document.querySelector('.prompt')?.innerText || '').trim();
+          const vocab = JSON.parse(document.getElementById('vocabulary-data').textContent);
+          const hit = vocab.find(entry => entry.word === prompt);
+          return hit ? String(hit.id) : null;
+        });
+        // (1) typed first answer wrong — the streak must not move.
+        await seedStreak();
+        await seedStudy({ mc_en_vi: false, mc_vi_en: false, mc4: false, fill_vi: false, fill_en: true, cloze: false, match: false, flashcard: false });
+        await page.reload();
+        await page.locator('[data-session="priority"]').waitFor();
+        await startPrioritySession();
+        await page.locator('#spelling-input').fill('definitely not the word');
+        await page.locator('#spelling-input').press('Enter');
+        await page.locator('#next-card').waitFor();
+        let streak = await readStreak();
+        assert.deepEqual(streak, { current: 1, longest: 9, lastDate: yesterdayKey() },
+          `RT-04 typed wrong first answer must not extend the streak (saw ${JSON.stringify(streak)})`);
+        // control: a first-pass correct answer in a fresh session extends it
+        // (the queued practice turn after the miss is not a first pass).
+        await page.locator('#exit-session').click();
+        await page.locator('[data-session="priority"]').waitFor();
+        await startPrioritySession();
+        await page.locator('#spelling-input').fill(await page.evaluate(() => {
+          const prompt = (document.querySelector('.prompt')?.innerText || '').trim();
+          const vocab = JSON.parse(document.getElementById('vocabulary-data').textContent);
+          const hit = vocab.find(entry => entry.meaning === prompt);
+          return hit ? hit.word : prompt;
+        }));
+        await page.locator('#spelling-input').press('Enter');
+        await page.locator('#next-card').waitFor();
+        streak = await readStreak();
+        assert.equal(streak.current, 2, 'a first-pass correct answer extends the streak');
+        assert.equal(isToday(streak.lastDate), true, 'the streak lands on today');
+
+        // (2) multiple-choice first answer wrong — same rule.
+        await seedStreak();
+        await seedStudy({ mc_en_vi: true, mc_vi_en: false, mc4: false, fill_vi: false, fill_en: false, cloze: false, match: false, flashcard: false });
+        await page.reload();
+        await page.locator('[data-session="priority"]').waitFor();
+        await startPrioritySession();
+        const wrongId = await promptWordId();
+        const wrongOption = await page.evaluate(id => {
+          const nodes = [...document.querySelectorAll('[data-option]')];
+          const other = nodes.find(node => node.dataset.option !== String(id));
+          return other ? other.dataset.option : null;
+        }, wrongId);
+        await page.locator(`[data-option="${wrongOption}"]`).click();
+        await page.locator('#next-card').waitFor();
+        streak = await readStreak();
+        assert.deepEqual(streak, { current: 1, longest: 9, lastDate: yesterdayKey() },
+          `RT-04 wrong first selection must not extend the streak (saw ${JSON.stringify(streak)})`);
+        await page.locator('#exit-session').click();
+        await page.locator('[data-session="priority"]').waitFor();
+        await startPrioritySession();
+        const mcId = await promptWordId();
+        await page.locator(`[data-option="${mcId}"]`).click();
+        await page.locator('#next-card').waitFor();
+        streak = await readStreak();
+        assert.equal(streak.current, 2, 'a correct first selection extends the streak');
+
+        // (3) flashcard self-assessed wrong — same rule.
+        await seedStreak();
+        await seedStudy({ mc_en_vi: false, mc_vi_en: false, mc4: false, fill_vi: false, fill_en: false, cloze: false, match: false, flashcard: true });
+        await page.reload();
+        await page.locator('[data-session="priority"]').waitFor();
+        await startPrioritySession();
+        // A flashcard flips first, then offers the self-assessment buttons.
+        await page.locator('#flip-card').click();
+        await page.locator('#reveal-wrong').click();
+        await page.locator('#next-card').waitFor();
+        streak = await readStreak();
+        assert.deepEqual(streak, { current: 1, longest: 9, lastDate: yesterdayKey() },
+          `RT-04 self-assessed wrong must not extend the streak (saw ${JSON.stringify(streak)})`);
+        await page.locator('#exit-session').click();
+        await page.locator('[data-session="priority"]').waitFor();
+        await startPrioritySession();
+        await page.locator('#flip-card').click();
+        await page.locator('#reveal-correct').click();
+        await page.locator('#next-card').waitFor();
+        streak = await readStreak();
+        assert.equal(streak.current, 2, 'a self-assessed correct first pass extends the streak');
+        assert.deepEqual(world.ownErrors, [], 'RT-04 card scenarios ran without page errors');
+      } finally {
+        await world.ownBrowser.close().catch(() => null);
+      }
+    }
+
+    // A failed match claim resolved later must not extend the streak either;
+    // the next clean first-pass pair must.
+    {
+      const world = await freshWorld();
+      try {
+        const page = await world.openTab();
+        await page.evaluate(() => {
+          const yesterday = new Date();
+          yesterday.setDate(yesterday.getDate() - 1);
+          const key = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+          localStorage.setItem('chuyen-anh.streak.v1',
+            JSON.stringify({ current: 1, longest: 9, lastDate: key(yesterday) }));
+          localStorage.setItem('chuyen-anh.study.v1', JSON.stringify({
+            groups: { due: true, weak: true, new: true, review: true },
+            focus: 'due',
+            exercises: { mc_en_vi: false, mc_vi_en: false, mc4: false, fill_vi: false, fill_en: false, cloze: false, match: true, flashcard: false },
+            size: 10, timed: false, timerMinutes: 0
+          }));
+        });
+        await page.reload();
+        await page.locator('[data-session="priority"]').waitFor();
+        await page.locator('[data-session="priority"]').click();
+        await page.locator('#start-quiz').waitFor();
+        await page.locator('#start-quiz').click();
+        await page.locator('.match-board').waitFor();
+        const boardIds = await page.evaluate(() => [...document.querySelectorAll('[data-match-word]')]
+          .map(node => node.dataset.matchWord));
+        assert.ok(boardIds.length >= 4, 'the board has pairs');
+        const streakNow = () => page.evaluate(() => JSON.parse(localStorage.getItem('chuyen-anh.streak.v1')));
+        const yesterdayKey = () => {
+          const d = new Date();
+          d.setDate(d.getDate() - 1);
+          return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+        };
+        // Wrong claim first (marks the word missed), then resolve it correctly:
+        // the resolution is graded wrong and must not extend the streak.
+        await page.locator(`[data-match-word="${boardIds[0]}"]`).click();
+        await page.locator(`[data-match-meaning="${boardIds[1]}"]`).click();
+        await page.locator('.match-error').waitFor();
+        await page.locator(`[data-match-word="${boardIds[0]}"]`).click();
+        await page.locator(`[data-match-meaning="${boardIds[0]}"]`).click();
+        await page.locator(`[data-match-word="${boardIds[0]}"][disabled]`).waitFor({ timeout: 4000 }).catch(() => null);
+        let streak = await streakNow();
+        assert.deepEqual(streak, { current: 1, longest: 9, lastDate: yesterdayKey() },
+          `RT-04 resolving a missed pair must not extend the streak (saw ${JSON.stringify(streak)})`);
+        // A clean first-pass pair on the same board extends it.
+        await page.locator(`[data-match-word="${boardIds[2]}"]`).click();
+        await page.locator(`[data-match-meaning="${boardIds[2]}"]`).click();
+        streak = await streakNow();
+        assert.equal(streak.current, 2, 'a clean first-pass match extends the streak');
+        assert.deepEqual(world.ownErrors, [], 'RT-04 match scenario ran without page errors');
+      } finally {
+        await world.ownBrowser.close().catch(() => null);
+      }
+    }
+
+    // ---- RC2 remediation regression: RT-08 skipped cards are counted once ----
+    // README: a skipped turn stays pending and expiry reports blanks without
+    // miscounting. A skip must not add a phantom blank at expiry, and a
+    // practice turn that was skipped and then answered must not be reported
+    // as unanswered when the session ends normally.
+    {
+      const world = await freshWorld();
+      try {
+        const page = await world.openTab();
+        await page.evaluate(() => {
+          localStorage.clear();
+          localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['298', '2', '3']));
+          localStorage.setItem('chuyen-anh.study.v1', JSON.stringify({
+            groups: { due: true, weak: true, new: true, review: true },
+            focus: 'due',
+            exercises: { mc_en_vi: true, mc_vi_en: false, mc4: false, fill_vi: false, fill_en: false, cloze: false, match: false, flashcard: false },
+            size: 10, timed: true, timerMinutes: 1
+          }));
+        });
+        await page.reload();
+        await page.locator('[data-session="favorites"]').click();
+        assert.equal(await page.locator('#session-timer').innerText(), '01:00');
+        // Skip the first card; the other two stay pending too. Expiry must
+        // report three blanks — never one phantom blank per skip.
+        if (await page.locator('#start-quiz').isVisible().catch(() => false)) {
+          await page.locator('#start-quiz').click();
+        }
+        await page.locator('#skip-card').waitFor();
+        await page.locator('#skip-card').click();
+        assert.match(await page.locator('.pending-row').innerText(), /Đã bỏ qua \(1\)/);
+        await page.locator('.summary').waitFor({ timeout: 75000 });
+        const summary = await page.locator('.summary').innerText();
+        assert.match(summary, /Hết giờ/, 'the session expired');
+        assert.match(summary, /3\s*\n?\s*Bỏ trống/,
+          `RT-08: three cards pending means three blanks, skip included (saw: ${summary.replace(/\n/g, ' | ')})`);
+        assert.deepEqual(world.ownErrors, [], 'RT-08 expiry ran without page errors');
+      } finally {
+        await world.ownBrowser.close().catch(() => null);
+      }
+    }
+
+    {
+      const world = await freshWorld();
+      try {
+        const page = await world.openTab();
+        await page.evaluate(() => {
+          localStorage.clear();
+          localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['298', '2', '3']));
+          localStorage.setItem('chuyen-anh.study.v1', JSON.stringify({
+            groups: { due: true, weak: true, new: true, review: true },
+            focus: 'due',
+            exercises: { mc_en_vi: true, mc_vi_en: false, mc4: false, fill_vi: false, fill_en: false, cloze: false, match: false, flashcard: false },
+            size: 10, timed: false, timerMinutes: 0
+          }));
+        });
+        await page.reload();
+        await page.locator('[data-session="favorites"]').click();
+        const promptWord = () => (page.locator('.prompt').innerText()).then(t => t.trim());
+        const wordIdFor = prompt => page.evaluate(text => {
+          const vocab = JSON.parse(document.getElementById('vocabulary-data').textContent);
+          const hit = vocab.find(entry => entry.word === text);
+          return hit ? String(hit.id) : null;
+        }, prompt);
+        const wrongOptionFor = id => page.evaluate(wid => {
+          const nodes = [...document.querySelectorAll('[data-option]')];
+          const other = nodes.find(node => node.dataset.option !== String(wid));
+          return other ? other.dataset.option : null;
+        }, id);
+        // First-look introductions can render a beat after the click that
+        // reveals them; race introduction vs a ready card (options or the
+        // typed-answer field — practice retries arrive as spelling turns).
+        const settleTurn = async () => {
+          const intro = page.locator('#start-quiz');
+          const options = page.locator('[data-option]:enabled');
+          const typing = page.locator('#spelling-input');
+          for (let attempt = 0; attempt < 8; attempt += 1) {
+            const hit = await Promise.race([
+              intro.first().waitFor({ timeout: 15000 }).then(() => 'intro'),
+              options.first().waitFor({ timeout: 15000 }).then(() => 'options'),
+              typing.waitFor({ timeout: 15000 }).then(() => 'typing')
+            ]).catch(() => 'none');
+            if (hit === 'intro') { await intro.click(); continue; }
+            if (hit === 'options') return 'options';
+            if (hit === 'typing') return 'typing';
+            return 'none';
+          }
+          return 'none';
+        };
+        const isPracticeTurn = async () =>
+          /luyện lại/i.test(await page.locator('.mode-label').innerText().catch(() => ''));
+        // Card 1: answer wrongly so a practice retry is queued.
+        assert.equal(await settleTurn(), 'options', 'the first card is on screen');
+        const firstPrompt = await promptWord();
+        const firstId = await wordIdFor(firstPrompt);
+        await page.locator(`[data-option="${await wrongOptionFor(firstId)}"]`).click();
+        await page.locator('#next-card').click();
+        // Work through the queue until the practice retry of the first word is
+        // on screen (it is queued after the remaining cards), then skip it.
+        let skippedPractice = false;
+        for (let turn = 0; turn < 10 && !skippedPractice; turn += 1) {
+          const state = await settleTurn();
+          if (state === 'none') break;
+          if (await isPracticeTurn()) {
+            await page.locator('#skip-card').click();
+            skippedPractice = true;
+            break;
+          }
+          assert.equal(state, 'options', 'a first-pass card in this session is multiple choice');
+          const id = await wordIdFor(await promptWord());
+          await page.locator(`[data-option="${id}"]`).click();
+          await page.locator('#next-card').click();
+        }
+        assert.equal(skippedPractice, true, 'the practice retry reached the screen and was skipped');
+        assert.match(await page.locator('.pending-row').innerText(), /Đã bỏ qua \(1\)/);
+        // The skipped practice card is on screen again (queue length one);
+        // answer it (a typed retry) and let the session finish normally.
+        assert.equal(await settleTurn(), 'typing', 'the skipped practice card is offered again');
+        assert.equal(await isPracticeTurn(), true, 'the retry comes back as the practice turn');
+        await page.locator('#spelling-input').fill('practice answer');
+        await page.locator('#spelling-input').press('Enter');
+        await page.locator('#next-card').click();
+        await page.locator('.summary').waitFor({ timeout: 20000 });
+        const summary = await page.locator('.summary').innerText();
+        assert.match(summary, /0\s*\n?\s*Bỏ trống/,
+          `RT-08: every word was graded, so nothing may be reported as blank (saw: ${summary.replace(/\n/g, ' | ')})`);
+        assert.deepEqual(world.ownErrors, [], 'RT-08 practice-skip ran without page errors');
+      } finally {
+        await world.ownBrowser.close().catch(() => null);
+      }
+    }
+
+    // ---- RT-03: label-in-name and WCAG AA contrast, light and dark.
+    // RC2 flagged a label mismatch on the brand/export controls (their
+    // accessible names hid the visible text) and 2.77:1 locked-badge text.
+    {
+      const axeSource = fs.readFileSync(require.resolve('axe-core/axe.min.js'), 'utf8');
+      const audit = async (label) => {
+        await page.evaluate(axeSource);
+        const violations = await page.evaluate(async () => {
+          const result = await axe.run(document, {
+            runOnly: ['label-content-name-mismatch', 'color-contrast'],
+            resultTypes: ['violations']
+          });
+          return result.violations.map(v => ({
+            id: v.id,
+            nodes: v.nodes.map(n => n.target.join(' ')).slice(0, 6)
+          }));
+        });
+        assert.deepEqual(violations, [], `RT-03 ${label}: ${JSON.stringify(violations)}`);
+      };
+      await audit('learn (light)');
+      await page.locator('button[data-view="dashboard"]').click();
+      await page.waitForSelector('.badge');
+      await audit('dashboard badges (light)');
+      await page.evaluate(() => {
+        const prefs = JSON.parse(localStorage.getItem('chuyen-anh.prefs.v1') || '{}');
+        prefs.darkMode = true;
+        localStorage.setItem('chuyen-anh.prefs.v1', JSON.stringify(prefs));
+      });
+      await page.reload();
+      await page.waitForSelector('#brand-link');
+      await audit('learn (dark)');
+      await page.locator('button[data-view="dashboard"]').click();
+      await page.waitForSelector('.badge');
+      await audit('dashboard badges (dark)');
+      await page.evaluate(() => localStorage.removeItem('chuyen-anh.prefs.v1'));
+      await page.reload();
+      await page.waitForSelector('#brand-link');
+    }
+
     const failing = await browser.newPage({ viewport: { width: 1280, height: 900 }, reducedMotion: 'reduce' });
     const failingErrors = [];
     failing.on('pageerror', error => failingErrors.push(error.message));
@@ -2100,9 +2822,8 @@ async function main() {
     assert.deepEqual(failingErrors, []);
     await failing.close();
 
-
     assert.deepEqual(errors, []);
-    console.log(`PASS: Chromium ${browser.version()} — first-look introduction for new words, same-part-of-speech distractors, cloze options absent from the sentence, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, 320/375/768px responsive layout, reduced-motion setting, search state across a favorite toggle, session clearing on reset/import, the ID 448 historical label, named option groups, shortcuts limited to the visible card, failed writes reported truthfully, JSON backup round-trips that keep every retained session, blank spelling submissions ignored, single-graded self-assessment, skip locked after a reveal, and 'Học cấp tốc' processing all ten requested words with a truthful single correction, automatic advance only after correct answers, accurate first-pass statistics, persisted progress, an immediate hand-off with the graded answer carried onto the next card, a queue that never shifts while another screen is open, and interface copy on a consolidation turn translated in the English interface; the beta5 priority configuration with all seven exercise types, a matching board driven from the keyboard, a skipped question reopened from the pending list, a hard word marked and unmarked, a real one-minute timed session that ends on its results with unanswered questions reported as blank, a v1 backup that keeps the device hard-word list, English rendering of every new screen, and the beta6 regressions: a priority session started from Settings opens where the learner can see it, a classic session reports only its own XP, a typed answer survives the star/flag toggles, a sprint honours the timer, a start that cannot run explains itself, a new session inherits no skipped questions, and the beta7 phrase bank: 780 phrases browsed, searched, filtered by type and level, practised for ten turns with typed and multiple-choice retrieval recorded in its own store while word progress stayed byte-identical, English rendering of the phrase screens, and a reset that clears phrase progress; no page errors.`);
+    console.log(`PASS: Chromium ${browser.version()} — first-look introduction for new words, same-part-of-speech distractors, cloze options absent from the sentence, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, 320/375/768px responsive layout, reduced-motion setting, search state across a favorite toggle, session clearing on reset/import, the ID 448 historical label, named option groups, shortcuts limited to the visible card, failed writes reported truthfully, JSON backup round-trips that keep every retained session, blank spelling submissions ignored, single-graded self-assessment, skip locked after a reveal, and 'Học cấp tốc' processing all ten requested words with a truthful single correction, automatic advance only after correct answers, accurate first-pass statistics, persisted progress, an immediate hand-off with the graded answer carried onto the next card, a queue that never shifts while another screen is open, and interface copy on a consolidation turn translated in the English interface; the beta5 priority configuration with all eight exercise types, a matching board driven from the keyboard, a skipped question reopened from the pending list, a hard word marked and unmarked, a real one-minute timed session that ends on its results with unanswered questions reported as blank, a v1 backup that keeps the device hard-word list, English rendering of every new screen, and the beta6 regressions: a priority session started from Settings opens where the learner can see it, a classic session reports only its own XP, a typed answer survives the star/flag toggles, a sprint honours the timer, a start that cannot run explains itself, a new session inherits no skipped questions, and the beta7 phrase bank: 780 phrases browsed, searched, filtered by type and level, practised for ten turns with typed and multiple-choice retrieval recorded in its own store while word progress stayed byte-identical, English rendering of the phrase screens, and a reset that clears phrase progress; the RC2 remediation regressions: two-tab grades surviving cross-tab writes with wipes never resurrected, an over-quota restore failing atomically with a truthful error then recovering fully once space is freed, the day streak moving only on first-pass correct answers — typed, chosen, self-assessed, and match resolutions alike — and skipped cards counted exactly once, at expiry and in a finished session; no page errors.`);
   } finally {
     if (browser) await browser.close();
     await new Promise(resolve => server.close(resolve));

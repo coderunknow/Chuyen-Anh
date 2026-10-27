@@ -657,7 +657,8 @@ test('answer choices are a named button group rather than a radio group', () => 
 
 test('resetting or importing progress clears the whole running session', () => {
   const start = appScript[1].indexOf('function clearActiveSession()');
-  const end = appScript[1].indexOf('function persist()', start);
+  // persist() gained its staging parameter but still sits after clearActiveSession.
+  const end = appScript[1].indexOf('function persist(target = storage)', start);
   assert.ok(start >= 0 && end > start, 'clearActiveSession must be defined before persist');
   const clearBody = appScript[1].slice(start, end);
   for (const reset of [
@@ -681,7 +682,7 @@ test('resetting or importing progress clears the whole running session', () => {
 
 test('a failed write is reported instead of being followed by a success message', () => {
   // Persistence itself returns the outcome and never claims success.
-  assert.match(appScript[1], /function persist\(\)[\s\S]*?return ok;/);
+  assert.match(appScript[1], /function persist\(target = storage\)[\s\S]*?return ok;/);
   const storage = failingStore();
   assert.equal(saveProgress({ '1': createInitialProgress('1', 0) }, storage), false);
   assert.equal(savePrefs({}, storage), false);
@@ -696,12 +697,17 @@ test('a failed write is reported instead of being followed by a success message'
   const resetBody = appScript[1].slice(resetStart, appScript[1].indexOf("document.addEventListener('keydown'", resetStart));
   // The import tells a v1 restore apart from a full restore, so only the shared
   // prefix of the success message is pinned; both variants come after the guard.
-  for (const [name, body, successToast] of [
-    ['import', importBody, 'Đã khôi phục tiến độ'],
-    ['reset', resetBody, "toast('Đã xóa dữ liệu học.', 'success')"]
+  for (const [name, body, successToast, guardNeedle] of [
+    ['import', importBody, 'Đã khôi phục tiến độ', 'if (!persisted || commitResult !== true)'],
+    ['reset', resetBody, "toast('Đã xóa dữ liệu học.', 'success')", 'if (!persist())']
   ]) {
-    const guard = body.indexOf('if (!persist())');
+    const guard = body.indexOf(guardNeedle);
     assert.ok(guard >= 0, `${name} must check the persistence result`);
+    if (name === 'import') {
+      assert.ok(body.indexOf('const persisted = persist(staged.storage);') >= 0
+        && body.indexOf('const commitResult = persisted ? staged.commit() : false;') >= 0,
+        'import must consult both the persist result and the commit result');
+    }
     assert.ok(body.indexOf(successToast) > guard, `${name} must not toast success before the write is confirmed`);
   }
   // The theme is its own namespaced store; a failed write is reported, never
@@ -1236,7 +1242,7 @@ test('exported exam results report exactly what the learner did and what could b
   const result = buildExamResultJson(session, record, { now: 6000 });
   assert.equal(result.app, 'Chuyên Anh');
   assert.equal(result.version, APP_VERSION, 'the result carries the application version');
-  assert.equal(result.version, 'v1.0.0-rc1');
+  assert.equal(result.version, 'v1.0.0-rc2');
   assert.equal(result.schemaVersion, '1.0.0');
   assert.deepEqual(result.summary, {
     total: 3, answered: 2, unanswered: 1,
@@ -1814,9 +1820,11 @@ test('Scope E: unstudied vocabulary items normalize to new across all modes whil
 const modeItems = [...embeddedVocabulary.slice(0, 60), ...embeddedVocabulary.filter(entry => entry.examples?.length)]
   .map(vocab => ({ vocab, progress: createInitialProgress(vocab.id, 0) }));
 
-test('every one of the seven exercise types is generated from its own record and grades once', () => {
-  assert.deepEqual([...app.EXERCISE_ORDER], ['mc_en_vi', 'mc_vi_en', 'fill_vi', 'fill_en', 'cloze', 'match', 'flashcard']);
-  assert.equal(Object.keys(app.EXERCISE_LABELS).length, 7);
+test('every one of the eight exercise types is generated from its own record and grades once', () => {
+  assert.deepEqual([...app.EXERCISE_ORDER], ['mc_en_vi', 'mc_vi_en', 'mc4', 'fill_vi', 'fill_en', 'cloze', 'match', 'flashcard']);
+  assert.equal(Object.keys(app.EXERCISE_LABELS).length, 8);
+  assert.equal(app.EXERCISE_LABELS[app.EXERCISE_TYPES.MC4], 'Trắc nghiệm 4 phương án');
+  assert.equal(app.translateUiText('Trắc nghiệm 4 phương án', 'en'), 'Four-option multiple choice');
   const seenModes = new Set();
   for (const type of app.EXERCISE_ORDER) {
     if (type === app.EXERCISE_TYPES.MATCH) {
@@ -2716,4 +2724,484 @@ test('the exam archive scope panel is localised in English', () => {
   assert.doesNotMatch(translated, /[ăâđêôơưàáảãạ]/, 'no Vietnamese diacritics are left behind');
   // Vietnamese mode is untouched.
   assert.equal(translateUiText(scope, 'vi'), scope);
+});
+
+
+/* ------------------------------------------------------------------ *
+ * RC2 regressions: four-option contract, matching selection machine,
+ * first-look coverage and vocabulary reconciliation.
+ * ------------------------------------------------------------------ */
+
+const rc2Heads = embeddedVocabulary.filter(entry => !entry.familyHead);
+const rc2Item = entry => ({ vocab: entry, progress: createInitialProgress(entry.id, 0), taught: true });
+
+test('rc2: a four-option question offers exactly four distinct options or is explicitly unavailable', () => {
+  // Real data: a deterministic stride across the whole headword inventory.
+  let generated = 0;
+  for (let index = 0; index < rc2Heads.length; index += 211) {
+    const entry = rc2Heads[index];
+    const question = generateQuestion(rc2Item(entry), rc2Heads, 'mc4');
+    generated += 1;
+    assert.equal(question.exercise, 'mc4', `${entry.word}: the turn keeps its mc4 identity`);
+    assert.equal(question.mode, MODES.RECOGNITION, 'mc4 shares the recognition generation path');
+    assert.equal(question.options.length, 4, `${entry.word}: exactly four options`);
+    assert.equal(question.options.filter(option => option.correct).length, 1, 'exactly one correct option');
+    const correct = question.options.find(option => option.correct);
+    assert.equal(correct.id, entry.id, 'the correct key stays attached to the answer option after shuffling');
+    assert.equal(correct.text, entry.meaning);
+    assert.equal(new Set(question.options.map(option => normalize(option.text))).size, 4,
+      `${entry.word}: no duplicated answer text after normalization`);
+    assert.equal(question.options.filter(option => option.id === entry.id).length, 1, 'the answer appears once');
+    assert.equal(app.gradeAnswer(question, correct.id).correct, true);
+    const wrong = question.options.find(option => !option.correct);
+    assert.equal(app.gradeAnswer(question, wrong.id).correct, false);
+  }
+  assert.ok(generated >= 20, 'the stride really sampled the inventory');
+  // Insufficient candidate pool: the exercise is unavailable and a generated
+  // question says so instead of silently offering fewer than four options.
+  const tiny = rc2Heads.slice(0, 3);
+  assert.equal(app.exerciseAvailability('mc4', rc2Item(tiny[0]), tiny), false);
+  assert.equal(app.countDistractorCandidates(tiny, tiny[0], 'meaning'), 2);
+  const unavailable = generateQuestion(rc2Item(tiny[0]), tiny, 'mc4');
+  assert.equal(unavailable.unavailable, true);
+  assert.equal(unavailable.unavailableReason, 'insufficient-distractors');
+  assert.equal(unavailable.options.length, 0, 'an unavailable question exposes no short option list');
+  // The directional multiple-choice types share the same full-pool rule.
+  assert.equal(app.exerciseAvailability('mc_en_vi', rc2Item(tiny[0]), tiny), false,
+    'a two-option set is not presented as an available multiple-choice exercise');
+});
+
+test('rc2: four-option configuration round-trips and older configurations stay usable', () => {
+  const map = new Map();
+  const storage = { getItem: key => (map.has(key) ? map.get(key) : null), setItem: (key, value) => map.set(key, String(value)) };
+  const enabledOnly = app.sanitizeStudyConfig({
+    exercises: { mc_en_vi: false, mc_vi_en: false, mc4: true, fill_vi: false, fill_en: false, cloze: false, match: false, flashcard: false }
+  });
+  assert.equal(app.saveStudyConfig(enabledOnly, storage), true);
+  assert.deepEqual(app.loadStudyConfig(storage).exercises, enabledOnly.exercises,
+    'an mc4-only configuration survives save/load');
+  // A stored rc1 configuration has no mc4 key: its own choices keep their
+  // meaning and the new type simply starts off.
+  const rc1Shape = app.sanitizeStudyConfig({
+    exercises: { mc_en_vi: true, mc_vi_en: false, fill_vi: true, fill_en: false, cloze: false, match: true, flashcard: false }
+  });
+  assert.equal(rc1Shape.exercises.mc4, false);
+  assert.equal(rc1Shape.exercises.mc_en_vi, true);
+  assert.equal(rc1Shape.exercises.match, true);
+  // A backup whose study block predates mc4 still imports; one carrying mc4
+  // keeps it. The v1 schema itself is unchanged.
+  const bundle = exportProgressBundle({
+    progress: {}, prefs: DEFAULT_PREFS, favorites: new Set(), history: [],
+    streak: { current: 0, longest: 0, lastDate: null }, study: enabledOnly
+  });
+  assert.equal(bundle.version, 1);
+  assert.equal(validateImportPayload(JSON.parse(JSON.stringify(bundle))).study.exercises.mc4, true);
+});
+
+test('rc2: changing a matching selection never grades; only completing a pair does', () => {
+  const empty = { selectedWord: null, selectedMeaning: null, resolvedIds: new Set() };
+  // Left-column changes are pure selection moves, however often they repeat.
+  let state = app.applyMatchSelection(empty, 'word', 'A');
+  assert.equal(state.attempt, null);
+  assert.equal(state.selectedWord, 'A');
+  state = app.applyMatchSelection(state, 'word', 'B');
+  assert.equal(state.attempt, null, 'picking a different word is not an attempt');
+  assert.equal(state.selectedWord, 'B');
+  state = app.applyMatchSelection(state, 'word', 'C');
+  assert.equal(state.attempt, null);
+  // The click that fills the empty column completes the one attempt.
+  state = app.applyMatchSelection(state, 'meaning', 'M');
+  assert.deepEqual(state.attempt, { wordId: 'C', meaningId: 'M' });
+  assert.equal(state.selectedWord, null, 'selections clear with the attempt');
+  assert.equal(state.selectedMeaning, null);
+  // Replaying either half after the attempt cannot grade it twice.
+  const replay = app.applyMatchSelection(state, 'meaning', 'M');
+  assert.equal(replay.attempt, null);
+  assert.equal(replay.selectedMeaning, 'M');
+  // Meaning-first play is symmetric, and re-picking a meaning only moves it.
+  let mirror = app.applyMatchSelection(empty, 'meaning', 'M');
+  mirror = app.applyMatchSelection(mirror, 'meaning', 'N');
+  assert.equal(mirror.attempt, null, 'picking a different meaning is not an attempt');
+  mirror = app.applyMatchSelection(mirror, 'word', 'A');
+  assert.deepEqual(mirror.attempt, { wordId: 'A', meaningId: 'N' });
+  // Picking the selected tile again deselects it, ungraded.
+  const toggled = app.applyMatchSelection(app.applyMatchSelection(empty, 'word', 'A'), 'word', 'A');
+  assert.equal(toggled.selectedWord, null);
+  assert.equal(toggled.attempt, null);
+  // A stale both-selected state restarts from the new pick, never an attempt.
+  const stale = app.applyMatchSelection({ selectedWord: 'A', selectedMeaning: 'M' }, 'word', 'B');
+  assert.equal(stale.attempt, null);
+  assert.equal(stale.selectedWord, 'B');
+  assert.equal(stale.selectedMeaning, null);
+  // Resolved tiles and malformed input are ignored.
+  assert.equal(app.applyMatchSelection({ ...empty, resolvedIds: new Set(['A']) }, 'word', 'A').selectedWord, null);
+  assert.equal(app.applyMatchSelection(empty, 'middle', 'A').attempt, null);
+  assert.equal(app.applyMatchSelection(null, 'word', 'A').selectedWord, 'A');
+  assert.equal(app.applyMatchSelection(empty, 'word', '').selectedWord, null);
+});
+
+test('rc2: a matching board never repeats a word or a meaning', () => {
+  const mk = (id, word, meaning) => ({
+    id, word, pos: 'v', meaning, examples: [], tags: [], synonyms: [], antonyms: [],
+    collocations: [], wordFamily: '', register: '', connotation: '', notes: ''
+  });
+  const fixture = [
+    mk('1', 'allow', 'cho phép'), mk('2', 'permit', 'cho phép'), mk('3', 'deny', 'từ chối'),
+    mk('4', 'refuse', 'khước từ'), mk('5', 'accept', 'chấp nhận'), mk('6', 'offer', 'đề nghị'),
+    mk('7', 'ask', 'hỏi'), mk('8', 'tell', 'nói')
+  ];
+  assert.equal(app.isUnambiguousMatchGroup(fixture.slice(0, 4)), false,
+    'the first four entries repeat one gloss, so they cannot share a board');
+  const plan = app.buildExercisePlan(fixture.map(rc2Item), {
+    exercises: { ...app.DEFAULT_EXERCISES, match: true }, vocabulary: fixture
+  });
+  const boards = plan.turns.filter(turn => turn.type === 'match');
+  assert.ok(boards.length >= 1, 'a board is still built from the unambiguous subset');
+  for (const board of boards) assert.equal(app.isUnambiguousMatchGroup(board.items), true);
+  const cards = plan.turns.reduce((total, turn) => total + (turn.type === 'match' ? turn.items.length : 1), 0);
+  assert.equal(cards, fixture.length, 'no eligible word is lost when a board skips a duplicate gloss');
+  // Real data: every board in a large mixed plan is unambiguous.
+  const realPlan = app.buildExercisePlan(rc2Heads.slice(0, 60).map(rc2Item), {
+    exercises: { ...app.DEFAULT_EXERCISES, match: true }, vocabulary: rc2Heads
+  });
+  for (const turn of realPlan.turns) {
+    if (turn.type === 'match') assert.equal(app.isUnambiguousMatchGroup(turn.items), true);
+  }
+});
+
+test('rc2: recall distractors never repeat the prompt gloss', () => {
+  const mk = (id, word, meaning) => ({
+    id, word, pos: 'v', meaning, examples: [], tags: [], synonyms: [], antonyms: [],
+    collocations: [], wordFamily: '', register: '', connotation: '', notes: ''
+  });
+  const fixture = [
+    mk('1', 'allow', 'cho phép'), mk('2', 'permit', 'cho phép'), mk('3', 'deny', 'từ chối'),
+    mk('4', 'refuse', 'khước từ'), mk('5', 'accept', 'chấp nhận')
+  ];
+  for (let attempt = 0; attempt < 25; attempt += 1) {
+    const question = generateQuestion(rc2Item(fixture[0]), fixture, MODES.RECALL);
+    assert.equal(question.options.some(option => option.text === 'permit'), false,
+      'another headword with the same recorded gloss is not a wrong option');
+  }
+  // Real data: for every headword sharing its gloss, a generated recall
+  // question offers no distractor that owns that gloss.
+  const byMeaning = new Map();
+  for (const entry of rc2Heads) {
+    const key = normalize(entry.meaning);
+    if (!byMeaning.has(key)) byMeaning.set(key, []);
+    byMeaning.get(key).push(entry);
+  }
+  const shared = [...byMeaning.values()].filter(group => group.length > 1);
+  assert.ok(shared.length > 100, 'the shipped data really contains shared glosses');
+  const byId = new Map(rc2Heads.map(entry => [entry.id, entry]));
+  let checked = 0;
+  for (const group of shared.slice(0, 40)) {
+    const entry = group[0];
+    const question = generateQuestion(rc2Item(entry), rc2Heads, MODES.RECALL);
+    checked += 1;
+    for (const option of question.options) {
+      if (option.id === entry.id) continue;
+      assert.notEqual(normalize(byId.get(option.id).meaning), normalize(entry.meaning),
+        `${entry.word}: distractor ${option.text} shares the prompt gloss`);
+    }
+  }
+  assert.equal(checked, 40);
+});
+
+test('rc2: every turn shape introduces a new word before grading it', () => {
+  const fresh = entry => ({ vocab: entry, progress: createInitialProgress(entry.id, 0) });
+  const studied = entry => ({
+    vocab: entry,
+    progress: { ...createInitialProgress(entry.id, 0), state: STATES.LEARNING, correctCount: 1 }
+  });
+  // Single cards keep the established rule, whatever the exercise.
+  assert.equal(app.turnNeedsFirstLook(fresh(rc2Heads[0])), true);
+  assert.equal(app.turnNeedsFirstLook(studied(rc2Heads[0])), false);
+  // A board needs an introduction while any pair is new; only those pairs
+  // are introduced, and marking them taught ends the introduction.
+  const board = {
+    match: true,
+    pairs: [fresh(rc2Heads[0]), studied(rc2Heads[1]), fresh(rc2Heads[2]), studied(rc2Heads[3])]
+      .map(item => ({ vocab: item.vocab, progress: item.progress, resolved: false, missed: false }))
+  };
+  assert.equal(app.turnNeedsFirstLook(board), true);
+  assert.deepEqual(app.matchFirstLookPairs(board).map(pair => pair.vocab.id),
+    [rc2Heads[0].id, rc2Heads[2].id]);
+  const before = structuredClone(board.pairs.map(pair => pair.progress));
+  for (const pair of app.matchFirstLookPairs(board)) pair.taught = true;
+  assert.equal(app.turnNeedsFirstLook(board), false, 'the introduction is shown once per board per session');
+  assert.deepEqual(board.pairs.map(pair => pair.progress), before,
+    'introducing a pair changes no counter, state or schedule');
+  // The shipped wiring uses the shared predicate for boards too.
+  assert.match(appScript[1], /firstLook = turnNeedsFirstLook\(item\);/);
+  assert.equal(/item\.match\) \{\s*firstLook = false;/.test(appScript[1]), false,
+    'a matching turn must not bypass the introduction');
+  // Phrases follow the same contract in their own store.
+  const phrase = embeddedPhrases[0];
+  assert.equal(app.needsPhraseFirstLook(phrase, {}), true);
+  assert.equal(app.needsPhraseFirstLook(phrase, {}, new Set([phrase.id])), false);
+  assert.equal(app.needsPhraseFirstLook(phrase, {
+    [phrase.id]: { attempts: 1, correct: 0, wrong: 1, lastPracticed: 1 }
+  }), false, 'a phrase with graded history is tested directly');
+});
+
+test('rc2: vocabulary coverage reconciles the full headword inventory', () => {
+  assert.equal(rc2Heads.length, 5112, 'active headwords');
+  assert.equal(embeddedVocabulary.filter(entry => entry.familyHead).length, 740, 'merged same-root forms');
+  // Every headword is reachable through lookup and through a new-word session.
+  const progress = ensureProgress({}, rc2Heads);
+  assert.equal(Object.keys(progress).length, 5112);
+  assert.ok(Object.values(progress).every(record => record.state === STATES.NEW),
+    'an untouched profile normalises every headword to new');
+  const allNew = selectSession(rc2Heads, progress, { size: rc2Heads.length, mode: 'new' });
+  assert.equal(new Set(allNew.map(item => item.vocab.id)).size, 5112,
+    'a new-word session can queue every headword exactly once');
+  const index = createSearchIndex(rc2Heads, progress, new Set());
+  assert.equal(new Set(searchVocabulary(index, '', {}).map(item => item.entry.id)).size, 5112,
+    'lookup reaches every headword');
+  // No merged form is a schedulable card or a lookup row of its own.
+  const headIds = new Set(rc2Heads.map(entry => entry.id));
+  const familyHeadOf = familyHeadMap(embeddedVocabulary);
+  assert.equal(familyHeadOf.size, 740);
+  for (const mergedId of familyHeadOf.keys()) assert.equal(headIds.has(mergedId), false);
+  // Per-exercise availability reconciles against independently stated data
+  // requirements; a word missing one mode always keeps another path.
+  const availability = {};
+  for (const type of app.EXERCISE_ORDER) {
+    availability[type] = rc2Heads.filter(entry => app.exerciseAvailability(type, entry, rc2Heads)).length;
+  }
+  assert.equal(availability.flashcard, 5112);
+  assert.equal(availability.fill_vi, 5112);
+  assert.equal(availability.match, 5112);
+  assert.equal(availability.mc4, 5112, 'every headword has three distinct meaning distractors');
+  assert.equal(availability.cloze, rc2Heads.filter(entry => entry.examples?.length).length,
+    'cloze reaches exactly the headwords with a recorded example');
+  assert.equal(availability.fill_en, rc2Heads.filter(entry => isTypableHeadword(entry.word)).length,
+    'typed English reaches exactly the typable headwords');
+  for (const entry of rc2Heads) {
+    assert.ok(app.EXERCISE_ORDER.some(type => app.exerciseAvailability(type, entry, rc2Heads)),
+      `${entry.word} keeps at least one learning path`);
+  }
+});
+
+// ---------------------------------------------------------------------------
+// RC2 remediation regressions (red-team RT-01 / RT-07).
+// ---------------------------------------------------------------------------
+
+test('remediation: every learner store is synced across tabs and the listener is wired', () => {
+  const expected = [
+    'chuyen-anh.progress.v1',
+    'chuyen-anh.prefs.v1',
+    'chuyen-anh.favorites.v1',
+    'chuyen-anh.history.v1',
+    'chuyen-anh.streak.v1',
+    'chuyen-anh.language.v1',
+    'chuyen-anh.study.v1',
+    'chuyen-anh.flagged.v1',
+    'chuyen-anh.theme.v1',
+    'chuyen-anh.badges.v1',
+    'chuyen-anh.phrases.v1'
+  ];
+  for (const key of expected) assert.equal(app.isSyncedStorageKey(key), true, key);
+  assert.equal(app.SYNCED_STORAGE_KEYS.length, expected.length, 'the sync set covers each store exactly once');
+  assert.equal(app.isSyncedStorageKey('chuyen-anh.unrelated.v1'), false, 'unknown keys do not trigger a reload');
+  assert.equal(app.isSyncedStorageKey(null), true, 'localStorage.clear() reports key null and must reload everything');
+  assert.match(appScript[1], /addEventListener\('storage'/, 'the app listens for writes from other tabs');
+  assert.match(appScript[1], /isSyncedStorageKey\(event\.key\)/, 'the listener filters through the synced-key contract');
+  assert.match(appScript[1], /reloadLearnerStores\(\);/, 'a synced event reloads the in-memory snapshots');
+});
+
+test('remediation: the importer commits staged writes as one all-or-nothing step', () => {
+  assert.match(appScript[1], /function persist\(target = storage\)/,
+    'persist() can stage its five writes inside the import transaction');
+  assert.match(appScript[1], /createWriteStaging\(storage\)/, 'importFile stages every write before touching storage');
+  assert.match(appScript[1], /staged\.commit\(\)/, 'importFile commits the staged set explicitly');
+  assert.match(appScript[1], /async function importFile([\s\S]{0,6000})reloadLearnerStores\(\);/,
+    'a failed import brings memory back to the untouched store before reporting');
+  assert.match(appScript[1], /if \(imported\.phrases\) savePhraseProgress\(phraseProgress, staged\.storage\);/,
+    'the phrase block flows through the same transaction');
+});
+
+test('remediation: staged writes are all-or-nothing (shrink first, preflight, rollback)', () => {
+  const makeStorage = budget => {
+    const data = new Map();
+    let writes = 0;
+    let faultAt = null;
+    const bytes = s => Buffer.byteLength(String(s), 'utf8');
+    const used = () => [...data.values()].reduce((n, v) => n + bytes(v), 0);
+    return {
+      data,
+      get writeCount() { return writes; },
+      setFault(n) { faultAt = n; },
+      getItem: key => (data.has(key) ? data.get(key) : null),
+      setItem: (key, value) => {
+        writes += 1;
+        if (faultAt !== null && writes === faultAt) throw new Error('injected write failure');
+        const before = data.has(key) ? bytes(data.get(key)) : 0;
+        if (used() - before + bytes(value) > budget) {
+          const err = new Error('QuotaExceededError');
+          err.name = 'QuotaExceededError';
+          throw err;
+        }
+        data.set(key, String(value));
+      },
+      removeItem: key => { writes += 1; data.delete(key); }
+    };
+  };
+
+  // Shrink-first ordering is what makes a tight budget feasible: freeing k1
+  // before growing k2 keeps every prefix inside the budget.
+  const store = makeStorage(1000);
+  store.setItem('k1', 'x'.repeat(900));
+  const staged = app.createWriteStaging(store);
+  staged.storage.setItem('k1', 'y'.repeat(100));   // frees 800
+  staged.storage.setItem('k2', 'z'.repeat(500));   // needs 500
+  assert.equal(store.data.get('k1'), 'x'.repeat(900), 'nothing is written before commit');
+  assert.equal(staged.commit(), true, 'net-shrinking commit fits and succeeds');
+  assert.equal(store.data.get('k1'), 'y'.repeat(100));
+  assert.equal(store.data.get('k2'), 'z'.repeat(500));
+
+  // A genuinely short store fails the preflight WITHOUT touching any real key.
+  const short = makeStorage(1500);
+  const staged2 = app.createWriteStaging(short);
+  staged2.storage.setItem('growth', 'g'.repeat(2000));
+  assert.equal(staged2.commit(), false, 'infeasible net growth is refused');
+  assert.equal(short.data.size, 0, 'no key was written and no probe remains');
+
+  // A failure halfway through the real writes rolls every key back.
+  const rollback = makeStorage(1000);
+  rollback.setItem('a', 'x'.repeat(600));
+  rollback.setItem('b', 'q');
+  rollback.setFault(rollback.writeCount + 2);  // the SECOND commit write fails
+  const staged3 = app.createWriteStaging(rollback);
+  staged3.storage.setItem('a', 'y'.repeat(100));   // shrink first
+  staged3.storage.setItem('b', 'w'.repeat(400));   // then grow b (write #2 fails)
+  staged3.storage.setItem('c', 'n'.repeat(50));
+  assert.equal(staged3.commit(), false, 'an injected write failure fails the commit');
+  assert.equal(rollback.data.get('a'), 'x'.repeat(600), 'a restored');
+  assert.equal(rollback.data.get('b'), 'q', 'b restored');
+  assert.equal(rollback.data.has('c'), false, 'c never landed');
+
+  // Defence in depth for environments without storage.
+  assert.equal(app.commitStagedWrites(null, new Map()), false, 'no storage => commit refuses');
+  const idle = makeStorage(100);
+  assert.equal(app.commitStagedWrites(idle, new Map()), true, 'an empty transaction is a no-op');
+});
+
+test('remediation: the 838/1505 punctuation gloss pair never becomes a wrong option', () => {
+  const byId = new Map(embeddedVocabulary.map(entry => [String(entry.id), entry]));
+  const e838 = byId.get('838');
+  const e1505 = byId.get('1505');
+  assert.ok(e838 && e1505, 'the punctuation pair exists in the dataset');
+  // The two glosses differ only by a trailing period — exactly the edge
+  // punctuation the typed-answer contract folds (README "dấu câu hai đầu").
+  assert.equal(e838.meaning, 'bao gồm, gồm có.');
+  assert.equal(e1505.meaning, 'bao gồm, gồm có');
+  const heads = embeddedVocabulary.filter(entry => !entry.familyHead);
+  const fillers = heads.filter(entry => !['838', '1505'].includes(String(entry.id))).slice(0, 4);
+  const mini = [e838, e1505, ...fillers];
+  for (let run = 0; run < 8; run += 1) {
+    for (const [subject, twinId, label] of [
+      [e838, '1505', 'recognition(838)'],
+      [e1505, '838', 'recognition(1505)']
+    ]) {
+      const recognition = generateQuestion({ vocab: subject }, mini, 'mc_en_vi');
+      assert.equal(recognition.options.length, 4, `${label} keeps four options`);
+      assert.equal(recognition.options.some(option => String(option.id) === twinId), false,
+        `${label}: the punctuation twin ${twinId} must not be offered as a wrong option`);
+    }
+    for (const [subject, twinId, label] of [
+      [e838, '1505', 'recall(838)'],
+      [e1505, '838', 'recall(1505)']
+    ]) {
+      const recall = generateQuestion({ vocab: subject }, mini, 'mc_vi_en');
+      assert.equal(recall.options.length, 4, `${label} keeps four options`);
+      assert.equal(recall.options.some(option => String(option.id) === twinId), false,
+        `${label}: another headword with the same gloss (${twinId}) must not be a wrong option`);
+    }
+  }
+  // Whole-dataset guard: a typed-equivalent gloss cluster can never eat the
+  // distractor pool below the four-option contract (3 distractors).
+  const edgeStrip = value => String(value ?? '').normalize('NFC').trim()
+    .replace(/^[\s"'“”‘’«»().,;:!?¡¿\-–—]+|[\s"'“”‘’«»().,;:!?¡¿\-–—]+$/gu, '')
+    .trim().toLowerCase();
+  const clusters = new Map();
+  for (const entry of heads) {
+    const key = edgeStrip(entry.meaning);
+    clusters.set(key, (clusters.get(key) || 0) + 1);
+  }
+  const largestCluster = Math.max(...clusters.values());
+  assert.ok(heads.length - largestCluster >= 3,
+    `every head keeps at least three typed-distinct distractors (largest gloss cluster ${largestCluster})`);
+});
+
+test('remediation: the day streak only counts first-pass correct answers (README)', () => {
+  assert.equal(app.streakCountsAnswer({ firstPass: true, correct: true }), true);
+  assert.equal(app.streakCountsAnswer({ firstPass: true, correct: false }), false,
+    'a wrong first answer never extends the streak');
+  assert.equal(app.streakCountsAnswer({ firstPass: false, correct: true }), false,
+    'practice, consolidation and re-grade turns never extend the streak');
+  assert.equal(app.streakCountsAnswer({ firstPass: false, correct: false }), false);
+  assert.equal(app.streakCountsAnswer(), false);
+  assert.equal(app.streakCountsAnswer(undefined), false);
+  // Both real call sites run through the predicate — no ungated updateStreak.
+  assert.match(appScript[1], /if \(streakCountsAnswer\(\{ firstPass, correct \}\)\) updateStreak\(\);/,
+    'card grading gates the streak on first-pass correctness');
+  assert.match(appScript[1], /if \(streakCountsAnswer\(\{ firstPass: resolvedCorrectly, correct: resolvedCorrectly \}\)\) updateStreak\(\);/,
+    'match resolutions gate the streak the same way');
+  assert.equal((appScript[1].match(/updateStreak\(\);/g) || []).length, 2,
+    'exactly the two guarded call sites remain');
+});
+
+test('remediation: a skipped card is counted exactly once (RT-08)', () => {
+  // Expiry counts every still-queued word; skipped cards never left the queue.
+  assert.match(appScript[1], /sessionStats\.unanswered = pendingWords;/);
+  assert.doesNotMatch(appScript[1], /pendingWords \+ skippedIds\.size/,
+    'expiry must not add skipped ids on top of the queued words they belong to');
+  assert.doesNotMatch(appScript[1], /stillQueued \+ skippedIds\.size/,
+    'the finished summary must not re-add skipped ids either');
+  // Any graded turn — first pass or practice retry — clears its skip marker.
+  assert.match(appScript[1], /skippedIds\.delete\(item\.vocab\.id\);\n    sessionStats\.completedTurns/,
+    'the marker clears when the turn finally grades, outside the first-pass-only branch');
+});
+
+test('remediation: a failed commit rolls back in reverse order and reports a failed rollback', () => {
+  // Commit grows A and shrinks B (so B is written first, A last); A's grow
+  // write throws. The rollback must put A back BEFORE B — reverse commit
+  // order — so freed space is available for B's larger original.
+  const small = 'x'.repeat(10);
+  const big = 'y'.repeat(500);
+  const grown = 'z'.repeat(200);
+  const makeStorage = ({ failGrow, failRestoreBig } = {}) => {
+    const state = new Map([['A', small], ['B', big]]);
+    const successfulOps = [];
+    return {
+      state, successfulOps,
+      getItem: key => (state.has(key) ? state.get(key) : null),
+      setItem: (key, value) => {
+        if (key === 'A' && value === grown && failGrow) throw new Error('quota');
+        if (key === 'B' && value === big && failRestoreBig) throw new Error('quota');
+        state.set(key, String(value));
+        successfulOps.push(key);
+      },
+      removeItem: key => { state.delete(key); successfulOps.push('rm:' + key); }
+    };
+  };
+
+  const clean = makeStorage({ failGrow: true });
+  const cleanResult = app.commitStagedWrites(clean, new Map([['A', grown], ['B', small]]));
+  assert.equal(cleanResult, false, 'a commit with a completed rollback reports false, not a rollback failure');
+  assert.deepEqual(clean.successfulOps.slice(-2), ['A', 'B'],
+    'rollback must restore in reverse commit order: the grown key returns to its smaller original first');
+
+  const broken = makeStorage({ failGrow: true, failRestoreBig: true });
+  const brokenResult = app.commitStagedWrites(broken, new Map([['A', grown], ['B', small]]));
+  assert.equal(brokenResult, 'rollback-failed',
+    'when the rollback itself cannot finish, the caller must be told the store may be inconsistent');
+
+  // The import toast only claims "reloading restores the old data" when the
+  // rollback completed; a failed rollback takes the honest inconsistent-data path.
+  assert.match(appScript[1], /commitResult === 'rollback-failed'/);
+  assert.match(appScript[1], /dữ liệu trên máy có thể chưa nhất quán\./);
+  assert.match(appScript[1], /'Could not save the imported data and the rollback may be incomplete; data on this device may be inconsistent\.'/);
 });

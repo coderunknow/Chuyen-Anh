@@ -20,6 +20,10 @@ import sys
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 HOLD_FILE = 'DEPLOY_HOLD'
 TAG_RE = re.compile(r'^[A-Za-z0-9][A-Za-z0-9._-]*$')
+# The gate asks GitHub about one release tag; a hung or misbehaving `gh` must
+# not hang the deploy job until the runner's outer timeout. Bounded, and a
+# timeout counts as 'missing' so the deploy stays held.
+RELEASE_STATUS_TIMEOUT_SEC = 15
 
 
 def read_hold(root: pathlib.Path = ROOT) -> tuple[bool, str | None]:
@@ -44,10 +48,19 @@ def read_hold(root: pathlib.Path = ROOT) -> tuple[bool, str | None]:
 
 
 def release_status(tag: str, repo: str) -> str:
-    """Return 'published', 'draft', or 'missing' for the named GitHub release."""
-    result = subprocess.run(
-        ['gh', 'api', f'repos/{repo}/releases/tags/{tag}'],
-        text=True, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, check=False)
+    """Return 'published', 'draft', or 'missing' for the named GitHub release.
+
+    Every failure mode — a non-zero exit, unparseable output, a missing field,
+    an unreachable GitHub, or a `gh` call that exceeds
+    RELEASE_STATUS_TIMEOUT_SEC — resolves to 'missing', which holds the deploy.
+    """
+    try:
+        result = subprocess.run(
+            ['gh', 'api', f'repos/{repo}/releases/tags/{tag}'],
+            text=True, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL,
+            check=False, timeout=RELEASE_STATUS_TIMEOUT_SEC)
+    except (subprocess.TimeoutExpired, OSError):
+        return 'missing'
     if result.returncode != 0:
         return 'missing'
     try:
