@@ -486,7 +486,7 @@ async function main() {
 
     // The shipped build identifies itself.
     await sprint.locator('[data-view="settings"]').click();
-    assert.equal(await sprint.locator('#app-version').innerText(), 'v1.0.0-rc2');
+    assert.equal(await sprint.locator('#app-version').innerText(), 'v1.0.0-rc3');
     assert.deepEqual(sprintErrors, []);
 
     // Error -> intervening word -> typed corrective retrieval -> truthful summary.
@@ -2808,7 +2808,7 @@ async function main() {
     await about.waitFor();
     const aboutText = await about.innerText();
     assert.match(aboutText, /Chuyên Anh/);
-    assert.match(aboutText, /v1\.0\.0-rc2/, 'the About panel shows the shipped version');
+    assert.match(aboutText, /v1\.0\.0-rc3/, 'the About panel shows the shipped version');
     assert.match(aboutText, /MIT License · © 2026 coderunknow/);
     assert.match(aboutText, /Flashcard từ vựng/);
     await about.locator('summary').click();

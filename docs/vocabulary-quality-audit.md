@@ -121,6 +121,11 @@ Mục trắc nghiệm chỉ chứng minh từ đó từng nằm trong một lự
 biên tập và mục từ điển, chưa từng xuất hiện trong 106 bản chép hiện có. Không mục nào bị coi là
 đã xác minh nghĩa trong phiên này.
 
+Nguyên nhân của từng mục nằm trong [`vocabulary-evidence-review.md`](vocabulary-evidence-review.md)
+(`scripts/vocabulary_evidence_review.py`): mỗi headword được xếp vào một nhóm có căn cứ — cụm xuất hiện
+nguyên văn, chỉ có dạng biến đổi, cụm chỉ có các chữ rời, dạng bài kiểm tra gốc từ, chỉ có mục từ điển,
+hoặc chưa tìm được căn cứ — kèm locator khi có. Báo cáo đó không xoá và không lưu trữ mục nào.
+
 ## Độ phủ văn bản đề
 
 - 106 bản chép có **21,321** token khác nhau; **8,179** token nội dung (đã bỏ từ chức năng) xuất hiện ở ≥3 bản.

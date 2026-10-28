@@ -1302,7 +1302,7 @@ test('exported exam results report exactly what the learner did and what could b
   const result = buildExamResultJson(session, record, { now: 6000 });
   assert.equal(result.app, 'Chuyên Anh');
   assert.equal(result.version, APP_VERSION, 'the result carries the application version');
-  assert.equal(result.version, 'v1.0.0-rc2');
+  assert.equal(result.version, 'v1.0.0-rc3');
   assert.equal(result.schemaVersion, '1.0.0');
   assert.deepEqual(result.summary, {
     total: 3, answered: 2, unanswered: 1,

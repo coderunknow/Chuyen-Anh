@@ -28,6 +28,17 @@ on:
       - "docs/vocabulary-audit-dev*.md"
       - "docs/EXAM_AUDIT_LEDGER.md"
       - "scripts/generate_vocab_audit_dev*.py"
+      - "scripts/vocabulary_curation.py"
+      - "scripts/vocabulary_evidence_review.py"
+      - "scripts/audit_vocabulary_quality.py"
+      - "scripts/audit_exam_provenance.py"
+      - "scripts/vocab_sources.py"
+      - "docs/vocabulary-curation.json"
+      - "docs/vocabulary-quality-audit.*"
+      - "docs/vocabulary-evidence-review.*"
+      - "docs/exam-provenance-audit.*"
+      - "docs/exam-crosschecks.json"
+      - "tests/run-browser-suites.sh"
       - "README.md"
       - "CHANGELOG.md"
       - "DESIGN_LOG.md"
@@ -66,6 +77,17 @@ on:
       - "docs/vocabulary-audit-dev*.md"
       - "docs/EXAM_AUDIT_LEDGER.md"
       - "scripts/generate_vocab_audit_dev*.py"
+      - "scripts/vocabulary_curation.py"
+      - "scripts/vocabulary_evidence_review.py"
+      - "scripts/audit_vocabulary_quality.py"
+      - "scripts/audit_exam_provenance.py"
+      - "scripts/vocab_sources.py"
+      - "docs/vocabulary-curation.json"
+      - "docs/vocabulary-quality-audit.*"
+      - "docs/vocabulary-evidence-review.*"
+      - "docs/exam-provenance-audit.*"
+      - "docs/exam-crosschecks.json"
+      - "tests/run-browser-suites.sh"
       - "README.md"
       - "CHANGELOG.md"
       - "DESIGN_LOG.md"
@@ -106,6 +128,9 @@ jobs:
           python scripts/validate_phrases.py
           python scripts/embed_phrases.py --check
           python scripts/exams/embed_archive.py --check
+          python scripts/audit_vocabulary_quality.py --check
+          python scripts/vocabulary_evidence_review.py --check
+          python scripts/audit_exam_provenance.py --check
 
       - name: Run Python unit tests
         run: python -m unittest discover -s tests -p 'test_*.py'
@@ -117,3 +142,48 @@ jobs:
           node-version: 22
       - name: Run static app logic and single-file tests
         run: node --test tests/static-app.test.js
+
+  # The two browser suites were outside CI until rc3. They are sequential on
+  # purpose: two Chromium instances at once have crashed on a 2-CPU runner, and a
+  # crashed browser is not a test result. `playwright-core` is installed here
+  # only — the app stays a single HTML file with no runtime dependency.
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Set up Node for browser tests
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install the browser test harness (no production dependency)
+        run: npm install --no-save --package-lock=false playwright-core@1.55.1 axe-core@4.14.0 @sparticuz/chromium@133.0.0
+
+      - name: Resolve a Chromium executable
+        run: |
+          for candidate in google-chrome google-chrome-stable chromium chromium-browser; do
+            if path="$(command -v "$candidate" 2>/dev/null)"; then
+              echo "BROWSER_EXECUTABLE=$path" >> "$GITHUB_ENV"
+              echo "using $path"
+              exit 0
+            fi
+          done
+          echo "no system Chrome found; the suites will use the bundled @sparticuz/chromium"
+
+      - name: Run both browser suites sequentially
+        run: bash tests/run-browser-suites.sh
+
+      - name: Upload browser screenshots on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-screenshots
+          path: |
+            **/*.png
+          if-no-files-found: ignore
+          retention-days: 7

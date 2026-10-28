@@ -1,8 +1,61 @@
 # Changelog
 
-## v1.0.0-rc2 — release candidate, NOT released (2026-10-26)
+## v1.0.0-rc3 — quality hardening candidate (2026-10-28, NOT released)
 
-**Status: unreleased candidate.** This section describes the state of the RC2 branch (`arena/526d4d8f-chuyen-anh`) on top of `b72a9c6`, the merged `v1.0.0-rc1` candidate, which was tagged `v1.0.0-rc1` on that merge commit and published as a prerelease on 2026-10-25 (verified on GitHub before this work started; the rc1 section below predates that publication and its "NOT released" status line is corrected by this note). No `v1.0.0-rc2` tag, GitHub Release or prerelease exists, no deployment was performed or dispatched, and Pages is unchanged. `DEPLOY_HOLD` names `v1.0.0-rc2`, which has no published release, so the deploy gate reports `deploy=false (release v1.0.0-rc2 is missing; deployment held)` and the gate is **closed**. The audit report is [`docs/RC2_AUDIT_REPORT.md`](docs/RC2_AUDIT_REPORT.md).
+**Status: unreleased candidate.** `APP_VERSION` and `DEPLOY_HOLD` both name `v1.0.0-rc3`; no tag, release, prerelease or deploy
+exists for it, and the Pages gate reports `deploy=false (release v1.0.0-rc3 is missing; deployment held)`. Base: `15a4615`
+(the published rc2, PR #62). This release adds no headword and changes no stored ID, gloss, family note or progress key.
+
+### Vocabulary: the 923-word review queue, classified instead of deleted
+
+- **`scripts/vocabulary_evidence_review.py`** writes `docs/vocabulary-evidence-review.{json,md}`: all **923** focus headwords without
+  an `exam-corpus` source are classified by cause, each with a locator when one exists — **14** whole phrases occur in a
+  transcription, **188** have only a regular inflection/derivation in the corpus (`endorsed` for `endorse`), **5** are multi-word
+  items whose parts occur in one paper but not together, **5** are word-formation/confusable items the exam tests directly,
+  **698** rest on a dictionary locator only, and **13** have no basis found and are named for manual review.
+- **No row was removed, archived or rewritten** by this review. The report separates "not in the corpus" from "not needed": the
+  corpus covers 106 papers, and the absence of a word there is not evidence against it.
+- Surfaced gap, kept visible rather than patched: the builders attach a dictionary locator only to single-word entries, so
+  **0 of the 61 multi-word headwords** carry one. Every phrase/idiom row therefore rests on the learner list plus whatever corpus
+  evidence it has, and the review records that per row (`dictionaryLocator`). Adding Cambridge slugs for multi-word entries without
+  being able to open them would be an unverifiable claim, so it was not done.
+
+### Exam provenance: measured, and two claims corrected
+
+- **`scripts/audit_exam_provenance.py`** writes `docs/exam-provenance-audit.{json,md}` and recomputes every content hash:
+  **106/106** transcriptions match the `sha256_noi_dung` in their own front matter, so a hand edit to a transcription now turns a
+  test red. The reproduction that found this is `tests/test_evidence_reports.py`.
+- **The archive depends on one source.** All 106 papers were captured from `tailieudieuky.com`, a republisher; **0** papers have an
+  official Sở/trường source and **0/106** were compared with an official original.
+- **Answer claims measured:** 74 papers claim answer content, 66 have an answer section or answer table in the stored body, and
+  **8** have neither (named in the report; front-matter labels left untouched because the answers may have been lost during
+  extraction). One of the eight was read line by line: `2026-quang-tri-so` carries only a speaking marking guide.
+- **Manual cross-checks recorded in `docs/exam-crosschecks.json`:** Hải Phòng 2025 5/5 anchors, Đắk Lắk 2023 6/6 anchors
+  (including four answer entries) with one page-count difference, Bình Dương 2025 4/4 anchors. These are independent
+  *reproductions*, not originals, and the file says so.
+
+### Process: browser suites in CI, and a truthful deploy gate
+
+- **Both browser suites now run in CI** as a second job (`browser` in `.github/workflows/ci.yml`), after the static job, through
+  `tests/run-browser-suites.sh`, which runs them **sequentially** and stops at the first failure. `playwright-core` is installed
+  only in that job; the app remains one HTML file with no runtime dependency. Prior to this, both suites were outside CI.
+- **`scripts/deploy_gate.py` no longer blames the release for a missing input.** A local run without `--repo`/`GITHUB_REPOSITORY`
+  used to print "release v1.0.0-rc2 is missing" while the release was published; it now holds the deploy and names the missing
+  repository. Covered by two new tests.
+- The three evidence `--check` commands were added to the CI check step and to the deploy workflow, so a stale report blocks a
+  deploy instead of shipping next to outdated evidence.
+- `APP_VERSION` and `DEPLOY_HOLD` synchronised to `v1.0.0-rc3`; version pins updated in `tests/static-app.test.js`,
+  `tests/browser-learning.cjs`, `tests/test_sprint_exam_features.py`, `tests/test_deploy_gate.py`.
+
+### Still not done
+
+No merge, tag, release, deploy or version publication; no new headword; no gloss re-editing; 0/106 papers verified against an
+official original; browser timings are not re-claimed (see the rc2 performance section — only the search prewarm was outside the
+noise).
+
+## v1.0.0-rc2 — release candidate (2026-10-26; published as a prerelease 2026-10-27)
+
+**Status corrected on 2026-10-28.** The text below was written while rc2 was still a candidate; GitHub now shows tag `v1.0.0-rc2` on commit `15a4615`, a published prerelease (2026-10-27T14:06Z) with HTML/ZIP/checksums assets, and a successful Pages deployment of `15a4615` at 14:21Z. The original wording is kept below for history. This section describes the state of the RC2 branch (`arena/526d4d8f-chuyen-anh`) on top of `b72a9c6`, the merged `v1.0.0-rc1` candidate, which was tagged `v1.0.0-rc1` on that merge commit and published as a prerelease on 2026-10-25 (verified on GitHub before this work started; the rc1 section below predates that publication and its "NOT released" status line is corrected by this note). No `v1.0.0-rc2` tag, GitHub Release or prerelease exists, no deployment was performed or dispatched, and Pages is unchanged. `DEPLOY_HOLD` names `v1.0.0-rc2`, which has no published release, so the deploy gate reports `deploy=false (release v1.0.0-rc2 is missing; deployment held)` and the gate is **closed**. The audit report is [`docs/RC2_AUDIT_REPORT.md`](docs/RC2_AUDIT_REPORT.md).
 
 ### Added: a selectable four-option multiple-choice exercise
 
