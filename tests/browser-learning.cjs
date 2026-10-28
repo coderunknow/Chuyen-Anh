@@ -195,7 +195,7 @@ async function main() {
     // The banner reports the real pool, the real queue and the chosen target.
     assert.match(await sprint.locator('#sprint-title').innerText(), /Học cấp tốc · 10 từ \/ phiên/);
     assert.match(await sprint.locator('#sprint-pool').innerText(),
-      /5112 từ đủ điều kiện · xếp 10 · 10 đến hạn · 10 từ yếu/,
+      /3841 từ đủ điều kiện · xếp 10 · 10 đến hạn · 10 từ yếu/,
       'the banner counts the whole eligible pool and the real queue');
     assert.equal(await sprint.locator('.sprint-banner .recommendation-mark strong').innerText(), '10',
       'the banner shows the configured session size, not a fixed 7');
@@ -1764,7 +1764,7 @@ async function main() {
     await page.locator('[data-session="priority"]').waitFor();
     const untranslated = async () => page.evaluate(() => {
       // The product name stays Vietnamese in both interfaces; everything else must translate.
-      const protectedSelectors = '.exam-document, .exam-question-source, .vocab-word, .vocab-meaning, .vocab-pos, .vocabulary-metadata dd, .prompt, .option, .example em, .example span, .code, .brand-name, .brand-detail, .eyebrow--brand, script, style';
+      const protectedSelectors = '.exam-document, .exam-question-source, .vocab-word, .vocab-meaning, .vocab-pos, .vocabulary-metadata dd, .prompt, .option, .example em, .example span, .code, .brand-name, .brand-detail, .eyebrow--brand, .about-name, script, style';
       const vietnamese = /[àáảãạăâđêôơưèéẻẽẹìíỉĩịòóỏõọùúủũụỳýỷỹỵ]/i;
       const found = [];
       const walk = node => {
@@ -2784,6 +2784,40 @@ async function main() {
       await page.waitForSelector('#brand-link');
     }
 
+    // ---- Curation: an archived row stays findable and labelled, but it is not
+    // part of the learning deck, so it offers no favourite toggle and cannot be
+    // queued into a session.
+    await page.locator('[data-view="search"]').click();
+    await page.locator('#search-field').fill('broom');
+    const archivedRow = page.locator('#results .vocab-row').first();
+    await archivedRow.waitFor();
+    assert.ok(await archivedRow.evaluate(node => node.classList.contains('vocab-row--archived')),
+      'an archived word is visibly marked in search results');
+    assert.equal(await archivedRow.locator('.fav').count(), 0, 'an archived row offers no favourite toggle');
+    assert.match(await archivedRow.locator('.state-pill').innerText(), /Lưu trữ/);
+    await page.locator('#search-field').fill('');
+    await page.locator('#state-filter').selectOption('archived');
+    assert.match(await page.locator('.results-meta').innerText(), /1\.271 kết quả · trang 1\/26 · mục lưu trữ không vào phiên học/,
+      'the archived filter reports the reviewed archive, grouped for the reader, and its scope');
+    assert.match(await page.locator('.brand-detail').innerText(), /3\.841 từ trọng tâm/,
+      'the shell counts the focus deck, not every stored row');
+
+    // ---- About: name, real version, licence from LICENSE and a short purpose.
+    await page.locator('[data-view="settings"]').click();
+    const about = page.locator('.about-panel');
+    await about.waitFor();
+    const aboutText = await about.innerText();
+    assert.match(aboutText, /Chuyên Anh/);
+    assert.match(aboutText, /v1\.0\.0-rc2/, 'the About panel shows the shipped version');
+    assert.match(aboutText, /MIT License · © 2026 coderunknow/);
+    assert.match(aboutText, /Flashcard từ vựng/);
+    await about.locator('summary').click();
+    assert.match(await about.locator('pre').innerText(), /Permission is hereby granted, free of charge/,
+      'the licence text is the real MIT text, not a summary');
+    assert.match(await page.locator('.settings .data-info').last().innerText(), /3\.841 từ trọng tâm · 1\.271 từ lưu trữ/);
+    assert.equal(await page.locator('.skip-link').getAttribute('href'), '#content',
+      'keyboard users can skip the chrome');
+
     const failing = await browser.newPage({ viewport: { width: 1280, height: 900 }, reducedMotion: 'reduce' });
     const failingErrors = [];
     failing.on('pageerror', error => failingErrors.push(error.message));
@@ -2823,7 +2857,7 @@ async function main() {
     await failing.close();
 
     assert.deepEqual(errors, []);
-    console.log(`PASS: Chromium ${browser.version()} — first-look introduction for new words, same-part-of-speech distractors, cloze options absent from the sentence, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, 320/375/768px responsive layout, reduced-motion setting, search state across a favorite toggle, session clearing on reset/import, the ID 448 historical label, named option groups, shortcuts limited to the visible card, failed writes reported truthfully, JSON backup round-trips that keep every retained session, blank spelling submissions ignored, single-graded self-assessment, skip locked after a reveal, and 'Học cấp tốc' processing all ten requested words with a truthful single correction, automatic advance only after correct answers, accurate first-pass statistics, persisted progress, an immediate hand-off with the graded answer carried onto the next card, a queue that never shifts while another screen is open, and interface copy on a consolidation turn translated in the English interface; the beta5 priority configuration with all eight exercise types, a matching board driven from the keyboard, a skipped question reopened from the pending list, a hard word marked and unmarked, a real one-minute timed session that ends on its results with unanswered questions reported as blank, a v1 backup that keeps the device hard-word list, English rendering of every new screen, and the beta6 regressions: a priority session started from Settings opens where the learner can see it, a classic session reports only its own XP, a typed answer survives the star/flag toggles, a sprint honours the timer, a start that cannot run explains itself, a new session inherits no skipped questions, and the beta7 phrase bank: 780 phrases browsed, searched, filtered by type and level, practised for ten turns with typed and multiple-choice retrieval recorded in its own store while word progress stayed byte-identical, English rendering of the phrase screens, and a reset that clears phrase progress; the RC2 remediation regressions: two-tab grades surviving cross-tab writes with wipes never resurrected, an over-quota restore failing atomically with a truthful error then recovering fully once space is freed, the day streak moving only on first-pass correct answers — typed, chosen, self-assessed, and match resolutions alike — and skipped cards counted exactly once, at expiry and in a finished session; no page errors.`);
+    console.log(`PASS: Chromium ${browser.version()} — first-look introduction for new words, same-part-of-speech distractors, cloze options absent from the sentence, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, 320/375/768px responsive layout, reduced-motion setting, search state across a favorite toggle, session clearing on reset/import, the ID 448 historical label, named option groups, shortcuts limited to the visible card, failed writes reported truthfully, JSON backup round-trips that keep every retained session, blank spelling submissions ignored, single-graded self-assessment, skip locked after a reveal, and 'Học cấp tốc' processing all ten requested words with a truthful single correction, automatic advance only after correct answers, accurate first-pass statistics, persisted progress, an immediate hand-off with the graded answer carried onto the next card, a queue that never shifts while another screen is open, and interface copy on a consolidation turn translated in the English interface; the beta5 priority configuration with all eight exercise types, a matching board driven from the keyboard, a skipped question reopened from the pending list, a hard word marked and unmarked, a real one-minute timed session that ends on its results with unanswered questions reported as blank, a v1 backup that keeps the device hard-word list, English rendering of every new screen, and the beta6 regressions: a priority session started from Settings opens where the learner can see it, a classic session reports only its own XP, a typed answer survives the star/flag toggles, a sprint honours the timer, a start that cannot run explains itself, a new session inherits no skipped questions, and the beta7 phrase bank: 780 phrases browsed, searched, filtered by type and level, practised for ten turns with typed and multiple-choice retrieval recorded in its own store while word progress stayed byte-identical, English rendering of the phrase screens, and a reset that clears phrase progress; the RC2 remediation regressions: two-tab grades surviving cross-tab writes with wipes never resurrected, an over-quota restore failing atomically with a truthful error then recovering fully once space is freed, the day streak moving only on first-pass correct answers — typed, chosen, self-assessed, and match resolutions alike — and skipped cards counted exactly once, at expiry and in a finished session; the curation release: an archived word marked in Tra cứu with no favourite toggle and a 1.271-row archived scope, every count driven by the 3.841-word focus deck, and an About panel stating the real version and the MIT licence read from LICENSE; no page errors.`);
   } finally {
     if (browser) await browser.close();
     await new Promise(resolve => server.close(resolve));

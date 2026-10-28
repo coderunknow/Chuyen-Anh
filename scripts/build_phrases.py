@@ -20,7 +20,6 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from phrase_bank import TYPES, display_table, parse_table, phrase_key  # noqa: E402
 from vocab_sources import (  # noqa: E402
     EXAM_ROOT,
-    FRONT_MATTER_RE,
     build_exam_index,
     dedupe_sources,
     dictionary_source,
@@ -47,15 +46,16 @@ class LineIndex:
     """
 
     def __init__(self, root: Path = ROOT) -> None:
-        from vocab_sources import exam_files  # local import keeps module import cheap
+        # Local import keeps module import cheap. `exam_lines` returns the body
+        # with file line numbers, so a phrase locator opens on the right line.
+        from vocab_sources import exam_files, exam_lines
 
         base = root / "De-chuyen-Anh-vao-10" if (root / "De-chuyen-Anh-vao-10").exists() else root
         self.lines: list[tuple[str, int, str]] = []
         self.words: dict[str, set[int]] = {}
         for path in exam_files(base):
-            text = FRONT_MATTER_RE.sub("", path.read_text(encoding="utf-8", errors="replace"))
             relative = path.relative_to(base).as_posix()
-            for number, line in enumerate(text.splitlines(), start=1):
+            for number, line in exam_lines(path):
                 key = phrase_key(line)
                 if not key or len(key) < 4:
                     continue
@@ -139,10 +139,14 @@ def build_rows(seeds: list[dict[str, Any]], root: Path = ROOT,
         evidence = "dictionary"
         if hits:
             relative, line = hits[0]
+            # `hits` is one entry per matching line; the claim counts papers. Two
+            # occurrences in the same paper are one paper, so the number must come
+            # from the distinct files, not from len(hits).
+            papers = len({hit[0] for hit in hits})
             sources.append({
                 "ref": "phrase-corpus",
                 "locator": f"{relative}:L{line}",
-                "supports": f"phrase occurs in {len(hits)} transcribed exam(s)",
+                "supports": f"phrase occurs in {papers} transcribed exam(s)",
             })
             evidence = "exam"
         row = {

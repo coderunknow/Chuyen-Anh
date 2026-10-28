@@ -1,0 +1,383 @@
+{
+ "version": 1,
+ "reviewedAt": "2026-10-27",
+ "method": "Rà soát theo lô hạt giống, theo luật công khai và theo danh sách ngoại lệ đã đọc từng từ. Mỗi mục bị đưa ra khỏi bộ từ học mặc định đều giữ nguyên hàng, ID và tiến độ; lý do là một quyết định biên tập về giá trị phân loại năng lực, không phải kết luận từ điển. Bằng chứng đo được (lô hạt giống, thẻ level biên tập, số bản chép đề có dạng từ) nằm trong docs/vocabulary-quality-audit.json.",
+ "scopeNote": "Chỉ áp dụng cho headword không thuộc 913 hàng legacy (ID 1–913) và không phải từ gốc của một họ từ đã gộp. Hàng bị lưu trữ vẫn nằm trong bảng, trong data/vocabulary.json, trong bản sao lưu và trong màn hình Tra cứu (có nhãn), nhưng không vào phiên học, không vào bộ đếm và không làm phương án nhiễu.",
+ "rules": [
+  {
+   "id": "b1-baseline-general",
+   "category": "basic-b1",
+   "levels": [
+    "B1"
+   ],
+   "types": [
+    "topic",
+    "core",
+    "academic"
+   ],
+   "topics": [],
+   "rationale": "Từ vựng B1 ở mọi chủ đề: người dự thi chuyên Anh đã có vốn này từ chương trình phổ thông, và đề chuyên phân loại bằng từ B2 trở lên, word formation, collocation, từ dễ nhầm, liên từ và đọc hiểu học thuật. Đưa chúng vào phiên học làm loãng tỉ lệ từ có giá trị phân loại. Từ B1 vẫn nằm trong bảng, trong data/vocabulary.json, trong Tra cứu và trong bản sao lưu; chỉ ra khỏi bộ từ trọng tâm.",
+   "exceptions": [
+    "ability",
+    "abroad",
+    "advice",
+    "choice",
+    "interest",
+    "lose",
+    "marriage",
+    "quite"
+   ]
+  }
+ ],
+ "categories": {
+  "everyday-object": {
+   "label": "Đồ vật sinh hoạt, nội thất, dụng cụ, quần áo",
+   "rationale": "Tên gọi vật thể cụ thể trong nhà, nhà bếp, cửa hàng và tủ quần áo. Cấu trúc đề chuyên Anh kiểm tra cách tạo từ, kết hợp từ, từ dễ nhầm, liên từ và đọc hiểu học thuật; các nhãn vật thể này không tạo ra năng lực phân loại và không thuộc nhóm từ vựng học thuật của bài đọc.",
+   "evidence": "Lô hạt giống 13-home-daily, 17-household-clothing và danh sách từ vật thể của lô 15-work-money. Số bản chép đề có dạng từ được đo lại từ 106 bản chép và ghi trong báo cáo kiểm toán; việc một từ xuất hiện trong văn bản đề không phải bằng chứng cho giá trị của mục từ đó."
+  },
+  "food-drink": {
+   "label": "Món ăn, nguyên liệu, dụng cụ bếp",
+   "rationale": "Tên món, loại quả, nguyên liệu, dụng cụ nấu và đồ uống. Đây là phủ chủ đề ẩm thực, không phải từ vựng phân loại năng lực; nghĩa tiếng Việt đúng nhưng mục từ không dạy cấu trúc hay kết hợp từ mà đề kiểm tra.",
+   "evidence": "Lô hạt giống 16-food-drink. Các mục mang giá trị sức khoẻ/dinh dưỡng (allergen, gluten, lactose, cholesterol, malnutrition, colourant, thickener, delicacy, gourmet, buffet, leftovers) được giữ lại làm ngoại lệ đã rà."
+  },
+  "nature-species": {
+   "label": "Loài động vật, thực vật, khoáng vật",
+   "rationale": "Tên loài và tên khoáng vật. Đây là kiến thức bách khoa, không phải từ vựng học thuật dùng để đọc hiểu hay viết luận; giữ chúng làm loãng bộ từ trọng tâm. Các khái niệm địa lý, khí hậu và sinh thái (estuary, lagoon, plateau, monsoon, avalanche, fishery, aquaculture…) được giữ lại.",
+   "evidence": "Lô hạt giống 14-nature-animals; danh sách ngoại lệ đã rà nằm trong khối tương ứng."
+  },
+  "basic-general": {
+   "label": "Từ phổ thông nền tảng",
+   "rationale": "Từ B1 thuộc nhóm chủ đề đời sống, thể thao, du lịch, gia đình và ẩm thực, không có họ từ, không thuộc dạng word formation/confusable/linker. Người thi chuyên Anh đã biết những từ này; giữ chúng trong phiên học làm giảm tỉ lệ từ có giá trị phân loại.",
+   "evidence": "Luật basic-b1-daily áp trên thẻ level/type/topic đã có trong bảng (level là biên tập). Từ thuộc 913 hàng legacy, từ có họ từ và từ thuộc dạng bài cấu trúc được miễn."
+  },
+  "basic-b1": {
+   "label": "Từ B1 nền phổ thông (mọi chủ đề)",
+   "rationale": "Từ vựng B1 ở mọi chủ đề: người dự thi chuyên Anh đã có vốn này từ chương trình phổ thông, và đề chuyên phân loại bằng từ B2 trở lên, word formation, collocation, từ dễ nhầm, liên từ và đọc hiểu học thuật. Đưa chúng vào phiên học làm loãng tỉ lệ từ có giá trị phân loại. Từ B1 vẫn nằm trong bảng, trong data/vocabulary.json, trong Tra cứu và trong bản sao lưu; chỉ ra khỏi bộ từ trọng tâm.",
+   "evidence": "Luật b1-baseline-general áp trên thẻ level/type đã có trong bảng (level là biên tập, level-source:editorial). Miễn trừ: từ thuộc dạng word-formation/confusable/linker (giá trị cấu trúc đề), từ gốc của một họ từ đã gộp, 913 hàng legacy, và danh sách ngoại lệ đã rà trong luật."
+  }
+ },
+ "blocks": [
+  {
+   "seed": "13-home-daily.tsv",
+   "category": "everyday-object",
+   "rationale": "Lô này phủ tên đồ vật, nội thất, dụng cụ, đồ ăn, bộ phận cơ thể, dụng cụ thể thao và đồ dùng học tập trong nhà. Ngoại lệ giữ lại là các từ học thuật/hệ thống (giáo dục, y tế) và các từ có nghĩa bóng dùng được trong bài luận.",
+   "exceptions": [
+    "canvas",
+    "coursework",
+    "diploma",
+    "dissertation",
+    "diving",
+    "hunting",
+    "hurdle",
+    "invigilator",
+    "lung",
+    "midwife",
+    "muscle",
+    "nausea",
+    "rash",
+    "relay",
+    "rowing",
+    "sprint",
+    "swelling",
+    "tutorial",
+    "ward",
+    "workshop"
+   ]
+  },
+  {
+   "seed": "16-food-drink.tsv",
+   "category": "food-drink",
+   "rationale": "Lô này là danh mục trái cây, rau, món ăn, nguyên liệu và dụng cụ bếp. Ngoại lệ là các từ dinh dưỡng/sức khoẻ có mặt trong bài đọc khoa học và đời sống.",
+   "exceptions": [
+    "allergen",
+    "gluten",
+    "lactose",
+    "cholesterol",
+    "malnutrition",
+    "colourant",
+    "thickener",
+    "delicacy",
+    "gourmet",
+    "buffet",
+    "leftovers"
+   ]
+  },
+  {
+   "seed": "17-household-clothing.tsv",
+   "category": "everyday-object",
+   "rationale": "Toàn bộ lô là đồ dùng vệ sinh, nhà bếp, quần áo và dụng cụ cầm tay; không có mục nào thuộc cấu trúc đề.",
+   "exceptions": [
+    "sole"
+   ]
+  },
+  {
+   "seed": "14-nature-animals.tsv",
+   "category": "nature-species",
+   "rationale": "Lô này mở đầu bằng tên loài và khoáng vật; các mục địa lý, khí hậu, sinh thái và khoa học được giữ làm ngoại lệ.",
+   "exceptions": [
+    "reef",
+    "lagoon",
+    "estuary",
+    "marsh",
+    "swamp",
+    "bog",
+    "pond",
+    "brook",
+    "creek",
+    "delta",
+    "iceberg",
+    "canyon",
+    "gorge",
+    "ravine",
+    "cliff",
+    "ridge",
+    "slope",
+    "plateau",
+    "prairie",
+    "meadow",
+    "pasture",
+    "orchard",
+    "vineyard",
+    "farmland",
+    "soil",
+    "clay",
+    "sand",
+    "deluge",
+    "landslide",
+    "avalanche",
+    "tremor",
+    "aftershock",
+    "typhoon",
+    "cyclone",
+    "tornado",
+    "blizzard",
+    "hail",
+    "sleet",
+    "drizzle",
+    "downpour",
+    "thunderstorm",
+    "lightning",
+    "thunder",
+    "breeze",
+    "gale",
+    "gust",
+    "whirlwind",
+    "monsoon",
+    "muggy",
+    "humid",
+    "frigid",
+    "polar",
+    "equator",
+    "latitude",
+    "longitude",
+    "altitude",
+    "horizon",
+    "dusk",
+    "dawn",
+    "sunrise",
+    "sunset",
+    "twilight",
+    "constellation",
+    "galaxy",
+    "meteor",
+    "asteroid",
+    "comet",
+    "momentum",
+    "electron",
+    "proton",
+    "neutron",
+    "isotope",
+    "enzyme",
+    "carbohydrate",
+    "fibre",
+    "fungal",
+    "pastureland",
+    "fishery",
+    "aquaculture",
+    "hatchery"
+   ]
+  }
+ ],
+ "words": [
+  {
+   "word": "trolley",
+   "category": "everyday-object"
+  },
+  {
+   "word": "basket",
+   "category": "everyday-object"
+  },
+  {
+   "word": "scissors",
+   "category": "everyday-object"
+  },
+  {
+   "word": "printer",
+   "category": "everyday-object"
+  },
+  {
+   "word": "scanner",
+   "category": "everyday-object"
+  },
+  {
+   "word": "photocopier",
+   "category": "everyday-object"
+  },
+  {
+   "word": "shredder",
+   "category": "everyday-object"
+  },
+  {
+   "word": "headphones",
+   "category": "everyday-object"
+  },
+  {
+   "word": "earbuds",
+   "category": "everyday-object"
+  },
+  {
+   "word": "microphone",
+   "category": "everyday-object"
+  },
+  {
+   "word": "webcam",
+   "category": "everyday-object"
+  },
+  {
+   "word": "modem",
+   "category": "everyday-object"
+  },
+  {
+   "word": "clipboard",
+   "category": "everyday-object"
+  },
+  {
+   "word": "stamp",
+   "category": "everyday-object"
+  },
+  {
+   "word": "banknote",
+   "category": "everyday-object"
+  },
+  {
+   "word": "coin",
+   "category": "everyday-object"
+  },
+  {
+   "word": "till",
+   "category": "everyday-object"
+  }
+ ],
+ "reviewNotes": [
+  {
+   "word": "result",
+   "decision": "archived",
+   "reason": "Danh từ B1 nền; giá trị thi của nó nằm ở kết hợp từ và liên từ, mà kho cụm từ đã dạy riêng: `result in` (P517), `result from` (P518), `as a result` (P635), `as a result of` (P489). Giữ lại từ đơn sẽ lặp lại nội dung đã có."
+  },
+  {
+   "word": "order",
+   "decision": "archived",
+   "reason": "Cụm mục đích `in order to` là linker-phrase P673 trong kho cụm từ; nghĩa “thứ tự/đặt hàng” của từ đơn là vốn phổ thông."
+  },
+  {
+   "word": "fact",
+   "decision": "archived",
+   "reason": "Cụm `in fact` là linker-phrase P696. Bản thân “fact” là danh từ B1 không phân loại năng lực."
+  },
+  {
+   "word": "example",
+   "decision": "archived",
+   "reason": "`for example` là linker-phrase P644; “example” xuất hiện ở 93 bản chép vì đó là từ của chính đề (\"for example\"), không phải từ vựng cần học riêng."
+  },
+  {
+   "word": "time",
+   "decision": "archived",
+   "reason": "Xuất hiện ở 106 bản chép, nhưng phần lớn là nhãn thời gian và cụm chức năng của đề (time limit, at the same time). Đây là từ tần suất cao vì văn bản đề, không phải vì đề kiểm tra nó."
+  },
+  {
+   "word": "word",
+   "decision": "archived",
+   "reason": "106 bản chép vì hướng dẫn đề dùng “word” (\"write ONE word\"); tần suất này là của thể loại văn bản, không phải của bài kiểm tra từ vựng."
+  },
+  {
+   "word": "ability",
+   "decision": "kept (ngoại lệ)",
+   "reason": "B1 theo thẻ, nhưng là dạng phái sinh của `able` và xuất hiện trong cấu trúc “the ability to do”, một mẫu danh từ hoá mà đề dùng."
+  },
+  {
+   "word": "advice",
+   "decision": "kept (ngoại lệ)",
+   "reason": "Cặp dễ nhầm advice/advise (danh từ không đếm được) là dạng confusable quen thuộc của đề; cùng gốc với `advise` trong bảng."
+  },
+  {
+   "word": "choice",
+   "decision": "kept (ngoại lệ)",
+   "reason": "Cặp choose/choice và cấu trúc “have no choice but to” thuộc word formation và collocation."
+  },
+  {
+   "word": "lose",
+   "decision": "kept (ngoại lệ)",
+   "reason": "Cặp dễ nhầm lose/loose; đã có trong lô 09-word-formation-confusables."
+  },
+  {
+   "word": "marriage",
+   "decision": "kept (ngoại lệ)",
+   "reason": "Dạng danh từ của marry; đề dùng cả hai dạng trong câu về gia đình/hôn nhân."
+  },
+  {
+   "word": "interest",
+   "decision": "kept (ngoại lệ)",
+   "reason": "Đa nghĩa (quan tâm / lãi suất / sở thích) và có cụm “be interested in”, “take an interest in”."
+  },
+  {
+   "word": "quite",
+   "decision": "kept (ngoại lệ)",
+   "reason": "Cặp dễ nhầm quite/quiet và là trạng từ mức độ trong đề."
+  },
+  {
+   "word": "abroad",
+   "decision": "kept (ngoại lệ)",
+   "reason": "Cặp dễ nhầm abroad/aboard; trạng từ không có giới từ đi kèm là điểm ngữ pháp đề hỏi."
+  },
+  {
+   "word": "sole",
+   "decision": "kept (ngoại lệ)",
+   "reason": "Tính từ “duy nhất” và danh từ “lòng bàn chân” là cặp đồng âm khác nghĩa; đề dùng nghĩa tính từ."
+  },
+  {
+   "word": "artery",
+   "decision": "archived (đã cân nhắc giữ)",
+   "reason": "Đã cân nhắc giữ vì thuộc nhóm đọc hiểu sức khoẻ, nhưng **0/106** bản chép có dạng `artery`; giữ lại sẽ là một mục không có bằng chứng. Nếu sau này có bản chép dùng từ này, thêm lại bằng ngoại lệ trong khối 13."
+  },
+  {
+   "word": "kidney",
+   "decision": "archived (đã cân nhắc giữ)",
+   "reason": "Cùng lý do với `artery`: 0/106 bản chép. `lung` (13 dòng) và `muscle` (5 dòng) thì có bằng chứng nên được giữ."
+  },
+  {
+   "word": "fuse",
+   "decision": "archived",
+   "reason": "0/106 bản chép; là tên vật thể cụ thể (cầu chì) nên không có giá trị phân loại. Nghĩa động từ “hợp nhất” chỉ có trong từ điển, không có trong bản chép."
+  },
+  {
+   "word": "canvas",
+   "decision": "kept (ngoại lệ)",
+   "reason": "Có 2 dòng trong bản chép (chất liệu vải); cặp canvas/canvass là bẫy chính tả quen thuộc, dù `canvass` không xuất hiện trong 106 bản chép này — phần này là đánh giá biên tập, không phải bằng chứng văn bản."
+  },
+  {
+   "word": "sole",
+   "decision": "kept (ngoại lệ)",
+   "reason": "Có 6 dòng trong bản chép. Từ này vừa là tính từ “duy nhất” vừa là danh từ “lòng bàn chân”, nên giữ lại để phân biệt nghĩa; quyết định dựa trên bằng chứng xuất hiện, không dựa trên danh sách chủ đề."
+  },
+  {
+   "word": "lung",
+   "decision": "kept (ngoại lệ)",
+   "reason": "13 dòng trong bản chép, thuộc bài đọc về sức khoẻ/hô hấp — đúng loại văn bản đề dùng, không phải tên vật thể trong nhà."
+  },
+  {
+   "word": "muscle",
+   "decision": "kept (ngoại lệ)",
+   "reason": "5 dòng trong bản chép, có cả trong bài đọc về dinh dưỡng (muscle/fat)."
+  }
+ ]
+}

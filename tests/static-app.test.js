@@ -88,6 +88,9 @@ const {
   SPRINT_CONSOLIDATION_GAP,
   shouldHandOffImmediately,
   APP_VERSION,
+  LICENSE_TEXT,
+  isArchivedEntry,
+  shouldPrewarmSearchIndex,
   DEFAULT_PREFS,
   loadExamHistory,
   saveExamHistory,
@@ -300,13 +303,69 @@ test('same-root forms are folded into their headword, never counted as words', a
   for (const item of adversity) assert.equal(item.entry.familyHead, undefined);
 });
 
-test('the learner-facing word count is a headword count', async () => {
+// The About panel is the only place the app states what it is, what version it
+// is and under which licence it ships. Each of those is read from a real source
+// (LICENSE, APP_VERSION) instead of being retyped in the markup, and this test
+// fails if the embedded licence ever drifts from the file.
+test('the About panel states the real name, version, licence and purpose', async () => {
+  const licenceFile = await readFile(new URL('../LICENSE', import.meta.url), 'utf8');
+  assert.equal(LICENSE_TEXT.trim(), licenceFile.trim(), 'the embedded licence must equal LICENSE');
+  assert.match(LICENSE_TEXT, /^MIT License/);
+  assert.match(LICENSE_TEXT, /Copyright \(c\) 2026 coderunknow/);
+  assert.match(appScript[1], /class="panel about-panel"/, 'About lives in its own panel');
+  assert.match(appScript[1], /about-version">\$\{escapeHtml\(APP_VERSION\)\}/);
+  assert.match(appScript[1], /LICENSE_NAME/);
+  assert.match(appScript[1], /LICENSE_COPYRIGHT/);
+  // The product name is the product name in both interfaces: the About heading
+  // carries `.about-name`, which the English localiser leaves alone.
+  assert.match(appScript[1], /<h2 class="about-name">Chuyên Anh<\/h2>/);
+  assert.match(appScript[1], /\.code, \.about-name'/);
+  assert.match(appScript[1], /about-tagline/);
+  // Purpose is one short paragraph, not documentation: the panel keeps a tagline,
+  // one description and the licence-details toggle.
+  assert.match(appScript[1], /about-description/);
+  assert.match(appScript[1], /<details class="about-license">/);
+  // Per-word "Info" is v1.1.0 scope: this panel must not render per-word metadata.
+  assert.ok(!/about-(entry|word)-info/.test(appScript[1]), 'per-word Info must stay out of this release');
+});
+
+// The search-index prewarm is a latency trade with a memory cost, so it is gated
+// by a pure predicate that can be tested without a browser. The default (unknown
+// device memory, a visible tab, no save-data signal) warms; the three cases where
+// that trade is wrong do not.
+test('the search index is only warmed where warming is free', () => {
+  assert.equal(shouldPrewarmSearchIndex({}), true, 'the default case warms');
+  assert.equal(shouldPrewarmSearchIndex({ visibility: 'visible', deviceMemory: 8 }), true);
+  assert.equal(shouldPrewarmSearchIndex({ visibility: 'hidden' }), false, 'a hidden tab has nobody waiting');
+  assert.equal(shouldPrewarmSearchIndex({ saveData: true }), false, 'save-data connections are respected');
+  assert.equal(shouldPrewarmSearchIndex({ deviceMemory: 2 }), false, 'a 2 GB device keeps the cold path');
+  assert.equal(shouldPrewarmSearchIndex({ deviceMemory: 0.5 }), false);
+  assert.equal(shouldPrewarmSearchIndex({ deviceMemory: undefined }), true, 'unknown memory is not "low"');
+  assert.equal(shouldPrewarmSearchIndex({ deviceMemory: '4' }), true, 'the reported value is a string in some builds');
+  assert.equal(shouldPrewarmSearchIndex({ deviceMemory: 'bogus' }), true);
+  // The app wires the real signals into it instead of hard-coding a decision.
+  assert.match(appScript[1], /shouldPrewarmSearchIndex\(\{\s*visibility: document\.visibilityState/);
+  assert.match(appScript[1], /navigator\.connection\?\.saveData/);
+});
+
+test('the learner-facing word count is the focus deck, not every stored row', async () => {
   const loaded = await loadVocabulary(embeddedRaw);
   const active = loaded.data.filter(entry => !entry.familyHead);
   assert.equal(active.length, 5112);
+  const archived = active.filter(entry => isArchivedEntry(entry));
+  assert.equal(archived.length, 1271);
+  assert.equal(active.length - archived.length, 3841);
+  // Every archived headword names a reviewed category, and no legacy row (the
+  // maintainer's own list, IDs 1-913) is ever archived.
+  for (const entry of archived) {
+    const category = entry.tags.find(tag => tag.startsWith('curation-category:'));
+    assert.ok(category, `${entry.word} carries an archived tag without a category`);
+    assert.ok(Number(entry.id) > 913, `${entry.word} is a legacy row`);
+  }
   // The table and the JSON keep the merged rows for audit; the UI count is the
-  // number of roots, and the data panel states the family rule explicitly.
-  assert.match(appScript[1], /formatCount\(vocabulary\.length\)/);
+  // focus deck, and the data panel states both counts and the family rule.
+  assert.match(appScript[1], /formatCount\(deck\.length\)/);
+  assert.match(appScript[1], /formatCount\(archivedIds\.size\)/);
   assert.match(appScript[1], /formatCount\(familyHeadOf\.size\)/);
   assert.match(appScript[1], /Quy tắc gốc từ/);
 
@@ -317,21 +376,22 @@ test('the learner-facing word count is a headword count', async () => {
   assert.equal(formatCount(5112), '5.112');
   assert.equal(formatCount(5112, 'en'), '5,112');
   assert.equal(formatCount(0), '0');
-  assert.equal(translateUiText('5.112 từ gốc', 'en'), '5,112 headwords');
-  assert.equal(translateUiText('5112 từ gốc', 'en'), '5,112 headwords');
-  assert.equal(translateUiText('1 từ gốc', 'en'), '1 headword');
-  assert.equal(translateUiText('Flashcard · 5.112 từ gốc · kho đề offline', 'en'),
-    'Flashcards · 5,112 headwords · offline exam archive');
+  assert.equal(translateUiText('3.841 từ trọng tâm', 'en'), '3,841 focus words');
+  assert.equal(translateUiText('3841 từ trọng tâm', 'en'), '3,841 focus words');
+  assert.equal(translateUiText('1 từ trọng tâm', 'en'), '1 focus word');
+  assert.equal(translateUiText('1.271 từ lưu trữ', 'en'), '1,271 archived words');
+  assert.equal(translateUiText('Flashcard · 3.841 từ trọng tâm · kho đề offline', 'en'),
+    'Flashcards · 3,841 focus words · offline exam archive');
   assert.equal(translateUiText('740 dạng cùng gốc', 'en'), '740 same-root forms');
-  assert.equal(translateUiText('Tìm theo tiếng Anh, tiếng Việt, từ loại, tag hoặc ví dụ · 5.112 từ gốc.', 'en'),
-    'Search English, Vietnamese, part of speech, tags, or examples · 5,112 headwords.');
+  assert.equal(translateUiText('Tìm theo tiếng Anh, tiếng Việt, từ loại, tag hoặc ví dụ · 3.841 từ trọng tâm · 1.271 từ lưu trữ.', 'en'),
+    'Search English, Vietnamese, part of speech, tags, or examples · 3,841 focus words · 1,271 archived words.');
   // Merged forms are explained as notes in both languages, not as words.
   assert.equal(translateUiText('Quy tắc gốc từ:', 'en'), 'Root rule:');
   assert.equal(translateUiText('mỗi gốc từ chỉ tính là một từ vựng. Các dạng cùng gốc (ví dụ số nhiều, thì, phái sinh) không phải mục riêng; chúng được ghi ở dòng “Họ từ” của từ gốc.', 'en'),
     'each word root counts as one vocabulary item. Same-root forms (for example plurals, tenses and derivations) are not separate entries; they are recorded in the “Word family” line of the headword.');
   // The phrase bank keeps its own count and is not folded into the word count.
   assert.equal(translateUiText('780 cụm từ', 'en'), '780 phrases');
-  assert.equal(translateUiText('5.112 từ gốc', 'vi'), '5.112 từ gốc');
+  assert.equal(translateUiText('3.841 từ trọng tâm', 'vi'), '3.841 từ trọng tâm');
 });
 
 test('exam archive filters by year, location, format and unit', () => {
@@ -2625,9 +2685,26 @@ test('the search count is normalised before its noun is chosen', () => {
   assert.equal(english('1.001'), `${prefix}1,001 words.`);
   assert.equal(english('5.112'), `${prefix}5,112 words.`);
   assert.equal(english('10.000'), `${prefix}10,000 words.`);
+  // The Tra cứu result line groups its count the same way, in both languages, and
+  // the archived scope note survives translation.
+  assert.equal(translateUiText('1271 kết quả · trang 1/26', 'en'), '1,271 results · page 1 of 26');
+  assert.equal(translateUiText('1 kết quả · trang 1/1', 'en'), '1 result · page 1 of 1');
+  // The archived scope note is rendered as its own element, so each text node
+  // translates by itself; the separator between them is its own aria-hidden
+  // element, so neither translatable node carries it. A single node carrying both
+  // used to come out half-translated (English count, Vietnamese tail).
+  assert.equal(translateUiText('mục lưu trữ không vào phiên học', 'en'), 'archived entries are outside study sessions');
+  assert.equal(translateUiText('1.271 kết quả · trang 1/26', 'en'), '1,271 results · page 1 of 26');
+  assert.match(appScript[1], /<span class="results-scope">mục lưu trữ không vào phiên học<\/span>/);
+  assert.match(appScript[1], /<span class="results-sep" aria-hidden="true"> · <\/span><span class="results-scope">/,
+    'the count and the scope note stay separate text nodes, so each translates on its own');
+  assert.doesNotMatch(styleBlock[1], /\.results-scope::before/,
+    'the separator is markup, not CSS content: copy-paste and assistive tech must see it');
+  assert.match(styleBlock[1], /\.results-scope \{ color: var\(--muted\)/,
+    'the scope note keeps the muted emphasis it had inside the count line');
   // The sibling pattern behind the real page header keeps the same behaviour.
-  assert.equal(translateUiText('Tìm theo tiếng Anh, tiếng Việt, từ loại, tag hoặc ví dụ · 5.112 từ gốc.', 'en'),
-    `${prefix}5,112 headwords.`);
+  assert.equal(translateUiText('Tìm theo tiếng Anh, tiếng Việt, từ loại, tag hoặc ví dụ · 5.112 từ trọng tâm · 944 từ lưu trữ.', 'en'),
+    `${prefix}5,112 focus words · 944 archived words.`);
   // Vietnamese rendering is untouched.
   assert.equal(translateUiText(header('1.000'), 'vi'), header('1.000'));
 });

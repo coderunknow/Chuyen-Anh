@@ -46,6 +46,12 @@ from vocabulary_families import (  # noqa: E402
     is_merged,
     validate as validate_families,
 )
+from vocabulary_curation import (  # noqa: E402
+    apply_curation,
+    is_archived,
+    load_spec as load_curation_spec,
+    validate as validate_curation,
+)
 from vocab_sources import (  # noqa: E402
     build_exam_index,
     dedupe_sources,
@@ -232,18 +238,27 @@ def legacy_sources(record: dict[str, Any], index: dict[str, dict[str, Any]]) -> 
                 cited = lines[int(line_text) - 1]
             except (IndexError, ValueError):
                 continue
-            if record["word"].lower() in cited.lower():
-                sources.append(exam_source(f"{relative}:L{line_text}", 1))
+            observed = next((token for token in re.findall(r"[A-Za-z][A-Za-z'-]*", cited)
+                             if token.lower().startswith(record["word"].lower())), None)
+            if observed:
+                sources.append(exam_source(f"{relative}:L{line_text}", 1, observed))
     if len(record["word"].split()) == 1:
         sources.append(dictionary_source(record["word"]))
     hit = exam_locator(index, record["word"])
     if hit:
-        sources.append(exam_source(hit["locator"], hit["documents"]))
+        sources.append(exam_source(hit["locator"], hit["documents"], words=hit["words"], shown=hit["shown"]))
     return dedupe_sources(sources)
 
 
-def build_table(records: list[dict[str, Any]], index: dict[str, dict[str, Any]]) -> tuple[list[dict[str, Any]], list[dict[str, str]], list[str]]:
-    """Return (rows, skipped seeds, problems)."""
+def build_table(records: list[dict[str, Any]], index: dict[str, dict[str, Any]],
+                curation: dict[str, Any] | None = None,
+                seed_origin: dict[str, str] | None = None) -> tuple[list[dict[str, Any]], list[dict[str, str]], list[str]]:
+    """Return (rows, skipped seeds, problems).
+
+    `curation` is the reviewed `docs/vocabulary-curation.json` map and
+    `seed_origin` maps a normalised seed word to its seed file, so the map's
+    topic blocks can be applied without re-reading the seeds here.
+    """
     problems: list[str] = []
     legacy = records[:LEGACY_COUNT]
     if len(records) < LEGACY_COUNT:
@@ -267,7 +282,7 @@ def build_table(records: list[dict[str, Any]], index: dict[str, dict[str, Any]])
         sources = [dictionary_source(seed["word"])]
         hit = exam_locator(index, seed["word"])
         if hit:
-            sources.append(exam_source(hit["locator"], hit["documents"]))
+            sources.append(exam_source(hit["locator"], hit["documents"], words=hit["words"], shown=hit["shown"]))
         else:
             evidence = "dictionary"
         row = {
@@ -292,6 +307,17 @@ def build_table(records: list[dict[str, Any]], index: dict[str, dict[str, Any]])
     apply_families(rows)
     problems.extend(validate_families(rows))
 
+    # Curation runs after the root rule: only active headwords can be archived,
+    # and a merged form always follows its headword.
+    if curation is not None:
+        origins = seed_origin
+        if origins is None:
+            origins = {}
+            for seed in read_seeds():
+                origins.setdefault(token_key(seed["word"]), seed["file"])
+        apply_curation(rows, curation, origins)
+        problems.extend(validate_curation(rows, curation))
+
     registry = load_registry()
     for row in rows:
         for message in validate_sources(row["sources"], registry):
@@ -313,7 +339,7 @@ def main(argv: Iterable[str] | None = None) -> int:
     try:
         records = parse_table(args.markdown)
         index = build_exam_index()
-        rows, skipped, problems = build_table(records, index)
+        rows, skipped, problems = build_table(records, index, load_curation_spec())
         if problems:
             raise ValueError("source problems:\n" + "\n".join(problems[:40]))
         rendered = display_table(rows)
@@ -339,6 +365,7 @@ def main(argv: Iterable[str] | None = None) -> int:
             kind_source = next(tag.split(":", 1)[1] for tag in tags if tag.startswith("source:"))
             evidence[kind_source] = evidence.get(kind_source, 0) + 1
         args.report.parent.mkdir(parents=True, exist_ok=True)
+        archived_rows = [row for row in rows if is_archived(row.get("tags"))]
         args.report.write_text(json.dumps({
             "generatedBy": "scripts/expand_vocabulary.py",
             "legacyRows": LEGACY_COUNT,
@@ -352,6 +379,8 @@ def main(argv: Iterable[str] | None = None) -> int:
             "newByType": dict(sorted(by_type.items())),
             "newByTopic": dict(sorted(by_topic.items())),
             "newByEvidence": dict(sorted(evidence.items())),
+            "archivedRows": len(archived_rows),
+            "retainedHeadwords": len([row for row in active_rows if not is_archived(row.get("tags"))]),
         }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
     if args.check:

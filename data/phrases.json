@@ -24,8 +24,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/dak-lak/so.md:L101",
-        "supports": "phrase occurs in 17 transcribed exam(s)"
+        "locator": "2022/dak-lak/so.md:L114",
+        "supports": "phrase occurs in 12 transcribed exam(s)"
       }
     ]
   },
@@ -53,7 +53,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/long-an/so.md:L73",
+        "locator": "2022/long-an/so.md:L86",
         "supports": "phrase occurs in 9 transcribed exam(s)"
       }
     ]
@@ -82,8 +82,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-ninh/so.md:L338",
-        "supports": "phrase occurs in 11 transcribed exam(s)"
+        "locator": "2022/bac-ninh/so.md:L351",
+        "supports": "phrase occurs in 10 transcribed exam(s)"
       }
     ]
   },
@@ -111,8 +111,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-thuan/so.md:L593",
-        "supports": "phrase occurs in 6 transcribed exam(s)"
+        "locator": "2022/binh-thuan/so.md:L606",
+        "supports": "phrase occurs in 5 transcribed exam(s)"
       }
     ]
   },
@@ -140,8 +140,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/lai-chau/so.md:L122",
-        "supports": "phrase occurs in 6 transcribed exam(s)"
+        "locator": "2025/lai-chau/so.md:L135",
+        "supports": "phrase occurs in 5 transcribed exam(s)"
       }
     ]
   },
@@ -169,7 +169,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/an-giang/so.md:L175",
+        "locator": "2022/an-giang/so.md:L188",
         "supports": "phrase occurs in 18 transcribed exam(s)"
       }
     ]
@@ -198,8 +198,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/bac-giang/so.md:L1042",
-        "supports": "phrase occurs in 3 transcribed exam(s)"
+        "locator": "2025/bac-giang/so.md:L1055",
+        "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
   },
@@ -251,7 +251,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/ba-ria-vung-tau/so.md:L196",
+        "locator": "2025/ba-ria-vung-tau/so.md:L209",
         "supports": "phrase occurs in 4 transcribed exam(s)"
       }
     ]
@@ -280,7 +280,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/dong-nai/so.md:L67",
+        "locator": "2023/dong-nai/so.md:L80",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -309,7 +309,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/bac-giang/so.md:L798",
+        "locator": "2025/bac-giang/so.md:L811",
         "supports": "phrase occurs in 4 transcribed exam(s)"
       }
     ]
@@ -338,8 +338,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-phuoc/so.md:L635",
-        "supports": "phrase occurs in 4 transcribed exam(s)"
+        "locator": "2022/binh-phuoc/so.md:L648",
+        "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
   },
@@ -367,7 +367,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ha-nam/so.md:L251",
+        "locator": "2022/ha-nam/so.md:L264",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -396,7 +396,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/dong-nai/so.md:L145",
+        "locator": "2023/dong-nai/so.md:L158",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -425,7 +425,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/quang-binh/so.md:L163",
+        "locator": "2023/quang-binh/so.md:L176",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -478,8 +478,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ca-mau/so.md:L169",
-        "supports": "phrase occurs in 20 transcribed exam(s)"
+        "locator": "2022/ca-mau/so.md:L182",
+        "supports": "phrase occurs in 15 transcribed exam(s)"
       }
     ]
   },
@@ -507,7 +507,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2024/tp-ho-chi-minh/so.md:L141",
+        "locator": "2024/tp-ho-chi-minh/so.md:L154",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -536,7 +536,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/bac-giang/so.md:L233",
+        "locator": "2025/bac-giang/so.md:L246",
         "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
@@ -565,8 +565,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/an-giang/so.md:L58",
-        "supports": "phrase occurs in 113 transcribed exam(s)"
+        "locator": "2022/an-giang/so.md:L71",
+        "supports": "phrase occurs in 60 transcribed exam(s)"
       }
     ]
   },
@@ -594,8 +594,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/an-giang/so.md:L141",
-        "supports": "phrase occurs in 39 transcribed exam(s)"
+        "locator": "2022/an-giang/so.md:L154",
+        "supports": "phrase occurs in 28 transcribed exam(s)"
       }
     ]
   },
@@ -623,8 +623,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-ninh/so.md:L595",
-        "supports": "phrase occurs in 35 transcribed exam(s)"
+        "locator": "2022/bac-ninh/so.md:L608",
+        "supports": "phrase occurs in 26 transcribed exam(s)"
       }
     ]
   },
@@ -652,7 +652,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/dak-lak/so.md:L165",
+        "locator": "2022/dak-lak/so.md:L178",
         "supports": "phrase occurs in 4 transcribed exam(s)"
       }
     ]
@@ -681,7 +681,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ha-noi/chuyen-su-pham.md:L63",
+        "locator": "2022/ha-noi/chuyen-su-pham.md:L76",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -710,8 +710,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2024/tp-ho-chi-minh/so.md:L71",
-        "supports": "phrase occurs in 4 transcribed exam(s)"
+        "locator": "2024/tp-ho-chi-minh/so.md:L84",
+        "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
   },
@@ -739,7 +739,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/tien-giang/so.md:L847",
+        "locator": "2022/tien-giang/so.md:L860",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -768,8 +768,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/quang-ngai/so.md:L349",
-        "supports": "phrase occurs in 8 transcribed exam(s)"
+        "locator": "2022/quang-ngai/so.md:L362",
+        "supports": "phrase occurs in 7 transcribed exam(s)"
       }
     ]
   },
@@ -797,8 +797,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/binh-duong/so.md:L333",
-        "supports": "phrase occurs in 5 transcribed exam(s)"
+        "locator": "2023/binh-duong/so.md:L346",
+        "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
   },
@@ -826,7 +826,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/ha-nam/so.md:L153",
+        "locator": "2025/ha-nam/so.md:L166",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -855,7 +855,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/dong-nai/so.md:L125",
+        "locator": "2025/dong-nai/so.md:L138",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -884,7 +884,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/dak-nong/so.md:L238",
+        "locator": "2023/dak-nong/so.md:L251",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -913,8 +913,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-ninh/so.md:L423",
-        "supports": "phrase occurs in 8 transcribed exam(s)"
+        "locator": "2022/bac-ninh/so.md:L436",
+        "supports": "phrase occurs in 7 transcribed exam(s)"
       }
     ]
   },
@@ -942,8 +942,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/vinh-phuc/so.md:L148",
-        "supports": "phrase occurs in 5 transcribed exam(s)"
+        "locator": "2023/vinh-phuc/so.md:L161",
+        "supports": "phrase occurs in 4 transcribed exam(s)"
       }
     ]
   },
@@ -971,7 +971,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/vinh-phuc/so.md:L148",
+        "locator": "2023/vinh-phuc/so.md:L161",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -1000,8 +1000,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/an-giang/so.md:L63",
-        "supports": "phrase occurs in 33 transcribed exam(s)"
+        "locator": "2022/an-giang/so.md:L76",
+        "supports": "phrase occurs in 26 transcribed exam(s)"
       }
     ]
   },
@@ -1029,7 +1029,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-thuan/so.md:L319",
+        "locator": "2022/binh-thuan/so.md:L332",
         "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
@@ -1058,8 +1058,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ha-noi/chuyen-su-pham.md:L97",
-        "supports": "phrase occurs in 5 transcribed exam(s)"
+        "locator": "2022/ha-noi/chuyen-su-pham.md:L110",
+        "supports": "phrase occurs in 4 transcribed exam(s)"
       }
     ]
   },
@@ -1087,7 +1087,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/dong-thap/so.md:L494",
+        "locator": "2025/dong-thap/so.md:L507",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -1116,8 +1116,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/ba-ria-vung-tau/so.md:L319",
-        "supports": "phrase occurs in 4 transcribed exam(s)"
+        "locator": "2025/ba-ria-vung-tau/so.md:L332",
+        "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
   },
@@ -1145,8 +1145,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-ninh/so.md:L435",
-        "supports": "phrase occurs in 3 transcribed exam(s)"
+        "locator": "2022/bac-ninh/so.md:L448",
+        "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
   },
@@ -1174,8 +1174,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-giang/so.md:L145",
-        "supports": "phrase occurs in 5 transcribed exam(s)"
+        "locator": "2022/bac-giang/so.md:L158",
+        "supports": "phrase occurs in 4 transcribed exam(s)"
       }
     ]
   },
@@ -1203,8 +1203,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-kan/so.md:L201",
-        "supports": "phrase occurs in 10 transcribed exam(s)"
+        "locator": "2022/bac-kan/so.md:L214",
+        "supports": "phrase occurs in 9 transcribed exam(s)"
       }
     ]
   },
@@ -1232,7 +1232,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ninh-thuan/so.md:L157",
+        "locator": "2022/ninh-thuan/so.md:L170",
         "supports": "phrase occurs in 5 transcribed exam(s)"
       }
     ]
@@ -1261,7 +1261,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2026/tp-ho-chi-minh/ptnk.md:L139",
+        "locator": "2026/tp-ho-chi-minh/ptnk.md:L152",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -1290,8 +1290,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/hai-phong/so.md:L632",
-        "supports": "phrase occurs in 2 transcribed exam(s)"
+        "locator": "2022/hai-phong/so.md:L645",
+        "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
   },
@@ -1319,7 +1319,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-giang/so.md:L145",
+        "locator": "2022/bac-giang/so.md:L158",
         "supports": "phrase occurs in 5 transcribed exam(s)"
       }
     ]
@@ -1348,8 +1348,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-kan/so.md:L58",
-        "supports": "phrase occurs in 11 transcribed exam(s)"
+        "locator": "2022/bac-kan/so.md:L71",
+        "supports": "phrase occurs in 9 transcribed exam(s)"
       }
     ]
   },
@@ -1377,7 +1377,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/hai-phong/so.md:L366",
+        "locator": "2022/hai-phong/so.md:L379",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -1406,8 +1406,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-duong/so.md:L1435",
-        "supports": "phrase occurs in 5 transcribed exam(s)"
+        "locator": "2022/binh-duong/so.md:L1448",
+        "supports": "phrase occurs in 4 transcribed exam(s)"
       }
     ]
   },
@@ -1435,7 +1435,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2024/vinh-phuc/so.md:L844",
+        "locator": "2024/vinh-phuc/so.md:L857",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -1464,8 +1464,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/soc-trang/so.md:L108",
-        "supports": "phrase occurs in 7 transcribed exam(s)"
+        "locator": "2023/soc-trang/so.md:L121",
+        "supports": "phrase occurs in 6 transcribed exam(s)"
       }
     ]
   },
@@ -1541,8 +1541,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-giang/so.md:L408",
-        "supports": "phrase occurs in 20 transcribed exam(s)"
+        "locator": "2022/bac-giang/so.md:L421",
+        "supports": "phrase occurs in 17 transcribed exam(s)"
       }
     ]
   },
@@ -1570,7 +1570,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/phu-tho/so.md:L124",
+        "locator": "2022/phu-tho/so.md:L137",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -1599,7 +1599,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/phu-tho/so.md:L124",
+        "locator": "2022/phu-tho/so.md:L137",
         "supports": "phrase occurs in 5 transcribed exam(s)"
       }
     ]
@@ -1628,7 +1628,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ha-noi/chuyen-su-pham.md:L63",
+        "locator": "2022/ha-noi/chuyen-su-pham.md:L76",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -1657,8 +1657,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/dak-lak/so.md:L351",
-        "supports": "phrase occurs in 8 transcribed exam(s)"
+        "locator": "2023/dak-lak/so.md:L364",
+        "supports": "phrase occurs in 7 transcribed exam(s)"
       }
     ]
   },
@@ -1686,7 +1686,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/da-nang/so.md:L111",
+        "locator": "2025/da-nang/so.md:L124",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -1715,8 +1715,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-thuan/so.md:L541",
-        "supports": "phrase occurs in 11 transcribed exam(s)"
+        "locator": "2022/binh-thuan/so.md:L554",
+        "supports": "phrase occurs in 9 transcribed exam(s)"
       }
     ]
   },
@@ -1744,8 +1744,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/thai-nguyen/so.md:L160",
-        "supports": "phrase occurs in 16 transcribed exam(s)"
+        "locator": "2022/thai-nguyen/so.md:L173",
+        "supports": "phrase occurs in 15 transcribed exam(s)"
       }
     ]
   },
@@ -1773,7 +1773,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-kan/so.md:L226",
+        "locator": "2022/bac-kan/so.md:L239",
         "supports": "phrase occurs in 7 transcribed exam(s)"
       }
     ]
@@ -1802,7 +1802,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-giang/so.md:L145",
+        "locator": "2022/bac-giang/so.md:L158",
         "supports": "phrase occurs in 4 transcribed exam(s)"
       }
     ]
@@ -1831,7 +1831,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/tp-ho-chi-minh/ptnk.md:L709",
+        "locator": "2023/tp-ho-chi-minh/ptnk.md:L722",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -1860,8 +1860,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-ninh/so.md:L453",
-        "supports": "phrase occurs in 22 transcribed exam(s)"
+        "locator": "2022/bac-ninh/so.md:L466",
+        "supports": "phrase occurs in 19 transcribed exam(s)"
       }
     ]
   },
@@ -1889,8 +1889,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-thuan/so.md:L501",
-        "supports": "phrase occurs in 8 transcribed exam(s)"
+        "locator": "2022/binh-thuan/so.md:L514",
+        "supports": "phrase occurs in 7 transcribed exam(s)"
       }
     ]
   },
@@ -1918,7 +1918,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/hai-phong/so.md:L439",
+        "locator": "2022/hai-phong/so.md:L452",
         "supports": "phrase occurs in 5 transcribed exam(s)"
       }
     ]
@@ -1947,8 +1947,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/dong-thap/so.md:L305",
-        "supports": "phrase occurs in 2 transcribed exam(s)"
+        "locator": "2022/dong-thap/so.md:L318",
+        "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
   },
@@ -1976,7 +1976,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/dong-nai/so.md:L453",
+        "locator": "2022/dong-nai/so.md:L466",
         "supports": "phrase occurs in 5 transcribed exam(s)"
       }
     ]
@@ -2005,7 +2005,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/binh-thuan/so.md:L649",
+        "locator": "2023/binh-thuan/so.md:L662",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -2034,7 +2034,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/binh-duong/so.md:L467",
+        "locator": "2023/binh-duong/so.md:L480",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -2063,7 +2063,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/binh-thuan/so.md:L164",
+        "locator": "2023/binh-thuan/so.md:L177",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -2092,8 +2092,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/hai-phong/so.md:L239",
-        "supports": "phrase occurs in 4 transcribed exam(s)"
+        "locator": "2022/hai-phong/so.md:L252",
+        "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
   },
@@ -2121,8 +2121,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/tp-ho-chi-minh/so.md:L141",
-        "supports": "phrase occurs in 3 transcribed exam(s)"
+        "locator": "2023/tp-ho-chi-minh/so.md:L154",
+        "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
   },
@@ -2150,7 +2150,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-giang/so.md:L145",
+        "locator": "2022/bac-giang/so.md:L158",
         "supports": "phrase occurs in 5 transcribed exam(s)"
       }
     ]
@@ -2203,8 +2203,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-ninh/so.md:L348",
-        "supports": "phrase occurs in 7 transcribed exam(s)"
+        "locator": "2022/bac-ninh/so.md:L361",
+        "supports": "phrase occurs in 6 transcribed exam(s)"
       }
     ]
   },
@@ -2232,7 +2232,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ha-nam/so.md:L121",
+        "locator": "2022/ha-nam/so.md:L134",
         "supports": "phrase occurs in 8 transcribed exam(s)"
       }
     ]
@@ -2261,7 +2261,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ha-noi/so.md:L537",
+        "locator": "2022/ha-noi/so.md:L550",
         "supports": "phrase occurs in 8 transcribed exam(s)"
       }
     ]
@@ -2290,8 +2290,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/thai-nguyen/so.md:L257",
-        "supports": "phrase occurs in 4 transcribed exam(s)"
+        "locator": "2022/thai-nguyen/so.md:L270",
+        "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
   },
@@ -2319,8 +2319,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/hai-phong/so.md:L573",
-        "supports": "phrase occurs in 8 transcribed exam(s)"
+        "locator": "2022/hai-phong/so.md:L586",
+        "supports": "phrase occurs in 6 transcribed exam(s)"
       }
     ]
   },
@@ -2348,7 +2348,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/long-an/so.md:L141",
+        "locator": "2022/long-an/so.md:L154",
         "supports": "phrase occurs in 5 transcribed exam(s)"
       }
     ]
@@ -2377,8 +2377,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-duong/so.md:L561",
-        "supports": "phrase occurs in 8 transcribed exam(s)"
+        "locator": "2022/binh-duong/so.md:L574",
+        "supports": "phrase occurs in 7 transcribed exam(s)"
       }
     ]
   },
@@ -2406,7 +2406,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ninh-binh/so.md:L128",
+        "locator": "2022/ninh-binh/so.md:L141",
         "supports": "phrase occurs in 4 transcribed exam(s)"
       }
     ]
@@ -2435,7 +2435,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/tp-ho-chi-minh/ptnk.md:L173",
+        "locator": "2023/tp-ho-chi-minh/ptnk.md:L186",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -2464,8 +2464,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/dong-thap/so.md:L305",
-        "supports": "phrase occurs in 11 transcribed exam(s)"
+        "locator": "2022/dong-thap/so.md:L318",
+        "supports": "phrase occurs in 7 transcribed exam(s)"
       }
     ]
   },
@@ -2493,8 +2493,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/hai-duong/so.md:L61",
-        "supports": "phrase occurs in 26 transcribed exam(s)"
+        "locator": "2022/hai-duong/so.md:L74",
+        "supports": "phrase occurs in 20 transcribed exam(s)"
       }
     ]
   },
@@ -2522,7 +2522,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/thai-nguyen/so.md:L186",
+        "locator": "2022/thai-nguyen/so.md:L199",
         "supports": "phrase occurs in 8 transcribed exam(s)"
       }
     ]
@@ -2551,7 +2551,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/thai-nguyen/so.md:L186",
+        "locator": "2022/thai-nguyen/so.md:L199",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -2580,8 +2580,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/ha-nam/so.md:L218",
-        "supports": "phrase occurs in 3 transcribed exam(s)"
+        "locator": "2025/ha-nam/so.md:L231",
+        "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
   },
@@ -2609,7 +2609,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/quang-ngai/so.md:L355",
+        "locator": "2022/quang-ngai/so.md:L368",
         "supports": "phrase occurs in 6 transcribed exam(s)"
       }
     ]
@@ -2638,8 +2638,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-thuan/so.md:L499",
-        "supports": "phrase occurs in 7 transcribed exam(s)"
+        "locator": "2022/binh-thuan/so.md:L512",
+        "supports": "phrase occurs in 6 transcribed exam(s)"
       }
     ]
   },
@@ -2667,7 +2667,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ha-nam/so.md:L173",
+        "locator": "2022/ha-nam/so.md:L186",
         "supports": "phrase occurs in 4 transcribed exam(s)"
       }
     ]
@@ -2696,7 +2696,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2024/da-nang/so.md:L144",
+        "locator": "2024/da-nang/so.md:L157",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -2725,7 +2725,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2026/an-giang/so.md:L218",
+        "locator": "2026/an-giang/so.md:L231",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -2754,7 +2754,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2026/lao-cai/so.md:L743",
+        "locator": "2026/lao-cai/so.md:L756",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -2783,7 +2783,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/kon-tum/so.md:L377",
+        "locator": "2025/kon-tum/so.md:L390",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -2836,8 +2836,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/dong-nai/so.md:L123",
-        "supports": "phrase occurs in 9 transcribed exam(s)"
+        "locator": "2025/dong-nai/so.md:L136",
+        "supports": "phrase occurs in 7 transcribed exam(s)"
       }
     ]
   },
@@ -2865,7 +2865,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/tay-ninh/so.md:L135",
+        "locator": "2022/tay-ninh/so.md:L148",
         "supports": "phrase occurs in 5 transcribed exam(s)"
       }
     ]
@@ -2894,8 +2894,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ha-noi/chuyen-su-pham.md:L97",
-        "supports": "phrase occurs in 4 transcribed exam(s)"
+        "locator": "2022/ha-noi/chuyen-su-pham.md:L110",
+        "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
   },
@@ -2923,8 +2923,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/an-giang/so.md:L188",
-        "supports": "phrase occurs in 26 transcribed exam(s)"
+        "locator": "2022/an-giang/so.md:L201",
+        "supports": "phrase occurs in 20 transcribed exam(s)"
       }
     ]
   },
@@ -2952,8 +2952,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-kan/so.md:L122",
-        "supports": "phrase occurs in 17 transcribed exam(s)"
+        "locator": "2022/bac-kan/so.md:L135",
+        "supports": "phrase occurs in 15 transcribed exam(s)"
       }
     ]
   },
@@ -2981,7 +2981,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/tien-giang/so.md:L769",
+        "locator": "2022/tien-giang/so.md:L782",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -3010,8 +3010,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/ha-nam/so.md:L218",
-        "supports": "phrase occurs in 2 transcribed exam(s)"
+        "locator": "2025/ha-nam/so.md:L231",
+        "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
   },
@@ -3039,8 +3039,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/ba-ria-vung-tau/so.md:L301",
-        "supports": "phrase occurs in 10 transcribed exam(s)"
+        "locator": "2025/ba-ria-vung-tau/so.md:L314",
+        "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
   },
@@ -3068,7 +3068,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/tay-ninh/so.md:L338",
+        "locator": "2022/tay-ninh/so.md:L351",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -3121,8 +3121,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-giang/so.md:L174",
-        "supports": "phrase occurs in 10 transcribed exam(s)"
+        "locator": "2022/bac-giang/so.md:L187",
+        "supports": "phrase occurs in 9 transcribed exam(s)"
       }
     ]
   },
@@ -3150,7 +3150,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2026/lao-cai/so.md:L349",
+        "locator": "2026/lao-cai/so.md:L362",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -3203,8 +3203,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2024/tp-ho-chi-minh/so.md:L71",
-        "supports": "phrase occurs in 2 transcribed exam(s)"
+        "locator": "2024/tp-ho-chi-minh/so.md:L84",
+        "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
   },
@@ -3232,7 +3232,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2024/vinh-phuc/so.md:L378",
+        "locator": "2024/vinh-phuc/so.md:L391",
         "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
@@ -3261,7 +3261,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2026/quang-ninh/so.md:L663",
+        "locator": "2026/quang-ninh/so.md:L676",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -3290,8 +3290,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-giang/so.md:L157",
-        "supports": "phrase occurs in 12 transcribed exam(s)"
+        "locator": "2022/bac-giang/so.md:L170",
+        "supports": "phrase occurs in 11 transcribed exam(s)"
       }
     ]
   },
@@ -3343,7 +3343,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ninh-binh/so.md:L235",
+        "locator": "2022/ninh-binh/so.md:L248",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -3372,7 +3372,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/tp-ho-chi-minh/ptnk.md:L1131",
+        "locator": "2023/tp-ho-chi-minh/ptnk.md:L1144",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -3401,7 +3401,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-giang/so.md:L437",
+        "locator": "2022/bac-giang/so.md:L450",
         "supports": "phrase occurs in 4 transcribed exam(s)"
       }
     ]
@@ -3454,7 +3454,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/thua-thien-hue/so.md:L639",
+        "locator": "2023/thua-thien-hue/so.md:L652",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -3483,7 +3483,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/hai-phong/so.md:L477",
+        "locator": "2023/hai-phong/so.md:L490",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -3512,7 +3512,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/dak-lak/so.md:L227",
+        "locator": "2022/dak-lak/so.md:L240",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -3541,7 +3541,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/dong-thap/so.md:L242",
+        "locator": "2023/dong-thap/so.md:L255",
         "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
@@ -3594,7 +3594,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2026/ninh-binh/so.md:L633",
+        "locator": "2026/ninh-binh/so.md:L646",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -3623,7 +3623,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/hai-duong/so.md:L787",
+        "locator": "2022/hai-duong/so.md:L800",
         "supports": "phrase occurs in 5 transcribed exam(s)"
       }
     ]
@@ -3652,7 +3652,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/tien-giang/so.md:L247",
+        "locator": "2025/tien-giang/so.md:L260",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -3681,7 +3681,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2024/ben-tre/so.md:L492",
+        "locator": "2024/ben-tre/so.md:L505",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -3734,7 +3734,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-ninh/so.md:L598",
+        "locator": "2022/bac-ninh/so.md:L611",
         "supports": "phrase occurs in 10 transcribed exam(s)"
       }
     ]
@@ -3763,7 +3763,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/tp-ho-chi-minh/so.md:L44",
+        "locator": "2025/tp-ho-chi-minh/so.md:L57",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -3792,7 +3792,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/hai-phong/so.md:L568",
+        "locator": "2022/hai-phong/so.md:L581",
         "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
@@ -3845,8 +3845,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2024/tp-ho-chi-minh/so.md:L254",
-        "supports": "phrase occurs in 5 transcribed exam(s)"
+        "locator": "2024/tp-ho-chi-minh/so.md:L267",
+        "supports": "phrase occurs in 4 transcribed exam(s)"
       }
     ]
   },
@@ -3898,7 +3898,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2024/ha-noi/so.md:L778",
+        "locator": "2024/ha-noi/so.md:L791",
         "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
@@ -3927,7 +3927,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-duong/so.md:L725",
+        "locator": "2022/binh-duong/so.md:L738",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -3956,7 +3956,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/phu-yen/so.md:L491",
+        "locator": "2023/phu-yen/so.md:L504",
         "supports": "phrase occurs in 5 transcribed exam(s)"
       }
     ]
@@ -4009,8 +4009,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/thai-nguyen/so.md:L163",
-        "supports": "phrase occurs in 7 transcribed exam(s)"
+        "locator": "2022/thai-nguyen/so.md:L176",
+        "supports": "phrase occurs in 6 transcribed exam(s)"
       }
     ]
   },
@@ -4038,8 +4038,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/hai-phong/so.md:L250",
-        "supports": "phrase occurs in 2 transcribed exam(s)"
+        "locator": "2022/hai-phong/so.md:L263",
+        "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
   },
@@ -4067,8 +4067,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/hai-phong/so.md:L581",
-        "supports": "phrase occurs in 7 transcribed exam(s)"
+        "locator": "2022/hai-phong/so.md:L594",
+        "supports": "phrase occurs in 6 transcribed exam(s)"
       }
     ]
   },
@@ -4096,8 +4096,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-duong/so.md:L243",
-        "supports": "phrase occurs in 5 transcribed exam(s)"
+        "locator": "2022/binh-duong/so.md:L256",
+        "supports": "phrase occurs in 4 transcribed exam(s)"
       }
     ]
   },
@@ -4149,7 +4149,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/hai-phong/so.md:L611",
+        "locator": "2022/hai-phong/so.md:L624",
         "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
@@ -4178,7 +4178,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ninh-thuan/so.md:L304",
+        "locator": "2022/ninh-thuan/so.md:L317",
         "supports": "phrase occurs in 6 transcribed exam(s)"
       }
     ]
@@ -4231,7 +4231,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/quang-ngai/so.md:L184",
+        "locator": "2025/quang-ngai/so.md:L197",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -4260,7 +4260,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/bac-ninh/so.md:L134",
+        "locator": "2023/bac-ninh/so.md:L147",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -4289,8 +4289,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/ba-ria-vung-tau/so.md:L129",
-        "supports": "phrase occurs in 2 transcribed exam(s)"
+        "locator": "2023/ba-ria-vung-tau/so.md:L142",
+        "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
   },
@@ -4318,8 +4318,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/ha-nam/so.md:L218",
-        "supports": "phrase occurs in 2 transcribed exam(s)"
+        "locator": "2025/ha-nam/so.md:L231",
+        "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
   },
@@ -4395,7 +4395,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2026/tay-ninh/so.md:L172",
+        "locator": "2026/tay-ninh/so.md:L185",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -4424,8 +4424,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/phu-yen/so.md:L347",
-        "supports": "phrase occurs in 4 transcribed exam(s)"
+        "locator": "2023/phu-yen/so.md:L360",
+        "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
   },
@@ -4453,8 +4453,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/ba-ria-vung-tau/so.md:L340",
-        "supports": "phrase occurs in 4 transcribed exam(s)"
+        "locator": "2023/ba-ria-vung-tau/so.md:L353",
+        "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
   },
@@ -4482,7 +4482,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/dak-lak/so.md:L903",
+        "locator": "2025/dak-lak/so.md:L916",
         "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
@@ -4535,7 +4535,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/vinh-phuc/so.md:L153",
+        "locator": "2023/vinh-phuc/so.md:L166",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -4564,8 +4564,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/nam-dinh/so.md:L243",
-        "supports": "phrase occurs in 8 transcribed exam(s)"
+        "locator": "2023/nam-dinh/so.md:L256",
+        "supports": "phrase occurs in 7 transcribed exam(s)"
       }
     ]
   },
@@ -4593,8 +4593,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/dong-nai/so.md:L269",
-        "supports": "phrase occurs in 4 transcribed exam(s)"
+        "locator": "2025/dong-nai/so.md:L282",
+        "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
   },
@@ -4622,7 +4622,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/hai-duong/so.md:L575",
+        "locator": "2022/hai-duong/so.md:L588",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -4651,7 +4651,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/bac-giang/so.md:L269",
+        "locator": "2025/bac-giang/so.md:L282",
         "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
@@ -4680,8 +4680,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/hai-duong/so.md:L559",
-        "supports": "phrase occurs in 16 transcribed exam(s)"
+        "locator": "2022/hai-duong/so.md:L572",
+        "supports": "phrase occurs in 14 transcribed exam(s)"
       }
     ]
   },
@@ -4709,7 +4709,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/phu-tho/so.md:L130",
+        "locator": "2025/phu-tho/so.md:L143",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -4738,8 +4738,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/ha-nam/so.md:L218",
-        "supports": "phrase occurs in 2 transcribed exam(s)"
+        "locator": "2025/ha-nam/so.md:L231",
+        "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
   },
@@ -4767,8 +4767,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/binh-thuan/so.md:L356",
-        "supports": "phrase occurs in 4 transcribed exam(s)"
+        "locator": "2023/binh-thuan/so.md:L369",
+        "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
   },
@@ -4844,7 +4844,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/bac-giang/so.md:L204",
+        "locator": "2025/bac-giang/so.md:L217",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -4921,7 +4921,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2026/vinh-long/so.md:L340",
+        "locator": "2026/vinh-long/so.md:L353",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -4974,8 +4974,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/nghe-an/so.md:L1471",
-        "supports": "phrase occurs in 5 transcribed exam(s)"
+        "locator": "2025/nghe-an/so.md:L1484",
+        "supports": "phrase occurs in 4 transcribed exam(s)"
       }
     ]
   },
@@ -5027,7 +5027,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/vinh-phuc/so.md:L236",
+        "locator": "2025/vinh-phuc/so.md:L249",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -5080,7 +5080,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/hai-phong/so.md:L491",
+        "locator": "2023/hai-phong/so.md:L504",
         "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
@@ -5181,8 +5181,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/hai-phong/so.md:L110",
-        "supports": "phrase occurs in 4 transcribed exam(s)"
+        "locator": "2022/hai-phong/so.md:L123",
+        "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
   },
@@ -5307,7 +5307,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/soc-trang/so.md:L99",
+        "locator": "2022/soc-trang/so.md:L112",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -5384,7 +5384,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2026/thanh-hoa/so.md:L712",
+        "locator": "2026/thanh-hoa/so.md:L725",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -5437,7 +5437,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-thuan/so.md:L631",
+        "locator": "2022/binh-thuan/so.md:L644",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -5490,7 +5490,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2026/ha-tinh/so.md:L435",
+        "locator": "2026/ha-tinh/so.md:L448",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -5567,7 +5567,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2026/tay-ninh/so.md:L160",
+        "locator": "2026/tay-ninh/so.md:L173",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -5596,7 +5596,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/dong-nai/so.md:L559",
+        "locator": "2022/dong-nai/so.md:L572",
         "supports": "phrase occurs in 5 transcribed exam(s)"
       }
     ]
@@ -5697,8 +5697,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/quang-ninh/so.md:L219",
-        "supports": "phrase occurs in 5 transcribed exam(s)"
+        "locator": "2022/quang-ninh/so.md:L232",
+        "supports": "phrase occurs in 4 transcribed exam(s)"
       }
     ]
   },
@@ -5726,7 +5726,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/ha-noi/chuyen-su-pham.md:L533",
+        "locator": "2023/ha-noi/chuyen-su-pham.md:L546",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -5779,7 +5779,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ha-noi/chuyen-su-pham.md:L156",
+        "locator": "2022/ha-noi/chuyen-su-pham.md:L169",
         "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
@@ -5880,7 +5880,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/binh-thuan/so.md:L192",
+        "locator": "2023/binh-thuan/so.md:L205",
         "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
@@ -5981,7 +5981,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2026/tay-ninh/so.md:L180",
+        "locator": "2026/tay-ninh/so.md:L193",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -6010,7 +6010,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/dong-nai/so.md:L251",
+        "locator": "2022/dong-nai/so.md:L264",
         "supports": "phrase occurs in 5 transcribed exam(s)"
       }
     ]
@@ -6063,7 +6063,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ha-noi/chuyen-su-pham.md:L330",
+        "locator": "2022/ha-noi/chuyen-su-pham.md:L343",
         "supports": "phrase occurs in 6 transcribed exam(s)"
       }
     ]
@@ -6092,7 +6092,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/thua-thien-hue/so.md:L445",
+        "locator": "2023/thua-thien-hue/so.md:L458",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -6121,7 +6121,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/thai-binh/so.md:L163",
+        "locator": "2025/thai-binh/so.md:L176",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -6174,7 +6174,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2024/thanh-hoa/so.md:L252",
+        "locator": "2024/thanh-hoa/so.md:L265",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -6203,7 +6203,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/tp-ho-chi-minh/so.md:L485",
+        "locator": "2023/tp-ho-chi-minh/so.md:L498",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -6256,7 +6256,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/nghe-an/so.md:L705",
+        "locator": "2025/nghe-an/so.md:L718",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -6309,7 +6309,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/bac-giang/so.md:L914",
+        "locator": "2025/bac-giang/so.md:L927",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -6410,8 +6410,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/hai-phong/so.md:L373",
-        "supports": "phrase occurs in 4 transcribed exam(s)"
+        "locator": "2022/hai-phong/so.md:L386",
+        "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
   },
@@ -6487,7 +6487,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2026/da-nang/so.md:L73",
+        "locator": "2026/da-nang/so.md:L86",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -6516,7 +6516,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-duong/so.md:L1219",
+        "locator": "2022/binh-duong/so.md:L1232",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -6545,7 +6545,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ha-noi/so.md:L410",
+        "locator": "2022/ha-noi/so.md:L423",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -6574,7 +6574,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-phuoc/so.md:L781",
+        "locator": "2022/binh-phuoc/so.md:L794",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -6603,7 +6603,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-ninh/so.md:L237",
+        "locator": "2022/bac-ninh/so.md:L250",
         "supports": "phrase occurs in 4 transcribed exam(s)"
       }
     ]
@@ -6632,7 +6632,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2026/dong-nai/so.md:L666",
+        "locator": "2026/dong-nai/so.md:L679",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -6853,7 +6853,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2026/da-nang/so.md:L85",
+        "locator": "2026/da-nang/so.md:L98",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -6882,7 +6882,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/ha-noi/chuyen-su-pham.md:L667",
+        "locator": "2023/ha-noi/chuyen-su-pham.md:L680",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -6911,7 +6911,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/bac-giang/so.md:L223",
+        "locator": "2025/bac-giang/so.md:L236",
         "supports": "phrase occurs in 6 transcribed exam(s)"
       }
     ]
@@ -6940,7 +6940,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/ha-noi/so.md:L221",
+        "locator": "2023/ha-noi/so.md:L234",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -6993,7 +6993,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/binh-duong/so.md:L653",
+        "locator": "2023/binh-duong/so.md:L666",
         "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
@@ -7046,7 +7046,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/bac-giang/so.md:L817",
+        "locator": "2025/bac-giang/so.md:L830",
         "supports": "phrase occurs in 4 transcribed exam(s)"
       }
     ]
@@ -7099,7 +7099,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2026/gia-lai/so.md:L274",
+        "locator": "2026/gia-lai/so.md:L287",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -7152,8 +7152,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/dong-thap/so.md:L355",
-        "supports": "phrase occurs in 3 transcribed exam(s)"
+        "locator": "2022/dong-thap/so.md:L368",
+        "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
   },
@@ -7253,8 +7253,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/nghe-an/so.md:L1372",
-        "supports": "phrase occurs in 2 transcribed exam(s)"
+        "locator": "2025/nghe-an/so.md:L1385",
+        "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
   },
@@ -7282,7 +7282,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2026/tay-ninh/so.md:L225",
+        "locator": "2026/tay-ninh/so.md:L238",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -7311,8 +7311,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ninh-thuan/so.md:L398",
-        "supports": "phrase occurs in 7 transcribed exam(s)"
+        "locator": "2022/ninh-thuan/so.md:L411",
+        "supports": "phrase occurs in 4 transcribed exam(s)"
       }
     ]
   },
@@ -7340,7 +7340,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/tp-ho-chi-minh/ptnk.md:L193",
+        "locator": "2023/tp-ho-chi-minh/ptnk.md:L206",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -7489,8 +7489,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/ba-ria-vung-tau/so.md:L143",
-        "supports": "phrase occurs in 3 transcribed exam(s)"
+        "locator": "2023/ba-ria-vung-tau/so.md:L156",
+        "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
   },
@@ -7542,8 +7542,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ha-nam/so.md:L423",
-        "supports": "phrase occurs in 6 transcribed exam(s)"
+        "locator": "2022/ha-nam/so.md:L436",
+        "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
   },
@@ -7571,7 +7571,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/phu-tho/so.md:L143",
+        "locator": "2025/phu-tho/so.md:L156",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -7624,7 +7624,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/phu-tho/so.md:L201",
+        "locator": "2022/phu-tho/so.md:L214",
         "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
@@ -7653,7 +7653,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/thai-nguyen/so.md:L292",
+        "locator": "2022/thai-nguyen/so.md:L305",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -7682,8 +7682,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/ba-ria-vung-tau/so.md:L878",
-        "supports": "phrase occurs in 4 transcribed exam(s)"
+        "locator": "2023/ba-ria-vung-tau/so.md:L891",
+        "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
   },
@@ -7855,7 +7855,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2026/quang-tri/so.md:L574",
+        "locator": "2026/quang-tri/so.md:L587",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -7884,7 +7884,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/dak-lak/so.md:L233",
+        "locator": "2025/dak-lak/so.md:L246",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -7913,7 +7913,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/tp-ho-chi-minh/ptnk.md:L235",
+        "locator": "2023/tp-ho-chi-minh/ptnk.md:L248",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -7990,7 +7990,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/thai-binh/so.md:L163",
+        "locator": "2025/thai-binh/so.md:L176",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -8043,7 +8043,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-phuoc/so.md:L1175",
+        "locator": "2022/binh-phuoc/so.md:L1188",
         "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
@@ -8144,7 +8144,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2024/tp-ho-chi-minh/so.md:L147",
+        "locator": "2024/tp-ho-chi-minh/so.md:L160",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -8173,7 +8173,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/phu-yen/so.md:L795",
+        "locator": "2023/phu-yen/so.md:L808",
         "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
@@ -8250,8 +8250,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/quang-binh/so.md:L100",
-        "supports": "phrase occurs in 5 transcribed exam(s)"
+        "locator": "2023/quang-binh/so.md:L113",
+        "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
   },
@@ -8327,8 +8327,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/kon-tum/so.md:L207",
-        "supports": "phrase occurs in 2 transcribed exam(s)"
+        "locator": "2025/kon-tum/so.md:L220",
+        "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
   },
@@ -8380,7 +8380,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2024/tp-ho-chi-minh/so.md:L164",
+        "locator": "2024/tp-ho-chi-minh/so.md:L177",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -8433,8 +8433,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/thai-nguyen/so.md:L415",
-        "supports": "phrase occurs in 2 transcribed exam(s)"
+        "locator": "2022/thai-nguyen/so.md:L428",
+        "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
   },
@@ -8462,7 +8462,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2026/tay-ninh/so.md:L160",
+        "locator": "2026/tay-ninh/so.md:L173",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -8491,7 +8491,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-duong/so.md:L307",
+        "locator": "2022/binh-duong/so.md:L320",
         "supports": "phrase occurs in 8 transcribed exam(s)"
       }
     ]
@@ -8616,7 +8616,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/ba-ria-vung-tau/so.md:L184",
+        "locator": "2025/ba-ria-vung-tau/so.md:L197",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -8694,8 +8694,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ninh-thuan/so.md:L120",
-        "supports": "phrase occurs in 4 transcribed exam(s)"
+        "locator": "2022/ninh-thuan/so.md:L133",
+        "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
   },
@@ -8747,7 +8747,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-giang/so.md:L134",
+        "locator": "2022/bac-giang/so.md:L147",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -8800,7 +8800,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/tp-ho-chi-minh/ptnk.md:L295",
+        "locator": "2022/tp-ho-chi-minh/ptnk.md:L308",
         "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
@@ -8877,7 +8877,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/binh-duong/so.md:L931",
+        "locator": "2023/binh-duong/so.md:L944",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -8930,8 +8930,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/ba-ria-vung-tau/so.md:L318",
-        "supports": "phrase occurs in 6 transcribed exam(s)"
+        "locator": "2023/ba-ria-vung-tau/so.md:L331",
+        "supports": "phrase occurs in 5 transcribed exam(s)"
       }
     ]
   },
@@ -8959,7 +8959,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/bac-giang/so.md:L812",
+        "locator": "2025/bac-giang/so.md:L825",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -8988,8 +8988,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/khanh-hoa/so.md:L185",
-        "supports": "phrase occurs in 7 transcribed exam(s)"
+        "locator": "2025/khanh-hoa/so.md:L198",
+        "supports": "phrase occurs in 5 transcribed exam(s)"
       }
     ]
   },
@@ -9017,7 +9017,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/da-nang/so.md:L165",
+        "locator": "2023/da-nang/so.md:L178",
         "supports": "phrase occurs in 7 transcribed exam(s)"
       }
     ]
@@ -9046,8 +9046,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/an-giang/so.md:L176",
-        "supports": "phrase occurs in 17 transcribed exam(s)"
+        "locator": "2022/an-giang/so.md:L189",
+        "supports": "phrase occurs in 14 transcribed exam(s)"
       }
     ]
   },
@@ -9075,7 +9075,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/nam-dinh/so.md:L322",
+        "locator": "2023/nam-dinh/so.md:L335",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -9104,8 +9104,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-duong/so.md:L293",
-        "supports": "phrase occurs in 8 transcribed exam(s)"
+        "locator": "2022/binh-duong/so.md:L306",
+        "supports": "phrase occurs in 7 transcribed exam(s)"
       }
     ]
   },
@@ -9157,8 +9157,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/bac-giang/so.md:L804",
-        "supports": "phrase occurs in 4 transcribed exam(s)"
+        "locator": "2025/bac-giang/so.md:L817",
+        "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
   },
@@ -9186,7 +9186,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/vinh-phuc/so.md:L390",
+        "locator": "2022/vinh-phuc/so.md:L403",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -9215,7 +9215,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/vinh-phuc/so.md:L388",
+        "locator": "2022/vinh-phuc/so.md:L401",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -9244,8 +9244,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/dong-thap/so.md:L371",
-        "supports": "phrase occurs in 8 transcribed exam(s)"
+        "locator": "2022/dong-thap/so.md:L384",
+        "supports": "phrase occurs in 7 transcribed exam(s)"
       }
     ]
   },
@@ -9273,7 +9273,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/quang-binh/so.md:L175",
+        "locator": "2023/quang-binh/so.md:L188",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -9350,7 +9350,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/nghe-an/so.md:L158",
+        "locator": "2025/nghe-an/so.md:L171",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -9379,7 +9379,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ha-noi/so.md:L424",
+        "locator": "2022/ha-noi/so.md:L437",
         "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
@@ -9408,7 +9408,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/tp-ho-chi-minh/ptnk.md:L53",
+        "locator": "2022/tp-ho-chi-minh/ptnk.md:L66",
         "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
@@ -9437,7 +9437,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2026/quang-ninh/so.md:L343",
+        "locator": "2026/quang-ninh/so.md:L356",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -9514,7 +9514,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/bac-ninh/so.md:L275",
+        "locator": "2023/bac-ninh/so.md:L288",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -9543,8 +9543,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/dong-thap/so.md:L467",
-        "supports": "phrase occurs in 3 transcribed exam(s)"
+        "locator": "2022/dong-thap/so.md:L480",
+        "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
   },
@@ -9572,7 +9572,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2024/ben-tre/so.md:L152",
+        "locator": "2024/ben-tre/so.md:L165",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -9625,8 +9625,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/hai-duong/so.md:L757",
-        "supports": "phrase occurs in 2 transcribed exam(s)"
+        "locator": "2022/hai-duong/so.md:L770",
+        "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
   },
@@ -9654,7 +9654,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/hung-yen/so.md:L641",
+        "locator": "2023/hung-yen/so.md:L654",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -9779,7 +9779,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/bac-giang/so.md:L459",
+        "locator": "2025/bac-giang/so.md:L472",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -9904,7 +9904,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/hai-phong/so.md:L639",
+        "locator": "2025/hai-phong/so.md:L652",
         "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
@@ -9933,7 +9933,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2026/dak-lak/so.md:L419",
+        "locator": "2026/dak-lak/so.md:L432",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -9962,7 +9962,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2026/nghe-an/so.md:L253",
+        "locator": "2026/nghe-an/so.md:L266",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -10015,7 +10015,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ca-mau/so.md:L227",
+        "locator": "2022/ca-mau/so.md:L240",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -10116,7 +10116,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/hai-duong/so.md:L473",
+        "locator": "2022/hai-duong/so.md:L486",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -10313,7 +10313,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/phu-tho/so.md:L290",
+        "locator": "2025/phu-tho/so.md:L303",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -10390,7 +10390,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/tay-ninh/so.md:L142",
+        "locator": "2022/tay-ninh/so.md:L155",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -10539,7 +10539,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/soc-trang/so.md:L269",
+        "locator": "2022/soc-trang/so.md:L282",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -10688,7 +10688,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/vinh-phuc/so.md:L371",
+        "locator": "2025/vinh-phuc/so.md:L384",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -10861,7 +10861,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2026/gia-lai/so.md:L276",
+        "locator": "2026/gia-lai/so.md:L289",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -11010,7 +11010,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/hai-phong/so.md:L596",
+        "locator": "2022/hai-phong/so.md:L609",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -11231,7 +11231,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/dong-nai/so.md:L283",
+        "locator": "2025/dong-nai/so.md:L296",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -11404,7 +11404,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2024/ha-noi/chuyen-su-pham.md:L108",
+        "locator": "2024/ha-noi/chuyen-su-pham.md:L121",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -11457,7 +11457,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/dak-nong/so.md:L167",
+        "locator": "2023/dak-nong/so.md:L180",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -11606,7 +11606,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/tp-ho-chi-minh/ptnk.md:L757",
+        "locator": "2023/tp-ho-chi-minh/ptnk.md:L770",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -11707,7 +11707,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/dak-lak/so.md:L413",
+        "locator": "2022/dak-lak/so.md:L426",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -11760,7 +11760,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2026/quang-ninh/so.md:L298",
+        "locator": "2026/quang-ninh/so.md:L311",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -11789,7 +11789,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2024/ha-noi/chuyen-su-pham.md:L192",
+        "locator": "2024/ha-noi/chuyen-su-pham.md:L205",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -11818,8 +11818,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/hoa-binh/so.md:L58",
-        "supports": "phrase occurs in 6 transcribed exam(s)"
+        "locator": "2022/hoa-binh/so.md:L71",
+        "supports": "phrase occurs in 5 transcribed exam(s)"
       }
     ]
   },
@@ -11871,7 +11871,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2026/vinh-long/so.md:L598",
+        "locator": "2026/vinh-long/so.md:L611",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -11924,7 +11924,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2024/ha-noi/chuyen-su-pham.md:L322",
+        "locator": "2024/ha-noi/chuyen-su-pham.md:L335",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -12409,7 +12409,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/binh-duong/so.md:L483",
+        "locator": "2023/binh-duong/so.md:L496",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -12750,7 +12750,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/binh-duong/so.md:L218",
+        "locator": "2025/binh-duong/so.md:L231",
         "supports": "phrase occurs in 4 transcribed exam(s)"
       }
     ]
@@ -12779,7 +12779,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/dak-nong/so.md:L118",
+        "locator": "2023/dak-nong/so.md:L131",
         "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
@@ -12832,7 +12832,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2026/nghe-an/chuyen-dai-hoc-vinh.md:L395",
+        "locator": "2026/nghe-an/chuyen-dai-hoc-vinh.md:L408",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -12885,7 +12885,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/dak-nong/so.md:L173",
+        "locator": "2023/dak-nong/so.md:L186",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -12914,8 +12914,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ca-mau/so.md:L166",
-        "supports": "phrase occurs in 24 transcribed exam(s)"
+        "locator": "2022/ca-mau/so.md:L179",
+        "supports": "phrase occurs in 18 transcribed exam(s)"
       }
     ]
   },
@@ -12943,7 +12943,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-thuan/so.md:L421",
+        "locator": "2022/binh-thuan/so.md:L434",
         "supports": "phrase occurs in 4 transcribed exam(s)"
       }
     ]
@@ -12972,8 +12972,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ninh-binh/so.md:L161",
-        "supports": "phrase occurs in 5 transcribed exam(s)"
+        "locator": "2022/ninh-binh/so.md:L174",
+        "supports": "phrase occurs in 4 transcribed exam(s)"
       }
     ]
   },
@@ -13001,7 +13001,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/dong-nai/so.md:L459",
+        "locator": "2022/dong-nai/so.md:L472",
         "supports": "phrase occurs in 6 transcribed exam(s)"
       }
     ]
@@ -13030,7 +13030,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2026/tp-ho-chi-minh/ptnk.md:L448",
+        "locator": "2026/tp-ho-chi-minh/ptnk.md:L461",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -13059,7 +13059,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/khanh-hoa/so.md:L237",
+        "locator": "2025/khanh-hoa/so.md:L250",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -13088,8 +13088,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ha-nam/so.md:L458",
-        "supports": "phrase occurs in 21 transcribed exam(s)"
+        "locator": "2022/ha-nam/so.md:L471",
+        "supports": "phrase occurs in 17 transcribed exam(s)"
       }
     ]
   },
@@ -13117,7 +13117,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-ninh/so.md:L236",
+        "locator": "2022/bac-ninh/so.md:L249",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -13146,7 +13146,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2024/da-nang/so.md:L274",
+        "locator": "2024/da-nang/so.md:L287",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -13175,8 +13175,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-thuan/so.md:L253",
-        "supports": "phrase occurs in 5 transcribed exam(s)"
+        "locator": "2022/binh-thuan/so.md:L266",
+        "supports": "phrase occurs in 4 transcribed exam(s)"
       }
     ]
   },
@@ -13228,8 +13228,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/quang-ngai/so.md:L259",
-        "supports": "phrase occurs in 20 transcribed exam(s)"
+        "locator": "2022/quang-ngai/so.md:L272",
+        "supports": "phrase occurs in 17 transcribed exam(s)"
       }
     ]
   },
@@ -13257,8 +13257,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-ninh/so.md:L280",
-        "supports": "phrase occurs in 27 transcribed exam(s)"
+        "locator": "2022/bac-ninh/so.md:L293",
+        "supports": "phrase occurs in 22 transcribed exam(s)"
       }
     ]
   },
@@ -13286,8 +13286,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-ninh/so.md:L558",
-        "supports": "phrase occurs in 111 transcribed exam(s)"
+        "locator": "2022/bac-ninh/so.md:L571",
+        "supports": "phrase occurs in 58 transcribed exam(s)"
       }
     ]
   },
@@ -13315,7 +13315,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2024/ha-noi/chuyen-su-pham.md:L122",
+        "locator": "2024/ha-noi/chuyen-su-pham.md:L135",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -13344,8 +13344,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-phuoc/so.md:L885",
-        "supports": "phrase occurs in 8 transcribed exam(s)"
+        "locator": "2022/binh-phuoc/so.md:L898",
+        "supports": "phrase occurs in 6 transcribed exam(s)"
       }
     ]
   },
@@ -13373,8 +13373,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-kan/so.md:L120",
-        "supports": "phrase occurs in 19 transcribed exam(s)"
+        "locator": "2022/bac-kan/so.md:L133",
+        "supports": "phrase occurs in 15 transcribed exam(s)"
       }
     ]
   },
@@ -13402,8 +13402,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-giang/so.md:L143",
-        "supports": "phrase occurs in 24 transcribed exam(s)"
+        "locator": "2022/bac-giang/so.md:L156",
+        "supports": "phrase occurs in 21 transcribed exam(s)"
       }
     ]
   },
@@ -13431,7 +13431,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/da-nang/so.md:L128",
+        "locator": "2025/da-nang/so.md:L141",
         "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
@@ -13460,8 +13460,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/an-giang/so.md:L284",
-        "supports": "phrase occurs in 105 transcribed exam(s)"
+        "locator": "2022/an-giang/so.md:L297",
+        "supports": "phrase occurs in 65 transcribed exam(s)"
       }
     ]
   },
@@ -13489,8 +13489,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-giang/so.md:L319",
-        "supports": "phrase occurs in 31 transcribed exam(s)"
+        "locator": "2022/bac-giang/so.md:L332",
+        "supports": "phrase occurs in 26 transcribed exam(s)"
       }
     ]
   },
@@ -13518,7 +13518,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/binh-phuoc/so.md:L272",
+        "locator": "2025/binh-phuoc/so.md:L285",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -13547,7 +13547,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/long-an/so.md:L283",
+        "locator": "2022/long-an/so.md:L296",
         "supports": "phrase occurs in 6 transcribed exam(s)"
       }
     ]
@@ -13576,8 +13576,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-thuan/so.md:L477",
-        "supports": "phrase occurs in 8 transcribed exam(s)"
+        "locator": "2022/binh-thuan/so.md:L490",
+        "supports": "phrase occurs in 7 transcribed exam(s)"
       }
     ]
   },
@@ -13605,8 +13605,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/hung-yen/so.md:L531",
-        "supports": "phrase occurs in 7 transcribed exam(s)"
+        "locator": "2023/hung-yen/so.md:L544",
+        "supports": "phrase occurs in 5 transcribed exam(s)"
       }
     ]
   },
@@ -13634,7 +13634,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/ha-noi/chuyen-su-pham.md:L517",
+        "locator": "2023/ha-noi/chuyen-su-pham.md:L530",
         "supports": "phrase occurs in 6 transcribed exam(s)"
       }
     ]
@@ -13687,8 +13687,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-thuan/so.md:L541",
-        "supports": "phrase occurs in 23 transcribed exam(s)"
+        "locator": "2022/binh-thuan/so.md:L554",
+        "supports": "phrase occurs in 19 transcribed exam(s)"
       }
     ]
   },
@@ -13716,7 +13716,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2026/da-nang/so.md:L119",
+        "locator": "2026/da-nang/so.md:L132",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -13745,8 +13745,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ha-noi/chuyen-su-pham.md:L298",
-        "supports": "phrase occurs in 10 transcribed exam(s)"
+        "locator": "2022/ha-noi/chuyen-su-pham.md:L311",
+        "supports": "phrase occurs in 9 transcribed exam(s)"
       }
     ]
   },
@@ -13798,7 +13798,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-ninh/so.md:L357",
+        "locator": "2022/bac-ninh/so.md:L370",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -13827,8 +13827,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/vinh-phuc/so.md:L722",
-        "supports": "phrase occurs in 5 transcribed exam(s)"
+        "locator": "2025/vinh-phuc/so.md:L735",
+        "supports": "phrase occurs in 4 transcribed exam(s)"
       }
     ]
   },
@@ -13856,7 +13856,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ha-noi/chuyen-su-pham.md:L279",
+        "locator": "2022/ha-noi/chuyen-su-pham.md:L292",
         "supports": "phrase occurs in 4 transcribed exam(s)"
       }
     ]
@@ -13885,8 +13885,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/an-giang/so.md:L218",
-        "supports": "phrase occurs in 23 transcribed exam(s)"
+        "locator": "2022/an-giang/so.md:L231",
+        "supports": "phrase occurs in 15 transcribed exam(s)"
       }
     ]
   },
@@ -13914,8 +13914,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/dak-lak/so.md:L473",
-        "supports": "phrase occurs in 4 transcribed exam(s)"
+        "locator": "2022/dak-lak/so.md:L486",
+        "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
   },
@@ -13943,8 +13943,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/dak-lak/so.md:L206",
-        "supports": "phrase occurs in 45 transcribed exam(s)"
+        "locator": "2022/dak-lak/so.md:L219",
+        "supports": "phrase occurs in 30 transcribed exam(s)"
       }
     ]
   },
@@ -13972,8 +13972,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ninh-thuan/so.md:L226",
-        "supports": "phrase occurs in 22 transcribed exam(s)"
+        "locator": "2022/ninh-thuan/so.md:L239",
+        "supports": "phrase occurs in 18 transcribed exam(s)"
       }
     ]
   },
@@ -14001,8 +14001,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2024/vinh-phuc/so.md:L255",
-        "supports": "phrase occurs in 4 transcribed exam(s)"
+        "locator": "2024/vinh-phuc/so.md:L268",
+        "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
   },
@@ -14054,8 +14054,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/tay-ninh/so.md:L291",
-        "supports": "phrase occurs in 4 transcribed exam(s)"
+        "locator": "2022/tay-ninh/so.md:L304",
+        "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
   },
@@ -14131,8 +14131,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-duong/so.md:L553",
-        "supports": "phrase occurs in 4 transcribed exam(s)"
+        "locator": "2022/binh-duong/so.md:L566",
+        "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
   },
@@ -14160,8 +14160,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/ba-ria-vung-tau/so.md:L48",
-        "supports": "phrase occurs in 3 transcribed exam(s)"
+        "locator": "2023/ba-ria-vung-tau/so.md:L61",
+        "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
   },
@@ -14189,7 +14189,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/dak-lak/so.md:L439",
+        "locator": "2022/dak-lak/so.md:L452",
         "supports": "phrase occurs in 19 transcribed exam(s)"
       }
     ]
@@ -14218,8 +14218,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-giang/so.md:L226",
-        "supports": "phrase occurs in 41 transcribed exam(s)"
+        "locator": "2022/bac-giang/so.md:L239",
+        "supports": "phrase occurs in 30 transcribed exam(s)"
       }
     ]
   },
@@ -14247,7 +14247,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/ba-ria-vung-tau/so.md:L184",
+        "locator": "2025/ba-ria-vung-tau/so.md:L197",
         "supports": "phrase occurs in 4 transcribed exam(s)"
       }
     ]
@@ -14300,7 +14300,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/ha-noi/chuyen-su-pham.md:L717",
+        "locator": "2023/ha-noi/chuyen-su-pham.md:L730",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -14329,7 +14329,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ha-noi/chuyen-su-pham.md:L236",
+        "locator": "2022/ha-noi/chuyen-su-pham.md:L249",
         "supports": "phrase occurs in 7 transcribed exam(s)"
       }
     ]
@@ -14358,7 +14358,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ninh-binh/so.md:L67",
+        "locator": "2022/ninh-binh/so.md:L80",
         "supports": "phrase occurs in 8 transcribed exam(s)"
       }
     ]
@@ -14387,8 +14387,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-giang/so.md:L368",
-        "supports": "phrase occurs in 77 transcribed exam(s)"
+        "locator": "2022/bac-giang/so.md:L381",
+        "supports": "phrase occurs in 40 transcribed exam(s)"
       }
     ]
   },
@@ -14416,8 +14416,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-giang/so.md:L138",
-        "supports": "phrase occurs in 13 transcribed exam(s)"
+        "locator": "2022/bac-giang/so.md:L151",
+        "supports": "phrase occurs in 11 transcribed exam(s)"
       }
     ]
   },
@@ -14445,8 +14445,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/hai-phong/so.md:L82",
-        "supports": "phrase occurs in 13 transcribed exam(s)"
+        "locator": "2023/hai-phong/so.md:L95",
+        "supports": "phrase occurs in 11 transcribed exam(s)"
       }
     ]
   },
@@ -14474,7 +14474,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2026/tay-ninh/so.md:L386",
+        "locator": "2026/tay-ninh/so.md:L399",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -14503,7 +14503,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/nghe-an/so.md:L416",
+        "locator": "2025/nghe-an/so.md:L429",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -14556,7 +14556,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/hai-duong/so.md:L343",
+        "locator": "2022/hai-duong/so.md:L356",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -14585,8 +14585,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2026/nghe-an/chuyen-dai-hoc-vinh.md:L529",
-        "supports": "phrase occurs in 2 transcribed exam(s)"
+        "locator": "2026/nghe-an/chuyen-dai-hoc-vinh.md:L542",
+        "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
   },
@@ -14686,7 +14686,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/dong-nai/so.md:L256",
+        "locator": "2025/dong-nai/so.md:L269",
         "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
@@ -14739,7 +14739,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/thua-thien-hue/so.md:L575",
+        "locator": "2023/thua-thien-hue/so.md:L588",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -14768,7 +14768,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/nam-dinh/so.md:L989",
+        "locator": "2025/nam-dinh/so.md:L1002",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -14797,8 +14797,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/ba-ria-vung-tau/so.md:L261",
-        "supports": "phrase occurs in 9 transcribed exam(s)"
+        "locator": "2023/ba-ria-vung-tau/so.md:L274",
+        "supports": "phrase occurs in 8 transcribed exam(s)"
       }
     ]
   },
@@ -14826,7 +14826,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2024/ha-noi/chuyen-su-pham.md:L162",
+        "locator": "2024/ha-noi/chuyen-su-pham.md:L175",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -14855,8 +14855,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-kan/so.md:L96",
-        "supports": "phrase occurs in 68 transcribed exam(s)"
+        "locator": "2022/bac-kan/so.md:L109",
+        "supports": "phrase occurs in 38 transcribed exam(s)"
       }
     ]
   },
@@ -14884,7 +14884,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/dak-lak/so.md:L213",
+        "locator": "2022/dak-lak/so.md:L226",
         "supports": "phrase occurs in 8 transcribed exam(s)"
       }
     ]
@@ -14913,7 +14913,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2026/nghe-an/chuyen-dai-hoc-vinh.md:L140",
+        "locator": "2026/nghe-an/chuyen-dai-hoc-vinh.md:L153",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -14942,7 +14942,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/hoa-binh/so.md:L830",
+        "locator": "2022/hoa-binh/so.md:L843",
         "supports": "phrase occurs in 6 transcribed exam(s)"
       }
     ]
@@ -14971,8 +14971,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/hai-duong/so.md:L647",
-        "supports": "phrase occurs in 7 transcribed exam(s)"
+        "locator": "2022/hai-duong/so.md:L660",
+        "supports": "phrase occurs in 6 transcribed exam(s)"
       }
     ]
   },
@@ -15024,7 +15024,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-thuan/so.md:L101",
+        "locator": "2022/binh-thuan/so.md:L114",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -15077,7 +15077,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-ninh/so.md:L236",
+        "locator": "2022/bac-ninh/so.md:L249",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -15106,7 +15106,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/dong-nai/so.md:L168",
+        "locator": "2025/dong-nai/so.md:L181",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -15135,7 +15135,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-phuoc/so.md:L635",
+        "locator": "2022/binh-phuoc/so.md:L648",
         "supports": "phrase occurs in 6 transcribed exam(s)"
       }
     ]
@@ -15188,8 +15188,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-phuoc/so.md:L673",
-        "supports": "phrase occurs in 11 transcribed exam(s)"
+        "locator": "2022/binh-phuoc/so.md:L686",
+        "supports": "phrase occurs in 10 transcribed exam(s)"
       }
     ]
   },
@@ -15217,7 +15217,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/vinh-phuc/so.md:L308",
+        "locator": "2023/vinh-phuc/so.md:L321",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -15246,8 +15246,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/ba-ria-vung-tau/so.md:L221",
-        "supports": "phrase occurs in 5 transcribed exam(s)"
+        "locator": "2023/ba-ria-vung-tau/so.md:L234",
+        "supports": "phrase occurs in 4 transcribed exam(s)"
       }
     ]
   },
@@ -15275,8 +15275,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/hai-duong/so.md:L661",
-        "supports": "phrase occurs in 20 transcribed exam(s)"
+        "locator": "2022/hai-duong/so.md:L674",
+        "supports": "phrase occurs in 12 transcribed exam(s)"
       }
     ]
   },
@@ -15304,8 +15304,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-giang/so.md:L363",
-        "supports": "phrase occurs in 29 transcribed exam(s)"
+        "locator": "2022/bac-giang/so.md:L376",
+        "supports": "phrase occurs in 23 transcribed exam(s)"
       }
     ]
   },
@@ -15333,7 +15333,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/binh-thuan/so.md:L444",
+        "locator": "2023/binh-thuan/so.md:L457",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -15362,7 +15362,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/dong-thap/so.md:L520",
+        "locator": "2025/dong-thap/so.md:L533",
         "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
@@ -15391,7 +15391,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ha-noi/chuyen-su-pham.md:L313",
+        "locator": "2022/ha-noi/chuyen-su-pham.md:L326",
         "supports": "phrase occurs in 8 transcribed exam(s)"
       }
     ]
@@ -15420,7 +15420,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2026/bac-ninh/so.md:L335",
+        "locator": "2026/bac-ninh/so.md:L348",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -15449,8 +15449,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/tp-ho-chi-minh/ptnk.md:L63",
-        "supports": "phrase occurs in 8 transcribed exam(s)"
+        "locator": "2022/tp-ho-chi-minh/ptnk.md:L76",
+        "supports": "phrase occurs in 5 transcribed exam(s)"
       }
     ]
   },
@@ -15622,7 +15622,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/dong-nai/so.md:L405",
+        "locator": "2023/dong-nai/so.md:L418",
         "supports": "phrase occurs in 4 transcribed exam(s)"
       }
     ]
@@ -15651,7 +15651,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/bac-ninh/so.md:L117",
+        "locator": "2023/bac-ninh/so.md:L130",
         "supports": "phrase occurs in 6 transcribed exam(s)"
       }
     ]
@@ -15680,7 +15680,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ha-noi/chuyen-su-pham.md:L379",
+        "locator": "2022/ha-noi/chuyen-su-pham.md:L392",
         "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
@@ -15709,7 +15709,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/an-giang/so.md:L210",
+        "locator": "2022/an-giang/so.md:L223",
         "supports": "phrase occurs in 10 transcribed exam(s)"
       }
     ]
@@ -15738,8 +15738,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-thuan/so.md:L611",
-        "supports": "phrase occurs in 17 transcribed exam(s)"
+        "locator": "2022/binh-thuan/so.md:L624",
+        "supports": "phrase occurs in 15 transcribed exam(s)"
       }
     ]
   },
@@ -15767,7 +15767,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/quang-binh/so.md:L285",
+        "locator": "2023/quang-binh/so.md:L298",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -15868,7 +15868,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/phu-tho/so.md:L198",
+        "locator": "2025/phu-tho/so.md:L211",
         "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
@@ -15993,7 +15993,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/hai-duong/so.md:L669",
+        "locator": "2022/hai-duong/so.md:L682",
         "supports": "phrase occurs in 4 transcribed exam(s)"
       }
     ]
@@ -16022,8 +16022,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2024/da-nang/so.md:L277",
-        "supports": "phrase occurs in 4 transcribed exam(s)"
+        "locator": "2024/da-nang/so.md:L290",
+        "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
   },
@@ -16051,8 +16051,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/binh-duong/so.md:L937",
-        "supports": "phrase occurs in 4 transcribed exam(s)"
+        "locator": "2023/binh-duong/so.md:L950",
+        "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
   },
@@ -16080,7 +16080,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/hai-phong/so.md:L191",
+        "locator": "2022/hai-phong/so.md:L204",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -16133,7 +16133,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-thuan/so.md:L233",
+        "locator": "2022/binh-thuan/so.md:L246",
         "supports": "phrase occurs in 4 transcribed exam(s)"
       }
     ]
@@ -16186,8 +16186,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-duong/so.md:L775",
-        "supports": "phrase occurs in 38 transcribed exam(s)"
+        "locator": "2022/binh-duong/so.md:L788",
+        "supports": "phrase occurs in 30 transcribed exam(s)"
       }
     ]
   },
@@ -16215,7 +16215,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2024/ha-noi/so.md:L499",
+        "locator": "2024/ha-noi/so.md:L512",
         "supports": "phrase occurs in 4 transcribed exam(s)"
       }
     ]
@@ -16244,7 +16244,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-phuoc/so.md:L73",
+        "locator": "2022/binh-phuoc/so.md:L86",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -16369,8 +16369,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/hai-phong/so.md:L589",
-        "supports": "phrase occurs in 11 transcribed exam(s)"
+        "locator": "2022/hai-phong/so.md:L602",
+        "supports": "phrase occurs in 10 transcribed exam(s)"
       }
     ]
   },
@@ -16398,7 +16398,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/phu-tho/so.md:L229",
+        "locator": "2022/phu-tho/so.md:L242",
         "supports": "phrase occurs in 6 transcribed exam(s)"
       }
     ]
@@ -16427,8 +16427,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-duong/so.md:L1383",
-        "supports": "phrase occurs in 30 transcribed exam(s)"
+        "locator": "2022/binh-duong/so.md:L1396",
+        "supports": "phrase occurs in 20 transcribed exam(s)"
       }
     ]
   },
@@ -16456,7 +16456,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/dak-lak/so.md:L545",
+        "locator": "2022/dak-lak/so.md:L558",
         "supports": "phrase occurs in 5 transcribed exam(s)"
       }
     ]
@@ -16485,7 +16485,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/binh-duong/so.md:L941",
+        "locator": "2023/binh-duong/so.md:L954",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -16538,8 +16538,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/an-giang/so.md:L228",
-        "supports": "phrase occurs in 253 transcribed exam(s)"
+        "locator": "2022/an-giang/so.md:L241",
+        "supports": "phrase occurs in 99 transcribed exam(s)"
       }
     ]
   },
@@ -16567,7 +16567,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/soc-trang/so.md:L285",
+        "locator": "2022/soc-trang/so.md:L298",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -16596,7 +16596,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-kan/so.md:L226",
+        "locator": "2022/bac-kan/so.md:L239",
         "supports": "phrase occurs in 6 transcribed exam(s)"
       }
     ]
@@ -16625,8 +16625,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ha-nam/so.md:L233",
-        "supports": "phrase occurs in 8 transcribed exam(s)"
+        "locator": "2022/ha-nam/so.md:L246",
+        "supports": "phrase occurs in 7 transcribed exam(s)"
       }
     ]
   },
@@ -16654,8 +16654,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-kan/so.md:L96",
-        "supports": "phrase occurs in 46 transcribed exam(s)"
+        "locator": "2022/bac-kan/so.md:L109",
+        "supports": "phrase occurs in 38 transcribed exam(s)"
       }
     ]
   },
@@ -16683,7 +16683,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/long-an/so.md:L141",
+        "locator": "2022/long-an/so.md:L154",
         "supports": "phrase occurs in 5 transcribed exam(s)"
       }
     ]
@@ -16712,7 +16712,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/binh-duong/so.md:L330",
+        "locator": "2025/binh-duong/so.md:L343",
         "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
@@ -16766,8 +16766,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-duong/so.md:L1207",
-        "supports": "phrase occurs in 87 transcribed exam(s)"
+        "locator": "2022/binh-duong/so.md:L1220",
+        "supports": "phrase occurs in 55 transcribed exam(s)"
       }
     ]
   },
@@ -16795,8 +16795,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-phuoc/so.md:L573",
-        "supports": "phrase occurs in 11 transcribed exam(s)"
+        "locator": "2022/binh-phuoc/so.md:L586",
+        "supports": "phrase occurs in 10 transcribed exam(s)"
       }
     ]
   },
@@ -16824,8 +16824,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ca-mau/so.md:L171",
-        "supports": "phrase occurs in 25 transcribed exam(s)"
+        "locator": "2022/ca-mau/so.md:L184",
+        "supports": "phrase occurs in 23 transcribed exam(s)"
       }
     ]
   },
@@ -16853,8 +16853,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/quang-ninh/so.md:L458",
-        "supports": "phrase occurs in 10 transcribed exam(s)"
+        "locator": "2022/quang-ninh/so.md:L471",
+        "supports": "phrase occurs in 8 transcribed exam(s)"
       }
     ]
   },
@@ -16882,7 +16882,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/binh-phuoc/so.md:L244",
+        "locator": "2025/binh-phuoc/so.md:L257",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -16911,8 +16911,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-duong/so.md:L725",
-        "supports": "phrase occurs in 13 transcribed exam(s)"
+        "locator": "2022/binh-duong/so.md:L738",
+        "supports": "phrase occurs in 11 transcribed exam(s)"
       }
     ]
   },
@@ -16940,8 +16940,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-duong/so.md:L415",
-        "supports": "phrase occurs in 30 transcribed exam(s)"
+        "locator": "2022/binh-duong/so.md:L428",
+        "supports": "phrase occurs in 20 transcribed exam(s)"
       }
     ]
   },
@@ -16969,8 +16969,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/quang-ninh/so.md:L327",
-        "supports": "phrase occurs in 6 transcribed exam(s)"
+        "locator": "2025/quang-ninh/so.md:L340",
+        "supports": "phrase occurs in 5 transcribed exam(s)"
       }
     ]
   },
@@ -16998,8 +16998,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-kan/so.md:L378",
-        "supports": "phrase occurs in 42 transcribed exam(s)"
+        "locator": "2022/bac-kan/so.md:L391",
+        "supports": "phrase occurs in 30 transcribed exam(s)"
       }
     ]
   },
@@ -17027,8 +17027,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-giang/so.md:L326",
-        "supports": "phrase occurs in 48 transcribed exam(s)"
+        "locator": "2022/bac-giang/so.md:L339",
+        "supports": "phrase occurs in 35 transcribed exam(s)"
       }
     ]
   },
@@ -17056,7 +17056,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-duong/so.md:L1397",
+        "locator": "2022/binh-duong/so.md:L1410",
         "supports": "phrase occurs in 4 transcribed exam(s)"
       }
     ]
@@ -17085,8 +17085,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-giang/so.md:L80",
-        "supports": "phrase occurs in 24 transcribed exam(s)"
+        "locator": "2022/bac-giang/so.md:L93",
+        "supports": "phrase occurs in 17 transcribed exam(s)"
       }
     ]
   },
@@ -17114,8 +17114,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/dak-lak/so.md:L203",
-        "supports": "phrase occurs in 27 transcribed exam(s)"
+        "locator": "2022/dak-lak/so.md:L216",
+        "supports": "phrase occurs in 19 transcribed exam(s)"
       }
     ]
   },
@@ -17143,8 +17143,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/an-giang/so.md:L190",
-        "supports": "phrase occurs in 55 transcribed exam(s)"
+        "locator": "2022/an-giang/so.md:L203",
+        "supports": "phrase occurs in 40 transcribed exam(s)"
       }
     ]
   },
@@ -17172,7 +17172,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/dong-nai/so.md:L315",
+        "locator": "2022/dong-nai/so.md:L328",
         "supports": "phrase occurs in 5 transcribed exam(s)"
       }
     ]
@@ -17201,7 +17201,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-ninh/so.md:L236",
+        "locator": "2022/bac-ninh/so.md:L249",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -17230,7 +17230,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/dak-lak/so.md:L1645",
+        "locator": "2023/dak-lak/so.md:L1658",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -17259,7 +17259,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2026/dak-lak/so.md:L226",
+        "locator": "2026/dak-lak/so.md:L239",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -17288,8 +17288,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/hai-duong/so.md:L651",
-        "supports": "phrase occurs in 21 transcribed exam(s)"
+        "locator": "2022/hai-duong/so.md:L664",
+        "supports": "phrase occurs in 17 transcribed exam(s)"
       }
     ]
   },
@@ -17365,8 +17365,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-kan/so.md:L96",
-        "supports": "phrase occurs in 45 transcribed exam(s)"
+        "locator": "2022/bac-kan/so.md:L109",
+        "supports": "phrase occurs in 29 transcribed exam(s)"
       }
     ]
   },
@@ -17394,8 +17394,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-giang/so.md:L331",
-        "supports": "phrase occurs in 150 transcribed exam(s)"
+        "locator": "2022/bac-giang/so.md:L344",
+        "supports": "phrase occurs in 71 transcribed exam(s)"
       }
     ]
   },
@@ -17423,8 +17423,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-giang/so.md:L258",
-        "supports": "phrase occurs in 245 transcribed exam(s)"
+        "locator": "2022/bac-giang/so.md:L271",
+        "supports": "phrase occurs in 88 transcribed exam(s)"
       }
     ]
   },
@@ -17452,8 +17452,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-kan/so.md:L155",
-        "supports": "phrase occurs in 19 transcribed exam(s)"
+        "locator": "2022/bac-kan/so.md:L168",
+        "supports": "phrase occurs in 17 transcribed exam(s)"
       }
     ]
   },
@@ -17481,7 +17481,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2026/quang-tri/so.md:L524",
+        "locator": "2026/quang-tri/so.md:L537",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -17534,7 +17534,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-giang/so.md:L192",
+        "locator": "2022/bac-giang/so.md:L205",
         "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
@@ -17587,7 +17587,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/nghe-an/so.md:L326",
+        "locator": "2025/nghe-an/so.md:L339",
         "supports": "phrase occurs in 4 transcribed exam(s)"
       }
     ]
@@ -17664,8 +17664,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ha-noi/chuyen-su-pham.md:L81",
-        "supports": "phrase occurs in 17 transcribed exam(s)"
+        "locator": "2022/ha-noi/chuyen-su-pham.md:L94",
+        "supports": "phrase occurs in 12 transcribed exam(s)"
       }
     ]
   },
@@ -17693,7 +17693,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/dong-nai/so.md:L287",
+        "locator": "2025/dong-nai/so.md:L300",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -17722,7 +17722,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/tay-ninh/so.md:L275",
+        "locator": "2022/tay-ninh/so.md:L288",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -17775,7 +17775,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/tp-ho-chi-minh/ptnk.md:L317",
+        "locator": "2022/tp-ho-chi-minh/ptnk.md:L330",
         "supports": "phrase occurs in 4 transcribed exam(s)"
       }
     ]
@@ -17804,7 +17804,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ha-nam/so.md:L203",
+        "locator": "2022/ha-nam/so.md:L216",
         "supports": "phrase occurs in 4 transcribed exam(s)"
       }
     ]
@@ -17834,7 +17834,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/hai-duong/so.md:L979",
+        "locator": "2022/hai-duong/so.md:L992",
         "supports": "phrase occurs in 6 transcribed exam(s)"
       }
     ]
@@ -17864,7 +17864,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ca-mau/so.md:L290",
+        "locator": "2022/ca-mau/so.md:L303",
         "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
@@ -17894,8 +17894,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-duong/so.md:L1247",
-        "supports": "phrase occurs in 26 transcribed exam(s)"
+        "locator": "2022/binh-duong/so.md:L1260",
+        "supports": "phrase occurs in 21 transcribed exam(s)"
       }
     ]
   },
@@ -17998,8 +17998,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-kan/so.md:L294",
-        "supports": "phrase occurs in 16 transcribed exam(s)"
+        "locator": "2022/bac-kan/so.md:L307",
+        "supports": "phrase occurs in 15 transcribed exam(s)"
       }
     ]
   },
@@ -18028,8 +18028,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/hai-phong/so.md:L265",
-        "supports": "phrase occurs in 15 transcribed exam(s)"
+        "locator": "2022/hai-phong/so.md:L278",
+        "supports": "phrase occurs in 11 transcribed exam(s)"
       }
     ]
   },
@@ -18057,8 +18057,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-duong/so.md:L1063",
-        "supports": "phrase occurs in 10 transcribed exam(s)"
+        "locator": "2022/binh-duong/so.md:L1076",
+        "supports": "phrase occurs in 8 transcribed exam(s)"
       }
     ]
   },
@@ -18087,8 +18087,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/an-giang/so.md:L305",
-        "supports": "phrase occurs in 200 transcribed exam(s)"
+        "locator": "2022/an-giang/so.md:L318",
+        "supports": "phrase occurs in 89 transcribed exam(s)"
       }
     ]
   },
@@ -18117,7 +18117,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2026/lai-chau/so.md:L375",
+        "locator": "2026/lai-chau/so.md:L388",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -18172,8 +18172,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-phuoc/so.md:L69",
-        "supports": "phrase occurs in 47 transcribed exam(s)"
+        "locator": "2022/binh-phuoc/so.md:L82",
+        "supports": "phrase occurs in 35 transcribed exam(s)"
       }
     ]
   },
@@ -18201,8 +18201,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/an-giang/so.md:L224",
-        "supports": "phrase occurs in 79 transcribed exam(s)"
+        "locator": "2022/an-giang/so.md:L237",
+        "supports": "phrase occurs in 47 transcribed exam(s)"
       }
     ]
   },
@@ -18230,7 +18230,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2024/vinh-phuc/so.md:L345",
+        "locator": "2024/vinh-phuc/so.md:L358",
         "supports": "phrase occurs in 5 transcribed exam(s)"
       }
     ]
@@ -18259,7 +18259,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/hai-duong/so.md:L443",
+        "locator": "2022/hai-duong/so.md:L456",
         "supports": "phrase occurs in 11 transcribed exam(s)"
       }
     ]
@@ -18288,7 +18288,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/bac-ninh/so.md:L161",
+        "locator": "2023/bac-ninh/so.md:L174",
         "supports": "phrase occurs in 4 transcribed exam(s)"
       }
     ]
@@ -18317,7 +18317,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/vinh-phuc/so.md:L176",
+        "locator": "2023/vinh-phuc/so.md:L189",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -18347,8 +18347,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/an-giang/so.md:L47",
-        "supports": "phrase occurs in 585 transcribed exam(s)"
+        "locator": "2022/an-giang/so.md:L60",
+        "supports": "phrase occurs in 103 transcribed exam(s)"
       }
     ]
   },
@@ -18377,8 +18377,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/tp-ho-chi-minh/so.md:L462",
-        "supports": "phrase occurs in 3 transcribed exam(s)"
+        "locator": "2023/tp-ho-chi-minh/so.md:L475",
+        "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
   },
@@ -18407,8 +18407,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ha-noi/chuyen-su-pham.md:L314",
-        "supports": "phrase occurs in 10 transcribed exam(s)"
+        "locator": "2022/ha-noi/chuyen-su-pham.md:L327",
+        "supports": "phrase occurs in 9 transcribed exam(s)"
       }
     ]
   },
@@ -18437,8 +18437,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-ninh/so.md:L281",
-        "supports": "phrase occurs in 42 transcribed exam(s)"
+        "locator": "2022/bac-ninh/so.md:L294",
+        "supports": "phrase occurs in 25 transcribed exam(s)"
       }
     ]
   },
@@ -18466,7 +18466,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/hai-phong/so.md:L293",
+        "locator": "2022/hai-phong/so.md:L306",
         "supports": "phrase occurs in 5 transcribed exam(s)"
       }
     ]
@@ -18567,7 +18567,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2024/thanh-hoa/so.md:L229",
+        "locator": "2024/thanh-hoa/so.md:L242",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -18596,7 +18596,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/ha-noi/so.md:L231",
+        "locator": "2023/ha-noi/so.md:L244",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -18649,7 +18649,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ha-noi/chuyen-su-pham.md:L81",
+        "locator": "2022/ha-noi/chuyen-su-pham.md:L94",
         "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
@@ -18678,8 +18678,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/dak-lak/so.md:L369",
-        "supports": "phrase occurs in 18 transcribed exam(s)"
+        "locator": "2022/dak-lak/so.md:L382",
+        "supports": "phrase occurs in 13 transcribed exam(s)"
       }
     ]
   },
@@ -18731,7 +18731,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/bac-giang/so.md:L1049",
+        "locator": "2025/bac-giang/so.md:L1062",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -18760,7 +18760,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/phu-yen/so.md:L167",
+        "locator": "2023/phu-yen/so.md:L180",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -18789,7 +18789,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/kon-tum/so.md:L655",
+        "locator": "2025/kon-tum/so.md:L668",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -18818,7 +18818,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-giang/so.md:L157",
+        "locator": "2022/bac-giang/so.md:L170",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -18847,8 +18847,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/an-giang/so.md:L156",
-        "supports": "phrase occurs in 95 transcribed exam(s)"
+        "locator": "2022/an-giang/so.md:L169",
+        "supports": "phrase occurs in 58 transcribed exam(s)"
       }
     ]
   },
@@ -18876,8 +18876,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/dong-nai/so.md:L569",
-        "supports": "phrase occurs in 24 transcribed exam(s)"
+        "locator": "2022/dong-nai/so.md:L582",
+        "supports": "phrase occurs in 17 transcribed exam(s)"
       }
     ]
   },
@@ -18905,7 +18905,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/tp-ho-chi-minh/ptnk.md:L531",
+        "locator": "2022/tp-ho-chi-minh/ptnk.md:L544",
         "supports": "phrase occurs in 5 transcribed exam(s)"
       }
     ]
@@ -18934,7 +18934,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/long-an/so.md:L423",
+        "locator": "2022/long-an/so.md:L436",
         "supports": "phrase occurs in 5 transcribed exam(s)"
       }
     ]
@@ -18963,7 +18963,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2026/dien-bien/so.md:L404",
+        "locator": "2026/dien-bien/so.md:L417",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -18992,8 +18992,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/nghe-an/so.md:L1378",
-        "supports": "phrase occurs in 4 transcribed exam(s)"
+        "locator": "2025/nghe-an/so.md:L1391",
+        "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
   },
@@ -19045,7 +19045,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/nghe-an/so.md:L1499",
+        "locator": "2025/nghe-an/so.md:L1512",
         "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
@@ -19074,8 +19074,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ca-mau/so.md:L175",
-        "supports": "phrase occurs in 14 transcribed exam(s)"
+        "locator": "2022/ca-mau/so.md:L188",
+        "supports": "phrase occurs in 12 transcribed exam(s)"
       }
     ]
   },
@@ -19104,7 +19104,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-kan/so.md:L193",
+        "locator": "2022/bac-kan/so.md:L206",
         "supports": "phrase occurs in 14 transcribed exam(s)"
       }
     ]
@@ -19134,7 +19134,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-giang/so.md:L432",
+        "locator": "2022/bac-giang/so.md:L445",
         "supports": "phrase occurs in 6 transcribed exam(s)"
       }
     ]
@@ -19164,8 +19164,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/an-giang/so.md:L91",
-        "supports": "phrase occurs in 150 transcribed exam(s)"
+        "locator": "2022/an-giang/so.md:L104",
+        "supports": "phrase occurs in 71 transcribed exam(s)"
       }
     ]
   },
@@ -19193,7 +19193,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/binh-thuan/so.md:L333",
+        "locator": "2023/binh-thuan/so.md:L346",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -19222,8 +19222,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ninh-thuan/so.md:L158",
-        "supports": "phrase occurs in 17 transcribed exam(s)"
+        "locator": "2022/ninh-thuan/so.md:L171",
+        "supports": "phrase occurs in 12 transcribed exam(s)"
       }
     ]
   },
@@ -19251,7 +19251,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-duong/so.md:L965",
+        "locator": "2022/binh-duong/so.md:L978",
         "supports": "phrase occurs in 5 transcribed exam(s)"
       }
     ]
@@ -19280,7 +19280,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ha-noi/chuyen-su-pham.md:L43",
+        "locator": "2022/ha-noi/chuyen-su-pham.md:L56",
         "supports": "phrase occurs in 4 transcribed exam(s)"
       }
     ]
@@ -19309,7 +19309,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/da-nang/so.md:L174",
+        "locator": "2023/da-nang/so.md:L187",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -19410,7 +19410,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/an-giang/so.md:L163",
+        "locator": "2022/an-giang/so.md:L176",
         "supports": "phrase occurs in 6 transcribed exam(s)"
       }
     ]
@@ -19464,8 +19464,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/dong-thap/so.md:L139",
-        "supports": "phrase occurs in 7 transcribed exam(s)"
+        "locator": "2022/dong-thap/so.md:L152",
+        "supports": "phrase occurs in 6 transcribed exam(s)"
       }
     ]
   },
@@ -19541,7 +19541,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ha-noi/so.md:L327",
+        "locator": "2022/ha-noi/so.md:L340",
         "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
@@ -19570,7 +19570,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2026/nghe-an/so.md:L767",
+        "locator": "2026/nghe-an/so.md:L780",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -19599,8 +19599,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/an-giang/so.md:L331",
-        "supports": "phrase occurs in 121 transcribed exam(s)"
+        "locator": "2022/an-giang/so.md:L344",
+        "supports": "phrase occurs in 70 transcribed exam(s)"
       }
     ]
   },
@@ -19628,7 +19628,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/soc-trang/so.md:L357",
+        "locator": "2022/soc-trang/so.md:L370",
         "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
@@ -19657,8 +19657,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/dak-lak/so.md:L179",
-        "supports": "phrase occurs in 6 transcribed exam(s)"
+        "locator": "2022/dak-lak/so.md:L192",
+        "supports": "phrase occurs in 4 transcribed exam(s)"
       }
     ]
   },
@@ -19686,7 +19686,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/dong-nai/so.md:L569",
+        "locator": "2022/dong-nai/so.md:L582",
         "supports": "phrase occurs in 5 transcribed exam(s)"
       }
     ]
@@ -19715,7 +19715,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/dak-lak/so.md:L151",
+        "locator": "2022/dak-lak/so.md:L164",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -19744,7 +19744,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ha-noi/chuyen-su-pham.md:L323",
+        "locator": "2022/ha-noi/chuyen-su-pham.md:L336",
         "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
@@ -19773,8 +19773,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-giang/so.md:L256",
-        "supports": "phrase occurs in 89 transcribed exam(s)"
+        "locator": "2022/bac-giang/so.md:L269",
+        "supports": "phrase occurs in 59 transcribed exam(s)"
       }
     ]
   },
@@ -19802,7 +19802,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/dong-thap/so.md:L1035",
+        "locator": "2022/dong-thap/so.md:L1048",
         "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
@@ -19831,7 +19831,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2026/vinh-long/so.md:L360",
+        "locator": "2026/vinh-long/so.md:L373",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -19860,8 +19860,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ca-mau/so.md:L209",
-        "supports": "phrase occurs in 65 transcribed exam(s)"
+        "locator": "2022/ca-mau/so.md:L222",
+        "supports": "phrase occurs in 41 transcribed exam(s)"
       }
     ]
   },
@@ -19889,8 +19889,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-giang/so.md:L113",
-        "supports": "phrase occurs in 23 transcribed exam(s)"
+        "locator": "2022/bac-giang/so.md:L126",
+        "supports": "phrase occurs in 16 transcribed exam(s)"
       }
     ]
   },
@@ -19918,8 +19918,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/quang-ngai/so.md:L89",
-        "supports": "phrase occurs in 15 transcribed exam(s)"
+        "locator": "2022/quang-ngai/so.md:L102",
+        "supports": "phrase occurs in 12 transcribed exam(s)"
       }
     ]
   },
@@ -19947,8 +19947,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-duong/so.md:L419",
-        "supports": "phrase occurs in 56 transcribed exam(s)"
+        "locator": "2022/binh-duong/so.md:L432",
+        "supports": "phrase occurs in 39 transcribed exam(s)"
       }
     ]
   },
@@ -19976,8 +19976,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-giang/so.md:L362",
-        "supports": "phrase occurs in 60 transcribed exam(s)"
+        "locator": "2022/bac-giang/so.md:L375",
+        "supports": "phrase occurs in 32 transcribed exam(s)"
       }
     ]
   },
@@ -20005,8 +20005,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ha-noi/chuyen-su-pham.md:L206",
-        "supports": "phrase occurs in 44 transcribed exam(s)"
+        "locator": "2022/ha-noi/chuyen-su-pham.md:L219",
+        "supports": "phrase occurs in 32 transcribed exam(s)"
       }
     ]
   },
@@ -20034,7 +20034,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ninh-binh/so.md:L153",
+        "locator": "2022/ninh-binh/so.md:L166",
         "supports": "phrase occurs in 12 transcribed exam(s)"
       }
     ]
@@ -20063,8 +20063,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-duong/so.md:L415",
-        "supports": "phrase occurs in 19 transcribed exam(s)"
+        "locator": "2022/binh-duong/so.md:L428",
+        "supports": "phrase occurs in 14 transcribed exam(s)"
       }
     ]
   },
@@ -20092,8 +20092,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-giang/so.md:L84",
-        "supports": "phrase occurs in 30 transcribed exam(s)"
+        "locator": "2022/bac-giang/so.md:L97",
+        "supports": "phrase occurs in 24 transcribed exam(s)"
       }
     ]
   },
@@ -20121,7 +20121,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/dak-lak/so.md:L547",
+        "locator": "2023/dak-lak/so.md:L560",
         "supports": "phrase occurs in 4 transcribed exam(s)"
       }
     ]
@@ -20150,7 +20150,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/hai-duong/so.md:L333",
+        "locator": "2022/hai-duong/so.md:L346",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -20179,8 +20179,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-duong/so.md:L1093",
-        "supports": "phrase occurs in 41 transcribed exam(s)"
+        "locator": "2022/binh-duong/so.md:L1106",
+        "supports": "phrase occurs in 31 transcribed exam(s)"
       }
     ]
   },
@@ -20208,8 +20208,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/an-giang/so.md:L92",
-        "supports": "phrase occurs in 24 transcribed exam(s)"
+        "locator": "2022/an-giang/so.md:L105",
+        "supports": "phrase occurs in 22 transcribed exam(s)"
       }
     ]
   },
@@ -20237,7 +20237,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/khanh-hoa/so.md:L157",
+        "locator": "2025/khanh-hoa/so.md:L170",
         "supports": "phrase occurs in 2 transcribed exam(s)"
       }
     ]
@@ -20266,7 +20266,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/dong-nai/so.md:L285",
+        "locator": "2023/dong-nai/so.md:L298",
         "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
@@ -20295,8 +20295,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/dong-thap/so.md:L365",
-        "supports": "phrase occurs in 13 transcribed exam(s)"
+        "locator": "2022/dong-thap/so.md:L378",
+        "supports": "phrase occurs in 11 transcribed exam(s)"
       }
     ]
   },
@@ -20324,8 +20324,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-phuoc/so.md:L779",
-        "supports": "phrase occurs in 31 transcribed exam(s)"
+        "locator": "2022/binh-phuoc/so.md:L792",
+        "supports": "phrase occurs in 21 transcribed exam(s)"
       }
     ]
   },
@@ -20353,8 +20353,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ca-mau/so.md:L233",
-        "supports": "phrase occurs in 15 transcribed exam(s)"
+        "locator": "2022/ca-mau/so.md:L246",
+        "supports": "phrase occurs in 14 transcribed exam(s)"
       }
     ]
   },
@@ -20407,8 +20407,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/an-giang/so.md:L188",
-        "supports": "phrase occurs in 24 transcribed exam(s)"
+        "locator": "2022/an-giang/so.md:L201",
+        "supports": "phrase occurs in 17 transcribed exam(s)"
       }
     ]
   },
@@ -20436,7 +20436,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-duong/so.md:L727",
+        "locator": "2022/binh-duong/so.md:L740",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -20465,8 +20465,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-phuoc/so.md:L621",
-        "supports": "phrase occurs in 33 transcribed exam(s)"
+        "locator": "2022/binh-phuoc/so.md:L634",
+        "supports": "phrase occurs in 25 transcribed exam(s)"
       }
     ]
   },
@@ -20494,7 +20494,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/quang-ninh/so.md:L291",
+        "locator": "2022/quang-ninh/so.md:L304",
         "supports": "phrase occurs in 9 transcribed exam(s)"
       }
     ]
@@ -20523,8 +20523,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/ba-ria-vung-tau/so.md:L407",
-        "supports": "phrase occurs in 4 transcribed exam(s)"
+        "locator": "2023/ba-ria-vung-tau/so.md:L420",
+        "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
   },
@@ -20552,7 +20552,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/phu-tho/so.md:L626",
+        "locator": "2022/phu-tho/so.md:L639",
         "supports": "phrase occurs in 4 transcribed exam(s)"
       }
     ]
@@ -20581,7 +20581,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/an-giang/so.md:L190",
+        "locator": "2022/an-giang/so.md:L203",
         "supports": "phrase occurs in 11 transcribed exam(s)"
       }
     ]
@@ -20610,8 +20610,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/bac-ninh/so.md:L131",
-        "supports": "phrase occurs in 14 transcribed exam(s)"
+        "locator": "2022/bac-ninh/so.md:L144",
+        "supports": "phrase occurs in 13 transcribed exam(s)"
       }
     ]
   },
@@ -20639,8 +20639,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ha-noi/so.md:L537",
-        "supports": "phrase occurs in 11 transcribed exam(s)"
+        "locator": "2022/ha-noi/so.md:L550",
+        "supports": "phrase occurs in 7 transcribed exam(s)"
       }
     ]
   },
@@ -20668,7 +20668,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-duong/so.md:L1401",
+        "locator": "2022/binh-duong/so.md:L1414",
         "supports": "phrase occurs in 4 transcribed exam(s)"
       }
     ]
@@ -20697,7 +20697,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/tien-giang/so.md:L784",
+        "locator": "2025/tien-giang/so.md:L797",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -20846,8 +20846,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-thuan/so.md:L581",
-        "supports": "phrase occurs in 71 transcribed exam(s)"
+        "locator": "2022/binh-thuan/so.md:L594",
+        "supports": "phrase occurs in 49 transcribed exam(s)"
       }
     ]
   },
@@ -20899,7 +20899,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/khanh-hoa/so.md:L237",
+        "locator": "2025/khanh-hoa/so.md:L250",
         "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
@@ -20928,7 +20928,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/quang-ninh/so.md:L421",
+        "locator": "2025/quang-ninh/so.md:L434",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -20957,8 +20957,8 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/dong-thap/so.md:L543",
-        "supports": "phrase occurs in 7 transcribed exam(s)"
+        "locator": "2022/dong-thap/so.md:L556",
+        "supports": "phrase occurs in 5 transcribed exam(s)"
       }
     ]
   },
@@ -21010,7 +21010,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/ha-noi/so.md:L622",
+        "locator": "2022/ha-noi/so.md:L635",
         "supports": "phrase occurs in 3 transcribed exam(s)"
       }
     ]
@@ -21063,7 +21063,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2023/tp-ho-chi-minh/so.md:L281",
+        "locator": "2023/tp-ho-chi-minh/so.md:L294",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -21092,7 +21092,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2026/dong-nai/so.md:L231",
+        "locator": "2026/dong-nai/so.md:L244",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -21145,7 +21145,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2022/binh-duong/so.md:L429",
+        "locator": "2022/binh-duong/so.md:L442",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]
@@ -21198,7 +21198,7 @@
       },
       {
         "ref": "phrase-corpus",
-        "locator": "2025/dong-nai/so.md:L261",
+        "locator": "2025/dong-nai/so.md:L274",
         "supports": "phrase occurs in 1 transcribed exam(s)"
       }
     ]

@@ -20,7 +20,7 @@ DEFAULT_PATH = ROOT / "data" / "vocabulary.json"
 REGISTRY_PATH = ROOT / "docs" / "vocabulary-sources.json"
 ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*$")
 COMBINING_MARKS_RE = re.compile(r"[\u0300-\u036f]")
-TAG_NAMESPACES = {"level", "level-source", "topic", "type", "skill", "source", "family", "family-head"}
+TAG_NAMESPACES = {"level", "level-source", "topic", "type", "skill", "source", "family", "family-head", "curation", "curation-category"}
 TAG_RE = re.compile(r"^[a-z][a-z-]*(?::[A-Za-z0-9][A-Za-z0-9-]*)?$")
 SOURCE_KEYS = {"ref", "supports", "locator", "url"}
 
@@ -164,6 +164,18 @@ def validate(data: Any) -> list[str]:
                     problem(errors, index, entry, f"sources[{source_index}] has no supports statement")
                 if "url" in source and not str(source["url"]).startswith("https://"):
                     problem(errors, index, entry, f"sources[{source_index}].url must be an https URL")
+        # Curation travels as tags: exactly one archived marker plus one declared
+        # category. A category without the marker would be an unreviewed claim.
+        curation_tags = [tag for tag in (tags if isinstance(tags, list) else []) if str(tag).startswith("curation:")]
+        archived = "curation:archived" in curation_tags
+        category_tags = [tag for tag in (tags if isinstance(tags, list) else []) if str(tag).startswith("curation-category:")]
+        if archived and len(category_tags) != 1:
+            problem(errors, index, entry, "a curation:archived row needs exactly one curation-category:<id> tag")
+        if category_tags and not archived:
+            problem(errors, index, entry, "a curation-category:<id> tag is only valid together with curation:archived")
+        if len([tag for tag in curation_tags if tag == "curation:archived"]) > 1:
+            problem(errors, index, entry, "curation:archived is repeated")
+
         difficulty = entry.get("difficulty")
         if "difficulty" in entry and (isinstance(difficulty, bool) or not isinstance(difficulty, (int, float)) or not 0 <= difficulty <= 5):
             problem(errors, index, entry, "difficulty, when provided, must be a number from 0 to 5")
@@ -180,6 +192,23 @@ def validate(data: Any) -> list[str]:
             problem(errors, index, entry, "a family:merged row must name its headword in familyHead")
         if not merged and family_head is not None:
             problem(errors, index, entry, "familyHead is only valid on a family:merged row")
+
+    # A curated-out headword must not keep an active family note: the merged
+    # forms of an archived headword are archived with it by
+    # scripts/vocabulary_curation.py, so a mixed family is a data error.
+    heads_by_id = {str(entry.get("id")): entry for entry in data if isinstance(entry, dict)}
+    for position, entry in enumerate(data, start=1):
+        if not isinstance(entry, dict) or not entry.get("familyHead"):
+            continue
+        head = heads_by_id.get(str(entry["familyHead"]))
+        if head is None:
+            continue
+        head_archived = "curation:archived" in (head.get("tags") or [])
+        form_archived = "curation:archived" in (entry.get("tags") or [])
+        if head_archived and not form_archived:
+            problem(errors, position - 1, entry, "family head is archived but this merged form is not")
+        if form_archived and not head_archived:
+            problem(errors, position - 1, entry, "merged form is archived but its family head is not")
 
     for entry_id, indexes in ids.items():
         if len(indexes) > 1:
