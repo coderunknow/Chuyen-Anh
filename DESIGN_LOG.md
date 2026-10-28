@@ -1464,3 +1464,8 @@ is the test wrong — and why is the `checks` job (which runs the static suite) 
 - **Still open:** the first card of a session pays the cache fill (~54 ms, unchanged); the visible card transition was not re-timed
   in a browser; the vestigial `curationCategories` key in `vocabulary_evidence_review.build_report()` is still there; 923 vs 930
   review-queue definitions still differ; nothing was merged, tagged, released or deployed.
+
+### CI on the new head (same day)
+
+Both jobs on `d34fd3c` are **success**: `checks` **302 s** (was 734 s: the static suite now finishes in ~2 min) and `browser` **302 s**
+(was 405 s), so the memoisation also shortened the job the browser suites run in. One green run of each is a data point, not a trend.

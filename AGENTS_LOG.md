@@ -856,3 +856,6 @@ CodeRabbit's review `5643120300` (run metadata again `Layers: Repository YAML`) 
    **130 OK**; static **114/114**; both browser suites PASS sequentially on Chromium 133 (re-run after the app change).
 8. **Not done:** no merge/tag/release/deploy; no new headword or gloss edit; browser card transition not re-timed; 0/106 exam
    originals verified; 8 answer claims still flagged; 923-vs-930 queue definition still unreconciled.
+
+9. **CI on `d34fd3c`:** `checks` **success 302 s** (was 734 s) and `browser` **success 302 s** (was 405 s) in run `40687982477`; the
+   `browser` job's `--with-deps` Chromium install still dominates its wall clock. One run each, not a trend.
