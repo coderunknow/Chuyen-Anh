@@ -877,3 +877,15 @@ CodeRabbit's review `5643120300` (run metadata again `Layers: Repository YAML`) 
    default-off, consent, real events with no query text, the downloaded report, erasure on withdrawal, the English panel and **zero
    external requests**. Results: static **115/115**, Python **130 OK**, both browser suites PASS sequentially.
 6. **Not done:** no merge, tag, release or deploy; delivery stays manual by design; the log is per browser profile.
+
+## 2026-10-28 — release actions executed on explicit user approval
+
+1. **Merge:** `gh pr merge 63 --merge` → PR #63 merged 13:34:05Z, `main` = `54ccaa0`.
+2. **Tag:** annotated `v1.0.0-rc3` on `54ccaa0`, pushed.
+3. **Release:** `Release artifacts` run `40697643944` created the draft with HTML/ZIP/checksums; published as a prerelease 13:36:48Z
+   (`gh release view` → `isDraft=false, isPrerelease=true, 3 assets`).
+4. **Gate, observed twice, honestly different:** the push-triggered deploy (`40697619997`) ran before the release existed and **skipped**
+   stage/configure/upload/deploy; after publication `deploy_gate.py --repo` reported `deploy=true`, and the dispatched deploy
+   (`40698054748`) completed every step including **Deploy: success**; `github-pages` deployment status **success** 13:39:06Z.
+5. **Not verified here:** the public URL `https://coderunknow.github.io/Chuyen-Anh/` is outside this sandbox's allowed hosts, so the live
+   page was not fetched — the deploy steps and the deployment record are the evidence.

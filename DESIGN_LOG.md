@@ -1521,3 +1521,34 @@ sense of consent-based and documented, (c) able to reach the maintainer, and (d)
   cutting at the first quote is lossy for prose and safe for content.
 - **Still open:** no endpoint, so delivery is manual by design; the log is per browser profile, not per user; nothing was merged, tagged,
   released or deployed, and the merge/tag/release decision is waiting on the user.
+
+## 2026-10-28 (release) — merged, tagged, published and deployed, on the user's explicit approval
+
+### User Intent
+
+After reviewing the preview the user approved the full path: merge PR #63, create the tag, publish the prerelease and allow the Pages
+deploy (they had already chosen "allow the deploy" when asked separately).
+
+### Implementation History
+
+1. `gh pr merge 63 --merge` → PR #63 **MERGED** at 2026-10-28T13:34:05Z, merge commit `54ccaa0` on `main`.
+2. Annotated tag **`v1.0.0-rc3`** created on `54ccaa0` and pushed (`6c6ab2f` → tag object).
+3. The tag push triggered **`Release artifacts`** (run `40697643944`, success): it created the *draft* prerelease and attached
+   `chuyen-anh-v1.0.0-rc3.html`, `…zip`, `…-checksums.txt`.
+4. **The push-triggered deploy ran before the release existed** (run `40697619997`) and, correctly, evaluated the hold: steps 8–11
+   (stage / configure / upload / deploy) were **skipped**. That is the gate doing its job rather than a failure.
+5. Release published (`gh release edit --draft=false --prerelease`) at 13:36:48Z with the three assets.
+6. Local gate re-checked: `deploy=true (release v1.0.0-rc3 is published)`.
+7. `Deploy Flashcard` dispatched for `main` (run `40698054748`, success): checkout, gate, vocabulary/HTML checks, Python suite, static
+   suite, **stage (success), configure Pages (success), upload (success), deploy (success)**; the `github-pages` deployment reports
+   **success** at 13:39:06Z for <https://coderunknow.github.io/Chuyen-Anh/>.
+
+### Decisions & Lessons
+
+- **The hold firing on the merge run is the gate working, not a bug.** Ordering matters: the deploy workflow triggers on the `main` push,
+  which happens before any tag or release exists. Publishing the release and then dispatching the deploy is the sequence that keeps the
+  gate meaningful.
+- **A draft release is not a release.** `release_artifacts.py` creates a draft prerelease so the artifacts are attached before the release
+  becomes visible; the gate only opens once the draft is published, which is exactly what happened here.
+- Not claimed: the live Pages URL could not be fetched from this sandbox (only GitHub hosts are reachable), so the deployment record and
+  the workflow's own stage/deploy steps are the evidence; a browser check of the public URL is still outstanding.

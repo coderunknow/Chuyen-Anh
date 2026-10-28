@@ -2,9 +2,13 @@
 
 ## v1.0.0-rc3 — quality hardening candidate (2026-10-28, NOT released)
 
-**Status: unreleased candidate.** `APP_VERSION` and `DEPLOY_HOLD` both name `v1.0.0-rc3`; no tag, release, prerelease or deploy
-exists for it, and the Pages gate reports `deploy=false (release v1.0.0-rc3 is missing; deployment held)`. Base: `15a4615`
-(the published rc2, PR #62). This release adds no headword and changes no stored ID, gloss, family note or progress key.
+**Status: published as a prerelease on 2026-10-28, deployed to Pages the same day.** PR #63 was merged into `main` as `54ccaa0`
+(2026-10-28T13:34Z); annotated tag `v1.0.0-rc3` points at that merge commit; the `Release artifacts` workflow built the draft and it was
+published as a prerelease at 13:36:48Z with `chuyen-anh-v1.0.0-rc3.html`, `…zip` and `…-checksums.txt`. The first Pages run (triggered by
+the merge) evaluated the gate before the release existed and correctly held; the `Deploy Flashcard` workflow was then dispatched against
+`main` and all stages — stage, configure Pages, upload, deploy — succeeded, with the `github-pages` deployment reporting **success** at
+13:39:06Z for <https://coderunknow.github.io/Chuyen-Anh/>. The gate now reports `deploy=true (release v1.0.0-rc3 is published)`. This
+release adds no headword and changes no stored ID, gloss, family note or progress key.
 
 ### Vocabulary: the 923-word review queue, classified instead of deleted
 
@@ -105,8 +109,7 @@ pressing. **Application code is unchanged by this fix**; it removes a race in th
 
 ### Still not done
 
-No merge, tag, release, deploy or version publication; no new headword; no gloss re-editing; 0/106 papers verified against an
-official original; browser timings are not re-claimed (see the rc2 performance section — only the search prewarm was outside the
+No new headword and no gloss re-editing; 0/106 papers verified against an official original; browser timings are not re-claimed (see the rc2 performance section — only the search prewarm was outside the
 noise), and the new per-card figure is a Node-side measurement of `generateQuestion` over the shipped deck, not a browser
 transition measurement — the visible effect was not re-timed in Chromium.
 
