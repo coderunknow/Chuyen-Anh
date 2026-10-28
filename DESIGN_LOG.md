@@ -1586,7 +1586,15 @@ The user asked for **Chuyên Anh v1.0.0-rc4, end to end**, in one request:
    `tests/test_sprint_exam_features.py` and `tests/test_deploy_gate.py` were updated, `PRIVACY.md` and the README version/deploy-gate paragraphs
    follow, and `CHANGELOG.md` gained an rc4 section. `python scripts/deploy_gate.py` returns
    `deploy=false (deploy hold names v1.0.0-rc4 …; deployment held)` locally, so no merge can publish before the rc4 prerelease exists.
-8. **Verification.** Static chain green (`build_vocabulary --check`, `validate_vocab`, `embed_vocabulary --check`, `build_phrases --check`,
+8. **CI caught one real layout defect.** The first push ran the browser job on GitHub's runner (where Chromium *is* available) and it failed
+   at `tests/browser-learning.cjs:66` — "the tablet breakpoint does not introduce horizontal overflow" at 768 px. The cause was the new
+   compact interface switch in the top bar, which no longer fitted beside the brand, the counts and the theme/backup buttons. It is now hidden
+   below 1025 px (Settings keeps the selector), restoring the pre-rc4 top-bar geometry; the phone layout was never affected because it never
+   showed the compact copy. The same pass found two accessible-name defects in the new controls (`aria-label` paraphrasing visible text on the
+   card toggle, and a label on the decorative mask dots, both `label-content-name-mismatch`): the toggle is now named by its own text plus
+   `aria-pressed`, the dots are `aria-hidden`, and the English reveal labels keep the visible words. axe on the jsdom build reports no
+   `label-content-name-mismatch` violation on the card, the masked search rows, Settings or either skin.
+9. **Verification.** Static chain green (`build_vocabulary --check`, `validate_vocab`, `embed_vocabulary --check`, `build_phrases --check`,
    `embed_phrases --check`, `exams/embed_archive --check`, `rc4_vocabulary_audit --check`); `python -m unittest discover -s tests -p 'test_*.py'`
    **141 OK** (130 + 11 new audit tests); `node --test tests/static-app.test.js` **119/119** (115 + 4 rc4 tests); the stylesheet parses
    (891 rules, 105.114 bytes); and a jsdom DOM suite booting the real file **43/43** covers default Classic/show, the toggle and its

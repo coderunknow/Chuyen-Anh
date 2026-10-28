@@ -442,9 +442,12 @@ kbd, .kbd { min-width: 24px; padding: 2px 6px; border: 1px solid var(--border-st
 .ui-switch-option.is-on { background: var(--surface); color: var(--primary-strong); box-shadow: var(--shadow-sm); }
 .ui-switch--settings { margin-left: auto; }
 .segmented--setting { margin-left: auto; }
-@media (max-width: 680px) {
-  /* Settings keeps the selector; the compact top-bar copy would not fit beside
-     the theme and backup buttons on a phone. */
+@media (max-width: 1024px) {
+  /* Settings keeps the selector. At 768px the brand, the counts and the
+     theme/backup buttons already fill the bar, and the extra segment pushed the
+     document sideways (browser-learning.cjs tablet assertion, rc4 CI run
+     40720178176). Hiding the compact copy restores the pre-rc4 geometry; no
+     other top-bar metric changes, so the phone layout is untouched. */
   .top-actions .ui-switch { display: none; }
 }
 
@@ -224733,8 +224736,8 @@ const EN_UI_TRANSLATIONS = Object.freeze({
 });
 
 const EN_UI_PATTERNS = [
-  [/^Hiện nghĩa của cụm (.+)$/, (_match, phrase) => `Show the meaning of the phrase “${phrase}”`],
-  [/^Hiện nghĩa của (.+)$/, (_match, word) => `Show the meaning of “${word}”`],
+  [/^Hiện nghĩa của cụm (.+)$/, (_match, phrase) => `Show meaning of the phrase “${phrase}”`],
+  [/^Hiện nghĩa của (.+)$/, (_match, word) => `Show meaning of “${word}”`],
   [/^Đang ghi (\d+) mục\.$/, (_match, count) => `Recording ${pluralCount(count, 'event', 'events')}.`],
   [/^Mặc định tắt\. Khi bạn bật, ứng dụng chỉ ghi trên thiết bị này những gì cần để tìm lỗi: phiên bản, ngôn ngữ, giao diện, cỡ màn hình, số lượt học và thông báo lỗi\. Tối đa (\d+) mục; mục cũ nhất bị bỏ khi đầy\.$/, (_match, limit) => `Off by default. When you turn it on, the app records only what is needed to find a bug, on this device: version, language, theme, screen size class, number of turns and error messages. At most ${limit} events; the oldest is dropped when it fills up.`],
   [/^Flashcard · ([\d.,]+) từ · kho đề offline$/, (_match, count) => `Flashcards · ${pluralCount(formatCount(count, 'en'), 'word', 'words')} · offline exam archive`],
@@ -228200,7 +228203,7 @@ export async function createApp(root) {
     if (answered || meaningRevealed(entry.id)) {
       return `<span class="${className}">${content ?? escapeHtml(entry.meaning)}</span>`;
     }
-    return `<span class="${className} meaning-masked"><span class="meaning-dots" aria-label="${escapeHtml(MASKED_MEANING)} nghĩa đang ẩn">${MASKED_MEANING}</span><button type="button" class="meaning-reveal" data-reveal-meaning="${escapeHtml(entry.id)}" aria-pressed="false" aria-label="Hiện nghĩa của ${escapeHtml(entry.word)}">Hiện nghĩa</button></span>`;
+    return `<span class="${className} meaning-masked"><span class="meaning-dots" aria-hidden="true">${MASKED_MEANING}</span><button type="button" class="meaning-reveal" data-reveal-meaning="${escapeHtml(entry.id)}" aria-pressed="false" aria-label="Hiện nghĩa của ${escapeHtml(entry.word)}">Hiện nghĩa</button></span>`;
   }
 
   // A mode change must not discard what the learner has typed into a spelling
@@ -229277,7 +229280,7 @@ export async function createApp(root) {
                 <p class="first-look-word"><span class="vocab-word">${escapeHtml(pair.vocab.word)}</span> <span class="vocab-pos">${escapeHtml(pair.vocab.pos)}</span></p>
                 <p class="first-look-meaning"><span>Nghĩa</span>${meaningRevealed(pair.vocab.id)
                   ? `<strong class="vocab-meaning">${escapeHtml(pair.vocab.meaning)}</strong>`
-                  : `<span class="meaning-masked"><span class="meaning-dots">${MASKED_MEANING}</span><button type="button" class="btn small" data-reveal-meaning="${escapeHtml(pair.vocab.id)}" aria-pressed="false">Hiện nghĩa</button></span>`}</p>
+                  : `<span class="meaning-masked"><span class="meaning-dots" aria-hidden="true">${MASKED_MEANING}</span><button type="button" class="btn small" data-reveal-meaning="${escapeHtml(pair.vocab.id)}" aria-pressed="false">Hiện nghĩa</button></span>`}</p>
                 ${vocabularyMetadataHtml(pair.vocab)}${exampleHtml(pair.vocab)}
               </div>`).join('');
     return `
@@ -229297,7 +229300,7 @@ export async function createApp(root) {
             <div class="first-look">
               <p class="first-look-meaning"><span>Nghĩa</span>${meaningRevealed(item.vocab.id)
                 ? `<strong class="vocab-meaning">${escapeHtml(item.vocab.meaning)}</strong>`
-                : `<span class="meaning-masked"><span class="meaning-dots">${MASKED_MEANING}</span><button type="button" class="btn small" data-reveal-meaning="${escapeHtml(item.vocab.id)}" aria-pressed="false">${iconMarkup('eye')}Hiện nghĩa</button></span>`}</p>
+                : `<span class="meaning-masked"><span class="meaning-dots" aria-hidden="true">${MASKED_MEANING}</span><button type="button" class="btn small" data-reveal-meaning="${escapeHtml(item.vocab.id)}" aria-pressed="false">${iconMarkup('eye')}Hiện nghĩa</button></span>`}</p>
               ${vocabularyMetadataHtml(item.vocab)}${exampleHtml(item.vocab)}
               <p class="first-look-note">Lượt giới thiệu này không phải là câu trả lời và không thay đổi lịch ôn. Sau khi bấm nút, từ sẽ được kiểm tra ngay bằng một câu hỏi ngắn.</p>
               <div class="actions"><button class="btn primary" id="start-quiz">Bắt đầu kiểm tra <kbd>Enter</kbd></button></div>
@@ -229407,7 +229410,7 @@ export async function createApp(root) {
               <span class="state-pill state-${escapeHtml(item.progress.state)}">${escapeHtml(stateLabel(item.progress.state))}</span>
               <button class="fav ${flaggedHere ? 'active' : ''}" id="favorite-card" aria-label="${flaggedHere ? 'Bỏ yêu thích' : 'Thêm yêu thích'}" aria-pressed="${flaggedHere}">${flaggedHere ? '★' : '☆'}</button>
               <button class="flag ${flagged.has(item.vocab.id) ? 'active' : ''}" id="flag-card" aria-label="${flagged.has(item.vocab.id) ? 'Bỏ đánh dấu từ khó' : 'Đánh dấu từ khó'}" aria-pressed="${flagged.has(item.vocab.id)}">${iconMarkup('flag')}</button>
-              <button class="btn small meaning-toggle ${meaningsHidden() ? 'is-hiding' : ''}" id="meaning-toggle" aria-pressed="${meaningsHidden()}" aria-label="${meaningsHidden() ? 'Đang ẩn nghĩa tiếng Việt — bật để hiện nghĩa' : 'Đang hiện nghĩa tiếng Việt — bật để ẩn nghĩa'}" title="${meaningsHidden() ? 'Đang ẩn nghĩa · bật để hiện' : 'Đang hiện nghĩa · bật để ẩn'}">${iconMarkup(meaningsHidden() ? 'eyeOff' : 'eye')}${meaningsHidden() ? 'Nghĩa: ẩn' : 'Nghĩa: hiện'}</button>
+              <button class="btn small meaning-toggle ${meaningsHidden() ? 'is-hiding' : ''}" id="meaning-toggle" aria-pressed="${meaningsHidden()}" title="${meaningsHidden() ? 'Đang ẩn nghĩa · bật để hiện' : 'Đang hiện nghĩa · bật để ẩn'}">${iconMarkup(meaningsHidden() ? 'eyeOff' : 'eye')}${meaningsHidden() ? 'Nghĩa: ẩn' : 'Nghĩa: hiện'}</button>
               <button class="btn small" id="skip-card" ${canSkip ? '' : 'disabled'}>Bỏ qua</button>
             </div>
           </div>
@@ -229963,7 +229966,7 @@ export async function createApp(root) {
       const scopeNote = state.value === 'archived' ? '<span class="results-sep" aria-hidden="true"> · </span><span class="results-scope">mục lưu trữ không vào phiên học</span>' : '';
       results.innerHTML = matches.length ? `<p class="results-meta" role="status" aria-live="polite">${formatCount(matches.length)} kết quả · trang ${page}/${pages}${scopeNote}</p><div class="vocab-list">${visible.map(item => `<div class="vocab-row${item.archived ? ' vocab-row--archived' : ''}"><span class="vocab-word">${hi(item.entry.word)}</span><span class="vocab-pos">${escapeHtml(item.entry.pos)}</span>${meaningRevealed(item.entry.id)
             ? `<span class="vocab-meaning" title="${escapeHtml(item.entry.meaning)}">${hi(item.entry.meaning)}</span>`
-            : `<span class="vocab-meaning meaning-masked"><span class="meaning-dots" aria-label="${escapeHtml(MASKED_MEANING)} nghĩa đang ẩn">${MASKED_MEANING}</span><button type="button" class="meaning-reveal" data-reveal-meaning="${escapeHtml(item.entry.id)}" aria-pressed="false" aria-label="Hiện nghĩa của ${escapeHtml(item.entry.word)}">Hiện nghĩa</button></span>`}${item.archived ? `<span class="state-pill state-archived" title="Mục này nằm ngoài bộ từ trọng tâm nên không vào phiên học; nghĩa và tiến độ cũ vẫn được giữ.">Lưu trữ</span>` : `<span class="state-pill state-${escapeHtml(item.state)}">${escapeHtml(stateLabel(item.state))}</span><button class="fav ${item.favorite ? 'active' : ''}" data-fav="${escapeHtml(item.entry.id)}" aria-label="${item.favorite ? 'Bỏ yêu thích' : 'Thêm yêu thích'}">${item.favorite ? '★' : '☆'}</button>`}</div>`).join('')}</div>${pages > 1 ? `<div class="pagination" aria-label="Trang kết quả">${Array.from({ length: pages }, (_, i) => `<button class="btn small ${i + 1 === page ? 'primary' : ''}" data-page="${i + 1}" aria-label="Trang ${i + 1}" ${i + 1 === page ? 'aria-current="page"' : ''}>${i + 1}</button>`).join('')}</div>` : ''}` : '<div class="empty" role="status"><strong>Không tìm thấy</strong>Thử từ khóa khác hoặc bỏ bớt bộ lọc.</div>';
+            : `<span class="vocab-meaning meaning-masked"><span class="meaning-dots" aria-hidden="true">${MASKED_MEANING}</span><button type="button" class="meaning-reveal" data-reveal-meaning="${escapeHtml(item.entry.id)}" aria-pressed="false" aria-label="Hiện nghĩa của ${escapeHtml(item.entry.word)}">Hiện nghĩa</button></span>`}${item.archived ? `<span class="state-pill state-archived" title="Mục này nằm ngoài bộ từ trọng tâm nên không vào phiên học; nghĩa và tiến độ cũ vẫn được giữ.">Lưu trữ</span>` : `<span class="state-pill state-${escapeHtml(item.state)}">${escapeHtml(stateLabel(item.state))}</span><button class="fav ${item.favorite ? 'active' : ''}" data-fav="${escapeHtml(item.entry.id)}" aria-label="${item.favorite ? 'Bỏ yêu thích' : 'Thêm yêu thích'}">${item.favorite ? '★' : '☆'}</button>`}</div>`).join('')}</div>${pages > 1 ? `<div class="pagination" aria-label="Trang kết quả">${Array.from({ length: pages }, (_, i) => `<button class="btn small ${i + 1 === page ? 'primary' : ''}" data-page="${i + 1}" aria-label="Trang ${i + 1}" ${i + 1 === page ? 'aria-current="page"' : ''}>${i + 1}</button>`).join('')}</div>` : ''}` : '<div class="empty" role="status"><strong>Không tìm thấy</strong>Thử từ khóa khác hoặc bỏ bớt bộ lọc.</div>';
       results.querySelectorAll('[data-fav]').forEach(button => button.addEventListener('click', () => {
         const id = button.dataset.fav;
         toggleFavorite(id, false); // No shell rerender: the search state must survive.
@@ -230002,7 +230005,7 @@ export async function createApp(root) {
   function phraseMeaningSpan(entry) {
     const revealed = meaningRevealed(entry.id);
     if (revealed) return `<span class="vocab-meaning">${escapeHtml(entry.meaning)}</span>`;
-    return `<span class="vocab-meaning meaning-masked"><span class="meaning-dots" aria-label="${escapeHtml(MASKED_MEANING)} nghĩa đang ẩn">${MASKED_MEANING}</span><button type="button" class="meaning-reveal" data-reveal-phrase="${escapeHtml(entry.id)}" aria-pressed="false" aria-label="Hiện nghĩa của cụm ${escapeHtml(entry.phrase)}">Hiện nghĩa</button></span>`;
+    return `<span class="vocab-meaning meaning-masked"><span class="meaning-dots" aria-hidden="true">${MASKED_MEANING}</span><button type="button" class="meaning-reveal" data-reveal-phrase="${escapeHtml(entry.id)}" aria-pressed="false" aria-label="Hiện nghĩa của cụm ${escapeHtml(entry.phrase)}">Hiện nghĩa</button></span>`;
   }
 
   function startPhrasePractice() {

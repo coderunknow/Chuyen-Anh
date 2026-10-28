@@ -905,5 +905,11 @@ CodeRabbit's review `5643120300` (run metadata again `Layers: Repository YAML`) 
 8. **Verification.** Static chain green (`rc4_vocabulary_audit.py --check` included); Python **141 OK** (11 new audit tests);
    `node --test tests/static-app.test.js` **119/119** (4 new rc4 tests); stylesheet parses (891 rules, 105.114 bytes); jsdom DOM suite
    **43/43** on the real file; six-view/two-skin console sweep clean.
-9. **Not done:** no merge, tag, release or deploy; browser suites not executed (Chromium download blocked), so no visual review at
-   320/768/1280 px; the 3 REVIEW glosses still need an editor.
+9. **CI finding (real, fixed).** The browser job on GitHub's runner failed at `browser-learning.cjs:66` — horizontal overflow at the 768 px
+   tablet breakpoint caused by the new top-bar interface switch. Fix: hide the compact switch below 1025 px (Settings keeps it), restoring the
+   pre-rc4 top-bar geometry. The same pass fixed two `label-content-name-mismatch` defects: the card toggle is now named by its visible text
+   (`aria-pressed` kept) instead of a paraphrasing `aria-label`, and the decorative mask dots are `aria-hidden`; English reveal labels read
+   “Show meaning of …” so the accessible name still contains the visible words. axe (jsdom) reports no such violation on the card, masked
+   search rows, Settings, or either skin.
+10. **Not done:** no merge, tag, release or deploy; the local sandbox still cannot run the two browser suites (Chromium download blocked), so
+   visual review at 320/768/1280 px rests on CI; the 3 REVIEW glosses still need an editor.

@@ -3533,6 +3533,10 @@ test('rc4: neither presentation preference can reach the scheduler, the grader o
   assert.match(redraw, /setSelectionRange/, 'the caret survives it too');
   // The toggle on the card is a real control with a stated state, not decoration.
   assert.match(html, /id="meaning-toggle" aria-pressed="\$\{meaningsHidden\(\)\}"/, 'the card toggle reports its state');
+  // The accessible name is the visible text: an aria-label that paraphrased the
+  // state would fail axe's label-content-name-mismatch check on the card.
+  const toggleMarkup = html.slice(html.indexOf('id="meaning-toggle"'), html.indexOf('id="meaning-toggle"') + 400);
+  assert.doesNotMatch(toggleMarkup, /aria-label=/, 'the toggle is named by its own text, not by a paraphrase');
   assert.match(html, /Nghĩa: ẩn|Nghĩa: hiện/, 'the card toggle says which mode is active in words');
 });
 

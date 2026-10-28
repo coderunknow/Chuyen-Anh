@@ -81,6 +81,14 @@ presentation preference, and every existing key keeps its shape.
   left in storage; boot now writes the sanitised record back when it differs, so the fallback is not silently re-computed forever.
 - **A duplicated `.ui-switch` wrapper in the top bar** (introduced while building this candidate) produced two nested switches;
   the markup now emits one.
+- **The new top-bar switch pushed the document sideways at 768 px.** CI's browser suite caught it
+  (`browser-learning.cjs:66`, "the tablet breakpoint does not introduce horizontal overflow", run 40720178176). The compact copy is now
+  hidden below 1025 px and Settings keeps the selector, which restores the pre-rc4 top-bar geometry; the phone layout is untouched because
+  it never showed the compact copy.
+- **Two accessible-name defects in the new controls.** The card toggle carried an `aria-label` that paraphrased its visible text and the
+  mask's dots carried their own label, both of which fail axe's `label-content-name-mismatch` rule. The toggle is now named by its own text
+  (`Nghĩa: hiện` / `Nghĩa: ẩn` + `aria-pressed`), the dots are `aria-hidden`, and the English reveal labels keep the visible words
+  (“Show meaning of …”) so the name still contains the label.
 
 ### Tests and verification
 
