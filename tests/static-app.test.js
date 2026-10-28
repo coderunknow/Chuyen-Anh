@@ -88,6 +88,9 @@ const {
   SPRINT_CONSOLIDATION_GAP,
   shouldHandOffImmediately,
   APP_VERSION,
+  LICENSE_TEXT,
+  isArchivedEntry,
+  shouldPrewarmSearchIndex,
   DEFAULT_PREFS,
   loadExamHistory,
   saveExamHistory,
@@ -116,7 +119,25 @@ const {
   exerciseAvailability,
   EXERCISE_TYPES,
   acceptsShortcutKey,
-  pluralCount
+  pluralCount,
+  TELEMETRY_CONTRACT,
+  TELEMETRY_MAX_EVENTS,
+  TELEMETRY_CONTACT_URL,
+  TELEMETRY_CONSENT_KEY,
+  TELEMETRY_LOG_KEY,
+  sanitizeTelemetryConsent,
+  telemetryConsentDecision,
+  scrubTelemetryText,
+  sanitizeTelemetryEvent,
+  appendTelemetryEvent,
+  loadTelemetryConsent,
+  saveTelemetryConsent,
+  loadTelemetryLog,
+  saveTelemetryLog,
+  clearTelemetryLog,
+  buildTelemetryReport,
+  telemetryReportFilename,
+  canSendTelemetry
 } = app;
 
 const vocab = [
@@ -300,13 +321,69 @@ test('same-root forms are folded into their headword, never counted as words', a
   for (const item of adversity) assert.equal(item.entry.familyHead, undefined);
 });
 
-test('the learner-facing word count is a headword count', async () => {
+// The About panel is the only place the app states what it is, what version it
+// is and under which licence it ships. Each of those is read from a real source
+// (LICENSE, APP_VERSION) instead of being retyped in the markup, and this test
+// fails if the embedded licence ever drifts from the file.
+test('the About panel states the real name, version, licence and purpose', async () => {
+  const licenceFile = await readFile(new URL('../LICENSE', import.meta.url), 'utf8');
+  assert.equal(LICENSE_TEXT.trim(), licenceFile.trim(), 'the embedded licence must equal LICENSE');
+  assert.match(LICENSE_TEXT, /^MIT License/);
+  assert.match(LICENSE_TEXT, /Copyright \(c\) 2026 coderunknow/);
+  assert.match(appScript[1], /class="panel about-panel"/, 'About lives in its own panel');
+  assert.match(appScript[1], /about-version">\$\{escapeHtml\(APP_VERSION\)\}/);
+  assert.match(appScript[1], /LICENSE_NAME/);
+  assert.match(appScript[1], /LICENSE_COPYRIGHT/);
+  // The product name is the product name in both interfaces: the About heading
+  // carries `.about-name`, which the English localiser leaves alone.
+  assert.match(appScript[1], /<h2 class="about-name">Chuyên Anh<\/h2>/);
+  assert.match(appScript[1], /\.code, \.about-name'/);
+  assert.match(appScript[1], /about-tagline/);
+  // Purpose is one short paragraph, not documentation: the panel keeps a tagline,
+  // one description and the licence-details toggle.
+  assert.match(appScript[1], /about-description/);
+  assert.match(appScript[1], /<details class="about-license">/);
+  // Per-word "Info" is v1.1.0 scope: this panel must not render per-word metadata.
+  assert.ok(!/about-(entry|word)-info/.test(appScript[1]), 'per-word Info must stay out of this release');
+});
+
+// The search-index prewarm is a latency trade with a memory cost, so it is gated
+// by a pure predicate that can be tested without a browser. The default (unknown
+// device memory, a visible tab, no save-data signal) warms; the three cases where
+// that trade is wrong do not.
+test('the search index is only warmed where warming is free', () => {
+  assert.equal(shouldPrewarmSearchIndex({}), true, 'the default case warms');
+  assert.equal(shouldPrewarmSearchIndex({ visibility: 'visible', deviceMemory: 8 }), true);
+  assert.equal(shouldPrewarmSearchIndex({ visibility: 'hidden' }), false, 'a hidden tab has nobody waiting');
+  assert.equal(shouldPrewarmSearchIndex({ saveData: true }), false, 'save-data connections are respected');
+  assert.equal(shouldPrewarmSearchIndex({ deviceMemory: 2 }), false, 'a 2 GB device keeps the cold path');
+  assert.equal(shouldPrewarmSearchIndex({ deviceMemory: 0.5 }), false);
+  assert.equal(shouldPrewarmSearchIndex({ deviceMemory: undefined }), true, 'unknown memory is not "low"');
+  assert.equal(shouldPrewarmSearchIndex({ deviceMemory: '4' }), true, 'the reported value is a string in some builds');
+  assert.equal(shouldPrewarmSearchIndex({ deviceMemory: 'bogus' }), true);
+  // The app wires the real signals into it instead of hard-coding a decision.
+  assert.match(appScript[1], /shouldPrewarmSearchIndex\(\{\s*visibility: document\.visibilityState/);
+  assert.match(appScript[1], /navigator\.connection\?\.saveData/);
+});
+
+test('the learner-facing word count is the focus deck, not every stored row', async () => {
   const loaded = await loadVocabulary(embeddedRaw);
   const active = loaded.data.filter(entry => !entry.familyHead);
   assert.equal(active.length, 5112);
+  const archived = active.filter(entry => isArchivedEntry(entry));
+  assert.equal(archived.length, 1271);
+  assert.equal(active.length - archived.length, 3841);
+  // Every archived headword names a reviewed category, and no legacy row (the
+  // maintainer's own list, IDs 1-913) is ever archived.
+  for (const entry of archived) {
+    const category = entry.tags.find(tag => tag.startsWith('curation-category:'));
+    assert.ok(category, `${entry.word} carries an archived tag without a category`);
+    assert.ok(Number(entry.id) > 913, `${entry.word} is a legacy row`);
+  }
   // The table and the JSON keep the merged rows for audit; the UI count is the
-  // number of roots, and the data panel states the family rule explicitly.
-  assert.match(appScript[1], /formatCount\(vocabulary\.length\)/);
+  // focus deck, and the data panel states both counts and the family rule.
+  assert.match(appScript[1], /formatCount\(deck\.length\)/);
+  assert.match(appScript[1], /formatCount\(archivedIds\.size\)/);
   assert.match(appScript[1], /formatCount\(familyHeadOf\.size\)/);
   assert.match(appScript[1], /Quy tắc gốc từ/);
 
@@ -317,21 +394,22 @@ test('the learner-facing word count is a headword count', async () => {
   assert.equal(formatCount(5112), '5.112');
   assert.equal(formatCount(5112, 'en'), '5,112');
   assert.equal(formatCount(0), '0');
-  assert.equal(translateUiText('5.112 từ gốc', 'en'), '5,112 headwords');
-  assert.equal(translateUiText('5112 từ gốc', 'en'), '5,112 headwords');
-  assert.equal(translateUiText('1 từ gốc', 'en'), '1 headword');
-  assert.equal(translateUiText('Flashcard · 5.112 từ gốc · kho đề offline', 'en'),
-    'Flashcards · 5,112 headwords · offline exam archive');
+  assert.equal(translateUiText('3.841 từ trọng tâm', 'en'), '3,841 focus words');
+  assert.equal(translateUiText('3841 từ trọng tâm', 'en'), '3,841 focus words');
+  assert.equal(translateUiText('1 từ trọng tâm', 'en'), '1 focus word');
+  assert.equal(translateUiText('1.271 từ lưu trữ', 'en'), '1,271 archived words');
+  assert.equal(translateUiText('Flashcard · 3.841 từ trọng tâm · kho đề offline', 'en'),
+    'Flashcards · 3,841 focus words · offline exam archive');
   assert.equal(translateUiText('740 dạng cùng gốc', 'en'), '740 same-root forms');
-  assert.equal(translateUiText('Tìm theo tiếng Anh, tiếng Việt, từ loại, tag hoặc ví dụ · 5.112 từ gốc.', 'en'),
-    'Search English, Vietnamese, part of speech, tags, or examples · 5,112 headwords.');
+  assert.equal(translateUiText('Tìm theo tiếng Anh, tiếng Việt, từ loại, tag hoặc ví dụ · 3.841 từ trọng tâm · 1.271 từ lưu trữ.', 'en'),
+    'Search English, Vietnamese, part of speech, tags, or examples · 3,841 focus words · 1,271 archived words.');
   // Merged forms are explained as notes in both languages, not as words.
   assert.equal(translateUiText('Quy tắc gốc từ:', 'en'), 'Root rule:');
   assert.equal(translateUiText('mỗi gốc từ chỉ tính là một từ vựng. Các dạng cùng gốc (ví dụ số nhiều, thì, phái sinh) không phải mục riêng; chúng được ghi ở dòng “Họ từ” của từ gốc.', 'en'),
     'each word root counts as one vocabulary item. Same-root forms (for example plurals, tenses and derivations) are not separate entries; they are recorded in the “Word family” line of the headword.');
   // The phrase bank keeps its own count and is not folded into the word count.
   assert.equal(translateUiText('780 cụm từ', 'en'), '780 phrases');
-  assert.equal(translateUiText('5.112 từ gốc', 'vi'), '5.112 từ gốc');
+  assert.equal(translateUiText('3.841 từ trọng tâm', 'vi'), '3.841 từ trọng tâm');
 });
 
 test('exam archive filters by year, location, format and unit', () => {
@@ -948,6 +1026,106 @@ test('a blank spelling submission is not an attempt that can be graded', () => {
   assert.equal(hasSubmissionAnswer(null, 'x'), false, 'without a question there is nothing to submit');
 });
 
+// The diagnostics log is the only thing in this app that could plausibly be
+// called telemetry, so its contract is pinned: consent first, local only, no
+// free text, bounded, and the app itself never transmits.
+test('the diagnostics log is opt-in, local, bounded and free of learner content', () => {
+  const at = '2026-10-28T12:00:00.000Z';
+  // ---- Consent -----------------------------------------------------------------
+  assert.equal(sanitizeTelemetryConsent(null).enabled, false, 'a fresh profile has not consented');
+  assert.equal(loadTelemetryConsent(store()).enabled, false, 'an empty device has not consented');
+  assert.equal(sanitizeTelemetryConsent({ enabled: true }).enabled, false,
+    'an enabled flag with no recorded decision is not consent');
+  assert.equal(telemetryConsentDecision(true, at).enabled, true);
+  assert.equal(telemetryConsentDecision(true, at).decidedAt, at);
+  const consentStore = store();
+  assert.equal(saveTelemetryConsent(telemetryConsentDecision(true, at), consentStore), true);
+  assert.equal(loadTelemetryConsent(consentStore).enabled, true, 'consent survives a reload');
+  assert.equal(consentStore.getItem(TELEMETRY_CONSENT_KEY).includes('2026-10-28'), true, 'the decision time is stored');
+  assert.equal(loadTelemetryConsent(failingStore()).enabled, false, 'an unreadable store is not consent');
+
+  // ---- Nothing is written before consent ---------------------------------------
+  const before = store();
+  assert.deepEqual(loadTelemetryLog(before), []);
+  assert.equal(before.getItem(TELEMETRY_LOG_KEY), null, 'no log exists on a device that never consented');
+
+  // ---- Event shape: whitelisted, numeric, scrubbed ------------------------------
+  assert.equal(sanitizeTelemetryEvent({ at, kind: 'not-a-kind' }), null, 'unknown kinds are dropped');
+  assert.equal(sanitizeTelemetryEvent({ kind: 'boot', name: 'app-boot' }), null, 'an undated event is dropped');
+  const event = sanitizeTelemetryEvent({
+    at, kind: 'backup', name: 'import-error', note: 'Import thất bại: "từ \\"bí mật\\" của tôi" x@y.com',
+    word: 'secret', query: 'secret query', answer: 'secret answer',
+    counters: { rows: 12, ratio: 0.5, bad: 'x', huge: 1e12, a: 1, b: 2, c: 3, d: 4 }
+  });
+  assert.deepEqual(Object.keys(event).sort(), ['at', 'counters', 'kind', 'name', 'note']);
+  assert.equal(event.note, 'Import thất bại:', 'the note keeps only the text before the first quote');
+  assert.equal(JSON.stringify(event).includes('secret'), false, 'learner text is never stored');
+  assert.equal(Object.keys(event.counters).length <= 6, true, 'at most six counters survive');
+  assert.equal(event.counters.huge, undefined, 'an out-of-range counter is dropped');
+  assert.equal(event.counters.bad, undefined, 'a non-numeric counter is dropped');
+  assert.equal(scrubTelemetryText('a'.repeat(400)).length, 120, 'a note is capped');
+  assert.equal(scrubTelemetryText('line\u0000break\nx'), 'line break x', 'control characters never enter the log');
+
+  // ---- Bounded, immutable ------------------------------------------------------
+  let log = [];
+  for (let index = 0; index < TELEMETRY_MAX_EVENTS + 25; index += 1) {
+    log = appendTelemetryEvent(log, { at, kind: 'boot', name: `e${index}` });
+  }
+  assert.equal(log.length, TELEMETRY_MAX_EVENTS, 'the log is bounded');
+  assert.equal(log[log.length - 1].name, `e${TELEMETRY_MAX_EVENTS + 24}`, 'the newest event is kept');
+  const frozen = log.slice();
+  appendTelemetryEvent(frozen, { at, kind: 'boot', name: 'extra' });
+  assert.equal(frozen.length, TELEMETRY_MAX_EVENTS, 'appending does not mutate the caller array');
+
+  // ---- Storage round-trip and erasure ------------------------------------------
+  // Erasure is `removeItem`, so the store here is the full three-method API of a
+  // real localStorage rather than the two-method fixture used above.
+  const logStore = (() => {
+    const data = new Map();
+    return {
+      getItem: key => data.get(key) ?? null,
+      setItem: (key, value) => data.set(key, value),
+      removeItem: key => data.delete(key)
+    };
+  })();
+  assert.equal(saveTelemetryLog(log.slice(0, 3), logStore), true);
+  assert.equal(loadTelemetryLog(logStore).length, 3);
+  assert.equal(clearTelemetryLog(logStore), true);
+  assert.equal(logStore.getItem(TELEMETRY_LOG_KEY), null, 'erasure removes the key, not just its contents');
+
+  // ---- The report is the only thing sent, and it says what it leaves out --------
+  const report = buildTelemetryReport({
+    log: [{ at, kind: 'session-end', name: 'completed', counters: { turns: 20, correct: 17 } }],
+    consent: telemetryConsentDecision(true, at),
+    appVersion: APP_VERSION,
+    environment: { language: 'vi', theme: 'dark', viewportWidth: 375, reducedMotion: true, userAgent: 'should not appear' },
+    generatedAt: at
+  });
+  assert.equal(report.contract, TELEMETRY_CONTRACT);
+  assert.equal(report.appVersion, APP_VERSION);
+  assert.equal(report.consent.enabled, true);
+  assert.equal(report.consent.decidedAt, at);
+  assert.deepEqual(report.environment, { language: 'vi', theme: 'dark', viewport: 'mobile', reducedMotion: true },
+    'the environment is bucketed and drops anything not whitelisted, such as the user agent');
+  assert.equal(buildTelemetryReport({ environment: { viewportWidth: 1280 } }).environment.viewport, 'desktop');
+  assert.equal(report.eventCount, 1);
+  assert.equal(JSON.stringify(report).includes('should not appear'), false);
+  assert.equal(report.notCollected.some(item => /IP address/.test(item)), true, 'the file states what it omits');
+  assert.equal(report.notCollected.some(item => /timezone/.test(item)), true);
+  assert.match(telemetryReportFilename(at), /^chuyen-anh-diagnostics-2026-10-28\.json$/);
+  assert.equal(canSendTelemetry(sanitizeTelemetryConsent(null), report.events), false, 'no sending without consent');
+  assert.equal(canSendTelemetry(telemetryConsentDecision(true, at), []), false, 'an empty log is not a report');
+  assert.equal(canSendTelemetry(telemetryConsentDecision(true, at), report.events), true);
+
+  // ---- The app never transmits, and the consent control is real -----------------
+  assert.equal(/fetch\s*\(|XMLHttpRequest|sendBeacon|navigator\.connection\?\.sendBeacon/.test(appScript[1]), false,
+    'the application contains no way to transmit the log');
+  assert.match(appScript[1], /id="telemetry-setting"/, 'the switch exists in Settings');
+  assert.match(appScript[1], /if \(!telemetryConsent\.enabled\) return;/, 'recording stops without consent');
+  assert.match(appScript[1], /clearTelemetryLog\(storage\)/, 'withdrawing consent erases the log');
+  assert.match(TELEMETRY_CONTACT_URL, /^https:\/\/github\.com\/coderunknow\/Chuyen-Anh\/issues$/);
+});
+
 test('every multiple-choice question offers plausible, distinct options', () => {
   const vocabulary = embeddedVocabulary;
   const posTokens = entry => String(entry?.pos ?? '').toLowerCase().split(/[^a-z]+/).filter(Boolean);
@@ -958,28 +1136,43 @@ test('every multiple-choice question offers plausible, distinct options', () => 
   const field = mode => (mode === MODES.RECOGNITION ? 'meaning' : 'word');
   // Index once: the assertion needs the number of *distinct* same-part-of-speech
   // option texts the implementation can pick from, not the number of entries.
-  const byPosToken = new Map();
+  // The distinct texts are collected per part-of-speech token and per field, and
+  // the union for a token set is memoised, because walking every peer of every
+  // entry cost ~28 s of the ~7 min this test took on 5.852 rows. The two
+  // formulations were compared on all 17.556 entry/mode pairs before the change
+  // and agreed on every pair.
+  const textsByToken = new Map();
   for (const entry of vocabulary) {
     for (const token of new Set(posTokens(entry))) {
-      if (!byPosToken.has(token)) byPosToken.set(token, []);
-      byPosToken.get(token).push(entry);
+      let bucket = textsByToken.get(token);
+      if (!bucket) {
+        bucket = { meaning: new Set(), word: new Set() };
+        textsByToken.set(token, bucket);
+      }
+      if (entry.meaning) bucket.meaning.add(normalize(entry.meaning));
+      if (entry.word) bucket.word.add(normalize(entry.word));
     }
   }
+  const peerTextUnions = new Map();
   const peerTexts = (entry, mode) => {
-    const answerText = normalize(entry[field(mode)]);
-    const texts = new Set();
-    for (const token of new Set(posTokens(entry))) {
-      for (const other of byPosToken.get(token)) {
-        if (other.id === entry.id) continue;
-        const text = other[field(mode)];
-        if (!text) continue;
-        const key = normalize(text);
-        if (key !== answerText) texts.add(key);
+    const tokens = [...new Set(posTokens(entry))].sort();
+    const cacheKey = `${field(mode)}\u0001${tokens.join('\u0002')}`;
+    let texts = peerTextUnions.get(cacheKey);
+    if (!texts) {
+      texts = new Set();
+      for (const token of tokens) {
+        for (const text of textsByToken.get(token)?.[field(mode)] ?? []) texts.add(text);
       }
+      peerTextUnions.set(cacheKey, texts);
     }
-    return texts.size;
+    // The answer's own text is in that union, whether it comes from this entry
+    // or from a peer that shares the gloss.
+    return texts.has(normalize(entry[field(mode)])) ? texts.size - 1 : texts.size;
   };
 
+  // `vocabulary.find` per option scanned the whole deck for every option of every
+  // question (~2,4 s of the same run); an id index answers the same question.
+  const byId = new Map(vocabulary.map(entry => [entry.id, entry]));
   let statements = 0;
   let clozeStatements = 0;
   for (const entry of vocabulary) {
@@ -999,7 +1192,7 @@ test('every multiple-choice question offers plausible, distinct options', () => 
       assert.equal(question.options.find(option => option.id === entry.id).text, entry[field(mode)]);
 
       const options = question.options.filter(option => option.id !== entry.id)
-        .map(option => vocabulary.find(candidate => candidate.id === option.id));
+        .map(option => byId.get(option.id));
       // Same part of speech whenever the dataset has enough peers; otherwise the
       // remaining slots fall back instead of leaving the question short.
       const expectedSamePos = Math.min(3, peerTexts(entry, mode));
@@ -1242,7 +1435,7 @@ test('exported exam results report exactly what the learner did and what could b
   const result = buildExamResultJson(session, record, { now: 6000 });
   assert.equal(result.app, 'Chuyên Anh');
   assert.equal(result.version, APP_VERSION, 'the result carries the application version');
-  assert.equal(result.version, 'v1.0.0-rc2');
+  assert.equal(result.version, 'v1.0.0-rc3');
   assert.equal(result.schemaVersion, '1.0.0');
   assert.deepEqual(result.summary, {
     total: 3, answered: 2, unanswered: 1,
@@ -2625,9 +2818,26 @@ test('the search count is normalised before its noun is chosen', () => {
   assert.equal(english('1.001'), `${prefix}1,001 words.`);
   assert.equal(english('5.112'), `${prefix}5,112 words.`);
   assert.equal(english('10.000'), `${prefix}10,000 words.`);
+  // The Tra cứu result line groups its count the same way, in both languages, and
+  // the archived scope note survives translation.
+  assert.equal(translateUiText('1271 kết quả · trang 1/26', 'en'), '1,271 results · page 1 of 26');
+  assert.equal(translateUiText('1 kết quả · trang 1/1', 'en'), '1 result · page 1 of 1');
+  // The archived scope note is rendered as its own element, so each text node
+  // translates by itself; the separator between them is its own aria-hidden
+  // element, so neither translatable node carries it. A single node carrying both
+  // used to come out half-translated (English count, Vietnamese tail).
+  assert.equal(translateUiText('mục lưu trữ không vào phiên học', 'en'), 'archived entries are outside study sessions');
+  assert.equal(translateUiText('1.271 kết quả · trang 1/26', 'en'), '1,271 results · page 1 of 26');
+  assert.match(appScript[1], /<span class="results-scope">mục lưu trữ không vào phiên học<\/span>/);
+  assert.match(appScript[1], /<span class="results-sep" aria-hidden="true"> · <\/span><span class="results-scope">/,
+    'the count and the scope note stay separate text nodes, so each translates on its own');
+  assert.doesNotMatch(styleBlock[1], /\.results-scope::before/,
+    'the separator is markup, not CSS content: copy-paste and assistive tech must see it');
+  assert.match(styleBlock[1], /\.results-scope \{ color: var\(--muted\)/,
+    'the scope note keeps the muted emphasis it had inside the count line');
   // The sibling pattern behind the real page header keeps the same behaviour.
-  assert.equal(translateUiText('Tìm theo tiếng Anh, tiếng Việt, từ loại, tag hoặc ví dụ · 5.112 từ gốc.', 'en'),
-    `${prefix}5,112 headwords.`);
+  assert.equal(translateUiText('Tìm theo tiếng Anh, tiếng Việt, từ loại, tag hoặc ví dụ · 5.112 từ trọng tâm · 944 từ lưu trữ.', 'en'),
+    `${prefix}5,112 focus words · 944 archived words.`);
   // Vietnamese rendering is untouched.
   assert.equal(translateUiText(header('1.000'), 'vi'), header('1.000'));
 });

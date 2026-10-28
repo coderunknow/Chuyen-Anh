@@ -1,8 +1,118 @@
 # Changelog
 
-## v1.0.0-rc2 — release candidate, NOT released (2026-10-26)
+## v1.0.0-rc3 — quality hardening candidate (2026-10-28, NOT released)
 
-**Status: unreleased candidate.** This section describes the state of the RC2 branch (`arena/526d4d8f-chuyen-anh`) on top of `b72a9c6`, the merged `v1.0.0-rc1` candidate, which was tagged `v1.0.0-rc1` on that merge commit and published as a prerelease on 2026-10-25 (verified on GitHub before this work started; the rc1 section below predates that publication and its "NOT released" status line is corrected by this note). No `v1.0.0-rc2` tag, GitHub Release or prerelease exists, no deployment was performed or dispatched, and Pages is unchanged. `DEPLOY_HOLD` names `v1.0.0-rc2`, which has no published release, so the deploy gate reports `deploy=false (release v1.0.0-rc2 is missing; deployment held)` and the gate is **closed**. The audit report is [`docs/RC2_AUDIT_REPORT.md`](docs/RC2_AUDIT_REPORT.md).
+**Status: unreleased candidate.** `APP_VERSION` and `DEPLOY_HOLD` both name `v1.0.0-rc3`; no tag, release, prerelease or deploy
+exists for it, and the Pages gate reports `deploy=false (release v1.0.0-rc3 is missing; deployment held)`. Base: `15a4615`
+(the published rc2, PR #62). This release adds no headword and changes no stored ID, gloss, family note or progress key.
+
+### Vocabulary: the 923-word review queue, classified instead of deleted
+
+- **`scripts/vocabulary_evidence_review.py`** writes `docs/vocabulary-evidence-review.{json,md}`: all **923** focus headwords without
+  an `exam-corpus` source are classified by cause, each with a locator when one exists — **14** whole phrases occur in a
+  transcription, **188** have only a regular inflection/derivation in the corpus (`endorsed` for `endorse`), **5** are multi-word
+  items whose parts occur in one paper but not together, **5** are word-formation/confusable items the exam tests directly,
+  **698** rest on a dictionary locator only, and **13** have no basis found and are named for manual review.
+- **No row was removed, archived or rewritten** by this review. The report separates "not in the corpus" from "not needed": the
+  corpus covers 106 papers, and the absence of a word there is not evidence against it.
+- Surfaced gap, kept visible rather than patched: the builders attach a dictionary locator only to single-word entries, so
+  **0 of the 61 multi-word headwords** carry one. Every phrase/idiom row therefore rests on the learner list plus whatever corpus
+  evidence it has, and the review records that per row (`dictionaryLocator`). Adding Cambridge slugs for multi-word entries without
+  being able to open them would be an unverifiable claim, so it was not done.
+
+### Exam provenance: measured, and two claims corrected
+
+- **`scripts/audit_exam_provenance.py`** writes `docs/exam-provenance-audit.{json,md}` and recomputes every content hash:
+  **106/106** transcriptions match the `sha256_noi_dung` in their own front matter, so a hand edit to a transcription now turns a
+  test red. The reproduction that found this is `tests/test_evidence_reports.py`.
+- **The archive depends on one source.** All 106 papers were captured from `tailieudieuky.com`, a republisher; **0** papers have an
+  official Sở/trường source and **0/106** were compared with an official original.
+- **Answer claims measured:** 74 papers claim answer content, 66 have an answer section or answer table in the stored body, and
+  **8** have neither (named in the report; front-matter labels left untouched because the answers may have been lost during
+  extraction). One of the eight was read line by line: `2026-quang-tri-so` carries only a speaking marking guide.
+- **Manual cross-checks recorded in `docs/exam-crosschecks.json`:** Hải Phòng 2025 5/5 anchors, Đắk Lắk 2023 6/6 anchors
+  (including four answer entries) with one page-count difference, Bình Dương 2025 4/4 anchors. These are independent
+  *reproductions*, not originals, and the file says so.
+
+### Added: an opt-in diagnostics log the learner sends themselves
+
+- **Settings → Privacy & diagnostics log.** Off by default; consent is stored with the moment it was given
+  (`chuyen-anh.telemetry-consent.v1`), and an `enabled` flag without a recorded decision is not treated as consent.
+- **Local only.** The log is at most **200** events in `chuyen-anh.telemetry.v1`. The application contains no `fetch`,
+  `XMLHttpRequest` or `sendBeacon` and no endpoint: the learner clicks **Tải nhật ký JSON** and forwards the file to
+  [the project's issues](https://github.com/coderunknow/Chuyen-Anh/issues) if they choose to. A test asserts that the app script
+  has no transmission path at all.
+- **Narrow by construction.** An event is `{at, kind, name, counters, note}`: `kind` from a fixed list, `name` a short token, at most
+  **six** finite counters, and a note that is cut at the first quote character and stripped of e-mail addresses and control
+  characters — so a `JSON.parse` message cannot carry the snippet the learner typed. Answers, typed text, search queries, words
+  studied, backup contents, user agent, device ids, timezone, IP address and the exact viewport are never recorded; the report
+  states that list (`notCollected`) and buckets the viewport as mobile/tablet/desktop.
+- **Real control.** Withdrawing consent deletes the log immediately (the key is removed, not emptied), and the log can be cleared
+  without turning it off. Events are recorded for boot, session end (counters only), opening Tra cứu, backup export/import outcome
+  and uncaught errors — never per card.
+- `PRIVACY.md` documents the same contract in Vietnamese and English. New test:
+  *the diagnostics log is opt-in, local, bounded and free of learner content* (static) plus a browser scenario covering default-off,
+  consent, a downloaded report, erasure and the English interface.
+
+### Performance: a card is generated from memoised row keys, not re-keyed per card
+
+- **Measured first.** Building one question walks all 5.852 rows and keys each candidate's text twice (`normalize` for visual
+  distinctness, `normalizeTyped` for the typed-answer contract) plus splits its part of speech. On this machine that cost
+  **24 ms median / 25,1 ms mean** per card (200 cards, `p90` 30 ms) and **425 s** for the whole deck in three modes — the reason
+  the static test suite took ~7,5 minutes.
+- **Fixed at the source, semantics untouched.** `index.html` memoises the two option keys per row and field (and the part-of-speech
+  split) in `WeakMap`s. Nothing in the application assigns to `word`, `meaning` or `pos`, so the memo cannot go stale. The
+  candidate rules — same part of speech first, never the answer's own text, never a peer recorded with the same gloss — are the
+  same code, now fed by cached keys.
+- **After, same harness:** **3 ms median / 3,3 ms mean** per card (`p90` 4 ms), and **54 s** for the whole deck in three modes
+  (425 s → 54 s). The first card of a session still pays the fill (~53 ms before, 54 ms after), so the win is per subsequent card,
+  not a faster cold start.
+- **Equivalence evidence.** With one seeded `Math.random` replayed for both builds, the old and new implementation returned the
+  same option ids, order and correctness flag for **all 17.556** (record, mode) pairs — 0 mismatches. The static test that
+  computes the expected same-part-of-speech distractor count independently still passes for every row.
+- **Test-side work on the same cost.** The distractor-plausibility test now unions the distinct option texts per part-of-speech
+  token (memoised) instead of walking every peer of every row — the same number, proven equal on all 17.556 pairs — and looks
+  options up by id index instead of `Array.find`. `node --test tests/static-app.test.js` went from ~7,5 min to **1m54s** for the
+  same 114 tests.
+
+### Fixed: the flaky Space-shortcut step in the browser suite (test-only)
+
+`tests/browser-learning.cjs` failed in CI (job `122763067884`, `browser-learning.cjs:761`, "a revealed spelling card cannot be
+typed into") while passing locally. A card that owns an input moves focus into it from `setTimeout(…, 0)`; the suite blurred the
+page and pressed Space immediately, so when the focus task landed **between** the blur and the keypress, Space was typed into the
+input and the document handler never saw it. Reproduced by delaying that task: with the timer landing 2 ms after the blur the old
+sequence failed with exactly that signature (`#spelling-input` focused at press time, no `.reveal`, input still enabled), while
+the card itself behaved correctly in every other ordering. All five Space-shortcut steps now share `pressSpaceShortcut()`, which
+lets the card's focus land, blurs, retries if it lands again, and asserts that the document — not an input — owns the key before
+pressing. **Application code is unchanged by this fix**; it removes a race in the test, not a defect in the app.
+
+### Process: browser suites in CI, and a truthful deploy gate
+
+- **Both browser suites now run in CI** as a second job (`browser` in `.github/workflows/ci.yml`), after the static job, through
+  `tests/run-browser-suites.sh`, which runs them **sequentially** and stops at the first failure. `playwright-core` is installed
+  only in that job; the app remains one HTML file with no runtime dependency. Prior to this, both suites were outside CI.
+  The first CI run of the job **failed after 1m14s** against the runner's preinstalled Chrome; the job now installs Playwright
+  1.55.1's own Chromium (`--with-deps`) and points `BROWSER_EXECUTABLE` at `chromium.executablePath()`, and both suites pass
+  (job 6m45s, alongside a 12m14s `checks` job). Failures are echoed as 40-line annotations because GitHub's job log lives behind a
+  blob URL that is not always reachable.
+- **`scripts/deploy_gate.py` no longer blames the release for a missing input.** A local run without `--repo`/`GITHUB_REPOSITORY`
+  used to print "release v1.0.0-rc2 is missing" while the release was published; it now holds the deploy and names the missing
+  repository. Covered by two new tests.
+- The three evidence `--check` commands were added to the CI check step and to the deploy workflow, so a stale report blocks a
+  deploy instead of shipping next to outdated evidence.
+- `APP_VERSION` and `DEPLOY_HOLD` synchronised to `v1.0.0-rc3`; version pins updated in `tests/static-app.test.js`,
+  `tests/browser-learning.cjs`, `tests/test_sprint_exam_features.py`, `tests/test_deploy_gate.py`.
+
+### Still not done
+
+No merge, tag, release, deploy or version publication; no new headword; no gloss re-editing; 0/106 papers verified against an
+official original; browser timings are not re-claimed (see the rc2 performance section — only the search prewarm was outside the
+noise), and the new per-card figure is a Node-side measurement of `generateQuestion` over the shipped deck, not a browser
+transition measurement — the visible effect was not re-timed in Chromium.
+
+## v1.0.0-rc2 — release candidate (2026-10-26; published as a prerelease 2026-10-27)
+
+**Status corrected on 2026-10-28.** The text below was written while rc2 was still a candidate; GitHub now shows tag `v1.0.0-rc2` on commit `15a4615`, a published prerelease (2026-10-27T14:06Z) with HTML/ZIP/checksums assets, and a successful Pages deployment of `15a4615` at 14:21Z. The original wording is kept below for history. This section describes the state of the RC2 branch (`arena/526d4d8f-chuyen-anh`) on top of `b72a9c6`, the merged `v1.0.0-rc1` candidate, which was tagged `v1.0.0-rc1` on that merge commit and published as a prerelease on 2026-10-25 (verified on GitHub before this work started; the rc1 section below predates that publication and its "NOT released" status line is corrected by this note). No `v1.0.0-rc2` tag, GitHub Release or prerelease exists, no deployment was performed or dispatched, and Pages is unchanged. `DEPLOY_HOLD` names `v1.0.0-rc2`, which has no published release, so the deploy gate reports `deploy=false (release v1.0.0-rc2 is missing; deployment held)` and the gate is **closed**. The audit report is [`docs/RC2_AUDIT_REPORT.md`](docs/RC2_AUDIT_REPORT.md).
 
 ### Added: a selectable four-option multiple-choice exercise
 
@@ -28,6 +138,18 @@
 
 - Seven new Node regression tests (`rc2: …`) plus the eight-exercise inventory test; all eight **fail on the rc1 tree** and pass here. A new Chromium scenario drives a board of new words (introduction first, storage untouched), left-selection changes (no grade, no error), wrong-pair semantics, and an `mc4`-only session; two browser driver fixtures were aligned with the introduction stages. Final matrix on this tree: Python 104 OK; Node 105 pass / 0 fail; both Chromium suites PASS; all pipeline `--check` commands clean; deploy gate closed.
 
+
+### Added: a curated focus deck, and an About panel that states what ships
+
+- **Vocabulary curation (priority 1 of this review).** 1.271 of the 5.112 headwords are now reviewed out of the learning deck (`curation:archived` + `curation-category:<id>`), leaving **3.841 focus headwords**. Four categories with a written rationale and evidence — `basic-b1` (516), `everyday-object` (403), `food-drink` (189), `nature-species` (163) — plus 15 hand-checked exceptions that stay in the deck (`ability`, `abroad`, `advice`, `choice`, `interest`, `lose`, `marriage`, `quite`, `lung`, `muscle`, `canvas`, `sole`, …) because each has a measured reason: word-formation or confusable value, a phrase already in the bank, or attested lines in the transcriptions. `artery`, `kidney` and `fuse` were proposed as keepers and then **reversed** — 0/106 transcriptions each — and the reversal is recorded in `docs/vocabulary-curation.json → reviewNotes`. **No row was deleted, no ID changed, no progress touched**: an archived row stays in the table, in `data/vocabulary.json`, in backups and in Search (marked “Lưu trữ”), but it never enters a session, a count or a distractor pool. The 913 legacy rows, every family head and every `word-formation`/`confusable`/`linker` row are exempt by rule.
+- **A deterministic quality audit** ([`docs/vocabulary-quality-audit.md`](docs/vocabulary-quality-audit.md), `scripts/audit_vocabulary_quality.py`) that recomputes every count from the repository: provenance claims (5.105/5.112 match, 7 explained by the cited inflected form, 0 unexplained), corpus coverage, **1.489 automatically extracted multiple-choice items** across the 106 transcriptions (1.286 focus headwords appear in at least one item), and a **923-row review queue** of focus headwords with no transcription evidence — flagged for review, never asserted as wrong. `--check` passes, so the artifact provably matches the data.
+- **Exam evidence now excludes the archive's own bookkeeping.** `vocab_sources.exam_text()` strips front matter, URLs, the “Nguồn và giới hạn” section and provenance blockquotes before counting; `document` fell from 106 to 4 papers, `file` 106→8, `download` 29→6, `export` 26→2, and `zip` lost its only exam claim. Seven citation rows now quote the surface form the cited line actually shows.
+- **About panel** in Settings: real app name and mark, `APP_VERSION`, the MIT licence read from `LICENSE` (a test fails if the embedded copy drifts), and a two-sentence purpose. Per-word Info stays out of this release (v1.1.0 scope).
+- **Perceived performance**: the search index is built while the browser is idle after the first screen, so opening Tra cứu no longer pays the index build — median in-page click cost **86 ms → 34 ms** (5 runs per build, same harness; figures recorded in `DESIGN_LOG.md`); `normalize()` takes an ASCII fast path and the search filter reuses precomputed part-of-speech keys; the data fingerprint is computed on first read instead of at boot. Boot (DCL 698 → 688 ms) and typing (~9 ms) are unchanged within noise, and the 10 MB single-file payload remains the dominant boot cost.
+- **Fixed: every corpus locator now points at the line it describes.** Filtering the archive's own bookkeeping out of the evidence text moved the line numbers, so all 4.647 vocabulary and 492 phrase locators drifted and cited empty or unrelated lines — the evidence was unreadable even though the counts were right. `vocab_sources.exam_lines()` now returns `(file line, text)` pairs and every consumer (index, multiple-choice items, phrase index) uses it; a sampled check of 477 locators went from 477/477 wrong to 0/477 wrong, and the new `tests/test_evidence_locators.py` walks all 5.139 locators and requires the cited line to show the claimed form.
+- **Phrase claims now count papers, not lines.** `build_phrases.py` reported `phrase occurs in N transcribed exam(s)` where N was the number of matching lines, so a phrase seen twice in one paper claimed two papers (67 of 160 sampled rows were overstated). N is now the number of distinct papers, verified for all 492 corpus-backed phrases by the same test file.
+- **Multi-word headwords no longer claim the whole phrase.** Their count was always "papers where every word occurs", but the row said "form occurs in N papers" while the locator showed one component; the claim now reads "headword words occur in N transcribed exam(s); the locator shows ‘x’", and the audit parses that wording instead of drifting from it.
+- **UI**: archived rows get a dashed edge and a muted “Lưu trữ” pill; a skip-to-content link is the first tab stop (translated in English); screens fade in over 180 ms and every new transition respects `prefers-reduced-motion`.
 
 ## v1.0.0-rc1 — release candidate, NOT released (2026-10-25)
 

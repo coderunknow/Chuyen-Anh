@@ -119,6 +119,34 @@ async function main() {
       assert.equal(await page.evaluate(() => document.activeElement.id), 'next-card');
       await page.keyboard.press('Enter');
     }
+    // A card that owns an input moves focus into it from `setTimeout(…, 0)` while
+    // it renders. Blurring before that task runs is undone when it does, and Space
+    // is then typed into the input instead of revealing the card. That is the race
+    // that failed CI run 122763067884 with "a revealed spelling card cannot be
+    // typed into" while the same line passed locally: the CI runner was slow
+    // enough for the focus task to land after the blur. Let the card's focus land
+    // first, then blur, and retry if it lands again, so the key really reaches the
+    // document handler the way it does for a learner who is not typing.
+    async function pressSpaceShortcut() {
+      const ownsKey = () => page.evaluate(() => Boolean(document.activeElement
+        && ['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)));
+      await page.waitForFunction(() => document.activeElement
+        && ['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName),
+      null, { timeout: 500 }).catch(() => {});
+      for (let attempt = 0; attempt < 3; attempt += 1) {
+        const editable = await page.evaluate(() => {
+          const active = document.activeElement;
+          if (!active || !['INPUT', 'TEXTAREA', 'SELECT'].includes(active.tagName)) return false;
+          active.blur();
+          return true;
+        });
+        if (!editable) break;
+        await page.waitForTimeout(30); // does the card take focus back?
+      }
+      assert.equal(await ownsKey(), false,
+        'the Space shortcut is pressed while the document, not an input, owns the key');
+      await page.keyboard.press(' ');
+    }
     async function answer(id, correct) {
       await startQuizFromIntroduction();
       await page.locator(correct ? `[data-option="${id}"]` : `[data-option]:not([data-option="${id}"])`).first().click();
@@ -195,7 +223,7 @@ async function main() {
     // The banner reports the real pool, the real queue and the chosen target.
     assert.match(await sprint.locator('#sprint-title').innerText(), /Học cấp tốc · 10 từ \/ phiên/);
     assert.match(await sprint.locator('#sprint-pool').innerText(),
-      /5112 từ đủ điều kiện · xếp 10 · 10 đến hạn · 10 từ yếu/,
+      /3841 từ đủ điều kiện · xếp 10 · 10 đến hạn · 10 từ yếu/,
       'the banner counts the whole eligible pool and the real queue');
     assert.equal(await sprint.locator('.sprint-banner .recommendation-mark strong').innerText(), '10',
       'the banner shows the configured session size, not a fixed 7');
@@ -486,7 +514,7 @@ async function main() {
 
     // The shipped build identifies itself.
     await sprint.locator('[data-view="settings"]').click();
-    assert.equal(await sprint.locator('#app-version').innerText(), 'v1.0.0-rc2');
+    assert.equal(await sprint.locator('#app-version').innerText(), 'v1.0.0-rc3');
     assert.deepEqual(sprintErrors, []);
 
     // Error -> intervening word -> typed corrective retrieval -> truthful summary.
@@ -668,8 +696,7 @@ async function main() {
     await page.setViewportSize({ width: 1280, height: 900 });
 
     // The document-level Space shortcut starts the quiz from the introduction.
-    await page.evaluate(() => document.activeElement.blur());
-    await page.keyboard.press(' ');
+    await pressSpaceShortcut();
     assert.equal(await page.locator('#start-quiz').count(), 0);
     assert.equal(await page.locator('[data-option]').count(), 4);
     assert.equal(await page.locator('.first-look').count(), 0);
@@ -756,8 +783,7 @@ async function main() {
     await next();
     assert.equal(await page.locator('#spelling-input').isEnabled(), true);
     // Space is a normal character while typing, so reveal from the card shortcut.
-    await page.evaluate(() => document.activeElement.blur());
-    await page.keyboard.press(' ');
+    await pressSpaceShortcut();
     assert.equal(await page.locator('#spelling-input').isDisabled(), true, 'a revealed spelling card cannot be typed into');
     assert.equal(await page.locator('.reveal').count(), 1);
     await page.locator('#reveal-wrong').click();
@@ -1009,8 +1035,7 @@ async function main() {
     assert.deepEqual(await read('flagged'), ['298'], 'the unmodified f shortcut still flags the word');
     await page.keyboard.press('f');
     assert.deepEqual(await read('flagged'), []);
-    await page.evaluate(() => document.activeElement && document.activeElement.blur());
-    await page.keyboard.press(' ');
+    await pressSpaceShortcut();
     assert.equal(await page.locator('.reveal').count(), 1, 'the unmodified Space shortcut still reveals');
     await page.locator('#reveal-correct').click();
     await next();
@@ -1401,10 +1426,7 @@ async function main() {
     }
     async function revealFromKeyboard() {
       await page.locator('#spelling-input').focus();
-      await page.evaluate(() => document.activeElement && document.activeElement.blur());
-      await page.waitForTimeout(30);
-      await page.evaluate(() => document.activeElement && document.activeElement.blur());
-      await page.keyboard.press(' ');
+      await pressSpaceShortcut();
     }
     await seedSpellingCard();
     const beforeBlank = (await read('progress'))['298'];
@@ -1764,7 +1786,7 @@ async function main() {
     await page.locator('[data-session="priority"]').waitFor();
     const untranslated = async () => page.evaluate(() => {
       // The product name stays Vietnamese in both interfaces; everything else must translate.
-      const protectedSelectors = '.exam-document, .exam-question-source, .vocab-word, .vocab-meaning, .vocab-pos, .vocabulary-metadata dd, .prompt, .option, .example em, .example span, .code, .brand-name, .brand-detail, .eyebrow--brand, script, style';
+      const protectedSelectors = '.exam-document, .exam-question-source, .vocab-word, .vocab-meaning, .vocab-pos, .vocabulary-metadata dd, .prompt, .option, .example em, .example span, .code, .brand-name, .brand-detail, .eyebrow--brand, .about-name, script, style';
       const vietnamese = /[àáảãạăâđêôơưèéẻẽẹìíỉĩịòóỏõọùúủũụỳýỷỹỵ]/i;
       const found = [];
       const walk = node => {
@@ -2784,6 +2806,126 @@ async function main() {
       await page.waitForSelector('#brand-link');
     }
 
+    // ---- Curation: an archived row stays findable and labelled, but it is not
+    // part of the learning deck, so it offers no favourite toggle and cannot be
+    // queued into a session.
+    await page.locator('[data-view="search"]').click();
+    await page.locator('#search-field').fill('broom');
+    const archivedRow = page.locator('#results .vocab-row').first();
+    await archivedRow.waitFor();
+    assert.ok(await archivedRow.evaluate(node => node.classList.contains('vocab-row--archived')),
+      'an archived word is visibly marked in search results');
+    assert.equal(await archivedRow.locator('.fav').count(), 0, 'an archived row offers no favourite toggle');
+    assert.match(await archivedRow.locator('.state-pill').innerText(), /Lưu trữ/);
+    await page.locator('#search-field').fill('');
+    await page.locator('#state-filter').selectOption('archived');
+    assert.match(await page.locator('.results-meta').innerText(), /1\.271 kết quả · trang 1\/26 · mục lưu trữ không vào phiên học/,
+      'the archived filter reports the reviewed archive, grouped for the reader, and its scope');
+    assert.match(await page.locator('.brand-detail').innerText(), /3\.841 từ trọng tâm/,
+      'the shell counts the focus deck, not every stored row');
+
+    // ---- About: name, real version, licence from LICENSE and a short purpose.
+    await page.locator('[data-view="settings"]').click();
+    const about = page.locator('.about-panel');
+    await about.waitFor();
+    const aboutText = await about.innerText();
+    assert.match(aboutText, /Chuyên Anh/);
+    assert.match(aboutText, /v1\.0\.0-rc3/, 'the About panel shows the shipped version');
+    assert.match(aboutText, /MIT License · © 2026 coderunknow/);
+    assert.match(aboutText, /Flashcard từ vựng/);
+    await about.locator('summary').click();
+    assert.match(await about.locator('pre').innerText(), /Permission is hereby granted, free of charge/,
+      'the licence text is the real MIT text, not a summary');
+    assert.match(await page.locator('.settings .data-info').last().innerText(), /3\.841 từ trọng tâm · 1\.271 từ lưu trữ/);
+    assert.equal(await page.locator('.skip-link').getAttribute('href'), '#content',
+      'keyboard users can skip the chrome');
+
+    // ---- Diagnostics log: off by default, opt-in, downloadable, and erased when
+    // consent is withdrawn. The application must also make no network request
+    // while the switch is used, and the downloaded file must not carry learner text.
+    {
+      const logNet = [];
+      const onLogReq = req => {
+        if (!req.url().startsWith(`http://127.0.0.1:${server.address().port}`) && !req.url().startsWith('blob:') && !req.url().startsWith('data:')) logNet.push(req.url());
+      };
+      page.on('request', onLogReq);
+      await page.evaluate(() => { localStorage.removeItem('chuyen-anh.telemetry-consent.v1'); localStorage.removeItem('chuyen-anh.telemetry.v1'); });
+      await page.reload();
+      await page.locator('[data-session="new"]').waitFor();
+      assert.equal(await page.evaluate(() => localStorage.getItem('chuyen-anh.telemetry.v1')), null,
+        'a device that never consented stores no diagnostics');
+      assert.equal(await page.evaluate(() => localStorage.getItem('chuyen-anh.telemetry-consent.v1')), null);
+      await page.locator('[data-view="settings"]').click();
+      // The switch input is visually hidden behind its styled track, so it is
+      // asserted through the control the learner actually clicks (the label).
+      const telemetryToggle = page.locator('#telemetry-setting');
+      const telemetrySwitch = page.locator('label.switch', { has: page.locator('#telemetry-setting') });
+      await telemetryToggle.waitFor({ state: 'attached' });
+      await telemetrySwitch.waitFor();
+      assert.equal(await telemetryToggle.isChecked(), false, 'the diagnostics log is off by default');
+      await page.waitForTimeout(150);
+      assert.equal(await page.evaluate(() => localStorage.getItem('chuyen-anh.telemetry.v1')), null, 'nothing was recorded while off');
+      assert.equal(await page.locator('#telemetry-download').isDisabled(), true, 'there is nothing to download while off');
+
+      // Turn it on, then produce a real event (a search visit).
+      await telemetrySwitch.click();
+      await page.locator('.toast').filter({ hasText: 'Đã bật nhật ký chẩn đoán' }).waitFor();
+      const consent = await page.evaluate(() => JSON.parse(localStorage.getItem('chuyen-anh.telemetry-consent.v1')));
+      assert.equal(consent.enabled, true);
+      assert.match(consent.decidedAt, /^\d{4}-\d\d-\d\dT/, 'the consent decision is timestamped');
+      await page.locator('[data-view="search"]').click();
+      await page.locator('#search-field').fill('advers');
+      await page.locator('#results .vocab-row').first().waitFor();
+      const events = await page.evaluate(() => JSON.parse(localStorage.getItem('chuyen-anh.telemetry.v1')));
+      assert.ok(events.length >= 2, `expected boot/settings/search events, got ${events.length}`);
+      assert.deepEqual([...new Set(events.map(event => event.kind))].filter(kind => !['boot', 'settings', 'search-open'].includes(kind)), []);
+      assert.equal(JSON.stringify(events).includes('advers'), false, 'a search query is never recorded');
+      assert.ok(events.every(event => typeof event.at === 'string' && typeof event.kind === 'string'));
+
+      // The download is the report the learner sends, and it states its own limits.
+      await page.locator('[data-view="settings"]').click();
+      const [download] = await Promise.all([
+        page.waitForEvent('download'),
+        page.locator('#telemetry-download').click()
+      ]);
+      assert.match(download.suggestedFilename(), /^chuyen-anh-diagnostics-\d{4}-\d\d-\d\d\.json$/);
+      const report = JSON.parse(fs.readFileSync(await download.path(), 'utf8'));
+      assert.equal(report.product, 'Chuyen-Anh');
+      assert.match(report.appVersion, /^v1\.0\.0-rc3$/);
+      assert.equal(report.consent.enabled, true);
+      assert.equal(report.eventCount, report.events.length);
+      assert.equal(['mobile', 'tablet', 'desktop'].includes(report.environment.viewport), true, 'the viewport is bucketed, not exact');
+      assert.equal(JSON.stringify(report).includes('advers'), false, 'the downloaded file carries no learner text');
+      assert.equal(JSON.stringify(report).includes('Mozilla/5.0'), false, 'the user agent is not collected');
+      assert.ok(Array.isArray(report.notCollected) && report.notCollected.length >= 5);
+
+      // Withdrawing consent erases what was recorded.
+      await telemetrySwitch.click();
+      await page.locator('.toast').filter({ hasText: 'Đã tắt và xóa nhật ký chẩn đoán' }).waitFor();
+      assert.equal(await page.evaluate(() => localStorage.getItem('chuyen-anh.telemetry.v1')), null,
+        'turning the log off erases it');
+      assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem('chuyen-anh.telemetry-consent.v1')).enabled), false);
+      await page.locator('[data-view="search"]').click();
+      await page.waitForTimeout(150);
+      assert.equal(await page.evaluate(() => localStorage.getItem('chuyen-anh.telemetry.v1')), null, 'nothing is recorded after withdrawal');
+
+      // The English interface translates the panel and the switch.
+      await page.evaluate(() => localStorage.setItem('chuyen-anh.language.v1', 'en'));
+      await page.reload();
+      await page.locator('[data-view="settings"]').click();
+      const privacyText = await page.locator('[aria-labelledby="privacy-title"]').innerText();
+      // `.panel-heading` is upper-cased by CSS, and innerText reflects that.
+      assert.match(privacyText, /Privacy & diagnostics log/i);
+      assert.match(privacyText, /Record a diagnostics log/);
+      assert.match(privacyText, /Download the log \(JSON\)/);
+      assert.equal(await page.locator('#telemetry-setting').isChecked(), false, 'the withdrawal survives a reload');
+      assert.deepEqual(logNet, [], 'the diagnostics feature makes no network request');
+      page.off('request', onLogReq);
+      await page.evaluate(() => localStorage.setItem('chuyen-anh.language.v1', 'vi'));
+      await page.reload();
+      await page.locator('[data-session="new"]').waitFor();
+    }
+
     const failing = await browser.newPage({ viewport: { width: 1280, height: 900 }, reducedMotion: 'reduce' });
     const failingErrors = [];
     failing.on('pageerror', error => failingErrors.push(error.message));
@@ -2823,7 +2965,7 @@ async function main() {
     await failing.close();
 
     assert.deepEqual(errors, []);
-    console.log(`PASS: Chromium ${browser.version()} — first-look introduction for new words, same-part-of-speech distractors, cloze options absent from the sentence, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, 320/375/768px responsive layout, reduced-motion setting, search state across a favorite toggle, session clearing on reset/import, the ID 448 historical label, named option groups, shortcuts limited to the visible card, failed writes reported truthfully, JSON backup round-trips that keep every retained session, blank spelling submissions ignored, single-graded self-assessment, skip locked after a reveal, and 'Học cấp tốc' processing all ten requested words with a truthful single correction, automatic advance only after correct answers, accurate first-pass statistics, persisted progress, an immediate hand-off with the graded answer carried onto the next card, a queue that never shifts while another screen is open, and interface copy on a consolidation turn translated in the English interface; the beta5 priority configuration with all eight exercise types, a matching board driven from the keyboard, a skipped question reopened from the pending list, a hard word marked and unmarked, a real one-minute timed session that ends on its results with unanswered questions reported as blank, a v1 backup that keeps the device hard-word list, English rendering of every new screen, and the beta6 regressions: a priority session started from Settings opens where the learner can see it, a classic session reports only its own XP, a typed answer survives the star/flag toggles, a sprint honours the timer, a start that cannot run explains itself, a new session inherits no skipped questions, and the beta7 phrase bank: 780 phrases browsed, searched, filtered by type and level, practised for ten turns with typed and multiple-choice retrieval recorded in its own store while word progress stayed byte-identical, English rendering of the phrase screens, and a reset that clears phrase progress; the RC2 remediation regressions: two-tab grades surviving cross-tab writes with wipes never resurrected, an over-quota restore failing atomically with a truthful error then recovering fully once space is freed, the day streak moving only on first-pass correct answers — typed, chosen, self-assessed, and match resolutions alike — and skipped cards counted exactly once, at expiry and in a finished session; no page errors.`);
+    console.log(`PASS: Chromium ${browser.version()} — first-look introduction for new words, same-part-of-speech distractors, cloze options absent from the sentence, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, 320/375/768px responsive layout, reduced-motion setting, search state across a favorite toggle, session clearing on reset/import, the ID 448 historical label, named option groups, shortcuts limited to the visible card, failed writes reported truthfully, JSON backup round-trips that keep every retained session, blank spelling submissions ignored, single-graded self-assessment, skip locked after a reveal, and 'Học cấp tốc' processing all ten requested words with a truthful single correction, automatic advance only after correct answers, accurate first-pass statistics, persisted progress, an immediate hand-off with the graded answer carried onto the next card, a queue that never shifts while another screen is open, and interface copy on a consolidation turn translated in the English interface; the beta5 priority configuration with all eight exercise types, a matching board driven from the keyboard, a skipped question reopened from the pending list, a hard word marked and unmarked, a real one-minute timed session that ends on its results with unanswered questions reported as blank, a v1 backup that keeps the device hard-word list, English rendering of every new screen, and the beta6 regressions: a priority session started from Settings opens where the learner can see it, a classic session reports only its own XP, a typed answer survives the star/flag toggles, a sprint honours the timer, a start that cannot run explains itself, a new session inherits no skipped questions, and the beta7 phrase bank: 780 phrases browsed, searched, filtered by type and level, practised for ten turns with typed and multiple-choice retrieval recorded in its own store while word progress stayed byte-identical, English rendering of the phrase screens, and a reset that clears phrase progress; the RC2 remediation regressions: two-tab grades surviving cross-tab writes with wipes never resurrected, an over-quota restore failing atomically with a truthful error then recovering fully once space is freed, the day streak moving only on first-pass correct answers — typed, chosen, self-assessed, and match resolutions alike — and skipped cards counted exactly once, at expiry and in a finished session; the curation release: an archived word marked in Tra cứu with no favourite toggle and a 1.271-row archived scope, every count driven by the 3.841-word focus deck, and an About panel stating the real version and the MIT licence read from LICENSE; the opt-in diagnostics log: off by default with no key on a device that never consented, a timestamped consent record, boot/settings/search events with no search text inside them, a downloaded report that names what it omits and carries no user agent, erasure on withdrawal; no page errors.`);
   } finally {
     if (browser) await browser.close();
     await new Promise(resolve => server.close(resolve));

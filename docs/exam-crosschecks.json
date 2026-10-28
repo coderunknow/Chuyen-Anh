@@ -1,0 +1,79 @@
+{
+  "note": "Đối chiếu thủ công từng bộ đề với nguồn độc lập. Mỗi mốc ghi đúng thứ có trong bản chép và thứ có trong nguồn. Không mốc nào được coi là đối chiếu với bản gốc của Sở/trường nếu chưa tìm thấy bản gốc.",
+  "checkedAt": "2026-10-28",
+  "papers": [
+    {
+      "id": "2025-hai-phong-so",
+      "status": "consistent-with-independent-reproductions",
+      "primarySourceFound": false,
+      "reproductions": [
+        {
+          "publisher": "TailieuDieuKy (chính là trang nguồn ghi trong front matter)",
+          "url": "https://tailieudieuky.com/baiviet/document/de-thi-ts-chuyen-anh-vao-lop-10-tran-phu-hai-phong-2025/"
+        },
+        {
+          "publisher": "Springboard – Nhà Xuân",
+          "url": "https://springboard.vn/de-thi-chuyen-anh-10-hai-phong-2025-2026/"
+        },
+        {
+          "publisher": "Nghengu.vn",
+          "url": "https://nghengu.vn/toan/de-thi-vao-10-hai-phong-11888.html"
+        }
+      ],
+      "anchors": [
+        {"fact": "Thời gian làm bài", "repo": "150 phút", "source": "150 phút", "match": true},
+        {"fact": "Mã đề", "repo": "881", "source": "881 (bản tóm tắt nguồn)", "match": true},
+        {"fact": "Số trang", "repo": "08 trang", "source": "08 trang (bản tóm tắt nguồn)", "match": true},
+        {"fact": "Cấu trúc", "repo": "SECTION ONE: CONSTRUCTED-RESPONSE TEST", "source": "SECTION ONE: CONSTRUCTED-RESPONSE TEST", "match": true},
+        {"fact": "Câu mở đầu bài nghe", "repo": "You will hear part of a conversation between Jim - a student and a secretary on campus", "source": "You will hear part of a conversation between Jim – a student and a secretary on campus", "match": true}
+      ],
+      "differences": [
+        "Hướng dẫn phần nghe II: bản trong repo lấy từ HƯỚNG DẪN CHẤM (ONE WORD or A NUMBER), bản Springboard lấy từ đề (NO MORE THAN THREE WORDS). Khác biệt giữa hai tài liệu của cùng một kỳ thi, không kết luận bản nào sai."
+      ]
+    },
+    {
+      "id": "2023-dak-lak-so",
+      "status": "consistent-with-independent-reproductions",
+      "primarySourceFound": false,
+      "reproductions": [
+        {
+          "publisher": "TailieuDieuKy (chính là trang nguồn ghi trong front matter)",
+          "url": "https://tailieudieuky.com/baiviet/document/de-thi-chuyen-tieng-anh-vao-truong-thpt-chuyen-nguyen-du-dak-lak-nam-hoc-2023-2024-co-dap-an-va-audio-file-nghe-transcript/"
+        },
+        {
+          "publisher": "College Sidekick (bản sao độc lập của cùng đề)",
+          "url": "https://www.collegesidekick.com/study-docs/19895536"
+        }
+      ],
+      "anchors": [
+        {"fact": "Thời gian làm bài", "repo": "150 phút", "source": "150 phút", "match": true},
+        {"fact": "Bài nghe part 2, câu 6-10", "repo": "destination / departure date / flight number / layover / request", "source": "cùng 5 câu, cùng phương án", "match": true},
+        {"fact": "Đáp án câu 1", "repo": "Lynda", "source": "Lynda", "match": true},
+        {"fact": "Đáp án câu 2", "repo": "5577", "source": "5577", "match": true},
+        {"fact": "Đáp án câu 4", "repo": "AZ1985331", "source": "AZ1985331", "match": true},
+        {"fact": "Đáp án câu 5", "repo": "September", "source": "September", "match": true}
+      ],
+      "differences": [
+        "Số trang: bản chép ghi 'Đề thi gồm có 11 trang', bản sao College Sidekick ghi 10 trang. Cả hai đều là bản đăng lại; không xác định được bản nào đúng khi chưa có bản gốc."
+      ]
+    },
+    {
+      "id": "2025-binh-duong-so",
+      "status": "consistent-with-independent-reproductions",
+      "primarySourceFound": false,
+      "reproductions": [
+        {
+          "publisher": "TailieuDieuKy (chính là trang nguồn ghi trong front matter)",
+          "url": "https://tailieudieuky.com/baiviet/document/de-chuyen-anh-binh-duong-2025-2026/"
+        }
+      ],
+      "anchors": [
+        {"fact": "Thời gian làm bài", "repo": "150 phút", "source": "150 phút", "match": true},
+        {"fact": "Số trang", "repo": "10 trang", "source": "10 trang", "match": true},
+        {"fact": "Số phần", "repo": "5 phần", "source": "5 phần", "match": true},
+        {"fact": "Số câu", "repo": "140 câu, đánh số đủ 1..140", "source": "140 câu", "match": true}
+      ],
+      "differences": []
+    }
+  ]
+}

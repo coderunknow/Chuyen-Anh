@@ -62,6 +62,11 @@ jobs:
           python scripts/validate_vocab.py
           python scripts/embed_vocabulary.py --check
           python scripts/exams/embed_archive.py --check
+          # rc3: the evidence artifacts are part of what ships, so a stale report
+          # must block the deploy rather than publish next to outdated evidence.
+          python scripts/audit_vocabulary_quality.py --check
+          python scripts/vocabulary_evidence_review.py --check
+          python scripts/audit_exam_provenance.py --check
 
       - name: Run Python unit tests
         run: python -m unittest discover -s tests -p 'test_*.py'

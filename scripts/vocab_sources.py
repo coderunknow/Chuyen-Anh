@@ -29,6 +29,14 @@ REGISTRY_PATH = ROOT / "docs" / "vocabulary-sources.json"
 EXAM_ROOT = ROOT / "De-chuyen-Anh-vao-10"
 YEAR_DIR_RE = re.compile(r"^20\d\d$")
 FRONT_MATTER_RE = re.compile(r"\A---\n.*?\n---\n", re.DOTALL)
+URL_RE = re.compile(r"https?://\S+")
+# The archive's own bookkeeping, not the exam: its source/limits section, its
+# provenance blockquote and every URL. Counting these as exam text inflated
+# claims such as `document` -> 106 papers (it is the archive's word, not the
+# exam's); the audit in scripts/audit_vocabulary_quality.py measures the same
+# body text, so a row's claim and the audit cannot drift apart.
+ARCHIVE_NOTE_SECTION = "## Nguồn và giới hạn"
+ARCHIVE_NOTE_QUOTES = ("> **Bản chép", "> **Nội dung", "> **Đáp án")
 TOKEN_RE = re.compile(r"[A-Za-z][A-Za-z'’-]*")
 
 # The runtime's word key (mirrors normalize() in index.html and
@@ -67,18 +75,57 @@ def exam_files(root: Path = EXAM_ROOT) -> list[Path]:
     return files
 
 
+def _front_matter_end(lines: list[str]) -> int:
+    """Index of the first body line after a leading YAML block, or 0."""
+    if lines and lines[0].strip() == "---":
+        for index in range(1, len(lines)):
+            if lines[index].strip() == "---":
+                return index + 1
+    return 0
+
+
+def exam_lines(path: Path) -> list[tuple[int, str]]:
+    """Return the exam body of one transcription as `(line_number, text)` pairs.
+
+    `line_number` is the line number *in the file*, so a locator such as
+    `2023/dak-lak/so.md:L513` can be opened and read. Removed from the body:
+    YAML front matter, URLs (the archive's file links), the archive's own
+    "Nguồn và giới hạn" section and its provenance blockquotes. What stays is
+    the transcribed exam pages, their answer section and their transcript.
+    """
+    lines = path.read_text(encoding="utf-8", errors="replace").splitlines()
+    kept: list[tuple[int, str]] = []
+    skip_section = False
+    for index in range(_front_matter_end(lines), len(lines)):
+        line = lines[index]
+        if line.startswith("## "):
+            skip_section = line.strip() == ARCHIVE_NOTE_SECTION
+            if skip_section:
+                continue
+        if skip_section:
+            continue
+        if line.startswith(ARCHIVE_NOTE_QUOTES):
+            continue
+        kept.append((index + 1, URL_RE.sub(" ", line)))
+    return kept
+
+
+def exam_text(path: Path) -> str:
+    """Return only the exam body of one transcription (see `exam_lines`)."""
+    return "\n".join(line for _, line in exam_lines(path))
+
+
 def build_exam_index(root: Path = EXAM_ROOT) -> dict[str, dict[str, Any]]:
     """Map a lowercase token to its first transcription hit and document count.
 
-    Front matter (source metadata) is removed so a token that only appears in
-    the provenance block is not counted as exam text. Hyphen/apostrophe variants
-    are indexed separately: no aggressive folding is used for evidence.
+    Only the exam body counts as evidence (see `exam_text`): the archive's own
+    metadata can never attest a word. Hyphen/apostrophe variants are indexed
+    separately: no aggressive folding is used for evidence.
     """
     index: dict[str, dict[str, Any]] = {}
     for path in exam_files(root):
-        text = FRONT_MATTER_RE.sub("", path.read_text(encoding="utf-8", errors="replace"))
         relative = path.relative_to(root).as_posix()
-        for number, line in enumerate(text.splitlines(), start=1):
+        for number, line in exam_lines(path):
             for match in TOKEN_RE.finditer(line):
                 token = match.group(0).lower().strip("'-")
                 if len(token) < 3:
@@ -92,6 +139,72 @@ def build_exam_index(root: Path = EXAM_ROOT) -> dict[str, dict[str, Any]]:
                     }
                 else:
                     record["count"] += 1
+                    record["documents"].add(relative)
+    return index
+
+
+MC_NUMBER_RE = re.compile(r"^\s{0,12}\d{1,2}[.)]\s")
+MC_OPTION_RE = re.compile(r"(?:^|\s)([ABCD])\.\s")
+
+
+def exam_items_from_lines(lines: list[tuple[int, str]]) -> list[tuple[int, str]]:
+    """Return the multiple-choice items of one exam body as `(line, text)`.
+
+    An item is a numbered line plus the following unnumbered lines (at most two)
+    that carry at least three `A.`/`B.`/`C.`/`D.` option markers. This is a
+    mechanical extraction, not a verified question bank: it finds the lexical
+    choices an exam paper offers, which is a much narrower signal than "the word
+    occurs somewhere in the transcription". Sections written as prose, gap-fill
+    tables and error-correction lines are not captured.
+    """
+    texts = [text for _, text in lines]
+    items: list[tuple[int, str]] = []
+    for position, line in enumerate(texts):
+        if not MC_NUMBER_RE.match(line):
+            continue
+        block = [line.strip()]
+        cursor = position + 1
+        while cursor < len(texts) and cursor <= position + 2:
+            following = texts[cursor].strip()
+            if not following or MC_NUMBER_RE.match(following):
+                break
+            block.append(following)
+            cursor += 1
+        joined = " ".join(block)
+        if len(MC_OPTION_RE.findall(joined)) >= 3:
+            items.append((lines[position][0], joined))
+    return items
+
+
+def exam_items(text: str) -> list[tuple[int, str]]:
+    """`exam_lines` for callers that only hold the body text (1-based lines)."""
+    return exam_items_from_lines(list(enumerate(text.splitlines(), start=1)))
+
+
+def build_item_index(root: Path = EXAM_ROOT) -> dict[str, dict[str, Any]]:
+    """Map a lowercase token to the items and papers that offer it as a choice.
+
+    Only tokens inside extracted multiple-choice items count; the index says
+    nothing about which option is correct, so it is evidence of *exposure to a
+    lexical decision*, never of the answer.
+    """
+    index: dict[str, dict[str, Any]] = {}
+    for path in exam_files(root):
+        relative = path.relative_to(root).as_posix()
+        for line, text in exam_items_from_lines(exam_lines(path)):
+            for match in TOKEN_RE.finditer(text):
+                token = match.group(0).lower().strip("'-")
+                if len(token) < 2:
+                    continue
+                record = index.get(token)
+                if record is None:
+                    index[token] = {
+                        "locator": f"{relative}:L{line}",
+                        "items": {f"{relative}:L{line}"},
+                        "documents": {relative},
+                    }
+                else:
+                    record["items"].add(f"{relative}:L{line}")
                     record["documents"].add(relative)
     return index
 
@@ -111,12 +224,13 @@ def exam_locator(index: dict[str, dict[str, Any]], word: str) -> dict[str, Any] 
         return None
     words = [re.sub(r"[^A-Za-z'’-]", "", part) for part in parts]
     best = min(hits, key=lambda hit: hit["count"])
+    shown = words[hits.index(best)]
     shared = set.intersection(*(hit["documents"] for hit in hits))
     if len(words) == 1:
-        return {"locator": best["locator"], "documents": len(best["documents"])}
+        return {"locator": best["locator"], "documents": len(best["documents"]), "words": words, "shown": shown}
     if not shared:
         return None
-    return {"locator": best["locator"], "documents": len(shared)}
+    return {"locator": best["locator"], "documents": len(shared), "words": words, "shown": shown}
 
 
 def dictionary_source(word: str, slug: str | None = None) -> dict[str, str]:
@@ -139,12 +253,24 @@ def origin_source(note: str) -> dict[str, str]:
     return {"ref": "learner-list", "supports": note}
 
 
-def exam_source(locator: str, documents: int) -> dict[str, str]:
-    return {
-        "ref": "exam-corpus",
-        "locator": locator,
-        "supports": f"form occurs in {documents} transcribed exam(s)",
-    }
+def exam_source(locator: str, documents: int, form: str | None = None,
+                words: list[str] | None = None, shown: str | None = None) -> dict[str, str]:
+    """One transcription hit.
+
+    `form` names the exact surface form the locator shows. Without it the claim
+    is about a single-word headword. A multi-word headword is different: the
+    count is the number of papers where *every* word occurs, while the locator
+    line shows only the rarest one, so `words`/`shown` make the claim say that
+    instead of pretending the whole phrase was seen.
+    """
+    if form:
+        supports = f"form {form!r} occurs in {documents} transcribed exam(s)"
+    elif words and len(words) > 1:
+        supports = (f"headword words occur in {documents} transcribed exam(s); "
+                    f"the locator shows {shown!r}")
+    else:
+        supports = f"form occurs in {documents} transcribed exam(s)"
+    return {"ref": "exam-corpus", "locator": locator, "supports": supports}
 
 
 def dedupe_sources(sources: Iterable[dict[str, str]]) -> list[dict[str, str]]:

@@ -794,3 +794,86 @@ CodeRabbit's review `5643120300` (run metadata again `Layers: Repository YAML`) 
    - **AGENTS_LOG heading wording (outdated):** the comment's own condition — "unless the PR facts have since changed" — applies: the push, CI run and review happened after that entry was written. Entry left chronological (append-only history).
 2. **Re-verification after these fixes (same tree):** `python -m unittest discover` **116 OK**; `python tests/test_deploy_gate.py` **25 OK**; `node --test tests/static-app.test.js` **112/112, exit 0** (111 + the new rollback regression test — the count change is the added test, not a removed one; one intermediate run failed test 26 because it pinned the old guard source shape — the needle was updated to the new guard and strengthened to require both persist and commit results feeding it, assertions not weakened); `node tests/browser-learning.cjs` **rc=0** (405 s); `node tests/browser-exams.cjs` **rc=0** (77 s); deploy gate `deploy=false (release v1.0.0-rc2 is missing; deployment held)`; `git diff --check` clean.
 3. **Still not re-run:** the external RT-01/RT-07 harness scripts and the 18-mutant battery (never checked in; lost with the workspace reset) — in-repo equivalents pass. Quota-limited reviewers remain unavailable: Copilot (insufficient quota), Qodo (billing-blocked), Kilo (billing notice, check `action_required`); Kilo is not a passing review.
+
+## 2026-10-27 — Curation review executed on `arena/530858a9-chuyen-anh` (no release action)
+
+1. **Preflight.** `gh pr list --state open` → none; `gh issue list` → none; latest CI run on `main` → success; `gh release list` → `v1.0.0-rc2` prerelease (2026-10-27T14:06Z); `python scripts/deploy_gate.py` → `deploy=false (release v1.0.0-rc2 is missing; deployment held)`. `DEPLOY_HOLD` and `APP_VERSION` untouched.
+2. **Pipeline.** `docs/vocabulary-curation.json` gained the `basic-b1` category and the `b1-baseline-general` rule (replacing `basic-b1-daily`), plus reviewed `exceptions` on two blocks and on the rule; `scripts/vocabulary_curation.py` learned rule-level exceptions with validation. `expand_vocabulary.py` → `build_vocabulary.py` → `embed_vocabulary.py` → `audit_vocabulary_quality.py` all re-run; `validate_vocab.py` passes; the audit `--check` passes (deterministic, no timestamps).
+3. **Numbers (recomputed, not copied).** 5.852 rows · 5.112 headwords · 740 merged forms · **3.841 focus headwords** · **1.271 archived** (basic-b1 516, everyday-object 403, food-drink 189, nature-species 163) · 780 phrases · 106 transcriptions · 1.489 extracted MC items · 1.286 focus headwords in items · 923 focus headwords without transcription evidence.
+4. **Verification run.** `python -m unittest discover -s tests -p 'test_*.py'` → **118 OK**; `node --test tests/static-app.test.js` → **114/114**; `node tests/browser-learning.cjs` and `node tests/browser-exams.cjs` → PASS (one suite at a time: 2 CPUs, concurrent Chromium runs SIGSEGV); `python scripts/audit_vocabulary_quality.py --check` → matches; `node --check` on the extracted app module → clean; real Chromium smoke on the shipped file → no page errors (brand shows 3.841 focus words, archived scope shows 1.271, About renders VI and EN).
+5. **Tests changed with reasons.** `tests/static-app.test.js`: the count test now asserts the focus deck/archive split, category coverage and the legacy exclusion, and a new About test pins `LICENSE_TEXT` to the `LICENSE` file. `tests/browser-learning.cjs`: sprint banner expectation 5112 → 3841 and a new archived/About/skip-link block. `tests/test_readme_counts.py`: the payload-size invariant now compares `index.html` with the generated audit artifact instead of a historical RC1 report. `tests/test_sprint_exam_features.py`: the pinned call text follows the deck parameter.
+6. **Measured performance (5 runs per build, same harness).** Search first open 86 → 34 ms median; boot DCL 698,5 → 688,2 ms; typing 9,6 → 9,0 ms; session start 20,2 → 19,5 ms. Only the search-index prewarm is a real improvement; the rest is inside this VM's noise (individual runs spanned 12–121 ms).
+7. **Fixes found by running the suites (not by reading the diff).** (a) three selection functions were renamed to take `deck` while their bodies still used the module-global `vocabulary` → `ReferenceError` on first render, caught by serving the real page; (b) the About heading "Chuyên Anh" was flagged as untranslated copy → the heading carries `.about-name`, which is in both protected-selector lists (app and browser test); (c) the archived-search line shipped as one text node whose English translation left a Vietnamese tail → the scope note is now its own `<span class="results-scope">`; (d) the browser suite's archived/About scenario was initially appended after the low-storage page opened, where the page is already closed → moved before it; (e) the first version of (c) drew the " · " in CSS (`::before`), which `innerText` does not see — the browser suite failed on exactly that gap, so the separator is now its own `aria-hidden` `<span class="results-sep">` and copy/paste plus assistive tech keep the separator; (f) three words kept as "health reading" exceptions (`artery`, `kidney`, `fuse`) had 0/106 transcriptions, so the exceptions were reversed to the archive and the reversal recorded in `reviewNotes`.
+9. **The locators were wrong, and only opening them showed it.** `vocab_sources.exam_text()` filters front matter, the archive's “Nguồn và giới hạn” section and its blockquotes, but the token index still numbered lines on the filtered text, so the citations drifted by the number of removed lines — a sampled check found 149/149 pointing at an empty or unrelated line. Fixed by `exam_lines()` (returns `(file line, text)`), used by the token index, the multiple-choice-item index and `build_phrases.LineIndex`; after rebuild all **4.647 vocabulary + 492 phrase locators** resolve and a 477-sample is 0/477 wrong. `tests/test_evidence_locators.py` (new) walks all of them and requires the cited line to show the claimed form. The same pass fixed a wording overstatement: for the 61 multi-word headwords the count is “papers where every word occurs”, so the claim now reads “headword words occur in N transcribed exam(s); the locator shows ‘x’” and the audit parses that phrasing.
+10. **Not done, by design.** No merge, tag, release, deployment or version bump; `DEPLOY_HOLD` unchanged; no new dependency; no per-word Info (v1.1.0); no new headword added; no exam transcription re-verified against a primary source.
+
+## 2026-10-28 — RC3 quality hardening executed on `arena/530858a9-chuyen-anh` (PR #63, no release action)
+
+1. **Preflight and the contradiction.** Workspace had been re-cloned at `15a4615` with the rc2 tree uncommitted; `git diff --cached` against `origin/arena/530858a9-chuyen-anh` was empty, so the branch was reset to the pushed `14ad556` instead of committing a duplicate. Live: PR #63 OPEN/mergeable, CI `checks` pass, CodeRabbit skipped, Kilo out of credits. **README said rc2 was unreleased; GitHub had tag `v1.0.0-rc2` → `15a4615`, a published prerelease (2026-10-27T14:06Z, three assets) and a successful Pages deployment at 14:21Z.** README and the PR body were corrected; the historical RC2 report was left alone.
+2. **New artifacts.** `scripts/vocabulary_evidence_review.py` → `docs/vocabulary-evidence-review.{json,md}` (923 queued headwords in six measured buckets: 14 phrase / 188 surface-variant / 5 words-only / 5 exam-format / 698 dictionary-only / 13 no-basis). `scripts/audit_exam_provenance.py` → `docs/exam-provenance-audit.{json,md}` (106/106 content hashes verified; 1 source host; 0 official sources; 74 answer claims, 66 with a section, 8 without). `docs/exam-crosschecks.json` records 3 manual cross-checks (5/5, 6/6, 4/4 anchors).
+3. **Nothing destructive.** No headword added, removed, archived or rewritten; no ID, gloss, note, family or progress key touched; the review and the audit are read-only over `data/vocabulary.json`.
+4. **CI.** New `browser` job (`playwright-core` + `axe-core` installed only there) calling `tests/run-browser-suites.sh`, which runs the two suites sequentially and stops at the first failure. The three evidence `--check` commands were added to CI and to `deploy.yml`.
+5. **Deploy gate.** `decide_deploy` gained `repo=`; a missing repository now holds the deploy and says the input is missing instead of claiming the release is absent. Two new tests; pins moved to `v1.0.0-rc3`; `deploy_gate.py --repo coderunknow/Chuyen-Anh` → `deploy=false (release v1.0.0-rc3 is missing; deployment held)`.
+6. **Tests and versions.** `APP_VERSION` and `DEPLOY_HOLD` → `v1.0.0-rc3`; pins in `tests/static-app.test.js`, `tests/browser-learning.cjs` (2), `tests/test_sprint_exam_features.py`, `tests/test_deploy_gate.py`. New `tests/test_evidence_reports.py` (9 tests): artifacts current, 106 content hashes recomputed, no paper claimed as primary-verified, answer claims split and pinned, cross-check entries valid, review queue agrees with the quality audit, and every cited review locator opens on the line that shows the form.
+7. **Results.** `python -m unittest discover -s tests -p 'test_*.py'` → **130 OK**; `node --test tests/static-app.test.js` → **114/114**; `bash tests/run-browser-suites.sh` → both suites PASS (Chromium 133) sequentially; pipeline `--check` (expand/build/embed vocabulary, build/embed phrases, validate_vocab, audit_vocabulary_quality, vocabulary_evidence_review, audit_exam_provenance, exams embed) all clean; CI green on the pushed head.
+8. **Not done, by design.** No merge, tag, release, deployment or publication; no new headword; no gloss editing; 0/106 verified against an official original; 8 answer claims flagged but not repaired; browser timings not re-claimed; no physical-device or screen-reader pass.
+
+## 2026-10-28 (follow-up) — CI browser job, second attempt
+
+1. **First run failed, and the failure was mine to prove.** `browser` job `122751059572` on `6d95922`: `action_required` was Kilo,
+   the job itself failed at **1m14s** on the runner's preinstalled Chrome. Its log is a blob URL this sandbox cannot fetch; the only
+   readable signal was an annotation "Process completed with exit code 1".
+2. **Fix: stop depending on the runner image.** The job now installs Playwright 1.55.1's own Chromium with `--with-deps`, exports
+   `BROWSER_EXECUTABLE` from `chromium.executablePath()`, and pipes a failing run into 40 `::error::` annotations so the next failure
+   is diagnosable from the API.
+3. **Verified on `e53f6ef`:** `browser` job `122756808062` **success** in 6m45s (install harness → install Chromium → point → run
+   both suites → pass); `checks` job `122756808511` **success** in 12m14s. PR #63: `browser pass`, `checks pass`; CodeRabbit
+   skipped; Kilo `action_required` (account out of credits).
+4. **Unchanged limits:** one green CI run is not a trend; no physical device or screen-reader pass; 0/106 exam originals verified;
+   8 answer claims still flagged; nothing merged, tagged, released or deployed.
+
+## 2026-10-28 (third follow-up) — CI flake reproduced, card generation memoised
+
+1. **The red step was a test race, and the app was cleared first.** `browser-learning.cjs:761` failed in CI (job `122763067884`) with
+   "a revealed spelling card cannot be typed into". A timestamped probe showed the card's `setTimeout(…, 0)` focus lands 4–16 ms
+   after render, i.e. *after* the suite's `blur()` in some orderings; delaying that task reproduced the exact CI signature when the
+   focus landed 2 ms after the blur (`spelling-input` focused at press time, no `.reveal`, input enabled). All five Space steps now
+   use `pressSpaceShortcut()`, which waits for the focus, blurs, retries, and asserts the document owns the key. **No application
+   behaviour changed for this.**
+2. **`generateQuestion` was the real cost of the `checks` job.** Measured (Node, same machine): 24 ms median per card, 25,1 ms mean,
+   `p90` 30 ms over 200 cards; 425 s for all 17.556 (record, mode) calls, which is why the static suite took ~7,5 min and the CI
+   `checks` job 12m14s. Cause: `distractors()` re-keyed all 5.852 rows on every question (`normalize` + `normalizeTyped`, the NFC
+   pass dominating, plus a POS split per candidate).
+3. **Fix:** `optionKeys()` / `posTokens()` memoise those pure values in `WeakMap`s; the deck is immutable (checked: no assignment to
+   `word`/`meaning`/`pos` anywhere in `index.html`). Candidate rules, ordering and shuffle untouched.
+4. **After, same harness:** 3 ms median, 3,3 ms mean, `p90` 4 ms per card; 54 s for the whole deck (7,9×). First card of a session
+   53 → 54 ms (the cache fill moved, not removed).
+5. **Equivalence proof:** old (`git show HEAD:index.html`) and new implementation run in one process with a replayed seeded
+   `Math.random` produced **identical** option ids, order and correctness for all **17.556** pairs — 0 mismatches.
+6. **Test-side:** memoised peer-text union (verified equal on all 17.556 pairs) and id-index option lookup in
+   `tests/static-app.test.js`; `node --test tests/static-app.test.js` 114/114 in **1m54s** (was ~7,5 min).
+7. **Verification on the final tree:** 12 pipeline `--check` commands clean; `python -m unittest discover -s tests -p 'test_*.py'`
+   **130 OK**; static **114/114**; both browser suites PASS sequentially on Chromium 133 (re-run after the app change).
+8. **Not done:** no merge/tag/release/deploy; no new headword or gloss edit; browser card transition not re-timed; 0/106 exam
+   originals verified; 8 answer claims still flagged; 923-vs-930 queue definition still unreconciled.
+
+9. **CI on `d34fd3c`:** `checks` **success 302 s** (was 734 s) and `browser` **success 302 s** (was 405 s) in run `40687982477`; the
+   `browser` job's `--with-deps` Chromium install still dominates its wall clock. One run each, not a trend.
+
+## 2026-10-28 (fourth follow-up) — opt-in diagnostics log
+
+1. **Feature:** Settings → *Quyền riêng tư & nhật ký chẩn đoán*. Off by default, consent stored with a timestamp in
+   `chuyen-anh.telemetry-consent.v1`; without a valid decision an `enabled: true` flag is not consent. Log (max 200 events) lives in
+   `chuyen-anh.telemetry.v1`; **no network path at all** (no `fetch`/XHR/`sendBeacon`, no endpoint) — the learner downloads
+   `chuyen-anh-diagnostics-YYYY-MM-DD.json` and forwards it; the panel links to the project's issues. Withdrawal removes the key.
+2. **Content limits:** events are `{at, kind, name, counters≤6, note}`; `note` is cut at the first quote character and loses control
+   characters and e-mail addresses, so a `JSON.parse` message cannot carry learner text (a nested-quote case failed the first version and
+   is now pinned by a test). Never recorded: answers, typed text, queries, words studied, backup contents, user agent, device ids,
+   timezone, IP, exact viewport. The report lists all of that in `notCollected`.
+3. **Hooks:** boot, session end (counters only), Tra cứu open, backup export/import outcome, consent change, uncaught error. Nothing per card.
+4. **Docs:** new `PRIVACY.md` (VI + EN) with a table of recorded fields, the lawful basis (opt-in consent), retention (200 events,
+   oldest dropped) and the learner's rights; README gained a short section; the in-app panel summarises and links.
+5. **Tests:** new static test *the diagnostics log is opt-in, local, bounded and free of learner content*; new browser scenario covering
+   default-off, consent, real events with no query text, the downloaded report, erasure on withdrawal, the English panel and **zero
+   external requests**. Results: static **115/115**, Python **130 OK**, both browser suites PASS sequentially.
+6. **Not done:** no merge, tag, release or deploy; delivery stays manual by design; the log is per browser profile.

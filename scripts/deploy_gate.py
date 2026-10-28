@@ -82,7 +82,8 @@ def release_status(tag: str, repo: str) -> str:
     return 'published'
 
 
-def decide_deploy(*, has_hold: bool, hold_tag: str | None, status: str, force: bool) -> tuple[bool, str]:
+def decide_deploy(*, has_hold: bool, hold_tag: str | None, status: str, force: bool,
+                  repo: str | None = None) -> tuple[bool, str]:
     if force:
         return True, 'deploy forced by workflow dispatch'
     if not has_hold:
@@ -91,6 +92,12 @@ def decide_deploy(*, has_hold: bool, hold_tag: str | None, status: str, force: b
         return False, 'deploy hold marker is unreadable; deployment held'
     if status == 'published':
         return True, f'release {hold_tag} is published'
+    if not repo:
+        # The gate could not ask GitHub, so it must not claim the release is
+        # missing: that reads like a release problem and sends a maintainer to
+        # the wrong place. A local run without --repo is a configuration gap.
+        return False, (f'deploy hold names {hold_tag} and no repository was supplied '
+                       '(--repo or GITHUB_REPOSITORY); deployment held')
     return False, f'release {hold_tag} is {status}; deployment held'
 
 
@@ -107,7 +114,8 @@ def main() -> int:
     status = 'missing'
     if has_hold and hold_tag and args.repo:
         status = release_status(hold_tag, args.repo)
-    deploy, reason = decide_deploy(has_hold=has_hold, hold_tag=hold_tag, status=status, force=args.force)
+    deploy, reason = decide_deploy(has_hold=has_hold, hold_tag=hold_tag, status=status,
+                                   force=args.force, repo=args.repo)
 
     print(f'deploy-hold gate: deploy={str(deploy).lower()} ({reason})')
     output = os.environ.get('GITHUB_OUTPUT')

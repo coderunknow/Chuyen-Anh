@@ -91,6 +91,24 @@ class DecideDeployTests(unittest.TestCase):
         self.assertFalse(deploy)
         self.assertIn('unreadable', reason)
 
+    def test_missing_repository_is_reported_as_a_configuration_gap(self):
+        # Before rc3 a local run (no --repo, no GITHUB_REPOSITORY) printed
+        # "release v1.0.0-rc2 is missing" even though the release was published:
+        # the gate had simply not asked GitHub. Holding is right (fail closed);
+        # blaming the release is not, because it sends a maintainer to the wrong
+        # place. The reason must name the missing input instead.
+        deploy, reason = self.mod.decide_deploy(has_hold=True, hold_tag='v1.0.0-dev5',
+                                                status='missing', force=False, repo='')
+        self.assertFalse(deploy)
+        self.assertIn('no repository was supplied', reason)
+        self.assertNotIn('is missing;', reason)
+
+    def test_unknown_repository_still_holds_and_says_so(self):
+        deploy, reason = self.mod.decide_deploy(has_hold=True, hold_tag='v1.0.0-dev5',
+                                                status='missing', force=False, repo='owner/repo')
+        self.assertFalse(deploy)
+        self.assertIn('is missing; deployment held', reason)
+
     def test_force_overrides_the_hold_for_maintainer_dispatch(self):
         deploy, reason = self.mod.decide_deploy(has_hold=True, hold_tag='v1.0.0-dev5', status='missing', force=True)
         self.assertTrue(deploy)
@@ -109,7 +127,7 @@ class HoldMarkerLifecycleTests(unittest.TestCase):
         text = path.read_text(encoding='utf-8')
         tags = [line.strip() for line in text.splitlines()
                 if line.strip() and not line.strip().startswith('#')]
-        self.assertEqual(tags, ['v1.0.0-rc2'])
+        self.assertEqual(tags, ['v1.0.0-rc3'])
         self.assertRegex(tags[0], r'^v\d+\.\d+\.\d+-(?:dev|beta|rc)\d+$')
         html = (ROOT / 'index.html').read_text(encoding='utf-8')
         live = re.search(r"APP_VERSION = '([^']+)'", html)
