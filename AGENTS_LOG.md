@@ -913,3 +913,16 @@ CodeRabbit's review `5643120300` (run metadata again `Layers: Repository YAML`) 
    search rows, Settings, or either skin.
 10. **Not done:** no merge, tag, release or deploy; the local sandbox still cannot run the two browser suites (Chromium download blocked), so
    visual review at 320/768/1280 px rests on CI; the 3 REVIEW glosses still need an editor.
+
+### CI follow-up: two more failed browser runs (same day)
+
+11. **Second run (40720987107).** `checks` green, `browser` red: the candidate's own browser suite still pinned `#app-version` to
+    `'v1.0.0-rc3'` (`tests/browser-learning.cjs:517`). Pin updated to `'v1.0.0-rc4'`; no application code changed.
+12. **Third run (40721747824).** `checks` green, `browser` red: Settings tab order — `keys-setting` was no longer the fourth stop
+    because the meanings and interface rows had been inserted above it. Both rows moved below the session-size selector, so the
+    existing assertions hold without being edited.
+13. **Phone-width rules.** A masked `.vocab-row` gloss no longer forces `grid-column: 3`; `.flashcard-head` and
+    `.flashcard-head-actions` wrap at ≤680px. Stylesheet parses at 893 rules / 105.653 bytes.
+14. **Re-verified.** Static data chain green, Python **141 OK**, `node --test tests/static-app.test.js` **119/119**, jsdom DOM suite
+    **43/43**, axe `label-content-name-mismatch` clean, six-view/two-skin console sweep clean.
+15. **Not done:** still no merge, tag, release or deploy; the browser suites remain CI-only in this sandbox.

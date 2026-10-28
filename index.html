@@ -393,6 +393,10 @@ kbd, .kbd { min-width: 24px; padding: 2px 6px; border: 1px solid var(--border-st
   .study-section-heading { align-items: flex-start; }
   .options { grid-template-columns: 1fr; }
   .spelling { flex-direction: column; }
+  /* rc4: the meaning toggle added a fourth control to the card head; letting the
+     row wrap keeps a 320-375px card from growing wider than the viewport. */
+  .flashcard-head { flex-wrap: wrap; row-gap: 8px; }
+  .flashcard-head-actions { flex-wrap: wrap; justify-content: flex-end; margin-left: auto; }
   .vocab-row { grid-template-columns: 1fr auto auto; }
   .vocab-pos { grid-column: 2; grid-row: 1; }
   .vocab-meaning { grid-column: 1 / -1; grid-row: 2; white-space: normal; }
@@ -422,7 +426,7 @@ kbd, .kbd { min-width: 24px; padding: 2px 6px; border: 1px solid var(--border-st
 .meaning-reveal:active { transform: translateY(1px); }
 /* The search and phrase rows clip a plain gloss to one line; a mask with a
    control must stay whole, so it is allowed to wrap in those rows only. */
-.vocab-row .vocab-meaning.meaning-masked { grid-column: 3; white-space: normal; overflow: visible; text-overflow: clip; }
+.vocab-row .vocab-meaning.meaning-masked { white-space: normal; overflow: visible; text-overflow: clip; }
 .vocab-row .vocab-meaning.meaning-masked .meaning-reveal { margin-left: 2px; }
 .first-look-meaning .meaning-masked { margin-top: 4px; font-size: .8rem; }
 .flagged-meaning.meaning-masked, .weak-row-meaning.meaning-masked { font-size: .74rem; }
@@ -230541,10 +230545,10 @@ export async function createApp(root) {
       <section class="panel"><div class="panel-heading">Tùy chọn học</div><div class="panel-body">
         <div class="setting-row"><div><b id="language-label">Ngôn ngữ giao diện</b><small id="language-help">Chọn ngôn ngữ giao diện. Nội dung từ vựng và bản chép đề giữ nguyên ngôn ngữ nguồn.</small></div><select class="setting-select" id="language-setting" aria-labelledby="language-label" aria-describedby="language-help" style="width:180px;max-width:45%"><option value="vi" ${language === 'vi' ? 'selected' : ''}>Tiếng Việt</option><option value="en" ${language === 'en' ? 'selected' : ''}>English</option></select></div>
         <div class="setting-row"><div><b id="theme-label">Giao diện</b><small id="theme-help">Theo hệ thống sẽ dùng cài đặt sáng/tối của thiết bị. Bạn vẫn có thể chọn cố định.</small></div><select class="setting-select" id="theme-setting" aria-labelledby="theme-label" aria-describedby="theme-help" style="width:180px;max-width:45%">${themeOptions}</select></div>
-        <div class="setting-row"><div><b id="meanings-label">Hiển thị nghĩa tiếng Việt</b><small id="meanings-help">“Ẩn nghĩa” che nghĩa trước khi bạn trả lời — phần giới thiệu từ mới, danh sách tra cứu, danh sách từ khó và kho cụm từ. Nghĩa vẫn hiện sau khi chấm, nên điểm, lịch ôn và số lượt luyện không đổi.</small></div>${meaningSwitchMarkup('setting-meanings')}</div>
-        <div class="setting-row"><div><b id="interface-label">Kiểu giao diện</b><small id="interface-help">Classic là giao diện quen thuộc; Modern là bố cục mới với cùng dữ liệu và cùng luật học. Đổi kiểu không kết thúc phiên đang học và không đổi tiến độ.</small></div>${interfaceSwitchMarkup('setting-interface', 'ui-switch ui-switch--settings')}</div>
         <div class="setting-row"><div><b id="keys-label">Phím tắt bàn phím</b><small id="keys-help">Tắt nếu bạn thường gõ trên trang học.</small></div><label class="switch"><input type="checkbox" id="keys-setting" aria-labelledby="keys-label" aria-describedby="keys-help" ${prefs.keyboardShortcuts ? 'checked' : ''}><span aria-hidden="true"></span></label></div>
         <div class="setting-row"><div><div><b id="size-label">Số thẻ mặc định mỗi phiên</b></div><small id="size-help">Áp dụng cho phiên ưu tiên, Đến hạn, Từ yếu, Từ mới, Ngẫu nhiên, Yêu thích và Học cấp tốc. Phiên nhanh 10/20/30 giữ số thẻ ghi trên nút.</small></div><select class="setting-select" id="size-setting" aria-labelledby="size-label" aria-describedby="size-help" style="width:100px"><option ${prefs.sessionSize === 10 ? 'selected' : ''}>10</option><option ${prefs.sessionSize === 20 ? 'selected' : ''}>20</option><option ${prefs.sessionSize === 30 ? 'selected' : ''}>30</option><option ${prefs.sessionSize === 50 ? 'selected' : ''}>50</option></select></div>
+        <div class="setting-row"><div><b id="meanings-label">Hiển thị nghĩa tiếng Việt</b><small id="meanings-help">“Ẩn nghĩa” che nghĩa trước khi bạn trả lời — phần giới thiệu từ mới, danh sách tra cứu, danh sách từ khó và kho cụm từ. Nghĩa vẫn hiện sau khi chấm, nên điểm, lịch ôn và số lượt luyện không đổi.</small></div>${meaningSwitchMarkup('setting-meanings')}</div>
+        <div class="setting-row"><div><b id="interface-label">Kiểu giao diện</b><small id="interface-help">Classic là giao diện quen thuộc; Modern là bố cục mới với cùng dữ liệu và cùng luật học. Đổi kiểu không kết thúc phiên đang học và không đổi tiến độ.</small></div>${interfaceSwitchMarkup('setting-interface', 'ui-switch ui-switch--settings')}</div>
       </div></section>
       <section class="panel"><div class="panel-heading">Phiên ưu tiên</div><div class="panel-body">
         <p class="settings-copy">Cấu hình này được dùng cho “Phiên ưu tiên” trên trang Học và được giữ sau khi tải lại.</p>

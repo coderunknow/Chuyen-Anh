@@ -1625,3 +1625,23 @@ The user asked for **Chuyên Anh v1.0.0-rc4, end to end**, in one request:
   interface was reviewed visually at 320/768/1280 px or on a physical phone; the jsdom suite asserts DOM behaviour, not pixels. The 3 REVIEW
   glosses need an editor. Exam provenance, the 923-headword evidence queue and the 8 flagged answer claims are unchanged from rc3. Nothing was
   merged, tagged, released or deployed, and the merge/tag/release decision waits on the user.
+
+### CI on the new head — two more real defects (same day)
+
+10. **The candidate shipped an rc3 pin.** Run 40720987107 failed the first card assertion: `tests/browser-learning.cjs:517` still
+    expected `#app-version` to read `'v1.0.0-rc3'`. The application version had been updated everywhere the build reads it, but the
+    browser suite carries its own literal, and a version bump is not finished until every literal agrees. The pin now expects
+    `'v1.0.0-rc4'`; no application code changed.
+11. **Two Settings rows displaced a keyboard stop.** Run 40721747824 failed at `browser-learning.cjs:597` (expected `keys-setting`,
+    received `setting-meanings-show`) because the meanings and interface rows had been inserted between the theme selector and the
+    shortcuts switch. The fix moves both rows below the session-size selector, restoring the order the existing test encodes
+    (language → theme → shortcuts → session size → meanings → interface). Relaxing the assertion was rejected: a tab-order test edited
+    to match a new layout stops catching the next one.
+12. **Phone-width hardening.** `.vocab-row .vocab-meaning.meaning-masked` no longer forces `grid-column: 3` — the desktop grid
+    auto-places the gloss, and the existing ≤680px rule keeps its own `1 / -1`, so the mobile three-column grid no longer receives a
+    four-column placement. `.flashcard-head` and `.flashcard-head-actions` wrap below 680px, so the card's fourth header control cannot
+    widen a 320–375px card. Neither change alters anything above 680px except the restored mobile placement.
+13. **Re-verified after 10–12.** `node --test tests/static-app.test.js` **119/119**; `python3 -m unittest discover -s tests -p 'test_*.py'`
+    **141 OK**; jsdom DOM suite **43/43**; axe reports no `label-content-name-mismatch` on the card, the masked search rows, Settings or
+    either skin; the six-view/two-skin console sweep is clean; the static data chain is green. Stylesheet: **893 rules, 105.653 bytes**.
+    The two browser suites still cannot run in this sandbox, so items 10 and 11 rest on CI, not on a local run.

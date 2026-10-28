@@ -90,8 +90,22 @@ presentation preference, and every existing key keeps its shape.
   (`Nghĩa: hiện` / `Nghĩa: ẩn` + `aria-pressed`), the dots are `aria-hidden`, and the English reveal labels keep the visible words
   (“Show meaning of …”) so the name still contains the label.
 
+- **The candidate still shipped an rc3 version pin.** CI's second browser run (40720987107) failed the first card assertion because
+  `tests/browser-learning.cjs:517` still expected `#app-version` to read `'v1.0.0-rc3'`. A version bump is not done until every literal
+  agrees, and the browser suite carries its own; it now expects `'v1.0.0-rc4'` like the other pins. No application code changed.
+- **The new Settings rows displaced a keyboard stop.** CI's third browser run (40721747824) failed at `browser-learning.cjs:597`:
+  the meanings and interface rows sat between the theme selector and the shortcuts switch, so the fourth Tab stop was
+  `setting-meanings-show` instead of `keys-setting`. The two rows now follow the session-size selector, restoring the long-standing
+  order (language → theme → shortcuts → session size → meanings → interface). The existing assertion was not relaxed — a tab-order
+  test edited to match a new layout stops being a regression test.
+- **Two phone-width overflow risks removed** (found while hardening, not by CI): a masked gloss inside `.vocab-row` no longer forces
+  `grid-column: 3`, so the desktop grid auto-places it while the ≤680px rule keeps its own full-width placement instead of reusing a
+  four-column span inside the three-column mobile grid; and `.flashcard-head` / `.flashcard-head-actions` wrap below 680px so the
+  card's fourth header control cannot widen a 320–375px card.
+
 ### Tests and verification
 
+- The stylesheet parses at **893** rules / **105.653** bytes after the phone-width rules (891 / 105.363 before them).
 - `tests/static-app.test.js`: **119** node tests (115 before this candidate). The sync-key pin now expects
   `chuyen-anh.presentation.v1`, the localiser guard asserts the new conditional return, and four rc4 tests cover the preference,
   the concealed surfaces, the separation between presentation and scheduling, and the second layout.
