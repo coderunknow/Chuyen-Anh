@@ -34,6 +34,26 @@ exists for it, and the Pages gate reports `deploy=false (release v1.0.0-rc3 is m
   (including four answer entries) with one page-count difference, Bình Dương 2025 4/4 anchors. These are independent
   *reproductions*, not originals, and the file says so.
 
+### Added: an opt-in diagnostics log the learner sends themselves
+
+- **Settings → Privacy & diagnostics log.** Off by default; consent is stored with the moment it was given
+  (`chuyen-anh.telemetry-consent.v1`), and an `enabled` flag without a recorded decision is not treated as consent.
+- **Local only.** The log is at most **200** events in `chuyen-anh.telemetry.v1`. The application contains no `fetch`,
+  `XMLHttpRequest` or `sendBeacon` and no endpoint: the learner clicks **Tải nhật ký JSON** and forwards the file to
+  [the project's issues](https://github.com/coderunknow/Chuyen-Anh/issues) if they choose to. A test asserts that the app script
+  has no transmission path at all.
+- **Narrow by construction.** An event is `{at, kind, name, counters, note}`: `kind` from a fixed list, `name` a short token, at most
+  **six** finite counters, and a note that is cut at the first quote character and stripped of e-mail addresses and control
+  characters — so a `JSON.parse` message cannot carry the snippet the learner typed. Answers, typed text, search queries, words
+  studied, backup contents, user agent, device ids, timezone, IP address and the exact viewport are never recorded; the report
+  states that list (`notCollected`) and buckets the viewport as mobile/tablet/desktop.
+- **Real control.** Withdrawing consent deletes the log immediately (the key is removed, not emptied), and the log can be cleared
+  without turning it off. Events are recorded for boot, session end (counters only), opening Tra cứu, backup export/import outcome
+  and uncaught errors — never per card.
+- `PRIVACY.md` documents the same contract in Vietnamese and English. New test:
+  *the diagnostics log is opt-in, local, bounded and free of learner content* (static) plus a browser scenario covering default-off,
+  consent, a downloaded report, erasure and the English interface.
+
 ### Performance: a card is generated from memoised row keys, not re-keyed per card
 
 - **Measured first.** Building one question walks all 5.852 rows and keys each candidate's text twice (`normalize` for visual

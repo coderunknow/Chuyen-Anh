@@ -2840,6 +2840,92 @@ async function main() {
     assert.equal(await page.locator('.skip-link').getAttribute('href'), '#content',
       'keyboard users can skip the chrome');
 
+    // ---- Diagnostics log: off by default, opt-in, downloadable, and erased when
+    // consent is withdrawn. The application must also make no network request
+    // while the switch is used, and the downloaded file must not carry learner text.
+    {
+      const logNet = [];
+      const onLogReq = req => {
+        if (!req.url().startsWith(`http://127.0.0.1:${server.address().port}`) && !req.url().startsWith('blob:') && !req.url().startsWith('data:')) logNet.push(req.url());
+      };
+      page.on('request', onLogReq);
+      await page.evaluate(() => { localStorage.removeItem('chuyen-anh.telemetry-consent.v1'); localStorage.removeItem('chuyen-anh.telemetry.v1'); });
+      await page.reload();
+      await page.locator('[data-session="new"]').waitFor();
+      assert.equal(await page.evaluate(() => localStorage.getItem('chuyen-anh.telemetry.v1')), null,
+        'a device that never consented stores no diagnostics');
+      assert.equal(await page.evaluate(() => localStorage.getItem('chuyen-anh.telemetry-consent.v1')), null);
+      await page.locator('[data-view="settings"]').click();
+      // The switch input is visually hidden behind its styled track, so it is
+      // asserted through the control the learner actually clicks (the label).
+      const telemetryToggle = page.locator('#telemetry-setting');
+      const telemetrySwitch = page.locator('label.switch', { has: page.locator('#telemetry-setting') });
+      await telemetryToggle.waitFor({ state: 'attached' });
+      await telemetrySwitch.waitFor();
+      assert.equal(await telemetryToggle.isChecked(), false, 'the diagnostics log is off by default');
+      await page.waitForTimeout(150);
+      assert.equal(await page.evaluate(() => localStorage.getItem('chuyen-anh.telemetry.v1')), null, 'nothing was recorded while off');
+      assert.equal(await page.locator('#telemetry-download').isDisabled(), true, 'there is nothing to download while off');
+
+      // Turn it on, then produce a real event (a search visit).
+      await telemetrySwitch.click();
+      await page.locator('.toast').filter({ hasText: 'Đã bật nhật ký chẩn đoán' }).waitFor();
+      const consent = await page.evaluate(() => JSON.parse(localStorage.getItem('chuyen-anh.telemetry-consent.v1')));
+      assert.equal(consent.enabled, true);
+      assert.match(consent.decidedAt, /^\d{4}-\d\d-\d\dT/, 'the consent decision is timestamped');
+      await page.locator('[data-view="search"]').click();
+      await page.locator('#search-field').fill('advers');
+      await page.locator('#results .vocab-row').first().waitFor();
+      const events = await page.evaluate(() => JSON.parse(localStorage.getItem('chuyen-anh.telemetry.v1')));
+      assert.ok(events.length >= 2, `expected boot/settings/search events, got ${events.length}`);
+      assert.deepEqual([...new Set(events.map(event => event.kind))].filter(kind => !['boot', 'settings', 'search-open'].includes(kind)), []);
+      assert.equal(JSON.stringify(events).includes('advers'), false, 'a search query is never recorded');
+      assert.ok(events.every(event => typeof event.at === 'string' && typeof event.kind === 'string'));
+
+      // The download is the report the learner sends, and it states its own limits.
+      await page.locator('[data-view="settings"]').click();
+      const [download] = await Promise.all([
+        page.waitForEvent('download'),
+        page.locator('#telemetry-download').click()
+      ]);
+      assert.match(download.suggestedFilename(), /^chuyen-anh-diagnostics-\d{4}-\d\d-\d\d\.json$/);
+      const report = JSON.parse(fs.readFileSync(await download.path(), 'utf8'));
+      assert.equal(report.product, 'Chuyen-Anh');
+      assert.match(report.appVersion, /^v1\.0\.0-rc3$/);
+      assert.equal(report.consent.enabled, true);
+      assert.equal(report.eventCount, report.events.length);
+      assert.equal(['mobile', 'tablet', 'desktop'].includes(report.environment.viewport), true, 'the viewport is bucketed, not exact');
+      assert.equal(JSON.stringify(report).includes('advers'), false, 'the downloaded file carries no learner text');
+      assert.equal(JSON.stringify(report).includes('Mozilla/5.0'), false, 'the user agent is not collected');
+      assert.ok(Array.isArray(report.notCollected) && report.notCollected.length >= 5);
+
+      // Withdrawing consent erases what was recorded.
+      await telemetrySwitch.click();
+      await page.locator('.toast').filter({ hasText: 'Đã tắt và xóa nhật ký chẩn đoán' }).waitFor();
+      assert.equal(await page.evaluate(() => localStorage.getItem('chuyen-anh.telemetry.v1')), null,
+        'turning the log off erases it');
+      assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem('chuyen-anh.telemetry-consent.v1')).enabled), false);
+      await page.locator('[data-view="search"]').click();
+      await page.waitForTimeout(150);
+      assert.equal(await page.evaluate(() => localStorage.getItem('chuyen-anh.telemetry.v1')), null, 'nothing is recorded after withdrawal');
+
+      // The English interface translates the panel and the switch.
+      await page.evaluate(() => localStorage.setItem('chuyen-anh.language.v1', 'en'));
+      await page.reload();
+      await page.locator('[data-view="settings"]').click();
+      const privacyText = await page.locator('[aria-labelledby="privacy-title"]').innerText();
+      // `.panel-heading` is upper-cased by CSS, and innerText reflects that.
+      assert.match(privacyText, /Privacy & diagnostics log/i);
+      assert.match(privacyText, /Record a diagnostics log/);
+      assert.match(privacyText, /Download the log \(JSON\)/);
+      assert.equal(await page.locator('#telemetry-setting').isChecked(), false, 'the withdrawal survives a reload');
+      assert.deepEqual(logNet, [], 'the diagnostics feature makes no network request');
+      page.off('request', onLogReq);
+      await page.evaluate(() => localStorage.setItem('chuyen-anh.language.v1', 'vi'));
+      await page.reload();
+      await page.locator('[data-session="new"]').waitFor();
+    }
+
     const failing = await browser.newPage({ viewport: { width: 1280, height: 900 }, reducedMotion: 'reduce' });
     const failingErrors = [];
     failing.on('pageerror', error => failingErrors.push(error.message));
@@ -2879,7 +2965,7 @@ async function main() {
     await failing.close();
 
     assert.deepEqual(errors, []);
-    console.log(`PASS: Chromium ${browser.version()} — first-look introduction for new words, same-part-of-speech distractors, cloze options absent from the sentence, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, 320/375/768px responsive layout, reduced-motion setting, search state across a favorite toggle, session clearing on reset/import, the ID 448 historical label, named option groups, shortcuts limited to the visible card, failed writes reported truthfully, JSON backup round-trips that keep every retained session, blank spelling submissions ignored, single-graded self-assessment, skip locked after a reveal, and 'Học cấp tốc' processing all ten requested words with a truthful single correction, automatic advance only after correct answers, accurate first-pass statistics, persisted progress, an immediate hand-off with the graded answer carried onto the next card, a queue that never shifts while another screen is open, and interface copy on a consolidation turn translated in the English interface; the beta5 priority configuration with all eight exercise types, a matching board driven from the keyboard, a skipped question reopened from the pending list, a hard word marked and unmarked, a real one-minute timed session that ends on its results with unanswered questions reported as blank, a v1 backup that keeps the device hard-word list, English rendering of every new screen, and the beta6 regressions: a priority session started from Settings opens where the learner can see it, a classic session reports only its own XP, a typed answer survives the star/flag toggles, a sprint honours the timer, a start that cannot run explains itself, a new session inherits no skipped questions, and the beta7 phrase bank: 780 phrases browsed, searched, filtered by type and level, practised for ten turns with typed and multiple-choice retrieval recorded in its own store while word progress stayed byte-identical, English rendering of the phrase screens, and a reset that clears phrase progress; the RC2 remediation regressions: two-tab grades surviving cross-tab writes with wipes never resurrected, an over-quota restore failing atomically with a truthful error then recovering fully once space is freed, the day streak moving only on first-pass correct answers — typed, chosen, self-assessed, and match resolutions alike — and skipped cards counted exactly once, at expiry and in a finished session; the curation release: an archived word marked in Tra cứu with no favourite toggle and a 1.271-row archived scope, every count driven by the 3.841-word focus deck, and an About panel stating the real version and the MIT licence read from LICENSE; no page errors.`);
+    console.log(`PASS: Chromium ${browser.version()} — first-look introduction for new words, same-part-of-speech distractors, cloze options absent from the sentence, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, 320/375/768px responsive layout, reduced-motion setting, search state across a favorite toggle, session clearing on reset/import, the ID 448 historical label, named option groups, shortcuts limited to the visible card, failed writes reported truthfully, JSON backup round-trips that keep every retained session, blank spelling submissions ignored, single-graded self-assessment, skip locked after a reveal, and 'Học cấp tốc' processing all ten requested words with a truthful single correction, automatic advance only after correct answers, accurate first-pass statistics, persisted progress, an immediate hand-off with the graded answer carried onto the next card, a queue that never shifts while another screen is open, and interface copy on a consolidation turn translated in the English interface; the beta5 priority configuration with all eight exercise types, a matching board driven from the keyboard, a skipped question reopened from the pending list, a hard word marked and unmarked, a real one-minute timed session that ends on its results with unanswered questions reported as blank, a v1 backup that keeps the device hard-word list, English rendering of every new screen, and the beta6 regressions: a priority session started from Settings opens where the learner can see it, a classic session reports only its own XP, a typed answer survives the star/flag toggles, a sprint honours the timer, a start that cannot run explains itself, a new session inherits no skipped questions, and the beta7 phrase bank: 780 phrases browsed, searched, filtered by type and level, practised for ten turns with typed and multiple-choice retrieval recorded in its own store while word progress stayed byte-identical, English rendering of the phrase screens, and a reset that clears phrase progress; the RC2 remediation regressions: two-tab grades surviving cross-tab writes with wipes never resurrected, an over-quota restore failing atomically with a truthful error then recovering fully once space is freed, the day streak moving only on first-pass correct answers — typed, chosen, self-assessed, and match resolutions alike — and skipped cards counted exactly once, at expiry and in a finished session; the curation release: an archived word marked in Tra cứu with no favourite toggle and a 1.271-row archived scope, every count driven by the 3.841-word focus deck, and an About panel stating the real version and the MIT licence read from LICENSE; the opt-in diagnostics log: off by default with no key on a device that never consented, a timestamped consent record, boot/settings/search events with no search text inside them, a downloaded report that names what it omits and carries no user agent, erasure on withdrawal; no page errors.`);
   } finally {
     if (browser) await browser.close();
     await new Promise(resolve => server.close(resolve));

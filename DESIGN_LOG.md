@@ -1469,3 +1469,55 @@ is the test wrong — and why is the `checks` job (which runs the static suite) 
 
 Both jobs on `d34fd3c` are **success**: `checks` **302 s** (was 734 s: the static suite now finishes in ~2 min) and `browser` **302 s**
 (was 405 s), so the memoisation also shortened the job the browser suites run in. One green run of each is a data point, not a trend.
+
+## 2026-10-28 (fourth follow-up) — an opt-in diagnostics log the learner sends themselves
+
+### User Intent
+
+The user asked for "a telemetry feature too, log and be able to send the log to me by the users", with users able to turn it on and off
+manually and legally, and to be asked again before merge/tag/release. So the feature must be (a) genuinely optional, (b) legal in the
+sense of consent-based and documented, (c) able to reach the maintainer, and (d) unable to quietly collect learner content.
+
+### Implementation History
+
+1. **Decided the transport before writing code.** The app is one HTML file with no backend, no network and a hard rule against adding
+   a dependency. So there is **no endpoint and no automatic send**: the app writes a bounded local log, and the learner downloads a
+   fixed-shape JSON report and forwards it (the panel links to the project's issues). This is the only design that satisfies "send it
+   to me" without inventing a server, a third party or a silent upload — and a test asserts the app script contains no `fetch`,
+   `XMLHttpRequest` or `sendBeacon` at all.
+2. **Consent is the gate, not a setting among others.** `chuyen-anh.telemetry-consent.v1` stores `{contract, enabled, decidedAt}`;
+   `sanitizeTelemetryConsent` treats `enabled: true` without a valid `decidedAt` as *not* consent, and nothing is read from or written
+   to the log store before it. Turning the switch off is a withdrawal, so the log key is **removed** (not emptied).
+3. **The event shape is a whitelist.** `kind` must be one of eight fixed values, `name` must match a short token pattern, counters are
+   rounded finite numbers capped at six with a 1e9 bound, and `note` is cut at the **first quote character** after stripping control
+   characters and e-mail addresses. The first version tried pair-matching quotes; a nested `"từ \"bí mật\""` left learner text behind,
+   so the rule became "keep only what precedes the first quote", which is enough for an error kind and carries no content.
+4. **Hooks are few and content-free:** boot, session end (turns/correct/wrong/unanswered only), opening Tra cứu, backup export/import
+   outcome, consent changes and uncaught errors. Nothing per card, nothing per word, nothing per query.
+5. **The report states its own limits.** `buildTelemetryReport` emits product, version, consent decision, a bucketed environment
+   (language, theme, mobile/tablet/desktop, reduced motion) and a `notCollected` list naming answers, queries, backup contents, user
+   agent, device ids, timezone, IP and exact viewport. Environment fields are whitelisted, so a caller cannot leak a user agent in.
+6. **Legal documentation.** New `PRIVACY.md` (Vietnamese + English summary): what is recorded, in a table; what is never recorded; the
+   lawful basis (explicit opt-in consent); the learner's rights (view, download, delete, withdraw) and how each is exercised in the UI.
+   The panel carries a short version, and its full policy paragraph is a single text node so the English interface translates it.
+7. **Tests.** Static: *the diagnostics log is opt-in, local, bounded and free of learner content* — 30 assertions covering consent
+   defaults, the undated-consent reject, scrubbing (including the nested-quote case), counter bounds, the 200-event cap, immutability,
+   `removeItem` erasure, report shape, the `notCollected` list, and the absence of any transmission path. Browser: default-off with no
+   key on a device that never consented, consent record with timestamp, real events from a search visit with **no query text inside**,
+   a downloaded report (`chuyen-anh-diagnostics-YYYY-MM-DD.json`) containing no learner text and no user agent, erasure on withdrawal,
+   the English panel, and **zero external network requests** while the whole feature is used.
+8. **Verification:** static **115/115**, Python **130 OK**, both browser suites PASS sequentially (the learning suite now takes ~6m30s).
+   Preview served from the working tree on port 8000 for the user to try the switch.
+
+### Decisions & Lessons
+
+- **"Telemetry" without a server is a file, not a beacon.** Sending the log required inventing infrastructure the project forbids, so the
+  honest feature is: record locally, let the learner send it. That is also the only version where "on/off manually" is meaningful.
+- **Consent must be a precondition, not a preference.** A boolean sitting next to theme and language would have been collected by whatever
+  wrote the log first; a separate versioned record with a decision time makes "off" the default state of the store itself.
+- **Whitelists beat scrubbers.** The event shape accepts only known keys and numeric counters, so a new call site cannot accidentally
+  start shipping a word or a query; the note scrubber exists only for error messages and is deliberately destructive.
+- **A quote-matching scrubber is not a scrubber.** The nested-quote failure was found by writing the adversarial case into the test first;
+  cutting at the first quote is lossy for prose and safe for content.
+- **Still open:** no endpoint, so delivery is manual by design; the log is per browser profile, not per user; nothing was merged, tagged,
+  released or deployed, and the merge/tag/release decision is waiting on the user.

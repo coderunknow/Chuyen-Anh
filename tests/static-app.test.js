@@ -119,7 +119,25 @@ const {
   exerciseAvailability,
   EXERCISE_TYPES,
   acceptsShortcutKey,
-  pluralCount
+  pluralCount,
+  TELEMETRY_CONTRACT,
+  TELEMETRY_MAX_EVENTS,
+  TELEMETRY_CONTACT_URL,
+  TELEMETRY_CONSENT_KEY,
+  TELEMETRY_LOG_KEY,
+  sanitizeTelemetryConsent,
+  telemetryConsentDecision,
+  scrubTelemetryText,
+  sanitizeTelemetryEvent,
+  appendTelemetryEvent,
+  loadTelemetryConsent,
+  saveTelemetryConsent,
+  loadTelemetryLog,
+  saveTelemetryLog,
+  clearTelemetryLog,
+  buildTelemetryReport,
+  telemetryReportFilename,
+  canSendTelemetry
 } = app;
 
 const vocab = [
@@ -1006,6 +1024,106 @@ test('a blank spelling submission is not an attempt that can be graded', () => {
   assert.equal(hasSubmissionAnswer(choice, '1'), true);
   assert.equal(hasSubmissionAnswer(choice, ''), false);
   assert.equal(hasSubmissionAnswer(null, 'x'), false, 'without a question there is nothing to submit');
+});
+
+// The diagnostics log is the only thing in this app that could plausibly be
+// called telemetry, so its contract is pinned: consent first, local only, no
+// free text, bounded, and the app itself never transmits.
+test('the diagnostics log is opt-in, local, bounded and free of learner content', () => {
+  const at = '2026-10-28T12:00:00.000Z';
+  // ---- Consent -----------------------------------------------------------------
+  assert.equal(sanitizeTelemetryConsent(null).enabled, false, 'a fresh profile has not consented');
+  assert.equal(loadTelemetryConsent(store()).enabled, false, 'an empty device has not consented');
+  assert.equal(sanitizeTelemetryConsent({ enabled: true }).enabled, false,
+    'an enabled flag with no recorded decision is not consent');
+  assert.equal(telemetryConsentDecision(true, at).enabled, true);
+  assert.equal(telemetryConsentDecision(true, at).decidedAt, at);
+  const consentStore = store();
+  assert.equal(saveTelemetryConsent(telemetryConsentDecision(true, at), consentStore), true);
+  assert.equal(loadTelemetryConsent(consentStore).enabled, true, 'consent survives a reload');
+  assert.equal(consentStore.getItem(TELEMETRY_CONSENT_KEY).includes('2026-10-28'), true, 'the decision time is stored');
+  assert.equal(loadTelemetryConsent(failingStore()).enabled, false, 'an unreadable store is not consent');
+
+  // ---- Nothing is written before consent ---------------------------------------
+  const before = store();
+  assert.deepEqual(loadTelemetryLog(before), []);
+  assert.equal(before.getItem(TELEMETRY_LOG_KEY), null, 'no log exists on a device that never consented');
+
+  // ---- Event shape: whitelisted, numeric, scrubbed ------------------------------
+  assert.equal(sanitizeTelemetryEvent({ at, kind: 'not-a-kind' }), null, 'unknown kinds are dropped');
+  assert.equal(sanitizeTelemetryEvent({ kind: 'boot', name: 'app-boot' }), null, 'an undated event is dropped');
+  const event = sanitizeTelemetryEvent({
+    at, kind: 'backup', name: 'import-error', note: 'Import thất bại: "từ \\"bí mật\\" của tôi" x@y.com',
+    word: 'secret', query: 'secret query', answer: 'secret answer',
+    counters: { rows: 12, ratio: 0.5, bad: 'x', huge: 1e12, a: 1, b: 2, c: 3, d: 4 }
+  });
+  assert.deepEqual(Object.keys(event).sort(), ['at', 'counters', 'kind', 'name', 'note']);
+  assert.equal(event.note, 'Import thất bại:', 'the note keeps only the text before the first quote');
+  assert.equal(JSON.stringify(event).includes('secret'), false, 'learner text is never stored');
+  assert.equal(Object.keys(event.counters).length <= 6, true, 'at most six counters survive');
+  assert.equal(event.counters.huge, undefined, 'an out-of-range counter is dropped');
+  assert.equal(event.counters.bad, undefined, 'a non-numeric counter is dropped');
+  assert.equal(scrubTelemetryText('a'.repeat(400)).length, 120, 'a note is capped');
+  assert.equal(scrubTelemetryText('line\u0000break\nx'), 'line break x', 'control characters never enter the log');
+
+  // ---- Bounded, immutable ------------------------------------------------------
+  let log = [];
+  for (let index = 0; index < TELEMETRY_MAX_EVENTS + 25; index += 1) {
+    log = appendTelemetryEvent(log, { at, kind: 'boot', name: `e${index}` });
+  }
+  assert.equal(log.length, TELEMETRY_MAX_EVENTS, 'the log is bounded');
+  assert.equal(log[log.length - 1].name, `e${TELEMETRY_MAX_EVENTS + 24}`, 'the newest event is kept');
+  const frozen = log.slice();
+  appendTelemetryEvent(frozen, { at, kind: 'boot', name: 'extra' });
+  assert.equal(frozen.length, TELEMETRY_MAX_EVENTS, 'appending does not mutate the caller array');
+
+  // ---- Storage round-trip and erasure ------------------------------------------
+  // Erasure is `removeItem`, so the store here is the full three-method API of a
+  // real localStorage rather than the two-method fixture used above.
+  const logStore = (() => {
+    const data = new Map();
+    return {
+      getItem: key => data.get(key) ?? null,
+      setItem: (key, value) => data.set(key, value),
+      removeItem: key => data.delete(key)
+    };
+  })();
+  assert.equal(saveTelemetryLog(log.slice(0, 3), logStore), true);
+  assert.equal(loadTelemetryLog(logStore).length, 3);
+  assert.equal(clearTelemetryLog(logStore), true);
+  assert.equal(logStore.getItem(TELEMETRY_LOG_KEY), null, 'erasure removes the key, not just its contents');
+
+  // ---- The report is the only thing sent, and it says what it leaves out --------
+  const report = buildTelemetryReport({
+    log: [{ at, kind: 'session-end', name: 'completed', counters: { turns: 20, correct: 17 } }],
+    consent: telemetryConsentDecision(true, at),
+    appVersion: APP_VERSION,
+    environment: { language: 'vi', theme: 'dark', viewportWidth: 375, reducedMotion: true, userAgent: 'should not appear' },
+    generatedAt: at
+  });
+  assert.equal(report.contract, TELEMETRY_CONTRACT);
+  assert.equal(report.appVersion, APP_VERSION);
+  assert.equal(report.consent.enabled, true);
+  assert.equal(report.consent.decidedAt, at);
+  assert.deepEqual(report.environment, { language: 'vi', theme: 'dark', viewport: 'mobile', reducedMotion: true },
+    'the environment is bucketed and drops anything not whitelisted, such as the user agent');
+  assert.equal(buildTelemetryReport({ environment: { viewportWidth: 1280 } }).environment.viewport, 'desktop');
+  assert.equal(report.eventCount, 1);
+  assert.equal(JSON.stringify(report).includes('should not appear'), false);
+  assert.equal(report.notCollected.some(item => /IP address/.test(item)), true, 'the file states what it omits');
+  assert.equal(report.notCollected.some(item => /timezone/.test(item)), true);
+  assert.match(telemetryReportFilename(at), /^chuyen-anh-diagnostics-2026-10-28\.json$/);
+  assert.equal(canSendTelemetry(sanitizeTelemetryConsent(null), report.events), false, 'no sending without consent');
+  assert.equal(canSendTelemetry(telemetryConsentDecision(true, at), []), false, 'an empty log is not a report');
+  assert.equal(canSendTelemetry(telemetryConsentDecision(true, at), report.events), true);
+
+  // ---- The app never transmits, and the consent control is real -----------------
+  assert.equal(/fetch\s*\(|XMLHttpRequest|sendBeacon|navigator\.connection\?\.sendBeacon/.test(appScript[1]), false,
+    'the application contains no way to transmit the log');
+  assert.match(appScript[1], /id="telemetry-setting"/, 'the switch exists in Settings');
+  assert.match(appScript[1], /if \(!telemetryConsent\.enabled\) return;/, 'recording stops without consent');
+  assert.match(appScript[1], /clearTelemetryLog\(storage\)/, 'withdrawing consent erases the log');
+  assert.match(TELEMETRY_CONTACT_URL, /^https:\/\/github\.com\/coderunknow\/Chuyen-Anh\/issues$/);
 });
 
 test('every multiple-choice question offers plausible, distinct options', () => {

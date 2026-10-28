@@ -859,3 +859,21 @@ CodeRabbit's review `5643120300` (run metadata again `Layers: Repository YAML`) 
 
 9. **CI on `d34fd3c`:** `checks` **success 302 s** (was 734 s) and `browser` **success 302 s** (was 405 s) in run `40687982477`; the
    `browser` job's `--with-deps` Chromium install still dominates its wall clock. One run each, not a trend.
+
+## 2026-10-28 (fourth follow-up) — opt-in diagnostics log
+
+1. **Feature:** Settings → *Quyền riêng tư & nhật ký chẩn đoán*. Off by default, consent stored with a timestamp in
+   `chuyen-anh.telemetry-consent.v1`; without a valid decision an `enabled: true` flag is not consent. Log (max 200 events) lives in
+   `chuyen-anh.telemetry.v1`; **no network path at all** (no `fetch`/XHR/`sendBeacon`, no endpoint) — the learner downloads
+   `chuyen-anh-diagnostics-YYYY-MM-DD.json` and forwards it; the panel links to the project's issues. Withdrawal removes the key.
+2. **Content limits:** events are `{at, kind, name, counters≤6, note}`; `note` is cut at the first quote character and loses control
+   characters and e-mail addresses, so a `JSON.parse` message cannot carry learner text (a nested-quote case failed the first version and
+   is now pinned by a test). Never recorded: answers, typed text, queries, words studied, backup contents, user agent, device ids,
+   timezone, IP, exact viewport. The report lists all of that in `notCollected`.
+3. **Hooks:** boot, session end (counters only), Tra cứu open, backup export/import outcome, consent change, uncaught error. Nothing per card.
+4. **Docs:** new `PRIVACY.md` (VI + EN) with a table of recorded fields, the lawful basis (opt-in consent), retention (200 events,
+   oldest dropped) and the learner's rights; README gained a short section; the in-app panel summarises and links.
+5. **Tests:** new static test *the diagnostics log is opt-in, local, bounded and free of learner content*; new browser scenario covering
+   default-off, consent, real events with no query text, the downloaded report, erasure on withdrawal, the English panel and **zero
+   external requests**. Results: static **115/115**, Python **130 OK**, both browser suites PASS sequentially.
+6. **Not done:** no merge, tag, release or deploy; delivery stays manual by design; the log is per browser profile.

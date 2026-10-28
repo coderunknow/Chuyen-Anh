@@ -224247,10 +224247,27 @@ const EN_UI_TRANSLATIONS = Object.freeze({
   'Lịch ôn cách quãng giữ nguyên quy tắc hiện có.': 'Spaced review keeps its existing rules.',
   'Tóm tắt tiến độ': 'Progress summary',
   'Năm chỉ số học tập': 'Five study metrics',
-  'Tiến độ tới cấp tiếp theo': 'Progress to the next level'
+  'Tiến độ tới cấp tiếp theo': 'Progress to the next level',
+  'Quyền riêng tư & nhật ký chẩn đoán': 'Privacy & diagnostics log',
+  'Không bao giờ ghi: đáp án, từ bạn tra, nội dung ô nhập, nội dung tệp sao lưu, mã thiết bị hay địa chỉ IP. Ứng dụng không tự gửi dữ liệu đi đâu; bạn tải tệp rồi tự gửi cho người duy trì nếu muốn.': 'Never recorded: answers, the words you look up, what you type, the contents of a backup file, device identifiers or your IP address. The app sends nothing on its own; you download the file and forward it yourself if you want to.',
+  'Ghi nhật ký chẩn đoán': 'Record a diagnostics log',
+  'Tắt bất cứ lúc nào. Khi tắt, nhật ký đã ghi sẽ bị xóa ngay.': 'Turn it off at any time; switching it off erases the log immediately.',
+  'Đang tắt: không ghi gì.': 'Off: nothing is recorded.',
+  'Tải nhật ký JSON': 'Download the log (JSON)',
+  'Xóa nhật ký': 'Delete the log',
+  'Gửi cho người duy trì': 'Send it to the maintainer',
+  'Chính sách đầy đủ': 'Full policy',
+  'Nhật ký là tùy chọn và chỉ nằm trong localStorage của chính trình duyệt này. Bạn xem, tải hoặc xóa bất cứ lúc nào; tắt công tắc sẽ xóa toàn bộ nhật ký. Tệp tải về là JSON do chính bạn gửi: ứng dụng không có máy chủ, không có mã theo dõi và không có bên thứ ba. Tiến độ, yêu thích và chuỗi ngày không nằm trong nhật ký.': 'The log is optional and lives only in this browser\'s localStorage. You can view, download or delete it at any time; switching the toggle off erases it completely. The downloaded file is JSON that you send yourself: there is no server, no tracking script and no third party. Progress, favourites and streak are not part of the log.',
+  'Đã bật nhật ký chẩn đoán trên thiết bị này.': 'The diagnostics log is now on for this device.',
+  'Đã tắt và xóa nhật ký chẩn đoán.': 'The diagnostics log is off and has been deleted.',
+  'Đã tải tệp nhật ký. Bạn tự gửi tệp này cho người duy trì nếu muốn.': 'The log file was downloaded. Send it to the maintainer yourself if you want to.',
+  'Đã xóa nhật ký chẩn đoán.': 'The diagnostics log was deleted.',
+  'Không thể lưu lựa chọn nhật ký trên thiết bị này.': 'This device cannot store the log preference.'
 });
 
 const EN_UI_PATTERNS = [
+  [/^Đang ghi (\d+) mục\.$/, (_match, count) => `Recording ${pluralCount(count, 'event', 'events')}.`],
+  [/^Mặc định tắt\. Khi bạn bật, ứng dụng chỉ ghi trên thiết bị này những gì cần để tìm lỗi: phiên bản, ngôn ngữ, giao diện, cỡ màn hình, số lượt học và thông báo lỗi\. Tối đa (\d+) mục; mục cũ nhất bị bỏ khi đầy\.$/, (_match, limit) => `Off by default. When you turn it on, the app records only what is needed to find a bug, on this device: version, language, theme, screen size class, number of turns and error messages. At most ${limit} events; the oldest is dropped when it fills up.`],
   [/^Flashcard · ([\d.,]+) từ · kho đề offline$/, (_match, count) => `Flashcards · ${pluralCount(formatCount(count, 'en'), 'word', 'words')} · offline exam archive`],
   // One headword per root: the counts shown to learners are headword counts.
   [/^Flashcard · ([\d.,]+) từ trọng tâm · kho đề offline$/, (_match, count) => `Flashcards · ${pluralCount(formatCount(count, 'en'), 'focus word', 'focus words')} · offline exam archive`],
@@ -225716,6 +225733,162 @@ export function unseenBadges(badges, seen = new Set()) {
   return (Array.isArray(badges) ? badges : [])
     .filter(badge => badge.earned && !seen.has(badge.id))
     .map(badge => badge.id);
+}
+
+/* ----------------------- diagnostics log (opt-in) ------------------------- */
+
+// A diagnostic log the learner can send to the maintainer, and nothing else.
+// Three rules make it defensible rather than a tracker:
+//   1. Opt-in. Consent is off by default and stored with the moment it was given;
+//      without consent nothing is written at all.
+//   2. Local. The log lives in this browser's localStorage and the application
+//      makes no network request to send it — the learner downloads the file and
+//      sends it themselves. That is why there is no endpoint here to configure.
+//   3. Narrow. Events carry a kind, a short machine name and at most six finite
+//      counters. Free text is scrubbed of quoted fragments and e-mail addresses
+//      and capped, so an answer, a search query or a word studied cannot ride
+//      along inside an error message.
+export const TELEMETRY_CONTRACT = 1;
+export const TELEMETRY_CONSENT_KEY = 'chuyen-anh.telemetry-consent.v1';
+export const TELEMETRY_LOG_KEY = 'chuyen-anh.telemetry.v1';
+export const TELEMETRY_MAX_EVENTS = 200;
+export const TELEMETRY_CONTACT_URL = 'https://github.com/coderunknow/Chuyen-Anh/issues';
+export const TELEMETRY_KINDS = Object.freeze([
+  'boot', 'session-start', 'session-end', 'search-open', 'backup', 'exam-practice', 'error', 'settings'
+]);
+
+const TELEMETRY_TOKEN = /^[a-z0-9][a-z0-9._-]{0,39}$/;
+// Quoted fragments are where learner text arrives: a JSON.parse error quotes the
+// offending snippet and a validation message quotes the field it rejected. Pairing
+// quotes is not enough (nested quotes leave the inner text behind), so the note
+// keeps only what precedes the first quote — the useful part is the error kind,
+// not the content the learner typed.
+const TELEMETRY_QUOTE = /["'`«»“”‘’]/;
+const TELEMETRY_EMAIL = /[\w.+-]+@[\w-]+\.[\w.-]+/g;
+
+export function scrubTelemetryText(value, maxLength = 120) {
+  let text = String(value ?? '').replace(/[\u0000-\u001f\u007f]/g, ' ');
+  text = text.split(TELEMETRY_QUOTE)[0];
+  text = text.replace(TELEMETRY_EMAIL, '…').replace(/\s+/g, ' ').trim();
+  const cap = Number.isFinite(Number(maxLength)) && Number(maxLength) > 0 ? Math.floor(Number(maxLength)) : 120;
+  return text.length > cap ? `${text.slice(0, cap - 1)}…` : text;
+}
+
+export function sanitizeTelemetryConsent(value) {
+  const source = value && typeof value === 'object' ? value : {};
+  const decided = typeof source.decidedAt === 'string' && Number.isFinite(Date.parse(source.decidedAt))
+    ? new Date(Date.parse(source.decidedAt)).toISOString() : null;
+  // An "enabled" flag with no recorded decision is not consent.
+  return { contract: TELEMETRY_CONTRACT, enabled: source.enabled === true && decided !== null, decidedAt: decided };
+}
+
+export function loadTelemetryConsent(storage = memorySafeStorage()) {
+  const raw = readJson(storage, TELEMETRY_CONSENT_KEY, null);
+  return sanitizeTelemetryConsent(raw);
+}
+
+export function saveTelemetryConsent(consent, storage = memorySafeStorage()) {
+  const clean = sanitizeTelemetryConsent(consent);
+  return writeJson(storage, TELEMETRY_CONSENT_KEY, clean);
+}
+
+export function telemetryConsentDecision(enabled, at = new Date().toISOString()) {
+  return sanitizeTelemetryConsent({ enabled, decidedAt: at });
+}
+
+export function sanitizeTelemetryEvent(value) {
+  if (!value || typeof value !== 'object') return null;
+  const kind = String(value.kind ?? '');
+  if (!TELEMETRY_KINDS.includes(kind)) return null;
+  const at = typeof value.at === 'string' && Number.isFinite(Date.parse(value.at))
+    ? new Date(Date.parse(value.at)).toISOString() : null;
+  if (!at) return null;
+  const event = { at, kind };
+  if (TELEMETRY_TOKEN.test(String(value.name ?? ''))) event.name = String(value.name);
+  const counters = value.counters && typeof value.counters === 'object' && !Array.isArray(value.counters)
+    ? Object.entries(value.counters) : [];
+  const kept = {};
+  for (const [key, raw] of counters) {
+    if (!TELEMETRY_TOKEN.test(key)) continue;
+    const number = Number(raw);
+    if (!Number.isFinite(number) || Math.abs(number) > 1e9) continue;
+    kept[key] = Math.round(number * 100) / 100;
+    if (Object.keys(kept).length >= 6) break;
+  }
+  if (Object.keys(kept).length) event.counters = kept;
+  const note = scrubTelemetryText(value.note);
+  if (note) event.note = note;
+  return event;
+}
+
+export function appendTelemetryEvent(log, event, limit = TELEMETRY_MAX_EVENTS) {
+  const clean = sanitizeTelemetryEvent(event);
+  if (!clean) return Array.isArray(log) ? log.slice() : [];
+  const cap = Number.isFinite(Number(limit)) && Number(limit) > 0 ? Math.floor(Number(limit)) : TELEMETRY_MAX_EVENTS;
+  return [...(Array.isArray(log) ? log : []), clean].slice(-cap);
+}
+
+export function loadTelemetryLog(storage = memorySafeStorage()) {
+  const parsed = readJson(storage, TELEMETRY_LOG_KEY, []);
+  return Array.isArray(parsed) ? parsed.map(sanitizeTelemetryEvent).filter(Boolean).slice(-TELEMETRY_MAX_EVENTS) : [];
+}
+
+export function saveTelemetryLog(log, storage = memorySafeStorage()) {
+  return writeJson(storage, TELEMETRY_LOG_KEY, Array.isArray(log) ? log.slice(-TELEMETRY_MAX_EVENTS) : []);
+}
+
+export function clearTelemetryLog(storage = memorySafeStorage()) {
+  return removeStored(storage, TELEMETRY_LOG_KEY);
+}
+
+function removeStored(storage, key) {
+  if (!storage) return false;
+  try { storage.removeItem(key); return true; } catch { return false; }
+}
+
+// A report is the only thing the learner sends, so its shape is fixed here: the
+// version, the consent decision, a coarse environment bucket and the events.
+// Exact viewport width, user agent, device id, timezone and any learner content
+// are deliberately absent, and the file says so.
+export function buildTelemetryReport({ log = [], consent = null, appVersion = '', environment = {}, generatedAt = new Date().toISOString() } = {}) {
+  const cleanConsent = sanitizeTelemetryConsent(consent);
+  const events = (Array.isArray(log) ? log : []).map(sanitizeTelemetryEvent).filter(Boolean).slice(-TELEMETRY_MAX_EVENTS);
+  const env = {};
+  if (['vi', 'en'].includes(environment.language)) env.language = environment.language;
+  if (['system', 'light', 'dark'].includes(environment.theme)) env.theme = environment.theme;
+  const width = Number(environment.viewportWidth);
+  if (Number.isFinite(width) && width > 0) env.viewport = width < 480 ? 'mobile' : width < 900 ? 'tablet' : 'desktop';
+  if (typeof environment.reducedMotion === 'boolean') env.reducedMotion = environment.reducedMotion;
+  return {
+    contract: TELEMETRY_CONTRACT,
+    product: 'Chuyen-Anh',
+    appVersion: scrubTelemetryText(appVersion, 40),
+    generatedAt: typeof generatedAt === 'string' && Number.isFinite(Date.parse(generatedAt))
+      ? new Date(Date.parse(generatedAt)).toISOString() : new Date().toISOString(),
+    consent: { enabled: cleanConsent.enabled, decidedAt: cleanConsent.decidedAt },
+    environment: env,
+    eventCount: events.length,
+    events,
+    notCollected: [
+      'answers or grades typed by the learner',
+      'search queries',
+      'vocabulary words studied',
+      'backup file contents',
+      'user agent, device identifiers, timezone or IP address',
+      'exact viewport size'
+    ]
+  };
+}
+
+export function telemetryReportFilename(generatedAt = new Date().toISOString()) {
+  const parsed = Number.isFinite(Date.parse(generatedAt)) ? new Date(Date.parse(generatedAt)) : new Date();
+  return `chuyen-anh-diagnostics-${parsed.toISOString().slice(0, 10)}.json`;
+}
+
+// The application itself never transmits: sending is the learner's own action
+// (download the file, then attach it where they choose).
+export function canSendTelemetry(consent, log) {
+  return sanitizeTelemetryConsent(consent).enabled === true && Array.isArray(log) && log.length > 0;
 }
 
 /* ------------------------- session state helpers -------------------------- */
@@ -227298,6 +227471,58 @@ export async function createApp(root) {
   }
   let theme = loadTheme(storage, prefs);
   let seenBadges = loadSeenBadges(storage);
+  // Opt-in diagnostics. Nothing is read, written or timed before consent, and a
+  // storage failure degrades to "no log" rather than blocking the app.
+  let telemetryConsent = loadTelemetryConsent(storage);
+  let telemetryLog = telemetryConsent.enabled ? loadTelemetryLog(storage) : [];
+
+  function recordTelemetry(kind, name, counters = null, note = '') {
+    if (!telemetryConsent.enabled) return;
+    telemetryLog = appendTelemetryEvent(telemetryLog, { at: new Date().toISOString(), kind, name, counters, note });
+    saveTelemetryLog(telemetryLog, storage);
+  }
+
+  // Turning the switch off is a withdrawal of consent, so it erases what was
+  // recorded instead of leaving the log behind under a "disabled" flag.
+  function setTelemetryConsent(enabled) {
+    const at = new Date().toISOString();
+    const next = telemetryConsentDecision(enabled, at);
+    if (!saveTelemetryConsent(next, storage)) return false;
+    telemetryConsent = next;
+    if (!enabled) {
+      telemetryLog = [];
+      clearTelemetryLog(storage);
+    } else {
+      telemetryLog = loadTelemetryLog(storage);
+      recordTelemetry('settings', 'telemetry-enabled');
+    }
+    return true;
+  }
+
+  function clearDiagnostics() {
+    telemetryLog = [];
+    clearTelemetryLog(storage);
+    if (telemetryConsent.enabled) recordTelemetry('settings', 'log-cleared');
+  }
+
+  function telemetryEnvironment() {
+    return {
+      language,
+      theme,
+      viewportWidth: typeof window !== 'undefined' ? window.innerWidth : 0,
+      reducedMotion: typeof window !== 'undefined' && typeof window.matchMedia === 'function'
+        ? window.matchMedia('(prefers-reduced-motion: reduce)').matches === true : false
+    };
+  }
+
+  function telemetryReport() {
+    return buildTelemetryReport({
+      log: telemetryLog,
+      consent: telemetryConsent,
+      appVersion: APP_VERSION,
+      environment: telemetryEnvironment()
+    });
+  }
   // Phrase practice state: its own key, its own counters. It never reads or
   // writes the word progress above.
   let phraseProgress = loadPhraseProgress(storage);
@@ -228903,6 +229128,11 @@ export async function createApp(root) {
       dropped: sessionStats.dropped || 0,
       plannedTurns: sessionStats.plannedTurns || total
     };
+    // Counters only: what was asked and how it went, never which words.
+    recordTelemetry('session-end', expired ? 'expired' : 'completed', {
+      turns: total, correct: sessionStats.correct, wrong: sessionStats.wrong,
+      unanswered, graded: gradedAnswers
+    });
     session = null;
     question = null;
     answered = false;
@@ -229023,6 +229253,7 @@ export async function createApp(root) {
   }
 
   function renderSearch(container) {
+    recordTelemetry('search-open', 'tra-cuu', { deck: deck.length });
     const index = currentSearchIndex();
     const positions = [...new Set(vocabulary.map(entry => entry.pos).filter(Boolean))].sort((a, b) => a.localeCompare(b));
     container.innerHTML = `<div class="page-header"><div><h1>Tra cứu từ vựng</h1><p>Tìm theo tiếng Anh, tiếng Việt, từ loại, tag hoặc ví dụ · ${formatCount(deck.length)} từ trọng tâm · ${formatCount(archivedIds.size)} từ lưu trữ.</p></div></div><div class="search-tools"><input class="search-input" id="search-field" placeholder="Tìm từ hoặc nghĩa…" aria-label="Tìm kiếm từ vựng"><button class="btn" id="clear-search">Xóa</button></div><div class="filters"><select class="select" id="state-filter" aria-label="Lọc trạng thái"><option value="all">Tất cả trạng thái</option><option value="new">${stateLabel(STATES.NEW)}</option><option value="learning">${stateLabel(STATES.LEARNING)}</option><option value="weak">${stateLabel(STATES.WEAK)}</option><option value="review">${stateLabel(STATES.REVIEW)}</option><option value="mastered">${stateLabel(STATES.MASTERED)}</option><option value="due">Đến hạn</option><option value="favorites">Yêu thích</option><option value="archived">Lưu trữ (ngoài phiên học)</option></select><select class="select" id="pos-filter" aria-label="Lọc từ loại"><option value="all">Tất cả từ loại</option>${positions.map(pos => `<option value="${escapeHtml(pos)}">${escapeHtml(pos)}</option>`).join('')}</select><select class="select" id="sort-filter" aria-label="Sắp xếp"><option value="az">A → Z</option><option value="za">Z → A</option><option value="difficulty">Khó nhất</option><option value="mostWrong">Sai nhiều nhất</option><option value="dueSoon">Đến hạn sớm</option></select></div><div id="results"></div>`;
@@ -229595,6 +229826,7 @@ export async function createApp(root) {
 
   function renderSettings(container) {
     const flaggedWords = [...flagged].map(id => deck.find(entry => entry.id === id)).filter(Boolean);
+    const sendable = canSendTelemetry(telemetryConsent, telemetryLog);
     const themeOptions = [['system', 'Theo hệ thống'], ['light', 'Sáng'], ['dark', 'Tối']]
       .map(([value, label]) => `<option value="${value}" ${theme === value ? 'selected' : ''}>${label}</option>`).join('');
     container.innerHTML = `<div class="page-header"><div><h1>Cài đặt & dữ liệu</h1><p>Tiến độ được lưu trong bộ nhớ của trình duyệt. Bạn có thể sao lưu hoặc chuyển sang thiết bị khác bằng tệp JSON.</p></div></div><div class="settings">
@@ -229619,6 +229851,14 @@ export async function createApp(root) {
         <div class="setting-actions"><button class="btn primary" id="export-setting">${iconMarkup('download')}Xuất bản sao JSON</button><label class="btn" for="import-setting">${iconMarkup('overview')}Nhập bản sao JSON<input id="import-setting" type="file" accept="application/json,.json" hidden></label><button class="btn danger" id="reset-setting">Xóa dữ liệu học</button></div>
       </div></section>
       <section class="panel"><div class="panel-heading">Thông tin dữ liệu</div><div class="panel-body data-info"><p><b>${formatCount(deck.length)} từ trọng tâm</b> · <b>${formatCount(archivedIds.size)} từ lưu trữ</b> · <b>${formatCount(familyHeadOf.size)} dạng cùng gốc</b> · <b>${phrases.length} cụm từ</b> · phiên bản dữ liệu <code class="code">${escapeHtml(loaded.version)}</code> · phiên bản ứng dụng <code class="code" id="app-version">${escapeHtml(APP_VERSION)}</code></p><p>Từ vựng, kho cụm từ, 106 bản chép đề, giao diện và mã ứng dụng nằm trong chính tệp HTML này. Ứng dụng không tự tải dữ liệu/tài nguyên; chỉ tiến độ flashcard và tiến độ cụm từ được lưu riêng trên thiết bị.</p><p><b>Phạm vi ôn:</b> từ lưu trữ vẫn tra cứu được và giữ tiến độ cũ, nhưng không vào phiên học, bộ đếm hay phương án nhiễu. Danh sách và lý do từng mục nằm trong <code class="code">docs/vocabulary-curation.json</code>.</p><p><b>Quy tắc gốc từ:</b> mỗi gốc từ chỉ tính là một từ vựng. Các dạng cùng gốc (ví dụ số nhiều, thì, phái sinh) không phải mục riêng; chúng được ghi ở dòng “Họ từ” của từ gốc.</p></div></section>
+      <section class="panel" aria-labelledby="privacy-title"><div class="panel-heading" id="privacy-title">Quyền riêng tư &amp; nhật ký chẩn đoán</div><div class="panel-body">
+        <p class="settings-copy">Mặc định tắt. Khi bạn bật, ứng dụng chỉ ghi trên thiết bị này những gì cần để tìm lỗi: phiên bản, ngôn ngữ, giao diện, cỡ màn hình, số lượt học và thông báo lỗi. Tối đa ${TELEMETRY_MAX_EVENTS} mục; mục cũ nhất bị bỏ khi đầy.</p>
+        <p class="settings-copy">Không bao giờ ghi: đáp án, từ bạn tra, nội dung ô nhập, nội dung tệp sao lưu, mã thiết bị hay địa chỉ IP. Ứng dụng không tự gửi dữ liệu đi đâu; bạn tải tệp rồi tự gửi cho người duy trì nếu muốn.</p>
+        <div class="setting-row"><div><b id="telemetry-label">Ghi nhật ký chẩn đoán</b><small id="telemetry-help">Tắt bất cứ lúc nào. Khi tắt, nhật ký đã ghi sẽ bị xóa ngay.</small></div><label class="switch"><input type="checkbox" id="telemetry-setting" aria-labelledby="telemetry-label" aria-describedby="telemetry-help" ${telemetryConsent.enabled ? 'checked' : ''}><span aria-hidden="true"></span></label></div>
+        <p class="settings-copy" id="telemetry-state">${telemetryConsent.enabled ? `Đang ghi ${telemetryLog.length} mục.` : 'Đang tắt: không ghi gì.'}</p>
+        <div class="setting-actions"><button class="btn" id="telemetry-download" ${sendable ? '' : 'disabled'}>Tải nhật ký JSON</button><button class="btn danger" id="telemetry-clear" ${telemetryLog.length ? '' : 'disabled'}>Xóa nhật ký</button><a class="btn" id="telemetry-send" href="${TELEMETRY_CONTACT_URL}" target="_blank" rel="noopener noreferrer">Gửi cho người duy trì</a></div>
+        <details class="about-license"><summary>Chính sách đầy đủ</summary><p class="settings-copy">Nhật ký là tùy chọn và chỉ nằm trong localStorage của chính trình duyệt này. Bạn xem, tải hoặc xóa bất cứ lúc nào; tắt công tắc sẽ xóa toàn bộ nhật ký. Tệp tải về là JSON do chính bạn gửi: ứng dụng không có máy chủ, không có mã theo dõi và không có bên thứ ba. Tiến độ, yêu thích và chuỗi ngày không nằm trong nhật ký.</p></details>
+      </div></section>
       <section class="panel about-panel" aria-labelledby="about-title"><div class="panel-heading" id="about-title">Về ứng dụng</div><div class="panel-body about-body">
         <div class="about-logo" aria-hidden="true">CA</div>
         <div class="about-copy">
@@ -229675,6 +229915,31 @@ export async function createApp(root) {
     container.querySelector('#export-setting').addEventListener('click', exportDownload);
     container.querySelector('#import-setting').addEventListener('change', importFile);
     container.querySelector('#reset-setting').addEventListener('click', resetProgress);
+    container.querySelector('#telemetry-setting').addEventListener('change', event => {
+      const wanted = event.target.checked;
+      if (!setTelemetryConsent(wanted)) {
+        event.target.checked = !wanted;
+        toast('Không thể lưu lựa chọn nhật ký trên thiết bị này.', 'error');
+        return;
+      }
+      renderShell();
+      toast(wanted ? 'Đã bật nhật ký chẩn đoán trên thiết bị này.' : 'Đã tắt và xóa nhật ký chẩn đoán.', 'success');
+    });
+    container.querySelector('#telemetry-download').addEventListener('click', () => {
+      if (!canSendTelemetry(telemetryConsent, telemetryLog)) return;
+      const report = telemetryReport();
+      const blob = new Blob([JSON.stringify(report, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement('a');
+      anchor.href = url; anchor.download = telemetryReportFilename(report.generatedAt); anchor.click();
+      setTimeout(() => URL.revokeObjectURL(url), 0);
+      toast('Đã tải tệp nhật ký. Bạn tự gửi tệp này cho người duy trì nếu muốn.', 'success');
+    });
+    container.querySelector('#telemetry-clear').addEventListener('click', () => {
+      clearDiagnostics();
+      renderShell();
+      toast('Đã xóa nhật ký chẩn đoán.', 'success');
+    });
   }
 
   function exportDownload() {
@@ -229687,6 +229952,8 @@ export async function createApp(root) {
     const anchor = document.createElement('a');
     anchor.href = url; anchor.download = `chuyen-anh-progress-${todayKey()}.json`; anchor.click();
     setTimeout(() => URL.revokeObjectURL(url), 0);
+    // Only the shape of the backup is counted, never its contents.
+    recordTelemetry('backup', 'export-ok', { progressRows: Object.keys(bundle.progress || {}).length });
     toast('Đã xuất bản sao JSON.', 'success');
   }
 
@@ -229740,8 +230007,12 @@ export async function createApp(root) {
       toast(keptBlocks
         ? 'Đã khôi phục tiến độ từ bản sao lưu cũ; cấu hình phiên học và danh sách từ khó trên thiết bị được giữ nguyên.'
         : 'Đã khôi phục tiến độ từ bản sao lưu.', 'success');
+      recordTelemetry('backup', 'import-ok', { progressRows: Object.keys(imported.progress || {}).length });
       renderShell();
     } catch (error) {
+      // The message is scrubbed before it is stored: a JSON error quotes the
+      // offending snippet of the learner's own file.
+      recordTelemetry('backup', 'import-error', null, error.message);
       toast(`Import thất bại: ${error.message}`, 'error');
     } finally {
       event.target.value = '';
@@ -229802,6 +230073,15 @@ export async function createApp(root) {
   });
 
   renderShell();
+  recordTelemetry('boot', 'app-boot', { focusWords: deck.length, archived: archivedIds.size, phrases: phrases.length });
+
+  // Uncaught failures are the reason the log exists. The message is reduced to
+  // its kind by scrubTelemetryText, so a learner's text cannot be captured.
+  if (typeof window !== 'undefined' && typeof window.addEventListener === 'function') {
+    window.addEventListener('error', event => recordTelemetry('error', 'uncaught', null, event?.message));
+    window.addEventListener('unhandledrejection', event => recordTelemetry('error', 'unhandled-rejection', null,
+      event?.reason && (event.reason.message || String(event.reason))));
+  }
 
   // Tra cứu owns the only expensive cold path left (a search index over every
   // row, ~60 ms). Building it while the browser is idle moves that cost off the
