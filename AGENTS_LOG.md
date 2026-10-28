@@ -817,3 +817,17 @@ CodeRabbit's review `5643120300` (run metadata again `Layers: Repository YAML`) 
 6. **Tests and versions.** `APP_VERSION` and `DEPLOY_HOLD` → `v1.0.0-rc3`; pins in `tests/static-app.test.js`, `tests/browser-learning.cjs` (2), `tests/test_sprint_exam_features.py`, `tests/test_deploy_gate.py`. New `tests/test_evidence_reports.py` (9 tests): artifacts current, 106 content hashes recomputed, no paper claimed as primary-verified, answer claims split and pinned, cross-check entries valid, review queue agrees with the quality audit, and every cited review locator opens on the line that shows the form.
 7. **Results.** `python -m unittest discover -s tests -p 'test_*.py'` → **130 OK**; `node --test tests/static-app.test.js` → **114/114**; `bash tests/run-browser-suites.sh` → both suites PASS (Chromium 133) sequentially; pipeline `--check` (expand/build/embed vocabulary, build/embed phrases, validate_vocab, audit_vocabulary_quality, vocabulary_evidence_review, audit_exam_provenance, exams embed) all clean; CI green on the pushed head.
 8. **Not done, by design.** No merge, tag, release, deployment or publication; no new headword; no gloss editing; 0/106 verified against an official original; 8 answer claims flagged but not repaired; browser timings not re-claimed; no physical-device or screen-reader pass.
+
+## 2026-10-28 (follow-up) — CI browser job, second attempt
+
+1. **First run failed, and the failure was mine to prove.** `browser` job `122751059572` on `6d95922`: `action_required` was Kilo,
+   the job itself failed at **1m14s** on the runner's preinstalled Chrome. Its log is a blob URL this sandbox cannot fetch; the only
+   readable signal was an annotation "Process completed with exit code 1".
+2. **Fix: stop depending on the runner image.** The job now installs Playwright 1.55.1's own Chromium with `--with-deps`, exports
+   `BROWSER_EXECUTABLE` from `chromium.executablePath()`, and pipes a failing run into 40 `::error::` annotations so the next failure
+   is diagnosable from the API.
+3. **Verified on `e53f6ef`:** `browser` job `122756808062` **success** in 6m45s (install harness → install Chromium → point → run
+   both suites → pass); `checks` job `122756808511` **success** in 12m14s. PR #63: `browser pass`, `checks pass`; CodeRabbit
+   skipped; Kilo `action_required` (account out of credits).
+4. **Unchanged limits:** one green CI run is not a trend; no physical device or screen-reader pass; 0/106 exam originals verified;
+   8 answer claims still flagged; nothing merged, tagged, released or deployed.

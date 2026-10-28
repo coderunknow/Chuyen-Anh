@@ -39,6 +39,10 @@ exists for it, and the Pages gate reports `deploy=false (release v1.0.0-rc3 is m
 - **Both browser suites now run in CI** as a second job (`browser` in `.github/workflows/ci.yml`), after the static job, through
   `tests/run-browser-suites.sh`, which runs them **sequentially** and stops at the first failure. `playwright-core` is installed
   only in that job; the app remains one HTML file with no runtime dependency. Prior to this, both suites were outside CI.
+  The first CI run of the job **failed after 1m14s** against the runner's preinstalled Chrome; the job now installs Playwright
+  1.55.1's own Chromium (`--with-deps`) and points `BROWSER_EXECUTABLE` at `chromium.executablePath()`, and both suites pass
+  (job 6m45s, alongside a 12m14s `checks` job). Failures are echoed as 40-line annotations because GitHub's job log lives behind a
+  blob URL that is not always reachable.
 - **`scripts/deploy_gate.py` no longer blames the release for a missing input.** A local run without `--repo`/`GITHUB_REPOSITORY`
   used to print "release v1.0.0-rc2 is missing" while the release was published; it now holds the deploy and names the missing
   repository. Covered by two new tests.

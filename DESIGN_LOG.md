@@ -1389,3 +1389,15 @@ Build the next release candidate (expected `v1.0.0-rc2`, verified rather than as
 - **A wrapper script is a test artifact, not plumbing.** The sequential runner is what makes the CI browser job trustworthy: it exports one executable, never overlaps suites, and fails on the first failure instead of reporting the second suite's state after a crash.
 - **Fail-closed and blame-correctly are different requirements.** A gate that holds on a missing `--repo` is right; a gate that then says the release is missing is wrong, and would send a maintainer to the releases page for a configuration bug.
 - **Not tested / still true:** 0/106 transcriptions verified against an official original; 8 answer claims unsupported by the stored body (7 measured only); `level:*` editorial; 698 focus headwords rest on a dictionary locator alone; 13 have no basis found and are named; the browser pipeline has been run locally and in CI but not on a physical device; no screen-reader session; nothing was merged, tagged, released or deployed.
+
+## 2026-10-28 (follow-up) — the CI browser job failed once, and the fix is in the log
+
+- The first CI run of the new `browser` job **failed at 1m14s** using the runner's preinstalled Chrome. The GitHub job log lives
+  behind a blob URL this sandbox cannot open, so the workflow now echoes the last 40 lines of a failing suite as annotations —
+  which are readable through the API — instead of leaving a bare "exit code 1".
+- The job now installs **Playwright 1.55.1's own Chromium** (`npx playwright@1.55.1 install --with-deps chromium`) and points
+  `BROWSER_EXECUTABLE` at `require('playwright-core').chromium.executablePath()`, so the browser is the exact build that Playwright
+  version was tested against. Result on head `e53f6ef`: `browser` **pass** (6m45s), `checks` **pass** (12m14s).
+- Lesson: "it works on my machine" is not evidence for a CI job. The first green claim for this job was wrong; the second is backed
+  by two job ids, their durations and their step-level conclusions.
+- Still not claimed: the CI browser job has passed once, not repeatedly; no physical device, no screen reader.
