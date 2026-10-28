@@ -1018,28 +1018,43 @@ test('every multiple-choice question offers plausible, distinct options', () => 
   const field = mode => (mode === MODES.RECOGNITION ? 'meaning' : 'word');
   // Index once: the assertion needs the number of *distinct* same-part-of-speech
   // option texts the implementation can pick from, not the number of entries.
-  const byPosToken = new Map();
+  // The distinct texts are collected per part-of-speech token and per field, and
+  // the union for a token set is memoised, because walking every peer of every
+  // entry cost ~28 s of the ~7 min this test took on 5.852 rows. The two
+  // formulations were compared on all 17.556 entry/mode pairs before the change
+  // and agreed on every pair.
+  const textsByToken = new Map();
   for (const entry of vocabulary) {
     for (const token of new Set(posTokens(entry))) {
-      if (!byPosToken.has(token)) byPosToken.set(token, []);
-      byPosToken.get(token).push(entry);
+      let bucket = textsByToken.get(token);
+      if (!bucket) {
+        bucket = { meaning: new Set(), word: new Set() };
+        textsByToken.set(token, bucket);
+      }
+      if (entry.meaning) bucket.meaning.add(normalize(entry.meaning));
+      if (entry.word) bucket.word.add(normalize(entry.word));
     }
   }
+  const peerTextUnions = new Map();
   const peerTexts = (entry, mode) => {
-    const answerText = normalize(entry[field(mode)]);
-    const texts = new Set();
-    for (const token of new Set(posTokens(entry))) {
-      for (const other of byPosToken.get(token)) {
-        if (other.id === entry.id) continue;
-        const text = other[field(mode)];
-        if (!text) continue;
-        const key = normalize(text);
-        if (key !== answerText) texts.add(key);
+    const tokens = [...new Set(posTokens(entry))].sort();
+    const cacheKey = `${field(mode)}\u0001${tokens.join('\u0002')}`;
+    let texts = peerTextUnions.get(cacheKey);
+    if (!texts) {
+      texts = new Set();
+      for (const token of tokens) {
+        for (const text of textsByToken.get(token)?.[field(mode)] ?? []) texts.add(text);
       }
+      peerTextUnions.set(cacheKey, texts);
     }
-    return texts.size;
+    // The answer's own text is in that union, whether it comes from this entry
+    // or from a peer that shares the gloss.
+    return texts.has(normalize(entry[field(mode)])) ? texts.size - 1 : texts.size;
   };
 
+  // `vocabulary.find` per option scanned the whole deck for every option of every
+  // question (~2,4 s of the same run); an id index answers the same question.
+  const byId = new Map(vocabulary.map(entry => [entry.id, entry]));
   let statements = 0;
   let clozeStatements = 0;
   for (const entry of vocabulary) {
@@ -1059,7 +1074,7 @@ test('every multiple-choice question offers plausible, distinct options', () => 
       assert.equal(question.options.find(option => option.id === entry.id).text, entry[field(mode)]);
 
       const options = question.options.filter(option => option.id !== entry.id)
-        .map(option => vocabulary.find(candidate => candidate.id === option.id));
+        .map(option => byId.get(option.id));
       // Same part of speech whenever the dataset has enough peers; otherwise the
       // remaining slots fall back instead of leaving the question short.
       const expectedSamePos = Math.min(3, peerTexts(entry, mode));

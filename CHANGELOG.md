@@ -34,6 +34,38 @@ exists for it, and the Pages gate reports `deploy=false (release v1.0.0-rc3 is m
   (including four answer entries) with one page-count difference, Bình Dương 2025 4/4 anchors. These are independent
   *reproductions*, not originals, and the file says so.
 
+### Performance: a card is generated from memoised row keys, not re-keyed per card
+
+- **Measured first.** Building one question walks all 5.852 rows and keys each candidate's text twice (`normalize` for visual
+  distinctness, `normalizeTyped` for the typed-answer contract) plus splits its part of speech. On this machine that cost
+  **24 ms median / 25,1 ms mean** per card (200 cards, `p90` 30 ms) and **425 s** for the whole deck in three modes — the reason
+  the static test suite took ~7,5 minutes.
+- **Fixed at the source, semantics untouched.** `index.html` memoises the two option keys per row and field (and the part-of-speech
+  split) in `WeakMap`s. Nothing in the application assigns to `word`, `meaning` or `pos`, so the memo cannot go stale. The
+  candidate rules — same part of speech first, never the answer's own text, never a peer recorded with the same gloss — are the
+  same code, now fed by cached keys.
+- **After, same harness:** **3 ms median / 3,3 ms mean** per card (`p90` 4 ms), and **54 s** for the whole deck in three modes
+  (425 s → 54 s). The first card of a session still pays the fill (~53 ms before, 54 ms after), so the win is per subsequent card,
+  not a faster cold start.
+- **Equivalence evidence.** With one seeded `Math.random` replayed for both builds, the old and new implementation returned the
+  same option ids, order and correctness flag for **all 17.556** (record, mode) pairs — 0 mismatches. The static test that
+  computes the expected same-part-of-speech distractor count independently still passes for every row.
+- **Test-side work on the same cost.** The distractor-plausibility test now unions the distinct option texts per part-of-speech
+  token (memoised) instead of walking every peer of every row — the same number, proven equal on all 17.556 pairs — and looks
+  options up by id index instead of `Array.find`. `node --test tests/static-app.test.js` went from ~7,5 min to **1m54s** for the
+  same 114 tests.
+
+### Fixed: the flaky Space-shortcut step in the browser suite (test-only)
+
+`tests/browser-learning.cjs` failed in CI (job `122763067884`, `browser-learning.cjs:761`, "a revealed spelling card cannot be
+typed into") while passing locally. A card that owns an input moves focus into it from `setTimeout(…, 0)`; the suite blurred the
+page and pressed Space immediately, so when the focus task landed **between** the blur and the keypress, Space was typed into the
+input and the document handler never saw it. Reproduced by delaying that task: with the timer landing 2 ms after the blur the old
+sequence failed with exactly that signature (`#spelling-input` focused at press time, no `.reveal`, input still enabled), while
+the card itself behaved correctly in every other ordering. All five Space-shortcut steps now share `pressSpaceShortcut()`, which
+lets the card's focus land, blurs, retries if it lands again, and asserts that the document — not an input — owns the key before
+pressing. **Application code is unchanged by this fix**; it removes a race in the test, not a defect in the app.
+
 ### Process: browser suites in CI, and a truthful deploy gate
 
 - **Both browser suites now run in CI** as a second job (`browser` in `.github/workflows/ci.yml`), after the static job, through
@@ -55,7 +87,8 @@ exists for it, and the Pages gate reports `deploy=false (release v1.0.0-rc3 is m
 
 No merge, tag, release, deploy or version publication; no new headword; no gloss re-editing; 0/106 papers verified against an
 official original; browser timings are not re-claimed (see the rc2 performance section — only the search prewarm was outside the
-noise).
+noise), and the new per-card figure is a Node-side measurement of `generateQuestion` over the shipped deck, not a browser
+transition measurement — the visible effect was not re-timed in Chromium.
 
 ## v1.0.0-rc2 — release candidate (2026-10-26; published as a prerelease 2026-10-27)
 

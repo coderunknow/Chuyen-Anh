@@ -831,3 +831,28 @@ CodeRabbit's review `5643120300` (run metadata again `Layers: Repository YAML`) 
    skipped; Kilo `action_required` (account out of credits).
 4. **Unchanged limits:** one green CI run is not a trend; no physical device or screen-reader pass; 0/106 exam originals verified;
    8 answer claims still flagged; nothing merged, tagged, released or deployed.
+
+## 2026-10-28 (third follow-up) — CI flake reproduced, card generation memoised
+
+1. **The red step was a test race, and the app was cleared first.** `browser-learning.cjs:761` failed in CI (job `122763067884`) with
+   "a revealed spelling card cannot be typed into". A timestamped probe showed the card's `setTimeout(…, 0)` focus lands 4–16 ms
+   after render, i.e. *after* the suite's `blur()` in some orderings; delaying that task reproduced the exact CI signature when the
+   focus landed 2 ms after the blur (`spelling-input` focused at press time, no `.reveal`, input enabled). All five Space steps now
+   use `pressSpaceShortcut()`, which waits for the focus, blurs, retries, and asserts the document owns the key. **No application
+   behaviour changed for this.**
+2. **`generateQuestion` was the real cost of the `checks` job.** Measured (Node, same machine): 24 ms median per card, 25,1 ms mean,
+   `p90` 30 ms over 200 cards; 425 s for all 17.556 (record, mode) calls, which is why the static suite took ~7,5 min and the CI
+   `checks` job 12m14s. Cause: `distractors()` re-keyed all 5.852 rows on every question (`normalize` + `normalizeTyped`, the NFC
+   pass dominating, plus a POS split per candidate).
+3. **Fix:** `optionKeys()` / `posTokens()` memoise those pure values in `WeakMap`s; the deck is immutable (checked: no assignment to
+   `word`/`meaning`/`pos` anywhere in `index.html`). Candidate rules, ordering and shuffle untouched.
+4. **After, same harness:** 3 ms median, 3,3 ms mean, `p90` 4 ms per card; 54 s for the whole deck (7,9×). First card of a session
+   53 → 54 ms (the cache fill moved, not removed).
+5. **Equivalence proof:** old (`git show HEAD:index.html`) and new implementation run in one process with a replayed seeded
+   `Math.random` produced **identical** option ids, order and correctness for all **17.556** pairs — 0 mismatches.
+6. **Test-side:** memoised peer-text union (verified equal on all 17.556 pairs) and id-index option lookup in
+   `tests/static-app.test.js`; `node --test tests/static-app.test.js` 114/114 in **1m54s** (was ~7,5 min).
+7. **Verification on the final tree:** 12 pipeline `--check` commands clean; `python -m unittest discover -s tests -p 'test_*.py'`
+   **130 OK**; static **114/114**; both browser suites PASS sequentially on Chromium 133 (re-run after the app change).
+8. **Not done:** no merge/tag/release/deploy; no new headword or gloss edit; browser card transition not re-timed; 0/106 exam
+   originals verified; 8 answer claims still flagged; 923-vs-930 queue definition still unreconciled.

@@ -119,6 +119,34 @@ async function main() {
       assert.equal(await page.evaluate(() => document.activeElement.id), 'next-card');
       await page.keyboard.press('Enter');
     }
+    // A card that owns an input moves focus into it from `setTimeout(…, 0)` while
+    // it renders. Blurring before that task runs is undone when it does, and Space
+    // is then typed into the input instead of revealing the card. That is the race
+    // that failed CI run 122763067884 with "a revealed spelling card cannot be
+    // typed into" while the same line passed locally: the CI runner was slow
+    // enough for the focus task to land after the blur. Let the card's focus land
+    // first, then blur, and retry if it lands again, so the key really reaches the
+    // document handler the way it does for a learner who is not typing.
+    async function pressSpaceShortcut() {
+      const ownsKey = () => page.evaluate(() => Boolean(document.activeElement
+        && ['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)));
+      await page.waitForFunction(() => document.activeElement
+        && ['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName),
+      null, { timeout: 500 }).catch(() => {});
+      for (let attempt = 0; attempt < 3; attempt += 1) {
+        const editable = await page.evaluate(() => {
+          const active = document.activeElement;
+          if (!active || !['INPUT', 'TEXTAREA', 'SELECT'].includes(active.tagName)) return false;
+          active.blur();
+          return true;
+        });
+        if (!editable) break;
+        await page.waitForTimeout(30); // does the card take focus back?
+      }
+      assert.equal(await ownsKey(), false,
+        'the Space shortcut is pressed while the document, not an input, owns the key');
+      await page.keyboard.press(' ');
+    }
     async function answer(id, correct) {
       await startQuizFromIntroduction();
       await page.locator(correct ? `[data-option="${id}"]` : `[data-option]:not([data-option="${id}"])`).first().click();
@@ -668,8 +696,7 @@ async function main() {
     await page.setViewportSize({ width: 1280, height: 900 });
 
     // The document-level Space shortcut starts the quiz from the introduction.
-    await page.evaluate(() => document.activeElement.blur());
-    await page.keyboard.press(' ');
+    await pressSpaceShortcut();
     assert.equal(await page.locator('#start-quiz').count(), 0);
     assert.equal(await page.locator('[data-option]').count(), 4);
     assert.equal(await page.locator('.first-look').count(), 0);
@@ -756,8 +783,7 @@ async function main() {
     await next();
     assert.equal(await page.locator('#spelling-input').isEnabled(), true);
     // Space is a normal character while typing, so reveal from the card shortcut.
-    await page.evaluate(() => document.activeElement.blur());
-    await page.keyboard.press(' ');
+    await pressSpaceShortcut();
     assert.equal(await page.locator('#spelling-input').isDisabled(), true, 'a revealed spelling card cannot be typed into');
     assert.equal(await page.locator('.reveal').count(), 1);
     await page.locator('#reveal-wrong').click();
@@ -1009,8 +1035,7 @@ async function main() {
     assert.deepEqual(await read('flagged'), ['298'], 'the unmodified f shortcut still flags the word');
     await page.keyboard.press('f');
     assert.deepEqual(await read('flagged'), []);
-    await page.evaluate(() => document.activeElement && document.activeElement.blur());
-    await page.keyboard.press(' ');
+    await pressSpaceShortcut();
     assert.equal(await page.locator('.reveal').count(), 1, 'the unmodified Space shortcut still reveals');
     await page.locator('#reveal-correct').click();
     await next();
@@ -1401,10 +1426,7 @@ async function main() {
     }
     async function revealFromKeyboard() {
       await page.locator('#spelling-input').focus();
-      await page.evaluate(() => document.activeElement && document.activeElement.blur());
-      await page.waitForTimeout(30);
-      await page.evaluate(() => document.activeElement && document.activeElement.blur());
-      await page.keyboard.press(' ');
+      await pressSpaceShortcut();
     }
     await seedSpellingCard();
     const beforeBlank = (await read('progress'))['298'];

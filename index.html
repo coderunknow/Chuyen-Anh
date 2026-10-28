@@ -225749,9 +225749,17 @@ function escapeRegExp(value) {
 }
 
 // Part of speech is free text in the source table ('n', 'v/n', 'phrasal v', 'idiom', …),
-// so two entries share one when their tokens overlap.
+// so two entries share one when their tokens overlap. The split ran once per
+// candidate per question; the deck is immutable, so it is memoised per row.
+const posTokenCache = new WeakMap();
 function posTokens(entry) {
-  return String(entry?.pos ?? '').toLowerCase().split(/[^a-z]+/).filter(Boolean);
+  if (!entry || typeof entry !== 'object') return [];
+  let tokens = posTokenCache.get(entry);
+  if (!tokens) {
+    tokens = String(entry.pos ?? '').toLowerCase().split(/[^a-z]+/).filter(Boolean);
+    posTokenCache.set(entry, tokens);
+  }
+  return tokens;
 }
 
 function sharesPos(a, b) {
@@ -225790,17 +225798,34 @@ function hasDistractor(vocabulary, current, field) {
   return countDistractorCandidates(vocabulary, current, field) >= OPTION_COUNT - 1;
 }
 
+// Options are keyed two ways: normalize() for visual distinctness and
+// normalizeTyped() — the typed-answer contract from README (edge punctuation
+// folded) — so a gloss pair like "bao gồm, gồm có." / "bao gồm, gồm có"
+// (ids 838/1505) never shows up twice or as a wrong option.
+function textKeys(value) {
+  return [normalize(value), normalizeTyped(value)].filter(Boolean);
+}
+
+// Building one question keys the text of every candidate row, twice. Re-keying
+// the same stored row for the following card was the dominant cost of a card
+// (median 24 ms over the 5.852-row deck, measured), and the deck is immutable
+// once loaded — nothing in the app assigns to `word` or `meaning` — so the keys
+// are memoised per row and field. The candidate rules are untouched: the same
+// keys, the same exclusions, the same shuffle.
+const optionKeyCache = new WeakMap();
+function optionKeys(entry, field) {
+  let cache = optionKeyCache.get(entry);
+  if (!cache) { cache = {}; optionKeyCache.set(entry, cache); }
+  if (!cache[field]) cache[field] = textKeys(entry[field]);
+  return cache[field];
+}
+
 // Distractors come from the same part of speech whenever the dataset allows it: a gloss
 // from another word class is usually eliminable on sight, which would turn the question
 // into a free pick. Candidates whose text repeats the answer or another option are
 // skipped, because the dataset really does contain entries sharing one gloss.
 function distractors(vocabulary, current, field, { usable = () => true } = {}) {
-  // Options are keyed two ways: normalize() for visual distinctness and
-  // normalizeTyped() — the typed-answer contract from README (edge punctuation
-  // folded) — so a gloss pair like "bao gồm, gồm có." / "bao gồm, gồm có"
-  // (ids 838/1505) never shows up twice or as a wrong option.
-  const keys = value => [normalize(value), normalizeTyped(value)].filter(Boolean);
-  const seen = new Set(keys(current[field]));
+  const seen = new Set(optionKeys(current, field));
   const currentPos = new Set(posTokens(current));
   const currentMeaning = field === 'word' ? normalize(current.meaning) : null;
   const currentMeaningTyped = field === 'word' ? normalizeTyped(current.meaning) : null;
@@ -225808,13 +225833,17 @@ function distractors(vocabulary, current, field, { usable = () => true } = {}) {
   const otherPos = [];
   for (const entry of Array.isArray(vocabulary) ? vocabulary : []) {
     if (!entry || entry.id === current.id || !entry[field] || !usable(entry)) continue;
-    const fieldKeys = keys(entry[field]);
+    const fieldKeys = optionKeys(entry, field);
     if (!fieldKeys[0] || fieldKeys.some(key => seen.has(key))) continue;
     // A word-field question is prompted by the gloss, so another headword
     // recorded with the same gloss would be an equally correct answer. It
-    // can never be offered as a wrong option.
-    if (currentMeaning && (normalize(entry.meaning) === currentMeaning
-      || (currentMeaningTyped && normalizeTyped(entry.meaning) === currentMeaningTyped))) continue;
+    // can never be offered as a wrong option. The gloss keys come from the same
+    // memoised row keys, so this comparison costs no extra normalisation.
+    if (currentMeaning) {
+      const meaningKeys = optionKeys(entry, 'meaning');
+      if (meaningKeys[0] === currentMeaning
+        || (currentMeaningTyped && meaningKeys.includes(currentMeaningTyped))) continue;
+    }
     fieldKeys.forEach(key => seen.add(key));
     (posTokens(entry).some(token => currentPos.has(token)) ? samePos : otherPos).push(entry);
   }

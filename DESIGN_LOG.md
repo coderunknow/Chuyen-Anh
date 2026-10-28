@@ -1401,3 +1401,66 @@ Build the next release candidate (expected `v1.0.0-rc2`, verified rather than as
 - Lesson: "it works on my machine" is not evidence for a CI job. The first green claim for this job was wrong; the second is backed
   by two job ids, their durations and their step-level conclusions.
 - Still not claimed: the CI browser job has passed once, not repeatedly; no physical device, no screen reader.
+
+## 2026-10-28 (third follow-up) — the red CI step, and the slowest 24 ms in the app
+
+### User Intent
+
+The previous CI run of the new `browser` job failed at `tests/browser-learning.cjs:761` while the same suite passed locally. Nothing
+was committed for it because the cause was unknown. Two questions had to be answered before touching anything: is the app wrong, or
+is the test wrong — and why is the `checks` job (which runs the static suite) 12 minutes long.
+
+### Implementation History
+
+1. **Read the failure from the only accessible source.** GitHub's job logs sit behind a blob URL this sandbox cannot open, so the
+   evidence was the annotation dump added to the workflow: `AssertionError: a revealed spelling card cannot be typed into`, at
+   `tests/browser-learning.cjs:761`, after the preceding `isEnabled()` assertion had passed.
+2. **Ruled the application out by reading the render path.** `locked = answered || revealed` writes `disabled` into both the input
+   and its confirm button on the reveal re-render, and the document handler refuses Space when the event target is an `INPUT`. So
+   the only way to get that assertion is: the reveal never happened, because Space was typed into the field.
+3. **Measured the ordering instead of guessing.** A scratch probe stamped every `focusin` with `performance.now()`, then replayed
+   the suite's sequence. The card's `setTimeout(…, 0)` focus lands **4–16 ms after render**, and the test's `blur()` follows it —
+   so locally focus is already in the input and the blur succeeds. Delaying that task made the failure reproducible: when the
+   focus landed **2 ms after the blur**, `document.activeElement` was `#spelling-input` at press time, `.reveal` was absent and the
+   input was still enabled — the CI signature exactly. With the timer landing anywhere else, the old sequence passed.
+4. **Fixed the test, not the app.** All five Space-shortcut steps now call `pressSpaceShortcut()`, which waits for the card's focus
+   to land (bounded), blurs, retries if the card takes focus back, asserts that the document owns the key, and only then presses.
+   The application was not changed: a human cannot type inside that window, and moving focus into the input is the intended
+   behaviour.
+5. **Then measured the static suite, which is why `checks` takes 12 minutes.** `node --test tests/static-app.test.js` never
+   finished within a 15-minute window on this machine; one test — "every multiple-choice question offers plausible, distinct
+   options" — took **443 s** on its own.
+6. **Profiled before optimising.** `generateQuestion` for 17.556 (record, mode) calls cost **425 s**, i.e. **24 ms median per card**
+   (200 cards, mean 25,1 ms, `p90` 30 ms). Inside it, `distractors()` re-keys every one of the 5.852 rows on every question:
+   `normalize` + `normalizeTyped` per candidate (the NFC pass in `normalizeTyped` dominates), plus a part-of-speech split per
+   candidate. The test's own peer-count loop (28 s) and `Array.find` per option (2,4 s) were secondary.
+7. **Memoised the pure parts.** The deck is immutable — nothing in `index.html` assigns to `word`, `meaning` or `pos` — so the two
+   option keys per row and field and the part-of-speech tokens are cached in `WeakMap`s (`optionKeys`, `posTokens`). The
+   candidate rules are untouched: same keys, same exclusions, same shuffle.
+8. **Proved equivalence rather than assuming it.** A scratch harness loaded the previous `index.html` from `git show HEAD:index.html`
+   and the new one in the same process, replayed one seeded `Math.random` for both, and compared option ids, order and correctness:
+   **0 mismatches over 17.556 pairs**. The independent static assertion (same-POS distractor count computed from the data) still
+   passes for every row.
+9. **Made the test-side work cheap too,** with the same rule: the peer-text union is memoised per part-of-speech token set and the
+   two formulations were compared on all 17.556 pairs before the change (0 differences); option lookup by id index replaces
+   `Array.find`.
+10. **Verification on the final tree:** pipeline `--check` × 12 clean, `python -m unittest discover` **130 OK**, `node --test
+    tests/static-app.test.js` **114/114 in 1m54s** (was ~7,5 min), both browser suites PASS sequentially on Chromium 133, and the
+    suites were re-run *after* the application change.
+
+### Decisions & Lessons
+
+- **"It failed in CI" is a hypothesis until the ordering is measured.** The first instinct — the app's focus timer is stealing
+  focus — was right, but only the timestamped probe showed *where* in the sequence it lands and why the same line passes locally.
+  Without that, the tempting "fix" would have been to weaken the assertion.
+- **A race in a test is still a defect in the test.** The helper waits for the state it depends on and asserts the precondition it
+  needs ("the document, not an input, owns the key"), so the next failure names its own cause instead of presenting as an app bug.
+- **Profile the function, not the file.** The suite looked like "a slow test file"; the profile showed 96 % of the time inside one
+  application function called 17.556 times. Optimising the test's own loops first would have shaved 30 s of 443 s.
+- **A cache is only safe if the data is immutable.** The `WeakMap` keys rely on nothing assigning to `word`/`meaning`/`pos`; that
+  was checked in the source before the change, not assumed.
+- **A faster implementation needs an equality proof, not a green suite.** The seeded-random replay compares the actual option sets
+  the learner would see, which a passing test suite cannot show.
+- **Still open:** the first card of a session pays the cache fill (~54 ms, unchanged); the visible card transition was not re-timed
+  in a browser; the vestigial `curationCategories` key in `vocabulary_evidence_review.build_report()` is still there; 923 vs 930
+  review-queue definitions still differ; nothing was merged, tagged, released or deployed.
