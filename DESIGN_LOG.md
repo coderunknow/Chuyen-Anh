@@ -1521,3 +1521,99 @@ sense of consent-based and documented, (c) able to reach the maintainer, and (d)
   cutting at the first quote is lossy for prose and safe for content.
 - **Still open:** no endpoint, so delivery is manual by design; the log is per browser profile, not per user; nothing was merged, tagged,
   released or deployed, and the merge/tag/release decision is waiting on the user.
+
+## 2026-10-28 (fifth follow-up) — v1.0.0-rc4: visible/hidden meanings, Classic + Modern, full vocabulary audit
+
+### User Intent
+
+The user asked for **Chuyên Anh v1.0.0-rc4, end to end**, in one request:
+
+1. **Recon first**, then a real **show/hide meanings** feature: a persisted preference, a quick in-session toggle, applied to every learning,
+   flashcard, review and practice screen, with **no leakage** through tooltips, previews or summaries, an **explicit per-word reveal that does not
+   flip the global setting**, an accessible and unmistakable state, and verification on keyboard, mobile and reload — while **not altering**
+   scheduling, correctness rules, status transitions, stats, streaks, mastery or practice counts.
+2. **A full vocabulary audit** of every existing entry against the grade 6–9 Vietnamese lower-secondary curriculum/textbook series, with
+   KEEP / EXCLUDE_BASIC / REVIEW mapped onto the existing schema, a high-quality inclusion standard (advanced senses, word families, collocations,
+   phrasal verbs, idioms, confusables), exclusion that is **real in the selection/review logic**, preserved IDs/progress/history/backups, and an
+   auditable report with **exact reconciled counts** (inspected/retained/excluded/reviewed/corrected/added).
+3. **A UI redesign with Classic and Modern modes**: a real switch, persisted, no session or progress loss, both modes supporting everything,
+   shared business logic, a discoverable selector, and Modern as a genuinely new design system (hierarchy, typography, spacing, nav, cards, review
+   screens, progress, feedback, empty/error/onboarding states, responsive).
+4. **Polished motion** (cards, correct/incorrect feedback, buttons, progress, mode switching, completion) that respects `prefers-reduced-motion`,
+   keeps keyboard focus and never fakes achievements.
+5. **A full bug audit** beyond the touched code, root-cause fixes with regression tests, no weakened tests, and unresolved issues recorded.
+6. **Change control**: consistent version metadata for rc4, **no merge, tag, release or deploy without authorization**, and a PR-style unmerged
+   change set.
+
+### Implementation History
+
+1. **Recon before editing.** Tree was clean on `arena/2bb10a2d-chuyen-anh` at `54ccaa0` (the merged rc3 candidate, PR #63); `v1.0.0-rc3` was
+   tagged and published as a prerelease on 2026-10-28T13:36:48Z and no later tag or release existed. Baseline was green: the seven static
+   `--check`/validate commands, `node --test tests/static-app.test.js` **115/115**, `python -m unittest discover -s tests` **130 OK**.
+   Browser suites could not run: Playwright installs, but `npx playwright@1.55.1 install chromium` dies with `ECONNRESET`.
+2. **Feature A — meanings.** One persisted preference, `chuyen-anh.presentation.v1` =
+   `{ meanings: 'show' | 'hide', interface: 'classic' | 'modern' }`, sanitised on read, added to `SYNCED_STORAGE_KEYS` (12 keys) so another tab
+   follows, and written back once at boot when the stored record had to be repaired. A `Nghĩa: hiện/ẩn` button in the flashcard header and a
+   two-option group in Settings drive it; changing it re-renders **without leaving the session**, restoring the typed spelling answer and its
+   caret. Concealment covers the pre-answer surfaces only — first look (single card and matching board), search rows, dashboard weak list,
+   Settings flagged list, phrase list — never a question stimulus/option, the graded feedback, the handoff strip or the summary. The mask is a
+   fixed `•••••` with a per-row `Hiện nghĩa` (`revealedMeanings` is a view-scoped `Set`), so nothing leaks by length, `title`, tooltip or
+   `aria-label`, and a peek never flips the preference or writes progress.
+3. **Feature C — two interfaces.** `document.documentElement.dataset.ui` selects the skin; markup, handlers, scheduler, storage and tests are
+   shared. Classic stays the “Premium Academic” design. Modern is **Studio**: warm paper and ink, dark masthead with a horizontal segmented nav
+   band replacing the left rail, flat bordered panels with hard offset shadows, squared controls, mono counters, editorial page header,
+   table-style search rows, worksheet-style flashcard with a left accent spine, its own type/spacing scales and 940/680/380 px breakpoints.
+   Switches live in the top bar (≥680 px) and in Settings, both `aria-pressed` buttons; switching redraws the shell only, so the running session,
+   card, answered state and typed answer survive.
+4. **Motion.** Studio adds a staggered rise-in, a feedback pop, a press/release on controls and a cross-fade on interface change — all CSS-only,
+   120–240 ms, none of which moves layout or steals focus — and the existing `prefers-reduced-motion` block disables all of it. No new
+   achievement or completion animation was invented.
+5. **Feature B — audit, not guesswork.** `scripts/rc4_vocabulary_audit.py` (with `--check`) writes `docs/rc4-vocabulary-audit.{json,md}` and
+   classifies every row from existing data: the root-family rule, the reviewed curation map **replayed through the shipping engine**, the
+   editorial CEFR tags and the new `docs/curriculum-grades-6-9.json` evidence file. Counts: **5.852 rows = 5.112 headwords + 740 family forms**;
+   **3.841 KEEP**, **1.271 EXCLUDE_BASIC**, **3 REVIEW**, **0 corrected**, **0 added**; the replay gives **1.271 decisions = 1.271 stored rows**
+   with no drift, and **0 unexplained** curriculum-level retentions (all nine A1–B1 curriculum words still taught are family roots). The three
+   REVIEW rows (`proton`, `gluten`, `cholesterol`) have a Vietnamese gloss identical to the English headword; they are named, not silently edited.
+   The audit also states the quality gap honestly: word families (862), notes (294), word-formation (79), academic (1.037), confusables (34),
+   linkers (59), idioms (24), phrasal verbs (13) and collocations (9) exist, while the `synonyms`/`antonyms`/`collocations`/`examples` fields are
+   empty on all but a handful of rows.
+6. **Bugs found by the audit and fixed.** (a) The English localiser returned early on a protected element, so the mask's own label and reveal
+   button stayed Vietnamese in English mode; `localizeSubtree` now exempts them while still refusing to translate the gloss cell. (b) A damaged
+   presentation record fell back to defaults but was never repaired on disk, so every boot re-derived the fallback; boot now writes the sanitised
+   record back. (c) A duplicated `.ui-switch` wrapper in the top bar was removed. No scheduling, grading, storage-schema or vocabulary row was
+   changed by any of these.
+7. **Version control.** `APP_VERSION` and `DEPLOY_HOLD` now name `v1.0.0-rc4`; the version pins in `tests/static-app.test.js`,
+   `tests/test_sprint_exam_features.py` and `tests/test_deploy_gate.py` were updated, `PRIVACY.md` and the README version/deploy-gate paragraphs
+   follow, and `CHANGELOG.md` gained an rc4 section. `python scripts/deploy_gate.py` returns
+   `deploy=false (deploy hold names v1.0.0-rc4 …; deployment held)` locally, so no merge can publish before the rc4 prerelease exists.
+8. **Verification.** Static chain green (`build_vocabulary --check`, `validate_vocab`, `embed_vocabulary --check`, `build_phrases --check`,
+   `embed_phrases --check`, `exams/embed_archive --check`, `rc4_vocabulary_audit --check`); `python -m unittest discover -s tests -p 'test_*.py'`
+   **141 OK** (130 + 11 new audit tests); `node --test tests/static-app.test.js` **119/119** (115 + 4 rc4 tests); the stylesheet parses
+   (891 rules, 105.114 bytes); and a jsdom DOM suite booting the real file **43/43** covers default Classic/show, the toggle and its
+   `aria-pressed`, hide persistence, fixed-length masking with no `title`, per-row reveal without progress or preference change, grading while
+   hidden, masked search rows that keep the query, the Modern switch preserving the card, reload restoring both preferences, a damaged record
+   falling back, the English labels, reduced motion and progress reset that keeps the presentation choice. A six-view, two-skin console sweep
+   produced **no errors or warnings**.
+
+### Decisions & Lessons
+
+- **The preference and the peek are different objects.** A global `meanings` setting plus a view-scoped revealed set is the only shape where “hide
+  meanings” stays honest when a learner peeks at one word; persisting the peek would erode the setting, and not offering it would make hiding
+  hostile.
+- **A mask must be uninformative.** Fixed-length dots, no `title`, no gloss-bearing `aria-label`: any of those turns the mask into a hint, and a
+  hidden row that still carries a tooltip is not hidden.
+- **Concealment stops at the answer.** Masking a question stimulus or the graded feedback deletes practice or the correction; the surfaces that
+  are concealed are exactly the ones that print the gloss *before* an attempt.
+- **Two interfaces, one application.** `data-ui` plus CSS overrides keeps one logic tree; a second DOM or a JS branch would have to be maintained
+  and tested twice, and would drift.
+- **Audit by replaying the policy, not by re-describing it.** Re-running `matched_rows` proved the 1.271 exclusions still correspond to the
+  reviewed map; a document claiming the same thing could be stale and nobody would know.
+- **Curriculum evidence has to be bounded and cited.** Only 201 words were transcribed, from pages actually read, with a stated limitation that
+  grades 6 and 7 publish no per-unit word table in the retrieved documents. The audit reports 0 unexplained retentions instead of pretending the
+  whole textbook series was machine-checked.
+- **A gap can be the honest result.** The inclusion-standard fields that are empty (`synonyms`, `antonyms`, `collocations`, `examples`) were
+  measured and left empty, because filling 5.852 rows without a source per row is fabrication.
+- **Still open / not verified:** the two browser suites were **not executed** (Chromium cannot be downloaded here, `ECONNRESET`), so neither
+  interface was reviewed visually at 320/768/1280 px or on a physical phone; the jsdom suite asserts DOM behaviour, not pixels. The 3 REVIEW
+  glosses need an editor. Exam provenance, the 923-headword evidence queue and the 8 flagged answer claims are unchanged from rc3. Nothing was
+  merged, tagged, released or deployed, and the merge/tag/release decision waits on the user.

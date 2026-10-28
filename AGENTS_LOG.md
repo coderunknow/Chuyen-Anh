@@ -877,3 +877,33 @@ CodeRabbit's review `5643120300` (run metadata again `Layers: Repository YAML`) 
    default-off, consent, real events with no query text, the downloaded report, erasure on withdrawal, the English panel and **zero
    external requests**. Results: static **115/115**, Python **130 OK**, both browser suites PASS sequentially.
 6. **Not done:** no merge, tag, release or deploy; delivery stays manual by design; the log is per browser profile.
+
+## 2026-10-28 (fifth follow-up) — v1.0.0-rc4: meaning visibility, two interfaces, vocabulary audit
+
+1. **Recon.** Clean tree on `arena/2bb10a2d-chuyen-anh` at `54ccaa0` (merge of PR #63 = the tagged/published `v1.0.0-rc3`). No open PRs, no
+   newer tag or release. Baseline green: 7 static checks, static Node suite **115/115**, Python **130 OK**. Browser suites unexecutable here
+   (`npx playwright@1.55.1 install chromium` → `ECONNRESET`).
+2. **Feature A (meanings).** New `chuyen-anh.presentation.v1` store (`{meanings, interface}`), `sanitizePresentation`/`loadPresentation`/
+   `savePresentation`/`meaningConcealed`, sanitised-write-back at boot, membership in `SYNCED_STORAGE_KEYS` (12). Card-header toggle
+   (`#meaning-toggle`, `aria-pressed`, `title`) + Settings group; view-scoped `revealedMeanings` with per-row `[data-reveal-meaning]`.
+   Concealed surfaces: first look (card + matching board), search rows, dashboard weak list, Settings flagged list, phrase list. Always shown:
+   question stimulus/options, graded feedback, handoff strip, summary. Mask is a fixed `•••••`, no `title`/gloss `aria-label`.
+3. **Feature C (interfaces).** `document.documentElement.dataset.ui` + a Modern “Studio” skin appended to the stylesheet (masthead, horizontal
+   nav band, flat bordered panels with hard shadows, squared controls, mono counters, worksheet flashcard, own type/spacing/breakpoints).
+   Segmented switches in the top bar and Settings. Shell-only redraw preserves the running session, the card and the typed answer.
+4. **Motion.** Studio rise/pop/press/cross-fade, CSS-only, 120–240 ms; the reduced-motion block disables all of it.
+5. **Feature B (audit).** New `scripts/rc4_vocabulary_audit.py` (`--check`) → `docs/rc4-vocabulary-audit.{json,md}`; new evidence file
+   `docs/curriculum-grades-6-9.json` (201 transcribed words, 8 sources with URLs and retrieval dates, explicit grades-6/7 limitation).
+   Counts: 5.852 rows = 5.112 headwords + 740 family forms; 3.841 KEEP; 1.271 EXCLUDE_BASIC; 3 REVIEW (`proton`, `gluten`, `cholesterol`
+   — gloss identical to the headword); 0 corrected; 0 added. Policy replay: 1.271 decisions = 1.271 stored rows, 0 drift. Curriculum:
+   82 present, 14 excluded, 68 taught, 0 unexplained (all nine A1–B1 retentions are family roots). No vocabulary row was edited.
+6. **Fixes.** `localizeSubtree` no longer skips the mask's own label/reveal button in English mode (the gloss cell stays untranslated); a damaged
+   presentation record is repaired on disk at boot; a duplicated `.ui-switch` wrapper was removed.
+7. **Version control.** `APP_VERSION` and `DEPLOY_HOLD` = `v1.0.0-rc4`; pins updated in `tests/static-app.test.js`,
+   `tests/test_sprint_exam_features.py`, `tests/test_deploy_gate.py`; `PRIVACY.md`, README version + deploy-gate paragraphs and a new
+   `CHANGELOG.md` rc4 section updated. `python scripts/deploy_gate.py` → `deploy=false (deploy hold names v1.0.0-rc4 …)`.
+8. **Verification.** Static chain green (`rc4_vocabulary_audit.py --check` included); Python **141 OK** (11 new audit tests);
+   `node --test tests/static-app.test.js` **119/119** (4 new rc4 tests); stylesheet parses (891 rules, 105.114 bytes); jsdom DOM suite
+   **43/43** on the real file; six-view/two-skin console sweep clean.
+9. **Not done:** no merge, tag, release or deploy; browser suites not executed (Chromium download blocked), so no visual review at
+   320/768/1280 px; the 3 REVIEW glosses still need an editor.
