@@ -162,21 +162,31 @@ jobs:
           node-version: 22
 
       - name: Install the browser test harness (no production dependency)
-        run: npm install --no-save --package-lock=false playwright-core@1.55.1 axe-core@4.14.0 @sparticuz/chromium@133.0.0
+        run: npm install --no-save --package-lock=false playwright-core@1.55.1 axe-core@4.14.0
 
-      - name: Resolve a Chromium executable
+      # Use Playwright's own Chromium rather than whatever the runner image
+      # happens to ship: the browser is then the exact build this Playwright
+      # version was tested against, and the OS libraries come with it.
+      - name: Install Chromium for Playwright
+        run: npx --yes playwright@1.55.1 install --with-deps chromium
+
+      - name: Point the suites at that Chromium
         run: |
-          for candidate in google-chrome google-chrome-stable chromium chromium-browser; do
-            if path="$(command -v "$candidate" 2>/dev/null)"; then
-              echo "BROWSER_EXECUTABLE=$path" >> "$GITHUB_ENV"
-              echo "using $path"
-              exit 0
-            fi
-          done
-          echo "no system Chrome found; the suites will use the bundled @sparticuz/chromium"
+          node -e "process.stdout.write(require('playwright-core').chromium.executablePath())" > /tmp/chrome-path
+          echo "BROWSER_EXECUTABLE=$(cat /tmp/chrome-path)" >> "$GITHUB_ENV"
+          echo "chromium: $(cat /tmp/chrome-path)"
 
       - name: Run both browser suites sequentially
-        run: bash tests/run-browser-suites.sh
+        run: |
+          set +e
+          bash tests/run-browser-suites.sh 2>&1 | tee /tmp/browser.log
+          status=${PIPESTATUS[0]}
+          if [ "$status" -ne 0 ]; then
+            # The job log lives behind a blob URL that is not always reachable;
+            # annotations are, so surface the failure where a reader can see it.
+            tail -n 40 /tmp/browser.log | sed 's/^/::error::/'
+            exit "$status"
+          fi
 
       - name: Upload browser screenshots on failure
         if: failure()
