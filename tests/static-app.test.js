@@ -138,15 +138,23 @@ const {
   buildTelemetryReport,
   telemetryReportFilename,
   canSendTelemetry,
+  TELEMETRY_ENDPOINT,
+  TELEMETRY_MAX_SEND_EVENTS,
+  TELEMETRY_RETENTION_DAYS,
+  buildTelemetryRequest,
+  sendTelemetryReport,
+  telemetrySendMessage,
   PRESENTATION_STORAGE_KEY,
   MEANING_MODES,
   INTERFACE_MODES,
   DEFAULT_PRESENTATION,
-  MASKED_MEANING,
   sanitizePresentation,
   loadPresentation,
   savePresentation,
-  meaningConcealed
+  meaningConcealed,
+  meaningPreviewEnabled,
+  previewStageVisible,
+  turnNeedsFirstLook
 } = app;
 
 const vocab = [
@@ -1126,13 +1134,76 @@ test('the diagnostics log is opt-in, local, bounded and free of learner content'
   assert.equal(canSendTelemetry(telemetryConsentDecision(true, at), []), false, 'an empty log is not a report');
   assert.equal(canSendTelemetry(telemetryConsentDecision(true, at), report.events), true);
 
-  // ---- The app never transmits, and the consent control is real -----------------
-  assert.equal(/fetch\s*\(|XMLHttpRequest|sendBeacon|navigator\.connection\?\.sendBeacon/.test(appScript[1]), false,
-    'the application contains no way to transmit the log');
+  // ---- Transmission exists in rc5, but only behind a click ----------------------
   assert.match(appScript[1], /id="telemetry-setting"/, 'the switch exists in Settings');
   assert.match(appScript[1], /if \(!telemetryConsent\.enabled\) return;/, 'recording stops without consent');
+  assert.equal((appScript[1].match(/await transport\(/g) || []).length, 1,
+    'exactly one transport call site exists');
+  assert.equal((appScript[1].match(/sendTelemetryReport\(/g) || []).length, 2,
+    'the sender is called from one place: the Settings button (plus its definition)');
+  assert.equal(/setInterval\([^)]*sendTelemetryReport/.test(appScript[1]), false,
+    'nothing sends on a timer');
+  assert.match(appScript[1], /addEventListener\('click', async event => \{/, 'sending is a click handler');
+  assert.match(appScript[1], /credentials: 'omit'/, 'no cookie or credential travels with the report');
+  assert.match(TELEMETRY_ENDPOINT, /^https:\/\/[a-z0-9.-]+\/api\/telemetry$/);
+  assert.equal(TELEMETRY_MAX_SEND_EVENTS, 50, 'the client cap matches the endpoint cap');
+  assert.equal(TELEMETRY_RETENTION_DAYS, 90, 'the stated retention matches the database policy');
   assert.match(appScript[1], /clearTelemetryLog\(storage\)/, 'withdrawing consent erases the log');
   assert.match(TELEMETRY_CONTACT_URL, /^https:\/\/github\.com\/coderunknow\/Chuyen-Anh\/issues$/);
+});
+
+test('rc5: the diagnostics report is sent once, bounded, and explained when it fails', async () => {
+  const at = '2026-10-28T09:00:00.000Z';
+  const log = Array.from({ length: 80 }, (_, index) => ({
+    at, kind: 'boot', name: `item-${index}`
+  }));
+  const request = buildTelemetryRequest({
+    log,
+    appVersion: APP_VERSION,
+    environment: { language: 'en', theme: 'dark', viewportWidth: 390, reducedMotion: true, interface: 'modern', userAgent: 'no' }
+  });
+  assert.equal(request.contract, TELEMETRY_CONTRACT);
+  assert.equal(request.events.length, TELEMETRY_MAX_SEND_EVENTS, 'the newest entries only, never the whole log');
+  assert.deepEqual(request.environment,
+    { language: 'en', theme: 'dark', viewport: 'mobile', reducedMotion: true, interface: 'modern' });
+  for (const forbidden of ['consent', 'generatedAt', 'notCollected', 'product']) {
+    assert.equal(forbidden in request, false, `${forbidden} is not part of the request`);
+  }
+
+  const seen = [];
+  const okFetch = async (url, init) => { seen.push({ url, init }); return { status: 202 }; };
+  assert.deepEqual(await sendTelemetryReport(request, { fetchImpl: okFetch }),
+    { ok: true, status: 202, error: null });
+  assert.equal(seen.length, 1, 'one POST per click, no retry');
+  assert.equal(seen[0].url, TELEMETRY_ENDPOINT);
+  assert.equal(seen[0].init.method, 'POST');
+  assert.equal(seen[0].init.credentials, 'omit');
+  assert.equal(seen[0].init.cache, 'no-store');
+  assert.deepEqual(seen[0].init.headers, { 'Content-Type': 'application/json' });
+  const sent = JSON.parse(seen[0].init.body);
+  assert.equal(sent.events.length, TELEMETRY_MAX_SEND_EVENTS);
+  assert.equal(sent.events.some(item => item.name === 'item-0'), false, 'old entries fall off the front');
+
+  const status = async code => (await sendTelemetryReport(request, { fetchImpl: async () => ({ status: code }) })).error;
+  assert.equal(await status(429), 'rate-limited');
+  assert.equal(await status(400), 'rejected');
+  assert.equal(await status(403), 'rejected');
+  assert.equal(await status(413), 'rejected');
+  assert.equal(await status(503), 'unavailable');
+  assert.equal(await status(0), 'unavailable');
+  const thrower = async () => { throw new Error('blocked by the browser'); };
+  assert.equal((await sendTelemetryReport(request, { fetchImpl: thrower })).error, 'offline');
+  const aborted = async () => { const error = new Error('aborted'); error.name = 'AbortError'; throw error; };
+  assert.equal((await sendTelemetryReport(request, { fetchImpl: aborted })).error, 'timeout');
+  assert.equal((await sendTelemetryReport({ events: [] }, { fetchImpl: okFetch })).error, 'empty-report');
+  assert.equal((await sendTelemetryReport(null, { fetchImpl: okFetch })).ok, false);
+
+  assert.match(telemetrySendMessage({ ok: true }), /Cảm ơn/);
+  assert.match(telemetrySendMessage({ ok: false, error: 'rate-limited' }), /10 phút/);
+  const offline = telemetrySendMessage({ ok: false, error: 'offline' });
+  assert.match(offline, /Nhật ký vẫn còn trên thiết bị/, 'a failed send never claims the log was sent');
+  assert.equal(/eyJhbGciOi/.test(html), false, 'the page ships no JWT');
+  assert.equal(html.includes('service_role'), false, 'the page names no privileged role');
 });
 
 test('every multiple-choice question offers plausible, distinct options', () => {
@@ -1444,7 +1515,7 @@ test('exported exam results report exactly what the learner did and what could b
   const result = buildExamResultJson(session, record, { now: 6000 });
   assert.equal(result.app, 'Chuyên Anh');
   assert.equal(result.version, APP_VERSION, 'the result carries the application version');
-  assert.equal(result.version, 'v1.0.0-rc4');
+  assert.equal(result.version, 'v1.0.0-rc5');
   assert.equal(result.schemaVersion, '1.0.0');
   assert.deepEqual(result.summary, {
     total: 3, answered: 2, unanswered: 1,
@@ -1808,13 +1879,13 @@ test('Scope A: English UI localization translates all shortcut hints and UI chro
     html.indexOf('function renderShell(')
   );
   const attrLoopIdx = localizeBlock.indexOf("for (const name of ['aria-label', 'placeholder', 'title', 'alt'])");
-  const stopMatchIdx = localizeBlock.indexOf("if (current.matches(protectedSelectors) && !current.matches(translatorExceptions)) return;");
+  const stopMatchIdx = localizeBlock.indexOf('if (current.matches(protectedSelectors)) return;');
   assert.ok(attrLoopIdx > -1 && stopMatchIdx > attrLoopIdx, 'localizeSubtree must translate ARIA attributes before returning on protected elements');
-  // rc4: a concealed gloss is a protected cell that also carries a mask label
-  // and one button, so those two must be translatable while the cell itself
-  // stays protected. Both halves of that rule are asserted above and here.
-  assert.match(localizeBlock, /const translatorExceptions = '\.meaning-masked, \.meaning-reveal, \.meaning-dots';/,
-    'the interface labels of a concealed gloss stay translatable');
+  // rc5: the concealed-gloss cell no longer exists (a hidden gloss is simply not
+  // printed), so the translator needs no exception list. Its absence is the
+  // contract: every protected node — gloss cells included — stays untouched.
+  assert.equal(localizeBlock.includes('translatorExceptions'), false,
+    'no translation exception is carved out of the protected selectors');
 
   // 2. Zero corruption of any of the 5,852 vocabulary headwords, meanings, examples, or notes
   for (const entry of embeddedVocabulary) {
@@ -3157,9 +3228,11 @@ test('rc2: every turn shape introduces a new word before grading it', () => {
   assert.deepEqual(board.pairs.map(pair => pair.progress), before,
     'introducing a pair changes no counter, state or schedule');
   // The shipped wiring uses the shared predicate for boards too.
-  assert.match(appScript[1], /firstLook = turnNeedsFirstLook\(item\);/);
+  assert.match(appScript[1], /firstLook = previewStageVisible\(presentation, item\);/);
   assert.equal(/item\.match\) \{\s*firstLook = false;/.test(appScript[1]), false,
     'a matching turn must not bypass the introduction');
+  assert.match(appScript[1], /if \(!firstLook\) markIntroduced\(item\);/,
+    'a turn that skips the introduction is still marked as introduced');
   // Phrases follow the same contract in their own store.
   const phrase = embeddedPhrases[0];
   assert.equal(app.needsPhraseFirstLook(phrase, {}), true);
@@ -3462,11 +3535,11 @@ test('rc4: showing or hiding meanings is a presentation preference, never a lear
   assert.equal(savePresentation({ meanings: 'hide' }, broken), false, 'a store that cannot write reports failure');
   assert.equal(savePresentation({ meanings: 'hide' }, null), false);
 
-  // The mask must not describe the answer: fixed length, no fragment of it.
-  assert.equal(MASKED_MEANING, '•••••');
-  assert.equal(MASKED_MEANING.length, 5);
-  const sample = embeddedVocabulary[0].meaning;
-  assert.equal(MASKED_MEANING.includes(sample.slice(0, 2)), false);
+  // rc5: there is no mask to describe the answer, because a hidden gloss is not
+  // printed at all. The absence is the contract.
+  assert.equal(Object.prototype.hasOwnProperty.call(app, 'MASKED_MEANING'), false,
+    'the mask constant is no longer exported');
+  assert.equal(html.includes('•••••'), false, 'no mask glyph is printed in any state');
   // Concealed before an answer, always printed once the answer is graded.
   assert.equal(meaningConcealed({ meanings: 'hide' }), true);
   assert.equal(meaningConcealed({ meanings: 'hide' }, { answered: true }), false);
@@ -3480,52 +3553,114 @@ test('rc4: showing or hiding meanings is a presentation preference, never a lear
   assert.equal(JSON.stringify(bundle).includes('meanings'), false);
 });
 
-test('rc4: each pre-answer vocabulary surface conceals the gloss through the shared helper', () => {
-  const body = html.slice(html.indexOf('function matchFirstLookBody('), html.indexOf('function currentConsolidationGap('));
-  const meaningBlock = html.slice(html.indexOf('function meaningSpan('), html.indexOf('function redrawPreservingInput('));
-  assert.match(meaningBlock, /if \(answered \|\| meaningRevealed\(entry\.id\)\)/, 'a revealed or graded gloss is printed');
-  assert.match(meaningBlock, /data-reveal-meaning=/, 'the concealer carries one explicit reveal control');
-  assert.match(meaningBlock, /MASKED_MEANING/, 'the concealer prints the fixed mask');
-  assert.doesNotMatch(meaningBlock, /escapeHtml\(entry\.meaning\)[^\n]*meaning-masked/, 'the mask never contains the gloss');
+test('rc5: hiding meanings skips the preview stage instead of masking it', () => {
+  // rc4 printed a fixed mask plus one reveal button per row. rc5 deletes that
+  // whole surface: with meanings hidden there is no preview stage, no mask and
+  // no placeholder, and the learner starts on the exercise itself.
+  const fresh = { vocab: vocab[0], progress: { id: '1', state: 'new', wrongCount: 0 } };
+  const studied = { vocab: vocab[1], progress: { id: '2', state: 'learning', wrongCount: 1 } };
+  const practice = { vocab: vocab[2], progress: { id: '3', state: 'new', wrongCount: 0 }, practice: true };
 
-  // New-word introduction and the matching board introduction.
-  assert.match(body, /meaningRevealed\(item\.vocab\.id\)/, 'the first-look gloss respects the preference');
-  assert.match(body, /meaningRevealed\(pair\.vocab\.id\)/, 'every pair on the matching board respects it');
+  assert.equal(turnNeedsFirstLook(fresh), true, 'a never-studied word is normally introduced first');
+  assert.equal(turnNeedsFirstLook(studied), false, 'a studied word is not');
+  assert.equal(turnNeedsFirstLook(practice), false, 'corrective practice never re-introduces');
+  assert.equal(meaningPreviewEnabled({ meanings: 'show' }), true);
+  assert.equal(meaningPreviewEnabled({ meanings: 'hide' }), false);
+  assert.equal(previewStageVisible({ meanings: 'show' }, fresh), true);
+  assert.equal(previewStageVisible({ meanings: 'hide' }, fresh), false,
+    'the preference, not the item state, decides whether the stage exists');
+  assert.equal(previewStageVisible({ meanings: 'hide' }, studied), false);
+  assert.equal(previewStageVisible({ meanings: 'show' }, undefined), false, 'no item, no stage');
+  // The matching board follows the same decision for its still-new pairs.
+  const board = {
+    match: true,
+    pairs: [
+      { vocab: vocab[0], progress: { state: 'new' } },
+      { vocab: vocab[1], progress: { state: 'learning' } }
+    ]
+  };
+  assert.equal(turnNeedsFirstLook(board), true, 'the board holds a pair that has never been introduced');
+  assert.equal(previewStageVisible({ meanings: 'hide' }, board), false,
+    'a board of new words also skips its introduction');
 
+  // The scheduler is untouched: `taught` is a per-session flag, and skipping the
+  // preview only marks the item, so a mid-session switch cannot re-open it.
+  const skip = html.slice(html.indexOf('function markIntroduced('), html.indexOf('function startFirstLookQuiz('));
+  assert.match(skip, /pair\.taught = true/, 'a skipped board introduction marks every pair');
+  assert.match(skip, /item\.taught = true/, 'a skipped card is marked as introduced');
+  for (const forbidden of ['updateProgress(', 'saveProgress(', 'schedule(', 'persist(']) {
+    assert.equal(skip.includes(forbidden), false, `markIntroduced must not touch ${forbidden}`);
+  }
+  const next = html.slice(html.indexOf('function nextQuestion('), html.indexOf('function questionModeFor('));
+  assert.equal((next.match(/previewStageVisible\(presentation, item\)/g) || []).length, 2,
+    'both the board and the single-card path ask the shared question');
+  assert.match(next, /if \(!firstLook\) markIntroduced\(item\);/, 'the skipped card is marked instead of masked');
+  assert.match(next, /matchState = firstLook \? null : createMatchState\(item\);/, 'the board is playable at once');
+  assert.match(next, /question = firstLook \? null : generateQuestion\(/, 'the question is built at once');
+});
+
+test('rc5: no mask, placeholder or per-word reveal survives anywhere', () => {
+  assert.equal(html.includes('MASKED_MEANING'), false, 'the mask constant is deleted, not renamed');
+  assert.equal(html.includes('•••••'), false, 'no fixed mask is printed in any state');
+  assert.equal(html.includes('data-reveal-meaning'), false, 'no per-word reveal control survives');
+  assert.equal(html.includes('data-reveal-phrase'), false, 'no per-phrase reveal control survives');
+  assert.equal(html.includes('revealedMeanings'), false, 'the reveal store is deleted');
+  assert.equal(html.includes('meaningRevealed('), false, 'the reveal predicate is deleted');
+  assert.equal(styleBlock[1].includes('meaning-masked'), false, 'the mask style is deleted');
+  assert.equal(styleBlock[1].includes('meaning-reveal'), false, 'the reveal-button style is deleted');
+  assert.equal(styleBlock[1].includes('meaning-dots'), false, 'the dots style is deleted');
+});
+
+test('rc5: every passive surface omits the gloss rather than masking it', () => {
+  // One helper decides, and it prints nothing at all while meanings are hidden.
+  const glossBlock = html.slice(html.indexOf('function passiveGloss('), html.indexOf('function passiveGlossSegment('));
+  assert.match(glossBlock, /if \(!entry \|\| meaningConcealed\(presentation\)\) return '';/,
+    'a hidden gloss renders the empty string');
+  assert.doesNotMatch(glossBlock, /dot|mask|reveal/i, 'the helper has no masked branch left');
+  const segmentBlock = html.slice(html.indexOf('function passiveGlossSegment('), html.indexOf('function redrawPreservingInput('));
+  assert.match(segmentBlock, /return gloss \? `\$\{separator\}\$\{gloss\}` : '';/, 'the separator follows the gloss');
+
+  // Search results: the gloss column is dropped, and no tooltip can leak it.
   const search = html.slice(html.indexOf('function renderSearch('), html.indexOf('function phraseTagOf('));
-  assert.match(search, /meaningRevealed\(item\.entry\.id\)/, 'search rows respect the preference');
-  assert.match(search, /meaning-masked/, 'search rows print the mask');
+  assert.match(search, /const showGloss = !meaningConcealed\(presentation\);/);
+  assert.match(search, /const glossCell = item => showGloss/, 'the cell exists only when the gloss may be printed');
+  assert.match(search, /vocab-list--no-gloss/, 'the layout drops the column instead of holding an empty one');
+  assert.equal((search.match(/title="\$\{escapeHtml\(item\.entry\.meaning\)\}"/g) || []).length, 1,
+    'the only gloss tooltip is the one inside the visible branch');
   const titleIdx = search.indexOf('title="${escapeHtml(item.entry.meaning)}"');
-  const guardIdx = search.indexOf('meaningRevealed(item.entry.id)');
-  assert.ok(guardIdx > -1 && titleIdx > guardIdx,
-    'the title attribute exists only inside the revealed branch, so a hidden row cannot leak through a tooltip');
-  assert.match(search, /data-reveal-meaning/, 'search rows carry the reveal control');
+  const branchIdx = search.indexOf('const glossCell = item => showGloss');
+  assert.ok(titleIdx > branchIdx, 'the tooltip cannot be reached while the gloss is hidden');
 
+  // Dashboard spotlight, Settings hard-word list and the phrase bank list.
   const dashboard = html.slice(html.indexOf('function renderDashboard('), html.indexOf('function statCard('));
-  assert.match(dashboard, /meaningSpan\(item\.entry/, 'the weak-word spotlight respects the preference');
+  assert.equal((dashboard.match(/passiveGlossSegment\(/g) || []).length, 1,
+    'the weak-word spotlight has exactly one way to print a gloss');
+  assert.equal((dashboard.match(/escapeHtml\(item\.entry\.meaning\)/g) || []).length, 1,
+    'and that one occurrence is the helper argument, not free text');
+  const dashboardGloss = dashboard.slice(dashboard.indexOf('passiveGlossSegment('),
+    dashboard.indexOf('passiveGlossSegment(') + 220);
+  assert.match(dashboardGloss, /content: `<small>\$\{escapeHtml\(item\.entry\.meaning\)\}<\/small>`/,
+    'the gloss text travels inside the helper, so hiding removes it');
   const settings = html.slice(html.indexOf('function renderSettings('), html.indexOf('function exportDownload('));
-  assert.match(settings, /meaningSpan\(entry/, 'the hard-word list respects the preference');
-  assert.match(settings, /meaningSwitchMarkup\('setting-meanings'\)/, 'meaning visibility is controllable from Settings');
-  assert.match(settings, /interfaceSwitchMarkup\('setting-interface'/, 'the interface mode is controllable from Settings');
-  assert.match(html, /\$\{interfaceSwitchMarkup\('interface'\)\}/, 'and from the top bar, without hunting');
+  assert.equal((settings.match(/passiveGlossSegment\(/g) || []).length, 1,
+    'the hard-word list has exactly one way to print a gloss');
   const phrases = html.slice(html.indexOf('function renderPhrases('), html.indexOf('function renderPhrasePractice('));
-  assert.match(phrases, /phraseMeaningSpan\(entry\)/, 'the phrase bank list respects it too');
+  assert.match(phrases, /phraseMeaningSpan\(/);
+  assert.match(phrases, /vocab-row--no-gloss/, 'the phrase rows drop the gloss column too');
 
-  // Final-gate audit (rc4): the phrase-practice introduction is the phrase
-  // bank's counterpart of the word first look, and it printed the gloss in
-  // clear text while the preference said "hide". Assert the whole surface, not
-  // just the list: a guarded intro, its own control, and no ungated gloss.
+  // The phrase-practice introduction exists only to print the gloss, so it is
+  // skipped outright when the gloss is hidden; the phrase is then introduced.
   const phrasePractice = html.slice(html.indexOf('function renderPhrasePractice('), html.indexOf('function examAnswerLabel('));
-  assert.match(phrasePractice, /meaningRevealed\(entry\.id\)/, 'the phrase-practice introduction respects the preference');
-  assert.match(phrasePractice, /data-reveal-phrase=/, 'it carries its own reveal control');
-  assert.match(phrasePractice, /revealMeaning\(button\.dataset\.revealPhrase\);/, 'the control reveals one phrase');
-  assert.equal(phrasePractice.includes('<p class="first-look-meaning"><span>Nghĩa</span><strong class="vocab-meaning">'), false,
-    'the introduction never prints the gloss unconditionally');
+  assert.match(phrasePractice, /!phraseSession\.answered && meaningPreviewEnabled\(presentation\)/,
+    'the phrase introduction is gated on the preference');
+  assert.match(phrasePractice, /phraseSession\.taught\.add\(entry\.id\);/, 'a skipped phrase introduction is recorded');
+  assert.equal(phrasePractice.includes('data-reveal-phrase'), false);
 
-  // Graded feedback and the sprint hand-off are answers, not previews: they always print.
+  // Graded feedback is an answer, not a preview: it always prints the gloss.
   const feedback = html.slice(html.indexOf('function renderFeedback('), html.indexOf('function advanceCard('));
   assert.match(feedback, /class="vocab-meaning"/, 'the graded answer is printed after grading');
-  assert.doesNotMatch(feedback, /meaning-masked/, 'graded feedback is never masked');
+  const firstLook = html.slice(html.indexOf('function firstLookBody('), html.indexOf('function renderFlashcard('));
+  assert.match(firstLook, /<strong class="vocab-meaning">/, 'the preview, when it exists, prints the real gloss');
 });
 
 test('rc4: neither presentation preference can reach the scheduler, the grader or stored progress', () => {

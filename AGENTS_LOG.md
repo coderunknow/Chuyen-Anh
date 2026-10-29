@@ -976,3 +976,57 @@ CodeRabbit's review `5643120300` (run metadata again `Layers: Repository YAML`) 
    suites passed in CI on `5ba986a` and on the merge commit `88248ce`). `CodeRabbit` skipped and `Kilo Code Review` could not start
    (account credits) for PR #64; neither is a review of this code. Three REVIEW glosses and the empty optional metadata fields are
    unchanged from the candidate.
+
+## 2026-10-29 — v1.0.0-rc5 build: preview stage removed, telemetry path made real, interface polish
+
+Base `77de95e` (rc4 merge, PR #65), branch `arena/fe02db5c-chuyen-anh`. Two behaviour changes were requested and one was explicitly
+forbidden, so the work is organised around those three lines rather than around files.
+
+1. **“Only after answering” skips the preview stage.** rc4 kept the stage and masked it (`MASKED_MEANING`, five dots, one reveal
+   button per word, a `translatorExceptions` carve-out so those labels could be translated). The owner asked for the stage to be
+   skipped, not disguised. One predicate now decides — `previewStageVisible(presentation, item)` = the preference **and** the item's
+   own introduction rule — and it is used for single cards, matching boards and the phrase-practice introduction. When it is false
+   the turn calls `markIntroduced(item)` (per-session `taught` flags only) and builds the question or the board immediately.
+   `MASKED_MEANING`, `revealedMeanings`, `meaningRevealed()`, `data-reveal-meaning`, `data-reveal-phrase`, the three CSS rules and
+   the translator exception are deleted; a hidden gloss now renders `''` from `passiveGloss()` and list layouts drop the column
+   (`vocab-list--no-gloss`, `vocab-row--no-gloss`). Required stimuli are untouched: a recall/spelling card still prints the Vietnamese
+   prompt, a cloze still prints its sentence, a recognition card still prints the four glosses, and a Vietnamese→English completion
+   still prints the definition. Grading, queue order, scheduling, mastery, counters and XP are untouched, and a mid-session switch
+   cannot re-open an introduction for a card that was already asked about.
+2. **Telemetry is now a real path, still off by default.** `index.html → https://chuyen-anh-telemetry.vercel.app/api/telemetry →
+   Supabase Postgres`. The Vercel project (`chuyen-anh-telemetry`, `prj_YmtevOrE913KuRhJSX9FlQyKi3dO`, team
+   `team_NK7ZIqw551PrQnND7BHTILmP`, region iad1, Hobby — no cost, no upgrade) serves `app.js` + `api/telemetry.js`; the Supabase
+   project is `chuyen-anh-telemetry` (`zomeiulaqahyjwhgdemf`, ap-southeast-1). Credentials live only in the Vercel environment
+   (`SUPABASE_URL`, `SUPABASE_SECRET_KEY`, `TELEMETRY_IP_SALT`); nothing is in the application, the repository or this log.
+3. **Deployment mechanics, recorded because they cost time.** `vercel__create_deployment` rejects a brand-new project without
+   `projectSettings`; the tool has no such field, and a project whose `framework` is `null` cannot be deployed through it at all. The
+   working combination is `framework: "node"` on the project plus an `app.js` entrypoint — which is why `app.js` exists. The tool also
+   refuses any uploaded file whose content parses as JSON (`files[n].data should be string`), so `vercel.json` cannot be part of an
+   uploaded deployment; the deployed bundle is exactly `app.js` + `api/telemetry.js`, and `vercel.json` describes the same surface for
+   a CLI deploy. Deployment `dpl_8bUhXjgBnGsTvP8DfnnynXVbgAzp` is `READY` with alias `https://chuyen-anh-telemetry.vercel.app`.
+4. **Endpoint behaviour (unit-tested, 13 tests).** Origin allowlist (`https://coderunknow.github.io`, the documented localhost
+   origins, and `null` for a `file://` copy) with no echo of an unknown origin; `POST` + `application/json` only; 16 KB, 50 events,
+   6 counters per event, token-shaped names; the stored payload is **rebuilt** from an allowlist, notes are cut at the first quote
+   and e-mail addresses are redacted; the rate-limit key is a truncated HMAC-SHA256 of the IP under `TELEMETRY_IP_SALT` (the address
+   itself is never stored); status codes `202/400/403/413/415/429 (Retry-After 600)/503`; no request body, header or IP is logged, and
+   an unconfigured deployment answers `503` without calling upstream.
+5. **Database (11 Python tests, plus live SQL probes in the previous entry).** Schema `telemetry`, RLS on for both tables with **no
+   policy**, no privilege for `anon`/`authenticated`, one `security definer` function `public.telemetry_ingest(jsonb, text)` granted to
+   `service_role` only, 90-day `retention_expires_at` purged at most hourly by writes, 10/10 min per client and 120/10 min globally.
+   The migration in the repository is the one the project was migrated with.
+6. **Client.** Sending is one click in Settings, one `POST`, no retry, no background queue, `credentials: 'omit'`, 12 s timeout, at
+   most 50 events, and only the coarse environment (language, interface, theme, viewport bucket, reduced-motion flag). Every failure
+   gets its own sentence and leaves the local log and the JSON download in place. The privacy copy in Settings, `PRIVACY.md` and
+   `README.md` states the endpoint, the fields, the limits and the 90-day retention.
+7. **Interface polish (both skins).** Shared spring easing and pressed states on buttons/options/switches/cards, a tighter chrome
+   (64 px top bar, tighter panels and session cards) and a two-column Settings layout from 900 px, hover lift suppressed on touch,
+   and one `prefers-reduced-motion` block that removes the new transitions and transforms. No screen order or control moved.
+8. **Tests and gates.** `node --test tests/static-app.test.js` → **123 pass** (rc4 mask assertions replaced by absence-of-mask and
+   presence-of-skip assertions, plus the new transport test); `node --test tests/telemetry-api.test.js` → **13 pass**;
+   `python -m unittest discover -s tests -p 'test_*.py'` → **152 pass**; six build/embed `--check`s and `git diff --check` clean.
+   `tests/browser-learning.cjs` gains an rc5 scenario (hide → no stage, no mask, stimulus present, graded gloss still printed; show →
+   introduction returns with the real gloss). CI is the first real-browser run of it.
+9. **Not claimed at this point.** No local Chromium (sandbox cannot reach the Playwright CDN and has no system browser), so the
+   browser suites are validated by CI only. `curl` from the sandbox cannot reach `vercel.app` or `supabase.co` (egress allowlist), so
+   the live POST is verified through `.github/workflows/telemetry-smoke.yml` on a GitHub runner and by reading the stored row back
+   through the Supabase integration — not by a local request.

@@ -45,6 +45,10 @@ on:
       - "AGENTS_LOG.md"
       - "De-chuyen-Anh-vao-10/**"
       - "tests/**"
+      - "api/**"
+      - "app.js"
+      - "vercel.json"
+      - "supabase/**"
       - ".github/workflows/ci.yml"
       - ".github/workflows/deploy.yml"
       - ".github/workflows/release-artifacts.yml"
@@ -94,6 +98,10 @@ on:
       - "AGENTS_LOG.md"
       - "De-chuyen-Anh-vao-10/**"
       - "tests/**"
+      - "api/**"
+      - "app.js"
+      - "vercel.json"
+      - "supabase/**"
       - ".github/workflows/ci.yml"
       - ".github/workflows/deploy.yml"
       - ".github/workflows/release-artifacts.yml"
@@ -142,6 +150,12 @@ jobs:
           node-version: 22
       - name: Run static app logic and single-file tests
         run: node --test tests/static-app.test.js
+
+      # rc5: the ingestion endpoint is the only server-side code in the project,
+      # so its contract (origins, size limits, stored fields, status codes) is
+      # pinned by its own suite rather than by a live request.
+      - name: Run telemetry endpoint contract tests
+        run: node --test tests/telemetry-api.test.js
 
   # The two browser suites were outside CI until rc3. They are sequential on
   # purpose: two Chromium instances at once have crashed on a 2-CPU runner, and a
