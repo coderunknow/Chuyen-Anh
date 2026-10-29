@@ -1,5 +1,140 @@
 # Changelog
 
+## v1.0.0-rc4 — presentation and vocabulary-audit candidate (2026-10-28, NOT released)
+
+**Status: unreleased candidate.** `APP_VERSION` and `DEPLOY_HOLD` both name `v1.0.0-rc4`; no tag, release, prerelease or deploy
+exists for it, and the Pages gate reports `deploy=false (deploy hold names v1.0.0-rc4 and no repository was supplied …; deployment
+held)` on a machine without `--repo`. Base: `54ccaa0` (the merged rc3 candidate, PR #63). This release adds no vocabulary row,
+changes no stored ID, gloss, family note or progress key, and adds no new storage of learning data: the only new key is a
+presentation preference, and every existing key keeps its shape.
+
+### Added: show or hide Vietnamese meanings (Feature A)
+
+- **One persisted preference, `chuyen-anh.presentation.v1`.** `{ meanings: 'show' | 'hide', interface: 'classic' | 'modern' }`,
+  sanitised on read (unknown values fall back to `show` / `classic`), stored outside the v1 backup contract, and included in the
+  cross-tab `storage` sync list. A damaged record cannot block boot, and a record that had to be repaired is written back at boot
+  so the learner's next reload does not re-repair it.
+- **The toggle stops being a decoration: it is the preference.** The flashcard header carries a `Nghĩa: hiện` / `Nghĩa: ẩn`
+  button (`aria-pressed`, `aria-label`, `title`), and Settings carries the same control as a two-option group. Changing it
+  re-renders the current screen without leaving the session: the queue, the current card, the typed spelling answer and the caret
+  position survive the redraw.
+- **Applied to every pre-answer surface**: the first-look introduction (single card and matching board), search rows, the
+  dashboard weak-word list, the Settings flagged-word list and the phrase list. **Never applied** to a question stimulus or its
+  options, to graded feedback, to the handoff strip or to the summary — the answer is already on screen there, and masking it would
+  only make the correction unreadable.
+- **No leakage path.** The mask is a fixed `•••••`, not the gloss length; while masked the row carries no `title`, no tooltip and
+  no gloss-bearing `aria-label`, only a per-row “Hiện nghĩa” button whose label names the headword.
+- **Explicit per-word reveal.** `revealedMeanings` is a `Set` scoped to the running view. Revealing one row shows that gloss and
+  nothing else: the global preference stays `hide`, nothing is written to storage, and no progress, scheduler field, streak, XP,
+  session count, accuracy or mastery number is touched. A preference change clears the set, so an old peek never reappears.
+- The new Vietnamese strings are in the English dictionary as whole-string entries (`Show Vietnamese meanings`, `Meanings: hidden`,
+  `Show meaning`, `Interface style`, …); the regex pattern table gained no substring rule, so no vocabulary or exam text can be
+  rewritten by the translator.
+
+### Added: Classic and Modern interface modes (Feature C)
+
+- **A real second design system, not a palette swap.** `document.documentElement.dataset.ui` selects the skin; every selector,
+  element, event handler, scheduler path and storage key is shared. Classic remains the existing “Premium Academic” design;
+  Modern is **Studio**: warm paper and ink, a dark masthead with a horizontal segmented navigation band instead of the left rail,
+  flat bordered panels with hard offset shadows, squared controls, monospaced counters and uppercase mono labels, an editorial
+  page header, table-style search rows, a wide worksheet-style flashcard with a left accent spine, and its own type scale,
+  spacing scale and breakpoints (940px / 680px / 380px).
+- **Two discoverable switches**: a segmented control in the top bar (hidden below 680px, where vertical space is scarce) and a row
+  in Settings. Both are real buttons with `aria-pressed`, both persist, and the choice survives reload.
+- **Switching cannot lose work.** The switch redraws the shell only. A running session keeps its queue, card, answered state,
+  revealed flags and typed answer; a second tab follows through the `storage` event.
+- **Motion.** Modern adds a staggered rise-in for content blocks, a pop on feedback, a press-and-release on controls and a
+  cross-fade for the interface change, all CSS-only, all short (120–240 ms), none of which moves layout or steals focus. The
+  existing `prefers-reduced-motion` block now also disables every Studio animation, and the Classic motion set is unchanged.
+  No achievement, XP or completion animation was invented for this release.
+
+### Added: full vocabulary audit (Feature B)
+
+- **`scripts/rc4_vocabulary_audit.py` → `docs/rc4-vocabulary-audit.{json,md}`** (`--check` fails when the report no longer
+  matches the data). It classifies all **5.852 rows** exactly once: **5.112 headwords** = **3.841 KEEP** in the focus deck +
+  **1.271 EXCLUDE_BASIC** archived + **740 family forms** documented on their headword; **3 REVIEW**; **0 corrected**; **0 added**.
+- **The exclusion is replayed, not asserted.** The reviewed curation map is re-run through the shipping engine
+  (`scripts/vocabulary_curation.matched_rows`) against the Markdown table: **1.271 decisions = 1.271 stored archived rows**,
+  0 missing, 0 extra, 0 category mismatches, 0 engine problems. The audit also re-checks that no archived row can enter the study
+  deck, that every family form points at a headword that agrees with it about curation, and that every archived row declares one
+  declared category.
+- **`docs/curriculum-grades-6-9.json`** records the curriculum words actually read for this audit — 201 words from the Global
+  Success grade 8 and grade 9 unit tables plus the grade 6 and grade 7 topic lists — each with its source URL and retrieval date,
+  and a stated limitation that grades 6 and 7 publish no per-unit word table in the retrieved documents. Cross-check:
+  **82** of those words are in the bank, **14** excluded, **68** still taught, and **0** unexplained retentions — every
+  curriculum-level (A1–B1) word still in the deck is a family root, which is the documented exemption.
+- **The high-quality inclusion standard is measured instead of claimed.** Word families (**862** retained headwords), editorial
+  notes (**294**), word-formation (**79**), academic register (**1.037**), confusable pairs (**34**), linkers (**59**), idioms
+  (**24**), phrasal verbs (**13**) and collocations (**9**) are present; `synonyms`, `antonyms`, `collocations` and `examples`
+  are empty on all but a handful of rows. The report states that gap as a gap. Filling those fields needs a source per row, so
+  nothing was invented to make the numbers look complete.
+- **The REVIEW queue is three rows** whose stored Vietnamese gloss repeats the English headword (`proton`, `gluten`,
+  `cholesterol`). They stay exactly as they are until an editor supplies a gloss; no row was auto-archived, re-IDed or rewritten.
+
+### Fixed
+
+- **The English localiser skipped text inside a protected element.** The masked gloss is a protected presentation surface, so the
+  early return meant its label and reveal button stayed Vietnamese in English mode. `localizeSubtree` now exempts the mask
+  descendants (`translatorExceptions`) while still refusing to translate the gloss cell itself, and the gloss is never fed to the
+  dictionary at all.
+- **A damaged presentation record stayed damaged.** `loadPresentation` already fell back to defaults, but the broken value was
+  left in storage; boot now writes the sanitised record back when it differs, so the fallback is not silently re-computed forever.
+- **A duplicated `.ui-switch` wrapper in the top bar** (introduced while building this candidate) produced two nested switches;
+  the markup now emits one.
+- **The phrase-practice introduction ignored "hide meanings".** Found by the release-gate audit, not by CI: the word
+  first look conceals the gloss, but the phrase bank's own "Cụm mới · học trước khi kiểm tra" introduction printed it in
+  clear text, so a learner who had hidden meanings saw the answer before the phrase was quizzed. It now uses the same
+  fixed mask with one per-phrase reveal control (`data-reveal-phrase`), which reveals that phrase for this visit only:
+  the preference and the stored phrase progress are untouched, and focus moves to “Bắt đầu kiểm tra”. The pre-answer
+  surface test now covers this screen explicitly, and was checked by reverting the guard (test red) and restoring it.
+- **The new top-bar switch pushed the document sideways at 768 px.** CI's browser suite caught it
+  (`browser-learning.cjs:66`, "the tablet breakpoint does not introduce horizontal overflow", run 40720178176). The compact copy is now
+  hidden below 1025 px and Settings keeps the selector, which restores the pre-rc4 top-bar geometry; the phone layout is untouched because
+  it never showed the compact copy.
+- **Two accessible-name defects in the new controls.** The card toggle carried an `aria-label` that paraphrased its visible text and the
+  mask's dots carried their own label, both of which fail axe's `label-content-name-mismatch` rule. The toggle is now named by its own text
+  (`Nghĩa: hiện` / `Nghĩa: ẩn` + `aria-pressed`), the dots are `aria-hidden`, and the English reveal labels keep the visible words
+  (“Show meaning of …”) so the name still contains the label.
+
+- **The candidate still shipped an rc3 version pin.** CI's second browser run (40720987107) failed the first card assertion because
+  `tests/browser-learning.cjs:517` still expected `#app-version` to read `'v1.0.0-rc3'`. A version bump is not done until every literal
+  agrees, and the browser suite carries its own; it now expects `'v1.0.0-rc4'` like the other pins. No application code changed.
+- **The new Settings rows displaced a keyboard stop.** CI's third browser run (40721747824) failed at `browser-learning.cjs:597`:
+  the meanings and interface rows sat between the theme selector and the shortcuts switch, so the fourth Tab stop was
+  `setting-meanings-show` instead of `keys-setting`. The two rows now follow the session-size selector, restoring the long-standing
+  order (language → theme → shortcuts → session size → meanings → interface). The existing assertion was not relaxed — a tab-order
+  test edited to match a new layout stops being a regression test.
+- **Two more rc3 version literals sat in the browser suite.** CI's fourth run (40723536730) failed the About-panel assertion
+  (`browser-learning.cjs:2833`, expected `/v1\.0\.0-rc3/`) and would have failed the next one
+  (`report.appVersion`, line 2894) for the same reason. Both now read `v1.0.0-rc4`. To stop the class of bug rather than the instance,
+  `tests/static-app.test.js` gained *every shipped version literal agrees with APP_VERSION*: it reads the version from the module,
+  collects the version a pin names in `index.html`, `PRIVACY.md`, both browser suites and the two Python version tests, and fails on any
+  value that is not the shipped one (the deploy-gate fixtures that name `dev5`/`rc2` on purpose and the changelog are exempt). It was
+  checked by reverting one pin to `rc3`: the test failed, and passed again when the pin was restored.
+- **Two phone-width overflow risks removed** (found while hardening, not by CI): a masked gloss inside `.vocab-row` no longer forces
+  `grid-column: 3`, so the desktop grid auto-places it while the ≤680px rule keeps its own full-width placement instead of reusing a
+  four-column span inside the three-column mobile grid; and `.flashcard-head` / `.flashcard-head-actions` wrap below 680px so the
+  card's fourth header control cannot widen a 320–375px card.
+
+### Tests and verification
+
+- The stylesheet parses at **893** rules / **105.653** bytes after the phone-width rules (891 / 105.363 before them).
+- `tests/static-app.test.js`: **120** node tests (115 before this candidate). The sync-key pin now expects
+  `chuyen-anh.presentation.v1`, the localiser guard asserts the new conditional return, four rc4 tests cover the preference,
+  the concealed surfaces, the separation between presentation and scheduling, and the second layout, and a fifth cross-checks
+  every shipped version literal against `APP_VERSION`.
+- `tests/test_rc4_vocabulary_audit.py`: **11** new Python tests for the reconciled counts, the policy replay, the deck boundary,
+  the family-link agreement, the curriculum evidence file, the review queue and report staleness.
+- Python suite: **141** tests (130 before this candidate). Static data chain unchanged and green.
+- Browser suites (`tests/browser-learning.cjs`, `tests/browser-exams.cjs`) **cannot run in the build sandbox** (Chromium cannot be
+  downloaded here: `npx playwright@1.55.1 install chromium` fails with `ECONNRESET`), so they were **run by CI instead**. After four
+  failing runs — each one a real defect, listed under *Fixed* — the final run on this head (**40818141160**, commit `26fb144`) reports
+  `checks` **pass** and `browser` **pass** (5m28s, both suites sequentially). They are the only visual review either interface received:
+  no pixel inspection at 320/768/1280 px was possible locally, and no physical-device check was made.
+- The jsdom DOM-level suite (**43/43**), the axe `label-content-name-mismatch` audit and the six-view/two-skin console sweep were run
+  locally against the same `index.html`; the sandbox scratch harness that hosted them was lost when the session's `/tmp` was reset, and
+  they were last executed on commit `584b5ed`, whose `index.html` is byte-identical to this head (`git diff 584b5ed 26fb144` touches only
+  tests and logs).
 ## v1.0.0-rc3 — quality hardening candidate (2026-10-28, NOT released)
 
 **Status: unreleased candidate.** `APP_VERSION` and `DEPLOY_HOLD` both name `v1.0.0-rc3`; no tag, release, prerelease or deploy

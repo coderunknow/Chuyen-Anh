@@ -1,6 +1,6 @@
 # Privacy — Chuyên Anh
 
-_Áp dụng cho `v1.0.0-rc3` và mọi bản dựng từ mã nguồn này._
+_Áp dụng cho `v1.0.0-rc4` và mọi bản dựng từ mã nguồn này._
 
 ## Tóm tắt
 

@@ -393,6 +393,10 @@ kbd, .kbd { min-width: 24px; padding: 2px 6px; border: 1px solid var(--border-st
   .study-section-heading { align-items: flex-start; }
   .options { grid-template-columns: 1fr; }
   .spelling { flex-direction: column; }
+  /* rc4: the meaning toggle added a fourth control to the card head; letting the
+     row wrap keeps a 320-375px card from growing wider than the viewport. */
+  .flashcard-head { flex-wrap: wrap; row-gap: 8px; }
+  .flashcard-head-actions { flex-wrap: wrap; justify-content: flex-end; margin-left: auto; }
   .vocab-row { grid-template-columns: 1fr auto auto; }
   .vocab-pos { grid-column: 2; grid-row: 1; }
   .vocab-meaning { grid-column: 1 / -1; grid-row: 2; white-space: normal; }
@@ -407,6 +411,50 @@ kbd, .kbd { min-width: 24px; padding: 2px 6px; border: 1px solid var(--border-st
   .support-sidebar { grid-template-columns: minmax(0, 1fr); }
   .session-grid--focus, .session-grid--quick { grid-template-columns: 1fr; }
 }
+/* ------------------------------------------------- meaning visibility (rc4)
+   A concealed gloss is a fixed-width mask plus one explicit control. The mask
+   never encodes the length of the answer, and the control reveals exactly one
+   item: it never flips the global preference. */
+.meaning-masked { display: inline-flex; align-items: center; gap: 7px; flex-wrap: wrap; max-width: 100%; color: var(--faint); font-size: .76rem; font-weight: 650; }
+.meaning-dots { letter-spacing: .1em; }
+.meaning-reveal {
+  min-height: 26px; padding: 2px 9px; border: 1px dashed var(--border-strong); border-radius: var(--radius-pill);
+  background: var(--surface); color: var(--primary-strong); font: inherit; font-size: .72rem; font-weight: 750;
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.meaning-reveal:hover { border-color: var(--primary); background: var(--primary-soft); }
+.meaning-reveal:active { transform: translateY(1px); }
+/* The search and phrase rows clip a plain gloss to one line; a mask with a
+   control must stay whole, so it is allowed to wrap in those rows only. */
+.vocab-row .vocab-meaning.meaning-masked { white-space: normal; overflow: visible; text-overflow: clip; }
+.vocab-row .vocab-meaning.meaning-masked .meaning-reveal { margin-left: 2px; }
+.first-look-meaning .meaning-masked { margin-top: 4px; font-size: .8rem; }
+.flagged-meaning.meaning-masked, .weak-row-meaning.meaning-masked { font-size: .74rem; }
+/* The in-session toggle states its mode in words, not only in colour. */
+.meaning-toggle { gap: 6px; }
+.meaning-toggle .icon { width: 15px; height: 15px; }
+.meaning-toggle.is-hiding { border-color: color-mix(in srgb, var(--primary) 52%, var(--border)); background: var(--primary-soft); color: var(--primary-strong); }
+
+/* ------------------------------------------------- classic/modern switch */
+.ui-switch { display: inline-flex; padding: 3px; gap: 2px; border: 1px solid var(--border); border-radius: var(--radius-pill); background: var(--surface-soft); }
+.ui-switch-option {
+  min-height: 30px; padding: 4px 12px; border: 0; border-radius: var(--radius-pill); background: transparent;
+  color: var(--muted); font: inherit; font-size: .72rem; font-weight: 750; letter-spacing: .01em;
+  transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.ui-switch-option:hover { color: var(--text); }
+.ui-switch-option.is-on { background: var(--surface); color: var(--primary-strong); box-shadow: var(--shadow-sm); }
+.ui-switch--settings { margin-left: auto; }
+.segmented--setting { margin-left: auto; }
+@media (max-width: 1024px) {
+  /* Settings keeps the selector. At 768px the brand, the counts and the
+     theme/backup buttons already fill the bar, and the extra segment pushed the
+     document sideways (browser-learning.cjs tablet assertion, rc4 CI run
+     40720178176). Hiding the compact copy restores the pre-rc4 geometry; no
+     other top-bar metric changes, so the phone layout is untouched. */
+  .top-actions .ui-switch { display: none; }
+}
+
 .handoff-strip { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin: 0 0 12px; padding: 8px 12px; border: 1px solid color-mix(in srgb, var(--success) 34%, var(--border)); border-radius: 12px; background: color-mix(in srgb, var(--success) 10%, transparent); font-size: .85rem; }
 .handoff-mark { font-weight: 700; color: var(--success); }
 .handoff-note { margin-left: auto; color: var(--muted); font-size: .75rem; }
@@ -1170,6 +1218,407 @@ mark { padding: 0 2px; border-radius: 4px; background: color-mix(in srgb, var(--
    unavailable, so it never looks like a normal primary action. */
 .btn[data-blocked="true"] { opacity: .6; filter: saturate(.7); }
 .btn[data-blocked="true"]:hover { opacity: .78; }
+
+/* ==========================================================================
+   MODERN INTERFACE — "Studio" (rc4)
+   A second, deliberately different visual system over the same markup and the
+   same learning logic. Classic keeps the Premium Academic navy/serif identity
+   above; Modern is an editorial, print-inspired layout: warm paper, ink rules,
+   flat bordered panels, a horizontal nav band instead of a left rail, squared
+   controls with hard offset shadows, a left-aligned worksheet card and one
+   consistent motion vocabulary.
+
+   Nothing here changes behaviour: it only restyles elements the shared render
+   functions already produce, so a session, its queue and its saved progress
+   are identical in both modes.
+   ========================================================================== */
+
+html[data-ui="modern"] {
+  color-scheme: light;
+  --font-sans: "Segoe UI", ui-sans-serif, system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Segoe UI Semibold", "Helvetica Neue", ui-sans-serif, system-ui, -apple-system, Arial, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --font-serif: var(--font-display);
+  --font: var(--font-sans);
+  --bg: #f6f1e7;
+  --bg-deep: #ece4d4;
+  --surface: #fffdf7;
+  --surface-soft: #f1e9db;
+  --surface-hover: #e9dfcc;
+  --text: #1b1913;
+  --muted: #5b5343;
+  --faint: #6b6250;
+  --border: #ded3c0;
+  --border-strong: #b3a68c;
+  --primary: #bd3a20;
+  --primary-strong: #8d2715;
+  --primary-soft: #fbe5dc;
+  --accent: #1c6f5b;
+  --accent-soft: #dbefe7;
+  --success: #15654a;
+  --success-soft: #dcefe3;
+  --warning: #7d5200;
+  --warning-soft: #fbedc9;
+  --danger: #a3231a;
+  --danger-soft: #fbe1dc;
+  --review: #1f4a78;
+  --review-soft: #e2ecf6;
+  --state-new: #564d3d;
+  --state-new-soft: #ece5d6;
+  --state-learning: #7d5200;
+  --state-weak: #a3231a;
+  --state-review: #1f4a78;
+  --state-mastered: #15654a;
+  --chart-new: #9a8f7a;
+  --chart-learning: #b98a26;
+  --chart-weak: #b4544a;
+  --chart-review: #45749f;
+  --chart-mastered: #2c8163;
+  --shadow: 6px 6px 0 color-mix(in srgb, var(--text) 9%, transparent);
+  --shadow-sm: 3px 3px 0 color-mix(in srgb, var(--text) 10%, transparent);
+  --shadow-lift: 8px 8px 0 color-mix(in srgb, var(--text) 13%, transparent);
+  --radius: 8px;
+  --radius-sm: 5px;
+  --radius-lg: 10px;
+  --radius-pill: 999px;
+  --dur-fast: .12s;
+  --dur: .2s;
+  --dur-slow: .32s;
+}
+
+html[data-ui="modern"][data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #131108;
+  --bg-deep: #0b0a06;
+  --surface: #1c1913;
+  --surface-soft: #262218;
+  --surface-hover: #302b1e;
+  --text: #f4ecdd;
+  --muted: #c1b6a1;
+  --faint: #a99d86;
+  --border: #3a3427;
+  --border-strong: #574d3a;
+  --primary: #ff8f6a;
+  --primary-strong: #ffb59a;
+  --primary-soft: #3a2117;
+  --accent: #7fd8bd;
+  --accent-soft: #14322a;
+  --success: #79d5ac;
+  --success-soft: #142f24;
+  --warning: #f0c472;
+  --warning-soft: #33280f;
+  --danger: #ff9d8f;
+  --danger-soft: #3a1d18;
+  --review: #9fc7f2;
+  --review-soft: #16283c;
+  --state-new: #c4b9a4;
+  --state-new-soft: #2a2519;
+  --state-learning: #f0c472;
+  --state-weak: #ff9d8f;
+  --state-review: #9fc7f2;
+  --state-mastered: #79d5ac;
+  --chart-new: #8d8272;
+  --chart-learning: #cfa653;
+  --chart-weak: #d5796d;
+  --chart-review: #74a6d6;
+  --chart-mastered: #58b992;
+  --shadow: 6px 6px 0 rgba(0, 0, 0, .45);
+  --shadow-sm: 3px 3px 0 rgba(0, 0, 0, .4);
+  --shadow-lift: 8px 8px 0 rgba(0, 0, 0, .52);
+}
+
+/* Ink top bar: the masthead of the product, identical in both themes. */
+html[data-ui="modern"] body {
+  background:
+    linear-gradient(color-mix(in srgb, var(--text) 3.5%, transparent) 1px, transparent 1px) 0 0 / 100% 34px,
+    radial-gradient(900px 420px at 100% -10%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 70%),
+    var(--bg);
+}
+html[data-ui="modern"] .topbar {
+  border-bottom: 2px solid var(--text);
+  background: var(--text);
+  backdrop-filter: none;
+}
+html[data-ui="modern"] .topbar .brand-name { color: var(--bg); font-family: var(--font-display); letter-spacing: -.02em; }
+html[data-ui="modern"] .topbar .brand-detail { color: color-mix(in srgb, var(--bg) 72%, var(--text)); }
+html[data-ui="modern"] .topbar .brand-mark {
+  background: var(--primary); color: #fff; border-radius: 4px;
+  box-shadow: 3px 3px 0 color-mix(in srgb, var(--bg) 26%, transparent);
+  font-family: var(--font-mono); letter-spacing: -.02em;
+}
+html[data-ui="modern"] .topbar .top-meta { color: color-mix(in srgb, var(--bg) 78%, var(--text)); font-family: var(--font-mono); font-size: .72rem; }
+html[data-ui="modern"] .topbar .top-meta .dot { background: color-mix(in srgb, var(--bg) 40%, transparent); }
+html[data-ui="modern"] .topbar .btn {
+  border-color: color-mix(in srgb, var(--bg) 30%, transparent); background: transparent; color: var(--bg);
+  box-shadow: none;
+}
+html[data-ui="modern"] .topbar .btn:hover { background: color-mix(in srgb, var(--bg) 14%, transparent); color: var(--bg); }
+html[data-ui="modern"] .topbar .ui-switch {
+  border-color: color-mix(in srgb, var(--bg) 32%, transparent); background: color-mix(in srgb, var(--bg) 12%, transparent);
+}
+html[data-ui="modern"] .topbar .ui-switch-option { color: color-mix(in srgb, var(--bg) 76%, var(--text)); }
+html[data-ui="modern"] .topbar .ui-switch-option.is-on {
+  background: var(--bg); color: var(--text); box-shadow: none;
+}
+
+/* Horizontal navigation band; the left rail belongs to Classic. */
+html[data-ui="modern"] .layout {
+  display: block; max-width: 1120px; padding: 20px 24px 56px;
+}
+html[data-ui="modern"] .sidebar {
+  /* The top bar is already sticky at top: 0; a second sticky band would slide
+     under and over it, so the nav band scrolls with the page instead. */
+  position: static; z-index: auto; margin: 0 -24px 22px; padding: 10px 24px;
+  background: color-mix(in srgb, var(--bg) 94%, transparent);
+  border-bottom: 1px solid var(--border-strong);
+  backdrop-filter: blur(8px);
+}
+html[data-ui="modern"] .sidebar .panel { border: 0; background: transparent; box-shadow: none; border-radius: 0; }
+html[data-ui="modern"] .nav { display: flex; gap: 4px; padding: 0; overflow-x: auto; scrollbar-width: thin; }
+html[data-ui="modern"] .nav-button {
+  width: auto; flex: 0 0 auto; min-height: 40px; gap: 8px; padding: 8px 12px;
+  border: 1px solid transparent; border-radius: 5px;
+  font-family: var(--font-mono); font-size: .74rem; letter-spacing: .04em; text-transform: uppercase;
+  color: var(--muted); transition: background var(--dur) var(--ease), color var(--dur) var(--ease), transform var(--dur-fast) var(--ease);
+}
+html[data-ui="modern"] .nav-button:hover { background: var(--surface-soft); color: var(--text); }
+html[data-ui="modern"] .nav-button.active {
+  background: var(--text); color: var(--bg); border-color: var(--text); box-shadow: none;
+}
+html[data-ui="modern"] .nav-button.active .nav-count { background: color-mix(in srgb, var(--bg) 22%, transparent); }
+html[data-ui="modern"] .nav-icon .icon { width: 17px; height: 17px; }
+html[data-ui="modern"] .support-sidebar { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 22px; }
+html[data-ui="modern"] .footer {
+  border-top: 1px solid var(--border); font-family: var(--font-mono); font-size: .68rem; letter-spacing: .03em;
+}
+
+/* Editorial masthead instead of a floating hero. */
+html[data-ui="modern"] .page-header {
+  border-top: 3px solid var(--text); padding-top: 14px; margin-bottom: 24px;
+}
+html[data-ui="modern"] .page-header h1 {
+  font-family: var(--font-display); font-size: clamp(1.8rem, 3.8vw, 2.6rem);
+  font-weight: 800; letter-spacing: -.04em; line-height: 1.06;
+}
+html[data-ui="modern"] .page-header p { max-width: 62ch; font-size: .9rem; }
+html[data-ui="modern"] .eyebrow {
+  font-family: var(--font-mono); font-size: .66rem; letter-spacing: .18em; text-transform: uppercase; color: var(--primary);
+}
+html[data-ui="modern"] .hero-metrics { display: flex; flex-wrap: wrap; gap: 0; border: 1px solid var(--border-strong); border-radius: var(--radius); background: var(--surface); overflow: hidden; }
+html[data-ui="modern"] .hero-metric { min-width: 84px; padding: 10px 14px; border-left: 1px solid var(--border); }
+html[data-ui="modern"] .hero-metric:first-child { border-left: 0; }
+html[data-ui="modern"] .hero-metric strong { display: block; font-family: var(--font-mono); font-size: 1.2rem; line-height: 1.1; }
+html[data-ui="modern"] .hero-metric span { font-family: var(--font-mono); font-size: .62rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+
+/* Flat bordered panels with a printed heading rule. */
+html[data-ui="modern"] .panel {
+  border: 1px solid var(--border-strong); border-radius: var(--radius); background: var(--surface); box-shadow: none;
+}
+html[data-ui="modern"] .panel-heading {
+  display: flex; align-items: center; gap: 8px; padding: 10px 14px;
+  border-bottom: 1px solid var(--border); background: var(--surface-soft);
+  font-family: var(--font-mono); font-size: .66rem; font-weight: 700; letter-spacing: .14em;
+}
+html[data-ui="modern"] .panel-heading::before { content: ""; width: 7px; height: 7px; border-radius: 1px; background: var(--primary); }
+html[data-ui="modern"] .panel-body { padding: 16px; }
+html[data-ui="modern"] .mini-stat { border-radius: 4px; border: 1px solid var(--border); background: var(--surface); }
+html[data-ui="modern"] .mini-stat strong { font-family: var(--font-mono); font-size: 1.15rem; }
+html[data-ui="modern"] .mini-stat span { font-family: var(--font-mono); font-size: .6rem; letter-spacing: .08em; text-transform: uppercase; }
+
+/* Squared controls with a hard shadow that responds to press. */
+html[data-ui="modern"] .btn {
+  border-radius: 5px; border: 1px solid var(--text); background: var(--surface); color: var(--text);
+  box-shadow: 2px 2px 0 color-mix(in srgb, var(--text) 22%, transparent);
+  font-family: var(--font-mono); font-size: .74rem; letter-spacing: .03em; text-transform: uppercase;
+  transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease), background var(--dur) var(--ease);
+}
+html[data-ui="modern"] .btn:hover:not(:disabled) { background: var(--surface-soft); transform: translate(-1px, -1px); box-shadow: 3px 3px 0 color-mix(in srgb, var(--text) 26%, transparent); }
+html[data-ui="modern"] .btn:active:not(:disabled) { transform: translate(1px, 1px); box-shadow: 1px 1px 0 color-mix(in srgb, var(--text) 26%, transparent); }
+html[data-ui="modern"] .btn.primary { background: var(--primary); border-color: var(--primary-strong); color: #fff; box-shadow: 2px 2px 0 color-mix(in srgb, var(--primary-strong) 60%, transparent); }
+html[data-ui="modern"] .btn.primary:hover:not(:disabled) { background: var(--primary-strong); }
+html[data-ui="modern"] .btn.subtle { border-color: var(--border-strong); background: var(--surface-soft); }
+html[data-ui="modern"] .btn.danger { border-color: var(--danger); background: var(--danger-soft); color: var(--danger); }
+html[data-ui="modern"] .select, html[data-ui="modern"] .search-input, html[data-ui="modern"] .setting-select,
+html[data-ui="modern"] .spelling input, html[data-ui="modern"] .exam-practice-response {
+  border-radius: 4px; border-color: var(--border-strong); background: var(--surface);
+}
+html[data-ui="modern"] .segmented { border-radius: 5px; border-color: var(--border-strong); background: var(--surface-soft); }
+html[data-ui="modern"] .seg { border-radius: 3px; font-family: var(--font-mono); font-size: .7rem; }
+html[data-ui="modern"] .seg.is-on { background: var(--text); color: var(--bg); box-shadow: none; }
+html[data-ui="modern"] .chip { border-radius: 4px; }
+html[data-ui="modern"] .switch span { border-radius: 4px; }
+html[data-ui="modern"] .switch span::after { border-radius: 2px; }
+
+/* Session tiles: numbered index cards. */
+html[data-ui="modern"] .study-section { margin-top: 26px; }
+html[data-ui="modern"] .study-section-heading h2 { font-family: var(--font-display); font-size: 1.1rem; letter-spacing: -.02em; }
+html[data-ui="modern"] .study-section-heading p { font-family: var(--font-mono); font-size: .68rem; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+html[data-ui="modern"] .session-grid { counter-reset: studio-card; gap: 12px; }
+html[data-ui="modern"] .session-card {
+  position: relative; counter-increment: studio-card; min-height: 140px;
+  border: 1px solid var(--border-strong); border-radius: var(--radius); background: var(--surface);
+  box-shadow: none; transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+html[data-ui="modern"] .session-card::before {
+  content: counter(studio-card, decimal-leading-zero); position: absolute; top: 10px; right: 12px;
+  font-family: var(--font-mono); font-size: .64rem; letter-spacing: .1em; color: var(--faint);
+}
+html[data-ui="modern"] .session-card:hover {
+  transform: translate(-2px, -2px); border-color: var(--text); box-shadow: 4px 4px 0 color-mix(in srgb, var(--text) 16%, transparent);
+}
+html[data-ui="modern"] .session-icon { border-radius: 4px; background: var(--primary-soft); color: var(--primary-strong); }
+html[data-ui="modern"] .session-card-title { font-family: var(--font-display); font-size: .95rem; letter-spacing: -.015em; }
+html[data-ui="modern"] .session-count { font-family: var(--font-mono); font-size: .68rem; letter-spacing: .06em; text-transform: uppercase; color: var(--primary-strong); }
+
+/* The worksheet card: left-aligned, ruled, with an accent spine. */
+html[data-ui="modern"] .flashcard {
+  border: 1px solid var(--border-strong); border-left: 6px solid var(--primary);
+  border-radius: var(--radius-lg); box-shadow: var(--shadow); background: var(--surface);
+}
+html[data-ui="modern"] .flashcard-head {
+  padding: 11px 16px; border-bottom: 1px dashed var(--border-strong); background: var(--surface-soft);
+  font-family: var(--font-mono); font-size: .66rem; letter-spacing: .08em; text-transform: uppercase;
+}
+html[data-ui="modern"] .card-counter { font-size: .68rem; }
+html[data-ui="modern"] .card-counter b { font-family: var(--font-mono); font-size: .8rem; }
+html[data-ui="modern"] .flashcard-body { padding: clamp(22px, 4vw, 44px); text-align: left; }
+html[data-ui="modern"] .mode-label {
+  border-radius: 3px; padding: 3px 8px; background: transparent; border: 1px solid var(--primary);
+  font-family: var(--font-mono); font-size: .62rem; letter-spacing: .14em;
+}
+html[data-ui="modern"] .prompt {
+  margin: 12px 0 2px; text-align: left; font-family: var(--font-display);
+  font-size: clamp(1.85rem, 5vw, 3rem); font-weight: 800; letter-spacing: -.045em; line-height: 1.06;
+}
+html[data-ui="modern"] .sub-prompt { text-align: left; font-family: var(--font-mono); font-size: .72rem; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+html[data-ui="modern"] .options { grid-template-columns: 1fr; gap: 8px; max-width: 680px; margin: 22px 0 0; }
+html[data-ui="modern"] .option {
+  min-height: 54px; border-radius: 4px; border: 1px solid var(--border-strong); background: var(--surface);
+  box-shadow: none; font-size: .92rem;
+  transition: transform var(--dur-fast) var(--ease), border-color var(--dur) var(--ease), background var(--dur) var(--ease);
+}
+html[data-ui="modern"] .option:hover:not(:disabled) { transform: translateX(4px); border-color: var(--text); background: var(--surface-soft); }
+html[data-ui="modern"] .option-index {
+  border-radius: 3px; border: 1px solid var(--border-strong); background: transparent; color: var(--muted);
+  font-family: var(--font-mono); font-size: .72rem;
+}
+html[data-ui="modern"] .option.correct { border-color: var(--success); background: var(--success-soft); }
+html[data-ui="modern"] .option.wrong { border-color: var(--danger); background: var(--danger-soft); }
+html[data-ui="modern"] .spelling { margin: 22px 0 0; max-width: 560px; }
+html[data-ui="modern"] .flip-hint { justify-items: start; margin-top: 20px; }
+html[data-ui="modern"] .reveal, html[data-ui="modern"] .first-look {
+  border-radius: 5px; border: 1px dashed var(--primary-strong); background: var(--primary-soft); text-align: left;
+}
+html[data-ui="modern"] .feedback { margin-top: 18px; border-radius: 5px; border-left-width: 5px; }
+html[data-ui="modern"] .card-footer {
+  border-top: 1px dashed var(--border-strong); font-family: var(--font-mono); font-size: .68rem;
+  letter-spacing: .03em; text-transform: uppercase;
+}
+html[data-ui="modern"] .session-progress { height: 6px; border-radius: 0; background: repeating-linear-gradient(90deg, color-mix(in srgb, var(--text) 12%, transparent) 0 10px, transparent 10px 14px); }
+html[data-ui="modern"] .session-progress > span { border-radius: 0; background: var(--primary); }
+html[data-ui="modern"] .state-pill { border-radius: 3px; font-family: var(--font-mono); font-size: .62rem; letter-spacing: .06em; text-transform: uppercase; }
+html[data-ui="modern"] .fav, html[data-ui="modern"] .flag { border-radius: 4px; }
+html[data-ui="modern"] .match-tile { border-radius: 4px; border-color: var(--border-strong); }
+html[data-ui="modern"] .match-tile.is-selected { border-color: var(--primary); background: var(--primary-soft); }
+
+/* Metrics, lists and tables read as a printed report. */
+html[data-ui="modern"] .metric-grid { gap: 10px; }
+html[data-ui="modern"] .metric-card, html[data-ui="modern"] .stat-card {
+  border: 1px solid var(--border-strong); border-radius: var(--radius); background: var(--surface);
+  box-shadow: none; border-top: 3px solid var(--text);
+}
+html[data-ui="modern"] .metric-card strong, html[data-ui="modern"] .stat-card strong { font-family: var(--font-mono); font-size: 1.6rem; letter-spacing: -.02em; }
+html[data-ui="modern"] .metric-label, html[data-ui="modern"] .stat-card span { font-family: var(--font-mono); font-size: .62rem; letter-spacing: .08em; text-transform: uppercase; }
+html[data-ui="modern"] .section-header { border-bottom: 1px solid var(--border); }
+html[data-ui="modern"] .section-title { font-family: var(--font-mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; }
+html[data-ui="modern"] .vocab-list { gap: 0; border: 1px solid var(--border-strong); border-radius: var(--radius); overflow: hidden; background: var(--surface); }
+html[data-ui="modern"] .vocab-row {
+  border: 0; border-bottom: 1px solid var(--border); border-radius: 0; background: var(--surface); min-height: 52px;
+}
+html[data-ui="modern"] .vocab-row:last-child { border-bottom: 0; }
+html[data-ui="modern"] .vocab-row:hover { border-color: var(--border); background: var(--surface-soft); }
+html[data-ui="modern"] .vocab-word { font-family: var(--font-display); font-weight: 700; }
+html[data-ui="modern"] .vocab-pos { font-family: var(--font-mono); font-size: .64rem; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); }
+html[data-ui="modern"] .history-row, html[data-ui="modern"] .weak-row, html[data-ui="modern"] .flagged-row {
+  border-radius: 3px; border: 1px solid var(--border); background: var(--surface);
+}
+html[data-ui="modern"] .badge { border-radius: 4px; }
+html[data-ui="modern"] .settings { gap: 12px; }
+html[data-ui="modern"] .setting-row { border-bottom: 1px solid var(--border); }
+html[data-ui="modern"] .setting-row b { font-family: var(--font-display); }
+html[data-ui="modern"] .empty, html[data-ui="modern"] .error { border-radius: var(--radius); border-style: dashed; }
+html[data-ui="modern"] .toast { border-radius: 5px; border: 1px solid var(--text); box-shadow: var(--shadow-sm); font-family: var(--font-mono); font-size: .74rem; }
+html[data-ui="modern"] .summary .panel-body { padding: 30px; }
+html[data-ui="modern"] .summary-grid div { border-radius: 4px; border: 1px solid var(--border-strong); background: var(--surface); }
+html[data-ui="modern"] .summary-grid strong { font-family: var(--font-mono); }
+html[data-ui="modern"] .summary-mark { border-radius: 6px; background: var(--primary-soft); color: var(--primary-strong); }
+html[data-ui="modern"] .sprint-banner { border-radius: var(--radius); border: 1px solid var(--border-strong); background: linear-gradient(135deg, var(--primary-soft), var(--surface)); }
+html[data-ui="modern"] .sprint-badge { border-radius: 3px; font-family: var(--font-mono); font-size: .62rem; letter-spacing: .1em; }
+html[data-ui="modern"] .study-recommendation { border-radius: var(--radius); border: 1px solid var(--border-strong); box-shadow: none; }
+html[data-ui="modern"] .config-block { border-radius: 4px; border-color: var(--border); }
+html[data-ui="modern"] .effective-chip { border-radius: 3px; font-family: var(--font-mono); font-size: .66rem; }
+html[data-ui="modern"] .exam-card { border-radius: var(--radius); box-shadow: none; }
+html[data-ui="modern"] .badge--earned { border-color: var(--success); }
+
+/* One motion vocabulary: rise, pop, slide. Short, and never in the way. */
+@keyframes studio-rise { from { opacity: 0; transform: translateY(9px); } to { opacity: 1; transform: none; } }
+@keyframes studio-pop { 0% { transform: scale(.985); opacity: .6; } 100% { transform: scale(1); opacity: 1; } }
+@keyframes studio-slide { from { opacity: 0; transform: translateX(-6px); } to { opacity: 1; transform: none; } }
+html[data-ui="modern"] .content > * { animation: studio-rise .26s var(--ease) both; }
+html[data-ui="modern"] .content > *:nth-child(2) { animation-delay: .03s; }
+html[data-ui="modern"] .content > *:nth-child(3) { animation-delay: .06s; }
+html[data-ui="modern"] .content > *:nth-child(4) { animation-delay: .09s; }
+html[data-ui="modern"] .flashcard { animation: studio-rise .24s var(--ease) both; }
+html[data-ui="modern"] .feedback, html[data-ui="modern"] .reveal { animation: studio-pop .22s var(--ease) both; }
+html[data-ui="modern"] .handoff-strip { animation: studio-slide .24s var(--ease) both; }
+html[data-ui="modern"] .match-tile.is-wrong { animation: shake var(--dur-slow) var(--ease); }
+html[data-ui="modern"] .nav-button.active { animation: studio-pop .18s var(--ease); }
+html[data-ui="modern"] .session-progress > span { transition: width var(--dur-slow) var(--ease); }
+html[data-ui="modern"] .ui-switch-option, html[data-ui="modern"] .seg { transition: background var(--dur) var(--ease), color var(--dur) var(--ease); }
+
+@media (max-width: 940px) {
+  html[data-ui="modern"] .layout { padding: 16px 18px 44px; }
+  html[data-ui="modern"] .sidebar { margin: 0 -18px 18px; padding: 8px 18px; }
+  html[data-ui="modern"] .nav-button { min-height: 42px; }
+  html[data-ui="modern"] .page-header { display: block; }
+  html[data-ui="modern"] .hero-metrics { margin-top: 14px; }
+}
+@media (max-width: 680px) {
+  html[data-ui="modern"] .layout { padding: 12px 12px 36px; }
+  html[data-ui="modern"] .sidebar { position: static; margin: 0 -12px 14px; padding: 7px 12px; }
+  html[data-ui="modern"] .nav { display: flex; flex-wrap: nowrap; overflow-x: auto; }
+  html[data-ui="modern"] .nav-button {
+    flex: 0 0 auto; min-height: 40px; flex-direction: row; gap: 6px; padding: 7px 10px; font-size: .68rem;
+  }
+  html[data-ui="modern"] .nav-button .nav-icon { width: 16px; }
+  html[data-ui="modern"] .support-sidebar { grid-template-columns: minmax(0, 1fr); }
+  html[data-ui="modern"] .flashcard { border-left-width: 4px; }
+  html[data-ui="modern"] .flashcard-body { padding: 20px 16px; }
+  html[data-ui="modern"] .options { margin-top: 18px; }
+  html[data-ui="modern"] .page-header h1 { font-size: clamp(1.55rem, 7vw, 2rem); }
+  html[data-ui="modern"] .hero-metric { flex: 1 1 45%; min-width: 0; }
+  html[data-ui="modern"] .session-card { min-height: 128px; }
+  html[data-ui="modern"] .summary .panel-body { padding: 20px 14px; }
+  html[data-ui="modern"] .vocab-row { grid-template-columns: minmax(0, 1fr) auto; }
+}
+@media (max-width: 380px) {
+  html[data-ui="modern"] .hero-metric { flex: 1 1 100%; border-left: 0; border-top: 1px solid var(--border); }
+  html[data-ui="modern"] .hero-metric:first-child { border-top: 0; }
+}
+
+/* Motion is opt-in: the reduced-motion contract applies to Modern as well, and
+   the layout must not depend on an animation to be readable. */
+@media (prefers-reduced-motion: reduce) {
+  html[data-ui="modern"] .content > *,
+  html[data-ui="modern"] .flashcard,
+  html[data-ui="modern"] .feedback,
+  html[data-ui="modern"] .reveal,
+  html[data-ui="modern"] .handoff-strip,
+  html[data-ui="modern"] .nav-button.active { animation: none !important; }
+  html[data-ui="modern"] .session-card:hover,
+  html[data-ui="modern"] .btn:hover:not(:disabled),
+  html[data-ui="modern"] .option:hover:not(:disabled) { transform: none; }
+}
   </style>
 </head>
 <body>
@@ -223311,7 +223760,7 @@ export const MODES = Object.freeze({
   FLASHCARD: 'flashcard'
 });
 
-export const APP_VERSION = 'v1.0.0-rc3';
+export const APP_VERSION = 'v1.0.0-rc4';
 export const LICENSE_NAME = 'MIT License';
 export const LICENSE_COPYRIGHT = '© 2026 coderunknow';
 export const LICENSE_TEXT = `MIT License
@@ -223396,6 +223845,9 @@ const ICON_PATHS = Object.freeze({
   spark: '<path d="m12 3 1.9 5.8L20 11l-6.1 2.2L12 19l-2-5.8L4 11l6-2.2z"/><path d="m19 15 .9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9z"/>',
   shuffle: '<path d="m16 3 5 4-5 4"/><path d="M4 7h3c5 0 5 10 10 10h4"/><path d="m16 13 5 4-5 4"/><path d="M4 17h3c1.6 0 2.7-1.4 3.7-3"/>',
   star: '<path d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/>',
+  eye: '<path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.6"/>',
+  eyeOff: '<path d="M10.7 6.2A9.9 9.9 0 0 1 12 6.1c6.4 0 10 5.9 10 5.9a17.6 17.6 0 0 1-2.6 3.2M6.3 8.3A17.2 17.2 0 0 0 2 12s3.6 6.5 10 6.5a9.7 9.7 0 0 0 3.5-.6"/><path d="m3 3 18 18"/>',
+  palette: '<path d="M12 21a9 9 0 1 1 9-9c0 2.2-1.8 3.4-3.6 3.4H15a2 2 0 0 0-1.4 3.4A1.9 1.9 0 0 1 12 21z"/><circle cx="7.6" cy="12" r="1.1"/><circle cx="9.9" cy="8.2" r="1.1"/><circle cx="14.4" cy="7.8" r="1.1"/>',
   bolt: '<path d="m13 2-9 12h7l-1 8 10-13h-7z"/>',
   layers: '<path d="m12 3 9 5-9 5-9-5z"/><path d="m3 12 9 5 9-5M3 16l9 5 9-5"/>',
   arrow: '<path d="M7 17 17 7M8 7h9v9"/>',
@@ -224262,10 +224714,34 @@ const EN_UI_TRANSLATIONS = Object.freeze({
   'Đã tắt và xóa nhật ký chẩn đoán.': 'The diagnostics log is off and has been deleted.',
   'Đã tải tệp nhật ký. Bạn tự gửi tệp này cho người duy trì nếu muốn.': 'The log file was downloaded. Send it to the maintainer yourself if you want to.',
   'Đã xóa nhật ký chẩn đoán.': 'The diagnostics log was deleted.',
-  'Không thể lưu lựa chọn nhật ký trên thiết bị này.': 'This device cannot store the log preference.'
+  'Không thể lưu lựa chọn nhật ký trên thiết bị này.': 'This device cannot store the log preference.',
+  // Meaning visibility and interface mode (rc4).
+  'Kiểu giao diện': 'Interface style',
+  'Hiển thị nghĩa tiếng Việt': 'Show Vietnamese meanings',
+  '“Ẩn nghĩa” che nghĩa trước khi bạn trả lời — phần giới thiệu từ mới, danh sách tra cứu, danh sách từ khó và kho cụm từ. Nghĩa vẫn hiện sau khi chấm, nên điểm, lịch ôn và số lượt luyện không đổi.': '“Hide meanings” conceals the gloss before you answer — the new-word introduction, the search list, the hard-word list and the phrase bank. The gloss is still shown after grading, so scores, the review schedule and the number of practice turns do not change.',
+  'Classic là giao diện quen thuộc; Modern là bố cục mới với cùng dữ liệu và cùng luật học. Đổi kiểu không kết thúc phiên đang học và không đổi tiến độ.': 'Classic is the familiar interface; Modern is a new layout with the same data and the same learning rules. Switching never ends the current session or changes progress.',
+  'Giao diện Classic hoặc Modern': 'Classic or Modern interface',
+  'Hiện nghĩa hoặc ẩn nghĩa': 'Show or hide meanings',
+  'Hiện nghĩa': 'Show meaning',
+  'Ẩn nghĩa': 'Hide meaning',
+  'Nghĩa: hiện': 'Meanings: shown',
+  'Nghĩa: ẩn': 'Meanings: hidden',
+  'Đang ẩn nghĩa tiếng Việt — bật để hiện nghĩa': 'Vietnamese meanings are hidden — turn on to show them',
+  'Đang hiện nghĩa tiếng Việt — bật để ẩn nghĩa': 'Vietnamese meanings are shown — turn on to hide them',
+  'Đang ẩn nghĩa · bật để hiện': 'Meanings hidden · turn on to show',
+  'Đang hiện nghĩa · bật để ẩn': 'Meanings shown · turn on to hide',
+  '••••• nghĩa đang ẩn': '••••• meaning hidden',
+  'Đã ẩn nghĩa. Bấm “Hiện nghĩa” ở từng mục khi bạn muốn xem đáp án.': 'Meanings are hidden. Use “Show meaning” on an item when you want the answer.',
+  'Đã hiện nghĩa theo mạch học hiện tại.': 'Meanings are shown again in the current learning flow.',
+  'Không thể lưu lựa chọn hiển thị nghĩa trên thiết bị này.': 'This device cannot store the meaning preference.',
+  'Không thể lưu kiểu giao diện trên thiết bị này.': 'This device cannot store the interface style.',
+  'Đã chuyển sang giao diện Modern.': 'Switched to the Modern interface.',
+  'Đã chuyển sang giao diện Classic.': 'Switched to the Classic interface.'
 });
 
 const EN_UI_PATTERNS = [
+  [/^Hiện nghĩa của cụm (.+)$/, (_match, phrase) => `Show meaning of the phrase “${phrase}”`],
+  [/^Hiện nghĩa của (.+)$/, (_match, word) => `Show meaning of “${word}”`],
   [/^Đang ghi (\d+) mục\.$/, (_match, count) => `Recording ${pluralCount(count, 'event', 'events')}.`],
   [/^Mặc định tắt\. Khi bạn bật, ứng dụng chỉ ghi trên thiết bị này những gì cần để tìm lỗi: phiên bản, ngôn ngữ, giao diện, cỡ màn hình, số lượt học và thông báo lỗi\. Tối đa (\d+) mục; mục cũ nhất bị bỏ khi đầy\.$/, (_match, limit) => `Off by default. When you turn it on, the app records only what is needed to find a bug, on this device: version, language, theme, screen size class, number of turns and error messages. At most ${limit} events; the oldest is dropped when it fills up.`],
   [/^Flashcard · ([\d.,]+) từ · kho đề offline$/, (_match, count) => `Flashcards · ${pluralCount(formatCount(count, 'en'), 'word', 'words')} · offline exam archive`],
@@ -225218,6 +225694,54 @@ export function loadSeenBadges(storage = memorySafeStorage()) {
 export function saveSeenBadges(seen, storage = memorySafeStorage()) {
   const values = seen && typeof seen[Symbol.iterator] === 'function' ? [...seen] : [];
   return writeJson(storage, STUDY_STORAGE_KEYS.badges, values.filter(id => typeof id === 'string'));
+}
+
+/* ---------------------------------------------------------------------------
+ * Presentation preferences: how a meaning is shown, and which interface skin
+ * is drawn. Both are display-only: neither is read by the scheduler, the
+ * grading rules, the state transitions or the statistics, and neither is part
+ * of the v1 progress/prefs backup contract (they travel with the theme).
+ * ------------------------------------------------------------------------- */
+export const PRESENTATION_STORAGE_KEY = 'chuyen-anh.presentation.v1';
+
+export const MEANING_MODES = Object.freeze({ SHOW: 'show', HIDE: 'hide' });
+export const INTERFACE_MODES = Object.freeze({ CLASSIC: 'classic', MODERN: 'modern' });
+
+// Classic is the default on purpose: an existing profile must not have its
+// interface (or the meaning it expects to see) changed under it by an upgrade.
+// Modern is one click away, in the top bar and in Settings.
+export const DEFAULT_PRESENTATION = Object.freeze({
+  meanings: MEANING_MODES.SHOW,
+  interface: INTERFACE_MODES.CLASSIC
+});
+
+// What is printed instead of a concealed meaning. Fixed-length dots, not the
+// word's own length: the mask must not leak the length of the answer.
+export const MASKED_MEANING = '•••••';
+
+export function sanitizePresentation(value) {
+  const base = { ...DEFAULT_PRESENTATION };
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return base;
+  const meanings = Object.values(MEANING_MODES).includes(value.meanings) ? value.meanings : base.meanings;
+  const skin = Object.values(INTERFACE_MODES).includes(value.interface) ? value.interface : base.interface;
+  return { meanings, interface: skin };
+}
+
+export function loadPresentation(storage = memorySafeStorage()) {
+  return sanitizePresentation(readJson(storage, PRESENTATION_STORAGE_KEY, null));
+}
+
+export function savePresentation(presentation, storage = memorySafeStorage()) {
+  return writeJson(storage, PRESENTATION_STORAGE_KEY, sanitizePresentation(presentation));
+}
+
+// True when a gloss must be concealed *before the learner has answered*. The
+// stimulus of a question (the Vietnamese prompt of a recall card, the four
+// glosses of a recognition card, the sentence of a cloze) is the exercise
+// itself: hiding it would delete practice instead of protecting the answer, so
+// callers pass `answered: true` there and the text is always printed.
+export function meaningConcealed(presentation, { answered = false } = {}) {
+  return sanitizePresentation(presentation).meanings === MEANING_MODES.HIDE && answered !== true;
 }
 
 const STATE_PRIORITY = Object.freeze({ weak: 0, learning: 1, review: 2, new: 3, mastered: 4 });
@@ -226532,6 +227056,7 @@ export const SYNCED_STORAGE_KEYS = Object.freeze([
   ...Object.values(STORAGE_KEYS),
   LANGUAGE_STORAGE_KEY,
   ...Object.values(STUDY_STORAGE_KEYS),
+  PRESENTATION_STORAGE_KEY,
   PHRASE_STORAGE_KEY
 ]);
 
@@ -227471,6 +227996,25 @@ export async function createApp(root) {
   }
   let theme = loadTheme(storage, prefs);
   let seenBadges = loadSeenBadges(storage);
+  // Display-only preferences. A damaged record falls back to the documented
+  // defaults instead of blocking the app, like the other versioned stores.
+  let presentation = loadPresentation(storage);
+  // A record that had to be sanitised is written back once, so the learner's
+  // next reload does not re-derive the same fallback. Storage failure is not a
+  // reason to block boot: the in-memory preference is already resolved.
+  if (JSON.stringify(readJson(storage, PRESENTATION_STORAGE_KEY, null)) !== JSON.stringify(presentation)) {
+    savePresentation(presentation, storage);
+  }
+  // Store the repaired record once, so a damaged value is corrected on disk
+  // instead of being re-sanitised at every boot (the same rule the study
+  // configuration follows). A storage failure must not block the app.
+  if (storage?.getItem?.(PRESENTATION_STORAGE_KEY) !== JSON.stringify(presentation)) {
+    savePresentation(presentation, storage);
+  }
+  // Revealing one meaning is scoped to this visit: it is never persisted, so a
+  // reload cannot leave answers exposed and the global preference never flips
+  // because one answer was peeked at.
+  const revealedMeanings = new Set();
   // Opt-in diagnostics. Nothing is read, written or timed before consent, and a
   // storage failure degrades to "no log" rather than blocking the app.
   let telemetryConsent = loadTelemetryConsent(storage);
@@ -227543,6 +228087,7 @@ export async function createApp(root) {
     flagged = new Set([...foldFamilyIds(loadFlagged(storage), familyHeadOf)].filter(id => validIds.has(id)));
     theme = loadTheme(storage, prefs);
     seenBadges = loadSeenBadges(storage);
+    presentation = loadPresentation(storage);
     phraseProgress = loadPhraseProgress(storage);
     language = loadLanguage(storage);
   }
@@ -227552,6 +228097,7 @@ export async function createApp(root) {
     if (!isSyncedStorageKey(event.key)) return;
     reloadLearnerStores();
     applyTheme();
+    applyInterface();
     renderShell();
   });
 
@@ -227603,9 +228149,15 @@ export async function createApp(root) {
     // `.about-name` is the product name, which stays "Chuyên Anh" in both
     // interfaces, exactly like the brand in the top bar.
     const protectedSelectors = '.exam-document, .exam-question-source, .vocab-word, .vocab-meaning, .vocab-pos, .vocabulary-metadata dd, .prompt, .option, .example em, .example span, .code, .about-name';
+    // A concealed gloss is a protected cell that also contains one control and
+    // one mask label. Those two carry interface copy, not vocabulary content, so
+    // they stay translatable; everything else inside the cell does not.
+    const translatorExceptions = '.meaning-masked, .meaning-reveal, .meaning-dots';
     const visit = current => {
       if (current.nodeType === 3) {
-        if (!current.parentElement?.closest(protectedSelectors)) current.nodeValue = translateUiText(current.nodeValue, language);
+        const blocked = current.parentElement?.closest(protectedSelectors);
+        const exempt = current.parentElement?.closest(translatorExceptions);
+        if (!blocked || exempt) current.nodeValue = translateUiText(current.nodeValue, language);
         return;
       }
       if (current.nodeType !== 1 && current.nodeType !== 9 && current.nodeType !== 11) return;
@@ -227614,7 +228166,7 @@ export async function createApp(root) {
           const value = current.getAttribute(name);
           if (value) current.setAttribute(name, value.split(' — ').map(part => translateUiText(part, language)).join(' — '));
         }
-        if (current.matches(protectedSelectors)) return;
+        if (current.matches(protectedSelectors) && !current.matches(translatorExceptions)) return;
       }
       for (const child of [...current.childNodes]) visit(child);
     };
@@ -227631,6 +228183,113 @@ export async function createApp(root) {
   // Everything that belongs to a running session: the queue, the current question,
   // the first-look state, the answer/reveal state and the session statistics.
   // `session` owns the practice queue and each card's `practice`/`taught` marks.
+  /* ---------------------------------------------------------------------
+   * Meaning visibility: a presentation preference, never a scoring rule.
+   * ------------------------------------------------------------------- */
+
+  function meaningsHidden() {
+    return presentation.meanings === MEANING_MODES.HIDE;
+  }
+
+  function meaningRevealed(id) {
+    return !meaningsHidden() || revealedMeanings.has(id);
+  }
+
+  function revealMeaning(id) {
+    if (!id) return;
+    revealedMeanings.add(id);
+  }
+
+  // A gloss that would otherwise be printed before the learner answers. The
+  // control reveals exactly one word and leaves the preference untouched.
+  function meaningSpan(entry, { answered = false, className = 'vocab-meaning', content = null } = {}) {
+    if (!entry) return '';
+    if (answered || meaningRevealed(entry.id)) {
+      return `<span class="${className}">${content ?? escapeHtml(entry.meaning)}</span>`;
+    }
+    return `<span class="${className} meaning-masked"><span class="meaning-dots" aria-hidden="true">${MASKED_MEANING}</span><button type="button" class="meaning-reveal" data-reveal-meaning="${escapeHtml(entry.id)}" aria-pressed="false" aria-label="Hiện nghĩa của ${escapeHtml(entry.word)}">Hiện nghĩa</button></span>`;
+  }
+
+  // A mode change must not discard what the learner has typed into a spelling
+  // or meaning field, and must not drop them somewhere else in the page.
+  function redrawPreservingInput() {
+    const active = typeof document !== 'undefined' ? document.activeElement : null;
+    const input = root.querySelector('#spelling-input');
+    const typed = input ? { value: input.value, start: input.selectionStart, end: input.selectionEnd } : null;
+    const focusedId = active && active.id && active.id !== 'spelling-input' ? active.id : null;
+    renderShell();
+    if (typed) {
+      const next = root.querySelector('#spelling-input');
+      if (next) {
+        next.value = typed.value;
+        try { next.setSelectionRange(typed.start, typed.end); } catch { /* type="email" and friends */ }
+      }
+    }
+    if (focusedId && typeof CSS !== 'undefined' && CSS.escape) {
+      root.querySelector(`#${CSS.escape(focusedId)}`)?.focus({ preventScroll: true });
+    }
+  }
+
+  function setMeanings(next, { announce = true } = {}) {
+    const wanted = next === MEANING_MODES.HIDE ? MEANING_MODES.HIDE : MEANING_MODES.SHOW;
+    if (wanted === presentation.meanings) return true;
+    const candidate = { ...presentation, meanings: wanted };
+    if (!savePresentation(candidate, storage)) {
+      toast('Không thể lưu lựa chọn hiển thị nghĩa trên thiết bị này.', 'error');
+      return false;
+    }
+    presentation = candidate;
+    // Revealed answers belong to the previous preference, not to this one.
+    revealedMeanings.clear();
+    if (announce) {
+      toast(wanted === MEANING_MODES.HIDE
+        ? 'Đã ẩn nghĩa. Bấm “Hiện nghĩa” ở từng mục khi bạn muốn xem đáp án.'
+        : 'Đã hiện nghĩa theo mạch học hiện tại.', 'success');
+    }
+    // The session, its queue, its answers and its schedule are untouched: only
+    // the surface is redrawn.
+    redrawPreservingInput();
+    return true;
+  }
+
+  function applyInterface() {
+    if (typeof document !== 'undefined' && document.documentElement) {
+      document.documentElement.dataset.ui = presentation.interface;
+    }
+  }
+
+  function setInterface(next) {
+    const wanted = Object.values(INTERFACE_MODES).includes(next) ? next : INTERFACE_MODES.CLASSIC;
+    if (wanted === presentation.interface) return true;
+    const candidate = { ...presentation, interface: wanted };
+    if (!savePresentation(candidate, storage)) {
+      toast('Không thể lưu kiểu giao diện trên thiết bị này.', 'error');
+      return false;
+    }
+    presentation = candidate;
+    applyInterface();
+    redrawPreservingInput();
+    toast(wanted === INTERFACE_MODES.MODERN ? 'Đã chuyển sang giao diện Modern.' : 'Đã chuyển sang giao diện Classic.', 'success');
+    return true;
+  }
+
+  // One delegated handler: every surface that can conceal a gloss prints the
+  // same control, and the search view handles its own (it must keep its query).
+  root.addEventListener('click', event => {
+    const button = event.target?.closest?.('[data-reveal-meaning]');
+    if (!button || !root.contains(button)) return;
+    if (view === 'search') return; // the search view redraws its own result list
+    if (view === 'phrase-practice' || view === 'phrases') return; // same reason
+    revealMeaning(button.dataset.revealMeaning);
+    if (view === 'learn' && session?.length) {
+      const content = root.querySelector('#content');
+      if (content) renderFlashcard(content);
+      button.focus?.({ preventScroll: true });
+      return;
+    }
+    redrawPreservingInput();
+  });
+
   function clearActiveSession() {
     stopSessionTimer();
     lastAnswer = null;
@@ -227746,6 +228405,7 @@ export async function createApp(root) {
 
   function renderShell() {
     applyTheme();
+    applyInterface();
     const currentStats = stats();
     const examView = view.startsWith('exam');
     root.innerHTML = `
@@ -227756,7 +228416,7 @@ export async function createApp(root) {
             <span><span class="brand-name">Chuyên Anh</span><span class="brand-detail">Flashcard · ${formatCount(deck.length)} từ trọng tâm · kho đề offline</span></span>
           </a>
           <div class="top-meta"><span class="top-stat">${iconMarkup('clock')}<span>${currentStats.due} đến hạn</span></span><i class="dot" aria-hidden="true"></i><span class="top-stat">${iconMarkup('flame')}<span>${streak.current} ngày liên tiếp</span></span></div>
-          <div class="top-actions"><button class="btn subtle small" id="theme-button" aria-label="${prefs.darkMode ? 'Dùng giao diện sáng' : 'Bật giao diện tối'}" aria-pressed="${prefs.darkMode}">${iconMarkup(prefs.darkMode ? 'sun' : 'moon')}</button><button class="btn small" id="export-top" aria-label="Sao lưu — Xuất bản sao tiến độ học">${iconMarkup('download')}Sao lưu</button></div>
+          <div class="top-actions">${interfaceSwitchMarkup('interface')}<button class="btn subtle small" id="theme-button" aria-label="${prefs.darkMode ? 'Dùng giao diện sáng' : 'Bật giao diện tối'}" aria-pressed="${prefs.darkMode}">${iconMarkup(prefs.darkMode ? 'sun' : 'moon')}</button><button class="btn small" id="export-top" aria-label="Sao lưu — Xuất bản sao tiến độ học">${iconMarkup('download')}Sao lưu</button></div>
         </div>
       </header>
       <div class="layout">
@@ -227796,6 +228456,28 @@ export async function createApp(root) {
     });
     root.querySelector('#export-top').addEventListener('click', exportDownload);
     renderView();
+    // The two presentation controls exist in the top bar and in Settings; both
+    // re-render the shell, which never touches the session, its queue or its
+    // schedule. Binding here covers every view with one handler.
+    root.querySelectorAll('[data-interface]').forEach(button => {
+      button.addEventListener('click', () => setInterface(button.dataset.interface));
+    });
+    root.querySelectorAll('[data-meanings]').forEach(button => {
+      button.addEventListener('click', () => setMeanings(button.dataset.meanings));
+    });
+  }
+
+  // Shared so the top bar and Settings cannot drift apart in labels or state.
+  function interfaceSwitchMarkup(prefix, className = 'ui-switch') {
+    const classic = presentation.interface === INTERFACE_MODES.CLASSIC;
+    const option = (mode, label) => `<button type="button" class="ui-switch-option ${(mode === INTERFACE_MODES.CLASSIC) === classic ? 'is-on' : ''}" id="${prefix}-${mode}" data-interface="${mode}" aria-pressed="${(mode === INTERFACE_MODES.CLASSIC) === classic}">${label}</button>`;
+    return `<div class="${className}" role="group" aria-label="Giao diện Classic hoặc Modern">${option(INTERFACE_MODES.CLASSIC, 'Classic')}${option(INTERFACE_MODES.MODERN, 'Modern')}</div>`;
+  }
+
+  function meaningSwitchMarkup(prefix) {
+    const hide = meaningsHidden();
+    const option = (mode, label) => `<button type="button" class="seg ${(mode === MEANING_MODES.HIDE) === hide ? 'is-on' : ''}" id="${prefix}-${mode}" data-meanings="${mode}" aria-pressed="${(mode === MEANING_MODES.HIDE) === hide}">${label}</button>`;
+    return `<div class="segmented segmented--setting" role="group" aria-label="Hiện nghĩa hoặc ẩn nghĩa">${option(MEANING_MODES.SHOW, 'Hiện nghĩa')}${option(MEANING_MODES.HIDE, 'Ẩn nghĩa')}</div>`;
   }
 
   function navButton(id, iconName, label, count = null) {
@@ -228600,7 +229282,9 @@ export async function createApp(root) {
     const rows = pairs.map(pair => `
               <div class="first-look-row">
                 <p class="first-look-word"><span class="vocab-word">${escapeHtml(pair.vocab.word)}</span> <span class="vocab-pos">${escapeHtml(pair.vocab.pos)}</span></p>
-                <p class="first-look-meaning"><span>Nghĩa</span><strong class="vocab-meaning">${escapeHtml(pair.vocab.meaning)}</strong></p>
+                <p class="first-look-meaning"><span>Nghĩa</span>${meaningRevealed(pair.vocab.id)
+                  ? `<strong class="vocab-meaning">${escapeHtml(pair.vocab.meaning)}</strong>`
+                  : `<span class="meaning-masked"><span class="meaning-dots" aria-hidden="true">${MASKED_MEANING}</span><button type="button" class="btn small" data-reveal-meaning="${escapeHtml(pair.vocab.id)}" aria-pressed="false">Hiện nghĩa</button></span>`}</p>
                 ${vocabularyMetadataHtml(pair.vocab)}${exampleHtml(pair.vocab)}
               </div>`).join('');
     return `
@@ -228618,7 +229302,9 @@ export async function createApp(root) {
             <div class="mode-label">Từ mới · học trước khi kiểm tra</div>
             <div class="prompt"><span class="vocab-word">${escapeHtml(item.vocab.word)}</span></div><div class="sub-prompt"><span class="vocab-pos">${escapeHtml(item.vocab.pos)}</span></div>
             <div class="first-look">
-              <p class="first-look-meaning"><span>Nghĩa</span><strong class="vocab-meaning">${escapeHtml(item.vocab.meaning)}</strong></p>
+              <p class="first-look-meaning"><span>Nghĩa</span>${meaningRevealed(item.vocab.id)
+                ? `<strong class="vocab-meaning">${escapeHtml(item.vocab.meaning)}</strong>`
+                : `<span class="meaning-masked"><span class="meaning-dots" aria-hidden="true">${MASKED_MEANING}</span><button type="button" class="btn small" data-reveal-meaning="${escapeHtml(item.vocab.id)}" aria-pressed="false">${iconMarkup('eye')}Hiện nghĩa</button></span>`}</p>
               ${vocabularyMetadataHtml(item.vocab)}${exampleHtml(item.vocab)}
               <p class="first-look-note">Lượt giới thiệu này không phải là câu trả lời và không thay đổi lịch ôn. Sau khi bấm nút, từ sẽ được kiểm tra ngay bằng một câu hỏi ngắn.</p>
               <div class="actions"><button class="btn primary" id="start-quiz">Bắt đầu kiểm tra <kbd>Enter</kbd></button></div>
@@ -228728,6 +229414,7 @@ export async function createApp(root) {
               <span class="state-pill state-${escapeHtml(item.progress.state)}">${escapeHtml(stateLabel(item.progress.state))}</span>
               <button class="fav ${flaggedHere ? 'active' : ''}" id="favorite-card" aria-label="${flaggedHere ? 'Bỏ yêu thích' : 'Thêm yêu thích'}" aria-pressed="${flaggedHere}">${flaggedHere ? '★' : '☆'}</button>
               <button class="flag ${flagged.has(item.vocab.id) ? 'active' : ''}" id="flag-card" aria-label="${flagged.has(item.vocab.id) ? 'Bỏ đánh dấu từ khó' : 'Đánh dấu từ khó'}" aria-pressed="${flagged.has(item.vocab.id)}">${iconMarkup('flag')}</button>
+              <button class="btn small meaning-toggle ${meaningsHidden() ? 'is-hiding' : ''}" id="meaning-toggle" aria-pressed="${meaningsHidden()}" title="${meaningsHidden() ? 'Đang ẩn nghĩa · bật để hiện' : 'Đang hiện nghĩa · bật để ẩn'}">${iconMarkup(meaningsHidden() ? 'eyeOff' : 'eye')}${meaningsHidden() ? 'Nghĩa: ẩn' : 'Nghĩa: hiện'}</button>
               <button class="btn small" id="skip-card" ${canSkip ? '' : 'disabled'}>Bỏ qua</button>
             </div>
           </div>
@@ -228749,6 +229436,10 @@ export async function createApp(root) {
         </article>
       </div>
     `;
+    const meaningToggle = container.querySelector('#meaning-toggle');
+    meaningToggle?.addEventListener('click', () => {
+      setMeanings(meaningsHidden() ? MEANING_MODES.SHOW : MEANING_MODES.HIDE);
+    });
     if (firstLook) {
       const startButton = container.querySelector('#start-quiz');
       startButton.addEventListener('click', startFirstLookQuiz);
@@ -229206,7 +229897,7 @@ export async function createApp(root) {
         return entry ? { entry, progress: record } : null;
       }).filter(Boolean);
     const weakSpotlight = weakList.length
-      ? `<section class="panel"><div class="panel-heading">Từ yếu cần cải thiện</div><div class="panel-body weak-spotlight">${weakList.map(item => `<div class="weak-row"><span><b class="vocab-word">${escapeHtml(item.entry.word)}</b> · <small class="vocab-meaning">${escapeHtml(item.entry.meaning)}</small></span><span style="color:var(--danger);font-weight:700">${item.progress.wrongCount} lần sai</span></div>`).join('')}<button class="btn small" data-session="weak" style="margin-top:8px">Ôn từ yếu</button></div></section>`
+      ? `<section class="panel"><div class="panel-heading">Từ yếu cần cải thiện</div><div class="panel-body weak-spotlight">${weakList.map(item => `<div class="weak-row"><span><b class="vocab-word">${escapeHtml(item.entry.word)}</b> · ${meaningSpan(item.entry, { className: 'vocab-meaning weak-row-meaning', content: `<small>${escapeHtml(item.entry.meaning)}</small>` })}</span><span style="color:var(--danger);font-weight:700">${item.progress.wrongCount} lần sai</span></div>`).join('')}<button class="btn small" data-session="weak" style="margin-top:8px">Ôn từ yếu</button></div></section>`
       : '';
     const metric = (value, label, hint) => `<div class="metric-card"><strong>${value}</strong><span class="metric-label">${label}</span><span class="metric-hint">${hint}</span></div>`;
     container.innerHTML = `<div class="page-header"><div><h1>Tổng quan</h1><p>Tiến độ học trên thiết bị này. Dữ liệu không rời khỏi trình duyệt.</p></div></div>
@@ -229277,11 +229968,18 @@ export async function createApp(root) {
       // The separator is its own aria-hidden element: the count node and the scope node
       // each translate on their own, and copied/announced text still reads as one line.
       const scopeNote = state.value === 'archived' ? '<span class="results-sep" aria-hidden="true"> · </span><span class="results-scope">mục lưu trữ không vào phiên học</span>' : '';
-      results.innerHTML = matches.length ? `<p class="results-meta" role="status" aria-live="polite">${formatCount(matches.length)} kết quả · trang ${page}/${pages}${scopeNote}</p><div class="vocab-list">${visible.map(item => `<div class="vocab-row${item.archived ? ' vocab-row--archived' : ''}"><span class="vocab-word">${hi(item.entry.word)}</span><span class="vocab-pos">${escapeHtml(item.entry.pos)}</span><span class="vocab-meaning" title="${escapeHtml(item.entry.meaning)}">${hi(item.entry.meaning)}</span>${item.archived ? `<span class="state-pill state-archived" title="Mục này nằm ngoài bộ từ trọng tâm nên không vào phiên học; nghĩa và tiến độ cũ vẫn được giữ.">Lưu trữ</span>` : `<span class="state-pill state-${escapeHtml(item.state)}">${escapeHtml(stateLabel(item.state))}</span><button class="fav ${item.favorite ? 'active' : ''}" data-fav="${escapeHtml(item.entry.id)}" aria-label="${item.favorite ? 'Bỏ yêu thích' : 'Thêm yêu thích'}">${item.favorite ? '★' : '☆'}</button>`}</div>`).join('')}</div>${pages > 1 ? `<div class="pagination" aria-label="Trang kết quả">${Array.from({ length: pages }, (_, i) => `<button class="btn small ${i + 1 === page ? 'primary' : ''}" data-page="${i + 1}" aria-label="Trang ${i + 1}" ${i + 1 === page ? 'aria-current="page"' : ''}>${i + 1}</button>`).join('')}</div>` : ''}` : '<div class="empty" role="status"><strong>Không tìm thấy</strong>Thử từ khóa khác hoặc bỏ bớt bộ lọc.</div>';
+      results.innerHTML = matches.length ? `<p class="results-meta" role="status" aria-live="polite">${formatCount(matches.length)} kết quả · trang ${page}/${pages}${scopeNote}</p><div class="vocab-list">${visible.map(item => `<div class="vocab-row${item.archived ? ' vocab-row--archived' : ''}"><span class="vocab-word">${hi(item.entry.word)}</span><span class="vocab-pos">${escapeHtml(item.entry.pos)}</span>${meaningRevealed(item.entry.id)
+            ? `<span class="vocab-meaning" title="${escapeHtml(item.entry.meaning)}">${hi(item.entry.meaning)}</span>`
+            : `<span class="vocab-meaning meaning-masked"><span class="meaning-dots" aria-hidden="true">${MASKED_MEANING}</span><button type="button" class="meaning-reveal" data-reveal-meaning="${escapeHtml(item.entry.id)}" aria-pressed="false" aria-label="Hiện nghĩa của ${escapeHtml(item.entry.word)}">Hiện nghĩa</button></span>`}${item.archived ? `<span class="state-pill state-archived" title="Mục này nằm ngoài bộ từ trọng tâm nên không vào phiên học; nghĩa và tiến độ cũ vẫn được giữ.">Lưu trữ</span>` : `<span class="state-pill state-${escapeHtml(item.state)}">${escapeHtml(stateLabel(item.state))}</span><button class="fav ${item.favorite ? 'active' : ''}" data-fav="${escapeHtml(item.entry.id)}" aria-label="${item.favorite ? 'Bỏ yêu thích' : 'Thêm yêu thích'}">${item.favorite ? '★' : '☆'}</button>`}</div>`).join('')}</div>${pages > 1 ? `<div class="pagination" aria-label="Trang kết quả">${Array.from({ length: pages }, (_, i) => `<button class="btn small ${i + 1 === page ? 'primary' : ''}" data-page="${i + 1}" aria-label="Trang ${i + 1}" ${i + 1 === page ? 'aria-current="page"' : ''}>${i + 1}</button>`).join('')}</div>` : ''}` : '<div class="empty" role="status"><strong>Không tìm thấy</strong>Thử từ khóa khác hoặc bỏ bớt bộ lọc.</div>';
       results.querySelectorAll('[data-fav]').forEach(button => button.addEventListener('click', () => {
         const id = button.dataset.fav;
         toggleFavorite(id, false); // No shell rerender: the search state must survive.
         updateSearchFavorite(index, id, favorites.has(id)); // Keep the cached index truthful.
+        draw();
+      }));
+      results.querySelectorAll('[data-reveal-meaning]').forEach(button => button.addEventListener('click', event => {
+        event.stopPropagation();
+        revealMeaning(button.dataset.revealMeaning);
         draw();
       }));
       results.querySelectorAll('[data-page]').forEach(button => button.addEventListener('click', () => { page = Number(button.dataset.page); draw(); }));
@@ -229304,6 +230002,14 @@ export async function createApp(root) {
 
   function phraseTypeLabel(type) {
     return PHRASE_TYPES[type] || type;
+  }
+
+  // The phrase bank keeps its own ids (P001…), so revealing a phrase gloss is
+  // tracked in the same session-scoped set without touching word progress.
+  function phraseMeaningSpan(entry) {
+    const revealed = meaningRevealed(entry.id);
+    if (revealed) return `<span class="vocab-meaning">${escapeHtml(entry.meaning)}</span>`;
+    return `<span class="vocab-meaning meaning-masked"><span class="meaning-dots" aria-hidden="true">${MASKED_MEANING}</span><button type="button" class="meaning-reveal" data-reveal-phrase="${escapeHtml(entry.id)}" aria-pressed="false" aria-label="Hiện nghĩa của cụm ${escapeHtml(entry.phrase)}">Hiện nghĩa</button></span>`;
   }
 
   function startPhrasePractice() {
@@ -229394,11 +230100,17 @@ export async function createApp(root) {
         ? `<p class="results-meta" role="status" aria-live="polite">${found.length} cụm${found.length > 80 ? ' · hiển thị 80 cụm đầu' : ''}</p><div class="vocab-list">${found.slice(0, 80).map(entry => {
           const record = phraseProgress[entry.id];
           const state = phraseState(record);
-          return `<div class="vocab-row"><span class="vocab-word">${escapeHtml(entry.phrase)}</span><span class="phrase-type">${escapeHtml(phraseTypeLabel(entry.type))}</span><span class="vocab-meaning">${escapeHtml(entry.meaning)}</span><span class="state-pill state-${escapeHtml(state)}">${escapeHtml(stateLabel(state))}</span>${record ? `<span class="chip-count">${record.correct}/${record.attempts}</span>` : ''}</div>`;
+          return `<div class="vocab-row"><span class="vocab-word">${escapeHtml(entry.phrase)}</span><span class="phrase-type">${escapeHtml(phraseTypeLabel(entry.type))}</span>${phraseMeaningSpan(entry)}<span class="state-pill state-${escapeHtml(state)}">${escapeHtml(stateLabel(state))}</span>${record ? `<span class="chip-count">${record.correct}/${record.attempts}</span>` : ''}</div>`;
         }).join('')}</div>`
         : '<div class="empty" role="status"><strong>Không tìm thấy cụm từ</strong>Thử từ khóa khác hoặc bỏ bớt bộ lọc.</div>';
     };
     field.addEventListener('input', draw);
+    results.addEventListener('click', event => {
+      const button = event.target?.closest?.('[data-reveal-phrase]');
+      if (!button) return;
+      revealMeaning(button.dataset.revealPhrase);
+      draw();
+    });
     type.addEventListener('change', () => { phraseFilters = { ...phraseFilters, type: type.value }; draw(); });
     level.addEventListener('change', () => { phraseFilters = { ...phraseFilters, level: level.value }; draw(); });
     startButton.addEventListener('click', event => {
@@ -229439,7 +230151,9 @@ export async function createApp(root) {
           <div class="mode-label">Cụm mới · học trước khi kiểm tra</div>
           <div class="first-look">
             <p class="first-look-word"><span class="vocab-word">${escapeHtml(entry.phrase)}</span></p>
-            <p class="first-look-meaning"><span>Nghĩa</span><strong class="vocab-meaning">${escapeHtml(entry.meaning)}</strong></p>
+            <p class="first-look-meaning"><span>Nghĩa</span>${meaningRevealed(entry.id)
+              ? `<strong class="vocab-meaning">${escapeHtml(entry.meaning)}</strong>`
+              : `<span class="meaning-masked"><span class="meaning-dots" aria-hidden="true">${MASKED_MEANING}</span><button type="button" class="btn small" data-reveal-phrase="${escapeHtml(entry.id)}" aria-pressed="false" aria-label="Hiện nghĩa của cụm ${escapeHtml(entry.phrase)}">${iconMarkup('eye')}Hiện nghĩa</button></span>`}</p>
             ${entry.usage ? `<p class="first-look-note vocab-meaning">${escapeHtml(entry.usage)}</p>` : ''}
             ${entry.pattern ? `<p class="first-look-note"><code class="code">${escapeHtml(entry.pattern)}</code></p>` : ''}
             <p class="first-look-note">Lượt giới thiệu này không phải là câu trả lời và không thay đổi tiến độ cụm từ. Sau khi bấm nút, cụm sẽ được kiểm tra ngay.</p>
@@ -229447,6 +230161,14 @@ export async function createApp(root) {
           </div>
         </div></div>`;
       container.querySelector('#phrase-exit').addEventListener('click', () => { phraseSession = null; view = 'phrases'; renderShell(); });
+      // Final-gate audit (v1.0.0-rc4): this introduction is the phrase bank's
+      // counterpart of the word first look, so it obeys the same preference. A
+      // peek reveals one phrase for this visit only: the preference and the
+      // phrase's stored progress are untouched.
+      container.querySelectorAll('[data-reveal-phrase]').forEach(button => button.addEventListener('click', () => {
+        revealMeaning(button.dataset.revealPhrase);
+        renderShell();
+      }));
       const startButton = container.querySelector('#phrase-start-quiz');
       startButton.addEventListener('click', () => {
         phraseSession.taught.add(entry.id);
@@ -229835,6 +230557,8 @@ export async function createApp(root) {
         <div class="setting-row"><div><b id="theme-label">Giao diện</b><small id="theme-help">Theo hệ thống sẽ dùng cài đặt sáng/tối của thiết bị. Bạn vẫn có thể chọn cố định.</small></div><select class="setting-select" id="theme-setting" aria-labelledby="theme-label" aria-describedby="theme-help" style="width:180px;max-width:45%">${themeOptions}</select></div>
         <div class="setting-row"><div><b id="keys-label">Phím tắt bàn phím</b><small id="keys-help">Tắt nếu bạn thường gõ trên trang học.</small></div><label class="switch"><input type="checkbox" id="keys-setting" aria-labelledby="keys-label" aria-describedby="keys-help" ${prefs.keyboardShortcuts ? 'checked' : ''}><span aria-hidden="true"></span></label></div>
         <div class="setting-row"><div><div><b id="size-label">Số thẻ mặc định mỗi phiên</b></div><small id="size-help">Áp dụng cho phiên ưu tiên, Đến hạn, Từ yếu, Từ mới, Ngẫu nhiên, Yêu thích và Học cấp tốc. Phiên nhanh 10/20/30 giữ số thẻ ghi trên nút.</small></div><select class="setting-select" id="size-setting" aria-labelledby="size-label" aria-describedby="size-help" style="width:100px"><option ${prefs.sessionSize === 10 ? 'selected' : ''}>10</option><option ${prefs.sessionSize === 20 ? 'selected' : ''}>20</option><option ${prefs.sessionSize === 30 ? 'selected' : ''}>30</option><option ${prefs.sessionSize === 50 ? 'selected' : ''}>50</option></select></div>
+        <div class="setting-row"><div><b id="meanings-label">Hiển thị nghĩa tiếng Việt</b><small id="meanings-help">“Ẩn nghĩa” che nghĩa trước khi bạn trả lời — phần giới thiệu từ mới, danh sách tra cứu, danh sách từ khó và kho cụm từ. Nghĩa vẫn hiện sau khi chấm, nên điểm, lịch ôn và số lượt luyện không đổi.</small></div>${meaningSwitchMarkup('setting-meanings')}</div>
+        <div class="setting-row"><div><b id="interface-label">Kiểu giao diện</b><small id="interface-help">Classic là giao diện quen thuộc; Modern là bố cục mới với cùng dữ liệu và cùng luật học. Đổi kiểu không kết thúc phiên đang học và không đổi tiến độ.</small></div>${interfaceSwitchMarkup('setting-interface', 'ui-switch ui-switch--settings')}</div>
       </div></section>
       <section class="panel"><div class="panel-heading">Phiên ưu tiên</div><div class="panel-body">
         <p class="settings-copy">Cấu hình này được dùng cho “Phiên ưu tiên” trên trang Học và được giữ sau khi tải lại.</p>
@@ -229844,7 +230568,7 @@ export async function createApp(root) {
       </div></section>
       <section class="panel"><div class="panel-heading">Từ khó</div><div class="panel-body">
         <p class="settings-copy">Đánh dấu từ khó trong phiên học hoặc ở trang Tra cứu. Danh sách này chỉ là ghi chú học tập: nó không đổi trạng thái, độ chính xác hay lịch ôn của từ.</p>
-        ${flaggedWords.length ? `<div class="flagged-list">${flaggedWords.map(entry => `<div class="flagged-row"><span><b class="vocab-word">${escapeHtml(entry.word)}</b> · <span class="vocab-pos">${escapeHtml(entry.pos)}</span> · <small class="vocab-meaning">${escapeHtml(entry.meaning)}</small></span><button class="btn small" data-unflag="${escapeHtml(entry.id)}">Bỏ đánh dấu</button></div>`).join('')}</div>` : '<div class="empty" role="status"><strong>Chưa đánh dấu từ khó nào</strong>Bấm biểu tượng cờ trong phiên học hoặc ở kết quả tra cứu để thêm từ.</div>'}
+        ${flaggedWords.length ? `<div class="flagged-list">${flaggedWords.map(entry => `<div class="flagged-row"><span><b class="vocab-word">${escapeHtml(entry.word)}</b> · <span class="vocab-pos">${escapeHtml(entry.pos)}</span> · ${meaningSpan(entry, { className: 'vocab-meaning flagged-meaning', content: `<small>${escapeHtml(entry.meaning)}</small>` })}</span><button class="btn small" data-unflag="${escapeHtml(entry.id)}">Bỏ đánh dấu</button></div>`).join('')}</div>` : '<div class="empty" role="status"><strong>Chưa đánh dấu từ khó nào</strong>Bấm biểu tượng cờ trong phiên học hoặc ở kết quả tra cứu để thêm từ.</div>'}
       </div></section>
       <section class="panel"><div class="panel-heading">Sao lưu tiến độ</div><div class="panel-body">
         <p class="settings-copy">Bản sao JSON v1 gồm tiến độ flashcard, từ yêu thích, chuỗi ngày, lịch sử học và cài đặt. Từ khó, cấu hình phiên ưu tiên và huy hiệu đã đạt được ghi thêm dưới dạng trường tùy chọn; bản sao v1 cũ vẫn nhập được và các trường mới sẽ dùng giá trị mặc định. Kho đề offline nằm trong tệp HTML, không thuộc bản sao lưu.</p>
@@ -230072,6 +230796,7 @@ export async function createApp(root) {
     }
   });
 
+  applyInterface();
   renderShell();
   recordTelemetry('boot', 'app-boot', { focusWords: deck.length, archived: archivedIds.size, phrases: phrases.length });
 

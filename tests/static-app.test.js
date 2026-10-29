@@ -137,7 +137,16 @@ const {
   clearTelemetryLog,
   buildTelemetryReport,
   telemetryReportFilename,
-  canSendTelemetry
+  canSendTelemetry,
+  PRESENTATION_STORAGE_KEY,
+  MEANING_MODES,
+  INTERFACE_MODES,
+  DEFAULT_PRESENTATION,
+  MASKED_MEANING,
+  sanitizePresentation,
+  loadPresentation,
+  savePresentation,
+  meaningConcealed
 } = app;
 
 const vocab = [
@@ -1435,7 +1444,7 @@ test('exported exam results report exactly what the learner did and what could b
   const result = buildExamResultJson(session, record, { now: 6000 });
   assert.equal(result.app, 'Chuyên Anh');
   assert.equal(result.version, APP_VERSION, 'the result carries the application version');
-  assert.equal(result.version, 'v1.0.0-rc3');
+  assert.equal(result.version, 'v1.0.0-rc4');
   assert.equal(result.schemaVersion, '1.0.0');
   assert.deepEqual(result.summary, {
     total: 3, answered: 2, unanswered: 1,
@@ -1799,8 +1808,13 @@ test('Scope A: English UI localization translates all shortcut hints and UI chro
     html.indexOf('function renderShell(')
   );
   const attrLoopIdx = localizeBlock.indexOf("for (const name of ['aria-label', 'placeholder', 'title', 'alt'])");
-  const stopMatchIdx = localizeBlock.indexOf('if (current.matches(protectedSelectors)) return;');
+  const stopMatchIdx = localizeBlock.indexOf("if (current.matches(protectedSelectors) && !current.matches(translatorExceptions)) return;");
   assert.ok(attrLoopIdx > -1 && stopMatchIdx > attrLoopIdx, 'localizeSubtree must translate ARIA attributes before returning on protected elements');
+  // rc4: a concealed gloss is a protected cell that also carries a mask label
+  // and one button, so those two must be translatable while the cell itself
+  // stays protected. Both halves of that rule are asserted above and here.
+  assert.match(localizeBlock, /const translatorExceptions = '\.meaning-masked, \.meaning-reveal, \.meaning-dots';/,
+    'the interface labels of a concealed gloss stay translatable');
 
   // 2. Zero corruption of any of the 5,852 vocabulary headwords, meanings, examples, or notes
   for (const entry of embeddedVocabulary) {
@@ -3210,6 +3224,7 @@ test('remediation: every learner store is synced across tabs and the listener is
     'chuyen-anh.flagged.v1',
     'chuyen-anh.theme.v1',
     'chuyen-anh.badges.v1',
+    'chuyen-anh.presentation.v1',
     'chuyen-anh.phrases.v1'
   ];
   for (const key of expected) assert.equal(app.isSyncedStorageKey(key), true, key);
@@ -3414,4 +3429,177 @@ test('remediation: a failed commit rolls back in reverse order and reports a fai
   assert.match(appScript[1], /commitResult === 'rollback-failed'/);
   assert.match(appScript[1], /dữ liệu trên máy có thể chưa nhất quán\./);
   assert.match(appScript[1], /'Could not save the imported data and the rollback may be incomplete; data on this device may be inconsistent\.'/);
+});
+
+test('rc4: showing or hiding meanings is a presentation preference, never a learning rule', () => {
+  // Defaults: an existing profile keeps the interface and the glosses it had.
+  assert.deepEqual(DEFAULT_PRESENTATION, { meanings: 'show', interface: 'classic' });
+  assert.equal(MEANING_MODES.HIDE, 'hide');
+  assert.equal(INTERFACE_MODES.MODERN, 'modern');
+  assert.deepEqual(sanitizePresentation(undefined), { meanings: 'show', interface: 'classic' });
+  assert.deepEqual(sanitizePresentation('hide'), { meanings: 'show', interface: 'classic' });
+  assert.deepEqual(sanitizePresentation({ meanings: 'hide', interface: 'modern' }), { meanings: 'hide', interface: 'modern' });
+  assert.deepEqual(sanitizePresentation({ meanings: 'HIDE', interface: 'neon' }), { meanings: 'show', interface: 'classic' },
+    'an unknown value falls back instead of being adopted');
+
+  // Round trip through the app's own storage helpers, with a failing store.
+  const makeStorage = () => {
+    const data = new Map();
+    return {
+      getItem: key => (data.has(key) ? data.get(key) : null),
+      setItem: (key, value) => { data.set(key, String(value)); },
+      removeItem: key => { data.delete(key); },
+      data
+    };
+  };
+  const store = makeStorage();
+  assert.equal(loadPresentation(store).meanings, 'show');
+  assert.equal(savePresentation({ meanings: 'hide', interface: 'modern' }, store), true);
+  assert.deepEqual(loadPresentation(store), { meanings: 'hide', interface: 'modern' });
+  assert.equal(store.data.has(PRESENTATION_STORAGE_KEY), true);
+  const broken = { getItem() { throw new Error('blocked'); }, setItem() { throw new Error('blocked'); } };
+  assert.deepEqual(loadPresentation(broken), { meanings: 'show', interface: 'classic' });
+  assert.equal(savePresentation({ meanings: 'hide' }, broken), false, 'a store that cannot write reports failure');
+  assert.equal(savePresentation({ meanings: 'hide' }, null), false);
+
+  // The mask must not describe the answer: fixed length, no fragment of it.
+  assert.equal(MASKED_MEANING, '•••••');
+  assert.equal(MASKED_MEANING.length, 5);
+  const sample = embeddedVocabulary[0].meaning;
+  assert.equal(MASKED_MEANING.includes(sample.slice(0, 2)), false);
+  // Concealed before an answer, always printed once the answer is graded.
+  assert.equal(meaningConcealed({ meanings: 'hide' }), true);
+  assert.equal(meaningConcealed({ meanings: 'hide' }, { answered: true }), false);
+  assert.equal(meaningConcealed({ meanings: 'show' }), false);
+  assert.equal(meaningConcealed({ meanings: 'show' }, { answered: true }), false);
+  // The preference is not part of the v1 progress/prefs backup contract.
+  const bundle = exportProgressBundle({
+    progress: {}, prefs: { ...DEFAULT_PREFS }, favorites: [], history: [], streak: { current: 0, longest: 0, lastDate: null }
+  });
+  assert.equal(JSON.stringify(bundle).includes('presentation'), false);
+  assert.equal(JSON.stringify(bundle).includes('meanings'), false);
+});
+
+test('rc4: each pre-answer vocabulary surface conceals the gloss through the shared helper', () => {
+  const body = html.slice(html.indexOf('function matchFirstLookBody('), html.indexOf('function currentConsolidationGap('));
+  const meaningBlock = html.slice(html.indexOf('function meaningSpan('), html.indexOf('function redrawPreservingInput('));
+  assert.match(meaningBlock, /if \(answered \|\| meaningRevealed\(entry\.id\)\)/, 'a revealed or graded gloss is printed');
+  assert.match(meaningBlock, /data-reveal-meaning=/, 'the concealer carries one explicit reveal control');
+  assert.match(meaningBlock, /MASKED_MEANING/, 'the concealer prints the fixed mask');
+  assert.doesNotMatch(meaningBlock, /escapeHtml\(entry\.meaning\)[^\n]*meaning-masked/, 'the mask never contains the gloss');
+
+  // New-word introduction and the matching board introduction.
+  assert.match(body, /meaningRevealed\(item\.vocab\.id\)/, 'the first-look gloss respects the preference');
+  assert.match(body, /meaningRevealed\(pair\.vocab\.id\)/, 'every pair on the matching board respects it');
+
+  const search = html.slice(html.indexOf('function renderSearch('), html.indexOf('function phraseTagOf('));
+  assert.match(search, /meaningRevealed\(item\.entry\.id\)/, 'search rows respect the preference');
+  assert.match(search, /meaning-masked/, 'search rows print the mask');
+  const titleIdx = search.indexOf('title="${escapeHtml(item.entry.meaning)}"');
+  const guardIdx = search.indexOf('meaningRevealed(item.entry.id)');
+  assert.ok(guardIdx > -1 && titleIdx > guardIdx,
+    'the title attribute exists only inside the revealed branch, so a hidden row cannot leak through a tooltip');
+  assert.match(search, /data-reveal-meaning/, 'search rows carry the reveal control');
+
+  const dashboard = html.slice(html.indexOf('function renderDashboard('), html.indexOf('function statCard('));
+  assert.match(dashboard, /meaningSpan\(item\.entry/, 'the weak-word spotlight respects the preference');
+  const settings = html.slice(html.indexOf('function renderSettings('), html.indexOf('function exportDownload('));
+  assert.match(settings, /meaningSpan\(entry/, 'the hard-word list respects the preference');
+  assert.match(settings, /meaningSwitchMarkup\('setting-meanings'\)/, 'meaning visibility is controllable from Settings');
+  assert.match(settings, /interfaceSwitchMarkup\('setting-interface'/, 'the interface mode is controllable from Settings');
+  assert.match(html, /\$\{interfaceSwitchMarkup\('interface'\)\}/, 'and from the top bar, without hunting');
+  const phrases = html.slice(html.indexOf('function renderPhrases('), html.indexOf('function renderPhrasePractice('));
+  assert.match(phrases, /phraseMeaningSpan\(entry\)/, 'the phrase bank list respects it too');
+
+  // Final-gate audit (rc4): the phrase-practice introduction is the phrase
+  // bank's counterpart of the word first look, and it printed the gloss in
+  // clear text while the preference said "hide". Assert the whole surface, not
+  // just the list: a guarded intro, its own control, and no ungated gloss.
+  const phrasePractice = html.slice(html.indexOf('function renderPhrasePractice('), html.indexOf('function examAnswerLabel('));
+  assert.match(phrasePractice, /meaningRevealed\(entry\.id\)/, 'the phrase-practice introduction respects the preference');
+  assert.match(phrasePractice, /data-reveal-phrase=/, 'it carries its own reveal control');
+  assert.match(phrasePractice, /revealMeaning\(button\.dataset\.revealPhrase\);/, 'the control reveals one phrase');
+  assert.equal(phrasePractice.includes('<p class="first-look-meaning"><span>Nghĩa</span><strong class="vocab-meaning">'), false,
+    'the introduction never prints the gloss unconditionally');
+
+  // Graded feedback and the sprint hand-off are answers, not previews: they always print.
+  const feedback = html.slice(html.indexOf('function renderFeedback('), html.indexOf('function advanceCard('));
+  assert.match(feedback, /class="vocab-meaning"/, 'the graded answer is printed after grading');
+  assert.doesNotMatch(feedback, /meaning-masked/, 'graded feedback is never masked');
+});
+
+test('rc4: neither presentation preference can reach the scheduler, the grader or stored progress', () => {
+  const setter = html.slice(html.indexOf('function setMeanings('), html.indexOf('function applyInterface('));
+  for (const forbidden of ['updateProgress(', 'persist(', 'saveProgress(', 'saveStudyConfig(', 'saveHistory(', 'saveStreak(', 'saveFavorites(', 'saveFlagged(']) {
+    assert.equal(setter.includes(forbidden), false, `setMeanings must not touch ${forbidden}`);
+  }
+  assert.match(setter, /savePresentation\(candidate, storage\)/, 'it writes only its own store');
+  const skin = html.slice(html.indexOf('function setInterface('), html.indexOf('function clearActiveSession('));
+  for (const forbidden of ['updateProgress(', 'persist(', 'saveProgress(', 'clearActiveSession(']) {
+    assert.equal(skin.includes(forbidden), false, `setInterface must not touch ${forbidden}`);
+  }
+  assert.match(skin, /redrawPreservingInput\(\)/, 'a mode switch redraws without ending the session');
+  const redraw = html.slice(html.indexOf('function redrawPreservingInput('), html.indexOf('function setMeanings('));
+  assert.match(redraw, /#spelling-input/, 'typed work survives the redraw');
+  assert.match(redraw, /setSelectionRange/, 'the caret survives it too');
+  // The toggle on the card is a real control with a stated state, not decoration.
+  assert.match(html, /id="meaning-toggle" aria-pressed="\$\{meaningsHidden\(\)\}"/, 'the card toggle reports its state');
+  // The accessible name is the visible text: an aria-label that paraphrased the
+  // state would fail axe's label-content-name-mismatch check on the card.
+  const toggleMarkup = html.slice(html.indexOf('id="meaning-toggle"'), html.indexOf('id="meaning-toggle"') + 400);
+  assert.doesNotMatch(toggleMarkup, /aria-label=/, 'the toggle is named by its own text, not by a paraphrase');
+  assert.match(html, /Nghĩa: ẩn|Nghĩa: hiện/, 'the card toggle says which mode is active in words');
+});
+
+test('rc4: the Modern interface is a second layout, not a palette swap', () => {
+  const css = styleBlock[1];
+  assert.match(css, /html\[data-ui="modern"\] \{/, 'modern declares its own token set');
+  assert.match(css, /--bg: #f6f1e7;/, 'a distinct palette');
+  assert.match(css, /html\[data-ui="modern"\] \.layout \{\s*display: block;/, 'the composition changes (no left rail)');
+  assert.match(css, /html\[data-ui="modern"\] \.nav \{ display: flex;/, 'navigation becomes a horizontal band');
+  assert.match(css, /html\[data-ui="modern"\] \.flashcard-body \{ padding: clamp\(22px, 4vw, 44px\); text-align: left; \}/, 'the card is a left-aligned worksheet');
+  assert.match(css, /counter-increment: studio-card/, 'session tiles gain a numbered index');
+  assert.match(css, /@keyframes studio-rise/, 'one motion vocabulary is defined');
+  assert.match(css, /html\[data-ui="modern"\]\[data-theme="dark"\]/, 'modern has its own dark palette');
+  assert.match(css, /@media \(prefers-reduced-motion: reduce\) \{[\s\S]*html\[data-ui="modern"\] \.flashcard,/, 'modern motion respects reduced motion');
+  // Both interfaces are drawn from the same markup: no duplicated render path.
+  assert.equal((appScript[1].match(/function renderFlashcard\(/g) || []).length, 1, 'one card renderer');
+  assert.equal((appScript[1].match(/function renderLearn\(/g) || []).length, 1, 'one learn renderer');
+  // No external asset can be introduced by the skin.
+  assert.doesNotMatch(css, /@import|url\((?!#)/, 'the stylesheet stays self-contained');
+});
+
+test('every shipped version literal agrees with APP_VERSION', async () => {
+  // A release bump is only done when every literal that names the version has
+  // moved. Two of the browser suite's pins sat at rc3 through two CI runs, so
+  // this test pins the whole set instead of trusting a grep at bump time.
+  // Historical fixtures (the dev5/rc2 tags the deploy-gate tests feed the gate)
+  // and the changelog are exempt: they name other releases on purpose.
+  const declared = appScript[1].match(/const APP_VERSION = '([^']+)'/);
+  assert.ok(declared, 'the application declares a version');
+  const shipped = declared[1];
+  assert.match(shipped, /^v\d+\.\d+\.\d+(-rc\d+)?$/, 'the version is a readable tag');
+  const token = /v\d+\.\d+\.\d+(?:-[a-z]+\d*)?/g;
+  const pick = (text, pattern) => [...text.matchAll(pattern)].map(match => match[0].replace(/\\/g, ''));
+  const place = async (name, pattern, required = true) => {
+    const text = await readFile(new URL(name, root), 'utf8');
+    const named = text.replace(/\\/g, '').split('\n').filter(line => pattern.test(line))
+      .flatMap(line => [...line.matchAll(token)].map(match => match[0]));
+    // browser-exams.cjs may legitimately name no version; every other file must.
+    if (required) assert.ok(named.length > 0, `${name} names the shipped version`);
+    return named.map(named => `${name}: ${named}`);
+  };
+  const pins = [
+    ...(await place('index.html', /const APP_VERSION = /)),
+    ...(await place('PRIVACY.md', /Áp dụng cho/)),
+    ...(await place('tests/static-app.test.js', /result\.version, /)),
+    ...(await place('tests/browser-learning.cjs', /#app-version|aboutText, \/|report\.appVersion/)),
+    ...(await place('tests/browser-exams.cjs', /#app-version|aboutText, \/|report\.appVersion/, false)),
+    ...(await place('tests/test_sprint_exam_features.py', /APP_VERSION = '/)),
+    ...(await place('tests/test_deploy_gate.py', /assertEqual\(tags, \[/)),
+  ];
+  const stale = pins.filter(entry => !entry.endsWith(shipped));
+  assert.deepEqual(stale, [], 'no shipped file still names an older version');
+  assert.equal((await readFile(new URL('DEPLOY_HOLD', root), 'utf8')).trim(), shipped,
+    'the deploy hold names the version being built');
 });

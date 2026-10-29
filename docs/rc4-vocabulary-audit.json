@@ -1,0 +1,654 @@
+{
+  "schemaVersion": 1,
+  "appVersion": "v1.0.0-rc4",
+  "auditDate": "2026-10-28",
+  "method": "Every row is classified from data already in the repository: the root-family rule (family:merged rows are documentation, not headwords), the reviewed curation map (docs/vocabulary-curation.json replayed through scripts/vocabulary_curation.py), the editorial CEFR level tags, and the curriculum words transcribed in docs/curriculum-grades-6-9.json. The audit writes no vocabulary data.",
+  "counts": {
+    "inspectedRows": 5852,
+    "inspectedHeadwords": 5112,
+    "familyForms": 740,
+    "retainedHeadwords": 3841,
+    "excludedHeadwords": 1271,
+    "excludedRowsIncludingFamilyForms": 1271,
+    "reviewed": 3,
+    "corrected": 0,
+    "added": 0
+  },
+  "policyReplay": {
+    "decisions": 1271,
+    "stored": 1271,
+    "missing": [],
+    "extra": [],
+    "categoryMismatch": [],
+    "problems": [],
+    "reconciled": true
+  },
+  "curriculum": {
+    "tokens": 201,
+    "presentInBank": 82,
+    "inFocus": 68,
+    "excluded": 14,
+    "unexplained": [],
+    "focusRows": [
+      {
+        "id": "599",
+        "word": "Preserve",
+        "level": "",
+        "type": "",
+        "curriculum": "9/1",
+        "familyRoot": true
+      },
+      {
+        "id": "636",
+        "word": "Establish",
+        "level": "",
+        "type": "",
+        "curriculum": "9/9",
+        "familyRoot": false
+      },
+      {
+        "id": "677",
+        "word": "Complex",
+        "level": "",
+        "type": "",
+        "curriculum": "9/4",
+        "familyRoot": false
+      },
+      {
+        "id": "720",
+        "word": "Anxiety",
+        "level": "",
+        "type": "",
+        "curriculum": "9/3",
+        "familyRoot": false
+      },
+      {
+        "id": "726",
+        "word": "Competition",
+        "level": "",
+        "type": "",
+        "curriculum": "8/3",
+        "familyRoot": false
+      },
+      {
+        "id": "756",
+        "word": "Fluency",
+        "level": "",
+        "type": "",
+        "curriculum": "9/9",
+        "familyRoot": false
+      },
+      {
+        "id": "763",
+        "word": "Impact",
+        "level": "",
+        "type": "",
+        "curriculum": "8/2",
+        "familyRoot": false
+      },
+      {
+        "id": "777",
+        "word": "Opportunity",
+        "level": "",
+        "type": "",
+        "curriculum": "9/6",
+        "familyRoot": false
+      },
+      {
+        "id": "782",
+        "word": "Privacy",
+        "level": "",
+        "type": "",
+        "curriculum": "9/6",
+        "familyRoot": false
+      },
+      {
+        "id": "925",
+        "word": "ancient",
+        "level": "B2",
+        "type": "topic",
+        "curriculum": "9/4",
+        "familyRoot": false
+      },
+      {
+        "id": "934",
+        "word": "attention",
+        "level": "B1",
+        "type": "core",
+        "curriculum": "9/9",
+        "familyRoot": true
+      },
+      {
+        "id": "940",
+        "word": "avoid",
+        "level": "B1",
+        "type": "core",
+        "curriculum": "8/3",
+        "familyRoot": true
+      },
+      {
+        "id": "941",
+        "word": "balance",
+        "level": "B2",
+        "type": "core",
+        "curriculum": "8/1",
+        "familyRoot": false
+      },
+      {
+        "id": "967",
+        "word": "community",
+        "level": "B2",
+        "type": "topic",
+        "curriculum": "9/1",
+        "familyRoot": false
+      },
+      {
+        "id": "1002",
+        "word": "discuss",
+        "level": "B2",
+        "type": "academic",
+        "curriculum": "8/3",
+        "familyRoot": true
+      },
+      {
+        "id": "1031",
+        "word": "experience",
+        "level": "B2",
+        "type": "core",
+        "curriculum": "8/2",
+        "familyRoot": false
+      },
+      {
+        "id": "1059",
+        "word": "global",
+        "level": "B2",
+        "type": "academic",
+        "curriculum": "9/9",
+        "familyRoot": true
+      },
+      {
+        "id": "1080",
+        "word": "improve",
+        "level": "B1",
+        "type": "core",
+        "curriculum": "8/3",
+        "familyRoot": true
+      },
+      {
+        "id": "1126",
+        "word": "media",
+        "level": "B2",
+        "type": "topic",
+        "curriculum": "8/3",
+        "familyRoot": false
+      },
+      {
+        "id": "1130",
+        "word": "mental",
+        "level": "B2",
+        "type": "academic",
+        "curriculum": "9/3",
+        "familyRoot": false
+      },
+      {
+        "id": "1197",
+        "word": "prepare",
+        "level": "B1",
+        "type": "core",
+        "curriculum": "8/3",
+        "familyRoot": true
+      },
+      {
+        "id": "1203",
+        "word": "process",
+        "level": "B2",
+        "type": "academic",
+        "curriculum": "9/2",
+        "familyRoot": true
+      },
+      {
+        "id": "1240",
+        "word": "science",
+        "level": "B1",
+        "type": "topic",
+        "curriculum": "8/8",
+        "familyRoot": true
+      },
+      {
+        "id": "1363",
+        "word": "communicate",
+        "level": "B2",
+        "type": "academic",
+        "curriculum": "8/1",
+        "familyRoot": true
+      },
+      {
+        "id": "1399",
+        "word": "function",
+        "level": "B2",
+        "type": "academic",
+        "curriculum": "9/1",
+        "familyRoot": true
+      },
+      {
+        "id": "1401",
+        "word": "gap",
+        "level": "B2",
+        "type": "academic",
+        "curriculum": "9/6",
+        "familyRoot": false
+      },
+      {
+        "id": "1445",
+        "word": "prefer",
+        "level": "B2",
+        "type": "core",
+        "curriculum": "8/1",
+        "familyRoot": true
+      },
+      {
+        "id": "1571",
+        "word": "nuclear",
+        "level": "B2",
+        "type": "topic",
+        "curriculum": "9/6",
+        "familyRoot": false
+      },
+      {
+        "id": "1572",
+        "word": "atmosphere",
+        "level": "B2",
+        "type": "topic",
+        "curriculum": "8/8",
+        "familyRoot": true
+      },
+      {
+        "id": "1625",
+        "word": "suburb",
+        "level": "B2",
+        "type": "topic",
+        "curriculum": "9/1",
+        "familyRoot": false
+      },
+      {
+        "id": "1628",
+        "word": "hygiene",
+        "level": "B2",
+        "type": "topic",
+        "curriculum": "9/2",
+        "familyRoot": true
+      },
+      {
+        "id": "1689",
+        "word": "software",
+        "level": "B2",
+        "type": "topic",
+        "curriculum": "8/1",
+        "familyRoot": false
+      },
+      {
+        "id": "1851",
+        "word": "browse",
+        "level": "C1",
+        "type": "topic",
+        "curriculum": "8/3",
+        "familyRoot": true
+      },
+      {
+        "id": "1899",
+        "word": "stressful",
+        "level": "B2",
+        "type": "topic",
+        "curriculum": "8/3",
+        "familyRoot": false
+      },
+      {
+        "id": "1903",
+        "word": "relax",
+        "level": "B1",
+        "type": "core",
+        "curriculum": "8/1",
+        "familyRoot": true
+      },
+      {
+        "id": "1929",
+        "word": "bullying",
+        "level": "C1",
+        "type": "topic",
+        "curriculum": "8/3",
+        "familyRoot": false
+      },
+      {
+        "id": "2067",
+        "word": "handicraft",
+        "level": "C1",
+        "type": "topic",
+        "curriculum": "9/1",
+        "familyRoot": false
+      },
+      {
+        "id": "2068",
+        "word": "artisan",
+        "level": "C1",
+        "type": "topic",
+        "curriculum": "9/1",
+        "familyRoot": false
+      },
+      {
+        "id": "2143",
+        "word": "novel",
+        "level": "B2",
+        "type": "topic",
+        "curriculum": "8/1",
+        "familyRoot": true
+      },
+      {
+        "id": "2144",
+        "word": "poetry",
+        "level": "B2",
+        "type": "topic",
+        "curriculum": "8/1",
+        "familyRoot": false
+      },
+      {
+        "id": "2181",
+        "word": "counsellor",
+        "level": "C2",
+        "type": "topic",
+        "curriculum": "9/3",
+        "familyRoot": false
+      },
+      {
+        "id": "2306",
+        "word": "delay",
+        "level": "B2",
+        "type": "topic",
+        "curriculum": "9/3",
+        "familyRoot": false
+      },
+      {
+        "id": "2522",
+        "word": "access",
+        "level": "B2",
+        "type": "word-formation",
+        "curriculum": "8/8",
+        "familyRoot": true
+      },
+      {
+        "id": "2550",
+        "word": "connect",
+        "level": "B1",
+        "type": "word-formation",
+        "curriculum": "8/3",
+        "familyRoot": true
+      },
+      {
+        "id": "2610",
+        "word": "intention",
+        "level": "C1",
+        "type": "word-formation",
+        "curriculum": "9/9",
+        "familyRoot": true
+      },
+      {
+        "id": "2636",
+        "word": "pursue",
+        "level": "C1",
+        "type": "word-formation",
+        "curriculum": "9/6",
+        "familyRoot": true
+      },
+      {
+        "id": "2835",
+        "word": "blast",
+        "level": "C2",
+        "type": "topic",
+        "curriculum": "8/7",
+        "familyRoot": false
+      },
+      {
+        "id": "2848",
+        "word": "brilliant",
+        "level": "B2",
+        "type": "academic",
+        "curriculum": "9/5",
+        "familyRoot": false
+      },
+      {
+        "id": "2872",
+        "word": "communal",
+        "level": "C2",
+        "type": "academic",
+        "curriculum": "9/4",
+        "familyRoot": false
+      },
+      {
+        "id": "3009",
+        "word": "keen",
+        "level": "B2",
+        "type": "academic",
+        "curriculum": "8/1",
+        "familyRoot": false
+      },
+      {
+        "id": "3018",
+        "word": "leisure",
+        "level": "B2",
+        "type": "topic",
+        "curriculum": "8/1",
+        "familyRoot": false
+      },
+      {
+        "id": "3510",
+        "word": "proficient",
+        "level": "C1",
+        "type": "academic",
+        "curriculum": "9/9",
+        "familyRoot": false
+      },
+      {
+        "id": "3902",
+        "word": "fold",
+        "level": "B1",
+        "type": "topic",
+        "curriculum": "8/1",
+        "familyRoot": true
+      },
+      {
+        "id": "4602",
+        "word": "suit",
+        "level": "B1",
+        "type": "topic",
+        "curriculum": "8/3",
+        "familyRoot": true
+      },
+      {
+        "id": "4642",
+        "word": "scientific",
+        "level": "B2",
+        "type": "topic",
+        "curriculum": "8/8",
+        "familyRoot": false
+      },
+      {
+        "id": "4643",
+        "word": "attend",
+        "level": "B2",
+        "type": "topic",
+        "curriculum": "9/9",
+        "familyRoot": true
+      },
+      {
+        "id": "4647",
+        "word": "lifestyle",
+        "level": "B2",
+        "type": "topic",
+        "curriculum": "9/6",
+        "familyRoot": false
+      },
+      {
+        "id": "4694",
+        "word": "mood",
+        "level": "B2",
+        "type": "topic",
+        "curriculum": "9/3",
+        "familyRoot": false
+      },
+      {
+        "id": "4913",
+        "word": "underground",
+        "level": "B2",
+        "type": "topic",
+        "curriculum": "9/2",
+        "familyRoot": false
+      },
+      {
+        "id": "5013",
+        "word": "craft",
+        "level": "B2",
+        "type": "topic",
+        "curriculum": "8/3",
+        "familyRoot": false
+      },
+      {
+        "id": "5015",
+        "word": "mature",
+        "level": "C1",
+        "type": "topic",
+        "curriculum": "8/3",
+        "familyRoot": true
+      },
+      {
+        "id": "5033",
+        "word": "cattle",
+        "level": "B2",
+        "type": "topic",
+        "curriculum": "8/2",
+        "familyRoot": false
+      },
+      {
+        "id": "5103",
+        "word": "anniversary",
+        "level": "B2",
+        "type": "topic",
+        "curriculum": "9/4",
+        "familyRoot": false
+      },
+      {
+        "id": "5223",
+        "word": "downtown",
+        "level": "B2",
+        "type": "topic",
+        "curriculum": "9/2",
+        "familyRoot": false
+      },
+      {
+        "id": "5450",
+        "word": "accomplish",
+        "level": "C1",
+        "type": "topic",
+        "curriculum": "9/3",
+        "familyRoot": false
+      },
+      {
+        "id": "5469",
+        "word": "puzzle",
+        "level": "C1",
+        "type": "topic",
+        "curriculum": "8/1",
+        "familyRoot": false
+      },
+      {
+        "id": "5534",
+        "word": "pottery",
+        "level": "C1",
+        "type": "topic",
+        "curriculum": "9/1",
+        "familyRoot": false
+      },
+      {
+        "id": "5804",
+        "word": "monk",
+        "level": "C1",
+        "type": "topic",
+        "curriculum": "9/6",
+        "familyRoot": false
+      }
+    ]
+  },
+  "categories": {
+    "basic-b1": 516,
+    "everyday-object": 403,
+    "food-drink": 189,
+    "nature-species": 163
+  },
+  "levelMix": {
+    "B1": 162,
+    "B2": 883,
+    "C1": 1279,
+    "C2": 674,
+    "unlabelled": 843
+  },
+  "quality": {
+    "synonyms": 0,
+    "antonyms": 0,
+    "collocations": 0,
+    "examples": 0,
+    "wordFamily": 862,
+    "notes": 294,
+    "registerOrConnotation": 8
+  },
+  "structure": {
+    "word-formation": 79,
+    "academic": 1037,
+    "core": 122,
+    "idiom": 24,
+    "phrasalVerb": 13,
+    "collocation": 9,
+    "confusable": 34,
+    "linker": 59
+  },
+  "archivedExamAttestation": {
+    "attested": 843,
+    "attestedAtLeastFive": 423,
+    "maximum": 106
+  },
+  "review": [
+    {
+      "id": "4188",
+      "word": "proton",
+      "level": "C1",
+      "type": "topic",
+      "curriculum": "",
+      "familyRoot": false,
+      "archived": false,
+      "reason": "the stored Vietnamese gloss is identical to the English headword, so the card shows no meaning"
+    },
+    {
+      "id": "4492",
+      "word": "gluten",
+      "level": "C1",
+      "type": "topic",
+      "curriculum": "",
+      "familyRoot": false,
+      "archived": false,
+      "reason": "the stored Vietnamese gloss is identical to the English headword, so the card shows no meaning"
+    },
+    {
+      "id": "4494",
+      "word": "cholesterol",
+      "level": "B2",
+      "type": "topic",
+      "curriculum": "",
+      "familyRoot": false,
+      "archived": false,
+      "reason": "the stored Vietnamese gloss is identical to the English headword, so the card shows no meaning"
+    }
+  ],
+  "limits": [
+    "The CEFR level of a row is an editorial tag, not a curriculum mapping; the audit reports it, it does not re-derive it.",
+    "Curriculum words were transcribed from third-party reproductions of the Global Success series; grades 6 and 7 are topic-level only because the retrieved teacher-training documents publish no per-unit word table.",
+    "Exam attestation counts come from the repository's own transcription corpus and are not evidence that a word is worth teaching.",
+    "Vietnamese gloss semantics were not re-edited; the audit only flags a gloss that repeats the headword."
+  ]
+}

@@ -877,3 +877,79 @@ CodeRabbit's review `5643120300` (run metadata again `Layers: Repository YAML`) 
    default-off, consent, real events with no query text, the downloaded report, erasure on withdrawal, the English panel and **zero
    external requests**. Results: static **115/115**, Python **130 OK**, both browser suites PASS sequentially.
 6. **Not done:** no merge, tag, release or deploy; delivery stays manual by design; the log is per browser profile.
+
+## 2026-10-28 (fifth follow-up) — v1.0.0-rc4: meaning visibility, two interfaces, vocabulary audit
+
+1. **Recon.** Clean tree on `arena/2bb10a2d-chuyen-anh` at `54ccaa0` (merge of PR #63 = the tagged/published `v1.0.0-rc3`). No open PRs, no
+   newer tag or release. Baseline green: 7 static checks, static Node suite **115/115**, Python **130 OK**. Browser suites unexecutable here
+   (`npx playwright@1.55.1 install chromium` → `ECONNRESET`).
+2. **Feature A (meanings).** New `chuyen-anh.presentation.v1` store (`{meanings, interface}`), `sanitizePresentation`/`loadPresentation`/
+   `savePresentation`/`meaningConcealed`, sanitised-write-back at boot, membership in `SYNCED_STORAGE_KEYS` (12). Card-header toggle
+   (`#meaning-toggle`, `aria-pressed`, `title`) + Settings group; view-scoped `revealedMeanings` with per-row `[data-reveal-meaning]`.
+   Concealed surfaces: first look (card + matching board), search rows, dashboard weak list, Settings flagged list, phrase list. Always shown:
+   question stimulus/options, graded feedback, handoff strip, summary. Mask is a fixed `•••••`, no `title`/gloss `aria-label`.
+3. **Feature C (interfaces).** `document.documentElement.dataset.ui` + a Modern “Studio” skin appended to the stylesheet (masthead, horizontal
+   nav band, flat bordered panels with hard shadows, squared controls, mono counters, worksheet flashcard, own type/spacing/breakpoints).
+   Segmented switches in the top bar and Settings. Shell-only redraw preserves the running session, the card and the typed answer.
+4. **Motion.** Studio rise/pop/press/cross-fade, CSS-only, 120–240 ms; the reduced-motion block disables all of it.
+5. **Feature B (audit).** New `scripts/rc4_vocabulary_audit.py` (`--check`) → `docs/rc4-vocabulary-audit.{json,md}`; new evidence file
+   `docs/curriculum-grades-6-9.json` (201 transcribed words, 8 sources with URLs and retrieval dates, explicit grades-6/7 limitation).
+   Counts: 5.852 rows = 5.112 headwords + 740 family forms; 3.841 KEEP; 1.271 EXCLUDE_BASIC; 3 REVIEW (`proton`, `gluten`, `cholesterol`
+   — gloss identical to the headword); 0 corrected; 0 added. Policy replay: 1.271 decisions = 1.271 stored rows, 0 drift. Curriculum:
+   82 present, 14 excluded, 68 taught, 0 unexplained (all nine A1–B1 retentions are family roots). No vocabulary row was edited.
+6. **Fixes.** `localizeSubtree` no longer skips the mask's own label/reveal button in English mode (the gloss cell stays untranslated); a damaged
+   presentation record is repaired on disk at boot; a duplicated `.ui-switch` wrapper was removed.
+7. **Version control.** `APP_VERSION` and `DEPLOY_HOLD` = `v1.0.0-rc4`; pins updated in `tests/static-app.test.js`,
+   `tests/test_sprint_exam_features.py`, `tests/test_deploy_gate.py`; `PRIVACY.md`, README version + deploy-gate paragraphs and a new
+   `CHANGELOG.md` rc4 section updated. `python scripts/deploy_gate.py` → `deploy=false (deploy hold names v1.0.0-rc4 …)`.
+8. **Verification.** Static chain green (`rc4_vocabulary_audit.py --check` included); Python **141 OK** (11 new audit tests);
+   `node --test tests/static-app.test.js` **119/119** (4 new rc4 tests); stylesheet parses (891 rules, 105.114 bytes); jsdom DOM suite
+   **43/43** on the real file; six-view/two-skin console sweep clean.
+9. **CI finding (real, fixed).** The browser job on GitHub's runner failed at `browser-learning.cjs:66` — horizontal overflow at the 768 px
+   tablet breakpoint caused by the new top-bar interface switch. Fix: hide the compact switch below 1025 px (Settings keeps it), restoring the
+   pre-rc4 top-bar geometry. The same pass fixed two `label-content-name-mismatch` defects: the card toggle is now named by its visible text
+   (`aria-pressed` kept) instead of a paraphrasing `aria-label`, and the decorative mask dots are `aria-hidden`; English reveal labels read
+   “Show meaning of …” so the accessible name still contains the visible words. axe (jsdom) reports no such violation on the card, masked
+   search rows, Settings, or either skin.
+10. **Not done:** no merge, tag, release or deploy; the local sandbox still cannot run the two browser suites (Chromium download blocked), so
+   visual review at 320/768/1280 px rests on CI; the 3 REVIEW glosses still need an editor.
+
+### CI follow-up: two more failed browser runs (same day)
+
+11. **Second run (40720987107).** `checks` green, `browser` red: the candidate's own browser suite still pinned `#app-version` to
+    `'v1.0.0-rc3'` (`tests/browser-learning.cjs:517`). Pin updated to `'v1.0.0-rc4'`; no application code changed.
+12. **Third run (40721747824).** `checks` green, `browser` red: Settings tab order — `keys-setting` was no longer the fourth stop
+    because the meanings and interface rows had been inserted above it. Both rows moved below the session-size selector, so the
+    existing assertions hold without being edited.
+13. **Phone-width rules.** A masked `.vocab-row` gloss no longer forces `grid-column: 3`; `.flashcard-head` and
+    `.flashcard-head-actions` wrap at ≤680px. Stylesheet parses at 893 rules / 105.653 bytes.
+14. **Re-verified.** Static data chain green, Python **141 OK**, `node --test tests/static-app.test.js` **119/119**, jsdom DOM suite
+    **43/43**, axe `label-content-name-mismatch` clean, six-view/two-skin console sweep clean.
+15. **Not done:** still no merge, tag, release or deploy; the browser suites remain CI-only in this sandbox.
+16. **Fourth run (40723536730).** `checks` green, `browser` red at `browser-learning.cjs:2833` ("the About panel shows the shipped
+    version", stale `/v1\.0\.0-rc3/`); line 2894 carried the same stale value. Both set to `v1.0.0-rc4`.
+17. **New regression test against version drift.** *every shipped version literal agrees with APP_VERSION* in `tests/static-app.test.js`
+    cross-checks `index.html`, `PRIVACY.md`, both browser suites and the two Python version pins against the module constant; verified by
+    temporarily reverting a pin to `rc3` (test red) and restoring it (test green). Node suite **120/120**, Python **141 OK**.
+18. **CI green.** Run 40818141160 (`26fb144`): `checks` **pass**, `browser` **pass** (5m28s, both suites). `Kilo Code Review` fails in
+    1 s (third-party app, not this repository's code) and `CodeRabbit` skips; PR #64 therefore shows `UNSTABLE`, not a failing test.
+19. **Sandbox note.** This session's `/tmp` scratch harness (jsdom 25, postcss 8, axe-core 4.14) was lost on reset, so the jsdom DOM
+    suite cannot be re-run here. It last ran on `584b5ed` (43/43, axe clean, console sweep clean); `index.html` is byte-identical at
+    the final head, and the real-browser suites now pass in CI.
+20. **Not done:** no merge, tag, release or deploy.
+
+## 2026-10-29 — v1.0.0-rc4 release gate: audit, one blocking fix, then merge and prerelease
+
+1. **Recon.** `arena/2bb10a2d-chuyen-anh` head `d9f62aa` = remote; PR #64 `MERGEABLE`; `main` unprotected (no required
+   checks, no rulesets); exact-head checks: `checks` pass, `browser` pass, `CodeRabbit` skipped, `Kilo Code Review`
+   action_required (insufficient credits, external account state).
+2. **Blocking defect found and fixed.** The phrase-practice introduction printed the Vietnamese gloss while the learner had
+   chosen "hide meanings" — the word first look masked, this screen did not. Now masked with one per-phrase reveal control;
+   the reveal is session-scoped, writes nothing, and keeps focus on “Bắt đầu kiểm tra”.
+3. **Regression test.** The rc4 pre-answer surface test now asserts the phrase-practice introduction (guarded gloss, its own
+   control, no ungated `<strong>` gloss). Verified to fail with the guard reverted and pass when restored.
+4. **Results.** Static data chain 12/12; `rc4_vocabulary_audit.py --check` matches 5.852 rows; Python **141 OK**;
+   `node --test tests/static-app.test.js` **120/120**; jsdom behavioural suite **25/25** on the real `index.html`.
+   Chromium is still unavailable in the sandbox, so the browser suites are CI evidence only.
+5. **Not claimed:** no pixel-level visual inspection, no physical-device test; `synonyms`/`antonyms`/`collocations`/`examples`
+   remain empty by design; the three REVIEW glosses still need an editor.
