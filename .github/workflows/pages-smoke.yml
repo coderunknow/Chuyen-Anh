@@ -7,10 +7,15 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths:
+    paths: &pages-paths
       - "tests/pages_smoke.py"
+      - "tests/test_pages_smoke.py"
       - "DEPLOY_HOLD"
       - ".github/workflows/pages-smoke.yml"
+  # The pull request that changes the probe is the moment to run it: if the
+  # assertions do not hold for the page that is live now, that is the finding.
+  pull_request:
+    paths: *pages-paths
   # A published prerelease is what releases the hold, so it is also the moment
   # the served page should change.
   release:
