@@ -1611,13 +1611,18 @@ html[data-ui="modern"] .ui-switch-option, html[data-ui="modern"] .seg { transiti
   .settings { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
   .settings > .panel:first-child { grid-column: 1 / -1; }
 }
-.topbar-inner { min-height: 64px; padding: 10px 24px; }
-.layout { padding: 24px 24px 40px; }
-.panel-body { padding: 14px; }
-.page-header { margin-bottom: 18px; }
-.session-grid { gap: 10px; }
-.session-card { min-height: 136px; padding: 15px; }
-.session-card-description { min-height: 34px; }
+/* Tablet and desktop only: the phone layout is already tighter than these
+   values (12px page padding, 62px bar), and re-declaring them here would undo
+   the mobile breakpoints rather than improve them. */
+@media (min-width: 681px) {
+  .topbar-inner { min-height: 64px; padding: 10px 24px; }
+  .layout { padding: 24px 24px 40px; }
+  .panel-body { padding: 14px; }
+  .page-header { margin-bottom: 18px; }
+  .session-grid { gap: 10px; }
+  .session-card { min-height: 136px; padding: 15px; }
+  .session-card-description { min-height: 34px; }
+}
 .btn, .option, .session-card, .nav-button, .vocab-row, .ui-switch-option, .tab {
   transition: transform .18s var(--ease-spring), background-color .16s var(--ease-out),
     border-color .16s var(--ease-out), box-shadow .18s var(--ease-out), color .16s var(--ease-out);
