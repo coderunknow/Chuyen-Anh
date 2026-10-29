@@ -49,6 +49,9 @@ def modern_page(version: str) -> str:
         '<div class="vocab-list--no-gloss">'
         '<button data-meanings="show"></button><button data-meanings="hide"></button></div>'
         "<button id=\"telemetry-send\"></button>"
+        "<button id=\"exam-history-export\"></button>"
+        "<span>Trọng tâm phiên học</span>"
+        "<script>const EXAM_SCORING_RULE_VERSION = \"rc6-equal-weight-v1\"; const answerKeySchemaVersion = 1;</script>"
         f"<script type=\"module\" id=\"app-script\">const APP_VERSION = '{version}';"
         "function previewStageVisible() { return true; }</script>"
         "</body></html>"
@@ -157,3 +160,13 @@ class PagesSmokeTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class ExpectedVersionTests(unittest.TestCase):
+    def test_expected_version_override_is_validated_and_used(self):
+        text = (ROOT / "tests" / "pages_smoke.py").read_text(encoding="utf-8")
+        self.assertIn("EXPECTED_VERSION", text)
+        self.assertIn("invalid EXPECTED_VERSION override", text)
+        workflow = (ROOT / ".github" / "workflows" / "pages-smoke.yml").read_text(encoding="utf-8")
+        self.assertIn("newest published release", workflow)
+        self.assertIn("EXPECTED_VERSION: ${{ steps.expected.outputs.expected }}", workflow)

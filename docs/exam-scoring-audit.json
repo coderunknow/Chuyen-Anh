@@ -1,0 +1,2316 @@
+{
+  "schemaVersion": 1,
+  "scoringRuleVersion": "rc6-equal-weight-v1",
+  "totals": {
+    "papers": 106,
+    "questions": 6457,
+    "byStatus": {
+      "missing_answer": 3216,
+      "ambiguous_review": 1472,
+      "source_transcription_unverified": 1769
+    },
+    "byResponseType": {
+      "choice": 3639,
+      "text": 2569,
+      "true-false": 12,
+      "essay": 191,
+      "multiple": 46
+    },
+    "gradable": 1269,
+    "provisional": 1269,
+    "listeningUnscorable": 718,
+    "writingUnscorable": 191,
+    "htmlOcrReadOnly": 22,
+    "missing": 3216,
+    "ambiguous": 1472
+  },
+  "limits": [
+    "No answer is upgraded to official_verified by extraction.",
+    "Listening items without audio and unrestricted writing are not automatically gradable.",
+    "HTML/OCR records remain read-only for practice.",
+    "Question counts are extracted items, not a claim of complete official-paper coverage."
+  ],
+  "papers": [
+    {
+      "id": "2022/an-giang/so",
+      "year": 2022,
+      "province": "An Giang",
+      "quality": "PDF-text",
+      "contentSha256": "fd7d277c249a88cd1e261531d423f1a85b8d5bba07ac453567a565e22dfb5858",
+      "practiceReadOnly": false,
+      "questionCount": 55,
+      "responseTypes": {
+        "choice": 40,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 15,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "missing_answer": 55
+      },
+      "listeningItems": 5,
+      "writingItems": 0
+    },
+    {
+      "id": "2022/bac-giang/so",
+      "year": 2022,
+      "province": "Bắc Giang",
+      "quality": "PDF-text",
+      "contentSha256": "cd8e2bc46110e539a5a2f131bb23ad2b7ccb7e3358e89dba620a35efb1830889",
+      "practiceReadOnly": false,
+      "questionCount": 48,
+      "responseTypes": {
+        "choice": 32,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 16,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "missing_answer": 48
+      },
+      "listeningItems": 0,
+      "writingItems": 0
+    },
+    {
+      "id": "2022/bac-kan/so",
+      "year": 2022,
+      "province": "Bắc Kạn",
+      "quality": "PDF-text",
+      "contentSha256": "dcfd359ea1e49f1124c4700a6b64a6d8e6e303fa76ae806cc29102e7722f6620",
+      "practiceReadOnly": false,
+      "questionCount": 91,
+      "responseTypes": {
+        "choice": 44,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 47,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "missing_answer": 91
+      },
+      "listeningItems": 0,
+      "writingItems": 0
+    },
+    {
+      "id": "2022/bac-ninh/so",
+      "year": 2022,
+      "province": "Bắc Ninh",
+      "quality": "HTML/OCR-cần-soát",
+      "contentSha256": "58464aabbf0abd9b69c7384b5a3ea05a88c2fb1b6ad02832543d20c79b9a063f",
+      "practiceReadOnly": true,
+      "questionCount": 35,
+      "responseTypes": {
+        "choice": 30,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 5,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "ambiguous_review": 25,
+        "missing_answer": 10
+      },
+      "listeningItems": 5,
+      "writingItems": 0
+    },
+    {
+      "id": "2022/binh-duong/so",
+      "year": 2022,
+      "province": "Bình Dương",
+      "quality": "HTML/OCR-cần-soát",
+      "contentSha256": "3817827d65aadd37b7a6e5a091883899324c30bcbb1ffd9208a6ff74e70a691e",
+      "practiceReadOnly": true,
+      "questionCount": 92,
+      "responseTypes": {
+        "choice": 47,
+        "multiple": 0,
+        "true-false": 1,
+        "text": 44,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "missing_answer": 92
+      },
+      "listeningItems": 4,
+      "writingItems": 0
+    },
+    {
+      "id": "2022/binh-phuoc/so",
+      "year": 2022,
+      "province": "Bình Phước",
+      "quality": "HTML/OCR-cần-soát",
+      "contentSha256": "d601e07a24931e54692de0e9707217475da19b474cbf466e3fd3a45956cab026",
+      "practiceReadOnly": true,
+      "questionCount": 65,
+      "responseTypes": {
+        "choice": 34,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 30,
+        "essay": 1
+      },
+      "keyStatuses": {
+        "ambiguous_review": 6,
+        "source_transcription_unverified": 59
+      },
+      "listeningItems": 5,
+      "writingItems": 1
+    },
+    {
+      "id": "2022/binh-thuan/so",
+      "year": 2022,
+      "province": "Bình Thuận",
+      "quality": "HTML/OCR-cần-soát",
+      "contentSha256": "9478da3c4ae360621e113d6e01f6f6b17a6659958901e926920487d8973415d7",
+      "practiceReadOnly": true,
+      "questionCount": 51,
+      "responseTypes": {
+        "choice": 31,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 20,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "missing_answer": 51
+      },
+      "listeningItems": 0,
+      "writingItems": 0
+    },
+    {
+      "id": "2022/ca-mau/so",
+      "year": 2022,
+      "province": "Cà Mau",
+      "quality": "PDF-text",
+      "contentSha256": "b8c3239d8d61e8bff844ff8b0139440a660066aa0a8a6fe722d0190b385e61fe",
+      "practiceReadOnly": false,
+      "questionCount": 55,
+      "responseTypes": {
+        "choice": 44,
+        "multiple": 0,
+        "true-false": 1,
+        "text": 10,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "missing_answer": 55
+      },
+      "listeningItems": 0,
+      "writingItems": 0
+    },
+    {
+      "id": "2022/dak-lak/so",
+      "year": 2022,
+      "province": "Đắk Lắk",
+      "quality": "PDF-text",
+      "contentSha256": "59e3a91b7d1bf5591d1f298edb74d2ff5932e65dfc86ad855f8eb3d1788a1a1b",
+      "practiceReadOnly": false,
+      "questionCount": 65,
+      "responseTypes": {
+        "choice": 55,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 10,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "missing_answer": 65
+      },
+      "listeningItems": 0,
+      "writingItems": 0
+    },
+    {
+      "id": "2022/dong-nai/so",
+      "year": 2022,
+      "province": "Đồng Nai",
+      "quality": "HTML/OCR-cần-soát",
+      "contentSha256": "6e028c1eb149c51c5a66465f627b603f7746c5a60c93c71a287ad0a51e30ccbe",
+      "practiceReadOnly": true,
+      "questionCount": 66,
+      "responseTypes": {
+        "choice": 25,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 21,
+        "essay": 20
+      },
+      "keyStatuses": {
+        "missing_answer": 66
+      },
+      "listeningItems": 0,
+      "writingItems": 20
+    },
+    {
+      "id": "2022/dong-thap/so",
+      "year": 2022,
+      "province": "Đồng Tháp",
+      "quality": "HTML/OCR-cần-soát",
+      "contentSha256": "b1ceacd96dd92333af26bf40734852c8e63d5756768518fd8eab75f836ce54ad",
+      "practiceReadOnly": true,
+      "questionCount": 77,
+      "responseTypes": {
+        "choice": 46,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 31,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "missing_answer": 77
+      },
+      "listeningItems": 33,
+      "writingItems": 0
+    },
+    {
+      "id": "2022/ha-nam/so",
+      "year": 2022,
+      "province": "Hà Nam",
+      "quality": "PDF-text",
+      "contentSha256": "c4777692c7390299697b33f5db5fb58cf0153bca6109334476ebe18c30c5df36",
+      "practiceReadOnly": false,
+      "questionCount": 77,
+      "responseTypes": {
+        "choice": 47,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 30,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "missing_answer": 77
+      },
+      "listeningItems": 2,
+      "writingItems": 0
+    },
+    {
+      "id": "2022/ha-noi/chuyen-su-pham",
+      "year": 2022,
+      "province": "Hà Nội",
+      "quality": "PDF-text",
+      "contentSha256": "c5c71b100f3fc354d2bcde5746b135d1d6f7905510824b64e9a9f5f8ea7c6253",
+      "practiceReadOnly": false,
+      "questionCount": 58,
+      "responseTypes": {
+        "choice": 40,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 13,
+        "essay": 5
+      },
+      "keyStatuses": {
+        "missing_answer": 58
+      },
+      "listeningItems": 0,
+      "writingItems": 5
+    },
+    {
+      "id": "2022/ha-noi/so",
+      "year": 2022,
+      "province": "Hà Nội",
+      "quality": "PDF-text",
+      "contentSha256": "926cadba5677a7653f2d805f0eb6527ff2e015a9ad90e9cf6691289f3c7af447",
+      "practiceReadOnly": false,
+      "questionCount": 19,
+      "responseTypes": {
+        "choice": 1,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 18,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "ambiguous_review": 10,
+        "source_transcription_unverified": 5,
+        "missing_answer": 4
+      },
+      "listeningItems": 0,
+      "writingItems": 0
+    },
+    {
+      "id": "2022/hai-duong/so",
+      "year": 2022,
+      "province": "Hải Dương",
+      "quality": "HTML/OCR-cần-soát",
+      "contentSha256": "6159c1636a45240641acebabe98291c4de47764e623062798f2598e451ca162d",
+      "practiceReadOnly": true,
+      "questionCount": 120,
+      "responseTypes": {
+        "choice": 31,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 89,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "missing_answer": 120
+      },
+      "listeningItems": 33,
+      "writingItems": 0
+    },
+    {
+      "id": "2022/hai-phong/so",
+      "year": 2022,
+      "province": "Hải Phòng",
+      "quality": "PDF-text",
+      "contentSha256": "0ae2b3955a102ff60489e5902e559cff811f4a25961e70855f1b78ec792caea9",
+      "practiceReadOnly": false,
+      "questionCount": 124,
+      "responseTypes": {
+        "choice": 60,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 64,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "missing_answer": 124
+      },
+      "listeningItems": 9,
+      "writingItems": 0
+    },
+    {
+      "id": "2022/hoa-binh/so",
+      "year": 2022,
+      "province": "Hòa Bình",
+      "quality": "HTML/OCR-cần-soát",
+      "contentSha256": "42377971e5cfa6bb931a4730d22e84989bc056fa2b22e9d6d39f14f7427da4e4",
+      "practiceReadOnly": true,
+      "questionCount": 79,
+      "responseTypes": {
+        "choice": 32,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 47,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "missing_answer": 79
+      },
+      "listeningItems": 0,
+      "writingItems": 0
+    },
+    {
+      "id": "2022/long-an/so",
+      "year": 2022,
+      "province": "Long An",
+      "quality": "HTML/OCR-cần-soát",
+      "contentSha256": "e042a1df2dec8aeba07b0b2c13391eb87e115de9bf297aa1348fe1b1d8b1c8a3",
+      "practiceReadOnly": true,
+      "questionCount": 42,
+      "responseTypes": {
+        "choice": 26,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 11,
+        "essay": 5
+      },
+      "keyStatuses": {
+        "missing_answer": 42
+      },
+      "listeningItems": 5,
+      "writingItems": 5
+    },
+    {
+      "id": "2022/ninh-binh/so",
+      "year": 2022,
+      "province": "Ninh Bình",
+      "quality": "PDF-text",
+      "contentSha256": "1f52ec581ba6c7d6c81a911ec5dce56fbe50b009292bdb63811c305d9e29b88b",
+      "practiceReadOnly": false,
+      "questionCount": 50,
+      "responseTypes": {
+        "choice": 40,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 10,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "source_transcription_unverified": 18,
+        "missing_answer": 32
+      },
+      "listeningItems": 25,
+      "writingItems": 0
+    },
+    {
+      "id": "2022/ninh-thuan/so",
+      "year": 2022,
+      "province": "Ninh Thuận",
+      "quality": "PDF-text",
+      "contentSha256": "278eabb1f4ad0618782be3da52096ed0ad512127b9e2e0eacee199b0d1091ec0",
+      "practiceReadOnly": false,
+      "questionCount": 55,
+      "responseTypes": {
+        "choice": 20,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 35,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "missing_answer": 55
+      },
+      "listeningItems": 0,
+      "writingItems": 0
+    },
+    {
+      "id": "2022/phu-tho/so",
+      "year": 2022,
+      "province": "Phú Thọ",
+      "quality": "PDF-text",
+      "contentSha256": "8282249a2583cc3be0735b6e48c4366867bd945480534a4c3e2ad5b025f9062c",
+      "practiceReadOnly": false,
+      "questionCount": 75,
+      "responseTypes": {
+        "choice": 65,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 10,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "source_transcription_unverified": 21,
+        "missing_answer": 54
+      },
+      "listeningItems": 5,
+      "writingItems": 0
+    },
+    {
+      "id": "2022/quang-ngai/so",
+      "year": 2022,
+      "province": "Quảng Ngãi",
+      "quality": "HTML/OCR-cần-soát",
+      "contentSha256": "8d3b1b8bede01db62ce0244c0e4c2f8cf3f77f46f93cec20a2825b4573868322",
+      "practiceReadOnly": true,
+      "questionCount": 30,
+      "responseTypes": {
+        "choice": 18,
+        "multiple": 0,
+        "true-false": 1,
+        "text": 11,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "ambiguous_review": 3,
+        "missing_answer": 23,
+        "source_transcription_unverified": 4
+      },
+      "listeningItems": 18,
+      "writingItems": 0
+    },
+    {
+      "id": "2022/quang-ninh/so",
+      "year": 2022,
+      "province": "Quảng Ninh",
+      "quality": "PDF-text",
+      "contentSha256": "bbc1b13d80084f927eef7595519bff26a4d0e2916e506105ddb426d929fd5175",
+      "practiceReadOnly": false,
+      "questionCount": 63,
+      "responseTypes": {
+        "choice": 39,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 24,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "missing_answer": 63
+      },
+      "listeningItems": 5,
+      "writingItems": 0
+    },
+    {
+      "id": "2022/soc-trang/so",
+      "year": 2022,
+      "province": "Sóc Trăng",
+      "quality": "HTML/OCR-cần-soát",
+      "contentSha256": "ac5cacd002be7887d083313edee29e39cee43870d06707350d6435e22551ba64",
+      "practiceReadOnly": true,
+      "questionCount": 24,
+      "responseTypes": {
+        "choice": 10,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 14,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "missing_answer": 24
+      },
+      "listeningItems": 0,
+      "writingItems": 0
+    },
+    {
+      "id": "2022/tay-ninh/so",
+      "year": 2022,
+      "province": "Tây Ninh",
+      "quality": "PDF-text",
+      "contentSha256": "ea1f4ed22bb30d57181630801da96a3e6a3f3ff4ba529ffd6262c0fc8a04b011",
+      "practiceReadOnly": false,
+      "questionCount": 45,
+      "responseTypes": {
+        "choice": 27,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 18,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "missing_answer": 45
+      },
+      "listeningItems": 0,
+      "writingItems": 0
+    },
+    {
+      "id": "2022/thai-nguyen/so",
+      "year": 2022,
+      "province": "Thái Nguyên",
+      "quality": "PDF-text",
+      "contentSha256": "bb7f7e23f629a6a547446138b8913d9cc47046211fc492605f65c360a209ba37",
+      "practiceReadOnly": false,
+      "questionCount": 87,
+      "responseTypes": {
+        "choice": 70,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 17,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "source_transcription_unverified": 16,
+        "ambiguous_review": 7,
+        "missing_answer": 64
+      },
+      "listeningItems": 0,
+      "writingItems": 0
+    },
+    {
+      "id": "2022/tien-giang/so",
+      "year": 2022,
+      "province": "Tiền Giang",
+      "quality": "HTML/OCR-cần-soát",
+      "contentSha256": "dae642e81400214490bbbbd07ea7569d3bbe9e22cb74fd686d2d0273b2caeca6",
+      "practiceReadOnly": true,
+      "questionCount": 38,
+      "responseTypes": {
+        "choice": 16,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 21,
+        "essay": 1
+      },
+      "keyStatuses": {
+        "missing_answer": 38
+      },
+      "listeningItems": 0,
+      "writingItems": 1
+    },
+    {
+      "id": "2022/tp-ho-chi-minh/ptnk",
+      "year": 2022,
+      "province": "TP. Hồ Chí Minh",
+      "quality": "HTML/OCR-cần-soát",
+      "contentSha256": "55b3b7cbc55e6fb2b8221db3b65272e3ec0dd90a3b9905a6c207bf6eaa1eda00",
+      "practiceReadOnly": true,
+      "questionCount": 46,
+      "responseTypes": {
+        "choice": 21,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 25,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "missing_answer": 46
+      },
+      "listeningItems": 0,
+      "writingItems": 0
+    },
+    {
+      "id": "2022/vinh-phuc/so",
+      "year": 2022,
+      "province": "Vĩnh Phúc",
+      "quality": "HTML/OCR-cần-soát",
+      "contentSha256": "90796644c7b2827a8f9a18b761bfdbf5661aa96da161d6b81dfce3ea96b180ca",
+      "practiceReadOnly": true,
+      "questionCount": 80,
+      "responseTypes": {
+        "choice": 45,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 35,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "missing_answer": 80
+      },
+      "listeningItems": 25,
+      "writingItems": 0
+    },
+    {
+      "id": "2023/ba-ria-vung-tau/so",
+      "year": 2023,
+      "province": "Bà Rịa - Vũng Tàu",
+      "quality": "PDF-text",
+      "contentSha256": "d1741cbc5190340fdacf167c0f704c7136c8fe072cda3c17b0e93fc0bdb8227d",
+      "practiceReadOnly": false,
+      "questionCount": 40,
+      "responseTypes": {
+        "choice": 35,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 5,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "source_transcription_unverified": 28,
+        "ambiguous_review": 12
+      },
+      "listeningItems": 5,
+      "writingItems": 0
+    },
+    {
+      "id": "2023/bac-ninh/so",
+      "year": 2023,
+      "province": "Bắc Ninh",
+      "quality": "PDF-text",
+      "contentSha256": "8a1fe437ec84bde2b8a2dc0e98aefa5caf57e91c67278c51af59ed67c203a170",
+      "practiceReadOnly": false,
+      "questionCount": 85,
+      "responseTypes": {
+        "choice": 51,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 34,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "missing_answer": 85
+      },
+      "listeningItems": 12,
+      "writingItems": 0
+    },
+    {
+      "id": "2023/binh-duong/so",
+      "year": 2023,
+      "province": "Bình Dương",
+      "quality": "HTML/OCR-cần-soát",
+      "contentSha256": "69f1dbbd26dd354c9a44816d5b95b03b38efcc94d594e90ad646bb56ba8b4651",
+      "practiceReadOnly": true,
+      "questionCount": 97,
+      "responseTypes": {
+        "choice": 77,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 20,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "missing_answer": 97
+      },
+      "listeningItems": 10,
+      "writingItems": 0
+    },
+    {
+      "id": "2023/binh-thuan/so",
+      "year": 2023,
+      "province": "Bình Thuận",
+      "quality": "PDF-text",
+      "contentSha256": "e92f5b0212142eaa72819f815655686390834205110658645c3883ac30dfde68",
+      "practiceReadOnly": false,
+      "questionCount": 65,
+      "responseTypes": {
+        "choice": 55,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 10,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "missing_answer": 64,
+        "source_transcription_unverified": 1
+      },
+      "listeningItems": 0,
+      "writingItems": 0
+    },
+    {
+      "id": "2023/da-nang/so",
+      "year": 2023,
+      "province": "Đà Nẵng",
+      "quality": "PDF-text",
+      "contentSha256": "6a38fc05b22f6e2f240f87bcb305cc8331032e55764e388610b4c04cf1a0d1fb",
+      "practiceReadOnly": false,
+      "questionCount": 51,
+      "responseTypes": {
+        "choice": 31,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 20,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "missing_answer": 51
+      },
+      "listeningItems": 0,
+      "writingItems": 0
+    },
+    {
+      "id": "2023/dak-lak/so",
+      "year": 2023,
+      "province": "Đắk Lắk",
+      "quality": "HTML/OCR-cần-soát",
+      "contentSha256": "661a062a056bb8219771aa63854e506a4a5c92d4fe2629d6622f85b36ffbf272",
+      "practiceReadOnly": true,
+      "questionCount": 67,
+      "responseTypes": {
+        "choice": 38,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 29,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "ambiguous_review": 9,
+        "source_transcription_unverified": 58
+      },
+      "listeningItems": 8,
+      "writingItems": 0
+    },
+    {
+      "id": "2023/dak-nong/so",
+      "year": 2023,
+      "province": "Đắk Nông",
+      "quality": "PDF-text",
+      "contentSha256": "ce2b20e4fa1474c673c6173a64ffbb7143806391ee3d49a96932027bfce927c0",
+      "practiceReadOnly": false,
+      "questionCount": 40,
+      "responseTypes": {
+        "choice": 15,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 25,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "missing_answer": 40
+      },
+      "listeningItems": 3,
+      "writingItems": 0
+    },
+    {
+      "id": "2023/dong-nai/so",
+      "year": 2023,
+      "province": "Đồng Nai",
+      "quality": "PDF-text",
+      "contentSha256": "5f24e7d54311b7814c9301c4cb76381688be94b5a8a7a4176065b63a1725f056",
+      "practiceReadOnly": false,
+      "questionCount": 78,
+      "responseTypes": {
+        "choice": 39,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 17,
+        "essay": 22
+      },
+      "keyStatuses": {
+        "missing_answer": 78
+      },
+      "listeningItems": 0,
+      "writingItems": 22
+    },
+    {
+      "id": "2023/dong-thap/so",
+      "year": 2023,
+      "province": "Đồng Tháp",
+      "quality": "PDF-text",
+      "contentSha256": "19adaaf5e5ea78bb9906236f164d0092d5b1ce847d48193e01aab8037d1067e1",
+      "practiceReadOnly": false,
+      "questionCount": 51,
+      "responseTypes": {
+        "choice": 30,
+        "multiple": 0,
+        "true-false": 1,
+        "text": 20,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "missing_answer": 51
+      },
+      "listeningItems": 6,
+      "writingItems": 0
+    },
+    {
+      "id": "2023/ha-giang/so",
+      "year": 2023,
+      "province": "Hà Giang",
+      "quality": "PDF-text",
+      "contentSha256": "70169d8acfa9754927ca72980a5be54ab5815dd7de230f9b6d3ab4b067c5e3cf",
+      "practiceReadOnly": false,
+      "questionCount": 43,
+      "responseTypes": {
+        "choice": 21,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 22,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "missing_answer": 43
+      },
+      "listeningItems": 15,
+      "writingItems": 0
+    },
+    {
+      "id": "2023/ha-noi/chuyen-su-pham",
+      "year": 2023,
+      "province": "Hà Nội",
+      "quality": "HTML/OCR-cần-soát",
+      "contentSha256": "86c61ff46a47d1da347af9916238e8f14ccca4372f5a2ef9baf2f14cf2f739a4",
+      "practiceReadOnly": true,
+      "questionCount": 57,
+      "responseTypes": {
+        "choice": 29,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 21,
+        "essay": 7
+      },
+      "keyStatuses": {
+        "missing_answer": 57
+      },
+      "listeningItems": 0,
+      "writingItems": 7
+    },
+    {
+      "id": "2023/ha-noi/so",
+      "year": 2023,
+      "province": "Hà Nội",
+      "quality": "HTML/OCR-cần-soát",
+      "contentSha256": "ab2dcd227a9129a1045166d6d654d9384412c734e44f3197758a54678652309d",
+      "practiceReadOnly": true,
+      "questionCount": 51,
+      "responseTypes": {
+        "choice": 29,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 22,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "missing_answer": 51
+      },
+      "listeningItems": 5,
+      "writingItems": 0
+    },
+    {
+      "id": "2023/hai-phong/so",
+      "year": 2023,
+      "province": "Hải Phòng",
+      "quality": "PDF-text",
+      "contentSha256": "9639d2b47c01ceee883e4e83cc82ba3dbb24788629b11aebdb7933e6974090e3",
+      "practiceReadOnly": false,
+      "questionCount": 105,
+      "responseTypes": {
+        "choice": 60,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 45,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "missing_answer": 105
+      },
+      "listeningItems": 5,
+      "writingItems": 0
+    },
+    {
+      "id": "2023/hung-yen/so",
+      "year": 2023,
+      "province": "Hưng Yên",
+      "quality": "HTML/OCR-cần-soát",
+      "contentSha256": "c7d42c322fcc7fc0d754dc7d02e19650fcdb57a59523b5068aa105847d3577c0",
+      "practiceReadOnly": true,
+      "questionCount": 73,
+      "responseTypes": {
+        "choice": 27,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 46,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "missing_answer": 73
+      },
+      "listeningItems": 0,
+      "writingItems": 0
+    },
+    {
+      "id": "2023/nam-dinh/so",
+      "year": 2023,
+      "province": "Nam Định",
+      "quality": "PDF-text",
+      "contentSha256": "baab9ace0129e2c33974834cc43acd35b450cd7c5fdb81c498deb6b025b6051c",
+      "practiceReadOnly": false,
+      "questionCount": 57,
+      "responseTypes": {
+        "choice": 38,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 19,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "ambiguous_review": 57
+      },
+      "listeningItems": 15,
+      "writingItems": 0
+    },
+    {
+      "id": "2023/phu-yen/so",
+      "year": 2023,
+      "province": "Phú Yên",
+      "quality": "HTML/OCR-cần-soát",
+      "contentSha256": "1e07c4bbf7cb72b3ac48baafa2ef9cd37e00a22f3daa607bd6c66f0c7723570c",
+      "practiceReadOnly": true,
+      "questionCount": 40,
+      "responseTypes": {
+        "choice": 16,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 24,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "source_transcription_unverified": 40
+      },
+      "listeningItems": 0,
+      "writingItems": 0
+    },
+    {
+      "id": "2023/quang-binh/so",
+      "year": 2023,
+      "province": "Quảng Bình",
+      "quality": "PDF-text",
+      "contentSha256": "9ab0ddea8b67649723eb02c32343b7dd49442036405e0603b9bb3602f1778b8d",
+      "practiceReadOnly": false,
+      "questionCount": 76,
+      "responseTypes": {
+        "choice": 35,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 41,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "missing_answer": 76
+      },
+      "listeningItems": 6,
+      "writingItems": 0
+    },
+    {
+      "id": "2023/soc-trang/so",
+      "year": 2023,
+      "province": "Sóc Trăng",
+      "quality": "PDF-text",
+      "contentSha256": "dfb71b082b54ac304b488d02d25d945999f7a7c429d0be48ab3ec617b3e120ea",
+      "practiceReadOnly": false,
+      "questionCount": 29,
+      "responseTypes": {
+        "choice": 20,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 9,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "missing_answer": 29
+      },
+      "listeningItems": 0,
+      "writingItems": 0
+    },
+    {
+      "id": "2023/thua-thien-hue/so",
+      "year": 2023,
+      "province": "Thừa Thiên Huế",
+      "quality": "HTML/OCR-cần-soát",
+      "contentSha256": "08a35ac3d35016271b2bc023d0c64e3ec37267b77575afbab0bc875955bd6288",
+      "practiceReadOnly": true,
+      "questionCount": 66,
+      "responseTypes": {
+        "choice": 46,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 20,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "source_transcription_unverified": 24,
+        "missing_answer": 42
+      },
+      "listeningItems": 25,
+      "writingItems": 0
+    },
+    {
+      "id": "2023/tp-ho-chi-minh/ptnk",
+      "year": 2023,
+      "province": "TP. Hồ Chí Minh",
+      "quality": "HTML/OCR-cần-soát",
+      "contentSha256": "ffaa0f80464f23d7957a3353bcfcc965f5de7073cda067fb32482edd15ef55d6",
+      "practiceReadOnly": true,
+      "questionCount": 36,
+      "responseTypes": {
+        "choice": 32,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 3,
+        "essay": 1
+      },
+      "keyStatuses": {
+        "ambiguous_review": 7,
+        "source_transcription_unverified": 29
+      },
+      "listeningItems": 0,
+      "writingItems": 1
+    },
+    {
+      "id": "2023/tp-ho-chi-minh/so",
+      "year": 2023,
+      "province": "TP. Hồ Chí Minh",
+      "quality": "PDF-text",
+      "contentSha256": "b949a4a2af1477659633bdd5ea4cc4e638a2976ec4b92ef749b601477e524200",
+      "practiceReadOnly": false,
+      "questionCount": 70,
+      "responseTypes": {
+        "choice": 50,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 20,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "missing_answer": 70
+      },
+      "listeningItems": 0,
+      "writingItems": 0
+    },
+    {
+      "id": "2023/vinh-phuc/so",
+      "year": 2023,
+      "province": "Vĩnh Phúc",
+      "quality": "PDF-text",
+      "contentSha256": "19c2b6b0ceafb5678863cb4b4f90f0d3625c17d703fa019dafe16b03f714be71",
+      "practiceReadOnly": false,
+      "questionCount": 58,
+      "responseTypes": {
+        "choice": 43,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 15,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "missing_answer": 58
+      },
+      "listeningItems": 10,
+      "writingItems": 0
+    },
+    {
+      "id": "2024/ben-tre/so",
+      "year": 2024,
+      "province": "Bến Tre",
+      "quality": "PDF-text",
+      "contentSha256": "f1d8a39f71cbc0b250e2692c5f95c34392f5744c3b775519f9ea1ec5c506b0b6",
+      "practiceReadOnly": false,
+      "questionCount": 42,
+      "responseTypes": {
+        "choice": 29,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 13,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "ambiguous_review": 42
+      },
+      "listeningItems": 4,
+      "writingItems": 0
+    },
+    {
+      "id": "2024/da-nang/so",
+      "year": 2024,
+      "province": "Đà Nẵng",
+      "quality": "PDF-text",
+      "contentSha256": "8b6736ff64a4133c232d1026a310a4c2989f9340654dafd97f4e7e96e1aeaa22",
+      "practiceReadOnly": false,
+      "questionCount": 51,
+      "responseTypes": {
+        "choice": 31,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 20,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "ambiguous_review": 30,
+        "source_transcription_unverified": 21
+      },
+      "listeningItems": 0,
+      "writingItems": 0
+    },
+    {
+      "id": "2024/ha-noi/chuyen-su-pham",
+      "year": 2024,
+      "province": "Hà Nội",
+      "quality": "PDF-text",
+      "contentSha256": "d61a1694d228581f9d9276a32214c73c2d59c9a2f1aff669bc71b16e1eb07fd9",
+      "practiceReadOnly": false,
+      "questionCount": 54,
+      "responseTypes": {
+        "choice": 30,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 23,
+        "essay": 1
+      },
+      "keyStatuses": {
+        "source_transcription_unverified": 52,
+        "ambiguous_review": 2
+      },
+      "listeningItems": 0,
+      "writingItems": 1
+    },
+    {
+      "id": "2024/ha-noi/so",
+      "year": 2024,
+      "province": "Hà Nội",
+      "quality": "PDF-text",
+      "contentSha256": "e840295f66764f879d6fd3cdf554c2e446178e1171fe89aa3ea20d22760f1f8a",
+      "practiceReadOnly": false,
+      "questionCount": 36,
+      "responseTypes": {
+        "choice": 21,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 15,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "source_transcription_unverified": 35,
+        "missing_answer": 1
+      },
+      "listeningItems": 0,
+      "writingItems": 0
+    },
+    {
+      "id": "2024/thanh-hoa/so",
+      "year": 2024,
+      "province": "Thanh Hóa",
+      "quality": "PDF-text",
+      "contentSha256": "f7c48d854d873b5a4594a7f0838ffc9ddbe5f4db30052beb1fe981f7fad53c32",
+      "practiceReadOnly": false,
+      "questionCount": 71,
+      "responseTypes": {
+        "choice": 36,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 34,
+        "essay": 1
+      },
+      "keyStatuses": {
+        "missing_answer": 71
+      },
+      "listeningItems": 10,
+      "writingItems": 1
+    },
+    {
+      "id": "2024/tp-ho-chi-minh/so",
+      "year": 2024,
+      "province": "TP. Hồ Chí Minh",
+      "quality": "PDF-text",
+      "contentSha256": "a95038b63fdeeac2a36cdf0cd4b304c39f408db7edf49075a2c16a4250cf1ee6",
+      "practiceReadOnly": false,
+      "questionCount": 70,
+      "responseTypes": {
+        "choice": 50,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 20,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "missing_answer": 70
+      },
+      "listeningItems": 0,
+      "writingItems": 0
+    },
+    {
+      "id": "2024/vinh-phuc/so",
+      "year": 2024,
+      "province": "Vĩnh Phúc",
+      "quality": "PDF-text/DOCX",
+      "contentSha256": "f0256e7951054d17e6ba7f96996215decc11de9c19f7ae72d12110501dc31156",
+      "practiceReadOnly": false,
+      "questionCount": 58,
+      "responseTypes": {
+        "choice": 43,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 15,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "ambiguous_review": 53,
+        "source_transcription_unverified": 4,
+        "missing_answer": 1
+      },
+      "listeningItems": 10,
+      "writingItems": 0
+    },
+    {
+      "id": "2025/ba-ria-vung-tau/so",
+      "year": 2025,
+      "province": "Bà Rịa - Vũng Tàu",
+      "quality": "DOCX",
+      "contentSha256": "fbc3d11acc0698bebc37646ce817332a21c25948f4605fd45215b064ea15539c",
+      "practiceReadOnly": false,
+      "questionCount": 28,
+      "responseTypes": {
+        "choice": 23,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 5,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "ambiguous_review": 20,
+        "source_transcription_unverified": 8
+      },
+      "listeningItems": 5,
+      "writingItems": 0
+    },
+    {
+      "id": "2025/bac-giang/so",
+      "year": 2025,
+      "province": "Bắc Giang",
+      "quality": "PDF-text",
+      "contentSha256": "e9160f5f00d277a5d0935e5327adea8feb920b7b2869dd2b98ff39c683bedcdd",
+      "practiceReadOnly": false,
+      "questionCount": 100,
+      "responseTypes": {
+        "choice": 30,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 70,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "ambiguous_review": 100
+      },
+      "listeningItems": 5,
+      "writingItems": 0
+    },
+    {
+      "id": "2025/binh-duong/so",
+      "year": 2025,
+      "province": "Bình Dương",
+      "quality": "DOCX",
+      "contentSha256": "2e5f5e035bf6b58afe277e1e75680266077dc19181127f802912a15ebfecb617",
+      "practiceReadOnly": false,
+      "questionCount": 123,
+      "responseTypes": {
+        "choice": 35,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 88,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "missing_answer": 42,
+        "source_transcription_unverified": 79,
+        "ambiguous_review": 2
+      },
+      "listeningItems": 122,
+      "writingItems": 0
+    },
+    {
+      "id": "2025/binh-phuoc/so",
+      "year": 2025,
+      "province": "Bình Phước",
+      "quality": "DOCX",
+      "contentSha256": "e962c6dfea7de6a24f6bcc9c69d4d1255cb2b8e176d91190001a30572db8fe47",
+      "practiceReadOnly": false,
+      "questionCount": 50,
+      "responseTypes": {
+        "choice": 33,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 12,
+        "essay": 5
+      },
+      "keyStatuses": {
+        "source_transcription_unverified": 50
+      },
+      "listeningItems": 10,
+      "writingItems": 5
+    },
+    {
+      "id": "2025/da-nang/so",
+      "year": 2025,
+      "province": "Đà Nẵng",
+      "quality": "DOCX",
+      "contentSha256": "17e7b6c39c293b774d05eaec9d8b5355961d346ab46345b1ac9b9154bb7eb6c0",
+      "practiceReadOnly": false,
+      "questionCount": 40,
+      "responseTypes": {
+        "choice": 21,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 9,
+        "essay": 10
+      },
+      "keyStatuses": {
+        "ambiguous_review": 30,
+        "source_transcription_unverified": 10
+      },
+      "listeningItems": 0,
+      "writingItems": 10
+    },
+    {
+      "id": "2025/dak-lak/so",
+      "year": 2025,
+      "province": "Đắk Lắk",
+      "quality": "DOCX",
+      "contentSha256": "7a225249ca21e1a58e1b58311ba8e010745b5638bac5364fa6e49c54970ed7f9",
+      "practiceReadOnly": false,
+      "questionCount": 67,
+      "responseTypes": {
+        "choice": 40,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 27,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "missing_answer": 5,
+        "source_transcription_unverified": 62
+      },
+      "listeningItems": 5,
+      "writingItems": 0
+    },
+    {
+      "id": "2025/dong-nai/so",
+      "year": 2025,
+      "province": "Đồng Nai",
+      "quality": "DOCX",
+      "contentSha256": "81d899d7119605735217c94604b550ac8276cc3b5cdfed24e54676d1511e2e23",
+      "practiceReadOnly": false,
+      "questionCount": 62,
+      "responseTypes": {
+        "choice": 24,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 38,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "source_transcription_unverified": 62
+      },
+      "listeningItems": 0,
+      "writingItems": 0
+    },
+    {
+      "id": "2025/dong-thap/so",
+      "year": 2025,
+      "province": "Đồng Tháp",
+      "quality": "PDF-text",
+      "contentSha256": "26c312b4b474dc9581906cb84fcdeb03fadc9f00d348ad77ad24c6d30abe809f",
+      "practiceReadOnly": false,
+      "questionCount": 50,
+      "responseTypes": {
+        "choice": 25,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 15,
+        "essay": 10
+      },
+      "keyStatuses": {
+        "ambiguous_review": 45,
+        "source_transcription_unverified": 5
+      },
+      "listeningItems": 0,
+      "writingItems": 10
+    },
+    {
+      "id": "2025/ha-nam/so",
+      "year": 2025,
+      "province": "Hà Nam",
+      "quality": "PDF-text",
+      "contentSha256": "0d4d7000259a2f614cb41b823b4352bdf3b9a5408a17acf0c8c7eaa703eed061",
+      "practiceReadOnly": false,
+      "questionCount": 80,
+      "responseTypes": {
+        "choice": 40,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 40,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "source_transcription_unverified": 10,
+        "ambiguous_review": 70
+      },
+      "listeningItems": 0,
+      "writingItems": 0
+    },
+    {
+      "id": "2025/ha-noi/so",
+      "year": 2025,
+      "province": "Hà Nội",
+      "quality": "PDF-text",
+      "contentSha256": "34d6cca2f90a3801483e7eb5fb2e67f7c541cf956073fc6b4cfbdb8ff5176b68",
+      "practiceReadOnly": false,
+      "questionCount": 36,
+      "responseTypes": {
+        "choice": 16,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 20,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "source_transcription_unverified": 36
+      },
+      "listeningItems": 0,
+      "writingItems": 0
+    },
+    {
+      "id": "2025/hai-phong/so",
+      "year": 2025,
+      "province": "Hải Phòng",
+      "quality": "PDF-text",
+      "contentSha256": "82ae5cdd32b00d6fdcfd55636ba4e1021b09aec31084871de61aa22275309660",
+      "practiceReadOnly": false,
+      "questionCount": 95,
+      "responseTypes": {
+        "choice": 60,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 35,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "source_transcription_unverified": 10,
+        "ambiguous_review": 45,
+        "missing_answer": 40
+      },
+      "listeningItems": 0,
+      "writingItems": 0
+    },
+    {
+      "id": "2025/khanh-hoa/so",
+      "year": 2025,
+      "province": "Khánh Hòa",
+      "quality": "DOCX",
+      "contentSha256": "fab3987ecf1eefd9016f87c2ae81727f347e94add704f5a1468b4a224efe77e7",
+      "practiceReadOnly": false,
+      "questionCount": 48,
+      "responseTypes": {
+        "choice": 21,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 22,
+        "essay": 5
+      },
+      "keyStatuses": {
+        "source_transcription_unverified": 48
+      },
+      "listeningItems": 0,
+      "writingItems": 5
+    },
+    {
+      "id": "2025/kon-tum/so",
+      "year": 2025,
+      "province": "Kon Tum",
+      "quality": "PDF-text",
+      "contentSha256": "880a7fbdf600decf58d9794962718adbd143f8ce9e28c7294b8cd00281297f14",
+      "practiceReadOnly": false,
+      "questionCount": 60,
+      "responseTypes": {
+        "choice": 26,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 34,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "ambiguous_review": 50,
+        "source_transcription_unverified": 10
+      },
+      "listeningItems": 0,
+      "writingItems": 0
+    },
+    {
+      "id": "2025/lai-chau/so",
+      "year": 2025,
+      "province": "Lai Châu",
+      "quality": "PDF-text/DOCX",
+      "contentSha256": "2802a0a7a37349d85d5229e478c86c174159ac223303fc5d822b019732b66501",
+      "practiceReadOnly": false,
+      "questionCount": 70,
+      "responseTypes": {
+        "choice": 52,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 18,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "missing_answer": 70
+      },
+      "listeningItems": 0,
+      "writingItems": 0
+    },
+    {
+      "id": "2025/nam-dinh/so",
+      "year": 2025,
+      "province": "Nam Định",
+      "quality": "PDF-text",
+      "contentSha256": "bb4bb4fd63a607151fa97f8c3c410303a5e8bc87cd8e815354559a2c07c790a9",
+      "practiceReadOnly": false,
+      "questionCount": 75,
+      "responseTypes": {
+        "choice": 45,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 30,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "ambiguous_review": 65,
+        "source_transcription_unverified": 10
+      },
+      "listeningItems": 5,
+      "writingItems": 0
+    },
+    {
+      "id": "2025/nghe-an/so",
+      "year": 2025,
+      "province": "Nghệ An",
+      "quality": "PDF-text",
+      "contentSha256": "b6da20f42c7012d5b01b68c7bafbad44bfd4f355aa10d02aedbc32fdcb220cfe",
+      "practiceReadOnly": false,
+      "questionCount": 45,
+      "responseTypes": {
+        "choice": 30,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 15,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "ambiguous_review": 43,
+        "source_transcription_unverified": 2
+      },
+      "listeningItems": 0,
+      "writingItems": 0
+    },
+    {
+      "id": "2025/ninh-thuan/so",
+      "year": 2025,
+      "province": "Ninh Thuận",
+      "quality": "DOCX",
+      "contentSha256": "3376c8a461e7804d8cb33befa07367780960fd5de7f2a3a198bd44ae5b8a91f8",
+      "practiceReadOnly": false,
+      "questionCount": 47,
+      "responseTypes": {
+        "choice": 19,
+        "multiple": 0,
+        "true-false": 6,
+        "text": 17,
+        "essay": 5
+      },
+      "keyStatuses": {
+        "ambiguous_review": 2,
+        "source_transcription_unverified": 45
+      },
+      "listeningItems": 20,
+      "writingItems": 5
+    },
+    {
+      "id": "2025/phu-tho/so",
+      "year": 2025,
+      "province": "Phú Thọ",
+      "quality": "PDF-text",
+      "contentSha256": "5d81298caf629b0c6f22cbb06cd4ab1efc6bcb99d3dbcdc0df57ddb118ce4aaf",
+      "practiceReadOnly": false,
+      "questionCount": 65,
+      "responseTypes": {
+        "choice": 55,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 9,
+        "essay": 1
+      },
+      "keyStatuses": {
+        "source_transcription_unverified": 65
+      },
+      "listeningItems": 5,
+      "writingItems": 1
+    },
+    {
+      "id": "2025/quang-ngai/so",
+      "year": 2025,
+      "province": "Quảng Ngãi",
+      "quality": "PDF-text",
+      "contentSha256": "21a388dbabff86e983d2330a9a7ea3c606f8635c83bee0bd4423964309c18a74",
+      "practiceReadOnly": false,
+      "questionCount": 30,
+      "responseTypes": {
+        "choice": 25,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 5,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "ambiguous_review": 5,
+        "missing_answer": 22,
+        "source_transcription_unverified": 3
+      },
+      "listeningItems": 0,
+      "writingItems": 0
+    },
+    {
+      "id": "2025/quang-ninh/so",
+      "year": 2025,
+      "province": "Quảng Ninh",
+      "quality": "DOCX",
+      "contentSha256": "82e7de861de94f634443fe0f6692d54af8e089cd12f42b71c41eafd2e8734963",
+      "practiceReadOnly": false,
+      "questionCount": 77,
+      "responseTypes": {
+        "choice": 32,
+        "multiple": 0,
+        "true-false": 1,
+        "text": 31,
+        "essay": 13
+      },
+      "keyStatuses": {
+        "ambiguous_review": 57,
+        "source_transcription_unverified": 20
+      },
+      "listeningItems": 11,
+      "writingItems": 13
+    },
+    {
+      "id": "2025/thai-binh/so",
+      "year": 2025,
+      "province": "Thái Bình",
+      "quality": "PDF-text/DOCX",
+      "contentSha256": "3ab336dc7fd2f8f5d39e8b240eb3893878d82a04b7bb1fde93d8d2c842756a3c",
+      "practiceReadOnly": false,
+      "questionCount": 56,
+      "responseTypes": {
+        "choice": 35,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 21,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "source_transcription_unverified": 53,
+        "ambiguous_review": 3
+      },
+      "listeningItems": 20,
+      "writingItems": 0
+    },
+    {
+      "id": "2025/thai-nguyen/so",
+      "year": 2025,
+      "province": "Thái Nguyên",
+      "quality": "PDF-text",
+      "contentSha256": "0fb128ebcf48c861507cc9f2e765a06e8895db3e2af26f12bcc1eac26e67ab7e",
+      "practiceReadOnly": false,
+      "questionCount": 70,
+      "responseTypes": {
+        "choice": 70,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 0,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "source_transcription_unverified": 70
+      },
+      "listeningItems": 0,
+      "writingItems": 0
+    },
+    {
+      "id": "2025/tien-giang/so",
+      "year": 2025,
+      "province": "Tiền Giang",
+      "quality": "PDF-text",
+      "contentSha256": "5f96b3ddde85ba8f039ec2a728220e7cbae43f80fd15f727981d0504d38f84ba",
+      "practiceReadOnly": false,
+      "questionCount": 52,
+      "responseTypes": {
+        "choice": 29,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 22,
+        "essay": 1
+      },
+      "keyStatuses": {
+        "source_transcription_unverified": 3,
+        "ambiguous_review": 1,
+        "missing_answer": 48
+      },
+      "listeningItems": 0,
+      "writingItems": 1
+    },
+    {
+      "id": "2025/tp-ho-chi-minh/so",
+      "year": 2025,
+      "province": "TP. Hồ Chí Minh",
+      "quality": "PDF-text",
+      "contentSha256": "baa78a3b96797ecebe440aaacefff20589807ff9b6a0e9fe33809854aaedbc30",
+      "practiceReadOnly": false,
+      "questionCount": 70,
+      "responseTypes": {
+        "choice": 50,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 20,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "source_transcription_unverified": 70
+      },
+      "listeningItems": 0,
+      "writingItems": 0
+    },
+    {
+      "id": "2025/tuyen-quang/so",
+      "year": 2025,
+      "province": "Tuyên Quang",
+      "quality": "DOCX",
+      "contentSha256": "40dced26e298db757cd086209b18ab53ff667c99fb7d64dd92d452c77045c4ae",
+      "practiceReadOnly": false,
+      "questionCount": 45,
+      "responseTypes": {
+        "choice": 15,
+        "multiple": 10,
+        "true-false": 0,
+        "text": 20,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "source_transcription_unverified": 45
+      },
+      "listeningItems": 10,
+      "writingItems": 0
+    },
+    {
+      "id": "2025/vinh-phuc/so",
+      "year": 2025,
+      "province": "Vĩnh Phúc",
+      "quality": "PDF-text",
+      "contentSha256": "9f5994794d094ca2f0917a8b60ee0b937474ff4f9eec555575e8358752a150af",
+      "practiceReadOnly": false,
+      "questionCount": 80,
+      "responseTypes": {
+        "choice": 55,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 25,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "ambiguous_review": 65,
+        "source_transcription_unverified": 15
+      },
+      "listeningItems": 5,
+      "writingItems": 0
+    },
+    {
+      "id": "2025/yen-bai/so",
+      "year": 2025,
+      "province": "Yên Bái",
+      "quality": "DOCX",
+      "contentSha256": "5396088307245d0a3162e1006b0ae448763c6000479a01095ce30a2b79ae9922",
+      "practiceReadOnly": false,
+      "questionCount": 41,
+      "responseTypes": {
+        "choice": 30,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 3,
+        "essay": 8
+      },
+      "keyStatuses": {
+        "ambiguous_review": 41
+      },
+      "listeningItems": 8,
+      "writingItems": 8
+    },
+    {
+      "id": "2026/an-giang/so",
+      "year": 2026,
+      "province": "An Giang",
+      "quality": "DOCX",
+      "contentSha256": "1ec76a3d33f1f4a827893163993626738d217fd942397fb412c71fd26ee74af0",
+      "practiceReadOnly": false,
+      "questionCount": 39,
+      "responseTypes": {
+        "choice": 18,
+        "multiple": 10,
+        "true-false": 0,
+        "text": 11,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "ambiguous_review": 5,
+        "source_transcription_unverified": 16,
+        "missing_answer": 18
+      },
+      "listeningItems": 5,
+      "writingItems": 0
+    },
+    {
+      "id": "2026/bac-ninh/so",
+      "year": 2026,
+      "province": "Bắc Ninh",
+      "quality": "DOCX",
+      "contentSha256": "3fa80505ec47e9d196ab3e4cb4f78477402fc61eed0f0813c9aad6b8dc4da40e",
+      "practiceReadOnly": false,
+      "questionCount": 69,
+      "responseTypes": {
+        "choice": 40,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 29,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "ambiguous_review": 49,
+        "source_transcription_unverified": 20
+      },
+      "listeningItems": 10,
+      "writingItems": 0
+    },
+    {
+      "id": "2026/da-nang/so",
+      "year": 2026,
+      "province": "Đà Nẵng",
+      "quality": "DOCX",
+      "contentSha256": "17bf1ad4e205c5b7162e14860b55a7cb1570086f4f7e29f75ca39f34c94316f6",
+      "practiceReadOnly": false,
+      "questionCount": 49,
+      "responseTypes": {
+        "choice": 30,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 19,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "ambiguous_review": 39,
+        "source_transcription_unverified": 10
+      },
+      "listeningItems": 0,
+      "writingItems": 0
+    },
+    {
+      "id": "2026/dak-lak/so",
+      "year": 2026,
+      "province": "Đắk Lắk",
+      "quality": "DOCX",
+      "contentSha256": "cfc4a5e9e5b28d3220b850c4de8ac02607702281f2ac7ed80d943e8b9cc18813",
+      "practiceReadOnly": false,
+      "questionCount": 50,
+      "responseTypes": {
+        "choice": 30,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 20,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "source_transcription_unverified": 50
+      },
+      "listeningItems": 0,
+      "writingItems": 0
+    },
+    {
+      "id": "2026/dien-bien/so",
+      "year": 2026,
+      "province": "Điện Biên",
+      "quality": "DOCX/PDF-text",
+      "contentSha256": "54c54008a3e8738e86d0c40c4bd71764b416c4b2a5768fd2fc85d1674764f478",
+      "practiceReadOnly": false,
+      "questionCount": 80,
+      "responseTypes": {
+        "choice": 45,
+        "multiple": 6,
+        "true-false": 0,
+        "text": 29,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "ambiguous_review": 72,
+        "source_transcription_unverified": 8
+      },
+      "listeningItems": 6,
+      "writingItems": 0
+    },
+    {
+      "id": "2026/dong-nai/so",
+      "year": 2026,
+      "province": "Đồng Nai",
+      "quality": "DOCX",
+      "contentSha256": "b586cd24becd532bee761a7df6e722cb610ad57265122fdd7be8e4f79d13a483",
+      "practiceReadOnly": false,
+      "questionCount": 45,
+      "responseTypes": {
+        "choice": 19,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 15,
+        "essay": 11
+      },
+      "keyStatuses": {
+        "source_transcription_unverified": 45
+      },
+      "listeningItems": 0,
+      "writingItems": 11
+    },
+    {
+      "id": "2026/gia-lai/so",
+      "year": 2026,
+      "province": "Gia Lai",
+      "quality": "DOCX",
+      "contentSha256": "28c42d8ee5de30f382409f63851babbfca5c286af466d1d3feec58a259548d6f",
+      "practiceReadOnly": false,
+      "questionCount": 30,
+      "responseTypes": {
+        "choice": 15,
+        "multiple": 5,
+        "true-false": 0,
+        "text": 0,
+        "essay": 10
+      },
+      "keyStatuses": {
+        "source_transcription_unverified": 30
+      },
+      "listeningItems": 5,
+      "writingItems": 10
+    },
+    {
+      "id": "2026/ha-tinh/so",
+      "year": 2026,
+      "province": "Hà Tĩnh",
+      "quality": "PDF-text/DOCX",
+      "contentSha256": "6d5d7ab179b4b6308c2d81d885ae87d9e1a4c7cb77ed76618423086c126da906",
+      "practiceReadOnly": false,
+      "questionCount": 85,
+      "responseTypes": {
+        "choice": 47,
+        "multiple": 0,
+        "true-false": 1,
+        "text": 28,
+        "essay": 9
+      },
+      "keyStatuses": {
+        "ambiguous_review": 85
+      },
+      "listeningItems": 7,
+      "writingItems": 9
+    },
+    {
+      "id": "2026/hue/chuyen-khoa-hoc-hue",
+      "year": 2026,
+      "province": "Huế",
+      "quality": "DOCX",
+      "contentSha256": "d841b32b4389220dd70f10341b26e7fad6334569cae519c92091d93248be0bc9",
+      "practiceReadOnly": false,
+      "questionCount": 36,
+      "responseTypes": {
+        "choice": 25,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 1,
+        "essay": 10
+      },
+      "keyStatuses": {
+        "source_transcription_unverified": 36
+      },
+      "listeningItems": 6,
+      "writingItems": 10
+    },
+    {
+      "id": "2026/khanh-hoa/so",
+      "year": 2026,
+      "province": "Khánh Hòa",
+      "quality": "DOCX",
+      "contentSha256": "168d039222b05c4b0d2d4e545fb686b792a1c784d7881902195a701a634ed4a7",
+      "practiceReadOnly": false,
+      "questionCount": 45,
+      "responseTypes": {
+        "choice": 23,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 15,
+        "essay": 7
+      },
+      "keyStatuses": {
+        "source_transcription_unverified": 45
+      },
+      "listeningItems": 0,
+      "writingItems": 7
+    },
+    {
+      "id": "2026/lai-chau/so",
+      "year": 2026,
+      "province": "Lai Châu",
+      "quality": "DOCX",
+      "contentSha256": "ef06fd24cdfde12671ee3078b4f672284c1e1510caea27990a9d0ea794329513",
+      "practiceReadOnly": false,
+      "questionCount": 50,
+      "responseTypes": {
+        "choice": 32,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 18,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "source_transcription_unverified": 50
+      },
+      "listeningItems": 0,
+      "writingItems": 0
+    },
+    {
+      "id": "2026/lao-cai/so",
+      "year": 2026,
+      "province": "Lào Cai",
+      "quality": "DOCX",
+      "contentSha256": "9fb4f60dab0ce62282538988b73997c717ac622f61452391071526c9f829ba93",
+      "practiceReadOnly": false,
+      "questionCount": 56,
+      "responseTypes": {
+        "choice": 28,
+        "multiple": 5,
+        "true-false": 0,
+        "text": 23,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "ambiguous_review": 48,
+        "source_transcription_unverified": 8
+      },
+      "listeningItems": 6,
+      "writingItems": 0
+    },
+    {
+      "id": "2026/nghe-an/chuyen-dai-hoc-vinh",
+      "year": 2026,
+      "province": "Nghệ An",
+      "quality": "DOCX",
+      "contentSha256": "960b6f260cd371655b463273c3a88a770207bf5f500d529545d5513f4ed920db",
+      "practiceReadOnly": false,
+      "questionCount": 78,
+      "responseTypes": {
+        "choice": 46,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 22,
+        "essay": 10
+      },
+      "keyStatuses": {
+        "ambiguous_review": 46,
+        "source_transcription_unverified": 32
+      },
+      "listeningItems": 35,
+      "writingItems": 10
+    },
+    {
+      "id": "2026/nghe-an/so",
+      "year": 2026,
+      "province": "Nghệ An",
+      "quality": "DOCX",
+      "contentSha256": "cf324cfac6426503c49106a8c4ffa085f3432700cbfa6b9997fa04c476e15f30",
+      "practiceReadOnly": false,
+      "questionCount": 118,
+      "responseTypes": {
+        "choice": 15,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 103,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "ambiguous_review": 85,
+        "source_transcription_unverified": 6,
+        "missing_answer": 27
+      },
+      "listeningItems": 38,
+      "writingItems": 0
+    },
+    {
+      "id": "2026/ninh-binh/so",
+      "year": 2026,
+      "province": "Ninh Bình",
+      "quality": "DOCX",
+      "contentSha256": "e8ad964c9af1de8c05ba83490c5bc49dbf638adb570742e5911cab09288f6e3b",
+      "practiceReadOnly": false,
+      "questionCount": 23,
+      "responseTypes": {
+        "choice": 19,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 4,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "ambiguous_review": 23
+      },
+      "listeningItems": 8,
+      "writingItems": 0
+    },
+    {
+      "id": "2026/quang-ninh/so",
+      "year": 2026,
+      "province": "Quảng Ninh",
+      "quality": "DOCX",
+      "contentSha256": "68bc22b50b6d09d6b08b020007b00a06e376069944af23e6b09862b9c19c36b2",
+      "practiceReadOnly": false,
+      "questionCount": 73,
+      "responseTypes": {
+        "choice": 38,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 35,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "source_transcription_unverified": 15,
+        "ambiguous_review": 58
+      },
+      "listeningItems": 5,
+      "writingItems": 0
+    },
+    {
+      "id": "2026/quang-tri/so",
+      "year": 2026,
+      "province": "Quảng Trị",
+      "quality": "PDF-text/DOCX",
+      "contentSha256": "12ceabdb0a52051fdef7cfe44276bf6411cf99f4ec41d58fb1e33584d4d68d9e",
+      "practiceReadOnly": false,
+      "questionCount": 74,
+      "responseTypes": {
+        "choice": 31,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 41,
+        "essay": 2
+      },
+      "keyStatuses": {
+        "missing_answer": 69,
+        "ambiguous_review": 2,
+        "source_transcription_unverified": 3
+      },
+      "listeningItems": 6,
+      "writingItems": 2
+    },
+    {
+      "id": "2026/tay-ninh/so",
+      "year": 2026,
+      "province": "Tây Ninh",
+      "quality": "DOCX",
+      "contentSha256": "286a109350658bbbe51f0d93c984e802dbc9c575f8e282ad5de5a7bbf062f3d0",
+      "practiceReadOnly": false,
+      "questionCount": 112,
+      "responseTypes": {
+        "choice": 9,
+        "multiple": 10,
+        "true-false": 0,
+        "text": 93,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "ambiguous_review": 19,
+        "source_transcription_unverified": 69,
+        "missing_answer": 24
+      },
+      "listeningItems": 0,
+      "writingItems": 0
+    },
+    {
+      "id": "2026/thanh-hoa/so",
+      "year": 2026,
+      "province": "Thanh Hóa",
+      "quality": "DOCX",
+      "contentSha256": "f70ffb34fbd4dbe16e7857030197526fda7cf2cb691e17aee5dcca0343a91289",
+      "practiceReadOnly": false,
+      "questionCount": 48,
+      "responseTypes": {
+        "choice": 23,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 25,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "source_transcription_unverified": 48
+      },
+      "listeningItems": 10,
+      "writingItems": 0
+    },
+    {
+      "id": "2026/tp-ho-chi-minh/ptnk",
+      "year": 2026,
+      "province": "TP. Hồ Chí Minh",
+      "quality": "DOCX",
+      "contentSha256": "cd9915610fa20d47af152d4149be9e081b7baa87ed378d9157a5e1abeb4d8622",
+      "practiceReadOnly": false,
+      "questionCount": 63,
+      "responseTypes": {
+        "choice": 48,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 5,
+        "essay": 10
+      },
+      "keyStatuses": {
+        "source_transcription_unverified": 63
+      },
+      "listeningItems": 0,
+      "writingItems": 10
+    },
+    {
+      "id": "2026/vinh-long/so",
+      "year": 2026,
+      "province": "Vĩnh Long",
+      "quality": "DOCX/PDF-text",
+      "contentSha256": "90b8ae78e04bb11547878d5820fd709dd7e33d788d176b4074a2c12525b14293",
+      "practiceReadOnly": false,
+      "questionCount": 43,
+      "responseTypes": {
+        "choice": 29,
+        "multiple": 0,
+        "true-false": 0,
+        "text": 14,
+        "essay": 0
+      },
+      "keyStatuses": {
+        "ambiguous_review": 34,
+        "source_transcription_unverified": 9
+      },
+      "listeningItems": 12,
+      "writingItems": 0
+    }
+  ]
+}

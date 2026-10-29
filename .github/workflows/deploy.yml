@@ -56,11 +56,18 @@ jobs:
           FORCE_DEPLOY: ${{ github.event_name == 'workflow_dispatch' && inputs.force_deploy == true }}
         run: python3 scripts/deploy_gate.py
 
+      - name: Set up Node for data and app-logic tests
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
       - name: Check vocabulary sources and embedded HTML
         run: |
           python scripts/build_vocabulary.py --check
           python scripts/validate_vocab.py
           python scripts/embed_vocabulary.py --check
+          node scripts/exams/build_answer_keys.mjs --check
+          node scripts/exams/audit_rendering.mjs --check
           python scripts/exams/embed_archive.py --check
           # rc3: the evidence artifacts are part of what ships, so a stale report
           # must block the deploy rather than publish next to outdated evidence.
@@ -72,12 +79,8 @@ jobs:
         run: python -m unittest discover -s tests -p 'test_*.py'
 
       # Node is used only for dependency-free tests; production is a single HTML file.
-      - name: Set up Node for app-logic tests
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - name: Run static app logic and single-file tests
-        run: node --test tests/static-app.test.js
+      - name: Run static app logic, scoring and single-file tests
+        run: node --test tests/static-app.test.js tests/exam-scoring.test.js
 
       # Publish only the fully self-contained application file.
       - name: Stage standalone HTML

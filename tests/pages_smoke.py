@@ -58,12 +58,18 @@ def main() -> int:
         if match:
             version = match.group(0)
             break
+    override = os.environ.get("EXPECTED_VERSION", "").strip()
+    if override:
+        if not re.fullmatch(r"v\d+\.\d+\.\d+(?:-[a-z]+\d+)?", override):
+            fail(f"invalid EXPECTED_VERSION override: {override!r}")
+            return 1
+        version = override
     if not version:
-        fail(f"no version tag found in {hold_file}")
+        fail(f"no version tag found in {hold_file} and no EXPECTED_VERSION supplied")
         return 1
 
     print(f"site: {site}")
-    print(f"expected version from {hold_file}: {version}")
+    print(f"expected served version: {version}" + (f" (EXPECTED_VERSION; hold file names {hold_file})" if override else f" (from {hold_file})"))
 
     request = urllib.request.Request(site, method="GET")
     for attempt in range(3):
@@ -123,6 +129,18 @@ def main() -> int:
             fail(f"the served page still contains {label}")
         else:
             print(f"PASS no {label}")
+
+    if version.startswith("v1.0.0-rc6"):
+        for marker, label in (
+            ("EXAM_SCORING_RULE_VERSION", "the rc6 scoring rule"),
+            ("exam-history-export", "the rc6 exam-history export"),
+            ("answerKeySchemaVersion", "the rc6 answer-key schema"),
+            ("Trọng tâm phiên học", "the session-focus control"),
+        ):
+            if marker not in body:
+                fail(f"the served page is missing {label}")
+            else:
+                print(f"PASS {label}")
 
     for marker, label in (
         ("previewStageVisible", "the preview-stage predicate"),
