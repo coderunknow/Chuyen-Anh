@@ -1652,3 +1652,13 @@ The user asked for **Chuyên Anh v1.0.0-rc4, end to end**, in one request:
     literal agrees with APP_VERSION*, which reads the constant from the module and compares the pins in `index.html`, `PRIVACY.md`, both
     browser suites and the two Python version tests (deploy-gate fixtures naming other tags, and the changelog, are exempt). Verified by
     reverting one pin to `rc3` and watching the test go red, then green again. Node suite is now **120** tests.
+
+15. **Green CI, and what it cost to get there.** Run 40818141160 on `26fb144` reports `checks` pass and `browser` pass (both suites
+    sequentially). Four earlier runs failed, and all four failures were real: the 768 px top-bar overflow, the displaced Settings
+    keyboard stop, and two batches of stale version pins that would have let a release ship with a wrong version claim. The browser job
+    is the only visual review this candidate received — no local Chromium, so no pixel inspection at 320/768/1280 px and no
+    physical-device check. The jsdom suite (43/43), the axe accessible-name audit and the console sweep last ran on `584b5ed`, whose
+    `index.html` is byte-identical to the final head.
+16. **The lesson is the missing test, not the missed edit.** Three separate stale literals reached CI because nothing compared the pins
+    to the constant. After fixing the instance (two literals) the class was closed with a test that reads `APP_VERSION` and checks every
+    file that repeats it.

@@ -120,9 +120,15 @@ presentation preference, and every existing key keeps its shape.
 - `tests/test_rc4_vocabulary_audit.py`: **11** new Python tests for the reconciled counts, the policy replay, the deck boundary,
   the family-link agreement, the curriculum evidence file, the review queue and report staleness.
 - Python suite: **141** tests (130 before this candidate). Static data chain unchanged and green.
-- Browser suites (`tests/browser-learning.cjs`, `tests/browser-exams.cjs`) were **not executed** for this candidate: Chromium
-  cannot be downloaded in the build sandbox (`npx playwright@1.55.1 install chromium` fails with `ECONNRESET`). Both interfaces
-  were checked through the static/node assertions and a jsdom DOM-level suite, not visually.
+- Browser suites (`tests/browser-learning.cjs`, `tests/browser-exams.cjs`) **cannot run in the build sandbox** (Chromium cannot be
+  downloaded here: `npx playwright@1.55.1 install chromium` fails with `ECONNRESET`), so they were **run by CI instead**. After four
+  failing runs — each one a real defect, listed under *Fixed* — the final run on this head (**40818141160**, commit `26fb144`) reports
+  `checks` **pass** and `browser` **pass** (5m28s, both suites sequentially). They are the only visual review either interface received:
+  no pixel inspection at 320/768/1280 px was possible locally, and no physical-device check was made.
+- The jsdom DOM-level suite (**43/43**), the axe `label-content-name-mismatch` audit and the six-view/two-skin console sweep were run
+  locally against the same `index.html`; the sandbox scratch harness that hosted them was lost when the session's `/tmp` was reset, and
+  they were last executed on commit `584b5ed`, whose `index.html` is byte-identical to this head (`git diff 584b5ed 26fb144` touches only
+  tests and logs).
 ## v1.0.0-rc3 — quality hardening candidate (2026-10-28, NOT released)
 
 **Status: unreleased candidate.** `APP_VERSION` and `DEPLOY_HOLD` both name `v1.0.0-rc3`; no tag, release, prerelease or deploy

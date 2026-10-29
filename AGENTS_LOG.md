@@ -931,3 +931,9 @@ CodeRabbit's review `5643120300` (run metadata again `Layers: Repository YAML`) 
 17. **New regression test against version drift.** *every shipped version literal agrees with APP_VERSION* in `tests/static-app.test.js`
     cross-checks `index.html`, `PRIVACY.md`, both browser suites and the two Python version pins against the module constant; verified by
     temporarily reverting a pin to `rc3` (test red) and restoring it (test green). Node suite **120/120**, Python **141 OK**.
+18. **CI green.** Run 40818141160 (`26fb144`): `checks` **pass**, `browser` **pass** (5m28s, both suites). `Kilo Code Review` fails in
+    1 s (third-party app, not this repository's code) and `CodeRabbit` skips; PR #64 therefore shows `UNSTABLE`, not a failing test.
+19. **Sandbox note.** This session's `/tmp` scratch harness (jsdom 25, postcss 8, axe-core 4.14) was lost on reset, so the jsdom DOM
+    suite cannot be re-run here. It last ran on `584b5ed` (43/43, axe clean, console sweep clean); `index.html` is byte-identical at
+    the final head, and the real-browser suites now pass in CI.
+20. **Not done:** no merge, tag, release or deploy.
