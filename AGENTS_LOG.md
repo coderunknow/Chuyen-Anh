@@ -1098,3 +1098,21 @@ this diff, so both are reported as “no review”, not as approval.
 Release facts for the record: tag `v1.0.0-rc5` → merge commit `b47d9d1` (PR #66), prerelease published 2026-10-29T11:12:13Z,
 artifacts built by run `40863169016`, Pages deployment `7410642916` from run `40863562837` at 11:14:58Z, previous release rc4
 (tag `ffae118`→`88248ce`, published 05:50:13Z, deployment `7405139291`).
+
+### rc5 follow-up merge — the duplicate release, and the live Pages result
+
+7. **A duplicate draft release existed for one tag.** Two writers created a release for `v1.0.0-rc5`: the tag-triggered
+   `Release artifacts` workflow and one manual `release_artifacts.py` run in the sandbox that raced it. Publishing named the tag,
+   which published the workflow's release; the manual run's draft survived as an untagged draft (`427763571`, 0 assets). It was
+   deleted through the API. Only one release for the tag remains (`427763450`, prerelease, 3 assets). Lesson: never run the release
+   script by hand when the tag push already dispatches it; the workflow is the authority.
+8. **The Pages probe passed on the live site after one correction to itself.** First live run failed on two assertions of mine, not
+   on the deployment: the “show/hide meanings” buttons are rendered from `id="${prefix}-${mode}"`, so those ids never appear
+   literally in the HTML. The probe now asserts the source markers rc5 is the only build to contain (`previewStageVisible`,
+   `vocab-list--no-gloss`, `data-meanings="`, `id="telemetry-send"`) and the tokens only rc4 contained (the five-dot mask,
+   `MASKED_MEANING`, `revealedMeanings`, `data-reveal-meaning`); all eight were checked against `git show v1.0.0-rc5:index.html`
+   before pushing. Run `40865248291` then passed against https://coderunknow.github.io/Chuyen-Anh/, so the served page is rc5.
+9. **Final state.** `main` = `91e2bc5` (PR #67 merged; PR #66 was `b47d9d1`). Green on `main`: `Static checks` (static suite plus
+   both Chromium suites), `Pages content smoke test`. Release `v1.0.0-rc5`: prerelease, published 2026-10-29T11:12:13Z, three
+   verified assets. Pages deployment `7410642916` from run `40863562837` at 11:14:58Z. Telemetry: endpoint live and probed from a
+   runner; one probe row read back from Postgres; the ten empty synthetic rows from development were deleted.
