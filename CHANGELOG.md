@@ -1,12 +1,14 @@
 # Changelog
 
-## v1.0.0-rc4 — presentation and vocabulary-audit candidate (2026-10-28, NOT released)
+## v1.0.0-rc4 — presentation and vocabulary-audit candidate (2026-10-29, prerelease)
 
-**Status: unreleased candidate.** `APP_VERSION` and `DEPLOY_HOLD` both name `v1.0.0-rc4`; no tag, release, prerelease or deploy
-exists for it, and the Pages gate reports `deploy=false (deploy hold names v1.0.0-rc4 and no repository was supplied …; deployment
-held)` on a machine without `--repo`. Base: `54ccaa0` (the merged rc3 candidate, PR #63). This release adds no vocabulary row,
-changes no stored ID, gloss, family note or progress key, and adds no new storage of learning data: the only new key is a
-presentation preference, and every existing key keeps its shape.
+**Status: published prerelease.** Tag `v1.0.0-rc4` (annotated) points at merge commit `88248ce`; the GitHub release was published
+on 2026-10-29T05:50:13Z as a **prerelease**, and GitHub Pages deployed from that same commit (deployment `7405139291`, workflow run
+`40825679415`). `DEPLOY_HOLD` still names `v1.0.0-rc4`: the gate held every merge-time push while the release was a draft, and
+returned `deploy=true (release v1.0.0-rc4 is published)` only after publication — the documented ordering, not a bypass. Base:
+`54ccaa0` (the merged rc3 candidate, PR #63), delivered by PR #64. This release adds no vocabulary row, changes no stored ID, gloss,
+family note or progress key, and adds no new storage of learning data: the only new key is a presentation preference, and every
+existing key keeps its shape.
 
 ### Added: show or hide Vietnamese meanings (Feature A)
 

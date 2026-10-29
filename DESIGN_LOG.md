@@ -1712,3 +1712,56 @@ limitations. Production deployment was explicitly not authorized. A testable pre
   assertion drove a phrase session with meanings hidden. Green CI is evidence, not proof.
 - **Third-party review status is a fact about an integration, not about the code.** Skipped and out-of-credits are reported as
   such, and neither stands in for a review or for a failure.
+
+## 2026-10-29 (release close-out) — v1.0.0-rc4 published as a prerelease and deployed to Pages
+
+### User Intent
+
+Finish the release the previous session had to stop short of: publish the existing RC4 draft prerelease (explicitly authorized, with
+the resulting GitHub Pages deploy accepted), follow that publication through to the actual deployment outcome, run smoke checks against
+what is served, keep the deployment hold intact, and append the missing records. No feature work.
+
+### Implementation History
+
+1. **Recon.** New writable branch `arena/26fd9ccf-chuyen-anh` at `88248ce` (the PR #64 merge), clean tree, remote access restored.
+   Release `v1.0.0-rc4` still `draft=true`, `prerelease=true`, created 05:28:18Z, three assets. Annotated tag `ffae118…` peels to
+   `88248ce`, confirmed both locally and through `git ls-remote`.
+2. **Asset verification before publishing.** The asset host (`release-assets.githubusercontent.com`) is outside this sandbox's egress
+   allowlist, so instead of a download the artifacts were **rebuilt locally from the tag** with `scripts/release_artifacts.py`:
+   html `4e99953e2308ad9bf8ec58f6d146bb7a13f172090d83bb0c119c5565245c5f61`, zip
+   `7ed717e6f5b6f20ccf5c6b4798a9a9cacce0eb31b3dbc317a9718cd9c8924858`, manifest
+   `d442174fd63c54b5f2283a9e3c767bc9982290c9bc5f8b0e3146961f3b77269c` — each identical to the digest GitHub reports for the uploaded
+   asset. Nothing was rebuilt, replaced or re-uploaded on the release.
+3. **Publication.** The automated draft body was kept and extended with the candidate's contents, verification evidence and known
+   limitations (the mechanical asset paragraph stays verbatim, minus the "publish this draft explicitly" trailer, which no longer
+   applies), then `gh release edit v1.0.0-rc4 --prerelease --draft=false` published it at **2026-10-29T05:50:13Z**:
+   https://github.com/coderunknow/Chuyen-Anh/releases/tag/v1.0.0-rc4. Read-back: `draft=false`, `prerelease=true`, tag intact, three
+   assets with unchanged digests.
+4. **Deployment.** The `release.published` event fired the dispatcher (run `40825671807`, success), which dispatched `deploy.yml` on
+   `main` (run **`40825679415`**, `workflow_dispatch`, `main`@`88248ce`). Every step succeeded, including the four that are gated on
+   `steps.gate.outputs.deploy == 'true'`: Stage standalone HTML, Configure Pages, Upload Pages artifact, Deploy — so the run itself
+   proves the gate opened. Deployment `7405139291` reached `success` at 05:52:35Z with environment URL
+   `https://coderunknow.github.io/Chuyen-Anh/`. `python scripts/deploy_gate.py --repo coderunknow/Chuyen-Anh` now prints
+   `deploy=true (release v1.0.0-rc4 is published)`; `DEPLOY_HOLD` is unchanged and no gate code was touched.
+5. **Live verification.** The site answers and serves the application shell (fetched through the platform's page fetcher: title
+   "Chuyên Anh · Flashcard & kho đề", the home screen with 3.841 focus words). A direct `curl` from the sandbox is refused
+   (`SSL_ERROR_SYSCALL` — the egress allowlist), so the live response body could not be hashed here.
+6. **Smoke checks against the shipped bytes.** Because the live body is unreachable from the sandbox, the byte-identical rebuild of the
+   published HTML asset (digest `4e99953e…`, the same file the Pages step copies verbatim into `_site` from a checkout of `main` at
+   `88248ce`) was booted in jsdom and exercised: application loads with no console errors; Settings hides and shows Vietnamese meanings
+   and the choice persists in `chuyen-anh.presentation.v1`; the phrase list and the phrase-practice introduction both mask the gloss
+   while hidden and print no gloss text; the introduction carries exactly one reveal control, which shows only that phrase, leaves the
+   preference and `chuyen-anh.phrases.v1` untouched, and still allows the quiz to start; the Classic ⇄ Studio switch changes
+   `data-ui`, persists, and leaves the shell rendered. **26/26 checks passed.**
+
+### Decisions & Lessons
+
+- **Verify an asset you cannot download by rebuilding it.** The release script is deterministic, so a local rebuild of the three assets
+  from the tag is a stronger check than a fetch: it compares bytes the pipeline produced, not bytes a CDN handed back.
+- **A gated step that runs is evidence the gate opened.** With `if: steps.gate.outputs.deploy == 'true'` on all four publish steps,
+  "Deploy — success" and "Deploy — skipped" are opposites; reading the step list is how the gate decision is verified without the log.
+- **The served artifact is identified by construction, and the health of the URL by a request.** The sandbox can prove the deployed
+  bytes equal the RC4 asset (same commit, verbatim copy, matching digest); it can prove the URL answers; it cannot hash the live body,
+  and the record says so instead of implying a byte comparison that never happened.
+- **Publication is not a gate bypass.** `DEPLOY_HOLD` was not edited and `deploy_gate.py` was not weakened; the hold opened because the
+  named release is now published, which is exactly the ordering rc3 used.
