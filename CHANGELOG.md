@@ -43,6 +43,15 @@ whole chain is in the repository: `api/telemetry.js` (Vercel, no dependencies), 
   the IP itself is never stored) and 120/10 min globally.
 * No credential is in the application, the repository or the docs; the endpoint reads `SUPABASE_URL`, `SUPABASE_SECRET_KEY` and
   `TELEMETRY_IP_SALT` from the Vercel environment.
+* **The deployed chain was proved, and the proof found a real defect.** `tests/telemetry_endpoint_smoke.py` runs on every pull
+  request that touches the endpoint and on pushes to `main`. Its first run in this PR failed: the deployed function answered
+  `400 invalid-body` to the application's own request, because `@vercel/node` only pre-parses `req.body` for a function inside
+  `api/`, and this project is a plain Node service whose entry is `app.js`. The handler now reads the request stream itself when
+  nothing has parsed the body (bounded, and destroyed as soon as the 16 KB cap is passed), and three tests pin the raw-stream,
+  over-cap and empty-stream cases. After the fix the probe is green against production — preflight `204` with the published
+  origin, a stored report (`202` + row id), `403` for a foreign origin, `400` for a bad contract or version or malformed body,
+  `413` at 51 events and 20 KB, `405` for `GET` — and the row it created was read back from Postgres:
+  `app_version v1.0.0-rc5`, `event_count 1`, the environment rebuilt server-side, `retention_expires_at` 90 days later.
 
 ### 3. Interface polish, both skins
 
@@ -53,10 +62,18 @@ and transforms for both Classic and Modern. No layout is rewritten and no contro
 
 ### 4. Tests
 
-`tests/telemetry-api.test.js` (13 tests) pins the endpoint contract; `tests/test_telemetry_api.py` (11 tests) pins the migration
-and the wiring; `tests/static-app.test.js` gains the rc5 behaviour tests (stage skipping, absence of every mask token, passive
-surfaces, the send path with an injected transport) and loses the rc4 assertions that pinned the mask. Each new assertion fails on
-rc4 code: they assert the *absence* of masking and the *presence* of stage skipping.
+`tests/telemetry-api.test.js` (16 tests) pins the endpoint contract, including the three raw-stream cases added after the live
+probe found the body-parsing defect; `tests/test_telemetry_api.py` (11 tests) pins the migration and the wiring;
+`tests/static-app.test.js` gains the rc5 behaviour tests (stage skipping, absence of every mask token, passive surfaces, the send
+path with an injected transport, and a check that every static sentence of the privacy panel still translates into English) and
+loses the rc4 assertions that pinned the mask. Each new assertion fails on rc4 code: they assert the *absence* of masking and the
+*presence* of stage skipping.
+
+Two defects were found by the checks rather than by reading the code, and both are recorded here because they were real:
+the density layer added for this release overrode the ≤680 px breakpoints and pushed the study entry below the fold at 375 px
+(the browser suite's “main study choice follows compact mobile navigation” assertion), and the privacy panel left two Vietnamese
+sentences in the English interface because one paragraph had drifted from its translation pattern. Both are fixed, and the second
+is now covered by a cheap static test instead of only by the browser walk.
 
 ## v1.0.0-rc4 — presentation and vocabulary-audit candidate (2026-10-29, prerelease)
 

@@ -1030,3 +1030,46 @@ forbidden, so the work is organised around those three lines rather than around 
    browser suites are validated by CI only. `curl` from the sandbox cannot reach `vercel.app` or `supabase.co` (egress allowlist), so
    the live POST is verified through `.github/workflows/telemetry-smoke.yml` on a GitHub runner and by reading the stored row back
    through the Supabase integration — not by a local request.
+
+### rc5 build log — continuation: what CI and the live probe found
+
+The first rc5 push was not correct, and none of the four defects below were visible from reading the diff. Recording them in order
+because the order is the lesson.
+
+1. **A version bump is not one file.** `checks` failed with `no shipped file still names an older version` after the rc5 bump:
+   `tests/browser-learning.cjs` still pinned `v1.0.0-rc4` in the About-panel assertion and in the diagnostics-report assertion.
+   Fixed by pinning both to rc5. The lesson from the earlier `test_readme_counts` failure repeats: bump, then grep, then run.
+2. **A density layer with no media query silently defeats every breakpoint.** The rc5 interaction block re-declared `.layout`,
+   `.topbar-inner` and `.panel-body` at the end of the stylesheet, so it won against the 940 px and 680 px rules for cascade
+   reasons alone. The browser suite caught it exactly as written — “the main study choice follows compact mobile navigation” was
+   false at 375×812 because the study entry sat below the fold. The block is now wrapped in `@media (min-width: 681px)`: tablet and
+   desktop get the tighter chrome, the phone keeps its own.
+3. **A translated panel is a contract with the translator.** The browser suite walks the rendered Settings screen for leftover
+   Vietnamese. Two sentences of the new privacy panel failed: the consent paragraph had drifted from its `EN_UI_PATTERNS` regex
+   (`chỉ ghi trên thiết bị này` vs the rendered `ghi trên chính thiết bị này`, `giao diện` vs `kiểu giao diện`), and the clause after
+   the issue-tracker link had no dictionary entry at all. Both fixed, and `tests/static-app.test.js` now renders every static
+   sentence of that panel — substituting the log cap, send cap and retention window from the exported constants — so the cheap job
+   fails first next time.
+4. **The deployed function rejected its own client.** `tests/telemetry_endpoint_smoke.py` ran on the pull request (the trigger was
+   added for exactly this reason) and returned `FAIL valid report: HTTP 400 (expected 202) {"error": "invalid-body"}`. Cause: the
+   Vercel project is a plain Node service whose entry is `app.js`, and `@vercel/node` only injects a parsed `req.body` for a
+   function that lives inside `api/`. The handler trusted `req.body` and therefore saw an empty request. It now reads the request
+   stream itself when nothing has parsed the body, with the 16 KB cap enforced while reading (the stream is destroyed the moment
+   the cap is passed) and an already-parsed body or Buffer still accepted. Redeployed as `dpl_FbxQncjJru7dSKMWnPnTs1GozMWV`,
+   probe green, row `e5ad0b56-a31d-44a4-94ef-d28db885a56e` read back from Postgres.
+
+Verification actually performed at this point (no claim beyond it):
+
+* six build/embed `--check`s, `git diff --check`: clean.
+* `python -m unittest discover -s tests -p 'test_*.py'`: **152 tests, OK**.
+* `node --test tests/static-app.test.js`: **124 pass / 0 fail** (123 before the privacy-translation test).
+* `node --test tests/telemetry-api.test.js`: **16 pass / 0 fail**.
+* GitHub Actions `Static checks` (checks + browser in real Chromium): green on `0f954c8`; the later commits re-ran both.
+* `Telemetry endpoint smoke test` on `3e4fc13`: **success** — the only check that talks to production.
+* Supabase `telemetry.reports`: read-back of the probe row as above; ten synthetic rows with no events, left by direct RPC probes
+  during development, were deleted so the table contains only real reports and the two probe rows. `telemetry.rate_limits` still
+  holds only window counters.
+
+Still not claimed: a human visually reviewed the app in the owner's browser (the Chromium run asserts geometry and computed styles,
+not taste); CodeRabbit reported `skipping` and Kilo Code Review failed in about a second — neither produced a substantive review of
+this diff, so both are reported as “no review”, not as approval.

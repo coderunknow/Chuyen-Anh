@@ -1810,3 +1810,22 @@ covers every transition the pass added, for both Classic and Modern.
 **What was deliberately not done.** No new exercise type, no change to counters/XP/scheduling, no second storage key for the meaning
 preference (it remains part of `chuyen-anh.presentation.v1`), no client-side retry, no third-party analytics, and no pixel-level claims
 that a real browser has not produced.
+
+### Follow-up — two checks that were worth their cost
+
+**A probe that talks to production found what the unit tests could not.** The endpoint's whole diff read correctly and its 13 unit
+tests passed, because every one of them handed the handler a body that was already an object. Production handed it a stream. The
+handler now treats “where did the bytes come from” as its own small problem (`readStream` + `measureBody`) instead of assuming the
+runtime's parser ran; the cap is enforced while reading, so an oversized body costs 16 KB of work rather than the whole upload. A
+third test shape — no `.body`, only `.on('data')` — is the one that would have caught it.
+
+**Layout work must be scoped by viewport, not appended.** The rc5 density values were correct for the screens they were chosen on
+and wrong for the phone, and CSS has no opinion about intent: a later `.layout { padding: … }` beats an earlier `@media
+(max-width: 680px) .layout { … }` no matter which one the author pictured. The values now live inside `@media (min-width: 681px)`,
+which states the intention in the code. The same reasoning applies to the reduced-motion block: it is one block, at the end, so it
+cannot be overridden by an earlier animation.
+
+**Translated copy is a contract, and contracts get tests.** The privacy panel is the first Settings section whose sentences carry
+numbers from constants. Rather than translating by eye after every reword, `tests/static-app.test.js` renders the panel's static
+sentences from the markup with the exported constants substituted and asserts that none of them comes back Vietnamese. The
+browser walk stays as the end-to-end check; the static test is what makes the failure cheap.
