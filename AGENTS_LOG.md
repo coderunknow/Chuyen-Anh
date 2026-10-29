@@ -953,3 +953,26 @@ CodeRabbit's review `5643120300` (run metadata again `Layers: Repository YAML`) 
    Chromium is still unavailable in the sandbox, so the browser suites are CI evidence only.
 5. **Not claimed:** no pixel-level visual inspection, no physical-device test; `synonyms`/`antonyms`/`collocations`/`examples`
    remain empty by design; the three REVIEW glosses still need an editor.
+
+## 2026-10-29 — release close-out: RC4 published as a prerelease, Pages deployed, all checks green
+
+1. **Branch/state.** New writable branch `arena/26fd9ccf-chuyen-anh` at `88248ce` (PR #64 merge), clean tree, remote access restored.
+   Tag `v1.0.0-rc4` is annotated (`ffae118…`) and peels to `88248ce`; release was still a draft prerelease with three assets.
+2. **Assets verified without downloading.** `release-assets.githubusercontent.com` is outside the sandbox egress allowlist, so the
+   three assets were rebuilt locally from the tag with `scripts/release_artifacts.py`. Digests matched GitHub's per-asset digests:
+   html `4e99953e…`, zip `7ed717e6…`, manifest `d442174f…`. No asset was replaced.
+3. **Published.** `gh release edit v1.0.0-rc4 --prerelease --draft=false` → **2026-10-29T05:50:13Z**,
+   https://github.com/coderunknow/Chuyen-Anh/releases/tag/v1.0.0-rc4. Read-back: `draft=false`, `prerelease=true`, tag and all three
+   assets unchanged. The release body now carries the candidate summary, verification evidence and the known limitations.
+4. **Deployed.** Dispatcher run `40825671807` (success) → `deploy.yml` run **`40825679415`** (`workflow_dispatch`, `main`@`88248ce`),
+   all steps success including Stage / Configure / Upload / **Deploy** (each gated on `deploy == 'true'`). Deployment `7405139291`
+   `success` at 05:52:35Z, URL https://coderunknow.github.io/Chuyen-Anh/. Gate re-read locally:
+   `deploy=true (release v1.0.0-rc4 is published)`; `DEPLOY_HOLD` and `deploy_gate.py` unchanged.
+5. **Live + smoke.** The site answers and serves the app shell (fetched via the platform page fetcher). Direct `curl` from the sandbox is
+   blocked (`SSL_ERROR_SYSCALL`), so the live body was not hashed. Smoke checks ran against the byte-identical published artifact in
+   jsdom: load, Settings hide/show + persistence, phrase-list and phrase-practice masking, single-phrase reveal without preference or
+   phrase-progress change, quiz start, and Classic ⇄ Studio switching — **26/26 passed**, no console errors.
+6. **Not claimed.** No local Chromium run, no pixel-level responsive review, no physical-device test; those remain CI-only (the browser
+   suites passed in CI on `5ba986a` and on the merge commit `88248ce`). `CodeRabbit` skipped and `Kilo Code Review` could not start
+   (account credits) for PR #64; neither is a review of this code. Three REVIEW glosses and the empty optional metadata fields are
+   unchanged from the candidate.
