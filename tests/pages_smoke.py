@@ -109,16 +109,25 @@ def main() -> int:
         else:
             print(f"PASS {label}")
 
-    # rc5 removed the mask; a served page that still prints it is an old build.
-    if "\u2022\u2022\u2022\u2022\u2022" in body:
-        fail("the served page still contains the rc4 five-dot mask")
-    else:
-        print("PASS no masked-meaning dots in the served page")
+    # rc5 removed the mask and everything that implemented it; a served page that
+    # still carries any of it is an old build. The control ids themselves are
+    # generated at render time (`id="${prefix}-${mode}"`), so the file is checked
+    # for the source markers rather than for rendered ids.
+    for marker, label in (
+        ("\u2022\u2022\u2022\u2022\u2022", "the rc4 five-dot mask"),
+        ("MASKED_MEANING", "the mask constant"),
+        ("revealedMeanings", "the per-row reveal set"),
+        ("data-reveal-meaning", "the per-word reveal attribute"),
+    ):
+        if marker in body:
+            fail(f"the served page still contains {label}")
+        else:
+            print(f"PASS no {label}")
 
     for marker, label in (
-        ('id="setting-meanings-hide"', "the “only after answering” control"),
-        ('id="setting-meanings-show"', "the “show immediately” control"),
         ("previewStageVisible", "the preview-stage predicate"),
+        ("vocab-list--no-gloss", "the no-gloss list layout"),
+        ('data-meanings="', "the meaning segmented control"),
         ('id="telemetry-send"', "the diagnostics send button"),
     ):
         if marker not in body:

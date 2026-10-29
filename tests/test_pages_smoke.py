@@ -46,8 +46,8 @@ def modern_page(version: str) -> str:
         '<script id="phrase-data" type="application/json">[]</script>'
         '<script id="exam-data" type="application/json">[]</script>'
         "<div id=\"start-quiz\"></div>"
-        "<button id=\"setting-meanings-hide\"></button>"
-        "<button id=\"setting-meanings-show\"></button>"
+        '<div class="vocab-list--no-gloss">'
+        '<button data-meanings="show"></button><button data-meanings="hide"></button></div>'
         "<button id=\"telemetry-send\"></button>"
         f"<script type=\"module\" id=\"app-script\">const APP_VERSION = '{version}';"
         "function previewStageVisible() { return true; }</script>"
@@ -63,6 +63,7 @@ def masked_page(version: str) -> str:
         '<script id="phrase-data" type="application/json">[]</script>'
         '<script id="exam-data" type="application/json">[]</script>'
         "<span class=\"meaning-masked\">\u2022\u2022\u2022\u2022\u2022</span>"
+        "<script>const MASKED_MEANING = '\u2022\u2022\u2022\u2022\u2022'; const revealedMeanings = new Set();</script>"
         "<script type=\"module\" id=\"app-script\">const APP_VERSION = 'v1.0.0-rc4';</script>"
         "</body></html>"
     )
@@ -124,8 +125,9 @@ class PagesSmokeTest(unittest.TestCase):
             code, output = self.run_probe(url)
         self.assertEqual(code, 1, output)
         self.assertIn("still contains the rc4 five-dot mask", output)
+        self.assertIn("still contains the mask constant", output)
         self.assertIn("does not declare version", output)
-        self.assertIn('missing the “only after answering” control', output)
+        self.assertIn("missing the meaning segmented control", output)
         self.assertIn("missing the diagnostics send button", output)
 
     def test_a_page_from_a_different_candidate_is_not_accepted(self):
