@@ -1,0 +1,36 @@
+name: Pages content smoke test
+
+# `deploy_gate.py` decides whether Pages may deploy; this decides whether what
+# Pages serves is the build we think it is. It runs from a GitHub runner because
+# the development sandbox cannot resolve github.io.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "tests/pages_smoke.py"
+      - "DEPLOY_HOLD"
+      - ".github/workflows/pages-smoke.yml"
+  # A published prerelease is what releases the hold, so it is also the moment
+  # the served page should change.
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Give the Pages deployment a moment to propagate
+        run: sleep 30
+
+      - name: Probe the published application
+        run: python tests/pages_smoke.py

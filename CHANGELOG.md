@@ -2,9 +2,13 @@
 
 ## v1.0.0-rc5 — meaning preview removed, real telemetry path, interface polish (2026-10-29, candidate)
 
-**Status: release candidate in this pull request.** Tag and prerelease are created only after every gate on the branch is green;
-the publication timestamp is recorded here and on the release page when that happens. Base: `77de95e` (the merged rc4 candidate,
-PR #65). No vocabulary row, stored ID, gloss, family note, progress key or scheduling rule changes in this release.
+**Status: published prerelease.** Tag `v1.0.0-rc5` (annotated) points at merge commit `b47d9d1` (PR #66); the GitHub release was
+published on 2026-10-29T11:12:13Z as a **prerelease**, the Release artifacts workflow (`40863169016`) built and re-verified the
+artifacts from that tag, and GitHub Pages deployed the gated build through run `40863562837` (deployment `7410642916`, published
+11:14:58Z at https://coderunknow.github.io/Chuyen-Anh/). `DEPLOY_HOLD` names `v1.0.0-rc5`: the merge-time push was held — the
+workflow ran its tests and skipped every publish step — and the deploy ran only after the release was published, which is the
+documented order, not a bypass. Base: `77de95e` (the merged rc4 candidate, PR #65). No vocabulary row, stored ID, gloss, family
+note, progress key or scheduling rule changes in this release.
 
 ### 1. “Only after answering” now removes the preview stage instead of masking it
 

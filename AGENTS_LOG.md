@@ -1073,3 +1073,28 @@ Verification actually performed at this point (no claim beyond it):
 Still not claimed: a human visually reviewed the app in the owner's browser (the Chromium run asserts geometry and computed styles,
 not taste); CodeRabbit reported `skipping` and Kilo Code Review failed in about a second — neither produced a substantive review of
 this diff, so both are reported as “no review”, not as approval.
+
+### rc5 release log — publication and the Pages question
+
+1. **Tag and merge.** PR #66 merged as `b47d9d1`. Annotated tag `v1.0.0-rc5` created on that merge commit and pushed once.
+2. **The hold worked as designed.** The merge-time push triggered `Deploy Flashcard`, which ran its whole test list and **skipped**
+   `Stage standalone HTML`, `Configure Pages`, `Upload Pages artifact` and `Deploy` (`Evaluate deploy hold` → hold). Nothing was
+   forced.
+3. **Artifacts.** The tag push triggered `Release artifacts` (`40863169016`, success): draft release created, HTML/ZIP/checksums
+   uploaded, and the workflow re-downloaded every asset to compare bytes. A manual `release_artifacts.py` run in the sandbox raced
+   with that workflow and failed trying to re-download an asset that was still in `uploaded` state — the CI path is the authority and
+   it succeeded; the failure is recorded here rather than hidden. Independent check through the REST API: the uploaded HTML asset
+   reports `sha256:1a200d2e699b…face`/10,577,057 bytes, identical to `git show v1.0.0-rc5:index.html` (same digest computed locally).
+4. **Publication.** Release published as a prerelease at 2026-10-29T11:12:13Z with notes listing the changes, the artifact digests
+   and every verification actually performed. `release-published-dispatch.yml` then dispatched `deploy.yml` on `main`.
+5. **Pages.** Run `40863562837` passed the gate (`release v1.0.0-rc5 is published`) and deployed: deployment `7410642916`, status
+   `success` at 11:14:58Z, environment URL https://coderunknow.github.io/Chuyen-Anh/.
+6. **The next question — did the served bytes change?** The sandbox cannot reach `github.io`, so a deployment status alone proves
+   that Pages accepted an artifact, not that the site serves rc5. `tests/pages_smoke.py` now fetches the published page on a runner
+   and asserts: `200` HTML, the version named in `DEPLOY_HOLD`, the four embedded-data markers, **no** five-dot mask, and the
+   presence of `#setting-meanings-hide`, `#setting-meanings-show`, `previewStageVisible` and `#telemetry-send`. Four unit tests pin
+   the probe itself against a local HTTP server, including a deliberately rc4-shaped page which must fail for four named reasons.
+
+Release facts for the record: tag `v1.0.0-rc5` → merge commit `b47d9d1` (PR #66), prerelease published 2026-10-29T11:12:13Z,
+artifacts built by run `40863169016`, Pages deployment `7410642916` from run `40863562837` at 11:14:58Z, previous release rc4
+(tag `ffae118`→`88248ce`, published 05:50:13Z, deployment `7405139291`).
