@@ -1,0 +1,8 @@
+# The Vercel project exists only for the telemetry endpoint. The application is
+# a single HTML file served by GitHub Pages; nothing else in this repository is
+# uploaded to Vercel.
+*
+!app.js
+!api
+!api/telemetry.js
+!vercel.json

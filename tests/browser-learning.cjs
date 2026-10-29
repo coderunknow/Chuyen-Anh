@@ -514,7 +514,7 @@ async function main() {
 
     // The shipped build identifies itself.
     await sprint.locator('[data-view="settings"]').click();
-    assert.equal(await sprint.locator('#app-version').innerText(), 'v1.0.0-rc4');
+    assert.equal(await sprint.locator('#app-version').innerText(), 'v1.0.0-rc5');
     assert.deepEqual(sprintErrors, []);
 
     // Error -> intervening word -> typed corrective retrieval -> truthful summary.
@@ -2830,7 +2830,7 @@ async function main() {
     await about.waitFor();
     const aboutText = await about.innerText();
     assert.match(aboutText, /Chuyên Anh/);
-    assert.match(aboutText, /v1\.0\.0-rc4/, 'the About panel shows the shipped version');
+    assert.match(aboutText, /v1\.0\.0-rc5/, 'the About panel shows the shipped version');
     assert.match(aboutText, /MIT License · © 2026 coderunknow/);
     assert.match(aboutText, /Flashcard từ vựng/);
     await about.locator('summary').click();
@@ -2891,7 +2891,7 @@ async function main() {
       assert.match(download.suggestedFilename(), /^chuyen-anh-diagnostics-\d{4}-\d\d-\d\d\.json$/);
       const report = JSON.parse(fs.readFileSync(await download.path(), 'utf8'));
       assert.equal(report.product, 'Chuyen-Anh');
-      assert.match(report.appVersion, /^v1\.0\.0-rc4$/);
+      assert.match(report.appVersion, /^v1\.0\.0-rc5$/);
       assert.equal(report.consent.enabled, true);
       assert.equal(report.eventCount, report.events.length);
       assert.equal(['mobile', 'tablet', 'desktop'].includes(report.environment.viewport), true, 'the viewport is bucketed, not exact');
@@ -2963,6 +2963,102 @@ async function main() {
     assert.deepEqual(await failing.evaluate(() => ({ ...localStorage })), deviceAfterFailedWrites, 'failed writes leave the device unchanged');
     assert.deepEqual(failingErrors, []);
     await failing.close();
+
+    // ---- rc5: "only after answering" deletes the preview stage; it does not mask it.
+    // A separate page keeps the scenarios above untouched. The device starts empty,
+    // the preference is chosen in Settings, and every visible surface is checked for
+    // the two ways rc4 could leak: a mask, or a gloss printed in clear text.
+    const rc5 = await browser.newPage({ viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' });
+    const rc5Errors = [];
+    rc5.on('pageerror', error => rc5Errors.push(error.message));
+    await rc5.goto(`http://127.0.0.1:${server.address().port}`);
+    await rc5.evaluate(() => localStorage.clear());
+    await rc5.reload();
+    await rc5.locator('[data-session="new"]').waitFor();
+    await rc5.locator('[data-view="settings"]').click();
+    await rc5.locator('#setting-meanings-hide').click();
+    await rc5.locator('#setting-meanings-hide[aria-pressed="true"]').waitFor();
+    assert.equal(await rc5.evaluate(() => JSON.parse(localStorage.getItem('chuyen-anh.presentation.v1')).meanings), 'hide',
+      'the preference is stored on its own key');
+
+    // A lookup row keeps the headword, part of speech, state and favourite, and
+    // drops the gloss column instead of printing a placeholder.
+    await rc5.locator('[data-view="search"]').click();
+    await rc5.locator('#search-field').fill('advers');
+    await rc5.locator('#results .vocab-row').first().waitFor();
+    assert.equal(await rc5.locator('#results .vocab-list--no-gloss').count(), 1, 'the results list drops the gloss column');
+    assert.equal(await rc5.locator('#results .vocab-meaning').count(), 0, 'no gloss and no mask in the results');
+    assert.equal((await rc5.locator('#results').innerText()).includes('•'), false, 'the results never print a mask');
+    assert.equal(await rc5.locator('#results .vocab-word').first().isVisible(), true, 'the headword is still there');
+
+    // The phrase bank list follows the same rule.
+    await rc5.locator('[data-view="phrases"]').click();
+    await rc5.locator('.vocab-row').first().waitFor();
+    assert.equal(await rc5.locator('.vocab-row--no-gloss').count() > 0, true, 'phrase rows drop the gloss column');
+    assert.equal(await rc5.locator('.vocab-row .vocab-meaning').count(), 0, 'the phrase bank prints no gloss and no mask');
+
+    // A new-word session opens on the exercise: no introduction panel, no gate
+    // button, and the required stimulus is already on the card.
+    await rc5.locator('[data-view="learn"]').click();
+    await rc5.locator('[data-session="new"]').click();
+    await rc5.locator('.flashcard').waitFor();
+    assert.equal(await rc5.locator('.first-look').count(), 0, 'the preview stage is skipped, not masked');
+    assert.equal(await rc5.locator('#start-quiz').count(), 0, 'there is no "start the quiz" gate to dismiss');
+    assert.equal(await rc5.locator('#meaning-toggle').getAttribute('aria-pressed'), 'true',
+      'the card still reports the active preference');
+    assert.equal((await rc5.locator('.flashcard').innerText()).includes('•'), false, 'the card never prints a mask');
+    const stimulus = await rc5.evaluate(() => ({
+      prompt: Boolean(document.querySelector('.flashcard .prompt')),
+      options: document.querySelectorAll('.flashcard .option').length,
+      spelling: Boolean(document.querySelector('.flashcard .spelling')),
+      board: Boolean(document.querySelector('.flashcard .match-board, .flashcard [data-match]'))
+    }));
+    assert.equal(stimulus.prompt || stimulus.options > 0 || stimulus.spelling || stimulus.board, true,
+      'the exercise itself is shown immediately');
+
+    // Grading still prints the answer. The exercise is whatever the session
+    // picked, so answer it the way its own control expects.
+    const card = rc5.locator('.flashcard');
+    if (await card.locator('[data-option]:enabled').count() > 0) {
+      await card.locator('[data-option]:enabled').first().click();
+    } else if (await card.locator('#submit-answer').count() > 0) {
+      await card.locator('#spelling-input').fill('adversity');
+      await card.locator('#submit-answer').click();
+    } else {
+      await card.locator('.reveal').first().click();
+      await card.locator('#reveal-correct').click();
+    }
+    await rc5.locator('#feedback-area .vocab-meaning').first().waitFor();
+    const graded = await rc5.locator('#feedback-area').innerText();
+    assert.equal(graded.length > 0, true, 'the graded answer is still printed after answering');
+    assert.equal(await rc5.locator('#feedback-area .vocab-meaning').count() > 0, true,
+      'the gloss appears once the card is graded');
+    assert.equal(await rc5.evaluate(() => JSON.parse(localStorage.getItem('chuyen-anh.presentation.v1')).meanings), 'hide',
+      'grading never flips the preference');
+
+    // Reload first: the session below must start from the study home, and the
+    // preference lives in storage, so a reload is both safe and deterministic.
+    await rc5.reload();
+    await rc5.locator('[data-session="new"]').waitFor();
+    assert.equal(await rc5.evaluate(() => JSON.parse(localStorage.getItem('chuyen-anh.presentation.v1')).meanings), 'hide',
+      'the preference survives a reload');
+
+    // Switching back restores the introduction, with the real gloss and no mask.
+    await rc5.locator('[data-view="settings"]').click();
+    await rc5.locator('#setting-meanings-show').click();
+    await rc5.locator('#setting-meanings-show[aria-pressed="true"]').waitFor();
+    await rc5.locator('[data-view="learn"]').click();
+    await rc5.locator('[data-session="new"]').click();
+    await rc5.locator('.first-look').waitFor();
+    assert.equal(await rc5.locator('#start-quiz').count(), 1, 'the introduction has its own start button again');
+    const firstLookText = await rc5.locator('.first-look').innerText();
+    assert.equal(firstLookText.includes('•'), false, 'the introduction prints the gloss, never a mask');
+    assert.equal(await rc5.locator('.first-look .vocab-meaning').first().innerText().then(text => text.trim().length > 0), true,
+      'the introduction carries the real Vietnamese gloss');
+    assert.equal(await rc5.locator('[data-reveal-meaning], [data-reveal-phrase]').count(), 0,
+      'no per-word reveal control exists in either mode');
+    assert.deepEqual(rc5Errors, []);
+    await rc5.close();
 
     assert.deepEqual(errors, []);
     console.log(`PASS: Chromium ${browser.version()} — first-look introduction for new words, same-part-of-speech distractors, cloze options absent from the sentence, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, 320/375/768px responsive layout, reduced-motion setting, search state across a favorite toggle, session clearing on reset/import, the ID 448 historical label, named option groups, shortcuts limited to the visible card, failed writes reported truthfully, JSON backup round-trips that keep every retained session, blank spelling submissions ignored, single-graded self-assessment, skip locked after a reveal, and 'Học cấp tốc' processing all ten requested words with a truthful single correction, automatic advance only after correct answers, accurate first-pass statistics, persisted progress, an immediate hand-off with the graded answer carried onto the next card, a queue that never shifts while another screen is open, and interface copy on a consolidation turn translated in the English interface; the beta5 priority configuration with all eight exercise types, a matching board driven from the keyboard, a skipped question reopened from the pending list, a hard word marked and unmarked, a real one-minute timed session that ends on its results with unanswered questions reported as blank, a v1 backup that keeps the device hard-word list, English rendering of every new screen, and the beta6 regressions: a priority session started from Settings opens where the learner can see it, a classic session reports only its own XP, a typed answer survives the star/flag toggles, a sprint honours the timer, a start that cannot run explains itself, a new session inherits no skipped questions, and the beta7 phrase bank: 780 phrases browsed, searched, filtered by type and level, practised for ten turns with typed and multiple-choice retrieval recorded in its own store while word progress stayed byte-identical, English rendering of the phrase screens, and a reset that clears phrase progress; the RC2 remediation regressions: two-tab grades surviving cross-tab writes with wipes never resurrected, an over-quota restore failing atomically with a truthful error then recovering fully once space is freed, the day streak moving only on first-pass correct answers — typed, chosen, self-assessed, and match resolutions alike — and skipped cards counted exactly once, at expiry and in a finished session; the curation release: an archived word marked in Tra cứu with no favourite toggle and a 1.271-row archived scope, every count driven by the 3.841-word focus deck, and an About panel stating the real version and the MIT licence read from LICENSE; the opt-in diagnostics log: off by default with no key on a device that never consented, a timestamped consent record, boot/settings/search events with no search text inside them, a downloaded report that names what it omits and carries no user agent, erasure on withdrawal; no page errors.`);

@@ -1,5 +1,80 @@
 # Changelog
 
+## v1.0.0-rc5 — meaning preview removed, real telemetry path, interface polish (2026-10-29, candidate)
+
+**Status: release candidate in this pull request.** Tag and prerelease are created only after every gate on the branch is green;
+the publication timestamp is recorded here and on the release page when that happens. Base: `77de95e` (the merged rc4 candidate,
+PR #65). No vocabulary row, stored ID, gloss, family note, progress key or scheduling rule changes in this release.
+
+### 1. “Only after answering” now removes the preview stage instead of masking it
+
+rc4 kept the first-look stage and printed a fixed five-dot mask with one “show meaning” button per word. That left the stage in
+the session as a panel whose only content was hidden, and a learner who chose to hide glosses still had to dismiss it. rc5 deletes
+the surface. One predicate — `previewStageVisible(presentation, item)` = the preference **and** the item's own introduction rule —
+decides whether the stage exists at all, for single cards, matching boards and the phrase-practice introduction alike. When it is
+false the item is marked introduced for this visit and the exercise is built immediately.
+
+Nothing else changes: `meaningConcealed()` still answers the separate question “may a *passive* surface print this gloss?”, and
+required stimuli stay visible — the Vietnamese prompt of a recall or spelling card, a cloze's own sentence, the gloss options of a
+recognition card, and a Vietnamese definition inside a Vietnamese→English completion. Graded feedback still reveals the answer.
+
+Deleted: `MASKED_MEANING`, `revealedMeanings`, `meaningRevealed()`, `data-reveal-meaning`, `data-reveal-phrase`, the
+`.meaning-masked` / `.meaning-dots` / `.meaning-reveal` rules and the `translatorExceptions` carve-out in the English translator.
+A hidden gloss is now simply absent, and list layouts drop the column (`vocab-list--no-gloss`, `vocab-row--no-gloss`) instead of
+holding an empty one.
+
+### 2. Telemetry that actually arrives — and only when you press send
+
+`index.html` can post the opt-in diagnostics log to the project's own serverless function
+(`https://chuyen-anh-telemetry.vercel.app/api/telemetry`), which validates the request and stores it in Supabase Postgres. The
+whole chain is in the repository: `api/telemetry.js` (Vercel, no dependencies), `app.js` (entrypoint), `vercel.json`,
+`supabase/migrations/20261029_telemetry_ingest.sql` (the schema the project was migrated with) and
+`tests/telemetry_endpoint_smoke.py` (live probes, run by `.github/workflows/telemetry-smoke.yml`).
+
+* One `POST` per click, no retry, no background queue, `credentials: 'omit'`, 12 s timeout, at most 50 events (the client cap
+  equals the endpoint cap) and only the coarse environment.
+* Status codes are contractual: `202` stored, `400` rejected (bad contract, bad version, malformed body), `403` origin not
+  allowed, `413` too large / too many events, `415` wrong content type, `429` rate limited with `Retry-After: 600`, `503`
+  unconfigured or upstream unreachable. A failure never claims success and never removes the local log.
+* The server rebuilds the stored payload from an allowlist; unknown fields, unknown event kinds, badly keyed counters and
+  non-token names are dropped, notes are cut at the first quote and e-mail addresses are redacted.
+* Database: schema `telemetry`, RLS on with **no policy**, no privilege for `anon`/`authenticated`, one `security definer`
+  function executable by `service_role` only, 90-day retention enforced by writes, 10/10 min per client (salted HMAC of the IP,
+  the IP itself is never stored) and 120/10 min globally.
+* No credential is in the application, the repository or the docs; the endpoint reads `SUPABASE_URL`, `SUPABASE_SECRET_KEY` and
+  `TELEMETRY_IP_SALT` from the Vercel environment.
+* **The deployed chain was proved, and the proof found a real defect.** `tests/telemetry_endpoint_smoke.py` runs on every pull
+  request that touches the endpoint and on pushes to `main`. Its first run in this PR failed: the deployed function answered
+  `400 invalid-body` to the application's own request, because `@vercel/node` only pre-parses `req.body` for a function inside
+  `api/`, and this project is a plain Node service whose entry is `app.js`. The handler now reads the request stream itself when
+  nothing has parsed the body (bounded, and destroyed as soon as the 16 KB cap is passed), and three tests pin the raw-stream,
+  over-cap and empty-stream cases. After the fix the probe is green against production — preflight `204` with the published
+  origin, a stored report (`202` + row id), `403` for a foreign origin, `400` for a bad contract or version or malformed body,
+  `413` at 51 events and 20 KB, `405` for `GET` — and the row it created was read back from Postgres:
+  `app_version v1.0.0-rc5`, `event_count 1`, the environment rebuilt server-side, `retention_expires_at` 90 days later.
+
+### 3. Interface polish, both skins
+
+A shared motion vocabulary (`--ease-spring`) with pressed states on buttons, options, switches and session cards; a tighter
+chrome (64 px top bar, tighter panels and session cards) and a two-column Settings layout from 900 px, so the same content needs
+less scrolling; hover lift suppressed on touch devices; and one `prefers-reduced-motion` block that removes the new transitions
+and transforms for both Classic and Modern. No layout is rewritten and no control moves between screens.
+
+### 4. Tests
+
+`tests/telemetry-api.test.js` (16 tests) pins the endpoint contract, including the three raw-stream cases added after the live
+probe found the body-parsing defect; `tests/test_telemetry_api.py` (11 tests) pins the migration and the wiring;
+`tests/static-app.test.js` gains the rc5 behaviour tests (stage skipping, absence of every mask token, passive surfaces, the send
+path with an injected transport, and a check that every static sentence of the privacy panel still translates into English) and
+loses the rc4 assertions that pinned the mask. Each new assertion fails on rc4 code: they assert the *absence* of masking and the
+*presence* of stage skipping.
+
+Two defects were found by the checks rather than by reading the code, and both are recorded here because they were real:
+the density layer added for this release overrode the ≤680 px breakpoints and pushed the study entry below the fold at 375 px
+(the browser suite's “main study choice follows compact mobile navigation” assertion), and the privacy panel left two Vietnamese
+sentences in the English interface because one paragraph had drifted from its translation pattern. Both are fixed, and the second
+is now covered by a cheap static test instead of only by the browser walk.
+
 ## v1.0.0-rc4 — presentation and vocabulary-audit candidate (2026-10-29, prerelease)
 
 **Status: published prerelease.** Tag `v1.0.0-rc4` (annotated) points at merge commit `88248ce`; the GitHub release was published

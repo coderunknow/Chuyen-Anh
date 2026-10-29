@@ -411,26 +411,18 @@ kbd, .kbd { min-width: 24px; padding: 2px 6px; border: 1px solid var(--border-st
   .support-sidebar { grid-template-columns: minmax(0, 1fr); }
   .session-grid--focus, .session-grid--quick { grid-template-columns: 1fr; }
 }
-/* ------------------------------------------------- meaning visibility (rc4)
-   A concealed gloss is a fixed-width mask plus one explicit control. The mask
-   never encodes the length of the answer, and the control reveals exactly one
-   item: it never flips the global preference. */
-.meaning-masked { display: inline-flex; align-items: center; gap: 7px; flex-wrap: wrap; max-width: 100%; color: var(--faint); font-size: .76rem; font-weight: 650; }
-.meaning-dots { letter-spacing: .1em; }
-.meaning-reveal {
-  min-height: 26px; padding: 2px 9px; border: 1px dashed var(--border-strong); border-radius: var(--radius-pill);
-  background: var(--surface); color: var(--primary-strong); font: inherit; font-size: .72rem; font-weight: 750;
-  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+/* --------------------------------------------- meaning visibility (rc5)
+   Nothing is masked any more. A hidden gloss is either not rendered at all
+   (passive lists) or the whole introduction stage is skipped (first look), so
+   these rules only carry the rows that lost their gloss column, plus the
+   in-session preference chip that states its mode in words, not only in colour. */
+.vocab-list--no-gloss .vocab-row { grid-template-columns: minmax(150px, 1fr) 105px auto auto; }
+.vocab-row--no-gloss { grid-template-columns: minmax(160px, 1.4fr) 130px auto auto !important; }
+html[data-ui="modern"] .vocab-list--no-gloss .vocab-row,
+html[data-ui="modern"] .vocab-row--no-gloss { grid-template-columns: minmax(140px, 1fr) 110px auto auto !important; }
+@media (max-width: 680px) {
+  .vocab-list--no-gloss .vocab-row, .vocab-row--no-gloss { grid-template-columns: minmax(0, 1fr) auto auto !important; }
 }
-.meaning-reveal:hover { border-color: var(--primary); background: var(--primary-soft); }
-.meaning-reveal:active { transform: translateY(1px); }
-/* The search and phrase rows clip a plain gloss to one line; a mask with a
-   control must stay whole, so it is allowed to wrap in those rows only. */
-.vocab-row .vocab-meaning.meaning-masked { white-space: normal; overflow: visible; text-overflow: clip; }
-.vocab-row .vocab-meaning.meaning-masked .meaning-reveal { margin-left: 2px; }
-.first-look-meaning .meaning-masked { margin-top: 4px; font-size: .8rem; }
-.flagged-meaning.meaning-masked, .weak-row-meaning.meaning-masked { font-size: .74rem; }
-/* The in-session toggle states its mode in words, not only in colour. */
 .meaning-toggle { gap: 6px; }
 .meaning-toggle .icon { width: 15px; height: 15px; }
 .meaning-toggle.is-hiding { border-color: color-mix(in srgb, var(--primary) 52%, var(--border)); background: var(--primary-soft); color: var(--primary-strong); }
@@ -1604,6 +1596,60 @@ html[data-ui="modern"] .ui-switch-option, html[data-ui="modern"] .seg { transiti
 @media (max-width: 380px) {
   html[data-ui="modern"] .hero-metric { flex: 1 1 100%; border-left: 0; border-top: 1px solid var(--border); }
   html[data-ui="modern"] .hero-metric:first-child { border-top: 0; }
+}
+
+/* ---------------------------------- rc5 ---------------------------------
+ * Interaction and density pass. One motion vocabulary for both interfaces: a
+ * spring-ish easing for surfaces that move, an immediate colour change for
+ * surfaces that do not, and a pressed state that answers the pointer. The
+ * density pass removes the "scroll to find the buttons" problem on a phone:
+ * the chrome is shorter, the panels are tighter and the settings page uses two
+ * columns as soon as there is room for them.
+ */
+:root { --ease-spring: cubic-bezier(.22, 1.18, .3, 1); --ease-out: cubic-bezier(.2, .7, .3, 1); }
+@media (min-width: 900px) {
+  .settings { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
+  .settings > .panel:first-child { grid-column: 1 / -1; }
+}
+/* Tablet and desktop only: the phone layout is already tighter than these
+   values (12px page padding, 62px bar), and re-declaring them here would undo
+   the mobile breakpoints rather than improve them. */
+@media (min-width: 681px) {
+  .topbar-inner { min-height: 64px; padding: 10px 24px; }
+  .layout { padding: 24px 24px 40px; }
+  .panel-body { padding: 14px; }
+  .page-header { margin-bottom: 18px; }
+  .session-grid { gap: 10px; }
+  .session-card { min-height: 136px; padding: 15px; }
+  .session-card-description { min-height: 34px; }
+}
+.btn, .option, .session-card, .nav-button, .vocab-row, .ui-switch-option, .tab {
+  transition: transform .18s var(--ease-spring), background-color .16s var(--ease-out),
+    border-color .16s var(--ease-out), box-shadow .18s var(--ease-out), color .16s var(--ease-out);
+}
+.btn:active:not(:disabled), .option:active:not(:disabled), .ui-switch-option:active, .tab:active {
+  transform: translateY(1px) scale(.988);
+}
+.session-card:active { transform: translateY(0) scale(.994); }
+.btn.primary:hover:not(:disabled) { box-shadow: 0 10px 22px color-mix(in srgb, var(--primary) 24%, transparent); }
+.btn.danger:hover:not(:disabled) { box-shadow: 0 10px 22px color-mix(in srgb, var(--danger) 18%, transparent); }
+.session-card:hover .session-icon { transform: scale(1.06); }
+.session-icon { transition: transform .2s var(--ease-spring); }
+.vocab-row:hover { background: color-mix(in srgb, var(--surface-soft) 70%, transparent); }
+:focus-visible { outline-offset: 3px; }
+@media (hover: none) {
+  /* Touch: hover styles that lift a card are noise, and the pressed state is
+     the only feedback the finger gets. */
+  .session-card:hover { transform: none; box-shadow: var(--shadow-sm); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn, .option, .session-card, .session-icon, .nav-button, .vocab-row, .ui-switch-option, .tab {
+    transition: none !important;
+  }
+  .btn:active:not(:disabled), .option:active:not(:disabled), .ui-switch-option:active,
+  .tab:active, .session-card:active, .session-card:hover .session-icon {
+    transform: none !important;
+  }
 }
 
 /* Motion is opt-in: the reduced-motion contract applies to Modern as well, and
@@ -223760,7 +223806,7 @@ export const MODES = Object.freeze({
   FLASHCARD: 'flashcard'
 });
 
-export const APP_VERSION = 'v1.0.0-rc4';
+export const APP_VERSION = 'v1.0.0-rc5';
 export const LICENSE_NAME = 'MIT License';
 export const LICENSE_COPYRIGHT = '© 2026 coderunknow';
 export const LICENSE_TEXT = `MIT License
@@ -224706,6 +224752,17 @@ const EN_UI_TRANSLATIONS = Object.freeze({
   'Tắt bất cứ lúc nào. Khi tắt, nhật ký đã ghi sẽ bị xóa ngay.': 'Turn it off at any time; switching it off erases the log immediately.',
   'Đang tắt: không ghi gì.': 'Off: nothing is recorded.',
   'Tải nhật ký JSON': 'Download the log (JSON)',
+  'Gửi chẩn đoán': 'Send diagnostics',
+  'Đang gửi chẩn đoán…': 'Sending diagnostics…',
+  'Đã gửi chẩn đoán. Cảm ơn bạn.': 'Diagnostics sent. Thank you.',
+  'Máy chủ đang giới hạn tần suất. Thử lại sau 10 phút.': 'The server is rate limiting. Try again in 10 minutes.',
+  'Máy chủ từ chối gói tin này. Nhật ký vẫn còn trên thiết bị.': 'The server rejected this payload. The log is still on this device.',
+  'Hết thời gian chờ. Nhật ký vẫn còn trên thiết bị.': 'The request timed out. The log is still on this device.',
+  'Không kết nối được máy chủ. Nhật ký vẫn còn trên thiết bị.': 'The server could not be reached. The log is still on this device.',
+  'Chưa có mục nào để gửi.': 'There is nothing to send yet.',
+  'Máy chủ tạm thời không khả dụng. Nhật ký vẫn còn trên thiết bị.': 'The server is unavailable right now. The log is still on this device.',
+  'Mở trang vấn đề của dự án': 'Open the project issue tracker',
+  'nếu bạn muốn báo lỗi kèm ngữ cảnh do chính bạn viết.': 'if you would rather report a fault with context you write yourself.',
   'Xóa nhật ký': 'Delete the log',
   'Gửi cho người duy trì': 'Send it to the maintainer',
   'Chính sách đầy đủ': 'Full policy',
@@ -224717,21 +224774,25 @@ const EN_UI_TRANSLATIONS = Object.freeze({
   'Không thể lưu lựa chọn nhật ký trên thiết bị này.': 'This device cannot store the log preference.',
   // Meaning visibility and interface mode (rc4).
   'Kiểu giao diện': 'Interface style',
-  'Hiển thị nghĩa tiếng Việt': 'Show Vietnamese meanings',
-  '“Ẩn nghĩa” che nghĩa trước khi bạn trả lời — phần giới thiệu từ mới, danh sách tra cứu, danh sách từ khó và kho cụm từ. Nghĩa vẫn hiện sau khi chấm, nên điểm, lịch ôn và số lượt luyện không đổi.': '“Hide meanings” conceals the gloss before you answer — the new-word introduction, the search list, the hard-word list and the phrase bank. The gloss is still shown after grading, so scores, the review schedule and the number of practice turns do not change.',
+  'Nghĩa tiếng Việt trước khi trả lời': 'Vietnamese meanings before answering',
+  '“Chỉ sau khi trả lời” bỏ qua phần giới thiệu từ mới/cụm từ và không in nghĩa trong các danh sách (Tra cứu, từ yếu, từ khó, cụm từ). Gợi ý bắt buộc của câu hỏi vẫn hiện — ví dụ nghĩa tiếng Việt trong câu hỏi Việt → Anh, hay định nghĩa trong bài điền từ. Nghĩa luôn hiện sau khi bạn trả lời, nên điểm, lịch ôn và số lượt luyện không đổi.': '“Only after answering” skips the new-word/new-phrase introduction and prints no gloss in the lists (search, weak words, hard words, phrases). Clues the question needs still appear — for example the Vietnamese meaning in a Vietnamese → English question, or a definition inside a word-completion task. The gloss always appears once you have answered, so scores, the review schedule and the number of practice turns do not change.',
   'Classic là giao diện quen thuộc; Modern là bố cục mới với cùng dữ liệu và cùng luật học. Đổi kiểu không kết thúc phiên đang học và không đổi tiến độ.': 'Classic is the familiar interface; Modern is a new layout with the same data and the same learning rules. Switching never ends the current session or changes progress.',
   'Giao diện Classic hoặc Modern': 'Classic or Modern interface',
-  'Hiện nghĩa hoặc ẩn nghĩa': 'Show or hide meanings',
+  'Nghĩa tiếng Việt trước khi trả lời: hiện ngay hoặc chỉ sau khi trả lời': 'Vietnamese meanings before answering: show immediately or only after answering',
+  'Hiện ngay': 'Show immediately',
+  'Chỉ sau khi trả lời': 'Only after answering',
   'Hiện nghĩa': 'Show meaning',
   'Ẩn nghĩa': 'Hide meaning',
   'Nghĩa: hiện': 'Meanings: shown',
   'Nghĩa: ẩn': 'Meanings: hidden',
+  'Đang ẩn nghĩa trước khi trả lời · bấm để hiện': 'Meanings are hidden before answering · press to show',
+  'Đang hiện nghĩa trước khi trả lời · bấm để ẩn': 'Meanings are shown before answering · press to hide',
   'Đang ẩn nghĩa tiếng Việt — bật để hiện nghĩa': 'Vietnamese meanings are hidden — turn on to show them',
   'Đang hiện nghĩa tiếng Việt — bật để ẩn nghĩa': 'Vietnamese meanings are shown — turn on to hide them',
   'Đang ẩn nghĩa · bật để hiện': 'Meanings hidden · turn on to show',
   'Đang hiện nghĩa · bật để ẩn': 'Meanings shown · turn on to hide',
-  '••••• nghĩa đang ẩn': '••••• meaning hidden',
-  'Đã ẩn nghĩa. Bấm “Hiện nghĩa” ở từng mục khi bạn muốn xem đáp án.': 'Meanings are hidden. Use “Show meaning” on an item when you want the answer.',
+  'Đã ẩn nghĩa trước khi trả lời. Phần giới thiệu từ mới được bỏ qua.': 'Meanings are hidden before answering. The new-word introduction is skipped.',
+  'Đã hiện nghĩa trước khi trả lời, gồm cả phần giới thiệu từ mới.': 'Meanings are shown before answering again, including the new-word introduction.',
   'Đã hiện nghĩa theo mạch học hiện tại.': 'Meanings are shown again in the current learning flow.',
   'Không thể lưu lựa chọn hiển thị nghĩa trên thiết bị này.': 'This device cannot store the meaning preference.',
   'Không thể lưu kiểu giao diện trên thiết bị này.': 'This device cannot store the interface style.',
@@ -224740,10 +224801,15 @@ const EN_UI_TRANSLATIONS = Object.freeze({
 });
 
 const EN_UI_PATTERNS = [
+  // rc5: the diagnostics panel explains what is stored locally, what a send
+  // contains, and how long the server keeps it. The numbers are read from the
+  // sentence so the text cannot drift away from the constants.
+  [/^Không bao giờ ghi: đáp án, từ bạn tra, nội dung ô nhập, nội dung tệp sao lưu, mã thiết bị hay địa chỉ IP\. Gửi đi là một hành động riêng: bấm “Gửi chẩn đoán” để gửi tối đa (\d+) mục mới nhất tới máy chủ của chính ứng dụng, nơi gói tin được kiểm tra lại rồi xóa tự động sau (\d+) ngày\. Không có mã theo dõi, không có bên thứ ba và không có khóa bí mật nào trong trang này\.$/, (_match, events, days) => `Never recorded: answers, the words you look up, anything typed into an input, backup file contents, device identifiers or the IP address. Sending is a separate action: press “Send diagnostics” to send at most ${pluralCount(events, 'recent entry', 'recent entries')} to the app's own server, which validates the payload again and deletes it after ${pluralCount(days, 'day', 'days')}. There is no tracking script, no third party, and no secret key in this page.`],
+  [/^Nhật ký là tùy chọn và chỉ nằm trong localStorage của chính trình duyệt này cho tới khi bạn bấm gửi\. Bạn xem, tải hoặc xóa bất cứ lúc nào; tắt công tắc sẽ xóa toàn bộ nhật ký và không gửi gì thêm\. Khi gửi, máy chủ ghi lại thời điểm nhận, phiên bản ứng dụng, danh sách mục và môi trường thô \(ngôn ngữ, giao diện, cỡ màn hình, chế độ giảm chuyển động\); địa chỉ IP chỉ được dùng để giới hạn tần suất dưới dạng băm có muối và không được lưu cùng nhật ký\. Bản ghi bị xóa theo thời hạn (\d+) ngày\. Tiến độ, yêu thích, chuỗi ngày và từ khó không nằm trong nhật ký\.$/, (_match, days) => `The log is optional and stays in this browser's localStorage until you press send. You can read, download or delete it at any time; turning the switch off wipes the log and sends nothing further. On send, the server stores the time it received the report, the app version, the entries, and the coarse environment (language, interface, viewport bucket, reduced-motion flag); the IP address is used only for rate limiting as a salted hash and is never stored with the report. Records are deleted after ${pluralCount(days, 'day', 'days')}. Progress, favourites, streaks and flagged words are never part of the log.`],
   [/^Hiện nghĩa của cụm (.+)$/, (_match, phrase) => `Show meaning of the phrase “${phrase}”`],
   [/^Hiện nghĩa của (.+)$/, (_match, word) => `Show meaning of “${word}”`],
   [/^Đang ghi (\d+) mục\.$/, (_match, count) => `Recording ${pluralCount(count, 'event', 'events')}.`],
-  [/^Mặc định tắt\. Khi bạn bật, ứng dụng chỉ ghi trên thiết bị này những gì cần để tìm lỗi: phiên bản, ngôn ngữ, giao diện, cỡ màn hình, số lượt học và thông báo lỗi\. Tối đa (\d+) mục; mục cũ nhất bị bỏ khi đầy\.$/, (_match, limit) => `Off by default. When you turn it on, the app records only what is needed to find a bug, on this device: version, language, theme, screen size class, number of turns and error messages. At most ${limit} events; the oldest is dropped when it fills up.`],
+  [/^Mặc định tắt\. Khi bạn bật, ứng dụng ghi trên chính thiết bị này những gì cần để tìm lỗi: phiên bản, ngôn ngữ, kiểu giao diện, cỡ màn hình, số lượt học và thông báo lỗi\. Tối đa (\d+) mục; mục cũ nhất bị bỏ khi đầy\.$/, (_match, limit) => `Off by default. When you turn it on, the app records on this device what is needed to find a fault: version, language, interface style, viewport size, number of turns studied and error messages. At most ${pluralCount(limit, 'entry', 'entries')}; the oldest is dropped when it fills up.`],
   [/^Flashcard · ([\d.,]+) từ · kho đề offline$/, (_match, count) => `Flashcards · ${pluralCount(formatCount(count, 'en'), 'word', 'words')} · offline exam archive`],
   // One headword per root: the counts shown to learners are headword counts.
   [/^Flashcard · ([\d.,]+) từ trọng tâm · kho đề offline$/, (_match, count) => `Flashcards · ${pluralCount(formatCount(count, 'en'), 'focus word', 'focus words')} · offline exam archive`],
@@ -225709,15 +225775,13 @@ export const INTERFACE_MODES = Object.freeze({ CLASSIC: 'classic', MODERN: 'mode
 
 // Classic is the default on purpose: an existing profile must not have its
 // interface (or the meaning it expects to see) changed under it by an upgrade.
-// Modern is one click away, in the top bar and in Settings.
+// Modern is one click away, in the top bar and in Settings. `meanings: 'hide'`
+// means "hide the answer before retrieval": the first-look stage is skipped and
+// passive lists print no gloss, while every clue a question needs stays visible.
 export const DEFAULT_PRESENTATION = Object.freeze({
   meanings: MEANING_MODES.SHOW,
   interface: INTERFACE_MODES.CLASSIC
 });
-
-// What is printed instead of a concealed meaning. Fixed-length dots, not the
-// word's own length: the mask must not leak the length of the answer.
-export const MASKED_MEANING = '•••••';
 
 export function sanitizePresentation(value) {
   const base = { ...DEFAULT_PRESENTATION };
@@ -225735,13 +225799,30 @@ export function savePresentation(presentation, storage = memorySafeStorage()) {
   return writeJson(storage, PRESENTATION_STORAGE_KEY, sanitizePresentation(presentation));
 }
 
-// True when a gloss must be concealed *before the learner has answered*. The
+// True when a gloss must be withheld *before the learner has answered*. The
 // stimulus of a question (the Vietnamese prompt of a recall card, the four
 // glosses of a recognition card, the sentence of a cloze) is the exercise
 // itself: hiding it would delete practice instead of protecting the answer, so
 // callers pass `answered: true` there and the text is always printed.
 export function meaningConcealed(presentation, { answered = false } = {}) {
   return sanitizePresentation(presentation).meanings === MEANING_MODES.HIDE && answered !== true;
+}
+
+// rc5: hiding meanings hides the *answer*, never the clues the exercise needs.
+// The optional first-look introduction exists only to print the gloss before
+// retrieval, so when glosses are hidden the stage is skipped outright: nothing
+// in it is left that the learner may see, and a masked introduction would be a
+// blank panel with a per-item "show meaning" button. Required stimuli stay
+// visible — the Vietnamese prompt of a recall or spelling card, a cloze's own
+// sentence, a Vietnamese definition inside a word-completion task.
+export function meaningPreviewEnabled(presentation) {
+  return sanitizePresentation(presentation).meanings === MEANING_MODES.SHOW;
+}
+
+// One decision point for "does this turn open with a preview?" so the word flow
+// and the phrase flow cannot drift apart.
+export function previewStageVisible(presentation, item) {
+  return meaningPreviewEnabled(presentation) && turnNeedsFirstLook(item);
 }
 
 const STATE_PRIORITY = Object.freeze({ weak: 0, learning: 1, review: 2, new: 3, mastered: 4 });
@@ -226277,6 +226358,14 @@ export const TELEMETRY_CONSENT_KEY = 'chuyen-anh.telemetry-consent.v1';
 export const TELEMETRY_LOG_KEY = 'chuyen-anh.telemetry.v1';
 export const TELEMETRY_MAX_EVENTS = 200;
 export const TELEMETRY_CONTACT_URL = 'https://github.com/coderunknow/Chuyen-Anh/issues';
+// The only address the application ever posts to. It is the project's own
+// ingestion function (api/telemetry.js in this repository, deployed on Vercel),
+// which validates the report again and stores it in the project's Supabase
+// database. No third-party analytics, no cookie, no client-side key.
+export const TELEMETRY_ENDPOINT = 'https://chuyen-anh-telemetry.vercel.app/api/telemetry';
+export const TELEMETRY_RETENTION_DAYS = 90;
+export const TELEMETRY_MAX_SEND_EVENTS = 50;
+export const TELEMETRY_REQUEST_TIMEOUT_MS = 12000;
 export const TELEMETRY_KINDS = Object.freeze([
   'boot', 'session-start', 'session-end', 'search-open', 'backup', 'exam-practice', 'error', 'settings'
 ]);
@@ -226383,6 +226472,7 @@ export function buildTelemetryReport({ log = [], consent = null, appVersion = ''
   const width = Number(environment.viewportWidth);
   if (Number.isFinite(width) && width > 0) env.viewport = width < 480 ? 'mobile' : width < 900 ? 'tablet' : 'desktop';
   if (typeof environment.reducedMotion === 'boolean') env.reducedMotion = environment.reducedMotion;
+  if (['classic', 'modern'].includes(environment.interface)) env.interface = environment.interface;
   return {
     contract: TELEMETRY_CONTRACT,
     product: 'Chuyen-Anh',
@@ -226409,10 +226499,79 @@ export function telemetryReportFilename(generatedAt = new Date().toISOString()) 
   return `chuyen-anh-diagnostics-${parsed.toISOString().slice(0, 10)}.json`;
 }
 
-// The application itself never transmits: sending is the learner's own action
-// (download the file, then attach it where they choose).
+// A report may be offered when the learner has opted in and something has been
+// recorded. Transmission itself is still a separate, explicit action.
 export function canSendTelemetry(consent, log) {
   return sanitizeTelemetryConsent(consent).enabled === true && Array.isArray(log) && log.length > 0;
+}
+
+// The request body is a strict subset of the downloadable report: no consent
+// record, no generated timestamp, no free-text explanation. Only what the
+// endpoint accepts and the database stores.
+export function buildTelemetryRequest({ log = [], appVersion = '', environment = {} } = {}) {
+  const report = buildTelemetryReport({ log, appVersion, environment });
+  return {
+    contract: TELEMETRY_CONTRACT,
+    appVersion: report.appVersion,
+    environment: report.environment,
+    events: report.events.slice(-TELEMETRY_MAX_SEND_EVENTS)
+  };
+}
+
+// One POST, with a timeout, that reports a machine reason instead of throwing:
+// the caller shows a sentence and keeps the local log either way. Nothing here
+// retries, so a learner cannot be turned into a retry loop.
+export async function sendTelemetryReport(request, {
+  fetchImpl = null,
+  endpoint = TELEMETRY_ENDPOINT,
+  timeoutMs = TELEMETRY_REQUEST_TIMEOUT_MS
+} = {}) {
+  const body = request && typeof request === 'object' ? request : null;
+  const events = Array.isArray(body?.events) ? body.events : [];
+  if (!body || events.length === 0) return { ok: false, status: 0, error: 'empty-report' };
+  const transport = fetchImpl || (typeof fetch === 'function' ? fetch : null);
+  if (typeof transport !== 'function') return { ok: false, status: 0, error: 'unsupported' };
+  const limit = Number.isFinite(Number(timeoutMs)) && Number(timeoutMs) >= 1000
+    ? Math.min(Number(timeoutMs), 60000)
+    : TELEMETRY_REQUEST_TIMEOUT_MS;
+  const controller = typeof AbortController === 'function' ? new AbortController() : null;
+  const timer = controller ? setTimeout(() => controller.abort(), limit) : null;
+  try {
+    const response = await transport(endpoint, {
+      method: 'POST',
+      mode: 'cors',
+      credentials: 'omit',
+      cache: 'no-store',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+      signal: controller ? controller.signal : undefined
+    });
+    const status = Number(response?.status) || 0;
+    if (status >= 200 && status < 300) return { ok: true, status, error: null };
+    if (status === 429) return { ok: false, status, error: 'rate-limited' };
+    if (status === 400 || status === 403 || status === 413 || status === 415) {
+      return { ok: false, status, error: 'rejected' };
+    }
+    return { ok: false, status, error: 'unavailable' };
+  } catch (error) {
+    // A blocked request, a DNS failure and an aborted request are all "did not
+    // arrive"; the learner gets the same sentence plus the local file fallback.
+    return { ok: false, status: 0, error: error?.name === 'AbortError' ? 'timeout' : 'offline' };
+  } finally {
+    if (timer) clearTimeout(timer);
+  }
+}
+
+// What the learner is told after a failed send, per machine reason.
+export function telemetrySendMessage(result) {
+  const reason = result && typeof result === 'object' ? result.error : null;
+  if (result?.ok === true) return 'Đã gửi chẩn đoán. Cảm ơn bạn.';
+  if (reason === 'rate-limited') return 'Máy chủ đang giới hạn tần suất. Thử lại sau 10 phút.';
+  if (reason === 'rejected') return 'Máy chủ từ chối gói tin này. Nhật ký vẫn còn trên thiết bị.';
+  if (reason === 'timeout') return 'Hết thời gian chờ. Nhật ký vẫn còn trên thiết bị.';
+  if (reason === 'offline') return 'Không kết nối được máy chủ. Nhật ký vẫn còn trên thiết bị.';
+  if (reason === 'empty-report') return 'Chưa có mục nào để gửi.';
+  return 'Máy chủ tạm thời không khả dụng. Nhật ký vẫn còn trên thiết bị.';
 }
 
 /* ------------------------- session state helpers -------------------------- */
@@ -228011,10 +228170,6 @@ export async function createApp(root) {
   if (storage?.getItem?.(PRESENTATION_STORAGE_KEY) !== JSON.stringify(presentation)) {
     savePresentation(presentation, storage);
   }
-  // Revealing one meaning is scoped to this visit: it is never persisted, so a
-  // reload cannot leave answers exposed and the global preference never flips
-  // because one answer was peeked at.
-  const revealedMeanings = new Set();
   // Opt-in diagnostics. Nothing is read, written or timed before consent, and a
   // storage failure degrades to "no log" rather than blocking the app.
   let telemetryConsent = loadTelemetryConsent(storage);
@@ -228053,6 +228208,7 @@ export async function createApp(root) {
     return {
       language,
       theme,
+      interface: presentation.interface,
       viewportWidth: typeof window !== 'undefined' ? window.innerWidth : 0,
       reducedMotion: typeof window !== 'undefined' && typeof window.matchMedia === 'function'
         ? window.matchMedia('(prefers-reduced-motion: reduce)').matches === true : false
@@ -228149,15 +228305,10 @@ export async function createApp(root) {
     // `.about-name` is the product name, which stays "Chuyên Anh" in both
     // interfaces, exactly like the brand in the top bar.
     const protectedSelectors = '.exam-document, .exam-question-source, .vocab-word, .vocab-meaning, .vocab-pos, .vocabulary-metadata dd, .prompt, .option, .example em, .example span, .code, .about-name';
-    // A concealed gloss is a protected cell that also contains one control and
-    // one mask label. Those two carry interface copy, not vocabulary content, so
-    // they stay translatable; everything else inside the cell does not.
-    const translatorExceptions = '.meaning-masked, .meaning-reveal, .meaning-dots';
     const visit = current => {
       if (current.nodeType === 3) {
         const blocked = current.parentElement?.closest(protectedSelectors);
-        const exempt = current.parentElement?.closest(translatorExceptions);
-        if (!blocked || exempt) current.nodeValue = translateUiText(current.nodeValue, language);
+        if (!blocked) current.nodeValue = translateUiText(current.nodeValue, language);
         return;
       }
       if (current.nodeType !== 1 && current.nodeType !== 9 && current.nodeType !== 11) return;
@@ -228166,7 +228317,7 @@ export async function createApp(root) {
           const value = current.getAttribute(name);
           if (value) current.setAttribute(name, value.split(' — ').map(part => translateUiText(part, language)).join(' — '));
         }
-        if (current.matches(protectedSelectors) && !current.matches(translatorExceptions)) return;
+        if (current.matches(protectedSelectors)) return;
       }
       for (const child of [...current.childNodes]) visit(child);
     };
@@ -228191,23 +228342,18 @@ export async function createApp(root) {
     return presentation.meanings === MEANING_MODES.HIDE;
   }
 
-  function meaningRevealed(id) {
-    return !meaningsHidden() || revealedMeanings.has(id);
+  // A gloss on a *passive* surface — a list row, a search result, a phrase card.
+  // It is printed while meanings are visible and omitted outright while they are
+  // hidden: no mask, no placeholder, no per-row reveal control. The caller owns
+  // the separator so a hidden gloss cannot leave a dangling "·" behind.
+  function passiveGloss(entry, { className = 'vocab-meaning', content = null } = {}) {
+    if (!entry || meaningConcealed(presentation)) return '';
+    return `<span class="${className}">${content ?? escapeHtml(entry.meaning)}</span>`;
   }
 
-  function revealMeaning(id) {
-    if (!id) return;
-    revealedMeanings.add(id);
-  }
-
-  // A gloss that would otherwise be printed before the learner answers. The
-  // control reveals exactly one word and leaves the preference untouched.
-  function meaningSpan(entry, { answered = false, className = 'vocab-meaning', content = null } = {}) {
-    if (!entry) return '';
-    if (answered || meaningRevealed(entry.id)) {
-      return `<span class="${className}">${content ?? escapeHtml(entry.meaning)}</span>`;
-    }
-    return `<span class="${className} meaning-masked"><span class="meaning-dots" aria-hidden="true">${MASKED_MEANING}</span><button type="button" class="meaning-reveal" data-reveal-meaning="${escapeHtml(entry.id)}" aria-pressed="false" aria-label="Hiện nghĩa của ${escapeHtml(entry.word)}">Hiện nghĩa</button></span>`;
+  function passiveGlossSegment(entry, { className = 'vocab-meaning', content = null, separator = ' · ' } = {}) {
+    const gloss = passiveGloss(entry, { className, content });
+    return gloss ? `${separator}${gloss}` : '';
   }
 
   // A mode change must not discard what the learner has typed into a spelling
@@ -228239,12 +228385,10 @@ export async function createApp(root) {
       return false;
     }
     presentation = candidate;
-    // Revealed answers belong to the previous preference, not to this one.
-    revealedMeanings.clear();
     if (announce) {
       toast(wanted === MEANING_MODES.HIDE
-        ? 'Đã ẩn nghĩa. Bấm “Hiện nghĩa” ở từng mục khi bạn muốn xem đáp án.'
-        : 'Đã hiện nghĩa theo mạch học hiện tại.', 'success');
+        ? 'Đã ẩn nghĩa trước khi trả lời. Phần giới thiệu từ mới được bỏ qua.'
+        : 'Đã hiện nghĩa trước khi trả lời, gồm cả phần giới thiệu từ mới.', 'success');
     }
     // The session, its queue, its answers and its schedule are untouched: only
     // the surface is redrawn.
@@ -228272,23 +228416,6 @@ export async function createApp(root) {
     toast(wanted === INTERFACE_MODES.MODERN ? 'Đã chuyển sang giao diện Modern.' : 'Đã chuyển sang giao diện Classic.', 'success');
     return true;
   }
-
-  // One delegated handler: every surface that can conceal a gloss prints the
-  // same control, and the search view handles its own (it must keep its query).
-  root.addEventListener('click', event => {
-    const button = event.target?.closest?.('[data-reveal-meaning]');
-    if (!button || !root.contains(button)) return;
-    if (view === 'search') return; // the search view redraws its own result list
-    if (view === 'phrase-practice' || view === 'phrases') return; // same reason
-    revealMeaning(button.dataset.revealMeaning);
-    if (view === 'learn' && session?.length) {
-      const content = root.querySelector('#content');
-      if (content) renderFlashcard(content);
-      button.focus?.({ preventScroll: true });
-      return;
-    }
-    redrawPreservingInput();
-  });
 
   function clearActiveSession() {
     stopSessionTimer();
@@ -228477,7 +228604,7 @@ export async function createApp(root) {
   function meaningSwitchMarkup(prefix) {
     const hide = meaningsHidden();
     const option = (mode, label) => `<button type="button" class="seg ${(mode === MEANING_MODES.HIDE) === hide ? 'is-on' : ''}" id="${prefix}-${mode}" data-meanings="${mode}" aria-pressed="${(mode === MEANING_MODES.HIDE) === hide}">${label}</button>`;
-    return `<div class="segmented segmented--setting" role="group" aria-label="Hiện nghĩa hoặc ẩn nghĩa">${option(MEANING_MODES.SHOW, 'Hiện nghĩa')}${option(MEANING_MODES.HIDE, 'Ẩn nghĩa')}</div>`;
+    return `<div class="segmented segmented--setting" role="group" aria-label="Nghĩa tiếng Việt trước khi trả lời: hiện ngay hoặc chỉ sau khi trả lời">${option(MEANING_MODES.SHOW, 'Hiện ngay')}${option(MEANING_MODES.HIDE, 'Chỉ sau khi trả lời')}</div>`;
   }
 
   function navButton(id, iconName, label, count = null) {
@@ -229229,14 +229356,18 @@ export async function createApp(root) {
     // A board holding never-studied words is introduced first, like any other
     // new card: the board is built only after the introduction is confirmed.
     if (item.match) {
-      firstLook = turnNeedsFirstLook(item);
+      firstLook = previewStageVisible(presentation, item);
       question = null;
+      // rc5: with meanings hidden the introduction is skipped, not masked, so
+      // the board is playable at once. Its pairs still count as introduced.
+      if (!firstLook) markIntroduced(item);
       matchState = firstLook ? null : createMatchState(item);
       questionStarted = Date.now();
       return;
     }
     // Never-studied words get an introduction first; the timer starts with the quiz.
-    firstLook = turnNeedsFirstLook(item);
+    firstLook = previewStageVisible(presentation, item);
+    if (!firstLook) markIntroduced(item);
     question = firstLook ? null : generateQuestion(item, deck, questionModeFor(item));
     if (question?.unavailable) {
       // A question that cannot be built (for example a four-option turn
@@ -229266,6 +229397,16 @@ export async function createApp(root) {
     return null;
   }
 
+  // The preference can change mid-session, so a card whose introduction was
+  // skipped is marked introduced: switching "show meanings" back on must not
+  // re-open an introduction for a card the learner has already been asked about.
+  // Nothing here is persisted — `taught` lives on the session item.
+  function markIntroduced(item) {
+    if (!item) return;
+    if (item.match) for (const pair of matchFirstLookPairs(item)) pair.taught = true;
+    item.taught = true;
+  }
+
   function startFirstLookQuiz() {
     if (!firstLook || !session?.length) return;
     const item = session[0];
@@ -229282,9 +229423,7 @@ export async function createApp(root) {
     const rows = pairs.map(pair => `
               <div class="first-look-row">
                 <p class="first-look-word"><span class="vocab-word">${escapeHtml(pair.vocab.word)}</span> <span class="vocab-pos">${escapeHtml(pair.vocab.pos)}</span></p>
-                <p class="first-look-meaning"><span>Nghĩa</span>${meaningRevealed(pair.vocab.id)
-                  ? `<strong class="vocab-meaning">${escapeHtml(pair.vocab.meaning)}</strong>`
-                  : `<span class="meaning-masked"><span class="meaning-dots" aria-hidden="true">${MASKED_MEANING}</span><button type="button" class="btn small" data-reveal-meaning="${escapeHtml(pair.vocab.id)}" aria-pressed="false">Hiện nghĩa</button></span>`}</p>
+                <p class="first-look-meaning"><span>Nghĩa</span><strong class="vocab-meaning">${escapeHtml(pair.vocab.meaning)}</strong></p>
                 ${vocabularyMetadataHtml(pair.vocab)}${exampleHtml(pair.vocab)}
               </div>`).join('');
     return `
@@ -229302,9 +229441,7 @@ export async function createApp(root) {
             <div class="mode-label">Từ mới · học trước khi kiểm tra</div>
             <div class="prompt"><span class="vocab-word">${escapeHtml(item.vocab.word)}</span></div><div class="sub-prompt"><span class="vocab-pos">${escapeHtml(item.vocab.pos)}</span></div>
             <div class="first-look">
-              <p class="first-look-meaning"><span>Nghĩa</span>${meaningRevealed(item.vocab.id)
-                ? `<strong class="vocab-meaning">${escapeHtml(item.vocab.meaning)}</strong>`
-                : `<span class="meaning-masked"><span class="meaning-dots" aria-hidden="true">${MASKED_MEANING}</span><button type="button" class="btn small" data-reveal-meaning="${escapeHtml(item.vocab.id)}" aria-pressed="false">${iconMarkup('eye')}Hiện nghĩa</button></span>`}</p>
+              <p class="first-look-meaning"><span>Nghĩa</span><strong class="vocab-meaning">${escapeHtml(item.vocab.meaning)}</strong></p>
               ${vocabularyMetadataHtml(item.vocab)}${exampleHtml(item.vocab)}
               <p class="first-look-note">Lượt giới thiệu này không phải là câu trả lời và không thay đổi lịch ôn. Sau khi bấm nút, từ sẽ được kiểm tra ngay bằng một câu hỏi ngắn.</p>
               <div class="actions"><button class="btn primary" id="start-quiz">Bắt đầu kiểm tra <kbd>Enter</kbd></button></div>
@@ -229414,7 +229551,7 @@ export async function createApp(root) {
               <span class="state-pill state-${escapeHtml(item.progress.state)}">${escapeHtml(stateLabel(item.progress.state))}</span>
               <button class="fav ${flaggedHere ? 'active' : ''}" id="favorite-card" aria-label="${flaggedHere ? 'Bỏ yêu thích' : 'Thêm yêu thích'}" aria-pressed="${flaggedHere}">${flaggedHere ? '★' : '☆'}</button>
               <button class="flag ${flagged.has(item.vocab.id) ? 'active' : ''}" id="flag-card" aria-label="${flagged.has(item.vocab.id) ? 'Bỏ đánh dấu từ khó' : 'Đánh dấu từ khó'}" aria-pressed="${flagged.has(item.vocab.id)}">${iconMarkup('flag')}</button>
-              <button class="btn small meaning-toggle ${meaningsHidden() ? 'is-hiding' : ''}" id="meaning-toggle" aria-pressed="${meaningsHidden()}" title="${meaningsHidden() ? 'Đang ẩn nghĩa · bật để hiện' : 'Đang hiện nghĩa · bật để ẩn'}">${iconMarkup(meaningsHidden() ? 'eyeOff' : 'eye')}${meaningsHidden() ? 'Nghĩa: ẩn' : 'Nghĩa: hiện'}</button>
+              <button class="btn small meaning-toggle ${meaningsHidden() ? 'is-hiding' : ''}" id="meaning-toggle" aria-pressed="${meaningsHidden()}" title="${meaningsHidden() ? 'Đang ẩn nghĩa trước khi trả lời · bấm để hiện' : 'Đang hiện nghĩa trước khi trả lời · bấm để ẩn'}">${iconMarkup(meaningsHidden() ? 'eyeOff' : 'eye')}${meaningsHidden() ? 'Nghĩa: ẩn' : 'Nghĩa: hiện'}</button>
               <button class="btn small" id="skip-card" ${canSkip ? '' : 'disabled'}>Bỏ qua</button>
             </div>
           </div>
@@ -229897,7 +230034,7 @@ export async function createApp(root) {
         return entry ? { entry, progress: record } : null;
       }).filter(Boolean);
     const weakSpotlight = weakList.length
-      ? `<section class="panel"><div class="panel-heading">Từ yếu cần cải thiện</div><div class="panel-body weak-spotlight">${weakList.map(item => `<div class="weak-row"><span><b class="vocab-word">${escapeHtml(item.entry.word)}</b> · ${meaningSpan(item.entry, { className: 'vocab-meaning weak-row-meaning', content: `<small>${escapeHtml(item.entry.meaning)}</small>` })}</span><span style="color:var(--danger);font-weight:700">${item.progress.wrongCount} lần sai</span></div>`).join('')}<button class="btn small" data-session="weak" style="margin-top:8px">Ôn từ yếu</button></div></section>`
+      ? `<section class="panel"><div class="panel-heading">Từ yếu cần cải thiện</div><div class="panel-body weak-spotlight">${weakList.map(item => `<div class="weak-row"><span><b class="vocab-word">${escapeHtml(item.entry.word)}</b> · ${passiveGlossSegment(item.entry, { className: 'vocab-meaning weak-row-meaning', content: `<small>${escapeHtml(item.entry.meaning)}</small>` })}</span><span style="color:var(--danger);font-weight:700">${item.progress.wrongCount} lần sai</span></div>`).join('')}<button class="btn small" data-session="weak" style="margin-top:8px">Ôn từ yếu</button></div></section>`
       : '';
     const metric = (value, label, hint) => `<div class="metric-card"><strong>${value}</strong><span class="metric-label">${label}</span><span class="metric-hint">${hint}</span></div>`;
     container.innerHTML = `<div class="page-header"><div><h1>Tổng quan</h1><p>Tiến độ học trên thiết bị này. Dữ liệu không rời khỏi trình duyệt.</p></div></div>
@@ -229968,18 +230105,19 @@ export async function createApp(root) {
       // The separator is its own aria-hidden element: the count node and the scope node
       // each translate on their own, and copied/announced text still reads as one line.
       const scopeNote = state.value === 'archived' ? '<span class="results-sep" aria-hidden="true"> · </span><span class="results-scope">mục lưu trữ không vào phiên học</span>' : '';
-      results.innerHTML = matches.length ? `<p class="results-meta" role="status" aria-live="polite">${formatCount(matches.length)} kết quả · trang ${page}/${pages}${scopeNote}</p><div class="vocab-list">${visible.map(item => `<div class="vocab-row${item.archived ? ' vocab-row--archived' : ''}"><span class="vocab-word">${hi(item.entry.word)}</span><span class="vocab-pos">${escapeHtml(item.entry.pos)}</span>${meaningRevealed(item.entry.id)
-            ? `<span class="vocab-meaning" title="${escapeHtml(item.entry.meaning)}">${hi(item.entry.meaning)}</span>`
-            : `<span class="vocab-meaning meaning-masked"><span class="meaning-dots" aria-hidden="true">${MASKED_MEANING}</span><button type="button" class="meaning-reveal" data-reveal-meaning="${escapeHtml(item.entry.id)}" aria-pressed="false" aria-label="Hiện nghĩa của ${escapeHtml(item.entry.word)}">Hiện nghĩa</button></span>`}${item.archived ? `<span class="state-pill state-archived" title="Mục này nằm ngoài bộ từ trọng tâm nên không vào phiên học; nghĩa và tiến độ cũ vẫn được giữ.">Lưu trữ</span>` : `<span class="state-pill state-${escapeHtml(item.state)}">${escapeHtml(stateLabel(item.state))}</span><button class="fav ${item.favorite ? 'active' : ''}" data-fav="${escapeHtml(item.entry.id)}" aria-label="${item.favorite ? 'Bỏ yêu thích' : 'Thêm yêu thích'}">${item.favorite ? '★' : '☆'}</button>`}</div>`).join('')}</div>${pages > 1 ? `<div class="pagination" aria-label="Trang kết quả">${Array.from({ length: pages }, (_, i) => `<button class="btn small ${i + 1 === page ? 'primary' : ''}" data-page="${i + 1}" aria-label="Trang ${i + 1}" ${i + 1 === page ? 'aria-current="page"' : ''}>${i + 1}</button>`).join('')}</div>` : ''}` : '<div class="empty" role="status"><strong>Không tìm thấy</strong>Thử từ khóa khác hoặc bỏ bớt bộ lọc.</div>';
+      // With meanings hidden the gloss column is removed from the layout rather
+      // than filled with empty placeholders: the row keeps the headword, part of
+      // speech, state and favourite, which is what a lookup without the gloss is
+      // still good for.
+      const showGloss = !meaningConcealed(presentation);
+      const glossCell = item => showGloss
+        ? `<span class="vocab-meaning" title="${escapeHtml(item.entry.meaning)}">${hi(item.entry.meaning)}</span>`
+        : '';
+      results.innerHTML = matches.length ? `<p class="results-meta" role="status" aria-live="polite">${formatCount(matches.length)} kết quả · trang ${page}/${pages}${scopeNote}</p><div class="vocab-list${showGloss ? '' : ' vocab-list--no-gloss'}">${visible.map(item => `<div class="vocab-row${item.archived ? ' vocab-row--archived' : ''}"><span class="vocab-word">${hi(item.entry.word)}</span><span class="vocab-pos">${escapeHtml(item.entry.pos)}</span>${glossCell(item)}${item.archived ? `<span class="state-pill state-archived" title="Mục này nằm ngoài bộ từ trọng tâm nên không vào phiên học; nghĩa và tiến độ cũ vẫn được giữ.">Lưu trữ</span>` : `<span class="state-pill state-${escapeHtml(item.state)}">${escapeHtml(stateLabel(item.state))}</span><button class="fav ${item.favorite ? 'active' : ''}" data-fav="${escapeHtml(item.entry.id)}" aria-label="${item.favorite ? 'Bỏ yêu thích' : 'Thêm yêu thích'}">${item.favorite ? '★' : '☆'}</button>`}</div>`).join('')}</div>${pages > 1 ? `<div class="pagination" aria-label="Trang kết quả">${Array.from({ length: pages }, (_, i) => `<button class="btn small ${i + 1 === page ? 'primary' : ''}" data-page="${i + 1}" aria-label="Trang ${i + 1}" ${i + 1 === page ? 'aria-current="page"' : ''}>${i + 1}</button>`).join('')}</div>` : ''}` : '<div class="empty" role="status"><strong>Không tìm thấy</strong>Thử từ khóa khác hoặc bỏ bớt bộ lọc.</div>';
       results.querySelectorAll('[data-fav]').forEach(button => button.addEventListener('click', () => {
         const id = button.dataset.fav;
         toggleFavorite(id, false); // No shell rerender: the search state must survive.
         updateSearchFavorite(index, id, favorites.has(id)); // Keep the cached index truthful.
-        draw();
-      }));
-      results.querySelectorAll('[data-reveal-meaning]').forEach(button => button.addEventListener('click', event => {
-        event.stopPropagation();
-        revealMeaning(button.dataset.revealMeaning);
         draw();
       }));
       results.querySelectorAll('[data-page]').forEach(button => button.addEventListener('click', () => { page = Number(button.dataset.page); draw(); }));
@@ -230004,12 +230142,10 @@ export async function createApp(root) {
     return PHRASE_TYPES[type] || type;
   }
 
-  // The phrase bank keeps its own ids (P001…), so revealing a phrase gloss is
-  // tracked in the same session-scoped set without touching word progress.
+  // The phrase bank keeps its own ids (P001…); its list rows obey the same
+  // presentation rule as the word list and never touch word progress.
   function phraseMeaningSpan(entry) {
-    const revealed = meaningRevealed(entry.id);
-    if (revealed) return `<span class="vocab-meaning">${escapeHtml(entry.meaning)}</span>`;
-    return `<span class="vocab-meaning meaning-masked"><span class="meaning-dots" aria-hidden="true">${MASKED_MEANING}</span><button type="button" class="meaning-reveal" data-reveal-phrase="${escapeHtml(entry.id)}" aria-pressed="false" aria-label="Hiện nghĩa của cụm ${escapeHtml(entry.phrase)}">Hiện nghĩa</button></span>`;
+    return passiveGloss(entry);
   }
 
   function startPhrasePractice() {
@@ -230097,20 +230233,14 @@ export async function createApp(root) {
       // than a toast explaining that the filter matched zero phrases.
       startButton.disabled = !found.length;
       results.innerHTML = found.length
-        ? `<p class="results-meta" role="status" aria-live="polite">${found.length} cụm${found.length > 80 ? ' · hiển thị 80 cụm đầu' : ''}</p><div class="vocab-list">${found.slice(0, 80).map(entry => {
+        ? `<p class="results-meta" role="status" aria-live="polite">${found.length} cụm${found.length > 80 ? ' · hiển thị 80 cụm đầu' : ''}</p><div class="vocab-list${meaningConcealed(presentation) ? ' vocab-list--no-gloss' : ''}">${found.slice(0, 80).map(entry => {
           const record = phraseProgress[entry.id];
           const state = phraseState(record);
-          return `<div class="vocab-row"><span class="vocab-word">${escapeHtml(entry.phrase)}</span><span class="phrase-type">${escapeHtml(phraseTypeLabel(entry.type))}</span>${phraseMeaningSpan(entry)}<span class="state-pill state-${escapeHtml(state)}">${escapeHtml(stateLabel(state))}</span>${record ? `<span class="chip-count">${record.correct}/${record.attempts}</span>` : ''}</div>`;
+          return `<div class="vocab-row${meaningConcealed(presentation) ? ' vocab-row--no-gloss' : ''}"><span class="vocab-word">${escapeHtml(entry.phrase)}</span><span class="phrase-type">${escapeHtml(phraseTypeLabel(entry.type))}</span>${phraseMeaningSpan(entry)}<span class="state-pill state-${escapeHtml(state)}">${escapeHtml(stateLabel(state))}</span>${record ? `<span class="chip-count">${record.correct}/${record.attempts}</span>` : ''}</div>`;
         }).join('')}</div>`
         : '<div class="empty" role="status"><strong>Không tìm thấy cụm từ</strong>Thử từ khóa khác hoặc bỏ bớt bộ lọc.</div>';
     };
     field.addEventListener('input', draw);
-    results.addEventListener('click', event => {
-      const button = event.target?.closest?.('[data-reveal-phrase]');
-      if (!button) return;
-      revealMeaning(button.dataset.revealPhrase);
-      draw();
-    });
     type.addEventListener('change', () => { phraseFilters = { ...phraseFilters, type: type.value }; draw(); });
     level.addEventListener('change', () => { phraseFilters = { ...phraseFilters, level: level.value }; draw(); });
     startButton.addEventListener('click', event => {
@@ -230145,15 +230275,16 @@ export async function createApp(root) {
     const { entry, question } = current;
     const result = phraseSession.result;
     const position = `${phraseSession.index + 1}/${phraseSession.items.length}`;
-    if (!phraseSession.answered && needsPhraseFirstLook(entry, phraseProgress, phraseSession.taught)) {
+    // rc5: this introduction exists only to print the gloss, so hiding meanings
+    // skips it (and records the phrase as introduced for this visit).
+    if (!phraseSession.answered && meaningPreviewEnabled(presentation)
+      && needsPhraseFirstLook(entry, phraseProgress, phraseSession.taught)) {
       container.innerHTML = `<div class="page-header"><div><h1>Luyện cụm từ</h1><p><span class="phrase-type">${escapeHtml(phraseTypeLabel(entry.type))}</span> · ${escapeHtml(phraseTagOf(entry, 'level'))} · ${position}</p></div><button class="btn" id="phrase-exit">Thoát</button></div>
         <div class="flashcard"><div class="flashcard-body">
           <div class="mode-label">Cụm mới · học trước khi kiểm tra</div>
           <div class="first-look">
             <p class="first-look-word"><span class="vocab-word">${escapeHtml(entry.phrase)}</span></p>
-            <p class="first-look-meaning"><span>Nghĩa</span>${meaningRevealed(entry.id)
-              ? `<strong class="vocab-meaning">${escapeHtml(entry.meaning)}</strong>`
-              : `<span class="meaning-masked"><span class="meaning-dots" aria-hidden="true">${MASKED_MEANING}</span><button type="button" class="btn small" data-reveal-phrase="${escapeHtml(entry.id)}" aria-pressed="false" aria-label="Hiện nghĩa của cụm ${escapeHtml(entry.phrase)}">${iconMarkup('eye')}Hiện nghĩa</button></span>`}</p>
+            <p class="first-look-meaning"><span>Nghĩa</span><strong class="vocab-meaning">${escapeHtml(entry.meaning)}</strong></p>
             ${entry.usage ? `<p class="first-look-note vocab-meaning">${escapeHtml(entry.usage)}</p>` : ''}
             ${entry.pattern ? `<p class="first-look-note"><code class="code">${escapeHtml(entry.pattern)}</code></p>` : ''}
             <p class="first-look-note">Lượt giới thiệu này không phải là câu trả lời và không thay đổi tiến độ cụm từ. Sau khi bấm nút, cụm sẽ được kiểm tra ngay.</p>
@@ -230161,14 +230292,9 @@ export async function createApp(root) {
           </div>
         </div></div>`;
       container.querySelector('#phrase-exit').addEventListener('click', () => { phraseSession = null; view = 'phrases'; renderShell(); });
-      // Final-gate audit (v1.0.0-rc4): this introduction is the phrase bank's
-      // counterpart of the word first look, so it obeys the same preference. A
-      // peek reveals one phrase for this visit only: the preference and the
-      // phrase's stored progress are untouched.
-      container.querySelectorAll('[data-reveal-phrase]').forEach(button => button.addEventListener('click', () => {
-        revealMeaning(button.dataset.revealPhrase);
-        renderShell();
-      }));
+      // This introduction is the phrase bank's counterpart of the word first
+      // look: the same preference decides whether it exists at all, and it never
+      // writes the preference or the phrase's stored progress.
       const startButton = container.querySelector('#phrase-start-quiz');
       startButton.addEventListener('click', () => {
         phraseSession.taught.add(entry.id);
@@ -230176,6 +230302,10 @@ export async function createApp(root) {
       });
       setTimeout(() => startButton.focus({ preventScroll: true }), 0);
       return;
+    }
+    if (!meaningPreviewEnabled(presentation)
+      && needsPhraseFirstLook(entry, phraseProgress, phraseSession.taught)) {
+      phraseSession.taught.add(entry.id);
     }
     const options = question.options
       ? `<div class="options" role="group" aria-label="Chọn cụm từ đúng">${question.options.map((option, index) => `<button class="option ${result && option.correct ? 'correct' : ''} ${result && result.status === 'incorrect' && !option.correct && phraseSession.givenIds?.has(option.id) ? 'wrong' : ''}" data-phrase-option="${escapeHtml(option.id)}" ${phraseSession.answered ? 'disabled' : ''}><span class="option-index">${index + 1}</span><span>${escapeHtml(option.text)}</span></button>`).join('')}</div>`
@@ -230557,7 +230687,7 @@ export async function createApp(root) {
         <div class="setting-row"><div><b id="theme-label">Giao diện</b><small id="theme-help">Theo hệ thống sẽ dùng cài đặt sáng/tối của thiết bị. Bạn vẫn có thể chọn cố định.</small></div><select class="setting-select" id="theme-setting" aria-labelledby="theme-label" aria-describedby="theme-help" style="width:180px;max-width:45%">${themeOptions}</select></div>
         <div class="setting-row"><div><b id="keys-label">Phím tắt bàn phím</b><small id="keys-help">Tắt nếu bạn thường gõ trên trang học.</small></div><label class="switch"><input type="checkbox" id="keys-setting" aria-labelledby="keys-label" aria-describedby="keys-help" ${prefs.keyboardShortcuts ? 'checked' : ''}><span aria-hidden="true"></span></label></div>
         <div class="setting-row"><div><div><b id="size-label">Số thẻ mặc định mỗi phiên</b></div><small id="size-help">Áp dụng cho phiên ưu tiên, Đến hạn, Từ yếu, Từ mới, Ngẫu nhiên, Yêu thích và Học cấp tốc. Phiên nhanh 10/20/30 giữ số thẻ ghi trên nút.</small></div><select class="setting-select" id="size-setting" aria-labelledby="size-label" aria-describedby="size-help" style="width:100px"><option ${prefs.sessionSize === 10 ? 'selected' : ''}>10</option><option ${prefs.sessionSize === 20 ? 'selected' : ''}>20</option><option ${prefs.sessionSize === 30 ? 'selected' : ''}>30</option><option ${prefs.sessionSize === 50 ? 'selected' : ''}>50</option></select></div>
-        <div class="setting-row"><div><b id="meanings-label">Hiển thị nghĩa tiếng Việt</b><small id="meanings-help">“Ẩn nghĩa” che nghĩa trước khi bạn trả lời — phần giới thiệu từ mới, danh sách tra cứu, danh sách từ khó và kho cụm từ. Nghĩa vẫn hiện sau khi chấm, nên điểm, lịch ôn và số lượt luyện không đổi.</small></div>${meaningSwitchMarkup('setting-meanings')}</div>
+        <div class="setting-row"><div><b id="meanings-label">Nghĩa tiếng Việt trước khi trả lời</b><small id="meanings-help">“Chỉ sau khi trả lời” bỏ qua phần giới thiệu từ mới/cụm từ và không in nghĩa trong các danh sách (Tra cứu, từ yếu, từ khó, cụm từ). Gợi ý bắt buộc của câu hỏi vẫn hiện — ví dụ nghĩa tiếng Việt trong câu hỏi Việt → Anh, hay định nghĩa trong bài điền từ. Nghĩa luôn hiện sau khi bạn trả lời, nên điểm, lịch ôn và số lượt luyện không đổi.</small></div>${meaningSwitchMarkup('setting-meanings')}</div>
         <div class="setting-row"><div><b id="interface-label">Kiểu giao diện</b><small id="interface-help">Classic là giao diện quen thuộc; Modern là bố cục mới với cùng dữ liệu và cùng luật học. Đổi kiểu không kết thúc phiên đang học và không đổi tiến độ.</small></div>${interfaceSwitchMarkup('setting-interface', 'ui-switch ui-switch--settings')}</div>
       </div></section>
       <section class="panel"><div class="panel-heading">Phiên ưu tiên</div><div class="panel-body">
@@ -230568,7 +230698,7 @@ export async function createApp(root) {
       </div></section>
       <section class="panel"><div class="panel-heading">Từ khó</div><div class="panel-body">
         <p class="settings-copy">Đánh dấu từ khó trong phiên học hoặc ở trang Tra cứu. Danh sách này chỉ là ghi chú học tập: nó không đổi trạng thái, độ chính xác hay lịch ôn của từ.</p>
-        ${flaggedWords.length ? `<div class="flagged-list">${flaggedWords.map(entry => `<div class="flagged-row"><span><b class="vocab-word">${escapeHtml(entry.word)}</b> · <span class="vocab-pos">${escapeHtml(entry.pos)}</span> · ${meaningSpan(entry, { className: 'vocab-meaning flagged-meaning', content: `<small>${escapeHtml(entry.meaning)}</small>` })}</span><button class="btn small" data-unflag="${escapeHtml(entry.id)}">Bỏ đánh dấu</button></div>`).join('')}</div>` : '<div class="empty" role="status"><strong>Chưa đánh dấu từ khó nào</strong>Bấm biểu tượng cờ trong phiên học hoặc ở kết quả tra cứu để thêm từ.</div>'}
+        ${flaggedWords.length ? `<div class="flagged-list">${flaggedWords.map(entry => `<div class="flagged-row"><span><b class="vocab-word">${escapeHtml(entry.word)}</b> · <span class="vocab-pos">${escapeHtml(entry.pos)}</span>${passiveGlossSegment(entry, { className: 'vocab-meaning flagged-meaning', content: `<small>${escapeHtml(entry.meaning)}</small>` })}</span><button class="btn small" data-unflag="${escapeHtml(entry.id)}">Bỏ đánh dấu</button></div>`).join('')}</div>` : '<div class="empty" role="status"><strong>Chưa đánh dấu từ khó nào</strong>Bấm biểu tượng cờ trong phiên học hoặc ở kết quả tra cứu để thêm từ.</div>'}
       </div></section>
       <section class="panel"><div class="panel-heading">Sao lưu tiến độ</div><div class="panel-body">
         <p class="settings-copy">Bản sao JSON v1 gồm tiến độ flashcard, từ yêu thích, chuỗi ngày, lịch sử học và cài đặt. Từ khó, cấu hình phiên ưu tiên và huy hiệu đã đạt được ghi thêm dưới dạng trường tùy chọn; bản sao v1 cũ vẫn nhập được và các trường mới sẽ dùng giá trị mặc định. Kho đề offline nằm trong tệp HTML, không thuộc bản sao lưu.</p>
@@ -230576,12 +230706,14 @@ export async function createApp(root) {
       </div></section>
       <section class="panel"><div class="panel-heading">Thông tin dữ liệu</div><div class="panel-body data-info"><p><b>${formatCount(deck.length)} từ trọng tâm</b> · <b>${formatCount(archivedIds.size)} từ lưu trữ</b> · <b>${formatCount(familyHeadOf.size)} dạng cùng gốc</b> · <b>${phrases.length} cụm từ</b> · phiên bản dữ liệu <code class="code">${escapeHtml(loaded.version)}</code> · phiên bản ứng dụng <code class="code" id="app-version">${escapeHtml(APP_VERSION)}</code></p><p>Từ vựng, kho cụm từ, 106 bản chép đề, giao diện và mã ứng dụng nằm trong chính tệp HTML này. Ứng dụng không tự tải dữ liệu/tài nguyên; chỉ tiến độ flashcard và tiến độ cụm từ được lưu riêng trên thiết bị.</p><p><b>Phạm vi ôn:</b> từ lưu trữ vẫn tra cứu được và giữ tiến độ cũ, nhưng không vào phiên học, bộ đếm hay phương án nhiễu. Danh sách và lý do từng mục nằm trong <code class="code">docs/vocabulary-curation.json</code>.</p><p><b>Quy tắc gốc từ:</b> mỗi gốc từ chỉ tính là một từ vựng. Các dạng cùng gốc (ví dụ số nhiều, thì, phái sinh) không phải mục riêng; chúng được ghi ở dòng “Họ từ” của từ gốc.</p></div></section>
       <section class="panel" aria-labelledby="privacy-title"><div class="panel-heading" id="privacy-title">Quyền riêng tư &amp; nhật ký chẩn đoán</div><div class="panel-body">
-        <p class="settings-copy">Mặc định tắt. Khi bạn bật, ứng dụng chỉ ghi trên thiết bị này những gì cần để tìm lỗi: phiên bản, ngôn ngữ, giao diện, cỡ màn hình, số lượt học và thông báo lỗi. Tối đa ${TELEMETRY_MAX_EVENTS} mục; mục cũ nhất bị bỏ khi đầy.</p>
-        <p class="settings-copy">Không bao giờ ghi: đáp án, từ bạn tra, nội dung ô nhập, nội dung tệp sao lưu, mã thiết bị hay địa chỉ IP. Ứng dụng không tự gửi dữ liệu đi đâu; bạn tải tệp rồi tự gửi cho người duy trì nếu muốn.</p>
+        <p class="settings-copy">Mặc định tắt. Khi bạn bật, ứng dụng ghi trên chính thiết bị này những gì cần để tìm lỗi: phiên bản, ngôn ngữ, kiểu giao diện, cỡ màn hình, số lượt học và thông báo lỗi. Tối đa ${TELEMETRY_MAX_EVENTS} mục; mục cũ nhất bị bỏ khi đầy.</p>
+        <p class="settings-copy">Không bao giờ ghi: đáp án, từ bạn tra, nội dung ô nhập, nội dung tệp sao lưu, mã thiết bị hay địa chỉ IP. Gửi đi là một hành động riêng: bấm “Gửi chẩn đoán” để gửi tối đa ${TELEMETRY_MAX_SEND_EVENTS} mục mới nhất tới máy chủ của chính ứng dụng, nơi gói tin được kiểm tra lại rồi xóa tự động sau ${TELEMETRY_RETENTION_DAYS} ngày. Không có mã theo dõi, không có bên thứ ba và không có khóa bí mật nào trong trang này.</p>
         <div class="setting-row"><div><b id="telemetry-label">Ghi nhật ký chẩn đoán</b><small id="telemetry-help">Tắt bất cứ lúc nào. Khi tắt, nhật ký đã ghi sẽ bị xóa ngay.</small></div><label class="switch"><input type="checkbox" id="telemetry-setting" aria-labelledby="telemetry-label" aria-describedby="telemetry-help" ${telemetryConsent.enabled ? 'checked' : ''}><span aria-hidden="true"></span></label></div>
         <p class="settings-copy" id="telemetry-state">${telemetryConsent.enabled ? `Đang ghi ${telemetryLog.length} mục.` : 'Đang tắt: không ghi gì.'}</p>
-        <div class="setting-actions"><button class="btn" id="telemetry-download" ${sendable ? '' : 'disabled'}>Tải nhật ký JSON</button><button class="btn danger" id="telemetry-clear" ${telemetryLog.length ? '' : 'disabled'}>Xóa nhật ký</button><a class="btn" id="telemetry-send" href="${TELEMETRY_CONTACT_URL}" target="_blank" rel="noopener noreferrer">Gửi cho người duy trì</a></div>
-        <details class="about-license"><summary>Chính sách đầy đủ</summary><p class="settings-copy">Nhật ký là tùy chọn và chỉ nằm trong localStorage của chính trình duyệt này. Bạn xem, tải hoặc xóa bất cứ lúc nào; tắt công tắc sẽ xóa toàn bộ nhật ký. Tệp tải về là JSON do chính bạn gửi: ứng dụng không có máy chủ, không có mã theo dõi và không có bên thứ ba. Tiến độ, yêu thích và chuỗi ngày không nằm trong nhật ký.</p></details>
+        <div class="setting-actions"><button class="btn primary" id="telemetry-send" ${sendable ? '' : 'disabled'}>Gửi chẩn đoán</button><button class="btn" id="telemetry-download" ${sendable ? '' : 'disabled'}>Tải nhật ký JSON</button><button class="btn danger" id="telemetry-clear" ${telemetryLog.length ? '' : 'disabled'}>Xóa nhật ký</button></div>
+        <p class="settings-copy" id="telemetry-status" role="status" aria-live="polite"></p>
+        <details class="about-license"><summary>Chính sách đầy đủ</summary><p class="settings-copy">Nhật ký là tùy chọn và chỉ nằm trong localStorage của chính trình duyệt này cho tới khi bạn bấm gửi. Bạn xem, tải hoặc xóa bất cứ lúc nào; tắt công tắc sẽ xóa toàn bộ nhật ký và không gửi gì thêm. Khi gửi, máy chủ ghi lại thời điểm nhận, phiên bản ứng dụng, danh sách mục và môi trường thô (ngôn ngữ, giao diện, cỡ màn hình, chế độ giảm chuyển động); địa chỉ IP chỉ được dùng để giới hạn tần suất dưới dạng băm có muối và không được lưu cùng nhật ký. Bản ghi bị xóa theo thời hạn ${TELEMETRY_RETENTION_DAYS} ngày. Tiến độ, yêu thích, chuỗi ngày và từ khó không nằm trong nhật ký.</p></details>
+        <p class="settings-copy"><a href="${TELEMETRY_CONTACT_URL}" target="_blank" rel="noopener noreferrer">Mở trang vấn đề của dự án</a> nếu bạn muốn báo lỗi kèm ngữ cảnh do chính bạn viết.</p>
       </div></section>
       <section class="panel about-panel" aria-labelledby="about-title"><div class="panel-heading" id="about-title">Về ứng dụng</div><div class="panel-body about-body">
         <div class="about-logo" aria-hidden="true">CA</div>
@@ -230658,6 +230790,32 @@ export async function createApp(root) {
       anchor.href = url; anchor.download = telemetryReportFilename(report.generatedAt); anchor.click();
       setTimeout(() => URL.revokeObjectURL(url), 0);
       toast('Đã tải tệp nhật ký. Bạn tự gửi tệp này cho người duy trì nếu muốn.', 'success');
+    });
+    // Transmission is the learner's own click, never a timer: one POST, no
+    // retry, no background queue. A failure leaves the local log untouched and
+    // says what happened; the JSON download stays available underneath.
+    container.querySelector('#telemetry-send').addEventListener('click', async event => {
+      const button = event.currentTarget;
+      const status = container.querySelector('#telemetry-status');
+      if (!canSendTelemetry(telemetryConsent, telemetryLog)) return;
+      const request = buildTelemetryRequest({
+        log: telemetryLog,
+        appVersion: APP_VERSION,
+        environment: telemetryEnvironment()
+      });
+      button.disabled = true;
+      button.setAttribute('aria-busy', 'true');
+      if (status) status.textContent = 'Đang gửi chẩn đoán…';
+      const result = await sendTelemetryReport(request);
+      const message = telemetrySendMessage(result);
+      if (status) status.textContent = message;
+      toast(message, result.ok ? 'success' : 'error');
+      recordTelemetry('settings', result.ok ? 'report-sent' : 'report-failed',
+        result.ok ? { events: request.events.length } : { httpStatus: Number(result.status) || 0 });
+      if (button.isConnected) {
+        button.disabled = false;
+        button.removeAttribute('aria-busy');
+      }
     });
     container.querySelector('#telemetry-clear').addEventListener('click', () => {
       clearDiagnostics();

@@ -1765,3 +1765,67 @@ what is served, keep the deployment hold intact, and append the missing records.
   and the record says so instead of implying a byte comparison that never happened.
 - **Publication is not a gate bypass.** `DEPLOY_HOLD` was not edited and `deploy_gate.py` was not weakened; the hold opened because the
   named release is now published, which is exactly the ordering rc3 used.
+
+## 2026-10-29 — v1.0.0-rc5: the hidden-meaning stage is deleted, not disguised; telemetry becomes a real path
+
+**The problem with rc4.** “Only after answering” was implemented as concealment: the first-look introduction still existed, printed
+`•••••` and one “show meaning” button per word. To the learner that is a panel with nothing in it and a button they must press for
+every word; to the reviewer it was worse, because the mask created a whole second vocabulary (a constant, a reveal `Set`, two data
+attributes, three CSS rules, and a translation exception so the mask's own labels could be translated into English). The owner's
+instruction was blunt: skip the stage, do not mask it.
+
+**The decision.** Two questions were being answered by one helper. They are now separate and named:
+
+* “May a *passive* surface print this gloss?” → `meaningConcealed(presentation)`. It has one caller-facing consequence: `passiveGloss()`
+  returns `''`, and `passiveGlossSegment()` drops its `' · '` separator with it, so no list leaves a dangling dot behind.
+* “Does this turn open with an introduction?” → `previewStageVisible(presentation, item)` = `meaningPreviewEnabled(presentation) &&
+  turnNeedsFirstLook(item)`. Answering false means the turn calls `markIntroduced(item)` and builds the exercise immediately.
+
+The stimulus argument decided the boundary. A cloze's sentence, a recall card's Vietnamese prompt, the four glosses of a recognition
+card and the definition inside a Vietnamese→English completion are the *exercise*, not the answer; hiding them would delete practice
+instead of protecting the answer. Only an ungraded self-assessment flashcard has a gloss that is purely an answer-leaking surface, and
+it still reveals on demand. Feedback after grading always prints the gloss, in both preferences.
+
+**What was removed, and why nothing was renamed.** `MASKED_MEANING`, `revealedMeanings`, `meaningRevealed()`, `data-reveal-meaning`,
+`data-reveal-phrase`, `.meaning-masked`, `.meaning-dots`, `.meaning-reveal` and the `translatorExceptions` carve-out are gone. A
+rename would have kept the panel and moved the dots; deleting them is the only way the layout can *stop* reserving space for a gloss.
+The list layouts say so explicitly (`vocab-list--no-gloss`, `vocab-row--no-gloss`) instead of rendering an empty column.
+
+**Why the state cannot drift.** `taught` lives on the session item, never in storage. Skipping an introduction marks the item (and every
+still-new pair of a matching board) so that switching the preference back on mid-session cannot re-open a stage for a card the learner
+has already been asked about. A test asserts `markIntroduced()` touches no progress write, no save and no schedule.
+
+**Telemetry: from “never transmits” to “transmits when you press send”.** rc3–rc4 shipped an opt-in local log and a deliberate promise
+that the app had no server. The owner asked for a genuine path, so the promise had to change honestly rather than quietly: one click,
+one `POST`, no retry, no queue, a documented endpoint, a documented field list and a 90-day retention. The server rebuilds the payload
+from an allowlist instead of trusting the client, exactly as the local log sanitises on write; the database keeps RLS on with no policy
+and exposes a single `security definer` function, so even a wrong grant cannot be used to read the table. The rate-limit key is a
+salted HMAC so that the useful part of a rate limit exists without a stored IP address.
+
+**Interface pass.** A spring easing token, pressed states on the things a finger actually presses, a 64 px top bar, tighter panels and
+session cards, and a two-column Settings screen from 900 px. The density work is the “less scrolling” half of the request; nothing moved
+between screens, because a release that changes behaviour *and* navigation is a release nobody can review. One reduced-motion block now
+covers every transition the pass added, for both Classic and Modern.
+
+**What was deliberately not done.** No new exercise type, no change to counters/XP/scheduling, no second storage key for the meaning
+preference (it remains part of `chuyen-anh.presentation.v1`), no client-side retry, no third-party analytics, and no pixel-level claims
+that a real browser has not produced.
+
+### Follow-up — two checks that were worth their cost
+
+**A probe that talks to production found what the unit tests could not.** The endpoint's whole diff read correctly and its 13 unit
+tests passed, because every one of them handed the handler a body that was already an object. Production handed it a stream. The
+handler now treats “where did the bytes come from” as its own small problem (`readStream` + `measureBody`) instead of assuming the
+runtime's parser ran; the cap is enforced while reading, so an oversized body costs 16 KB of work rather than the whole upload. A
+third test shape — no `.body`, only `.on('data')` — is the one that would have caught it.
+
+**Layout work must be scoped by viewport, not appended.** The rc5 density values were correct for the screens they were chosen on
+and wrong for the phone, and CSS has no opinion about intent: a later `.layout { padding: … }` beats an earlier `@media
+(max-width: 680px) .layout { … }` no matter which one the author pictured. The values now live inside `@media (min-width: 681px)`,
+which states the intention in the code. The same reasoning applies to the reduced-motion block: it is one block, at the end, so it
+cannot be overridden by an earlier animation.
+
+**Translated copy is a contract, and contracts get tests.** The privacy panel is the first Settings section whose sentences carry
+numbers from constants. Rather than translating by eye after every reword, `tests/static-app.test.js` renders the panel's static
+sentences from the markup with the exported constants substituted and asserts that none of them comes back Vietnamese. The
+browser walk stays as the end-to-end check; the static test is what makes the failure cheap.

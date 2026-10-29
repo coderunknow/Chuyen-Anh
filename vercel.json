@@ -1,0 +1,14 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "node",
+  "public": false,
+  "functions": {
+    "api/telemetry.js": { "memory": 512, "maxDuration": 10 }
+  },
+  "headers": [
+    {
+      "source": "/api/telemetry",
+      "headers": [{ "key": "Referrer-Policy", "value": "no-referrer" }]
+    }
+  ]
+}

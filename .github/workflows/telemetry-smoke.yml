@@ -1,0 +1,36 @@
+name: Telemetry endpoint smoke test
+
+# The only check that exercises the deployed chain end to end
+# (index.html → Vercel function → Supabase). It is deliberately not part of the
+# commit gate: a red unit test must never be confused with a network outage.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: &smoke-paths
+      - "api/**"
+      - "app.js"
+      - "vercel.json"
+      - "tests/telemetry_endpoint_smoke.py"
+      - ".github/workflows/telemetry-smoke.yml"
+  # A pull request that changes the endpoint is exactly the moment to prove the
+  # deployed chain still answers, because the sandbox that develops it cannot
+  # reach vercel.app or supabase.co.
+  pull_request:
+    paths: *smoke-paths
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Probe the deployed endpoint
+        run: python tests/telemetry_endpoint_smoke.py
