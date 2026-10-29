@@ -224762,6 +224762,7 @@ const EN_UI_TRANSLATIONS = Object.freeze({
   'Chưa có mục nào để gửi.': 'There is nothing to send yet.',
   'Máy chủ tạm thời không khả dụng. Nhật ký vẫn còn trên thiết bị.': 'The server is unavailable right now. The log is still on this device.',
   'Mở trang vấn đề của dự án': 'Open the project issue tracker',
+  'nếu bạn muốn báo lỗi kèm ngữ cảnh do chính bạn viết.': 'if you would rather report a fault with context you write yourself.',
   'Xóa nhật ký': 'Delete the log',
   'Gửi cho người duy trì': 'Send it to the maintainer',
   'Chính sách đầy đủ': 'Full policy',
@@ -224808,7 +224809,7 @@ const EN_UI_PATTERNS = [
   [/^Hiện nghĩa của cụm (.+)$/, (_match, phrase) => `Show meaning of the phrase “${phrase}”`],
   [/^Hiện nghĩa của (.+)$/, (_match, word) => `Show meaning of “${word}”`],
   [/^Đang ghi (\d+) mục\.$/, (_match, count) => `Recording ${pluralCount(count, 'event', 'events')}.`],
-  [/^Mặc định tắt\. Khi bạn bật, ứng dụng chỉ ghi trên thiết bị này những gì cần để tìm lỗi: phiên bản, ngôn ngữ, giao diện, cỡ màn hình, số lượt học và thông báo lỗi\. Tối đa (\d+) mục; mục cũ nhất bị bỏ khi đầy\.$/, (_match, limit) => `Off by default. When you turn it on, the app records only what is needed to find a bug, on this device: version, language, theme, screen size class, number of turns and error messages. At most ${limit} events; the oldest is dropped when it fills up.`],
+  [/^Mặc định tắt\. Khi bạn bật, ứng dụng ghi trên chính thiết bị này những gì cần để tìm lỗi: phiên bản, ngôn ngữ, kiểu giao diện, cỡ màn hình, số lượt học và thông báo lỗi\. Tối đa (\d+) mục; mục cũ nhất bị bỏ khi đầy\.$/, (_match, limit) => `Off by default. When you turn it on, the app records on this device what is needed to find a fault: version, language, interface style, viewport size, number of turns studied and error messages. At most ${pluralCount(limit, 'entry', 'entries')}; the oldest is dropped when it fills up.`],
   [/^Flashcard · ([\d.,]+) từ · kho đề offline$/, (_match, count) => `Flashcards · ${pluralCount(formatCount(count, 'en'), 'word', 'words')} · offline exam archive`],
   // One headword per root: the counts shown to learners are headword counts.
   [/^Flashcard · ([\d.,]+) từ trọng tâm · kho đề offline$/, (_match, count) => `Flashcards · ${pluralCount(formatCount(count, 'en'), 'focus word', 'focus words')} · offline exam archive`],

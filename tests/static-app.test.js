@@ -256,6 +256,37 @@ test('English interface labels are localized while unknown source text and Vietn
   assert.equal(translateUiText('What are Parkour athletes expected to do?', 'en'), 'What are Parkour athletes expected to do?');
 });
 
+test('every sentence in the privacy panel translates in the English interface', () => {
+  // The panel is the one Settings section whose copy mentions constants (the
+  // log cap, the send cap, the retention window). Browser CI walks the rendered
+  // Settings screen for leftover Vietnamese, and rc5 shipped two sentences that
+  // matched no pattern: the consent paragraph had drifted from its regex and
+  // the clause after the issue-tracker link had no entry at all. This test
+  // renders the same sentences from the markup so the two cannot drift again.
+  const start = html.indexOf('<section class="panel" aria-labelledby="privacy-title">');
+  const end = html.indexOf('<section class="panel about-panel"', start);
+  assert.ok(start > 0 && end > start, 'the privacy section is still part of Settings');
+  const section = html.slice(start, end);
+  const values = { TELEMETRY_MAX_EVENTS, TELEMETRY_MAX_SEND_EVENTS, TELEMETRY_RETENTION_DAYS };
+  const vietnamese = /[àáảãạăâđêôơưèéẻẽẹìíỉĩịòóỏõọùúủũụỳýỷỹỵ]/i;
+  const sentences = [...section.matchAll(/<p class="settings-copy"[^>]*>([^<]+)<\/p>/g)].map(match => match[1]);
+  assert.ok(sentences.length >= 4, 'the panel still explains consent, stored fields, retention and contact');
+  let checked = 0;
+  for (const template of sentences) {
+    const rendered = template.replace(/\$\{([A-Z_]+)\}/g, (whole, name) => name in values ? String(values[name]) : whole).trim();
+    if (!rendered || rendered.includes('${')) continue; // runtime-formatted state line
+    const translated = translateUiText(rendered, 'en').trim();
+    assert.equal(vietnamese.test(translated), false, `the English panel still prints Vietnamese: ${rendered.slice(0, 70)}`);
+    assert.notEqual(translateUiText(rendered, 'vi').trim(), translated, 'the Vietnamese interface keeps its own copy');
+    checked += 1;
+  }
+  assert.ok(checked >= 3, 'at least three static sentences are translated end to end');
+  assert.equal(
+    translateUiText('nếu bạn muốn báo lỗi kèm ngữ cảnh do chính bạn viết.', 'en').trim(),
+    'if you would rather report a fault with context you write yourself.'
+  );
+});
+
 test('embedded vocabulary loads without fetch and passes runtime validation', async () => {
   const loaded = await loadVocabulary(embeddedRaw);
   assert.equal(loaded.data.length, 5852);
