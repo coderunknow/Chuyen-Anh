@@ -170,3 +170,5 @@ class ExpectedVersionTests(unittest.TestCase):
         workflow = (ROOT / ".github" / "workflows" / "pages-smoke.yml").read_text(encoding="utf-8")
         self.assertIn("newest published release", workflow)
         self.assertIn("EXPECTED_VERSION: ${{ steps.expected.outputs.expected }}", workflow)
+        self.assertIn("Wait for the Pages deployment of the released commit", workflow)
+        self.assertIn("Timed out waiting for the Pages deployment", workflow)

@@ -37,6 +37,40 @@ jobs:
       - name: Give the Pages deployment a moment to propagate
         run: sleep 30
 
+      # A release event is emitted before the dispatched Pages deployment has
+      # necessarily replaced the previous bytes. Sleep alone was a race: the
+      # rc6 release probe read rc5 and failed although the deploy then succeeded.
+      # Wait for a successful deployment status carrying the Pages environment
+      # URL for the released commit; a failed deployment fails this job.
+      - name: Wait for the Pages deployment of the released commit
+        if: github.event_name == 'release'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag="${{ github.event.release.tag_name }}"
+          sha="$(gh api "repos/${GITHUB_REPOSITORY}/commits/${tag}" --jq .sha)"
+          echo "released commit: $sha" >> "$GITHUB_STEP_SUMMARY"
+          for attempt in $(seq 1 60); do
+            deployment="$(gh api "repos/${GITHUB_REPOSITORY}/deployments?sha=${sha}&per_page=1" --jq '.[0].id // empty' 2>/dev/null || true)"
+            if [ -n "$deployment" ]; then
+              record="$(gh api "repos/${GITHUB_REPOSITORY}/deployments/${deployment}/statuses" --jq '.[0] | [(.state // ""), (.environment_url // "")] | @tsv' 2>/dev/null || true)"
+              state="${record%%$'\t'*}"
+              url="${record#*$'\t'}"
+              if [ "$state" = "success" ] && [ -n "$url" ]; then
+                echo "deployed: $url" >> "$GITHUB_STEP_SUMMARY"
+                exit 0
+              fi
+              if [ "$state" = "failure" ] || [ "$state" = "error" ]; then
+                echo "::error::Pages deployment ${deployment} failed"
+                exit 1
+              fi
+            fi
+            echo "waiting for Pages deployment of ${sha} (attempt ${attempt}/60)"
+            sleep 10
+          done
+          echo "::error::Timed out waiting for the Pages deployment of ${sha}"
+          exit 1
+
       - name: Determine the version that should be served
         id: expected
         env:
