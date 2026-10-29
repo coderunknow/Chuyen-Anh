@@ -81,6 +81,12 @@ presentation preference, and every existing key keeps its shape.
   left in storage; boot now writes the sanitised record back when it differs, so the fallback is not silently re-computed forever.
 - **A duplicated `.ui-switch` wrapper in the top bar** (introduced while building this candidate) produced two nested switches;
   the markup now emits one.
+- **The phrase-practice introduction ignored "hide meanings".** Found by the release-gate audit, not by CI: the word
+  first look conceals the gloss, but the phrase bank's own "Cụm mới · học trước khi kiểm tra" introduction printed it in
+  clear text, so a learner who had hidden meanings saw the answer before the phrase was quizzed. It now uses the same
+  fixed mask with one per-phrase reveal control (`data-reveal-phrase`), which reveals that phrase for this visit only:
+  the preference and the stored phrase progress are untouched, and focus moves to “Bắt đầu kiểm tra”. The pre-answer
+  surface test now covers this screen explicitly, and was checked by reverting the guard (test red) and restoring it.
 - **The new top-bar switch pushed the document sideways at 768 px.** CI's browser suite caught it
   (`browser-learning.cjs:66`, "the tablet breakpoint does not introduce horizontal overflow", run 40720178176). The compact copy is now
   hidden below 1025 px and Settings keeps the selector, which restores the pre-rc4 top-bar geometry; the phone layout is untouched because

@@ -230151,7 +230151,9 @@ export async function createApp(root) {
           <div class="mode-label">Cụm mới · học trước khi kiểm tra</div>
           <div class="first-look">
             <p class="first-look-word"><span class="vocab-word">${escapeHtml(entry.phrase)}</span></p>
-            <p class="first-look-meaning"><span>Nghĩa</span><strong class="vocab-meaning">${escapeHtml(entry.meaning)}</strong></p>
+            <p class="first-look-meaning"><span>Nghĩa</span>${meaningRevealed(entry.id)
+              ? `<strong class="vocab-meaning">${escapeHtml(entry.meaning)}</strong>`
+              : `<span class="meaning-masked"><span class="meaning-dots" aria-hidden="true">${MASKED_MEANING}</span><button type="button" class="btn small" data-reveal-phrase="${escapeHtml(entry.id)}" aria-pressed="false" aria-label="Hiện nghĩa của cụm ${escapeHtml(entry.phrase)}">${iconMarkup('eye')}Hiện nghĩa</button></span>`}</p>
             ${entry.usage ? `<p class="first-look-note vocab-meaning">${escapeHtml(entry.usage)}</p>` : ''}
             ${entry.pattern ? `<p class="first-look-note"><code class="code">${escapeHtml(entry.pattern)}</code></p>` : ''}
             <p class="first-look-note">Lượt giới thiệu này không phải là câu trả lời và không thay đổi tiến độ cụm từ. Sau khi bấm nút, cụm sẽ được kiểm tra ngay.</p>
@@ -230159,6 +230161,14 @@ export async function createApp(root) {
           </div>
         </div></div>`;
       container.querySelector('#phrase-exit').addEventListener('click', () => { phraseSession = null; view = 'phrases'; renderShell(); });
+      // Final-gate audit (v1.0.0-rc4): this introduction is the phrase bank's
+      // counterpart of the word first look, so it obeys the same preference. A
+      // peek reveals one phrase for this visit only: the preference and the
+      // phrase's stored progress are untouched.
+      container.querySelectorAll('[data-reveal-phrase]').forEach(button => button.addEventListener('click', () => {
+        revealMeaning(button.dataset.revealPhrase);
+        renderShell();
+      }));
       const startButton = container.querySelector('#phrase-start-quiz');
       startButton.addEventListener('click', () => {
         phraseSession.taught.add(entry.id);

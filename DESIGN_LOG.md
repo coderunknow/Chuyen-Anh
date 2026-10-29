@@ -1662,3 +1662,53 @@ The user asked for **Chuyên Anh v1.0.0-rc4, end to end**, in one request:
 16. **The lesson is the missing test, not the missed edit.** Three separate stale literals reached CI because nothing compared the pins
     to the constant. After fixing the instance (two literals) the class was closed with a test that reads `APP_VERSION` and checks every
     file that repeats it.
+
+## 2026-10-29 (release gate) — v1.0.0-rc4 independently audited: one real leak fixed, then merged and published
+
+### User Intent
+
+Gate the candidate instead of trusting the delivery report: audit PR #64 independently, merge it only if the release gates
+actually pass, publish `v1.0.0-rc4` as a **prerelease**, keep the deployment hold, and report verified facts separately from
+limitations. Production deployment was explicitly not authorized. A testable preview of the app was requested alongside.
+
+### Implementation History
+
+1. **Recon.** Clean tree on `arena/2bb10a2d-chuyen-anh`, head `d9f62aa` = remote head, 6 commits over `54ccaa0`. PR #64 open,
+   base `main`, `MERGEABLE`; `main` is **unprotected** (no required status checks, no rulesets), so nothing but the audit
+   itself gated the merge. Check runs for the exact head `d9f62aa`: `checks` success, `browser` success (both suites,
+   sequential), `CodeRabbit` **skipped**, `Kilo Code Review` **action_required**.
+2. **Audit of the diff.** 2.759 insertions across 16 files, no vocabulary row touched (`data/vocabulary.json` unchanged).
+   Verified by reading the code and by booting the real module in jsdom: persistence and sanitising of
+   `chuyen-anh.presentation.v1`, cross-tab membership, the mask's lack of `title`/gloss-bearing labels, per-row reveal being
+   session-scoped and non-persistent, `setMeanings`/`setInterface` touching no scheduler or progress writer, one renderer per
+   surface for both skins, and the interface switch preserving a running card and its prompt.
+3. **Blocking defect found: the phrase-practice introduction printed the gloss while meanings were hidden.** With
+   `{meanings: 'hide'}` the word first look rendered `Nghĩa ••••• Hiện nghĩa`, while the phrase practice screen rendered its
+   gloss in clear text. Reproduced in jsdom before the fix and re-verified after. Fixed with the same mask plus a
+   `data-reveal-phrase` control bound in `renderPhrasePractice`; revealing one phrase writes nothing, flips no preference,
+   leaves `chuyen-anh.phrases.v1` untouched and returns focus to “Bắt đầu kiểm tra”. The existing pre-answer surface test
+   only sliced the phrase *list*, which is why it never caught this; it now asserts the practice screen too, and the new
+   assertion was proved to fail when the guard is reverted.
+4. **Verification.** `rc4_vocabulary_audit.py --check` matches all 5.852 rows; the twelve static data checks pass; Python
+   **141 OK**; `node --test tests/static-app.test.js` **120/120**; a fresh jsdom suite booting the real `index.html` passed
+   **25/25** behavioural checks across search, Settings, graded feedback, the interface switch and English mode, plus a
+   dedicated phrase-practice check. The sandbox still cannot download Chromium, so the two real-browser suites were run by
+   CI, not locally.
+5. **Reviewer integrations classified.** `CodeRabbit` concluded **skipped** ("Review skipped", no steps executed) — not a
+   review and not a pass. `Kilo Code Review` concluded **action_required** with the output *"Review could not start because
+   the account has insufficient credits"* — an external billing state, not a finding about this repository's code. Neither
+   is a required check, and neither was treated as evidence either way.
+6. **Nits left alone on purpose** (documented, not fixed): the boot path repairs a damaged presentation record twice through
+   two equivalent guards (harmless, and the second write never fires); `pick` is unused in the version-literal test; the
+   reveal buttons carry `aria-pressed="false"` although they are actions rather than toggles (axe reports nothing, and the
+   button is replaced once used); `entry.usage` on a phrase introduction is printed like the word flow's metadata block.
+
+### Decisions & Lessons
+
+- **A test that slices the wrong boundary hides the bug it was written for.** The rc4 surface test stopped at
+  `renderPhrasePractice` because the phrase *list* was the surface under discussion; the practice screen next door printed the
+  gloss. Cover the sibling surface or the assertion is decoration.
+- **"CI is green" is a statement about the paths CI ran.** The browser suites pass, and the leak survives them, because no
+  assertion drove a phrase session with meanings hidden. Green CI is evidence, not proof.
+- **Third-party review status is a fact about an integration, not about the code.** Skipped and out-of-credits are reported as
+  such, and neither stands in for a review or for a failure.

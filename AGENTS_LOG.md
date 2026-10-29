@@ -937,3 +937,19 @@ CodeRabbit's review `5643120300` (run metadata again `Layers: Repository YAML`) 
     suite cannot be re-run here. It last ran on `584b5ed` (43/43, axe clean, console sweep clean); `index.html` is byte-identical at
     the final head, and the real-browser suites now pass in CI.
 20. **Not done:** no merge, tag, release or deploy.
+
+## 2026-10-29 — v1.0.0-rc4 release gate: audit, one blocking fix, then merge and prerelease
+
+1. **Recon.** `arena/2bb10a2d-chuyen-anh` head `d9f62aa` = remote; PR #64 `MERGEABLE`; `main` unprotected (no required
+   checks, no rulesets); exact-head checks: `checks` pass, `browser` pass, `CodeRabbit` skipped, `Kilo Code Review`
+   action_required (insufficient credits, external account state).
+2. **Blocking defect found and fixed.** The phrase-practice introduction printed the Vietnamese gloss while the learner had
+   chosen "hide meanings" — the word first look masked, this screen did not. Now masked with one per-phrase reveal control;
+   the reveal is session-scoped, writes nothing, and keeps focus on “Bắt đầu kiểm tra”.
+3. **Regression test.** The rc4 pre-answer surface test now asserts the phrase-practice introduction (guarded gloss, its own
+   control, no ungated `<strong>` gloss). Verified to fail with the guard reverted and pass when restored.
+4. **Results.** Static data chain 12/12; `rc4_vocabulary_audit.py --check` matches 5.852 rows; Python **141 OK**;
+   `node --test tests/static-app.test.js` **120/120**; jsdom behavioural suite **25/25** on the real `index.html`.
+   Chromium is still unavailable in the sandbox, so the browser suites are CI evidence only.
+5. **Not claimed:** no pixel-level visual inspection, no physical-device test; `synonyms`/`antonyms`/`collocations`/`examples`
+   remain empty by design; the three REVIEW glosses still need an editor.

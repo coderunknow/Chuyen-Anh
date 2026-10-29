@@ -3511,6 +3511,17 @@ test('rc4: each pre-answer vocabulary surface conceals the gloss through the sha
   const phrases = html.slice(html.indexOf('function renderPhrases('), html.indexOf('function renderPhrasePractice('));
   assert.match(phrases, /phraseMeaningSpan\(entry\)/, 'the phrase bank list respects it too');
 
+  // Final-gate audit (rc4): the phrase-practice introduction is the phrase
+  // bank's counterpart of the word first look, and it printed the gloss in
+  // clear text while the preference said "hide". Assert the whole surface, not
+  // just the list: a guarded intro, its own control, and no ungated gloss.
+  const phrasePractice = html.slice(html.indexOf('function renderPhrasePractice('), html.indexOf('function examAnswerLabel('));
+  assert.match(phrasePractice, /meaningRevealed\(entry\.id\)/, 'the phrase-practice introduction respects the preference');
+  assert.match(phrasePractice, /data-reveal-phrase=/, 'it carries its own reveal control');
+  assert.match(phrasePractice, /revealMeaning\(button\.dataset\.revealPhrase\);/, 'the control reveals one phrase');
+  assert.equal(phrasePractice.includes('<p class="first-look-meaning"><span>Nghĩa</span><strong class="vocab-meaning">'), false,
+    'the introduction never prints the gloss unconditionally');
+
   // Graded feedback and the sprint hand-off are answers, not previews: they always print.
   const feedback = html.slice(html.indexOf('function renderFeedback('), html.indexOf('function advanceCard('));
   assert.match(feedback, /class="vocab-meaning"/, 'the graded answer is printed after grading');
