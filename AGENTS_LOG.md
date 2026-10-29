@@ -926,3 +926,8 @@ CodeRabbit's review `5643120300` (run metadata again `Layers: Repository YAML`) 
 14. **Re-verified.** Static data chain green, Python **141 OK**, `node --test tests/static-app.test.js` **119/119**, jsdom DOM suite
     **43/43**, axe `label-content-name-mismatch` clean, six-view/two-skin console sweep clean.
 15. **Not done:** still no merge, tag, release or deploy; the browser suites remain CI-only in this sandbox.
+16. **Fourth run (40723536730).** `checks` green, `browser` red at `browser-learning.cjs:2833` ("the About panel shows the shipped
+    version", stale `/v1\.0\.0-rc3/`); line 2894 carried the same stale value. Both set to `v1.0.0-rc4`.
+17. **New regression test against version drift.** *every shipped version literal agrees with APP_VERSION* in `tests/static-app.test.js`
+    cross-checks `index.html`, `PRIVACY.md`, both browser suites and the two Python version pins against the module constant; verified by
+    temporarily reverting a pin to `rc3` (test red) and restoring it (test green). Node suite **120/120**, Python **141 OK**.

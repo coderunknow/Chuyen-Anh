@@ -98,6 +98,13 @@ presentation preference, and every existing key keeps its shape.
   `setting-meanings-show` instead of `keys-setting`. The two rows now follow the session-size selector, restoring the long-standing
   order (language → theme → shortcuts → session size → meanings → interface). The existing assertion was not relaxed — a tab-order
   test edited to match a new layout stops being a regression test.
+- **Two more rc3 version literals sat in the browser suite.** CI's fourth run (40723536730) failed the About-panel assertion
+  (`browser-learning.cjs:2833`, expected `/v1\.0\.0-rc3/`) and would have failed the next one
+  (`report.appVersion`, line 2894) for the same reason. Both now read `v1.0.0-rc4`. To stop the class of bug rather than the instance,
+  `tests/static-app.test.js` gained *every shipped version literal agrees with APP_VERSION*: it reads the version from the module,
+  collects the version a pin names in `index.html`, `PRIVACY.md`, both browser suites and the two Python version tests, and fails on any
+  value that is not the shipped one (the deploy-gate fixtures that name `dev5`/`rc2` on purpose and the changelog are exempt). It was
+  checked by reverting one pin to `rc3`: the test failed, and passed again when the pin was restored.
 - **Two phone-width overflow risks removed** (found while hardening, not by CI): a masked gloss inside `.vocab-row` no longer forces
   `grid-column: 3`, so the desktop grid auto-places it while the ≤680px rule keeps its own full-width placement instead of reusing a
   four-column span inside the three-column mobile grid; and `.flashcard-head` / `.flashcard-head-actions` wrap below 680px so the
@@ -106,9 +113,10 @@ presentation preference, and every existing key keeps its shape.
 ### Tests and verification
 
 - The stylesheet parses at **893** rules / **105.653** bytes after the phone-width rules (891 / 105.363 before them).
-- `tests/static-app.test.js`: **119** node tests (115 before this candidate). The sync-key pin now expects
-  `chuyen-anh.presentation.v1`, the localiser guard asserts the new conditional return, and four rc4 tests cover the preference,
-  the concealed surfaces, the separation between presentation and scheduling, and the second layout.
+- `tests/static-app.test.js`: **120** node tests (115 before this candidate). The sync-key pin now expects
+  `chuyen-anh.presentation.v1`, the localiser guard asserts the new conditional return, four rc4 tests cover the preference,
+  the concealed surfaces, the separation between presentation and scheduling, and the second layout, and a fifth cross-checks
+  every shipped version literal against `APP_VERSION`.
 - `tests/test_rc4_vocabulary_audit.py`: **11** new Python tests for the reconciled counts, the policy replay, the deck boundary,
   the family-link agreement, the curriculum evidence file, the review queue and report staleness.
 - Python suite: **141** tests (130 before this candidate). Static data chain unchanged and green.

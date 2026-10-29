@@ -1645,3 +1645,10 @@ The user asked for **Chuyên Anh v1.0.0-rc4, end to end**, in one request:
     **141 OK**; jsdom DOM suite **43/43**; axe reports no `label-content-name-mismatch` on the card, the masked search rows, Settings or
     either skin; the six-view/two-skin console sweep is clean; the static data chain is green. Stylesheet: **893 rules, 105.653 bytes**.
     The two browser suites still cannot run in this sandbox, so items 10 and 11 rest on CI, not on a local run.
+
+14. **Fourth run (40723536730) — two more rc3 pins.** `browser-learning.cjs:2833` (About panel) expected `/v1\.0\.0-rc3/` and line 2894
+    would have failed immediately after it (`report.appVersion`). Both now read `v1.0.0-rc4`. The repeated failure was a process problem,
+    not a one-off: bumping the version meant remembering every literal. `tests/static-app.test.js` now carries *every shipped version
+    literal agrees with APP_VERSION*, which reads the constant from the module and compares the pins in `index.html`, `PRIVACY.md`, both
+    browser suites and the two Python version tests (deploy-gate fixtures naming other tags, and the changelog, are exempt). Verified by
+    reverting one pin to `rc3` and watching the test go red, then green again. Node suite is now **120** tests.

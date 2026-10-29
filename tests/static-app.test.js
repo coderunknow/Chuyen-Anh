@@ -3557,3 +3557,38 @@ test('rc4: the Modern interface is a second layout, not a palette swap', () => {
   // No external asset can be introduced by the skin.
   assert.doesNotMatch(css, /@import|url\((?!#)/, 'the stylesheet stays self-contained');
 });
+
+test('every shipped version literal agrees with APP_VERSION', async () => {
+  // A release bump is only done when every literal that names the version has
+  // moved. Two of the browser suite's pins sat at rc3 through two CI runs, so
+  // this test pins the whole set instead of trusting a grep at bump time.
+  // Historical fixtures (the dev5/rc2 tags the deploy-gate tests feed the gate)
+  // and the changelog are exempt: they name other releases on purpose.
+  const declared = appScript[1].match(/const APP_VERSION = '([^']+)'/);
+  assert.ok(declared, 'the application declares a version');
+  const shipped = declared[1];
+  assert.match(shipped, /^v\d+\.\d+\.\d+(-rc\d+)?$/, 'the version is a readable tag');
+  const token = /v\d+\.\d+\.\d+(?:-[a-z]+\d*)?/g;
+  const pick = (text, pattern) => [...text.matchAll(pattern)].map(match => match[0].replace(/\\/g, ''));
+  const place = async (name, pattern, required = true) => {
+    const text = await readFile(new URL(name, root), 'utf8');
+    const named = text.replace(/\\/g, '').split('\n').filter(line => pattern.test(line))
+      .flatMap(line => [...line.matchAll(token)].map(match => match[0]));
+    // browser-exams.cjs may legitimately name no version; every other file must.
+    if (required) assert.ok(named.length > 0, `${name} names the shipped version`);
+    return named.map(named => `${name}: ${named}`);
+  };
+  const pins = [
+    ...(await place('index.html', /const APP_VERSION = /)),
+    ...(await place('PRIVACY.md', /Áp dụng cho/)),
+    ...(await place('tests/static-app.test.js', /result\.version, /)),
+    ...(await place('tests/browser-learning.cjs', /#app-version|aboutText, \/|report\.appVersion/)),
+    ...(await place('tests/browser-exams.cjs', /#app-version|aboutText, \/|report\.appVersion/, false)),
+    ...(await place('tests/test_sprint_exam_features.py', /APP_VERSION = '/)),
+    ...(await place('tests/test_deploy_gate.py', /assertEqual\(tags, \[/)),
+  ];
+  const stale = pins.filter(entry => !entry.endsWith(shipped));
+  assert.deepEqual(stale, [], 'no shipped file still names an older version');
+  assert.equal((await readFile(new URL('DEPLOY_HOLD', root), 'utf8')).trim(), shipped,
+    'the deploy hold names the version being built');
+});
