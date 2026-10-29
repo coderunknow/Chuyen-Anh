@@ -7,12 +7,17 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths:
+    paths: &smoke-paths
       - "api/**"
       - "app.js"
       - "vercel.json"
       - "tests/telemetry_endpoint_smoke.py"
       - ".github/workflows/telemetry-smoke.yml"
+  # A pull request that changes the endpoint is exactly the moment to prove the
+  # deployed chain still answers, because the sandbox that develops it cannot
+  # reach vercel.app or supabase.co.
+  pull_request:
+    paths: *smoke-paths
 
 permissions:
   contents: read
