@@ -1,13 +1,18 @@
 # v1.0.0-rc6 audit and stable-readiness report
 
-Status: candidate work completed on `arena/b2fa123f-chuyen-anh`; release/deployment status is recorded from GitHub below only after it is observed.
+Status: **published prerelease `v1.0.0-rc6`; stable readiness NO-GO.**
 
 ## 1. Release and Git evidence
 
 - Starting `main`/HEAD: `c5928d95dfc3daf3954e6d4a08da8303f3e4df1c`; no open PR at preflight.
+- Candidate PR: #69 merged 2026-10-29T15:45:11Z at `6d9f29574f5aa352d6f137c061272fd370801421`.
+- Tag `v1.0.0-rc6` resolves to `6d9f29574f5aa352d6f137c061272fd370801421`.
+- Release: published prerelease at 2026-10-29T15:48:09Z, three assets. HTML 13,999,832 bytes, SHA-256 `5c18c6d5…` equals the tagged `index.html`; ZIP SHA-256 `0ff741d9…`; checksum manifest `9a630b41…`.
+- Artifact workflow: `40904757402` success; it re-downloaded and byte-compared all assets. Deploy workflow: `40905243112` success, all four publish steps followed the published-release gate; deployment `7417081331` status success with `https://coderunknow.github.io/Chuyen-Anh/`.
+- The first release-event Pages probe failed because it ran before that deployment replaced rc5; the follow-up workflow waits for a successful deployment with an environment URL. This was a probe race, not a failed deploy.
 - Published baseline: `v1.0.0-rc5`, prerelease, tag commit `b47d9d1db14cf8724210d954d8b0e3e927977eaa`, three assets; latest Pages deployment at that same commit (`7410642916`).
 - rc5 review status: Copilot returned a quota error, CodeRabbit skipped, Kilo reported action required. These are not substantive approvals.
-- Candidate source hash at report time: `index.html` SHA-256 `ef3b4c138eebd43fb01b03cd68bb1db9f7bf7b1f3323d37d380008841fd645a3`, 13,999,113 bytes. Exact final tag/CI/deployment evidence is appended after the release operation.
+- Tagged candidate hash: `index.html` SHA-256 `5c18c6d54d8d84319def63648e07c1f6923917953cba7587cd0041aaaefff1ee`, 13,999,832 bytes.
 
 ## 2. Findings and repairs
 
@@ -80,7 +85,7 @@ Of these, **1,269** items are eligible for provisional scoring after excluding l
 
 On the candidate tree before release:
 
-- Python: **156/156 OK**.
+- Python: **157/157 OK**.
 - Node static + scoring + telemetry: **151/151 pass**.
 - Optional archive conversion tests: **5/5 OK**; coverage regeneration left `DO-PHU.md` unchanged.
 - All vocabulary/phrase/archive/evidence/data checks: clean; 5,852 rows, 5,112 headwords, 780 phrases, 106 transcriptions, 106/106 content hashes.
@@ -88,7 +93,9 @@ On the candidate tree before release:
 - `node scripts/exams/audit_rendering.mjs --check`: clean.
 - Chromium 133.0.6943.0: `browser-learning.cjs` PASS; `browser-exams.cjs` PASS with the scoring/history/focus/VI-EN/Classic-Modern/responsive checks above.
 - `git diff --check`: clean.
-- CI/release/deployment evidence for the pushed SHA is recorded in the post-release ledger and final report.
+- PR #69 CI: `checks`, `browser`, archive `validate`, telemetry probe and Pages probe passed; Kilo failed for external account/credit reasons and CodeRabbit skipped, so no substantive bot approval is claimed.
+- Post-merge main/tag runs: Release artifacts `40904757402` success; Deploy Flashcard `40904738167` correctly held all publish steps before release; after publication Deploy Flashcard `40905243112` published and deployment `7417081331` succeeded.
+- The release-event Pages probe `40905230193` failed only because it raced the deploy; the follow-up workflow fix waits for a successful deployment URL. Post-fix Pages probe `40905754218` passed and confirmed the deployed page declares `v1.0.0-rc6` and carries the rc6 scoring/history markers.
 
 ## 9. Remaining risks and limitations
 
