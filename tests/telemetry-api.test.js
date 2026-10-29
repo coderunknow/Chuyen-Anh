@@ -75,6 +75,43 @@ function request(method, body, { origin = APP_ORIGIN, type = 'application/json',
   };
 }
 
+function streamRequest(method, text, { origin = APP_ORIGIN, type = 'application/json' } = {}) {
+  // The shape a raw Node server hands over: no parsed body, only a readable
+  // stream. This is what the deployed service actually receives.
+  const listeners = { data: [], end: [], error: [] };
+  return {
+    method,
+    headers: { origin, 'content-type': type, 'x-forwarded-for': '203.0.113.7' },
+    destroy() {},
+    on(name, fn) { listeners[name]?.push(fn); return this; },
+    emit(name, value) { for (const fn of listeners[name] || []) fn(value); },
+    feed(chunks) {
+      for (const chunk of chunks) this.emit('data', Buffer.from(chunk, 'utf8'));
+      this.emit('end');
+    }
+  };
+}
+
+async function invokeStreaming(request, upstream = { status: 'ok', id: 'row-1' }) {
+  const calls = [];
+  const original = global.fetch;
+  global.fetch = async (url, init) => {
+    calls.push({ url, init, body: JSON.parse(init.body) });
+    return { ok: true, status: 200, json: async () => upstream };
+  };
+  const res = response();
+  try {
+    const pending = handler(request, res);
+    // The handler starts reading on the next tick; feed the body once it does.
+    await new Promise(resolve => setImmediate(resolve));
+    request.feed([JSON.stringify(payload())]);
+    await pending;
+  } finally {
+    global.fetch = original;
+  }
+  return { res, calls };
+}
+
 process.env.SUPABASE_URL = 'https://example.supabase.co';
 process.env.SUPABASE_SECRET_KEY = 'test-key-not-a-real-secret';
 process.env.TELEMETRY_IP_SALT = 'test-salt';
@@ -272,4 +309,44 @@ test('no credential is ever shipped in the application or in this repository cop
     assert.equal(/sb_secret_|sb_publishable_/.test(text), false, `${name} carries no Supabase key`);
     assert.equal(/service_role/.test(text), false, `${name} names no privileged role`);
   }
+});
+
+test('a request whose body was not pre-parsed is read from the stream', async () => {
+  // Regression: the first deployed revision trusted `req.body` and answered
+  // `400 invalid-body` to the application's own request.
+  const { res, calls } = await invokeStreaming(streamRequest('POST', ''));
+  assert.equal(res.statusCode, 202);
+  assert.equal(res.payload.ok, true);
+  assert.equal(calls.length, 1);
+  assert.equal(calls[0].body.payload.events.length, 1);
+});
+
+test('a streamed body over the size cap is refused without being stored', async () => {
+  const oversized = streamRequest('POST', '');
+  const calls = [];
+  const original = global.fetch;
+  global.fetch = async () => { calls.push(1); return { ok: true, status: 200, json: async () => ({}) }; };
+  const res = response();
+  try {
+    const pending = handler(oversized, res);
+    await new Promise(resolve => setImmediate(resolve));
+    oversized.feed(['{"contract":1,"pad":"' + 'x'.repeat(20000) + '"}']);
+    await pending;
+  } finally {
+    global.fetch = original;
+  }
+  assert.equal(res.statusCode, 413);
+  assert.equal(res.payload.error, 'payload-too-large');
+  assert.equal(calls.length, 0);
+});
+
+test('an empty streamed body is a malformed request, not a crash', async () => {
+  const empty = streamRequest('POST', '');
+  const res = response();
+  const pending = handler(empty, res);
+  await new Promise(resolve => setImmediate(resolve));
+  empty.feed([]);
+  await pending;
+  assert.equal(res.statusCode, 400);
+  assert.deepEqual(res.payload, { ok: false, error: 'invalid-body' });
 });

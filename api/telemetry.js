@@ -159,11 +159,51 @@ function clientKey(req) {
   return crypto.createHmac('sha256', salt).update(address).digest('hex').slice(0, 32);
 }
 
-function measureBody(req) {
+// The deployment is a plain Node service (app.js) rather than a directory of
+// serverless functions, so whether `req.body` has already been parsed depends
+// on the runtime and on how the request is routed. rc5 shipped a handler that
+// trusted `req.body` and answered `400 invalid-body` to its own client in
+// production, which is exactly the failure the live probe exists to catch. The
+// handler therefore reads the stream itself when nothing has parsed the body.
+function readStream(req) {
+  return new Promise(resolve => {
+    let size = 0;
+    let settled = false;
+    const chunks = [];
+    const finish = value => {
+      if (settled) return;
+      settled = true;
+      resolve(value);
+    };
+    req.on('data', chunk => {
+      const buffer = Buffer.isBuffer(chunk) ? chunk : Buffer.from(String(chunk), 'utf8');
+      size += buffer.length;
+      if (size > MAX_BODY_BYTES) {
+        // Stop reading as soon as the cap is passed: the point of the limit is
+        // to bound the work, not just the stored result.
+        finish({ tooLarge: true });
+        if (typeof req.destroy === 'function') req.destroy();
+        return;
+      }
+      chunks.push(buffer);
+    });
+    req.on('end', () => finish({ text: Buffer.concat(chunks).toString('utf8') }));
+    req.on('error', () => finish({ unreadable: true }));
+  });
+}
+
+async function measureBody(req) {
   const length = Number(req.headers['content-length']);
   if (Number.isFinite(length) && length > MAX_BODY_BYTES) return { tooLarge: true };
-  const body = req.body;
-  if (body === undefined || body === null) return { value: null, size: 0 };
+  let body = req.body;
+  if (body === undefined || body === null) {
+    const read = await readStream(req);
+    if (read.tooLarge) return { tooLarge: true };
+    if (read.unreadable) return { invalidJson: true };
+    if (read.text.trim() === '') return { value: null, size: 0 };
+    body = read.text;
+  }
+  if (Buffer.isBuffer(body)) body = body.toString('utf8');
   const text = typeof body === 'string' ? body : JSON.stringify(body);
   if (Buffer.byteLength(text, 'utf8') > MAX_BODY_BYTES) return { tooLarge: true };
   if (typeof body === 'string') {
@@ -234,7 +274,7 @@ module.exports = async function handler(req, res) {
     return;
   }
 
-  const measured = measureBody(req);
+  const measured = await measureBody(req);
   if (measured.tooLarge) {
     send(res, 413, { ok: false, error: 'payload-too-large' }, headers);
     return;
