@@ -95,7 +95,7 @@ On the candidate tree before release:
 - `git diff --check`: clean.
 - PR #69 CI: `checks`, `browser`, archive `validate`, telemetry probe and Pages probe passed; Kilo failed for external account/credit reasons and CodeRabbit skipped, so no substantive bot approval is claimed.
 - Post-merge main/tag runs: Release artifacts `40904757402` success; Deploy Flashcard `40904738167` correctly held all publish steps before release; after publication Deploy Flashcard `40905243112` published and deployment `7417081331` succeeded.
-- The release-event Pages probe `40905230193` failed only because it raced the deploy; the follow-up workflow fix waits for a successful deployment URL. A post-fix PR run is the remaining live-byte verification to record.
+- The release-event Pages probe `40905230193` failed only because it raced the deploy; the follow-up workflow fix waits for a successful deployment URL. Post-fix Pages probe `40905754218` passed and confirmed the deployed page declares `v1.0.0-rc6` and carries the rc6 scoring/history markers.
 
 ## 9. Remaining risks and limitations
 

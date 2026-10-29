@@ -2,7 +2,7 @@
 
 ## v1.0.0-rc6 — verified scoring paths, answer provenance, archive rendering and focus repair (2026-10-29, candidate)
 
-**Status: published prerelease.** Tag `v1.0.0-rc6` points at merge commit `6d9f295` (PR #69), published 2026-10-29T15:48:09Z. Release artifacts run `40904757402` built HTML/ZIP/checksums from that tag (HTML 13,999,832 bytes, SHA-256 `5c18c6d54d8d84319def63648e07c1f6923917953cba7587cd0041aaaefff1ee`); deploy run `40905243112` passed the gate and deployment `7417081331` succeeded at the Pages URL. Stable readiness remains **NO-GO**: no official answer key was obtained.
+**Status: published prerelease.** Tag `v1.0.0-rc6` points at merge commit `6d9f295` (PR #69), published 2026-10-29T15:48:09Z. Release artifacts run `40904757402` built HTML/ZIP/checksums from that tag (HTML 13,999,832 bytes, SHA-256 `5c18c6d54d8d84319def63648e07c1f6923917953cba7587cd0041aaaefff1ee`); deploy run `40905243112` passed the gate and deployment `7417081331` succeeded at the Pages URL. A post-deploy Pages probe (`40905754218`) passed and confirmed the served page declares `v1.0.0-rc6` and the rc6 scoring/history markers. Stable readiness remains **NO-GO**: no official answer key was obtained.
 
 ### Exam scoring and provenance
 
