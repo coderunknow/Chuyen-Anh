@@ -3016,16 +3016,32 @@ async function main() {
     assert.equal(stimulus.prompt || stimulus.options > 0 || stimulus.spelling || stimulus.board, true,
       'the exercise itself is shown immediately');
 
-    // Grading still prints the answer: reveal, self-assess, and read the feedback.
-    await rc5.locator('.reveal, #reveal-correct').first().click();
-    await rc5.locator('#reveal-correct').click();
-    await rc5.locator('#feedback-area').waitFor();
+    // Grading still prints the answer. The exercise is whatever the session
+    // picked, so answer it the way its own control expects.
+    const card = rc5.locator('.flashcard');
+    if (await card.locator('[data-option]:enabled').count() > 0) {
+      await card.locator('[data-option]:enabled').first().click();
+    } else if (await card.locator('#submit-answer').count() > 0) {
+      await card.locator('#spelling-input').fill('adversity');
+      await card.locator('#submit-answer').click();
+    } else {
+      await card.locator('.reveal').first().click();
+      await card.locator('#reveal-correct').click();
+    }
+    await rc5.locator('#feedback-area .vocab-meaning').first().waitFor();
     const graded = await rc5.locator('#feedback-area').innerText();
     assert.equal(graded.length > 0, true, 'the graded answer is still printed after answering');
     assert.equal(await rc5.locator('#feedback-area .vocab-meaning').count() > 0, true,
       'the gloss appears once the card is graded');
     assert.equal(await rc5.evaluate(() => JSON.parse(localStorage.getItem('chuyen-anh.presentation.v1')).meanings), 'hide',
       'grading never flips the preference');
+
+    // Reload first: the session below must start from the study home, and the
+    // preference lives in storage, so a reload is both safe and deterministic.
+    await rc5.reload();
+    await rc5.locator('[data-session="new"]').waitFor();
+    assert.equal(await rc5.evaluate(() => JSON.parse(localStorage.getItem('chuyen-anh.presentation.v1')).meanings), 'hide',
+      'the preference survives a reload');
 
     // Switching back restores the introduction, with the real gloss and no mask.
     await rc5.locator('[data-view="settings"]').click();
