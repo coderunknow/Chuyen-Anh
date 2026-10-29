@@ -51,7 +51,10 @@ def call(method: str, *, body: bytes | None = None, headers: dict[str, str] | No
 
 def expect(name: str, status: int, expected: int, payload: dict) -> None:
     ok = status == expected
-    print(f"{'PASS' if ok else 'FAIL'} {name}: HTTP {status} (expected {expected}) {json.dumps(payload)[:160]}")
+    line = f"{'PASS' if ok else 'FAIL'} {name}: HTTP {status} (expected {expected}) {json.dumps(payload)[:160]}"
+    print(line)
+    if not ok:
+        print(f"::error::{line}")
     if not ok:
         failures.append(f"{name}: got {status}, expected {expected}")
 
@@ -117,6 +120,9 @@ def main() -> int:
         print("\nFAILURES:")
         for failure in failures:
             print(f" - {failure}")
+            # GitHub renders this as an annotation, which is the only failure
+            # detail readable from CI tooling that cannot download the raw log.
+            print(f"::error::{failure}")
         return 1
     print("\nall endpoint probes passed")
     return 0
