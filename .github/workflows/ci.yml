@@ -37,6 +37,10 @@ on:
       - "docs/vocabulary-quality-audit.*"
       - "docs/vocabulary-evidence-review.*"
       - "docs/exam-provenance-audit.*"
+      - "docs/exam-scoring-audit.*"
+      - "docs/exam-rendering-audit.*"
+      - "scripts/exams/audit_rendering.mjs"
+      - "data/exam-answer-keys.json"
       - "docs/exam-crosschecks.json"
       - "tests/run-browser-suites.sh"
       - "README.md"
@@ -90,6 +94,10 @@ on:
       - "docs/vocabulary-quality-audit.*"
       - "docs/vocabulary-evidence-review.*"
       - "docs/exam-provenance-audit.*"
+      - "docs/exam-scoring-audit.*"
+      - "docs/exam-rendering-audit.*"
+      - "scripts/exams/audit_rendering.mjs"
+      - "data/exam-answer-keys.json"
       - "docs/exam-crosschecks.json"
       - "tests/run-browser-suites.sh"
       - "README.md"
@@ -125,6 +133,11 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Set up Node for data and app-logic tests
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
       - name: Check vocabulary sources and embedded HTML
         run: |
           python scripts/expand_vocabulary.py --check
@@ -135,6 +148,8 @@ jobs:
           python scripts/build_phrases.py --check
           python scripts/validate_phrases.py
           python scripts/embed_phrases.py --check
+          node scripts/exams/build_answer_keys.mjs --check
+          node scripts/exams/audit_rendering.mjs --check
           python scripts/exams/embed_archive.py --check
           python scripts/audit_vocabulary_quality.py --check
           python scripts/vocabulary_evidence_review.py --check
@@ -144,12 +159,8 @@ jobs:
         run: python -m unittest discover -s tests -p 'test_*.py'
 
       # Node is used only for dependency-free tests; production is a single HTML file.
-      - name: Set up Node for app-logic tests
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - name: Run static app logic and single-file tests
-        run: node --test tests/static-app.test.js
+      - name: Run static app logic, scoring and single-file tests
+        run: node --test tests/static-app.test.js tests/exam-scoring.test.js
 
       # rc5: the ingestion endpoint is the only server-side code in the project,
       # so its contract (origins, size limits, stored fields, status codes) is

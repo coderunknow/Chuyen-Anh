@@ -89,6 +89,24 @@ def build_payload():
             'contentSha256': hashlib.sha256(body.encode('utf-8')).hexdigest(),
             'markdown': body,
         })
+    keys_path = ROOT / 'data/exam-answer-keys.json'
+    if not keys_path.exists():
+        raise ValueError('Missing data/exam-answer-keys.json; run node scripts/exams/build_answer_keys.mjs')
+    key_manifest = json.loads(keys_path.read_text(encoding='utf-8'))
+    if key_manifest.get('schemaVersion') != 1:
+        raise ValueError('Unsupported exam answer-key manifest schema')
+    key_records = {record['id']: record for record in key_manifest.get('records', [])}
+    if len(key_records) != len(key_manifest.get('records', [])) or set(key_records) != {record['id'] for record in payload}:
+        raise ValueError('Answer-key manifest must contain exactly the selected exam records once')
+    for record in payload:
+        key_record = key_records[record['id']]
+        if key_record.get('contentSha256') != record['contentSha256']:
+            raise ValueError(f'Answer-key manifest is stale for {record["id"]}')
+        keys = key_record.get('answerKeys')
+        if not isinstance(keys, list) or any(not isinstance(k, dict) or not k.get('questionId') or not k.get('verificationStatus') for k in keys):
+            raise ValueError(f'Malformed answer keys for {record["id"]}')
+        record['answerKeySchemaVersion'] = 1
+        record['answerKey'] = keys
     return payload
 
 

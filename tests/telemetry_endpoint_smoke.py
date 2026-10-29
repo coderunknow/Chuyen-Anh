@@ -26,7 +26,7 @@ import urllib.request
 
 ENDPOINT = os.environ.get("TELEMETRY_ENDPOINT", "https://chuyen-anh-telemetry.vercel.app/api/telemetry")
 APP_ORIGIN = "https://coderunknow.github.io"
-VERSION = os.environ.get("TELEMETRY_SMOKE_APP_VERSION", "v1.0.0-rc5")
+VERSION = os.environ.get("TELEMETRY_SMOKE_APP_VERSION", "v1.0.0-rc6")
 
 failures: list[str] = []
 

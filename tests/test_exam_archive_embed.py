@@ -48,7 +48,15 @@ class ExamArchiveEmbedTests(unittest.TestCase):
         self.assertEqual([record['id'] for record in self.payload], [record['key'] for record in plan])
         self.assertEqual(sum('HTML/OCR' in record['quality'] for record in self.payload), 22)
         self.assertEqual(sum(record['answers'].startswith('Chưa') for record in self.payload), 32)
-        self.assertTrue(all('score' not in record and 'answerKey' not in record for record in self.payload))
+        self.assertTrue(all('score' not in record for record in self.payload))
+        self.assertTrue(all(record['answerKeySchemaVersion'] == 1 for record in self.payload))
+        for record in self.payload:
+            ids = [key['questionId'] for key in record['answerKey']]
+            self.assertEqual(len(ids), len(set(ids)), record['id'])
+            self.assertTrue(all(key['verificationStatus'] in {
+                'official_verified', 'independently_cross_checked', 'source_transcription_unverified',
+                'inferred_unverified', 'user_confirmed', 'missing_answer', 'ambiguous_review'
+            } for key in record['answerKey']))
 
 
 if __name__ == '__main__':

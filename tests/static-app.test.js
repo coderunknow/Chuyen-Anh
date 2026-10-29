@@ -512,7 +512,7 @@ test('transcript parser groups only present choices, marks items unverified, and
   assert.equal(questions[0].prompt, 'Which drink do you prefer?');
   assert.equal(questions[0].responseType, 'choice');
   assert.equal(questions[1].responseType, 'text');
-  assert.equal(questions.every(question => question.verified === false), true);
+  assert.equal(questions.every(question => question.answerKey === undefined && Array.isArray(question.flags)), true);
   assert.doesNotMatch(JSON.stringify(questions), /This must never become|fabricated-after-cutoff/);
 
   const tablePrompt = parseExamQuestions([
@@ -776,8 +776,8 @@ test('answer choices are a named button group rather than a radio group', () => 
   const examViewEnd = appScript[1].indexOf('function renderSettings(container)');
   assert.doesNotMatch(appScript[1].slice(examViewStart, examViewEnd), /name="exam-timer-mode"|id="exam-start"|id="exam-duration"|role="timer"|class="exam-outline"/);
   assert.match(appScript[1], /id="exam-submit"/);
-  assert.match(appScript[1], /function parseExamQuestions\(markdown\)/);
-  assert.match(appScript[1], /Bản chép này chỉ đọc trong chế độ luyện tập/);
+  assert.match(appScript[1], /function parseExamQuestions\(markdown, examId/);
+  assert.match(appScript[1], /Bản HTML\/OCR chỉ đọc trong chế độ luyện tập/);
   assert.doesNotMatch(appScript[1], /exam-practice-locked/);
 });
 
@@ -1504,23 +1504,29 @@ test('a study sprint handles small pools, unknown ids and an empty pool without 
 
 test('exam grading never turns an unverified answer key into a confident grade', () => {
   const choice = {
-    id: 'q1', prompt: 'Choose the correct option', responseType: 'choice', sourceLine: '1. A',
-    options: [{ id: 'A', label: 'A', text: 'alpha' }, { id: 'B', label: 'B', text: 'beta' }]
+    id: 'q1', prompt: 'Choose the correct option', responseType: 'choice', sourceLine: 1,
+    options: [{ id: 'choice-A', label: 'A', text: 'alpha' }, { id: 'choice-B', label: 'B', text: 'beta' }], flags: []
   };
-  const blank = { id: 'q2', prompt: 'Fill in blank 2', responseType: 'text', options: [], sourceLine: '2. ____' };
+  const blank = { id: 'q2', prompt: 'Fill in blank 2', responseType: 'text', options: [], sourceLine: 2, flags: [] };
+  const key = (overrides = {}) => ({ questionId: 'q1', verificationStatus: 'source_transcription_unverified', candidates: ['choice-A'], acceptedAlternatives: [], normalization: 'choice-id', sources: [{ kind: 'transcription', locator: 'answer line 1' }], limitations: [], ...overrides });
 
-  assert.deepEqual(getQuestionVerification(choice), { status: 'unverified', answer: null, evidence: null });
-  const ungraded = gradeExamQuestion(choice, 'A');
+  assert.equal(getQuestionVerification(choice).status, 'missing_answer');
+  const ungraded = gradeExamQuestion(choice, 'choice-A');
   assert.equal(ungraded.result, 'ungraded');
   assert.equal(ungraded.officialAnswer, null, 'an unknown key is not echoed as an official answer');
-  assert.match(ungraded.reason, /Chưa có đáp án/);
+  assert.equal(ungraded.reason, 'missing-answer-key');
 
-  // A key is only usable when it is explicitly marked verified.
-  const verified = { ...blank, verifiedAnswer: 'resilient', verificationStatus: 'verified', verificationEvidence: 'Cambridge, 2026-10-20' };
-  assert.deepEqual(gradeExamQuestion(verified, 'Resilient').result, 'correct');
-  assert.deepEqual(gradeExamQuestion(verified, 'resilience').result, 'incorrect');
-  assert.equal(getQuestionVerification({ ...blank, verifiedAnswer: 'resilient', verificationStatus: 'pending' }).status, 'unverified',
-    'a pending key is not treated as verified');
+  const provisional = gradeExamQuestion(choice, 'choice-A', key());
+  assert.equal(provisional.result, 'correct');
+  assert.equal(provisional.provisional, true, 'a reposted transcription remains provisional');
+  assert.equal(gradeExamQuestion(choice, 'choice-B', key()).result, 'incorrect');
+  const official = gradeExamQuestion(choice, 'choice-A', key({ verificationStatus: 'official_verified' }));
+  assert.equal(official.result, 'correct');
+  assert.equal(official.provisional, false);
+  assert.equal(getQuestionVerification(choice, key({ verificationStatus: 'pending' })).status, 'missing_answer',
+    'an undefined status is not treated as verification');
+  assert.equal(gradeExamQuestion({ ...choice, flags: ['listening-audio-unavailable'] }, 'choice-A', key()).result, 'ungraded',
+    'listening without audio is not automatically graded even with a key');
 });
 
 test('exported exam results report exactly what the learner did and what could be graded', () => {
@@ -1532,33 +1538,38 @@ test('exported exam results report exactly what the learner did and what could b
     answers: 'Chưa lấy được đáp án riêng', markdown: 'x'.repeat(6000)
   };
   const questions = [
-    { id: 'q1', prompt: 'Choose the correct option', responseType: 'choice', sourceLine: '1. A', options: [{ id: 'A', label: 'A', text: 'alpha' }, { id: 'B', label: 'B', text: 'beta' }] },
-    { id: 'q2', prompt: 'Fill in blank 2', responseType: 'text', options: [], sourceLine: '2. ____' },
-    { id: 'q3', prompt: 'Fill in blank 3', responseType: 'text', options: [], sourceLine: '3. ____' }
+    { id: 'q1', prompt: 'Choose the correct option', responseType: 'choice', sourceLine: 1, options: [{ id: 'choice-A', label: 'A', text: 'alpha' }, { id: 'choice-B', label: 'B', text: 'beta' }], flags: [] },
+    { id: 'q2', prompt: 'Fill in blank 2', responseType: 'text', options: [], sourceLine: 2, flags: [] },
+    { id: 'q3', prompt: 'Fill in blank 3', responseType: 'text', options: [], sourceLine: 3, flags: [] }
   ];
-  const session = createExamPracticeSession(record.id, questions);
-  assert.equal(recordExamPracticeResponse(session, 'q1', 'B'), true);
+  const session = createExamPracticeSession(record.id, questions, 4000);
+  assert.equal(recordExamPracticeResponse(session, 'q1', 'choice-B'), true);
   assert.equal(recordExamPracticeResponse(session, 'q1', 'Z'), false, 'an option that does not exist is rejected');
   assert.equal(recordExamPracticeResponse(session, 'q2', '  resilient  '), true);
   const submitted = submitExamPractice(session, 5000);
   assert.deepEqual(submitted, { total: 3, answered: 2, unanswered: 1 });
 
-  const result = buildExamResultJson(session, record, { now: 6000 });
+  const keys = [
+    { questionId: 'q1', verificationStatus: 'source_transcription_unverified', candidates: ['choice-B'], acceptedAlternatives: [], normalization: 'choice-id', sources: [{ kind: 'transcription', locator: 'answer line 1' }], limitations: [] },
+    { questionId: 'q2', verificationStatus: 'user_confirmed', candidates: ['resilient'], acceptedAlternatives: [], normalization: 'case-whitespace', sources: [{ kind: 'user-correction', locator: 'checked by learner' }], limitations: [] }
+  ];
+  const result = buildExamResultJson(session, record, keys, [], { now: 6000 });
   assert.equal(result.app, 'Chuyên Anh');
   assert.equal(result.version, APP_VERSION, 'the result carries the application version');
-  assert.equal(result.version, 'v1.0.0-rc5');
-  assert.equal(result.schemaVersion, '1.0.0');
-  assert.deepEqual(result.summary, {
-    total: 3, answered: 2, unanswered: 1,
-    graded: 0, correct: 0, incorrect: 0, ungraded: 3, accuracy: null
-  }, 'with no verified key nothing is graded and accuracy stays unknown');
-  assert.equal(result.questions[0].learnerAnswer, 'B');
-  assert.equal(result.questions[1].learnerAnswer, '  resilient  ', 'the stored response is unchanged');
-  assert.equal(result.questions[2].answered, false);
-  assert.equal(result.questions[2].learnerAnswer, null, 'an unanswered item is null, never a guessed answer');
-  assert.deepEqual(result.questions.map(item => item.result), ['ungraded', 'ungraded', 'ungraded']);
-  assert.equal(result.provenance.answersField, record.answers);
-  assert.equal(result.attempt.gradingPolicy, 'verified-only');
+  assert.equal(result.version, 'v1.0.0-rc6');
+  assert.equal(result.schemaVersion, '2.0.0');
+  assert.equal(result.summary.total, 3);
+  assert.equal(result.summary.answered, 2);
+  assert.equal(result.summary.graded, 2);
+  assert.equal(result.summary.correct, 2);
+  assert.equal(result.summary.ungraded, 1);
+  assert.equal(result.summary.percentage, 100);
+  assert.equal(result.summary.officialScore, null, 'an application-calculated score is never labelled official');
+  assert.equal(result.questions[0].response, 'choice-B');
+  assert.equal(result.questions[1].response, '  resilient  ', 'the stored response is unchanged');
+  assert.deepEqual(result.results.map(item => item.result), ['correct', 'correct', 'ungraded']);
+  assert.equal(result.provenance.source, record.source);
+  assert.equal(result.attempt.gradingPolicy, 'equal-weight-eligible-v1');
   assert.deepEqual(JSON.parse(JSON.stringify(result)), result, 'the result survives a JSON round trip');
 
   assert.equal(examResultFilename(result), 'ket-qua-2023-dak-lak-so-1970-01-01.json');
@@ -3329,7 +3340,8 @@ test('remediation: every learner store is synced across tabs and the listener is
     'chuyen-anh.theme.v1',
     'chuyen-anh.badges.v1',
     'chuyen-anh.presentation.v1',
-    'chuyen-anh.phrases.v1'
+    'chuyen-anh.phrases.v1',
+    'chuyen-anh.exam-results.v1'
   ];
   for (const key of expected) assert.equal(app.isSyncedStorageKey(key), true, key);
   assert.equal(app.SYNCED_STORAGE_KEYS.length, expected.length, 'the sync set covers each store exactly once');

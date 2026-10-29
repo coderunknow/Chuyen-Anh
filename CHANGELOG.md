@@ -1,5 +1,45 @@
 # Changelog
 
+## v1.0.0-rc6 — verified scoring paths, answer provenance, archive rendering and focus repair (2026-10-29, candidate)
+
+**Status at candidate creation: not yet published.** Release, tag, CI and Pages evidence is recorded in `DESIGN_LOG.md` / `AGENTS_LOG.md` only after GitHub reports it. Stable readiness is **NO-GO**: no official answer key was obtained.
+
+### Exam scoring and provenance
+
+- Practice now grades single choice, multiple choice, true/false and text answers only when a key record exists and the item is eligible. The application score is equal-weight over **graded** items; it is explicitly **not** an official exam score and never invents a 10-point conversion.
+- Answer records use seven states: `official_verified`, `independently_cross_checked`, `source_transcription_unverified`, `inferred_unverified`, `user_confirmed`, `missing_answer`, `ambiguous_review`. Every extracted answer in this release remains transcription-unverified; no boolean “verified” shortcut remains.
+- Build-time extraction found 6,457 items across 106 records: 1,769 transcription-only keys, 3,216 missing, 1,472 ambiguous, 0 official or independent. After exclusions, 1,269 items are provisionally gradable.
+- Listening without embedded audio, unrestricted writing without a rubric, HTML/OCR records and ambiguous/missing keys stay ungraded. Unanswered or invalid responses never inflate the score.
+- Submitted review exposes the response, result, key candidate, state, locator and limitations; a learner can correct a key. Corrections are `user_confirmed`, recalculate results and are never presented as official.
+
+### Persistence
+
+- New local `chuyen-anh.exam-results.v1` history is separate from flashcard/phrase progress and the v1 backup. Validate-before-write import rejects malformed or oversized data, recomputes summaries, and refuses conflicting papers/attempts/corrections instead of silently merging.
+- Settings can inspect, delete, export and import history. No exam data is sent through telemetry or another network path.
+
+### Archive and Markdown
+
+- All 106 stored transcriptions render without exceptions. Inline escaping now keeps escaped delimiters literal, isolates code spans, decodes entities once, permits only HTTP(S) links and renders images as inert placeholders.
+- Tables keep headers, alignment and escaped pipes; ordered lists preserve source numbers; hard breaks and blockquotes retain structure.
+- Question parsing reads fenced PDF text, keeps section context and uses content-derived stable IDs. All 106 records now expose at least one extracted item (6,457 total); counts remain extraction, not official coverage.
+- `docs/exam-rendering-audit.*` and `docs/exam-scoring-audit.*` are CI-checked evidence artifacts.
+
+### UI and controls
+
+- Fixed “Trọng tâm phiên học”: focus buttons for an off group were truly disabled, so the cursor was truthful but the action was a dead end. They are now operable; selecting one enables the group and set focus, with a visible explanation, saved state and keyboard activation.
+- Fixed a Settings history action that silently did nothing before the archive loaded.
+- Updated English archive warnings so they describe provisional scoring rather than stale “ungraded” copy.
+
+### Verification
+
+- Python 156/156; Node static/scoring/telemetry 151/151; archive conversion 5/5; all data/embed/provenance checks clean.
+- Chromium 133.0.6943.0: both browser suites pass, including deterministic 3/6 provisional scoring, hidden keys before submission, correction recalculation, reload/export/import, malformed import rejection, focus keyboard activation, both languages/skins and 320/375/768/1024/1440 px.
+- Browser-learning was made reliable by relaunching Chromium before its final 14 MB page; it had crashed from process exhaustion, not an app exception.
+
+### Limits
+
+- 0/106 official primary papers and 0/106 official answer keys checked; 3,216 missing and 1,472 ambiguous question mappings; listening audio absent; HTML/OCR read-only; no screen-reader or physical-device pass. These block stable.
+
 ## v1.0.0-rc5 — meaning preview removed, real telemetry path, interface polish (2026-10-29, candidate)
 
 **Status: published prerelease.** Tag `v1.0.0-rc5` (annotated) points at merge commit `b47d9d1` (PR #66); the GitHub release was
