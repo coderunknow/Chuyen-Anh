@@ -37,5 +37,28 @@ jobs:
       - name: Give the Pages deployment a moment to propagate
         run: sleep 30
 
+      - name: Determine the version that should be served
+        id: expected
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          hold="$(tr -d '[:space:]' < DEPLOY_HOLD)"
+          status="$(gh api "repos/${GITHUB_REPOSITORY}/releases/tags/${hold}" --jq '.draft|tostring + " " + (.prerelease|tostring)' 2>/dev/null || true)"
+          if [ "$status" = "false true" ]; then
+            expected="$hold"
+            reason="held release is published"
+          else
+            expected="$(gh release list --exclude-drafts --limit 1 --json tagName --jq '.[0].tagName // ""')"
+            reason="held release is not published; compare with newest published release"
+          fi
+          if [ -z "$expected" ]; then
+            echo "::error::No published release and no published hold release to probe"
+            exit 1
+          fi
+          echo "expected=$expected" >> "$GITHUB_OUTPUT"
+          echo "Probing $expected ($reason)" >> "$GITHUB_STEP_SUMMARY"
+
       - name: Probe the published application
+        env:
+          EXPECTED_VERSION: ${{ steps.expected.outputs.expected }}
         run: python tests/pages_smoke.py
