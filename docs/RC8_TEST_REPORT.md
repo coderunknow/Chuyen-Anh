@@ -71,5 +71,14 @@ Verified programmatically (`document.documentElement.scrollWidth <= window.inner
 
 ### 3.4 GitHub Actions Cross-Browser CI Matrix (`ci.yml`)
 
-- `.github/workflows/ci.yml` executes `tests/run-browser-suites.sh` (`browser-learning.cjs` + `browser-exams.cjs` sequentially with `--trace-deprecation`) across **`matrix.browser: [chromium, firefox, webkit]`** (`fail-fast: false`) using Playwright `1.55.1` on `ubuntu-latest`, with all 19 workflow action steps across `.github/workflows/*.yml` pinned to Node 24 40-character commit SHAs.
-- Exact PR head SHA check-run IDs and per-browser durations are recorded upon CI completion in `docs/RC8_RELEASE_REPORT.md`.
+- `.github/workflows/ci.yml` executes `tests/run-browser-suites.sh` (`browser-learning.cjs` + `browser-exams.cjs` sequentially with `--trace-deprecation`) across **`matrix.browser: [chromium, firefox, webkit]`** (`fail-fast: false`) using Playwright `1.55.1` on `ubuntu-latest`, with all 19 workflow action steps across `.github/workflows/*.yml` pinned to Node 24 40-character commit SHAs (`0` Node 20 deprecation warnings observed across all check-runs).
+- **Observed on PR #73 (`3c04beb74815177728c1beefe4d636edc067a272`, run `41214991820`):**
+  - `checks` (`124577566804`): **PASS** (`2m48s`, `0` warnings)
+  - `browser (chromium)` (`124577566650`): **PASS** (`6m14s`, `0` warnings)
+  - `browser (webkit)` (`124577566807`): **PASS** (`7m28s`, `0` warnings)
+  - `browser (firefox)` (`124577566868`): **PASS** (`7m55s`, `0` warnings)
+- **Observed on `main` (`df1965c61f183a252c97e57e9e13001774d17d26`, run `41215729720`):**
+  - `checks` (`124579726506`): **PASS** (`1m43s`, `0` warnings)
+  - `browser (chromium)` (`124579726669`): **PASS** (`6m02s`, `0` warnings)
+  - `browser (webkit)` (`124579726812`): **PASS** (`7m40s`, `0` warnings)
+  - `browser (firefox)` (`124579726786`): **PASS** (`8m16s`, `0` warnings)
