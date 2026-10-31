@@ -95,9 +95,15 @@ No exam data changed in rc7. The build-time audits were re-run and are byte-curr
 
 Question-generation median over the active deck: `mc_en_vi` 2.24→2.22 ms, `mc_vi_en` 2.52→~2.5–3.2 ms (noise-level), `fill_en` ~0 ms, `cloze` ~2.2→2.7 ms. Full-deck availability sweep (worst case, only tests do this): 73 ms → ~160 ms cold, memoised afterwards. No new timers, listeners or background work; heap in the probe process ~78 MB (dominated by the embedded datasets, unchanged).
 
-## 8. Release evidence
+## 8. Release evidence (observed on GitHub, 2026-10-31)
 
-_To be appended after each observed stage: PR number/head SHA, CI runs, merge commit, annotated tag target, release-artifact run, asset sizes/SHA-256, prerelease publication time, deploy run, Pages deployment id/URL, Pages smoke probe result._
+- **PR:** #71 (`arena/679c76cb-chuyen-anh` → `main`), head `a4a013aa26918db7ae53bb77c69c00bf2fb9d916`, MERGEABLE. CI on that exact head (run `41189242275`): `checks` **success** (3m32s), `browser` **success** (5m52s); Pages probe `41189242304` and telemetry probe `41189242294` **success**. Review tools on that head: Codex **completed, no findings** (`has_any_findings=false`); CodeRabbit **skipped** (“Review skipped”, auto-review off under 10 stars); Kilo **action_required — insufficient credits**; Qodo paused (trial ended); Copilot reviewer insufficient quota. Only Codex is a substantive completed review; none of the others is claimed as one.
+- **Merge:** 2026-10-31T09:41:17Z, merge commit `77189fc3737994ca348cced34bec7006ec98eaac`; PR head verified as ancestor of `origin/main`; `main` carries `APP_VERSION`/`DEPLOY_HOLD` = `v1.0.0-rc7`.
+- **Tag:** annotated `v1.0.0-rc7` (tag object `1ae43b97d88da8484232aac8ba830ab91eed1669`) peeling to the merge commit `77189fc…`, pushed once. No manual `release_artifacts.py` run (the rc5 duplicate-draft lesson).
+- **Artifacts:** tag-triggered Release artifacts run `41189725390` **success**; draft release id `429845952` with exactly three assets: HTML 14,015,037 B SHA-256 `2567dfbc743839c4314d754b78b66482be9a8d99587f015b8fe7b8c6cfbf42ac` — byte-identical to `git show v1.0.0-rc7:index.html` computed locally; ZIP 2,249,464 B SHA-256 `94ab31d72783b497754ff007652123731427876c4835a11ff671f72af0e9aba0`; checksums 185 B SHA-256 `c62c66bf38d72ae239d27345f92c6f3db7ab3220a13e0f00735bff0d2f574c81` — reconstructed locally from the two digests and matching. (Asset download from the sandbox is egress-blocked, as in rc4/rc6; the workflow's own post-upload verification also passed.)
+- **Gate held, then opened:** merge-time Deploy `41189704632` ran all tests and **skipped** all four publish steps while rc7 was a draft. Draft published explicitly at **2026-10-31T09:44:48Z** as a prerelease; dispatcher `41189935577` success; Deploy `41189938999` **success** with all four publish steps run.
+- **Pages:** deployment `7456996191` **success** at 2026-10-31T09:48:05Z, environment URL `https://coderunknow.github.io/Chuyen-Anh/`. Release Pages probe `41189935591` **success**: waited for that deployment, expected `v1.0.0-rc7` (hold published), and the live page declares rc7 with the rc7 markers (`maskAnswerInPrompt`, `usableClozeExample`, `handOffForDisplay`) plus the rc6 markers. Independently, the live page renders the rc7 availability counts (e.g. Anh→Việt **3838** = 3841 − 3 degenerate records; Điền câu **1**). Main `Static checks` `41189704638` also success.
+- Release URL: https://github.com/coderunknow/Chuyen-Anh/releases/tag/v1.0.0-rc7
 
 ## 9. Known limitations and stable-readiness
 
