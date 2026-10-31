@@ -479,12 +479,12 @@ test('exam archive filters by year, location, format and unit', () => {
   assert.ok(filterExamArchive(records, { unit: 'department' }).every(record => record.unit === 'so'));
 });
 
-test('unreviewed corpus uses conservative transcript-only parsing and leaves OCR records read-only', () => {
+test('unreviewed corpus uses conservative transcript-only parsing and unlocks OCR records with explicit low-confidence warnings', () => {
   const records = loadExamArchive(embeddedExamRaw);
   assert.equal(embeddedExamRecords.length, 106);
   assert.equal(embeddedExamRecords.filter(record => record.review?.status === 'reviewed').length, 0);
   assert.equal(records.filter(record => /HTML|OCR|cần-soát/i.test(record.quality)).length, 22);
-  assert.match(appScript[1], /if \(\/HTML\|OCR\|cần-soát\/i\.test\(record\.quality\)\) return \[\];/);
+  assert.match(appScript[1], /exam-ocr-warning/);
   assert.match(appScript[1], /unverified.{0,20}may be incomplete/i);
   assert.match(appScript[1], /không có đồng hồ, kiểm tra đúng\/sai, điểm số hoặc xếp hạng/);
   const examUiStart = appScript[1].indexOf('async function renderExams(container)');
@@ -784,7 +784,7 @@ test('answer choices are a named button group rather than a radio group', () => 
   assert.doesNotMatch(appScript[1].slice(examViewStart, examViewEnd), /name="exam-timer-mode"|id="exam-start"|id="exam-duration"|role="timer"|class="exam-outline"/);
   assert.match(appScript[1], /id="exam-submit"/);
   assert.match(appScript[1], /function parseExamQuestions\(markdown, examId/);
-  assert.match(appScript[1], /Bản HTML\/OCR chỉ đọc trong chế độ luyện tập/);
+  assert.match(appScript[1], /Cảnh báo nguồn HTML\/OCR:/);
   assert.doesNotMatch(appScript[1], /exam-practice-locked/);
 });
 
@@ -1531,11 +1531,16 @@ test('exam grading never turns an unverified answer key into a confident grade',
   const blank = { id: 'q2', prompt: 'Fill in blank 2', responseType: 'text', options: [], sourceLine: 2, flags: [] };
   const key = (overrides = {}) => ({ questionId: 'q1', verificationStatus: 'source_transcription_unverified', candidates: ['choice-A'], acceptedAlternatives: [], normalization: 'choice-id', sources: [{ kind: 'transcription', locator: 'answer line 1' }], limitations: [], ...overrides });
 
-  assert.equal(getQuestionVerification(choice).status, 'missing_answer');
-  const ungraded = gradeExamQuestion(choice, 'choice-A');
-  assert.equal(ungraded.result, 'ungraded');
-  assert.equal(ungraded.officialAnswer, null, 'an unknown key is not echoed as an official answer');
-  assert.equal(ungraded.reason, 'missing-answer-key');
+  assert.equal(getQuestionVerification(choice).status, 'inferred_unverified');
+  assert.equal(getQuestionVerification(choice).confidence, 'VERY_LOW');
+  const fallbackGraded = gradeExamQuestion(choice, 'choice-A');
+  assert.equal(fallbackGraded.result, 'correct');
+  assert.equal(fallbackGraded.provisional, true);
+  assert.equal(fallbackGraded.confidence, 'VERY_LOW');
+  assert.equal(fallbackGraded.officialAnswer, null, 'an unknown key is never echoed as an official answer');
+  const unanswered = gradeExamQuestion(choice, '');
+  assert.equal(unanswered.result, 'ungraded');
+  assert.equal(unanswered.reason, 'unanswered');
 
   const provisional = gradeExamQuestion(choice, 'choice-A', key());
   assert.equal(provisional.result, 'correct');
@@ -1544,10 +1549,14 @@ test('exam grading never turns an unverified answer key into a confident grade',
   const official = gradeExamQuestion(choice, 'choice-A', key({ verificationStatus: 'official_verified' }));
   assert.equal(official.result, 'correct');
   assert.equal(official.provisional, false);
-  assert.equal(getQuestionVerification(choice, key({ verificationStatus: 'pending' })).status, 'missing_answer',
-    'an undefined status is not treated as verification');
-  assert.equal(gradeExamQuestion({ ...choice, flags: ['listening-audio-unavailable'] }, 'choice-A', key()).result, 'ungraded',
-    'listening without audio is not automatically graded even with a key');
+  assert.equal(getQuestionVerification(choice, key({ verificationStatus: 'pending' })).status, 'inferred_unverified',
+    'an undefined status falls back to provisional low-confidence inference rather than verified');
+  const listeningFallback = gradeExamQuestion({ ...choice, flags: ['listening-audio-unavailable'] }, 'choice-A', key());
+  assert.equal(listeningFallback.result, 'correct',
+    'listening without audio uses provisional key/transcript fallback in rc8');
+  assert.equal(listeningFallback.provisional, true);
+  assert.equal(listeningFallback.confidence, 'VERY_LOW');
+  assert.ok(listeningFallback.limitations.includes('listening-audio-unavailable'));
 });
 
 test('exported exam results report exactly what the learner did and what could be graded', () => {
@@ -1577,20 +1586,23 @@ test('exported exam results report exactly what the learner did and what could b
   const result = buildExamResultJson(session, record, keys, [], { now: 6000 });
   assert.equal(result.app, 'Chuyên Anh');
   assert.equal(result.version, APP_VERSION, 'the result carries the application version');
-  assert.equal(result.version, 'v1.0.0-rc7');
+  assert.equal(result.version, 'v1.0.0-rc8');
   assert.equal(result.schemaVersion, '2.0.0');
   assert.equal(result.summary.total, 3);
+  assert.equal(result.summary.denominator, 3);
   assert.equal(result.summary.answered, 2);
   assert.equal(result.summary.graded, 2);
   assert.equal(result.summary.correct, 2);
+  assert.equal(result.summary.earnedPoints, 2);
   assert.equal(result.summary.ungraded, 1);
-  assert.equal(result.summary.percentage, 100);
+  assert.equal(result.summary.percentage, 66.7);
+  assert.equal(result.summary.answeredPercentage, 100);
   assert.equal(result.summary.officialScore, null, 'an application-calculated score is never labelled official');
   assert.equal(result.questions[0].response, 'choice-B');
   assert.equal(result.questions[1].response, '  resilient  ', 'the stored response is unchanged');
   assert.deepEqual(result.results.map(item => item.result), ['correct', 'correct', 'ungraded']);
   assert.equal(result.provenance.source, record.source);
-  assert.equal(result.attempt.gradingPolicy, 'equal-weight-eligible-v1');
+  assert.equal(result.attempt.gradingPolicy, 'universal-full-denominator-v1');
   assert.deepEqual(JSON.parse(JSON.stringify(result)), result, 'the result survives a JSON round trip');
 
   assert.equal(examResultFilename(result), 'ket-qua-2023-dak-lak-so-1970-01-01.json');
@@ -3858,22 +3870,23 @@ test('rc7: cloze blanks inflected forms, refuses leaky sentences and tries later
   assert.equal(usableClozeExample(artUsable).prompt, 'An article about _____ appeared.');
 });
 
-test('rc7: a gloss that is the headword itself keeps only the flashcard path', () => {
-  const proton = embeddedVocabulary.find(entry => entry.id === '4188');
-  assert.ok(proton && glossEqualsWord(proton), 'the recorded loanword fixture exists');
+test('rc8: proton/gluten/cholesterol glosses are fixed in data while a synthetic degenerate gloss still keeps only the flashcard path', () => {
+  for (const fixedId of ['4188', '4492', '4494']) {
+    const fixedEntry = embeddedVocabulary.find(entry => entry.id === fixedId);
+    assert.ok(fixedEntry && !glossEqualsWord(fixedEntry), `ID ${fixedId} (${fixedEntry?.word}) has a distinct Vietnamese gloss`);
+    assert.equal(exerciseAvailability(EXERCISE_TYPES.MC_VI_EN, fixedEntry, embeddedVocabulary), true);
+  }
+  const degenerate = { id: 'deg-proton', word: 'proton', pos: 'n', meaning: 'proton', tags: [] };
+  assert.equal(glossEqualsWord(degenerate), true);
   for (const type of app.EXERCISE_ORDER) {
-    assert.equal(exerciseAvailability(type, proton, embeddedVocabulary), type === EXERCISE_TYPES.FLASHCARD,
+    assert.equal(exerciseAvailability(type, degenerate, embeddedVocabulary), type === EXERCISE_TYPES.FLASHCARD,
       `${type} availability for a degenerate gloss`);
   }
-  const item = { vocab: proton, progress: createInitialProgress(proton.id, 0) };
+  const item = { vocab: degenerate, progress: createInitialProgress(degenerate.id, 0) };
   // A planned turn is refused ungraded rather than silently re-labelled…
   assert.equal(generateQuestion(item, embeddedVocabulary, EXERCISE_TYPES.MC_EN_VI).unavailableReason, 'gloss-equals-word');
   assert.equal(generateQuestion(item, embeddedVocabulary, EXERCISE_TYPES.MC_VI_EN).unavailableReason, 'gloss-prompt-is-the-answer');
   assert.equal(generateQuestion(item, embeddedVocabulary, EXERCISE_TYPES.FILL_VI).unavailableReason, 'gloss-segment-equals-word');
-  // …and every unplanned path degrades to the self-assessed flashcard, the
-  // one mode where showing the word first is the exercise itself. (`fill_vi`
-  // and `cloze` are also exercise-type strings, so requesting them by mode
-  // name takes the planned-turn refusal above instead.)
   for (const mode of [MODES.RECOGNITION, MODES.RECALL, MODES.SPELLING]) {
     assert.equal(generateQuestion(item, embeddedVocabulary, mode).mode, MODES.FLASHCARD, `${mode} degrades to flashcard`);
   }

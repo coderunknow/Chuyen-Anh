@@ -218,9 +218,9 @@ allergen	n	chất gây dị ứng	C1	health	topic	reading
 intolerance	n	sự không dung nạp	C1	health	topic	reading
 vegan	n	người ăn thuần chay	B1	food	topic	reading
 vegetarian	n	người ăn chay	B1	food	topic	reading
-gluten	n	gluten	C1	health	topic	reading
+gluten	n	chất đạm kết dính có trong lúa mì và ngũ cốc	C1	health	topic	reading
 lactose	n	lactose (đường sữa)	C1	health	topic	reading
-cholesterol	n	cholesterol	B2	health	topic	reading
+cholesterol	n	chất béo dạng sáp có trong máu và tế bào	B2	health	topic	reading
 obesity	n	béo phì	B2	health	topic	reading
 malnutrition	n	suy dinh dưỡng	C1	health	topic	reading
 famine	n	nạn đói	C1	society	topic	reading

@@ -1,6 +1,6 @@
 # Privacy — Chuyên Anh
 
-_Áp dụng cho `v1.0.0-rc7` và mọi bản dựng từ mã nguồn này._
+_Áp dụng cho `v1.0.0-rc8` và mọi bản dựng từ mã nguồn này._
 
 ## Tóm tắt
 
@@ -55,8 +55,8 @@ còn sót, giới hạn 50 sự kiện và 6 bộ đếm, rồi **dựng lại**
 (`public.telemetry_ingest`) được cấp cho `service_role` và chỉ hàm đó ghi được dữ liệu. Mỗi bản ghi mang `retention_expires_at` =
 **90 ngày** và bị xóa tự động (hàm dọn rác chạy tối đa mỗi giờ, gọi được bằng tay).
 
-**Giới hạn tần suất:** 10 gói / 10 phút cho mỗi client và 120 gói / 10 phút toàn hệ thống. “Client” ở đây là một băm HMAC-SHA256
-(32 ký tự hex) của địa chỉ IP với muối bí mật phía máy chủ; **địa chỉ IP không được lưu** cùng nhật ký và không xuất hiện trong log
+**Giới hạn tần suất:** 10 gói / 10 phút cho mỗi client, 5 gói / 10 phút cho nhóm thiếu khóa client, và 120 gói / 10 phút toàn hệ thống. “Client” ở đây là một băm HMAC-SHA256
+(32 ký tự hex) của địa chỉ IP (ưu tiên header tin cậy `x-vercel-forwarded-for`) với muối bí mật `TELEMETRY_IP_SALT` phía máy chủ (bắt buộc tối thiểu 16 ký tự; nếu thiếu hoặc yếu hàm máy chủ tự đóng an toàn với mã `503` thay vì dùng muối mặc định); **địa chỉ IP không được lưu** cùng nhật ký và không xuất hiện trong log
 của máy chủ.
 
 **Khi gửi hỏng:** nhật ký **vẫn còn** trên thiết bị, bạn thấy một câu giải thích (hết thời gian chờ, không kết nối được, bị từ chối,
@@ -87,6 +87,6 @@ plus the coarse environment (language, interface, theme, viewport bucket, reduce
 queue. The server re-validates the request, rebuilds the payload from an allowlist (unknown fields are dropped, notes are cut at the
 first quote, e-mail addresses are removed), then stores it in the project's Supabase schema `telemetry`, where RLS is enabled with
 no policy and only one `security definer` function is executable by the service role. Records expire after **90 days**. Rate limits
-are 10 reports per 10 minutes per client and 120 per 10 minutes overall; a client is a salted HMAC-SHA256 of the IP address, which
+are 10 reports per 10 minutes per client, 5 per 10 minutes for missing-key requests, and 120 per 10 minutes overall; a client is a salted HMAC-SHA256 of the trusted proxy IP address (`TELEMETRY_IP_SALT` >= 16 characters, failing closed with `503` if missing or weak), which
 is never stored. A failed send leaves the log on your device and never reports success. You can view, download, delete it, or
 withdraw consent at any time; switching the toggle off erases the log immediately and sends nothing further.

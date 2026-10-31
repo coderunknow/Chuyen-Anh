@@ -6,20 +6,31 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const http = require('node:http');
 const path = require('node:path');
-const { chromium } = require('playwright-core');
+const playwright = require('playwright-core');
+
+async function launchSelectedBrowser() {
+  const engineName = (process.env.BROWSER_ENGINE || 'chromium').toLowerCase();
+  const browserType = playwright[engineName];
+  if (!browserType) throw new Error(`Unsupported BROWSER_ENGINE: ${engineName}`);
+  let executablePath = process.env.BROWSER_EXECUTABLE || undefined;
+  let args = engineName === 'chromium' ? ['--no-sandbox'] : [];
+  if (engineName === 'chromium' && !executablePath) {
+    try {
+      const bundled = require('@sparticuz/chromium');
+      const lambdaFs = require('@sparticuz/chromium/build/lambdafs').default;
+      executablePath = await bundled.executablePath();
+      await lambdaFs.inflate(path.join(path.dirname(require.resolve('@sparticuz/chromium')), '../bin/al2023.tar.br'));
+      process.env.LD_LIBRARY_PATH = ['/tmp/al2023/lib', process.env.LD_LIBRARY_PATH].filter(Boolean).join(':');
+      args = bundled.args;
+    } catch {
+      executablePath = undefined;
+    }
+  }
+  const browser = await browserType.launch({ ...(executablePath ? { executablePath } : {}), ...(args.length ? { args } : {}), headless: true });
+  return { browser, engineName };
+}
 
 async function main() {
-  let executablePath = process.env.BROWSER_EXECUTABLE;
-  let args = ['--no-sandbox'];
-  if (!executablePath) {
-    const bundled = require('@sparticuz/chromium');
-    const lambdaFs = require('@sparticuz/chromium/build/lambdafs').default;
-    executablePath = await bundled.executablePath();
-    // This minimal Linux sandbox lacks NSS; the optional package includes it.
-    await lambdaFs.inflate(path.join(path.dirname(require.resolve('@sparticuz/chromium')), '../bin/al2023.tar.br'));
-    process.env.LD_LIBRARY_PATH = ['/tmp/al2023/lib', process.env.LD_LIBRARY_PATH].filter(Boolean).join(':');
-    args = bundled.args;
-  }
   const html = fs.readFileSync(path.join(__dirname, '../index.html'));
   const server = http.createServer((_req, res) => {
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
@@ -28,7 +39,9 @@ async function main() {
   await new Promise(resolve => server.listen(0, '0.0.0.0', resolve));
   let browser;
   try {
-    browser = await chromium.launch({ executablePath, args, headless: true });
+    const launched = await launchSelectedBrowser();
+    browser = launched.browser;
+    const engineLabel = launched.engineName;
     const page = await browser.newPage({ viewport: { width: 1280, height: 900 }, reducedMotion: 'reduce' });
     const errors = [];
     page.on('pageerror', error => errors.push(error.message));
@@ -514,7 +527,7 @@ async function main() {
 
     // The shipped build identifies itself.
     await sprint.locator('[data-view="settings"]').click();
-    assert.equal(await sprint.locator('#app-version').innerText(), 'v1.0.0-rc7');
+    assert.equal(await sprint.locator('#app-version').innerText(), 'v1.0.0-rc8');
     assert.deepEqual(sprintErrors, []);
 
     // Error -> intervening word -> typed corrective retrieval -> truthful summary.
@@ -589,11 +602,12 @@ async function main() {
     assert.equal(await page.getByRole('checkbox', { name: 'Phím tắt bàn phím' }).count(), 1, 'the shortcut switch has a learner-facing accessible name');
     assert.equal(await page.getByRole('combobox', { name: 'Ngôn ngữ giao diện' }).count(), 1, 'the interface-language select has a name');
     assert.equal(await page.getByRole('combobox', { name: 'Số thẻ mặc định mỗi phiên' }).count(), 1, 'the session-size select has a name');
-    await page.keyboard.press('Tab');
+    const tabKey = engineLabel === 'webkit' ? 'Alt+Tab' : 'Tab';
+    await page.keyboard.press(tabKey);
     assert.equal(await page.evaluate(() => document.activeElement.id), 'language-setting', 'keyboard navigation reaches the interface-language selector first');
-    await page.keyboard.press('Tab');
+    await page.keyboard.press(tabKey);
     assert.equal(await page.evaluate(() => document.activeElement.id), 'theme-setting', 'keyboard navigation reaches the named theme selector');
-    await page.keyboard.press('Tab');
+    await page.keyboard.press(tabKey);
     assert.equal(await page.evaluate(() => document.activeElement.id), 'keys-setting', 'keyboard navigation reaches the named shortcut switch');
     const switchFocus = await page.locator('#keys-setting').evaluate(input => ({
       visible: input.matches(':focus-visible'),
@@ -2199,7 +2213,7 @@ async function main() {
       size: 10, timed: false, timerMinutes: 1
     };
     const freshWorld = async () => {
-      const ownBrowser = await chromium.launch({ executablePath, args, headless: true });
+      const { browser: ownBrowser } = await launchSelectedBrowser();
       const ownErrors = [];
       const ownContext = await ownBrowser.newContext();
       const openTab = async () => {
@@ -2830,7 +2844,7 @@ async function main() {
     await about.waitFor();
     const aboutText = await about.innerText();
     assert.match(aboutText, /Chuyên Anh/);
-    assert.match(aboutText, /v1\.0\.0-rc7/, 'the About panel shows the shipped version');
+    assert.match(aboutText, /v1\.0\.0-rc8/, 'the About panel shows the shipped version');
     assert.match(aboutText, /MIT License · © 2026 coderunknow/);
     assert.match(aboutText, /Flashcard từ vựng/);
     await about.locator('summary').click();
@@ -2891,7 +2905,7 @@ async function main() {
       assert.match(download.suggestedFilename(), /^chuyen-anh-diagnostics-\d{4}-\d\d-\d\d\.json$/);
       const report = JSON.parse(fs.readFileSync(await download.path(), 'utf8'));
       assert.equal(report.product, 'Chuyen-Anh');
-      assert.match(report.appVersion, /^v1\.0\.0-rc7$/);
+      assert.match(report.appVersion, /^v1\.0\.0-rc8$/);
       assert.equal(report.consent.enabled, true);
       assert.equal(report.eventCount, report.events.length);
       assert.equal(['mobile', 'tablet', 'desktop'].includes(report.environment.viewport), true, 'the viewport is bucketed, not exact');
@@ -2972,7 +2986,7 @@ async function main() {
     // this suite (and rc5's baseline) after ~9 minutes on a 2-CPU sandbox. Close
     // the finished process, launch a fresh one, then open the single rc5 page.
     await browser.close();
-    browser = await chromium.launch({ executablePath, args, headless: true });
+    browser = (await launchSelectedBrowser()).browser;
     const rc5 = await browser.newPage({ viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' });
     const rc5Errors = [];
     rc5.on('pageerror', error => rc5Errors.push(error.message));
@@ -3107,7 +3121,7 @@ async function main() {
 
 
     assert.deepEqual(errors, []);
-    console.log(`PASS: Chromium ${browser.version()} — first-look introduction for new words, same-part-of-speech distractors, cloze options absent from the sentence, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, 320/375/768px responsive layout, reduced-motion setting, search state across a favorite toggle, session clearing on reset/import, the ID 448 historical label, named option groups, shortcuts limited to the visible card, failed writes reported truthfully, JSON backup round-trips that keep every retained session, blank spelling submissions ignored, single-graded self-assessment, skip locked after a reveal, and 'Học cấp tốc' processing all ten requested words with a truthful single correction, automatic advance only after correct answers, accurate first-pass statistics, persisted progress, an immediate hand-off with the graded answer carried onto the next card, a queue that never shifts while another screen is open, and interface copy on a consolidation turn translated in the English interface; the beta5 priority configuration with all eight exercise types, a matching board driven from the keyboard, a skipped question reopened from the pending list, a hard word marked and unmarked, a real one-minute timed session that ends on its results with unanswered questions reported as blank, a v1 backup that keeps the device hard-word list, English rendering of every new screen, and the beta6 regressions: a priority session started from Settings opens where the learner can see it, a classic session reports only its own XP, a typed answer survives the star/flag toggles, a sprint honours the timer, a start that cannot run explains itself, a new session inherits no skipped questions, and the beta7 phrase bank: 780 phrases browsed, searched, filtered by type and level, practised for ten turns with typed and multiple-choice retrieval recorded in its own store while word progress stayed byte-identical, English rendering of the phrase screens, and a reset that clears phrase progress; the RC2 remediation regressions: two-tab grades surviving cross-tab writes with wipes never resurrected, an over-quota restore failing atomically with a truthful error then recovering fully once space is freed, the day streak moving only on first-pass correct answers — typed, chosen, self-assessed, and match resolutions alike — and skipped cards counted exactly once, at expiry and in a finished session; the curation release: an archived word marked in Tra cứu with no favourite toggle and a 1.271-row archived scope, every count driven by the 3.841-word focus deck, and an About panel stating the real version and the MIT licence read from LICENSE; the opt-in diagnostics log: off by default with no key on a device that never consented, a timestamped consent record, boot/settings/search events with no search text inside them, a downloaded report that names what it omits and carries no user agent, erasure on withdrawal; the rc7 answer-leakage regression: a gloss quoting its own headword is masked in the pre-answer prompt and printed in full only in feedback; no page errors.`);
+    console.log(`PASS: ${engineLabel} ${browser.version()} — first-look introduction for new words, same-part-of-speech distractors, cloze options absent from the sentence, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, 320/375/768px responsive layout, reduced-motion setting, search state across a favorite toggle, session clearing on reset/import, the ID 448 historical label, named option groups, shortcuts limited to the visible card, failed writes reported truthfully, JSON backup round-trips that keep every retained session, blank spelling submissions ignored, single-graded self-assessment, skip locked after a reveal, and 'Học cấp tốc' processing all ten requested words with a truthful single correction, automatic advance only after correct answers, accurate first-pass statistics, persisted progress, an immediate hand-off with the graded answer carried onto the next card, a queue that never shifts while another screen is open, and interface copy on a consolidation turn translated in the English interface; the beta5 priority configuration with all eight exercise types, a matching board driven from the keyboard, a skipped question reopened from the pending list, a hard word marked and unmarked, a real one-minute timed session that ends on its results with unanswered questions reported as blank, a v1 backup that keeps the device hard-word list, English rendering of every new screen, and the beta6 regressions: a priority session started from Settings opens where the learner can see it, a classic session reports only its own XP, a typed answer survives the star/flag toggles, a sprint honours the timer, a start that cannot run explains itself, a new session inherits no skipped questions, and the beta7 phrase bank: 780 phrases browsed, searched, filtered by type and level, practised for ten turns with typed and multiple-choice retrieval recorded in its own store while word progress stayed byte-identical, English rendering of the phrase screens, and a reset that clears phrase progress; the RC2 remediation regressions: two-tab grades surviving cross-tab writes with wipes never resurrected, an over-quota restore failing atomically with a truthful error then recovering fully once space is freed, the day streak moving only on first-pass correct answers — typed, chosen, self-assessed, and match resolutions alike — and skipped cards counted exactly once, at expiry and in a finished session; the curation release: an archived word marked in Tra cứu with no favourite toggle and a 1.271-row archived scope, every count driven by the 3.841-word focus deck, and an About panel stating the real version and the MIT licence read from LICENSE; the opt-in diagnostics log: off by default with no key on a device that never consented, a timestamped consent record, boot/settings/search events with no search text inside them, a downloaded report that names what it omits and carries no user agent, erasure on withdrawal; the rc7 answer-leakage regression: a gloss quoting its own headword is masked in the pre-answer prompt and printed in full only in feedback; no page errors.`);
   } finally {
     if (browser) await browser.close();
     await new Promise(resolve => server.close(resolve));

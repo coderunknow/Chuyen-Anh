@@ -148,11 +148,44 @@ function buildStoredPayload(body) {
   };
 }
 
+const MIN_SALT_LENGTH = 16;
+const FORBIDDEN_SALTS = new Set([
+  'chuyen-anh-telemetry',
+  'changeme',
+  'default',
+  'secret',
+  'telemetry-salt',
+  'test-salt'
+]);
+
+function validIpSalt() {
+  const salt = String(process.env.TELEMETRY_IP_SALT || '').trim();
+  if (salt.length < MIN_SALT_LENGTH) return null;
+  if (FORBIDDEN_SALTS.has(salt.toLowerCase())) return null;
+  return salt;
+}
+
+function extractClientIp(req) {
+  // Prefer platform-overwrite headers that clients cannot spoof on Vercel/reverse proxies.
+  const vercelFwd = String(req.headers['x-vercel-forwarded-for'] || '').split(',')[0].trim();
+  if (vercelFwd) return vercelFwd;
+  const realIp = String(req.headers['x-real-ip'] || '').trim();
+  if (realIp) return realIp;
+  // Standard reverse proxies append the connecting peer to the end of X-Forwarded-For;
+  // reading index 0 trusts client-injected prefixes when no edge header stripped them.
+  const xffParts = String(req.headers['x-forwarded-for'] || '')
+    .split(',')
+    .map((part) => part.trim())
+    .filter(Boolean);
+  if (xffParts.length) return xffParts[xffParts.length - 1];
+  return String(req.socket?.remoteAddress || '').trim();
+}
+
 function clientKey(req) {
-  const forwarded = String(req.headers['x-forwarded-for'] || '').split(',')[0].trim();
-  const address = forwarded || String(req.headers['x-real-ip'] || '').trim();
+  const salt = validIpSalt();
+  if (!salt) return null;
+  const address = extractClientIp(req);
   if (!address) return null;
-  const salt = String(process.env.TELEMETRY_IP_SALT || 'chuyen-anh-telemetry');
   // A truncated HMAC is enough to separate clients inside one ten-minute
   // window. It is not a device identifier: it changes when the salt changes and
   // it never leaves the rate-limit table.
@@ -219,7 +252,7 @@ async function measureBody(req) {
 async function callIngest(payload, key) {
   const base = String(process.env.SUPABASE_URL || '').replace(/\/$/, '');
   const secret = String(process.env.SUPABASE_SECRET_KEY || '');
-  if (!base || !secret) return { status: 'unconfigured' };
+  if (!base || !secret || !validIpSalt()) return { status: 'unconfigured' };
   const controller = new AbortController();
   const timer = setTimeout(function () { controller.abort(); }, UPSTREAM_TIMEOUT_MS);
   try {

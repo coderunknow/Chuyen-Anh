@@ -135,6 +135,18 @@ class TelemetryWiringTest(unittest.TestCase):
         self.assertIn("!app.js", ignore)
         self.assertIn("!api/telemetry.js", ignore)
 
+    def test_rc8_no_weak_fallback_salt_and_hardening_migration_present(self) -> None:
+        self.assertNotIn("|| 'chuyen-anh-telemetry'", self.api,
+                         "weak default IP salt fallback must never reappear")
+        self.assertIn("MIN_SALT_LENGTH = 16", self.api)
+        self.assertIn("x-vercel-forwarded-for", self.api)
+        hardening = ROOT / "supabase" / "migrations" / "20261031_telemetry_hardening.sql"
+        self.assertTrue(hardening.exists())
+        h_sql = hardening.read_text(encoding="utf-8")
+        self.assertIn("set search_path = telemetry, public, pg_temp", h_sql)
+        self.assertIn("client:missing", h_sql)
+        self.assertIn("invalid-client-key", h_sql)
+
 
 if __name__ == "__main__":
     unittest.main()

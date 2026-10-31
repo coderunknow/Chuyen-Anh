@@ -6,7 +6,7 @@ All 106 stored transcription bodies rendered through the shipped Markdown render
 | --- | ---: |
 | records | 106 |
 | rendered | 106 |
-| questions | 6457 |
+| questions | 6804 |
 | headings | 959 |
 | tables | 1151 |
 | codeBlocks | 558 |

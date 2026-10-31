@@ -18,7 +18,7 @@ const root = path.resolve(__dirname, '..');
 const handler = require(path.join(root, 'api', 'telemetry.js'));
 
 const APP_ORIGIN = 'https://coderunknow.github.io';
-const VALID_VERSION = 'v1.0.0-rc7';
+const VALID_VERSION = 'v1.0.0-rc8';
 
 function response() {
   const headers = {};
@@ -114,7 +114,7 @@ async function invokeStreaming(request, upstream = { status: 'ok', id: 'row-1' }
 
 process.env.SUPABASE_URL = 'https://example.supabase.co';
 process.env.SUPABASE_SECRET_KEY = 'test-key-not-a-real-secret';
-process.env.TELEMETRY_IP_SALT = 'test-salt';
+process.env.TELEMETRY_IP_SALT = 'rc8-test-telemetry-salt-2026-strong';
 
 test('preflight answers 204 and echoes only the published origin', async () => {
   const res = response();
@@ -269,16 +269,42 @@ test('upstream outcomes map to documented status codes', async () => {
   assert.equal(http.res.statusCode, 503);
 });
 
-test('an unconfigured deployment refuses to accept reports', async () => {
-  const saved = process.env.SUPABASE_SECRET_KEY;
+test('an unconfigured deployment or missing/weak TELEMETRY_IP_SALT fails closed with 503', async () => {
+  const savedKey = process.env.SUPABASE_SECRET_KEY;
   delete process.env.SUPABASE_SECRET_KEY;
   try {
     const { res, calls } = await invoke(request('POST', payload()));
     assert.equal(res.statusCode, 503);
     assert.equal(calls.length, 0, 'no upstream call without credentials');
   } finally {
-    process.env.SUPABASE_SECRET_KEY = saved;
+    process.env.SUPABASE_SECRET_KEY = savedKey;
   }
+
+  const savedSalt = process.env.TELEMETRY_IP_SALT;
+  for (const badSalt of ['', 'short', 'chuyen-anh-telemetry', 'changeme']) {
+    process.env.TELEMETRY_IP_SALT = badSalt;
+    const { res, calls } = await invoke(request('POST', payload()));
+    assert.equal(res.statusCode, 503, `weak/missing salt "${badSalt}" must fail closed`);
+    assert.equal(calls.length, 0, 'no upstream call when salt is missing or weak');
+  }
+  process.env.TELEMETRY_IP_SALT = savedSalt;
+});
+
+test('proxy IP extraction prefers x-vercel-forwarded-for and rightmost XFF over spoofed leftmost XFF', async () => {
+  const spoofedA = await invoke(request('POST', payload(), {
+    headers: { 'x-forwarded-for': '198.51.100.1, 203.0.113.7' }
+  }));
+  const spoofedB = await invoke(request('POST', payload(), {
+    headers: { 'x-forwarded-for': '198.51.100.2, 203.0.113.7' }
+  }));
+  assert.equal(spoofedA.calls[0].body.client_key, spoofedB.calls[0].body.client_key,
+    'changing a spoofed leftmost XFF prefix cannot rotate the rate-limit bucket');
+
+  const vercelEdge = await invoke(request('POST', payload(), {
+    headers: { 'x-vercel-forwarded-for': '192.0.2.44', 'x-forwarded-for': '198.51.100.99' }
+  }));
+  assert.notEqual(vercelEdge.calls[0].body.client_key, spoofedA.calls[0].body.client_key,
+    'platform x-vercel-forwarded-for takes precedence over generic x-forwarded-for');
 });
 
 test('service errors never describe how the deployment is wired', async () => {

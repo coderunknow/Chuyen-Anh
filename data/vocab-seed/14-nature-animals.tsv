@@ -268,7 +268,7 @@ density	n	mật độ	B2	science	topic	reading
 molecule	n	phân tử	B2	science	topic	reading
 atom	n	nguyên tử	B1	science	topic	reading
 electron	n	điện tử	C1	science	topic	reading
-proton	n	proton	C1	science	topic	reading
+proton	n	hạt mang điện tích dương trong hạt nhân nguyên tử	C1	science	topic	reading
 neutron	n	nơtron	C1	science	topic	reading
 isotope	n	đồng vị	C1	science	topic	reading
 enzyme	n	enzym	C1	science	topic	reading

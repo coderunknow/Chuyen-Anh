@@ -1,34 +1,53 @@
 {
   "schemaVersion": 1,
-  "scoringRuleVersion": "rc6-equal-weight-v1",
+  "scoringRuleVersion": "rc8-universal-scoring-v1",
   "totals": {
     "papers": 106,
-    "questions": 6457,
+    "questions": 6804,
+    "scoredQuestions": 6804,
+    "scoringCoveragePct": 100,
     "byStatus": {
-      "missing_answer": 3216,
-      "ambiguous_review": 1472,
-      "source_transcription_unverified": 1769
+      "inferred_unverified": 2593,
+      "source_transcription_unverified": 4032,
+      "independently_cross_checked": 179
+    },
+    "bySourceStatus": {
+      "reasoned_inference": 1741,
+      "incomplete_stimulus": 486,
+      "reconstructed": 1070,
+      "ambiguous_source": 21,
+      "single_source_transcription": 3431,
+      "independently_cross_checked": 55
+    },
+    "byConfidence": {
+      "HIGH": 55,
+      "MEDIUM": 3119,
+      "LOW": 3144,
+      "VERY_LOW": 486
     },
     "byResponseType": {
-      "choice": 3639,
-      "text": 2569,
-      "true-false": 12,
-      "essay": 191,
-      "multiple": 46
+      "choice": 3995,
+      "text": 2544,
+      "true-false": 14,
+      "essay": 216,
+      "multiple": 35
     },
-    "gradable": 1269,
-    "provisional": 1269,
-    "listeningUnscorable": 718,
-    "writingUnscorable": 191,
-    "htmlOcrReadOnly": 22,
-    "missing": 3216,
-    "ambiguous": 1472
+    "gradable": 6804,
+    "provisional": 6804,
+    "listeningItems": 771,
+    "listeningTranscriptFallback": 288,
+    "listeningIncompleteStimulus": 483,
+    "writingRubricScored": 216,
+    "htmlOcrPapersInteractive": 22,
+    "missingFigurePapers": 3,
+    "missing": 0,
+    "ambiguous": 21
   },
   "limits": [
-    "No answer is upgraded to official_verified by extraction.",
-    "Listening items without audio and unrestricted writing are not automatically gradable.",
-    "HTML/OCR records remain read-only for practice.",
-    "Question counts are extracted items, not a claim of complete official-paper coverage."
+    "Zero items are labeled official_verified without an official primary ministry/department source.",
+    "100% of extracted questions across all 106 papers (including HTML/OCR, listening, missing-figure, and essay/speaking items) carry an active scoring path in the full-paper denominator with explicit sourceStatus and confidence (HIGH / MEDIUM / LOW / VERY_LOW).",
+    "Listening items without bundled MP3 use source transcript fallback (LOW confidence) when a transcript exists, or incomplete_stimulus (VERY_LOW confidence) otherwise.",
+    "Open-ended writing and speaking items are scored provisionally via a 4-criterion analytical rubric (Task 30%, Coherence 25%, Lexis 25%, Grammar 20%) and never claim human-examiner equivalence."
   ],
   "papers": [
     {
@@ -38,7 +57,9 @@
       "quality": "PDF-text",
       "contentSha256": "fd7d277c249a88cd1e261531d423f1a85b8d5bba07ac453567a565e22dfb5858",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 55,
+      "scoredCount": 55,
       "responseTypes": {
         "choice": 40,
         "multiple": 0,
@@ -47,7 +68,17 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 55
+        "inferred_unverified": 55
+      },
+      "sourceStatuses": {
+        "reasoned_inference": 50,
+        "incomplete_stimulus": 5
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 1,
+        "LOW": 49,
+        "VERY_LOW": 5
       },
       "listeningItems": 5,
       "writingItems": 0
@@ -59,7 +90,9 @@
       "quality": "PDF-text",
       "contentSha256": "cd8e2bc46110e539a5a2f131bb23ad2b7ccb7e3358e89dba620a35efb1830889",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 48,
+      "scoredCount": 48,
       "responseTypes": {
         "choice": 32,
         "multiple": 0,
@@ -68,7 +101,16 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 48
+        "inferred_unverified": 48
+      },
+      "sourceStatuses": {
+        "reasoned_inference": 48
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 3,
+        "LOW": 45,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -80,7 +122,9 @@
       "quality": "PDF-text",
       "contentSha256": "dcfd359ea1e49f1124c4700a6b64a6d8e6e303fa76ae806cc29102e7722f6620",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 91,
+      "scoredCount": 91,
       "responseTypes": {
         "choice": 44,
         "multiple": 0,
@@ -89,7 +133,16 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 91
+        "inferred_unverified": 91
+      },
+      "sourceStatuses": {
+        "reasoned_inference": 91
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 11,
+        "LOW": 80,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -100,8 +153,10 @@
       "province": "Bắc Ninh",
       "quality": "HTML/OCR-cần-soát",
       "contentSha256": "58464aabbf0abd9b69c7384b5a3ea05a88c2fb1b6ad02832543d20c79b9a063f",
-      "practiceReadOnly": true,
+      "practiceReadOnly": false,
+      "ocrCaution": true,
       "questionCount": 35,
+      "scoredCount": 35,
       "responseTypes": {
         "choice": 30,
         "multiple": 0,
@@ -110,8 +165,18 @@
         "essay": 0
       },
       "keyStatuses": {
-        "ambiguous_review": 25,
-        "missing_answer": 10
+        "source_transcription_unverified": 20,
+        "inferred_unverified": 15
+      },
+      "sourceStatuses": {
+        "reconstructed": 30,
+        "incomplete_stimulus": 5
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 0,
+        "LOW": 30,
+        "VERY_LOW": 5
       },
       "listeningItems": 5,
       "writingItems": 0
@@ -122,17 +187,29 @@
       "province": "Bình Dương",
       "quality": "HTML/OCR-cần-soát",
       "contentSha256": "3817827d65aadd37b7a6e5a091883899324c30bcbb1ffd9208a6ff74e70a691e",
-      "practiceReadOnly": true,
-      "questionCount": 92,
+      "practiceReadOnly": false,
+      "ocrCaution": true,
+      "questionCount": 94,
+      "scoredCount": 94,
       "responseTypes": {
-        "choice": 47,
+        "choice": 53,
         "multiple": 0,
         "true-false": 1,
-        "text": 44,
+        "text": 40,
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 92
+        "inferred_unverified": 94
+      },
+      "sourceStatuses": {
+        "incomplete_stimulus": 4,
+        "reconstructed": 90
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 0,
+        "LOW": 90,
+        "VERY_LOW": 4
       },
       "listeningItems": 4,
       "writingItems": 0
@@ -143,18 +220,31 @@
       "province": "Bình Phước",
       "quality": "HTML/OCR-cần-soát",
       "contentSha256": "d601e07a24931e54692de0e9707217475da19b474cbf466e3fd3a45956cab026",
-      "practiceReadOnly": true,
-      "questionCount": 65,
+      "practiceReadOnly": false,
+      "ocrCaution": true,
+      "questionCount": 66,
+      "scoredCount": 66,
       "responseTypes": {
-        "choice": 34,
+        "choice": 35,
         "multiple": 0,
         "true-false": 0,
         "text": 30,
         "essay": 1
       },
       "keyStatuses": {
-        "ambiguous_review": 6,
-        "source_transcription_unverified": 59
+        "inferred_unverified": 5,
+        "source_transcription_unverified": 61
+      },
+      "sourceStatuses": {
+        "reconstructed": 58,
+        "ambiguous_source": 3,
+        "incomplete_stimulus": 5
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 0,
+        "LOW": 61,
+        "VERY_LOW": 5
       },
       "listeningItems": 5,
       "writingItems": 1
@@ -165,17 +255,28 @@
       "province": "Bình Thuận",
       "quality": "HTML/OCR-cần-soát",
       "contentSha256": "9478da3c4ae360621e113d6e01f6f6b17a6659958901e926920487d8973415d7",
-      "practiceReadOnly": true,
-      "questionCount": 51,
+      "practiceReadOnly": false,
+      "ocrCaution": true,
+      "questionCount": 54,
+      "scoredCount": 54,
       "responseTypes": {
-        "choice": 31,
+        "choice": 33,
         "multiple": 0,
         "true-false": 0,
-        "text": 20,
+        "text": 21,
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 51
+        "inferred_unverified": 54
+      },
+      "sourceStatuses": {
+        "reconstructed": 54
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 0,
+        "LOW": 54,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -187,7 +288,9 @@
       "quality": "PDF-text",
       "contentSha256": "b8c3239d8d61e8bff844ff8b0139440a660066aa0a8a6fe722d0190b385e61fe",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 55,
+      "scoredCount": 55,
       "responseTypes": {
         "choice": 44,
         "multiple": 0,
@@ -196,7 +299,16 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 55
+        "inferred_unverified": 55
+      },
+      "sourceStatuses": {
+        "reasoned_inference": 55
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 3,
+        "LOW": 52,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -208,7 +320,9 @@
       "quality": "PDF-text",
       "contentSha256": "59e3a91b7d1bf5591d1f298edb74d2ff5932e65dfc86ad855f8eb3d1788a1a1b",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 65,
+      "scoredCount": 65,
       "responseTypes": {
         "choice": 55,
         "multiple": 0,
@@ -217,7 +331,16 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 65
+        "inferred_unverified": 65
+      },
+      "sourceStatuses": {
+        "reasoned_inference": 65
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 3,
+        "LOW": 62,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -228,17 +351,29 @@
       "province": "Đồng Nai",
       "quality": "HTML/OCR-cần-soát",
       "contentSha256": "6e028c1eb149c51c5a66465f627b603f7746c5a60c93c71a287ad0a51e30ccbe",
-      "practiceReadOnly": true,
-      "questionCount": 66,
+      "practiceReadOnly": false,
+      "ocrCaution": true,
+      "questionCount": 68,
+      "scoredCount": 68,
       "responseTypes": {
-        "choice": 25,
+        "choice": 27,
         "multiple": 0,
         "true-false": 0,
         "text": 21,
         "essay": 20
       },
       "keyStatuses": {
-        "missing_answer": 66
+        "inferred_unverified": 48,
+        "source_transcription_unverified": 20
+      },
+      "sourceStatuses": {
+        "reconstructed": 68
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 0,
+        "LOW": 68,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 20
@@ -249,19 +384,32 @@
       "province": "Đồng Tháp",
       "quality": "HTML/OCR-cần-soát",
       "contentSha256": "b1ceacd96dd92333af26bf40734852c8e63d5756768518fd8eab75f836ce54ad",
-      "practiceReadOnly": true,
-      "questionCount": 77,
+      "practiceReadOnly": false,
+      "ocrCaution": true,
+      "questionCount": 37,
+      "scoredCount": 37,
       "responseTypes": {
-        "choice": 46,
+        "choice": 19,
         "multiple": 0,
         "true-false": 0,
-        "text": 31,
+        "text": 18,
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 77
+        "source_transcription_unverified": 36,
+        "inferred_unverified": 1
       },
-      "listeningItems": 33,
+      "sourceStatuses": {
+        "incomplete_stimulus": 19,
+        "reconstructed": 18
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 0,
+        "LOW": 18,
+        "VERY_LOW": 19
+      },
+      "listeningItems": 19,
       "writingItems": 0
     },
     {
@@ -271,7 +419,9 @@
       "quality": "PDF-text",
       "contentSha256": "c4777692c7390299697b33f5db5fb58cf0153bca6109334476ebe18c30c5df36",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 77,
+      "scoredCount": 77,
       "responseTypes": {
         "choice": 47,
         "multiple": 0,
@@ -280,7 +430,17 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 77
+        "inferred_unverified": 77
+      },
+      "sourceStatuses": {
+        "incomplete_stimulus": 2,
+        "reasoned_inference": 75
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 10,
+        "LOW": 65,
+        "VERY_LOW": 2
       },
       "listeningItems": 2,
       "writingItems": 0
@@ -292,7 +452,9 @@
       "quality": "PDF-text",
       "contentSha256": "c5c71b100f3fc354d2bcde5746b135d1d6f7905510824b64e9a9f5f8ea7c6253",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 58,
+      "scoredCount": 58,
       "responseTypes": {
         "choice": 40,
         "multiple": 0,
@@ -301,7 +463,18 @@
         "essay": 5
       },
       "keyStatuses": {
-        "missing_answer": 58
+        "inferred_unverified": 53,
+        "source_transcription_unverified": 5
+      },
+      "sourceStatuses": {
+        "reasoned_inference": 53,
+        "single_source_transcription": 5
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 5,
+        "LOW": 53,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 5
@@ -313,20 +486,32 @@
       "quality": "PDF-text",
       "contentSha256": "926cadba5677a7653f2d805f0eb6527ff2e015a9ad90e9cf6691289f3c7af447",
       "practiceReadOnly": false,
-      "questionCount": 19,
+      "ocrCaution": false,
+      "questionCount": 80,
+      "scoredCount": 80,
       "responseTypes": {
-        "choice": 1,
+        "choice": 30,
         "multiple": 0,
         "true-false": 0,
-        "text": 18,
+        "text": 50,
         "essay": 0
       },
       "keyStatuses": {
-        "ambiguous_review": 10,
-        "source_transcription_unverified": 5,
-        "missing_answer": 4
+        "source_transcription_unverified": 31,
+        "inferred_unverified": 49
       },
-      "listeningItems": 0,
+      "sourceStatuses": {
+        "incomplete_stimulus": 8,
+        "reasoned_inference": 48,
+        "single_source_transcription": 24
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 25,
+        "LOW": 47,
+        "VERY_LOW": 8
+      },
+      "listeningItems": 7,
       "writingItems": 0
     },
     {
@@ -335,19 +520,32 @@
       "province": "Hải Dương",
       "quality": "HTML/OCR-cần-soát",
       "contentSha256": "6159c1636a45240641acebabe98291c4de47764e623062798f2598e451ca162d",
-      "practiceReadOnly": true,
-      "questionCount": 120,
+      "practiceReadOnly": false,
+      "ocrCaution": true,
+      "questionCount": 47,
+      "scoredCount": 47,
       "responseTypes": {
-        "choice": 31,
+        "choice": 30,
         "multiple": 0,
         "true-false": 0,
-        "text": 89,
+        "text": 17,
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 120
+        "inferred_unverified": 3,
+        "source_transcription_unverified": 44
       },
-      "listeningItems": 33,
+      "sourceStatuses": {
+        "incomplete_stimulus": 34,
+        "reconstructed": 13
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 0,
+        "LOW": 13,
+        "VERY_LOW": 34
+      },
+      "listeningItems": 34,
       "writingItems": 0
     },
     {
@@ -357,7 +555,9 @@
       "quality": "PDF-text",
       "contentSha256": "0ae2b3955a102ff60489e5902e559cff811f4a25961e70855f1b78ec792caea9",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 124,
+      "scoredCount": 124,
       "responseTypes": {
         "choice": 60,
         "multiple": 0,
@@ -366,7 +566,17 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 124
+        "inferred_unverified": 124
+      },
+      "sourceStatuses": {
+        "reasoned_inference": 115,
+        "incomplete_stimulus": 9
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 8,
+        "LOW": 107,
+        "VERY_LOW": 9
       },
       "listeningItems": 9,
       "writingItems": 0
@@ -377,17 +587,28 @@
       "province": "Hòa Bình",
       "quality": "HTML/OCR-cần-soát",
       "contentSha256": "42377971e5cfa6bb931a4730d22e84989bc056fa2b22e9d6d39f14f7427da4e4",
-      "practiceReadOnly": true,
-      "questionCount": 79,
+      "practiceReadOnly": false,
+      "ocrCaution": true,
+      "questionCount": 82,
+      "scoredCount": 82,
       "responseTypes": {
-        "choice": 32,
+        "choice": 36,
         "multiple": 0,
         "true-false": 0,
-        "text": 47,
+        "text": 46,
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 79
+        "inferred_unverified": 82
+      },
+      "sourceStatuses": {
+        "reconstructed": 82
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 0,
+        "LOW": 82,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -398,17 +619,30 @@
       "province": "Long An",
       "quality": "HTML/OCR-cần-soát",
       "contentSha256": "e042a1df2dec8aeba07b0b2c13391eb87e115de9bf297aa1348fe1b1d8b1c8a3",
-      "practiceReadOnly": true,
-      "questionCount": 42,
+      "practiceReadOnly": false,
+      "ocrCaution": true,
+      "questionCount": 40,
+      "scoredCount": 40,
       "responseTypes": {
         "choice": 26,
         "multiple": 0,
         "true-false": 0,
-        "text": 11,
+        "text": 9,
         "essay": 5
       },
       "keyStatuses": {
-        "missing_answer": 42
+        "inferred_unverified": 35,
+        "source_transcription_unverified": 5
+      },
+      "sourceStatuses": {
+        "incomplete_stimulus": 5,
+        "reconstructed": 35
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 0,
+        "LOW": 35,
+        "VERY_LOW": 5
       },
       "listeningItems": 5,
       "writingItems": 5
@@ -420,7 +654,9 @@
       "quality": "PDF-text",
       "contentSha256": "1f52ec581ba6c7d6c81a911ec5dce56fbe50b009292bdb63811c305d9e29b88b",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 50,
+      "scoredCount": 50,
       "responseTypes": {
         "choice": 40,
         "multiple": 0,
@@ -429,8 +665,19 @@
         "essay": 0
       },
       "keyStatuses": {
-        "source_transcription_unverified": 18,
-        "missing_answer": 32
+        "source_transcription_unverified": 49,
+        "inferred_unverified": 1
+      },
+      "sourceStatuses": {
+        "incomplete_stimulus": 25,
+        "single_source_transcription": 24,
+        "ambiguous_source": 1
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 24,
+        "LOW": 1,
+        "VERY_LOW": 25
       },
       "listeningItems": 25,
       "writingItems": 0
@@ -442,7 +689,9 @@
       "quality": "PDF-text",
       "contentSha256": "278eabb1f4ad0618782be3da52096ed0ad512127b9e2e0eacee199b0d1091ec0",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 55,
+      "scoredCount": 55,
       "responseTypes": {
         "choice": 20,
         "multiple": 0,
@@ -451,7 +700,16 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 55
+        "inferred_unverified": 55
+      },
+      "sourceStatuses": {
+        "reasoned_inference": 55
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 1,
+        "LOW": 54,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -463,7 +721,9 @@
       "quality": "PDF-text",
       "contentSha256": "8282249a2583cc3be0735b6e48c4366867bd945480534a4c3e2ad5b025f9062c",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 75,
+      "scoredCount": 75,
       "responseTypes": {
         "choice": 65,
         "multiple": 0,
@@ -472,8 +732,19 @@
         "essay": 0
       },
       "keyStatuses": {
-        "source_transcription_unverified": 21,
-        "missing_answer": 54
+        "source_transcription_unverified": 72,
+        "inferred_unverified": 3
+      },
+      "sourceStatuses": {
+        "incomplete_stimulus": 5,
+        "single_source_transcription": 67,
+        "reasoned_inference": 3
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 67,
+        "LOW": 3,
+        "VERY_LOW": 5
       },
       "listeningItems": 5,
       "writingItems": 0
@@ -484,8 +755,10 @@
       "province": "Quảng Ngãi",
       "quality": "HTML/OCR-cần-soát",
       "contentSha256": "8d3b1b8bede01db62ce0244c0e4c2f8cf3f77f46f93cec20a2825b4573868322",
-      "practiceReadOnly": true,
+      "practiceReadOnly": false,
+      "ocrCaution": true,
       "questionCount": 30,
+      "scoredCount": 30,
       "responseTypes": {
         "choice": 18,
         "multiple": 0,
@@ -494,9 +767,18 @@
         "essay": 0
       },
       "keyStatuses": {
-        "ambiguous_review": 3,
-        "missing_answer": 23,
-        "source_transcription_unverified": 4
+        "inferred_unverified": 24,
+        "source_transcription_unverified": 6
+      },
+      "sourceStatuses": {
+        "incomplete_stimulus": 18,
+        "reconstructed": 12
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 0,
+        "LOW": 12,
+        "VERY_LOW": 18
       },
       "listeningItems": 18,
       "writingItems": 0
@@ -508,7 +790,9 @@
       "quality": "PDF-text",
       "contentSha256": "bbc1b13d80084f927eef7595519bff26a4d0e2916e506105ddb426d929fd5175",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 63,
+      "scoredCount": 63,
       "responseTypes": {
         "choice": 39,
         "multiple": 0,
@@ -517,7 +801,17 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 63
+        "inferred_unverified": 63
+      },
+      "sourceStatuses": {
+        "incomplete_stimulus": 5,
+        "reasoned_inference": 58
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 3,
+        "LOW": 55,
+        "VERY_LOW": 5
       },
       "listeningItems": 5,
       "writingItems": 0
@@ -528,17 +822,28 @@
       "province": "Sóc Trăng",
       "quality": "HTML/OCR-cần-soát",
       "contentSha256": "ac5cacd002be7887d083313edee29e39cee43870d06707350d6435e22551ba64",
-      "practiceReadOnly": true,
-      "questionCount": 24,
+      "practiceReadOnly": false,
+      "ocrCaution": true,
+      "questionCount": 25,
+      "scoredCount": 25,
       "responseTypes": {
-        "choice": 10,
+        "choice": 11,
         "multiple": 0,
         "true-false": 0,
         "text": 14,
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 24
+        "inferred_unverified": 25
+      },
+      "sourceStatuses": {
+        "reconstructed": 25
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 0,
+        "LOW": 25,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -550,7 +855,9 @@
       "quality": "PDF-text",
       "contentSha256": "ea1f4ed22bb30d57181630801da96a3e6a3f3ff4ba529ffd6262c0fc8a04b011",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 45,
+      "scoredCount": 45,
       "responseTypes": {
         "choice": 27,
         "multiple": 0,
@@ -559,7 +866,16 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 45
+        "inferred_unverified": 45
+      },
+      "sourceStatuses": {
+        "reasoned_inference": 45
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 3,
+        "LOW": 42,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -571,7 +887,9 @@
       "quality": "PDF-text",
       "contentSha256": "bb7f7e23f629a6a547446138b8913d9cc47046211fc492605f65c360a209ba37",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 87,
+      "scoredCount": 87,
       "responseTypes": {
         "choice": 70,
         "multiple": 0,
@@ -580,9 +898,18 @@
         "essay": 0
       },
       "keyStatuses": {
-        "source_transcription_unverified": 16,
-        "ambiguous_review": 7,
-        "missing_answer": 64
+        "source_transcription_unverified": 82,
+        "inferred_unverified": 5
+      },
+      "sourceStatuses": {
+        "single_source_transcription": 82,
+        "reasoned_inference": 5
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 83,
+        "LOW": 4,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -593,8 +920,10 @@
       "province": "Tiền Giang",
       "quality": "HTML/OCR-cần-soát",
       "contentSha256": "dae642e81400214490bbbbd07ea7569d3bbe9e22cb74fd686d2d0273b2caeca6",
-      "practiceReadOnly": true,
+      "practiceReadOnly": false,
+      "ocrCaution": true,
       "questionCount": 38,
+      "scoredCount": 38,
       "responseTypes": {
         "choice": 16,
         "multiple": 0,
@@ -603,7 +932,18 @@
         "essay": 1
       },
       "keyStatuses": {
-        "missing_answer": 38
+        "inferred_unverified": 37,
+        "source_transcription_unverified": 1
+      },
+      "sourceStatuses": {
+        "reconstructed": 37,
+        "incomplete_stimulus": 1
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 0,
+        "LOW": 37,
+        "VERY_LOW": 1
       },
       "listeningItems": 0,
       "writingItems": 1
@@ -614,17 +954,28 @@
       "province": "TP. Hồ Chí Minh",
       "quality": "HTML/OCR-cần-soát",
       "contentSha256": "55b3b7cbc55e6fb2b8221db3b65272e3ec0dd90a3b9905a6c207bf6eaa1eda00",
-      "practiceReadOnly": true,
-      "questionCount": 46,
+      "practiceReadOnly": false,
+      "ocrCaution": true,
+      "questionCount": 56,
+      "scoredCount": 56,
       "responseTypes": {
-        "choice": 21,
+        "choice": 31,
         "multiple": 0,
         "true-false": 0,
         "text": 25,
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 46
+        "inferred_unverified": 56
+      },
+      "sourceStatuses": {
+        "reconstructed": 56
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 0,
+        "LOW": 56,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -635,8 +986,10 @@
       "province": "Vĩnh Phúc",
       "quality": "HTML/OCR-cần-soát",
       "contentSha256": "90796644c7b2827a8f9a18b761bfdbf5661aa96da161d6b81dfce3ea96b180ca",
-      "practiceReadOnly": true,
+      "practiceReadOnly": false,
+      "ocrCaution": true,
       "questionCount": 80,
+      "scoredCount": 80,
       "responseTypes": {
         "choice": 45,
         "multiple": 0,
@@ -645,7 +998,17 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 80
+        "inferred_unverified": 80
+      },
+      "sourceStatuses": {
+        "reconstructed": 55,
+        "incomplete_stimulus": 25
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 0,
+        "LOW": 55,
+        "VERY_LOW": 25
       },
       "listeningItems": 25,
       "writingItems": 0
@@ -657,7 +1020,9 @@
       "quality": "PDF-text",
       "contentSha256": "d1741cbc5190340fdacf167c0f704c7136c8fe072cda3c17b0e93fc0bdb8227d",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 40,
+      "scoredCount": 40,
       "responseTypes": {
         "choice": 35,
         "multiple": 0,
@@ -666,8 +1031,17 @@
         "essay": 0
       },
       "keyStatuses": {
-        "source_transcription_unverified": 28,
-        "ambiguous_review": 12
+        "source_transcription_unverified": 40
+      },
+      "sourceStatuses": {
+        "incomplete_stimulus": 5,
+        "single_source_transcription": 35
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 35,
+        "LOW": 0,
+        "VERY_LOW": 5
       },
       "listeningItems": 5,
       "writingItems": 0
@@ -679,7 +1053,9 @@
       "quality": "PDF-text",
       "contentSha256": "8a1fe437ec84bde2b8a2dc0e98aefa5caf57e91c67278c51af59ed67c203a170",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 85,
+      "scoredCount": 85,
       "responseTypes": {
         "choice": 51,
         "multiple": 0,
@@ -688,7 +1064,17 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 85
+        "inferred_unverified": 85
+      },
+      "sourceStatuses": {
+        "incomplete_stimulus": 12,
+        "reasoned_inference": 73
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 3,
+        "LOW": 70,
+        "VERY_LOW": 12
       },
       "listeningItems": 12,
       "writingItems": 0
@@ -699,8 +1085,10 @@
       "province": "Bình Dương",
       "quality": "HTML/OCR-cần-soát",
       "contentSha256": "69f1dbbd26dd354c9a44816d5b95b03b38efcc94d594e90ad646bb56ba8b4651",
-      "practiceReadOnly": true,
+      "practiceReadOnly": false,
+      "ocrCaution": true,
       "questionCount": 97,
+      "scoredCount": 97,
       "responseTypes": {
         "choice": 77,
         "multiple": 0,
@@ -709,7 +1097,18 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 97
+        "source_transcription_unverified": 92,
+        "inferred_unverified": 5
+      },
+      "sourceStatuses": {
+        "incomplete_stimulus": 10,
+        "reconstructed": 87
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 0,
+        "LOW": 87,
+        "VERY_LOW": 10
       },
       "listeningItems": 10,
       "writingItems": 0
@@ -721,17 +1120,29 @@
       "quality": "PDF-text",
       "contentSha256": "e92f5b0212142eaa72819f815655686390834205110658645c3883ac30dfde68",
       "practiceReadOnly": false,
-      "questionCount": 65,
+      "ocrCaution": false,
+      "questionCount": 66,
+      "scoredCount": 66,
       "responseTypes": {
-        "choice": 55,
+        "choice": 56,
         "multiple": 0,
         "true-false": 0,
         "text": 10,
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 64,
-        "source_transcription_unverified": 1
+        "source_transcription_unverified": 56,
+        "inferred_unverified": 10
+      },
+      "sourceStatuses": {
+        "single_source_transcription": 56,
+        "reasoned_inference": 10
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 56,
+        "LOW": 10,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -743,7 +1154,9 @@
       "quality": "PDF-text",
       "contentSha256": "6a38fc05b22f6e2f240f87bcb305cc8331032e55764e388610b4c04cf1a0d1fb",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 51,
+      "scoredCount": 51,
       "responseTypes": {
         "choice": 31,
         "multiple": 0,
@@ -752,7 +1165,16 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 51
+        "inferred_unverified": 51
+      },
+      "sourceStatuses": {
+        "reasoned_inference": 51
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 4,
+        "LOW": 47,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -763,18 +1185,30 @@
       "province": "Đắk Lắk",
       "quality": "HTML/OCR-cần-soát",
       "contentSha256": "661a062a056bb8219771aa63854e506a4a5c92d4fe2629d6622f85b36ffbf272",
-      "practiceReadOnly": true,
-      "questionCount": 67,
+      "practiceReadOnly": false,
+      "ocrCaution": true,
+      "questionCount": 69,
+      "scoredCount": 69,
       "responseTypes": {
-        "choice": 38,
+        "choice": 40,
         "multiple": 0,
         "true-false": 0,
         "text": 29,
         "essay": 0
       },
       "keyStatuses": {
-        "ambiguous_review": 9,
-        "source_transcription_unverified": 58
+        "inferred_unverified": 7,
+        "independently_cross_checked": 62
+      },
+      "sourceStatuses": {
+        "reconstructed": 64,
+        "ambiguous_source": 5
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 0,
+        "LOW": 69,
+        "VERY_LOW": 0
       },
       "listeningItems": 8,
       "writingItems": 0
@@ -786,7 +1220,9 @@
       "quality": "PDF-text",
       "contentSha256": "ce2b20e4fa1474c673c6173a64ffbb7143806391ee3d49a96932027bfce927c0",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 40,
+      "scoredCount": 40,
       "responseTypes": {
         "choice": 15,
         "multiple": 0,
@@ -795,7 +1231,17 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 40
+        "inferred_unverified": 40
+      },
+      "sourceStatuses": {
+        "reasoned_inference": 37,
+        "incomplete_stimulus": 3
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 1,
+        "LOW": 36,
+        "VERY_LOW": 3
       },
       "listeningItems": 3,
       "writingItems": 0
@@ -807,19 +1253,32 @@
       "quality": "PDF-text",
       "contentSha256": "5f24e7d54311b7814c9301c4cb76381688be94b5a8a7a4176065b63a1725f056",
       "practiceReadOnly": false,
-      "questionCount": 78,
+      "ocrCaution": false,
+      "questionCount": 77,
+      "scoredCount": 77,
       "responseTypes": {
         "choice": 39,
         "multiple": 0,
         "true-false": 0,
         "text": 17,
-        "essay": 22
+        "essay": 21
       },
       "keyStatuses": {
-        "missing_answer": 78
+        "source_transcription_unverified": 73,
+        "inferred_unverified": 4
+      },
+      "sourceStatuses": {
+        "single_source_transcription": 73,
+        "reasoned_inference": 4
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 52,
+        "LOW": 25,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
-      "writingItems": 22
+      "writingItems": 21
     },
     {
       "id": "2023/dong-thap/so",
@@ -828,7 +1287,9 @@
       "quality": "PDF-text",
       "contentSha256": "19adaaf5e5ea78bb9906236f164d0092d5b1ce847d48193e01aab8037d1067e1",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 51,
+      "scoredCount": 51,
       "responseTypes": {
         "choice": 30,
         "multiple": 0,
@@ -837,7 +1298,17 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 51
+        "inferred_unverified": 51
+      },
+      "sourceStatuses": {
+        "incomplete_stimulus": 6,
+        "reasoned_inference": 45
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 1,
+        "LOW": 44,
+        "VERY_LOW": 6
       },
       "listeningItems": 6,
       "writingItems": 0
@@ -849,7 +1320,9 @@
       "quality": "PDF-text",
       "contentSha256": "70169d8acfa9754927ca72980a5be54ab5815dd7de230f9b6d3ab4b067c5e3cf",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 43,
+      "scoredCount": 43,
       "responseTypes": {
         "choice": 21,
         "multiple": 0,
@@ -858,7 +1331,17 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 43
+        "inferred_unverified": 43
+      },
+      "sourceStatuses": {
+        "incomplete_stimulus": 15,
+        "reasoned_inference": 28
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 1,
+        "LOW": 27,
+        "VERY_LOW": 15
       },
       "listeningItems": 15,
       "writingItems": 0
@@ -869,8 +1352,10 @@
       "province": "Hà Nội",
       "quality": "HTML/OCR-cần-soát",
       "contentSha256": "86c61ff46a47d1da347af9916238e8f14ccca4372f5a2ef9baf2f14cf2f739a4",
-      "practiceReadOnly": true,
+      "practiceReadOnly": false,
+      "ocrCaution": true,
       "questionCount": 57,
+      "scoredCount": 57,
       "responseTypes": {
         "choice": 29,
         "multiple": 0,
@@ -879,7 +1364,18 @@
         "essay": 7
       },
       "keyStatuses": {
-        "missing_answer": 57
+        "source_transcription_unverified": 43,
+        "inferred_unverified": 14
+      },
+      "sourceStatuses": {
+        "reconstructed": 52,
+        "ambiguous_source": 5
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 0,
+        "LOW": 57,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 7
@@ -890,8 +1386,10 @@
       "province": "Hà Nội",
       "quality": "HTML/OCR-cần-soát",
       "contentSha256": "ab2dcd227a9129a1045166d6d654d9384412c734e44f3197758a54678652309d",
-      "practiceReadOnly": true,
+      "practiceReadOnly": false,
+      "ocrCaution": true,
       "questionCount": 51,
+      "scoredCount": 51,
       "responseTypes": {
         "choice": 29,
         "multiple": 0,
@@ -900,7 +1398,18 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 51
+        "source_transcription_unverified": 37,
+        "inferred_unverified": 14
+      },
+      "sourceStatuses": {
+        "incomplete_stimulus": 5,
+        "reconstructed": 46
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 0,
+        "LOW": 46,
+        "VERY_LOW": 5
       },
       "listeningItems": 5,
       "writingItems": 0
@@ -912,7 +1421,9 @@
       "quality": "PDF-text",
       "contentSha256": "9639d2b47c01ceee883e4e83cc82ba3dbb24788629b11aebdb7933e6974090e3",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 105,
+      "scoredCount": 105,
       "responseTypes": {
         "choice": 60,
         "multiple": 0,
@@ -921,7 +1432,17 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 105
+        "inferred_unverified": 105
+      },
+      "sourceStatuses": {
+        "incomplete_stimulus": 5,
+        "reasoned_inference": 100
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 2,
+        "LOW": 98,
+        "VERY_LOW": 5
       },
       "listeningItems": 5,
       "writingItems": 0
@@ -932,17 +1453,28 @@
       "province": "Hưng Yên",
       "quality": "HTML/OCR-cần-soát",
       "contentSha256": "c7d42c322fcc7fc0d754dc7d02e19650fcdb57a59523b5068aa105847d3577c0",
-      "practiceReadOnly": true,
-      "questionCount": 73,
+      "practiceReadOnly": false,
+      "ocrCaution": true,
+      "questionCount": 77,
+      "scoredCount": 77,
       "responseTypes": {
-        "choice": 27,
+        "choice": 31,
         "multiple": 0,
         "true-false": 0,
         "text": 46,
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 73
+        "inferred_unverified": 77
+      },
+      "sourceStatuses": {
+        "reconstructed": 77
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 0,
+        "LOW": 77,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -954,7 +1486,9 @@
       "quality": "PDF-text",
       "contentSha256": "baab9ace0129e2c33974834cc43acd35b450cd7c5fdb81c498deb6b025b6051c",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 57,
+      "scoredCount": 57,
       "responseTypes": {
         "choice": 38,
         "multiple": 0,
@@ -963,7 +1497,17 @@
         "essay": 0
       },
       "keyStatuses": {
-        "ambiguous_review": 57
+        "source_transcription_unverified": 57
+      },
+      "sourceStatuses": {
+        "single_source_transcription": 42,
+        "incomplete_stimulus": 15
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 42,
+        "LOW": 0,
+        "VERY_LOW": 15
       },
       "listeningItems": 15,
       "writingItems": 0
@@ -974,17 +1518,29 @@
       "province": "Phú Yên",
       "quality": "HTML/OCR-cần-soát",
       "contentSha256": "1e07c4bbf7cb72b3ac48baafa2ef9cd37e00a22f3daa607bd6c66f0c7723570c",
-      "practiceReadOnly": true,
-      "questionCount": 40,
+      "practiceReadOnly": false,
+      "ocrCaution": true,
+      "questionCount": 38,
+      "scoredCount": 38,
       "responseTypes": {
-        "choice": 16,
+        "choice": 17,
         "multiple": 0,
         "true-false": 0,
-        "text": 24,
+        "text": 21,
         "essay": 0
       },
       "keyStatuses": {
-        "source_transcription_unverified": 40
+        "source_transcription_unverified": 36,
+        "inferred_unverified": 2
+      },
+      "sourceStatuses": {
+        "reconstructed": 38
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 0,
+        "LOW": 38,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -996,7 +1552,9 @@
       "quality": "PDF-text",
       "contentSha256": "9ab0ddea8b67649723eb02c32343b7dd49442036405e0603b9bb3602f1778b8d",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 76,
+      "scoredCount": 76,
       "responseTypes": {
         "choice": 35,
         "multiple": 0,
@@ -1005,7 +1563,17 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 76
+        "inferred_unverified": 76
+      },
+      "sourceStatuses": {
+        "incomplete_stimulus": 6,
+        "reasoned_inference": 70
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 3,
+        "LOW": 67,
+        "VERY_LOW": 6
       },
       "listeningItems": 6,
       "writingItems": 0
@@ -1017,7 +1585,9 @@
       "quality": "PDF-text",
       "contentSha256": "dfb71b082b54ac304b488d02d25d945999f7a7c429d0be48ab3ec617b3e120ea",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 29,
+      "scoredCount": 29,
       "responseTypes": {
         "choice": 20,
         "multiple": 0,
@@ -1026,7 +1596,16 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 29
+        "inferred_unverified": 29
+      },
+      "sourceStatuses": {
+        "reasoned_inference": 29
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 2,
+        "LOW": 27,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -1037,8 +1616,10 @@
       "province": "Thừa Thiên Huế",
       "quality": "HTML/OCR-cần-soát",
       "contentSha256": "08a35ac3d35016271b2bc023d0c64e3ec37267b77575afbab0bc875955bd6288",
-      "practiceReadOnly": true,
+      "practiceReadOnly": false,
+      "ocrCaution": true,
       "questionCount": 66,
+      "scoredCount": 66,
       "responseTypes": {
         "choice": 46,
         "multiple": 0,
@@ -1047,8 +1628,18 @@
         "essay": 0
       },
       "keyStatuses": {
-        "source_transcription_unverified": 24,
-        "missing_answer": 42
+        "source_transcription_unverified": 65,
+        "inferred_unverified": 1
+      },
+      "sourceStatuses": {
+        "incomplete_stimulus": 25,
+        "reconstructed": 41
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 0,
+        "LOW": 41,
+        "VERY_LOW": 25
       },
       "listeningItems": 25,
       "writingItems": 0
@@ -1059,8 +1650,10 @@
       "province": "TP. Hồ Chí Minh",
       "quality": "HTML/OCR-cần-soát",
       "contentSha256": "ffaa0f80464f23d7957a3353bcfcc965f5de7073cda067fb32482edd15ef55d6",
-      "practiceReadOnly": true,
+      "practiceReadOnly": false,
+      "ocrCaution": true,
       "questionCount": 36,
+      "scoredCount": 36,
       "responseTypes": {
         "choice": 32,
         "multiple": 0,
@@ -1069,8 +1662,18 @@
         "essay": 1
       },
       "keyStatuses": {
-        "ambiguous_review": 7,
-        "source_transcription_unverified": 29
+        "inferred_unverified": 9,
+        "source_transcription_unverified": 27
+      },
+      "sourceStatuses": {
+        "reconstructed": 32,
+        "ambiguous_source": 4
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 0,
+        "LOW": 36,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 1
@@ -1082,7 +1685,9 @@
       "quality": "PDF-text",
       "contentSha256": "b949a4a2af1477659633bdd5ea4cc4e638a2976ec4b92ef749b601477e524200",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 70,
+      "scoredCount": 70,
       "responseTypes": {
         "choice": 50,
         "multiple": 0,
@@ -1091,7 +1696,18 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 70
+        "source_transcription_unverified": 69,
+        "inferred_unverified": 1
+      },
+      "sourceStatuses": {
+        "single_source_transcription": 69,
+        "reasoned_inference": 1
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 69,
+        "LOW": 1,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -1103,7 +1719,9 @@
       "quality": "PDF-text",
       "contentSha256": "19c2b6b0ceafb5678863cb4b4f90f0d3625c17d703fa019dafe16b03f714be71",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 58,
+      "scoredCount": 58,
       "responseTypes": {
         "choice": 43,
         "multiple": 0,
@@ -1112,7 +1730,17 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 58
+        "inferred_unverified": 58
+      },
+      "sourceStatuses": {
+        "incomplete_stimulus": 10,
+        "reasoned_inference": 48
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 4,
+        "LOW": 44,
+        "VERY_LOW": 10
       },
       "listeningItems": 10,
       "writingItems": 0
@@ -1124,7 +1752,9 @@
       "quality": "PDF-text",
       "contentSha256": "f1d8a39f71cbc0b250e2692c5f95c34392f5744c3b775519f9ea1ec5c506b0b6",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 42,
+      "scoredCount": 42,
       "responseTypes": {
         "choice": 29,
         "multiple": 0,
@@ -1133,7 +1763,17 @@
         "essay": 0
       },
       "keyStatuses": {
-        "ambiguous_review": 42
+        "source_transcription_unverified": 42
+      },
+      "sourceStatuses": {
+        "single_source_transcription": 41,
+        "incomplete_stimulus": 1
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 37,
+        "LOW": 4,
+        "VERY_LOW": 1
       },
       "listeningItems": 4,
       "writingItems": 0
@@ -1145,7 +1785,9 @@
       "quality": "PDF-text",
       "contentSha256": "8b6736ff64a4133c232d1026a310a4c2989f9340654dafd97f4e7e96e1aeaa22",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 51,
+      "scoredCount": 51,
       "responseTypes": {
         "choice": 31,
         "multiple": 0,
@@ -1154,8 +1796,16 @@
         "essay": 0
       },
       "keyStatuses": {
-        "ambiguous_review": 30,
-        "source_transcription_unverified": 21
+        "source_transcription_unverified": 51
+      },
+      "sourceStatuses": {
+        "single_source_transcription": 51
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 51,
+        "LOW": 0,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -1167,7 +1817,9 @@
       "quality": "PDF-text",
       "contentSha256": "d61a1694d228581f9d9276a32214c73c2d59c9a2f1aff669bc71b16e1eb07fd9",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 54,
+      "scoredCount": 54,
       "responseTypes": {
         "choice": 30,
         "multiple": 0,
@@ -1176,8 +1828,18 @@
         "essay": 1
       },
       "keyStatuses": {
-        "source_transcription_unverified": 52,
-        "ambiguous_review": 2
+        "source_transcription_unverified": 48,
+        "inferred_unverified": 6
+      },
+      "sourceStatuses": {
+        "single_source_transcription": 48,
+        "reasoned_inference": 6
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 47,
+        "LOW": 7,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 1
@@ -1189,7 +1851,9 @@
       "quality": "PDF-text",
       "contentSha256": "e840295f66764f879d6fd3cdf554c2e446178e1171fe89aa3ea20d22760f1f8a",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 36,
+      "scoredCount": 36,
       "responseTypes": {
         "choice": 21,
         "multiple": 0,
@@ -1199,7 +1863,17 @@
       },
       "keyStatuses": {
         "source_transcription_unverified": 35,
-        "missing_answer": 1
+        "inferred_unverified": 1
+      },
+      "sourceStatuses": {
+        "single_source_transcription": 35,
+        "reasoned_inference": 1
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 35,
+        "LOW": 1,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -1211,7 +1885,9 @@
       "quality": "PDF-text",
       "contentSha256": "f7c48d854d873b5a4594a7f0838ffc9ddbe5f4db30052beb1fe981f7fad53c32",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 71,
+      "scoredCount": 71,
       "responseTypes": {
         "choice": 36,
         "multiple": 0,
@@ -1220,7 +1896,19 @@
         "essay": 1
       },
       "keyStatuses": {
-        "missing_answer": 71
+        "inferred_unverified": 70,
+        "source_transcription_unverified": 1
+      },
+      "sourceStatuses": {
+        "reasoned_inference": 60,
+        "incomplete_stimulus": 10,
+        "single_source_transcription": 1
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 3,
+        "LOW": 58,
+        "VERY_LOW": 10
       },
       "listeningItems": 10,
       "writingItems": 1
@@ -1232,7 +1920,9 @@
       "quality": "PDF-text",
       "contentSha256": "a95038b63fdeeac2a36cdf0cd4b304c39f408db7edf49075a2c16a4250cf1ee6",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 70,
+      "scoredCount": 70,
       "responseTypes": {
         "choice": 50,
         "multiple": 0,
@@ -1241,7 +1931,16 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 70
+        "inferred_unverified": 70
+      },
+      "sourceStatuses": {
+        "reasoned_inference": 70
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 3,
+        "LOW": 67,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -1253,7 +1952,9 @@
       "quality": "PDF-text/DOCX",
       "contentSha256": "f0256e7951054d17e6ba7f96996215decc11de9c19f7ae72d12110501dc31156",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 58,
+      "scoredCount": 58,
       "responseTypes": {
         "choice": 43,
         "multiple": 0,
@@ -1262,9 +1963,17 @@
         "essay": 0
       },
       "keyStatuses": {
-        "ambiguous_review": 53,
-        "source_transcription_unverified": 4,
-        "missing_answer": 1
+        "source_transcription_unverified": 58
+      },
+      "sourceStatuses": {
+        "incomplete_stimulus": 10,
+        "single_source_transcription": 48
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 48,
+        "LOW": 0,
+        "VERY_LOW": 10
       },
       "listeningItems": 10,
       "writingItems": 0
@@ -1276,17 +1985,28 @@
       "quality": "DOCX",
       "contentSha256": "fbc3d11acc0698bebc37646ce817332a21c25948f4605fd45215b064ea15539c",
       "practiceReadOnly": false,
-      "questionCount": 28,
+      "ocrCaution": false,
+      "questionCount": 41,
+      "scoredCount": 41,
       "responseTypes": {
-        "choice": 23,
+        "choice": 36,
         "multiple": 0,
         "true-false": 0,
         "text": 5,
         "essay": 0
       },
       "keyStatuses": {
-        "ambiguous_review": 20,
-        "source_transcription_unverified": 8
+        "source_transcription_unverified": 41
+      },
+      "sourceStatuses": {
+        "incomplete_stimulus": 5,
+        "single_source_transcription": 36
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 36,
+        "LOW": 0,
+        "VERY_LOW": 5
       },
       "listeningItems": 5,
       "writingItems": 0
@@ -1298,7 +2018,9 @@
       "quality": "PDF-text",
       "contentSha256": "e9160f5f00d277a5d0935e5327adea8feb920b7b2869dd2b98ff39c683bedcdd",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 100,
+      "scoredCount": 100,
       "responseTypes": {
         "choice": 30,
         "multiple": 0,
@@ -1307,7 +2029,18 @@
         "essay": 0
       },
       "keyStatuses": {
-        "ambiguous_review": 100
+        "source_transcription_unverified": 91,
+        "inferred_unverified": 9
+      },
+      "sourceStatuses": {
+        "single_source_transcription": 91,
+        "reasoned_inference": 9
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 86,
+        "LOW": 14,
+        "VERY_LOW": 0
       },
       "listeningItems": 5,
       "writingItems": 0
@@ -1319,20 +2052,31 @@
       "quality": "DOCX",
       "contentSha256": "2e5f5e035bf6b58afe277e1e75680266077dc19181127f802912a15ebfecb617",
       "practiceReadOnly": false,
-      "questionCount": 123,
+      "ocrCaution": false,
+      "questionCount": 132,
+      "scoredCount": 132,
       "responseTypes": {
-        "choice": 35,
-        "multiple": 0,
+        "choice": 10,
+        "multiple": 35,
         "true-false": 0,
-        "text": 88,
+        "text": 87,
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 42,
-        "source_transcription_unverified": 79,
-        "ambiguous_review": 2
+        "inferred_unverified": 70,
+        "independently_cross_checked": 62
       },
-      "listeningItems": 122,
+      "sourceStatuses": {
+        "reasoned_inference": 1,
+        "incomplete_stimulus": 131
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 0,
+        "LOW": 1,
+        "VERY_LOW": 131
+      },
+      "listeningItems": 131,
       "writingItems": 0
     },
     {
@@ -1342,16 +2086,29 @@
       "quality": "DOCX",
       "contentSha256": "e962c6dfea7de6a24f6bcc9c69d4d1255cb2b8e176d91190001a30572db8fe47",
       "practiceReadOnly": false,
-      "questionCount": 50,
+      "ocrCaution": false,
+      "questionCount": 62,
+      "scoredCount": 62,
       "responseTypes": {
-        "choice": 33,
+        "choice": 45,
         "multiple": 0,
         "true-false": 0,
         "text": 12,
         "essay": 5
       },
       "keyStatuses": {
-        "source_transcription_unverified": 50
+        "source_transcription_unverified": 61,
+        "inferred_unverified": 1
+      },
+      "sourceStatuses": {
+        "single_source_transcription": 61,
+        "reasoned_inference": 1
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 46,
+        "LOW": 16,
+        "VERY_LOW": 0
       },
       "listeningItems": 10,
       "writingItems": 5
@@ -1363,17 +2120,27 @@
       "quality": "DOCX",
       "contentSha256": "17e7b6c39c293b774d05eaec9d8b5355961d346ab46345b1ac9b9154bb7eb6c0",
       "practiceReadOnly": false,
-      "questionCount": 40,
+      "ocrCaution": false,
+      "questionCount": 50,
+      "scoredCount": 50,
       "responseTypes": {
-        "choice": 21,
+        "choice": 31,
         "multiple": 0,
         "true-false": 0,
         "text": 9,
         "essay": 10
       },
       "keyStatuses": {
-        "ambiguous_review": 30,
-        "source_transcription_unverified": 10
+        "source_transcription_unverified": 50
+      },
+      "sourceStatuses": {
+        "single_source_transcription": 50
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 40,
+        "LOW": 10,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 10
@@ -1385,17 +2152,29 @@
       "quality": "DOCX",
       "contentSha256": "7a225249ca21e1a58e1b58311ba8e010745b5638bac5364fa6e49c54970ed7f9",
       "practiceReadOnly": false,
-      "questionCount": 67,
+      "ocrCaution": false,
+      "questionCount": 77,
+      "scoredCount": 77,
       "responseTypes": {
-        "choice": 40,
+        "choice": 50,
         "multiple": 0,
         "true-false": 0,
         "text": 27,
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 5,
-        "source_transcription_unverified": 62
+        "inferred_unverified": 5,
+        "source_transcription_unverified": 72
+      },
+      "sourceStatuses": {
+        "reasoned_inference": 5,
+        "single_source_transcription": 72
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 71,
+        "LOW": 6,
+        "VERY_LOW": 0
       },
       "listeningItems": 5,
       "writingItems": 0
@@ -1407,16 +2186,27 @@
       "quality": "DOCX",
       "contentSha256": "81d899d7119605735217c94604b550ac8276cc3b5cdfed24e54676d1511e2e23",
       "practiceReadOnly": false,
-      "questionCount": 62,
+      "ocrCaution": false,
+      "questionCount": 77,
+      "scoredCount": 77,
       "responseTypes": {
-        "choice": 24,
+        "choice": 39,
         "multiple": 0,
         "true-false": 0,
         "text": 38,
         "essay": 0
       },
       "keyStatuses": {
-        "source_transcription_unverified": 62
+        "source_transcription_unverified": 77
+      },
+      "sourceStatuses": {
+        "single_source_transcription": 77
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 77,
+        "LOW": 0,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -1428,7 +2218,9 @@
       "quality": "PDF-text",
       "contentSha256": "26c312b4b474dc9581906cb84fcdeb03fadc9f00d348ad77ad24c6d30abe809f",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 50,
+      "scoredCount": 50,
       "responseTypes": {
         "choice": 25,
         "multiple": 0,
@@ -1437,8 +2229,16 @@
         "essay": 10
       },
       "keyStatuses": {
-        "ambiguous_review": 45,
-        "source_transcription_unverified": 5
+        "source_transcription_unverified": 50
+      },
+      "sourceStatuses": {
+        "single_source_transcription": 50
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 40,
+        "LOW": 10,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 10
@@ -1450,7 +2250,9 @@
       "quality": "PDF-text",
       "contentSha256": "0d4d7000259a2f614cb41b823b4352bdf3b9a5408a17acf0c8c7eaa703eed061",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 80,
+      "scoredCount": 80,
       "responseTypes": {
         "choice": 40,
         "multiple": 0,
@@ -1459,8 +2261,16 @@
         "essay": 0
       },
       "keyStatuses": {
-        "source_transcription_unverified": 10,
-        "ambiguous_review": 70
+        "source_transcription_unverified": 80
+      },
+      "sourceStatuses": {
+        "single_source_transcription": 80
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 80,
+        "LOW": 0,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -1472,7 +2282,9 @@
       "quality": "PDF-text",
       "contentSha256": "34d6cca2f90a3801483e7eb5fb2e67f7c541cf956073fc6b4cfbdb8ff5176b68",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 36,
+      "scoredCount": 36,
       "responseTypes": {
         "choice": 16,
         "multiple": 0,
@@ -1482,6 +2294,15 @@
       },
       "keyStatuses": {
         "source_transcription_unverified": 36
+      },
+      "sourceStatuses": {
+        "single_source_transcription": 36
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 36,
+        "LOW": 0,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -1493,7 +2314,9 @@
       "quality": "PDF-text",
       "contentSha256": "82ae5cdd32b00d6fdcfd55636ba4e1021b09aec31084871de61aa22275309660",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 95,
+      "scoredCount": 95,
       "responseTypes": {
         "choice": 60,
         "multiple": 0,
@@ -1502,9 +2325,18 @@
         "essay": 0
       },
       "keyStatuses": {
-        "source_transcription_unverified": 10,
-        "ambiguous_review": 45,
-        "missing_answer": 40
+        "independently_cross_checked": 55,
+        "inferred_unverified": 40
+      },
+      "sourceStatuses": {
+        "independently_cross_checked": 55,
+        "reasoned_inference": 40
+      },
+      "confidenceCounts": {
+        "HIGH": 55,
+        "MEDIUM": 3,
+        "LOW": 37,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -1516,16 +2348,27 @@
       "quality": "DOCX",
       "contentSha256": "fab3987ecf1eefd9016f87c2ae81727f347e94add704f5a1468b4a224efe77e7",
       "practiceReadOnly": false,
-      "questionCount": 48,
+      "ocrCaution": false,
+      "questionCount": 58,
+      "scoredCount": 58,
       "responseTypes": {
-        "choice": 21,
+        "choice": 31,
         "multiple": 0,
         "true-false": 0,
         "text": 22,
         "essay": 5
       },
       "keyStatuses": {
-        "source_transcription_unverified": 48
+        "source_transcription_unverified": 58
+      },
+      "sourceStatuses": {
+        "single_source_transcription": 58
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 53,
+        "LOW": 5,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 5
@@ -1537,7 +2380,9 @@
       "quality": "PDF-text",
       "contentSha256": "880a7fbdf600decf58d9794962718adbd143f8ce9e28c7294b8cd00281297f14",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 60,
+      "scoredCount": 60,
       "responseTypes": {
         "choice": 26,
         "multiple": 0,
@@ -1546,8 +2391,16 @@
         "essay": 0
       },
       "keyStatuses": {
-        "ambiguous_review": 50,
-        "source_transcription_unverified": 10
+        "source_transcription_unverified": 60
+      },
+      "sourceStatuses": {
+        "single_source_transcription": 60
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 60,
+        "LOW": 0,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -1559,16 +2412,27 @@
       "quality": "PDF-text/DOCX",
       "contentSha256": "2802a0a7a37349d85d5229e478c86c174159ac223303fc5d822b019732b66501",
       "practiceReadOnly": false,
-      "questionCount": 70,
+      "ocrCaution": false,
+      "questionCount": 80,
+      "scoredCount": 80,
       "responseTypes": {
-        "choice": 52,
+        "choice": 62,
         "multiple": 0,
         "true-false": 0,
         "text": 18,
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 70
+        "source_transcription_unverified": 80
+      },
+      "sourceStatuses": {
+        "single_source_transcription": 80
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 80,
+        "LOW": 0,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -1580,7 +2444,9 @@
       "quality": "PDF-text",
       "contentSha256": "bb4bb4fd63a607151fa97f8c3c410303a5e8bc87cd8e815354559a2c07c790a9",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 75,
+      "scoredCount": 75,
       "responseTypes": {
         "choice": 45,
         "multiple": 0,
@@ -1589,8 +2455,17 @@
         "essay": 0
       },
       "keyStatuses": {
-        "ambiguous_review": 65,
-        "source_transcription_unverified": 10
+        "source_transcription_unverified": 75
+      },
+      "sourceStatuses": {
+        "single_source_transcription": 70,
+        "incomplete_stimulus": 5
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 70,
+        "LOW": 0,
+        "VERY_LOW": 5
       },
       "listeningItems": 5,
       "writingItems": 0
@@ -1602,19 +2477,31 @@
       "quality": "PDF-text",
       "contentSha256": "b6da20f42c7012d5b01b68c7bafbad44bfd4f355aa10d02aedbc32fdcb220cfe",
       "practiceReadOnly": false,
-      "questionCount": 45,
+      "ocrCaution": false,
+      "questionCount": 46,
+      "scoredCount": 46,
       "responseTypes": {
         "choice": 30,
         "multiple": 0,
         "true-false": 0,
-        "text": 15,
+        "text": 16,
         "essay": 0
       },
       "keyStatuses": {
-        "ambiguous_review": 43,
-        "source_transcription_unverified": 2
+        "source_transcription_unverified": 45,
+        "inferred_unverified": 1
       },
-      "listeningItems": 0,
+      "sourceStatuses": {
+        "single_source_transcription": 45,
+        "reasoned_inference": 1
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 44,
+        "LOW": 2,
+        "VERY_LOW": 0
+      },
+      "listeningItems": 1,
       "writingItems": 0
     },
     {
@@ -1624,17 +2511,28 @@
       "quality": "DOCX",
       "contentSha256": "3376c8a461e7804d8cb33befa07367780960fd5de7f2a3a198bd44ae5b8a91f8",
       "practiceReadOnly": false,
-      "questionCount": 47,
+      "ocrCaution": false,
+      "questionCount": 64,
+      "scoredCount": 64,
       "responseTypes": {
-        "choice": 19,
+        "choice": 36,
         "multiple": 0,
         "true-false": 6,
         "text": 17,
         "essay": 5
       },
       "keyStatuses": {
-        "ambiguous_review": 2,
-        "source_transcription_unverified": 45
+        "source_transcription_unverified": 64
+      },
+      "sourceStatuses": {
+        "incomplete_stimulus": 20,
+        "single_source_transcription": 44
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 39,
+        "LOW": 5,
+        "VERY_LOW": 20
       },
       "listeningItems": 20,
       "writingItems": 5
@@ -1646,18 +2544,32 @@
       "quality": "PDF-text",
       "contentSha256": "5d81298caf629b0c6f22cbb06cd4ab1efc6bcb99d3dbcdc0df57ddb118ce4aaf",
       "practiceReadOnly": false,
-      "questionCount": 65,
+      "ocrCaution": false,
+      "questionCount": 70,
+      "scoredCount": 70,
       "responseTypes": {
-        "choice": 55,
+        "choice": 56,
         "multiple": 0,
         "true-false": 0,
-        "text": 9,
+        "text": 13,
         "essay": 1
       },
       "keyStatuses": {
-        "source_transcription_unverified": 65
+        "inferred_unverified": 11,
+        "source_transcription_unverified": 59
       },
-      "listeningItems": 5,
+      "sourceStatuses": {
+        "incomplete_stimulus": 7,
+        "reasoned_inference": 6,
+        "single_source_transcription": 57
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 56,
+        "LOW": 7,
+        "VERY_LOW": 7
+      },
+      "listeningItems": 7,
       "writingItems": 1
     },
     {
@@ -1667,7 +2579,9 @@
       "quality": "PDF-text",
       "contentSha256": "21a388dbabff86e983d2330a9a7ea3c606f8635c83bee0bd4423964309c18a74",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 30,
+      "scoredCount": 30,
       "responseTypes": {
         "choice": 25,
         "multiple": 0,
@@ -1676,9 +2590,18 @@
         "essay": 0
       },
       "keyStatuses": {
-        "ambiguous_review": 5,
-        "missing_answer": 22,
-        "source_transcription_unverified": 3
+        "inferred_unverified": 24,
+        "source_transcription_unverified": 6
+      },
+      "sourceStatuses": {
+        "reasoned_inference": 24,
+        "single_source_transcription": 6
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 9,
+        "LOW": 21,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -1690,19 +2613,29 @@
       "quality": "DOCX",
       "contentSha256": "82e7de861de94f634443fe0f6692d54af8e089cd12f42b71c41eafd2e8734963",
       "practiceReadOnly": false,
-      "questionCount": 77,
+      "ocrCaution": false,
+      "questionCount": 88,
+      "scoredCount": 88,
       "responseTypes": {
-        "choice": 32,
+        "choice": 39,
         "multiple": 0,
         "true-false": 1,
-        "text": 31,
+        "text": 35,
         "essay": 13
       },
       "keyStatuses": {
-        "ambiguous_review": 57,
-        "source_transcription_unverified": 20
+        "source_transcription_unverified": 88
       },
-      "listeningItems": 11,
+      "sourceStatuses": {
+        "single_source_transcription": 88
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 60,
+        "LOW": 28,
+        "VERY_LOW": 0
+      },
+      "listeningItems": 15,
       "writingItems": 13
     },
     {
@@ -1712,7 +2645,9 @@
       "quality": "PDF-text/DOCX",
       "contentSha256": "3ab336dc7fd2f8f5d39e8b240eb3893878d82a04b7bb1fde93d8d2c842756a3c",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 56,
+      "scoredCount": 56,
       "responseTypes": {
         "choice": 35,
         "multiple": 0,
@@ -1721,8 +2656,16 @@
         "essay": 0
       },
       "keyStatuses": {
-        "source_transcription_unverified": 53,
-        "ambiguous_review": 3
+        "source_transcription_unverified": 56
+      },
+      "sourceStatuses": {
+        "single_source_transcription": 56
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 36,
+        "LOW": 20,
+        "VERY_LOW": 0
       },
       "listeningItems": 20,
       "writingItems": 0
@@ -1734,7 +2677,9 @@
       "quality": "PDF-text",
       "contentSha256": "0fb128ebcf48c861507cc9f2e765a06e8895db3e2af26f12bcc1eac26e67ab7e",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 70,
+      "scoredCount": 70,
       "responseTypes": {
         "choice": 70,
         "multiple": 0,
@@ -1744,6 +2689,15 @@
       },
       "keyStatuses": {
         "source_transcription_unverified": 70
+      },
+      "sourceStatuses": {
+        "single_source_transcription": 70
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 70,
+        "LOW": 0,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -1755,7 +2709,9 @@
       "quality": "PDF-text",
       "contentSha256": "5f96b3ddde85ba8f039ec2a728220e7cbae43f80fd15f727981d0504d38f84ba",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 52,
+      "scoredCount": 52,
       "responseTypes": {
         "choice": 29,
         "multiple": 0,
@@ -1764,9 +2720,16 @@
         "essay": 1
       },
       "keyStatuses": {
-        "source_transcription_unverified": 3,
-        "ambiguous_review": 1,
-        "missing_answer": 48
+        "source_transcription_unverified": 52
+      },
+      "sourceStatuses": {
+        "single_source_transcription": 52
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 51,
+        "LOW": 1,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 1
@@ -1778,7 +2741,9 @@
       "quality": "PDF-text",
       "contentSha256": "baa78a3b96797ecebe440aaacefff20589807ff9b6a0e9fe33809854aaedbc30",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 70,
+      "scoredCount": 70,
       "responseTypes": {
         "choice": 50,
         "multiple": 0,
@@ -1788,6 +2753,15 @@
       },
       "keyStatuses": {
         "source_transcription_unverified": 70
+      },
+      "sourceStatuses": {
+        "single_source_transcription": 70
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 70,
+        "LOW": 0,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -1799,16 +2773,27 @@
       "quality": "DOCX",
       "contentSha256": "40dced26e298db757cd086209b18ab53ff667c99fb7d64dd92d452c77045c4ae",
       "practiceReadOnly": false,
-      "questionCount": 45,
+      "ocrCaution": false,
+      "questionCount": 55,
+      "scoredCount": 55,
       "responseTypes": {
-        "choice": 15,
-        "multiple": 10,
+        "choice": 35,
+        "multiple": 0,
         "true-false": 0,
         "text": 20,
         "essay": 0
       },
       "keyStatuses": {
-        "source_transcription_unverified": 45
+        "source_transcription_unverified": 55
+      },
+      "sourceStatuses": {
+        "single_source_transcription": 55
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 45,
+        "LOW": 10,
+        "VERY_LOW": 0
       },
       "listeningItems": 10,
       "writingItems": 0
@@ -1820,7 +2805,9 @@
       "quality": "PDF-text",
       "contentSha256": "9f5994794d094ca2f0917a8b60ee0b937474ff4f9eec555575e8358752a150af",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 80,
+      "scoredCount": 80,
       "responseTypes": {
         "choice": 55,
         "multiple": 0,
@@ -1829,8 +2816,19 @@
         "essay": 0
       },
       "keyStatuses": {
-        "ambiguous_review": 65,
-        "source_transcription_unverified": 15
+        "source_transcription_unverified": 62,
+        "inferred_unverified": 18
+      },
+      "sourceStatuses": {
+        "incomplete_stimulus": 5,
+        "single_source_transcription": 57,
+        "reasoned_inference": 18
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 60,
+        "LOW": 15,
+        "VERY_LOW": 5
       },
       "listeningItems": 5,
       "writingItems": 0
@@ -1842,16 +2840,27 @@
       "quality": "DOCX",
       "contentSha256": "5396088307245d0a3162e1006b0ae448763c6000479a01095ce30a2b79ae9922",
       "practiceReadOnly": false,
-      "questionCount": 41,
+      "ocrCaution": false,
+      "questionCount": 56,
+      "scoredCount": 56,
       "responseTypes": {
-        "choice": 30,
+        "choice": 45,
         "multiple": 0,
         "true-false": 0,
         "text": 3,
         "essay": 8
       },
       "keyStatuses": {
-        "ambiguous_review": 41
+        "source_transcription_unverified": 56
+      },
+      "sourceStatuses": {
+        "single_source_transcription": 56
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 40,
+        "LOW": 16,
+        "VERY_LOW": 0
       },
       "listeningItems": 8,
       "writingItems": 8
@@ -1863,18 +2872,29 @@
       "quality": "DOCX",
       "contentSha256": "1ec76a3d33f1f4a827893163993626738d217fd942397fb412c71fd26ee74af0",
       "practiceReadOnly": false,
-      "questionCount": 39,
+      "ocrCaution": false,
+      "questionCount": 55,
+      "scoredCount": 55,
       "responseTypes": {
-        "choice": 18,
-        "multiple": 10,
+        "choice": 40,
+        "multiple": 0,
         "true-false": 0,
-        "text": 11,
+        "text": 15,
         "essay": 0
       },
       "keyStatuses": {
-        "ambiguous_review": 5,
-        "source_transcription_unverified": 16,
-        "missing_answer": 18
+        "inferred_unverified": 4,
+        "source_transcription_unverified": 51
+      },
+      "sourceStatuses": {
+        "reasoned_inference": 4,
+        "single_source_transcription": 51
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 50,
+        "LOW": 5,
+        "VERY_LOW": 0
       },
       "listeningItems": 5,
       "writingItems": 0
@@ -1886,20 +2906,30 @@
       "quality": "DOCX",
       "contentSha256": "3fa80505ec47e9d196ab3e4cb4f78477402fc61eed0f0813c9aad6b8dc4da40e",
       "practiceReadOnly": false,
-      "questionCount": 69,
+      "ocrCaution": false,
+      "questionCount": 83,
+      "scoredCount": 83,
       "responseTypes": {
-        "choice": 40,
+        "choice": 50,
         "multiple": 0,
-        "true-false": 0,
-        "text": 29,
-        "essay": 0
+        "true-false": 1,
+        "text": 25,
+        "essay": 7
       },
       "keyStatuses": {
-        "ambiguous_review": 49,
-        "source_transcription_unverified": 20
+        "source_transcription_unverified": 83
+      },
+      "sourceStatuses": {
+        "single_source_transcription": 83
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 66,
+        "LOW": 17,
+        "VERY_LOW": 0
       },
       "listeningItems": 10,
-      "writingItems": 0
+      "writingItems": 7
     },
     {
       "id": "2026/da-nang/so",
@@ -1908,17 +2938,27 @@
       "quality": "DOCX",
       "contentSha256": "17bf1ad4e205c5b7162e14860b55a7cb1570086f4f7e29f75ca39f34c94316f6",
       "practiceReadOnly": false,
-      "questionCount": 49,
+      "ocrCaution": false,
+      "questionCount": 59,
+      "scoredCount": 59,
       "responseTypes": {
-        "choice": 30,
+        "choice": 40,
         "multiple": 0,
         "true-false": 0,
         "text": 19,
         "essay": 0
       },
       "keyStatuses": {
-        "ambiguous_review": 39,
-        "source_transcription_unverified": 10
+        "source_transcription_unverified": 59
+      },
+      "sourceStatuses": {
+        "single_source_transcription": 59
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 59,
+        "LOW": 0,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -1930,19 +2970,30 @@
       "quality": "DOCX",
       "contentSha256": "cfc4a5e9e5b28d3220b850c4de8ac02607702281f2ac7ed80d943e8b9cc18813",
       "practiceReadOnly": false,
-      "questionCount": 50,
+      "ocrCaution": false,
+      "questionCount": 55,
+      "scoredCount": 55,
       "responseTypes": {
         "choice": 30,
         "multiple": 0,
         "true-false": 0,
         "text": 20,
-        "essay": 0
+        "essay": 5
       },
       "keyStatuses": {
-        "source_transcription_unverified": 50
+        "source_transcription_unverified": 55
+      },
+      "sourceStatuses": {
+        "single_source_transcription": 55
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 50,
+        "LOW": 5,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
-      "writingItems": 0
+      "writingItems": 5
     },
     {
       "id": "2026/dien-bien/so",
@@ -1951,19 +3002,31 @@
       "quality": "DOCX/PDF-text",
       "contentSha256": "54c54008a3e8738e86d0c40c4bd71764b416c4b2a5768fd2fc85d1674764f478",
       "practiceReadOnly": false,
-      "questionCount": 80,
+      "ocrCaution": false,
+      "questionCount": 96,
+      "scoredCount": 96,
       "responseTypes": {
-        "choice": 45,
-        "multiple": 6,
-        "true-false": 0,
-        "text": 29,
+        "choice": 63,
+        "multiple": 0,
+        "true-false": 1,
+        "text": 32,
         "essay": 0
       },
       "keyStatuses": {
-        "ambiguous_review": 72,
-        "source_transcription_unverified": 8
+        "source_transcription_unverified": 86,
+        "inferred_unverified": 10
       },
-      "listeningItems": 6,
+      "sourceStatuses": {
+        "single_source_transcription": 86,
+        "reasoned_inference": 10
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 77,
+        "LOW": 19,
+        "VERY_LOW": 0
+      },
+      "listeningItems": 9,
       "writingItems": 0
     },
     {
@@ -1973,16 +3036,27 @@
       "quality": "DOCX",
       "contentSha256": "b586cd24becd532bee761a7df6e722cb610ad57265122fdd7be8e4f79d13a483",
       "practiceReadOnly": false,
-      "questionCount": 45,
+      "ocrCaution": false,
+      "questionCount": 57,
+      "scoredCount": 57,
       "responseTypes": {
-        "choice": 19,
+        "choice": 31,
         "multiple": 0,
         "true-false": 0,
         "text": 15,
         "essay": 11
       },
       "keyStatuses": {
-        "source_transcription_unverified": 45
+        "source_transcription_unverified": 57
+      },
+      "sourceStatuses": {
+        "single_source_transcription": 57
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 46,
+        "LOW": 11,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 11
@@ -1994,16 +3068,27 @@
       "quality": "DOCX",
       "contentSha256": "28c42d8ee5de30f382409f63851babbfca5c286af466d1d3feec58a259548d6f",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 30,
+      "scoredCount": 30,
       "responseTypes": {
-        "choice": 15,
-        "multiple": 5,
+        "choice": 20,
+        "multiple": 0,
         "true-false": 0,
         "text": 0,
         "essay": 10
       },
       "keyStatuses": {
         "source_transcription_unverified": 30
+      },
+      "sourceStatuses": {
+        "single_source_transcription": 30
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 15,
+        "LOW": 15,
+        "VERY_LOW": 0
       },
       "listeningItems": 5,
       "writingItems": 10
@@ -2015,7 +3100,9 @@
       "quality": "PDF-text/DOCX",
       "contentSha256": "6d5d7ab179b4b6308c2d81d885ae87d9e1a4c7cb77ed76618423086c126da906",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 85,
+      "scoredCount": 85,
       "responseTypes": {
         "choice": 47,
         "multiple": 0,
@@ -2024,7 +3111,16 @@
         "essay": 9
       },
       "keyStatuses": {
-        "ambiguous_review": 85
+        "source_transcription_unverified": 85
+      },
+      "sourceStatuses": {
+        "single_source_transcription": 85
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 69,
+        "LOW": 16,
+        "VERY_LOW": 0
       },
       "listeningItems": 7,
       "writingItems": 9
@@ -2036,18 +3132,29 @@
       "quality": "DOCX",
       "contentSha256": "d841b32b4389220dd70f10341b26e7fad6334569cae519c92091d93248be0bc9",
       "practiceReadOnly": false,
-      "questionCount": 36,
+      "ocrCaution": false,
+      "questionCount": 48,
+      "scoredCount": 48,
       "responseTypes": {
-        "choice": 25,
+        "choice": 33,
         "multiple": 0,
         "true-false": 0,
-        "text": 1,
+        "text": 5,
         "essay": 10
       },
       "keyStatuses": {
-        "source_transcription_unverified": 36
+        "source_transcription_unverified": 48
       },
-      "listeningItems": 6,
+      "sourceStatuses": {
+        "single_source_transcription": 48
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 28,
+        "LOW": 20,
+        "VERY_LOW": 0
+      },
+      "listeningItems": 10,
       "writingItems": 10
     },
     {
@@ -2057,16 +3164,27 @@
       "quality": "DOCX",
       "contentSha256": "168d039222b05c4b0d2d4e545fb686b792a1c784d7881902195a701a634ed4a7",
       "practiceReadOnly": false,
-      "questionCount": 45,
+      "ocrCaution": false,
+      "questionCount": 55,
+      "scoredCount": 55,
       "responseTypes": {
-        "choice": 23,
+        "choice": 33,
         "multiple": 0,
         "true-false": 0,
         "text": 15,
         "essay": 7
       },
       "keyStatuses": {
-        "source_transcription_unverified": 45
+        "source_transcription_unverified": 55
+      },
+      "sourceStatuses": {
+        "single_source_transcription": 55
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 48,
+        "LOW": 7,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 7
@@ -2078,16 +3196,27 @@
       "quality": "DOCX",
       "contentSha256": "ef06fd24cdfde12671ee3078b4f672284c1e1510caea27990a9d0ea794329513",
       "practiceReadOnly": false,
-      "questionCount": 50,
+      "ocrCaution": false,
+      "questionCount": 80,
+      "scoredCount": 80,
       "responseTypes": {
-        "choice": 32,
+        "choice": 62,
         "multiple": 0,
         "true-false": 0,
         "text": 18,
         "essay": 0
       },
       "keyStatuses": {
-        "source_transcription_unverified": 50
+        "source_transcription_unverified": 80
+      },
+      "sourceStatuses": {
+        "single_source_transcription": 80
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 80,
+        "LOW": 0,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -2099,19 +3228,29 @@
       "quality": "DOCX",
       "contentSha256": "9fb4f60dab0ce62282538988b73997c717ac622f61452391071526c9f829ba93",
       "practiceReadOnly": false,
-      "questionCount": 56,
+      "ocrCaution": false,
+      "questionCount": 70,
+      "scoredCount": 70,
       "responseTypes": {
-        "choice": 28,
-        "multiple": 5,
+        "choice": 43,
+        "multiple": 0,
         "true-false": 0,
-        "text": 23,
+        "text": 27,
         "essay": 0
       },
       "keyStatuses": {
-        "ambiguous_review": 48,
-        "source_transcription_unverified": 8
+        "source_transcription_unverified": 70
       },
-      "listeningItems": 6,
+      "sourceStatuses": {
+        "single_source_transcription": 70
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 60,
+        "LOW": 10,
+        "VERY_LOW": 0
+      },
+      "listeningItems": 10,
       "writingItems": 0
     },
     {
@@ -2121,7 +3260,9 @@
       "quality": "DOCX",
       "contentSha256": "960b6f260cd371655b463273c3a88a770207bf5f500d529545d5513f4ed920db",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 78,
+      "scoredCount": 78,
       "responseTypes": {
         "choice": 46,
         "multiple": 0,
@@ -2130,8 +3271,19 @@
         "essay": 10
       },
       "keyStatuses": {
-        "ambiguous_review": 46,
-        "source_transcription_unverified": 32
+        "source_transcription_unverified": 61,
+        "inferred_unverified": 17
+      },
+      "sourceStatuses": {
+        "ambiguous_source": 2,
+        "single_source_transcription": 59,
+        "reasoned_inference": 17
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 22,
+        "LOW": 56,
+        "VERY_LOW": 0
       },
       "listeningItems": 35,
       "writingItems": 10
@@ -2143,21 +3295,33 @@
       "quality": "DOCX",
       "contentSha256": "cf324cfac6426503c49106a8c4ffa085f3432700cbfa6b9997fa04c476e15f30",
       "practiceReadOnly": false,
-      "questionCount": 118,
+      "ocrCaution": false,
+      "questionCount": 130,
+      "scoredCount": 130,
       "responseTypes": {
         "choice": 15,
         "multiple": 0,
         "true-false": 0,
-        "text": 103,
-        "essay": 0
+        "text": 114,
+        "essay": 1
       },
       "keyStatuses": {
-        "ambiguous_review": 85,
-        "source_transcription_unverified": 6,
-        "missing_answer": 27
+        "source_transcription_unverified": 68,
+        "inferred_unverified": 62
       },
-      "listeningItems": 38,
-      "writingItems": 0
+      "sourceStatuses": {
+        "single_source_transcription": 67,
+        "ambiguous_source": 1,
+        "reasoned_inference": 62
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 46,
+        "LOW": 84,
+        "VERY_LOW": 0
+      },
+      "listeningItems": 50,
+      "writingItems": 1
     },
     {
       "id": "2026/ninh-binh/so",
@@ -2166,18 +3330,29 @@
       "quality": "DOCX",
       "contentSha256": "e8ad964c9af1de8c05ba83490c5bc49dbf638adb570742e5911cab09288f6e3b",
       "practiceReadOnly": false,
-      "questionCount": 23,
+      "ocrCaution": false,
+      "questionCount": 45,
+      "scoredCount": 45,
       "responseTypes": {
-        "choice": 19,
+        "choice": 29,
         "multiple": 0,
         "true-false": 0,
-        "text": 4,
+        "text": 16,
         "essay": 0
       },
       "keyStatuses": {
-        "ambiguous_review": 23
+        "source_transcription_unverified": 45
       },
-      "listeningItems": 8,
+      "sourceStatuses": {
+        "single_source_transcription": 45
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 20,
+        "LOW": 25,
+        "VERY_LOW": 0
+      },
+      "listeningItems": 25,
       "writingItems": 0
     },
     {
@@ -2187,17 +3362,27 @@
       "quality": "DOCX",
       "contentSha256": "68bc22b50b6d09d6b08b020007b00a06e376069944af23e6b09862b9c19c36b2",
       "practiceReadOnly": false,
-      "questionCount": 73,
+      "ocrCaution": false,
+      "questionCount": 88,
+      "scoredCount": 88,
       "responseTypes": {
-        "choice": 38,
+        "choice": 45,
         "multiple": 0,
         "true-false": 0,
-        "text": 35,
+        "text": 43,
         "essay": 0
       },
       "keyStatuses": {
-        "source_transcription_unverified": 15,
-        "ambiguous_review": 58
+        "source_transcription_unverified": 88
+      },
+      "sourceStatuses": {
+        "single_source_transcription": 88
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 83,
+        "LOW": 5,
+        "VERY_LOW": 0
       },
       "listeningItems": 5,
       "writingItems": 0
@@ -2209,21 +3394,32 @@
       "quality": "PDF-text/DOCX",
       "contentSha256": "12ceabdb0a52051fdef7cfe44276bf6411cf99f4ec41d58fb1e33584d4d68d9e",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 74,
+      "scoredCount": 74,
       "responseTypes": {
         "choice": 31,
         "multiple": 0,
         "true-false": 0,
-        "text": 41,
-        "essay": 2
+        "text": 33,
+        "essay": 10
       },
       "keyStatuses": {
-        "missing_answer": 69,
-        "ambiguous_review": 2,
-        "source_transcription_unverified": 3
+        "inferred_unverified": 64,
+        "source_transcription_unverified": 10
+      },
+      "sourceStatuses": {
+        "reasoned_inference": 64,
+        "single_source_transcription": 10
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 1,
+        "LOW": 73,
+        "VERY_LOW": 0
       },
       "listeningItems": 6,
-      "writingItems": 2
+      "writingItems": 10
     },
     {
       "id": "2026/tay-ninh/so",
@@ -2232,18 +3428,29 @@
       "quality": "DOCX",
       "contentSha256": "286a109350658bbbe51f0d93c984e802dbc9c575f8e282ad5de5a7bbf062f3d0",
       "practiceReadOnly": false,
+      "ocrCaution": false,
       "questionCount": 112,
+      "scoredCount": 112,
       "responseTypes": {
-        "choice": 9,
-        "multiple": 10,
+        "choice": 19,
+        "multiple": 0,
         "true-false": 0,
         "text": 93,
         "essay": 0
       },
       "keyStatuses": {
-        "ambiguous_review": 19,
-        "source_transcription_unverified": 69,
-        "missing_answer": 24
+        "inferred_unverified": 80,
+        "source_transcription_unverified": 32
+      },
+      "sourceStatuses": {
+        "reasoned_inference": 80,
+        "single_source_transcription": 32
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 34,
+        "LOW": 78,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -2255,19 +3462,30 @@
       "quality": "DOCX",
       "contentSha256": "f70ffb34fbd4dbe16e7857030197526fda7cf2cb691e17aee5dcca0343a91289",
       "practiceReadOnly": false,
-      "questionCount": 48,
+      "ocrCaution": false,
+      "questionCount": 61,
+      "scoredCount": 61,
       "responseTypes": {
-        "choice": 23,
+        "choice": 36,
         "multiple": 0,
         "true-false": 0,
-        "text": 25,
-        "essay": 0
+        "text": 20,
+        "essay": 5
       },
       "keyStatuses": {
-        "source_transcription_unverified": 48
+        "source_transcription_unverified": 61
       },
-      "listeningItems": 10,
-      "writingItems": 0
+      "sourceStatuses": {
+        "single_source_transcription": 61
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 48,
+        "LOW": 13,
+        "VERY_LOW": 0
+      },
+      "listeningItems": 13,
+      "writingItems": 5
     },
     {
       "id": "2026/tp-ho-chi-minh/ptnk",
@@ -2276,16 +3494,27 @@
       "quality": "DOCX",
       "contentSha256": "cd9915610fa20d47af152d4149be9e081b7baa87ed378d9157a5e1abeb4d8622",
       "practiceReadOnly": false,
-      "questionCount": 63,
+      "ocrCaution": false,
+      "questionCount": 83,
+      "scoredCount": 83,
       "responseTypes": {
-        "choice": 48,
+        "choice": 68,
         "multiple": 0,
         "true-false": 0,
         "text": 5,
         "essay": 10
       },
       "keyStatuses": {
-        "source_transcription_unverified": 63
+        "source_transcription_unverified": 83
+      },
+      "sourceStatuses": {
+        "single_source_transcription": 83
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 73,
+        "LOW": 10,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 10
@@ -2297,17 +3526,27 @@
       "quality": "DOCX/PDF-text",
       "contentSha256": "90b8ae78e04bb11547878d5820fd709dd7e33d788d176b4074a2c12525b14293",
       "practiceReadOnly": false,
-      "questionCount": 43,
+      "ocrCaution": false,
+      "questionCount": 49,
+      "scoredCount": 49,
       "responseTypes": {
-        "choice": 29,
+        "choice": 35,
         "multiple": 0,
         "true-false": 0,
         "text": 14,
         "essay": 0
       },
       "keyStatuses": {
-        "ambiguous_review": 34,
-        "source_transcription_unverified": 9
+        "source_transcription_unverified": 49
+      },
+      "sourceStatuses": {
+        "single_source_transcription": 49
+      },
+      "confidenceCounts": {
+        "HIGH": 0,
+        "MEDIUM": 37,
+        "LOW": 12,
+        "VERY_LOW": 0
       },
       "listeningItems": 12,
       "writingItems": 0
