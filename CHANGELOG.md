@@ -1,5 +1,29 @@
 # Changelog
 
+## v1.0.0-rc7 — the answer no longer appears inside the question (2026-10-31, candidate)
+
+**Status: prerelease candidate.** `APP_VERSION` and `DEPLOY_HOLD` both name `v1.0.0-rc7`; tag, prerelease and Pages states must be read from GitHub, not inferred here (evidence is appended to `docs/RC7_AUDIT_REPORT.md` as each stage is observed). Stable readiness remains **NO-GO**: no official exam answer key was obtained. No vocabulary row, gloss, ID, progress key, scheduling rule or backup-schema field changes in this release; the priority order `due → weak → learning → new → review → mastered` is untouched.
+
+### The reported defect, found and fixed
+
+The owner reported vocabulary items appearing directly in the question. Scanning the real dataset with the shipped generator found the cause: a recorded gloss may quote its own headword in an English usage pattern (`Derive` → “bắt nguồn từ (derive from)”), so every pre-answer surface that printed the gloss — Việt→Anh prompts, spelling prompts, the correct Anh→Việt option, matching tiles, one phrase prompt — printed the answer with it. 55 of 5,852 glosses contain the headword (25 active); with inflections, constituents and stem relatives, 64 glosses (32 active) are affected.
+
+- **Question surfaces are masked token-by-token; stored data is not edited.** `maskAnswerInPrompt` blanks the answer in any regular written form inside prompts, recognition/MC4 option glosses, matching tiles and phrase prompts (“bắt nguồn từ (_____ from)”). It is token-aware: “art” inside “article” and diacritic-bearing Vietnamese tokens are never touched. Grading still uses the recorded gloss, and feedback prints it in full after answering.
+- **Degenerate loanword glosses keep only the flashcard path.** `proton`, `gluten`, `cholesterol` record the gloss as the headword itself, so stimulus and answer were the same text in both directions. They are now unavailable to the modes that would print that identity, instead of being re-glossed or deleted.
+- **CLOZE only uses sentences that can honestly be blanked.** Blanking recognises inflected forms, tries later recorded examples, and refuses sentences that would leave the answer's stem in view; planner availability and the generator now agree. The dataset still has exactly one usable example, so cloze stays effectively unavailable and off by default — no sentences were invented.
+- **The sprint hand-off strip can no longer answer the next card** when the previous word/gloss coincides with the current turn's answer.
+
+### Verification
+
+- Python 157/157; Node static 131/131 (7 new rc7 regressions, shown to fail against the rc6 bytes), exam scoring 11/11, telemetry 16/16; all 14 data/embed `--check` commands clean.
+- An exhaustive regression generates every eligible record of the real dataset in every exercise type (>30,000 questions) and asserts no pre-answer surface prints its answer.
+- Chromium 133: both browser suites pass sequentially, including a new browser scenario for record 453 (masked prompt before answering, full gloss only in feedback); offline `file://` opening verified with zero network requests.
+- Exam audits regenerated unchanged: 106 records, 6,457 extracted questions, 1,769 transcription-unverified, 3,216 missing, 1,472 ambiguous, 0 official, 1,269 provisionally gradable.
+
+### Limits
+
+- 0/106 official primary papers/keys; cloze limited by the single recorded example; three loanword records are flashcard-only until a sourced Vietnamese gloss exists; no Firefox/Safari, screen-reader or physical-device pass. These block stable.
+
 ## v1.0.0-rc6 — verified scoring paths, answer provenance, archive rendering and focus repair (2026-10-29, candidate)
 
 **Status: published prerelease.** Tag `v1.0.0-rc6` points at merge commit `6d9f295` (PR #69), published 2026-10-29T15:48:09Z. Release artifacts run `40904757402` built HTML/ZIP/checksums from that tag (HTML 13,999,832 bytes, SHA-256 `5c18c6d54d8d84319def63648e07c1f6923917953cba7587cd0041aaaefff1ee`); deploy run `40905243112` passed the gate and deployment `7417081331` succeeded at the Pages URL. A post-deploy Pages probe (`40905754218`) passed and confirmed the served page declares `v1.0.0-rc6` and the rc6 scoring/history markers. Stable readiness remains **NO-GO**: no official answer key was obtained.
