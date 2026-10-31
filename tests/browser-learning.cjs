@@ -514,7 +514,7 @@ async function main() {
 
     // The shipped build identifies itself.
     await sprint.locator('[data-view="settings"]').click();
-    assert.equal(await sprint.locator('#app-version').innerText(), 'v1.0.0-rc6');
+    assert.equal(await sprint.locator('#app-version').innerText(), 'v1.0.0-rc7');
     assert.deepEqual(sprintErrors, []);
 
     // Error -> intervening word -> typed corrective retrieval -> truthful summary.
@@ -2830,7 +2830,7 @@ async function main() {
     await about.waitFor();
     const aboutText = await about.innerText();
     assert.match(aboutText, /Chuyên Anh/);
-    assert.match(aboutText, /v1\.0\.0-rc6/, 'the About panel shows the shipped version');
+    assert.match(aboutText, /v1\.0\.0-rc7/, 'the About panel shows the shipped version');
     assert.match(aboutText, /MIT License · © 2026 coderunknow/);
     assert.match(aboutText, /Flashcard từ vựng/);
     await about.locator('summary').click();
@@ -2891,7 +2891,7 @@ async function main() {
       assert.match(download.suggestedFilename(), /^chuyen-anh-diagnostics-\d{4}-\d\d-\d\d\.json$/);
       const report = JSON.parse(fs.readFileSync(await download.path(), 'utf8'));
       assert.equal(report.product, 'Chuyen-Anh');
-      assert.match(report.appVersion, /^v1\.0\.0-rc6$/);
+      assert.match(report.appVersion, /^v1\.0\.0-rc7$/);
       assert.equal(report.consent.enabled, true);
       assert.equal(report.eventCount, report.events.length);
       assert.equal(['mobile', 'tablet', 'desktop'].includes(report.environment.viewport), true, 'the viewport is bucketed, not exact');
@@ -3062,11 +3062,52 @@ async function main() {
       'the introduction carries the real Vietnamese gloss');
     assert.equal(await rc5.locator('[data-reveal-meaning], [data-reveal-phrase]').count(), 0,
       'no per-word reveal control exists in either mode');
+    // ---- rc7: a gloss that quotes its own headword never prints the answer
+    // inside the question. Record 453 "Derive" is glossed "bắt nguồn từ
+    // (derive from); thu được, rút ra (derive sth from)": before rc7 the
+    // Việt→Anh prompt contained the very word being asked for. The browser
+    // sees the masked prompt before answering and the recorded gloss only
+    // in the post-answer feedback.
+    // Reuse the rc5 page: it is already open on the relaunched browser, and
+    // one more fresh 14 MB page is exactly what exhausted this sandbox in rc6.
+    const rc7 = rc5;
+    const rc7ErrorCount = rc5Errors.length;
+    await rc7.goto(`http://127.0.0.1:${server.address().port}`);
+    await rc7.evaluate(() => {
+      localStorage.clear();
+      const now = Date.now();
+      // One prior correct answer: not new (no introduction) and the classic
+      // rotation lands on recall, the direction whose prompt is the gloss.
+      localStorage.setItem('chuyen-anh.progress.v1', JSON.stringify({
+        453: { id: '453', state: 'review', correctCount: 1, wrongCount: 0, streak: 1, lastReviewed: now - 86400000, nextReview: now - 3600000, interval: 1, ease: 2.5, difficulty: 0.3 }
+      }));
+      localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['453']));
+      localStorage.setItem('chuyen-anh.prefs.v1', JSON.stringify({ sessionSize: 10, keyboardShortcuts: true, darkMode: false }));
+    });
+    await rc7.reload();
+    await rc7.locator('[data-session="favorites"]').click();
+    await rc7.locator('.flashcard').waitFor();
+    assert.equal(await rc7.locator('#start-quiz').count(), 0, 'a reviewed word opens on its question');
+    const rc7Prompt = (await rc7.locator('.flashcard .prompt').innerText()).trim();
+    assert.equal(rc7Prompt, 'bắt nguồn từ (_____ from); thu được, rút ra (_____ sth from)',
+      'the Việt→Anh prompt masks the headword quoted inside its own gloss');
+    const rc7SubPrompt = (await rc7.locator('.flashcard .sub-prompt').innerText()).trim();
+    assert.equal(/derive/i.test(`${rc7Prompt} ${rc7SubPrompt}`), false, 'no pre-answer prompt surface prints the answer');
+    const rc7Options = await rc7.evaluate(() => [...document.querySelectorAll('.flashcard .option')]
+      .map(button => button.querySelector('span:last-child')?.textContent.trim()));
+    assert.equal(rc7Options.filter(text => text === 'Derive').length, 1,
+      'the answer itself remains exactly one of the selectable options');
+    await rc7.locator('[data-option="453"]').click();
+    await rc7.locator('#feedback-area .feedback').waitFor();
+    assert.equal((await rc7.locator('#feedback-area').innerText()).includes('(derive from)'), true,
+      'the recorded gloss is printed in full only after answering');
+    assert.equal(rc5Errors.length, rc7ErrorCount, 'no page errors during the rc7 scenario');
     assert.deepEqual(rc5Errors, []);
     await rc5.close();
 
+
     assert.deepEqual(errors, []);
-    console.log(`PASS: Chromium ${browser.version()} — first-look introduction for new words, same-part-of-speech distractors, cloze options absent from the sentence, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, 320/375/768px responsive layout, reduced-motion setting, search state across a favorite toggle, session clearing on reset/import, the ID 448 historical label, named option groups, shortcuts limited to the visible card, failed writes reported truthfully, JSON backup round-trips that keep every retained session, blank spelling submissions ignored, single-graded self-assessment, skip locked after a reveal, and 'Học cấp tốc' processing all ten requested words with a truthful single correction, automatic advance only after correct answers, accurate first-pass statistics, persisted progress, an immediate hand-off with the graded answer carried onto the next card, a queue that never shifts while another screen is open, and interface copy on a consolidation turn translated in the English interface; the beta5 priority configuration with all eight exercise types, a matching board driven from the keyboard, a skipped question reopened from the pending list, a hard word marked and unmarked, a real one-minute timed session that ends on its results with unanswered questions reported as blank, a v1 backup that keeps the device hard-word list, English rendering of every new screen, and the beta6 regressions: a priority session started from Settings opens where the learner can see it, a classic session reports only its own XP, a typed answer survives the star/flag toggles, a sprint honours the timer, a start that cannot run explains itself, a new session inherits no skipped questions, and the beta7 phrase bank: 780 phrases browsed, searched, filtered by type and level, practised for ten turns with typed and multiple-choice retrieval recorded in its own store while word progress stayed byte-identical, English rendering of the phrase screens, and a reset that clears phrase progress; the RC2 remediation regressions: two-tab grades surviving cross-tab writes with wipes never resurrected, an over-quota restore failing atomically with a truthful error then recovering fully once space is freed, the day streak moving only on first-pass correct answers — typed, chosen, self-assessed, and match resolutions alike — and skipped cards counted exactly once, at expiry and in a finished session; the curation release: an archived word marked in Tra cứu with no favourite toggle and a 1.271-row archived scope, every count driven by the 3.841-word focus deck, and an About panel stating the real version and the MIT licence read from LICENSE; the opt-in diagnostics log: off by default with no key on a device that never consented, a timestamped consent record, boot/settings/search events with no search text inside them, a downloaded report that names what it omits and carries no user agent, erasure on withdrawal; no page errors.`);
+    console.log(`PASS: Chromium ${browser.version()} — first-look introduction for new words, same-part-of-speech distractors, cloze options absent from the sentence, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, 320/375/768px responsive layout, reduced-motion setting, search state across a favorite toggle, session clearing on reset/import, the ID 448 historical label, named option groups, shortcuts limited to the visible card, failed writes reported truthfully, JSON backup round-trips that keep every retained session, blank spelling submissions ignored, single-graded self-assessment, skip locked after a reveal, and 'Học cấp tốc' processing all ten requested words with a truthful single correction, automatic advance only after correct answers, accurate first-pass statistics, persisted progress, an immediate hand-off with the graded answer carried onto the next card, a queue that never shifts while another screen is open, and interface copy on a consolidation turn translated in the English interface; the beta5 priority configuration with all eight exercise types, a matching board driven from the keyboard, a skipped question reopened from the pending list, a hard word marked and unmarked, a real one-minute timed session that ends on its results with unanswered questions reported as blank, a v1 backup that keeps the device hard-word list, English rendering of every new screen, and the beta6 regressions: a priority session started from Settings opens where the learner can see it, a classic session reports only its own XP, a typed answer survives the star/flag toggles, a sprint honours the timer, a start that cannot run explains itself, a new session inherits no skipped questions, and the beta7 phrase bank: 780 phrases browsed, searched, filtered by type and level, practised for ten turns with typed and multiple-choice retrieval recorded in its own store while word progress stayed byte-identical, English rendering of the phrase screens, and a reset that clears phrase progress; the RC2 remediation regressions: two-tab grades surviving cross-tab writes with wipes never resurrected, an over-quota restore failing atomically with a truthful error then recovering fully once space is freed, the day streak moving only on first-pass correct answers — typed, chosen, self-assessed, and match resolutions alike — and skipped cards counted exactly once, at expiry and in a finished session; the curation release: an archived word marked in Tra cứu with no favourite toggle and a 1.271-row archived scope, every count driven by the 3.841-word focus deck, and an About panel stating the real version and the MIT licence read from LICENSE; the opt-in diagnostics log: off by default with no key on a device that never consented, a timestamped consent record, boot/settings/search events with no search text inside them, a downloaded report that names what it omits and carries no user agent, erasure on withdrawal; the rc7 answer-leakage regression: a gloss quoting its own headword is masked in the pre-answer prompt and printed in full only in feedback; no page errors.`);
   } finally {
     if (browser) await browser.close();
     await new Promise(resolve => server.close(resolve));

@@ -53,7 +53,7 @@ def modern_page(version: str) -> str:
         "<span>Trọng tâm phiên học</span>"
         "<script>const EXAM_SCORING_RULE_VERSION = \"rc6-equal-weight-v1\"; const answerKeySchemaVersion = 1;</script>"
         f"<script type=\"module\" id=\"app-script\">const APP_VERSION = '{version}';"
-        "function previewStageVisible() { return true; }</script>"
+        "function previewStageVisible() { return true; } function maskAnswerInPrompt() {} function usableClozeExample() {} function handOffForDisplay() {}</script>"
         "</body></html>"
     )
 

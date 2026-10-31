@@ -154,7 +154,14 @@ const {
   meaningConcealed,
   meaningPreviewEnabled,
   previewStageVisible,
-  turnNeedsFirstLook
+  turnNeedsFirstLook,
+  ANSWER_MASK,
+  maskAnswerInPrompt,
+  glossPromptUsable,
+  glossEqualsWord,
+  glossSegmentEqualsWord,
+  usableClozeExample,
+  handOffForDisplay
 } = app;
 
 const vocab = [
@@ -1300,7 +1307,10 @@ test('every multiple-choice question offers plausible, distinct options', () => 
       const texts = question.options.map(option => normalize(option.text));
       assert.equal(new Set(texts).size, 4, `${entry.word} repeated an option text`);
       // The dataset holds entries that share one gloss; none of them may become the answer.
-      assert.equal(question.options.find(option => option.id === entry.id).text, entry[field(mode)]);
+      // rc7: a recognition option prints the gloss with the prompt word
+      // masked out of it; every other mode's correct option is the raw field.
+      assert.equal(question.options.find(option => option.id === entry.id).text,
+        mode === MODES.RECOGNITION ? maskAnswerInPrompt(entry.meaning, entry.word) : entry[field(mode)]);
 
       const options = question.options.filter(option => option.id !== entry.id)
         .map(option => byId.get(option.id));
@@ -1312,7 +1322,10 @@ test('every multiple-choice question offers plausible, distinct options', () => 
         `${entry.word} (${entry.pos}, ${mode}) used ${actualSamePos} same-POS distractors, expected ${expectedSamePos}`);
     }
   }
-  assert.ok(statements >= vocabulary.length * 2, `expected recognition and recall for every word, generated ${statements}`);
+  // rc7: the recorded loanword glosses that are their own headword keep only
+  // the flashcard path, so recognition/recall are generated for every other word.
+  const unaskable = vocabulary.filter(entry => glossEqualsWord(entry) || !glossPromptUsable(entry)).length;
+  assert.ok(statements >= (vocabulary.length - unaskable) * 2, `expected recognition and recall for every askable word, generated ${statements}`);
   assert.ok(clozeStatements >= 1, 'the record that has an example sentence must still be asked as cloze');
 });
 
@@ -1332,16 +1345,24 @@ test('every generated mode keeps prompt, answer and options bound to its own rec
         // Documented fallback: cloze needs an example sentence.
         assert.equal(question.mode, MODES.RECOGNITION, `${entry.id} cloze fallback`);
       }
-      if (question.mode === MODES.RECOGNITION) {
+      if (question.unavailable) {
+        // rc7: a directly requested mode may be refused ungraded (a degenerate
+        // or unblankable record); it is bound to its record and offers nothing.
+        assert.equal(question.id, entry.id, `${entry.id} unavailable id`);
+        assert.deepEqual(question.options, [], `${entry.id} unavailable options`);
+        assert.ok(question.unavailableReason, `${entry.id} unavailable reason`);
+      } else if (question.mode === MODES.RECOGNITION) {
         assert.equal(question.prompt, entry.word, `${entry.id} recognition prompt`);
         assert.equal(question.answer, entry.meaning, `${entry.id} recognition answer`);
-        assert.deepEqual(correct, [[entry.id, entry.meaning]], `${entry.id} recognition option`);
+        // rc7: the printed correct option is the gloss with the prompt word
+        // masked out; `answer` above keeps the recorded gloss for feedback.
+        assert.deepEqual(correct, [[entry.id, maskAnswerInPrompt(entry.meaning, entry.word)]], `${entry.id} recognition option`);
       } else if (question.mode === MODES.RECALL) {
-        assert.equal(question.prompt, entry.meaning, `${entry.id} recall prompt`);
+        assert.equal(question.prompt, maskAnswerInPrompt(entry.meaning, entry.word), `${entry.id} recall prompt`);
         assert.equal(question.answer, entry.word, `${entry.id} recall answer`);
         assert.deepEqual(correct, [[entry.id, entry.word]], `${entry.id} recall option`);
       } else if (question.mode === MODES.SPELLING) {
-        assert.equal(question.prompt, entry.meaning, `${entry.id} spelling prompt`);
+        assert.equal(question.prompt, maskAnswerInPrompt(entry.meaning, entry.word), `${entry.id} spelling prompt`);
         assert.equal(question.answer, entry.word, `${entry.id} spelling answer`);
         assert.equal(question.options, null, `${entry.id} spelling options`);
       } else if (question.mode === MODES.CLOZE) {
@@ -1556,7 +1577,7 @@ test('exported exam results report exactly what the learner did and what could b
   const result = buildExamResultJson(session, record, keys, [], { now: 6000 });
   assert.equal(result.app, 'Chuyên Anh');
   assert.equal(result.version, APP_VERSION, 'the result carries the application version');
-  assert.equal(result.version, 'v1.0.0-rc6');
+  assert.equal(result.version, 'v1.0.0-rc7');
   assert.equal(result.schemaVersion, '2.0.0');
   assert.equal(result.summary.total, 3);
   assert.equal(result.summary.answered, 2);
@@ -3310,13 +3331,20 @@ test('rc2: vocabulary coverage reconciles the full headword inventory', () => {
     availability[type] = rc2Heads.filter(entry => app.exerciseAvailability(type, entry, rc2Heads)).length;
   }
   assert.equal(availability.flashcard, 5112);
-  assert.equal(availability.fill_vi, 5112);
-  assert.equal(availability.match, 5112);
-  assert.equal(availability.mc4, 5112, 'every headword has three distinct meaning distractors');
-  assert.equal(availability.cloze, rc2Heads.filter(entry => entry.examples?.length).length,
-    'cloze reaches exactly the headwords with a recorded example');
-  assert.equal(availability.fill_en, rc2Heads.filter(entry => isTypableHeadword(entry.word)).length,
-    'typed English reaches exactly the typable headwords');
+  // rc7: recorded loanword glosses that *are* the headword ("proton" →
+  // "proton") — or contain it as one recorded sense — cannot be asked in a
+  // direction where stimulus and answer would be the same text. They keep
+  // the flashcard path, so coverage below still reconciles per headword.
+  const degenerateHeads = rc2Heads.filter(entry => glossEqualsWord(entry)).length;
+  const segmentHeads = rc2Heads.filter(entry => glossSegmentEqualsWord(entry)).length;
+  assert.equal(availability.fill_vi, 5112 - segmentHeads,
+    'typed Vietnamese refuses a gloss sense that copies the prompt word');
+  assert.equal(availability.match, 5112 - degenerateHeads);
+  assert.equal(availability.mc4, 5112 - degenerateHeads, 'every askable headword has three distinct meaning distractors');
+  assert.equal(availability.cloze, rc2Heads.filter(entry => usableClozeExample(entry)).length,
+    'cloze reaches exactly the headwords with a blankable recorded example');
+  assert.equal(availability.fill_en, rc2Heads.filter(entry => isTypableHeadword(entry.word) && glossPromptUsable(entry)).length,
+    'typed English reaches exactly the typable headwords whose gloss prompt is not the answer itself');
   for (const entry of rc2Heads) {
     assert.ok(app.EXERCISE_ORDER.some(type => app.exerciseAvailability(type, entry, rc2Heads)),
       `${entry.word} keeps at least one learning path`);
@@ -3745,6 +3773,210 @@ test('rc4: the Modern interface is a second layout, not a palette swap', () => {
   assert.equal((appScript[1].match(/function renderLearn\(/g) || []).length, 1, 'one learn renderer');
   // No external asset can be introduced by the skin.
   assert.doesNotMatch(css, /@import|url\((?!#)/, 'the stylesheet stays self-contained');
+});
+
+// ---------------------------------------------------------------------------
+// rc7 answer-leakage regressions. The reported defect: certain vocabulary
+// items appear directly in the question. Root cause found by scanning the
+// real dataset: 25 active glosses quote their own headword in an English
+// usage pattern ("bắt nguồn từ (derive from)"), so every surface that
+// printed the gloss before answering — Việt→Anh prompts, spelling prompts,
+// recognition options, matching tiles — printed the answer with it. The
+// permitted/prohibited matrix these tests enforce:
+//   mc_en_vi / mc4 : prompt = word (stimulus); option glosses must not
+//                    contain the prompt word; answer stays the raw gloss.
+//   mc_vi_en       : prompt = masked gloss; options are words (stimulus set).
+//   fill_vi        : prompt = word; no recorded sense may copy the prompt.
+//   fill_en        : prompt = masked gloss; hint is first letter + length
+//                    only, never the whole answer.
+//   cloze          : prompt = sentence with every written form of the answer
+//                    blanked and no stem-sharing relative left in view.
+//   match          : tiles are the pairs themselves; each meaning tile is
+//                    masked with its own headword (planner-tested below).
+//   flashcard      : word first, gloss only on the deliberate flip.
+// ---------------------------------------------------------------------------
+
+test('rc7: maskAnswerInPrompt is token-aware and masks written forms only', () => {
+  assert.equal(maskAnswerInPrompt('bắt nguồn từ (derive from); rút ra (derive sth from)', 'Derive'),
+    'bắt nguồn từ (_____ from); rút ra (_____ sth from)');
+  // Hyphenated compounds mask the component, not the scaffold around it.
+  assert.equal(maskAnswerInPrompt('phản đối (averse to sth; risk-averse)', 'Averse'),
+    'phản đối (_____ to sth; risk-_____)');
+  // A substring look-alike is not the answer: "art" inside "article" stays.
+  assert.equal(maskAnswerInPrompt('bài viết (article)', 'Art'), 'bài viết (article)');
+  // Vietnamese tokens keep their diacritics and are never folded into an
+  // English look-alike; only the plain-ASCII token is the English form.
+  assert.equal(maskAnswerInPrompt('mà mã ma', 'Ma'), 'mà mã _____');
+  // Multi-token answers collapse as one blank, punctuation scaffolding and all.
+  assert.equal(maskAnswerInPrompt("'kẻo': lest + S + (should) + V-bare; không dùng not sau lest", 'Lest + S + (should) V-bare'),
+    "'kẻo': _____; không dùng not sau _____");
+  // Irregular plurals and doubled-consonant forms are written forms too.
+  assert.equal(maskAnswerInPrompt('số nhiều: stimuli', 'Stimulus'), 'số nhiều: _____');
+  // Adjacent listed forms collapse into the one blank that replaces them.
+  assert.equal(maskAnswerInPrompt('đã dừng (stopped, stopping)', 'Stop'), 'đã dừng (_____)');
+  // A long-stem relative is masked when a stimulus remains…
+  assert.equal(maskAnswerInPrompt('máy photocopy', 'photocopier'), 'máy _____');
+  // …but a recorded Vietnamese loanword that is the whole gloss is the
+  // stimulus itself, so it is left exactly as recorded.
+  assert.equal(maskAnswerInPrompt('enzym', 'enzyme'), 'enzym');
+  assert.equal(maskAnswerInPrompt('', 'Derive'), '');
+  assert.equal(maskAnswerInPrompt('nghĩa thuần Việt', ''), 'nghĩa thuần Việt');
+});
+
+test('rc7: cloze blanks inflected forms, refuses leaky sentences and tries later examples', () => {
+  const stop = { id: 'z1', word: 'Stop', pos: 'v', meaning: 'dừng lại', tags: [], examples: [{ en: 'He stopped, and stopping hurt.', vi: '' }] };
+  const stopPool = [stop,
+    { id: 'z2', word: 'Lucid', pos: 'adj', meaning: 'rõ ràng', tags: [], examples: [] },
+    { id: 'z3', word: 'Gauge', pos: 'v', meaning: 'đo lường', tags: [], examples: [] },
+    { id: 'z4', word: 'Vivid', pos: 'adj', meaning: 'sống động', tags: [], examples: [] },
+    { id: 'z5', word: 'Halt', pos: 'v', meaning: 'ngừng', tags: [], examples: [] }];
+  const stopQuestion = generateQuestion({ vocab: stop, progress: createInitialProgress('z1', 0) }, stopPool, MODES.CLOZE);
+  assert.equal(stopQuestion.prompt, 'He _____, and _____ hurt.', 'both written forms are blanked');
+
+  // The first example leaves a stem-sharing relative in view, so the second
+  // recorded example carries the cloze instead; no example is invented.
+  const create = { id: 'z6', word: 'Create', pos: 'v', meaning: 'tạo ra', tags: [], examples: [
+    { en: 'They create, and every creation matters.', vi: '' },
+    { en: 'They create daily.', vi: '' }] };
+  const usable = usableClozeExample(create);
+  assert.equal(usable.example.en, 'They create daily.');
+  assert.equal(usable.prompt, 'They _____ daily.');
+
+  // With only the leaky sentence recorded, cloze is unavailable in both the
+  // planner predicate and the generator — they cannot disagree.
+  const leakyOnly = { id: 'z7', word: 'Create', pos: 'v', meaning: 'tạo ra', tags: [], examples: [{ en: 'They create, and every creation matters.', vi: '' }] };
+  assert.equal(usableClozeExample(leakyOnly), null);
+  assert.equal(exerciseAvailability(EXERCISE_TYPES.CLOZE, leakyOnly, stopPool), false);
+  const refused = generateQuestion({ vocab: leakyOnly, progress: createInitialProgress('z7', 0) }, stopPool, EXERCISE_TYPES.CLOZE);
+  assert.equal(refused.unavailable, true);
+  assert.equal(refused.unavailableReason, 'no-usable-cloze-example');
+
+  // A substring is not an occurrence: "art" is never blanked out of "article".
+  const art = { id: 'z8', word: 'Art', pos: 'n', meaning: 'nghệ thuật', tags: [], examples: [{ en: 'An article appeared.', vi: '' }] };
+  assert.equal(usableClozeExample(art), null);
+  const artUsable = { ...art, examples: [{ en: 'An article about art appeared.', vi: '' }] };
+  assert.equal(usableClozeExample(artUsable).prompt, 'An article about _____ appeared.');
+});
+
+test('rc7: a gloss that is the headword itself keeps only the flashcard path', () => {
+  const proton = embeddedVocabulary.find(entry => entry.id === '4188');
+  assert.ok(proton && glossEqualsWord(proton), 'the recorded loanword fixture exists');
+  for (const type of app.EXERCISE_ORDER) {
+    assert.equal(exerciseAvailability(type, proton, embeddedVocabulary), type === EXERCISE_TYPES.FLASHCARD,
+      `${type} availability for a degenerate gloss`);
+  }
+  const item = { vocab: proton, progress: createInitialProgress(proton.id, 0) };
+  // A planned turn is refused ungraded rather than silently re-labelled…
+  assert.equal(generateQuestion(item, embeddedVocabulary, EXERCISE_TYPES.MC_EN_VI).unavailableReason, 'gloss-equals-word');
+  assert.equal(generateQuestion(item, embeddedVocabulary, EXERCISE_TYPES.MC_VI_EN).unavailableReason, 'gloss-prompt-is-the-answer');
+  assert.equal(generateQuestion(item, embeddedVocabulary, EXERCISE_TYPES.FILL_VI).unavailableReason, 'gloss-segment-equals-word');
+  // …and every unplanned path degrades to the self-assessed flashcard, the
+  // one mode where showing the word first is the exercise itself. (`fill_vi`
+  // and `cloze` are also exercise-type strings, so requesting them by mode
+  // name takes the planned-turn refusal above instead.)
+  for (const mode of [MODES.RECOGNITION, MODES.RECALL, MODES.SPELLING]) {
+    assert.equal(generateQuestion(item, embeddedVocabulary, mode).mode, MODES.FLASHCARD, `${mode} degrades to flashcard`);
+  }
+  for (const mode of [MODES.FILL_VI, MODES.CLOZE]) {
+    assert.equal(generateQuestion(item, embeddedVocabulary, mode).unavailable, true, `${mode} is refused ungraded`);
+  }
+});
+
+test('rc7: no generated question over the real dataset prints its answer early', () => {
+  // Independent token check (not the masking code): a prompt surface leaks
+  // when one of its whole tokens is the answer token or a regular form of it.
+  // Only plain-ASCII surface tokens can be English answer forms; a folded
+  // Vietnamese token ("thế" → "the") is a look-alike, not a leak.
+  const tokenSet = text => new Set([...String(text ?? '').matchAll(/[\p{L}\p{N}]+(?:['’][\p{L}\p{N}]+)*/gu)]
+    .map(match => match[0]).filter(token => /^[\x00-\x7F]+$/.test(token))
+    .map(token => token.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')));
+  const formsOf = token => {
+    const forms = new Set([token, `${token}s`, `${token}es`, `${token}ed`, `${token}ing`, `${token}ly`, `${token}er`, `${token}est`]);
+    if (token.endsWith('e')) { forms.add(`${token.slice(0, -1)}ing`); forms.add(`${token}d`); }
+    if (token.endsWith('us')) forms.add(`${token.slice(0, -2)}i`);
+    return forms;
+  };
+  const leaksAnswer = (surface, word) => {
+    const shown = tokenSet(surface);
+    return [...tokenSet(word)].filter(token => token.length >= 3)
+      .some(token => [...formsOf(token)].some(form => shown.has(form)));
+  };
+  let checked = 0;
+  let clozeChecked = 0;
+  for (const entry of embeddedVocabulary) {
+    const item = { vocab: entry, progress: createInitialProgress(entry.id, 0) };
+    for (const type of app.EXERCISE_ORDER) {
+      if (type === EXERCISE_TYPES.MATCH) {
+        // A board shows its pairs by design; its availability must still
+        // refuse a degenerate gloss whose tiles would be identical strings.
+        if (glossEqualsWord(entry)) assert.equal(exerciseAvailability(type, entry, embeddedVocabulary), false, `${entry.id} match`);
+        continue;
+      }
+      if (!exerciseAvailability(type, entry, embeddedVocabulary)) continue;
+      const question = generateQuestion(item, embeddedVocabulary, type);
+      assert.ok(!question.unavailable, `${entry.id} ${type} was planned available but generated unavailable`);
+      checked += 1;
+      const asksForWord = [EXERCISE_TYPES.MC_VI_EN, EXERCISE_TYPES.FILL_EN, EXERCISE_TYPES.CLOZE].includes(type);
+      if (asksForWord) {
+        assert.equal(leaksAnswer(question.prompt, entry.word), false, `${entry.id} ${type} prompt leaks: ${question.prompt}`);
+        assert.equal(leaksAnswer(question.subPrompt, entry.word), false, `${entry.id} ${type} subPrompt leaks`);
+        if (question.hint) assert.notEqual(normalize(question.hint.replace(/•/g, '')), normalize(entry.word), `${entry.id} hint is the answer`);
+      } else {
+        // The prompt is the word stimulus; what must not happen is an option
+        // or tile that hands the answer back by containing that prompt word.
+        for (const option of question.options || []) {
+          assert.equal(leaksAnswer(option.text, entry.word), false, `${entry.id} ${type} option leaks: ${option.text}`);
+        }
+      }
+      if (type === EXERCISE_TYPES.CLOZE) {
+        clozeChecked += 1;
+        assert.ok(question.prompt.includes(ANSWER_MASK), `${entry.id} cloze has a blank`);
+      }
+      // Exactly one correct option whenever options exist (leakage guards
+      // must not have disturbed option integrity).
+      if (Array.isArray(question.options) && question.options.length) {
+        assert.equal(question.options.filter(option => option.correct).length, 1, `${entry.id} ${type} correct count`);
+        const texts = question.options.map(option => normalize(option.text));
+        assert.equal(new Set(texts).size, texts.length, `${entry.id} ${type} duplicate option text`);
+      }
+    }
+  }
+  assert.ok(checked > 30000, `exhaustive surface check ran (${checked})`);
+  assert.equal(clozeChecked, 1, 'the one record with a usable example is cloze-checked');
+});
+
+test('rc7: typed spelling still detects a shared-gloss ambiguity behind a masked prompt', () => {
+  const fixture = [
+    { id: 'd1', word: 'Derive', pos: 'v', meaning: 'bắt nguồn từ (derive from)', tags: [], examples: [] },
+    { id: 'd2', word: 'Stem', pos: 'v', meaning: 'bắt nguồn từ (derive from)', tags: [], examples: [] },
+    { id: 'd3', word: 'Lucid', pos: 'adj', meaning: 'rõ ràng', tags: [], examples: [] }
+  ];
+  const question = generateQuestion({ vocab: fixture[0], progress: createInitialProgress('d1', 0) }, fixture, EXERCISE_TYPES.FILL_EN);
+  assert.equal(question.prompt, 'bắt nguồn từ (_____ from)');
+  assert.equal(app.gradeTypedAnswer(question, 'derive', { vocabulary: fixture }).correct, true);
+  const ambiguous = app.gradeTypedAnswer(question, 'stem', { vocabulary: fixture });
+  assert.equal(ambiguous.status, 'ambiguous', 'the other headword recorded with this gloss is evidence, not a plain mistake');
+  assert.equal(app.gradeTypedAnswer(question, 'lucid', { vocabulary: fixture }).status, 'incorrect');
+});
+
+test('rc7: the sprint hand-off strip never answers the next card', () => {
+  const previous = { correct: true, word: 'Derive', meaning: 'bắt nguồn từ' };
+  assert.deepEqual(handOffForDisplay(previous, [{ word: 'Stem', meaning: 'bắt nguồn từ' }]),
+    { correct: true, word: '', meaning: '' }, 'a shared gloss would print the current answer');
+  assert.deepEqual(handOffForDisplay(previous, [{ word: 'Derive', meaning: 'khác' }]),
+    { correct: true, word: '', meaning: '' }, 'the same word again would print the current answer');
+  assert.equal(handOffForDisplay(previous, [{ word: 'Lucid', meaning: 'rõ ràng' }]), previous,
+    'an unrelated next card keeps the full strip');
+  assert.equal(handOffForDisplay(null, [{ word: 'Lucid', meaning: 'rõ ràng' }]), null);
+});
+
+test('rc7: phrase prompts are masked with the phrase itself', () => {
+  const opposed = embeddedPhrases.find(entry => entry.phrase === 'oppose to');
+  assert.ok(opposed, 'the recorded phrase fixture exists');
+  const question = buildPhraseQuestion(opposed, embeddedPhrases, { mode: 'recall' });
+  assert.doesNotMatch(question.prompt, /oppos/i, 'the passive pattern quoted in the gloss is masked');
+  assert.equal(question.prompt, maskAnswerInPrompt(opposed.meaning, opposed.phrase));
+  assert.equal(question.answer, opposed.phrase, 'grading still expects the recorded phrase');
 });
 
 test('every shipped version literal agrees with APP_VERSION', async () => {
