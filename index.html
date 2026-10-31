@@ -223813,7 +223813,7 @@ export const MODES = Object.freeze({
   FLASHCARD: 'flashcard'
 });
 
-export const APP_VERSION = 'v1.0.0-rc6';
+export const APP_VERSION = 'v1.0.0-rc7';
 export const LICENSE_NAME = 'MIT License';
 export const LICENSE_COPYRIGHT = '© 2026 coderunknow';
 export const LICENSE_TEXT = `MIT License
@@ -225637,7 +225637,7 @@ export const OPTION_COUNT = 4;
 
 // Matching is off by default because it consumes four words per board and is
 // only useful with a larger pool; cloze is off by default because the current
-// dataset carries an example sentence for one word out of 913. The explicit
+// dataset carries a usable example sentence for one word (rc7 audit). The explicit
 // four-option exercise is off by default because the two directional
 // multiple-choice types already cover recognition in a fresh profile; turning
 // it on adds strictly-four-option recognition turns to the mix. All three are
@@ -225962,19 +225962,25 @@ export function isTypableHeadword(word) {
 export function exerciseAvailability(type, item, vocabulary) {
   const entry = item?.vocab || item;
   if (!entry || !entry.word || !entry.meaning) return false;
+  // rc7: availability also applies the answer-leakage guards the generator
+  // enforces, so the planner can never plan a turn the generator would have
+  // to refuse. A gloss that is only the answer (or, for typed Vietnamese,
+  // one recorded sense of it) cannot be asked in the direction that would
+  // print stimulus and answer as the same text, and cloze needs an example
+  // that can actually be blanked without leaving the answer in view.
   if (type === EXERCISE_TYPES.MC_EN_VI) {
-    return hasDistractor(vocabulary, entry, 'meaning');
+    return !glossEqualsWord(entry) && hasDistractor(vocabulary, entry, 'meaning');
   }
   if (type === EXERCISE_TYPES.MC_VI_EN) {
-    return hasDistractor(vocabulary, entry, 'word');
+    return glossPromptUsable(entry) && hasDistractor(vocabulary, entry, 'word');
   }
   if (type === EXERCISE_TYPES.MC4) {
-    return countDistractorCandidates(vocabulary, entry, 'meaning') >= OPTION_COUNT - 1;
+    return !glossEqualsWord(entry) && countDistractorCandidates(vocabulary, entry, 'meaning') >= OPTION_COUNT - 1;
   }
-  if (type === EXERCISE_TYPES.FILL_VI) return Boolean(String(entry.meaning).trim());
-  if (type === EXERCISE_TYPES.FILL_EN) return isTypableHeadword(entry.word);
-  if (type === EXERCISE_TYPES.CLOZE) return examplesFor(entry).length > 0;
-  if (type === EXERCISE_TYPES.MATCH) return Boolean(String(entry.word).trim() && String(entry.meaning).trim());
+  if (type === EXERCISE_TYPES.FILL_VI) return Boolean(String(entry.meaning).trim()) && !glossSegmentEqualsWord(entry);
+  if (type === EXERCISE_TYPES.FILL_EN) return isTypableHeadword(entry.word) && glossPromptUsable(entry);
+  if (type === EXERCISE_TYPES.CLOZE) return usableClozeExample(entry) !== null;
+  if (type === EXERCISE_TYPES.MATCH) return Boolean(String(entry.word).trim() && String(entry.meaning).trim()) && !glossEqualsWord(entry);
   if (type === EXERCISE_TYPES.FLASHCARD) return true;
   return false;
 }
@@ -226025,7 +226031,9 @@ export function buildExercisePlan(items, {
       for (const item of queue) {
         const entry = item?.vocab || item;
         const wordKey = normalize(entry?.word);
-        const meaningKey = normalize(entry?.meaning);
+        // The board prints each gloss with its own headword masked out, so
+        // distinctness is judged on the text the learner will actually see.
+        const meaningKey = normalize(entry ? maskAnswerInPrompt(entry.meaning, entry.word) : '');
         if (group.length < boardSize
           && wordKey && meaningKey && !usedWords.has(wordKey) && !usedMeanings.has(meaningKey)
           && exerciseAvailability(EXERCISE_TYPES.MATCH, item, vocabulary)) {
@@ -226100,7 +226108,7 @@ export function isUnambiguousMatchGroup(items) {
   for (const item of Array.isArray(items) ? items : []) {
     const entry = item?.vocab || item;
     const wordKey = normalize(entry?.word);
-    const meaningKey = normalize(entry?.meaning);
+    const meaningKey = normalize(entry ? maskAnswerInPrompt(entry.meaning, entry.word) : '');
     if (!wordKey || !meaningKey || words.has(wordKey) || meanings.has(meaningKey)) return false;
     words.add(wordKey);
     meanings.add(meaningKey);
@@ -226228,10 +226236,19 @@ export function gradeTypedAnswer(question, answer, { vocabulary = [] } = {}) {
   if (question.mode === MODES.SPELLING) {
     // Two entries may share one gloss; typing the other English word is a real
     // ambiguity rather than a plain mistake.
+    // rc7: the displayed prompt has the answer masked out of it, so the raw
+    // gloss this comparison needs comes from the target record itself when
+    // the deck is available; without it, candidate glosses are masked the
+    // same way before they are compared with the displayed prompt.
     const prompt = normalizeTyped(question.prompt);
+    const target = entries.find(entry => entry && entry.id === question.id);
+    const targetGloss = target ? normalizeTyped(target.meaning) : null;
     const ambiguous = entries.some(entry => entry && entry.id !== question.id
       && normalizeTyped(entry.word) === given
-      && normalizeTyped(entry.meaning) === prompt);
+      && (targetGloss !== null
+        ? normalizeTyped(entry.meaning) === targetGloss
+        : normalizeTyped(maskAnswerInPrompt(entry.meaning, entry.word)) === prompt
+          || normalizeTyped(entry.meaning) === prompt));
     if (ambiguous) return { status: 'ambiguous', correct: false, given, expected, requiresSelfAssessment: true };
   }
   return { status: 'incorrect', correct: false, given, expected, mismatch: describeMismatch(given, canonical) };
@@ -226607,10 +226624,6 @@ function examplesFor(entry) {
   }).filter(example => example.en) : [];
 }
 
-function escapeRegExp(value) {
-  return String(value ?? '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-}
-
 // Part of speech is free text in the source table ('n', 'v/n', 'phrasal v', 'idiom', …),
 // so two entries share one when their tokens overlap. The split ran once per
 // candidate per question; the deck is immutable, so it is memoised per row.
@@ -226726,6 +226739,255 @@ function wordsIn(text) {
   return words;
 }
 
+/* ------------------------- answer-leakage guards ------------------------- */
+
+// rc7: the gloss recorded for a headword may itself quote the headword in an
+// English usage pattern ("bắt nguồn từ (derive from)"). Whenever that gloss
+// becomes part of a *question* — the Việt→Anh prompt, the spelling prompt, a
+// recognition option or a matching tile — printing it verbatim prints the
+// answer inside the question. The stored gloss is never edited; only the
+// question surface is masked, token by token, so the Vietnamese stimulus
+// survives ("bắt nguồn từ (_____ from)") while the English answer does not.
+// Masking is token-aware: an unrelated word that merely contains the target
+// as a substring ("art" inside "article") is left alone, and a Vietnamese
+// token carrying diacritics is never mistaken for an English form, however
+// its folded spelling looks. The answer stays in `question.answer` for
+// grading and post-answer feedback; this guards the pre-answer surface a
+// learner actually reads, which is the boundary a standalone client-side
+// file can honestly promise.
+export const ANSWER_MASK = '_____';
+
+function promptTokenSpans(text) {
+  const spans = [];
+  const pattern = /[\p{L}\p{N}]+(?:['’][\p{L}\p{N}]+)*/gu;
+  let match;
+  while ((match = pattern.exec(String(text ?? ''))) !== null) {
+    spans.push({ raw: match[0], folded: normalize(match[0]), start: match.index, end: match.index + match[0].length });
+  }
+  return spans;
+}
+
+// The regular written forms of one English token, plus the irregular plural
+// the recorded glosses actually use (stimulus → stimuli). Extra candidate
+// forms are harmless: they can only mask a token that is really present.
+function englishForms(token) {
+  const base = String(token ?? '').toLowerCase();
+  const forms = new Set([base]);
+  if (!/^[a-z][a-z'’-]*$/.test(base)) return forms;
+  forms.add(`${base}s`);
+  forms.add(`${base}es`);
+  forms.add(`${base}ed`);
+  forms.add(`${base}ing`);
+  forms.add(`${base}er`);
+  forms.add(`${base}est`);
+  forms.add(`${base}ly`);
+  forms.add(`${base}'s`);
+  forms.add(`${base}’s`);
+  if (base.endsWith('e')) {
+    forms.add(`${base}d`);
+    forms.add(`${base.slice(0, -1)}ed`);
+    forms.add(`${base.slice(0, -1)}ing`);
+  }
+  if (base.endsWith('y') && !/[aeiou]y$/.test(base)) {
+    forms.add(`${base.slice(0, -1)}ies`);
+    forms.add(`${base.slice(0, -1)}ied`);
+  }
+  if (/[^aeiou][aeiou][^aeiouwxy]$/.test(base)) {
+    const doubled = `${base}${base.slice(-1)}`;
+    forms.add(`${doubled}ed`);
+    forms.add(`${doubled}ing`);
+  }
+  if (base.endsWith('us')) forms.add(`${base.slice(0, -2)}i`);
+  if (base.endsWith('s') && base.length > 3) forms.add(base.slice(0, -1));
+  return forms;
+}
+
+function isAsciiToken(raw) {
+  return /^[\x00-\x7F]+$/.test(raw);
+}
+
+// A derivational relative ("photocopy" for "photocopier") shares a long stem
+// with the answer without being one of its inflections. Five shared leading
+// letters on tokens of at least five letters is the conservative line: short
+// or vaguely similar words stay untouched ("summer" for "summary" shares
+// only four).
+function sharesLongStem(candidate, target) {
+  if (candidate.length < 5 || target.length < 5 || candidate === target) return false;
+  let shared = 0;
+  while (shared < candidate.length && shared < target.length && candidate[shared] === target[shared]) shared += 1;
+  return shared >= 5;
+}
+
+function promptStillUsable(text) {
+  return promptTokenSpans(String(text ?? '').replace(/_+/g, ' ')).some(span => span.folded.length >= 2);
+}
+
+// Replaces each run of masked token indexes with one blank. The characters
+// between tokens of a run belong to the quoted answer ("lest + S + ..."), so
+// a run collapses instead of leaving the pattern's scaffolding behind.
+function applySpanMask(source, spans, indexes) {
+  if (!indexes.size) return source;
+  const ordered = [...indexes].sort((a, b) => a - b);
+  let out = '';
+  let cursor = 0;
+  let runStart = ordered[0];
+  let previous = ordered[0];
+  const flush = (from, to) => {
+    out += source.slice(cursor, spans[from].start) + ANSWER_MASK;
+    cursor = spans[to].end;
+  };
+  for (let index = 1; index < ordered.length; index += 1) {
+    if (ordered[index] === previous + 1) { previous = ordered[index]; continue; }
+    flush(runStart, previous);
+    runStart = ordered[index];
+    previous = ordered[index];
+  }
+  flush(runStart, previous);
+  return out + source.slice(cursor);
+}
+
+// Finds every contiguous token sequence that spells the target tokens (each
+// in any of its written forms) and returns the token indexes to mask.
+function answerSequenceIndexes(spans, formSets, { asciiOnly = false } = {}) {
+  const masked = new Set();
+  const matches = (span, targetIndex) => (!asciiOnly || isAsciiToken(span.raw)) && formSets[targetIndex].has(span.folded);
+  for (let start = 0; start + formSets.length <= spans.length; start += 1) {
+    let ok = true;
+    for (let offset = 0; offset < formSets.length; offset += 1) {
+      if (!matches(spans[start + offset], offset)) { ok = false; break; }
+    }
+    if (ok) for (let offset = 0; offset < formSets.length; offset += 1) masked.add(start + offset);
+  }
+  return masked;
+}
+
+export function maskAnswerInPrompt(text, answerWord) {
+  const source = String(text ?? '');
+  const targets = promptTokenSpans(answerWord).map(span => span.folded).filter(Boolean);
+  if (!source || !targets.length) return source;
+  const formSets = targets.map(englishForms);
+  const spans = promptTokenSpans(source);
+  const masked = answerSequenceIndexes(spans, formSets, { asciiOnly: true });
+  // A lone distinctive constituent of a multi-token answer ("bacon" inside
+  // the gloss of "streaky bacon") leaks the same way; four letters or more,
+  // so a phrase's function words ("in", "the", "of") are never masked alone.
+  if (targets.length > 1) {
+    spans.forEach((span, index) => {
+      if (!isAsciiToken(span.raw)) return;
+      if (targets.some((target, targetIndex) => target.length >= 4 && formSets[targetIndex].has(span.folded))) masked.add(index);
+    });
+  }
+  let result = applySpanMask(source, spans, masked);
+  // Stem-sharing relatives are masked only when a real stimulus remains: a
+  // recorded Vietnamese loanword that *is* the whole gloss ("enzym" for
+  // "enzyme") is the stimulus itself, not an English answer printed early.
+  const family = new Set(masked);
+  spans.forEach((span, index) => {
+    if (isAsciiToken(span.raw) && targets.some(target => sharesLongStem(span.folded, target))) family.add(index);
+  });
+  if (family.size > masked.size) {
+    const candidate = applySpanMask(source, spans, family);
+    if (promptStillUsable(candidate)) result = candidate;
+  }
+  return result;
+}
+
+// The gloss as a question may print it: verbatim, except the answer itself.
+// Memoised per row like the option keys: availability is asked for every
+// word in a pool on each settings render, the deck is immutable once
+// loaded, and re-masking the same gloss there was measurable (~100 ms over
+// a full-deck sweep) while generation itself stayed at its old median.
+const glossPromptCache = new WeakMap();
+function glossPromptRecord(entry) {
+  if (!entry || typeof entry !== 'object') {
+    const text = maskAnswerInPrompt(entry?.meaning, entry?.word);
+    return { text, usable: promptStillUsable(text) };
+  }
+  let record = glossPromptCache.get(entry);
+  if (!record) {
+    const text = maskAnswerInPrompt(entry.meaning, entry.word);
+    record = { text, usable: promptStillUsable(text) };
+    glossPromptCache.set(entry, record);
+  }
+  return record;
+}
+
+export function glossPrompt(entry) {
+  return glossPromptRecord(entry).text;
+}
+
+export function glossPromptUsable(entry) {
+  return glossPromptRecord(entry).usable;
+}
+
+// Recorded loanwords whose Vietnamese gloss is the headword itself ("proton"
+// → "proton") make stimulus and answer the same text in both directions.
+export function glossEqualsWord(entry) {
+  const word = normalizeTyped(entry?.word);
+  return Boolean(word) && word === normalizeTyped(entry?.meaning);
+}
+
+// One recorded sense may equal the headword even when the whole gloss does
+// not; a typed-Vietnamese question accepts each sense, so that still lets
+// the learner copy the prompt as the answer.
+export function glossSegmentEqualsWord(entry) {
+  const word = normalizeTyped(entry?.word);
+  if (!word) return false;
+  return meaningSegments(entry?.meaning).some(segment => normalizeTyped(segment) === word);
+}
+
+// A sentence can carry a cloze only when the answer is really in it (in any
+// written form) and nothing answer-shaped survives the blank: a second
+// occurrence, another inflection or a long-stem relative left in view would
+// hand the learner the stem the blank was meant to test. Substring look-
+// alikes are safe, because every comparison is between whole tokens.
+function clozeBlankPrompt(sentence, entry) {
+  const source = String(sentence ?? '');
+  const targets = promptTokenSpans(entry?.word).map(span => span.folded).filter(Boolean);
+  if (!source || !targets.length) return null;
+  const formSets = targets.map(englishForms);
+  const spans = promptTokenSpans(source);
+  const masked = answerSequenceIndexes(spans, formSets);
+  if (!masked.size) return null;
+  for (let index = 0; index < spans.length; index += 1) {
+    if (masked.has(index)) continue;
+    const leaked = targets.some((target, targetIndex) => target.length >= 3
+      && (formSets[targetIndex].has(spans[index].folded) || sharesLongStem(spans[index].folded, target)));
+    if (leaked) return null;
+  }
+  return applySpanMask(source, spans, masked);
+}
+
+// The first recorded example that can honestly carry a cloze for this entry,
+// with its blanked prompt; later examples are tried when an earlier one
+// cannot be blanked without leaving the answer in view.
+const clozeExampleCache = new WeakMap();
+export function usableClozeExample(entry) {
+  if (entry && typeof entry === 'object' && clozeExampleCache.has(entry)) return clozeExampleCache.get(entry);
+  let found = null;
+  for (const example of examplesFor(entry)) {
+    const prompt = clozeBlankPrompt(example.en, entry);
+    if (prompt) { found = { example, prompt }; break; }
+  }
+  if (entry && typeof entry === 'object') clozeExampleCache.set(entry, found);
+  return found;
+}
+
+// The sprint hand-off strip repeats the previous card's word and gloss on the
+// next card. When that text is also the current turn's answer — two recorded
+// headwords can share one gloss — the strip would answer the card it sits
+// on, so only the correctness mark survives.
+export function handOffForDisplay(lastAnswer, currentEntries) {
+  if (!lastAnswer) return null;
+  const word = normalizeTyped(lastAnswer.word);
+  const meaning = normalizeTyped(lastAnswer.meaning);
+  const leaks = (Array.isArray(currentEntries) ? currentEntries : []).some(entry => {
+    return (word && normalizeTyped(entry?.word) === word)
+      || (meaning && normalizeTyped(entry?.meaning) === meaning);
+  });
+  return leaks ? { correct: lastAnswer.correct, word: '', meaning: '' } : lastAnswer;
+}
+
 // The exercises the interface offers, mapped onto the stored question
 // modes. `match` is a board and has no single-card mode. `mc4` deliberately
 // shares the recognition generation and grading path: it is the same
@@ -226763,26 +227025,65 @@ export function generateQuestion(item, vocabulary, modeHint = null) {
   const examples = examplesFor(entry);
   const aliases = declaredAliases(entry);
   const exerciseHint = EXERCISE_ORDER.includes(modeHint) ? modeHint : null;
+  // rc7 leakage guards, computed once: gloss-prompt modes display the gloss
+  // with the answer masked out of it (the stored gloss and the graded answer
+  // are untouched), and a gloss that is only the answer cannot be asked in
+  // either direction because stimulus and answer would be the same text.
+  const promptGloss = glossPrompt(entry);
+  const usableGloss = promptStillUsable(promptGloss);
+  const degenerateGloss = glossEqualsWord(entry);
+  const cloze = usableClozeExample(entry);
+  const unavailableQuestion = (forMode, reason) => ({
+    id: entry.id, exercise: exerciseHint || MODE_TO_EXERCISE[forMode], mode: forMode,
+    prompt: entry.word, subPrompt: entry.pos, options: [],
+    answer: forMode === MODES.RECOGNITION || forMode === MODES.FILL_VI || forMode === MODES.FLASHCARD ? entry.meaning : entry.word,
+    aliases, unavailable: true, unavailableReason: reason
+  });
   let mode = Object.values(MODES).includes(modeHint) ? modeHint
     : exerciseHint && EXERCISE_TO_MODE[exerciseHint] ? EXERCISE_TO_MODE[exerciseHint] : null;
   if (!mode) {
     // The classic rotation is kept for the sessions that do not use the
     // mixed-exercise planner, so their verified behaviour does not change.
-    const choices = examples.length ? [MODES.RECOGNITION, MODES.RECALL, MODES.SPELLING, MODES.CLOZE] : [MODES.RECOGNITION, MODES.RECALL, MODES.SPELLING];
+    const choices = cloze ? [MODES.RECOGNITION, MODES.RECALL, MODES.SPELLING, MODES.CLOZE] : [MODES.RECOGNITION, MODES.RECALL, MODES.SPELLING];
     mode = choices[(progress.correctCount + progress.wrongCount) % choices.length];
   }
-  if (mode === MODES.CLOZE && !examples.length) mode = MODES.RECOGNITION;
+  if (mode === MODES.CLOZE && !cloze) {
+    // No recorded example at all keeps the documented recognition fallback.
+    // An example exists but cannot be blanked without leaving the answer in
+    // view: an explicitly requested cloze is refused (the caller skips it
+    // ungraded, exactly like a short four-option question) instead of being
+    // silently re-labelled, because a planned cloze turn must stay a cloze.
+    if (examples.length && exerciseHint) return unavailableQuestion(MODES.CLOZE, 'no-usable-cloze-example');
+    if (examples.length && modeHint === MODES.CLOZE) return unavailableQuestion(MODES.CLOZE, 'no-usable-cloze-example');
+    mode = MODES.RECOGNITION;
+  }
   // Grammar patterns and dictionary notation ("Lest + S + (should) V-bare")
   // cannot be typed by a learner, so they are never asked as a spelling card.
   // The same predicate gates the fill-en exercise, so the planner and the
   // generator cannot disagree about which words are typable.
   if (mode === MODES.SPELLING && !isTypableHeadword(entry.word)) mode = MODES.RECALL;
+  if ((mode === MODES.RECALL || mode === MODES.SPELLING) && !usableGloss) {
+    if (exerciseHint) return unavailableQuestion(mode, 'gloss-prompt-is-the-answer');
+    mode = degenerateGloss ? MODES.FLASHCARD : MODES.RECOGNITION;
+  }
+  if (mode === MODES.RECOGNITION && degenerateGloss) {
+    if (exerciseHint) return unavailableQuestion(mode, 'gloss-equals-word');
+    mode = MODES.FLASHCARD;
+  }
+  if (mode === MODES.FILL_VI && glossSegmentEqualsWord(entry)) {
+    if (exerciseHint) return unavailableQuestion(mode, 'gloss-segment-equals-word');
+    mode = degenerateGloss ? MODES.FLASHCARD : MODES.RECOGNITION;
+  }
   // A planned turn keeps its own exercise identity (`mc4` generates through
   // the recognition path but is still an `mc4` turn for counts and labels).
   const base = { id: entry.id, exercise: exerciseHint || MODE_TO_EXERCISE[mode] };
 
   if (mode === MODES.RECOGNITION) {
-    const options = shuffle([{ id: entry.id, text: entry.meaning, correct: true }, ...distractors(vocabulary, entry, 'meaning').map(other => ({ id: other.id, text: other.meaning, correct: false }))]);
+    // Option glosses are masked with the *prompt* word: the correct gloss
+    // may quote it in a usage pattern, and an option that literally contains
+    // the prompt is a free pick. Grading is by option id, and the feedback
+    // still prints the recorded gloss in full after answering.
+    const options = shuffle([{ id: entry.id, text: maskAnswerInPrompt(entry.meaning, entry.word), correct: true }, ...distractors(vocabulary, entry, 'meaning').map(other => ({ id: other.id, text: maskAnswerInPrompt(other.meaning, entry.word), correct: false }))]);
     if (exerciseHint === EXERCISE_TYPES.MC4 && options.length !== OPTION_COUNT) {
       // A four-option question that cannot offer four distinct options is
       // not presented as one: the caller reports and skips it ungraded.
@@ -226796,10 +227097,15 @@ export function generateQuestion(item, vocabulary, modeHint = null) {
   }
   if (mode === MODES.RECALL) {
     const options = shuffle([{ id: entry.id, text: entry.word, correct: true }, ...distractors(vocabulary, entry, 'word').map(other => ({ id: other.id, text: other.word, correct: false }))]);
-    return { ...base, mode, prompt: entry.meaning, subPrompt: `(${entry.pos}) · Việt → Anh`, options, answer: entry.word, aliases };
+    return { ...base, mode, prompt: promptGloss, subPrompt: `(${entry.pos}) · Việt → Anh`, options, answer: entry.word, aliases };
   }
   if (mode === MODES.SPELLING) {
-    return { ...base, mode, prompt: entry.meaning, subPrompt: `${entry.pos} · gõ từ tiếng Anh`, options: null, answer: entry.word, aliases, hint: `${entry.word[0]}${'•'.repeat(Math.max(0, entry.word.length - 1))}` };
+    // The first-letter hint is deliberate scaffolding, but for a one-letter
+    // answer it would be the whole answer, so it is withheld there.
+    const spellingHint = String(entry.word).length > 1
+      ? `${entry.word[0]}${'•'.repeat(Math.max(0, entry.word.length - 1))}`
+      : '';
+    return { ...base, mode, prompt: promptGloss, subPrompt: `${entry.pos} · gõ từ tiếng Anh`, options: null, answer: entry.word, aliases, hint: spellingHint };
   }
   if (mode === MODES.FILL_VI) {
     return { ...base, mode, prompt: entry.word, subPrompt: `${entry.pos} · gõ nghĩa tiếng Việt`, options: null, answer: entry.meaning, aliases };
@@ -226808,19 +227114,12 @@ export function generateQuestion(item, vocabulary, modeHint = null) {
     return { ...base, mode, prompt: entry.word, subPrompt: entry.pos, options: null, answer: entry.meaning, aliases, selfAssess: true };
   }
 
-  const example = examples[0];
+  const { example, prompt: clozePrompt } = cloze;
   const sentenceWords = wordsIn(example.en);
-  const escapedWord = escapeRegExp(entry.word);
-  // Match a whole word or phrase and recognise a regular plural (task -> tasks)
-  // without accidentally replacing a substring such as art in article.
-  const examplePattern = new RegExp(`(^|[^A-Za-z])${escapedWord}s?(?=$|[^A-Za-z])`, 'ig');
-  const cloze = examplePattern.test(example.en)
-    ? example.en.replace(examplePattern, (_match, prefix) => `${prefix}_____`)
-    : `_____ · ${entry.meaning}`;
   const options = shuffle([{ id: entry.id, text: entry.word, correct: true }, ...distractors(vocabulary, entry, 'word', {
     usable: other => !sentenceWords.has(normalize(other.word))
   }).map(other => ({ id: other.id, text: other.word, correct: false }))]);
-  return { ...base, mode: MODES.CLOZE, prompt: cloze, subPrompt: `${entry.pos} · chọn từ phù hợp`, options, answer: entry.word, aliases, example };
+  return { ...base, mode: MODES.CLOZE, prompt: clozePrompt, subPrompt: `${entry.pos} · chọn từ phù hợp`, options, answer: entry.word, aliases, example };
 }
 
 // One grading entry point for every mode, so the UI never re-implements the
@@ -227422,7 +227721,9 @@ export function buildPhraseQuestion(entry, phrases = [], { mode = null, phrasePr
   const base = {
     id: entry.id,
     mode: exercise,
-    prompt: entry.meaning,
+    // Same leakage guard as the word questions: a phrase gloss that quoted
+    // the phrase would print the answer inside its own question.
+    prompt: maskAnswerInPrompt(entry.meaning, entry.phrase),
     subPrompt: `${PHRASE_TYPES[entry.type] || entry.type} · ${phraseTag(entry, 'level', '')}`.trim(),
     answer: entry.phrase,
     entry
@@ -229445,7 +229746,9 @@ export async function createApp(root) {
     return {
       turn,
       words: shuffle(turn.pairs.map(pair => pair.vocab.id)),
-      meanings: shuffle(turn.pairs.map(pair => ({ id: pair.vocab.id, text: pair.vocab.meaning }))),
+      // A tile's gloss may quote its own headword in a usage pattern; masked,
+      // the tile can no longer be paired by string matching alone.
+      meanings: shuffle(turn.pairs.map(pair => ({ id: pair.vocab.id, text: maskAnswerInPrompt(pair.vocab.meaning, pair.vocab.word) }))),
       selectedWord: null,
       selectedMeaning: null,
       wrongSeq: 0,
@@ -229949,6 +230252,7 @@ export async function createApp(root) {
       : exerciseName === EXERCISE_TYPES.MC4 ? EXERCISE_LABELS[EXERCISE_TYPES.MC4]
         : modeLabel(question?.mode);
     const flaggedHere = favorites.has(item.vocab.id);
+    const handOff = handOffForDisplay(lastAnswer, matchTurn ? (item.pairs || []).map(pair => pair.vocab) : [item.vocab]);
     container.innerHTML = `
       <div class="flashcard-wrap">
         <div class="page-header"><div><h1>Phiên học</h1><p>${escapeHtml(sessionModeLabel(sessionStats.mode))} · ${sessionStats.queued ?? sessionStats.total} từ đã xếp · ${session.length} lượt còn lại</p></div><button class="btn" id="exit-session">Thoát phiên</button></div>
@@ -229967,7 +230271,7 @@ export async function createApp(root) {
             </div>
           </div>
           <div class="flashcard-body">
-            ${lastAnswer ? `<div class="handoff-strip" role="status" aria-live="polite"><span class="handoff-mark" aria-hidden="true">${lastAnswer.correct ? '✓' : '✕'}</span><span><strong class="vocab-word">${escapeHtml(lastAnswer.word)}</strong> · <span class="vocab-meaning">${escapeHtml(lastAnswer.meaning)}</span></span><span class="handoff-note">${lastAnswer.correct ? 'Đã trả lời đúng' : 'Chưa đúng'}</span></div>` : ''}
+            ${handOff ? `<div class="handoff-strip" role="status" aria-live="polite"><span class="handoff-mark" aria-hidden="true">${handOff.correct ? '✓' : '✕'}</span>${handOff.word ? `<span><strong class="vocab-word">${escapeHtml(handOff.word)}</strong> · <span class="vocab-meaning">${escapeHtml(handOff.meaning)}</span></span>` : ''}<span class="handoff-note">${handOff.correct ? 'Đã trả lời đúng' : 'Chưa đúng'}</span></div>` : ''}
             ${firstLook ? firstLookBody(item) : matchTurn ? `
               ${renderMatchBoard(item)}
               <div id="feedback-area"></div>`
