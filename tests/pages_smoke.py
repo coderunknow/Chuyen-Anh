@@ -25,6 +25,7 @@ The development sandbox cannot resolve `github.io`, so this runs from
 from __future__ import annotations
 
 import os
+import pathlib
 import re
 import sys
 import urllib.error
@@ -48,7 +49,7 @@ def main() -> int:
     site = os.environ.get("PAGES_URL", DEFAULT_SITE)
     hold_file = os.environ.get("DEPLOY_HOLD_FILE", DEFAULT_HOLD_FILE)
     try:
-        hold = open(hold_file, encoding="utf-8").read()
+        hold = pathlib.Path(hold_file).read_text(encoding="utf-8")
     except OSError as error:
         fail(f"cannot read {hold_file}: {error}")
         return 1
@@ -136,6 +137,24 @@ def main() -> int:
             ("exam-history-export", "the rc6 exam-history export"),
             ("answerKeySchemaVersion", "the rc6 answer-key schema"),
             ("Trọng tâm phiên học", "the session-focus control"),
+        ):
+            if marker not in body:
+                fail(f"the served page is missing {label}")
+            else:
+                print(f"PASS {label}")
+
+    if version.startswith("v1.0.0-rc7"):
+        # rc7 keeps every rc6 marker above (this branch repeats them so a
+        # served rc7 page is checked for both releases' surfaces) and adds
+        # the answer-leakage guards rc7 exists for.
+        for marker, label in (
+            ("EXAM_SCORING_RULE_VERSION", "the rc6 scoring rule"),
+            ("exam-history-export", "the rc6 exam-history export"),
+            ("answerKeySchemaVersion", "the rc6 answer-key schema"),
+            ("Trọng tâm phiên học", "the session-focus control"),
+            ("maskAnswerInPrompt", "the rc7 answer-masking guard"),
+            ("usableClozeExample", "the rc7 cloze guard"),
+            ("handOffForDisplay", "the rc7 hand-off guard"),
         ):
             if marker not in body:
                 fail(f"the served page is missing {label}")
