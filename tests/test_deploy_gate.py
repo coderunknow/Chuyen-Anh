@@ -127,7 +127,7 @@ class HoldMarkerLifecycleTests(unittest.TestCase):
         text = path.read_text(encoding='utf-8')
         tags = [line.strip() for line in text.splitlines()
                 if line.strip() and not line.strip().startswith('#')]
-        self.assertEqual(tags, ['v1.0.0-rc7'])
+        self.assertEqual(tags, ['v1.0.0-rc8'])
         self.assertRegex(tags[0], r'^v\d+\.\d+\.\d+-(?:dev|beta|rc)\d+$')
         html = (ROOT / 'index.html').read_text(encoding='utf-8')
         live = re.search(r"APP_VERSION = '([^']+)'", html)
@@ -329,6 +329,25 @@ class WorkflowTimeoutAndHoldPathsContractTests(unittest.TestCase):
         step = text[start:start + 400]
         self.assertIn('GH_TOKEN', step,
                       'the release lookup must run authenticated or it degrades to constant failures')
+
+    def test_all_workflows_pin_immutable_node24_action_shas_and_three_browser_matrix(self):
+        workflow_dir = ROOT / '.github' / 'workflows'
+        uses_re = re.compile(r'^\s*(?:-\s*)?uses:\s*(\S+)(.*)$')
+        sha_re = re.compile(r'^[a-z0-9-]+/[a-z0-9-]+@[0-9a-f]{40}$')
+        found = 0
+        for wf in sorted(workflow_dir.glob('*.yml')):
+            for lineno, line in enumerate(wf.read_text(encoding='utf-8').splitlines(), start=1):
+                match = uses_re.match(line)
+                if not match:
+                    continue
+                found += 1
+                ref, comment = match.group(1), match.group(2)
+                self.assertRegex(ref, sha_re, f'{wf.name}:{lineno} must pin a 40-char commit SHA: {line}')
+                self.assertNotIn('v4', comment, f'{wf.name}:{lineno} must not use deprecated Node 20 v4 actions')
+        self.assertGreaterEqual(found, 19)
+        ci_text = (workflow_dir / 'ci.yml').read_text(encoding='utf-8')
+        self.assertIn('browser: [chromium, firefox, webkit]', ci_text)
+        self.assertIn('--trace-deprecation', ci_text)
 
 
 if __name__ == '__main__':

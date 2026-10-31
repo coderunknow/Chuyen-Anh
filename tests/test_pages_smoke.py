@@ -50,10 +50,11 @@ def modern_page(version: str) -> str:
         '<button data-meanings="show"></button><button data-meanings="hide"></button></div>'
         "<button id=\"telemetry-send\"></button>"
         "<button id=\"exam-history-export\"></button>"
+        "<div class=\"exam-ocr-warning\"></div>"
         "<span>Trọng tâm phiên học</span>"
-        "<script>const EXAM_SCORING_RULE_VERSION = \"rc6-equal-weight-v1\"; const answerKeySchemaVersion = 1;</script>"
+        "<script>const EXAM_SCORING_RULE_VERSION = \"rc8-universal-scoring-v1\"; const answerKeySchemaVersion = 1;</script>"
         f"<script type=\"module\" id=\"app-script\">const APP_VERSION = '{version}';"
-        "function previewStageVisible() { return true; } function maskAnswerInPrompt() {} function usableClozeExample() {} function handOffForDisplay() {}</script>"
+        "function previewStageVisible() { return true; } function maskAnswerInPrompt() {} function usableClozeExample() {} function handOffForDisplay() {} function gradeExamEssayRubric() {} function extractExamTranscript() {}</script>"
         "</body></html>"
     )
 

@@ -38,24 +38,20 @@ Lý do và bằng chứng của từng nhóm nằm trong `docs/vocabulary-curati
 
 ## Kiểm chứng nguồn gốc
 
-- Đã đo lại **5,112** hàng: **5,072** khớp giữa claim và số bản chép đề đo được.
-- **40** hàng lệch; **7** trong số đó được giải thích bằng dạng chia ở đúng dòng được trích
-  (ví dụ claim nêu `expenditures` trong khi headword là `expenditure`), và **33** hàng chưa giải thích.
+- Đã đo lại **5,112** hàng: **5,104** khớp giữa claim và số bản chép đề đo được.
+- **8** hàng lệch; **8** trong số đó được giải thích bằng dạng chia ở đúng dòng được trích
+  (ví dụ claim nêu `expenditures` trong khi headword là `expenditure`), và **0** hàng chưa giải thích.
 
 | ID | Từ | Claim | Đo được | Dạng được trích |
 | ---: | --- | ---: | ---: | --- |
 | 749 | Expenditure | 1 | 0 | expenditures |
-| 807 | Deceive | 1 | 0 | deceived |
-| 823 | Intimidate | 1 | 0 | intimidated |
-| 843 | Contaminate | 1 | 0 | contaminated |
+| 807 | Deceive | 2 | 0 | deceived |
+| 823 | Intimidate | 2 | 0 | intimidated |
+| 834 | Cease | 4 | 1 | ceased |
+| 843 | Contaminate | 2 | 0 | contaminated |
 | 861 | Erode | 1 | 0 | eroded |
 | 868 | Frustrate | 1 | 0 | frustrates |
-| 871 | Refine | 1 | 0 | refined |
-| 631 | Distinguish | 1 | 11 | — |
-| 638 | Exceed | 1 | 5 | — |
-| 645 | Infer | 1 | 2 | — |
-| 653 | Regulate | 1 | 3 | — |
-| 657 | Restrict | 1 | 4 | — |
+| 871 | Refine | 2 | 0 | refined |
 
 `supports` của các hàng 614–913 nay nêu đúng dạng nhìn thấy ở dòng được trích, nên không còn
 câu "form occurs" ngụ ý rằng chính headword xuất hiện nguyên dạng.

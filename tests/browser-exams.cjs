@@ -4,28 +4,40 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const http = require('node:http');
 const path = require('node:path');
-const { chromium } = require('playwright-core');
+const playwright = require('playwright-core');
+
+async function launchSelectedBrowser() {
+  const engineName = (process.env.BROWSER_ENGINE || 'chromium').toLowerCase();
+  const browserType = playwright[engineName];
+  if (!browserType) throw new Error(`Unsupported BROWSER_ENGINE: ${engineName}`);
+  let executablePath = process.env.BROWSER_EXECUTABLE || undefined;
+  let args = engineName === 'chromium' ? ['--no-sandbox'] : [];
+  if (engineName === 'chromium' && !executablePath) {
+    try {
+      const bundled = require('@sparticuz/chromium');
+      const lambdaFs = require('@sparticuz/chromium/build/lambdafs').default;
+      executablePath = await bundled.executablePath();
+      await lambdaFs.inflate(path.join(path.dirname(require.resolve('@sparticuz/chromium')), '../bin/al2023.tar.br'));
+      process.env.LD_LIBRARY_PATH = ['/tmp/al2023/lib', process.env.LD_LIBRARY_PATH].filter(Boolean).join(':');
+      args = bundled.args;
+    } catch {
+      executablePath = undefined;
+    }
+  }
+  const browser = await browserType.launch({ ...(executablePath ? { executablePath } : {}), ...(args.length ? { args } : {}), headless: true });
+  return { browser, engineName };
+}
 
 async function main() {
-  let executablePath = process.env.BROWSER_EXECUTABLE;
-  let args = ['--no-sandbox'];
-  if (!executablePath) {
-    const bundled = require('@sparticuz/chromium');
-    const lambdaFs = require('@sparticuz/chromium/build/lambdafs').default;
-    executablePath = await bundled.executablePath();
-    await lambdaFs.inflate(path.join(path.dirname(require.resolve('@sparticuz/chromium')), '../bin/al2023.tar.br'));
-    process.env.LD_LIBRARY_PATH = ['/tmp/al2023/lib', process.env.LD_LIBRARY_PATH].filter(Boolean).join(':');
-    args = bundled.args;
-  }
   const html = fs.readFileSync(path.join(__dirname, '../index.html'));
   const keyManifest = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/exam-answer-keys.json'), 'utf8'));
   const screenshotDir = process.env.BROWSER_SCREENSHOT_DIR;
   if (screenshotDir) fs.mkdirSync(screenshotDir, { recursive: true });
   const server = http.createServer((_req, res) => { res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' }); res.end(html); });
   await new Promise(resolve => server.listen(0, '0.0.0.0', resolve));
-  let browser;
+  let browser, engineName = 'chromium', serverClosed = false;
   try {
-    browser = await chromium.launch({ executablePath, args, headless: true });
+    ({ browser, engineName } = await launchSelectedBrowser());
     const page = await browser.newPage({ viewport: { width: 1280, height: 900 }, reducedMotion: 'reduce' });
     await page.clock.setFixedTime(new Date('2026-10-29T12:00:00Z'));
     const errors = [], external = [];
@@ -35,13 +47,13 @@ async function main() {
     await page.goto(origin);
     await page.locator('[data-view="exams"]').click();
     await page.locator('#exam-results-count').filter({ hasText: '106 bản chép' }).waitFor();
-    assert.match(await page.locator('.exam-warning').innerText(), /chấm tạm.*chưa xác minh/i);
+    assert.match(await page.locator('.exam-warning').innerText(), /chấm 100% câu hỏi.*độ tin cậy/i);
     assert.match(await page.locator('.exam-warning').innerText(), /audio nghe không được nhúng/i);
     assert.equal(await page.locator('#exam-list .exam-card').count(), 24);
     await page.locator('#exam-search').fill('thai nguyen');
     await page.locator('[data-exam-open="2025/thai-nguyen/so"]').click();
     await page.locator('#exam-practice-start').waitFor();
-    assert.match(await page.locator('.exam-practice-note').innerText(), /không phải điểm chính thức/i);
+    assert.match(await page.locator('.exam-practice-note').innerText(), /không phải điểm (?:thi )?chính thức/i);
     assert.equal(await page.locator('.exam-document script, .exam-document img, .exam-document iframe').count(), 0);
     assert.match(await page.locator('.exam-source-metadata').innerText(), /SHA-256/);
     const paper = keyManifest.records.find(record => record.id === '2025/thai-nguyen/so');
@@ -79,13 +91,14 @@ async function main() {
     assert.equal(Number(await page.locator('#exam-practice-incorrect-count').innerText()), expectedWrong);
     assert.equal(Number(await page.locator('#exam-practice-provisional-count').innerText()) >= 6, true);
     assert.equal(await page.locator('#exam-practice-graded-count').count(), 1);
-    assert.match(await page.locator('#exam-submission-summary').innerText(), /3\/6 câu đã chấm/);
-    assert.match(await page.locator('#exam-submission-summary').innerText(), /50%/);
-    assert.match(await page.locator('#exam-submission-summary').innerText(), /Không phải điểm chính thức/);
+    assert.match(await page.locator('#exam-submission-summary').innerText(), new RegExp(`3/${paper.questionCount} điểm quy đổi`));
+    assert.match(await page.locator('#exam-submission-summary').innerText(), /trên số câu đã trả lời: 3\/6 — 50%/);
+    assert.match(await page.locator('#exam-submission-summary').innerText(), /KHÔNG phải điểm thi chính thức/i);
+    assert.match(await page.locator('#exam-confidence-breakdown').innerText(), /HIGH:[\s\S]*MEDIUM:[\s\S]*LOW:[\s\S]*VERY_LOW:/);
     assert.match(await page.evaluate(() => localStorage.getItem('chuyen-anh.exam-results.v1')), /"attempts"/);
     await page.locator('#exam-review-submitted').click();
     assert.ok(await page.locator('.exam-practice-review-item').count() > 0, 'submitted review lists every item');
-    assert.match(await page.locator('.exam-practice-review-list').innerText(), /Bản chép chưa xác minh|Cần xem lại|Thiếu đáp án/);
+    assert.match(await page.locator('.exam-practice-review-list').innerText(), /Bản chép đơn nguồn|Suy luận ngôn ngữ học|Phục dựng từ HTML\/OCR|Thiếu ngữ liệu/);
     await page.locator('[data-review-question="0"]').click();
     await page.locator('#exam-current-question-heading').waitFor();
     // Locate a graded choice item through the same DOM state a learner sees.
@@ -155,11 +168,11 @@ async function main() {
     await page.locator('#language-setting').selectOption('en');
     await page.locator('[data-view="exams"]').click();
     await page.locator('#exam-results-count').filter({ hasText: '106 transcriptions' }).waitFor();
-    assert.match(await page.locator('.exam-warning').innerText(), /provisional.*unverified/i);
+    assert.match(await page.locator('.exam-warning').innerText(), /provisionally score 100%.*unverified/i);
     for (const viewport of [{ width: 320, height: 720 }, { width: 375, height: 812 }, { width: 768, height: 900 }, { width: 1024, height: 900 }, { width: 1440, height: 1000 }]) {
       await page.setViewportSize(viewport);
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, `catalogue fits ${viewport.width}px`);
-      if (screenshotDir) await page.screenshot({ path: path.join(screenshotDir, `rc6-catalogue-${viewport.width}.png`), fullPage: true });
+      if (screenshotDir) await page.screenshot({ path: path.join(screenshotDir, `rc8-catalogue-${engineName}-${viewport.width}.png`), fullPage: true });
     }
     await page.locator('#exam-search').fill('dak lak');
     await page.locator('[data-exam-open="2026/dak-lak/so"]').click();
@@ -172,18 +185,68 @@ async function main() {
     await page.locator('#exam-detail-back').click();
     await page.locator('#exam-search').fill('binh phuoc');
     await page.locator('[data-exam-open="2022/binh-phuoc/so"]').click();
-    await page.locator('.exam-practice-readonly').waitFor();
-    assert.equal(await page.locator('#exam-practice-start').count(), 0);
-    assert.match(await page.locator('.exam-practice-readonly').innerText(), /HTML\/OCR/);
+    await page.locator('.exam-ocr-warning').waitFor();
+    assert.equal(await page.locator('#exam-practice-start').count(), 1, 'HTML/OCR record opens interactive practice with explicit warning');
+    assert.match(await page.locator('.exam-ocr-warning').innerText(), /HTML\/OCR/);
+    await page.locator('#exam-practice-start').click();
+    await page.locator('#exam-current-question-heading').waitFor();
+    assert.match(await page.locator('.exam-practice-question .exam-meta-badges').innerText(), /LOW|VERY_LOW/);
+    const axeSource = fs.readFileSync(require.resolve('axe-core/axe.min.js'), 'utf8');
+    await page.evaluate(axeSource);
+    const examAxeViolations = await page.evaluate(async () => {
+      const result = await axe.run(document, {
+        runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa'] },
+        resultTypes: ['violations']
+      });
+      return result.violations.map(v => ({ id: v.id, impact: v.impact, nodes: v.nodes.map(n => n.target.join(' ')).slice(0, 4) }));
+    });
+    assert.deepEqual(examAxeViolations, [], `exam view WCAG 2.1 AA axe violations: ${JSON.stringify(examAxeViolations)}`);
+
+    // Verify 2022/hai-phong/so rawUnsafeHtml (<studying ...>) is escaped inert text in live DOM.
+    await page.locator('#exam-detail-back').click();
+    await page.locator('#exam-search').fill('hai phong');
+    await page.locator('[data-exam-open="2022/hai-phong/so"]').click();
+    await page.locator('.exam-document').waitFor();
+    assert.equal(await page.evaluate(() => document.querySelectorAll('studying').length), 0,
+      'angle-bracket constituent in 2022/hai-phong/so never creates a DOM element');
+    assert.match(await page.locator('.exam-document').innerText(),
+      /<studying the species of dolphin called bottlenose dolphins>/,
+      'angle-bracket constituent is preserved as literal visible text');
+
     await page.locator('[data-view="settings"]').click();
     await page.locator('#language-setting').selectOption('vi');
     await page.locator('[data-interface="classic"]').first().click();
     assert.deepEqual(external, [], 'no external request during the offline flow');
     assert.deepEqual(errors, [], 'no browser exceptions');
-    console.log(`PASS: Chromium ${browser.version()} — 106-record catalogue; transparent provisional scoring; 3 correct/3 incorrect deterministic summary; key hidden before submit; user correction recalculated and persisted; history reload/export/malformed import/valid import; operable session-focus control with non-disabled keyboard activation; HTML/OCR read-only; VI/EN, Classic/Modern; 320/375/768/1024/1440px; no network or page errors.`);
+    const browserVersion = browser.version();
+    await browser.close();
+    browser = null;
+    await new Promise(resolve => server.close(resolve));
+    serverClosed = true;
+
+    // Verify direct file:// standalone offline execution with NO HTTP server running.
+    ({ browser, engineName } = await launchSelectedBrowser());
+    const filePage = await browser.newPage({ viewport: { width: 1280, height: 900 }, reducedMotion: 'reduce' });
+    const fileErrors = [];
+    const fileExternal = [];
+    filePage.on('pageerror', error => fileErrors.push(error.message));
+    filePage.on('request', req => {
+      const url = req.url();
+      if (!url.startsWith('file://') && !url.startsWith('data:') && !url.startsWith('blob:')) fileExternal.push(url);
+    });
+    await filePage.goto(`file://${path.resolve(__dirname, '../index.html')}`);
+    await filePage.locator('[data-session="new"]').waitFor();
+    await filePage.locator('[data-view="exams"]').click();
+    await filePage.locator('#exam-results-count').filter({ hasText: '106 bản chép' }).waitFor();
+    await filePage.locator('[data-view="settings"]').click();
+    assert.equal(await filePage.locator('#app-version').innerText(), 'v1.0.0-rc8');
+    assert.deepEqual(fileExternal, [], 'no external network call under file://');
+    assert.deepEqual(fileErrors, [], 'no page error under file://');
+
+    console.log(`PASS: ${engineName} ${browserVersion} — 106-record catalogue; 100% universal full-denominator scoring; 3 correct/3 incorrect deterministic summary; key hidden before submit; user correction recalculated and persisted; history reload/export/malformed import/valid import; operable session-focus control; HTML/OCR interactive with LOW/VERY_LOW warning; WCAG 2.1 AA axe clean; 2022/hai-phong/so angle-bracket escaped in live DOM; standalone file:// offline verified; VI/EN, Classic/Modern; 320/375/768/1024/1440px; no network or page errors.`);
   } finally {
     if (browser) await browser.close();
-    await new Promise(resolve => server.close(resolve));
+    if (!serverClosed) await new Promise(resolve => server.close(resolve));
   }
 }
 main().catch(error => { console.error(error); process.exitCode = 1; });

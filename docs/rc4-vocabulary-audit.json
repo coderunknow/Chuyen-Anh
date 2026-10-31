@@ -10,7 +10,7 @@
     "retainedHeadwords": 3841,
     "excludedHeadwords": 1271,
     "excludedRowsIncludingFamilyForms": 1271,
-    "reviewed": 3,
+    "reviewed": 0,
     "corrected": 0,
     "added": 0
   },
@@ -613,38 +613,7 @@
     "attestedAtLeastFive": 423,
     "maximum": 106
   },
-  "review": [
-    {
-      "id": "4188",
-      "word": "proton",
-      "level": "C1",
-      "type": "topic",
-      "curriculum": "",
-      "familyRoot": false,
-      "archived": false,
-      "reason": "the stored Vietnamese gloss is identical to the English headword, so the card shows no meaning"
-    },
-    {
-      "id": "4492",
-      "word": "gluten",
-      "level": "C1",
-      "type": "topic",
-      "curriculum": "",
-      "familyRoot": false,
-      "archived": false,
-      "reason": "the stored Vietnamese gloss is identical to the English headword, so the card shows no meaning"
-    },
-    {
-      "id": "4494",
-      "word": "cholesterol",
-      "level": "B2",
-      "type": "topic",
-      "curriculum": "",
-      "familyRoot": false,
-      "archived": false,
-      "reason": "the stored Vietnamese gloss is identical to the English headword, so the card shows no meaning"
-    }
-  ],
+  "review": [],
   "limits": [
     "The CEFR level of a row is an editorial tag, not a curriculum mapping; the audit reports it, it does not re-derive it.",
     "Curriculum words were transcribed from third-party reproductions of the Global Success series; grades 6 and 7 are topic-level only because the retrieved teacher-training documents publish no per-unit word table.",

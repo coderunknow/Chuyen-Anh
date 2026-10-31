@@ -161,6 +161,25 @@ def main() -> int:
             else:
                 print(f"PASS {label}")
 
+    if version.startswith("v1.0.0-rc8"):
+        for marker, label in (
+            ("EXAM_SCORING_RULE_VERSION", "the exam scoring rule constant"),
+            ("rc8-universal-scoring-v1", "the rc8 universal scoring rule"),
+            ("exam-history-export", "the exam-history export"),
+            ("answerKeySchemaVersion", "the answer-key schema"),
+            ("Trọng tâm phiên học", "the session-focus control"),
+            ("maskAnswerInPrompt", "the rc7 answer-masking guard"),
+            ("usableClozeExample", "the rc7 cloze guard"),
+            ("handOffForDisplay", "the rc7 hand-off guard"),
+            ("gradeExamEssayRubric", "the rc8 4-criterion essay rubric"),
+            ("extractExamTranscript", "the rc8 listening transcript fallback"),
+            ("exam-ocr-warning", "the rc8 HTML/OCR interactive caution banner"),
+        ):
+            if marker not in body:
+                fail(f"the served page is missing {label}")
+            else:
+                print(f"PASS {label}")
+
     for marker, label in (
         ("previewStageVisible", "the preview-stage predicate"),
         ("vocab-list--no-gloss", "the no-gloss list layout"),

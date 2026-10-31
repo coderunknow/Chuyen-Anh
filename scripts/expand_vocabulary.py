@@ -241,7 +241,9 @@ def legacy_sources(record: dict[str, Any], index: dict[str, dict[str, Any]]) -> 
             observed = next((token for token in re.findall(r"[A-Za-z][A-Za-z'-]*", cited)
                              if token.lower().startswith(record["word"].lower())), None)
             if observed:
-                sources.append(exam_source(f"{relative}:L{line_text}", 1, observed))
+                obs_hit = exam_locator(index, observed)
+                obs_docs = obs_hit["documents"] if obs_hit else 1
+                sources.append(exam_source(f"{relative}:L{line_text}", obs_docs, observed))
     if len(record["word"].split()) == 1:
         sources.append(dictionary_source(record["word"]))
     hit = exam_locator(index, record["word"])

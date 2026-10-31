@@ -3,7 +3,7 @@ name: Static checks
 on:
   pull_request:
     branches: [main]
-    paths:
+    paths: &ci-paths
       - "index.html"
       - "Learned_Vocabulary_List.md"
       - "Learned_Phrase_List.md"
@@ -18,6 +18,7 @@ on:
       - "scripts/build_phrases.py"
       - "scripts/validate_phrases.py"
       - "scripts/embed_phrases.py"
+      - "scripts/rc4_vocabulary_audit.py"
       - "docs/vocabulary-sources.json"
       - "scripts/exams/**"
       - "scripts/release_artifacts.py"
@@ -26,7 +27,9 @@ on:
       - "docs/vocabulary-300-review.md"
       - "docs/vocabulary-audit-dev*.json"
       - "docs/vocabulary-audit-dev*.md"
+      - "docs/rc4-vocabulary-audit.*"
       - "docs/EXAM_AUDIT_LEDGER.md"
+      - "docs/RC8_*.md"
       - "scripts/generate_vocab_audit_dev*.py"
       - "scripts/vocabulary_curation.py"
       - "scripts/vocabulary_evidence_review.py"
@@ -45,6 +48,9 @@ on:
       - "tests/run-browser-suites.sh"
       - "README.md"
       - "CHANGELOG.md"
+      - "PRIVACY.md"
+      - "SECURITY.md"
+      - "THIRD_PARTY_NOTICES.md"
       - "DESIGN_LOG.md"
       - "AGENTS_LOG.md"
       - "De-chuyen-Anh-vao-10/**"
@@ -75,6 +81,7 @@ on:
       - "scripts/build_phrases.py"
       - "scripts/validate_phrases.py"
       - "scripts/embed_phrases.py"
+      - "scripts/rc4_vocabulary_audit.py"
       - "docs/vocabulary-sources.json"
       - "scripts/exams/**"
       - "scripts/release_artifacts.py"
@@ -83,7 +90,9 @@ on:
       - "docs/vocabulary-300-review.md"
       - "docs/vocabulary-audit-dev*.json"
       - "docs/vocabulary-audit-dev*.md"
+      - "docs/rc4-vocabulary-audit.*"
       - "docs/EXAM_AUDIT_LEDGER.md"
+      - "docs/RC8_*.md"
       - "scripts/generate_vocab_audit_dev*.py"
       - "scripts/vocabulary_curation.py"
       - "scripts/vocabulary_evidence_review.py"
@@ -102,6 +111,9 @@ on:
       - "tests/run-browser-suites.sh"
       - "README.md"
       - "CHANGELOG.md"
+      - "PRIVACY.md"
+      - "SECURITY.md"
+      - "THIRD_PARTY_NOTICES.md"
       - "DESIGN_LOG.md"
       - "AGENTS_LOG.md"
       - "De-chuyen-Anh-vao-10/**"
@@ -129,12 +141,12 @@ jobs:
     timeout-minutes: 20
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
       - name: Set up Node for data and app-logic tests
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 22
 
@@ -153,6 +165,7 @@ jobs:
           python scripts/exams/embed_archive.py --check
           python scripts/audit_vocabulary_quality.py --check
           python scripts/vocabulary_evidence_review.py --check
+          python scripts/rc4_vocabulary_audit.py --check
           python scripts/audit_exam_provenance.py --check
 
       - name: Run Python unit tests
@@ -160,64 +173,64 @@ jobs:
 
       # Node is used only for dependency-free tests; production is a single HTML file.
       - name: Run static app logic, scoring and single-file tests
-        run: node --test tests/static-app.test.js tests/exam-scoring.test.js
+        run: node --trace-deprecation --test tests/static-app.test.js tests/exam-scoring.test.js
 
-      # rc5: the ingestion endpoint is the only server-side code in the project,
-      # so its contract (origins, size limits, stored fields, status codes) is
-      # pinned by its own suite rather than by a live request.
+      # rc5/rc8: the ingestion endpoint is the only server-side code in the project,
+      # so its contract (origins, size limits, stored fields, status codes, fail-closed salt)
+      # is pinned by its own suite rather than by a live request.
       - name: Run telemetry endpoint contract tests
-        run: node --test tests/telemetry-api.test.js
+        run: node --trace-deprecation --test tests/telemetry-api.test.js
 
-  # The two browser suites were outside CI until rc3. They are sequential on
-  # purpose: two Chromium instances at once have crashed on a 2-CPU runner, and a
-  # crashed browser is not a test result. `playwright-core` is installed here
-  # only — the app stays a single HTML file with no runtime dependency.
+  # Run both sequential Playwright suites across Chromium, Firefox, and WebKit.
+  # Each engine gets its own 2-CPU runner VM so two heavy 16 MB DOM browsers never
+  # compete for memory on the same VM, and `playwright-core` remains test-only.
   browser:
+    name: browser (${{ matrix.browser }})
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 35
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
       - name: Set up Node for browser tests
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 22
 
       - name: Install the browser test harness (no production dependency)
         run: npm install --no-save --package-lock=false playwright-core@1.55.1 axe-core@4.14.0
 
-      # Use Playwright's own Chromium rather than whatever the runner image
-      # happens to ship: the browser is then the exact build this Playwright
-      # version was tested against, and the OS libraries come with it.
-      - name: Install Chromium for Playwright
-        run: npx --yes playwright@1.55.1 install --with-deps chromium
+      - name: Install ${{ matrix.browser }} for Playwright
+        run: npx --yes playwright@1.55.1 install --with-deps ${{ matrix.browser }}
 
-      - name: Point the suites at that Chromium
+      - name: Point the suites at Playwright's ${{ matrix.browser }}
         run: |
-          node -e "process.stdout.write(require('playwright-core').chromium.executablePath())" > /tmp/chrome-path
-          echo "BROWSER_EXECUTABLE=$(cat /tmp/chrome-path)" >> "$GITHUB_ENV"
-          echo "chromium: $(cat /tmp/chrome-path)"
+          node -e "process.stdout.write(require('playwright-core')['${{ matrix.browser }}'].executablePath())" > /tmp/browser-path
+          echo "BROWSER_ENGINE=${{ matrix.browser }}" >> "$GITHUB_ENV"
+          echo "BROWSER_EXECUTABLE=$(cat /tmp/browser-path)" >> "$GITHUB_ENV"
+          echo "${{ matrix.browser }}: $(cat /tmp/browser-path)"
 
-      - name: Run both browser suites sequentially
+      - name: Run both browser suites sequentially (${{ matrix.browser }})
         run: |
           set +e
           bash tests/run-browser-suites.sh 2>&1 | tee /tmp/browser.log
           status=${PIPESTATUS[0]}
           if [ "$status" -ne 0 ]; then
-            # The job log lives behind a blob URL that is not always reachable;
-            # annotations are, so surface the failure where a reader can see it.
             tail -n 40 /tmp/browser.log | sed 's/^/::error::/'
             exit "$status"
           fi
 
-      - name: Upload browser screenshots on failure
+      - name: Upload browser screenshots on failure (${{ matrix.browser }})
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: browser-screenshots
+          name: browser-screenshots-${{ matrix.browser }}
           path: |
             **/*.png
           if-no-files-found: ignore

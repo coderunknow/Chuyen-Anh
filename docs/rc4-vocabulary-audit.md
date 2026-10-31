@@ -12,7 +12,7 @@
 | Inspected headwords | 5,112 |
 | Retained (KEEP, in the focus deck) | 3,841 |
 | Excluded (EXCLUDE_BASIC, archived) | 1,271 headwords / 1,271 rows |
-| Reviewed (REVIEW queue) | 3 |
+| Reviewed (REVIEW queue) | 0 |
 | Corrected | 0 |
 | Added | 0 |
 
@@ -73,13 +73,7 @@ The standard asks each retained entry to earn its place with an advanced sense, 
 
 ## E. REVIEW queue
 
-| ID | Word | Level | Why it needs a human |
-| --- | --- | --- | --- |
-| 4188 | `proton` | C1 | the stored Vietnamese gloss is identical to the English headword, so the card shows no meaning |
-| 4492 | `gluten` | C1 | the stored Vietnamese gloss is identical to the English headword, so the card shows no meaning |
-| 4494 | `cholesterol` | B2 | the stored Vietnamese gloss is identical to the English headword, so the card shows no meaning |
-
-These rows stay exactly as they are until an editor decides; they were not auto-archived and their IDs and progress are untouched.
+Empty: every row is explained by a documented rule.
 
 ## F. Exam attestation of excluded rows (considered, not used)
 

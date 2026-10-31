@@ -455,8 +455,8 @@
   ]
  },
  "embedding": {
-  "bytes": 4972261,
-  "characters": 4918201,
+  "bytes": 4972550,
+  "characters": 4918449,
   "matchesTable": true
  },
  "curationNotes": [
@@ -573,10 +573,10 @@
  ],
  "provenance": {
   "claimsChecked": 5112,
-  "claimsMatched": 5072,
-  "claimsMismatched": 40,
-  "mismatchExplainedByCitedInflection": 7,
-  "mismatchUnexplained": 33,
+  "claimsMatched": 5104,
+  "claimsMismatched": 8,
+  "mismatchExplainedByCitedInflection": 8,
+  "mismatchUnexplained": 0,
   "examples": [
    {
     "id": "749",
@@ -590,7 +590,7 @@
    {
     "id": "807",
     "word": "Deceive",
-    "claim": 1,
+    "claim": 2,
     "measured": 0,
     "citedForms": [
      "deceived"
@@ -599,16 +599,25 @@
    {
     "id": "823",
     "word": "Intimidate",
-    "claim": 1,
+    "claim": 2,
     "measured": 0,
     "citedForms": [
      "intimidated"
     ]
    },
    {
+    "id": "834",
+    "word": "Cease",
+    "claim": 4,
+    "measured": 1,
+    "citedForms": [
+     "ceased"
+    ]
+   },
+   {
     "id": "843",
     "word": "Contaminate",
-    "claim": 1,
+    "claim": 2,
     "measured": 0,
     "citedForms": [
      "contaminated"
@@ -635,46 +644,11 @@
    {
     "id": "871",
     "word": "Refine",
-    "claim": 1,
+    "claim": 2,
     "measured": 0,
     "citedForms": [
      "refined"
     ]
-   },
-   {
-    "id": "631",
-    "word": "Distinguish",
-    "claim": 1,
-    "measured": 11,
-    "citedForms": []
-   },
-   {
-    "id": "638",
-    "word": "Exceed",
-    "claim": 1,
-    "measured": 5,
-    "citedForms": []
-   },
-   {
-    "id": "645",
-    "word": "Infer",
-    "claim": 1,
-    "measured": 2,
-    "citedForms": []
-   },
-   {
-    "id": "653",
-    "word": "Regulate",
-    "claim": 1,
-    "measured": 3,
-    "citedForms": []
-   },
-   {
-    "id": "657",
-    "word": "Restrict",
-    "claim": 1,
-    "measured": 4,
-    "citedForms": []
    }
   ]
  },
@@ -9475,7 +9449,7 @@
    "levelSource": null,
    "type": null,
    "topic": null,
-   "examClaim": 1,
+   "examClaim": 11,
    "examMeasured": 11,
    "citedForms": []
   },
@@ -9580,7 +9554,7 @@
    "levelSource": null,
    "type": null,
    "topic": null,
-   "examClaim": 1,
+   "examClaim": 5,
    "examMeasured": 5,
    "citedForms": []
   },
@@ -9685,7 +9659,7 @@
    "levelSource": null,
    "type": null,
    "topic": null,
-   "examClaim": 1,
+   "examClaim": 2,
    "examMeasured": 2,
    "citedForms": []
   },
@@ -9805,7 +9779,7 @@
    "levelSource": null,
    "type": null,
    "topic": null,
-   "examClaim": 1,
+   "examClaim": 3,
    "examMeasured": 3,
    "citedForms": []
   },
@@ -9865,7 +9839,7 @@
    "levelSource": null,
    "type": null,
    "topic": null,
-   "examClaim": 1,
+   "examClaim": 4,
    "examMeasured": 4,
    "citedForms": []
   },
@@ -9925,7 +9899,7 @@
    "levelSource": null,
    "type": null,
    "topic": null,
-   "examClaim": 1,
+   "examClaim": 2,
    "examMeasured": 2,
    "citedForms": []
   },
@@ -9940,7 +9914,7 @@
    "levelSource": null,
    "type": null,
    "topic": null,
-   "examClaim": 1,
+   "examClaim": 2,
    "examMeasured": 2,
    "citedForms": []
   },
@@ -10090,7 +10064,7 @@
    "levelSource": null,
    "type": null,
    "topic": null,
-   "examClaim": 1,
+   "examClaim": 13,
    "examMeasured": 13,
    "citedForms": []
   },
@@ -10240,7 +10214,7 @@
    "levelSource": null,
    "type": null,
    "topic": null,
-   "examClaim": 1,
+   "examClaim": 4,
    "examMeasured": 4,
    "citedForms": []
   },
@@ -10285,7 +10259,7 @@
    "levelSource": null,
    "type": null,
    "topic": null,
-   "examClaim": 1,
+   "examClaim": 3,
    "examMeasured": 3,
    "citedForms": []
   },
@@ -10480,7 +10454,7 @@
    "levelSource": null,
    "type": null,
    "topic": null,
-   "examClaim": 1,
+   "examClaim": 12,
    "examMeasured": 12,
    "citedForms": []
   },
@@ -10660,7 +10634,7 @@
    "levelSource": null,
    "type": null,
    "topic": null,
-   "examClaim": 1,
+   "examClaim": 2,
    "examMeasured": 2,
    "citedForms": []
   },
@@ -11050,7 +11024,7 @@
    "levelSource": null,
    "type": null,
    "topic": null,
-   "examClaim": 1,
+   "examClaim": 2,
    "examMeasured": 2,
    "citedForms": []
   },
@@ -11095,7 +11069,7 @@
    "levelSource": null,
    "type": null,
    "topic": null,
-   "examClaim": 1,
+   "examClaim": 16,
    "examMeasured": 16,
    "citedForms": []
   },
@@ -11125,7 +11099,7 @@
    "levelSource": null,
    "type": null,
    "topic": null,
-   "examClaim": 1,
+   "examClaim": 16,
    "examMeasured": 16,
    "citedForms": []
   },
@@ -11247,7 +11221,7 @@
    "levelSource": null,
    "type": null,
    "topic": null,
-   "examClaim": 1,
+   "examClaim": 28,
    "examMeasured": 28,
    "citedForms": []
   },
@@ -11292,7 +11266,7 @@
    "levelSource": null,
    "type": null,
    "topic": null,
-   "examClaim": 1,
+   "examClaim": 4,
    "examMeasured": 4,
    "citedForms": []
   },
@@ -11562,7 +11536,7 @@
    "levelSource": null,
    "type": null,
    "topic": null,
-   "examClaim": 1,
+   "examClaim": 6,
    "examMeasured": 6,
    "citedForms": []
   },
@@ -11622,7 +11596,7 @@
    "levelSource": null,
    "type": null,
    "topic": null,
-   "examClaim": 1,
+   "examClaim": 12,
    "examMeasured": 12,
    "citedForms": []
   },
@@ -11652,7 +11626,7 @@
    "levelSource": null,
    "type": null,
    "topic": null,
-   "examClaim": 1,
+   "examClaim": 2,
    "examMeasured": 2,
    "citedForms": []
   },
@@ -12012,7 +11986,7 @@
    "levelSource": null,
    "type": null,
    "topic": null,
-   "examClaim": 1,
+   "examClaim": 2,
    "examMeasured": 0,
    "citedForms": [
     "deceived"
@@ -12089,7 +12063,7 @@
    "levelSource": null,
    "type": null,
    "topic": null,
-   "examClaim": 1,
+   "examClaim": 8,
    "examMeasured": 8,
    "citedForms": []
   },
@@ -12119,7 +12093,7 @@
    "levelSource": null,
    "type": null,
    "topic": null,
-   "examClaim": 1,
+   "examClaim": 4,
    "examMeasured": 4,
    "citedForms": []
   },
@@ -12254,7 +12228,7 @@
    "levelSource": null,
    "type": null,
    "topic": null,
-   "examClaim": 1,
+   "examClaim": 2,
    "examMeasured": 0,
    "citedForms": [
     "intimidated"
@@ -12421,7 +12395,7 @@
    "levelSource": null,
    "type": null,
    "topic": null,
-   "examClaim": 1,
+   "examClaim": 4,
    "examMeasured": 1,
    "citedForms": [
     "ceased"
@@ -12543,7 +12517,7 @@
    "levelSource": null,
    "type": null,
    "topic": null,
-   "examClaim": 1,
+   "examClaim": 2,
    "examMeasured": 0,
    "citedForms": [
     "contaminated"
@@ -12560,7 +12534,7 @@
    "levelSource": null,
    "type": null,
    "topic": null,
-   "examClaim": 1,
+   "examClaim": 8,
    "examMeasured": 8,
    "citedForms": []
   },
@@ -12695,7 +12669,7 @@
    "levelSource": null,
    "type": null,
    "topic": null,
-   "examClaim": 1,
+   "examClaim": 2,
    "examMeasured": 2,
    "citedForms": []
   },
@@ -12770,7 +12744,7 @@
    "levelSource": null,
    "type": null,
    "topic": null,
-   "examClaim": 1,
+   "examClaim": 4,
    "examMeasured": 4,
    "citedForms": []
   },
@@ -12785,7 +12759,7 @@
    "levelSource": null,
    "type": null,
    "topic": null,
-   "examClaim": 1,
+   "examClaim": 2,
    "examMeasured": 2,
    "citedForms": []
   },
@@ -12817,7 +12791,7 @@
    "levelSource": null,
    "type": null,
    "topic": null,
-   "examClaim": 1,
+   "examClaim": 4,
    "examMeasured": 4,
    "citedForms": []
   },
@@ -12847,7 +12821,7 @@
    "levelSource": null,
    "type": null,
    "topic": null,
-   "examClaim": 1,
+   "examClaim": 2,
    "examMeasured": 2,
    "citedForms": []
   },
@@ -12954,7 +12928,7 @@
    "levelSource": null,
    "type": null,
    "topic": null,
-   "examClaim": 1,
+   "examClaim": 2,
    "examMeasured": 0,
    "citedForms": [
     "refined"
@@ -12971,7 +12945,7 @@
    "levelSource": null,
    "type": null,
    "topic": null,
-   "examClaim": 1,
+   "examClaim": 3,
    "examMeasured": 3,
    "citedForms": []
   },
@@ -12986,7 +12960,7 @@
    "levelSource": null,
    "type": null,
    "topic": null,
-   "examClaim": 1,
+   "examClaim": 6,
    "examMeasured": 6,
    "citedForms": []
   },
@@ -13241,7 +13215,7 @@
    "levelSource": null,
    "type": null,
    "topic": null,
-   "examClaim": 1,
+   "examClaim": 8,
    "examMeasured": 8,
    "citedForms": []
   },
@@ -13421,7 +13395,7 @@
    "levelSource": null,
    "type": null,
    "topic": null,
-   "examClaim": 1,
+   "examClaim": 4,
    "examMeasured": 4,
    "citedForms": []
   },
@@ -13556,7 +13530,7 @@
    "levelSource": null,
    "type": null,
    "topic": null,
-   "examClaim": 1,
+   "examClaim": 8,
    "examMeasured": 8,
    "citedForms": []
   },

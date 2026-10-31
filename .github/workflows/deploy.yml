@@ -42,7 +42,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: main
 
@@ -57,7 +57,7 @@ jobs:
         run: python3 scripts/deploy_gate.py
 
       - name: Set up Node for data and app-logic tests
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 22
 
@@ -69,10 +69,11 @@ jobs:
           node scripts/exams/build_answer_keys.mjs --check
           node scripts/exams/audit_rendering.mjs --check
           python scripts/exams/embed_archive.py --check
-          # rc3: the evidence artifacts are part of what ships, so a stale report
+          # rc3/rc8: the evidence artifacts are part of what ships, so a stale report
           # must block the deploy rather than publish next to outdated evidence.
           python scripts/audit_vocabulary_quality.py --check
           python scripts/vocabulary_evidence_review.py --check
+          python scripts/rc4_vocabulary_audit.py --check
           python scripts/audit_exam_provenance.py --check
 
       - name: Run Python unit tests
@@ -80,7 +81,7 @@ jobs:
 
       # Node is used only for dependency-free tests; production is a single HTML file.
       - name: Run static app logic, scoring and single-file tests
-        run: node --test tests/static-app.test.js tests/exam-scoring.test.js
+        run: node --trace-deprecation --test tests/static-app.test.js tests/exam-scoring.test.js
 
       # Publish only the fully self-contained application file.
       - name: Stage standalone HTML
@@ -95,15 +96,15 @@ jobs:
       # Do not use enablement: true here: GITHUB_TOKEN cannot create a Pages site.
       - name: Configure Pages
         if: steps.gate.outputs.deploy == 'true'
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
 
       - name: Upload Pages artifact
         if: steps.gate.outputs.deploy == 'true'
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
           path: _site
 
       - name: Deploy
         id: deployment
         if: steps.gate.outputs.deploy == 'true'
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
