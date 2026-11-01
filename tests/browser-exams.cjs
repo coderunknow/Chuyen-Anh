@@ -102,7 +102,9 @@ async function main() {
     assert.ok(denominator > 0 && denominator <= paper.questionCount, `denominator ${denominator} must be the scorable subset`);
     assert.match(summaryText, new RegExp(`3/${denominator} điểm trên ${denominator} câu chấm được`));
     assert.match(summaryText, /\d+\/\d+ câu, \d+(\.\d+)?%; \d+ câu không chấm được/);
-    assert.match(await page.locator('#exam-submission-summary').innerText(), /trên số câu đã trả lời: 3\/6 — 50%/);
+    // The efficiency line now uses the graded denominator so an answered but
+    // unscorable item cannot drag a correct result towards 0 % (rc9 review round).
+    assert.match(await page.locator('#exam-submission-summary').innerText(), /trên 6 câu đã chấm: 3\/6 — 50%/);
     assert.match(await page.locator('#exam-submission-summary').innerText(), /KHÔNG phải điểm thi chính thức/i);
     assert.match(await page.locator('#exam-confidence-breakdown').innerText(), /HIGH:[\s\S]*MEDIUM:[\s\S]*LOW:[\s\S]*VERY_LOW:/);
     assert.match(await page.evaluate(() => localStorage.getItem('chuyen-anh.exam-results.v1')), /"attempts"/);

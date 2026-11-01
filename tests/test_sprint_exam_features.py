@@ -36,7 +36,10 @@ class ShippedSprintContractTests(unittest.TestCase):
         self.assertFalse("giới hạn 7 lượt" in self.html, "the bundled copy must not claim a 7-turn limit")
 
     def test_the_sprint_uses_the_configured_session_size(self):
-        self.assertIn("selectSprintSession(deck, progress, { size: prefs.sessionSize })", self.script)
+        # The sprint draws from the CEFR-filtered deck, not the whole bank: a level
+        # the learner excluded must never appear in a sprint queue (rc9).
+        self.assertIn("selectSprintSession(cefrDeck(), progress, { size: prefs.sessionSize })", self.script)
+        self.assertIn("selectSprintSession(cefrDeck(), progress, { size: sprintTarget })", self.script)
         self.assertIn("function sprintEligibleCount", self.script)
         # Throughput work must not reintroduce a fixed dwell timer; the hand-off is
         # decided by one exported predicate and happens immediately.
