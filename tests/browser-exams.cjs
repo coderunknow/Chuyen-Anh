@@ -95,7 +95,13 @@ async function main() {
     assert.equal(Number(await page.locator('#exam-practice-incorrect-count').innerText()), expectedWrong);
     assert.equal(Number(await page.locator('#exam-practice-provisional-count').innerText()) >= 6, true);
     assert.equal(await page.locator('#exam-practice-graded-count').count(), 1);
-    assert.match(await page.locator('#exam-submission-summary').innerText(), new RegExp(`3/${paper.questionCount} điểm quy đổi`));
+    // The denominator is now the number of scorable items, not the parsed item
+    // count, so the assertion checks the semantics instead of a hard-coded ratio.
+    const summaryText = await page.locator('#exam-submission-summary').innerText();
+    const denominator = Number(await page.locator('#exam-practice-denominator-count').innerText());
+    assert.ok(denominator > 0 && denominator <= paper.questionCount, `denominator ${denominator} must be the scorable subset`);
+    assert.match(summaryText, new RegExp(`3/${denominator} điểm trên ${denominator} câu chấm được`));
+    assert.match(summaryText, /\d+\/\d+ câu, \d+(\.\d+)?%; \d+ câu không chấm được/);
     assert.match(await page.locator('#exam-submission-summary').innerText(), /trên số câu đã trả lời: 3\/6 — 50%/);
     assert.match(await page.locator('#exam-submission-summary').innerText(), /KHÔNG phải điểm thi chính thức/i);
     assert.match(await page.locator('#exam-confidence-breakdown').innerText(), /HIGH:[\s\S]*MEDIUM:[\s\S]*LOW:[\s\S]*VERY_LOW:/);

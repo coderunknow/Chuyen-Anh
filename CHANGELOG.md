@@ -33,7 +33,7 @@
 
 - **New evidence artifacts, all `--check`-guarded in CI:** `docs/exam-anomaly-classification.{json,md}` (1,086 anomalies in 97 papers: `truncated_prompt` 518, `shared_prompt` 422, `instruction_only` 215, `incomplete_option` 209, `option_overflow` 21; `handled_in_app` 230, `needs_review` 384, `kept_as_recorded` 472) and `docs/vocabulary-cefr-review.{json,md}` (CEFR evidence classes, before/after distribution, quality findings — all reported, none auto-repaired).
 - **CEFR labels stay editorial:** 4,939 rows are `level-source:editorial` ⇒ **Inferred**; 913 rows have no level ⇒ **Unknown**; **Verified = 0**, **Source-supported = 0**. No label is promoted and none is inflated for statistics.
-- **Tests:** `python -m unittest discover -s tests -p 'test_*.py'` → **168 OK**; `node --test tests/static-app.test.js tests/exam-scoring.test.js tests/exam-anomalies.test.js` → **160 pass / 0 fail**. No existing test was deleted or weakened; the rc9 assertions were added and the archive totals updated to the honest figures.
+- **Tests:** `python -m unittest discover -s tests -p 'test_*.py'` → **168 OK**; `node --test tests/static-app.test.js tests/exam-scoring.test.js tests/exam-anomalies.test.js` → **164 pass / 0 fail**. No existing test was deleted or weakened; the rc9 assertions were added and the archive totals updated to the honest figures.
 - **Still BLOCKED:** branch protection could not be read (`403 Resource not accessible by integration`), so the required-review gate is unverified; 0/106 answer keys are checked against an official primary source, so stable `v1.0.0` remains **NO-GO**.
 
 ## v1.0.0-rc8 — 100% universal exam scoring with confidence labels, curated loanword glosses, hardened telemetry and multi-engine CI (2026-10-31)
