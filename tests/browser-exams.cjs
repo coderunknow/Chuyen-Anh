@@ -47,7 +47,11 @@ async function main() {
     await page.goto(origin);
     await page.locator('[data-view="exams"]').click();
     await page.locator('#exam-results-count').filter({ hasText: '106 bản chép' }).waitFor();
-    assert.match(await page.locator('.exam-warning').innerText(), /chỉ chấm những câu có khóa đáp án dùng được.*không chấm.*độ tin cậy/is);
+    const catalogueWarning = await page.locator('.exam-warning').first().innerText();
+    assert.match(catalogueWarning, /chỉ chấm những câu có khóa đáp án dùng được/i);
+    assert.match(catalogueWarning, /câu chấm được/i);
+    assert.match(catalogueWarning, /không chấm/i);
+    assert.doesNotMatch(catalogueWarning, /chấm 100%/i, 'the catalogue must not promise 100% scoring');
     assert.match(await page.locator('.exam-warning').innerText(), /audio nghe không được nhúng/i);
     assert.equal(await page.locator('#exam-list .exam-card').count(), 24);
     await page.locator('#exam-search').fill('thai nguyen');
@@ -168,7 +172,10 @@ async function main() {
     await page.locator('#language-setting').selectOption('en');
     await page.locator('[data-view="exams"]').click();
     await page.locator('#exam-results-count').filter({ hasText: '106 transcriptions' }).waitFor();
-    assert.match(await page.locator('.exam-warning').innerText(), /only the items whose stored key can actually answer them.*not scored/is);
+    const catalogueWarningEn = await page.locator('.exam-warning').first().innerText();
+    assert.match(catalogueWarningEn, /only the items whose stored key can actually answer them/i);
+    assert.match(catalogueWarningEn, /not scored/i);
+    assert.doesNotMatch(catalogueWarningEn, /score 100%/i, 'the English catalogue must not promise 100% scoring');
     for (const viewport of [{ width: 320, height: 720 }, { width: 375, height: 812 }, { width: 768, height: 900 }, { width: 1024, height: 900 }, { width: 1440, height: 1000 }]) {
       await page.setViewportSize(viewport);
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, `catalogue fits ${viewport.width}px`);
