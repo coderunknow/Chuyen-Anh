@@ -1531,16 +1531,21 @@ test('exam grading never turns an unverified answer key into a confident grade',
   const blank = { id: 'q2', prompt: 'Fill in blank 2', responseType: 'text', options: [], sourceLine: 2, flags: [] };
   const key = (overrides = {}) => ({ questionId: 'q1', verificationStatus: 'source_transcription_unverified', candidates: ['choice-A'], acceptedAlternatives: [], normalization: 'choice-id', sources: [{ kind: 'transcription', locator: 'answer line 1' }], limitations: [], ...overrides });
 
-  assert.equal(getQuestionVerification(choice).status, 'inferred_unverified');
+  // A question without a stored key is ungraded and says why. It is never
+  // scored against a runtime guess (issues #75/#77).
+  assert.equal(getQuestionVerification(choice).status, 'missing_answer');
   assert.equal(getQuestionVerification(choice).confidence, 'VERY_LOW');
+  assert.equal(getQuestionVerification(choice).scorable, false);
   const fallbackGraded = gradeExamQuestion(choice, 'choice-A');
-  assert.equal(fallbackGraded.result, 'correct');
+  assert.equal(fallbackGraded.result, 'ungraded');
+  assert.equal(fallbackGraded.reason, 'no-source-answer');
   assert.equal(fallbackGraded.provisional, true);
   assert.equal(fallbackGraded.confidence, 'VERY_LOW');
   assert.equal(fallbackGraded.officialAnswer, null, 'an unknown key is never echoed as an official answer');
   const unanswered = gradeExamQuestion(choice, '');
   assert.equal(unanswered.result, 'ungraded');
-  assert.equal(unanswered.reason, 'unanswered');
+  assert.equal(unanswered.reason, 'no-source-answer', 'an ungraded item reports why before it reports an empty answer');
+  assert.equal(gradeExamQuestion(choice, '', key()).reason, 'unanswered');
 
   const provisional = gradeExamQuestion(choice, 'choice-A', key());
   assert.equal(provisional.result, 'correct');
@@ -1549,8 +1554,8 @@ test('exam grading never turns an unverified answer key into a confident grade',
   const official = gradeExamQuestion(choice, 'choice-A', key({ verificationStatus: 'official_verified' }));
   assert.equal(official.result, 'correct');
   assert.equal(official.provisional, false);
-  assert.equal(getQuestionVerification(choice, key({ verificationStatus: 'pending' })).status, 'inferred_unverified',
-    'an undefined status falls back to provisional low-confidence inference rather than verified');
+  assert.equal(getQuestionVerification(choice, key({ verificationStatus: 'pending' })).status, 'missing_answer',
+    'an undefined status is treated as no usable key, never as verified or inferred');
   const listeningFallback = gradeExamQuestion({ ...choice, flags: ['listening-audio-unavailable'] }, 'choice-A', key());
   assert.equal(listeningFallback.result, 'correct',
     'listening without audio uses provisional key/transcript fallback in rc8');
@@ -1589,20 +1594,25 @@ test('exported exam results report exactly what the learner did and what could b
   assert.equal(result.version, 'v1.0.0-rc8');
   assert.equal(result.schemaVersion, '2.0.0');
   assert.equal(result.summary.total, 3);
-  assert.equal(result.summary.denominator, 3);
+  // q3 has no stored answer key, so it is excluded from the denominator instead
+  // of being counted as a wrong answer (issue #75).
+  assert.equal(result.summary.scorableTotal, 2);
+  assert.equal(result.summary.denominator, 2);
+  assert.equal(result.summary.ungradeable, 1);
+  assert.equal(result.summary.coveragePercentage, 66.7);
   assert.equal(result.summary.answered, 2);
   assert.equal(result.summary.graded, 2);
   assert.equal(result.summary.correct, 2);
   assert.equal(result.summary.earnedPoints, 2);
   assert.equal(result.summary.ungraded, 1);
-  assert.equal(result.summary.percentage, 66.7);
+  assert.equal(result.summary.percentage, 100);
   assert.equal(result.summary.answeredPercentage, 100);
   assert.equal(result.summary.officialScore, null, 'an application-calculated score is never labelled official');
   assert.equal(result.questions[0].response, 'choice-B');
   assert.equal(result.questions[1].response, '  resilient  ', 'the stored response is unchanged');
   assert.deepEqual(result.results.map(item => item.result), ['correct', 'correct', 'ungraded']);
   assert.equal(result.provenance.source, record.source);
-  assert.equal(result.attempt.gradingPolicy, 'universal-full-denominator-v1');
+  assert.equal(result.attempt.gradingPolicy, 'scorable-only-v2');
   assert.deepEqual(JSON.parse(JSON.stringify(result)), result, 'the result survives a JSON round trip');
 
   assert.equal(examResultFilename(result), 'ket-qua-2023-dak-lak-so-1970-01-01.json');
@@ -3379,6 +3389,7 @@ test('remediation: every learner store is synced across tabs and the listener is
     'chuyen-anh.flagged.v1',
     'chuyen-anh.theme.v1',
     'chuyen-anh.badges.v1',
+    'chuyen-anh.cefr.v1',
     'chuyen-anh.presentation.v1',
     'chuyen-anh.phrases.v1',
     'chuyen-anh.exam-results.v1'
@@ -4025,4 +4036,229 @@ test('every shipped version literal agrees with APP_VERSION', async () => {
   assert.deepEqual(stale, [], 'no shipped file still names an older version');
   assert.equal((await readFile(new URL('DEPLOY_HOLD', root), 'utf8')).trim(), shipped,
     'the deploy hold names the version being built');
+});
+
+/* ------------------------------ CEFR filter ------------------------------- */
+
+function cefrVocab() {
+  const entry = (id, level) => ({ id, word: `word${id}`, meaning: `nghĩa${id}`, pos: 'n', examples: [], tags: level ? [`level:${level}`, 'level-source:editorial'] : [], synonyms: [], antonyms: [], collocations: [], sources: [] });
+  return [entry('1', 'A1'), entry('2', 'A2'), entry('3', 'B1'), entry('4', 'B2'), entry('5', 'C1'), entry('6', 'C2'), entry('7', null), entry('8', 'b2')];
+}
+
+test('CEFR levels are read from the stored label only, never guessed', () => {
+  const vocab = cefrVocab();
+  assert.deepEqual(vocab.map(entry => app.entryCefrLevel(entry)),
+    ['A1', 'A2', 'B1', 'B2', 'C1', 'C2', app.CEFR_UNCLASSIFIED, 'B2'],
+    'an untagged row is Unclassified and a lower-case tag is normalised');
+  assert.equal(app.entryCefrLevel({ tags: ['level:C3', 'level:unknown'] }), app.CEFR_UNCLASSIFIED,
+    'an unsupported label is not promoted to a nearby level');
+  assert.equal(app.entryCefrLevel({ tags: ['topic:media'] }), app.CEFR_UNCLASSIFIED);
+  assert.equal(app.entryCefrLevel(null), app.CEFR_UNCLASSIFIED);
+  assert.deepEqual(app.CEFR_SELECTOR_OPTIONS, ['A1', 'A2', 'B1', 'B2', 'C1', 'C2', 'UNCLASSIFIED']);
+  // A phrase is judged by its own label, never by its constituent words.
+  assert.equal(app.phraseCefrLevel({ tags: ['level:B1'], phrase: 'make ends meet' }), 'B1');
+  assert.equal(app.phraseCefrLevel({ phrase: 'make ends meet' }), app.CEFR_UNCLASSIFIED);
+  assert.equal(app.phraseCefrLevel({ level: 'c2' }), 'C2');
+});
+
+test('the CEFR selection survives storage, rejects corrupt data and keeps an explicit empty choice', () => {
+  const map = new Map();
+  const storage = { getItem: key => (map.has(key) ? map.get(key) : null), setItem: (key, value) => map.set(key, String(value)), removeItem: key => map.delete(key) };
+  assert.deepEqual(app.loadCefrSelection(storage), app.defaultCefrSelection(), 'a fresh device starts at B2+C1');
+  assert.deepEqual(map.size, 0, 'loading does not write');
+  assert.deepEqual(app.saveCefrSelection({ levels: ['B1', 'C2'], unclassified: true }, storage), true);
+  assert.equal(map.has('chuyen-anh.cefr.v1'), true, 'the filter has its own namespaced key');
+  assert.deepEqual(app.loadCefrSelection(storage), { version: 1, levels: ['B1', 'C2'], unclassified: true });
+  // Corrupt and older shapes fall back to the documented default instead of
+  // hiding every word.
+  for (const corrupt of ['{', 'null', '[]', '{"levels":["B1"]}', '{"version":2,"levels":["B1"]}', '"B1"']) {
+    map.set('chuyen-anh.cefr.v1', corrupt);
+    assert.deepEqual(app.loadCefrSelection(storage), app.defaultCefrSelection(), `corrupt value ${corrupt}`);
+  }
+  assert.deepEqual(app.sanitizeCefrSelection({ version: 1, levels: ['b1', 'B1', 'C9', 7], unclassified: 'yes' }),
+    { version: 1, levels: ['B1'], unclassified: false }, 'unknown levels and non-boolean flags are dropped');
+  // Selecting nothing is a real choice: it is preserved, and the app reports an
+  // empty pool rather than silently switching a level back on.
+  const none = app.sanitizeCefrSelection({ version: 1, levels: [], unclassified: false });
+  assert.deepEqual(none.levels, []);
+  assert.deepEqual(app.filterVocabularyByCefr(cefrVocab(), none), []);
+  assert.deepEqual(app.selectedCefrLevels(none), []);
+  // Saving never touches progress or the study config.
+  map.set('chuyen-anh.progress.v1', '{"1":{"state":"weak"}}');
+  map.set('chuyen-anh.study.v1', '{"size":30}');
+  app.saveCefrSelection({ levels: ['A1'], unclassified: false }, storage);
+  assert.equal(map.get('chuyen-anh.progress.v1'), '{"1":{"state":"weak"}}');
+  assert.equal(map.get('chuyen-anh.study.v1'), '{"size":30}');
+});
+
+test('toggling CEFR levels is order-stable, supports one/many/none/all and never mutates the input', () => {
+  let selection = app.defaultCefrSelection();
+  const snapshot = JSON.stringify(selection);
+  selection = app.toggleCefrLevel(selection, 'B1');
+  assert.deepEqual(selection.levels, ['B1', 'B2', 'C1'], 'an added level is kept in CEFR order');
+  selection = app.toggleCefrLevel(selection, 'B2');
+  assert.deepEqual(selection.levels, ['B1', 'C1']);
+  selection = app.toggleCefrLevel(selection, 'UNCLASSIFIED');
+  assert.equal(selection.unclassified, true);
+  selection = app.toggleCefrLevel(selection, 'UNCLASSIFIED');
+  assert.equal(selection.unclassified, false);
+  // Turn every band on, then off again: one/two/many/none are all reachable.
+  for (const level of app.CEFR_LEVELS) if (!selection.levels.includes(level)) selection = app.toggleCefrLevel(selection, level);
+  assert.deepEqual(app.selectedCefrLevels(selection), app.CEFR_LEVELS, 'every level can be switched on');
+  for (const level of app.CEFR_LEVELS) selection = app.toggleCefrLevel(selection, level);
+  assert.deepEqual(app.selectedCefrLevels(selection), [], 'every level can be switched off');
+  assert.deepEqual(JSON.parse(snapshot), { version: 1, levels: ['B2', 'C1'], unclassified: false }, 'the input selection is untouched');
+  for (const level of app.CEFR_LEVELS) selection = app.toggleCefrLevel(selection, level);
+  assert.deepEqual(app.selectedCefrLevels(selection), app.CEFR_LEVELS, 'every level can be switched on again');
+  assert.equal(app.toggleCefrLevel(selection, 'Z9').levels.length, 6, 'an unknown level is ignored');
+});
+
+test('the CEFR filter narrows every word mode without touching priority order or learning state', () => {
+  const now = Date.UTC(2026, 9, 20, 12);
+  const vocab = cefrVocab();
+  const states = ['weak', 'learning', 'new', 'review', 'mastered', 'weak', 'new', 'learning'];
+  const progressMap = {};
+  vocab.forEach((entry, index) => {
+    progressMap[entry.id] = {
+      ...createInitialProgress(entry.id, now - 86400000 * 3),
+      state: states[index],
+      nextReview: index % 2 ? now - 3600000 : now + 86400000 * 5,
+      wrongCount: index % 4,
+      correctCount: index % 3
+    };
+  });
+  const snapshot = JSON.stringify(progressMap);
+  const b1Only = app.sanitizeCefrSelection({ version: 1, levels: ['B1'], unclassified: false });
+  const pool = app.filterVocabularyByCefr(vocab, b1Only);
+  assert.deepEqual(pool.map(entry => entry.id), ['3']);
+  // The priority order is the same order the unfiltered pool uses; the filter
+  // only removes rows, it never re-ranks them.
+  const all = app.selectPrioritySession(vocab, progressMap, { size: 10, now });
+  const filtered = app.selectPrioritySession(pool, progressMap, { size: 10, now });
+  const allowed = new Set(pool.map(entry => entry.id));
+  assert.deepEqual(filtered.items.map(item => item.progress.id),
+    all.items.map(item => item.progress.id).filter(id => allowed.has(id)),
+    'the filtered session is the unfiltered order restricted to the enabled levels');
+  assert.equal(filtered.items[0].progress.state, progressMap['3'].state, 'the selected word keeps its stored state');
+  assert.deepEqual(filtered.items[0].progress, progressMap['3'], 'filtering hands the untouched progress record to the session');
+  // The sprint and the plain session pick from the same narrowed pool.
+  assert.deepEqual(app.selectSprintSession(pool, progressMap, { size: 10, now }).map(item => item.progress.id), ['3']);
+  assert.equal(app.sprintEligibleCount(pool, progressMap), 1);
+  assert.deepEqual(app.selectSession(pool, progressMap, { size: 10, mode: 'random', now }).map(item => item.progress.id), ['3']);
+  assert.deepEqual(app.selectSession(vocab, progressMap, { size: 10, mode: 'due', now }).length >= 1, true);
+  // Switching the level back restores the word with exactly the same record.
+  const wide = app.sanitizeCefrSelection({ version: 1, levels: ['B1', 'B2'], unclassified: false });
+  const restored = app.filterVocabularyByCefr(vocab, wide).filter(entry => entry.id === '3');
+  assert.equal(restored.length, 1);
+  assert.deepEqual(progressMap['3'], JSON.parse(snapshot)['3'], 'the hidden word kept its state, schedule and counts');
+  assert.equal(JSON.stringify(progressMap), snapshot, 'filtering and selection never mutate progress');
+  // No level selected means no words and no fallback.
+  const none = app.sanitizeCefrSelection({ version: 1, levels: [], unclassified: false });
+  const emptyPool = app.filterVocabularyByCefr(vocab, none);
+  assert.deepEqual(emptyPool, []);
+  assert.equal(app.selectPrioritySession(emptyPool, progressMap, { size: 10, now }).items.length, 0);
+  assert.equal(app.selectSprintSession(emptyPool, progressMap, { size: 10, now }).length, 0);
+  assert.equal(app.sprintEligibleCount(emptyPool, progressMap), 0);
+  // Unclassified is its own switch: it never rides along with a band selection.
+  const bandsOnly = app.sanitizeCefrSelection({ version: 1, levels: ['B1', 'B2', 'C1', 'C2', 'A1', 'A2'], unclassified: false });
+  assert.deepEqual(app.filterVocabularyByCefr(vocab, bandsOnly).map(entry => entry.id), ['1', '2', '3', '4', '5', '6', '8']);
+  const withUnclassified = app.sanitizeCefrSelection({ ...bandsOnly, unclassified: true });
+  assert.deepEqual(app.filterVocabularyByCefr(vocab, withUnclassified).map(entry => entry.id), ['1', '2', '3', '4', '5', '6', '7', '8']);
+});
+
+test('all seven exercise modes plan only from the CEFR-selected words', () => {
+  const stems = ['alpha', 'bravo', 'charlie', 'delta', 'echo', 'foxtrot', 'golf', 'hotel', 'india', 'juliet'];
+  const entry = (id, level, suffix, stem) => ({
+    id: String(id),
+    word: `${stem}${suffix}`,
+    meaning: `nghĩa ${level} ${id}`,
+    pos: 'n',
+    examples: [{ en: `The ${stem}${suffix} result was clear.`, vi: `Kết quả rõ ràng.` }],
+    tags: [`level:${level}`, 'level-source:editorial'],
+    synonyms: [], antonyms: [], collocations: [], sources: []
+  });
+  const b2 = stems.flatMap((stem, index) => [
+    entry(index * 2 + 1, 'B2', 'bee', stem),
+    entry(index * 2 + 2, 'B2', 'boo', stem)
+  ]);
+  const c1 = stems.flatMap((stem, index) => [
+    entry(index * 2 + 21, 'C1', 'cee', stem),
+    entry(index * 2 + 22, 'C1', 'coo', stem)
+  ]);
+  const deck = [...b2, ...c1];
+  const selection = app.sanitizeCefrSelection({ version: 1, levels: ['B2'], unclassified: false });
+  const pool = app.filterVocabularyByCefr(deck, selection);
+  assert.deepEqual(pool.map(row => row.id), b2.map(row => row.id));
+  const exercises = Object.fromEntries(app.EXERCISE_ORDER.map(type => [type, true]));
+  const plan = app.buildExercisePlan(pool, { exercises, vocabulary: pool });
+  const used = new Set();
+  for (const turn of plan.turns) {
+    const items = turn.items ? [...turn.items] : [turn.item];
+    for (const item of items) used.add(String(item?.vocab?.id ?? item?.id));
+  }
+  assert.deepEqual([...used].sort((a, b) => Number(a) - Number(b)), b2.map(row => row.id),
+    'the plan covers exactly the selected words and never borrows a word from another level');
+  assert.deepEqual(plan.dropped, [], 'no selected word is lost to the filter');
+  for (const type of app.EXERCISE_ORDER) {
+    assert.ok(plan.counts[type] >= 1, `every enabled mode is planned at least once (${type})`);
+  }
+  // The unselected level is not reachable through the distractor pool either:
+  // availability is computed against the same narrowed deck the app passes in.
+  for (const type of app.EXERCISE_ORDER) {
+    assert.equal(app.exercisePoolAvailability(pool, pool, type), app.exercisePoolAvailability(pool, deck, type),
+      `${type} availability must already be limited to the selected deck`);
+  }
+  // Widening the selection brings the other level back with its own words.
+  const widened = app.filterVocabularyByCefr(deck, app.sanitizeCefrSelection({ version: 1, levels: ['B2', 'C1'], unclassified: false }));
+  assert.equal(widened.length, 40);
+});
+
+test('the shipped vocabulary keeps every row and every level is selectable', () => {
+  const headwords = embeddedVocabulary.filter(entry => !entry.familyHead);
+  const archived = headwords.filter(entry => app.isArchivedEntry(entry));
+  const deck = headwords.filter(entry => !app.isArchivedEntry(entry));
+  const counts = app.countVocabularyByCefr(deck);
+  assert.deepEqual(counts, { A1: 0, A2: 0, B1: 162, B2: 883, C1: 1279, C2: 674, UNCLASSIFIED: 843 },
+    'the shipped deck keeps its labels; A1/A2 are selectable even though no row carries them yet');
+  assert.equal(headwords.length, 5112);
+  assert.equal(archived.length, 1271);
+  assert.equal(deck.length, 3841);
+  // The default selection is a filter, not a deletion: archived rows and
+  // out-of-band rows are still in the data and still counted.
+  assert.equal(app.filterVocabularyByCefr(deck, app.defaultCefrSelection()).length, 2162);
+  assert.equal(app.countVocabularyByCefr(embeddedVocabulary.filter(entry => !entry.familyHead)).UNCLASSIFIED, 843,
+    'the 843 untagged legacy headwords stay Unclassified instead of being assigned a level');
+  assert.equal(app.countVocabularyByCefr(embeddedVocabulary).UNCLASSIFIED, 913,
+    '913 of the 5,852 rows carry no level tag; none of them is given an invented level');
+  const phrases = embeddedPhrases;
+  const phraseLevels = {};
+  for (const phrase of phrases) phraseLevels[app.phraseCefrLevel(phrase)] = (phraseLevels[app.phraseCefrLevel(phrase)] || 0) + 1;
+  assert.deepEqual(phraseLevels, { B1: 112, B2: 301, C1: 288, C2: 79 },
+    'phrase levels come from each phrase, not from its constituent words');
+});
+
+test('the CEFR selector is wired into the real session pipeline, not just the panel', () => {
+  const source = appScript[1];
+  // Every learning consumer draws from the filtered view.
+  for (const call of [
+    'selectPrioritySession(cefrDeck()',
+    'studyGroupCandidates(cefrDeck()',
+    'selectSession(cefrDeck()',
+    'sprintEligibleCount(cefrDeck()',
+    'buildExercisePlan(selection.items, { exercises: config.exercises, vocabulary: cefrDeck() }'
+  ]) {
+    assert.equal(source.includes(call), true, `session pipeline must use the CEFR-filtered deck: ${call}`);
+  }
+  assert.equal(source.includes('exercisePoolAvailability(pool.items, cefrDeck(), type)'), true,
+    'exercise availability counts the same pool the session uses');
+  // The selector renders every level plus Unclassified and reports the eligible count.
+  assert.match(source, /CEFR_SELECTOR_OPTIONS\.map\(level =>/);
+  assert.match(source, /data-cefr="\$\{level\}"/);
+  assert.match(source, /từ trọng tâm đủ điều kiện/);
+  assert.match(source, /Ứng dụng không tự bật lại mức bạn đã tắt/);
+  // The click handler round-trips through the reducer and the store.
+  assert.match(source, /cefrSelection = toggleCefrLevel\(cefrSelection, level\)/);
+  assert.match(source, /saveCefrSelection\(cefrSelection, storage\)/);
+  // Grading stays independent of the study filter.
+  assert.match(source, /gradeAnswer\(question, answer, \{ vocabulary: deck \}\)/);
 });

@@ -33,6 +33,9 @@ on:
       - "scripts/generate_vocab_audit_dev*.py"
       - "scripts/vocabulary_curation.py"
       - "scripts/vocabulary_evidence_review.py"
+      - "scripts/vocabulary_cefr_review.py"
+      - "docs/vocabulary-cefr-review.*"
+      - "docs/exam-anomaly-classification.*"
       - "scripts/audit_vocabulary_quality.py"
       - "scripts/audit_exam_provenance.py"
       - "scripts/vocab_sources.py"
@@ -96,6 +99,9 @@ on:
       - "scripts/generate_vocab_audit_dev*.py"
       - "scripts/vocabulary_curation.py"
       - "scripts/vocabulary_evidence_review.py"
+      - "scripts/vocabulary_cefr_review.py"
+      - "docs/vocabulary-cefr-review.*"
+      - "docs/exam-anomaly-classification.*"
       - "scripts/audit_vocabulary_quality.py"
       - "scripts/audit_exam_provenance.py"
       - "scripts/vocab_sources.py"
@@ -162,8 +168,10 @@ jobs:
           python scripts/embed_phrases.py --check
           node scripts/exams/build_answer_keys.mjs --check
           node scripts/exams/audit_rendering.mjs --check
+          node scripts/exams/classify_anomalies.mjs --check
           python scripts/exams/embed_archive.py --check
           python scripts/audit_vocabulary_quality.py --check
+          python scripts/vocabulary_cefr_review.py --check
           python scripts/vocabulary_evidence_review.py --check
           python scripts/rc4_vocabulary_audit.py --check
           python scripts/audit_exam_provenance.py --check
@@ -173,7 +181,7 @@ jobs:
 
       # Node is used only for dependency-free tests; production is a single HTML file.
       - name: Run static app logic, scoring and single-file tests
-        run: node --trace-deprecation --test tests/static-app.test.js tests/exam-scoring.test.js
+        run: node --trace-deprecation --test tests/static-app.test.js tests/exam-scoring.test.js tests/exam-anomalies.test.js
 
       # rc5/rc8: the ingestion endpoint is the only server-side code in the project,
       # so its contract (origins, size limits, stored fields, status codes, fail-closed salt)
