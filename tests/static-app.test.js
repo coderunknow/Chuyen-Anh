@@ -4219,6 +4219,8 @@ test('the exam copy never promises 100% scoring and always shows the real covera
   assert.doesNotMatch(source, /provisionally score 100%/, 'the English copy must not claim 100% scoring');
   assert.doesNotMatch(source, /enabled for 100% full-denominator scoring/, 'the practice intro must not claim 100%');
   assert.match(source, /\$\{scorableTotal\}\/\$\{questionTotal\} câu chấm được/, 'the catalogue counts the scorable items from the records');
+  assert.match(source, /only the items whose stored key can actually answer them are graded/, 'the English catalogue explains the same rule');
+  assert.match(source, /language === 'en' \? 'Reference transcription/, 'the catalogue warning itself is bilingual, not dictionary-dependent');
   assert.match(source, /Mẫu số \(câu chấm được\)/, 'the summary labels the denominator as the scorable count');
   assert.match(source, /Không chấm được/, 'the summary reports how many items cannot be scored');
   assert.match(source, /coveragePercentage/, 'the summary surfaces the coverage percentage');
