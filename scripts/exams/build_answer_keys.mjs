@@ -446,14 +446,18 @@ function buildProvisionalHint(question, fullBodyLower, currentPaperId) {
       const top = scoredOpts[0];
       const second = scoredOpts[1];
       const margin = top.score - (second?.score ?? 0);
+      // No discriminating cue means no answer. Emitting the first option on a
+      // tie produced the 84%-option-A bias (issue #77); abstaining keeps the
+      // question honestly ungraded instead of scoring a guess.
+      if (!(margin > 0) || !(top.score > 0)) return null;
       return {
         candidates: [top.opt.id],
         acceptedAlternatives: [],
         normalization: 'choice-id',
         confidence: margin >= 5 ? 'MEDIUM' : 'LOW',
         reasoning: margin >= 5
-          ? `Contextual & grammatical collocation match selects "${top.opt.label}. ${top.opt.text}" (collocation/passage score +${top.score.toFixed(1)}).`
-          : `Provisional contextual choice inference selects "${top.opt.label}. ${top.opt.text}" from passage/lexical cues; no official primary key bundled.`
+          ? `Contextual & grammatical collocation match selects "${top.opt.label}. ${top.opt.text}" (collocation/passage score +${top.score.toFixed(1)}, margin +${margin.toFixed(1)} over the runner-up).`
+          : `Provisional contextual choice inference selects "${top.opt.label}. ${top.opt.text}" with a positive but small margin (+${margin.toFixed(1)}) over the runner-up; no official primary key bundled.`
       };
     }
   }
@@ -466,6 +470,9 @@ function buildProvisionalHint(question, fullBodyLower, currentPaperId) {
     const scoredOpts = opts.map(o => ({ opt: o, score: scoreOptionInContext(o.text, question.prompt, fullBodyLower) }))
       .sort((a, b) => b.score - a.score);
     const chosen = scoredOpts.slice(0, k).map(x => x.opt);
+    if (!scoredOpts.length || !(scoredOpts[0].score > 0)) return null;
+    const multipleMargin = scoredOpts[0].score - (scoredOpts[k]?.score ?? 0);
+    if (!(multipleMargin > 0)) return null;
     return {
       candidates: chosen.map(o => o.id),
       acceptedAlternatives: [],
@@ -479,7 +486,12 @@ function buildProvisionalHint(question, fullBodyLower, currentPaperId) {
     const pWords = (question.prompt.toLowerCase().match(/[a-z]{4,}/g) || []);
     const hits = pWords.filter(w => fullBodyLower.includes(w)).length;
     const hardNeg = /\b(?:never|only|exclusively|impossible|nobody|no\s+one|completely\s+ignore|entirely\s+wrong)\b/i.test(question.prompt);
-    const ans = !hardNeg && (pWords.length === 0 || hits / Math.max(1, pWords.length) >= 0.45) ? 'true' : 'false';
+    const share = pWords.length ? hits / pWords.length : 0;
+    // Only a clearly polarised reading of the passage counts as evidence. In
+    // between, the item is left ungraded rather than guessed.
+    if (pWords.length < 4) return null;
+    if (hardNeg ? share > 0.6 : (share > 0.2 && share < 0.6)) return null;
+    const ans = !hardNeg && share >= 0.6 ? 'true' : 'false';
     return {
       candidates: [ans],
       acceptedAlternatives: [],
@@ -532,6 +544,9 @@ const totals = {
   htmlOcrPapersInteractive: 0,
   missingFigurePapers: 0,
   missing: 0,
+  ungradeable: 0,
+  ungradeableStimulus: 0,
+  byUngradeableReason: {},
   ambiguous: 0
 };
 
@@ -539,7 +554,11 @@ for (const { item, body, contentSha256, questions, initialKeys } of parsedPapers
   const fullBodyLower = body.toLowerCase();
   const hints = {};
   for (let i = 0; i < questions.length; i += 1) {
-    if (initialKeys[i].verificationStatus === 'inferred_unverified' && questions[i].responseType !== 'essay') {
+    const initial = initialKeys[i];
+    const needsInference = questions[i].responseType !== 'essay'
+      && (initial.verificationStatus === 'inferred_unverified'
+        || (initial.scorable === false && initial.verificationStatus === 'missing_answer' && initial.ungradeableReason === 'no-source-answer'));
+    if (needsInference) {
       const h = buildProvisionalHint(questions[i], fullBodyLower, item.key);
       if (h) hints[questions[i].id] = h;
     }
@@ -588,13 +607,22 @@ for (const { item, body, contentSha256, questions, initialKeys } of parsedPapers
     if (q.responseType === 'essay' || q.flags.includes('writing-rubric-required')) {
       totals.writingRubricScored += 1;
     }
-    const hasScoringPath = (q.responseType === 'essay' && Boolean(key.rubric)) || (Array.isArray(key.candidates) && key.candidates.length > 0);
+    // "Scorable" means the stored key can actually answer this question: a
+    // non-empty candidate list is not enough (issue #75). Items without a
+    // usable key or without their stimulus are counted as ungradeable.
+    const hasScoringPath = key.scorable !== false && (key.verificationStatus !== 'invalid_key'
+      && key.verificationStatus !== 'missing_answer' && key.verificationStatus !== 'incomplete_stimulus')
+      && ((q.responseType === 'essay' && Boolean(key.rubric)) || (Array.isArray(key.candidates) && key.candidates.length > 0));
     if (hasScoringPath) {
       totals.scoredQuestions += 1;
       totals.gradable += 1;
       if (key.verificationStatus !== 'official_verified') totals.provisional += 1;
     } else {
       totals.missing += 1;
+      totals.ungradeable += 1;
+      const reason = key.ungradeableReason || 'no-answer-key';
+      totals.byUngradeableReason[reason] = (totals.byUngradeableReason[reason] || 0) + 1;
+      if (key.stimulusFallback) totals.ungradeableStimulus += 1;
     }
     if (key.sourceStatus === 'ambiguous_source') totals.ambiguous += 1;
   }
@@ -615,7 +643,8 @@ const audit = {
   totals,
   limits: [
     'Zero items are labeled official_verified without an official primary ministry/department source.',
-    '100% of extracted questions across all 106 papers (including HTML/OCR, listening, missing-figure, and essay/speaking items) carry an active scoring path in the full-paper denominator with explicit sourceStatus and confidence (HIGH / MEDIUM / LOW / VERY_LOW).',
+    'Only items that can actually be scored from the stored material enter the denominator. Items whose key is not an option of the question, whose key is missing, or whose picture/audio stimulus is absent are reported as ungradeable with an explicit reason and excluded from the score denominator (scorable-only scoring).',
+    'No answer is inferred on a tie: a provisional choice key is emitted only when the contextual cue has a strictly positive margin over the runner-up (issue #77).',
     'Listening items without bundled MP3 use source transcript fallback (LOW confidence) when a transcript exists, or incomplete_stimulus (VERY_LOW confidence) otherwise.',
     'Open-ended writing and speaking items are scored provisionally via a 4-criterion analytical rubric (Task 30%, Coherence 25%, Lexis 25%, Grammar 20%) and never claim human-examiner equivalence.'
   ],
@@ -625,7 +654,7 @@ const audit = {
 const md = [
   '# Exam scoring audit',
   '',
-  `Scoring rule: \`${app.EXAM_SCORING_RULE_VERSION}\`. Universal 100% full-denominator provisional scoring across all 106 exams; no official verification is implied where primary sources are absent.`,
+  `Scoring rule: \`${app.EXAM_SCORING_RULE_VERSION}\`. Scorable-only denominator: only questions whose key can be derived from the recorded source are scored (${totals.scoredQuestions} / ${totals.questions} = ${totals.scoringCoveragePct} %). The remaining ${totals.ungradeable} items are listed as ungradeable with a reason and are never guessed, inferred or keyed by statistics. No official verification is implied where primary sources are absent.`,
   '',
   '| Metric | Count |',
   '| --- | ---: |',
