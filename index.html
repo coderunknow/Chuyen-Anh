@@ -225712,6 +225712,11 @@ export const CEFR_LABELS = Object.freeze({
   B2: 'B2 — Trung cao cấp', C1: 'C1 — Cao cấp', C2: 'C2 — Thành thạo',
   [CEFR_UNCLASSIFIED]: 'Chưa phân loại / không đủ căn cứ'
 });
+export const CEFR_LABELS_EN = Object.freeze({
+  A1: 'A1 — Beginner', A2: 'A2 — Elementary', B1: 'B1 — Intermediate',
+  B2: 'B2 — Upper intermediate', C1: 'C1 — Advanced', C2: 'C2 — Proficient',
+  [CEFR_UNCLASSIFIED]: 'Unclassified / not enough evidence'
+});
 // New learners start at B2+C1: the band the exam actually tests. C2 stays off
 // until the learner asks for it, A1–B1 are always one click away, and
 // Unclassified is never switched on automatically.
@@ -230539,33 +230544,59 @@ export async function createApp(root) {
     return { counts, selected, eligible, total: deck.length };
   }
 
+  // The CEFR panel is rendered in the learner's language directly: its counts and
+  // the "x/y eligible" line are dynamic, so the post-render translator cannot map
+  // them string-by-string.
+  function cefrText(vi, en) {
+    return language === 'en' ? en : vi;
+  }
+
+  function cefrLevelLabel(level) {
+    if (level === CEFR_UNCLASSIFIED) return cefrText('Chưa phân loại', 'Unclassified');
+    return cefrText(CEFR_LABELS[level] || level, CEFR_LABELS_EN[level] || level);
+  }
+
   function cefrEmptyMessage() {
     const { selected, eligible } = cefrSummary();
-    if (!selected.length) return 'Bạn đang tắt tất cả mức CEFR nên không có từ nào vào phiên. Hãy bật lại một mức.';
-    if (!eligible) return 'Không có từ nào ở các mức CEFR đang chọn. Hãy mở thêm một mức (A1–C2 hoặc Chưa phân loại).';
-    return 'Không có từ nào thuộc nhóm đang bật trong các mức CEFR đã chọn. Hãy bật thêm nhóm từ, đổi trọng tâm hoặc mở thêm mức CEFR.';
+    if (!selected.length) return cefrText(
+      'Bạn đang tắt tất cả mức CEFR nên không có từ nào vào phiên. Hãy bật lại một mức.',
+      'Every CEFR level is switched off, so no word can enter a session. Switch one back on.');
+    if (!eligible) return cefrText(
+      'Không có từ nào ở các mức CEFR đang chọn. Hãy mở thêm một mức (A1–C2 hoặc Chưa phân loại).',
+      'No word belongs to the CEFR levels you selected. Open one more level (A1–C2 or Unclassified).');
+    return cefrText(
+      'Không có từ nào thuộc nhóm đang bật trong các mức CEFR đã chọn. Hãy bật thêm nhóm từ, đổi trọng tâm hoặc mở thêm mức CEFR.',
+      'No word of the enabled groups falls inside the selected CEFR levels. Enable another group, change the focus, or open one more level.');
   }
 
   function cefrChipMarkup({ prefix = 'priority' } = {}) {
     const { counts, selected, eligible, total } = cefrSummary();
     const chips = CEFR_SELECTOR_OPTIONS.map(level => {
       const pressed = level === CEFR_UNCLASSIFIED ? cefrSelection.unclassified : cefrSelection.levels.includes(level);
-      const label = level === CEFR_UNCLASSIFIED ? 'Chưa phân loại' : CEFR_LABELS[level];
+      const label = cefrLevelLabel(level);
       const count = counts[level] || 0;
       return `<button type="button" class="chip ${pressed ? 'is-on' : ''} ${count ? '' : 'is-unavailable'}" data-cefr="${level}" aria-pressed="${pressed}">
         <span class="chip-label">${escapeHtml(label)}</span>
-        <span class="chip-count">${count} từ</span>
+        <span class="chip-count">${count} ${cefrText('từ', 'words')}</span>
       </button>`;
     }).join('');
     const selectedLabel = selected.length
-      ? selected.map(level => level === CEFR_UNCLASSIFIED ? 'Chưa phân loại' : level).join(', ')
-      : 'không mức nào';
-    const emptyHint = selected.length ? '' : '<p class="config-hint">Đang tắt hết mức nên không phiên học nào có từ. Ứng dụng không tự bật lại mức bạn đã tắt.</p>';
+      ? selected.map(level => cefrLevelLabel(level)).join(', ')
+      : cefrText('không mức nào', 'none');
+    const emptyHint = selected.length ? '' : `<p class="config-hint">${cefrText(
+      'Đang tắt hết mức nên không phiên học nào có từ. Ứng dụng không tự bật lại mức bạn đã tắt.',
+      'Every level is off, so no session can draw a word. The app will not switch a level back on for you.')}</p>`;
     return `<fieldset class="config-block">
-        <legend>Mức CEFR được học</legend>
+        <legend>${cefrText('Mức CEFR được học', 'CEFR levels to study')}</legend>
         <div class="chip-row chip-row--wrap" id="${prefix}-cefr">${chips}</div>
-        <p class="config-hint">Bộ lọc chỉ thu hẹp tập từ được rút ra cho phiên học. Lịch ôn, trạng thái từ và tiến độ không đổi: từ bị ẩn vẫn ở đúng trạng thái và quay lại ngay khi bạn bật lại mức của nó. Từ bạn tự đánh dấu <strong>Yêu thích</strong> luôn học được, kể cả khi nằm ngoài các mức đang chọn.</p>
-        <p class="config-hint" id="${prefix}-cefr-help" role="status" aria-live="polite">Đang chọn: ${escapeHtml(selectedLabel)} · ${formatCount(eligible)}/${formatCount(total)} từ trọng tâm đủ điều kiện.</p>
+        <p class="config-hint">${cefrText(
+          'Bộ lọc chỉ thu hẹp tập từ được rút ra cho phiên học. Lịch ôn, trạng thái từ và tiến độ không đổi: từ bị ẩn vẫn ở đúng trạng thái và quay lại ngay khi bạn bật lại mức của nó.',
+          'The filter only narrows the words drawn for a session. Review schedule, word state and progress do not change: a hidden word keeps its state and comes back as soon as you switch its level on again.')} ${cefrText(
+          'Từ bạn tự đánh dấu <strong>Yêu thích</strong> luôn học được, kể cả khi nằm ngoài các mức đang chọn.',
+          'A word you starred as a <strong>favourite</strong> always stays studyable, even outside the selected levels.')}</p>
+        <p class="config-hint" id="${prefix}-cefr-help" role="status" aria-live="polite">${cefrText(
+          `Đang chọn: ${escapeHtml(selectedLabel)} · ${formatCount(eligible)}/${formatCount(total)} từ trọng tâm đủ điều kiện.`,
+          `Selected: ${escapeHtml(selectedLabel)} · ${formatCount(eligible)}/${formatCount(total)} focus words eligible.`)}</p>
         ${emptyHint}
       </fieldset>`;
   }

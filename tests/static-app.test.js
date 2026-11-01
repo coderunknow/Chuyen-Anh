@@ -4250,6 +4250,24 @@ test('the shipped vocabulary keeps every row and every level is selectable', () 
     'phrase levels come from each phrase, not from its constituent words');
 });
 
+test('the CEFR panel and its empty states are bilingual, not Vietnamese-only', () => {
+  const source = appScript[1];
+  assert.match(source, /CEFR_LABELS_EN = Object\.freeze\(/, 'the chips need English labels');
+  assert.match(source, /function cefrText\(vi, en\)/);
+  for (const pair of ["'Mức CEFR được học', 'CEFR levels to study'", "'từ', 'words'", "'Chưa phân loại', 'Unclassified'"]) {
+    assert.equal(source.includes(pair), true, `missing bilingual pair: ${pair}`);
+  }
+  // No rendered CEFR sentence may be Vietnamese-only.
+  for (const marker of ['Bạn đang tắt tất cả mức CEFR', 'Không có từ nào ở các mức CEFR đang chọn', 'Đang chọn: ']) {
+    const index = source.indexOf(marker);
+    assert.ok(index > 0, marker);
+    const window = source.slice(index, index + 400);
+    assert.match(window, /[A-Za-z]{4,} [A-Za-z]{3,}.*'/, `${marker} must be paired with an English string`);
+  }
+  assert.equal(app.CEFR_LABELS_EN.B2, 'B2 — Upper intermediate');
+  assert.equal(app.CEFR_LABELS_EN[app.CEFR_UNCLASSIFIED], 'Unclassified / not enough evidence');
+});
+
 test('the CEFR selector is wired into the real session pipeline, not just the panel', () => {
   const source = appScript[1];
   // Every learning consumer draws from the filtered view.
