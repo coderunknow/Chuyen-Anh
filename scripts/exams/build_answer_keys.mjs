@@ -232,149 +232,6 @@ function scoreOptionInContext(optText, prompt, fullBodyLower) {
   return score;
 }
 
-function deriveWordForms(baseRaw, prompt) {
-  const base = baseRaw.toLowerCase().replace(/[^a-z-]/g, '');
-  if (!base) return null;
-  const forms = new Map();
-  if (rootFamilyMap.has(base)) {
-    for (const [f, pos] of rootFamilyMap.get(base).entries()) forms.set(f, pos);
-  }
-  for (const [root, map] of rootFamilyMap.entries()) {
-    if (root.startsWith(base) && root.length <= base.length + 5) {
-      for (const [f, pos] of map.entries()) if (!forms.has(f)) forms.set(f, pos);
-    }
-  }
-  const stemNoE = base.endsWith('e') && base.length > 3 ? base.slice(0, -1) : base;
-  const synthetic = [
-    [base, posMap.get(base) || ''],
-    [`${base}s`, 'n'], [`${base}ed`, 'adj'], [`${stemNoE}ing`, 'n/adj'],
-    [`${base}ly`, 'adv'], [`${stemNoE}ation`, 'n'], [`${stemNoE}ion`, 'n'],
-    [`${base}ment`, 'n'], [`${base}ness`, 'n'], [`${stemNoE}ity`, 'n'],
-    [`${stemNoE}ive`, 'adj'], [`${stemNoE}al`, 'adj'], [`${stemNoE}ous`, 'adj'],
-    [`${base}ful`, 'adj'], [`${base}less`, 'adj'], [`${stemNoE}able`, 'adj'],
-    [`un${base}`, 'adj'], [`in${base}`, 'adj'], [`im${base}`, 'adj'], [`ir${base}`, 'adj'], [`dis${base}`, 'v/adj'], [`mis${base}`, 'v/n'],
-    [`un${base}ly`, 'adv'], [`in${base}ly`, 'adv'], [`${stemNoE}ally`, 'adv']
-  ];
-  for (const [f, pos] of synthetic) {
-    if (ipaMap.has(f) || posMap.has(f) || forms.size < 4) {
-      if (!forms.has(f)) forms.set(f, posMap.get(f) || pos);
-    }
-  }
-
-  const pLower = prompt.toLowerCase();
-  const slotMatch = pLower.match(/([a-z']+)\s*(?:_{2,}|\.{3,}|…+|\(\s*\d+\s*\))\s*([a-z']*)/);
-  const prev = slotMatch?.[1] || '';
-  const next = slotMatch?.[2] || '';
-  let wantedPos = 'n';
-  const negCue = /\b(?:not|never|hardly|without|lack|despite|although|but|yet|unfortunately|fail|refuse|impossible|unable)\b/.test(pLower);
-  if (['very','extremely','quite','rather','too','so','more','most','highly','deeply','completely','totally'].includes(prev) && (!next || ['to','in','of','for','with','that','at','on','by','as'].includes(next))) {
-    wantedPos = 'adj';
-  } else if (['a','an','the','this','that','these','those','his','her','their','our','my','your','its','no','any','some','many','several','every','each'].includes(prev)) {
-    wantedPos = next && posMap.get(next)?.includes('n') ? 'adj' : 'n';
-  } else if (['be','is','am','are','was','were','been','being','become','became','seem','seemed','appear','remain','look','feel','sound','stay','prove','find','make','keep'].includes(prev)) {
-    wantedPos = next && !['to','in','of','for','with','that','at','on','by','as','and','or'].includes(next) ? 'adv' : 'adj';
-  } else if (['have','has','had','having','to','will','would','can','could','should','must','may','might','did','do','does'].includes(prev)) {
-    wantedPos = prev === 'to' || ['will','would','can','could','should','must','may','might','did','do','does'].includes(prev) ? 'v' : 'adj';
-  } else if (!prev || ['and','or','but'].includes(prev) || next.endsWith('ed') || posMap.get(next)?.includes('adj') || posMap.get(next)?.includes('v')) {
-    wantedPos = 'adv';
-  }
-
-  const scored = [...forms.entries()].filter(([f]) => f !== base || forms.size === 1).map(([f, pos]) => {
-    let s = ipaMap.has(f) || posMap.has(f) ? 6 : 1;
-    if (pos.includes(wantedPos)) s += 5;
-    if (wantedPos === 'adv' && f.endsWith('ly')) s += 5;
-    if (wantedPos === 'n' && /(?:tion|sion|ment|ness|ity|ance|ence|ist|er|or|ism|ship|hood|dom)$/.test(f)) s += 4;
-    if (wantedPos === 'adj' && /(?:ive|al|ous|ful|less|able|ible|ic|ant|ent|ed|ing)$/.test(f)) s += 4;
-    if (negCue && /^(?:un|in|im|ir|il|dis|mis|non)/.test(f) || f.endsWith('less')) s += 3;
-    if (['many','several','various','numerous','both','few','these','those','all'].includes(prev) && f.endsWith('s') && !f.endsWith('ss')) s += 4;
-    return { form: f, score: s };
-  }).sort((a, b) => b.score - a.score);
-
-  const top = scored[0]?.form || `${base}tion`;
-  const alts = scored.slice(1, 5).map(x => x.form);
-  return {
-    candidates: [top],
-    acceptedAlternatives: alts,
-    normalization: 'case-whitespace',
-    confidence: ipaMap.has(top) ? 'LOW' : 'LOW',
-    reasoning: `Morphological derivation from root "${baseRaw.toUpperCase()}" targeting ${wantedPos.toUpperCase()} syntactic slot (prev="${prev || '^'}", next="${next || '$'}"); cognate family forms accepted as alternatives.`
-  };
-}
-
-function inferOpenCloze(question) {
-  const p = question.prompt;
-  const pLower = p.toLowerCase();
-  const m = pLower.match(/([a-z']+)\s*(?:_{2,}|\.{3,}|…+|\(\s*\d+\s*\))\s*([a-z']*)/);
-  const prev = m?.[1] || '';
-  const next = m?.[2] || '';
-
-  if (prev && GOVERNED_PREPS[prev]) {
-    const prep = GOVERNED_PREPS[prev];
-    return {
-      candidates: [prep],
-      acceptedAlternatives: ['in', 'on', 'to', 'of', 'for', 'with', 'from', 'by'].filter(x => x !== prep).slice(0, 3),
-      normalization: 'case-whitespace',
-      confidence: 'LOW',
-      reasoning: `Syntactic collocation rule: preceding lexical item "${prev}" governs "${prep}" before "${next || '...'}".`
-    };
-  }
-  if (next === 'of') return { candidates: ['instead'], acceptedAlternatives: ['spite', 'regardless', 'terms', 'because', 'most', 'one'], normalization: 'case-whitespace', confidence: 'LOW', reasoning: 'Open-cloze complex preposition frame "___ of".' };
-  if (next === 'to') return { candidates: ['due'], acceptedAlternatives: ['owing', 'thanks', 'according', 'prior', 'order', 'used', 'able'], normalization: 'case-whitespace', confidence: 'LOW', reasoning: 'Open-cloze prepositional/infinitival frame "___ to".' };
-  if (next === 'than') return { candidates: ['more'], acceptedAlternatives: ['other', 'rather', 'less', 'better', 'sooner'], normalization: 'case-whitespace', confidence: 'LOW', reasoning: 'Comparative frame "___ than".' };
-  if (prev === 'not' && next === 'but') return { candidates: ['only'], acceptedAlternatives: ['merely', 'just', 'simply'], normalization: 'case-whitespace', confidence: 'LOW', reasoning: 'Correlative frame "not ___ but".' };
-  if (prev === 'so' || prev === 'such') return { candidates: ['that'], acceptedAlternatives: ['as'], normalization: 'case-whitespace', confidence: 'LOW', reasoning: 'Resultative clause frame "so/such ___".' };
-  if (prev === 'as') return { candidates: ['well'], acceptedAlternatives: ['long', 'soon', 'far', 'if', 'though', 'a', 'an'], normalization: 'case-whitespace', confidence: 'LOW', reasoning: 'Conjunctive/comparative frame "as ___".' };
-  if ([',', ''].includes(prev) || ['is','are','was','were','has','have','had','can','will','would','may','makes','made'].includes(next)) {
-    return { candidates: ['which'], acceptedAlternatives: ['that', 'who', 'this', 'it', 'there', 'what'], normalization: 'case-whitespace', confidence: 'LOW', reasoning: 'Relative/pronominal subject before finite verb in open cloze.' };
-  }
-  return {
-    candidates: ['the'],
-    acceptedAlternatives: ['in', 'of', 'to', 'and', 'which', 'that', 'with', 'for', 'a', 'an', 'as', 'by', 'is', 'it'],
-    normalization: 'case-whitespace',
-    confidence: 'LOW',
-    reasoning: 'Structural open-cloze function word inferred from local phrase-structure context.'
-  };
-}
-
-function inferSentenceRewrite(question) {
-  const raw = question.prompt.trim();
-  const arrowParts = raw.split(/(?:->|→|=>|\n)/).map(s => s.trim()).filter(Boolean);
-  const sourceSent = arrowParts[0] || raw;
-  const starter = arrowParts.length > 1 ? arrowParts[arrowParts.length - 1].replace(/[._…]+$/, '').trim() : '';
-  const kwMatch = raw.match(/\(([A-Z]{2,20})\)|\[([A-Z]{2,20})\]/);
-  const keyword = kwMatch ? (kwMatch[1] || kwMatch[2]).toLowerCase() : '';
-
-  let rewritten = '';
-  const alts = [];
-  if (/^hardly|^scarcely|^barely/i.test(starter)) {
-    rewritten = `${starter} had the event begun when the next action occurred`;
-  } else if (/^no sooner/i.test(starter)) {
-    rewritten = `${starter} had the action finished than the next occurred`;
-  } else if (/^it was not until|^not until/i.test(starter)) {
-    rewritten = `${starter} later that the truth came out`;
-  } else if (/^were it not|^had it not/i.test(starter)) {
-    rewritten = `${starter} for your support, we would not have succeeded`;
-  } else if (starter && starter.length >= 3 && starter.length < 80) {
-    const core = sourceSent.replace(/^\d+[.):]\s*/, '').replace(/\([A-Z]+\)/g, '').replace(/[.?!]+$/, '').trim();
-    rewritten = `${starter} ${ keyword ? `${keyword} ` : '' }${core.split(/\s+/).slice(-6).join(' ')}`.replace(/\s+/g, ' ').trim();
-    const withoutStarter = rewritten.slice(starter.length).trim();
-    if (withoutStarter) alts.push(withoutStarter);
-  } else if (keyword) {
-    const core = sourceSent.replace(/^\d+[.):]\s*/, '').replace(/\([A-Z]+\)/g, '').replace(/[.?!]+$/, '').trim();
-    rewritten = `${core} (${keyword})`;
-    alts.push(keyword);
-  } else {
-    rewritten = sourceSent.replace(/[._…]+/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 140);
-  }
-  return {
-    candidates: [rewritten],
-    acceptedAlternatives: alts,
-    normalization: 'case-whitespace-punctuation',
-    confidence: 'LOW',
-    reasoning: `Provisional sentence-transformation model preserving starter "${starter || '(none)'}"${keyword ? ` and mandatory keyword "${keyword.toUpperCase()}"` : ''}. Learners may self-override via the correction control.`
-  };
-}
-
 // First pass: parse all 106 papers and collect all verified/transcription keys for cross-archive matching!
 const parsedPapers = [];
 const crossArchiveIndex = new Map(); // normPromptKey -> { paperId, question, key }
@@ -501,28 +358,14 @@ function buildProvisionalHint(question, fullBodyLower, currentPaperId) {
     };
   }
 
-  // 3. Constructed-response text items: Word Formation / Rewrite / Open Cloze / Reading Span
-  const surface = `${question.section || ''} ${question.instruction || ''} ${question.prompt || ''}`;
-  const bracketCap = question.prompt.match(/\(([A-Z][A-Z-]{2,18})\)|\[([A-Z][A-Z-]{2,18})\]|\b([A-Z]{4,18})\s*$/);
-  const isRewrite = /\b(?:finish each of the following|rewrite|complete the second sentence|similar in meaning|do not change the word given|no more than .* words)\b/i.test(surface) || /(?:->|→|=>)/.test(question.prompt);
-  if (isRewrite) return inferSentenceRewrite(question);
-  if (bracketCap) {
-    const rootWord = bracketCap[1] || bracketCap[2] || bracketCap[3];
-    if (rootWord && !['TRUE','FALSE','NOT','GIVEN','YES','NO','ONE','TWO','THREE','WORD','WORDS'].includes(rootWord)) {
-      const wf = deriveWordForms(rootWord, question.prompt);
-      if (wf) return wf;
-    }
-  }
-  if (/\b(?:mistake|error|incorrect\s+word|underlined)\b/i.test(surface)) {
-    return {
-      candidates: ['which -> that'],
-      acceptedAlternatives: ['that', 'in -> on', 'to -> for', 'are -> is', 'is -> are', 'like -> as'],
-      normalization: 'case-whitespace',
-      confidence: 'LOW',
-      reasoning: 'Provisional error-correction key inferred from standard Chuyên Anh grammar error patterns; learner override supported.'
-    };
-  }
-  return inferOpenCloze(question);
+  // 3. Constructed-response text items (word formation, sentence rewrite, open
+  // cloze, error correction): no key is generated. A machine-transformed
+  // sentence is the generator's opinion, not an answer the archive supports, and
+  // grading a learner against it reports wrong answers that nobody checked
+  // (issue #75). The item stays ungraded and the learner may self-assess it.
+  // The only text evidence that survives is a cross-archive exact prompt match
+  // handled above, where another paper's *stored* key is reused verbatim.
+  return null;
 }
 
 const records = [];

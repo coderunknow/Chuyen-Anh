@@ -242,12 +242,13 @@ test('rc9 archive: unique question IDs, honest scorable coverage, confidence lab
   assert.equal(records.length, 106);
   assert.ok(total >= 6800, 'all 106 papers including fenced PDFs, cloze tables, speaking prompts and HTML/OCR papers are extracted');
   assert.equal(total, scorable + ungradeable);
-  // 33 papers in the archive carry no answer section at all; their items are now
-  // reported as ungradeable instead of being guessed (issues #75/#77).
-  assert.equal(scorable, 4457);
-  assert.equal(ungradeable, 2347);
+  // 33 papers in the archive carry no answer section at all, and no constructed
+  // response is keyed by a generated sentence; both are reported as ungradeable
+  // instead of being guessed (issues #75/#77).
+  assert.equal(scorable, 2947);
+  assert.equal(ungradeable, 3857);
   assert.deepEqual(reasons, {
-    'no-source-answer': 1596,
+    'no-source-answer': 3106,
     'stimulus-incomplete': 465,
     'incomplete-options': 209,
     'multiple-letters-for-single-item': 23,
@@ -358,7 +359,13 @@ test('rc9 stimulus (#79): picture-dependent items are detected from the item its
   assert.equal(app.examStimulusState(picture, { hasImage: false }), 'missing');
   assert.equal(app.examStimulusState(picture, { hasImage: true }), 'image');
   const placeholder = question({ id: 'p2', responseType: 'text', options: [], prompt: 'John and his father look very similar. IMAGE John is father.' });
-  assert.equal(app.examStimulusState(placeholder, { hasImage: false }), 'placeholder');
+  assert.equal(app.examStimulusState(placeholder, { hasImage: false }), 'literal-image-text',
+    'the transcription kept the bare word IMAGE, which is not a picture');
+  const bracketed = question({ id: 'p3', prompt: 'Look at the chart. [Hình 1] What is the trend?' });
+  assert.equal(app.examStimulusState(bracketed, { hasImage: false }), 'placeholder');
+  assert.equal(app.examStimulusState(bracketed, { hasImage: true }), 'image');
+  assert.equal(app.examStimulusState(bracketed, { hasImage: true, imageLoadFailed: true }), 'broken',
+    'a reference that exists but cannot be loaded is broken, not real');
   // Ordinary-English uses are text, not a missing stimulus.
   for (const text of ['The company is trying to improve its public image.', 'Try to look at the big picture before deciding.', 'She likes to paint a picture of the countryside.']) {
     assert.equal(app.examStimulusState(question({ prompt: text }), { hasImage: false }), 'none', text);

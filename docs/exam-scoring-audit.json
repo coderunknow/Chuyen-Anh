@@ -4,31 +4,31 @@
   "totals": {
     "papers": 106,
     "questions": 6804,
-    "scoredQuestions": 4457,
-    "scoringCoveragePct": 65.51,
+    "scoredQuestions": 2947,
+    "scoringCoveragePct": 43.31,
     "byStatus": {
-      "missing_answer": 1596,
+      "missing_answer": 3106,
       "incomplete_stimulus": 465,
       "ambiguous_review": 230,
-      "inferred_unverified": 1712,
+      "inferred_unverified": 202,
       "invalid_key": 56,
       "source_transcription_unverified": 2684,
       "independently_cross_checked": 61
     },
     "bySourceStatus": {
-      "insufficient_evidence": 1596,
+      "insufficient_evidence": 3106,
       "incomplete_stimulus": 465,
       "invalid_key": 286,
-      "reasoned_inference": 1444,
-      "reconstructed": 658,
+      "reasoned_inference": 171,
+      "reconstructed": 421,
       "single_source_transcription": 2350,
       "independently_cross_checked": 5
     },
     "byConfidence": {
       "HIGH": 5,
       "MEDIUM": 2219,
-      "LOW": 2233,
-      "VERY_LOW": 2347
+      "LOW": 723,
+      "VERY_LOW": 3857
     },
     "byResponseType": {
       "choice": 3995,
@@ -37,19 +37,19 @@
       "essay": 216,
       "multiple": 35
     },
-    "gradable": 4457,
-    "provisional": 4457,
+    "gradable": 2947,
+    "provisional": 2947,
     "listeningItems": 771,
     "listeningTranscriptFallback": 287,
     "listeningIncompleteStimulus": 484,
     "writingRubricScored": 216,
     "htmlOcrPapersInteractive": 22,
     "missingFigurePapers": 3,
-    "missing": 2347,
-    "ungradeable": 2347,
-    "ungradeableStimulus": 578,
+    "missing": 3857,
+    "ungradeable": 3857,
+    "ungradeableStimulus": 647,
     "byUngradeableReason": {
-      "no-source-answer": 1596,
+      "no-source-answer": 3106,
       "stimulus-incomplete": 465,
       "incomplete-options": 209,
       "key-not-an-option": 22,
@@ -85,22 +85,22 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 38,
+        "missing_answer": 48,
         "incomplete_stimulus": 4,
         "ambiguous_review": 1,
-        "inferred_unverified": 12
+        "inferred_unverified": 2
       },
       "sourceStatuses": {
-        "insufficient_evidence": 38,
+        "insufficient_evidence": 48,
         "incomplete_stimulus": 4,
         "invalid_key": 1,
-        "reasoned_inference": 12
+        "reasoned_inference": 2
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 1,
-        "LOW": 11,
-        "VERY_LOW": 43
+        "LOW": 1,
+        "VERY_LOW": 53
       },
       "listeningItems": 5,
       "writingItems": 0
@@ -123,22 +123,22 @@
         "essay": 0
       },
       "keyStatuses": {
-        "inferred_unverified": 19,
-        "missing_answer": 27,
+        "missing_answer": 41,
+        "inferred_unverified": 5,
         "ambiguous_review": 1,
         "incomplete_stimulus": 1
       },
       "sourceStatuses": {
-        "reasoned_inference": 19,
-        "insufficient_evidence": 27,
+        "insufficient_evidence": 41,
+        "reasoned_inference": 5,
         "invalid_key": 1,
         "incomplete_stimulus": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 3,
-        "LOW": 16,
-        "VERY_LOW": 29
+        "LOW": 2,
+        "VERY_LOW": 43
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -161,20 +161,20 @@
         "essay": 0
       },
       "keyStatuses": {
-        "inferred_unverified": 58,
-        "missing_answer": 32,
+        "inferred_unverified": 12,
+        "missing_answer": 78,
         "ambiguous_review": 1
       },
       "sourceStatuses": {
-        "reasoned_inference": 58,
-        "insufficient_evidence": 32,
+        "reasoned_inference": 12,
+        "insufficient_evidence": 78,
         "invalid_key": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 11,
-        "LOW": 47,
-        "VERY_LOW": 33
+        "LOW": 1,
+        "VERY_LOW": 79
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -237,20 +237,20 @@
       "keyStatuses": {
         "incomplete_stimulus": 2,
         "ambiguous_review": 26,
-        "inferred_unverified": 20,
-        "missing_answer": 46
+        "missing_answer": 62,
+        "inferred_unverified": 4
       },
       "sourceStatuses": {
         "incomplete_stimulus": 2,
         "invalid_key": 26,
-        "reconstructed": 20,
-        "insufficient_evidence": 46
+        "insufficient_evidence": 62,
+        "reconstructed": 4
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 3,
-        "LOW": 17,
-        "VERY_LOW": 74
+        "LOW": 1,
+        "VERY_LOW": 90
       },
       "listeningItems": 4,
       "writingItems": 0
@@ -313,19 +313,19 @@
       },
       "keyStatuses": {
         "ambiguous_review": 10,
-        "missing_answer": 29,
-        "inferred_unverified": 15
+        "missing_answer": 40,
+        "inferred_unverified": 4
       },
       "sourceStatuses": {
         "invalid_key": 10,
-        "insufficient_evidence": 29,
-        "reconstructed": 15
+        "insufficient_evidence": 40,
+        "reconstructed": 4
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 3,
-        "LOW": 12,
-        "VERY_LOW": 39
+        "LOW": 1,
+        "VERY_LOW": 50
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -348,18 +348,18 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 41,
-        "inferred_unverified": 14
+        "missing_answer": 51,
+        "inferred_unverified": 4
       },
       "sourceStatuses": {
-        "insufficient_evidence": 41,
-        "reasoned_inference": 14
+        "insufficient_evidence": 51,
+        "reasoned_inference": 4
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 3,
-        "LOW": 11,
-        "VERY_LOW": 41
+        "LOW": 1,
+        "VERY_LOW": 51
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -382,18 +382,18 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 50,
-        "inferred_unverified": 15
+        "missing_answer": 60,
+        "inferred_unverified": 5
       },
       "sourceStatuses": {
-        "insufficient_evidence": 50,
-        "reasoned_inference": 15
+        "insufficient_evidence": 60,
+        "reasoned_inference": 5
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 3,
-        "LOW": 12,
-        "VERY_LOW": 50
+        "LOW": 2,
+        "VERY_LOW": 60
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -417,20 +417,20 @@
       },
       "keyStatuses": {
         "ambiguous_review": 7,
-        "missing_answer": 26,
-        "inferred_unverified": 15,
+        "missing_answer": 40,
+        "inferred_unverified": 1,
         "source_transcription_unverified": 20
       },
       "sourceStatuses": {
         "invalid_key": 7,
-        "insufficient_evidence": 26,
-        "reconstructed": 35
+        "insufficient_evidence": 40,
+        "reconstructed": 21
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 1,
-        "LOW": 34,
-        "VERY_LOW": 33
+        "LOW": 20,
+        "VERY_LOW": 47
       },
       "listeningItems": 0,
       "writingItems": 20
@@ -455,20 +455,18 @@
       "keyStatuses": {
         "incomplete_stimulus": 14,
         "ambiguous_review": 8,
-        "missing_answer": 5,
-        "inferred_unverified": 10
+        "missing_answer": 15
       },
       "sourceStatuses": {
         "incomplete_stimulus": 14,
         "invalid_key": 8,
-        "insufficient_evidence": 5,
-        "reconstructed": 10
+        "insufficient_evidence": 15
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 0,
-        "LOW": 10,
-        "VERY_LOW": 27
+        "LOW": 0,
+        "VERY_LOW": 37
       },
       "listeningItems": 19,
       "writingItems": 0
@@ -492,21 +490,21 @@
       },
       "keyStatuses": {
         "incomplete_stimulus": 2,
-        "missing_answer": 37,
-        "inferred_unverified": 37,
+        "missing_answer": 64,
+        "inferred_unverified": 10,
         "ambiguous_review": 1
       },
       "sourceStatuses": {
         "incomplete_stimulus": 2,
-        "insufficient_evidence": 37,
-        "reasoned_inference": 37,
+        "insufficient_evidence": 64,
+        "reasoned_inference": 10,
         "invalid_key": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 10,
-        "LOW": 27,
-        "VERY_LOW": 40
+        "LOW": 0,
+        "VERY_LOW": 67
       },
       "listeningItems": 2,
       "writingItems": 0
@@ -529,20 +527,20 @@
         "essay": 5
       },
       "keyStatuses": {
-        "missing_answer": 34,
-        "inferred_unverified": 19,
+        "missing_answer": 47,
+        "inferred_unverified": 6,
         "source_transcription_unverified": 5
       },
       "sourceStatuses": {
-        "insufficient_evidence": 34,
-        "reasoned_inference": 19,
+        "insufficient_evidence": 47,
+        "reasoned_inference": 6,
         "single_source_transcription": 5
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 5,
-        "LOW": 19,
-        "VERY_LOW": 34
+        "LOW": 6,
+        "VERY_LOW": 47
       },
       "listeningItems": 0,
       "writingItems": 5
@@ -567,22 +565,22 @@
       "keyStatuses": {
         "incomplete_stimulus": 7,
         "ambiguous_review": 1,
-        "inferred_unverified": 50,
+        "missing_answer": 54,
         "source_transcription_unverified": 17,
-        "missing_answer": 5
+        "inferred_unverified": 1
       },
       "sourceStatuses": {
         "incomplete_stimulus": 7,
         "invalid_key": 1,
-        "reasoned_inference": 50,
+        "insufficient_evidence": 54,
         "single_source_transcription": 17,
-        "insufficient_evidence": 5
+        "reasoned_inference": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 18,
-        "LOW": 49,
-        "VERY_LOW": 13
+        "LOW": 0,
+        "VERY_LOW": 62
       },
       "listeningItems": 7,
       "writingItems": 0
@@ -641,20 +639,20 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 52,
+        "missing_answer": 107,
         "incomplete_stimulus": 9,
-        "inferred_unverified": 63
+        "inferred_unverified": 8
       },
       "sourceStatuses": {
-        "insufficient_evidence": 52,
+        "insufficient_evidence": 107,
         "incomplete_stimulus": 9,
-        "reasoned_inference": 63
+        "reasoned_inference": 8
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 8,
-        "LOW": 55,
-        "VERY_LOW": 61
+        "LOW": 0,
+        "VERY_LOW": 116
       },
       "listeningItems": 9,
       "writingItems": 0
@@ -677,20 +675,20 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 31,
+        "missing_answer": 62,
         "ambiguous_review": 15,
-        "inferred_unverified": 36
+        "inferred_unverified": 5
       },
       "sourceStatuses": {
-        "insufficient_evidence": 31,
+        "insufficient_evidence": 62,
         "invalid_key": 15,
-        "reconstructed": 36
+        "reconstructed": 5
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 3,
-        "LOW": 33,
-        "VERY_LOW": 46
+        "LOW": 2,
+        "VERY_LOW": 77
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -714,22 +712,22 @@
       },
       "keyStatuses": {
         "incomplete_stimulus": 5,
-        "missing_answer": 20,
-        "inferred_unverified": 7,
+        "missing_answer": 26,
         "ambiguous_review": 3,
+        "inferred_unverified": 1,
         "source_transcription_unverified": 5
       },
       "sourceStatuses": {
         "incomplete_stimulus": 5,
-        "insufficient_evidence": 20,
-        "reconstructed": 12,
-        "invalid_key": 3
+        "insufficient_evidence": 26,
+        "invalid_key": 3,
+        "reconstructed": 6
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 1,
-        "LOW": 11,
-        "VERY_LOW": 28
+        "LOW": 5,
+        "VERY_LOW": 34
       },
       "listeningItems": 5,
       "writingItems": 5
@@ -753,21 +751,19 @@
       },
       "keyStatuses": {
         "incomplete_stimulus": 25,
-        "inferred_unverified": 4,
-        "ambiguous_review": 1,
-        "missing_answer": 20
+        "missing_answer": 24,
+        "ambiguous_review": 1
       },
       "sourceStatuses": {
         "incomplete_stimulus": 25,
-        "reasoned_inference": 4,
-        "invalid_key": 1,
-        "insufficient_evidence": 20
+        "insufficient_evidence": 24,
+        "invalid_key": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 0,
-        "LOW": 4,
-        "VERY_LOW": 46
+        "LOW": 0,
+        "VERY_LOW": 50
       },
       "listeningItems": 25,
       "writingItems": 0
@@ -790,20 +786,20 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 18,
-        "inferred_unverified": 36,
+        "missing_answer": 53,
+        "inferred_unverified": 1,
         "ambiguous_review": 1
       },
       "sourceStatuses": {
-        "insufficient_evidence": 18,
-        "reasoned_inference": 36,
+        "insufficient_evidence": 53,
+        "reasoned_inference": 1,
         "invalid_key": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 1,
-        "LOW": 35,
-        "VERY_LOW": 19
+        "LOW": 0,
+        "VERY_LOW": 54
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -827,21 +823,21 @@
       },
       "keyStatuses": {
         "incomplete_stimulus": 5,
-        "missing_answer": 14,
-        "inferred_unverified": 11,
+        "missing_answer": 24,
+        "inferred_unverified": 1,
         "source_transcription_unverified": 45
       },
       "sourceStatuses": {
         "incomplete_stimulus": 5,
-        "insufficient_evidence": 14,
-        "reasoned_inference": 11,
+        "insufficient_evidence": 24,
+        "reasoned_inference": 1,
         "single_source_transcription": 45
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 46,
-        "LOW": 10,
-        "VERY_LOW": 19
+        "LOW": 0,
+        "VERY_LOW": 29
       },
       "listeningItems": 5,
       "writingItems": 0
@@ -904,21 +900,21 @@
       },
       "keyStatuses": {
         "incomplete_stimulus": 5,
-        "inferred_unverified": 24,
+        "missing_answer": 48,
         "ambiguous_review": 5,
-        "missing_answer": 29
+        "inferred_unverified": 5
       },
       "sourceStatuses": {
         "incomplete_stimulus": 5,
-        "reasoned_inference": 24,
+        "insufficient_evidence": 48,
         "invalid_key": 5,
-        "insufficient_evidence": 29
+        "reasoned_inference": 5
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 2,
-        "LOW": 22,
-        "VERY_LOW": 39
+        "LOW": 3,
+        "VERY_LOW": 58
       },
       "listeningItems": 5,
       "writingItems": 0
@@ -942,19 +938,19 @@
       },
       "keyStatuses": {
         "ambiguous_review": 6,
-        "missing_answer": 8,
-        "inferred_unverified": 11
+        "missing_answer": 17,
+        "inferred_unverified": 2
       },
       "sourceStatuses": {
         "invalid_key": 6,
-        "insufficient_evidence": 8,
-        "reconstructed": 11
+        "insufficient_evidence": 17,
+        "reconstructed": 2
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 1,
-        "LOW": 10,
-        "VERY_LOW": 14
+        "LOW": 1,
+        "VERY_LOW": 23
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -977,18 +973,18 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 23,
-        "inferred_unverified": 22
+        "missing_answer": 41,
+        "inferred_unverified": 4
       },
       "sourceStatuses": {
-        "insufficient_evidence": 23,
-        "reasoned_inference": 22
+        "insufficient_evidence": 41,
+        "reasoned_inference": 4
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 3,
-        "LOW": 19,
-        "VERY_LOW": 23
+        "LOW": 1,
+        "VERY_LOW": 41
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -1012,19 +1008,21 @@
       },
       "keyStatuses": {
         "source_transcription_unverified": 81,
-        "inferred_unverified": 5,
+        "missing_answer": 4,
+        "inferred_unverified": 1,
         "ambiguous_review": 1
       },
       "sourceStatuses": {
         "single_source_transcription": 81,
-        "reasoned_inference": 5,
+        "insufficient_evidence": 4,
+        "reasoned_inference": 1,
         "invalid_key": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 82,
-        "LOW": 4,
-        "VERY_LOW": 1
+        "LOW": 0,
+        "VERY_LOW": 5
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -1047,21 +1045,21 @@
         "essay": 1
       },
       "keyStatuses": {
-        "inferred_unverified": 20,
-        "missing_answer": 14,
+        "missing_answer": 33,
+        "inferred_unverified": 1,
         "ambiguous_review": 3,
         "source_transcription_unverified": 1
       },
       "sourceStatuses": {
-        "reconstructed": 21,
-        "insufficient_evidence": 14,
+        "insufficient_evidence": 33,
+        "reconstructed": 2,
         "invalid_key": 3
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 1,
-        "LOW": 20,
-        "VERY_LOW": 17
+        "LOW": 1,
+        "VERY_LOW": 36
       },
       "listeningItems": 0,
       "writingItems": 1
@@ -1084,20 +1082,20 @@
         "essay": 0
       },
       "keyStatuses": {
-        "inferred_unverified": 27,
-        "missing_answer": 28,
+        "missing_answer": 52,
+        "inferred_unverified": 3,
         "ambiguous_review": 1
       },
       "sourceStatuses": {
-        "reconstructed": 27,
-        "insufficient_evidence": 28,
+        "insufficient_evidence": 52,
+        "reconstructed": 3,
         "invalid_key": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 2,
-        "LOW": 25,
-        "VERY_LOW": 29
+        "LOW": 1,
+        "VERY_LOW": 53
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -1120,22 +1118,20 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 20,
+        "missing_answer": 46,
         "incomplete_stimulus": 25,
-        "inferred_unverified": 26,
         "ambiguous_review": 9
       },
       "sourceStatuses": {
-        "insufficient_evidence": 20,
+        "insufficient_evidence": 46,
         "incomplete_stimulus": 25,
-        "reconstructed": 26,
         "invalid_key": 9
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 0,
-        "LOW": 26,
-        "VERY_LOW": 54
+        "LOW": 0,
+        "VERY_LOW": 80
       },
       "listeningItems": 25,
       "writingItems": 0
@@ -1159,21 +1155,21 @@
       },
       "keyStatuses": {
         "incomplete_stimulus": 5,
-        "missing_answer": 22,
-        "inferred_unverified": 7,
+        "missing_answer": 27,
+        "inferred_unverified": 2,
         "source_transcription_unverified": 6
       },
       "sourceStatuses": {
         "incomplete_stimulus": 5,
-        "insufficient_evidence": 22,
-        "reasoned_inference": 7,
+        "insufficient_evidence": 27,
+        "reasoned_inference": 2,
         "reconstructed": 6
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 2,
-        "LOW": 11,
-        "VERY_LOW": 27
+        "LOW": 6,
+        "VERY_LOW": 32
       },
       "listeningItems": 5,
       "writingItems": 0
@@ -1197,19 +1193,19 @@
       },
       "keyStatuses": {
         "incomplete_stimulus": 12,
-        "missing_answer": 38,
-        "inferred_unverified": 35
+        "missing_answer": 68,
+        "inferred_unverified": 5
       },
       "sourceStatuses": {
         "incomplete_stimulus": 12,
-        "insufficient_evidence": 38,
-        "reasoned_inference": 35
+        "insufficient_evidence": 68,
+        "reasoned_inference": 5
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 3,
-        "LOW": 32,
-        "VERY_LOW": 50
+        "LOW": 2,
+        "VERY_LOW": 80
       },
       "listeningItems": 12,
       "writingItems": 0
@@ -1235,18 +1231,19 @@
         "incomplete_stimulus": 10,
         "source_transcription_unverified": 81,
         "ambiguous_review": 1,
-        "inferred_unverified": 5
+        "missing_answer": 5
       },
       "sourceStatuses": {
         "incomplete_stimulus": 10,
-        "reconstructed": 86,
-        "invalid_key": 1
+        "reconstructed": 81,
+        "invalid_key": 1,
+        "insufficient_evidence": 5
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 0,
-        "LOW": 86,
-        "VERY_LOW": 11
+        "LOW": 81,
+        "VERY_LOW": 16
       },
       "listeningItems": 10,
       "writingItems": 0
@@ -1270,17 +1267,17 @@
       },
       "keyStatuses": {
         "source_transcription_unverified": 56,
-        "inferred_unverified": 10
+        "missing_answer": 10
       },
       "sourceStatuses": {
         "single_source_transcription": 56,
-        "reasoned_inference": 10
+        "insufficient_evidence": 10
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 56,
-        "LOW": 10,
-        "VERY_LOW": 0
+        "LOW": 0,
+        "VERY_LOW": 10
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -1303,18 +1300,18 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 26,
-        "inferred_unverified": 25
+        "missing_answer": 46,
+        "inferred_unverified": 5
       },
       "sourceStatuses": {
-        "insufficient_evidence": 26,
-        "reasoned_inference": 25
+        "insufficient_evidence": 46,
+        "reasoned_inference": 5
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 4,
-        "LOW": 21,
-        "VERY_LOW": 26
+        "LOW": 1,
+        "VERY_LOW": 46
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -1337,22 +1334,21 @@
         "essay": 0
       },
       "keyStatuses": {
-        "inferred_unverified": 2,
+        "missing_answer": 4,
         "independently_cross_checked": 56,
         "ambiguous_review": 6,
-        "invalid_key": 3,
-        "missing_answer": 2
+        "invalid_key": 3
       },
       "sourceStatuses": {
-        "reconstructed": 58,
-        "invalid_key": 9,
-        "insufficient_evidence": 2
+        "insufficient_evidence": 4,
+        "reconstructed": 56,
+        "invalid_key": 9
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 0,
-        "LOW": 58,
-        "VERY_LOW": 11
+        "LOW": 56,
+        "VERY_LOW": 13
       },
       "listeningItems": 8,
       "writingItems": 0
@@ -1377,20 +1373,20 @@
       "keyStatuses": {
         "ambiguous_review": 7,
         "incomplete_stimulus": 3,
-        "missing_answer": 14,
-        "inferred_unverified": 16
+        "missing_answer": 29,
+        "inferred_unverified": 1
       },
       "sourceStatuses": {
         "invalid_key": 7,
         "incomplete_stimulus": 3,
-        "insufficient_evidence": 14,
-        "reasoned_inference": 16
+        "insufficient_evidence": 29,
+        "reasoned_inference": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 1,
-        "LOW": 15,
-        "VERY_LOW": 24
+        "LOW": 0,
+        "VERY_LOW": 39
       },
       "listeningItems": 3,
       "writingItems": 0
@@ -1414,21 +1410,19 @@
       },
       "keyStatuses": {
         "source_transcription_unverified": 71,
-        "missing_answer": 3,
-        "inferred_unverified": 1,
+        "missing_answer": 4,
         "ambiguous_review": 2
       },
       "sourceStatuses": {
         "single_source_transcription": 71,
-        "insufficient_evidence": 3,
-        "reasoned_inference": 1,
+        "insufficient_evidence": 4,
         "invalid_key": 2
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 50,
-        "LOW": 22,
-        "VERY_LOW": 5
+        "LOW": 21,
+        "VERY_LOW": 6
       },
       "listeningItems": 0,
       "writingItems": 21
@@ -1452,21 +1446,21 @@
       },
       "keyStatuses": {
         "incomplete_stimulus": 6,
-        "missing_answer": 23,
-        "inferred_unverified": 19,
+        "missing_answer": 40,
+        "inferred_unverified": 2,
         "ambiguous_review": 3
       },
       "sourceStatuses": {
         "incomplete_stimulus": 6,
-        "insufficient_evidence": 23,
-        "reasoned_inference": 19,
+        "insufficient_evidence": 40,
+        "reasoned_inference": 2,
         "invalid_key": 3
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 1,
-        "LOW": 18,
-        "VERY_LOW": 32
+        "LOW": 1,
+        "VERY_LOW": 49
       },
       "listeningItems": 6,
       "writingItems": 0
@@ -1490,21 +1484,21 @@
       },
       "keyStatuses": {
         "incomplete_stimulus": 15,
-        "missing_answer": 8,
-        "inferred_unverified": 19,
+        "missing_answer": 25,
+        "inferred_unverified": 2,
         "ambiguous_review": 1
       },
       "sourceStatuses": {
         "incomplete_stimulus": 15,
-        "insufficient_evidence": 8,
-        "reasoned_inference": 19,
+        "insufficient_evidence": 25,
+        "reasoned_inference": 2,
         "invalid_key": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 1,
-        "LOW": 18,
-        "VERY_LOW": 24
+        "LOW": 1,
+        "VERY_LOW": 41
       },
       "listeningItems": 15,
       "writingItems": 0
@@ -1529,19 +1523,19 @@
       "keyStatuses": {
         "ambiguous_review": 12,
         "source_transcription_unverified": 29,
-        "missing_answer": 11,
-        "inferred_unverified": 5
+        "missing_answer": 12,
+        "inferred_unverified": 4
       },
       "sourceStatuses": {
         "invalid_key": 12,
-        "reconstructed": 34,
-        "insufficient_evidence": 11
+        "reconstructed": 33,
+        "insufficient_evidence": 12
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 4,
-        "LOW": 30,
-        "VERY_LOW": 23
+        "LOW": 29,
+        "VERY_LOW": 24
       },
       "listeningItems": 0,
       "writingItems": 7
@@ -1567,18 +1561,19 @@
         "incomplete_stimulus": 4,
         "ambiguous_review": 1,
         "source_transcription_unverified": 32,
-        "inferred_unverified": 14
+        "missing_answer": 14
       },
       "sourceStatuses": {
         "incomplete_stimulus": 4,
         "invalid_key": 1,
-        "reconstructed": 46
+        "reconstructed": 32,
+        "insufficient_evidence": 14
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 0,
-        "LOW": 46,
-        "VERY_LOW": 5
+        "LOW": 32,
+        "VERY_LOW": 19
       },
       "listeningItems": 5,
       "writingItems": 0
@@ -1602,19 +1597,19 @@
       },
       "keyStatuses": {
         "incomplete_stimulus": 5,
-        "inferred_unverified": 48,
-        "missing_answer": 52
+        "missing_answer": 97,
+        "inferred_unverified": 3
       },
       "sourceStatuses": {
         "incomplete_stimulus": 5,
-        "reasoned_inference": 48,
-        "insufficient_evidence": 52
+        "insufficient_evidence": 97,
+        "reasoned_inference": 3
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 2,
-        "LOW": 46,
-        "VERY_LOW": 57
+        "LOW": 1,
+        "VERY_LOW": 102
       },
       "listeningItems": 5,
       "writingItems": 0
@@ -1638,19 +1633,19 @@
       },
       "keyStatuses": {
         "ambiguous_review": 7,
-        "missing_answer": 29,
-        "inferred_unverified": 41
+        "missing_answer": 68,
+        "inferred_unverified": 2
       },
       "sourceStatuses": {
         "invalid_key": 7,
-        "insufficient_evidence": 29,
-        "reconstructed": 41
+        "insufficient_evidence": 68,
+        "reconstructed": 2
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 2,
-        "LOW": 39,
-        "VERY_LOW": 36
+        "LOW": 0,
+        "VERY_LOW": 75
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -1673,22 +1668,20 @@
         "essay": 0
       },
       "keyStatuses": {
-        "inferred_unverified": 15,
-        "missing_answer": 12,
+        "missing_answer": 27,
         "source_transcription_unverified": 15,
         "incomplete_stimulus": 15
       },
       "sourceStatuses": {
-        "reasoned_inference": 15,
-        "insufficient_evidence": 12,
+        "insufficient_evidence": 27,
         "single_source_transcription": 15,
         "incomplete_stimulus": 15
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 15,
-        "LOW": 15,
-        "VERY_LOW": 27
+        "LOW": 0,
+        "VERY_LOW": 42
       },
       "listeningItems": 15,
       "writingItems": 0
@@ -1748,19 +1741,19 @@
       },
       "keyStatuses": {
         "incomplete_stimulus": 6,
-        "missing_answer": 25,
-        "inferred_unverified": 45
+        "missing_answer": 66,
+        "inferred_unverified": 4
       },
       "sourceStatuses": {
         "incomplete_stimulus": 6,
-        "insufficient_evidence": 25,
-        "reasoned_inference": 45
+        "insufficient_evidence": 66,
+        "reasoned_inference": 4
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 3,
-        "LOW": 42,
-        "VERY_LOW": 31
+        "LOW": 1,
+        "VERY_LOW": 72
       },
       "listeningItems": 6,
       "writingItems": 0
@@ -1783,20 +1776,20 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 17,
-        "inferred_unverified": 11,
+        "missing_answer": 25,
+        "inferred_unverified": 3,
         "ambiguous_review": 1
       },
       "sourceStatuses": {
-        "insufficient_evidence": 17,
-        "reasoned_inference": 11,
+        "insufficient_evidence": 25,
+        "reasoned_inference": 3,
         "invalid_key": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 2,
-        "LOW": 9,
-        "VERY_LOW": 18
+        "LOW": 1,
+        "VERY_LOW": 26
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -1821,17 +1814,18 @@
       "keyStatuses": {
         "incomplete_stimulus": 25,
         "source_transcription_unverified": 31,
-        "inferred_unverified": 10
+        "missing_answer": 10
       },
       "sourceStatuses": {
         "incomplete_stimulus": 25,
-        "reconstructed": 41
+        "reconstructed": 31,
+        "insufficient_evidence": 10
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 0,
-        "LOW": 41,
-        "VERY_LOW": 25
+        "LOW": 31,
+        "VERY_LOW": 35
       },
       "listeningItems": 25,
       "writingItems": 0
@@ -1893,21 +1887,21 @@
       },
       "keyStatuses": {
         "source_transcription_unverified": 20,
-        "missing_answer": 28,
-        "inferred_unverified": 21,
+        "missing_answer": 47,
+        "inferred_unverified": 2,
         "ambiguous_review": 1
       },
       "sourceStatuses": {
         "single_source_transcription": 20,
-        "insufficient_evidence": 28,
-        "reasoned_inference": 21,
+        "insufficient_evidence": 47,
+        "reasoned_inference": 2,
         "invalid_key": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 21,
-        "LOW": 20,
-        "VERY_LOW": 29
+        "LOW": 1,
+        "VERY_LOW": 48
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -1931,21 +1925,21 @@
       },
       "keyStatuses": {
         "incomplete_stimulus": 10,
-        "missing_answer": 29,
-        "inferred_unverified": 18,
+        "missing_answer": 43,
+        "inferred_unverified": 4,
         "ambiguous_review": 1
       },
       "sourceStatuses": {
         "incomplete_stimulus": 10,
-        "insufficient_evidence": 29,
-        "reasoned_inference": 18,
+        "insufficient_evidence": 43,
+        "reasoned_inference": 4,
         "invalid_key": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 4,
-        "LOW": 14,
-        "VERY_LOW": 40
+        "LOW": 0,
+        "VERY_LOW": 54
       },
       "listeningItems": 10,
       "writingItems": 0
@@ -1968,20 +1962,18 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 4,
-        "source_transcription_unverified": 33,
-        "inferred_unverified": 5
+        "missing_answer": 9,
+        "source_transcription_unverified": 33
       },
       "sourceStatuses": {
-        "insufficient_evidence": 4,
-        "single_source_transcription": 33,
-        "reasoned_inference": 5
+        "insufficient_evidence": 9,
+        "single_source_transcription": 33
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 33,
-        "LOW": 5,
-        "VERY_LOW": 4
+        "LOW": 0,
+        "VERY_LOW": 9
       },
       "listeningItems": 4,
       "writingItems": 0
@@ -2005,21 +1997,21 @@
       },
       "keyStatuses": {
         "source_transcription_unverified": 20,
-        "inferred_unverified": 23,
-        "missing_answer": 7,
+        "missing_answer": 27,
+        "inferred_unverified": 3,
         "ambiguous_review": 1
       },
       "sourceStatuses": {
         "single_source_transcription": 20,
-        "reasoned_inference": 23,
-        "insufficient_evidence": 7,
+        "insufficient_evidence": 27,
+        "reasoned_inference": 3,
         "invalid_key": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 23,
-        "LOW": 20,
-        "VERY_LOW": 8
+        "LOW": 0,
+        "VERY_LOW": 28
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -2043,19 +2035,17 @@
       },
       "keyStatuses": {
         "source_transcription_unverified": 48,
-        "missing_answer": 5,
-        "inferred_unverified": 1
+        "missing_answer": 6
       },
       "sourceStatuses": {
         "single_source_transcription": 48,
-        "insufficient_evidence": 5,
-        "reasoned_inference": 1
+        "insufficient_evidence": 6
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 47,
-        "LOW": 2,
-        "VERY_LOW": 5
+        "LOW": 1,
+        "VERY_LOW": 6
       },
       "listeningItems": 0,
       "writingItems": 1
@@ -2079,17 +2069,17 @@
       },
       "keyStatuses": {
         "source_transcription_unverified": 35,
-        "inferred_unverified": 1
+        "missing_answer": 1
       },
       "sourceStatuses": {
         "single_source_transcription": 35,
-        "reasoned_inference": 1
+        "insufficient_evidence": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 35,
-        "LOW": 1,
-        "VERY_LOW": 0
+        "LOW": 0,
+        "VERY_LOW": 1
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -2112,24 +2102,24 @@
         "essay": 1
       },
       "keyStatuses": {
-        "inferred_unverified": 27,
+        "missing_answer": 56,
         "incomplete_stimulus": 10,
-        "missing_answer": 32,
+        "inferred_unverified": 3,
         "ambiguous_review": 1,
         "source_transcription_unverified": 1
       },
       "sourceStatuses": {
-        "reasoned_inference": 27,
+        "insufficient_evidence": 56,
         "incomplete_stimulus": 10,
-        "insufficient_evidence": 32,
+        "reasoned_inference": 3,
         "invalid_key": 1,
         "single_source_transcription": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 3,
-        "LOW": 25,
-        "VERY_LOW": 43
+        "LOW": 1,
+        "VERY_LOW": 67
       },
       "listeningItems": 10,
       "writingItems": 1
@@ -2152,20 +2142,20 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 46,
-        "inferred_unverified": 22,
+        "missing_answer": 65,
+        "inferred_unverified": 3,
         "ambiguous_review": 2
       },
       "sourceStatuses": {
-        "insufficient_evidence": 46,
-        "reasoned_inference": 22,
+        "insufficient_evidence": 65,
+        "reasoned_inference": 3,
         "invalid_key": 2
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 3,
-        "LOW": 19,
-        "VERY_LOW": 48
+        "LOW": 0,
+        "VERY_LOW": 67
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -2191,19 +2181,19 @@
         "incomplete_stimulus": 10,
         "source_transcription_unverified": 45,
         "ambiguous_review": 1,
-        "inferred_unverified": 2
+        "missing_answer": 2
       },
       "sourceStatuses": {
         "incomplete_stimulus": 10,
         "single_source_transcription": 45,
         "invalid_key": 1,
-        "reasoned_inference": 2
+        "insufficient_evidence": 2
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 45,
-        "LOW": 2,
-        "VERY_LOW": 11
+        "LOW": 0,
+        "VERY_LOW": 13
       },
       "listeningItems": 10,
       "writingItems": 0
@@ -2227,21 +2217,19 @@
       },
       "keyStatuses": {
         "incomplete_stimulus": 5,
-        "missing_answer": 15,
-        "source_transcription_unverified": 16,
-        "inferred_unverified": 5
+        "missing_answer": 20,
+        "source_transcription_unverified": 16
       },
       "sourceStatuses": {
         "incomplete_stimulus": 5,
-        "insufficient_evidence": 15,
-        "single_source_transcription": 16,
-        "reasoned_inference": 5
+        "insufficient_evidence": 20,
+        "single_source_transcription": 16
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 16,
-        "LOW": 5,
-        "VERY_LOW": 20
+        "LOW": 0,
+        "VERY_LOW": 25
       },
       "listeningItems": 5,
       "writingItems": 0
@@ -2264,22 +2252,22 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 19,
+        "missing_answer": 84,
         "source_transcription_unverified": 10,
-        "inferred_unverified": 66,
+        "inferred_unverified": 1,
         "ambiguous_review": 5
       },
       "sourceStatuses": {
-        "insufficient_evidence": 19,
+        "insufficient_evidence": 84,
         "single_source_transcription": 10,
-        "reasoned_inference": 66,
+        "reasoned_inference": 1,
         "invalid_key": 5
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 11,
-        "LOW": 65,
-        "VERY_LOW": 24
+        "LOW": 0,
+        "VERY_LOW": 89
       },
       "listeningItems": 5,
       "writingItems": 0
@@ -2302,20 +2290,20 @@
         "essay": 0
       },
       "keyStatuses": {
-        "inferred_unverified": 1,
+        "missing_answer": 1,
         "incomplete_stimulus": 129,
         "ambiguous_review": 2
       },
       "sourceStatuses": {
-        "reasoned_inference": 1,
+        "insufficient_evidence": 1,
         "incomplete_stimulus": 129,
         "invalid_key": 2
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 0,
-        "LOW": 1,
-        "VERY_LOW": 131
+        "LOW": 0,
+        "VERY_LOW": 132
       },
       "listeningItems": 131,
       "writingItems": 0
@@ -2375,19 +2363,19 @@
       },
       "keyStatuses": {
         "source_transcription_unverified": 30,
-        "inferred_unverified": 13,
-        "missing_answer": 7
+        "missing_answer": 16,
+        "inferred_unverified": 4
       },
       "sourceStatuses": {
         "single_source_transcription": 30,
-        "reasoned_inference": 13,
-        "insufficient_evidence": 7
+        "insufficient_evidence": 16,
+        "reasoned_inference": 4
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 24,
-        "LOW": 19,
-        "VERY_LOW": 7
+        "LOW": 10,
+        "VERY_LOW": 16
       },
       "listeningItems": 0,
       "writingItems": 10
@@ -2482,22 +2470,22 @@
         "essay": 10
       },
       "keyStatuses": {
-        "missing_answer": 14,
+        "missing_answer": 27,
         "source_transcription_unverified": 20,
-        "inferred_unverified": 14,
+        "inferred_unverified": 1,
         "ambiguous_review": 2
       },
       "sourceStatuses": {
-        "insufficient_evidence": 14,
+        "insufficient_evidence": 27,
         "single_source_transcription": 20,
-        "reasoned_inference": 14,
+        "reasoned_inference": 1,
         "invalid_key": 2
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 11,
-        "LOW": 23,
-        "VERY_LOW": 16
+        "LOW": 10,
+        "VERY_LOW": 29
       },
       "listeningItems": 0,
       "writingItems": 10
@@ -2522,20 +2510,20 @@
       "keyStatuses": {
         "source_transcription_unverified": 9,
         "ambiguous_review": 2,
-        "missing_answer": 28,
-        "inferred_unverified": 41
+        "missing_answer": 62,
+        "inferred_unverified": 7
       },
       "sourceStatuses": {
         "single_source_transcription": 9,
         "invalid_key": 2,
-        "insufficient_evidence": 28,
-        "reasoned_inference": 41
+        "insufficient_evidence": 62,
+        "reasoned_inference": 7
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 16,
-        "LOW": 34,
-        "VERY_LOW": 30
+        "LOW": 0,
+        "VERY_LOW": 64
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -2594,19 +2582,19 @@
       },
       "keyStatuses": {
         "independently_cross_checked": 5,
-        "inferred_unverified": 42,
-        "missing_answer": 48
+        "missing_answer": 83,
+        "inferred_unverified": 7
       },
       "sourceStatuses": {
         "independently_cross_checked": 5,
-        "reasoned_inference": 42,
-        "insufficient_evidence": 48
+        "insufficient_evidence": 83,
+        "reasoned_inference": 7
       },
       "confidenceCounts": {
         "HIGH": 5,
         "MEDIUM": 5,
-        "LOW": 37,
-        "VERY_LOW": 48
+        "LOW": 2,
+        "VERY_LOW": 83
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -2665,17 +2653,17 @@
       },
       "keyStatuses": {
         "source_transcription_unverified": 50,
-        "inferred_unverified": 10
+        "missing_answer": 10
       },
       "sourceStatuses": {
         "single_source_transcription": 50,
-        "reasoned_inference": 10
+        "insufficient_evidence": 10
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 50,
-        "LOW": 10,
-        "VERY_LOW": 0
+        "LOW": 0,
+        "VERY_LOW": 10
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -2733,21 +2721,21 @@
         "source_transcription_unverified": 25,
         "incomplete_stimulus": 4,
         "ambiguous_review": 3,
-        "inferred_unverified": 25,
-        "missing_answer": 18
+        "missing_answer": 41,
+        "inferred_unverified": 2
       },
       "sourceStatuses": {
         "single_source_transcription": 25,
         "incomplete_stimulus": 4,
         "invalid_key": 3,
-        "reasoned_inference": 25,
-        "insufficient_evidence": 18
+        "insufficient_evidence": 41,
+        "reasoned_inference": 2
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 27,
-        "LOW": 23,
-        "VERY_LOW": 25
+        "LOW": 0,
+        "VERY_LOW": 48
       },
       "listeningItems": 5,
       "writingItems": 0
@@ -2771,21 +2759,21 @@
       },
       "keyStatuses": {
         "ambiguous_review": 3,
-        "inferred_unverified": 9,
-        "missing_answer": 26,
+        "missing_answer": 32,
+        "inferred_unverified": 3,
         "source_transcription_unverified": 8
       },
       "sourceStatuses": {
         "invalid_key": 3,
-        "reasoned_inference": 9,
-        "insufficient_evidence": 26,
+        "insufficient_evidence": 32,
+        "reasoned_inference": 3,
         "single_source_transcription": 8
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 11,
-        "LOW": 6,
-        "VERY_LOW": 29
+        "LOW": 0,
+        "VERY_LOW": 35
       },
       "listeningItems": 1,
       "writingItems": 0
@@ -2845,21 +2833,19 @@
       },
       "keyStatuses": {
         "incomplete_stimulus": 7,
-        "inferred_unverified": 2,
-        "missing_answer": 4,
+        "missing_answer": 6,
         "source_transcription_unverified": 57
       },
       "sourceStatuses": {
         "incomplete_stimulus": 7,
-        "reasoned_inference": 2,
-        "insufficient_evidence": 4,
+        "insufficient_evidence": 6,
         "single_source_transcription": 57
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 56,
-        "LOW": 3,
-        "VERY_LOW": 11
+        "LOW": 1,
+        "VERY_LOW": 13
       },
       "listeningItems": 7,
       "writingItems": 1
@@ -2918,22 +2904,22 @@
         "essay": 13
       },
       "keyStatuses": {
-        "missing_answer": 19,
-        "inferred_unverified": 15,
+        "missing_answer": 33,
+        "inferred_unverified": 1,
         "ambiguous_review": 3,
         "source_transcription_unverified": 51
       },
       "sourceStatuses": {
-        "insufficient_evidence": 19,
-        "reasoned_inference": 15,
+        "insufficient_evidence": 33,
+        "reasoned_inference": 1,
         "invalid_key": 3,
         "single_source_transcription": 51
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 39,
-        "LOW": 27,
-        "VERY_LOW": 22
+        "LOW": 13,
+        "VERY_LOW": 36
       },
       "listeningItems": 15,
       "writingItems": 13
@@ -3058,21 +3044,21 @@
       },
       "keyStatuses": {
         "source_transcription_unverified": 29,
-        "missing_answer": 19,
-        "inferred_unverified": 20,
+        "missing_answer": 38,
+        "inferred_unverified": 1,
         "ambiguous_review": 2
       },
       "sourceStatuses": {
         "single_source_transcription": 29,
-        "insufficient_evidence": 19,
-        "reasoned_inference": 20,
+        "insufficient_evidence": 38,
+        "reasoned_inference": 1,
         "invalid_key": 2
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 30,
-        "LOW": 19,
-        "VERY_LOW": 21
+        "LOW": 0,
+        "VERY_LOW": 40
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -3129,22 +3115,22 @@
       "keyStatuses": {
         "incomplete_stimulus": 5,
         "source_transcription_unverified": 46,
-        "inferred_unverified": 21,
-        "missing_answer": 7,
+        "missing_answer": 25,
+        "inferred_unverified": 3,
         "ambiguous_review": 1
       },
       "sourceStatuses": {
         "incomplete_stimulus": 5,
         "single_source_transcription": 46,
-        "reasoned_inference": 21,
-        "insufficient_evidence": 7,
+        "insufficient_evidence": 25,
+        "reasoned_inference": 3,
         "invalid_key": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 49,
-        "LOW": 18,
-        "VERY_LOW": 13
+        "LOW": 0,
+        "VERY_LOW": 31
       },
       "listeningItems": 5,
       "writingItems": 0
@@ -3167,20 +3153,20 @@
         "essay": 8
       },
       "keyStatuses": {
-        "inferred_unverified": 8,
+        "missing_answer": 38,
         "source_transcription_unverified": 13,
-        "missing_answer": 35
+        "inferred_unverified": 5
       },
       "sourceStatuses": {
-        "reasoned_inference": 8,
+        "insufficient_evidence": 38,
         "single_source_transcription": 13,
-        "insufficient_evidence": 35
+        "reasoned_inference": 5
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 3,
-        "LOW": 18,
-        "VERY_LOW": 35
+        "LOW": 15,
+        "VERY_LOW": 38
       },
       "listeningItems": 8,
       "writingItems": 8
@@ -3237,20 +3223,18 @@
         "essay": 7
       },
       "keyStatuses": {
-        "missing_answer": 31,
-        "source_transcription_unverified": 37,
-        "inferred_unverified": 15
+        "missing_answer": 46,
+        "source_transcription_unverified": 37
       },
       "sourceStatuses": {
-        "insufficient_evidence": 31,
-        "single_source_transcription": 37,
-        "reasoned_inference": 15
+        "insufficient_evidence": 46,
+        "single_source_transcription": 37
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 30,
-        "LOW": 22,
-        "VERY_LOW": 31
+        "LOW": 7,
+        "VERY_LOW": 46
       },
       "listeningItems": 10,
       "writingItems": 7
@@ -3274,19 +3258,19 @@
       },
       "keyStatuses": {
         "source_transcription_unverified": 20,
-        "inferred_unverified": 24,
-        "missing_answer": 15
+        "missing_answer": 34,
+        "inferred_unverified": 5
       },
       "sourceStatuses": {
         "single_source_transcription": 20,
-        "reasoned_inference": 24,
-        "insufficient_evidence": 15
+        "insufficient_evidence": 34,
+        "reasoned_inference": 5
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 24,
-        "LOW": 20,
-        "VERY_LOW": 15
+        "LOW": 1,
+        "VERY_LOW": 34
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -3342,22 +3326,22 @@
       },
       "keyStatuses": {
         "source_transcription_unverified": 67,
-        "inferred_unverified": 23,
-        "missing_answer": 2,
+        "inferred_unverified": 3,
+        "missing_answer": 22,
         "ambiguous_review": 3,
         "invalid_key": 1
       },
       "sourceStatuses": {
         "single_source_transcription": 67,
-        "reasoned_inference": 23,
-        "insufficient_evidence": 2,
+        "reasoned_inference": 3,
+        "insufficient_evidence": 22,
         "invalid_key": 4
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 62,
-        "LOW": 28,
-        "VERY_LOW": 6
+        "LOW": 8,
+        "VERY_LOW": 26
       },
       "listeningItems": 9,
       "writingItems": 0
@@ -3446,23 +3430,21 @@
         "essay": 9
       },
       "keyStatuses": {
-        "missing_answer": 7,
-        "inferred_unverified": 18,
+        "missing_answer": 25,
         "source_transcription_unverified": 56,
         "ambiguous_review": 3,
         "invalid_key": 1
       },
       "sourceStatuses": {
-        "insufficient_evidence": 7,
-        "reasoned_inference": 18,
+        "insufficient_evidence": 25,
         "single_source_transcription": 56,
         "invalid_key": 4
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 50,
-        "LOW": 24,
-        "VERY_LOW": 11
+        "LOW": 6,
+        "VERY_LOW": 29
       },
       "listeningItems": 7,
       "writingItems": 9
@@ -3584,20 +3566,20 @@
         "essay": 0
       },
       "keyStatuses": {
-        "inferred_unverified": 32,
-        "missing_answer": 20,
-        "source_transcription_unverified": 18
+        "missing_answer": 47,
+        "source_transcription_unverified": 18,
+        "inferred_unverified": 5
       },
       "sourceStatuses": {
-        "reasoned_inference": 32,
-        "insufficient_evidence": 20,
-        "single_source_transcription": 18
+        "insufficient_evidence": 47,
+        "single_source_transcription": 18,
+        "reasoned_inference": 5
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 22,
-        "LOW": 28,
-        "VERY_LOW": 20
+        "LOW": 1,
+        "VERY_LOW": 47
       },
       "listeningItems": 10,
       "writingItems": 0
@@ -3620,22 +3602,20 @@
         "essay": 10
       },
       "keyStatuses": {
-        "missing_answer": 16,
+        "missing_answer": 25,
         "source_transcription_unverified": 52,
-        "inferred_unverified": 9,
         "invalid_key": 1
       },
       "sourceStatuses": {
-        "insufficient_evidence": 16,
+        "insufficient_evidence": 25,
         "single_source_transcription": 52,
-        "reasoned_inference": 9,
         "invalid_key": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 22,
-        "LOW": 39,
-        "VERY_LOW": 17
+        "LOW": 30,
+        "VERY_LOW": 26
       },
       "listeningItems": 35,
       "writingItems": 10
@@ -3658,22 +3638,22 @@
         "essay": 1
       },
       "keyStatuses": {
-        "inferred_unverified": 109,
+        "missing_answer": 118,
         "ambiguous_review": 3,
         "source_transcription_unverified": 6,
-        "missing_answer": 12
+        "inferred_unverified": 3
       },
       "sourceStatuses": {
-        "reasoned_inference": 109,
+        "insufficient_evidence": 118,
         "invalid_key": 3,
         "single_source_transcription": 6,
-        "insufficient_evidence": 12
+        "reasoned_inference": 3
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 3,
-        "LOW": 112,
-        "VERY_LOW": 15
+        "LOW": 6,
+        "VERY_LOW": 121
       },
       "listeningItems": 50,
       "writingItems": 1
@@ -3696,20 +3676,20 @@
         "essay": 0
       },
       "keyStatuses": {
-        "inferred_unverified": 18,
-        "missing_answer": 20,
-        "source_transcription_unverified": 7
+        "missing_answer": 36,
+        "source_transcription_unverified": 7,
+        "inferred_unverified": 2
       },
       "sourceStatuses": {
-        "reasoned_inference": 18,
-        "insufficient_evidence": 20,
-        "single_source_transcription": 7
+        "insufficient_evidence": 36,
+        "single_source_transcription": 7,
+        "reasoned_inference": 2
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 1,
-        "LOW": 24,
-        "VERY_LOW": 20
+        "LOW": 8,
+        "VERY_LOW": 36
       },
       "listeningItems": 25,
       "writingItems": 0
@@ -3732,22 +3712,22 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 19,
-        "inferred_unverified": 27,
+        "missing_answer": 45,
+        "inferred_unverified": 1,
         "ambiguous_review": 3,
         "source_transcription_unverified": 39
       },
       "sourceStatuses": {
-        "insufficient_evidence": 19,
-        "reasoned_inference": 27,
+        "insufficient_evidence": 45,
+        "reasoned_inference": 1,
         "invalid_key": 3,
         "single_source_transcription": 39
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 40,
-        "LOW": 26,
-        "VERY_LOW": 22
+        "LOW": 0,
+        "VERY_LOW": 48
       },
       "listeningItems": 5,
       "writingItems": 0
@@ -3770,20 +3750,20 @@
         "essay": 10
       },
       "keyStatuses": {
-        "missing_answer": 28,
-        "inferred_unverified": 36,
+        "missing_answer": 61,
+        "inferred_unverified": 3,
         "source_transcription_unverified": 10
       },
       "sourceStatuses": {
-        "insufficient_evidence": 28,
-        "reasoned_inference": 36,
+        "insufficient_evidence": 61,
+        "reasoned_inference": 3,
         "single_source_transcription": 10
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 1,
-        "LOW": 45,
-        "VERY_LOW": 28
+        "LOW": 12,
+        "VERY_LOW": 61
       },
       "listeningItems": 6,
       "writingItems": 10
@@ -3806,22 +3786,22 @@
         "essay": 0
       },
       "keyStatuses": {
-        "inferred_unverified": 71,
+        "missing_answer": 78,
         "source_transcription_unverified": 31,
         "ambiguous_review": 1,
-        "missing_answer": 9
+        "inferred_unverified": 2
       },
       "sourceStatuses": {
-        "reasoned_inference": 71,
+        "insufficient_evidence": 78,
         "single_source_transcription": 31,
         "invalid_key": 1,
-        "insufficient_evidence": 9
+        "reasoned_inference": 2
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 33,
-        "LOW": 69,
-        "VERY_LOW": 10
+        "LOW": 0,
+        "VERY_LOW": 79
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -3911,19 +3891,19 @@
       },
       "keyStatuses": {
         "source_transcription_unverified": 35,
-        "missing_answer": 8,
-        "inferred_unverified": 6
+        "missing_answer": 13,
+        "inferred_unverified": 1
       },
       "sourceStatuses": {
         "single_source_transcription": 35,
-        "insufficient_evidence": 8,
-        "reasoned_inference": 6
+        "insufficient_evidence": 13,
+        "reasoned_inference": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 23,
-        "LOW": 18,
-        "VERY_LOW": 8
+        "LOW": 13,
+        "VERY_LOW": 13
       },
       "listeningItems": 12,
       "writingItems": 0
