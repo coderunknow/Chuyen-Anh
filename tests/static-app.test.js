@@ -4256,12 +4256,16 @@ test('the CEFR selector is wired into the real session pipeline, not just the pa
   for (const call of [
     'selectPrioritySession(cefrDeck()',
     'studyGroupCandidates(cefrDeck()',
-    'selectSession(cefrDeck()',
+    // Favourites are the one explicit exception: the deck stays whole there so a
+    // starred word is never hidden by the level filter.
+    'selectSession(pool, progress, { size, mode, favorites })',
     'sprintEligibleCount(cefrDeck()',
     'buildExercisePlan(selection.items, { exercises: config.exercises, vocabulary: cefrDeck() }'
   ]) {
     assert.equal(source.includes(call), true, `session pipeline must use the CEFR-filtered deck: ${call}`);
   }
+  assert.equal(source.includes('const pool = mode === \'favorites\' ? deck : cefrDeck();'), true,
+    'pool modes filter, the favourites mode keeps the whole deck');
   assert.equal(source.includes('exercisePoolAvailability(pool.items, cefrDeck(), type)'), true,
     'exercise availability counts the same pool the session uses');
   // The selector renders every level plus Unclassified and reports the eligible count.
