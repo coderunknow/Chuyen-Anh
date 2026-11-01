@@ -230564,7 +230564,7 @@ export async function createApp(root) {
     return `<fieldset class="config-block">
         <legend>Mức CEFR được học</legend>
         <div class="chip-row chip-row--wrap" id="${prefix}-cefr">${chips}</div>
-        <p class="config-hint">Bộ lọc chỉ thu hẹp tập từ được rút ra cho phiên học. Lịch ôn, trạng thái từ và tiến độ không đổi: từ bị ẩn vẫn ở đúng trạng thái và quay lại ngay khi bạn bật lại mức của nó.</p>
+        <p class="config-hint">Bộ lọc chỉ thu hẹp tập từ được rút ra cho phiên học. Lịch ôn, trạng thái từ và tiến độ không đổi: từ bị ẩn vẫn ở đúng trạng thái và quay lại ngay khi bạn bật lại mức của nó. Từ bạn tự đánh dấu <strong>Yêu thích</strong> luôn học được, kể cả khi nằm ngoài các mức đang chọn.</p>
         <p class="config-hint" id="${prefix}-cefr-help" role="status" aria-live="polite">Đang chọn: ${escapeHtml(selectedLabel)} · ${formatCount(eligible)}/${formatCount(total)} từ trọng tâm đủ điều kiện.</p>
         ${emptyHint}
       </fieldset>`;
@@ -231217,10 +231217,14 @@ export async function createApp(root) {
     // Quick sessions fill spare slots after due cards; the explicit due session never does.
     const mode = type.startsWith('quick') ? 'mixed' : type;
     const size = sizes[type] || prefs.sessionSize;
-    const selected = selectSession(cefrDeck(), progress, { size, mode, favorites });
+    // Favorites are an explicit learner choice, so they are never hidden by the
+    // CEFR study filter: starring a B1 word must keep that word studyable while
+    // the pool modes stay narrowed to the selected levels.
+    const pool = mode === 'favorites' ? deck : cefrDeck();
+    const selected = selectSession(pool, progress, { size, mode, favorites });
     if (!selected.length) {
       toast(type === 'favorites'
-        ? 'Bạn chưa đánh dấu từ yêu thích nào trong các mức CEFR đang chọn.'
+        ? 'Bạn chưa đánh dấu từ yêu thích nào. Hãy bấm ngôi sao ở Tra cứu hoặc trong phiên học.'
         : (type.startsWith('quick') || type === 'due' || type === 'new' || type === 'weak')
           ? cefrEmptyMessage()
           : 'Chưa có từ phù hợp cho phiên này. Hãy thử chế độ khác.');

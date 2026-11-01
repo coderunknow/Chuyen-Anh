@@ -45,6 +45,22 @@ async function main() {
     const page = await browser.newPage({ viewport: { width: 1280, height: 900 }, reducedMotion: 'reduce' });
     const errors = [];
     page.on('pageerror', error => errors.push(error.message));
+    // This suite was written against the whole vocabulary bank and mostly drives
+    // legacy ids (1-913, which carry no CEFR level). rc9 gives a new profile the
+    // B2+C1 study filter, which would hide those words and turn every scenario
+    // into an empty-session test. Seed "all levels" before any app script runs,
+    // and re-seed after the suite's own localStorage.clear() calls; the CEFR
+    // filter itself is covered by tests/static-app.test.js and browser-exams.cjs.
+    await page.addInitScript(() => {
+      const key = 'chuyen-anh.cefr.v1';
+      const all = JSON.stringify({ version: 1, levels: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'], unclassified: true });
+      try { window.localStorage.setItem(key, all); } catch {}
+      const clear = Storage.prototype.clear;
+      Storage.prototype.clear = function patchedClear() {
+        clear.call(this);
+        if (this === window.localStorage) { try { window.localStorage.setItem(key, all); } catch {} }
+      };
+    });
     await page.goto(`http://127.0.0.1:${server.address().port}`);
     await page.locator('[data-session="new"]').waitFor();
     assert.match(await page.locator('.session-grid--focus [data-session="due"]').innerText(), /0 từ/);
