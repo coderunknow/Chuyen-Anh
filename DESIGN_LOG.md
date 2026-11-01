@@ -1912,3 +1912,13 @@ PR #73 (head `3c04beb74815177728c1beefe4d636edc067a272`) passed all 7 GitHub Act
 
 **Decision 4 — CEFR evidence stays where it is.** All 4,939 `level:*` tags are `level-source:editorial`, so `docs/vocabulary-cefr-review.*` classifies them **Inferred**, the 913 untagged rows **Unknown**, and `Verified`/`Source-supported` stay at **0**. No label was promoted, invented or inflated, and the audit proves `before == after` so it cannot be mistaken for a silent relabelling.
 
+
+### rc9 candidate, round 2 (2026-11-01) — corrections to Decisions 1–3
+
+**Decision 1 revised — the honest denominator is smaller than the first estimate.** Three of the five review findings changed what can be scored, so the figures in Decision 1 are superseded: `3,011 / 6,804 (44.25 %)` scorable and `3,793` ungradeable, with `incomplete-options` dropping from `209` to `0` because those 209 were text items whose gap-fill transcription left a stray bullet, not choice items with one option. Restoring them (plus the misread `IMAGE` task word) *raised* the scorable count by `64` — evidence that the earlier classification was wrong in the learner's favour, not against it.
+
+**Decision 2 confirmed — the filter must reach every pool, not just the start button.** Review found the sprint queue, the distractor pool and the "due" recommendation still reading the unfiltered deck. The rule is now structural: one `cefrDeck()` accessor feeds the priority session, sprint count/queue, exercise plan, availability counts and question generation; only the favourites session opts out (an explicit learner choice) and grading always uses the full bank so a hidden word can never become a distractor.
+
+**Decision 5 (new) — a learner correction is evidence, not decoration.** A correct override on an item the archive could not key has to change what the item is worth; otherwise the UI invites the correction and then ignores it. `examApplyCorrections` restores `scorable` for a validated override, keeps the stimulus guard, and the record stays `user-correction` — never `official_verified`.
+
+**Decision 6 (new) — dynamic copy chooses its language at render time.** The post-render dictionary can only map whole static strings, so every sentence that interpolates counts or eligibility must be built bilingually by the component that renders it. Applied to the CEFR panel and the catalogue warning; the bilingual browser sweep is the regression test.
