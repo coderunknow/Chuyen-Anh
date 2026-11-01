@@ -12,7 +12,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 55,
-      "scoredCount": 55,
+      "scoredCount": 2,
       "responseTypes": {
         "choice": 40,
         "multiple": 0,
@@ -1599,7 +1599,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 48,
-      "scoredCount": 48,
+      "scoredCount": 5,
       "responseTypes": {
         "choice": 32,
         "multiple": 0,
@@ -2989,7 +2989,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 91,
-      "scoredCount": 91,
+      "scoredCount": 12,
       "responseTypes": {
         "choice": 44,
         "multiple": 0,
@@ -5587,7 +5587,7 @@
       "practiceReadOnly": false,
       "ocrCaution": true,
       "questionCount": 35,
-      "scoredCount": 35,
+      "scoredCount": 2,
       "responseTypes": {
         "choice": 30,
         "multiple": 0,
@@ -6680,7 +6680,7 @@
       "practiceReadOnly": false,
       "ocrCaution": true,
       "questionCount": 94,
-      "scoredCount": 94,
+      "scoredCount": 4,
       "responseTypes": {
         "choice": 53,
         "multiple": 0,
@@ -9454,7 +9454,7 @@
       "practiceReadOnly": false,
       "ocrCaution": true,
       "questionCount": 66,
-      "scoredCount": 66,
+      "scoredCount": 49,
       "responseTypes": {
         "choice": 35,
         "multiple": 0,
@@ -11543,7 +11543,7 @@
       "practiceReadOnly": false,
       "ocrCaution": true,
       "questionCount": 54,
-      "scoredCount": 54,
+      "scoredCount": 4,
       "responseTypes": {
         "choice": 33,
         "multiple": 0,
@@ -13151,7 +13151,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 55,
-      "scoredCount": 55,
+      "scoredCount": 4,
       "responseTypes": {
         "choice": 44,
         "multiple": 0,
@@ -14731,7 +14731,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 65,
-      "scoredCount": 65,
+      "scoredCount": 5,
       "responseTypes": {
         "choice": 55,
         "multiple": 0,
@@ -16592,7 +16592,7 @@
       "practiceReadOnly": false,
       "ocrCaution": true,
       "questionCount": 68,
-      "scoredCount": 68,
+      "scoredCount": 21,
       "responseTypes": {
         "choice": 27,
         "multiple": 0,
@@ -19484,7 +19484,7 @@
       "practiceReadOnly": false,
       "ocrCaution": true,
       "questionCount": 37,
-      "scoredCount": 37,
+      "scoredCount": 0,
       "responseTypes": {
         "choice": 19,
         "multiple": 0,
@@ -20624,7 +20624,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 77,
-      "scoredCount": 77,
+      "scoredCount": 10,
       "responseTypes": {
         "choice": 47,
         "multiple": 0,
@@ -22832,7 +22832,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 58,
-      "scoredCount": 58,
+      "scoredCount": 11,
       "responseTypes": {
         "choice": 40,
         "multiple": 0,
@@ -24720,7 +24720,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 80,
-      "scoredCount": 80,
+      "scoredCount": 18,
       "responseTypes": {
         "choice": 30,
         "multiple": 0,
@@ -27034,7 +27034,7 @@
       "practiceReadOnly": false,
       "ocrCaution": true,
       "questionCount": 47,
-      "scoredCount": 47,
+      "scoredCount": 12,
       "responseTypes": {
         "choice": 30,
         "multiple": 0,
@@ -28550,7 +28550,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 124,
-      "scoredCount": 124,
+      "scoredCount": 8,
       "responseTypes": {
         "choice": 60,
         "multiple": 0,
@@ -32077,7 +32077,7 @@
       "practiceReadOnly": false,
       "ocrCaution": true,
       "questionCount": 82,
-      "scoredCount": 82,
+      "scoredCount": 5,
       "responseTypes": {
         "choice": 36,
         "multiple": 0,
@@ -34498,7 +34498,7 @@
       "practiceReadOnly": false,
       "ocrCaution": true,
       "questionCount": 40,
-      "scoredCount": 40,
+      "scoredCount": 6,
       "responseTypes": {
         "choice": 26,
         "multiple": 0,
@@ -35924,7 +35924,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 50,
-      "scoredCount": 50,
+      "scoredCount": 0,
       "responseTypes": {
         "choice": 40,
         "multiple": 0,
@@ -37437,7 +37437,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 55,
-      "scoredCount": 55,
+      "scoredCount": 1,
       "responseTypes": {
         "choice": 20,
         "multiple": 0,
@@ -39016,7 +39016,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 75,
-      "scoredCount": 75,
+      "scoredCount": 46,
       "responseTypes": {
         "choice": 65,
         "multiple": 0,
@@ -41207,7 +41207,7 @@
       "practiceReadOnly": false,
       "ocrCaution": true,
       "questionCount": 30,
-      "scoredCount": 30,
+      "scoredCount": 3,
       "responseTypes": {
         "choice": 18,
         "multiple": 0,
@@ -42143,7 +42143,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 63,
-      "scoredCount": 63,
+      "scoredCount": 5,
       "responseTypes": {
         "choice": 39,
         "multiple": 0,
@@ -43957,7 +43957,7 @@
       "practiceReadOnly": false,
       "ocrCaution": true,
       "questionCount": 25,
-      "scoredCount": 25,
+      "scoredCount": 2,
       "responseTypes": {
         "choice": 11,
         "multiple": 0,
@@ -44722,7 +44722,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 45,
-      "scoredCount": 45,
+      "scoredCount": 4,
       "responseTypes": {
         "choice": 27,
         "multiple": 0,
@@ -46022,7 +46022,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 87,
-      "scoredCount": 87,
+      "scoredCount": 82,
       "responseTypes": {
         "choice": 70,
         "multiple": 0,
@@ -48604,7 +48604,7 @@
       "practiceReadOnly": false,
       "ocrCaution": true,
       "questionCount": 38,
-      "scoredCount": 38,
+      "scoredCount": 2,
       "responseTypes": {
         "choice": 16,
         "multiple": 0,
@@ -49790,7 +49790,7 @@
       "practiceReadOnly": false,
       "ocrCaution": true,
       "questionCount": 56,
-      "scoredCount": 56,
+      "scoredCount": 3,
       "responseTypes": {
         "choice": 31,
         "multiple": 0,
@@ -51455,7 +51455,7 @@
       "practiceReadOnly": false,
       "ocrCaution": true,
       "questionCount": 80,
-      "scoredCount": 80,
+      "scoredCount": 0,
       "responseTypes": {
         "choice": 45,
         "multiple": 0,
@@ -53838,7 +53838,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 40,
-      "scoredCount": 40,
+      "scoredCount": 8,
       "responseTypes": {
         "choice": 35,
         "multiple": 0,
@@ -55011,7 +55011,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 85,
-      "scoredCount": 85,
+      "scoredCount": 5,
       "responseTypes": {
         "choice": 51,
         "multiple": 0,
@@ -57446,7 +57446,7 @@
       "practiceReadOnly": false,
       "ocrCaution": true,
       "questionCount": 97,
-      "scoredCount": 97,
+      "scoredCount": 81,
       "responseTypes": {
         "choice": 77,
         "multiple": 0,
@@ -60412,7 +60412,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 66,
-      "scoredCount": 66,
+      "scoredCount": 56,
       "responseTypes": {
         "choice": 56,
         "multiple": 0,
@@ -62352,7 +62352,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 51,
-      "scoredCount": 51,
+      "scoredCount": 5,
       "responseTypes": {
         "choice": 31,
         "multiple": 0,
@@ -63821,7 +63821,7 @@
       "practiceReadOnly": false,
       "ocrCaution": true,
       "questionCount": 69,
-      "scoredCount": 69,
+      "scoredCount": 56,
       "responseTypes": {
         "choice": 40,
         "multiple": 0,
@@ -65963,7 +65963,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 40,
-      "scoredCount": 40,
+      "scoredCount": 1,
       "responseTypes": {
         "choice": 15,
         "multiple": 0,
@@ -67134,7 +67134,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 77,
-      "scoredCount": 77,
+      "scoredCount": 71,
       "responseTypes": {
         "choice": 39,
         "multiple": 0,
@@ -70306,7 +70306,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 51,
-      "scoredCount": 51,
+      "scoredCount": 2,
       "responseTypes": {
         "choice": 30,
         "multiple": 0,
@@ -71782,7 +71782,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 43,
-      "scoredCount": 43,
+      "scoredCount": 2,
       "responseTypes": {
         "choice": 21,
         "multiple": 0,
@@ -73043,7 +73043,7 @@
       "practiceReadOnly": false,
       "ocrCaution": true,
       "questionCount": 57,
-      "scoredCount": 57,
+      "scoredCount": 33,
       "responseTypes": {
         "choice": 29,
         "multiple": 0,
@@ -75048,7 +75048,7 @@
       "practiceReadOnly": false,
       "ocrCaution": true,
       "questionCount": 51,
-      "scoredCount": 51,
+      "scoredCount": 32,
       "responseTypes": {
         "choice": 29,
         "multiple": 0,
@@ -76614,7 +76614,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 105,
-      "scoredCount": 105,
+      "scoredCount": 3,
       "responseTypes": {
         "choice": 60,
         "multiple": 0,
@@ -79600,7 +79600,7 @@
       "practiceReadOnly": false,
       "ocrCaution": true,
       "questionCount": 77,
-      "scoredCount": 77,
+      "scoredCount": 2,
       "responseTypes": {
         "choice": 31,
         "multiple": 0,
@@ -81873,7 +81873,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 57,
-      "scoredCount": 57,
+      "scoredCount": 15,
       "responseTypes": {
         "choice": 38,
         "multiple": 0,
@@ -83537,7 +83537,7 @@
       "practiceReadOnly": false,
       "ocrCaution": true,
       "questionCount": 38,
-      "scoredCount": 38,
+      "scoredCount": 29,
       "responseTypes": {
         "choice": 17,
         "multiple": 0,
@@ -84728,7 +84728,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 76,
-      "scoredCount": 76,
+      "scoredCount": 4,
       "responseTypes": {
         "choice": 35,
         "multiple": 0,
@@ -86904,7 +86904,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 29,
-      "scoredCount": 29,
+      "scoredCount": 3,
       "responseTypes": {
         "choice": 20,
         "multiple": 0,
@@ -87757,7 +87757,7 @@
       "practiceReadOnly": false,
       "ocrCaution": true,
       "questionCount": 66,
-      "scoredCount": 66,
+      "scoredCount": 31,
       "responseTypes": {
         "choice": 46,
         "multiple": 0,
@@ -89783,7 +89783,7 @@
       "practiceReadOnly": false,
       "ocrCaution": true,
       "questionCount": 36,
-      "scoredCount": 36,
+      "scoredCount": 24,
       "responseTypes": {
         "choice": 32,
         "multiple": 0,
@@ -90944,7 +90944,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 70,
-      "scoredCount": 70,
+      "scoredCount": 22,
       "responseTypes": {
         "choice": 50,
         "multiple": 0,
@@ -92966,7 +92966,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 58,
-      "scoredCount": 58,
+      "scoredCount": 4,
       "responseTypes": {
         "choice": 43,
         "multiple": 0,
@@ -94644,7 +94644,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 42,
-      "scoredCount": 42,
+      "scoredCount": 33,
       "responseTypes": {
         "choice": 29,
         "multiple": 0,
@@ -95895,7 +95895,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 51,
-      "scoredCount": 51,
+      "scoredCount": 23,
       "responseTypes": {
         "choice": 31,
         "multiple": 0,
@@ -97386,7 +97386,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 54,
-      "scoredCount": 54,
+      "scoredCount": 48,
       "responseTypes": {
         "choice": 30,
         "multiple": 0,
@@ -99038,7 +99038,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 36,
-      "scoredCount": 36,
+      "scoredCount": 35,
       "responseTypes": {
         "choice": 21,
         "multiple": 0,
@@ -100124,7 +100124,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 71,
-      "scoredCount": 71,
+      "scoredCount": 4,
       "responseTypes": {
         "choice": 36,
         "multiple": 0,
@@ -102211,7 +102211,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 70,
-      "scoredCount": 70,
+      "scoredCount": 3,
       "responseTypes": {
         "choice": 50,
         "multiple": 0,
@@ -104212,7 +104212,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 58,
-      "scoredCount": 58,
+      "scoredCount": 45,
       "responseTypes": {
         "choice": 43,
         "multiple": 0,
@@ -105953,7 +105953,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 41,
-      "scoredCount": 41,
+      "scoredCount": 16,
       "responseTypes": {
         "choice": 36,
         "multiple": 0,
@@ -107160,7 +107160,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 100,
-      "scoredCount": 100,
+      "scoredCount": 11,
       "responseTypes": {
         "choice": 30,
         "multiple": 0,
@@ -110016,7 +110016,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 132,
-      "scoredCount": 132,
+      "scoredCount": 0,
       "responseTypes": {
         "choice": 10,
         "multiple": 35,
@@ -114005,7 +114005,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 62,
-      "scoredCount": 62,
+      "scoredCount": 60,
       "responseTypes": {
         "choice": 45,
         "multiple": 0,
@@ -116055,7 +116055,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 50,
-      "scoredCount": 50,
+      "scoredCount": 34,
       "responseTypes": {
         "choice": 31,
         "multiple": 0,
@@ -117957,7 +117957,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 77,
-      "scoredCount": 77,
+      "scoredCount": 71,
       "responseTypes": {
         "choice": 50,
         "multiple": 0,
@@ -120261,7 +120261,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 77,
-      "scoredCount": 77,
+      "scoredCount": 75,
       "responseTypes": {
         "choice": 39,
         "multiple": 0,
@@ -122536,7 +122536,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 50,
-      "scoredCount": 50,
+      "scoredCount": 21,
       "responseTypes": {
         "choice": 25,
         "multiple": 0,
@@ -124423,7 +124423,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 80,
-      "scoredCount": 80,
+      "scoredCount": 16,
       "responseTypes": {
         "choice": 40,
         "multiple": 0,
@@ -126721,7 +126721,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 36,
-      "scoredCount": 36,
+      "scoredCount": 34,
       "responseTypes": {
         "choice": 16,
         "multiple": 0,
@@ -127816,7 +127816,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 95,
-      "scoredCount": 95,
+      "scoredCount": 12,
       "responseTypes": {
         "choice": 60,
         "multiple": 0,
@@ -130526,7 +130526,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 58,
-      "scoredCount": 58,
+      "scoredCount": 56,
       "responseTypes": {
         "choice": 31,
         "multiple": 0,
@@ -132464,7 +132464,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 60,
-      "scoredCount": 60,
+      "scoredCount": 50,
       "responseTypes": {
         "choice": 26,
         "multiple": 0,
@@ -136600,7 +136600,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 75,
-      "scoredCount": 75,
+      "scoredCount": 27,
       "responseTypes": {
         "choice": 45,
         "multiple": 0,
@@ -138774,7 +138774,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 46,
-      "scoredCount": 46,
+      "scoredCount": 11,
       "responseTypes": {
         "choice": 30,
         "multiple": 0,
@@ -140116,7 +140116,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 64,
-      "scoredCount": 64,
+      "scoredCount": 44,
       "responseTypes": {
         "choice": 36,
         "multiple": 0,
@@ -142265,7 +142265,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 70,
-      "scoredCount": 70,
+      "scoredCount": 57,
       "responseTypes": {
         "choice": 56,
         "multiple": 0,
@@ -144392,7 +144392,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 30,
-      "scoredCount": 30,
+      "scoredCount": 8,
       "responseTypes": {
         "choice": 25,
         "multiple": 0,
@@ -145287,7 +145287,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 88,
-      "scoredCount": 88,
+      "scoredCount": 52,
       "responseTypes": {
         "choice": 39,
         "multiple": 0,
@@ -148376,7 +148376,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 56,
-      "scoredCount": 56,
+      "scoredCount": 53,
       "responseTypes": {
         "choice": 35,
         "multiple": 0,
@@ -152140,7 +152140,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 52,
-      "scoredCount": 52,
+      "scoredCount": 16,
       "responseTypes": {
         "choice": 29,
         "multiple": 0,
@@ -153802,7 +153802,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 70,
-      "scoredCount": 70,
+      "scoredCount": 30,
       "responseTypes": {
         "choice": 50,
         "multiple": 0,
@@ -157473,7 +157473,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 80,
-      "scoredCount": 80,
+      "scoredCount": 49,
       "responseTypes": {
         "choice": 55,
         "multiple": 0,
@@ -159821,7 +159821,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 56,
-      "scoredCount": 56,
+      "scoredCount": 18,
       "responseTypes": {
         "choice": 45,
         "multiple": 0,
@@ -161773,7 +161773,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 55,
-      "scoredCount": 55,
+      "scoredCount": 51,
       "responseTypes": {
         "choice": 40,
         "multiple": 0,
@@ -163415,7 +163415,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 83,
-      "scoredCount": 83,
+      "scoredCount": 37,
       "responseTypes": {
         "choice": 50,
         "multiple": 0,
@@ -166125,7 +166125,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 59,
-      "scoredCount": 59,
+      "scoredCount": 25,
       "responseTypes": {
         "choice": 40,
         "multiple": 0,
@@ -169708,7 +169708,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 96,
-      "scoredCount": 96,
+      "scoredCount": 70,
       "responseTypes": {
         "choice": 63,
         "multiple": 0,
@@ -172526,7 +172526,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 57,
-      "scoredCount": 57,
+      "scoredCount": 56,
       "responseTypes": {
         "choice": 31,
         "multiple": 0,
@@ -176033,7 +176033,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 85,
-      "scoredCount": 85,
+      "scoredCount": 56,
       "responseTypes": {
         "choice": 47,
         "multiple": 0,
@@ -182587,7 +182587,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 80,
-      "scoredCount": 80,
+      "scoredCount": 74,
       "responseTypes": {
         "choice": 62,
         "multiple": 0,
@@ -184950,7 +184950,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 70,
-      "scoredCount": 70,
+      "scoredCount": 23,
       "responseTypes": {
         "choice": 43,
         "multiple": 0,
@@ -186981,7 +186981,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 78,
-      "scoredCount": 78,
+      "scoredCount": 52,
       "responseTypes": {
         "choice": 46,
         "multiple": 0,
@@ -189726,7 +189726,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 130,
-      "scoredCount": 130,
+      "scoredCount": 9,
       "responseTypes": {
         "choice": 15,
         "multiple": 0,
@@ -193508,7 +193508,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 45,
-      "scoredCount": 45,
+      "scoredCount": 9,
       "responseTypes": {
         "choice": 29,
         "multiple": 0,
@@ -194840,7 +194840,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 88,
-      "scoredCount": 88,
+      "scoredCount": 40,
       "responseTypes": {
         "choice": 45,
         "multiple": 0,
@@ -197393,7 +197393,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 74,
-      "scoredCount": 74,
+      "scoredCount": 13,
       "responseTypes": {
         "choice": 31,
         "multiple": 0,
@@ -199952,7 +199952,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 112,
-      "scoredCount": 112,
+      "scoredCount": 33,
       "responseTypes": {
         "choice": 19,
         "multiple": 0,
@@ -205196,7 +205196,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 83,
-      "scoredCount": 83,
+      "scoredCount": 82,
       "responseTypes": {
         "choice": 68,
         "multiple": 0,
@@ -208070,7 +208070,7 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 49,
-      "scoredCount": 49,
+      "scoredCount": 36,
       "responseTypes": {
         "choice": 35,
         "multiple": 0,

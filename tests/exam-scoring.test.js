@@ -306,6 +306,33 @@ test('rc9 parser (#76): numbering that restarts per section never borrows anothe
   assert.ok(textKeys.every(k => k.candidates.length === 0 || !/^[A-D]$/.test(k.candidates[0])), 'rewrite keys stay sentences');
 });
 
+test('rc9 manifest (#75): every paper reports the number of items it can actually score', async () => {
+  const manifest = JSON.parse(await readFile(new URL('../data/exam-answer-keys.json', import.meta.url), 'utf8'));
+  const usable = (q, k) => {
+    if (!k || k.scorable === false) return false;
+    if (['invalid_key', 'missing_answer', 'incomplete_stimulus', 'ambiguous_review'].includes(k.verificationStatus)) return false;
+    if (q.responseType === 'essay') return Boolean(k.rubric);
+    return Array.isArray(k.candidates) && k.candidates.length > 0;
+  };
+  let sum = 0;
+  for (const record of manifest.records) {
+    const questions = app.parseExamQuestions(records.find(r => r.id === record.id).markdown, record.id);
+    const counted = questions.filter((q, i) => usable(q, record.answerKeys[i])).length;
+    // `scoredCount` used to be `answerKeys.length`, so all 106 papers claimed
+    // 100% while most items had no usable key.
+    assert.equal(record.scoredCount, counted, `${record.id}: scoredCount must be the usable-key count`);
+    assert.ok(record.scoredCount <= record.questionCount, record.id);
+    sum += record.scoredCount;
+  }
+  assert.equal(sum, 2947, 'the per-paper counts add up to the archive total');
+  const audit = JSON.parse(await readFile(new URL('../docs/exam-scoring-audit.json', import.meta.url), 'utf8'));
+  assert.equal(audit.totals.scoredQuestions, sum, 'the audit header agrees with the per-paper rows');
+  for (const paper of audit.papers) {
+    const record = manifest.records.find(r => r.id === paper.id);
+    assert.equal(paper.scoredCount, record.scoredCount, `${paper.id}: audit row must match the manifest`);
+  }
+});
+
 test('rc9 builder (#77): a provisional choice key is only emitted with a positive margin, so option A is no longer the default', async () => {
   const manifest = JSON.parse(await readFile(new URL('../data/exam-answer-keys.json', import.meta.url), 'utf8'));
   const keys = manifest.records.flatMap(record => record.answerKeys);

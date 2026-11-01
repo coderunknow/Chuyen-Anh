@@ -47,7 +47,7 @@ async function main() {
     await page.goto(origin);
     await page.locator('[data-view="exams"]').click();
     await page.locator('#exam-results-count').filter({ hasText: '106 bản chép' }).waitFor();
-    assert.match(await page.locator('.exam-warning').innerText(), /chấm 100% câu hỏi.*độ tin cậy/i);
+    assert.match(await page.locator('.exam-warning').innerText(), /chỉ chấm những câu có khóa đáp án dùng được.*không chấm.*độ tin cậy/is);
     assert.match(await page.locator('.exam-warning').innerText(), /audio nghe không được nhúng/i);
     assert.equal(await page.locator('#exam-list .exam-card').count(), 24);
     await page.locator('#exam-search').fill('thai nguyen');
@@ -168,7 +168,7 @@ async function main() {
     await page.locator('#language-setting').selectOption('en');
     await page.locator('[data-view="exams"]').click();
     await page.locator('#exam-results-count').filter({ hasText: '106 transcriptions' }).waitFor();
-    assert.match(await page.locator('.exam-warning').innerText(), /provisionally score 100%.*unverified/i);
+    assert.match(await page.locator('.exam-warning').innerText(), /only the items whose stored key can actually answer them.*not scored/is);
     for (const viewport of [{ width: 320, height: 720 }, { width: 375, height: 812 }, { width: 768, height: 900 }, { width: 1024, height: 900 }, { width: 1440, height: 1000 }]) {
       await page.setViewportSize(viewport);
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, `catalogue fits ${viewport.width}px`);
@@ -243,7 +243,7 @@ async function main() {
     assert.deepEqual(fileExternal, [], 'no external network call under file://');
     assert.deepEqual(fileErrors, [], 'no page error under file://');
 
-    console.log(`PASS: ${engineName} ${browserVersion} — 106-record catalogue; 100% universal full-denominator scoring; 3 correct/3 incorrect deterministic summary; key hidden before submit; user correction recalculated and persisted; history reload/export/malformed import/valid import; operable session-focus control; HTML/OCR interactive with LOW/VERY_LOW warning; WCAG 2.1 AA axe clean; 2022/hai-phong/so angle-bracket escaped in live DOM; standalone file:// offline verified; VI/EN, Classic/Modern; 320/375/768/1024/1440px; no network or page errors.`);
+    console.log(`PASS: ${engineName} ${browserVersion} — 106-record catalogue; scorable-only grading with per-paper coverage; 3 correct/3 incorrect deterministic summary; key hidden before submit; user correction recalculated and persisted; history reload/export/malformed import/valid import; operable session-focus control; HTML/OCR interactive with LOW/VERY_LOW warning; WCAG 2.1 AA axe clean; 2022/hai-phong/so angle-bracket escaped in live DOM; standalone file:// offline verified; VI/EN, Classic/Modern; 320/375/768/1024/1440px; no network or page errors.`);
   } finally {
     if (browser) await browser.close();
     if (!serverClosed) await new Promise(resolve => server.close(resolve));

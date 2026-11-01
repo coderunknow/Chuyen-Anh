@@ -256,6 +256,17 @@ for (const item of plan) {
   }
 }
 
+// One definition of "this item can actually be scored", used both for the
+// per-paper count and for the archive totals. Before this existed, `scoredCount`
+// was `answerKeys.length`, so every paper claimed 100% coverage while only a
+// fraction of its items had a usable key (issue #75).
+function isScorableKey(question, key) {
+  if (!key || key.scorable === false) return false;
+  if (['invalid_key', 'missing_answer', 'incomplete_stimulus', 'ambiguous_review'].includes(key.verificationStatus)) return false;
+  if (question.responseType === 'essay') return Boolean(key.rubric);
+  return Array.isArray(key.candidates) && key.candidates.length > 0;
+}
+
 function buildProvisionalHint(question, fullBodyLower, currentPaperId) {
   if (question.responseType === 'essay') return null;
 
@@ -419,7 +430,7 @@ for (const { item, body, contentSha256, questions, initialKeys } of parsedPapers
     practiceReadOnly: false,
     ocrCaution: isOcr,
     questionCount: questions.length,
-    scoredCount: answerKeys.length,
+    scoredCount: questions.filter((q, i) => isScorableKey(q, answerKeys[i])).length,
     responseTypes: Object.fromEntries(['choice','multiple','true-false','text','essay'].map(t => [t, questions.filter(q => q.responseType === t).length])),
     keyStatuses: Object.fromEntries([...new Set(answerKeys.map(k => k.verificationStatus))].map(s => [s, answerKeys.filter(k => k.verificationStatus === s).length])),
     sourceStatuses: Object.fromEntries([...new Set(answerKeys.map(k => k.sourceStatus))].map(s => [s, answerKeys.filter(k => k.sourceStatus === s).length])),
@@ -453,10 +464,7 @@ for (const { item, body, contentSha256, questions, initialKeys } of parsedPapers
     // "Scorable" means the stored key can actually answer this question: a
     // non-empty candidate list is not enough (issue #75). Items without a
     // usable key or without their stimulus are counted as ungradeable.
-    const hasScoringPath = key.scorable !== false && (key.verificationStatus !== 'invalid_key'
-      && key.verificationStatus !== 'missing_answer' && key.verificationStatus !== 'incomplete_stimulus')
-      && ((q.responseType === 'essay' && Boolean(key.rubric)) || (Array.isArray(key.candidates) && key.candidates.length > 0));
-    if (hasScoringPath) {
+    if (isScorableKey(q, key)) {
       totals.scoredQuestions += 1;
       totals.gradable += 1;
       if (key.verificationStatus !== 'official_verified') totals.provisional += 1;
