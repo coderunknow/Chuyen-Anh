@@ -101,7 +101,9 @@ async function main() {
     const denominator = Number(await page.locator('#exam-practice-denominator-count').innerText());
     assert.ok(denominator > 0 && denominator <= paper.questionCount, `denominator ${denominator} must be the scorable subset`);
     assert.match(summaryText, new RegExp(`3/${denominator} điểm trên ${denominator} câu chấm được`));
-    assert.match(summaryText, /\d+\/\d+ câu, \d+(\.\d+)?%; \d+ câu không chấm được/);
+    // The paper scorable rate now prints its percentage in parentheses, so the
+    // assertion checks both numbers and the percent sign instead of punctuation.
+    assert.match(summaryText, /\d+\/\d+ câu \(\d+(\.\d+)?%\); \d+ câu không chấm được/);
     // The efficiency line now uses the graded denominator so an answered but
     // unscorable item cannot drag a correct result towards 0 % (rc9 review round).
     assert.match(await page.locator('#exam-submission-summary').innerText(), /trên 6 câu đã chấm: 3\/6 — 50%/);
