@@ -225668,12 +225668,19 @@ export const DEFAULT_EXERCISES = Object.freeze({
   [EXERCISE_TYPES.FLASHCARD]: true
 });
 
+// What a study session may draw from. `words-phrases` is the default because it
+// is the behaviour the app shipped with: the phrase bank is a study surface. It
+// is a study-pool switch, never a data switch — no phrase row is removed, and
+// switching back restores every phrase with its own progress untouched.
+export const STUDY_SCOPES = Object.freeze(['words-phrases', 'words']);
+
 export function defaultStudyConfig() {
   return {
     groups: { due: true, weak: true, new: true, review: true },
     focus: STUDY_GROUPS.DUE,
     exercises: { ...DEFAULT_EXERCISES },
     size: 20,
+    scope: 'words-phrases',
     timed: false,
     timerMinutes: 0
   };
@@ -225890,11 +225897,15 @@ export function sanitizeStudyConfig(value) {
   const minutesValue = Number(value.timerMinutes);
   const timerMinutes = Number.isFinite(minutesValue)
     ? Math.min(60, Math.max(0, Math.floor(minutesValue))) : base.timerMinutes;
+  // An unreadable or older value falls back to the default scope, so an
+  // existing profile keeps the combined study it already had.
+  const scope = STUDY_SCOPES.includes(value.scope) ? value.scope : base.scope;
   return {
     groups: normalizedGroups,
     focus,
     exercises,
     size,
+    scope,
     timed: value.timed === true,
     timerMinutes
   };
@@ -230221,10 +230232,41 @@ export async function createApp(root) {
     if (event.storageArea && storage && event.storageArea !== storage) return;
     if (!isSyncedStorageKey(event.key)) return;
     reloadLearnerStores();
+    // The selection can change in another tab while a session is open here.
+    enforceStudyPool();
     applyTheme();
     applyInterface();
     renderShell();
   });
+
+  // A queue is built once, under one CEFR selection. If that selection changes
+  // while the queue is still open — a chip click, an import, a reset or another
+  // tab — the remaining cards must be re-checked against the new pool instead of
+  // being served because they were queued earlier.
+  function enforceStudyPool({ silent = false } = {}) {
+    if (!session?.length) return 0;
+    const allowed = studyPoolIds();
+    const before = session.length;
+    const kept = session.filter(item => item?.vocab && allowed.has(item.vocab.id));
+    const removed = before - kept.length;
+    if (!removed) return 0;
+    session = kept;
+    if (sessionStats) sessionStats.total = Math.max(0, (sessionStats.total || 0) - removed);
+    // A card that was mid-turn no longer exists, so its pending state is dropped.
+    matchState = null;
+    question = null;
+    answered = false;
+    revealed = false;
+    answerResult = null;
+    if (!session.length) {
+      if (!silent) toast('Bộ lọc CEFR vừa thay đổi và không còn thẻ nào trong phiên. Hãy bắt đầu phiên mới trong mục Học.', 'error');
+      finishSession();
+      return removed;
+    }
+    if (!silent) toast(`Bộ lọc CEFR vừa thay đổi: đã bỏ ${removed} thẻ nằm ngoài mức đang chọn khỏi phiên.`, 'success');
+    renderShell();
+    return removed;
+  }
 
   // Session-scoped timer and pending-question state. The timer interval is a
   // single module-level handle: re-rendering a card must not start a second one.
@@ -230479,6 +230521,18 @@ export async function createApp(root) {
   }
   function stats() { return poolStats(deckIds); }
 
+  // The active study pool is the single authoritative population for every
+  // number a study surface promises (due, weak, new, mastery, session size).
+  // Lifetime figures — XP, streak, first-pass accuracy, badges, history — stay
+  // on `stats()`, because a level filter must never rewrite what already
+  // happened. Before rc10 the cards, the header and the dashboard all read
+  // `stats()`, so a C1-only learner was told "Từ mới 3,841 từ" while the
+  // session could only ever draw 1,833.
+  function studyPoolIds() { return new Set(cefrDeck().map(entry => entry.id)); }
+  function studyStats() { return poolStats(studyPoolIds()); }
+  function wordsOnlyStudy() { return studyConfig.scope === 'words'; }
+  function phraseStudyEnabled() { return !wordsOnlyStudy(); }
+
   async function ensureExamArchive() {
     if (examRecords) return examRecords;
     if (!examArchivePromise) {
@@ -230506,14 +230560,14 @@ export async function createApp(root) {
   function renderShell() {
     applyTheme();
     applyInterface();
-    const currentStats = stats();
+    const currentStats = studyStats();
     const examView = view.startsWith('exam');
     root.innerHTML = `
       <header class="topbar">
         <div class="topbar-inner">
           <a class="brand" href="#learn" id="brand-link">
             <span class="brand-mark">CA</span>
-            <span><span class="brand-name">Chuyên Anh</span><span class="brand-detail">Flashcard · ${formatCount(deck.length)} từ trọng tâm · kho đề offline</span></span>
+            <span><span class="brand-name">Chuyên Anh</span><span class="brand-detail">Flashcard · ${formatCount(studyPoolIds().size)} từ trọng tâm · kho đề offline</span></span>
           </a>
           <div class="top-meta"><span class="top-stat">${iconMarkup('clock')}<span>${currentStats.due} đến hạn</span></span><i class="dot" aria-hidden="true"></i><span class="top-stat">${iconMarkup('flame')}<span>${streak.current} ngày liên tiếp</span></span></div>
           <div class="top-actions">${interfaceSwitchMarkup('interface')}<button class="btn subtle small" id="theme-button" aria-label="${prefs.darkMode ? 'Dùng giao diện sáng' : 'Bật giao diện tối'}" aria-pressed="${prefs.darkMode}">${iconMarkup(prefs.darkMode ? 'sun' : 'moon')}</button><button class="btn small" id="export-top" aria-label="Sao lưu — Xuất bản sao tiến độ học">${iconMarkup('download')}Sao lưu</button></div>
@@ -230759,6 +230813,11 @@ export async function createApp(root) {
       </fieldset>
       ${cefrChipMarkup({ prefix })}
       <fieldset class="config-block">
+        <legend>Nguồn từ của phiên học</legend>
+        ${scopeChipsMarkup({ id: `${prefix}-scope` })}
+        <p class="config-hint" id="${prefix}-scope-help">${scopeHelpText()}</p>
+      </fieldset>
+      <fieldset class="config-block">
         <legend>Trọng tâm phiên học</legend>
         <div class="segmented" id="${prefix}-focus" role="group" aria-label="Trọng tâm phiên học">${focus}</div>
         <p class="config-hint" id="${prefix}-focus-help">Trọng tâm chỉ đổi cách phân bổ từ trong tập đã chọn; lịch ôn, độ khó và trạng thái từ không đổi. Chọn trọng tâm của nhóm đang tắt sẽ bật nhóm đó.</p>
@@ -230840,6 +230899,55 @@ export async function createApp(root) {
       <div class="effective-chip" data-effective="timer">${studyConfig.timed ? `Bấm giờ · ${formatClock(sessionTimeLimit(studyConfig.size, studyConfig))}` : 'Không bấm giờ'}</div>`;
   }
 
+  // The study scope is a study source, not a study filter: words-only stops the
+  // phrase bank from entering a session, and it must be reachable without
+  // opening the advanced panel, because a learner who never opens it would keep
+  // a setting they cannot see. It is exposed on the study home and in Settings.
+  function scopeChipsMarkup({ id = 'scope', label = 'Nguồn từ của phiên học' } = {}) {
+    const wordCount = formatCount(cefrDeck().length);
+    const phraseCount = formatCount(filterPhrasesByCefr(phrases, cefrSelection).length);
+    return `<div class="chip-row" id="${id}" role="group" aria-label="${escapeHtml(label)}">
+      ${[['words-phrases', 'Từ + cụm từ', `${wordCount} từ · ${phraseCount} cụm`, 'Phiên học gồm từ vựng và kho cụm từ (mặc định).'],
+         ['words', 'Chỉ từ vựng', `${wordCount} từ`, 'Phiên học chỉ dùng từ vựng; kho cụm từ được giữ nguyên nhưng không vào phiên.']]
+        .map(([value, text, count, hint]) => `<button type="button" class="chip ${studyConfig.scope === value ? 'is-on' : ''}" data-scope="${value}" aria-pressed="${studyConfig.scope === value}" title="${escapeHtml(hint)}">
+          <span class="chip-label">${escapeHtml(text)}</span>
+          <span class="chip-count">${escapeHtml(count)}</span>
+        </button>`).join('')}
+    </div>`;
+  }
+
+  function scopeHelpText() {
+    return studyConfig.scope === 'words'
+      ? 'Đang chỉ học từ vựng. Kho cụm từ vẫn còn nguyên trong mục Cụm từ, kèm tiến độ riêng; đổi lại lựa chọn này để học cùng lúc.'
+      : 'Phiên học dùng cả từ vựng và cụm từ. Mỗi cụm từ vẫn theo đúng mức CEFR của chính nó và bộ lọc mức ở trên.';
+  }
+
+  // Returns true when the scope actually changed, so callers can decide how much
+  // to re-render and whether to move focus.
+  function setStudyScope(scope) {
+    if (!STUDY_SCOPES.includes(scope) || scope === studyConfig.scope) return false;
+    studyConfig = sanitizeStudyConfig({ ...studyConfig, scope });
+    if (!saveStudyConfig(studyConfig, storage)) toast('Không thể lưu cấu hình phiên học.', 'error');
+    // A running phrase session cannot survive a switch that removes its source.
+    // Word and phrase progress are untouched in both directions.
+    if (scope === 'words' && phraseSession) {
+      phraseSession = null;
+      toast('Đã chuyển sang chỉ từ vựng: phiên cụm từ đang mở đã kết thúc, tiến độ cụm từ vẫn được giữ.', 'success');
+    }
+    return true;
+  }
+
+  function bindStudyScope(container, { onChanged = null } = {}) {
+    container.querySelectorAll('[data-scope]').forEach(button => {
+      button.addEventListener('click', () => {
+        const scope = button.dataset.scope;
+        if (!setStudyScope(scope)) return;
+        if (onChanged) onChanged();
+        container.querySelectorAll(`[data-scope="${scope}"]`).forEach(node => node.focus({ preventScroll: true }));
+      });
+    });
+  }
+
   function bindStudyConfig(container, { prefix = 'priority', onRefresh = null } = {}) {
     const redraw = () => {
       if (onRefresh) { onRefresh(); return; }
@@ -230896,6 +231004,13 @@ export async function createApp(root) {
         if (!saveCefrSelection(cefrSelection, storage)) toast('Không thể lưu bộ lọc CEFR.', 'error');
         redraw();
         container.querySelector(`[data-cefr="${level}"]`)?.focus({ preventScroll: true });
+      });
+    });
+    container.querySelectorAll('[data-scope]').forEach(button => {
+      button.addEventListener('click', () => {
+        if (!setStudyScope(button.dataset.scope)) return;
+        redraw();
+        container.querySelector(`[data-scope="${button.dataset.scope}"]`)?.focus({ preventScroll: true });
       });
     });
     container.querySelectorAll('[data-exercise]').forEach(button => {
@@ -231230,7 +231345,7 @@ export async function createApp(root) {
   function renderLearn(container) {
     if (session?.length) { renderFlashcard(container); return; }
     if (sessionSummary) { renderSummary(container); return; }
-    const currentStats = stats();
+    const currentStats = studyStats();
     const xp = calculateXp({ progressMap: progress, history });
     const level = xpLevel(xp);
     // The recommendation must describe the pool the button actually starts: if
@@ -231246,8 +231361,15 @@ export async function createApp(root) {
     const suggestionText = hasDue
       ? 'Ôn các thẻ đã đến lịch trước; phiên này không kéo thẻ tương lai lên sớm.'
       : 'Phiên 10 thẻ ưu tiên mục cần củng cố, rồi chuyển sang các thẻ khác.';
+    // A starred word outside the selected levels stays starred but cannot enter
+    // a session: the card counts the eligible ones and names the rest, instead
+    // of promising a session it would refuse to open.
+    const eligibleFavorites = [...favorites].filter(id => cefrPoolIds.has(id));
+    const hiddenFavorites = favorites.size - eligibleFavorites.length;
     const favoritesDescription = favorites.size
-      ? 'Ôn lại những từ bạn đã đánh dấu.'
+      ? (hiddenFavorites
+        ? `${formatCount(hiddenFavorites)} từ yêu thích nằm ngoài mức CEFR đang chọn nên không vào phiên.`
+        : 'Ôn lại những từ bạn đã đánh dấu.')
       : 'Đánh dấu từ bằng ngôi sao trong Tra cứu để tạo danh sách.';
     // Sprint banner reports the real pool and the real queue: the eligible count is
     // the whole pool, and the queue is min(pool, the learner's configured size).
@@ -231324,18 +231446,23 @@ export async function createApp(root) {
         </div>
       </section>
       <section class="study-section" aria-labelledby="study-goals-title">
-        <div class="study-section-heading"><div><h2 id="study-goals-title">Học theo mục tiêu</h2><p>Chọn nhóm từ bạn muốn tập trung hôm nay.</p></div></div>
+        <div class="study-section-heading"><h2 id="study-goals-title">Học theo mục tiêu</h2><p>Chọn nhóm từ bạn muốn tập trung hôm nay.</p></div>
+        <div class="scope-bar">
+          <span class="scope-bar-label">Nguồn từ</span>
+          ${scopeChipsMarkup({ id: 'learn-scope' })}
+          <p class="config-hint" id="learn-scope-help">${scopeHelpText()}</p>
+        </div>
         <div class="session-grid session-grid--focus">
           ${sessionCard('due', 'clock', 'Đến hạn hôm nay', 'Ôn các từ đã đến lịch xem lại.', `${currentStats.due} từ`)}
           ${sessionCard('weak', 'target', 'Từ yếu', 'Tập trung vào những từ thường sai.', `${currentStats.weak} từ`)}
           ${sessionCard('new', 'spark', 'Từ mới', 'Xem nghĩa trước, rồi tự nhớ lại.', `${currentStats.new} từ`)}
-          ${sessionCard('favorites', 'star', 'Yêu thích', favoritesDescription, `${favorites.size} từ`)}
+          ${sessionCard('favorites', 'star', 'Yêu thích', favoritesDescription, `${formatCount(eligibleFavorites.length)} từ`)}
         </div>
       </section>
       <section class="study-section" aria-labelledby="study-modes-title">
         <div class="study-section-heading"><div><h2 id="study-modes-title">Khám phá & phiên nhanh</h2><p>Trộn cả kho từ hoặc chọn một phiên ngắn theo thời gian bạn có.</p></div></div>
         <div class="session-grid session-grid--quick">
-          ${sessionCard('random', 'shuffle', 'Ngẫu nhiên', 'Trộn các trạng thái trong toàn bộ kho.', `${formatCount(deck.length)} từ trọng tâm`)}
+          ${sessionCard('random', 'shuffle', 'Ngẫu nhiên', 'Trộn các trạng thái trong phạm vi mức đang chọn.', `${formatCount(cefrDeck().length)} từ đủ điều kiện`)}
           ${sessionCard('quick10', 'bolt', 'Nhanh 10 từ', 'Một phiên ngắn để bắt đầu.', '10 từ')}
           ${sessionCard('quick20', 'layers', '20 từ', 'Phiên vừa phải cho một lượt ôn.', '20 từ')}
           ${sessionCard('quick30', 'arrow', '30 từ', 'Phiên dài hơn để luyện tập trung.', '30 từ')}
@@ -231358,6 +231485,7 @@ export async function createApp(root) {
       renderShell();
     }));
     bindStudyConfig(container.querySelector('.priority-panel'), { prefix: 'priority' });
+    bindStudyScope(container, { onChanged: () => renderShell() });
   }
 
   function sessionCard(id, iconName, title, description, count) {
@@ -231389,14 +231517,16 @@ export async function createApp(root) {
     // Quick sessions fill spare slots after due cards; the explicit due session never does.
     const mode = type.startsWith('quick') ? 'mixed' : type;
     const size = sizes[type] || prefs.sessionSize;
-    // Favorites are an explicit learner choice, so they are never hidden by the
-    // CEFR study filter: starring a B1 word must keep that word studyable while
-    // the pool modes stay narrowed to the selected levels.
-    const pool = mode === 'favorites' ? deck : cefrDeck();
+    // Every study session draws from the same filtered pool, favourites
+    // included (rc10). A starred word outside the selected levels was the last
+    // path that could put a deselected level in front of the learner.
+    const pool = cefrDeck();
     const selected = selectSession(pool, progress, { size, mode, favorites });
     if (!selected.length) {
       toast(type === 'favorites'
-        ? 'Bạn chưa đánh dấu từ yêu thích nào. Hãy bấm ngôi sao ở Tra cứu hoặc trong phiên học.'
+        ? (favorites.size
+          ? 'Các từ yêu thích của bạn đều nằm ngoài mức CEFR đang chọn. Hãy bật lại mức của chúng trong mục Học.'
+          : 'Bạn chưa đánh dấu từ yêu thích nào. Hãy bấm ngôi sao ở Tra cứu hoặc trong phiên học.')
         : (type.startsWith('quick') || type === 'due' || type === 'new' || type === 'weak')
           ? cefrEmptyMessage()
           : 'Chưa có từ phù hợp cho phiên này. Hãy thử chế độ khác.');
@@ -232093,7 +232223,10 @@ export async function createApp(root) {
   }
 
   function renderDashboard(container) {
-    const currentStats = stats();
+    // Active-pool metrics come from the filtered pool; accuracy, streak, XP and
+    // badges are lifetime figures and keep the whole-deck population.
+    const currentStats = studyStats();
+    const lifetime = stats();
     const xp = calculateXp({ progressMap: progress, history });
     const level = xpLevel(xp);
     const mastery = currentStats.total ? Math.round(currentStats.mastered / currentStats.total * 100) : 0;
@@ -232105,8 +232238,10 @@ export async function createApp(root) {
     const totalForBar = Math.max(1, currentStats.total);
     const recent = [...history].reverse().slice(0, 8);
     const distributionLabel = Object.keys(colors).map(state => `${stateLabel(state)} ${currentStats[state]}`).join(', ');
-    // Weak spotlight: the words with the most recorded misses.
-    const weakList = Object.values(progress).filter(record => record.state === STATES.WEAK && deckIds.has(record.id))
+    // Weak spotlight: the words with the most recorded misses, inside the pool
+    // the learner is actually studying.
+    const dashboardPool = studyPoolIds();
+    const weakList = Object.values(progress).filter(record => record.state === STATES.WEAK && dashboardPool.has(record.id))
       .sort((a, b) => b.wrongCount - a.wrongCount).slice(0, 5).map(record => {
         const entry = deck.find(candidate => candidate.id === record.id);
         return entry ? { entry, progress: record } : null;
@@ -232116,11 +232251,12 @@ export async function createApp(root) {
       : '';
     const metric = (value, label, hint) => `<div class="metric-card"><strong>${value}</strong><span class="metric-label">${label}</span><span class="metric-hint">${hint}</span></div>`;
     container.innerHTML = `<div class="page-header"><div><h1>Tổng quan</h1><p>Tiến độ học trên thiết bị này. Dữ liệu không rời khỏi trình duyệt.</p></div></div>
+      <p class="config-hint" id="dashboard-pool-note">${L(`Chỉ số đến hạn, từ yếu và thành thạo tính trên ${formatCount(studyPoolIds().size)}/${formatCount(deck.length)} từ thuộc mức CEFR đang chọn; độ chính xác, chuỗi ngày, XP và huy hiệu tính trên toàn bộ lịch sử học.`, `Due, weak and mastery figures count the ${formatCount(studyPoolIds().size)}/${formatCount(deck.length)} words inside the selected CEFR levels; accuracy, streak, XP and badges count the full history.`)}</p>
       <section class="metric-grid" aria-label="Năm chỉ số học tập">
-        ${metric(currentStats.due, 'Từ đến hạn ôn', 'Theo lịch ôn cách quãng hiện có')}
-        ${metric(`${currentStats.accuracy}%`, 'Độ chính xác', `Trên ${currentStats.correct + currentStats.wrong} lượt chấm lần đầu`)}
+        ${metric(currentStats.due, 'Từ đến hạn ôn', 'Trong phạm vi mức CEFR đang chọn')}
+        ${metric(`${lifetime.accuracy}%`, 'Độ chính xác', `Trên ${lifetime.correct + lifetime.wrong} lượt chấm lần đầu, toàn bộ lịch sử`)}
         ${metric(`${mastery}%`, 'Mức độ thành thạo', `${currentStats.mastered}/${currentStats.total} từ đạt thành thạo`)}
-        ${metric(currentStats.weak, 'Từ yếu cần cải thiện', 'Từ đang ở trạng thái yếu')}
+        ${metric(currentStats.weak, 'Từ yếu cần cải thiện', 'Trong phạm vi mức CEFR đang chọn')}
         ${metric(streak.current, 'Chuỗi ngày học', `Dài nhất ${streak.longest} ngày`)}
       </section>
       <div class="two-col">
@@ -232162,7 +232298,12 @@ export async function createApp(root) {
     recordTelemetry('search-open', 'tra-cuu', { deck: deck.length });
     const index = currentSearchIndex();
     const positions = [...new Set(vocabulary.map(entry => entry.pos).filter(Boolean))].sort((a, b) => a.localeCompare(b));
-    container.innerHTML = `<div class="page-header"><div><h1>Tra cứu từ vựng</h1><p>Tìm theo tiếng Anh, tiếng Việt, từ loại, tag hoặc ví dụ · ${formatCount(deck.length)} từ trọng tâm · ${formatCount(archivedIds.size)} từ lưu trữ.</p></div></div><div class="search-tools"><input class="search-input" id="search-field" placeholder="Tìm từ hoặc nghĩa…" aria-label="Tìm kiếm từ vựng"><button class="btn" id="clear-search">Xóa</button></div><div class="filters"><select class="select" id="state-filter" aria-label="Lọc trạng thái"><option value="all">Tất cả trạng thái</option><option value="new">${stateLabel(STATES.NEW)}</option><option value="learning">${stateLabel(STATES.LEARNING)}</option><option value="weak">${stateLabel(STATES.WEAK)}</option><option value="review">${stateLabel(STATES.REVIEW)}</option><option value="mastered">${stateLabel(STATES.MASTERED)}</option><option value="due">Đến hạn</option><option value="favorites">Yêu thích</option><option value="archived">Lưu trữ (ngoài phiên học)</option></select><select class="select" id="pos-filter" aria-label="Lọc từ loại"><option value="all">Tất cả từ loại</option>${positions.map(pos => `<option value="${escapeHtml(pos)}">${escapeHtml(pos)}</option>`).join('')}</select><select class="select" id="sort-filter" aria-label="Sắp xếp"><option value="az">A → Z</option><option value="za">Z → A</option><option value="difficulty">Khó nhất</option><option value="mostWrong">Sai nhiều nhất</option><option value="dueSoon">Đến hạn sớm</option></select></div><div id="results"></div>`;
+    // Lookup is a dictionary, not a study queue: it has to keep every word
+    // reachable (a learner may look up a word they have not selected). It now
+    // says so, and prints the study pool next to it, so the two populations can
+    // never be mistaken for each other.
+    container.innerHTML = `<div class="page-header"><div><h1>Tra cứu từ vựng</h1><p>Tìm theo tiếng Anh, tiếng Việt, từ loại, tag hoặc ví dụ · ${formatCount(deck.length)} từ trọng tâm · ${formatCount(archivedIds.size)} từ lưu trữ.</p>
+      <p class="config-hint" id="search-pool-note">${L(`Tra cứu giữ toàn bộ ${formatCount(deck.length)} từ để bạn tìm được bất kỳ từ nào; phiên học chỉ dùng ${formatCount(cefrDeck().length)} từ thuộc các mức CEFR đang chọn.`, `Lookup keeps all ${formatCount(deck.length)} words so any word stays findable; study sessions only draw the ${formatCount(cefrDeck().length)} words inside the selected CEFR levels.`)}</p></div></div><div class="search-tools"><input class="search-input" id="search-field" placeholder="Tìm từ hoặc nghĩa…" aria-label="Tìm kiếm từ vựng"><button class="btn" id="clear-search">Xóa</button></div><div class="filters"><select class="select" id="state-filter" aria-label="Lọc trạng thái"><option value="all">Tất cả trạng thái</option><option value="new">${stateLabel(STATES.NEW)}</option><option value="learning">${stateLabel(STATES.LEARNING)}</option><option value="weak">${stateLabel(STATES.WEAK)}</option><option value="review">${stateLabel(STATES.REVIEW)}</option><option value="mastered">${stateLabel(STATES.MASTERED)}</option><option value="due">Đến hạn</option><option value="favorites">Yêu thích</option><option value="archived">Lưu trữ (ngoài phiên học)</option></select><select class="select" id="pos-filter" aria-label="Lọc từ loại"><option value="all">Tất cả từ loại</option>${positions.map(pos => `<option value="${escapeHtml(pos)}">${escapeHtml(pos)}</option>`).join('')}</select><select class="select" id="sort-filter" aria-label="Sắp xếp"><option value="az">A → Z</option><option value="za">Z → A</option><option value="difficulty">Khó nhất</option><option value="mostWrong">Sai nhiều nhất</option><option value="dueSoon">Đến hạn sớm</option></select></div><div id="results"></div>`;
     const field = container.querySelector('#search-field');
     const state = container.querySelector('#state-filter');
     const pos = container.querySelector('#pos-filter');
@@ -232241,6 +232382,10 @@ export async function createApp(root) {
   }
 
   function startPhrasePractice() {
+    if (wordsOnlyStudy()) {
+      toast('Cấu hình đang là “Chỉ từ vựng” nên kho cụm từ không vào phiên học. Đổi lại thành “Từ + cụm từ” trong mục Học nếu bạn muốn luyện cụm từ.', 'error');
+      return;
+    }
     const items = selectPhraseSession(phrases, phraseProgress, {
       size: 10,
       type: phraseFilters.type,
