@@ -224227,6 +224227,19 @@ const EN_UI_TRANSLATIONS = Object.freeze({
   'Trộn cả kho từ hoặc chọn một phiên ngắn theo thời gian bạn có.': 'Mix words from the full collection or choose a short session that fits your time.',
   'Ngẫu nhiên': 'Random',
   'Trộn các trạng thái trong toàn bộ kho.': 'Mix words from all learning states.',
+  'Trộn các trạng thái trong phạm vi mức đang chọn.': 'Mix learning states within the selected CEFR levels.',
+  'Nguồn từ': 'Word source',
+  'Trong phạm vi mức CEFR đang chọn': 'Within the selected CEFR levels',
+  'Nguồn từ của phiên học': 'Session word source',
+  'Từ + cụm từ': 'Words + phrases',
+  'Chỉ từ vựng': 'Words only',
+  'Phiên học gồm từ vựng và kho cụm từ (mặc định).': 'Sessions include vocabulary and the phrase bank (default).',
+  'Phiên học chỉ dùng từ vựng; kho cụm từ được giữ nguyên nhưng không vào phiên.': 'Sessions use vocabulary only; the phrase bank is kept but never enters a session.',
+  'Đang chỉ học từ vựng. Kho cụm từ vẫn còn nguyên trong mục Cụm từ, kèm tiến độ riêng; đổi lại lựa chọn này để học cùng lúc.': 'Words only is on. The phrase bank stays intact under Phrases with its own progress; switch back to study both at once.',
+  'Phiên học dùng cả từ vựng và cụm từ. Mỗi cụm từ vẫn theo đúng mức CEFR của chính nó và bộ lọc mức ở trên.': 'Sessions use vocabulary and phrases. Every phrase follows its own CEFR level and the level filter above.',
+  'Đã chuyển sang chỉ từ vựng: phiên cụm từ đang mở đã kết thúc, tiến độ cụm từ vẫn được giữ.': 'Switched to words only: the open phrase session ended and phrase progress is kept.',
+  'Cấu hình đang là “Chỉ từ vựng” nên kho cụm từ không vào phiên học. Đổi lại thành “Từ + cụm từ” trong mục Học nếu bạn muốn luyện cụm từ.': 'The configuration is “Words only”, so the phrase bank never enters a study session. Switch back to “Words + phrases” under Study to practise phrases.',
+  'Các từ yêu thích của bạn đều nằm ngoài mức CEFR đang chọn. Hãy bật lại mức của chúng trong mục Học.': 'All your favourite words are outside the selected CEFR levels. Re-enable their levels under Study.',
   'Nhanh 10 từ': 'Quick 10 words',
   'Một phiên ngắn để bắt đầu.': 'A short session to get started.',
   'Phiên vừa phải cho một lượt ôn.': 'A moderate review session.',
@@ -224846,7 +224859,9 @@ const EN_UI_PATTERNS = [
   [/^(\d+) bản chép(?: · trang (\d+)\/(\d+))?$/, (_match, count, page, pages) => `${pluralCount(count, 'transcription', 'transcriptions')}${page ? ` · page ${page} of ${pages}` : ''}`],
   [/^([\d.,]+) kết quả(?: · trang (\d+)\/(\d+))?$/, (_match, count, page, pages) => `${pluralCount(formatCount(count, 'en'), 'result', 'results')}${page ? ` · page ${page} of ${pages}` : ''}`],
   [/^(\d+) từ\.$/, (_match, count) => `${pluralCount(count, 'word', 'words')}.`],
-  [/^(\d+) từ$/, (_match, count) => pluralCount(count, 'word', 'words')],
+  [/^([\d.,]+) từ$/, (_match, count) => pluralCount(formatCount(count, 'en'), 'word', 'words')],
+  [/^Trên ([\d.,]+) lượt chấm lần đầu, toàn bộ lịch sử$/, (_m, count) => `Over ${pluralCount(formatCount(count, 'en'), 'first-attempt grade', 'first-attempt grades')}, all history`],
+  [/^([\d.,]+) từ · ([\d.,]+) cụm$/, (_match, words, phrases) => `${pluralCount(formatCount(words, 'en'), 'word', 'words')} · ${pluralCount(formatCount(phrases, 'en'), 'phrase', 'phrases')}`],
   [/^(\d+) cụm$/, (_match, count) => pluralCount(count, 'phrase', 'phrases')],
   [/^(\d+) cụm từ$/, (_match, count) => pluralCount(count, 'phrase', 'phrases')],
   [/^(\d+) cụm từ · hiển thị (\d+) cụm đầu$/, (_match, count, shown) => `${pluralCount(count, 'phrase', 'phrases')} · first ${shown} shown`],
@@ -224914,8 +224929,10 @@ const EN_UI_PATTERNS = [
   [/^Đã chấm (\d+) câu · (\d+) đúng · (\d+) sai · Chính xác (\d+)% \(trên câu đã chấm\)$/, (_m, g, c, w, acc) => `Graded ${pluralCount(g, 'item', 'items')} · ${c} correct · ${w} incorrect · Accuracy ${acc}% (graded items)`],
   [/^Chỉ dùng văn bản đã có trong bản chép\. Ranh giới mục\/lựa chọn được trích xuất tự động, chưa xác minh và có thể không đầy đủ\. (.+) Câu trả lời chỉ lưu trong bộ nhớ phiên đang mở và mất khi tải lại hoặc đóng trang\. Bản chép đầy đủ bên dưới có thể chứa nội dung đáp án như trong nguồn\.$/, (_m, mid) => `Only text already present in the transcription is used. Extracted item and choice boundaries are automatic, unverified, and may be incomplete. ${translateUiText(mid, 'en')} Responses stay in memory for this open session only and are cleared when reloading or closing the page. The full transcription below may include reference answer content from the source.`],
   [/^Import thất bại: (.+)$/, (_match, msg) => `Import failed: ${translateUiText(msg, 'en')}`],
+  [/^Bộ lọc CEFR vừa thay đổi và không còn thẻ nào trong phiên\. Hãy bắt đầu phiên mới trong mục Học\.$/, () => 'The CEFR filter just changed and no card in this session is left. Start a new session under Study.'],
+  [/^Bộ lọc CEFR vừa thay đổi: đã bỏ ([\d.,]+) thẻ nằm ngoài mức đang chọn khỏi phiên\.$/, (_m, count) => `The CEFR filter just changed: ${pluralCount(formatCount(count, 'en'), 'card', 'cards')} outside the selected levels were removed from this session.`],
   // ---- beta5: counted phrases from the priority panel, timer, boards, XP.
-  [/^(\d+) từ đủ điều kiện$/, (_m, n) => `${n} ${Number(n) === 1 ? 'word' : 'words'} eligible`],
+  [/^([\d.,]+) từ đủ điều kiện$/, (_m, n) => `${pluralCount(formatCount(n, 'en'), 'word', 'words')} eligible`],
   [/^(\d+) từ trong phiên$/, (_m, n) => `${n} ${Number(n) === 1 ? 'word' : 'words'} in the session`],
   [/^(\d+) từ không có dạng bài phù hợp$/, (_m, n) => `${n} ${Number(n) === 1 ? 'word has' : 'words have'} no matching exercise`],
   [/^(\d+) từ mới$/, (_m, n) => `${pluralCount(n, 'new word', 'new words')}`],
@@ -232251,7 +232268,9 @@ export async function createApp(root) {
       : '';
     const metric = (value, label, hint) => `<div class="metric-card"><strong>${value}</strong><span class="metric-label">${label}</span><span class="metric-hint">${hint}</span></div>`;
     container.innerHTML = `<div class="page-header"><div><h1>Tổng quan</h1><p>Tiến độ học trên thiết bị này. Dữ liệu không rời khỏi trình duyệt.</p></div></div>
-      <p class="config-hint" id="dashboard-pool-note">${L(`Chỉ số đến hạn, từ yếu và thành thạo tính trên ${formatCount(studyPoolIds().size)}/${formatCount(deck.length)} từ thuộc mức CEFR đang chọn; độ chính xác, chuỗi ngày, XP và huy hiệu tính trên toàn bộ lịch sử học.`, `Due, weak and mastery figures count the ${formatCount(studyPoolIds().size)}/${formatCount(deck.length)} words inside the selected CEFR levels; accuracy, streak, XP and badges count the full history.`)}</p>
+      <p class="config-hint" id="dashboard-pool-note">${escapeHtml(language === 'en'
+        ? `Due, weak and mastery figures count the ${formatCount(studyPoolIds().size)}/${formatCount(deck.length)} words inside the selected CEFR levels; accuracy, streak, XP and badges count the whole learning history.`
+        : `Chỉ số đến hạn, từ yếu và thành thạo tính trên ${formatCount(studyPoolIds().size)}/${formatCount(deck.length)} từ thuộc mức CEFR đang chọn; độ chính xác, chuỗi ngày, XP và huy hiệu tính trên toàn bộ lịch sử học.`)}</p>
       <section class="metric-grid" aria-label="Năm chỉ số học tập">
         ${metric(currentStats.due, 'Từ đến hạn ôn', 'Trong phạm vi mức CEFR đang chọn')}
         ${metric(`${lifetime.accuracy}%`, 'Độ chính xác', `Trên ${lifetime.correct + lifetime.wrong} lượt chấm lần đầu, toàn bộ lịch sử`)}
@@ -232303,7 +232322,9 @@ export async function createApp(root) {
     // says so, and prints the study pool next to it, so the two populations can
     // never be mistaken for each other.
     container.innerHTML = `<div class="page-header"><div><h1>Tra cứu từ vựng</h1><p>Tìm theo tiếng Anh, tiếng Việt, từ loại, tag hoặc ví dụ · ${formatCount(deck.length)} từ trọng tâm · ${formatCount(archivedIds.size)} từ lưu trữ.</p>
-      <p class="config-hint" id="search-pool-note">${L(`Tra cứu giữ toàn bộ ${formatCount(deck.length)} từ để bạn tìm được bất kỳ từ nào; phiên học chỉ dùng ${formatCount(cefrDeck().length)} từ thuộc các mức CEFR đang chọn.`, `Lookup keeps all ${formatCount(deck.length)} words so any word stays findable; study sessions only draw the ${formatCount(cefrDeck().length)} words inside the selected CEFR levels.`)}</p></div></div><div class="search-tools"><input class="search-input" id="search-field" placeholder="Tìm từ hoặc nghĩa…" aria-label="Tìm kiếm từ vựng"><button class="btn" id="clear-search">Xóa</button></div><div class="filters"><select class="select" id="state-filter" aria-label="Lọc trạng thái"><option value="all">Tất cả trạng thái</option><option value="new">${stateLabel(STATES.NEW)}</option><option value="learning">${stateLabel(STATES.LEARNING)}</option><option value="weak">${stateLabel(STATES.WEAK)}</option><option value="review">${stateLabel(STATES.REVIEW)}</option><option value="mastered">${stateLabel(STATES.MASTERED)}</option><option value="due">Đến hạn</option><option value="favorites">Yêu thích</option><option value="archived">Lưu trữ (ngoài phiên học)</option></select><select class="select" id="pos-filter" aria-label="Lọc từ loại"><option value="all">Tất cả từ loại</option>${positions.map(pos => `<option value="${escapeHtml(pos)}">${escapeHtml(pos)}</option>`).join('')}</select><select class="select" id="sort-filter" aria-label="Sắp xếp"><option value="az">A → Z</option><option value="za">Z → A</option><option value="difficulty">Khó nhất</option><option value="mostWrong">Sai nhiều nhất</option><option value="dueSoon">Đến hạn sớm</option></select></div><div id="results"></div>`;
+      <p class="config-hint" id="search-pool-note">${escapeHtml(language === 'en'
+        ? `Lookup keeps all ${formatCount(deck.length)} words so any word stays findable; study sessions only draw the ${formatCount(cefrDeck().length)} words inside the selected CEFR levels.`
+        : `Tra cứu giữ toàn bộ ${formatCount(deck.length)} từ để bạn tìm được bất kỳ từ nào; phiên học chỉ dùng ${formatCount(cefrDeck().length)} từ thuộc các mức CEFR đang chọn.`)}</p></div></div><div class="search-tools"><input class="search-input" id="search-field" placeholder="Tìm từ hoặc nghĩa…" aria-label="Tìm kiếm từ vựng"><button class="btn" id="clear-search">Xóa</button></div><div class="filters"><select class="select" id="state-filter" aria-label="Lọc trạng thái"><option value="all">Tất cả trạng thái</option><option value="new">${stateLabel(STATES.NEW)}</option><option value="learning">${stateLabel(STATES.LEARNING)}</option><option value="weak">${stateLabel(STATES.WEAK)}</option><option value="review">${stateLabel(STATES.REVIEW)}</option><option value="mastered">${stateLabel(STATES.MASTERED)}</option><option value="due">Đến hạn</option><option value="favorites">Yêu thích</option><option value="archived">Lưu trữ (ngoài phiên học)</option></select><select class="select" id="pos-filter" aria-label="Lọc từ loại"><option value="all">Tất cả từ loại</option>${positions.map(pos => `<option value="${escapeHtml(pos)}">${escapeHtml(pos)}</option>`).join('')}</select><select class="select" id="sort-filter" aria-label="Sắp xếp"><option value="az">A → Z</option><option value="za">Z → A</option><option value="difficulty">Khó nhất</option><option value="mostWrong">Sai nhiều nhất</option><option value="dueSoon">Đến hạn sớm</option></select></div><div id="results"></div>`;
     const field = container.querySelector('#search-field');
     const state = container.querySelector('#state-filter');
     const pos = container.querySelector('#pos-filter');

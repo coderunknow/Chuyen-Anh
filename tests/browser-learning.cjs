@@ -102,6 +102,9 @@ async function main() {
     await page.evaluate(() => {
       localStorage.clear();
       localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['298', '2', '3']));
+      // rc10: favourites obey the CEFR filter, and this fixture's starred words
+      // are unclassified, so the fixture must select every level including Unclassified.
+      localStorage.setItem('chuyen-anh.cefr.v1', JSON.stringify({ version: 1, levels: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'], unclassified: true }));
       localStorage.setItem('chuyen-anh.study.v1', JSON.stringify({
         groups: { due: true, weak: true, new: true, review: true },
         focus: 'due',
@@ -139,6 +142,9 @@ async function main() {
       await page.evaluate(ids => {
         localStorage.clear();
         localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(ids));
+        // rc10: favourites obey the CEFR filter, and this fixture's starred words
+        // are unclassified, so the fixture must select every level including Unclassified.
+        localStorage.setItem('chuyen-anh.cefr.v1', JSON.stringify({ version: 1, levels: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'], unclassified: true }));
         localStorage.setItem('chuyen-anh.prefs.v1', JSON.stringify({ sessionSize: 10, keyboardShortcuts: true, darkMode: false }));
       }, ids);
       await page.reload();
@@ -834,6 +840,9 @@ async function main() {
     await page.evaluate(() => {
       localStorage.clear();
       localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['448']));
+      // rc10: favourites obey the CEFR filter, and this fixture's starred words
+      // are unclassified, so the fixture must select every level including Unclassified.
+      localStorage.setItem('chuyen-anh.cefr.v1', JSON.stringify({ version: 1, levels: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'], unclassified: true }));
       localStorage.setItem('chuyen-anh.progress.v1', JSON.stringify({
         '448': { id: '448', state: 'learning', correctCount: 3, wrongCount: 0, streak: 3, lastReviewed: 0, nextReview: 0, interval: 1, ease: 2.5, difficulty: 0 }
       }));
@@ -857,6 +866,9 @@ async function main() {
     await page.evaluate(() => {
       localStorage.clear();
       localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['298']));
+      // rc10: favourites obey the CEFR filter, and this fixture's starred words
+      // are unclassified, so the fixture must select every level including Unclassified.
+      localStorage.setItem('chuyen-anh.cefr.v1', JSON.stringify({ version: 1, levels: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'], unclassified: true }));
       localStorage.setItem('chuyen-anh.progress.v1', JSON.stringify({
         '298': { id: '298', state: 'review', correctCount: 3, wrongCount: 0, streak: 2, lastReviewed: 0, nextReview: 0, interval: 5, ease: 2.4, difficulty: 0.2 }
       }));
@@ -946,6 +958,9 @@ async function main() {
     await page.evaluate(() => {
       localStorage.clear();
       localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['448']));
+      // rc10: favourites obey the CEFR filter, and this fixture's starred words
+      // are unclassified, so the fixture must select every level including Unclassified.
+      localStorage.setItem('chuyen-anh.cefr.v1', JSON.stringify({ version: 1, levels: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'], unclassified: true }));
     });
     await page.reload();
     await page.locator('[data-session="favorites"]').click();
@@ -1129,6 +1144,9 @@ async function main() {
     await page.evaluate(entries => {
       localStorage.clear();
       localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['298']));
+      // rc10: favourites obey the CEFR filter, and this fixture's starred words
+      // are unclassified, so the fixture must select every level including Unclassified.
+      localStorage.setItem('chuyen-anh.cefr.v1', JSON.stringify({ version: 1, levels: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'], unclassified: true }));
       localStorage.setItem('chuyen-anh.history.v1', JSON.stringify(entries));
     }, seededHistory);
     await page.reload();
@@ -1283,6 +1301,9 @@ async function main() {
     // The first-look footer.
     await page.evaluate(() => {
       localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['3']));
+      // rc10: favourites obey the CEFR filter, and this fixture's starred words
+      // are unclassified, so the fixture must select every level including Unclassified.
+      localStorage.setItem('chuyen-anh.cefr.v1', JSON.stringify({ version: 1, levels: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'], unclassified: true }));
       localStorage.setItem('chuyen-anh.progress.v1', JSON.stringify({
         '3': { id: '3', state: 'new', correctCount: 0, wrongCount: 0, streak: 0, lastReviewed: null, nextReview: Date.now(), interval: 0, ease: 2.5, difficulty: 0 }
       }));
@@ -1398,6 +1419,9 @@ async function main() {
         '298': { id: '298', state: 'learning', correctCount: 2, wrongCount: 0, streak: 2, lastReviewed: now, nextReview: now + 3600000, interval: 1, ease: 2.5, difficulty: 0 }
       }));
       localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['298']));
+      // rc10: favourites obey the CEFR filter, and this fixture's starred words
+      // are unclassified, so the fixture must select every level including Unclassified.
+      localStorage.setItem('chuyen-anh.cefr.v1', JSON.stringify({ version: 1, levels: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'], unclassified: true }));
     });
     await page.reload(); // the write counter restarts with the document
     await page.locator('[data-session="favorites"]').waitFor();
@@ -1419,6 +1443,9 @@ async function main() {
         '2': { id: '2', state: 'new', correctCount: 0, wrongCount: 0, streak: 0, lastReviewed: null, nextReview: now, interval: 0, ease: 2.5, difficulty: 0 }
       }));
       localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['2']));
+      // rc10: favourites obey the CEFR filter, and this fixture's starred words
+      // are unclassified, so the fixture must select every level including Unclassified.
+      localStorage.setItem('chuyen-anh.cefr.v1', JSON.stringify({ version: 1, levels: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'], unclassified: true }));
     });
     await page.reload();
     await page.locator('[data-session="favorites"]').waitFor();
@@ -1445,6 +1472,9 @@ async function main() {
       await page.evaluate(() => {
         localStorage.clear();
         localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['298']));
+        // rc10: favourites obey the CEFR filter, and this fixture's starred words
+        // are unclassified, so the fixture must select every level including Unclassified.
+        localStorage.setItem('chuyen-anh.cefr.v1', JSON.stringify({ version: 1, levels: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'], unclassified: true }));
         localStorage.setItem('chuyen-anh.progress.v1', JSON.stringify({
           '298': { id: '298', state: 'learning', correctCount: 2, wrongCount: 0, streak: 2, lastReviewed: 0, nextReview: 0, interval: 1, ease: 2.5, difficulty: 0 }
         }));
@@ -1512,6 +1542,9 @@ async function main() {
         localStorage.clear();
         localStorage.setItem('chuyen-anh.language.v1', 'en');
         localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['298', '2']));
+        // rc10: favourites obey the CEFR filter, and this fixture's starred words
+        // are unclassified, so the fixture must select every level including Unclassified.
+        localStorage.setItem('chuyen-anh.cefr.v1', JSON.stringify({ version: 1, levels: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'], unclassified: true }));
       });
       await page.reload();
       await page.locator('[data-session="favorites"]').waitFor();
@@ -2256,7 +2289,15 @@ async function main() {
           localStorage.clear();
           localStorage.setItem('chuyen-anh.study.v1', JSON.stringify(study));
           localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['2', '3']));
+          // rc10: favourites obey the CEFR filter, and this fixture's starred words
+          // are unclassified, so the fixture must select every level including Unclassified.
+          localStorage.setItem('chuyen-anh.cefr.v1', JSON.stringify({ version: 1, levels: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'], unclassified: true }));
           localStorage.setItem('chuyen-anh.prefs.v1', JSON.stringify({ sessionSize: 10, keyboardShortcuts: true, darkMode: false }));
+          // rc10: favourites obey the CEFR filter, so this fixture has to select
+          // the levels its two starred words actually carry. Words 2 and 3 are
+          // unclassified, hence "unclassified: true"; the race being exercised is
+          // two tabs writing progress, not the level filter.
+          localStorage.setItem('chuyen-anh.cefr.v1', JSON.stringify({ version: 1, levels: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'], unclassified: true }));
         }, seedStudy);
         await page.reload();
         await page.locator('[data-session="favorites"]').waitFor();
@@ -2494,6 +2535,9 @@ async function main() {
             focus: 'due', exercises: ex, size: 10, timed: false, timerMinutes: 0
           }));
           localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['2', '3', '4']));
+          // rc10: favourites obey the CEFR filter, and this fixture's starred words
+          // are unclassified, so the fixture must select every level including Unclassified.
+          localStorage.setItem('chuyen-anh.cefr.v1', JSON.stringify({ version: 1, levels: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'], unclassified: true }));
         }, exercises);
         const readStreak = () => page.evaluate(() => JSON.parse(localStorage.getItem('chuyen-anh.streak.v1')));
         const isToday = value => {
@@ -2678,6 +2722,9 @@ async function main() {
         await page.evaluate(() => {
           localStorage.clear();
           localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['298', '2', '3']));
+          // rc10: favourites obey the CEFR filter, and this fixture's starred words
+          // are unclassified, so the fixture must select every level including Unclassified.
+          localStorage.setItem('chuyen-anh.cefr.v1', JSON.stringify({ version: 1, levels: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'], unclassified: true }));
           localStorage.setItem('chuyen-anh.study.v1', JSON.stringify({
             groups: { due: true, weak: true, new: true, review: true },
             focus: 'due',
@@ -2714,6 +2761,9 @@ async function main() {
         await page.evaluate(() => {
           localStorage.clear();
           localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['298', '2', '3']));
+          // rc10: favourites obey the CEFR filter, and this fixture's starred words
+          // are unclassified, so the fixture must select every level including Unclassified.
+          localStorage.setItem('chuyen-anh.cefr.v1', JSON.stringify({ version: 1, levels: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'], unclassified: true }));
           localStorage.setItem('chuyen-anh.study.v1', JSON.stringify({
             groups: { due: true, weak: true, new: true, review: true },
             focus: 'due',
@@ -3112,6 +3162,9 @@ async function main() {
         453: { id: '453', state: 'review', correctCount: 1, wrongCount: 0, streak: 1, lastReviewed: now - 86400000, nextReview: now - 3600000, interval: 1, ease: 2.5, difficulty: 0.3 }
       }));
       localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['453']));
+      // rc10: favourites obey the CEFR filter, and this fixture's starred words
+      // are unclassified, so the fixture must select every level including Unclassified.
+      localStorage.setItem('chuyen-anh.cefr.v1', JSON.stringify({ version: 1, levels: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'], unclassified: true }));
       localStorage.setItem('chuyen-anh.prefs.v1', JSON.stringify({ sessionSize: 10, keyboardShortcuts: true, darkMode: false }));
     });
     await rc7.reload();
