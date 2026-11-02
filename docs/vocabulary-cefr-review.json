@@ -1,0 +1,3253 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/vocabulary_cefr_review.py",
+  "policy": {
+    "deletion": "none — this audit never removes, relabels or merges a row",
+    "cefr": "a level is read from the stored `level:` tag only; no level is inferred, invented or inflated",
+    "senseLevel": "a row is one headword with one stored gloss; where the gloss lists several senses the row is reported for review, never split or deleted",
+    "phrases": "a phrase is kept at its own stored level and is never judged by the level of its cheapest constituent word"
+  },
+  "totals": {
+    "rows": 5852,
+    "headwords": 5112,
+    "mergedFamilyForms": 740,
+    "activeHeadwords": 3841,
+    "archivedHeadwords": 1271,
+    "phrases": 780
+  },
+  "before": {
+    "activeByLevel": {
+      "A1": 0,
+      "A2": 0,
+      "B1": 162,
+      "B2": 883,
+      "C1": 1279,
+      "C2": 674,
+      "UNCLASSIFIED": 843
+    },
+    "allByLevel": {
+      "A1": 0,
+      "A2": 0,
+      "B1": 1104,
+      "B2": 1227,
+      "C1": 1833,
+      "C2": 775,
+      "UNCLASSIFIED": 913
+    },
+    "phraseByLevel": {
+      "A1": 0,
+      "A2": 0,
+      "B1": 112,
+      "B2": 301,
+      "C1": 288,
+      "C2": 79,
+      "UNCLASSIFIED": 0
+    }
+  },
+  "after": {
+    "note": "unchanged by design: the CEFR study filter is a view, not a migration",
+    "activeByLevel": {
+      "A1": 0,
+      "A2": 0,
+      "B1": 162,
+      "B2": 883,
+      "C1": 1279,
+      "C2": 674,
+      "UNCLASSIFIED": 843
+    },
+    "allByLevel": {
+      "A1": 0,
+      "A2": 0,
+      "B1": 1104,
+      "B2": 1227,
+      "C1": 1833,
+      "C2": 775,
+      "UNCLASSIFIED": 913
+    },
+    "phraseByLevel": {
+      "A1": 0,
+      "A2": 0,
+      "B1": 112,
+      "B2": 301,
+      "C1": 288,
+      "C2": 79,
+      "UNCLASSIFIED": 0
+    }
+  },
+  "cefrEvidence": {
+    "Verified": 0,
+    "Source-supported": 0,
+    "Inferred": 4939,
+    "Unknown": 913,
+    "Other label source": 0,
+    "totalRows": 5852,
+    "labelSources": {
+      "none": 913,
+      "editorial": 4939
+    }
+  },
+  "quality": {
+    "duplicateNormalizedHeadwords": [],
+    "missingMeaning": [],
+    "missingPos": [],
+    "missingSources": [],
+    "multiSenseGlosses": [
+      {
+        "id": "24",
+        "word": "Contingency",
+        "meaning": "tình huống bất ngờ; phương án dự phòng"
+      },
+      {
+        "id": "29",
+        "word": "Endorse",
+        "meaning": "ủng hộ, tán thành; xác nhận"
+      },
+      {
+        "id": "65",
+        "word": "Precipitate",
+        "meaning": "gây ra hoặc làm xảy ra đột ngột / hấp tấp, vội vàng"
+      },
+      {
+        "id": "79",
+        "word": "Malign",
+        "meaning": "nói xấu, phỉ báng / có hại, ác độc"
+      },
+      {
+        "id": "89",
+        "word": "Dissemble",
+        "meaning": "che giấu cảm xúc hoặc sự thật; giả vờ"
+      },
+      {
+        "id": "93",
+        "word": "Advocate",
+        "meaning": "ủng hộ / người ủng hộ"
+      },
+      {
+        "id": "98",
+        "word": "Articulate",
+        "meaning": "diễn đạt rõ ràng, ăn nói lưu loát / diễn đạt rõ ràng"
+      },
+      {
+        "id": "112",
+        "word": "Concede",
+        "meaning": "thừa nhận; nhượng bộ"
+      },
+      {
+        "id": "119",
+        "word": "Contention",
+        "meaning": "sự tranh cãi; luận điểm gây tranh cãi"
+      },
+      {
+        "id": "139",
+        "word": "Disdain",
+        "meaning": "sự khinh miệt / khinh miệt, coi thường"
+      },
+      {
+        "id": "141",
+        "word": "Dissent",
+        "meaning": "sự bất đồng / bất đồng, phản đối"
+      },
+      {
+        "id": "153",
+        "word": "Esoteric",
+        "meaning": "chuyên biệt, ít người biết hoặc hiểu; chỉ dành cho số ít người có kiến thức chuyên môn"
+      },
+      {
+        "id": "171",
+        "word": "Impervious",
+        "meaning": "không bị ảnh hưởng; không thấm"
+      },
+      {
+        "id": "187",
+        "word": "Manifest",
+        "meaning": "biểu lộ, thể hiện / rõ ràng, hiển nhiên"
+      },
+      {
+        "id": "192",
+        "word": "Abdicate",
+        "meaning": "thoái vị; từ bỏ quyền hoặc trách nhiệm"
+      },
+      {
+        "id": "194",
+        "word": "Abstain",
+        "meaning": "kiêng, nhịn; không tham gia hoặc không bỏ phiếu"
+      },
+      {
+        "id": "196",
+        "word": "Acclaim",
+        "meaning": "sự hoan nghênh, tán dương / hoan nghênh, tán dương"
+      },
+      {
+        "id": "197",
+        "word": "Accommodate",
+        "meaning": "đáp ứng, cung cấp chỗ cho; điều chỉnh cho phù hợp"
+      },
+      {
+        "id": "199",
+        "word": "Adept",
+        "meaning": "thành thạo / người thành thạo"
+      },
+      {
+        "id": "209",
+        "word": "Amenable",
+        "meaning": "sẵn sàng hợp tác; dễ uốn nắn hoặc chấp nhận"
+      },
+      {
+        "id": "210",
+        "word": "Anachronism",
+        "meaning": "sự lỗi thời; vật hoặc người thuộc sai thời đại"
+      },
+      {
+        "id": "216",
+        "word": "Appease",
+        "meaning": "xoa dịu, làm nguôi; đáp ứng để tránh xung đột"
+      },
+      {
+        "id": "217",
+        "word": "Arbitrary",
+        "meaning": "tùy tiện, độc đoán; không dựa trên nguyên tắc rõ ràng"
+      },
+      {
+        "id": "219",
+        "word": "Ascetic",
+        "meaning": "khổ hạnh / người sống khổ hạnh"
+      },
+      {
+        "id": "223",
+        "word": "Atrophy",
+        "meaning": "teo lại, suy yếu / sự teo lại, suy thoái"
+      },
+      {
+        "id": "225",
+        "word": "Austere",
+        "meaning": "khắc khổ, nghiêm khắc; giản dị đến mức khắc khổ"
+      },
+      {
+        "id": "232",
+        "word": "Belie",
+        "meaning": "cho thấy điều gì đó là sai hoặc trái với thực tế; che giấu (nhất là cảm xúc)"
+      },
+      {
+        "id": "233",
+        "word": "Bereft",
+        "meaning": "mất mát, thiếu thốn; mất đi người hoặc vật quan trọng"
+      },
+      {
+        "id": "236",
+        "word": "Breach",
+        "meaning": "vi phạm, phá vỡ / sự vi phạm, lỗ hổng"
+      },
+      {
+        "id": "238",
+        "word": "Byzantine",
+        "meaning": "rối rắm, phức tạp; cầu kỳ"
+      },
+      {
+        "id": "246",
+        "word": "Caustic",
+        "meaning": "chua cay, cay độc; có tính ăn mòn"
+      },
+      {
+        "id": "250",
+        "word": "Cleave",
+        "meaning": "bổ, chẻ; bám chặt"
+      },
+      {
+        "id": "260",
+        "word": "Concoct",
+        "meaning": "bịa ra; pha chế, tạo ra"
+      },
+      {
+        "id": "262",
+        "word": "Congenial",
+        "meaning": "dễ mến, hợp tính; phù hợp"
+      },
+      {
+        "id": "263",
+        "word": "Conjecture",
+        "meaning": "phỏng đoán / phỏng đoán"
+      },
+      {
+        "id": "268",
+        "word": "Conundrum",
+        "meaning": "câu đố khó; vấn đề nan giải"
+      },
+      {
+        "id": "271",
+        "word": "Corpulent",
+        "meaning": "béo; có thân hình to béo"
+      },
+      {
+        "id": "272",
+        "word": "Correlate",
+        "meaning": "có tương quan / biến hoặc đại lượng tương quan"
+      },
+      {
+        "id": "274",
+        "word": "Cosmopolitan",
+        "meaning": "có tính quốc tế, đa văn hóa; (người) có trải nghiệm và hiểu biết về nhiều nơi trên thế giới"
+      },
+      {
+        "id": "275",
+        "word": "Counterfeit",
+        "meaning": "giả, làm giả / hàng giả / làm giả"
+      },
+      {
+        "id": "276",
+        "word": "Covert",
+        "meaning": "bí mật, ngầm / nơi trú ẩn hoặc nơi có cây che phủ"
+      },
+      {
+        "id": "286",
+        "word": "Cynical",
+        "meaning": "hoài nghi, yếm thế; cho rằng người khác hành động vì lợi ích riêng"
+      },
+      {
+        "id": "294",
+        "word": "Acquit",
+        "meaning": "tha bổng, tuyên vô tội; hoàn thành hoặc thực hiện tốt một nhiệm vụ"
+      },
+      {
+        "id": "298",
+        "word": "Adverse",
+        "meaning": "bất lợi, có hại; chống lại"
+      },
+      {
+        "id": "300",
+        "word": "Aesthetic",
+        "meaning": "thuộc về thẩm mỹ / khía cạnh hoặc quan niệm về cái đẹp"
+      },
+      {
+        "id": "301",
+        "word": "Affront",
+        "meaning": "sự xúc phạm / xúc phạm, làm nhục"
+      },
+      {
+        "id": "302",
+        "word": "Aggrieve",
+        "meaning": "làm đau buồn; gây bất công hoặc thiệt hại cho"
+      },
+      {
+        "id": "303",
+        "word": "Agitate",
+        "meaning": "kích động, khuấy động; làm băn khoăn"
+      },
+      {
+        "id": "308",
+        "word": "Allure",
+        "meaning": "quyến rũ, lôi cuốn / sức quyến rũ"
+      },
+      {
+        "id": "323",
+        "word": "Antecedent",
+        "meaning": "tiền thân, điều xảy ra trước / xảy ra trước"
+      },
+      {
+        "id": "324",
+        "word": "Antidote",
+        "meaning": "thuốc giải độc; biện pháp đối phó"
+      },
+      {
+        "id": "331",
+        "word": "Arid",
+        "meaning": "khô cằn, cằn cỗi; khô khan"
+      },
+      {
+        "id": "332",
+        "word": "Array",
+        "meaning": "mảng, dãy, tập hợp / sắp xếp, bày biện"
+      },
+      {
+        "id": "337",
+        "word": "Assay",
+        "meaning": "thử nghiệm hoặc phân tích / phép thử, phép phân tích"
+      },
+      {
+        "id": "339",
+        "word": "Prosaic",
+        "meaning": "tầm thường, thiếu trí tưởng tượng; mang tính văn xuôi"
+      },
+      {
+        "id": "341",
+        "word": "Intransigent",
+        "meaning": "không chịu thay đổi quan điểm hoặc hành vi; không chịu thỏa hiệp"
+      },
+      {
+        "id": "348",
+        "word": "Quotidian",
+        "meaning": "hằng ngày, thường nhật; tầm thường"
+      },
+      {
+        "id": "349",
+        "word": "Salient",
+        "meaning": "nổi bật, đáng chú ý / điểm nổi bật"
+      },
+      {
+        "id": "350",
+        "word": "Tangential",
+        "meaning": "tiếp tuyến; chỉ liên quan gián tiếp, lệch khỏi trọng tâm"
+      },
+      {
+        "id": "357",
+        "word": "Pedantic",
+        "meaning": "quá chú trọng các quy tắc hình thức hoặc những chi tiết nhỏ, không quan trọng; câu nệ tiểu tiết"
+      },
+      {
+        "id": "359",
+        "word": "Vicarious",
+        "meaning": "gián tiếp; trải nghiệm thay cho người khác"
+      },
+      {
+        "id": "360",
+        "word": "Wanton",
+        "meaning": "phóng túng, vô trách nhiệm; cố ý tàn nhẫn hoặc vô lý"
+      },
+      {
+        "id": "367",
+        "word": "Sanguine",
+        "meaning": "lạc quan, tin tưởng; điềm tĩnh trong hoàn cảnh khó khăn"
+      },
+      {
+        "id": "370",
+        "word": "Wane",
+        "meaning": "suy yếu, giảm dần; sự suy giảm"
+      },
+      {
+        "id": "375",
+        "word": "Lament",
+        "meaning": "than khóc, than tiếc; lời than, sự than tiếc"
+      },
+      {
+        "id": "384",
+        "word": "Yield",
+        "meaning": "mang lại; nhường, nhượng bộ; sản lượng, lợi suất"
+      },
+      {
+        "id": "385",
+        "word": "Nurture",
+        "meaning": "nuôi dưỡng, chăm sóc; sự nuôi dưỡng"
+      },
+      {
+        "id": "386",
+        "word": "Confound",
+        "meaning": "làm bối rối, làm lẫn lộn; làm thất bại dự đoán của ai"
+      },
+      {
+        "id": "394",
+        "word": "Oscillate",
+        "meaning": "dao động, lên xuống; do dự, dao động giữa các lựa chọn"
+      },
+      {
+        "id": "395",
+        "word": "Tarnish",
+        "meaning": "làm hoen ố, làm mất vẻ sáng; làm tổn hại danh tiếng"
+      },
+      {
+        "id": "396",
+        "word": "Ignite",
+        "meaning": "đốt cháy, châm ngòi; khơi dậy"
+      },
+      {
+        "id": "399",
+        "word": "Quench",
+        "meaning": "dập tắt; làm dịu, thỏa cơn khát"
+      },
+      {
+        "id": "402",
+        "word": "Besiege",
+        "meaning": "bao vây, vây hãm; gây áp lực liên tục"
+      },
+      {
+        "id": "407",
+        "word": "Grapple",
+        "meaning": "vật lộn; cố gắng giải quyết"
+      },
+      {
+        "id": "409",
+        "word": "Warp",
+        "meaning": "làm cong vênh, bóp méo; sự cong vênh"
+      },
+      {
+        "id": "413",
+        "word": "Trigger",
+        "meaning": "kích hoạt, gây ra; tác nhân kích hoạt"
+      },
+      {
+        "id": "427",
+        "word": "Attribute",
+        "meaning": "quy cho, gán cho / đặc điểm, thuộc tính"
+      },
+      {
+        "id": "432",
+        "word": "Elaborate",
+        "meaning": "trình bày chi tiết / công phu, tỉ mỉ"
+      },
+      {
+        "id": "450",
+        "word": "Gig",
+        "meaning": "công việc ngắn hạn/tạm thời; buổi biểu diễn (nhạc, hài)"
+      },
+      {
+        "id": "453",
+        "word": "Derive",
+        "meaning": "bắt nguồn từ (derive from); thu được, rút ra (derive sth from)"
+      },
+      {
+        "id": "454",
+        "word": "A bit of a stretch",
+        "meaning": "hơi quá, hơi cường điệu; điều khó tin hoặc khó chấp nhận"
+      },
+      {
+        "id": "456",
+        "word": "Subjunctive structure",
+        "meaning": "Khi suggest mang nghĩa đề nghị một hành động, mệnh đề that có thể dùng động từ nguyên mẫu (I suggest (that) you leave); "
+      },
+      {
+        "id": "457",
+        "word": "Add up to",
+        "meaning": "tổng cộng thành; dẫn đến, có nghĩa là (một kết quả)"
+      },
+      {
+        "id": "459",
+        "word": "Check out",
+        "meaning": "được xác nhận là đúng khi kiểm tra; khớp với thông tin khác khi đối chiếu"
+      },
+      {
+        "id": "460",
+        "word": "Discursive",
+        "meaning": "liên quan đến thảo luận; (formal, nói hoặc viết) bàn sang các chủ đề chỉ liên quan lỏng lẻo với chủ đề chính lâu hơn mức"
+      },
+      {
+        "id": "463",
+        "word": "Pretentious",
+        "meaning": "phô trương, làm ra vẻ quan trọng/hiểu biết hơn thực tế"
+      },
+      {
+        "id": "471",
+        "word": "Unadorned",
+        "meaning": "không trang trí; mộc mạc, giản dị"
+      },
+      {
+        "id": "473",
+        "word": "Upkeep",
+        "meaning": "việc/chi phí bảo trì, bảo dưỡng (nhà cửa, xe cộ)"
+      },
+      {
+        "id": "475",
+        "word": "Far-flung",
+        "meaning": "xa xôi, hẻo lánh; trải rộng trên khu vực lớn"
+      },
+      {
+        "id": "476",
+        "word": "Far-sighted",
+        "meaning": "nhìn xa trông rộng; viễn thị"
+      },
+      {
+        "id": "481",
+        "word": "Volatile",
+        "meaning": "dễ biến động, bất ổn; thất thường, dễ bùng nổ (tính khí); dễ bay hơi"
+      },
+      {
+        "id": "483",
+        "word": "Malleable",
+        "meaning": "dễ uốn nắn, dễ định hình; dễ bị ảnh hưởng (người); có thể dát mỏng (kim loại)"
+      },
+      {
+        "id": "487",
+        "word": "Layover",
+        "meaning": "thời gian/điểm dừng chờ chuyển tiếp giữa chặng bay"
+      },
+      {
+        "id": "488",
+        "word": "Crossover",
+        "meaning": "sự giao thoa, kết hợp giữa các thể loại/lĩnh vực; tác phẩm kết hợp nhân vật của nhiều tác phẩm"
+      },
+      {
+        "id": "489",
+        "word": "Spillover",
+        "meaning": "tác động lan tỏa, hiệu ứng dây chuyền sang lĩnh vực/nơi khác"
+      },
+      {
+        "id": "491",
+        "word": "Repellent",
+        "meaning": "gây ghê tởm, khó chịu; có tác dụng xua đuổi / chất xua đuổi (côn trùng)"
+      },
+      {
+        "id": "492",
+        "word": "Averse",
+        "meaning": "không ưa, ác cảm, phản đối (averse to sth; risk-averse)"
+      },
+      {
+        "id": "494",
+        "word": "Incidental",
+        "meaning": "phụ, ngẫu nhiên đi kèm; không phải phần chính (incidental expenses)"
+      },
+      {
+        "id": "498",
+        "word": "Follow one's nose",
+        "meaning": "làm theo trực giác; (chỉ đường) cứ đi thẳng"
+      },
+      {
+        "id": "499",
+        "word": "Throw one's hat in the ring",
+        "meaning": "tuyên bố tham gia cuộc đua/tranh cử"
+      },
+      {
+        "id": "501",
+        "word": "Muscle in on",
+        "meaning": "chen chân vào, xía vào để giành phần lợi/quyền lực"
+      },
+      {
+        "id": "503",
+        "word": "Land on",
+        "meaning": "chốt, đi đến (một quyết định/lựa chọn) sau khi cân nhắc"
+      },
+      {
+        "id": "516",
+        "word": "Write off",
+        "meaning": "coi (ai/cái gì) là thất bại, vô vọng; xóa nợ; xem xe hỏng không sửa được"
+      },
+      {
+        "id": "517",
+        "word": "Rule out",
+        "meaning": "loại trừ (khả năng); bác bỏ"
+      },
+      {
+        "id": "519",
+        "word": "In the face of",
+        "meaning": "đối mặt với; bất chấp (khó khăn, phản đối)"
+      },
+      {
+        "id": "521",
+        "word": "Cut corners",
+        "meaning": "làm tắt, làm ẩu để tiết kiệm thời gian/tiền"
+      },
+      {
+        "id": "522",
+        "word": "Lest + S + (should) V-bare",
+        "meaning": "'kẻo, e rằng, vì sợ rằng': lest + S + (should) + V-bare; không dùng not sau lest"
+      },
+      {
+        "id": "525",
+        "word": "In the doldrums",
+        "meaning": "trì trệ, ảm đạm; buồn chán, ủ rũ"
+      },
+      {
+        "id": "529",
+        "word": "Raise the stakes",
+        "meaning": "tăng mức rủi ro/cược; đẩy thử thách lên cao hơn"
+      },
+      {
+        "id": "531",
+        "word": "Insulation",
+        "meaning": "sự cách nhiệt/cách âm/cách điện; vật liệu cách nhiệt; sự che chắn khỏi tác động"
+      },
+      {
+        "id": "532",
+        "word": "Insulate",
+        "meaning": "cách nhiệt/cách âm/cách điện; che chắn, bảo vệ khỏi tác động (insulate sb from sth)"
+      },
+      {
+        "id": "533",
+        "word": "Fecund",
+        "meaning": "màu mỡ, phì nhiêu; sinh sản tốt; sáng tạo dồi dào"
+      },
+      {
+        "id": "541",
+        "word": "Quiver",
+        "meaning": "run rẩy, rung nhẹ (vì sợ, xúc động) / cái run nhẹ; bao đựng tên"
+      },
+      {
+        "id": "542",
+        "word": "Flutter",
+        "meaning": "vỗ, đập nhẹ (cánh); phấp phới; đập loạn (tim); bồn chồn / sự rung nhẹ, cảm giác nôn nao"
+      },
+      {
+        "id": "543",
+        "word": "Apprehension",
+        "meaning": "nỗi lo âu, e sợ về điều sắp xảy ra; sự bắt giữ; sự lĩnh hội"
+      },
+      {
+        "id": "544",
+        "word": "Genetic makeup",
+        "meaning": "cấu trúc/thành phần di truyền của một cá thể"
+      },
+      {
+        "id": "545",
+        "word": "Adrenaline surge",
+        "meaning": "cơn dồn adrenaline, cảm giác hưng phấn/năng lượng bùng lên đột ngột"
+      },
+      {
+        "id": "546",
+        "word": "Surge",
+        "meaning": "sự tăng vọt, dâng trào đột ngột / dâng lên, tăng vọt"
+      },
+      {
+        "id": "548",
+        "word": "Summary",
+        "meaning": "bản tóm tắt / nhanh gọn, tức thời, không qua thủ tục đầy đủ (summary dismissal)"
+      },
+      {
+        "id": "550",
+        "word": "Eclipse",
+        "meaning": "làm lu mờ, vượt trội hơn hẳn / nhật/nguyệt thực; sự lu mờ"
+      },
+      {
+        "id": "551",
+        "word": "Pit A against B",
+        "meaning": "đặt A đối đầu/cạnh tranh với B"
+      },
+      {
+        "id": "552",
+        "word": "Transcribe",
+        "meaning": "chép lại thành văn bản (từ lời nói, ghi âm); phiên âm"
+      },
+      {
+        "id": "556",
+        "word": "Scaffold",
+        "meaning": "giàn giáo; khung/bệ đỡ cho việc học hay tư duy"
+      },
+      {
+        "id": "558",
+        "word": "Cling to",
+        "meaning": "bám chặt vào; khư khư bám giữ (niềm tin, hy vọng, quyền lực)"
+      },
+      {
+        "id": "566",
+        "word": "Anthropomorphic",
+        "meaning": "nhân hóa, mang hình dáng/đặc điểm con người (vật, động vật, thần thánh)"
+      },
+      {
+        "id": "572",
+        "word": "Underbelly",
+        "meaning": "mặt tối, góc khuất (của xã hội, thành phố); điểm yếu dễ tổn thương"
+      },
+      {
+        "id": "573",
+        "word": "Propagation",
+        "meaning": "sự lan truyền, truyền bá; sự nhân giống (cây)"
+      },
+      {
+        "id": "574",
+        "word": "Propagate",
+        "meaning": "lan truyền, truyền bá (ý tưởng, tin tức); nhân giống (cây)"
+      },
+      {
+        "id": "578",
+        "word": "Lark",
+        "meaning": "trò vui, trò đùa cho vui không nghiêm túc (for a lark); chim sơn ca"
+      },
+      {
+        "id": "580",
+        "word": "Make a dent in",
+        "meaning": "tạo ra tiến triển/tác động (dù nhỏ) đối với vấn đề lớn; làm hao hụt (tiền)"
+      },
+      {
+        "id": "582",
+        "word": "Strident",
+        "meaning": "chói tai, to, thô ráp và khó chịu; (lời nói hoặc quan điểm) được diễn đạt mạnh mẽ, không tránh việc làm người khác khó c"
+      },
+      {
+        "id": "584",
+        "word": "Streaky bacon",
+        "meaning": "thịt lợn kiểu bacon có các dải mỡ xen kẽ các dải thịt; thường được ăn chiên thành lát mỏng"
+      },
+      {
+        "id": "588",
+        "word": "Chronic",
+        "meaning": "mãn tính, kinh niên; dai dẳng, kéo dài (bệnh, vấn đề)"
+      },
+      {
+        "id": "595",
+        "word": "Extract",
+        "meaning": "chiết xuất, khai thác, lấy ra, moi (thông tin) / chiết xuất; đoạn trích"
+      },
+      {
+        "id": "599",
+        "word": "Preserve",
+        "meaning": "bảo tồn, gìn giữ; bảo quản (thực phẩm) / mứt; khu bảo tồn; lĩnh vực riêng"
+      },
+      {
+        "id": "601",
+        "word": "Merchantable timber",
+        "meaning": "gỗ đạt chất lượng/kích thước để bán được trên thị trường"
+      },
+      {
+        "id": "607",
+        "word": "Retention",
+        "meaning": "sự giữ lại, duy trì (nhân viên, khách hàng, nước); khả năng ghi nhớ"
+      },
+      {
+        "id": "608",
+        "word": "Retain",
+        "meaning": "giữ lại, duy trì; ghi nhớ; thuê (luật sư)"
+      },
+      {
+        "id": "611",
+        "word": "Indefinite",
+        "meaning": "không xác định, không rõ giới hạn/thời hạn; mơ hồ"
+      },
+      {
+        "id": "614",
+        "word": "Acquire",
+        "meaning": "tiếp thu (kiến thức, kỹ năng); có được qua nỗ lực hoặc mua lại."
+      },
+      {
+        "id": "615",
+        "word": "Adapt",
+        "meaning": "thích nghi; điều chỉnh cho phù hợp; chuyển thể."
+      },
+      {
+        "id": "617",
+        "word": "Anticipate",
+        "meaning": "dự đoán, mong đợi; (nghĩa riêng) hành động trước để chuẩn bị cho điều mình nghĩ sẽ xảy ra"
+      },
+      {
+        "id": "619",
+        "word": "Assume",
+        "meaning": "cho là đúng khi chưa có đủ bằng chứng; đảm nhận."
+      },
+      {
+        "id": "621",
+        "word": "Conduct",
+        "meaning": "tiến hành (nghiên cứu, khảo sát); cư xử (conduct oneself); chỉ huy; dẫn điện/nhiệt; (n) cách cư xử."
+      },
+      {
+        "id": "622",
+        "word": "Confirm",
+        "meaning": "xác nhận là đúng; xác nhận một sắp xếp."
+      },
+      {
+        "id": "627",
+        "word": "Superior",
+        "meaning": "vượt trội, tốt hơn / người cấp trên."
+      },
+      {
+        "id": "628",
+        "word": "Demonstrate",
+        "meaning": "chứng minh bằng bằng chứng; minh họa cách làm."
+      },
+      {
+        "id": "630",
+        "word": "Determine",
+        "meaning": "xác định; quyết định hoặc chi phối kết quả."
+      },
+      {
+        "id": "631",
+        "word": "Distinguish",
+        "meaning": "phân biệt; nhận ra điểm khác biệt."
+      },
+      {
+        "id": "636",
+        "word": "Establish",
+        "meaning": "thành lập; xác lập hoặc chứng minh chắc chắn."
+      },
+      {
+        "id": "640",
+        "word": "Exploit",
+        "meaning": "khai thác, tận dụng; bóc lột."
+      },
+      {
+        "id": "646",
+        "word": "Interpret",
+        "meaning": "diễn giải ý nghĩa; phiên dịch lời nói."
+      },
+      {
+        "id": "647",
+        "word": "Justify",
+        "meaning": "đưa ra lý do xác đáng; chứng minh là hợp lý."
+      },
+      {
+        "id": "648",
+        "word": "Maintain",
+        "meaning": "duy trì trạng thái; bảo dưỡng; khẳng định quan điểm."
+      },
+      {
+        "id": "650",
+        "word": "Perceive",
+        "meaning": "nhận thấy qua giác quan; nhìn nhận theo một cách."
+      },
+      {
+        "id": "652",
+        "word": "Prioritize",
+        "meaning": "xếp thứ tự ưu tiên; ưu tiên xử lý."
+      },
+      {
+        "id": "653",
+        "word": "Regulate",
+        "meaning": "điều tiết; kiểm soát bằng quy định."
+      },
+      {
+        "id": "656",
+        "word": "Resolve",
+        "meaning": "giải quyết (vấn đề, tranh chấp); quyết tâm."
+      },
+      {
+        "id": "659",
+        "word": "Submit",
+        "meaning": "nộp để xét duyệt; chịu phục tùng."
+      },
+      {
+        "id": "663",
+        "word": "Withdraw",
+        "meaning": "rút tiền; rút lại; rút lui."
+      },
+      {
+        "id": "667",
+        "word": "Apparent",
+        "meaning": "rõ ràng, dễ nhận thấy; có vẻ như vậy nhưng chưa chắc đúng."
+      },
+      {
+        "id": "669",
+        "word": "Artificial",
+        "meaning": "nhân tạo; giả, không tự nhiên."
+      },
+      {
+        "id": "671",
+        "word": "Capable",
+        "meaning": "có khả năng làm việc gì; có năng lực."
+      },
+      {
+        "id": "674",
+        "word": "Commercial",
+        "meaning": "thuộc thương mại, kinh doanh; nhằm kiếm lợi."
+      },
+      {
+        "id": "677",
+        "word": "Complex",
+        "meaning": "phức tạp, gồm nhiều phần liên hệ; tổ hợp."
+      },
+      {
+        "id": "678",
+        "word": "Concrete",
+        "meaning": "cụ thể, rõ ràng; bê tông."
+      },
+      {
+        "id": "679",
+        "word": "Conscious",
+        "meaning": "có ý thức, tỉnh; nhận thức được."
+      },
+      {
+        "id": "680",
+        "word": "Contemporary",
+        "meaning": "đương đại; cùng thời; người cùng thời."
+      },
+      {
+        "id": "683",
+        "word": "Critical",
+        "meaning": "mang tính quyết định; nguy kịch; có tính phân tích/phê bình."
+      },
+      {
+        "id": "684",
+        "word": "Deliberate",
+        "meaning": "có chủ ý; chậm rãi, thận trọng."
+      },
+      {
+        "id": "686",
+        "word": "Domestic",
+        "meaning": "trong nước; thuộc gia đình hoặc việc nhà."
+      },
+      {
+        "id": "691",
+        "word": "External",
+        "meaning": "bên ngoài; đến từ bên ngoài."
+      },
+      {
+        "id": "692",
+        "word": "Flexible",
+        "meaning": "linh hoạt, dễ điều chỉnh; dễ uốn."
+      },
+      {
+        "id": "694",
+        "word": "Genuine",
+        "meaning": "thật, không giả; chân thành."
+      },
+      {
+        "id": "696",
+        "word": "Hostile",
+        "meaning": "thù địch, không thân thiện; bất lợi cho sự sống."
+      },
+      {
+        "id": "697",
+        "word": "Immune",
+        "meaning": "miễn dịch; không bị tác động hoặc được miễn trừ."
+      },
+      {
+        "id": "699",
+        "word": "Initial",
+        "meaning": "ban đầu; chữ cái đầu của tên."
+      },
+      {
+        "id": "702",
+        "word": "Applaud",
+        "meaning": "vỗ tay tán thưởng; ca ngợi, hoan nghênh."
+      },
+      {
+        "id": "703",
+        "word": "Mutual",
+        "meaning": "lẫn nhau; chung cho hai hoặc nhiều bên."
+      },
+      {
+        "id": "706",
+        "word": "Potential",
+        "meaning": "tiềm năng, có thể xảy ra/phát triển; khả năng tiềm tàng."
+      },
+      {
+        "id": "707",
+        "word": "Precise",
+        "meaning": "chính xác, cụ thể đến chi tiết; được xác định rõ."
+      },
+      {
+        "id": "708",
+        "word": "Profound",
+        "meaning": "sâu sắc; rất lớn về mức độ hoặc tác động."
+      },
+      {
+        "id": "712",
+        "word": "Remote",
+        "meaning": "xa xôi; từ xa; ít có khả năng xảy ra."
+      },
+      {
+        "id": "713",
+        "word": "Valid",
+        "meaning": "có hiệu lực; có cơ sở hợp lý."
+      },
+      {
+        "id": "715",
+        "word": "Achievement",
+        "meaning": "thành tựu; việc đạt được mục tiêu nhờ nỗ lực."
+      },
+      {
+        "id": "716",
+        "word": "Admission",
+        "meaning": "sự cho phép vào; sự nhận vào học; lời thừa nhận."
+      },
+      {
+        "id": "718",
+        "word": "Ambition",
+        "meaning": "hoài bão, mục tiêu lớn; tham vọng."
+      },
+      {
+        "id": "723",
+        "word": "Capacity",
+        "meaning": "sức chứa; năng lực thực hiện hoặc sản xuất."
+      },
+      {
+        "id": "725",
+        "word": "Commitment",
+        "meaning": "sự cam kết, tận tâm; nghĩa vụ đã nhận."
+      },
+      {
+        "id": "726",
+        "word": "Competition",
+        "meaning": "sự cạnh tranh; cuộc thi."
+      },
+      {
+        "id": "727",
+        "word": "Concentration",
+        "meaning": "sự tập trung chú ý; nồng độ; sự tập trung đông ở một nơi."
+      },
+      {
+        "id": "728",
+        "word": "Consequence",
+        "meaning": "hậu quả, kết quả do một hành động/sự kiện gây ra."
+      },
+      {
+        "id": "729",
+        "word": "Conservation",
+        "meaning": "sự bảo tồn thiên nhiên; sự tiết kiệm tài nguyên."
+      },
+      {
+        "id": "731",
+        "word": "Contribution",
+        "meaning": "sự đóng góp; phần đóng góp vào một kết quả."
+      },
+      {
+        "id": "732",
+        "word": "Convenience",
+        "meaning": "sự thuận tiện; thứ giúp cuộc sống tiện hơn."
+      },
+      {
+        "id": "734",
+        "word": "Curriculum",
+        "meaning": "chương trình học gồm nội dung/môn học của khóa hoặc trường."
+      },
+      {
+        "id": "736",
+        "word": "Deficiency",
+        "meaning": "sự thiếu hụt chất hoặc yếu tố cần thiết; điểm yếu."
+      },
+      {
+        "id": "737",
+        "word": "Demand",
+        "meaning": "nhu cầu; yêu cầu mạnh mẽ; đòi hỏi."
+      },
+      {
+        "id": "738",
+        "word": "Discipline",
+        "meaning": "kỷ luật; ngành học; rèn kỷ luật."
+      },
+      {
+        "id": "739",
+        "word": "Disposal",
+        "meaning": "sự xử lý, loại bỏ; quyền tùy ý sử dụng trong at one's disposal."
+      },
+      {
+        "id": "740",
+        "word": "Distribution",
+        "meaning": "sự phân phối; sự phân bố."
+      },
+      {
+        "id": "741",
+        "word": "Economy",
+        "meaning": "nền kinh tế; sự tiết kiệm."
+      },
+      {
+        "id": "742",
+        "word": "Emission",
+        "meaning": "sự phát thải; lượng/chất được thải ra."
+      },
+      {
+        "id": "743",
+        "word": "Employment",
+        "meaning": "việc làm; tình trạng có việc làm; việc sử dụng."
+      },
+      {
+        "id": "744",
+        "word": "Encounter",
+        "meaning": "tình cờ gặp; gặp phải khó khăn; cuộc gặp."
+      },
+      {
+        "id": "746",
+        "word": "Equality",
+        "meaning": "sự bình đẳng; sự bằng nhau."
+      },
+      {
+        "id": "748",
+        "word": "Exhibition",
+        "meaning": "cuộc triển lãm; sự trưng bày công khai."
+      },
+      {
+        "id": "749",
+        "word": "Expenditure",
+        "meaning": "sự chi tiêu; khoản tiền/công sức bỏ ra."
+      },
+      {
+        "id": "751",
+        "word": "Exposure",
+        "meaning": "sự tiếp xúc; sự phơi nhiễm; sự được công chúng biết đến."
+      },
+      {
+        "id": "752",
+        "word": "Extinction",
+        "meaning": "sự tuyệt chủng; sự chấm dứt tồn tại."
+      },
+      {
+        "id": "753",
+        "word": "Failure",
+        "meaning": "sự thất bại; sự hỏng hóc hoặc không thực hiện điều cần làm."
+      },
+      {
+        "id": "755",
+        "word": "Fatigue",
+        "meaning": "sự mệt mỏi nghiêm trọng; làm mệt mỏi."
+      },
+      {
+        "id": "757",
+        "word": "Foundation",
+        "meaning": "nền móng, cơ sở; tổ chức quỹ; sự thành lập."
+      },
+      {
+        "id": "762",
+        "word": "Identity",
+        "meaning": "danh tính; bản sắc."
+      },
+      {
+        "id": "763",
+        "word": "Impact",
+        "meaning": "tác động mạnh, ảnh hưởng; sự va chạm."
+      },
+      {
+        "id": "764",
+        "word": "Infrastructure",
+        "meaning": "hệ thống cơ sở hạ tầng phục vụ xã hội/tổ chức."
+      },
+      {
+        "id": "765",
+        "word": "Innovation",
+        "meaning": "sự đổi mới; sáng kiến hoặc cải tiến mới được áp dụng."
+      },
+      {
+        "id": "766",
+        "word": "Insight",
+        "meaning": "sự thấu hiểu sâu sắc; nhận xét giúp hiểu bản chất."
+      },
+      {
+        "id": "767",
+        "word": "Insurance",
+        "meaning": "bảo hiểm; biện pháp phòng ngừa tổn thất."
+      },
+      {
+        "id": "769",
+        "word": "Investment",
+        "meaning": "sự đầu tư; khoản vốn/thời gian/công sức đầu tư."
+      },
+      {
+        "id": "771",
+        "word": "Literacy",
+        "meaning": "khả năng đọc viết; năng lực sử dụng thông tin trong một lĩnh vực."
+      },
+      {
+        "id": "772",
+        "word": "Principle",
+        "meaning": "nguyên tắc; nguyên lý cơ bản (đạo đức, khoa học hoặc hoạt động)."
+      },
+      {
+        "id": "779",
+        "word": "Perspective",
+        "meaning": "góc nhìn, cách nhìn nhận; phép phối cảnh."
+      },
+      {
+        "id": "780",
+        "word": "Poverty",
+        "meaning": "sự nghèo đói; tình trạng thiếu thốn."
+      },
+      {
+        "id": "781",
+        "word": "Prejudice",
+        "meaning": "định kiến; làm tổn hại tính công bằng hoặc cơ hội."
+      },
+      {
+        "id": "782",
+        "word": "Privacy",
+        "meaning": "sự riêng tư; quyền không bị xâm phạm đời tư."
+      },
+      {
+        "id": "784",
+        "word": "Productivity",
+        "meaning": "năng suất, lượng đầu ra so với đầu vào/thời gian."
+      },
+      {
+        "id": "785",
+        "word": "Prospect",
+        "meaning": "triển vọng, khả năng tương lai; viễn cảnh."
+      },
+      {
+        "id": "786",
+        "word": "Qualification",
+        "meaning": "bằng cấp/năng lực cần thiết; điều kiện hạn chế một phát biểu."
+      },
+      {
+        "id": "788",
+        "word": "Reputation",
+        "meaning": "danh tiếng, cách người khác nhìn nhận một người/tổ chức."
+      },
+      {
+        "id": "789",
+        "word": "Resource",
+        "meaning": "tài nguyên; nguồn lực có thể sử dụng."
+      },
+      {
+        "id": "790",
+        "word": "Revenue",
+        "meaning": "doanh thu; nguồn thu của nhà nước hoặc tổ chức."
+      },
+      {
+        "id": "791",
+        "word": "Scholarship",
+        "meaning": "học bổng; hoạt động/thành tựu học thuật."
+      },
+      {
+        "id": "792",
+        "word": "Security",
+        "meaning": "sự an toàn, an ninh; sự bảo đảm ổn định."
+      },
+      {
+        "id": "794",
+        "word": "Significance",
+        "meaning": "tầm quan trọng; ý nghĩa."
+      },
+      {
+        "id": "798",
+        "word": "Substitute",
+        "meaning": "người/vật thay thế; thay thế."
+      },
+      {
+        "id": "800",
+        "word": "Survey",
+        "meaning": "cuộc khảo sát; khảo sát, xem xét tổng thể."
+      },
+      {
+        "id": "802",
+        "word": "Threat",
+        "meaning": "mối đe dọa; lời đe dọa."
+      },
+      {
+        "id": "803",
+        "word": "Tolerance",
+        "meaning": "sự khoan dung; khả năng chịu đựng; dung sai."
+      },
+      {
+        "id": "805",
+        "word": "Treatment",
+        "meaning": "sự điều trị; cách đối xử; quá trình xử lý."
+      },
+      {
+        "id": "806",
+        "word": "Trend",
+        "meaning": "xu hướng thay đổi; có chiều hướng."
+      },
+      {
+        "id": "810",
+        "word": "Variation",
+        "meaning": "sự khác nhau, biến đổi; dạng biến thể."
+      },
+      {
+        "id": "811",
+        "word": "Welfare",
+        "meaning": "phúc lợi; sự an sinh, sức khỏe và hạnh phúc."
+      },
+      {
+        "id": "813",
+        "word": "Degrade",
+        "meaning": "làm giảm hoặc suy giảm chất lượng/giá trị; phân hủy; hạ nhục."
+      },
+      {
+        "id": "814",
+        "word": "Abandon",
+        "meaning": "bỏ rơi; từ bỏ kế hoạch hoặc niềm tin."
+      },
+      {
+        "id": "815",
+        "word": "Absorb",
+        "meaning": "hấp thụ chất/năng lượng; tiếp thu; thu hút hoàn toàn sự chú ý."
+      },
+      {
+        "id": "816",
+        "word": "Acknowledge",
+        "meaning": "thừa nhận; ghi nhận; xác nhận đã nhận được."
+      },
+      {
+        "id": "817",
+        "word": "Adjust",
+        "meaning": "điều chỉnh một phần; làm quen và thích nghi."
+      },
+      {
+        "id": "818",
+        "word": "Adopt",
+        "meaning": "nhận nuôi; chọn và áp dụng phương pháp/chính sách."
+      },
+      {
+        "id": "819",
+        "word": "Advancement",
+        "meaning": "sự tiến bộ, phát triển; sự thăng tiến."
+      },
+      {
+        "id": "820",
+        "word": "Afford",
+        "meaning": "có đủ tiền/thời gian/khả năng chịu để làm gì."
+      },
+      {
+        "id": "822",
+        "word": "Amateur",
+        "meaning": "người nghiệp dư; thuộc người làm vì sở thích, không chuyên nghiệp."
+      },
+      {
+        "id": "824",
+        "word": "Appreciate",
+        "meaning": "trân trọng; hiểu rõ giá trị/tình thế; tăng giá trị."
+      },
+      {
+        "id": "825",
+        "word": "Approve",
+        "meaning": "tán thành; phê duyệt chính thức."
+      },
+      {
+        "id": "827",
+        "word": "Authentic",
+        "meaning": "xác thực, đúng nguồn gốc; đúng phong cách truyền thống."
+      },
+      {
+        "id": "828",
+        "word": "Bargain",
+        "meaning": "món mua hời; thỏa thuận; mặc cả."
+      },
+      {
+        "id": "829",
+        "word": "Bias",
+        "meaning": "thiên kiến; sự thiên lệch; làm lệch kết quả."
+      },
+      {
+        "id": "830",
+        "word": "Boost",
+        "meaning": "thúc đẩy, làm tăng; sự gia tăng/hỗ trợ."
+      },
+      {
+        "id": "832",
+        "word": "Captivity",
+        "meaning": "tình trạng bị giam giữ/nuôi nhốt."
+      },
+      {
+        "id": "835",
+        "word": "Collapse",
+        "meaning": "sụp đổ; đổ gục; sự sụp đổ."
+      },
+      {
+        "id": "836",
+        "word": "Compromise",
+        "meaning": "sự thỏa hiệp; thỏa hiệp; làm tổn hại đến."
+      },
+      {
+        "id": "837",
+        "word": "Deduction",
+        "meaning": "sự suy luận; kết luận suy ra; khoản khấu trừ."
+      },
+      {
+        "id": "840",
+        "word": "Confront",
+        "meaning": "đối mặt và xử lý; chất vấn trực diện."
+      },
+      {
+        "id": "841",
+        "word": "Congestion",
+        "meaning": "sự tắc nghẽn, quá đông; tình trạng nghẹt (mũi/ngực)."
+      },
+      {
+        "id": "848",
+        "word": "Decline",
+        "meaning": "suy giảm; từ chối lịch sự; sự suy giảm."
+      },
+      {
+        "id": "849",
+        "word": "Dedicate",
+        "meaning": "dành công sức/thời gian; cống hiến."
+      },
+      {
+        "id": "850",
+        "word": "Defy",
+        "meaning": "bất chấp, công khai không tuân; vượt ngoài dự đoán/giải thích."
+      },
+      {
+        "id": "851",
+        "word": "Guarantee",
+        "meaning": "bảo đảm, cam đoan / sự bảo đảm; bảo hành."
+      },
+      {
+        "id": "852",
+        "word": "Discriminate",
+        "meaning": "phân biệt đối xử; phân biệt sự khác nhau."
+      },
+      {
+        "id": "857",
+        "word": "Emerge",
+        "meaning": "xuất hiện, lộ ra; trở nên được biết đến."
+      },
+      {
+        "id": "859",
+        "word": "Enforce",
+        "meaning": "buộc tuân thủ, thực thi luật/quy định."
+      },
+      {
+        "id": "860",
+        "word": "Enrich",
+        "meaning": "làm phong phú; làm giàu; tăng chất dinh dưỡng."
+      },
+      {
+        "id": "861",
+        "word": "Erode",
+        "meaning": "xói mòn; làm suy yếu dần."
+      },
+      {
+        "id": "862",
+        "word": "Evolve",
+        "meaning": "tiến hóa; phát triển dần qua thời gian."
+      },
+      {
+        "id": "864",
+        "word": "Fierce",
+        "meaning": "dữ dội, hung dữ; quyết liệt."
+      },
+      {
+        "id": "865",
+        "word": "Fertile",
+        "meaning": "màu mỡ; có khả năng sinh sản; giàu ý tưởng."
+      },
+      {
+        "id": "868",
+        "word": "Frustrate",
+        "meaning": "làm bực bội vì cản trở; làm thất bại kế hoạch."
+      },
+      {
+        "id": "869",
+        "word": "Harness",
+        "meaning": "khai thác và kiểm soát để sử dụng; bộ đai/dây cương."
+      },
+      {
+        "id": "871",
+        "word": "Refine",
+        "meaning": "tinh chế; cải tiến cho chính xác hoặc tinh tế hơn."
+      },
+      {
+        "id": "872",
+        "word": "Impose",
+        "meaning": "áp đặt quy định/gánh nặng; buộc phải chấp nhận."
+      },
+      {
+        "id": "874",
+        "word": "Indifferent",
+        "meaning": "thờ ơ, không quan tâm; không đặc biệt tốt."
+      },
+      {
+        "id": "875",
+        "word": "Inclusive",
+        "meaning": "bao hàm mọi nhóm/người; đã bao gồm chi phí hoặc cả hai đầu mốc."
+      },
+      {
+        "id": "877",
+        "word": "Integrate",
+        "meaning": "kết hợp thành hệ thống; hòa nhập."
+      },
+      {
+        "id": "878",
+        "word": "Interfere",
+        "meaning": "can thiệp không được mong muốn; gây cản trở."
+      },
+      {
+        "id": "879",
+        "word": "Intervene",
+        "meaning": "can thiệp để thay đổi tình huống; xen giữa."
+      },
+      {
+        "id": "881",
+        "word": "Promote",
+        "meaning": "thúc đẩy, quảng bá (ý tưởng, sản phẩm); thăng chức."
+      },
+      {
+        "id": "882",
+        "word": "Legible",
+        "meaning": "dễ đọc, đọc được (chữ viết/chữ in)."
+      },
+      {
+        "id": "883",
+        "word": "Longevity",
+        "meaning": "tuổi thọ; sự tồn tại hoặc thành công lâu dài."
+      },
+      {
+        "id": "884",
+        "word": "Manipulate",
+        "meaning": "thao túng; điều khiển hoặc xử lý khéo léo."
+      },
+      {
+        "id": "887",
+        "word": "Obscure",
+        "meaning": "ít được biết đến; khó hiểu; che khuất/làm khó nhận ra."
+      },
+      {
+        "id": "889",
+        "word": "Overlook",
+        "meaning": "bỏ sót, không nhận ra; bỏ qua lỗi; nhìn xuống từ trên."
+      },
+      {
+        "id": "890",
+        "word": "Persist",
+        "meaning": "tiếp tục tồn tại; kiên trì bất chấp khó khăn."
+      },
+      {
+        "id": "895",
+        "word": "Recruit",
+        "meaning": "tuyển người; người mới được tuyển."
+      },
+      {
+        "id": "896",
+        "word": "Redundant",
+        "meaning": "thừa, không còn cần; mất việc vì vị trí không còn cần thiết."
+      },
+      {
+        "id": "903",
+        "word": "Simulate",
+        "meaning": "mô phỏng điều kiện/quá trình; giả biểu hiện để tạo ấn tượng."
+      },
+      {
+        "id": "907",
+        "word": "Transparent",
+        "meaning": "trong suốt; minh bạch, dễ kiểm tra."
+      },
+      {
+        "id": "911",
+        "word": "Nevertheless",
+        "meaning": "tuy nhiên, dù vậy; bất chấp điều vừa nêu."
+      },
+      {
+        "id": "913",
+        "word": "Virtually",
+        "meaning": "gần như, hầu như; theo phương thức ảo/trực tuyến trong ngữ cảnh công nghệ."
+      },
+      {
+        "id": "1347",
+        "word": "apply",
+        "meaning": "áp dụng; nộp đơn"
+      },
+      {
+        "id": "1373",
+        "word": "correspond",
+        "meaning": "tương ứng; trao đổi thư từ"
+      },
+      {
+        "id": "1417",
+        "word": "literature",
+        "meaning": "văn học; tài liệu chuyên môn"
+      },
+      {
+        "id": "1456",
+        "word": "rather",
+        "meaning": "khá; thà rằng"
+      },
+      {
+        "id": "1468",
+        "word": "revise",
+        "meaning": "ôn tập; sửa lại"
+      },
+      {
+        "id": "1491",
+        "word": "volume",
+        "meaning": "khối lượng; âm lượng; tập sách"
+      },
+      {
+        "id": "1630",
+        "word": "footprint",
+        "meaning": "dấu chân; tác động (carbon footprint)"
+      },
+      {
+        "id": "1650",
+        "word": "fossil",
+        "meaning": "hóa thạch; nhiên liệu hóa thạch"
+      },
+      {
+        "id": "2149",
+        "word": "tuition",
+        "meaning": "học phí; việc dạy kèm"
+      },
+      {
+        "id": "2784",
+        "word": "adhere",
+        "meaning": "tuân thủ; dính chặt"
+      },
+      {
+        "id": "2801",
+        "word": "anchor",
+        "meaning": "mỏ neo; điểm tựa"
+      },
+      {
+        "id": "2806",
+        "word": "appeal",
+        "meaning": "thu hút; kêu gọi"
+      },
+      {
+        "id": "2814",
+        "word": "assemble",
+        "meaning": "tập hợp; lắp ráp"
+      },
+      {
+        "id": "2829",
+        "word": "basin",
+        "meaning": "lưu vực; chậu"
+      },
+      {
+        "id": "2830",
+        "word": "beam",
+        "meaning": "dầm; tia sáng"
+      },
+      {
+        "id": "2833",
+        "word": "bid",
+        "meaning": "nỗ lực; giá đấu"
+      },
+      {
+        "id": "2835",
+        "word": "blast",
+        "meaning": "vụ nổ; luồng gió"
+      },
+      {
+        "id": "2838",
+        "word": "blunt",
+        "meaning": "thẳng thừng; cùn"
+      },
+      {
+        "id": "2839",
+        "word": "boast",
+        "meaning": "khoe khoang; tự hào có"
+      },
+      {
+        "id": "2844",
+        "word": "bound",
+        "meaning": "nhất định; bị ràng buộc"
+      },
+      {
+        "id": "2846",
+        "word": "breed",
+        "meaning": "gây ra; sinh sản"
+      },
+      {
+        "id": "2869",
+        "word": "colony",
+        "meaning": "thuộc địa; đàn"
+      },
+      {
+        "id": "2884",
+        "word": "contend",
+        "meaning": "cho rằng; tranh đấu"
+      },
+      {
+        "id": "2901",
+        "word": "deposit",
+        "meaning": "tiền đặt cọc; trầm tích"
+      },
+      {
+        "id": "2904",
+        "word": "dictate",
+        "meaning": "ra lệnh; quy định"
+      },
+      {
+        "id": "2941",
+        "word": "enterprise",
+        "meaning": "doanh nghiệp; sự táo bạo"
+      },
+      {
+        "id": "2942",
+        "word": "entitle",
+        "meaning": "trao quyền; đặt tên"
+      },
+      {
+        "id": "2953",
+        "word": "execute",
+        "meaning": "thực thi; xử tử"
+      },
+      {
+        "id": "2959",
+        "word": "fabricate",
+        "meaning": "bịa đặt; chế tạo"
+      },
+      {
+        "id": "2968",
+        "word": "forge",
+        "meaning": "rèn; giả mạo"
+      },
+      {
+        "id": "2979",
+        "word": "gross",
+        "meaning": "tổng (trước khấu trừ); thô thiển"
+      },
+      {
+        "id": "2990",
+        "word": "incline",
+        "meaning": "có xu hướng; nghiêng"
+      },
+      {
+        "id": "3009",
+        "word": "keen",
+        "meaning": "hăng hái; sắc bén"
+      },
+      {
+        "id": "3014",
+        "word": "launch",
+        "meaning": "phóng; ra mắt"
+      },
+      {
+        "id": "3022",
+        "word": "liable",
+        "meaning": "có trách nhiệm pháp lý; dễ bị"
+      },
+      {
+        "id": "3030",
+        "word": "lofty",
+        "meaning": "cao cả; cao vút"
+      },
+      {
+        "id": "3036",
+        "word": "margin",
+        "meaning": "lề; biên lợi nhuận"
+      },
+      {
+        "id": "3070",
+        "word": "outlook",
+        "meaning": "quan điểm; triển vọng"
+      },
+      {
+        "id": "3076",
+        "word": "pack",
+        "meaning": "đóng gói; nhồi chặt"
+      },
+      {
+        "id": "3092",
+        "word": "plea",
+        "meaning": "lời cầu xin; lời biện hộ"
+      },
+      {
+        "id": "3113",
+        "word": "protocol",
+        "meaning": "giao thức; nghi thức"
+      },
+      {
+        "id": "3130",
+        "word": "recall",
+        "meaning": "nhớ lại; thu hồi"
+      },
+      {
+        "id": "3134",
+        "word": "redeem",
+        "meaning": "chuộc lỗi; đổi thưởng"
+      },
+      {
+        "id": "3142",
+        "word": "render",
+        "meaning": "làm cho trở thành; cung cấp"
+      },
+      {
+        "id": "3145",
+        "word": "reproduce",
+        "meaning": "sinh sản; tái tạo"
+      },
+      {
+        "id": "3167",
+        "word": "shed",
+        "meaning": "làm rơi; tuôn ra"
+      },
+      {
+        "id": "3179",
+        "word": "stake",
+        "meaning": "cổ phần; mối quan tâm"
+      },
+      {
+        "id": "3189",
+        "word": "stumble",
+        "meaning": "vấp ngã; tình cờ gặp"
+      },
+      {
+        "id": "3190",
+        "word": "summit",
+        "meaning": "hội nghị thượng đỉnh; đỉnh"
+      },
+      {
+        "id": "3193",
+        "word": "toll",
+        "meaning": "số người chết; phí đường"
+      }
+    ],
+    "glossContainsHeadword": [
+      {
+        "id": "283",
+        "word": "Culminate",
+        "meaning": "lên đến đỉnh điểm, culminate in: kết thúc bằng"
+      },
+      {
+        "id": "453",
+        "word": "Derive",
+        "meaning": "bắt nguồn từ (derive from); thu được, rút ra (derive sth from)"
+      },
+      {
+        "id": "492",
+        "word": "Averse",
+        "meaning": "không ưa, ác cảm, phản đối (averse to sth; risk-averse)"
+      },
+      {
+        "id": "493",
+        "word": "Aversion",
+        "meaning": "sự ác cảm, ghét cay ghét đắng (aversion to sth)"
+      },
+      {
+        "id": "494",
+        "word": "Incidental",
+        "meaning": "phụ, ngẫu nhiên đi kèm; không phải phần chính (incidental expenses)"
+      },
+      {
+        "id": "532",
+        "word": "Insulate",
+        "meaning": "cách nhiệt/cách âm/cách điện; che chắn, bảo vệ khỏi tác động (insulate sb from sth)"
+      },
+      {
+        "id": "548",
+        "word": "Summary",
+        "meaning": "bản tóm tắt / nhanh gọn, tức thời, không qua thủ tục đầy đủ (summary dismissal)"
+      },
+      {
+        "id": "578",
+        "word": "Lark",
+        "meaning": "trò vui, trò đùa cho vui không nghiêm túc (for a lark); chim sơn ca"
+      },
+      {
+        "id": "585",
+        "word": "Roving",
+        "meaning": "lưu động, nay đây mai đó (roving reporter, roving eye)"
+      },
+      {
+        "id": "586",
+        "word": "Plethora",
+        "meaning": "số lượng quá nhiều, thừa mứa (a plethora of)"
+      },
+      {
+        "id": "621",
+        "word": "Conduct",
+        "meaning": "tiến hành (nghiên cứu, khảo sát); cư xử (conduct oneself); chỉ huy; dẫn điện/nhiệt; (n) cách cư xử."
+      },
+      {
+        "id": "739",
+        "word": "Disposal",
+        "meaning": "sự xử lý, loại bỏ; quyền tùy ý sử dụng trong at one's disposal."
+      },
+      {
+        "id": "1630",
+        "word": "footprint",
+        "meaning": "dấu chân; tác động (carbon footprint)"
+      },
+      {
+        "id": "1635",
+        "word": "diesel",
+        "meaning": "dầu diesel"
+      },
+      {
+        "id": "2832",
+        "word": "behalf",
+        "meaning": "thay mặt (on behalf of)"
+      },
+      {
+        "id": "4493",
+        "word": "lactose",
+        "meaning": "lactose (đường sữa)"
+      }
+    ],
+    "highLevelPhrasesWithOnlyLowLevelConstituents": [
+      {
+        "id": "P007",
+        "phrase": "come across",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P011",
+        "phrase": "come true",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P014",
+        "phrase": "draw up",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P018",
+        "phrase": "fall behind",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P042",
+        "phrase": "keep up with",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P048",
+        "phrase": "look into",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P050",
+        "phrase": "look out for",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P052",
+        "phrase": "look up to",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P053",
+        "phrase": "look down on",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P054",
+        "phrase": "make up",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P055",
+        "phrase": "make up for",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P056",
+        "phrase": "make out",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P057",
+        "phrase": "make off with",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P082",
+        "phrase": "turn out",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P083",
+        "phrase": "turn to",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P084",
+        "phrase": "turn up",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P085",
+        "phrase": "turn into",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P088",
+        "phrase": "bring about",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P089",
+        "phrase": "bring up",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P090",
+        "phrase": "bring in",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P108",
+        "phrase": "fall for",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P110",
+        "phrase": "get across",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P117",
+        "phrase": "grow on",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P121",
+        "phrase": "keep away from",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P122",
+        "phrase": "keep track of",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P124",
+        "phrase": "live up to",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P125",
+        "phrase": "look over",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P126",
+        "phrase": "make do with",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P127",
+        "phrase": "make for",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P131",
+        "phrase": "point out",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P139",
+        "phrase": "shut down",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P140",
+        "phrase": "sit in for",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P145",
+        "phrase": "think over",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P147",
+        "phrase": "try out",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P148",
+        "phrase": "turn against",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P153",
+        "phrase": "wipe out",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P158",
+        "phrase": "allow for",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P159",
+        "phrase": "boil down to",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P160",
+        "phrase": "brush up on",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P161",
+        "phrase": "build up",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P168",
+        "phrase": "draw on",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P187",
+        "phrase": "a grey area",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P193",
+        "phrase": "a long shot",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P196",
+        "phrase": "a turning point",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P197",
+        "phrase": "above board",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P213",
+        "phrase": "bite the bullet",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P218",
+        "phrase": "by and large",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P221",
+        "phrase": "carry weight",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P226",
+        "phrase": "down to earth",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P227",
+        "phrase": "draw the line",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P237",
+        "phrase": "follow suit",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P239",
+        "phrase": "get the hang of",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P248",
+        "phrase": "hit the nail on the head",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P250",
+        "phrase": "in the long run",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P255",
+        "phrase": "keep an eye on",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P258",
+        "phrase": "know the ropes",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P260",
+        "phrase": "learn the hard way",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P264",
+        "phrase": "lose track of",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P265",
+        "phrase": "make ends meet",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P266",
+        "phrase": "make the most of",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P267",
+        "phrase": "make waves",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P271",
+        "phrase": "not rocket science",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P275",
+        "phrase": "on the fence",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P280",
+        "phrase": "out of the question",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P281",
+        "phrase": "pay the price",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P282",
+        "phrase": "play it safe",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P283",
+        "phrase": "pull one's weight",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P287",
+        "phrase": "red tape",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P291",
+        "phrase": "sit on the fence",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P292",
+        "phrase": "speak volumes",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P300",
+        "phrase": "take one's time",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P303",
+        "phrase": "the bottom line",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P305",
+        "phrase": "throw light on",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P311",
+        "phrase": "walk on eggshells",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P312",
+        "phrase": "water under the bridge",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P322",
+        "phrase": "make a difference",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P323",
+        "phrase": "make a contribution",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P325",
+        "phrase": "make a commitment",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P326",
+        "phrase": "make a living",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P328",
+        "phrase": "make allowance for",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P339",
+        "phrase": "pay a visit",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P348",
+        "phrase": "have no choice but to",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P352",
+        "phrase": "do business with",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P353",
+        "phrase": "do damage to",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P373",
+        "phrase": "play a part in",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P375",
+        "phrase": "play safe",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P376",
+        "phrase": "play truant",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P377",
+        "phrase": "play down",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P378",
+        "phrase": "draw a conclusion",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P379",
+        "phrase": "draw attention to",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P380",
+        "phrase": "draw a distinction",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P381",
+        "phrase": "draw a comparison",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P392",
+        "phrase": "meet a demand",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P393",
+        "phrase": "meet a requirement",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P394",
+        "phrase": "meet expectations",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P396",
+        "phrase": "meet someone's needs",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P398",
+        "phrase": "address a problem",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P399",
+        "phrase": "address concerns",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P409",
+        "phrase": "conduct a study",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P418",
+        "phrase": "build consensus",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P441",
+        "phrase": "conserve energy",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P443",
+        "phrase": "harness energy",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P455",
+        "phrase": "treat a patient",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P471",
+        "phrase": "drop a subject",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P472",
+        "phrase": "keep up with the class",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P479",
+        "phrase": "on a large scale",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P504",
+        "phrase": "in light of",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P507",
+        "phrase": "with respect to",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P517",
+        "phrase": "result in",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P518",
+        "phrase": "result from",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P554",
+        "phrase": "in need of",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P555",
+        "phrase": "in danger of",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P558",
+        "phrase": "in the event of",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P574",
+        "phrase": "long for",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P581",
+        "phrase": "arrive at",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P602",
+        "phrase": "agree to",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P603",
+        "phrase": "agree on",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P604",
+        "phrase": "provide with",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P615",
+        "phrase": "to begin with",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P617",
+        "phrase": "in the first place",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P622",
+        "phrase": "as well as",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P623",
+        "phrase": "together with",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P633",
+        "phrase": "as long as",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P657",
+        "phrase": "in respect of",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P661",
+        "phrase": "at no time",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P677",
+        "phrase": "in the event that",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P686",
+        "phrase": "more often than not",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P688",
+        "phrase": "to make matters worse",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P711",
+        "phrase": "no point in",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P717",
+        "phrase": "it is high time",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P724",
+        "phrase": "due to the fact that",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P725",
+        "phrase": "in order that",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P731",
+        "phrase": "in order not to",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P735",
+        "phrase": "a number of",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P736",
+        "phrase": "the number of",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P737",
+        "phrase": "the amount of",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P739",
+        "phrase": "a large number of",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P744",
+        "phrase": "by the time",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P745",
+        "phrase": "in spite of the fact that",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P752",
+        "phrase": "however much",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P756",
+        "phrase": "on the point of",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P770",
+        "phrase": "make it possible",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P771",
+        "phrase": "find it difficult",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P779",
+        "phrase": "a case in point",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      }
+    ]
+  },
+  "usefulness": {
+    "activeByLevel": {
+      "A1": 0,
+      "A2": 0,
+      "B1": 162,
+      "B2": 883,
+      "C1": 1279,
+      "C2": 674,
+      "UNCLASSIFIED": 843
+    },
+    "activeByType": {
+      "topic": 1667,
+      "academic": 1037,
+      "none": 843,
+      "core": 122,
+      "word-formation": 79,
+      "linker": 59,
+      "confusable": 34
+    },
+    "advancedShare": 73.8,
+    "academicActive": 1037,
+    "wordFormationActive": 79,
+    "confusableActive": 34,
+    "linkerActive": 59,
+    "phrasalVerbs": 184,
+    "idioms": 133,
+    "collocations": 192,
+    "dependentPrepositions": 105,
+    "linkerPhrases": 90,
+    "sentencePatterns": 76
+  },
+  "limits": [
+    "0/106 papers are checked against an official primary source, so \"exam-attested\" means \"appears in the reposted transcription\", not official inclusion.",
+    "Every CEFR label is editorial (level-source:editorial). No dictionary or CEFR reference page was fetched offline; the audit therefore cannot promote any label to Verified or Source-supported.",
+    "Rows without a level tag stay Unknown/Unclassified; assigning them a level would be an invention."
+  ]
+}

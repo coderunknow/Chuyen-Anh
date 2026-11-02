@@ -55,8 +55,13 @@ class ExamArchiveEmbedTests(unittest.TestCase):
             self.assertEqual(len(ids), len(set(ids)), record['id'])
             self.assertTrue(all(key['verificationStatus'] in {
                 'official_verified', 'independently_cross_checked', 'source_transcription_unverified',
-                'inferred_unverified', 'user_confirmed', 'missing_answer', 'ambiguous_review'
+                'inferred_unverified', 'user_confirmed', 'missing_answer', 'ambiguous_review',
+                # rc9: an unusable stored key and an absent stimulus are explicit,
+                # ungraded states instead of being scored as a wrong answer.
+                'invalid_key', 'incomplete_stimulus'
             } for key in record['answerKey']))
+            self.assertTrue(all(isinstance(key.get('scorable'), bool) for key in record['answerKey']),
+                            record['id'])
 
 
 if __name__ == '__main__':

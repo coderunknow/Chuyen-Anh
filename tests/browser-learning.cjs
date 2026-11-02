@@ -45,6 +45,22 @@ async function main() {
     const page = await browser.newPage({ viewport: { width: 1280, height: 900 }, reducedMotion: 'reduce' });
     const errors = [];
     page.on('pageerror', error => errors.push(error.message));
+    // This suite was written against the whole vocabulary bank and mostly drives
+    // legacy ids (1-913, which carry no CEFR level). rc9 gives a new profile the
+    // B2+C1 study filter, which would hide those words and turn every scenario
+    // into an empty-session test. Seed "all levels" before any app script runs,
+    // and re-seed after the suite's own localStorage.clear() calls; the CEFR
+    // filter itself is covered by tests/static-app.test.js and browser-exams.cjs.
+    await page.addInitScript(() => {
+      const key = 'chuyen-anh.cefr.v1';
+      const all = JSON.stringify({ version: 1, levels: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'], unclassified: true });
+      try { window.localStorage.setItem(key, all); } catch {}
+      const clear = Storage.prototype.clear;
+      Storage.prototype.clear = function patchedClear() {
+        clear.call(this);
+        if (this === window.localStorage) { try { window.localStorage.setItem(key, all); } catch {} }
+      };
+    });
     await page.goto(`http://127.0.0.1:${server.address().port}`);
     await page.locator('[data-session="new"]').waitFor();
     assert.match(await page.locator('.session-grid--focus [data-session="due"]').innerText(), /0 từ/);
@@ -527,7 +543,7 @@ async function main() {
 
     // The shipped build identifies itself.
     await sprint.locator('[data-view="settings"]').click();
-    assert.equal(await sprint.locator('#app-version').innerText(), 'v1.0.0-rc8');
+    assert.equal(await sprint.locator('#app-version').innerText(), 'v1.0.0-rc9');
     assert.deepEqual(sprintErrors, []);
 
     // Error -> intervening word -> typed corrective retrieval -> truthful summary.
@@ -2844,7 +2860,7 @@ async function main() {
     await about.waitFor();
     const aboutText = await about.innerText();
     assert.match(aboutText, /Chuyên Anh/);
-    assert.match(aboutText, /v1\.0\.0-rc8/, 'the About panel shows the shipped version');
+    assert.match(aboutText, /v1\.0\.0-rc9/, 'the About panel shows the shipped version');
     assert.match(aboutText, /MIT License · © 2026 coderunknow/);
     assert.match(aboutText, /Flashcard từ vựng/);
     await about.locator('summary').click();
@@ -2905,7 +2921,7 @@ async function main() {
       assert.match(download.suggestedFilename(), /^chuyen-anh-diagnostics-\d{4}-\d\d-\d\d\.json$/);
       const report = JSON.parse(fs.readFileSync(await download.path(), 'utf8'));
       assert.equal(report.product, 'Chuyen-Anh');
-      assert.match(report.appVersion, /^v1\.0\.0-rc8$/);
+      assert.match(report.appVersion, /^v1\.0\.0-rc9$/);
       assert.equal(report.consent.enabled, true);
       assert.equal(report.eventCount, report.events.length);
       assert.equal(['mobile', 'tablet', 'desktop'].includes(report.environment.viewport), true, 'the viewport is bucketed, not exact');

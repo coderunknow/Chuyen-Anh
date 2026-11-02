@@ -52,9 +52,11 @@ def modern_page(version: str) -> str:
         "<button id=\"exam-history-export\"></button>"
         "<div class=\"exam-ocr-warning\"></div>"
         "<span>Trọng tâm phiên học</span>"
-        "<script>const EXAM_SCORING_RULE_VERSION = \"rc8-universal-scoring-v1\"; const answerKeySchemaVersion = 1;</script>"
+        "<script>const EXAM_SCORING_RULE_VERSION = \"rc9-scorable-only-v1\"; const answerKeySchemaVersion = 1;"
+        " const answeredScorable = 1; const completionPercentage = 100; const partialMultiSelectReason = 'partial-multi-select 1/2';</script>"
+        "<span>Bộ lọc CEFR</span>"
         f"<script type=\"module\" id=\"app-script\">const APP_VERSION = '{version}';"
-        "function previewStageVisible() { return true; } function maskAnswerInPrompt() {} function usableClozeExample() {} function handOffForDisplay() {} function gradeExamEssayRubric() {} function extractExamTranscript() {}</script>"
+        "function previewStageVisible() { return true; } function maskAnswerInPrompt() {} function usableClozeExample() {} function handOffForDisplay() {} function gradeExamEssayRubric() {} function extractExamTranscript() {} function gradeExamQuestion() {} function phraseMatchesCefrSelection() {}</script>"
         "</body></html>"
     )
 

@@ -47,7 +47,11 @@ async function main() {
     await page.goto(origin);
     await page.locator('[data-view="exams"]').click();
     await page.locator('#exam-results-count').filter({ hasText: '106 bản chép' }).waitFor();
-    assert.match(await page.locator('.exam-warning').innerText(), /chấm 100% câu hỏi.*độ tin cậy/i);
+    const catalogueWarning = await page.locator('.exam-warning').first().innerText();
+    assert.match(catalogueWarning, /chỉ chấm những câu có khóa đáp án dùng được/i);
+    assert.match(catalogueWarning, /câu chấm được/i);
+    assert.match(catalogueWarning, /không chấm/i);
+    assert.doesNotMatch(catalogueWarning, /chấm 100%/i, 'the catalogue must not promise 100% scoring');
     assert.match(await page.locator('.exam-warning').innerText(), /audio nghe không được nhúng/i);
     assert.equal(await page.locator('#exam-list .exam-card').count(), 24);
     await page.locator('#exam-search').fill('thai nguyen');
@@ -91,8 +95,18 @@ async function main() {
     assert.equal(Number(await page.locator('#exam-practice-incorrect-count').innerText()), expectedWrong);
     assert.equal(Number(await page.locator('#exam-practice-provisional-count').innerText()) >= 6, true);
     assert.equal(await page.locator('#exam-practice-graded-count').count(), 1);
-    assert.match(await page.locator('#exam-submission-summary').innerText(), new RegExp(`3/${paper.questionCount} điểm quy đổi`));
-    assert.match(await page.locator('#exam-submission-summary').innerText(), /trên số câu đã trả lời: 3\/6 — 50%/);
+    // The denominator is now the number of scorable items, not the parsed item
+    // count, so the assertion checks the semantics instead of a hard-coded ratio.
+    const summaryText = await page.locator('#exam-submission-summary').innerText();
+    const denominator = Number(await page.locator('#exam-practice-denominator-count').innerText());
+    assert.ok(denominator > 0 && denominator <= paper.questionCount, `denominator ${denominator} must be the scorable subset`);
+    assert.match(summaryText, new RegExp(`3/${denominator} điểm trên ${denominator} câu chấm được`));
+    // The paper scorable rate now prints its percentage in parentheses, so the
+    // assertion checks both numbers and the percent sign instead of punctuation.
+    assert.match(summaryText, /\d+\/\d+ câu \(\d+(\.\d+)?%\); \d+ câu không chấm được/);
+    // The efficiency line now uses the graded denominator so an answered but
+    // unscorable item cannot drag a correct result towards 0 % (rc9 review round).
+    assert.match(await page.locator('#exam-submission-summary').innerText(), /trên 6 câu đã chấm: 3\/6 — 50%/);
     assert.match(await page.locator('#exam-submission-summary').innerText(), /KHÔNG phải điểm thi chính thức/i);
     assert.match(await page.locator('#exam-confidence-breakdown').innerText(), /HIGH:[\s\S]*MEDIUM:[\s\S]*LOW:[\s\S]*VERY_LOW:/);
     assert.match(await page.evaluate(() => localStorage.getItem('chuyen-anh.exam-results.v1')), /"attempts"/);
@@ -168,7 +182,10 @@ async function main() {
     await page.locator('#language-setting').selectOption('en');
     await page.locator('[data-view="exams"]').click();
     await page.locator('#exam-results-count').filter({ hasText: '106 transcriptions' }).waitFor();
-    assert.match(await page.locator('.exam-warning').innerText(), /provisionally score 100%.*unverified/i);
+    const catalogueWarningEn = await page.locator('.exam-warning').first().innerText();
+    assert.match(catalogueWarningEn, /only the items whose stored key can actually answer them/i);
+    assert.match(catalogueWarningEn, /not scored/i);
+    assert.doesNotMatch(catalogueWarningEn, /score 100%/i, 'the English catalogue must not promise 100% scoring');
     for (const viewport of [{ width: 320, height: 720 }, { width: 375, height: 812 }, { width: 768, height: 900 }, { width: 1024, height: 900 }, { width: 1440, height: 1000 }]) {
       await page.setViewportSize(viewport);
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, `catalogue fits ${viewport.width}px`);
@@ -239,11 +256,11 @@ async function main() {
     await filePage.locator('[data-view="exams"]').click();
     await filePage.locator('#exam-results-count').filter({ hasText: '106 bản chép' }).waitFor();
     await filePage.locator('[data-view="settings"]').click();
-    assert.equal(await filePage.locator('#app-version').innerText(), 'v1.0.0-rc8');
+    assert.equal(await filePage.locator('#app-version').innerText(), 'v1.0.0-rc9');
     assert.deepEqual(fileExternal, [], 'no external network call under file://');
     assert.deepEqual(fileErrors, [], 'no page error under file://');
 
-    console.log(`PASS: ${engineName} ${browserVersion} — 106-record catalogue; 100% universal full-denominator scoring; 3 correct/3 incorrect deterministic summary; key hidden before submit; user correction recalculated and persisted; history reload/export/malformed import/valid import; operable session-focus control; HTML/OCR interactive with LOW/VERY_LOW warning; WCAG 2.1 AA axe clean; 2022/hai-phong/so angle-bracket escaped in live DOM; standalone file:// offline verified; VI/EN, Classic/Modern; 320/375/768/1024/1440px; no network or page errors.`);
+    console.log(`PASS: ${engineName} ${browserVersion} — 106-record catalogue; scorable-only grading with per-paper coverage; 3 correct/3 incorrect deterministic summary; key hidden before submit; user correction recalculated and persisted; history reload/export/malformed import/valid import; operable session-focus control; HTML/OCR interactive with LOW/VERY_LOW warning; WCAG 2.1 AA axe clean; 2022/hai-phong/so angle-bracket escaped in live DOM; standalone file:// offline verified; VI/EN, Classic/Modern; 320/375/768/1024/1440px; no network or page errors.`);
   } finally {
     if (browser) await browser.close();
     if (!serverClosed) await new Promise(resolve => server.close(resolve));
