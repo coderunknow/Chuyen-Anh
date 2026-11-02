@@ -88,7 +88,7 @@ enrol	v	ghi danh	C1	education	topic	reading
 enrolment	n	sự ghi danh	C2	education	topic	reading
 attendance	n	sự tham dự, điểm danh	C1	education	academic	reading
 absence	n	sự vắng mặt	C1	education	academic	reading
-absent	adj	vắng mặt	B1	education	core	reading
+absent	adj	vắng mặt	C1	education	core	reading
 behaviour	n	hạnh kiểm, cách cư xử	B2	education	academic	reading
 reward	n	phần thưởng học tập	B2	education	core	reading
 punish	v	trừng phạt	B2	education	core	reading

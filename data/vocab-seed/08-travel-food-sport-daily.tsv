@@ -2,7 +2,7 @@
 # word<TAB>pos<TAB>meaning<TAB>level<TAB>topic<TAB>type<TAB>skills
 itinerary	n	lịch trình chuyến đi	C1	travel	topic	reading
 destination	n	điểm đến	B2	travel	topic	reading
-accommodation	n	chỗ ở	C1	travel	topic	reading
+accommodation	n	chỗ ở	B1	travel	topic	reading
 souvenir	n	đồ lưu niệm	B2	travel	topic	reading
 luggage	n	hành lý	B1	travel	core	reading
 passport	n	hộ chiếu	B1	travel	core	reading

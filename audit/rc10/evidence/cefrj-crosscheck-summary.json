@@ -1,0 +1,23 @@
+{
+  "generatedAt": "2026-11-02T00:00:00Z",
+  "reference": "cefrpy 1.0.3 (CEFR-J index)",
+  "referenceUrl": "https://pypi.org/project/cefrpy/1.0.3/",
+  "dataSha256": "21866e2f58a859ca5d62d402c850729ef0919b0ff673384fd6d1437bdc9f6a38",
+  "indexWords": 172782,
+  "rows": 5852,
+  "covered": 5704,
+  "absent": 148,
+  "agree": 968,
+  "conflict": 4736,
+  "posExactMatch": 5611,
+  "posFallback": 93,
+  "conflictByStored": {
+    "UNCLASSIFIED": 845,
+    "B1": 869,
+    "B2": 974,
+    "C1": 1693,
+    "C2": 355
+  },
+  "promotions": 0,
+  "note": "No stored label was changed by this lane; conflicts are queued for primary attestation."
+}

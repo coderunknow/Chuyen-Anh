@@ -9,3 +9,5 @@ evidence/new-word-candidates.json
 evidence/p3-p4-audit.jsonl
 # 3.1 MB pre-change dataset archive; reproducible from git archive c427be2
 backup/data-pre-rc10.tgz
+evidence/cefrj-crosscheck.jsonl
+evidence/reference-join.jsonl

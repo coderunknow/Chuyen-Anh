@@ -1,0 +1,28 @@
+{
+  "generatedAt": "2026-11-02T00:00:00Z",
+  "rows": 5852,
+  "byDisposition": {
+    "conflict_primary_needed": 4223,
+    "attested": 25,
+    "absent_everywhere": 146,
+    "confirmed_by_lanes": 1458
+  },
+  "lanesAvailable": {
+    "primary": 25,
+    "mirror": 2835,
+    "cefrj": 5704
+  },
+  "anyLane": 5706,
+  "noLane": 146,
+  "conflictsByLane": {
+    "primary": 8,
+    "mirror": 1993,
+    "cefrj": 4736
+  },
+  "allLanesAgree": 149,
+  "conflictEditable": 3381,
+  "conflictFrozen": 842,
+  "mirrorSource": "https://github.com/voothi/20260715190122-oxford-3000-5000",
+  "promotions": 0,
+  "note": "Only the primary lane may change a stored label; this join changes nothing by itself."
+}

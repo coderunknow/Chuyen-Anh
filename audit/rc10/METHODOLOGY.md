@@ -76,3 +76,60 @@ phrases; both report **0 duplicate rows** on the shipped dataset.
   (`audit/rc10/tools/new-word-candidates.mjs`, 1,447 corpus-backed candidates)
   but no candidate has been through an individual reference lookup, and none is
   counted.
+
+## 8. Reference lanes (added in the third round)
+
+Primary attestation — opening one publisher page per entry — is the only evidence
+that may change a label, and it costs a network round trip per entry. Two offline
+lanes were added so that **no row is left without reference evidence**, and so the
+rows worth the round trip are discoverable rather than sampled.
+
+| Lane | Source | Coverage | Authority |
+| --- | --- | --- | --- |
+| `primary` | publisher pages read per entry (`dictionary.cambridge.org`, the Oxford list HTML) | 25 rows so far | **may change a label** |
+| `mirror` | third-party TSV transcription of the official Oxford 3000/5000 lists (`github.com/voothi/20260715190122-oxford-3000-5000`) | 2,835 rows (48.5%) | may **target** attestation, never promote |
+| `cefrj` | `cefrpy==1.0.3` (data pinned by sha256), derived from CEFR-J + Google Books 1-gram frequencies | 5,704 rows (97.5%) | cross-check only |
+
+**Measured, not assumed.** The mirror's fidelity is computed against the primary
+entries: **42 of 44 exact (95.5%)** on headword + part of speech + level, with two
+documented defects — it drops the `about adj B1` sense (it collapses multi-POS
+entries into one row) and it omits `accessory n C1` entirely. A 4.5% error rate
+disqualifies it from promotion, and its omissions prove the direction of trust:
+the mirror proposes, the publisher page decides.
+
+The CEFR-J index is a frequency list, not dictionary annotation, and it shows:
+agreement with the stored labels is **968 of 5,704 (17.0%)**, spread across every
+stored band (stored C1 → index B2 585, C2 567, B1 417). That is not evidence that
+4,736 rows are wrong; it is evidence that an editorial label and a frequency list
+are different objects. Its value is coverage and triage, and it is reported as
+`crosscheck_conflict`, never as an error count.
+
+### Dispositions produced by the join
+
+`attested` (primary exists) · `confirmed_by_lanes` (≥1 lane agrees) ·
+`conflict_primary_needed` (a lane disagrees and no primary record exists) ·
+`absent_everywhere` (no lane covers the row, currently 146). Only `attested` rows
+count toward G1/G5; `confirmed_by_lanes` is corroboration and is labelled as such
+in every record.
+
+### The three reasons a correction is recorded but not written
+
+1. `frozen_ledger` — id ≤ 913 is pinned by `tests/test_vocabulary_audit_dev4.py`.
+2. `below_study_scope` — the reference says A1/A2 and the seed set is deliberately
+   B1–C2; writing it would silently widen the study surface.
+3. `blocked` — `evidence/correction-blocks.jsonl` names a consequence the level
+   audit may not decide alone. Current case: `academic` → B1 makes the row match
+   the `basic-b1` curation rule and archives it out of the deck.
+
+Blocks and applied corrections are append-only: `correction-blocks.jsonl` for
+refusals, `corrections-applied.jsonl` for writes, so a later reader can tell a
+correction that was never made from one that was made and later superseded.
+
+### Throughput, measured
+
+One Oxford-list HTML chunk (≈8k tokens) yields ≈44–70 entries → 25 rows matched to
+the bank → 16 disagreements → 8 corrections written. The Oxford list can only
+ever reach the 2,835 rows it covers (≈113 chunks); the other 3,017 rows need one
+dictionary page each. The offline lanes cost 1.2 s for all 5,852 rows. That
+asymmetry — cheap reconciliation, expensive attestation — is the real constraint
+on G1, and it is why the gates stay FAIL while coverage keeps rising.

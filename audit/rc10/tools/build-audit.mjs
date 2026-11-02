@@ -28,6 +28,13 @@ const readJsonl = file => (fs.existsSync(file)
   : []);
 
 const manual = new Map(readJsonl(path.join(evidenceDir, 'manual-verifications.jsonl')).map(row => [`${row.kind}:${row.id}`, row]));
+// Reference lanes. `attested` holds the per-entry primary lookups made through the
+// reference pipeline (tools/oxford-attest.mjs); `join` holds, for every row, which
+// lanes cover it. Neither can change data by itself — only build-audit reads them.
+const attested = new Map(readJsonl(path.join(evidenceDir, 'reference-attestations.jsonl')).map(row => [`${row.kind}:${row.id}`, row]));
+const join = new Map(readJsonl(path.join(evidenceDir, 'reference-join.jsonl')).map(row => [`${row.kind}:${row.id}`, row]));
+const blocks = new Set(readJsonl(path.join(evidenceDir, 'correction-blocks.jsonl')).map(row => row.id));
+const STUDY_SCOPE = new Set(['B1', 'B2', 'C1', 'C2']);
 const examVocab = new Map(readJsonl(path.join(evidenceDir, 'exam-occurrences-vocabulary.jsonl')).map(row => [row.id, row]));
 const examPhrase = new Map(readJsonl(path.join(evidenceDir, 'exam-occurrences-phrases.jsonl')).map(row => [row.id, row]));
 
@@ -77,9 +84,17 @@ for (const row of vocabulary) {
   if (row.familyHead && !vocabById.has(String(row.familyHead))) problems.push(`family head ${row.familyHead} does not exist`);
   if (duplicates.length) problems.push(`same headword+POS as id ${duplicates.join(', ')}`);
   const manualRecord = manual.get(`vocabulary:${row.id}`);
+  const attestation = attested.get(`vocabulary:${row.id}`);
+  const lanes = join.get(`vocabulary:${row.id}`) || null;
   const disposition = manualRecord
     ? (manualRecord.decision.startsWith('correct') ? 'inspected_corrected' : manualRecord.decision === 'unclassify' ? 'inspected_unclassified' : 'inspected_accepted')
-    : 'machine_assessed';
+    : attestation
+      ? (attestation.decision === 'accept' ? 'inspected_accepted'
+        : blocks.has(row.id) ? 'inspected_correction_blocked'
+        : !STUDY_SCOPE.has(attestation.newLevel) ? 'inspected_below_scope'
+        : attestation.ledgerFrozen ? 'inspected_pending_ledger'
+        : 'inspected_corrected')
+      : 'machine_assessed';
   rows.push({
     kind: 'vocabulary',
     id: row.id,
@@ -87,7 +102,11 @@ for (const row of vocabulary) {
     pos: row.pos || '',
     storedLevel: level,
     levelSource: source,
-    levelEvidenceStatus: manualRecord ? manualRecord.evidenceStatus : (level === 'UNCLASSIFIED' ? 'unclassified' : 'editorial_only'),
+    levelEvidenceStatus: manualRecord ? manualRecord.evidenceStatus
+      : attestation ? attestation.evidenceStatus
+      : lanes && lanes.agreeing.length ? 'corroborated_by_reference_lane'
+      : (level === 'UNCLASSIFIED' ? 'unclassified' : 'editorial_only'),
+    referenceLanes: lanes ? { available: Object.keys(lanes.lanes), agreeing: lanes.agreeing, disagreeing: lanes.disagreeing, disposition: lanes.disposition } : null,
     examOccurrenceCount: evidence?.examOccurrenceCount || 0,
     examPapers: evidence?.papersWithOccurrence || 0,
     examEvidenceClass: (evidence?.examOccurrenceCount || 0) > 0 ? 'archive_transcription_repost' : 'none',
@@ -95,6 +114,19 @@ for (const row of vocabulary) {
     familyHead: row.familyHead || null,
     duplicateOf: duplicates,
     problems,
+    referenceAttestation: attestation ? {
+      reference: attestation.reference,
+      url: attestation.url,
+      entryUrl: attestation.entryUrl,
+      locator: attestation.locator,
+      retrieved: attestation.retrieved,
+      excerpt: attestation.excerpt,
+      referenceLabel: attestation.referenceLabel,
+      decision: attestation.decision,
+      newLevel: attestation.newLevel,
+      ledgerFrozen: attestation.ledgerFrozen,
+      reasoning: attestation.reasoning
+    } : null,
     manualVerification: manualRecord ? {
       reference: manualRecord.reference,
       url: manualRecord.url,
@@ -110,7 +142,11 @@ for (const row of vocabulary) {
     disposition,
     dispositionReason: manualRecord
       ? 'individual reference lookup recorded in audit/rc10/evidence/manual-verifications.jsonl'
-      : `machine_assessed: ${problems.length ? problems.join('; ') : 'no structural problem found'}; no per-entry reference lookup yet`
+      : attestation
+        ? `primary attestation in audit/rc10/evidence/reference-attestations.jsonl (${attestation.locator})`
+        : lanes && lanes.agreeing.length
+          ? `reference lane(s) ${lanes.agreeing.join(', ')} agree with the stored label; corroboration, not attestation`
+          : `machine_assessed: ${problems.length ? problems.join('; ') : 'no structural problem found'}; no primary attestation yet`
   });
 }
 
@@ -129,6 +165,10 @@ for (const row of phrases) {
   const isPhrasalVerb = row.type === 'phrasal-verb';
   if (isPhrasalVerb && words < 2) problems.push('phrasal verb with a single token');
   const manualRecord = manual.get(`phrase:${row.id}`);
+  // Phrases have no primary-attestation lane yet (a phrase level needs a phrase
+  // reference, not a headword one), so these stay empty for now.
+  const attestation = attested.get(`phrase:${row.id}`);
+  const lanes = join.get(`phrase:${row.id}`) || null;
   rows.push({
     kind: 'phrase',
     id: row.id,
@@ -136,7 +176,11 @@ for (const row of phrases) {
     type: row.type || '',
     storedLevel: level,
     levelSource: tagValue(row, 'level-source') || 'none',
-    levelEvidenceStatus: manualRecord ? manualRecord.evidenceStatus : (level === 'UNCLASSIFIED' ? 'unclassified' : 'editorial_only'),
+    levelEvidenceStatus: manualRecord ? manualRecord.evidenceStatus
+      : attestation ? attestation.evidenceStatus
+      : lanes && lanes.agreeing.length ? 'corroborated_by_reference_lane'
+      : (level === 'UNCLASSIFIED' ? 'unclassified' : 'editorial_only'),
+    referenceLanes: lanes ? { available: Object.keys(lanes.lanes), agreeing: lanes.agreeing, disagreeing: lanes.disagreeing, disposition: lanes.disposition } : null,
     examOccurrenceCount: evidence?.examOccurrenceCount || 0,
     examPapers: evidence?.papersWithOccurrence || 0,
     examEvidenceClass: (evidence?.examOccurrenceCount || 0) > 0 ? 'archive_transcription_repost' : 'none',
@@ -148,7 +192,11 @@ for (const row of phrases) {
       : 'machine_assessed',
     dispositionReason: manualRecord
       ? 'individual reference lookup recorded in audit/rc10/evidence/manual-verifications.jsonl'
-      : `machine_assessed: ${problems.length ? problems.join('; ') : 'no structural problem found'}; no per-entry reference lookup yet`
+      : attestation
+        ? `primary attestation in audit/rc10/evidence/reference-attestations.jsonl (${attestation.locator})`
+        : lanes && lanes.agreeing.length
+          ? `reference lane(s) ${lanes.agreeing.join(', ')} agree with the stored label; corroboration, not attestation`
+          : `machine_assessed: ${problems.length ? problems.join('; ') : 'no structural problem found'}; no primary attestation yet`
   });
 }
 

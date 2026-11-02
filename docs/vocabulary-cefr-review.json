@@ -19,18 +19,18 @@
     "activeByLevel": {
       "A1": 0,
       "A2": 0,
-      "B1": 162,
-      "B2": 883,
-      "C1": 1279,
+      "B1": 163,
+      "B2": 886,
+      "C1": 1275,
       "C2": 674,
       "UNCLASSIFIED": 843
     },
     "allByLevel": {
       "A1": 0,
       "A2": 0,
-      "B1": 1104,
-      "B2": 1227,
-      "C1": 1833,
+      "B1": 1105,
+      "B2": 1229,
+      "C1": 1830,
       "C2": 775,
       "UNCLASSIFIED": 913
     },
@@ -49,18 +49,18 @@
     "activeByLevel": {
       "A1": 0,
       "A2": 0,
-      "B1": 162,
-      "B2": 883,
-      "C1": 1279,
+      "B1": 163,
+      "B2": 886,
+      "C1": 1275,
       "C2": 674,
       "UNCLASSIFIED": 843
     },
     "allByLevel": {
       "A1": 0,
       "A2": 0,
-      "B1": 1104,
-      "B2": 1227,
-      "C1": 1833,
+      "B1": 1105,
+      "B2": 1229,
+      "C1": 1830,
       "C2": 775,
       "UNCLASSIFIED": 913
     },
@@ -2646,6 +2646,15 @@
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
       {
+        "id": "P343",
+        "phrase": "have access to",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
         "id": "P348",
         "phrase": "have no choice but to",
         "phraseLevel": "B2",
@@ -3218,9 +3227,9 @@
     "activeByLevel": {
       "A1": 0,
       "A2": 0,
-      "B1": 162,
-      "B2": 883,
-      "C1": 1279,
+      "B1": 163,
+      "B2": 886,
+      "C1": 1275,
       "C2": 674,
       "UNCLASSIFIED": 843
     },

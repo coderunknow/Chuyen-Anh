@@ -17,7 +17,7 @@ Báo cáo này sinh tự động từ `Learned_Vocabulary_List.md`, `docs/vocabu
 
 | Trường | Phân bố |
 | --- | --- |
-| Level (biên tập) | (none): 843, B1: 162, B2: 883, C1: 1,279, C2: 674 |
+| Level (biên tập) | (none): 843, B1: 163, B2: 886, C1: 1,275, C2: 674 |
 | Type | (none): 843, academic: 1,037, confusable: 34, core: 122, linker: 59, topic: 1,667, word-formation: 79 |
 | Topic | (none): 843, academic: 898, culture: 111, daily-life: 119, economics: 143, education: 100, environment: 240, family: 15, food: 50, health: 177, law: 91, media: 89, politics: 97, psychology: 220, science: 137, society: 184, sport: 32, technology: 98, travel: 85, work: 112 |
 | Có bằng chứng xuất hiện trong bản chép đề | 2,918 |

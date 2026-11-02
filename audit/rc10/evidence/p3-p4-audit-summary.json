@@ -1,17 +1,20 @@
 {
-  "generatedAt": "2026-11-02T14:15:23.646Z",
+  "generatedAt": "2026-11-02T15:13:26.365Z",
   "vocabulary": {
     "rows": 5852,
     "disposition": {
-      "machine_assessed": 5846,
+      "machine_assessed": 5821,
       "inspected_corrected": 2,
-      "inspected_accepted": 4
+      "inspected_pending_ledger": 3,
+      "inspected_below_scope": 4,
+      "inspected_accepted": 21,
+      "inspected_correction_blocked": 1
     },
     "byLevel": {
       "UNCLASSIFIED": 913,
-      "B1": 1104,
-      "B2": 1227,
-      "C1": 1833,
+      "B1": 1105,
+      "B2": 1229,
+      "C1": 1830,
       "C2": 775
     },
     "withExamOccurrence": 3725,
@@ -39,8 +42,8 @@
   },
   "gateP3": {
     "requirement": "every existing vocabulary row has an individual reference lookup and final disposition",
-    "verifiedIndividually": 6,
-    "outstanding": 5846,
+    "verifiedIndividually": 31,
+    "outstanding": 5821,
     "status": "FAIL"
   },
   "gateP4": {

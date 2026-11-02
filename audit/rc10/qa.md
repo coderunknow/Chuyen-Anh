@@ -135,3 +135,40 @@ Local runs on the same tree: Python `168 OK`; `node --test tests/static-app.test
 This CI status proves the **application and existing data** are intact. It does not
 advance the data gates: G1–G5 fail on counts (`GATES.md`), and CI cannot make them
 pass.
+
+## rc10-3 — third round: reference lanes and the first applied corrections
+
+**What changed in the dataset.** Nine seed rows were re-levelled from a primary
+attestation; eight were written (id 1494 accessible B2→C1, 2177 absent B1→C1,
+2266 accommodation C1→B1, 2522 access B2→B1, 4861 absolute C1→B2, 4884 abstract
+C1→B2, 5450 accomplish C1→B2, 5502 accompany C1→B2). `academic` (4632) was blocked
+because B1 triggers the `basic-b1` curation rule and would archive it out of the
+study deck. Four A2 attestations were recorded without being written because the
+seed set is deliberately B1–C2. No row was deleted, no ID moved, no gloss changed;
+the bank is still 5,852 rows.
+
+**Bank after:** B1 1,105 · B2 1,229 · C1 1,830 · C2 775 · Unclassified 913.
+**Deck after:** 3,841 headwords (B1 163 · B2 886 · C1 1,275 · C2 674 ·
+Unclassified 843), 1,271 archived, default B2+C1 selection 2,161.
+
+**Two snapshot assertions updated, deliberately and narrowly.**
+`tests/static-app.test.js` ("the shipped vocabulary keeps every row and every level
+is selectable") listed the deck's per-level counts and the default-selection total.
+Both are counts of real data, so they moved: `B1 162→163`, `B2 883→886`,
+`C1 1279→1275`, default selection `2162→2161`. The assertions were not relaxed —
+the totals still have to equal the deck, `A1`/`A2` still have to be zero, the
+Unclassified count still has to be 843/913, and the archived/deck/headword counts
+(1,271 / 3,841 / 5,112) are unchanged. The `test_evidence_reports` retained-headword
+literal (3,841) still passes because the blocked correction kept the deck intact;
+with `academic` unblocked it would read 3,840 and one row would silently leave the
+deck — which is exactly why the block exists.
+
+**Suites.** `python -m unittest discover -s tests -p 'test_*.py'` → **168 OK**;
+`node --test tests/static-app.test.js` → **144 pass**; `node --test
+tests/rc10-cefr.test.js` → **9 pass**. Derived reports were regenerated and each
+one re-pinned to its original `generatedAt` timestamp so the staleness checks
+still mean what they meant.
+
+**Not done, and not claimed.** G1 (5,821 rows still `machine_assessed`), G2 (780
+phrase rows), G3 (2,000 headwords), G4 (300 phrases / 200 phrasal verbs), G5.
+PR #81 remains **Draft and unmerged**; nothing was tagged, released or deployed.
