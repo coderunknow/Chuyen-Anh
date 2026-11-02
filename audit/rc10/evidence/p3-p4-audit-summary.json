@@ -1,0 +1,52 @@
+{
+  "generatedAt": "2026-11-02T14:15:23.646Z",
+  "vocabulary": {
+    "rows": 5852,
+    "disposition": {
+      "machine_assessed": 5846,
+      "inspected_corrected": 2,
+      "inspected_accepted": 4
+    },
+    "byLevel": {
+      "UNCLASSIFIED": 913,
+      "B1": 1104,
+      "B2": 1227,
+      "C1": 1833,
+      "C2": 775
+    },
+    "withExamOccurrence": 3725,
+    "withoutExamOccurrence": 2127,
+    "rowsWithProblems": 5852,
+    "duplicateRows": 0,
+    "editorialLevels": 4939
+  },
+  "phrases": {
+    "rows": 780,
+    "disposition": {
+      "machine_assessed": 780
+    },
+    "byLevel": {
+      "B1": 112,
+      "B2": 301,
+      "C1": 288,
+      "C2": 79
+    },
+    "withExamOccurrence": 397,
+    "withoutExamOccurrence": 383,
+    "rowsWithProblems": 780,
+    "duplicateRows": 0,
+    "phrasalVerbs": 184
+  },
+  "gateP3": {
+    "requirement": "every existing vocabulary row has an individual reference lookup and final disposition",
+    "verifiedIndividually": 6,
+    "outstanding": 5846,
+    "status": "FAIL"
+  },
+  "gateP4": {
+    "requirement": "every existing phrase row has an individual reference lookup and final disposition",
+    "verifiedIndividually": 0,
+    "outstanding": 780,
+    "status": "FAIL"
+  }
+}
