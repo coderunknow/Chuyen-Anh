@@ -116,3 +116,22 @@ An earlier revision of this file and of `STATE.md` said the matrix was
   plus the phrase entry point 128 × 2 = **256**, for **3,072** pool
   configurations. Word builders are asserted to return identical queues under
   both scopes, which is what proves Words Only does not alter word study.
+
+## CI evidence on the current head
+
+Head `aec5b79` (PR #81, Draft). Run `41460767841`:
+
+| Check | Result |
+| --- | --- |
+| `checks` (source/HTML consistency, Python suites, Node static + exam + rc10) | **pass** (3 m 26 s) |
+| `browser (chromium)` | **pass** (6 m 37 s) |
+| `browser (firefox)` | **pass** (9 m 0 s) |
+| `browser (webkit)` | **pass** (10 m 44 s) |
+| `CodeRabbit` | **skipping** (integration not enabled for this repository) |
+
+Local runs on the same tree: Python `168 OK`; `node --test tests/static-app.test.js`
+`144` pass; `node --test tests/rc10-cefr.test.js` `9` pass.
+
+This CI status proves the **application and existing data** are intact. It does not
+advance the data gates: G1–G5 fail on counts (`GATES.md`), and CI cannot make them
+pass.

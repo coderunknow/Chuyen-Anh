@@ -1,4 +1,4 @@
-# rc10 — gate table (G1–G15), evaluated 2026-11-02 against branch head `f31cb08`
+# rc10 — gate table (G1–G15), evaluated 2026-11-02 against branch head `aec5b79`
 
 The task's own gate list is used verbatim where it exists. Where the repository
 has no authoritative G1–G15 definition (only the older rc8 G1–G5 in
@@ -20,7 +20,7 @@ an invented repository rule — and that is stated so nobody mistakes it for one
 | G11 | No unselected level leaks | same test; plus real-browser probe over 6 selections × 9 entries | **PASS** |
 | G12 | Words Only / Words + Phrases correct and persistent; phrase data unchanged | `tests/rc10-cefr.test.js` tests 7–9 + browser scope journey | **PASS** |
 | G13 | Lifetime stats and learning priority unchanged; prior defects fixed | lifetime figures still read `stats()`; priority order untouched; favourites leak + stale-queue defects fixed and regression-tested | **PASS** |
-| G14 | Full suites pass (Python, Node, Chromium, Firefox, WebKit) | local: Python 168 OK, Node 183/183, both Chromium suites PASS; CI run `41430469888` on `f31cb08`: checks + 3 browsers PASS | **PASS for `f31cb08`** (must be re-run on the final head) |
+| G14 | Full suites pass (Python, Node, Chromium, Firefox, WebKit) | local: Python 168 OK, Node 144 static + 9 rc10, both Chromium suites PASS; CI run `41460767841` on head `aec5b79`: `checks` + chromium + firefox + webkit **PASS** | **PASS for `aec5b79`** |
 | G15 | Correct PR updated, pushed, Ready for Review, CI green on the exact head, description accurate | PR #81 is **Draft**; it stays Draft because G1–G5 fail | **FAIL (by design)** |
 
 **Overall: NOT COMPLETE.** G1, G2, G3, G4, G5 fail, and G15 stays open as a
