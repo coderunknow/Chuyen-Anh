@@ -1591,7 +1591,7 @@ test('exported exam results report exactly what the learner did and what could b
   const result = buildExamResultJson(session, record, keys, [], { now: 6000 });
   assert.equal(result.app, 'Chuyên Anh');
   assert.equal(result.version, APP_VERSION, 'the result carries the application version');
-  assert.equal(result.version, 'v1.0.0-rc8');
+  assert.equal(result.version, 'v1.0.0-rc9');
   assert.equal(result.schemaVersion, '2.0.0');
   assert.equal(result.summary.total, 3);
   // q3 has no stored answer key, so it is excluded from the denominator instead
@@ -1606,7 +1606,11 @@ test('exported exam results report exactly what the learner did and what could b
   assert.equal(result.summary.earnedPoints, 2);
   assert.equal(result.summary.ungraded, 1);
   assert.equal(result.summary.percentage, 100);
-  assert.equal(result.summary.answeredPercentage, 100);
+  // rc9 fix round (DA-06): an answered-versus-graded ratio no longer shares a
+  // payload with the paper percentage; completion and accuracy are separate.
+  assert.equal('answeredPercentage' in result.summary, false);
+  assert.equal(result.summary.completionPercentage, 100, 'every scorable item was answered');
+  assert.equal(result.summary.gradedPercentage, 100, 'both graded items were right');
   assert.equal(result.summary.officialScore, null, 'an application-calculated score is never labelled official');
   assert.equal(result.questions[0].response, 'choice-B');
   assert.equal(result.questions[1].response, '  resilient  ', 'the stored response is unchanged');
@@ -4298,4 +4302,66 @@ test('the CEFR selector is wired into the real session pipeline, not just the pa
   assert.match(source, /saveCefrSelection\(cefrSelection, storage\)/);
   // Grading stays independent of the study filter.
   assert.match(source, /gradeAnswer\(question, answer, \{ vocabulary: deck \}\)/);
+});
+
+test('rc9 fix round: a corrupt CEFR record falls back to the default instead of emptying the deck', () => {
+  // A record whose `levels` is not an array used to sanitize to "nothing
+  // selected", silently emptying every session.
+  assert.deepEqual(app.sanitizeCefrSelection({ version: 1, levels: 'B2' }), app.defaultCefrSelection());
+  assert.deepEqual(app.sanitizeCefrSelection({ version: 1, levels: ['C9', 7] }), app.defaultCefrSelection(),
+    'a record whose levels are all unusable is corrupt, not an empty choice');
+  // A deliberate empty selection is still preserved: only a record that yields
+  // nothing from a non-empty input is treated as corrupt.
+  assert.deepEqual(app.sanitizeCefrSelection({ version: 1, levels: [], unclassified: false }),
+    { version: 1, levels: [], unclassified: false });
+  const map = new Map([['chuyen-anh.cefr.v1', JSON.stringify({ version: 1, levels: 'B2' })]]);
+  const storage = { getItem: key => (map.has(key) ? map.get(key) : null), setItem: (key, value) => map.set(key, value), removeItem: key => map.delete(key) };
+  assert.deepEqual(app.loadCefrSelection(storage), app.defaultCefrSelection(), 'a corrupt stored record does not lock the learner out');
+  const deck = app.filterVocabularyByCefr(cefrVocab(), app.loadCefrSelection(storage));
+  assert.ok(deck.length > 0, 'the deck is never emptied by a corrupt record');
+});
+
+test('rc9 fix round: the CEFR panel says how many words the level filter hides', () => {
+  assert.match(appScript[1], /const hidden = Math\.max\(0, total - eligible\)/);
+  assert.match(appScript[1], /từ đang bị bộ lọc mức ẩn khỏi phiên học/);
+  assert.match(appScript[1], /words are hidden by this level filter/);
+  // The study hero's "due" figure must come from the filtered pool, not the
+  // whole deck (historical finding 11).
+  assert.match(appScript[1], /const poolSummary = poolStats\(cefrPoolIds\)/);
+  assert.match(appScript[1], /Đến hạn/);
+});
+
+test('rc9 fix round: phrase practice is narrowed by the CEFR selection using each phrase\'s own level', () => {
+  const c1 = app.sanitizeCefrSelection({ version: 1, levels: ['C1'], unclassified: false });
+  const c1Phrases = app.filterPhrasesByCefr(embeddedPhrases, c1);
+  assert.ok(c1Phrases.length > 0);
+  assert.ok(c1Phrases.every(entry => app.phraseCefrLevel(entry) === 'C1'),
+    'a phrase is selected by its own label, never by a constituent word');
+
+  const none = app.sanitizeCefrSelection({ version: 1, levels: [], unclassified: false });
+  assert.equal(app.filterPhrasesByCefr(embeddedPhrases, none).length, 0);
+
+  const all = app.sanitizeCefrSelection({ version: 1, levels: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'], unclassified: true });
+  assert.equal(app.filterPhrasesByCefr(embeddedPhrases, all).length, embeddedPhrases.length,
+    'opening every level keeps the whole bank reachable');
+
+  const counts = app.countPhrasesByCefr(embeddedPhrases);
+  assert.deepEqual(Object.keys(counts).sort(), [...app.CEFR_SELECTOR_OPTIONS].sort());
+  assert.equal(Object.values(counts).reduce((sum, value) => sum + value, 0), embeddedPhrases.length,
+    'the per-level counts cover the bank exactly once');
+
+  // The practice queue draws from the same narrowed pool the list shows.
+  const session = selectPhraseSession(embeddedPhrases, {}, { size: 10, cefrSelection: c1 });
+  assert.ok(session.length > 0);
+  assert.ok(session.every(entry => app.phraseCefrLevel(entry) === 'C1'));
+  assert.equal(selectPhraseSession(embeddedPhrases, {}, { size: 10, cefrSelection: none }).length, 0);
+  // Without a selection the previous behaviour is untouched.
+  assert.equal(selectPhraseSession(embeddedPhrases, {}, { size: 9999 }).length, embeddedPhrases.length);
+
+  // One pool feeds the list, its counter and the start button.
+  assert.match(appScript[1], /const cefrPool = filterPhrasesByCefr\(phrases, cefrSelection\)/);
+  assert.match(appScript[1], /searchPhrases\(cefrPool, field\.value, phraseFilters\)/);
+  assert.match(appScript[1], /cefrSelection\s*\n\s*\}\);/);
+  assert.match(appScript[1], /cụm trong phạm vi/);
+  assert.match(appScript[1], /phraseCefrEmptyMessage\(\)/);
 });

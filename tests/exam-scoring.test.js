@@ -105,7 +105,14 @@ test('rc9 grading: provenance controls provisional scoring and unusable keys are
 test('rc6 grading: multiple choices, true/false, alternatives and explicit normalization', () => {
   const multi = question({ id: 'm', responseType: 'multiple', options: [choice('choice-A','A','a'),choice('choice-B','B','b'),choice('choice-C','C','c')] });
   assert.equal(app.gradeExamQuestion(multi, ['choice-B','choice-A'], key({ questionId:'m', candidates:['choice-A','choice-B'], normalization:'choice-set' })).result, 'correct');
-  assert.equal(app.gradeExamQuestion(multi, ['choice-A'], key({ questionId:'m', candidates:['choice-A','choice-B'], normalization:'choice-set' })).result, 'incorrect');
+  // rc9 fix round (DA-01): one of two keyed options is credit for the part found,
+  // not a plain wrong answer. The all-or-nothing assertion this line used to make
+  // is superseded by the proportional contract tested below; a response that
+  // matches nothing is still `incorrect`.
+  const halfKeyed = app.gradeExamQuestion(multi, ['choice-A'], key({ questionId:'m', candidates:['choice-A','choice-B'], normalization:'choice-set' }));
+  assert.equal(halfKeyed.result, 'partial');
+  assert.equal(halfKeyed.earnedCredit, 0.5);
+  assert.equal(app.gradeExamQuestion(multi, ['choice-C'], key({ questionId:'m', candidates:['choice-A','choice-B'], normalization:'choice-set' })).result, 'incorrect');
   const tf = question({ id:'tf', responseType:'true-false', options:[choice('choice-T','T','True'),choice('choice-F','F','False')] });
   assert.equal(app.gradeExamQuestion(tf, 'choice-T', key({ questionId:'tf', candidates:['true'], normalization:'true-false' })).result, 'correct');
   const text = question({ id:'t', responseType:'text', options:[] });
@@ -491,7 +498,12 @@ test('rc9 review round: the efficiency figure and its fraction share one denomin
   assert.equal(summary.graded, 2, 'only two could be graded');
   assert.equal(summary.earnedPoints, 1);
   assert.equal(summary.gradedPercentage, 50, 'one right out of two graded');
-  assert.equal(summary.answeredPercentage, 33.3, 'accuracy among answered items is reported separately');
+  // rc9 fix round (DA-06): `answeredPercentage` (earned ÷ every answer) is
+  // retired; completion and accuracy are now two named figures with one
+  // denominator each, so no surface can print the wrong one.
+  assert.equal('answeredPercentage' in summary, false, 'the earned-per-answer ratio is gone, not merely unused');
+  assert.equal(summary.completionPercentage, 100, 'both scorable items were answered; the ungradeable one is not in the denominator');
+  assert.equal(summary.answeredScorable, 2);
   assert.equal(summary.percentage, 50, 'the paper percentage uses the scorable denominator');
 });
 
@@ -511,4 +523,104 @@ test('rc9 review round: a record that says it never obtained the answers is not 
   const guided = app.extractExamAnswerKeys(md, qs, { id: '2025/test/no-guide', quality: 'PDF-text', answers: 'Có hướng dẫn chấm chi tiết' });
   assert.equal(guided[0].verificationStatus, 'source_transcription_unverified');
   assert.equal(guided[0].sources[0].kind, 'transcription-rubric');
+});
+
+test('rc9 fix round: a "choose two" item gives partial credit and never full credit for a wrong set', () => {
+  const multi = question({
+    id: 'q-multi', responseType: 'multiple',
+    options: [choice('choice-A', 'A', 'alpha'), choice('choice-B', 'B', 'beta'), choice('choice-C', 'C', 'gamma')]
+  });
+  const multiKey = key({ questionId: 'q-multi', candidates: ['choice-A', 'choice-C'] });
+  const grade = answer => app.gradeExamQuestion(multi, answer, multiKey);
+
+  const exact = grade(['choice-A', 'choice-C']);
+  assert.equal(exact.result, 'correct');
+  assert.equal(exact.earnedCredit, 1);
+
+  // Finding half of a two-answer key is partly right, not wrong.
+  const half = grade(['choice-A']);
+  assert.equal(half.result, 'partial', 'one of two correct options is not a wrong answer');
+  assert.equal(half.earnedCredit, 0.5);
+  assert.match(half.reason, /^partial-multi-select 1\/2$/);
+  assert.equal(grade(['choice-A', 'choice-B']).result, 'partial', 'a distractor beside the right option is still part right');
+  assert.equal(grade(['choice-A', 'choice-B']).earnedCredit, 0.5);
+
+  assert.equal(grade(['choice-B']).result, 'incorrect');
+  assert.equal(grade(['choice-B']).earnedCredit, 0);
+
+  // Selecting every option must not behave like the exact key.
+  const everything = grade(['choice-A', 'choice-B', 'choice-C']);
+  assert.equal(everything.result, 'partial');
+  assert.equal(everything.earnedCredit, 0.67, 'the share of the response that is right caps a widened answer');
+  assert.ok(everything.earnedCredit < 1);
+
+  // Malformed responses stay ungraded instead of being scored either way.
+  assert.equal(grade([]).result, 'ungraded');
+  assert.equal(grade(['choice-A', 'choice-A']).result, 'ungraded', 'a repeated selection is malformed');
+  assert.equal(grade(['choice-Z']).result, 'ungraded', 'an id that is not an option is malformed');
+});
+
+test('rc9 fix round: a true/false item rejects a response that answers both ways', () => {
+  const tf = question({
+    id: 'q-tf', responseType: 'true-false',
+    options: [choice('choice-T', 'True', 'Đúng'), choice('choice-F', 'False', 'Sai')]
+  });
+  const tfKey = key({ questionId: 'q-tf', candidates: ['choice-T'] });
+  assert.equal(app.gradeExamQuestion(tf, 'choice-T', tfKey).result, 'correct');
+  assert.equal(app.gradeExamQuestion(tf, 'choice-F', tfKey).result, 'incorrect');
+  // `.some()` used to score an array holding both options as correct.
+  const both = app.gradeExamQuestion(tf, ['choice-T', 'choice-F'], tfKey);
+  assert.equal(both.result, 'ungraded');
+  assert.equal(both.reason, 'invalid-response');
+  assert.equal(both.earnedCredit, 0);
+});
+
+test('rc9 fix round: an item that cannot be scored is never counted as "chưa trả lời"', () => {
+  const q1 = question({ id: 'q-a', number: 1 });
+  const q2 = question({ id: 'q-b', number: 2, options: [choice('choice-A', 'A', 'do'), choice('choice-B', 'B', 'does')] });
+  const q3 = question({ id: 'q-c', number: 3 });
+  const keys = [
+    key({ questionId: 'q-a' }),
+    key({ questionId: 'q-b' }),
+    key({ questionId: 'q-c', verificationStatus: 'missing', candidates: [], scorable: false, ungradeableReason: 'no-source-answer' })
+  ];
+  const { summary } = app.scoreExamSession(
+    { examId: '2025/test/unanswered', questions: [q1, q2, q3], responses: { 'q-a': 'choice-A', 'q-c': 'choice-B' } },
+    keys, [], '2025/test/unanswered'
+  );
+  assert.equal(summary.total, 3);
+  assert.equal(summary.scorableTotal, 2, 'the never-scorable item is outside the denominator');
+  assert.equal(summary.ungradeable, 1);
+  assert.equal(summary.answered, 2, 'the learner did answer the ungradeable item');
+  assert.equal(summary.answeredScorable, 1);
+  assert.equal(summary.answeredUngradeable, 1);
+  assert.equal(summary.unanswered, 1, 'exactly one scorable item was left blank');
+  assert.equal(summary.unanswerable, 0);
+  assert.equal(summary.completionPercentage, 50);
+  assert.equal(summary.coveragePercentage, 66.7);
+  assert.equal('answeredPercentage' in summary, false, 'the earned-per-answer ratio is retired, not renamed in place');
+  // Populations must add up; a regression in any of these is what the card row renders.
+  assert.equal(summary.total, summary.scorableTotal + summary.ungradeable);
+  assert.equal(summary.answered, summary.answeredScorable + summary.answeredUngradeable);
+  assert.equal(summary.scorableTotal, summary.answeredScorable + summary.unanswered);
+  assert.equal(summary.ungradeable, summary.answeredUngradeable + summary.unanswerable);
+  assert.equal(summary.graded + summary.ungraded, summary.total);
+});
+
+test('rc9 fix round: partial credit lowers the earned fraction without inventing a wrong answer', () => {
+  const multi = question({
+    id: 'q-multi2', responseType: 'multiple',
+    options: [choice('choice-A', 'A', 'alpha'), choice('choice-B', 'B', 'beta'), choice('choice-C', 'C', 'gamma')]
+  });
+  const keys = [key({ questionId: 'q-multi2', candidates: ['choice-A', 'choice-C'] })];
+  const { summary } = app.scoreExamSession(
+    { examId: '2025/test/partial', questions: [multi], responses: { 'q-multi2': ['choice-A'] } },
+    keys, [], '2025/test/partial'
+  );
+  assert.equal(summary.partial, 1);
+  assert.equal(summary.incorrect, 0, 'a partial answer is not counted as incorrect');
+  assert.equal(summary.earnedPoints, 0.5);
+  assert.equal(summary.percentage, 50);
+  assert.equal(summary.gradedPercentage, 50);
+  assert.equal(summary.completionPercentage, 100, 'the learner did answer the only scorable item');
 });

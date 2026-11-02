@@ -510,7 +510,7 @@ html[data-ui="modern"] .vocab-row--no-gloss { grid-template-columns: minmax(140p
 .exam-practice-response { width: 100%; min-height: 88px; resize: vertical; padding: 10px 11px; border: 1px solid var(--border-strong); border-radius: 9px; background: var(--surface); color: var(--text); line-height: 1.5; }
 .exam-practice-actions { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
 .exam-practice-actions > div { display: flex; flex-wrap: wrap; gap: 8px; }
-.exam-practice-summary-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.exam-practice-summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(132px, 1fr)); gap: 8px; }
 .exam-practice-summary-card { padding: 11px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface-soft); }
 .exam-practice-summary-card strong { display: block; font-size: 1.25rem; }
 .exam-practice-summary-card span { display: block; color: var(--muted); font-size: .7rem; }
@@ -560,7 +560,7 @@ html[data-ui="modern"] .vocab-row--no-gloss { grid-template-columns: minmax(140p
   .exam-practice-actions .btn { flex: 1 1 auto; }
   .exam-practice-review-item { grid-template-columns: minmax(0, 1fr) auto; gap: 6px; }
   .exam-practice-review-item small { grid-column: 1 / -1; grid-row: 2; }
-  .exam-practice-summary-grid { gap: 6px; }
+  .exam-practice-summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
   .exam-practice-summary-card { padding: 8px; }
   .exam-practice-summary-card span { font-size: .64rem; }
   .exam-filter-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
@@ -223827,7 +223827,7 @@ export const MODES = Object.freeze({
   FLASHCARD: 'flashcard'
 });
 
-export const APP_VERSION = 'v1.0.0-rc8';
+export const APP_VERSION = 'v1.0.0-rc9';
 export const LICENSE_NAME = 'MIT License';
 export const LICENSE_COPYRIGHT = '© 2026 coderunknow';
 export const LICENSE_TEXT = `MIT License
@@ -225753,6 +225753,27 @@ export function phraseCefrLevel(phrase) {
   return CEFR_LEVELS.includes(direct) ? direct : CEFR_UNCLASSIFIED;
 }
 
+// A phrase is in scope when its *own* recorded level is selected. A phrase with
+// no defensible level stays Unclassified: it is never given the level of a
+// constituent word, and it only appears when the learner opens Unclassified.
+export function phraseMatchesCefrSelection(entry, selection) {
+  const normalized = sanitizeCefrSelection(selection);
+  const level = phraseCefrLevel(entry);
+  if (level === CEFR_UNCLASSIFIED) return normalized.unclassified === true;
+  return normalized.levels.includes(level);
+}
+
+export function filterPhrasesByCefr(phrases, selection) {
+  return (Array.isArray(phrases) ? phrases : []).filter(entry => phraseMatchesCefrSelection(entry, selection));
+}
+
+export function countPhrasesByCefr(phrases) {
+  const counts = {};
+  for (const level of CEFR_SELECTOR_OPTIONS) counts[level] = 0;
+  for (const entry of Array.isArray(phrases) ? phrases : []) counts[phraseCefrLevel(entry)] += 1;
+  return counts;
+}
+
 export function selectedCefrLevels(selection) {
   const normalized = sanitizeCefrSelection(selection);
   const levels = [...normalized.levels];
@@ -225797,13 +225818,19 @@ export function sanitizeCefrSelection(value) {
   if (!value || typeof value !== 'object' || Array.isArray(value) || value.version !== CEFR_SELECTION_VERSION) {
     return defaultCefrSelection();
   }
-  const rawLevels = Array.isArray(value.levels) ? value.levels : [];
+  // A missing or non-array `levels` field is a structurally broken record, not a
+  // learner choice: falling through to `[]` would empty the whole deck without
+  // telling anyone, which is exactly what the default fallback exists to avoid.
+  if (!Array.isArray(value.levels)) return defaultCefrSelection();
+  const rawLevels = value.levels;
   const levels = [...new Set(rawLevels
     .filter(level => typeof level === 'string')
     .map(level => level.toUpperCase())
     .filter(level => CEFR_LEVELS.includes(level)))];
   // An explicit empty selection is a real choice (the learner may switch every
-  // level off) and is preserved; only a structurally broken record is reset.
+  // level off) and is preserved. A non-empty list in which nothing survived
+  // normalisation is garbage from another shape, so it is reset too.
+  if (rawLevels.length > 0 && levels.length === 0) return defaultCefrSelection();
   return { version: CEFR_SELECTION_VERSION, levels, unclassified: value.unclassified === true };
 }
 
@@ -227847,8 +227874,11 @@ export function phraseStats(phraseProgress = {}, phrases = []) {
 
 // Deterministic priority: phrases never practised first, then the least accurate,
 // then the least recently practised, then id order as a stable tiebreak.
-export function selectPhraseSession(phrases = [], phraseProgress = {}, { size = 10, type = 'all', level = 'all' } = {}) {
-  const pool = searchPhrases(phrases, '', { type, level });
+export function selectPhraseSession(phrases = [], phraseProgress = {}, { size = 10, type = 'all', level = 'all', cefrSelection = null } = {}) {
+  // `cefrSelection` narrows the pool exactly like the word deck: same levels, the
+  // phrase's own level, and no silent fallback when nothing is selected.
+  const base = searchPhrases(phrases, '', { type, level });
+  const pool = cefrSelection ? filterPhrasesByCefr(base, cefrSelection) : base;
   const ranked = pool.map(entry => {
     const record = phraseProgress[entry.id];
     const accuracy = record && record.attempts ? record.correct / record.attempts : -1;
@@ -229471,6 +229501,15 @@ export function gradeExamQuestion(question, learnerAnswer, keyRecord = null) {
     ungradeableReason: verification.ungradeableReason || null,
     maxCredit: 1
   };
+  // A verdict computed against an inferred key is not the same statement as a
+  // verdict computed against a transcribed or checked one; every graded result
+  // carries that distinction so no surface can print a bare "wrong" for it.
+  const answerKeyInferred = verification.status === 'inferred_unverified'
+    || verification.sourceStatus === EXAM_SOURCE_STATUSES.INFERRED;
+  const answerKeyVerified = verification.status === EXAM_ANSWER_STATUSES.OFFICIAL
+    || verification.status === EXAM_ANSWER_STATUSES.CROSS_CHECKED;
+  base.answerKeyInferred = answerKeyInferred;
+  base.answerKeyVerified = answerKeyVerified;
   const ungraded = reason => ({ ...base, result: 'ungraded', earnedCredit: 0, reason });
   if (!question) return ungraded('invalid-question');
   // An item the app cannot score is reported as ungraded with its reason; it is
@@ -229509,21 +229548,53 @@ export function gradeExamQuestion(question, learnerAnswer, keyRecord = null) {
   }
   const values = examResponseValues(question, learnerAnswer);
   const answered = question.responseType === 'multiple' ? values.length > 0 : typeof learnerAnswer === 'string' && Boolean(learnerAnswer.trim());
-  if (!answered) return ungraded('unanswered');
+  if (!answered) {
+    // A response of the wrong shape (an array for a single-answer item, a string
+    // for a multi-select item) is malformed, not missing: the learner is told
+    // the response could not be read instead of being told they left it blank.
+    const malformed = question.responseType === 'multiple'
+      ? learnerAnswer !== undefined && learnerAnswer !== null && !Array.isArray(learnerAnswer)
+      : Array.isArray(learnerAnswer);
+    return ungraded(malformed ? 'invalid-response' : 'unanswered');
+  }
   let correct = false;
   if (question.responseType === 'choice' || question.responseType === 'true-false' || question.responseType === 'multiple') {
     const valid = values.every(v => question.options.some(o => o.id === v));
     if (!valid || new Set(values).size !== values.length) return ungraded('invalid-response');
     const expected = verification.candidates;
     if (question.responseType === 'true-false') {
+      // A true/false item has exactly one answer, so a response that supplies
+      // both is malformed; `.some()` would otherwise score it correct.
+      if (values.length !== 1) return ungraded('invalid-response');
       const map = v => ({ 'choice-T': 'true', 'choice-F': 'false', T: 'true', F: 'false', true: 'true', false: 'false' }[v] || String(v).toLowerCase());
       correct = values.map(map).some(v => expected.map(map).includes(v));
     } else if (question.responseType === 'multiple') {
       if (verification.sourceStatus === EXAM_SOURCE_STATUSES.AMBIGUOUS && values.length === 1) {
         correct = expected.includes(values[0]);
       } else {
-        const got = [...new Set(values)].sort(); const want = [...new Set(expected)].sort();
-        correct = got.length === want.length && got.every((v, i) => v === want[i]);
+        // "Choose two" items carry two or more correct options, so an answer that
+        // finds one of them is partly right, not wrong. Credit is the share of
+        // the key the learner actually selected; picking a distractor as well
+        // costs that share (it can never exceed 1) but is not treated as zero.
+        const got = [...new Set(values)];
+        const want = [...new Set(expected)];
+        const matched = got.filter(value => want.includes(value)).length;
+        let credit = want.length ? matched / want.length : 0;
+        // Selecting every option must not earn full credit: when the response
+        // carries more choices than the key, the share of the response that is
+        // right caps the credit as well.
+        if (got.length > want.length) credit = Math.min(credit, matched / got.length);
+        credit = Math.round(credit * 100) / 100;
+        if (matched === want.length && got.length === want.length) {
+          return { ...base, result: 'correct', earnedCredit: 1, reason: 'matches-key' };
+        }
+        if (credit > 0) {
+          return {
+            ...base, result: 'partial', earnedCredit: credit,
+            reason: `partial-multi-select ${matched}/${want.length}`
+          };
+        }
+        return { ...base, result: 'incorrect', earnedCredit: 0, reason: 'does-not-match-key' };
       }
     } else {
       correct = expected.includes(values[0]);
@@ -229567,12 +229638,18 @@ export function scoreExamSession(session, keys = [], corrections = [], examId = 
   const keyMap = new Map(examApplyCorrections(keys, corrections, examId).map(k => [k.questionId, k]));
   const seen = new Set(); const results = [];
   const summary = {
-    total: questions.length, answered: 0, unanswered: 0, graded: 0, correct: 0, partial: 0, incorrect: 0,
+    // Mutually consistent populations. `total` is every parsed item;
+    // `scorableTotal` is the grading denominator; an answered item that cannot be
+    // graded is counted as answered AND ungradeable, never as unanswered and
+    // never as an incorrect answer.
+    total: questions.length, answered: 0, answeredScorable: 0, answeredUngradeable: 0,
+    unanswered: 0, unanswerable: 0, invalidResponses: 0, graded: 0, correct: 0, partial: 0, incorrect: 0,
+    incorrectKeyed: 0, incorrectInferred: 0,
     // `denominator` counts only the items this app can actually score. Items
     // without a usable key or without their stimulus are reported separately as
     // `ungradeable`, never folded into a 100% denominator (issues #75/#76/#79).
     scorableTotal: 0, ungradeable: 0, stimulusIncomplete: 0, coveragePercentage: null,
-    earnedPoints: 0, denominator: 0, percentage: null, scale10: null, answeredPercentage: null,
+    earnedPoints: 0, denominator: 0, percentage: null, scale10: null, completionPercentage: null,
     provisional: 0, ungraded: 0, needsReview: 0, officialScore: null, scoringRuleVersion: EXAM_SCORING_RULE_VERSION,
     verification: {}, confidence: { HIGH: 0, MEDIUM: 0, LOW: 0, VERY_LOW: 0 }, sourceStatus: {}
   };
@@ -229592,11 +229669,19 @@ export function scoreExamSession(session, keys = [], corrections = [], examId = 
     const answered = question.responseType === 'multiple'
       ? Array.isArray(response) && response.length > 0 && response.every(v => question.options.some(o => o.id === v))
       : typeof response === 'string' && Boolean(response.trim()) && (question.responseType === 'text' || question.responseType === 'essay' || question.options.some(o => o.id === response));
-    if (answered) summary.answered += 1;
+    if (answered) {
+      summary.answered += 1;
+      if (grade.scorable === false) summary.answeredUngradeable += 1;
+      else summary.answeredScorable += 1;
+    }
+    if (grade.result === 'ungraded' && grade.reason === 'invalid-response') summary.invalidResponses += 1;
     if (grade.provisional) summary.provisional += 1;
     if (grade.result === 'correct' || grade.result === 'partial' || grade.result === 'incorrect') {
       summary.graded += 1;
       summary[grade.result] += 1;
+      if (grade.result === 'incorrect') {
+        if (grade.answerKeyInferred) summary.incorrectInferred += 1; else summary.incorrectKeyed += 1;
+      }
       earnedSum += Number(grade.earnedCredit || 0);
     } else {
       summary.ungraded += 1;
@@ -229607,11 +229692,19 @@ export function scoreExamSession(session, keys = [], corrections = [], examId = 
     results.push({ questionId: question.id, ...grade, answered });
   }
   summary.denominator = summary.scorableTotal;
-  summary.unanswered = summary.total - summary.answered;
+  // "Unanswered" means a scorable item the learner left blank — the only blank
+  // count they can act on. Items that can never be graded are reported as
+  // `unanswerable` instead of inflating this number.
+  summary.unanswered = Math.max(0, summary.scorableTotal - summary.answeredScorable);
+  summary.unanswerable = Math.max(0, summary.ungradeable - summary.answeredUngradeable);
   summary.earnedPoints = Math.round(earnedSum * 100) / 100;
   summary.percentage = summary.scorableTotal > 0 ? Math.round((summary.earnedPoints / summary.scorableTotal) * 1000) / 10 : null;
   summary.scale10 = summary.scorableTotal > 0 ? Math.round((summary.earnedPoints / summary.scorableTotal) * 1000) / 100 : null;
-  summary.answeredPercentage = summary.answered > 0 ? Math.round((summary.earnedPoints / summary.answered) * 1000) / 10 : null;
+  // Completion of the part that can be graded. It replaces the old
+  // `answeredPercentage`, which divided earned points by *every* answer and so
+  // printed 0 % for a learner who answered only ungradeable items.
+  summary.completionPercentage = summary.scorableTotal > 0
+    ? Math.round((summary.answeredScorable / summary.scorableTotal) * 1000) / 10 : null;
   // Accuracy over the responses that could actually be graded. An answered item
   // the archive cannot score is not a wrong answer, so it never lowers this.
   summary.gradedPercentage = summary.graded > 0 ? Math.round((summary.earnedPoints / summary.graded) * 1000) / 10 : null;
@@ -230607,6 +230700,9 @@ export async function createApp(root) {
 
   function cefrChipMarkup({ prefix = 'priority' } = {}) {
     const { counts, selected, eligible, total } = cefrSummary();
+    // The filter narrows the deck, so it must say how much it is hiding. Both
+    // numbers come from the same populations the session uses.
+    const hidden = Math.max(0, total - eligible);
     const chips = CEFR_SELECTOR_OPTIONS.map(level => {
       const pressed = level === CEFR_UNCLASSIFIED ? cefrSelection.unclassified : cefrSelection.levels.includes(level);
       const label = cefrLevelLabel(level);
@@ -230632,7 +230728,9 @@ export async function createApp(root) {
           'A word you starred as a <strong>favourite</strong> always stays studyable, even outside the selected levels.')}</p>
         <p class="config-hint" id="${prefix}-cefr-help" role="status" aria-live="polite">${cefrText(
           `Đang chọn: ${escapeHtml(selectedLabel)} · ${formatCount(eligible)}/${formatCount(total)} từ trọng tâm đủ điều kiện.`,
-          `Selected: ${escapeHtml(selectedLabel)} · ${formatCount(eligible)}/${formatCount(total)} focus words eligible.`)}</p>
+          `Selected: ${escapeHtml(selectedLabel)} · ${formatCount(eligible)}/${formatCount(total)} focus words eligible.`)}${hidden > 0 ? (language === 'en'
+          ? ` ${formatCount(hidden)} words are hidden by this level filter; their progress and review dates are untouched.`
+          : ` ${formatCount(hidden)} từ đang bị bộ lọc mức ẩn khỏi phiên học; tiến độ và lịch ôn của chúng không đổi.`) : ''}</p>
         ${emptyHint}
       </fieldset>`;
   }
@@ -231138,9 +231236,13 @@ export async function createApp(root) {
     // The recommendation must describe the pool the button actually starts: if
     // every due card sits outside the selected levels, "due" would open an empty
     // session while eligible words exist.
-    const suggestion = recommendedSession(poolStats(new Set(cefrDeck().map(entry => entry.id))));
+    // The level filter narrows the deck, so every count that promises what a
+    // session will contain is computed from that same narrowed pool.
+    const cefrPoolIds = new Set(cefrDeck().map(entry => entry.id));
+    const poolSummary = poolStats(cefrPoolIds);
+    const suggestion = recommendedSession(poolSummary);
     const hasDue = suggestion === 'due';
-    const suggestionTitle = hasDue ? `${currentStats.due} từ đang đến hạn` : 'Bắt đầu với một phiên ngắn';
+    const suggestionTitle = hasDue ? `${poolSummary.due} từ đang đến hạn` : 'Bắt đầu với một phiên ngắn';
     const suggestionText = hasDue
       ? 'Ôn các thẻ đã đến lịch trước; phiên này không kéo thẻ tương lai lên sớm.'
       : 'Phiên 10 thẻ ưu tiên mục cần củng cố, rồi chuyển sang các thẻ khác.';
@@ -231164,7 +231266,7 @@ export async function createApp(root) {
           <p>Chọn nhóm từ, trọng tâm và dạng bài trước khi bắt đầu. Lịch ôn cách quãng giữ nguyên quy tắc hiện có.</p>
         </div>
         <div class="hero-metrics" aria-label="Tóm tắt tiến độ">
-          <div class="hero-metric"><strong>${currentStats.due}</strong><span>Đến hạn</span></div>
+          <div class="hero-metric"><strong>${poolSummary.due}</strong><span>Đến hạn</span></div>
           <div class="hero-metric"><strong>${currentStats.accuracy}%</strong><span>Chính xác</span></div>
           <div class="hero-metric"><strong>${streak.current}</strong><span>Ngày liên tiếp</span></div>
           <div class="hero-metric"><strong>${xp}</strong><span>XP · cấp ${level.level}</span></div>
@@ -232124,14 +232226,33 @@ export async function createApp(root) {
     return passiveGloss(entry);
   }
 
+  // Why the phrase list/practice queue can be empty, without ever changing the
+  // learner's level choice for them.
+  function phraseCefrEmptyMessage() {
+    const selected = selectedCefrLevels(cefrSelection);
+    if (!selected.length) {
+      return language === 'en'
+        ? 'Every CEFR level is switched off, so no phrase can enter a session. Switch one back on in Study.'
+        : 'Mọi mức CEFR đang tắt nên không cụm từ nào vào phiên. Hãy bật lại một mức trong mục Học.';
+    }
+    return language === 'en'
+      ? `No phrase belongs to the CEFR levels you selected (${selected.join(', ')}). Open one more level in Study; each phrase keeps its own level.`
+      : `Không cụm từ nào thuộc các mức CEFR đang chọn (${selected.join(', ')}). Hãy mở thêm một mức trong mục Học; mỗi cụm giữ đúng mức của chính nó.`;
+  }
+
   function startPhrasePractice() {
     const items = selectPhraseSession(phrases, phraseProgress, {
       size: 10,
       type: phraseFilters.type,
-      level: phraseFilters.level
+      level: phraseFilters.level,
+      cefrSelection
     });
     if (!items.length) {
-      toast('Không có cụm từ nào thuộc bộ lọc đang chọn.', 'error');
+      // The message names the level filter when that is the reason, so the
+      // learner is never told only that "no phrase matches".
+      toast(selectedCefrLevels(cefrSelection).length
+        ? phraseCefrEmptyMessage()
+        : 'Mọi mức CEFR đang tắt nên không cụm từ nào vào phiên. Hãy bật lại một mức trong mục Học.', 'error');
       return;
     }
     phraseSession = { items, index: 0, asked: 0, correct: 0, answered: false, result: null, finished: false, taught: new Set() };
@@ -232188,7 +232309,9 @@ export async function createApp(root) {
     }
     const stats = phraseStats(phraseProgress, phrases);
     const types = Object.keys(PHRASE_TYPES).filter(type => phrases.some(entry => entry.type === type));
-    const matches = searchPhrases(phrases, '', phraseFilters);
+    const cefrPool = filterPhrasesByCefr(phrases, cefrSelection);
+    const cefrHidden = phrases.length - cefrPool.length;
+    const matches = searchPhrases(cefrPool, '', phraseFilters);
     const visible = matches.slice(0, 80);
     container.innerHTML = `<div class="page-header"><div><h1>Cụm từ</h1><p>Phrasal verbs, thành ngữ, collocations, giới từ đi kèm, cụm nối ý và mẫu cấu trúc · ${phrases.length} cụm.</p></div></div>
       <div class="search-tools"><input class="search-input" id="phrase-field" placeholder="Tìm cụm từ hoặc nghĩa…" aria-label="Tìm kiếm cụm từ" value=""></div>
@@ -232196,6 +232319,11 @@ export async function createApp(root) {
         <select class="select" id="phrase-level" aria-label="Lọc trình độ"><option value="all">Tất cả trình độ</option>${PHRASE_LEVELS.map(level => `<option value="${level}" ${phraseFilters.level === level ? 'selected' : ''}>${level}</option>`).join('')}</select>
         <button class="btn primary" id="phrase-practice-start">Luyện ${Math.min(10, matches.length) || 0} cụm</button></div>
       <div class="panel"><div class="panel-body mini-stats">${miniStat(stats.total, 'Tổng cụm')}${miniStat(stats.practiced, 'Đã luyện')}${miniStat(`${stats.accuracy}%`, 'Chính xác')}</div></div>
+      <p class="config-hint" id="phrase-cefr-note" role="status" aria-live="polite">${escapeHtml(selectedCefrLevels(cefrSelection).length
+        ? (language === 'en'
+          ? `CEFR filter: ${selectedCefrLevels(cefrSelection).join(', ')} · ${cefrPool.length}/${phrases.length} phrases in scope${cefrHidden ? ` · ${cefrHidden} hidden by the level filter` : ''}. Each phrase uses its own level, never the level of a word inside it.`
+          : `Bộ lọc CEFR: ${selectedCefrLevels(cefrSelection).join(', ')} · ${cefrPool.length}/${phrases.length} cụm trong phạm vi${cefrHidden ? ` · ${cefrHidden} cụm bị bộ lọc mức ẩn` : ''}. Mỗi cụm dùng đúng mức của chính nó, không lấy mức của một từ bên trong.`)
+        : phraseCefrEmptyMessage())}</p>
       <div id="phrase-results"></div>`;
     const field = container.querySelector('#phrase-field');
     const type = container.querySelector('#phrase-type');
@@ -232203,7 +232331,7 @@ export async function createApp(root) {
     const results = container.querySelector('#phrase-results');
     const startButton = container.querySelector('#phrase-practice-start');
     const draw = () => {
-      const found = searchPhrases(phrases, field.value, phraseFilters);
+      const found = searchPhrases(cefrPool, field.value, phraseFilters);
       startButton.textContent = `Luyện ${Math.min(10, found.length)} cụm`;
       // Nothing to practise means nothing to click; a disabled button is clearer
       // than a toast explaining that the filter matched zero phrases.
@@ -232214,7 +232342,7 @@ export async function createApp(root) {
           const state = phraseState(record);
           return `<div class="vocab-row${meaningConcealed(presentation) ? ' vocab-row--no-gloss' : ''}"><span class="vocab-word">${escapeHtml(entry.phrase)}</span><span class="phrase-type">${escapeHtml(phraseTypeLabel(entry.type))}</span>${phraseMeaningSpan(entry)}<span class="state-pill state-${escapeHtml(state)}">${escapeHtml(stateLabel(state))}</span>${record ? `<span class="chip-count">${record.correct}/${record.attempts}</span>` : ''}</div>`;
         }).join('')}</div>`
-        : '<div class="empty" role="status"><strong>Không tìm thấy cụm từ</strong>Thử từ khóa khác hoặc bỏ bớt bộ lọc.</div>';
+        : `<div class="empty" role="status"><strong>${escapeHtml(language === 'en' ? 'No phrase found' : 'Không tìm thấy cụm từ')}</strong>${escapeHtml(cefrHidden && !field.value && phraseFilters.level === 'all' && phraseFilters.type === 'all' ? phraseCefrEmptyMessage() : (language === 'en' ? 'Try another keyword or remove a filter.' : 'Thử từ khóa khác hoặc bỏ bớt bộ lọc.'))}</div>`;
     };
     field.addEventListener('input', draw);
     type.addEventListener('change', () => { phraseFilters = { ...phraseFilters, type: type.value }; draw(); });
@@ -232448,9 +232576,21 @@ export async function createApp(root) {
     const confText = language === 'en' ? `Confidence: ${lvl}` : `Độ tin cậy: ${lvl}`;
     return `<div class="exam-meta-badges"><span class="exam-confidence-badge exam-confidence-${escapeHtml(lvl)}">${escapeHtml(confText)}</span><span class="state-pill exam-pill-neutral">${escapeHtml(srcLabel)}</span></div>`;
   }
-  function examGradeLabel(result) {
-    if (language === 'en') return result === 'correct' ? 'Correct' : result === 'partial' ? 'Partial (Rubric)' : result === 'incorrect' ? 'Incorrect' : 'Unanswered (0 pt)';
-    return result === 'correct' ? 'Đúng' : result === 'partial' ? 'Đạt một phần (Rubric)' : result === 'incorrect' ? 'Sai' : 'Bỏ trống (0đ)';
+  function examGradeLabel(result, responseType = null) {
+    // `partial` covers both the essay rubric and a multi-select answer that found
+    // only some of the correct options, so the label names the item type.
+    const partialVi = responseType === 'essay' ? 'Đạt một phần (Rubric)' : responseType === 'multiple' ? 'Đạt một phần (chọn thiếu)' : 'Đạt một phần';
+    const partialEn = responseType === 'essay' ? 'Partial (rubric)' : responseType === 'multiple' ? 'Partial (incomplete selection)' : 'Partial';
+    if (language === 'en') return result === 'correct' ? 'Correct' : result === 'partial' ? partialEn : result === 'incorrect' ? 'Incorrect' : 'Unanswered (0 pt)';
+    return result === 'correct' ? 'Đúng' : result === 'partial' ? partialVi : result === 'incorrect' ? 'Sai' : 'Bỏ trống (0đ)';
+  }
+  // A verdict computed against an inferred key is reported as provisional: the
+  // learner may well be right and the machine guess wrong.
+  function examVerdictLabel(grade, question) {
+    if (grade?.result === 'incorrect' && grade.answerKeyInferred) {
+      return language === 'en' ? 'Differs from an unverified inferred key' : 'Khác đáp án suy luận (chưa xác minh)';
+    }
+    return examGradeLabel(grade?.result, question?.responseType);
   }
   function examCorrectionCandidates(question, input) {
     const text = String(input || '').trim();
@@ -232522,10 +232662,13 @@ export async function createApp(root) {
       const ansPct = s.gradedPercentage === null ? '—' : `${s.gradedPercentage}%`;
       const status = s.provisional > 0 ? L('Kết quả tạm tính (chưa có khóa chính thức từ Sở)', 'Provisional result (no official primary key)') : s.verification.user_confirmed ? L('Có hiệu chỉnh người học', 'Includes user corrections') : L('Đã chấm theo phần chấm được', 'Graded over the scorable items only');
       body = `<div id="exam-submission-summary" role="status" aria-live="polite"><h3 tabindex="-1">${L('Kết quả luyện đề (tạm tính)', 'Provisional practice result')}</h3>
-        <p><b>${s.earnedPoints}/${s.denominator}</b> ${L(`điểm trên ${s.denominator} câu chấm được (chấm được ${s.scorableTotal}/${s.total} câu, ${s.coveragePercentage === null ? '—' : s.coveragePercentage + '%'}; ${s.ungradeable} câu không chấm được)`, `points over ${s.denominator} scorable items (${s.scorableTotal}/${s.total} items scorable, ${s.coveragePercentage === null ? '—' : s.coveragePercentage + '%'}; ${s.ungradeable} not scorable)`)} — <b>${pct}</b> (${L('Thang 10', 'Scale 10')}: <b>${scale10}</b>). ${L(`Đã làm ${s.answered}/${s.total} câu (trên ${s.graded} câu đã chấm: ${s.earnedPoints}/${s.graded} — ${ansPct}; đúng trọn vẹn ${s.correct} câu${s.partial ? `, đạt một phần rubric ${s.partial} câu` : ''}).`, `Answered ${s.answered}/${s.total} items (over ${s.graded} graded responses: ${s.earnedPoints}/${s.graded} — ${ansPct}; ${s.correct} full credit${s.partial ? `, ${s.partial} partial rubric` : ''}).`)}</p>
+        <p><b>${s.earnedPoints}/${s.denominator}</b> ${L(`điểm trên ${s.denominator} câu chấm được — <b>${pct}</b> (${L('Thang 10', 'Scale 10')}: <b>${scale10}</b>)`, `points over ${s.denominator} scorable items — <b>${pct}</b> (scale 10: <b>${scale10}</b>)`)}.
+        ${L(`Tỷ lệ chấm được của đề: ${s.scorableTotal}/${s.total} câu (${s.coveragePercentage === null ? '—' : s.coveragePercentage + '%'}); ${s.ungradeable} câu không chấm được.`, `Paper scorable rate: ${s.scorableTotal}/${s.total} items (${s.coveragePercentage === null ? '—' : s.coveragePercentage + '%'}); ${s.ungradeable} items cannot be scored.`)}
+        ${L(`Đã trả lời ${s.answered} câu (${s.answeredScorable} câu chấm được · ${s.answeredUngradeable} câu không chấm được); đã hoàn thành ${s.answeredScorable}/${s.scorableTotal} câu chấm được (${s.completionPercentage === null ? '—' : s.completionPercentage + '%'}).`, `Answered ${s.answered} items (${s.answeredScorable} scorable · ${s.answeredUngradeable} not scorable); completed ${s.answeredScorable}/${s.scorableTotal} scorable items (${s.completionPercentage === null ? '—' : s.completionPercentage + '%'}).`)}
+        ${s.invalidResponses ? L(`${s.invalidResponses} phản hồi không đọc được (sai dạng dữ liệu) nên không được chấm; hãy chọn lại đáp án cho câu đó. `, `${s.invalidResponses} responses could not be read (wrong data shape) and were not graded; re-select those answers. `) : ''}${L(`Chấm điểm trên ${s.graded} câu đã chấm: ${s.earnedPoints}/${s.graded} — ${ansPct} (đúng ${s.correct} · đạt một phần ${s.partial} · sai ${s.incorrect}, trong đó ${s.incorrectInferred} câu chỉ khác đáp án suy luận).`, `Graded ${s.graded} items: ${s.earnedPoints}/${s.graded} — ${ansPct} (${s.correct} correct · ${s.partial} partial · ${s.incorrect} incorrect, ${s.incorrectInferred} of them differing from an inferred key only).`)}</p>
         <p class="exam-practice-note"><strong>${status}</strong> · ${L('Điểm ứng dụng tạm tính, KHÔNG phải điểm thi chính thức.', 'Provisional application score, NOT an official exam score.')} ${session.resultSaved === false ? L('Chưa lưu được vào thiết bị; hãy xuất kết quả trước khi đóng trang.', 'Could not save to this device; export before closing.') : L('Đã lưu trong lịch sử luyện đề trên thiết bị.', 'Saved in on-device exam history.')}</p>
         <div class="exam-practice-summary-grid">
-          ${[[s.denominator, L('Mẫu số (câu chấm được)', 'Denominator (scorable)'), 'exam-practice-denominator-count'], [s.total, L('Tổng mục', 'Total items'), 'exam-practice-total-count'], [s.ungradeable, L('Không chấm được', 'Not scorable'), 'exam-practice-ungradeable-count'], [s.answered, L('Đã trả lời', 'Answered'), 'exam-practice-answered-count'], [s.graded, L('Đã chấm phản hồi', 'Graded responses'), 'exam-practice-graded-count'], [s.correct, L('Đúng', 'Correct'), 'exam-practice-correct-count'], [s.incorrect, L('Sai', 'Incorrect'), 'exam-practice-incorrect-count'], [s.provisional, L('Tạm tính', 'Provisional'), 'exam-practice-provisional-count'], [s.ungraded, L('Bỏ trống (0đ)', 'Blank (0 pt)'), 'exam-practice-ungraded-count'], [s.unanswered, L('Chưa trả lời', 'Unanswered'), 'exam-practice-unanswered-count']].map(([v, label, id]) => `<div class="exam-practice-summary-card"><strong id="${id}">${v}</strong><span>${label}</span></div>`).join('')}
+          ${[[s.denominator, L('Mẫu số (câu chấm được)', 'Denominator (scorable)'), 'exam-practice-denominator-count'], [s.total, L('Tổng mục', 'Total items'), 'exam-practice-total-count'], [s.ungradeable, L('Không chấm được', 'Not scorable'), 'exam-practice-ungradeable-count'], [s.answered, L('Đã trả lời', 'Answered'), 'exam-practice-answered-count'], [s.answeredScorable, L('Trả lời câu chấm được', 'Answered scorable'), 'exam-practice-answered-scorable-count'], [s.answeredUngradeable, L('Trả lời câu không chấm được', 'Answered ungradeable'), 'exam-practice-answered-ungradeable-count'], [s.graded, L('Đã chấm phản hồi', 'Graded responses'), 'exam-practice-graded-count'], [s.correct, L('Đúng', 'Correct'), 'exam-practice-correct-count'], [s.partial, L('Đạt một phần', 'Partial'), 'exam-practice-partial-count'], [s.incorrect, L('Sai', 'Incorrect'), 'exam-practice-incorrect-count'], [s.incorrectInferred, L('Sai so với đáp án suy luận', 'Incorrect vs inferred key'), 'exam-practice-incorrect-inferred-count'], [s.provisional, L('Tạm tính', 'Provisional'), 'exam-practice-provisional-count'], [s.unanswered, L('Chưa trả lời (câu chấm được)', 'Unanswered (scorable)'), 'exam-practice-unanswered-count'], [s.unanswerable, L('Không thể trả lời (thiếu ngữ liệu/khóa)', 'Not answerable (no stimulus/key)'), 'exam-practice-unanswerable-count']].map(([v, label, id]) => `<div class="exam-practice-summary-card"><strong id="${id}">${v}</strong><span>${label}</span></div>`).join('')}
         </div>
         <div class="exam-breakdown-strip" id="exam-confidence-breakdown">
           <span class="exam-confidence-badge exam-confidence-HIGH">HIGH: ${s.confidence?.HIGH || 0}</span>
@@ -232541,10 +232684,11 @@ export async function createApp(root) {
         const response = examPracticeResponseLabel(session, question) || '—';
         const grade = submitted ? scored.results.find(r => r.questionId === question.id) : null;
         const key = keyMap.get(question.id) || getQuestionVerification(question);
-        const pill = grade ? grade.result : answered ? 'answered' : 'unanswered';
-        const pillText = grade ? `${examGradeLabel(grade.result)} (${grade.earnedCredit}/1)` : answered ? L('Đã trả lời', 'Answered') : L('Bỏ trống', 'Unanswered');
+        const inferredMismatch = Boolean(grade && grade.result === 'incorrect' && grade.answerKeyInferred);
+        const pill = inferredMismatch ? 'provisional' : grade ? grade.result : answered ? 'answered' : 'unanswered';
+        const pillText = grade ? `${examVerdictLabel(grade, question)} (${grade.earnedCredit}/1)` : answered ? L('Đã trả lời', 'Answered') : L('Bỏ trống', 'Unanswered');
         const prov = submitted ? `[${grade.confidence}] ${examSourceStatusLabel(grade.sourceStatus)} · ${examCandidateLabel(question, key)}` : `[${key.confidence || 'LOW'}] ${examSourceStatusLabel(key.sourceStatus)}`;
-        return `<button class="exam-practice-review-item" data-review-question="${index}"><span><b>${L('Câu', 'Q')} ${question.number}</b><small>${escapeHtml(question.section || '')}</small></span><small class="exam-question-source">${escapeHtml(response)}</small><small class="exam-question-provenance">${escapeHtml(prov)}</small><span class="state-pill ${pill === 'correct' ? 'exam-pill-success' : pill === 'partial' ? 'exam-pill-warning' : pill === 'incorrect' ? 'exam-pill-danger' : 'exam-pill-neutral'}">${escapeHtml(pillText)}</span></button>`;
+        return `<button class="exam-practice-review-item" data-review-question="${index}"><span><b>${L('Câu', 'Q')} ${question.number}</b><small>${escapeHtml(question.section || '')}</small></span><small class="exam-question-source">${escapeHtml(response)}</small><small class="exam-question-provenance">${escapeHtml(prov)}</small><span class="state-pill ${pill === 'correct' ? 'exam-pill-success' : pill === 'partial' || pill === 'provisional' ? 'exam-pill-warning' : pill === 'incorrect' ? 'exam-pill-danger' : 'exam-pill-neutral'}">${escapeHtml(pillText)}</span></button>`;
       }).join('');
       body = `<div><h3 tabindex="-1">${submitted ? L('Xem lại bài nộp & độ tin cậy từng câu', 'Review submission & item confidence') : L('Xem lại trước khi nộp', 'Review before submitting')}</h3><p>${L('Đáp án cụ thể chỉ hiển thị sau khi nộp bài.', 'Exact answer keys are shown only after submission.')}</p><div class="exam-practice-review-list">${rows}</div><div class="exam-practice-actions"><button class="btn" id="exam-practice-back">${submitted ? L('Về tóm tắt', 'Back to summary') : L('Về câu hỏi', 'Back to question')}</button>${submitted ? '' : `<button class="btn primary" id="exam-submit">${L('Nộp bài', 'Submit Exam')}</button>`}</div></div>`;
     } else {
@@ -232593,10 +232737,13 @@ export async function createApp(root) {
       const corrLabel = question.responseType === 'essay'
         ? L('Điểm tự chấm hiệu chỉnh (từ 0 đến 1, ví dụ 0.75)', 'Override rubric credit (0 to 1, e.g. 0.75)')
         : L('Đáp án đúng (nhãn lựa chọn hoặc văn bản; dùng ; cho phương án phụ)', 'Correct answer (choice label or text; use ; for alternatives)');
-      const feedback = submitted ? `<div class="exam-result-summary"><p><b>${examGradeLabel(grade.result)} (${grade.earnedCredit}/1)</b> · ${examStatusLabel(grade.verificationStatus)}${grade.provisional ? ` · ${L('Tạm tính — không phải khóa chính thức', 'Provisional — not an official key')}` : ''}${grade.needsReview ? ` · ${L('cần người chấm xem lại', 'needs human review')}` : ''}</p>${examConfidenceBadgeMarkup(grade.confidence, grade.sourceStatus)}<p>${L('Đáp án / Rubric đối chiếu', 'Key / Rubric')}: <span class="exam-question-source">${escapeHtml(examCandidateLabel(question, key))}</span></p>${grade.reasoning ? `<p>${L('Cơ sở & suy luận', 'Reasoning basis')}: ${escapeHtml(grade.reasoning)}</p>` : ''}${rubricTable}<p>${L('Nguồn định vị', 'Source locator')}: ${escapeHtml(key?.sources?.[0]?.locator || record.id)} · ${L('dòng', 'line')} ${question.sourceLine}</p>${(key?.limitations || []).map(x => `<p class="config-hint">${escapeHtml(x)}</p>`).join('')}
+      const inferredNote = submitted && grade?.result === 'incorrect' && grade.answerKeyInferred
+        ? `<p class="exam-practice-note">${L('Đáp án tham chiếu của câu này là <strong>suy luận</strong>, chưa đối chiếu nguồn chính thức. Câu trả lời khác đáp án suy luận nên <strong>không được coi là sai chắc chắn</strong>; hãy dùng ô hiệu chỉnh bên dưới nếu bạn có căn cứ khác.', 'This item\'s reference answer is an <strong>inference</strong> with no official cross-check. A response that differs from it is <strong>not a proven mistake</strong>; use the override field below if you have better evidence.')}</p>`
+        : '';
+      const feedback = submitted ? `${inferredNote}<div class="exam-result-summary"><p><b>${examVerdictLabel(grade, question)} (${grade.earnedCredit}/1)</b> · ${examStatusLabel(grade.verificationStatus)}${grade.provisional ? ` · ${L('Tạm tính — không phải khóa chính thức', 'Provisional — not an official key')}` : ''}${grade.needsReview ? ` · ${L('cần người chấm xem lại', 'needs human review')}` : ''}</p>${examConfidenceBadgeMarkup(grade.confidence, grade.sourceStatus)}<p>${L('Đáp án / Rubric đối chiếu', 'Key / Rubric')}: <span class="exam-question-source">${escapeHtml(examCandidateLabel(question, key))}</span></p>${grade.reasoning ? `<p>${L('Cơ sở & suy luận', 'Reasoning basis')}: ${escapeHtml(grade.reasoning)}</p>` : ''}${rubricTable}<p>${L('Nguồn định vị', 'Source locator')}: ${escapeHtml(key?.sources?.[0]?.locator || record.id)} · ${L('dòng', 'line')} ${question.sourceLine}</p>${(key?.limitations || []).map(x => `<p class="config-hint">${escapeHtml(x)}</p>`).join('')}
         <details class="exam-key-correction"><summary>${L('Xác nhận hoặc hiệu chỉnh đáp án / điểm câu này', 'Confirm or override key / credit')}</summary><label for="exam-key-correct-input">${corrLabel}</label><input class="search-input" id="exam-key-correct-input" value="${escapeHtml(corrInputVal)}"><label for="exam-key-correct-note">${L('Ghi chú nguồn/lý do', 'Source/reason note')}</label><input class="search-input" id="exam-key-correct-note" maxlength="1000"><p class="config-hint">${L('Hiệu chỉnh là do người học cung cấp trên máy này, không phải xác minh chính thức.', 'A correction is user-provided on this device, not official verification.')}</p><button class="btn primary" id="exam-key-correct-save" data-question-id="${escapeHtml(question.id)}">${L('Lưu hiệu chỉnh & tính lại', 'Save correction & recalculate')}</button></details></div>` : `<p class="exam-question-instruction">${L('Đáp án và đúng/sai chỉ hiển thị sau khi nộp.', 'Key and correctness feedback appear only after submission.')}</p>`;
       const questionButtons = questions.map((item, i) => `<button class="exam-question-nav ${i === index ? 'is-current' : ''} ${examPracticeQuestionAnswered(session, item) ? 'is-answered' : ''}" data-question-index="${i}" aria-label="${L('Câu', 'Q')} ${item.number}" ${i === index ? 'aria-current="step"' : ''}><span>${item.number}</span></button>`).join('');
-      body = `<div class="exam-practice-status"><span><b id="exam-practice-answered-count">${summary.answered}</b> ${L('đã trả lời', 'answered')}</span><span><b id="exam-practice-unanswered-count">${summary.unanswered}</b> ${L('chưa trả lời', 'unanswered')}</span><span><b>${summary.total}</b> ${L('mục', 'items')}</span><span><b>${summary.scorableTotal}</b> ${L('chấm được (mẫu số)', 'scorable (denominator)')}</span><span><b>${summary.ungradeable}</b> ${L('không chấm được', 'not scorable')}</span></div><section class="exam-practice-question" aria-labelledby="exam-current-question-heading"><p class="exam-question-meta">${L('Câu nguồn', 'Source Q')} <strong>${question.number}</strong> · ${escapeHtml(question.section || '')} · ${index + 1}/${questions.length}</p>${examConfidenceBadgeMarkup(key?.confidence, key?.sourceStatus)}<h3 id="exam-current-question-heading" tabindex="-1"><span class="exam-question-source">${escapeHtml(question.prompt)}</span></h3>${question.instruction ? `<p class="exam-question-instruction">${escapeHtml(question.instruction)}</p>` : ''}${notScorableMarkup}${listeningFallbackMarkup}${rubricHintMarkup}${options}${feedback}</section><div class="exam-question-grid">${questionButtons}</div><div class="exam-practice-actions"><div><button class="btn" id="exam-question-prev" ${index === 0 ? 'disabled' : ''}>${L('Câu trước', 'Previous')}</button><button class="btn" id="exam-question-next" ${index >= questions.length - 1 ? 'disabled' : ''}>${L('Câu sau', 'Next')}</button></div><div>${submitted ? `<button class="btn" id="exam-practice-back">${L('Về tóm tắt', 'Back to summary')}</button>` : `<button class="btn" id="exam-review-answers">${L('Xem lại', 'Review')}</button><button class="btn primary" id="exam-submit">${L('Nộp bài', 'Submit Exam')}</button>`}</div></div>`;
+      body = `<div class="exam-practice-status"><span><b id="exam-practice-answered-count">${summary.answered}</b> ${L('đã trả lời', 'answered')}</span><span><b id="exam-practice-unanswered-count">${summary.unanswered}</b> ${L('chưa trả lời (câu chấm được)', 'unanswered (scorable)')}</span><span><b>${summary.total}</b> ${L('mục', 'items')}</span><span><b>${summary.scorableTotal}</b> ${L('chấm được (mẫu số)', 'scorable (denominator)')}</span><span><b>${summary.ungradeable}</b> ${L('không chấm được', 'not scorable')}</span></div><section class="exam-practice-question" aria-labelledby="exam-current-question-heading"><p class="exam-question-meta">${L('Câu nguồn', 'Source Q')} <strong>${question.number}</strong> · ${escapeHtml(question.section || '')} · ${index + 1}/${questions.length}</p>${examConfidenceBadgeMarkup(key?.confidence, key?.sourceStatus)}<h3 id="exam-current-question-heading" tabindex="-1"><span class="exam-question-source">${escapeHtml(question.prompt)}</span></h3>${question.instruction ? `<p class="exam-question-instruction">${escapeHtml(question.instruction)}</p>` : ''}${notScorableMarkup}${listeningFallbackMarkup}${rubricHintMarkup}${options}${feedback}</section><div class="exam-question-grid">${questionButtons}</div><div class="exam-practice-actions"><div><button class="btn" id="exam-question-prev" ${index === 0 ? 'disabled' : ''}>${L('Câu trước', 'Previous')}</button><button class="btn" id="exam-question-next" ${index >= questions.length - 1 ? 'disabled' : ''}>${L('Câu sau', 'Next')}</button></div><div>${submitted ? `<button class="btn" id="exam-practice-back">${L('Về tóm tắt', 'Back to summary')}</button>` : `<button class="btn" id="exam-review-answers">${L('Xem lại', 'Review')}</button><button class="btn primary" id="exam-submit">${L('Nộp bài', 'Submit Exam')}</button>`}</div></div>`;
     }
     return `<section class="exam-practice panel" aria-labelledby="exam-practice-title"><h2 class="panel-heading" id="exam-practice-title" tabindex="-1">${L('Luyện tập & chấm điểm toàn đề', 'Full-paper scored practice')}</h2><div class="panel-body">${ocrBanner}${figureBanner}${note}${body}</div></section>`;
   }
@@ -232685,7 +232832,7 @@ export async function createApp(root) {
     const rows = [...examResults.attempts].reverse().map(attempt => {
       const paper = examResults.papers[attempt.paperKey];
       const s = attempt.summary;
-      return `<div class="history-row exam-history-row"><span><b>${escapeHtml(paper?.metadata?.province || attempt.examId)} · ${paper?.metadata?.year || ''}</b><small>${new Date(attempt.submittedAt).toLocaleString(language === 'en' ? 'en-GB' : 'vi-VN')} · ${s.earnedPoints ?? s.correct}/${s.denominator ?? s.total} ${L('điểm toàn đề', 'full-paper pts')} (${s.percentage === null ? '—' : s.percentage + '%'}${s.scale10 != null ? ` · ${s.scale10}/10` : ''}) · ${L('Đã làm', 'Answered')} ${s.answered}/${s.total} ${s.provisional ? `· ${L('tạm tính', 'provisional')}` : ''}</small></span><span class="setting-actions"><button class="btn small" data-exam-history-open="${escapeHtml(attempt.id)}">${L('Xem', 'Inspect')}</button><button class="btn small danger" data-exam-history-delete="${escapeHtml(attempt.id)}">${L('Xóa', 'Delete')}</button></span></div>`;
+      return `<div class="history-row exam-history-row"><span><b>${escapeHtml(paper?.metadata?.province || attempt.examId)} · ${paper?.metadata?.year || ''}</b><small>${new Date(attempt.submittedAt).toLocaleString(language === 'en' ? 'en-GB' : 'vi-VN')} · ${s.earnedPoints ?? s.correct}/${s.denominator ?? s.total} ${L('điểm trên phần chấm được', 'pts over scorable items')} (${s.percentage === null ? '—' : s.percentage + '%'}${s.scale10 != null ? ` · ${s.scale10}/10` : ''}) · ${L('Đã làm', 'Answered')} ${s.answered}/${s.total} ${s.provisional ? `· ${L('tạm tính', 'provisional')}` : ''}</small></span><span class="setting-actions"><button class="btn small" data-exam-history-open="${escapeHtml(attempt.id)}">${L('Xem', 'Inspect')}</button><button class="btn small danger" data-exam-history-delete="${escapeHtml(attempt.id)}">${L('Xóa', 'Delete')}</button></span></div>`;
     }).join('');
     return `<section class="panel" aria-labelledby="exam-history-title"><div class="panel-heading" id="exam-history-title">${L('Lịch sử luyện đề', 'Exam history')}</div><div class="panel-body"><p class="settings-copy">${L('Chỉ lưu trên thiết bị này; không gửi qua telemetry. Nhập/xuất tách biệt với bản sao flashcard v1.', 'Stored only on this device; never sent through telemetry. Import/export is separate from the v1 flashcard backup.')}</p><div class="setting-actions"><button class="btn" id="exam-history-export">${L('Xuất lịch sử đề', 'Export exam history')}</button><label class="btn" for="exam-history-import">${L('Nhập lịch sử đề', 'Import exam history')}<input id="exam-history-import" type="file" accept="application/json,.json" hidden></label><button class="btn danger" id="exam-history-clear" ${examResults.attempts.length ? '' : 'disabled'}>${L('Xóa tất cả', 'Clear all')}</button></div><div id="exam-history-list">${rows || `<div class="empty">${L('Chưa có kết quả luyện đề.', 'No exam results yet.')}</div>`}</div><p id="exam-history-status" role="status" aria-live="polite"></p></div></section>`;
   }

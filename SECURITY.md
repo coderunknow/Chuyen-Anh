@@ -4,8 +4,8 @@
 
 | Version | Supported | Notes |
 | --- | --- | --- |
-| `v1.0.0-rc8` | Yes | Current release candidate (`index.html` standalone offline build + hardened `api/telemetry.js`). |
-| `< v1.0.0-rc8` | No | Superseded prereleases; upgrade to `v1.0.0-rc8` or `main`. |
+| `v1.0.0-rc9` | Yes | Current release candidate (`index.html` standalone offline build + hardened `api/telemetry.js`). |
+| `< v1.0.0-rc9` | No | Superseded prereleases; upgrade to `v1.0.0-rc9` or `main`. |
 
 ## Reporting a vulnerability
 
@@ -13,7 +13,7 @@ Please report security issues privately via GitHub's security advisory workflow 
 
 Do not open public issues for unpatched vulnerabilities or sensitive security findings.
 
-## Architecture & security controls (`v1.0.0-rc8`)
+## Architecture & security controls (`v1.0.0-rc9`)
 
 - **Zero-network standalone client (`index.html`):** All vocabulary (`5,852` rows), phrases (`780`), and exam transcriptions (`106` papers) are embedded locally. Study progress and exam history stay in browser `localStorage`. All untrusted/transcribed Markdown is HTML-escaped (`<script>`, `<iframe>`, `javascript:`/`data:`/`vbscript:` URLs, and raw HTML tags such as angle-bracket constituents in `2022/hai-phong/so` are rendered inert; only explicit `<u>` and `<br>` formatting tokens are emitted).
 - **Opt-in default-off diagnostics (`api/telemetry.js` + Supabase):**

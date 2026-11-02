@@ -161,6 +161,21 @@ def main() -> int:
             else:
                 print(f"PASS {label}")
 
+    if version.startswith("v1.0.0-rc9"):
+        for marker, label in (
+            ("rc9-scorable-only-v1", "the rc9 scorable-only grading rule"),
+            ("answeredScorable", "the answered-on-scorable counter"),
+            ("completionPercentage", "the completion figure"),
+            ("gradeExamQuestion", "the item grading entry point"),
+            ("partial-multi-select", "the multi-select partial-credit path"),
+            ("phraseMatchesCefrSelection", "the phrase CEFR predicate"),
+            ("Bộ lọc CEFR", "the phrase-bank level note"),
+        ):
+            if marker not in body:
+                fail(f"the served page is missing {label}")
+            else:
+                print(f"PASS {label}")
+
     if version.startswith("v1.0.0-rc8"):
         for marker, label in (
             ("EXAM_SCORING_RULE_VERSION", "the exam scoring rule constant"),
