@@ -4365,3 +4365,26 @@ test('rc9 fix round: phrase practice is narrowed by the CEFR selection using eac
   assert.match(appScript[1], /cụm trong phạm vi/);
   assert.match(appScript[1], /phraseCefrEmptyMessage\(\)/);
 });
+
+test('rc9 fix round: an inferred key is never printed as a bare "sai" in the review list', () => {
+  const source = appScript[1];
+  // The review row decides the pill from the grade, not from a bare ✓/✗ glyph.
+  assert.match(source, /const inferredMismatch = Boolean\(grade && grade\.result === 'incorrect' && grade\.answerKeyInferred\)/);
+  assert.match(source, /const pill = inferredMismatch \? 'provisional'/);
+  assert.match(source, /Khác đáp án suy luận \(chưa xác minh\)/);
+  assert.match(source, /exam-pill-warning/);
+  // The summary keeps inferred mismatches out of the keyed-incorrect count.
+  assert.match(source, /if \(grade\.answerKeyInferred\) summary\.incorrectInferred \+= 1; else summary\.incorrectKeyed \+= 1;/);
+  // And the graded result itself carries both flags for any surface to read.
+  const options = [{ id: 'choice-A', label: 'A', text: 'go' }, { id: 'choice-B', label: 'B', text: 'goes' }];
+  const item = { id: 'q-inf', number: 1, prompt: 'Choose.', instruction: '', responseType: 'choice', options, flags: [], section: 'Part I' };
+  const inferred = app.scoreExamSession(
+    { examId: 'x', questions: [item], responses: { 'q-inf': 'choice-B' } },
+    [{ questionId: 'q-inf', verificationStatus: 'inferred_unverified', sourceStatus: 'reasoned_inference',
+      candidates: ['choice-A'], acceptedAlternatives: [], normalization: 'choice-id', sources: [], limitations: [] }], [], 'x'
+  );
+  assert.equal(inferred.results[0].answerKeyInferred, true);
+  assert.equal(inferred.results[0].answerKeyVerified, false);
+  assert.equal(inferred.summary.incorrectInferred, 1);
+  assert.equal(inferred.summary.incorrectKeyed, 0);
+});
