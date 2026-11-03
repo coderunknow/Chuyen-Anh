@@ -12,7 +12,7 @@ The MIT License **does not** claim copyright ownership over, nor re-license, thi
 
 - **Inventory:** `106` Markdown exam transcriptions (`2022–2026`, specialised-English Grade 10 entrance papers across provincial Departments of Education & Training and specialised high schools), indexed in [`scripts/exams/selection.json`](scripts/exams/selection.json) and audited in [`docs/exam-provenance-audit.json`](docs/exam-provenance-audit.json), [`docs/EXAM_AUDIT_LEDGER.md`](docs/EXAM_AUDIT_LEDGER.md), and [`docs/RC8_EXAM_AUDIT.md`](docs/RC8_EXAM_AUDIT.md).
 - **Provenance & Rights:** Original examination questions and passages remain subject to the rights and regulations of their respective issuing educational authorities, authors, and cited publishers. Each Markdown header and runtime detail card records the reposted public URL, conversion quality tier (`PDF-text`, `DOCX`, `HTML/OCR`), and SHA-256 digest of the converted source artifact.
-- **Verification Disclaimer:** `0 / 106` papers and `0 / 6,804` extracted question keys in `v1.0.0-rc9` have been verified against sealed primary official PDFs/keys from issuing authorities (`official_verified = 0`). Application scores and provisional keys/rubrics are study aids only and are never official examination scores.
+- **Verification Disclaimer:** `0 / 106` papers and `0 / 6,804` extracted question keys in `v1.0.0-rc10` have been verified against sealed primary official PDFs/keys from issuing authorities (`official_verified = 0`). Application scores and provisional keys/rubrics are study aids only and are never official examination scores.
 
 ---
 

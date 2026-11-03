@@ -41,7 +41,7 @@ Bank 5,852 → 7,852 rows; 2,000 new headwords, 0 rows removed. Levels B1 261 ·
 Two defects surfaced by running the suites against the enlarged bank rather than trusting the earlier green:
 
 1. `tests/browser-learning.cjs` asserted the pre-rc10 bank (3.841 focus words, 780 phrases). The failures were read off the real DOM and repinned to the measured values; no assertion was removed or loosened.
-2. `scripts/exams/build_answer_keys.mjs` infers provisional answer keys by scoring options against the teaching bank. The rc10 expansion made it infer **eight** answers that did not exist before, one of them wrong (`2022/bac-kan/so` q33: inferred "A. way", where the paper's own gloss reads `get/fall/settle into a routine`). Inference now reads `scripts/exams/inference-lexicon.json`, a pin of the lexicon that existed when the keys were last reviewed, and the regenerated keys are byte-identical to the pre-rc10 artifacts again (3,011/6,804 scorable, 3,793 missing).
+2. `scripts/exams/build_answer_keys.mjs` infers provisional answer keys by scoring options against the teaching bank. The rc10 expansion made it infer **eight** answers that did not exist before, one of them wrong (`2022/bac-kan/so` q33: inferred "A. way", where the paper's own gloss reads `get/fall/settle into a routine`). Inference now reads `scripts/exams/inference-lexicon.json`, a pin of the lexicon that existed when the keys were last reviewed. The builder is fail-closed: `loadInferencePin()` throws on a missing file, malformed JSON, missing mandatory fields, invalid frozen revision, empty arrays, count disagreement, duplicate entries, or pin entries absent from the current bank. `tests/test_exam_inference_fail_closed.py` proves all six failure modes. The regenerated keys are byte-identical to the pre-rc10 artifacts (3,011/6,804 scorable, 3,793 missing).
 
 ### Measured state of the shipped data
 
@@ -50,7 +50,7 @@ Deck levels: B1 757 · B2 1,714 · C1 1,638 · C2 889 · Unclassified 843. The 8
 
 ### Tests
 
-Python **187 OK** · `static-app.test.js` **144 pass** · `rc10-cefr.test.js` **9 pass** · `exam-scoring.test.js` + `exam-anomalies.test.js` **41 pass** · browser suites green on chromium/firefox/webkit in CI. Every count that moved was repinned to the measured value in tests, `docs/*` reports and the README; no assertion was removed or weakened.
+Python **187 OK** (176 original + 11 new fail-closed regression tests) · `static-app.test.js` **144 pass** · `exam-scoring.test.js` + `exam-anomalies.test.js` + `rc10-cefr.test.js` **41 pass** · browser suites green on chromium/firefox/webkit in CI. The fail-closed tests prove: missing pin exits non-zero, malformed/incomplete pin data is rejected, newly added bank entries are ignored, a failed build never touches the generated artifacts, and scoring totals stay 3,011/6,804 scorable with 3,793 missing. Every count that moved was repinned to the measured value in tests, `docs/*` reports and the README; no assertion was removed or weakened.
 
 ### CI on `4dc4d3e`
 
