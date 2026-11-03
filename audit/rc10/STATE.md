@@ -19,7 +19,7 @@ released, never deployed)**.
 | **P4 / G2 — every phrase row revalidated** | **PASS** | 1,094/1,094: `phrase_listed` 6 (agree 2 · corrected 2 · precedence 2) · `no_phrase_reference` 774 · `verified_constituent_bound` 314. `audit/rc10/GATES.md` § Phrase policy |
 | **P5 / G3 — new headwords** | **PASS (exactly 2,000)** | `evidence/new-headword-evidence.jsonl` (2,251 authored rows), `evidence/gloss-batches/batch1…8.txt`, `evidence/new-word-pool.json` (3,068 candidates). Bank 5,852 → 7,852 rows; **2,000 new headwords**, 0 removed. |
 | **P6 / G4 — new phrases** | **PASS** | **314 accepted** (phrasal-verb 228 · idiom 52 · collocation 18 · dependent-preposition 15 · fixed-expression 1); bank 780 → 1,094 rows, phrasal verbs 184 → 412. `evidence/new-phrase-pool.json` (343 of 1,192 candidates), `evidence/new-phrase-evidence.jsonl`, authored batches in `evidence/phrase-batches/`. |
-| P8 full QA | **green locally**, browser engines read from CI | Python **172 OK** · `static-app.test.js` **144 pass** · `rc10-cefr.test.js` **9 pass**; browser engines only in CI |
+| P8 full QA | **green** | Python **176 OK** · `static-app.test.js` **144 pass** · `rc10-cefr.test.js` **9 pass** · CI run `41610896211` green on `checks` + chromium/firefox/webkit |
 | P9 PR | **open, Draft, deliberately not merged** | `GATES.md` |
 
 ## Exact counts (computed from the records, not estimated)
@@ -99,7 +99,7 @@ python3 audit/rc10/tools/add-headwords.py audit/rc10/evidence/gloss-batches/batc
 python3 scripts/expand_vocabulary.py && python3 scripts/build_vocabulary.py && python3 scripts/embed_vocabulary.py
 
 # suites
-python3 -m unittest discover -s tests -q          # 172 tests
+python3 -m unittest discover -s tests -q          # 176 tests
 node --test tests/static-app.test.js              # 144 tests
 node --test tests/rc10-cefr.test.js               # 9 tests, 3,072 configurations
 ```
