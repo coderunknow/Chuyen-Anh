@@ -20,10 +20,14 @@ tagged, released or deployed.
 | G12 | Words Only / Words + Phrases correct and persistent; phrase data unchanged by words-only work | tests 7–9 + phrase-bank hash | PASS |
 | G13 | Lifetime stats and priority order unchanged | `stats()` path untouched | PASS |
 | G14 | Full suites pass (Python, Node, Chromium, Firefox, WebKit) | Python **172 OK** · `static-app.test.js` **144 pass** · `rc10-cefr.test.js` **9 pass** on the rebuilt data; counts repinned to measured values only (no assertion loosened) | PASS locally / CI re-read per head |
-| G15 | PR updated, pushed, accurate, stays Draft while gates are open | | |
+| G15 | PR updated, pushed, accurate, stays Draft while gates are open | head **`e7ff954`** on `arena/0eb61237-chuyen-anh`, PR #81 `state: OPEN`, `isDraft: true`; body lists every phase with its measured numbers. No tag, no release, no deploy, `DEPLOY_HOLD` untouched. | PASS for the pushed head |
 
-**Overall: not complete yet.** The table is filled in as each gate closes; nothing
-is claimed before it is measured on the pushed head.
+**Overall: not complete yet.** G1, G2 and G3 are closed with measured numbers on
+head `e7ff954`; **G4 (P6) has no content yet** — 0 of the required ≥300 phrases,
+so the round stays open and PR #81 stays Draft. Nothing in this table is claimed
+before it is measured on the pushed head; G5, G8, G10–G13 keep the earlier
+verdicts, re-checked against the rebuilt data because two of the figures they
+name (row count, deck count) moved.
 
 ## Evidence tiers used by G1
 
