@@ -40,8 +40,10 @@ from vocabulary_curation import (  # noqa: E402
     LEGACY_ROW_LIMIT,
     category_of,
     is_archived,
+    load_frozen,
     load_spec,
     matched_rows,
+    resolve_decisions,
 )
 
 VOCAB_MD = ROOT / "Learned_Vocabulary_List.md"
@@ -107,12 +109,25 @@ def family_head(row: dict[str, Any]) -> str:
 def classify(rows: list[dict[str, Any]], spec: dict[str, Any]) -> dict[str, Any]:
     """Return the audit report as a dictionary (no file writes)."""
     tokens = curriculum_tokens()
-    decisions, problems = matched_rows(rows, spec, seed_origin_map())
+    # Replay the *applied* decisions (frozen per row ID), not the rules' live
+    # proposals: a proposal that a curator has not accepted has not changed the
+    # deck, and counting it here would report drift that does not exist.
+    resolved = resolve_decisions(rows, spec, seed_origin_map(), load_frozen())
+    problems = resolved["problems"]
+    proposals = resolved["pendingReview"]
+    # resolve_decisions keys by row ID (that is the frozen key); this audit compares
+    # against the table by normalised word, so re-key without losing the record.
+    by_id = {str(row["id"]): row for row in rows}
+    decisions = {word_key(by_id[row_id]["word"]): decision
+                 for row_id, decision in resolved["archived"].items() if row_id in by_id}
     by_key = {word_key(row["word"]): row for row in rows}
 
     stored = {key: row for key, row in by_key.items() if is_archived(row.get("tags"))}
     drift_missing = sorted(decisions[key]["word"] for key in set(decisions) - set(stored))
     drift_extra = sorted(stored[key]["word"] for key in set(stored) - set(decisions))
+    pending_review = sorted(
+        ({"id": item["id"], "word": item["word"], "category": item["category"],
+          "reason": item["reason"]} for item in proposals), key=lambda item: int(item["id"]))
     drift_category = sorted(
         decision["word"]
         for key, decision in decisions.items()
@@ -233,6 +248,9 @@ def classify(rows: list[dict[str, Any]], spec: dict[str, Any]) -> dict[str, Any]
             "extra": drift_extra,
             "categoryMismatch": drift_category,
             "problems": problems,
+            "frozen": load_frozen() is not None,
+            "pendingReview": pending_review,
+            "pendingReviewCount": len(pending_review),
             "reconciled": not (drift_missing or drift_extra or drift_category or problems),
         },
         "curriculum": {

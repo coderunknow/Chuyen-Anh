@@ -1,0 +1,7640 @@
+{
+  "version": 1,
+  "frozenAt": "2026-11-02",
+  "generatedBy": "scripts/freeze_curation_decisions.py",
+  "note": "Curation decisions are frozen per row ID. They record a judgement about exam value, taken once and reviewed on purpose, and they travel independently of the row's CEFR tag: correcting a level never moves a row into or out of the learner's deck.",
+  "counts": {
+    "basic-b1": 516,
+    "everyday-object": 403,
+    "food-drink": 189,
+    "nature-species": 163
+  },
+  "decisions": [
+    {
+      "id": "921",
+      "word": "afraid",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "924",
+      "word": "amount",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "926",
+      "word": "animal",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "929",
+      "word": "area",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "933",
+      "word": "article",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "937",
+      "word": "audience",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "938",
+      "word": "author",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "942",
+      "word": "beautiful",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "943",
+      "word": "begin",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "946",
+      "word": "body",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "947",
+      "word": "book",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "949",
+      "word": "bring",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "950",
+      "word": "build",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "951",
+      "word": "business",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "952",
+      "word": "busy",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "957",
+      "word": "century",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "959",
+      "word": "chance",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "963",
+      "word": "city",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "968",
+      "word": "company",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "969",
+      "word": "computer",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "973",
+      "word": "contact",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "977",
+      "word": "conversation",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "978",
+      "word": "cost",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "979",
+      "word": "country",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "980",
+      "word": "course",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "985",
+      "word": "daily",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1005",
+      "word": "drink",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1006",
+      "word": "drive",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1007",
+      "word": "early",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1008",
+      "word": "earth",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1018",
+      "word": "energy",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1027",
+      "word": "exam",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1028",
+      "word": "example",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1029",
+      "word": "exercise",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1036",
+      "word": "fact",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1037",
+      "word": "fall",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1038",
+      "word": "family",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1039",
+      "word": "famous",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1040",
+      "word": "fast",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1041",
+      "word": "father",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1043",
+      "word": "feel",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1044",
+      "word": "field",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1045",
+      "word": "film",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1046",
+      "word": "find",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1047",
+      "word": "finish",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1049",
+      "word": "food",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1050",
+      "word": "football",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1056",
+      "word": "future",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1060",
+      "word": "goal",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1065",
+      "word": "happy",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1068",
+      "word": "heart",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1070",
+      "word": "high",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1072",
+      "word": "holiday",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1073",
+      "word": "home",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1074",
+      "word": "homework",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1078",
+      "word": "idea",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1079",
+      "word": "important",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1087",
+      "word": "internet",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1090",
+      "word": "job",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1092",
+      "word": "keep",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1093",
+      "word": "kind",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1095",
+      "word": "land",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1096",
+      "word": "language",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1098",
+      "word": "late",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1099",
+      "word": "learn",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1100",
+      "word": "lesson",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1101",
+      "word": "letter",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1103",
+      "word": "life",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1104",
+      "word": "light",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1107",
+      "word": "line",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1108",
+      "word": "live",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1110",
+      "word": "long",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1111",
+      "word": "look",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1113",
+      "word": "love",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1114",
+      "word": "low",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1117",
+      "word": "make",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1124",
+      "word": "mean",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1132",
+      "word": "middle",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1134",
+      "word": "minute",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1135",
+      "word": "mistake",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1137",
+      "word": "money",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1138",
+      "word": "month",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1139",
+      "word": "morning",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1140",
+      "word": "mother",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1141",
+      "word": "move",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1146",
+      "word": "near",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1148",
+      "word": "need",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1150",
+      "word": "news",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1151",
+      "word": "night",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1155",
+      "word": "number",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1157",
+      "word": "office",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1158",
+      "word": "often",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1159",
+      "word": "old",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1161",
+      "word": "open",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1164",
+      "word": "order",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1167",
+      "word": "outside",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1168",
+      "word": "paper",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1170",
+      "word": "park",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1174",
+      "word": "past",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1176",
+      "word": "people",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1181",
+      "word": "phone",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1184",
+      "word": "plan",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1187",
+      "word": "play",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1188",
+      "word": "point",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1201",
+      "word": "price",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1202",
+      "word": "problem",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1214",
+      "word": "quickly",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1219",
+      "word": "real",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1228",
+      "word": "remember",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1231",
+      "word": "result",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1232",
+      "word": "return",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1233",
+      "word": "right",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1235",
+      "word": "river",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1237",
+      "word": "room",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1238",
+      "word": "safe",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1239",
+      "word": "school",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1244",
+      "word": "sentence",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1253",
+      "word": "sleep",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1254",
+      "word": "small",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1258",
+      "word": "sound",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1269",
+      "word": "story",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1270",
+      "word": "street",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1271",
+      "word": "strong",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1276",
+      "word": "subject",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1280",
+      "word": "summer",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1287",
+      "word": "team",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1290",
+      "word": "television",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1291",
+      "word": "tell",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1293",
+      "word": "test",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1294",
+      "word": "text",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1296",
+      "word": "thing",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1297",
+      "word": "think",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1298",
+      "word": "time",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1299",
+      "word": "today",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1300",
+      "word": "together",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1303",
+      "word": "town",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1308",
+      "word": "tree",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1309",
+      "word": "trip",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1310",
+      "word": "trouble",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1313",
+      "word": "try",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1314",
+      "word": "turn",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1317",
+      "word": "university",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1318",
+      "word": "useful",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1323",
+      "word": "visit",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1326",
+      "word": "walk",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1327",
+      "word": "want",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1329",
+      "word": "water",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1330",
+      "word": "watch",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1331",
+      "word": "weather",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1332",
+      "word": "week",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1333",
+      "word": "well",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1337",
+      "word": "woman",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1338",
+      "word": "wonder",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1339",
+      "word": "word",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1340",
+      "word": "world",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1341",
+      "word": "worry",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1344",
+      "word": "wrong",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1345",
+      "word": "year",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1346",
+      "word": "young",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1435",
+      "word": "paragraph",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1576",
+      "word": "flood",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1584",
+      "word": "biology",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1585",
+      "word": "chemistry",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1592",
+      "word": "cell",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1608",
+      "word": "liquid",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1610",
+      "word": "gas",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1619",
+      "word": "rubbish",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1620",
+      "word": "plastic",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1621",
+      "word": "package",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1633",
+      "word": "fuel",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1634",
+      "word": "petrol",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1637",
+      "word": "battery",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1686",
+      "word": "device",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1715",
+      "word": "update",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1716",
+      "word": "download",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1717",
+      "word": "upload",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1723",
+      "word": "digital",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1726",
+      "word": "keyboard",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1728",
+      "word": "smartphone",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1729",
+      "word": "tablet",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1730",
+      "word": "laptop",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1742",
+      "word": "password",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1784",
+      "word": "magazine",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1785",
+      "word": "newspaper",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1850",
+      "word": "chat",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1888",
+      "word": "patient",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1902",
+      "word": "rest",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1908",
+      "word": "workout",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1949",
+      "word": "anger",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "1995",
+      "word": "tax",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "2007",
+      "word": "salary",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "2029",
+      "word": "deadline",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "2036",
+      "word": "teamwork",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "2052",
+      "word": "part-time",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "2053",
+      "word": "full-time",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "2063",
+      "word": "factory",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "2080",
+      "word": "discount",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "2106",
+      "word": "vote",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "2126",
+      "word": "festival",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "2136",
+      "word": "museum",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "2145",
+      "word": "poem",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "2163",
+      "word": "pronunciation",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "2164",
+      "word": "grammar",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "2166",
+      "word": "notebook",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "2167",
+      "word": "library",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "2169",
+      "word": "timetable",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "2225",
+      "word": "illegal",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "2268",
+      "word": "luggage",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "2269",
+      "word": "passport",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "2270",
+      "word": "visa",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "2292",
+      "word": "island",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "2297",
+      "word": "desert",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "2307",
+      "word": "cancel",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "2313",
+      "word": "ticket",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "2330",
+      "word": "fry",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "2335",
+      "word": "supermarket",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "2341",
+      "word": "meal",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "2342",
+      "word": "snack",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "2345",
+      "word": "menu",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "2347",
+      "word": "bill",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "2363",
+      "word": "score",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "2368",
+      "word": "calendar",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "2378",
+      "word": "apartment",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "2392",
+      "word": "engineer",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "2394",
+      "word": "lawyer",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "2396",
+      "word": "dentist",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "2404",
+      "word": "secretary",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "2804",
+      "word": "annual",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "3146",
+      "word": "request",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "3198",
+      "word": "uniform",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "3637",
+      "word": "cupboard",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3638",
+      "word": "wardrobe",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3639",
+      "word": "drawer",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3640",
+      "word": "cushion",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3641",
+      "word": "bucket",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3642",
+      "word": "broom",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3643",
+      "word": "sponge",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3644",
+      "word": "needle",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3645",
+      "word": "hammer",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3646",
+      "word": "screwdriver",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3647",
+      "word": "spanner",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3648",
+      "word": "ladder",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3649",
+      "word": "fence",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3650",
+      "word": "gate",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3651",
+      "word": "garage",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3652",
+      "word": "balcony",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3653",
+      "word": "ceiling",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3654",
+      "word": "basement",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3655",
+      "word": "attic",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3656",
+      "word": "chimney",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3659",
+      "word": "kerb",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3660",
+      "word": "roundabout",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3661",
+      "word": "crossroads",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3663",
+      "word": "scooter",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3664",
+      "word": "van",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3665",
+      "word": "lorry",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3666",
+      "word": "tram",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3667",
+      "word": "ferry",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3668",
+      "word": "excursion",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3669",
+      "word": "campsite",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3670",
+      "word": "tent",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3671",
+      "word": "torch",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3672",
+      "word": "compass",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3673",
+      "word": "binoculars",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3674",
+      "word": "kettleful",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3675",
+      "word": "dough",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3676",
+      "word": "batter",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3677",
+      "word": "whisk",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3678",
+      "word": "sieve",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3679",
+      "word": "ladle",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3680",
+      "word": "simmer",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3681",
+      "word": "steam",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3682",
+      "word": "slice",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3683",
+      "word": "dice",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3685",
+      "word": "squeeze",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3687",
+      "word": "pour",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3688",
+      "word": "rinse",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3689",
+      "word": "soak",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3690",
+      "word": "marinade",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3691",
+      "word": "vinegar",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3692",
+      "word": "mustard",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3693",
+      "word": "garlic",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3694",
+      "word": "onion",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3695",
+      "word": "leek",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3696",
+      "word": "celery",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3697",
+      "word": "lettuce",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3698",
+      "word": "cabbage",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3699",
+      "word": "spinach",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3700",
+      "word": "pumpkin",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3701",
+      "word": "courgette",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3702",
+      "word": "aubergine",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3703",
+      "word": "beetroot",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3704",
+      "word": "radish",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3705",
+      "word": "parsley",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3706",
+      "word": "coriander",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3707",
+      "word": "mint",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3708",
+      "word": "ginger",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3709",
+      "word": "turmeric",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3710",
+      "word": "cinnamon",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3711",
+      "word": "nutmeg",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3712",
+      "word": "vanilla",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3713",
+      "word": "yeast",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3714",
+      "word": "flour",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3715",
+      "word": "eyebrow",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3716",
+      "word": "eyelash",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3717",
+      "word": "jaw",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3718",
+      "word": "forehead",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3719",
+      "word": "wrist",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3720",
+      "word": "ankle",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3721",
+      "word": "elbow",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3722",
+      "word": "shoulder",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3723",
+      "word": "spine",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3724",
+      "word": "rib",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3726",
+      "word": "kidney",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3727",
+      "word": "liver",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3728",
+      "word": "intestine",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3729",
+      "word": "vein",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3730",
+      "word": "artery",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3731",
+      "word": "muscle",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "3732",
+      "word": "tendon",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3733",
+      "word": "ligament",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3735",
+      "word": "skull",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3736",
+      "word": "palm",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3737",
+      "word": "knuckle",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3738",
+      "word": "freckle",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3739",
+      "word": "wrinkle",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3740",
+      "word": "bruise",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3743",
+      "word": "sneeze",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3744",
+      "word": "cough",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3745",
+      "word": "wheeze",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3746",
+      "word": "dizzy",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3748",
+      "word": "headache",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3749",
+      "word": "toothache",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3750",
+      "word": "backache",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3751",
+      "word": "sunburn",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3752",
+      "word": "frostbite",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3753",
+      "word": "syringe",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3754",
+      "word": "plaster",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3755",
+      "word": "crutch",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3759",
+      "word": "racket",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3760",
+      "word": "shuttlecock",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3761",
+      "word": "wicket",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3762",
+      "word": "umpire",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3763",
+      "word": "goalkeeper",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3764",
+      "word": "striker",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3766",
+      "word": "midfielder",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3767",
+      "word": "dribble",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3768",
+      "word": "header",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3769",
+      "word": "kickoff",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3770",
+      "word": "offside",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3773",
+      "word": "javelin",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3774",
+      "word": "discus",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3776",
+      "word": "jogging",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3777",
+      "word": "aerobics",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3778",
+      "word": "pilates",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3780",
+      "word": "treadmill",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3781",
+      "word": "dumbbell",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3782",
+      "word": "barbell",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3783",
+      "word": "squat",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3784",
+      "word": "lunge",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3785",
+      "word": "pushup",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3786",
+      "word": "situp",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3787",
+      "word": "plank",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3793",
+      "word": "hiking",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3794",
+      "word": "camping",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3795",
+      "word": "fishing",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3797",
+      "word": "workbook",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3798",
+      "word": "binder",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3800",
+      "word": "ruler",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3801",
+      "word": "protractor",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3803",
+      "word": "whiteboard",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3812",
+      "word": "apron",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3813",
+      "word": "mitten",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3814",
+      "word": "scarf",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3815",
+      "word": "glove",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3816",
+      "word": "sleeve",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3817",
+      "word": "collar",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3818",
+      "word": "button",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3819",
+      "word": "zip",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3820",
+      "word": "hem",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3821",
+      "word": "stitch",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3822",
+      "word": "fabric",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3823",
+      "word": "linen",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3824",
+      "word": "wool",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3825",
+      "word": "silk",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3826",
+      "word": "leather",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3827",
+      "word": "cotton",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3828",
+      "word": "velvet",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3829",
+      "word": "denim",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3831",
+      "word": "sandal",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3832",
+      "word": "slipper",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3833",
+      "word": "boot",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3834",
+      "word": "trainer",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3835",
+      "word": "bracelet",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3836",
+      "word": "necklace",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3837",
+      "word": "brooch",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3838",
+      "word": "earring",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3839",
+      "word": "ring",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3840",
+      "word": "wallet",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3841",
+      "word": "purse",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3843",
+      "word": "suitcase",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3844",
+      "word": "handbag",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3845",
+      "word": "bucketful",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3846",
+      "word": "cutlery",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3847",
+      "word": "crockery",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3848",
+      "word": "saucer",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3849",
+      "word": "teapot",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3850",
+      "word": "jug",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3851",
+      "word": "tray",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3852",
+      "word": "napkin",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3853",
+      "word": "tablecloth",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3854",
+      "word": "straw",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3855",
+      "word": "lid",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3856",
+      "word": "jar",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3857",
+      "word": "carton",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3858",
+      "word": "packet",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3859",
+      "word": "sachet",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3860",
+      "word": "tub",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3861",
+      "word": "shelf",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3862",
+      "word": "stool",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3863",
+      "word": "bench",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3864",
+      "word": "armchair",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3865",
+      "word": "sofa",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3866",
+      "word": "mattress",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3867",
+      "word": "pillow",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3868",
+      "word": "blanket",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3869",
+      "word": "duvet",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3870",
+      "word": "sheet",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3871",
+      "word": "curtain",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3872",
+      "word": "carpet",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3873",
+      "word": "rug",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3874",
+      "word": "lampshade",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3875",
+      "word": "plug",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3876",
+      "word": "socket",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3877",
+      "word": "switch",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3878",
+      "word": "bulb",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3879",
+      "word": "fuse",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3880",
+      "word": "wire",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3881",
+      "word": "tap",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3882",
+      "word": "sink",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3883",
+      "word": "drainpipe",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3884",
+      "word": "radiator",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3886",
+      "word": "heater",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3887",
+      "word": "fan",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3888",
+      "word": "vacuum",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3889",
+      "word": "mop",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3890",
+      "word": "dustpan",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3891",
+      "word": "detergent",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3892",
+      "word": "bleach",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3893",
+      "word": "iron",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3894",
+      "word": "pegs",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3895",
+      "word": "clothesline",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3897",
+      "word": "sweep",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3898",
+      "word": "scrub",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3899",
+      "word": "polish",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3900",
+      "word": "wipe",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3901",
+      "word": "sew",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3904",
+      "word": "tidy",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3905",
+      "word": "declutter",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3906",
+      "word": "fix",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3907",
+      "word": "unplug",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3910",
+      "word": "nail",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3911",
+      "word": "screw",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3912",
+      "word": "bolt",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3913",
+      "word": "nut",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3914",
+      "word": "saw",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3915",
+      "word": "chisel",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3916",
+      "word": "pliers",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3917",
+      "word": "glue",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3918",
+      "word": "tape",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3919",
+      "word": "rope",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3920",
+      "word": "string",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3921",
+      "word": "hook",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3922",
+      "word": "handle",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3923",
+      "word": "hinge",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3924",
+      "word": "lock",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3925",
+      "word": "keyhole",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3926",
+      "word": "padlock",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3927",
+      "word": "label",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3928",
+      "word": "sticker",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3929",
+      "word": "wrapper",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3930",
+      "word": "cork",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3931",
+      "word": "bottle",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3932",
+      "word": "flask",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3933",
+      "word": "thermos",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3934",
+      "word": "canteen",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3935",
+      "word": "escalator",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3936",
+      "word": "lift",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3937",
+      "word": "corridor",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3938",
+      "word": "staircase",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3939",
+      "word": "porch",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3940",
+      "word": "patio",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3941",
+      "word": "driveway",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3942",
+      "word": "lawn",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3943",
+      "word": "hedge",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3944",
+      "word": "flowerbed",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3945",
+      "word": "spade",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3946",
+      "word": "shovel",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3947",
+      "word": "rake",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3948",
+      "word": "wheelbarrow",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3949",
+      "word": "hose",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3952",
+      "word": "tile",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3953",
+      "word": "cement",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3954",
+      "word": "brick",
+      "category": "everyday-object",
+      "reason": "block:13-home-daily.tsv"
+    },
+    {
+      "id": "3955",
+      "word": "squirrel",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "3956",
+      "word": "hedgehog",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "3957",
+      "word": "badger",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "3958",
+      "word": "otter",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "3959",
+      "word": "beaver",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "3960",
+      "word": "moose",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "3961",
+      "word": "reindeer",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "3962",
+      "word": "gazelle",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "3963",
+      "word": "antelope",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "3964",
+      "word": "buffalo",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "3965",
+      "word": "donkey",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "3966",
+      "word": "mule",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "3967",
+      "word": "camel",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "3968",
+      "word": "leopard",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "3969",
+      "word": "cheetah",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "3970",
+      "word": "panther",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "3971",
+      "word": "jaguar",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "3972",
+      "word": "lynx",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "3973",
+      "word": "raccoon",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "3974",
+      "word": "baboon",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "3975",
+      "word": "gorilla",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "3976",
+      "word": "chimpanzee",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "3977",
+      "word": "orangutan",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "3978",
+      "word": "lemur",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "3979",
+      "word": "walrus",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "3980",
+      "word": "dolphin",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "3981",
+      "word": "whale",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "3982",
+      "word": "shark",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "3983",
+      "word": "octopus",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "3984",
+      "word": "jellyfish",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "3985",
+      "word": "starfish",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "3986",
+      "word": "crab",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "3987",
+      "word": "lobster",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "3988",
+      "word": "prawn",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "3989",
+      "word": "squid",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "3990",
+      "word": "oyster",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "3991",
+      "word": "mussel",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "3992",
+      "word": "clam",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "3993",
+      "word": "herring",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "3994",
+      "word": "salmon",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "3995",
+      "word": "trout",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "3996",
+      "word": "cod",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "3997",
+      "word": "tuna",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "3998",
+      "word": "eel",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "3999",
+      "word": "carp",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4000",
+      "word": "perch",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4001",
+      "word": "heron",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4002",
+      "word": "stork",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4003",
+      "word": "crane",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4004",
+      "word": "pelican",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4005",
+      "word": "seagull",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4006",
+      "word": "swan",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4007",
+      "word": "goose",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4008",
+      "word": "duckling",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4009",
+      "word": "rooster",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4010",
+      "word": "hen",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4011",
+      "word": "chick",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4012",
+      "word": "turkey",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4013",
+      "word": "peacock",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4014",
+      "word": "parrot",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4015",
+      "word": "sparrow",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4016",
+      "word": "robin",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4017",
+      "word": "nightingale",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4018",
+      "word": "swallow",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4019",
+      "word": "magpie",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4020",
+      "word": "crow",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4021",
+      "word": "raven",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4022",
+      "word": "owl",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4023",
+      "word": "falcon",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4024",
+      "word": "hawk",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4025",
+      "word": "vulture",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4026",
+      "word": "eagle",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4027",
+      "word": "osprey",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4028",
+      "word": "penguin",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4029",
+      "word": "ostrich",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4030",
+      "word": "flamingo",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4031",
+      "word": "lizard",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4032",
+      "word": "gecko",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4033",
+      "word": "iguana",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4034",
+      "word": "cobra",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4035",
+      "word": "python",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4036",
+      "word": "viper",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4037",
+      "word": "tortoise",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4038",
+      "word": "turtle",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4039",
+      "word": "crocodile",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4040",
+      "word": "alligator",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4041",
+      "word": "frog",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4042",
+      "word": "toad",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4043",
+      "word": "tadpole",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4044",
+      "word": "salamander",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4045",
+      "word": "newt",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4046",
+      "word": "beetle",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4047",
+      "word": "moth",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4048",
+      "word": "butterfly",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4049",
+      "word": "dragonfly",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4050",
+      "word": "grasshopper",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4051",
+      "word": "cricket",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4052",
+      "word": "locust",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4053",
+      "word": "wasp",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4054",
+      "word": "ant",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4055",
+      "word": "termite",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4056",
+      "word": "cockroach",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4057",
+      "word": "spider",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4058",
+      "word": "scorpion",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4059",
+      "word": "centipede",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4060",
+      "word": "snail",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4061",
+      "word": "slug",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4062",
+      "word": "worm",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4063",
+      "word": "leech",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4064",
+      "word": "oak",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4065",
+      "word": "maple",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4066",
+      "word": "birch",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4067",
+      "word": "pine",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4068",
+      "word": "cedar",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4069",
+      "word": "willow",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4070",
+      "word": "bamboo",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4071",
+      "word": "sapling",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4072",
+      "word": "seedling",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4073",
+      "word": "shrub",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4074",
+      "word": "fern",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4075",
+      "word": "moss",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4076",
+      "word": "ivy",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4077",
+      "word": "vine",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4078",
+      "word": "thorn",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4079",
+      "word": "twig",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4080",
+      "word": "branch",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4081",
+      "word": "trunk",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4082",
+      "word": "bark",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4083",
+      "word": "root",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4084",
+      "word": "petal",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4085",
+      "word": "pollen",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4086",
+      "word": "nectar",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4087",
+      "word": "bud",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4088",
+      "word": "blossom",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4089",
+      "word": "tulip",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4090",
+      "word": "daffodil",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4091",
+      "word": "orchid",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4092",
+      "word": "sunflower",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4093",
+      "word": "daisy",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4094",
+      "word": "lavender",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4095",
+      "word": "mushroom",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4096",
+      "word": "fungus",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4097",
+      "word": "algae",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4098",
+      "word": "seaweed",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4105",
+      "word": "pond",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4109",
+      "word": "iceberg",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4113",
+      "word": "cliff",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4115",
+      "word": "slope",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4124",
+      "word": "soil",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4125",
+      "word": "loam",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4126",
+      "word": "clay",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4127",
+      "word": "sand",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4128",
+      "word": "gravel",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4129",
+      "word": "pebble",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4130",
+      "word": "boulder",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4131",
+      "word": "limestone",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4132",
+      "word": "granite",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4133",
+      "word": "marble",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4134",
+      "word": "quartz",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4135",
+      "word": "copper",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4136",
+      "word": "bronze",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4137",
+      "word": "brass",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4138",
+      "word": "aluminium",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4139",
+      "word": "zinc",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4140",
+      "word": "mercury",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4141",
+      "word": "rubber",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4142",
+      "word": "fibreglass",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4143",
+      "word": "ceramic",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4144",
+      "word": "porcelain",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4145",
+      "word": "glass",
+      "category": "nature-species",
+      "reason": "block:14-nature-animals.tsv"
+    },
+    {
+      "id": "4151",
+      "word": "typhoon",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4153",
+      "word": "tornado",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4155",
+      "word": "hail",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4159",
+      "word": "thunderstorm",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4160",
+      "word": "lightning",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4161",
+      "word": "thunder",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4162",
+      "word": "breeze",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4178",
+      "word": "sunrise",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4179",
+      "word": "sunset",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4185",
+      "word": "comet",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4203",
+      "word": "painter",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4208",
+      "word": "baker",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4212",
+      "word": "cashier",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4213",
+      "word": "shopkeeper",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4220",
+      "word": "trainee",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4227",
+      "word": "partnership",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4232",
+      "word": "cheque",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4239",
+      "word": "banknote",
+      "category": "everyday-object",
+      "reason": "listed"
+    },
+    {
+      "id": "4240",
+      "word": "coin",
+      "category": "everyday-object",
+      "reason": "listed"
+    },
+    {
+      "id": "4241",
+      "word": "trolley",
+      "category": "everyday-object",
+      "reason": "listed"
+    },
+    {
+      "id": "4242",
+      "word": "basket",
+      "category": "everyday-object",
+      "reason": "listed"
+    },
+    {
+      "id": "4244",
+      "word": "checkout",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4245",
+      "word": "till",
+      "category": "everyday-object",
+      "reason": "listed"
+    },
+    {
+      "id": "4246",
+      "word": "mall",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4250",
+      "word": "parcel",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4252",
+      "word": "stamp",
+      "category": "everyday-object",
+      "reason": "listed"
+    },
+    {
+      "id": "4253",
+      "word": "address",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4256",
+      "word": "clipboard",
+      "category": "everyday-object",
+      "reason": "listed"
+    },
+    {
+      "id": "4257",
+      "word": "scissors",
+      "category": "everyday-object",
+      "reason": "listed"
+    },
+    {
+      "id": "4258",
+      "word": "printer",
+      "category": "everyday-object",
+      "reason": "listed"
+    },
+    {
+      "id": "4259",
+      "word": "scanner",
+      "category": "everyday-object",
+      "reason": "listed"
+    },
+    {
+      "id": "4260",
+      "word": "photocopier",
+      "category": "everyday-object",
+      "reason": "listed"
+    },
+    {
+      "id": "4261",
+      "word": "shredder",
+      "category": "everyday-object",
+      "reason": "listed"
+    },
+    {
+      "id": "4262",
+      "word": "headphones",
+      "category": "everyday-object",
+      "reason": "listed"
+    },
+    {
+      "id": "4263",
+      "word": "earbuds",
+      "category": "everyday-object",
+      "reason": "listed"
+    },
+    {
+      "id": "4265",
+      "word": "microphone",
+      "category": "everyday-object",
+      "reason": "listed"
+    },
+    {
+      "id": "4266",
+      "word": "webcam",
+      "category": "everyday-object",
+      "reason": "listed"
+    },
+    {
+      "id": "4268",
+      "word": "modem",
+      "category": "everyday-object",
+      "reason": "listed"
+    },
+    {
+      "id": "4270",
+      "word": "shortcut",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4271",
+      "word": "website",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4272",
+      "word": "webpage",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4273",
+      "word": "homepage",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4295",
+      "word": "apricot",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4296",
+      "word": "peach",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4297",
+      "word": "plum",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4298",
+      "word": "pear",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4299",
+      "word": "fig",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4300",
+      "word": "date",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4301",
+      "word": "raisin",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4302",
+      "word": "currant",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4303",
+      "word": "cranberry",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4304",
+      "word": "raspberry",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4305",
+      "word": "blackberry",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4306",
+      "word": "blueberry",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4307",
+      "word": "strawberry",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4308",
+      "word": "gooseberry",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4309",
+      "word": "grapefruit",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4310",
+      "word": "pomelo",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4311",
+      "word": "tangerine",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4312",
+      "word": "mandarin",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4313",
+      "word": "lime",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4314",
+      "word": "lemon",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4315",
+      "word": "papaya",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4316",
+      "word": "mango",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4317",
+      "word": "guava",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4318",
+      "word": "lychee",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4319",
+      "word": "longan",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4320",
+      "word": "rambutan",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4321",
+      "word": "mangosteen",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4322",
+      "word": "durian",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4323",
+      "word": "jackfruit",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4324",
+      "word": "starfruit",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4325",
+      "word": "persimmon",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4326",
+      "word": "pomegranate",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4327",
+      "word": "avocado",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4328",
+      "word": "coconut",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4329",
+      "word": "pineapple",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4330",
+      "word": "watermelon",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4331",
+      "word": "melon",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4332",
+      "word": "kiwi",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4333",
+      "word": "banana",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4334",
+      "word": "orange",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4335",
+      "word": "grape",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4336",
+      "word": "cherry",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4337",
+      "word": "peanut",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4338",
+      "word": "walnut",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4339",
+      "word": "almond",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4340",
+      "word": "cashew",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4341",
+      "word": "pistachio",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4342",
+      "word": "hazelnut",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4343",
+      "word": "chestnut",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4344",
+      "word": "sesame",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4345",
+      "word": "lentil",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4346",
+      "word": "chickpea",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4347",
+      "word": "soybean",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4348",
+      "word": "barley",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4349",
+      "word": "oats",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4350",
+      "word": "rye",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4351",
+      "word": "wheat",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4352",
+      "word": "rice",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4353",
+      "word": "noodle",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4354",
+      "word": "pasta",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4355",
+      "word": "spaghetti",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4356",
+      "word": "macaroni",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4357",
+      "word": "dumpling",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4358",
+      "word": "pancake",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4359",
+      "word": "wafer",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4360",
+      "word": "biscuit",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4361",
+      "word": "cracker",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4362",
+      "word": "pudding",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4363",
+      "word": "custard",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4364",
+      "word": "pastry",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4365",
+      "word": "croissant",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4366",
+      "word": "muffin",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4367",
+      "word": "brownie",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4368",
+      "word": "doughnut",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4370",
+      "word": "loaf",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4371",
+      "word": "crumb",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4372",
+      "word": "crust",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4374",
+      "word": "icing",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4375",
+      "word": "frosting",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4376",
+      "word": "syrup",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4377",
+      "word": "honey",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4378",
+      "word": "jam",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4379",
+      "word": "marmalade",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4380",
+      "word": "pepper",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4383",
+      "word": "herb",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4384",
+      "word": "basil",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4385",
+      "word": "oregano",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4386",
+      "word": "thyme",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4387",
+      "word": "rosemary",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4388",
+      "word": "sage",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4389",
+      "word": "dill",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4390",
+      "word": "fennel",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4391",
+      "word": "chilli",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4392",
+      "word": "paprika",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4393",
+      "word": "saffron",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4394",
+      "word": "cumin",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4395",
+      "word": "broth",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4396",
+      "word": "bouillon",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4397",
+      "word": "gravy",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4398",
+      "word": "sauce",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4399",
+      "word": "ketchup",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4400",
+      "word": "mayonnaise",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4402",
+      "word": "yoghurt",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4403",
+      "word": "cheese",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4404",
+      "word": "butter",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4405",
+      "word": "cream",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4407",
+      "word": "porridge",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4408",
+      "word": "cereal",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4409",
+      "word": "granola",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4410",
+      "word": "muesli",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4411",
+      "word": "omelette",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4412",
+      "word": "bacon",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4413",
+      "word": "sausage",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4414",
+      "word": "ham",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4415",
+      "word": "beef",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4416",
+      "word": "pork",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4417",
+      "word": "lamb",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4418",
+      "word": "mutton",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4419",
+      "word": "veal",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4420",
+      "word": "chicken",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4421",
+      "word": "duck",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4422",
+      "word": "steak",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4423",
+      "word": "mince",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4424",
+      "word": "fillet",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4425",
+      "word": "meatball",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4426",
+      "word": "burger",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4427",
+      "word": "sandwich",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4428",
+      "word": "pizza",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4429",
+      "word": "salad",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4430",
+      "word": "soup",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4431",
+      "word": "stew",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4432",
+      "word": "casserole",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4433",
+      "word": "curry",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4434",
+      "word": "stir-fry",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4435",
+      "word": "crispbread",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4436",
+      "word": "sushi",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4437",
+      "word": "taco",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4438",
+      "word": "kebab",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4439",
+      "word": "pickle",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4440",
+      "word": "relish",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4441",
+      "word": "chutney",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4442",
+      "word": "salsa",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4443",
+      "word": "guacamole",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4444",
+      "word": "hummus",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4445",
+      "word": "pate",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4446",
+      "word": "cider",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4447",
+      "word": "beer",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4448",
+      "word": "wine",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4449",
+      "word": "champagne",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4450",
+      "word": "whisky",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4451",
+      "word": "vodka",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4452",
+      "word": "cocktail",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4453",
+      "word": "mocktail",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4454",
+      "word": "lemonade",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4455",
+      "word": "smoothie",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4456",
+      "word": "milkshake",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4457",
+      "word": "juice",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4458",
+      "word": "soda",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4459",
+      "word": "cordial",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4460",
+      "word": "espresso",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4461",
+      "word": "cappuccino",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4462",
+      "word": "latte",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4463",
+      "word": "cocoa",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4464",
+      "word": "saucepan",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4465",
+      "word": "griddle",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4466",
+      "word": "wok",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4467",
+      "word": "skillet",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4468",
+      "word": "corkscrew",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4469",
+      "word": "colander",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4470",
+      "word": "mixer",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4474",
+      "word": "teaspoon",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4475",
+      "word": "tablespoon",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4476",
+      "word": "tumbler",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4477",
+      "word": "mug",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4478",
+      "word": "goblet",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4479",
+      "word": "cafeteria",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4480",
+      "word": "diner",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4481",
+      "word": "bistro",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4483",
+      "word": "takeaway",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4485",
+      "word": "waitress",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4486",
+      "word": "chef",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4487",
+      "word": "barista",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4488",
+      "word": "sommelier",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4498",
+      "word": "garnish",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4500",
+      "word": "samosa",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4501",
+      "word": "paella",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4502",
+      "word": "risotto",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4503",
+      "word": "lasagne",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4504",
+      "word": "meatloaf",
+      "category": "food-drink",
+      "reason": "block:16-food-drink.tsv"
+    },
+    {
+      "id": "4505",
+      "word": "toothbrush",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4506",
+      "word": "toothpaste",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4507",
+      "word": "floss",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4508",
+      "word": "mouthwash",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4509",
+      "word": "shampoo",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4511",
+      "word": "lotion",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4512",
+      "word": "moisturiser",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4513",
+      "word": "sunscreen",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4514",
+      "word": "deodorant",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4515",
+      "word": "perfume",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4516",
+      "word": "cologne",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4517",
+      "word": "razor",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4518",
+      "word": "comb",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4519",
+      "word": "brush",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4520",
+      "word": "towel",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4521",
+      "word": "flannel",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4522",
+      "word": "bathrobe",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4523",
+      "word": "bathtub",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4524",
+      "word": "showerhead",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4525",
+      "word": "plunger",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4526",
+      "word": "loo",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4527",
+      "word": "toilet",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4528",
+      "word": "mirror",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4529",
+      "word": "bin",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4530",
+      "word": "binliner",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4531",
+      "word": "dishcloth",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4532",
+      "word": "tongs",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4533",
+      "word": "spatula",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4534",
+      "word": "thermometer",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4535",
+      "word": "scales",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4536",
+      "word": "timer",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4538",
+      "word": "microwave",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4539",
+      "word": "dishwasher",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4541",
+      "word": "fridge",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4542",
+      "word": "cooker",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4543",
+      "word": "hob",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4544",
+      "word": "oven",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4545",
+      "word": "soap",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4546",
+      "word": "handwash",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4547",
+      "word": "disinfectant",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4548",
+      "word": "mothball",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4550",
+      "word": "cloth",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4551",
+      "word": "scrubber",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4552",
+      "word": "scourer",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4553",
+      "word": "washboard",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4554",
+      "word": "shoelace",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4555",
+      "word": "wellington",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4556",
+      "word": "sneaker",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4557",
+      "word": "loafer",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4558",
+      "word": "moccasin",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4560",
+      "word": "buttonhole",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4561",
+      "word": "cuff",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4562",
+      "word": "lapel",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4563",
+      "word": "pocket",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4564",
+      "word": "hood",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4565",
+      "word": "waistband",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4566",
+      "word": "belt",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4567",
+      "word": "buckle",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4568",
+      "word": "pendant",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4569",
+      "word": "locket",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4570",
+      "word": "cufflink",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4571",
+      "word": "tie",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4572",
+      "word": "shawl",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4573",
+      "word": "veil",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4574",
+      "word": "wristband",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4575",
+      "word": "headband",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4576",
+      "word": "hairpin",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4577",
+      "word": "hairbrush",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4578",
+      "word": "hairdryer",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4579",
+      "word": "nightdress",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4580",
+      "word": "pyjamas",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4581",
+      "word": "nightgown",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4582",
+      "word": "cardigan",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4583",
+      "word": "jumper",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4584",
+      "word": "sweatshirt",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4585",
+      "word": "hoodie",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4586",
+      "word": "blazer",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4587",
+      "word": "jacket",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4588",
+      "word": "overcoat",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4589",
+      "word": "raincoat",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4590",
+      "word": "poncho",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4591",
+      "word": "waistcoat",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4592",
+      "word": "tunic",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4593",
+      "word": "sarong",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4594",
+      "word": "trousers",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4595",
+      "word": "joggers",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4596",
+      "word": "leggings",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4597",
+      "word": "shorts",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4598",
+      "word": "jeans",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4599",
+      "word": "skirt",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4601",
+      "word": "gown",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4603",
+      "word": "blouse",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4604",
+      "word": "shirt",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4605",
+      "word": "vest",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4606",
+      "word": "sock",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4607",
+      "word": "tights",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4608",
+      "word": "underwear",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4609",
+      "word": "bra",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4610",
+      "word": "wrench",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4611",
+      "word": "clamp",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4612",
+      "word": "vice",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4613",
+      "word": "file",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4614",
+      "word": "sandpaper",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4615",
+      "word": "varnish",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4616",
+      "word": "paintbrush",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4618",
+      "word": "crowbar",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4619",
+      "word": "pickaxe",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4620",
+      "word": "hoe",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4621",
+      "word": "trowel",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4622",
+      "word": "chainsaw",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4623",
+      "word": "lawnmower",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4624",
+      "word": "secateurs",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4625",
+      "word": "hacksaw",
+      "category": "everyday-object",
+      "reason": "block:17-household-clothing.tsv"
+    },
+    {
+      "id": "4631",
+      "word": "damage",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4633",
+      "word": "impossible",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4638",
+      "word": "sit",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4641",
+      "word": "plenty",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4649",
+      "word": "restaurant",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4653",
+      "word": "surprise",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4654",
+      "word": "warm",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4657",
+      "word": "programme",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4661",
+      "word": "afternoon",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4669",
+      "word": "somewhere",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4674",
+      "word": "meat",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4681",
+      "word": "theatre",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4690",
+      "word": "draw",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4692",
+      "word": "billion",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4696",
+      "word": "teenage",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4697",
+      "word": "hobby",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4701",
+      "word": "anywhere",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4703",
+      "word": "lunch",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4704",
+      "word": "twenty",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4706",
+      "word": "telephone",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4709",
+      "word": "slowly",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4711",
+      "word": "breakfast",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4713",
+      "word": "smell",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4716",
+      "word": "classroom",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4719",
+      "word": "empty",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4720",
+      "word": "nearby",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4723",
+      "word": "earn",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4728",
+      "word": "ill",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4736",
+      "word": "sick",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4740",
+      "word": "prize",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4743",
+      "word": "tall",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4756",
+      "word": "flight",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4757",
+      "word": "fourth",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4762",
+      "word": "smoke",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4763",
+      "word": "laugh",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4764",
+      "word": "favourite",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4767",
+      "word": "province",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4768",
+      "word": "thick",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4769",
+      "word": "twelve",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4770",
+      "word": "fifty",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4771",
+      "word": "breathe",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4773",
+      "word": "hurry",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4774",
+      "word": "bicycle",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4777",
+      "word": "mouth",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4778",
+      "word": "seat",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4780",
+      "word": "fifth",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4784",
+      "word": "everywhere",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4785",
+      "word": "actor",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4789",
+      "word": "excuse",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4791",
+      "word": "nose",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4802",
+      "word": "fifteen",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4807",
+      "word": "shut",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4808",
+      "word": "pair",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4809",
+      "word": "fantastic",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4814",
+      "word": "clock",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4817",
+      "word": "asleep",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4821",
+      "word": "swim",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4830",
+      "word": "glad",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4831",
+      "word": "promise",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4832",
+      "word": "joke",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4833",
+      "word": "neck",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4835",
+      "word": "upset",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4836",
+      "word": "bike",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4839",
+      "word": "bread",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4840",
+      "word": "neighborhood",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4841",
+      "word": "reply",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4845",
+      "word": "vacation",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4846",
+      "word": "entrance",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4850",
+      "word": "awake",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4852",
+      "word": "eleven",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4865",
+      "word": "ear",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4868",
+      "word": "hire",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4869",
+      "word": "belong",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4870",
+      "word": "thirty",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4871",
+      "word": "grateful",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4875",
+      "word": "lazy",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4878",
+      "word": "correctly",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4879",
+      "word": "forty",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4882",
+      "word": "sadly",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4886",
+      "word": "dictionary",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4889",
+      "word": "geography",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4891",
+      "word": "fond",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4893",
+      "word": "tick",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4894",
+      "word": "rainy",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4895",
+      "word": "verb",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4898",
+      "word": "preposition",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4900",
+      "word": "wet",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4903",
+      "word": "highway",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4904",
+      "word": "hungry",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4906",
+      "word": "stomach",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4907",
+      "word": "nowhere",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4910",
+      "word": "coat",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4923",
+      "word": "garbage",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4935",
+      "word": "unhealthy",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4942",
+      "word": "weird",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4945",
+      "word": "leg",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4953",
+      "word": "bedroom",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4955",
+      "word": "desk",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4956",
+      "word": "alright",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4959",
+      "word": "mum",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4962",
+      "word": "spell",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4971",
+      "word": "leaf",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4972",
+      "word": "dish",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4975",
+      "word": "graduation",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4976",
+      "word": "unhappy",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4982",
+      "word": "lend",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4994",
+      "word": "grade",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4996",
+      "word": "chair",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "4997",
+      "word": "payment",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5001",
+      "word": "bathroom",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5002",
+      "word": "wheel",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5005",
+      "word": "cousin",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5009",
+      "word": "marry",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5012",
+      "word": "wooden",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5014",
+      "word": "throat",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5018",
+      "word": "autumn",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5026",
+      "word": "clever",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5034",
+      "word": "pile",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5035",
+      "word": "zoo",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5037",
+      "word": "indoor",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5038",
+      "word": "elephant",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5039",
+      "word": "ink",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5055",
+      "word": "sixty",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5057",
+      "word": "hometown",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5063",
+      "word": "volleyball",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5067",
+      "word": "metre",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5069",
+      "word": "eighty",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5086",
+      "word": "eighteenth",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5102",
+      "word": "quit",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5105",
+      "word": "awful",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5106",
+      "word": "egg",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5109",
+      "word": "romantic",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5114",
+      "word": "scary",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5115",
+      "word": "tube",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5121",
+      "word": "rude",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5126",
+      "word": "happily",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5134",
+      "word": "musician",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5135",
+      "word": "borrow",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5157",
+      "word": "dislike",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5159",
+      "word": "sour",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5168",
+      "word": "dinosaur",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5173",
+      "word": "policeman",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5189",
+      "word": "windy",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5208",
+      "word": "housework",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5211",
+      "word": "adverb",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5213",
+      "word": "anybody",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5214",
+      "word": "plate",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5218",
+      "word": "repeat",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5220",
+      "word": "math",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5221",
+      "word": "uncle",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5224",
+      "word": "sixth",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5225",
+      "word": "tongue",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5228",
+      "word": "dozen",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5229",
+      "word": "exit",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5231",
+      "word": "brave",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5247",
+      "word": "poet",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5248",
+      "word": "corn",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5249",
+      "word": "sheep",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5251",
+      "word": "unfair",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5252",
+      "word": "aunt",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5255",
+      "word": "shy",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5285",
+      "word": "sixteen",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5287",
+      "word": "vegetable",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5288",
+      "word": "tenth",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5297",
+      "word": "candle",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5311",
+      "word": "twentieth",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5319",
+      "word": "nineteenth",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5326",
+      "word": "nationality",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5343",
+      "word": "bedtime",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5352",
+      "word": "vase",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5371",
+      "word": "sixteenth",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5387",
+      "word": "foggy",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5393",
+      "word": "unfriendly",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5400",
+      "word": "firework",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5401",
+      "word": "guidebook",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5410",
+      "word": "ugly",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5411",
+      "word": "steal",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5414",
+      "word": "knee",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5415",
+      "word": "pretend",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5417",
+      "word": "tale",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5419",
+      "word": "seventh",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5420",
+      "word": "pub",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5422",
+      "word": "delete",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5429",
+      "word": "clue",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5433",
+      "word": "bubble",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5434",
+      "word": "mud",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5439",
+      "word": "selfish",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5445",
+      "word": "scare",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5446",
+      "word": "ambulance",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5447",
+      "word": "cheat",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5453",
+      "word": "lamp",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5459",
+      "word": "goat",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5460",
+      "word": "subscribe",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5487",
+      "word": "spoon",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5490",
+      "word": "seventeen",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5497",
+      "word": "tomato",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5503",
+      "word": "eighteen",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5510",
+      "word": "seventy",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5525",
+      "word": "hallway",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5532",
+      "word": "alphabet",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5533",
+      "word": "haircut",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5538",
+      "word": "ripe",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5557",
+      "word": "refrigerator",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5562",
+      "word": "librarian",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5563",
+      "word": "nineteen",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5581",
+      "word": "inbox",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5621",
+      "word": "seventeenth",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5625",
+      "word": "hairstyle",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5652",
+      "word": "motorbike",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5671",
+      "word": "runny",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5680",
+      "word": "fizzy",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5685",
+      "word": "schoolwork",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5700",
+      "word": "boyfriend",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5701",
+      "word": "bunch",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5702",
+      "word": "basketball",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5706",
+      "word": "silent",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5709",
+      "word": "knife",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5710",
+      "word": "rugby",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5711",
+      "word": "makeup",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5712",
+      "word": "silly",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5718",
+      "word": "purple",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5719",
+      "word": "bite",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5720",
+      "word": "dare",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5731",
+      "word": "forgive",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5734",
+      "word": "shoe",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5737",
+      "word": "skip",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5738",
+      "word": "eighth",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5739",
+      "word": "wrap",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5748",
+      "word": "jewelry",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5749",
+      "word": "artwork",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5750",
+      "word": "noon",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5759",
+      "word": "tooth",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5761",
+      "word": "motorcycle",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5763",
+      "word": "nicely",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5764",
+      "word": "ninth",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5769",
+      "word": "shout",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5771",
+      "word": "someday",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5774",
+      "word": "fork",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5778",
+      "word": "tire",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5780",
+      "word": "thumb",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5786",
+      "word": "cart",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5787",
+      "word": "circus",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5790",
+      "word": "cheek",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5791",
+      "word": "comedian",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5794",
+      "word": "waist",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5809",
+      "word": "fountain",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5812",
+      "word": "stare",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5823",
+      "word": "thirteen",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5826",
+      "word": "messy",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5830",
+      "word": "scroll",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5841",
+      "word": "quiz",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5844",
+      "word": "roommate",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    },
+    {
+      "id": "5851",
+      "word": "kindergarten",
+      "category": "basic-b1",
+      "reason": "rule:b1-baseline-general"
+    }
+  ]
+}

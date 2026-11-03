@@ -4238,17 +4238,19 @@ test('the shipped vocabulary keeps every row and every level is selectable', () 
   const deck = headwords.filter(entry => !app.isArchivedEntry(entry));
   const counts = app.countVocabularyByCefr(deck);
   // Snapshot of the shipped deck after the rc10 attested-level corrections
-  // (9 seed rows re-labelled, 8 applied, `academic` blocked — see
-  // audit/rc10/evidence/reference-attestations.jsonl). The total is unchanged:
-  // 163 + 886 + 1275 + 674 + 843 = 3,841.
-  assert.deepEqual(counts, { A1: 0, A2: 0, B1: 163, B2: 886, C1: 1275, C2: 674, UNCLASSIFIED: 843 },
+  // (9 seed rows re-labelled from a publisher page — see
+  // audit/rc10/evidence/corrections-applied.jsonl). `academic` moved B2->B1
+  // *inside* the deck: curation decisions are frozen per row ID, so a level
+  // correction never changes deck membership. The total is unchanged:
+  // 164 + 885 + 1275 + 674 + 843 = 3,841.
+  assert.deepEqual(counts, { A1: 0, A2: 0, B1: 164, B2: 885, C1: 1275, C2: 674, UNCLASSIFIED: 843 },
     'the shipped deck keeps its labels; A1/A2 are selectable even though no row carries them yet');
   assert.equal(headwords.length, 5112);
   assert.equal(archived.length, 1271);
   assert.equal(deck.length, 3841);
   // The default selection is a filter, not a deletion: archived rows and
   // out-of-band rows are still in the data and still counted.
-  assert.equal(app.filterVocabularyByCefr(deck, app.defaultCefrSelection()).length, 2161);
+  assert.equal(app.filterVocabularyByCefr(deck, app.defaultCefrSelection()).length, 2160);
   assert.equal(app.countVocabularyByCefr(embeddedVocabulary.filter(entry => !entry.familyHead)).UNCLASSIFIED, 843,
     'the 843 untagged legacy headwords stay Unclassified instead of being assigned a level');
   assert.equal(app.countVocabularyByCefr(embeddedVocabulary).UNCLASSIFIED, 913,

@@ -15,7 +15,8 @@ released, never deployed)**.
 | Exam-evidence layer for every entry | **done (archive class)** | `evidence/exam-occurrences-{vocabulary,phrases}.jsonl` + summary |
 | **Reference lanes for every entry** | **done** | `evidence/cefrj-crosscheck.jsonl`, `evidence/reference-join.jsonl` + summaries. **5,706 of 5,852 rows** now carry at least one independent reference lane; 146 carry none and are named. |
 | **First primary attestations applied** | **done (8 rows written)** | `evidence/reference-attestations.jsonl`, `evidence/corrections-applied.jsonl` |
-| P3 audit layer | **complete as a layer, FAIL as a gate** | 5,852 rows dispositioned: **31** individually inspected, 5,821 `machine_assessed` |
+| **Curation/CEFR decoupled** | **done** | `docs/vocabulary-curation-decisions.json` (1,271 frozen per-row decisions); `tests/test_curation_cefr_independence.py`; `academic` is B1 and still taught |
+| P3 audit layer | **complete as a layer, FAIL as a gate** | 5,852 rows dispositioned: **32** individually inspected (incl. `academic`), 5,820 `machine_assessed` |
 | P4 audit layer | **complete as a layer, FAIL as a gate** | 780 rows dispositioned: 0 individually verified |
 | P5 new headwords | **not started as content** | candidate pipeline built: 1,447 corpus-backed candidates, 0 accepted |
 | P6 new phrases | **not started as content** | 0 accepted (target 300 incl. 200 phrasal verbs) |

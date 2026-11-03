@@ -21,6 +21,16 @@
     "extra": [],
     "categoryMismatch": [],
     "problems": [],
+    "frozen": true,
+    "pendingReview": [
+      {
+        "id": "4632",
+        "word": "academic",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      }
+    ],
+    "pendingReviewCount": 1,
     "reconciled": true
   },
   "curriculum": {
@@ -583,8 +593,8 @@
     "nature-species": 163
   },
   "levelMix": {
-    "B1": 163,
-    "B2": 886,
+    "B1": 164,
+    "B2": 885,
     "C1": 1275,
     "C2": 674,
     "unlabelled": 843

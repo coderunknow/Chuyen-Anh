@@ -42,8 +42,16 @@ def main():
     attestations = [json.loads(line) for line in
                     (EVIDENCE / "reference-attestations.jsonl").read_text(encoding="utf-8").splitlines() if line.strip()]
     blocks_path = EVIDENCE / "correction-blocks.jsonl"
-    blocked = {json.loads(line)["id"] for line in blocks_path.read_text(encoding="utf-8").splitlines() if line.strip()} \
-        if blocks_path.exists() else set()
+    # A block is only a block while it is unresolved: records that carry a
+    # `resolution` were fixed and their correction is applied like any other.
+    blocked = set()
+    if blocks_path.exists():
+        for line in blocks_path.read_text(encoding="utf-8").splitlines():
+            if not line.strip():
+                continue
+            record = json.loads(line)
+            if not record.get("resolution"):
+                blocked.add(record["id"])
     targets = [record for record in attestations
                if record["decision"] == "correct" and not record["ledgerFrozen"] and record["id"] not in blocked]
     if not targets:

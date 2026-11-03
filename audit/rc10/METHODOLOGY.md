@@ -133,3 +133,33 @@ ever reach the 2,835 rows it covers (≈113 chunks); the other 3,017 rows need o
 dictionary page each. The offline lanes cost 1.2 s for all 5,852 rows. That
 asymmetry — cheap reconciliation, expensive attestation — is the real constraint
 on G1, and it is why the gates stay FAIL while coverage keeps rising.
+
+## 9. Classification is not visibility (fixed in the fourth round)
+
+`academic` was previously blocked from being corrected to its attested B1 level
+because the curation rule "B1 topic/core/academic words are outside the exam deck"
+was re-derived from the live `level:` tag: fixing the label would have archived the
+row and removed it from every learner's deck. That was an architecture defect, not
+a reason to keep a wrong label.
+
+**What changed.** Curation decisions are now frozen per row ID in
+`docs/vocabulary-curation-decisions.json` (1,271 records: id, word, category, the
+proposing rule, the reason). `vocabulary_curation.resolve_decisions()` therefore
+applies *those* records, and a rule that newly matches a row is returned as a
+`pendingReview` proposal — reported, never applied. Correcting a CEFR level can no
+longer add a row to, or remove a row from, a deck.
+
+**Consequences, measured:**
+
+- `academic` is B1 (attested) and still taught. Deck 3,841 before and after;
+  archived 1,271 before and after; the only movement is inside the deck
+  (B1 163→164, B2 886→885).
+- `docs/rc4-vocabulary-audit.json` now separates `decisions` (1,271 applied) from
+  `pendingReview` (1, `academic`, reason `rule:b1-baseline-general`) instead of
+  reporting phantom drift.
+- `tests/test_curation_cefr_independence.py` (4 tests) pins it: moving 400 levels
+  across bands changes no deck member; an unfrozen proposal is reported, not
+  applied; `academic` is B1 *and* not archived.
+- `scripts/freeze_curation_decisions.py --check` fails the build if the frozen file
+  goes stale, and refuses to absorb a new proposal without `--accept-new`, so
+  entering the deck stays a deliberate curation act.

@@ -19,8 +19,8 @@
  "retainedMix": {
   "level": {
    "(none)": 843,
-   "B1": 163,
-   "B2": 886,
+   "B1": 164,
+   "B2": 885,
    "C1": 1275,
    "C2": 674
   },
@@ -61391,7 +61391,7 @@
    "category": "",
    "seed": "18-corpus-core.tsv",
    "pos": "adj",
-   "level": "B2",
+   "level": "B1",
    "levelSource": "editorial",
    "type": "topic",
    "topic": "education",
