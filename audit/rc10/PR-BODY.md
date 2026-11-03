@@ -4,7 +4,7 @@ rc10: a CEFR study-pool fix, a full revalidation of every stored row, and — ne
 
 **Draft on purpose. Not merged, not tagged, not released, not deployed.** All five phases P3–P7 are measured and closed; the round stays open, so this PR stays Draft.
 
-## Head `feae1c3` (this is the whole round)
+## Head `3726266` (this is the whole round)
 
 ### P2 — the CEFR leak fix that started it
 
@@ -52,9 +52,9 @@ Deck levels: B1 757 · B2 1,714 · C1 1,638 · C2 889 · Unclassified 843. The 8
 
 Python **176 OK** · `static-app.test.js` **144 pass** · `rc10-cefr.test.js` **9 pass** · `exam-scoring.test.js` + `exam-anomalies.test.js` **41 pass** · browser suites green on Chromium locally. Every count that moved was repinned to the measured value in tests, `docs/*` reports and the README; no assertion was removed or weakened.
 
-### CI on `feae1c3`
+### CI on `3726266`
 
-**Green**: workflow `41610896211` — `checks`, `browser (chromium)`, `browser (firefox)`, `browser (webkit)` all success; workflow `41610896238` (Validate exam archive) success. Firefox and WebKit run only in CI. Bot state recorded as-is: Kilo review not started (billing), CodeRabbit skipped (repo <10 stars), Copilot review quota exhausted.
+**Green**: workflow `41620333430` — `checks`, `browser (chromium)`, `browser (firefox)`, `browser (webkit)` all success; workflow `41620333536` (Validate exam archive) success. Firefox and WebKit run only in CI. Bot state recorded as-is: Kilo review not started (billing), CodeRabbit skipped (repo <10 stars), Copilot review quota exhausted.
 
 ## Gates
 
@@ -67,7 +67,7 @@ Python **176 OK** · `static-app.test.js` **144 pass** · `rc10-cefr.test.js` **
 | G5 per-entry reference lookup | PASS | every new row names work + locator |
 | G6 per-entry examination evidence | PASS | 8,946 records in `exam-occurrences-*.jsonl` |
 | G10–G13 | PASS | see `audit/rc10/GATES.md` |
-| G14 full suites | **PASS** | CI run `41610896211` green on checks + chromium/firefox/webkit |
+| G14 full suites | **PASS** | CI run `41620333430` green on checks + chromium/firefox/webkit |
 | G15 PR ready | **PASS** | head `feae1c3`, Draft by design |
 
 ## Prohibitions honoured
