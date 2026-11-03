@@ -21,7 +21,7 @@ REGISTRY_PATH = ROOT / "docs" / "vocabulary-sources.json"
 ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*$")
 COMBINING_MARKS_RE = re.compile(r"[\u0300-\u036f]")
 TAG_NAMESPACES = {"level", "level-source", "topic", "type", "skill", "source", "family", "family-head", "curation", "curation-category"}
-TAG_RE = re.compile(r"^[a-z][a-z-]*(?::[A-Za-z0-9][A-Za-z0-9-]*)?$")
+TAG_RE = re.compile(r"^[a-z][a-z-]*(?::[A-Za-z0-9][A-Za-z0-9.-]*)?$")
 SOURCE_KEYS = {"ref", "supports", "locator", "url"}
 
 

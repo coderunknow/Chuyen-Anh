@@ -152,7 +152,7 @@ class VocabularyEvidenceReviewTests(unittest.TestCase):
 
     def test_no_row_is_deleted_or_archived_by_the_review(self) -> None:
         audit = json.loads((ROOT / "docs" / "vocabulary-quality-audit.json").read_text(encoding="utf-8"))
-        self.assertEqual(audit["totals"]["retainedHeadwords"], 3841)
+        self.assertEqual(audit["totals"]["retainedHeadwords"], 5841)
         self.assertEqual(audit["totals"]["archivedHeadwords"], 1271)
         for bucket, data in self.report["buckets"].items():
             with self.subTest(bucket=bucket):

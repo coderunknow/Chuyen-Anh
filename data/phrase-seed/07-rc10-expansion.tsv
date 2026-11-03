@@ -1,0 +1,318 @@
+# rc10 P6 expansion: phrases that occur in a transcribed paper and whose
+# level is bounded by published constituent entries (collocation / idiom /
+# phrasal verb / dependent preposition). Level is derived, never authored.
+# phrase<TAB>type<TAB>meaning<TAB>usage<TAB>pattern<TAB>level<TAB>topic<TAB>skills
+amount to	phrasal-verb	tương đương với, có nghĩa là	Thường dùng khi tổng hợp con số hoặc khi nói một việc thực chất là gì.	amount to + N	B1	academic	reading,writing
+attend to	phrasal-verb	chăm sóc, giải quyết	Được dùng khi nói tới việc xử lý một công việc hoặc chăm sóc ai đó.	attend to + N	B1	health	reading
+back down	phrasal-verb	chịu nhượng bộ, rút lui	Miêu tả việc từ bỏ một quan điểm sau khi bị phản đối mạnh.	back down (on + N)	B1	psychology	reading,writing
+back out	phrasal-verb	rút khỏi (cam kết, thỏa thuận)	Miêu tả việc rút khỏi một việc đã đồng ý làm.	back out of + N	B1	economics	reading,writing
+back up	phrasal-verb	hỗ trợ, sao lưu	Được dùng khi nói tới việc ủng hộ ai đó hoặc sao lưu dữ liệu.	back up + N / back + O + up	B1	technology	reading,writing
+break away	phrasal-verb	tách ra, thoát ly	Miêu tả việc rời khỏi một nhóm để hoạt động độc lập.	break away from + N	B1	politics	reading
+break off	phrasal-verb	đột ngột ngừng lại, bẻ gãy	Miêu tả việc kết thúc đột ngột một cuộc nói chuyện hoặc quan hệ.	break off + N / break off	B1	work	reading
+break through	phrasal-verb	đột phá, vượt qua rào cản	Nói về một phát hiện hoặc tiến bộ vượt qua giới hạn cũ.	break through + N	B1	science	reading,writing
+bring along	phrasal-verb	mang theo (cho người khác)	Dùng khi rủ ai đi cùng hoặc mang đồ gì theo.	bring + O + along	B1	family	reading
+bring back	phrasal-verb	mang trả lại, gợi lại	Dùng khi nói trả lại đồ hoặc gợi nhớ lại điều gì.	bring + O + back	B1	culture	reading
+bring down	phrasal-verb	làm hạ xuống, giảm bớt	Dùng khi nói giảm giá cả, chi phí hoặc hạ gục một chính phủ.	bring + O + down	B1	economics	reading,writing
+bring forward	phrasal-verb	dời lên sớm hơn	Dùng khi đổi lịch một cuộc họp sang thời điểm sớm hơn.	bring + O + forward	B1	work	reading,writing
+bring out	phrasal-verb	tung ra, làm nổi bật	Dùng khi phát hành sản phẩm hoặc làm rõ một phẩm chất.	bring + O + out	B1	media	reading,writing
+call back	phrasal-verb	gọi lại (điện thoại)	Dùng khi hứa gọi lại cho ai đó.	call + O + back	B1	technology	reading
+call out	phrasal-verb	gọi to, chỉ ra sai sót	Dùng khi hô to hoặc công khai phê phán hành vi sai.	call + O + out / call out + N	B1	media	reading,writing
+call up	phrasal-verb	gọi điện, gọi nhập ngũ	Dùng khi gọi điện cho ai đó hoặc gọi công dân nhập ngũ.	call + O + up	B1	politics	reading
+care for	phrasal-verb	chăm sóc, có thiện cảm với	Dùng khi nói chăm sóc người yếu hoặc khi phủ định sự thích thú.	care for + N	B1	health	reading,writing
+catch on	phrasal-verb	trở nên phổ biến; hiểu ra	Dùng khi một ý tưởng lan rộng hoặc khi ai đó hiểu điều được nói.	catch on (to + N)	B1	media	reading,writing
+catch out	phrasal-verb	bắt lỗi, phát hiện ai nói dối	Dùng khi phát hiện ai đó làm sai hoặc nói sai.	catch + O + out	B1	society	reading
+catch up	phrasal-verb	đuổi kịp, cập nhật tình hình	Dùng khi theo kịp người khác hoặc hỏi thăm tin tức.	catch up (with + N)	B1	work	reading,writing
+check on	phrasal-verb	kiểm tra tình trạng	Dùng khi ghé xem ai đó hoặc việc gì có ổn không.	check on + N	B1	health	reading
+clean up	phrasal-verb	dọn dẹp, làm sạch	Dùng khi dọn dẹp nơi chốn hoặc xử lý hậu quả.	clean up + N / clean up	B1	environment	reading,writing
+clear up	phrasal-verb	làm sáng tỏ; tạnh ráo	Dùng khi giải thích một hiểu lầm hoặc khi trời quang.	clear up + N / clear up	B1	science	reading
+come about	phrasal-verb	xảy ra, hình thành	Dùng khi giải thích một tình huống đã nảy sinh thế nào.	how + S + came about	B1	academic	reading,writing
+come along	phrasal-verb	tiến triển; đi cùng	Dùng khi nói việc gì đang tiến triển hoặc mời ai đi cùng.	come along (with + N)	B1	society	reading
+come back	phrasal-verb	trở lại, quay về	Dùng khi ai đó quay lại nơi cũ hoặc một vấn đề tái xuất.	come back (to + N)	B1	travel	reading
+come down	phrasal-verb	giảm xuống; được truyền lại	Dùng khi giá giảm hoặc một quyết định được đưa ra theo hướng nào.	come down (to + N)	B1	economics	reading,writing
+come in	phrasal-verb	đi vào; được nhận (tin, tiền)	Dùng khi nói ai đi vào trong hoặc khi thông tin được gửi tới.	come in (for + N)	B1	work	reading
+come into	phrasal-verb	đi vào; thừa hưởng	Dùng khi nói đi vào phòng hoặc thừa hưởng tài sản.	come into + N	B1	economics	reading
+come out	phrasal-verb	ra mắt, xuất hiện; lộ ra	Dùng khi sản phẩm ra mắt hoặc sự thật được công bố.	come out (of + N)	B1	media	reading,writing
+come through	phrasal-verb	vượt qua được, đến được	Dùng khi vượt qua khó khăn hoặc khi thông tin đến nơi.	come through + N	B1	health	reading
+come up	phrasal-verb	nảy ra, được nêu ra	Dùng khi một vấn đề xuất hiện cần giải quyết.	come up (with + N)	B1	work	reading,writing
+cut across	phrasal-verb	đi tắt qua; ảnh hưởng vượt mọi ranh giới	Dùng khi đi đường tắt hoặc khi một vấn đề tác động mọi giới.	cut across + N	B1	society	reading
+cut back	phrasal-verb	cắt giảm	Dùng khi giảm chi tiêu hoặc giảm sản lượng.	cut back on + N	B1	economics	reading,writing
+cut down	phrasal-verb	chặt; cắt giảm	Dùng khi chặt cây hoặc giảm lượng tiêu thụ.	cut down on + N	B1	environment	reading,writing
+cut in	phrasal-verb	ngắt lời; chen ngang	Dùng khi ai đó ngắt lời người khác hoặc chen vào dòng xe.	cut in (on + N)	B1	society	reading
+cut up	phrasal-verb	cắt nhỏ	Dùng khi thái nhỏ thức ăn hoặc chia nhỏ vật gì.	cut + O + up	B1	food	reading
+dream up	phrasal-verb	nghĩ ra (ý tưởng kỳ lạ)	Dùng khi nghĩ ra một ý tưởng mới lạ hoặc khó tin.	dream up + N	B1	culture	reading
+drive off	phrasal-verb	lái xe đi; xua đuổi	Dùng khi xe rời đi hoặc khi xua đuổi kẻ tấn công.	drive off / drive + O + off	B1	travel	reading
+drop by	phrasal-verb	ghé qua	Dùng khi ghé thăm ai đó một lát.	drop by (+ N)	B1	society	reading
+eat up	phrasal-verb	ăn hết; ngốn (thời gian, tiền)	Dùng khi ăn hết thức ăn hoặc khi việc gì ngốn tài nguyên.	eat up + N	B1	food	reading
+fall back	phrasal-verb	lùi lại, phải dựa vào	Dùng khi phải dùng phương án dự phòng.	fall back on + N	B1	economics	reading,writing
+fall down	phrasal-verb	bị ngã, sụp đổ	Dùng khi ai đó ngã hoặc khi lập luận sụp đổ.	fall down	B1	society	reading
+fall through	phrasal-verb	không thành, đổ vỡ	Dùng khi một kế hoạch không thể thực hiện.	fall through	B1	work	reading,writing
+fight back	phrasal-verb	phản kháng, kìm lại	Dùng khi chống trả hoặc kìm nén cảm xúc.	fight back (+ against + N)	B1	society	reading
+fight for	phrasal-verb	đấu tranh vì	Dùng khi đòi quyền lợi hoặc đấu tranh cho điều gì.	fight for + N	B1	politics	reading,writing
+fight off	phrasal-verb	chống lại, đẩy lùi	Dùng khi đẩy lùi bệnh tật hoặc kẻ tấn công.	fight off + N	B1	health	reading
+follow up	phrasal-verb	theo dõi tiếp, làm bước tiếp theo	Dùng khi tiếp tục xử lý một việc đã bắt đầu.	follow up + N	B1	work	reading,writing
+get along	phrasal-verb	hòa thuận với nhau	Dùng khi nói quan hệ giữa người với người tốt đẹp.	get along (with + N)	B1	family	reading
+get around	phrasal-verb	đi lại, lách qua (khó khăn)	Dùng khi di chuyển hoặc tìm cách né một quy định.	get around + N	B1	travel	reading
+get at	phrasal-verb	ám chỉ; với tới	Dùng khi ai đó ngụ ý điều gì hoặc khi với lấy đồ.	what + S + is getting at	B1	media	reading
+get away	phrasal-verb	thoát khỏi, đi nghỉ	Dùng khi trốn thoát hoặc đi đâu cho khuây khỏa.	get away (with + N)	B1	law	reading
+get back	phrasal-verb	trở về; lấy lại	Dùng khi quay về hoặc lấy lại đồ đã mất.	get back + N / get back to + N	B1	travel	reading,writing
+get down	phrasal-verb	xuống; ghi lại; làm chán nản	Dùng khi đi xuống, ghi chép hoặc khi việc gì làm ai buồn.	get down to + N	B1	work	reading
+get in	phrasal-verb	đi vào; được nhận vào	Dùng khi vào trong xe nhà hoặc được nhận vào trường.	get in (to + N)	B1	education	reading
+get into	phrasal-verb	đi vào; bắt đầu tham gia, dính vào	Dùng khi vào nơi chốn hoặc bắt đầu một thói quen, rắc rối.	get into + N	B1	education	reading,writing
+get off	phrasal-verb	xuống (xe); thoát khỏi	Dùng khi xuống xe hoặc thoát khỏi hình phạt.	get off + N	B1	travel	reading
+get on	phrasal-verb	lên (xe); tiến triển	Dùng khi lên xe hoặc hỏi việc gì đang tiến triển ra sao.	get on (with + N)	B1	travel	reading,writing
+get out	phrasal-verb	ra ngoài; lộ ra	Dùng khi ra khỏi nơi kín hoặc khi tin tức bị lộ.	get out (of + N)	B1	society	reading
+get together	phrasal-verb	tụ họp, gặp nhau	Dùng khi mọi người họp mặt.	get together (with + N)	B1	family	reading
+get up	phrasal-verb	thức dậy, đứng lên	Dùng khi rời giường hoặc đứng dậy.	get up (to + N)	B1	daily-life	reading
+give away	phrasal-verb	cho đi; để lộ (bí mật)	Dùng khi tặng đồ hoặc vô tình tiết lộ điều gì.	give + O + away	B1	society	reading,writing
+go ahead	phrasal-verb	tiến hành, cứ làm	Dùng khi cho phép ai làm việc gì hoặc khi kế hoạch được triển khai.	go ahead (with + N)	B1	work	reading,writing
+go down	phrasal-verb	giảm; được ghi nhận	Dùng khi giá giảm hoặc khi sự việc được ghi lại.	go down (in + N)	B1	economics	reading
+go into	phrasal-verb	đi vào; xem xét kỹ	Dùng khi đi vào trong hoặc khi bàn sâu một vấn đề.	go into + N	B1	academic	reading,writing
+hand back	phrasal-verb	trả lại	Dùng khi trao trả đồ đã nhận.	hand + O + back	B1	education	reading
+hand over	phrasal-verb	bàn giao, chuyển giao	Dùng khi chuyển quyền hoặc trao vật gì cho người khác.	hand + O + over	B1	law	reading,writing
+hang on	phrasal-verb	chờ chút; bám chặt	Dùng khi bảo ai chờ hoặc khi bám vào vật gì.	hang on (to + N)	B1	technology	reading
+hang up	phrasal-verb	gác máy; treo lên	Dùng khi kết thúc cuộc gọi hoặc treo đồ.	hang up (on + N)	B1	technology	reading
+head off	phrasal-verb	chặn trước, ngăn chặn	Dùng khi ngăn một việc xấu trước khi xảy ra.	head off + N	B1	society	reading,writing
+hold down	phrasal-verb	giữ được (việc làm); đè xuống	Dùng khi duy trì một công việc hoặc ấn vật gì xuống.	hold down + N	B1	work	reading
+hold out	phrasal-verb	giữ vững, kéo dài được	Dùng khi trụ lại được trong điều kiện khó khăn.	hold out (for + N)	B1	economics	reading
+hope for	phrasal-verb	mong đợi	Dùng khi mong một kết quả tốt đẹp.	hope for + N	B1	psychology	reading
+invest in	phrasal-verb	đầu tư vào	Dùng khi bỏ tiền hoặc thời gian cho việc gì.	invest in + N	B1	economics	reading,writing
+iron out	phrasal-verb	giải quyết (khó khăn nhỏ)	Dùng khi xử lý các vướng mắc để việc trôi chảy.	iron out + N	B1	work	reading,writing
+keep off	phrasal-verb	tránh xa, không giẫm lên	Dùng khi cảnh báo không đi vào khu vực nào.	keep off + N	B1	health	reading
+keep out	phrasal-verb	không cho vào	Dùng khi ngăn ai hoặc điều gì xâm nhập.	keep out (of + N)	B1	law	reading
+keep to	phrasal-verb	giữ đúng (kế hoạch, lời hứa)	Dùng khi tuân thủ điều đã định.	keep to + N	B1	sport	reading
+keep up	phrasal-verb	theo kịp, duy trì	Dùng khi không bị tụt lại hoặc duy trì một mức độ.	keep up (with + N)	B1	education	reading,writing
+kick off	phrasal-verb	khởi động, bắt đầu	Dùng khi một sự kiện bắt đầu.	kick off (+ N)	B1	sport	reading
+lay out	phrasal-verb	bày ra, trình bày	Dùng khi sắp xếp đồ đạc hoặc trình bày kế hoạch rõ ràng.	lay out + N	B1	academic	reading,writing
+leave behind	phrasal-verb	bỏ lại phía sau, để lại	Dùng khi bỏ lại đồ hoặc vượt xa ai đó.	leave + O + behind	B1	travel	reading
+let out	phrasal-verb	để cho ra, thả	Dùng khi thả ai ra hoặc phát ra âm thanh.	let + O + out	B1	society	reading
+lie down	phrasal-verb	nằm xuống	Dùng khi nằm nghỉ.	lie down	B1	health	reading
+light up	phrasal-verb	thắp sáng; rạng rỡ	Dùng khi đèn bật sáng hoặc khuôn mặt ai rạng rỡ.	light up + N	B1	technology	reading
+line up	phrasal-verb	xếp hàng; sắp xếp	Dùng khi xếp hàng hoặc chuẩn bị danh sách người tham gia.	line up (for + N)	B1	sport	reading
+live on	phrasal-verb	sống nhờ vào, sống bằng	Dùng khi nói nguồn sống hoặc thu nhập.	live on + N	B1	economics	reading,writing
+live through	phrasal-verb	sống qua (giai đoạn khó khăn)	Dùng khi trải qua một thời kỳ khó khăn và vẫn sống sót.	live through + N	B1	psychology	reading
+lock in	phrasal-verb	khóa chặt, cố định	Dùng khi cố định giá hoặc nhốt ai trong nơi kín.	lock + O + in	B1	economics	reading
+look around	phrasal-verb	nhìn quanh, tham quan	Dùng khi nhìn quanh một nơi.	look around (+ N)	B1	travel	reading
+look back	phrasal-verb	nhìn lại quá khứ	Dùng khi hồi tưởng điều đã qua.	look back (on + N)	B1	psychology	reading,writing
+look for	phrasal-verb	tìm kiếm	Dùng khi tìm người hoặc vật gì.	look for + N	B1	daily-life	reading
+look on	phrasal-verb	đứng nhìn, chứng kiến	Dùng khi quan sát mà không tham gia.	look on (+ as + N)	B1	society	reading
+look out	phrasal-verb	coi chừng	Dùng khi cảnh báo nguy hiểm.	look out (for + N)	B1	health	reading
+look through	phrasal-verb	xem qua, lướt qua	Dùng khi đọc lướt tài liệu.	look through + N	B1	education	reading
+make off	phrasal-verb	chuồn đi (sau khi làm gì)	Dùng khi ai đó bỏ chạy sau khi lấy đồ.	make off (with + N)	B1	law	reading
+make over	phrasal-verb	làm lại, cải tạo	Dùng khi sửa sang nhà cửa hoặc thay đổi diện mạo.	make + O + over	B1	culture	reading
+miss out	phrasal-verb	bỏ lỡ	Dùng khi không được hưởng điều gì vì không tham gia.	miss out (on + N)	B1	society	reading,writing
+mistake for	phrasal-verb	nhầm với	Dùng khi nhận nhầm người hoặc vật này thành khác.	mistake + O + for + N	B1	psychology	reading
+move in	phrasal-verb	chuyển vào ở	Dùng khi dọn đến nơi ở mới.	move in (to + N)	B1	family	reading
+move on	phrasal-verb	chuyển sang việc khác, bước tiếp	Dùng khi kết thúc một việc để làm việc khác.	move on (to + N)	B1	psychology	reading,writing
+move out	phrasal-verb	dọn ra khỏi	Dùng khi rời nơi ở cũ.	move out (of + N)	B1	family	reading
+nail down	phrasal-verb	xác định rõ, chốt	Dùng khi chốt chi tiết hoặc thời gian cụ thể.	nail down + N	B1	work	reading,writing
+narrow down	phrasal-verb	thu hẹp lại	Dùng khi thu hẹp lựa chọn hoặc phạm vi.	narrow + O + down	B1	academic	reading,writing
+participate in	phrasal-verb	tham gia vào	Dùng khi góp mặt vào hoạt động chung.	participate in + N	B1	society	reading,writing
+pass away	phrasal-verb	qua đời	Dùng khi nói ai đó mất một cách trang trọng.	pass away	B1	family	reading
+pass down	phrasal-verb	truyền lại (cho thế sau)	Dùng khi truyền lại kiến thức hoặc đồ vật.	pass + O + down	B1	culture	reading,writing
+pass over	phrasal-verb	bỏ qua, gạt sang một bên	Dùng khi không xét tới ai hoặc điều gì.	pass + O + over	B1	work	reading
+pay back	phrasal-verb	trả lại (tiền); trả đũa	Dùng khi hoàn trả tiền vay.	pay + O + back	B1	economics	reading
+pay off	phrasal-verb	trả hết nợ; có kết quả tốt	Dùng khi trả hết nợ hoặc khi nỗ lực được đền đáp.	pay off + N	B1	economics	reading,writing
+pay up	phrasal-verb	trả (nợ) đầy đủ	Dùng khi buộc phải trả tiền đã nợ.	pay up	B1	economics	reading
+pick on	phrasal-verb	trêu chọc, nhắm vào ai	Dùng khi ai đó bị nhắm tới để bắt nạt.	pick on + N	B1	society	reading
+pick out	phrasal-verb	chọn ra, nhận ra	Dùng khi chọn một thứ trong nhiều thứ.	pick + O + out	B1	academic	reading
+pick up	phrasal-verb	đón; nhặt lên; tiếp thu	Dùng khi đón ai, nhặt vật hoặc học được điều gì.	pick + O + up	B1	travel	reading,writing
+play around	phrasal-verb	vọc, thử nghiệm	Dùng khi thử nhiều cách cho vui hoặc để tìm hiểu.	play around (with + N)	B1	technology	reading
+prepare for	phrasal-verb	chuẩn bị cho	Dùng khi sẵn sàng cho việc gì.	prepare for + N	B1	education	reading,writing
+print out	phrasal-verb	in ra	Dùng khi in tài liệu từ máy.	print + O + out	B1	technology	reading
+pull down	phrasal-verb	kéo xuống, phá dỡ	Dùng khi phá bỏ công trình.	pull + O + down	B1	work	reading
+pull in	phrasal-verb	tấp vào lề, thu hút	Dùng khi xe tấp vào và dừng lại.	pull in (to + N)	B1	travel	reading
+pull up	phrasal-verb	dừng xe	Dùng khi xe dừng lại ở đâu đó.	pull up	B1	travel	reading
+push back	phrasal-verb	phản đối, đẩy lùi	Dùng khi phản đối một kế hoạch.	push back (against + N)	B1	politics	reading,writing
+put away	phrasal-verb	cất đi	Dùng khi cất đồ vào chỗ.	put + O + away	B1	family	reading
+put back	phrasal-verb	đặt lại chỗ cũ; hoãn	Dùng khi trả đồ về chỗ hoặc dời lịch.	put + O + back	B1	work	reading
+put by	phrasal-verb	để dành (tiền)	Dùng khi tiết kiệm tiền cho việc gì.	put + O + by	B1	economics	reading
+put in	phrasal-verb	đặt vào; dành (thời gian, công sức)	Dùng khi lắp đặt thiết bị hoặc bỏ công sức.	put + O + in	B1	work	reading,writing
+put out	phrasal-verb	dập tắt; gây bất tiện	Dùng khi dập lửa hoặc làm ai phiền.	put + O + out	B1	environment	reading
+put together	phrasal-verb	lắp ráp; tập hợp	Dùng khi lắp vật gì hoặc sắp xếp một kế hoạch.	put + O + together	B1	technology	reading,writing
+put up	phrasal-verb	dựng lên; cho ở nhờ	Dùng khi dựng nhà, treo biển hoặc cho ai ở nhờ.	put + O + up	B1	society	reading
+qualify for	phrasal-verb	đủ điều kiện cho	Dùng khi đạt chuẩn để được hưởng gì.	qualify for + N	B1	sport	reading
+reach out	phrasal-verb	liên hệ, chìa tay giúp	Dùng khi chủ động liên lạc hoặc giúp đỡ ai.	reach out (to + N)	B1	society	reading,writing
+read out	phrasal-verb	đọc to	Dùng khi đọc thành tiếng cho người khác nghe.	read + O + out	B1	education	reading
+reflect on	phrasal-verb	suy ngẫm về	Dùng khi nghĩ lại một cách sâu sắc.	reflect on + N	B1	psychology	reading,writing
+ride out	phrasal-verb	trụ được qua (khó khăn)	Dùng khi vượt qua giai đoạn khó mà không sụp đổ.	ride out + N	B1	economics	reading,writing
+ring up	phrasal-verb	gọi điện cho	Dùng khi gọi cho ai đó (Anh-Anh).	ring + O + up	B1	technology	reading
+run away	phrasal-verb	bỏ chạy, trốn đi	Dùng khi ai đó bỏ đi khỏi nơi nguy hiểm hoặc nhà.	run away (from + N)	B1	society	reading
+run down	phrasal-verb	chê bai; hết pin; đâm phải	Dùng khi nói xấu ai hoặc khi pin cạn.	run + O + down	B1	technology	reading
+run off	phrasal-verb	bỏ chạy; in (bản)	Dùng khi ai đó chạy đi hoặc khi in bản sao.	run off + N	B1	work	reading
+run out	phrasal-verb	hết, cạn	Dùng khi vật gì đã dùng hết.	run out of + N	B1	economics	reading,writing
+run through	phrasal-verb	điểm lại nhanh; xem qua	Dùng khi xem lại nội dung một lượt.	run through + N	B1	work	reading
+run up	phrasal-verb	tích tụ (nợ)	Dùng khi nợ tăng dần.	run up + N	B1	economics	reading
+save up	phrasal-verb	để dành tiền	Dùng khi tiết kiệm cho mục tiêu cụ thể.	save up (for + N)	B1	economics	reading
+screen out	phrasal-verb	loại bỏ qua sàng lọc	Dùng khi loại ứng viên không đạt qua bước sàng lọc.	screen out + N	B1	work	reading
+search for	phrasal-verb	tìm kiếm	Dùng khi tìm người, vật hoặc thông tin.	search for + N	B1	academic	reading
+see about	phrasal-verb	xem xét, lo liệu	Dùng khi nhận sẽ lo một việc.	see about + N	B1	work	reading
+see off	phrasal-verb	tiễn đưa	Dùng khi tiễn ai ở sân bay, bến tàu.	see + O + off	B1	travel	reading
+sell out	phrasal-verb	bán hết	Dùng khi hàng đã bán hết sạch.	sell out (+ of + N)	B1	economics	reading
+send out	phrasal-verb	gửi đi	Dùng khi phát thư hoặc gửi tín hiệu.	send + O + out	B1	media	reading
+set back	phrasal-verb	làm chậm trễ, cản trở	Dùng khi việc gì khiến kế hoạch bị chậm.	set + O + back	B1	work	reading,writing
+set down	phrasal-verb	ghi chép lại, đặt xuống	Dùng khi ghi quy định thành văn bản.	set + O + down	B1	law	reading
+set in	phrasal-verb	bắt đầu và kéo dài (thời tiết, cảm giác)	Dùng khi một giai đoạn xấu bắt đầu kéo dài.	set in	B1	environment	reading
+shop around	phrasal-verb	khảo giá trước khi mua	Dùng khi so sánh giá nhiều nơi.	shop around (for + N)	B1	economics	reading
+sit back	phrasal-verb	ngồi yên, không can thiệp	Dùng khi ai đó thư giãn hoặc không hành động.	sit back (and + V)	B1	psychology	reading
+sit out	phrasal-verb	không tham gia (trận, hoạt động)	Dùng khi ai đó ngồi ngoài một hoạt động.	sit out + N	B1	sport	reading
+sleep in	phrasal-verb	ngủ nướng	Dùng khi ngủ dậy muộn hơn thường lệ.	sleep in	B1	daily-life	reading
+sound out	phrasal-verb	dò ý, thăm dò	Dùng khi hỏi ý kiến ai một cách kín đáo.	sound + O + out	B1	politics	reading
+speak out	phrasal-verb	lên tiếng, phát biểu mạnh mẽ	Dùng khi công khai nói về điều bất công.	speak out (against + N)	B1	society	reading,writing
+speak up	phrasal-verb	nói to; lên tiếng bênh vực	Dùng khi nói to hơn hoặc khi dám nói ý mình.	speak up (for + N)	B1	society	reading,writing
+speed up	phrasal-verb	tăng tốc	Dùng khi làm việc gì nhanh hơn.	speed up + N	B1	technology	reading,writing
+spread out	phrasal-verb	trải ra, rải rác	Dùng khi mở rộng một cách thưa ra.	spread out + N	B1	travel	reading
+spring up	phrasal-verb	mọc lên, xuất hiện nhanh	Dùng khi nhiều thứ xuất hiện nhanh chóng.	spring up	B1	environment	reading
+stand back	phrasal-verb	lùi lại, đứng xa quan sát	Dùng khi lùi lại để nhìn toàn cảnh.	stand back (from + N)	B1	psychology	reading
+stand up	phrasal-verb	đứng dậy; chịu được sự kiểm chứng	Dùng khi đứng lên hoặc khi lập luận vững.	stand up (to + N)	B1	society	reading
+start off	phrasal-verb	khởi đầu	Dùng khi bắt đầu một việc hoặc chuyến đi.	start off (by + V-ing)	B1	work	reading
+start out	phrasal-verb	khởi nghiệp từ, bắt đầu là	Dùng khi nói ai bắt đầu sự nghiệp thế nào.	start out (as + N)	B1	work	reading,writing
+start up	phrasal-verb	khởi động; khởi nghiệp	Dùng khi cho máy chạy hoặc mở doanh nghiệp mới.	start up + N	B1	economics	reading
+stay away	phrasal-verb	tránh xa	Dùng khi không đến gần nơi hoặc người nào.	stay away (from + N)	B1	health	reading
+stay behind	phrasal-verb	ở lại sau	Dùng khi ở lại sau khi người khác đã đi.	stay behind	B1	education	reading
+stay on	phrasal-verb	ở lại tiếp	Dùng khi tiếp tục ở lại sau thời hạn.	stay on (at + N)	B1	work	reading
+stay out	phrasal-verb	ở ngoài, không về nhà	Dùng khi không có nhà hoặc không tham gia.	stay out (of + N)	B1	family	reading
+stay up	phrasal-verb	thức khuya	Dùng khi không đi ngủ sớm.	stay up (late)	B1	daily-life	reading
+step in	phrasal-verb	can thiệp vào	Dùng khi xen vào để giải quyết việc gì.	step in (to + V)	B1	society	reading,writing
+step up	phrasal-verb	tăng cường	Dùng khi đẩy mạnh nỗ lực hoặc hành động.	step up + N	B1	politics	reading,writing
+stick around	phrasal-verb	ở lại thêm chút nữa	Dùng khi nán lại một lúc.	stick around	B1	work	reading
+stick at	phrasal-verb	kiên trì với	Dùng khi bền bỉ làm tiếp một việc khó.	stick at + N	B1	education	reading
+stick to	phrasal-verb	bám vào, tuân theo	Dùng khi giữ đúng kế hoạch hoặc nguyên tắc.	stick to + N	B1	sport	reading,writing
+subject to	phrasal-verb	chịu, phải tuân theo	Dùng khi nói điều kiện bắt buộc hoặc bị ảnh hưởng.	be subject to + N	B1	law	reading,writing
+switch off	phrasal-verb	tắt (thiết bị); thư giãn	Dùng khi tắt máy hoặc khi ngừng chú ý.	switch + O + off	B1	technology	reading
+switch on	phrasal-verb	bật (thiết bị)	Dùng khi bật máy.	switch + O + on	B1	technology	reading
+take along	phrasal-verb	mang theo	Dùng khi mang ai hoặc đồ gì theo mình.	take + O + along	B1	travel	reading
+take away	phrasal-verb	mang đi; lấy đi	Dùng khi lấy đi vật gì hoặc mua đồ mang về.	take + O + away	B1	food	reading
+take back	phrasal-verb	mang trả lại; rút lại lời	Dùng khi trả lại đồ hoặc rút lại điều đã nói.	take + O + back	B1	society	reading
+take down	phrasal-verb	tháo xuống; ghi lại	Dùng khi hạ vật gì xuống hoặc ghi chép.	take + O + down	B1	work	reading
+take out	phrasal-verb	lấy ra; đưa đi (ăn, chơi); vay	Dùng khi lấy vật ra hoặc đưa ai đi đâu.	take + O + out	B1	food	reading
+team up	phrasal-verb	hợp tác, bắt cặp	Dùng khi hai bên cùng làm một việc.	team up (with + N)	B1	sport	reading,writing
+tell off	phrasal-verb	mắng, khiển trách	Dùng khi ai đó bị mắng vì làm sai.	tell + O + off	B1	education	reading
+think about	phrasal-verb	suy nghĩ về, cân nhắc	Dùng khi cân nhắc một việc.	think about + N	B1	psychology	reading
+think back	phrasal-verb	nhớ lại	Dùng khi hồi tưởng chuyện cũ.	think back (to + N)	B1	psychology	reading
+think up	phrasal-verb	nghĩ ra (ý tưởng)	Dùng khi tạo ra một ý tưởng mới.	think up + N	B1	culture	reading
+tip over	phrasal-verb	làm đổ, lật nhào	Dùng khi vật bị lật đổ.	tip + O + over	B1	work	reading
+track down	phrasal-verb	truy tìm ra	Dùng khi tìm ra người hoặc vật khó tìm.	track down + N	B1	law	reading
+trade in	phrasal-verb	đổi (đồ cũ lấy đồ mới)	Dùng khi đổi đồ cũ để bù tiền mua đồ mới.	trade + O + in (for + N)	B1	economics	reading
+trigger off	phrasal-verb	gây ra, khơi mào	Dùng khi một việc khởi phát phản ứng dây chuyền.	trigger off + N	B1	psychology	reading
+try on	phrasal-verb	mặc thử	Dùng khi mặc thử quần áo trước khi mua.	try + O + on	B1	culture	reading
+turn back	phrasal-verb	quay lại, đuổi trả lại	Dùng khi quay lại vì không đi tiếp được.	turn back	B1	travel	reading
+turn in	phrasal-verb	nộp (bài); đi ngủ	Dùng khi nộp bài hoặc đi ngủ.	turn + O + in	B1	education	reading
+turn off	phrasal-verb	tắt; làm ai mất hứng	Dùng khi tắt thiết bị hoặc khiến ai chán.	turn + O + off	B1	technology	reading
+turn on	phrasal-verb	bật; tấn công bất ngờ	Dùng khi bật thiết bị.	turn + O + on	B1	technology	reading
+turn over	phrasal-verb	lật lại; chuyển giao	Dùng khi lật vật gì hoặc giao lại cho người khác.	turn + O + over	B1	economics	reading
+wait for	phrasal-verb	chờ đợi	Dùng khi chờ ai hoặc việc gì.	wait for + N	B1	daily-life	reading
+wake up	phrasal-verb	thức dậy; đánh thức	Dùng khi tỉnh giấc hoặc đánh thức ai.	wake up (to + N)	B1	daily-life	reading
+walk away	phrasal-verb	bỏ đi, rời khỏi	Dùng khi rời khỏi tình huống không muốn dính vào.	walk away (from + N)	B1	psychology	reading
+walk through	phrasal-verb	giải thích từng bước; đi qua	Dùng khi hướng dẫn chi tiết một quy trình.	walk + O + through + N	B1	work	reading,writing
+win over	phrasal-verb	thuyết phục được	Dùng khi làm ai đó đổi ý sang ủng hộ mình.	win + O + over	B1	politics	reading,writing
+work around	phrasal-verb	tìm cách né tránh (vấn đề)	Dùng khi vòng qua một trở ngại.	work around + N	B1	work	reading,writing
+work through	phrasal-verb	giải quyết dần từng bước	Dùng khi xử lý lần lượt một vấn đề phức tạp.	work through + N	B1	psychology	reading,writing
+work up	phrasal-verb	tạo ra (cảm xúc, sự hứng thú)	Dùng khi dần tạo nên cảm xúc hoặc sự nghiêm túc.	work up + N	B1	sport	reading
+worry about	phrasal-verb	lo lắng về	Dùng khi bận tâm điều gì.	worry about + N	B1	psychology	reading
+write down	phrasal-verb	ghi chép lại	Dùng khi ghi lại điều nghe được.	write + O + down	B1	education	reading
+appeal to	phrasal-verb	hấp dẫn; kêu gọi	Dùng khi điều gì thu hút ai hoặc khi kêu gọi ủng hộ.	appeal to + N	B2	media	reading,writing
+cheer up	phrasal-verb	làm ai vui lên	Dùng khi an ủi hoặc làm ai phấn chấn.	cheer + O + up	B2	psychology	reading
+engage in	phrasal-verb	tham gia vào	Dùng khi tham gia một hoạt động.	engage in + N	B2	society	reading,writing
+excel at	phrasal-verb	giỏi về	Dùng khi ai đó rất giỏi một môn hoặc việc.	excel at + N	B2	sport	reading
+pile up	phrasal-verb	chất đống, dồn lại	Dùng khi việc hoặc đồ dồn lại nhiều.	pile up	B2	work	reading
+put aside	phrasal-verb	để riêng, dành dụm	Dùng khi dành tiền hoặc gác việc sang bên.	put + O + aside	B2	economics	reading
+seek out	phrasal-verb	tìm đến, tìm kiếm	Dùng khi chủ động tìm ai hoặc điều gì.	seek out + N	B2	work	reading
+split up	phrasal-verb	chia tay; chia tách	Dùng khi cặp đôi chia tay hoặc chia nhóm.	split up (with + N)	B2	family	reading
+swear by	phrasal-verb	tin tuyệt đối vào	Dùng khi ai đó khẳng định vật gì rất hiệu quả.	swear by + N	B2	health	reading
+tap into	phrasal-verb	khai thác (nguồn lực)	Dùng khi tận dụng một nguồn tiềm năng.	tap into + N	B2	economics	reading,writing
+tune in	phrasal-verb	theo dõi (chương trình)	Dùng khi bật đài hoặc theo dõi buổi phát.	tune in (to + N)	B2	media	reading
+attribute to	phrasal-verb	quy cho là do	Dùng khi giải thích nguyên nhân của điều gì.	attribute + O + to + N	C1	academic	reading,writing
+enquire about	phrasal-verb	hỏi thông tin về	Dùng khi hỏi để biết thông tin.	enquire about + N	C1	travel	reading
+indulge in	phrasal-verb	nuông chiều, đắm mình vào	Dùng khi thưởng thức điều gì một cách thỏa thích.	indulge in + N	C1	food	reading
+persist in	phrasal-verb	kiên trì làm (dù khó)	Dùng khi tiếp tục làm điều gì bất chấp khó khăn.	persist in + N	C1	psychology	reading
+rip off	phrasal-verb	bán giá cắt cổ; lừa	Dùng khi bị tính giá quá cao.	rip + O + off	C1	economics	reading
+sketch out	phrasal-verb	phác thảo (kế hoạch)	Dùng khi trình bày ý chính một kế hoạch.	sketch out + N	C1	work	reading,writing
+testify to	phrasal-verb	làm chứng cho	Dùng khi điều gì chứng tỏ một thực tế.	testify to + N	C1	law	reading,writing
+tide over	phrasal-verb	giúp qua cơn khó khăn	Dùng khi giúp ai đó vượt qua giai đoạn thiếu thốn.	tide + O + over	C1	economics	reading
+weed out	phrasal-verb	loại bỏ (kẻ yếu, cái xấu)	Dùng khi sàng lọc để loại bỏ.	weed out + N	C1	education	reading
+a sense of achievement	collocation	cảm giác đạt được thành tựu	Cụm diễn tả cảm giác tích cực khi hoàn thành việc gì.	a sense of achievement	B1	psychology	reading,writing
+at a loss	idiom	lúng túng, không biết làm gì	Diễn tả trạng thái không biết xử lý ra sao.	be at a loss (for words)	B1	psychology	reading
+at first hand	idiom	tận mắt, trực tiếp	Diễn tả việc trải nghiệm trực tiếp chứ không qua người khác.	know/learn + N + at first hand	B1	academic	reading,writing
+bear in mind	idiom	ghi nhớ, lưu ý	Diễn tả việc cần nhớ một điều khi quyết định.	bear in mind that + clause	B1	academic	reading,writing
+by chance	idiom	tình cờ	Diễn tả việc gì xảy ra ngẫu nhiên.	happen + by chance	B1	academic	reading
+come to light	idiom	được phát hiện, lộ ra	Diễn tả thông tin trước đó chưa biết nay được công bố.	+ S + came to light	B1	media	reading,writing
+cut a long story short	idiom	nói ngắn gọn lại	Diễn tả việc bỏ qua chi tiết để đi vào ý chính.	to cut a long story short, + clause	B1	media	reading
+fair enough	idiom	được, chấp nhận được	Diễn tả sự chấp nhận một lý do hợp lý (khẩu ngữ).	fair enough	B1	society	reading
+fill the gap	idiom	lấp đầy khoảng trống	Diễn tả việc bù vào phần còn thiếu.	fill the gap (in + N)	B1	education	reading,writing
+for good	idiom	vĩnh viễn	Diễn tả việc gì kết thúc và không quay lại.	+ V + for good	B1	psychology	reading
+hold water	idiom	đứng vững, có lý	Diễn tả một lập luận đủ chắc để chấp nhận.	+ N + does not hold water	B1	academic	reading,writing
+in detail	idiom	chi tiết	Diễn tả việc trình bày kỹ từng phần.	describe + N + in detail	B1	academic	reading,writing
+in good time	idiom	đúng lúc, sớm hơn hạn	Diễn tả việc hoàn thành trước thời hạn.	arrive + in good time	B1	work	reading
+in hand	idiom	đang được xử lý; sẵn trong tay	Diễn tả việc gì đang được kiểm soát.	have + N + in hand	B1	work	reading,writing
+in place of	idiom	thay cho	Diễn tả việc dùng cái này thay cái khác.	in place of + N	B1	academic	reading,writing
+in practice	idiom	trên thực tế	Diễn tả sự khác biệt giữa lý thuyết và thực tế.	in practice	B1	academic	reading,writing
+in principle	idiom	về nguyên tắc	Diễn tả điều đúng trên lý thuyết.	in principle	B2	academic	reading,writing
+in progress	idiom	đang tiến hành	Diễn tả việc gì đang được thực hiện.	be in progress	B1	work	reading
+in proportion to	idiom	tương xứng với	Diễn tả tỉ lệ tăng giảm song song.	in proportion to + N	B2	science	reading,writing
+in question	idiom	đang được nói tới	Diễn tả đối tượng đang được bàn trong câu.	the + N + in question	B1	law	reading,writing
+in short supply	idiom	thiếu hụt, khan hiếm	Diễn tả hàng hóa không đủ cung.	be in short supply	B1	economics	reading,writing
+in touch with	idiom	giữ liên lạc với	Diễn tả việc duy trì liên lạc với ai.	keep/stay in touch with + N	B1	society	reading
+keep a record of	collocation	ghi lại, lưu hồ sơ về	Diễn tả việc lưu lại thông tin để tra cứu.	keep a record of + N	B1	academic	reading,writing
+keep from	dependent-preposition	ngăn không cho; giấu không cho biết	Diễn tả việc ngăn ai làm gì.	keep + O + from + V-ing	B1	psychology	reading
+keep in touch	collocation	giữ liên lạc	Diễn tả việc duy trì liên lạc thường xuyên.	keep in touch (with + N)	B1	society	reading
+let alone	idiom	chứ đừng nói tới	Diễn tả việc điều thứ hai còn khó hơn điều thứ nhất.	let alone + N	B1	academic	reading,writing
+let go of	fixed-expression	buông ra, từ bỏ	Diễn tả việc thả vật hoặc từ bỏ cảm xúc.	let go of + N	B1	psychology	reading
+lose sight of	idiom	đánh mất tầm nhìn về, quên đi	Diễn tả việc quên mục tiêu chính.	lose sight of + N	B1	psychology	reading,writing
+make a mess	collocation	làm bừa bộn, làm hỏng	Diễn tả việc làm rối tung mọi thứ.	make a mess (of + N)	B1	family	reading
+make room for	collocation	nhường chỗ cho	Diễn tả việc tạo không gian cho ai hoặc điều gì.	make room for + N	B1	society	reading
+make sense of	collocation	hiểu được ý nghĩa của	Diễn tả việc tìm ra ý nghĩa điều khó hiểu.	make sense of + N	B1	academic	reading,writing
+make sure	collocation	bảo đảm, chắc chắn	Diễn tả việc kiểm tra để chắc điều gì xảy ra.	make sure (that) + clause	B1	academic	reading,writing
+make the best of	collocation	tận dụng tối đa (hoàn cảnh)	Diễn tả việc chấp nhận và tận dụng tình cảnh.	make the best of + N	B1	psychology	reading
+make way for	collocation	nhường đường cho	Diễn tả việc nhường chỗ cho cái mới.	make way for + N	B1	society	reading
+miss the point	idiom	hiểu sai ý chính	Diễn tả việc không nắm được điều quan trọng nhất.	miss the point (of + N)	B1	academic	reading
+no doubt	idiom	chắc chắn, không nghi ngờ	Diễn tả sự chắc chắn khi nhận định.	no doubt, + clause	B1	academic	reading,writing
+not to mention	idiom	chưa kể đến	Diễn tả việc nêu thêm một điểm còn mạnh hơn.	..., not to mention + N	B1	academic	reading,writing
+off the record	idiom	không chính thức, ngoài bản ghi	Diễn tả phát biểu không dùng để trích dẫn.	off the record	B1	media	reading
+on the edge	idiom	bên bờ (nguy hiểm), căng thẳng	Diễn tả trạng thái sắp xảy ra điều nghiêm trọng.	on the edge (of + N)	B1	psychology	reading
+on the rise	idiom	đang gia tăng	Diễn tả xu hướng tăng lên.	be on the rise	B1	economics	reading,writing
+on the spot	idiom	tại chỗ, ngay lập tức	Diễn tả việc gì xử lý ngay tại nơi xảy ra.	decide + on the spot	B1	law	reading
+pay attention	collocation	chú ý	Diễn tả việc tập trung vào điều gì.	pay attention (to + N)	B1	education	reading,writing
+put an end to	idiom	chấm dứt	Diễn tả việc kết thúc điều tiêu cực.	put an end to + N	B1	society	reading,writing
+put down to	dependent-preposition	quy cho là do	Diễn tả việc giải thích nguyên nhân.	put + O + down to + N	B1	academic	reading,writing
+put into practice	idiom	đưa vào thực tiễn	Diễn tả việc áp dụng lý thuyết vào thực tế.	put + N + into practice	B1	education	reading,writing
+put to good use	idiom	tận dụng tốt	Diễn tả việc dùng hiệu quả tiền hoặc kỹ năng.	put + N + to good use	B1	economics	reading,writing
+ring a bell	idiom	nghe quen quen	Diễn tả việc điều gì nghe như đã biết.	+ N + rings a bell	B1	psychology	reading
+run the risk	idiom	liều, có nguy cơ	Diễn tả việc chấp nhận rủi ro.	run the risk of + V-ing	B1	health	reading,writing
+second to none	idiom	không thua kém ai	Diễn tả việc rất xuất sắc trong lĩnh vực nào.	be second to none	B1	culture	reading
+set an example	idiom	nêu gương	Diễn tả việc làm mẫu cho người khác.	set an example (for + N)	B1	education	reading,writing
+share the burden	idiom	chia sẻ gánh nặng	Diễn tả việc cùng chịu trách nhiệm với ai.	share the burden (of + N)	C1	society	reading,writing
+stand in for	dependent-preposition	làm thay (ai)	Diễn tả việc tạm thay vị trí ai đó.	stand in for + N	B1	work	reading
+stand the test of time	idiom	trường tồn theo thời gian	Diễn tả giá trị vẫn đúng qua thời gian dài.	+ S + stands the test of time	B1	culture	reading
+stand up to	dependent-preposition	đương đầu với; chịu được	Diễn tả việc chống lại áp lực hoặc chịu được thử thách.	stand up to + N	B1	psychology	reading
+stay in touch	collocation	giữ liên lạc	Diễn tả lời hẹn tiếp tục liên lạc.	stay in touch (with + N)	B1	society	reading
+take account of	collocation	tính đến, kể đến	Diễn tả việc cân nhắc một yếu tố.	take account of + N	B1	academic	reading,writing
+take part	collocation	tham gia	Diễn tả việc góp mặt vào hoạt động chung.	take part in + N	B1	society	reading,writing
+take place	collocation	diễn ra	Diễn tả việc một sự kiện xảy ra.	+ S + takes place	B1	academic	reading,writing
+take the lead	collocation	dẫn đầu	Diễn tả việc trở thành người dẫn đầu.	take the lead (in + N)	B1	sport	reading
+tell the difference	collocation	phân biệt được sự khác nhau	Diễn tả việc nhận ra hai thứ khác nhau.	tell the difference (between + N)	B1	science	reading
+walk of life	idiom	tầng lớp, nghề nghiệp khác nhau	Diễn tả mọi người đến từ nhiều hoàn cảnh.	people from all walks of life	B1	society	reading,writing
+word of mouth	idiom	truyền miệng	Diễn tả việc thông tin lan qua người quen.	by word of mouth	B1	media	reading
+work of art	idiom	tác phẩm nghệ thuật	Diễn tả sản phẩm nghệ thuật có giá trị.	a work of art	B1	culture	reading
+work up to	dependent-preposition	tiến dần tới (mức cao hơn)	Diễn tả việc tăng dần để đạt mức nào đó.	work up to + N	B1	sport	reading
+by all means	idiom	cứ tự nhiên, bằng mọi cách	Diễn tả sự đồng ý hoặc nỗ lực bằng mọi giá.	by all means	B2	society	reading
+in demand	idiom	được ưa chuộng, có nhu cầu	Diễn tả hàng hóa được nhiều người cần.	be in demand	B2	economics	reading,writing
+keep pace with	idiom	theo kịp tốc độ của	Diễn tả việc bắt kịp sự phát triển.	keep pace with + N	B2	technology	reading,writing
+meet the demand	collocation	đáp ứng nhu cầu	Diễn tả việc cung cấp đủ hàng hóa dịch vụ.	meet the demand for + N	B2	economics	reading,writing
+pave the way	idiom	mở đường cho	Diễn tả việc tạo tiền đề cho việc sau.	pave the way for + N	B2	society	reading,writing
+stock up on	dependent-preposition	tích trữ	Dùng khi mua dự trữ đồ dùng.	stock up on + N	B2	economics	reading
+turn a blind eye	idiom	nhắm mắt làm ngơ	Diễn tả việc cố ý không thấy điều sai.	turn a blind eye to + N	B2	law	reading,writing
+at a glance	idiom	nhìn qua là thấy	Diễn tả việc hiểu ngay khi nhìn thoáng.	at a glance	C1	media	reading,writing
+in the pipeline	idiom	đang được chuẩn bị	Diễn tả việc gì sắp được triển khai.	be in the pipeline	C1	work	reading
+on the horizon	idiom	sắp xảy ra	Diễn tả việc gì sắp tới gần.	be on the horizon	C1	economics	reading,writing
+reach a consensus	collocation	đạt được đồng thuận	Diễn tả việc nhiều bên cùng thống nhất.	reach a consensus (on + N)	C1	politics	reading,writing
+shed light on	idiom	làm rõ	Diễn tả việc giải thích một vấn đề khó.	shed light on + N	C1	academic	reading,writing
+steer clear of	idiom	tránh xa	Diễn tả việc cố tránh điều nguy hiểm.	steer clear of + N	C1	health	reading
+borrow from	dependent-preposition	vay, mượn của	Dùng khi mượn tiền hoặc ý tưởng từ ai.	borrow + N + from + N	B1	economics	reading
+consist of	dependent-preposition	bao gồm	Dùng khi liệt kê các thành phần của một tổng thể.	consist of + N	B1	science	reading,writing
+graduate from	dependent-preposition	tốt nghiệp từ	Dùng khi nói tốt nghiệp một trường.	graduate from + N	B1	education	reading
+refrain from	dependent-preposition	kiềm chế không làm	Dùng khi nhắc ai không nên làm gì.	refrain from + V-ing	B2	law	reading,writing
+vary from	dependent-preposition	khác nhau tùy theo	Dùng khi nói sự khác biệt giữa các trường hợp.	vary from + N + to + N	B2	science	reading,writing
+emerge from	dependent-preposition	nổi lên từ, thoát ra từ	Dùng khi điều gì xuất hiện sau một quá trình.	emerge from + N	B2	science	reading,writing
+get out of	dependent-preposition	thoát khỏi; tránh được	Dùng khi thoát khỏi việc phải làm.	get out of + N	B1	work	reading
+get round to	dependent-preposition	cuối cùng cũng có thời gian làm	Dùng khi nói cuối cùng cũng làm việc bị trì hoãn.	get round to + V-ing	B1	work	reading
+face up to	dependent-preposition	đương đầu với	Dùng khi chấp nhận đối mặt sự thật khó khăn.	face up to + N	B1	psychology	reading,writing

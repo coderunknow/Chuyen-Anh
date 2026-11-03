@@ -9,13 +9,13 @@
   "dictionary": "có locator mục từ điển cambridge trong sources"
  },
  "totals": {
-  "focusHeadwords": 5112,
-  "queue": 923,
+  "focusHeadwords": 7112,
+  "queue": 1717,
   "phraseInCorpus": 14,
-  "surfaceVariant": 188,
+  "surfaceVariant": 342,
   "multiwordWordsOnly": 5,
   "examFormatOnly": 5,
-  "dictionaryOnly": 698,
+  "dictionaryOnly": 1338,
   "noBasis": 13
  },
  "buckets": {
@@ -46,13 +46,13 @@
   "surface-variant": {
    "label": "Chỉ một dạng biến đổi của từ xuất hiện",
    "action": "Giữ; câu nguồn phải nêu đúng dạng đã thấy, không nhận là headword.",
-   "count": 188,
+   "count": 342,
    "byLevel": {
     "(none)": 52,
-    "B1": 1,
-    "B2": 12,
-    "C1": 76,
-    "C2": 47
+    "B1": 6,
+    "B2": 78,
+    "C1": 149,
+    "C2": 57
    },
    "examples": [
     "Ambiguity",
@@ -92,7 +92,7 @@
    "action": "Giữ: dạng bài từ loại/biến đổi từ/liên kết câu kiểm tra gốc từ, không cần gốc xuất hiện trong bài đọc.",
    "count": 5,
    "byLevel": {
-    "C1": 1,
+    "B1": 1,
     "C2": 4
    },
    "examples": [
@@ -106,13 +106,13 @@
   "dictionary-only": {
    "label": "Chỉ có mục từ điển và nghĩa, không có bằng chứng trong đề",
    "action": "Giữ và đánh dấu: bằng chứng là mục từ điển, không phải đề thi.",
-   "count": 698,
+   "count": 1338,
    "byLevel": {
     "(none)": 223,
-    "B1": 1,
-    "B2": 13,
-    "C1": 159,
-    "C2": 302
+    "B1": 7,
+    "B2": 218,
+    "C1": 372,
+    "C2": 518
    },
    "examples": [
     "Eloquent",
@@ -4288,14 +4288,8 @@
     "topic"
    ],
    "dictionaryLocator": true,
-   "bucket": "surface-variant",
-   "variant": "audition",
-   "evidence": [
-    "2025/quang-ngai/so.md",
-    565
-   ],
-   "papers": 1,
-   "occurrences": 1
+   "bucket": "dictionary-only",
+   "evidence": null
   },
   {
    "id": "2025",
@@ -9728,14 +9722,8 @@
     "academic"
    ],
    "dictionaryLocator": true,
-   "bucket": "surface-variant",
-   "variant": "tranquility",
-   "evidence": [
-    "2024/da-nang/so.md",
-    109
-   ],
-   "papers": 1,
-   "occurrences": 1
+   "bucket": "dictionary-only",
+   "evidence": null
   },
   {
    "id": "3611",
@@ -10887,6 +10875,9676 @@
   {
    "id": "4492",
    "word": "gluten",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7059",
+   "word": "acre",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "acres",
+   "evidence": [
+    "2024/vinh-phuc/so.md",
+    837
+   ],
+   "papers": 4,
+   "occurrences": 5
+  },
+  {
+   "id": "7060",
+   "word": "acreage",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7061",
+   "word": "acrobatic",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7062",
+   "word": "adhesion",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7063",
+   "word": "allusion",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7064",
+   "word": "anthology",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7065",
+   "word": "articulation",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7066",
+   "word": "artifact",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "artifacts",
+   "evidence": [
+    "2023/ha-noi/so.md",
+    144
+   ],
+   "papers": 2,
+   "occurrences": 2
+  },
+  {
+   "id": "7067",
+   "word": "assimilation",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7068",
+   "word": "athleticism",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7069",
+   "word": "attrition",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7070",
+   "word": "autopilot",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7071",
+   "word": "axiom",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7072",
+   "word": "baroque",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7073",
+   "word": "blight",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7074",
+   "word": "bogus",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7075",
+   "word": "bout",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "bouts",
+   "evidence": [
+    "2022/an-giang/so.md",
+    221
+   ],
+   "papers": 2,
+   "occurrences": 2
+  },
+  {
+   "id": "7076",
+   "word": "brim",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7077",
+   "word": "calamitous",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7078",
+   "word": "calorific",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7079",
+   "word": "choreography",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7080",
+   "word": "chronologically",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7081",
+   "word": "chrysalis",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7082",
+   "word": "cinematography",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7083",
+   "word": "circumnavigate",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7084",
+   "word": "circumnavigation",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7085",
+   "word": "clinch",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7086",
+   "word": "coax",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7087",
+   "word": "cocoon",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7088",
+   "word": "collider",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7089",
+   "word": "colloquium",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7090",
+   "word": "combustion",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7091",
+   "word": "conciliation",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7092",
+   "word": "concurrence",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7093",
+   "word": "confection",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "confectioner",
+   "evidence": [
+    "2022/dong-nai/so.md",
+    472
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7094",
+   "word": "conglomerate",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7095",
+   "word": "connote",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7096",
+   "word": "consign",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "consigned",
+   "evidence": [
+    "2026/ninh-binh/so.md",
+    173
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7097",
+   "word": "consignment",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7098",
+   "word": "consternation",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7099",
+   "word": "contagion",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7100",
+   "word": "contemptuous",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7101",
+   "word": "contractually",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7102",
+   "word": "contraption",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7103",
+   "word": "cordon",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7104",
+   "word": "crippling",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7105",
+   "word": "cull",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "culling",
+   "evidence": [
+    "2025/binh-phuoc/so.md",
+    332
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7106",
+   "word": "deaden",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7107",
+   "word": "delicatessen",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7108",
+   "word": "denunciation",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7109",
+   "word": "depraved",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7110",
+   "word": "depravity",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7111",
+   "word": "deprecate",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7112",
+   "word": "derision",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7113",
+   "word": "derisive",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7114",
+   "word": "deterrent",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "deterrents",
+   "evidence": [
+    "2025/ba-ria-vung-tau/so.md",
+    188
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7115",
+   "word": "disdainful",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7116",
+   "word": "disparagingly",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7117",
+   "word": "dissemination",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7118",
+   "word": "distill",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7119",
+   "word": "domesticity",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7120",
+   "word": "drudgery",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7121",
+   "word": "ebb",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7122",
+   "word": "edification",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7123",
+   "word": "elasticity",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7124",
+   "word": "elated",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7125",
+   "word": "electrode",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "electrodes",
+   "evidence": [
+    "2025/dak-lak/so.md",
+    409
+   ],
+   "papers": 1,
+   "occurrences": 3
+  },
+  {
+   "id": "7126",
+   "word": "eminence",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7127",
+   "word": "emulation",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7128",
+   "word": "emulsifier",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7129",
+   "word": "emulsify",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7130",
+   "word": "encumber",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7131",
+   "word": "encumbrance",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7132",
+   "word": "etch",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7133",
+   "word": "euphemistic",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7134",
+   "word": "euphoria",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7135",
+   "word": "euphoric",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7136",
+   "word": "extant",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7137",
+   "word": "fabled",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7138",
+   "word": "fabrication",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7139",
+   "word": "feign",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7140",
+   "word": "fete",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7141",
+   "word": "flagging",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7142",
+   "word": "flighty",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7143",
+   "word": "floe",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7144",
+   "word": "fluctuation",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "fluctuations",
+   "evidence": [
+    "2022/thai-nguyen/so.md",
+    465
+   ],
+   "papers": 2,
+   "occurrences": 3
+  },
+  {
+   "id": "7145",
+   "word": "forfeiture",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7146",
+   "word": "frolic",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7147",
+   "word": "gambit",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7148",
+   "word": "gauche",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7149",
+   "word": "genomic",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7150",
+   "word": "gout",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7151",
+   "word": "gravitate",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7152",
+   "word": "habitation",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7153",
+   "word": "hapless",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7154",
+   "word": "happenstance",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7155",
+   "word": "helm",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7156",
+   "word": "herald",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "heralded",
+   "evidence": [
+    "2023/da-nang/so.md",
+    248
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7157",
+   "word": "hermit",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7158",
+   "word": "hitch",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7159",
+   "word": "hitherto",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7160",
+   "word": "homestead",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "homesteading",
+   "evidence": [
+    "2023/nam-dinh/so.md",
+    264
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7161",
+   "word": "hotelier",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7162",
+   "word": "huddle",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7163",
+   "word": "hull",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "hulls",
+   "evidence": [
+    "2022/quang-ninh/so.md",
+    570
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7164",
+   "word": "hypnotherapy",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7165",
+   "word": "hypothesize",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "hypothesized",
+   "evidence": [
+    "2024/vinh-phuc/so.md",
+    299
+   ],
+   "papers": 2,
+   "occurrences": 2
+  },
+  {
+   "id": "7166",
+   "word": "hysteria",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7167",
+   "word": "idiosyncratic",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7168",
+   "word": "impeccably",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7169",
+   "word": "impressionistic",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7170",
+   "word": "improvisational",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7171",
+   "word": "inchoate",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7172",
+   "word": "incipient",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7173",
+   "word": "incongruity",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7174",
+   "word": "incumbent",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7175",
+   "word": "indiscretion",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7176",
+   "word": "indolence",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7177",
+   "word": "informant",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7178",
+   "word": "instantaneous",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7179",
+   "word": "interlocking",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7180",
+   "word": "interlude",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7181",
+   "word": "intermediary",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "intermediaries",
+   "evidence": [
+    "2022/hoa-binh/so.md",
+    912
+   ],
+   "papers": 1,
+   "occurrences": 3
+  },
+  {
+   "id": "7182",
+   "word": "intersperse",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7183",
+   "word": "interweave",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7184",
+   "word": "irrevocably",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7185",
+   "word": "kinetic",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7186",
+   "word": "knack",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7187",
+   "word": "lassitude",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7188",
+   "word": "leaven",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7189",
+   "word": "liaise",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7190",
+   "word": "loiter",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7191",
+   "word": "lurid",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7192",
+   "word": "lyricist",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7193",
+   "word": "maggot",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7194",
+   "word": "magnanimity",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7195",
+   "word": "magnate",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7196",
+   "word": "malice",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7197",
+   "word": "malicious",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7198",
+   "word": "mangle",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7199",
+   "word": "marketability",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7200",
+   "word": "maverick",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7201",
+   "word": "mediocrity",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7202",
+   "word": "mercantile",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7203",
+   "word": "mesh",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7204",
+   "word": "mesmeric",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7205",
+   "word": "meteorological",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7206",
+   "word": "meteorology",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7207",
+   "word": "midwifery",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7208",
+   "word": "milieu",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7209",
+   "word": "modernism",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7210",
+   "word": "moor",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7211",
+   "word": "mottled",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7212",
+   "word": "mutinous",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7213",
+   "word": "nostalgically",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7214",
+   "word": "oblique",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7215",
+   "word": "opacity",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7216",
+   "word": "ordain",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7217",
+   "word": "ornate",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7218",
+   "word": "ostensibly",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7219",
+   "word": "palate",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7220",
+   "word": "parable",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7221",
+   "word": "patchy",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7222",
+   "word": "pedestal",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7223",
+   "word": "perverse",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7224",
+   "word": "perversity",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7225",
+   "word": "philanthropic",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7226",
+   "word": "philanthropist",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7227",
+   "word": "plumage",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7228",
+   "word": "plume",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7229",
+   "word": "posterity",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7230",
+   "word": "preconception",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7231",
+   "word": "predilection",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7232",
+   "word": "presuppose",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7233",
+   "word": "presupposition",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7234",
+   "word": "profitability",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7235",
+   "word": "promenade",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7236",
+   "word": "proportionally",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7237",
+   "word": "proprietary",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7238",
+   "word": "proscription",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7239",
+   "word": "prostrate",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7240",
+   "word": "protrude",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7241",
+   "word": "protrusion",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7242",
+   "word": "proverbial",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7243",
+   "word": "provocation",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7244",
+   "word": "punitive",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7245",
+   "word": "qualm",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7246",
+   "word": "rapture",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7247",
+   "word": "rebound",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "rebounded",
+   "evidence": [
+    "2025/tien-giang/so.md",
+    220
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7248",
+   "word": "rebuke",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "rebuked",
+   "evidence": [
+    "2025/tien-giang/so.md",
+    290
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7249",
+   "word": "recitation",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7250",
+   "word": "recluse",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7251",
+   "word": "recuperate",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7252",
+   "word": "reissue",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7253",
+   "word": "remit",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7254",
+   "word": "remittance",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "remittances",
+   "evidence": [
+    "2023/phu-yen/so.md",
+    368
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7255",
+   "word": "remorseful",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7256",
+   "word": "reptilian",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7257",
+   "word": "requisition",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7258",
+   "word": "resound",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7259",
+   "word": "resuscitate",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7260",
+   "word": "resuscitation",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7261",
+   "word": "reverberate",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "reverberating",
+   "evidence": [
+    "2022/thai-nguyen/so.md",
+    245
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7262",
+   "word": "reverberation",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7263",
+   "word": "revulsion",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7264",
+   "word": "rickety",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7265",
+   "word": "romp",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7266",
+   "word": "ruminant",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7267",
+   "word": "ruminate",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7268",
+   "word": "rumination",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7269",
+   "word": "salivary",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7270",
+   "word": "scavenger",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7271",
+   "word": "sheaf",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7272",
+   "word": "shimmer",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7273",
+   "word": "singe",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "singing",
+   "evidence": [
+    "2022/dong-nai/so.md",
+    314
+   ],
+   "papers": 9,
+   "occurrences": 14
+  },
+  {
+   "id": "7274",
+   "word": "skew",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7275",
+   "word": "slab",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "slabs",
+   "evidence": [
+    "2025/nghe-an/so.md",
+    505
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7276",
+   "word": "slither",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7277",
+   "word": "smattering",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7278",
+   "word": "snippet",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7279",
+   "word": "snobbery",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7280",
+   "word": "spatial",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7281",
+   "word": "spatially",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7282",
+   "word": "spire",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7283",
+   "word": "splinter",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7284",
+   "word": "spontaneity",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7285",
+   "word": "squint",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7286",
+   "word": "squirm",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7287",
+   "word": "sterility",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7288",
+   "word": "stipulate",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7289",
+   "word": "stoicism",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7290",
+   "word": "subsist",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7291",
+   "word": "surrealism",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7292",
+   "word": "teem",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7293",
+   "word": "testimonial",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "testimonials",
+   "evidence": [
+    "2024/tp-ho-chi-minh/so.md",
+    229
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7294",
+   "word": "thicket",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7295",
+   "word": "topple",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7296",
+   "word": "torrential",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "torrentially",
+   "evidence": [
+    "2022/ninh-thuan/so.md",
+    415
+   ],
+   "papers": 1,
+   "occurrences": 2
+  },
+  {
+   "id": "7297",
+   "word": "totter",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7298",
+   "word": "treacherous",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7299",
+   "word": "treachery",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7300",
+   "word": "trifle",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7301",
+   "word": "truism",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7302",
+   "word": "turret",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7303",
+   "word": "unnerve",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7304",
+   "word": "unobtrusive",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7305",
+   "word": "unsurpassed",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7306",
+   "word": "utilitarian",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7307",
+   "word": "vandal",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "vandals",
+   "evidence": [
+    "2023/ha-noi/chuyen-su-pham.md",
+    654
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7308",
+   "word": "vandalize",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7309",
+   "word": "verbatim",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7310",
+   "word": "vermin",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7311",
+   "word": "vindication",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7312",
+   "word": "virtuosity",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7313",
+   "word": "virtuoso",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7314",
+   "word": "vortex",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7315",
+   "word": "wallow",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7316",
+   "word": "wayward",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7317",
+   "word": "zoologist",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "zoologists",
+   "evidence": [
+    "2022/long-an/so.md",
+    516
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7318",
+   "word": "abortion",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7319",
+   "word": "accusation",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "accusations",
+   "evidence": [
+    "2026/lao-cai/so.md",
+    350
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7320",
+   "word": "acidic",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7321",
+   "word": "administrator",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "administrators",
+   "evidence": [
+    "2022/binh-phuoc/so.md",
+    792
+   ],
+   "papers": 1,
+   "occurrences": 2
+  },
+  {
+   "id": "7322",
+   "word": "adversary",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7323",
+   "word": "advisory",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7324",
+   "word": "aide",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "aided",
+   "evidence": [
+    "2022/vinh-phuc/so.md",
+    924
+   ],
+   "papers": 3,
+   "occurrences": 3
+  },
+  {
+   "id": "7325",
+   "word": "aimless",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7326",
+   "word": "allegation",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "allegations",
+   "evidence": [
+    "2023/tp-ho-chi-minh/ptnk.md",
+    324
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7327",
+   "word": "ally",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "allies",
+   "evidence": [
+    "2022/quang-ngai/so.md",
+    418
+   ],
+   "papers": 2,
+   "occurrences": 2
+  },
+  {
+   "id": "7328",
+   "word": "amplification",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7329",
+   "word": "aquarium",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "aquariums",
+   "evidence": [
+    "2023/thua-thien-hue/so.md",
+    588
+   ],
+   "papers": 2,
+   "occurrences": 2
+  },
+  {
+   "id": "7330",
+   "word": "assertion",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7331",
+   "word": "astray",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7332",
+   "word": "atrocity",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7333",
+   "word": "attorney",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7334",
+   "word": "authorize",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7335",
+   "word": "avid",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "avidly",
+   "evidence": [
+    "2022/tay-ninh/so.md",
+    437
+   ],
+   "papers": 2,
+   "occurrences": 2
+  },
+  {
+   "id": "7336",
+   "word": "await",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "awaited",
+   "evidence": [
+    "2025/binh-phuoc/so.md",
+    203
+   ],
+   "papers": 2,
+   "occurrences": 3
+  },
+  {
+   "id": "7337",
+   "word": "beast",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "beasts",
+   "evidence": [
+    "2022/bac-kan/so.md",
+    175
+   ],
+   "papers": 3,
+   "occurrences": 3
+  },
+  {
+   "id": "7338",
+   "word": "bequeath",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7339",
+   "word": "bishop",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7340",
+   "word": "bliss",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7341",
+   "word": "bouquet",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7342",
+   "word": "brainwash",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7343",
+   "word": "buddy",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "buddies",
+   "evidence": [
+    "2022/dak-lak/so.md",
+    297
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7344",
+   "word": "buffer",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "buffers",
+   "evidence": [
+    "2025/ha-noi/so.md",
+    238
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7345",
+   "word": "buzzer",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7346",
+   "word": "bypass",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7347",
+   "word": "cabinet",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7348",
+   "word": "capitalism",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7349",
+   "word": "capitalist",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7350",
+   "word": "cargo",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7351",
+   "word": "casualty",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7352",
+   "word": "cemetery",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7353",
+   "word": "charter",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7354",
+   "word": "chunk",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7355",
+   "word": "citation",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "citations",
+   "evidence": [
+    "2026/tp-ho-chi-minh/ptnk.md",
+    264
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7356",
+   "word": "civilian",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7357",
+   "word": "clan",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "clans",
+   "evidence": [
+    "2023/ha-noi/so.md",
+    318
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7358",
+   "word": "clench",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "clenched",
+   "evidence": [
+    "2023/ha-noi/chuyen-su-pham.md",
+    460
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7359",
+   "word": "climax",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7360",
+   "word": "cloak",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7361",
+   "word": "collaborator",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7362",
+   "word": "commentary",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7363",
+   "word": "communist",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7364",
+   "word": "conception",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7365",
+   "word": "concerto",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "concertos",
+   "evidence": [
+    "2025/kon-tum/so.md",
+    667
+   ],
+   "papers": 2,
+   "occurrences": 2
+  },
+  {
+   "id": "7366",
+   "word": "concur",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7367",
+   "word": "confession",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "confessions",
+   "evidence": [
+    "2024/tp-ho-chi-minh/so.md",
+    116
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7368",
+   "word": "configuration",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7369",
+   "word": "conformity",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7370",
+   "word": "congressional",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7371",
+   "word": "connoisseur",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7372",
+   "word": "conservatory",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7373",
+   "word": "consultation",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "consultations",
+   "evidence": [
+    "2025/dak-lak/so.md",
+    886
+   ],
+   "papers": 2,
+   "occurrences": 2
+  },
+  {
+   "id": "7374",
+   "word": "copyright",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7375",
+   "word": "corps",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7376",
+   "word": "corrupt",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7377",
+   "word": "coup",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7378",
+   "word": "crawl",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7379",
+   "word": "creamy",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7380",
+   "word": "creep",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "creeping",
+   "evidence": [
+    "2023/tp-ho-chi-minh/ptnk.md",
+    188
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7381",
+   "word": "critique",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "critiques",
+   "evidence": [
+    "2025/hai-phong/so.md",
+    502
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7382",
+   "word": "crumble",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7383",
+   "word": "cynic",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7384",
+   "word": "darkroom",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7385",
+   "word": "daydream",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "daydreaming",
+   "evidence": [
+    "2025/phu-tho/so.md",
+    383
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7386",
+   "word": "debut",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7387",
+   "word": "deed",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "deeds",
+   "evidence": [
+    "2022/vinh-phuc/so.md",
+    399
+   ],
+   "papers": 3,
+   "occurrences": 4
+  },
+  {
+   "id": "7388",
+   "word": "deem",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "deeming",
+   "evidence": [
+    "2025/tp-ho-chi-minh/so.md",
+    211
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7389",
+   "word": "demolition",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7390",
+   "word": "detain",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7391",
+   "word": "detriment",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7392",
+   "word": "devastate",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "devastated",
+   "evidence": [
+    "2022/bac-ninh/so.md",
+    645
+   ],
+   "papers": 4,
+   "occurrences": 4
+  },
+  {
+   "id": "7393",
+   "word": "dictator",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7394",
+   "word": "disclosure",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "disclosures",
+   "evidence": [
+    "2026/ninh-binh/so.md",
+    285
+   ],
+   "papers": 2,
+   "occurrences": 2
+  },
+  {
+   "id": "7395",
+   "word": "discretion",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7396",
+   "word": "dislodge",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7397",
+   "word": "dissect",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7398",
+   "word": "doctrine",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7399",
+   "word": "dramatist",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7400",
+   "word": "duo",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7401",
+   "word": "dutiful",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7402",
+   "word": "elastic",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7403",
+   "word": "electoral",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7404",
+   "word": "embassy",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7405",
+   "word": "entity",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "entities",
+   "evidence": [
+    "2024/tp-ho-chi-minh/so.md",
+    244
+   ],
+   "papers": 2,
+   "occurrences": 2
+  },
+  {
+   "id": "7406",
+   "word": "exodus",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7407",
+   "word": "exile",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7408",
+   "word": "fatality",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "fatalities",
+   "evidence": [
+    "2023/thua-thien-hue/so.md",
+    162
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7409",
+   "word": "feminist",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7410",
+   "word": "ferocious",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7411",
+   "word": "firearm",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7412",
+   "word": "fissure",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7413",
+   "word": "flashback",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7414",
+   "word": "flee",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7415",
+   "word": "folktale",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7416",
+   "word": "forfeit",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7417",
+   "word": "formulate",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7418",
+   "word": "funeral",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7419",
+   "word": "gallon",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "gallons",
+   "evidence": [
+    "2026/vinh-long/so.md",
+    615
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7420",
+   "word": "genocide",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7421",
+   "word": "genome",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7422",
+   "word": "glean",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7423",
+   "word": "glorious",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7424",
+   "word": "graft",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "grafting",
+   "evidence": [
+    "2026/quang-ninh/so.md",
+    728
+   ],
+   "papers": 1,
+   "occurrences": 2
+  },
+  {
+   "id": "7425",
+   "word": "gruelling",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7426",
+   "word": "gruesome",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7427",
+   "word": "guerrilla",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7428",
+   "word": "gutsy",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7429",
+   "word": "hack",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "hacked",
+   "evidence": [
+    "2022/phu-tho/so.md",
+    126
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7430",
+   "word": "haggle",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "haggling",
+   "evidence": [
+    "2026/nghe-an/so.md",
+    1089
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7431",
+   "word": "harass",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "harassed",
+   "evidence": [
+    "2025/thai-nguyen/so.md",
+    133
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7432",
+   "word": "heroine",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "heroines",
+   "evidence": [
+    "2025/thai-binh/so.md",
+    441
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7433",
+   "word": "hibernate",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "hibernating",
+   "evidence": [
+    "2022/tay-ninh/so.md",
+    394
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7434",
+   "word": "honk",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "honking",
+   "evidence": [
+    "2025/binh-duong/so.md",
+    134
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7435",
+   "word": "hostage",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7436",
+   "word": "hypocrisy",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7437",
+   "word": "hypocrite",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7438",
+   "word": "ideological",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7439",
+   "word": "imagery",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7440",
+   "word": "immortalize",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7441",
+   "word": "impersonate",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "impersonating",
+   "evidence": [
+    "2022/binh-phuoc/so.md",
+    1036
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7442",
+   "word": "implicate",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "implicated",
+   "evidence": [
+    "2025/da-nang/so.md",
+    152
+   ],
+   "papers": 2,
+   "occurrences": 3
+  },
+  {
+   "id": "7443",
+   "word": "incision",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7444",
+   "word": "indictment",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7445",
+   "word": "individuality",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7446",
+   "word": "infect",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "infections",
+   "evidence": [
+    "2022/binh-duong/so.md",
+    1274
+   ],
+   "papers": 7,
+   "occurrences": 14
+  },
+  {
+   "id": "7447",
+   "word": "injustice",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7448",
+   "word": "inmate",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7449",
+   "word": "insider",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "insiders",
+   "evidence": [
+    "2025/kon-tum/so.md",
+    221
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7450",
+   "word": "interim",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7451",
+   "word": "interject",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7452",
+   "word": "interjection",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7453",
+   "word": "investigator",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "investigators",
+   "evidence": [
+    "2022/hai-duong/so.md",
+    662
+   ],
+   "papers": 2,
+   "occurrences": 3
+  },
+  {
+   "id": "7454",
+   "word": "jurisdiction",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7455",
+   "word": "lap",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7456",
+   "word": "lapse",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "lapses",
+   "evidence": [
+    "2023/tp-ho-chi-minh/so.md",
+    443
+   ],
+   "papers": 3,
+   "occurrences": 3
+  },
+  {
+   "id": "7457",
+   "word": "lavatory",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7458",
+   "word": "layout",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "layouts",
+   "evidence": [
+    "2023/ha-noi/chuyen-su-pham.md",
+    472
+   ],
+   "papers": 1,
+   "occurrences": 2
+  },
+  {
+   "id": "7459",
+   "word": "loom",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "looming",
+   "evidence": [
+    "2022/dak-lak/so.md",
+    305
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7460",
+   "word": "lust",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "luster",
+   "evidence": [
+    "2022/hoa-binh/so.md",
+    1013
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7461",
+   "word": "macabre",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7462",
+   "word": "magistrate",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7463",
+   "word": "manicure",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7464",
+   "word": "maternal",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7465",
+   "word": "memorial",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7466",
+   "word": "methodical",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7467",
+   "word": "militant",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7468",
+   "word": "militia",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7469",
+   "word": "missile",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7470",
+   "word": "mob",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7471",
+   "word": "monotony",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7472",
+   "word": "motorist",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "motorists",
+   "evidence": [
+    "2025/nghe-an/so.md",
+    1492
+   ],
+   "papers": 2,
+   "occurrences": 3
+  },
+  {
+   "id": "7473",
+   "word": "naval",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7474",
+   "word": "noble",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7475",
+   "word": "nominee",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "nominees",
+   "evidence": [
+    "2023/thua-thien-hue/so.md",
+    548
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7476",
+   "word": "nondescript",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7477",
+   "word": "numb",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "numbness",
+   "evidence": [
+    "2026/ha-tinh/so.md",
+    361
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7478",
+   "word": "oddity",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7479",
+   "word": "outing",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "outings",
+   "evidence": [
+    "2025/bac-giang/so.md",
+    357
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7480",
+   "word": "overseer",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7481",
+   "word": "pad",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7482",
+   "word": "panoramic",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7483",
+   "word": "parameter",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "parameters",
+   "evidence": [
+    "2024/vinh-phuc/so.md",
+    376
+   ],
+   "papers": 2,
+   "occurrences": 2
+  },
+  {
+   "id": "7484",
+   "word": "parasite",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7485",
+   "word": "parish",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7486",
+   "word": "pastor",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7487",
+   "word": "paternal",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7488",
+   "word": "patron",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7489",
+   "word": "peasant",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "peasants",
+   "evidence": [
+    "2023/dak-lak/so.md",
+    1736
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7490",
+   "word": "pedicure",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7491",
+   "word": "persecute",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7492",
+   "word": "persecution",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7493",
+   "word": "physique",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7494",
+   "word": "pigeon",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "pigeons",
+   "evidence": [
+    "2023/phu-yen/so.md",
+    360
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7495",
+   "word": "plaque",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "plaques",
+   "evidence": [
+    "2025/dak-lak/so.md",
+    99
+   ],
+   "papers": 1,
+   "occurrences": 4
+  },
+  {
+   "id": "7496",
+   "word": "plausibility",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7497",
+   "word": "plumbing",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7498",
+   "word": "poise",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7499",
+   "word": "preach",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7500",
+   "word": "preacher",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7501",
+   "word": "pregnancy",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7502",
+   "word": "preside",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7503",
+   "word": "presidency",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7504",
+   "word": "profess",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "professions",
+   "evidence": [
+    "2024/ha-noi/chuyen-su-pham.md",
+    409
+   ],
+   "papers": 5,
+   "occurrences": 7
+  },
+  {
+   "id": "7505",
+   "word": "professionalism",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7506",
+   "word": "prophet",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7507",
+   "word": "proposition",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7508",
+   "word": "prosecutor",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7509",
+   "word": "protagonist",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7510",
+   "word": "prowl",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7511",
+   "word": "psyche",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "psyches",
+   "evidence": [
+    "2026/nghe-an/so.md",
+    316
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7512",
+   "word": "punch",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7513",
+   "word": "query",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "queries",
+   "evidence": [
+    "2026/quang-ninh/so.md",
+    742
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7514",
+   "word": "quip",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7515",
+   "word": "quirk",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7516",
+   "word": "rape",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7517",
+   "word": "realism",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7518",
+   "word": "realm",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7519",
+   "word": "reassure",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "reassuring",
+   "evidence": [
+    "2023/binh-thuan/so.md",
+    481
+   ],
+   "papers": 2,
+   "occurrences": 2
+  },
+  {
+   "id": "7520",
+   "word": "recess",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "recessions",
+   "evidence": [
+    "2023/tp-ho-chi-minh/so.md",
+    98
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7521",
+   "word": "remedial",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7522",
+   "word": "reminisce",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "reminiscing",
+   "evidence": [
+    "2023/hai-phong/so.md",
+    151
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7523",
+   "word": "reminiscent",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7524",
+   "word": "remorse",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7525",
+   "word": "remorseless",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7526",
+   "word": "renown",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7527",
+   "word": "resonate",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7528",
+   "word": "retrace",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7529",
+   "word": "riveting",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7530",
+   "word": "saloon",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7531",
+   "word": "salvation",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7532",
+   "word": "sarcasm",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7533",
+   "word": "scoff",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7534",
+   "word": "scorn",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7535",
+   "word": "seize",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "seized",
+   "evidence": [
+    "2022/dong-nai/so.md",
+    54
+   ],
+   "papers": 3,
+   "occurrences": 4
+  },
+  {
+   "id": "7536",
+   "word": "senator",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7537",
+   "word": "sentient",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7538",
+   "word": "sequel",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7539",
+   "word": "serial",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "serials",
+   "evidence": [
+    "2022/binh-duong/so.md",
+    576
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7540",
+   "word": "shatter",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "shattered",
+   "evidence": [
+    "2024/da-nang/so.md",
+    107
+   ],
+   "papers": 2,
+   "occurrences": 2
+  },
+  {
+   "id": "7541",
+   "word": "shrug",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7542",
+   "word": "sigh",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "sighed",
+   "evidence": [
+    "2022/tien-giang/so.md",
+    478
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7543",
+   "word": "silhouette",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7544",
+   "word": "sin",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7545",
+   "word": "slash",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7546",
+   "word": "slot",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7547",
+   "word": "smash",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "smashed",
+   "evidence": [
+    "2024/ha-noi/chuyen-su-pham.md",
+    260
+   ],
+   "papers": 3,
+   "occurrences": 5
+  },
+  {
+   "id": "7548",
+   "word": "smug",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7549",
+   "word": "snooze",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7550",
+   "word": "somersault",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "somersaults",
+   "evidence": [
+    "2022/thai-nguyen/so.md",
+    296
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7551",
+   "word": "specimen",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "specimens",
+   "evidence": [
+    "2023/thua-thien-hue/so.md",
+    418
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7552",
+   "word": "stab",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7553",
+   "word": "staccato",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7554",
+   "word": "stately",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7555",
+   "word": "stiffen",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7556",
+   "word": "stray",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "strayed",
+   "evidence": [
+    "2025/nghe-an/so.md",
+    354
+   ],
+   "papers": 2,
+   "occurrences": 2
+  },
+  {
+   "id": "7557",
+   "word": "stun",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "stunned",
+   "evidence": [
+    "2026/dong-nai/so.md",
+    236
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7558",
+   "word": "stylistic",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7559",
+   "word": "suburbia",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7560",
+   "word": "succession",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7561",
+   "word": "succulent",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7562",
+   "word": "suitor",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7563",
+   "word": "supple",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "supplements",
+   "evidence": [
+    "2025/phu-tho/so.md",
+    393
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7564",
+   "word": "swing",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "swings",
+   "evidence": [
+    "2022/an-giang/so.md",
+    256
+   ],
+   "papers": 2,
+   "occurrences": 2
+  },
+  {
+   "id": "7565",
+   "word": "sword",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7566",
+   "word": "synopsis",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7567",
+   "word": "synthesis",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "synthesised",
+   "evidence": [
+    "2022/vinh-phuc/so.md",
+    923
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7568",
+   "word": "tact",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7569",
+   "word": "tactful",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7570",
+   "word": "tantrum",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7571",
+   "word": "taut",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7572",
+   "word": "taxpayer",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "taxpayers",
+   "evidence": [
+    "2023/vinh-phuc/so.md",
+    288
+   ],
+   "papers": 1,
+   "occurrences": 4
+  },
+  {
+   "id": "7573",
+   "word": "tedium",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7574",
+   "word": "tenure",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7575",
+   "word": "testament",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7576",
+   "word": "theology",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7577",
+   "word": "thread",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7578",
+   "word": "tinker",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "tinkering",
+   "evidence": [
+    "2026/dong-nai/so.md",
+    80
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7579",
+   "word": "torment",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7580",
+   "word": "tract",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "tracts",
+   "evidence": [
+    "2024/ha-noi/chuyen-su-pham.md",
+    247
+   ],
+   "papers": 2,
+   "occurrences": 2
+  },
+  {
+   "id": "7581",
+   "word": "trademark",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "trademarks",
+   "evidence": [
+    "2025/vinh-phuc/so.md",
+    231
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7582",
+   "word": "traumatic",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7583",
+   "word": "trustee",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7584",
+   "word": "twitch",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "twitches",
+   "evidence": [
+    "2025/binh-duong/so.md",
+    315
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7585",
+   "word": "tycoon",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "tycoons",
+   "evidence": [
+    "2025/bac-giang/so.md",
+    339
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7586",
+   "word": "undaunted",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7587",
+   "word": "uniformity",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7588",
+   "word": "uninspiring",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7589",
+   "word": "unison",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7590",
+   "word": "unmanageable",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7591",
+   "word": "unmanned",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7592",
+   "word": "unoccupied",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7593",
+   "word": "unsettle",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7594",
+   "word": "untangle",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7595",
+   "word": "unwaveringly",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7596",
+   "word": "upheaval",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7597",
+   "word": "uphold",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7598",
+   "word": "vanish",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "vanished",
+   "evidence": [
+    "2022/long-an/so.md",
+    522
+   ],
+   "papers": 3,
+   "occurrences": 3
+  },
+  {
+   "id": "7599",
+   "word": "veneration",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7600",
+   "word": "ventilate",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "ventilated",
+   "evidence": [
+    "2023/tp-ho-chi-minh/so.md",
+    210
+   ],
+   "papers": 2,
+   "occurrences": 2
+  },
+  {
+   "id": "7601",
+   "word": "ventilation",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7602",
+   "word": "verse",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7603",
+   "word": "viciously",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7604",
+   "word": "victorious",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7605",
+   "word": "villager",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "villagers",
+   "evidence": [
+    "2022/bac-giang/so.md",
+    487
+   ],
+   "papers": 3,
+   "occurrences": 6
+  },
+  {
+   "id": "7606",
+   "word": "whip",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "whipped",
+   "evidence": [
+    "2023/ba-ria-vung-tau/so.md",
+    267
+   ],
+   "papers": 1,
+   "occurrences": 2
+  },
+  {
+   "id": "7607",
+   "word": "width",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7608",
+   "word": "woo",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7609",
+   "word": "wrangle",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7610",
+   "word": "yell",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "yells",
+   "evidence": [
+    "2022/dak-lak/so.md",
+    433
+   ],
+   "papers": 2,
+   "occurrences": 2
+  },
+  {
+   "id": "7611",
+   "word": "agony",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7612",
+   "word": "adore",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "adored",
+   "evidence": [
+    "2023/tp-ho-chi-minh/ptnk.md",
+    262
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7613",
+   "word": "ageless",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7614",
+   "word": "absentee",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7615",
+   "word": "anguish",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7616",
+   "word": "aristocracy",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7617",
+   "word": "arrow",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7618",
+   "word": "artistry",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7619",
+   "word": "atypical",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7620",
+   "word": "ballad",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7621",
+   "word": "banker",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7622",
+   "word": "barometer",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7623",
+   "word": "bartender",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7624",
+   "word": "benevolence",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7625",
+   "word": "bestow",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "bestowed",
+   "evidence": [
+    "2025/quang-ninh/so.md",
+    249
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7626",
+   "word": "booklet",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "booklets",
+   "evidence": [
+    "2025/vinh-phuc/so.md",
+    460
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7627",
+   "word": "botany",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7628",
+   "word": "bothersome",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7629",
+   "word": "brag",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7630",
+   "word": "breakup",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7631",
+   "word": "breezy",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7632",
+   "word": "brewery",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7633",
+   "word": "brother-in-law",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7634",
+   "word": "bun",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7635",
+   "word": "caravan",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "caravans",
+   "evidence": [
+    "2023/phu-yen/so.md",
+    528
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7636",
+   "word": "cascade",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7637",
+   "word": "catchy",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7638",
+   "word": "cellar",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7639",
+   "word": "cello",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7640",
+   "word": "certify",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7641",
+   "word": "chancellor",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7642",
+   "word": "chaotic",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7643",
+   "word": "checkpoint",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7644",
+   "word": "chemotherapy",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7645",
+   "word": "choir",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7646",
+   "word": "clap",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "clapping",
+   "evidence": [
+    "2023/quang-binh/so.md",
+    146
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7647",
+   "word": "clerical",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7648",
+   "word": "clog",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7649",
+   "word": "coma",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7650",
+   "word": "commonwealth",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7651",
+   "word": "compassionate",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7652",
+   "word": "compression",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7653",
+   "word": "consolation",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7654",
+   "word": "cube",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "cubed",
+   "evidence": [
+    "2024/ha-noi/so.md",
+    866
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7655",
+   "word": "culmination",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7656",
+   "word": "curl",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "curled",
+   "evidence": [
+    "2022/binh-phuoc/so.md",
+    676
+   ],
+   "papers": 2,
+   "occurrences": 2
+  },
+  {
+   "id": "7657",
+   "word": "dandelion",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7658",
+   "word": "darling",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7659",
+   "word": "daughter-in-law",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7660",
+   "word": "dearly",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7661",
+   "word": "debit",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7662",
+   "word": "depart",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "department",
+   "evidence": [
+    "2022/dong-nai/so.md",
+    706
+   ],
+   "papers": 17,
+   "occurrences": 25
+  },
+  {
+   "id": "7663",
+   "word": "desolation",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7664",
+   "word": "dignify",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "dignified",
+   "evidence": [
+    "2025/ha-noi/so.md",
+    647
+   ],
+   "papers": 1,
+   "occurrences": 2
+  },
+  {
+   "id": "7665",
+   "word": "disciple",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7666",
+   "word": "discredit",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "discredited",
+   "evidence": [
+    "2022/ha-nam/so.md",
+    441
+   ],
+   "papers": 2,
+   "occurrences": 2
+  },
+  {
+   "id": "7667",
+   "word": "disgrace",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7668",
+   "word": "displeasure",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7669",
+   "word": "dissident",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7670",
+   "word": "dock",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7671",
+   "word": "doorway",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7672",
+   "word": "dreamy",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7673",
+   "word": "duel",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7674",
+   "word": "dwarf",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7675",
+   "word": "dye",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7676",
+   "word": "ecstatic",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7677",
+   "word": "elect",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "elected",
+   "evidence": [
+    "2022/ha-noi/chuyen-su-pham.md",
+    421
+   ],
+   "papers": 2,
+   "occurrences": 2
+  },
+  {
+   "id": "7678",
+   "word": "eloquence",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7679",
+   "word": "engulf",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "engulfed",
+   "evidence": [
+    "2024/vinh-phuc/so.md",
+    142
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7680",
+   "word": "everlasting",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7681",
+   "word": "exclaim",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7682",
+   "word": "eyelid",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "eyelids",
+   "evidence": [
+    "2022/bac-ninh/so.md",
+    430
+   ],
+   "papers": 2,
+   "occurrences": 2
+  },
+  {
+   "id": "7683",
+   "word": "fingernail",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7684",
+   "word": "firefighter",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "firefighters",
+   "evidence": [
+    "2025/nam-dinh/so.md",
+    167
+   ],
+   "papers": 4,
+   "occurrences": 4
+  },
+  {
+   "id": "7685",
+   "word": "flap",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7686",
+   "word": "flip",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7687",
+   "word": "folly",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7688",
+   "word": "foresee",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "foresees",
+   "evidence": [
+    "2026/lao-cai/so.md",
+    419
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7689",
+   "word": "fox",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7690",
+   "word": "frantically",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7691",
+   "word": "gang",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "ganges",
+   "evidence": [
+    "2022/hai-phong/so.md",
+    396
+   ],
+   "papers": 2,
+   "occurrences": 3
+  },
+  {
+   "id": "7692",
+   "word": "gangster",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7693",
+   "word": "germ",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "germs",
+   "evidence": [
+    "2022/soc-trang/so.md",
+    138
+   ],
+   "papers": 2,
+   "occurrences": 4
+  },
+  {
+   "id": "7694",
+   "word": "getaway",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "getaways",
+   "evidence": [
+    "2024/da-nang/so.md",
+    534
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7695",
+   "word": "gleam",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "gleamed",
+   "evidence": [
+    "2023/ba-ria-vung-tau/so.md",
+    128
+   ],
+   "papers": 1,
+   "occurrences": 2
+  },
+  {
+   "id": "7696",
+   "word": "glee",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7697",
+   "word": "grieve",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7698",
+   "word": "handrail",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7699",
+   "word": "heap",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7700",
+   "word": "hijack",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7701",
+   "word": "hip",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7702",
+   "word": "hospice",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7703",
+   "word": "hourly",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7704",
+   "word": "hover",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "hovers",
+   "evidence": [
+    "2023/ba-ria-vung-tau/so.md",
+    269
+   ],
+   "papers": 1,
+   "occurrences": 2
+  },
+  {
+   "id": "7705",
+   "word": "illustration",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "illustrations",
+   "evidence": [
+    "2025/ha-noi/so.md",
+    820
+   ],
+   "papers": 3,
+   "occurrences": 3
+  },
+  {
+   "id": "7706",
+   "word": "improbable",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7707",
+   "word": "indent",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7708",
+   "word": "indignity",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7709",
+   "word": "infringe",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7710",
+   "word": "infringement",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7711",
+   "word": "inseparable",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7712",
+   "word": "intrusion",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "intrusions",
+   "evidence": [
+    "2025/yen-bai/so.md",
+    386
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7713",
+   "word": "itch",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7714",
+   "word": "judo",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7715",
+   "word": "kerosene",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7716",
+   "word": "kneel",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7717",
+   "word": "knot",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "knotted",
+   "evidence": [
+    "2026/dien-bien/so.md",
+    390
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7718",
+   "word": "lawmaker",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "lawmakers",
+   "evidence": [
+    "2026/nghe-an/chuyen-dai-hoc-vinh.md",
+    627
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7719",
+   "word": "leash",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7720",
+   "word": "legislate",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7721",
+   "word": "lighten",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "lightened",
+   "evidence": [
+    "2022/hoa-binh/so.md",
+    415
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7722",
+   "word": "lord",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7723",
+   "word": "maestro",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7724",
+   "word": "malady",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7725",
+   "word": "mate",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "mates",
+   "evidence": [
+    "2022/bac-ninh/so.md",
+    444
+   ],
+   "papers": 4,
+   "occurrences": 6
+  },
+  {
+   "id": "7726",
+   "word": "messenger",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "messengers",
+   "evidence": [
+    "2026/ha-tinh/so.md",
+    428
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7727",
+   "word": "microbe",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "microbes",
+   "evidence": [
+    "2022/tp-ho-chi-minh/ptnk.md",
+    856
+   ],
+   "papers": 2,
+   "occurrences": 2
+  },
+  {
+   "id": "7728",
+   "word": "mistreat",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "mistreatment",
+   "evidence": [
+    "2025/quang-ninh/so.md",
+    650
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7729",
+   "word": "momentarily",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7730",
+   "word": "monastery",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7731",
+   "word": "mortar",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7732",
+   "word": "mournful",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7733",
+   "word": "mutter",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7734",
+   "word": "narcissistic",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7735",
+   "word": "neurosis",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7736",
+   "word": "newscaster",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7737",
+   "word": "nobility",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7738",
+   "word": "nomad",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "nomads",
+   "evidence": [
+    "2022/ca-mau/so.md",
+    306
+   ],
+   "papers": 3,
+   "occurrences": 3
+  },
+  {
+   "id": "7739",
+   "word": "nostril",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7740",
+   "word": "numerical",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7741",
+   "word": "oath",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7742",
+   "word": "obedience",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7743",
+   "word": "obituary",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7744",
+   "word": "ointment",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7745",
+   "word": "orator",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7746",
+   "word": "outfit",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7747",
+   "word": "outpatient",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7748",
+   "word": "overestimate",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7749",
+   "word": "overshadow",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "overshadowed",
+   "evidence": [
+    "2025/kon-tum/so.md",
+    306
+   ],
+   "papers": 2,
+   "occurrences": 2
+  },
+  {
+   "id": "7750",
+   "word": "overtake",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7751",
+   "word": "paramedic",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7752",
+   "word": "paw",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7753",
+   "word": "perspiration",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7754",
+   "word": "petrified",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7755",
+   "word": "picky",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7756",
+   "word": "piracy",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7757",
+   "word": "playwright",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7758",
+   "word": "polo",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7759",
+   "word": "prose",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7760",
+   "word": "quantify",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "quantified",
+   "evidence": [
+    "2022/ninh-thuan/so.md",
+    229
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7761",
+   "word": "quarrelsome",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7762",
+   "word": "racial",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7763",
+   "word": "radiate",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "radiates",
+   "evidence": [
+    "2023/nam-dinh/so.md",
+    251
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7764",
+   "word": "rainstorm",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7765",
+   "word": "reconsider",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "reconsidering",
+   "evidence": [
+    "2022/binh-phuoc/so.md",
+    844
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7766",
+   "word": "rectangular",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7767",
+   "word": "replica",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "replicas",
+   "evidence": [
+    "2025/ha-noi/so.md",
+    325
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7768",
+   "word": "repression",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7769",
+   "word": "reprint",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7770",
+   "word": "retina",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7771",
+   "word": "rhinoceros",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7772",
+   "word": "riddle",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "riddled",
+   "evidence": [
+    "2025/tien-giang/so.md",
+    813
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7773",
+   "word": "righteousness",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7774",
+   "word": "roam",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "roamed",
+   "evidence": [
+    "2022/tay-ninh/so.md",
+    186
+   ],
+   "papers": 3,
+   "occurrences": 3
+  },
+  {
+   "id": "7775",
+   "word": "roar",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "roaring",
+   "evidence": [
+    "2023/nam-dinh/so.md",
+    200
+   ],
+   "papers": 3,
+   "occurrences": 3
+  },
+  {
+   "id": "7776",
+   "word": "royalty",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7777",
+   "word": "rubble",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7778",
+   "word": "salon",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7779",
+   "word": "scarlet",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7780",
+   "word": "scramble",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "scrambling",
+   "evidence": [
+    "2026/dong-nai/so.md",
+    258
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7781",
+   "word": "self-confident",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7782",
+   "word": "shipwreck",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7783",
+   "word": "silverware",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7784",
+   "word": "sincerity",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7785",
+   "word": "sister-in-law",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7786",
+   "word": "skim",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "skimming",
+   "evidence": [
+    "2025/ha-noi/so.md",
+    811
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7787",
+   "word": "sob",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7788",
+   "word": "softness",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7789",
+   "word": "son-in-law",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7790",
+   "word": "specialty",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "specialties",
+   "evidence": [
+    "2022/ha-noi/so.md",
+    336
+   ],
+   "papers": 2,
+   "occurrences": 2
+  },
+  {
+   "id": "7791",
+   "word": "spellbound",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7792",
+   "word": "spokesman",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7793",
+   "word": "spokeswoman",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7794",
+   "word": "squash",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7795",
+   "word": "stammer",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7796",
+   "word": "startle",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "startled",
+   "evidence": [
+    "2023/tp-ho-chi-minh/ptnk.md",
+    922
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7797",
+   "word": "starve",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "starved",
+   "evidence": [
+    "2023/da-nang/so.md",
+    286
+   ],
+   "papers": 1,
+   "occurrences": 2
+  },
+  {
+   "id": "7798",
+   "word": "statesman",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7799",
+   "word": "stepfather",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7800",
+   "word": "stepmother",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7801",
+   "word": "stern",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7802",
+   "word": "stingy",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7803",
+   "word": "stink",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7804",
+   "word": "stockpile",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7805",
+   "word": "stopover",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7806",
+   "word": "straighten",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7807",
+   "word": "strangle",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7808",
+   "word": "subcontinent",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7809",
+   "word": "subculture",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7810",
+   "word": "subdivision",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7811",
+   "word": "sunbeam",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7812",
+   "word": "superintendent",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7813",
+   "word": "supernatural",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7814",
+   "word": "synonym",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "synonyms",
+   "evidence": [
+    "2022/binh-phuoc/so.md",
+    260
+   ],
+   "papers": 2,
+   "occurrences": 3
+  },
+  {
+   "id": "7815",
+   "word": "tack",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7816",
+   "word": "tattoo",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "tattooed",
+   "evidence": [
+    "2026/quang-ninh/so.md",
+    432
+   ],
+   "papers": 1,
+   "occurrences": 2
+  },
+  {
+   "id": "7817",
+   "word": "taunt",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "taunts",
+   "evidence": [
+    "2025/phu-tho/so.md",
+    264
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7818",
+   "word": "thigh",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7819",
+   "word": "tiresome",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7820",
+   "word": "toenail",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7821",
+   "word": "transfusion",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "transfusions",
+   "evidence": [
+    "2022/ha-noi/chuyen-su-pham.md",
+    66
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7822",
+   "word": "transistor",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7823",
+   "word": "tread",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "treads",
+   "evidence": [
+    "2022/hai-duong/so.md",
+    430
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7824",
+   "word": "triangle",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7825",
+   "word": "troop",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7826",
+   "word": "tuberculosis",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7827",
+   "word": "tug",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7828",
+   "word": "twinkle",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "twinkling",
+   "evidence": [
+    "2022/thai-nguyen/so.md",
+    96
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7829",
+   "word": "typhoid",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7830",
+   "word": "tyranny",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7831",
+   "word": "tyrant",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7832",
+   "word": "unbeatable",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7833",
+   "word": "uncharacteristic",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7834",
+   "word": "uneasily",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7835",
+   "word": "unenthusiastic",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7836",
+   "word": "unfold",
+   "multiWord": false,
+   "type": [
+    "academic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "unfolds",
+   "evidence": [
+    "2024/da-nang/so.md",
+    252
+   ],
+   "papers": 2,
+   "occurrences": 2
+  },
+  {
+   "id": "7837",
+   "word": "unjustly",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7838",
+   "word": "unselfish",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7839",
+   "word": "unsuccessful",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7840",
+   "word": "usher",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7841",
+   "word": "vomit",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7842",
+   "word": "warship",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7843",
+   "word": "waterproof",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7844",
+   "word": "wearisome",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7845",
+   "word": "wed",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7846",
+   "word": "whisper",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "whispered",
+   "evidence": [
+    "2025/thai-nguyen/so.md",
+    150
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7847",
+   "word": "witty",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7848",
+   "word": "workbench",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7849",
+   "word": "workman",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7850",
+   "word": "yummy",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7851",
+   "word": "zebra",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "zebras",
+   "evidence": [
+    "2024/ha-noi/chuyen-su-pham.md",
+    315
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "7852",
+   "word": "zoom",
    "multiWord": false,
    "type": [
     "topic"

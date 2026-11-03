@@ -2,74 +2,74 @@
 # word<TAB>pos<TAB>meaning<TAB>level<TAB>topic<TAB>type<TAB>skills
 abrupt	adj	đột ngột, cộc lốc	C1	academic	academic	reading
 absurd	adj	vô lý, lố bịch	C1	academic	academic	reading
-accidental	adj	tình cờ, ngoài ý muốn	B2	academic	academic	reading
-accuse	v	buộc tội, cáo buộc	C1	law	academic	reading
+accidental	adj	tình cờ, ngoài ý muốn	B1	academic	academic	reading	cefrj-vocabulary-profile-1.5
+accuse	v	buộc tội, cáo buộc	B2	law	academic	reading	oxford-3000-5000
 acquaint	v	làm quen, cho biết	C2	academic	academic	reading
-adhere	v	tuân thủ; dính chặt	C1	politics	academic	reading
-advantageous	adj	có lợi	B2	economics	academic	writing
+adhere	v	tuân thủ; dính chặt	C1	politics	academic	reading	oxford-3000-5000
+advantageous	adj	có lợi	C1	economics	academic	writing	octanove-vocabulary-profile-1.0
 affirm	v	khẳng định	C1	academic	academic	writing
 afflict	v	làm khổ sở, gây bệnh	C2	health	academic	reading
-agenda	n	chương trình nghị sự	C1	politics	topic	reading
-aggressive	adj	hung hăng, quyết liệt	B2	psychology	topic	reading
-agile	adj	nhanh nhẹn, linh hoạt	C1	health	topic	reading
+agenda	n	chương trình nghị sự	B2	politics	topic	reading	oxford-3000-5000
+aggressive	adj	hung hăng, quyết liệt	B2	psychology	topic	reading	oxford-3000-5000
+agile	adj	nhanh nhẹn, linh hoạt	C2	health	topic	reading	octanove-vocabulary-profile-1.0
 alert	adj	cảnh giác	C1	health	topic	reading
 alien	adj	xa lạ	C2	society	academic	reading
 alleged	adj	bị cáo buộc	C2	law	topic	reading
-allowance	n	khoản phụ cấp	C1	economics	topic	reading
+allowance	n	khoản phụ cấp	C1	economics	topic	reading	oxford-3000-5000
 altercation	n	cuộc cãi vã	C2	society	topic	reading
-altruistic	adj	vị tha	C2	psychology	academic	reading
+altruistic	adj	vị tha	C1	psychology	academic	reading	octanove-vocabulary-profile-1.0
 amend	v	sửa đổi (văn bản)	C1	law	academic	reading
 amenity	n	tiện nghi	C2	society	topic	reading
-ample	adj	dồi dào, rộng rãi	C1	academic	academic	reading
-amplify	v	khuếch đại, làm rõ thêm	C1	science	academic	reading
-ancestor	n	tổ tiên	C1	culture	topic	reading
-anchor	n	mỏ neo; điểm tựa	C1	travel	topic	reading
+ample	adj	dồi dào, rộng rãi	B2	academic	academic	reading	cefrj-vocabulary-profile-1.5
+amplify	v	khuếch đại, làm rõ thêm	B2	science	academic	reading	cefrj-vocabulary-profile-1.5
+ancestor	n	tổ tiên	B2	culture	topic	reading	oxford-3000-5000
+anchor	n	mỏ neo; điểm tựa	C1	travel	topic	reading	oxford-3000-5000
 annex	v	sáp nhập (lãnh thổ)	C2	politics	academic	reading
-announce	v	thông báo	B2	media	topic	reading
-annual	adj	hằng năm	B1	society	topic	reading
-apparatus	n	thiết bị, bộ máy	C2	science	topic	reading
-appeal	v	thu hút; kêu gọi	C1	media	academic	reading
-appoint	v	bổ nhiệm	C1	work	academic	reading
+announce	v	thông báo	B1	media	topic	reading	oxford-3000-5000
+annual	adj	hằng năm	B2	society	topic	reading	oxford-3000-5000
+apparatus	n	thiết bị, bộ máy	C1	science	topic	reading	oxford-3000-5000
+appeal	v	thu hút; kêu gọi	B2	media	academic	reading	oxford-3000-5000
+appoint	v	bổ nhiệm	C1	work	academic	reading	oxford-3000-5000
 appreciable	adj	đáng kể, thấy rõ	C2	academic	academic	reading
 archive	n	kho lưu trữ	C1	media	topic	reading
-arise	v	nảy sinh	C1	academic	academic	writing
+arise	v	nảy sinh	B2	academic	academic	writing	oxford-3000-5000
 armament	n	vũ khí, việc trang bị vũ khí	C2	politics	topic	reading
-arouse	v	khơi dậy	C1	psychology	academic	writing
+arouse	v	khơi dậy	B2	psychology	academic	writing	cefrj-vocabulary-profile-1.5
 ascend	v	đi lên, leo	C1	travel	academic	reading
-aspire	v	khao khát hướng tới	C1	psychology	academic	writing
-assemble	v	tập hợp; lắp ráp	C1	technology	academic	reading
-assert	v	khẳng định chắc chắn	C1	academic	academic	writing
-assign	v	phân công, giao	C1	work	academic	reading
-assurance	n	sự bảo đảm	C1	academic	academic	writing
-astonish	v	làm kinh ngạc	C1	psychology	academic	reading
-attentive	adj	chăm chú, chu đáo	C1	psychology	academic	reading
+aspire	v	khao khát hướng tới	C1	psychology	academic	writing	oxford-3000-5000
+assemble	v	tập hợp; lắp ráp	C1	technology	academic	reading	oxford-3000-5000
+assert	v	khẳng định chắc chắn	C1	academic	academic	writing	oxford-3000-5000
+assign	v	phân công, giao	B2	work	academic	reading	oxford-3000-5000
+assurance	n	sự bảo đảm	C1	academic	academic	writing	oxford-3000-5000
+astonish	v	làm kinh ngạc	B2	psychology	academic	reading	cefrj-vocabulary-profile-1.5
+attentive	adj	chăm chú, chu đáo	B2	psychology	academic	reading	cefrj-vocabulary-profile-1.5
 attest	v	chứng thực	C2	law	academic	reading
 autonomy	n	quyền tự chủ	C1	politics	academic	reading
 avail	v	có ích, giúp được	C2	academic	academic	reading
 aviation	n	hàng không	C1	travel	topic	reading
-awe	n	sự kính sợ, choáng ngợp	C1	psychology	topic	reading
-awkward	adj	lúng túng, khó xử	B2	psychology	topic	reading
-ban	v	cấm	B2	law	academic	reading
+awe	n	sự kính sợ, choáng ngợp	B2	psychology	topic	reading	cefrj-vocabulary-profile-1.5
+awkward	adj	lúng túng, khó xử	B2	psychology	topic	reading	oxford-3000-5000
+ban	v	cấm	B1	law	academic	reading	oxford-3000-5000
 banish	v	trục xuất, xua đuổi	C2	law	academic	reading
 barrier	n	rào cản	B2	society	topic	writing
-basin	n	lưu vực; chậu	C2	environment	topic	reading
-beam	n	dầm; tia sáng	C1	science	topic	reading
-bearing	n	thái độ, dáng điệu	C2	psychology	academic	reading
-behalf	n	thay mặt (on behalf of)	C1	academic	academic	writing
-bid	n	nỗ lực; giá đấu	C1	economics	topic	reading
-bizarre	adj	kỳ quái	C1	academic	academic	reading
-blast	n	vụ nổ; luồng gió	C2	environment	topic	reading
+basin	n	lưu vực; chậu	B1	environment	topic	reading	cefrj-vocabulary-profile-1.5
+beam	n	dầm; tia sáng	C1	science	topic	reading	oxford-3000-5000
+bearing	n	thái độ, dáng điệu	B2	psychology	academic	reading	cefrj-vocabulary-profile-1.5
+behalf	n	thay mặt (on behalf of)	C1	academic	academic	writing	oxford-3000-5000
+bid	n	nỗ lực; giá đấu	B2	economics	topic	reading	oxford-3000-5000
+bizarre	adj	kỳ quái	C1	academic	academic	reading	oxford-3000-5000
+blast	n	vụ nổ; luồng gió	C1	environment	topic	reading	oxford-3000-5000
 bleak	adj	ảm đạm, u ám	C1	environment	academic	reading
-blessing	n	phước lành, điều may	C1	culture	topic	reading
+blessing	n	phước lành, điều may	C1	culture	topic	reading	oxford-3000-5000
 blunt	adj	thẳng thừng; cùn	C1	academic	academic	reading
-boast	v	khoe khoang; tự hào có	C1	media	academic	reading
-bold	adj	táo bạo, đậm	C1	media	academic	writing
-bore	v	làm chán	C1	psychology	academic	reading
-bother	v	làm phiền	C1	daily-life	core	reading
-bounce	v	nảy lên	C1	science	topic	reading
-bound	adj	nhất định; bị ràng buộc	C1	academic	academic	reading
+boast	v	khoe khoang; tự hào có	C1	media	academic	reading	oxford-3000-5000
+bold	adj	táo bạo, đậm	B2	media	academic	writing	oxford-3000-5000
+bore	v	làm chán	B1	psychology	academic	reading	cefrj-vocabulary-profile-1.5
+bother	v	làm phiền	B1	daily-life	core	reading	oxford-3000-5000
+bounce	v	nảy lên	C1	science	topic	reading	oxford-3000-5000
+bound	adj	nhất định; bị ràng buộc	B2	academic	academic	reading	oxford-3000-5000
 boundary	n	ranh giới	C1	society	academic	reading
-breed	v	gây ra; sinh sản	C1	environment	academic	reading
+breed	v	gây ra; sinh sản	C1	environment	academic	reading	oxford-3000-5000
 bribe	n	tiền hối lộ	C1	law	topic	reading
 brilliant	adj	xuất sắc, rực rỡ	B2	academic	academic	writing
 brink	n	bờ vực	C2	academic	academic	reading
@@ -77,262 +77,262 @@ brisk	adj	nhanh nhẹn, sôi động	C2	academic	academic	reading
 brood	v	ấp ủ, suy nghĩ miên man	C2	psychology	academic	reading
 brutal	adj	tàn bạo	C1	society	academic	reading
 bulk	n	phần lớn, khối lượng lớn	C1	economics	academic	reading
-burden	n	gánh nặng	B2	society	academic	writing
-burst	v	bùng lên, vỡ tung	B2	academic	academic	reading
-cabin	n	ca-bin, buồng nhỏ	B2	travel	topic	reading
+burden	n	gánh nặng	C1	society	academic	writing	oxford-3000-5000
+burst	v	bùng lên, vỡ tung	C1	academic	academic	reading	oxford-3000-5000
+cabin	n	ca-bin, buồng nhỏ	B2	travel	topic	reading	oxford-3000-5000
 camouflage	n	sự ngụy trang	C2	environment	topic	reading
 capture	v	bắt giữ; ghi lại	C1	media	academic	reading
-carefree	adj	vô tư, không lo lắng	C1	psychology	topic	reading
+carefree	adj	vô tư, không lo lắng	B2	psychology	topic	reading	cefrj-vocabulary-profile-1.5
 cater	v	cung cấp dịch vụ ăn uống	C1	economics	topic	reading
 celebrated	adj	nổi tiếng, được ca ngợi	C1	culture	academic	reading
 chamber	n	buồng, phòng họp	C1	politics	topic	reading
-chaos	n	sự hỗn loạn	C1	society	academic	reading
-cherish	v	trân trọng, yêu quý	C1	psychology	academic	writing
+chaos	n	sự hỗn loạn	C1	society	academic	reading	oxford-3000-5000
+cherish	v	trân trọng, yêu quý	B1	psychology	academic	writing	cefrj-vocabulary-profile-1.5
 chronicle	n	biên niên sử	C2	culture	topic	reading
 circulate	v	lưu hành, tuần hoàn	C1	media	academic	reading
 clash	n	cuộc đụng độ	C1	society	topic	reading
-clumsy	adj	vụng về	C1	psychology	topic	reading
-coincide	v	trùng hợp, cùng lúc	C1	academic	academic	reading
+clumsy	adj	vụng về	B2	psychology	topic	reading	cefrj-vocabulary-profile-1.5
+coincide	v	trùng hợp, cùng lúc	C1	academic	academic	reading	oxford-3000-5000
 collaborate	v	cộng tác	C1	work	academic	writing
 collapse	v	sụp đổ	C1	economics	academic	reading
-colony	n	thuộc địa; đàn	C1	politics	topic	reading
+colony	n	thuộc địa; đàn	B2	politics	topic	reading	oxford-3000-5000
 commence	v	bắt đầu	C1	academic	academic	writing
-commodity	n	hàng hóa	C1	economics	topic	reading
+commodity	n	hàng hóa	C1	economics	topic	reading	oxford-3000-5000
 communal	adj	chung của cộng đồng	C2	society	academic	reading
 compact	adj	nhỏ gọn	C1	technology	academic	reading
-companion	n	bạn đồng hành	C1	society	topic	reading
+companion	n	bạn đồng hành	C1	society	topic	reading	oxford-3000-5000
 compensate	v	đền bù	C1	economics	academic	writing
 competence	n	năng lực chuyên môn	C1	work	academic	reading
-compile	v	biên soạn, tập hợp	C1	academic	academic	reading
+compile	v	biên soạn, tập hợp	C1	academic	academic	reading	oxford-3000-5000
 complementary	adj	bổ trợ cho nhau	C1	academic	academic	writing
 compliant	adj	tuân thủ	C2	law	academic	reading
-conceive	v	hình thành ý tưởng	C1	academic	academic	reading
-condemn	v	lên án	C1	society	academic	writing
-confine	v	giới hạn trong	C1	academic	academic	reading
+conceive	v	hình thành ý tưởng	C1	academic	academic	reading	oxford-3000-5000
+condemn	v	lên án	C1	society	academic	writing	oxford-3000-5000
+confine	v	giới hạn trong	C1	academic	academic	reading	oxford-3000-5000
 conform	v	tuân theo chuẩn	C1	society	academic	reading
-conquer	v	chinh phục	C1	culture	academic	reading
-consent	n	sự đồng ý	C1	law	academic	reading
+conquer	v	chinh phục	C1	culture	academic	reading	oxford-3000-5000
+consent	n	sự đồng ý	C1	law	academic	reading	oxford-3000-5000
 constrain	v	hạn chế, ép buộc	C1	academic	academic	reading
 contend	v	cho rằng; tranh đấu	C1	academic	academic	writing
-contradiction	n	sự mâu thuẫn	C1	academic	academic	writing
+contradiction	n	sự mâu thuẫn	C1	academic	academic	writing	oxford-3000-5000
 controversy	n	cuộc tranh cãi	C1	media	academic	writing
 convene	v	triệu tập	C2	politics	academic	reading
 converge	v	hội tụ	C2	academic	academic	reading
 conviction	n	niềm tin vững chắc; bản án	C1	law	academic	reading
-cope	v	đương đầu, xoay xở	C1	psychology	academic	writing
+cope	v	đương đầu, xoay xở	B2	psychology	academic	writing	oxford-3000-5000
 corrode	v	ăn mòn	C2	science	academic	reading
-counter	v	phản đối, chống lại	C1	academic	academic	writing
+counter	v	phản đối, chống lại	C1	academic	academic	writing	oxford-3000-5000
 courteous	adj	lịch sự, nhã nhặn	C2	society	academic	reading
 crackdown	n	cuộc truy quét	C2	law	topic	reading
-credential	n	chứng chỉ năng lực	C2	education	topic	reading
+credential	n	chứng chỉ năng lực	C1	education	topic	reading	octanove-vocabulary-profile-1.0
 cumulative	adj	tích lũy dần	C1	academic	academic	reading
-decay	v	phân hủy, mục nát	C1	science	academic	reading
+decay	v	phân hủy, mục nát	B2	science	academic	reading	cefrj-vocabulary-profile-1.5
 deduce	v	suy luận ra	C2	academic	academic	reading
 dedication	n	sự tận tụy, cống hiến	C1	work	academic	writing
 defiance	n	sự bất tuân, thách thức	C2	society	academic	reading
 deficient	adj	thiếu hụt	C1	health	academic	reading
-demolish	v	phá hủy, phá dỡ	C1	society	academic	reading
+demolish	v	phá hủy, phá dỡ	B2	society	academic	reading	cefrj-vocabulary-profile-1.5
 denote	v	biểu thị	C2	academic	academic	reading
-dense	adj	dày đặc	C1	environment	academic	reading
+dense	adj	dày đặc	C1	environment	academic	reading	oxford-3000-5000
 deploy	v	triển khai	C1	technology	academic	reading
 deposit	n	tiền đặt cọc; trầm tích	C1	economics	academic	reading
 deter	v	ngăn chặn, răn đe	C1	law	academic	writing
 devise	v	nghĩ ra, thiết kế	C1	academic	academic	writing
 dictate	v	ra lệnh; quy định	C1	politics	academic	reading
 diffuse	v	khuếch tán, lan tỏa	C2	science	academic	reading
-dilemma	n	tình thế tiến thoái lưỡng nan	C1	academic	academic	writing
+dilemma	n	tình thế tiến thoái lưỡng nan	C1	academic	academic	writing	oxford-3000-5000
 dilute	v	pha loãng	C2	science	academic	reading
 discard	v	vứt bỏ	C1	environment	academic	reading
 disclose	v	tiết lộ	C1	media	academic	reading
 discourse	n	diễn ngôn, bài nói	C1	academic	academic	reading
 discreet	adj	kín đáo, thận trọng	C2	society	academic	reading
-disguise	v	ngụy trang, che giấu	C1	media	academic	reading
+disguise	v	ngụy trang, che giấu	B2	media	academic	reading	cefrj-vocabulary-profile-1.5
 dismantle	v	tháo dỡ, phá bỏ	C1	society	academic	reading
 disparity	n	sự chênh lệch	C1	society	academic	writing
-displace	v	làm mất chỗ, thay thế	C1	society	academic	reading
+displace	v	làm mất chỗ, thay thế	C1	society	academic	reading	oxford-3000-5000
 dispose	v	vứt bỏ, xử lý	C1	environment	academic	reading
-dispute	n	tranh chấp	C1	law	academic	reading
+dispute	n	tranh chấp	C1	law	academic	reading	oxford-3000-5000
 disregard	v	xem nhẹ, bỏ qua	C1	academic	academic	reading
-dissolve	v	hòa tan, giải tán	C1	science	academic	reading
+dissolve	v	hòa tan, giải tán	C1	science	academic	reading	oxford-3000-5000
 distort	v	bóp méo, làm sai lệch	C1	media	academic	reading
 distress	n	sự đau khổ, hoạn nạn	C1	psychology	academic	reading
-divert	v	chuyển hướng, làm phân tâm	C1	environment	academic	reading
-donate	v	quyên góp, hiến	C1	society	topic	reading
-drain	v	rút nước, làm cạn	C1	environment	academic	reading
+divert	v	chuyển hướng, làm phân tâm	C1	environment	academic	reading	oxford-3000-5000
+donate	v	quyên góp, hiến	B1	society	topic	reading	oxford-3000-5000
+drain	v	rút nước, làm cạn	C1	environment	academic	reading	oxford-3000-5000
 drastic	adj	quyết liệt, mạnh mẽ	C1	academic	academic	writing
 dynamic	adj	năng động	C1	society	academic	writing
-eager	adj	háo hức, sốt sắng	B2	psychology	academic	reading
-ease	n	sự dễ dàng, sự an tâm	C1	academic	academic	reading
-ecological	adj	thuộc sinh thái	C1	environment	academic	reading
+eager	adj	háo hức, sốt sắng	C1	psychology	academic	reading	oxford-3000-5000
+ease	n	sự dễ dàng, sự an tâm	C1	academic	academic	reading	oxford-3000-5000
+ecological	adj	thuộc sinh thái	C1	environment	academic	reading	oxford-3000-5000
 edible	adj	ăn được	C1	food	topic	reading
 elapse	v	trôi qua (thời gian)	C2	academic	academic	reading
 elevate	v	nâng cao	C1	academic	academic	writing
 embark	v	bắt đầu, lên tàu	C1	travel	academic	reading
-embed	v	nhúng, gắn chặt	C1	technology	academic	reading
-embody	v	hiện thân, thể hiện	C2	academic	academic	reading
-embrace	v	đón nhận, ôm	C1	society	academic	writing
-emergency	n	tình huống khẩn cấp	B2	health	topic	reading
+embed	v	nhúng, gắn chặt	C1	technology	academic	reading	oxford-3000-5000
+embody	v	hiện thân, thể hiện	C1	academic	academic	reading	oxford-3000-5000
+embrace	v	đón nhận, ôm	B2	society	academic	writing	oxford-3000-5000
+emergency	n	tình huống khẩn cấp	B1	health	topic	reading	oxford-3000-5000
 eminent	adj	xuất chúng, lỗi lạc	C2	academic	academic	reading
-enact	v	ban hành	C2	law	academic	reading
+enact	v	ban hành	C1	law	academic	reading	oxford-3000-5000
 endow	v	ban tặng, hiến tặng	C2	academic	academic	reading
 enlighten	v	khai sáng, làm rõ	C1	education	academic	reading
-enterprise	n	doanh nghiệp; sự táo bạo	C1	economics	topic	reading
-entitle	v	trao quyền; đặt tên	C1	law	academic	reading
+enterprise	n	doanh nghiệp; sự táo bạo	C1	economics	topic	reading	oxford-3000-5000
+entitle	v	trao quyền; đặt tên	C1	law	academic	reading	oxford-3000-5000
 equate	v	đánh đồng	C1	academic	academic	reading
-equilibrium	n	trạng thái cân bằng	C1	science	academic	reading
+equilibrium	n	trạng thái cân bằng	C2	science	academic	reading	octanove-vocabulary-profile-1.0
 prerequisite	n	điều kiện tiên quyết	C2	education	academic	reading
 erroneous	adj	sai lầm	C2	academic	academic	reading
 escalate	v	leo thang	C1	society	academic	reading
-evacuate	v	sơ tán	C1	environment	topic	reading
+evacuate	v	sơ tán	C1	environment	topic	reading	oxford-3000-5000
 evade	v	né tránh	C1	law	academic	reading
-excel	v	vượt trội	C1	education	academic	writing
-exceptional	adj	đặc biệt, hiếm có	C1	academic	academic	writing
-exclude	v	loại trừ, loại ra	C1	society	academic	writing
-execute	v	thực thi; xử tử	C1	law	academic	reading
+excel	v	vượt trội	B2	education	academic	writing	cefrj-vocabulary-profile-1.5
+exceptional	adj	đặc biệt, hiếm có	C1	academic	academic	writing	oxford-3000-5000
+exclude	v	loại trừ, loại ra	B2	society	academic	writing	oxford-3000-5000
+execute	v	thực thi; xử tử	C1	law	academic	reading	oxford-3000-5000
 exempt	adj	được miễn	C1	law	academic	reading
 exert	v	gây ra, dùng (sức lực)	C1	academic	academic	writing
 exhaust	v	làm kiệt sức; dùng hết	C1	health	academic	reading
-expedite	v	xúc tiến, làm nhanh	C2	work	academic	reading
+expedite	v	xúc tiến, làm nhanh	C1	work	academic	reading	octanove-vocabulary-profile-1.0
 expel	v	trục xuất, đuổi học	C1	education	academic	reading
 expose	v	phơi bày, để lộ	C1	media	academic	writing
-exquisite	adj	tinh xảo, tuyệt đẹp	C2	culture	academic	reading
+exquisite	adj	tinh xảo, tuyệt đẹp	B2	culture	academic	reading	cefrj-vocabulary-profile-1.5
 fabricate	v	bịa đặt; chế tạo	C2	media	academic	reading
-faction	n	bè phái	C2	politics	topic	reading
-fade	v	phai nhạt, mờ dần	C1	psychology	academic	reading
-fake	adj	giả, không thật	C1	media	academic	reading
-fatal	adj	gây chết người	C1	health	academic	reading
-fault	n	lỗi, sai sót	C1	academic	academic	reading
-filter	v	lọc	B2	technology	topic	reading
-flaw	n	khuyết điểm, vết nứt	C1	academic	academic	writing
+faction	n	bè phái	C1	politics	topic	reading	oxford-3000-5000
+fade	v	phai nhạt, mờ dần	C1	psychology	academic	reading	oxford-3000-5000
+fake	adj	giả, không thật	B2	media	academic	reading	oxford-3000-5000
+fatal	adj	gây chết người	C1	health	academic	reading	oxford-3000-5000
+fault	n	lỗi, sai sót	B2	academic	academic	reading	oxford-3000-5000
+filter	v	lọc	C1	technology	topic	reading	oxford-3000-5000
+flaw	n	khuyết điểm, vết nứt	C1	academic	academic	writing	oxford-3000-5000
 foe	n	kẻ thù	C2	society	academic	reading
 forge	v	rèn; giả mạo	C1	society	academic	reading
-fraction	n	phần nhỏ, phân số	B2	science	academic	reading
-fragment	n	mảnh vỡ	C1	science	academic	reading
+fraction	n	phần nhỏ, phân số	B2	science	academic	reading	oxford-3000-5000
+fragment	n	mảnh vỡ	B2	science	academic	reading	oxford-3000-5000
 fraught	adj	đầy (rủi ro, căng thẳng)	C2	academic	academic	reading
-fulfil	v	hoàn thành, thỏa mãn	C1	work	academic	writing
-furnish	v	trang bị, cung cấp	C1	daily-life	academic	reading
+fulfil	v	hoàn thành, thỏa mãn	B2	work	academic	writing	oxford-3000-5000
+furnish	v	trang bị, cung cấp	B1	daily-life	academic	reading	cefrj-vocabulary-profile-1.5
 gauge	v	đánh giá, đo	C2	science	academic	reading
 generic	adj	chung, không có nhãn hiệu	C1	economics	academic	reading
-glimpse	n	cái nhìn thoáng qua	C1	psychology	academic	reading
+glimpse	n	cái nhìn thoáng qua	C1	psychology	academic	reading	oxford-3000-5000
 grasp	v	nắm bắt, hiểu rõ	C1	education	academic	reading
-grief	n	nỗi đau buồn	C1	psychology	topic	reading
-gross	adj	tổng (trước khấu trừ); thô thiển	C2	economics	academic	reading
+grief	n	nỗi đau buồn	C1	psychology	topic	reading	oxford-3000-5000
+gross	adj	tổng (trước khấu trừ); thô thiển	C1	economics	academic	reading	oxford-3000-5000
 halt	v	dừng lại	C1	society	academic	reading
 harsh	adj	khắc nghiệt	C1	environment	academic	reading
-haunt	v	ám ảnh	C1	psychology	academic	reading
-hollow	adj	rỗng, trống rỗng	C1	academic	academic	reading
+haunt	v	ám ảnh	C1	psychology	academic	reading	oxford-3000-5000
+hollow	adj	rỗng, trống rỗng	B2	academic	academic	reading	oxford-3000-5000
 homeland	n	quê hương	C1	culture	topic	reading
-humble	adj	khiêm tốn, giản dị	C1	psychology	academic	reading
+humble	adj	khiêm tốn, giản dị	C1	psychology	academic	reading	oxford-3000-5000
 hurl	v	ném mạnh	C2	academic	academic	reading
 hybrid	n	giống lai, dạng kết hợp	C2	science	topic	reading
-identical	adj	giống hệt	C1	academic	academic	reading
-impulse	n	sự thôi thúc	C1	psychology	academic	reading
+identical	adj	giống hệt	B2	academic	academic	reading	oxford-3000-5000
+impulse	n	sự thôi thúc	B2	psychology	academic	reading	cefrj-vocabulary-profile-1.5
 incline	v	có xu hướng; nghiêng	C1	academic	academic	reading
-indebted	adj	mang ơn, mắc nợ	C2	society	academic	reading
-indulge	v	nuông chiều, ham mê	C1	psychology	academic	reading
-inflict	v	gây ra (đau khổ)	C2	society	academic	reading
-influential	adj	có ảnh hưởng lớn	C1	society	academic	writing
+indebted	adj	mang ơn, mắc nợ	B2	society	academic	reading	cefrj-vocabulary-profile-1.5
+indulge	v	nuông chiều, ham mê	C1	psychology	academic	reading	oxford-3000-5000
+inflict	v	gây ra (đau khổ)	C1	society	academic	reading	oxford-3000-5000
+influential	adj	có ảnh hưởng lớn	C1	society	academic	writing	oxford-3000-5000
 inhabit	v	cư trú	C1	environment	academic	reading
-inherit	v	thừa hưởng, thừa kế	C1	family	academic	reading
-inject	v	tiêm, bơm vào	C1	health	academic	reading
-input	n	đầu vào, ý kiến đóng góp	C1	technology	academic	reading
-inspect	v	thanh tra, kiểm tra	C1	law	academic	reading
-instinct	n	bản năng	C1	psychology	academic	reading
-intellect	n	trí tuệ	C2	psychology	academic	reading
-intermediate	adj	trung cấp	B2	education	academic	reading
-intrude	v	xâm nhập, quấy rầy	C2	society	academic	reading
+inherit	v	thừa hưởng, thừa kế	B2	family	academic	reading	oxford-3000-5000
+inject	v	tiêm, bơm vào	C1	health	academic	reading	oxford-3000-5000
+input	n	đầu vào, ý kiến đóng góp	B2	technology	academic	reading	oxford-3000-5000
+inspect	v	thanh tra, kiểm tra	C1	law	academic	reading	oxford-3000-5000
+instinct	n	bản năng	C1	psychology	academic	reading	oxford-3000-5000
+intellect	n	trí tuệ	C1	psychology	academic	reading	octanove-vocabulary-profile-1.0
+intermediate	adj	trung cấp	C1	education	academic	reading	oxford-3000-5000
+intrude	v	xâm nhập, quấy rầy	B2	society	academic	reading	cefrj-vocabulary-profile-1.5
 inundate	v	làm ngập, tràn ngập	C2	environment	academic	reading
 invest	v	đầu tư	B2	economics	academic	writing
-invoke	v	viện dẫn, cầu khẩn	C2	law	academic	reading
+invoke	v	viện dẫn, cầu khẩn	C1	law	academic	reading	oxford-3000-5000
 isolate	v	cô lập, tách biệt	C1	health	academic	reading
-joint	adj	chung, liên kết	C1	academic	academic	reading
-journal	n	tạp chí khoa học	C1	science	topic	reading
-judicial	adj	thuộc tư pháp	C2	law	academic	reading
-jury	n	bồi thẩm đoàn	C1	law	topic	reading
-keen	adj	hăng hái; sắc bén	B2	psychology	academic	reading
+joint	adj	chung, liên kết	B2	academic	academic	reading	oxford-3000-5000
+journal	n	tạp chí khoa học	B1	science	topic	reading	oxford-3000-5000
+judicial	adj	thuộc tư pháp	C1	law	academic	reading	oxford-3000-5000
+jury	n	bồi thẩm đoàn	B2	law	topic	reading	oxford-3000-5000
+keen	adj	hăng hái; sắc bén	B1	psychology	academic	reading	oxford-3000-5000
 kidnap	v	bắt cóc	C1	law	topic	reading
-labour	n	lao động	C1	economics	topic	reading
+labour	n	lao động	B2	economics	topic	reading	oxford-3000-5000
 lag	v	tụt lại phía sau	C1	economics	academic	reading
-latter	adj	sau cùng (trong hai)	C1	academic	academic	reading
-launch	v	phóng; ra mắt	C1	economics	topic	reading
-layer	n	lớp	C1	science	academic	reading
-lease	n	hợp đồng thuê	C2	economics	topic	reading
+latter	adj	sau cùng (trong hai)	C1	academic	academic	reading	oxford-3000-5000
+launch	v	phóng; ra mắt	B2	economics	topic	reading	oxford-3000-5000
+layer	n	lớp	B1	science	academic	reading	oxford-3000-5000
+lease	n	hợp đồng thuê	B2	economics	topic	reading	cefrj-vocabulary-profile-1.5
 legacy	n	di sản, di chứng	C1	culture	academic	reading
-leisure	n	thời gian rảnh rỗi	B2	daily-life	topic	reading
-lengthy	adj	dài dòng, kéo dài	C1	academic	academic	reading
+leisure	n	thời gian rảnh rỗi	B1	daily-life	topic	reading	oxford-3000-5000
+lengthy	adj	dài dòng, kéo dài	C1	academic	academic	reading	oxford-3000-5000
 lenient	adj	khoan dung, nhẹ tay	C2	law	academic	reading
 lethal	adj	gây chết người	C1	health	academic	reading
 liable	adj	có trách nhiệm pháp lý; dễ bị	C1	law	academic	reading
-liberal	adj	tự do, phóng khoáng	C1	politics	academic	reading
-liberate	v	giải phóng	C1	politics	academic	reading
-liberty	n	tự do	C1	politics	academic	writing
+liberal	adj	tự do, phóng khoáng	C1	politics	academic	reading	oxford-3000-5000
+liberate	v	giải phóng	B1	politics	academic	reading	cefrj-vocabulary-profile-1.5
+liberty	n	tự do	C1	politics	academic	writing	oxford-3000-5000
 license	n	giấy phép	C1	law	topic	reading
-lifelong	adj	suốt đời	C1	education	academic	reading
-limb	n	chi, tay chân	C1	health	topic	reading
-linger	v	nán lại, kéo dài	C1	psychology	academic	reading
+lifelong	adj	suốt đời	C1	education	academic	reading	oxford-3000-5000
+limb	n	chi, tay chân	C1	health	topic	reading	oxford-3000-5000
+linger	v	nán lại, kéo dài	C1	psychology	academic	reading	oxford-3000-5000
 lofty	adj	cao cả; cao vút	C2	academic	academic	reading
 loophole	n	kẽ hở pháp luật	C2	law	topic	reading
 lure	v	dụ dỗ, lôi kéo	C1	media	academic	reading
 magnitude	n	độ lớn, tầm quan trọng	C1	science	academic	writing
 mandatory	adj	bắt buộc	C1	law	academic	reading
-manual	adj	thủ công	C1	work	academic	reading
-margin	n	lề; biên lợi nhuận	C1	economics	academic	reading
-martial	adj	thuộc quân sự	C2	politics	topic	reading
-massacre	n	vụ thảm sát	C2	law	topic	reading
+manual	adj	thủ công	B2	work	academic	reading	cefrj-vocabulary-profile-1.5
+margin	n	lề; biên lợi nhuận	B2	economics	academic	reading	oxford-3000-5000
+martial	adj	thuộc quân sự	B2	politics	topic	reading	oxford-3000-5000
+massacre	n	vụ thảm sát	C1	law	topic	reading	oxford-3000-5000
 mediate	v	hòa giải, trung gian	C2	society	academic	reading
-medieval	adj	thuộc thời trung cổ	C1	culture	academic	reading
-meditate	v	thiền, suy ngẫm	C1	health	topic	reading
-merchandise	n	hàng hóa	C2	economics	topic	reading
-mere	adj	chỉ là, không hơn	C1	academic	academic	reading
-merge	v	hợp nhất	C1	economics	academic	reading
+medieval	adj	thuộc thời trung cổ	C1	culture	academic	reading	oxford-3000-5000
+meditate	v	thiền, suy ngẫm	B1	health	topic	reading	cefrj-vocabulary-profile-1.5
+merchandise	n	hàng hóa	B2	economics	topic	reading	cefrj-vocabulary-profile-1.5
+mere	adj	chỉ là, không hơn	C1	academic	academic	reading	oxford-3000-5000
+merge	v	hợp nhất	C1	economics	academic	reading	oxford-3000-5000
 migrate	v	di cư	C1	society	academic	reading
-mingle	v	hòa lẫn, giao lưu	C2	society	academic	reading
-minimize	v	giảm thiểu	C1	academic	academic	writing
+mingle	v	hòa lẫn, giao lưu	C1	society	academic	reading	octanove-vocabulary-profile-1.0
+minimize	v	giảm thiểu	C1	academic	academic	writing	oxford-3000-5000
 mislead	v	gây hiểu lầm	C1	media	academic	reading
-mobilize	v	huy động	C2	society	academic	reading
+mobilize	v	huy động	C1	society	academic	reading	oxford-3000-5000
 mock	v	chế nhạo	C1	psychology	academic	reading
-modify	v	sửa đổi	C1	academic	academic	reading
-motive	n	động cơ	C1	psychology	academic	reading
+modify	v	sửa đổi	B2	academic	academic	reading	oxford-3000-5000
+motive	n	động cơ	C1	psychology	academic	reading	oxford-3000-5000
 multitude	n	vô số, đám đông	C2	academic	academic	reading
-municipal	adj	thuộc chính quyền thành phố	C2	politics	academic	reading
-narrate	v	kể lại, tường thuật	C1	culture	academic	reading
-navigate	v	điều hướng, tìm đường	C1	travel	academic	reading
+municipal	adj	thuộc chính quyền thành phố	C1	politics	academic	reading	oxford-3000-5000
+narrate	v	kể lại, tường thuật	B1	culture	academic	reading	cefrj-vocabulary-profile-1.5
+navigate	v	điều hướng, tìm đường	B2	travel	academic	reading	cefrj-vocabulary-profile-1.5
 neglect	v	bỏ bê, xao nhãng	C1	education	academic	reading
 nominate	v	đề cử	C1	politics	academic	reading
-nourish	v	nuôi dưỡng	C1	health	academic	reading
-novelty	n	sự mới lạ	C2	psychology	academic	reading
-obedient	adj	vâng lời	C1	psychology	academic	reading
+nourish	v	nuôi dưỡng	B2	health	academic	reading	cefrj-vocabulary-profile-1.5
+novelty	n	sự mới lạ	B2	psychology	academic	reading	cefrj-vocabulary-profile-1.5
+obedient	adj	vâng lời	B2	psychology	academic	reading	cefrj-vocabulary-profile-1.5
 oblige	v	bắt buộc, giúp ai đó	C1	law	academic	reading
 obstruction	n	sự cản trở	C2	law	academic	reading
-offend	v	xúc phạm, vi phạm	C1	society	academic	reading
+offend	v	xúc phạm, vi phạm	B2	society	academic	reading	oxford-3000-5000
 offset	v	bù đắp	C1	economics	academic	writing
-oppress	v	áp bức	C2	society	academic	reading
+oppress	v	áp bức	B1	society	academic	reading	cefrj-vocabulary-profile-1.5
 optimal	adj	tối ưu	C1	science	academic	reading
-orbit	n	quỹ đạo	C1	science	topic	reading
+orbit	n	quỹ đạo	B1	science	topic	reading	cefrj-vocabulary-profile-1.5
 ordeal	n	thử thách gian nan	C2	psychology	academic	reading
 orient	v	định hướng	C2	academic	academic	reading
-originate	v	bắt nguồn từ	C1	academic	academic	reading
+originate	v	bắt nguồn từ	C1	academic	academic	reading	oxford-3000-5000
 outburst	n	sự bùng nổ cảm xúc	C2	psychology	academic	reading
-outlook	n	quan điểm; triển vọng	C1	academic	academic	reading
+outlook	n	quan điểm; triển vọng	C1	academic	academic	reading	oxford-3000-5000
 outnumber	v	đông hơn về số lượng	C1	society	academic	reading
-overcome	v	vượt qua	C1	psychology	academic	writing
+overcome	v	vượt qua	B2	psychology	academic	writing	oxford-3000-5000
 overhaul	v	đại tu, cải tổ	C2	politics	academic	reading
-overwhelm	v	lấn át, choáng ngợp	C1	psychology	academic	reading
-owe	v	mắc nợ, mang ơn	C1	economics	core	reading
+overwhelm	v	lấn át, choáng ngợp	C1	psychology	academic	reading	oxford-3000-5000
+owe	v	mắc nợ, mang ơn	B2	economics	core	reading	oxford-3000-5000
 pack	v	đóng gói; nhồi chặt	C1	daily-life	core	reading
-paradox	n	nghịch lý	C1	academic	academic	reading
-paralyse	v	làm tê liệt	C2	health	academic	reading
-pardon	v	tha thứ, ân xá	C1	law	academic	reading
+paradox	n	nghịch lý	B2	academic	academic	reading	cefrj-vocabulary-profile-1.5
+paralyse	v	làm tê liệt	B1	health	academic	reading	cefrj-vocabulary-profile-1.5
+pardon	v	tha thứ, ân xá	B1	law	academic	reading	cefrj-vocabulary-profile-1.5
 partake	v	tham gia, cùng chia sẻ	C2	society	academic	reading
-partial	adj	một phần; thiên vị	C1	academic	academic	reading
+partial	adj	một phần; thiên vị	C1	academic	academic	reading	oxford-3000-5000
 patent	n	bằng sáng chế	C1	law	topic	reading
-patriotic	adj	yêu nước	C1	politics	academic	reading
-peculiar	adj	kỳ lạ, riêng biệt	C1	academic	academic	reading
-penetrate	v	thâm nhập, xuyên qua	C1	technology	academic	reading
+patriotic	adj	yêu nước	B2	politics	academic	reading	cefrj-vocabulary-profile-1.5
+peculiar	adj	kỳ lạ, riêng biệt	C1	academic	academic	reading	oxford-3000-5000
+penetrate	v	thâm nhập, xuyên qua	B2	technology	academic	reading	cefrj-vocabulary-profile-1.5
 peril	n	hiểm họa	C2	environment	academic	reading
 perish	v	chết, diệt vong	C2	environment	academic	reading
 perpetual	adj	vĩnh viễn, liên tục	C1	academic	academic	reading
-phase	n	giai đoạn	B2	academic	academic	reading
+phase	n	giai đoạn	B2	academic	academic	reading	oxford-3000-5000
 phenomenal	adj	phi thường	C2	academic	academic	reading
 pinpoint	v	xác định chính xác	C2	academic	academic	reading
 pioneer	n	người tiên phong	C1	science	topic	reading
@@ -341,126 +341,126 @@ pledge	v	cam kết	C1	politics	academic	writing
 plight	n	hoàn cảnh éo le	C2	society	academic	reading
 plunge	v	lao xuống, giảm mạnh	C1	economics	academic	reading
 poll	n	cuộc thăm dò ý kiến	C1	politics	topic	reading
-ponder	v	suy ngẫm	C1	psychology	academic	reading
+ponder	v	suy ngẫm	B2	psychology	academic	reading	cefrj-vocabulary-profile-1.5
 portray	v	khắc họa, miêu tả	C1	media	academic	reading
-potent	adj	mạnh mẽ, hiệu lực cao	C1	health	academic	reading
-precede	v	xảy ra trước	C1	academic	academic	reading
-preferable	adj	đáng thích hơn	C1	academic	academic	writing
-pregnant	adj	mang thai	B2	health	topic	reading
-premise	n	tiền đề	C2	academic	academic	reading
+potent	adj	mạnh mẽ, hiệu lực cao	B2	health	academic	reading	cefrj-vocabulary-profile-1.5
+precede	v	xảy ra trước	B2	academic	academic	reading	oxford-3000-5000
+preferable	adj	đáng thích hơn	B2	academic	academic	writing	cefrj-vocabulary-profile-1.5
+pregnant	adj	mang thai	B2	health	topic	reading	oxford-3000-5000
+premise	n	tiền đề	C1	academic	academic	reading	oxford-3000-5000
 prestige	n	uy tín	C1	society	academic	reading
 presume	v	cho là, đoán rằng	C1	academic	academic	reading
-prevail	v	chiếm ưu thế, thắng thế	C1	academic	academic	writing
-proceed	v	tiến hành, tiếp tục	C1	academic	academic	writing
-proclaim	v	công bố, tuyên bố	C2	politics	academic	reading
+prevail	v	chiếm ưu thế, thắng thế	C1	academic	academic	writing	oxford-3000-5000
+proceed	v	tiến hành, tiếp tục	B2	academic	academic	writing	oxford-3000-5000
+proclaim	v	công bố, tuyên bố	C1	politics	academic	reading	oxford-3000-5000
 procrastinate	v	trì hoãn	C2	psychology	academic	reading
-prolong	v	kéo dài	C1	health	academic	reading
-prompt	adj	nhanh chóng, kịp thời	C1	academic	academic	writing
+prolong	v	kéo dài	C2	health	academic	reading	octanove-vocabulary-profile-1.0
+prompt	adj	nhanh chóng, kịp thời	B2	academic	academic	writing	cefrj-vocabulary-profile-1.5
 propel	v	đẩy đi, thúc đẩy	C2	science	academic	reading
-proponent	n	người ủng hộ	C2	society	academic	reading
+proponent	n	người ủng hộ	B2	society	academic	reading	cefrj-vocabulary-profile-1.5
 prosper	v	thịnh vượng	C1	economics	academic	writing
 protocol	n	giao thức; nghi thức	C1	technology	academic	reading
-proximity	n	sự gần gũi, lân cận	C2	academic	academic	reading
-publicise	v	công khai hóa, quảng bá	C1	media	academic	reading
+proximity	n	sự gần gũi, lân cận	B2	academic	academic	reading	cefrj-vocabulary-profile-1.5
+publicise	v	công khai hóa, quảng bá	B2	media	academic	reading	cefrj-vocabulary-profile-1.5
 quaint	adj	cổ kính, dễ thương	C2	culture	academic	reading
 quandary	n	tình thế khó xử	C2	psychology	academic	reading
-quarrel	n	cuộc cãi vã	C1	society	topic	reading
+quarrel	n	cuộc cãi vã	B2	society	topic	reading	cefrj-vocabulary-profile-1.5
 quest	n	sự tìm kiếm, hành trình	C1	culture	academic	reading
-queue	n	hàng chờ	B2	daily-life	topic	reading
-rage	n	cơn thịnh nộ	C1	psychology	academic	reading
-raid	n	cuộc đột kích	C2	law	topic	reading
-rally	n	cuộc tập hợp đông người	C2	politics	topic	reading
+queue	n	hàng chờ	B1	daily-life	topic	reading	oxford-3000-5000
+rage	n	cơn thịnh nộ	C1	psychology	academic	reading	oxford-3000-5000
+raid	n	cuộc đột kích	C1	law	topic	reading	oxford-3000-5000
+rally	n	cuộc tập hợp đông người	C1	politics	topic	reading	oxford-3000-5000
 rampant	adj	hoành hành, lan tràn	C2	society	academic	reading
 random	adj	ngẫu nhiên	B2	science	academic	reading
-rank	n	cấp bậc, thứ hạng	C1	society	academic	reading
-readily	adv	sẵn lòng; dễ dàng	C1	academic	academic	writing
+rank	n	cấp bậc, thứ hạng	B2	society	academic	reading	oxford-3000-5000
+readily	adv	sẵn lòng; dễ dàng	C1	academic	academic	writing	oxford-3000-5000
 reap	v	gặt hái (thành quả)	C1	economics	academic	writing
-rebel	v	nổi loạn	C1	politics	academic	reading
-rebuild	v	xây dựng lại	C1	society	academic	reading
-recall	v	nhớ lại; thu hồi	C1	psychology	academic	reading
+rebel	v	nổi loạn	B2	politics	academic	reading	cefrj-vocabulary-profile-1.5
+rebuild	v	xây dựng lại	B2	society	academic	reading	oxford-3000-5000
+recall	v	nhớ lại; thu hồi	B2	psychology	academic	reading	oxford-3000-5000
 recipient	n	người nhận	C1	society	academic	reading
-reckon	v	cho rằng, tính toán	C1	academic	academic	reading
+reckon	v	cho rằng, tính toán	B2	academic	academic	reading	oxford-3000-5000
 recur	v	tái diễn	C1	health	academic	reading
 redeem	v	chuộc lỗi; đổi thưởng	C2	society	academic	reading
 refrain	v	kiềm chế, tránh làm	C1	psychology	academic	reading
-refuge	n	nơi ẩn náu	C2	environment	academic	reading
-regain	v	lấy lại	C1	health	academic	reading
-regime	n	chế độ	C1	politics	topic	reading
+refuge	n	nơi ẩn náu	C1	environment	academic	reading	oxford-3000-5000
+regain	v	lấy lại	C1	health	academic	reading	oxford-3000-5000
+regime	n	chế độ	C1	politics	topic	reading	oxford-3000-5000
 rehearse	v	tập dượt	C1	culture	academic	reading
 rejoice	v	vui mừng	C2	psychology	academic	reading
-relic	n	di vật, di tích	C2	culture	topic	reading
-render	v	làm cho trở thành; cung cấp	C2	academic	academic	reading
-repertoire	n	danh mục tiết mục	C2	culture	academic	reading
-repetition	n	sự lặp lại	C1	education	academic	reading
-reproduce	v	sinh sản; tái tạo	C1	science	academic	reading
+relic	n	di vật, di tích	B2	culture	topic	reading	cefrj-vocabulary-profile-1.5
+render	v	làm cho trở thành; cung cấp	C1	academic	academic	reading	oxford-3000-5000
+repertoire	n	danh mục tiết mục	B2	culture	academic	reading	cefrj-vocabulary-profile-1.5
+repetition	n	sự lặp lại	B2	education	academic	reading	cefrj-vocabulary-profile-1.5
+reproduce	v	sinh sản; tái tạo	C1	science	academic	reading	oxford-3000-5000
 request	n	lời yêu cầu	B1	daily-life	core	reading
-reserve	v	đặt trước, để dành	C1	economics	academic	reading
+reserve	v	đặt trước, để dành	B2	economics	academic	reading	oxford-3000-5000
 reside	v	cư trú	C1	society	academic	reading
-residue	n	phần dư, cặn	C2	science	academic	reading
+residue	n	phần dư, cặn	C1	science	academic	reading	oxford-3000-5000
 restrain	v	kiềm chế, ngăn lại	C1	psychology	academic	reading
-resume	v	tiếp tục lại	C1	work	academic	reading
+resume	v	tiếp tục lại	C1	work	academic	reading	oxford-3000-5000
 rile	v	làm tức giận	C2	psychology	academic	reading
 riot	n	cuộc bạo loạn	C1	society	topic	reading
-rival	n	đối thủ	C1	sport	academic	reading
+rival	n	đối thủ	B2	sport	academic	reading	oxford-3000-5000
 rotate	v	xoay, luân phiên	C1	science	academic	reading
 routinely	adv	một cách thường lệ	C2	academic	academic	writing
-ruin	v	phá hủy, làm hỏng	C1	environment	academic	reading
-safeguard	v	bảo vệ, gìn giữ	C1	law	academic	writing
-scatter	v	rải rác, phân tán	C1	science	academic	reading
-scheme	n	kế hoạch, chương trình	C1	politics	topic	reading
+ruin	v	phá hủy, làm hỏng	B2	environment	academic	reading	oxford-3000-5000
+safeguard	v	bảo vệ, gìn giữ	B2	law	academic	writing	cefrj-vocabulary-profile-1.5
+scatter	v	rải rác, phân tán	B1	science	academic	reading	cefrj-vocabulary-profile-1.5
+scheme	n	kế hoạch, chương trình	B2	politics	topic	reading	oxford-3000-5000
 scrap	v	loại bỏ, hủy bỏ	C1	politics	academic	reading
 seal	v	niêm phong, bịt kín	C1	law	academic	reading
-seemingly	adv	có vẻ như	C2	academic	academic	writing
-seminar	n	hội thảo chuyên đề	C1	education	topic	reading
-sensation	n	cảm giác, sự chấn động	C1	psychology	academic	reading
-session	n	phiên họp, buổi	C1	politics	topic	reading
-shed	v	làm rơi; tuôn ra	C2	science	academic	reading
-sheer	adj	hoàn toàn, thuần	C1	academic	academic	reading
-shrink	v	co lại, giảm sút	C1	economics	academic	reading
+seemingly	adv	có vẻ như	C1	academic	academic	writing	oxford-3000-5000
+seminar	n	hội thảo chuyên đề	B2	education	topic	reading	oxford-3000-5000
+sensation	n	cảm giác, sự chấn động	C1	psychology	academic	reading	oxford-3000-5000
+session	n	phiên họp, buổi	B2	politics	topic	reading	oxford-3000-5000
+shed	v	làm rơi; tuôn ra	C1	science	academic	reading	oxford-3000-5000
+sheer	adj	hoàn toàn, thuần	C1	academic	academic	reading	oxford-3000-5000
+shrink	v	co lại, giảm sút	C1	economics	academic	reading	oxford-3000-5000
 smuggle	v	buôn lậu	C1	law	topic	reading
-soar	v	tăng vọt, bay vút	C1	economics	academic	reading
+soar	v	tăng vọt, bay vút	C1	economics	academic	reading	oxford-3000-5000
 span	n	khoảng thời gian, nhịp	C1	academic	academic	reading
 spark	v	châm ngòi, gây ra	C1	society	academic	writing
 spotlight	n	tâm điểm chú ý	C1	media	topic	reading
-sprawl	v	lan rộng, nằm dài	C2	society	academic	reading
-sprout	v	nảy mầm	C2	environment	academic	reading
+sprawl	v	lan rộng, nằm dài	C1	society	academic	reading	octanove-vocabulary-profile-1.0
+sprout	v	nảy mầm	C1	environment	academic	reading	octanove-vocabulary-profile-1.0
 spur	v	thúc đẩy	C1	economics	academic	writing
-stability	n	sự ổn định	C1	politics	academic	writing
-stake	n	cổ phần; mối quan tâm	C1	economics	academic	reading
+stability	n	sự ổn định	C1	politics	academic	writing	oxford-3000-5000
+stake	n	cổ phần; mối quan tâm	C1	economics	academic	reading	oxford-3000-5000
 staple	adj	chủ yếu, thiết yếu	C2	economics	academic	reading
-stem	v	bắt nguồn từ	C1	academic	academic	writing
+stem	v	bắt nguồn từ	C1	academic	academic	writing	oxford-3000-5000
 steward	n	người quản lý, tiếp viên	C2	work	topic	reading
-strain	n	áp lực, sự căng thẳng	C1	health	academic	reading
+strain	n	áp lực, sự căng thẳng	C1	health	academic	reading	oxford-3000-5000
 strategic	adj	chiến lược	C1	economics	academic	writing
 streamline	v	tinh giản, hợp lý hóa	C2	work	academic	reading
 stride	n	bước tiến dài	C2	academic	academic	reading
 strife	n	xung đột, bất hòa	C2	society	academic	reading
 stroll	v	đi dạo	C1	daily-life	topic	reading
 structural	adj	thuộc cấu trúc	C1	academic	academic	reading
-stumble	v	vấp ngã; tình cờ gặp	C1	daily-life	academic	reading
+stumble	v	vấp ngã; tình cờ gặp	C1	daily-life	academic	reading	oxford-3000-5000
 substitute	v	thay thế	C1	economics	academic	reading
-summit	n	hội nghị thượng đỉnh; đỉnh	C1	politics	topic	reading
-tactic	n	chiến thuật	C1	politics	academic	reading
-tease	v	trêu chọc	C1	psychology	topic	reading
-toll	n	số người chết; phí đường	C2	environment	academic	reading
+summit	n	hội nghị thượng đỉnh; đỉnh	C1	politics	topic	reading	oxford-3000-5000
+tactic	n	chiến thuật	C1	politics	academic	reading	oxford-3000-5000
+tease	v	trêu chọc	B2	psychology	topic	reading	cefrj-vocabulary-profile-1.5
+toll	n	số người chết; phí đường	C1	environment	academic	reading	oxford-3000-5000
 trace	v	truy tìm, lần theo	C1	academic	academic	reading
-triumph	n	chiến thắng vẻ vang	C1	culture	academic	writing
-trivial	adj	tầm thường, vụn vặt	C1	academic	academic	reading
+triumph	n	chiến thắng vẻ vang	C1	culture	academic	writing	oxford-3000-5000
+trivial	adj	tầm thường, vụn vặt	B2	academic	academic	reading	cefrj-vocabulary-profile-1.5
 unanimous	adj	nhất trí	C1	politics	academic	reading
 uniform	n	đồng phục	B1	education	core	reading
-unify	v	thống nhất	C1	politics	academic	reading
+unify	v	thống nhất	C1	politics	academic	reading	oxford-3000-5000
 uproar	n	sự náo động, phản đối dữ dội	C2	society	academic	reading
-urge	v	thúc giục, kêu gọi	C1	media	academic	writing
-vacant	adj	trống, không có người	C1	work	topic	reading
+urge	v	thúc giục, kêu gọi	B2	media	academic	writing	oxford-3000-5000
+vacant	adj	trống, không có người	B2	work	topic	reading	cefrj-vocabulary-profile-1.5
 vendor	n	người bán hàng	C2	economics	topic	reading
-venture	n	dự án mạo hiểm	C1	economics	topic	reading
+venture	n	dự án mạo hiểm	C1	economics	topic	reading	oxford-3000-5000
 vibrant	adj	sôi động, rực rỡ	C1	culture	academic	writing
 vigilant	adj	cảnh giác	C2	health	academic	reading
-virtue	n	đức hạnh, ưu điểm	C1	academic	academic	writing
+virtue	n	đức hạnh, ưu điểm	C1	academic	academic	writing	oxford-3000-5000
 vocation	n	thiên hướng nghề nghiệp	C2	work	academic	reading
-vow	v	thề nguyện	C2	society	academic	reading
-warrant	v	biện minh cho	C2	law	academic	reading
-weary	adj	mệt mỏi	C1	health	academic	reading
+vow	v	thề nguyện	C1	society	academic	reading	oxford-3000-5000
+warrant	v	biện minh cho	C1	law	academic	reading	oxford-3000-5000
+weary	adj	mệt mỏi	B2	health	academic	reading	cefrj-vocabulary-profile-1.5
 wholesome	adj	lành mạnh, bổ ích	C2	health	academic	reading
 wield	v	vung, nắm giữ (quyền lực)	C2	politics	academic	reading
 wreck	v	làm đắm, phá hỏng	C2	environment	academic	reading

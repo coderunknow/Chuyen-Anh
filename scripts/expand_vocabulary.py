@@ -68,6 +68,12 @@ DEFAULT_MARKDOWN = ROOT / "Learned_Vocabulary_List.md"
 SEED_DIR = ROOT / "data" / "vocab-seed"
 LEGACY_COUNT = 913
 SEED_HEADER = ("word", "pos", "meaning", "level", "topic", "type", "skills")
+# Optional eighth cell: the reference work that states this level. An empty cell
+# keeps the historical default, `level-source:editorial` (an estimate). Writing the
+# source here is what lets a row claim a published level without the claim drifting
+# away from the file that produced it.
+SEED_OPTIONAL = ("level_source",)
+EDITORIAL = "editorial"
 LEVELS = {"B1", "B2", "C1", "C2"}
 TYPES = {"academic", "word-formation", "confusable", "topic", "core", "linker"}
 SKILLS = {"reading", "word-formation", "cloze", "sentence-transformation", "writing", "grammar"}
@@ -183,9 +189,11 @@ def read_seeds(directory: Path = SEED_DIR) -> list[dict[str, Any]]:
             if not line.strip() or line.lstrip().startswith("#"):
                 continue
             cells = line.split("\t")
-            if len(cells) != len(SEED_HEADER):
-                raise ValueError(f"{path.name}:{number}: expected {len(SEED_HEADER)} cells, found {len(cells)}")
-            row = dict(zip(SEED_HEADER, (cell.strip() for cell in cells)))
+            if len(cells) not in (len(SEED_HEADER), len(SEED_HEADER) + len(SEED_OPTIONAL)):
+                raise ValueError(f"{path.name}:{number}: expected {len(SEED_HEADER)} cells "
+                                 f"(+ optional {', '.join(SEED_OPTIONAL)}), found {len(cells)}")
+            row = dict(zip(SEED_HEADER, (cell.strip() for cell in cells[:len(SEED_HEADER)])))
+            row["level_source"] = (cells[len(SEED_HEADER)].strip() if len(cells) > len(SEED_HEADER) else "") or EDITORIAL
             missing = [field for field in SEED_HEADER if not row[field]]
             if missing:
                 raise ValueError(f"{path.name}:{number}: empty field(s) {missing}")
@@ -207,7 +215,7 @@ def read_seeds(directory: Path = SEED_DIR) -> list[dict[str, Any]]:
 def seed_tags(seed: dict[str, Any], evidence: str) -> list[str]:
     tags = [
         f"level:{seed['level']}",
-        "level-source:editorial",
+        f"level-source:{seed.get('level_source') or EDITORIAL}",
         f"topic:{seed['topic']}",
         f"type:{seed['type']}",
         f"source:{evidence}",

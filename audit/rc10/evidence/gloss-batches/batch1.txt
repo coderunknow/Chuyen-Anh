@@ -1,0 +1,238 @@
+found	thành lập, sáng lập	academic
+known	đã biết, nổi tiếng	academic
+supply	cung cấp	economics
+worth	giá trị	society
+extent	mức độ, phạm vi	academic
+failed	thất bại	academic
+pronounced	rõ rệt	academic
+advance	sự tiến bộ	science
+transcript	bản ghi, bảng điểm	education
+long-term	dài hạn	economics
+rely	dựa vào, phụ thuộc	academic
+construction	sự xây dựng	society
+well-being	sự khỏe mạnh, an sinh	health
+consequently	do đó	academic
+contribute	đóng góp	society
+numerous	nhiều, đông đảo	academic
+western	phương Tây	culture
+willing	sẵn lòng	psychology
+promotion	sự thăng tiến, quảng bá	work
+significantly	một cách đáng kể	academic
+stick	cái gậy	environment
+industrial	thuộc công nghiệp	economics
+treat	đối xử, điều trị	health
+urban	thuộc đô thị	society
+standing	lâu đời, thường trực	society
+consideration	sự cân nhắc	academic
+desire	khao khát	psychology
+oxygen	ô-xy	science
+excessive	quá mức	health
+multiple	nhiều, đa dạng	academic
+spite	ác ý	psychology
+efficiency	hiệu quả	economics
+accuracy	độ chính xác	science
+considerably	đáng kể	academic
+criticism	sự chỉ trích	media
+intense	mãnh liệt	psychology
+mass	khối lượng, đám đông	science
+vary	thay đổi, khác nhau	academic
+vision	tầm nhìn, thị lực	health
+broad	rộng lớn	academic
+council	hội đồng	politics
+hearing	phiên điều trần, thính giác	law
+outstanding	xuất sắc	academic
+precious	quý giá	environment
+sophisticated	tinh vi, phức tạp	technology
+identification	sự nhận dạng, sự đồng nhất	academic
+capture	nắm bắt, ghi lại	media
+diversity	sự đa dạng	environment
+extend	mở rộng	academic
+master	ông chủ, thầy	work
+mine	mỏ (khoáng sản)	economics
+pace	tốc độ, nhịp độ	academic
+priority	sự ưu tiên	work
+resist	chống lại, kháng cự	society
+specifically	cụ thể là	academic
+suffering	sự đau khổ	psychology
+conserve	bảo tồn	environment
+equal	người ngang bằng	society
+hidden	ẩn giấu	academic
+innovative	đổi mới, sáng tạo	technology
+interact	tương tác	society
+isolated	bị cô lập	society
+modest	khiêm tốn, vừa phải	psychology
+origin	nguồn gốc	science
+complexity	tính phức tạp	academic
+interactive	mang tính tương tác	technology
+varied	đa dạng	academic
+altogether	hoàn toàn, tổng cộng	academic
+crisis	cuộc khủng hoảng	economics
+dependent	phụ thuộc	society
+evolution	sự tiến hóa	science
+mixed	hỗn hợp, lẫn lộn	academic
+motivated	có động lực	psychology
+perception	sự nhận thức	psychology
+proven	đã được chứng minh	science
+shaped	có hình dạng	academic
+so-called	cái gọi là	media
+universal	phổ quát, toàn cầu	culture
+countless	vô số	academic
+cutting	đoạn cắt, bài báo cắt	media
+endless	không dứt, vô tận	academic
+grounds	lý do, căn cứ	law
+insufficient	không đủ	academic
+maintenance	sự bảo trì, duy trì	technology
+afterwards	sau đó	academic
+battle	chiến đấu	society
+client	khách hàng	economics
+command	mệnh lệnh, sự chỉ huy	law
+expense	chi phí	economics
+hay	cỏ khô	environment
+plus	điểm cộng	academic
+possess	sở hữu	economics
+visual	thuộc thị giác	media
+exploitation	sự bóc lột, khai thác	society
+inappropriate	không thích hợp	society
+transformation	sự chuyển đổi	society
+underlying	cơ bản, ẩn bên dưới	academic
+amusing	thú vị, buồn cười	culture
+blind	mù, không nhận thức	health
+chief	chính, chủ yếu	work
+demonstration	sự trình diễn, cuộc biểu tình	society
+determination	sự quyết tâm	psychology
+exhibit	trưng bày	culture
+grand	hoành tráng	culture
+inhabit	cư trú	environment
+mess	làm bừa bộn	daily-life
+motivate	thúc đẩy, tạo động lực	psychology
+participation	sự tham gia	society
+prime	hàng đầu, chính	academic
+teens	tuổi thiếu niên	family
+threaten	đe dọa	society
+appreciation	sự trân trọng	culture
+clarity	sự rõ ràng	academic
+dedication	sự tận tụy	psychology
+irrelevant	không liên quan	academic
+situated	tọa lạc	travel
+cancer	bệnh ung thư	health
+disappointment	sự thất vọng	psychology
+dominant	chiếm ưu thế	society
+emphasis	sự nhấn mạnh	academic
+era	kỷ nguyên	culture
+expansion	sự mở rộng	economics
+expose	phơi bày, tiếp xúc	media
+interpretation	sự diễn giải	academic
+minister	bộ trưởng	politics
+mount	tăng lên, leo	academic
+outer	bên ngoài	science
+shocked	bị sốc	psychology
+evolutionary	thuộc tiến hóa	science
+flexibility	tính linh hoạt	work
+nest	tổ (chim)	environment
+productive	năng suất, hiệu quả	work
+tolerate	chịu đựng, bao dung	society
+willingness	sự sẵn lòng	psychology
+disorder	sự rối loạn	health
+equivalent	tương đương	academic
+forecast	dự báo	economics
+fund	quỹ	economics
+irritated	bực bội	psychology
+medium	phương tiện, môi trường	media
+necessity	sự cần thiết	academic
+secure	đảm bảo, giành được	economics
+specialist	chuyên gia	work
+universe	vũ trụ	science
+upper	phía trên, cao hơn	academic
+academy	học viện	education
+accustomed	quen với	psychology
+affection	sự yêu mến	psychology
+caution	sự thận trọng	psychology
+excess	sự dư thừa	health
+inadequate	không thỏa đáng	academic
+intensity	cường độ	science
+addicted	nghiện	health
+assumption	giả định	academic
+bet	cá cược	psychology
+controversy	sự tranh cãi	media
+hunger	nạn đói, cơn đói	society
+incident	sự cố, vụ việc	society
+incorrect	không chính xác	academic
+ineffective	không hiệu quả	academic
+striking	nổi bật	academic
+stunning	choáng ngợp, tuyệt đẹp	culture
+thesis	luận văn, luận điểm	education
+transfer	chuyển giao	work
+unchanged	không thay đổi	academic
+unreliable	không đáng tin	academic
+cling	bám chặt	psychology
+competence	năng lực	work
+distinction	sự khác biệt	academic
+frustration	sự thất vọng, bế tắc	psychology
+indicator	chỉ số	economics
+initiate	khởi xướng	work
+large-scale	quy mô lớn	economics
+reverse	đảo ngược	science
+stimuli	các kích thích	psychology
+strategic	chiến lược	work
+whatsoever	dù bất kỳ	academic
+corporation	tập đoàn	economics
+disabled	khuyết tật	health
+district	quận, huyện	society
+edition	ấn bản	media
+extension	sự mở rộng, phần mở rộng	academic
+fighting	giao tranh, chiến đấu	society
+helicopter	máy bay trực thăng	technology
+homeless	vô gia cư	society
+hunt	cuộc đi săn	environment
+mission	sứ mệnh	work
+motor	động cơ	technology
+panel	ban hội thẩm, bảng điều khiển	media
+pure	tinh khiết	science
+regulation	quy định	law
+sharp	đúng giờ, sắc bén	daily-life
+ultimate	tối hậu, cuối cùng	academic
+unaware	không biết, không nhận ra	psychology
+temper	làm dịu, tôi luyện	psychology
+accountable	có trách nhiệm giải trình	law
+adaptation	sự thích nghi	science
+commerce	thương mại	economics
+decision-making	việc ra quyết định	work
+dispose	vứt bỏ, sắp đặt	environment
+intriguing	hấp dẫn, gợi tò mò	culture
+precision	độ chính xác	science
+psychiatrist	bác sĩ tâm thần	health
+reliability	độ tin cậy	technology
+sacred	thiêng liêng	culture
+shipping	việc vận chuyển	economics
+staggering	đáng kinh ngạc	economics
+trail	đường mòn, dấu vết	travel
+upcoming	sắp tới	media
+civil	thuộc dân sự	law
+economical	tiết kiệm	economics
+empire	đế chế	politics
+geographic	thuộc địa lý	science
+gum	lợi (răng), kẹo cao su	health
+mode	chế độ, phương thức	technology
+motion	chuyển động	science
+prestige	uy tín	society
+resolution	nghị quyết, sự quyết tâm	politics
+short-term	ngắn hạn	economics
+swift	nhanh chóng	academic
+trek	chuyến đi bộ đường dài	travel
+underneath	ở bên dưới	academic
+victory	chiến thắng	sport
+well-paid	được trả lương cao	work
+indulgence	sự nuông chiều	food
+anthropologist	nhà nhân học	science
+arena	đấu trường, sân vận động	sport
+backing	sự ủng hộ	economics
+clutter	sự bừa bộn	daily-life
+confide	tâm sự	psychology
+confirmation	sự xác nhận	academic
+consistency	tính nhất quán	academic
+conversion	sự chuyển đổi	science
+credibility	uy tín, độ tin cậy	media
+crystal	pha lê, tinh thể	science
+gear	thiết bị, dụng cụ	technology
+hatred	lòng căm thù	psychology
+high-profile	nổi bật, được chú ý	media

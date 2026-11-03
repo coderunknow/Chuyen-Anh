@@ -40,8 +40,10 @@ from vocabulary_curation import (  # noqa: E402
     LEGACY_ROW_LIMIT,
     category_of,
     is_archived,
+    load_frozen,
     load_spec,
     matched_rows,
+    resolve_decisions,
 )
 
 VOCAB_MD = ROOT / "Learned_Vocabulary_List.md"
@@ -107,12 +109,25 @@ def family_head(row: dict[str, Any]) -> str:
 def classify(rows: list[dict[str, Any]], spec: dict[str, Any]) -> dict[str, Any]:
     """Return the audit report as a dictionary (no file writes)."""
     tokens = curriculum_tokens()
-    decisions, problems = matched_rows(rows, spec, seed_origin_map())
+    # Replay the *applied* decisions (frozen per row ID), not the rules' live
+    # proposals: a proposal that a curator has not accepted has not changed the
+    # deck, and counting it here would report drift that does not exist.
+    resolved = resolve_decisions(rows, spec, seed_origin_map(), load_frozen())
+    problems = resolved["problems"]
+    proposals = resolved["pendingReview"]
+    # resolve_decisions keys by row ID (that is the frozen key); this audit compares
+    # against the table by normalised word, so re-key without losing the record.
+    by_id = {str(row["id"]): row for row in rows}
+    decisions = {word_key(by_id[row_id]["word"]): decision
+                 for row_id, decision in resolved["archived"].items() if row_id in by_id}
     by_key = {word_key(row["word"]): row for row in rows}
 
     stored = {key: row for key, row in by_key.items() if is_archived(row.get("tags"))}
     drift_missing = sorted(decisions[key]["word"] for key in set(decisions) - set(stored))
     drift_extra = sorted(stored[key]["word"] for key in set(stored) - set(decisions))
+    pending_review = sorted(
+        ({"id": item["id"], "word": item["word"], "category": item["category"],
+          "reason": item["reason"]} for item in proposals), key=lambda item: int(item["id"]))
     drift_category = sorted(
         decision["word"]
         for key, decision in decisions.items()
@@ -131,7 +146,14 @@ def classify(rows: list[dict[str, Any]], spec: dict[str, Any]) -> dict[str, Any]
     curriculum_hits = 0
     curriculum_focus: list[dict[str, Any]] = []
     curriculum_archived = 0
+    # A row that a rule newly proposes for archival, but whose deck membership is
+    # frozen, is not an unexplained retention: it is a curation decision waiting on
+    # a curator. Reporting it as `unexplained` blamed the data for a deliberate
+    # policy choice, which is exactly the confusion the frozen decision file exists
+    # to end.
+    pending_review_words = {word_key(item["word"]) for item in proposals}
     unexplained: list[dict[str, Any]] = []
+    pending_curation: list[dict[str, Any]] = []
     for row in heads:
         token = tokens.get(word_key(row["word"]))
         if not token:
@@ -151,7 +173,15 @@ def classify(rows: list[dict[str, Any]], spec: dict[str, Any]) -> dict[str, Any]
         }
         curriculum_focus.append(record)
         if level in CURRICULUM_LEVELS and not is_family_root(row):
-            unexplained.append(record)
+            if word_key(row["word"]) in pending_review_words:
+                pending_curation.append({
+                    **record,
+                    "reason": ("the row now meets a curation rule at its attested level, but deck "
+                               "membership is a frozen decision; queued for a curator instead of "
+                               "being archived by a level change"),
+                })
+            else:
+                unexplained.append(record)
 
     for record in unexplained:
         review.append({
@@ -233,6 +263,9 @@ def classify(rows: list[dict[str, Any]], spec: dict[str, Any]) -> dict[str, Any]
             "extra": drift_extra,
             "categoryMismatch": drift_category,
             "problems": problems,
+            "frozen": load_frozen() is not None,
+            "pendingReview": pending_review,
+            "pendingReviewCount": len(pending_review),
             "reconciled": not (drift_missing or drift_extra or drift_category or problems),
         },
         "curriculum": {
@@ -241,6 +274,7 @@ def classify(rows: list[dict[str, Any]], spec: dict[str, Any]) -> dict[str, Any]
             "inFocus": len(curriculum_focus),
             "excluded": curriculum_archived,
             "unexplained": unexplained,
+            "pendingCurationReview": pending_curation,
             "focusRows": curriculum_focus,
         },
         "categories": dict(sorted(archived_mix.items())),
@@ -300,7 +334,8 @@ def render_markdown(report: dict[str, Any]) -> str:
     add("")
     add(f"`docs/vocabulary-curation.json` was replayed through the shipping engine "
         f"(`scripts/vocabulary_curation.matched_rows`) against the Markdown table: **{replay['decisions']:,} decisions**, "
-        f"**{replay['stored']:,} stored archived rows**.")
+        f"**{replay['stored']:,} stored archived rows**; **{replay.get('pendingReviewCount', 0):,}** "
+        f"row(s) newly meet a rule and are queued for a curation decision rather than acted on.")
     add("")
     if replay["reconciled"]:
         add("**Result: reconciled.** No row is tagged archived without a policy decision, no decision is missing a tag, "

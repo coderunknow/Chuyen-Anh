@@ -1,0 +1,113 @@
+{
+  "capturedAt": "2026-11-02",
+  "head": "c427be25c9beb61d43a11a299097c1071cae7537",
+  "defaultBranch": {
+    "name": "main",
+    "sha": "c427be25c9beb61d43a11a299097c1071cae7537"
+  },
+  "appVersion": "v1.0.0-rc9",
+  "files": {
+    "data/vocabulary.json": {
+      "sha256": "dc3a646f042fec3b9bf86905efb5220c0155d538b04a742fe217adad62b66f63",
+      "bytes": 4972549
+    },
+    "data/phrases.json": {
+      "sha256": "8ac412e710e6c6691bf5ef67ecc09752c6f09a86e8b2dce8e31e975083ca7dad",
+      "bytes": 575198
+    },
+    "index.html": {
+      "sha256": "f49f8b6e8916b924d398f143581d9073f8516a47f93193e9e77ba42ae7cf7a8d",
+      "bytes": 17108221
+    },
+    "Learned_Vocabulary_List.md": {
+      "sha256": "4dceeea0e5fb4cbc814697016c061c9a5e981ab467356a7b4f87894de923cb32",
+      "bytes": 2796250
+    },
+    "Learned_Phrase_List.md": {
+      "sha256": "63d2be7fcc501e0676819fa6650c4e5dd862d2533284b0c2a33604e73a2db6e4",
+      "bytes": 382131
+    }
+  },
+  "vocabulary": {
+    "rows": 5852,
+    "uniqueNormalizedWords": 5852,
+    "familyMergedRows": 740,
+    "activeHeadwords": 5112,
+    "idRange": [
+      1,
+      5852
+    ],
+    "cefr": {
+      "UNCLASSIFIED": 913,
+      "B1": 1104,
+      "B2": 1227,
+      "C1": 1833,
+      "C2": 775
+    },
+    "pos": {
+      "n": 3135,
+      "adj": 1314,
+      "v": 1018,
+      "adv": 237,
+      "v/n": 26,
+      "idiom": 24,
+      "n/v": 19,
+      "adj/n": 16,
+      "prep": 14,
+      "phrasal v": 13,
+      "collocation": 9,
+      "conj": 7,
+      "v/adj": 4,
+      "n/adj": 4,
+      "phrase": 3,
+      "adj/v": 2,
+      "grammar": 2,
+      "prep phrase": 2,
+      "pron": 2,
+      "adj/n/v": 1
+    },
+    "missingFields": {
+      "word": 0,
+      "pos": 0,
+      "meaning": 0,
+      "id": 0
+    }
+  },
+  "phrases": {
+    "rows": 780,
+    "idRange": [
+      "P001",
+      "P780"
+    ],
+    "cefr": {
+      "B1": 112,
+      "B2": 301,
+      "C1": 288,
+      "C2": 79
+    },
+    "types": {
+      "phrasal-verb": 184,
+      "idiom": 133,
+      "collocation": 192,
+      "dependent-preposition": 105,
+      "linker-phrase": 90,
+      "pattern": 76
+    }
+  },
+  "storageKeys": [
+    "chuyen-anh.progress.v1",
+    "chuyen-anh.prefs.v1",
+    "chuyen-anh.favorites.v1",
+    "chuyen-anh.history.v1",
+    "chuyen-anh.streak.v1",
+    "chuyen-anh.language.v1",
+    "chuyen-anh.study.v1",
+    "chuyen-anh.flagged.v1",
+    "chuyen-anh.theme.v1",
+    "chuyen-anh.badges.v1",
+    "chuyen-anh.cefr.v1",
+    "chuyen-anh.phrases.v1",
+    "chuyen-anh.presentation.v1",
+    "chuyen-anh.exam-results.v1"
+  ]
+}

@@ -17,21 +17,21 @@ ancient	adj	cổ đại, xa xưa	B2	culture	topic	reading
 animal	n	động vật	B1	environment	core	reading
 appear	v	xuất hiện, có vẻ	B1	daily-life	core	reading
 appreciate	v	trân trọng, cảm kích	B2	society	core	writing
-approach	n	cách tiếp cận	B2	academic	academic	writing
+approach	n	cách tiếp cận	B2	academic	academic	writing	oxford-3000-5000
 area	n	khu vực, lĩnh vực	B1	daily-life	core	reading
 argue	v	tranh luận, lập luận	B2	society	academic	writing
 argument	n	lập luận, cuộc tranh cãi	B2	academic	academic	writing
 arrive	v	đến nơi	B1	travel	core	grammar
 article	n	bài báo	B1	media	core	reading
 attention	n	sự chú ý	B1	education	core	reading
-attitude	n	thái độ	B2	psychology	topic	reading
-attract	v	thu hút	B2	society	academic	reading
+attitude	n	thái độ	B1	psychology	topic	reading	oxford-3000-5000
+attract	v	thu hút	B1	society	academic	reading	oxford-3000-5000
 audience	n	khán giả, người nghe	B1	media	topic	reading
 author	n	tác giả	B1	media	core	reading
 average	adj	trung bình	B2	science	academic	reading
 avoid	v	tránh	B1	health	core	reading,writing
 aware	adj	nhận thức được	B2	psychology	academic	reading
-balance	n	sự cân bằng	B2	daily-life	core	writing
+balance	n	sự cân bằng	B1	daily-life	core	writing	oxford-3000-5000
 beautiful	adj	đẹp	B1	daily-life	core	reading
 begin	v	bắt đầu	B1	daily-life	core	grammar
 behaviour	n	hành vi, cách cư xử	B2	psychology	academic	reading
@@ -64,11 +64,11 @@ compare	v	so sánh	B2	academic	academic	writing
 complex	adj	phức tạp	B2	academic	academic	reading
 computer	n	máy tính	B1	technology	core	reading
 condition	n	điều kiện, tình trạng	B2	science	academic	reading
-confidence	n	sự tự tin	B2	psychology	topic	writing
-confident	adj	tự tin	B2	psychology	topic	writing
+confidence	n	sự tự tin	B2	psychology	topic	writing	oxford-3000-5000
+confident	adj	tự tin	B1	psychology	topic	writing	oxford-3000-5000
 consider	v	xem xét, cân nhắc	B2	academic	academic	writing
-contact	n	sự liên lạc	B1	work	core	reading
-content	n	nội dung	B2	media	academic	reading
+contact	n	sự liên lạc	B1	work	core	reading	oxford-3000-5000
+content	n	nội dung	B1	media	academic	reading	oxford-3000-5000
 continue	v	tiếp tục	B1	daily-life	core	reading
 control	n	sự kiểm soát	B2	society	academic	reading
 conversation	n	cuộc trò chuyện	B1	daily-life	core	reading
@@ -77,29 +77,29 @@ country	n	quốc gia, đất nước	B1	society	core	reading
 course	n	khóa học	B1	education	core	reading
 create	v	tạo ra	B1	academic	core	writing
 culture	n	văn hóa	B2	culture	topic	reading
-current	adj	hiện tại	B2	media	academic	reading
+current	adj	hiện tại	B1	media	academic	reading	oxford-3000-5000
 customer	n	khách hàng	B2	economics	topic	reading
 daily	adj	hằng ngày	B1	daily-life	core	reading
 danger	n	mối nguy hiểm	B1	health	core	reading
 dangerous	adj	nguy hiểm	B1	health	core	reading
 data	n	dữ liệu	B2	science	academic	reading
-deal	n	thỏa thuận	B2	economics	core	reading
+deal	n	thỏa thuận	B1	economics	core	reading	oxford-3000-5000
 decide	v	quyết định	B1	daily-life	core	reading
 decision	n	quyết định	B2	daily-life	core	reading,writing
 deep	adj	sâu	B1	science	core	reading
 demand	n	nhu cầu	B2	economics	academic	reading
 design	n	thiết kế	B2	technology	topic	reading
 develop	v	phát triển	B2	society	academic	writing
-development	n	sự phát triển	B2	society	academic	writing
+development	n	sự phát triển	B1	society	academic	writing	oxford-3000-5000
 difference	n	sự khác biệt	B1	society	core	reading
 different	adj	khác nhau	B1	daily-life	core	reading
 difficult	adj	khó	B1	education	core	reading
-difficulty	n	khó khăn	B2	education	core	reading
+difficulty	n	khó khăn	B1	education	core	reading	oxford-3000-5000
 diet	n	chế độ ăn	B2	health	topic	reading
 direct	adj	trực tiếp	B2	media	academic	reading
 discuss	v	thảo luận	B2	education	academic	writing
 disease	n	bệnh	B2	health	topic	reading
-doubt	n	nghi ngờ	B2	psychology	academic	reading
+doubt	n	nghi ngờ	B1	psychology	academic	reading	oxford-3000-5000
 drink	v	uống	B1	health	core	reading
 drive	v	lái xe	B1	travel	core	reading
 early	adj	sớm	B1	daily-life	core	reading
@@ -110,12 +110,12 @@ economic	adj	thuộc kinh tế	B2	economics	academic	reading
 economy	n	nền kinh tế	B2	economics	topic	reading
 education	n	giáo dục	B1	education	topic	reading,writing
 effect	n	tác động, hiệu ứng	B2	academic	academic	writing
-effective	adj	hiệu quả	B2	academic	academic	writing
+effective	adj	hiệu quả	B1	academic	academic	writing	oxford-3000-5000
 efficient	adj	hiệu suất cao	B2	technology	academic	reading
-effort	n	nỗ lực	B2	daily-life	core	reading
+effort	n	nỗ lực	B1	daily-life	core	reading	oxford-3000-5000
 electricity	n	điện	B2	technology	topic	reading
-emotional	adj	thuộc cảm xúc	B2	psychology	topic	writing
-encourage	v	khuyến khích	B2	education	academic	writing
+emotional	adj	thuộc cảm xúc	B2	psychology	topic	writing	oxford-3000-5000
+encourage	v	khuyến khích	B1	education	academic	writing	oxford-3000-5000
 energy	n	năng lượng	B1	environment	topic	reading
 enjoy	v	thưởng thức, thích	B1	daily-life	core	reading
 ensure	v	bảo đảm	B2	academic	academic	writing
@@ -123,7 +123,7 @@ environment	n	môi trường	B1	environment	topic	reading,writing
 equipment	n	thiết bị	B2	technology	topic	reading
 error	n	lỗi	B2	academic	academic	reading
 essay	n	bài luận	B2	education	topic	writing
-essential	adj	thiết yếu	B2	academic	academic	writing
+essential	adj	thiết yếu	B1	academic	academic	writing	oxford-3000-5000
 event	n	sự kiện	B1	society	core	reading
 everyday	adj	thông thường, hằng ngày	B2	daily-life	core	writing
 evidence	n	bằng chứng	B2	academic	academic	reading,writing
@@ -135,7 +135,7 @@ experience	n	kinh nghiệm, trải nghiệm	B2	work	core	writing
 explain	v	giải thích	B2	education	academic	writing
 expression	n	cách diễn đạt	B2	academic	academic	writing
 extreme	adj	cực đoan, cực độ	B2	society	academic	reading
-face	v	đối mặt	B2	psychology	core	writing
+face	v	đối mặt	B1	psychology	core	writing	oxford-3000-5000
 fact	n	sự thật, dữ kiện	B1	academic	core	reading
 fail	v	thất bại	B2	education	core	reading
 failure	n	sự thất bại	B2	education	academic	writing
@@ -163,11 +163,11 @@ future	n	tương lai	B1	society	core	reading
 game	n	trò chơi	B1	daily-life	core	reading
 general	adj	chung, tổng quát	B2	academic	academic	reading
 generation	n	thế hệ	B2	society	topic	reading
-global	adj	toàn cầu	B2	environment	academic	reading
+global	adj	toàn cầu	B1	environment	academic	reading	oxford-3000-5000
 goal	n	mục tiêu	B1	education	core	writing
 government	n	chính phủ	B2	politics	topic	reading
 grow	v	phát triển, trồng	B1	environment	core	reading
-growth	n	sự tăng trưởng	B2	economics	academic	reading
+growth	n	sự tăng trưởng	B1	economics	academic	reading	oxford-3000-5000
 habit	n	thói quen	B2	psychology	topic	reading
 happy	adj	vui vẻ	B1	daily-life	core	reading
 health	n	sức khỏe	B1	health	topic	reading,writing
@@ -190,14 +190,14 @@ improve	v	cải thiện	B1	education	core	writing
 increase	v	tăng lên	B1	economics	core	reading,writing
 individual	n	cá nhân	B2	society	academic	writing
 industry	n	ngành công nghiệp	B2	economics	topic	reading
-influence	n	ảnh hưởng	B2	society	academic	writing
+influence	n	ảnh hưởng	B1	society	academic	writing	oxford-3000-5000
 information	n	thông tin	B1	media	core	reading
 interest	n	sự quan tâm	B1	daily-life	core	reading
 interesting	adj	thú vị	B1	daily-life	core	reading
 international	adj	quốc tế	B2	politics	academic	reading
 internet	n	internet	B1	technology	core	reading
 interview	n	cuộc phỏng vấn	B2	work	topic	reading
-issue	n	vấn đề	B2	society	academic	writing
+issue	n	vấn đề	B1	society	academic	writing	oxford-3000-5000
 job	n	công việc	B1	work	core	reading
 journey	n	hành trình	B2	travel	topic	reading
 keep	v	giữ	B1	daily-life	core	reading
@@ -215,7 +215,7 @@ level	n	mức độ, trình độ	B2	education	academic	reading
 life	n	cuộc sống	B1	daily-life	core	reading
 light	n	ánh sáng	B1	science	core	reading
 likely	adj	có khả năng xảy ra	B2	academic	academic	reading
-limited	adj	hạn chế	B2	economics	academic	reading
+limited	adj	hạn chế	B2	economics	academic	reading	oxford-3000-5000
 line	n	dòng, đường	B1	academic	core	reading
 live	v	sống	B1	daily-life	core	reading
 local	adj	địa phương	B2	society	topic	reading
@@ -229,19 +229,19 @@ main	adj	chính	B2	academic	academic	reading
 major	adj	lớn, quan trọng	B2	academic	academic	reading
 make	v	làm, tạo	B1	daily-life	core	reading
 manage	v	quản lý, xoay xở	B2	work	academic	reading
-management	n	sự quản lý	B2	work	topic	reading,writing
+management	n	sự quản lý	B1	work	topic	reading,writing	oxford-3000-5000
 manager	n	người quản lý	B1	work	core	reading
 market	n	thị trường	B2	economics	topic	reading
 material	n	vật liệu, tài liệu	B2	science	academic	reading
 matter	n	vấn đề, chuyện	B2	academic	academic	reading
 mean	v	nghĩa là	B1	daily-life	core	reading
 meaning	n	ý nghĩa	B1	culture	core	reading
-measure	v	đo lường	B2	science	academic	reading
+measure	v	đo lường	B1	science	academic	reading	oxford-3000-5000
 media	n	truyền thông	B2	media	topic	reading,writing
 medical	adj	thuộc y tế	B2	health	topic	reading
 meeting	n	cuộc họp	B1	work	core	reading
 memory	n	trí nhớ	B2	psychology	topic	reading
-mental	adj	thuộc tinh thần	B2	health	academic	reading
+mental	adj	thuộc tinh thần	B1	health	academic	reading	oxford-3000-5000
 method	n	phương pháp	B2	academic	academic	reading,writing
 middle	adj	ở giữa	B1	daily-life	core	reading
 mind	n	tâm trí	B2	psychology	topic	reading
@@ -265,7 +265,7 @@ news	n	tin tức	B1	media	core	reading
 night	n	đêm	B1	daily-life	core	reading
 normal	adj	bình thường	B1	daily-life	core	reading
 note	n	ghi chú	B2	academic	academic	reading
-nowadays	adv	ngày nay	B2	society	academic	writing
+nowadays	adv	ngày nay	B2	society	academic	writing	oxford-3000-5000
 number	n	con số	B1	academic	core	reading
 offer	v	đề nghị, cung cấp	B2	economics	core	reading
 office	n	văn phòng	B1	work	core	reading
@@ -289,8 +289,8 @@ pass	v	vượt qua, chuyển	B2	education	core	reading
 past	n	quá khứ	B1	culture	core	reading
 pattern	n	kiểu mẫu, mô hình	B2	science	academic	reading
 people	n	người, mọi người	B1	society	core	reading
-percent	n	phần trăm	B2	economics	academic	reading
-performance	n	hiệu suất, phần trình diễn	B2	work	academic	reading
+percent	n	phần trăm	B1	economics	academic	reading	cefrj-vocabulary-profile-1.5
+performance	n	hiệu suất, phần trình diễn	B1	work	academic	reading	oxford-3000-5000
 period	n	khoảng thời gian, thời kỳ	B2	academic	academic	reading
 person	n	người	B1	daily-life	core	reading
 personal	adj	cá nhân	B2	daily-life	core	writing
@@ -309,11 +309,11 @@ population	n	dân số	B2	society	topic	reading
 positive	adj	tích cực	B2	psychology	academic	reading
 possible	adj	có thể	B1	academic	core	reading
 power	n	sức mạnh, quyền lực	B2	politics	academic	reading
-practical	adj	thực tiễn	B2	academic	academic	writing
+practical	adj	thực tiễn	B1	academic	academic	writing	oxford-3000-5000
 practice	n	sự thực hành	B2	education	topic	reading
 prepare	v	chuẩn bị	B1	education	core	reading
 present	adj	hiện tại, có mặt	B2	academic	academic	writing
-pressure	n	áp lực	B2	psychology	topic	reading
+pressure	n	áp lực	B1	psychology	topic	reading	oxford-3000-5000
 prevent	v	ngăn ngừa	B2	health	academic	writing
 price	n	giá cả	B1	economics	core	reading
 problem	n	vấn đề	B1	academic	core	reading,writing
@@ -343,7 +343,7 @@ record	n	bản ghi, hồ sơ	B2	science	academic	reading
 reduce	v	làm giảm	B2	environment	academic	writing
 regular	adj	đều đặn, thường xuyên	B2	health	academic	reading
 relationship	n	mối quan hệ	B2	society	topic	writing
-remain	v	còn lại, duy trì	B2	academic	academic	reading
+remain	v	còn lại, duy trì	B1	academic	academic	reading	oxford-3000-5000
 remember	v	nhớ	B1	education	core	reading
 report	n	báo cáo	B2	media	academic	reading,writing
 research	n	nghiên cứu	B2	academic	academic	reading,writing
@@ -351,7 +351,7 @@ resource	n	nguồn lực, tài nguyên	B2	economics	academic	reading
 result	n	kết quả, điều thu được sau một quá trình	B1	academic	core	reading,writing
 return	v	trở lại	B1	travel	core	reading
 right	adj	đúng, phải	B1	daily-life	core	reading
-risk	n	rủi ro	B2	health	academic	reading
+risk	n	rủi ro	B1	health	academic	reading	oxford-3000-5000
 river	n	con sông	B1	environment	core	reading
 role	n	vai trò	B2	society	academic	writing
 room	n	căn phòng	B1	daily-life	core	reading
@@ -385,8 +385,8 @@ species	n	loài	B2	environment	topic	reading
 specific	adj	cụ thể	B2	academic	academic	writing
 speech	n	bài phát biểu	B2	media	academic	reading
 sport	n	thể thao	B1	sport	core	reading
-staff	n	nhân viên	B2	work	topic	reading
-standard	n	tiêu chuẩn	B2	academic	academic	reading
+staff	n	nhân viên	B1	work	topic	reading	oxford-3000-5000
+standard	n	tiêu chuẩn	B1	academic	academic	reading	oxford-3000-5000
 start	v	bắt đầu	B1	daily-life	core	reading
 state	n	bang, nhà nước	B2	politics	academic	reading
 statement	n	lời tuyên bố	B2	media	academic	reading
@@ -403,7 +403,7 @@ successful	adj	thành công	B2	work	academic	writing
 suggest	v	đề xuất	B2	academic	academic	writing
 summer	n	mùa hè	B1	daily-life	core	reading
 support	v	ủng hộ, hỗ trợ	B2	society	academic	writing
-surface	n	bề mặt	B2	science	academic	reading
+surface	n	bề mặt	B1	science	academic	reading	oxford-3000-5000
 system	n	hệ thống	B2	technology	academic	reading
 task	n	nhiệm vụ	B2	work	academic	reading
 teach	v	dạy	B1	education	core	reading
@@ -417,7 +417,7 @@ tell	v	kể, nói với	B1	daily-life	core	reading
 term	n	thuật ngữ, học kỳ	B2	education	academic	reading
 test	n	bài kiểm tra	B1	education	core	reading
 text	n	văn bản	B1	academic	core	reading
-theory	n	lý thuyết	B2	science	academic	reading
+theory	n	lý thuyết	B1	science	academic	reading	oxford-3000-5000
 thing	n	đồ vật, điều	B1	daily-life	core	reading
 think	v	nghĩ	B1	daily-life	core	reading
 threat	n	mối đe dọa	B2	environment	academic	reading
@@ -425,7 +425,7 @@ time	n	thời gian, lần	B1	daily-life	core	reading
 today	adv	hôm nay	B1	daily-life	core	reading
 together	adv	cùng nhau	B1	daily-life	core	reading
 topic	n	chủ đề	B2	education	academic	reading
-total	adj	tổng cộng	B2	economics	academic	reading
+total	adj	tổng cộng	B1	economics	academic	reading	oxford-3000-5000
 town	n	thị trấn	B1	society	core	reading
 traditional	adj	truyền thống	B2	culture	academic	reading
 training	n	việc đào tạo	B2	work	topic	reading
@@ -436,7 +436,7 @@ tree	n	cái cây	B1	environment	core	reading
 trip	n	chuyến đi	B1	travel	core	reading
 trouble	n	rắc rối	B1	daily-life	core	reading
 true	adj	đúng, thật	B1	academic	core	reading
-truth	n	sự thật	B2	academic	academic	writing
+truth	n	sự thật	B1	academic	academic	writing	oxford-3000-5000
 try	v	thử, cố gắng	B1	daily-life	core	reading
 turn	v	quay, chuyển	B1	daily-life	core	reading
 type	n	loại, kiểu	B2	academic	core	reading
@@ -445,16 +445,16 @@ understanding	n	sự hiểu biết	B2	education	academic	writing
 university	n	trường đại học	B1	education	core	reading
 useful	adj	hữu ích	B1	academic	core	writing
 usually	adv	thường	B1	daily-life	core	reading
-value	n	giá trị	B2	economics	academic	reading
+value	n	giá trị	B1	economics	academic	reading	oxford-3000-5000
 variety	n	sự đa dạng	B2	academic	academic	reading
-various	adj	nhiều loại, khác nhau	B2	academic	academic	writing
+various	adj	nhiều loại, khác nhau	B1	academic	academic	writing	oxford-3000-5000
 view	n	quan điểm, cảnh	B2	society	academic	writing
 visit	v	thăm, ghé	B1	travel	core	reading
 vocabulary	n	từ vựng	B2	education	topic	reading,writing
 wait	v	chờ đợi	B1	daily-life	core	reading
 walk	v	đi bộ	B1	daily-life	core	reading
 want	v	muốn	B1	daily-life	core	reading
-waste	n	chất thải, sự lãng phí	B2	environment	topic	reading
+waste	n	chất thải, sự lãng phí	B1	environment	topic	reading	oxford-3000-5000
 water	n	nước	B1	environment	core	reading
 watch	v	xem, theo dõi	B1	media	core	reading
 weather	n	thời tiết	B1	environment	core	reading
@@ -462,9 +462,9 @@ week	n	tuần	B1	daily-life	core	reading
 well	adv	tốt, giỏi	B1	daily-life	core	grammar
 whole	adj	toàn bộ	B2	academic	academic	reading
 wild	adj	hoang dã	B2	environment	topic	reading
-wildlife	n	động vật hoang dã	B2	environment	topic	reading
+wildlife	n	động vật hoang dã	B2	environment	topic	reading	oxford-3000-5000
 woman	n	người phụ nữ	B1	society	core	reading
-wonder	v	tự hỏi, thắc mắc	B1	daily-life	core	reading
+wonder	v	tự hỏi, thắc mắc	B1	daily-life	core	reading	oxford-3000-5000
 word	n	từ, chữ	B1	education	core	reading
 work	v	làm việc	B1	work	core	reading
 worker	n	người lao động	B1	work	core	reading

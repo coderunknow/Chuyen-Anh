@@ -18,6 +18,140 @@ const plan = JSON.parse(fs.readFileSync(path.join(root, 'scripts/exams/selection
 const vocabData = JSON.parse(fs.readFileSync(path.join(root, 'data/vocabulary.json'), 'utf8'));
 const phraseData = JSON.parse(fs.readFileSync(path.join(root, 'data/phrases.json'), 'utf8'));
 
+// The lexical indices below are evidence for *inferring* an answer key on a paper
+// whose own key is missing, so they must not drift when the teaching bank grows:
+// a word or phrase added to the vocabulary list last week says nothing about a
+// 2022 exam, and a larger bank must never make the inference look more confident.
+// `scripts/exams/inference-lexicon.json` is the reviewed boundary — the vocabulary
+// and phrases that existed when these keys were last reviewed. Extending it is a
+// human decision recorded in that file, not a side effect of a data update.
+//
+// Fail-closed: a missing, malformed, or inconsistent pin is a hard error. Silently
+// falling back to the live bank would let a data update widen inference — exactly
+// the defect this pin exists to prevent.
+
+const SHA_RE = /^[0-9a-f]{40}$/i;
+// Vocabulary entries may be single words or multi-word phrase rows stored in the
+// vocabulary list (61 of them have pos: "phrase"). Phrases include patterns with
+// parentheses, slashes, plus signs and ellipses ("not only ... but also",
+// "lest + s + (should) v-bare"). The regex allows the real character set found
+// in the bank and rejects digits, control characters and empty strings.
+const ENTRY_RE = /^[A-Za-z][A-Za-z'’\-]*(?:\s*[A-Za-z'’\-\(\)\+\.\/]*\s*)*$/;
+
+function loadInferencePin(filePath, vocabData, phraseData) {
+  // 1. Missing file.
+  if (!fs.existsSync(filePath)) {
+    throw new Error('inference-lexicon.json is missing: answer-key inference would '
+      + 'fall back to the live teaching bank, which is forbidden. Regenerate the '
+      + 'pin with scripts/exams/freeze_inference_lexicon.mjs.');
+  }
+
+  // 2. Malformed JSON.
+  let pin;
+  try {
+    pin = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+  } catch (err) {
+    throw new Error(`inference-lexicon.json is not valid JSON: ${err.message}`);
+  }
+  if (!pin || typeof pin !== 'object' || Array.isArray(pin)) {
+    throw new Error('inference-lexicon.json must be a JSON object.');
+  }
+
+  // 3. Schema: mandatory fields present.
+  for (const field of ['generatedBy', 'frozenAt', 'rule', 'counts', 'vocabulary', 'phrases']) {
+    if (pin[field] === undefined || pin[field] === null) {
+      throw new Error(`inference-lexicon.json is missing mandatory field: ${field}`);
+    }
+  }
+  if (pin.generatedBy !== 'scripts/exams/freeze_inference_lexicon.mjs') {
+    throw new Error(`inference-lexicon.json generatedBy is unexpected: ${pin.generatedBy}`);
+  }
+  if (!SHA_RE.test(String(pin.frozenAt))) {
+    throw new Error(`inference-lexicon.json frozenAt is not a 40-character commit SHA: ${pin.frozenAt}`);
+  }
+  if (typeof pin.rule !== 'string' || pin.rule.trim() === '') {
+    throw new Error('inference-lexicon.json rule must be a non-empty string.');
+  }
+  if (!pin.counts || typeof pin.counts !== 'object') {
+    throw new Error('inference-lexicon.json counts must be an object.');
+  }
+
+  // 4. Vocabulary and phrase arrays must be present and non-empty.
+  if (!Array.isArray(pin.vocabulary) || pin.vocabulary.length === 0) {
+    throw new Error('inference-lexicon.json vocabulary must be a non-empty array.');
+  }
+  if (!Array.isArray(pin.phrases) || pin.phrases.length === 0) {
+    throw new Error('inference-lexicon.json phrases must be a non-empty array.');
+  }
+
+  // 5. Declared counts must agree with actual array lengths.
+  if (pin.counts.vocabulary !== pin.vocabulary.length) {
+    throw new Error(`inference-lexicon.json counts.vocabulary (${pin.counts.vocabulary}) `
+      + `does not match actual length (${pin.vocabulary.length})`);
+  }
+  if (pin.counts.phrases !== pin.phrases.length) {
+    throw new Error(`inference-lexicon.json counts.phrases (${pin.counts.phrases}) `
+      + `does not match actual length (${pin.phrases.length})`);
+  }
+
+  // 6–7. Entries must be well-formed, unique, and present in the current bank.
+  const vocabSet = new Set();
+  for (const word of pin.vocabulary) {
+    if (typeof word !== 'string' || !ENTRY_RE.test(word.trim())) {
+      throw new Error(`inference-lexicon.json has a malformed vocabulary entry: ${JSON.stringify(word)}`);
+    }
+    const key = word.trim().toLowerCase();
+    if (vocabSet.has(key)) {
+      throw new Error(`inference-lexicon.json has a duplicate vocabulary entry: ${key}`);
+    }
+    vocabSet.add(key);
+  }
+  const phraseSet = new Set();
+  for (const phrase of pin.phrases) {
+    if (typeof phrase !== 'string' || !ENTRY_RE.test(phrase.trim())) {
+      throw new Error(`inference-lexicon.json has a malformed phrase entry: ${JSON.stringify(phrase)}`);
+    }
+    const key = phrase.trim().toLowerCase();
+    if (phraseSet.has(key)) {
+      throw new Error(`inference-lexicon.json has a duplicate phrase entry: ${key}`);
+    }
+    phraseSet.add(key);
+  }
+
+  // Entries must exist in the corresponding current bank; a stale pin is evidence
+  // that no longer applies and must not silently shrink the inference evidence.
+  const currentVocab = Array.isArray(vocabData)
+    ? new Set(vocabData.map(r => String(r.word || '').toLowerCase()))
+    : new Set(Object.values(vocabData || {}).map(r => String((r && r.word) || '').toLowerCase()));
+  const missingVocab = [...vocabSet].filter(w => !currentVocab.has(w));
+  if (missingVocab.length > 0) {
+    throw new Error(`inference-lexicon.json has ${missingVocab.length} vocabulary entries absent `
+      + `from the current bank; sample: ${missingVocab.slice(0, 5).join(', ')}`);
+  }
+  const currentPhrases = Array.isArray(phraseData)
+    ? new Set(phraseData.map(r => String(r.phrase || '').toLowerCase()))
+    : new Set(Object.values(phraseData || {}).map(r => String((r && r.phrase) || '').toLowerCase()));
+  const missingPhrases = [...phraseSet].filter(p => !currentPhrases.has(p));
+  if (missingPhrases.length > 0) {
+    throw new Error(`inference-lexicon.json has ${missingPhrases.length} phrase entries absent `
+      + `from the current bank; sample: ${missingPhrases.slice(0, 5).join(', ')}`);
+  }
+
+  return { vocabulary: vocabSet, phrases: phraseSet };
+}
+
+const inferencePin = loadInferencePin(
+  path.join(root, 'scripts/exams/inference-lexicon.json'),
+  vocabData,
+  phraseData
+);
+const pinnedVocabulary = Array.isArray(vocabData)
+  ? vocabData.filter(row => inferencePin.vocabulary.has(String(row.word || '').toLowerCase()))
+  : vocabData;
+const pinnedPhrases = Array.isArray(phraseData)
+  ? phraseData.filter(row => inferencePin.phrases.has(String(row.phrase || '').toLowerCase()))
+  : phraseData;
+
 // Build lexical, phonetic, morphological, and phrase indices from curated local datasets.
 const ipaMap = new Map();
 const posMap = new Map();
@@ -32,7 +166,7 @@ function addRootEntry(base, form, pos = '') {
   rootFamilyMap.get(k).set(f, pos || rootFamilyMap.get(k).get(f) || '');
 }
 
-const vocabRows = Array.isArray(vocabData) ? vocabData : (vocabData.words || vocabData.items || []);
+const vocabRows = Array.isArray(pinnedVocabulary) ? pinnedVocabulary : (pinnedVocabulary.words || pinnedVocabulary.items || []);
 for (const entry of vocabRows) {
   const w = String(entry.word || '').toLowerCase().trim();
   if (!w) continue;
@@ -54,7 +188,7 @@ for (const entry of vocabRows) {
 }
 
 const phraseExpressions = [];
-const phraseRows = Array.isArray(phraseData) ? phraseData : (phraseData.phrases || phraseData.items || []);
+const phraseRows = Array.isArray(pinnedPhrases) ? pinnedPhrases : (pinnedPhrases.phrases || pinnedPhrases.items || []);
 for (const p of phraseRows) {
   const expr = String(p.phrase || p.expression || p.headword || '').toLowerCase().trim();
   if (expr) phraseExpressions.push(expr);

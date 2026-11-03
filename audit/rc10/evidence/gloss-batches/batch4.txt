@@ -1,0 +1,374 @@
+advert	mẩu quảng cáo	media
+aloud	thành tiếng	education
+annoyance	sự khó chịu	psychology
+anti	phản đối, chống	media
+bull	con bò đực	environment
+canned	đóng hộp	food
+cucumber	dưa chuột	food
+emperor	hoàng đế	politics
+enclose	bao quanh, gửi kèm	academic
+evenly	đồng đều	academic
+faraway	xa xôi	travel
+farther	xa hơn	travel
+fasten	thắt chặt	technology
+friendliness	sự thân thiện	society
+gymnastics	thể dục dụng cụ	sport
+hard-working	chăm chỉ	work
+hopeless	vô vọng	psychology
+idol	thần tượng	culture
+indirectly	một cách gián tiếp	academic
+lovingly	trìu mến	family
+mankind	nhân loại	society
+middle-aged	trung niên	health
+mislead	làm lạc hướng	media
+newborn	trẻ sơ sinh	family
+next-door	ngay bên cạnh	family
+northeastern	phía đông bắc	academic
+northwestern	phía tây bắc	academic
+out-of-date	lỗi thời	technology
+outward	hướng ra ngoài	academic
+prosperous	thịnh vượng	economics
+repay	trả lại, hoàn trả	economics
+reunification	sự thống nhất lại	politics
+safari	chuyến đi săn, thám hiểm	travel
+salesman	nhân viên bán hàng	work
+sexual	thuộc giới tính	health
+stylish	sành điệu	culture
+tasteless	nhạt nhẽo, vô vị	food
+terrified	khiếp sợ	psychology
+thriller	truyện phim ly kỳ	culture
+trustworthy	đáng tin cậy	psychology
+undo	hoàn tác, tháo ra	technology
+unheard	chưa từng nghe	academic
+unrelated	không liên quan	academic
+upward	hướng lên	academic
+worn	mòn, cũ	technology
+angular	có góc, gầy gò	science
+apprehend	hiểu, bắt giữ	law
+babble	bập bẹ, lảm nhảm	psychology
+blurb	lời giới thiệu sách	media
+calamity	thảm họa	environment
+cay	cù lao nhỏ	environment
+chronology	niên đại học	science
+condensation	sự ngưng tụ	science
+conduit	ống dẫn, kênh	science
+confrontational	mang tính đối đầu	society
+corpse	xác chết	law
+corpus	tập hợp văn bản, kho ngữ liệu	academic
+cosmic	thuộc vũ trụ	science
+dampen	làm ẩm, làm dịu	science
+deficient	thiếu hụt	health
+derelict	bị bỏ hoang	society
+deviant	lệch chuẩn	society
+dissension	sự bất đồng	society
+distillation	sự chưng cất	science
+eccentricity	tính lập dị	psychology
+embodiment	hiện thân	society
+enthuse	hăng hái, hào hứng	psychology
+extracurricular	ngoại khóa	education
+exude	toát ra, rỉ ra	science
+facsimile	bản sao chép	culture
+ferocity	sự dữ dội	society
+floodgates	cửa xả lũ	environment
+gravitationally	do trọng lực	science
+headmistress	nữ hiệu trưởng	education
+hoist	kéo lên	technology
+hypothetical	giả định	science
+hysterical	cuồng loạn, buồn cười	psychology
+idiomatic	đúng thành ngữ	education
+ignominiously	nhục nhã	society
+imperceptibly	không thể nhận ra	academic
+individualism	chủ nghĩa cá nhân	society
+infallibility	tính không sai lầm	academic
+infallible	không thể sai	academic
+infernally	như địa ngục	culture
+interrogate	thẩm vấn	law
+interrogation	sự thẩm vấn	law
+laudatory	mang tính ca ngợi	media
+legion	đoàn đông đảo	culture
+locomotion	sự di chuyển	science
+locomotive	đầu máy xe lửa	technology
+materialism	chủ nghĩa duy vật	society
+materialistic	thiên về vật chất	society
+melancholy	u sầu	psychology
+melodious	du dương	culture
+mercenary	lính đánh thuê	politics
+minefield	bãi mìn	politics
+minster	nhà thờ lớn	culture
+monastic	thuộc tu viện	culture
+octogenarian	người tám mươi tuổi	health
+ore	quặng	economics
+prescriptive	mang tính quy định	law
+pressurize	gây áp lực	technology
+qualitative	định tính	science
+reconciliation	sự hòa giải	society
+recourse	biện pháp cứu cánh	law
+recuperation	sự hồi phục	health
+redundancy	sự dư thừa, sa thải	work
+repose	sự nghỉ ngơi	health
+retrospective	hồi cố	culture
+rife	tràn lan	society
+rift	sự rạn nứt	society
+scholarly	mang tính học thuật	academic
+stipulation	điều khoản	law
+stratosphere	tầng bình lưu	science
+subsidize	trợ cấp	economics
+succumb	khuất phục	health
+sulphur	lưu huỳnh	science
+swivel	xoay, khớp xoay	technology
+syllabic	thuộc âm tiết	education
+telescopic	có thể thu gọn	science
+tenacity	sự kiên cường	psychology
+timidity	sự nhút nhát	psychology
+topography	địa hình	science
+unadulterated	nguyên chất	food
+venomous	có nọc độc	environment
+zoology	động vật học	science
+abound	có rất nhiều, tràn ngập	academic
+abuse	lạm dụng	law
+accordance	phù hợp với	law
+acoustic	thuộc âm thanh	science
+adjoin	liền kề với	academic
+aesthetically	về mặt thẩm mỹ	culture
+amply	dồi dào	academic
+anthropology	nhân học	science
+antiquity	thời cổ đại	culture
+apt	thích hợp, có khả năng	academic
+aqua	màu xanh nước biển	science
+assassination	việc ám sát	politics
+auto	ô tô	technology
+barrel	thùng, nòng súng	technology
+beforehand	trước đó	academic
+bleed	chảy máu	health
+bless	ban phước	culture
+buck	con hươu đực, đô la	economics
+bulky	cồng kềnh	technology
+carrier	hãng vận chuyển	economics
+carve	chạm khắc	culture
+casino	sòng bạc	economics
+catalogue	danh mục	academic
+cavity	lỗ hổng, sâu răng	health
+chilly	lạnh lẽo	environment
+churn	khuấy, quay cuồng	economics
+classy	sang trọng	culture
+cleanly	một cách sạch sẽ	health
+closeness	sự gần gũi	family
+colonial	thuộc thuộc địa	politics
+commentator	bình luận viên	media
+complication	biến chứng, sự phức tạp	health
+compute	tính toán	technology
+conditionally	có điều kiện	law
+congregation	giáo đoàn, hội chúng	culture
+conjure	gợi lên, làm hiện ra	culture
+constituency	khu vực bầu cử	politics
+convict	kết án	law
+cooperative	hợp tác	economics
+cost-effective	hiệu quả về chi phí	economics
+courtesy	phép lịch sự	society
+craving	cơn thèm muốn	psychology
+cult	giáo phái, sùng bái	culture
+cynicism	sự hoài nghi	society
+defect	khuyết điểm	technology
+demon	con quỷ	culture
+depiction	sự miêu tả	culture
+descend	đi xuống, hạ xuống	academic
+designate	chỉ định	law
+detection	sự phát hiện	science
+devotee	người sùng mộ	culture
+diplomat	nhà ngoại giao	politics
+directory	danh bạ	technology
+dismay	sự hoang mang	psychology
+diverge	phân kỳ, rẽ khác	science
+divine	thuộc thần thánh	culture
+donor	người hiến tặng	health
+drown	chết đuối	health
+dub	gọi là, lồng tiếng	media
+echo	tiếng vang	science
+ego	cái tôi	psychology
+enviable	đáng ghen tị	psychology
+erect	dựng lên, thẳng đứng	technology
+eternal	vĩnh cửu	culture
+exhilarating	phấn khích	psychology
+fanatic	cuồng tín	society
+fleet	đội tàu	economics
+flesh	thịt, cùi	health
+flicker	nhấp nháy	science
+formality	thủ tục, sự trang trọng	law
+gambling	cờ bạc	society
+gem	đá quý	economics
+grin	cười toe toét	psychology
+grind	nghiền, xay	food
+grip	nắm chặt	technology
+gushing	phun trào, thốt ra	science
+gusto	sự hào hứng	psychology
+heighten	tăng cường	academic
+horn	sừng, kèn	environment
+ideology	hệ tư tưởng	politics
+idiot	kẻ ngốc	psychology
+impersonal	khách quan, không cá nhân	work
+imprison	bỏ tù	law
+infamous	khét tiếng	media
+injection	mũi tiêm, sự bơm	health
+insensitively	một cách vô cảm	psychology
+intent	ý định	law
+justification	sự biện minh	law
+lad	chàng trai trẻ	society
+legislature	cơ quan lập pháp	politics
+lesser	nhỏ hơn, kém hơn	academic
+liberation	sự giải phóng	politics
+log	ghi chép, khúc gỗ	technology
+long-standing	lâu đời	society
+loop	vòng lặp	technology
+magnetism	từ tính	science
+malfunction	sự cố hoạt động	technology
+manuscript	bản thảo	culture
+mask	mặt nạ	health
+mill	nhà máy xay, xưởng	economics
+modification	sự sửa đổi	academic
+mountaineer	người leo núi	sport
+muscular	cơ bắp	health
+mythological	thuộc thần thoại	culture
+mythology	thần thoại học	culture
+naive	ngây thơ	psychology
+neglectful	sao nhãng	family
+nomination	sự đề cử	politics
+non-profit	phi lợi nhuận	economics
+oblige	bắt buộc, giúp đỡ	law
+occupant	người cư ngụ	society
+opt	chọn	academic
+optical	thuộc quang học	science
+ordinarily	thông thường	academic
+outrage	sự phẫn nộ	society
+oversee	giám sát	work
+overturn	lật ngược, bác bỏ	law
+parliamentary	thuộc nghị viện	politics
+pendulum	con lắc	science
+perceptive	nhạy bén	psychology
+physicality	tính vật chất	sport
+pirate	cướp biển	culture
+post-war	hậu chiến	politics
+pounce	vồ lấy	environment
+predecessor	người tiền nhiệm	work
+premier	hàng đầu, thủ tướng	politics
+prohibitively	quá đắt, cấm đoán	economics
+prosecute	truy tố	law
+provincial	thuộc tỉnh	society
+provocative	khiêu khích	media
+psychiatric	thuộc tâm thần học	health
+quirky	lập dị, độc đáo	culture
+radar	ra-đa	technology
+rarity	sự hiếm có	science
+reassurance	sự trấn an	psychology
+rediscover	tìm lại	academic
+regulatory	thuộc quản lý	law
+remainder	phần còn lại	academic
+repel	đẩy lùi	science
+repellant	chất xua đuổi	health
+resin	nhựa cây	science
+restraint	sự kiềm chế	psychology
+retreat	rút lui	society
+retrieve	truy xuất, lấy lại	technology
+revelation	sự tiết lộ	media
+rifle	súng trường	law
+rip	xé rách	academic
+rudiments	những điều cơ bản	education
+ruling	phán quyết	law
+rumble	tiếng ầm ầm	academic
+saint	thánh	culture
+sarcastically	một cách mỉa mai	psychology
+sauna	phòng xông hơi	health
+secular	thế tục	culture
+sedate	trầm tĩnh, cho thuốc an thần	health
+segment	phân đoạn	academic
+self-conscious	tự ý thức	psychology
+self-worth	giá trị bản thân	psychology
+sentiment	tình cảm, quan điểm	psychology
+sketch	phác thảo	culture
+slam	đóng sầm, chỉ trích mạnh	media
+slavery	chế độ nô lệ	politics
+socialist	xã hội chủ nghĩa	politics
+socialization	sự xã hội hóa	society
+solicitor	luật sư tư vấn	law
+squad	đội, tổ	sport
+startling	đáng giật mình	academic
+strand	sợi, mảng	science
+strap	dây đai	technology
+stuffy	ngột ngạt	health
+subordinate	cấp dưới	work
+successor	người kế nhiệm	work
+suck	hút	health
+suicide	tự sát	health
+surrender	đầu hàng	society
+suspension	sự đình chỉ, hệ treo	law
+syndrome	hội chứng	health
+tangle	rối, mớ rối	academic
+tangled	rối rắm	academic
+tautly	căng thẳng	academic
+terminate	chấm dứt	law
+testify	làm chứng	law
+thought-provoking	gợi suy nghĩ	academic
+thrilled	rất phấn khích	psychology
+torture	sự tra tấn	law
+toss	tung, ném	academic
+trampoline	tấm bạt nhún	sport
+tranquility	sự yên bình	psychology
+transatlantic	xuyên Đại Tây Dương	travel
+tribunal	tòa án	law
+tribute	sự tri ân	culture
+trio	bộ ba	culture
+unconvincing	không thuyết phục	academic
+uneventful	bình lặng	academic
+unsettling	gây bất an	psychology
+unveil	ra mắt, tiết lộ	media
+verve	sự nhiệt huyết	psychology
+vessel	tàu thuyền, mạch máu	technology
+veteran	cựu binh, người kỳ cựu	politics
+warrior	chiến binh	culture
+wayside	lề đường	travel
+widen	mở rộng	academic
+widow	góa phụ	family
+wooded	nhiều cây cối	environment
+wry	mỉa mai, nhếch mép	psychology
+youngster	người trẻ	family
+aboriginal	bản địa	culture
+addict	người nghiện	health
+admittedly	phải thừa nhận	academic
+alphabetical	theo thứ tự chữ cái	education
+alternate	luân phiên, thay thế	academic
+ammonia	a-mô-ni-ắc	science
+amuse	làm vui	psychology
+animation	hoạt hình, sự sống động	media
+approximate	xấp xỉ	science
+audition	buổi thử giọng	culture
+axis	trục	science
+barn	nhà kho nông trại	environment
+beagle	chó săn bi-gồ	environment
+beautify	làm đẹp	culture
+bellow	gầm lên	academic
+berry	quả mọng	food
+biotechnology	công nghệ sinh học	science
+blindly	một cách mù quáng	psychology
+blindness	sự mù lòa	health
+blink	chớp mắt	science
+blur	làm mờ	technology
+boxer	võ sĩ quyền anh	sport
+bravery	sự dũng cảm	psychology
+broaden	mở rộng	academic
+bully	bắt nạt	society
+bumper	thanh chắn, bao lì xì	technology
+burgle	trộm đột nhập	law
+buzz	tiếng vo ve	environment
+chew	nhai	food
+childish	trẻ con	psychology
+coarse	thô ráp	food
+collocation	kết hợp từ	education
+complexion	nước da, cục diện	health
+conquest	sự chinh phục	politics
+console	an ủi, bảng điều khiển	psychology
+consult	tham khảo, tư vấn	work
+conveniently	một cách thuận tiện	academic
+cornerstone	nền tảng	society
+cornet	kèn co-nê	culture
+corona	vầng sáng, vi-rút corona	health
+coward	kẻ hèn nhát	psychology
+craftsman	nghệ nhân	work

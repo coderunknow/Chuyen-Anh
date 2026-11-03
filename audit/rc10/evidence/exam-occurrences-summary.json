@@ -1,0 +1,31 @@
+{
+  "generatedAt": "2026-11-03T09:53:07.679Z",
+  "accessDate": "2026-11-02",
+  "archive": {
+    "papers": 106,
+    "years": [
+      "2022",
+      "2023",
+      "2024",
+      "2025",
+      "2026"
+    ],
+    "note": "All transcriptions are re-posts (xac_minh: ban-dang-lai-*); evidence class is archive_transcription_repost."
+  },
+  "vocabulary": {
+    "rows": 7852,
+    "withOccurrence": 4502,
+    "withoutOccurrence": 3350,
+    "file": "audit/rc10/evidence/exam-occurrences-vocabulary.jsonl",
+    "sha256": "1f655aa22ebb7721f23fe0965792710848856d31a4922d5df2f52934ba209818",
+    "bytes": 8105473
+  },
+  "phrases": {
+    "rows": 1094,
+    "withOccurrence": 617,
+    "withoutOccurrence": 477,
+    "file": "audit/rc10/evidence/exam-occurrences-phrases.jsonl",
+    "sha256": "79d4b74c45fc81dd2342adb8bbe8ffa355a6037c04c186091de7b12d397dae04",
+    "bytes": 1019561
+  }
+}

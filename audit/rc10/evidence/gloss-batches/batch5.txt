@@ -1,0 +1,328 @@
+crater	miệng núi lửa	science
+cruelty	sự tàn ác	society
+decomposition	sự phân hủy	science
+dental	thuộc nha khoa	health
+desperation	sự tuyệt vọng	psychology
+despise	khinh bỉ	psychology
+dim	mờ tối	academic
+disappoint	làm thất vọng	psychology
+disc	đĩa, đĩa đệm	technology
+distortion	sự bóp méo	media
+distribute	phân phối	economics
+distributor	nhà phân phối	economics
+diversion	sự chuyển hướng, trò tiêu khiển	culture
+doom	số phận diệt vong	culture
+dormitory	ký túc xá	education
+doubly	gấp đôi	academic
+economist	nhà kinh tế học	economics
+elegance	sự thanh lịch	culture
+equip	trang bị	work
+eternally	vĩnh viễn	culture
+evacuation	sự sơ tán	environment
+exaggeration	sự phóng đại	media
+fantastically	tuyệt vời, kỳ lạ	academic
+fearsome	đáng sợ	psychology
+fireplace	lò sưởi	family
+flash	chớp, lóe sáng	technology
+flexibly	một cách linh hoạt	work
+follower	người theo dõi, tín đồ	media
+footnote	chú thích cuối trang	academic
+forcefully	mạnh mẽ, dứt khoát	academic
+forum	diễn đàn	society
+foul	thối, phạm luật	sport
+fume	khói, khí thải	environment
+gardener	người làm vườn	work
+glorify	tôn vinh	culture
+goodness	lòng tốt	psychology
+governor	thống đốc	politics
+guideline	hướng dẫn	law
+handout	tài liệu phát tay, tiền trợ cấp	education
+haste	sự vội vã	work
+hastily	vội vàng	work
+helmet	mũ bảo hiểm	health
+holder	người nắm giữ, giá đỡ	economics
+hone	mài giũa	education
+housekeeper	quản gia	family
+humane	nhân đạo	society
+humiliation	sự sỉ nhục	psychology
+hush	sự im lặng	academic
+icy	băng giá	environment
+immoral	vô đạo đức	law
+immortality	sự bất tử	culture
+impatiently	sốt ruột	psychology
+improperly	không đúng cách	society
+inanimate	vô sinh	science
+incense	hương, hương thơm	culture
+index	chỉ số, mục lục	academic
+indulgent	nuông chiều	family
+inference	suy luận	academic
+inflammation	sự viêm	health
+inflammatory	gây viêm, kích động	health
+inflate	bơm căng, lạm phát	economics
+influenza	bệnh cúm	health
+inhabitant	cư dân	society
+interrupt	ngắt lời, gián đoạn	academic
+interruption	sự gián đoạn	academic
+intersection	giao lộ	travel
+invariable	bất biến	academic
+invasion	cuộc xâm lược	politics
+lame	què, yếu ớt	health
+landlady	bà chủ nhà	society
+league	giải đấu, liên minh	sport
+lean	tựa vào, gầy	health
+lengthen	làm dài ra	academic
+lifeless	không sức sống	psychology
+lottery	xổ số	economics
+lowland	vùng đất thấp	environment
+madam	thưa bà	society
+mansion	biệt thự	economics
+massage	mát-xa	health
+mayor	thị trưởng	politics
+metaphor	ẩn dụ	education
+microscopy	kính hiển vi học	science
+mighty	hùng mạnh	society
+mimic	bắt chước	psychology
+miner	thợ mỏ	work
+mist	sương mù	environment
+momentary	chốc lát	academic
+moonlight	ánh trăng	environment
+muddy	lầy bùn	environment
+multiply	nhân lên	science
+murmur	thì thầm	society
+mystify	làm khó hiểu	psychology
+naked	trần truồng	health
+naughty	nghịch ngợm	family
+neat	gọn gàng	academic
+needless	không cần thiết	academic
+needy	nghèo khó	society
+nightclub	hộp đêm	culture
+nightmare	ác mộng	psychology
+novelist	tiểu thuyết gia	culture
+nutshell	vỏ hạt, tóm gọn	academic
+olympia	Olympia (Hy Lạp cổ)	culture
+optimist	người lạc quan	psychology
+orchestral	thuộc dàn nhạc	culture
+organ	cơ quan, đàn ống	health
+originality	tính độc đáo	culture
+outback	vùng hẻo lánh	travel
+outdistance	bỏ xa	sport
+outdo	làm giỏi hơn	sport
+outskirts	vùng ngoại ô	travel
+overboard	qua mạn tàu, quá đà	travel
+overthrow	lật đổ	politics
+paralysis	sự tê liệt	health
+patriotism	lòng yêu nước	politics
+pearl	ngọc trai	economics
+pedal	bàn đạp	technology
+penicillin	thuốc penicillin	health
+permanence	tính vĩnh cửu	academic
+personification	sự nhân cách hóa	education
+persuasion	sự thuyết phục	psychology
+petty	nhỏ nhặt, hẹp hòi	psychology
+picturesque	đẹp như tranh	travel
+pluck	nhổ, gảy, can đảm	culture
+pointless	vô nghĩa	academic
+polio	bệnh bại liệt	health
+posh	sang trọng	culture
+possessed	bị ám, sở hữu	culture
+postal	thuộc bưu chính	technology
+practicality	tính thực tiễn	work
+preferably	tốt nhất là	academic
+prominence	sự nổi bật	media
+prosper	thịnh vượng	economics
+punctuality	tính đúng giờ	work
+rack	giá, kệ	technology
+rag	giẻ rách	academic
+rattle	lắc, tiếng lạch cạch	academic
+reed	cây sậy	environment
+relativity	thuyết tương đối	science
+remarkably	đáng chú ý	academic
+resonant	ngân vang	science
+respectably	đáng kính, khá tốt	academic
+retard	làm chậm lại	academic
+rhyme	vần điệu	culture
+rocket	tên lửa	science
+rub	chà, xoa	health
+sandstone	đá sa thạch	science
+scenario	kịch bản, tình huống	academic
+selfless	vị tha	psychology
+seller	người bán	economics
+setback	bước lùi	work
+shoplifting	trộm cắp ở cửa hàng	law
+shortness	sự ngắn, sự thiếu	health
+showcase	giới thiệu, trưng bày	media
+sibling	anh chị em ruột	family
+simplification	sự đơn giản hóa	academic
+skylark	chim sơn ca	environment
+slaughter	giết mổ	environment
+sneak	lẻn vào	society
+sneer	cười nhếch mép	psychology
+sniff	ngửi, hít	health
+snore	ngáy ngủ	health
+sociable	hòa đồng	society
+sometime	một lúc nào đó	academic
+sparkling	lấp lánh	food
+speculation	sự suy đoán, đầu cơ	economics
+spoil	làm hỏng, chiều hư	psychology
+stain	vết bẩn	academic
+starvation	sự đói khát	health
+sticky	dính	food
+stubbornly	ngang bướng	psychology
+subtract	trừ đi	science
+suitably	một cách phù hợp	academic
+syllable	âm tiết	education
+tactile	thuộc xúc giác	health
+tan	rám nắng	health
+terrorism	chủ nghĩa khủng bố	politics
+thoughtless	vô ý, thiếu suy nghĩ	psychology
+tissue	mô, khăn giấy	health
+tomb	ngôi mộ	culture
+ton	tấn	economics
+traverse	đi xuyên qua	travel
+tropic	vùng nhiệt đới	environment
+troublesome	phiền toái	academic
+uncomfortably	một cách khó chịu	psychology
+unconcerned	không bận tâm	psychology
+undersea	dưới biển	science
+unease	sự bất an	psychology
+uneven	không đều	academic
+unfashionable	kém thời trang	culture
+unhelpful	không hữu ích	academic
+unimaginable	không thể tưởng tượng	academic
+unite	thống nhất	politics
+unload	dỡ hàng	economics
+unlock	mở khóa	technology
+unmistakable	không thể nhầm lẫn	academic
+unmistakably	rõ ràng là	academic
+unofficial	không chính thức	politics
+unpopular	không được ưa chuộng	society
+unrest	bất ổn	politics
+unsatisfactory	không thỏa đáng	academic
+untie	cởi trói	academic
+untreated	không được điều trị	health
+unwise	không khôn ngoan	psychology
+vanity	tính phù phiếm	psychology
+vibration	sự rung	science
+villa	biệt thự nghỉ dưỡng	travel
+visibly	thấy rõ	academic
+vocalist	ca sĩ	culture
+wartime	thời chiến	politics
+well-built	vạm vỡ	health
+wink	nháy mắt	society
+wolf	con sói	environment
+x-ray	X-quang	health
+yacht	du thuyền	travel
+yawn	ngáp	health
+youthful	trẻ trung	health
+aborigine	thổ dân	culture
+accessory	phụ kiện	culture
+ache	cơn đau	health
+acquaintance	người quen	society
+adorable	đáng yêu	psychology
+adverbial	thuộc trạng ngữ	education
+afterward	sau đó	academic
+alcoholic	có cồn	health
+analyse	phân tích	academic
+anxiously	lo lắng	psychology
+anyhow	dù sao đi nữa	academic
+arithmetic	số học	education
+aspirin	thuốc aspirin	health
+atomic	thuộc nguyên tử	science
+avenue	đại lộ	travel
+bathe	tắm	health
+brand-new	mới tinh	academic
+broccoli	bông cải xanh	food
+bump	va chạm, cục u	health
+cage	cái lồng	environment
+caller	người gọi	technology
+capsule	viên nang	health
+chemist	nhà hóa học, dược sĩ	science
+choke	nghẹt thở	health
+chronological	theo trình tự thời gian	academic
+cruel	độc ác	society
+damp	ẩm ướt	environment
+diameter	đường kính	science
+diaper	tã lót	family
+diligence	sự siêng năng	work
+dirt	bụi bẩn	environment
+disgusting	kinh tởm	psychology
+downward	hướng xuống	academic
+dustbin	thùng rác	environment
+embarrass	làm ai ngượng	psychology
+environmentalist	nhà môi trường học	environment
+excitedly	hào hứng	psychology
+explode	nổ tung	science
+eyesight	thị lực	health
+faint	mờ nhạt, ngất	health
+fetch	lấy, mang về	academic
+fluent	trôi chảy	education
+fright	nỗi khiếp sợ	psychology
+frost	sương muối, băng giá	environment
+furthest	xa nhất	travel
+garment	trang phục	culture
+gentleman	quý ông	society
+giraffe	hươu cao cổ	environment
+goddess	nữ thần	culture
+golfer	người chơi gôn	sport
+gossip	chuyện phiếm	media
+graceful	duyên dáng	culture
+guitarist	nghệ sĩ ghi-ta	culture
+haven	bến đỗ an toàn	society
+hearty	nồng nhiệt, thịnh soạn	food
+heavenly	thuộc thiên đàng, tuyệt vời	culture
+honeymoon	tuần trăng mật	family
+horrible	kinh khủng	psychology
+horrify	làm khiếp sợ	psychology
+hurriedly	vội vã	work
+hut	túp lều	travel
+illuminate	chiếu sáng	technology
+impair	làm suy yếu	health
+inconvenient	bất tiện	academic
+infinitive	động từ nguyên mẫu	education
+innermost	sâu thẳm nhất	psychology
+inscribe	khắc chữ	culture
+likeness	sự giống nhau	culture
+mathematician	nhà toán học	science
+mischief	sự tinh nghịch	family
+motto	phương châm	culture
+nap	giấc ngủ ngắn	health
+nationalist	người theo chủ nghĩa dân tộc	politics
+ness	mũi đất, mũi biển	travel
+niece	cháu gái	family
+northeast	phía đông bắc	academic
+nutrient	chất dinh dưỡng	health
+overjoyed	vô cùng vui sướng	psychology
+pale	nhợt nhạt	health
+penniless	không một xu	economics
+phantom	bóng ma	culture
+phoenix	chim phượng hoàng	culture
+pie	bánh nướng	food
+pot	nồi, chậu	food
+preschool	trường mẫu giáo	education
+priest	linh mục	culture
+pronoun	đại từ	education
+purify	làm tinh khiết	science
+reunify	thống nhất lại	politics
+rotten	thối rữa	food
+runaway	bỏ trốn	law
+servant	người hầu	society
+shave	cạo râu	health
+shiver	run rẩy	health
+shopper	người mua sắm	economics
+shrimp	tôm	food
+sidewalk	vỉa hè	travel
+snowstorm	bão tuyết	environment
+sorrow	nỗi buồn	psychology
+southwest	phía tây nam	academic
+stripe	sọc, vằn	academic
+stuffed	nhồi, no căng	food
+swarm	bầy đàn	environment
+trim	cắt tỉa	environment
+uncover	khám phá, phát hiện	academic
+unfit	không đủ sức khỏe	sport
+uninteresting	không thú vị	academic
+unlucky	kém may mắn	psychology
+untidy	bừa bộn	academic
+vet	bác sĩ thú y	health
+wagon	xe goòng, toa hàng	technology
+windscreen	kính chắn gió	technology

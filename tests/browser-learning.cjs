@@ -102,6 +102,9 @@ async function main() {
     await page.evaluate(() => {
       localStorage.clear();
       localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['298', '2', '3']));
+      // rc10: favourites obey the CEFR filter, and this fixture's starred words
+      // are unclassified, so the fixture must select every level including Unclassified.
+      localStorage.setItem('chuyen-anh.cefr.v1', JSON.stringify({ version: 1, levels: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'], unclassified: true }));
       localStorage.setItem('chuyen-anh.study.v1', JSON.stringify({
         groups: { due: true, weak: true, new: true, review: true },
         focus: 'due',
@@ -139,6 +142,9 @@ async function main() {
       await page.evaluate(ids => {
         localStorage.clear();
         localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(ids));
+        // rc10: favourites obey the CEFR filter, and this fixture's starred words
+        // are unclassified, so the fixture must select every level including Unclassified.
+        localStorage.setItem('chuyen-anh.cefr.v1', JSON.stringify({ version: 1, levels: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'], unclassified: true }));
         localStorage.setItem('chuyen-anh.prefs.v1', JSON.stringify({ sessionSize: 10, keyboardShortcuts: true, darkMode: false }));
       }, ids);
       await page.reload();
@@ -252,7 +258,7 @@ async function main() {
     // The banner reports the real pool, the real queue and the chosen target.
     assert.match(await sprint.locator('#sprint-title').innerText(), /Học cấp tốc · 10 từ \/ phiên/);
     assert.match(await sprint.locator('#sprint-pool').innerText(),
-      /3841 từ đủ điều kiện · xếp 10 · 10 đến hạn · 10 từ yếu/,
+      /5841 từ đủ điều kiện · xếp 10 · 10 đến hạn · 10 từ yếu/,
       'the banner counts the whole eligible pool and the real queue');
     assert.equal(await sprint.locator('.sprint-banner .recommendation-mark strong').innerText(), '10',
       'the banner shows the configured session size, not a fixed 7');
@@ -834,6 +840,9 @@ async function main() {
     await page.evaluate(() => {
       localStorage.clear();
       localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['448']));
+      // rc10: favourites obey the CEFR filter, and this fixture's starred words
+      // are unclassified, so the fixture must select every level including Unclassified.
+      localStorage.setItem('chuyen-anh.cefr.v1', JSON.stringify({ version: 1, levels: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'], unclassified: true }));
       localStorage.setItem('chuyen-anh.progress.v1', JSON.stringify({
         '448': { id: '448', state: 'learning', correctCount: 3, wrongCount: 0, streak: 3, lastReviewed: 0, nextReview: 0, interval: 1, ease: 2.5, difficulty: 0 }
       }));
@@ -857,6 +866,9 @@ async function main() {
     await page.evaluate(() => {
       localStorage.clear();
       localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['298']));
+      // rc10: favourites obey the CEFR filter, and this fixture's starred words
+      // are unclassified, so the fixture must select every level including Unclassified.
+      localStorage.setItem('chuyen-anh.cefr.v1', JSON.stringify({ version: 1, levels: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'], unclassified: true }));
       localStorage.setItem('chuyen-anh.progress.v1', JSON.stringify({
         '298': { id: '298', state: 'review', correctCount: 3, wrongCount: 0, streak: 2, lastReviewed: 0, nextReview: 0, interval: 5, ease: 2.4, difficulty: 0.2 }
       }));
@@ -946,6 +958,9 @@ async function main() {
     await page.evaluate(() => {
       localStorage.clear();
       localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['448']));
+      // rc10: favourites obey the CEFR filter, and this fixture's starred words
+      // are unclassified, so the fixture must select every level including Unclassified.
+      localStorage.setItem('chuyen-anh.cefr.v1', JSON.stringify({ version: 1, levels: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'], unclassified: true }));
     });
     await page.reload();
     await page.locator('[data-session="favorites"]').click();
@@ -1129,6 +1144,9 @@ async function main() {
     await page.evaluate(entries => {
       localStorage.clear();
       localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['298']));
+      // rc10: favourites obey the CEFR filter, and this fixture's starred words
+      // are unclassified, so the fixture must select every level including Unclassified.
+      localStorage.setItem('chuyen-anh.cefr.v1', JSON.stringify({ version: 1, levels: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'], unclassified: true }));
       localStorage.setItem('chuyen-anh.history.v1', JSON.stringify(entries));
     }, seededHistory);
     await page.reload();
@@ -1283,6 +1301,9 @@ async function main() {
     // The first-look footer.
     await page.evaluate(() => {
       localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['3']));
+      // rc10: favourites obey the CEFR filter, and this fixture's starred words
+      // are unclassified, so the fixture must select every level including Unclassified.
+      localStorage.setItem('chuyen-anh.cefr.v1', JSON.stringify({ version: 1, levels: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'], unclassified: true }));
       localStorage.setItem('chuyen-anh.progress.v1', JSON.stringify({
         '3': { id: '3', state: 'new', correctCount: 0, wrongCount: 0, streak: 0, lastReviewed: null, nextReview: Date.now(), interval: 0, ease: 2.5, difficulty: 0 }
       }));
@@ -1398,6 +1419,9 @@ async function main() {
         '298': { id: '298', state: 'learning', correctCount: 2, wrongCount: 0, streak: 2, lastReviewed: now, nextReview: now + 3600000, interval: 1, ease: 2.5, difficulty: 0 }
       }));
       localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['298']));
+      // rc10: favourites obey the CEFR filter, and this fixture's starred words
+      // are unclassified, so the fixture must select every level including Unclassified.
+      localStorage.setItem('chuyen-anh.cefr.v1', JSON.stringify({ version: 1, levels: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'], unclassified: true }));
     });
     await page.reload(); // the write counter restarts with the document
     await page.locator('[data-session="favorites"]').waitFor();
@@ -1419,6 +1443,9 @@ async function main() {
         '2': { id: '2', state: 'new', correctCount: 0, wrongCount: 0, streak: 0, lastReviewed: null, nextReview: now, interval: 0, ease: 2.5, difficulty: 0 }
       }));
       localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['2']));
+      // rc10: favourites obey the CEFR filter, and this fixture's starred words
+      // are unclassified, so the fixture must select every level including Unclassified.
+      localStorage.setItem('chuyen-anh.cefr.v1', JSON.stringify({ version: 1, levels: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'], unclassified: true }));
     });
     await page.reload();
     await page.locator('[data-session="favorites"]').waitFor();
@@ -1445,6 +1472,9 @@ async function main() {
       await page.evaluate(() => {
         localStorage.clear();
         localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['298']));
+        // rc10: favourites obey the CEFR filter, and this fixture's starred words
+        // are unclassified, so the fixture must select every level including Unclassified.
+        localStorage.setItem('chuyen-anh.cefr.v1', JSON.stringify({ version: 1, levels: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'], unclassified: true }));
         localStorage.setItem('chuyen-anh.progress.v1', JSON.stringify({
           '298': { id: '298', state: 'learning', correctCount: 2, wrongCount: 0, streak: 2, lastReviewed: 0, nextReview: 0, interval: 1, ease: 2.5, difficulty: 0 }
         }));
@@ -1512,6 +1542,9 @@ async function main() {
         localStorage.clear();
         localStorage.setItem('chuyen-anh.language.v1', 'en');
         localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['298', '2']));
+        // rc10: favourites obey the CEFR filter, and this fixture's starred words
+        // are unclassified, so the fixture must select every level including Unclassified.
+        localStorage.setItem('chuyen-anh.cefr.v1', JSON.stringify({ version: 1, levels: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'], unclassified: true }));
       });
       await page.reload();
       await page.locator('[data-session="favorites"]').waitFor();
@@ -2012,7 +2045,7 @@ async function main() {
     await page.locator('[data-session="new"]').waitFor();
     await page.locator('[data-view="phrases"]').click();
     await page.locator('#phrase-results .vocab-row').first().waitFor();
-    assert.match(await page.locator('.page-header p').innerText(), /780 cụm\b/, 'the header reports the real phrase count');
+    assert.match(await page.locator('.page-header p').innerText(), /1094 cụm\b/, 'the header reports the real phrase count');
     assert.equal(await page.locator('#phrase-results .vocab-row').count(), 80, 'the list is capped for rendering');
     const wordProgressBeforePhrases = await page.evaluate(() => localStorage.getItem('chuyen-anh.progress.v1'));
 
@@ -2032,7 +2065,7 @@ async function main() {
     await page.locator('#phrase-level').selectOption('C1');
     await page.locator('#phrase-results .vocab-row').first().waitFor();
     const c1Count = await page.locator('#phrase-results .vocab-row').count();
-    assert.ok(c1Count > 0 && c1Count < 780, `the level filter narrows the list (${c1Count} C1 phrases)`);
+    assert.ok(c1Count > 0 && c1Count < 1094, `the level filter narrows the list (${c1Count} C1 phrases)`);
     await page.locator('#phrase-level').selectOption('all');
 
     await page.locator('#phrase-practice-start').click();
@@ -2256,7 +2289,15 @@ async function main() {
           localStorage.clear();
           localStorage.setItem('chuyen-anh.study.v1', JSON.stringify(study));
           localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['2', '3']));
+          // rc10: favourites obey the CEFR filter, and this fixture's starred words
+          // are unclassified, so the fixture must select every level including Unclassified.
+          localStorage.setItem('chuyen-anh.cefr.v1', JSON.stringify({ version: 1, levels: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'], unclassified: true }));
           localStorage.setItem('chuyen-anh.prefs.v1', JSON.stringify({ sessionSize: 10, keyboardShortcuts: true, darkMode: false }));
+          // rc10: favourites obey the CEFR filter, so this fixture has to select
+          // the levels its two starred words actually carry. Words 2 and 3 are
+          // unclassified, hence "unclassified: true"; the race being exercised is
+          // two tabs writing progress, not the level filter.
+          localStorage.setItem('chuyen-anh.cefr.v1', JSON.stringify({ version: 1, levels: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'], unclassified: true }));
         }, seedStudy);
         await page.reload();
         await page.locator('[data-session="favorites"]').waitFor();
@@ -2466,7 +2507,7 @@ async function main() {
           return { id2: progress['2'] ? `${progress['2'].state}/${progress['2'].correctCount}` : null, phrases: Object.keys(phrases).length };
         });
         assert.equal(quotaFinal.id2, 'learning/7', 'the retry stores the imported progress');
-        assert.equal(quotaFinal.phrases, 780, 'the retry stores all 780 phrase records (no silent loss)');
+        assert.equal(quotaFinal.phrases, 1094, 'the retry stores all 1094 phrase records (no silent loss)');
         assert.deepEqual(world.ownErrors, [], 'RT-07 ran without page errors');
       } finally {
         await world.ownBrowser.close().catch(() => null);
@@ -2494,6 +2535,9 @@ async function main() {
             focus: 'due', exercises: ex, size: 10, timed: false, timerMinutes: 0
           }));
           localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['2', '3', '4']));
+          // rc10: favourites obey the CEFR filter, and this fixture's starred words
+          // are unclassified, so the fixture must select every level including Unclassified.
+          localStorage.setItem('chuyen-anh.cefr.v1', JSON.stringify({ version: 1, levels: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'], unclassified: true }));
         }, exercises);
         const readStreak = () => page.evaluate(() => JSON.parse(localStorage.getItem('chuyen-anh.streak.v1')));
         const isToday = value => {
@@ -2678,6 +2722,9 @@ async function main() {
         await page.evaluate(() => {
           localStorage.clear();
           localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['298', '2', '3']));
+          // rc10: favourites obey the CEFR filter, and this fixture's starred words
+          // are unclassified, so the fixture must select every level including Unclassified.
+          localStorage.setItem('chuyen-anh.cefr.v1', JSON.stringify({ version: 1, levels: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'], unclassified: true }));
           localStorage.setItem('chuyen-anh.study.v1', JSON.stringify({
             groups: { due: true, weak: true, new: true, review: true },
             focus: 'due',
@@ -2714,6 +2761,9 @@ async function main() {
         await page.evaluate(() => {
           localStorage.clear();
           localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['298', '2', '3']));
+          // rc10: favourites obey the CEFR filter, and this fixture's starred words
+          // are unclassified, so the fixture must select every level including Unclassified.
+          localStorage.setItem('chuyen-anh.cefr.v1', JSON.stringify({ version: 1, levels: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'], unclassified: true }));
           localStorage.setItem('chuyen-anh.study.v1', JSON.stringify({
             groups: { due: true, weak: true, new: true, review: true },
             focus: 'due',
@@ -2851,7 +2901,7 @@ async function main() {
     await page.locator('#state-filter').selectOption('archived');
     assert.match(await page.locator('.results-meta').innerText(), /1\.271 kết quả · trang 1\/26 · mục lưu trữ không vào phiên học/,
       'the archived filter reports the reviewed archive, grouped for the reader, and its scope');
-    assert.match(await page.locator('.brand-detail').innerText(), /3\.841 từ trọng tâm/,
+    assert.match(await page.locator('.brand-detail').innerText(), /5\.841 từ trọng tâm/,
       'the shell counts the focus deck, not every stored row');
 
     // ---- About: name, real version, licence from LICENSE and a short purpose.
@@ -2866,7 +2916,7 @@ async function main() {
     await about.locator('summary').click();
     assert.match(await about.locator('pre').innerText(), /Permission is hereby granted, free of charge/,
       'the licence text is the real MIT text, not a summary');
-    assert.match(await page.locator('.settings .data-info').last().innerText(), /3\.841 từ trọng tâm · 1\.271 từ lưu trữ/);
+    assert.match(await page.locator('.settings .data-info').last().innerText(), /5\.841 từ trọng tâm · 1\.271 từ lưu trữ/);
     assert.equal(await page.locator('.skip-link').getAttribute('href'), '#content',
       'keyboard users can skip the chrome');
 
@@ -3112,6 +3162,9 @@ async function main() {
         453: { id: '453', state: 'review', correctCount: 1, wrongCount: 0, streak: 1, lastReviewed: now - 86400000, nextReview: now - 3600000, interval: 1, ease: 2.5, difficulty: 0.3 }
       }));
       localStorage.setItem('chuyen-anh.favorites.v1', JSON.stringify(['453']));
+      // rc10: favourites obey the CEFR filter, and this fixture's starred words
+      // are unclassified, so the fixture must select every level including Unclassified.
+      localStorage.setItem('chuyen-anh.cefr.v1', JSON.stringify({ version: 1, levels: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'], unclassified: true }));
       localStorage.setItem('chuyen-anh.prefs.v1', JSON.stringify({ sessionSize: 10, keyboardShortcuts: true, darkMode: false }));
     });
     await rc7.reload();
@@ -3137,7 +3190,7 @@ async function main() {
 
 
     assert.deepEqual(errors, []);
-    console.log(`PASS: ${engineLabel} ${browser.version()} — first-look introduction for new words, same-part-of-speech distractors, cloze options absent from the sentence, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, 320/375/768px responsive layout, reduced-motion setting, search state across a favorite toggle, session clearing on reset/import, the ID 448 historical label, named option groups, shortcuts limited to the visible card, failed writes reported truthfully, JSON backup round-trips that keep every retained session, blank spelling submissions ignored, single-graded self-assessment, skip locked after a reveal, and 'Học cấp tốc' processing all ten requested words with a truthful single correction, automatic advance only after correct answers, accurate first-pass statistics, persisted progress, an immediate hand-off with the graded answer carried onto the next card, a queue that never shifts while another screen is open, and interface copy on a consolidation turn translated in the English interface; the beta5 priority configuration with all eight exercise types, a matching board driven from the keyboard, a skipped question reopened from the pending list, a hard word marked and unmarked, a real one-minute timed session that ends on its results with unanswered questions reported as blank, a v1 backup that keeps the device hard-word list, English rendering of every new screen, and the beta6 regressions: a priority session started from Settings opens where the learner can see it, a classic session reports only its own XP, a typed answer survives the star/flag toggles, a sprint honours the timer, a start that cannot run explains itself, a new session inherits no skipped questions, and the beta7 phrase bank: 780 phrases browsed, searched, filtered by type and level, practised for ten turns with typed and multiple-choice retrieval recorded in its own store while word progress stayed byte-identical, English rendering of the phrase screens, and a reset that clears phrase progress; the RC2 remediation regressions: two-tab grades surviving cross-tab writes with wipes never resurrected, an over-quota restore failing atomically with a truthful error then recovering fully once space is freed, the day streak moving only on first-pass correct answers — typed, chosen, self-assessed, and match resolutions alike — and skipped cards counted exactly once, at expiry and in a finished session; the curation release: an archived word marked in Tra cứu with no favourite toggle and a 1.271-row archived scope, every count driven by the 3.841-word focus deck, and an About panel stating the real version and the MIT licence read from LICENSE; the opt-in diagnostics log: off by default with no key on a device that never consented, a timestamped consent record, boot/settings/search events with no search text inside them, a downloaded report that names what it omits and carries no user agent, erasure on withdrawal; the rc7 answer-leakage regression: a gloss quoting its own headword is masked in the pre-answer prompt and printed in full only in feedback; no page errors.`);
+    console.log(`PASS: ${engineLabel} ${browser.version()} — first-look introduction for new words, same-part-of-speech distractors, cloze options absent from the sentence, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, 320/375/768px responsive layout, reduced-motion setting, search state across a favorite toggle, session clearing on reset/import, the ID 448 historical label, named option groups, shortcuts limited to the visible card, failed writes reported truthfully, JSON backup round-trips that keep every retained session, blank spelling submissions ignored, single-graded self-assessment, skip locked after a reveal, and 'Học cấp tốc' processing all ten requested words with a truthful single correction, automatic advance only after correct answers, accurate first-pass statistics, persisted progress, an immediate hand-off with the graded answer carried onto the next card, a queue that never shifts while another screen is open, and interface copy on a consolidation turn translated in the English interface; the beta5 priority configuration with all eight exercise types, a matching board driven from the keyboard, a skipped question reopened from the pending list, a hard word marked and unmarked, a real one-minute timed session that ends on its results with unanswered questions reported as blank, a v1 backup that keeps the device hard-word list, English rendering of every new screen, and the beta6 regressions: a priority session started from Settings opens where the learner can see it, a classic session reports only its own XP, a typed answer survives the star/flag toggles, a sprint honours the timer, a start that cannot run explains itself, a new session inherits no skipped questions, and the beta7 phrase bank: 1,094 phrases browsed, searched, filtered by type and level, practised for ten turns with typed and multiple-choice retrieval recorded in its own store while word progress stayed byte-identical, English rendering of the phrase screens, and a reset that clears phrase progress; the RC2 remediation regressions: two-tab grades surviving cross-tab writes with wipes never resurrected, an over-quota restore failing atomically with a truthful error then recovering fully once space is freed, the day streak moving only on first-pass correct answers — typed, chosen, self-assessed, and match resolutions alike — and skipped cards counted exactly once, at expiry and in a finished session; the curation release: an archived word marked in Tra cứu with no favourite toggle and a 1.271-row archived scope, every count driven by the 5,841-word focus deck, and an About panel stating the real version and the MIT licence read from LICENSE; the opt-in diagnostics log: off by default with no key on a device that never consented, a timestamped consent record, boot/settings/search events with no search text inside them, a downloaded report that names what it omits and carries no user agent, erasure on withdrawal; the rc7 answer-leakage regression: a gloss quoting its own headword is masked in the pre-answer prompt and printed in full only in feedback; no page errors.`);
   } finally {
     if (browser) await browser.close();
     await new Promise(resolve => server.close(resolve));

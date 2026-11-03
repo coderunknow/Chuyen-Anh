@@ -1,0 +1,269 @@
+olive	ô liu	food
+acre	mẫu Anh (đơn vị diện tích)	environment
+acreage	diện tích đất	environment
+acrobatic	nhào lộn	sport
+acrobatics	môn nhào lộn	sport
+adhesion	sự bám dính	science
+allusion	sự ám chỉ	culture
+anthology	tuyển tập	culture
+articulation	cách phát âm, sự khớp	health
+artifact	hiện vật	culture
+assimilation	sự đồng hóa	society
+athleticism	thể chất thể thao	sport
+attrition	sự hao mòn	work
+autopilot	chế độ lái tự động	technology
+axiom	tiên đề	science
+baroque	phong cách ba-rốc	culture
+blight	bệnh tàn phá cây trồng	environment
+bogus	giả mạo	law
+bout	trận đấu, cơn	sport
+brim	mép, vành	academic
+calamitous	thảm khốc	environment
+calorific	thuộc ca-lo	food
+capacious	rộng rãi	academic
+choreography	biên đạo múa	culture
+chronologically	theo thứ tự thời gian	academic
+chrysalis	kén bướm	environment
+cinematography	kỹ thuật quay phim	media
+circumnavigate	đi vòng quanh	travel
+circumnavigation	chuyến đi vòng quanh	travel
+clinch	giành được, ôm ghì	sport
+coax	dỗ dành, thuyết phục	psychology
+cocoon	kén	environment
+collider	máy gia tốc va chạm	science
+colloquium	hội thảo khoa học	education
+combustion	sự cháy	science
+conciliation	sự hòa giải	law
+concurrence	sự đồng tình, sự trùng hợp	law
+confection	bánh kẹo ngọt	food
+conglomerate	tập đoàn đa ngành	economics
+connote	ám chỉ	education
+consign	gửi, ký gửi	economics
+consignment	lô hàng ký gửi	economics
+consternation	sự sững sờ	psychology
+contagion	sự lây lan	health
+contemptuous	khinh miệt	psychology
+contractually	theo hợp đồng	law
+contraption	cỗ máy kỳ quặc	technology
+cordon	ranh giới kiểm soát	law
+crippling	làm tê liệt	health
+cull	loại bỏ, chọn lọc	environment
+deaden	làm dịu đi	psychology
+delicatessen	cửa hàng đồ nguội	food
+denunciation	sự tố cáo	law
+depraved	đồi bại	law
+depravity	sự đồi bại	law
+deprecate	phản đối, chê bai	academic
+derision	sự chế nhạo	psychology
+derisive	mang tính chế giễu	psychology
+deterrent	yếu tố răn đe	law
+disdainful	khinh khỉnh	psychology
+disparagingly	một cách chê bai	media
+dissemination	sự phổ biến	media
+distill	chưng cất, chắt lọc	science
+domesticity	đời sống gia đình	family
+drudgery	việc cực nhọc	work
+ebb	sự rút xuống, suy giảm	economics
+edification	sự khai sáng	education
+elasticity	độ đàn hồi, tính co giãn	economics
+elated	phấn chấn	psychology
+electrode	điện cực	science
+eminence	sự lỗi lạc, vị trí cao	society
+emulation	sự thi đua	work
+emulsifier	chất nhũ hóa	food
+emulsify	nhũ hóa	food
+encumber	cản trở, gánh nặng	academic
+encumbrance	gánh nặng	academic
+etch	khắc axit	technology
+etching	bản khắc	culture
+euphemistic	nói giảm nói tránh	education
+euphoria	cảm giác hưng phấn	psychology
+euphoric	hưng phấn tột độ	psychology
+extant	còn tồn tại	culture
+fabled	huyền thoại	culture
+fabrication	sự bịa đặt	media
+feign	giả vờ	psychology
+fete	ngày hội	culture
+flagging	suy yếu	academic
+flighty	nhẹ dạ, hay thay đổi	psychology
+floe	tảng băng trôi	environment
+fluctuation	sự dao động	economics
+forfeiture	sự mất quyền, tịch thu	law
+frolic	nô đùa	culture
+gambit	nước khai cuộc, mưu mẹo	academic
+gauche	vụng về	society
+genomic	thuộc hệ gen	science
+gout	bệnh gút	health
+gravitate	bị hút về	psychology
+habitation	nơi cư trú	society
+hapless	kém may mắn	psychology
+happenstance	sự tình cờ	academic
+helm	bánh lái, sự lãnh đạo	academic
+herald	báo trước, sứ giả	media
+hermit	người ẩn dật	society
+hitch	trục trặc, móc vào	academic
+hitherto	cho đến nay	academic
+homestead	nông trại gia đình	environment
+hotelier	chủ khách sạn	travel
+huddle	co cụm lại	sport
+hull	thân tàu	technology
+hypnotherapy	trị liệu thôi miên	health
+hypothesize	đưa ra giả thuyết	science
+hysteria	sự cuồng loạn	psychology
+idiosyncratic	đặc thù riêng	psychology
+impeccably	hoàn hảo	academic
+imperceptible	không thể nhận thấy	academic
+imposition	sự áp đặt	law
+impressionistic	ấn tượng chủ nghĩa	culture
+improvisational	mang tính ngẫu hứng	culture
+inchoate	mới manh nha	academic
+incipient	bắt đầu xuất hiện	academic
+incongruity	sự không thích hợp	academic
+incumbent	đương nhiệm	politics
+indiscretion	sự thiếu thận trọng	society
+indolence	sự lười biếng	psychology
+informant	người cung cấp tin	law
+ingratiating	luồn cúi, dễ lấy lòng	psychology
+instantaneous	tức thời	science
+interlocking	lồng vào nhau	technology
+interlude	khoảng giữa, nhạc dạo	media
+intermediary	trung gian	economics
+intersperse	rải rác	academic
+interweave	đan cài vào nhau	academic
+irrevocably	không thể thu hồi	law
+jarring	chói tai, gây sốc	psychology
+kinetic	thuộc động năng	science
+knack	khả năng, sở trường	work
+lassitude	sự mệt mỏi	health
+leaven	làm men, làm nhẹ đi	food
+liaise	liên lạc phối hợp	work
+loiter	la cà	law
+lurid	giật gân, rùng rợn	media
+lyricist	người viết lời bài hát	culture
+maggot	con giòi	environment
+magnanimity	sự độ lượng	psychology
+magnate	trùm tài phiệt	economics
+malice	ác ý	law
+malicious	ác ý, độc hại	law
+mangle	làm hỏng, xé nát	academic
+marketability	khả năng bán được	economics
+maverick	người độc lập, nổi loạn	work
+mediocrity	sự tầm thường	academic
+menacing	đe dọa	psychology
+mercantile	thuộc thương mại	economics
+mesh	lưới, ăn khớp	technology
+mesmeric	thôi miên	psychology
+meteorological	thuộc khí tượng	science
+meteorology	khí tượng học	science
+midwifery	ngành hộ sinh	health
+milieu	môi trường xã hội	society
+modernism	chủ nghĩa hiện đại	culture
+moor	vùng đồng hoang	environment
+mottled	lốm đốm	science
+mutinous	nổi loạn	politics
+nostalgically	một cách hoài niệm	psychology
+oblique	xiên, gián tiếp	academic
+opacity	độ mờ đục, tính khó hiểu	science
+ordain	phong chức, quy định	culture
+ornate	trang trí cầu kỳ	culture
+ostensibly	bề ngoài là	academic
+palate	vòm miệng, khẩu vị	food
+parable	câu chuyện ngụ ngôn	culture
+patchy	chắp vá, không đều	academic
+pedestal	bệ đỡ	culture
+perverse	ngang ngược	psychology
+perversity	tính ngang ngược	psychology
+philanthropic	từ thiện	society
+philanthropist	nhà từ thiện	society
+plumage	bộ lông chim	environment
+plume	chùm lông	environment
+posterity	hậu thế	culture
+preconception	định kiến sẵn có	psychology
+predilection	sự thiên vị	psychology
+presuppose	giả định trước	academic
+presupposition	tiền giả định	academic
+profitability	khả năng sinh lời	economics
+promenade	đường dạo bộ	travel
+proportionally	tương ứng theo tỷ lệ	science
+proprietary	độc quyền sở hữu	law
+proscription	sự cấm đoán	law
+prostrate	nằm sấp	health
+protrude	nhô ra	science
+protrusion	phần nhô ra	science
+proverbial	thuộc tục ngữ	culture
+provocation	sự khiêu khích	psychology
+punitive	mang tính trừng phạt	law
+qualm	sự e ngại	psychology
+rapture	sự ngây ngất	psychology
+rebound	bật lại, hồi phục	sport
+rebuke	khiển trách	law
+recitation	sự ngâm đọc	education
+recluse	người ẩn dật	society
+recuperate	hồi phục sức khỏe	health
+reissue	phát hành lại	media
+remit	gửi tiền, miễn giảm	economics
+remittance	tiền gửi về	economics
+remorseful	hối hận	psychology
+reptilian	thuộc loài bò sát	environment
+requisition	trưng dụng	law
+resound	vang dội	science
+resounding	vang dội, hoàn toàn	academic
+resuscitate	hồi sức	health
+resuscitation	sự hồi sức	health
+reverberate	dội lại	science
+reverberation	âm dội	science
+revulsion	sự ghê tởm	psychology
+rickety	lung lay	technology
+romp	chơi đùa hớn hở	culture
+ruminant	động vật nhai lại	environment
+ruminate	nhai lại, suy ngẫm	psychology
+rumination	sự suy ngẫm	psychology
+salivary	thuộc nước bọt	health
+scavenger	động vật ăn xác	environment
+sheaf	bó, tập	academic
+shimmer	long lanh	science
+singe	cháy sém	food
+skew	làm lệch	science
+slab	tấm, phiến	technology
+slither	trượt, bò	environment
+smattering	hiểu biết sơ sài	education
+snippet	đoạn trích nhỏ	media
+snobbery	sự hợm hĩnh	society
+spatial	thuộc không gian	science
+spatially	theo không gian	science
+spire	chóp tháp	culture
+splinter	mảnh vụn, dằm	health
+spontaneity	tính tự phát	psychology
+squint	nheo mắt	health
+squirm	uốn éo, bứt rứt	psychology
+sterility	tính vô trùng, vô sinh	health
+stipulate	quy định	law
+stoicism	sự khắc kỷ	psychology
+subsist	tồn tại, sống qua	economics
+surrealism	chủ nghĩa siêu thực	culture
+teem	đầy ắp, đông đúc	society
+testimonial	lời chứng thực	media
+thicket	bụi rậm	environment
+topple	lật đổ, đổ nhào	politics
+torrential	như trút nước	environment
+totter	loạng choạng	health
+treacherous	phản trắc, hiểm nguy	psychology
+treachery	sự phản bội	psychology
+trifle	chuyện nhỏ, bánh kem	food
+truism	điều hiển nhiên	academic
+turret	tháp nhỏ, tháp pháo	technology
+unnerve	làm mất bình tĩnh	psychology
+unobtrusive	kín đáo	academic
+unsurpassed	vô song	academic
+utilitarian	thực dụng	society
+vandal	kẻ phá hoại	law
+vandalize	phá hoại	law
+verbatim	nguyên văn	media
+vermin	sâu bọ có hại	environment
+vindication	sự minh oan	law
+virtuosity	kỹ thuật điêu luyện	culture
+virtuoso	bậc thầy biểu diễn	culture
+vortex	xoáy nước, cơn lốc	science
+wallow	lăn lộn, đắm chìm	psychology
+wayward	ương ngạnh	psychology
+zoologist	nhà động vật học	science

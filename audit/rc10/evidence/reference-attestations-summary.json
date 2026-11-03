@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-11-02T15:13:24.032Z",
+  "reference": "Oxford 3000 and 5000 word list (Oxford University Press)",
+  "cacheEntries": 44,
+  "matched": 25,
+  "agreeWithCurrentRecord": 17,
+  "disagreeWithCurrentRecord": 8,
+  "frozenIds": 3,
+  "applied": [],
+  "blocked": [
+    {
+      "id": "4632",
+      "item": "academic",
+      "from": "B2",
+      "to": "B1"
+    }
+  ],
+  "belowStudyScope": [
+    {
+      "id": "914",
+      "item": "ability",
+      "from": "B1",
+      "to": "A2"
+    },
+    {
+      "id": "915",
+      "item": "accept",
+      "from": "B1",
+      "to": "A2"
+    },
+    {
+      "id": "916",
+      "item": "accident",
+      "from": "B1",
+      "to": "A2"
+    },
+    {
+      "id": "4686",
+      "item": "abroad",
+      "from": "B1",
+      "to": "A2"
+    }
+  ],
+  "pendingLedger": [
+    {
+      "id": "197",
+      "item": "Accommodate",
+      "from": "UNCLASSIFIED",
+      "to": "B2"
+    },
+    {
+      "id": "814",
+      "item": "Abandon",
+      "from": "UNCLASSIFIED",
+      "to": "B2"
+    },
+    {
+      "id": "815",
+      "item": "Absorb",
+      "from": "UNCLASSIFIED",
+      "to": "B2"
+    }
+  ]
+}

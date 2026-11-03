@@ -1,17 +1,17 @@
 # Rà bằng chứng cho bộ từ trọng tâm
 
 Báo cáo sinh tự động từ `scripts/vocabulary_evidence_review.py`; `--check` chứng minh tệp còn khớp dữ liệu.
-Phạm vi: **923** headword đang ở bộ từ trọng tâm mà **không** có nguồn `exam-corpus`, trên tổng 5,112 headword.
+Phạm vi: **1,717** headword đang ở bộ từ trọng tâm mà **không** có nguồn `exam-corpus`, trên tổng 7,112 headword.
 
 Đây là bảng phân loại **nguyên nhân**, không phải kết luận từ nào không cần học. Một từ không xuất hiện trong 106 bản chép vẫn có thể cần cho đề: bản chép chỉ phủ 106 bộ đề, và dạng bài biến đổi từ kiểm tra gốc từ mà gốc không nhất thiết nằm trong bài đọc.
 
 | Nhóm | Số headword | Nghĩa | Cách xử lý |
 | --- | ---: | --- | --- |
 | `phrase-in-corpus` | 14 | Cả cụm xuất hiện trong bản chép | Giữ; ghi nguồn cụm vào hàng khi rebuild. |
-| `surface-variant` | 188 | Chỉ một dạng biến đổi của từ xuất hiện | Giữ; câu nguồn phải nêu đúng dạng đã thấy, không nhận là headword. |
+| `surface-variant` | 342 | Chỉ một dạng biến đổi của từ xuất hiện | Giữ; câu nguồn phải nêu đúng dạng đã thấy, không nhận là headword. |
 | `multiword-words-only` | 5 | Các chữ của cụm cùng có trong một đề, nhưng không đứng cạnh nhau | Giữ nhưng hạ mức bằng chứng: chỉ là các chữ cùng xuất hiện trong một đề. |
 | `exam-format-only` | 5 | Không có trong văn bản, nhưng thuộc dạng bài đề kiểm tra trực tiếp | Giữ: dạng bài từ loại/biến đổi từ/liên kết câu kiểm tra gốc từ, không cần gốc xuất hiện trong bài đọc. |
-| `dictionary-only` | 698 | Chỉ có mục từ điển và nghĩa, không có bằng chứng trong đề | Giữ và đánh dấu: bằng chứng là mục từ điển, không phải đề thi. |
+| `dictionary-only` | 1,338 | Chỉ có mục từ điển và nghĩa, không có bằng chứng trong đề | Giữ và đánh dấu: bằng chứng là mục từ điển, không phải đề thi. |
 | `no-basis` | 13 | Chưa tìm được căn cứ nào để giữ — cần rà thủ công | Đánh dấu để rà thủ công; không tự xoá, không tự lưu trữ. |
 
 ## Phân bố theo level biên tập
@@ -19,10 +19,10 @@ Phạm vi: **923** headword đang ở bộ từ trọng tâm mà **không** có 
 | Nhóm | (none) | B1 | B2 | C1 | C2 |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | `phrase-in-corpus` | 14 |  |  |  |  |
-| `surface-variant` | 52 | 1 | 12 | 76 | 47 |
+| `surface-variant` | 52 | 6 | 78 | 149 | 57 |
 | `multiword-words-only` | 5 |  |  |  |  |
-| `exam-format-only` |  |  |  | 1 | 4 |
-| `dictionary-only` | 223 | 1 | 13 | 159 | 302 |
+| `exam-format-only` |  | 1 |  |  | 4 |
+| `dictionary-only` | 223 | 7 | 218 | 372 | 518 |
 | `no-basis` | 13 |  |  |  |  |
 
 ## Bằng chứng mới tìm được

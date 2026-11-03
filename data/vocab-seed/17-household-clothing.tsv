@@ -37,12 +37,12 @@ apron	n	tạp dề	B1	daily-life	topic	reading
 tongs	n	cái gắp	C1	daily-life	topic	reading
 spatula	n	đồ lật thức ăn	C1	daily-life	topic	reading
 ladle	n	cái muôi múc canh	B2	daily-life	topic	reading
-thermometer	n	nhiệt kế	B1	health	topic	reading
+thermometer	n	nhiệt kế	B2	health	topic	reading	cefrj-vocabulary-profile-1.5
 scales	n	cân	C1	daily-life	topic	reading
 timer	n	đồng hồ hẹn giờ	B1	daily-life	topic	reading
 toaster	n	máy nướng bánh mì	B1	daily-life	topic	reading
 kettle	n	ấm đun nước	B1	daily-life	topic	reading
-microwave	n	lò vi sóng	B1	daily-life	topic	reading
+microwave	n	lò vi sóng	B2	daily-life	topic	reading	cefrj-vocabulary-profile-1.5
 dishwasher	n	máy rửa bát	B1	daily-life	topic	reading
 freezer	n	ngăn đá, tủ đông	B1	daily-life	topic	reading
 fridge	n	tủ lạnh	B1	daily-life	topic	reading
@@ -55,7 +55,7 @@ bleach	n	thuốc tẩy	B2	daily-life	topic	reading
 disinfectant	n	chất khử trùng	C1	daily-life	topic	reading
 mothball	n	băng phiến	C1	daily-life	topic	reading
 duster	n	khăn lau bụi	C1	daily-life	topic	reading
-cloth	n	khăn lau, vải	B1	daily-life	topic	reading
+cloth	n	khăn lau, vải	B1	daily-life	topic	reading	oxford-3000-5000
 scrubber	n	đồ cọ rửa	C1	daily-life	topic	reading
 scourer	n	miếng cọ nồi	C1	daily-life	topic	reading
 washboard	n	bàn giặt	C2	daily-life	topic	reading
@@ -69,10 +69,10 @@ moccasin	n	giày da mềm	C2	daily-life	topic	reading
 heel	n	gót giày	B1	daily-life	topic	reading
 sole	n	đế giày	C1	daily-life	topic	reading
 buttonhole	n	khuy cài	C1	daily-life	topic	reading
-cuff	n	cổ tay áo	C1	daily-life	topic	reading
+cuff	n	cổ tay áo	B2	daily-life	topic	reading	cefrj-vocabulary-profile-1.5
 lapel	n	ve áo	C1	daily-life	topic	reading
 pocket	n	túi áo	B1	daily-life	topic	reading
-hood	n	mũ trùm đầu	B1	daily-life	topic	reading
+hood	n	mũ trùm đầu	B2	daily-life	topic	reading	cefrj-vocabulary-profile-1.5
 sleeve	n	tay áo	B1	daily-life	topic	reading
 waistband	n	cạp quần	C1	daily-life	topic	reading
 belt	n	thắt lưng	B1	daily-life	topic	reading
@@ -93,18 +93,18 @@ hairpin	n	kẹp tóc	C1	daily-life	topic	reading
 hairbrush	n	lược chải tóc	B1	daily-life	topic	reading
 hairdryer	n	máy sấy tóc	B1	daily-life	topic	reading
 nightdress	n	áo ngủ nữ	C1	daily-life	topic	reading
-pyjamas	n	bộ đồ ngủ	B1	daily-life	topic	reading
+pyjamas	n	bộ đồ ngủ	B2	daily-life	topic	reading	cefrj-vocabulary-profile-1.5
 nightgown	n	áo ngủ dài	C1	daily-life	topic	reading
-cardigan	n	áo len cài khuy	B1	daily-life	topic	reading
+cardigan	n	áo len cài khuy	B2	daily-life	topic	reading	cefrj-vocabulary-profile-1.5
 jumper	n	áo len	B1	daily-life	topic	reading
 sweatshirt	n	áo nỉ	B1	daily-life	topic	reading
 hoodie	n	áo nỉ có mũ	B2	daily-life	topic	reading
 blazer	n	áo khoác vest	B2	daily-life	topic	reading
 jacket	n	áo khoác	B1	daily-life	topic	reading
-overcoat	n	áo khoác dài	C1	daily-life	topic	reading
+overcoat	n	áo khoác dài	B2	daily-life	topic	reading	cefrj-vocabulary-profile-1.5
 raincoat	n	áo mưa	B1	daily-life	topic	reading
 poncho	n	áo choàng không tay	C1	daily-life	topic	reading
-waistcoat	n	áo gi-lê	C1	daily-life	topic	reading
+waistcoat	n	áo gi-lê	B2	daily-life	topic	reading	cefrj-vocabulary-profile-1.5
 tunic	n	áo dài rộng	C1	daily-life	topic	reading
 sarong	n	xiêm quấn	C2	daily-life	topic	reading
 trousers	n	quần dài	B1	daily-life	topic	reading
@@ -114,7 +114,7 @@ shorts	n	quần đùi	B1	daily-life	topic	reading
 jeans	n	quần bò	B1	daily-life	topic	reading
 skirt	n	chân váy	B1	daily-life	topic	reading
 dress	n	đầm, váy liền	B1	daily-life	topic	reading
-gown	n	váy dạ hội	C1	daily-life	topic	reading
+gown	n	váy dạ hội	B1	daily-life	topic	reading	cefrj-vocabulary-profile-1.5
 suit	n	bộ comple	B1	daily-life	topic	reading
 blouse	n	áo sơ mi nữ	C1	daily-life	topic	reading
 shirt	n	áo sơ mi	B1	daily-life	topic	reading
@@ -122,15 +122,15 @@ vest	n	áo ba lỗ	C1	daily-life	topic	reading
 sock	n	tất	B1	daily-life	topic	reading
 tights	n	quần tất	C1	daily-life	topic	reading
 stocking	n	bít tất dài	C1	daily-life	topic	reading
-underwear	n	đồ lót	B1	daily-life	topic	reading
+underwear	n	đồ lót	B1	daily-life	topic	reading	oxford-3000-5000
 bra	n	áo ngực	B1	daily-life	topic	reading
 wrench	n	cờ lê	C1	daily-life	topic	reading
 clamp	n	cái kẹp	C1	daily-life	topic	reading
 vice	n	ê-tô	C1	daily-life	topic	reading
-file	n	cái giũa	B1	daily-life	topic	reading
+file	n	cái giũa	B1	daily-life	topic	reading	oxford-3000-5000
 sandpaper	n	giấy nhám	C1	daily-life	topic	reading
 varnish	n	vec-ni	C1	daily-life	topic	reading
-paintbrush	n	cọ sơn	B1	daily-life	topic	reading
+paintbrush	n	cọ sơn	B2	daily-life	topic	reading	cefrj-vocabulary-profile-1.5
 roller	n	con lăn sơn	C1	daily-life	topic	reading
 scaffold	n	giàn giáo	C1	daily-life	topic	reading
 wheelbarrow	n	xe rùa	C1	daily-life	topic	reading

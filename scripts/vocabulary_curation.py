@@ -30,6 +30,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 SPEC_PATH = ROOT / "docs" / "vocabulary-curation.json"
+DECISIONS_PATH = ROOT / "docs" / "vocabulary-curation-decisions.json"
 ARCHIVED_TAG = "curation:archived"
 CATEGORY_PREFIX = "curation-category:"
 CURATION_PREFIX = "curation:"
@@ -52,6 +53,55 @@ def load_spec(path: Path = SPEC_PATH) -> dict[str, Any]:
         if not isinstance(spec.get(field), list if field != "categories" else dict):
             raise ValueError(f"{path.name}: '{field}' must be a {'dict' if field == 'categories' else 'list'}")
     return spec
+
+
+def load_frozen(path: Path = DECISIONS_PATH) -> dict[str, dict[str, Any]] | None:
+    """Load the frozen curation decisions, keyed by row ID, or None if absent.
+
+    Why frozen: the map's *rules* are stated in terms of CEFR level (for example
+    "B1 topic/core/academic words are outside the exam deck"). Deriving the deck
+    from the live level tag makes a level correction silently remove a word from
+    a learner's deck — two different decisions, one of them taken by a dictionary
+    audit that has no mandate over visibility. The rules therefore generate
+    *proposals*, an explicit per-row decision is what gets applied, and correcting
+    a level can never move a row between decks. Newly matching rows are reported
+    for review instead, and entering the deck or leaving it stays a curation act.
+    """
+    if not path.exists():
+        return None
+    document = json.loads(path.read_text(encoding="utf-8"))
+    decisions = document.get("decisions")
+    if not isinstance(decisions, list):
+        raise ValueError(f"{path.name}: 'decisions' must be a list")
+    frozen: dict[str, dict[str, Any]] = {}
+    for decision in decisions:
+        if not isinstance(decision, dict) or "id" not in decision or "category" not in decision:
+            raise ValueError(f"{path.name}: every decision needs 'id' and 'category'")
+        frozen[str(decision["id"])] = decision
+    return frozen
+
+
+def resolve_decisions(rows: list[dict[str, Any]], spec: dict[str, Any],
+                      seed_origin: dict[str, str] | None = None,
+                      frozen: dict[str, dict[str, Any]] | None = None) -> dict[str, Any]:
+    """Combine derived proposals with the frozen decisions that are actually applied.
+
+    Returns `archived` (id -> decision, what the deck loses), `pendingReview`
+    (proposals that match a rule but have no frozen decision, so nothing happens
+    to them yet), `orphaned` (frozen IDs that are no longer rows) and `problems`.
+    """
+    derived, problems = matched_rows(rows, spec, seed_origin)
+    if frozen is None:
+        return {"archived": {str(decision["id"]): decision for decision in derived.values()},
+                "pendingReview": [], "orphaned": [], "problems": problems}
+    by_id = {row["id"]: row for row in rows}
+    archived = {row_id: frozen[row_id] for row_id in frozen if row_id in by_id}
+    pending = [{**decision, "id": str(decision["id"])} for decision in derived.values()
+               if str(decision["id"]) not in archived]
+    pending.sort(key=lambda item: int(item["id"]))
+    orphaned = sorted(set(frozen) - set(by_id), key=int)
+    return {"archived": archived, "pendingReview": pending, "orphaned": orphaned,
+            "problems": problems}
 
 
 def strip_curation(rows: list[dict[str, Any]]) -> None:
@@ -201,16 +251,24 @@ def matched_rows(rows: list[dict[str, Any]], spec: dict[str, Any],
 
 def apply_curation(rows: list[dict[str, Any]], spec: dict[str, Any],
                    seed_origin: dict[str, str] | None = None) -> dict[str, Any]:
-    """Strip, re-apply and propagate curation tags; return a summary."""
+    """Strip, re-apply and propagate curation tags; return a summary.
+
+    The archived set comes from the frozen per-row decisions when that file
+    exists, so a CEFR correction cannot add or remove a deck member. Rule
+    proposals that match but are not frozen are returned in `pendingReview`.
+    """
     strip_curation(rows)
-    decisions, problems = matched_rows(rows, spec, seed_origin)
+    frozen = load_frozen()
+    resolved = resolve_decisions(rows, spec, seed_origin, frozen)
+    problems = resolved["problems"]
     if problems:
         raise ValueError("; ".join(problems[:20]))
+    decisions = resolved["archived"]
 
-    by_key = {word_key(row["word"]): row for row in rows}
+    by_id = {row["id"]: row for row in rows}
     archived_ids: set[str] = set()
-    for key, decision in decisions.items():
-        row = by_key[key]
+    for row_id, decision in decisions.items():
+        row = by_id[row_id]
         row["tags"] = [tag for tag in row["tags"] if not (isinstance(tag, str) and tag.startswith(CURATION_PREFIX))]
         row["tags"].extend([ARCHIVED_TAG, f"{CATEGORY_PREFIX}{decision['category']}"])
         archived_ids.add(row["id"])
@@ -227,6 +285,8 @@ def apply_curation(rows: list[dict[str, Any]], spec: dict[str, Any],
 
     return {
         "archived": len(archived_ids),
+        "pendingReview": resolved["pendingReview"],
+        "orphaned": resolved["orphaned"],
         "archivedRows": sum(1 for row in rows if is_archived(row.get("tags"))),
         "categories": {category: sum(1 for decision in decisions.values() if decision["category"] == category)
                        for category in sorted(spec.get("categories") or {})},

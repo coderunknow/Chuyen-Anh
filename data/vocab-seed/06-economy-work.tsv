@@ -1,52 +1,52 @@
 # Economy, money and work vocabulary.
 # word<TAB>pos<TAB>meaning<TAB>level<TAB>topic<TAB>type<TAB>skills
-inflation	n	lạm phát	C1	economics	topic	reading
+inflation	n	lạm phát	B2	economics	topic	reading	oxford-3000-5000
 unemployment	n	tình trạng thất nghiệp	B2	economics	topic	reading
-wage	n	tiền công theo giờ	C1	economics	topic	reading
-income	n	thu nhập	B2	economics	topic	reading
+wage	n	tiền công theo giờ	B2	economics	topic	reading	oxford-3000-5000
+income	n	thu nhập	B2	economics	topic	reading	oxford-3000-5000
 tax	n	thuế	B1	economics	topic	reading
-budget	n	ngân sách	B2	economics	topic	reading
+budget	n	ngân sách	B2	economics	topic	reading	oxford-3000-5000
 investment	n	sự đầu tư	B2	economics	topic	reading
 investor	n	nhà đầu tư	C1	economics	topic	reading
-profit	n	lợi nhuận	B2	economics	core	reading
-debt	n	khoản nợ	B2	economics	topic	reading
+profit	n	lợi nhuận	B1	economics	core	reading	oxford-3000-5000
+debt	n	khoản nợ	B2	economics	topic	reading	oxford-3000-5000
 loan	n	khoản vay	B2	economics	topic	reading
-mortgage	n	thế chấp nhà	C2	economics	topic	reading
+mortgage	n	thế chấp nhà	B2	economics	topic	reading	oxford-3000-5000
 subsidy	n	tiền trợ cấp	C1	economics	topic	reading
 tariff	n	thuế quan	C2	economics	topic	reading
-trade	n	thương mại	B2	economics	topic	reading
-export	n	hàng xuất khẩu	B2	economics	topic	reading
-import	n	hàng nhập khẩu	B2	economics	topic	reading
+trade	n	thương mại	B1	economics	topic	reading	oxford-3000-5000
+export	n	hàng xuất khẩu	B1	economics	topic	reading	oxford-3000-5000
+import	n	hàng nhập khẩu	B1	economics	topic	reading	oxford-3000-5000
 consume	v	tiêu thụ	C1	economics	academic	reading
 consumer	n	người tiêu dùng	B2	economics	topic	reading
-monopoly	n	thế độc quyền	C2	economics	topic	reading
-entrepreneur	n	doanh nhân	C1	economics	topic	reading
+monopoly	n	thế độc quyền	C1	economics	topic	reading	oxford-3000-5000
+entrepreneur	n	doanh nhân	B2	economics	topic	reading	oxford-3000-5000
 salary	n	lương tháng	B1	work	core	reading
-pension	n	lương hưu	C1	economics	topic	reading
-bonus	n	tiền thưởng	B2	work	topic	reading
+pension	n	lương hưu	B2	economics	topic	reading	oxford-3000-5000
+bonus	n	tiền thưởng	C1	work	topic	reading	oxford-3000-5000
 promotion	n	sự thăng chức	B2	work	topic	reading
-resign	v	từ chức	C1	work	topic	reading
-retire	v	nghỉ hưu	B1	work	core	reading
-candidate	n	ứng viên	B2	work	topic	reading
-vacancy	n	vị trí tuyển dụng	C1	work	topic	reading
+resign	v	từ chức	B2	work	topic	reading	oxford-3000-5000
+retire	v	nghỉ hưu	B1	work	core	reading	oxford-3000-5000
+candidate	n	ứng viên	B1	work	topic	reading	oxford-3000-5000
+vacancy	n	vị trí tuyển dụng	B1	work	topic	reading	cefrj-vocabulary-profile-1.5
 contract	n	hợp đồng	B2	work	topic	reading
-negotiate	v	thương lượng	C1	work	academic	reading
-merger	n	sự sáp nhập	C2	economics	topic	reading
-stock	n	cổ phiếu, hàng tồn	C1	economics	topic	reading
-shareholder	n	cổ đông	C2	economics	topic	reading
-boom	n	sự bùng nổ kinh tế	C1	economics	topic	reading
+negotiate	v	thương lượng	B2	work	academic	reading	oxford-3000-5000
+merger	n	sự sáp nhập	C1	economics	topic	reading	oxford-3000-5000
+stock	n	cổ phiếu, hàng tồn	B2	economics	topic	reading	oxford-3000-5000
+shareholder	n	cổ đông	C1	economics	topic	reading	oxford-3000-5000
+boom	n	sự bùng nổ kinh tế	C1	economics	topic	reading	oxford-3000-5000
 downturn	n	sự suy thoái	C1	economics	topic	reading
-audit	n	cuộc kiểm toán	C2	economics	topic	reading
+audit	n	cuộc kiểm toán	C1	economics	topic	reading	oxford-3000-5000
 finance	n	tài chính	B2	economics	topic	reading
-financial	adj	thuộc tài chính	B2	economics	academic	reading
+financial	adj	thuộc tài chính	B1	economics	academic	reading	oxford-3000-5000
 monetary	adj	thuộc tiền tệ	C2	economics	academic	reading
-fiscal	adj	thuộc ngân sách, tài khóa	C2	economics	academic	reading
+fiscal	adj	thuộc ngân sách, tài khóa	B2	economics	academic	reading	cefrj-vocabulary-profile-1.5
 revenue	n	doanh thu	C1	economics	academic	reading
 expenditure	n	chi tiêu	C1	economics	academic	reading
-deficit	n	sự thâm hụt	C1	economics	academic	reading
+deficit	n	sự thâm hụt	C1	economics	academic	reading	oxford-3000-5000
 surplus	n	thặng dư	C1	economics	academic	reading
 affluent	adj	giàu có	C1	economics	academic	reading
-wealth	n	sự giàu có	B2	economics	topic	reading
+wealth	n	sự giàu có	B2	economics	topic	reading	oxford-3000-5000
 poverty	n	sự nghèo đói	B2	society	topic	writing
 prosperity	n	sự thịnh vượng	C1	economics	academic	writing
 standard	n	mức sống chuẩn	C1	economics	academic	reading
@@ -56,18 +56,18 @@ employee	n	người lao động	B2	work	topic	reading
 employment	n	việc làm	C1	work	topic	reading
 recruitment	n	sự tuyển dụng	C1	work	topic	reading
 workload	n	khối lượng công việc	C1	work	topic	reading
-deadline	n	hạn chót	B1	work	core	reading
-overtime	n	giờ làm thêm	C1	work	topic	reading
-shift	n	ca làm việc	B2	work	topic	reading
+deadline	n	hạn chót	B2	work	core	reading	oxford-3000-5000
+overtime	n	giờ làm thêm	B2	work	topic	reading	cefrj-vocabulary-profile-1.5
+shift	n	ca làm việc	B1	work	topic	reading	oxford-3000-5000
 internship	n	kỳ thực tập	C1	work	topic	reading
-apprentice	n	người học nghề	C2	work	topic	reading
-mentor	n	người cố vấn	C1	work	topic	reading
-supervisor	n	người giám sát	C1	work	topic	reading
+apprentice	n	người học nghề	C1	work	topic	reading	octanove-vocabulary-profile-1.0
+mentor	n	người cố vấn	C1	work	topic	reading	oxford-3000-5000
+supervisor	n	người giám sát	C1	work	topic	reading	oxford-3000-5000
 colleague	n	đồng nghiệp	B2	work	topic	reading
 teamwork	n	làm việc nhóm	B1	work	core	reading
-leadership	n	năng lực lãnh đạo	B2	work	topic	writing
+leadership	n	năng lực lãnh đạo	B2	work	topic	writing	oxford-3000-5000
 delegate	v	giao phó, ủy thác	C2	work	academic	reading
-supervise	v	giám sát	C1	work	academic	reading
+supervise	v	giám sát	C1	work	academic	reading	oxford-3000-5000
 coordinate	v	điều phối	C1	work	academic	reading
 allocate	v	phân bổ	C1	work	academic	reading
 prioritise	v	ưu tiên hóa	C1	work	academic	reading
@@ -82,14 +82,14 @@ rewarding	adj	đáng giá, bổ ích	B2	work	topic	reading
 demanding	adj	đòi hỏi cao	B2	work	topic	reading
 stressful	adj	gây căng thẳng	B2	work	topic	reading
 reward	n	phần thưởng công việc	C1	work	core	reading
-satisfaction	n	sự hài lòng	C1	work	topic	writing
+satisfaction	n	sự hài lòng	B2	work	topic	writing	oxford-3000-5000
 morale	n	tinh thần làm việc	C2	work	topic	reading
-turnover	n	tỷ lệ nhân viên rời đi	C2	work	topic	reading
+turnover	n	tỷ lệ nhân viên rời đi	C1	work	topic	reading	oxford-3000-5000
 redundancy	n	sự sa thải do dư thừa	C2	work	topic	reading
 layoff	n	việc cho nghỉ việc	C2	work	topic	reading
-dismiss	v	sa thải	C1	work	academic	reading
-suspend	v	đình chỉ	C1	work	academic	reading
-resignation	n	sự từ chức	C1	work	topic	reading
+dismiss	v	sa thải	B2	work	academic	reading	oxford-3000-5000
+suspend	v	đình chỉ	B2	work	academic	reading	oxford-3000-5000
+resignation	n	sự từ chức	C1	work	topic	reading	oxford-3000-5000
 prospect	n	triển vọng	B2	work	academic	reading
 ambition	n	hoài bão	B2	work	topic	writing
 aspiration	n	khát vọng	C1	work	academic	writing
@@ -99,22 +99,22 @@ remote	adj	từ xa	B2	work	topic	reading
 flexitime	n	giờ làm linh hoạt	C2	work	topic	reading
 part-time	adj	bán thời gian	B1	work	core	reading
 full-time	adj	toàn thời gian	B1	work	core	reading
-volunteer	n	tình nguyện viên	B2	society	topic	reading
+volunteer	n	tình nguyện viên	B1	society	topic	reading	oxford-3000-5000
 charity	n	tổ chức từ thiện	B2	society	topic	reading
 donation	n	khoản quyên góp	B2	society	topic	reading
 fundraising	n	việc gây quỹ	C1	society	topic	reading
 philanthropy	n	lòng từ thiện, hoạt động thiện nguyện	C2	society	topic	reading
-sponsorship	n	sự tài trợ	C1	economics	topic	reading
+sponsorship	n	sự tài trợ	B2	economics	topic	reading	oxford-3000-5000
 investment-friendly	adj	thuận lợi cho đầu tư	C2	economics	topic	reading
 industry	n	ngành nghề	B2	economics	topic	reading
 manufacture	v	sản xuất (công nghiệp)	B2	economics	academic	reading
 manufacturer	n	nhà sản xuất	B2	economics	topic	reading
 factory	n	nhà máy	B1	economics	core	reading
 machinery	n	máy móc	C1	economics	topic	reading
-assembly	n	việc lắp ráp	C1	economics	topic	reading
+assembly	n	việc lắp ráp	C1	economics	topic	reading	oxford-3000-5000
 automation	n	việc tự động hóa sản xuất	C1	economics	topic	reading
 craftsmanship	n	tay nghề thủ công	C2	culture	topic	reading
-handicraft	n	đồ thủ công	C1	culture	topic	reading
+handicraft	n	đồ thủ công	B2	culture	topic	reading	cefrj-vocabulary-profile-1.5
 artisan	n	nghệ nhân	C1	culture	topic	reading
 livelihood	n	kế sinh nhai	C2	economics	topic	reading
 subsistence	n	việc sống tự cung tự cấp	C2	economics	topic	reading
@@ -122,19 +122,19 @@ agriculture	n	nông nghiệp	B2	economics	topic	reading
 agribusiness	n	kinh doanh nông nghiệp	C2	economics	topic	reading
 tourism	n	ngành du lịch	B2	travel	topic	reading
 tourist	n	du khách	B1	travel	core	reading
-currency	n	tiền tệ	C1	economics	topic	reading
-exchange	n	trao đổi, hối đoái	B2	economics	topic	reading
+currency	n	tiền tệ	B1	economics	topic	reading	oxford-3000-5000
+exchange	n	trao đổi, hối đoái	B1	economics	topic	reading	oxford-3000-5000
 interest	n	lãi suất	B2	economics	core	reading
-charge	n	phí, khoản tính tiền	B2	economics	core	reading
-refund	n	việc hoàn tiền	C1	economics	topic	reading
-receipt	n	hóa đơn	C1	economics	topic	reading
-invoice	n	hóa đơn thương mại	C2	economics	topic	reading
+charge	n	phí, khoản tính tiền	B1	economics	core	reading	oxford-3000-5000
+refund	n	việc hoàn tiền	B1	economics	topic	reading	cefrj-vocabulary-profile-1.5
+receipt	n	hóa đơn	B1	economics	topic	reading	oxford-3000-5000
+invoice	n	hóa đơn thương mại	C1	economics	topic	reading	octanove-vocabulary-profile-1.0
 bargain	n	món hời	B2	economics	topic	reading
 discount	n	sự giảm giá	B1	economics	core	reading
 expensive	adj	đắt	B1	economics	core	reading
 affordable	adj	giá phải chăng	B2	economics	academic	reading
-luxury	n	sự xa xỉ	C1	economics	topic	reading
-frugal	adj	tiết kiệm	C2	economics	academic	reading
+luxury	n	sự xa xỉ	B1	economics	topic	reading	oxford-3000-5000
+frugal	adj	tiết kiệm	B2	economics	academic	reading	cefrj-vocabulary-profile-1.5
 extravagant	adj	phung phí	C1	economics	academic	reading
 generate	v	tạo ra (doanh thu)	C1	economics	academic	reading
 sustain	v	duy trì (tăng trưởng)	C1	economics	academic	reading
@@ -142,23 +142,23 @@ stagnate	v	trì trệ	C2	economics	academic	reading
 fluctuate	v	dao động	C1	economics	academic	reading
 recover	v	phục hồi (kinh tế)	B2	economics	academic	reading
 boost	v	thúc đẩy	C1	economics	academic	writing
-stimulate	v	kích thích	C1	economics	academic	writing
+stimulate	v	kích thích	B2	economics	academic	writing	oxford-3000-5000
 regulate	v	điều tiết	C1	economics	academic	reading
 deregulate	v	bãi bỏ quy định	C2	economics	academic	reading
 nationalise	v	quốc hữu hóa	C2	economics	academic	reading
 privatise	v	tư nhân hóa	C2	economics	academic	reading
 bankrupt	adj	phá sản	C1	economics	topic	reading
-bankruptcy	n	sự phá sản	C1	economics	topic	reading
+bankruptcy	n	sự phá sản	B2	economics	topic	reading	cefrj-vocabulary-profile-1.5
 liability	n	khoản nợ phải trả, trách nhiệm	C2	economics	academic	reading
-asset	n	tài sản	C1	economics	academic	reading
+asset	n	tài sản	B2	economics	academic	reading	oxford-3000-5000
 capital	n	vốn	C1	economics	academic	reading
-equity	n	vốn chủ sở hữu, sự công bằng	C2	economics	academic	reading
+equity	n	vốn chủ sở hữu, sự công bằng	B2	economics	academic	reading	cefrj-vocabulary-profile-1.5
 collateral	n	tài sản thế chấp	C2	economics	topic	reading
 dividend	n	cổ tức	C2	economics	topic	reading
-portfolio	n	danh mục đầu tư	C2	economics	topic	reading
+portfolio	n	danh mục đầu tư	C1	economics	topic	reading	oxford-3000-5000
 diversify	v	đa dạng hóa	C1	economics	academic	reading
 competitiveness	n	năng lực cạnh tranh	C1	economics	academic	writing
 benchmark	n	chuẩn so sánh	C1	economics	academic	reading
-quota	n	hạn ngạch	C2	economics	topic	reading
+quota	n	hạn ngạch	C1	economics	topic	reading	oxford-3000-5000
 embargo	n	lệnh cấm vận	C2	economics	topic	reading
-sanction	n	biện pháp trừng phạt	C2	politics	topic	reading
+sanction	n	biện pháp trừng phạt	C1	politics	topic	reading	oxford-3000-5000

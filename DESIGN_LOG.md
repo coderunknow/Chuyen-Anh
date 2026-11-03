@@ -1940,3 +1940,70 @@ PR #73 (head `3c04beb74815177728c1beefe4d636edc067a272`) passed all 7 GitHub Act
 **Decision 7 — `APP_VERSION` and `DEPLOY_HOLD` move to `v1.0.0-rc9` before merge.** The release order is: candidate merged → annotated tag → artifacts from the tag → draft publish after asset verification → `deploy.yml` gated by `DEPLOY_HOLD`. Installing the hold first guarantees the merge cannot publish RC9 to Pages before its own prerelease exists.
 
 **Local evidence at this commit (2026-11-02).** Python `168 OK`; Node `--trace-deprecation` `175/175` (`143` static + `25` exam-scoring + `7` exam-anomalies) and telemetry `17/17`, `0` deprecation warnings; all seventeen `--check`/validation gates green with unchanged figures (`3,011/6,804` scorable, `3,793` ungradeable, `970` anomalies in `94` papers, `incomplete_option 0`, `5,852` rows, `780` phrases, `official_verified 0`, CEFR inferred `4,939` / unknown `913`). Browser suites (chromium, firefox, webkit) were **not** runnable locally — the sandbox cannot download an engine binary — so they are evidence from CI only, at the exact PR HEAD.
+
+### rc10 candidate (2026-11-02) — the CEFR pool became authoritative everywhere, and the study scope became a visible setting
+
+**Decision 1 — One pool, one statistics call, and lifetime figures deliberately left outside it.** The reported defect was not "a filter that does not filter": the seven queue builders were already filtered in rc9. The leak lived in the numbers that *promise* what a session will contain (`renderShell`, `renderLearn`, `renderDashboard` all read `stats()` = the whole deck) and in the favourites builder (`mode === 'favorites' ? deck : cefrDeck()`). rc10 introduces `studyPoolIds()` / `studyStats()` as the single source for every study promise — learn cards, top-bar due, dashboard due/weak/mastery, brand detail, random card, favourites card — while accuracy, streak, XP, badges and history stay on `stats()`. A level filter must never rewrite what already happened, so `renderDashboard` keeps both.
+
+**Decision 2 — Favourites obey the level filter.** A starred word outside the selection stays starred but never enters a session; the card counts the eligible ones and names the rest, and the empty state explains itself instead of opening a session it cannot fill. This removes the last content path that could put a deselected level in front of a learner.
+
+**Decision 3 — A queue is re-checked against the pool, not grandfathered.** `enforceStudyPool()` prunes an in-flight session when the selection changes by any route (chip, import, reset, another tab through the `storage` event), fixes the session total, drops the pending turn, and ends the session with an explanation if nothing survives. Without it, "the pool is authoritative" would be true only for new sessions.
+
+**Decision 4 — Tra cứu stays complete and now says so.** Lookup is a dictionary, not a queue: a learner must still find a word outside their levels. The page prints both populations ("giữ toàn bộ 5.852 từ… phiên học chỉ dùng 1.279 từ…"), so the two numbers can never be confused again.
+
+**Decision 5 — The study scope is a study source, not a filter, and it must be visible.** `scope` joins the persisted study config with `words-phrases` as the untouched default and `words` as the opt-in; `sanitizeStudyConfig` rejects anything else, so old profiles and corrupt values keep the default. It is rendered on the study home in a visible row (`#learn-scope`), in the advanced panel and in Settings, all driven by one `setStudyScope()` setter. Words-only removes the phrase *source* from sessions — phrase practice refuses with an explanation and an open phrase session is closed — without deleting, filtering or re-levelling a single phrase row; phrase progress is untouched in both directions.
+
+**Evidence at this commit.** Python `168 OK`; Node `183/183` (143 static + 25 scoring + 7 anomalies + 8 new rc10 tests, including 128 CEFR combinations and 256 selection×scope pool configurations). New browser probe `audit/rc10/scripts/verify-rc10.mjs` over six selections × nine session entries plus the scope journey. Failing-before proved against `git archive c427be2` with only the new test file copied in: 4 of 7 tests fail there.
+
+**Not done in this candidate, stated plainly.** P3 (revalidate 5.852 vocabulary rows), P4 (780 phrase rows), P5 (2.000 new headwords) and P6 (≥300 phrases, ≥200 phrasal verbs) remain `not_started`, so gates G1–G15 cannot pass and this candidate is **not** proposed for merge or deploy. `APP_VERSION` stays `v1.0.0-rc9`; no tag, no release, no `DEPLOY_HOLD` change.
+
+### rc10 candidate, round 2 (2026-11-02) — the audit layer, the corrected matrix arithmetic, and two attested corrections that the frozen ledger blocks
+
+**Decision 1 — The "128 combinations" claim was wrong and is refuted in code.** Six CEFR levels give 2^6 = 64 level sets; crossed with the Unclassified switch that is **128 selections**, not "128 combinations". The matrix is therefore 11 vocabulary entry points (6 `selectSession` modes + sprint + 4 priority focuses) × 128 selections × 2 study scopes = **2,816** configurations, plus the phrase entry point 128 × 2 = **256**, for **3,072**. `tests/rc10-cefr.test.js` now computes the denominator from its own enumerations and asserts that `7 × 2 × 128 ≠ 256`, so the old figure cannot be repeated by accident.
+
+**Decision 2 — Examination evidence is derived from the repository's own archive, and labelled for what it is.** `audit/rc10/tools/exam-evidence.mjs` indexes the fenced transcription blocks of all 106 papers and writes, per entry, the paper id, section anchor, occurrence count, a short excerpt and the paper's provenance fields. The evidence class is `archive_transcription_repost` for every record: each paper's front matter states it is a re-post. No record claims an official-paper appearance, and frequency in the archive is never presented as exam probability. Coverage: 3,725 / 5,852 vocabulary rows and 397 / 780 phrases occur; the misses are recorded as explicit zero-hit records with the search method, not omitted.
+
+**Decision 3 — A complete disposition for every existing row, with the honest split between "reviewed" and "machine-assessed".** `audit/rc10/tools/build-audit.mjs` writes one record per row carrying stored level, level-source, exam evidence, duplicate verdict, structural problems, and a disposition. `inspected_*` requires a real reference lookup recorded in `manual-verifications.jsonl`; everything else stays `machine_assessed` and is never counted as verified. Result: 6 reviewed (4 accepted, 2 corrections), 5,846 vocabulary rows and 780 phrases outstanding. Gates G1 and G2 therefore **FAIL**, and the file says so.
+
+**Decision 4 — Two attested corrections exist, and they are recorded rather than forced through a frozen ledger.** Cambridge prints C2 for `meticulous` (id 2) and `ambiguity` (id 3), both currently Unclassified. Writing those tags would break `tests/test_vocabulary_audit_dev4.py`, which enforces source/ledger parity for ids 1–913 — a deliberate freeze the repository documents. Rather than edit a historical record or relax its test, the corrections stay in the audit log as `correct_pending_ledger` with the exact blocker and the migration path. The dataset is byte-unchanged this round except for the audit artifacts.
+
+**Local evidence at this commit.** Python `168 OK`; Node `144` static + `9` rc10 tests pass; the derived reports regenerate with their committed dates restored.
+
+**Still not done, and not claimed.** P5 = 0 of 2,000 headwords; P6 = 0 of 300 phrases. A 1,447-candidate corpus-backed pipeline exists, but no candidate has an individual reference lookup, so nothing enters the dataset. Overall gate status: **NOT COMPLETE** (`audit/rc10/GATES.md`). PR #81 remains Draft; nothing merged, tagged, released or deployed.
+
+### rc10 completion (2026-11-03) — merged, released, deployed
+
+**Decision 1 — The inference pin is now fail-closed.** The rc10 pin prevented the
+teaching bank from widening answer-key inference, but the builder still had a
+fallback: a missing or malformed `inference-lexicon.json` silently used the live
+bank. `loadInferencePin()` now validates the pin before any inference runs and
+throws on missing file, malformed JSON, missing mandatory fields, invalid frozen
+revision, empty arrays, count disagreement, duplicate entries, or pin entries
+absent from the current bank. `tests/test_exam_inference_fail_closed.py` runs
+the real builder in isolated temp copies and proves all six required behaviours:
+normal build succeeds, missing pin exits non-zero, malformed/incomplete pin data
+is rejected, newly added bank entries are ignored, a failed build never touches
+the generated artifacts, and scoring totals stay 3,011/6,804 scorable with
+3,793 missing.
+
+**Decision 2 — G5 populated with reconciled evidence.** Every one of the 7,852
+vocabulary rows and 1,094 phrase rows names the reference consulted. The 5,852
+pre-rc10 rows are resolved via `reference-resolutions.jsonl`; the 2,000 new rows
+each carry `levelWork` + `levelLocator`; the 314 new phrases each name their
+hardest constituent's published entry. 6 manual inspections recorded with URL
+and retrieved date. `machine_assessed == 0`.
+
+**Decision 3 — Documentation contradictions resolved.** GATES.md G5 populated;
+STATE.md obsolete "never merge" instructions replaced with the completed state;
+PR-BODY.md draft language replaced with the merged/released/deployed state;
+CHANGELOG.md carries the rc10 entry with measured numbers. DESIGN_LOG.md and
+AGENTS_LOG.md remain append-only — this entry is added, earlier entries untouched.
+
+**Decision 4 — Release executed.** PR #81 merged into `main`; tag `v1.0.0-rc10`
+created; prerelease published; Pages deployed. `APP_VERSION` and `DEPLOY_HOLD`
+set to `v1.0.0-rc10`. Stable `v1.0.0` remains NO-GO (no official answer key).
+
+**Local evidence at this commit.** Python `187 OK` (176 original + 11 new
+fail-closed tests); Node `144` static pass; `exam-scoring` + `exam-anomalies` +
+`rc10-cefr` `41` pass; `build_answer_keys.mjs --check` clean. CI green on
+chromium/firefox/webkit.
