@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-03T05:47:04.748Z",
+  "generatedAt": "2026-11-03T09:53:07.679Z",
   "accessDate": "2026-11-02",
   "archive": {
     "papers": 106,
@@ -13,19 +13,19 @@
     "note": "All transcriptions are re-posts (xac_minh: ban-dang-lai-*); evidence class is archive_transcription_repost."
   },
   "vocabulary": {
-    "rows": 5852,
-    "withOccurrence": 3725,
-    "withoutOccurrence": 2127,
+    "rows": 7852,
+    "withOccurrence": 4502,
+    "withoutOccurrence": 3350,
     "file": "audit/rc10/evidence/exam-occurrences-vocabulary.jsonl",
-    "sha256": "5ece255cca30343770ca214aa0863fdc2d945b82dd54256417d4ec567d5cf4bf",
-    "bytes": 6898962
+    "sha256": "1f655aa22ebb7721f23fe0965792710848856d31a4922d5df2f52934ba209818",
+    "bytes": 8105473
   },
   "phrases": {
-    "rows": 780,
-    "withOccurrence": 397,
-    "withoutOccurrence": 383,
+    "rows": 1094,
+    "withOccurrence": 617,
+    "withoutOccurrence": 477,
     "file": "audit/rc10/evidence/exam-occurrences-phrases.jsonl",
-    "sha256": "bc749e4b1609b73382b31c710b25c46d40463ba4b5355b3b640f1cbd699ca258",
-    "bytes": 706144
+    "sha256": "79d4b74c45fc81dd2342adb8bbe8ffa355a6037c04c186091de7b12d397dae04",
+    "bytes": 1019561
   }
 }
