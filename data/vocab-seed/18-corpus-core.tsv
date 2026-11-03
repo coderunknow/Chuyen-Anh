@@ -1,62 +1,62 @@
 # Everyday, academic and health vocabulary attested in the exam corpus but absent
 # from the table (mining pass, 2026-10). Single-word headwords in base form only.
 # word	pos	meaning	level	topic	type	skills
-suitable	adj	phù hợp	B1	academic	topic	reading
+suitable	adj	phù hợp	B1	academic	topic	reading	oxford-3000-5000
 fill	v	làm đầy, điền vào	B1	daily-life	topic	reading
-hardly	adv	hầu như không	B2	academic	topic	reading
-correction	n	sự sửa lỗi	B2	education	topic	reading
+hardly	adv	hầu như không	B1	academic	topic	reading	oxford-3000-5000
+correction	n	sự sửa lỗi	C1	education	topic	reading	oxford-3000-5000
 damage	n	thiệt hại, sự hư hỏng	B1	environment	topic	reading
 academic	adj	thuộc học thuật	B1	education	topic	reading
 impossible	adj	không thể	B1	academic	topic	reading
-fully	adv	hoàn toàn	B2	academic	topic	reading
-powerful	adj	mạnh mẽ	B1	society	topic	reading
-concern	n	mối quan tâm, sự lo lắng	B2	society	topic	reading
-rewrite	v	viết lại	B2	education	topic	reading
+fully	adv	hoàn toàn	B2	academic	topic	reading	oxford-3000-5000
+powerful	adj	mạnh mẽ	B1	society	topic	reading	oxford-3000-5000
+concern	n	mối quan tâm, sự lo lắng	B2	society	topic	reading	oxford-3000-5000
+rewrite	v	viết lại	B1	education	topic	reading	cefrj-vocabulary-profile-1.5
 sit	v	ngồi	B1	daily-life	topic	reading
 realize	v	nhận ra	B1	psychology	topic	reading
-aim	n	mục tiêu	B2	academic	topic	reading
+aim	n	mục tiêu	B1	academic	topic	reading	oxford-3000-5000
 plenty	n	sự dồi dào, nhiều	B1	daily-life	topic	reading
-scientific	adj	thuộc khoa học	B2	science	topic	reading
+scientific	adj	thuộc khoa học	B1	science	topic	reading	oxford-3000-5000
 attend	v	tham dự	B2	education	topic	reading
 proud	adj	tự hào	B1	psychology	topic	reading
-cultural	adj	thuộc văn hoá	B2	culture	topic	reading
+cultural	adj	thuộc văn hoá	B1	culture	topic	reading	oxford-3000-5000
 unusual	adj	khác thường	B1	society	topic	reading
 lifestyle	n	lối sống	B2	health	topic	reading
 enormous	adj	to lớn, khổng lồ	B2	academic	topic	reading
 restaurant	n	nhà hàng	B1	food	topic	reading
-pleasure	n	niềm vui thích	B2	psychology	topic	reading
-presentation	n	bài thuyết trình	B2	education	topic	reading
+pleasure	n	niềm vui thích	B1	psychology	topic	reading	oxford-3000-5000
+presentation	n	bài thuyết trình	B1	education	topic	reading	oxford-3000-5000
 popularity	n	sự phổ biến	B2	media	topic	reading
 surprise	n	sự ngạc nhiên	B1	psychology	topic	reading
 warm	adj	ấm áp	B1	environment	topic	reading
-chemical	n	hoá chất	B2	science	topic	reading
+chemical	n	hoá chất	B1	science	topic	reading	oxford-3000-5000
 fruit	n	trái cây	B1	food	topic	reading
 programme	n	chương trình	B1	media	topic	reading
 ordinary	adj	bình thường	B2	society	topic	reading
-spread	v	lan truyền, lây lan	B2	health	topic	reading
+spread	v	lan truyền, lây lan	B1	health	topic	reading	oxford-3000-5000
 raise	v	nâng lên, nuôi dạy	B2	society	topic	reading
 afternoon	n	buổi chiều	B1	daily-life	topic	reading
-limit	n	giới hạn	B2	academic	topic	reading
-flow	n	dòng chảy	B2	science	topic	reading
-unable	adj	không thể, không có khả năng	B2	academic	topic	reading
-heavily	adv	nặng nề, rất nhiều	B2	academic	topic	reading
-closely	adv	chặt chẽ, gần gũi	B2	academic	topic	reading
-coherence	n	sự mạch lạc	C1	academic	topic	reading
+limit	n	giới hạn	B1	academic	topic	reading	oxford-3000-5000
+flow	n	dòng chảy	B1	science	topic	reading	oxford-3000-5000
+unable	adj	không thể, không có khả năng	B1	academic	topic	reading	oxford-3000-5000
+heavily	adv	nặng nề, rất nhiều	B1	academic	topic	reading	oxford-3000-5000
+closely	adv	chặt chẽ, gần gũi	B2	academic	topic	reading	oxford-3000-5000
+coherence	n	sự mạch lạc	B2	academic	topic	reading	cefrj-vocabulary-profile-1.5
 actual	adj	thực tế, có thật	B2	academic	topic	reading
 somewhere	adv	ở đâu đó	B1	daily-life	topic	reading
-familiar	adj	quen thuộc	B2	psychology	topic	reading
-greatly	adv	rất nhiều	B2	academic	topic	reading
+familiar	adj	quen thuộc	B1	psychology	topic	reading	oxford-3000-5000
+greatly	adv	rất nhiều	B2	academic	topic	reading	oxford-3000-5000
 notice	v	nhận thấy, để ý	B1	daily-life	topic	reading
-properly	adv	đúng cách, đứng đắn	B2	academic	topic	reading
+properly	adv	đúng cách, đứng đắn	B1	academic	topic	reading	oxford-3000-5000
 meat	n	thịt	B1	food	topic	reading
 serve	v	phục vụ, phục vụ ăn uống	B1	food	topic	reading
-strength	n	sức mạnh	B2	health	topic	reading
+strength	n	sức mạnh	B1	health	topic	reading	oxford-3000-5000
 birth	n	sự sinh nở, sự ra đời	B2	health	topic	reading
 suddenly	adv	đột nhiên	B1	academic	topic	reading
 suppose	v	cho rằng, giả sử	B2	academic	topic	reading
-immediate	adj	tức thì, trước mắt	B2	academic	topic	reading
+immediate	adj	tức thì, trước mắt	B1	academic	topic	reading	oxford-3000-5000
 theatre	n	nhà hát	B1	culture	topic	reading
-necessarily	adv	nhất thiết	B2	academic	topic	reading
+necessarily	adv	nhất thiết	B1	academic	topic	reading	oxford-3000-5000
 formal	adj	trang trọng, chính thức	B2	academic	topic	reading
 helpful	adj	hữu ích, hay giúp đỡ	B1	psychology	topic	reading
 nervous	adj	lo lắng, bồn chồn	B1	psychology	topic	reading
@@ -65,24 +65,24 @@ spare	adj	dự phòng, thừa	B2	daily-life	topic	reading
 cohesion	n	sự gắn kết	C1	academic	topic	reading
 crime	n	tội phạm	B2	law	topic	reading
 draw	v	vẽ	B1	culture	topic	reading
-length	n	độ dài	B2	academic	topic	reading
-billion	n	tỷ	B1	economics	topic	reading
+length	n	độ dài	B1	academic	topic	reading	oxford-3000-5000
+billion	n	tỷ	B2	economics	topic	reading	cefrj-vocabulary-profile-1.5
 incredible	adj	khó tin, phi thường	B2	psychology	topic	reading
 typical	adj	điển hình	B2	academic	topic	reading
-mood	n	tâm trạng	B2	psychology	topic	reading
-meaningful	adj	có ý nghĩa	B2	psychology	topic	reading
+mood	n	tâm trạng	B1	psychology	topic	reading	oxford-3000-5000
+meaningful	adj	có ý nghĩa	C1	psychology	topic	reading	oxford-3000-5000
 teenage	adj	ở tuổi thiếu niên	B1	family	topic	reading
 hobby	n	sở thích	B1	daily-life	topic	reading
 sunlight	n	ánh sáng mặt trời	B2	environment	topic	reading
 tough	adj	khó khăn, dai sức	B2	psychology	topic	reading
-presence	n	sự hiện diện	C1	academic	topic	reading
+presence	n	sự hiện diện	B2	academic	topic	reading	oxford-3000-5000
 anywhere	adv	bất cứ đâu	B1	daily-life	topic	reading
 cheap	adj	rẻ	B1	economics	topic	reading
 lunch	n	bữa trưa	B1	food	topic	reading
 twenty	n	hai mươi	B1	academic	topic	reading
 harm	n	tác hại	B2	health	topic	reading
 telephone	n	điện thoại	B1	technology	topic	reading
-alike	adv	giống nhau	B2	academic	topic	reading
+alike	adv	giống nhau	C1	academic	topic	reading	oxford-3000-5000
 terrible	adj	khủng khiếp	B1	psychology	topic	reading
 slowly	adv	một cách chậm rãi	B1	academic	topic	reading
 struggle	v	vật lộn, đấu tranh	B2	psychology	topic	reading
@@ -91,71 +91,71 @@ admit	v	thừa nhận	B2	academic	topic	reading
 noise	n	tiếng ồn	B1	environment	topic	reading
 smell	n	mùi	B1	health	topic	reading
 ideal	adj	lý tưởng	B2	academic	topic	reading
-psychological	adj	thuộc tâm lý	C1	psychology	topic	reading
+psychological	adj	thuộc tâm lý	B2	psychology	topic	reading	oxford-3000-5000
 classroom	n	lớp học	B1	education	topic	reading
 excessive	adj	quá mức	C1	academic	topic	reading
-technical	adj	thuộc kỹ thuật	B2	technology	topic	reading
+technical	adj	thuộc kỹ thuật	B1	technology	topic	reading	oxford-3000-5000
 taste	n	vị, khẩu vị	B1	food	topic	reading
 empty	adj	trống rỗng	B1	daily-life	topic	reading
-nearby	adj	gần đó	B1	travel	topic	reading
-fairly	adv	khá, công bằng	B2	academic	topic	reading
-formation	n	sự hình thành	C1	academic	topic	reading
+nearby	adj	gần đó	B2	travel	topic	reading	oxford-3000-5000
+fairly	adv	khá, công bằng	B1	academic	topic	reading	oxford-3000-5000
+formation	n	sự hình thành	B2	academic	topic	reading	oxford-3000-5000
 earn	v	kiếm được	B1	economics	topic	reading
-stable	adj	ổn định	B2	science	topic	reading
-sudden	adj	đột ngột	B2	academic	topic	reading
+stable	adj	ổn định	B2	science	topic	reading	oxford-3000-5000
+sudden	adj	đột ngột	B1	academic	topic	reading	oxford-3000-5000
 accuracy	n	độ chính xác	C1	academic	topic	reading
-decrease	v	giảm	B2	economics	topic	reading
-underline	v	gạch chân	B2	education	topic	reading
+decrease	v	giảm	B2	economics	topic	reading	oxford-3000-5000
+underline	v	gạch chân	B1	education	topic	reading	cefrj-vocabulary-profile-1.5
 ill	adj	ốm, bệnh	B1	health	topic	reading
-native	adj	bản địa, bản xứ	B2	culture	topic	reading
+native	adj	bản địa, bản xứ	B1	culture	topic	reading	oxford-3000-5000
 weak	adj	yếu	B1	health	topic	reading
 cycle	n	chu kỳ	B2	environment	topic	reading
 calm	adj	bình tĩnh	B1	psychology	topic	reading
-barely	adv	chỉ vừa đủ, hiếm khi	C1	academic	topic	reading
-genetic	adj	thuộc di truyền	C1	science	topic	reading
+barely	adv	chỉ vừa đủ, hiếm khi	B2	academic	topic	reading	oxford-3000-5000
+genetic	adj	thuộc di truyền	B2	science	topic	reading	oxford-3000-5000
 psychology	n	tâm lý học	B2	psychology	topic	reading
 sick	adj	ốm, bệnh	B1	health	topic	reading
-rare	adj	hiếm	B2	environment	topic	reading
+rare	adj	hiếm	B1	environment	topic	reading	oxford-3000-5000
 remove	v	loại bỏ, dời đi	B2	daily-life	topic	reading
-selection	n	sự lựa chọn	B2	education	topic	reading
+selection	n	sự lựa chọn	B2	education	topic	reading	oxford-3000-5000
 prize	n	giải thưởng	B1	culture	topic	reading
-reasonable	adj	hợp lý	B2	academic	topic	reading
-surely	adv	chắc chắn	B2	academic	topic	reading
+reasonable	adj	hợp lý	B2	academic	topic	reading	oxford-3000-5000
+surely	adv	chắc chắn	B1	academic	topic	reading	oxford-3000-5000
 tall	adj	cao	B1	daily-life	topic	reading
-operate	v	vận hành	B2	technology	topic	reading
-visible	adj	nhìn thấy được, rõ ràng	B2	science	topic	reading
-extraordinary	adj	phi thường	C1	academic	topic	reading
-composition	n	bài luận, thành phần	B2	education	topic	reading
-relation	n	mối quan hệ	B2	society	topic	reading
+operate	v	vận hành	B2	technology	topic	reading	oxford-3000-5000
+visible	adj	nhìn thấy được, rõ ràng	B2	science	topic	reading	oxford-3000-5000
+extraordinary	adj	phi thường	B2	academic	topic	reading	oxford-3000-5000
+composition	n	bài luận, thành phần	C1	education	topic	reading	oxford-3000-5000
+relation	n	mối quan hệ	B1	society	topic	reading	oxford-3000-5000
 realise	v	nhận ra	B2	psychology	topic	reading
-strict	adj	nghiêm khắc	B2	education	topic	reading
+strict	adj	nghiêm khắc	B2	education	topic	reading	oxford-3000-5000
 identification	n	sự nhận diện	C1	academic	topic	reading
-availability	n	sự sẵn có	C1	economics	topic	reading
-spectacular	adj	ngoạn mục, hùng vĩ	C1	culture	topic	reading
+availability	n	sự sẵn có	C1	economics	topic	reading	oxford-3000-5000
+spectacular	adj	ngoạn mục, hùng vĩ	B2	culture	topic	reading	oxford-3000-5000
 organize	v	tổ chức, sắp xếp	B1	work	topic	reading
 polite	adj	lịch sự	B1	culture	topic	reading
 particle	n	hạt	B2	science	topic	reading
-disadvantage	n	bất lợi	B2	society	topic	reading
+disadvantage	n	bất lợi	B1	society	topic	reading	oxford-3000-5000
 punctuation	n	dấu câu	B2	education	topic	reading
 flight	n	chuyến bay	B1	travel	topic	reading
 fourth	n	thứ tư	B1	academic	topic	reading
-previously	adv	trước đây	B2	academic	topic	reading
+previously	adv	trước đây	B1	academic	topic	reading	oxford-3000-5000
 separate	adj	tách biệt, riêng rẽ	B2	academic	topic	reading
-aid	n	viện trợ, sự giúp đỡ	B2	society	topic	reading
-massive	adj	to lớn, đồ sộ	B2	academic	topic	reading
+aid	n	viện trợ, sự giúp đỡ	B2	society	topic	reading	oxford-3000-5000
+massive	adj	to lớn, đồ sộ	B2	academic	topic	reading	oxford-3000-5000
 smoke	n	khói	B1	health	topic	reading
 laugh	v	cười	B1	psychology	topic	reading
 equal	adj	bình đẳng, ngang nhau	B2	society	topic	reading
 favourite	adj	yêu thích	B1	daily-life	topic	reading
-transportation	n	giao thông, vận tải	B2	travel	topic	reading
+transportation	n	giao thông, vận tải	B2	travel	topic	reading	oxford-3000-5000
 musical	adj	thuộc âm nhạc	B1	culture	topic	reading
-province	n	tỉnh	B1	politics	topic	reading
+province	n	tỉnh	C1	politics	topic	reading	oxford-3000-5000
 thick	adj	dày	B1	daily-life	topic	reading
 twelve	n	mười hai	B1	academic	topic	reading
 fifty	n	năm mươi	B1	academic	topic	reading
-breathe	v	thở	B1	health	topic	reading
-contrary	adj	trái ngược	B2	academic	topic	reading
-hurry	v	vội vàng	B1	daily-life	topic	reading
+breathe	v	thở	B1	health	topic	reading	oxford-3000-5000
+contrary	adj	trái ngược	C1	academic	topic	reading	oxford-3000-5000
+hurry	v	vội vàng	B1	daily-life	topic	reading	oxford-3000-5000
 innovative	adj	đổi mới, sáng tạo	C1	technology	topic	reading
 interact	v	tương tác	B2	society	topic	reading
 bicycle	n	xe đạp	B1	travel	topic	reading
@@ -163,215 +163,215 @@ sustainability	n	sự bền vững	C1	environment	topic	reading
 drug	n	thuốc, ma tuý	B2	health	topic	reading
 mouth	n	miệng	B1	health	topic	reading
 seat	n	chỗ ngồi	B1	travel	topic	reading
-firm	n	công ty, hãng	B2	economics	topic	reading
+firm	n	công ty, hãng	B2	economics	topic	reading	oxford-3000-5000
 fifth	n	thứ năm	B1	academic	topic	reading
 purchase	v	mua	B2	economics	topic	reading
 crowd	n	đám đông	B2	society	topic	reading
-proof	n	bằng chứng	B2	academic	topic	reading
+proof	n	bằng chứng	B2	academic	topic	reading	oxford-3000-5000
 everywhere	adv	khắp nơi	B1	daily-life	topic	reading
 actor	n	diễn viên	B1	culture	topic	reading
-blame	v	đổ lỗi	B2	society	topic	reading
+blame	v	đổ lỗi	B2	society	topic	reading	oxford-3000-5000
 usual	adj	thông thường	B1	daily-life	topic	reading
-perfectly	adv	hoàn hảo, hoàn toàn	B2	academic	topic	reading
-excuse	n	lời xin lỗi, cớ	B1	society	topic	reading
+perfectly	adv	hoàn hảo, hoàn toàn	B1	academic	topic	reading	oxford-3000-5000
+excuse	n	lời xin lỗi, cớ	B2	society	topic	reading	oxford-3000-5000
 exact	adj	chính xác	B2	academic	topic	reading
 nose	n	mũi	B1	health	topic	reading
-coal	n	than đá	B2	environment	topic	reading
+coal	n	than đá	B1	environment	topic	reading	oxford-3000-5000
 colour	n	màu sắc	B1	daily-life	topic	reading
-dramatic	adj	kịch tính, mạnh mẽ	B2	media	topic	reading
+dramatic	adj	kịch tính, mạnh mẽ	B2	media	topic	reading	oxford-3000-5000
 lifetime	n	cả cuộc đời	B2	society	topic	reading
 agricultural	adj	thuộc nông nghiệp	B2	environment	topic	reading
 fame	n	sự nổi tiếng	B2	media	topic	reading
 intellectual	adj	thuộc trí tuệ	C1	academic	topic	reading
-globe	n	địa cầu, quả địa cầu	B2	environment	topic	reading
-examination	n	kỳ thi, sự kiểm tra	B2	education	topic	reading
+globe	n	địa cầu, quả địa cầu	B2	environment	topic	reading	oxford-3000-5000
+examination	n	kỳ thi, sự kiểm tra	B2	education	topic	reading	oxford-3000-5000
 instrument	n	nhạc cụ, dụng cụ	B2	culture	topic	reading
-unnecessary	adj	không cần thiết	B2	academic	topic	reading
+unnecessary	adj	không cần thiết	B1	academic	topic	reading	oxford-3000-5000
 fifteen	n	mười lăm	B1	academic	topic	reading
-tense	adj	căng thẳng	B2	psychology	topic	reading
-desirable	adj	đáng mong muốn	C1	academic	topic	reading
-cast	v	chọn vai, phân vai	B2	culture	topic	reading
-eastern	adj	thuộc phía đông	B2	culture	topic	reading
+tense	adj	căng thẳng	B1	psychology	topic	reading	cefrj-vocabulary-profile-1.5
+desirable	adj	đáng mong muốn	C1	academic	topic	reading	oxford-3000-5000
+cast	v	chọn vai, phân vai	B2	culture	topic	reading	oxford-3000-5000
+eastern	adj	thuộc phía đông	B1	culture	topic	reading	oxford-3000-5000
 shut	v	đóng	B1	daily-life	topic	reading
 pair	n	đôi, cặp	B1	daily-life	topic	reading
 fantastic	adj	tuyệt vời	B1	psychology	topic	reading
-breath	n	hơi thở	B2	health	topic	reading
+breath	n	hơi thở	B1	health	topic	reading	oxford-3000-5000
 destroy	v	phá huỷ	B2	environment	topic	reading
-temporary	adj	tạm thời	B2	work	topic	reading
+temporary	adj	tạm thời	B2	work	topic	reading	oxford-3000-5000
 wash	v	rửa, giặt	B1	daily-life	topic	reading
 clock	n	đồng hồ	B1	daily-life	topic	reading
 electrical	adj	thuộc điện	B2	technology	topic	reading
 narrow	adj	hẹp	B2	daily-life	topic	reading
 asleep	adj	đang ngủ	B1	health	topic	reading
-destruction	n	sự phá huỷ	C1	environment	topic	reading
-biological	adj	thuộc sinh học	C1	science	topic	reading
+destruction	n	sự phá huỷ	B2	environment	topic	reading	oxford-3000-5000
+biological	adj	thuộc sinh học	B2	science	topic	reading	oxford-3000-5000
 suggestion	n	lời gợi ý	B2	academic	topic	reading
 swim	v	bơi	B1	sport	topic	reading
-overnight	adv	qua đêm	B2	daily-life	topic	reading
-realistic	adj	thực tế	B2	academic	topic	reading
-purely	adv	hoàn toàn, thuần tuý	C1	academic	topic	reading
-myth	n	huyền thoại, điều hoang đường	C1	culture	topic	reading
-memorable	adj	đáng nhớ	B2	psychology	topic	reading
-dull	adj	nhàm chán, u ám	B2	psychology	topic	reading
-parental	adj	thuộc cha mẹ	C1	family	topic	reading
+overnight	adv	qua đêm	B2	daily-life	topic	reading	oxford-3000-5000
+realistic	adj	thực tế	B2	academic	topic	reading	oxford-3000-5000
+purely	adv	hoàn toàn, thuần tuý	B2	academic	topic	reading	oxford-3000-5000
+myth	n	huyền thoại, điều hoang đường	B2	culture	topic	reading	oxford-3000-5000
+memorable	adj	đáng nhớ	B2	psychology	topic	reading	oxford-3000-5000
+dull	adj	nhàm chán, u ám	B2	psychology	topic	reading	oxford-3000-5000
+parental	adj	thuộc cha mẹ	C1	family	topic	reading	oxford-3000-5000
 lexical	adj	thuộc từ vựng	C2	academic	topic	reading
-glad	adj	vui mừng	B1	psychology	topic	reading
+glad	adj	vui mừng	B1	psychology	topic	reading	oxford-3000-5000
 promise	n	lời hứa	B1	society	topic	reading
 joke	n	truyện cười, lời đùa	B1	culture	topic	reading
 neck	n	cổ	B1	health	topic	reading
-signal	n	tín hiệu	B2	technology	topic	reading
-upset	adj	buồn bực, khó chịu	B1	psychology	topic	reading
+signal	n	tín hiệu	B1	technology	topic	reading	oxford-3000-5000
+upset	adj	buồn bực, khó chịu	B1	psychology	topic	reading	oxford-3000-5000
 bike	n	xe đạp	B1	travel	topic	reading
 height	n	chiều cao	B2	health	topic	reading
-unknown	adj	chưa biết	B2	academic	topic	reading
+unknown	adj	chưa biết	B2	academic	topic	reading	oxford-3000-5000
 bread	n	bánh mì	B1	food	topic	reading
 neighborhood	n	khu phố, hàng xóm	B1	society	topic	reading
 reply	v	trả lời	B1	media	topic	reading
-rough	adj	thô, gồ ghề	B2	academic	topic	reading
-curious	adj	tò mò	B2	psychology	topic	reading
+rough	adj	thô, gồ ghề	B1	academic	topic	reading	oxford-3000-5000
+curious	adj	tò mò	B2	psychology	topic	reading	oxford-3000-5000
 fiction	n	tiểu thuyết hư cấu	B2	culture	topic	reading
 vacation	n	kỳ nghỉ	B1	travel	topic	reading
-entrance	n	lối vào	B1	travel	topic	reading
+entrance	n	lối vào	B1	travel	topic	reading	oxford-3000-5000
 participation	n	sự tham gia	C1	society	topic	reading
-pleasant	adj	dễ chịu	B1	psychology	topic	reading
+pleasant	adj	dễ chịu	B1	psychology	topic	reading	oxford-3000-5000
 transformation	n	sự biến đổi	C1	academic	topic	reading
-coastal	adj	ven biển	C1	environment	topic	reading
-distant	adj	xa xôi	B2	travel	topic	reading
+coastal	adj	ven biển	C1	environment	topic	reading	oxford-3000-5000
+distant	adj	xa xôi	B2	travel	topic	reading	oxford-3000-5000
 awake	adj	thức giấc, tỉnh táo	B1	health	topic	reading
-logical	adj	hợp logic	B2	academic	topic	reading
+logical	adj	hợp logic	B2	academic	topic	reading	oxford-3000-5000
 eleven	n	mười một	B1	academic	topic	reading
-handful	n	một số ít	B2	academic	topic	reading
-workplace	n	nơi làm việc	B2	work	topic	reading
-warn	v	cảnh báo	B2	media	topic	reading
+handful	n	một số ít	C1	academic	topic	reading	oxford-3000-5000
+workplace	n	nơi làm việc	B2	work	topic	reading	oxford-3000-5000
+warn	v	cảnh báo	B1	media	topic	reading	oxford-3000-5000
 inappropriate	adj	không phù hợp	C1	society	topic	reading
-admire	v	ngưỡng mộ	B2	psychology	topic	reading
-illusion	n	ảo tưởng, ảo giác	C1	psychology	topic	reading
+admire	v	ngưỡng mộ	B1	psychology	topic	reading	oxford-3000-5000
+illusion	n	ảo tưởng, ảo giác	B2	psychology	topic	reading	oxford-3000-5000
 threaten	v	đe doạ	B2	environment	topic	reading
 exploitation	n	sự bóc lột, khai thác	C1	society	topic	reading
 reliance	n	sự phụ thuộc	C1	society	topic	reading
 phrasal	adj	thuộc cụm động từ	C2	education	topic	reading
-corporate	adj	thuộc doanh nghiệp	C1	economics	topic	reading
+corporate	adj	thuộc doanh nghiệp	B2	economics	topic	reading	oxford-3000-5000
 favor	n	thiện ý, sự ủng hộ	B2	society	topic	reading
 absolute	adj	tuyệt đối	B2	academic	topic	reading
-fee	n	phí, lệ phí	B2	economics	topic	reading
-rescue	v	cứu hộ	B2	society	topic	reading
-photography	n	nhiếp ảnh	B1	culture	topic	reading
+fee	n	phí, lệ phí	B2	economics	topic	reading	oxford-3000-5000
+rescue	v	cứu hộ	B2	society	topic	reading	oxford-3000-5000
+photography	n	nhiếp ảnh	B1	culture	topic	reading	oxford-3000-5000
 ear	n	tai	B1	health	topic	reading
 pitch	n	sân bóng, cao độ	B2	sport	topic	reading
-dust	n	bụi	B2	environment	topic	reading
+dust	n	bụi	B1	environment	topic	reading	oxford-3000-5000
 hire	v	thuê, tuyển dụng	B1	work	topic	reading
 belong	v	thuộc về	B1	society	topic	reading
 thirty	n	ba mươi	B1	academic	topic	reading
-grateful	adj	biết ơn	B1	psychology	topic	reading
+grateful	adj	biết ơn	B1	psychology	topic	reading	oxford-3000-5000
 genius	n	thiên tài	B2	psychology	topic	reading
-steady	adj	đều đặn, vững chắc	B2	academic	topic	reading
+steady	adj	đều đặn, vững chắc	B2	academic	topic	reading	oxford-3000-5000
 symbol	n	biểu tượng	B2	culture	topic	reading
 lazy	adj	lười biếng	B1	psychology	topic	reading
 climb	v	leo, trèo	B1	sport	topic	reading
 completion	n	sự hoàn thành	B2	work	topic	reading
 correctly	adv	một cách chính xác	B1	academic	topic	reading
 forty	n	bốn mươi	B1	academic	topic	reading
-privilege	n	đặc quyền	C1	society	topic	reading
-emotion	n	cảm xúc	B2	psychology	topic	reading
+privilege	n	đặc quyền	C1	society	topic	reading	oxford-3000-5000
+emotion	n	cảm xúc	B1	psychology	topic	reading	oxford-3000-5000
 sadly	adv	đáng buồn, buồn thay	B1	psychology	topic	reading
-simultaneously	adv	đồng thời	C1	academic	topic	reading
+simultaneously	adv	đồng thời	C1	academic	topic	reading	oxford-3000-5000
 abstract	adj	trừu tượng	B2	academic	topic	reading
 minimal	adj	tối thiểu	C1	academic	topic	reading
 dictionary	n	từ điển	B1	education	topic	reading
-utterly	adv	hoàn toàn	C1	academic	topic	reading
+utterly	adv	hoàn toàn	C1	academic	topic	reading	oxford-3000-5000
 resistant	adj	có sức kháng, chống lại	C1	health	topic	reading
 geography	n	địa lý	B1	education	topic	reading
 irrelevant	adj	không liên quan	B2	academic	topic	reading
-prone	adj	dễ bị, có xu hướng	C1	health	topic	reading
-fond	adj	thích, yêu mến	B1	psychology	topic	reading
+prone	adj	dễ bị, có xu hướng	C2	health	topic	reading	octanove-vocabulary-profile-1.0
+fond	adj	thích, yêu mến	B2	psychology	topic	reading	oxford-3000-5000
 informal	adj	thân mật, không trang trọng	B2	academic	topic	reading
 tick	n	dấu tích	B1	education	topic	reading
 rainy	adj	mưa nhiều	B1	environment	topic	reading
 verb	n	động từ	B1	education	topic	reading
-fashionable	adj	hợp thời trang	B2	culture	topic	reading
+fashionable	adj	hợp thời trang	B1	culture	topic	reading	oxford-3000-5000
 resemblance	n	sự giống nhau	C1	academic	topic	reading
 preposition	n	giới từ	B1	education	topic	reading
-depth	n	độ sâu	B2	science	topic	reading
+depth	n	độ sâu	B2	science	topic	reading	oxford-3000-5000
 wet	adj	ướt	B1	environment	topic	reading
-somehow	adv	bằng cách nào đó	B2	academic	topic	reading
-rid	v	loại bỏ, tống khứ	B2	daily-life	topic	reading
-highway	n	đường cao tốc	B1	travel	topic	reading
+somehow	adv	bằng cách nào đó	B2	academic	topic	reading	oxford-3000-5000
+rid	v	loại bỏ, tống khứ	B2	daily-life	topic	reading	oxford-3000-5000
+highway	n	đường cao tốc	B2	travel	topic	reading	oxford-3000-5000
 hungry	adj	đói	B1	health	topic	reading
 badly	adv	tồi tệ, nặng	B2	academic	topic	reading
 stomach	n	dạ dày	B1	health	topic	reading
 nowhere	adv	không nơi nào	B1	daily-life	topic	reading
-ownership	n	quyền sở hữu	C1	economics	topic	reading
-settle	v	định cư, giải quyết	B2	society	topic	reading
+ownership	n	quyền sở hữu	B2	economics	topic	reading	oxford-3000-5000
+settle	v	định cư, giải quyết	B2	society	topic	reading	oxford-3000-5000
 coat	n	áo khoác	B1	daily-life	topic	reading
 exception	n	ngoại lệ	B2	academic	topic	reading
-humanity	n	nhân loại, lòng nhân đạo	C1	society	topic	reading
+humanity	n	nhân loại, lòng nhân đạo	C1	society	topic	reading	oxford-3000-5000
 underground	adj	ngầm, dưới đất	B2	travel	topic	reading
 invite	v	mời	B1	society	topic	reading
-wisdom	n	sự khôn ngoan	C1	psychology	topic	reading
-peaceful	adj	yên bình	B1	society	topic	reading
+wisdom	n	sự khôn ngoan	B2	psychology	topic	reading	oxford-3000-5000
+peaceful	adj	yên bình	B1	society	topic	reading	oxford-3000-5000
 classical	adj	cổ điển	B2	culture	topic	reading
-neutral	adj	trung lập	C1	politics	topic	reading
+neutral	adj	trung lập	B2	politics	topic	reading	oxford-3000-5000
 instantly	adv	ngay lập tức	B2	academic	topic	reading
 slight	adj	nhỏ, nhẹ	B2	academic	topic	reading
-repeatedly	adv	nhiều lần, lặp đi lặp lại	B2	academic	topic	reading
+repeatedly	adv	nhiều lần, lặp đi lặp lại	B1	academic	topic	reading	cefrj-vocabulary-profile-1.5
 wealthy	adj	giàu có	B2	economics	topic	reading
 garbage	n	rác	B1	environment	topic	reading
-artistic	adj	thuộc nghệ thuật	B2	culture	topic	reading
+artistic	adj	thuộc nghệ thuật	B2	culture	topic	reading	oxford-3000-5000
 apologize	v	xin lỗi	B1	society	topic	reading
 react	v	phản ứng	B2	psychology	topic	reading
 strictly	adv	nghiêm ngặt	B2	academic	topic	reading
-profession	n	nghề nghiệp	B2	work	topic	reading
-breakdown	n	sự suy sụp, sự phân tích	C1	health	topic	reading
+profession	n	nghề nghiệp	B1	work	topic	reading	oxford-3000-5000
+breakdown	n	sự suy sụp, sự phân tích	C1	health	topic	reading	oxford-3000-5000
 passionate	adj	đam mê	B2	psychology	topic	reading
-essence	n	bản chất	C1	academic	topic	reading
+essence	n	bản chất	C1	academic	topic	reading	oxford-3000-5000
 flexibility	n	tính linh hoạt	C1	work	topic	reading
 risky	adj	rủi ro	B2	health	topic	reading
 luckily	adv	may mắn thay	B2	psychology	topic	reading
-appetite	n	sự thèm ăn	B2	health	topic	reading
+appetite	n	sự thèm ăn	C1	health	topic	reading	oxford-3000-5000
 tolerate	v	chịu đựng, bao dung	C1	society	topic	reading
-thoughtful	adj	chu đáo, trầm tư	B2	psychology	topic	reading
+thoughtful	adj	chu đáo, trầm tư	C1	psychology	topic	reading	oxford-3000-5000
 evolutionary	adj	thuộc tiến hoá	C1	science	topic	reading
 predictable	adj	có thể dự đoán	C1	academic	topic	reading
 unhealthy	adj	không lành mạnh	B1	health	topic	reading
-disastrous	adj	thảm khốc	C1	environment	topic	reading
+disastrous	adj	thảm khốc	C1	environment	topic	reading	oxford-3000-5000
 unpredictable	adj	khó dự đoán	B2	academic	topic	reading
 drastically	adv	một cách quyết liệt	C1	academic	topic	reading
 unfamiliar	adj	không quen thuộc	B2	academic	topic	reading
 inexpensive	adj	không đắt	B1	economics	topic	reading
 luxurious	adj	sang trọng	B2	travel	topic	reading
-irresistible	adj	không thể cưỡng lại	C1	psychology	topic	reading
+irresistible	adj	không thể cưỡng lại	B2	psychology	topic	reading	cefrj-vocabulary-profile-1.5
 advisable	adj	nên làm, đáng khuyến nghị	C1	academic	topic	reading
-weird	adj	kỳ lạ	B1	psychology	topic	reading
+weird	adj	kỳ lạ	B2	psychology	topic	reading	oxford-3000-5000
 prison	n	nhà tù	B2	law	topic	reading
 fellow	adj	đồng nghiệp, bầu bạn	B2	society	topic	reading
 leg	n	chân	B1	health	topic	reading
-alcohol	n	rượu, đồ uống có cồn	B2	health	topic	reading
-tight	adj	chật, bó sát	B2	daily-life	topic	reading
-interior	n	nội thất, bên trong	B2	daily-life	topic	reading
-officially	adv	một cách chính thức	B2	politics	topic	reading
-automatically	adv	một cách tự động	B2	technology	topic	reading
-philosophy	n	triết học	C1	academic	topic	reading
+alcohol	n	rượu, đồ uống có cồn	B1	health	topic	reading	oxford-3000-5000
+tight	adj	chật, bó sát	B1	daily-life	topic	reading	oxford-3000-5000
+interior	n	nội thất, bên trong	C1	daily-life	topic	reading	oxford-3000-5000
+officially	adv	một cách chính thức	B1	politics	topic	reading	cefrj-vocabulary-profile-1.5
+automatically	adv	một cách tự động	B2	technology	topic	reading	oxford-3000-5000
+philosophy	n	triết học	B2	academic	topic	reading	oxford-3000-5000
 healthcare	n	chăm sóc sức khoẻ	B2	health	topic	reading
 bedroom	n	phòng ngủ	B1	daily-life	topic	reading
-elsewhere	adv	nơi khác	B2	travel	topic	reading
+elsewhere	adv	nơi khác	B2	travel	topic	reading	oxford-3000-5000
 desk	n	bàn làm việc	B1	work	topic	reading
 alright	adj	ổn, không sao	B1	psychology	topic	reading
-newly	adv	mới, gần đây	B2	academic	topic	reading
-odd	adj	kỳ quặc, lẻ	B2	academic	topic	reading
+newly	adv	mới, gần đây	B2	academic	topic	reading	oxford-3000-5000
+odd	adj	kỳ quặc, lẻ	B1	academic	topic	reading	oxford-3000-5000
 mum	n	mẹ	B1	family	topic	reading
-smooth	adj	nhẵn, mượt	B2	daily-life	topic	reading
+smooth	adj	nhẵn, mượt	B1	daily-life	topic	reading	oxford-3000-5000
 grass	n	cỏ	B1	environment	topic	reading
 incredibly	adv	vô cùng	B2	academic	topic	reading
 spell	v	đánh vần	B1	education	topic	reading
-initiative	n	sáng kiến	C1	work	topic	reading
-fancy	adj	cầu kỳ, hào nhoáng	B2	psychology	topic	reading
-instant	adj	tức thì	B1	daily-life	topic	reading
-pump	n	máy bơm	B2	technology	topic	reading
+initiative	n	sáng kiến	B2	work	topic	reading	oxford-3000-5000
+fancy	adj	cầu kỳ, hào nhoáng	B1	psychology	topic	reading	oxford-3000-5000
+instant	adj	tức thì	B2	daily-life	topic	reading	oxford-3000-5000
+pump	n	máy bơm	C1	technology	topic	reading	oxford-3000-5000
 acceptable	adj	chấp nhận được	B2	society	topic	reading
 mainstream	adj	chính thống, phổ biến	C1	media	topic	reading
 spectrum	n	quang phổ, dải	C1	science	topic	reading
-explosion	n	vụ nổ	B2	science	topic	reading
-leaf	n	lá cây	B1	environment	topic	reading
+explosion	n	vụ nổ	B1	science	topic	reading	oxford-3000-5000
+leaf	n	lá cây	B1	environment	topic	reading	oxford-3000-5000
 dish	n	món ăn	B1	food	topic	reading
 excess	n	sự dư thừa	C1	health	topic	reading
-creature	n	sinh vật	B2	environment	topic	reading
+creature	n	sinh vật	B2	environment	topic	reading	oxford-3000-5000

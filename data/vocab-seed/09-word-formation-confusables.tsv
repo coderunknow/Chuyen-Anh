@@ -1,137 +1,137 @@
 # Word-formation families and commonly confused pairs (single headwords only).
 # Each row is one useful lexical unit; the family or contrast is named in the meaning.
 # word<TAB>pos<TAB>meaning<TAB>level<TAB>topic<TAB>type<TAB>skills
-courage	n	lòng dũng cảm	B2	psychology	word-formation	reading,writing
-discourage	v	làm nản lòng	B2	psychology	word-formation	reading
-encouragement	n	sự khích lệ	C1	psychology	word-formation	writing
-inspire	v	truyền cảm hứng	B2	psychology	word-formation	writing
-inspiration	n	cảm hứng	C1	psychology	word-formation	writing
+courage	n	lòng dũng cảm	B2	psychology	word-formation	reading,writing	oxford-3000-5000
+discourage	v	làm nản lòng	B2	psychology	word-formation	reading	oxford-3000-5000
+encouragement	n	sự khích lệ	C1	psychology	word-formation	writing	oxford-3000-5000
+inspire	v	truyền cảm hứng	B2	psychology	word-formation	writing	oxford-3000-5000
+inspiration	n	cảm hứng	C1	psychology	word-formation	writing	oxford-3000-5000
 inspiring	adj	truyền cảm hứng	C1	psychology	word-formation	reading
-improvement	n	sự cải thiện	B2	education	word-formation	writing
-environmental	adj	thuộc môi trường	B2	environment	word-formation	reading,writing
-environmentally	adv	về phương diện môi trường	C1	environment	word-formation	writing
-socialise	v	giao lưu, hòa nhập xã hội	C1	society	word-formation	reading
+improvement	n	sự cải thiện	B1	education	word-formation	writing	oxford-3000-5000
+environmental	adj	thuộc môi trường	B1	environment	word-formation	reading,writing	oxford-3000-5000
+environmentally	adv	về phương diện môi trường	B2	environment	word-formation	writing	cefrj-vocabulary-profile-1.5
+socialise	v	giao lưu, hòa nhập xã hội	B2	society	word-formation	reading	cefrj-vocabulary-profile-1.5
 economical	adj	tiết kiệm	C1	economics	word-formation	reading
-technological	adj	thuộc công nghệ	C1	technology	word-formation	reading,writing
-educate	v	giáo dục	C1	education	word-formation	reading
-educational	adj	mang tính giáo dục	B2	education	word-formation	reading,writing
-educator	n	nhà giáo dục	C1	education	word-formation	reading
-communicative	adj	có tính giao tiếp	C1	academic	word-formation	reading
+technological	adj	thuộc công nghệ	B2	technology	word-formation	reading,writing	oxford-3000-5000
+educate	v	giáo dục	B1	education	word-formation	reading	oxford-3000-5000
+educational	adj	mang tính giáo dục	B1	education	word-formation	reading,writing	oxford-3000-5000
+educator	n	nhà giáo dục	C1	education	word-formation	reading	oxford-3000-5000
+communicative	adj	có tính giao tiếp	B2	academic	word-formation	reading	cefrj-vocabulary-profile-1.5
 imagine	v	tưởng tượng	B1	psychology	word-formation	reading
-imagination	n	trí tưởng tượng	B2	psychology	word-formation	reading,writing
+imagination	n	trí tưởng tượng	B2	psychology	word-formation	reading,writing	oxford-3000-5000
 imaginative	adj	giàu trí tưởng tượng	C1	psychology	word-formation	reading
-imaginary	adj	do tưởng tượng mà có	C1	psychology	confusable	reading
+imaginary	adj	do tưởng tượng mà có	B1	psychology	confusable	reading	oxford-3000-5000
 imaginable	adj	có thể tưởng tượng được	C1	psychology	word-formation	reading
 succeed	v	thành công; kế tiếp	B1	work	word-formation	reading
-successfully	adv	một cách thành công	B2	work	word-formation	writing
-producer	n	nhà sản xuất	C1	economics	word-formation	reading
+successfully	adv	một cách thành công	B1	work	word-formation	writing	oxford-3000-5000
+producer	n	nhà sản xuất	B1	economics	word-formation	reading	oxford-3000-5000
 production	n	việc sản xuất	B2	economics	word-formation	reading,writing
 productive	adj	năng suất, hữu ích	C1	economics	word-formation	reading
 consumption	n	sự tiêu thụ	C1	economics	word-formation	reading,writing
-decisive	adj	quyết đoán, mang tính quyết định	C1	psychology	word-formation	reading
+decisive	adj	quyết đoán, mang tính quyết định	C1	psychology	word-formation	reading	oxford-3000-5000
 indecisive	adj	do dự, thiếu quyết đoán	C1	psychology	word-formation	reading
-creation	n	sự tạo ra, sáng tạo	C1	culture	word-formation	writing
+creation	n	sự tạo ra, sáng tạo	B2	culture	word-formation	writing	oxford-3000-5000
 creative	adj	sáng tạo	B2	culture	word-formation	reading,writing
-creativity	n	tính sáng tạo	C1	culture	word-formation	writing
-creator	n	người sáng tạo	C1	culture	word-formation	reading
+creativity	n	tính sáng tạo	B2	culture	word-formation	writing	oxford-3000-5000
+creator	n	người sáng tạo	C1	culture	word-formation	reading	oxford-3000-5000
 comparison	n	sự so sánh	B2	academic	word-formation	writing
 comparable	adj	có thể so sánh được	C1	academic	word-formation	reading
-comparative	adj	mang tính so sánh	C1	academic	word-formation	reading
-differ	v	khác nhau	C1	academic	word-formation	reading
+comparative	adj	mang tính so sánh	B2	academic	word-formation	reading	oxford-3000-5000
+differ	v	khác nhau	B2	academic	word-formation	reading	oxford-3000-5000
 differently	adv	một cách khác nhau	B1	daily-life	word-formation	reading
 differentiate	v	phân biệt	C1	academic	word-formation	reading
 vary	v	thay đổi, biến thiên	B2	academic	word-formation	reading
 invitation	n	lời mời	B1	daily-life	word-formation	reading
 explanation	n	lời giải thích	B2	education	word-formation	reading,writing
 description	n	sự mô tả	C1	academic	word-formation	reading,writing
-descriptive	adj	mang tính mô tả	C1	academic	word-formation	reading
+descriptive	adj	mang tính mô tả	B2	academic	word-formation	reading	cefrj-vocabulary-profile-1.5
 introduction	n	phần giới thiệu	C1	academic	word-formation	writing
 introductory	adj	mở đầu	C2	academic	word-formation	reading
 conclusive	adj	mang tính kết luận, thuyết phục	C2	academic	word-formation	reading
-agreement	n	thỏa thuận, sự đồng ý	B2	society	word-formation	reading,writing
-disagreement	n	sự bất đồng	C1	society	word-formation	reading
+agreement	n	thỏa thuận, sự đồng ý	B1	society	word-formation	reading,writing	oxford-3000-5000
+disagreement	n	sự bất đồng	B2	society	word-formation	reading	oxford-3000-5000
 disagree	v	không đồng ý	B1	daily-life	word-formation	reading
 agreeable	adj	dễ chịu, sẵn lòng	C1	society	word-formation	reading
 appearance	n	vẻ ngoài, sự xuất hiện	B2	society	word-formation	reading,writing
 disappear	v	biến mất	B1	daily-life	word-formation	reading
-disappearance	n	sự biến mất	C1	society	word-formation	reading
-application	n	đơn xin; ứng dụng	C1	technology	word-formation	reading,writing
-applicant	n	người nộp đơn	C1	work	word-formation	reading
+disappearance	n	sự biến mất	B2	society	word-formation	reading	cefrj-vocabulary-profile-1.5
+application	n	đơn xin; ứng dụng	B1	technology	word-formation	reading,writing	oxford-3000-5000
+applicant	n	người nộp đơn	B2	work	word-formation	reading	oxford-3000-5000
 applicable	adj	có thể áp dụng	C1	academic	word-formation	reading
 arrange	v	sắp xếp	B1	daily-life	word-formation	reading
 arrangement	n	sự sắp xếp	B2	daily-life	word-formation	reading
-rearrange	v	sắp xếp lại	C1	daily-life	word-formation	reading
+rearrange	v	sắp xếp lại	B1	daily-life	word-formation	reading	cefrj-vocabulary-profile-1.5
 attendance	n	sự có mặt	C1	education	word-formation	reading
 attendant	n	nhân viên phục vụ	C2	work	word-formation	reading
 avoidance	n	sự tránh né	C1	psychology	word-formation	reading
 unavoidable	adj	không thể tránh khỏi	C1	academic	word-formation	reading
 belief	n	niềm tin, tín ngưỡng	B2	psychology	word-formation	reading
 believable	adj	có thể tin được	C1	media	word-formation	reading
-unbelievable	adj	khó tin	B2	media	word-formation	reading
-beneficiary	n	người thụ hưởng	C2	society	word-formation	reading
+unbelievable	adj	khó tin	B1	media	word-formation	reading	cefrj-vocabulary-profile-1.5
+beneficiary	n	người thụ hưởng	C1	society	word-formation	reading	oxford-3000-5000
 careless	adj	bất cẩn	B1	daily-life	word-formation	reading
-carelessly	adv	một cách bất cẩn	B2	daily-life	word-formation	reading
-carelessness	n	sự bất cẩn	C1	psychology	word-formation	writing
+carelessly	adv	một cách bất cẩn	B1	daily-life	word-formation	reading	cefrj-vocabulary-profile-1.5
+carelessness	n	sự bất cẩn	B1	psychology	word-formation	writing	cefrj-vocabulary-profile-1.5
 choose	v	chọn	B1	daily-life	word-formation	reading
 competitor	n	đối thủ cạnh tranh	B2	economics	word-formation	reading
 competitive	adj	có tính cạnh tranh	B2	economics	word-formation	reading,writing
 complement	v	bổ sung cho nhau	C1	academic	confusable	reading
-compliment	n	lời khen	C1	society	confusable	reading
+compliment	n	lời khen	B1	society	confusable	reading	cefrj-vocabulary-profile-1.5
 except	prep	ngoại trừ	B1	daily-life	confusable	reading
 acceptance	n	sự chấp nhận	C1	society	word-formation	reading
-advise	v	khuyên	B1	daily-life	confusable	reading
+advise	v	khuyên	B1	daily-life	confusable	reading	oxford-3000-5000
 practise	v	luyện tập	B1	education	confusable	reading
 principal	adj	chính, chủ yếu	C1	academic	confusable	reading
 stationary	adj	đứng yên	C1	science	confusable	reading
 stationery	n	văn phòng phẩm	C1	education	confusable	reading
 quiet	adj	yên tĩnh	B1	daily-life	confusable	reading
-whether	conj	liệu rằng	B2	academic	confusable	writing
+whether	conj	liệu rằng	B1	academic	confusable	writing	oxford-3000-5000
 bored	adj	buồn chán	B1	psychology	confusable	reading
 board	n	tấm bảng, ban lãnh đạo	B1	education	confusable	reading
 brake	n	phanh	B2	travel	confusable	reading
 peace	n	hòa bình, sự yên bình	B1	society	confusable	reading
 piece	n	mảnh, miếng	B1	daily-life	confusable	reading
 site	n	địa điểm, công trường	B2	work	confusable	reading
-sight	n	tầm nhìn, cảnh tượng	B2	travel	confusable	reading
-heel	n	gót chân	C1	health	confusable	reading
+sight	n	tầm nhìn, cảnh tượng	B1	travel	confusable	reading	oxford-3000-5000
+heel	n	gót chân	B2	health	confusable	reading	oxford-3000-5000
 male	adj	thuộc nam giới	B1	society	confusable	reading
 meet	v	gặp gỡ	B1	daily-life	confusable	reading
-plain	adj	đơn giản, trơn	C1	academic	confusable	reading
+plain	adj	đơn giản, trơn	B2	academic	confusable	reading	oxford-3000-5000
 plane	n	máy bay, mặt phẳng	B1	travel	confusable	reading
-roll	v	lăn, cuộn	C1	daily-life	confusable	reading
-steel	n	thép	B2	science	confusable	reading
+roll	v	lăn, cuộn	B1	daily-life	confusable	reading	oxford-3000-5000
+steel	n	thép	B2	science	confusable	reading	oxford-3000-5000
 weight	n	trọng lượng	B1	health	confusable	reading
 hole	n	cái lỗ	B1	daily-life	confusable	reading
 diary	n	nhật ký	C1	daily-life	confusable	reading
-envelope	n	phong bì	B2	daily-life	confusable	reading
-personnel	n	nhân sự	C2	work	confusable	reading
+envelope	n	phong bì	B2	daily-life	confusable	reading	oxford-3000-5000
+personnel	n	nhân sự	C1	work	confusable	reading	oxford-3000-5000
 sensitive	adj	nhạy cảm	B2	psychology	confusable	reading
-sensible	adj	khôn ngoan, hợp lý	B2	psychology	confusable	reading
+sensible	adj	khôn ngoan, hợp lý	B1	psychology	confusable	reading	oxford-3000-5000
 respectful	adj	lễ phép, tôn trọng	C1	society	confusable	reading
-respectable	adj	đáng kính	C2	society	confusable	reading
-respective	adj	tương ứng của mỗi bên	C2	academic	confusable	reading
-historical	adj	thuộc về lịch sử	C1	culture	confusable	reading
-historic	adj	có ý nghĩa lịch sử	C1	culture	confusable	reading
+respectable	adj	đáng kính	B1	society	confusable	reading	cefrj-vocabulary-profile-1.5
+respective	adj	tương ứng của mỗi bên	C1	academic	confusable	reading	oxford-3000-5000
+historical	adj	thuộc về lịch sử	B1	culture	confusable	reading	oxford-3000-5000
+historic	adj	có ý nghĩa lịch sử	B1	culture	confusable	reading	oxford-3000-5000
 industrious	adj	cần cù	C1	work	confusable	reading
 invaluable	adj	vô cùng quý giá	C1	academic	confusable	reading
 valueless	adj	không có giá trị	C1	academic	confusable	reading
-literal	adj	theo nghĩa đen	C1	academic	confusable	reading
-literary	adj	thuộc văn học	C1	culture	confusable	reading
+literal	adj	theo nghĩa đen	B2	academic	confusable	reading	cefrj-vocabulary-profile-1.5
+literary	adj	thuộc văn học	B2	culture	confusable	reading	oxford-3000-5000
 literate	adj	biết chữ	C1	education	confusable	reading
 momentous	adj	trọng đại	C2	academic	confusable	reading
-notorious	adj	nổi tiếng xấu	C1	media	confusable	reading
+notorious	adj	nổi tiếng xấu	C1	media	confusable	reading	oxford-3000-5000
 observance	n	việc tuân thủ, sự kỷ niệm	C2	law	confusable	reading
-prescribe	v	kê đơn, quy định	C1	health	confusable	reading
+prescribe	v	kê đơn, quy định	C1	health	confusable	reading	oxford-3000-5000
 proscribe	v	cấm, ngăn cấm	C2	law	confusable	reading
 affect	v	tác động đến	B2	academic	confusable	reading,writing
 access	n	sự tiếp cận, quyền truy cập	B1	technology	word-formation	reading,writing
 accommodate	v	đáp ứng, chứa được	C1	academic	word-formation	reading
-accumulate	v	tích lũy	C1	academic	word-formation	reading
+accumulate	v	tích lũy	C1	academic	word-formation	reading	oxford-3000-5000
 adopt	v	áp dụng, nhận nuôi	B2	academic	confusable	reading
 adaptable	adj	dễ thích nghi	C1	psychology	word-formation	reading
 adaptation	n	sự thích nghi, bản chuyển thể	C1	academic	word-formation	reading
 administrate	v	quản lý hành chính	C2	work	word-formation	reading
-administration	n	sự quản lý, chính quyền	C1	politics	word-formation	reading
+administration	n	sự quản lý, chính quyền	B2	politics	word-formation	reading	oxford-3000-5000
 analyze	v	phân tích (dạng Mỹ)	B2	academic	word-formation	reading
 analytical	adj	có tính phân tích	C1	academic	word-formation	reading
 anxious	adj	lo âu, nóng lòng	B2	psychology	word-formation	reading
@@ -143,16 +143,16 @@ approval	n	sự chấp thuận	C1	politics	word-formation	reading
 argue	v	đưa ra lập luận	C1	academic	word-formation	writing
 argumentative	adj	có tính tranh luận	C2	academic	word-formation	writing
 assist	v	giúp đỡ, hỗ trợ	B2	work	word-formation	reading
-assistance	n	sự hỗ trợ	B2	work	word-formation	reading
+assistance	n	sự hỗ trợ	B2	work	word-formation	reading	oxford-3000-5000
 assistant	n	người trợ giúp	B2	work	word-formation	reading
-associate	v	liên tưởng, kết hợp	C1	academic	word-formation	reading
-association	n	hiệp hội, sự liên hệ	C1	society	word-formation	reading
+associate	v	liên tưởng, kết hợp	B2	academic	word-formation	reading	oxford-3000-5000
+association	n	hiệp hội, sự liên hệ	B2	society	word-formation	reading	oxford-3000-5000
 assume	v	cho là đúng	C1	academic	word-formation	writing
 assumption	n	giả định	C1	academic	word-formation	writing
 attach	v	gắn kèm	C1	academic	word-formation	reading
-attachment	n	sự gắn bó, tệp đính kèm	C1	psychology	word-formation	reading
+attachment	n	sự gắn bó, tệp đính kèm	B2	psychology	word-formation	reading	oxford-3000-5000
 attract	v	lôi cuốn	B2	media	word-formation	reading
-attraction	n	sự hấp dẫn, điểm thu hút	C1	travel	word-formation	reading
+attraction	n	sự hấp dẫn, điểm thu hút	B1	travel	word-formation	reading	oxford-3000-5000
 attractive	adj	hấp dẫn	B2	media	word-formation	reading
 awareness	n	nhận thức về vấn đề	B2	society	word-formation	writing
 balance	v	cân bằng	B2	health	word-formation	reading
@@ -163,40 +163,40 @@ capacity	n	khả năng chứa, năng lực	C1	academic	word-formation	reading
 caution	n	sự thận trọng	C1	psychology	word-formation	reading
 cautious	adj	thận trọng	B2	psychology	word-formation	reading
 celebrate	v	kỷ niệm, ca ngợi	B1	culture	word-formation	reading
-celebration	n	lễ kỷ niệm	B2	culture	word-formation	reading
+celebration	n	lễ kỷ niệm	B1	culture	word-formation	reading	oxford-3000-5000
 celebrity	n	người nổi tiếng	B2	media	word-formation	reading
 challenge	v	thách thức	B2	academic	word-formation	writing
 challenging	adj	đầy thách thức	B2	academic	word-formation	reading
-characterise	v	mô tả đặc điểm	C1	academic	word-formation	reading
+characterise	v	mô tả đặc điểm	B1	academic	word-formation	reading	cefrj-vocabulary-profile-1.5
 classify	v	phân loại khoa học	C1	academic	word-formation	reading
-classification	n	sự phân loại	C2	academic	word-formation	reading
+classification	n	sự phân loại	C1	academic	word-formation	reading	oxford-3000-5000
 collect	v	sưu tầm, thu gom	B1	daily-life	word-formation	reading
-collection	n	bộ sưu tập	C1	culture	word-formation	reading
-collector	n	nhà sưu tập	C2	culture	word-formation	reading
+collection	n	bộ sưu tập	B1	culture	word-formation	reading	oxford-3000-5000
+collector	n	nhà sưu tập	B2	culture	word-formation	reading	oxford-3000-5000
 combine	v	kết hợp lại	B2	academic	word-formation	writing
-combination	n	sự kết hợp	B2	academic	word-formation	writing
-comfort	n	sự thoải mái	B2	daily-life	word-formation	reading
+combination	n	sự kết hợp	B2	academic	word-formation	writing	oxford-3000-5000
+comfort	n	sự thoải mái	B2	daily-life	word-formation	reading	oxford-3000-5000
 comfortable	adj	thoải mái	B1	daily-life	word-formation	reading
-uncomfortable	adj	không thoải mái	B1	daily-life	word-formation	reading
+uncomfortable	adj	không thoải mái	B1	daily-life	word-formation	reading	oxford-3000-5000
 commitment	n	sự cam kết	C1	society	word-formation	writing
 committed	adj	tận tâm, cam kết	C1	work	word-formation	reading
 compete	v	cạnh tranh	B2	sport	word-formation	reading
 complain	v	phàn nàn	B2	daily-life	word-formation	reading
-complaint	n	lời phàn nàn	C1	daily-life	word-formation	reading
+complaint	n	lời phàn nàn	B1	daily-life	word-formation	reading	oxford-3000-5000
 concentrate	v	tập trung trí óc	B2	education	word-formation	reading
-confuse	v	làm lẫn lộn	B2	academic	word-formation	reading
-confusion	n	sự nhầm lẫn	C1	academic	word-formation	reading
+confuse	v	làm lẫn lộn	B1	academic	word-formation	reading	oxford-3000-5000
+confusion	n	sự nhầm lẫn	B2	academic	word-formation	reading	oxford-3000-5000
 connect	v	kết nối	B1	technology	word-formation	reading
-connection	n	sự kết nối	C1	technology	word-formation	reading
+connection	n	sự kết nối	B1	technology	word-formation	reading	oxford-3000-5000
 consider	v	cân nhắc kỹ	C1	academic	word-formation	writing
 considerate	adj	biết quan tâm	C1	psychology	confusable	reading
 considerable	adj	đáng kể	C1	academic	confusable	reading
 consume	v	dùng, tiêu thụ	C1	economics	word-formation	reading
 contain	v	chứa đựng	B2	science	word-formation	reading
-container	n	vật chứa, thùng	C1	technology	word-formation	reading
+container	n	vật chứa, thùng	B1	technology	word-formation	reading	oxford-3000-5000
 continue	v	tiếp diễn	B1	daily-life	word-formation	reading
-continuous	adj	liên tục	C1	academic	word-formation	reading
-continual	adj	lặp đi lặp lại	C2	academic	confusable	reading
+continuous	adj	liên tục	B1	academic	word-formation	reading	oxford-3000-5000
+continual	adj	lặp đi lặp lại	B1	academic	confusable	reading	cefrj-vocabulary-profile-1.5
 contribute	v	góp phần	C1	academic	word-formation	writing
 contribution	n	sự đóng góp	C1	academic	word-formation	writing
 convenient	adj	tiện lợi	B1	daily-life	word-formation	reading
@@ -211,15 +211,15 @@ criticise	v	phê bình	C1	media	word-formation	reading
 criticism	n	sự phê bình	C1	media	word-formation	reading
 critic	n	nhà phê bình	C1	media	word-formation	reading
 decide	v	quyết định dứt khoát	B1	daily-life	word-formation	reading
-declare	v	tuyên bố	C1	politics	word-formation	reading
-declaration	n	lời tuyên bố	C2	politics	word-formation	reading
-decorate	v	trang trí	B2	culture	word-formation	reading
-decoration	n	đồ trang trí	C1	culture	word-formation	reading
-deliver	v	giao hàng, truyền đạt	C1	economics	word-formation	reading
+declare	v	tuyên bố	B2	politics	word-formation	reading	oxford-3000-5000
+declaration	n	lời tuyên bố	C1	politics	word-formation	reading	oxford-3000-5000
+decorate	v	trang trí	B1	culture	word-formation	reading	oxford-3000-5000
+decoration	n	đồ trang trí	B2	culture	word-formation	reading	oxford-3000-5000
+deliver	v	giao hàng, truyền đạt	B1	economics	word-formation	reading	oxford-3000-5000
 demand	v	yêu cầu	B2	economics	word-formation	reading
 demonstration	n	cuộc biểu tình; sự chứng minh	C1	politics	word-formation	reading
-deny	v	phủ nhận	C1	academic	word-formation	writing
-denial	n	sự phủ nhận	C2	psychology	word-formation	reading
+deny	v	phủ nhận	B2	academic	word-formation	writing	oxford-3000-5000
+denial	n	sự phủ nhận	C1	psychology	word-formation	reading	oxford-3000-5000
 depend	v	phụ thuộc	C1	academic	word-formation	reading
 dependent	adj	phụ thuộc	C1	academic	word-formation	reading
 dependence	n	sự phụ thuộc	C1	academic	word-formation	reading
@@ -228,106 +228,106 @@ independent	adj	độc lập	B1	politics	word-formation	reading
 develop	v	phát triển dần	B2	society	word-formation	writing
 discover	v	khám phá	B1	science	word-formation	reading
 discovery	n	phát hiện	C1	science	word-formation	reading
-disturb	v	làm phiền, xáo trộn	C1	daily-life	word-formation	reading
-disturbance	n	sự xáo trộn	C2	society	word-formation	reading
+disturb	v	làm phiền, xáo trộn	B2	daily-life	word-formation	reading	oxford-3000-5000
+disturbance	n	sự xáo trộn	B1	society	word-formation	reading	cefrj-vocabulary-profile-1.5
 divide	v	phân chia	B2	academic	word-formation	reading
-division	n	sự phân chia, phòng ban	C1	work	word-formation	reading
+division	n	sự phân chia, phòng ban	B2	work	word-formation	reading	oxford-3000-5000
 effect	n	kết quả tác động	B2	academic	word-formation	reading
-effectively	adv	một cách hiệu quả	B2	academic	word-formation	writing
+effectively	adv	một cách hiệu quả	B1	academic	word-formation	writing	oxford-3000-5000
 efficient	adj	hoạt động hiệu quả	C1	economics	word-formation	reading
 efficiency	n	hiệu suất làm việc	C1	economics	word-formation	writing
 employ	v	thuê, sử dụng	B2	work	word-formation	reading
 employment	n	việc làm, sự tuyển dụng	C1	work	word-formation	reading
 unemployed	adj	thất nghiệp	B2	work	word-formation	reading
 encourage	v	động viên	B2	psychology	word-formation	reading
-engage	v	tham gia, thu hút	C1	society	word-formation	reading
+engage	v	tham gia, thu hút	B2	society	word-formation	reading	oxford-3000-5000
 engagement	n	sự tham gia, hôn ước	C1	society	word-formation	writing
-enjoyable	adj	thú vị	B2	daily-life	word-formation	reading
-enjoyment	n	sự thích thú	C1	psychology	word-formation	reading
+enjoyable	adj	thú vị	B2	daily-life	word-formation	reading	oxford-3000-5000
+enjoyment	n	sự thích thú	B1	psychology	word-formation	reading	cefrj-vocabulary-profile-1.5
 ensure	v	chắc chắn rằng	B2	academic	word-formation	writing
-entertain	v	giải trí	C1	media	word-formation	reading
-entertainment	n	ngành giải trí	B2	media	word-formation	reading
+entertain	v	giải trí	B1	media	word-formation	reading	oxford-3000-5000
+entertainment	n	ngành giải trí	B1	media	word-formation	reading	oxford-3000-5000
 enthusiasm	n	sự nhiệt tình	C1	psychology	word-formation	reading
 enthusiastic	adj	nhiệt tình	B2	psychology	word-formation	reading
 establish	v	thiết lập lâu dài	C1	academic	word-formation	writing
 establishment	n	sự thành lập, cơ sở	C1	academic	word-formation	reading
 excite	v	kích thích, làm phấn khích	B2	psychology	word-formation	reading
 exciting	adj	thú vị, hấp dẫn	B1	daily-life	word-formation	reading
-excitement	n	sự phấn khích	C1	psychology	word-formation	reading
+excitement	n	sự phấn khích	B1	psychology	word-formation	reading	oxford-3000-5000
 exhibit	v	trưng bày	C1	culture	word-formation	reading
 exhibition	n	cuộc triển lãm	B2	culture	word-formation	reading
 exist	v	có mặt, tồn tại	B2	academic	word-formation	reading
-existence	n	sự tồn tại	C1	academic	word-formation	reading
+existence	n	sự tồn tại	B2	academic	word-formation	reading	oxford-3000-5000
 expand	v	mở rộng quy mô	C1	economics	word-formation	reading
 expansion	n	sự mở rộng	C1	economics	word-formation	writing
 expect	v	dự đoán, chờ đợi	B2	psychology	word-formation	reading
-expectation	n	sự kỳ vọng	C1	psychology	word-formation	writing
-unexpected	adj	bất ngờ	B2	daily-life	word-formation	reading
+expectation	n	sự kỳ vọng	B2	psychology	word-formation	writing	oxford-3000-5000
+unexpected	adj	bất ngờ	B2	daily-life	word-formation	reading	oxford-3000-5000
 explore	v	thăm dò, khám phá	C1	travel	word-formation	reading
-exploration	n	sự khám phá	C1	science	word-formation	reading
-explorer	n	nhà thám hiểm	C1	travel	word-formation	reading
+exploration	n	sự khám phá	B2	science	word-formation	reading	oxford-3000-5000
+explorer	n	nhà thám hiểm	B2	travel	word-formation	reading	cefrj-vocabulary-profile-1.5
 express	v	thể hiện	B2	academic	word-formation	writing
 expression	n	sự thể hiện	C1	academic	word-formation	writing
-expressive	adj	giàu biểu cảm	C2	academic	word-formation	reading
+expressive	adj	giàu biểu cảm	B2	academic	word-formation	reading	cefrj-vocabulary-profile-1.5
 fail	v	không đạt, thất bại	B2	education	word-formation	reading
 failure	n	sự thất bại, hỏng hóc	C1	education	word-formation	writing
-fascinate	v	mê hoặc	C1	psychology	word-formation	reading
+fascinate	v	mê hoặc	B1	psychology	word-formation	reading	cefrj-vocabulary-profile-1.5
 fascinating	adj	hấp dẫn, lôi cuốn	B2	daily-life	word-formation	reading
-fascination	n	sự say mê	C2	psychology	word-formation	reading
+fascination	n	sự say mê	B2	psychology	word-formation	reading	cefrj-vocabulary-profile-1.5
 finance	v	tài trợ	C1	economics	word-formation	reading
 financial	adj	liên quan tiền bạc	B2	economics	word-formation	reading
-fortunate	adj	may mắn	C1	daily-life	word-formation	reading
+fortunate	adj	may mắn	B2	daily-life	word-formation	reading	oxford-3000-5000
 unfortunately	adv	thật không may	B1	daily-life	word-formation	reading
 freedom	n	quyền tự do	B2	politics	word-formation	reading
 free	v	giải phóng, thả tự do	C1	society	word-formation	reading
-frequent	adj	thường xuyên	C1	academic	word-formation	reading
-frequency	n	tần suất	C1	science	word-formation	reading
+frequent	adj	thường xuyên	B2	academic	word-formation	reading	oxford-3000-5000
+frequency	n	tần suất	B2	science	word-formation	reading	oxford-3000-5000
 frustrate	v	làm thất vọng, cản trở	C1	psychology	word-formation	reading
 frustrating	adj	gây bực bội	B2	psychology	word-formation	reading
 generate	v	sản sinh	C1	science	word-formation	reading
 generation	n	sự tạo ra, thế hệ	C1	science	word-formation	reading
-generous	adj	hào phóng	B2	psychology	word-formation	reading
-generosity	n	sự hào phóng	C1	psychology	word-formation	reading
+generous	adj	hào phóng	B1	psychology	word-formation	reading	oxford-3000-5000
+generosity	n	sự hào phóng	B2	psychology	word-formation	reading	cefrj-vocabulary-profile-1.5
 graduate	v	tốt nghiệp	B1	education	word-formation	reading
 guidance	n	sự hướng dẫn	C1	education	word-formation	reading
-guilty	adj	có tội, cảm thấy tội lỗi	B2	law	word-formation	reading
+guilty	adj	có tội, cảm thấy tội lỗi	B1	law	word-formation	reading	oxford-3000-5000
 habitual	adj	thành thói quen	C1	psychology	word-formation	reading
-harmful	adj	có hại	B2	health	word-formation	reading
+harmful	adj	có hại	B2	health	word-formation	reading	oxford-3000-5000
 harmless	adj	vô hại	B2	health	word-formation	reading
-hesitate	v	do dự	C1	psychology	word-formation	reading
-hesitation	n	sự do dự	C1	psychology	word-formation	reading
+hesitate	v	do dự	B2	psychology	word-formation	reading	oxford-3000-5000
+hesitation	n	sự do dự	B2	psychology	word-formation	reading	cefrj-vocabulary-profile-1.5
 honest	adj	trung thực	B1	society	word-formation	reading
-dishonest	adj	không trung thực	B2	society	word-formation	reading
+dishonest	adj	không trung thực	B2	society	word-formation	reading	oxford-3000-5000
 identify	v	nhận ra danh tính	C1	academic	word-formation	reading
 identity	n	danh tính	C1	society	word-formation	reading
-ignore	v	phớt lờ	C1	psychology	word-formation	reading
-ignorance	n	sự thiếu hiểu biết	C1	education	word-formation	reading
+ignore	v	phớt lờ	B1	psychology	word-formation	reading	oxford-3000-5000
+ignorance	n	sự thiếu hiểu biết	C1	education	word-formation	reading	oxford-3000-5000
 illustrate	v	dẫn chứng minh họa	C1	academic	word-formation	writing
-impress	v	gây ấn tượng	C1	psychology	word-formation	reading
-impressive	adj	ấn tượng	B2	psychology	word-formation	reading
-impression	n	ấn tượng	C1	psychology	word-formation	reading
+impress	v	gây ấn tượng	B2	psychology	word-formation	reading	oxford-3000-5000
+impressive	adj	ấn tượng	B1	psychology	word-formation	reading	oxford-3000-5000
+impression	n	ấn tượng	B1	psychology	word-formation	reading	oxford-3000-5000
 improve	v	làm tốt hơn	B1	education	word-formation	reading
 indicate	v	ngụ ý, biểu hiện	C1	academic	word-formation	reading
-indication	n	dấu hiệu	C1	academic	word-formation	reading
-inform	v	thông báo	C1	media	word-formation	reading
-informative	adj	giàu thông tin	C1	media	word-formation	reading
-insist	v	khăng khăng	C1	psychology	word-formation	reading
-instruct	v	hướng dẫn	C1	education	word-formation	reading
+indication	n	dấu hiệu	B2	academic	word-formation	reading	oxford-3000-5000
+inform	v	thông báo	B2	media	word-formation	reading	oxford-3000-5000
+informative	adj	giàu thông tin	B1	media	word-formation	reading	cefrj-vocabulary-profile-1.5
+insist	v	khăng khăng	B2	psychology	word-formation	reading	oxford-3000-5000
+instruct	v	hướng dẫn	C1	education	word-formation	reading	oxford-3000-5000
 instructor	n	người hướng dẫn	C1	education	word-formation	reading
-intend	v	dự định	C1	psychology	word-formation	reading
-intention	n	ý định	C1	psychology	word-formation	writing
+intend	v	dự định	B1	psychology	word-formation	reading	oxford-3000-5000
+intention	n	ý định	B1	psychology	word-formation	writing	oxford-3000-5000
 intentional	adj	có chủ đích	C1	psychology	word-formation	reading
 interpret	v	diễn giải, phiên dịch	C1	academic	word-formation	reading
 interpretation	n	sự diễn giải	C1	academic	word-formation	reading
 interpreter	n	phiên dịch viên	C1	culture	word-formation	reading
 introduce	v	đưa vào sử dụng	C1	academic	word-formation	writing
 invent	v	phát minh	B2	science	word-formation	reading
-inventor	n	nhà phát minh	C1	science	word-formation	reading
+inventor	n	nhà phát minh	B2	science	word-formation	reading	cefrj-vocabulary-profile-1.5
 invention	n	phát minh	C1	science	word-formation	reading
 investigate	v	điều tra	C1	law	word-formation	reading
 involve	v	lôi kéo vào	C1	academic	word-formation	reading
-judge	v	phán xét, xét xử	B2	law	word-formation	reading
-judgement	n	sự phán đoán	C1	law	word-formation	reading
+judge	v	phán xét, xét xử	B1	law	word-formation	reading	oxford-3000-5000
+judgement	n	sự phán đoán	B2	law	word-formation	reading	oxford-3000-5000
 justify	v	chứng minh hợp lý	C1	academic	word-formation	writing
 justification	n	sự biện minh	C2	academic	word-formation	writing
 know	v	biết rõ	B1	daily-life	word-formation	reading
@@ -344,52 +344,52 @@ negotiate	v	đàm phán	C1	work	word-formation	reading
 negotiation	n	cuộc đàm phán	C1	work	word-formation	reading
 observe	v	tuân thủ, quan sát	C1	law	word-formation	reading
 obtain	v	có được	C1	academic	word-formation	reading
-occupy	v	chiếm giữ	B2	politics	word-formation	reading
-occupation	n	nghề nghiệp	C1	work	word-formation	reading
+occupy	v	chiếm giữ	B2	politics	word-formation	reading	oxford-3000-5000
+occupation	n	nghề nghiệp	B2	work	word-formation	reading	oxford-3000-5000
 occur	v	diễn ra	C1	academic	word-formation	reading
 occurrence	n	sự xuất hiện	C1	academic	word-formation	reading
 organise	v	tổ chức, sắp xếp	C1	work	word-formation	reading
-organiser	n	người tổ chức	C1	work	word-formation	reading
+organiser	n	người tổ chức	B2	work	word-formation	reading	cefrj-vocabulary-profile-1.5
 participate	v	tham dự	C1	society	word-formation	reading
 participant	n	người tham gia	B2	society	word-formation	reading
-permit	v	cho phép	C1	law	word-formation	reading
+permit	v	cho phép	B2	law	word-formation	reading	oxford-3000-5000
 permission	n	sự cho phép	C1	law	word-formation	reading
-persuade	v	thuyết phục	C1	academic	word-formation	reading
-persuasive	adj	có sức thuyết phục	C1	academic	word-formation	writing
+persuade	v	thuyết phục	B1	academic	word-formation	reading	oxford-3000-5000
+persuasive	adj	có sức thuyết phục	B1	academic	word-formation	writing	cefrj-vocabulary-profile-1.5
 pollute	v	gây ô nhiễm	B2	environment	word-formation	reading
 polluted	adj	bị ô nhiễm	B2	environment	word-formation	reading
 predict	v	dự báo	C1	science	word-formation	reading
-preparation	n	sự chuẩn bị	B2	education	word-formation	reading
+preparation	n	sự chuẩn bị	B2	education	word-formation	reading	oxford-3000-5000
 prevent	v	ngăn cản	C1	health	word-formation	reading
 prevention	n	việc phòng ngừa	C1	health	word-formation	reading
 produce	v	tạo ra sản phẩm	C1	economics	word-formation	reading
 prohibit	v	cấm	C1	law	word-formation	reading
 prohibition	n	sự cấm	C2	law	word-formation	reading
 protect	v	che chở	C1	environment	word-formation	reading
-protection	n	sự bảo vệ	C1	environment	word-formation	reading
-protective	adj	có tính bảo vệ	C1	health	word-formation	reading
+protection	n	sự bảo vệ	B2	environment	word-formation	reading	oxford-3000-5000
+protective	adj	có tính bảo vệ	C1	health	word-formation	reading	oxford-3000-5000
 provide	v	cung ứng	C1	academic	word-formation	reading
-provision	n	sự cung cấp	C2	academic	word-formation	reading
-pursue	v	theo đuổi	C1	work	word-formation	reading
-pursuit	n	sự theo đuổi	C2	work	word-formation	reading
+provision	n	sự cung cấp	C1	academic	word-formation	reading	oxford-3000-5000
+pursue	v	theo đuổi	B2	work	word-formation	reading	oxford-3000-5000
+pursuit	n	sự theo đuổi	B2	work	word-formation	reading	oxford-3000-5000
 qualify	v	đủ điều kiện	C1	education	word-formation	reading
 recognise	v	công nhận	B2	society	word-formation	reading
-recommendation	n	lời khuyến nghị	B2	academic	word-formation	reading
+recommendation	n	lời khuyến nghị	B1	academic	word-formation	reading	oxford-3000-5000
 reduce	v	cắt giảm	C1	economics	word-formation	reading
-reduction	n	sự cắt giảm	C1	economics	word-formation	reading
+reduction	n	sự cắt giảm	B2	economics	word-formation	reading	oxford-3000-5000
 refer	v	nhắc đến, tham chiếu	C1	academic	word-formation	reading
 reflect	v	suy ngẫm, phản chiếu	C1	psychology	word-formation	reading
-reflection	n	sự phản ánh, suy ngẫm	C1	psychology	word-formation	reading
+reflection	n	sự phản ánh, suy ngẫm	C1	psychology	word-formation	reading	oxford-3000-5000
 refuse	v	từ chối	B1	daily-life	word-formation	reading
-refusal	n	sự từ chối	C1	daily-life	word-formation	reading
-regret	v	tiếc nuối	C1	psychology	word-formation	reading
+refusal	n	sự từ chối	C1	daily-life	word-formation	reading	oxford-3000-5000
+regret	v	tiếc nuối	B2	psychology	word-formation	reading	oxford-3000-5000
 regretful	adj	đầy hối tiếc	C2	psychology	word-formation	reading
-reject	v	bác bỏ	B2	academic	word-formation	writing
-rejection	n	sự bác bỏ	C1	academic	word-formation	reading
+reject	v	bác bỏ	B1	academic	word-formation	writing	oxford-3000-5000
+rejection	n	sự bác bỏ	C1	academic	word-formation	reading	oxford-3000-5000
 relax	v	nghỉ ngơi, thư giãn	B1	health	word-formation	reading
-relaxation	n	sự thư giãn	C1	health	word-formation	reading
-relief	n	sự nhẹ nhõm, cứu trợ	C1	health	word-formation	reading
-relieve	v	làm dịu	C1	health	word-formation	reading
+relaxation	n	sự thư giãn	B2	health	word-formation	reading	cefrj-vocabulary-profile-1.5
+relief	n	sự nhẹ nhõm, cứu trợ	B2	health	word-formation	reading	oxford-3000-5000
+relieve	v	làm dịu	B2	health	word-formation	reading	oxford-3000-5000
 rely	v	phụ thuộc vào	C1	academic	word-formation	reading
 reliable	adj	đáng tin cậy	B2	work	word-formation	reading
 reliability	n	độ tin cậy	C1	work	word-formation	writing
@@ -397,49 +397,49 @@ rely-on	v	dựa dẫm vào	C2	psychology	word-formation	reading
 remain	v	vẫn còn	C1	academic	word-formation	reading
 remains	n	phần còn lại, di tích	C1	culture	word-formation	reading
 replace	v	thay thế	B2	daily-life	word-formation	reading
-replacement	n	sự thay thế	C1	work	word-formation	reading
+replacement	n	sự thay thế	C1	work	word-formation	reading	oxford-3000-5000
 represent	v	đại diện cho	C1	politics	word-formation	reading
 representation	n	sự đại diện	C1	politics	word-formation	reading
 require	v	cần đến	B2	academic	word-formation	reading
 requirement	n	yêu cầu	C1	academic	word-formation	writing
 respond	v	trả lời, phản ứng	C1	academic	word-formation	reading
-responsible	adj	có trách nhiệm	B2	society	word-formation	reading
-responsibility	n	trách nhiệm	C1	society	word-formation	writing
-irresponsible	adj	vô trách nhiệm	C1	psychology	word-formation	reading
-satisfy	v	làm hài lòng	C1	work	word-formation	reading
+responsible	adj	có trách nhiệm	B1	society	word-formation	reading	oxford-3000-5000
+responsibility	n	trách nhiệm	B1	society	word-formation	writing	oxford-3000-5000
+irresponsible	adj	vô trách nhiệm	B2	psychology	word-formation	reading	cefrj-vocabulary-profile-1.5
+satisfy	v	làm hài lòng	B2	work	word-formation	reading	oxford-3000-5000
 satisfaction	n	sự hài lòng	B2	work	word-formation	reading
-satisfactory	adj	đạt yêu cầu	C1	work	word-formation	reading
+satisfactory	adj	đạt yêu cầu	B2	work	word-formation	reading	cefrj-vocabulary-profile-1.5
 secure	adj	an toàn, chắc chắn	C1	technology	word-formation	reading
 security	n	an ninh	C1	technology	word-formation	reading
 simplify	v	đơn giản hóa quy trình	C1	work	word-formation	reading
 solution	n	cách giải quyết	B2	academic	word-formation	writing
 solve	v	tìm ra lời giải	B2	academic	word-formation	reading
 success	n	kết quả thành công	B2	work	word-formation	reading
-supportive	adj	ủng hộ, khích lệ	C1	psychology	word-formation	reading
-supporter	n	người ủng hộ	C1	society	word-formation	reading
+supportive	adj	ủng hộ, khích lệ	C1	psychology	word-formation	reading	oxford-3000-5000
+supporter	n	người ủng hộ	B1	society	word-formation	reading	oxford-3000-5000
 survive	v	chịu đựng được	C1	health	word-formation	reading
 survival	n	khả năng sống sót	C1	health	word-formation	reading
-survivor	n	người sống sót	C1	health	word-formation	reading
-suspect	v	nghi ngờ	C1	law	word-formation	reading
-suspicion	n	sự nghi ngờ	C1	law	word-formation	reading
-suspicious	adj	đáng ngờ	C1	law	word-formation	reading
+survivor	n	người sống sót	B2	health	word-formation	reading	oxford-3000-5000
+suspect	v	nghi ngờ	B2	law	word-formation	reading	oxford-3000-5000
+suspicion	n	sự nghi ngờ	C1	law	word-formation	reading	oxford-3000-5000
+suspicious	adj	đáng ngờ	C1	law	word-formation	reading	oxford-3000-5000
 tolerant	adj	khoan dung	C1	society	word-formation	reading
 intolerant	adj	không khoan dung	C1	society	word-formation	reading
 tradition	n	tập quán lâu đời	B2	culture	word-formation	reading
-traditionally	adv	theo truyền thống	B2	culture	word-formation	reading
+traditionally	adv	theo truyền thống	B1	culture	word-formation	reading	cefrj-vocabulary-profile-1.5
 translate	v	dịch	B1	culture	word-formation	reading
-translator	n	biên dịch viên	C1	culture	word-formation	reading
+translator	n	biên dịch viên	B2	culture	word-formation	reading	cefrj-vocabulary-profile-1.5
 treat	v	đối xử, điều trị	B2	health	word-formation	reading
 treatable	adj	có thể điều trị	C2	health	word-formation	reading
 treatment	n	biện pháp điều trị	B2	health	word-formation	reading
 value	v	coi trọng	C1	academic	word-formation	reading
 valuable	adj	có giá trị	B1	daily-life	word-formation	reading
 variable	adj	hay thay đổi	C1	academic	word-formation	reading
-violence	n	bạo lực	B2	society	word-formation	reading
-violent	adj	bạo lực	B2	society	word-formation	reading
-violate	v	vi phạm	C1	law	word-formation	reading
+violence	n	bạo lực	B2	society	word-formation	reading	oxford-3000-5000
+violent	adj	bạo lực	B1	society	word-formation	reading	oxford-3000-5000
+violate	v	vi phạm	C1	law	word-formation	reading	oxford-3000-5000
 violation	n	sự vi phạm	C1	law	word-formation	reading
-voluntary	adj	tự nguyện	C1	society	word-formation	reading
-voluntarily	adv	một cách tự nguyện	C2	society	word-formation	reading
-weakness	n	điểm yếu	B2	psychology	word-formation	reading
-strengthen	v	làm mạnh thêm	C1	health	word-formation	reading
+voluntary	adj	tự nguyện	B2	society	word-formation	reading	oxford-3000-5000
+voluntarily	adv	một cách tự nguyện	C1	society	word-formation	reading	octanove-vocabulary-profile-1.0
+weakness	n	điểm yếu	B2	psychology	word-formation	reading	oxford-3000-5000
+strengthen	v	làm mạnh thêm	B2	health	word-formation	reading	oxford-3000-5000

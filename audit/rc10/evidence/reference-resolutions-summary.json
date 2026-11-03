@@ -1,0 +1,19 @@
+{
+  "rows": 5852,
+  "dispositions": {
+    "no_reference": 1920,
+    "verified_below_scope": 1010,
+    "verified_precedence": 1006,
+    "verified_corrected": 915,
+    "verified_agree": 576,
+    "pending_ledger": 425
+  },
+  "corrections": 1921,
+  "correctionsBySource": {
+    "oxford_list": 1369,
+    "cefrj_1_5": 448,
+    "octanove_c1c2": 104
+  },
+  "rowsWithDissent": 1501,
+  "posMismatchOnly": 104
+}

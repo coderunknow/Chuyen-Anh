@@ -24,13 +24,1387 @@
     "frozen": true,
     "pendingReview": [
       {
+        "id": "935",
+        "word": "attitude",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "941",
+        "word": "balance",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "974",
+        "word": "content",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "989",
+        "word": "deal",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1014",
+        "word": "effort",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1089",
+        "word": "issue",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1130",
+        "word": "mental",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1177",
+        "word": "percent",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1227",
+        "word": "remain",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1265",
+        "word": "staff",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1266",
+        "word": "standard",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1282",
+        "word": "surface",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1302",
+        "word": "total",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1321",
+        "word": "various",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1352",
+        "word": "basis",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1353",
+        "word": "category",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1354",
+        "word": "challenge",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1355",
+        "word": "chapter",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1358",
+        "word": "claim",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1364",
+        "word": "communication",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1370",
+        "word": "contrast",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1376",
+        "word": "decade",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1386",
+        "word": "element",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1405",
+        "word": "importance",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1417",
+        "word": "literature",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1418",
+        "word": "locate",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1438",
+        "word": "percentage",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1441",
+        "word": "policy",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1450",
+        "word": "prove",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1454",
+        "word": "quote",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1455",
+        "word": "range",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1462",
+        "word": "release",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1469",
+        "word": "sample",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1484",
+        "word": "technique",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1485",
+        "word": "theme",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1490",
+        "word": "version",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1499",
+        "word": "authority",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1539",
+        "word": "vivid",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1540",
+        "word": "ecosystem",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1562",
+        "word": "rainforest",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1563",
+        "word": "wetland",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1571",
+        "word": "nuclear",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1579",
+        "word": "earthquake",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1580",
+        "word": "hurricane",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1582",
+        "word": "volcano",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1587",
+        "word": "geology",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1590",
+        "word": "molecule",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1597",
+        "word": "laboratory",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1646",
+        "word": "moisture",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1648",
+        "word": "rainfall",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1676",
+        "word": "reclaim",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1689",
+        "word": "software",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1763",
+        "word": "headline",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1794",
+        "word": "episode",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1795",
+        "word": "plot",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1809",
+        "word": "brand",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1832",
+        "word": "scan",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1899",
+        "word": "stressful",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1907",
+        "word": "yoga",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1909",
+        "word": "fitness",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1916",
+        "word": "bandage",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1948",
+        "word": "gratitude",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "1958",
+        "word": "belief",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2002",
+        "word": "trade",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2003",
+        "word": "export",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2004",
+        "word": "import",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2012",
+        "word": "candidate",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2031",
+        "word": "shift",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2075",
+        "word": "exchange",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2077",
+        "word": "refund",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2081",
+        "word": "luxury",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2105",
+        "word": "election",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2108",
+        "word": "protest",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2123",
+        "word": "custom",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2125",
+        "word": "ceremony",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2129",
+        "word": "costume",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2132",
+        "word": "sculpture",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2144",
+        "word": "poetry",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2150",
+        "word": "graduate",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2204",
+        "word": "arrest",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2226",
+        "word": "legal",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2227",
+        "word": "lawful",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2249",
+        "word": "border",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2265",
+        "word": "destination",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2267",
+        "word": "souvenir",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2284",
+        "word": "expedition",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2296",
+        "word": "waterfall",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2298",
+        "word": "jungle",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2302",
+        "word": "hostel",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2304",
+        "word": "departure",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2311",
+        "word": "voyage",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2314",
+        "word": "runway",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2317",
+        "word": "ingredient",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2327",
+        "word": "grill",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2338",
+        "word": "butcher",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2359",
+        "word": "teammate",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2360",
+        "word": "stadium",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2369",
+        "word": "alarm",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2375",
+        "word": "rent",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2381",
+        "word": "kettle",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2388",
+        "word": "hairdresser",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2803",
+        "word": "announce",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2826",
+        "word": "ban",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2829",
+        "word": "basin",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2841",
+        "word": "bore",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2842",
+        "word": "bother",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2862",
+        "word": "cherish",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "2936",
+        "word": "emergency",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "3009",
+        "word": "keen",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "3015",
+        "word": "layer",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "3018",
+        "word": "leisure",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "3041",
+        "word": "meditate",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "3063",
+        "word": "oppress",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "3065",
+        "word": "orbit",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "3078",
+        "word": "paralyse",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "3079",
+        "word": "pardon",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "3120",
+        "word": "queue",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "3159",
+        "word": "scatter",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "3788",
+        "word": "diving",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4099",
+        "word": "reef",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4123",
+        "word": "farmland",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4187",
+        "word": "electron",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4231",
+        "word": "warranty",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4277",
+        "word": "bulletin",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4629",
+        "word": "hardly",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
         "id": "4632",
         "word": "academic",
         "category": "basic-b1",
         "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4637",
+        "word": "rewrite",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4640",
+        "word": "aim",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4642",
+        "word": "scientific",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4650",
+        "word": "pleasure",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4655",
+        "word": "chemical",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4659",
+        "word": "spread",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4663",
+        "word": "flow",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4664",
+        "word": "unable",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4665",
+        "word": "heavily",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4673",
+        "word": "properly",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4680",
+        "word": "immediate",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4682",
+        "word": "necessarily",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4691",
+        "word": "length",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4694",
+        "word": "mood",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4721",
+        "word": "fairly",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4727",
+        "word": "underline",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4729",
+        "word": "native",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4742",
+        "word": "surely",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4748",
+        "word": "relation",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4754",
+        "word": "disadvantage",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4758",
+        "word": "previously",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4788",
+        "word": "perfectly",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4792",
+        "word": "coal",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4801",
+        "word": "unnecessary",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4803",
+        "word": "tense",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4806",
+        "word": "eastern",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4810",
+        "word": "breath",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4834",
+        "word": "signal",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4855",
+        "word": "warn",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4896",
+        "word": "fashionable",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4921",
+        "word": "repeatedly",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4927",
+        "word": "profession",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4946",
+        "word": "alcohol",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4949",
+        "word": "officially",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4958",
+        "word": "odd",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4964",
+        "word": "fancy",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4970",
+        "word": "explosion",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4979",
+        "word": "fur",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "4995",
+        "word": "religion",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5000",
+        "word": "victim",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5004",
+        "word": "passion",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5028",
+        "word": "grain",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5029",
+        "word": "mixture",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5032",
+        "word": "politician",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5048",
+        "word": "deaf",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5049",
+        "word": "sore",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5065",
+        "word": "warmth",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5072",
+        "word": "devotion",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5081",
+        "word": "organism",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5096",
+        "word": "enemy",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5108",
+        "word": "innocent",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5111",
+        "word": "trash",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5127",
+        "word": "mild",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5175",
+        "word": "irregular",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5183",
+        "word": "genetically",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5184",
+        "word": "discomfort",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5202",
+        "word": "imitate",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5203",
+        "word": "outweigh",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5207",
+        "word": "nightlife",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5235",
+        "word": "painful",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5266",
+        "word": "statue",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5276",
+        "word": "cottage",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5280",
+        "word": "weigh",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5295",
+        "word": "bury",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5298",
+        "word": "dynasty",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5299",
+        "word": "antique",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5310",
+        "word": "skeleton",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5328",
+        "word": "abnormal",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5336",
+        "word": "visually",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5350",
+        "word": "oneself",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5353",
+        "word": "bilingual",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5355",
+        "word": "parachute",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5366",
+        "word": "fortnight",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5374",
+        "word": "mend",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5424",
+        "word": "folk",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5466",
+        "word": "circular",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5477",
+        "word": "unclear",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5484",
+        "word": "farewell",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5485",
+        "word": "foolish",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5488",
+        "word": "whistle",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5506",
+        "word": "unpleasant",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5513",
+        "word": "herd",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5520",
+        "word": "baggage",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5534",
+        "word": "pottery",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5536",
+        "word": "flock",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5539",
+        "word": "scenic",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5540",
+        "word": "strangely",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5572",
+        "word": "hardship",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5592",
+        "word": "boredom",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5598",
+        "word": "stormy",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5613",
+        "word": "lessen",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5616",
+        "word": "handshake",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5622",
+        "word": "burglar",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5641",
+        "word": "complicate",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5707",
+        "word": "bureau",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5732",
+        "word": "pipe",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5742",
+        "word": "aboard",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5753",
+        "word": "faithful",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5779",
+        "word": "secretly",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5784",
+        "word": "clause",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5798",
+        "word": "feast",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5832",
+        "word": "diagram",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5836",
+        "word": "isle",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "5846",
+        "word": "coffin",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
       }
     ],
-    "pendingReviewCount": 1,
+    "pendingReviewCount": 230,
     "reconciled": true
   },
   "curriculum": {
@@ -39,6 +1413,107 @@
     "inFocus": 68,
     "excluded": 14,
     "unexplained": [],
+    "pendingCurationReview": [
+      {
+        "id": "941",
+        "word": "balance",
+        "level": "B1",
+        "type": "core",
+        "curriculum": "8/1",
+        "familyRoot": false,
+        "reason": "the row now meets a curation rule at its attested level, but deck membership is a frozen decision; queued for a curator instead of being archived by a level change"
+      },
+      {
+        "id": "1130",
+        "word": "mental",
+        "level": "B1",
+        "type": "academic",
+        "curriculum": "9/3",
+        "familyRoot": false,
+        "reason": "the row now meets a curation rule at its attested level, but deck membership is a frozen decision; queued for a curator instead of being archived by a level change"
+      },
+      {
+        "id": "1571",
+        "word": "nuclear",
+        "level": "B1",
+        "type": "topic",
+        "curriculum": "9/6",
+        "familyRoot": false,
+        "reason": "the row now meets a curation rule at its attested level, but deck membership is a frozen decision; queued for a curator instead of being archived by a level change"
+      },
+      {
+        "id": "1689",
+        "word": "software",
+        "level": "B1",
+        "type": "topic",
+        "curriculum": "8/1",
+        "familyRoot": false,
+        "reason": "the row now meets a curation rule at its attested level, but deck membership is a frozen decision; queued for a curator instead of being archived by a level change"
+      },
+      {
+        "id": "1899",
+        "word": "stressful",
+        "level": "B1",
+        "type": "topic",
+        "curriculum": "8/3",
+        "familyRoot": false,
+        "reason": "the row now meets a curation rule at its attested level, but deck membership is a frozen decision; queued for a curator instead of being archived by a level change"
+      },
+      {
+        "id": "2144",
+        "word": "poetry",
+        "level": "B1",
+        "type": "topic",
+        "curriculum": "8/1",
+        "familyRoot": false,
+        "reason": "the row now meets a curation rule at its attested level, but deck membership is a frozen decision; queued for a curator instead of being archived by a level change"
+      },
+      {
+        "id": "3009",
+        "word": "keen",
+        "level": "B1",
+        "type": "academic",
+        "curriculum": "8/1",
+        "familyRoot": false,
+        "reason": "the row now meets a curation rule at its attested level, but deck membership is a frozen decision; queued for a curator instead of being archived by a level change"
+      },
+      {
+        "id": "3018",
+        "word": "leisure",
+        "level": "B1",
+        "type": "topic",
+        "curriculum": "8/1",
+        "familyRoot": false,
+        "reason": "the row now meets a curation rule at its attested level, but deck membership is a frozen decision; queued for a curator instead of being archived by a level change"
+      },
+      {
+        "id": "4642",
+        "word": "scientific",
+        "level": "B1",
+        "type": "topic",
+        "curriculum": "8/8",
+        "familyRoot": false,
+        "reason": "the row now meets a curation rule at its attested level, but deck membership is a frozen decision; queued for a curator instead of being archived by a level change"
+      },
+      {
+        "id": "4694",
+        "word": "mood",
+        "level": "B1",
+        "type": "topic",
+        "curriculum": "9/3",
+        "familyRoot": false,
+        "reason": "the row now meets a curation rule at its attested level, but deck membership is a frozen decision; queued for a curator instead of being archived by a level change"
+      },
+      {
+        "id": "5534",
+        "word": "pottery",
+        "level": "B1",
+        "type": "topic",
+        "curriculum": "9/1",
+        "familyRoot": false,
+        "reason": "the row now meets a curation rule at its attested level, but deck membership is a frozen decision; queued for a curator instead of being archived by a level change"
+      }
+    ],
     "focusRows": [
       {
         "id": "599",
@@ -139,7 +1614,7 @@
       {
         "id": "941",
         "word": "balance",
-        "level": "B2",
+        "level": "B1",
         "type": "core",
         "curriculum": "8/1",
         "familyRoot": false
@@ -171,7 +1646,7 @@
       {
         "id": "1059",
         "word": "global",
-        "level": "B2",
+        "level": "B1",
         "type": "academic",
         "curriculum": "9/9",
         "familyRoot": true
@@ -195,7 +1670,7 @@
       {
         "id": "1130",
         "word": "mental",
-        "level": "B2",
+        "level": "B1",
         "type": "academic",
         "curriculum": "9/3",
         "familyRoot": false
@@ -235,7 +1710,7 @@
       {
         "id": "1399",
         "word": "function",
-        "level": "B2",
+        "level": "B1",
         "type": "academic",
         "curriculum": "9/1",
         "familyRoot": true
@@ -259,7 +1734,7 @@
       {
         "id": "1571",
         "word": "nuclear",
-        "level": "B2",
+        "level": "B1",
         "type": "topic",
         "curriculum": "9/6",
         "familyRoot": false
@@ -267,7 +1742,7 @@
       {
         "id": "1572",
         "word": "atmosphere",
-        "level": "B2",
+        "level": "B1",
         "type": "topic",
         "curriculum": "8/8",
         "familyRoot": true
@@ -291,7 +1766,7 @@
       {
         "id": "1689",
         "word": "software",
-        "level": "B2",
+        "level": "B1",
         "type": "topic",
         "curriculum": "8/1",
         "familyRoot": false
@@ -299,7 +1774,7 @@
       {
         "id": "1851",
         "word": "browse",
-        "level": "C1",
+        "level": "B2",
         "type": "topic",
         "curriculum": "8/3",
         "familyRoot": true
@@ -307,7 +1782,7 @@
       {
         "id": "1899",
         "word": "stressful",
-        "level": "B2",
+        "level": "B1",
         "type": "topic",
         "curriculum": "8/3",
         "familyRoot": false
@@ -331,7 +1806,7 @@
       {
         "id": "2067",
         "word": "handicraft",
-        "level": "C1",
+        "level": "B2",
         "type": "topic",
         "curriculum": "9/1",
         "familyRoot": false
@@ -355,7 +1830,7 @@
       {
         "id": "2144",
         "word": "poetry",
-        "level": "B2",
+        "level": "B1",
         "type": "topic",
         "curriculum": "8/1",
         "familyRoot": false
@@ -363,7 +1838,7 @@
       {
         "id": "2181",
         "word": "counsellor",
-        "level": "C2",
+        "level": "C1",
         "type": "topic",
         "curriculum": "9/3",
         "familyRoot": false
@@ -395,7 +1870,7 @@
       {
         "id": "2610",
         "word": "intention",
-        "level": "C1",
+        "level": "B1",
         "type": "word-formation",
         "curriculum": "9/9",
         "familyRoot": true
@@ -403,7 +1878,7 @@
       {
         "id": "2636",
         "word": "pursue",
-        "level": "C1",
+        "level": "B2",
         "type": "word-formation",
         "curriculum": "9/6",
         "familyRoot": true
@@ -411,7 +1886,7 @@
       {
         "id": "2835",
         "word": "blast",
-        "level": "C2",
+        "level": "C1",
         "type": "topic",
         "curriculum": "8/7",
         "familyRoot": false
@@ -435,7 +1910,7 @@
       {
         "id": "3009",
         "word": "keen",
-        "level": "B2",
+        "level": "B1",
         "type": "academic",
         "curriculum": "8/1",
         "familyRoot": false
@@ -443,7 +1918,7 @@
       {
         "id": "3018",
         "word": "leisure",
-        "level": "B2",
+        "level": "B1",
         "type": "topic",
         "curriculum": "8/1",
         "familyRoot": false
@@ -475,7 +1950,7 @@
       {
         "id": "4642",
         "word": "scientific",
-        "level": "B2",
+        "level": "B1",
         "type": "topic",
         "curriculum": "8/8",
         "familyRoot": false
@@ -499,7 +1974,7 @@
       {
         "id": "4694",
         "word": "mood",
-        "level": "B2",
+        "level": "B1",
         "type": "topic",
         "curriculum": "9/3",
         "familyRoot": false
@@ -531,7 +2006,7 @@
       {
         "id": "5033",
         "word": "cattle",
-        "level": "B2",
+        "level": "C1",
         "type": "topic",
         "curriculum": "8/2",
         "familyRoot": false
@@ -563,7 +2038,7 @@
       {
         "id": "5469",
         "word": "puzzle",
-        "level": "C1",
+        "level": "B2",
         "type": "topic",
         "curriculum": "8/1",
         "familyRoot": false
@@ -571,7 +2046,7 @@
       {
         "id": "5534",
         "word": "pottery",
-        "level": "C1",
+        "level": "B1",
         "type": "topic",
         "curriculum": "9/1",
         "familyRoot": false
@@ -593,10 +2068,10 @@
     "nature-species": 163
   },
   "levelMix": {
-    "B1": 164,
-    "B2": 885,
-    "C1": 1275,
-    "C2": 674,
+    "B1": 496,
+    "B2": 975,
+    "C1": 996,
+    "C2": 531,
     "unlabelled": 843
   },
   "quality": {

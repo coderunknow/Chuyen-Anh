@@ -4243,14 +4243,18 @@ test('the shipped vocabulary keeps every row and every level is selectable', () 
   // *inside* the deck: curation decisions are frozen per row ID, so a level
   // correction never changes deck membership. The total is unchanged:
   // 164 + 885 + 1275 + 674 + 843 = 3,841.
-  assert.deepEqual(counts, { A1: 0, A2: 0, B1: 164, B2: 885, C1: 1275, C2: 674, UNCLASSIFIED: 843 },
+  // rc10 re-levelled 1,921 seed rows against published CEFR references (The Oxford
+  // 3000 and 5000; CEFR-J Vocabulary Profile 1.5; Octanove C1/C2), so the bands
+  // moved while the deck did not: still 3,841 taught headwords and 1,271 archived.
+  // See audit/rc10/evidence/corrections-applied.jsonl for every change.
+  assert.deepEqual(counts, { A1: 0, A2: 0, B1: 496, B2: 975, C1: 996, C2: 531, UNCLASSIFIED: 843 },
     'the shipped deck keeps its labels; A1/A2 are selectable even though no row carries them yet');
   assert.equal(headwords.length, 5112);
   assert.equal(archived.length, 1271);
   assert.equal(deck.length, 3841);
   // The default selection is a filter, not a deletion: archived rows and
   // out-of-band rows are still in the data and still counted.
-  assert.equal(app.filterVocabularyByCefr(deck, app.defaultCefrSelection()).length, 2160);
+  assert.equal(app.filterVocabularyByCefr(deck, app.defaultCefrSelection()).length, 1971);
   assert.equal(app.countVocabularyByCefr(embeddedVocabulary.filter(entry => !entry.familyHead)).UNCLASSIFIED, 843,
     'the 843 untagged legacy headwords stay Unclassified instead of being assigned a level');
   assert.equal(app.countVocabularyByCefr(embeddedVocabulary).UNCLASSIFIED, 913,

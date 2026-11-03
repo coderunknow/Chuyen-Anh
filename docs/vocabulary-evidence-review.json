@@ -49,10 +49,10 @@
    "count": 188,
    "byLevel": {
     "(none)": 52,
-    "B1": 1,
-    "B2": 12,
-    "C1": 76,
-    "C2": 47
+    "B1": 6,
+    "B2": 26,
+    "C1": 70,
+    "C2": 34
    },
    "examples": [
     "Ambiguity",
@@ -92,7 +92,7 @@
    "action": "Giữ: dạng bài từ loại/biến đổi từ/liên kết câu kiểm tra gốc từ, không cần gốc xuất hiện trong bài đọc.",
    "count": 5,
    "byLevel": {
-    "C1": 1,
+    "B1": 1,
     "C2": 4
    },
    "examples": [
@@ -109,10 +109,10 @@
    "count": 698,
    "byLevel": {
     "(none)": 223,
-    "B1": 1,
-    "B2": 13,
-    "C1": 159,
-    "C2": 302
+    "B1": 7,
+    "B2": 28,
+    "C1": 157,
+    "C2": 283
    },
    "examples": [
     "Eloquent",

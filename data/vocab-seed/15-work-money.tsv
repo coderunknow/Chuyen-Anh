@@ -21,15 +21,15 @@ grocer	n	người bán tạp hoá	B2	work	topic	reading
 fishmonger	n	người bán cá	C1	work	topic	reading
 greengrocer	n	người bán rau quả	C1	work	topic	reading
 cashier	n	thu ngân	B1	work	topic	reading
-shopkeeper	n	chủ cửa hàng	B1	work	topic	reading
-merchant	n	thương nhân	B2	work	topic	reading
+shopkeeper	n	chủ cửa hàng	B2	work	topic	reading	cefrj-vocabulary-profile-1.5
+merchant	n	thương nhân	C1	work	topic	reading	oxford-3000-5000
 wholesaler	n	nhà bán buôn	C1	work	topic	reading
 retailer	n	nhà bán lẻ	B2	work	topic	reading
 supplier	n	nhà cung cấp	B2	work	topic	reading
-contractor	n	nhà thầu	B2	work	topic	reading
-foreman	n	đốc công	C1	work	topic	reading
+contractor	n	nhà thầu	C1	work	topic	reading	oxford-3000-5000
+foreman	n	đốc công	B2	work	topic	reading	cefrj-vocabulary-profile-1.5
 apprentice	n	người học việc	B2	work	topic	reading
-trainee	n	thực tập sinh	B1	work	topic	reading
+trainee	n	thực tập sinh	B2	work	topic	reading	cefrj-vocabulary-profile-1.5
 intern	n	thực tập sinh	C1	work	topic	reading
 mentor	n	người hướng dẫn	B2	work	topic	reading
 mentee	n	người được hướng dẫn	C2	work	topic	reading
@@ -66,7 +66,7 @@ appraisal	n	đánh giá năng lực	C1	work	topic	reading
 supervision	n	sự giám sát	B2	work	topic	reading
 delegation	n	sự uỷ quyền	C1	work	topic	reading
 collaboration	n	sự hợp tác	B2	work	topic	reading
-partnership	n	quan hệ đối tác	B1	economics	topic	reading
+partnership	n	quan hệ đối tác	B2	economics	topic	reading	oxford-3000-5000
 startup	n	công ty khởi nghiệp	B1	economics	topic	reading
 enterprise	n	doanh nghiệp	B1	economics	topic	reading
 franchise	n	nhượng quyền thương mại	C1	economics	topic	reading
@@ -91,7 +91,7 @@ refund	n	sự hoàn tiền	B1	work	topic	reading
 discount	n	giảm giá	B1	work	topic	reading
 voucher	n	phiếu mua hàng	C1	work	topic	reading
 coupon	n	phiếu giảm giá	B2	work	topic	reading
-warranty	n	bảo hành	C1	work	topic	reading
+warranty	n	bảo hành	B1	work	topic	reading	cefrj-vocabulary-profile-1.5
 receipts	n	các khoản thu	C2	economics	topic	reading
 cheque	n	séc	B1	economics	topic	reading
 mortgage	n	thế chấp	B2	economics	topic	reading
@@ -117,16 +117,16 @@ investor	n	nhà đầu tư	B2	economics	topic	reading
 broker	n	người môi giới	C1	economics	topic	reading
 franchisee	n	người nhận nhượng quyền	C2	economics	topic	reading
 banknote	n	tờ tiền giấy	C1	economics	topic	reading
-coin	n	đồng xu	B1	economics	topic	reading
+coin	n	đồng xu	B1	economics	topic	reading	oxford-3000-5000
 change	n	tiền lẻ trả lại	B1	economics	topic	reading
-trolley	n	xe đẩy	B1	work	topic	reading
-basket	n	cái giỏ	B1	work	topic	reading
+trolley	n	xe đẩy	B2	work	topic	reading	cefrj-vocabulary-profile-1.5
+basket	n	cái giỏ	B2	work	topic	reading	oxford-3000-5000
 aisle	n	lối đi giữa các kệ	B2	work	topic	reading
 checkout	n	quầy thu ngân	B1	work	topic	reading
 counter	n	quầy	B1	work	topic	reading
-till	n	ngăn kéo tiền	B2	work	topic	reading
+till	n	ngăn kéo tiền	C1	work	topic	reading	octanove-vocabulary-profile-1.0
 stall	n	quầy hàng, sạp	B2	work	topic	reading
-mall	n	trung tâm thương mại	B1	work	topic	reading
+mall	n	trung tâm thương mại	B1	work	topic	reading	oxford-3000-5000
 boutique	n	cửa hàng thời trang nhỏ	C1	work	topic	reading
 showroom	n	phòng trưng bày	C1	work	topic	reading
 warehouse	n	kho hàng	B2	work	topic	reading
@@ -158,10 +158,10 @@ charger	n	bộ sạc	B1	technology	topic	reading
 headphones	n	tai nghe	B1	technology	topic	reading
 earbuds	n	tai nghe nhét tai	C1	technology	topic	reading
 speaker	n	loa	B1	technology	topic	reading
-microphone	n	mi-crô	B1	technology	topic	reading
-webcam	n	camera mạng	C1	technology	topic	reading
+microphone	n	mi-crô	B2	technology	topic	reading	cefrj-vocabulary-profile-1.5
+webcam	n	camera mạng	B1	technology	topic	reading	cefrj-vocabulary-profile-1.5
 router	n	bộ định tuyến	C1	technology	topic	reading
-modem	n	modem	C1	technology	topic	reading
+modem	n	modem	B1	technology	topic	reading	cefrj-vocabulary-profile-1.5
 bandwidth	n	băng thông	C1	technology	topic	reading
 server	n	máy chủ	B2	technology	topic	reading
 backup	n	bản sao lưu	B2	technology	topic	reading
@@ -184,7 +184,7 @@ website	n	trang web	B1	technology	topic	reading
 webpage	n	trang web	B1	technology	topic	reading
 homepage	n	trang chủ	B1	technology	topic	reading
 link	n	đường liên kết	B1	technology	topic	reading
-banner	n	biểu ngữ quảng cáo	B2	technology	topic	reading
+banner	n	biểu ngữ quảng cáo	C1	technology	topic	reading	oxford-3000-5000
 popup	n	cửa sổ bật lên	C1	technology	topic	reading
 cookie	n	tệp lưu phiên	C1	technology	topic	reading
 chatbot	n	trợ lý ảo trò chuyện	C1	technology	topic	reading
@@ -193,8 +193,8 @@ headline	n	tiêu đề tin	B1	media	topic	reading
 columnist	n	người viết chuyên mục	B2	media	topic	reading
 editorial	n	bài xã luận	C1	media	topic	reading
 broadcast	n	chương trình phát sóng	B1	media	topic	reading
-bulletin	n	bản tin	C1	media	topic	reading
-newsletter	n	bản tin điện tử	B2	media	topic	reading
+bulletin	n	bản tin	B1	media	topic	reading	cefrj-vocabulary-profile-1.5
+newsletter	n	bản tin điện tử	C1	media	topic	reading	oxford-3000-5000
 tabloid	n	báo lá cải	C1	media	topic	reading
 journalist	n	nhà báo	B1	media	topic	reading
 reporter	n	phóng viên	B1	media	topic	reading
@@ -206,7 +206,7 @@ subtitle	n	phụ đề	B2	media	topic	reading
 dubbing	n	việc lồng tiếng	C1	media	topic	reading
 footage	n	đoạn phim tư liệu	C1	media	topic	reading
 documentary	n	phim tài liệu	B1	media	topic	reading
-trailer	n	đoạn phim giới thiệu	B2	media	topic	reading
+trailer	n	đoạn phim giới thiệu	C1	media	topic	reading	oxford-3000-5000
 blockbuster	n	phim bom tấn	C1	media	topic	reading
 premiere	n	buổi công chiếu	C1	media	topic	reading
 audience	n	khán giả	B1	media	topic	reading
@@ -223,7 +223,7 @@ podcaster	n	người làm podcast	C1	media	topic	reading
 livestream	n	buổi phát trực tiếp	C1	media	topic	reading
 webinar	n	hội thảo trực tuyến	C1	technology	topic	reading
 tutorial	n	bài hướng dẫn	B2	technology	topic	reading
-spreadsheet	n	bảng tính	C1	technology	topic	reading
+spreadsheet	n	bảng tính	B2	technology	topic	reading	cefrj-vocabulary-profile-1.5
 database	n	cơ sở dữ liệu	B2	technology	topic	reading
 algorithmic	adj	thuộc thuật toán	C1	technology	topic	reading
 automation	n	sự tự động hoá	B2	technology	topic	reading
@@ -236,7 +236,7 @@ sensor	n	cảm biến	B2	technology	topic	reading
 drone	n	máy bay không người lái	B2	technology	topic	reading
 robotics	n	ngành robot	C1	technology	topic	reading
 semiconductor	n	chất bán dẫn	C1	technology	topic	reading
-circuit	n	mạch điện	B2	technology	topic	reading
+circuit	n	mạch điện	B2	technology	topic	reading	oxford-3000-5000
 battery	n	pin	B1	technology	topic	reading
 voltage	n	điện áp	C1	science	topic	reading
 generator	n	máy phát điện	B2	technology	topic	reading

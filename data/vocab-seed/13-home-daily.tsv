@@ -12,23 +12,23 @@ needle	n	cây kim	B1	daily-life	topic	reading
 hammer	n	búa	B1	daily-life	topic	reading
 screwdriver	n	tuốc-nơ-vít	B1	daily-life	topic	reading
 spanner	n	cờ lê	B1	daily-life	topic	reading
-ladder	n	cái thang	B1	daily-life	topic	reading
-fence	n	hàng rào	B1	daily-life	topic	reading
+ladder	n	cái thang	B2	daily-life	topic	reading	oxford-3000-5000
+fence	n	hàng rào	B1	daily-life	topic	reading	oxford-3000-5000
 gate	n	cổng	B1	daily-life	topic	reading
 shed	n	nhà kho nhỏ	B1	daily-life	topic	reading
-garage	n	ga-ra, nhà để xe	B1	daily-life	topic	reading
+garage	n	ga-ra, nhà để xe	B1	daily-life	topic	reading	oxford-3000-5000
 balcony	n	ban công	B1	daily-life	topic	reading
-ceiling	n	trần nhà	B1	daily-life	topic	reading
-basement	n	tầng hầm	B1	daily-life	topic	reading
+ceiling	n	trần nhà	B1	daily-life	topic	reading	oxford-3000-5000
+basement	n	tầng hầm	B2	daily-life	topic	reading	oxford-3000-5000
 attic	n	gác mái	B1	daily-life	topic	reading
-chimney	n	ống khói	B1	daily-life	topic	reading
+chimney	n	ống khói	B2	daily-life	topic	reading	cefrj-vocabulary-profile-1.5
 roof	n	mái nhà	B1	daily-life	topic	reading
-pavement	n	vỉa hè	B1	daily-life	topic	reading
+pavement	n	vỉa hè	B2	daily-life	topic	reading	cefrj-vocabulary-profile-1.5
 kerb	n	lề đường	B2	daily-life	topic	reading
 roundabout	n	vòng xuyến	B2	travel	topic	reading
-crossroads	n	ngã tư	B2	travel	topic	reading
+crossroads	n	ngã tư	B1	travel	topic	reading	cefrj-vocabulary-profile-1.5
 pedestrian	n	người đi bộ	B1	travel	topic	reading
-cyclist	n	người đi xe đạp	B1	travel	topic	reading
+cyclist	n	người đi xe đạp	B2	travel	topic	reading	cefrj-vocabulary-profile-1.5
 scooter	n	xe ga, xe trượt	B2	travel	topic	reading
 van	n	xe tải nhỏ	B1	travel	topic	reading
 lorry	n	xe tải	B1	travel	topic	reading
@@ -43,15 +43,15 @@ passport	n	hộ chiếu	B1	travel	topic	reading
 visa	n	thị thực	B1	travel	topic	reading
 itinerary	n	lịch trình chuyến đi	C1	travel	topic	reading
 souvenir	n	đồ lưu niệm	B2	travel	topic	reading
-excursion	n	chuyến tham quan	C1	travel	topic	reading
-campsite	n	khu cắm trại	B2	travel	topic	reading
+excursion	n	chuyến tham quan	B2	travel	topic	reading	cefrj-vocabulary-profile-1.5
+campsite	n	khu cắm trại	B1	travel	topic	reading	cefrj-vocabulary-profile-1.5
 tent	n	lều	B1	travel	topic	reading
 torch	n	đèn pin	B2	travel	topic	reading
 compass	n	la bàn	B2	travel	topic	reading
 binoculars	n	ống nhòm	B2	travel	topic	reading
 kettleful	n	lượng nước một ấm	C2	daily-life	topic	reading
 dough	n	bột nhào	B2	food	topic	reading
-batter	n	hỗn hợp bột lỏng	B2	food	topic	reading
+batter	n	hỗn hợp bột lỏng	C1	food	topic	reading	octanove-vocabulary-profile-1.0
 whisk	n	cái đánh trứng	B2	food	topic	reading
 sieve	n	cái rây	B2	food	topic	reading
 ladle	n	cái muôi	B2	food	topic	reading
@@ -60,73 +60,73 @@ roast	v	quay, nướng	B1	food	topic	reading
 simmer	v	đun liu riu	B2	food	topic	reading
 steam	v	hấp	B2	food	topic	reading
 chop	v	chặt, cắt nhỏ	B1	food	topic	reading
-slice	v	thái lát	B1	food	topic	reading
+slice	v	thái lát	B1	food	topic	reading	oxford-3000-5000
 dice	v	thái hạt lựu	C1	food	topic	reading
 peel	v	bóc vỏ	B1	food	topic	reading
 grate	v	mài, nạo	B2	food	topic	reading
-squeeze	v	vắt, ép	B1	food	topic	reading
+squeeze	v	vắt, ép	C1	food	topic	reading	oxford-3000-5000
 sprinkle	v	rắc	B2	food	topic	reading
 stir	v	khuấy	B1	food	topic	reading
-pour	v	rót, đổ	B1	food	topic	reading
+pour	v	rót, đổ	B1	food	topic	reading	oxford-3000-5000
 drain	v	để ráo, xả nước	B2	food	topic	reading
 rinse	v	tráng, rửa sơ	B2	food	topic	reading
-soak	v	ngâm	B2	food	topic	reading
+soak	v	ngâm	C1	food	topic	reading	oxford-3000-5000
 marinade	n	nước ướp	B2	food	topic	reading
-vinegar	n	giấm	B1	food	topic	reading
-mustard	n	mù tạt	B2	food	topic	reading
+vinegar	n	giấm	B2	food	topic	reading	cefrj-vocabulary-profile-1.5
+mustard	n	mù tạt	B1	food	topic	reading	cefrj-vocabulary-profile-1.5
 garlic	n	tỏi	B1	food	topic	reading
 onion	n	hành	B1	food	topic	reading
 leek	n	tỏi tây	B2	food	topic	reading
 celery	n	cần tây	B2	food	topic	reading
 lettuce	n	xà lách	B1	food	topic	reading
 cabbage	n	bắp cải	B1	food	topic	reading
-spinach	n	cải bó xôi	B2	food	topic	reading
-pumpkin	n	bí ngô	B1	food	topic	reading
-courgette	n	bí ngòi	B2	food	topic	reading
+spinach	n	cải bó xôi	B1	food	topic	reading	cefrj-vocabulary-profile-1.5
+pumpkin	n	bí ngô	B2	food	topic	reading	cefrj-vocabulary-profile-1.5
+courgette	n	bí ngòi	B1	food	topic	reading	cefrj-vocabulary-profile-1.5
 aubergine	n	cà tím	B2	food	topic	reading
 beetroot	n	củ dền	B2	food	topic	reading
 radish	n	củ cải đỏ	B2	food	topic	reading
 parsley	n	mùi tây	B2	food	topic	reading
 coriander	n	rau mùi	B2	food	topic	reading
-mint	n	bạc hà	B1	food	topic	reading
+mint	n	bạc hà	B2	food	topic	reading	cefrj-vocabulary-profile-1.5
 ginger	n	gừng	B1	food	topic	reading
 turmeric	n	nghệ	B2	food	topic	reading
 cinnamon	n	quế	B2	food	topic	reading
 nutmeg	n	nhục đậu khấu	C1	food	topic	reading
 vanilla	n	vani	B2	food	topic	reading
 yeast	n	men	B2	food	topic	reading
-flour	n	bột mì	B1	food	topic	reading
-eyebrow	n	lông mày	B1	health	topic	reading
+flour	n	bột mì	B1	food	topic	reading	oxford-3000-5000
+eyebrow	n	lông mày	B2	health	topic	reading	cefrj-vocabulary-profile-1.5
 eyelash	n	lông mi	B2	health	topic	reading
-jaw	n	hàm	B1	health	topic	reading
+jaw	n	hàm	B2	health	topic	reading	cefrj-vocabulary-profile-1.5
 forehead	n	trán	B1	health	topic	reading
-wrist	n	cổ tay	B1	health	topic	reading
+wrist	n	cổ tay	B2	health	topic	reading	oxford-3000-5000
 ankle	n	cổ chân	B1	health	topic	reading
-elbow	n	khuỷu tay	B1	health	topic	reading
+elbow	n	khuỷu tay	B2	health	topic	reading	oxford-3000-5000
 shoulder	n	vai	B1	health	topic	reading
-spine	n	xương sống	B2	health	topic	reading
-rib	n	xương sườn	B1	health	topic	reading
-lung	n	phổi	B2	health	topic	reading
-kidney	n	thận	B2	health	topic	reading
-liver	n	gan	B2	health	topic	reading
+spine	n	xương sống	C1	health	topic	reading	oxford-3000-5000
+rib	n	xương sườn	B2	health	topic	reading	cefrj-vocabulary-profile-1.5
+lung	n	phổi	B2	health	topic	reading	oxford-3000-5000
+kidney	n	thận	C1	health	topic	reading	oxford-3000-5000
+liver	n	gan	C1	health	topic	reading	oxford-3000-5000
 intestine	n	ruột	C1	health	topic	reading
-vein	n	tĩnh mạch	B2	health	topic	reading
+vein	n	tĩnh mạch	C1	health	topic	reading	oxford-3000-5000
 artery	n	động mạch	B2	health	topic	reading
 muscle	n	cơ bắp	B1	health	topic	reading
 tendon	n	gân	C1	health	topic	reading
 ligament	n	dây chằng	C1	health	topic	reading
 nerve	n	dây thần kinh	B2	health	topic	reading
 skull	n	hộp sọ	B2	health	topic	reading
-palm	n	lòng bàn tay	B1	health	topic	reading
+palm	n	lòng bàn tay	B2	health	topic	reading	oxford-3000-5000
 knuckle	n	đốt ngón tay	C1	health	topic	reading
 freckle	n	tàn nhang	C1	health	topic	reading
 wrinkle	n	nếp nhăn	B2	health	topic	reading
 bruise	n	vết bầm	B2	health	topic	reading
 swelling	n	vết sưng	B2	health	topic	reading
 rash	n	phát ban	B2	health	topic	reading
-sneeze	v	hắt hơi	B1	health	topic	reading
+sneeze	v	hắt hơi	B2	health	topic	reading	cefrj-vocabulary-profile-1.5
 cough	v	ho	B1	health	topic	reading
-wheeze	v	thở khò khè	C1	health	topic	reading
+wheeze	v	thở khò khè	C2	health	topic	reading	octanove-vocabulary-profile-1.0
 dizzy	adj	chóng mặt	B1	health	topic	reading
 nausea	n	buồn nôn	B2	health	topic	reading
 headache	n	đau đầu	B1	health	topic	reading
@@ -136,10 +136,10 @@ sunburn	n	cháy nắng	B2	health	topic	reading
 frostbite	n	tê cóng	C1	health	topic	reading
 syringe	n	ống tiêm	C1	health	topic	reading
 bandage	n	băng gạc	B1	health	topic	reading
-plaster	n	băng dính y tế	B2	health	topic	reading
+plaster	n	băng dính y tế	C1	health	topic	reading	octanove-vocabulary-profile-1.0
 crutch	n	nạng	C1	health	topic	reading
 stretcher	n	cáng	C1	health	topic	reading
-ward	n	khoa bệnh viện	B2	health	topic	reading
+ward	n	khoa bệnh viện	C1	health	topic	reading	oxford-3000-5000
 surgeon	n	bác sĩ phẫu thuật	B1	health	topic	reading
 midwife	n	nữ hộ sinh	C1	health	topic	reading
 pharmacist	n	dược sĩ	B1	health	topic	reading
@@ -149,9 +149,9 @@ wicket	n	khung thành cricket	C2	sport	topic	reading
 umpire	n	trọng tài	B2	sport	topic	reading
 goalkeeper	n	thủ môn	B1	sport	topic	reading
 striker	n	tiền đạo	B2	sport	topic	reading
-defender	n	hậu vệ	B2	sport	topic	reading
+defender	n	hậu vệ	B2	sport	topic	reading	oxford-3000-5000
 midfielder	n	tiền vệ	C1	sport	topic	reading
-dribble	v	dắt bóng	B2	sport	topic	reading
+dribble	v	dắt bóng	C2	sport	topic	reading	octanove-vocabulary-profile-1.0
 header	n	cú đánh đầu	B2	sport	topic	reading
 kickoff	n	giờ bắt đầu trận	C1	sport	topic	reading
 offside	adj	việt vị	C1	sport	topic	reading
@@ -163,7 +163,7 @@ sprint	v	chạy nước rút	B2	sport	topic	reading
 jogging	n	chạy bộ nhẹ	B1	sport	topic	reading
 aerobics	n	thể dục nhịp điệu	B1	sport	topic	reading
 pilates	n	bài tập pilates	C1	sport	topic	reading
-stretching	n	sự giãn cơ	B2	sport	topic	reading
+stretching	n	sự giãn cơ	C1	sport	topic	reading	octanove-vocabulary-profile-1.0
 treadmill	n	máy chạy bộ	C1	sport	topic	reading
 dumbbell	n	tạ tay	C1	sport	topic	reading
 barbell	n	tạ đòn	C1	sport	topic	reading
@@ -172,7 +172,7 @@ lunge	n	động tác bước tới	C2	sport	topic	reading
 pushup	n	động tác chống đẩy	C1	sport	topic	reading
 situp	n	động tác gập bụng	C1	sport	topic	reading
 plank	n	động tác plank	C1	sport	topic	reading
-diving	n	môn lặn, nhảy cầu	B2	sport	topic	reading
+diving	n	môn lặn, nhảy cầu	B1	sport	topic	reading	cefrj-vocabulary-profile-1.5
 surfing	n	môn lướt sóng	B1	sport	topic	reading
 sailing	n	môn chèo thuyền	B2	sport	topic	reading
 rowing	n	môn chèo thuyền	B2	sport	topic	reading
@@ -190,8 +190,8 @@ calculator	n	máy tính	B1	education	topic	reading
 whiteboard	n	bảng trắng	B1	education	topic	reading
 projector	n	máy chiếu	B2	education	topic	reading
 tutorial	n	buổi hướng dẫn	B2	education	topic	reading
-workshop	n	hội thảo thực hành	B2	education	topic	reading
-examiner	n	giám khảo	B2	education	topic	reading
+workshop	n	hội thảo thực hành	B2	education	topic	reading	oxford-3000-5000
+examiner	n	giám khảo	B1	education	topic	reading	cefrj-vocabulary-profile-1.5
 invigilator	n	giám thị	C1	education	topic	reading
 diploma	n	bằng tốt nghiệp	B2	education	topic	reading
 dissertation	n	luận văn	C1	education	topic	reading
@@ -199,21 +199,21 @@ coursework	n	bài tập khoá học	C1	education	topic	reading
 apron	n	tạp dề	B1	daily-life	topic	reading
 mitten	n	găng tay hở ngón	B2	daily-life	topic	reading
 scarf	n	khăn quàng	B1	daily-life	topic	reading
-glove	n	găng tay	B1	daily-life	topic	reading
+glove	n	găng tay	B1	daily-life	topic	reading	oxford-3000-5000
 sleeve	n	tay áo	B1	daily-life	topic	reading
 collar	n	cổ áo	B1	daily-life	topic	reading
 button	n	cúc áo	B1	daily-life	topic	reading
-zip	n	khoá kéo	B1	daily-life	topic	reading
+zip	n	khoá kéo	B2	daily-life	topic	reading	cefrj-vocabulary-profile-1.5
 hem	n	gấu áo	C1	daily-life	topic	reading
 stitch	n	mũi khâu	B2	daily-life	topic	reading
 fabric	n	vải, chất liệu	B2	daily-life	topic	reading
 linen	n	vải lanh, khăn trải giường	B2	daily-life	topic	reading
-wool	n	len	B1	daily-life	topic	reading
-silk	n	lụa	B1	daily-life	topic	reading
-leather	n	da thuộc	B1	daily-life	topic	reading
+wool	n	len	B1	daily-life	topic	reading	oxford-3000-5000
+silk	n	lụa	B2	daily-life	topic	reading	oxford-3000-5000
+leather	n	da thuộc	B1	daily-life	topic	reading	oxford-3000-5000
 cotton	n	bông, vải cotton	B1	daily-life	topic	reading
 velvet	n	nhung	B2	daily-life	topic	reading
-denim	n	vải bò	C1	daily-life	topic	reading
+denim	n	vải bò	B2	daily-life	topic	reading	cefrj-vocabulary-profile-1.5
 canvas	n	vải bạt, toan	C1	daily-life	topic	reading
 sandal	n	dép quai	B1	daily-life	topic	reading
 slipper	n	dép đi trong nhà	B1	daily-life	topic	reading
@@ -232,49 +232,49 @@ handbag	n	túi xách	B1	daily-life	topic	reading
 bucketful	n	một xô đầy	C2	daily-life	topic	reading
 cutlery	n	bộ dao thìa dĩa	B2	food	topic	reading
 crockery	n	bát đĩa sành sứ	C1	food	topic	reading
-saucer	n	đĩa lót tách	B2	food	topic	reading
+saucer	n	đĩa lót tách	B1	food	topic	reading	cefrj-vocabulary-profile-1.5
 teapot	n	ấm trà	B1	food	topic	reading
-jug	n	bình rót	B2	food	topic	reading
-tray	n	cái khay	B1	food	topic	reading
+jug	n	bình rót	B1	food	topic	reading	cefrj-vocabulary-profile-1.5
+tray	n	cái khay	B2	food	topic	reading	cefrj-vocabulary-profile-1.5
 napkin	n	khăn ăn	B1	food	topic	reading
-tablecloth	n	khăn trải bàn	B1	food	topic	reading
+tablecloth	n	khăn trải bàn	B2	food	topic	reading	cefrj-vocabulary-profile-1.5
 straw	n	ống hút	B1	food	topic	reading
-lid	n	nắp đậy	B1	food	topic	reading
+lid	n	nắp đậy	B2	food	topic	reading	cefrj-vocabulary-profile-1.5
 jar	n	lọ, hũ	B1	food	topic	reading
 tin	n	hộp thiếc	B1	food	topic	reading
-carton	n	hộp giấy	B2	food	topic	reading
-packet	n	gói nhỏ	B1	food	topic	reading
+carton	n	hộp giấy	B1	food	topic	reading	cefrj-vocabulary-profile-1.5
+packet	n	gói nhỏ	B2	food	topic	reading	oxford-3000-5000
 sachet	n	gói nhỏ một lần dùng	C1	food	topic	reading
 tub	n	thùng, hộp nhựa	B2	food	topic	reading
 warehouse	n	nhà kho	B2	economics	topic	reading
-shelf	n	kệ, giá	B1	daily-life	topic	reading
-stool	n	ghế đẩu	B1	daily-life	topic	reading
-bench	n	ghế dài	B1	daily-life	topic	reading
+shelf	n	kệ, giá	B1	daily-life	topic	reading	oxford-3000-5000
+stool	n	ghế đẩu	B2	daily-life	topic	reading	cefrj-vocabulary-profile-1.5
+bench	n	ghế dài	C1	daily-life	topic	reading	oxford-3000-5000
 armchair	n	ghế bành	B1	daily-life	topic	reading
 sofa	n	ghế sofa	B1	daily-life	topic	reading
 mattress	n	đệm giường	B2	daily-life	topic	reading
 pillow	n	gối	B1	daily-life	topic	reading
-blanket	n	chăn	B1	daily-life	topic	reading
-duvet	n	chăn bông	C1	daily-life	topic	reading
+blanket	n	chăn	B2	daily-life	topic	reading	oxford-3000-5000
+duvet	n	chăn bông	B1	daily-life	topic	reading	cefrj-vocabulary-profile-1.5
 sheet	n	khăn trải giường	B1	daily-life	topic	reading
 curtain	n	rèm cửa	B1	daily-life	topic	reading
 carpet	n	thảm trải sàn	B1	daily-life	topic	reading
 rug	n	thảm nhỏ	B2	daily-life	topic	reading
 lampshade	n	chụp đèn	C1	daily-life	topic	reading
-plug	n	phích cắm	B1	daily-life	topic	reading
+plug	n	phích cắm	C1	daily-life	topic	reading	oxford-3000-5000
 socket	n	ổ cắm điện	B2	daily-life	topic	reading
-switch	n	công tắc	B1	daily-life	topic	reading
+switch	n	công tắc	B2	daily-life	topic	reading	oxford-3000-5000
 bulb	n	bóng đèn	B1	daily-life	topic	reading
 fuse	n	cầu chì	C1	daily-life	topic	reading
-wire	n	dây điện	B1	daily-life	topic	reading
-tap	n	vòi nước	B1	daily-life	topic	reading
+wire	n	dây điện	B2	daily-life	topic	reading	oxford-3000-5000
+tap	n	vòi nước	B2	daily-life	topic	reading	oxford-3000-5000
 sink	n	bồn rửa	B1	daily-life	topic	reading
 drainpipe	n	ống thoát nước	C1	daily-life	topic	reading
-radiator	n	lò sưởi	B2	daily-life	topic	reading
+radiator	n	lò sưởi	C1	daily-life	topic	reading	octanove-vocabulary-profile-1.0
 boiler	n	nồi hơi, bình nóng lạnh	C1	daily-life	topic	reading
 heater	n	máy sưởi	B1	daily-life	topic	reading
 fan	n	quạt	B1	daily-life	topic	reading
-vacuum	n	máy hút bụi	B2	daily-life	topic	reading
+vacuum	n	máy hút bụi	C1	daily-life	topic	reading	oxford-3000-5000
 mop	n	cây lau nhà	B2	daily-life	topic	reading
 dustpan	n	đồ hốt rác	C1	daily-life	topic	reading
 detergent	n	chất tẩy rửa	B2	daily-life	topic	reading
@@ -284,10 +284,10 @@ iron	n	bàn là	B1	daily-life	topic	reading
 pegs	n	kẹp phơi đồ	C1	daily-life	topic	reading
 clothesline	n	dây phơi quần áo	C1	daily-life	topic	reading
 hanger	n	móc treo quần áo	B2	daily-life	topic	reading
-sweep	v	quét	B1	daily-life	topic	reading
+sweep	v	quét	B2	daily-life	topic	reading	oxford-3000-5000
 scrub	v	cọ rửa	B2	daily-life	topic	reading
 polish	v	đánh bóng	B2	daily-life	topic	reading
-wipe	v	lau	B1	daily-life	topic	reading
+wipe	v	lau	C1	daily-life	topic	reading	oxford-3000-5000
 sew	v	khâu	B1	daily-life	topic	reading
 fold	v	gấp lại	B1	daily-life	topic	reading
 hang	v	treo	B1	daily-life	topic	reading
@@ -298,10 +298,10 @@ fix	v	sửa	B1	daily-life	topic	reading
 assemble	v	lắp ráp	B1	daily-life	topic	reading
 install	v	lắp đặt	B1	daily-life	topic	reading
 unplug	v	rút phích cắm	C1	daily-life	topic	reading
-tighten	v	siết chặt	B2	daily-life	topic	reading
+tighten	v	siết chặt	C1	daily-life	topic	reading	oxford-3000-5000
 loosen	v	nới lỏng	B2	daily-life	topic	reading
 nail	n	đinh	B1	daily-life	topic	reading
-screw	n	ốc vít	B1	daily-life	topic	reading
+screw	n	ốc vít	C1	daily-life	topic	reading	oxford-3000-5000
 bolt	n	bu lông	B2	daily-life	topic	reading
 nut	n	đai ốc	B2	daily-life	topic	reading
 drill	n	máy khoan	B1	daily-life	topic	reading
@@ -309,32 +309,32 @@ saw	n	cái cưa	B1	daily-life	topic	reading
 chisel	n	cái đục	C1	daily-life	topic	reading
 pliers	n	kìm	C1	daily-life	topic	reading
 glue	n	keo dính	B1	daily-life	topic	reading
-tape	n	băng dính	B1	daily-life	topic	reading
-rope	n	dây thừng	B1	daily-life	topic	reading
-string	n	sợi dây nhỏ	B1	daily-life	topic	reading
+tape	n	băng dính	B1	daily-life	topic	reading	oxford-3000-5000
+rope	n	dây thừng	B1	daily-life	topic	reading	oxford-3000-5000
+string	n	sợi dây nhỏ	B1	daily-life	topic	reading	oxford-3000-5000
 hook	n	cái móc	B1	daily-life	topic	reading
-handle	n	tay cầm	B1	daily-life	topic	reading
+handle	n	tay cầm	B2	daily-life	topic	reading	oxford-3000-5000
 hinge	n	bản lề	C1	daily-life	topic	reading
 lock	n	khoá	B1	daily-life	topic	reading
 keyhole	n	lỗ khoá	C1	daily-life	topic	reading
 padlock	n	khoá móc	C1	daily-life	topic	reading
-label	n	nhãn	B1	daily-life	topic	reading
+label	n	nhãn	B1	daily-life	topic	reading	oxford-3000-5000
 sticker	n	nhãn dán	B1	daily-life	topic	reading
 wrapper	n	vỏ bọc, giấy gói	B2	daily-life	topic	reading
 cork	n	nút bần	B2	food	topic	reading
 bottle	n	chai	B1	food	topic	reading
-flask	n	bình thót cổ, bình giữ nhiệt	B2	daily-life	topic	reading
+flask	n	bình thót cổ, bình giữ nhiệt	C1	daily-life	topic	reading	octanove-vocabulary-profile-1.0
 thermos	n	bình giữ nhiệt	C1	daily-life	topic	reading
 canteen	n	căng tin, bình nước	B1	education	topic	reading
 escalator	n	thang cuốn	B1	daily-life	topic	reading
 lift	n	thang máy	B1	daily-life	topic	reading
-corridor	n	hành lang	B1	daily-life	topic	reading
+corridor	n	hành lang	B2	daily-life	topic	reading	oxford-3000-5000
 staircase	n	cầu thang	B1	daily-life	topic	reading
 landing	n	chiếu nghỉ cầu thang	B2	daily-life	topic	reading
 porch	n	hiên nhà	B2	daily-life	topic	reading
 patio	n	sân trong nhà	C1	daily-life	topic	reading
 driveway	n	đường vào nhà	C1	daily-life	topic	reading
-lawn	n	bãi cỏ	B1	daily-life	topic	reading
+lawn	n	bãi cỏ	C1	daily-life	topic	reading	oxford-3000-5000
 hedge	n	hàng rào cây	B2	daily-life	topic	reading
 flowerbed	n	luống hoa	C1	daily-life	topic	reading
 greenhouse	n	nhà kính	B1	environment	topic	reading
@@ -348,4 +348,4 @@ sprinkler	n	vòi phun nước	C1	daily-life	topic	reading
 pave	v	lát đường	B2	daily-life	topic	reading
 tile	n	gạch lát	B1	daily-life	topic	reading
 cement	n	xi măng	B2	daily-life	topic	reading
-brick	n	gạch	B2	daily-life	topic	reading
+brick	n	gạch	B2	daily-life	topic	reading	oxford-3000-5000

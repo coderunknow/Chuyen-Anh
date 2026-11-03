@@ -1,19 +1,19 @@
 # Nature, animals, plants, weather, landscapes and materials (B1–C1).
 # word	pos	meaning	level	topic	type	skills
 squirrel	n	sóc	B1	environment	topic	reading
-hedgehog	n	nhím	B2	environment	topic	reading
+hedgehog	n	nhím	C1	environment	topic	reading	octanove-vocabulary-profile-1.0
 badger	n	lửng	B2	environment	topic	reading
-otter	n	rái cá	B2	environment	topic	reading
-beaver	n	hải ly	B2	environment	topic	reading
+otter	n	rái cá	C1	environment	topic	reading	octanove-vocabulary-profile-1.0
+beaver	n	hải ly	B1	environment	topic	reading	cefrj-vocabulary-profile-1.5
 moose	n	nai sừng tấm	C1	environment	topic	reading
 reindeer	n	tuần lộc	B1	environment	topic	reading
 gazelle	n	linh dương	C1	environment	topic	reading
 antelope	n	linh dương	C1	environment	topic	reading
 buffalo	n	trâu, bò rừng	B1	environment	topic	reading
-donkey	n	lừa	B1	environment	topic	reading
-mule	n	la	B2	environment	topic	reading
+donkey	n	lừa	B2	environment	topic	reading	cefrj-vocabulary-profile-1.5
+mule	n	la	B1	environment	topic	reading	cefrj-vocabulary-profile-1.5
 camel	n	lạc đà	B1	environment	topic	reading
-leopard	n	báo hoa mai	B1	environment	topic	reading
+leopard	n	báo hoa mai	B2	environment	topic	reading	cefrj-vocabulary-profile-1.5
 cheetah	n	báo gêpa	B1	environment	topic	reading
 panther	n	báo đen	B2	environment	topic	reading
 jaguar	n	báo đốm	B2	environment	topic	reading
@@ -32,28 +32,28 @@ shark	n	cá mập	B1	environment	topic	reading
 octopus	n	bạch tuộc	B1	environment	topic	reading
 jellyfish	n	sứa	B1	environment	topic	reading
 starfish	n	sao biển	B1	environment	topic	reading
-crab	n	cua	B1	environment	topic	reading
+crab	n	cua	B2	environment	topic	reading	cefrj-vocabulary-profile-1.5
 lobster	n	tôm hùm	B1	environment	topic	reading
-prawn	n	tôm	B1	environment	topic	reading
+prawn	n	tôm	B2	environment	topic	reading	cefrj-vocabulary-profile-1.5
 squid	n	mực	B1	environment	topic	reading
 oyster	n	hàu	B2	environment	topic	reading
 mussel	n	vẹm	C1	environment	topic	reading
-clam	n	nghêu	C1	environment	topic	reading
+clam	n	nghêu	B2	environment	topic	reading	cefrj-vocabulary-profile-1.5
 herring	n	cá trích	C1	environment	topic	reading
 salmon	n	cá hồi	B1	environment	topic	reading
 trout	n	cá hồi nước ngọt	B2	environment	topic	reading
-cod	n	cá tuyết	B2	environment	topic	reading
+cod	n	cá tuyết	B1	environment	topic	reading	cefrj-vocabulary-profile-1.5
 tuna	n	cá ngừ	B1	environment	topic	reading
 eel	n	lươn	B1	environment	topic	reading
 carp	n	cá chép	B2	environment	topic	reading
-perch	n	cá rô	C1	environment	topic	reading
+perch	n	cá rô	C2	environment	topic	reading	octanove-vocabulary-profile-1.0
 heron	n	diệc	C1	environment	topic	reading
 stork	n	cò	C1	environment	topic	reading
 crane	n	sếu	B2	environment	topic	reading
 pelican	n	bồ nông	C1	environment	topic	reading
 seagull	n	mòng biển	B1	environment	topic	reading
-swan	n	thiên nga	B1	environment	topic	reading
-goose	n	ngỗng	B1	environment	topic	reading
+swan	n	thiên nga	B2	environment	topic	reading	cefrj-vocabulary-profile-1.5
+goose	n	ngỗng	C1	environment	topic	reading	octanove-vocabulary-profile-1.0
 duckling	n	vịt con	B1	environment	topic	reading
 rooster	n	gà trống	B1	environment	topic	reading
 hen	n	gà mái	B1	environment	topic	reading
@@ -61,20 +61,20 @@ chick	n	gà con	B1	environment	topic	reading
 turkey	n	gà tây	B1	environment	topic	reading
 peacock	n	công	C1	environment	topic	reading
 parrot	n	vẹt	B1	environment	topic	reading
-sparrow	n	chim sẻ	B1	environment	topic	reading
+sparrow	n	chim sẻ	B2	environment	topic	reading	cefrj-vocabulary-profile-1.5
 robin	n	chim cổ đỏ	B2	environment	topic	reading
 nightingale	n	chim hoạ mi	C1	environment	topic	reading
 swallow	n	chim én	B2	environment	topic	reading
-magpie	n	chim ác là	C1	environment	topic	reading
-crow	n	quạ	B2	environment	topic	reading
+magpie	n	chim ác là	C2	environment	topic	reading	octanove-vocabulary-profile-1.0
+crow	n	quạ	B1	environment	topic	reading	cefrj-vocabulary-profile-1.5
 raven	n	quạ đen	C1	environment	topic	reading
-owl	n	cú mèo	B1	environment	topic	reading
+owl	n	cú mèo	B2	environment	topic	reading	cefrj-vocabulary-profile-1.5
 falcon	n	chim ưng	C1	environment	topic	reading
 hawk	n	diều hâu	B2	environment	topic	reading
 vulture	n	kền kền	B2	environment	topic	reading
-eagle	n	đại bàng	B1	environment	topic	reading
+eagle	n	đại bàng	B2	environment	topic	reading	cefrj-vocabulary-profile-1.5
 osprey	n	chim ưng biển	C2	environment	topic	reading
-penguin	n	chim cánh cụt	B1	environment	topic	reading
+penguin	n	chim cánh cụt	B2	environment	topic	reading	cefrj-vocabulary-profile-1.5
 ostrich	n	đà điểu	B1	environment	topic	reading
 flamingo	n	hồng hạc	C1	environment	topic	reading
 lizard	n	thằn lằn	B1	environment	topic	reading
@@ -85,7 +85,7 @@ python	n	trăn	B2	environment	topic	reading
 viper	n	rắn lục	C1	environment	topic	reading
 tortoise	n	rùa cạn	B2	environment	topic	reading
 turtle	n	rùa biển	B1	environment	topic	reading
-crocodile	n	cá sấu	B1	environment	topic	reading
+crocodile	n	cá sấu	B2	environment	topic	reading	cefrj-vocabulary-profile-1.5
 alligator	n	cá sấu mõm ngắn	B2	environment	topic	reading
 frog	n	ếch	B1	environment	topic	reading
 toad	n	cóc	B2	environment	topic	reading
@@ -99,21 +99,21 @@ dragonfly	n	chuồn chuồn	B2	environment	topic	reading
 grasshopper	n	châu chấu	B2	environment	topic	reading
 cricket	n	dế	B2	environment	topic	reading
 locust	n	châu chấu rầy	C1	environment	topic	reading
-wasp	n	ong bắp cày	B1	environment	topic	reading
+wasp	n	ong bắp cày	B2	environment	topic	reading	cefrj-vocabulary-profile-1.5
 ant	n	kiến	B1	environment	topic	reading
 termite	n	mối	C1	environment	topic	reading
 cockroach	n	gián	B1	environment	topic	reading
 spider	n	nhện	B1	environment	topic	reading
 scorpion	n	bọ cạp	B2	environment	topic	reading
 centipede	n	rết	C1	environment	topic	reading
-snail	n	ốc sên	B1	environment	topic	reading
+snail	n	ốc sên	C1	environment	topic	reading	octanove-vocabulary-profile-1.0
 slug	n	con sên trần	B2	environment	topic	reading
-worm	n	giun	B1	environment	topic	reading
+worm	n	giun	B2	environment	topic	reading	oxford-3000-5000
 leech	n	đỉa	C1	environment	topic	reading
 oak	n	cây sồi	B2	environment	topic	reading
-maple	n	cây phong	B2	environment	topic	reading
+maple	n	cây phong	B1	environment	topic	reading	cefrj-vocabulary-profile-1.5
 birch	n	cây bạch dương	C1	environment	topic	reading
-pine	n	cây thông	B1	environment	topic	reading
+pine	n	cây thông	B2	environment	topic	reading	cefrj-vocabulary-profile-1.5
 cedar	n	cây tuyết tùng	C1	environment	topic	reading
 willow	n	cây liễu	C1	environment	topic	reading
 bamboo	n	cây tre	B1	environment	topic	reading
@@ -121,52 +121,52 @@ sapling	n	cây non	C1	environment	topic	reading
 seedling	n	cây giống	C1	environment	topic	reading
 shrub	n	cây bụi	B2	environment	topic	reading
 fern	n	cây dương xỉ	B2	environment	topic	reading
-moss	n	rêu	B2	environment	topic	reading
+moss	n	rêu	B1	environment	topic	reading	cefrj-vocabulary-profile-1.5
 ivy	n	cây thường xuân	C1	environment	topic	reading
 vine	n	dây leo	B2	environment	topic	reading
 thorn	n	gai	B2	environment	topic	reading
 twig	n	cành nhỏ	B2	environment	topic	reading
-branch	n	cành cây	B1	environment	topic	reading
-trunk	n	thân cây	B1	environment	topic	reading
-bark	n	vỏ cây	B2	environment	topic	reading
-root	n	rễ cây	B1	environment	topic	reading
+branch	n	cành cây	B1	environment	topic	reading	oxford-3000-5000
+trunk	n	thân cây	B2	environment	topic	reading	cefrj-vocabulary-profile-1.5
+bark	n	vỏ cây	B1	environment	topic	reading	cefrj-vocabulary-profile-1.5
+root	n	rễ cây	B2	environment	topic	reading	oxford-3000-5000
 petal	n	cánh hoa	B1	environment	topic	reading
 pollen	n	phấn hoa	B2	environment	topic	reading
-nectar	n	mật hoa	C1	environment	topic	reading
-bud	n	nụ hoa	B1	environment	topic	reading
+nectar	n	mật hoa	B1	environment	topic	reading	cefrj-vocabulary-profile-1.5
+bud	n	nụ hoa	B2	environment	topic	reading	cefrj-vocabulary-profile-1.5
 blossom	n	hoa nở	B2	environment	topic	reading
-tulip	n	hoa tulip	B1	environment	topic	reading
+tulip	n	hoa tulip	B2	environment	topic	reading	cefrj-vocabulary-profile-1.5
 daffodil	n	hoa thuỷ tiên	C1	environment	topic	reading
-orchid	n	hoa lan	C1	environment	topic	reading
+orchid	n	hoa lan	B2	environment	topic	reading	cefrj-vocabulary-profile-1.5
 sunflower	n	hoa hướng dương	B1	environment	topic	reading
 daisy	n	hoa cúc	B1	environment	topic	reading
 lavender	n	cây oải hương	C1	environment	topic	reading
 mushroom	n	nấm	B1	food	topic	reading
 fungus	n	nấm, loại nấm	C1	science	topic	reading
 algae	n	tảo	C1	environment	topic	reading
-seaweed	n	tảo biển	B2	environment	topic	reading
+seaweed	n	tảo biển	B1	environment	topic	reading	cefrj-vocabulary-profile-1.5
 coral	n	san hô	B2	environment	topic	reading
-reef	n	rạn san hô	B2	environment	topic	reading
+reef	n	rạn san hô	B1	environment	topic	reading	cefrj-vocabulary-profile-1.5
 lagoon	n	đầm phá	C1	environment	topic	reading
 estuary	n	cửa sông	C1	environment	topic	reading
 marsh	n	đầm lầy	B2	environment	topic	reading
 swamp	n	đầm lầy	C1	environment	topic	reading
 bog	n	đầm than bùn	C1	environment	topic	reading
-pond	n	ao	B1	environment	topic	reading
+pond	n	ao	C1	environment	topic	reading	oxford-3000-5000
 stream	n	suối	B1	environment	topic	reading
 brook	n	dòng suối nhỏ	C1	environment	topic	reading
-creek	n	lạch	C1	environment	topic	reading
+creek	n	lạch	B2	environment	topic	reading	cefrj-vocabulary-profile-1.5
 waterfall	n	thác nước	B1	environment	topic	reading
 rapids	n	ghềnh thác	C1	environment	topic	reading
 delta	n	châu thổ	C1	environment	topic	reading
 glacier	n	sông băng	B2	environment	topic	reading
 iceberg	n	tảng băng trôi	B1	environment	topic	reading
 canyon	n	hẻm núi	B2	environment	topic	reading
-gorge	n	hẻm núi	C1	environment	topic	reading
+gorge	n	hẻm núi	B2	environment	topic	reading	cefrj-vocabulary-profile-1.5
 ravine	n	khe núi	C1	environment	topic	reading
-cliff	n	vách đá	B1	environment	topic	reading
+cliff	n	vách đá	B2	environment	topic	reading	oxford-3000-5000
 ridge	n	sống núi	B2	environment	topic	reading
-slope	n	sườn dốc	B1	environment	topic	reading
+slope	n	sườn dốc	B2	environment	topic	reading	oxford-3000-5000
 peak	n	đỉnh núi	B1	environment	topic	reading
 summit	n	đỉnh cao nhất	B2	environment	topic	reading
 plateau	n	cao nguyên	C1	environment	topic	reading
@@ -178,8 +178,8 @@ pasture	n	đồng cỏ chăn thả	C1	environment	topic	reading
 orchard	n	vườn cây ăn quả	C1	environment	topic	reading
 vineyard	n	vườn nho	C1	environment	topic	reading
 plantation	n	đồn điền	C1	environment	topic	reading
-farmland	n	đất nông nghiệp	B2	environment	topic	reading
-soil	n	đất trồng	B1	environment	topic	reading
+farmland	n	đất nông nghiệp	B1	environment	topic	reading	cefrj-vocabulary-profile-1.5
+soil	n	đất trồng	B1	environment	topic	reading	oxford-3000-5000
 loam	n	đất thịt	C2	environment	topic	reading
 clay	n	đất sét	B1	environment	topic	reading
 sand	n	cát	B1	environment	topic	reading
@@ -188,18 +188,18 @@ pebble	n	sỏi cuội	B2	environment	topic	reading
 boulder	n	tảng đá lớn	C1	environment	topic	reading
 limestone	n	đá vôi	C1	environment	topic	reading
 granite	n	đá hoa cương	C1	environment	topic	reading
-marble	n	đá cẩm thạch	B2	environment	topic	reading
+marble	n	đá cẩm thạch	B1	environment	topic	reading	cefrj-vocabulary-profile-1.5
 quartz	n	thạch anh	C1	environment	topic	reading
-copper	n	đồng	B2	environment	topic	reading
+copper	n	đồng	C1	environment	topic	reading	oxford-3000-5000
 bronze	n	đồng thiếc	B1	environment	topic	reading
-brass	n	đồng thau	C1	environment	topic	reading
+brass	n	đồng thau	B1	environment	topic	reading	cefrj-vocabulary-profile-1.5
 steel	n	thép	B1	environment	topic	reading
-aluminium	n	nhôm	B2	environment	topic	reading
+aluminium	n	nhôm	C1	environment	topic	reading	oxford-3000-5000
 tin	n	thiếc	B2	environment	topic	reading
 zinc	n	kẽm	C1	environment	topic	reading
 lead	n	chì	B2	environment	topic	reading
 mercury	n	thuỷ ngân	C1	science	topic	reading
-rubber	n	cao su	B1	environment	topic	reading
+rubber	n	cao su	B2	environment	topic	reading	oxford-3000-5000
 plastic	n	nhựa	B1	environment	topic	reading
 fibreglass	n	sợi thuỷ tinh	C1	environment	topic	reading
 concrete	n	bê tông	B1	environment	topic	reading
@@ -213,7 +213,7 @@ deluge	n	trận lụt lớn	C1	environment	topic	reading
 landslide	n	sạt lở đất	B2	environment	topic	reading
 avalanche	n	tuyết lở	C1	environment	topic	reading
 earthquake	n	động đất	B1	environment	topic	reading
-tremor	n	rung chấn nhẹ	C1	environment	topic	reading
+tremor	n	rung chấn nhẹ	B2	environment	topic	reading	cefrj-vocabulary-profile-1.5
 aftershock	n	dư chấn	C1	environment	topic	reading
 tsunami	n	sóng thần	B1	environment	topic	reading
 hurricane	n	bão cuồng phong	B1	environment	topic	reading
@@ -229,13 +229,13 @@ thunderstorm	n	dông bão	B1	environment	topic	reading
 lightning	n	tia chớp	B1	environment	topic	reading
 thunder	n	sấm	B1	environment	topic	reading
 breeze	n	gió nhẹ	B1	environment	topic	reading
-gale	n	gió mạnh	C1	environment	topic	reading
+gale	n	gió mạnh	C2	environment	topic	reading	octanove-vocabulary-profile-1.0
 gust	n	cơn gió giật	C1	environment	topic	reading
-whirlwind	n	cơn lốc	C1	environment	topic	reading
+whirlwind	n	cơn lốc	C2	environment	topic	reading	octanove-vocabulary-profile-1.0
 monsoon	n	gió mùa	C1	environment	topic	reading
 humidity	n	độ ẩm	B2	environment	topic	reading
 muggy	adj	oi bức, ẩm nóng	C1	environment	topic	reading
-humid	adj	ẩm	B2	environment	topic	reading
+humid	adj	ẩm	B1	environment	topic	reading	cefrj-vocabulary-profile-1.5
 arid	adj	khô cằn	C1	environment	topic	reading
 barren	adj	cằn cỗi, trơ trọi	C1	environment	topic	reading
 fertile	adj	màu mỡ, phì nhiêu	B2	environment	topic	reading
@@ -246,10 +246,10 @@ polar	adj	thuộc vùng cực	B2	environment	topic	reading
 equator	n	đường xích đạo	B2	environment	topic	reading
 latitude	n	vĩ độ	B2	environment	topic	reading
 longitude	n	kinh độ	C1	environment	topic	reading
-altitude	n	độ cao	C1	environment	topic	reading
-horizon	n	đường chân trời	B2	environment	topic	reading
+altitude	n	độ cao	B2	environment	topic	reading	cefrj-vocabulary-profile-1.5
+horizon	n	đường chân trời	C1	environment	topic	reading	oxford-3000-5000
 dusk	n	chạng vạng	C1	environment	topic	reading
-dawn	n	bình minh	B2	environment	topic	reading
+dawn	n	bình minh	C1	environment	topic	reading	oxford-3000-5000
 sunrise	n	bình minh	B1	environment	topic	reading
 sunset	n	hoàng hôn	B1	environment	topic	reading
 twilight	n	ánh hoàng hôn	C1	environment	topic	reading
@@ -267,7 +267,7 @@ velocity	n	vận tốc	C1	science	topic	reading
 density	n	mật độ	B2	science	topic	reading
 molecule	n	phân tử	B2	science	topic	reading
 atom	n	nguyên tử	B1	science	topic	reading
-electron	n	điện tử	C1	science	topic	reading
+electron	n	điện tử	B1	science	topic	reading	cefrj-vocabulary-profile-1.5
 proton	n	hạt mang điện tích dương trong hạt nhân nguyên tử	C1	science	topic	reading
 neutron	n	nơtron	C1	science	topic	reading
 isotope	n	đồng vị	C1	science	topic	reading
@@ -278,7 +278,7 @@ vitamin	n	vitamin	B1	health	topic	reading
 mineral	n	khoáng chất	B2	science	topic	reading
 nutrient	n	chất dinh dưỡng	B2	health	topic	reading
 calorie	n	calo	B1	health	topic	reading
-fibre	n	chất xơ	B2	health	topic	reading
+fibre	n	chất xơ	C1	health	topic	reading	oxford-3000-5000
 bacteria	n	vi khuẩn	B2	science	topic	reading
 virus	n	vi-rút	B1	science	topic	reading
 fungal	adj	do nấm	C1	science	topic	reading

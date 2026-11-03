@@ -32,7 +32,7 @@ TYPES = (
     "fixed-expression",
 )
 TAG_NAMESPACES = {"level", "level-source", "topic", "skill", "source", "type"}
-TAG_RE = re.compile(r"^[a-z][a-z-]*(?::[A-Za-z0-9][A-Za-z0-9-]*)?$")
+TAG_RE = re.compile(r"^[a-z][a-z-]*(?::[A-Za-z0-9][A-Za-z0-9.-]*)?$")
 SOURCE_KEYS = {"ref", "locator", "supports", "url"}
 
 

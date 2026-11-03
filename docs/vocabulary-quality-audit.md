@@ -17,7 +17,7 @@ Báo cáo này sinh tự động từ `Learned_Vocabulary_List.md`, `docs/vocabu
 
 | Trường | Phân bố |
 | --- | --- |
-| Level (biên tập) | (none): 843, B1: 164, B2: 885, C1: 1,275, C2: 674 |
+| Level (biên tập) | (none): 843, B1: 496, B2: 975, C1: 996, C2: 531 |
 | Type | (none): 843, academic: 1,037, confusable: 34, core: 122, linker: 59, topic: 1,667, word-formation: 79 |
 | Topic | (none): 843, academic: 898, culture: 111, daily-life: 119, economics: 143, education: 100, environment: 240, family: 15, food: 50, health: 177, law: 91, media: 89, politics: 97, psychology: 220, science: 137, society: 184, sport: 32, technology: 98, travel: 85, work: 112 |
 | Có bằng chứng xuất hiện trong bản chép đề | 2,918 |
@@ -111,7 +111,7 @@ Mục trắc nghiệm chỉ chứng minh từ đó từng nằm trong một lự
 
 ## Hàng cần soát (chưa có bằng chứng trong bản chép)
 
-**923** headword đang ở bộ từ trọng tâm nhưng không có nguồn `exam-corpus`. Phân bố theo thẻ level biên tập: `(none)` 307, `B1` 2, `B2` 25, `C1` 236, `C2` 353.
+**923** headword đang ở bộ từ trọng tâm nhưng không có nguồn `exam-corpus`. Phân bố theo thẻ level biên tập: `(none)` 307, `B1` 14, `B2` 54, `C1` 227, `C2` 321.
 
 Đây là danh sách **cần soát**, không phải kết luận: phần lớn là từ học thuật đến từ danh sách
 biên tập và mục từ điển, chưa từng xuất hiện trong 106 bản chép hiện có. Không mục nào bị coi là

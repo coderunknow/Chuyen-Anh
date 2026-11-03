@@ -2,58 +2,58 @@
 # word<TAB>pos<TAB>meaning<TAB>level<TAB>topic<TAB>type<TAB>skills
 analyze	v	phân tích	B2	academic	academic	reading,writing
 apply	v	áp dụng; nộp đơn	B2	academic	academic	writing
-aspect	n	khía cạnh, phương diện	B2	academic	academic	reading,writing
-assist	v	hỗ trợ, giúp	B2	academic	academic	writing
-attach	v	gắn, đính kèm	B2	academic	academic	reading
-attempt	v	cố gắng, thử	B2	academic	academic	reading
-basis	n	cơ sở, nền tảng	B2	academic	academic	writing
-category	n	loại, phạm trù	B2	academic	academic	reading
-challenge	n	thách thức	B2	academic	academic	writing
-chapter	n	chương (sách)	B2	academic	academic	reading
-characteristic	n	đặc điểm	B2	academic	academic	writing
-cite	v	trích dẫn	B2	academic	academic	writing
-claim	v	khẳng định, tuyên bố	B2	academic	academic	writing
-classify	v	phân loại	B2	academic	academic	reading
+aspect	n	khía cạnh, phương diện	B2	academic	academic	reading,writing	oxford-3000-5000
+assist	v	hỗ trợ, giúp	B1	academic	academic	writing	oxford-3000-5000
+attach	v	gắn, đính kèm	B1	academic	academic	reading	oxford-3000-5000
+attempt	v	cố gắng, thử	B2	academic	academic	reading	oxford-3000-5000
+basis	n	cơ sở, nền tảng	B1	academic	academic	writing	oxford-3000-5000
+category	n	loại, phạm trù	B1	academic	academic	reading	oxford-3000-5000
+challenge	n	thách thức	B1	academic	academic	writing	oxford-3000-5000
+chapter	n	chương (sách)	B1	academic	academic	reading	oxford-3000-5000
+characteristic	n	đặc điểm	B2	academic	academic	writing	oxford-3000-5000
+cite	v	trích dẫn	B2	academic	academic	writing	oxford-3000-5000
+claim	v	khẳng định, tuyên bố	B1	academic	academic	writing	oxford-3000-5000
+classify	v	phân loại	B2	academic	academic	reading	oxford-3000-5000
 colleague	n	đồng nghiệp	B2	work	topic	reading
 comment	n	lời bình luận	B2	media	topic	reading
-commission	n	ủy ban, hoa hồng	B2	politics	topic	reading
+commission	n	ủy ban, hoa hồng	B2	politics	topic	reading	oxford-3000-5000
 commit	v	cam kết, phạm (tội)	B2	society	academic	writing
 communicate	v	giao tiếp, truyền đạt	B2	society	academic	writing
-communication	n	sự giao tiếp	B2	society	topic	reading,writing
+communication	n	sự giao tiếp	B1	society	topic	reading,writing	oxford-3000-5000
 competition	n	sự cạnh tranh, cuộc thi	B2	economics	topic	reading
 complete	v	hoàn thành	B2	academic	academic	reading
 concentrate	v	tập trung	B2	academic	academic	reading
-concept	n	khái niệm	B2	academic	academic	reading,writing
-conclude	v	kết luận	B2	academic	academic	writing
-conclusion	n	kết luận, phần kết	B2	academic	academic	writing
-conflict	n	xung đột	B2	society	topic	reading
+concept	n	khái niệm	B2	academic	academic	reading,writing	oxford-3000-5000
+conclude	v	kết luận	B1	academic	academic	writing	oxford-3000-5000
+conclusion	n	kết luận, phần kết	B1	academic	academic	writing	oxford-3000-5000
+conflict	n	xung đột	B2	society	topic	reading	oxford-3000-5000
 consequence	n	hệ quả	B2	academic	academic	writing
-contrast	n	sự tương phản, đối chiếu	B2	academic	academic	reading
+contrast	n	sự tương phản, đối chiếu	B1	academic	academic	reading	oxford-3000-5000
 contribute	v	đóng góp, góp phần	B2	academic	academic	writing
-convey	v	truyền đạt, chuyên chở	B2	academic	academic	writing
+convey	v	truyền đạt, chuyên chở	B2	academic	academic	writing	oxford-3000-5000
 cooperate	v	hợp tác	B2	society	academic	writing
 core	n	phần lõi, cốt lõi	B2	academic	academic	reading
-correspond	v	tương ứng; trao đổi thư từ	B2	academic	academic	reading
+correspond	v	tương ứng; trao đổi thư từ	C1	academic	academic	reading	oxford-3000-5000
 cover	v	bao gồm, che phủ	B2	academic	academic	reading
-debate	n	cuộc tranh luận	B2	society	topic	writing
-decade	n	thập kỷ	B2	academic	academic	reading
-define	v	định nghĩa	B2	academic	academic	writing
-definition	n	định nghĩa	B2	academic	academic	writing
+debate	n	cuộc tranh luận	B2	society	topic	writing	oxford-3000-5000
+decade	n	thập kỷ	B1	academic	academic	reading	oxford-3000-5000
+define	v	định nghĩa	B1	academic	academic	writing	oxford-3000-5000
+definition	n	định nghĩa	B1	academic	academic	writing	oxford-3000-5000
 describe	v	mô tả	B2	academic	academic	writing
 detail	n	chi tiết	B2	academic	academic	reading
 discussion	n	cuộc thảo luận	B2	academic	academic	writing
 distinct	adj	riêng biệt, rõ rệt	B2	academic	academic	reading
-divide	v	chia	B2	academic	academic	reading
+divide	v	chia	B1	academic	academic	reading	oxford-3000-5000
 document	n	tài liệu	B2	academic	academic	reading
 draft	n	bản nháp	B2	academic	academic	writing
-element	n	yếu tố, thành phần	B2	academic	academic	reading
+element	n	yếu tố, thành phần	B1	academic	academic	reading	oxford-3000-5000
 emphasis	n	sự nhấn mạnh	B2	academic	academic	writing
-enable	v	cho phép, giúp có thể	B2	academic	academic	writing
-entire	adj	toàn bộ	B2	academic	academic	reading
-estimate	v	ước lượng	B2	academic	academic	reading
-examine	v	xem xét kỹ, kiểm tra	B2	academic	academic	reading
+enable	v	cho phép, giúp có thể	B2	academic	academic	writing	oxford-3000-5000
+entire	adj	toàn bộ	B2	academic	academic	reading	oxford-3000-5000
+estimate	v	ước lượng	B2	academic	academic	reading	oxford-3000-5000
+examine	v	xem xét kỹ, kiểm tra	B1	academic	academic	reading	oxford-3000-5000
 exist	v	tồn tại	B2	academic	academic	reading
-explore	v	khám phá, nghiên cứu	B2	academic	academic	reading
+explore	v	khám phá, nghiên cứu	B1	academic	academic	reading	oxford-3000-5000
 express	v	bày tỏ, diễn đạt	B2	academic	academic	writing
 extend	v	mở rộng, kéo dài	B2	academic	academic	reading
 factor	n	yếu tố	B2	academic	academic	reading,writing
@@ -62,111 +62,111 @@ figure	n	con số, nhân vật	B2	academic	academic	reading
 final	adj	cuối cùng	B2	academic	academic	reading
 finding	n	phát hiện (nghiên cứu)	B2	academic	academic	reading
 framework	n	khung, khuôn khổ	B2	academic	academic	reading
-function	n	chức năng	B2	academic	academic	reading
-gain	v	đạt được, thu được	B2	academic	academic	reading
+function	n	chức năng	B1	academic	academic	reading	oxford-3000-5000
+gain	v	đạt được, thu được	B2	academic	academic	reading	oxford-3000-5000
 gap	n	khoảng cách, lỗ hổng	B2	academic	academic	writing
-grant	v	cấp, ban cho	B2	academic	academic	reading
-highlight	v	làm nổi bật	B2	academic	academic	writing
+grant	v	cấp, ban cho	B2	academic	academic	reading	oxford-3000-5000
+highlight	v	làm nổi bật	B1	academic	academic	writing	oxford-3000-5000
 illustrate	v	minh họa, làm rõ	B2	academic	academic	writing
-importance	n	tầm quan trọng	B2	academic	academic	writing
-indicate	v	chỉ ra, cho thấy	B2	academic	academic	reading
-instance	n	ví dụ, trường hợp	B2	academic	academic	reading
-institute	n	viện, học viện	B2	academic	topic	reading
+importance	n	tầm quan trọng	B1	academic	academic	writing	oxford-3000-5000
+indicate	v	chỉ ra, cho thấy	B1	academic	academic	reading	oxford-3000-5000
+instance	n	ví dụ, trường hợp	B2	academic	academic	reading	oxford-3000-5000
+institute	n	viện, học viện	B2	academic	topic	reading	oxford-3000-5000
 instruction	n	hướng dẫn, chỉ dẫn	B2	education	topic	reading
 introduce	v	giới thiệu, đưa vào	B2	academic	academic	writing
-investigate	v	điều tra, khảo sát	B2	academic	academic	reading
+investigate	v	điều tra, khảo sát	B1	academic	academic	reading	oxford-3000-5000
 involve	v	liên quan, bao gồm	B2	academic	academic	reading
 key	adj	then chốt, chủ yếu	B2	academic	academic	writing
 lecture	n	bài giảng	B2	education	topic	reading
 link	n	mối liên kết	B2	academic	academic	writing
 list	n	danh sách	B2	academic	core	reading
-literature	n	văn học; tài liệu chuyên môn	B2	academic	academic	reading
-locate	v	định vị, xác định vị trí	B2	academic	academic	reading
-logic	n	lô-gích, tính hợp lý	B2	academic	academic	reading
-majority	n	đa số	B2	academic	academic	reading
+literature	n	văn học; tài liệu chuyên môn	B1	academic	academic	reading	oxford-3000-5000
+locate	v	định vị, xác định vị trí	B1	academic	academic	reading	oxford-3000-5000
+logic	n	lô-gích, tính hợp lý	C1	academic	academic	reading	oxford-3000-5000
+majority	n	đa số	B2	academic	academic	reading	oxford-3000-5000
 manner	n	cách thức, thái độ	B2	academic	academic	reading
 mark	v	đánh dấu, chấm điểm	B2	academic	academic	reading
 mention	v	đề cập	B2	academic	academic	writing
-minor	adj	nhỏ, không quan trọng	B2	academic	academic	reading
+minor	adj	nhỏ, không quan trọng	B2	academic	academic	reading	oxford-3000-5000
 model	n	mô hình, kiểu mẫu	B2	academic	academic	reading
-notion	n	quan niệm	B2	academic	academic	reading
+notion	n	quan niệm	B2	academic	academic	reading	oxford-3000-5000
 object	n	vật thể, đối tượng	B2	academic	academic	reading
-observe	v	quan sát, nhận thấy	B2	academic	academic	reading
-obvious	adj	hiển nhiên	B2	academic	academic	writing
-occasion	n	dịp, lần	B2	academic	core	reading
-occur	v	xảy ra, xuất hiện	B2	academic	academic	reading
+observe	v	quan sát, nhận thấy	B2	academic	academic	reading	oxford-3000-5000
+obvious	adj	hiển nhiên	B1	academic	academic	writing	oxford-3000-5000
+occasion	n	dịp, lần	B1	academic	core	reading	oxford-3000-5000
+occur	v	xảy ra, xuất hiện	B1	academic	academic	reading	oxford-3000-5000
 option	n	lựa chọn	B2	academic	core	reading
 output	n	đầu ra, sản lượng	B2	academic	academic	reading
 overall	adj	tổng thể	B2	academic	academic	reading
 paragraph	n	đoạn văn	B1	education	core	reading
 parallel	adj	song song, tương tự	B2	academic	academic	reading
 participate	v	tham gia	B2	academic	academic	writing
-passage	n	đoạn trích	B2	academic	core	reading
-percentage	n	tỷ lệ phần trăm	B2	academic	academic	reading
+passage	n	đoạn trích	B2	academic	core	reading	oxford-3000-5000
+percentage	n	tỷ lệ phần trăm	B1	academic	academic	reading	oxford-3000-5000
 perform	v	thực hiện, biểu diễn	B2	academic	academic	reading
 phrase	n	cụm từ	B2	academic	core	reading
-policy	n	chính sách	B2	politics	topic	reading,writing
+policy	n	chính sách	B1	politics	topic	reading,writing	oxford-3000-5000
 portion	n	phần, khẩu phần	B2	academic	academic	reading
-pose	v	đặt ra (vấn đề)	B2	academic	academic	writing
+pose	v	đặt ra (vấn đề)	B2	academic	academic	writing	oxford-3000-5000
 possibility	n	khả năng, triển vọng	B2	academic	academic	writing
 prefer	v	thích hơn	B2	academic	core	reading
-primary	adj	chính, sơ cấp	B2	academic	academic	writing
+primary	adj	chính, sơ cấp	B1	academic	academic	writing	oxford-3000-5000
 prior	adj	trước đó	B2	academic	academic	reading
 priority	n	sự ưu tiên	B2	academic	academic	writing
-proportion	n	tỷ lệ, phần	B2	academic	academic	reading
-propose	v	đề xuất	B2	academic	academic	writing
-prove	v	chứng minh	B2	academic	academic	writing
+proportion	n	tỷ lệ, phần	B2	academic	academic	reading	oxford-3000-5000
+propose	v	đề xuất	B2	academic	academic	writing	oxford-3000-5000
+prove	v	chứng minh	B1	academic	academic	writing	oxford-3000-5000
 publication	n	ấn phẩm, việc xuất bản	B2	academic	academic	reading
 publish	v	xuất bản, công bố	B2	academic	academic	reading
-questionnaire	n	bảng câu hỏi khảo sát	B2	academic	academic	reading
-quote	v	trích dẫn	B2	academic	academic	writing
-range	n	phạm vi, loạt	B2	academic	academic	reading
+questionnaire	n	bảng câu hỏi khảo sát	B2	academic	academic	reading	oxford-3000-5000
+quote	v	trích dẫn	B1	academic	academic	writing	oxford-3000-5000
+range	n	phạm vi, loạt	B1	academic	academic	reading	oxford-3000-5000
 rather	adv	khá; thà rằng	B2	academic	core	reading
 recommend	v	khuyến nghị, giới thiệu	B2	academic	academic	writing
-reference	n	tài liệu tham khảo, sự nhắc đến	B2	academic	academic	writing
-regard	v	coi như	B2	academic	academic	writing
+reference	n	tài liệu tham khảo, sự nhắc đến	B1	academic	academic	writing	oxford-3000-5000
+regard	v	coi như	B2	academic	academic	writing	oxford-3000-5000
 region	n	vùng, khu vực	B2	academic	topic	reading
-relate	v	liên hệ, liên quan	B2	academic	academic	writing
-release	v	phát hành, thả	B2	media	topic	reading
+relate	v	liên hệ, liên quan	B1	academic	academic	writing	oxford-3000-5000
+release	v	phát hành, thả	B1	media	topic	reading	oxford-3000-5000
 rely	v	dựa vào, trông cậy	B2	academic	academic	writing
-represent	v	đại diện, thể hiện	B2	academic	academic	writing
+represent	v	đại diện, thể hiện	B1	academic	academic	writing	oxford-3000-5000
 respond	v	phản hồi, đáp lại	B2	academic	academic	writing
 response	n	phản hồi, sự đáp lại	B2	academic	academic	writing
-reveal	v	tiết lộ, cho thấy	B2	academic	academic	reading
+reveal	v	tiết lộ, cho thấy	B2	academic	academic	reading	oxford-3000-5000
 review	n	bài đánh giá	B2	academic	academic	reading
-revise	v	ôn tập; sửa lại	B2	education	topic	reading
-sample	n	mẫu (khảo sát, thử)	B2	academic	academic	reading
-scope	n	phạm vi	B2	academic	academic	reading
-secondary	adj	thứ cấp, trung học	B2	education	academic	reading
+revise	v	ôn tập; sửa lại	B1	education	topic	reading	oxford-3000-5000
+sample	n	mẫu (khảo sát, thử)	B1	academic	academic	reading	oxford-3000-5000
+scope	n	phạm vi	C1	academic	academic	reading	oxford-3000-5000
+secondary	adj	thứ cấp, trung học	B1	education	academic	reading	oxford-3000-5000
 section	n	phần, mục	B2	academic	core	reading
-seek	v	tìm kiếm, cố gắng đạt	B2	academic	academic	writing
+seek	v	tìm kiếm, cố gắng đạt	B2	academic	academic	writing	oxford-3000-5000
 select	v	chọn lựa	B2	academic	core	reading
-sequence	n	trình tự, chuỗi	B2	academic	academic	reading
+sequence	n	trình tự, chuỗi	B2	academic	academic	reading	oxford-3000-5000
 series	n	chuỗi, loạt	B2	academic	core	reading
-similarity	n	sự tương đồng	B2	academic	academic	writing
+similarity	n	sự tương đồng	B1	academic	academic	writing	oxford-3000-5000
 solution	n	giải pháp	B2	academic	academic	writing
 somewhat	adv	phần nào, hơi	B2	academic	academic	writing
 stage	n	giai đoạn, sân khấu	B2	academic	academic	reading
 statistics	n	thống kê	B2	science	academic	reading
-summarize	v	tóm tắt	B2	academic	academic	writing
+summarize	v	tóm tắt	B1	academic	academic	writing	oxford-3000-5000
 target	n	mục tiêu	B2	academic	academic	writing
-technique	n	kỹ thuật, phương pháp	B2	academic	academic	reading
+technique	n	kỹ thuật, phương pháp	B1	academic	academic	reading	oxford-3000-5000
 tend	v	có xu hướng	B2	academic	academic	writing
-theme	n	chủ đề	B2	academic	academic	reading
-typically	adv	thường lệ, điển hình	B2	academic	academic	reading
-unique	adj	độc đáo, duy nhất	B2	academic	academic	writing
-usage	n	cách dùng, sự sử dụng	B2	academic	academic	reading
-utilize	v	tận dụng	B2	academic	academic	writing
+theme	n	chủ đề	B1	academic	academic	reading	oxford-3000-5000
+typically	adv	thường lệ, điển hình	B1	academic	academic	reading	oxford-3000-5000
+unique	adj	độc đáo, duy nhất	B2	academic	academic	writing	oxford-3000-5000
+usage	n	cách dùng, sự sử dụng	B2	academic	academic	reading	oxford-3000-5000
+utilize	v	tận dụng	C1	academic	academic	writing	oxford-3000-5000
 variable	n	biến số	B2	science	academic	reading
-version	n	phiên bản	B2	technology	core	reading
-volume	n	khối lượng; âm lượng; tập sách	B2	academic	academic	reading
+version	n	phiên bản	B1	technology	core	reading	oxford-3000-5000
+volume	n	khối lượng; âm lượng; tập sách	B2	academic	academic	reading	oxford-3000-5000
 whereas	conj	trong khi đó, trái lại	B2	academic	linker	writing
-widely	adv	một cách rộng rãi	B2	academic	academic	writing
-widespread	adj	phổ biến rộng khắp	B2	academic	academic	reading
+widely	adv	một cách rộng rãi	B2	academic	academic	writing	oxford-3000-5000
+widespread	adj	phổ biến rộng khắp	B2	academic	academic	reading	oxford-3000-5000
 accessible	adj	có thể tiếp cận, dễ hiểu	C1	academic	academic	reading
 accurate	adj	chính xác	B2	academic	academic	reading
-addition	n	sự thêm vào, phép cộng	B2	academic	academic	writing
-additional	adj	bổ sung, thêm	B2	academic	academic	writing
+addition	n	sự thêm vào, phép cộng	B1	academic	academic	writing	oxford-3000-5000
+additional	adj	bổ sung, thêm	B2	academic	academic	writing	oxford-3000-5000
 adequate	adj	đầy đủ, tương xứng	B2	academic	academic	writing
 advance	n	sự tiến bộ	B2	academic	academic	reading
 advantage	n	lợi thế	B2	academic	academic	writing
@@ -177,31 +177,31 @@ assess	v	đánh giá (mức độ)	B2	academic	academic	reading
 assume	v	cho rằng, giả định	B2	academic	academic	writing
 assure	v	cam đoan, làm yên tâm	B2	academic	academic	writing
 attitude	n	thái độ	B2	psychology	topic	writing
-authority	n	thẩm quyền, nhà chức trách	B2	politics	topic	reading
+authority	n	thẩm quyền, nhà chức trách	B1	politics	topic	reading	oxford-3000-5000
 available	adj	có sẵn	B2	academic	core	reading
-brief	adj	ngắn gọn	B2	academic	academic	writing
+brief	adj	ngắn gọn	B2	academic	academic	writing	oxford-3000-5000
 capable	adj	có khả năng	B2	academic	academic	writing
-certainty	n	sự chắc chắn	B2	academic	academic	writing
+certainty	n	sự chắc chắn	B2	academic	academic	writing	oxford-3000-5000
 circumstance	n	hoàn cảnh	B2	academic	academic	writing
 clarity	n	sự rõ ràng	B2	academic	academic	writing
-combine	v	kết hợp	B2	academic	academic	writing
+combine	v	kết hợp	B1	academic	academic	writing	oxford-3000-5000
 complexity	n	tính phức tạp	B2	academic	academic	reading
 component	n	thành phần	B2	academic	academic	reading
 comprehensive	adj	toàn diện	B2	academic	academic	reading
 concrete	adj	cụ thể, bằng bê tông	B2	academic	academic	writing
 consideration	n	sự cân nhắc	B2	academic	academic	writing
-consist	v	bao gồm, gồm có	B2	academic	academic	reading
+consist	v	bao gồm, gồm có	B1	academic	academic	reading	oxford-3000-5000
 constant	adj	liên tục, không đổi	B2	academic	academic	reading
-construct	v	xây dựng, lắp ghép	B2	academic	academic	writing
+construct	v	xây dựng, lắp ghép	B2	academic	academic	writing	oxford-3000-5000
 context	n	bối cảnh	B2	academic	academic	reading
 contradict	v	mâu thuẫn với	B2	academic	academic	writing
 convert	v	chuyển đổi	B2	academic	academic	reading
-criteria	n	tiêu chí (số nhiều)	B2	academic	academic	reading
+criteria	n	tiêu chí (số nhiều)	C1	academic	academic	reading	octanove-vocabulary-profile-1.0
 decline	n	sự suy giảm	B2	academic	academic	reading
 demonstrate	v	chứng minh, trình diễn	B2	academic	academic	writing
 derive	v	bắt nguồn từ, rút ra	B2	academic	academic	reading
-despite	prep	mặc dù	B2	academic	linker	writing
-dimension	n	chiều, khía cạnh	B2	academic	academic	reading
+despite	prep	mặc dù	B1	academic	linker	writing	oxford-3000-5000
+dimension	n	chiều, khía cạnh	C1	academic	academic	reading	oxford-3000-5000
 distribute	v	phân phối	B2	academic	academic	reading
 dominate	v	chi phối, thống trị	B2	academic	academic	reading
 emphasize	v	nhấn mạnh	B2	academic	academic	writing
@@ -213,10 +213,10 @@ evident	adj	hiển nhiên, rõ rệt	B2	academic	academic	writing
 exceed	v	vượt quá	B2	academic	academic	reading
 expand	v	mở rộng	B2	academic	academic	reading
 explicit	adj	rõ ràng, minh thị	B2	academic	academic	reading
-favour	n	sự ủng hộ, ân huệ	B2	society	academic	writing
+favour	n	sự ủng hộ, ân huệ	B1	society	academic	writing	oxford-3000-5000
 flexible	adj	linh hoạt	B2	academic	academic	writing
 focus	n	trọng tâm	B2	academic	academic	writing
-furthermore	adv	hơn nữa	B2	academic	linker	writing
+furthermore	adv	hơn nữa	B2	academic	linker	writing	oxford-3000-5000
 gradual	adj	dần dần	B2	academic	academic	reading
 identify	v	xác định rõ, nhận dạng	B2	academic	academic	reading
 implication	n	hàm ý, hệ quả	B2	academic	academic	reading
@@ -224,13 +224,13 @@ impose	v	áp đặt	B2	politics	academic	writing
 inevitable	adj	không thể tránh khỏi	B2	academic	academic	writing
 insight	n	sự hiểu sâu, nhận thức	B2	academic	academic	reading
 intense	adj	mãnh liệt, căng thẳng	B2	academic	academic	reading
-investigation	n	cuộc điều tra	B2	academic	topic	reading
+investigation	n	cuộc điều tra	B2	academic	topic	reading	oxford-3000-5000
 justify	v	biện minh, chứng minh là đúng	B2	academic	academic	writing
-likelihood	n	khả năng xảy ra	B2	academic	academic	reading
+likelihood	n	khả năng xảy ra	C1	academic	academic	reading	oxford-3000-5000
 maintain	v	duy trì, khẳng định	B2	academic	academic	writing
 marginal	adj	ở rìa, không đáng kể	B2	academic	academic	reading
-moderate	adj	vừa phải, ôn hòa	B2	academic	academic	reading
-notable	adj	đáng chú ý	B2	academic	academic	writing
+moderate	adj	vừa phải, ôn hòa	C1	academic	academic	reading	oxford-3000-5000
+notable	adj	đáng chú ý	C1	academic	academic	writing	oxford-3000-5000
 ongoing	adj	đang tiếp diễn	B2	academic	academic	reading
 outcome	n	kết quả cuối cùng	B2	academic	academic	writing
 overlap	v	chồng lấn	B2	academic	academic	reading
@@ -238,22 +238,22 @@ perspective	n	góc nhìn, quan điểm	B2	academic	academic	writing
 phenomenon	n	hiện tượng	B2	academic	academic	reading
 potential	n	tiềm năng	B2	academic	academic	writing
 precise	adj	chính xác, rõ ràng	B2	academic	academic	writing
-preliminary	adj	sơ bộ, mở đầu	B2	academic	academic	reading
-prominent	adj	nổi bật, đáng chú ý	B2	academic	academic	reading
-radical	adj	cấp tiến, triệt để	B2	society	academic	reading
-rapid	adj	nhanh chóng	B2	academic	academic	reading
-reaction	n	phản ứng	B2	psychology	academic	reading
+preliminary	adj	sơ bộ, mở đầu	C1	academic	academic	reading	oxford-3000-5000
+prominent	adj	nổi bật, đáng chú ý	C1	academic	academic	reading	oxford-3000-5000
+radical	adj	cấp tiến, triệt để	C1	society	academic	reading	oxford-3000-5000
+rapid	adj	nhanh chóng	B2	academic	academic	reading	oxford-3000-5000
+reaction	n	phản ứng	B1	psychology	academic	reading	oxford-3000-5000
 recognize	v	nhận ra, công nhận	B2	academic	academic	reading
-reflect	v	phản ánh, suy ngẫm	B2	academic	academic	writing
-remarkable	adj	đáng kinh ngạc, nổi bật	B2	academic	academic	writing
+reflect	v	phản ánh, suy ngẫm	B1	academic	academic	writing	oxford-3000-5000
+remarkable	adj	đáng kinh ngạc, nổi bật	B2	academic	academic	writing	oxford-3000-5000
 rigid	adj	cứng nhắc, rắn	B2	academic	academic	reading
-robust	adj	mạnh mẽ, vững chắc	B2	academic	academic	reading
-severe	adj	nghiêm trọng, khắc nghiệt	B2	academic	academic	reading
-straightforward	adj	đơn giản, thẳng thắn	B2	academic	academic	writing
-thorough	adj	kỹ lưỡng, triệt để	B2	academic	academic	writing
-tremendous	adj	to lớn, phi thường	B2	academic	academic	writing
-urgent	adj	cấp bách	B2	academic	academic	writing
-vague	adj	mơ hồ	B2	academic	academic	writing
-vast	adj	mênh mông, khổng lồ	B2	academic	academic	reading
+robust	adj	mạnh mẽ, vững chắc	C1	academic	academic	reading	oxford-3000-5000
+severe	adj	nghiêm trọng, khắc nghiệt	B2	academic	academic	reading	oxford-3000-5000
+straightforward	adj	đơn giản, thẳng thắn	C1	academic	academic	writing	oxford-3000-5000
+thorough	adj	kỹ lưỡng, triệt để	B2	academic	academic	writing	oxford-3000-5000
+tremendous	adj	to lớn, phi thường	C1	academic	academic	writing	oxford-3000-5000
+urgent	adj	cấp bách	B2	academic	academic	writing	oxford-3000-5000
+vague	adj	mơ hồ	C1	academic	academic	writing	oxford-3000-5000
+vast	adj	mênh mông, khổng lồ	B2	academic	academic	reading	oxford-3000-5000
 vital	adj	sống còn, thiết yếu	B2	academic	academic	writing
-vivid	adj	sống động	B2	academic	academic	writing
+vivid	adj	sống động	B1	academic	academic	writing	cefrj-vocabulary-profile-1.5

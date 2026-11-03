@@ -19,10 +19,10 @@ Phạm vi: **923** headword đang ở bộ từ trọng tâm mà **không** có 
 | Nhóm | (none) | B1 | B2 | C1 | C2 |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | `phrase-in-corpus` | 14 |  |  |  |  |
-| `surface-variant` | 52 | 1 | 12 | 76 | 47 |
+| `surface-variant` | 52 | 6 | 26 | 70 | 34 |
 | `multiword-words-only` | 5 |  |  |  |  |
-| `exam-format-only` |  |  |  | 1 | 4 |
-| `dictionary-only` | 223 | 1 | 13 | 159 | 302 |
+| `exam-format-only` |  | 1 |  |  | 4 |
+| `dictionary-only` | 223 | 7 | 28 | 157 | 283 |
 | `no-basis` | 13 |  |  |  |  |
 
 ## Bằng chứng mới tìm được

@@ -102,7 +102,7 @@ belittle	v	coi thường, làm nhỏ bé	C1	academic	academic	writing
 benevolent	adj	nhân từ, tốt bụng	C1	academic	academic	reading
 benign	adj	lành tính, nhẹ nhàng	C1	health	academic	reading
 berate	v	mắng nhiếc	C2	academic	academic	reading
-bewilder	v	làm hoang mang	C1	academic	academic	reading
+bewilder	v	làm hoang mang	B2	academic	academic	reading	cefrj-vocabulary-profile-1.5
 bias	n	thiên kiến, sự thiên lệch	B2	academic	academic	reading,writing
 blatant	adj	trắng trợn, rõ rành rành	C1	academic	academic	reading
 bolster	v	củng cố, hỗ trợ	C1	academic	academic	writing
@@ -156,7 +156,7 @@ conflate	v	gộp lẫn, đánh đồng	C2	academic	academic	writing
 conform	v	tuân theo, phù hợp	C1	academic	academic	reading,writing
 congenial	adj	dễ chịu, hợp tính	C2	academic	academic	reading
 conjecture	n	sự phỏng đoán	C2	academic	academic	reading
-connotation	n	hàm ý, sắc thái	C1	academic	academic	reading,writing
+connotation	n	hàm ý, sắc thái	C2	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
 consecrate	v	thánh hoá, hiến dâng	C2	academic	academic	reading
 consensus	n	sự đồng thuận	C1	society	academic	reading,writing
 conspicuous	adj	dễ thấy, nổi bật	C1	academic	academic	reading
@@ -226,7 +226,7 @@ disparage	v	xem nhẹ, chê bai	C2	academic	academic	reading
 disparate	adj	khác biệt hẳn, không đồng nhất	C2	academic	academic	reading
 dispassionate	adj	khách quan, không thiên vị	C2	academic	academic	writing
 dispel	v	xua tan	C1	academic	academic	reading
-disperse	v	phân tán, rải rác	C1	academic	academic	reading
+disperse	v	phân tán, rải rác	C2	academic	academic	reading	octanove-vocabulary-profile-1.0
 disproportionate	adj	không cân xứng	C1	academic	academic	writing
 dispute	n	cuộc tranh chấp	B2	academic	academic	reading
 disseminate	v	truyền bá, phổ biến	C1	academic	academic	writing
@@ -235,13 +235,13 @@ dissipate	v	tan biến, làm tiêu hao	C2	academic	academic	reading
 dissuade	v	khuyên can, làm nản lòng	C2	academic	academic	reading
 distort	v	làm méo mó, xuyên tạc	C1	academic	academic	writing
 divergent	adj	khác nhau, phân kỳ	C1	academic	academic	reading
-docile	adj	ngoan ngoãn, dễ bảo	C2	academic	academic	reading
+docile	adj	ngoan ngoãn, dễ bảo	C1	academic	academic	reading	octanove-vocabulary-profile-1.0
 dogmatic	adj	giáo điều, cố chấp	C1	academic	academic	reading
 dormant	adj	tiềm ẩn, ngủ yên	C1	academic	academic	reading
 dubious	adj	đáng ngờ, hoài nghi	C1	academic	academic	reading
 duplicity	n	sự hai mặt, sự dối trá	C2	academic	academic	reading
 eccentric	adj	lập dị	C1	academic	academic	reading
-eclectic	adj	đa dạng, pha trộn nhiều nguồn	C2	academic	academic	reading
+eclectic	adj	đa dạng, pha trộn nhiều nguồn	C1	academic	academic	reading	octanove-vocabulary-profile-1.0
 edify	v	giáo dục, khai sáng	C2	academic	academic	reading
 efficacy	n	hiệu lực, tính hữu hiệu	C1	academic	academic	writing
 effusive	adj	dạt dào, thái quá	C2	academic	academic	reading
@@ -259,7 +259,7 @@ eminent	adj	lỗi lạc, xuất sắc	C1	academic	academic	reading
 empirical	adj	dựa trên thực nghiệm	C1	academic	academic	reading,writing
 emulate	v	noi theo, bắt chước	C1	academic	academic	reading
 encompass	v	bao trùm, bao gồm	C1	academic	academic	writing
-endeavour	n	nỗ lực	C1	academic	academic	reading
+endeavour	n	nỗ lực	C1	academic	academic	reading	oxford-3000-5000
 endorse	v	tán thành, chứng thực	B2	academic	academic	writing
 enervate	v	làm suy nhược	C2	academic	academic	reading
 enigma	n	điều bí ẩn	C2	academic	academic	reading
@@ -286,7 +286,7 @@ evanescent	adj	chóng phai, phù du	C2	academic	academic	reading
 evoke	v	gợi lên, khơi gợi	C1	academic	academic	reading,writing
 exacerbate	v	làm trầm trọng thêm	C1	academic	academic	writing
 exacting	adj	khắt khe, đòi hỏi cao	C2	academic	academic	reading
-exalt	v	tôn vinh, đề cao	C2	academic	academic	reading
+exalt	v	tôn vinh, đề cao	B2	academic	academic	reading	cefrj-vocabulary-profile-1.5
 exasperate	v	làm bực tức	C1	academic	academic	reading
 excavate	v	khai quật, đào	C1	academic	academic	reading
 exemplify	v	minh hoạ, là ví dụ điển hình	C1	academic	academic	writing
@@ -303,8 +303,8 @@ extricate	v	gỡ ra, giải thoát	C2	academic	academic	reading
 exuberant	adj	hồ hởi, tràn đầy sức sống	C1	academic	academic	reading
 facetious	adj	đùa cợt không đúng lúc	C2	academic	academic	reading
 facile	adj	dễ dãi, hời hợt	C2	academic	academic	reading
-fallacy	n	nguỵ biện, sai lầm	C1	academic	academic	reading,writing
-falter	v	chững lại, do dự	C1	academic	academic	reading
+fallacy	n	nguỵ biện, sai lầm	C2	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+falter	v	chững lại, do dự	B2	academic	academic	reading	cefrj-vocabulary-profile-1.5
 fanaticism	n	sự cuồng tín	C2	academic	academic	reading
 fastidious	adj	khó tính, cầu kỳ	C2	academic	academic	reading
 fathom	v	thấu hiểu	C1	academic	academic	reading
@@ -312,7 +312,7 @@ feasible	adj	khả thi	C1	academic	academic	writing
 felicitous	adj	khéo léo, thích hợp	C2	academic	academic	writing
 fervent	adj	nồng nhiệt, tha thiết	C1	academic	academic	reading
 fickle	adj	hay thay đổi, phù phiếm	C2	academic	academic	reading
-figurative	adj	nghĩa bóng, ẩn dụ	C1	academic	academic	reading
+figurative	adj	nghĩa bóng, ẩn dụ	B2	academic	academic	reading	cefrj-vocabulary-profile-1.5
 flagrant	adj	trắng trợn, rõ ràng	C2	academic	academic	reading
 flamboyant	adj	loè loẹt, phô trương	C1	academic	academic	reading
 flaunt	v	phô trương, khoe khoang	C2	academic	academic	reading
@@ -355,7 +355,7 @@ hinder	v	cản trở, gây khó khăn	C1	academic	academic	writing
 homogeneous	adj	đồng nhất, thuần nhất	C1	academic	academic	reading
 hostile	adj	thù địch, gay gắt	B2	academic	academic	reading
 hubris	n	sự ngạo mạn	C2	academic	academic	reading
-hyperbole	n	sự phóng đại	C2	academic	academic	reading
+hyperbole	n	sự phóng đại	B2	academic	academic	reading	cefrj-vocabulary-profile-1.5
 iconoclast	n	người phá bỏ truyền thống	C2	academic	academic	reading
 idiosyncrasy	n	nét riêng, tính dị biệt	C2	academic	academic	reading
 idle	adj	nhàn rỗi, vô ích	B2	academic	academic	reading
@@ -391,17 +391,17 @@ indifferent	adj	thờ ơ, lãnh đạm	C1	academic	academic	reading
 indigenous	adj	bản địa	C1	culture	academic	reading
 indignant	adj	phẫn nộ	C1	academic	academic	reading
 indispensable	adj	không thể thiếu	C1	academic	academic	writing
-induce	v	gây ra, dẫn tới	C1	academic	academic	writing
+induce	v	gây ra, dẫn tới	C1	academic	academic	writing	oxford-3000-5000
 indulge	v	nuông chiều, buông thả	C1	academic	academic	reading
 ineffable	adj	không thể diễn tả	C2	academic	academic	reading
 ineluctable	adj	không thể tránh khỏi	C2	academic	academic	reading
 inept	adj	vụng về, kém cỏi	C2	academic	academic	reading
-inert	adj	trơ, không hoạt động	C2	academic	academic	reading
+inert	adj	trơ, không hoạt động	B2	academic	academic	reading	cefrj-vocabulary-profile-1.5
 inexorable	adj	không thể lay chuyển	C2	academic	academic	reading
 ingenious	adj	khéo léo, sáng tạo	C1	academic	academic	reading
 ingenuous	adj	ngây thơ, chân thật	C2	academic	academic	reading
 inherent	adj	vốn có, cố hữu	C1	academic	academic	writing
-inhibit	v	ức chế, kìm hãm	C2	academic	academic	reading
+inhibit	v	ức chế, kìm hãm	C1	academic	academic	reading	oxford-3000-5000
 inimical	adj	có hại, thù địch	C2	academic	academic	reading
 innate	adj	bẩm sinh	C1	academic	academic	reading
 innocuous	adj	vô hại	C2	academic	academic	reading
@@ -421,14 +421,14 @@ intelligible	adj	có thể hiểu được	C1	academic	academic	reading
 intransigent	adj	cứng nhắc, không nhượng bộ	C2	academic	academic	reading
 intrepid	adj	dũng cảm, gan dạ	C2	academic	academic	reading
 intricate	adj	phức tạp, rắc rối	C1	academic	academic	reading
-intrinsic	adj	nội tại, vốn có	C1	academic	academic	reading,writing
+intrinsic	adj	nội tại, vốn có	C2	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
 inundate	v	làm ngập, tràn ngập	C2	academic	academic	reading
 inure	v	làm quen với, làm chai sạn	C2	academic	academic	reading
 invective	n	lời mắng nhiếc, lời công kích	C2	academic	academic	reading
 inveterate	adj	ăn sâu, lâu năm	C2	academic	academic	reading
 invigorate	v	làm sung sức, tiếp thêm sinh lực	C1	academic	academic	reading
 irascible	adj	nóng tính, dễ cáu	C2	academic	academic	reading
-irony	n	sự trớ trêu, sự mỉa mai	B2	academic	academic	reading
+irony	n	sự trớ trêu, sự mỉa mai	C1	academic	academic	reading	oxford-3000-5000
 irreconcilable	adj	không thể dung hoà	C2	academic	academic	reading
 irreparable	adj	không thể sửa chữa	C2	academic	academic	reading
 itinerant	adj	lưu động, nay đây mai đó	C2	academic	academic	reading
@@ -447,11 +447,11 @@ latent	adj	tiềm ẩn, chưa bộc lộ	C1	academic	academic	reading
 laudable	adj	đáng khen	C2	academic	academic	reading
 lavish	adj	hoang phí, xa hoa	C2	academic	academic	reading
 lax	adj	lỏng lẻo, thiếu chặt chẽ	C2	academic	academic	reading
-lethargy	n	sự hôn mê, sự uể oải	C2	academic	academic	reading
+lethargy	n	sự hôn mê, sự uể oải	C1	academic	academic	reading	octanove-vocabulary-profile-1.0
 levity	n	sự nhẹ dạ, sự thiếu nghiêm túc	C2	academic	academic	reading
-liaison	n	sự liên lạc, mối quan hệ	C2	academic	academic	reading
+liaison	n	sự liên lạc, mối quan hệ	C1	academic	academic	reading	octanove-vocabulary-profile-1.0
 lucid	adj	trong sáng, dễ hiểu	C1	academic	academic	writing
-lucrative	adj	sinh lời, có lãi	C1	economics	academic	reading
+lucrative	adj	sinh lời, có lãi	B2	economics	academic	reading	cefrj-vocabulary-profile-1.5
 ludicrous	adj	lố bịch, nực cười	C1	academic	academic	reading
 lugubrious	adj	ủ rũ, tang tóc	C2	academic	academic	reading
 lure	v	lôi cuốn, dụ dỗ	C1	academic	academic	reading
@@ -464,7 +464,7 @@ manifest	adj	rõ ràng, hiển nhiên	C1	academic	academic	writing
 marginal	adj	ven rìa, không đáng kể	C1	academic	academic	reading
 meagre	adj	ít ỏi, nghèo nàn	C2	academic	academic	reading
 meander	v	quanh co, lang thang	C2	academic	academic	reading
-mediocre	adj	tầm thường, xoàng	C1	academic	academic	reading
+mediocre	adj	tầm thường, xoàng	B2	academic	academic	reading	cefrj-vocabulary-profile-1.5
 mellow	adj	dịu, êm, chín chắn	C1	academic	academic	reading
 mendacious	adj	dối trá	C2	academic	academic	reading
 mercurial	adj	hay thay đổi, lanh lợi	C2	academic	academic	reading
@@ -477,7 +477,7 @@ morose	adj	u sầu, cáu kỉnh	C2	academic	academic	reading
 multifaceted	adj	nhiều mặt, đa chiều	C1	academic	academic	reading
 mundane	adj	tầm thường, đời thường	C1	academic	academic	reading
 munificent	adj	hào phóng	C2	academic	academic	reading
-myriad	adj	vô số	C1	academic	academic	writing
+myriad	adj	vô số	C2	academic	academic	writing	octanove-vocabulary-profile-1.0
 nascent	adj	mới hình thành	C2	academic	academic	reading
 nebulous	adj	mơ hồ, chưa rõ	C2	academic	academic	reading
 negligible	adj	không đáng kể	C1	academic	academic	writing
@@ -498,7 +498,7 @@ obtrusive	adj	hay xen vào, khó chịu	C2	academic	academic	reading
 obtuse	adj	chậm hiểu, tù	C2	academic	academic	reading
 ominous	adj	điềm gở, đáng ngại	C2	academic	academic	reading
 onerous	adj	nặng nề, phiền toái	C2	academic	academic	reading
-opaque	adj	mờ đục, khó hiểu	C1	academic	academic	reading
+opaque	adj	mờ đục, khó hiểu	C2	academic	academic	reading	octanove-vocabulary-profile-1.0
 opportunism	n	chủ nghĩa cơ hội	C2	academic	academic	reading
 opportune	adj	thuận lợi, đúng lúc	C2	academic	academic	reading
 optimum	adj	tối ưu	C1	academic	academic	writing
@@ -509,7 +509,7 @@ ostentatious	adj	phô trương	C2	academic	academic	reading
 ostracise	v	tẩy chay	C2	academic	academic	reading
 outmoded	adj	lỗi thời	C2	academic	academic	reading
 overt	adj	công khai, không giấu giếm	C2	academic	academic	reading
-painstaking	adj	cần mẫn, tỉ mỉ	C1	academic	academic	reading
+painstaking	adj	cần mẫn, tỉ mỉ	C2	academic	academic	reading	octanove-vocabulary-profile-1.0
 paltry	adj	nhỏ mọn, ít ỏi	C2	academic	academic	reading
 paradigm	n	mô hình, hệ hình	C1	academic	academic	reading
 paradox	n	nghịch lý	C1	academic	academic	reading
@@ -519,7 +519,7 @@ pariah	n	người bị hắt hủi	C2	academic	academic	reading
 parochial	adj	hẹp hòi, cục bộ	C2	academic	academic	reading
 parsimonious	adj	keo kiệt, hà tiện	C2	academic	academic	reading
 partisan	adj	thiên vị, đảng phái	C1	politics	academic	reading
-patronising	adj	kẻ cả, ban ơn	C1	academic	academic	reading
+patronising	adj	kẻ cả, ban ơn	C2	academic	academic	reading	octanove-vocabulary-profile-1.0
 paucity	n	sự ít ỏi, sự thiếu thốn	C2	academic	academic	reading
 peccadillo	n	lỗi nhỏ, khuyết điểm nhỏ	C2	academic	academic	reading
 peculiar	adj	kỳ lạ, riêng biệt	C1	academic	academic	reading
@@ -530,7 +530,7 @@ peremptory	adj	độc đoán, dứt khoát	C2	academic	academic	reading
 perennial	adj	thường xuyên, quanh năm	C2	academic	academic	reading
 perilous	adj	hiểm nghèo	C1	academic	academic	reading
 peripheral	adj	ngoại vi, thứ yếu	C1	academic	academic	reading
-permeate	v	thấm đẫm, lan toả	C1	academic	academic	reading
+permeate	v	thấm đẫm, lan toả	B2	academic	academic	reading	cefrj-vocabulary-profile-1.5
 pernicious	adj	độc hại	C2	academic	academic	reading
 perpetuate	v	làm kéo dài, duy trì	C1	academic	academic	writing
 perplex	v	làm bối rối	C1	academic	academic	reading
@@ -539,11 +539,11 @@ peruse	v	đọc kỹ, nghiền ngẫm	C2	academic	academic	reading
 pervasive	adj	lan rộng, phổ biến	B2	academic	academic	reading
 petulant	adj	hay hờn dỗi	C2	academic	academic	reading
 philanthropy	n	lòng từ thiện	C1	society	academic	reading
-pinnacle	n	đỉnh cao	C2	academic	academic	reading
+pinnacle	n	đỉnh cao	C1	academic	academic	reading	octanove-vocabulary-profile-1.0
 pious	adj	ngoan đạo, sùng đạo	C2	academic	academic	reading
 pivotal	adj	mấu chốt, then chốt	C1	academic	academic	writing
 placate	v	xoa dịu, làm nguôi	C2	academic	academic	reading
-placid	adj	điềm tĩnh, yên ả	C2	academic	academic	reading
+placid	adj	điềm tĩnh, yên ả	C1	academic	academic	reading	octanove-vocabulary-profile-1.0
 plausible	adj	có vẻ hợp lý	C1	academic	academic	writing
 plethora	n	sự thừa mứa, vô số	C1	academic	academic	reading
 poignant	adj	cảm động, xót xa	C2	academic	academic	reading
@@ -554,7 +554,7 @@ precarious	adj	bấp bênh, không chắc chắn	C1	academic	academic	reading
 precedent	n	tiền lệ	B2	law	academic	reading
 preclude	v	loại trừ, ngăn cản	C1	academic	academic	writing
 precocious	adj	phát triển sớm, sớm khôn	C2	academic	academic	reading
-predicament	n	tình thế khó xử	C1	academic	academic	reading
+predicament	n	tình thế khó xử	B2	academic	academic	reading	cefrj-vocabulary-profile-1.5
 predispose	v	khiến dễ mắc, tạo thiên hướng	C2	academic	academic	reading
 predominant	adj	chiếm ưu thế	C1	academic	academic	writing
 preeminent	adj	xuất chúng, ưu việt	C2	academic	academic	reading
@@ -575,7 +575,7 @@ proficient	adj	thành thạo	C1	education	academic	reading
 profligate	adj	phóng đãng, hoang phí	C2	academic	academic	reading
 profound	adj	sâu sắc	C1	academic	academic	reading,writing
 profuse	adj	dồi dào, nhiều	C2	academic	academic	reading
-proliferate	v	sinh sôi nhanh, lan rộng	C1	academic	academic	reading
+proliferate	v	sinh sôi nhanh, lan rộng	C1	academic	academic	reading	octanove-vocabulary-profile-1.0
 prolific	adj	sinh sản nhiều, sung mãn	C1	academic	academic	reading
 promulgate	v	ban hành, công bố	C2	law	academic	reading
 propensity	n	khuynh hướng	C1	academic	academic	reading
@@ -606,15 +606,15 @@ recant	v	rút lại lời, công khai từ bỏ	C2	academic	academic	reading
 reciprocal	adj	tương hỗ, qua lại	C1	academic	academic	writing
 reclusive	adj	ẩn dật, sống tách biệt	C2	academic	academic	reading
 recompense	n	sự đền bù	C2	academic	academic	reading
-reconcile	v	hoà giải, dung hoà	C1	academic	academic	reading,writing
+reconcile	v	hoà giải, dung hoà	C2	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
 rectify	v	chỉnh sửa, khắc phục	C1	academic	academic	writing
 redolent	adj	gợi nhớ, thơm mùi	C2	academic	academic	reading
 redundant	adj	dư thừa, thừa	C1	academic	academic	writing
 refurbish	v	tân trang, sửa sang	C1	academic	academic	reading
-refute	v	bác bỏ	C1	academic	academic	writing
+refute	v	bác bỏ	B2	academic	academic	writing	cefrj-vocabulary-profile-1.5
 regress	v	thoái bộ, đi ngược	C1	academic	academic	reading
 reiterate	v	nhắc lại, lặp lại	C1	academic	academic	writing
-relegate	v	hạ xuống, đẩy xuống thứ yếu	C1	academic	academic	reading
+relegate	v	hạ xuống, đẩy xuống thứ yếu	C2	academic	academic	reading	octanove-vocabulary-profile-1.0
 relentless	adj	không ngừng, không lay chuyển	C1	academic	academic	reading
 relinquish	v	từ bỏ, nhượng lại	C1	academic	academic	reading
 reluctant	adj	miễn cưỡng, không sẵn lòng	B2	psychology	academic	reading
@@ -627,18 +627,18 @@ replete	adj	đầy ắp, tràn đầy	C2	academic	academic	reading
 replicate	v	sao chép, tái tạo	C1	academic	academic	writing
 reprehensible	adj	đáng khiển trách	C2	academic	academic	reading
 reprimand	v	khiển trách	C2	academic	academic	reading
-reproach	v	trách móc	C1	academic	academic	reading
+reproach	v	trách móc	C2	academic	academic	reading	octanove-vocabulary-profile-1.0
 repudiate	v	phủ nhận, từ chối	C2	academic	academic	reading
 repugnant	adj	ghê tởm, đáng ghét	C2	academic	academic	reading
 requisite	adj	cần thiết, đòi hỏi	C1	academic	academic	writing
 rescind	v	huỷ bỏ, bãi bỏ	C2	academic	academic	reading
 resilient	adj	kiên cường, đàn hồi tốt	B2	psychology	academic	reading
 resolute	adj	kiên quyết	C1	academic	academic	reading
-respite	n	khoảng nghỉ ngơi, sự tạm hoãn	C2	academic	academic	reading
+respite	n	khoảng nghỉ ngơi, sự tạm hoãn	C1	academic	academic	reading	octanove-vocabulary-profile-1.0
 reticent	adj	dè dặt, ít nói	C2	academic	academic	reading
 retract	v	rút lại, co lại	C1	academic	academic	reading
-reverence	n	sự tôn kính	C2	academic	academic	reading
-rhetoric	n	hùng biện, tu từ	C1	academic	academic	reading,writing
+reverence	n	sự tôn kính	B2	academic	academic	reading	cefrj-vocabulary-profile-1.5
+rhetoric	n	hùng biện, tu từ	C1	academic	academic	reading,writing	oxford-3000-5000
 ribald	adj	thô tục, tục tĩu	C2	academic	academic	reading
 rigorous	adj	nghiêm ngặt, chặt chẽ	C1	academic	academic	writing
 robust	adj	mạnh mẽ, vững chắc	C1	academic	academic	writing
@@ -650,22 +650,22 @@ salient	adj	nổi bật, đáng chú ý	C1	academic	academic	writing
 sanctimonious	adj	đạo đức giả	C2	academic	academic	reading
 sanguine	adj	lạc quan, lạc quan tin tưởng	C2	academic	academic	reading
 sardonic	adj	mỉa mai, châm biếm	C2	academic	academic	reading
-scathing	adj	gay gắt, sắc bén	C2	academic	academic	reading
+scathing	adj	gay gắt, sắc bén	C1	academic	academic	reading	octanove-vocabulary-profile-1.0
 sceptical	adj	hoài nghi	C1	academic	academic	reading
 scrupulous	adj	tận tâm, chu đáo	C1	academic	academic	writing
 scrutinise	v	xem xét kỹ lưỡng	C1	academic	academic	writing
 sedentary	adj	ít vận động, ngồi nhiều	C1	health	academic	reading
 seminal	adj	có tính khai phá, nền tảng	C2	academic	academic	reading
-serene	adj	thanh thản, yên tĩnh	C1	academic	academic	reading
+serene	adj	thanh thản, yên tĩnh	B2	academic	academic	reading	cefrj-vocabulary-profile-1.5
 servile	adj	nô lệ, khúm núm	C2	academic	academic	reading
 sinister	adj	đáng ngại, nham hiểm	C1	academic	academic	reading
 slander	n	sự vu khống	C1	law	academic	reading
 sluggish	adj	chậm chạp, ì ạch	C1	academic	academic	reading
 solace	n	sự an ủi	C2	academic	academic	reading
-solicit	v	kêu gọi, xin	C1	academic	academic	reading
+solicit	v	kêu gọi, xin	C2	academic	academic	reading	octanove-vocabulary-profile-1.0
 solvent	adj	có khả năng thanh toán	C2	economics	academic	reading
 sordid	adj	bẩn thỉu, đê tiện	C2	academic	academic	reading
-spurious	adj	giả tạo, không có căn cứ	C1	academic	academic	reading
+spurious	adj	giả tạo, không có căn cứ	C2	academic	academic	reading	octanove-vocabulary-profile-1.0
 squalid	adj	nhếch nhác, bẩn thỉu	C2	academic	academic	reading
 stagnant	adj	trì trệ, ứ đọng	C1	economics	academic	reading
 staunch	adj	trung thành, vững chắc	C2	academic	academic	reading
@@ -675,11 +675,11 @@ stifle	v	kìm hãm, làm nghẹt thở	C1	academic	academic	reading
 stigma	n	sự kỳ thị	C1	society	academic	reading
 strenuous	adj	vất vả, đòi hỏi nỗ lực	C1	academic	academic	reading
 strident	adj	chói tai, gay gắt	C2	academic	academic	reading
-stringent	adj	nghiêm ngặt	C1	law	academic	reading
+stringent	adj	nghiêm ngặt	C2	law	academic	reading	octanove-vocabulary-profile-1.0
 subjugate	v	khuất phục, chinh phục	C2	academic	academic	reading
 sublime	adj	cao cả, hùng vĩ	C1	academic	academic	reading
 subservient	adj	phục tùng, lệ thuộc	C2	academic	academic	reading
-substantiate	v	chứng minh, củng cố bằng chứng	C1	academic	academic	writing
+substantiate	v	chứng minh, củng cố bằng chứng	C2	academic	academic	writing	octanove-vocabulary-profile-1.0
 succinct	adj	ngắn gọn, súc tích	C1	academic	academic	writing
 sumptuous	adj	xã hoa, lộng lẫy	C2	academic	academic	reading
 superfluous	adj	thừa thãi	C1	academic	academic	writing
@@ -689,9 +689,9 @@ surmise	v	suy đoán	C2	academic	academic	reading
 surmount	v	vượt qua	C1	academic	academic	reading
 susceptible	adj	dễ bị ảnh hưởng, nhạy cảm	C1	health	academic	reading
 sycophant	n	kẻ nịnh bợ	C2	academic	academic	reading
-tacit	adj	ngầm hiểu, không nói ra	C1	academic	academic	writing
+tacit	adj	ngầm hiểu, không nói ra	C2	academic	academic	writing	octanove-vocabulary-profile-1.0
 tangible	adj	hữu hình, rõ ràng	C1	academic	academic	writing
-tantamount	adj	tương đương, ngang với	C2	academic	academic	reading
+tantamount	adj	tương đương, ngang với	C1	academic	academic	reading	octanove-vocabulary-profile-1.0
 tedious	adj	tẻ nhạt, buồn chán	C1	academic	academic	reading
 temerity	n	sự táo bạo liều lĩnh	C2	academic	academic	reading
 tenable	adj	có thể bảo vệ được, vững	C2	academic	academic	reading
@@ -708,22 +708,22 @@ tortuous	adj	quanh co, rắc rối	C2	academic	academic	reading
 tractable	adj	dễ xử lý, dễ điều khiển	C2	academic	academic	reading
 tranquil	adj	yên tĩnh, thanh bình	C1	academic	academic	reading
 transgress	v	vi phạm	C1	law	academic	reading
-transient	adj	ngắn ngủi, tạm thời	C1	academic	academic	reading
+transient	adj	ngắn ngủi, tạm thời	B2	academic	academic	reading	cefrj-vocabulary-profile-1.5
 transitory	adj	nhất thời, chóng qua	C2	academic	academic	reading
 trenchant	adj	sắc bén, thấu đáo	C2	academic	academic	reading
 trepidation	n	sự lo lắng, run sợ	C2	academic	academic	reading
 trite	adj	sáo mòn, nhàm	C2	academic	academic	reading
 trivial	adj	tầm thường, nhỏ nhặt	C1	academic	academic	reading
 truculent	adj	hùng hổ, hung hăng	C2	academic	academic	reading
-turbulent	adj	hỗn loạn, sóng gió	C1	academic	academic	reading
+turbulent	adj	hỗn loạn, sóng gió	B2	academic	academic	reading	cefrj-vocabulary-profile-1.5
 ubiquitous	adj	có mặt khắp nơi	C1	academic	academic	reading
 umbrage	n	sự phật ý, sự xúc phạm	C2	academic	academic	reading
 unanimous	adj	nhất trí	C1	academic	academic	writing
-uncanny	adj	kỳ lạ, khó giải thích	C1	academic	academic	reading
-unequivocal	adj	rõ ràng, dứt khoát	C1	academic	academic	writing
+uncanny	adj	kỳ lạ, khó giải thích	C2	academic	academic	reading	octanove-vocabulary-profile-1.0
+unequivocal	adj	rõ ràng, dứt khoát	C2	academic	academic	writing	octanove-vocabulary-profile-1.0
 unilateral	adj	đơn phương	C1	politics	academic	reading
 unprecedented	adj	chưa từng có	C1	academic	academic	reading
-unravel	v	làm sáng tỏ, tháo ra	C1	academic	academic	reading
+unravel	v	làm sáng tỏ, tháo ra	C2	academic	academic	reading	octanove-vocabulary-profile-1.0
 unscrupulous	adj	vô đạo đức, không từ thủ đoạn	C1	academic	academic	reading
 unwieldy	adj	cồng kềnh, khó dùng	C2	academic	academic	reading
 vacillate	v	dao động, do dự	C2	academic	academic	reading
@@ -744,7 +744,7 @@ virtuous	adj	đức hạnh, trong sạch	C1	academic	academic	reading
 virulent	adj	độc hại, ác liệt	C2	academic	academic	reading
 vociferous	adj	ồn ào, la lối	C2	academic	academic	reading
 volatile	adj	dễ bay hơi, biến động mạnh	B2	science	academic	reading
-voracious	adj	phàm ăn, khao khát	C2	academic	academic	reading
+voracious	adj	phàm ăn, khao khát	C1	academic	academic	reading	octanove-vocabulary-profile-1.0
 vulnerable	adj	dễ bị tổn thương	B2	psychology	academic	reading
 wane	v	suy yếu, tàn dần	C1	academic	academic	reading
 wary	adj	cảnh giác, dè chừng	C1	academic	academic	reading
