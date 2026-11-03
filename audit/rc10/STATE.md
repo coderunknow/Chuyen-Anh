@@ -15,11 +15,11 @@ released, never deployed)**.
 | Exam-evidence layer for every entry | **done (archive class)** | `evidence/exam-occurrences-{vocabulary,phrases}.jsonl` + summary |
 | Reference lanes for every entry | **done** | `evidence/reference-resolutions.jsonl` — a disposition per row, each naming the reference consulted |
 | Curation/CEFR decoupled | **done** | `docs/vocabulary-curation-decisions.json` (1,271 frozen per-row decisions); `tests/test_curation_cefr_independence.py` |
-| **P3 / G1 — every vocab row revalidated** | **PASS** | 5,852/5,852 rows: `verified_agree` 576 · `verified_precedence` 1,006 · `verified_corrected` 915 · `verified_below_scope` 1,010 · `pending_ledger` 425 · `no_reference` 1,920. 1,921 corrections written with per-row source. `machine_assessed == 0`. |
-| **P4 / G2 — every phrase row revalidated** | **PASS** | 780/780: `phrase_listed` 6 (agree 2 · corrected 2 · precedence 2) · `no_phrase_reference` 774. `audit/rc10/GATES.md` § Phrase policy |
+| **P3 / G1 — every vocab row revalidated** | **PASS** | 7,852/7,852 rows (the 2,000 new rows carry `verified_new_reference`): `verified_agree` 576 · `verified_precedence` 1,006 · `verified_corrected` 915 · `verified_below_scope` 1,010 · `pending_ledger` 425 · `no_reference` 1,920. 1,921 corrections written with per-row source. `machine_assessed == 0`. |
+| **P4 / G2 — every phrase row revalidated** | **PASS** | 1,094/1,094: `phrase_listed` 6 (agree 2 · corrected 2 · precedence 2) · `no_phrase_reference` 774 · `verified_constituent_bound` 314. `audit/rc10/GATES.md` § Phrase policy |
 | **P5 / G3 — new headwords** | **PASS (exactly 2,000)** | `evidence/new-headword-evidence.jsonl` (2,251 authored rows), `evidence/gloss-batches/batch1…8.txt`, `evidence/new-word-pool.json` (3,068 candidates). Bank 5,852 → 7,852 rows; **2,000 new headwords**, 0 removed. |
-| P6 / G4 — new phrases | **not started as content** | 0 accepted (target ≥300 incl. ≥200 phrasal verbs) |
-| P8 full QA | **partial (green locally)** | Python **172 OK** · `static-app.test.js` **144 pass** · `rc10-cefr.test.js` **9 pass**; browser engines only in CI |
+| **P6 / G4 — new phrases** | **PASS** | **314 accepted** (phrasal-verb 228 · idiom 52 · collocation 18 · dependent-preposition 15 · fixed-expression 1); bank 780 → 1,094 rows, phrasal verbs 184 → 412. `evidence/new-phrase-pool.json` (343 of 1,192 candidates), `evidence/new-phrase-evidence.jsonl`, authored batches in `evidence/phrase-batches/`. |
+| P8 full QA | **green locally**, browser engines read from CI | Python **172 OK** · `static-app.test.js` **144 pass** · `rc10-cefr.test.js` **9 pass**; browser engines only in CI |
 | P9 PR | **open, Draft, deliberately not merged** | `GATES.md` |
 
 ## Exact counts (computed from the records, not estimated)
@@ -31,10 +31,12 @@ vocabulary rows                 7852   (913 legacy + 6939 seed)
   focus deck                    5841   = 3841 pre-rc10 + 2000 new headwords
   level-tagged deck   B1 757 · B2 1714 · C1 1638 · C2 889 · UNCLASSIFIED 843
   default B2+C1 selection       3352
-phrase rows                      780    collocation 192 · phrasal-verb 184 · idiom 133 ·
-                                       dependent-preposition 105 · linker-phrase 90 · pattern 76
+phrase rows                     1094    phrasal-verb 412 · collocation 210 · idiom 185 ·
+                                       dependent-preposition 120 · linker-phrase 90 ·
+                                       pattern 76 · fixed-expression 1
+  phrase levels                  B1 387 · B2 324 · C1 304 · C2 79
 new headwords accepted          2000   <- G3 met
-new phrases accepted               0   <- outstanding for G4 (target 300 / 200 phrasal verbs)
+new phrases accepted             314   <- G4 met (228 phrasal verbs / 314 total)
 seed candidates skipped        1536    duplicate 897 · word-family 562 · inflection 60 ·
                                        spelling 16 · comparative 1
 ```
@@ -59,12 +61,13 @@ across the transcribed papers), 794 list-only.
 
 ## What the next session should do, in order
 
-1. **P6 / G4** — the only phase with no content: author ≥300 new phrases with
-   ≥200 distinct phrasal verbs. Every phrase needs the same treatment the
-   vocabulary got: whole-phrase evidence first (`tools/phrase-resolve.py` lanes),
-   the level never derived from constituents, and the row written into
-   `data/phrase-seed/*.tsv` so `build_phrases.py` stays the only writer.
-2. Re-run the whole chain after any data change and re-pin counts **only** to
+1. Read the browser-engine CI on the final head (Chromium/Firefox/WebKit) and add
+   the run id to `GATES.md` G14 — the only gate whose evidence is not local.
+2. Keep the two rc10 pipelines reproducible in the order documented in `GATES.md`
+   §G3 and §G4: both *require* restoring the pre-round bank/JSON first, because
+   the pool refuses anything already present (that is by design, and it is why an
+   un-restored rerun reports "already in bank" for everything).
+3. Re-run the whole chain after any data change and re-pin counts **only** to
    measured values (`expand_vocabulary.py` → `build_vocabulary.py` →
    `embed_vocabulary.py`; `vocabulary_cefr_review.py`; `rc4_vocabulary_audit.py`;
    `audit_vocabulary_quality.py`; `vocabulary_evidence_review.py`;
@@ -78,7 +81,14 @@ across the transcribed papers), 794 list-only.
 # G1 — vocabulary dispositions (5,852/5,852)
 python3 audit/rc10/tools/reference-resolve.py && node audit/rc10/tools/build-audit.mjs
 
-# G2 — phrase dispositions (780/780)
+# G4 — 314 new phrases, in this exact order
+git checkout -- Learned_Phrase_List.md data/phrases.json
+rm -f data/phrase-seed/07-rc10-expansion.tsv audit/rc10/evidence/new-phrase-evidence.jsonl
+python3 audit/rc10/tools/new-phrase-pool.py
+python3 audit/rc10/tools/add-phrases.py audit/rc10/evidence/phrase-batches/batch1.txt audit/rc10/evidence/phrase-batches/batch2.txt
+python3 scripts/build_phrases.py && python3 scripts/embed_phrases.py
+
+# G2 — phrase dispositions (all phrase rows)
 python3 audit/rc10/tools/phrase-resolve.py && python3 audit/rc10/tools/apply-phrase-corrections.py --dry-run
 
 # G3 — 2,000 new headwords, in this exact order

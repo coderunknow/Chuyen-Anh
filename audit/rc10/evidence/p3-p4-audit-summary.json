@@ -1,55 +1,57 @@
 {
-  "generatedAt": "2026-11-03T05:47:37.894Z",
+  "generatedAt": "2026-11-03T08:44:28.840Z",
   "vocabulary": {
-    "rows": 5852,
+    "rows": 7852,
     "disposition": {
       "pending_ledger": 425,
       "no_reference": 1920,
       "verified_below_scope": 1010,
       "verified_precedence": 1006,
       "verified_corrected": 915,
-      "verified_agree": 576
+      "verified_agree": 576,
+      "verified_new_reference": 2000
     },
     "byLevel": {
       "UNCLASSIFIED": 913,
-      "B1": 1439,
-      "B2": 1457,
-      "C1": 1445,
-      "C2": 598
+      "B1": 1700,
+      "B2": 2196,
+      "C1": 2087,
+      "C2": 956
     },
-    "withExamOccurrence": 3725,
-    "withoutExamOccurrence": 2127,
+    "withExamOccurrence": 0,
+    "withoutExamOccurrence": 7852,
     "rowsWithProblems": 3931,
     "duplicateRows": 0,
     "editorialLevels": 3018
   },
   "phrases": {
-    "rows": 780,
+    "rows": 1094,
     "disposition": {
       "editorial_no_reference": 774,
-      "verified_corrected": 2,
-      "verified_agree": 2,
-      "verified_precedence": 2
+      "verified_agree": 4,
+      "verified_precedence": 2,
+      "verified_constituent_bound": 314
     },
     "byLevel": {
-      "B1": 112,
-      "B2": 301,
-      "C1": 288,
+      "B1": 387,
+      "B2": 324,
+      "C1": 304,
       "C2": 79
     },
-    "withExamOccurrence": 397,
-    "withoutExamOccurrence": 383,
-    "rowsWithProblems": 780,
+    "withExamOccurrence": 0,
+    "withoutExamOccurrence": 1094,
+    "rowsWithProblems": 1094,
     "duplicateRows": 0,
-    "phrasalVerbs": 184
+    "phrasalVerbs": 412
   },
   "gateP3": {
     "requirement": "every existing vocabulary row carries a final disposition that names the reference consulted",
-    "rows": 5852,
-    "dispositioned": 5852,
+    "rows": 7852,
+    "dispositioned": 7852,
     "outstanding": 0,
     "byClass": {
       "sourceAttested": 2497,
+      "newReferenceAttested": 2000,
       "belowScope": 1010,
       "pendingLedger": 425,
       "noReference": 1920,
@@ -59,13 +61,14 @@
   },
   "gateP4": {
     "requirement": "every existing phrase row carries a final disposition that names the reference consulted",
-    "rows": 780,
-    "dispositioned": 780,
+    "rows": 1094,
+    "dispositioned": 1094,
     "outstanding": 0,
     "byClass": {
       "phraseListed": 6,
+      "constituentBound": 314,
       "noPhraseReference": 774,
-      "corrected": 2
+      "corrected": 0
     },
     "status": "PASS"
   }

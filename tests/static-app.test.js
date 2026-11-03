@@ -463,7 +463,7 @@ test('the learner-facing word count is the focus deck, not every stored row', as
   assert.equal(translateUiText('mỗi gốc từ chỉ tính là một từ vựng. Các dạng cùng gốc (ví dụ số nhiều, thì, phái sinh) không phải mục riêng; chúng được ghi ở dòng “Họ từ” của từ gốc.', 'en'),
     'each word root counts as one vocabulary item. Same-root forms (for example plurals, tenses and derivations) are not separate entries; they are recorded in the “Word family” line of the headword.');
   // The phrase bank keeps its own count and is not folded into the word count.
-  assert.equal(translateUiText('780 cụm từ', 'en'), '780 phrases');
+  assert.equal(translateUiText('1094 cụm từ', 'en'), '1094 phrases');
   assert.equal(translateUiText('3.841 từ trọng tâm', 'vi'), '3.841 từ trọng tâm');
 });
 
@@ -2660,9 +2660,9 @@ test('card toggles update in place so a typed answer is never discarded', () => 
  * ---------------------------------------------------------------------- */
 
 test('the embedded phrase bank loads, validates and stays separate from the vocabulary', async () => {
-  assert.equal(embeddedPhrases.length, 780);
+  assert.equal(embeddedPhrases.length, 1094);
   assert.equal(embeddedPhrases[0].id, 'P001');
-  assert.equal(embeddedPhrases.at(-1).id, 'P780');
+  assert.equal(embeddedPhrases.at(-1).id, 'P1094');
   assert.match(embeddedPhraseRaw, /^\[/);
   assert.doesNotMatch(embeddedPhraseRaw, /<\/script/i);
   assert.ok(Object.keys(PHRASE_TYPES).includes('phrasal-verb'));
@@ -4259,7 +4259,7 @@ test('the shipped vocabulary keeps every row and every level is selectable', () 
   const phrases = embeddedPhrases;
   const phraseLevels = {};
   for (const phrase of phrases) phraseLevels[app.phraseCefrLevel(phrase)] = (phraseLevels[app.phraseCefrLevel(phrase)] || 0) + 1;
-  assert.deepEqual(phraseLevels, { B1: 112, B2: 301, C1: 288, C2: 79 },
+  assert.deepEqual(phraseLevels, { B1: 387, B2: 324, C1: 304, C2: 79 },
     'phrase levels come from each phrase, not from its constituent words');
 });
 

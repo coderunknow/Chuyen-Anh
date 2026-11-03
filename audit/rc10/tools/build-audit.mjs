@@ -40,6 +40,15 @@ const phraseResolved = new Map(readJsonl(path.join(evidenceDir, 'phrase-resoluti
   .map(row => [`phrase:${row.id}`, row]));
 const wordResolved = new Map(readJsonl(path.join(evidenceDir, 'reference-resolutions.jsonl'))
   .map(row => [`vocabulary:${row.id}`, row]));
+// rc10 P5/P6: rows *added* by this round carry their own evidence — each one names
+// a published list entry (work + locator) for its level, and each new phrase names
+// the published entries of its constituents plus the exam papers that contain the
+// whole phrase. Keyed by normalised text, because these rows are new and have no
+// pre-rc10 resolution record.
+const newWordEvidence = new Map(readJsonl(path.join(evidenceDir, 'new-headword-evidence.jsonl'))
+  .map(row => [String(row.word).toLowerCase(), row]));
+const newPhraseEvidence = new Map(readJsonl(path.join(evidenceDir, 'new-phrase-evidence.jsonl'))
+  .map(row => [String(row.phrase).toLowerCase().replace(/\s+/g, ' '), row]));
 const STUDY_SCOPE = new Set(['B1', 'B2', 'C1', 'C2']);
 const examVocab = new Map(readJsonl(path.join(evidenceDir, 'exam-occurrences-vocabulary.jsonl')).map(row => [row.id, row]));
 const examPhrase = new Map(readJsonl(path.join(evidenceDir, 'exam-occurrences-phrases.jsonl')).map(row => [row.id, row]));
@@ -93,7 +102,10 @@ for (const row of vocabulary) {
   const attestation = attested.get(`vocabulary:${row.id}`);
   const lanes = join.get(`vocabulary:${row.id}`) || null;
   const resolver = wordResolved.get(`vocabulary:${row.id}`);
-  const disposition = resolver
+  const newEvidence = newWordEvidence.get(normalize(row.word));
+  const disposition = newEvidence
+    ? 'verified_new_reference'
+    : resolver
     ? resolver.disposition
     : manualRecord
     ? (manualRecord.decision.startsWith('correct') ? 'inspected_corrected' : manualRecord.decision === 'unclassify' ? 'inspected_unclassified' : 'inspected_accepted')
@@ -148,7 +160,18 @@ for (const row of vocabulary) {
       reasoning: manualRecord.reasoning
     } : null,
     disposition,
-    dispositionReason: manualRecord
+    referenceAttestation: newEvidence ? {
+      reference: newEvidence.levelSource,
+      referenceLabel: newEvidence.levelWork,
+      locator: newEvidence.levelLocator,
+      decision: 'accept',
+      newLevel: newEvidence.level,
+      examDocuments: (newEvidence.examDocuments || []).length,
+      examLocator: newEvidence.examLocator || null
+    } : null,
+    dispositionReason: newEvidence
+      ? `added in rc10 P5: level attested by ${newEvidence.levelWork} (${newEvidence.levelLocator}); Vietnamese gloss authored (${newEvidence.glossAuthorship})`
+      : manualRecord
       ? 'individual reference lookup recorded in audit/rc10/evidence/manual-verifications.jsonl'
       : attestation
         ? `primary attestation in audit/rc10/evidence/reference-attestations.jsonl (${attestation.locator})`
@@ -196,10 +219,13 @@ for (const row of phrases) {
     manualVerification: manualRecord || null,
     disposition: (() => {
       if (manualRecord) return manualRecord.decision.startsWith('correct') ? 'inspected_corrected' : 'inspected_accepted';
+      if (newPhraseEvidence.get(normalize(row.phrase))) return 'verified_constituent_bound';
       const resolved = phraseResolved.get(`phrase:${row.id}`);
       return resolved ? resolved.disposition : 'machine_assessed';
     })(),
-    dispositionReason: manualRecord
+    dispositionReason: newPhraseEvidence.get(normalize(row.phrase))
+      ? `added in rc10 P6: level bounded by ${newPhraseEvidence.get(normalize(row.phrase)).hardestConstituent} (${newPhraseEvidence.get(normalize(row.phrase)).levelBasis}); whole phrase occurs in ${newPhraseEvidence.get(normalize(row.phrase)).corpusPapers} transcribed paper(s)`
+      : manualRecord
       ? 'individual reference lookup recorded in audit/rc10/evidence/manual-verifications.jsonl'
       : attestation
         ? `primary attestation in audit/rc10/evidence/reference-attestations.jsonl (${attestation.locator})`
@@ -243,6 +269,7 @@ const summary = {
     byClass: {
       // A published source states the level; the row agrees, or carries the change.
       sourceAttested: byKind('vocabulary').filter(row => ['verified_agree', 'verified_corrected', 'verified_precedence'].includes(row.disposition)).length,
+      newReferenceAttested: byKind('vocabulary').filter(row => row.disposition === 'verified_new_reference').length,
       // Attested, but at a band the seed set deliberately does not include.
       belowScope: byKind('vocabulary').filter(row => row.disposition === 'verified_below_scope').length,
       // Attested, but the id is pinned by the frozen dev4 ledger.
@@ -261,6 +288,7 @@ const summary = {
     outstanding: byKind('phrase').filter(row => row.disposition === 'machine_assessed').length,
     byClass: {
       phraseListed: byKind('phrase').filter(row => ['verified_agree', 'verified_corrected', 'verified_precedence'].includes(row.disposition)).length,
+      constituentBound: byKind('phrase').filter(row => row.disposition === 'verified_constituent_bound').length,
       noPhraseReference: byKind('phrase').filter(row => row.disposition === 'editorial_no_reference').length,
       corrected: byKind('phrase').filter(row => row.disposition.endsWith('_corrected')).length
     },

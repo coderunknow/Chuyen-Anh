@@ -13,7 +13,7 @@
     "mergedFamilyForms": 740,
     "activeHeadwords": 5841,
     "archivedHeadwords": 1271,
-    "phrases": 780
+    "phrases": 1094
   },
   "before": {
     "activeByLevel": {
@@ -37,9 +37,9 @@
     "phraseByLevel": {
       "A1": 0,
       "A2": 0,
-      "B1": 112,
-      "B2": 301,
-      "C1": 288,
+      "B1": 387,
+      "B2": 324,
+      "C1": 304,
       "C2": 79,
       "UNCLASSIFIED": 0
     }
@@ -67,9 +67,9 @@
     "phraseByLevel": {
       "A1": 0,
       "A2": 0,
-      "B1": 112,
-      "B2": 301,
-      "C1": 288,
+      "B1": 387,
+      "B2": 324,
+      "C1": 304,
       "C2": 79,
       "UNCLASSIFIED": 0
     }
@@ -3817,6 +3817,15 @@
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P1076",
+        "phrase": "meet the demand",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       }
     ]
   },
@@ -3844,10 +3853,10 @@
     "wordFormationActive": 79,
     "confusableActive": 34,
     "linkerActive": 59,
-    "phrasalVerbs": 184,
-    "idioms": 133,
-    "collocations": 192,
-    "dependentPrepositions": 105,
+    "phrasalVerbs": 412,
+    "idioms": 185,
+    "collocations": 210,
+    "dependentPrepositions": 120,
     "linkerPhrases": 90,
     "sentencePatterns": 76
   },

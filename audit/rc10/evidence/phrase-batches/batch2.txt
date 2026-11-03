@@ -1,0 +1,86 @@
+a sense of achievement	collocation	cảm giác đạt được thành tựu	Cụm diễn tả cảm giác tích cực khi hoàn thành việc gì.	a sense of achievement	psychology	reading,writing
+at a loss	idiom	lúng túng, không biết làm gì	Diễn tả trạng thái không biết xử lý ra sao.	be at a loss (for words)	psychology	reading
+at first hand	idiom	tận mắt, trực tiếp	Diễn tả việc trải nghiệm trực tiếp chứ không qua người khác.	know/learn + N + at first hand	academic	reading,writing
+bear in mind	idiom	ghi nhớ, lưu ý	Diễn tả việc cần nhớ một điều khi quyết định.	bear in mind that + clause	academic	reading,writing
+by chance	idiom	tình cờ	Diễn tả việc gì xảy ra ngẫu nhiên.	happen + by chance	academic	reading
+come to light	idiom	được phát hiện, lộ ra	Diễn tả thông tin trước đó chưa biết nay được công bố.	+ S + came to light	media	reading,writing
+cut a long story short	idiom	nói ngắn gọn lại	Diễn tả việc bỏ qua chi tiết để đi vào ý chính.	to cut a long story short, + clause	media	reading
+fair enough	idiom	được, chấp nhận được	Diễn tả sự chấp nhận một lý do hợp lý (khẩu ngữ).	fair enough	society	reading
+fill the gap	idiom	lấp đầy khoảng trống	Diễn tả việc bù vào phần còn thiếu.	fill the gap (in + N)	education	reading,writing
+for good	idiom	vĩnh viễn	Diễn tả việc gì kết thúc và không quay lại.	+ V + for good	psychology	reading
+hold water	idiom	đứng vững, có lý	Diễn tả một lập luận đủ chắc để chấp nhận.	+ N + does not hold water	academic	reading,writing
+in detail	idiom	chi tiết	Diễn tả việc trình bày kỹ từng phần.	describe + N + in detail	academic	reading,writing
+in good time	idiom	đúng lúc, sớm hơn hạn	Diễn tả việc hoàn thành trước thời hạn.	arrive + in good time	work	reading
+in hand	idiom	đang được xử lý; sẵn trong tay	Diễn tả việc gì đang được kiểm soát.	have + N + in hand	work	reading,writing
+in place of	idiom	thay cho	Diễn tả việc dùng cái này thay cái khác.	in place of + N	academic	reading,writing
+in practice	idiom	trên thực tế	Diễn tả sự khác biệt giữa lý thuyết và thực tế.	in practice	academic	reading,writing
+in principle	idiom	về nguyên tắc	Diễn tả điều đúng trên lý thuyết.	in principle	academic	reading,writing
+in progress	idiom	đang tiến hành	Diễn tả việc gì đang được thực hiện.	be in progress	work	reading
+in proportion to	idiom	tương xứng với	Diễn tả tỉ lệ tăng giảm song song.	in proportion to + N	science	reading,writing
+in question	idiom	đang được nói tới	Diễn tả đối tượng đang được bàn trong câu.	the + N + in question	law	reading,writing
+in short supply	idiom	thiếu hụt, khan hiếm	Diễn tả hàng hóa không đủ cung.	be in short supply	economics	reading,writing
+in touch with	idiom	giữ liên lạc với	Diễn tả việc duy trì liên lạc với ai.	keep/stay in touch with + N	society	reading
+keep a record of	collocation	ghi lại, lưu hồ sơ về	Diễn tả việc lưu lại thông tin để tra cứu.	keep a record of + N	academic	reading,writing
+keep from	dependent-preposition	ngăn không cho; giấu không cho biết	Diễn tả việc ngăn ai làm gì.	keep + O + from + V-ing	psychology	reading
+keep in touch	collocation	giữ liên lạc	Diễn tả việc duy trì liên lạc thường xuyên.	keep in touch (with + N)	society	reading
+let alone	idiom	chứ đừng nói tới	Diễn tả việc điều thứ hai còn khó hơn điều thứ nhất.	let alone + N	academic	reading,writing
+let go of	fixed-expression	buông ra, từ bỏ	Diễn tả việc thả vật hoặc từ bỏ cảm xúc.	let go of + N	psychology	reading
+lose sight of	idiom	đánh mất tầm nhìn về, quên đi	Diễn tả việc quên mục tiêu chính.	lose sight of + N	psychology	reading,writing
+make a mess	collocation	làm bừa bộn, làm hỏng	Diễn tả việc làm rối tung mọi thứ.	make a mess (of + N)	family	reading
+make room for	collocation	nhường chỗ cho	Diễn tả việc tạo không gian cho ai hoặc điều gì.	make room for + N	society	reading
+make sense of	collocation	hiểu được ý nghĩa của	Diễn tả việc tìm ra ý nghĩa điều khó hiểu.	make sense of + N	academic	reading,writing
+make sure	collocation	bảo đảm, chắc chắn	Diễn tả việc kiểm tra để chắc điều gì xảy ra.	make sure (that) + clause	academic	reading,writing
+make the best of	collocation	tận dụng tối đa (hoàn cảnh)	Diễn tả việc chấp nhận và tận dụng tình cảnh.	make the best of + N	psychology	reading
+make way for	collocation	nhường đường cho	Diễn tả việc nhường chỗ cho cái mới.	make way for + N	society	reading
+miss the point	idiom	hiểu sai ý chính	Diễn tả việc không nắm được điều quan trọng nhất.	miss the point (of + N)	academic	reading
+no doubt	idiom	chắc chắn, không nghi ngờ	Diễn tả sự chắc chắn khi nhận định.	no doubt, + clause	academic	reading,writing
+not to mention	idiom	chưa kể đến	Diễn tả việc nêu thêm một điểm còn mạnh hơn.	..., not to mention + N	academic	reading,writing
+off the record	idiom	không chính thức, ngoài bản ghi	Diễn tả phát biểu không dùng để trích dẫn.	off the record	media	reading
+on the edge	idiom	bên bờ (nguy hiểm), căng thẳng	Diễn tả trạng thái sắp xảy ra điều nghiêm trọng.	on the edge (of + N)	psychology	reading
+on the rise	idiom	đang gia tăng	Diễn tả xu hướng tăng lên.	be on the rise	economics	reading,writing
+on the spot	idiom	tại chỗ, ngay lập tức	Diễn tả việc gì xử lý ngay tại nơi xảy ra.	decide + on the spot	law	reading
+pay attention	collocation	chú ý	Diễn tả việc tập trung vào điều gì.	pay attention (to + N)	education	reading,writing
+put an end to	idiom	chấm dứt	Diễn tả việc kết thúc điều tiêu cực.	put an end to + N	society	reading,writing
+put down to	dependent-preposition	quy cho là do	Diễn tả việc giải thích nguyên nhân.	put + O + down to + N	academic	reading,writing
+put into practice	idiom	đưa vào thực tiễn	Diễn tả việc áp dụng lý thuyết vào thực tế.	put + N + into practice	education	reading,writing
+put to good use	idiom	tận dụng tốt	Diễn tả việc dùng hiệu quả tiền hoặc kỹ năng.	put + N + to good use	economics	reading,writing
+ring a bell	idiom	nghe quen quen	Diễn tả việc điều gì nghe như đã biết.	+ N + rings a bell	psychology	reading
+run the risk	idiom	liều, có nguy cơ	Diễn tả việc chấp nhận rủi ro.	run the risk of + V-ing	health	reading,writing
+second to none	idiom	không thua kém ai	Diễn tả việc rất xuất sắc trong lĩnh vực nào.	be second to none	culture	reading
+set an example	idiom	nêu gương	Diễn tả việc làm mẫu cho người khác.	set an example (for + N)	education	reading,writing
+share the burden	idiom	chia sẻ gánh nặng	Diễn tả việc cùng chịu trách nhiệm với ai.	share the burden (of + N)	society	reading,writing
+stand in for	dependent-preposition	làm thay (ai)	Diễn tả việc tạm thay vị trí ai đó.	stand in for + N	work	reading
+stand the test of time	idiom	trường tồn theo thời gian	Diễn tả giá trị vẫn đúng qua thời gian dài.	+ S + stands the test of time	culture	reading
+stand up to	dependent-preposition	đương đầu với; chịu được	Diễn tả việc chống lại áp lực hoặc chịu được thử thách.	stand up to + N	psychology	reading
+stay in touch	collocation	giữ liên lạc	Diễn tả lời hẹn tiếp tục liên lạc.	stay in touch (with + N)	society	reading
+take account of	collocation	tính đến, kể đến	Diễn tả việc cân nhắc một yếu tố.	take account of + N	academic	reading,writing
+take part	collocation	tham gia	Diễn tả việc góp mặt vào hoạt động chung.	take part in + N	society	reading,writing
+take place	collocation	diễn ra	Diễn tả việc một sự kiện xảy ra.	+ S + takes place	academic	reading,writing
+take the lead	collocation	dẫn đầu	Diễn tả việc trở thành người dẫn đầu.	take the lead (in + N)	sport	reading
+tell the difference	collocation	phân biệt được sự khác nhau	Diễn tả việc nhận ra hai thứ khác nhau.	tell the difference (between + N)	science	reading
+walk of life	idiom	tầng lớp, nghề nghiệp khác nhau	Diễn tả mọi người đến từ nhiều hoàn cảnh.	people from all walks of life	society	reading,writing
+word of mouth	idiom	truyền miệng	Diễn tả việc thông tin lan qua người quen.	by word of mouth	media	reading
+work of art	idiom	tác phẩm nghệ thuật	Diễn tả sản phẩm nghệ thuật có giá trị.	a work of art	culture	reading
+work up to	dependent-preposition	tiến dần tới (mức cao hơn)	Diễn tả việc tăng dần để đạt mức nào đó.	work up to + N	sport	reading
+by all means	idiom	cứ tự nhiên, bằng mọi cách	Diễn tả sự đồng ý hoặc nỗ lực bằng mọi giá.	by all means	society	reading
+in demand	idiom	được ưa chuộng, có nhu cầu	Diễn tả hàng hóa được nhiều người cần.	be in demand	economics	reading,writing
+keep pace with	idiom	theo kịp tốc độ của	Diễn tả việc bắt kịp sự phát triển.	keep pace with + N	technology	reading,writing
+meet the demand	collocation	đáp ứng nhu cầu	Diễn tả việc cung cấp đủ hàng hóa dịch vụ.	meet the demand for + N	economics	reading,writing
+pave the way	idiom	mở đường cho	Diễn tả việc tạo tiền đề cho việc sau.	pave the way for + N	society	reading,writing
+stock up on	dependent-preposition	tích trữ	Dùng khi mua dự trữ đồ dùng.	stock up on + N	economics	reading
+turn a blind eye	idiom	nhắm mắt làm ngơ	Diễn tả việc cố ý không thấy điều sai.	turn a blind eye to + N	law	reading,writing
+at a glance	idiom	nhìn qua là thấy	Diễn tả việc hiểu ngay khi nhìn thoáng.	at a glance	media	reading,writing
+in the pipeline	idiom	đang được chuẩn bị	Diễn tả việc gì sắp được triển khai.	be in the pipeline	work	reading
+on the horizon	idiom	sắp xảy ra	Diễn tả việc gì sắp tới gần.	be on the horizon	economics	reading,writing
+reach a consensus	collocation	đạt được đồng thuận	Diễn tả việc nhiều bên cùng thống nhất.	reach a consensus (on + N)	politics	reading,writing
+shed light on	idiom	làm rõ	Diễn tả việc giải thích một vấn đề khó.	shed light on + N	academic	reading,writing
+steer clear of	idiom	tránh xa	Diễn tả việc cố tránh điều nguy hiểm.	steer clear of + N	health	reading
+borrow from	dependent-preposition	vay, mượn của	Dùng khi mượn tiền hoặc ý tưởng từ ai.	borrow + N + from + N	economics	reading
+consist of	dependent-preposition	bao gồm	Dùng khi liệt kê các thành phần của một tổng thể.	consist of + N	science	reading,writing
+graduate from	dependent-preposition	tốt nghiệp từ	Dùng khi nói tốt nghiệp một trường.	graduate from + N	education	reading
+refrain from	dependent-preposition	kiềm chế không làm	Dùng khi nhắc ai không nên làm gì.	refrain from + V-ing	law	reading,writing
+vary from	dependent-preposition	khác nhau tùy theo	Dùng khi nói sự khác biệt giữa các trường hợp.	vary from + N + to + N	science	reading,writing
+emerge from	dependent-preposition	nổi lên từ, thoát ra từ	Dùng khi điều gì xuất hiện sau một quá trình.	emerge from + N	science	reading,writing
+get out of	dependent-preposition	thoát khỏi; tránh được	Dùng khi thoát khỏi việc phải làm.	get out of + N	work	reading
+get round to	dependent-preposition	cuối cùng cũng có thời gian làm	Dùng khi nói cuối cùng cũng làm việc bị trì hoãn.	get round to + V-ing	work	reading
+face up to	dependent-preposition	đương đầu với	Dùng khi chấp nhận đối mặt sự thật khó khăn.	face up to + N	psychology	reading,writing
