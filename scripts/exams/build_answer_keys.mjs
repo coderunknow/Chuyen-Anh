@@ -18,6 +18,29 @@ const plan = JSON.parse(fs.readFileSync(path.join(root, 'scripts/exams/selection
 const vocabData = JSON.parse(fs.readFileSync(path.join(root, 'data/vocabulary.json'), 'utf8'));
 const phraseData = JSON.parse(fs.readFileSync(path.join(root, 'data/phrases.json'), 'utf8'));
 
+// The lexical indices below are evidence for *inferring* an answer key on a paper
+// whose own key is missing, so they must not drift when the teaching bank grows:
+// a word or phrase added to the vocabulary list last week says nothing about a
+// 2022 exam, and a larger bank must never make the inference look more confident.
+// `scripts/exams/inference-lexicon.json` is the reviewed boundary — the vocabulary
+// and phrases that existed when these keys were last reviewed. Extending it is a
+// human decision recorded in that file, not a side effect of a data update.
+const inferencePin = (() => {
+  const file = path.join(root, 'scripts/exams/inference-lexicon.json');
+  if (!fs.existsSync(file)) return null;
+  const pin = JSON.parse(fs.readFileSync(file, 'utf8'));
+  return {
+    vocabulary: new Set((pin.vocabulary || []).map(word => String(word).toLowerCase())),
+    phrases: new Set((pin.phrases || []).map(phrase => String(phrase).toLowerCase()))
+  };
+})();
+const pinnedVocabulary = Array.isArray(vocabData)
+  ? (inferencePin ? vocabData.filter(row => inferencePin.vocabulary.has(String(row.word || '').toLowerCase())) : vocabData)
+  : vocabData;
+const pinnedPhrases = Array.isArray(phraseData)
+  ? (inferencePin ? phraseData.filter(row => inferencePin.phrases.has(String(row.phrase || '').toLowerCase())) : phraseData)
+  : phraseData;
+
 // Build lexical, phonetic, morphological, and phrase indices from curated local datasets.
 const ipaMap = new Map();
 const posMap = new Map();
@@ -32,7 +55,7 @@ function addRootEntry(base, form, pos = '') {
   rootFamilyMap.get(k).set(f, pos || rootFamilyMap.get(k).get(f) || '');
 }
 
-const vocabRows = Array.isArray(vocabData) ? vocabData : (vocabData.words || vocabData.items || []);
+const vocabRows = Array.isArray(pinnedVocabulary) ? pinnedVocabulary : (pinnedVocabulary.words || pinnedVocabulary.items || []);
 for (const entry of vocabRows) {
   const w = String(entry.word || '').toLowerCase().trim();
   if (!w) continue;
@@ -54,7 +77,7 @@ for (const entry of vocabRows) {
 }
 
 const phraseExpressions = [];
-const phraseRows = Array.isArray(phraseData) ? phraseData : (phraseData.phrases || phraseData.items || []);
+const phraseRows = Array.isArray(pinnedPhrases) ? pinnedPhrases : (pinnedPhrases.phrases || pinnedPhrases.items || []);
 for (const p of phraseRows) {
   const expr = String(p.phrase || p.expression || p.headword || '').toLowerCase().trim();
   if (expr) phraseExpressions.push(expr);

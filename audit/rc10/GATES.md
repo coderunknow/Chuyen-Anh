@@ -161,3 +161,45 @@ python3 audit/rc10/tools/add-phrases.py evidence/phrase-batches/batch1.txt evide
 python3 scripts/build_phrases.py && python3 scripts/embed_phrases.py
 python3 audit/rc10/tools/phrase-resolve.py && node audit/rc10/tools/build-audit.mjs
 ```
+
+## A defect rc10 introduced and then removed: exam inference must not grow with the bank
+
+`scripts/exams/build_answer_keys.mjs` infers a provisional key for a paper that has
+no key of its own by scoring each option against the **teaching bank** (the phrase
+bank and the vocabulary list). rc10 added 2,000 words and 314 phrases to that bank,
+so the score of every option rose a little — and eight items that had *no* key at
+all crossed the threshold and became "scorable" answers:
+
+| Paper | Item | Inferred | Confidence | Review |
+| --- | --- | --- | --- | --- |
+| `2022/bac-kan/so` | 33 | A. way | LOW | **wrong** — the transcription's own gloss reads `get/fall/settle into a routine`, so the key is C. routine |
+| `2022/tay-ninh/so` | 23 | D. steer | MEDIUM | right — `steer clear of` (a phrase rc10 added) genuinely fits |
+| `2023/da-nang/so` | 7 | C. test | MEDIUM | unverified |
+| `2023/dak-nong/so` | 32 | B. achieve | MEDIUM | unverified |
+| `2023/ha-noi/chuyen-su-pham` | 35 | C. touch | MEDIUM | unverified |
+| `2023/hung-yen/so` | 5 | B. practice | MEDIUM | unverified |
+| `2025/quang-ninh/so` | 5 | B. rise | MEDIUM | unverified |
+| `2026/lao-cai/so` | 3 | A. together | MEDIUM | unverified |
+
+That is not an acceptable trade: a learner would be graded against a machine guess
+that only appeared because the vocabulary list got longer. A word added to the
+teaching bank is not evidence about a 2022 exam paper.
+
+**Fix, and why it is a boundary rather than a tweak:** inference now reads
+`scripts/exams/inference-lexicon.json` — the vocabulary and phrases that existed
+when the keys were last reviewed (`c427be2`: 5,852 words, 780 phrases). Extending
+that pin is a human decision recorded in the file, made with the diff of
+`data/exam-answer-keys.json` in front of the reviewer.
+
+Measured after the fix: the regenerated `data/exam-answer-keys.json`,
+`docs/exam-scoring-audit.json` and `.md` are **byte-identical to the pre-rc10
+artifacts** (3,011 of 6,804 scorable, 3,793 missing), i.e. rc10 changed no answer
+key. The eight items above are recorded in
+`evidence/exam-inference-impact.jsonl` with their review, and
+`tests/test_exam_inference_pin.py` (4 tests) holds the three properties that keep
+the pin honest: it names its revision, every pinned row still exists, and the rc10
+additions are genuinely outside it while the builder reads it.
+
+This is also why `--check` on `build_answer_keys.mjs` failed on the previous heads:
+the enlarged bank had changed the generated keys, and the workflow was right to
+refuse them.
