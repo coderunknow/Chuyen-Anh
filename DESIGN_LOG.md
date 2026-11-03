@@ -2007,3 +2007,12 @@ set to `v1.0.0-rc10`. Stable `v1.0.0` remains NO-GO (no official answer key).
 fail-closed tests); Node `144` static pass; `exam-scoring` + `exam-anomalies` +
 `rc10-cefr` `41` pass; `build_answer_keys.mjs --check` clean. CI green on
 chromium/firefox/webkit.
+
+**Release executed (2026-11-03).** PR #81 merged into `main` at merge commit
+`a6c1ca6`. Tag `v1.0.0-rc10` created at `72afdc7` after two post-merge test-fix
+commits (version assertions and version literals updated to rc10). Release
+artifacts workflow `41648115778` built HTML (19,000,308 B, SHA-256 verified),
+ZIP (2,538,587 B) and checksums from the tag. Prerelease published at
+2026-11-03T13:58:24Z. Deploy Flashcard workflow `41649172113` ran the full test
+matrix and deployed to Pages. Pages smoke test `41648090805` verified the live
+site. Telemetry smoke test `41648090779` passed. Stable `v1.0.0` remains NO-GO.

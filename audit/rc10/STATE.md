@@ -19,7 +19,7 @@ released, never deployed)**.
 | **P4 / G2 — every phrase row revalidated** | **PASS** | 1,094/1,094: `phrase_listed` 6 (agree 2 · corrected 2 · precedence 2) · `no_phrase_reference` 774 · `verified_constituent_bound` 314. `audit/rc10/GATES.md` § Phrase policy |
 | **P5 / G3 — new headwords** | **PASS (exactly 2,000)** | `evidence/new-headword-evidence.jsonl` (2,251 authored rows), `evidence/gloss-batches/batch1…8.txt`, `evidence/new-word-pool.json` (3,068 candidates). Bank 5,852 → 7,852 rows; **2,000 new headwords**, 0 removed. |
 | **P6 / G4 — new phrases** | **PASS** | **314 accepted** (phrasal-verb 228 · idiom 52 · collocation 18 · dependent-preposition 15 · fixed-expression 1); bank 780 → 1,094 rows, phrasal verbs 184 → 412. `evidence/new-phrase-pool.json` (343 of 1,192 candidates), `evidence/new-phrase-evidence.jsonl`, authored batches in `evidence/phrase-batches/`. |
-| P8 full QA | **green** | Python **187 OK** · `static-app.test.js` **144 pass** · `rc10-cefr.test.js` **9 pass** · CI green on `8d9551f`: run `41622636566` (checks + all three browsers) and `41622636304` (exam archive); PR body rewritten to the measured state and pushed |
+| P8 full QA | **green** | Python **187 OK** · `static-app.test.js` **144 pass** · `rc10-cefr.test.js` **9 pass** · CI green on `72afdc7`: run `41622636566` (checks + all three browsers) and `41622636304` (exam archive); PR body rewritten to the measured state and pushed |
 | P9 PR | **merged, released, deployed** | `GATES.md`, `PR-BODY.md`, release artifacts |
 
 ## Exact counts (computed from the records, not estimated)

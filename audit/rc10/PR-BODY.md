@@ -2,7 +2,7 @@
 
 rc10: a CEFR study-pool fix, a full revalidation of every stored row, and — new in this round — **exactly 2,000 evidence-backed new headwords and 314 new phrases**.
 
-**Merged, released as `v1.0.0-rc10`, Pages deployed.** All phases P1–P9 are measured and closed.
+**Merged into `main` (merge commit `a6c1ca6`), tag `v1.0.0-rc10` at `72afdc7`, prerelease published, Pages deployed at https://coderunknow.github.io/Chuyen-Anh/.** All phases P1–P9 are measured and closed.
 
 ## Head `4dc4d3e` (this is the whole round)
 
@@ -54,7 +54,7 @@ Python **187 OK** (176 original + 11 new fail-closed regression tests) · `stati
 
 ### CI on `4dc4d3e`
 
-**Green**: workflow `41622636566` — `checks`, `browser (chromium)`, `browser (firefox)`, `browser (webkit)` all success; workflow `41622636304` (Validate exam archive) success. Firefox and WebKit run only in CI. Bot state recorded as-is: Kilo review not started (billing), CodeRabbit skipped (repo <10 stars), Copilot review quota exhausted.
+**Green**: workflow `41648090847` — `checks` + all three browsers success; `41648090805` Pages smoke test success; `41648090779` telemetry smoke success; `41649172113` Deploy Flashcard success; `41648115778` Release artifacts success (HTML 19,000,308 B, ZIP 2,538,587 B, checksums). Release published 2026-11-03T13:58:24Z. Firefox and WebKit run only in CI. Bot state recorded as-is: Kilo review not started (billing), CodeRabbit skipped (repo <10 stars), Copilot review quota exhausted.
 
 ## Gates
 

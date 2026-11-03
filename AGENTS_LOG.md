@@ -1236,3 +1236,9 @@ artifacts built by run `40863169016`, Pages deployment `7410642916` from run `40
   tests prove all six failure modes). G5 populated with reconciled evidence. Python
   187 OK; Node 144 static + 41 exam/scoring pass. CI green on all three browser
   engines. Stable `v1.0.0` remains NO-GO (no official answer key obtained).
+
+- **Release executed (2026-11-03).** PR #81 merged into `main` (merge commit
+  `a6c1ca6`). Tag `v1.0.0-rc10` at `72afdc7`. Prerelease published 2026-11-03T13:58:24Z
+  with HTML/ZIP/checksums assets. Deploy Flashcard `41649172113` success; Pages
+  deployed at https://coderunknow.github.io/Chuyen-Anh/. Pages smoke `41648090805`
+  and telemetry smoke `41648090779` both pass. Stable `v1.0.0` remains NO-GO.
