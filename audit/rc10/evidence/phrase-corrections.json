@@ -1,0 +1,22 @@
+{
+  "generatedAt": "2026-11-02",
+  "count": 2,
+  "corrections": [
+    {
+      "id": "P083",
+      "item": "turn to",
+      "from": "B2",
+      "to": "C1",
+      "disposition": "verified_corrected",
+      "source": "octanove_c1c2"
+    },
+    {
+      "id": "P501",
+      "item": "owing to",
+      "from": "C1",
+      "to": "B2",
+      "disposition": "verified_corrected",
+      "source": "cefrj_1_5"
+    }
+  ]
+}

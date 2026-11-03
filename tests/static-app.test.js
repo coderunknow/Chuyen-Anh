@@ -186,7 +186,7 @@ function failingStore() {
 test('the only runtime deliverable is a self-contained HTML document', async () => {
   const sourceData = JSON.parse(await readFile(new URL('data/vocabulary.json', root), 'utf8'));
   assert.deepEqual(embeddedVocabulary, sourceData);
-  assert.equal(embeddedVocabulary.length, 5852);
+  assert.equal(embeddedVocabulary.length, 7852);
   assert.equal(embeddedVocabulary.slice(0, 913).length, 913, 'the legacy block keeps IDs 1-913');
   assert.match(html, /<style>[\s\S]*?<\/style>/i);
   assert.doesNotMatch(html, /<link\b/i);
@@ -296,7 +296,7 @@ test('every sentence in the privacy panel translates in the English interface', 
 
 test('embedded vocabulary loads without fetch and passes runtime validation', async () => {
   const loaded = await loadVocabulary(embeddedRaw);
-  assert.equal(loaded.data.length, 5852);
+  assert.equal(loaded.data.length, 7852);
   assert.equal(loaded.data[0].word, 'Adversity');
   assert.equal(loaded.data[912].word, 'Virtually');
   assert.match(loaded.version, /^[0-9a-f]+-[0-9a-f]{8}$/);
@@ -311,7 +311,7 @@ test('embedded vocabulary loads without fetch and passes runtime validation', as
   };
   try {
     const fromPage = await loadVocabulary();
-    assert.equal(fromPage.data.length, 5852);
+    assert.equal(fromPage.data.length, 7852);
   } finally {
     if (previousDocument === undefined) delete globalThis.document;
     else globalThis.document = previousDocument;
@@ -324,8 +324,8 @@ test('same-root forms are folded into their headword, never counted as words', a
   const headwords = loaded.data.filter(entry => !entry.familyHead);
 
   // The dataset keeps every audited row, but only one row per root is a word.
-  assert.equal(loaded.data.length, 5852);
-  assert.equal(headwords.length, 5112);
+  assert.equal(loaded.data.length, 7852);
+  assert.equal(headwords.length, 7112);
   assert.equal(familyHeadOf.size, 740);
   assert.equal(headwords.length + familyHeadOf.size, loaded.data.length);
 
@@ -424,10 +424,10 @@ test('the search index is only warmed where warming is free', () => {
 test('the learner-facing word count is the focus deck, not every stored row', async () => {
   const loaded = await loadVocabulary(embeddedRaw);
   const active = loaded.data.filter(entry => !entry.familyHead);
-  assert.equal(active.length, 5112);
+  assert.equal(active.length, 7112);
   const archived = active.filter(entry => isArchivedEntry(entry));
   assert.equal(archived.length, 1271);
-  assert.equal(active.length - archived.length, 3841);
+  assert.equal(active.length - archived.length, 5841);
   // Every archived headword names a reviewed category, and no legacy row (the
   // maintainer's own list, IDs 1-913) is ever archived.
   for (const entry of archived) {
@@ -3332,18 +3332,18 @@ test('rc2: every turn shape introduces a new word before grading it', () => {
 });
 
 test('rc2: vocabulary coverage reconciles the full headword inventory', () => {
-  assert.equal(rc2Heads.length, 5112, 'active headwords');
+  assert.equal(rc2Heads.length, 7112, 'active headwords');
   assert.equal(embeddedVocabulary.filter(entry => entry.familyHead).length, 740, 'merged same-root forms');
   // Every headword is reachable through lookup and through a new-word session.
   const progress = ensureProgress({}, rc2Heads);
-  assert.equal(Object.keys(progress).length, 5112);
+  assert.equal(Object.keys(progress).length, 7112);
   assert.ok(Object.values(progress).every(record => record.state === STATES.NEW),
     'an untouched profile normalises every headword to new');
   const allNew = selectSession(rc2Heads, progress, { size: rc2Heads.length, mode: 'new' });
-  assert.equal(new Set(allNew.map(item => item.vocab.id)).size, 5112,
+  assert.equal(new Set(allNew.map(item => item.vocab.id)).size, 7112,
     'a new-word session can queue every headword exactly once');
   const index = createSearchIndex(rc2Heads, progress, new Set());
-  assert.equal(new Set(searchVocabulary(index, '', {}).map(item => item.entry.id)).size, 5112,
+  assert.equal(new Set(searchVocabulary(index, '', {}).map(item => item.entry.id)).size, 7112,
     'lookup reaches every headword');
   // No merged form is a schedulable card or a lookup row of its own.
   const headIds = new Set(rc2Heads.map(entry => entry.id));
@@ -3356,17 +3356,17 @@ test('rc2: vocabulary coverage reconciles the full headword inventory', () => {
   for (const type of app.EXERCISE_ORDER) {
     availability[type] = rc2Heads.filter(entry => app.exerciseAvailability(type, entry, rc2Heads)).length;
   }
-  assert.equal(availability.flashcard, 5112);
+  assert.equal(availability.flashcard, rc2Heads.length);
   // rc7: recorded loanword glosses that *are* the headword ("proton" →
   // "proton") — or contain it as one recorded sense — cannot be asked in a
   // direction where stimulus and answer would be the same text. They keep
   // the flashcard path, so coverage below still reconciles per headword.
   const degenerateHeads = rc2Heads.filter(entry => glossEqualsWord(entry)).length;
   const segmentHeads = rc2Heads.filter(entry => glossSegmentEqualsWord(entry)).length;
-  assert.equal(availability.fill_vi, 5112 - segmentHeads,
+  assert.equal(availability.fill_vi, rc2Heads.length - segmentHeads,
     'typed Vietnamese refuses a gloss sense that copies the prompt word');
-  assert.equal(availability.match, 5112 - degenerateHeads);
-  assert.equal(availability.mc4, 5112 - degenerateHeads, 'every askable headword has three distinct meaning distractors');
+  assert.equal(availability.match, rc2Heads.length - degenerateHeads);
+  assert.equal(availability.mc4, rc2Heads.length - degenerateHeads, 'every askable headword has three distinct meaning distractors');
   assert.equal(availability.cloze, rc2Heads.filter(entry => usableClozeExample(entry)).length,
     'cloze reaches exactly the headwords with a blankable recorded example');
   assert.equal(availability.fill_en, rc2Heads.filter(entry => isTypableHeadword(entry.word) && glossPromptUsable(entry)).length,
@@ -4237,28 +4237,25 @@ test('the shipped vocabulary keeps every row and every level is selectable', () 
   const archived = headwords.filter(entry => app.isArchivedEntry(entry));
   const deck = headwords.filter(entry => !app.isArchivedEntry(entry));
   const counts = app.countVocabularyByCefr(deck);
-  // Snapshot of the shipped deck after the rc10 attested-level corrections
-  // (9 seed rows re-labelled from a publisher page — see
-  // audit/rc10/evidence/corrections-applied.jsonl). `academic` moved B2->B1
-  // *inside* the deck: curation decisions are frozen per row ID, so a level
-  // correction never changes deck membership. The total is unchanged:
-  // 164 + 885 + 1275 + 674 + 843 = 3,841.
-  // rc10 re-levelled 1,921 seed rows against published CEFR references (The Oxford
-  // 3000 and 5000; CEFR-J Vocabulary Profile 1.5; Octanove C1/C2), so the bands
-  // moved while the deck did not: still 3,841 taught headwords and 1,271 archived.
-  // See audit/rc10/evidence/corrections-applied.jsonl for every change.
-  assert.deepEqual(counts, { A1: 0, A2: 0, B1: 496, B2: 975, C1: 996, C2: 531, UNCLASSIFIED: 843 },
+  // Snapshot of the shipped deck after rc10 P5 added 2,000 verified headwords
+  // (audit/rc10/evidence/new-headword-evidence.jsonl, one evidence record per
+  // row) on top of the attested-level corrections. Deck 5,841 taught headwords
+  // and 1,271 archived: 757 + 1,714 + 1,638 + 889 + 843 = 5,841.
+  // The 843 untagged legacy headwords stay Unclassified — rc10 never invents a
+  // level for a row it has no published reference for.
+  // See audit/rc10/evidence/corrections-applied.jsonl for every level change.
+  assert.deepEqual(counts, { A1: 0, A2: 0, B1: 757, B2: 1714, C1: 1638, C2: 889, UNCLASSIFIED: 843 },
     'the shipped deck keeps its labels; A1/A2 are selectable even though no row carries them yet');
-  assert.equal(headwords.length, 5112);
+  assert.equal(headwords.length, 7112);
   assert.equal(archived.length, 1271);
-  assert.equal(deck.length, 3841);
+  assert.equal(deck.length, 5841);
   // The default selection is a filter, not a deletion: archived rows and
   // out-of-band rows are still in the data and still counted.
-  assert.equal(app.filterVocabularyByCefr(deck, app.defaultCefrSelection()).length, 1971);
+  assert.equal(app.filterVocabularyByCefr(deck, app.defaultCefrSelection()).length, 3352);
   assert.equal(app.countVocabularyByCefr(embeddedVocabulary.filter(entry => !entry.familyHead)).UNCLASSIFIED, 843,
     'the 843 untagged legacy headwords stay Unclassified instead of being assigned a level');
   assert.equal(app.countVocabularyByCefr(embeddedVocabulary).UNCLASSIFIED, 913,
-    '913 of the 5,852 rows carry no level tag; none of them is given an invented level');
+    '913 of the 7,852 rows carry no level tag; none of them is given an invented level');
   const phrases = embeddedPhrases;
   const phraseLevels = {};
   for (const phrase of phrases) phraseLevels[app.phraseCefrLevel(phrase)] = (phraseLevels[app.phraseCefrLevel(phrase)] || 0) + 1;

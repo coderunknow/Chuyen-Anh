@@ -1,0 +1,251 @@
+agony	cơn đau đớn tột cùng	health
+adore	yêu thích, tôn thờ	psychology
+ageless	không tuổi tác	psychology
+absentee	người vắng mặt	education
+analyst	nhà phân tích	economics
+anguish	nỗi thống khổ	psychology
+aristocracy	tầng lớp quý tộc	politics
+arrow	mũi tên	sport
+artistry	tay nghề nghệ thuật	culture
+atypical	không điển hình	science
+ballad	bản ballad	culture
+banker	chủ ngân hàng	economics
+barometer	phong vũ biểu	science
+bartender	người pha chế rượu	work
+benevolence	lòng nhân từ	psychology
+bestow	trao tặng	culture
+booklet	tập sách nhỏ	media
+botany	thực vật học	science
+bothersome	phiền phức	society
+brag	khoe khoang	psychology
+breakup	sự chia tay, tan rã	family
+breezy	thoáng gió	environment
+brewery	xưởng bia	food
+brother-in-law	anh rể, em rể	family
+bun	bánh mì tròn	food
+caravan	đoàn xe, xe kéo	travel
+cascade	thác nước, chuỗi	environment
+catchy	dễ nhớ, hấp dẫn	media
+cellar	hầm chứa	food
+cello	đàn cello	culture
+certify	chứng nhận	law
+chancellor	thủ tướng, hiệu trưởng	politics
+chaotic	hỗn loạn	society
+checkpoint	trạm kiểm soát	travel
+chemotherapy	hóa trị	health
+choir	dàn hợp xướng	culture
+clap	vỗ tay	culture
+clarify	làm rõ	academic
+clerical	thuộc văn thư	work
+clog	làm tắc nghẽn	travel
+coma	hôn mê	health
+commonwealth	khối thịnh vượng chung	politics
+compassionate	đầy lòng trắc ẩn	psychology
+compression	sự nén	science
+consolation	sự an ủi	psychology
+cube	khối lập phương	science
+culmination	đỉnh cao, kết thúc	academic
+curl	cuộn, xoăn	health
+dandelion	cây bồ công anh	environment
+darling	người yêu dấu	family
+daughter-in-law	con dâu	family
+dearly	tha thiết	family
+debit	ghi nợ	economics
+deduce	suy ra	academic
+depart	khởi hành	travel
+desolation	sự hoang tàn	environment
+dignify	làm cho xứng đáng	society
+disciple	môn đồ	culture
+discredit	làm mất uy tín	media
+disgrace	sự ô nhục	society
+displeasure	sự không hài lòng	psychology
+disqualify	truất quyền	sport
+dissident	người bất đồng chính kiến	politics
+dock	bến tàu	economics
+doorway	khung cửa	travel
+dreamy	mơ màng	psychology
+duel	cuộc đấu tay đôi	culture
+dwarf	người lùn, làm lu mờ	culture
+dye	thuốc nhuộm	culture
+ecstatic	ngây ngất	psychology
+elect	bầu chọn	politics
+eloquence	sự hùng biện	education
+engulf	nhấn chìm	environment
+everlasting	vĩnh cửu	culture
+evidently	rõ ràng là	academic
+exclaim	thốt lên	psychology
+eyelid	mí mắt	health
+fingernail	móng tay	health
+firefighter	lính cứu hỏa	work
+flap	vỗ, nắp	technology
+flip	búng, trở (đồng xu, trang)	academic
+folly	sự dại dột	psychology
+foresee	thấy trước	academic
+fox	con cáo	environment
+frantically	điên cuồng	psychology
+gang	băng nhóm	society
+gangster	tội phạm có tổ chức	law
+germ	vi trùng	health
+getaway	sự trốn thoát, nơi nghỉ ngơi	travel
+gleam	ánh lên	science
+glee	sự vui sướng	psychology
+grieve	đau buồn	psychology
+handrail	tay vịn	travel
+heap	đống	academic
+hijack	cướp (máy bay)	law
+hip	hông	health
+hospice	nhà chăm sóc cuối đời	health
+hourly	theo giờ	work
+hover	lơ lửng	technology
+illustration	minh họa	media
+implication	hàm ý, hệ lụy	academic
+improbable	khó có thể xảy ra	academic
+indent	thụt lề	education
+indignity	sự sỉ nhục	psychology
+infringe	xâm phạm	law
+infringement	sự xâm phạm	law
+inseparable	không thể tách rời	psychology
+intrusion	sự xâm nhập	law
+isolate	cô lập	health
+itch	ngứa	health
+judo	nhu đạo	sport
+kerosene	dầu hỏa	economics
+kneel	quỳ	culture
+knot	nút thắt	technology
+lawmaker	nhà lập pháp	politics
+leash	dây xích	environment
+legislate	lập pháp	politics
+lighten	làm nhẹ đi	psychology
+lord	lãnh chúa	culture
+maestro	bậc thầy âm nhạc	culture
+malady	bệnh tật	health
+mate	bạn đời, bạn thân	family
+messenger	người đưa tin	technology
+microbe	vi khuẩn	science
+mistreat	ngược đãi	law
+momentarily	trong chốc lát	academic
+monastery	tu viện	culture
+mortar	vữa, cối	technology
+mournful	buồn thảm	psychology
+mutter	lẩm bẩm	psychology
+narcissistic	tự luyến	psychology
+neurosis	chứng loạn thần kinh	health
+newscaster	phát thanh viên	media
+nobility	giới quý tộc	politics
+nomad	dân du mục	society
+nostril	lỗ mũi	health
+numerical	thuộc số học	science
+oath	lời thề	law
+obedience	sự vâng lời	family
+obituary	cáo phó	media
+ointment	thuốc mỡ	health
+orator	nhà hùng biện	culture
+outfit	bộ trang phục	culture
+outpatient	bệnh nhân ngoại trú	health
+overestimate	đánh giá quá cao	academic
+overshadow	làm lu mờ	media
+overtake	vượt qua	travel
+paramedic	nhân viên cấp cứu	health
+paw	chân thú	environment
+perspiration	mồ hôi	health
+petrified	chết lặng, hóa đá	psychology
+picky	kén chọn	psychology
+piracy	nạn cướp biển, vi phạm bản quyền	law
+playwright	nhà viết kịch	culture
+polo	môn pô-lô	sport
+prose	văn xuôi	culture
+quantify	định lượng	science
+quarrelsome	hay cãi nhau	psychology
+racial	thuộc chủng tộc	society
+radiate	tỏa ra	science
+rainstorm	bão mưa	environment
+reconsider	xem xét lại	academic
+rectangular	hình chữ nhật	science
+refinery	nhà máy lọc	economics
+replica	bản sao	culture
+repression	sự đàn áp, kìm nén	politics
+reprint	tái bản	media
+retina	võng mạc	health
+rhinoceros	tê giác	environment
+riddle	câu đố	culture
+righteousness	sự chính trực	society
+roam	lang thang	travel
+roar	gầm, rống	environment
+royalty	hoàng gia, tiền tác quyền	politics
+rubble	đống gạch vụn	environment
+salon	tiệm làm đẹp	culture
+scarlet	màu đỏ tươi	culture
+scholar	học giả	academic
+scramble	tranh giành, bò trườn	sport
+self-confident	tự tin	psychology
+shipwreck	vụ đắm tàu	travel
+silverware	đồ dùng bằng bạc	food
+sincerity	sự chân thành	psychology
+sister-in-law	chị dâu, em dâu	family
+skim	đọc lướt, hớt bọt	academic
+sob	nức nở	psychology
+softness	sự mềm mại	health
+son-in-law	con rể	family
+specialty	chuyên ngành	education
+spellbound	mê mẩn	psychology
+spokesman	người phát ngôn	media
+spokeswoman	nữ phát ngôn viên	media
+squash	bí, ép bẹp	food
+stammer	nói lắp	health
+startle	làm giật mình	psychology
+starve	chết đói	health
+statesman	chính khách	politics
+stepfather	bố dượng	family
+stepmother	mẹ kế	family
+stern	nghiêm khắc	psychology
+stingy	keo kiệt	economics
+stink	bốc mùi hôi	environment
+stockpile	dự trữ	economics
+stopover	điểm dừng chân	travel
+straighten	làm thẳng	academic
+strangle	bóp nghẹt	law
+subcontinent	tiểu lục địa	science
+subculture	tiểu văn hóa	culture
+subdivision	phân khu	society
+sunbeam	tia nắng	science
+superintendent	người giám sát	work
+supernatural	siêu nhiên	culture
+synonym	từ đồng nghĩa	education
+tack	đinh mũ, hướng đi	technology
+tattoo	hình xăm	culture
+taunt	chế nhạo	psychology
+thigh	đùi	health
+tiresome	mệt mỏi	psychology
+toenail	móng chân	health
+transfusion	truyền máu	health
+transistor	bóng bán dẫn	technology
+tread	giẫm lên	academic
+triangle	tam giác	science
+troop	đoàn quân	politics
+tuberculosis	bệnh lao	health
+tug	kéo mạnh	technology
+twinkle	lấp lánh	science
+typhoid	bệnh thương hàn	health
+tyranny	sự chuyên chế	politics
+tyrant	bạo chúa	politics
+unbeatable	không thể đánh bại	sport
+uncharacteristic	không điển hình	psychology
+uneasily	một cách bất an	psychology
+unenthusiastic	không hào hứng	psychology
+unfold	mở ra, hé lộ	academic
+unjustly	một cách bất công	law
+unselfish	vị tha	psychology
+unsuccessful	không thành công	work
+usher	người dẫn chỗ	culture
+vomit	nôn mửa	health
+warship	tàu chiến	politics
+waterproof	không thấm nước	technology
+wearisome	mệt mỏi	work
+wed	kết hôn	family
+whisper	thì thầm	society
+witty	dí dỏm	psychology
+workbench	bàn thợ	work
+workman	thợ	work
+yummy	ngon tuyệt	food
+zebra	ngựa vằn	environment
+zoom	phóng to, lao nhanh	technology

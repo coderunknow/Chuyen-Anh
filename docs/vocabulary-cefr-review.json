@@ -8,10 +8,10 @@
     "phrases": "a phrase is kept at its own stored level and is never judged by the level of its cheapest constituent word"
   },
   "totals": {
-    "rows": 5852,
-    "headwords": 5112,
+    "rows": 7852,
+    "headwords": 7112,
     "mergedFamilyForms": 740,
-    "activeHeadwords": 3841,
+    "activeHeadwords": 5841,
     "archivedHeadwords": 1271,
     "phrases": 780
   },
@@ -19,19 +19,19 @@
     "activeByLevel": {
       "A1": 0,
       "A2": 0,
-      "B1": 496,
-      "B2": 975,
-      "C1": 996,
-      "C2": 531,
+      "B1": 757,
+      "B2": 1714,
+      "C1": 1638,
+      "C2": 889,
       "UNCLASSIFIED": 843
     },
     "allByLevel": {
       "A1": 0,
       "A2": 0,
-      "B1": 1439,
-      "B2": 1457,
-      "C1": 1445,
-      "C2": 598,
+      "B1": 1700,
+      "B2": 2196,
+      "C1": 2087,
+      "C2": 956,
       "UNCLASSIFIED": 913
     },
     "phraseByLevel": {
@@ -49,19 +49,19 @@
     "activeByLevel": {
       "A1": 0,
       "A2": 0,
-      "B1": 496,
-      "B2": 975,
-      "C1": 996,
-      "C2": 531,
+      "B1": 757,
+      "B2": 1714,
+      "C1": 1638,
+      "C2": 889,
       "UNCLASSIFIED": 843
     },
     "allByLevel": {
       "A1": 0,
       "A2": 0,
-      "B1": 1439,
-      "B2": 1457,
-      "C1": 1445,
-      "C2": 598,
+      "B1": 1700,
+      "B2": 2196,
+      "C1": 2087,
+      "C2": 956,
       "UNCLASSIFIED": 913
     },
     "phraseByLevel": {
@@ -79,14 +79,14 @@
     "Source-supported": 0,
     "Inferred": 3018,
     "Unknown": 913,
-    "Other label source": 1921,
-    "totalRows": 5852,
+    "Other label source": 3921,
+    "totalRows": 7852,
     "labelSources": {
       "none": 913,
       "editorial": 3018,
-      "oxford-3000-5000": 1369,
-      "cefrj-vocabulary-profile-1.5": 448,
-      "octanove-vocabulary-profile-1.0": 104
+      "oxford-3000-5000": 1979,
+      "cefrj-vocabulary-profile-1.5": 1182,
+      "octanove-vocabulary-profile-1.0": 760
     }
   },
   "quality": {
@@ -1916,6 +1916,51 @@
         "id": "4493",
         "word": "lactose",
         "meaning": "lactose (đường sữa)"
+      },
+      {
+        "id": "6254",
+        "word": "trumpet",
+        "meaning": "kèn trumpet"
+      },
+      {
+        "id": "6330",
+        "word": "kangaroo",
+        "meaning": "con kangaroo"
+      },
+      {
+        "id": "6744",
+        "word": "corona",
+        "meaning": "vầng sáng, vi-rút corona"
+      },
+      {
+        "id": "6840",
+        "word": "olympia",
+        "meaning": "Olympia (Hy Lạp cổ)"
+      },
+      {
+        "id": "6855",
+        "word": "penicillin",
+        "meaning": "thuốc penicillin"
+      },
+      {
+        "id": "6961",
+        "word": "aspirin",
+        "meaning": "thuốc aspirin"
+      },
+      {
+        "id": "7365",
+        "word": "concerto",
+        "meaning": "bản concerto"
+      },
+      {
+        "id": "7620",
+        "word": "ballad",
+        "meaning": "bản ballad"
+      },
+      {
+        "id": "7639",
+        "word": "cello",
+        "meaning": "đàn cello"
       }
     ],
     "highLevelPhrasesWithOnlyLowLevelConstituents": [
@@ -1958,6 +2003,15 @@
       {
         "id": "P042",
         "phrase": "keep up with",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P044",
+        "phrase": "lay off",
         "phraseLevel": "B2",
         "constituentLevels": [
           "B1"
@@ -2057,7 +2111,7 @@
       {
         "id": "P083",
         "phrase": "turn to",
-        "phraseLevel": "B2",
+        "phraseLevel": "C1",
         "constituentLevels": [
           "B1"
         ],
@@ -2361,15 +2415,6 @@
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
       {
-        "id": "P213",
-        "phrase": "bite the bullet",
-        "phraseLevel": "C2",
-        "constituentLevels": [
-          "B1"
-        ],
-        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
-      },
-      {
         "id": "P214",
         "phrase": "blow the whistle on",
         "phraseLevel": "C2",
@@ -2550,15 +2595,6 @@
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
       {
-        "id": "P271",
-        "phrase": "not rocket science",
-        "phraseLevel": "B2",
-        "constituentLevels": [
-          "B1"
-        ],
-        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
-      },
-      {
         "id": "P275",
         "phrase": "on the fence",
         "phraseLevel": "C1",
@@ -2705,6 +2741,15 @@
       {
         "id": "P315",
         "phrase": "without a doubt",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P317",
+        "phrase": "worth one's while",
         "phraseLevel": "C1",
         "constituentLevels": [
           "B1"
@@ -3072,6 +3117,15 @@
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
       {
+        "id": "P451",
+        "phrase": "suffer from stress",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
         "id": "P455",
         "phrase": "treat a patient",
         "phraseLevel": "B2",
@@ -3362,6 +3416,15 @@
       {
         "id": "P604",
         "phrase": "provide with",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P605",
+        "phrase": "supply with",
         "phraseLevel": "B2",
         "constituentLevels": [
           "B1"
@@ -3666,15 +3729,6 @@
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
       {
-        "id": "P745",
-        "phrase": "in spite of the fact that",
-        "phraseLevel": "C1",
-        "constituentLevels": [
-          "B1"
-        ],
-        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
-      },
-      {
         "id": "P746",
         "phrase": "regardless of whether",
         "phraseLevel": "C2",
@@ -3738,6 +3792,15 @@
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
       {
+        "id": "P778",
+        "phrase": "it is worth noting",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
         "id": "P779",
         "phrase": "a case in point",
         "phraseLevel": "B2",
@@ -3761,23 +3824,23 @@
     "activeByLevel": {
       "A1": 0,
       "A2": 0,
-      "B1": 496,
-      "B2": 975,
-      "C1": 996,
-      "C2": 531,
+      "B1": 757,
+      "B2": 1714,
+      "C1": 1638,
+      "C2": 889,
       "UNCLASSIFIED": 843
     },
     "activeByType": {
-      "topic": 1667,
-      "academic": 1037,
+      "topic": 3436,
+      "academic": 1268,
       "none": 843,
       "core": 122,
       "word-formation": 79,
       "linker": 59,
       "confusable": 34
     },
-    "advancedShare": 65.1,
-    "academicActive": 1037,
+    "advancedShare": 72.6,
+    "academicActive": 1268,
     "wordFormationActive": 79,
     "confusableActive": 34,
     "linkerActive": 59,

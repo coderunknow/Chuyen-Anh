@@ -9,19 +9,19 @@ Báo cáo này sinh tự động từ `Learned_Vocabulary_List.md`, `docs/vocabu
 
 ## Kết quả chọn lọc
 
-- Tổng số hàng: **5,852** · headword: **5,112** · dạng cùng gốc đã gộp: **740**.
-- Bộ từ học mặc định (trọng tâm): **3,841** headword.
+- Tổng số hàng: **7,852** · headword: **7,112** · dạng cùng gốc đã gộp: **740**.
+- Bộ từ học mặc định (trọng tâm): **5,841** headword.
 - Đưa ra khỏi bộ từ học mặc định (lưu trữ, giữ nguyên ID và tiến độ): **1,271** headword (1,271 hàng kể cả dạng cùng gốc).
 
 ### Bộ từ trọng tâm theo nhóm
 
 | Trường | Phân bố |
 | --- | --- |
-| Level (biên tập) | (none): 843, B1: 496, B2: 975, C1: 996, C2: 531 |
-| Type | (none): 843, academic: 1,037, confusable: 34, core: 122, linker: 59, topic: 1,667, word-formation: 79 |
-| Topic | (none): 843, academic: 898, culture: 111, daily-life: 119, economics: 143, education: 100, environment: 240, family: 15, food: 50, health: 177, law: 91, media: 89, politics: 97, psychology: 220, science: 137, society: 184, sport: 32, technology: 98, travel: 85, work: 112 |
-| Có bằng chứng xuất hiện trong bản chép đề | 2,918 |
-| Không có bằng chứng bản chép (vẫn giữ theo loại từ/họ từ/legacy) | 923 |
+| Level (biên tập) | (none): 843, B1: 757, B2: 1,714, C1: 1,638, C2: 889 |
+| Type | (none): 843, academic: 1,268, confusable: 34, core: 122, linker: 59, topic: 3,436, word-formation: 79 |
+| Topic | (none): 843, academic: 1,129, culture: 323, daily-life: 122, economics: 231, education: 143, environment: 340, family: 60, food: 89, health: 346, law: 215, media: 165, politics: 184, psychology: 472, science: 295, society: 305, sport: 75, technology: 190, travel: 140, work: 174 |
+| Có bằng chứng xuất hiện trong bản chép đề | 4,124 |
+| Không có bằng chứng bản chép (vẫn giữ theo loại từ/họ từ/legacy) | 1,717 |
 
 ### Mục đã lưu trữ theo lý do
 
@@ -38,7 +38,7 @@ Lý do và bằng chứng của từng nhóm nằm trong `docs/vocabulary-curati
 
 ## Kiểm chứng nguồn gốc
 
-- Đã đo lại **5,112** hàng: **5,104** khớp giữa claim và số bản chép đề đo được.
+- Đã đo lại **7,112** hàng: **7,104** khớp giữa claim và số bản chép đề đo được.
 - **8** hàng lệch; **8** trong số đó được giải thích bằng dạng chia ở đúng dòng được trích
   (ví dụ claim nêu `expenditures` trong khi headword là `expenditure`), và **0** hàng chưa giải thích.
 
@@ -88,7 +88,7 @@ Những mục dưới đây không được quyết bởi luật: mỗi dòng gh
 ## Bằng chứng theo mục trắc nghiệm
 
 - Trích tự động **1,489** mục trắc nghiệm từ 106 bản chép (dòng đánh số + tối đa hai dòng có ≥3 nhãn A./B./C./D.); **5,602** dạng từ khác nhau nằm trong các mục đó.
-- **1,286** headword trọng tâm (**33.5%** bộ từ) từng xuất hiện trong một mục trắc nghiệm; **380** mục lưu trữ cũng từng xuất hiện.
+- **1,561** headword trọng tâm (**26.7%** bộ từ) từng xuất hiện trong một mục trắc nghiệm; **380** mục lưu trữ cũng từng xuất hiện.
 
 Mục trắc nghiệm chỉ chứng minh từ đó từng nằm trong một lựa chọn của đề, **không** chứng minh nó là
 đáp án, không chứng minh độ khó và không thay thế bản gốc. Từ chỉ xuất hiện trong bài đọc không
@@ -111,7 +111,7 @@ Mục trắc nghiệm chỉ chứng minh từ đó từng nằm trong một lự
 
 ## Hàng cần soát (chưa có bằng chứng trong bản chép)
 
-**923** headword đang ở bộ từ trọng tâm nhưng không có nguồn `exam-corpus`. Phân bố theo thẻ level biên tập: `(none)` 307, `B1` 14, `B2` 54, `C1` 227, `C2` 321.
+**1,717** headword đang ở bộ từ trọng tâm nhưng không có nguồn `exam-corpus`. Phân bố theo thẻ level biên tập: `(none)` 307, `B1` 14, `B2` 296, `C1` 521, `C2` 579.
 
 Đây là danh sách **cần soát**, không phải kết luận: phần lớn là từ học thuật đến từ danh sách
 biên tập và mục từ điển, chưa từng xuất hiện trong 106 bản chép hiện có. Không mục nào bị coi là
@@ -125,9 +125,9 @@ hoặc chưa tìm được căn cứ — kèm locator khi có. Báo cáo đó kh
 ## Độ phủ văn bản đề
 
 - 106 bản chép có **21,321** token khác nhau; **8,179** token nội dung (đã bỏ từ chức năng) xuất hiện ở ≥3 bản.
-- Bộ từ trọng tâm phủ **4,597** token trong nhóm đó (**56.2%** số kiểu từ, **46.3%** số lượt xuất hiện),
+- Bộ từ trọng tâm phủ **5,057** token trong nhóm đó (**61.8%** số kiểu từ, **48.8%** số lượt xuất hiện),
   tính cả dạng trong `WORD_FAMILY` và gộp biến thể hình thái đơn giản (s/es/ed/ing/ies…).
-- **1,039** token chỉ còn trong các hàng lưu trữ; **2,543** token không thuộc hàng nào.
+- **1,034** token chỉ còn trong các hàng lưu trữ; **2,088** token không thuộc hàng nào.
 
 Đây là độ phủ *dạng chữ trong bản chép*, không phải độ phủ từ vựng của đề chính thức và không
 phải tần suất thi. Các token chưa phủ chỉ là **ứng viên cần rà** cho v1.1.0; phiên này không thêm
@@ -164,5 +164,5 @@ headword mới vì không có nghĩa/nguồn đã xác minh trong sandbox.
 - Không thêm headword mới: danh sách khoảng trống chỉ là ứng viên cho v1.1.0, chưa có nghĩa/nguồn đã xác minh.
 - Quyết định lưu trữ là đánh giá biên tập về giá trị phân loại năng lực, không phải kết luận rằng từ đó sai hoặc không có trong đề.
 
-Ngoài ra: 5,112 headword được rà **cấu trúc** (schema, trùng, họ từ, nguồn); 1,271 mục lưu trữ được rà **nghĩa và giá trị** theo nhóm. Nghĩa của các mục còn lại không được tra từ điển lại trong phiên này. Kho cụm từ (780 cụm) không nằm trong phạm vi chọn lọc của phiên này.
+Ngoài ra: 7,112 headword được rà **cấu trúc** (schema, trùng, họ từ, nguồn); 1,271 mục lưu trữ được rà **nghĩa và giá trị** theo nhóm. Nghĩa của các mục còn lại không được tra từ điển lại trong phiên này. Kho cụm từ (780 cụm) không nằm trong phạm vi chọn lọc của phiên này.
 

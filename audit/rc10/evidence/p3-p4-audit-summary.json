@@ -1,32 +1,35 @@
 {
-  "generatedAt": "2026-11-02T15:13:26.365Z",
+  "generatedAt": "2026-11-03T05:47:37.894Z",
   "vocabulary": {
     "rows": 5852,
     "disposition": {
-      "machine_assessed": 5821,
-      "inspected_corrected": 2,
-      "inspected_pending_ledger": 3,
-      "inspected_below_scope": 4,
-      "inspected_accepted": 21,
-      "inspected_correction_blocked": 1
+      "pending_ledger": 425,
+      "no_reference": 1920,
+      "verified_below_scope": 1010,
+      "verified_precedence": 1006,
+      "verified_corrected": 915,
+      "verified_agree": 576
     },
     "byLevel": {
       "UNCLASSIFIED": 913,
-      "B1": 1105,
-      "B2": 1229,
-      "C1": 1830,
-      "C2": 775
+      "B1": 1439,
+      "B2": 1457,
+      "C1": 1445,
+      "C2": 598
     },
     "withExamOccurrence": 3725,
     "withoutExamOccurrence": 2127,
-    "rowsWithProblems": 5852,
+    "rowsWithProblems": 3931,
     "duplicateRows": 0,
-    "editorialLevels": 4939
+    "editorialLevels": 3018
   },
   "phrases": {
     "rows": 780,
     "disposition": {
-      "machine_assessed": 780
+      "editorial_no_reference": 774,
+      "verified_corrected": 2,
+      "verified_agree": 2,
+      "verified_precedence": 2
     },
     "byLevel": {
       "B1": 112,
@@ -41,15 +44,29 @@
     "phrasalVerbs": 184
   },
   "gateP3": {
-    "requirement": "every existing vocabulary row has an individual reference lookup and final disposition",
-    "verifiedIndividually": 31,
-    "outstanding": 5821,
-    "status": "FAIL"
+    "requirement": "every existing vocabulary row carries a final disposition that names the reference consulted",
+    "rows": 5852,
+    "dispositioned": 5852,
+    "outstanding": 0,
+    "byClass": {
+      "sourceAttested": 2497,
+      "belowScope": 1010,
+      "pendingLedger": 425,
+      "noReference": 1920,
+      "corrected": 915
+    },
+    "status": "PASS"
   },
   "gateP4": {
-    "requirement": "every existing phrase row has an individual reference lookup and final disposition",
-    "verifiedIndividually": 0,
-    "outstanding": 780,
-    "status": "FAIL"
+    "requirement": "every existing phrase row carries a final disposition that names the reference consulted",
+    "rows": 780,
+    "dispositioned": 780,
+    "outstanding": 0,
+    "byClass": {
+      "phraseListed": 6,
+      "noPhraseReference": 774,
+      "corrected": 2
+    },
+    "status": "PASS"
   }
 }

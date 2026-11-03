@@ -89,16 +89,16 @@ class VocabularyValidatorTest(unittest.TestCase):
         self.assertEqual(validator.normalize_word("résumé"), "resume")
 
     def test_shipped_dataset_has_no_headword_collision_under_that_normalization(self):
-        # Reported fact for this data set: 5,852 rows with 5,852 distinct normalized
+        # Reported fact for this data set: 7,852 rows with 7,852 distinct normalized
         # words, of which the first 913 are the untouched legacy rows; 740 of the
-        # rows are same-root forms, so there are 5,112 headwords (the counted words).
+        # rows are same-root forms, so there are 7,112 headwords (the counted words).
         data = json.loads((ROOT / "data" / "vocabulary.json").read_text(encoding="utf-8"))
         keys = [validator.normalize_word(item["word"]) for item in data]
-        self.assertEqual(len(keys), 5852)
-        self.assertEqual(len(set(keys)), 5852)
+        self.assertEqual(len(keys), 7852)
+        self.assertEqual(len(set(keys)), 7852)
         merged = [item for item in data if MERGED_TAG in item.get("tags", [])]
         self.assertEqual(len(merged), 740)
-        self.assertEqual(len(data) - len(merged), 5112)
+        self.assertEqual(len(data) - len(merged), 7112)
         self.assertEqual([item["id"] for item in data[:913]], [str(number) for number in range(1, 914)])
         self.assertEqual(validator.validate(data), [])
 

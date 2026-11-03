@@ -1,0 +1,2253 @@
+# Exam-corpus expansion added by rc10 (P5).
+# word<TAB>pos<TAB>meaning<TAB>level<TAB>topic<TAB>type<TAB>skills<TAB>level_source
+found	v	thành lập, sáng lập	B2	academic	academic	cloze,reading	oxford-3000-5000
+known	adj	đã biết, nổi tiếng	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+supply	n	cung cấp	B1	economics	topic	reading,writing	oxford-3000-5000
+worth	adj	giá trị	B1	society	topic	reading,writing	oxford-3000-5000
+extent	n	mức độ, phạm vi	B2	academic	academic	reading,writing	oxford-3000-5000
+failed	adj	thất bại	B2	academic	academic	reading,writing	oxford-3000-5000
+pronounced	adj	rõ rệt	C1	academic	academic	reading,writing	oxford-3000-5000
+advance	n	sự tiến bộ	B2	science	topic	reading,writing	oxford-3000-5000
+transcript	n	bản ghi, bảng điểm	C1	education	topic	reading,writing	oxford-3000-5000
+long-term	adj	dài hạn	B2	economics	topic	reading,writing	oxford-3000-5000
+rely	v	dựa vào, phụ thuộc	B2	academic	academic	cloze,reading	oxford-3000-5000
+construction	n	sự xây dựng	B2	society	topic	reading,writing	oxford-3000-5000
+well-being	n	sự khỏe mạnh, an sinh	C1	health	topic	reading,writing	oxford-3000-5000
+consequently	adv	do đó	B2	academic	academic	reading,writing	oxford-3000-5000
+contribute	v	đóng góp	B2	society	topic	cloze,reading	oxford-3000-5000
+numerous	adj	nhiều, đông đảo	B2	academic	academic	reading,writing	oxford-3000-5000
+western	adj	phương Tây	B1	culture	topic	reading,writing	oxford-3000-5000
+willing	adj	sẵn lòng	B2	psychology	topic	reading,writing	oxford-3000-5000
+promotion	n	sự thăng tiến, quảng bá	B2	work	topic	reading,writing	oxford-3000-5000
+significantly	adv	một cách đáng kể	B2	academic	academic	reading,writing	oxford-3000-5000
+stick	n	cái gậy	B1	environment	topic	reading,writing	oxford-3000-5000
+industrial	adj	thuộc công nghiệp	B2	economics	topic	reading,writing	oxford-3000-5000
+treat	v	đối xử, điều trị	B1	health	topic	cloze,reading	oxford-3000-5000
+urban	adj	thuộc đô thị	B2	society	topic	reading,writing	oxford-3000-5000
+standing	adj	lâu đời, thường trực	C1	society	topic	reading,writing	oxford-3000-5000
+consideration	n	sự cân nhắc	B2	academic	academic	reading,writing	oxford-3000-5000
+desire	n	khao khát	B2	psychology	topic	reading,writing	oxford-3000-5000
+oxygen	n	ô-xy	B2	science	topic	reading,writing	oxford-3000-5000
+excessive	adj	quá mức	B2	health	topic	reading,writing	oxford-3000-5000
+multiple	adj	nhiều, đa dạng	B2	academic	academic	reading,writing	oxford-3000-5000
+spite	n	ác ý	B2	psychology	topic	reading,writing	oxford-3000-5000
+efficiency	n	hiệu quả	C1	economics	topic	reading,writing	oxford-3000-5000
+accuracy	n	độ chính xác	B2	science	topic	reading,writing	oxford-3000-5000
+considerably	adv	đáng kể	B2	academic	academic	reading,writing	oxford-3000-5000
+criticism	n	sự chỉ trích	B2	media	topic	reading,writing	oxford-3000-5000
+intense	adj	mãnh liệt	B2	psychology	topic	reading,writing	oxford-3000-5000
+mass	n	khối lượng, đám đông	B2	science	topic	reading,writing	oxford-3000-5000
+vary	v	thay đổi, khác nhau	B2	academic	academic	cloze,reading	oxford-3000-5000
+vision	n	tầm nhìn, thị lực	B2	health	topic	reading,writing	oxford-3000-5000
+broad	adj	rộng lớn	B2	academic	academic	reading,writing	oxford-3000-5000
+council	n	hội đồng	B2	politics	topic	reading,writing	oxford-3000-5000
+hearing	n	phiên điều trần, thính giác	B2	law	topic	reading,writing	oxford-3000-5000
+outstanding	adj	xuất sắc	B2	academic	academic	reading,writing	oxford-3000-5000
+precious	adj	quý giá	B2	environment	topic	reading,writing	oxford-3000-5000
+sophisticated	adj	tinh vi, phức tạp	B2	technology	topic	reading,writing	oxford-3000-5000
+identification	n	sự nhận dạng, sự đồng nhất	C1	academic	academic	reading,writing	oxford-3000-5000
+capture	v	nắm bắt, ghi lại	B2	media	topic	cloze,reading	oxford-3000-5000
+diversity	n	sự đa dạng	B2	environment	topic	reading,writing	oxford-3000-5000
+extend	v	mở rộng	B2	academic	academic	cloze,reading	oxford-3000-5000
+master	n	ông chủ, thầy	B2	work	topic	reading,writing	oxford-3000-5000
+mine	n	mỏ (khoáng sản)	B1	economics	topic	reading,writing	oxford-3000-5000
+pace	n	tốc độ, nhịp độ	B2	academic	academic	reading,writing	oxford-3000-5000
+priority	n	sự ưu tiên	B2	work	topic	reading,writing	oxford-3000-5000
+resist	v	chống lại, kháng cự	B2	society	topic	cloze,reading	oxford-3000-5000
+specifically	adv	cụ thể là	B1	academic	academic	reading,writing	oxford-3000-5000
+suffering	n	sự đau khổ	B2	psychology	topic	reading,writing	oxford-3000-5000
+conserve	v	bảo tồn	C1	environment	topic	cloze,reading	oxford-3000-5000
+equal	v	người ngang bằng	B1	society	topic	cloze,reading	oxford-3000-5000
+hidden	adj	ẩn giấu	B2	academic	academic	reading,writing	oxford-3000-5000
+innovative	adj	đổi mới, sáng tạo	B2	technology	topic	reading,writing	oxford-3000-5000
+interact	v	tương tác	B2	society	topic	cloze,reading	oxford-3000-5000
+isolated	adj	bị cô lập	B2	society	topic	reading,writing	oxford-3000-5000
+modest	adj	khiêm tốn, vừa phải	B2	psychology	topic	reading,writing	oxford-3000-5000
+origin	n	nguồn gốc	B2	science	topic	reading,writing	oxford-3000-5000
+complexity	n	tính phức tạp	C1	academic	academic	reading,writing	oxford-3000-5000
+interactive	adj	mang tính tương tác	C1	technology	topic	reading,writing	oxford-3000-5000
+varied	adj	đa dạng	C1	academic	academic	reading,writing	oxford-3000-5000
+altogether	adv	hoàn toàn, tổng cộng	B2	academic	academic	reading,writing	oxford-3000-5000
+crisis	n	cuộc khủng hoảng	B2	economics	topic	reading,writing	oxford-3000-5000
+dependent	adj	phụ thuộc	B2	society	topic	reading,writing	oxford-3000-5000
+evolution	n	sự tiến hóa	B2	science	topic	reading,writing	oxford-3000-5000
+mixed	adj	hỗn hợp, lẫn lộn	B2	academic	academic	reading,writing	oxford-3000-5000
+motivated	adj	có động lực	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+perception	n	sự nhận thức	B2	psychology	topic	reading,writing	oxford-3000-5000
+proven	adj	đã được chứng minh	B2	science	topic	reading,writing	cefrj-vocabulary-profile-1.5
+shaped	adj	có hình dạng	B2	academic	academic	reading,writing	oxford-3000-5000
+so-called	adj	cái gọi là	B2	media	topic	reading,writing	oxford-3000-5000
+universal	adj	phổ quát, toàn cầu	B2	culture	topic	reading,writing	oxford-3000-5000
+countless	adj	vô số	C1	academic	academic	reading,writing	oxford-3000-5000
+cutting	n	đoạn cắt, bài báo cắt	C1	media	topic	reading,writing	oxford-3000-5000
+endless	adj	không dứt, vô tận	C1	academic	academic	reading,writing	oxford-3000-5000
+grounds	n	lý do, căn cứ	C1	law	topic	reading,writing	octanove-vocabulary-profile-1.0
+insufficient	adj	không đủ	C1	academic	academic	reading,writing	oxford-3000-5000
+maintenance	n	sự bảo trì, duy trì	C1	technology	topic	reading,writing	oxford-3000-5000
+afterwards	adv	sau đó	B2	academic	academic	reading,writing	oxford-3000-5000
+battle	n	chiến đấu	B1	society	topic	reading,writing	oxford-3000-5000
+client	n	khách hàng	B1	economics	topic	reading,writing	oxford-3000-5000
+command	n	mệnh lệnh, sự chỉ huy	B2	law	topic	reading,writing	oxford-3000-5000
+expense	n	chi phí	B2	economics	topic	reading,writing	oxford-3000-5000
+hay	n	cỏ khô	B2	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+plus	n	điểm cộng	B2	academic	academic	reading,writing	oxford-3000-5000
+possess	v	sở hữu	B2	economics	topic	cloze,reading	oxford-3000-5000
+visual	adj	thuộc thị giác	B2	media	topic	reading,writing	oxford-3000-5000
+exploitation	n	sự bóc lột, khai thác	C1	society	topic	reading,writing	oxford-3000-5000
+inappropriate	adj	không thích hợp	C1	society	topic	reading,writing	oxford-3000-5000
+transformation	n	sự chuyển đổi	C1	society	topic	reading,writing	oxford-3000-5000
+underlying	adj	cơ bản, ẩn bên dưới	C1	academic	academic	reading,writing	oxford-3000-5000
+amusing	adj	thú vị, buồn cười	B2	culture	topic	reading,writing	oxford-3000-5000
+blind	adj	mù, không nhận thức	B2	health	topic	reading,writing	oxford-3000-5000
+chief	adj	chính, chủ yếu	B2	work	topic	reading,writing	oxford-3000-5000
+demonstration	n	sự trình diễn, cuộc biểu tình	B2	society	topic	reading,writing	oxford-3000-5000
+determination	n	sự quyết tâm	B2	psychology	topic	reading,writing	oxford-3000-5000
+exhibit	v	trưng bày	B2	culture	topic	cloze,reading	oxford-3000-5000
+grand	adj	hoành tráng	B2	culture	topic	reading,writing	oxford-3000-5000
+inhabit	v	cư trú	B2	environment	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+mess	n	làm bừa bộn	B1	daily-life	topic	reading,writing	oxford-3000-5000
+motivate	v	thúc đẩy, tạo động lực	B2	psychology	topic	cloze,reading	oxford-3000-5000
+participation	n	sự tham gia	B2	society	topic	reading,writing	oxford-3000-5000
+prime	adj	hàng đầu, chính	B2	academic	academic	reading,writing	oxford-3000-5000
+teens	n	tuổi thiếu niên	B2	family	topic	reading,writing	oxford-3000-5000
+threaten	v	đe dọa	B2	society	topic	cloze,reading	oxford-3000-5000
+appreciation	n	sự trân trọng	C1	culture	topic	reading,writing	oxford-3000-5000
+clarity	n	sự rõ ràng	C1	academic	academic	reading,writing	oxford-3000-5000
+dedication	n	sự tận tụy	C1	psychology	topic	reading,writing	oxford-3000-5000
+irrelevant	adj	không liên quan	C1	academic	academic	reading,writing	oxford-3000-5000
+situated	adj	tọa lạc	C1	travel	topic	reading,writing	oxford-3000-5000
+cancer	n	bệnh ung thư	B2	health	topic	reading,writing	oxford-3000-5000
+disappointment	n	sự thất vọng	B2	psychology	topic	reading,writing	oxford-3000-5000
+dominant	adj	chiếm ưu thế	B2	society	topic	reading,writing	oxford-3000-5000
+emphasis	n	sự nhấn mạnh	B2	academic	academic	reading,writing	oxford-3000-5000
+era	n	kỷ nguyên	B2	culture	topic	reading,writing	oxford-3000-5000
+expansion	n	sự mở rộng	B2	economics	topic	reading,writing	oxford-3000-5000
+expose	v	phơi bày, tiếp xúc	B2	media	topic	cloze,reading	oxford-3000-5000
+interpretation	n	sự diễn giải	B2	academic	academic	reading,writing	oxford-3000-5000
+minister	n	bộ trưởng	B2	politics	topic	reading,writing	oxford-3000-5000
+mount	v	tăng lên, leo	B2	academic	academic	cloze,reading	oxford-3000-5000
+outer	adj	bên ngoài	B2	science	topic	reading,writing	oxford-3000-5000
+shocked	adj	bị sốc	B2	psychology	topic	reading,writing	oxford-3000-5000
+evolutionary	adj	thuộc tiến hóa	C1	science	topic	reading,writing	oxford-3000-5000
+flexibility	n	tính linh hoạt	C1	work	topic	reading,writing	oxford-3000-5000
+nest	n	tổ (chim)	C1	environment	topic	reading,writing	oxford-3000-5000
+productive	adj	năng suất, hiệu quả	C1	work	topic	reading,writing	oxford-3000-5000
+tolerate	v	chịu đựng, bao dung	C1	society	topic	cloze,reading	oxford-3000-5000
+willingness	n	sự sẵn lòng	C1	psychology	topic	reading,writing	oxford-3000-5000
+disorder	n	sự rối loạn	B2	health	topic	reading,writing	oxford-3000-5000
+equivalent	n	tương đương	B2	academic	academic	reading,writing	oxford-3000-5000
+forecast	n	dự báo	B2	economics	topic	reading,writing	oxford-3000-5000
+fund	n	quỹ	B2	economics	topic	reading,writing	oxford-3000-5000
+irritated	adj	bực bội	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+medium	adj	phương tiện, môi trường	B1	media	topic	reading,writing	oxford-3000-5000
+necessity	n	sự cần thiết	B2	academic	academic	reading,writing	oxford-3000-5000
+secure	v	đảm bảo, giành được	B2	economics	topic	cloze,reading	oxford-3000-5000
+specialist	n	chuyên gia	B2	work	topic	reading,writing	oxford-3000-5000
+universe	n	vũ trụ	B2	science	topic	reading,writing	oxford-3000-5000
+upper	adj	phía trên, cao hơn	B2	academic	academic	reading,writing	oxford-3000-5000
+academy	n	học viện	C1	education	topic	reading,writing	oxford-3000-5000
+accustomed	adj	quen với	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+affection	n	sự yêu mến	C1	psychology	topic	reading,writing	oxford-3000-5000
+caution	n	sự thận trọng	C1	psychology	topic	reading,writing	oxford-3000-5000
+excess	n	sự dư thừa	C1	health	topic	reading,writing	oxford-3000-5000
+inadequate	adj	không thỏa đáng	C1	academic	academic	reading,writing	oxford-3000-5000
+intensity	n	cường độ	C1	science	topic	reading,writing	oxford-3000-5000
+addicted	adj	nghiện	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+assumption	n	giả định	B2	academic	academic	reading,writing	oxford-3000-5000
+bet	v	cá cược	B2	psychology	topic	cloze,reading	oxford-3000-5000
+controversy	n	sự tranh cãi	B2	media	topic	reading,writing	oxford-3000-5000
+hunger	n	nạn đói, cơn đói	B2	society	topic	reading,writing	oxford-3000-5000
+incident	n	sự cố, vụ việc	B2	society	topic	reading,writing	oxford-3000-5000
+incorrect	adj	không chính xác	B2	academic	academic	reading,writing	oxford-3000-5000
+ineffective	adj	không hiệu quả	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+striking	adj	nổi bật	B2	academic	academic	reading,writing	oxford-3000-5000
+stunning	adj	choáng ngợp, tuyệt đẹp	B2	culture	topic	reading,writing	oxford-3000-5000
+thesis	n	luận văn, luận điểm	B2	education	topic	reading,writing	oxford-3000-5000
+transfer	v	chuyển giao	B2	work	topic	cloze,reading	oxford-3000-5000
+unchanged	adj	không thay đổi	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+unreliable	adj	không đáng tin	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+cling	v	bám chặt	C1	psychology	topic	cloze,reading	oxford-3000-5000
+competence	n	năng lực	C1	work	topic	reading,writing	oxford-3000-5000
+distinction	n	sự khác biệt	C1	academic	academic	reading,writing	oxford-3000-5000
+frustration	n	sự thất vọng, bế tắc	C1	psychology	topic	reading,writing	oxford-3000-5000
+indicator	n	chỉ số	C1	economics	topic	reading,writing	oxford-3000-5000
+initiate	v	khởi xướng	C1	work	topic	cloze,reading	oxford-3000-5000
+large-scale	adj	quy mô lớn	C1	economics	topic	reading,writing	oxford-3000-5000
+reverse	v	đảo ngược	C1	science	topic	cloze,reading	oxford-3000-5000
+stimuli	n	các kích thích	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+strategic	adj	chiến lược	C1	work	topic	reading,writing	oxford-3000-5000
+whatsoever	adv	dù bất kỳ	C1	academic	academic	reading,writing	oxford-3000-5000
+corporation	n	tập đoàn	B2	economics	topic	reading,writing	oxford-3000-5000
+disabled	adj	khuyết tật	B2	health	topic	reading,writing	oxford-3000-5000
+district	n	quận, huyện	B2	society	topic	reading,writing	oxford-3000-5000
+edition	n	ấn bản	B2	media	topic	reading,writing	oxford-3000-5000
+extension	n	sự mở rộng, phần mở rộng	B2	academic	academic	reading,writing	oxford-3000-5000
+fighting	n	giao tranh, chiến đấu	B1	society	topic	reading,writing	oxford-3000-5000
+helicopter	n	máy bay trực thăng	B1	technology	topic	reading,writing	oxford-3000-5000
+homeless	adj	vô gia cư	B2	society	topic	reading,writing	oxford-3000-5000
+hunt	v	cuộc đi săn	B1	environment	topic	cloze,reading	oxford-3000-5000
+mission	n	sứ mệnh	B2	work	topic	reading,writing	oxford-3000-5000
+motor	n	động cơ	B2	technology	topic	reading,writing	oxford-3000-5000
+panel	n	ban hội thẩm, bảng điều khiển	B2	media	topic	reading,writing	oxford-3000-5000
+pure	adj	tinh khiết	B2	science	topic	reading,writing	oxford-3000-5000
+regulation	n	quy định	B2	law	topic	reading,writing	oxford-3000-5000
+sharp	adj	đúng giờ, sắc bén	B1	daily-life	topic	reading,writing	oxford-3000-5000
+ultimate	adj	tối hậu, cuối cùng	B2	academic	academic	reading,writing	oxford-3000-5000
+unaware	adj	không biết, không nhận ra	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+temper	n	làm dịu, tôi luyện	B1	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+accountable	adj	có trách nhiệm giải trình	C1	law	topic	reading,writing	oxford-3000-5000
+adaptation	n	sự thích nghi	C1	science	topic	reading,writing	oxford-3000-5000
+commerce	n	thương mại	C1	economics	topic	reading,writing	oxford-3000-5000
+decision-making	n	việc ra quyết định	C1	work	topic	reading,writing	oxford-3000-5000
+dispose	v	vứt bỏ, sắp đặt	C1	environment	topic	cloze,reading	oxford-3000-5000
+intriguing	adj	hấp dẫn, gợi tò mò	C1	culture	topic	reading,writing	oxford-3000-5000
+precision	n	độ chính xác	C1	science	topic	reading,writing	oxford-3000-5000
+psychiatrist	n	bác sĩ tâm thần	C1	health	topic	reading,writing	octanove-vocabulary-profile-1.0
+reliability	n	độ tin cậy	C1	technology	topic	reading,writing	oxford-3000-5000
+sacred	adj	thiêng liêng	C1	culture	topic	reading,writing	oxford-3000-5000
+shipping	n	việc vận chuyển	C1	economics	topic	reading,writing	oxford-3000-5000
+staggering	adj	đáng kinh ngạc	C1	economics	topic	reading,writing	octanove-vocabulary-profile-1.0
+trail	n	đường mòn, dấu vết	C1	travel	topic	reading,writing	oxford-3000-5000
+upcoming	adj	sắp tới	C1	media	topic	reading,writing	oxford-3000-5000
+civil	adj	thuộc dân sự	B2	law	topic	reading,writing	oxford-3000-5000
+economical	adj	tiết kiệm	B2	economics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+empire	n	đế chế	B2	politics	topic	reading,writing	oxford-3000-5000
+geographic	adj	thuộc địa lý	B2	science	topic	reading,writing	cefrj-vocabulary-profile-1.5
+gum	n	lợi (răng), kẹo cao su	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+mode	n	chế độ, phương thức	B2	technology	topic	reading,writing	oxford-3000-5000
+motion	n	chuyển động	B2	science	topic	reading,writing	oxford-3000-5000
+prestige	n	uy tín	B2	society	topic	reading,writing	cefrj-vocabulary-profile-1.5
+resolution	n	nghị quyết, sự quyết tâm	B2	politics	topic	reading,writing	oxford-3000-5000
+short-term	adj	ngắn hạn	B2	economics	topic	reading,writing	oxford-3000-5000
+swift	adj	nhanh chóng	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+trek	n	chuyến đi bộ đường dài	B2	travel	topic	reading,writing	cefrj-vocabulary-profile-1.5
+underneath	adv	ở bên dưới	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+victory	n	chiến thắng	B2	sport	topic	reading,writing	oxford-3000-5000
+well-paid	adj	được trả lương cao	B2	work	topic	reading,writing	cefrj-vocabulary-profile-1.5
+indulgence	n	sự nuông chiều	C2	food	topic	reading,writing	octanove-vocabulary-profile-1.0
+anthropologist	n	nhà nhân học	C1	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+arena	n	đấu trường, sân vận động	C1	sport	topic	reading,writing	oxford-3000-5000
+backing	n	sự ủng hộ	C1	economics	topic	reading,writing	oxford-3000-5000
+clutter	n	sự bừa bộn	C1	daily-life	topic	reading,writing	octanove-vocabulary-profile-1.0
+confide	v	tâm sự	C1	psychology	topic	cloze,reading	octanove-vocabulary-profile-1.0
+confirmation	n	sự xác nhận	C1	academic	academic	reading,writing	oxford-3000-5000
+consistency	n	tính nhất quán	C1	academic	academic	reading,writing	oxford-3000-5000
+conversion	n	sự chuyển đổi	C1	science	topic	reading,writing	oxford-3000-5000
+credibility	n	uy tín, độ tin cậy	C1	media	topic	reading,writing	oxford-3000-5000
+crystal	n	pha lê, tinh thể	C1	science	topic	reading,writing	oxford-3000-5000
+gear	n	thiết bị, dụng cụ	C1	technology	topic	reading,writing	oxford-3000-5000
+hatred	n	lòng căm thù	C1	psychology	topic	reading,writing	oxford-3000-5000
+high-profile	adj	nổi bật, được chú ý	C1	media	topic	reading,writing	oxford-3000-5000
+integration	n	sự hội nhập, tích hợp	C1	society	topic	reading,writing	oxford-3000-5000
+mathematical	adj	thuộc toán học	C1	science	topic	reading,writing	oxford-3000-5000
+offspring	n	con cái, thế hệ sau	C1	science	topic	reading,writing	oxford-3000-5000
+persistent	adj	kiên trì, dai dẳng	C1	psychology	topic	reading,writing	oxford-3000-5000
+philosophical	adj	thuộc triết học	C1	academic	academic	reading,writing	oxford-3000-5000
+republic	n	nền cộng hòa	C1	politics	topic	reading,writing	oxford-3000-5000
+spontaneous	adj	tự phát, tự nhiên	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+submission	n	sự đệ trình, phục tùng	C1	academic	academic	reading,writing	oxford-3000-5000
+sue	v	kiện (ra tòa)	C1	law	topic	cloze,reading	oxford-3000-5000
+suppress	v	đàn áp, kìm nén	C1	politics	topic	cloze,reading	oxford-3000-5000
+acid	n	a-xít	B2	science	topic	reading,writing	cefrj-vocabulary-profile-1.5
+ashamed	adj	xấu hổ	B2	psychology	topic	reading,writing	oxford-3000-5000
+ballet	n	ba lê	B2	culture	topic	reading,writing	oxford-3000-5000
+darkness	n	bóng tối	B2	academic	academic	reading,writing	oxford-3000-5000
+depressing	adj	chán nản, u ám	B2	psychology	topic	reading,writing	oxford-3000-5000
+disapproval	n	sự phản đối	B2	society	topic	reading,writing	cefrj-vocabulary-profile-1.5
+dissatisfied	adj	không hài lòng	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+dna	n	ADN (phân tử di truyền)	B2	science	topic	reading,writing	cefrj-vocabulary-profile-1.5
+edit	v	biên tập, sửa	B2	media	topic	cloze,reading	oxford-3000-5000
+enthusiastic	adj	nhiệt tình	B2	psychology	topic	reading,writing	oxford-3000-5000
+evaluation	n	sự đánh giá	B2	education	topic	reading,writing	oxford-3000-5000
+federal	adj	thuộc liên bang	B2	politics	topic	reading,writing	oxford-3000-5000
+founder	n	người sáng lập	B2	work	topic	reading,writing	oxford-3000-5000
+graphic	adj	đồ họa	B2	media	topic	reading,writing	oxford-3000-5000
+rocky	adj	nhiều đá, gập ghềnh	B2	travel	topic	reading,writing	cefrj-vocabulary-profile-1.5
+shooting	n	sự bắn, vụ nổ súng	B2	media	topic	reading,writing	oxford-3000-5000
+tolerant	adj	bao dung	B2	society	topic	reading,writing	cefrj-vocabulary-profile-1.5
+unconscious	adj	vô thức	B2	psychology	topic	reading,writing	oxford-3000-5000
+unkind	adj	không tử tế	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+unwilling	adj	không sẵn lòng	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+worthless	adj	vô giá trị	B2	economics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+nostalgia	n	nỗi hoài niệm	C2	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+beloved	adj	được yêu mến	C1	family	topic	reading,writing	oxford-3000-5000
+characterize	v	đặc trưng hóa	C1	academic	academic	cloze,reading	oxford-3000-5000
+cluster	n	cụm, nhóm	C1	science	topic	reading,writing	oxford-3000-5000
+contested	adj	gây tranh cãi	C1	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+contributor	n	người đóng góp	C1	media	topic	reading,writing	oxford-3000-5000
+convoluted	adj	phức tạp, rắc rối	C1	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+degradation	n	sự suy thoái	C1	environment	topic	reading,writing	octanove-vocabulary-profile-1.0
+dependence	n	sự phụ thuộc	C1	society	topic	reading,writing	oxford-3000-5000
+destructive	adj	mang tính phá hủy	C1	environment	topic	reading,writing	oxford-3000-5000
+discrimination	n	sự phân biệt đối xử	C1	society	topic	reading,writing	oxford-3000-5000
+domain	n	lĩnh vực, tên miền	C1	academic	academic	reading,writing	oxford-3000-5000
+effortless	adj	không tốn sức	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+flatter	v	tâng bốc	C1	psychology	topic	cloze,reading	octanove-vocabulary-profile-1.0
+forthcoming	adj	sắp tới, sẵn sàng	C1	academic	academic	reading,writing	oxford-3000-5000
+gathering	n	cuộc tụ họp	C1	society	topic	reading,writing	oxford-3000-5000
+glory	n	vinh quang	C1	culture	topic	reading,writing	oxford-3000-5000
+grave	n	nghiêm trọng, mồ mả	C1	health	topic	reading,writing	oxford-3000-5000
+hostility	n	sự thù địch	C1	society	topic	reading,writing	oxford-3000-5000
+hydrogen	n	hy-đrô	C1	science	topic	reading,writing	oxford-3000-5000
+impoverished	adj	nghèo khó	C1	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+innovate	v	đổi mới	C1	technology	topic	cloze,reading	octanove-vocabulary-profile-1.0
+intensify	v	tăng cường	C1	academic	academic	cloze,reading	oxford-3000-5000
+interference	n	sự can thiệp	C1	politics	topic	reading,writing	oxford-3000-5000
+limitless	adj	không giới hạn	C1	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+meaningless	adj	vô nghĩa	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+memoir	n	hồi ký	C1	culture	topic	reading,writing	oxford-3000-5000
+midst	n	ở giữa	C1	academic	academic	reading,writing	oxford-3000-5000
+patch	n	miếng vá, mảng	C1	technology	topic	reading,writing	oxford-3000-5000
+pit	n	hố, cái hố	C1	environment	topic	reading,writing	oxford-3000-5000
+ploy	n	chiêu, mánh	C1	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+relevance	n	sự liên quan	C1	academic	academic	reading,writing	oxford-3000-5000
+renowned	adj	nổi tiếng	C1	culture	topic	reading,writing	oxford-3000-5000
+restoration	n	sự phục hồi, trùng tu	C1	culture	topic	reading,writing	oxford-3000-5000
+rod	n	thanh, que	C1	science	topic	reading,writing	oxford-3000-5000
+simulation	n	sự mô phỏng	C1	technology	topic	reading,writing	oxford-3000-5000
+stark	adj	rõ rệt, khắc nghiệt	C1	academic	academic	reading,writing	oxford-3000-5000
+suffice	v	đủ, đáp ứng	C1	society	topic	cloze,reading	octanove-vocabulary-profile-1.0
+suite	n	bộ, dãy phòng	C1	travel	topic	reading,writing	oxford-3000-5000
+timber	n	gỗ xây dựng	C1	environment	topic	reading,writing	oxford-3000-5000
+transmission	n	sự truyền tải, lây truyền	C1	health	topic	reading,writing	oxford-3000-5000
+transparency	n	sự minh bạch	C1	politics	topic	reading,writing	oxford-3000-5000
+unconventional	adj	không theo lối mòn	C1	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+validity	n	tính hiệu lực, giá trị	C1	science	topic	reading,writing	oxford-3000-5000
+variable	n	biến số	C1	science	topic	reading,writing	oxford-3000-5000
+vicious	adj	hung dữ, độc ác	C1	psychology	topic	reading,writing	oxford-3000-5000
+amazement	n	sự kinh ngạc	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+arms	n	vũ khí	B2	politics	topic	reading,writing	oxford-3000-5000
+bombard	n	dội bom, oanh tạc	B2	politics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+cable	n	cáp, dây cáp	B2	technology	topic	reading,writing	oxford-3000-5000
+cardboard	n	bìa cứng	B2	economics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+catastrophe	n	thảm họa	B2	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+chase	v	đuổi theo	B2	sport	topic	cloze,reading	oxford-3000-5000
+compound	n	hợp chất	B2	science	topic	reading,writing	oxford-3000-5000
+criticize	v	chỉ trích	B2	media	topic	cloze,reading	oxford-3000-5000
+deer	n	con hươu	B2	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+disapprove	v	phản đối	B2	society	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+disconnect	v	ngắt kết nối	B2	technology	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+distraction	n	sự xao nhãng	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+economics	n	kinh tế học	B2	economics	topic	reading,writing	oxford-3000-5000
+electronics	n	điện tử học	B2	technology	topic	reading,writing	oxford-3000-5000
+estate	n	bất động sản, di sản	B2	economics	topic	reading,writing	oxford-3000-5000
+evident	adj	rõ ràng	B2	academic	academic	reading,writing	oxford-3000-5000
+evil	adj	xấu xa, tà ác	B2	culture	topic	reading,writing	oxford-3000-5000
+fabulous	adj	tuyệt vời	B2	culture	topic	reading,writing	oxford-3000-5000
+fantasy	n	ảo tưởng, giả tưởng	B2	culture	topic	reading,writing	oxford-3000-5000
+frontier	n	biên giới, ranh giới mới	B2	science	topic	reading,writing	cefrj-vocabulary-profile-1.5
+hilarious	adj	rất buồn cười	B2	culture	topic	reading,writing	oxford-3000-5000
+humorous	adj	hài hước	B2	culture	topic	reading,writing	oxford-3000-5000
+icon	n	biểu tượng	B2	media	topic	reading,writing	oxford-3000-5000
+irritating	adj	gây khó chịu	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+nursing	adj	điều dưỡng	B2	health	topic	reading,writing	oxford-3000-5000
+persistence	n	sự kiên trì	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+pin	n	ghim, kẹp	B1	technology	topic	reading,writing	oxford-3000-5000
+powder	n	bột, bột mịn	B1	health	topic	reading,writing	oxford-3000-5000
+rainbow	n	cầu vồng	B2	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+shield	n	che chắn	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+shocking	adj	gây sốc	B2	media	topic	reading,writing	oxford-3000-5000
+signature	n	chữ ký	B2	law	topic	reading,writing	oxford-3000-5000
+soul	n	tâm hồn	B2	culture	topic	reading,writing	oxford-3000-5000
+spa	n	sua, trung tâm nghỉ dưỡng	B2	travel	topic	reading,writing	cefrj-vocabulary-profile-1.5
+swear	v	thề, chửi thề	B2	law	topic	cloze,reading	oxford-3000-5000
+tag	n	nhãn, thẻ	B2	media	topic	reading,writing	oxford-3000-5000
+thrilling	adj	hồi hộp, ly kỳ	B2	sport	topic	reading,writing	cefrj-vocabulary-profile-1.5
+unlimited	adj	không hạn chế	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+upwards	adv	hướng lên	B2	academic	academic	reading,writing	oxford-3000-5000
+authenticity	n	tính xác thực	C2	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+avian	adj	thuộc loài chim	C2	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+breadwinner	n	người trụ cột (kiếm tiền)	C2	family	topic	reading,writing	octanove-vocabulary-profile-1.0
+collide	v	va chạm	C2	science	topic	cloze,reading	octanove-vocabulary-profile-1.0
+contractual	adj	thuộc hợp đồng	C2	law	topic	reading,writing	octanove-vocabulary-profile-1.0
+edifice	n	tòa nhà, công trình	C2	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+engender	v	sinh ra, gây ra	C2	society	topic	cloze,reading	octanove-vocabulary-profile-1.0
+ethos	n	tinh thần, đặc trưng	C2	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+fruition	n	sự thành hiện thực	C2	work	topic	reading,writing	octanove-vocabulary-profile-1.0
+gravitational	adj	thuộc trọng lực	C2	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+grievance	n	sự bất bình	C2	law	topic	reading,writing	octanove-vocabulary-profile-1.0
+hindsight	n	nhìn lại, hồi tưởng	C2	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+ingratiate	v	lấy lòng	C2	psychology	topic	cloze,reading	octanove-vocabulary-profile-1.0
+instantaneously	adv	tức thời	C2	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+menace	n	mối đe dọa	C2	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+menial	adj	thấp hèn, tầm thường	C2	work	topic	reading,writing	octanove-vocabulary-profile-1.0
+methodological	adj	thuộc phương pháp	C2	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+notoriety	n	sự tai tiếng	C2	media	topic	reading,writing	octanove-vocabulary-profile-1.0
+preoccupation	n	nỗi bận tâm	C2	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+primeval	adj	nguyên thủy	C2	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+proliferation	n	sự gia tăng nhanh	C2	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+recuperative	adj	giúp hồi phục	C2	health	topic	reading,writing	octanove-vocabulary-profile-1.0
+retrospect	n	sự nhìn lại	B1	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+seismic	adj	thuộc địa chấn	C2	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+transmitter	n	máy phát	C2	technology	topic	reading,writing	octanove-vocabulary-profile-1.0
+wax	n	sáp	B1	technology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+wither	v	khô héo, tàn lụi	B1	environment	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+acquisition	n	sự tiếp nhận, mua lại	C1	economics	topic	reading,writing	oxford-3000-5000
+administer	v	quản lý, thực hiện	C1	politics	topic	cloze,reading	oxford-3000-5000
+adoption	n	việc nhận nuôi, áp dụng	C1	family	topic	reading,writing	oxford-3000-5000
+allegedly	adv	theo cáo buộc	C1	law	topic	reading,writing	oxford-3000-5000
+ash	n	tro, tàn	C1	environment	topic	reading,writing	oxford-3000-5000
+backdrop	n	bối cảnh	C1	culture	topic	reading,writing	oxford-3000-5000
+battlefield	n	chiến trường	C1	politics	topic	reading,writing	oxford-3000-5000
+betray	v	phản bội	C1	psychology	topic	cloze,reading	oxford-3000-5000
+blade	n	lưỡi (dao), cánh quạt	C1	technology	topic	reading,writing	oxford-3000-5000
+bow	v	cúi chào, cái cung	C1	culture	topic	cloze,reading	oxford-3000-5000
+calculation	n	sự tính toán	C1	science	topic	reading,writing	oxford-3000-5000
+canoe	n	ca-nô, xuồng	C1	travel	topic	reading,writing	octanove-vocabulary-profile-1.0
+capability	n	khả năng	C1	work	topic	reading,writing	oxford-3000-5000
+chill	v	làm lạnh, ớn lạnh	C1	health	topic	cloze,reading	octanove-vocabulary-profile-1.0
+complimentary	adj	miễn phí, khen ngợi	C1	economics	topic	reading,writing	octanove-vocabulary-profile-1.0
+compulsion	n	sự thôi thúc	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+con	v	lừa dối, chống lại	C1	society	topic	cloze,reading	octanove-vocabulary-profile-1.0
+congratulate	v	chúc mừng	C1	society	topic	cloze,reading	oxford-3000-5000
+cooperate	v	hợp tác	C1	work	topic	cloze,reading	oxford-3000-5000
+coupled	adj	kết hợp, gắn với	C1	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+crave	v	khao khát	C1	psychology	topic	cloze,reading	octanove-vocabulary-profile-1.0
+crush	v	nghiền nát	C1	psychology	topic	cloze,reading	oxford-3000-5000
+debris	n	mảnh vụn, đống đổ nát	C1	environment	topic	reading,writing	oxford-3000-5000
+detest	v	căm ghét	C1	psychology	topic	cloze,reading	octanove-vocabulary-profile-1.0
+devil	n	con quỷ	C1	culture	topic	reading,writing	oxford-3000-5000
+dispense	v	phân phát, cấp	C1	health	topic	cloze,reading	octanove-vocabulary-profile-1.0
+disruption	n	sự gián đoạn	C1	technology	topic	reading,writing	oxford-3000-5000
+divergence	n	sự phân kỳ, khác biệt	C1	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+domestication	n	sự thuần hóa	C1	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+drawback	n	hạn chế, nhược điểm	C1	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+dual	adj	kép, hai	C1	academic	academic	reading,writing	oxford-3000-5000
+elaboration	n	sự triển khai chi tiết	C1	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+elite	n	tinh hoa	C1	society	topic	reading,writing	oxford-3000-5000
+emergence	n	sự xuất hiện	C1	science	topic	reading,writing	oxford-3000-5000
+enquire	v	hỏi, tìm hiểu	C1	academic	academic	cloze,reading	oxford-3000-5000
+enthusiast	n	người đam mê	C1	sport	topic	reading,writing	oxford-3000-5000
+envisage	v	hình dung, dự kiến	C1	academic	academic	cloze,reading	octanove-vocabulary-profile-1.0
+exhilarate	v	làm phấn khích	C1	psychology	topic	cloze,reading	octanove-vocabulary-profile-1.0
+expire	v	hết hạn	C1	law	topic	cloze,reading	oxford-3000-5000
+explanatory	adj	mang tính giải thích	C1	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+extravagance	n	sự xa hoa	C1	economics	topic	reading,writing	octanove-vocabulary-profile-1.0
+fixture	n	thiết bị cố định, trận đấu	C1	sport	topic	reading,writing	oxford-3000-5000
+flattery	n	lời tâng bốc	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+forensic	adj	thuộc pháp y	C1	law	topic	reading,writing	octanove-vocabulary-profile-1.0
+fusion	n	sự hợp nhất	C1	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+gaze	n	cái nhìn chăm chú	C1	psychology	topic	reading,writing	oxford-3000-5000
+impediment	n	trở ngại	C1	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+implementation	n	sự triển khai	C1	work	topic	reading,writing	oxford-3000-5000
+inequality	n	sự bất bình đẳng	C1	society	topic	reading,writing	oxford-3000-5000
+inexhaustible	adj	không bao giờ cạn	C1	environment	topic	reading,writing	octanove-vocabulary-profile-1.0
+inexplicable	adj	không thể giải thích	C1	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+insecure	adj	thiếu tự tin, không an toàn	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+insensitive	adj	vô cảm	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+insightful	adj	sâu sắc	C1	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+laser	n	tia la-de	C1	technology	topic	reading,writing	oxford-3000-5000
+lodge	n	ở trọ, đệ trình	B1	travel	topic	reading,writing	cefrj-vocabulary-profile-1.5
+long-time	adj	lâu năm	C1	family	topic	reading,writing	oxford-3000-5000
+manipulation	n	sự thao túng	C1	media	topic	reading,writing	oxford-3000-5000
+marvel	v	kỳ quan, kinh ngạc	C1	culture	topic	cloze,reading	octanove-vocabulary-profile-1.0
+mercy	n	lòng thương xót	C1	law	topic	reading,writing	oxford-3000-5000
+miracle	n	phép màu	C1	culture	topic	reading,writing	oxford-3000-5000
+naivety	n	sự ngây thơ	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+obsess	v	ám ảnh	C1	psychology	topic	cloze,reading	oxford-3000-5000
+oral	adj	bằng lời nói, thuộc miệng	C1	education	topic	reading,writing	oxford-3000-5000
+ornamental	adj	để trang trí	C1	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+outset	n	sự khởi đầu	C1	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+overdraft	v	rút quá số dư	C1	economics	topic	cloze,reading	octanove-vocabulary-profile-1.0
+pathway	n	lối đi, con đường	C1	science	topic	reading,writing	oxford-3000-5000
+phenomenal	adj	phi thường	C1	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+practitioner	n	người hành nghề	C1	health	topic	reading,writing	oxford-3000-5000
+premium	n	phần thưởng, cao cấp	C1	economics	topic	reading,writing	oxford-3000-5000
+prevalence	n	sự phổ biến	C1	health	topic	reading,writing	oxford-3000-5000
+projection	n	dự báo, hình chiếu	C1	science	topic	reading,writing	oxford-3000-5000
+prop	v	chống đỡ, đạo cụ	C1	culture	topic	cloze,reading	octanove-vocabulary-profile-1.0
+purity	n	độ tinh khiết	C1	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+realist	n	người theo chủ nghĩa hiện thực	C1	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+recharge	v	nạp lại	C1	technology	topic	cloze,reading	octanove-vocabulary-profile-1.0
+recount	v	kể lại	C1	media	topic	cloze,reading	oxford-3000-5000
+reminder	n	lời nhắc	C1	psychology	topic	reading,writing	oxford-3000-5000
+renew	v	gia hạn, làm mới	C1	law	topic	cloze,reading	oxford-3000-5000
+restorative	adj	giúp phục hồi	C1	health	topic	reading,writing	octanove-vocabulary-profile-1.0
+salvage	v	cứu vớt	C1	environment	topic	cloze,reading	octanove-vocabulary-profile-1.0
+sarcastic	adj	mỉa mai	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+slack	v	lỏng lẻo, uể oải	C1	work	topic	cloze,reading	octanove-vocabulary-profile-1.0
+solo	adj	đơn ca, một mình	C1	culture	topic	reading,writing	oxford-3000-5000
+spacious	adj	rộng rãi	C1	travel	topic	reading,writing	octanove-vocabulary-profile-1.0
+spectacle	n	cảnh tượng, màn trình diễn	C1	culture	topic	reading,writing	oxford-3000-5000
+spin	v	quay, xoay	C1	science	topic	cloze,reading	oxford-3000-5000
+stabilize	v	làm ổn định	C1	science	topic	cloze,reading	oxford-3000-5000
+tempt	v	cám dỗ	C1	psychology	topic	cloze,reading	oxford-3000-5000
+theatrical	adj	thuộc sân khấu	C1	culture	topic	reading,writing	oxford-3000-5000
+timid	adj	nhút nhát	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+aware	adj	nhận thức được	B1	psychology	topic	reading,writing	oxford-3000-5000
+tend	v	có xu hướng	B1	academic	academic	cloze,reading	oxford-3000-5000
+written	adj	bằng văn bản, viết	B1	academic	academic	reading,writing	oxford-3000-5000
+safety	n	sự an toàn	B1	health	topic	reading,writing	oxford-3000-5000
+central	adj	trung tâm, chủ yếu	B1	academic	academic	reading,writing	oxford-3000-5000
+previous	adj	trước đó	B1	academic	academic	reading,writing	oxford-3000-5000
+economic	adj	thuộc kinh tế	B1	economics	topic	reading,writing	oxford-3000-5000
+reality	n	thực tế	B1	society	topic	reading,writing	oxford-3000-5000
+location	n	vị trí	B1	travel	topic	reading,writing	oxford-3000-5000
+paid	adj	được trả tiền	B1	work	topic	reading,writing	cefrj-vocabulary-profile-1.5
+tiny	adj	tí hon	B1	academic	academic	reading,writing	oxford-3000-5000
+setting	n	bối cảnh, môi trường	B1	culture	topic	reading,writing	oxford-3000-5000
+spending	n	chi tiêu	B1	economics	topic	reading,writing	oxford-3000-5000
+competitive	adj	mang tính cạnh tranh	B1	economics	topic	reading,writing	oxford-3000-5000
+suffer	v	chịu đựng	B1	health	topic	cloze,reading	oxford-3000-5000
+whenever	adv	bất cứ khi nào	B1	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+organized	adj	có tổ chức	B1	work	topic	reading,writing	oxford-3000-5000
+channel	n	kênh	B1	media	topic	reading,writing	oxford-3000-5000
+equally	adv	như nhau, công bằng	B1	academic	academic	reading,writing	oxford-3000-5000
+goods	n	hàng hóa	B1	economics	topic	reading,writing	oxford-3000-5000
+dioxide	n	đi-ô-xít	B1	science	topic	reading,writing	cefrj-vocabulary-profile-1.5
+gifted	adj	có năng khiếu	B1	education	topic	reading,writing	cefrj-vocabulary-profile-1.5
+operation	n	hoạt động, ca mổ	B1	health	topic	reading,writing	oxford-3000-5000
+northern	adj	phía bắc	B1	academic	academic	reading,writing	oxford-3000-5000
+spoken	adj	nói (khẩu ngữ)	B1	academic	academic	reading,writing	oxford-3000-5000
+property	n	tài sản, tính chất	B1	economics	topic	reading,writing	oxford-3000-5000
+southern	adj	phía nam	B1	academic	academic	reading,writing	oxford-3000-5000
+talented	adj	có tài năng	B1	education	topic	reading,writing	oxford-3000-5000
+handwriting	n	chữ viết tay	B1	education	topic	reading,writing	cefrj-vocabulary-profile-1.5
+stuck	adj	bị kẹt, mắc kẹt	B1	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+amazed	adj	kinh ngạc	B1	psychology	topic	reading,writing	oxford-3000-5000
+burning	adj	đang cháy, nóng bỏng	B1	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+comparison	n	sự so sánh	B1	academic	academic	reading,writing	oxford-3000-5000
+consume	v	tiêu thụ	B1	economics	topic	cloze,reading	oxford-3000-5000
+consumer	n	người tiêu dùng	B1	economics	topic	reading,writing	oxford-3000-5000
+edge	n	bờ, mép, lợi thế	B1	sport	topic	reading,writing	oxford-3000-5000
+entry	n	lối vào, mục từ	B1	academic	academic	reading,writing	oxford-3000-5000
+extinct	adj	tuyệt chủng	B1	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+fallen	adj	bị ngã, đã rơi	B1	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+giant	adj	khổng lồ	B1	academic	academic	reading,writing	oxford-3000-5000
+lasting	adj	lâu dài	B1	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+spirit	n	tinh thần	B1	culture	topic	reading,writing	oxford-3000-5000
+studio	n	phòng thu, xưởng phim	B1	media	topic	reading,writing	oxford-3000-5000
+ambitious	adj	tham vọng	B1	psychology	topic	reading,writing	oxford-3000-5000
+lay	v	đặt, để nằm	B1	academic	academic	cloze,reading	oxford-3000-5000
+outdoors	adv	ở ngoài trời	B1	travel	topic	reading,writing	oxford-3000-5000
+qualified	adj	có trình độ	B1	work	topic	reading,writing	oxford-3000-5000
+religious	adj	thuộc tôn giáo	B1	culture	topic	reading,writing	oxford-3000-5000
+annoyed	adj	bực mình	B1	psychology	topic	reading,writing	oxford-3000-5000
+face-to-face	adj	trực tiếp, mặt đối mặt	B1	society	topic	reading,writing	cefrj-vocabulary-profile-1.5
+frozen	adj	bị đông lạnh	B1	food	topic	reading,writing	oxford-3000-5000
+outdoor	adj	ngoài trời	B1	travel	topic	reading,writing	oxford-3000-5000
+printing	n	việc in ấn	B1	media	topic	reading,writing	oxford-3000-5000
+stressed	adj	căng thẳng	B1	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+union	n	công đoàn, liên minh	B1	politics	topic	reading,writing	oxford-3000-5000
+apologize	v	xin lỗi	B1	society	topic	cloze,reading	oxford-3000-5000
+atlantic	adj	thuộc Đại Tây Dương	B1	science	topic	reading,writing	cefrj-vocabulary-profile-1.5
+champion	n	nhà vô địch	B1	sport	topic	reading,writing	oxford-3000-5000
+gardening	n	làm vườn	B1	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+geographical	adj	thuộc địa lý	B1	science	topic	reading,writing	cefrj-vocabulary-profile-1.5
+personally	adv	cá nhân tôi	B1	academic	academic	reading,writing	oxford-3000-5000
+politics	n	chính trị	B1	politics	topic	reading,writing	oxford-3000-5000
+unemployed	adj	thất nghiệp	B1	economics	topic	reading,writing	oxford-3000-5000
+unpredictable	adj	không thể dự đoán	B1	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+commit	v	cam kết, phạm (tội)	B1	law	topic	cloze,reading	oxford-3000-5000
+embarrassed	adj	ngượng, xấu hổ	B1	psychology	topic	reading,writing	oxford-3000-5000
+incredibly	adv	đáng kinh ngạc	B1	academic	academic	reading,writing	oxford-3000-5000
+invest	v	đầu tư	B1	economics	topic	cloze,reading	oxford-3000-5000
+jealous	adj	ghen tị	B1	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+killing	n	việc giết hại	B1	law	topic	reading,writing	oxford-3000-5000
+participate	v	tham gia	B1	society	topic	cloze,reading	oxford-3000-5000
+primitive	adj	nguyên thủy	B1	science	topic	reading,writing	cefrj-vocabulary-profile-1.5
+unemployment	n	nạn thất nghiệp	B1	economics	topic	reading,writing	oxford-3000-5000
+applause	n	tiếng vỗ tay	B1	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+bang	n	tiếng nổ	B1	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+devastating	adj	tàn phá, khủng khiếp	B1	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+sex	n	giới tính, tình dục	B1	health	topic	reading,writing	oxford-3000-5000
+southeast	adj	phía đông nam	B1	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+up-to-date	adj	cập nhật	B1	technology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+weapon	n	vũ khí	B1	politics	topic	reading,writing	oxford-3000-5000
+duty	n	nghĩa vụ, thuế	B1	law	topic	reading,writing	oxford-3000-5000
+forbidden	adj	bị cấm	B1	law	topic	reading,writing	cefrj-vocabulary-profile-1.5
+greeting	n	lời chào	B1	society	topic	reading,writing	cefrj-vocabulary-profile-1.5
+nutritious	adj	bổ dưỡng	B1	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+skyscraper	n	tòa nhà chọc trời	B1	technology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+threatening	adj	đe dọa	B1	society	topic	reading,writing	cefrj-vocabulary-profile-1.5
+awesome	adj	tuyệt vời	B1	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+buyer	n	người mua	B1	economics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+competitor	n	đối thủ	B1	economics	topic	reading,writing	oxford-3000-5000
+crossing	n	ngã tư, sự giao nhau	B1	travel	topic	reading,writing	cefrj-vocabulary-profile-1.5
+indirect	adj	gián tiếp	B1	academic	academic	reading,writing	oxford-3000-5000
+mediterranean	n	thuộc Địa Trung Hải	B1	travel	topic	reading,writing	cefrj-vocabulary-profile-1.5
+misunderstanding	n	sự hiểu lầm	B1	society	topic	reading,writing	cefrj-vocabulary-profile-1.5
+old-fashioned	adj	lỗi thời	B1	culture	topic	reading,writing	oxford-3000-5000
+paradise	n	thiên đường	B1	travel	topic	reading,writing	cefrj-vocabulary-profile-1.5
+port	n	cảng	B1	economics	topic	reading,writing	oxford-3000-5000
+second-hand	adj	đã qua sử dụng	B1	economics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+tin	n	thiếc, hộp thiếc	B1	economics	topic	reading,writing	oxford-3000-5000
+trumpet	n	kèn trumpet	B1	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+wrapping	n	giấy gói	B1	economics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+animated	adj	sinh động, hoạt hình	B1	media	topic	reading,writing	cefrj-vocabulary-profile-1.5
+bomb	n	bom, đánh bom	B1	politics	topic	reading,writing	oxford-3000-5000
+boxing	n	quyền anh	B1	sport	topic	reading,writing	cefrj-vocabulary-profile-1.5
+christian	adj	thuộc Kitô giáo	B1	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+drunk	adj	say rượu	B1	health	topic	reading,writing	oxford-3000-5000
+endanger	v	gây nguy hiểm	B1	environment	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+fluently	adv	trôi chảy	B1	education	topic	reading,writing	cefrj-vocabulary-profile-1.5
+helpless	adj	bất lực	B1	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+improper	adj	không đúng đắn	B1	society	topic	reading,writing	cefrj-vocabulary-profile-1.5
+ivory	n	ngà voi	B1	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+jewel	n	đá quý	B1	economics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+northwest	adj	phía tây bắc	B1	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+prohibition	n	sự cấm	B1	law	topic	reading,writing	cefrj-vocabulary-profile-1.5
+qualify	v	đủ điều kiện	B1	sport	topic	cloze,reading	oxford-3000-5000
+racing	n	cuộc đua	B1	sport	topic	reading,writing	oxford-3000-5000
+railroad	n	đường sắt	B1	technology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+sadness	n	nỗi buồn	B1	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+teen	n	thiếu niên	B1	family	topic	reading,writing	cefrj-vocabulary-profile-1.5
+unwanted	adj	không mong muốn	B1	society	topic	reading,writing	cefrj-vocabulary-profile-1.5
+turnout	n	số người tham dự	C1	politics	topic	reading,writing	oxford-3000-5000
+unsustainable	adj	không bền vững	C1	environment	topic	reading,writing	octanove-vocabulary-profile-1.0
+unwavering	adj	kiên định	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+violet	adj	màu tím	C1	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+vitality	n	sức sống	C1	health	topic	reading,writing	octanove-vocabulary-profile-1.0
+waterfront	n	bờ sông, bờ biển	C1	travel	topic	reading,writing	octanove-vocabulary-profile-1.0
+weave	v	dệt	C1	technology	topic	cloze,reading	oxford-3000-5000
+weed	n	cỏ dại	C1	environment	topic	reading,writing	oxford-3000-5000
+wicked	adj	độc ác	C1	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+withdrawn	adj	thu mình, kín đáo	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+accessibility	n	tính dễ tiếp cận	B2	society	topic	reading,writing	cefrj-vocabulary-profile-1.5
+achievable	adj	có thể đạt được	B2	work	topic	reading,writing	cefrj-vocabulary-profile-1.5
+activate	v	kích hoạt	B2	technology	topic	cloze,reading	oxford-3000-5000
+affectionate	adj	trìu mến	B2	family	topic	reading,writing	cefrj-vocabulary-profile-1.5
+affectionately	adv	một cách trìu mến	B2	family	topic	reading,writing	cefrj-vocabulary-profile-1.5
+anticipation	n	sự mong đợi	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+bad-tempered	adj	nóng tính	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+bent	adj	bị cong	B2	technology	topic	reading,writing	oxford-3000-5000
+bond	n	mối liên kết, trái phiếu	B2	economics	topic	reading,writing	oxford-3000-5000
+booth	n	quầy, buồng	B2	media	topic	reading,writing	cefrj-vocabulary-profile-1.5
+breast	n	ngực	B2	health	topic	reading,writing	oxford-3000-5000
+bullet	n	viên đạn	B2	law	topic	reading,writing	oxford-3000-5000
+burdensome	adj	nặng nề	B2	work	topic	reading,writing	cefrj-vocabulary-profile-1.5
+cane	n	cây gậy	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+canon	n	quy tắc chuẩn, kinh điển	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+captive	n	bị giam giữ	B2	law	topic	reading,writing	cefrj-vocabulary-profile-1.5
+centigrade	n	độ C	B2	science	topic	reading,writing	cefrj-vocabulary-profile-1.5
+compress	n	nén	B2	science	topic	reading,writing	cefrj-vocabulary-profile-1.5
+confess	v	thú nhận	B2	law	topic	cloze,reading	oxford-3000-5000
+converse	n	trò chuyện	B2	society	topic	reading,writing	cefrj-vocabulary-profile-1.5
+correctness	n	tính đúng đắn	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+critic	n	nhà phê bình	B2	media	topic	reading,writing	oxford-3000-5000
+deceptive	adj	đánh lừa	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+destiny	n	số phận	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+dispensable	adj	có thể bỏ đi	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+disposition	n	tính khí, cách sắp xếp	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+dot	n	dấu chấm	B2	academic	academic	reading,writing	oxford-3000-5000
+downwards	adv	đi xuống	B2	academic	academic	reading,writing	oxford-3000-5000
+enquiry	n	cuộc điều tra	B2	law	topic	reading,writing	oxford-3000-5000
+erupt	v	phun trào	B2	science	topic	cloze,reading	oxford-3000-5000
+eruption	n	sự phun trào	B2	science	topic	reading,writing	cefrj-vocabulary-profile-1.5
+faith	n	niềm tin, đức tin	B2	culture	topic	reading,writing	oxford-3000-5000
+father-in-law	n	bố vợ, bố chồng	B2	family	topic	reading,writing	cefrj-vocabulary-profile-1.5
+format	n	định dạng	B2	media	topic	reading,writing	oxford-3000-5000
+fragrance	n	hương thơm	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+gasp	n	thở hổn hển	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+gateway	n	cổng, cửa ngõ	B2	technology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+glare	n	ánh chói, trừng mắt	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+goodwill	n	thiện chí	B2	economics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+graphics	n	đồ họa	B2	media	topic	reading,writing	oxford-3000-5000
+greatness	n	sự vĩ đại	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+grim	adj	tàn nhẫn, ảm đạm	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+handicap	n	khuyết tật, trở ngại	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+headquarters	n	trụ sở chính	B2	economics	topic	reading,writing	oxford-3000-5000
+heartbreaking	adj	đau lòng	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+heaven	n	thiên đường	B2	culture	topic	reading,writing	oxford-3000-5000
+hell	n	địa ngục	B2	culture	topic	reading,writing	oxford-3000-5000
+housewife	n	bà nội trợ	B2	family	topic	reading,writing	cefrj-vocabulary-profile-1.5
+immerse	v	đắm mình vào	B2	psychology	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+impolite	adj	bất lịch sự	B2	society	topic	reading,writing	cefrj-vocabulary-profile-1.5
+inaccurate	adj	không chính xác	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+inborn	adj	bẩm sinh	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+indescribable	adj	không tả xiết	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+infected	adj	bị nhiễm bệnh	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+insert	v	chèn, đưa vào	B2	technology	topic	cloze,reading	oxford-3000-5000
+investor	n	nhà đầu tư	B2	economics	topic	reading,writing	oxford-3000-5000
+irresistibly	adv	không thể cưỡng lại	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+irritation	n	sự khó chịu	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+jog	n	chạy bộ	B2	sport	topic	reading,writing	cefrj-vocabulary-profile-1.5
+kangaroo	n	con kangaroo	B2	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+knowingly	adv	cố ý	B2	law	topic	reading,writing	cefrj-vocabulary-profile-1.5
+lance	n	cây thương, mũi giáo	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+last-minute	adj	phút chót	B2	work	topic	reading,writing	cefrj-vocabulary-profile-1.5
+leaflet	n	tờ rơi	B2	media	topic	reading,writing	oxford-3000-5000
+legend	n	truyền thuyết	B2	culture	topic	reading,writing	oxford-3000-5000
+lens	n	thấu kính	B2	science	topic	reading,writing	oxford-3000-5000
+long-distance	adj	đường dài, đường trường	B2	sport	topic	reading,writing	cefrj-vocabulary-profile-1.5
+madness	n	sự điên rồ	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+malaria	n	bệnh sốt rét	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+matching	adj	phù hợp, tương ứng	B2	academic	academic	reading,writing	oxford-3000-5000
+mausoleum	n	lăng mộ	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+microscope	n	kính hiển vi	B2	science	topic	reading,writing	cefrj-vocabulary-profile-1.5
+millionaire	n	triệu phú	B2	economics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+miniature	adj	thu nhỏ	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+monster	n	quái vật	B2	culture	topic	reading,writing	oxford-3000-5000
+muse	v	nàng thơ, cảm hứng	B2	culture	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+navy	n	hải quân	B2	politics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+newsworthy	adj	đáng đưa tin	B2	media	topic	reading,writing	cefrj-vocabulary-profile-1.5
+nuisance	n	mối phiền toái	B2	society	topic	reading,writing	cefrj-vocabulary-profile-1.5
+olympiad	n	thế vận hội, kỳ thi Olympic	B2	education	topic	reading,writing	cefrj-vocabulary-profile-1.5
+operator	n	tổng đài viên, nhà vận hành	B2	technology	topic	reading,writing	oxford-3000-5000
+outgrow	v	lớn hơn, vượt qua	B2	family	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+outlive	v	sống lâu hơn	B2	health	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+peg	n	cái chốt, cọc	B2	technology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+pneumonia	n	viêm phổi	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+predictor	n	yếu tố dự báo	B2	science	topic	reading,writing	cefrj-vocabulary-profile-1.5
+priceless	adj	vô giá	B2	economics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+purposeful	adj	có mục đích	B2	work	topic	reading,writing	cefrj-vocabulary-profile-1.5
+rebellious	adj	nổi loạn	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+recollect	v	hồi tưởng	B2	psychology	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+recollection	n	sự hồi tưởng	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+register	v	đăng ký, sổ đăng bộ	B2	education	topic	cloze,reading	oxford-3000-5000
+rejoin	v	tham gia lại	B2	society	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+remark	n	nhận xét	B2	media	topic	reading,writing	oxford-3000-5000
+repaint	n	sơn lại	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+repress	v	kìm nén, đàn áp	B2	psychology	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+respiration	n	hô hấp	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+restriction	n	sự hạn chế	B2	law	topic	reading,writing	oxford-3000-5000
+rhythmic	adj	có nhịp điệu	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+rim	n	vành, mép	B2	technology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+rosy	adj	hồng hào, lạc quan	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+rusty	adj	bị gỉ, mai một	B2	technology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+shortly	adv	sớm, chẳng bao lâu	B2	academic	academic	reading,writing	oxford-3000-5000
+slang	n	tiếng lóng	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+standstill	n	sự đình trệ	B2	economics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+stimulant	n	chất kích thích	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+subjunctive	n	thức giả định	B2	education	topic	reading,writing	cefrj-vocabulary-profile-1.5
+tame	adj	thuần hóa	B2	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+tank	n	bể chứa, xe tăng	B2	technology	topic	reading,writing	oxford-3000-5000
+terrifying	adj	đáng sợ	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+thirst	n	cơn khát	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+thrill	n	cảm giác hồi hộp	B2	sport	topic	reading,writing	cefrj-vocabulary-profile-1.5
+tiredness	n	sự mệt mỏi	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+trample	n	giẫm đạp	B2	society	topic	reading,writing	cefrj-vocabulary-profile-1.5
+truthful	adj	trung thực	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+unavailable	adj	không có sẵn	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+unforeseen	adj	không lường trước	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+unhappiness	n	sự bất hạnh	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+unsuitable	adj	không phù hợp	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+useless	adj	vô dụng	B2	academic	academic	reading,writing	oxford-3000-5000
+vertical	adj	thẳng đứng	B2	science	topic	reading,writing	oxford-3000-5000
+vibrate	v	rung, dao động	B2	science	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+vigorous	adj	mạnh mẽ	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+wondrous	adj	kỳ diệu	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+advert	n	mẩu quảng cáo	B1	media	topic	reading,writing	cefrj-vocabulary-profile-1.5
+aloud	adv	thành tiếng	B1	education	topic	reading,writing	cefrj-vocabulary-profile-1.5
+annoyance	n	sự khó chịu	B1	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+anti	adj	phản đối, chống	B1	media	topic	reading,writing	cefrj-vocabulary-profile-1.5
+bull	n	con bò đực	B1	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+canned	adj	đóng hộp	B1	food	topic	reading,writing	cefrj-vocabulary-profile-1.5
+cucumber	n	dưa chuột	B1	food	topic	reading,writing	cefrj-vocabulary-profile-1.5
+emperor	n	hoàng đế	B1	politics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+enclose	v	bao quanh, gửi kèm	B1	academic	academic	cloze,reading	cefrj-vocabulary-profile-1.5
+evenly	adv	đồng đều	B1	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+faraway	adj	xa xôi	B1	travel	topic	reading,writing	cefrj-vocabulary-profile-1.5
+farther	adv	xa hơn	B1	travel	topic	reading,writing	cefrj-vocabulary-profile-1.5
+fasten	v	thắt chặt	B1	technology	topic	cloze,reading	oxford-3000-5000
+friendliness	n	sự thân thiện	B1	society	topic	reading,writing	cefrj-vocabulary-profile-1.5
+gymnastics	n	thể dục dụng cụ	B1	sport	topic	reading,writing	cefrj-vocabulary-profile-1.5
+hard-working	adj	chăm chỉ	B1	work	topic	reading,writing	cefrj-vocabulary-profile-1.5
+hopeless	adj	vô vọng	B1	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+idol	n	thần tượng	B1	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+indirectly	adv	một cách gián tiếp	B1	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+lovingly	adv	trìu mến	B1	family	topic	reading,writing	cefrj-vocabulary-profile-1.5
+mankind	n	nhân loại	B1	society	topic	reading,writing	cefrj-vocabulary-profile-1.5
+middle-aged	adj	trung niên	B1	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+mislead	v	làm lạc hướng	B1	media	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+newborn	adj	trẻ sơ sinh	B1	family	topic	reading,writing	cefrj-vocabulary-profile-1.5
+next-door	adj	ngay bên cạnh	B1	family	topic	reading,writing	cefrj-vocabulary-profile-1.5
+northeastern	adj	phía đông bắc	B1	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+northwestern	adj	phía tây bắc	B1	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+out-of-date	adj	lỗi thời	B1	technology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+outward	adj	hướng ra ngoài	B1	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+prosperous	adj	thịnh vượng	B1	economics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+repay	v	trả lại, hoàn trả	B1	economics	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+reunification	n	sự thống nhất lại	B1	politics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+safari	n	chuyến đi săn, thám hiểm	B1	travel	topic	reading,writing	cefrj-vocabulary-profile-1.5
+salesman	n	nhân viên bán hàng	B1	work	topic	reading,writing	cefrj-vocabulary-profile-1.5
+sexual	adj	thuộc giới tính	B1	health	topic	reading,writing	oxford-3000-5000
+stylish	adj	sành điệu	B1	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+tasteless	adj	nhạt nhẽo, vô vị	B1	food	topic	reading,writing	cefrj-vocabulary-profile-1.5
+terrified	adj	khiếp sợ	B1	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+thriller	n	truyện phim ly kỳ	B1	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+trustworthy	adj	đáng tin cậy	B1	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+undo	v	hoàn tác, tháo ra	B1	technology	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+unheard	adj	chưa từng nghe	B1	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+unrelated	adj	không liên quan	B1	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+upward	adj	hướng lên	B1	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+worn	adj	mòn, cũ	B1	technology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+angular	adj	có góc, gầy gò	C2	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+apprehend	v	hiểu, bắt giữ	C2	law	topic	cloze,reading	octanove-vocabulary-profile-1.0
+babble	v	bập bẹ, lảm nhảm	C2	psychology	topic	cloze,reading	octanove-vocabulary-profile-1.0
+blurb	n	lời giới thiệu sách	C2	media	topic	reading,writing	octanove-vocabulary-profile-1.0
+calamity	n	thảm họa	C2	environment	topic	reading,writing	octanove-vocabulary-profile-1.0
+cay	n	cù lao nhỏ	C2	environment	topic	reading,writing	octanove-vocabulary-profile-1.0
+chronology	n	niên đại học	C2	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+condensation	n	sự ngưng tụ	C2	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+conduit	n	ống dẫn, kênh	C2	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+confrontational	adj	mang tính đối đầu	C2	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+corpse	n	xác chết	C2	law	topic	reading,writing	octanove-vocabulary-profile-1.0
+corpus	n	tập hợp văn bản, kho ngữ liệu	C2	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+cosmic	adj	thuộc vũ trụ	C2	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+dampen	v	làm ẩm, làm dịu	C2	science	topic	cloze,reading	octanove-vocabulary-profile-1.0
+deficient	adj	thiếu hụt	C2	health	topic	reading,writing	octanove-vocabulary-profile-1.0
+derelict	adj	bị bỏ hoang	C2	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+deviant	n	lệch chuẩn	C2	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+dissension	n	sự bất đồng	C2	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+distillation	n	sự chưng cất	C2	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+eccentricity	n	tính lập dị	C2	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+embodiment	n	hiện thân	C2	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+enthuse	v	hăng hái, hào hứng	C2	psychology	topic	cloze,reading	octanove-vocabulary-profile-1.0
+extracurricular	adj	ngoại khóa	C2	education	topic	reading,writing	octanove-vocabulary-profile-1.0
+exude	v	toát ra, rỉ ra	C2	science	topic	cloze,reading	octanove-vocabulary-profile-1.0
+facsimile	n	bản sao chép	C2	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+ferocity	n	sự dữ dội	C2	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+floodgates	n	cửa xả lũ	C2	environment	topic	reading,writing	octanove-vocabulary-profile-1.0
+gravitationally	adv	do trọng lực	C2	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+headmistress	n	nữ hiệu trưởng	C2	education	topic	reading,writing	octanove-vocabulary-profile-1.0
+hoist	v	kéo lên	C2	technology	topic	cloze,reading	octanove-vocabulary-profile-1.0
+hypothetical	adj	giả định	C2	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+hysterical	adj	cuồng loạn, buồn cười	C2	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+idiomatic	adj	đúng thành ngữ	C2	education	topic	reading,writing	octanove-vocabulary-profile-1.0
+ignominiously	adv	nhục nhã	C2	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+imperceptibly	adv	không thể nhận ra	C2	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+individualism	n	chủ nghĩa cá nhân	C2	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+infallibility	n	tính không sai lầm	C2	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+infallible	adj	không thể sai	C2	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+infernally	adv	như địa ngục	C2	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+interrogate	v	thẩm vấn	C2	law	topic	cloze,reading	octanove-vocabulary-profile-1.0
+interrogation	n	sự thẩm vấn	C2	law	topic	reading,writing	octanove-vocabulary-profile-1.0
+laudatory	adj	mang tính ca ngợi	C2	media	topic	reading,writing	octanove-vocabulary-profile-1.0
+legion	n	đoàn đông đảo	C2	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+locomotion	n	sự di chuyển	C2	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+locomotive	n	đầu máy xe lửa	C2	technology	topic	reading,writing	octanove-vocabulary-profile-1.0
+materialism	n	chủ nghĩa duy vật	C2	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+materialistic	adj	thiên về vật chất	C2	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+melancholy	n	u sầu	C2	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+melodious	adj	du dương	C2	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+mercenary	n	lính đánh thuê	C2	politics	topic	reading,writing	octanove-vocabulary-profile-1.0
+minefield	n	bãi mìn	C2	politics	topic	reading,writing	octanove-vocabulary-profile-1.0
+minster	v	nhà thờ lớn	C2	culture	topic	cloze,reading	octanove-vocabulary-profile-1.0
+monastic	adj	thuộc tu viện	C2	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+octogenarian	n	người tám mươi tuổi	C2	health	topic	reading,writing	octanove-vocabulary-profile-1.0
+ore	n	quặng	C2	economics	topic	reading,writing	octanove-vocabulary-profile-1.0
+prescriptive	adj	mang tính quy định	C2	law	topic	reading,writing	octanove-vocabulary-profile-1.0
+pressurize	v	gây áp lực	C2	technology	topic	cloze,reading	octanove-vocabulary-profile-1.0
+qualitative	adj	định tính	C2	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+reconciliation	n	sự hòa giải	C2	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+recourse	n	biện pháp cứu cánh	C2	law	topic	reading,writing	octanove-vocabulary-profile-1.0
+recuperation	n	sự hồi phục	C2	health	topic	reading,writing	octanove-vocabulary-profile-1.0
+redundancy	n	sự dư thừa, sa thải	C2	work	topic	reading,writing	octanove-vocabulary-profile-1.0
+repose	v	sự nghỉ ngơi	C2	health	topic	cloze,reading	octanove-vocabulary-profile-1.0
+retrospective	adj	hồi cố	C2	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+rife	adj	tràn lan	C2	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+rift	n	sự rạn nứt	C2	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+scholarly	adj	mang tính học thuật	C2	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+stipulation	n	điều khoản	C2	law	topic	reading,writing	octanove-vocabulary-profile-1.0
+stratosphere	n	tầng bình lưu	C2	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+subsidize	v	trợ cấp	C2	economics	topic	cloze,reading	octanove-vocabulary-profile-1.0
+succumb	v	khuất phục	C2	health	topic	cloze,reading	octanove-vocabulary-profile-1.0
+sulphur	n	lưu huỳnh	C2	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+swivel	v	xoay, khớp xoay	C2	technology	topic	cloze,reading	octanove-vocabulary-profile-1.0
+syllabic	adj	thuộc âm tiết	C2	education	topic	reading,writing	octanove-vocabulary-profile-1.0
+telescopic	adj	có thể thu gọn	C2	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+tenacity	n	sự kiên cường	C2	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+timidity	n	sự nhút nhát	C2	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+topography	n	địa hình	C2	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+unadulterated	adj	nguyên chất	C2	food	topic	reading,writing	octanove-vocabulary-profile-1.0
+venomous	adj	có nọc độc	C2	environment	topic	reading,writing	octanove-vocabulary-profile-1.0
+zoology	n	động vật học	C2	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+abound	v	có rất nhiều, tràn ngập	C1	academic	academic	cloze,reading	octanove-vocabulary-profile-1.0
+abuse	n	lạm dụng	C1	law	topic	reading,writing	oxford-3000-5000
+accordance	n	phù hợp với	C1	law	topic	reading,writing	oxford-3000-5000
+acoustic	adj	thuộc âm thanh	C1	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+adjoin	v	liền kề với	C1	academic	academic	cloze,reading	octanove-vocabulary-profile-1.0
+aesthetically	adv	về mặt thẩm mỹ	C1	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+amply	adv	dồi dào	C1	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+anthropology	n	nhân học	C1	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+antiquity	n	thời cổ đại	C1	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+apt	adj	thích hợp, có khả năng	C1	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+aqua	adj	màu xanh nước biển	C1	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+assassination	n	việc ám sát	C1	politics	topic	reading,writing	oxford-3000-5000
+auto	n	ô tô	C1	technology	topic	reading,writing	oxford-3000-5000
+barrel	n	thùng, nòng súng	C1	technology	topic	reading,writing	oxford-3000-5000
+beforehand	adv	trước đó	C1	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+bleed	v	chảy máu	C1	health	topic	cloze,reading	oxford-3000-5000
+bless	v	ban phước	C1	culture	topic	cloze,reading	oxford-3000-5000
+buck	n	con hươu đực, đô la	C1	economics	topic	reading,writing	oxford-3000-5000
+bulky	adj	cồng kềnh	C1	technology	topic	reading,writing	octanove-vocabulary-profile-1.0
+carrier	n	hãng vận chuyển	C1	economics	topic	reading,writing	octanove-vocabulary-profile-1.0
+carve	v	chạm khắc	C1	culture	topic	cloze,reading	oxford-3000-5000
+casino	n	sòng bạc	C1	economics	topic	reading,writing	oxford-3000-5000
+catalogue	n	danh mục	C1	academic	academic	reading,writing	oxford-3000-5000
+cavity	n	lỗ hổng, sâu răng	C1	health	topic	reading,writing	octanove-vocabulary-profile-1.0
+chilly	adj	lạnh lẽo	C1	environment	topic	reading,writing	octanove-vocabulary-profile-1.0
+churn	v	khuấy, quay cuồng	C1	economics	topic	cloze,reading	octanove-vocabulary-profile-1.0
+classy	adj	sang trọng	C1	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+cleanly	adv	một cách sạch sẽ	C1	health	topic	reading,writing	octanove-vocabulary-profile-1.0
+closeness	n	sự gần gũi	C1	family	topic	reading,writing	octanove-vocabulary-profile-1.0
+colonial	adj	thuộc thuộc địa	C1	politics	topic	reading,writing	oxford-3000-5000
+commentator	n	bình luận viên	C1	media	topic	reading,writing	oxford-3000-5000
+complication	n	biến chứng, sự phức tạp	C1	health	topic	reading,writing	oxford-3000-5000
+compute	v	tính toán	C1	technology	topic	cloze,reading	oxford-3000-5000
+conditionally	adv	có điều kiện	C1	law	topic	reading,writing	octanove-vocabulary-profile-1.0
+congregation	n	giáo đoàn, hội chúng	C1	culture	topic	reading,writing	oxford-3000-5000
+conjure	v	gợi lên, làm hiện ra	C1	culture	topic	cloze,reading	octanove-vocabulary-profile-1.0
+constituency	n	khu vực bầu cử	C1	politics	topic	reading,writing	oxford-3000-5000
+convict	v	kết án	C1	law	topic	cloze,reading	oxford-3000-5000
+cooperative	adj	hợp tác	C1	economics	topic	reading,writing	oxford-3000-5000
+cost-effective	adj	hiệu quả về chi phí	C1	economics	topic	reading,writing	octanove-vocabulary-profile-1.0
+courtesy	n	phép lịch sự	C1	society	topic	reading,writing	oxford-3000-5000
+craving	n	cơn thèm muốn	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+cult	n	giáo phái, sùng bái	C1	culture	topic	reading,writing	oxford-3000-5000
+cynicism	n	sự hoài nghi	C1	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+defect	n	khuyết điểm	C1	technology	topic	reading,writing	oxford-3000-5000
+demon	n	con quỷ	C1	culture	topic	reading,writing	oxford-3000-5000
+depiction	n	sự miêu tả	C1	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+descend	v	đi xuống, hạ xuống	C1	academic	academic	cloze,reading	oxford-3000-5000
+designate	v	chỉ định	C1	law	topic	cloze,reading	oxford-3000-5000
+detection	n	sự phát hiện	C1	science	topic	reading,writing	oxford-3000-5000
+devotee	n	người sùng mộ	C1	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+diplomat	n	nhà ngoại giao	C1	politics	topic	reading,writing	oxford-3000-5000
+directory	n	danh bạ	C1	technology	topic	reading,writing	oxford-3000-5000
+dismay	v	sự hoang mang	C1	psychology	topic	cloze,reading	octanove-vocabulary-profile-1.0
+diverge	v	phân kỳ, rẽ khác	C1	science	topic	cloze,reading	octanove-vocabulary-profile-1.0
+divine	adj	thuộc thần thánh	C1	culture	topic	reading,writing	oxford-3000-5000
+donor	n	người hiến tặng	C1	health	topic	reading,writing	oxford-3000-5000
+drown	v	chết đuối	C1	health	topic	cloze,reading	oxford-3000-5000
+dub	v	gọi là, lồng tiếng	C1	media	topic	cloze,reading	oxford-3000-5000
+echo	v	tiếng vang	C1	science	topic	cloze,reading	oxford-3000-5000
+ego	n	cái tôi	C1	psychology	topic	reading,writing	oxford-3000-5000
+enviable	adv	đáng ghen tị	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+erect	v	dựng lên, thẳng đứng	C1	technology	topic	cloze,reading	oxford-3000-5000
+eternal	adj	vĩnh cửu	C1	culture	topic	reading,writing	oxford-3000-5000
+exhilarating	adj	phấn khích	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+fanatic	n	cuồng tín	C1	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+fleet	n	đội tàu	C1	economics	topic	reading,writing	oxford-3000-5000
+flesh	n	thịt, cùi	C1	health	topic	reading,writing	oxford-3000-5000
+flicker	n	nhấp nháy	C1	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+formality	n	thủ tục, sự trang trọng	C1	law	topic	reading,writing	octanove-vocabulary-profile-1.0
+gambling	n	cờ bạc	C1	society	topic	reading,writing	oxford-3000-5000
+gem	n	đá quý	C1	economics	topic	reading,writing	octanove-vocabulary-profile-1.0
+grin	v	cười toe toét	C1	psychology	topic	cloze,reading	oxford-3000-5000
+grind	v	nghiền, xay	C1	food	topic	cloze,reading	oxford-3000-5000
+grip	n	nắm chặt	C1	technology	topic	reading,writing	oxford-3000-5000
+gushing	adj	phun trào, thốt ra	C1	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+gusto	n	sự hào hứng	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+heighten	v	tăng cường	C1	academic	academic	cloze,reading	oxford-3000-5000
+horn	n	sừng, kèn	C1	environment	topic	reading,writing	oxford-3000-5000
+ideology	n	hệ tư tưởng	C1	politics	topic	reading,writing	oxford-3000-5000
+idiot	n	kẻ ngốc	C1	psychology	topic	reading,writing	oxford-3000-5000
+impersonal	adj	khách quan, không cá nhân	C1	work	topic	reading,writing	octanove-vocabulary-profile-1.0
+imprison	v	bỏ tù	C1	law	topic	cloze,reading	oxford-3000-5000
+infamous	adj	khét tiếng	C1	media	topic	reading,writing	oxford-3000-5000
+injection	n	mũi tiêm, sự bơm	C1	health	topic	reading,writing	oxford-3000-5000
+insensitively	adv	một cách vô cảm	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+intent	n	ý định	C1	law	topic	reading,writing	oxford-3000-5000
+justification	n	sự biện minh	C1	law	topic	reading,writing	oxford-3000-5000
+lad	n	chàng trai trẻ	C1	society	topic	reading,writing	oxford-3000-5000
+legislature	n	cơ quan lập pháp	C1	politics	topic	reading,writing	oxford-3000-5000
+lesser	adj	nhỏ hơn, kém hơn	C1	academic	academic	reading,writing	oxford-3000-5000
+liberation	n	sự giải phóng	C1	politics	topic	reading,writing	oxford-3000-5000
+log	n	ghi chép, khúc gỗ	C1	technology	topic	reading,writing	oxford-3000-5000
+long-standing	adj	lâu đời	C1	society	topic	reading,writing	oxford-3000-5000
+loop	n	vòng lặp	C1	technology	topic	reading,writing	oxford-3000-5000
+magnetism	n	từ tính	C1	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+malfunction	v	sự cố hoạt động	C1	technology	topic	cloze,reading	octanove-vocabulary-profile-1.0
+manuscript	n	bản thảo	C1	culture	topic	reading,writing	oxford-3000-5000
+mask	n	mặt nạ	C1	health	topic	reading,writing	oxford-3000-5000
+mill	n	nhà máy xay, xưởng	C1	economics	topic	reading,writing	oxford-3000-5000
+modification	n	sự sửa đổi	C1	academic	academic	reading,writing	oxford-3000-5000
+mountaineer	n	người leo núi	C1	sport	topic	reading,writing	octanove-vocabulary-profile-1.0
+muscular	adj	cơ bắp	C1	health	topic	reading,writing	octanove-vocabulary-profile-1.0
+mythological	adj	thuộc thần thoại	C1	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+mythology	n	thần thoại học	C1	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+naive	adj	ngây thơ	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+neglectful	adj	sao nhãng	C1	family	topic	reading,writing	octanove-vocabulary-profile-1.0
+nomination	n	sự đề cử	C1	politics	topic	reading,writing	oxford-3000-5000
+non-profit	adj	phi lợi nhuận	C1	economics	topic	reading,writing	oxford-3000-5000
+oblige	v	bắt buộc, giúp đỡ	C1	law	topic	cloze,reading	oxford-3000-5000
+occupant	n	người cư ngụ	C1	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+opt	v	chọn	C1	academic	academic	cloze,reading	oxford-3000-5000
+optical	adj	thuộc quang học	C1	science	topic	reading,writing	oxford-3000-5000
+ordinarily	adv	thông thường	C1	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+outrage	n	sự phẫn nộ	C1	society	topic	reading,writing	oxford-3000-5000
+oversee	v	giám sát	C1	work	topic	cloze,reading	oxford-3000-5000
+overturn	v	lật ngược, bác bỏ	C1	law	topic	cloze,reading	oxford-3000-5000
+parliamentary	adj	thuộc nghị viện	C1	politics	topic	reading,writing	oxford-3000-5000
+pendulum	n	con lắc	C1	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+perceptive	adj	nhạy bén	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+physicality	n	tính vật chất	C1	sport	topic	reading,writing	octanove-vocabulary-profile-1.0
+pirate	n	cướp biển	C1	culture	topic	reading,writing	oxford-3000-5000
+post-war	adj	hậu chiến	C1	politics	topic	reading,writing	oxford-3000-5000
+pounce	v	vồ lấy	C1	environment	topic	cloze,reading	octanove-vocabulary-profile-1.0
+predecessor	n	người tiền nhiệm	C1	work	topic	reading,writing	oxford-3000-5000
+premier	n	hàng đầu, thủ tướng	C1	politics	topic	reading,writing	oxford-3000-5000
+prohibitively	adv	quá đắt, cấm đoán	C1	economics	topic	reading,writing	octanove-vocabulary-profile-1.0
+prosecute	v	truy tố	C1	law	topic	cloze,reading	oxford-3000-5000
+provincial	adj	thuộc tỉnh	C1	society	topic	reading,writing	oxford-3000-5000
+provocative	adj	khiêu khích	C1	media	topic	reading,writing	octanove-vocabulary-profile-1.0
+psychiatric	adj	thuộc tâm thần học	C1	health	topic	reading,writing	oxford-3000-5000
+quirky	adj	lập dị, độc đáo	C1	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+radar	n	ra-đa	C1	technology	topic	reading,writing	oxford-3000-5000
+rarity	n	sự hiếm có	C1	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+reassurance	n	sự trấn an	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+rediscover	v	tìm lại	C1	academic	academic	cloze,reading	octanove-vocabulary-profile-1.0
+regulatory	adj	thuộc quản lý	C1	law	topic	reading,writing	oxford-3000-5000
+remainder	n	phần còn lại	C1	academic	academic	reading,writing	oxford-3000-5000
+repel	v	đẩy lùi	C1	science	topic	cloze,reading	octanove-vocabulary-profile-1.0
+repellant	n	chất xua đuổi	C1	health	topic	reading,writing	octanove-vocabulary-profile-1.0
+resin	n	nhựa cây	C1	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+restraint	n	sự kiềm chế	C1	psychology	topic	reading,writing	oxford-3000-5000
+retreat	n	rút lui	C1	society	topic	reading,writing	oxford-3000-5000
+retrieve	v	truy xuất, lấy lại	C1	technology	topic	cloze,reading	oxford-3000-5000
+revelation	n	sự tiết lộ	C1	media	topic	reading,writing	oxford-3000-5000
+rifle	n	súng trường	C1	law	topic	reading,writing	oxford-3000-5000
+rip	v	xé rách	C1	academic	academic	cloze,reading	oxford-3000-5000
+rudiments	n	những điều cơ bản	C1	education	topic	reading,writing	octanove-vocabulary-profile-1.0
+ruling	n	phán quyết	C1	law	topic	reading,writing	oxford-3000-5000
+rumble	v	tiếng ầm ầm	C1	academic	academic	cloze,reading	octanove-vocabulary-profile-1.0
+saint	n	thánh	C1	culture	topic	reading,writing	oxford-3000-5000
+sarcastically	adv	một cách mỉa mai	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+sauna	n	phòng xông hơi	C1	health	topic	reading,writing	octanove-vocabulary-profile-1.0
+secular	adj	thế tục	C1	culture	topic	reading,writing	oxford-3000-5000
+sedate	v	trầm tĩnh, cho thuốc an thần	C1	health	topic	cloze,reading	octanove-vocabulary-profile-1.0
+segment	n	phân đoạn	C1	academic	academic	reading,writing	oxford-3000-5000
+self-conscious	adj	tự ý thức	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+self-worth	n	giá trị bản thân	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+sentiment	n	tình cảm, quan điểm	C1	psychology	topic	reading,writing	oxford-3000-5000
+sketch	n	phác thảo	C1	culture	topic	reading,writing	oxford-3000-5000
+slam	v	đóng sầm, chỉ trích mạnh	C1	media	topic	cloze,reading	oxford-3000-5000
+slavery	n	chế độ nô lệ	C1	politics	topic	reading,writing	oxford-3000-5000
+socialist	adj	xã hội chủ nghĩa	C1	politics	topic	reading,writing	oxford-3000-5000
+socialization	n	sự xã hội hóa	C1	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+solicitor	n	luật sư tư vấn	C1	law	topic	reading,writing	oxford-3000-5000
+squad	n	đội, tổ	C1	sport	topic	reading,writing	oxford-3000-5000
+startling	adj	đáng giật mình	C1	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+strand	n	sợi, mảng	C1	science	topic	reading,writing	oxford-3000-5000
+strap	n	dây đai	C1	technology	topic	reading,writing	octanove-vocabulary-profile-1.0
+stuffy	adj	ngột ngạt	C1	health	topic	reading,writing	octanove-vocabulary-profile-1.0
+subordinate	n	cấp dưới	C1	work	topic	reading,writing	octanove-vocabulary-profile-1.0
+successor	n	người kế nhiệm	C1	work	topic	reading,writing	oxford-3000-5000
+suck	v	hút	C1	health	topic	cloze,reading	oxford-3000-5000
+suicide	n	tự sát	C1	health	topic	reading,writing	oxford-3000-5000
+surrender	v	đầu hàng	C1	society	topic	cloze,reading	oxford-3000-5000
+suspension	n	sự đình chỉ, hệ treo	C1	law	topic	reading,writing	oxford-3000-5000
+syndrome	n	hội chứng	C1	health	topic	reading,writing	oxford-3000-5000
+tangle	v	rối, mớ rối	C1	academic	academic	cloze,reading	octanove-vocabulary-profile-1.0
+tangled	adj	rối rắm	C1	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+tautly	adv	căng thẳng	C1	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+terminate	v	chấm dứt	C1	law	topic	cloze,reading	oxford-3000-5000
+testify	v	làm chứng	C1	law	topic	cloze,reading	oxford-3000-5000
+thought-provoking	adj	gợi suy nghĩ	C1	academic	academic	reading,writing	oxford-3000-5000
+thrilled	adj	rất phấn khích	C1	psychology	topic	reading,writing	oxford-3000-5000
+torture	n	sự tra tấn	C1	law	topic	reading,writing	oxford-3000-5000
+toss	v	tung, ném	C1	academic	academic	cloze,reading	oxford-3000-5000
+trampoline	n	tấm bạt nhún	C1	sport	topic	reading,writing	octanove-vocabulary-profile-1.0
+tranquility	n	sự yên bình	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+transatlantic	adj	xuyên Đại Tây Dương	C1	travel	topic	reading,writing	octanove-vocabulary-profile-1.0
+tribunal	n	tòa án	C1	law	topic	reading,writing	oxford-3000-5000
+tribute	n	sự tri ân	C1	culture	topic	reading,writing	oxford-3000-5000
+trio	n	bộ ba	C1	culture	topic	reading,writing	oxford-3000-5000
+unconvincing	adj	không thuyết phục	C1	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+uneventful	adj	bình lặng	C1	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+unsettling	adj	gây bất an	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+unveil	v	ra mắt, tiết lộ	C1	media	topic	cloze,reading	oxford-3000-5000
+verve	n	sự nhiệt huyết	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+vessel	n	tàu thuyền, mạch máu	C1	technology	topic	reading,writing	oxford-3000-5000
+veteran	n	cựu binh, người kỳ cựu	C1	politics	topic	reading,writing	oxford-3000-5000
+warrior	n	chiến binh	C1	culture	topic	reading,writing	oxford-3000-5000
+wayside	n	lề đường	C1	travel	topic	reading,writing	octanove-vocabulary-profile-1.0
+widen	v	mở rộng	C1	academic	academic	cloze,reading	oxford-3000-5000
+widow	n	góa phụ	C1	family	topic	reading,writing	oxford-3000-5000
+wooded	adj	nhiều cây cối	C1	environment	topic	reading,writing	octanove-vocabulary-profile-1.0
+wry	adj	mỉa mai, nhếch mép	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+youngster	n	người trẻ	C1	family	topic	reading,writing	oxford-3000-5000
+aboriginal	adj	bản địa	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+addict	n	người nghiện	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+admittedly	adv	phải thừa nhận	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+alphabetical	adj	theo thứ tự chữ cái	B2	education	topic	reading,writing	cefrj-vocabulary-profile-1.5
+alternate	v	luân phiên, thay thế	B2	academic	academic	cloze,reading	cefrj-vocabulary-profile-1.5
+ammonia	n	a-mô-ni-ắc	B2	science	topic	reading,writing	cefrj-vocabulary-profile-1.5
+amuse	v	làm vui	B2	psychology	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+animation	n	hoạt hình, sự sống động	B2	media	topic	reading,writing	oxford-3000-5000
+approximate	adj	xấp xỉ	B2	science	topic	reading,writing	cefrj-vocabulary-profile-1.5
+audition	n	buổi thử giọng	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+axis	n	trục	B2	science	topic	reading,writing	cefrj-vocabulary-profile-1.5
+barn	n	nhà kho nông trại	B2	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+beagle	n	chó săn bi-gồ	B2	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+beautify	v	làm đẹp	B2	culture	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+bellow	v	gầm lên	B2	academic	academic	cloze,reading	cefrj-vocabulary-profile-1.5
+berry	n	quả mọng	B2	food	topic	reading,writing	cefrj-vocabulary-profile-1.5
+biotechnology	n	công nghệ sinh học	B2	science	topic	reading,writing	cefrj-vocabulary-profile-1.5
+blindly	adv	một cách mù quáng	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+blindness	n	sự mù lòa	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+blink	v	chớp mắt	B2	science	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+blur	v	làm mờ	B2	technology	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+boxer	n	võ sĩ quyền anh	B2	sport	topic	reading,writing	cefrj-vocabulary-profile-1.5
+bravery	n	sự dũng cảm	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+broaden	v	mở rộng	B2	academic	academic	cloze,reading	cefrj-vocabulary-profile-1.5
+bully	v	bắt nạt	B2	society	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+bumper	n	thanh chắn, bao lì xì	B2	technology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+burgle	v	trộm đột nhập	B2	law	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+buzz	n	tiếng vo ve	B2	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+chew	v	nhai	B2	food	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+childish	adj	trẻ con	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+coarse	adj	thô ráp	B2	food	topic	reading,writing	cefrj-vocabulary-profile-1.5
+collocation	n	kết hợp từ	B2	education	topic	reading,writing	cefrj-vocabulary-profile-1.5
+complexion	n	nước da, cục diện	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+conquest	n	sự chinh phục	B2	politics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+console	v	an ủi, bảng điều khiển	B2	psychology	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+consult	v	tham khảo, tư vấn	B2	work	topic	cloze,reading	oxford-3000-5000
+conveniently	adv	một cách thuận tiện	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+cornerstone	n	nền tảng	B2	society	topic	reading,writing	cefrj-vocabulary-profile-1.5
+cornet	n	kèn co-nê	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+corona	n	vầng sáng, vi-rút corona	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+coward	n	kẻ hèn nhát	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+craftsman	n	nghệ nhân	B2	work	topic	reading,writing	cefrj-vocabulary-profile-1.5
+crater	n	miệng núi lửa	B2	science	topic	reading,writing	cefrj-vocabulary-profile-1.5
+cruelty	n	sự tàn ác	B2	society	topic	reading,writing	cefrj-vocabulary-profile-1.5
+decomposition	n	sự phân hủy	B2	science	topic	reading,writing	cefrj-vocabulary-profile-1.5
+dental	adj	thuộc nha khoa	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+desperation	n	sự tuyệt vọng	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+despise	v	khinh bỉ	B2	psychology	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+dim	adj	mờ tối	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+disappoint	v	làm thất vọng	B2	psychology	topic	cloze,reading	oxford-3000-5000
+disc	n	đĩa, đĩa đệm	B2	technology	topic	reading,writing	oxford-3000-5000
+distortion	n	sự bóp méo	B2	media	topic	reading,writing	cefrj-vocabulary-profile-1.5
+distribute	v	phân phối	B2	economics	topic	cloze,reading	oxford-3000-5000
+distributor	n	nhà phân phối	B2	economics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+diversion	n	sự chuyển hướng, trò tiêu khiển	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+doom	n	số phận diệt vong	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+dormitory	n	ký túc xá	B2	education	topic	reading,writing	cefrj-vocabulary-profile-1.5
+doubly	adv	gấp đôi	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+economist	n	nhà kinh tế học	B2	economics	topic	reading,writing	oxford-3000-5000
+elegance	n	sự thanh lịch	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+equip	v	trang bị	B2	work	topic	cloze,reading	oxford-3000-5000
+eternally	adv	vĩnh viễn	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+evacuation	n	sự sơ tán	B2	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+exaggeration	n	sự phóng đại	B2	media	topic	reading,writing	cefrj-vocabulary-profile-1.5
+fantastically	adv	tuyệt vời, kỳ lạ	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+fearsome	adj	đáng sợ	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+fireplace	n	lò sưởi	B2	family	topic	reading,writing	cefrj-vocabulary-profile-1.5
+flash	n	chớp, lóe sáng	B2	technology	topic	reading,writing	oxford-3000-5000
+flexibly	adv	một cách linh hoạt	B2	work	topic	reading,writing	cefrj-vocabulary-profile-1.5
+follower	n	người theo dõi, tín đồ	B2	media	topic	reading,writing	cefrj-vocabulary-profile-1.5
+footnote	n	chú thích cuối trang	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+forcefully	adv	mạnh mẽ, dứt khoát	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+forum	n	diễn đàn	B2	society	topic	reading,writing	oxford-3000-5000
+foul	adj	thối, phạm luật	B2	sport	topic	reading,writing	cefrj-vocabulary-profile-1.5
+fume	n	khói, khí thải	B2	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+gardener	n	người làm vườn	B2	work	topic	reading,writing	cefrj-vocabulary-profile-1.5
+glorify	v	tôn vinh	B2	culture	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+goodness	n	lòng tốt	B2	psychology	topic	reading,writing	oxford-3000-5000
+governor	n	thống đốc	B2	politics	topic	reading,writing	oxford-3000-5000
+guideline	n	hướng dẫn	B2	law	topic	reading,writing	oxford-3000-5000
+handout	n	tài liệu phát tay, tiền trợ cấp	B2	education	topic	reading,writing	cefrj-vocabulary-profile-1.5
+haste	n	sự vội vã	B2	work	topic	reading,writing	cefrj-vocabulary-profile-1.5
+hastily	adv	vội vàng	B2	work	topic	reading,writing	cefrj-vocabulary-profile-1.5
+helmet	n	mũ bảo hiểm	B2	health	topic	reading,writing	oxford-3000-5000
+holder	n	người nắm giữ, giá đỡ	B2	economics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+hone	n	mài giũa	B2	education	topic	reading,writing	cefrj-vocabulary-profile-1.5
+housekeeper	n	quản gia	B2	family	topic	reading,writing	cefrj-vocabulary-profile-1.5
+humane	adj	nhân đạo	B2	society	topic	reading,writing	cefrj-vocabulary-profile-1.5
+humiliation	n	sự sỉ nhục	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+hush	v	sự im lặng	B2	academic	academic	cloze,reading	cefrj-vocabulary-profile-1.5
+icy	adj	băng giá	B2	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+immoral	adj	vô đạo đức	B2	law	topic	reading,writing	cefrj-vocabulary-profile-1.5
+immortality	n	sự bất tử	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+impatiently	adv	sốt ruột	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+improperly	adv	không đúng cách	B2	society	topic	reading,writing	cefrj-vocabulary-profile-1.5
+inanimate	adj	vô sinh	B2	science	topic	reading,writing	cefrj-vocabulary-profile-1.5
+incense	n	hương, hương thơm	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+index	n	chỉ số, mục lục	B2	academic	academic	reading,writing	oxford-3000-5000
+indulgent	adj	nuông chiều	B2	family	topic	reading,writing	cefrj-vocabulary-profile-1.5
+inference	n	suy luận	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+inflammation	n	sự viêm	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+inflammatory	adj	gây viêm, kích động	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+inflate	v	bơm căng, lạm phát	B2	economics	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+influenza	n	bệnh cúm	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+inhabitant	n	cư dân	B2	society	topic	reading,writing	oxford-3000-5000
+interrupt	v	ngắt lời, gián đoạn	B2	academic	academic	cloze,reading	oxford-3000-5000
+interruption	n	sự gián đoạn	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+intersection	n	giao lộ	B2	travel	topic	reading,writing	cefrj-vocabulary-profile-1.5
+invariable	adj	bất biến	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+invasion	n	cuộc xâm lược	B2	politics	topic	reading,writing	oxford-3000-5000
+lame	adj	què, yếu ớt	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+landlady	n	bà chủ nhà	B2	society	topic	reading,writing	cefrj-vocabulary-profile-1.5
+league	n	giải đấu, liên minh	B2	sport	topic	reading,writing	oxford-3000-5000
+lean	v	tựa vào, gầy	B2	health	topic	cloze,reading	oxford-3000-5000
+lengthen	v	làm dài ra	B2	academic	academic	cloze,reading	cefrj-vocabulary-profile-1.5
+lifeless	adj	không sức sống	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+lottery	n	xổ số	B2	economics	topic	reading,writing	oxford-3000-5000
+lowland	n	vùng đất thấp	B2	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+madam	n	thưa bà	B2	society	topic	reading,writing	cefrj-vocabulary-profile-1.5
+mansion	n	biệt thự	B2	economics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+massage	n	mát-xa	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+mayor	n	thị trưởng	B2	politics	topic	reading,writing	oxford-3000-5000
+metaphor	n	ẩn dụ	B2	education	topic	reading,writing	oxford-3000-5000
+microscopy	n	kính hiển vi học	B2	science	topic	reading,writing	cefrj-vocabulary-profile-1.5
+mighty	adj	hùng mạnh	B2	society	topic	reading,writing	cefrj-vocabulary-profile-1.5
+mimic	n	bắt chước	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+miner	n	thợ mỏ	B2	work	topic	reading,writing	oxford-3000-5000
+mist	n	sương mù	B2	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+momentary	adj	chốc lát	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+moonlight	n	ánh trăng	B2	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+muddy	adj	lầy bùn	B2	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+multiply	v	nhân lên	B2	science	topic	cloze,reading	oxford-3000-5000
+murmur	n	thì thầm	B2	society	topic	reading,writing	cefrj-vocabulary-profile-1.5
+mystify	v	làm khó hiểu	B2	psychology	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+naked	adj	trần truồng	B2	health	topic	reading,writing	oxford-3000-5000
+naughty	adj	nghịch ngợm	B2	family	topic	reading,writing	cefrj-vocabulary-profile-1.5
+neat	adj	gọn gàng	B2	academic	academic	reading,writing	oxford-3000-5000
+needless	adj	không cần thiết	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+needy	adj	nghèo khó	B2	society	topic	reading,writing	cefrj-vocabulary-profile-1.5
+nightclub	n	hộp đêm	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+nightmare	n	ác mộng	B2	psychology	topic	reading,writing	oxford-3000-5000
+novelist	n	tiểu thuyết gia	B2	culture	topic	reading,writing	oxford-3000-5000
+nutshell	n	vỏ hạt, tóm gọn	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+olympia	n	Olympia (Hy Lạp cổ)	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+optimist	n	người lạc quan	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+orchestral	adj	thuộc dàn nhạc	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+organ	n	cơ quan, đàn ống	B2	health	topic	reading,writing	oxford-3000-5000
+originality	n	tính độc đáo	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+outback	n	vùng hẻo lánh	B2	travel	topic	reading,writing	cefrj-vocabulary-profile-1.5
+outdistance	v	bỏ xa	B2	sport	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+outdo	v	làm giỏi hơn	B2	sport	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+outskirts	n	vùng ngoại ô	B2	travel	topic	reading,writing	cefrj-vocabulary-profile-1.5
+overboard	adv	qua mạn tàu, quá đà	B2	travel	topic	reading,writing	cefrj-vocabulary-profile-1.5
+overthrow	v	lật đổ	B2	politics	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+paralysis	n	sự tê liệt	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+patriotism	n	lòng yêu nước	B2	politics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+pearl	n	ngọc trai	B2	economics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+pedal	n	bàn đạp	B2	technology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+penicillin	n	thuốc penicillin	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+permanence	n	tính vĩnh cửu	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+personification	n	sự nhân cách hóa	B2	education	topic	reading,writing	cefrj-vocabulary-profile-1.5
+persuasion	n	sự thuyết phục	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+petty	adj	nhỏ nhặt, hẹp hòi	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+picturesque	adj	đẹp như tranh	B2	travel	topic	reading,writing	cefrj-vocabulary-profile-1.5
+pluck	v	nhổ, gảy, can đảm	B2	culture	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+pointless	adj	vô nghĩa	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+polio	n	bệnh bại liệt	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+posh	adj	sang trọng	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+possessed	adj	bị ám, sở hữu	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+postal	adj	thuộc bưu chính	B2	technology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+practicality	n	tính thực tiễn	B2	work	topic	reading,writing	cefrj-vocabulary-profile-1.5
+preferably	adv	tốt nhất là	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+prominence	n	sự nổi bật	B2	media	topic	reading,writing	cefrj-vocabulary-profile-1.5
+prosper	v	thịnh vượng	B2	economics	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+punctuality	n	tính đúng giờ	B2	work	topic	reading,writing	cefrj-vocabulary-profile-1.5
+rack	n	giá, kệ	B2	technology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+rag	n	giẻ rách	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+rattle	n	lắc, tiếng lạch cạch	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+reed	n	cây sậy	B2	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+relativity	n	thuyết tương đối	B2	science	topic	reading,writing	cefrj-vocabulary-profile-1.5
+remarkably	adv	đáng chú ý	B2	academic	academic	reading,writing	oxford-3000-5000
+resonant	adj	ngân vang	B2	science	topic	reading,writing	cefrj-vocabulary-profile-1.5
+respectably	adv	đáng kính, khá tốt	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+retard	v	làm chậm lại	B2	academic	academic	cloze,reading	cefrj-vocabulary-profile-1.5
+rhyme	v	vần điệu	B2	culture	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+rocket	n	tên lửa	B2	science	topic	reading,writing	oxford-3000-5000
+rub	v	chà, xoa	B2	health	topic	cloze,reading	oxford-3000-5000
+sandstone	n	đá sa thạch	B2	science	topic	reading,writing	cefrj-vocabulary-profile-1.5
+scenario	n	kịch bản, tình huống	B2	academic	academic	reading,writing	oxford-3000-5000
+selfless	adj	vị tha	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+seller	n	người bán	B2	economics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+setback	n	bước lùi	B2	work	topic	reading,writing	cefrj-vocabulary-profile-1.5
+shoplifting	n	trộm cắp ở cửa hàng	B2	law	topic	reading,writing	cefrj-vocabulary-profile-1.5
+shortness	n	sự ngắn, sự thiếu	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+showcase	n	giới thiệu, trưng bày	B2	media	topic	reading,writing	cefrj-vocabulary-profile-1.5
+sibling	n	anh chị em ruột	B2	family	topic	reading,writing	oxford-3000-5000
+simplification	n	sự đơn giản hóa	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+skylark	n	chim sơn ca	B2	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+slaughter	n	giết mổ	B2	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+sneak	v	lẻn vào	B2	society	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+sneer	n	cười nhếch mép	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+sniff	v	ngửi, hít	B2	health	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+snore	n	ngáy ngủ	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+sociable	adj	hòa đồng	B2	society	topic	reading,writing	cefrj-vocabulary-profile-1.5
+sometime	adv	một lúc nào đó	B2	academic	academic	reading,writing	oxford-3000-5000
+sparkling	adj	lấp lánh	B2	food	topic	reading,writing	cefrj-vocabulary-profile-1.5
+speculation	n	sự suy đoán, đầu cơ	B2	economics	topic	reading,writing	oxford-3000-5000
+spoil	v	làm hỏng, chiều hư	B2	psychology	topic	cloze,reading	oxford-3000-5000
+stain	n	vết bẩn	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+starvation	n	sự đói khát	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+sticky	adj	dính	B2	food	topic	reading,writing	oxford-3000-5000
+stubbornly	adv	ngang bướng	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+subtract	v	trừ đi	B2	science	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+suitably	adv	một cách phù hợp	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+syllable	n	âm tiết	B2	education	topic	reading,writing	cefrj-vocabulary-profile-1.5
+tactile	adj	thuộc xúc giác	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+tan	n	rám nắng	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+terrorism	n	chủ nghĩa khủng bố	B2	politics	topic	reading,writing	oxford-3000-5000
+thoughtless	adj	vô ý, thiếu suy nghĩ	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+tissue	n	mô, khăn giấy	B2	health	topic	reading,writing	oxford-3000-5000
+tomb	n	ngôi mộ	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+ton	n	tấn	B2	economics	topic	reading,writing	oxford-3000-5000
+traverse	n	đi xuyên qua	B2	travel	topic	reading,writing	cefrj-vocabulary-profile-1.5
+tropic	adj	vùng nhiệt đới	B2	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+troublesome	adj	phiền toái	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+uncomfortably	adv	một cách khó chịu	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+unconcerned	adj	không bận tâm	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+undersea	adj	dưới biển	B2	science	topic	reading,writing	cefrj-vocabulary-profile-1.5
+unease	n	sự bất an	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+uneven	adj	không đều	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+unfashionable	adj	kém thời trang	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+unhelpful	adj	không hữu ích	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+unimaginable	adj	không thể tưởng tượng	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+unite	v	thống nhất	B2	politics	topic	cloze,reading	oxford-3000-5000
+unload	v	dỡ hàng	B2	economics	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+unlock	v	mở khóa	B2	technology	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+unmistakable	adj	không thể nhầm lẫn	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+unmistakably	adv	rõ ràng là	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+unofficial	adj	không chính thức	B2	politics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+unpopular	adj	không được ưa chuộng	B2	society	topic	reading,writing	cefrj-vocabulary-profile-1.5
+unrest	n	bất ổn	B2	politics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+unsatisfactory	adj	không thỏa đáng	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+untie	v	cởi trói	B2	academic	academic	cloze,reading	cefrj-vocabulary-profile-1.5
+untreated	adj	không được điều trị	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+unwise	adj	không khôn ngoan	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+vanity	n	tính phù phiếm	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+vibration	n	sự rung	B2	science	topic	reading,writing	cefrj-vocabulary-profile-1.5
+villa	n	biệt thự nghỉ dưỡng	B2	travel	topic	reading,writing	cefrj-vocabulary-profile-1.5
+visibly	adv	thấy rõ	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+vocalist	n	ca sĩ	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+wartime	n	thời chiến	B2	politics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+well-built	adj	vạm vỡ	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+wink	n	nháy mắt	B2	society	topic	reading,writing	cefrj-vocabulary-profile-1.5
+wolf	n	con sói	B2	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+x-ray	n	X-quang	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+yacht	n	du thuyền	B2	travel	topic	reading,writing	cefrj-vocabulary-profile-1.5
+yawn	n	ngáp	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+youthful	adj	trẻ trung	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+aborigine	n	thổ dân	B1	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+accessory	n	phụ kiện	B1	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+ache	n	cơn đau	B1	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+acquaintance	n	người quen	B1	society	topic	reading,writing	cefrj-vocabulary-profile-1.5
+adorable	adj	đáng yêu	B1	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+adverbial	adj	thuộc trạng ngữ	B1	education	topic	reading,writing	cefrj-vocabulary-profile-1.5
+afterward	adv	sau đó	B1	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+alcoholic	adj	có cồn	B1	health	topic	reading,writing	oxford-3000-5000
+analyse	v	phân tích	B1	academic	academic	cloze,reading	oxford-3000-5000
+anxiously	adv	lo lắng	B1	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+anyhow	adv	dù sao đi nữa	B1	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+arithmetic	n	số học	B1	education	topic	reading,writing	cefrj-vocabulary-profile-1.5
+aspirin	n	thuốc aspirin	B1	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+atomic	adj	thuộc nguyên tử	B1	science	topic	reading,writing	cefrj-vocabulary-profile-1.5
+avenue	n	đại lộ	B1	travel	topic	reading,writing	cefrj-vocabulary-profile-1.5
+bathe	v	tắm	B1	health	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+brand-new	adj	mới tinh	B1	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+broccoli	n	bông cải xanh	B1	food	topic	reading,writing	cefrj-vocabulary-profile-1.5
+bump	v	va chạm, cục u	B1	health	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+cage	n	cái lồng	B1	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+caller	n	người gọi	B1	technology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+capsule	n	viên nang	B1	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+chemist	n	nhà hóa học, dược sĩ	B1	science	topic	reading,writing	cefrj-vocabulary-profile-1.5
+choke	v	nghẹt thở	B1	health	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+chronological	adj	theo trình tự thời gian	B1	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+cruel	adj	độc ác	B1	society	topic	reading,writing	oxford-3000-5000
+damp	adj	ẩm ướt	B1	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+diameter	n	đường kính	B1	science	topic	reading,writing	cefrj-vocabulary-profile-1.5
+diaper	n	tã lót	B1	family	topic	reading,writing	cefrj-vocabulary-profile-1.5
+diligence	n	sự siêng năng	B1	work	topic	reading,writing	cefrj-vocabulary-profile-1.5
+dirt	n	bụi bẩn	B1	environment	topic	reading,writing	oxford-3000-5000
+disgusting	adj	kinh tởm	B1	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+downward	adj	hướng xuống	B1	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+dustbin	n	thùng rác	B1	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+embarrass	v	làm ai ngượng	B1	psychology	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+environmentalist	n	nhà môi trường học	B1	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+excitedly	adv	hào hứng	B1	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+explode	v	nổ tung	B1	science	topic	cloze,reading	oxford-3000-5000
+eyesight	n	thị lực	B1	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+faint	adj	mờ nhạt, ngất	B1	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+fetch	v	lấy, mang về	B1	academic	academic	cloze,reading	cefrj-vocabulary-profile-1.5
+fluent	adj	trôi chảy	B1	education	topic	reading,writing	cefrj-vocabulary-profile-1.5
+fright	n	nỗi khiếp sợ	B1	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+frost	n	sương muối, băng giá	B1	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+furthest	adv	xa nhất	B1	travel	topic	reading,writing	cefrj-vocabulary-profile-1.5
+garment	n	trang phục	B1	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+gentleman	n	quý ông	B1	society	topic	reading,writing	oxford-3000-5000
+giraffe	n	hươu cao cổ	B1	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+goddess	n	nữ thần	B1	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+golfer	n	người chơi gôn	B1	sport	topic	reading,writing	cefrj-vocabulary-profile-1.5
+gossip	n	chuyện phiếm	B1	media	topic	reading,writing	cefrj-vocabulary-profile-1.5
+graceful	adj	duyên dáng	B1	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+guitarist	n	nghệ sĩ ghi-ta	B1	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+haven	n	bến đỗ an toàn	B1	society	topic	reading,writing	cefrj-vocabulary-profile-1.5
+hearty	adj	nồng nhiệt, thịnh soạn	B1	food	topic	reading,writing	cefrj-vocabulary-profile-1.5
+heavenly	adj	thuộc thiên đàng, tuyệt vời	B1	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+honeymoon	n	tuần trăng mật	B1	family	topic	reading,writing	cefrj-vocabulary-profile-1.5
+horrible	adj	kinh khủng	B1	psychology	topic	reading,writing	oxford-3000-5000
+horrify	v	làm khiếp sợ	B1	psychology	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+hurriedly	adv	vội vã	B1	work	topic	reading,writing	cefrj-vocabulary-profile-1.5
+hut	n	túp lều	B1	travel	topic	reading,writing	cefrj-vocabulary-profile-1.5
+illuminate	v	chiếu sáng	B1	technology	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+impair	v	làm suy yếu	B1	health	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+inconvenient	adj	bất tiện	B1	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+infinitive	n	động từ nguyên mẫu	B1	education	topic	reading,writing	cefrj-vocabulary-profile-1.5
+innermost	adj	sâu thẳm nhất	B1	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+inscribe	v	khắc chữ	B1	culture	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+likeness	n	sự giống nhau	B1	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+mathematician	n	nhà toán học	B1	science	topic	reading,writing	cefrj-vocabulary-profile-1.5
+mischief	n	sự tinh nghịch	B1	family	topic	reading,writing	cefrj-vocabulary-profile-1.5
+motto	n	phương châm	B1	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+nap	n	giấc ngủ ngắn	B1	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+nationalist	n	người theo chủ nghĩa dân tộc	B1	politics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+ness	n	mũi đất, mũi biển	B1	travel	topic	reading,writing	cefrj-vocabulary-profile-1.5
+niece	n	cháu gái	B1	family	topic	reading,writing	cefrj-vocabulary-profile-1.5
+northeast	adj	phía đông bắc	B1	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+nutrient	n	chất dinh dưỡng	B1	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+overjoyed	adj	vô cùng vui sướng	B1	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+pale	adj	nhợt nhạt	B1	health	topic	reading,writing	oxford-3000-5000
+penniless	adj	không một xu	B1	economics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+phantom	adj	bóng ma	B1	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+phoenix	n	chim phượng hoàng	B1	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+pie	n	bánh nướng	B1	food	topic	reading,writing	cefrj-vocabulary-profile-1.5
+pot	n	nồi, chậu	B1	food	topic	reading,writing	oxford-3000-5000
+preschool	adj	trường mẫu giáo	B1	education	topic	reading,writing	cefrj-vocabulary-profile-1.5
+priest	n	linh mục	B1	culture	topic	reading,writing	oxford-3000-5000
+pronoun	n	đại từ	B1	education	topic	reading,writing	cefrj-vocabulary-profile-1.5
+purify	v	làm tinh khiết	B1	science	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+reunify	v	thống nhất lại	B1	politics	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+rotten	adj	thối rữa	B1	food	topic	reading,writing	cefrj-vocabulary-profile-1.5
+runaway	n	bỏ trốn	B1	law	topic	reading,writing	cefrj-vocabulary-profile-1.5
+servant	n	người hầu	B1	society	topic	reading,writing	oxford-3000-5000
+shave	v	cạo râu	B1	health	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+shiver	v	run rẩy	B1	health	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+shopper	n	người mua sắm	B1	economics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+shrimp	n	tôm	B1	food	topic	reading,writing	cefrj-vocabulary-profile-1.5
+sidewalk	n	vỉa hè	B1	travel	topic	reading,writing	cefrj-vocabulary-profile-1.5
+snowstorm	n	bão tuyết	B1	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+sorrow	n	nỗi buồn	B1	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+southwest	adj	phía tây nam	B1	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+stripe	n	sọc, vằn	B1	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+stuffed	adj	nhồi, no căng	B1	food	topic	reading,writing	cefrj-vocabulary-profile-1.5
+swarm	n	bầy đàn	B1	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+trim	n	cắt tỉa	B1	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+uncover	v	khám phá, phát hiện	B1	academic	academic	cloze,reading	cefrj-vocabulary-profile-1.5
+unfit	adj	không đủ sức khỏe	B1	sport	topic	reading,writing	cefrj-vocabulary-profile-1.5
+uninteresting	adj	không thú vị	B1	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+unlucky	adj	kém may mắn	B1	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+untidy	adj	bừa bộn	B1	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+vet	n	bác sĩ thú y	B1	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+wagon	n	xe goòng, toa hàng	B1	technology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+windscreen	n	kính chắn gió	B1	technology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+olive	n	ô liu	B2	food	topic	reading,writing	cefrj-vocabulary-profile-1.5
+acre	n	mẫu Anh (đơn vị diện tích)	C1	environment	topic	reading,writing	oxford-3000-5000
+acreage	n	diện tích đất	C2	environment	topic	reading,writing	octanove-vocabulary-profile-1.0
+acrobatic	adj	nhào lộn	C2	sport	topic	reading,writing	octanove-vocabulary-profile-1.0
+acrobatics	n	môn nhào lộn	C2	sport	topic	reading,writing	octanove-vocabulary-profile-1.0
+adhesion	n	sự bám dính	C2	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+allusion	n	sự ám chỉ	C2	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+anthology	n	tuyển tập	C2	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+articulation	n	cách phát âm, sự khớp	C2	health	topic	reading,writing	octanove-vocabulary-profile-1.0
+artifact	n	hiện vật	C2	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+assimilation	n	sự đồng hóa	C2	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+athleticism	n	thể chất thể thao	C2	sport	topic	reading,writing	octanove-vocabulary-profile-1.0
+attrition	n	sự hao mòn	C2	work	topic	reading,writing	octanove-vocabulary-profile-1.0
+autopilot	n	chế độ lái tự động	C2	technology	topic	reading,writing	octanove-vocabulary-profile-1.0
+axiom	n	tiên đề	C2	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+baroque	adj	phong cách ba-rốc	C2	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+blight	n	bệnh tàn phá cây trồng	C2	environment	topic	reading,writing	octanove-vocabulary-profile-1.0
+bogus	adj	giả mạo	C2	law	topic	reading,writing	octanove-vocabulary-profile-1.0
+bout	n	trận đấu, cơn	C2	sport	topic	reading,writing	octanove-vocabulary-profile-1.0
+brim	v	mép, vành	C2	academic	academic	cloze,reading	octanove-vocabulary-profile-1.0
+calamitous	adj	thảm khốc	C2	environment	topic	reading,writing	octanove-vocabulary-profile-1.0
+calorific	adj	thuộc ca-lo	C2	food	topic	reading,writing	octanove-vocabulary-profile-1.0
+capacious	adj	rộng rãi	C2	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+choreography	n	biên đạo múa	C2	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+chronologically	adv	theo thứ tự thời gian	C2	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+chrysalis	n	kén bướm	C2	environment	topic	reading,writing	octanove-vocabulary-profile-1.0
+cinematography	n	kỹ thuật quay phim	C2	media	topic	reading,writing	octanove-vocabulary-profile-1.0
+circumnavigate	v	đi vòng quanh	C2	travel	topic	cloze,reading	octanove-vocabulary-profile-1.0
+circumnavigation	n	chuyến đi vòng quanh	C2	travel	topic	reading,writing	octanove-vocabulary-profile-1.0
+clinch	v	giành được, ôm ghì	C2	sport	topic	cloze,reading	octanove-vocabulary-profile-1.0
+coax	v	dỗ dành, thuyết phục	C2	psychology	topic	cloze,reading	octanove-vocabulary-profile-1.0
+cocoon	v	kén	C2	environment	topic	cloze,reading	octanove-vocabulary-profile-1.0
+collider	n	máy gia tốc va chạm	C2	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+colloquium	n	hội thảo khoa học	C2	education	topic	reading,writing	octanove-vocabulary-profile-1.0
+combustion	n	sự cháy	C2	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+conciliation	n	sự hòa giải	C2	law	topic	reading,writing	octanove-vocabulary-profile-1.0
+concurrence	n	sự đồng tình, sự trùng hợp	C2	law	topic	reading,writing	octanove-vocabulary-profile-1.0
+confection	n	bánh kẹo ngọt	C2	food	topic	reading,writing	octanove-vocabulary-profile-1.0
+conglomerate	n	tập đoàn đa ngành	C2	economics	topic	reading,writing	octanove-vocabulary-profile-1.0
+connote	v	ám chỉ	C2	education	topic	cloze,reading	octanove-vocabulary-profile-1.0
+consign	v	gửi, ký gửi	C2	economics	topic	cloze,reading	octanove-vocabulary-profile-1.0
+consignment	n	lô hàng ký gửi	C2	economics	topic	reading,writing	octanove-vocabulary-profile-1.0
+consternation	n	sự sững sờ	C2	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+contagion	n	sự lây lan	C2	health	topic	reading,writing	octanove-vocabulary-profile-1.0
+contemptuous	adj	khinh miệt	C2	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+contractually	adv	theo hợp đồng	C2	law	topic	reading,writing	octanove-vocabulary-profile-1.0
+contraption	n	cỗ máy kỳ quặc	C2	technology	topic	reading,writing	octanove-vocabulary-profile-1.0
+cordon	v	ranh giới kiểm soát	C2	law	topic	cloze,reading	octanove-vocabulary-profile-1.0
+crippling	adj	làm tê liệt	C2	health	topic	reading,writing	octanove-vocabulary-profile-1.0
+cull	v	loại bỏ, chọn lọc	C2	environment	topic	cloze,reading	octanove-vocabulary-profile-1.0
+deaden	v	làm dịu đi	C2	psychology	topic	cloze,reading	octanove-vocabulary-profile-1.0
+delicatessen	n	cửa hàng đồ nguội	C2	food	topic	reading,writing	octanove-vocabulary-profile-1.0
+denunciation	n	sự tố cáo	C2	law	topic	reading,writing	octanove-vocabulary-profile-1.0
+depraved	adj	đồi bại	C2	law	topic	reading,writing	octanove-vocabulary-profile-1.0
+depravity	n	sự đồi bại	C2	law	topic	reading,writing	octanove-vocabulary-profile-1.0
+deprecate	v	phản đối, chê bai	C2	academic	academic	cloze,reading	octanove-vocabulary-profile-1.0
+derision	n	sự chế nhạo	C2	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+derisive	adj	mang tính chế giễu	C2	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+deterrent	n	yếu tố răn đe	C2	law	topic	reading,writing	octanove-vocabulary-profile-1.0
+disdainful	adj	khinh khỉnh	C2	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+disparagingly	adv	một cách chê bai	C2	media	topic	reading,writing	octanove-vocabulary-profile-1.0
+dissemination	n	sự phổ biến	C2	media	topic	reading,writing	octanove-vocabulary-profile-1.0
+distill	v	chưng cất, chắt lọc	C2	science	topic	cloze,reading	octanove-vocabulary-profile-1.0
+domesticity	n	đời sống gia đình	C2	family	topic	reading,writing	octanove-vocabulary-profile-1.0
+drudgery	n	việc cực nhọc	C2	work	topic	reading,writing	octanove-vocabulary-profile-1.0
+ebb	v	sự rút xuống, suy giảm	C2	economics	topic	cloze,reading	octanove-vocabulary-profile-1.0
+edification	n	sự khai sáng	C2	education	topic	reading,writing	octanove-vocabulary-profile-1.0
+elasticity	n	độ đàn hồi, tính co giãn	C2	economics	topic	reading,writing	octanove-vocabulary-profile-1.0
+elated	adj	phấn chấn	C2	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+electrode	n	điện cực	C2	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+eminence	n	sự lỗi lạc, vị trí cao	C2	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+emulation	n	sự thi đua	C2	work	topic	reading,writing	octanove-vocabulary-profile-1.0
+emulsifier	n	chất nhũ hóa	C2	food	topic	reading,writing	octanove-vocabulary-profile-1.0
+emulsify	v	nhũ hóa	C2	food	topic	cloze,reading	octanove-vocabulary-profile-1.0
+encumber	v	cản trở, gánh nặng	C2	academic	academic	cloze,reading	octanove-vocabulary-profile-1.0
+encumbrance	n	gánh nặng	C2	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+etch	v	khắc axit	C2	technology	topic	cloze,reading	octanove-vocabulary-profile-1.0
+etching	n	bản khắc	C2	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+euphemistic	adj	nói giảm nói tránh	C2	education	topic	reading,writing	octanove-vocabulary-profile-1.0
+euphoria	n	cảm giác hưng phấn	C2	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+euphoric	adj	hưng phấn tột độ	C2	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+extant	adj	còn tồn tại	C2	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+fabled	adj	huyền thoại	C2	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+fabrication	n	sự bịa đặt	C2	media	topic	reading,writing	octanove-vocabulary-profile-1.0
+feign	v	giả vờ	C2	psychology	topic	cloze,reading	octanove-vocabulary-profile-1.0
+fete	n	ngày hội	C2	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+flagging	adj	suy yếu	C2	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+flighty	adj	nhẹ dạ, hay thay đổi	C2	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+floe	n	tảng băng trôi	C2	environment	topic	reading,writing	octanove-vocabulary-profile-1.0
+fluctuation	n	sự dao động	C2	economics	topic	reading,writing	octanove-vocabulary-profile-1.0
+forfeiture	n	sự mất quyền, tịch thu	C2	law	topic	reading,writing	octanove-vocabulary-profile-1.0
+frolic	v	nô đùa	C2	culture	topic	cloze,reading	octanove-vocabulary-profile-1.0
+gambit	n	nước khai cuộc, mưu mẹo	C2	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+gauche	adj	vụng về	C2	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+genomic	adj	thuộc hệ gen	C2	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+gout	n	bệnh gút	C2	health	topic	reading,writing	octanove-vocabulary-profile-1.0
+gravitate	v	bị hút về	C2	psychology	topic	cloze,reading	octanove-vocabulary-profile-1.0
+habitation	n	nơi cư trú	C2	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+hapless	adj	kém may mắn	C2	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+happenstance	n	sự tình cờ	C2	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+helm	n	bánh lái, sự lãnh đạo	C2	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+herald	v	báo trước, sứ giả	C2	media	topic	cloze,reading	octanove-vocabulary-profile-1.0
+hermit	n	người ẩn dật	C2	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+hitch	v	trục trặc, móc vào	C2	academic	academic	cloze,reading	octanove-vocabulary-profile-1.0
+hitherto	adv	cho đến nay	C2	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+homestead	n	nông trại gia đình	C2	environment	topic	reading,writing	octanove-vocabulary-profile-1.0
+hotelier	n	chủ khách sạn	C2	travel	topic	reading,writing	octanove-vocabulary-profile-1.0
+huddle	v	co cụm lại	C2	sport	topic	cloze,reading	octanove-vocabulary-profile-1.0
+hull	n	thân tàu	C2	technology	topic	reading,writing	octanove-vocabulary-profile-1.0
+hypnotherapy	n	trị liệu thôi miên	C2	health	topic	reading,writing	octanove-vocabulary-profile-1.0
+hypothesize	v	đưa ra giả thuyết	C2	science	topic	cloze,reading	octanove-vocabulary-profile-1.0
+hysteria	n	sự cuồng loạn	C2	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+idiosyncratic	adj	đặc thù riêng	C2	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+impeccably	adv	hoàn hảo	C2	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+imperceptible	adj	không thể nhận thấy	C2	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+imposition	n	sự áp đặt	C2	law	topic	reading,writing	octanove-vocabulary-profile-1.0
+impressionistic	adj	ấn tượng chủ nghĩa	C2	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+improvisational	adj	mang tính ngẫu hứng	C2	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+inchoate	adj	mới manh nha	C2	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+incipient	adj	bắt đầu xuất hiện	C2	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+incongruity	n	sự không thích hợp	C2	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+incumbent	n	đương nhiệm	C2	politics	topic	reading,writing	octanove-vocabulary-profile-1.0
+indiscretion	n	sự thiếu thận trọng	C2	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+indolence	n	sự lười biếng	C2	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+informant	n	người cung cấp tin	C2	law	topic	reading,writing	octanove-vocabulary-profile-1.0
+ingratiating	adj	luồn cúi, dễ lấy lòng	C2	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+instantaneous	adj	tức thời	C2	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+interlocking	adj	lồng vào nhau	C2	technology	topic	reading,writing	octanove-vocabulary-profile-1.0
+interlude	n	khoảng giữa, nhạc dạo	C2	media	topic	reading,writing	octanove-vocabulary-profile-1.0
+intermediary	n	trung gian	C2	economics	topic	reading,writing	octanove-vocabulary-profile-1.0
+intersperse	v	rải rác	C2	academic	academic	cloze,reading	octanove-vocabulary-profile-1.0
+interweave	v	đan cài vào nhau	C2	academic	academic	cloze,reading	octanove-vocabulary-profile-1.0
+irrevocably	adv	không thể thu hồi	C2	law	topic	reading,writing	octanove-vocabulary-profile-1.0
+jarring	adj	chói tai, gây sốc	C2	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+kinetic	adj	thuộc động năng	C2	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+knack	n	khả năng, sở trường	C2	work	topic	reading,writing	octanove-vocabulary-profile-1.0
+lassitude	n	sự mệt mỏi	C2	health	topic	reading,writing	octanove-vocabulary-profile-1.0
+leaven	v	làm men, làm nhẹ đi	C2	food	topic	cloze,reading	octanove-vocabulary-profile-1.0
+liaise	v	liên lạc phối hợp	C2	work	topic	cloze,reading	octanove-vocabulary-profile-1.0
+loiter	v	la cà	C2	law	topic	cloze,reading	octanove-vocabulary-profile-1.0
+lurid	adj	giật gân, rùng rợn	C2	media	topic	reading,writing	octanove-vocabulary-profile-1.0
+lyricist	n	người viết lời bài hát	C2	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+maggot	n	con giòi	C2	environment	topic	reading,writing	octanove-vocabulary-profile-1.0
+magnanimity	n	sự độ lượng	C2	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+magnate	n	trùm tài phiệt	C2	economics	topic	reading,writing	octanove-vocabulary-profile-1.0
+malice	n	ác ý	C2	law	topic	reading,writing	octanove-vocabulary-profile-1.0
+malicious	adj	ác ý, độc hại	C2	law	topic	reading,writing	octanove-vocabulary-profile-1.0
+mangle	v	làm hỏng, xé nát	C2	academic	academic	cloze,reading	octanove-vocabulary-profile-1.0
+marketability	n	khả năng bán được	C2	economics	topic	reading,writing	octanove-vocabulary-profile-1.0
+maverick	n	người độc lập, nổi loạn	C2	work	topic	reading,writing	octanove-vocabulary-profile-1.0
+mediocrity	n	sự tầm thường	C2	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+menacing	adj	đe dọa	C2	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+mercantile	adj	thuộc thương mại	C2	economics	topic	reading,writing	octanove-vocabulary-profile-1.0
+mesh	v	lưới, ăn khớp	C2	technology	topic	cloze,reading	octanove-vocabulary-profile-1.0
+mesmeric	adj	thôi miên	C2	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+meteorological	adj	thuộc khí tượng	C2	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+meteorology	n	khí tượng học	C2	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+midwifery	n	ngành hộ sinh	C2	health	topic	reading,writing	octanove-vocabulary-profile-1.0
+milieu	n	môi trường xã hội	C2	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+modernism	n	chủ nghĩa hiện đại	C2	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+moor	n	vùng đồng hoang	C2	environment	topic	reading,writing	octanove-vocabulary-profile-1.0
+mottled	adj	lốm đốm	C2	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+mutinous	adj	nổi loạn	C2	politics	topic	reading,writing	octanove-vocabulary-profile-1.0
+nostalgically	adv	một cách hoài niệm	C2	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+oblique	adj	xiên, gián tiếp	C2	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+opacity	n	độ mờ đục, tính khó hiểu	C2	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+ordain	v	phong chức, quy định	C2	culture	topic	cloze,reading	octanove-vocabulary-profile-1.0
+ornate	adj	trang trí cầu kỳ	C2	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+ostensibly	adv	bề ngoài là	C2	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+palate	n	vòm miệng, khẩu vị	C2	food	topic	reading,writing	octanove-vocabulary-profile-1.0
+parable	n	câu chuyện ngụ ngôn	C2	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+patchy	adj	chắp vá, không đều	C2	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+pedestal	n	bệ đỡ	C2	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+perverse	adj	ngang ngược	C2	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+perversity	n	tính ngang ngược	C2	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+philanthropic	adj	từ thiện	C2	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+philanthropist	n	nhà từ thiện	C2	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+plumage	n	bộ lông chim	C2	environment	topic	reading,writing	octanove-vocabulary-profile-1.0
+plume	n	chùm lông	C2	environment	topic	reading,writing	octanove-vocabulary-profile-1.0
+posterity	n	hậu thế	C2	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+preconception	n	định kiến sẵn có	C2	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+predilection	n	sự thiên vị	C2	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+presuppose	v	giả định trước	C2	academic	academic	cloze,reading	octanove-vocabulary-profile-1.0
+presupposition	n	tiền giả định	C2	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+profitability	n	khả năng sinh lời	C2	economics	topic	reading,writing	octanove-vocabulary-profile-1.0
+promenade	n	đường dạo bộ	C2	travel	topic	reading,writing	octanove-vocabulary-profile-1.0
+proportionally	adv	tương ứng theo tỷ lệ	C2	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+proprietary	adj	độc quyền sở hữu	C2	law	topic	reading,writing	octanove-vocabulary-profile-1.0
+proscription	n	sự cấm đoán	C2	law	topic	reading,writing	octanove-vocabulary-profile-1.0
+prostrate	v	nằm sấp	C2	health	topic	cloze,reading	octanove-vocabulary-profile-1.0
+protrude	v	nhô ra	C2	science	topic	cloze,reading	octanove-vocabulary-profile-1.0
+protrusion	n	phần nhô ra	C2	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+proverbial	adj	thuộc tục ngữ	C2	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+provocation	n	sự khiêu khích	C2	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+punitive	adj	mang tính trừng phạt	C2	law	topic	reading,writing	octanove-vocabulary-profile-1.0
+qualm	n	sự e ngại	C2	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+rapture	n	sự ngây ngất	C2	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+rebound	v	bật lại, hồi phục	C2	sport	topic	cloze,reading	octanove-vocabulary-profile-1.0
+rebuke	v	khiển trách	C2	law	topic	cloze,reading	octanove-vocabulary-profile-1.0
+recitation	n	sự ngâm đọc	C2	education	topic	reading,writing	octanove-vocabulary-profile-1.0
+recluse	n	người ẩn dật	C2	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+recuperate	v	hồi phục sức khỏe	C2	health	topic	cloze,reading	octanove-vocabulary-profile-1.0
+reissue	v	phát hành lại	C2	media	topic	cloze,reading	octanove-vocabulary-profile-1.0
+remit	v	gửi tiền, miễn giảm	C2	economics	topic	cloze,reading	octanove-vocabulary-profile-1.0
+remittance	n	tiền gửi về	C2	economics	topic	reading,writing	octanove-vocabulary-profile-1.0
+remorseful	adj	hối hận	C2	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+reptilian	adj	thuộc loài bò sát	C2	environment	topic	reading,writing	octanove-vocabulary-profile-1.0
+requisition	n	trưng dụng	C2	law	topic	reading,writing	octanove-vocabulary-profile-1.0
+resound	v	vang dội	C2	science	topic	cloze,reading	octanove-vocabulary-profile-1.0
+resounding	adj	vang dội, hoàn toàn	C2	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+resuscitate	v	hồi sức	C2	health	topic	cloze,reading	octanove-vocabulary-profile-1.0
+resuscitation	n	sự hồi sức	C2	health	topic	reading,writing	octanove-vocabulary-profile-1.0
+reverberate	v	dội lại	C2	science	topic	cloze,reading	octanove-vocabulary-profile-1.0
+reverberation	n	âm dội	C2	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+revulsion	n	sự ghê tởm	C2	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+rickety	adj	lung lay	C2	technology	topic	reading,writing	octanove-vocabulary-profile-1.0
+romp	v	chơi đùa hớn hở	C2	culture	topic	cloze,reading	octanove-vocabulary-profile-1.0
+ruminant	adj	động vật nhai lại	C2	environment	topic	reading,writing	octanove-vocabulary-profile-1.0
+ruminate	v	nhai lại, suy ngẫm	C2	psychology	topic	cloze,reading	octanove-vocabulary-profile-1.0
+rumination	n	sự suy ngẫm	C2	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+salivary	adj	thuộc nước bọt	C2	health	topic	reading,writing	octanove-vocabulary-profile-1.0
+scavenger	n	động vật ăn xác	C2	environment	topic	reading,writing	octanove-vocabulary-profile-1.0
+sheaf	n	bó, tập	C2	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+shimmer	v	long lanh	C2	science	topic	cloze,reading	octanove-vocabulary-profile-1.0
+singe	v	cháy sém	C2	food	topic	cloze,reading	octanove-vocabulary-profile-1.0
+skew	v	làm lệch	C2	science	topic	cloze,reading	octanove-vocabulary-profile-1.0
+slab	n	tấm, phiến	C2	technology	topic	reading,writing	octanove-vocabulary-profile-1.0
+slither	v	trượt, bò	C2	environment	topic	cloze,reading	octanove-vocabulary-profile-1.0
+smattering	n	hiểu biết sơ sài	C2	education	topic	reading,writing	octanove-vocabulary-profile-1.0
+snippet	n	đoạn trích nhỏ	C2	media	topic	reading,writing	octanove-vocabulary-profile-1.0
+snobbery	n	sự hợm hĩnh	C2	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+spatial	adj	thuộc không gian	C2	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+spatially	adv	theo không gian	C2	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+spire	n	chóp tháp	C2	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+splinter	v	mảnh vụn, dằm	C2	health	topic	cloze,reading	octanove-vocabulary-profile-1.0
+spontaneity	n	tính tự phát	C2	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+squint	v	nheo mắt	C2	health	topic	cloze,reading	octanove-vocabulary-profile-1.0
+squirm	v	uốn éo, bứt rứt	C2	psychology	topic	cloze,reading	octanove-vocabulary-profile-1.0
+sterility	n	tính vô trùng, vô sinh	C2	health	topic	reading,writing	octanove-vocabulary-profile-1.0
+stipulate	v	quy định	C2	law	topic	cloze,reading	octanove-vocabulary-profile-1.0
+stoicism	n	sự khắc kỷ	C2	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+subsist	v	tồn tại, sống qua	C2	economics	topic	cloze,reading	octanove-vocabulary-profile-1.0
+surrealism	n	chủ nghĩa siêu thực	C2	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+teem	v	đầy ắp, đông đúc	C2	society	topic	cloze,reading	octanove-vocabulary-profile-1.0
+testimonial	n	lời chứng thực	C2	media	topic	reading,writing	octanove-vocabulary-profile-1.0
+thicket	n	bụi rậm	C2	environment	topic	reading,writing	octanove-vocabulary-profile-1.0
+topple	v	lật đổ, đổ nhào	C2	politics	topic	cloze,reading	octanove-vocabulary-profile-1.0
+torrential	adj	như trút nước	C2	environment	topic	reading,writing	octanove-vocabulary-profile-1.0
+totter	v	loạng choạng	C2	health	topic	cloze,reading	octanove-vocabulary-profile-1.0
+treacherous	adj	phản trắc, hiểm nguy	C2	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+treachery	n	sự phản bội	C2	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+trifle	n	chuyện nhỏ, bánh kem	C2	food	topic	reading,writing	octanove-vocabulary-profile-1.0
+truism	n	điều hiển nhiên	C2	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+turret	n	tháp nhỏ, tháp pháo	C2	technology	topic	reading,writing	octanove-vocabulary-profile-1.0
+unnerve	v	làm mất bình tĩnh	C2	psychology	topic	cloze,reading	octanove-vocabulary-profile-1.0
+unobtrusive	adj	kín đáo	C2	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+unsurpassed	adj	vô song	C2	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+utilitarian	adj	thực dụng	C2	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+vandal	n	kẻ phá hoại	C2	law	topic	reading,writing	octanove-vocabulary-profile-1.0
+vandalize	v	phá hoại	C2	law	topic	cloze,reading	octanove-vocabulary-profile-1.0
+verbatim	adj	nguyên văn	C2	media	topic	reading,writing	octanove-vocabulary-profile-1.0
+vermin	n	sâu bọ có hại	C2	environment	topic	reading,writing	octanove-vocabulary-profile-1.0
+vindication	n	sự minh oan	C2	law	topic	reading,writing	octanove-vocabulary-profile-1.0
+virtuosity	n	kỹ thuật điêu luyện	C2	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+virtuoso	n	bậc thầy biểu diễn	C2	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+vortex	n	xoáy nước, cơn lốc	C2	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+wallow	v	lăn lộn, đắm chìm	C2	psychology	topic	cloze,reading	octanove-vocabulary-profile-1.0
+wayward	adj	ương ngạnh	C2	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+zoologist	n	nhà động vật học	C2	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+abortion	n	việc phá thai	C1	health	topic	reading,writing	oxford-3000-5000
+accusation	n	lời buộc tội	C1	law	topic	reading,writing	oxford-3000-5000
+acidic	adj	có tính a-xít	C1	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+acoustics	n	âm học	C1	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+administrator	n	người quản trị	C1	work	topic	reading,writing	oxford-3000-5000
+adversary	n	đối thủ	C1	law	topic	reading,writing	octanove-vocabulary-profile-1.0
+advisory	adj	mang tính tư vấn	C1	work	topic	reading,writing	octanove-vocabulary-profile-1.0
+aide	n	trợ lý	C1	politics	topic	reading,writing	oxford-3000-5000
+aimless	adj	không mục đích	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+allegation	n	cáo buộc	C1	law	topic	reading,writing	oxford-3000-5000
+allocation	n	sự phân bổ	C1	economics	topic	reading,writing	oxford-3000-5000
+ally	n	đồng minh	C1	politics	topic	reading,writing	oxford-3000-5000
+amplification	n	sự khuếch đại	C1	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+aquarium	n	bể cá	C1	environment	topic	reading,writing	octanove-vocabulary-profile-1.0
+assertion	n	khẳng định	C1	academic	academic	reading,writing	oxford-3000-5000
+astray	adv	lạc đường	C1	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+atrocity	n	hành động tàn bạo	C1	law	topic	reading,writing	oxford-3000-5000
+attorney	n	luật sư	C1	law	topic	reading,writing	oxford-3000-5000
+authorize	v	ủy quyền	C1	law	topic	cloze,reading	oxford-3000-5000
+avid	adj	say mê	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+await	v	chờ đợi	C1	academic	academic	cloze,reading	oxford-3000-5000
+beast	n	con thú	C1	environment	topic	reading,writing	oxford-3000-5000
+bequeath	v	để lại (di sản)	C1	law	topic	cloze,reading	octanove-vocabulary-profile-1.0
+bishop	n	giám mục	C1	culture	topic	reading,writing	oxford-3000-5000
+bliss	n	hạnh phúc ngập tràn	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+bouquet	n	bó hoa	C1	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+brainwash	v	tẩy não	C1	media	topic	cloze,reading	octanove-vocabulary-profile-1.0
+buddy	n	bạn thân	C1	family	topic	reading,writing	oxford-3000-5000
+buffer	n	vùng đệm	C1	technology	topic	reading,writing	oxford-3000-5000
+buzzer	n	chuông báo	C1	technology	topic	reading,writing	octanove-vocabulary-profile-1.0
+bypass	v	đường vòng, vượt qua	C1	travel	topic	cloze,reading	octanove-vocabulary-profile-1.0
+cabinet	n	nội các, tủ	C1	politics	topic	reading,writing	oxford-3000-5000
+capitalism	n	chủ nghĩa tư bản	C1	economics	topic	reading,writing	oxford-3000-5000
+capitalist	adj	tư bản	C1	economics	topic	reading,writing	oxford-3000-5000
+cargo	n	hàng hóa	C1	economics	topic	reading,writing	oxford-3000-5000
+casualty	n	nạn nhân thương vong	C1	health	topic	reading,writing	oxford-3000-5000
+cemetery	n	nghĩa trang	C1	culture	topic	reading,writing	oxford-3000-5000
+charter	n	hiến chương	C1	law	topic	reading,writing	oxford-3000-5000
+chunk	n	khúc, miếng	C1	food	topic	reading,writing	oxford-3000-5000
+citation	n	trích dẫn	C1	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+civilian	n	dân thường	C1	politics	topic	reading,writing	oxford-3000-5000
+clan	n	thị tộc	C1	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+clench	v	nắm chặt	C1	psychology	topic	cloze,reading	octanove-vocabulary-profile-1.0
+climax	n	đỉnh điểm	C1	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+cloak	n	áo choàng	C1	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+collaborator	n	người cộng tác	C1	work	topic	reading,writing	octanove-vocabulary-profile-1.0
+commentary	n	lời bình	C1	media	topic	reading,writing	oxford-3000-5000
+communist	adj	cộng sản	C1	politics	topic	reading,writing	oxford-3000-5000
+conception	n	quan niệm, sự thụ thai	C1	health	topic	reading,writing	oxford-3000-5000
+concerto	n	bản concerto	C1	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+concur	v	tán thành	C1	academic	academic	cloze,reading	octanove-vocabulary-profile-1.0
+confession	n	lời thú nhận	C1	law	topic	reading,writing	oxford-3000-5000
+configuration	n	cấu hình	C1	technology	topic	reading,writing	oxford-3000-5000
+conformity	n	sự tuân thủ	C1	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+confrontation	n	sự đối đầu	C1	society	topic	reading,writing	oxford-3000-5000
+congressional	adj	thuộc quốc hội	C1	politics	topic	reading,writing	oxford-3000-5000
+connoisseur	n	người sành sỏi	C1	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+conservatory	n	nhạc viện, nhà kính	C1	education	topic	reading,writing	octanove-vocabulary-profile-1.0
+consultation	n	cuộc tham vấn	C1	work	topic	reading,writing	oxford-3000-5000
+copyright	n	bản quyền	C1	law	topic	reading,writing	oxford-3000-5000
+corps	n	quân đoàn	C1	politics	topic	reading,writing	octanove-vocabulary-profile-1.0
+corrupt	adj	tham nhũng	C1	law	topic	reading,writing	oxford-3000-5000
+coup	n	cuộc đảo chính	C1	politics	topic	reading,writing	oxford-3000-5000
+crawl	v	bò, lê	C1	sport	topic	cloze,reading	oxford-3000-5000
+creamy	adj	mịn như kem	C1	food	topic	reading,writing	octanove-vocabulary-profile-1.0
+creep	v	bò nhẹ, rón rén	C1	psychology	topic	cloze,reading	oxford-3000-5000
+critique	n	bài phê bình	C1	academic	academic	reading,writing	oxford-3000-5000
+crumble	v	vỡ vụn	C1	food	topic	cloze,reading	octanove-vocabulary-profile-1.0
+cynic	n	người hoài nghi	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+darkroom	n	phòng tối (rửa ảnh)	C1	media	topic	reading,writing	octanove-vocabulary-profile-1.0
+daydream	n	mơ mộng ban ngày	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+debut	n	lần ra mắt	C1	culture	topic	reading,writing	oxford-3000-5000
+deceit	n	sự lừa dối	C1	law	topic	reading,writing	octanove-vocabulary-profile-1.0
+deed	n	hành động, giấy tờ	C1	law	topic	reading,writing	oxford-3000-5000
+deem	v	cho là	C1	academic	academic	cloze,reading	oxford-3000-5000
+demolition	n	sự phá hủy	C1	work	topic	reading,writing	octanove-vocabulary-profile-1.0
+detain	v	tạm giữ	C1	law	topic	cloze,reading	oxford-3000-5000
+detriment	n	tổn hại	C1	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+devastate	v	tàn phá	C1	environment	topic	cloze,reading	oxford-3000-5000
+dictator	n	nhà độc tài	C1	politics	topic	reading,writing	oxford-3000-5000
+disclosure	n	sự tiết lộ	C1	media	topic	reading,writing	oxford-3000-5000
+discretion	n	sự tùy nghi, kín đáo	C1	law	topic	reading,writing	oxford-3000-5000
+dislodge	v	đẩy bật ra	C1	academic	academic	cloze,reading	octanove-vocabulary-profile-1.0
+dissect	v	mổ xẻ, phân tích	C1	health	topic	cloze,reading	octanove-vocabulary-profile-1.0
+doctrine	n	học thuyết	C1	politics	topic	reading,writing	oxford-3000-5000
+dramatist	n	nhà viết kịch	C1	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+duo	n	bộ đôi	C1	culture	topic	reading,writing	oxford-3000-5000
+dutiful	adj	hiếu thảo, có bổn phận	C1	family	topic	reading,writing	octanove-vocabulary-profile-1.0
+elastic	n	đàn hồi	C1	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+electoral	adj	thuộc bầu cử	C1	politics	topic	reading,writing	oxford-3000-5000
+embassy	n	đại sứ quán	C1	politics	topic	reading,writing	oxford-3000-5000
+entity	n	thực thể	C1	academic	academic	reading,writing	oxford-3000-5000
+exodus	n	cuộc di cư	C1	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+exile	n	lưu đày	C1	politics	topic	reading,writing	oxford-3000-5000
+fatality	n	tử vong	C1	health	topic	reading,writing	octanove-vocabulary-profile-1.0
+feminist	adj	nhà nữ quyền	C1	society	topic	reading,writing	oxford-3000-5000
+ferocious	adj	dữ tợn	C1	environment	topic	reading,writing	octanove-vocabulary-profile-1.0
+firearm	n	súng cầm tay	C1	law	topic	reading,writing	oxford-3000-5000
+fissure	n	vết nứt	C1	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+flashback	n	hồi tưởng	C1	media	topic	reading,writing	octanove-vocabulary-profile-1.0
+flee	v	chạy trốn	C1	law	topic	cloze,reading	oxford-3000-5000
+folktale	n	truyện dân gian	C1	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+forfeit	v	mất quyền, bị tịch thu	C1	sport	topic	cloze,reading	octanove-vocabulary-profile-1.0
+formulate	v	xây dựng, phát biểu	C1	academic	academic	cloze,reading	oxford-3000-5000
+funeral	n	đám tang	C1	culture	topic	reading,writing	oxford-3000-5000
+gallon	n	ga-lông	C1	economics	topic	reading,writing	oxford-3000-5000
+genocide	n	diệt chủng	C1	law	topic	reading,writing	oxford-3000-5000
+genome	n	hệ gen	C1	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+glean	v	thu thập dần	C1	academic	academic	cloze,reading	octanove-vocabulary-profile-1.0
+glorious	adj	huy hoàng	C1	culture	topic	reading,writing	oxford-3000-5000
+graft	v	ghép, tham nhũng	C1	health	topic	cloze,reading	octanove-vocabulary-profile-1.0
+gruelling	adj	vô cùng mệt nhọc	C1	work	topic	reading,writing	octanove-vocabulary-profile-1.0
+gruesome	adj	rùng rợn	C1	law	topic	reading,writing	octanove-vocabulary-profile-1.0
+guerrilla	n	du kích	C1	politics	topic	reading,writing	oxford-3000-5000
+gutsy	adj	cam đảm	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+hack	v	băm, xâm nhập	C1	technology	topic	cloze,reading	octanove-vocabulary-profile-1.0
+haggle	v	mặc cả	C1	economics	topic	cloze,reading	octanove-vocabulary-profile-1.0
+harass	v	quấy rối	C1	law	topic	cloze,reading	octanove-vocabulary-profile-1.0
+heroine	n	nữ anh hùng	C1	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+hibernate	v	ngủ đông	C1	environment	topic	cloze,reading	octanove-vocabulary-profile-1.0
+honk	v	bấm còi	C1	technology	topic	cloze,reading	octanove-vocabulary-profile-1.0
+hostage	n	con tin	C1	law	topic	reading,writing	oxford-3000-5000
+hypocrisy	n	sự đạo đức giả	C1	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+hypocrite	n	kẻ đạo đức giả	C1	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+ideological	adj	thuộc tư tưởng	C1	politics	topic	reading,writing	oxford-3000-5000
+imagery	n	hình ảnh, ẩn dụ	C1	media	topic	reading,writing	oxford-3000-5000
+immortalize	v	bất tử hóa	C1	culture	topic	cloze,reading	octanove-vocabulary-profile-1.0
+impersonate	v	mạo danh	C1	law	topic	cloze,reading	octanove-vocabulary-profile-1.0
+implicate	v	làm liên lụy	C1	law	topic	cloze,reading	octanove-vocabulary-profile-1.0
+incision	n	đường rạch	C1	health	topic	reading,writing	octanove-vocabulary-profile-1.0
+inclusion	n	sự bao gồm	C1	society	topic	reading,writing	oxford-3000-5000
+indictment	n	cáo trạng	C1	law	topic	reading,writing	oxford-3000-5000
+individuality	n	tính cá nhân	C1	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+infect	v	làm nhiễm bệnh	C1	health	topic	cloze,reading	oxford-3000-5000
+injustice	n	sự bất công	C1	law	topic	reading,writing	oxford-3000-5000
+inmate	n	phạm nhân	C1	law	topic	reading,writing	oxford-3000-5000
+insider	n	người trong cuộc	C1	media	topic	reading,writing	oxford-3000-5000
+interim	adj	tạm thời	C1	work	topic	reading,writing	oxford-3000-5000
+interject	v	ngắt lời	C1	academic	academic	cloze,reading	octanove-vocabulary-profile-1.0
+interjection	n	thán từ	C1	education	topic	reading,writing	octanove-vocabulary-profile-1.0
+investigator	n	điều tra viên	C1	law	topic	reading,writing	oxford-3000-5000
+jurisdiction	n	thẩm quyền tài phán	C1	law	topic	reading,writing	oxford-3000-5000
+lap	n	vòng đùi, vòng đua	C1	sport	topic	reading,writing	oxford-3000-5000
+lapse	n	sự sơ suất, hết hạn	C1	law	topic	reading,writing	octanove-vocabulary-profile-1.0
+lavatory	n	nhà vệ sinh	C1	travel	topic	reading,writing	octanove-vocabulary-profile-1.0
+layout	n	bố cục	C1	media	topic	reading,writing	oxford-3000-5000
+loom	v	lừng lững hiện ra	C1	psychology	topic	cloze,reading	oxford-3000-5000
+lust	n	dục vọng	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+macabre	adj	rùng rợn	C1	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+magistrate	n	thẩm phán	C1	law	topic	reading,writing	oxford-3000-5000
+manicure	n	chăm sóc móng tay	C1	health	topic	reading,writing	octanove-vocabulary-profile-1.0
+maternal	adj	thuộc mẹ	C1	family	topic	reading,writing	octanove-vocabulary-profile-1.0
+memorial	n	đài tưởng niệm	C1	culture	topic	reading,writing	oxford-3000-5000
+methodical	adj	có phương pháp	C1	work	topic	reading,writing	octanove-vocabulary-profile-1.0
+militant	n	chiến binh, quá khích	C1	politics	topic	reading,writing	oxford-3000-5000
+militia	n	dân quân	C1	politics	topic	reading,writing	oxford-3000-5000
+missile	n	tên lửa	C1	politics	topic	reading,writing	oxford-3000-5000
+mob	n	đám đông hỗn loạn	C1	society	topic	reading,writing	oxford-3000-5000
+monotony	n	sự đơn điệu	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+motorist	n	người lái xe	C1	travel	topic	reading,writing	oxford-3000-5000
+naval	adj	thuộc hải quân	C1	politics	topic	reading,writing	oxford-3000-5000
+noble	adj	cao quý	C1	society	topic	reading,writing	oxford-3000-5000
+nominee	n	người được đề cử	C1	politics	topic	reading,writing	oxford-3000-5000
+nondescript	adj	khó mô tả	C1	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+numb	adj	tê liệt, tê cứng	C1	health	topic	reading,writing	octanove-vocabulary-profile-1.0
+oddity	n	điều kỳ quặc	C1	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+outing	n	chuyến đi chơi	C1	travel	topic	reading,writing	oxford-3000-5000
+overseer	n	người giám sát	C1	work	topic	reading,writing	octanove-vocabulary-profile-1.0
+pad	n	đệm, tập giấy	C1	academic	academic	reading,writing	oxford-3000-5000
+panoramic	adj	toàn cảnh	C1	travel	topic	reading,writing	octanove-vocabulary-profile-1.0
+parameter	n	tham số	C1	science	topic	reading,writing	oxford-3000-5000
+parasite	n	vật ký sinh	C1	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+parish	n	giáo xứ	C1	culture	topic	reading,writing	oxford-3000-5000
+pastor	n	mục sư	C1	culture	topic	reading,writing	oxford-3000-5000
+paternal	adj	thuộc cha	C1	family	topic	reading,writing	octanove-vocabulary-profile-1.0
+patron	n	người bảo trợ	C1	culture	topic	reading,writing	oxford-3000-5000
+peasant	n	nông dân	C1	society	topic	reading,writing	oxford-3000-5000
+pedicure	n	chăm sóc móng chân	C1	health	topic	reading,writing	octanove-vocabulary-profile-1.0
+persecute	v	ngược đãi	C1	law	topic	cloze,reading	octanove-vocabulary-profile-1.0
+persecution	n	sự ngược đãi	C1	law	topic	reading,writing	octanove-vocabulary-profile-1.0
+physique	n	thể chất	C1	sport	topic	reading,writing	octanove-vocabulary-profile-1.0
+pigeon	n	chim bồ câu	C1	environment	topic	reading,writing	octanove-vocabulary-profile-1.0
+plaque	n	biển kỷ niệm	C1	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+plausibility	n	tính hợp lý	C1	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+plumbing	n	hệ thống ống nước	C1	technology	topic	reading,writing	octanove-vocabulary-profile-1.0
+poise	n	sự tự tin, thăng bằng	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+preach	v	giảng đạo	C1	culture	topic	cloze,reading	oxford-3000-5000
+preacher	n	người giảng đạo	C1	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+pregnancy	n	thai kỳ	C1	health	topic	reading,writing	oxford-3000-5000
+preside	v	chủ trì	C1	work	topic	cloze,reading	oxford-3000-5000
+presidency	n	nhiệm kỳ tổng thống	C1	politics	topic	reading,writing	oxford-3000-5000
+profess	v	tuyên bố	C1	academic	academic	cloze,reading	octanove-vocabulary-profile-1.0
+professionalism	n	tính chuyên nghiệp	C1	work	topic	reading,writing	octanove-vocabulary-profile-1.0
+prophet	n	nhà tiên tri	C1	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+proposition	n	đề xuất	C1	academic	academic	reading,writing	oxford-3000-5000
+prosecutor	n	công tố viên	C1	law	topic	reading,writing	oxford-3000-5000
+protagonist	n	nhân vật chính	C1	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+prowl	v	rình mò	C1	environment	topic	cloze,reading	octanove-vocabulary-profile-1.0
+psyche	n	tâm lý, linh hồn	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+punch	n	cú đấm	C1	sport	topic	reading,writing	oxford-3000-5000
+query	n	câu hỏi, truy vấn	C1	technology	topic	reading,writing	oxford-3000-5000
+quip	n	lời đùa dí dỏm	C1	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+quirk	n	nét kỳ quặc	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+rape	n	cưỡng hiếp	C1	law	topic	reading,writing	oxford-3000-5000
+realism	n	chủ nghĩa hiện thực	C1	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+realm	n	lĩnh vực, vương quốc	C1	academic	academic	reading,writing	oxford-3000-5000
+reassure	v	trấn an	C1	psychology	topic	cloze,reading	oxford-3000-5000
+recess	n	giờ giải lao	C1	education	topic	reading,writing	octanove-vocabulary-profile-1.0
+remedial	adj	mang tính khắc phục	C1	education	topic	reading,writing	octanove-vocabulary-profile-1.0
+reminisce	v	hồi tưởng	C1	psychology	topic	cloze,reading	octanove-vocabulary-profile-1.0
+reminiscent	adj	gợi nhớ	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+remorse	n	sự hối hận	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+remorseless	adj	không hối hận	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+renown	n	danh tiếng	C1	media	topic	reading,writing	octanove-vocabulary-profile-1.0
+resonate	v	cộng hưởng	C1	science	topic	cloze,reading	octanove-vocabulary-profile-1.0
+retrace	v	đi lại dấu vết	C1	travel	topic	cloze,reading	octanove-vocabulary-profile-1.0
+riveting	adj	cuốn hút	C1	media	topic	reading,writing	octanove-vocabulary-profile-1.0
+saloon	n	quán rượu, xe bốn bánh	C1	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+salvation	n	sự cứu rỗi	C1	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+sarcasm	n	sự mỉa mai	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+sceptical	adj	hoài nghi	C1	psychology	topic	reading,writing	oxford-3000-5000
+scoff	v	chế nhạo	C1	psychology	topic	cloze,reading	octanove-vocabulary-profile-1.0
+scorn	n	sự khinh bỉ	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+seize	v	chiếm lấy, tịch thu	C1	law	topic	cloze,reading	oxford-3000-5000
+senator	n	thượng nghị sĩ	C1	politics	topic	reading,writing	oxford-3000-5000
+sentient	adj	có tri giác	C1	science	topic	reading,writing	octanove-vocabulary-profile-1.0
+sequel	n	phần tiếp theo	C1	media	topic	reading,writing	octanove-vocabulary-profile-1.0
+serial	adj	nối tiếp, tuần tự	C1	media	topic	reading,writing	oxford-3000-5000
+shatter	v	làm tan vỡ	C1	psychology	topic	cloze,reading	oxford-3000-5000
+shrug	v	nhún vai	C1	society	topic	cloze,reading	oxford-3000-5000
+sigh	v	thở dài	C1	psychology	topic	cloze,reading	oxford-3000-5000
+silhouette	n	bóng hình	C1	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+sin	n	tội lỗi	C1	culture	topic	reading,writing	oxford-3000-5000
+slash	v	chém, cắt mạnh	C1	economics	topic	cloze,reading	oxford-3000-5000
+slot	n	khe, vị trí	C1	technology	topic	reading,writing	oxford-3000-5000
+smash	v	đập vỡ	C1	psychology	topic	cloze,reading	oxford-3000-5000
+smug	adj	tự mãn	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+snooze	v	ngủ trưa ngắn	C1	health	topic	cloze,reading	octanove-vocabulary-profile-1.0
+somersault	n	lộn nhào	C1	sport	topic	reading,writing	octanove-vocabulary-profile-1.0
+specification	n	đặc tả kỹ thuật	C1	technology	topic	reading,writing	oxford-3000-5000
+specimen	n	mẫu vật	C1	science	topic	reading,writing	oxford-3000-5000
+stab	v	đâm	C1	law	topic	cloze,reading	oxford-3000-5000
+staccato	adj	ngắt quãng, dồn dập	C1	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+stately	adj	trang nghiêm	C1	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+stiffen	v	cứng lại, tăng mạnh	C1	health	topic	cloze,reading	octanove-vocabulary-profile-1.0
+stray	v	đi lạc	C1	environment	topic	cloze,reading	octanove-vocabulary-profile-1.0
+stun	v	làm choáng	C1	psychology	topic	cloze,reading	oxford-3000-5000
+stylistic	adj	thuộc phong cách	C1	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+substitution	n	sự thay thế	C1	sport	topic	reading,writing	oxford-3000-5000
+suburbia	n	vùng ngoại ô	C1	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+succession	n	sự kế tiếp	C1	work	topic	reading,writing	oxford-3000-5000
+succulent	n	mọng nước	C1	food	topic	reading,writing	octanove-vocabulary-profile-1.0
+suitor	n	người cầu hôn	C1	family	topic	reading,writing	octanove-vocabulary-profile-1.0
+supple	adj	dẻo dai	C1	health	topic	reading,writing	octanove-vocabulary-profile-1.0
+swing	v	đu, xoay chuyển	C1	sport	topic	cloze,reading	oxford-3000-5000
+sword	n	thanh gươm	C1	culture	topic	reading,writing	oxford-3000-5000
+synopsis	n	bản tóm tắt	C1	media	topic	reading,writing	octanove-vocabulary-profile-1.0
+synthesis	n	sự tổng hợp	C1	science	topic	reading,writing	oxford-3000-5000
+tact	n	sự khéo léo ứng xử	C1	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+tactful	adj	khéo léo, tế nhị	C1	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+tantrum	n	cơn giận dữ (trẻ con)	C1	family	topic	reading,writing	octanove-vocabulary-profile-1.0
+taut	adj	căng thẳng	C1	health	topic	reading,writing	octanove-vocabulary-profile-1.0
+taxpayer	n	người nộp thuế	C1	economics	topic	reading,writing	oxford-3000-5000
+tedium	n	sự nhàm chán	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+tenure	n	nhiệm kỳ, quyền hưởng dụng	C1	work	topic	reading,writing	oxford-3000-5000
+testament	n	bằng chứng, di chúc	C1	law	topic	reading,writing	octanove-vocabulary-profile-1.0
+theology	n	thần học	C1	culture	topic	reading,writing	oxford-3000-5000
+thread	n	ren, chuỗi	C1	technology	topic	reading,writing	oxford-3000-5000
+tinker	v	mày mò sửa chữa	C1	technology	topic	cloze,reading	octanove-vocabulary-profile-1.0
+torment	v	sự dằn vặt	C1	psychology	topic	cloze,reading	octanove-vocabulary-profile-1.0
+tract	n	vùng đất, đường ống	C1	environment	topic	reading,writing	octanove-vocabulary-profile-1.0
+trademark	n	nhãn hiệu	C1	economics	topic	reading,writing	oxford-3000-5000
+traumatic	adj	gây sang chấn	C1	health	topic	reading,writing	octanove-vocabulary-profile-1.0
+trustee	n	người được ủy thác	C1	law	topic	reading,writing	oxford-3000-5000
+twitch	v	co giật	C1	health	topic	cloze,reading	octanove-vocabulary-profile-1.0
+tycoon	n	trùm kinh doanh	C1	economics	topic	reading,writing	octanove-vocabulary-profile-1.0
+undaunted	adj	không nao núng	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+uniformity	n	tính đồng nhất	C1	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+uninspiring	adj	không truyền cảm hứng	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+unison	n	sự đồng thanh	C1	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+unmanageable	adj	không thể kiểm soát	C1	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+unmanned	adj	không người lái	C1	technology	topic	reading,writing	octanove-vocabulary-profile-1.0
+unoccupied	adj	trống, không có người	C1	academic	academic	reading,writing	octanove-vocabulary-profile-1.0
+unsettle	v	làm bất an	C1	psychology	topic	cloze,reading	octanove-vocabulary-profile-1.0
+untangle	v	gỡ rối	C1	academic	academic	cloze,reading	octanove-vocabulary-profile-1.0
+unwaveringly	adv	một cách kiên định	C1	psychology	topic	reading,writing	octanove-vocabulary-profile-1.0
+upheaval	n	biến động lớn	C1	society	topic	reading,writing	octanove-vocabulary-profile-1.0
+uphold	v	duy trì, tán thành	C1	law	topic	cloze,reading	oxford-3000-5000
+vanish	v	biến mất	C1	academic	academic	cloze,reading	oxford-3000-5000
+veneration	n	sự tôn kính	C1	culture	topic	reading,writing	octanove-vocabulary-profile-1.0
+ventilate	v	thông gió	C1	health	topic	cloze,reading	octanove-vocabulary-profile-1.0
+ventilation	n	sự thông gió	C1	health	topic	reading,writing	octanove-vocabulary-profile-1.0
+versatility	n	tính đa dụng	C1	work	topic	reading,writing	octanove-vocabulary-profile-1.0
+verse	n	câu thơ, khổ thơ	C1	culture	topic	reading,writing	oxford-3000-5000
+viciously	adv	một cách tàn bạo	C1	law	topic	reading,writing	octanove-vocabulary-profile-1.0
+victorious	adj	chiến thắng	C1	sport	topic	reading,writing	octanove-vocabulary-profile-1.0
+villager	n	dân làng	C1	society	topic	reading,writing	oxford-3000-5000
+whip	v	roi, đánh roi	C1	society	topic	cloze,reading	oxford-3000-5000
+width	n	chiều rộng	C1	science	topic	reading,writing	oxford-3000-5000
+woo	v	ve vãn, thu hút	C1	economics	topic	cloze,reading	octanove-vocabulary-profile-1.0
+wrangle	v	tranh cãi	C1	society	topic	cloze,reading	octanove-vocabulary-profile-1.0
+yell	v	hét lên	C1	psychology	topic	cloze,reading	oxford-3000-5000
+agony	n	cơn đau đớn tột cùng	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+adore	v	yêu thích, tôn thờ	B2	psychology	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+ageless	adj	không tuổi tác	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+absentee	n	người vắng mặt	B2	education	topic	reading,writing	cefrj-vocabulary-profile-1.5
+analyst	n	nhà phân tích	B2	economics	topic	reading,writing	oxford-3000-5000
+anguish	n	nỗi thống khổ	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+aristocracy	n	tầng lớp quý tộc	B2	politics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+arrow	n	mũi tên	B2	sport	topic	reading,writing	oxford-3000-5000
+artistry	n	tay nghề nghệ thuật	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+atypical	adj	không điển hình	B2	science	topic	reading,writing	cefrj-vocabulary-profile-1.5
+ballad	n	bản ballad	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+banker	n	chủ ngân hàng	B2	economics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+barometer	n	phong vũ biểu	B2	science	topic	reading,writing	cefrj-vocabulary-profile-1.5
+bartender	n	người pha chế rượu	B2	work	topic	reading,writing	cefrj-vocabulary-profile-1.5
+benevolence	n	lòng nhân từ	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+bestow	v	trao tặng	B2	culture	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+booklet	n	tập sách nhỏ	B2	media	topic	reading,writing	cefrj-vocabulary-profile-1.5
+botany	n	thực vật học	B2	science	topic	reading,writing	cefrj-vocabulary-profile-1.5
+bothersome	adj	phiền phức	B2	society	topic	reading,writing	cefrj-vocabulary-profile-1.5
+brag	n	khoe khoang	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+breakup	n	sự chia tay, tan rã	B2	family	topic	reading,writing	cefrj-vocabulary-profile-1.5
+breezy	adj	thoáng gió	B2	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+brewery	n	xưởng bia	B2	food	topic	reading,writing	cefrj-vocabulary-profile-1.5
+brother-in-law	n	anh rể, em rể	B2	family	topic	reading,writing	cefrj-vocabulary-profile-1.5
+bun	n	bánh mì tròn	B2	food	topic	reading,writing	cefrj-vocabulary-profile-1.5
+caravan	n	đoàn xe, xe kéo	B2	travel	topic	reading,writing	cefrj-vocabulary-profile-1.5
+cascade	n	thác nước, chuỗi	B2	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+catchy	adj	dễ nhớ, hấp dẫn	B2	media	topic	reading,writing	cefrj-vocabulary-profile-1.5
+cellar	n	hầm chứa	B2	food	topic	reading,writing	cefrj-vocabulary-profile-1.5
+cello	n	đàn cello	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+certify	v	chứng nhận	B2	law	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+chancellor	n	thủ tướng, hiệu trưởng	B2	politics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+chaotic	adj	hỗn loạn	B2	society	topic	reading,writing	cefrj-vocabulary-profile-1.5
+checkpoint	n	trạm kiểm soát	B2	travel	topic	reading,writing	cefrj-vocabulary-profile-1.5
+chemotherapy	n	hóa trị	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+choir	n	dàn hợp xướng	B2	culture	topic	reading,writing	oxford-3000-5000
+clap	v	vỗ tay	B2	culture	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+clarify	v	làm rõ	B2	academic	academic	cloze,reading	oxford-3000-5000
+clerical	adj	thuộc văn thư	B2	work	topic	reading,writing	cefrj-vocabulary-profile-1.5
+clog	v	làm tắc nghẽn	B2	travel	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+coma	n	hôn mê	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+commonwealth	n	khối thịnh vượng chung	B2	politics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+compassionate	adj	đầy lòng trắc ẩn	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+compression	n	sự nén	B2	science	topic	reading,writing	cefrj-vocabulary-profile-1.5
+consolation	n	sự an ủi	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+cube	n	khối lập phương	B2	science	topic	reading,writing	cefrj-vocabulary-profile-1.5
+culmination	n	đỉnh cao, kết thúc	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+curl	n	cuộn, xoăn	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+dandelion	n	cây bồ công anh	B2	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+darling	adj	người yêu dấu	B2	family	topic	reading,writing	cefrj-vocabulary-profile-1.5
+daughter-in-law	n	con dâu	B2	family	topic	reading,writing	cefrj-vocabulary-profile-1.5
+dearly	adv	tha thiết	B2	family	topic	reading,writing	cefrj-vocabulary-profile-1.5
+debit	n	ghi nợ	B2	economics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+deduce	v	suy ra	B2	academic	academic	cloze,reading	cefrj-vocabulary-profile-1.5
+depart	v	khởi hành	B2	travel	topic	cloze,reading	oxford-3000-5000
+desolation	n	sự hoang tàn	B2	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+dignify	v	làm cho xứng đáng	B2	society	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+disciple	n	môn đồ	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+discredit	v	làm mất uy tín	B2	media	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+disgrace	n	sự ô nhục	B2	society	topic	reading,writing	cefrj-vocabulary-profile-1.5
+displeasure	n	sự không hài lòng	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+disqualify	v	truất quyền	B2	sport	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+dissident	n	người bất đồng chính kiến	B2	politics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+dock	n	bến tàu	B2	economics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+doorway	n	khung cửa	B2	travel	topic	reading,writing	cefrj-vocabulary-profile-1.5
+dreamy	adj	mơ màng	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+duel	n	cuộc đấu tay đôi	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+dwarf	n	người lùn, làm lu mờ	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+dye	n	thuốc nhuộm	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+ecstatic	adj	ngây ngất	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+elect	v	bầu chọn	B2	politics	topic	cloze,reading	oxford-3000-5000
+eloquence	n	sự hùng biện	B2	education	topic	reading,writing	cefrj-vocabulary-profile-1.5
+engulf	v	nhấn chìm	B2	environment	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+everlasting	adj	vĩnh cửu	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+evidently	adv	rõ ràng là	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+exclaim	v	thốt lên	B2	psychology	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+eyelid	n	mí mắt	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+fingernail	n	móng tay	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+firefighter	n	lính cứu hỏa	B2	work	topic	reading,writing	oxford-3000-5000
+flap	v	vỗ, nắp	B2	technology	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+flip	v	búng, trở (đồng xu, trang)	B2	academic	academic	cloze,reading	cefrj-vocabulary-profile-1.5
+folly	n	sự dại dột	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+foresee	v	thấy trước	B2	academic	academic	cloze,reading	cefrj-vocabulary-profile-1.5
+fox	n	con cáo	B2	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+frantically	adv	điên cuồng	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+gang	n	băng nhóm	B2	society	topic	reading,writing	oxford-3000-5000
+gangster	n	tội phạm có tổ chức	B2	law	topic	reading,writing	cefrj-vocabulary-profile-1.5
+germ	n	vi trùng	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+getaway	n	sự trốn thoát, nơi nghỉ ngơi	B2	travel	topic	reading,writing	cefrj-vocabulary-profile-1.5
+gleam	n	ánh lên	B2	science	topic	reading,writing	cefrj-vocabulary-profile-1.5
+glee	n	sự vui sướng	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+grieve	v	đau buồn	B2	psychology	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+handrail	n	tay vịn	B2	travel	topic	reading,writing	cefrj-vocabulary-profile-1.5
+heap	n	đống	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+hijack	n	cướp (máy bay)	B2	law	topic	reading,writing	cefrj-vocabulary-profile-1.5
+hip	n	hông	B2	health	topic	reading,writing	oxford-3000-5000
+hospice	n	nhà chăm sóc cuối đời	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+hourly	adj	theo giờ	B2	work	topic	reading,writing	cefrj-vocabulary-profile-1.5
+hover	v	lơ lửng	B2	technology	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+illustration	n	minh họa	B2	media	topic	reading,writing	oxford-3000-5000
+implication	n	hàm ý, hệ lụy	B2	academic	academic	reading,writing	oxford-3000-5000
+improbable	adj	khó có thể xảy ra	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+indent	v	thụt lề	B2	education	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+indignity	n	sự sỉ nhục	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+infringe	v	xâm phạm	B2	law	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+infringement	n	sự xâm phạm	B2	law	topic	reading,writing	cefrj-vocabulary-profile-1.5
+inseparable	adj	không thể tách rời	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+intrusion	n	sự xâm nhập	B2	law	topic	reading,writing	cefrj-vocabulary-profile-1.5
+isolate	v	cô lập	B2	health	topic	cloze,reading	oxford-3000-5000
+itch	v	ngứa	B2	health	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+judo	n	nhu đạo	B2	sport	topic	reading,writing	cefrj-vocabulary-profile-1.5
+kerosene	n	dầu hỏa	B2	economics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+kneel	v	quỳ	B2	culture	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+knot	n	nút thắt	B2	technology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+lawmaker	n	nhà lập pháp	B2	politics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+leash	n	dây xích	B2	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+legislate	v	lập pháp	B2	politics	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+lighten	v	làm nhẹ đi	B2	psychology	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+lord	n	lãnh chúa	B2	culture	topic	reading,writing	oxford-3000-5000
+maestro	n	bậc thầy âm nhạc	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+malady	n	bệnh tật	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+mate	n	bạn đời, bạn thân	B2	family	topic	reading,writing	oxford-3000-5000
+messenger	n	người đưa tin	B2	technology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+microbe	n	vi khuẩn	B2	science	topic	reading,writing	cefrj-vocabulary-profile-1.5
+mistreat	v	ngược đãi	B2	law	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+momentarily	adv	trong chốc lát	B2	academic	academic	reading,writing	cefrj-vocabulary-profile-1.5
+monastery	n	tu viện	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+mortar	n	vữa, cối	B2	technology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+mournful	adj	buồn thảm	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+mutter	n	lẩm bẩm	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+narcissistic	adj	tự luyến	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+neurosis	n	chứng loạn thần kinh	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+newscaster	n	phát thanh viên	B2	media	topic	reading,writing	cefrj-vocabulary-profile-1.5
+nobility	n	giới quý tộc	B2	politics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+nomad	n	dân du mục	B2	society	topic	reading,writing	cefrj-vocabulary-profile-1.5
+nostril	n	lỗ mũi	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+numerical	adj	thuộc số học	B2	science	topic	reading,writing	cefrj-vocabulary-profile-1.5
+oath	n	lời thề	B2	law	topic	reading,writing	cefrj-vocabulary-profile-1.5
+obedience	n	sự vâng lời	B2	family	topic	reading,writing	cefrj-vocabulary-profile-1.5
+obituary	n	cáo phó	B2	media	topic	reading,writing	cefrj-vocabulary-profile-1.5
+ointment	n	thuốc mỡ	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+orator	n	nhà hùng biện	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+outfit	n	bộ trang phục	B2	culture	topic	reading,writing	oxford-3000-5000
+outpatient	n	bệnh nhân ngoại trú	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+overestimate	v	đánh giá quá cao	B2	academic	academic	cloze,reading	cefrj-vocabulary-profile-1.5
+overshadow	v	làm lu mờ	B2	media	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+overtake	v	vượt qua	B2	travel	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+paramedic	adj	nhân viên cấp cứu	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+paw	n	chân thú	B2	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+perspiration	n	mồ hôi	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+petrified	adj	chết lặng, hóa đá	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+picky	adj	kén chọn	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+piracy	n	nạn cướp biển, vi phạm bản quyền	B2	law	topic	reading,writing	cefrj-vocabulary-profile-1.5
+playwright	n	nhà viết kịch	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+polo	n	môn pô-lô	B2	sport	topic	reading,writing	cefrj-vocabulary-profile-1.5
+prose	n	văn xuôi	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+quantify	v	định lượng	B2	science	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+quarrelsome	adj	hay cãi nhau	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+racial	adj	thuộc chủng tộc	B2	society	topic	reading,writing	oxford-3000-5000
+radiate	v	tỏa ra	B2	science	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+rainstorm	n	bão mưa	B2	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+reconsider	v	xem xét lại	B2	academic	academic	cloze,reading	cefrj-vocabulary-profile-1.5
+rectangular	adj	hình chữ nhật	B2	science	topic	reading,writing	cefrj-vocabulary-profile-1.5
+refinery	n	nhà máy lọc	B2	economics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+replica	n	bản sao	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+repression	n	sự đàn áp, kìm nén	B2	politics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+reprint	n	tái bản	B2	media	topic	reading,writing	cefrj-vocabulary-profile-1.5
+retina	n	võng mạc	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+rhinoceros	n	tê giác	B2	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+riddle	n	câu đố	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+righteousness	n	sự chính trực	B2	society	topic	reading,writing	cefrj-vocabulary-profile-1.5
+roam	n	lang thang	B2	travel	topic	reading,writing	cefrj-vocabulary-profile-1.5
+roar	v	gầm, rống	B2	environment	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+royalty	n	hoàng gia, tiền tác quyền	B2	politics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+rubble	n	đống gạch vụn	B2	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+salon	n	tiệm làm đẹp	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+scarlet	n	màu đỏ tươi	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+scholar	n	học giả	B2	academic	academic	reading,writing	oxford-3000-5000
+scramble	v	tranh giành, bò trườn	B2	sport	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+self-confident	adj	tự tin	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+shipwreck	n	vụ đắm tàu	B2	travel	topic	reading,writing	cefrj-vocabulary-profile-1.5
+silverware	n	đồ dùng bằng bạc	B2	food	topic	reading,writing	cefrj-vocabulary-profile-1.5
+sincerity	n	sự chân thành	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+sister-in-law	n	chị dâu, em dâu	B2	family	topic	reading,writing	cefrj-vocabulary-profile-1.5
+skim	v	đọc lướt, hớt bọt	B2	academic	academic	cloze,reading	cefrj-vocabulary-profile-1.5
+sob	v	nức nở	B2	psychology	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+softness	n	sự mềm mại	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+son-in-law	n	con rể	B2	family	topic	reading,writing	cefrj-vocabulary-profile-1.5
+specialty	n	chuyên ngành	B2	education	topic	reading,writing	cefrj-vocabulary-profile-1.5
+spellbound	adj	mê mẩn	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+spokesman	n	người phát ngôn	B2	media	topic	reading,writing	oxford-3000-5000
+spokeswoman	n	nữ phát ngôn viên	B2	media	topic	reading,writing	oxford-3000-5000
+squash	n	bí, ép bẹp	B2	food	topic	reading,writing	cefrj-vocabulary-profile-1.5
+stammer	v	nói lắp	B2	health	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+startle	v	làm giật mình	B2	psychology	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+starve	v	chết đói	B2	health	topic	cloze,reading	oxford-3000-5000
+statesman	n	chính khách	B2	politics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+stepfather	n	bố dượng	B2	family	topic	reading,writing	cefrj-vocabulary-profile-1.5
+stepmother	n	mẹ kế	B2	family	topic	reading,writing	cefrj-vocabulary-profile-1.5
+stern	adj	nghiêm khắc	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+stingy	adj	keo kiệt	B2	economics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+stink	v	bốc mùi hôi	B2	environment	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+stockpile	n	dự trữ	B2	economics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+stopover	n	điểm dừng chân	B2	travel	topic	reading,writing	cefrj-vocabulary-profile-1.5
+straighten	v	làm thẳng	B2	academic	academic	cloze,reading	cefrj-vocabulary-profile-1.5
+strangle	v	bóp nghẹt	B2	law	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+subcontinent	n	tiểu lục địa	B2	science	topic	reading,writing	cefrj-vocabulary-profile-1.5
+subculture	n	tiểu văn hóa	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+subdivision	n	phân khu	B2	society	topic	reading,writing	cefrj-vocabulary-profile-1.5
+sunbeam	n	tia nắng	B2	science	topic	reading,writing	cefrj-vocabulary-profile-1.5
+superintendent	n	người giám sát	B2	work	topic	reading,writing	cefrj-vocabulary-profile-1.5
+supernatural	adj	siêu nhiên	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+synonym	n	từ đồng nghĩa	B2	education	topic	reading,writing	cefrj-vocabulary-profile-1.5
+tack	v	đinh mũ, hướng đi	B2	technology	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+tattoo	n	hình xăm	B2	culture	topic	reading,writing	cefrj-vocabulary-profile-1.5
+taunt	n	chế nhạo	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+thigh	n	đùi	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+tiresome	adj	mệt mỏi	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+toenail	n	móng chân	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+transfusion	n	truyền máu	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+transistor	n	bóng bán dẫn	B2	technology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+tread	v	giẫm lên	B2	academic	academic	cloze,reading	cefrj-vocabulary-profile-1.5
+triangle	n	tam giác	B2	science	topic	reading,writing	cefrj-vocabulary-profile-1.5
+troop	n	đoàn quân	B2	politics	topic	reading,writing	oxford-3000-5000
+tuberculosis	n	bệnh lao	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+tug	n	kéo mạnh	B2	technology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+twinkle	n	lấp lánh	B2	science	topic	reading,writing	cefrj-vocabulary-profile-1.5
+typhoid	n	bệnh thương hàn	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+tyranny	n	sự chuyên chế	B2	politics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+tyrant	n	bạo chúa	B2	politics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+unbeatable	adj	không thể đánh bại	B2	sport	topic	reading,writing	cefrj-vocabulary-profile-1.5
+uncharacteristic	adj	không điển hình	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+uneasily	adv	một cách bất an	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+unenthusiastic	adj	không hào hứng	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+unfold	v	mở ra, hé lộ	B2	academic	academic	cloze,reading	oxford-3000-5000
+unjustly	adv	một cách bất công	B2	law	topic	reading,writing	cefrj-vocabulary-profile-1.5
+unselfish	adj	vị tha	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+unsuccessful	adj	không thành công	B2	work	topic	reading,writing	cefrj-vocabulary-profile-1.5
+usher	v	người dẫn chỗ	B2	culture	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+vomit	n	nôn mửa	B2	health	topic	reading,writing	cefrj-vocabulary-profile-1.5
+warship	n	tàu chiến	B2	politics	topic	reading,writing	cefrj-vocabulary-profile-1.5
+waterproof	adj	không thấm nước	B2	technology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+wearisome	adj	mệt mỏi	B2	work	topic	reading,writing	cefrj-vocabulary-profile-1.5
+wed	v	kết hôn	B2	family	topic	cloze,reading	cefrj-vocabulary-profile-1.5
+whisper	v	thì thầm	B2	society	topic	cloze,reading	oxford-3000-5000
+witty	adj	dí dỏm	B2	psychology	topic	reading,writing	cefrj-vocabulary-profile-1.5
+workbench	n	bàn thợ	B2	work	topic	reading,writing	cefrj-vocabulary-profile-1.5
+workman	n	thợ	B2	work	topic	reading,writing	cefrj-vocabulary-profile-1.5
+yummy	adj	ngon tuyệt	B2	food	topic	reading,writing	cefrj-vocabulary-profile-1.5
+zebra	n	ngựa vằn	B2	environment	topic	reading,writing	cefrj-vocabulary-profile-1.5
+zoom	n	phóng to, lao nhanh	B2	technology	topic	reading,writing	cefrj-vocabulary-profile-1.5

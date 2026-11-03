@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-02T14:11:23.389Z",
+  "generatedAt": "2026-11-03T05:47:04.748Z",
   "accessDate": "2026-11-02",
   "archive": {
     "papers": 106,
@@ -17,7 +17,7 @@
     "withOccurrence": 3725,
     "withoutOccurrence": 2127,
     "file": "audit/rc10/evidence/exam-occurrences-vocabulary.jsonl",
-    "sha256": "222b64911d814df82c67618aa368cba12f107f6ee7364d50fb2936b39ccdb1c9",
+    "sha256": "5ece255cca30343770ca214aa0863fdc2d945b82dd54256417d4ec567d5cf4bf",
     "bytes": 6898962
   },
   "phrases": {

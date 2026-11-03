@@ -1,0 +1,17 @@
+{
+  "rows": 780,
+  "dispositions": {
+    "editorial_no_reference": 774,
+    "verified_corrected": 2,
+    "verified_agree": 2,
+    "verified_precedence": 2
+  },
+  "withProblems": 0,
+  "problemKinds": {},
+  "corrections": 2,
+  "correctionsByDisposition": {
+    "verified_corrected": 2
+  },
+  "withExamOccurrence": 397,
+  "phraseListed": 6
+}

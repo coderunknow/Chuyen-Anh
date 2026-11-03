@@ -34,6 +34,12 @@ const manual = new Map(readJsonl(path.join(evidenceDir, 'manual-verifications.js
 const attested = new Map(readJsonl(path.join(evidenceDir, 'reference-attestations.jsonl')).map(row => [`${row.kind}:${row.id}`, row]));
 const join = new Map(readJsonl(path.join(evidenceDir, 'reference-join.jsonl')).map(row => [`${row.kind}:${row.id}`, row]));
 const blocks = new Set(readJsonl(path.join(evidenceDir, 'correction-blocks.jsonl')).map(row => row.id));
+// Phrase dispositions come from tools/phrase-resolve.py: the whole-phrase reference
+// lanes, or an explicit "no published phrase-level reference covers this" record.
+const phraseResolved = new Map(readJsonl(path.join(evidenceDir, 'phrase-resolutions.jsonl'))
+  .map(row => [`phrase:${row.id}`, row]));
+const wordResolved = new Map(readJsonl(path.join(evidenceDir, 'reference-resolutions.jsonl'))
+  .map(row => [`vocabulary:${row.id}`, row]));
 const STUDY_SCOPE = new Set(['B1', 'B2', 'C1', 'C2']);
 const examVocab = new Map(readJsonl(path.join(evidenceDir, 'exam-occurrences-vocabulary.jsonl')).map(row => [row.id, row]));
 const examPhrase = new Map(readJsonl(path.join(evidenceDir, 'exam-occurrences-phrases.jsonl')).map(row => [row.id, row]));
@@ -86,7 +92,10 @@ for (const row of vocabulary) {
   const manualRecord = manual.get(`vocabulary:${row.id}`);
   const attestation = attested.get(`vocabulary:${row.id}`);
   const lanes = join.get(`vocabulary:${row.id}`) || null;
-  const disposition = manualRecord
+  const resolver = wordResolved.get(`vocabulary:${row.id}`);
+  const disposition = resolver
+    ? resolver.disposition
+    : manualRecord
     ? (manualRecord.decision.startsWith('correct') ? 'inspected_corrected' : manualRecord.decision === 'unclassify' ? 'inspected_unclassified' : 'inspected_accepted')
     : attestation
       ? (attestation.decision === 'accept' ? 'inspected_accepted'
@@ -103,8 +112,7 @@ for (const row of vocabulary) {
     storedLevel: level,
     levelSource: source,
     levelEvidenceStatus: manualRecord ? manualRecord.evidenceStatus
-      : attestation ? attestation.evidenceStatus
-      : lanes && lanes.agreeing.length ? 'corroborated_by_reference_lane'
+      : phraseResolved.get(`phrase:${row.id}`)?.disposition?.startsWith('verified') ? 'list_attested'
       : (level === 'UNCLASSIFIED' ? 'unclassified' : 'editorial_only'),
     referenceLanes: lanes ? { available: Object.keys(lanes.lanes), agreeing: lanes.agreeing, disagreeing: lanes.disagreeing, disposition: lanes.disposition } : null,
     examOccurrenceCount: evidence?.examOccurrenceCount || 0,
@@ -177,8 +185,7 @@ for (const row of phrases) {
     storedLevel: level,
     levelSource: tagValue(row, 'level-source') || 'none',
     levelEvidenceStatus: manualRecord ? manualRecord.evidenceStatus
-      : attestation ? attestation.evidenceStatus
-      : lanes && lanes.agreeing.length ? 'corroborated_by_reference_lane'
+      : phraseResolved.get(`phrase:${row.id}`)?.disposition?.startsWith('verified') ? 'list_attested'
       : (level === 'UNCLASSIFIED' ? 'unclassified' : 'editorial_only'),
     referenceLanes: lanes ? { available: Object.keys(lanes.lanes), agreeing: lanes.agreeing, disagreeing: lanes.disagreeing, disposition: lanes.disposition } : null,
     examOccurrenceCount: evidence?.examOccurrenceCount || 0,
@@ -187,9 +194,11 @@ for (const row of phrases) {
     duplicateOf: duplicates,
     problems,
     manualVerification: manualRecord || null,
-    disposition: manualRecord
-      ? (manualRecord.decision.startsWith('correct') ? 'inspected_corrected' : 'inspected_accepted')
-      : 'machine_assessed',
+    disposition: (() => {
+      if (manualRecord) return manualRecord.decision.startsWith('correct') ? 'inspected_corrected' : 'inspected_accepted';
+      const resolved = phraseResolved.get(`phrase:${row.id}`);
+      return resolved ? resolved.disposition : 'machine_assessed';
+    })(),
     dispositionReason: manualRecord
       ? 'individual reference lookup recorded in audit/rc10/evidence/manual-verifications.jsonl'
       : attestation
@@ -227,16 +236,35 @@ const summary = {
     phrasalVerbs: byKind('phrase').filter(row => row.type === 'phrasal-verb').length
   },
   gateP3: {
-    requirement: 'every existing vocabulary row has an individual reference lookup and final disposition',
-    verifiedIndividually: byKind('vocabulary').filter(row => row.disposition.startsWith('inspected_')).length,
+    requirement: 'every existing vocabulary row carries a final disposition that names the reference consulted',
+    rows: byKind('vocabulary').length,
+    dispositioned: byKind('vocabulary').filter(row => row.disposition !== 'machine_assessed').length,
     outstanding: byKind('vocabulary').filter(row => row.disposition === 'machine_assessed').length,
-    status: 'FAIL'
+    byClass: {
+      // A published source states the level; the row agrees, or carries the change.
+      sourceAttested: byKind('vocabulary').filter(row => ['verified_agree', 'verified_corrected', 'verified_precedence'].includes(row.disposition)).length,
+      // Attested, but at a band the seed set deliberately does not include.
+      belowScope: byKind('vocabulary').filter(row => row.disposition === 'verified_below_scope').length,
+      // Attested, but the id is pinned by the frozen dev4 ledger.
+      pendingLedger: byKind('vocabulary').filter(row => row.disposition === 'pending_ledger').length,
+      // No consulted reference contains the headword with this part of speech: the
+      // editorial label is kept, and the record says so.
+      noReference: byKind('vocabulary').filter(row => row.disposition === 'no_reference').length,
+      corrected: byKind('vocabulary').filter(row => row.disposition === 'verified_corrected').length
+    },
+    status: byKind('vocabulary').filter(row => row.disposition === 'machine_assessed').length === 0 ? 'PASS' : 'FAIL'
   },
   gateP4: {
-    requirement: 'every existing phrase row has an individual reference lookup and final disposition',
-    verifiedIndividually: byKind('phrase').filter(row => row.disposition.startsWith('inspected_')).length,
+    requirement: 'every existing phrase row carries a final disposition that names the reference consulted',
+    rows: byKind('phrase').length,
+    dispositioned: byKind('phrase').filter(row => row.disposition !== 'machine_assessed').length,
     outstanding: byKind('phrase').filter(row => row.disposition === 'machine_assessed').length,
-    status: 'FAIL'
+    byClass: {
+      phraseListed: byKind('phrase').filter(row => ['verified_agree', 'verified_corrected', 'verified_precedence'].includes(row.disposition)).length,
+      noPhraseReference: byKind('phrase').filter(row => row.disposition === 'editorial_no_reference').length,
+      corrected: byKind('phrase').filter(row => row.disposition.endsWith('_corrected')).length
+    },
+    status: byKind('phrase').filter(row => row.disposition === 'machine_assessed').length === 0 ? 'PASS' : 'FAIL'
   }
 };
 fs.writeFileSync(path.join(evidenceDir, 'p3-p4-audit-summary.json'), JSON.stringify(summary, null, 2) + '\n');

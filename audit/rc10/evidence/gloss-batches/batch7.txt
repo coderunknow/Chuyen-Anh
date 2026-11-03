@@ -1,0 +1,302 @@
+abortion	việc phá thai	health
+accusation	lời buộc tội	law
+acidic	có tính a-xít	science
+acoustics	âm học	science
+administrator	người quản trị	work
+adversary	đối thủ	law
+advisory	mang tính tư vấn	work
+aide	trợ lý	politics
+aimless	không mục đích	psychology
+allegation	cáo buộc	law
+allocation	sự phân bổ	economics
+ally	đồng minh	politics
+amplification	sự khuếch đại	science
+aquarium	bể cá	environment
+assertion	khẳng định	academic
+astray	lạc đường	academic
+atrocity	hành động tàn bạo	law
+attorney	luật sư	law
+authorize	ủy quyền	law
+avid	say mê	psychology
+await	chờ đợi	academic
+beast	con thú	environment
+bequeath	để lại (di sản)	law
+bishop	giám mục	culture
+bliss	hạnh phúc ngập tràn	psychology
+bouquet	bó hoa	culture
+brainwash	tẩy não	media
+buddy	bạn thân	family
+buffer	vùng đệm	technology
+buzzer	chuông báo	technology
+bypass	đường vòng, vượt qua	travel
+cabinet	nội các, tủ	politics
+capitalism	chủ nghĩa tư bản	economics
+capitalist	tư bản	economics
+cargo	hàng hóa	economics
+casualty	nạn nhân thương vong	health
+cemetery	nghĩa trang	culture
+charter	hiến chương	law
+chunk	khúc, miếng	food
+citation	trích dẫn	academic
+civilian	dân thường	politics
+clan	thị tộc	society
+clench	nắm chặt	psychology
+climax	đỉnh điểm	culture
+cloak	áo choàng	culture
+collaborator	người cộng tác	work
+commentary	lời bình	media
+communist	cộng sản	politics
+conception	quan niệm, sự thụ thai	health
+concerto	bản concerto	culture
+concur	tán thành	academic
+confession	lời thú nhận	law
+configuration	cấu hình	technology
+conformity	sự tuân thủ	society
+confrontation	sự đối đầu	society
+congressional	thuộc quốc hội	politics
+connoisseur	người sành sỏi	culture
+conservatory	nhạc viện, nhà kính	education
+consultation	cuộc tham vấn	work
+copyright	bản quyền	law
+corps	quân đoàn	politics
+corrupt	tham nhũng	law
+coup	cuộc đảo chính	politics
+crawl	bò, lê	sport
+creamy	mịn như kem	food
+creep	bò nhẹ, rón rén	psychology
+critique	bài phê bình	academic
+crumble	vỡ vụn	food
+cynic	người hoài nghi	psychology
+darkroom	phòng tối (rửa ảnh)	media
+daydream	mơ mộng ban ngày	psychology
+debut	lần ra mắt	culture
+deceit	sự lừa dối	law
+deed	hành động, giấy tờ	law
+deem	cho là	academic
+demolition	sự phá hủy	work
+detain	tạm giữ	law
+detriment	tổn hại	academic
+devastate	tàn phá	environment
+dictator	nhà độc tài	politics
+disclosure	sự tiết lộ	media
+discretion	sự tùy nghi, kín đáo	law
+dislodge	đẩy bật ra	academic
+dissect	mổ xẻ, phân tích	health
+doctrine	học thuyết	politics
+dramatist	nhà viết kịch	culture
+duo	bộ đôi	culture
+dutiful	hiếu thảo, có bổn phận	family
+elastic	đàn hồi	science
+electoral	thuộc bầu cử	politics
+embassy	đại sứ quán	politics
+entity	thực thể	academic
+exodus	cuộc di cư	society
+exile	lưu đày	politics
+fatality	tử vong	health
+feminist	nhà nữ quyền	society
+ferocious	dữ tợn	environment
+firearm	súng cầm tay	law
+fissure	vết nứt	science
+flashback	hồi tưởng	media
+flee	chạy trốn	law
+folktale	truyện dân gian	culture
+forfeit	mất quyền, bị tịch thu	sport
+formulate	xây dựng, phát biểu	academic
+funeral	đám tang	culture
+gallon	ga-lông	economics
+genocide	diệt chủng	law
+genome	hệ gen	science
+glean	thu thập dần	academic
+glorious	huy hoàng	culture
+graft	ghép, tham nhũng	health
+gruelling	vô cùng mệt nhọc	work
+gruesome	rùng rợn	law
+guerrilla	du kích	politics
+gutsy	cam đảm	psychology
+hack	băm, xâm nhập	technology
+haggle	mặc cả	economics
+harass	quấy rối	law
+heroine	nữ anh hùng	culture
+hibernate	ngủ đông	environment
+honk	bấm còi	technology
+hostage	con tin	law
+hypocrisy	sự đạo đức giả	society
+hypocrite	kẻ đạo đức giả	society
+ideological	thuộc tư tưởng	politics
+imagery	hình ảnh, ẩn dụ	media
+immortalize	bất tử hóa	culture
+impersonate	mạo danh	law
+implicate	làm liên lụy	law
+incision	đường rạch	health
+inclusion	sự bao gồm	society
+indictment	cáo trạng	law
+individuality	tính cá nhân	society
+infect	làm nhiễm bệnh	health
+injustice	sự bất công	law
+inmate	phạm nhân	law
+insider	người trong cuộc	media
+interim	tạm thời	work
+interject	ngắt lời	academic
+interjection	thán từ	education
+investigator	điều tra viên	law
+jurisdiction	thẩm quyền tài phán	law
+lap	vòng đùi, vòng đua	sport
+lapse	sự sơ suất, hết hạn	law
+lavatory	nhà vệ sinh	travel
+layout	bố cục	media
+loom	lừng lững hiện ra	psychology
+lust	dục vọng	psychology
+macabre	rùng rợn	culture
+magistrate	thẩm phán	law
+manicure	chăm sóc móng tay	health
+maternal	thuộc mẹ	family
+memorial	đài tưởng niệm	culture
+methodical	có phương pháp	work
+militant	chiến binh, quá khích	politics
+militia	dân quân	politics
+missile	tên lửa	politics
+mob	đám đông hỗn loạn	society
+monotony	sự đơn điệu	psychology
+motorist	người lái xe	travel
+naval	thuộc hải quân	politics
+noble	cao quý	society
+nominee	người được đề cử	politics
+nondescript	khó mô tả	academic
+numb	tê liệt, tê cứng	health
+oddity	điều kỳ quặc	academic
+outing	chuyến đi chơi	travel
+overseer	người giám sát	work
+pad	đệm, tập giấy	academic
+panoramic	toàn cảnh	travel
+parameter	tham số	science
+parasite	vật ký sinh	science
+parish	giáo xứ	culture
+pastor	mục sư	culture
+paternal	thuộc cha	family
+patron	người bảo trợ	culture
+peasant	nông dân	society
+pedicure	chăm sóc móng chân	health
+persecute	ngược đãi	law
+persecution	sự ngược đãi	law
+physique	thể chất	sport
+pigeon	chim bồ câu	environment
+plaque	biển kỷ niệm	culture
+plausibility	tính hợp lý	academic
+plumbing	hệ thống ống nước	technology
+poise	sự tự tin, thăng bằng	psychology
+preach	giảng đạo	culture
+preacher	người giảng đạo	culture
+pregnancy	thai kỳ	health
+preside	chủ trì	work
+presidency	nhiệm kỳ tổng thống	politics
+profess	tuyên bố	academic
+professionalism	tính chuyên nghiệp	work
+prophet	nhà tiên tri	culture
+proposition	đề xuất	academic
+prosecutor	công tố viên	law
+protagonist	nhân vật chính	culture
+prowl	rình mò	environment
+psyche	tâm lý, linh hồn	psychology
+punch	cú đấm	sport
+query	câu hỏi, truy vấn	technology
+quip	lời đùa dí dỏm	society
+quirk	nét kỳ quặc	psychology
+rape	cưỡng hiếp	law
+realism	chủ nghĩa hiện thực	culture
+realm	lĩnh vực, vương quốc	academic
+reassure	trấn an	psychology
+recess	giờ giải lao	education
+remedial	mang tính khắc phục	education
+reminisce	hồi tưởng	psychology
+reminiscent	gợi nhớ	psychology
+remorse	sự hối hận	psychology
+remorseless	không hối hận	psychology
+renown	danh tiếng	media
+resonate	cộng hưởng	science
+retrace	đi lại dấu vết	travel
+riveting	cuốn hút	media
+saloon	quán rượu, xe bốn bánh	culture
+salvation	sự cứu rỗi	culture
+sarcasm	sự mỉa mai	psychology
+sceptical	hoài nghi	psychology
+scoff	chế nhạo	psychology
+scorn	sự khinh bỉ	psychology
+seize	chiếm lấy, tịch thu	law
+senator	thượng nghị sĩ	politics
+sentient	có tri giác	science
+sequel	phần tiếp theo	media
+serial	nối tiếp, tuần tự	media
+shatter	làm tan vỡ	psychology
+shrug	nhún vai	society
+sigh	thở dài	psychology
+silhouette	bóng hình	culture
+sin	tội lỗi	culture
+slash	chém, cắt mạnh	economics
+slot	khe, vị trí	technology
+smash	đập vỡ	psychology
+smug	tự mãn	psychology
+snooze	ngủ trưa ngắn	health
+somersault	lộn nhào	sport
+specification	đặc tả kỹ thuật	technology
+specimen	mẫu vật	science
+stab	đâm	law
+staccato	ngắt quãng, dồn dập	culture
+stately	trang nghiêm	culture
+stiffen	cứng lại, tăng mạnh	health
+stray	đi lạc	environment
+stun	làm choáng	psychology
+stylistic	thuộc phong cách	culture
+substitution	sự thay thế	sport
+suburbia	vùng ngoại ô	society
+succession	sự kế tiếp	work
+succulent	mọng nước	food
+suitor	người cầu hôn	family
+supple	dẻo dai	health
+swing	đu, xoay chuyển	sport
+sword	thanh gươm	culture
+synopsis	bản tóm tắt	media
+synthesis	sự tổng hợp	science
+tact	sự khéo léo ứng xử	society
+tactful	khéo léo, tế nhị	society
+tantrum	cơn giận dữ (trẻ con)	family
+taut	căng thẳng	health
+taxpayer	người nộp thuế	economics
+tedium	sự nhàm chán	psychology
+tenure	nhiệm kỳ, quyền hưởng dụng	work
+testament	bằng chứng, di chúc	law
+theology	thần học	culture
+thread	ren, chuỗi	technology
+tinker	mày mò sửa chữa	technology
+torment	sự dằn vặt	psychology
+tract	vùng đất, đường ống	environment
+trademark	nhãn hiệu	economics
+traumatic	gây sang chấn	health
+trustee	người được ủy thác	law
+twitch	co giật	health
+tycoon	trùm kinh doanh	economics
+undaunted	không nao núng	psychology
+uniformity	tính đồng nhất	academic
+uninspiring	không truyền cảm hứng	psychology
+unison	sự đồng thanh	society
+unmanageable	không thể kiểm soát	academic
+unmanned	không người lái	technology
+unoccupied	trống, không có người	academic
+unsettle	làm bất an	psychology
+untangle	gỡ rối	academic
+unwaveringly	một cách kiên định	psychology
+upheaval	biến động lớn	society
+uphold	duy trì, tán thành	law
+vanish	biến mất	academic
+veneration	sự tôn kính	culture
+ventilate	thông gió	health
+ventilation	sự thông gió	health
+versatility	tính đa dụng	work
+verse	câu thơ, khổ thơ	culture
+viciously	một cách tàn bạo	law
+victorious	chiến thắng	sport
+villager	dân làng	society
+whip	roi, đánh roi	society
+width	chiều rộng	science
+woo	ve vãn, thu hút	economics
+wrangle	tranh cãi	society
+yell	hét lên	psychology
