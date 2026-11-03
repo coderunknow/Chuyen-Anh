@@ -4,7 +4,7 @@ rc10: a CEFR study-pool fix, a full revalidation of every stored row, and — ne
 
 **Draft on purpose. Not merged, not tagged, not released, not deployed.** All five phases P3–P7 are measured and closed; the round stays open, so this PR stays Draft.
 
-## Head `3313b6e` (this is the whole round)
+## Head `4dc4d3e` (this is the whole round)
 
 ### P2 — the CEFR leak fix that started it
 
