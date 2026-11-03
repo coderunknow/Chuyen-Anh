@@ -161,7 +161,7 @@ def main() -> int:
             else:
                 print(f"PASS {label}")
 
-    if version.startswith("v1.0.0-rc9"):
+    if version.startswith("v1.0.0-rc10"):
         for marker, label in (
             ("rc9-scorable-only-v1", "the rc9 scorable-only grading rule"),
             ("answeredScorable", "the answered-on-scorable counter"),
