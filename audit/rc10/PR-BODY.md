@@ -52,7 +52,7 @@ Deck levels: B1 757 · B2 1,714 · C1 1,638 · C2 889 · Unclassified 843. The 8
 
 Python **176 OK** · `static-app.test.js` **144 pass** · `rc10-cefr.test.js` **9 pass** · `exam-scoring.test.js` + `exam-anomalies.test.js` **41 pass** · browser suites green on Chromium locally. Every count that moved was repinned to the measured value in tests, `docs/*` reports and the README; no assertion was removed or weakened.
 
-### CI on `3313b6e`
+### CI on `4dc4d3e`
 
 **Green**: workflow `41622636566` — `checks`, `browser (chromium)`, `browser (firefox)`, `browser (webkit)` all success; workflow `41622636304` (Validate exam archive) success. Firefox and WebKit run only in CI. Bot state recorded as-is: Kilo review not started (billing), CodeRabbit skipped (repo <10 stars), Copilot review quota exhausted.
 
@@ -68,7 +68,7 @@ Python **176 OK** · `static-app.test.js` **144 pass** · `rc10-cefr.test.js` **
 | G6 per-entry examination evidence | PASS | 8,946 records in `exam-occurrences-*.jsonl` |
 | G10–G13 | PASS | see `audit/rc10/GATES.md` |
 | G14 full suites | **PASS** | CI run `41622636566` green on checks + chromium/firefox/webkit |
-| G15 PR ready | **PASS** | head `feae1c3`, Draft by design |
+| G15 PR ready | **PASS** | head `4dc4d3e`, Draft by design |
 
 ## Prohibitions honoured
 
