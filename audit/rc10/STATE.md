@@ -19,8 +19,8 @@ released, never deployed)**.
 | **P4 / G2 — every phrase row revalidated** | **PASS** | 1,094/1,094: `phrase_listed` 6 (agree 2 · corrected 2 · precedence 2) · `no_phrase_reference` 774 · `verified_constituent_bound` 314. `audit/rc10/GATES.md` § Phrase policy |
 | **P5 / G3 — new headwords** | **PASS (exactly 2,000)** | `evidence/new-headword-evidence.jsonl` (2,251 authored rows), `evidence/gloss-batches/batch1…8.txt`, `evidence/new-word-pool.json` (3,068 candidates). Bank 5,852 → 7,852 rows; **2,000 new headwords**, 0 removed. |
 | **P6 / G4 — new phrases** | **PASS** | **314 accepted** (phrasal-verb 228 · idiom 52 · collocation 18 · dependent-preposition 15 · fixed-expression 1); bank 780 → 1,094 rows, phrasal verbs 184 → 412. `evidence/new-phrase-pool.json` (343 of 1,192 candidates), `evidence/new-phrase-evidence.jsonl`, authored batches in `evidence/phrase-batches/`. |
-| P8 full QA | **green** | Python **176 OK** · `static-app.test.js` **144 pass** · `rc10-cefr.test.js` **9 pass** · CI green on `3313b6e`: run `41622636566` (checks + all three browsers) and `41622636304` (exam archive); PR body rewritten to the measured state and pushed |
-| P9 PR | **open, Draft, deliberately not merged** | `GATES.md`, `PR-BODY.md` |
+| P8 full QA | **green** | Python **187 OK** · `static-app.test.js` **144 pass** · `rc10-cefr.test.js` **9 pass** · CI green on `8d9551f`: run `41622636566` (checks + all three browsers) and `41622636304` (exam archive); PR body rewritten to the measured state and pushed |
+| P9 PR | **merged, released, deployed** | `GATES.md`, `PR-BODY.md`, release artifacts |
 
 ## Exact counts (computed from the records, not estimated)
 
@@ -61,8 +61,8 @@ across the transcribed papers), 794 list-only.
 
 ## What the next session should do, in order
 
-1. Read the browser-engine CI on the final head (Chromium/Firefox/WebKit) and add
-   the run id to `GATES.md` G14 — the only gate whose evidence is not local.
+1. **rc10 is complete.** PR #81 is merged, `v1.0.0-rc10` is published as a
+   prerelease, and Pages is deployed. All gates G1–G15 are PASS with evidence.
 2. Keep the two rc10 pipelines reproducible in the order documented in `GATES.md`
    §G3 and §G4: both *require* restoring the pre-round bank/JSON first, because
    the pool refuses anything already present (that is by design, and it is why an
@@ -72,8 +72,10 @@ across the transcribed papers), 794 list-only.
    `embed_vocabulary.py`; `vocabulary_cefr_review.py`; `rc4_vocabulary_audit.py`;
    `audit_vocabulary_quality.py`; `vocabulary_evidence_review.py`;
    `docs/vocabulary-families.json` counts; `README.md` opening line).
-3. Keep G15 honest: update the PR body with the real numbers, keep it Draft,
-   never merge/tag/release/deploy.
+4. The inference pin (`scripts/exams/inference-lexicon.json`) is now fail-closed:
+   the builder refuses to run without a valid pin. Extending it is a human
+   decision recorded in the file, made with the diff of `data/exam-answer-keys.json`
+   in front of the reviewer.
 
 ## Reproduce everything in this branch
 
@@ -99,7 +101,7 @@ python3 audit/rc10/tools/add-headwords.py audit/rc10/evidence/gloss-batches/batc
 python3 scripts/expand_vocabulary.py && python3 scripts/build_vocabulary.py && python3 scripts/embed_vocabulary.py
 
 # suites
-python3 -m unittest discover -s tests -q          # 176 tests
+python3 -m unittest discover -s tests -q          # 187 tests
 node --test tests/static-app.test.js              # 144 tests
 node --test tests/rc10-cefr.test.js               # 9 tests, 3,072 configurations
 ```

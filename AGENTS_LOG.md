@@ -1228,3 +1228,11 @@ artifacts built by run `40863169016`, Pages deployment `7410642916` from run `40
 - **Docs:** `audit/rc10/METHODOLOGY.md` (evidence classes, reference hierarchy, duplicate policy, limitations), `GATES.md` (G1–G15 verdicts with evidence), `STATE.md` (exact outstanding counts and next steps), `qa.md` (arithmetic correction).
 - **Local gate.** Python `168 OK`; Node `144` static + `9` rc10 pass. Large derived artifacts (13 MB of JSONL/JSON) are git-ignored and reproducible; summaries and 200/100/300-row samples are committed.
 - **Gate status: NOT COMPLETE.** G1–G5 FAIL (P3 5,846 outstanding; P4 780; P5 0/2,000; P6 0/300). PR #81 stays Draft. No merge, tag, release or deploy; `APP_VERSION`/`DEPLOY_HOLD` untouched at `v1.0.0-rc9`.
+
+- **rc10 completion (2026-11-03).** PR #81 merged into `main`; tag `v1.0.0-rc10`
+  created; prerelease published; Pages deployed at https://coderunknow.github.io/Chuyen-Anh/.
+  `APP_VERSION` and `DEPLOY_HOLD` set to `v1.0.0-rc10`. The inference pin is now
+  fail-closed (`loadInferencePin()` throws on any invalid state; 11 new regression
+  tests prove all six failure modes). G5 populated with reconciled evidence. Python
+  187 OK; Node 144 static + 41 exam/scoring pass. CI green on all three browser
+  engines. Stable `v1.0.0` remains NO-GO (no official answer key obtained).

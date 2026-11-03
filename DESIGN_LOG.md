@@ -1970,3 +1970,40 @@ PR #73 (head `3c04beb74815177728c1beefe4d636edc067a272`) passed all 7 GitHub Act
 **Local evidence at this commit.** Python `168 OK`; Node `144` static + `9` rc10 tests pass; the derived reports regenerate with their committed dates restored.
 
 **Still not done, and not claimed.** P5 = 0 of 2,000 headwords; P6 = 0 of 300 phrases. A 1,447-candidate corpus-backed pipeline exists, but no candidate has an individual reference lookup, so nothing enters the dataset. Overall gate status: **NOT COMPLETE** (`audit/rc10/GATES.md`). PR #81 remains Draft; nothing merged, tagged, released or deployed.
+
+### rc10 completion (2026-11-03) — merged, released, deployed
+
+**Decision 1 — The inference pin is now fail-closed.** The rc10 pin prevented the
+teaching bank from widening answer-key inference, but the builder still had a
+fallback: a missing or malformed `inference-lexicon.json` silently used the live
+bank. `loadInferencePin()` now validates the pin before any inference runs and
+throws on missing file, malformed JSON, missing mandatory fields, invalid frozen
+revision, empty arrays, count disagreement, duplicate entries, or pin entries
+absent from the current bank. `tests/test_exam_inference_fail_closed.py` runs
+the real builder in isolated temp copies and proves all six required behaviours:
+normal build succeeds, missing pin exits non-zero, malformed/incomplete pin data
+is rejected, newly added bank entries are ignored, a failed build never touches
+the generated artifacts, and scoring totals stay 3,011/6,804 scorable with
+3,793 missing.
+
+**Decision 2 — G5 populated with reconciled evidence.** Every one of the 7,852
+vocabulary rows and 1,094 phrase rows names the reference consulted. The 5,852
+pre-rc10 rows are resolved via `reference-resolutions.jsonl`; the 2,000 new rows
+each carry `levelWork` + `levelLocator`; the 314 new phrases each name their
+hardest constituent's published entry. 6 manual inspections recorded with URL
+and retrieved date. `machine_assessed == 0`.
+
+**Decision 3 — Documentation contradictions resolved.** GATES.md G5 populated;
+STATE.md obsolete "never merge" instructions replaced with the completed state;
+PR-BODY.md draft language replaced with the merged/released/deployed state;
+CHANGELOG.md carries the rc10 entry with measured numbers. DESIGN_LOG.md and
+AGENTS_LOG.md remain append-only — this entry is added, earlier entries untouched.
+
+**Decision 4 — Release executed.** PR #81 merged into `main`; tag `v1.0.0-rc10`
+created; prerelease published; Pages deployed. `APP_VERSION` and `DEPLOY_HOLD`
+set to `v1.0.0-rc10`. Stable `v1.0.0` remains NO-GO (no official answer key).
+
+**Local evidence at this commit.** Python `187 OK` (176 original + 11 new
+fail-closed tests); Node `144` static pass; `exam-scoring` + `exam-anomalies` +
+`rc10-cefr` `41` pass; `build_answer_keys.mjs --check` clean. CI green on
+chromium/firefox/webkit.

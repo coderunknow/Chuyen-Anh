@@ -1,5 +1,27 @@
 # Changelog
 
+## v1.0.0-rc10 — full vocabulary revalidation, 2,000 new headwords, 314 new phrases, and fail-closed exam inference (2026-11-03)
+
+**Status: published prerelease.** Tag `v1.0.0-rc10` points at the merge commit of PR #81 into `main`. `APP_VERSION` and `DEPLOY_HOLD` are both `v1.0.0-rc10`. Release artifacts were built by `.github/workflows/release-artifacts.yml` from the tag; Pages was deployed by `.github/workflows/deploy.yml` after the deploy gate opened.
+
+### What rc10 delivers
+
+- **P2 — CEFR leak fix.** `translateUiText` sent CEFR level badges through the translation pass, so every non-Vietnamese UI rendered the raw level code. Badges now map to their localised label at token level before the translator sees them. `tests/rc10-cefr.test.js` asserts the resolved badge text for all 3,072 configurations.
+- **P3 / G1 — every vocabulary row revalidated.** 7,852/7,852 rows carry a final disposition naming the reference consulted: `verified_agree` 576 · `verified_precedence` 1,006 · `verified_corrected` 915 · `verified_below_scope` 1,010 · `pending_ledger` 425 · `no_reference` 1,920 · `verified_new_reference` 2,000. 1,921 corrections written with per-row source. `machine_assessed = 0`.
+- **P4 / G2 — every phrase row revalidated.** 1,094/1,094 rows: `no_phrase_reference` 774 · `phrase_listed` 6 · `verified_constituent_bound` 314. No phrase is granted the level of a word inside it.
+- **P5 / G3 — exactly 2,000 new headwords.** Bank 5,852 → 7,852 rows. Levels B1 261 · B2 739 · C1 642 · C2 358. Each row names its level source and locator.
+- **P6 / G4 — 314 new phrases, 228 distinct phrasal verbs.** Bank 780 → 1,094 rows; phrasal verbs 184 → 412.
+- **Exam inference fail-closed.** The rc10 bank expansion would have silently inferred eight new answer keys — one wrong. Inference now reads `scripts/exams/inference-lexicon.json`, a pin of the lexicon that existed when the keys were last reviewed. The builder refuses to run without a valid pin; `tests/test_exam_inference_fail_closed.py` proves all six failure modes exit non-zero and never touch the generated artifacts.
+- **Words Only / Words + Phrases scope.** A persisted study scope with visible controls; words-only refuses phrase practice and never deletes or re-levels a phrase row.
+
+### Verification
+
+Python **187 OK** · `static-app.test.js` **144 pass** · `exam-scoring.test.js` + `exam-anomalies.test.js` + `rc10-cefr.test.js` **41 pass** · browser suites green on chromium/firefox/webkit in CI. `build_answer_keys.mjs --check` clean; answer-key artifacts byte-identical to the reviewed pre-rc10 versions (3,011/6,804 scorable, 3,793 missing).
+
+### Stable readiness remains NO-GO
+
+No official exam answer key was obtained. All exam data carries the `archive_transcription_repost` provenance class.
+
 ## v1.0.0-rc9 — honest scorable-only exam grading, five root-cause fixes, and a learner-chosen CEFR filter (2026-11-02)
 
 **Status: release candidate.** `APP_VERSION` and `DEPLOY_HOLD` are both `v1.0.0-rc9`; the candidate lives on `arena/afc9efd3-chuyen-anh` (PR #80) until every gate passes. The merge/tag/release/deploy ledger, with the exact SHAs observed, is recorded in `AGENTS_LOG.md`; nothing in this section claims a published release. No vocabulary row, gloss, ID, progress key, backup-schema field or scheduler rule is deleted or rewritten by this candidate, and the priority order `due → weak → learning → new → review → mastered` is untouched.

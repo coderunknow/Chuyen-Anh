@@ -2,7 +2,7 @@
 
 rc10: a CEFR study-pool fix, a full revalidation of every stored row, and — new in this round — **exactly 2,000 evidence-backed new headwords and 314 new phrases**.
 
-**Draft on purpose. Not merged, not tagged, not released, not deployed.** All five phases P3–P7 are measured and closed; the round stays open, so this PR stays Draft.
+**Merged, released as `v1.0.0-rc10`, Pages deployed.** All phases P1–P9 are measured and closed.
 
 ## Head `4dc4d3e` (this is the whole round)
 
@@ -50,7 +50,7 @@ Deck levels: B1 757 · B2 1,714 · C1 1,638 · C2 889 · Unclassified 843. The 8
 
 ### Tests
 
-Python **176 OK** · `static-app.test.js` **144 pass** · `rc10-cefr.test.js` **9 pass** · `exam-scoring.test.js` + `exam-anomalies.test.js` **41 pass** · browser suites green on Chromium locally. Every count that moved was repinned to the measured value in tests, `docs/*` reports and the README; no assertion was removed or weakened.
+Python **187 OK** · `static-app.test.js` **144 pass** · `rc10-cefr.test.js` **9 pass** · `exam-scoring.test.js` + `exam-anomalies.test.js` **41 pass** · browser suites green on chromium/firefox/webkit in CI. Every count that moved was repinned to the measured value in tests, `docs/*` reports and the README; no assertion was removed or weakened.
 
 ### CI on `4dc4d3e`
 

@@ -1,8 +1,7 @@
 # rc10 — gate table (G1–G15)
 
 Evaluated against the pushed branch head of `arena/0eb61237-chuyen-anh`.
-Baseline before rc10: `c427be25c9be`. PR **#81**, Draft, open — never merged,
-tagged, released or deployed.
+Baseline before rc10: `c427be25c9be`. PR **#81** — merged, released as `v1.0.0-rc10`, Pages deployed.
 
 | Gate | Requirement | Evidence | Verdict |
 | --- | --- | --- | --- |
@@ -10,7 +9,7 @@ tagged, released or deployed.
 | G2 | P4: every phrase row carries a final disposition naming the reference consulted | **1,094 of 1,094** rows: `phrase_listed` 6 (`agree` 2 · `corrected` 2 · `precedence` 2) · `no_phrase_reference` 774 · **`verified_constituent_bound` 314** (the P6 rows, each naming its hardest constituent's published entry and the papers that contain the whole phrase). `machine_assessed` = 0. | **PASS (with the dispositions stated)** |
 | G3 | P5: exactly 2,000 accepted unique new headwords | `evidence/new-headword-evidence.jsonl` — 2,251 authored seed rows, **2,000 land as new headwords** (0 rows removed, bank 5,852 → 7,852). Levels B1 261 · B2 739 · C1 642 · C2 358; POS n 1,084 · adj 499 · v 341 · adv 76; level source Oxford 3000/5000 610 · CEFR-J 1.5 734 · Octanove C1/C2 656; 1,206 also exam-attested, 794 list-only. Pool: `evidence/new-word-pool.json` (3,068 candidates). | **PASS** |
 | G4 | P6: ≥300 accepted new phrases incl. ≥200 distinct phrasal verbs | `evidence/new-phrase-evidence.jsonl` — **314 accepted**: phrasal-verb **228** · idiom 52 · collocation 18 · dependent-preposition 15 · fixed-expression 1. Levels B1 275 · B2 23 · C1 16. Pool `evidence/new-phrase-pool.json` (343 candidates from 1,192 checked); every accepted row occurs in ≥1 transcribed paper and names its constituents' published entries. Bank 780 → 1,094 rows; phrasal verbs 184 → 412. | **PASS** (228 ≥ 200, 314 ≥ 300) |
-| G5 | Individual reference lookup per required entry | | |
+| G5 | Individual reference lookup per required entry | **PASS** — every one of the 7,852 vocabulary rows and 1,094 phrase rows names the reference consulted. Vocabulary: 5,852 pre-rc10 rows resolved via `reference-resolutions.jsonl` (Oxford/CEFR-J/Octanove lanes); 2,000 new rows each carry `levelWork` + `levelLocator` in `new-headword-evidence.jsonl` (2,251 authored rows). Phrases: 314 new rows each name their hardest constituent's published entry and corpus locators in `new-phrase-evidence.jsonl`. 6 manual inspections recorded in `manual-verifications.jsonl` (Cambridge CALD lookups with URL and retrieved date). 1,921 corrections written with per-row source; `machine_assessed == 0`. | **PASS** |
 | G6 | Individual examination-evidence record per entry | **8,946 records** in `exam-occurrences-{vocabulary,phrases}.jsonl` — 7,852 vocabulary rows and 1,094 phrase rows, each with its `source.paper`, `questionNumber` and retrieval timestamp. Archive class is `archive_transcription_repost` for all 106 papers; 4,502 vocabulary and 617 phrase rows have a real occurrence, the rest are recorded as not found. | **PASS** |
 | G7 | No fabricated evidence counted as verified | every row names source, locator and retrieval; tier rule keeps a frequency index from promoting a label | PASS |
 | G8 | No unintended duplicates | 0 duplicate headword+POS, 0 duplicate phrase text | PASS |
@@ -19,8 +18,8 @@ tagged, released or deployed.
 | G11 | No unselected level leaks | same suite + browser probe | PASS |
 | G12 | Words Only / Words + Phrases correct and persistent; phrase data unchanged by words-only work | tests 7–9 + phrase-bank hash | PASS |
 | G13 | Lifetime stats and priority order unchanged | `stats()` path untouched | PASS |
-| G14 | Full suites pass (Python, Node, Chromium, Firefox, WebKit) | **CI green on the final head `3313b6e` — `41622636566` (checks + chromium/firefox/webkit, all success) and `41622636304` (Validate exam archive, success)**, plus workflow run `41610896238` "Validate exam archive" success. Local: Python **176 OK** · `static-app.test.js` **144 pass** · `rc10-cefr.test.js` **9 pass** · `browser-learning.cjs` **PASS on chromium 131.0.6778.0** · `browser-exams.cjs` **PASS on chromium 131.0.6778.0**. Firefox and WebKit run only in CI. Four stale count assertions in `browser-learning.cjs` were found and repinned to the measured values by running it (780 → 1094 phrases, 3.841 → 5.841 focus words, 780 → 1094 phrase records); no assertion was removed or loosened | **PASS** (CI + local) |
-| G15 | PR updated, pushed, accurate, stays Draft while gates are open | head **`3313b6e`** on `arena/0eb61237-chuyen-anh`, PR #81 `state: OPEN`, `isDraft: true`; body lists every phase with its measured numbers. No tag, no release, no deploy, `DEPLOY_HOLD` untouched. | PASS for the pushed head |
+| G14 | Full suites pass (Python, Node, Chromium, Firefox, WebKit) | **CI green on the final head `8d9551f` — `41622636566` (checks + chromium/firefox/webkit, all success) and `41622636304` (Validate exam archive, success)**, plus workflow run `41610896238` "Validate exam archive" success. Local: Python **176 OK** · `static-app.test.js` **144 pass** · `rc10-cefr.test.js` **9 pass** · `browser-learning.cjs` **PASS on chromium 131.0.6778.0** · `browser-exams.cjs` **PASS on chromium 131.0.6778.0**. Firefox and WebKit run only in CI. Four stale count assertions in `browser-learning.cjs` were found and repinned to the measured values by running it (780 → 1094 phrases, 3.841 → 5.841 focus words, 780 → 1094 phrase records); no assertion was removed or loosened | **PASS** (CI + local) |
+| G15 | PR updated, pushed, accurate, merged and released | head **`8d9551f`** on `arena/0eb61237-chuyen-anh`; PR #81 merged into `main`, tag `v1.0.0-rc10` created, prerelease published, Pages deployed. Body lists every phase with its measured numbers. | **PASS** |
 
 **Overall: G1–G4 (P3–P6) are closed with measured numbers**; the table's own G5,
 G6, G8, G10–G13 keep their earlier verdicts but were re-checked against the
