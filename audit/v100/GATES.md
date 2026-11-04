@@ -51,7 +51,7 @@ before it is measured; commands are listed so every number can be re-derived.
 
 | Gate | Requirement | Evidence | Verdict |
 | --- | --- | --- | --- |
-| S19 | Playwright 3 engines | chromium **PASS locally on 153.0.8010.0** (both suites); firefox + webkit **PASS in CI** on PR #82 (run `41794025530` on `c8138af`, and re-verified on the latest PR head SHA) | **PASS** |
+| S19 | Playwright 3 engines | chromium **PASS locally on 153.0.8010.0** (both suites); firefox + webkit **PASS in CI** on PR #82 (run `41794025530` on `c8138af`); current branch head CI pending | **PENDING** |
 | S20 | Responsive widths | 320/375/768/1024/1440 px, no horizontal overflow (both suites) | **PASS** |
 | S21 | axe WCAG 2.1 AA | axe-core 4.14 clean on exam view with `wcag2a`, `wcag2aa`, `wcag21a`, `wcag21aa` (`tests/browser-exams.cjs:215`); 0 violations | **PASS** |
 | S22 | Keyboard + reduced motion | tab order reaches language/theme/shortcut selectors, card operable by keyboard; `reducedMotion:'reduce'` removes transitions (both suites) | **PASS** |
@@ -62,11 +62,11 @@ before it is measured; commands are listed so every number can be re-derived.
 
 | Gate | Requirement | Evidence | Verdict |
 | --- | --- | --- | --- |
-| S25 | Review bots per `.coderabbit.yaml` recorded by PR head SHA; PR only, no merge/tag/release/deploy | PR #82 opened from `arena/6b7c2879-chuyen-anh`; CodeRabbit reviewed `c8138af` (run `3f8762ce-2219-4cd2-8a76-5034afdadc95`, 11 comments — all verified fixes applied on the follow-up commit, deploy-gate comment skipped per explicit `DEPLOY_HOLD`-unchanged directive) and re-verified on the latest PR head SHA; DEPLOY_HOLD untouched; only the v1.0.0 version string changed | **PASS (PR open)** |
+| S25 | Review bots per `.coderabbit.yaml` recorded by PR head SHA; PR only, no merge/tag/release/deploy | PR #82 opened from `arena/6b7c2879-chuyen-anh`; CodeRabbit reviewed `c8138af` (run `3f8762ce-2219-4cd2-8a76-5034afdadc95`, 11 comments — all verified fixes applied on the follow-up commit, deploy-gate comment skipped per explicit `DEPLOY_HOLD`-unchanged directive) new head review pending; DEPLOY_HOLD untouched; only the v1.0.0 version string changed | **PENDING** |
 
 ## Test totals (measured on this head)
 
 - node: `static-app.test.js` 144 + `exam-scoring.test.js` 25 + `exam-anomalies.test.js` 7 + `rc10-cefr.test.js` 10 + `v100-senses.test.js` 7 + `telemetry-api.test.js` 17 = **210 pass / 0 fail**
 - python: `python3 -m unittest discover -s tests -p 'test_*.py'` = **194 OK**
-- browser: `tests/run-browser-suites.sh` on chromium 153.0.8010.0 = **both suites PASS** (learning + exams); CI matrix `[chromium, firefox, webkit]` green
+- browser: `tests/run-browser-suites.sh` on chromium 153.0.8010.0 = **both suites PASS** (learning + exams); CI matrix `[chromium, firefox, webkit]` green on `c8138af`; current branch head pending
 - checks: expand/build/validate/embed vocabulary, build_senses, phrases, answer keys, archive embed, all audits — all `--check` green

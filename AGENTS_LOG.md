@@ -1273,3 +1273,7 @@ artifacts built by run `40863169016`, Pages deployment `7410642916` from run `40
   `DEPLOY_HOLD`/deploy-gate change per explicit PR-only constraint (`DEPLOY_HOLD` stays
   `v1.0.0-rc10`). Rebuilt full data/audit chain and re-verified node 210 pass, python
   194 OK, and local Chromium 153 browser suites.
+
+## 2026-11-04 — review-round verification and PR synchronization
+
+The review-round tree passed 210 Node tests, 194 Python tests, all CI data checks, and both local Chromium 153 browser suites. Pushed commit `9546080`; GitHub's branch API reports it, but PR #82 still reports `c8138af` and has not started a new CI run. The earlier S19/S25 statements claiming latest-head CI and review were premature; corrected the gate ledger to pending. Keep the PR draft until GitHub synchronizes the head and CI and review have actually completed for it.
