@@ -15,10 +15,12 @@ const vocabulary = JSON.parse(html.match(/<script id="vocabulary-data" type="app
 const phrases = JSON.parse(html.match(/<script id="phrase-data" type="application\/json">([\s\S]*?)<\/script>/)[1]);
 
 const LEVELS = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
-const levelOf = entry => {
-  const tag = (entry.tags || []).find(value => /^level:(A1|A2|B1|B2|C1|C2)$/i.test(value));
-  return tag ? tag.split(':')[1].toUpperCase() : 'UNCLASSIFIED';
-};
+// v1.0.0: the level of an entry is the set of its senses' levels (the runtime's
+// entrySenses). The legacy headword tag alone is only a fallback for data that
+// predates the sense model, which the last test in this file pins explicitly.
+const levelsOf = entry => [...new Set(app.entrySenses(entry).map(sense => sense.cefr))];
+const levelOf = entry => levelsOf(entry)[0] || 'UNCLASSIFIED';
+const inScope = (entry, levels, unclassified) => levelsOf(entry).some(level => level === 'UNCLASSIFIED' ? unclassified : levels.includes(level));
 const selectionOf = (levels, unclassified = false) => app.sanitizeCefrSelection({ version: 1, levels, unclassified });
 
 // A profile with every state represented, so queue builders have real work.
@@ -43,13 +45,17 @@ test('rc10: every CEFR combination narrows the deck to exactly its own levels (1
     const unclassified = Boolean(mask & 64);
     const selection = selectionOf(levels, unclassified);
     const pool = app.filterVocabularyByCefr(vocabulary, selection);
-    const expected = vocabulary.filter(entry => {
-      const level = levelOf(entry);
-      return level === 'UNCLASSIFIED' ? unclassified : levels.includes(level);
-    });
+    // Independent recomputation from the sense model: an entry belongs to the
+    // pool exactly when at least one of its senses is in the selection, and
+    // every pooled entry must have such a sense (no leakage in either direction).
+    const expected = vocabulary.filter(entry => inScope(entry, levels, unclassified));
     assert.equal(pool.length, expected.length, `combination ${mask} selects ${expected.length} words`);
     assert.deepEqual(pool.map(entry => entry.id).sort(), expected.map(entry => entry.id).sort(),
       `combination ${mask} must contain exactly the selected levels`);
+    for (const entry of pool) {
+      assert.ok(inScope(entry, levels, unclassified),
+        `combination ${mask} leaked ${entry.word} (senses: ${levelsOf(entry).join('/')})`);
+    }
     if (!levels.length && !unclassified) {
       assert.equal(pool.length, 0, 'an explicit empty selection is empty, never the default');
     }
@@ -108,7 +114,7 @@ function withSeededRandom(fn, seed = 0x2f6e2b1) {
   try { return fn(); } finally { Math.random = original; }
 }
 const progressRef = seededProgress();
-const favouriteIdsRef = new Set(vocabulary.filter(entry => levelOf(entry) === 'B1').slice(0, 40).map(entry => entry.id));
+const favouriteIdsRef = new Set(vocabulary.filter(entry => levelsOf(entry).includes('B1')).slice(0, 40).map(entry => entry.id));
 
 test('rc10: the reported configuration arithmetic is corrected and the true denominator is computed', () => {
   // The two independent binary dimensions behind "128".
@@ -145,9 +151,8 @@ test('rc10: every vocabulary entry point stays inside the pool for all 2,816 con
           checked += 1;
           assert.equal(eligible.has(item.vocab.id), true,
             `${name} served ${item.vocab.word} outside the selection [${label}]`);
-          const level = levelOf(item.vocab);
-          assert.equal(level === 'UNCLASSIFIED' ? selection.unclassified : wanted.has(level), true,
-            `${name} served ${item.vocab.word} at ${level} under [${label}]`);
+          assert.ok(inScope(item.vocab, selection.levels.map(l => l.toUpperCase()), selection.unclassified),
+            `${name} served ${item.vocab.word} (senses: ${levelsOf(item.vocab).join('/')}) outside [${label}]`);
         }
       }
       queuesByScope.set(scope, queues);
@@ -268,4 +273,39 @@ test('rc10: words-only refuses phrase practice without deleting a single phrase'
   // Switching back restores every phrase, because nothing was removed.
   const all = selectionOf(LEVELS, true);
   assert.equal(app.filterPhrasesByCefr(phrases, all).length, phrases.length);
+});
+
+test('v1.0.0: legacy rows without a senses array still follow the headword level tag', () => {
+  // Backward compatibility: old embedded builds, old exports and old backups
+  // carry only the `level:*` tag; the runtime must wrap them in one legacy
+  // sense with exactly that level so old data behaves bit-for-bit as before.
+  const legacy = [
+    { id: 'a', word: 'alpha', pos: 'n', meaning: 'an', tags: ['level:B2'] },
+    { id: 'b', word: 'beta', pos: 'n', meaning: 'bn', tags: [] },
+    { id: 'c', word: 'gamma', pos: 'n', meaning: 'gn', tags: ['level:C1'] }
+  ];
+  assert.deepEqual(app.entrySenses(legacy[0]).map(s => s.cefr), ['B2']);
+  assert.deepEqual(app.entrySenses(legacy[1]).map(s => s.cefr), ['UNCLASSIFIED']);
+  assert.equal(app.entrySenses(legacy[0])[0].evidence, 'legacy_fallback');
+  assert.equal(app.entryMatchesCefr(legacy[0], selectionOf(['B2'])), true);
+  assert.equal(app.entryMatchesCefr(legacy[0], selectionOf(['C1'])), false);
+  assert.equal(app.entryMatchesCefr(legacy[1], selectionOf([], true)), true);
+  assert.equal(app.entryMatchesCefr(legacy[1], selectionOf(['A1'])), false);
+  // A multi-sense row is in scope when any one sense is selected, and the
+  // learning view narrows to exactly the in-scope senses.
+  const multi = { id: 'm', word: 'kind', pos: 'n', meaning: 'loại; tốt bụng', tags: ['level:B1'], senses: [
+    { senseId: 'm-s1', meaning: 'loại', pos: 'n', cefr: 'A1', evidence: 'cross_validated', confidence: 'HIGH' },
+    { senseId: 'm-s2', meaning: 'tốt bụng', pos: 'adj', cefr: 'B1', evidence: 'source_supported', confidence: 'HIGH' }
+  ] };
+  assert.equal(app.entryMatchesCefr(multi, selectionOf(['A1'])), true);
+  const viewA1 = app.senseViewEntry(multi, selectionOf(['A1']));
+  assert.deepEqual(viewA1.senses.map(s => s.senseId), ['m-s1']);
+  assert.equal(viewA1.meaning, 'loại', 'an excluded sense must not leak into the learning gloss');
+  const viewBoth = app.senseViewEntry(multi, selectionOf(['A1', 'B1']));
+  assert.deepEqual(viewBoth.senses.map(s => s.cefr), ['A1', 'B1']);
+  assert.equal(viewBoth.meaning, 'loại; tốt bụng');
+  // The badges expose the level, never the definition.
+  const badge = app.cefrBadgeHtml(app.entrySenses(multi)[0]);
+  assert.match(badge, />A1</);
+  assert.ok(!badge.includes('loại'), 'the badge must not contain the meaning');
 });

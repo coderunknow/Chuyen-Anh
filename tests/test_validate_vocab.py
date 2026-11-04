@@ -31,14 +31,50 @@ def entry(**overrides):
         "connotation": "",
         "notes": "",
         "sources": [{"ref": "cambridge", "supports": "word, part of speech and Vietnamese gloss"}],
+        # v1.0.0 sense-level CEFR model: every row carries its senses array.
+        "senses": [{
+            "senseId": "demo-s1",
+            "label": "",
+            "meaning": "công việc tay chân",
+            "pos": "phrase",
+            "cefr": "B1",
+            "evidence": "source_supported",
+            "confidence": "HIGH",
+            "sources": [{"ref": "cambridge", "supports": "sense gloss"}],
+            "rationale": "fixture",
+            "needsIndependentValidation": False,
+        }],
     }
     value.update(overrides)
+    if "senses" not in overrides:
+        # keep the fixture's senseId in lockstep with the (possibly overridden) id
+        value["senses"] = [dict(value["senses"][0], senseId=f"{value['id']}-s1")]
     return value
 
 
 class VocabularyValidatorTest(unittest.TestCase):
     def test_valid_entry(self):
         self.assertEqual(validator.validate([entry(difficulty=2)]), [])
+
+    def test_senses_schema_is_validated(self):
+        base = entry()
+        # missing senses array
+        no_senses = {k: v for k, v in base.items() if k != "senses"}
+        self.assertIn("senses must be a non-empty array", "\n".join(validator.validate([no_senses])))
+        # bad cefr / evidence / confidence / senseId
+        for bad in [
+            {"cefr": "D1"}, {"evidence": "guess"}, {"confidence": "SURE"}, {"senseId": "other-s1"},
+            {"senseId": "demo-s1", "cefr": "B1", "evidence": "source_supported", "confidence": "HIGH", "meaning": " "},
+        ]:
+            sense = {**base["senses"][0], **bad}
+            errors = "\n".join(validator.validate([entry(senses=[sense])]))
+            self.assertTrue(errors, f"expected an error for {bad}")
+        # duplicate sense ids
+        dup = [base["senses"][0], dict(base["senses"][0])]
+        self.assertIn("duplicate senseId", "\n".join(validator.validate([entry(senses=dup)])))
+        # unknown sense source ref
+        bad_ref = {**base["senses"][0], "sources": [{"ref": "not-registered", "supports": "x"}]}
+        self.assertIn("not in docs/vocabulary-sources.json", "\n".join(validator.validate([entry(senses=[bad_ref])])))
 
     def test_missing_vocabulary_facts_are_explicitly_empty(self):
         # The expanded fields are present, but no score is invented where none exists.

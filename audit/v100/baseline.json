@@ -1,0 +1,55 @@
+{
+  "capturedAt": "2026-11-03",
+  "head": "f12b4bc5241e330eb8c051ada749d4f514111b61",
+  "branch": "arena/6b7c2879-chuyen-anh",
+  "files": {
+    "data/vocabulary.json": {
+      "sha256": "6259d23ecdcb8b4f73da8c56029ce899404416dea28f118d32153006be3f17db",
+      "bytes": 6598024
+    },
+    "data/phrases.json": {
+      "sha256": "f653f2d4da3ae44c2be2dc72128d58c424197969a88b7f9c43f0c4a80346b50d",
+      "bytes": 829281
+    },
+    "index.html": {
+      "sha256": "bb1a77f96e4ff2feccbda724768d786300fa1f90cb1822be548fa4f31bb84272",
+      "bytes": 19000308
+    },
+    "Learned_Vocabulary_List.md": {
+      "sha256": "e0a73e0a3b3a33dfe1be32a92e5f0fc2f88d3da40f04e3c2697aca1a4c1f4dbb",
+      "bytes": 3698661
+    },
+    "Learned_Phrase_List.md": {
+      "sha256": "4b175fb04ea8bc6bda774953b11be67ce075ea440b762810f7033b291f2e25e2",
+      "bytes": 551843
+    },
+    "data/exam-answer-keys.json": {
+      "sha256": "b6ea945ffdd424db9c4506902e9b1adf4a5a5a1a27c29afbb9d2a47bc186970c",
+      "bytes": 9031381
+    }
+  },
+  "vocabulary": {
+    "rows": 7852,
+    "cefr": {
+      "UNCLASSIFIED": 913,
+      "B1": 1700,
+      "B2": 2196,
+      "C1": 2087,
+      "C2": 956
+    }
+  },
+  "phrases": {
+    "rows": 1094,
+    "cefr": {
+      "B1": 387,
+      "B2": 324,
+      "C1": 304,
+      "C2": 79
+    }
+  },
+  "exams": {
+    "records": 106,
+    "questions": 6804,
+    "scored": 3011
+  }
+}

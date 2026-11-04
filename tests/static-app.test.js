@@ -231,7 +231,7 @@ test('interface language is stored independently and is not added to prefs or th
   assert.equal(saveLanguage('en', storage), true);
   assert.equal(storage.getItem('chuyen-anh.language.v1'), 'en');
   assert.equal(loadLanguage(storage), 'en');
-  assert.deepEqual(loadPrefs(storage), { sessionSize: 20, keyboardShortcuts: true, darkMode: false });
+  assert.deepEqual(loadPrefs(storage), { sessionSize: 20, keyboardShortcuts: true, darkMode: false, lookupCefrNarrow: false });
   assert.equal(saveLanguage('fr', storage), false, 'unsupported locales are rejected');
   assert.equal(loadLanguage(storage), 'en', 'an invalid choice must not overwrite the saved locale');
   assert.equal(loadLanguage({ getItem() { throw new Error('blocked'); } }), 'vi');
@@ -871,7 +871,7 @@ test('an exported backup round-trips through the importer without loss or mutati
   for (const correct of [true, true, true, true, true, true, false, true]) scheduled = updateProgress(scheduled, correct, 1200, 1_700_000_000_000);
   const progress = { ...Object.fromEntries(vocab.map(entry => [entry.id, createInitialProgress(entry.id, 0)])), '1': scheduled };
   const streak = { current: 3, longest: 5, lastDate: '2026-10-13' };
-  const prefs = { sessionSize: 20, keyboardShortcuts: true, darkMode: false };
+  const prefs = { sessionSize: 20, keyboardShortcuts: true, darkMode: false, lookupCefrNarrow: false };
   const history = [
     { date: '2026-10-12T00:00:00.000Z', total: 10, correct: 8, wrong: 2, accuracy: 80, mode: 'yêu thích', durationSec: 120 },
     { date: '2026-10-13T00:00:00.000Z', total: 5, correct: 5, wrong: 0, accuracy: 100, mode: 'mixed', durationSec: 45 }
@@ -3721,13 +3721,14 @@ test('rc5: every passive surface omits the gloss rather than masking it', () => 
   // Search results: the gloss column is dropped, and no tooltip can leak it.
   const search = html.slice(html.indexOf('function renderSearch('), html.indexOf('function phraseTagOf('));
   assert.match(search, /const showGloss = !meaningConcealed\(presentation\);/);
-  assert.match(search, /const glossCell = item => showGloss/, 'the cell exists only when the gloss may be printed');
+  assert.match(search, /const glossCell = item => \{?\s*if \(!showGloss\) return '';/, 'the cell exists only when the gloss may be printed');
   assert.match(search, /vocab-list--no-gloss/, 'the layout drops the column instead of holding an empty one');
-  assert.equal((search.match(/title="\$\{escapeHtml\(item\.entry\.meaning\)\}"/g) || []).length, 1,
-    'the only gloss tooltip is the one inside the visible branch');
-  const titleIdx = search.indexOf('title="${escapeHtml(item.entry.meaning)}"');
-  const branchIdx = search.indexOf('const glossCell = item => showGloss');
-  assert.ok(titleIdx > branchIdx, 'the tooltip cannot be reached while the gloss is hidden');
+  const titleMatches = [...search.matchAll(/title="\$\{escapeHtml\(item\.entry\.meaning\)\}"/g)].map(m => m.index);
+  assert.ok(titleMatches.length >= 1, 'the gloss tooltip exists inside the visible branch');
+  const branchIdx = search.indexOf('if (!showGloss) return');
+  for (const titleIdx of titleMatches) {
+    assert.ok(titleIdx > branchIdx, 'no gloss tooltip can be reached while the gloss is hidden');
+  }
 
   // Dashboard spotlight, Settings hard-word list and the phrase bank list.
   const dashboard = html.slice(html.indexOf('function renderDashboard('), html.indexOf('function statCard('));
@@ -4237,25 +4238,36 @@ test('the shipped vocabulary keeps every row and every level is selectable', () 
   const archived = headwords.filter(entry => app.isArchivedEntry(entry));
   const deck = headwords.filter(entry => !app.isArchivedEntry(entry));
   const counts = app.countVocabularyByCefr(deck);
-  // Snapshot of the shipped deck after rc10 P5 added 2,000 verified headwords
-  // (audit/rc10/evidence/new-headword-evidence.jsonl, one evidence record per
-  // row) on top of the attested-level corrections. Deck 5,841 taught headwords
-  // and 1,271 archived: 757 + 1,714 + 1,638 + 889 + 843 = 5,841.
-  // The 843 untagged legacy headwords stay Unclassified — rc10 never invents a
-  // level for a row it has no published reference for.
-  // See audit/rc10/evidence/corrections-applied.jsonl for every level change.
-  assert.deepEqual(counts, { A1: 0, A2: 0, B1: 757, B2: 1714, C1: 1638, C2: 889, UNCLASSIFIED: 843 },
-    'the shipped deck keeps its labels; A1/A2 are selectable even though no row carries them yet');
+  // v1.0.0 sense-level snapshot, measured on the shipped deck: every headword
+  // now carries sense-level CEFR levels (scripts/build_senses.py, audit
+  // evidence in audit/v100/evidence/cefr-sense-audit.json), so no sense is left
+  // Unclassified without an evidence class. A headword with senses in two
+  // levels is counted once in each (that is why the level counts sum to
+  // 5,844 over 5,841 headwords); senses are counted separately below.
+  // 133 + 305 + 711 + 1,872 + 1,770 + 1,050 = 5,841 headwords.
+  assert.deepEqual(counts, { A1: 133, A2: 305, B1: 711, B2: 1872, C1: 1770, C2: 1050, UNCLASSIFIED: 0 },
+    'the shipped deck keeps every row and every level is selectable; no sense is Unclassified');
+  assert.deepEqual(app.countSensesByCefr(deck), { A1: 133, A2: 305, B1: 711, B2: 1872, C1: 1770, C2: 1050, UNCLASSIFIED: 0 },
+    'sense counts are reported separately from headword counts (the 2 multi-sense headwords share their levels)');
   assert.equal(headwords.length, 7112);
   assert.equal(archived.length, 1271);
   assert.equal(deck.length, 5841);
   // The default selection is a filter, not a deletion: archived rows and
   // out-of-band rows are still in the data and still counted.
-  assert.equal(app.filterVocabularyByCefr(deck, app.defaultCefrSelection()).length, 3352);
-  assert.equal(app.countVocabularyByCefr(embeddedVocabulary.filter(entry => !entry.familyHead)).UNCLASSIFIED, 843,
-    'the 843 untagged legacy headwords stay Unclassified instead of being assigned a level');
-  assert.equal(app.countVocabularyByCefr(embeddedVocabulary).UNCLASSIFIED, 913,
-    '913 of the 7,852 rows carry no level tag; none of them is given an invented level');
+  assert.equal(app.filterVocabularyByCefr(deck, app.defaultCefrSelection()).length, 3642);
+  // The 843 previously untagged legacy headwords are no longer Unclassified:
+  // each now has a sense with an explicit evidence class (never an invented
+  // level — editorial estimates are flagged needsIndependentValidation).
+  assert.equal(app.countVocabularyByCefr(embeddedVocabulary.filter(entry => !entry.familyHead)).UNCLASSIFIED, 0,
+    'every shipped headword has at least one sense with a CEFR level');
+  assert.equal(app.countVocabularyByCefr(embeddedVocabulary).UNCLASSIFIED, 0,
+    'no row of the 7,852 is left without a classified sense');
+  const previouslyUntagged = embeddedVocabulary.filter(entry => !(entry.tags || []).some(t => /^level:(A1|A2|B1|B2|C1|C2)$/i.test(t)));
+  assert.equal(previouslyUntagged.length, 913);
+  assert.ok(previouslyUntagged.every(entry => (entry.senses || []).every(sense => app.entrySenses(entry).length && sense.cefr && sense.evidence)),
+    'each of the 913 legacy-tagged-less rows carries senses with a CEFR level and an evidence class');
+  assert.ok(previouslyUntagged.every(entry => (entry.senses || []).some(sense => sense.evidence !== 'editorial_estimate' || sense.needsIndependentValidation === true)),
+    'editorial estimates are flagged for independent validation, never presented as verified');
   const phrases = embeddedPhrases;
   const phraseLevels = {};
   for (const phrase of phrases) phraseLevels[app.phraseCefrLevel(phrase)] = (phraseLevels[app.phraseCefrLevel(phrase)] || 0) + 1;

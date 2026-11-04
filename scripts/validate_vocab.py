@@ -16,6 +16,7 @@ from pathlib import Path
 from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 DEFAULT_PATH = ROOT / "data" / "vocabulary.json"
 REGISTRY_PATH = ROOT / "docs" / "vocabulary-sources.json"
 ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*$")
@@ -179,6 +180,26 @@ def validate(data: Any) -> list[str]:
         difficulty = entry.get("difficulty")
         if "difficulty" in entry and (isinstance(difficulty, bool) or not isinstance(difficulty, (int, float)) or not 0 <= difficulty <= 5):
             problem(errors, index, entry, "difficulty, when provided, must be a number from 0 to 5")
+
+        # Sense-level CEFR model (v1.0.0): every row carries a normalized
+        # `senses` array; each sense owns its CEFR level, evidence class,
+        # confidence and provenance. Validated structurally here; the
+        # deterministic regeneration check lives in scripts/build_senses.py.
+        senses = entry.get("senses")
+        if not isinstance(senses, list) or not senses:
+            problem(errors, index, entry, "senses must be a non-empty array (build with scripts/build_senses.py)")
+        else:
+            from cefr_senses import validate_senses  # noqa: PLC0415
+            for message in validate_senses(entry):
+                problem(errors, index, entry, message)
+            for sense in senses:
+                if not isinstance(sense, dict):
+                    continue
+                for source in sense.get("sources", []) if isinstance(sense.get("sources"), list) else []:
+                    if isinstance(source, dict) and registry:
+                        ref = source.get("ref")
+                        if isinstance(ref, str) and ref not in registry:
+                            problem(errors, index, entry, f"sense source ref {ref!r} is not in docs/vocabulary-sources.json")
 
         # The root rule: a merged form points at its headword and is not a headword itself.
         merged = isinstance(tags, list) and "family:merged" in tags

@@ -12,6 +12,10 @@ on:
       - "scripts/embed_vocabulary.py"
       - "scripts/learned_vocabulary.py"
       - "scripts/validate_vocab.py"
+      - "scripts/build_senses.py"
+      - "scripts/cefr_senses.py"
+      - "scripts/cefr_editorial_map.py"
+      - "scripts/migrate_senses.py"
       - "scripts/audit_learned_vocab.py"
       - "scripts/expand_vocabulary.py"
       - "scripts/phrase_bank.py"
@@ -58,6 +62,7 @@ on:
       - "AGENTS_LOG.md"
       - "De-chuyen-Anh-vao-10/**"
       - "tests/**"
+      - "audit/v100/refs/**"
       - "api/**"
       - "app.js"
       - "vercel.json"
@@ -78,6 +83,10 @@ on:
       - "scripts/embed_vocabulary.py"
       - "scripts/learned_vocabulary.py"
       - "scripts/validate_vocab.py"
+      - "scripts/build_senses.py"
+      - "scripts/cefr_senses.py"
+      - "scripts/cefr_editorial_map.py"
+      - "scripts/migrate_senses.py"
       - "scripts/audit_learned_vocab.py"
       - "scripts/expand_vocabulary.py"
       - "scripts/phrase_bank.py"
@@ -160,6 +169,7 @@ jobs:
         run: |
           python scripts/expand_vocabulary.py --check
           python scripts/build_vocabulary.py --check
+          python scripts/build_senses.py --check
           python scripts/generate_vocab_audit_dev5.py --check
           python scripts/validate_vocab.py
           python scripts/embed_vocabulary.py --check
@@ -181,7 +191,7 @@ jobs:
 
       # Node is used only for dependency-free tests; production is a single HTML file.
       - name: Run static app logic, scoring and single-file tests
-        run: node --trace-deprecation --test tests/static-app.test.js tests/exam-scoring.test.js tests/exam-anomalies.test.js tests/rc10-cefr.test.js
+        run: node --trace-deprecation --test tests/static-app.test.js tests/exam-scoring.test.js tests/exam-anomalies.test.js tests/rc10-cefr.test.js tests/v100-senses.test.js
 
       # rc5/rc8: the ingestion endpoint is the only server-side code in the project,
       # so its contract (origins, size limits, stored fields, status codes, fail-closed salt)

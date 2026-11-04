@@ -64,6 +64,7 @@ jobs:
       - name: Check vocabulary sources and embedded HTML
         run: |
           python scripts/build_vocabulary.py --check
+          python scripts/build_senses.py --check
           python scripts/validate_vocab.py
           python scripts/embed_vocabulary.py --check
           node scripts/exams/build_answer_keys.mjs --check
@@ -81,7 +82,7 @@ jobs:
 
       # Node is used only for dependency-free tests; production is a single HTML file.
       - name: Run static app logic, scoring and single-file tests
-        run: node --trace-deprecation --test tests/static-app.test.js tests/exam-scoring.test.js tests/rc10-cefr.test.js
+        run: node --trace-deprecation --test tests/static-app.test.js tests/exam-scoring.test.js tests/rc10-cefr.test.js tests/v100-senses.test.js
 
       # Publish only the fully self-contained application file.
       - name: Stage standalone HTML
