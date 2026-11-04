@@ -84,3 +84,15 @@ Open / accepted limitations (not defects, stated honestly):
   finds 4,775 such claims with matching groups and 4,081 senses not assessed under
   this check; none has been independently verified. The standalone validator checks
   source capability and nonempty locator, not that locator content matches the claim.
+
+- **D24 — IN PROGRESS, critical:** the pinned inference lexicon still powered an
+  automatic solver that supplied 203 provisional exam answers, contrary to the
+  no-inference requirement. The solver is removed, missing keys are ungraded, and
+  runtime hint injection is rejected; pin validation remains fail-closed. Complete
+  per-question evidence and independent scoring review remain outstanding.
+
+- **D25 — IN PROGRESS, critical:** three papers with a handful of secondary-source
+  anchor checks had every extracted answer labelled independently cross-checked
+  and sometimes HIGH confidence without item-level evidence. Reproduced with a
+  synthetic item using a paper ID; removed the paper-wide upgrade. Sixty-seven
+  answer records now say single-source transcription, pending individual review.

@@ -66,7 +66,9 @@ class InferencePinTest(unittest.TestCase):
         source = BUILDER.read_text(encoding="utf-8")
         self.assertIn("inference-lexicon.json", source,
                       "the builder must read the pin instead of the live bank")
-        self.assertRegex(source, r"pinnedVocabulary|inferencePin")
+        self.assertIn("loadInferencePin(", source, "the historical pin must still be validated fail-closed")
+        self.assertNotIn("buildProvisionalHint", source, "the pin must not be used to infer answers")
+        self.assertNotIn("scoreOptionInContext", source)
         # The pin must never be larger than the bank it froze: a pin row that does
         # not exist would be silently ignored evidence.
         self.assertLessEqual(len(pinned_words), len(words))

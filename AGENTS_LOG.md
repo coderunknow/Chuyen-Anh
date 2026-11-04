@@ -1354,3 +1354,18 @@ count as direct or independent evidence. Fifty-two all-fallback cases are explic
 marked LOW editorial proxies requiring independent review. After regeneration the
 triage finds zero insufficient source-group claims, but 4,081 senses are outside its
 scope and no independent human review is claimed. Python and targeted Node tests pass.
+
+### 2026-11-04 — exam inference fail-closed correction
+
+Reproduced 203 automatic provisional answers generated from heuristic/lexical or
+cross-archive matching. Removed automatic inference and made missing source answers
+ungradable; retained inference-pin validation and added a regression against injected
+runtime hints. Regenerated answer keys, standalone exam data and derived audits.
+No source answer, paper or learner data was removed; no official key was invented.
+
+### 2026-11-04 — exam evidence scope correction
+
+Removed a paper-wide answer verification upgrade unsupported by item-level
+cross-check evidence. A synthetic regression reproduced the issue, and 67 keys
+now report single-source transcription. Per-question independent review remains
+open; the existing partial paper-anchor report is retained.

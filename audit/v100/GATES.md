@@ -26,12 +26,16 @@ commit. The current audit is incomplete; no release is authorized.
 | S29 | Full 106-paper / 6,804-question primary-evidence assessment | NOT STARTED — existing reason accounting is not an individual primary-source review |
 | S30 | Application-wide accessibility, physical/screen-reader checks and production smoke | NOT STARTED — exam-view axe and prior browser suites are not application-wide proof |
 
+Exam re-audit on the current working tree removed 203 auto-inferred keys and
+corrected 67 per-question cross-check claims that were based only on paper-level
+anchor checks. These are local results, not exact-head CI or independent review.
+
 ## Phase I — audit & defect ledger
 
 | Gate | Requirement | Evidence | Verdict |
 | --- | --- | --- | --- |
 | S1 | Baseline captured before any change | `audit/v100/baseline.json` (head `f12b4bc5…`, sha256 of vocabulary/phrases/index.html/md) | **NOT STARTED** |
-| S2 | Defect ledger with per-defect disposition | `audit/v100/DEFECTS.md` — 14 defects, all fixed or documented; 0 silently patched | **NOT STARTED** |
+| S2 | Defect ledger with per-defect disposition | `audit/v100/DEFECTS.md` — active ledger includes open and partially mitigated defects; independent dispositions remain pending | **NOT STARTED** |
 
 ## Phase II — sense-level CEFR model
 
@@ -58,9 +62,9 @@ commit. The current audit is incomplete; no release is authorized.
 
 | Gate | Requirement | Evidence | Verdict |
 | --- | --- | --- | --- |
-| S14 | Scoring recomputed and current | `node scripts/exams/build_answer_keys.mjs --check`: 106 papers, 6,804 questions, **3,011 scorable (44.25%)**, 3,793 ungradeable; `docs/exam-scoring-audit.json` regenerated | **NOT STARTED** |
+| S14 | Scoring recomputed and current | `node scripts/exams/build_answer_keys.mjs --check`: 106 papers, 6,804 questions, **2,808 provisionally scorable (41.27%)**, 3,996 ungradeable; `docs/exam-scoring-audit.json` regenerated | **NOT STARTED** |
 | S15 | Provenance states; `officialScore=null` without official evidence | key records carry verificationStatus/sourceStatus/confidence/limitations; runtime summary `officialScore: null`, attempt `officialScore: false`; 0 papers with an official primary source (provenance audit) | **NOT STARTED** |
-| S16 | 0 unresolved non-exempt blockers | all 3,793 ungradeable items carry an exempt documented reason (sum = 3,793); 8 answer-claim-without-section papers listed in `docs/exam-provenance-audit.json`; inference lexicon fail-closed (`tests/test_exam_inference_fail_closed.py`) | **NOT STARTED** |
+| S16 | 0 unresolved non-exempt blockers | all 3,996 ungradeable items carry a machine-assigned reason; individual evidence review is outstanding; 8 answer-claim-without-section papers listed in `docs/exam-provenance-audit.json`; inference lexicon fail-closed (`tests/test_exam_inference_fail_closed.py`) | **NOT STARTED** |
 
 ## Preserve functionality / UX
 
@@ -84,9 +88,9 @@ commit. The current audit is incomplete; no release is authorized.
 
 | Gate | Requirement | Evidence | Verdict |
 | --- | --- | --- | --- |
-| S25 | Review bots per `.coderabbit.yaml` recorded by PR head SHA; PR only, no merge/tag/release/deploy | PR #82 opened from `arena/6b7c2879-chuyen-anh`; CodeRabbit reviewed `c8138af` (run `3f8762ce-2219-4cd2-8a76-5034afdadc95`, 11 comments — all verified fixes applied on the follow-up commit, deploy-gate comment skipped per explicit `DEPLOY_HOLD`-unchanged directive) new head review pending; DEPLOY_HOLD untouched; only the v1.0.0 version string changed | **BLOCKED** |
+| S25 | Review bots per `.coderabbit.yaml` recorded by PR head SHA; PR only, no merge/tag/release/deploy | PR #82 opened from `arena/6b7c2879-chuyen-anh`; CodeRabbit reviewed `c8138af` (run `3f8762ce-2219-4cd2-8a76-5034afdadc95`, 11 comments — all verified fixes applied on the follow-up commit, deploy-gate comment skipped per explicit `DEPLOY_HOLD`-unchanged directive) new head review pending; DEPLOY_HOLD untouched; the candidate includes additional code and data changes | **BLOCKED** |
 
-## Test totals (measured on this head)
+## Historical test totals (not evidence for the current head)
 
 - node: `static-app.test.js` 144 + `exam-scoring.test.js` 25 + `exam-anomalies.test.js` 7 + `rc10-cefr.test.js` 10 + `v100-senses.test.js` 7 + `telemetry-api.test.js` 17 = **210 pass / 0 fail**
 - python: `python3 -m unittest discover -s tests -p 'test_*.py'` = **194 OK**

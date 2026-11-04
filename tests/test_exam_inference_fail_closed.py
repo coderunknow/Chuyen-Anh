@@ -191,18 +191,18 @@ class InferencePinFailClosedTest(unittest.TestCase):
         after = {f: self._sha256(f) for f in BUILDER_OUTPUTS if f.exists()}
         self.assertEqual(before, after, 'a failed build must not touch the generated artifacts')
 
-    # 6. Existing exam scoring and inference behaviour remains correct.
-    def test_scoring_behaviour_unchanged(self) -> None:
+    # 6. Source-backed scoring remains correct with automatic inferred keys disabled.
+    def test_scoring_excludes_automatic_inference(self) -> None:
         proc = self._run(self.tmp)
         self.assertEqual(proc.returncode, 0, proc.stderr)
         keys = json.loads((self.tmp / 'data' / 'exam-answer-keys.json').read_text(encoding='utf-8'))
         self.assertEqual(len(keys['records']), 106)
         scored = sum(r['scoredCount'] for r in keys['records'])
-        self.assertEqual(scored, 3011)
+        self.assertEqual(scored, 2808)
         total = sum(r['questionCount'] for r in keys['records'])
         self.assertEqual(total, 6804)
         missing = total - scored
-        self.assertEqual(missing, 3793)
+        self.assertEqual(missing, 3996)
 
 
 if __name__ == '__main__':

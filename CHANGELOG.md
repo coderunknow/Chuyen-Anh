@@ -32,9 +32,8 @@ is untouched and only the `v1.0.0` version string is proposed.
 
 ### Exams
 
-- Scoring recomputed and current: 106 papers, 6,804 questions, **3,011 scorable
-  (44.25%)**, 3,793 ungradeable — every one with a documented exempt reason;
-  **0 unresolved non-exempt blockers**. `officialScore` stays `null`/`false` without an
+- Scoring recomputed and current: 106 papers, 6,804 questions, **2,808 provisionally scorable
+  (41.27%)**, 3,996 ungradeable — each with an automated ungradeable reason; individual primary-evidence review remains incomplete. `officialScore` stays `null`/`false` without an
   official primary source; the inference lexicon stays fail-closed.
 
 ### Verification (historical, not final-head evidence)

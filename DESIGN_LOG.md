@@ -2211,3 +2211,26 @@ confidence editorial proxy, never as direct or cross-validated evidence. The dat
 A reproducible locator queue records every sense; it now reports 4,775 matching-group
 claims and 4,081 not assessed by this narrow check, with zero automatically flagged
 insufficient group claims. This is a heuristic, not independent evidence validation.
+
+### 2026-11-04 — disable automatic exam answer inference
+
+A fail-first audit found 203 shipped answer records derived from automatic
+provisional inference. The builder previously used a pinned teaching-bank lexicon
+and heuristic solver; a frozen lexicon still is not exam-answer evidence. Removed
+the solver and cross-archive automatic inference while retaining fail-closed pin
+validation. Missing source answers now remain ungraded, and the runtime parser
+also ignores injected provisional hints. An exact comparison against the previous
+manifest shows 203 changed keys, all `inferred_unverified` → `missing_answer`,
+with no other answer-key changes. The archive still has 106 papers and 6,804
+questions: 2,808 provisionally scorable and 3,996 ungradeable. Essay rubrics remain
+provisional, not official scores. Individual source and answer audits remain open.
+
+### 2026-11-04 — scope exam cross-check evidence to what was checked
+
+The paper-level cross-check report records a few anchors, not a line-by-line
+verification of every answer. A fail-first test showed that the parser nevertheless
+promoted all extracted answers from three papers to independently cross-checked.
+Removed that blanket promotion: 67 answer records now identify single-source
+transcriptions rather than independently verified keys. The paper-level anchor
+report is preserved, but it is not used as item-level proof. Scorable totals did
+not change. The earlier comparison's 203 inference removals remain unchanged.
