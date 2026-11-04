@@ -10,8 +10,8 @@ Stable publication, merge, tag creation and deployment require separate explicit
 user authorization after readiness; `DEPLOY_HOLD` must remain unchanged. The evidence below predates this renewed audit: historical
 results are useful, but are not a full independent assessment or evidence for a new
 head. Prior PASS labels are reset to NOT STARTED until independently re-evaluated
-against the exact candidate SHA. S10 is FAIL: `lie` shares a combined gloss between
-A1 and B1, and the Oxford `rock` labels are paired with opposite glosses. S25 is
+against the exact candidate SHA. S10 remains FAIL pending independent review: local
+fixes map `lie` and `rock` via explicitly documented editorial source-row mappings. S25 is
 BLOCKED pending the new review findings and independent review. Three-engine CI run
 `41813222542` passed on `1d61c7bc9f8fed221025cb253ea3c15e51389cee`, not on any later
 commit. The current audit is incomplete; no release is authorized.

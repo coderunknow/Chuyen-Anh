@@ -35,10 +35,9 @@ Design (recorded in DESIGN_LOG.md, 2026-11-03):
     4. Oxford 3000/5000 word-level (lowest level printed for the headword)
 * Multi-sense headwords: when the Oxford wordlists list the same headword under
   several annotated senses (e.g. `bank (money)` / `bank (river)`), the bank row
-  is split into one sense per matching Oxford row, each with that row's own
-  level. The bank's combined Vietnamese gloss is distributed across the senses
-  when its `;`-separated parts line up with the sense count, otherwise each
-  sense carries the full gloss plus the Oxford annotation as its label.
+  is split only using explicit editorial gloss-to-row mappings in
+  docs/sense-gloss-mappings.json. Unrepresented homographs are omitted; missing
+  or stale mappings fail closed. These alignments require independent validation.
 
 The engine is deterministic: same bank + same reference snapshots in
 audit/v100/refs/ => same senses. `scripts/build_senses.py` applies it to
@@ -118,7 +117,7 @@ def _oxford_pos_levels(raw: str) -> dict[str, str]:
     cell = (raw or "").lower()
     out: dict[str, str] = {}
     for label, code in OXFORD_POS_LABELS:
-        m = re.search(r"(^|[,\s/])" + re.escape(label) + r"\s*([A-C][12])\b", cell)
+        m = re.search(r"(^|[,\s/])" + re.escape(label) + r"\s*([a-c][12])\b", cell)
         if m and code not in out:
             out[code] = m.group(2).upper()
     return out
@@ -135,6 +134,7 @@ def _oxford_levels(raw: str) -> list[str]:
 
 class References:
     def __init__(self, refs_dir: Path = REFS):
+        self.sense_mappings = json.loads((ROOT / "docs" / "sense-gloss-mappings.json").read_text(encoding="utf-8"))["entries"]
         self.cefrj: dict[str, list[dict[str, Any]]] = {}
         path = refs_dir / "cefrj-vocabulary-profile-1.5.csv"
         with path.open(encoding="utf-8") as fh:
@@ -194,21 +194,23 @@ class References:
         pos_rows = [r for r in ox_rows if r["pos"] and set(r["pos"].split(",")) & pos_keys]
         pool = pos_rows or ox_rows
         if pool:
-            cand: set[str] = set()
+            candidates: list[tuple[str, dict[str, Any]]] = []
             for r in pool:
-                # a combined cell like 'v. A1, n. B2' pins each POS to its own level
+                # A combined cell pins each POS to its own level.
                 specific = {r["pos_levels"][p] for p in pos_keys
                             if r.get("pos_levels", {}).get(p) in CEFR_LEVELS}
-                cand.update(specific or set(r["levels"]))
-            levels = sorted(cand, key=CEFR_LEVELS.index)
-            if levels:
+                candidates.extend((level, r) for level in (specific or set(r["levels"])))
+            if candidates:
+                level, selected = min(candidates, key=lambda item: CEFR_LEVELS.index(item[0]))
+                levels = sorted({item[0] for item in candidates}, key=CEFR_LEVELS.index)
                 votes.setdefault("oxford", {
-                    "level": levels[0],
+                    "level": level,
                     "levels": levels,
-                    "line": pool[0]["line"],
-                    "file": pool[0]["file"],
-                    "source": pool[0]["source"],
-                    "pos": pool[0]["pos"] or "",
+                    "line": selected["line"],
+                    "file": selected["file"],
+                    "source": selected["source"],
+                    "raw_level": selected.get("raw_level", ""),
+                    "pos": selected["pos"] or "",
                     "pos_match": bool(pos_rows),
                 })
         return votes
@@ -311,10 +313,30 @@ def classify_entry(entry: dict[str, Any], refs: References) -> list[dict[str, An
     distinct = {(r["annotation"], r["sense"]) for r in ox_rows}
     senses: list[dict[str, Any]] = []
     if len(ox_rows) >= 2 and len(distinct) >= 2:
-        gloss_parts = [p.strip() for p in meaning.split(";") if p.strip()]
-        distribute = len(gloss_parts) == len(ox_rows) and len(gloss_parts) > 1
-        for index, row in enumerate(ox_rows, start=1):
-            levels = row["levels"] or sorted({lv for r in ox_rows for lv in r["levels"]}, key=CEFR_LEVELS.index)
+        mapping = refs.sense_mappings.get(entry_id)
+        if not mapping or any(mapping.get(k) != v for k, v in (("word", word), ("pos", pos), ("meaning", meaning))):
+            raise ValueError(f"missing or stale sense mapping for entry {entry_id} ({word})")
+        mapped = {(item["source"], item["line"]): item for item in mapping["rows"]}
+        if len(mapped) != len(mapping["rows"]) or set(mapped) != {(r["file"], r["line"]) for r in ox_rows}:
+            raise ValueError(f"sense mapping row set changed for entry {entry_id} ({word})")
+        remainder = meaning
+        for item in mapping["rows"]:
+            gloss = item.get("gloss")
+            if gloss:
+                if gloss not in remainder or not item.get("dictionary"):
+                    raise ValueError(f"invalid or duplicate gloss mapping for entry {entry_id} ({word})")
+                remainder = remainder.replace(gloss, "", 1)
+        if remainder.strip(" \t,;"):
+            raise ValueError(f"sense mapping does not cover the original meaning for entry {entry_id} ({word})")
+        for row in ox_rows:
+            item = mapped[(row["file"], row["line"])]
+            if item.get("annotation") != row["annotation"] or item.get("sense") != row["sense"]:
+                raise ValueError(f"sense mapping source row changed for entry {entry_id} ({word})")
+            if not item.get("gloss"):
+                continue
+            pos_levels = sorted({row["pos_levels"][p] for p in _pos_variants(pos)
+                                 if p in row.get("pos_levels", {})}, key=CEFR_LEVELS.index)
+            levels = pos_levels or row["levels"] or sorted({lv for r in ox_rows for lv in r["levels"]}, key=CEFR_LEVELS.index)
             if not levels:
                 level, evidence, confidence, sources, needs = _resolve_level(refs.votes_for(word, pos), refs, word, pos)
             else:
@@ -324,21 +346,23 @@ def classify_entry(entry: dict[str, Any], refs: References) -> list[dict[str, An
                 ref_name = SOURCE_REFS[row["source"]]
                 sources = [_source_record(ref_name, f"{row['file']}:{row['line']}: {row['word']} (sense {row['sense'] or row['annotation'] or '—'}, level cell {row['raw_level']!r})",
                                           "Oxford wordlist prints this CEFR level for this specific sense of the headword")]
-                votes = refs.votes_for(word, pos)
-                if any(v["level"] == level for src, v in votes.items() if src != "oxford"):
-                    evidence = "cross_validated"
-                    for source, vote in votes.items():
-                        if vote["level"] == level and source != "oxford":
-                            sources.append(_source_record(SOURCE_REFS[source], f"row {vote['line']}",
-                                                          "independent published list agrees at the same level"))
-                needs = False
+                # Headword/POS evidence cannot establish agreement about which
+                # particular sense a source classifies, nor translate its gloss.
+                needs = True
             label = row["annotation"] or (f"sense {row['sense']}" if row["sense"] else "")
-            sense_meaning = gloss_parts[index - 1] if distribute else meaning
+            needs = True  # mapping itself remains an editorial judgment
+            sense_meaning = item["gloss"]
+            sources.append(_source_record(SOURCE_REFS["editorial"],
+                                          f"docs/sense-gloss-mappings.json: {entry_id}; {item['dictionary']}",
+                                          "editorial alignment of an existing gloss to a dictionary homograph; independent review required"))
             rationale = (f"sense-level split from the Oxford wordlists: {row['word']}"
                          + (f" ({label})" if label else "")
                          + (f" prints level cell {row['raw_level']!r}; the lowest level in the cell ({level}) is used" if len(levels) > 1 else f" at level {level}"))
+            if pos_levels:
+                rationale += f"; POS-specific Oxford cell {pos}. {level}"
+            rationale += "; gloss-to-sense mapping requires independent validation"
             senses.append({
-                "senseId": f"{entry_id}-s{index}",
+                "senseId": item["senseId"],
                 "label": label,
                 "meaning": sense_meaning,
                 "pos": pos,

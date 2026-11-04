@@ -1299,3 +1299,21 @@ metadata and verified matching outputs across timezones. Added a manual stable-d
 path requiring separate confirmation and exact published stable app release; retained
 existing prerelease dispatch and deploy gates. Manual path not exercised live. Release
 unit tests and deploy-gate tests passed locally; final-head CI remains pending.
+
+### 2026-11-04 — Oxford POS and sense audit continuation
+
+Added fail-first parser, split POS-level, and source locator tests; fixed these defects,
+regenerated vocabulary, embed, sense and quality reports. Added a heuristic review
+queue with explicit non-verification warning. Removed claims that headword-level
+agreement independently validates split senses. Meaning mapping defects remain open.
+GitHub PR and remote head synchronized after a normal fast-forward push of cc2d0f6;
+previous stale PR bookkeeping's underlying server-side cause is not established.
+
+### 2026-11-04 — source-row mapping implementation
+
+Fail-first regressions reproduced lie gloss leakage, rock reversal, row-order
+dependence, unglossed homograph duplication, and empty-filter fallback leakage.
+Added an explicit eight-entry source-row mapping manifest with recorded dictionary
+URLs and fail-closed guards, retaining all original gloss text. Corrected generator
+and regenerated artifacts; targeted Python and Node tests pass. The editorial mapping
+and complete dataset still require independent validation, so S10 remains FAIL.

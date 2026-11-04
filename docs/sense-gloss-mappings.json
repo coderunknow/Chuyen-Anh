@@ -1,0 +1,206 @@
+{
+  "description": "Editorial alignments of existing Vietnamese gloss text to Oxford wordlist homographs. Null means the existing gloss does not cover that Oxford row. Not independent verification; dictionary excerpts and translation alignment require independent review.",
+  "accessed": "2026-11-04",
+  "entries": {
+    "1902": {
+      "word": "rest",
+      "pos": "n",
+      "meaning": "sự nghỉ ngơi",
+      "rows": [
+        {
+          "source": "oxford-3000.en.tsv",
+          "line": 2229,
+          "senseId": "1902-s1",
+          "gloss": null,
+          "dictionary": null,
+          "annotation": "(remaining part)",
+          "sense": ""
+        },
+        {
+          "source": "oxford-3000.en.tsv",
+          "line": 2230,
+          "senseId": "1902-s2",
+          "gloss": "sự nghỉ ngơi",
+          "dictionary": "https://www.oxfordlearnersdictionaries.com/definition/english/rest_1",
+          "annotation": "(sleep/relax)",
+          "sense": ""
+        }
+      ]
+    },
+    "3839": {
+      "word": "ring",
+      "pos": "n",
+      "meaning": "nhẫn",
+      "rows": [
+        {
+          "source": "oxford-3000.en.tsv",
+          "line": 2248,
+          "senseId": "3839-s1",
+          "gloss": "nhẫn",
+          "dictionary": "https://www.oxfordlearnersdictionaries.com/definition/english/ring1_1",
+          "annotation": "",
+          "sense": "1"
+        },
+        {
+          "source": "oxford-3000.en.tsv",
+          "line": 2249,
+          "senseId": "3839-s2",
+          "gloss": null,
+          "dictionary": null,
+          "annotation": "",
+          "sense": "2"
+        }
+      ]
+    },
+    "7900": {
+      "word": "bank",
+      "pos": "n",
+      "meaning": "ngân hàng; bờ sông",
+      "rows": [
+        {
+          "source": "oxford-3000.en.tsv",
+          "line": 224,
+          "senseId": "7900-s1",
+          "gloss": "ngân hàng",
+          "dictionary": "https://www.oxfordlearnersdictionaries.com/definition/english/bank_1",
+          "annotation": "(money)",
+          "sense": ""
+        },
+        {
+          "source": "oxford-3000.en.tsv",
+          "line": 225,
+          "senseId": "7900-s2",
+          "gloss": "bờ sông",
+          "dictionary": "https://www.oxfordlearnersdictionaries.com/definition/english/bank_1",
+          "annotation": "(river)",
+          "sense": ""
+        }
+      ]
+    },
+    "8576": {
+      "word": "lie",
+      "pos": "v",
+      "meaning": "nói dối, nằm",
+      "rows": [
+        {
+          "source": "oxford-3000.en.tsv",
+          "line": 1521,
+          "senseId": "8576-s1",
+          "gloss": "nằm",
+          "dictionary": "https://www.oxfordlearnersdictionaries.com/definition/english/lie1_1",
+          "annotation": "",
+          "sense": "1"
+        },
+        {
+          "source": "oxford-3000.en.tsv",
+          "line": 1522,
+          "senseId": "8576-s2",
+          "gloss": "nói dối",
+          "dictionary": "https://www.oxfordlearnersdictionaries.com/definition/english/lie2_1",
+          "annotation": "(tell a lie)",
+          "sense": "2"
+        }
+      ]
+    },
+    "8662": {
+      "word": "race",
+      "pos": "n",
+      "meaning": "cuộc đua; chủng tộc",
+      "rows": [
+        {
+          "source": "oxford-3000.en.tsv",
+          "line": 2118,
+          "senseId": "8662-s1",
+          "gloss": "cuộc đua",
+          "dictionary": "https://www.oxfordlearnersdictionaries.com/definition/english/race_1",
+          "annotation": "(competition)",
+          "sense": ""
+        },
+        {
+          "source": "oxford-3000.en.tsv",
+          "line": 2119,
+          "senseId": "8662-s2",
+          "gloss": "chủng tộc",
+          "dictionary": "https://www.oxfordlearnersdictionaries.com/definition/english/race_1",
+          "annotation": "(people)",
+          "sense": ""
+        }
+      ]
+    },
+    "8677": {
+      "word": "rock",
+      "pos": "n",
+      "meaning": "đá; thể loại nhạc phương Tây",
+      "rows": [
+        {
+          "source": "oxford-3000.en.tsv",
+          "line": 2255,
+          "senseId": "8677-s1",
+          "gloss": "thể loại nhạc phương Tây",
+          "dictionary": "https://www.oxfordlearnersdictionaries.com/definition/english/rock_1",
+          "annotation": "(music)",
+          "sense": ""
+        },
+        {
+          "source": "oxford-3000.en.tsv",
+          "line": 2256,
+          "senseId": "8677-s2",
+          "gloss": "đá",
+          "dictionary": "https://www.oxfordlearnersdictionaries.com/definition/english/rock_1",
+          "annotation": "(stone)",
+          "sense": ""
+        }
+      ]
+    },
+    "8780": {
+      "word": "tear",
+      "pos": "n",
+      "meaning": "nước mắt",
+      "rows": [
+        {
+          "source": "oxford-3000.en.tsv",
+          "line": 2652,
+          "senseId": "8780-s1",
+          "gloss": null,
+          "dictionary": null,
+          "annotation": "",
+          "sense": "1"
+        },
+        {
+          "source": "oxford-3000.en.tsv",
+          "line": 2653,
+          "senseId": "8780-s2",
+          "gloss": "nước mắt",
+          "dictionary": "https://www.oxfordlearnersdictionaries.com/definition/english/tear2_2",
+          "annotation": "",
+          "sense": "2"
+        }
+      ]
+    },
+    "8816": {
+      "word": "used",
+      "pos": "adj",
+      "meaning": "đã từng dùng, cũ",
+      "rows": [
+        {
+          "source": "oxford-3000.en.tsv",
+          "line": 2842,
+          "senseId": "8816-s1",
+          "gloss": null,
+          "dictionary": null,
+          "annotation": "",
+          "sense": "1"
+        },
+        {
+          "source": "oxford-3000.en.tsv",
+          "line": 2843,
+          "senseId": "8816-s2",
+          "gloss": "đã từng dùng, cũ",
+          "dictionary": "https://www.oxfordlearnersdictionaries.com/definition/american_english/used2",
+          "annotation": "",
+          "sense": "2"
+        }
+      ]
+    }
+  }
+}

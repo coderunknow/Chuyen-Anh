@@ -37,10 +37,12 @@ Open / accepted limitations (not defects, stated honestly):
   coderunknow/Chuyen-Anh` returned `deploy=true`). An additional exact-application
   release gate and workflow conditions are implemented with local regression tests;
   live workflow behavior is not yet verified. The hold file is unchanged.
-- **D16 — OPEN, critical:** `lie` repeats `nói dối, nằm` in both A1 and B1 senses;
-  `rock` maps `đá` to Oxford's music annotation and music to its stone annotation.
-  All eight multi-sense entries require reliable source-to-gloss mapping and runtime
-  filtering tests before S10 can pass. No meaning has been invented or discarded.
+- **D16 — IN PROGRESS, critical:** `lie` and `rock` were reproduced with incorrect
+  gloss mappings. Explicit source-row-keyed editorial mappings now cover all eight
+  formerly split entries, preserve their original gloss text, and omit unsupported
+  homographs instead of duplicating a meaning; stale or absent mappings fail closed.
+  Regression tests cover row reordering and level filtering. These alignments and
+  all vocabulary pathways still require independent review; S10 is not yet passed.
 - **D17 — IN PROGRESS:** stable artifact tagging and draft-channel support added with local tests.
   A separately confirmed manual stable dispatcher is implemented without changing deploy gates;
   live workflow behavior, independent review and exact-head CI remain unverified. No publication authorized.
@@ -48,3 +50,13 @@ Open / accepted limitations (not defects, stated honestly):
   comprehensive individual evidence review and the other current-head review findings
   remain to be verified and remediated. `build_senses.py` outside-repository output
   summary failure was reproduced and corrected with path regression tests.
+
+- **D19 — IN PROGRESS:** Oxford POS-level parser lowercased its input but matched
+  uppercase levels; multi-sense rows also ignored POS-specific levels. Fail-first
+  regressions now cover both and the selected-row source locator. Rebuilt data and
+  embedded payload; independent CEFR and mapping review remains open. The heuristic
+  review queue flags 107 disputed rows where the selected level differs from an
+  Oxford POS level; these are not automatically defects, because the documented
+  hierarchy may select another source. Eight editorial mapping records remain unverified.
+  A headword-level vote no longer claims to cross-validate an individual sense;
+  all 12 retained mapped senses are flagged for independent mapping validation.

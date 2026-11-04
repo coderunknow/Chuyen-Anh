@@ -43,7 +43,7 @@ test('v1.0.0: every shipped entry carries well-formed, classified senses', () =>
     }
     if (senses.length > 1) multi.push(entry);
   }
-  assert.equal(senseTotal, 8860, 'total senses');
+  assert.equal(senseTotal, 8856, 'total senses');
   assert.ok(multi.length >= 2, `expected the evidence-backed multi-sense headwords, got ${multi.length}`);
   // no unresolved senses anywhere
   const unresolved = vocabulary.flatMap(e => app.entrySenses(e)).filter(s => s.cefr === 'UNCLASSIFIED');
@@ -76,22 +76,21 @@ test('v1.0.0: all 128 selections narrow every entry to exactly its in-scope sens
 });
 
 test('v1.0.0: multi-sense headwords keep senses separate with their own labels and badges', () => {
-  // `rest` is split by the Oxford wordlists into two noun senses, each with its
-  // own senseId, annotation label and CEFR level.
+  // The original gloss covers sleep/relax, not the remaining-part homograph.
   const rest = vocabulary.find(e => e.word.toLowerCase() === 'rest' && e.pos === 'n');
-  assert.ok(rest, 'the fixture headword rest exists');
+  assert.ok(rest);
   const senses = app.entrySenses(rest);
-  assert.equal(senses.length, 2, 'rest is split into two senses');
-  assert.notEqual(senses[0].senseId, senses[1].senseId);
-  assert.notEqual(senses[0].label, senses[1].label, 'each sense keeps its Oxford annotation label');
-  // A2 selected: both senses are in scope, each with its own badge.
-  const viewBoth = app.senseViewEntry(rest, selectionOf(['A2']));
-  assert.deepEqual(viewBoth.senses.map(s => s.senseId), senses.map(s => s.senseId));
-  const badges = app.entryCefrBadgesHtml(rest, selectionOf(['A2']));
-  assert.equal((badges.match(/cefr-badge-A2/g) || []).length, 2, 'each sense gets its own badge');
-  // B1 selected: rest has no B1 sense, so it leaves the pool entirely.
+  assert.equal(senses.length, 1);
+  assert.equal(senses[0].label, '(sleep/relax)');
+  assert.equal(senses[0].meaning, 'sự nghỉ ngơi');
   assert.equal(app.entryMatchesCefr(rest, selectionOf(['B1'])), false);
-  assert.equal(app.senseViewEntry(rest, selectionOf(['B1'])).senses.length, 0);
+  assert.equal(app.senseViewEntry(rest, selectionOf(['B1'])).meaning, '', 'empty scope must not leak original meaning');
+  const lie = vocabulary.find(e => e.word === 'lie' && e.pos === 'v');
+  assert.equal(app.senseViewEntry(lie, selectionOf(['A1'])).meaning, 'nằm');
+  assert.equal(app.senseViewEntry(lie, selectionOf(['B1'])).meaning, 'nói dối');
+  const rock = vocabulary.find(e => e.word === 'rock' && e.pos === 'n');
+  assert.deepEqual(Object.fromEntries(app.entrySenses(rock).map(s => [s.label, s.meaning])),
+    {'(music)': 'thể loại nhạc phương Tây', '(stone)': 'đá'});
   // A synthetic multi-level headword proves the filtering contract: with C1
   // selected only the C1 sense is exposed; with C1+C2 both are, separately.
   const word = { id: 'x', word: 'scope', pos: 'n', meaning: 'phạm vi; cơ hội', tags: [], senses: [
@@ -192,20 +191,18 @@ test('v1.0.0: headword counts and sense counts are distinguished', () => {
     senseTotal += bySense[level] || 0;
     headwordTotal += byHeadword[level] || 0;
   }
-  // Six deck headwords are evidence-backed multi-sense entries (bank, lie, race,
-  // rock, tear, used), so the deck carries 6 extra senses beyond one per headword.
-  assert.equal(senseTotal, deck.length + 6, 'senses over the deck headwords');
+  // Four deck headwords have multiple glossed senses: bank, lie, race and rock.
+  assert.equal(senseTotal, deck.length + 4, 'senses over the deck headwords');
   const allSenses = Object.values(app.countSensesByCefr(vocabulary)).reduce((a, b) => a + b, 0);
-  assert.equal(allSenses, 8860, 'all 8,852 rows carry senses (8,120 on headwords + 740 on merged family rows)');
+  assert.equal(allSenses, 8856, 'all 8,852 rows carry at least one glossed sense');
   assert.ok(headwordTotal >= deck.length, 'a multi-sense headword counts once per level it has');
   assert.equal(headwords.length, 8112);
   // default B2+C1 selection: eligible headwords counted via the one pipeline
   const eligible = app.filterVocabularyByCefr(deck, app.defaultCefrSelection()).length;
   const eligibleSenses = ['B2', 'C1'].reduce((t, l) => t + (bySense[l] || 0), 0);
   assert.equal(eligible, 3032);
-  assert.equal(eligibleSenses, 3033, 'B2+C1 senses over the deck (tear carries two B2 senses, so senses exceed headwords by 1)');
-  // A2 is where headword and sense counts genuinely diverge: rest, ring and rock
-  // each carry two A2 senses, so the sense count is higher than the headword count.
+  assert.equal(eligibleSenses, 3032, 'B2+C1 glossed senses over the deck');
+  // Both glossed rock senses are A2, so the sense and headword counts diverge.
   const a2Headwords = app.filterVocabularyByCefr(headwords, selectionOf(['A2'])).length;
   const a2Senses = app.countSensesByCefr(headwords).A2 || 0;
   assert.ok(a2Senses > a2Headwords, `sense count (${a2Senses}) must be distinguishable from headword count (${a2Headwords})`);

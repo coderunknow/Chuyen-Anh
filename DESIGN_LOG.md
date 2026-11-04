@@ -2132,3 +2132,30 @@ breaking existing backfills. A separate manual stable-dispatch path requires an
 explicit confirmation, main ref, exact stable app version and published stable release;
 the existing prerelease event path and both deploy gates are retained. This is not
 itself authorization to deploy. No workflow was dispatched or publication performed.
+
+### 2026-11-04 — Oxford POS parser and sense-evidence scope
+
+Reproduced two linked defects with fail-first tests: the POS-level parser lowercased
+its input but used an uppercase-only level regex, and split-sense classification
+chose the lowest combined level rather than a level attached to the requested POS.
+Also corrected Oxford vote locators to point to the row actually providing the vote.
+Rebuilt senses and the embedded application; preserved all legacy fields. Independent
+headword-level agreement is no longer described as cross-validation of a particular
+split sense; all split mappings are marked for independent validation. The review
+queue covers all 8,852 rows but is not an individual verification: 8 multi-sense
+entries need mapping review, 5 show duplicate glosses, and 107 disputed rows select
+another source's level instead of the Oxford POS level. `lie` and `rock` remain
+incorrect; this is a partial fix, not a completed semantic audit.
+
+### 2026-11-04 — explicit source-row gloss alignment
+
+The previously reported eight multi-row mappings were reviewed against Oxford
+wordlist rows and dictionary excerpts. A source-row-keyed manifest now maps only
+existing gloss text; it records dictionary URLs and flags the translations as editorial
+and requiring independent review. It covers all eight entries, not only the two
+reported examples. Four unglossed homographs are omitted rather than assigned the
+same unrelated gloss. Missing, changed, duplicate, partial or stale mappings fail
+closed. Oxford row order no longer determines the Vietnamese gloss. Original row
+meanings, metadata and progress are retained. The resulting data has 8,856 senses
+across 8,852 entries; the 12 mapped senses are not independently verified.
+The empty CEFR view also no longer falls back to the excluded original gloss.
