@@ -92,6 +92,17 @@
       "limits": "Same mirror caveat as oxford-3000-wordlist."
     },
     {
+      "id": "editorial-sense-gloss-map",
+      "type": "repository-origin",
+      "title": "Editorial mapping of existing Vietnamese glosses to Oxford wordlist rows",
+      "publisher": "coderunknow/Chuyen-Anh — this repository, 2026-11-04",
+      "url": "https://github.com/coderunknow/Chuyen-Anh/blob/main/docs/sense-gloss-mappings.json",
+      "locatorScheme": "docs/sense-gloss-mappings.json: entry id; dictionary URL",
+      "access": "file-in-repo",
+      "supports": "Documents an editorial alignment of an existing Vietnamese gloss to a reference homograph, with an English dictionary URL for context.",
+      "limits": "Not independent verification, not a published translation or CEFR source; all mapped senses require independent validation."
+    },
+    {
       "id": "editorial-curation-map",
       "type": "repository-origin",
       "title": "Curated editorial CEFR map authored for v1.0.0 (scripts/cefr_editorial_map.py)",

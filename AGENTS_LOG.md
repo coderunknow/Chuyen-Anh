@@ -1317,3 +1317,11 @@ Added an explicit eight-entry source-row mapping manifest with recorded dictiona
 URLs and fail-closed guards, retaining all original gloss text. Corrected generator
 and regenerated artifacts; targeted Python and Node tests pass. The editorial mapping
 and complete dataset still require independent validation, so S10 remains FAIL.
+
+### 2026-11-04 — mapping provenance and POS follow-up
+
+Registered a dedicated editorial gloss-alignment source, added a regression against
+using the CEFR editorial source for that purpose, and fixed composite slash-separated
+POS matching. The review queue now records unmatched-POS fallback votes; 173 entries
+need review. A fail-closed simulation yielded three unresolved entries, so the
+remaining source-scope issue remains open and is not marked as a passed gate.

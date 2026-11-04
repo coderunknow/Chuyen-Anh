@@ -21,6 +21,15 @@ class SenseMappingTests(unittest.TestCase):
             self.assertEqual(actual, expected)
             self.assertTrue(all(s['needsIndependentValidation'] for s in senses))
 
+    def test_alignment_has_a_registered_mapping_source_not_a_cefr_editorial_map(self):
+        import json
+        registry = {item['id']: item for item in json.loads((ROOT / 'docs/vocabulary-sources.json').read_text())['sources']}
+        entry = {'id':'8677','word':'rock','pos':'n','meaning':'đá; thể loại nhạc phương Tây'}
+        for sense in classify_entry(entry, self.refs):
+            source = next(s for s in sense['sources'] if s['locator'].startswith('docs/sense-gloss-mappings.json:'))
+            self.assertEqual(source['ref'], 'editorial-sense-gloss-map')
+            self.assertIn(source['ref'], registry)
+
     def test_row_order_does_not_decide_meaning(self):
         entry = {'id':'8677','word':'rock','pos':'n','meaning':'đá; thể loại nhạc phương Tây'}
         original = self.refs.oxford['rock']

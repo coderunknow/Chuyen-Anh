@@ -2159,3 +2159,15 @@ closed. Oxford row order no longer determines the Vietnamese gloss. Original row
 meanings, metadata and progress are retained. The resulting data has 8,856 senses
 across 8,852 entries; the 12 mapped senses are not independently verified.
 The empty CEFR view also no longer falls back to the excluded original gloss.
+
+### 2026-11-04 — source capability and composite POS follow-up
+
+The mapping manifest now has its own registered editorial source rather than
+misusing the unrelated editorial CEFR map's source id. A fail-first test also
+exposed composite bank POS strings being treated as a single unknown POS; the
+parser now matches each slash-separated POS. A heuristic re-audit still finds 173
+entries for which at least one consulted vote falls back to a nonmatching POS.
+A local simulation excluding those votes changed 81 classifications and left three
+unclassified (Ravage, pandemic, remonstrate); that simulation is not committed data
+or independently verified. Source-scope remediation remains open rather than
+inventing classifications or weakening the zero-unresolved gate.

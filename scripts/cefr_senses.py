@@ -66,6 +66,7 @@ SOURCE_REFS = {
     "oxford3000": "oxford-3000-wordlist",
     "oxford5000": "oxford-5000-expanded-wordlist",
     "editorial": "editorial-curation-map",
+    "sense_mapping": "editorial-sense-gloss-map",
     "frequency": "corpus-frequency-index",
 }
 
@@ -109,7 +110,13 @@ def normalize_word(value: str) -> str:
 
 
 def _pos_variants(pos: str) -> tuple[str, ...]:
-    return POS_ALIASES.get((pos or "").strip().lower(), ((pos or "").strip().lower(),))
+    # A bank row such as "v/n" includes both parts of speech; treating the
+    # literal combined spelling as a POS silently falls back to unrelated rows.
+    variants = []
+    for part in (pos or "").strip().lower().split("/"):
+        part = part.strip()
+        variants.extend(POS_ALIASES.get(part, (part,)))
+    return tuple(dict.fromkeys(variants))
 
 
 def _oxford_pos_levels(raw: str) -> dict[str, str]:
@@ -352,7 +359,7 @@ def classify_entry(entry: dict[str, Any], refs: References) -> list[dict[str, An
             label = row["annotation"] or (f"sense {row['sense']}" if row["sense"] else "")
             needs = True  # mapping itself remains an editorial judgment
             sense_meaning = item["gloss"]
-            sources.append(_source_record(SOURCE_REFS["editorial"],
+            sources.append(_source_record(SOURCE_REFS["sense_mapping"],
                                           f"docs/sense-gloss-mappings.json: {entry_id}; {item['dictionary']}",
                                           "editorial alignment of an existing gloss to a dictionary homograph; independent review required"))
             rationale = (f"sense-level split from the Oxford wordlists: {row['word']}"

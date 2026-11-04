@@ -60,3 +60,11 @@ Open / accepted limitations (not defects, stated honestly):
   hierarchy may select another source. Eight editorial mapping records remain unverified.
   A headword-level vote no longer claims to cross-validate an individual sense;
   all 12 retained mapped senses are flagged for independent mapping validation.
+
+- **D20 — OPEN:** 173 entries have at least one reference vote that falls back to
+  a nonmatching POS. Some may be genuine ambiguity or unsupported source scope; the
+  heuristic queue is not a verdict. Simulating removal of all unmatched votes changed
+  81 classifications and produced three unresolved entries, so the existing zero-
+  unresolved generator count does not establish accurate POS-specific classification.
+  Composite `v/n`-style POS parsing has been fixed, but fallback policy and source
+  validation require further work and independent evidence.

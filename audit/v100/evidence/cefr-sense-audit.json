@@ -22,8 +22,8 @@
       "unresolved": 0
     },
     "byConfidence": {
-      "HIGH": 4696,
-      "MEDIUM": 4160,
+      "HIGH": 4711,
+      "MEDIUM": 4145,
       "LOW": 0,
       "VERY_LOW": 0
     },
@@ -2209,7 +2209,7 @@
           "label": "",
           "cefr": "C1",
           "evidence": "source_supported",
-          "confidence": "MEDIUM",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
             "oxford-5000-expanded-wordlist"
@@ -3287,7 +3287,7 @@
           "label": "",
           "cefr": "C1",
           "evidence": "source_supported",
-          "confidence": "MEDIUM",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
             "octanove-vocabulary-profile-c1c2-1.0"
@@ -4393,7 +4393,7 @@
           "label": "",
           "cefr": "C1",
           "evidence": "source_supported",
-          "confidence": "MEDIUM",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
             "oxford-5000-expanded-wordlist"
@@ -4669,7 +4669,7 @@
           "label": "",
           "cefr": "C2",
           "evidence": "source_supported",
-          "confidence": "MEDIUM",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
             "octanove-vocabulary-profile-c1c2-1.0"
@@ -5520,7 +5520,7 @@
           "label": "",
           "cefr": "C1",
           "evidence": "source_supported",
-          "confidence": "MEDIUM",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
             "oxford-5000-expanded-wordlist"
@@ -6141,7 +6141,7 @@
           "label": "",
           "cefr": "C2",
           "evidence": "source_supported",
-          "confidence": "MEDIUM",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
             "octanove-vocabulary-profile-c1c2-1.0"
@@ -7752,7 +7752,7 @@
           "label": "",
           "cefr": "C1",
           "evidence": "source_supported",
-          "confidence": "MEDIUM",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
             "oxford-5000-expanded-wordlist"
@@ -8630,7 +8630,7 @@
           "label": "",
           "cefr": "C2",
           "evidence": "source_supported",
-          "confidence": "MEDIUM",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
             "octanove-vocabulary-profile-c1c2-1.0"
@@ -8745,7 +8745,7 @@
           "label": "",
           "cefr": "C2",
           "evidence": "source_supported",
-          "confidence": "MEDIUM",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
             "octanove-vocabulary-profile-c1c2-1.0"
@@ -12633,7 +12633,7 @@
           "label": "",
           "cefr": "C2",
           "evidence": "source_supported",
-          "confidence": "MEDIUM",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
             "octanove-vocabulary-profile-c1c2-1.0"
@@ -12656,7 +12656,7 @@
           "label": "",
           "cefr": "B2",
           "evidence": "source_supported",
-          "confidence": "MEDIUM",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
             "cefrj-vocabulary-profile-1.5"
@@ -17981,7 +17981,7 @@
           "label": "",
           "cefr": "C1",
           "evidence": "source_supported",
-          "confidence": "MEDIUM",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
             "octanove-vocabulary-profile-c1c2-1.0"
@@ -19875,7 +19875,7 @@
           "label": "",
           "cefr": "B2",
           "evidence": "source_supported",
-          "confidence": "MEDIUM",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
             "oxford-5000-expanded-wordlist"
@@ -20883,7 +20883,7 @@
           "label": "",
           "cefr": "B1",
           "evidence": "source_supported",
-          "confidence": "MEDIUM",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
             "cefrj-vocabulary-profile-1.5"
@@ -21321,7 +21321,7 @@
           "label": "",
           "cefr": "C1",
           "evidence": "source_supported",
-          "confidence": "MEDIUM",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
             "octanove-vocabulary-profile-c1c2-1.0"
@@ -46988,7 +46988,7 @@
           "needsIndependentValidation": true,
           "sources": [
             "oxford-3000-wordlist",
-            "editorial-curation-map"
+            "editorial-sense-gloss-map"
           ],
           "locators": [
             "oxford-3000.en.tsv:2230: rest (sense (sleep/relax), level cell 'A2')",
@@ -94265,7 +94265,7 @@
           "needsIndependentValidation": true,
           "sources": [
             "oxford-3000-wordlist",
-            "editorial-curation-map"
+            "editorial-sense-gloss-map"
           ],
           "locators": [
             "oxford-3000.en.tsv:2248: ring (sense 1, level cell 'A2')",
@@ -191952,7 +191952,7 @@
           "needsIndependentValidation": true,
           "sources": [
             "oxford-3000-wordlist",
-            "editorial-curation-map"
+            "editorial-sense-gloss-map"
           ],
           "locators": [
             "oxford-3000.en.tsv:224: bank (sense (money), level cell 'A1')",
@@ -191968,7 +191968,7 @@
           "needsIndependentValidation": true,
           "sources": [
             "oxford-3000-wordlist",
-            "editorial-curation-map"
+            "editorial-sense-gloss-map"
           ],
           "locators": [
             "oxford-3000.en.tsv:225: bank (sense (river), level cell 'B1')",
@@ -209118,7 +209118,7 @@
           "needsIndependentValidation": true,
           "sources": [
             "oxford-3000-wordlist",
-            "editorial-curation-map"
+            "editorial-sense-gloss-map"
           ],
           "locators": [
             "oxford-3000.en.tsv:1521: lie (sense 1, level cell 'A1')",
@@ -209134,7 +209134,7 @@
           "needsIndependentValidation": true,
           "sources": [
             "oxford-3000-wordlist",
-            "editorial-curation-map"
+            "editorial-sense-gloss-map"
           ],
           "locators": [
             "oxford-3000.en.tsv:1522: lie (sense 2, level cell 'B1')",
@@ -211336,7 +211336,7 @@
           "needsIndependentValidation": true,
           "sources": [
             "oxford-3000-wordlist",
-            "editorial-curation-map"
+            "editorial-sense-gloss-map"
           ],
           "locators": [
             "oxford-3000.en.tsv:2118: race (sense (competition), level cell 'A2')",
@@ -211352,7 +211352,7 @@
           "needsIndependentValidation": true,
           "sources": [
             "oxford-3000-wordlist",
-            "editorial-curation-map"
+            "editorial-sense-gloss-map"
           ],
           "locators": [
             "oxford-3000.en.tsv:2119: race (sense (people), level cell 'B1')",
@@ -211739,7 +211739,7 @@
           "needsIndependentValidation": true,
           "sources": [
             "oxford-3000-wordlist",
-            "editorial-curation-map"
+            "editorial-sense-gloss-map"
           ],
           "locators": [
             "oxford-3000.en.tsv:2255: rock (sense (music), level cell 'A2')",
@@ -211755,7 +211755,7 @@
           "needsIndependentValidation": true,
           "sources": [
             "oxford-3000-wordlist",
-            "editorial-curation-map"
+            "editorial-sense-gloss-map"
           ],
           "locators": [
             "oxford-3000.en.tsv:2256: rock (sense (stone), level cell 'A2')",
@@ -214384,7 +214384,7 @@
           "needsIndependentValidation": true,
           "sources": [
             "oxford-3000-wordlist",
-            "editorial-curation-map"
+            "editorial-sense-gloss-map"
           ],
           "locators": [
             "oxford-3000.en.tsv:2653: tear (sense 2, level cell 'B2')",
@@ -215326,7 +215326,7 @@
           "needsIndependentValidation": true,
           "sources": [
             "oxford-3000-wordlist",
-            "editorial-curation-map"
+            "editorial-sense-gloss-map"
           ],
           "locators": [
             "oxford-3000.en.tsv:2843: used (sense 2, level cell 'B1')",

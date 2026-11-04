@@ -4977,7 +4977,7 @@
         "pos": "v/n",
         "cefr": "C1",
         "evidence": "source_supported",
-        "confidence": "MEDIUM",
+        "confidence": "HIGH",
         "sources": [
           {
             "ref": "oxford-5000-expanded-wordlist",
@@ -7373,7 +7373,7 @@
         "pos": "n/v",
         "cefr": "C1",
         "evidence": "source_supported",
-        "confidence": "MEDIUM",
+        "confidence": "HIGH",
         "sources": [
           {
             "ref": "octanove-vocabulary-profile-c1c2-1.0",
@@ -9849,7 +9849,7 @@
         "pos": "v/adj",
         "cefr": "C1",
         "evidence": "source_supported",
-        "confidence": "MEDIUM",
+        "confidence": "HIGH",
         "sources": [
           {
             "ref": "oxford-5000-expanded-wordlist",
@@ -10462,7 +10462,7 @@
         "pos": "adj/n",
         "cefr": "C2",
         "evidence": "source_supported",
-        "confidence": "MEDIUM",
+        "confidence": "HIGH",
         "sources": [
           {
             "ref": "octanove-vocabulary-profile-c1c2-1.0",
@@ -12300,7 +12300,7 @@
         "pos": "n/v",
         "cefr": "C1",
         "evidence": "source_supported",
-        "confidence": "MEDIUM",
+        "confidence": "HIGH",
         "sources": [
           {
             "ref": "oxford-5000-expanded-wordlist",
@@ -13652,7 +13652,7 @@
         "pos": "n/v",
         "cefr": "C2",
         "evidence": "source_supported",
-        "confidence": "MEDIUM",
+        "confidence": "HIGH",
         "sources": [
           {
             "ref": "octanove-vocabulary-profile-c1c2-1.0",
@@ -17206,7 +17206,7 @@
         "pos": "n/v",
         "cefr": "C1",
         "evidence": "source_supported",
-        "confidence": "MEDIUM",
+        "confidence": "HIGH",
         "sources": [
           {
             "ref": "oxford-5000-expanded-wordlist",
@@ -19127,7 +19127,7 @@
         "pos": "v/n",
         "cefr": "C2",
         "evidence": "source_supported",
-        "confidence": "MEDIUM",
+        "confidence": "HIGH",
         "sources": [
           {
             "ref": "octanove-vocabulary-profile-c1c2-1.0",
@@ -19387,7 +19387,7 @@
         "pos": "v/n",
         "cefr": "C2",
         "evidence": "source_supported",
-        "confidence": "MEDIUM",
+        "confidence": "HIGH",
         "sources": [
           {
             "ref": "octanove-vocabulary-profile-c1c2-1.0",
@@ -28160,7 +28160,7 @@
         "pos": "v/n",
         "cefr": "C2",
         "evidence": "source_supported",
-        "confidence": "MEDIUM",
+        "confidence": "HIGH",
         "sources": [
           {
             "ref": "octanove-vocabulary-profile-c1c2-1.0",
@@ -28214,7 +28214,7 @@
         "pos": "v/n",
         "cefr": "B2",
         "evidence": "source_supported",
-        "confidence": "MEDIUM",
+        "confidence": "HIGH",
         "sources": [
           {
             "ref": "cefrj-vocabulary-profile-1.5",
@@ -40475,7 +40475,7 @@
         "pos": "n/v",
         "cefr": "C1",
         "evidence": "source_supported",
-        "confidence": "MEDIUM",
+        "confidence": "HIGH",
         "sources": [
           {
             "ref": "octanove-vocabulary-profile-c1c2-1.0",
@@ -44839,7 +44839,7 @@
         "pos": "n/v",
         "cefr": "B2",
         "evidence": "source_supported",
-        "confidence": "MEDIUM",
+        "confidence": "HIGH",
         "sources": [
           {
             "ref": "oxford-5000-expanded-wordlist",
@@ -47127,7 +47127,7 @@
         "pos": "v/n",
         "cefr": "B1",
         "evidence": "source_supported",
-        "confidence": "MEDIUM",
+        "confidence": "HIGH",
         "sources": [
           {
             "ref": "cefrj-vocabulary-profile-1.5",
@@ -48121,7 +48121,7 @@
         "pos": "adj/v",
         "cefr": "C1",
         "evidence": "source_supported",
-        "confidence": "MEDIUM",
+        "confidence": "HIGH",
         "sources": [
           {
             "ref": "octanove-vocabulary-profile-c1c2-1.0",
@@ -110132,7 +110132,7 @@
             "supports": "Oxford wordlist prints this CEFR level for this specific sense of the headword"
           },
           {
-            "ref": "editorial-curation-map",
+            "ref": "editorial-sense-gloss-map",
             "locator": "docs/sense-gloss-mappings.json: 1902; https://www.oxfordlearnersdictionaries.com/definition/english/rest_1",
             "supports": "editorial alignment of an existing gloss to a dictionary homograph; independent review required"
           }
@@ -221918,7 +221918,7 @@
             "supports": "Oxford wordlist prints this CEFR level for this specific sense of the headword"
           },
           {
-            "ref": "editorial-curation-map",
+            "ref": "editorial-sense-gloss-map",
             "locator": "docs/sense-gloss-mappings.json: 3839; https://www.oxfordlearnersdictionaries.com/definition/english/ring1_1",
             "supports": "editorial alignment of an existing gloss to a dictionary homograph; independent review required"
           }
@@ -454183,7 +454183,7 @@
             "supports": "Oxford wordlist prints this CEFR level for this specific sense of the headword"
           },
           {
-            "ref": "editorial-curation-map",
+            "ref": "editorial-sense-gloss-map",
             "locator": "docs/sense-gloss-mappings.json: 7900; https://www.oxfordlearnersdictionaries.com/definition/english/bank_1",
             "supports": "editorial alignment of an existing gloss to a dictionary homograph; independent review required"
           }
@@ -454206,7 +454206,7 @@
             "supports": "Oxford wordlist prints this CEFR level for this specific sense of the headword"
           },
           {
-            "ref": "editorial-curation-map",
+            "ref": "editorial-sense-gloss-map",
             "locator": "docs/sense-gloss-mappings.json: 7900; https://www.oxfordlearnersdictionaries.com/definition/english/bank_1",
             "supports": "editorial alignment of an existing gloss to a dictionary homograph; independent review required"
           }
@@ -495707,7 +495707,7 @@
             "supports": "Oxford wordlist prints this CEFR level for this specific sense of the headword"
           },
           {
-            "ref": "editorial-curation-map",
+            "ref": "editorial-sense-gloss-map",
             "locator": "docs/sense-gloss-mappings.json: 8576; https://www.oxfordlearnersdictionaries.com/definition/english/lie1_1",
             "supports": "editorial alignment of an existing gloss to a dictionary homograph; independent review required"
           }
@@ -495730,7 +495730,7 @@
             "supports": "Oxford wordlist prints this CEFR level for this specific sense of the headword"
           },
           {
-            "ref": "editorial-curation-map",
+            "ref": "editorial-sense-gloss-map",
             "locator": "docs/sense-gloss-mappings.json: 8576; https://www.oxfordlearnersdictionaries.com/definition/english/lie2_1",
             "supports": "editorial alignment of an existing gloss to a dictionary homograph; independent review required"
           }
@@ -501061,7 +501061,7 @@
             "supports": "Oxford wordlist prints this CEFR level for this specific sense of the headword"
           },
           {
-            "ref": "editorial-curation-map",
+            "ref": "editorial-sense-gloss-map",
             "locator": "docs/sense-gloss-mappings.json: 8662; https://www.oxfordlearnersdictionaries.com/definition/english/race_1",
             "supports": "editorial alignment of an existing gloss to a dictionary homograph; independent review required"
           }
@@ -501084,7 +501084,7 @@
             "supports": "Oxford wordlist prints this CEFR level for this specific sense of the headword"
           },
           {
-            "ref": "editorial-curation-map",
+            "ref": "editorial-sense-gloss-map",
             "locator": "docs/sense-gloss-mappings.json: 8662; https://www.oxfordlearnersdictionaries.com/definition/english/race_1",
             "supports": "editorial alignment of an existing gloss to a dictionary homograph; independent review required"
           }
@@ -502024,7 +502024,7 @@
             "supports": "Oxford wordlist prints this CEFR level for this specific sense of the headword"
           },
           {
-            "ref": "editorial-curation-map",
+            "ref": "editorial-sense-gloss-map",
             "locator": "docs/sense-gloss-mappings.json: 8677; https://www.oxfordlearnersdictionaries.com/definition/english/rock_1",
             "supports": "editorial alignment of an existing gloss to a dictionary homograph; independent review required"
           }
@@ -502047,7 +502047,7 @@
             "supports": "Oxford wordlist prints this CEFR level for this specific sense of the headword"
           },
           {
-            "ref": "editorial-curation-map",
+            "ref": "editorial-sense-gloss-map",
             "locator": "docs/sense-gloss-mappings.json: 8677; https://www.oxfordlearnersdictionaries.com/definition/english/rock_1",
             "supports": "editorial alignment of an existing gloss to a dictionary homograph; independent review required"
           }
@@ -508410,7 +508410,7 @@
             "supports": "Oxford wordlist prints this CEFR level for this specific sense of the headword"
           },
           {
-            "ref": "editorial-curation-map",
+            "ref": "editorial-sense-gloss-map",
             "locator": "docs/sense-gloss-mappings.json: 8780; https://www.oxfordlearnersdictionaries.com/definition/english/tear2_2",
             "supports": "editorial alignment of an existing gloss to a dictionary homograph; independent review required"
           }
@@ -510701,7 +510701,7 @@
             "supports": "Oxford wordlist prints this CEFR level for this specific sense of the headword"
           },
           {
-            "ref": "editorial-curation-map",
+            "ref": "editorial-sense-gloss-map",
             "locator": "docs/sense-gloss-mappings.json: 8816; https://www.oxfordlearnersdictionaries.com/definition/american_english/used2",
             "supports": "editorial alignment of an existing gloss to a dictionary homograph; independent review required"
           }

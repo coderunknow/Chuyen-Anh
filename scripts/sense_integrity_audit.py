@@ -56,10 +56,14 @@ def main() -> None:
     flagged = []
     for entry in data:
         issues = entry_issues(entry, lookup)
+        fallback = sorted(name for name, vote in refs.votes_for(entry.get('word', ''), entry.get('pos', '')).items() if vote.get('pos_match') is False)
+        if fallback:
+            issues.append('reference vote uses unmatched POS; review scope')
+            issues.sort()
         if issues:
             flagged.append({'id': entry['id'], 'word': entry['word'], 'pos': entry['pos'],
                             'meaning': entry['meaning'], 'issues': issues,
-                            'senses': entry['senses']})
+                            'unmatchedPosVoteSources': fallback, 'senses': entry['senses']})
     counts = Counter(issue for row in flagged for issue in row['issues'])
     payload = {'scope': 'heuristic review queue; unflagged entries are not verified',
                'entriesInspected': len(data), 'entriesFlagged': len(flagged),

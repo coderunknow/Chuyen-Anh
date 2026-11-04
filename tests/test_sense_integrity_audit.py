@@ -32,7 +32,7 @@ class SenseIntegrityAuditTests(unittest.TestCase):
 
     def test_single_retained_homograph_still_requires_mapping_review(self):
         entry = {'id': 'x', 'word': 'example', 'pos': 'n', 'meaning': 'a', 'senses': [
-            {'meaning': 'a', 'cefr': 'A2', 'sources': [{'ref': 'editorial-curation-map',
+            {'meaning': 'a', 'cefr': 'A2', 'sources': [{'ref': 'editorial-sense-gloss-map',
                 'locator': 'docs/sense-gloss-mappings.json: x'}]}]}
         self.assertIn('editorial gloss mapping requires independent verification', audit.entry_issues(entry, {}))
 

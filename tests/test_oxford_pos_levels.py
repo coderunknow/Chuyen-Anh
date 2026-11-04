@@ -5,9 +5,15 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
-from cefr_senses import References, _oxford_pos_levels, classify_entry
+from cefr_senses import References, _oxford_pos_levels, _pos_variants, classify_entry
 
 class OxfordPosLevelTests(unittest.TestCase):
+    def test_composite_parts_of_speech_are_matched_independently(self):
+        self.assertIn('v', _pos_variants('v/n'))
+        self.assertIn('noun', _pos_variants('v/n'))
+        self.assertIn('adj', _pos_variants('adj/v'))
+        self.assertNotIn('adv', _pos_variants('adj/v'))
+
     def test_levels_parse_after_normalization(self):
         self.assertEqual(_oxford_pos_levels('v. A2, n. B1'), {'v': 'A2', 'n': 'B1'})
         self.assertEqual(_oxford_pos_levels('adj. C1, adv. B2'), {'adj': 'C1', 'adv': 'B2'})
