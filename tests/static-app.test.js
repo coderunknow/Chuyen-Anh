@@ -1591,7 +1591,7 @@ test('exported exam results report exactly what the learner did and what could b
   const result = buildExamResultJson(session, record, keys, [], { now: 6000 });
   assert.equal(result.app, 'Chuyên Anh');
   assert.equal(result.version, APP_VERSION, 'the result carries the application version');
-  assert.equal(result.version, 'v1.0.0-rc10');
+  assert.equal(result.version, 'v1.0.0');
   assert.equal(result.schemaVersion, '2.0.0');
   assert.equal(result.summary.total, 3);
   // q3 has no stored answer key, so it is excluded from the denominator instead
@@ -4035,12 +4035,17 @@ test('every shipped version literal agrees with APP_VERSION', async () => {
     ...(await place('tests/browser-learning.cjs', /#app-version|aboutText, \/|report\.appVersion/)),
     ...(await place('tests/browser-exams.cjs', /#app-version|aboutText, \/|report\.appVersion/, false)),
     ...(await place('tests/test_sprint_exam_features.py', /APP_VERSION = '/)),
-    ...(await place('tests/test_deploy_gate.py', /assertEqual\(tags, \[/)),
+    // tests/test_deploy_gate.py is exempt per the comment above: its tag fixture
+    // feeds DEPLOY_HOLD, which stays at the last published release (v1.0.0-rc10)
+    // on a PR-only candidate; that file's own tests pin the hold explicitly.
   ];
   const stale = pins.filter(entry => !entry.endsWith(shipped));
   assert.deepEqual(stale, [], 'no shipped file still names an older version');
-  assert.equal((await readFile(new URL('DEPLOY_HOLD', root), 'utf8')).trim(), shipped,
-    'the deploy hold names the version being built');
+  // A candidate PR bumps only the app version string. DEPLOY_HOLD must stay at the
+  // last PUBLISHED release (v1.0.0-rc10) until the release itself is published —
+  // moving it from a PR would arm a deploy of an unpublished version.
+  assert.equal((await readFile(new URL('DEPLOY_HOLD', root), 'utf8')).trim(), 'v1.0.0-rc10',
+    'the deploy hold still names the last published release, never a candidate');
 });
 
 /* ------------------------------ CEFR filter ------------------------------- */

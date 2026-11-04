@@ -556,7 +556,7 @@ async function main() {
 
     // The shipped build identifies itself.
     await sprint.locator('[data-view="settings"]').click();
-    assert.equal(await sprint.locator('#app-version').innerText(), 'v1.0.0-rc10');
+    assert.equal(await sprint.locator('#app-version').innerText(), 'v1.0.0');
     assert.deepEqual(sprintErrors, []);
 
     // Error -> intervening word -> typed corrective retrieval -> truthful summary.
@@ -2921,7 +2921,7 @@ async function main() {
     await about.waitFor();
     const aboutText = await about.innerText();
     assert.match(aboutText, /Chuyên Anh/);
-    assert.match(aboutText, /v1\.0\.0-rc10/, 'the About panel shows the shipped version');
+    assert.match(aboutText, /v1\.0\.0/, 'the About panel shows the shipped version');
     assert.match(aboutText, /MIT License · © 2026 coderunknow/);
     assert.match(aboutText, /Flashcard từ vựng/);
     await about.locator('summary').click();
@@ -2982,7 +2982,7 @@ async function main() {
       assert.match(download.suggestedFilename(), /^chuyen-anh-diagnostics-\d{4}-\d\d-\d\d\.json$/);
       const report = JSON.parse(fs.readFileSync(await download.path(), 'utf8'));
       assert.equal(report.product, 'Chuyen-Anh');
-      assert.match(report.appVersion, /^v1\.0\.0-rc10$/);
+      assert.match(report.appVersion, /^v1\.0\.0$/);
       assert.equal(report.consent.enabled, true);
       assert.equal(report.eventCount, report.events.length);
       assert.equal(['mobile', 'tablet', 'desktop'].includes(report.environment.viewport), true, 'the viewport is bucketed, not exact');

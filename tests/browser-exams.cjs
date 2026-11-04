@@ -256,7 +256,7 @@ async function main() {
     await filePage.locator('[data-view="exams"]').click();
     await filePage.locator('#exam-results-count').filter({ hasText: '106 bản chép' }).waitFor();
     await filePage.locator('[data-view="settings"]').click();
-    assert.equal(await filePage.locator('#app-version').innerText(), 'v1.0.0-rc10');
+    assert.equal(await filePage.locator('#app-version').innerText(), 'v1.0.0');
     assert.deepEqual(fileExternal, [], 'no external network call under file://');
     assert.deepEqual(fileErrors, [], 'no page error under file://');
 

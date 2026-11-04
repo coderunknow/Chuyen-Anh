@@ -1242,3 +1242,16 @@ artifacts built by run `40863169016`, Pages deployment `7410642916` from run `40
   with HTML/ZIP/checksums assets. Deploy Flashcard `41649172113` success; Pages
   deployed at https://coderunknow.github.io/Chuyen-Anh/. Pages smoke `41648090805`
   and telemetry smoke `41648090779` both pass. Stable `v1.0.0` remains NO-GO.
+
+- **2026-11-04 — v1.0.0 candidate, branch `arena/6b7c2879-chuyen-anh` (baseline `f12b4bc5…`).**
+  Commits `213eb61` (sense-level CEFR model: 8,860 senses / 0 unresolved / Oxford
+  POS dot-strip bug fixed / migration tested / CI wired), `2e33735` (Phase III: exactly
+  500 A1 + 500 A2 new headwords with CEFR-J/Oxford provenance, 143 documented skips;
+  full chain rebuilt; tests re-pinned: node 161 pass, python 194 OK), `8626f27`
+  (browser-suite re-pins; both suites PASS locally on chromium 153.0.8010.0 —
+  axe clean, 320–1440px, keyboard, reduced-motion, file://, cross-tab). Gates S1–S25
+  and the defect ledger are in `audit/v100/GATES.md` / `audit/v100/DEFECTS.md`.
+  Exam: 3,011/6,804 scorable (44.25%), `officialScore: null` without official evidence,
+  0 unresolved non-exempt blockers. PR opened from the branch; CodeRabbit reviews every
+  push (drafts included) — states recorded by head SHA in the PR. No merge, no tag, no
+  release, no deploy, `DEPLOY_HOLD` unchanged, AGENT.md untouched, logs append-only.

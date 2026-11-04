@@ -2016,3 +2016,43 @@ ZIP (2,538,587 B) and checksums from the tag. Prerelease published at
 2026-11-03T13:58:24Z. Deploy Flashcard workflow `41649172113` ran the full test
 matrix and deployed to Pages. Pages smoke test `41648090805` verified the live
 site. Telemetry smoke test `41648090779` passed. Stable `v1.0.0` remains NO-GO.
+
+## 2026-11-04 — v1.0.0 candidate on `arena/6b7c2879-chuyen-anh` (baseline `f12b4bc5…`)
+
+**Sense-level CEFR model (commit `213eb61`).** A headword's CEFR level now belongs to
+each individual sense: every one of the 8,852 rows carries a `senses` array
+(`senseId`, `meaning`, `pos`, `cefr`, `evidence`, `confidence`,
+`needsIndependentValidation`, `sources[{ref,locator,supports}]`, `rationale`,
+`label`) — 8,860 senses, 0 unresolved. Classification is deterministic from the
+vendored references in `audit/v100/refs/` (CEFR-J Vocabulary Profile 1.5, Octanove
+C1/C2 1.0, Oxford 3000/5000 per-sense levels, frequency index as cross-check only)
+with the documented dispute hierarchy (Oxford sense > CEFR-J > Octanove > Oxford
+word-level), then the editorial map (1,845 rows, all flagged
+`needsIndependentValidation`). The legacy `level:*` tag is untouched for backward
+compatibility; `scripts/migrate_senses.py` adds/removes senses reversibly and is covered
+by `tests/test_migrate_senses.py` against `audit/v100/backup/data-pre-v100.tgz`.
+The runtime narrows everything through one sense-filtered pipeline (`cefrDeck()`),
+shows per-sense badges (level only, never the definition) in flashcards and feedback,
+defaults to B2+C1, keeps lookup comprehensive by default, and never leaks an
+unselected level (128-selection test). A real bug was found and fixed here: the Oxford
+POS parser stripped trailing dots so `"n."` never matched, producing 12 bogus
+multi-sense splits; post-fix the evidence-backed multi-sense entries are rest, ring,
+bank, lie, race, rock, tear, used (8).
+
+**Phase III — exactly +500 A1 and +500 A2 headwords (commit `2e33735`).** Seed
+`data/vocab-seed/22-a1a2-stable.tsv` (1,143 candidates from the CEFR-J A1/A2 and
+Oxford 3000 A1/A2 lists, absent from the pre-v1.0.0 bank) is accepted by
+`expand_vocabulary.py` as exactly **500 A1 + 500 A2** (143 skips, each with a recorded
+reason). Every new row carries `level-source:cefrj-vocabulary-profile-1.5` or
+`oxford-3000-wordlist`. Bank: 8,852 rows / 8,112 headwords / 6,841-word focus deck.
+New self-masking glosses were rewritten so mc4 options stay distinct. The rc4 audit
+documents A1/A2 curriculum words attested by a published level source as explained
+retentions (`attestedByPublishedLevel`, 27 rows); unexplained retentions are 0 again.
+
+**Gates and evidence.** `audit/v100/GATES.md` (S1–S25) and `audit/v100/DEFECTS.md`
+record every gate and defect with measured numbers. Tests: node 161 pass
+(144 static + 10 rc10-cefr + 7 v100-senses), python 194 OK, both browser suites PASS on
+chromium 153.0.8010.0 locally (firefox/webkit run in CI on the pushed head). Exam
+scoring stays scorable-only at 3,011/6,804 (44.25%) with `officialScore: null`
+without official evidence and 0 unresolved non-exempt blockers. PR only — no merge,
+no tag, no release, no deploy; `DEPLOY_HOLD` untouched.

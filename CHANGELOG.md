@@ -1,5 +1,54 @@
 # Changelog
 
+## v1.0.0 — stable candidate (PR from `arena/6b7c2879-chuyen-anh`, baseline `f12b4bc5…`, 2026-11-04) — NOT merged, NOT tagged, NOT released, NOT deployed
+
+**Status: pull request only.** The candidate branch carries three commits on top of
+`f12b4bc5`: `213eb61` (sense-level CEFR model), `2e33735` (Phase III +500 A1/+500 A2),
+`8626f27` (test re-pins). No merge, no tag, no release, no Pages deploy; `DEPLOY_HOLD`
+is untouched and only the `v1.0.0` version string is proposed.
+
+### Sense-level CEFR (Phase II)
+
+- Every vocabulary row now carries a `senses` array: 8,852 entries, **8,860 senses**,
+  **0 unresolved**, 8 evidence-backed multi-sense entries (rest, ring, bank, lie,
+  race, rock, tear, used). Each sense owns its CEFR level, evidence class
+  (source_supported 3,077 · cross_validated 1,672 · disputed 2,266 · editorial_estimate
+  1,845, all flagged `needsIndependentValidation`), confidence, structured sources and
+  rationale. SenseIds are stable (`<id>-sN`); the legacy `level:*` tag is preserved and
+  `scripts/migrate_senses.py` migrates reversibly (tested against
+  `audit/v100/backup/data-pre-v100.tgz`).
+- One filtering pipeline (`cefrDeck()`) narrows sessions, sprint, priority, distractors
+  and answers by sense; per-sense badges (level only) render in flashcards and
+  feedback; default selection B2+C1 (3,724 eligible deck headwords); lookup stays
+  comprehensive by default with an optional persisted narrow toggle; no unselected
+  level leaks (128-selection test).
+- Fixed a real classification bug: the Oxford POS parser stripped dots, so `"n."`
+  never matched and 12 bogus multi-sense splits were produced; post-fix only
+  evidence-backed splits remain.
+
+### Phase III — exactly +500 A1 and +500 A2 headwords
+
+- `data/vocab-seed/22-a1a2-stable.tsv`: 1,143 CEFR-J/Oxford-3000 A1/A2 candidates absent
+  from the pre-v1.0.0 bank; `expand_vocabulary.py` accepts **exactly 500 A1 + 500 A2**
+  (143 skips, each with a recorded reason). Bank: 8,852 rows, 8,112 headwords,
+  6,841-word focus deck, 1,271 archived (unchanged). Every new row carries
+  `level-source:cefrj-vocabulary-profile-1.5` or `oxford-3000-wordlist`.
+
+### Exams
+
+- Scoring recomputed and current: 106 papers, 6,804 questions, **3,011 scorable
+  (44.25%)**, 3,793 ungradeable — every one with a documented exempt reason;
+  **0 unresolved non-exempt blockers**. `officialScore` stays `null`/`false` without an
+  official primary source; the inference lexicon stays fail-closed.
+
+### Verification (measured on the branch head)
+
+- node 161 pass (static-app 144 · rc10-cefr 10 · v100-senses 7); python 194 OK;
+  both browser suites PASS on chromium 153.0.8010.0 (axe WCAG 2.1 AA clean,
+  320/375/768/1024/1440 px, keyboard, reduced-motion, `file://`, no network,
+  cross-tab persistence); firefox/webkit run in CI on the pushed head.
+  Gates S1–S25: `audit/v100/GATES.md`. Defects: `audit/v100/DEFECTS.md`.
+
 ## v1.0.0-rc10 — full vocabulary revalidation, 2,000 new headwords, 314 new phrases, and fail-closed exam inference (2026-11-03)
 
 **Status: published prerelease.** Tag `v1.0.0-rc10` points at the merge commit of PR #81 into `main`. `APP_VERSION` and `DEPLOY_HOLD` are both `v1.0.0-rc10`. Release artifacts were built by `.github/workflows/release-artifacts.yml` from the tag; Pages was deployed by `.github/workflows/deploy.yml` after the deploy gate opened.
