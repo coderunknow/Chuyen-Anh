@@ -2171,3 +2171,11 @@ A local simulation excluding those votes changed 81 classifications and left thr
 unclassified (Ravage, pandemic, remonstrate); that simulation is not committed data
 or independently verified. Source-scope remediation remains open rather than
 inventing classifications or weakening the zero-unresolved gate.
+
+### 2026-11-04 — CEFR review report scope correction
+
+Replaced misleading before/after copies of the same counts with a current legacy-tag
+distribution. The report now separately counts stored sense evidence claims, makes
+clear neither source labels nor sense claims are independently verified here, and
+stops claiming every label is editorial or that no reference data exists. Tests
+compare both distributions directly to current data and verify audit non-mutation.

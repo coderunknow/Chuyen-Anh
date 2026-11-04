@@ -68,3 +68,8 @@ Open / accepted limitations (not defects, stated honestly):
   unresolved generator count does not establish accurate POS-specific classification.
   Composite `v/n`-style POS parsing has been fixed, but fallback policy and source
   validation require further work and independent evidence.
+
+- **D21 — IN PROGRESS:** legacy CEFR audit prose incorrectly described all labels as
+  editorial, asserted no references were fetched, ignored sense arrays, and presented
+  identical current data as before/after. The generated report and regressions now
+  distinguish legacy tags from unverified sense claims; independent review remains.

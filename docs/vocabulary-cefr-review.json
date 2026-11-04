@@ -1,10 +1,10 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "generatedBy": "scripts/vocabulary_cefr_review.py",
   "policy": {
     "deletion": "none — this audit never removes, relabels or merges a row",
-    "cefr": "a level is read from the stored `level:` tag only; no level is inferred, invented or inflated",
-    "senseLevel": "a row is one headword with one stored gloss; where the gloss lists several senses the row is reported for review, never split or deleted",
+    "cefr": "legacy distribution reads `level:` tags; sense evidence reports stored sense claims separately",
+    "senseLevel": "sense arrays may split a row; this report counts their stored evidence claims without validating the mappings",
     "phrases": "a phrase is kept at its own stored level and is never judged by the level of its cheapest constituent word"
   },
   "totals": {
@@ -15,7 +15,7 @@
     "archivedHeadwords": 1271,
     "phrases": 1094
   },
-  "before": {
+  "currentLegacyTagDistribution": {
     "activeByLevel": {
       "A1": 500,
       "A2": 500,
@@ -44,51 +44,28 @@
       "UNCLASSIFIED": 0
     }
   },
-  "after": {
-    "note": "unchanged by design: the CEFR study filter is a view, not a migration",
-    "activeByLevel": {
-      "A1": 500,
-      "A2": 500,
-      "B1": 757,
-      "B2": 1714,
-      "C1": 1638,
-      "C2": 889,
-      "UNCLASSIFIED": 843
-    },
-    "allByLevel": {
-      "A1": 500,
-      "A2": 500,
-      "B1": 1700,
-      "B2": 2196,
-      "C1": 2087,
-      "C2": 956,
-      "UNCLASSIFIED": 913
-    },
-    "phraseByLevel": {
-      "A1": 0,
-      "A2": 0,
-      "B1": 387,
-      "B2": 324,
-      "C1": 304,
-      "C2": 79,
-      "UNCLASSIFIED": 0
-    }
-  },
-  "cefrEvidence": {
-    "Verified": 0,
-    "Source-supported": 0,
-    "Inferred": 3018,
-    "Unknown": 913,
-    "Other label source": 4921,
+  "legacyTagEvidence": {
     "totalRows": 8852,
     "labelSources": {
-      "none": 913,
-      "editorial": 3018,
-      "oxford-3000-5000": 1979,
       "cefrj-vocabulary-profile-1.5": 2074,
+      "editorial": 3018,
+      "none": 913,
       "octanove-vocabulary-profile-1.0": 760,
+      "oxford-3000-5000": 1979,
       "oxford-3000-wordlist": 108
-    }
+    },
+    "qualification": "stored legacy tags only; their source claims were not independently validated by this report"
+  },
+  "senseEvidence": {
+    "totalSenses": 8856,
+    "byClass": {
+      "cross_validated": 1656,
+      "disputed": 2269,
+      "editorial_estimate": 1845,
+      "source_supported": 3086
+    },
+    "needsIndependentValidation": 1857,
+    "qualification": "stored generator claims, not independently verified; an unset validation flag does not imply approval"
   },
   "quality": {
     "duplicateNormalizedHeadwords": [],
@@ -6769,7 +6746,8 @@
   },
   "limits": [
     "0/106 papers are checked against an official primary source, so \"exam-attested\" means \"appears in the reposted transcription\", not official inclusion.",
-    "Every CEFR label is editorial (level-source:editorial). No dictionary or CEFR reference page was fetched offline; the audit therefore cannot promote any label to Verified or Source-supported.",
-    "Rows without a level tag stay Unknown/Unclassified; assigning them a level would be an invention."
+    "The legacy tags include editorial and named reference sources; this report does not independently validate either those claims or the separate sense-level evidence.",
+    "Unknown legacy level tags do not imply unknown sense levels; the app can use stored sense classifications instead.",
+    "The generator uses pinned reference snapshots; they and their locators require independent audit, including source scope and POS."
   ]
 }

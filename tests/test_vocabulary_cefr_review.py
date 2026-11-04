@@ -47,6 +47,21 @@ class VocabularyCefrReviewTests(unittest.TestCase):
         cls.archived = [row for row in cls.headwords if 'curation:archived' in tags(row)]
         cls.active = [row for row in cls.headwords if 'curation:archived' not in tags(row)]
 
+    def test_report_separates_legacy_tags_from_sense_claims(self):
+        self.assertIn('currentLegacyTagDistribution', self.report)
+        self.assertNotIn('before', self.report)
+        self.assertNotIn('after', self.report)
+        senses = [s for row in self.rows for s in row.get('senses', [])]
+        evidence = Counter(s.get('evidence') for s in senses)
+        self.assertEqual(self.report['senseEvidence']['totalSenses'], len(senses))
+        self.assertEqual(self.report['senseEvidence']['byClass'], dict(sorted(evidence.items())))
+        self.assertEqual(self.report['senseEvidence']['needsIndependentValidation'],
+                         sum(s.get('needsIndependentValidation') is True for s in senses))
+        self.assertIn('not independently verified', self.report['senseEvidence']['qualification'])
+        limits = ' '.join(self.report['limits'])
+        self.assertNotIn('Every CEFR label is editorial', limits)
+        self.assertNotIn('No dictionary or CEFR reference page was fetched', limits)
+
     def test_report_is_regenerated_by_the_committed_script(self):
         result = subprocess.run([sys.executable, str(SCRIPT), '--check'], cwd=ROOT, capture_output=True, text=True)
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
@@ -67,31 +82,25 @@ class VocabularyCefrReviewTests(unittest.TestCase):
         everything = Counter(level(row) for row in self.rows)
         expected_active = {item: active.get(item, 0) for item in CEFR_LEVELS + [UNCLASSIFIED]}
         expected_all = {item: everything.get(item, 0) for item in CEFR_LEVELS + [UNCLASSIFIED]}
-        self.assertEqual(self.report['before']['activeByLevel'], expected_active)
-        self.assertEqual(self.report['before']['allByLevel'], expected_all)
+        self.assertEqual(self.report['currentLegacyTagDistribution']['activeByLevel'], expected_active)
+        self.assertEqual(self.report['currentLegacyTagDistribution']['allByLevel'], expected_all)
 
     def test_no_row_is_deleted_relabelled_or_archived_by_the_audit(self):
-        self.assertEqual(
-            {key: value for key, value in self.report['after'].items() if key != 'note'},
-            self.report['before']
-        )
+        before = VOCAB.read_bytes()
+        result = subprocess.run([sys.executable, str(SCRIPT), '--check'], cwd=ROOT, capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertEqual(VOCAB.read_bytes(), before, 'report check must not mutate the vocabulary')
         self.assertEqual(self.report['policy']['deletion'], 'none — this audit never removes, relabels or merges a row')
-        # A1/A2/B1 may be small; they must never be reduced to look better.
-        for scope in ('before', 'after'):
-            for item in ('A1', 'A2', 'B1'):
-                self.assertIsInstance(self.report[scope]['activeByLevel'][item], int)
-        self.assertEqual(self.report['after']['activeByLevel'], self.report['before']['activeByLevel'])
+        for item in ('A1', 'A2', 'B1'):
+            self.assertIsInstance(self.report['currentLegacyTagDistribution']['activeByLevel'][item], int)
 
-    def test_no_label_is_promoted_beyond_its_evidence(self):
-        evidence = self.report['cefrEvidence']
-        self.assertEqual(evidence['Verified'], 0, 'no official CEFR reference was retrieved, so nothing is verified')
-        self.assertEqual(evidence['Source-supported'], 0, 'no dictionary level was retrieved, so nothing is source-supported')
-        sources = evidence['labelSources']
-        self.assertEqual(sources.get('editorial'), evidence['Inferred'])
-        self.assertEqual(evidence['Inferred'] + evidence['Unknown'] + evidence['Other label source'], evidence['totalRows'])
-        # An editorial label is never counted as unknown or verified.
-        stored = Counter(tag_value(row, 'level-source') for row in self.rows)
-        self.assertEqual(stored.get(None, 0), evidence['Unknown'])
+    def test_legacy_source_counts_are_not_treated_as_verified_evidence(self):
+        evidence = self.report['legacyTagEvidence']
+        stored = Counter(tag_value(row, 'level-source') or 'none' for row in self.rows)
+        self.assertEqual(evidence['labelSources'], dict(sorted(stored.items())))
+        self.assertEqual(evidence['totalRows'], len(self.rows))
+        self.assertIn('not independently validated', evidence['qualification'])
+        self.assertNotIn('Verified', evidence)
 
     def test_phrases_are_judged_by_their_own_level(self):
         stored = Counter()
@@ -99,7 +108,7 @@ class VocabularyCefrReviewTests(unittest.TestCase):
             value = tag_value(phrase, 'level')
             stored[value.upper() if value and value.upper() in CEFR_LEVELS else UNCLASSIFIED] += 1
         self.assertEqual(
-            self.report['before']['phraseByLevel'],
+            self.report['currentLegacyTagDistribution']['phraseByLevel'],
             {item: stored.get(item, 0) for item in CEFR_LEVELS + [UNCLASSIFIED]}
         )
         for case in self.report['quality']['highLevelPhrasesWithOnlyLowLevelConstituents']:

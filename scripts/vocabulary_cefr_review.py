@@ -3,11 +3,8 @@
 
 This audit never removes, relabels or merges a row. It answers two questions:
 
-1. How much can a CEFR label be trusted? Every label in the bank is an editorial
-   decision (`level-source:editorial`); none is backed by a dictionary level
-   retrieval or an official CEFR source. The audit therefore reports four
-   evidence classes (Verified / Source-supported / Inferred / Unknown) and never
-   promotes an inferred label to a verified one.
+1. What do the legacy level tags and the generated sense evidence classes say?
+   They are separate snapshots, and neither is independently verified here.
 2. Where is the vocabulary data weak for a Chuyên Anh learner? Sense compression,
    missing fields, duplicate headwords, answer leakage in the gloss, and phrases
    whose value is independent of the CEFR level of their constituent words.
@@ -80,29 +77,19 @@ def main():
         counts = collections.Counter(level_of(row) for row in items)
         return {level: counts.get(level, 0) for level in CEFR_LEVELS + [UNCLASSIFIED]}
 
-    # ---- evidence classes -------------------------------------------------
-    evidence = collections.Counter()
-    by_source = collections.Counter()
-    for row in rows:
-        level = level_of(row)
-        source = level_source(row)
-        by_source[source or 'none'] += 1
-        if level == UNCLASSIFIED:
-            evidence['Unknown'] += 1
-        elif source == 'editorial':
-            evidence['Inferred'] += 1
-        elif source in {'dictionary', 'official', 'cefr'}:
-            evidence['Source-supported'] += 1
-        else:
-            evidence['Unclassified-source'] += 1
-    evidence_summary = {
-        'Verified': evidence.get('Verified', 0),
-        'Source-supported': evidence.get('Source-supported', 0),
-        'Inferred': evidence.get('Inferred', 0),
-        'Unknown': evidence.get('Unknown', 0),
-        'Other label source': evidence.get('Unclassified-source', 0),
+    # Describe stored claims, without treating them as independently verified.
+    by_source = collections.Counter(level_source(row) or 'none' for row in rows)
+    legacy_summary = {
         'totalRows': len(rows),
-        'labelSources': dict(by_source),
+        'labelSources': dict(sorted(by_source.items())),
+        'qualification': 'stored legacy tags only; their source claims were not independently validated by this report',
+    }
+    senses = [sense for row in rows for sense in row.get('senses', []) if isinstance(sense, dict)]
+    sense_summary = {
+        'totalSenses': len(senses),
+        'byClass': dict(sorted(collections.Counter(sense.get('evidence', 'missing') for sense in senses).items())),
+        'needsIndependentValidation': sum(sense.get('needsIndependentValidation') is True for sense in senses),
+        'qualification': 'stored generator claims, not independently verified; an unset validation flag does not imply approval',
     }
 
     # ---- sense-level quality checks (report only) -------------------------
@@ -175,12 +162,12 @@ def main():
     usefulness['advancedShare'] = round(advanced / max(1, len(active)) * 1000) / 10
 
     report = {
-        'schemaVersion': 1,
+        'schemaVersion': 2,
         'generatedBy': 'scripts/vocabulary_cefr_review.py',
         'policy': {
             'deletion': 'none — this audit never removes, relabels or merges a row',
-            'cefr': 'a level is read from the stored `level:` tag only; no level is inferred, invented or inflated',
-            'senseLevel': 'a row is one headword with one stored gloss; where the gloss lists several senses the row is reported for review, never split or deleted',
+            'cefr': 'legacy distribution reads `level:` tags; sense evidence reports stored sense claims separately',
+            'senseLevel': 'sense arrays may split a row; this report counts their stored evidence claims without validating the mappings',
             'phrases': 'a phrase is kept at its own stored level and is never judged by the level of its cheapest constituent word'
         },
         'totals': {
@@ -191,18 +178,13 @@ def main():
             'archivedHeadwords': len(archived),
             'phrases': len(phrases)
         },
-        'before': {
+        'currentLegacyTagDistribution': {
             'activeByLevel': level_counts(active),
             'allByLevel': level_counts(rows),
             'phraseByLevel': {level: phrase_levels.get(level, 0) for level in CEFR_LEVELS + [UNCLASSIFIED]}
         },
-        'after': {
-            'note': 'unchanged by design: the CEFR study filter is a view, not a migration',
-            'activeByLevel': level_counts(active),
-            'allByLevel': level_counts(rows),
-            'phraseByLevel': {level: phrase_levels.get(level, 0) for level in CEFR_LEVELS + [UNCLASSIFIED]}
-        },
-        'cefrEvidence': evidence_summary,
+        'legacyTagEvidence': legacy_summary,
+        'senseEvidence': sense_summary,
         'quality': {
             'duplicateNormalizedHeadwords': duplicates,
             'missingMeaning': empty_meaning,
@@ -215,8 +197,9 @@ def main():
         'usefulness': usefulness,
         'limits': [
             '0/106 papers are checked against an official primary source, so "exam-attested" means "appears in the reposted transcription", not official inclusion.',
-            'Every CEFR label is editorial (level-source:editorial). No dictionary or CEFR reference page was fetched offline; the audit therefore cannot promote any label to Verified or Source-supported.',
-            'Rows without a level tag stay Unknown/Unclassified; assigning them a level would be an invention.'
+            'The legacy tags include editorial and named reference sources; this report does not independently validate either those claims or the separate sense-level evidence.',
+            'Unknown legacy level tags do not imply unknown sense levels; the app can use stored sense classifications instead.',
+            'The generator uses pinned reference snapshots; they and their locators require independent audit, including source scope and POS.'
         ]
     }
 
@@ -233,38 +216,32 @@ def main():
         '| --- | ---: |',
         *[f'| {key} | {value} |' for key, value in report['totals'].items()],
         '',
-        '## CEFR distribution (unchanged before/after)',
+        '## Current legacy-tag CEFR distribution (not a before/after comparison)',
         '',
         '| Scope | A1 | A2 | B1 | B2 | C1 | C2 | Unclassified |',
         '| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |',
-        '| Active headwords | ' + ' | '.join(str(report['before']['activeByLevel'][level]) for level in CEFR_LEVELS + [UNCLASSIFIED]) + ' |',
-        '| All rows | ' + ' | '.join(str(report['before']['allByLevel'][level]) for level in CEFR_LEVELS + [UNCLASSIFIED]) + ' |',
-        '| Phrases | ' + ' | '.join(str(report['before']['phraseByLevel'][level]) for level in CEFR_LEVELS + [UNCLASSIFIED]) + ' |',
+        '| Active headwords | ' + ' | '.join(str(report['currentLegacyTagDistribution']['activeByLevel'][level]) for level in CEFR_LEVELS + [UNCLASSIFIED]) + ' |',
+        '| All rows | ' + ' | '.join(str(report['currentLegacyTagDistribution']['allByLevel'][level]) for level in CEFR_LEVELS + [UNCLASSIFIED]) + ' |',
+        '| Phrases | ' + ' | '.join(str(report['currentLegacyTagDistribution']['phraseByLevel'][level]) for level in CEFR_LEVELS + [UNCLASSIFIED]) + ' |',
         '',
-        '## How far a label can be trusted',
+        '## Stored provenance claims, not independently verified',
         '',
-        '| Evidence class | Rows |',
-        '| --- | ---: |',
-        f"| Verified (official CEFR reference) | {evidence_summary['Verified']} |",
-        f"| Source-supported (dictionary level retrieved) | {evidence_summary['Source-supported']} |",
-        f"| Inferred (editorial judgement) | {evidence_summary['Inferred']} |",
-        f"| Unknown (no level tag) | {evidence_summary['Unknown']} |",
-        '',
-        f"Label sources: {json.dumps(evidence_summary['labelSources'], ensure_ascii=False)}",
-        '',
-        'No inferred label is promoted in this PR, and no label is changed to make the distribution look better.',
+        f"Legacy tag sources: {json.dumps(legacy_summary['labelSources'], ensure_ascii=False)}",
+        f"Sense evidence classes: {json.dumps(sense_summary['byClass'], ensure_ascii=False)}",
+        f"Sense records flagged for independent validation: {sense_summary['needsIndependentValidation']} of {sense_summary['totalSenses']}.",
+        sense_summary['qualification'],
         '',
         '## Quality findings (reported, not deleted)',
         '',
         f"- Duplicate normalized headwords: **{len(duplicates)}** — kept, because two senses of one spelling are legitimate and IDs key learner progress.",
-        f"- Rows with a multi-sense gloss (`;` or `/`): **{len(multi_sense)}** — a compression risk for flashcard grading; reported, not split.",
+        f"- Rows with a multi-sense gloss (`;` or `/`): **{len(multi_sense)}** — a possible compression risk; some entries also have sense arrays, whose mappings are not independently checked here.",
         f"- Glosses that contain the headword itself: **{len(gloss_leak)}** — the app masks the answer in the prompt instead of deleting the row.",
         f"- Rows missing a meaning: **{len(empty_meaning)}**; missing a part of speech: **{len(empty_pos)}**; missing a source: **{len(no_sources)}**.",
         f"- High-level phrases whose recorded constituent words are all B1 or lower: **{len(phrase_low_word_high_phrase)}** — kept at the phrase's own level, which is the documented rule.",
         '',
         '## Usefulness for Chuyên Anh',
         '',
-        f"- Advanced (B2–C2) share of active headwords: **{usefulness['advancedShare']}%**.",
+        f"- Advanced (B2–C2) share of active headwords by legacy tag (not the sense-filtered deck): **{usefulness['advancedShare']}%**.",
         f"- Academic type: {usefulness['academicActive']} · word formation: {usefulness['wordFormationActive']} · confusables: {usefulness['confusableActive']} · linkers: {usefulness['linkerActive']}.",
         f"- Phrase bank: {usefulness['phrasalVerbs']} phrasal verbs · {usefulness['idioms']} idioms · {usefulness['collocations']} collocations · {usefulness['dependentPrepositions']} dependent prepositions · {usefulness['linkerPhrases']} linker phrases · {usefulness['sentencePatterns']} patterns.",
         '',
@@ -287,7 +264,7 @@ def main():
         raise SystemExit(1)
     print(f"{'Checked' if args.check else 'Wrote'} vocabulary CEFR review: {len(rows)} rows, "
           f"{len(active)} active headwords ({usefulness['advancedShare']}% B2+), "
-          f"evidence inferred={evidence_summary['Inferred']} unknown={evidence_summary['Unknown']}.")
+          f"stored sense claims={sense_summary['totalSenses']}; independent validation is not established.")
 
 
 if __name__ == '__main__':

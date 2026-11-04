@@ -1325,3 +1325,9 @@ using the CEFR editorial source for that purpose, and fixed composite slash-sepa
 POS matching. The review queue now records unmatched-POS fallback votes; 173 entries
 need review. A fail-closed simulation yielded three unresolved entries, so the
 remaining source-scope issue remains open and is not marked as a passed gate.
+
+### 2026-11-04 — CEFR report correction
+
+A fail-first regression exposed stale claims about source evidence, sense splitting,
+and identical before/after snapshots. Rebuilt the report with separate current legacy
+and sense evidence sections; no independent review is claimed. Focused tests pass.
