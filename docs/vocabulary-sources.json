@@ -116,9 +116,9 @@
       "title": "Curated editorial CEFR map authored for v1.0.0 (scripts/cefr_editorial_map.py)",
       "publisher": "coderunknow/Chuyen-Anh — this repository, 2026-11-03",
       "url": "https://github.com/coderunknow/Chuyen-Anh/blob/main/scripts/cefr_editorial_map.py",
-      "locatorScheme": "dict key: normalized headword -> level",
+      "locatorScheme": "dict key: normalized headword -> level; method:cross-pos-proxy for explicitly unverified different-POS proxies",
       "access": "file-in-repo",
-      "supports": "An editorial estimate for forms that no consulted published CEFR list contains. Always marked evidence=editorial_estimate with needsIndependentValidation=true.",
+      "supports": "Editorial estimates when no consulted reference supports the requested headword and POS, including explicitly identified cross-POS proxies. Always marked evidence=editorial_estimate with needsIndependentValidation=true.",
       "limits": "Not a published reference. A single reviewer's judgement; it must not be quoted as a verified level and requires two independent validations per the classification policy."
     },
     {

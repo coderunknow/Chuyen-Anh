@@ -2199,3 +2199,15 @@ levels, missing locators and malformed inputs. This is only capability validatio
 it does not yet confirm that each locator actually matches the word, POS and level.
 A preliminary local locator/POS simulation identified 31 source-supported and 26
 cross-validated records needing investigation; no individual verification is claimed.
+
+### 2026-11-04 — POS-scope fail-closed evidence and locator triage
+
+A local row-matching audit found 31 source-supported and 26 cross-validated senses
+whose claimed level lacked sufficient matching source/POS groups. Classification now
+ignores nonmatching-POS votes whenever a matching vote exists. Where only other-POS
+references exist, their level is retained solely as an explicitly unverified LOW
+confidence editorial proxy, never as direct or cross-validated evidence. The data has
+1,897 editorial estimates, including 52 proxies, all requiring independent validation.
+A reproducible locator queue records every sense; it now reports 4,775 matching-group
+claims and 4,081 not assessed by this narrow check, with zero automatically flagged
+insufficient group claims. This is a heuristic, not independent evidence validation.

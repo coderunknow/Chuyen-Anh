@@ -1345,3 +1345,12 @@ Cambridge fixture. Added explicit registry capabilities and independent publishe
 groups, fail-closed source validation and malformed-input regressions. Current data
 passes the capability check; locator-to-row and POS scope verification remain open,
 with 57 preliminary potentially unsupported claims requiring individual investigation.
+
+### 2026-11-04 — locator audit and POS-scope classification
+
+Added a reproducible 8,856-sense locator triage with negative tests. Reproduced 57
+unsupported POS-scope claims; changed classification so different-POS votes cannot
+count as direct or independent evidence. Fifty-two all-fallback cases are explicitly
+marked LOW editorial proxies requiring independent review. After regeneration the
+triage finds zero insufficient source-group claims, but 4,081 senses are outside its
+scope and no independent human review is claimed. Python and targeted Node tests pass.

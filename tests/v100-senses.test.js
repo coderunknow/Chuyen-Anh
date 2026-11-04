@@ -200,8 +200,8 @@ test('v1.0.0: headword counts and sense counts are distinguished', () => {
   // default B2+C1 selection: eligible headwords counted via the one pipeline
   const eligible = app.filterVocabularyByCefr(deck, app.defaultCefrSelection()).length;
   const eligibleSenses = ['B2', 'C1'].reduce((t, l) => t + (bySense[l] || 0), 0);
-  assert.equal(eligible, 3032);
-  assert.equal(eligibleSenses, 3032, 'B2+C1 glossed senses over the deck');
+  assert.equal(eligible, 3040);
+  assert.equal(eligibleSenses, 3040, 'B2+C1 glossed senses over the deck');
   // Both glossed rock senses are A2, so the sense and headword counts diverge.
   const a2Headwords = app.filterVocabularyByCefr(headwords, selectionOf(['A2'])).length;
   const a2Senses = app.countSensesByCefr(headwords).A2 || 0;

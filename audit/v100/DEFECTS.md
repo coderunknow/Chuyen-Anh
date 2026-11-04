@@ -61,14 +61,12 @@ Open / accepted limitations (not defects, stated honestly):
   A headword-level vote no longer claims to cross-validate an individual sense;
   all 12 retained mapped senses are flagged for independent mapping validation.
 
-- **D20 — OPEN:** 173 entries have at least one reference vote that falls back to
-  a nonmatching POS. Some may be genuine ambiguity or unsupported source scope; the
-  heuristic queue is not a verdict. Simulating removal of all unmatched votes changed
-  81 classifications and produced three unresolved entries, so the existing zero-
-  unresolved generator count does not establish accurate POS-specific classification.
-  Composite `v/n`-style POS parsing has been fixed, but fallback policy and source
-  validation require further work and independent evidence.
-
+- **D20 — IN PROGRESS:** 173 entries have at least one reference lookup that falls
+  back to a nonmatching POS. Classification now excludes those votes from direct
+  evidence and cross-validation; when only different-POS references exist, the
+  generated classification is explicitly an unverified LOW-confidence editorial
+  proxy. All 52 proxies require independent validation. The lookup queue still flags
+  every unmatched candidate; no independent per-entry audit has been completed.
 - **D21 — IN PROGRESS:** legacy CEFR audit prose incorrectly described all labels as
   editorial, asserted no references were fetched, ignored sense arrays, and presented
   identical current data as before/after. The generated report and regressions now
@@ -79,3 +77,10 @@ Open / accepted limitations (not defects, stated honestly):
   Capability/publisher-group and nonempty-locator checks are now implemented, but they
   do not prove locator content or POS matches. A preliminary simulation flags 31
   source-supported and 26 cross-validated claims for further investigation.
+
+- **D23 — IN PROGRESS:** a source-row locator review found 57 `source_supported` or
+  `cross_validated` claims with insufficient matching POS/reference groups. After
+  excluding different-POS votes from direct evidence, the regenerated heuristic queue
+  finds 4,775 such claims with matching groups and 4,081 senses not assessed under
+  this check; none has been independently verified. The standalone validator checks
+  source capability and nonempty locator, not that locator content matches the claim.

@@ -242,8 +242,22 @@ def _source_record(ref: str, locator: str, supports: str) -> dict[str, str]:
 
 def _resolve_level(votes: dict[str, dict[str, Any]], refs: References, word: str, pos: str) -> tuple[str, str, str, list[dict[str, str]], bool]:
     """Return (cefr, evidence, confidence, sources, needs_validation)."""
-    if not votes:
-        return _editorial(word, pos, refs)
+    exact_votes = {source: vote for source, vote in votes.items() if vote.get("pos_match") is True}
+    if not exact_votes:
+        if not votes:
+            return _editorial(word, pos, refs)
+        # This is a tentative editorial proxy, not evidence for this POS.
+        # Preserve its origin and require independent validation.
+        source = next(name for name in ("cefrj", "octanove", "oxford") if name in votes)
+        vote = votes[source]
+        ref = SOURCE_REFS[vote["source"]] if source == "oxford" else SOURCE_REFS[source]
+        locator = (f"{vote['file']}:{vote['line']}" if source == "oxford" else f"row {vote['line']}")
+        return vote["level"], "editorial_estimate", "LOW", [
+            _source_record(ref, locator, "different POS only; not direct CEFR evidence for this entry"),
+            _source_record(SOURCE_REFS["editorial"], "method:cross-pos-proxy",
+                           "unverified editorial proxy from a reference for a different POS; independent validation required"),
+        ], True
+    votes = exact_votes
     levels = {v["level"] for v in votes.values()}
     sources: list[dict[str, str]] = []
     for source, vote in votes.items():
@@ -391,6 +405,8 @@ def classify_entry(entry: dict[str, Any], refs: References) -> list[dict[str, An
     }[evidence]
     if evidence == "disputed":
         rationale = next(s["supports"] for s in sources if s["ref"] == SOURCE_REFS["editorial"])
+    elif evidence == "editorial_estimate" and any(s.get("locator") == "method:cross-pos-proxy" for s in sources):
+        rationale = "editorial estimate based only on a reference for a different POS; independent validation required"
     return [{
         "senseId": f"{entry_id}-s1",
         "label": "",

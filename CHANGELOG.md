@@ -11,7 +11,7 @@ is untouched and only the `v1.0.0` version string is proposed.
 ### Sense-level CEFR (Phase II)
 
 - The current generated dataset has 8,852 rows and **8,856 stored senses**, including
-  four multi-sense entries. Classifications include 1,845 editorial estimates; the
+  four multi-sense entries. Classifications include 1,897 editorial estimates; the
   automated `unresolved=0` count does not establish independent verification.
   Twelve editorial gloss alignments across eight entries require independent review.
   Source-row mapping, POS scope, reference locators and all remaining classifications

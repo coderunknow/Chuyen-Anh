@@ -6,28 +6,28 @@
     "senses": 8856,
     "multiSenseEntries": 4,
     "byLevel": {
-      "A1": 940,
-      "A2": 1166,
-      "B1": 1918,
-      "B2": 2247,
-      "C1": 1443,
+      "A1": 941,
+      "A2": 1163,
+      "B1": 1910,
+      "B2": 2226,
+      "C1": 1474,
       "C2": 1142,
       "UNCLASSIFIED": 0
     },
     "byEvidence": {
-      "source_supported": 3086,
-      "cross_validated": 1656,
-      "disputed": 2269,
-      "editorial_estimate": 1845,
+      "source_supported": 3133,
+      "cross_validated": 1642,
+      "disputed": 2184,
+      "editorial_estimate": 1897,
       "unresolved": 0
     },
     "byConfidence": {
-      "HIGH": 4711,
-      "MEDIUM": 4145,
-      "LOW": 0,
+      "HIGH": 4775,
+      "MEDIUM": 4029,
+      "LOW": 52,
       "VERY_LOW": 0
     },
-    "needsIndependentValidation": 1857,
+    "needsIndependentValidation": 1909,
     "unresolvedSenses": 0
   },
   "entries": [
@@ -870,19 +870,15 @@
         {
           "senseId": "36-s1",
           "label": "",
-          "cefr": "B2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "cefr": "C1",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
-            "editorial-curation-map"
+            "octanove-vocabulary-profile-c1c2-1.0"
           ],
           "locators": [
-            "row 3399: headword=imperative, pos=noun, CEFR=B2",
-            "row 774: headword=imperative, pos=adjective, CEFR=C1",
-            "hierarchy"
+            "row 774: headword=imperative, pos=adjective, CEFR=C1"
           ]
         }
       ]
@@ -9139,14 +9135,16 @@
           "senseId": "392-s1",
           "label": "",
           "cefr": "B2",
-          "evidence": "source_supported",
-          "confidence": "MEDIUM",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
-            "cefrj-vocabulary-profile-1.5"
+            "cefrj-vocabulary-profile-1.5",
+            "editorial-curation-map"
           ],
           "locators": [
-            "row 5492: headword=ravage, pos=noun, CEFR=B2"
+            "row 5492",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -16147,20 +16145,16 @@
           "senseId": "684-s1",
           "label": "",
           "cefr": "B2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "evidence": "cross_validated",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
-            "oxford-3000-wordlist",
-            "editorial-curation-map"
+            "oxford-3000-wordlist"
           ],
           "locators": [
             "row 1760: headword=deliberate, pos=adjective, CEFR=B2",
-            "row 1138: headword=deliberate, pos=verb, CEFR=C2",
-            "oxford-3000.en.tsv:697: deliberate (B2)",
-            "hierarchy"
+            "oxford-3000.en.tsv:697: deliberate (B2)"
           ]
         }
       ]
@@ -20733,19 +20727,15 @@
         {
           "senseId": "863-s1",
           "label": "",
-          "cefr": "B2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "cefr": "C1",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-5000-expanded-wordlist",
-            "editorial-curation-map"
+            "oxford-5000-expanded-wordlist"
           ],
           "locators": [
-            "row 2359: headword=exaggerate, pos=noun, CEFR=B2",
-            "oxford-5000-expanded.en.tsv:691: exaggerate (C1)",
-            "hierarchy"
+            "oxford-5000-expanded.en.tsv:691: exaggerate (C1)"
           ]
         }
       ]
@@ -20910,13 +20900,11 @@
           "needsIndependentValidation": false,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
             "oxford-5000-expanded-wordlist",
             "editorial-curation-map"
           ],
           "locators": [
             "row 3155: headword=hazard, pos=noun, CEFR=B1",
-            "row 1875: headword=hazard, pos=verb, CEFR=C2",
             "oxford-5000-expanded.en.tsv:868: hazard (C1)",
             "hierarchy"
           ]
@@ -23265,20 +23253,16 @@
           "senseId": "964-s1",
           "label": "",
           "cefr": "A1",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "evidence": "cross_validated",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
-            "oxford-3000-wordlist",
-            "editorial-curation-map"
+            "oxford-3000-wordlist"
           ],
           "locators": [
             "row 1178: headword=class, pos=noun, CEFR=A1",
-            "row 107: headword=class, pos=verb, CEFR=C1",
-            "oxford-3000.en.tsv:462: class (A1)",
-            "hierarchy"
+            "oxford-3000.en.tsv:462: class (A1)"
           ]
         }
       ]
@@ -23427,20 +23411,16 @@
           "senseId": "970-s1",
           "label": "",
           "cefr": "A2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "evidence": "cross_validated",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
-            "oxford-3000-wordlist",
-            "editorial-curation-map"
+            "oxford-3000-wordlist"
           ],
           "locators": [
             "row 1370: headword=condition, pos=noun, CEFR=A2",
-            "row 542: headword=condition, pos=verb, CEFR=C1",
-            "oxford-3000.en.tsv:543: condition (A2)",
-            "hierarchy"
+            "oxford-3000.en.tsv:543: condition (A2)"
           ]
         }
       ]
@@ -26169,20 +26149,16 @@
           "senseId": "1076-s1",
           "label": "",
           "cefr": "A1",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "evidence": "cross_validated",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
-            "oxford-3000-wordlist",
-            "editorial-curation-map"
+            "oxford-3000-wordlist"
           ],
           "locators": [
             "row 3296: headword=house, pos=noun, CEFR=A1",
-            "row 77: headword=house, pos=verb, CEFR=C1",
-            "oxford-3000.en.tsv:1289: house (A1, B2)",
-            "hierarchy"
+            "oxford-3000.en.tsv:1289: house (A1, B2)"
           ]
         }
       ]
@@ -28684,19 +28660,15 @@
         {
           "senseId": "1174-s1",
           "label": "",
-          "cefr": "B1",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "cefr": "A1",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-3000-wordlist",
-            "editorial-curation-map"
+            "oxford-3000-wordlist"
           ],
           "locators": [
-            "row 4883: headword=past, pos=adjective, CEFR=B1",
-            "oxford-3000.en.tsv:1892: past (A1, A2)",
-            "hierarchy"
+            "oxford-3000.en.tsv:1892: past (A1, A2)"
           ]
         }
       ]
@@ -34718,13 +34690,11 @@
           "needsIndependentValidation": false,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
             "oxford-3000-wordlist",
             "editorial-curation-map"
           ],
           "locators": [
             "row 3556: headword=institute, pos=noun, CEFR=B1",
-            "row 395: headword=institute, pos=verb, CEFR=C1",
             "oxford-3000.en.tsv:1383: institute (B2)",
             "hierarchy"
           ]
@@ -35623,18 +35593,16 @@
         {
           "senseId": "1443-s1",
           "label": "",
-          "cefr": "B2",
+          "cefr": "C1",
           "evidence": "disputed",
           "confidence": "MEDIUM",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
             "octanove-vocabulary-profile-c1c2-1.0",
             "oxford-3000-wordlist",
             "editorial-curation-map"
           ],
           "locators": [
-            "row 5141: headword=pose, pos=noun, CEFR=B2",
             "row 426: headword=pose, pos=verb, CEFR=C1",
             "oxford-3000.en.tsv:1991: pose (B2)",
             "hierarchy"
@@ -37149,13 +37117,11 @@
           "needsIndependentValidation": false,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
             "oxford-3000-wordlist",
             "editorial-curation-map"
           ],
           "locators": [
             "row 845: headword=brief, pos=adjective, CEFR=B1",
-            "row 59: headword=brief, pos=verb, CEFR=C1",
             "oxford-3000.en.tsv:336: brief (B2)",
             "hierarchy"
           ]
@@ -37631,14 +37597,16 @@
           "senseId": "1520-s1",
           "label": "",
           "cefr": "B2",
-          "evidence": "source_supported",
-          "confidence": "MEDIUM",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
-            "cefrj-vocabulary-profile-1.5"
+            "cefrj-vocabulary-profile-1.5",
+            "editorial-curation-map"
           ],
           "locators": [
-            "row 4767: headword=overlap, pos=noun, CEFR=B2"
+            "row 4767",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -37707,19 +37675,15 @@
         {
           "senseId": "1523-s1",
           "label": "",
-          "cefr": "B2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "cefr": "C1",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-5000-expanded-wordlist",
-            "editorial-curation-map"
+            "oxford-5000-expanded-wordlist"
           ],
           "locators": [
-            "row 5448: headword=radical, pos=noun, CEFR=B2",
-            "oxford-5000-expanded.en.tsv:1450: radical (C1)",
-            "hierarchy"
+            "oxford-5000-expanded.en.tsv:1450: radical (C1)"
           ]
         }
       ]
@@ -38465,13 +38429,11 @@
           "needsIndependentValidation": false,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
             "oxford-5000-expanded-wordlist",
             "editorial-curation-map"
           ],
           "locators": [
             "row 3137: headword=harvest, pos=noun, CEFR=A2",
-            "row 985: headword=harvest, pos=verb, CEFR=C1",
             "oxford-5000-expanded.en.tsv:865: harvest (C1)",
             "hierarchy"
           ]
@@ -40024,19 +39986,15 @@
         {
           "senseId": "1616-s1",
           "label": "",
-          "cefr": "B2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "cefr": "C1",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-5000-expanded-wordlist",
-            "editorial-curation-map"
+            "oxford-5000-expanded-wordlist"
           ],
           "locators": [
-            "row 1916: headword=discharge, pos=noun, CEFR=B2",
-            "oxford-5000-expanded.en.tsv:553: discharge (C1)",
-            "hierarchy"
+            "oxford-5000-expanded.en.tsv:553: discharge (C1)"
           ]
         }
       ]
@@ -40421,18 +40379,14 @@
           "senseId": "1632-s1",
           "label": "",
           "cefr": "B2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
-            "editorial-curation-map"
+            "cefrj-vocabulary-profile-1.5"
           ],
           "locators": [
-            "row 2401: headword=exhaust, pos=noun, CEFR=B2",
-            "row 299: headword=exhaust, pos=verb, CEFR=C1",
-            "hierarchy"
+            "row 2401: headword=exhaust, pos=noun, CEFR=B2"
           ]
         }
       ]
@@ -40914,19 +40868,15 @@
         {
           "senseId": "1652-s1",
           "label": "",
-          "cefr": "A2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "cefr": "C1",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
-            "editorial-curation-map"
+            "octanove-vocabulary-profile-c1c2-1.0"
           ],
           "locators": [
-            "row 2066: headword=drill, pos=noun, CEFR=A2",
-            "row 964: headword=drill, pos=verb, CEFR=C1",
-            "hierarchy"
+            "row 964: headword=drill, pos=verb, CEFR=C1"
           ]
         }
       ]
@@ -42544,18 +42494,14 @@
           "senseId": "1719-s1",
           "label": "",
           "cefr": "B1",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-3000-wordlist",
-            "editorial-curation-map"
+            "cefrj-vocabulary-profile-1.5"
           ],
           "locators": [
-            "row 6587: headword=stream, pos=verb, CEFR=B1",
-            "oxford-3000.en.tsv:2562: stream (B2)",
-            "hierarchy"
+            "row 6587: headword=stream, pos=verb, CEFR=B1"
           ]
         }
       ]
@@ -43643,16 +43589,14 @@
           "senseId": "1764-s1",
           "label": "",
           "cefr": "B2",
-          "evidence": "cross_validated",
+          "evidence": "source_supported",
           "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-5000-expanded-wordlist"
+            "cefrj-vocabulary-profile-1.5"
           ],
           "locators": [
-            "row 2154: headword=editorial, pos=noun, CEFR=B2",
-            "oxford-5000-expanded.en.tsv:616: editorial (B2)"
+            "row 2154: headword=editorial, pos=noun, CEFR=B2"
           ]
         }
       ]
@@ -43777,13 +43721,11 @@
           "needsIndependentValidation": false,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
             "oxford-3000-wordlist",
             "editorial-curation-map"
           ],
           "locators": [
             "row 957: headword=campaign, pos=noun, CEFR=B2",
-            "row 843: headword=campaign, pos=verb, CEFR=C1",
             "oxford-3000.en.tsv:373: campaign (B1)",
             "hierarchy"
           ]
@@ -44316,18 +44258,16 @@
           "senseId": "1791-s1",
           "label": "",
           "cefr": "B1",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "oxford-5000-expanded-wordlist",
             "editorial-curation-map"
           ],
           "locators": [
-            "row 2390: headword=exclusive, pos=adjective, CEFR=B1",
-            "oxford-5000-expanded.en.tsv:700: exclusive (C1)",
-            "hierarchy"
+            "row 2390",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -46509,14 +46449,16 @@
           "senseId": "1882-s1",
           "label": "",
           "cefr": "B2",
-          "evidence": "source_supported",
-          "confidence": "MEDIUM",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
-            "cefrj-vocabulary-profile-1.5"
+            "cefrj-vocabulary-profile-1.5",
+            "editorial-curation-map"
           ],
           "locators": [
-            "row 4828: headword=pandemic, pos=adjective, CEFR=B2"
+            "row 4828",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -47034,19 +46976,15 @@
         {
           "senseId": "1904-s1",
           "label": "",
-          "cefr": "B2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "cefr": "C1",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
-            "editorial-curation-map"
+            "octanove-vocabulary-profile-c1c2-1.0"
           ],
           "locators": [
-            "row 5572: headword=refresh, pos=noun, CEFR=B2",
-            "row 685: headword=refresh, pos=verb, CEFR=C1",
-            "hierarchy"
+            "row 685: headword=refresh, pos=verb, CEFR=C1"
           ]
         }
       ]
@@ -47544,14 +47482,16 @@
           "senseId": "1925-s1",
           "label": "",
           "cefr": "B1",
-          "evidence": "source_supported",
-          "confidence": "MEDIUM",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
-            "cefrj-vocabulary-profile-1.5"
+            "cefrj-vocabulary-profile-1.5",
+            "editorial-curation-map"
           ],
           "locators": [
-            "row 6632: headword=subconscious, pos=adjective, CEFR=B1"
+            "row 6632",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -49148,19 +49088,15 @@
         {
           "senseId": "1990-s1",
           "label": "",
-          "cefr": "B1",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "cefr": "B2",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-5000-expanded-wordlist",
-            "editorial-curation-map"
+            "oxford-5000-expanded-wordlist"
           ],
           "locators": [
-            "row 6879: headword=terminal, pos=noun, CEFR=B1",
-            "oxford-5000-expanded.en.tsv:1805: terminal (B2, C1)",
-            "hierarchy"
+            "oxford-5000-expanded.en.tsv:1805: terminal (B2, C1)"
           ]
         }
       ]
@@ -49508,19 +49444,15 @@
         {
           "senseId": "2004-s1",
           "label": "",
-          "cefr": "B2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "cefr": "B1",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-3000-wordlist",
-            "editorial-curation-map"
+            "oxford-3000-wordlist"
           ],
           "locators": [
-            "row 3407: headword=import, pos=verb, CEFR=B2",
-            "oxford-3000.en.tsv:1330: import (B1)",
-            "hierarchy"
+            "oxford-3000.en.tsv:1330: import (B1)"
           ]
         }
       ]
@@ -49765,20 +49697,16 @@
           "senseId": "2014-s1",
           "label": "",
           "cefr": "B2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "evidence": "cross_validated",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
-            "oxford-3000-wordlist",
-            "editorial-curation-map"
+            "oxford-3000-wordlist"
           ],
           "locators": [
             "row 1445: headword=contract, pos=noun, CEFR=B2",
-            "row 483: headword=contract, pos=verb, CEFR=C1",
-            "oxford-3000.en.tsv:579: contract (B2)",
-            "hierarchy"
+            "oxford-3000.en.tsv:579: contract (B2)"
           ]
         }
       ]
@@ -49850,20 +49778,16 @@
           "senseId": "2017-s1",
           "label": "",
           "cefr": "B2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "evidence": "cross_validated",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
-            "oxford-3000-wordlist",
-            "editorial-curation-map"
+            "oxford-3000-wordlist"
           ],
           "locators": [
             "row 6550: headword=stock, pos=noun, CEFR=B2",
-            "row 73: headword=stock, pos=verb, CEFR=C1",
-            "oxford-3000.en.tsv:2551: stock (B2)",
-            "hierarchy"
+            "oxford-3000.en.tsv:2551: stock (B2)"
           ]
         }
       ]
@@ -50383,18 +50307,16 @@
           "senseId": "2038-s1",
           "label": "",
           "cefr": "B2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "oxford-5000-expanded-wordlist",
             "editorial-curation-map"
           ],
           "locators": [
-            "row 1758: headword=delegate, pos=noun, CEFR=B2",
-            "oxford-5000-expanded.en.tsv:492: delegate (C1)",
-            "hierarchy"
+            "row 1758",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -51611,14 +51533,16 @@
           "senseId": "2088-s1",
           "label": "",
           "cefr": "B2",
-          "evidence": "source_supported",
-          "confidence": "MEDIUM",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
-            "cefrj-vocabulary-profile-1.5"
+            "cefrj-vocabulary-profile-1.5",
+            "editorial-curation-map"
           ],
           "locators": [
-            "row 541: headword=bankrupt, pos=verb, CEFR=B2"
+            "row 541",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -52960,19 +52884,15 @@
         {
           "senseId": "2142-s1",
           "label": "",
-          "cefr": "A2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "cefr": "B2",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-5000-expanded-wordlist",
-            "editorial-curation-map"
+            "oxford-5000-expanded-wordlist"
           ],
           "locators": [
-            "row 4028: headword=lyric, pos=adjective, CEFR=A2",
-            "oxford-5000-expanded.en.tsv:1097: lyric (B2)",
-            "hierarchy"
+            "oxford-5000-expanded.en.tsv:1097: lyric (B2)"
           ]
         }
       ]
@@ -54270,18 +54190,14 @@
           "senseId": "2195-s1",
           "label": "",
           "cefr": "A2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
-            "editorial-curation-map"
+            "cefrj-vocabulary-profile-1.5"
           ],
           "locators": [
-            "row 4709: headword=orphan, pos=noun, CEFR=A2",
-            "row 722: headword=orphan, pos=verb, CEFR=C1",
-            "hierarchy"
+            "row 4709: headword=orphan, pos=noun, CEFR=A2"
           ]
         }
       ]
@@ -55376,19 +55292,15 @@
         {
           "senseId": "2240-s1",
           "label": "",
-          "cefr": "B2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "cefr": "C1",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-5000-expanded-wordlist",
-            "editorial-curation-map"
+            "oxford-5000-expanded-wordlist"
           ],
           "locators": [
-            "row 3971: headword=lobby, pos=noun, CEFR=B2",
-            "oxford-5000-expanded.en.tsv:1086: lobby (C1)",
-            "hierarchy"
+            "oxford-5000-expanded.en.tsv:1086: lobby (C1)"
           ]
         }
       ]
@@ -56207,18 +56119,14 @@
           "senseId": "2274-s1",
           "label": "",
           "cefr": "B2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
-            "editorial-curation-map"
+            "cefrj-vocabulary-profile-1.5"
           ],
           "locators": [
-            "row 4925: headword=pedestrian, pos=noun, CEFR=B2",
-            "row 1671: headword=pedestrian, pos=adjective, CEFR=C2",
-            "hierarchy"
+            "row 4925: headword=pedestrian, pos=noun, CEFR=B2"
           ]
         }
       ]
@@ -56495,13 +56403,11 @@
           "needsIndependentValidation": false,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
             "oxford-3000-wordlist",
             "editorial-curation-map"
           ],
           "locators": [
             "row 3782: headword=landscape, pos=noun, CEFR=A2",
-            "row 475: headword=landscape, pos=verb, CEFR=C1",
             "oxford-3000.en.tsv:1476: landscape (B2)",
             "hierarchy"
           ]
@@ -56792,20 +56698,16 @@
           "senseId": "2297-s1",
           "label": "",
           "cefr": "A2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "evidence": "cross_validated",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
-            "oxford-3000-wordlist",
-            "editorial-curation-map"
+            "oxford-3000-wordlist"
           ],
           "locators": [
             "row 1806: headword=desert, pos=noun, CEFR=A2",
-            "row 502: headword=desert, pos=verb, CEFR=C1",
-            "oxford-3000.en.tsv:716: desert (A2, B2)",
-            "hierarchy"
+            "oxford-3000.en.tsv:716: desert (A2, B2)"
           ]
         }
       ]
@@ -59156,13 +59058,11 @@
           "needsIndependentValidation": false,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
             "oxford-3000-wordlist",
             "editorial-curation-map"
           ],
           "locators": [
             "row 2256: headword=engineer, pos=noun, CEFR=A1",
-            "row 479: headword=engineer, pos=verb, CEFR=C1",
             "oxford-3000.en.tsv:889: engineer (A2)",
             "hierarchy"
           ]
@@ -60393,19 +60293,15 @@
         {
           "senseId": "2441-s1",
           "label": "",
-          "cefr": "A2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "cefr": "B2",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-5000-expanded-wordlist",
-            "editorial-curation-map"
+            "oxford-5000-expanded-wordlist"
           ],
           "locators": [
-            "row 1308: headword=comparative, pos=noun, CEFR=A2",
-            "oxford-5000-expanded.en.tsv:321: comparative (B2)",
-            "hierarchy"
+            "oxford-5000-expanded.en.tsv:321: comparative (B2)"
           ]
         }
       ]
@@ -61231,19 +61127,15 @@
         {
           "senseId": "2475-s1",
           "label": "",
-          "cefr": "B1",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "cefr": "C1",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-5000-expanded-wordlist",
-            "editorial-curation-map"
+            "oxford-5000-expanded-wordlist"
           ],
           "locators": [
-            "row 1325: headword=complement, pos=noun, CEFR=B1",
-            "oxford-5000-expanded.en.tsv:330: complement (C1)",
-            "hierarchy"
+            "oxford-5000-expanded.en.tsv:330: complement (C1)"
           ]
         }
       ]
@@ -69251,19 +69143,15 @@
         {
           "senseId": "2791-s1",
           "label": "",
-          "cefr": "B2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "cefr": "C1",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-5000-expanded-wordlist",
-            "editorial-curation-map"
+            "oxford-5000-expanded-wordlist"
           ],
           "locators": [
-            "row 194: headword=alert, pos=verb, CEFR=B2",
-            "oxford-5000-expanded.en.tsv:65: alert (C1)",
-            "hierarchy"
+            "oxford-5000-expanded.en.tsv:65: alert (C1)"
           ]
         }
       ]
@@ -69499,13 +69387,11 @@
           "needsIndependentValidation": false,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
             "oxford-5000-expanded-wordlist",
             "editorial-curation-map"
           ],
           "locators": [
             "row 262: headword=anchor, pos=noun, CEFR=B2",
-            "row 625: headword=anchor, pos=verb, CEFR=C1",
             "oxford-5000-expanded.en.tsv:91: anchor (C1)",
             "hierarchy"
           ]
@@ -70065,18 +69951,14 @@
           "senseId": "2824-s1",
           "label": "",
           "cefr": "B2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
-            "editorial-curation-map"
+            "cefrj-vocabulary-profile-1.5"
           ],
           "locators": [
-            "row 486: headword=awe, pos=noun, CEFR=B2",
-            "row 244: headword=awe, pos=verb, CEFR=C1",
-            "hierarchy"
+            "row 486: headword=awe, pos=noun, CEFR=B2"
           ]
         }
       ]
@@ -70294,15 +70176,13 @@
           "senseId": "2833-s1",
           "label": "",
           "cefr": "B2",
-          "evidence": "cross_validated",
+          "evidence": "source_supported",
           "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
             "oxford-5000-expanded-wordlist"
           ],
           "locators": [
-            "row 664: headword=bid, pos=verb, CEFR=B2",
             "oxford-5000-expanded.en.tsv:188: bid (B2)"
           ]
         }
@@ -70451,13 +70331,11 @@
           "needsIndependentValidation": false,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
             "oxford-5000-expanded-wordlist",
             "editorial-curation-map"
           ],
           "locators": [
             "row 738: headword=boast, pos=verb, CEFR=B1",
-            "row 331: headword=boast, pos=noun, CEFR=C1",
             "oxford-5000-expanded.en.tsv:202: boast (C1)",
             "hierarchy"
           ]
@@ -70853,13 +70731,11 @@
           "needsIndependentValidation": false,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
             "oxford-5000-expanded-wordlist",
             "editorial-curation-map"
           ],
           "locators": [
             "row 907: headword=burst, pos=verb, CEFR=B1",
-            "row 362: headword=burst, pos=noun, CEFR=C1",
             "oxford-5000-expanded.en.tsv:232: burst (C1)",
             "hierarchy"
           ]
@@ -72366,14 +72242,16 @@
           "senseId": "2917-s1",
           "label": "",
           "cefr": "B2",
-          "evidence": "source_supported",
-          "confidence": "MEDIUM",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
-            "cefrj-vocabulary-profile-1.5"
+            "cefrj-vocabulary-profile-1.5",
+            "editorial-curation-map"
           ],
           "locators": [
-            "row 1957: headword=disregard, pos=noun, CEFR=B2"
+            "row 1957",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -72822,15 +72700,13 @@
           "senseId": "2935-s1",
           "label": "",
           "cefr": "B2",
-          "evidence": "cross_validated",
+          "evidence": "source_supported",
           "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
             "oxford-5000-expanded-wordlist"
           ],
           "locators": [
-            "row 2211: headword=embrace, pos=noun, CEFR=B2",
             "oxford-5000-expanded.en.tsv:637: embrace (B2)"
           ]
         }
@@ -73559,19 +73435,15 @@
         {
           "senseId": "2965-s1",
           "label": "",
-          "cefr": "B1",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "cefr": "C1",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-5000-expanded-wordlist",
-            "editorial-curation-map"
+            "oxford-5000-expanded-wordlist"
           ],
           "locators": [
-            "row 2603: headword=filter, pos=noun, CEFR=B1",
-            "oxford-5000-expanded.en.tsv:747: filter (C1)",
-            "hierarchy"
+            "oxford-5000-expanded.en.tsv:747: filter (C1)"
           ]
         }
       ]
@@ -73855,19 +73727,15 @@
         {
           "senseId": "2977-s1",
           "label": "",
-          "cefr": "B2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "cefr": "C1",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-5000-expanded-wordlist",
-            "editorial-curation-map"
+            "oxford-5000-expanded-wordlist"
           ],
           "locators": [
-            "row 3010: headword=grasp, pos=noun, CEFR=B2",
-            "oxford-5000-expanded.en.tsv:835: grasp (C1)",
-            "hierarchy"
+            "oxford-5000-expanded.en.tsv:835: grasp (C1)"
           ]
         }
       ]
@@ -74110,14 +73978,16 @@
           "senseId": "2987-s1",
           "label": "",
           "cefr": "B2",
-          "evidence": "source_supported",
-          "confidence": "MEDIUM",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
-            "cefrj-vocabulary-profile-1.5"
+            "cefrj-vocabulary-profile-1.5",
+            "editorial-curation-map"
           ],
           "locators": [
-            "row 3339: headword=hybrid, pos=adjective, CEFR=B2"
+            "row 3339",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -74788,13 +74658,11 @@
           "needsIndependentValidation": false,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
             "oxford-3000-wordlist",
             "editorial-curation-map"
           ],
           "locators": [
             "row 3814: headword=launch, pos=verb, CEFR=B1",
-            "row 718: headword=launch, pos=noun, CEFR=C1",
             "oxford-3000.en.tsv:1488: launch (B2)",
             "hierarchy"
           ]
@@ -75085,14 +74953,16 @@
           "senseId": "3026-s1",
           "label": "",
           "cefr": "C1",
-          "evidence": "source_supported",
-          "confidence": "MEDIUM",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
-            "oxford-5000-expanded-wordlist"
+            "oxford-5000-expanded-wordlist",
+            "editorial-curation-map"
           ],
           "locators": [
-            "oxford-5000-expanded.en.tsv:1068: license (C1)"
+            "oxford-5000-expanded.en.tsv:1068",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -75619,14 +75489,16 @@
           "senseId": "3048-s1",
           "label": "",
           "cefr": "B2",
-          "evidence": "source_supported",
-          "confidence": "MEDIUM",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
-            "cefrj-vocabulary-profile-1.5"
+            "cefrj-vocabulary-profile-1.5",
+            "editorial-curation-map"
           ],
           "locators": [
-            "row 4270: headword=mock, pos=adjective, CEFR=B2"
+            "row 4270",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -75787,19 +75659,15 @@
         {
           "senseId": "3055-s1",
           "label": "",
-          "cefr": "B2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "cefr": "C1",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-5000-expanded-wordlist",
-            "editorial-curation-map"
+            "oxford-5000-expanded-wordlist"
           ],
           "locators": [
-            "row 4453: headword=neglect, pos=noun, CEFR=B2",
-            "oxford-5000-expanded.en.tsv:1207: neglect (C1)",
-            "hierarchy"
+            "oxford-5000-expanded.en.tsv:1207: neglect (C1)"
           ]
         }
       ]
@@ -77121,16 +76989,14 @@
           "senseId": "3110-s1",
           "label": "",
           "cefr": "B2",
-          "evidence": "cross_validated",
+          "evidence": "source_supported",
           "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-5000-expanded-wordlist"
+            "cefrj-vocabulary-profile-1.5"
           ],
           "locators": [
-            "row 5320: headword=prompt, pos=adjective, CEFR=B2",
-            "oxford-5000-expanded.en.tsv:1412: prompt (B2)"
+            "row 5320: headword=prompt, pos=adjective, CEFR=B2"
           ]
         }
       ]
@@ -77435,13 +77301,11 @@
           "needsIndependentValidation": false,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
             "oxford-5000-expanded-wordlist",
             "editorial-curation-map"
           ],
           "locators": [
             "row 5467: headword=rally, pos=noun, CEFR=B2",
-            "row 42: headword=rally, pos=verb, CEFR=C1",
             "oxford-5000-expanded.en.tsv:1454: rally (C1)",
             "hierarchy"
           ]
@@ -77559,18 +77423,14 @@
           "senseId": "3128-s1",
           "label": "",
           "cefr": "B2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-5000-expanded-wordlist",
-            "editorial-curation-map"
+            "cefrj-vocabulary-profile-1.5"
           ],
           "locators": [
-            "row 5520: headword=rebel, pos=verb, CEFR=B2",
-            "oxford-5000-expanded.en.tsv:1470: rebel (C1)",
-            "hierarchy"
+            "row 5520: headword=rebel, pos=verb, CEFR=B2"
           ]
         }
       ]
@@ -77618,13 +77478,11 @@
           "needsIndependentValidation": false,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
             "oxford-3000-wordlist",
             "editorial-curation-map"
           ],
           "locators": [
             "row 5523: headword=recall, pos=verb, CEFR=B1",
-            "row 512: headword=recall, pos=noun, CEFR=C1",
             "oxford-3000.en.tsv:2148: recall (B2)",
             "hierarchy"
           ]
@@ -77736,14 +77594,16 @@
           "senseId": "3135-s1",
           "label": "",
           "cefr": "B2",
-          "evidence": "source_supported",
-          "confidence": "MEDIUM",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
-            "cefrj-vocabulary-profile-1.5"
+            "cefrj-vocabulary-profile-1.5",
+            "editorial-curation-map"
           ],
           "locators": [
-            "row 5571: headword=refrain, pos=noun, CEFR=B2"
+            "row 5571",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -78398,19 +78258,15 @@
         {
           "senseId": "3162-s1",
           "label": "",
-          "cefr": "B2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "cefr": "C1",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-5000-expanded-wordlist",
-            "editorial-curation-map"
+            "oxford-5000-expanded-wordlist"
           ],
           "locators": [
-            "row 5980: headword=seal, pos=noun, CEFR=B2",
-            "oxford-5000-expanded.en.tsv:1595: seal (C1)",
-            "hierarchy"
+            "oxford-5000-expanded.en.tsv:1595: seal (C1)"
           ]
         }
       ]
@@ -78527,21 +78383,17 @@
         {
           "senseId": "3167-s1",
           "label": "",
-          "cefr": "B2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "cefr": "C1",
+          "evidence": "cross_validated",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
             "octanove-vocabulary-profile-c1c2-1.0",
-            "oxford-5000-expanded-wordlist",
-            "editorial-curation-map"
+            "oxford-5000-expanded-wordlist"
           ],
           "locators": [
-            "row 6102: headword=shed, pos=noun, CEFR=B2",
             "row 344: headword=shed, pos=verb, CEFR=C1",
-            "oxford-5000-expanded.en.tsv:1619: shed (C1)",
-            "hierarchy"
+            "oxford-5000-expanded.en.tsv:1619: shed (C1)"
           ]
         }
       ]
@@ -78660,19 +78512,15 @@
         {
           "senseId": "3172-s1",
           "label": "",
-          "cefr": "B2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "cefr": "C1",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-5000-expanded-wordlist",
-            "editorial-curation-map"
+            "oxford-5000-expanded-wordlist"
           ],
           "locators": [
-            "row 6398: headword=span, pos=verb, CEFR=B2",
-            "oxford-5000-expanded.en.tsv:1666: span (C1)",
-            "hierarchy"
+            "oxford-5000-expanded.en.tsv:1666: span (C1)"
           ]
         }
       ]
@@ -78687,19 +78535,15 @@
         {
           "senseId": "3173-s1",
           "label": "",
-          "cefr": "B2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "cefr": "C1",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-5000-expanded-wordlist",
-            "editorial-curation-map"
+            "oxford-5000-expanded-wordlist"
           ],
           "locators": [
-            "row 6402: headword=spark, pos=noun, CEFR=B2",
-            "oxford-5000-expanded.en.tsv:1668: spark (C1)",
-            "hierarchy"
+            "oxford-5000-expanded.en.tsv:1668: spark (C1)"
           ]
         }
       ]
@@ -78784,14 +78628,16 @@
           "senseId": "3177-s1",
           "label": "",
           "cefr": "B2",
-          "evidence": "source_supported",
-          "confidence": "MEDIUM",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
-            "cefrj-vocabulary-profile-1.5"
+            "cefrj-vocabulary-profile-1.5",
+            "editorial-curation-map"
           ],
           "locators": [
-            "row 6466: headword=spur, pos=noun, CEFR=B2"
+            "row 6466",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -78861,14 +78707,16 @@
           "senseId": "3180-s1",
           "label": "",
           "cefr": "C1",
-          "evidence": "source_supported",
-          "confidence": "MEDIUM",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
-            "octanove-vocabulary-profile-c1c2-1.0"
+            "octanove-vocabulary-profile-c1c2-1.0",
+            "editorial-curation-map"
           ],
           "locators": [
-            "row 1102: headword=staple, pos=noun, CEFR=C1"
+            "row 1102",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -78984,14 +78832,16 @@
           "senseId": "3185-s1",
           "label": "",
           "cefr": "B2",
-          "evidence": "source_supported",
-          "confidence": "MEDIUM",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
-            "cefrj-vocabulary-profile-1.5"
+            "cefrj-vocabulary-profile-1.5",
+            "editorial-curation-map"
           ],
           "locators": [
-            "row 6599: headword=stride, pos=verb, CEFR=B2"
+            "row 6599",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -79577,19 +79427,15 @@
         {
           "senseId": "3209-s1",
           "label": "",
-          "cefr": "B2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "cefr": "C1",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-5000-expanded-wordlist",
-            "editorial-curation-map"
+            "oxford-5000-expanded-wordlist"
           ],
           "locators": [
-            "row 7505: headword=vow, pos=noun, CEFR=B2",
-            "oxford-5000-expanded.en.tsv:1954: vow (C1)",
-            "hierarchy"
+            "oxford-5000-expanded.en.tsv:1954: vow (C1)"
           ]
         }
       ]
@@ -79697,14 +79543,16 @@
           "senseId": "3214-s1",
           "label": "",
           "cefr": "B2",
-          "evidence": "source_supported",
-          "confidence": "MEDIUM",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
-            "cefrj-vocabulary-profile-1.5"
+            "cefrj-vocabulary-profile-1.5",
+            "editorial-curation-map"
           ],
           "locators": [
-            "row 7759: headword=wreck, pos=noun, CEFR=B2"
+            "row 7759",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -83318,18 +83166,14 @@
           "senseId": "3371-s1",
           "label": "",
           "cefr": "B2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
-            "editorial-curation-map"
+            "cefrj-vocabulary-profile-1.5"
           ],
           "locators": [
-            "row 3364: headword=idle, pos=adjective, CEFR=B2",
-            "row 1279: headword=idle, pos=verb, CEFR=C2",
-            "hierarchy"
+            "row 3364: headword=idle, pos=adjective, CEFR=B2"
           ]
         }
       ]
@@ -85703,14 +85547,16 @@
           "senseId": "3474-s1",
           "label": "",
           "cefr": "B2",
-          "evidence": "source_supported",
-          "confidence": "MEDIUM",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
-            "cefrj-vocabulary-profile-1.5"
+            "cefrj-vocabulary-profile-1.5",
+            "editorial-curation-map"
           ],
           "locators": [
-            "row 4866: headword=partisan, pos=noun, CEFR=B2"
+            "row 4866",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -87336,14 +87182,16 @@
           "senseId": "3545-s1",
           "label": "",
           "cefr": "C2",
-          "evidence": "source_supported",
-          "confidence": "MEDIUM",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
-            "octanove-vocabulary-profile-c1c2-1.0"
+            "octanove-vocabulary-profile-c1c2-1.0",
+            "editorial-curation-map"
           ],
           "locators": [
-            "row 2129: headword=remonstrate, pos=vern, CEFR=C2"
+            "row 2129",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -88053,14 +87901,16 @@
           "senseId": "3576-s1",
           "label": "",
           "cefr": "B2",
-          "evidence": "source_supported",
-          "confidence": "MEDIUM",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
-            "cefrj-vocabulary-profile-1.5"
+            "cefrj-vocabulary-profile-1.5",
+            "editorial-curation-map"
           ],
           "locators": [
-            "row 6348: headword=solvent, pos=noun, CEFR=B2"
+            "row 6348",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -90506,18 +90356,16 @@
           "senseId": "3681-s1",
           "label": "",
           "cefr": "B1",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "oxford-5000-expanded-wordlist",
             "editorial-curation-map"
           ],
           "locators": [
-            "row 6522: headword=steam, pos=noun, CEFR=B1",
-            "oxford-5000-expanded.en.tsv:1709: steam (B2)",
-            "hierarchy"
+            "row 6522",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -91971,14 +91819,16 @@
           "senseId": "3742-s1",
           "label": "",
           "cefr": "B2",
-          "evidence": "source_supported",
-          "confidence": "MEDIUM",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
-            "cefrj-vocabulary-profile-1.5"
+            "cefrj-vocabulary-profile-1.5",
+            "editorial-curation-map"
           ],
           "locators": [
-            "row 5482: headword=rash, pos=adjective, CEFR=B2"
+            "row 5482",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -92742,14 +92592,16 @@
           "senseId": "3775-s1",
           "label": "",
           "cefr": "B2",
-          "evidence": "source_supported",
-          "confidence": "MEDIUM",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
-            "cefrj-vocabulary-profile-1.5"
+            "cefrj-vocabulary-profile-1.5",
+            "editorial-curation-map"
           ],
           "locators": [
-            "row 6465: headword=sprint, pos=noun, CEFR=B2"
+            "row 6465",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -95214,14 +95066,16 @@
           "senseId": "3879-s1",
           "label": "",
           "cefr": "C1",
-          "evidence": "source_supported",
-          "confidence": "MEDIUM",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
-            "octanove-vocabulary-profile-c1c2-1.0"
+            "octanove-vocabulary-profile-c1c2-1.0",
+            "editorial-curation-map"
           ],
           "locators": [
-            "row 285: headword=fuse, pos=verb, CEFR=C1"
+            "row 285",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -95291,18 +95145,14 @@
           "senseId": "3882-s1",
           "label": "",
           "cefr": "A2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-3000-wordlist",
-            "editorial-curation-map"
+            "cefrj-vocabulary-profile-1.5"
           ],
           "locators": [
-            "row 6210: headword=sink, pos=noun, CEFR=A2",
-            "oxford-3000.en.tsv:2428: sink (B1)",
-            "hierarchy"
+            "row 6210: headword=sink, pos=noun, CEFR=A2"
           ]
         }
       ]
@@ -95694,14 +95544,16 @@
           "senseId": "3899-s1",
           "label": "",
           "cefr": "B2",
-          "evidence": "source_supported",
-          "confidence": "MEDIUM",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
-            "cefrj-vocabulary-profile-1.5"
+            "cefrj-vocabulary-profile-1.5",
+            "editorial-curation-map"
           ],
           "locators": [
-            "row 5112: headword=polish, pos=noun, CEFR=B2"
+            "row 5112",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -96090,14 +95942,16 @@
           "senseId": "3915-s1",
           "label": "",
           "cefr": "C1",
-          "evidence": "source_supported",
-          "confidence": "MEDIUM",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
-            "octanove-vocabulary-profile-c1c2-1.0"
+            "octanove-vocabulary-profile-c1c2-1.0",
+            "editorial-curation-map"
           ],
           "locators": [
-            "row 1026: headword=chisel, pos=verb, CEFR=C1"
+            "row 1026",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -98499,18 +98353,16 @@
           "senseId": "4018-s1",
           "label": "",
           "cefr": "A2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "oxford-5000-expanded-wordlist",
             "editorial-curation-map"
           ],
           "locators": [
-            "row 6750: headword=swallow, pos=verb, CEFR=A2",
-            "oxford-5000-expanded.en.tsv:1781: swallow (B2)",
-            "hierarchy"
+            "row 6750",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -101700,18 +101552,16 @@
           "senseId": "4155-s1",
           "label": "",
           "cefr": "B2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "oxford-5000-expanded-wordlist",
             "editorial-curation-map"
           ],
           "locators": [
-            "row 3081: headword=hail, pos=verb, CEFR=B2",
-            "oxford-5000-expanded.en.tsv:854: hail (C1)",
-            "hierarchy"
+            "row 3081",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -103799,21 +103649,15 @@
         {
           "senseId": "4245-s1",
           "label": "",
-          "cefr": "B1",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "cefr": "C1",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
-            "oxford-3000-wordlist",
-            "editorial-curation-map"
+            "octanove-vocabulary-profile-c1c2-1.0"
           ],
           "locators": [
-            "row 6998: headword=till, pos=conjunction, CEFR=B1",
-            "row 938: headword=till, pos=noun, CEFR=C1",
-            "oxford-3000.en.tsv:2716: till (B1)",
-            "hierarchy"
+            "row 938: headword=till, pos=noun, CEFR=C1"
           ]
         }
       ]
@@ -105030,18 +104874,14 @@
           "senseId": "4297-s1",
           "label": "",
           "cefr": "B2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
-            "editorial-curation-map"
+            "cefrj-vocabulary-profile-1.5"
           ],
           "locators": [
-            "row 5084: headword=plum, pos=noun, CEFR=B2",
-            "row 1340: headword=plum, pos=adjective, CEFR=C2",
-            "hierarchy"
+            "row 5084: headword=plum, pos=noun, CEFR=B2"
           ]
         }
       ]
@@ -111156,14 +110996,16 @@
           "senseId": "4559-s1",
           "label": "",
           "cefr": "C1",
-          "evidence": "source_supported",
-          "confidence": "MEDIUM",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
-            "oxford-5000-expanded-wordlist"
+            "oxford-5000-expanded-wordlist",
+            "editorial-curation-map"
           ],
           "locators": [
-            "oxford-5000-expanded.en.tsv:1655: sole (C1)"
+            "oxford-5000-expanded.en.tsv:1655",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -112357,14 +112199,16 @@
           "senseId": "4610-s1",
           "label": "",
           "cefr": "C1",
-          "evidence": "source_supported",
-          "confidence": "MEDIUM",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
-            "octanove-vocabulary-profile-c1c2-1.0"
+            "octanove-vocabulary-profile-c1c2-1.0",
+            "editorial-curation-map"
           ],
           "locators": [
-            "row 800: headword=wrench, pos=verb, CEFR=C1"
+            "row 800",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -112402,19 +112246,15 @@
         {
           "senseId": "4612-s1",
           "label": "",
-          "cefr": "B1",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "cefr": "C1",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-5000-expanded-wordlist",
-            "editorial-curation-map"
+            "oxford-5000-expanded-wordlist"
           ],
           "locators": [
-            "row 7452: headword=vice, pos=adjective, CEFR=B1",
-            "oxford-5000-expanded.en.tsv:1942: vice (C1)",
-            "hierarchy"
+            "oxford-5000-expanded.en.tsv:1942: vice (C1)"
           ]
         }
       ]
@@ -113114,18 +112954,14 @@
           "senseId": "4641-s1",
           "label": "",
           "cefr": "A2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-3000-wordlist",
-            "editorial-curation-map"
+            "cefrj-vocabulary-profile-1.5"
           ],
           "locators": [
-            "row 5078: headword=plenty, pos=noun, CEFR=A2",
-            "oxford-3000.en.tsv:1964: plenty (B1)",
-            "hierarchy"
+            "row 5078: headword=plenty, pos=noun, CEFR=A2"
           ]
         }
       ]
@@ -114417,18 +114253,14 @@
           "senseId": "4692-s1",
           "label": "",
           "cefr": "B2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-3000-wordlist",
-            "editorial-curation-map"
+            "cefrj-vocabulary-profile-1.5"
           ],
           "locators": [
-            "row 672: headword=billion, pos=noun, CEFR=B2",
-            "oxford-3000.en.tsv:280: billion (A2)",
-            "hierarchy"
+            "row 672: headword=billion, pos=noun, CEFR=B2"
           ]
         }
       ]
@@ -114727,16 +114559,16 @@
           "senseId": "4704-s1",
           "label": "",
           "cefr": "A1",
-          "evidence": "cross_validated",
-          "confidence": "HIGH",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "oxford-3000-wordlist"
+            "editorial-curation-map"
           ],
           "locators": [
-            "row 7204: headword=twenty, pos=number, CEFR=A1",
-            "oxford-3000.en.tsv:2789: twenty (A1)"
+            "row 7204",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -116104,14 +115936,16 @@
           "senseId": "4757-s1",
           "label": "",
           "cefr": "A1",
-          "evidence": "source_supported",
-          "confidence": "MEDIUM",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
-            "oxford-3000-wordlist"
+            "oxford-3000-wordlist",
+            "editorial-curation-map"
           ],
           "locators": [
-            "oxford-3000.en.tsv:1102: fourth (A1)"
+            "oxford-3000.en.tsv:1102",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -116414,16 +116248,16 @@
           "senseId": "4769-s1",
           "label": "",
           "cefr": "A1",
-          "evidence": "cross_validated",
-          "confidence": "HIGH",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "oxford-3000-wordlist"
+            "editorial-curation-map"
           ],
           "locators": [
-            "row 7203: headword=twelve, pos=number, CEFR=A1",
-            "oxford-3000.en.tsv:2788: twelve (A1)"
+            "row 7203",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -116439,16 +116273,16 @@
           "senseId": "4770-s1",
           "label": "",
           "cefr": "A1",
-          "evidence": "cross_validated",
-          "confidence": "HIGH",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "oxford-3000-wordlist"
+            "editorial-curation-map"
           ],
           "locators": [
-            "row 2587: headword=fifty, pos=number, CEFR=A1",
-            "oxford-3000.en.tsv:1033: fifty (A1)"
+            "row 2587",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -116675,13 +116509,11 @@
           "needsIndependentValidation": false,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
             "oxford-3000-wordlist",
             "editorial-curation-map"
           ],
           "locators": [
             "row 2631: headword=firm, pos=noun, CEFR=B1",
-            "row 592: headword=firm, pos=verb, CEFR=C1",
             "oxford-3000.en.tsv:1050: firm (B2)",
             "hierarchy"
           ]
@@ -116699,18 +116531,14 @@
           "senseId": "4780-s1",
           "label": "",
           "cefr": "B1",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-3000-wordlist",
-            "editorial-curation-map"
+            "cefrj-vocabulary-profile-1.5"
           ],
           "locators": [
-            "row 2586: headword=fifth, pos=noun, CEFR=B1",
-            "oxford-3000.en.tsv:1032: fifth (A1)",
-            "hierarchy"
+            "row 2586: headword=fifth, pos=noun, CEFR=B1"
           ]
         }
       ]
@@ -116966,13 +116794,11 @@
           "needsIndependentValidation": false,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
             "oxford-3000-wordlist",
             "editorial-curation-map"
           ],
           "locators": [
             "row 2356: headword=exact, pos=adjective, CEFR=B1",
-            "row 1227: headword=exact, pos=verb, CEFR=C2",
             "oxford-3000.en.tsv:936: exact (A2)",
             "hierarchy"
           ]
@@ -117271,16 +117097,16 @@
           "senseId": "4802-s1",
           "label": "",
           "cefr": "A1",
-          "evidence": "cross_validated",
-          "confidence": "HIGH",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "oxford-3000-wordlist"
+            "editorial-curation-map"
           ],
           "locators": [
-            "row 2585: headword=fifteen, pos=number, CEFR=A1",
-            "oxford-3000.en.tsv:1031: fifteen (A1)"
+            "row 2585",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -118099,20 +117925,16 @@
           "senseId": "4834-s1",
           "label": "",
           "cefr": "B1",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "evidence": "cross_validated",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
-            "oxford-3000-wordlist",
-            "editorial-curation-map"
+            "oxford-3000-wordlist"
           ],
           "locators": [
             "row 6174: headword=signal, pos=noun, CEFR=B1",
-            "row 751: headword=signal, pos=verb, CEFR=C1",
-            "oxford-3000.en.tsv:2409: signal (B1)",
-            "hierarchy"
+            "oxford-3000.en.tsv:2409: signal (B1)"
           ]
         }
       ]
@@ -118569,16 +118391,16 @@
           "senseId": "4852-s1",
           "label": "",
           "cefr": "A1",
-          "evidence": "cross_validated",
-          "confidence": "HIGH",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "oxford-3000-wordlist"
+            "editorial-curation-map"
           ],
           "locators": [
-            "row 2196: headword=eleven, pos=number, CEFR=A1",
-            "oxford-3000.en.tsv:862: eleven (A1)"
+            "row 2196",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -118795,13 +118617,11 @@
           "needsIndependentValidation": false,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
             "oxford-3000-wordlist",
             "editorial-curation-map"
           ],
           "locators": [
             "row 24: headword=absolute, pos=adjective, CEFR=B1",
-            "row 354: headword=absolute, pos=noun, CEFR=C1",
             "oxford-3000.en.tsv:9: absolute (B2)",
             "hierarchy"
           ]
@@ -119027,16 +118847,16 @@
           "senseId": "4870-s1",
           "label": "",
           "cefr": "A1",
-          "evidence": "cross_validated",
-          "confidence": "HIGH",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "oxford-3000-wordlist"
+            "editorial-curation-map"
           ],
           "locators": [
-            "row 6946: headword=thirty, pos=number, CEFR=A1",
-            "oxford-3000.en.tsv:2698: thirty (A1)"
+            "row 6946",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -119260,16 +119080,16 @@
           "senseId": "4879-s1",
           "label": "",
           "cefr": "A1",
-          "evidence": "cross_validated",
-          "confidence": "HIGH",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "oxford-3000-wordlist"
+            "editorial-curation-map"
           ],
           "locators": [
-            "row 2759: headword=forty, pos=number, CEFR=A1",
-            "oxford-3000.en.tsv:1097: forty (A1)"
+            "row 2759",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -122677,13 +122497,11 @@
           "needsIndependentValidation": false,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
             "oxford-5000-expanded-wordlist",
             "editorial-curation-map"
           ],
           "locators": [
             "row 1549: headword=craft, pos=noun, CEFR=B1",
-            "row 120: headword=craft, pos=verb, CEFR=C1",
             "oxford-5000-expanded.en.tsv:441: craft (B2, C1)",
             "hierarchy"
           ]
@@ -123760,16 +123578,16 @@
           "senseId": "5055-s1",
           "label": "",
           "cefr": "A1",
-          "evidence": "cross_validated",
-          "confidence": "HIGH",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "oxford-3000-wordlist"
+            "editorial-curation-map"
           ],
           "locators": [
-            "row 6221: headword=sixty, pos=number, CEFR=A1",
-            "oxford-3000.en.tsv:2436: sixty (A1)"
+            "row 6221",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -124088,16 +123906,16 @@
           "senseId": "5069-s1",
           "label": "",
           "cefr": "A1",
-          "evidence": "cross_validated",
-          "confidence": "HIGH",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "oxford-3000-wordlist"
+            "editorial-curation-map"
           ],
           "locators": [
-            "row 2170: headword=eighty, pos=number, CEFR=A1",
-            "oxford-3000.en.tsv:851: eighty (A1)"
+            "row 2170",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -125358,13 +125176,11 @@
           "needsIndependentValidation": false,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
             "oxford-3000-wordlist",
             "editorial-curation-map"
           ],
           "locators": [
             "row 7192: headword=tune, pos=noun, CEFR=A2",
-            "row 383: headword=tune, pos=verb, CEFR=C1",
             "oxford-3000.en.tsv:2784: tune (B2)",
             "hierarchy"
           ]
@@ -126452,19 +126268,15 @@
         {
           "senseId": "5164-s1",
           "label": "",
-          "cefr": "B2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "cefr": "C2",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
-            "editorial-curation-map"
+            "octanove-vocabulary-profile-c1c2-1.0"
           ],
           "locators": [
-            "row 7406: headword=utter, pos=verb, CEFR=B2",
-            "row 1184: headword=utter, pos=adjective, CEFR=C2",
-            "hierarchy"
+            "row 1184: headword=utter, pos=adjective, CEFR=C2"
           ]
         }
       ]
@@ -128905,13 +128717,11 @@
           "needsIndependentValidation": false,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
             "oxford-5000-expanded-wordlist",
             "editorial-curation-map"
           ],
           "locators": [
             "row 1980: headword=dive, pos=verb, CEFR=B1",
-            "row 1360: headword=dive, pos=noun, CEFR=C2",
             "oxford-5000-expanded.en.tsv:579: dive (B2)",
             "hierarchy"
           ]
@@ -129468,16 +129278,16 @@
           "senseId": "5285-s1",
           "label": "",
           "cefr": "A1",
-          "evidence": "cross_validated",
-          "confidence": "HIGH",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "oxford-3000-wordlist"
+            "editorial-curation-map"
           ],
           "locators": [
-            "row 6220: headword=sixteen, pos=number, CEFR=A1",
-            "oxford-3000.en.tsv:2435: sixteen (A1)"
+            "row 6220",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -129595,14 +129405,16 @@
           "senseId": "5290-s1",
           "label": "",
           "cefr": "B2",
-          "evidence": "source_supported",
-          "confidence": "MEDIUM",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
-            "cefrj-vocabulary-profile-1.5"
+            "cefrj-vocabulary-profile-1.5",
+            "editorial-curation-map"
           ],
           "locators": [
-            "row 2944: headword=glow, pos=noun, CEFR=B2"
+            "row 2944",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -132477,15 +132289,13 @@
           "senseId": "5412-s1",
           "label": "",
           "cefr": "B1",
-          "evidence": "cross_validated",
+          "evidence": "source_supported",
           "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
             "oxford-3000-wordlist"
           ],
           "locators": [
-            "row 4410: headword=narrative, pos=adjective, CEFR=B1",
             "oxford-3000.en.tsv:1713: narrative (B1)"
           ]
         }
@@ -132759,19 +132569,15 @@
         {
           "senseId": "5423-s1",
           "label": "",
-          "cefr": "B2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "cefr": "C1",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-5000-expanded-wordlist",
-            "editorial-curation-map"
+            "oxford-5000-expanded-wordlist"
           ],
           "locators": [
-            "row 2692: headword=fluid, pos=adjective, CEFR=B2",
-            "oxford-5000-expanded.en.tsv:764: fluid (C1)",
-            "hierarchy"
+            "oxford-5000-expanded.en.tsv:764: fluid (C1)"
           ]
         }
       ]
@@ -133937,13 +133743,11 @@
           "needsIndependentValidation": false,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
             "oxford-5000-expanded-wordlist",
             "editorial-curation-map"
           ],
           "locators": [
             "row 5400: headword=puzzle, pos=noun, CEFR=B1",
-            "row 127: headword=puzzle, pos=verb, CEFR=C1",
             "oxford-5000-expanded.en.tsv:1440: puzzle (B2)",
             "hierarchy"
           ]
@@ -134443,16 +134247,16 @@
           "senseId": "5490-s1",
           "label": "",
           "cefr": "A1",
-          "evidence": "cross_validated",
-          "confidence": "HIGH",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "oxford-3000-wordlist"
+            "editorial-curation-map"
           ],
           "locators": [
-            "row 6066: headword=seventeen, pos=number, CEFR=A1",
-            "oxford-3000.en.tsv:2363: seventeen (A1)"
+            "row 6066",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -134712,14 +134516,16 @@
           "senseId": "5501-s1",
           "label": "",
           "cefr": "B1",
-          "evidence": "source_supported",
-          "confidence": "MEDIUM",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
-            "cefrj-vocabulary-profile-1.5"
+            "cefrj-vocabulary-profile-1.5",
+            "editorial-curation-map"
           ],
           "locators": [
-            "row 3143: headword=hatch, pos=noun, CEFR=B1"
+            "row 3143",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -134762,16 +134568,16 @@
           "senseId": "5503-s1",
           "label": "",
           "cefr": "A1",
-          "evidence": "cross_validated",
-          "confidence": "HIGH",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "oxford-3000-wordlist"
+            "editorial-curation-map"
           ],
           "locators": [
-            "row 2169: headword=eighteen, pos=number, CEFR=A1",
-            "oxford-3000.en.tsv:850: eighteen (A1)"
+            "row 2169",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -134937,16 +134743,16 @@
           "senseId": "5510-s1",
           "label": "",
           "cefr": "A1",
-          "evidence": "cross_validated",
-          "confidence": "HIGH",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "oxford-3000-wordlist"
+            "editorial-curation-map"
           ],
           "locators": [
-            "row 6067: headword=seventy, pos=number, CEFR=A1",
-            "oxford-3000.en.tsv:2364: seventy (A1)"
+            "row 6067",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -136182,16 +135988,16 @@
           "senseId": "5563-s1",
           "label": "",
           "cefr": "A1",
-          "evidence": "cross_validated",
-          "confidence": "HIGH",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "oxford-3000-wordlist"
+            "editorial-curation-map"
           ],
           "locators": [
-            "row 4501: headword=nineteen, pos=number, CEFR=A1",
-            "oxford-3000.en.tsv:1748: nineteen (A1)"
+            "row 4501",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -138561,14 +138367,16 @@
           "senseId": "5666-s1",
           "label": "",
           "cefr": "B2",
-          "evidence": "source_supported",
-          "confidence": "MEDIUM",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
-            "cefrj-vocabulary-profile-1.5"
+            "cefrj-vocabulary-profile-1.5",
+            "editorial-curation-map"
           ],
           "locators": [
-            "row 917: headword=bustle, pos=verb, CEFR=B2"
+            "row 917",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -139689,13 +139497,11 @@
           "needsIndependentValidation": false,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
             "oxford-3000-wordlist",
             "editorial-curation-map"
           ],
           "locators": [
             "row 270: headword=angle, pos=noun, CEFR=B1",
-            "row 398: headword=angle, pos=verb, CEFR=C1",
             "oxford-3000.en.tsv:109: angle (B2)",
             "hierarchy"
           ]
@@ -140421,18 +140227,14 @@
           "senseId": "5742-s1",
           "label": "",
           "cefr": "B1",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
-            "editorial-curation-map"
+            "cefrj-vocabulary-profile-1.5"
           ],
           "locators": [
-            "row 10: headword=aboard, pos=adverb, CEFR=B1",
-            "row 963: headword=aboard, pos=preposition, CEFR=C1",
-            "hierarchy"
+            "row 10: headword=aboard, pos=adverb, CEFR=B1"
           ]
         }
       ]
@@ -140474,19 +140276,15 @@
         {
           "senseId": "5744-s1",
           "label": "",
-          "cefr": "B1",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "cefr": "C1",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-5000-expanded-wordlist",
-            "editorial-curation-map"
+            "oxford-5000-expanded-wordlist"
           ],
           "locators": [
-            "row 4898: headword=patrol, pos=noun, CEFR=B1",
-            "oxford-5000-expanded.en.tsv:1312: patrol (C1)",
-            "hierarchy"
+            "oxford-5000-expanded.en.tsv:1312: patrol (C1)"
           ]
         }
       ]
@@ -141295,14 +141093,16 @@
           "senseId": "5778-s1",
           "label": "",
           "cefr": "B1",
-          "evidence": "source_supported",
-          "confidence": "MEDIUM",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
-            "cefrj-vocabulary-profile-1.5"
+            "cefrj-vocabulary-profile-1.5",
+            "editorial-curation-map"
           ],
           "locators": [
-            "row 7013: headword=tire, pos=verb, CEFR=B1"
+            "row 7013",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -142100,18 +141900,16 @@
           "senseId": "5811-s1",
           "label": "",
           "cefr": "B2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "oxford-5000-expanded-wordlist",
             "editorial-curation-map"
           ],
           "locators": [
-            "row 5867: headword=sack, pos=verb, CEFR=B2",
-            "oxford-5000-expanded.en.tsv:1575: sack (C1)",
-            "hierarchy"
+            "row 5867",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -142377,18 +142175,14 @@
           "senseId": "5822-s1",
           "label": "",
           "cefr": "B2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
-            "editorial-curation-map"
+            "cefrj-vocabulary-profile-1.5"
           ],
           "locators": [
-            "row 5050: headword=plague, pos=noun, CEFR=B2",
-            "row 721: headword=plague, pos=verb, CEFR=C1",
-            "hierarchy"
+            "row 5050: headword=plague, pos=noun, CEFR=B2"
           ]
         }
       ]
@@ -142404,16 +142198,16 @@
           "senseId": "5823-s1",
           "label": "",
           "cefr": "A1",
-          "evidence": "cross_validated",
-          "confidence": "HIGH",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "oxford-3000-wordlist"
+            "editorial-curation-map"
           ],
           "locators": [
-            "row 6945: headword=thirteen, pos=number, CEFR=A1",
-            "oxford-3000.en.tsv:2697: thirteen (A1)"
+            "row 6945",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -142429,14 +142223,16 @@
           "senseId": "5824-s1",
           "label": "",
           "cefr": "B2",
-          "evidence": "source_supported",
-          "confidence": "MEDIUM",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
-            "cefrj-vocabulary-profile-1.5"
+            "cefrj-vocabulary-profile-1.5",
+            "editorial-curation-map"
           ],
           "locators": [
-            "row 4196: headword=metric, pos=adjective, CEFR=B2"
+            "row 4196",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -142575,14 +142371,16 @@
           "senseId": "5830-s1",
           "label": "",
           "cefr": "C2",
-          "evidence": "source_supported",
-          "confidence": "MEDIUM",
-          "needsIndependentValidation": false,
+          "evidence": "editorial_estimate",
+          "confidence": "LOW",
+          "needsIndependentValidation": true,
           "sources": [
-            "octanove-vocabulary-profile-c1c2-1.0"
+            "octanove-vocabulary-profile-c1c2-1.0",
+            "editorial-curation-map"
           ],
           "locators": [
-            "row 1954: headword=scroll, pos=noun, CEFR=C2"
+            "row 1954",
+            "method:cross-pos-proxy"
           ]
         }
       ]
@@ -143446,19 +143244,15 @@
         {
           "senseId": "5866-s1",
           "label": "",
-          "cefr": "C2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "cefr": "C1",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "octanove-vocabulary-profile-c1c2-1.0",
-            "oxford-5000-expanded-wordlist",
-            "editorial-curation-map"
+            "oxford-5000-expanded-wordlist"
           ],
           "locators": [
-            "row 1936: headword=standing, pos=noun, CEFR=C2",
-            "oxford-5000-expanded.en.tsv:1704: standing (C1)",
-            "hierarchy"
+            "oxford-5000-expanded.en.tsv:1704: standing (C1)"
           ]
         }
       ]
@@ -143847,13 +143641,11 @@
           "needsIndependentValidation": false,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
             "oxford-3000-wordlist",
             "editorial-curation-map"
           ],
           "locators": [
             "row 4800: headword=pace, pos=noun, CEFR=B1",
-            "row 249: headword=pace, pos=verb, CEFR=C1",
             "oxford-3000.en.tsv:1858: pace (B2)",
             "hierarchy"
           ]
@@ -146044,18 +145836,14 @@
           "senseId": "5967-s1",
           "label": "",
           "cefr": "B1",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
-            "editorial-curation-map"
+            "cefrj-vocabulary-profile-1.5"
           ],
           "locators": [
-            "row 6859: headword=temper, pos=noun, CEFR=B1",
-            "row 2092: headword=temper, pos=verb, CEFR=C2",
-            "hierarchy"
+            "row 6859: headword=temper, pos=noun, CEFR=B1"
           ]
         }
       ]
@@ -149331,18 +149119,14 @@
           "senseId": "6102-s1",
           "label": "",
           "cefr": "B1",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
-            "editorial-curation-map"
+            "cefrj-vocabulary-profile-1.5"
           ],
           "locators": [
-            "row 7562: headword=wax, pos=noun, CEFR=B1",
-            "row 1616: headword=wax, pos=verb, CEFR=C2",
-            "hierarchy"
+            "row 7562: headword=wax, pos=noun, CEFR=B1"
           ]
         }
       ]
@@ -149803,19 +149587,15 @@
         {
           "senseId": "6121-s1",
           "label": "",
-          "cefr": "B1",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "cefr": "C1",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-5000-expanded-wordlist",
-            "editorial-curation-map"
+            "oxford-5000-expanded-wordlist"
           ],
           "locators": [
-            "row 1600: headword=crush, pos=noun, CEFR=B1",
-            "oxford-5000-expanded.en.tsv:453: crush (C1)",
-            "hierarchy"
+            "oxford-5000-expanded.en.tsv:453: crush (C1)"
           ]
         }
       ]
@@ -150430,18 +150210,14 @@
           "senseId": "6147-s1",
           "label": "",
           "cefr": "B1",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
-            "editorial-curation-map"
+            "cefrj-vocabulary-profile-1.5"
           ],
           "locators": [
-            "row 3977: headword=lodge, pos=noun, CEFR=B1",
-            "row 909: headword=lodge, pos=verb, CEFR=C1",
-            "hierarchy"
+            "row 3977: headword=lodge, pos=noun, CEFR=B1"
           ]
         }
       ]
@@ -151508,16 +151284,14 @@
           "senseId": "6191-s1",
           "label": "",
           "cefr": "B1",
-          "evidence": "cross_validated",
+          "evidence": "source_supported",
           "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-3000-wordlist"
+            "cefrj-vocabulary-profile-1.5"
           ],
           "locators": [
-            "row 7627: headword=whenever, pos=adverb, CEFR=B1",
-            "oxford-3000.en.tsv:2926: whenever (B1)"
+            "row 7627: headword=whenever, pos=adverb, CEFR=B1"
           ]
         }
       ]
@@ -153553,19 +153327,15 @@
         {
           "senseId": "6277-s1",
           "label": "",
-          "cefr": "B2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "cefr": "C1",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-5000-expanded-wordlist",
-            "editorial-curation-map"
+            "oxford-5000-expanded-wordlist"
           ],
           "locators": [
-            "row 7578: headword=weave, pos=noun, CEFR=B2",
-            "oxford-5000-expanded.en.tsv:1965: weave (C1)",
-            "hierarchy"
+            "oxford-5000-expanded.en.tsv:1965: weave (C1)"
           ]
         }
       ]
@@ -154808,18 +154578,14 @@
           "senseId": "6329-s1",
           "label": "",
           "cefr": "B2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
-            "editorial-curation-map"
+            "cefrj-vocabulary-profile-1.5"
           ],
           "locators": [
-            "row 3684: headword=jog, pos=noun, CEFR=B2",
-            "row 431: headword=jog, pos=verb, CEFR=C1",
-            "hierarchy"
+            "row 3684: headword=jog, pos=noun, CEFR=B2"
           ]
         }
       ]
@@ -160498,19 +160264,15 @@
         {
           "senseId": "6572-s1",
           "label": "",
-          "cefr": "B2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "cefr": "C1",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-5000-expanded-wordlist",
-            "editorial-curation-map"
+            "oxford-5000-expanded-wordlist"
           ],
           "locators": [
-            "row 2306: headword=erect, pos=adjective, CEFR=B2",
-            "oxford-5000-expanded.en.tsv:675: erect (C1)",
-            "hierarchy"
+            "oxford-5000-expanded.en.tsv:675: erect (C1)"
           ]
         }
       ]
@@ -160725,19 +160487,15 @@
         {
           "senseId": "6581-s1",
           "label": "",
-          "cefr": "B2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "cefr": "C1",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-5000-expanded-wordlist",
-            "editorial-curation-map"
+            "oxford-5000-expanded-wordlist"
           ],
           "locators": [
-            "row 3035: headword=grin, pos=noun, CEFR=B2",
-            "oxford-5000-expanded.en.tsv:843: grin (C1)",
-            "hierarchy"
+            "oxford-5000-expanded.en.tsv:843: grin (C1)"
           ]
         }
       ]
@@ -161077,19 +160835,15 @@
         {
           "senseId": "6595-s1",
           "label": "",
-          "cefr": "B2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "cefr": "C1",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-5000-expanded-wordlist",
-            "editorial-curation-map"
+            "oxford-5000-expanded-wordlist"
           ],
           "locators": [
-            "row 3574: headword=intent, pos=adjective, CEFR=B2",
-            "oxford-5000-expanded.en.tsv:991: intent (C1)",
-            "hierarchy"
+            "oxford-5000-expanded.en.tsv:991: intent (C1)"
           ]
         }
       ]
@@ -162735,21 +162489,17 @@
         {
           "senseId": "6663-s1",
           "label": "",
-          "cefr": "B2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "cefr": "C1",
+          "evidence": "cross_validated",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
             "octanove-vocabulary-profile-c1c2-1.0",
-            "oxford-5000-expanded-wordlist",
-            "editorial-curation-map"
+            "oxford-5000-expanded-wordlist"
           ],
           "locators": [
-            "row 6230: headword=sketch, pos=verb, CEFR=B2",
             "row 639: headword=sketch, pos=noun, CEFR=C1",
-            "oxford-5000-expanded.en.tsv:1639: sketch (C1)",
-            "hierarchy"
+            "oxford-5000-expanded.en.tsv:1639: sketch (C1)"
           ]
         }
       ]
@@ -163308,19 +163058,15 @@
         {
           "senseId": "6686-s1",
           "label": "",
-          "cefr": "B2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "cefr": "C1",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-5000-expanded-wordlist",
-            "editorial-curation-map"
+            "oxford-5000-expanded-wordlist"
           ],
           "locators": [
-            "row 7055: headword=torture, pos=verb, CEFR=B2",
-            "oxford-5000-expanded.en.tsv:1852: torture (C1)",
-            "hierarchy"
+            "oxford-5000-expanded.en.tsv:1852: torture (C1)"
           ]
         }
       ]
@@ -165447,19 +165193,15 @@
         {
           "senseId": "6777-s1",
           "label": "",
-          "cefr": "B1",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "cefr": "B2",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-5000-expanded-wordlist",
-            "editorial-curation-map"
+            "oxford-5000-expanded-wordlist"
           ],
           "locators": [
-            "row 2964: headword=goodness, pos=interjection, CEFR=B1",
-            "oxford-5000-expanded.en.tsv:828: goodness (B2)",
-            "hierarchy"
+            "oxford-5000-expanded.en.tsv:828: goodness (B2)"
           ]
         }
       ]
@@ -167423,18 +167165,14 @@
           "senseId": "6860-s1",
           "label": "",
           "cefr": "B2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
-            "editorial-curation-map"
+            "cefrj-vocabulary-profile-1.5"
           ],
           "locators": [
-            "row 5081: headword=pluck, pos=verb, CEFR=B2",
-            "row 1270: headword=pluck, pos=noun, CEFR=C2",
-            "hierarchy"
+            "row 5081: headword=pluck, pos=verb, CEFR=B2"
           ]
         }
       ]
@@ -170514,18 +170252,14 @@
           "senseId": "6991-s1",
           "label": "",
           "cefr": "B1",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
-            "editorial-curation-map"
+            "cefrj-vocabulary-profile-1.5"
           ],
           "locators": [
-            "row 2807: headword=frost, pos=noun, CEFR=B1",
-            "row 491: headword=frost, pos=verb, CEFR=C1",
-            "hierarchy"
+            "row 2807: headword=frost, pos=noun, CEFR=B1"
           ]
         }
       ]
@@ -171333,18 +171067,14 @@
           "senseId": "7026-s1",
           "label": "",
           "cefr": "B1",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
-            "editorial-curation-map"
+            "cefrj-vocabulary-profile-1.5"
           ],
           "locators": [
-            "row 4990: headword=phantom, pos=adjective, CEFR=B1",
-            "row 1779: headword=phantom, pos=noun, CEFR=C2",
-            "hierarchy"
+            "row 4990: headword=phantom, pos=adjective, CEFR=B1"
           ]
         }
       ]
@@ -178285,13 +178015,11 @@
           "needsIndependentValidation": false,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
             "oxford-5000-expanded-wordlist",
             "editorial-curation-map"
           ],
           "locators": [
             "row 208: headword=ally, pos=noun, CEFR=B2",
-            "row 1176: headword=ally, pos=verb, CEFR=C2",
             "oxford-5000-expanded.en.tsv:77: ally (C1)",
             "hierarchy"
           ]
@@ -182761,13 +182489,11 @@
           "needsIndependentValidation": false,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
             "oxford-5000-expanded-wordlist",
             "editorial-curation-map"
           ],
           "locators": [
             "row 5417: headword=query, pos=noun, CEFR=B2",
-            "row 486: headword=query, pos=verb, CEFR=C1",
             "oxford-5000-expanded.en.tsv:1441: query (C1)",
             "hierarchy"
           ]
@@ -183527,19 +183253,15 @@
         {
           "senseId": "7545-s1",
           "label": "",
-          "cefr": "B2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "cefr": "C1",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-5000-expanded-wordlist",
-            "editorial-curation-map"
+            "oxford-5000-expanded-wordlist"
           ],
           "locators": [
-            "row 6250: headword=slash, pos=noun, CEFR=B2",
-            "oxford-5000-expanded.en.tsv:1645: slash (C1)",
-            "hierarchy"
+            "oxford-5000-expanded.en.tsv:1645: slash (C1)"
           ]
         }
       ]
@@ -186579,18 +186301,14 @@
           "senseId": "7674-s1",
           "label": "",
           "cefr": "B2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
-            "editorial-curation-map"
+            "cefrj-vocabulary-profile-1.5"
           ],
           "locators": [
-            "row 2104: headword=dwarf, pos=noun, CEFR=B2",
-            "row 2020: headword=dwarf, pos=verb, CEFR=C2",
-            "hierarchy"
+            "row 2104: headword=dwarf, pos=noun, CEFR=B2"
           ]
         }
       ]
@@ -189055,18 +188773,14 @@
           "senseId": "7780-s1",
           "label": "",
           "cefr": "B2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
-            "editorial-curation-map"
+            "cefrj-vocabulary-profile-1.5"
           ],
           "locators": [
-            "row 5963: headword=scramble, pos=verb, CEFR=B2",
-            "row 338: headword=scramble, pos=noun, CEFR=C1",
-            "hierarchy"
+            "row 5963: headword=scramble, pos=verb, CEFR=B2"
           ]
         }
       ]
@@ -190058,18 +189772,14 @@
           "senseId": "7823-s1",
           "label": "",
           "cefr": "B2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
-            "editorial-curation-map"
+            "cefrj-vocabulary-profile-1.5"
           ],
           "locators": [
-            "row 7132: headword=tread, pos=verb, CEFR=B2",
-            "row 529: headword=tread, pos=noun, CEFR=C1",
-            "hierarchy"
+            "row 7132: headword=tread, pos=verb, CEFR=B2"
           ]
         }
       ]
@@ -190459,18 +190169,14 @@
           "senseId": "7840-s1",
           "label": "",
           "cefr": "B2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
-            "editorial-curation-map"
+            "cefrj-vocabulary-profile-1.5"
           ],
           "locators": [
-            "row 7401: headword=usher, pos=verb, CEFR=B2",
-            "row 515: headword=usher, pos=noun, CEFR=C1",
-            "hierarchy"
+            "row 7401: headword=usher, pos=verb, CEFR=B2"
           ]
         }
       ]
@@ -193199,16 +192905,14 @@
           "senseId": "7948-s1",
           "label": "",
           "cefr": "A1",
-          "evidence": "cross_validated",
+          "evidence": "source_supported",
           "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-3000-wordlist"
+            "cefrj-vocabulary-profile-1.5"
           ],
           "locators": [
-            "row 932: headword=bye, pos=noun, CEFR=A1",
-            "oxford-3000.en.tsv:364: bye (A1)"
+            "row 932: headword=bye, pos=noun, CEFR=A1"
           ]
         }
       ]
@@ -194164,13 +193868,11 @@
           "needsIndependentValidation": false,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
             "oxford-3000-wordlist",
             "editorial-curation-map"
           ],
           "locators": [
             "row 1437: headword=contest, pos=noun, CEFR=A1",
-            "row 885: headword=contest, pos=verb, CEFR=C1",
             "oxford-3000.en.tsv:574: contest (B2)",
             "hierarchy"
           ]
@@ -194767,18 +194469,14 @@
           "senseId": "8010-s1",
           "label": "",
           "cefr": "A1",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-3000-wordlist",
-            "editorial-curation-map"
+            "cefrj-vocabulary-profile-1.5"
           ],
           "locators": [
-            "row 1871: headword=dig, pos=noun, CEFR=A1",
-            "oxford-3000.en.tsv:747: dig (B2)",
-            "hierarchy"
+            "row 1871: headword=dig, pos=noun, CEFR=A1"
           ]
         }
       ]
@@ -196821,13 +196519,11 @@
           "needsIndependentValidation": false,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
             "oxford-3000-wordlist",
             "editorial-curation-map"
           ],
           "locators": [
             "row 3041: headword=ground, pos=noun, CEFR=A1",
-            "row 560: headword=ground, pos=verb, CEFR=C1",
             "oxford-3000.en.tsv:1194: ground (A2)",
             "hierarchy"
           ]
@@ -198057,16 +197753,14 @@
           "senseId": "8140-s1",
           "label": "",
           "cefr": "A1",
-          "evidence": "cross_validated",
+          "evidence": "source_supported",
           "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-3000-wordlist"
+            "cefrj-vocabulary-profile-1.5"
           ],
           "locators": [
-            "row 3662: headword=its, pos=pronoun, CEFR=A1",
-            "oxford-3000.en.tsv:1423: its (A1)"
+            "row 3662: headword=its, pos=pronoun, CEFR=A1"
           ]
         }
       ]
@@ -198850,20 +198544,16 @@
           "senseId": "8171-s1",
           "label": "",
           "cefr": "A1",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "evidence": "cross_validated",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
-            "oxford-3000-wordlist",
-            "editorial-curation-map"
+            "oxford-3000-wordlist"
           ],
           "locators": [
             "row 4065: headword=man, pos=noun, CEFR=A1",
-            "row 494: headword=man, pos=verb, CEFR=C1",
-            "oxford-3000.en.tsv:1590: man (A1)",
-            "hierarchy"
+            "oxford-3000.en.tsv:1590: man (A1)"
           ]
         }
       ]
@@ -199856,16 +199546,14 @@
           "senseId": "8211-s1",
           "label": "",
           "cefr": "A1",
-          "evidence": "cross_validated",
+          "evidence": "source_supported",
           "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-3000-wordlist"
+            "cefrj-vocabulary-profile-1.5"
           ],
           "locators": [
-            "row 4611: headword=off, pos=adjective, CEFR=A1",
-            "oxford-3000.en.tsv:1794: off (A1)"
+            "row 4611: headword=off, pos=adjective, CEFR=A1"
           ]
         }
       ]
@@ -200129,16 +199817,14 @@
           "senseId": "8222-s1",
           "label": "",
           "cefr": "A1",
-          "evidence": "cross_validated",
+          "evidence": "source_supported",
           "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-3000-wordlist"
+            "cefrj-vocabulary-profile-1.5"
           ],
           "locators": [
-            "row 4710: headword=other, pos=determiner, CEFR=A1",
-            "oxford-3000.en.tsv:1839: other (A1)"
+            "row 4710: headword=other, pos=determiner, CEFR=A1"
           ]
         }
       ]
@@ -202382,16 +202068,14 @@
           "senseId": "8311-s1",
           "label": "",
           "cefr": "A1",
-          "evidence": "cross_validated",
+          "evidence": "source_supported",
           "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-3000-wordlist"
+            "cefrj-vocabulary-profile-1.5"
           ],
           "locators": [
-            "row 6901: headword=than, pos=preposition, CEFR=A1",
-            "oxford-3000.en.tsv:2672: than (A1)"
+            "row 6901: headword=than, pos=preposition, CEFR=A1"
           ]
         }
       ]
@@ -203968,13 +203652,11 @@
           "needsIndependentValidation": false,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
             "oxford-5000-expanded-wordlist",
             "editorial-curation-map"
           ],
           "locators": [
             "row 469: headword=automatic, pos=adjective, CEFR=A2",
-            "row 297: headword=automatic, pos=verb, CEFR=C1",
             "oxford-5000-expanded.en.tsv:148: automatic (B2)",
             "hierarchy"
           ]
@@ -204444,18 +204126,14 @@
           "senseId": "8393-s1",
           "label": "",
           "cefr": "A2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
-            "editorial-curation-map"
+            "cefrj-vocabulary-profile-1.5"
           ],
           "locators": [
-            "row 724: headword=bloom, pos=noun, CEFR=A2",
-            "row 478: headword=bloom, pos=verb, CEFR=C1",
-            "hierarchy"
+            "row 724: headword=bloom, pos=noun, CEFR=A2"
           ]
         }
       ]
@@ -204928,13 +204606,11 @@
           "needsIndependentValidation": false,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
             "oxford-3000-wordlist",
             "editorial-curation-map"
           ],
           "locators": [
             "row 1099: headword=chart, pos=noun, CEFR=A2",
-            "row 994: headword=chart, pos=verb, CEFR=C1",
             "oxford-3000.en.tsv:433: chart (A1, B2)",
             "hierarchy"
           ]
@@ -209932,18 +209608,14 @@
           "senseId": "8607-s1",
           "label": "",
           "cefr": "A2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-3000-wordlist",
-            "editorial-curation-map"
+            "cefrj-vocabulary-profile-1.5"
           ],
           "locators": [
-            "row 4487: headword=next, pos=determiner, CEFR=A2",
-            "oxford-3000.en.tsv:1742: next (A1, B1)",
-            "hierarchy"
+            "row 4487: headword=next, pos=determiner, CEFR=A2"
           ]
         }
       ]
@@ -210543,13 +210215,11 @@
           "needsIndependentValidation": false,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
             "oxford-3000-wordlist",
             "editorial-curation-map"
           ],
           "locators": [
             "row 4952: headword=perfect, pos=adjective, CEFR=A2",
-            "row 748: headword=perfect, pos=verb, CEFR=C1",
             "oxford-3000.en.tsv:1909: perfect (A1)",
             "hierarchy"
           ]
@@ -214431,18 +214101,14 @@
           "senseId": "8782-s1",
           "label": "",
           "cefr": "A2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-5000-expanded-wordlist",
-            "editorial-curation-map"
+            "cefrj-vocabulary-profile-1.5"
           ],
           "locators": [
-            "row 6890: headword=terrorist, pos=adjective, CEFR=A2",
-            "oxford-5000-expanded.en.tsv:1815: terrorist (B2)",
-            "hierarchy"
+            "row 6890: headword=terrorist, pos=adjective, CEFR=A2"
           ]
         }
       ]
@@ -214562,18 +214228,14 @@
           "senseId": "8787-s1",
           "label": "",
           "cefr": "A2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-3000-wordlist",
-            "editorial-curation-map"
+            "cefrj-vocabulary-profile-1.5"
           ],
           "locators": [
-            "row 6939: headword=third, pos=adjective, CEFR=A2",
-            "oxford-3000.en.tsv:2695: third (A1, A2)",
-            "hierarchy"
+            "row 6939: headword=third, pos=adjective, CEFR=A2"
           ]
         }
       ]
@@ -214752,13 +214414,11 @@
           "needsIndependentValidation": false,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
             "oxford-3000-wordlist",
             "editorial-curation-map"
           ],
           "locators": [
             "row 7039: headword=tone, pos=noun, CEFR=A2",
-            "row 545: headword=tone, pos=verb, CEFR=C1",
             "oxford-3000.en.tsv:2730: tone (B2)",
             "hierarchy"
           ]
@@ -215450,20 +215110,16 @@
           "senseId": "8821-s1",
           "label": "",
           "cefr": "A2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "evidence": "cross_validated",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
             "cefrj-vocabulary-profile-1.5",
-            "octanove-vocabulary-profile-c1c2-1.0",
-            "oxford-3000-wordlist",
-            "editorial-curation-map"
+            "oxford-3000-wordlist"
           ],
           "locators": [
             "row 7495: headword=voice, pos=noun, CEFR=A2",
-            "row 528: headword=voice, pos=verb, CEFR=C1",
-            "oxford-3000.en.tsv:2879: voice (A2)",
-            "hierarchy"
+            "oxford-3000.en.tsv:2879: voice (A2)"
           ]
         }
       ]
@@ -215629,18 +215285,14 @@
           "senseId": "8828-s1",
           "label": "",
           "cefr": "A2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-5000-expanded-wordlist",
-            "editorial-curation-map"
+            "cefrj-vocabulary-profile-1.5"
           ],
           "locators": [
-            "row 7591: headword=weekly, pos=adverb, CEFR=A2",
-            "oxford-5000-expanded.en.tsv:1967: weekly (B2)",
-            "hierarchy"
+            "row 7591: headword=weekly, pos=adverb, CEFR=A2"
           ]
         }
       ]
@@ -216193,18 +215845,14 @@
           "senseId": "8850-s1",
           "label": "",
           "cefr": "A2",
-          "evidence": "disputed",
-          "confidence": "MEDIUM",
+          "evidence": "source_supported",
+          "confidence": "HIGH",
           "needsIndependentValidation": false,
           "sources": [
-            "cefrj-vocabulary-profile-1.5",
-            "oxford-3000-wordlist",
-            "editorial-curation-map"
+            "cefrj-vocabulary-profile-1.5"
           ],
           "locators": [
-            "row 7774: headword=yeah, pos=adverb, CEFR=A2",
-            "oxford-3000.en.tsv:2989: yeah (A1)",
-            "hierarchy"
+            "row 7774: headword=yeah, pos=adverb, CEFR=A2"
           ]
         }
       ]
