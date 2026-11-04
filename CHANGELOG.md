@@ -1,5 +1,50 @@
 # Changelog
 
+## v1.0.0 — stable candidate (PR from `arena/6b7c2879-chuyen-anh`, baseline `f12b4bc5…`, 2026-11-04) — NOT merged, NOT tagged, NOT released, NOT deployed
+
+**Status: pull request only.** Proposed on PR #82 from `arena/6b7c2879-chuyen-anh`
+on top of `f12b4bc5`: `213eb61` (sense-level CEFR model), `2e33735` (Phase III +500 A1/+500 A2),
+`8626f27` (test re-pins), `c8138af` (gates/docs/version string), plus the PR #82 review-round
+hardening commit. No merge, no tag, no release, no Pages deploy; `DEPLOY_HOLD`
+is untouched and only the `v1.0.0` version string is proposed.
+
+### Sense-level CEFR (Phase II)
+
+- The current generated dataset has 8,852 rows and **8,856 stored senses**, including
+  four multi-sense entries. Classifications include 1,897 editorial estimates; the
+  automated `unresolved=0` count does not establish independent verification.
+  Twelve editorial gloss alignments across eight entries require independent review.
+  Source-row mapping, POS scope, reference locators and all remaining classifications
+  remain subject to the open defects and gates in `audit/v100/`.
+- Learning filters select in-scope senses. Targeted regressions cover `lie`, `rock`,
+  row-order independence and empty selections; application-wide pathway review is
+  still incomplete. Legacy row fields and progress keys are preserved.
+
+### Phase III — exactly +500 A1 and +500 A2 headwords
+
+- `data/vocab-seed/22-a1a2-stable.tsv`: 1,144 CEFR-J/Oxford-3000 A1/A2 candidates absent
+  from the pre-v1.0.0 bank; `expand_vocabulary.py` accepts **exactly 500 A1 + 500 A2**
+  (144 skips, each with a recorded reason: inflection 81 · word-family 53 · comparative 6 ·
+  spelling variant 4). Bank: 8,852 rows, 8,112 headwords, 6,841-word focus deck, 1,271
+  archived (unchanged). Over the 1,000 accepted rows, `level-source:` is
+  `cefrj-vocabulary-profile-1.5` (892) or `oxford-3000-wordlist` (108), all POS-and-level
+  attested and free of editor notes.
+
+### Exams
+
+- Scoring recomputed and current: 106 papers, 6,804 questions, **2,808 provisionally scorable
+  (41.27%)**, 3,996 ungradeable — each with an automated ungradeable reason; individual primary-evidence review remains incomplete. `officialScore` stays `null`/`false` without an
+  official primary source; the inference lexicon stays fail-closed.
+
+### Verification (historical, not final-head evidence)
+
+- GitHub Actions run `41813222542` passed checks and Chromium/Firefox/WebKit on
+  `1d61c7bc9f8fed221025cb253ea3c15e51389cee`; it does not verify later commits.
+  Current-head CI, independent review and complete application accessibility remain
+  pending. Local test results do not replace exact-head CI or an independent review.
+- Current gates and defects: `audit/v100/GATES.md` and `audit/v100/DEFECTS.md`.
+  Separate explicit authorization is required before merge, tag, release or deployment.
+
 ## v1.0.0-rc10 — full vocabulary revalidation, 2,000 new headwords, 314 new phrases, and fail-closed exam inference (2026-11-03)
 
 **Status: published prerelease.** Tag `v1.0.0-rc10` points at the merge commit of PR #81 into `main`. `APP_VERSION` and `DEPLOY_HOLD` are both `v1.0.0-rc10`. Release artifacts were built by `.github/workflows/release-artifacts.yml` from the tag; Pages was deployed by `.github/workflows/deploy.yml` after the deploy gate opened.

@@ -42,7 +42,7 @@ No transcription is edited by this script: each leftover anomaly is listed with 
 | 2022/an-giang/so | 3 | choice | shared_prompt | 4 | 209 | missing_answer | no | needs_review |
 | 2022/an-giang/so | 4 | choice | shared_prompt | 4 | 209 | missing_answer | no | needs_review |
 | 2022/an-giang/so | 5 | choice | shared_prompt | 4 | 209 | missing_answer | no | needs_review |
-| 2022/an-giang/so | 6 | choice | shared_prompt | 4 | 209 | inferred_unverified | yes | needs_review |
+| 2022/an-giang/so | 6 | choice | shared_prompt | 4 | 209 | missing_answer | no | needs_review |
 | 2022/an-giang/so | 7 | choice | shared_prompt | 4 | 209 | missing_answer | no | needs_review |
 | 2022/an-giang/so | 8 | choice | shared_prompt | 4 | 209 | missing_answer | no | needs_review |
 | 2022/an-giang/so | 9 | choice | shared_prompt | 4 | 209 | missing_answer | no | needs_review |
@@ -55,15 +55,15 @@ No transcription is edited by this script: each leftover anomaly is listed with 
 | 2022/bac-giang/so | 6 | choice | shared_prompt | 4 | 286 | missing_answer | no | needs_review |
 | 2022/bac-giang/so | 7 | choice | shared_prompt | 4 | 286 | missing_answer | no | needs_review |
 | 2022/bac-giang/so | 8 | choice | shared_prompt | 5 | 286 | missing_answer | no | needs_review |
-| 2022/bac-kan/so | 1 | choice | instruction_only, shared_prompt | 4 | 155 | inferred_unverified | yes | needs_review |
-| 2022/bac-kan/so | 2 | choice | instruction_only, shared_prompt | 4 | 155 | inferred_unverified | yes | needs_review |
-| 2022/bac-kan/so | 3 | choice | instruction_only, shared_prompt | 4 | 155 | inferred_unverified | yes | needs_review |
-| 2022/bac-kan/so | 4 | choice | instruction_only, shared_prompt | 4 | 155 | inferred_unverified | yes | needs_review |
+| 2022/bac-kan/so | 1 | choice | instruction_only, shared_prompt | 4 | 155 | missing_answer | no | needs_review |
+| 2022/bac-kan/so | 2 | choice | instruction_only, shared_prompt | 4 | 155 | missing_answer | no | needs_review |
+| 2022/bac-kan/so | 3 | choice | instruction_only, shared_prompt | 4 | 155 | missing_answer | no | needs_review |
+| 2022/bac-kan/so | 4 | choice | instruction_only, shared_prompt | 4 | 155 | missing_answer | no | needs_review |
 | 2022/bac-kan/so | 5 | choice | instruction_only, shared_prompt | 4 | 155 | missing_answer | no | needs_review |
-| 2022/bac-kan/so | 6 | choice | instruction_only, shared_prompt | 4 | 92 | inferred_unverified | yes | needs_review |
+| 2022/bac-kan/so | 6 | choice | instruction_only, shared_prompt | 4 | 92 | missing_answer | no | needs_review |
 | 2022/bac-kan/so | 7 | choice | instruction_only, shared_prompt | 4 | 92 | missing_answer | no | needs_review |
-| 2022/bac-kan/so | 8 | choice | instruction_only, shared_prompt | 4 | 92 | inferred_unverified | yes | needs_review |
-| 2022/bac-kan/so | 9 | choice | instruction_only, shared_prompt | 4 | 92 | inferred_unverified | yes | needs_review |
+| 2022/bac-kan/so | 8 | choice | instruction_only, shared_prompt | 4 | 92 | missing_answer | no | needs_review |
+| 2022/bac-kan/so | 9 | choice | instruction_only, shared_prompt | 4 | 92 | missing_answer | no | needs_review |
 | 2022/bac-kan/so | 10 | choice | instruction_only, shared_prompt | 4 | 92 | missing_answer | no | needs_review |
 | 2022/bac-kan/so | 1 | text | instruction_only | 0 | 97 | missing_answer | no | needs_review |
 | 2022/bac-kan/so | 61 | choice | instruction_only, shared_prompt | 4 | 72 | missing_answer | no | needs_review |
@@ -83,7 +83,7 @@ No transcription is edited by this script: each leftover anomaly is listed with 
 | 2022/binh-duong/so | 29 | choice | shared_prompt | 4 | 370 | missing_answer | no | needs_review |
 | 2022/binh-duong/so | 21 | text | shared_prompt | 0 | 370 | missing_answer | no | needs_review |
 | 2022/binh-duong/so | 22 | choice | truncated_prompt | 3 | 7 | missing_answer | no | kept_as_recorded |
-| 2022/binh-duong/so | 23 | choice | shared_prompt | 3 | 370 | inferred_unverified | yes | needs_review |
+| 2022/binh-duong/so | 23 | choice | shared_prompt | 3 | 370 | missing_answer | no | needs_review |
 | 2022/binh-duong/so | 24 | choice | shared_prompt | 4 | 370 | missing_answer | no | needs_review |
 | 2022/binh-duong/so | 25 | text | shared_prompt | 0 | 370 | missing_answer | no | needs_review |
 | 2022/binh-duong/so | 27 | text | shared_prompt | 0 | 370 | missing_answer | no | needs_review |
@@ -95,7 +95,7 @@ No transcription is edited by this script: each leftover anomaly is listed with 
 | 2022/binh-duong/so | 61 | text | truncated_prompt | 0 | 2 | missing_answer | no | kept_as_recorded |
 | 2022/binh-duong/so | 62 | choice | truncated_prompt | 2 | 3 | missing_answer | no | kept_as_recorded |
 | 2022/binh-duong/so | 65 | text | truncated_prompt | 0 | 9 | missing_answer | no | kept_as_recorded |
-| 2022/binh-duong/so | 66 | choice | truncated_prompt | 2 | 4 | inferred_unverified | yes | kept_as_recorded |
+| 2022/binh-duong/so | 66 | choice | truncated_prompt | 2 | 4 | missing_answer | no | kept_as_recorded |
 | 2022/binh-duong/so | 70 | text | truncated_prompt | 0 | 5 | missing_answer | no | kept_as_recorded |
 | 2022/binh-duong/so | 72 | text | truncated_prompt | 0 | 5 | missing_answer | no | kept_as_recorded |
 | 2022/binh-duong/so | 73 | text | truncated_prompt | 0 | 6 | missing_answer | no | kept_as_recorded |
@@ -122,22 +122,22 @@ No transcription is edited by this script: each leftover anomaly is listed with 
 | 2022/binh-thuan/so | 42 | choice | shared_prompt | 4 | 133 | missing_answer | no | needs_review |
 | 2022/binh-thuan/so | 43 | choice | shared_prompt | 4 | 133 | missing_answer | no | needs_review |
 | 2022/binh-thuan/so | 44 | choice | shared_prompt | 3 | 133 | missing_answer | no | needs_review |
-| 2022/binh-thuan/so | 45 | choice | shared_prompt | 3 | 133 | inferred_unverified | yes | needs_review |
+| 2022/binh-thuan/so | 45 | choice | shared_prompt | 3 | 133 | missing_answer | no | needs_review |
 | 2022/binh-thuan/so | 46 | choice | shared_prompt | 2 | 133 | missing_answer | no | needs_review |
 | 2022/binh-thuan/so | 47 | text | shared_prompt | 0 | 133 | missing_answer | no | needs_review |
-| 2022/binh-thuan/so | 48 | choice | shared_prompt | 2 | 133 | inferred_unverified | yes | needs_review |
+| 2022/binh-thuan/so | 48 | choice | shared_prompt | 2 | 133 | missing_answer | no | needs_review |
 | 2022/binh-thuan/so | 49 | text | shared_prompt | 0 | 133 | missing_answer | no | needs_review |
-| 2022/binh-thuan/so | 50 | choice | shared_prompt | 4 | 133 | inferred_unverified | yes | needs_review |
+| 2022/binh-thuan/so | 50 | choice | shared_prompt | 4 | 133 | missing_answer | no | needs_review |
 | 2022/binh-thuan/so | 55 | choice | truncated_prompt | 4 | 19 | missing_answer | no | kept_as_recorded |
 | 2022/binh-thuan/so | 82 | text | truncated_prompt | 0 | 114 | missing_answer | no | kept_as_recorded |
 | 2022/binh-thuan/so | 83 | text | truncated_prompt | 0 | 104 | missing_answer | no | kept_as_recorded |
 | 2022/binh-thuan/so | 85 | text | truncated_prompt | 0 | 88 | missing_answer | no | kept_as_recorded |
 | 2022/ca-mau/so | 1 | choice | shared_prompt | 4 | 102 | missing_answer | no | needs_review |
-| 2022/ca-mau/so | 2 | choice | shared_prompt | 4 | 102 | inferred_unverified | yes | needs_review |
+| 2022/ca-mau/so | 2 | choice | shared_prompt | 4 | 102 | missing_answer | no | needs_review |
 | 2022/ca-mau/so | 3 | choice | shared_prompt | 4 | 102 | missing_answer | no | needs_review |
 | 2022/ca-mau/so | 3 | choice | truncated_prompt | 4 | 3 | missing_answer | no | kept_as_recorded |
 | 2022/ca-mau/so | 4 | choice | truncated_prompt | 4 | 4 | missing_answer | no | kept_as_recorded |
-| 2022/dong-nai/so | 1 | text | instruction_only, shared_prompt | 0 | 176 | inferred_unverified | yes | needs_review |
+| 2022/dong-nai/so | 1 | text | instruction_only, shared_prompt | 0 | 176 | missing_answer | no | needs_review |
 | 2022/dong-nai/so | 5 | choice | instruction_only, shared_prompt | 4 | 176 | missing_answer | no | needs_review |
 | 2022/dong-nai/so | 6 | choice | instruction_only, shared_prompt | 2 | 176 | missing_answer | no | needs_review |
 | 2022/dong-nai/so | 7 | choice | instruction_only, shared_prompt | 2 | 176 | missing_answer | no | needs_review |
@@ -166,13 +166,13 @@ No transcription is edited by this script: each leftover anomaly is listed with 
 | 2022/ha-nam/so | 1 | choice | shared_prompt | 4 | 91 | missing_answer | no | needs_review |
 | 2022/ha-nam/so | 2 | choice | shared_prompt | 4 | 91 | missing_answer | no | needs_review |
 | 2022/ha-nam/so | 3 | choice | shared_prompt | 4 | 91 | missing_answer | no | needs_review |
-| 2022/ha-nam/so | 4 | choice | shared_prompt | 4 | 91 | inferred_unverified | yes | needs_review |
-| 2022/ha-nam/so | 5 | choice | shared_prompt | 4 | 91 | inferred_unverified | yes | needs_review |
+| 2022/ha-nam/so | 4 | choice | shared_prompt | 4 | 91 | missing_answer | no | needs_review |
+| 2022/ha-nam/so | 5 | choice | shared_prompt | 4 | 91 | missing_answer | no | needs_review |
 | 2022/ha-nam/so | 1 | choice | shared_prompt | 4 | 76 | missing_answer | no | needs_review |
 | 2022/ha-nam/so | 2 | choice | shared_prompt | 4 | 76 | missing_answer | no | needs_review |
-| 2022/ha-nam/so | 3 | choice | shared_prompt | 4 | 76 | inferred_unverified | yes | needs_review |
-| 2022/ha-nam/so | 4 | choice | shared_prompt | 4 | 76 | inferred_unverified | yes | needs_review |
-| 2022/ha-nam/so | 5 | choice | shared_prompt | 5 | 76 | inferred_unverified | yes | needs_review |
+| 2022/ha-nam/so | 3 | choice | shared_prompt | 4 | 76 | missing_answer | no | needs_review |
+| 2022/ha-nam/so | 4 | choice | shared_prompt | 4 | 76 | missing_answer | no | needs_review |
+| 2022/ha-nam/so | 5 | choice | shared_prompt | 5 | 76 | missing_answer | no | needs_review |
 | 2022/ha-nam/so | 2 | text | truncated_prompt | 0 | 226 | missing_answer | no | kept_as_recorded |
 | 2022/ha-nam/so | 1 | text | truncated_prompt | 0 | 194 | missing_answer | no | kept_as_recorded |
 | 2022/ha-nam/so | 2 | text | truncated_prompt | 0 | 210 | missing_answer | no | kept_as_recorded |
@@ -182,9 +182,9 @@ No transcription is edited by this script: each leftover anomaly is listed with 
 | 2022/ha-noi/chuyen-su-pham | 1 | choice | instruction_only | 4 | 119 | missing_answer | no | needs_review |
 | 2022/ha-noi/chuyen-su-pham | 2 | choice | instruction_only | 4 | 119 | missing_answer | no | needs_review |
 | 2022/ha-noi/chuyen-su-pham | 3 | choice | instruction_only | 4 | 74 | missing_answer | no | needs_review |
-| 2022/ha-noi/chuyen-su-pham | 19 | choice | instruction_only | 4 | 103 | inferred_unverified | yes | needs_review |
-| 2022/ha-noi/chuyen-su-pham | 20 | choice | instruction_only | 4 | 103 | inferred_unverified | yes | needs_review |
-| 2022/ha-noi/chuyen-su-pham | 23 | choice | instruction_only, shared_prompt | 4 | 83 | inferred_unverified | yes | needs_review |
+| 2022/ha-noi/chuyen-su-pham | 19 | choice | instruction_only | 4 | 103 | missing_answer | no | needs_review |
+| 2022/ha-noi/chuyen-su-pham | 20 | choice | instruction_only | 4 | 103 | missing_answer | no | needs_review |
+| 2022/ha-noi/chuyen-su-pham | 23 | choice | instruction_only, shared_prompt | 4 | 83 | missing_answer | no | needs_review |
 | 2022/ha-noi/chuyen-su-pham | 24 | choice | instruction_only, shared_prompt | 4 | 83 | missing_answer | no | needs_review |
 | 2022/ha-noi/chuyen-su-pham | 25 | choice | instruction_only, shared_prompt | 4 | 83 | missing_answer | no | needs_review |
 | 2022/ha-noi/chuyen-su-pham | 26 | choice | instruction_only, shared_prompt | 4 | 83 | missing_answer | no | needs_review |
@@ -193,7 +193,7 @@ No transcription is edited by this script: each leftover anomaly is listed with 
 | 2022/ha-noi/chuyen-su-pham | 29 | choice | instruction_only, shared_prompt | 4 | 83 | missing_answer | no | needs_review |
 | 2022/ha-noi/chuyen-su-pham | 30 | choice | instruction_only, shared_prompt | 4 | 83 | missing_answer | no | needs_review |
 | 2022/ha-noi/chuyen-su-pham | 31 | choice | instruction_only, shared_prompt | 4 | 83 | missing_answer | no | needs_review |
-| 2022/ha-noi/chuyen-su-pham | 32 | choice | instruction_only, shared_prompt | 4 | 83 | inferred_unverified | yes | needs_review |
+| 2022/ha-noi/chuyen-su-pham | 32 | choice | instruction_only, shared_prompt | 4 | 83 | missing_answer | no | needs_review |
 | 2022/ha-noi/chuyen-su-pham | 76 | text | truncated_prompt | 0 | 224 | missing_answer | no | kept_as_recorded |
 | 2022/ha-noi/chuyen-su-pham | 77 | text | truncated_prompt | 0 | 187 | missing_answer | no | kept_as_recorded |
 | 2022/ha-noi/chuyen-su-pham | 78 | text | truncated_prompt | 0 | 201 | missing_answer | no | kept_as_recorded |
@@ -207,7 +207,7 @@ No transcription is edited by this script: each leftover anomaly is listed with 
 | 2022/ha-noi/so | 32 | choice | truncated_prompt | 4 | 2 | missing_answer | no | kept_as_recorded |
 | 2022/ha-noi/so | 32 | choice | truncated_prompt | 4 | 2 | missing_answer | no | kept_as_recorded |
 | 2022/ha-noi/so | 32 | choice | truncated_prompt | 4 | 2 | missing_answer | no | kept_as_recorded |
-| 2022/ha-noi/so | 32 | choice | truncated_prompt | 4 | 2 | inferred_unverified | yes | kept_as_recorded |
+| 2022/ha-noi/so | 32 | choice | truncated_prompt | 4 | 2 | missing_answer | no | kept_as_recorded |
 | 2022/ha-noi/so | 32 | choice | truncated_prompt | 4 | 2 | missing_answer | no | kept_as_recorded |
 | 2022/ha-noi/so | 32 | choice | truncated_prompt | 4 | 2 | missing_answer | no | kept_as_recorded |
 | 2022/ha-noi/so | 33 | text | truncated_prompt | 0 | 84 | missing_answer | no | kept_as_recorded |
@@ -227,23 +227,23 @@ No transcription is edited by this script: each leftover anomaly is listed with 
 | 2022/hai-phong/so | 34 | choice | truncated_prompt | 4 | 103 | missing_answer | no | kept_as_recorded |
 | 2022/hai-phong/so | 37 | choice | truncated_prompt | 4 | 87 | missing_answer | no | kept_as_recorded |
 | 2022/hai-phong/so | 38 | choice | truncated_prompt | 4 | 116 | missing_answer | no | kept_as_recorded |
-| 2022/hai-phong/so | 41 | choice | instruction_only, shared_prompt | 4 | 119 | inferred_unverified | yes | needs_review |
-| 2022/hai-phong/so | 42 | choice | instruction_only, shared_prompt | 4 | 119 | inferred_unverified | yes | needs_review |
-| 2022/hai-phong/so | 43 | choice | instruction_only, shared_prompt | 4 | 119 | inferred_unverified | yes | needs_review |
-| 2022/hai-phong/so | 44 | choice | instruction_only, shared_prompt | 4 | 119 | inferred_unverified | yes | needs_review |
+| 2022/hai-phong/so | 41 | choice | instruction_only, shared_prompt | 4 | 119 | missing_answer | no | needs_review |
+| 2022/hai-phong/so | 42 | choice | instruction_only, shared_prompt | 4 | 119 | missing_answer | no | needs_review |
+| 2022/hai-phong/so | 43 | choice | instruction_only, shared_prompt | 4 | 119 | missing_answer | no | needs_review |
+| 2022/hai-phong/so | 44 | choice | instruction_only, shared_prompt | 4 | 119 | missing_answer | no | needs_review |
 | 2022/hai-phong/so | 45 | choice | instruction_only, shared_prompt | 4 | 119 | missing_answer | no | needs_review |
-| 2022/hai-phong/so | 46 | choice | instruction_only, shared_prompt | 4 | 119 | inferred_unverified | yes | needs_review |
+| 2022/hai-phong/so | 46 | choice | instruction_only, shared_prompt | 4 | 119 | missing_answer | no | needs_review |
 | 2022/hai-phong/so | 47 | choice | instruction_only, shared_prompt | 4 | 119 | missing_answer | no | needs_review |
 | 2022/hai-phong/so | 48 | choice | instruction_only, shared_prompt | 4 | 119 | missing_answer | no | needs_review |
-| 2022/hai-phong/so | 49 | choice | instruction_only, shared_prompt | 6 | 119 | inferred_unverified | yes | needs_review |
+| 2022/hai-phong/so | 49 | choice | instruction_only, shared_prompt | 6 | 119 | missing_answer | no | needs_review |
 | 2022/hai-phong/so | 50 | choice | instruction_only, shared_prompt | 4 | 119 | missing_answer | no | needs_review |
 | 2022/hoa-binh/so | 11 | text | shared_prompt | 0 | 76 | missing_answer | no | needs_review |
 | 2022/hoa-binh/so | 12 | text | shared_prompt | 0 | 76 | missing_answer | no | needs_review |
 | 2022/hoa-binh/so | 13 | text | shared_prompt | 0 | 76 | missing_answer | no | needs_review |
-| 2022/hoa-binh/so | 18 | choice | instruction_only, shared_prompt | 2 | 31 | inferred_unverified | yes | needs_review |
+| 2022/hoa-binh/so | 18 | choice | instruction_only, shared_prompt | 2 | 31 | missing_answer | no | needs_review |
 | 2022/hoa-binh/so | 19 | choice | instruction_only, shared_prompt | 2 | 31 | missing_answer | no | needs_review |
 | 2022/hoa-binh/so | 20 | choice | instruction_only, shared_prompt | 3 | 31 | missing_answer | no | needs_review |
-| 2022/hoa-binh/so | 21 | choice | truncated_prompt | 2 | 62 | inferred_unverified | yes | kept_as_recorded |
+| 2022/hoa-binh/so | 21 | choice | truncated_prompt | 2 | 62 | missing_answer | no | kept_as_recorded |
 | 2022/hoa-binh/so | 60 | choice | truncated_prompt | 2 | 10 | missing_answer | no | kept_as_recorded |
 | 2022/hoa-binh/so | 61 | text | instruction_only, shared_prompt | 0 | 75 | missing_answer | no | needs_review |
 | 2022/hoa-binh/so | 62 | text | instruction_only, shared_prompt | 0 | 75 | missing_answer | no | needs_review |
@@ -283,12 +283,12 @@ No transcription is edited by this script: each leftover anomaly is listed with 
 | 2022/soc-trang/so | 1 | text | instruction_only | 0 | 176 | missing_answer | no | needs_review |
 | 2022/soc-trang/so | 2 | choice | instruction_only | 3 | 176 | missing_answer | no | needs_review |
 | 2022/soc-trang/so | 3 | text | instruction_only | 0 | 175 | missing_answer | no | needs_review |
-| 2022/soc-trang/so | 4 | choice | instruction_only | 4 | 175 | inferred_unverified | yes | needs_review |
-| 2022/soc-trang/so | 14 | choice | truncated_prompt | 4 | 35 | inferred_unverified | yes | kept_as_recorded |
+| 2022/soc-trang/so | 4 | choice | instruction_only | 4 | 175 | missing_answer | no | needs_review |
+| 2022/soc-trang/so | 14 | choice | truncated_prompt | 4 | 35 | missing_answer | no | kept_as_recorded |
 | 2022/soc-trang/so | 33 | choice | option_overflow | 7 | 44 | ambiguous_review | no | handled_in_app |
 | 2022/tay-ninh/so | 61 | choice | instruction_only, shared_prompt | 4 | 148 | missing_answer | no | needs_review |
-| 2022/tay-ninh/so | 62 | choice | instruction_only, shared_prompt | 4 | 148 | inferred_unverified | yes | needs_review |
-| 2022/tay-ninh/so | 63 | choice | instruction_only, shared_prompt | 4 | 148 | inferred_unverified | yes | needs_review |
+| 2022/tay-ninh/so | 62 | choice | instruction_only, shared_prompt | 4 | 148 | missing_answer | no | needs_review |
+| 2022/tay-ninh/so | 63 | choice | instruction_only, shared_prompt | 4 | 148 | missing_answer | no | needs_review |
 | 2022/tay-ninh/so | 64 | choice | instruction_only, shared_prompt | 4 | 148 | missing_answer | no | needs_review |
 | 2022/tay-ninh/so | 65 | choice | instruction_only, shared_prompt | 4 | 148 | missing_answer | no | needs_review |
 | 2022/thai-nguyen/so | 11 | choice | shared_prompt | 4 | 60 | source_transcription_unverified | yes | needs_review |
@@ -395,23 +395,23 @@ No transcription is edited by this script: each leftover anomaly is listed with 
 | 2023/binh-thuan/so | 48 | choice | shared_prompt | 4 | 101 | source_transcription_unverified | yes | needs_review |
 | 2023/binh-thuan/so | 90 | text | truncated_prompt | 0 | 188 | missing_answer | no | kept_as_recorded |
 | 2023/dak-lak/so | 1 | text | truncated_prompt | 0 | 4 | missing_answer | no | kept_as_recorded |
-| 2023/dak-lak/so | 5 | text | truncated_prompt | 0 | 10 | independently_cross_checked | yes | kept_as_recorded |
-| 2023/dak-lak/so | 26 | text | truncated_prompt | 0 | 10 | independently_cross_checked | yes | kept_as_recorded |
-| 2023/dak-lak/so | 27 | choice | truncated_prompt | 3 | 11 | independently_cross_checked | yes | kept_as_recorded |
-| 2023/dak-lak/so | 34 | choice | truncated_prompt | 4 | 7 | independently_cross_checked | yes | kept_as_recorded |
-| 2023/dak-lak/so | 38 | choice | truncated_prompt | 4 | 75 | independently_cross_checked | yes | kept_as_recorded |
-| 2023/dak-lak/so | 44 | choice | truncated_prompt | 2 | 33 | independently_cross_checked | yes | kept_as_recorded |
-| 2023/dak-lak/so | 61 | text | instruction_only, shared_prompt | 0 | 317 | independently_cross_checked | yes | needs_review |
-| 2023/dak-lak/so | 62 | choice | instruction_only, shared_prompt | 4 | 317 | independently_cross_checked | yes | needs_review |
-| 2023/dak-lak/so | 63 | choice | instruction_only, shared_prompt | 2 | 317 | independently_cross_checked | yes | needs_review |
+| 2023/dak-lak/so | 5 | text | truncated_prompt | 0 | 10 | source_transcription_unverified | yes | kept_as_recorded |
+| 2023/dak-lak/so | 26 | text | truncated_prompt | 0 | 10 | source_transcription_unverified | yes | kept_as_recorded |
+| 2023/dak-lak/so | 27 | choice | truncated_prompt | 3 | 11 | source_transcription_unverified | yes | kept_as_recorded |
+| 2023/dak-lak/so | 34 | choice | truncated_prompt | 4 | 7 | source_transcription_unverified | yes | kept_as_recorded |
+| 2023/dak-lak/so | 38 | choice | truncated_prompt | 4 | 75 | source_transcription_unverified | yes | kept_as_recorded |
+| 2023/dak-lak/so | 44 | choice | truncated_prompt | 2 | 33 | source_transcription_unverified | yes | kept_as_recorded |
+| 2023/dak-lak/so | 61 | text | instruction_only, shared_prompt | 0 | 317 | source_transcription_unverified | yes | needs_review |
+| 2023/dak-lak/so | 62 | choice | instruction_only, shared_prompt | 4 | 317 | source_transcription_unverified | yes | needs_review |
+| 2023/dak-lak/so | 63 | choice | instruction_only, shared_prompt | 2 | 317 | source_transcription_unverified | yes | needs_review |
 | 2023/dak-lak/so | 64 | choice | instruction_only, shared_prompt | 3 | 317 | missing_answer | no | needs_review |
-| 2023/dak-lak/so | 65 | choice | instruction_only, shared_prompt | 3 | 317 | independently_cross_checked | yes | needs_review |
-| 2023/dak-lak/so | 66 | choice | instruction_only, shared_prompt | 3 | 317 | independently_cross_checked | yes | needs_review |
-| 2023/dak-lak/so | 67 | choice | instruction_only, shared_prompt | 4 | 317 | independently_cross_checked | yes | needs_review |
-| 2023/dak-lak/so | 69 | text | instruction_only, shared_prompt | 0 | 317 | independently_cross_checked | yes | needs_review |
+| 2023/dak-lak/so | 65 | choice | instruction_only, shared_prompt | 3 | 317 | source_transcription_unverified | yes | needs_review |
+| 2023/dak-lak/so | 66 | choice | instruction_only, shared_prompt | 3 | 317 | source_transcription_unverified | yes | needs_review |
+| 2023/dak-lak/so | 67 | choice | instruction_only, shared_prompt | 4 | 317 | source_transcription_unverified | yes | needs_review |
+| 2023/dak-lak/so | 69 | text | instruction_only, shared_prompt | 0 | 317 | source_transcription_unverified | yes | needs_review |
 | 2023/dak-lak/so | 68 | choice | instruction_only, shared_prompt | 3 | 317 | missing_answer | no | needs_review |
-| 2023/dak-lak/so | 70 | choice | instruction_only, shared_prompt | 4 | 317 | independently_cross_checked | yes | needs_review |
-| 2023/dak-nong/so | 31 | choice | shared_prompt | 4 | 296 | inferred_unverified | yes | needs_review |
+| 2023/dak-lak/so | 70 | choice | instruction_only, shared_prompt | 4 | 317 | source_transcription_unverified | yes | needs_review |
+| 2023/dak-nong/so | 31 | choice | shared_prompt | 4 | 296 | missing_answer | no | needs_review |
 | 2023/dak-nong/so | 32 | choice | shared_prompt | 4 | 296 | missing_answer | no | needs_review |
 | 2023/dak-nong/so | 33 | choice | shared_prompt | 4 | 296 | missing_answer | no | needs_review |
 | 2023/dak-nong/so | 34 | choice | shared_prompt | 4 | 296 | missing_answer | no | needs_review |
@@ -453,13 +453,13 @@ No transcription is edited by this script: each leftover anomaly is listed with 
 | 2023/ha-noi/chuyen-su-pham | 1 | text | truncated_prompt | 0 | 7 | missing_answer | no | kept_as_recorded |
 | 2023/ha-noi/chuyen-su-pham | 15 | choice | truncated_prompt | 4 | 41 | missing_answer | no | kept_as_recorded |
 | 2023/ha-noi/chuyen-su-pham | 26 | text | instruction_only | 0 | 169 | source_transcription_unverified | yes | needs_review |
-| 2023/ha-noi/chuyen-su-pham | 27 | choice | instruction_only | 4 | 169 | inferred_unverified | yes | needs_review |
+| 2023/ha-noi/chuyen-su-pham | 27 | choice | instruction_only | 4 | 169 | missing_answer | no | needs_review |
 | 2023/ha-noi/chuyen-su-pham | 28 | text | instruction_only, shared_prompt | 0 | 164 | source_transcription_unverified | yes | needs_review |
 | 2023/ha-noi/chuyen-su-pham | 29 | choice | instruction_only, shared_prompt | 3 | 164 | source_transcription_unverified | yes | needs_review |
 | 2023/ha-noi/chuyen-su-pham | 30 | choice | instruction_only, shared_prompt | 4 | 164 | source_transcription_unverified | yes | needs_review |
 | 2023/ha-noi/chuyen-su-pham | 31 | text | instruction_only, shared_prompt | 0 | 136 | source_transcription_unverified | yes | needs_review |
 | 2023/ha-noi/chuyen-su-pham | 32 | text | instruction_only, shared_prompt | 0 | 136 | source_transcription_unverified | yes | needs_review |
-| 2023/ha-noi/chuyen-su-pham | 33 | choice | instruction_only, shared_prompt | 2 | 136 | inferred_unverified | yes | needs_review |
+| 2023/ha-noi/chuyen-su-pham | 33 | choice | instruction_only, shared_prompt | 2 | 136 | missing_answer | no | needs_review |
 | 2023/ha-noi/chuyen-su-pham | 34 | choice | instruction_only, shared_prompt | 2 | 136 | source_transcription_unverified | yes | needs_review |
 | 2023/ha-noi/chuyen-su-pham | 35 | choice | instruction_only, shared_prompt | 3 | 136 | missing_answer | no | needs_review |
 | 2023/ha-noi/chuyen-su-pham | 37 | choice | instruction_only, shared_prompt | 2 | 136 | source_transcription_unverified | yes | needs_review |
@@ -483,7 +483,7 @@ No transcription is edited by this script: each leftover anomaly is listed with 
 | 2023/hai-phong/so | 37 | choice | shared_prompt | 4 | 98 | missing_answer | no | needs_review |
 | 2023/hai-phong/so | 38 | choice | shared_prompt | 4 | 98 | missing_answer | no | needs_review |
 | 2023/hai-phong/so | 39 | choice | shared_prompt | 4 | 98 | missing_answer | no | needs_review |
-| 2023/hai-phong/so | 40 | choice | shared_prompt | 4 | 98 | inferred_unverified | yes | needs_review |
+| 2023/hai-phong/so | 40 | choice | shared_prompt | 4 | 98 | missing_answer | no | needs_review |
 | 2023/hai-phong/so | 41 | choice | shared_prompt | 4 | 98 | missing_answer | no | needs_review |
 | 2023/hai-phong/so | 42 | choice | shared_prompt | 4 | 98 | missing_answer | no | needs_review |
 | 2023/hai-phong/so | 43 | choice | shared_prompt | 4 | 98 | missing_answer | no | needs_review |
@@ -492,7 +492,7 @@ No transcription is edited by this script: each leftover anomaly is listed with 
 | 2023/hung-yen/so | 1 | text | instruction_only, shared_prompt | 0 | 126 | missing_answer | no | needs_review |
 | 2023/hung-yen/so | 2 | text | instruction_only, shared_prompt | 0 | 126 | missing_answer | no | needs_review |
 | 2023/hung-yen/so | 5 | choice | instruction_only, shared_prompt | 5 | 126 | missing_answer | no | needs_review |
-| 2023/hung-yen/so | 9 | choice | truncated_prompt | 4 | 54 | inferred_unverified | yes | kept_as_recorded |
+| 2023/hung-yen/so | 9 | choice | truncated_prompt | 4 | 54 | missing_answer | no | kept_as_recorded |
 | 2023/hung-yen/so | 14 | choice | truncated_prompt | 4 | 4 | missing_answer | no | kept_as_recorded |
 | 2023/hung-yen/so | 17 | choice | truncated_prompt | 2 | 11 | missing_answer | no | kept_as_recorded |
 | 2023/hung-yen/so | 18 | choice | truncated_prompt | 2 | 11 | missing_answer | no | kept_as_recorded |
@@ -528,10 +528,10 @@ No transcription is edited by this script: each leftover anomaly is listed with 
 | 2023/tp-ho-chi-minh/ptnk | 37 | choice | truncated_prompt | 3 | 7 | source_transcription_unverified | yes | kept_as_recorded |
 | 2023/vinh-phuc/so | 10 | choice | instruction_only | 4 | 142 | missing_answer | no | needs_review |
 | 2023/vinh-phuc/so | 16 | choice | instruction_only, shared_prompt | 4 | 185 | missing_answer | no | needs_review |
-| 2023/vinh-phuc/so | 17 | choice | instruction_only, shared_prompt | 4 | 185 | inferred_unverified | yes | needs_review |
-| 2023/vinh-phuc/so | 18 | choice | instruction_only, shared_prompt | 4 | 185 | inferred_unverified | yes | needs_review |
+| 2023/vinh-phuc/so | 17 | choice | instruction_only, shared_prompt | 4 | 185 | missing_answer | no | needs_review |
+| 2023/vinh-phuc/so | 18 | choice | instruction_only, shared_prompt | 4 | 185 | missing_answer | no | needs_review |
 | 2023/vinh-phuc/so | 19 | choice | instruction_only, shared_prompt | 4 | 185 | missing_answer | no | needs_review |
-| 2023/vinh-phuc/so | 20 | choice | instruction_only, shared_prompt | 4 | 185 | inferred_unverified | yes | needs_review |
+| 2023/vinh-phuc/so | 20 | choice | instruction_only, shared_prompt | 4 | 185 | missing_answer | no | needs_review |
 | 2023/vinh-phuc/so | 1 | text | truncated_prompt | 0 | 139 | missing_answer | no | kept_as_recorded |
 | 2023/vinh-phuc/so | 2 | text | truncated_prompt | 0 | 126 | missing_answer | no | kept_as_recorded |
 | 2023/vinh-phuc/so | 3 | text | truncated_prompt | 0 | 128 | missing_answer | no | kept_as_recorded |
@@ -542,10 +542,10 @@ No transcription is edited by this script: each leftover anomaly is listed with 
 | 2024/da-nang/so | 3 | choice | truncated_prompt, shared_prompt | 4 | 248 | missing_answer | no | kept_as_recorded |
 | 2024/da-nang/so | 4 | choice | truncated_prompt, shared_prompt | 4 | 248 | missing_answer | no | kept_as_recorded |
 | 2024/da-nang/so | 5 | choice | truncated_prompt, shared_prompt | 4 | 248 | missing_answer | no | kept_as_recorded |
-| 2024/da-nang/so | 6 | choice | truncated_prompt, shared_prompt | 4 | 248 | inferred_unverified | yes | kept_as_recorded |
+| 2024/da-nang/so | 6 | choice | truncated_prompt, shared_prompt | 4 | 248 | missing_answer | no | kept_as_recorded |
 | 2024/da-nang/so | 7 | choice | truncated_prompt, shared_prompt | 4 | 248 | missing_answer | no | kept_as_recorded |
-| 2024/da-nang/so | 8 | choice | truncated_prompt, shared_prompt | 4 | 248 | inferred_unverified | yes | kept_as_recorded |
-| 2024/da-nang/so | 9 | choice | truncated_prompt, shared_prompt | 4 | 248 | inferred_unverified | yes | kept_as_recorded |
+| 2024/da-nang/so | 8 | choice | truncated_prompt, shared_prompt | 4 | 248 | missing_answer | no | kept_as_recorded |
+| 2024/da-nang/so | 9 | choice | truncated_prompt, shared_prompt | 4 | 248 | missing_answer | no | kept_as_recorded |
 | 2024/da-nang/so | 10 | choice | truncated_prompt, shared_prompt | 4 | 248 | missing_answer | no | kept_as_recorded |
 | 2024/da-nang/so | 6 | choice | option_overflow | 10 | 1538 | ambiguous_review | no | handled_in_app |
 | 2024/ha-noi/chuyen-su-pham | 1 | choice | instruction_only | 4 | 132 | source_transcription_unverified | yes | needs_review |
@@ -568,9 +568,9 @@ No transcription is edited by this script: each leftover anomaly is listed with 
 | 2024/thanh-hoa/so | 17 | choice | truncated_prompt | 4 | 53 | missing_answer | no | kept_as_recorded |
 | 2024/thanh-hoa/so | 18 | choice | truncated_prompt | 4 | 83 | missing_answer | no | kept_as_recorded |
 | 2024/thanh-hoa/so | 19 | choice | truncated_prompt | 4 | 87 | missing_answer | no | kept_as_recorded |
-| 2024/thanh-hoa/so | 1 | choice | shared_prompt | 4 | 106 | inferred_unverified | yes | needs_review |
+| 2024/thanh-hoa/so | 1 | choice | shared_prompt | 4 | 106 | missing_answer | no | needs_review |
 | 2024/thanh-hoa/so | 2 | choice | shared_prompt | 4 | 106 | missing_answer | no | needs_review |
-| 2024/thanh-hoa/so | 3 | choice | shared_prompt | 4 | 106 | inferred_unverified | yes | needs_review |
+| 2024/thanh-hoa/so | 3 | choice | shared_prompt | 4 | 106 | missing_answer | no | needs_review |
 | 2024/thanh-hoa/so | 50 | choice | option_overflow | 7 | 90 | ambiguous_review | no | handled_in_app |
 | 2024/thanh-hoa/so | 62 | choice | truncated_prompt | 4 | 76 | missing_answer | no | kept_as_recorded |
 | 2024/thanh-hoa/so | 63 | choice | truncated_prompt | 4 | 67 | missing_answer | no | kept_as_recorded |
@@ -655,7 +655,7 @@ No transcription is edited by this script: each leftover anomaly is listed with 
 | 2025/dong-thap/so | 5 | text | truncated_prompt | 0 | 178 | missing_answer | no | kept_as_recorded |
 | 2025/ha-nam/so | 1 | choice | instruction_only, shared_prompt | 4 | 62 | missing_answer | no | needs_review |
 | 2025/ha-nam/so | 2 | choice | instruction_only, shared_prompt | 4 | 62 | missing_answer | no | needs_review |
-| 2025/ha-nam/so | 3 | choice | instruction_only, shared_prompt | 4 | 62 | inferred_unverified | yes | needs_review |
+| 2025/ha-nam/so | 3 | choice | instruction_only, shared_prompt | 4 | 62 | missing_answer | no | needs_review |
 | 2025/ha-nam/so | 4 | choice | instruction_only, shared_prompt | 4 | 62 | missing_answer | no | needs_review |
 | 2025/ha-nam/so | 5 | choice | instruction_only, shared_prompt | 4 | 62 | missing_answer | no | needs_review |
 | 2025/ha-nam/so | 1 | choice | shared_prompt | 4 | 191 | missing_answer | no | needs_review |
@@ -667,7 +667,7 @@ No transcription is edited by this script: each leftover anomaly is listed with 
 | 2025/ha-nam/so | 7 | choice | shared_prompt | 4 | 191 | missing_answer | no | needs_review |
 | 2025/ha-nam/so | 8 | choice | shared_prompt | 4 | 191 | missing_answer | no | needs_review |
 | 2025/ha-nam/so | 9 | choice | shared_prompt | 4 | 191 | missing_answer | no | needs_review |
-| 2025/ha-nam/so | 10 | choice | shared_prompt | 4 | 191 | inferred_unverified | yes | needs_review |
+| 2025/ha-nam/so | 10 | choice | shared_prompt | 4 | 191 | missing_answer | no | needs_review |
 | 2025/ha-nam/so | 1 | text | truncated_prompt | 0 | 152 | missing_answer | no | kept_as_recorded |
 | 2025/ha-nam/so | 2 | text | truncated_prompt | 0 | 147 | missing_answer | no | kept_as_recorded |
 | 2025/ha-nam/so | 3 | text | truncated_prompt | 0 | 160 | missing_answer | no | kept_as_recorded |
@@ -695,8 +695,8 @@ No transcription is edited by this script: each leftover anomaly is listed with 
 | 2025/hai-phong/so | 5 | choice | shared_prompt | 4 | 282 | missing_answer | no | needs_review |
 | 2025/hai-phong/so | 6 | choice | shared_prompt | 4 | 282 | missing_answer | no | needs_review |
 | 2025/hai-phong/so | 7 | choice | shared_prompt | 4 | 282 | missing_answer | no | needs_review |
-| 2025/hai-phong/so | 8 | choice | shared_prompt | 4 | 282 | inferred_unverified | yes | needs_review |
-| 2025/hai-phong/so | 9 | choice | shared_prompt | 4 | 282 | inferred_unverified | yes | needs_review |
+| 2025/hai-phong/so | 8 | choice | shared_prompt | 4 | 282 | missing_answer | no | needs_review |
+| 2025/hai-phong/so | 9 | choice | shared_prompt | 4 | 282 | missing_answer | no | needs_review |
 | 2025/hai-phong/so | 10 | choice | shared_prompt | 4 | 282 | missing_answer | no | needs_review |
 | 2025/hai-phong/so | 16 | choice | shared_prompt | 4 | 122 | missing_answer | no | needs_review |
 | 2025/hai-phong/so | 17 | choice | shared_prompt | 4 | 122 | missing_answer | no | needs_review |
@@ -735,8 +735,8 @@ No transcription is edited by this script: each leftover anomaly is listed with 
 | 2025/nghe-an/so | 4 | choice | shared_prompt | 4 | 215 | missing_answer | no | needs_review |
 | 2025/nghe-an/so | 5 | choice | shared_prompt | 4 | 215 | missing_answer | no | needs_review |
 | 2025/nghe-an/so | 6 | choice | shared_prompt | 4 | 215 | missing_answer | no | needs_review |
-| 2025/nghe-an/so | 7 | choice | shared_prompt | 4 | 215 | inferred_unverified | yes | needs_review |
-| 2025/nghe-an/so | 8 | choice | shared_prompt | 4 | 215 | inferred_unverified | yes | needs_review |
+| 2025/nghe-an/so | 7 | choice | shared_prompt | 4 | 215 | missing_answer | no | needs_review |
+| 2025/nghe-an/so | 8 | choice | shared_prompt | 4 | 215 | missing_answer | no | needs_review |
 | 2025/nghe-an/so | 9 | choice | shared_prompt | 4 | 215 | missing_answer | no | needs_review |
 | 2025/nghe-an/so | 10 | choice | shared_prompt | 4 | 215 | missing_answer | no | needs_review |
 | 2025/ninh-thuan/so | 20 | text | truncated_prompt | 0 | 167 | incomplete_stimulus | no | kept_as_recorded |
@@ -750,13 +750,13 @@ No transcription is edited by this script: each leftover anomaly is listed with 
 | 2025/phu-tho/so | 84 | text | truncated_prompt | 0 | 143 | source_transcription_unverified | yes | kept_as_recorded |
 | 2025/phu-tho/so | 90 | essay | truncated_prompt | 0 | 1011 | source_transcription_unverified | yes | kept_as_recorded |
 | 2025/quang-ngai/so | 21 | choice | shared_prompt | 4 | 211 | missing_answer | no | needs_review |
-| 2025/quang-ngai/so | 22 | choice | shared_prompt | 4 | 211 | inferred_unverified | yes | needs_review |
+| 2025/quang-ngai/so | 22 | choice | shared_prompt | 4 | 211 | missing_answer | no | needs_review |
 | 2025/quang-ngai/so | 23 | choice | shared_prompt | 4 | 211 | missing_answer | no | needs_review |
 | 2025/quang-ngai/so | 24 | choice | shared_prompt | 4 | 211 | missing_answer | no | needs_review |
 | 2025/quang-ngai/so | 25 | choice | shared_prompt | 4 | 211 | missing_answer | no | needs_review |
 | 2025/quang-ngai/so | 26 | choice | shared_prompt | 4 | 211 | missing_answer | no | needs_review |
 | 2025/quang-ngai/so | 27 | choice | shared_prompt | 4 | 211 | missing_answer | no | needs_review |
-| 2025/quang-ngai/so | 28 | choice | shared_prompt | 4 | 211 | inferred_unverified | yes | needs_review |
+| 2025/quang-ngai/so | 28 | choice | shared_prompt | 4 | 211 | missing_answer | no | needs_review |
 | 2025/quang-ngai/so | 29 | choice | shared_prompt | 4 | 211 | missing_answer | no | needs_review |
 | 2025/quang-ngai/so | 30 | choice | shared_prompt | 4 | 211 | missing_answer | no | needs_review |
 | 2025/quang-ninh/so | 21 | text | truncated_prompt | 0 | 20 | missing_answer | no | kept_as_recorded |
@@ -857,9 +857,9 @@ No transcription is edited by this script: each leftover anomaly is listed with 
 | 2026/bac-ninh/so | 2 | text | truncated_prompt | 0 | 144 | missing_answer | no | kept_as_recorded |
 | 2026/bac-ninh/so | 4 | text | truncated_prompt | 0 | 145 | missing_answer | no | kept_as_recorded |
 | 2026/da-nang/so | 4 | choice | truncated_prompt | 4 | 324 | missing_answer | no | kept_as_recorded |
-| 2026/da-nang/so | 5 | choice | truncated_prompt | 4 | 324 | inferred_unverified | yes | kept_as_recorded |
+| 2026/da-nang/so | 5 | choice | truncated_prompt | 4 | 324 | missing_answer | no | kept_as_recorded |
 | 2026/da-nang/so | 6 | choice | truncated_prompt | 4 | 324 | missing_answer | no | kept_as_recorded |
-| 2026/da-nang/so | 7 | choice | truncated_prompt | 4 | 324 | inferred_unverified | yes | kept_as_recorded |
+| 2026/da-nang/so | 7 | choice | truncated_prompt | 4 | 324 | missing_answer | no | kept_as_recorded |
 | 2026/dak-lak/so | 66 | essay | truncated_prompt | 0 | 22 | source_transcription_unverified | yes | kept_as_recorded |
 | 2026/dak-lak/so | 67 | essay | truncated_prompt | 0 | 22 | source_transcription_unverified | yes | kept_as_recorded |
 | 2026/dak-lak/so | 68 | essay | truncated_prompt | 0 | 22 | source_transcription_unverified | yes | kept_as_recorded |
@@ -945,13 +945,13 @@ No transcription is edited by this script: each leftover anomaly is listed with 
 | 2026/nghe-an/so | 8 | text | truncated_prompt | 0 | 10 | missing_answer | no | kept_as_recorded |
 | 2026/nghe-an/so | 9 | text | truncated_prompt | 0 | 10 | missing_answer | no | kept_as_recorded |
 | 2026/nghe-an/so | 10 | text | truncated_prompt | 0 | 10 | missing_answer | no | kept_as_recorded |
-| 2026/nghe-an/so | 1 | choice | instruction_only, shared_prompt | 4 | 174 | inferred_unverified | yes | needs_review |
+| 2026/nghe-an/so | 1 | choice | instruction_only, shared_prompt | 4 | 174 | missing_answer | no | needs_review |
 | 2026/nghe-an/so | 2 | choice | instruction_only, shared_prompt | 4 | 174 | missing_answer | no | needs_review |
-| 2026/nghe-an/so | 3 | choice | instruction_only, shared_prompt | 4 | 174 | inferred_unverified | yes | needs_review |
+| 2026/nghe-an/so | 3 | choice | instruction_only, shared_prompt | 4 | 174 | missing_answer | no | needs_review |
 | 2026/nghe-an/so | 4 | choice | instruction_only, shared_prompt | 4 | 174 | missing_answer | no | needs_review |
 | 2026/nghe-an/so | 5 | choice | instruction_only, shared_prompt | 4 | 174 | missing_answer | no | needs_review |
 | 2026/nghe-an/so | 6 | choice | instruction_only, shared_prompt | 4 | 174 | missing_answer | no | needs_review |
-| 2026/nghe-an/so | 7 | choice | instruction_only, shared_prompt | 4 | 174 | inferred_unverified | yes | needs_review |
+| 2026/nghe-an/so | 7 | choice | instruction_only, shared_prompt | 4 | 174 | missing_answer | no | needs_review |
 | 2026/nghe-an/so | 8 | choice | instruction_only, shared_prompt | 4 | 174 | missing_answer | no | needs_review |
 | 2026/nghe-an/so | 9 | choice | instruction_only, shared_prompt | 4 | 174 | missing_answer | no | needs_review |
 | 2026/nghe-an/so | 10 | choice | instruction_only, shared_prompt | 4 | 174 | missing_answer | no | needs_review |
@@ -964,7 +964,7 @@ No transcription is edited by this script: each leftover anomaly is listed with 
 | 2026/nghe-an/so | 6 | text | instruction_only | 0 | 158 | missing_answer | no | needs_review |
 | 2026/nghe-an/so | 5 | essay | truncated_prompt | 0 | 1656 | source_transcription_unverified | yes | kept_as_recorded |
 | 2026/ninh-binh/so | 4 | choice | truncated_prompt | 4 | 40 | missing_answer | no | kept_as_recorded |
-| 2026/ninh-binh/so | 5 | choice | truncated_prompt | 4 | 59 | inferred_unverified | yes | kept_as_recorded |
+| 2026/ninh-binh/so | 5 | choice | truncated_prompt | 4 | 59 | missing_answer | no | kept_as_recorded |
 | 2026/ninh-binh/so | 6 | choice | truncated_prompt | 4 | 324 | missing_answer | no | kept_as_recorded |
 | 2026/ninh-binh/so | 7 | choice | truncated_prompt | 4 | 324 | missing_answer | no | kept_as_recorded |
 | 2026/ninh-binh/so | 8 | choice | truncated_prompt | 4 | 324 | missing_answer | no | kept_as_recorded |
@@ -988,8 +988,8 @@ No transcription is edited by this script: each leftover anomaly is listed with 
 | 2026/quang-tri/so | 10 | essay | truncated_prompt | 0 | 175 | inferred_unverified | yes | kept_as_recorded |
 | 2026/tay-ninh/so | 46 | choice | instruction_only, shared_prompt | 4 | 152 | missing_answer | no | needs_review |
 | 2026/tay-ninh/so | 47 | choice | instruction_only, shared_prompt | 4 | 152 | missing_answer | no | needs_review |
-| 2026/tay-ninh/so | 48 | choice | instruction_only, shared_prompt | 4 | 152 | inferred_unverified | yes | needs_review |
-| 2026/tay-ninh/so | 49 | choice | instruction_only, shared_prompt | 4 | 152 | inferred_unverified | yes | needs_review |
+| 2026/tay-ninh/so | 48 | choice | instruction_only, shared_prompt | 4 | 152 | missing_answer | no | needs_review |
+| 2026/tay-ninh/so | 49 | choice | instruction_only, shared_prompt | 4 | 152 | missing_answer | no | needs_review |
 | 2026/tay-ninh/so | 50 | choice | instruction_only, shared_prompt | 4 | 152 | missing_answer | no | needs_review |
 | 2026/tay-ninh/so | 51 | choice | instruction_only, shared_prompt | 4 | 152 | missing_answer | no | needs_review |
 | 2026/tay-ninh/so | 52 | choice | instruction_only, shared_prompt | 4 | 152 | missing_answer | no | needs_review |

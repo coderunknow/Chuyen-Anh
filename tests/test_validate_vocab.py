@@ -2,6 +2,7 @@ import importlib.util
 import json
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 ROOT = Path(__file__).parents[1]
 
@@ -31,14 +32,75 @@ def entry(**overrides):
         "connotation": "",
         "notes": "",
         "sources": [{"ref": "cambridge", "supports": "word, part of speech and Vietnamese gloss"}],
+        # v1.0.0 sense-level CEFR model: every row carries its senses array.
+        "senses": [{
+            "senseId": "demo-s1",
+            "label": "",
+            "meaning": "công việc tay chân",
+            "pos": "phrase",
+            "cefr": "B1",
+            "evidence": "source_supported",
+            "confidence": "HIGH",
+            "sources": [{"ref": "oxford-3000-wordlist", "supports": "wordlist CEFR level", "locator": "oxford-3000.en.tsv:1: fixture"}],
+            "rationale": "fixture",
+            "needsIndependentValidation": False,
+        }],
     }
     value.update(overrides)
+    if "senses" not in overrides:
+        # keep the fixture's senseId in lockstep with the (possibly overridden) id
+        value["senses"] = [dict(value["senses"][0], senseId=f"{value['id']}-s1")]
     return value
 
 
 class VocabularyValidatorTest(unittest.TestCase):
     def test_valid_entry(self):
         self.assertEqual(validator.validate([entry(difficulty=2)]), [])
+
+    def test_senses_schema_is_validated(self):
+        base = entry()
+        # missing senses array
+        no_senses = {k: v for k, v in base.items() if k != "senses"}
+        self.assertIn("senses must be a non-empty array", "\n".join(validator.validate([no_senses])))
+        # bad cefr / evidence / confidence / senseId
+        for bad in [
+            {"cefr": "D1"}, {"evidence": "guess"}, {"confidence": "SURE"}, {"senseId": "other-s1"},
+            {"senseId": "demo-s1", "cefr": "B1", "evidence": "source_supported", "confidence": "HIGH", "meaning": " "},
+        ]:
+            sense = {**base["senses"][0], **bad}
+            errors = "\n".join(validator.validate([entry(senses=[sense])]))
+            self.assertTrue(errors, f"expected an error for {bad}")
+        # duplicate sense ids
+        dup = [base["senses"][0], dict(base["senses"][0])]
+        self.assertIn("duplicate senseId", "\n".join(validator.validate([entry(senses=dup)])))
+        # unknown sense source ref
+        bad_ref = {**base["senses"][0], "sources": [{"ref": "not-registered", "supports": "x"}]}
+        self.assertIn("not in docs/vocabulary-sources.json", "\n".join(validator.validate([entry(senses=[bad_ref])])))
+
+    def test_sense_evidence_requires_capable_independent_sources(self):
+        base = entry()['senses'][0]
+        bad = {**base, 'sources': [{'ref': 'cambridge', 'supports': 'gloss', 'locator': 'entry:fixture'}]}
+        self.assertIn('CEFR-capable', '\n'.join(validator.validate([entry(senses=[bad])])))
+        oxford = {'ref': 'oxford-3000-wordlist', 'supports': 'level', 'locator': 'oxford-3000.en.tsv:1: fixture'}
+        duplicate = {**base, 'evidence': 'cross_validated', 'sources': [oxford, oxford]}
+        self.assertIn('independent', '\n'.join(validator.validate([entry(senses=[duplicate])])))
+        wrong_level = {**base, 'cefr': 'C2', 'sources': [oxford]}
+        self.assertIn('CEFR-capable', '\n'.join(validator.validate([entry(senses=[wrong_level])])))
+        same_publisher = {'ref': 'oxford-5000-expanded-wordlist', 'supports': 'level', 'locator': 'oxford-5000-expanded.en.tsv:1: fixture'}
+        same = {**base, 'evidence': 'cross_validated', 'sources': [oxford, same_publisher]}
+        self.assertIn('independent', '\n'.join(validator.validate([entry(senses=[same])])))
+        missing_locator = {**base, 'sources': [{'ref': 'oxford-3000-wordlist', 'supports': 'level'}]}
+        self.assertIn('locator', '\n'.join(validator.validate([entry(senses=[missing_locator])])))
+        cefrj = {'ref': 'cefrj-vocabulary-profile-1.5', 'supports': 'level', 'locator': 'row 1'}
+        valid = {**base, 'evidence': 'cross_validated', 'sources': [oxford, cefrj]}
+        self.assertEqual(validator.validate([entry(senses=[valid])]), [])
+
+    def test_malformed_sources_and_missing_registry_fail_closed(self):
+        base = entry()['senses'][0]
+        malformed = {**base, 'sources': [{'ref': ['not-a-string'], 'supports': 'level', 'locator': 'row 1'}]}
+        self.assertTrue(validator.validate([entry(senses=[malformed])]))
+        with patch.object(validator, 'load_source_registry', return_value={}):
+            self.assertIn('source registry missing or unreadable', '\n'.join(validator.validate([entry()])))
 
     def test_missing_vocabulary_facts_are_explicitly_empty(self):
         # The expanded fields are present, but no score is invented where none exists.
@@ -94,11 +156,11 @@ class VocabularyValidatorTest(unittest.TestCase):
         # rows are same-root forms, so there are 7,112 headwords (the counted words).
         data = json.loads((ROOT / "data" / "vocabulary.json").read_text(encoding="utf-8"))
         keys = [validator.normalize_word(item["word"]) for item in data]
-        self.assertEqual(len(keys), 7852)
-        self.assertEqual(len(set(keys)), 7852)
+        self.assertEqual(len(keys), 8852)
+        self.assertEqual(len(set(keys)), 8852)
         merged = [item for item in data if MERGED_TAG in item.get("tags", [])]
         self.assertEqual(len(merged), 740)
-        self.assertEqual(len(data) - len(merged), 7112)
+        self.assertEqual(len(data) - len(merged), 8112)
         self.assertEqual([item["id"] for item in data[:913]], [str(number) for number in range(1, 914)])
         self.assertEqual(validator.validate(data), [])
 

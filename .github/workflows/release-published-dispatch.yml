@@ -1,8 +1,15 @@
-name: Dispatch main deploy after prerelease publication
+name: Dispatch gated main deploy
 
 on:
   release:
     types: [published]
+  workflow_dispatch:
+    inputs:
+      stable_deploy_authorized:
+        description: "Confirm separate user authorization to deploy stable v1.0.0"
+        required: true
+        type: boolean
+        default: false
 
 permissions:
   actions: write
@@ -15,6 +22,39 @@ jobs:
     timeout-minutes: 2
     steps:
       - name: Dispatch the gated deploy workflow on main
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          curl --fail-with-body --silent --show-error \
+            --request POST \
+            --url "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/workflows/deploy.yml/dispatches" \
+            --header "Accept: application/vnd.github+json" \
+            --header "Authorization: Bearer ${GH_TOKEN}" \
+            --header "X-GitHub-Api-Version: 2022-11-28" \
+            --data '{"ref":"main"}'
+
+  # A stable publication alone is not authorization to deploy. This job must only
+  # be manually run after the user separately authorizes production deployment.
+  dispatch-stable-deploy:
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' && inputs.stable_deploy_authorized == true
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Check out main
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+          persist-credentials: false
+      - name: Require stable application version
+        run: |
+          python3 -c "from scripts.app_release_gate import app_version; from pathlib import Path; assert app_version(Path('index.html')) == 'v1.0.0'"
+      - name: Verify published stable release
+        id: app_release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 scripts/app_release_gate.py
+      - name: Dispatch the gated deploy workflow on main
+        if: steps.app_release.outputs.deploy == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |

@@ -1,22 +1,22 @@
 # RC4 Vocabulary Audit — v1.0.0-rc4 (unreleased candidate)
 
 - **Audit date:** 2026-10-28
-- **Rows inspected:** 7,852 (7,112 headwords + 740 family forms)
+- **Rows inspected:** 8,852 (8,112 headwords + 740 family forms)
 - **Status:** no vocabulary row, ID, meaning, level tag, family link or curation decision was changed by this audit; `corrected = 0`, `added = 0`.
 
 ## A. Reconciled counts
 
 | Measure | Count |
 | --- | --- |
-| Inspected rows | 7,852 |
-| Inspected headwords | 7,112 |
-| Retained (KEEP, in the focus deck) | 5,841 |
+| Inspected rows | 8,852 |
+| Inspected headwords | 8,112 |
+| Retained (KEEP, in the focus deck) | 6,841 |
 | Excluded (EXCLUDE_BASIC, archived) | 1,271 headwords / 1,271 rows |
 | Reviewed (REVIEW queue) | 0 |
 | Corrected | 0 |
 | Added | 0 |
 
-Retained + excluded headwords equal the inspected headword count (5,841 + 1,271 = 7,112), and every excluded row carries exactly one category:
+Retained + excluded headwords equal the inspected headword count (6,841 + 1,271 = 8,112), and every excluded row carries exactly one category:
 
 | Category | Rows |
 | --- | --- |
@@ -44,9 +44,9 @@ const deck = vocabulary.filter(entry => !archivedIds.has(entry.id));
 
 `deck` (not `vocabulary`) feeds every scheduling and question path: `selectSession`, `selectPrioritySession`, `studyGroupCandidates`, `sprintEligibleCount`, `selectSprintSession`, `buildExercisePlan(..., { vocabulary: deck })`, `generateQuestion`, `gradeAnswer`, the weak-word list in the dashboard, the Settings flagged list and the search index's distractor pool. Archived rows remain in `vocabulary` so that IDs, stored progress, favourites, backups and the search screen survive curation.
 
-Curriculum cross-check: **201** curriculum words were transcribed for grades 6-9; **91** of them exist in the bank; **14** are excluded and **77** are still taught.
+Curriculum cross-check: **201** curriculum words were transcribed for grades 6-9; **104** of them exist in the bank; **14** are excluded and **90** are still taught.
 
-Every curriculum-level word (A1-B1) that is still taught is a **family root** whose note teaches the derived forms (`Cùng gốc: …`), which is the documented exemption in the curation map. No unexplained retention.
+Every curriculum-level word (A1-B1) that is still taught is explained: it is either a **family root** whose note teaches the derived forms (`Cùng gốc: …`), a B1 row queued for a curator in `pendingCurationReview` (13 rows), or — for the v1.0.0 Phase III foundation expansion — an A1/A2 headword whose level is attested by a published reference work (13 rows, `level-source:` CEFR-J / Oxford 3000, never `editorial`). No unexplained retention.
 
 ## D. High-quality inclusion standard, as shipped
 

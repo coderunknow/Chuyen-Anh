@@ -74,7 +74,7 @@ SEED_HEADER = ("word", "pos", "meaning", "level", "topic", "type", "skills")
 # away from the file that produced it.
 SEED_OPTIONAL = ("level_source",)
 EDITORIAL = "editorial"
-LEVELS = {"B1", "B2", "C1", "C2"}
+LEVELS = {"A1", "A2", "B1", "B2", "C1", "C2"}
 TYPES = {"academic", "word-formation", "confusable", "topic", "core", "linker"}
 SKILLS = {"reading", "word-formation", "cloze", "sentence-transformation", "writing", "grammar"}
 TOPIC_RE = re.compile(r"^[a-z][a-z-]{2,24}$")

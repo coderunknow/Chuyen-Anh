@@ -2016,3 +2016,221 @@ ZIP (2,538,587 B) and checksums from the tag. Prerelease published at
 2026-11-03T13:58:24Z. Deploy Flashcard workflow `41649172113` ran the full test
 matrix and deployed to Pages. Pages smoke test `41648090805` verified the live
 site. Telemetry smoke test `41648090779` passed. Stable `v1.0.0` remains NO-GO.
+
+## 2026-11-04 — v1.0.0 candidate on `arena/6b7c2879-chuyen-anh` (baseline `f12b4bc5…`)
+
+**Sense-level CEFR model (commit `213eb61`).** A headword's CEFR level now belongs to
+each individual sense: every one of the 8,852 rows carries a `senses` array
+(`senseId`, `meaning`, `pos`, `cefr`, `evidence`, `confidence`,
+`needsIndependentValidation`, `sources[{ref,locator,supports}]`, `rationale`,
+`label`) — 8,860 senses, 0 unresolved. Classification is deterministic from the
+vendored references in `audit/v100/refs/` (CEFR-J Vocabulary Profile 1.5, Octanove
+C1/C2 1.0, Oxford 3000/5000 per-sense levels, frequency index as cross-check only)
+with the documented dispute hierarchy (Oxford sense > CEFR-J > Octanove > Oxford
+word-level), then the editorial map (1,845 rows, all flagged
+`needsIndependentValidation`). The legacy `level:*` tag is untouched for backward
+compatibility; `scripts/migrate_senses.py` adds/removes senses reversibly and is covered
+by `tests/test_migrate_senses.py` against `audit/v100/backup/data-pre-v100.tgz`.
+The runtime narrows everything through one sense-filtered pipeline (`cefrDeck()`),
+shows per-sense badges (level only, never the definition) in flashcards and feedback,
+defaults to B2+C1, keeps lookup comprehensive by default, and never leaks an
+unselected level (128-selection test). A real bug was found and fixed here: the Oxford
+POS parser stripped trailing dots so `"n."` never matched, producing 12 bogus
+multi-sense splits; post-fix the evidence-backed multi-sense entries are rest, ring,
+bank, lie, race, rock, tear, used (8).
+
+**Phase III — exactly +500 A1 and +500 A2 headwords (commit `2e33735`).** Seed
+`data/vocab-seed/22-a1a2-stable.tsv` (1,143 candidates from the CEFR-J A1/A2 and
+Oxford 3000 A1/A2 lists, absent from the pre-v1.0.0 bank) is accepted by
+`expand_vocabulary.py` as exactly **500 A1 + 500 A2** (143 skips, each with a recorded
+reason). Every new row carries `level-source:cefrj-vocabulary-profile-1.5` or
+`oxford-3000-wordlist`. Bank: 8,852 rows / 8,112 headwords / 6,841-word focus deck.
+New self-masking glosses were rewritten so mc4 options stay distinct. The rc4 audit
+documents A1/A2 curriculum words attested by a published level source as explained
+retentions (`attestedByPublishedLevel`, 27 rows); unexplained retentions are 0 again.
+
+**Gates and evidence.** `audit/v100/GATES.md` (S1–S25) and `audit/v100/DEFECTS.md`
+record every gate and defect with measured numbers. Tests: node 161 pass
+(144 static + 10 rc10-cefr + 7 v100-senses), python 194 OK, both browser suites PASS on
+chromium 153.0.8010.0 locally (firefox/webkit run in CI on the pushed head). Exam
+scoring stays scorable-only at 3,011/6,804 (44.25%) with `officialScore: null`
+without official evidence and 0 unresolved non-exempt blockers. PR only — no merge,
+no tag, no release, no deploy; `DEPLOY_HOLD` untouched.
+
+### 2026-11-04 — PR #82 review-round hardening (append-only)
+
+After opening PR #82 at head `c8138af` (CI run `41794025530` green across `checks`,
+`browser (chromium)`, `browser (firefox)`, and `browser (webkit)`; CodeRabbit review
+`3f8762ce-2219-4cd2-8a76-5034afdadc95`), each review finding was verified against the
+live code before acting:
+
+- **Sense classifier (`scripts/cefr_senses.py`):** `_oxford_pos_levels` now isolates
+  per-POS CEFR levels inside combined Oxford POS cells (`v. A1, n. B2`); `_resolve_level`
+  orders word-level votes as `cefrj > octanove > oxford` so word-level Oxford no longer
+  outranks CEFR-J (`scope` resolves to B1 `disputed` with both votes recorded);
+  multi-sense `cross_validated` requires agreement from a non-Oxford reference;
+  `validate_senses` enforces `needsIndependentValidation === true` on `editorial_estimate`;
+  and `POS_ALIASES` / `OXFORD_POS_LABELS` map `be-verb`, `do-verb`, `have-verb`,
+  `definite article`, and `exclam.`. Post-rebuild sense distribution across all 8,860
+  senses: A1 940 · A2 1,168 · B1 1,919 · B2 2,248 · C1 1,443 · C2 1,142 · UNCLASSIFIED 0
+  (`source_supported` 3,085 · `cross_validated` 1,663 · `disputed` 2,267 ·
+  `editorial_estimate` 1,845 · `unresolved` 0; HIGH 4,702 · MEDIUM 4,158; default B2+C1
+  deck headwords = 3,032 / 3,033 senses).
+- **Phase III seed hygiene (`data/vocab-seed/22-a1a2-stable.tsv`):** cleaned all 67
+  POS/gloss mismatches, 4 `(A2 bản)` notes, parenthetical POS hints, the duplicated
+  `action` gloss, and 113 `level-source` cells where Oxford 3000 (not CEFR-J) attested
+  the target level; added `zero` (Oxford 3000 A2) so accepted headwords remain **500 A1 +
+  500 A2** (`892` CEFR-J + `108` Oxford 3000 = `1,000` accepted; `144` skipped) after
+  `strange` → `adj` skips `stranger` as comparative.
+- **Audit, provenance, a11y, and docs:** `rc4_vocabulary_audit.py` restricts
+  `attestedByPublishedLevel` to A1/A2 (13 rows), restoring 13 B1 rows to
+  `pendingCurationReview` with `unexplained == 0`; `acquire-references.sh` pins 40-char
+  commit SHAs and verifies fixed SHA-256 digests in a staging directory; `browser-exams.cjs`
+  adds `wcag21a` and `wcag21aa` to axe `runOnly` (0 violations); `migrate_senses.py` and
+  `README.md` update-sequence/version statements corrected. The deploy-gate review
+  suggestion was skipped intentionally because changing `DEPLOY_HOLD` or release-workflow
+  semantics is out of scope of a PR-only candidate under the explicit `DEPLOY_HOLD`-unchanged
+  constraint.
+
+### 2026-11-04 — INTENT / stable-release re-audit (in progress)
+
+The user authorizes a stable v1.0.0 release only after exhaustive quality, data,
+review, release-order and production gates pass, while keeping `AGENT.md` and
+`DEPLOY_HOLD` unchanged and historical logs append-only. This supersedes the earlier
+PR-only restriction on release actions, but does not authorize any early merge or
+publication. Live baseline: PR #82 draft at `1d61c7bc9f8fed221025cb253ea3c15e51389cee`,
+main `f12b4bc5241e330eb8c051ada749d4f514111b61`; current-head CI run 41813222542
+passed, CodeRabbit review 5766898002 has five findings and incomplete coverage.
+
+The previous PASS claims are not accepted as the new exhaustive audit. The existing
+hold gate authorized the unreleased stable candidate because rc10 was published;
+added a separate exact-app-version release gate, retaining both the existing hold
+and the explicitly manual force mechanism. Tests show the old gate reproduction,
+correct stable/prerelease channel decisions and both workflow conditions locally;
+actual workflow execution remains unverified. The custom `build_senses.py` path
+summary error was reproduced and fixed. The real multi-sense audit showed `lie`'s
+combined A1/B1 gloss and a reversed `rock` gloss/annotation pairing; S10 is FAIL,
+not a completed fix. Source validation, individual data/exam assessment, full
+accessibility, stable artifact support, independent review, and final-SHA CI remain
+open. No merge, tag, release or deployment was performed.
+
+### 2026-11-04 — stable artifact path, local work in progress
+
+The artifact workflow now admits the explicit `v1.0.0` tag in addition to existing
+prereleases. Packaging creates a stable draft without the prerelease flag, checks the
+stable tag against the app version in the tagged tree, and refuses channel mismatch.
+Local regressions cover allowed/refused refs, version mismatch and channel selection.
+This is not an end-to-end release verification: the publication dispatcher remains
+prerelease-only, exact-head CI and independent review are outstanding. No tag, release,
+merge or deployment was performed; separate user authorization remains required.
+
+### 2026-11-04 — reproducibility and separately authorized stable dispatch
+
+A timezone-shift regression exposed non-reproducible ZIP metadata. Stable ZIPs now
+use fixed timestamp and permissions; prerelease packaging remains unchanged to avoid
+breaking existing backfills. A separate manual stable-dispatch path requires an
+explicit confirmation, main ref, exact stable app version and published stable release;
+the existing prerelease event path and both deploy gates are retained. This is not
+itself authorization to deploy. No workflow was dispatched or publication performed.
+
+### 2026-11-04 — Oxford POS parser and sense-evidence scope
+
+Reproduced two linked defects with fail-first tests: the POS-level parser lowercased
+its input but used an uppercase-only level regex, and split-sense classification
+chose the lowest combined level rather than a level attached to the requested POS.
+Also corrected Oxford vote locators to point to the row actually providing the vote.
+Rebuilt senses and the embedded application; preserved all legacy fields. Independent
+headword-level agreement is no longer described as cross-validation of a particular
+split sense; all split mappings are marked for independent validation. The review
+queue covers all 8,852 rows but is not an individual verification: 8 multi-sense
+entries need mapping review, 5 show duplicate glosses, and 107 disputed rows select
+another source's level instead of the Oxford POS level. `lie` and `rock` remain
+incorrect; this is a partial fix, not a completed semantic audit.
+
+### 2026-11-04 — explicit source-row gloss alignment
+
+The previously reported eight multi-row mappings were reviewed against Oxford
+wordlist rows and dictionary excerpts. A source-row-keyed manifest now maps only
+existing gloss text; it records dictionary URLs and flags the translations as editorial
+and requiring independent review. It covers all eight entries, not only the two
+reported examples. Four unglossed homographs are omitted rather than assigned the
+same unrelated gloss. Missing, changed, duplicate, partial or stale mappings fail
+closed. Oxford row order no longer determines the Vietnamese gloss. Original row
+meanings, metadata and progress are retained. The resulting data has 8,856 senses
+across 8,852 entries; the 12 mapped senses are not independently verified.
+The empty CEFR view also no longer falls back to the excluded original gloss.
+
+### 2026-11-04 — source capability and composite POS follow-up
+
+The mapping manifest now has its own registered editorial source rather than
+misusing the unrelated editorial CEFR map's source id. A fail-first test also
+exposed composite bank POS strings being treated as a single unknown POS; the
+parser now matches each slash-separated POS. A heuristic re-audit still finds 173
+entries for which at least one consulted vote falls back to a nonmatching POS.
+A local simulation excluding those votes changed 81 classifications and left three
+unclassified (Ravage, pandemic, remonstrate); that simulation is not committed data
+or independently verified. Source-scope remediation remains open rather than
+inventing classifications or weakening the zero-unresolved gate.
+
+### 2026-11-04 — CEFR review report scope correction
+
+Replaced misleading before/after copies of the same counts with a current legacy-tag
+distribution. The report now separately counts stored sense evidence claims, makes
+clear neither source labels nor sense claims are independently verified here, and
+stops claiming every label is editorial or that no reference data exists. Tests
+compare both distributions directly to current data and verify audit non-mutation.
+
+### 2026-11-04 — exact-SHA changelog correction
+
+Independently checked the CodeRabbit observation that candidate CI was described
+as current-head evidence without a SHA. Updated only the unreleased candidate
+changelog section to name the actually tested SHA and distinguish its historical
+results from pending current-head CI; stale sense counts and unsupported absolute
+claims were also removed.
+
+### 2026-11-04 — source capability validation, partial
+
+Added machine-readable CEFR level coverage and publisher independence groups to
+registered CEFR sources. The standalone validator now requires a capable source for
+`source_supported`, two distinct publisher groups for `cross_validated`, and a
+nonempty locator; missing registry and malformed records fail closed. Positive and
+negative tests cover Cambridge-as-CEFR, duplicate and same-publisher sources, wrong
+levels, missing locators and malformed inputs. This is only capability validation:
+it does not yet confirm that each locator actually matches the word, POS and level.
+A preliminary local locator/POS simulation identified 31 source-supported and 26
+cross-validated records needing investigation; no individual verification is claimed.
+
+### 2026-11-04 — POS-scope fail-closed evidence and locator triage
+
+A local row-matching audit found 31 source-supported and 26 cross-validated senses
+whose claimed level lacked sufficient matching source/POS groups. Classification now
+ignores nonmatching-POS votes whenever a matching vote exists. Where only other-POS
+references exist, their level is retained solely as an explicitly unverified LOW
+confidence editorial proxy, never as direct or cross-validated evidence. The data has
+1,897 editorial estimates, including 52 proxies, all requiring independent validation.
+A reproducible locator queue records every sense; it now reports 4,775 matching-group
+claims and 4,081 not assessed by this narrow check, with zero automatically flagged
+insufficient group claims. This is a heuristic, not independent evidence validation.
+
+### 2026-11-04 — disable automatic exam answer inference
+
+A fail-first audit found 203 shipped answer records derived from automatic
+provisional inference. The builder previously used a pinned teaching-bank lexicon
+and heuristic solver; a frozen lexicon still is not exam-answer evidence. Removed
+the solver and cross-archive automatic inference while retaining fail-closed pin
+validation. Missing source answers now remain ungraded, and the runtime parser
+also ignores injected provisional hints. An exact comparison against the previous
+manifest shows 203 changed keys, all `inferred_unverified` → `missing_answer`,
+with no other answer-key changes. The archive still has 106 papers and 6,804
+questions: 2,808 provisionally scorable and 3,996 ungradeable. Essay rubrics remain
+provisional, not official scores. Individual source and answer audits remain open.
+
+### 2026-11-04 — scope exam cross-check evidence to what was checked
+
+The paper-level cross-check report records a few anchors, not a line-by-line
+verification of every answer. A fail-first test showed that the parser nevertheless
+promoted all extracted answers from three papers to independently cross-checked.
+Removed that blanket promotion: 67 answer records now identify single-source
+transcriptions rather than independently verified keys. The paper-level anchor
+report is preserved, but it is not used as item-level proof. Scorable totals did
+not change. The earlier comparison's 203 inference removals remain unchanged.
