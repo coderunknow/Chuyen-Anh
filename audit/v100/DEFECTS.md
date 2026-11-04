@@ -73,3 +73,9 @@ Open / accepted limitations (not defects, stated honestly):
   editorial, asserted no references were fetched, ignored sense arrays, and presented
   identical current data as before/after. The generated report and regressions now
   distinguish legacy tags from unverified sense claims; independent review remains.
+
+- **D22 — IN PROGRESS:** standalone validation previously accepted registered sources
+  incapable of supporting CEFR claims, including Cambridge as a CEFR level source.
+  Capability/publisher-group and nonempty-locator checks are now implemented, but they
+  do not prove locator content or POS matches. A preliminary simulation flags 31
+  source-supported and 26 cross-validated claims for further investigation.

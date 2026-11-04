@@ -10,25 +10,15 @@ is untouched and only the `v1.0.0` version string is proposed.
 
 ### Sense-level CEFR (Phase II)
 
-- Every vocabulary row now carries a `senses` array: 8,852 entries, **8,860 senses**,
-  **0 unresolved**, 8 evidence-backed multi-sense entries (rest, ring, bank, lie,
-  race, rock, tear, used). Each sense owns its CEFR level (A1 940 · A2 1,168 · B1 1,919 ·
-  B2 2,248 · C1 1,443 · C2 1,142), evidence class (`source_supported` 3,085 ·
-  `cross_validated` 1,663 · `disputed` 2,267 · `editorial_estimate` 1,845, all enforced
-  `needsIndependentValidation: true` by `validate_senses`), confidence (HIGH 4,702 ·
-  MEDIUM 4,158), structured sources and rationale. SenseIds are stable (`<id>-sN`); the
-  legacy `level:*` tag is preserved and `scripts/migrate_senses.py` migrates reversibly
-  (tested against `audit/v100/backup/data-pre-v100.tgz`).
-- One filtering pipeline (`cefrDeck()`) narrows sessions, sprint, priority, distractors
-  and answers by sense; per-sense badges (level only) render in flashcards and
-  feedback; default selection B2+C1 (3,032 eligible deck headwords / 3,033 senses);
-  lookup stays comprehensive by default with an optional persisted narrow toggle; no
-  unselected level leaks (128-selection test).
-- Fixed classification defects: Oxford POS dot-strip bug (eliminating 12 bogus multi-sense
-  splits), combined-POS Oxford level isolation (`_oxford_pos_levels`), word-level Oxford
-  ranked below CEFR-J/Octanove in `_resolve_level` matching the documented hierarchy
-  (`scope` resolves B1 `disputed` with both votes recorded), and cross-publisher
-  `cross_validated` check.
+- The current generated dataset has 8,852 rows and **8,856 stored senses**, including
+  four multi-sense entries. Classifications include 1,845 editorial estimates; the
+  automated `unresolved=0` count does not establish independent verification.
+  Twelve editorial gloss alignments across eight entries require independent review.
+  Source-row mapping, POS scope, reference locators and all remaining classifications
+  remain subject to the open defects and gates in `audit/v100/`.
+- Learning filters select in-scope senses. Targeted regressions cover `lie`, `rock`,
+  row-order independence and empty selections; application-wide pathway review is
+  still incomplete. Legacy row fields and progress keys are preserved.
 
 ### Phase III — exactly +500 A1 and +500 A2 headwords
 
@@ -47,14 +37,14 @@ is untouched and only the `v1.0.0` version string is proposed.
   **0 unresolved non-exempt blockers**. `officialScore` stays `null`/`false` without an
   official primary source; the inference lexicon stays fail-closed.
 
-### Verification (measured on the branch head)
+### Verification (historical, not final-head evidence)
 
-- node 210 pass (static-app 144 · exam-scoring 25 · exam-anomalies 7 · rc10-cefr 10 ·
-  v100-senses 7 · telemetry-api 17); python 194 OK; both browser suites PASS on chromium
-  153.0.8010.0 (axe WCAG 2.1 A/AA clean incl. `wcag21a`/`wcag21aa`, 320/375/768/1024/1440 px,
-  keyboard, reduced-motion, `file://`, no network, cross-tab persistence); CI matrix
-  `[chromium, firefox, webkit]` green on PR #82.
-  Gates S1–S25: `audit/v100/GATES.md`. Defects: `audit/v100/DEFECTS.md`.
+- GitHub Actions run `41813222542` passed checks and Chromium/Firefox/WebKit on
+  `1d61c7bc9f8fed221025cb253ea3c15e51389cee`; it does not verify later commits.
+  Current-head CI, independent review and complete application accessibility remain
+  pending. Local test results do not replace exact-head CI or an independent review.
+- Current gates and defects: `audit/v100/GATES.md` and `audit/v100/DEFECTS.md`.
+  Separate explicit authorization is required before merge, tag, release or deployment.
 
 ## v1.0.0-rc10 — full vocabulary revalidation, 2,000 new headwords, 314 new phrases, and fail-closed exam inference (2026-11-03)
 

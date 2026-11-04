@@ -1331,3 +1331,17 @@ remaining source-scope issue remains open and is not marked as a passed gate.
 A fail-first regression exposed stale claims about source evidence, sense splitting,
 and identical before/after snapshots. Rebuilt the report with separate current legacy
 and sense evidence sections; no independent review is claimed. Focused tests pass.
+
+### 2026-11-04 — candidate changelog evidence
+
+Verified the CI-SHA review finding and corrected the unreleased candidate changelog;
+run 41813222542 applies only to 1d61c7b. Current-head CI and independent review
+are still pending. Historical release sections were not changed.
+
+### 2026-11-04 — source-capability validator
+
+Independently verified CodeRabbit's source-capability finding with a fail-first
+Cambridge fixture. Added explicit registry capabilities and independent publisher
+groups, fail-closed source validation and malformed-input regressions. Current data
+passes the capability check; locator-to-row and POS scope verification remain open,
+with 57 preliminary potentially unsupported claims requiring individual investigation.

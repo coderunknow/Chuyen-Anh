@@ -2179,3 +2179,23 @@ distribution. The report now separately counts stored sense evidence claims, mak
 clear neither source labels nor sense claims are independently verified here, and
 stops claiming every label is editorial or that no reference data exists. Tests
 compare both distributions directly to current data and verify audit non-mutation.
+
+### 2026-11-04 — exact-SHA changelog correction
+
+Independently checked the CodeRabbit observation that candidate CI was described
+as current-head evidence without a SHA. Updated only the unreleased candidate
+changelog section to name the actually tested SHA and distinguish its historical
+results from pending current-head CI; stale sense counts and unsupported absolute
+claims were also removed.
+
+### 2026-11-04 — source capability validation, partial
+
+Added machine-readable CEFR level coverage and publisher independence groups to
+registered CEFR sources. The standalone validator now requires a capable source for
+`source_supported`, two distinct publisher groups for `cross_validated`, and a
+nonempty locator; missing registry and malformed records fail closed. Positive and
+negative tests cover Cambridge-as-CEFR, duplicate and same-publisher sources, wrong
+levels, missing locators and malformed inputs. This is only capability validation:
+it does not yet confirm that each locator actually matches the word, POS and level.
+A preliminary local locator/POS simulation identified 31 source-supported and 26
+cross-validated records needing investigation; no individual verification is claimed.

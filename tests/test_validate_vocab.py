@@ -2,6 +2,7 @@ import importlib.util
 import json
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 ROOT = Path(__file__).parents[1]
 
@@ -40,7 +41,7 @@ def entry(**overrides):
             "cefr": "B1",
             "evidence": "source_supported",
             "confidence": "HIGH",
-            "sources": [{"ref": "cambridge", "supports": "sense gloss"}],
+            "sources": [{"ref": "oxford-3000-wordlist", "supports": "wordlist CEFR level", "locator": "oxford-3000.en.tsv:1: fixture"}],
             "rationale": "fixture",
             "needsIndependentValidation": False,
         }],
@@ -75,6 +76,31 @@ class VocabularyValidatorTest(unittest.TestCase):
         # unknown sense source ref
         bad_ref = {**base["senses"][0], "sources": [{"ref": "not-registered", "supports": "x"}]}
         self.assertIn("not in docs/vocabulary-sources.json", "\n".join(validator.validate([entry(senses=[bad_ref])])))
+
+    def test_sense_evidence_requires_capable_independent_sources(self):
+        base = entry()['senses'][0]
+        bad = {**base, 'sources': [{'ref': 'cambridge', 'supports': 'gloss', 'locator': 'entry:fixture'}]}
+        self.assertIn('CEFR-capable', '\n'.join(validator.validate([entry(senses=[bad])])))
+        oxford = {'ref': 'oxford-3000-wordlist', 'supports': 'level', 'locator': 'oxford-3000.en.tsv:1: fixture'}
+        duplicate = {**base, 'evidence': 'cross_validated', 'sources': [oxford, oxford]}
+        self.assertIn('independent', '\n'.join(validator.validate([entry(senses=[duplicate])])))
+        wrong_level = {**base, 'cefr': 'C2', 'sources': [oxford]}
+        self.assertIn('CEFR-capable', '\n'.join(validator.validate([entry(senses=[wrong_level])])))
+        same_publisher = {'ref': 'oxford-5000-expanded-wordlist', 'supports': 'level', 'locator': 'oxford-5000-expanded.en.tsv:1: fixture'}
+        same = {**base, 'evidence': 'cross_validated', 'sources': [oxford, same_publisher]}
+        self.assertIn('independent', '\n'.join(validator.validate([entry(senses=[same])])))
+        missing_locator = {**base, 'sources': [{'ref': 'oxford-3000-wordlist', 'supports': 'level'}]}
+        self.assertIn('locator', '\n'.join(validator.validate([entry(senses=[missing_locator])])))
+        cefrj = {'ref': 'cefrj-vocabulary-profile-1.5', 'supports': 'level', 'locator': 'row 1'}
+        valid = {**base, 'evidence': 'cross_validated', 'sources': [oxford, cefrj]}
+        self.assertEqual(validator.validate([entry(senses=[valid])]), [])
+
+    def test_malformed_sources_and_missing_registry_fail_closed(self):
+        base = entry()['senses'][0]
+        malformed = {**base, 'sources': [{'ref': ['not-a-string'], 'supports': 'level', 'locator': 'row 1'}]}
+        self.assertTrue(validator.validate([entry(senses=[malformed])]))
+        with patch.object(validator, 'load_source_registry', return_value={}):
+            self.assertIn('source registry missing or unreadable', '\n'.join(validator.validate([entry()])))
 
     def test_missing_vocabulary_facts_are_explicitly_empty(self):
         # The expanded fields are present, but no score is invented where none exists.

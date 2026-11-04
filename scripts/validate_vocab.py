@@ -37,14 +37,14 @@ def normalize_word(value: str) -> str:
     return " ".join(decomposed.lower().split())
 
 
-def load_source_registry(path: Path = REGISTRY_PATH) -> set[str]:
-    """Return the set of known provenance source ids (empty when unreadable)."""
+def load_source_registry(path: Path = REGISTRY_PATH) -> dict[str, dict]:
+    """Return source records keyed by id (empty when unreadable)."""
     try:
         data = json.loads(path.read_text(encoding="utf-8"))
         sources = data["sources"] if isinstance(data, dict) else data
-        return {item["id"] for item in sources if isinstance(item, dict) and isinstance(item.get("id"), str)}
+        return {item["id"]: item for item in sources if isinstance(item, dict) and isinstance(item.get("id"), str)}
     except (OSError, json.JSONDecodeError, KeyError, TypeError):
-        return set()
+        return {}
 
 
 def lexical_key(value: str) -> str:
@@ -80,6 +80,8 @@ def validate(data: Any) -> list[str]:
         return ["Document\nWord: (none)\nProblem: vocabulary must not be empty"]
 
     registry = load_source_registry()
+    if not registry:
+        errors.append("Document\nWord: (none)\nProblem: source registry missing or unreadable")
     ids: dict[str, list[int]] = defaultdict(list)
     words: dict[str, list[int]] = defaultdict(list)
     lexical: dict[str, list[int]] = defaultdict(list)
@@ -198,8 +200,24 @@ def validate(data: Any) -> list[str]:
                 for source in sense.get("sources", []) if isinstance(sense.get("sources"), list) else []:
                     if isinstance(source, dict) and registry:
                         ref = source.get("ref")
+                        if not isinstance(source.get("locator"), str) or not source["locator"].strip():
+                            problem(errors, index, entry, "sense source must have a non-empty locator")
                         if isinstance(ref, str) and ref not in registry:
                             problem(errors, index, entry, f"sense source ref {ref!r} is not in docs/vocabulary-sources.json")
+                if sense.get("evidence") in {"source_supported", "cross_validated"}:
+                    groups = set()
+                    for source in sense.get("sources", []) if isinstance(sense.get("sources"), list) else []:
+                        ref = source.get("ref") if isinstance(source, dict) else None
+                        record = registry.get(ref, {}) if isinstance(ref, str) else {}
+                        group = record.get("independenceGroup")
+                        levels = record.get("cefrLevels")
+                        if (record.get("type") == "cefr-reference" and isinstance(levels, list)
+                                and sense.get("cefr") in levels and isinstance(group, str) and group.strip()):
+                            groups.add(group)
+                    if not groups:
+                        problem(errors, index, entry, "sense evidence requires a registered CEFR-capable source for its level")
+                    if sense.get("evidence") == "cross_validated" and len(groups) < 2:
+                        problem(errors, index, entry, "cross_validated requires two independent CEFR source groups for its level")
 
         # The root rule: a merged form points at its headword and is not a headword itself.
         merged = isinstance(tags, list) and "family:merged" in tags
