@@ -29,3 +29,21 @@ Open / accepted limitations (not defects, stated honestly):
   multiple-letters-for-single-item 23). **Unresolved non-exempt blockers: 0.**
 - Firefox/WebKit browser suites run in CI (playwright install), not in this sandbox;
   locally both suites pass on chromium 153.0.8010.0.
+
+## 2026-11-04 — renewed stable-release audit (open findings)
+
+- **D15 — BLOCKED, critical:** an already-published `DEPLOY_HOLD` (`v1.0.0-rc10`)
+  authorized the `v1.0.0` candidate (`python3 scripts/deploy_gate.py --repo
+  coderunknow/Chuyen-Anh` returned `deploy=true`). An additional exact-application
+  release gate and workflow conditions are implemented with local regression tests;
+  live workflow behavior is not yet verified. The hold file is unchanged.
+- **D16 — OPEN, critical:** `lie` repeats `nói dối, nằm` in both A1 and B1 senses;
+  `rock` maps `đá` to Oxford's music annotation and music to its stone annotation.
+  All eight multi-sense entries require reliable source-to-gloss mapping and runtime
+  filtering tests before S10 can pass. No meaning has been invented or discarded.
+- **D17 — OPEN:** stable release artifact tooling accepts only dev/beta/rc tags and
+  the tag push workflow omits `v1.0.0`; its stable path is not yet implemented.
+- **D18 — OPEN:** source-capability and locator validation, generated audit prose,
+  comprehensive individual evidence review and the other current-head review findings
+  remain to be verified and remediated. `build_senses.py` outside-repository output
+  summary failure was reproduced and corrected with path regression tests.

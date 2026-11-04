@@ -2091,3 +2091,25 @@ live code before acting:
   suggestion was skipped intentionally because changing `DEPLOY_HOLD` or release-workflow
   semantics is out of scope of a PR-only candidate under the explicit `DEPLOY_HOLD`-unchanged
   constraint.
+
+### 2026-11-04 — INTENT / stable-release re-audit (in progress)
+
+The user authorizes a stable v1.0.0 release only after exhaustive quality, data,
+review, release-order and production gates pass, while keeping `AGENT.md` and
+`DEPLOY_HOLD` unchanged and historical logs append-only. This supersedes the earlier
+PR-only restriction on release actions, but does not authorize any early merge or
+publication. Live baseline: PR #82 draft at `1d61c7bc9f8fed221025cb253ea3c15e51389cee`,
+main `f12b4bc5241e330eb8c051ada749d4f514111b61`; current-head CI run 41813222542
+passed, CodeRabbit review 5766898002 has five findings and incomplete coverage.
+
+The previous PASS claims are not accepted as the new exhaustive audit. The existing
+hold gate authorized the unreleased stable candidate because rc10 was published;
+added a separate exact-app-version release gate, retaining both the existing hold
+and the explicitly manual force mechanism. Tests show the old gate reproduction,
+correct stable/prerelease channel decisions and both workflow conditions locally;
+actual workflow execution remains unverified. The custom `build_senses.py` path
+summary error was reproduced and fixed. The real multi-sense audit showed `lie`'s
+combined A1/B1 gloss and a reversed `rock` gloss/annotation pairing; S10 is FAIL,
+not a completed fix. Source validation, individual data/exam assessment, full
+accessibility, stable artifact support, independent review, and final-SHA CI remain
+open. No merge, tag, release or deployment was performed.

@@ -1277,3 +1277,10 @@ artifacts built by run `40863169016`, Pages deployment `7410642916` from run `40
 ## 2026-11-04 — review-round verification and PR synchronization
 
 The review-round tree passed 210 Node tests, 194 Python tests, all CI data checks, and both local Chromium 153 browser suites. Pushed commit `9546080`; GitHub's branch API reports it, but PR #82 still reports `c8138af` and has not started a new CI run. The earlier S19/S25 statements claiming latest-head CI and review were premature; corrected the gate ledger to pending. Keep the PR draft until GitHub synchronizes the head and CI and review have actually completed for it.
+
+## 2026-11-04 — renewed stable-release mission: preflight and partial remediation
+
+- Fresh fetch confirmed clean local and remote head `1d61c7bc9f8fed221025cb253ea3c15e51389cee`, PR #82 draft, base/main `f12b4bc5241e330eb8c051ada749d4f514111b61`, CI run 41813222542 success on that head. Review 5766898002 contains five new findings; all review threads remain unresolved on GitHub. No stable tag or release found.
+- Reproduced unsafe order: the old deploy gate returned `deploy=true` for published rc10 while `index.html` declares v1.0.0. Added an additional fail-closed application-version/release-channel gate to every workflow publish condition without modifying the hold or removing the manual dispatch override. Targeted tests: old gate 28 OK, new gate 3 OK. Live workflow not run.
+- Enumerated all eight multi-sense entries. `lie` repeats its combined A1/B1 gloss; `rock` maps the stone gloss to music and the music gloss to stone. Not remediated; S10 is FAIL. Stable artifact tooling supports prereleases only; stable workflow work remains open.
+- Reproduced `build_senses.py --json` outside the repository exiting 1 after writing; corrected display path, path tests 2 OK, `build_senses.py --check` passed. Full Python discovery on the modified tree: 199 OK. No Node or browser re-run on this tree yet. No merge, tag, release or deployment.

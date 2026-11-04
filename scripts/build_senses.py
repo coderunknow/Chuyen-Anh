@@ -132,8 +132,12 @@ def main() -> int:
         AUDIT_JSON.parent.mkdir(parents=True, exist_ok=True)
         payload = {"schemaVersion": 1, "generatedBy": "scripts/build_senses.py", "summary": summary, "entries": audit}
         AUDIT_JSON.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    try:
+        display_path = args.json.resolve().relative_to(ROOT)
+    except ValueError:
+        display_path = args.json
     print(f"wrote senses for {summary['entries']} entries ({summary['senses']} senses, "
-          f"{summary['multiSenseEntries']} multi-sense) to {args.json.relative_to(ROOT)}")
+          f"{summary['multiSenseEntries']} multi-sense) to {display_path}")
     print(json.dumps(summary, ensure_ascii=False))
     return 0
 
