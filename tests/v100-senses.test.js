@@ -118,19 +118,20 @@ test('v1.0.0: the scope example is classified from evidence, not inherited', () 
   assert.ok(scope, 'scope exists');
   const senses = app.entrySenses(scope);
   assert.equal(senses.length >= 1, true);
-  // CEFR-J lists scope noun at B1, the Oxford 5000 list prints C1: the engine
-  // records the disagreement (disputed) and resolves by the documented
-  // hierarchy to C1; both published votes stay in the record.
+  // CEFR-J lists scope noun at B1, the Oxford 5000 list prints a word-level C1:
+  // the engine records the disagreement (disputed) and resolves by the
+  // documented hierarchy (Oxford sense-level > CEFR-J > Octanove > Oxford
+  // word-level) to B1; both published votes stay in the record.
   const raw = scope.senses[0];
   const s = senses[0];
-  assert.equal(s.cefr, 'C1');
+  assert.equal(s.cefr, 'B1');
   assert.equal(s.evidence, 'disputed');
   const refs = raw.sources || [];
   assert.ok(refs.some(x => (x.ref || '').includes('cefrj')), 'CEFR-J vote recorded');
   assert.ok(refs.some(x => (x.ref || '').includes('oxford')), 'Oxford vote recorded');
   assert.match(raw.rationale, /disagree/, 'the disagreement is recorded in the rationale');
-  assert.equal(app.entryMatchesCefr(scope, selectionOf(['C1'])), true, 'C1 selection shows the C1 sense');
-  assert.equal(app.entryMatchesCefr(scope, selectionOf(['B1'])), false, 'the B1 vote alone must not put it in a B1-only pool');
+  assert.equal(app.entryMatchesCefr(scope, selectionOf(['B1'])), true, 'B1 selection shows the B1 sense');
+  assert.equal(app.entryMatchesCefr(scope, selectionOf(['C1'])), false, 'the overridden word-level C1 vote must not put it in a C1-only pool');
 });
 
 test('v1.0.0: excluded senses cannot appear as distractors, prompts or answers', () => {
@@ -201,8 +202,8 @@ test('v1.0.0: headword counts and sense counts are distinguished', () => {
   // default B2+C1 selection: eligible headwords counted via the one pipeline
   const eligible = app.filterVocabularyByCefr(deck, app.defaultCefrSelection()).length;
   const eligibleSenses = ['B2', 'C1'].reduce((t, l) => t + (bySense[l] || 0), 0);
-  assert.equal(eligible, 3724);
-  assert.equal(eligibleSenses, 3725, 'B2+C1 senses over the deck (tear carries two B2 senses, so senses exceed headwords by 1)');
+  assert.equal(eligible, 3032);
+  assert.equal(eligibleSenses, 3033, 'B2+C1 senses over the deck (tear carries two B2 senses, so senses exceed headwords by 1)');
   // A2 is where headword and sense counts genuinely diverge: rest, ring and rock
   // each carry two A2 senses, so the sense count is higher than the headword count.
   const a2Headwords = app.filterVocabularyByCefr(headwords, selectionOf(['A2'])).length;

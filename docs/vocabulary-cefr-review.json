@@ -85,9 +85,9 @@
       "none": 913,
       "editorial": 3018,
       "oxford-3000-5000": 1979,
-      "cefrj-vocabulary-profile-1.5": 2164,
+      "cefrj-vocabulary-profile-1.5": 2074,
       "octanove-vocabulary-profile-1.0": 760,
-      "oxford-3000-wordlist": 18
+      "oxford-3000-wordlist": 108
     }
   },
   "quality": {
@@ -1842,14 +1842,14 @@
         "meaning": "xấp xỉ, khoảng; về"
       },
       {
+        "id": "7900",
+        "word": "bank",
+        "meaning": "ngân hàng; bờ sông"
+      },
+      {
         "id": "7903",
         "word": "bat",
         "meaning": "con dơi; gậy bóng chày"
-      },
-      {
-        "id": "7908",
-        "word": "bear",
-        "meaning": "gấu; chịu đựng"
       },
       {
         "id": "7926",
@@ -1857,14 +1857,14 @@
         "meaning": "tòa nhà; khối"
       },
       {
-        "id": "7928",
-        "word": "blow",
-        "meaning": "thổi; cú đánh"
-      },
-      {
         "id": "7988",
         "word": "cool",
         "meaning": "mát mẻ; ngầu"
+      },
+      {
+        "id": "8010",
+        "word": "dig",
+        "meaning": "cú huých; sự đào bới"
       },
       {
         "id": "8023",
@@ -1872,14 +1872,14 @@
         "meaning": "giấc mơ; mơ"
       },
       {
-        "id": "8025",
-        "word": "drop",
-        "meaning": "làm rơi; giọt"
-      },
-      {
         "id": "8106",
         "word": "hard",
         "meaning": "cứng; khó"
+      },
+      {
+        "id": "8110",
+        "word": "head",
+        "meaning": "cái đầu; người đứng đầu"
       },
       {
         "id": "8114",
@@ -1912,19 +1912,9 @@
         "meaning": "cũng; quá"
       },
       {
-        "id": "8340",
-        "word": "was",
-        "meaning": "(quá khứ của be, ngôi tôi/số ít)"
-      },
-      {
         "id": "8382",
         "word": "beat",
-        "meaning": "đánh bại; nhịp tim"
-      },
-      {
-        "id": "8386",
-        "word": "being",
-        "meaning": "con người, sự tồn tại; đang (dạng của be)"
+        "meaning": "đánh bại; đập"
       },
       {
         "id": "8416",
@@ -1932,19 +1922,9 @@
         "meaning": "khoai tây chiên lát mỏng; linh kiện điện tử"
       },
       {
-        "id": "8420",
-        "word": "clear",
-        "meaning": "sạch, rõ ràng; dọn dẹp"
-      },
-      {
-        "id": "8439",
-        "word": "cross",
-        "meaning": "băng qua; chữ thập"
-      },
-      {
-        "id": "8568",
-        "word": "last",
-        "meaning": "cuối cùng; vừa qua"
+        "id": "8640",
+        "word": "please",
+        "meaning": "làm hài lòng; xin vui lòng"
       },
       {
         "id": "8662",
@@ -1957,14 +1937,29 @@
         "meaning": "đá; thể loại nhạc phương Tây"
       },
       {
-        "id": "8810",
+        "id": "8731",
+        "word": "slide",
+        "meaning": "cầu trượt; bản chiếu"
+      },
+      {
+        "id": "8761",
+        "word": "strike",
+        "meaning": "cuộc đình công; cú đánh"
+      },
+      {
+        "id": "8809",
         "word": "twin",
         "meaning": "anh/chị em sinh đôi"
       },
       {
-        "id": "8852",
+        "id": "8825",
+        "word": "wave",
+        "meaning": "con sóng; cái vẫy tay"
+      },
+      {
+        "id": "8851",
         "word": "yet",
-        "meaning": "chưa; nhưng"
+        "meaning": "chưa; tuy nhiên"
       }
     ],
     "glossContainsHeadword": [
@@ -6752,10 +6747,10 @@
       "UNCLASSIFIED": 843
     },
     "activeByType": {
-      "topic": 3991,
+      "topic": 3990,
       "academic": 1268,
       "none": 843,
-      "core": 567,
+      "core": 568,
       "word-formation": 79,
       "linker": 59,
       "confusable": 34

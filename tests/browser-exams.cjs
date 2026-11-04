@@ -212,7 +212,7 @@ async function main() {
     await page.evaluate(axeSource);
     const examAxeViolations = await page.evaluate(async () => {
       const result = await axe.run(document, {
-        runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa'] },
+        runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'] },
         resultTypes: ['violations']
       });
       return result.violations.map(v => ({ id: v.id, impact: v.impact, nodes: v.nodes.map(n => n.target.join(' ')).slice(0, 4) }));

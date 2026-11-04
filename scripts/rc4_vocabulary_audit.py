@@ -180,7 +180,7 @@ def classify(rows: list[dict[str, Any]], spec: dict[str, Any]) -> dict[str, Any]
         curriculum_focus.append(record)
         if level in CURRICULUM_LEVELS and not is_family_root(row):
             level_source = tag_value(row, "level-source") or ""
-            if level_source and level_source != "editorial":
+            if level in ("A1", "A2") and level_source and level_source != "editorial":
                 attested_published.append({**record, "levelSource": level_source})
             elif word_key(row["word"]) in pending_review_words:
                 pending_curation.append({
@@ -388,7 +388,8 @@ def render_markdown(report: dict[str, Any]) -> str:
             add(f"- `{record['word']}` (id {record['id']}, {record['level']}, {record['type'] or 'no type'}) — grade {record['curriculum']}")
     else:
         add("Every curriculum-level word (A1-B1) that is still taught is explained: it is either a **family root** "
-            "whose note teaches the derived forms (`Cùng gốc: …`) or — for the v1.0.0 Phase III foundation expansion — "
+            "whose note teaches the derived forms (`Cùng gốc: …`), a B1 row queued for a curator in "
+            f"`pendingCurationReview` ({len(curriculum['pendingCurationReview'])} rows), or — for the v1.0.0 Phase III foundation expansion — "
             f"an A1/A2 headword whose level is attested by a published reference work ({len(curriculum['attestedByPublishedLevel'])} rows, "
             "`level-source:` CEFR-J / Oxford 3000, never `editorial`). No unexplained retention.")
     add("")

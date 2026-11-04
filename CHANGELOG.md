@@ -2,37 +2,43 @@
 
 ## v1.0.0 — stable candidate (PR from `arena/6b7c2879-chuyen-anh`, baseline `f12b4bc5…`, 2026-11-04) — NOT merged, NOT tagged, NOT released, NOT deployed
 
-**Status: pull request only.** The candidate branch carries three commits on top of
-`f12b4bc5`: `213eb61` (sense-level CEFR model), `2e33735` (Phase III +500 A1/+500 A2),
-`8626f27` (test re-pins). No merge, no tag, no release, no Pages deploy; `DEPLOY_HOLD`
+**Status: pull request only.** Proposed on PR #82 from `arena/6b7c2879-chuyen-anh`
+on top of `f12b4bc5`: `213eb61` (sense-level CEFR model), `2e33735` (Phase III +500 A1/+500 A2),
+`8626f27` (test re-pins), `c8138af` (gates/docs/version string), plus the PR #82 review-round
+hardening commit. No merge, no tag, no release, no Pages deploy; `DEPLOY_HOLD`
 is untouched and only the `v1.0.0` version string is proposed.
 
 ### Sense-level CEFR (Phase II)
 
 - Every vocabulary row now carries a `senses` array: 8,852 entries, **8,860 senses**,
   **0 unresolved**, 8 evidence-backed multi-sense entries (rest, ring, bank, lie,
-  race, rock, tear, used). Each sense owns its CEFR level, evidence class
-  (source_supported 3,077 · cross_validated 1,672 · disputed 2,266 · editorial_estimate
-  1,845, all flagged `needsIndependentValidation`), confidence, structured sources and
-  rationale. SenseIds are stable (`<id>-sN`); the legacy `level:*` tag is preserved and
-  `scripts/migrate_senses.py` migrates reversibly (tested against
-  `audit/v100/backup/data-pre-v100.tgz`).
+  race, rock, tear, used). Each sense owns its CEFR level (A1 940 · A2 1,168 · B1 1,919 ·
+  B2 2,248 · C1 1,443 · C2 1,142), evidence class (`source_supported` 3,085 ·
+  `cross_validated` 1,663 · `disputed` 2,267 · `editorial_estimate` 1,845, all enforced
+  `needsIndependentValidation: true` by `validate_senses`), confidence (HIGH 4,702 ·
+  MEDIUM 4,158), structured sources and rationale. SenseIds are stable (`<id>-sN`); the
+  legacy `level:*` tag is preserved and `scripts/migrate_senses.py` migrates reversibly
+  (tested against `audit/v100/backup/data-pre-v100.tgz`).
 - One filtering pipeline (`cefrDeck()`) narrows sessions, sprint, priority, distractors
   and answers by sense; per-sense badges (level only) render in flashcards and
-  feedback; default selection B2+C1 (3,724 eligible deck headwords); lookup stays
-  comprehensive by default with an optional persisted narrow toggle; no unselected
-  level leaks (128-selection test).
-- Fixed a real classification bug: the Oxford POS parser stripped dots, so `"n."`
-  never matched and 12 bogus multi-sense splits were produced; post-fix only
-  evidence-backed splits remain.
+  feedback; default selection B2+C1 (3,032 eligible deck headwords / 3,033 senses);
+  lookup stays comprehensive by default with an optional persisted narrow toggle; no
+  unselected level leaks (128-selection test).
+- Fixed classification defects: Oxford POS dot-strip bug (eliminating 12 bogus multi-sense
+  splits), combined-POS Oxford level isolation (`_oxford_pos_levels`), word-level Oxford
+  ranked below CEFR-J/Octanove in `_resolve_level` matching the documented hierarchy
+  (`scope` resolves B1 `disputed` with both votes recorded), and cross-publisher
+  `cross_validated` check.
 
 ### Phase III — exactly +500 A1 and +500 A2 headwords
 
-- `data/vocab-seed/22-a1a2-stable.tsv`: 1,143 CEFR-J/Oxford-3000 A1/A2 candidates absent
+- `data/vocab-seed/22-a1a2-stable.tsv`: 1,144 CEFR-J/Oxford-3000 A1/A2 candidates absent
   from the pre-v1.0.0 bank; `expand_vocabulary.py` accepts **exactly 500 A1 + 500 A2**
-  (143 skips, each with a recorded reason). Bank: 8,852 rows, 8,112 headwords,
-  6,841-word focus deck, 1,271 archived (unchanged). Every new row carries
-  `level-source:cefrj-vocabulary-profile-1.5` or `oxford-3000-wordlist`.
+  (144 skips, each with a recorded reason: inflection 81 · word-family 53 · comparative 6 ·
+  spelling variant 4). Bank: 8,852 rows, 8,112 headwords, 6,841-word focus deck, 1,271
+  archived (unchanged). Over the 1,000 accepted rows, `level-source:` is
+  `cefrj-vocabulary-profile-1.5` (892) or `oxford-3000-wordlist` (108), all POS-and-level
+  attested and free of editor notes.
 
 ### Exams
 
@@ -43,10 +49,11 @@ is untouched and only the `v1.0.0` version string is proposed.
 
 ### Verification (measured on the branch head)
 
-- node 161 pass (static-app 144 · rc10-cefr 10 · v100-senses 7); python 194 OK;
-  both browser suites PASS on chromium 153.0.8010.0 (axe WCAG 2.1 AA clean,
-  320/375/768/1024/1440 px, keyboard, reduced-motion, `file://`, no network,
-  cross-tab persistence); firefox/webkit run in CI on the pushed head.
+- node 210 pass (static-app 144 · exam-scoring 25 · exam-anomalies 7 · rc10-cefr 10 ·
+  v100-senses 7 · telemetry-api 17); python 194 OK; both browser suites PASS on chromium
+  153.0.8010.0 (axe WCAG 2.1 A/AA clean incl. `wcag21a`/`wcag21aa`, 320/375/768/1024/1440 px,
+  keyboard, reduced-motion, `file://`, no network, cross-tab persistence); CI matrix
+  `[chromium, firefox, webkit]` green on PR #82.
   Gates S1–S25: `audit/v100/GATES.md`. Defects: `audit/v100/DEFECTS.md`.
 
 ## v1.0.0-rc10 — full vocabulary revalidation, 2,000 new headwords, 314 new phrases, and fail-closed exam inference (2026-11-03)

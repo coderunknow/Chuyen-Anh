@@ -16,7 +16,7 @@ The migration is deterministic, validated and reversible:
 
 Usage:
     python scripts/migrate_senses.py OLD.json OUT.json
-    python scripts/migrate_senses.py --backup audit/v100/backup/data-pre-v100.tgz OUT.json
+    python scripts/migrate_senses.py audit/v100/backup/data-pre-v100.tgz OUT.json
 """
 from __future__ import annotations
 

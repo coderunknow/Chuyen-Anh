@@ -2975,128 +2975,11 @@
   },
   "curriculum": {
     "tokens": 201,
-    "presentInBank": 105,
-    "inFocus": 91,
+    "presentInBank": 104,
+    "inFocus": 90,
     "excluded": 14,
     "unexplained": [],
     "attestedByPublishedLevel": [
-      {
-        "id": "941",
-        "word": "balance",
-        "level": "B1",
-        "type": "core",
-        "curriculum": "8/1",
-        "familyRoot": false,
-        "levelSource": "oxford-3000-5000"
-      },
-      {
-        "id": "1130",
-        "word": "mental",
-        "level": "B1",
-        "type": "academic",
-        "curriculum": "9/3",
-        "familyRoot": false,
-        "levelSource": "oxford-3000-5000"
-      },
-      {
-        "id": "1571",
-        "word": "nuclear",
-        "level": "B1",
-        "type": "topic",
-        "curriculum": "9/6",
-        "familyRoot": false,
-        "levelSource": "oxford-3000-5000"
-      },
-      {
-        "id": "1689",
-        "word": "software",
-        "level": "B1",
-        "type": "topic",
-        "curriculum": "8/1",
-        "familyRoot": false,
-        "levelSource": "oxford-3000-5000"
-      },
-      {
-        "id": "1899",
-        "word": "stressful",
-        "level": "B1",
-        "type": "topic",
-        "curriculum": "8/3",
-        "familyRoot": false,
-        "levelSource": "cefrj-vocabulary-profile-1.5"
-      },
-      {
-        "id": "2144",
-        "word": "poetry",
-        "level": "B1",
-        "type": "topic",
-        "curriculum": "8/1",
-        "familyRoot": false,
-        "levelSource": "oxford-3000-5000"
-      },
-      {
-        "id": "3009",
-        "word": "keen",
-        "level": "B1",
-        "type": "academic",
-        "curriculum": "8/1",
-        "familyRoot": false,
-        "levelSource": "oxford-3000-5000"
-      },
-      {
-        "id": "3018",
-        "word": "leisure",
-        "level": "B1",
-        "type": "topic",
-        "curriculum": "8/1",
-        "familyRoot": false,
-        "levelSource": "oxford-3000-5000"
-      },
-      {
-        "id": "4642",
-        "word": "scientific",
-        "level": "B1",
-        "type": "topic",
-        "curriculum": "8/8",
-        "familyRoot": false,
-        "levelSource": "oxford-3000-5000"
-      },
-      {
-        "id": "4694",
-        "word": "mood",
-        "level": "B1",
-        "type": "topic",
-        "curriculum": "9/3",
-        "familyRoot": false,
-        "levelSource": "oxford-3000-5000"
-      },
-      {
-        "id": "5534",
-        "word": "pottery",
-        "level": "B1",
-        "type": "topic",
-        "curriculum": "9/1",
-        "familyRoot": false,
-        "levelSource": "cefrj-vocabulary-profile-1.5"
-      },
-      {
-        "id": "6222",
-        "word": "stressed",
-        "level": "B1",
-        "type": "topic",
-        "curriculum": "8/3",
-        "familyRoot": false,
-        "levelSource": "cefrj-vocabulary-profile-1.5"
-      },
-      {
-        "id": "6974",
-        "word": "cruel",
-        "level": "B1",
-        "type": "topic",
-        "curriculum": "8/1",
-        "familyRoot": false,
-        "levelSource": "oxford-3000-5000"
-      },
       {
         "id": "7873",
         "word": "amazing",
@@ -3104,7 +2987,7 @@
         "type": "topic",
         "curriculum": "9/5",
         "familyRoot": false,
-        "levelSource": "cefrj-vocabulary-profile-1.5"
+        "levelSource": "oxford-3000-wordlist"
       },
       {
         "id": "7965",
@@ -3194,7 +3077,7 @@
         "type": "topic",
         "curriculum": "8/1",
         "familyRoot": false,
-        "levelSource": "cefrj-vocabulary-profile-1.5"
+        "levelSource": "oxford-3000-wordlist"
       },
       {
         "id": "8436",
@@ -3213,18 +3096,127 @@
         "curriculum": "8/1",
         "familyRoot": false,
         "levelSource": "cefrj-vocabulary-profile-1.5"
+      }
+    ],
+    "pendingCurationReview": [
+      {
+        "id": "941",
+        "word": "balance",
+        "level": "B1",
+        "type": "core",
+        "curriculum": "8/1",
+        "familyRoot": false,
+        "reason": "the row now meets a curation rule at its attested level, but deck membership is a frozen decision; queued for a curator instead of being archived by a level change"
       },
       {
-        "id": "8760",
-        "word": "stranger",
-        "level": "A2",
+        "id": "1130",
+        "word": "mental",
+        "level": "B1",
+        "type": "academic",
+        "curriculum": "9/3",
+        "familyRoot": false,
+        "reason": "the row now meets a curation rule at its attested level, but deck membership is a frozen decision; queued for a curator instead of being archived by a level change"
+      },
+      {
+        "id": "1571",
+        "word": "nuclear",
+        "level": "B1",
+        "type": "topic",
+        "curriculum": "9/6",
+        "familyRoot": false,
+        "reason": "the row now meets a curation rule at its attested level, but deck membership is a frozen decision; queued for a curator instead of being archived by a level change"
+      },
+      {
+        "id": "1689",
+        "word": "software",
+        "level": "B1",
         "type": "topic",
         "curriculum": "8/1",
         "familyRoot": false,
-        "levelSource": "cefrj-vocabulary-profile-1.5"
+        "reason": "the row now meets a curation rule at its attested level, but deck membership is a frozen decision; queued for a curator instead of being archived by a level change"
+      },
+      {
+        "id": "1899",
+        "word": "stressful",
+        "level": "B1",
+        "type": "topic",
+        "curriculum": "8/3",
+        "familyRoot": false,
+        "reason": "the row now meets a curation rule at its attested level, but deck membership is a frozen decision; queued for a curator instead of being archived by a level change"
+      },
+      {
+        "id": "2144",
+        "word": "poetry",
+        "level": "B1",
+        "type": "topic",
+        "curriculum": "8/1",
+        "familyRoot": false,
+        "reason": "the row now meets a curation rule at its attested level, but deck membership is a frozen decision; queued for a curator instead of being archived by a level change"
+      },
+      {
+        "id": "3009",
+        "word": "keen",
+        "level": "B1",
+        "type": "academic",
+        "curriculum": "8/1",
+        "familyRoot": false,
+        "reason": "the row now meets a curation rule at its attested level, but deck membership is a frozen decision; queued for a curator instead of being archived by a level change"
+      },
+      {
+        "id": "3018",
+        "word": "leisure",
+        "level": "B1",
+        "type": "topic",
+        "curriculum": "8/1",
+        "familyRoot": false,
+        "reason": "the row now meets a curation rule at its attested level, but deck membership is a frozen decision; queued for a curator instead of being archived by a level change"
+      },
+      {
+        "id": "4642",
+        "word": "scientific",
+        "level": "B1",
+        "type": "topic",
+        "curriculum": "8/8",
+        "familyRoot": false,
+        "reason": "the row now meets a curation rule at its attested level, but deck membership is a frozen decision; queued for a curator instead of being archived by a level change"
+      },
+      {
+        "id": "4694",
+        "word": "mood",
+        "level": "B1",
+        "type": "topic",
+        "curriculum": "9/3",
+        "familyRoot": false,
+        "reason": "the row now meets a curation rule at its attested level, but deck membership is a frozen decision; queued for a curator instead of being archived by a level change"
+      },
+      {
+        "id": "5534",
+        "word": "pottery",
+        "level": "B1",
+        "type": "topic",
+        "curriculum": "9/1",
+        "familyRoot": false,
+        "reason": "the row now meets a curation rule at its attested level, but deck membership is a frozen decision; queued for a curator instead of being archived by a level change"
+      },
+      {
+        "id": "6222",
+        "word": "stressed",
+        "level": "B1",
+        "type": "topic",
+        "curriculum": "8/3",
+        "familyRoot": false,
+        "reason": "the row now meets a curation rule at its attested level, but deck membership is a frozen decision; queued for a curator instead of being archived by a level change"
+      },
+      {
+        "id": "6974",
+        "word": "cruel",
+        "level": "B1",
+        "type": "topic",
+        "curriculum": "8/1",
+        "familyRoot": false,
+        "reason": "the row now meets a curation rule at its attested level, but deck membership is a frozen decision; queued for a curator instead of being archived by a level change"
       }
     ],
-    "pendingCurationReview": [],
     "focusRows": [
       {
         "id": "599",
@@ -3945,14 +3937,6 @@
         "type": "topic",
         "curriculum": "8/1",
         "familyRoot": false
-      },
-      {
-        "id": "8760",
-        "word": "stranger",
-        "level": "A2",
-        "type": "topic",
-        "curriculum": "8/1",
-        "familyRoot": false
       }
     ]
   },
@@ -3983,7 +3967,7 @@
   "structure": {
     "word-formation": 79,
     "academic": 1268,
-    "core": 567,
+    "core": 568,
     "idiom": 24,
     "phrasalVerb": 13,
     "collocation": 9,

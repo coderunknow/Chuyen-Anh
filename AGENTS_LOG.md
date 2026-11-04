@@ -1255,3 +1255,21 @@ artifacts built by run `40863169016`, Pages deployment `7410642916` from run `40
   0 unresolved non-exempt blockers. PR opened from the branch; CodeRabbit reviews every
   push (drafts included) — states recorded by head SHA in the PR. No merge, no tag, no
   release, no deploy, `DEPLOY_HOLD` unchanged, AGENT.md untouched, logs append-only.
+
+- **2026-11-04 — PR #82 review-round fixes (append-only).**
+  On PR #82 head `c8138af`, CI run `41794025530` passed all 4 jobs (`checks`,
+  `browser (chromium)`, `browser (firefox)`, `browser (webkit)`) and CodeRabbit run
+  `3f8762ce-2219-4cd2-8a76-5034afdadc95` posted 11 comments (+ 2 outside-diff README
+  notes). Verified and applied: per-POS Oxford level isolation, documented dispute
+  hierarchy (`cefrj > octanove > word-level oxford`), cross-publisher `cross_validated`,
+  and `editorial_estimate` validation in `scripts/cefr_senses.py`; full POS/gloss/note
+  and `level-source` cleanup in `data/vocab-seed/22-a1a2-stable.tsv` (1,144 candidates →
+  500 A1 + 500 A2 accepted = 892 CEFR-J + 108 Oxford 3000, 144 skipped); A1/A2-only
+  `attestedByPublishedLevel` (13 A1/A2, 13 B1 restored to `pendingCurationReview`,
+  0 `unexplained`) in `scripts/rc4_vocabulary_audit.py`; immutable SHA + `sha256sum -c`
+  staging check in `audit/v100/refs/acquire-references.sh`; `wcag21a`/`wcag21aa` axe
+  tags in `tests/browser-exams.cjs`; CLI usage fix in `scripts/migrate_senses.py`; and
+  `README.md` / `GATES.md` / `DEFECTS.md` / `CHANGELOG.md` updates. Skipped the
+  `DEPLOY_HOLD`/deploy-gate change per explicit PR-only constraint (`DEPLOY_HOLD` stays
+  `v1.0.0-rc10`). Rebuilt full data/audit chain and re-verified node 210 pass, python
+  194 OK, and local Chromium 153 browser suites.

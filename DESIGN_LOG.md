@@ -2056,3 +2056,38 @@ chromium 153.0.8010.0 locally (firefox/webkit run in CI on the pushed head). Exa
 scoring stays scorable-only at 3,011/6,804 (44.25%) with `officialScore: null`
 without official evidence and 0 unresolved non-exempt blockers. PR only — no merge,
 no tag, no release, no deploy; `DEPLOY_HOLD` untouched.
+
+### 2026-11-04 — PR #82 review-round hardening (append-only)
+
+After opening PR #82 at head `c8138af` (CI run `41794025530` green across `checks`,
+`browser (chromium)`, `browser (firefox)`, and `browser (webkit)`; CodeRabbit review
+`3f8762ce-2219-4cd2-8a76-5034afdadc95`), each review finding was verified against the
+live code before acting:
+
+- **Sense classifier (`scripts/cefr_senses.py`):** `_oxford_pos_levels` now isolates
+  per-POS CEFR levels inside combined Oxford POS cells (`v. A1, n. B2`); `_resolve_level`
+  orders word-level votes as `cefrj > octanove > oxford` so word-level Oxford no longer
+  outranks CEFR-J (`scope` resolves to B1 `disputed` with both votes recorded);
+  multi-sense `cross_validated` requires agreement from a non-Oxford reference;
+  `validate_senses` enforces `needsIndependentValidation === true` on `editorial_estimate`;
+  and `POS_ALIASES` / `OXFORD_POS_LABELS` map `be-verb`, `do-verb`, `have-verb`,
+  `definite article`, and `exclam.`. Post-rebuild sense distribution across all 8,860
+  senses: A1 940 · A2 1,168 · B1 1,919 · B2 2,248 · C1 1,443 · C2 1,142 · UNCLASSIFIED 0
+  (`source_supported` 3,085 · `cross_validated` 1,663 · `disputed` 2,267 ·
+  `editorial_estimate` 1,845 · `unresolved` 0; HIGH 4,702 · MEDIUM 4,158; default B2+C1
+  deck headwords = 3,032 / 3,033 senses).
+- **Phase III seed hygiene (`data/vocab-seed/22-a1a2-stable.tsv`):** cleaned all 67
+  POS/gloss mismatches, 4 `(A2 bản)` notes, parenthetical POS hints, the duplicated
+  `action` gloss, and 113 `level-source` cells where Oxford 3000 (not CEFR-J) attested
+  the target level; added `zero` (Oxford 3000 A2) so accepted headwords remain **500 A1 +
+  500 A2** (`892` CEFR-J + `108` Oxford 3000 = `1,000` accepted; `144` skipped) after
+  `strange` → `adj` skips `stranger` as comparative.
+- **Audit, provenance, a11y, and docs:** `rc4_vocabulary_audit.py` restricts
+  `attestedByPublishedLevel` to A1/A2 (13 rows), restoring 13 B1 rows to
+  `pendingCurationReview` with `unexplained == 0`; `acquire-references.sh` pins 40-char
+  commit SHAs and verifies fixed SHA-256 digests in a staging directory; `browser-exams.cjs`
+  adds `wcag21a` and `wcag21aa` to axe `runOnly` (0 violations); `migrate_senses.py` and
+  `README.md` update-sequence/version statements corrected. The deploy-gate review
+  suggestion was skipped intentionally because changing `DEPLOY_HOLD` or release-workflow
+  semantics is out of scope of a PR-only candidate under the explicit `DEPLOY_HOLD`-unchanged
+  constraint.

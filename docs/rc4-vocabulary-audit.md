@@ -44,9 +44,9 @@ const deck = vocabulary.filter(entry => !archivedIds.has(entry.id));
 
 `deck` (not `vocabulary`) feeds every scheduling and question path: `selectSession`, `selectPrioritySession`, `studyGroupCandidates`, `sprintEligibleCount`, `selectSprintSession`, `buildExercisePlan(..., { vocabulary: deck })`, `generateQuestion`, `gradeAnswer`, the weak-word list in the dashboard, the Settings flagged list and the search index's distractor pool. Archived rows remain in `vocabulary` so that IDs, stored progress, favourites, backups and the search screen survive curation.
 
-Curriculum cross-check: **201** curriculum words were transcribed for grades 6-9; **105** of them exist in the bank; **14** are excluded and **91** are still taught.
+Curriculum cross-check: **201** curriculum words were transcribed for grades 6-9; **104** of them exist in the bank; **14** are excluded and **90** are still taught.
 
-Every curriculum-level word (A1-B1) that is still taught is explained: it is either a **family root** whose note teaches the derived forms (`Cùng gốc: …`) or — for the v1.0.0 Phase III foundation expansion — an A1/A2 headword whose level is attested by a published reference work (27 rows, `level-source:` CEFR-J / Oxford 3000, never `editorial`). No unexplained retention.
+Every curriculum-level word (A1-B1) that is still taught is explained: it is either a **family root** whose note teaches the derived forms (`Cùng gốc: …`), a B1 row queued for a curator in `pendingCurationReview` (13 rows), or — for the v1.0.0 Phase III foundation expansion — an A1/A2 headword whose level is attested by a published reference work (13 rows, `level-source:` CEFR-J / Oxford 3000, never `editorial`). No unexplained retention.
 
 ## D. High-quality inclusion standard, as shipped
 

@@ -73,17 +73,19 @@ SOURCE_REFS = {
 # bank POS -> reference POS names used by the published lists
 POS_ALIASES = {
     "n": ("noun", "n"), "noun": ("noun", "n"),
-    "v": ("verb", "v"), "verb": ("verb", "v"),
+    "v": ("verb", "v", "be-verb", "do-verb", "have-verb"),
+    "verb": ("verb", "v", "be-verb", "do-verb", "have-verb"),
     "adj": ("adjective", "adj"), "adv": ("adverb", "adv"),
     "prep": ("preposition", "prep"), "pron": ("pronoun", "pron"),
     "conj": ("conjunction", "conj"),
     "det": ("determiner", "det"), "determiner": ("determiner", "det"),
-    "modal": ("modal auxiliary", "modal"), "number": ("number", "number"),
+    "modal": ("modal auxiliary", "modal", "v"), "number": ("number", "number"),
     "interj": ("interjection", "interj"),
 }
 # ordered longest-first so "modal v." is not read as "v."
 OXFORD_POS_LABELS = (
-    ("modal v.", "v"), ("indefinite article", "det"), ("interj.", "interj"),
+    ("modal v.", "v"), ("indefinite article", "det"), ("definite article", "det"),
+    ("exclam.", "interj"), ("interj.", "interj"),
     ("n.", "n"), ("v.", "v"), ("adj.", "adj"), ("adv.", "adv"), ("prep.", "prep"),
     ("pron.", "pron"), ("conj.", "conj"), ("det.", "det"), ("number", "number"),
 )
@@ -111,6 +113,17 @@ def _pos_variants(pos: str) -> tuple[str, ...]:
     return POS_ALIASES.get((pos or "").strip().lower(), ((pos or "").strip().lower(),))
 
 
+def _oxford_pos_levels(raw: str) -> dict[str, str]:
+    """Map an Oxford 'Part of Speech' cell like 'v. A1, n. B2' to {pos_code: level}."""
+    cell = (raw or "").lower()
+    out: dict[str, str] = {}
+    for label, code in OXFORD_POS_LABELS:
+        m = re.search(r"(^|[,\s/])" + re.escape(label) + r"\s*([A-C][12])\b", cell)
+        if m and code not in out:
+            out[code] = m.group(2).upper()
+    return out
+
+
 def _oxford_levels(raw: str) -> list[str]:
     out: list[str] = []
     for part in re.split(r"[;,]", raw or ""):
@@ -124,40 +137,45 @@ class References:
     def __init__(self, refs_dir: Path = REFS):
         self.cefrj: dict[str, list[dict[str, Any]]] = {}
         path = refs_dir / "cefrj-vocabulary-profile-1.5.csv"
-        for row_no, row in enumerate(csv.DictReader(path.open(encoding="utf-8")), start=2):
-            self.cefrj.setdefault(normalize_word(row["headword"]), []).append(
-                {"pos": row["pos"].strip().lower(), "level": row["CEFR"].strip().upper(), "line": row_no}
-            )
+        with path.open(encoding="utf-8") as fh:
+            for row_no, row in enumerate(csv.DictReader(fh), start=2):
+                self.cefrj.setdefault(normalize_word(row["headword"]), []).append(
+                    {"pos": row["pos"].strip().lower(), "level": row["CEFR"].strip().upper(), "line": row_no}
+                )
         self.octanove: dict[str, list[dict[str, Any]]] = {}
         path = refs_dir / "octanove-vocabulary-profile-c1c2-1.0.csv"
-        for row_no, row in enumerate(csv.DictReader(path.open(encoding="utf-8")), start=2):
-            self.octanove.setdefault(normalize_word(row["headword"]), []).append(
-                {"pos": row["pos"].strip().lower(), "level": row["CEFR"].strip().upper(), "line": row_no}
-            )
+        with path.open(encoding="utf-8") as fh:
+            for row_no, row in enumerate(csv.DictReader(fh), start=2):
+                self.octanove.setdefault(normalize_word(row["headword"]), []).append(
+                    {"pos": row["pos"].strip().lower(), "level": row["CEFR"].strip().upper(), "line": row_no}
+                )
         self.oxford: dict[str, list[dict[str, Any]]] = {}
         for name, fname in (("oxford3000", "oxford-3000.en.tsv"), ("oxford5000", "oxford-5000-expanded.en.tsv")):
             path = refs_dir / fname
-            for row_no, row in enumerate(csv.DictReader(path.open(encoding="utf-8"), delimiter="\t"), start=2):
-                head = row["Word"].split("(")[0].strip()
-                self.oxford.setdefault(normalize_word(head), []).append({
-                    "source": name,
-                    "file": fname,
-                    "line": row_no,
-                    "word": row["Word"].strip(),
-                    "annotation": row["Annotation"].strip(),
-                    "sense": row["Sense"].strip(),
-                    "pos": _oxford_sense_pos(row["Part of Speech"]),
-                    "levels": _oxford_levels(row["Level"]),
-                    "raw_level": row["Level"].strip(),
-                })
+            with path.open(encoding="utf-8") as fh:
+                for row_no, row in enumerate(csv.DictReader(fh, delimiter="\t"), start=2):
+                    head = row["Word"].split("(")[0].strip()
+                    self.oxford.setdefault(normalize_word(head), []).append({
+                        "source": name,
+                        "file": fname,
+                        "line": row_no,
+                        "word": row["Word"].strip(),
+                        "annotation": row["Annotation"].strip(),
+                        "sense": row["Sense"].strip(),
+                        "pos": _oxford_sense_pos(row["Part of Speech"]),
+                        "pos_levels": _oxford_pos_levels(row["Part of Speech"]),
+                        "levels": _oxford_levels(row["Level"]),
+                        "raw_level": row["Level"].strip(),
+                    })
         self.frequency: dict[str, int] = {}
         path = refs_dir / "frequency-top30k.csv"
         if path.exists():
-            for row in csv.DictReader(path.open(encoding="utf-8")):
-                try:
-                    self.frequency[normalize_word(row["Word"])] = int(row["Rank"])
-                except (KeyError, ValueError):
-                    continue
+            with path.open(encoding="utf-8") as fh:
+                for row in csv.DictReader(fh):
+                    try:
+                        self.frequency[normalize_word(row["Word"])] = int(row["Rank"])
+                    except (KeyError, ValueError):
+                        continue
 
     def votes_for(self, word: str, pos: str) -> dict[str, dict[str, Any]]:
         """Collect published-level votes for one headword/POS."""
@@ -173,10 +191,16 @@ class References:
                     votes.setdefault(source, {"level": r["level"], "line": r["line"], "pos": r["pos"], "pos_match": bool(exact)})
                     break
         ox_rows = self.oxford.get(key, [])
-        pos_rows = [r for r in ox_rows if r["pos"] and r["pos"] in pos_keys]
+        pos_rows = [r for r in ox_rows if r["pos"] and set(r["pos"].split(",")) & pos_keys]
         pool = pos_rows or ox_rows
         if pool:
-            levels = sorted({lv for r in pool for lv in r["levels"]}, key=CEFR_LEVELS.index)
+            cand: set[str] = set()
+            for r in pool:
+                # a combined cell like 'v. A1, n. B2' pins each POS to its own level
+                specific = {r["pos_levels"][p] for p in pos_keys
+                            if r.get("pos_levels", {}).get(p) in CEFR_LEVELS}
+                cand.update(specific or set(r["levels"]))
+            levels = sorted(cand, key=CEFR_LEVELS.index)
             if levels:
                 votes.setdefault("oxford", {
                     "level": levels[0],
@@ -233,8 +257,10 @@ def _resolve_level(votes: dict[str, dict[str, Any]], refs: References, word: str
             return level, "cross_validated", "HIGH", sources, False
         exact = all(v.get("pos_match", True) for v in votes.values())
         return level, "source_supported", "HIGH" if exact else "MEDIUM", sources, False
-    # disagreement: resolve by the documented hierarchy
-    order = ["oxford", "cefrj", "octanove"]
+    # disagreement: resolve by the documented hierarchy. The 'oxford' vote here is
+    # word-level (Oxford sense-level splits are resolved per sense in classify_entry),
+    # so it ranks below CEFR-J and Octanove.
+    order = ["cefrj", "octanove", "oxford"]
     for source in order:
         if source in votes:
             level = votes[source]["level"]
@@ -243,7 +269,8 @@ def _resolve_level(votes: dict[str, dict[str, Any]], refs: References, word: str
         level = sorted(levels, key=CEFR_LEVELS.index)[0]
     disagreement = ", ".join(f"{s}={v['level']}" for s, v in votes.items())
     rationale = (f"published references disagree ({disagreement}); "
-                 f"resolved to {level} by the documented hierarchy (Oxford sense-level > CEFR-J > Octanove > Oxford word-level); "
+                 f"resolved to {level} by the documented hierarchy (Oxford sense-level, resolved per sense, "
+                 f"> CEFR-J > Octanove > Oxford word-level); "
                  "recorded as disputed, not as verified agreement")
     return level, "disputed", "MEDIUM", sources + [_source_record(SOURCE_REFS["editorial"], "hierarchy", rationale)], False
 
@@ -298,7 +325,7 @@ def classify_entry(entry: dict[str, Any], refs: References) -> list[dict[str, An
                 sources = [_source_record(ref_name, f"{row['file']}:{row['line']}: {row['word']} (sense {row['sense'] or row['annotation'] or '—'}, level cell {row['raw_level']!r})",
                                           "Oxford wordlist prints this CEFR level for this specific sense of the headword")]
                 votes = refs.votes_for(word, pos)
-                if any(v["level"] == level for v in votes.values()):
+                if any(v["level"] == level for src, v in votes.items() if src != "oxford"):
                     evidence = "cross_validated"
                     for source, vote in votes.items():
                         if vote["level"] == level and source != "oxford":
@@ -370,6 +397,8 @@ def validate_senses(entry: dict[str, Any]) -> list[str]:
             errors.append(f"entry {entry_id} sense {sid}: invalid cefr {sense.get('cefr')!r}")
         if sense.get("evidence") not in EVIDENCE_CLASSES:
             errors.append(f"entry {entry_id} sense {sid}: invalid evidence {sense.get('evidence')!r}")
+        elif sense.get("evidence") == "editorial_estimate" and sense.get("needsIndependentValidation") is not True:
+            errors.append(f"entry {entry_id} sense {sid}: editorial_estimate requires needsIndependentValidation=true")
         if sense.get("confidence") not in CONFIDENCE_LEVELS:
             errors.append(f"entry {entry_id} sense {sid}: invalid confidence {sense.get('confidence')!r}")
         if not isinstance(sense.get("meaning"), str) or not sense.get("meaning", "").strip():
