@@ -6,8 +6,8 @@ before it is measured; commands are listed so every number can be re-derived.
 
 ## 2026-11-04 — renewed stable-release audit
 
-The user has authorized stable publication **only after all hard gates pass**, while
-protecting `DEPLOY_HOLD`. The evidence below predates this renewed audit: historical
+Stable publication, merge, tag creation and deployment require separate explicit
+user authorization after readiness; `DEPLOY_HOLD` must remain unchanged. The evidence below predates this renewed audit: historical
 results are useful, but are not a full independent assessment or evidence for a new
 head. Prior PASS labels are reset to NOT STARTED until independently re-evaluated
 against the exact candidate SHA. S10 is FAIL: `lie` shares a combined gloss between
@@ -22,7 +22,7 @@ commit. The current audit is incomplete; no release is authorized.
 | --- | --- | --- |
 | S26 | App-version and hold gates prevent prerelease deployment of stable app | NOT STARTED — local regression tests for both workflow conditions added; live workflow not exercised |
 | S27 | All sense mappings, source claims and unresolved estimates independently audited | BLOCKED — automated labelling is not independent evidence; real cross-level gloss leak reproduced |
-| S28 | Stable-tag artifact build and publication | NOT STARTED — existing artifact script and trigger only support prerelease tags |
+| S28 | Stable-tag artifact build and publication | IN PROGRESS — stable packaging implemented and locally tested; channel integration, independent review, exact-head CI and publication remain unverified; publication requires separate authorization |
 | S29 | Full 106-paper / 6,804-question primary-evidence assessment | NOT STARTED — existing reason accounting is not an individual primary-source review |
 | S30 | Application-wide accessibility, physical/screen-reader checks and production smoke | NOT STARTED — exam-view axe and prior browser suites are not application-wide proof |
 

@@ -2113,3 +2113,22 @@ combined A1/B1 gloss and a reversed `rock` gloss/annotation pairing; S10 is FAIL
 not a completed fix. Source validation, individual data/exam assessment, full
 accessibility, stable artifact support, independent review, and final-SHA CI remain
 open. No merge, tag, release or deployment was performed.
+
+### 2026-11-04 — stable artifact path, local work in progress
+
+The artifact workflow now admits the explicit `v1.0.0` tag in addition to existing
+prereleases. Packaging creates a stable draft without the prerelease flag, checks the
+stable tag against the app version in the tagged tree, and refuses channel mismatch.
+Local regressions cover allowed/refused refs, version mismatch and channel selection.
+This is not an end-to-end release verification: the publication dispatcher remains
+prerelease-only, exact-head CI and independent review are outstanding. No tag, release,
+merge or deployment was performed; separate user authorization remains required.
+
+### 2026-11-04 — reproducibility and separately authorized stable dispatch
+
+A timezone-shift regression exposed non-reproducible ZIP metadata. Stable ZIPs now
+use fixed timestamp and permissions; prerelease packaging remains unchanged to avoid
+breaking existing backfills. A separate manual stable-dispatch path requires an
+explicit confirmation, main ref, exact stable app version and published stable release;
+the existing prerelease event path and both deploy gates are retained. This is not
+itself authorization to deploy. No workflow was dispatched or publication performed.

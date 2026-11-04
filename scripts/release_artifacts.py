@@ -16,15 +16,26 @@ import zipfile
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 FILES = ("index.html", "README.md", "LICENSE")
 
-# This workflow only ever builds prerelease drafts, so a pushed tag must use the
-# repository's prerelease naming scheme: vMAJOR.MINOR.PATCH-<dev|beta|rc>N.
-# `v1.0.0-beta1` is a supported tag; a final release or an arbitrary ref is not.
-# Refusing unknown refs keeps a mistyped tag from creating or mutating a release.
+# Prereleases retain their existing pattern. Only the explicitly targeted stable
+# version is newly accepted; arbitrary stable refs remain rejected.
 TAG_RE = re.compile(r"^v\d+\.\d+\.\d+-(?:dev|beta|rc)\d+$")
 
 
 def is_supported_tag(tag: str) -> bool:
-    return bool(TAG_RE.match(tag or ""))
+    return tag == "v1.0.0" or bool(TAG_RE.fullmatch(tag or ""))
+
+
+def is_prerelease_tag(tag: str) -> bool:
+    return bool(TAG_RE.fullmatch(tag or ""))
+
+
+def release_create_command(tag: str) -> list[str]:
+    if not is_supported_tag(tag):
+        raise ValueError(f"Unsupported release tag: {tag}")
+    command = ["gh", "release", "create", tag, "--draft"]
+    if is_prerelease_tag(tag):
+        command.append("--prerelease")
+    return command + ["--title", f"Chuyên Anh {tag}", "--notes", release_notes(tag)]
 
 
 def run(args: list[str], *, cwd: pathlib.Path = ROOT, capture: bool = False) -> str:
@@ -110,6 +121,12 @@ def build(tag: str, commit: str, temp: pathlib.Path) -> dict[str, pathlib.Path]:
         archive_status = archive.wait()
     if archive_status != 0:
         raise RuntimeError(f"git archive failed for {tag}")
+    if tag == "v1.0.0":
+        # A stable package must contain the version it purports to release.
+        app = (extracted / "index.html").read_text(encoding="utf-8")
+        declarations = re.findall(r"^\s*export\s+const\s+APP_VERSION\s*=\s*['\"]([^'\"]+)['\"]\s*;", app, re.MULTILINE)
+        if declarations != [tag]:
+            raise RuntimeError(f"Application version does not match stable tag {tag}")
     test_source(extracted)
 
     html_name = f"chuyen-anh-{tag}.html"
@@ -121,7 +138,16 @@ def build(tag: str, commit: str, temp: pathlib.Path) -> dict[str, pathlib.Path]:
     shutil.copyfile(extracted / "index.html", html_path)
     with zipfile.ZipFile(zip_path, "w", compression=zipfile.ZIP_DEFLATED) as bundle:
         for name in FILES:
-            bundle.write(extracted / name, arcname=name)
+            if tag == "v1.0.0":
+                # Avoid local timezone, extraction timestamps and umask affecting ZIP bytes.
+                info = zipfile.ZipInfo(name, date_time=(1980, 1, 1, 0, 0, 0))
+                info.create_system = 3
+                info.external_attr = 0o100644 << 16
+                info.compress_type = zipfile.ZIP_DEFLATED
+                bundle.writestr(info, (extracted / name).read_bytes())
+            else:
+                # Preserve historical prerelease backfill byte contracts.
+                bundle.write(extracted / name, arcname=name)
     verify_zip_contract(zip_path, extracted)
     if html_path.read_bytes() != (extracted / "index.html").read_bytes():
         raise RuntimeError(f"HTML content mismatch for {tag}")
@@ -135,7 +161,7 @@ def build(tag: str, commit: str, temp: pathlib.Path) -> dict[str, pathlib.Path]:
 
 def release_notes(tag: str) -> str:
     return (
-        f"Automated prerelease draft for `{tag}`, built from the tagged commit by "
+        f"Automated {'prerelease' if is_prerelease_tag(tag) else 'stable release'} draft for `{tag}`, built from the tagged commit by "
         "`scripts/release_artifacts.py`.\n\n"
         f"- `chuyen-anh-{tag}.html` is byte-identical to `index.html` at the tag.\n"
         f"- `chuyen-anh-{tag}.zip` unpacks to exactly `index.html`, `README.md`, `LICENSE` "
@@ -159,6 +185,8 @@ def process(tag: str, *, future: bool = False) -> None:
     else:
         if release.get("tagName") != tag:
             raise RuntimeError(f"Release/tag association mismatch for {tag}")
+        if is_supported_tag(tag) and release.get("isPrerelease") is not is_prerelease_tag(tag):
+            raise RuntimeError(f"Release channel mismatch for {tag}")
         commit = run(["git", "rev-parse", f"{tag}^{{commit}}"], capture=True)
 
     # Tag must exist remotely and GitHub must resolve it to the same commit.
@@ -170,10 +198,10 @@ def process(tag: str, *, future: bool = False) -> None:
         temp = pathlib.Path(directory)
         artifacts = build(tag, commit, temp)
         if release is None:
-            run(["gh", "release", "create", tag, "--draft", "--prerelease", "--title", f"Chuyên Anh {tag}",
-                 "--notes", release_notes(tag)])
+            run(release_create_command(tag))
             release = release_for(tag)
-            if release is None or release.get("tagName") != tag or not release.get("isDraft"):
+            if (release is None or release.get("tagName") != tag or not release.get("isDraft")
+                    or release.get("isPrerelease") is not is_prerelease_tag(tag)):
                 raise RuntimeError(f"Could not verify draft release creation for {tag}")
         existing = {asset["name"] for asset in release.get("assets", [])}
         upload: list[str] = []

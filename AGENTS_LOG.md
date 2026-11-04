@@ -1284,3 +1284,18 @@ The review-round tree passed 210 Node tests, 194 Python tests, all CI data check
 - Reproduced unsafe order: the old deploy gate returned `deploy=true` for published rc10 while `index.html` declares v1.0.0. Added an additional fail-closed application-version/release-channel gate to every workflow publish condition without modifying the hold or removing the manual dispatch override. Targeted tests: old gate 28 OK, new gate 3 OK. Live workflow not run.
 - Enumerated all eight multi-sense entries. `lie` repeats its combined A1/B1 gloss; `rock` maps the stone gloss to music and the music gloss to stone. Not remediated; S10 is FAIL. Stable artifact tooling supports prereleases only; stable workflow work remains open.
 - Reproduced `build_senses.py --json` outside the repository exiting 1 after writing; corrected display path, path tests 2 OK, `build_senses.py --check` passed. Full Python discovery on the modified tree: 199 OK. No Node or browser re-run on this tree yet. No merge, tag, release or deployment.
+
+### 2026-11-04 — stable artifact path follow-up
+
+Added local stable-package regressions after reproducing rejection of `v1.0.0`, then
+implemented the narrowly scoped draft packaging path. S28 and D17 remain in progress;
+the prerelease-only publication dispatcher and final-head CI/review are unresolved.
+No deployment gate or protected hold was changed. No publication action was taken.
+
+### 2026-11-04 — stable packaging and dispatcher continuation
+
+Fail-first test reproduced timezone-dependent stable ZIP bytes; fixed stable ZIP
+metadata and verified matching outputs across timezones. Added a manual stable-dispatch
+path requiring separate confirmation and exact published stable app release; retained
+existing prerelease dispatch and deploy gates. Manual path not exercised live. Release
+unit tests and deploy-gate tests passed locally; final-head CI remains pending.

@@ -41,8 +41,9 @@ Open / accepted limitations (not defects, stated honestly):
   `rock` maps `đá` to Oxford's music annotation and music to its stone annotation.
   All eight multi-sense entries require reliable source-to-gloss mapping and runtime
   filtering tests before S10 can pass. No meaning has been invented or discarded.
-- **D17 — OPEN:** stable release artifact tooling accepts only dev/beta/rc tags and
-  the tag push workflow omits `v1.0.0`; its stable path is not yet implemented.
+- **D17 — IN PROGRESS:** stable artifact tagging and draft-channel support added with local tests.
+  A separately confirmed manual stable dispatcher is implemented without changing deploy gates;
+  live workflow behavior, independent review and exact-head CI remain unverified. No publication authorized.
 - **D18 — OPEN:** source-capability and locator validation, generated audit prose,
   comprehensive individual evidence review and the other current-head review findings
   remain to be verified and remediated. `build_senses.py` outside-repository output
