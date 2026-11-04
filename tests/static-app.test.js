@@ -4248,18 +4248,18 @@ test('the shipped vocabulary keeps every row and every level is selectable', () 
   // evidence in audit/v100/evidence/cefr-sense-audit.json), so no sense is left
   // Unclassified without an evidence class. A headword with senses in two
   // levels is counted once in each (that is why the level counts sum to
-  // 6,841 headwords while the sense counts sum to 6,842); senses are counted separately below.
-  // 632 + 810 + 1,291 + 1,798 + 1,234 + 1,079 = 6,844 level memberships across 6,841 headwords (3 multi-level headwords).
-  assert.deepEqual(counts, { A1: 632, A2: 810, B1: 1291, B2: 1798, C1: 1234, C2: 1079, UNCLASSIFIED: 0 },
+  // 6,841 headwords while the sense counts sum to 6,845); senses are counted separately below.
+  // 632 + 807 + 1,286 + 1,777 + 1,263 + 1,079 = 6,844 level memberships across 6,841 headwords (3 multi-level headwords).
+  assert.deepEqual(counts, { A1: 632, A2: 807, B1: 1286, B2: 1777, C1: 1263, C2: 1079, UNCLASSIFIED: 0 },
     'the shipped deck keeps every row and every level is selectable; no sense is Unclassified');
-  assert.deepEqual(app.countSensesByCefr(deck), { A1: 632, A2: 811, B1: 1292, B2: 1799, C1: 1234, C2: 1079, UNCLASSIFIED: 0 },
-    'sense counts are reported separately from headword counts (multi-sense headwords such as tear (2×B2) add senses, not headwords)');
+  assert.deepEqual(app.countSensesByCefr(deck), { A1: 632, A2: 808, B1: 1286, B2: 1777, C1: 1263, C2: 1079, UNCLASSIFIED: 0 },
+    'sense counts are reported separately from headword counts (multi-sense headwords such as rock (2×A2) add senses, not headwords)');
   assert.equal(headwords.length, 8112);
   assert.equal(archived.length, 1271);
   assert.equal(deck.length, 6841);
   // The default selection is a filter, not a deletion: archived rows and
   // out-of-band rows are still in the data and still counted.
-  assert.equal(app.filterVocabularyByCefr(deck, app.defaultCefrSelection()).length, 3032);
+  assert.equal(app.filterVocabularyByCefr(deck, app.defaultCefrSelection()).length, 3040);
   // The 843 previously untagged legacy headwords are no longer Unclassified:
   // each now has a sense with an explicit evidence class (never an invented
   // level — editorial estimates are flagged needsIndependentValidation).

@@ -1369,3 +1369,11 @@ Removed a paper-wide answer verification upgrade unsupported by item-level
 cross-check evidence. A synthetic regression reproduced the issue, and 67 keys
 now report single-source transcription. Per-question independent review remains
 open; the existing partial paper-anchor report is retained.
+
+### 2026-11-04 — CEFR snapshot regression correction
+
+The full JavaScript run exposed a stale exact deck-count assertion after the
+POS-scope and sense-alignment changes. Recomputed the headword and sense counts
+from the shipped data and updated the still-exact assertions, including the B2+C1
+default selection. The isolated test passes. The older CI failure occurred in the
+same test step, but its detailed log was inaccessible, so its cause is unverified.
