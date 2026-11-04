@@ -11,6 +11,11 @@ on:
       - "scripts/embed_vocabulary.py"
       - "scripts/learned_vocabulary.py"
       - "scripts/validate_vocab.py"
+      - "scripts/expand_vocabulary.py"
+      - "scripts/vocabulary_families.py"
+      - "docs/vocabulary-families.json"
+      - "scripts/build_senses.py"
+      - "scripts/cefr_senses.py"
       - "scripts/exams/**"
       - "scripts/deploy_gate.py"
       - "De-chuyen-Anh-vao-10/**"
@@ -64,6 +69,7 @@ jobs:
       - name: Check vocabulary sources and embedded HTML
         run: |
           python scripts/build_vocabulary.py --check
+          python scripts/expand_vocabulary.py --check
           python scripts/build_senses.py --check
           python scripts/validate_vocab.py
           python scripts/embed_vocabulary.py --check

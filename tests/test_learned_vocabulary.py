@@ -33,11 +33,11 @@ class LearnedVocabularyTests(unittest.TestCase):
         # 7,852 rows = 7,112 headwords + 740 same-root forms (rc10 P5 added
         # 2,000 verified headwords; no row was removed). The root rule counts
         # roots, so the vocabulary figure is 7,112, not the row count.
-        self.assertEqual(len(self.records), 7852)
+        self.assertEqual(len(self.records), 8852)
         merged = [record for record in self.records if MERGED_TAG in record["tags"]]
         self.assertEqual(len(merged), 740)
-        self.assertEqual(len(self.records) - len(merged), 7112)
-        self.assertEqual([record["id"] for record in self.records], [str(i) for i in range(1, 7853)])
+        self.assertEqual(len(self.records) - len(merged), 8112)
+        self.assertEqual([record["id"] for record in self.records], [str(i) for i in range(1, 8853)])
         words = [normalized(record["word"]) for record in self.records]
         self.assertEqual(len(words), len(set(words)), "Duplicate headwords")
         for record in self.records:
@@ -49,7 +49,7 @@ class LearnedVocabularyTests(unittest.TestCase):
                     self.assertTrue(all(isinstance(value, str) and value.strip() for value in record[field]))
 
     def test_source_and_app_vocabulary_match_and_legacy_fields_exist(self):
-        self.assertEqual(len(self.app_data), 7852)
+        self.assertEqual(len(self.app_data), 8852)
         for record, entry in zip(self.records, self.app_data):
             with self.subTest(word=record["word"]):
                 self.assertEqual(record["id"], entry["id"])

@@ -130,11 +130,11 @@ class VocabularyValidatorTest(unittest.TestCase):
         # rows are same-root forms, so there are 7,112 headwords (the counted words).
         data = json.loads((ROOT / "data" / "vocabulary.json").read_text(encoding="utf-8"))
         keys = [validator.normalize_word(item["word"]) for item in data]
-        self.assertEqual(len(keys), 7852)
-        self.assertEqual(len(set(keys)), 7852)
+        self.assertEqual(len(keys), 8852)
+        self.assertEqual(len(set(keys)), 8852)
         merged = [item for item in data if MERGED_TAG in item.get("tags", [])]
         self.assertEqual(len(merged), 740)
-        self.assertEqual(len(data) - len(merged), 7112)
+        self.assertEqual(len(data) - len(merged), 8112)
         self.assertEqual([item["id"] for item in data[:913]], [str(number) for number in range(1, 914)])
         self.assertEqual(validator.validate(data), [])
 

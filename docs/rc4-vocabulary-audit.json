@@ -4,10 +4,10 @@
   "auditDate": "2026-10-28",
   "method": "Every row is classified from data already in the repository: the root-family rule (family:merged rows are documentation, not headwords), the reviewed curation map (docs/vocabulary-curation.json replayed through scripts/vocabulary_curation.py), the editorial CEFR level tags, and the curriculum words transcribed in docs/curriculum-grades-6-9.json. The audit writes no vocabulary data.",
   "counts": {
-    "inspectedRows": 7852,
-    "inspectedHeadwords": 7112,
+    "inspectedRows": 8852,
+    "inspectedHeadwords": 8112,
     "familyForms": 740,
-    "retainedHeadwords": 5841,
+    "retainedHeadwords": 6841,
     "excludedHeadwords": 1271,
     "excludedRowsIncludingFamilyForms": 1271,
     "reviewed": 0,
@@ -2975,11 +2975,11 @@
   },
   "curriculum": {
     "tokens": 201,
-    "presentInBank": 91,
-    "inFocus": 77,
+    "presentInBank": 105,
+    "inFocus": 91,
     "excluded": 14,
     "unexplained": [],
-    "pendingCurationReview": [
+    "attestedByPublishedLevel": [
       {
         "id": "941",
         "word": "balance",
@@ -2987,7 +2987,7 @@
         "type": "core",
         "curriculum": "8/1",
         "familyRoot": false,
-        "reason": "the row now meets a curation rule at its attested level, but deck membership is a frozen decision; queued for a curator instead of being archived by a level change"
+        "levelSource": "oxford-3000-5000"
       },
       {
         "id": "1130",
@@ -2996,7 +2996,7 @@
         "type": "academic",
         "curriculum": "9/3",
         "familyRoot": false,
-        "reason": "the row now meets a curation rule at its attested level, but deck membership is a frozen decision; queued for a curator instead of being archived by a level change"
+        "levelSource": "oxford-3000-5000"
       },
       {
         "id": "1571",
@@ -3005,7 +3005,7 @@
         "type": "topic",
         "curriculum": "9/6",
         "familyRoot": false,
-        "reason": "the row now meets a curation rule at its attested level, but deck membership is a frozen decision; queued for a curator instead of being archived by a level change"
+        "levelSource": "oxford-3000-5000"
       },
       {
         "id": "1689",
@@ -3014,7 +3014,7 @@
         "type": "topic",
         "curriculum": "8/1",
         "familyRoot": false,
-        "reason": "the row now meets a curation rule at its attested level, but deck membership is a frozen decision; queued for a curator instead of being archived by a level change"
+        "levelSource": "oxford-3000-5000"
       },
       {
         "id": "1899",
@@ -3023,7 +3023,7 @@
         "type": "topic",
         "curriculum": "8/3",
         "familyRoot": false,
-        "reason": "the row now meets a curation rule at its attested level, but deck membership is a frozen decision; queued for a curator instead of being archived by a level change"
+        "levelSource": "cefrj-vocabulary-profile-1.5"
       },
       {
         "id": "2144",
@@ -3032,7 +3032,7 @@
         "type": "topic",
         "curriculum": "8/1",
         "familyRoot": false,
-        "reason": "the row now meets a curation rule at its attested level, but deck membership is a frozen decision; queued for a curator instead of being archived by a level change"
+        "levelSource": "oxford-3000-5000"
       },
       {
         "id": "3009",
@@ -3041,7 +3041,7 @@
         "type": "academic",
         "curriculum": "8/1",
         "familyRoot": false,
-        "reason": "the row now meets a curation rule at its attested level, but deck membership is a frozen decision; queued for a curator instead of being archived by a level change"
+        "levelSource": "oxford-3000-5000"
       },
       {
         "id": "3018",
@@ -3050,7 +3050,7 @@
         "type": "topic",
         "curriculum": "8/1",
         "familyRoot": false,
-        "reason": "the row now meets a curation rule at its attested level, but deck membership is a frozen decision; queued for a curator instead of being archived by a level change"
+        "levelSource": "oxford-3000-5000"
       },
       {
         "id": "4642",
@@ -3059,7 +3059,7 @@
         "type": "topic",
         "curriculum": "8/8",
         "familyRoot": false,
-        "reason": "the row now meets a curation rule at its attested level, but deck membership is a frozen decision; queued for a curator instead of being archived by a level change"
+        "levelSource": "oxford-3000-5000"
       },
       {
         "id": "4694",
@@ -3068,7 +3068,7 @@
         "type": "topic",
         "curriculum": "9/3",
         "familyRoot": false,
-        "reason": "the row now meets a curation rule at its attested level, but deck membership is a frozen decision; queued for a curator instead of being archived by a level change"
+        "levelSource": "oxford-3000-5000"
       },
       {
         "id": "5534",
@@ -3077,7 +3077,7 @@
         "type": "topic",
         "curriculum": "9/1",
         "familyRoot": false,
-        "reason": "the row now meets a curation rule at its attested level, but deck membership is a frozen decision; queued for a curator instead of being archived by a level change"
+        "levelSource": "cefrj-vocabulary-profile-1.5"
       },
       {
         "id": "6222",
@@ -3086,7 +3086,7 @@
         "type": "topic",
         "curriculum": "8/3",
         "familyRoot": false,
-        "reason": "the row now meets a curation rule at its attested level, but deck membership is a frozen decision; queued for a curator instead of being archived by a level change"
+        "levelSource": "cefrj-vocabulary-profile-1.5"
       },
       {
         "id": "6974",
@@ -3095,9 +3095,136 @@
         "type": "topic",
         "curriculum": "8/1",
         "familyRoot": false,
-        "reason": "the row now meets a curation rule at its attested level, but deck membership is a frozen decision; queued for a curator instead of being archived by a level change"
+        "levelSource": "oxford-3000-5000"
+      },
+      {
+        "id": "7873",
+        "word": "amazing",
+        "level": "A1",
+        "type": "topic",
+        "curriculum": "9/5",
+        "familyRoot": false,
+        "levelSource": "cefrj-vocabulary-profile-1.5"
+      },
+      {
+        "id": "7965",
+        "word": "catch",
+        "level": "A1",
+        "type": "topic",
+        "curriculum": "8/2",
+        "familyRoot": false,
+        "levelSource": "cefrj-vocabulary-profile-1.5"
+      },
+      {
+        "id": "8089",
+        "word": "greet",
+        "level": "A1",
+        "type": "topic",
+        "curriculum": "8/2",
+        "familyRoot": false,
+        "levelSource": "cefrj-vocabulary-profile-1.5"
+      },
+      {
+        "id": "8143",
+        "word": "join",
+        "level": "A1",
+        "type": "core",
+        "curriculum": "8/1",
+        "familyRoot": false,
+        "levelSource": "cefrj-vocabulary-profile-1.5"
+      },
+      {
+        "id": "8180",
+        "word": "message",
+        "level": "A1",
+        "type": "core",
+        "curriculum": "8/1",
+        "familyRoot": false,
+        "levelSource": "cefrj-vocabulary-profile-1.5"
+      },
+      {
+        "id": "8280",
+        "word": "smart",
+        "level": "A1",
+        "type": "topic",
+        "curriculum": "8/1",
+        "familyRoot": false,
+        "levelSource": "cefrj-vocabulary-profile-1.5"
+      },
+      {
+        "id": "8380",
+        "word": "basic",
+        "level": "A2",
+        "type": "topic",
+        "curriculum": "9/4",
+        "familyRoot": false,
+        "levelSource": "cefrj-vocabulary-profile-1.5"
+      },
+      {
+        "id": "8404",
+        "word": "campus",
+        "level": "A2",
+        "type": "topic",
+        "curriculum": "9/5",
+        "familyRoot": false,
+        "levelSource": "cefrj-vocabulary-profile-1.5"
+      },
+      {
+        "id": "8409",
+        "word": "castle",
+        "level": "A2",
+        "type": "core",
+        "curriculum": "9/4",
+        "familyRoot": false,
+        "levelSource": "cefrj-vocabulary-profile-1.5"
+      },
+      {
+        "id": "8420",
+        "word": "clear",
+        "level": "A2",
+        "type": "core",
+        "curriculum": "9/9",
+        "familyRoot": false,
+        "levelSource": "cefrj-vocabulary-profile-1.5"
+      },
+      {
+        "id": "8426",
+        "word": "comedy",
+        "level": "A2",
+        "type": "topic",
+        "curriculum": "8/1",
+        "familyRoot": false,
+        "levelSource": "cefrj-vocabulary-profile-1.5"
+      },
+      {
+        "id": "8436",
+        "word": "crazy",
+        "level": "A2",
+        "type": "core",
+        "curriculum": "8/1",
+        "familyRoot": false,
+        "levelSource": "cefrj-vocabulary-profile-1.5"
+      },
+      {
+        "id": "8562",
+        "word": "kit",
+        "level": "A2",
+        "type": "topic",
+        "curriculum": "8/1",
+        "familyRoot": false,
+        "levelSource": "cefrj-vocabulary-profile-1.5"
+      },
+      {
+        "id": "8760",
+        "word": "stranger",
+        "level": "A2",
+        "type": "topic",
+        "curriculum": "8/1",
+        "familyRoot": false,
+        "levelSource": "cefrj-vocabulary-profile-1.5"
       }
     ],
+    "pendingCurationReview": [],
     "focusRows": [
       {
         "id": "599",
@@ -3714,6 +3841,118 @@
         "type": "topic",
         "curriculum": "9/1",
         "familyRoot": false
+      },
+      {
+        "id": "7873",
+        "word": "amazing",
+        "level": "A1",
+        "type": "topic",
+        "curriculum": "9/5",
+        "familyRoot": false
+      },
+      {
+        "id": "7965",
+        "word": "catch",
+        "level": "A1",
+        "type": "topic",
+        "curriculum": "8/2",
+        "familyRoot": false
+      },
+      {
+        "id": "8089",
+        "word": "greet",
+        "level": "A1",
+        "type": "topic",
+        "curriculum": "8/2",
+        "familyRoot": false
+      },
+      {
+        "id": "8143",
+        "word": "join",
+        "level": "A1",
+        "type": "core",
+        "curriculum": "8/1",
+        "familyRoot": false
+      },
+      {
+        "id": "8180",
+        "word": "message",
+        "level": "A1",
+        "type": "core",
+        "curriculum": "8/1",
+        "familyRoot": false
+      },
+      {
+        "id": "8280",
+        "word": "smart",
+        "level": "A1",
+        "type": "topic",
+        "curriculum": "8/1",
+        "familyRoot": false
+      },
+      {
+        "id": "8380",
+        "word": "basic",
+        "level": "A2",
+        "type": "topic",
+        "curriculum": "9/4",
+        "familyRoot": false
+      },
+      {
+        "id": "8404",
+        "word": "campus",
+        "level": "A2",
+        "type": "topic",
+        "curriculum": "9/5",
+        "familyRoot": false
+      },
+      {
+        "id": "8409",
+        "word": "castle",
+        "level": "A2",
+        "type": "core",
+        "curriculum": "9/4",
+        "familyRoot": false
+      },
+      {
+        "id": "8420",
+        "word": "clear",
+        "level": "A2",
+        "type": "core",
+        "curriculum": "9/9",
+        "familyRoot": false
+      },
+      {
+        "id": "8426",
+        "word": "comedy",
+        "level": "A2",
+        "type": "topic",
+        "curriculum": "8/1",
+        "familyRoot": false
+      },
+      {
+        "id": "8436",
+        "word": "crazy",
+        "level": "A2",
+        "type": "core",
+        "curriculum": "8/1",
+        "familyRoot": false
+      },
+      {
+        "id": "8562",
+        "word": "kit",
+        "level": "A2",
+        "type": "topic",
+        "curriculum": "8/1",
+        "familyRoot": false
+      },
+      {
+        "id": "8760",
+        "word": "stranger",
+        "level": "A2",
+        "type": "topic",
+        "curriculum": "8/1",
+        "familyRoot": false
       }
     ]
   },
@@ -3724,6 +3963,8 @@
     "nature-species": 163
   },
   "levelMix": {
+    "A1": 500,
+    "A2": 500,
     "B1": 757,
     "B2": 1714,
     "C1": 1638,
@@ -3742,7 +3983,7 @@
   "structure": {
     "word-formation": 79,
     "academic": 1268,
-    "core": 122,
+    "core": 567,
     "idiom": 24,
     "phrasalVerb": 13,
     "collocation": 9,

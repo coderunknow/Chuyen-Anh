@@ -154,6 +154,12 @@ def classify(rows: list[dict[str, Any]], spec: dict[str, Any]) -> dict[str, Any]
     pending_review_words = {word_key(item["word"]) for item in proposals}
     unexplained: list[dict[str, Any]] = []
     pending_curation: list[dict[str, Any]] = []
+    # v1.0.0 Phase III deliberately adds A1/A2 everyday headwords. A curriculum word
+    # at A1/A2 whose level is attested by a published reference work
+    # (`level-source:` names CEFR-J or the Oxford 3000 list, not `editorial`) is an
+    # explained retention, not a policy hole: the documented exemption is the
+    # published level itself. Editorial-tagged rows keep the strict rule.
+    attested_published: list[dict[str, Any]] = []
     for row in heads:
         token = tokens.get(word_key(row["word"]))
         if not token:
@@ -173,7 +179,10 @@ def classify(rows: list[dict[str, Any]], spec: dict[str, Any]) -> dict[str, Any]
         }
         curriculum_focus.append(record)
         if level in CURRICULUM_LEVELS and not is_family_root(row):
-            if word_key(row["word"]) in pending_review_words:
+            level_source = tag_value(row, "level-source") or ""
+            if level_source and level_source != "editorial":
+                attested_published.append({**record, "levelSource": level_source})
+            elif word_key(row["word"]) in pending_review_words:
                 pending_curation.append({
                     **record,
                     "reason": ("the row now meets a curation rule at its attested level, but deck "
@@ -274,6 +283,7 @@ def classify(rows: list[dict[str, Any]], spec: dict[str, Any]) -> dict[str, Any]
             "inFocus": len(curriculum_focus),
             "excluded": curriculum_archived,
             "unexplained": unexplained,
+            "attestedByPublishedLevel": attested_published,
             "pendingCurationReview": pending_curation,
             "focusRows": curriculum_focus,
         },
@@ -377,8 +387,10 @@ def render_markdown(report: dict[str, Any]) -> str:
         for record in curriculum["unexplained"]:
             add(f"- `{record['word']}` (id {record['id']}, {record['level']}, {record['type'] or 'no type'}) — grade {record['curriculum']}")
     else:
-        add("Every curriculum-level word (A1-B1) that is still taught is a **family root** whose note teaches the derived "
-            "forms (`Cùng gốc: …`), which is the documented exemption in the curation map. No unexplained retention.")
+        add("Every curriculum-level word (A1-B1) that is still taught is explained: it is either a **family root** "
+            "whose note teaches the derived forms (`Cùng gốc: …`) or — for the v1.0.0 Phase III foundation expansion — "
+            f"an A1/A2 headword whose level is attested by a published reference work ({len(curriculum['attestedByPublishedLevel'])} rows, "
+            "`level-source:` CEFR-J / Oxford 3000, never `editorial`). No unexplained retention.")
     add("")
     add("## D. High-quality inclusion standard, as shipped")
     add("")

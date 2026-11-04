@@ -9,13 +9,13 @@
   "dictionary": "có locator mục từ điển cambridge trong sources"
  },
  "totals": {
-  "focusHeadwords": 7112,
-  "queue": 1717,
+  "focusHeadwords": 8112,
+  "queue": 1819,
   "phraseInCorpus": 14,
-  "surfaceVariant": 342,
+  "surfaceVariant": 368,
   "multiwordWordsOnly": 5,
   "examFormatOnly": 5,
-  "dictionaryOnly": 1338,
+  "dictionaryOnly": 1414,
   "noBasis": 13
  },
  "buckets": {
@@ -46,9 +46,11 @@
   "surface-variant": {
    "label": "Chỉ một dạng biến đổi của từ xuất hiện",
    "action": "Giữ; câu nguồn phải nêu đúng dạng đã thấy, không nhận là headword.",
-   "count": 342,
+   "count": 368,
    "byLevel": {
     "(none)": 52,
+    "A1": 7,
+    "A2": 19,
     "B1": 6,
     "B2": 78,
     "C1": 149,
@@ -106,9 +108,11 @@
   "dictionary-only": {
    "label": "Chỉ có mục từ điển và nghĩa, không có bằng chứng trong đề",
    "action": "Giữ và đánh dấu: bằng chứng là mục từ điển, không phải đề thi.",
-   "count": 1338,
+   "count": 1414,
    "byLevel": {
     "(none)": 223,
+    "A1": 40,
+    "A2": 36,
     "B1": 7,
     "B2": 218,
     "C1": 372,
@@ -18191,13 +18195,13 @@
    ],
    "dictionaryLocator": true,
    "bucket": "surface-variant",
-   "variant": "department",
+   "variant": "departments",
    "evidence": [
-    "2022/dong-nai/so.md",
-    706
+    "2023/da-nang/so.md",
+    53
    ],
-   "papers": 17,
-   "occurrences": 25
+   "papers": 6,
+   "occurrences": 7
   },
   {
    "id": "7663",
@@ -20545,6 +20549,1284 @@
   {
    "id": "7852",
    "word": "zoom",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7853",
+   "word": "a",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7872",
+   "word": "am",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7874",
+   "word": "an",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7889",
+   "word": "as",
+   "multiWord": false,
+   "type": [
+    "core"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7891",
+   "word": "at",
+   "multiWord": false,
+   "type": [
+    "core"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7905",
+   "word": "be",
+   "multiWord": false,
+   "type": [
+    "core"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7912",
+   "word": "bee",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7947",
+   "word": "by",
+   "multiWord": false,
+   "type": [
+    "core"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7949",
+   "word": "cafe",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7962",
+   "word": "cartoon",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "cartoons",
+   "evidence": [
+    "2024/tp-ho-chi-minh/so.md",
+    140
+   ],
+   "papers": 2,
+   "occurrences": 2
+  },
+  {
+   "id": "7966",
+   "word": "cd",
+   "multiWord": false,
+   "type": [
+    "core"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7973",
+   "word": "classmate",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "classmates",
+   "evidence": [
+    "2023/dong-thap/so.md",
+    91
+   ],
+   "papers": 5,
+   "occurrences": 7
+  },
+  {
+   "id": "7981",
+   "word": "coke",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7989",
+   "word": "cop",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "7993",
+   "word": "couch",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8001",
+   "word": "daddy",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8013",
+   "word": "do",
+   "multiWord": false,
+   "type": [
+    "core"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8044",
+   "word": "fairy",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8076",
+   "word": "girlfriend",
+   "multiWord": false,
+   "type": [
+    "core"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8078",
+   "word": "go",
+   "multiWord": false,
+   "type": [
+    "core"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8102",
+   "word": "hamburger",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "hamburgers",
+   "evidence": [
+    "2022/bac-kan/so.md",
+    52
+   ],
+   "papers": 2,
+   "occurrences": 2
+  },
+  {
+   "id": "8104",
+   "word": "handsome",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8116",
+   "word": "hi",
+   "multiWord": false,
+   "type": [
+    "core"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8130",
+   "word": "i",
+   "multiWord": false,
+   "type": [
+    "core"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8132",
+   "word": "if",
+   "multiWord": false,
+   "type": [
+    "core"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8133",
+   "word": "in",
+   "multiWord": false,
+   "type": [
+    "core"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8137",
+   "word": "is",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8138",
+   "word": "it",
+   "multiWord": false,
+   "type": [
+    "core"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8155",
+   "word": "kite",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8178",
+   "word": "me",
+   "multiWord": false,
+   "type": [
+    "core"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8195",
+   "word": "my",
+   "multiWord": false,
+   "type": [
+    "core"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8202",
+   "word": "no",
+   "multiWord": false,
+   "type": [
+    "core"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8210",
+   "word": "of",
+   "multiWord": false,
+   "type": [
+    "core"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8213",
+   "word": "oh",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8214",
+   "word": "ok",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8216",
+   "word": "on",
+   "multiWord": false,
+   "type": [
+    "core"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8221",
+   "word": "or",
+   "multiWord": false,
+   "type": [
+    "core"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8228",
+   "word": "pants",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8233",
+   "word": "pencil",
+   "multiWord": false,
+   "type": [
+    "core"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "pencils",
+   "evidence": [
+    "2022/hai-phong/so.md",
+    220
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "8244",
+   "word": "pound",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "pounds",
+   "evidence": [
+    "2022/hai-duong/so.md",
+    838
+   ],
+   "papers": 11,
+   "occurrences": 15
+  },
+  {
+   "id": "8245",
+   "word": "pray",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "praying",
+   "evidence": [
+    "2022/thai-nguyen/so.md",
+    121
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "8250",
+   "word": "rabbit",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "rabbits",
+   "evidence": [
+    "2022/ca-mau/so.md",
+    256
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "8257",
+   "word": "ribbon",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8326",
+   "word": "to",
+   "multiWord": false,
+   "type": [
+    "core"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8330",
+   "word": "tv",
+   "multiWord": false,
+   "type": [
+    "core"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8335",
+   "word": "us",
+   "multiWord": false,
+   "type": [
+    "core"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8342",
+   "word": "we",
+   "multiWord": false,
+   "type": [
+    "core"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8355",
+   "word": "adjective",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8360",
+   "word": "ah",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8381",
+   "word": "batch",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8390",
+   "word": "blackboard",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8391",
+   "word": "blonde",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8394",
+   "word": "bookcase",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "bookcases",
+   "evidence": [
+    "2023/ha-noi/chuyen-su-pham.md",
+    506
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "8395",
+   "word": "bookshelf",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8396",
+   "word": "bookshop",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "bookshops",
+   "evidence": [
+    "2025/quang-ngai/so.md",
+    621
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "8398",
+   "word": "brainstorm",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8399",
+   "word": "bride",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "brides",
+   "evidence": [
+    "2025/yen-bai/so.md",
+    785
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "8401",
+   "word": "bush",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "bushes",
+   "evidence": [
+    "2023/dak-lak/so.md",
+    1720
+   ],
+   "papers": 3,
+   "occurrences": 9
+  },
+  {
+   "id": "8406",
+   "word": "carrot",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8408",
+   "word": "cassette",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "cassettes",
+   "evidence": [
+    "2026/ninh-binh/so.md",
+    173
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "8417",
+   "word": "chirp",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8425",
+   "word": "cola",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8438",
+   "word": "crisp",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "crisps",
+   "evidence": [
+    "2024/thanh-hoa/so.md",
+    98
+   ],
+   "papers": 2,
+   "occurrences": 3
+  },
+  {
+   "id": "8467",
+   "word": "elevator",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8473",
+   "word": "euro",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "euros",
+   "evidence": [
+    "2023/da-nang/so.md",
+    128
+   ],
+   "papers": 2,
+   "occurrences": 2
+  },
+  {
+   "id": "8483",
+   "word": "fighter",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8513",
+   "word": "granddad",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8514",
+   "word": "granddaughter",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8516",
+   "word": "granny",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8517",
+   "word": "greedy",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8520",
+   "word": "half-price",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8524",
+   "word": "headphone",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8525",
+   "word": "headteacher",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8539",
+   "word": "id",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8551",
+   "word": "invade",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "invading",
+   "evidence": [
+    "2022/binh-thuan/so.md",
+    644
+   ],
+   "papers": 2,
+   "occurrences": 2
+  },
+  {
+   "id": "8559",
+   "word": "kilo",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "kilos",
+   "evidence": [
+    "2023/binh-duong/so.md",
+    812
+   ],
+   "papers": 3,
+   "occurrences": 5
+  },
+  {
+   "id": "8571",
+   "word": "laziness",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8597",
+   "word": "mosque",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "mosques",
+   "evidence": [
+    "2024/ben-tre/so.md",
+    70
+   ],
+   "papers": 1,
+   "occurrences": 2
+  },
+  {
+   "id": "8611",
+   "word": "noun",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8626",
+   "word": "pc",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8627",
+   "word": "pea",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8628",
+   "word": "pence",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8634",
+   "word": "pilgrim",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "pilgrims",
+   "evidence": [
+    "2022/phu-tho/so.md",
+    103
+   ],
+   "papers": 1,
+   "occurrences": 3
+  },
+  {
+   "id": "8641",
+   "word": "plural",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8643",
+   "word": "policewoman",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8647",
+   "word": "possession",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "possessions",
+   "evidence": [
+    "2023/da-nang/so.md",
+    187
+   ],
+   "papers": 4,
+   "occurrences": 4
+  },
+  {
+   "id": "8663",
+   "word": "rap",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8708",
+   "word": "shine",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "shines",
+   "evidence": [
+    "2022/ha-nam/so.md",
+    341
+   ],
+   "papers": 3,
+   "occurrences": 3
+  },
+  {
+   "id": "8721",
+   "word": "singular",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8724",
+   "word": "skateboarding",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8728",
+   "word": "slave",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "slaves",
+   "evidence": [
+    "2023/binh-thuan/so.md",
+    589
+   ],
+   "papers": 2,
+   "occurrences": 3
+  },
+  {
+   "id": "8736",
+   "word": "so",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8745",
+   "word": "splash",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "splashes",
+   "evidence": [
+    "2026/dien-bien/so.md",
+    546
+   ],
+   "papers": 1,
+   "occurrences": 4
+  },
+  {
+   "id": "8747",
+   "word": "stair",
+   "multiWord": false,
+   "type": [
+    "core"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "stairs",
+   "evidence": [
+    "2024/tp-ho-chi-minh/so.md",
+    161
+   ],
+   "papers": 1,
+   "occurrences": 4
+  },
+  {
+   "id": "8753",
+   "word": "stomachache",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8776",
+   "word": "sweetheart",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8777",
+   "word": "swimsuit",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "swimsuits",
+   "evidence": [
+    "2025/yen-bai/so.md",
+    805
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "8778",
+   "word": "symphony",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "symphonies",
+   "evidence": [
+    "2025/kon-tum/so.md",
+    667
+   ],
+   "papers": 3,
+   "occurrences": 3
+  },
+  {
+   "id": "8782",
+   "word": "terrify",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8814",
+   "word": "up",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "dictionary-only",
+   "evidence": null
+  },
+  {
+   "id": "8830",
+   "word": "weep",
+   "multiWord": false,
+   "type": [
+    "topic"
+   ],
+   "dictionaryLocator": true,
+   "bucket": "surface-variant",
+   "variant": "weeping",
+   "evidence": [
+    "2026/tp-ho-chi-minh/ptnk.md",
+    325
+   ],
+   "papers": 1,
+   "occurrences": 1
+  },
+  {
+   "id": "8835",
+   "word": "wheelchair",
    "multiWord": false,
    "type": [
     "topic"

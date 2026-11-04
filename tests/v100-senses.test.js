@@ -43,7 +43,7 @@ test('v1.0.0: every shipped entry carries well-formed, classified senses', () =>
     }
     if (senses.length > 1) multi.push(entry);
   }
-  assert.equal(senseTotal, 7854, 'total senses');
+  assert.equal(senseTotal, 8860, 'total senses');
   assert.ok(multi.length >= 2, `expected the evidence-backed multi-sense headwords, got ${multi.length}`);
   // no unresolved senses anywhere
   const unresolved = vocabulary.flatMap(e => app.entrySenses(e)).filter(s => s.cefr === 'UNCLASSIFIED');
@@ -191,18 +191,20 @@ test('v1.0.0: headword counts and sense counts are distinguished', () => {
     senseTotal += bySense[level] || 0;
     headwordTotal += byHeadword[level] || 0;
   }
-  assert.equal(senseTotal, deck.length, 'senses over the deck headwords');
+  // Six deck headwords are evidence-backed multi-sense entries (bank, lie, race,
+  // rock, tear, used), so the deck carries 6 extra senses beyond one per headword.
+  assert.equal(senseTotal, deck.length + 6, 'senses over the deck headwords');
   const allSenses = Object.values(app.countSensesByCefr(vocabulary)).reduce((a, b) => a + b, 0);
-  assert.equal(allSenses, 7854, 'all 7,852 rows carry senses (740 more live on merged family rows)');
+  assert.equal(allSenses, 8860, 'all 8,852 rows carry senses (8,120 on headwords + 740 on merged family rows)');
   assert.ok(headwordTotal >= deck.length, 'a multi-sense headword counts once per level it has');
-  assert.equal(headwords.length, 7112);
+  assert.equal(headwords.length, 8112);
   // default B2+C1 selection: eligible headwords counted via the one pipeline
   const eligible = app.filterVocabularyByCefr(deck, app.defaultCefrSelection()).length;
   const eligibleSenses = ['B2', 'C1'].reduce((t, l) => t + (bySense[l] || 0), 0);
-  assert.equal(eligible, 3642);
-  assert.equal(eligibleSenses, 3642, 'B2+C1 senses over the deck');
-  // A2 is where headword and sense counts genuinely diverge: rest and ring each
-  // carry two A2 senses, so the sense count is higher than the headword count.
+  assert.equal(eligible, 3724);
+  assert.equal(eligibleSenses, 3725, 'B2+C1 senses over the deck (tear carries two B2 senses, so senses exceed headwords by 1)');
+  // A2 is where headword and sense counts genuinely diverge: rest, ring and rock
+  // each carry two A2 senses, so the sense count is higher than the headword count.
   const a2Headwords = app.filterVocabularyByCefr(headwords, selectionOf(['A2'])).length;
   const a2Senses = app.countSensesByCefr(headwords).A2 || 0;
   assert.ok(a2Senses > a2Headwords, `sense count (${a2Senses}) must be distinguishable from headword count (${a2Headwords})`);

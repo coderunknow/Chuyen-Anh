@@ -77,6 +77,9 @@ POS_ALIASES = {
     "adj": ("adjective", "adj"), "adv": ("adverb", "adv"),
     "prep": ("preposition", "prep"), "pron": ("pronoun", "pron"),
     "conj": ("conjunction", "conj"),
+    "det": ("determiner", "det"), "determiner": ("determiner", "det"),
+    "modal": ("modal auxiliary", "modal"), "number": ("number", "number"),
+    "interj": ("interjection", "interj"),
 }
 # ordered longest-first so "modal v." is not read as "v."
 OXFORD_POS_LABELS = (
