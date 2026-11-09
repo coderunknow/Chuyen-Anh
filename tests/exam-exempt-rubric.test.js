@@ -95,3 +95,27 @@ test('the text-typed essay is the documented 2022/ha-noi/so Q51 case', () => {
   assert.ok(grade.advisoryRubricEvaluation, 'the exempt essay must not lose its rubric');
   assert.equal(grade.advisoryRubricEvaluation.criteriaScores.length, 4);
 });
+
+test('the essay gate never captures a scorable objective item', () => {
+  // The exemption-based gate must be a widening for one curated case, not a hole:
+  // an objective item that has a usable key must stay scorable and must never be
+  // handed a rubric, whatever its response type.
+  const overreached = [];
+  let checked = 0;
+  for (const record of records) {
+    const questions = app.parseExamQuestions(record.markdown, record.id);
+    const keys = Array.isArray(record.answerKey) ? record.answerKey : [];
+    for (const question of questions) {
+      const key = keys.find(entry => entry.questionId === question.id);
+      if (!key || key.scorable === false || question.responseType === 'essay') continue;
+      checked += 1;
+      const verification = app.getQuestionVerification(question, key);
+      if (verification.scorable !== true || verification.rubric || verification.exemptionCategory) {
+        overreached.push(`${record.id} ${question.id} (${question.responseType}) -> scorable=${verification.scorable} `
+          + `rubric=${verification.rubric ? 'present' : 'absent'} category=${verification.exemptionCategory}`);
+      }
+    }
+  }
+  assert.ok(checked > 5000, `expected the scorable items to be inspected, checked ${checked}`);
+  assert.deepEqual(overreached, [], 'a scorable objective item was treated as an exempt essay');
+});

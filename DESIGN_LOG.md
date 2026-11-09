@@ -2289,3 +2289,9 @@ not change. The earlier comparison's 203 inference removals remain unchanged.
 - **Change (user-approved `BUG-005`):** corrected both figures in `DEFECTS.md` and appended D27/D28 so the edits are recorded rather than silent; added `tests/test_audit_document_counts.py`, which recomputes the deck from `data/vocabulary.json` using the app's rule (`8,112` headwords · `6,841` active · `3,020` eligible · `3,043` senses — matching the JavaScript pins) and fails when any of the four documents states a different number, or stops stating it at all.
 - **Verified:** fail-first — the test failed on `DEFECTS.md: states 3032 headwords, the data has 3020` and passes after the correction; `248` Python tests OK.
 - **Not verified:** nothing beyond the counts; the semantic accuracy of the surrounding prose was not otherwise re-audited in this change.
+
+### 2026-11-09 — Review-loop addendum to `BUG-003`: a guard against the essay gate over-reaching
+
+- The `BUG-003` fix widened the "treat this as an essay" decision to a curated exemption. That risks the opposite error: an item with a usable key being treated as exempt. Added a fifth assertion to `tests/exam-exempt-rubric.test.js` that walks every *scorable* objective item in the shipped archive (5,000+ inspected) and requires `scorable === true`, no `rubric`, and no `exemptionCategory`.
+- Negative control performed: temporarily widening `examIsEssayItem()` to also return true for `source_transcription_unverified` made the new assertion fail (`a scorable objective item was treated as an exempt essay`); the mutation was reverted and `index.html` is unchanged.
+- Counts restated: Node `219` assertions; `GATES.md` and `FINAL_READINESS_CHECKLIST.md` updated to match. Python remains `250 + 5 = 255`.

@@ -1416,3 +1416,9 @@ same test step, but its detailed log was inaccessible, so its cause is unverifie
 - `DEFECTS.md` D6 said `3,032` where every other document and the data say `3,020` headwords / `3,043` senses; D25 said `157` open-ended essays where the taxonomy says `158`. Both corrected in place, with D27/D28 appended so the change is visible in the ledger.
 - Added `tests/test_audit_document_counts.py`, which recomputes the default `B2+C1` deck from `data/vocabulary.json` (matching the JavaScript pins of `3,020`/`3,043`) and fails when `DEFECTS.md`, `GATES.md`, `FINAL_READINESS.md` or `README.md` disagree — or when a document stops stating the size at all.
 - Fail-first: the new test failed naming the `3,032` line before the correction.
+
+### 2026-11-09 — Review-loop addendum: the essay gate has a guard in both directions
+
+- Added a fifth assertion to `tests/exam-exempt-rubric.test.js`: every scorable objective item (5,000+ across the archive) must stay scorable with no rubric and no exemption category, so the `BUG-003` widening cannot capture an item that has a usable key.
+- Proved the guard bites by injecting a deliberate over-reach into `examIsEssayItem()` (also true for `source_transcription_unverified`): the assertion failed as intended, then the mutation was reverted.
+- Node totals are now `219`; the checklist and GATES rows were updated to match.
