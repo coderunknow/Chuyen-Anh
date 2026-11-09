@@ -167,3 +167,17 @@
 - **Validation method:** `gh pr view`, `gh pr checks`, `gh api` review/thread inspection, and local verification suite.
 - **Status:** `ACTIVE`
 - **Commit SHA:** _pending_
+
+---
+
+### `W012` — Audit finding `BUG-001`: Phase III seed rows named a level their reference does not print for that POS
+- **Problem statement:** Seven `data/vocab-seed/22-a1a2-stable.tsv` rows carried `level:A2` with `level-source:oxford-3000-wordlist` while Oxford 3000 prints a different band for the row's part of speech (`neither` adv `B1`; `ride`, `run`, `stay`, `talk`, `welcome` v and `star` n `A1`). The band had been copied from the composite list of a multi-POS entry (`v. A1, n. A2`). Nothing in the pipeline resolved a seed row's `(word, pos, level)` against the work it names, so `rc4_vocabulary_audit.py` counted those rows as `attestedByPublishedLevel`.
+- **Affected files / scope:** `data/vocab-seed/22-a1a2-stable.tsv`, `Learned_Vocabulary_List.md`, `data/vocabulary.json`, `index.html` (embedded payload), `docs/{rc4-vocabulary-audit,vocabulary-cefr-review,vocabulary-quality-audit,vocabulary-audit-dev5}.{json,md}`, `README.md`, `CHANGELOG.md`, `tests/test_seed_level_provenance.py` (new).
+- **Expected result:** Every seed row that names a reference work states a band that work prints for that POS; the shipped `level:*` tag agrees with the shipped `senses`; the regression test fails on the old data and passes on the new.
+- **Acceptance criteria:**
+  1. `python3 -m unittest tests.test_seed_level_provenance` fails before the seed edit (7 rows listed) and passes after.
+  2. `python3 -m unittest discover -s tests -p 'test_*.py'` passes (`240` tests), all `--check` gates exit `0`, and `tests/static-app.test.js` + `tests/v100-senses.test.js` still pass on the regenerated payload.
+  3. `git diff main -- DEPLOY_HOLD AGENT.md De-chuyen-Anh-vao-10 docs/vocabulary-audit-dev5.{json,md} docs/RC1_AUDIT_REPORT.md docs/EXAM_AUDIT_LEDGER.md` remains empty and `DESIGN_LOG.md` / `AGENTS_LOG.md` stay append-only.
+- **Validation method:** Test-first reproduction (`FAIL` with the 7 rows, then `OK`), full pipeline regeneration, whole `--check` matrix, Python + Node suites, local Chromium E2E.
+- **Status:** `VERIFIED`
+- **Outcome:** Corrected the seven rows (`neither` `A2→B1`; `ride`, `run`, `stay`, `talk`, `welcome`, `star` `A2→A1`), regenerated the vocabulary payload and every derived audit artifact, and added `tests/test_seed_level_provenance.py`, which resolves all `5,316` published-level seed rows through the pinned references (`0` unattested, `0` unresolved). Distribution moved from `500 A1 + 500 A2` to `506 A1 + 493 A2 + 1 B1`; the source split is unchanged (`892` CEFR-J + `108` Oxford 3000). Consequence recorded: `neither` (`8605`) is now a B1 row in the focus deck and is queued for a curator decision (`rule:b1-baseline-general`) instead of being archived automatically; deck membership was not changed.

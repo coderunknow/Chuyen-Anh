@@ -17,15 +17,24 @@ until `v1.0.0` is published as a non-draft stable release and separately authori
   - **Multi-sense & seed hygiene:** Mapped `72` multi-POS / multi-sense splits with Cambridge EVP sense-level badges + entry `8174` (`March`), corrected `27` cardinal/ordinal numeral rows from `n` to `number` and `24` proper-noun capitalizations in `data/vocab-seed/*.tsv` (leaving `Learned_Vocabulary_List.md` legacy IDs untouched), and added a `WeakMap` `distractorPoolCache` in `index.html` reducing session consolidation/retry DOM transitions to `3 ms` median.
   - All `1,945` editorial estimates and editorial sense-gloss alignments retain `needsIndependentValidation: true` as an explicit provenance disclosure.
 
-### Phase III — exactly +500 A1 and +500 A2 headwords
+### Phase III — +1,000 A1/A2 headwords with POS-attested level provenance
 
 - `data/vocab-seed/22-a1a2-stable.tsv`: 1,144 CEFR-J/Oxford-3000 A1/A2 candidates absent
-  from the pre-v1.0.0 bank; `expand_vocabulary.py` accepts **exactly 500 A1 + 500 A2**
-  (144 skips, each with a recorded reason: inflection 81 · word-family 53 · comparative 6 ·
-  spelling variant 4). Bank: 8,852 rows, 8,112 headwords, 6,841-word focus deck, 1,271
-  archived (unchanged). Over the 1,000 accepted rows, `level-source:` is
-  `cefrj-vocabulary-profile-1.5` (892) or `oxford-3000-wordlist` (108), all POS-and-level
-  attested and free of editor notes.
+  from the pre-v1.0.0 bank; `expand_vocabulary.py` accepts **1,000 rows** (144 skips, each with a
+  recorded reason: inflection 81 · word-family 53 · comparative 6 · spelling variant 4). Bank:
+  8,852 rows, 8,112 headwords, 6,841-word focus deck, 1,271 archived (unchanged). Over the 1,000
+  accepted rows, `level-source:` is `cefrj-vocabulary-profile-1.5` (892) or
+  `oxford-3000-wordlist` (108), all POS-and-level attested and free of editor notes.
+- **Corrected level provenance (audit finding `BUG-001`, 2026-11-09):** seven rows claimed an Oxford
+  3000 band that Oxford prints for a *different* part of speech of the same headword, because the
+  level had been copied from the composite band list of a multi-POS entry (`v. A1, n. A2`) instead of
+  the band attached to the row's own POS. Fixed: `neither` adv A2→B1; `ride`, `run`, `stay`, `talk`,
+  `welcome` v and `star` n A2→A1. The shipped `senses` already carried the POS-attested band, so only
+  the legacy `level:*` tag and its `level-source` label disagreed with the data beside them. The
+  accepted distribution is therefore **506 A1 + 493 A2 + 1 B1** (previously stated as 500 + 500); the
+  source split is unchanged. `tests/test_seed_level_provenance.py` now resolves every seed row that
+  names a reference work through the pinned reference files and fails on any band the work does not
+  print for that POS (`5,316` rows checked, `0` unresolved).
 
 ### Exams — 100% non-exempt scoring coverage (`missing = 0`) & formal exemptions
 

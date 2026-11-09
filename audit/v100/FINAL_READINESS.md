@@ -15,7 +15,7 @@ Engineering workstreams `W001`–`W010` are complete and locally verified; `W011
 
 1. **Sense-Level CEFR & Lexical Integrity (`W002`–`W004`):**
    - **Inventory:** `8,852` rows (`8,112` active headwords + `740` merged word-family rows; `6,841` focus study words + `1,271` archived rows) and `1,094` standalone phrases (`P001`–`P1094`).
-   - **Phase III A1/A2 Expansion:** `500 A1 + 500 A2 = 1,000` everyday headwords (`892` `cefrj-vocabulary-profile-1.5` + `108` `oxford-3000-wordlist`, `0` editorial).
+   - **Phase III A1/A2 Expansion:** `1,000` everyday headwords — `506 A1 + 493 A2 + 1 B1` — with `892` `cefrj-vocabulary-profile-1.5` + `108` `oxford-3000-wordlist` and `0` editorial. Corrected on `2026-11-09` (audit finding `BUG-001`): the report previously stated `500 A1 + 500 A2`, but seven rows claimed a band that their reference work prints for a *different* part of speech of the same headword; each corrected row now states the band printed for its own POS (`neither` adv `A2→B1`; `ride`, `run`, `stay`, `talk`, `welcome` v and `star` n `A2→A1`) and `tests/test_seed_level_provenance.py` re-checks all `5,316` published-level seed rows.
    - **Sense Model (`8,928` senses across `8,852` entries, `75` multi-sense):**
      - `byLevel`: `A1: 942 · A2: 1,160 · B1: 1,930 · B2: 2,230 · C1: 1,478 · C2: 1,188 · UNCLASSIFIED: 0` (active `6,841` focus deck: `A1: 631 · A2: 809 · B1: 1,299 · B2: 1,768 · C1: 1,253 · C2: 1,100`; default `B2+C1` focus selection: `3,020` headwords / `3,043` senses).
      - `byEvidence`: `source_supported: 3,174 · cross_validated: 1,670 · disputed: 2,238 · editorial_estimate: 1,846 · unresolved: 0`.

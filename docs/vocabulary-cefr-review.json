@@ -17,18 +17,18 @@
   },
   "currentLegacyTagDistribution": {
     "activeByLevel": {
-      "A1": 500,
-      "A2": 500,
-      "B1": 757,
+      "A1": 506,
+      "A2": 493,
+      "B1": 758,
       "B2": 1714,
       "C1": 1638,
       "C2": 889,
       "UNCLASSIFIED": 843
     },
     "allByLevel": {
-      "A1": 500,
-      "A2": 500,
-      "B1": 1700,
+      "A1": 506,
+      "A2": 493,
+      "B1": 1701,
       "B2": 2196,
       "C1": 2087,
       "C2": 956,
@@ -2448,8 +2448,7 @@
         "phrase": "run into",
         "phraseLevel": "B2",
         "constituentLevels": [
-          "A1",
-          "A2"
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -2458,7 +2457,7 @@
         "phrase": "run over",
         "phraseLevel": "B2",
         "constituentLevels": [
-          "A2"
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -3717,7 +3716,6 @@
         "phraseLevel": "C1",
         "constituentLevels": [
           "A1",
-          "A2",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -4055,7 +4053,7 @@
         "phrase": "stay tuned",
         "phraseLevel": "C1",
         "constituentLevels": [
-          "A2"
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -6715,9 +6713,9 @@
   },
   "usefulness": {
     "activeByLevel": {
-      "A1": 500,
-      "A2": 500,
-      "B1": 757,
+      "A1": 506,
+      "A2": 493,
+      "B1": 758,
       "B2": 1714,
       "C1": 1638,
       "C2": 889,
