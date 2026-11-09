@@ -1398,3 +1398,9 @@ same test step, but its detailed log was inaccessible, so its cause is unverifie
 - `audit/v100/evidence/sense-integrity-review-queue.json` had drifted (`8393` `bloom`: `nở hoa` vs `hoa, sự nở hoa`) and nothing could detect it: the auditor had no `--check` and no workflow ran it. Refactored the auditor into `build_payload()`/`drift()` with `--check`/`--artifact`, regenerated the queue, wired the gate into `ci.yml` + `deploy.yml` (and their path filters), and added `tests/test_sense_integrity_audit_artifact.py`.
 - Wrote the artifact test first and watched it fail on the real drift, then on the missing `--check` flag and the missing workflow step — three separate failures, one per claim. It also feeds a mutated artifact to the checker so the gate proves it can fail.
 - Verified: `244` Python tests OK; `--check` matrix green; flag totals unchanged (`239`/`8,852`), so this changes evidence integrity, not review workload.
+
+### 2026-11-09 — `BUG-003`: essay rubric gated by exemption, not by parser type
+
+- Of `158` `open_ended_writing_or_speaking` exemptions, `157` are typed `essay` and one (`2022/ha-noi/so` Q51, a 250-word essay) is typed `text` by the protected parser. The rubric was gated on `responseType === 'essay'`, so that item lost its advisory feedback while the UI claimed it was exempt-but-rubric-assessed.
+- Fixed by routing the essay-shaped decisions through one `examIsEssayItem(question, key)` helper driven by the curated exemption (never by editing the parser), covering the rubric spec, rubric attachment, candidate label, verdict label, rubric hint, textarea rows and the override field.
+- Wrote `tests/exam-exempt-rubric.test.js` first and watched it fail on exactly that item; it now asserts all `158` items return `ungraded` + four-criterion advisory feedback with zero credit. `218` Node / `244` Python tests green, `--check` matrix green, both Chromium suites green.

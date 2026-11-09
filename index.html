@@ -552763,6 +552763,17 @@ function examAlignQuestionEntries(questions, entries) {
   }
   return result;
 }
+// An item can be open-ended without the protected parser typing it `essay`:
+// the curated exemption is the authority (`2022/ha-noi/so` Q51 is a 250-word
+// essay prompt whose wording the parser does not recognise). Every surface that
+// offers essay-format input or advisory rubric feedback keys off this helper,
+// so a curated open-ended item never loses the feedback it was promised.
+function examIsEssayItem(question, key = null) {
+  if (question?.responseType === 'essay') return true;
+  const record = key || question?.answerKey || null;
+  return record?.exemptionCategory === 'open_ended_writing_or_speaking'
+    || record?.ungradeableReason === 'essay-open-ended-exempt';
+}
 function examEssayRubricSpec(question) {
   const surface = `${question?.instruction || ''} ${question?.prompt || ''}`;
   const rangeMatch = surface.match(/\b(\d{2,3})\s*(?:-|–|to)\s*(\d{2,3})\s*words?\b/i);
@@ -553130,7 +553141,7 @@ function examValidateKeyRecord(question, key) {
 }
 export function getQuestionVerification(question, keyRecord = null) {
   const key = keyRecord || question?.answerKey || null;
-  const essayRubric = question?.responseType === 'essay' ? examEssayRubricSpec(question) : null;
+  const essayRubric = examIsEssayItem(question, key) ? examEssayRubricSpec(question) : null;
   if (!key || !Object.values(EXAM_ANSWER_STATUSES).includes(key.verificationStatus)) {
     return {
       status: question?.responseType === 'essay' ? EXAM_ANSWER_STATUSES.INFERRED : EXAM_ANSWER_STATUSES.MISSING,
@@ -553270,7 +553281,7 @@ export function gradeExamQuestion(question, learnerAnswer, keyRecord = null) {
   // attach an advisory 4-criterion rubric breakdown when answered.
   if (verification.scorable === false) {
     const reason = verification.ungradeableReason || 'no-usable-key';
-    if (question.responseType === 'essay' && typeof learnerAnswer === 'string' && Boolean(learnerAnswer.trim())) {
+    if (examIsEssayItem(question, verification) && typeof learnerAnswer === 'string' && Boolean(learnerAnswer.trim())) {
       const evaluated = gradeExamEssayRubric(question, learnerAnswer, verification);
       return {
         ...base,
@@ -556463,7 +556474,7 @@ export async function createApp(root) {
     return extractExamAnswerKeys(record.markdown, questions, record);
   }
   function examCandidateLabel(question, key) {
-    if (question.responseType === 'essay' && (!key?.candidates?.length || /^\[.*rubric\]$/i.test(key.candidates[0]))) {
+    if (examIsEssayItem(question, key) && (!key?.candidates?.length || /^\[.*rubric\]$/i.test(key.candidates[0]))) {
       const spec = key?.rubric || examEssayRubricSpec(question);
       return language === 'en'
         ? `4-criterion rubric (${spec.minWords}–${spec.maxWords} words)`
@@ -556531,7 +556542,7 @@ export async function createApp(root) {
   // learner may well be right and the machine guess wrong.
   function examVerdictLabel(grade, question) {
     if (grade?.scorable === false) {
-      if (grade?.exempt && question?.responseType === 'essay') {
+      if (grade?.exempt && examIsEssayItem(question, grade)) {
         return language === 'en' ? 'Exempt (advisory rubric)' : 'Miễn chấm điểm (Rubric tham khảo)';
       }
       return language === 'en' ? 'Not scored (exempt)' : 'Không chấm (ngoài mẫu số)';
@@ -556670,7 +556681,7 @@ export async function createApp(root) {
       const notScorableMarkup = key?.scorable === false || (grade && grade.scorable === false)
         ? `<div class="exam-stimulus-banner" role="note"><strong>${L('Không tính vào mẫu số điểm:', 'Excluded from score denominator:')}</strong> ${escapeHtml(ungradeableReasons[key?.ungradeableReason || grade?.ungradeableReason] || L('Không có đáp án dùng được cho câu này.', 'No usable answer for this item.'))}</div>`
         : '';
-      const rubricHintMarkup = question.responseType === 'essay'
+      const rubricHintMarkup = examIsEssayItem(question, key)
         ? (() => {
           const spec = key?.rubric || examEssayRubricSpec(question);
           return `<p class="exam-question-instruction">${L(`Miễn tính vào mẫu số điểm khách quan · Bảng tự đánh giá tham khảo theo Rubric 4 tiêu chí (${spec.minWords}–${spec.maxWords} từ): Đáp ứng yêu cầu đề (30%) · Bố cục & mạch lạc (25%) · Từ vựng (25%) · Ngữ pháp (20%).`, `Formally exempt from objective score denominator · Advisory 4-criterion self-review rubric (${spec.minWords}–${spec.maxWords} words): Task (30%) · Coherence (25%) · Lexis (25%) · Grammar (20%).`)}</p>`;
@@ -556681,14 +556692,14 @@ export async function createApp(root) {
           const selected = question.responseType === 'multiple' ? Array.isArray(response) && response.includes(option.id) : response === option.id;
           return `<button class="exam-practice-option" data-practice-choice="${escapeHtml(option.id)}" aria-pressed="${selected}" ${submitted ? 'disabled' : ''}><span class="exam-practice-option-label">${escapeHtml(option.label)}.</span><span class="exam-question-source">${escapeHtml(option.text)}</span></button>`;
         }).join('')}</div>`
-        : `<label for="exam-practice-response">${L('Câu trả lời của bạn', 'Your answer')}</label><textarea class="exam-practice-response" id="exam-practice-response" rows="${question.responseType === 'essay' ? 7 : 3}" maxlength="20000" ${submitted ? 'disabled' : ''}>${escapeHtml(typeof response === 'string' ? response : '')}</textarea>`;
+        : `<label for="exam-practice-response">${L('Câu trả lời của bạn', 'Your answer')}</label><textarea class="exam-practice-response" id="exam-practice-response" rows="${examIsEssayItem(question, key) ? 7 : 3}" maxlength="20000" ${submitted ? 'disabled' : ''}>${escapeHtml(typeof response === 'string' ? response : '')}</textarea>`;
       const rubricTable = submitted && grade?.rubricEvaluation
         ? `<table class="exam-rubric-table"><thead><tr><th>${escapeHtml(L(`Tiêu chí Rubric (${grade.rubricEvaluation.wordCount} từ)`, `Rubric criterion (${grade.rubricEvaluation.wordCount} words)`))}</th><th>${escapeHtml(L('Điểm tạm tính', 'Provisional credit'))}</th></tr></thead><tbody>${grade.rubricEvaluation.criteriaScores.map(cs => `<tr><td>${escapeHtml(language === 'en' ? cs.labelEn : cs.labelVi)}</td><td>${cs.earned} / ${cs.max}</td></tr>`).join('')}</tbody></table>`
         : '';
-      const corrInputVal = question.responseType === 'essay'
+      const corrInputVal = examIsEssayItem(question, key)
         ? (key?.verificationStatus === 'user_confirmed' ? (key.candidates?.[0] || '') : '')
         : (key?.candidates?.map(id => question.options?.find(o => o.id === id)?.label || id).join(', ') || '');
-      const corrLabel = question.responseType === 'essay'
+      const corrLabel = examIsEssayItem(question, key)
         ? L('Điểm tự chấm hiệu chỉnh (từ 0 đến 1, ví dụ 0.75)', 'Override rubric credit (0 to 1, e.g. 0.75)')
         : L('Đáp án đúng (nhãn lựa chọn hoặc văn bản; dùng ; cho phương án phụ)', 'Correct answer (choice label or text; use ; for alternatives)');
       const inferredNote = submitted && grade?.result === 'incorrect' && grade.answerKeyInferred

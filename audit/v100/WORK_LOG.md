@@ -195,3 +195,19 @@
 - **Validation method:** fail-first unit test, a negative-control test against a mutated artifact, whole `unittest` suite, `--check` matrix.
 - **Status:** `VERIFIED`
 - **Outcome:** extracted `build_payload()`/`drift()`, added `--check`/`--artifact`, regenerated the queue (2 lines: `8393` meaning in the entry and in its `senses`), wired the gate into both workflows and their path filters, and pinned it with four new tests. Flag count and issue counts are unchanged (`239` of `8,852`), so this is evidence hygiene, not a change to which entries need review.
+
+---
+
+### `W014` — Audit finding `BUG-003`: the one `text`-typed open-ended exemption never received its advisory rubric
+- **Problem statement:** `2022/ha-noi/so` `q-51-9c5133cba3668e8e` is a 250-word academic essay prompt curated as `open_ended_writing_or_speaking`, but the protected `parseExamQuestions` types it `text`. `getQuestionVerification` and `gradeExamQuestion` keyed the 4-criterion rubric on `responseType === 'essay'`, so answering it returned `ungraded` (`essay-open-ended-exempt`) with no `advisoryRubricEvaluation`, while the exemption strip and `FINAL_READINESS.md` promised advisory feedback. The UI also rendered a 3-row textarea.
+- **Affected files / scope:** `index.html` (app module only), `.github/workflows/{ci,deploy}.yml` (new test file), `tests/exam-exempt-rubric.test.js` (new), `CHANGELOG.md`.
+- **Expected result:** every curated open-ended exemption, whatever its parser response type, keeps its rubric, its essay-shaped input and its exemption semantics.
+- **Acceptance criteria:**
+  1. The new test fails before the change on exactly this item and passes after.
+  2. All `158` exemptions return `ungraded` + `advisoryRubricEvaluation` with four criteria and `earnedCredit = 0`.
+  3. `parseExamQuestions` / `extractExamAnswerKeys` are byte-identical; the score denominator is unchanged (`5,155 / 6,708`).
+- **Validation method:** data-driven fail-first Node test over the shipped archive, full Python/Node suites, `--check` matrix, both Chromium browser suites.
+- **Status:** `VERIFIED`
+- **Outcome:** added `examIsEssayItem(question, key)` (essay response type **or** curated `open_ended_writing_or_speaking` / `essay-open-ended-exempt`) and routed eight call sites through it — rubric construction, rubric attachment on the exempt path, candidate label, verdict label, rubric hint, textarea rows, and the override field/label. The protected parser was not touched. `tests/exam-exempt-rubric.test.js` now pins all `158` exemptions and names the `text`-typed case explicitly.
+
+---

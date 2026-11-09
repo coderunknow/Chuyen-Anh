@@ -52,6 +52,16 @@ until `v1.0.0` is published as a non-draft stable release and separately authori
   - **Formal exemption taxonomy (`1,553` items):** `structural_transcription_defect: 768`, `missing_stimulus: 627`, `open_ended_writing_or_speaking: 158` (`byUngradeableReason`: `ocr-structural-defect: 749`, `stimulus-incomplete: 627`, `essay-open-ended-exempt: 158`, `option-overflow: 12`, `key-not-an-option: 7`). Open-ended writing/speaking prompts are excluded from the objective score denominator while still providing advisory 4-criterion rubric feedback (`advisoryRubricEvaluation`) when answered, and submitted summaries display an explicit `#exam-exemption-breakdown` strip.
   - `officialScore` remains `null`/`false` (`0/106` papers checked against sealed primary official marking sheets).
 
+  - **Advisory rubric reaches every exempt open-ended item (audit finding `BUG-003`, 2026-11-09):**
+    `2022/ha-noi/so` Q51 is a 250-word academic essay prompt that the protected parser types as `text`,
+    because its wording is not the pattern that parser recognises as an essay. The runtime keyed the
+    4-criterion rubric on `responseType === 'essay'`, so that one item returned `ungraded` with **no**
+    rubric and a 3-row textarea, while the exemption strip and the readiness documentation both promised
+    feedback. Of the `158` `open_ended_writing_or_speaking` exemptions, `157` are typed `essay` and one is
+    typed `text`. A single `examIsEssayItem(question, key)` helper now decides essay-format input, the
+    rubric hint, the verdict label and the override field from the curated exemption, so the parser stays
+    untouched and `tests/exam-exempt-rubric.test.js` proves all `158` items yield advisory feedback.
+
 ### Verification
 
 - **Validators & `--check` gates:** `expand_vocabulary`, `build_vocabulary`, `build_senses`, `audit_sense_sources`, `validate_vocab`, `embed_vocabulary`, `build_phrases`, `validate_phrases`, `embed_phrases`, `build_answer_keys`, `verify_curated_keys`, `audit_rendering`, `classify_anomalies`, `embed_archive`, `audit_vocabulary_quality`, `vocabulary_cefr_review`, `vocabulary_evidence_review`, `rc4_vocabulary_audit`, `audit_exam_provenance`, `generate_vocab_audit_dev5`, and `sense_integrity_audit` (new `--check` mode, wired into `ci.yml` and `deploy.yml`) all pass cleanly.
