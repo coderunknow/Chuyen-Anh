@@ -10163,7 +10163,7 @@
       "id": "8393",
       "word": "bloom",
       "pos": "n",
-      "meaning": "nở hoa",
+      "meaning": "hoa, sự nở hoa",
       "issues": [
         "reference vote uses unmatched POS; review scope"
       ],
@@ -10174,7 +10174,7 @@
         {
           "senseId": "8393-s1",
           "label": "",
-          "meaning": "nở hoa",
+          "meaning": "hoa, sự nở hoa",
           "pos": "n",
           "cefr": "A2",
           "evidence": "source_supported",

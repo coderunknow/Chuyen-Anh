@@ -18,6 +18,7 @@ on:
       - "scripts/sense_integrity_audit.py"
       - "scripts/audit_sense_sources.py"
       - "audit/v100/evidence/source-locator-review.json"
+      - "audit/v100/evidence/sense-integrity-review-queue.json"
       - "scripts/cefr_editorial_map.py"
       - "scripts/migrate_senses.py"
       - "scripts/audit_learned_vocab.py"
@@ -97,6 +98,7 @@ on:
       - "scripts/sense_integrity_audit.py"
       - "scripts/audit_sense_sources.py"
       - "audit/v100/evidence/source-locator-review.json"
+      - "audit/v100/evidence/sense-integrity-review-queue.json"
       - "scripts/cefr_editorial_map.py"
       - "scripts/migrate_senses.py"
       - "scripts/audit_learned_vocab.py"
@@ -188,6 +190,7 @@ jobs:
           python scripts/build_vocabulary.py --check
           python scripts/build_senses.py --check
           python scripts/audit_sense_sources.py --check
+          python scripts/sense_integrity_audit.py --check
           python scripts/generate_vocab_audit_dev5.py --check
           python scripts/validate_vocab.py
           python scripts/embed_vocabulary.py --check

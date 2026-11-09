@@ -88,6 +88,7 @@ jobs:
           python scripts/expand_vocabulary.py --check
           python scripts/build_senses.py --check
           python scripts/audit_sense_sources.py --check
+          python scripts/sense_integrity_audit.py --check
           python scripts/validate_vocab.py
           python scripts/embed_vocabulary.py --check
           node scripts/exams/build_answer_keys.mjs --check

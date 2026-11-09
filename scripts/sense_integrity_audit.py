@@ -6,6 +6,7 @@ agreement is not evidence of agreement for an individual sense. This report is a
 review queue, not an automated judgement about the correct mapping.
 """
 from __future__ import annotations
+import argparse
 import json
 import re
 import sys
@@ -49,7 +50,11 @@ def entry_issues(entry: dict, oxford_rows: dict) -> list[str]:
     return sorted(issues)
 
 
-def main() -> None:
+ARTIFACT = ROOT / 'audit' / 'v100' / 'evidence' / 'sense-integrity-review-queue.json'
+
+
+def build_payload() -> dict:
+    """The full review queue, rebuilt from the shipped vocabulary data."""
     refs = References()
     lookup = {(row['file'], row['line']): row for rows in refs.oxford.values() for row in rows}
     data = json.loads((ROOT / 'data/vocabulary.json').read_text(encoding='utf-8'))
@@ -65,10 +70,55 @@ def main() -> None:
                             'meaning': entry['meaning'], 'issues': issues,
                             'unmatchedPosVoteSources': fallback, 'senses': entry['senses']})
     counts = Counter(issue for row in flagged for issue in row['issues'])
-    payload = {'scope': 'heuristic review queue; unflagged entries are not verified',
-               'entriesInspected': len(data), 'entriesFlagged': len(flagged),
-               'issueCounts': dict(sorted(counts.items())), 'entries': flagged}
+    return {'scope': 'heuristic review queue; unflagged entries are not verified',
+            'entriesInspected': len(data), 'entriesFlagged': len(flagged),
+            'issueCounts': dict(sorted(counts.items())), 'entries': flagged}
+
+
+def drift(committed: dict, fresh: dict) -> list[str]:
+    """Entries and counts that differ, so a stale artifact names itself."""
+    old = {row['id']: row for row in committed.get('entries', [])}
+    new = {row['id']: row for row in fresh.get('entries', [])}
+    problems = []
+    for entry_id in sorted(set(old) | set(new)):
+        if old.get(entry_id) != new.get(entry_id):
+            was, now = old.get(entry_id) or {}, new.get(entry_id) or {}
+            problems.append(f"{entry_id} {was.get('word') or now.get('word')}: committed meaning "
+                            f"{was.get('meaning')!r}, data says {now.get('meaning')!r}")
+    for key in ('entriesInspected', 'entriesFlagged', 'issueCounts'):
+        if committed.get(key) != fresh.get(key):
+            problems.append(f"{key}: committed {committed.get(key)!r}, data says {fresh.get(key)!r}")
+    return problems
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--check', action='store_true',
+                        help='verify the committed review queue is current without writing')
+    parser.add_argument('--artifact', type=Path, default=ARTIFACT,
+                        help='committed review queue to compare against (default: the v100 evidence file)')
+    args = parser.parse_args(argv)
+
+    payload = build_payload()
+    if args.check:
+        if not args.artifact.exists():
+            print(f'{args.artifact} is missing', file=sys.stderr)
+            return 1
+        committed = json.loads(args.artifact.read_text(encoding='utf-8'))
+        problems = drift(committed, payload)
+        if problems:
+            print(f'{args.artifact} is stale; regenerate it with '
+                  f'`python scripts/sense_integrity_audit.py > {args.artifact}`', file=sys.stderr)
+            for problem in problems:
+                print(f'  {problem}', file=sys.stderr)
+            return 1
+        print(f'sense-integrity review queue matches ({len(payload["entries"])} flagged '
+              f'of {payload["entriesInspected"]} entries)')
+        return 0
+
     print(json.dumps(payload, ensure_ascii=False, indent=2))
+    return 0
+
 
 if __name__ == '__main__':
-    main()
+    raise SystemExit(main())

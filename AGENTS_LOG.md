@@ -1392,3 +1392,9 @@ same test step, but its detailed log was inaccessible, so its cause is unverifie
 - Edited only the seven `LEVEL` cells, regenerated the full pipeline and every derived audit artifact, and updated the four documents that stated `500 A1 + 500 A2`. Appended `GATES.md` `S31` and `WORK_LOG.md` `W012` rather than rewriting `S12`/`W004`.
 - Verified: seed test `OK`; Python `discover` `240` tests OK; Node suites green on the regenerated payload; all `--check` gates exit `0`; `git diff main` still empty for `DEPLOY_HOLD`, `AGENT.md`, the exam archive, and the protected historical audits; zero deleted lines in this log and in `DESIGN_LOG.md`.
 - Not verified: live GitHub Pages, workflow execution, telemetry endpoint, Firefox/WebKit locally, and any human semantic review of the corrected bands beyond the automated reference resolution.
+
+### 2026-11-09 — `BUG-002`: the review queue is now checked, not just committed
+
+- `audit/v100/evidence/sense-integrity-review-queue.json` had drifted (`8393` `bloom`: `nở hoa` vs `hoa, sự nở hoa`) and nothing could detect it: the auditor had no `--check` and no workflow ran it. Refactored the auditor into `build_payload()`/`drift()` with `--check`/`--artifact`, regenerated the queue, wired the gate into `ci.yml` + `deploy.yml` (and their path filters), and added `tests/test_sense_integrity_audit_artifact.py`.
+- Wrote the artifact test first and watched it fail on the real drift, then on the missing `--check` flag and the missing workflow step — three separate failures, one per claim. It also feeds a mutated artifact to the checker so the gate proves it can fail.
+- Verified: `244` Python tests OK; `--check` matrix green; flag totals unchanged (`239`/`8,852`), so this changes evidence integrity, not review workload.

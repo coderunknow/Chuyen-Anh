@@ -17,6 +17,14 @@ until `v1.0.0` is published as a non-draft stable release and separately authori
   - **Multi-sense & seed hygiene:** Mapped `72` multi-POS / multi-sense splits with Cambridge EVP sense-level badges + entry `8174` (`March`), corrected `27` cardinal/ordinal numeral rows from `n` to `number` and `24` proper-noun capitalizations in `data/vocab-seed/*.tsv` (leaving `Learned_Vocabulary_List.md` legacy IDs untouched), and added a `WeakMap` `distractorPoolCache` in `index.html` reducing session consolidation/retry DOM transitions to `3 ms` median.
   - All `1,945` editorial estimates and editorial sense-gloss alignments retain `needsIndependentValidation: true` as an explicit provenance disclosure.
 
+  - **Committed review queue kept current (audit finding `BUG-002`, 2026-11-09):**
+    `audit/v100/evidence/sense-integrity-review-queue.json` had drifted from the data it describes —
+    `8393` (`bloom`) was queued with the gloss `nở hoa` while the shipped row reads `hoa, sự nở hoa` — and no
+    gate could notice because the auditor had no `--check` mode and no workflow ran it. The queue was
+    regenerated (still `239` flagged of `8,852`; issue counts unchanged), `scripts/sense_integrity_audit.py`
+    gained `--check`/`--artifact`, and the check now runs in `ci.yml` and `deploy.yml`, with
+    `tests/test_sense_integrity_audit_artifact.py` pinning the artifact against a fresh regeneration.
+
 ### Phase III — +1,000 A1/A2 headwords with POS-attested level provenance
 
 - `data/vocab-seed/22-a1a2-stable.tsv`: 1,144 CEFR-J/Oxford-3000 A1/A2 candidates absent
@@ -46,7 +54,7 @@ until `v1.0.0` is published as a non-draft stable release and separately authori
 
 ### Verification
 
-- **Validators & `--check` gates:** `expand_vocabulary`, `build_vocabulary`, `build_senses`, `audit_sense_sources`, `validate_vocab`, `embed_vocabulary`, `build_phrases`, `validate_phrases`, `embed_phrases`, `build_answer_keys`, `verify_curated_keys`, `audit_rendering`, `classify_anomalies`, `embed_archive`, `audit_vocabulary_quality`, `vocabulary_cefr_review`, `vocabulary_evidence_review`, `rc4_vocabulary_audit`, `audit_exam_provenance`, and `generate_vocab_audit_dev5` all pass cleanly.
+- **Validators & `--check` gates:** `expand_vocabulary`, `build_vocabulary`, `build_senses`, `audit_sense_sources`, `validate_vocab`, `embed_vocabulary`, `build_phrases`, `validate_phrases`, `embed_phrases`, `build_answer_keys`, `verify_curated_keys`, `audit_rendering`, `classify_anomalies`, `embed_archive`, `audit_vocabulary_quality`, `vocabulary_cefr_review`, `vocabulary_evidence_review`, `rc4_vocabulary_audit`, `audit_exam_provenance`, `generate_vocab_audit_dev5`, and `sense_integrity_audit` (new `--check` mode, wired into `ci.yml` and `deploy.yml`) all pass cleanly.
 - **Automated suites:** Python `unittest` **237 OK** + `scripts/exams/test_archive.py` **5 OK**; Node `static-app.test.js` (`144`) + `exam-scoring.test.js` (`28`) + `exam-anomalies.test.js` (`7`) + `rc10-cefr.test.js` (`10`) + `v100-senses.test.js` (`8`) + `telemetry-api.test.js` (`17`) = **214 pass / 0 fail**; sequential Chromium E2E (`browser-learning.cjs` + `browser-exams.cjs` with `axe-core` WCAG 2.1 AA, `320–1440px` viewports, VI/EN, Classic/Modern, light/dark, `file://` standalone) **PASS**; `speed-benchmark.cjs` **PASS** (`3 ms` median consolidation/retry DOM latency, `0` page errors).
 - Current gates, defects, work log, and readiness report: `audit/v100/{GATES,DEFECTS,WORK_LOG,FINAL_READINESS_CHECKLIST,FINAL_READINESS}.md`.
   Separate explicit authorization is required before merge, tag, release or deployment.

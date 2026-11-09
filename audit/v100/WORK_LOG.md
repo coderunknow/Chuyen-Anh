@@ -181,3 +181,17 @@
 - **Validation method:** Test-first reproduction (`FAIL` with the 7 rows, then `OK`), full pipeline regeneration, whole `--check` matrix, Python + Node suites, local Chromium E2E.
 - **Status:** `VERIFIED`
 - **Outcome:** Corrected the seven rows (`neither` `A2→B1`; `ride`, `run`, `stay`, `talk`, `welcome`, `star` `A2→A1`), regenerated the vocabulary payload and every derived audit artifact, and added `tests/test_seed_level_provenance.py`, which resolves all `5,316` published-level seed rows through the pinned references (`0` unattested, `0` unresolved). Distribution moved from `500 A1 + 500 A2` to `506 A1 + 493 A2 + 1 B1`; the source split is unchanged (`892` CEFR-J + `108` Oxford 3000). Consequence recorded: `neither` (`8605`) is now a B1 row in the focus deck and is queued for a curator decision (`rule:b1-baseline-general`) instead of being archived automatically; deck membership was not changed.
+
+---
+
+### `W013` — Audit finding `BUG-002`: committed sense-integrity evidence had drifted with no gate able to notice
+- **Problem statement:** `audit/v100/evidence/sense-integrity-review-queue.json` disagreed with the shipped data on entry `8393` (`bloom`): the committed queue recorded the gloss `nở hoa` while `data/vocabulary.json` (and the same file's own `senses` copy) says `hoa, sự nở hoa`. `scripts/sense_integrity_audit.py` only printed to stdout, had no `--check`, and no workflow ran it, so the evidence could drift silently while every gate stayed green.
+- **Affected files / scope:** `scripts/sense_integrity_audit.py` (`build_payload`, `drift`, `--check`, `--artifact`), `audit/v100/evidence/sense-integrity-review-queue.json`, `.github/workflows/ci.yml`, `.github/workflows/deploy.yml`, `tests/test_sense_integrity_audit_artifact.py` (new), `CHANGELOG.md`.
+- **Expected result:** the committed queue equals a fresh rebuild; a stale queue fails both the script and CI; the guard is exercised by a test that can fail.
+- **Acceptance criteria:**
+  1. `tests/test_sense_integrity_audit_artifact.py` fails before the change, naming `8393 bloom`, and passes after.
+  2. `python scripts/sense_integrity_audit.py --check` exits `0` for the current artifact and non-zero for a deliberately drifted copy.
+  3. `ci.yml` and `deploy.yml` both run the check, and the CI path filters include the evidence file.
+- **Validation method:** fail-first unit test, a negative-control test against a mutated artifact, whole `unittest` suite, `--check` matrix.
+- **Status:** `VERIFIED`
+- **Outcome:** extracted `build_payload()`/`drift()`, added `--check`/`--artifact`, regenerated the queue (2 lines: `8393` meaning in the entry and in its `senses`), wired the gate into both workflows and their path filters, and pinned it with four new tests. Flag count and issue counts are unchanged (`239` of `8,852`), so this is evidence hygiene, not a change to which entries need review.
