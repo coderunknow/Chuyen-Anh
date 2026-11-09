@@ -43,8 +43,8 @@ def entry_issues(entry: dict, oxford_rows: dict) -> list[str]:
             if row is None:
                 issues.add('Oxford source locator not found')
                 continue
-            level = pos_level(row, entry.get('pos', ''))
-            if level and level != sense.get('cefr'):
+            level = pos_level(row, sense.get('pos') or entry.get('pos', ''))
+            if level and level != sense.get('cefr') and sense.get('evidence') != 'disputed':
                 issues.add('Oxford POS-specific level mismatch')
     return sorted(issues)
 

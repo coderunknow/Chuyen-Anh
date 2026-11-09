@@ -149,6 +149,7 @@ on:
       - "AGENTS_LOG.md"
       - "De-chuyen-Anh-vao-10/**"
       - "tests/**"
+      - "audit/v100/refs/**"
       - "api/**"
       - "app.js"
       - "vercel.json"
@@ -194,6 +195,7 @@ jobs:
           python scripts/validate_phrases.py
           python scripts/embed_phrases.py --check
           node scripts/exams/build_answer_keys.mjs --check
+          node scripts/exams/verify_curated_keys.mjs
           node scripts/exams/audit_rendering.mjs --check
           node scripts/exams/classify_anomalies.mjs --check
           python scripts/exams/embed_archive.py --check

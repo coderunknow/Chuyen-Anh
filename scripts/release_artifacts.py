@@ -65,12 +65,18 @@ def test_source(source: pathlib.Path) -> None:
     run([sys.executable, "scripts/embed_vocabulary.py", "--check"], cwd=source)
     if (source / "scripts/exams/embed_archive.py").exists():
         run(["node", "scripts/exams/build_answer_keys.mjs", "--check"], cwd=source)
+        if (source / "scripts/exams/verify_curated_keys.mjs").exists():
+            run(["node", "scripts/exams/verify_curated_keys.mjs"], cwd=source)
         run(["node", "scripts/exams/audit_rendering.mjs", "--check"], cwd=source)
         run([sys.executable, "scripts/exams/embed_archive.py", "--check"], cwd=source)
     if (source / "tests").exists():
         run([sys.executable, "-m", "unittest", "discover", "-s", "tests", "-p", "test_*.py"], cwd=source)
         if (source / "tests/static-app.test.js").exists():
-            run(["node", "--test", "tests/static-app.test.js", "tests/exam-scoring.test.js"], cwd=source)
+            node_suites = ["tests/static-app.test.js", "tests/exam-scoring.test.js"]
+            for extra in ("tests/exam-anomalies.test.js", "tests/rc10-cefr.test.js", "tests/v100-senses.test.js"):
+                if (source / extra).exists():
+                    node_suites.append(extra)
+            run(["node", "--test", *node_suites], cwd=source)
 
 
 def write_manifest(artifacts: dict[str, pathlib.Path], manifest_path: pathlib.Path) -> None:

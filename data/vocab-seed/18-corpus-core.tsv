@@ -79,7 +79,7 @@ presence	n	sự hiện diện	B2	academic	topic	reading	oxford-3000-5000
 anywhere	adv	bất cứ đâu	B1	daily-life	topic	reading
 cheap	adj	rẻ	B1	economics	topic	reading
 lunch	n	bữa trưa	B1	food	topic	reading
-twenty	n	hai mươi	B1	academic	topic	reading
+twenty	number	hai mươi	B1	academic	topic	reading
 harm	n	tác hại	B2	health	topic	reading
 telephone	n	điện thoại	B1	technology	topic	reading
 alike	adv	giống nhau	C1	academic	topic	reading	oxford-3000-5000
@@ -138,7 +138,7 @@ particle	n	hạt	B2	science	topic	reading
 disadvantage	n	bất lợi	B1	society	topic	reading	oxford-3000-5000
 punctuation	n	dấu câu	B2	education	topic	reading
 flight	n	chuyến bay	B1	travel	topic	reading
-fourth	n	thứ tư	B1	academic	topic	reading
+fourth	number	thứ tư	B1	academic	topic	reading
 previously	adv	trước đây	B1	academic	topic	reading	oxford-3000-5000
 separate	adj	tách biệt, riêng rẽ	B2	academic	topic	reading
 aid	n	viện trợ, sự giúp đỡ	B2	society	topic	reading	oxford-3000-5000
@@ -151,8 +151,8 @@ transportation	n	giao thông, vận tải	B2	travel	topic	reading	oxford-3000-50
 musical	adj	thuộc âm nhạc	B1	culture	topic	reading
 province	n	tỉnh	C1	politics	topic	reading	oxford-3000-5000
 thick	adj	dày	B1	daily-life	topic	reading
-twelve	n	mười hai	B1	academic	topic	reading
-fifty	n	năm mươi	B1	academic	topic	reading
+twelve	number	mười hai	B1	academic	topic	reading
+fifty	number	năm mươi	B1	academic	topic	reading
 breathe	v	thở	B1	health	topic	reading	oxford-3000-5000
 contrary	adj	trái ngược	C1	academic	topic	reading	oxford-3000-5000
 hurry	v	vội vàng	B1	daily-life	topic	reading	oxford-3000-5000
@@ -164,7 +164,7 @@ drug	n	thuốc, ma tuý	B2	health	topic	reading
 mouth	n	miệng	B1	health	topic	reading
 seat	n	chỗ ngồi	B1	travel	topic	reading
 firm	n	công ty, hãng	B2	economics	topic	reading	oxford-3000-5000
-fifth	n	thứ năm	B1	academic	topic	reading
+fifth	number	thứ năm	B1	academic	topic	reading
 purchase	v	mua	B2	economics	topic	reading
 crowd	n	đám đông	B2	society	topic	reading
 proof	n	bằng chứng	B2	academic	topic	reading	oxford-3000-5000
@@ -187,7 +187,7 @@ globe	n	địa cầu, quả địa cầu	B2	environment	topic	reading	oxford-300
 examination	n	kỳ thi, sự kiểm tra	B2	education	topic	reading	oxford-3000-5000
 instrument	n	nhạc cụ, dụng cụ	B2	culture	topic	reading
 unnecessary	adj	không cần thiết	B1	academic	topic	reading	oxford-3000-5000
-fifteen	n	mười lăm	B1	academic	topic	reading
+fifteen	number	mười lăm	B1	academic	topic	reading
 tense	adj	căng thẳng	B1	psychology	topic	reading	cefrj-vocabulary-profile-1.5
 desirable	adj	đáng mong muốn	C1	academic	topic	reading	oxford-3000-5000
 cast	v	chọn vai, phân vai	B2	culture	topic	reading	oxford-3000-5000
@@ -239,7 +239,7 @@ coastal	adj	ven biển	C1	environment	topic	reading	oxford-3000-5000
 distant	adj	xa xôi	B2	travel	topic	reading	oxford-3000-5000
 awake	adj	thức giấc, tỉnh táo	B1	health	topic	reading
 logical	adj	hợp logic	B2	academic	topic	reading	oxford-3000-5000
-eleven	n	mười một	B1	academic	topic	reading
+eleven	number	mười một	B1	academic	topic	reading
 handful	n	một số ít	C1	academic	topic	reading	oxford-3000-5000
 workplace	n	nơi làm việc	B2	work	topic	reading	oxford-3000-5000
 warn	v	cảnh báo	B1	media	topic	reading	oxford-3000-5000
@@ -261,7 +261,7 @@ pitch	n	sân bóng, cao độ	B2	sport	topic	reading
 dust	n	bụi	B1	environment	topic	reading	oxford-3000-5000
 hire	v	thuê, tuyển dụng	B1	work	topic	reading
 belong	v	thuộc về	B1	society	topic	reading
-thirty	n	ba mươi	B1	academic	topic	reading
+thirty	number	ba mươi	B1	academic	topic	reading
 grateful	adj	biết ơn	B1	psychology	topic	reading	oxford-3000-5000
 genius	n	thiên tài	B2	psychology	topic	reading
 steady	adj	đều đặn, vững chắc	B2	academic	topic	reading	oxford-3000-5000
@@ -270,7 +270,7 @@ lazy	adj	lười biếng	B1	psychology	topic	reading
 climb	v	leo, trèo	B1	sport	topic	reading
 completion	n	sự hoàn thành	B2	work	topic	reading
 correctly	adv	một cách chính xác	B1	academic	topic	reading
-forty	n	bốn mươi	B1	academic	topic	reading
+forty	number	bốn mươi	B1	academic	topic	reading
 privilege	n	đặc quyền	C1	society	topic	reading	oxford-3000-5000
 emotion	n	cảm xúc	B1	psychology	topic	reading	oxford-3000-5000
 sadly	adv	đáng buồn, buồn thay	B1	psychology	topic	reading

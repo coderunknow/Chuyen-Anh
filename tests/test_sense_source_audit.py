@@ -40,4 +40,16 @@ class SourceLocatorTests(unittest.TestCase):
         self.assertEqual(results[0]['locatorAssessment'], 'matching source group(s) found')
         self.assertEqual(results[0]['independentReview'], 'not reviewed')
 
+    def test_cambridge_evp_locator_checks_word_pos_and_level(self):
+        first_evp_line = (ROOT / 'audit/v100/refs/cambridge-evp-verified.tsv').read_text(encoding='utf-8').splitlines()[1]
+        cols = first_evp_line.split('\t')
+        headword, pos, level = cols[0], cols[1], cols[3]
+        pos_map = {'noun': 'n', 'verb': 'v', 'adjective': 'adj', 'adverb': 'adv', 'exclamation': 'interj'}
+        short_pos = pos_map.get(pos, pos)
+        source = {'ref': 'cambridge-evp', 'locator': f'cambridge-evp-verified.tsv:2: {headword}'}
+        self.assertEqual(audit.match_source({'word': headword, 'pos': short_pos}, level, source, self.index), 'match')
+        wrong_level = 'C2' if level != 'C2' else 'A1'
+        self.assertEqual(audit.match_source({'word': headword, 'pos': short_pos}, wrong_level, source, self.index), 'level mismatch')
+        self.assertEqual(audit.match_source({'word': 'zzzznotaword', 'pos': short_pos}, level, source, self.index), 'headword mismatch')
+
 if __name__ == '__main__': unittest.main()

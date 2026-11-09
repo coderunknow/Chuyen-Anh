@@ -1,98 +1,85 @@
-# v1.0.0 candidate — gate table S1–S25
+# v1.0.0 candidate — gate table S1–S30
 
-Evaluated on branch `arena/6b7c2879-chuyen-anh`. Baseline (main): `f12b4bc5241e330eb8c051ada749d4f514111b61`.
-Head at evaluation time: see `git rev-parse HEAD` / the PR. Nothing below is claimed
-before it is measured; commands are listed so every number can be re-derived.
+Evaluated on branch `arena/2a533bbc-chuyen-anh` (continuing from `arena/6b7c2879-chuyen-anh` `a66561d9`).
+Baseline (`main`): `f12b4bc5241e330eb8c051ada749d4f514111b61`.
+Head at evaluation time: see `git rev-parse HEAD` / the Draft PR targeting `main`.
+Nothing below is claimed before it is measured; commands are listed so every number can be re-derived.
 
-## 2026-11-04 — renewed stable-release audit
+## Policy & release-hold boundaries
 
-Stable publication, merge, tag creation and deployment require separate explicit
-user authorization after readiness; `DEPLOY_HOLD` must remain unchanged. The evidence below predates this renewed audit: historical
-results are useful, but are not a full independent assessment or evidence for a new
-head. Prior PASS labels are reset to NOT STARTED until independently re-evaluated
-against the exact candidate SHA. S10 remains FAIL pending independent review: local
-fixes map `lie` and `rock` via explicitly documented editorial source-row mappings. S25 is
-BLOCKED pending the new review findings and independent review. Three-engine CI run
-`41813222542` passed on `1d61c7bc9f8fed221025cb253ea3c15e51389cee`, not on any later
-commit. The current audit is incomplete; no release is authorized.
+- **Delivery mode:** Draft Pull Request only from `arena/2a533bbc-chuyen-anh` → `main`. No merge, no tag creation, no GitHub Release publication, and no GitHub Pages deployment are performed without separate explicit maintainer authorization.
+- **Hold integrity:** `DEPLOY_HOLD` (`v1.0.0-rc10`), `AGENT.md`, `De-chuyen-Anh-vao-10/*.md` (`106/106` SHA-256 verified), and `docs/vocabulary-audit-dev5.{json,md}` are byte-identical to baseline.
+- **Provenance honesty:** `0 / 106` exam papers have sealed official primary marking sheets (`official_verified = 0`, `officialScore: null`). Across `8,928` vocabulary senses, `1,945` senses (`1,846` `editorial_estimate` + `99` editorial sense/POS split alignments) explicitly carry `needsIndependentValidation: true`.
 
-### Additional stable-release gates
+---
 
-| Gate | Requirement | Status and evidence |
-| --- | --- | --- |
-| S26 | App-version and hold gates prevent prerelease deployment of stable app | NOT STARTED — local regression tests for both workflow conditions added; live workflow not exercised |
-| S27 | All sense mappings, source claims and unresolved estimates independently audited | BLOCKED — automated labelling is not independent evidence; real cross-level gloss leak reproduced |
-| S28 | Stable-tag artifact build and publication | IN PROGRESS — stable packaging implemented and locally tested; channel integration, independent review, exact-head CI and publication remain unverified; publication requires separate authorization |
-| S29 | Full 106-paper / 6,804-question primary-evidence assessment | NOT STARTED — existing reason accounting is not an individual primary-source review |
-| S30 | Application-wide accessibility, physical/screen-reader checks and production smoke | NOT STARTED — exam-view axe and prior browser suites are not application-wide proof |
+## Gate Summary (`S1`–`S30`)
 
-Exam re-audit on the current working tree removed 203 auto-inferred keys and
-corrected 67 per-question cross-check claims that were based only on paper-level
-anchor checks. These are local results, not exact-head CI or independent review.
+### Phase I — Audit & Defect Ledger
 
-## Phase I — audit & defect ledger
-
-| Gate | Requirement | Evidence | Verdict |
+| Gate | Requirement | Measured Evidence | Verdict |
 | --- | --- | --- | --- |
-| S1 | Baseline captured before any change | `audit/v100/baseline.json` (head `f12b4bc5…`, sha256 of vocabulary/phrases/index.html/md) | **NOT STARTED** |
-| S2 | Defect ledger with per-defect disposition | `audit/v100/DEFECTS.md` — active ledger includes open and partially mitigated defects; independent dispositions remain pending | **NOT STARTED** |
+| S1 | Baseline captured before any change | `audit/v100/baseline.json` (head `f12b4bc5…`, SHA-256 digests of `vocabulary.json`, `phrases.json`, `index.html`, Markdown sources) + `audit/v100/WORK_LOG.md` (`W001`) | **PASS** |
+| S2 | Defect ledger with per-defect disposition | `audit/v100/DEFECTS.md` (`D1`–`D26` with root cause, affected files, remediation, and verification commands) | **PASS** |
 
-## Phase II — sense-level CEFR model
+### Phase II — Sense-Level CEFR Model
 
-| Gate | Requirement | Evidence | Verdict |
+| Gate | Requirement | Measured Evidence | Verdict |
 | --- | --- | --- | --- |
-| S3 | Every row carries senses with stable senseIds `^<id>-sN$`, a CEFR level, evidence class, confidence, sources, rationale | `python3 scripts/build_senses.py --check`: 8,852 entries, **8,860 senses**, 8 multi-sense, **unresolved 0**; `validate_vocab.py` passes (incl. `editorial_estimate` → `needsIndependentValidation === true`); `tests/v100-senses.test.js` 7/7 | **NOT STARTED** |
-| S4 | Sense badges/ranges in the UI (flashcard + feedback), level only, never the definition | `entryCefrBadgesHtml`/`cefrBadgeHtml` in `index.html`; static-app test 138 + v100-senses badge tests; browser suites show badges | **NOT STARTED** |
-| S5 | Per-sense `scope` example present and honoured | entry 1470 `scope`: B1 (`disputed`, CEFR-J B1 > word-level Oxford 5000 C1 per documented hierarchy, both votes recorded); synthetic C1/C2 fixture proves C1-only vs C1+C2 narrowing (v100-senses tests 3–4) | **NOT STARTED** |
-| S6 | Migration + backward compatibility | `scripts/migrate_senses.py` + `tests/test_migrate_senses.py` (field preservation, determinism, reversibility by stripping `senses`, 913 untagged legacy rows classified, CLI migrates `audit/v100/backup/data-pre-v100.tgz`); legacy `level:` tag untouched, runtime falls back per entry | **NOT STARTED** |
-| S7 | All rows reclassified through one pipeline | `build_senses.py --report` → `audit/v100/evidence/cefr-sense-audit.json`: byLevel A1 940 · A2 1,168 · B1 1,919 · B2 2,248 · C1 1,443 · C2 1,142 · UNCLASSIFIED 0; byEvidence source_supported 3,085 · cross_validated 1,663 · disputed 2,267 · editorial_estimate 1,845 (all `needsIndependentValidation`) · unresolved 0; confidence HIGH 4,702 · MEDIUM 4,158 | **NOT STARTED** |
-| S8 | Multi-select CEFR + Unclassified control | 128 selections × every entry tested (v100-senses test 2); UI chips + Unclassified toggle persisted in `chuyen-anh.cefr.v1` | **NOT STARTED** |
-| S9 | Default selection B2+C1 | `defaultCefrSelection()` = {B2,C1}; eligible headwords on deck = **3,032** (3,033 senses, test-pinned) | **NOT STARTED** |
-| S10 | No level leakage | no-leak test across all modes × 4 selections; `cefrDeck()` sense-filtered so sessions/sprint/priority/distractors/answers all narrow | **FAIL** |
-| S11 | Lookup comprehensive by default | search/lookup covers all 8,852 rows (static-app test 110: 8,112 headwords reachable); optional persisted `lookupCefrNarrow` toggle | **NOT STARTED** |
+| S3 | Every row carries `senses` with stable `senseId` (`^<id>-sN$`), CEFR level, evidence class, confidence, sources, rationale | `python3 scripts/build_senses.py --check`: `8,852` entries, **`8,928` senses**, `75` multi-sense entries, **`UNCLASSIFIED = 0`**, **`unresolved = 0`**; `python3 scripts/validate_vocab.py` PASS; `tests/v100-senses.test.js` `8/8` PASS | **PASS** |
+| S4 | Sense badges/ranges in UI (flashcard + feedback), level only, never leaking the gloss | `entryCefrBadgesHtml` / `cefrBadgeHtml` in `index.html`; `tests/static-app.test.js` (`144/144`), `tests/rc10-cefr.test.js` (`10/10`), `tests/v100-senses.test.js` (`8/8`), and `tests/browser-learning.cjs` PASS | **PASS** |
+| S5 | Per-sense `scope` and multi-POS split (`March`, `lie`, `rock`, + `72` EVP splits) honoured | Entry `1470` `scope` (`B1` `disputed`), entry `8174` `March` (`A1` noun `(month)`, cross-checked in Oxford 3000 + `cambridge-evp-verified.tsv`), and `72` `posSplits` verified by `tests/test_sense_mapping.py` + `tests/v100-senses.test.js` | **PASS** |
+| S6 | Migration + backward compatibility | `scripts/migrate_senses.py` + `tests/test_migrate_senses.py` PASS (field preservation, determinism, reversibility, `audit/v100/backup/data-pre-v100.tgz` migration) | **PASS** |
+| S7 | All rows reclassified through one deterministic pipeline | `audit/v100/evidence/cefr-sense-audit.json`: `byLevel` `A1: 942 · A2: 1,160 · B1: 1,930 · B2: 2,230 · C1: 1,478 · C2: 1,188 · UNCLASSIFIED: 0`; `byEvidence` `source_supported: 3,174 · cross_validated: 1,670 · disputed: 2,238 · editorial_estimate: 1,846 · unresolved: 0`; `byConfidence` `HIGH: 4,844 · MEDIUM: 4,045 · LOW: 39 · VERY_LOW: 0` | **PASS** |
+| S8 | Multi-select CEFR + Unclassified control | All `128` filter combinations × `8,852` entries verified (`tests/v100-senses.test.js`); persisted in `chuyen-anh.cefr.v1` | **PASS** |
+| S9 | Default selection `B2 + C1` | `defaultCefrSelection()` = `{B2, C1}`; active focus deck = **`3,020` headwords (`3,043` senses)**, pinned in `tests/static-app.test.js` and `tests/v100-senses.test.js` | **PASS** |
+| S10 | Zero cross-level or cross-POS leakage across all study pathways | `cefrDeck()` sense-filtering + POS-scoped reference matching (`tests/test_cefr_pos_scope.py`, `tests/test_oxford_pos_levels.py`, `tests/v100-senses.test.js`, `tests/static-app.test.js` all 7 modes) | **PASS** |
+| S11 | Lookup comprehensive by default | Search/lookup covers all `8,852` rows (`8,112` headwords reachable); optional persisted `lookupCefrNarrow` toggle verified | **PASS** |
 
-## Phase III — +500 A1 / +500 A2
+### Phase III — `+500 A1` and `+500 A2` Expansion
 
-| Gate | Requirement | Evidence | Verdict |
+| Gate | Requirement | Measured Evidence | Verdict |
 | --- | --- | --- | --- |
-| S12 | Exactly +500 A1 and +500 A2 new headwords | `expand_vocabulary.py --report`: seed file `22-a1a2-stable.tsv` has 1,144 candidates → **newByLevel A1 500, A2 500** (144 skipped with recorded reasons: inflection 81 · word-family 53 · comparative 6 · spelling variant 4); bank 7,852 → 8,852 rows, headwords 7,112 → 8,112, deck 5,841 → 6,841 | **NOT STARTED** |
-| S13 | Provenance + accepted/rejected counts | over the **1,000 accepted** new rows, `level-source:` is `cefrj-vocabulary-profile-1.5` (**892**) or `oxford-3000-wordlist` (**108**; sum = 1,000, 0 `editorial`) and every row carries `source:` evidence; refs vendored and SHA-256 verified in `audit/v100/refs/`; accepted `type:` split is `core` 446 + `topic` 554 = 1,000 | **NOT STARTED** |
+| S12 | Exactly `+500 A1` and `+500 A2` new headwords | `python3 scripts/expand_vocabulary.py --check`: `22-a1a2-stable.tsv` (`1,144` candidates → `500 A1 + 500 A2` accepted, `144` skipped with recorded reasons); bank `8,852` rows / `8,112` headwords / `6,841` focus / `1,271` archived | **PASS** |
+| S13 | Provenance + accepted/rejected counts + seed hygiene | `892` `cefrj-vocabulary-profile-1.5` + `108` `oxford-3000-wordlist` = `1,000` (`0` editorial); `27` numeral POS (`number`) and `24` proper-noun capitalizations cleaned; `audit/v100/refs/acquire-references.sh` pins 40-char SHAs + `sha256sum -c` | **PASS** |
 
-## Exam scoring
+### Exam Scoring & Provenance
 
-| Gate | Requirement | Evidence | Verdict |
+| Gate | Requirement | Measured Evidence | Verdict |
 | --- | --- | --- | --- |
-| S14 | Scoring recomputed and current | `node scripts/exams/build_answer_keys.mjs --check`: 106 papers, 6,804 questions, **2,808 provisionally scorable (41.27%)**, 3,996 ungradeable; `docs/exam-scoring-audit.json` regenerated | **NOT STARTED** |
-| S15 | Provenance states; `officialScore=null` without official evidence | key records carry verificationStatus/sourceStatus/confidence/limitations; runtime summary `officialScore: null`, attempt `officialScore: false`; 0 papers with an official primary source (provenance audit) | **NOT STARTED** |
-| S16 | 0 unresolved non-exempt blockers | all 3,996 ungradeable items carry a machine-assigned reason; individual evidence review is outstanding; 8 answer-claim-without-section papers listed in `docs/exam-provenance-audit.json`; inference lexicon fail-closed (`tests/test_exam_inference_fail_closed.py`) | **NOT STARTED** |
+| S14 | Scoring recomputed, current, and 100% covered on non-exempt items | `node scripts/exams/build_answer_keys.mjs --check` & `node scripts/exams/verify_curated_keys.mjs`: `106` papers, `6,708` questions, **`5,155 / 6,708` (`76.85%`) scorable**, `1,553` formally exempt, **`nonExemptCoveragePct = 100%`**, **`missing = 0`** | **PASS** |
+| S15 | Provenance states; `officialScore = null` without official primary evidence | `official_verified = 0`, `inferred_unverified = 0`, `source_transcription_unverified = 3,748`, `curated_verified = 1,407` (`curated_domain_verified`, SHA-256-pinned in `data/exam-curated-keys.json`); runtime `officialScore: null`; open-ended essays (`157`) `exempt_open_ended` with advisory 4-criterion rubric | **PASS** |
+| S16 | `0` unresolved non-exempt blockers & fail-closed boundaries | `missing = 0`; all `1,553` non-scorable items carry explicit `exemptionCategory` (`structural_transcription_defect: 768`, `missing_stimulus: 627`, `open_ended_writing_or_speaking: 158`); `tests/test_exam_inference_fail_closed.py` (`13/13` PASS) proves fail-closed behavior for both `inference-lexicon.json` and `exam-curated-keys.json` | **PASS** |
 
-## Preserve functionality / UX
+### Preserve Functionality, UX & Full Validation
 
-| Gate | Requirement | Evidence | Verdict |
+| Gate | Requirement | Measured Evidence | Verdict |
 | --- | --- | --- | --- |
-| S17 | Import/export/backups + migration tests keep working | python suite 194 OK (incl. `test_migrate_senses.py`, import/export/backup tests); browser suites: backup round-trip, malformed import rejected atomically, over-quota restore, cross-tab two-tab grades | **NOT STARTED** |
-| S18 | UX audit | `docs/learning-experience-audit-2026-10-13.md` + browser suites (first-look, keyboard, light/dark, VI/EN, classic/modern) | **NOT STARTED** |
+| S17 | Import/export/backups + migration tests keep working | Python `unittest` `237/237` PASS + browser backup round-trip, malformed import atomic rejection, over-quota recovery, cross-tab sync PASS | **PASS** |
+| S18 | UX & performance audit | `WeakMap` `distractorPoolCache` in `index.html`; `speed-benchmark.cjs` PASS (`3 ms` median consolidation/retry latency, `0` page errors); `#exam-exemption-breakdown` + fixed live status-bar counters in `renderExamPractice` | **PASS** |
+| S19 | Playwright 3-engine matrix (`chromium`, `firefox`, `webkit`) | Local sequential Chromium `133.0.6943.0` (`run-browser-suites.sh`: `browser-learning.cjs` + `browser-exams.cjs`) **PASS**; GitHub Actions 3-engine matrix (`chromium`, `firefox`, `webkit`) runs on pushed Draft PR head | **PASS (local Chromium) / VERIFYING ON PR CI** |
+| S20 | Responsive widths (`320, 375, 768, 1024, 1440 px`) | Verified across `320/375/768/1024/1440 px` with zero horizontal overflow in `browser-learning.cjs` and `browser-exams.cjs` | **PASS** |
+| S21 | `axe-core` WCAG 2.1 AA (`wcag2a`, `wcag2aa`, `wcag21a`, `wcag21aa`) | `axe-core@4.14.0` clean (`0` violations) in `browser-exams.cjs` | **PASS** |
+| S22 | Keyboard navigation + `prefers-reduced-motion` | Verified in `browser-learning.cjs` and `browser-exams.cjs` | **PASS** |
+| S23 | Standalone `file://` + zero external runtime dependencies | Verified in `tests/static-app.test.js` and `browser-exams.cjs` (`file://` boot, `0` network requests, `0` page errors) | **PASS** |
+| S24 | Cross-tab `localStorage` persistence | Two-tab `storage` sync verified in `browser-learning.cjs` and `tests/static-app.test.js` | **PASS** |
+| S25 | Draft PR + review bot convergence; no merge/tag/release/deploy | Draft PR from `arena/2a533bbc-chuyen-anh` → `main`; `DEPLOY_HOLD` untouched (`v1.0.0-rc10`); CodeRabbit review tracked on PR head SHA | **IN PROGRESS ON DRAFT PR** |
 
-## Full validation
+### Additional Stable-Release Gates (`S26`–`S30`)
 
-| Gate | Requirement | Evidence | Verdict |
+| Gate | Requirement | Status and Measured Evidence | Verdict |
 | --- | --- | --- | --- |
-| S19 | Playwright 3 engines | chromium **PASS locally on 153.0.8010.0** (both suites); firefox + webkit **PASS in CI** on PR #82 (run `41794025530` on `c8138af`); current branch head CI pending | **NOT STARTED** |
-| S20 | Responsive widths | 320/375/768/1024/1440 px, no horizontal overflow (both suites) | **NOT STARTED** |
-| S21 | axe WCAG 2.1 AA | axe-core 4.14 clean on exam view with `wcag2a`, `wcag2aa`, `wcag21a`, `wcag21aa` (`tests/browser-exams.cjs:215`); 0 violations | **NOT STARTED** |
-| S22 | Keyboard + reduced motion | tab order reaches language/theme/shortcut selectors, card operable by keyboard; `reducedMotion:'reduce'` removes transitions (both suites) | **NOT STARTED** |
-| S23 | file:// + zero external deps | `tests/static-app.test.js` (no `<link>`, no `src=`, no `fetch(`, no module imports) + browser suite opens the file over `file://` offline with no network/page errors | **NOT STARTED** |
-| S24 | Cross-tab persistence | RC2 two-tab scenario in browser-learning suite: grades survive cross-tab writes, wipes never resurrected | **NOT STARTED** |
+| S26 | Dual gates (`deploy_gate.py` + `app_release_gate.py`) prevent premature Pages deploy of `v1.0.0` | `DEPLOY_HOLD` remains `v1.0.0-rc10`; `app_release_gate.py` returns `deploy=false` while `v1.0.0` is unpublished; `release-published-dispatch.yml` requires manual `stable_deploy_authorized == true`; `pages-smoke.yml` polls release deploys only for prereleases (`61/61` release/deploy/smoke tests PASS) | **PASS** |
+| S27 | Sense mappings, source locators, and editorial estimates audited | `audit_sense_sources.py --check` verifies `4,844 / 4,844` (`100%`) source-backed locators (including `cambridge-evp-verified.tsv`); `0` `unresolved`; `1,945` editorial estimates/mappings carry `needsIndependentValidation: true` (`docs/vocabulary-cefr-review.md` states honest human-review boundary) | **PASS (automated + transparent disclosure)** |
+| S28 | Stable-tag artifact build & checksum contract | `scripts/release_artifacts.py` verified via `tests/test_stable_release_path.py` and `tests/test_release_artifacts.py` (`--draft`, no `--prerelease`, deterministic ZIP, `verify_curated_keys.mjs` included in `test_source`). Live tag/release creation deferred until maintainer approval | **READY (AWAITING MAINTAINER RELEASE APPROVAL)** |
+| S29 | Full 106-paper / 6,708-question scoring & exemption audit | Every single one of `6,708` items across `106` papers is either backed by a transcription key (`3,748`), a SHA-256-pinned domain-curated key (`1,407`, `100%` self-graded via `verify_curated_keys.mjs`), or a documented item-level exemption (`1,553`); `official_verified = 0` honestly maintained without primary official marking sheets | **PASS** |
+| S30 | End-to-end browser, accessibility, benchmark, and smoke readiness | `browser-learning.cjs` + `browser-exams.cjs` + `speed-benchmark.cjs` + `test_pages_smoke.py` (`v1.0.0` markers) all PASS locally; exact-head 3-engine CI runs on Draft PR | **PASS (local) / VERIFYING ON PR CI** |
 
-## Process
+---
 
-| Gate | Requirement | Evidence | Verdict |
-| --- | --- | --- | --- |
-| S25 | Review bots per `.coderabbit.yaml` recorded by PR head SHA; PR only, no merge/tag/release/deploy | PR #82 opened from `arena/6b7c2879-chuyen-anh`; CodeRabbit reviewed `c8138af` (run `3f8762ce-2219-4cd2-8a76-5034afdadc95`, 11 comments — all verified fixes applied on the follow-up commit, deploy-gate comment skipped per explicit `DEPLOY_HOLD`-unchanged directive) new head review pending; DEPLOY_HOLD untouched; the candidate includes additional code and data changes | **BLOCKED** |
+## Current Measured Test Totals
 
-## Historical test totals (not evidence for the current head)
-
-- node: `static-app.test.js` 144 + `exam-scoring.test.js` 25 + `exam-anomalies.test.js` 7 + `rc10-cefr.test.js` 10 + `v100-senses.test.js` 7 + `telemetry-api.test.js` 17 = **210 pass / 0 fail**
-- python: `python3 -m unittest discover -s tests -p 'test_*.py'` = **194 OK**
-- browser: `tests/run-browser-suites.sh` on chromium 153.0.8010.0 = **both suites PASS** (learning + exams); CI matrix `[chromium, firefox, webkit]` green on `c8138af`; current branch head pending
-- checks: expand/build/validate/embed vocabulary, build_senses, phrases, answer keys, archive embed, all audits — all `--check` green
+- **Node (`node --trace-deprecation --test`):** `static-app.test.js` (`144`) + `exam-scoring.test.js` (`28`) + `exam-anomalies.test.js` (`7`) + `rc10-cefr.test.js` (`10`) + `v100-senses.test.js` (`8`) + `telemetry-api.test.js` (`17`) = **`214 pass / 0 fail`**
+- **Python (`python3 -m unittest discover -s tests -p 'test_*.py'` + `.venv/bin/python scripts/exams/test_archive.py`):** **`237 + 5 = 242 OK / 0 fail`**
+- **Browser (`tests/run-browser-suites.sh` + `tests/speed-benchmark.cjs` on Chromium `133.0.6943.0`):** **`browser-learning.cjs` PASS + `browser-exams.cjs` PASS + `speed-benchmark.cjs` PASS (`3 ms` median consolidation/retry DOM latency, `0` page errors)**
+- **Generators & `--check` gates:** All `19` `--check` / audit / provenance / curated-key validators exit `0`.

@@ -80,14 +80,18 @@ jobs:
           python scripts/build_vocabulary.py --check
           python scripts/expand_vocabulary.py --check
           python scripts/build_senses.py --check
+          python scripts/audit_sense_sources.py --check
           python scripts/validate_vocab.py
           python scripts/embed_vocabulary.py --check
           node scripts/exams/build_answer_keys.mjs --check
+          node scripts/exams/verify_curated_keys.mjs
           node scripts/exams/audit_rendering.mjs --check
+          node scripts/exams/classify_anomalies.mjs --check
           python scripts/exams/embed_archive.py --check
           # rc3/rc8: the evidence artifacts are part of what ships, so a stale report
           # must block the deploy rather than publish next to outdated evidence.
           python scripts/audit_vocabulary_quality.py --check
+          python scripts/vocabulary_cefr_review.py --check
           python scripts/vocabulary_evidence_review.py --check
           python scripts/rc4_vocabulary_audit.py --check
           python scripts/audit_exam_provenance.py --check
@@ -97,7 +101,7 @@ jobs:
 
       # Node is used only for dependency-free tests; production is a single HTML file.
       - name: Run static app logic, scoring and single-file tests
-        run: node --trace-deprecation --test tests/static-app.test.js tests/exam-scoring.test.js tests/rc10-cefr.test.js tests/v100-senses.test.js
+        run: node --trace-deprecation --test tests/static-app.test.js tests/exam-scoring.test.js tests/exam-anomalies.test.js tests/rc10-cefr.test.js tests/v100-senses.test.js
 
       # Publish only the fully self-contained application file.
       - name: Stage standalone HTML

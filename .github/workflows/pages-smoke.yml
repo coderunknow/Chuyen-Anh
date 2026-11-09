@@ -43,7 +43,7 @@ jobs:
       # Wait for a successful deployment status carrying the Pages environment
       # URL for the released commit; a failed deployment fails this job.
       - name: Wait for the Pages deployment of the released commit
-        if: github.event_name == 'release'
+        if: github.event_name == 'release' && github.event.release.prerelease == true
         env:
           GH_TOKEN: ${{ github.token }}
         run: |

@@ -38,6 +38,7 @@ cp "$STAGE/20260715190122-oxford-3000-5000-${OXFORD_SHA}/20260715165539-oxford-5
 fetch "https://codeload.github.com/Maximax67/Words-CEFR-Dataset/tar.gz/${WCD_SHA}" "$STAGE/wcd.tgz"
 tar xzf "$STAGE/wcd.tgz" -C "$STAGE"
 head -n 30000 "$STAGE/Words-CEFR-Dataset-${WCD_SHA}/datasets/valid_words_sorted_by_frequency.csv" > "$STAGE/frequency-top30k.csv"
+cp "cambridge-evp-verified.tsv" "$STAGE/cambridge-evp-verified.tsv"
 
 (
   cd "$STAGE"
@@ -47,6 +48,7 @@ b0dd3c635f1c9a4fdf1490c7e5b7c48e8bbe55b652ad0c9860a95f98e10ae498  cefrj-vocabula
 1a2b9dca943a3664dea37d2c2b0104418ff77e1ec7b1b56b4b9028d404f5b2b9  oxford-3000.en.tsv
 177027432999f79304eeaabc33328764d1b8ff048f021b0afe7c065fc4df83d9  oxford-5000-expanded.en.tsv
 9f19d2701d5d59c837c69be22edf44c83af5425c0801a473868d3bb29c1cdb27  frequency-top30k.csv
+cf4327ffc401a6a88bd5a040af24ff504fc8827f97c64784c612740b873fb083  cambridge-evp-verified.tsv
 SHA256
 )
 

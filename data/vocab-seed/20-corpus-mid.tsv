@@ -14,7 +14,7 @@ transmission	n	sự truyền, hộp số	C1	technology	topic	reading
 dialogue	n	cuộc đối thoại	B2	media	topic	reading
 tale	n	câu chuyện	B2	culture	topic	reading	oxford-3000-5000
 revenge	n	sự trả thù	C1	psychology	topic	reading	oxford-3000-5000
-seventh	n	thứ bảy	B1	academic	topic	reading
+seventh	number	thứ bảy	B1	academic	topic	reading
 pub	n	quán rượu	B1	culture	topic	reading
 canal	n	kênh đào	B2	travel	topic	reading	oxford-3000-5000
 delete	v	xoá	B2	technology	topic	reading	oxford-3000-5000
@@ -88,7 +88,7 @@ spoon	n	cái thìa	B1	food	topic	reading
 whistle	n	tiếng huýt sáo	B1	sport	topic	reading	cefrj-vocabulary-profile-1.5
 promotional	adj	mang tính quảng bá	C1	media	topic	reading
 renaissance	n	thời Phục hưng	C2	culture	topic	reading
-seventeen	n	mười bảy	B1	academic	topic	reading
+seventeen	number	mười bảy	B1	academic	topic	reading
 unacceptable	adj	không thể chấp nhận	B2	society	topic	reading
 uncommon	adj	không phổ biến	B2	academic	topic	reading	cefrj-vocabulary-profile-1.5
 unstable	adj	không ổn định	C1	science	topic	reading
@@ -101,14 +101,14 @@ drift	v	trôi dạt	C1	environment	topic	reading
 geological	adj	thuộc địa chất	C1	science	topic	reading	octanove-vocabulary-profile-1.0
 hatch	v	nở (trứng)	C1	environment	topic	reading
 accompany	v	đi cùng, kèm theo	B2	academic	topic	reading
-eighteen	n	mười tám	B1	academic	topic	reading
+eighteen	number	mười tám	B1	academic	topic	reading
 inferior	adj	thấp kém hơn	C1	academic	topic	reading
 sympathetic	adj	thông cảm, đồng cảm	B2	psychology	topic	reading	oxford-3000-5000
 unpleasant	adj	khó chịu	B1	psychology	topic	reading	oxford-3000-5000
 vicinity	n	vùng lân cận	C2	travel	topic	reading
 surround	v	bao quanh	B2	environment	topic	reading	oxford-3000-5000
 definite	adj	chắc chắn, rõ ràng	B1	academic	topic	reading	oxford-3000-5000
-seventy	n	bảy mươi	B1	academic	topic	reading
+seventy	number	bảy mươi	B1	academic	topic	reading
 continuity	n	tính liên tục	C1	academic	topic	reading
 embarrassment	n	sự xấu hổ	C1	psychology	topic	reading	oxford-3000-5000
 herd	n	bầy, đàn gia súc	B1	environment	topic	reading	cefrj-vocabulary-profile-1.5
@@ -164,7 +164,7 @@ cheerful	adj	vui vẻ	B1	psychology	topic	reading
 abide	v	tuân theo, chịu đựng	C2	law	topic	reading
 admiration	n	sự ngưỡng mộ	B1	psychology	topic	reading	cefrj-vocabulary-profile-1.5
 librarian	n	thủ thư	B1	education	topic	reading
-nineteen	n	mười chín	B1	academic	topic	reading
+nineteen	number	mười chín	B1	academic	topic	reading
 periodically	adv	định kỳ	C1	academic	topic	reading
 societal	adj	thuộc xã hội	C2	society	topic	reading
 superiority	n	sự vượt trội	C2	academic	topic	reading
@@ -232,7 +232,7 @@ plentiful	adj	dồi dào	C1	environment	topic	reading
 spaceship	n	tàu vũ trụ	C1	science	topic	reading
 unattractive	adj	kém hấp dẫn	B2	psychology	topic	reading
 outspoken	adj	thẳng thắn	C2	society	topic	reading
-seventeenth	n	thứ mười bảy	B1	academic	topic	reading
+seventeenth	number	thứ mười bảy	B1	academic	topic	reading
 burglar	n	kẻ trộm	B1	law	topic	reading	cefrj-vocabulary-profile-1.5
 cognition	n	nhận thức	C2	psychology	topic	reading
 spontaneously	adv	một cách tự phát	C1	psychology	topic	reading	octanove-vocabulary-profile-1.0
@@ -357,7 +357,7 @@ shoe	n	chiếc giày	B1	daily-life	topic	reading
 magical	adj	huyền diệu, kỳ ảo	C1	culture	topic	reading	oxford-3000-5000
 twist	n	khúc quanh, sự xoắn	C1	culture	topic	reading	oxford-3000-5000
 skip	v	nhảy, bỏ qua	C1	sport	topic	reading	oxford-3000-5000
-eighth	n	thứ tám	B1	academic	topic	reading
+eighth	number	thứ tám	B1	academic	topic	reading
 wrap	v	gói, quấn	B2	food	topic	reading	oxford-3000-5000
 metropolitan	adj	thuộc đô thị	C1	society	topic	reading
 spray	v	phun	B2	environment	topic	reading	cefrj-vocabulary-profile-1.5
@@ -385,7 +385,7 @@ flame	n	ngọn lửa	B2	environment	topic	reading
 motorcycle	n	mô tô	B1	travel	topic	reading
 nationwide	adj	trên toàn quốc	C1	politics	topic	reading	oxford-3000-5000
 nicely	adv	một cách dễ chịu, khéo	B2	psychology	topic	reading	cefrj-vocabulary-profile-1.5
-ninth	n	thứ chín	B1	academic	topic	reading
+ninth	number	thứ chín	B1	academic	topic	reading
 quantum	n	lượng tử	C2	science	topic	reading
 reign	n	triều đại, sự trị vì	C1	politics	topic	reading	oxford-3000-5000
 cheer	v	cổ vũ, hoan hô	B2	sport	topic	reading	oxford-3000-5000
@@ -445,7 +445,7 @@ cellular	adj	thuộc tế bào	C2	science	topic	reading
 misery	n	nỗi khổ sở	C1	psychology	topic	reading	oxford-3000-5000
 nursery	n	nhà trẻ, vườn ươm	C1	family	topic	reading	oxford-3000-5000
 plague	n	bệnh dịch	B2	health	topic	reading	cefrj-vocabulary-profile-1.5
-thirteen	n	mười ba	B1	academic	topic	reading
+thirteen	number	mười ba	B1	academic	topic	reading
 metric	n	chỉ số đo lường	C2	science	topic	reading
 terrace	n	sân thượng, hiên	B2	travel	topic	reading	cefrj-vocabulary-profile-1.5
 messy	adj	bừa bộn	B1	daily-life	topic	reading

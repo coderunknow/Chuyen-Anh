@@ -39,6 +39,7 @@ BUILDER_INPUTS = [
     ROOT / 'index.html',
     ROOT / 'scripts' / 'exams' / 'selection.json',
     ROOT / 'scripts' / 'exams' / 'inference-lexicon.json',
+    ROOT / 'data' / 'exam-curated-keys.json',
     VOCAB,
     PHRASES,
 ]
@@ -191,18 +192,40 @@ class InferencePinFailClosedTest(unittest.TestCase):
         after = {f: self._sha256(f) for f in BUILDER_OUTPUTS if f.exists()}
         self.assertEqual(before, after, 'a failed build must not touch the generated artifacts')
 
-    # 6. Source-backed scoring remains correct with automatic inferred keys disabled.
+    # 6. Source-backed + curated domain-verified scoring remains deterministic with automatic inference disabled.
     def test_scoring_excludes_automatic_inference(self) -> None:
         proc = self._run(self.tmp)
         self.assertEqual(proc.returncode, 0, proc.stderr)
         keys = json.loads((self.tmp / 'data' / 'exam-answer-keys.json').read_text(encoding='utf-8'))
         self.assertEqual(len(keys['records']), 106)
         scored = sum(r['scoredCount'] for r in keys['records'])
-        self.assertEqual(scored, 2808)
+        self.assertEqual(scored, 5155)
         total = sum(r['questionCount'] for r in keys['records'])
-        self.assertEqual(total, 6804)
-        missing = total - scored
-        self.assertEqual(missing, 3996)
+        self.assertEqual(total, 6708)
+        exempt = sum(r['exemptCount'] for r in keys['records'])
+        self.assertEqual(exempt, 1553)
+        self.assertEqual(scored + exempt, total)
+        for rec in keys['records']:
+            for k in rec['answerKeys']:
+                self.assertNotEqual(k['verificationStatus'], 'inferred_unverified')
+                self.assertNotEqual(k['verificationStatus'], 'missing')
+
+    # 7. Missing curated keys manifest fails closed without fallback.
+    def test_missing_curated_keys_fails_closed(self) -> None:
+        (self.tmp / 'data' / 'exam-curated-keys.json').unlink()
+        proc = self._run(self.tmp)
+        self.assertNotEqual(proc.returncode, 0)
+        self.assertIn('exam-curated-keys.json is missing', proc.stderr)
+
+    # 8. Tampered promptSha256 in curated keys manifest fails closed.
+    def test_tampered_curated_key_sha256_fails_closed(self) -> None:
+        curated_path = self.tmp / 'data' / 'exam-curated-keys.json'
+        curated = json.loads(curated_path.read_text(encoding='utf-8'))
+        curated['entries'][0]['promptSha256'] = '0' * 64
+        curated_path.write_text(json.dumps(curated, indent=2) + '\n', encoding='utf-8')
+        proc = self._run(self.tmp)
+        self.assertNotEqual(proc.returncode, 0)
+        self.assertIn('promptSha256 mismatch', proc.stderr)
 
 
 if __name__ == '__main__':

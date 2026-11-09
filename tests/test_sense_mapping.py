@@ -60,3 +60,20 @@ class SenseMappingTests(unittest.TestCase):
             self.assertEqual(len(senses), 1)
             self.assertEqual(senses[0]['label'], label)
             self.assertEqual(senses[0]['meaning'], entry['meaning'])
+
+    def test_v100_zero_unclassified_and_proper_noun_march_split(self):
+        import json
+        vocab = json.loads((ROOT / 'data/vocabulary.json').read_text(encoding='utf-8'))
+        self.assertEqual(sum(1 for e in vocab if e.get('cefr') == 'UNCLASSIFIED'), 0)
+        self.assertEqual(sum(1 for e in vocab if e.get('senses', [{}])[0].get('evidence') == 'unresolved'), 0)
+        march = next(e for e in vocab if e['id'] == '8174')
+        self.assertEqual(march['word'], 'March')
+        self.assertEqual(
+            [(s['pos'], s['cefr'], s['meaning']) for s in march['senses']],
+            [('n', 'A1', 'tháng Ba')],
+        )
+        hundred = next(e for e in vocab if e['word'] == 'hundred')
+        self.assertEqual(hundred['pos'], 'number')
+        self.assertEqual(hundred['senses'][0]['cefr'], 'A2')
+        self.assertNotEqual(hundred['senses'][0]['evidence'], 'editorial_estimate')
+

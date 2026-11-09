@@ -57,14 +57,14 @@
     "qualification": "stored legacy tags only; their source claims were not independently validated by this report"
   },
   "senseEvidence": {
-    "totalSenses": 8856,
+    "totalSenses": 8928,
     "byClass": {
-      "cross_validated": 1642,
-      "disputed": 2184,
-      "editorial_estimate": 1897,
-      "source_supported": 3133
+      "cross_validated": 1670,
+      "disputed": 2238,
+      "editorial_estimate": 1846,
+      "source_supported": 3174
     },
-    "needsIndependentValidation": 1909,
+    "needsIndependentValidation": 1945,
     "qualification": "stored generator claims, not independently verified; an unset validation flag does not imply approval"
   },
   "quality": {
@@ -2067,7 +2067,7 @@
       },
       {
         "id": "8130",
-        "word": "i",
+        "word": "I",
         "meaning": "tôi"
       }
     ],

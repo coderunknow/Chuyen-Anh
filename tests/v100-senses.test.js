@@ -43,8 +43,8 @@ test('v1.0.0: every shipped entry carries well-formed, classified senses', () =>
     }
     if (senses.length > 1) multi.push(entry);
   }
-  assert.equal(senseTotal, 8856, 'total senses');
-  assert.ok(multi.length >= 2, `expected the evidence-backed multi-sense headwords, got ${multi.length}`);
+  assert.equal(senseTotal, 8928, 'total senses');
+  assert.equal(multi.length, 75, `expected 75 evidence-backed multi-sense headwords, got ${multi.length}`);
   // no unresolved senses anywhere
   const unresolved = vocabulary.flatMap(e => app.entrySenses(e)).filter(s => s.cefr === 'UNCLASSIFIED');
   assert.equal(unresolved.length, 0, 'no sense may be left Unclassified');
@@ -64,9 +64,12 @@ test('v1.0.0: all 128 selections narrow every entry to exactly its in-scope sens
       const view = app.senseViewEntry(entry, selection);
       assert.deepEqual(view.senses.map(s => s.senseId), expected.map(s => s.senseId));
       if (expected.length) {
+        if (expected.length < app.entrySenses(entry).length) {
+          assert.equal(view.meaning, expected.map(s => s.meaning).filter(Boolean).join('; '));
+        }
         // the learning gloss is rebuilt only from in-scope senses
         for (const sense of app.entrySenses(entry)) {
-          if (!wanted.has(sense.cefr) && sense.meaning && view.meaning.includes(sense.meaning) && expected.every(s => s.meaning !== sense.meaning)) {
+          if (!wanted.has(sense.cefr) && sense.meaning && view.meaning.includes(sense.meaning) && expected.every(s => !s.meaning.includes(sense.meaning))) {
             assert.fail(`excluded sense ${sense.senseId} of ${entry.word} leaked into the learning gloss`);
           }
         }
@@ -191,21 +194,45 @@ test('v1.0.0: headword counts and sense counts are distinguished', () => {
     senseTotal += bySense[level] || 0;
     headwordTotal += byHeadword[level] || 0;
   }
-  // Four deck headwords have multiple glossed senses: bank, lie, race and rock.
-  assert.equal(senseTotal, deck.length + 4, 'senses over the deck headwords');
+  // Deck multi-sense headwords (homographs + composite-POS splits) carry 72 extra senses across 6,841 deck headwords.
+  assert.equal(senseTotal, deck.length + 72, 'senses over the deck headwords');
   const allSenses = Object.values(app.countSensesByCefr(vocabulary)).reduce((a, b) => a + b, 0);
-  assert.equal(allSenses, 8856, 'all 8,852 rows carry at least one glossed sense');
+  assert.equal(allSenses, 8928, 'all 8,852 rows carry at least one glossed sense');
   assert.ok(headwordTotal >= deck.length, 'a multi-sense headword counts once per level it has');
   assert.equal(headwords.length, 8112);
   // default B2+C1 selection: eligible headwords counted via the one pipeline
   const eligible = app.filterVocabularyByCefr(deck, app.defaultCefrSelection()).length;
   const eligibleSenses = ['B2', 'C1'].reduce((t, l) => t + (bySense[l] || 0), 0);
-  assert.equal(eligible, 3040);
-  assert.equal(eligibleSenses, 3040, 'B2+C1 glossed senses over the deck');
+  assert.equal(eligible, 3020);
+  assert.equal(eligibleSenses, 3043, 'B2+C1 glossed senses over the deck');
   // Both glossed rock senses are A2, so the sense and headword counts diverge.
   const a2Headwords = app.filterVocabularyByCefr(headwords, selectionOf(['A2'])).length;
   const a2Senses = app.countSensesByCefr(headwords).A2 || 0;
   assert.ok(a2Senses > a2Headwords, `sense count (${a2Senses}) must be distinguishable from headword count (${a2Headwords})`);
+});
+
+test('v1.0.0: composite-POS headwords split into atomic-POS senses and narrow POS + gloss cleanly', () => {
+  const articulate = vocabulary.find(e => e.id === '98');
+  assert.ok(articulate);
+  const senses = app.entrySenses(articulate);
+  assert.deepEqual(senses.map(s => [s.pos, s.cefr]), [['adj', 'C2'], ['v', 'B2']]);
+  const c2View = app.senseViewEntry(articulate, selectionOf(['C2']));
+  assert.equal(c2View.pos, 'adj');
+  assert.equal(c2View.meaning, 'diễn đạt rõ ràng, ăn nói lưu loát');
+  const b2View = app.senseViewEntry(articulate, selectionOf(['B2']));
+  assert.equal(b2View.pos, 'v');
+  assert.equal(b2View.meaning, 'diễn đạt rõ ràng');
+
+  const march = vocabulary.find(e => e.id === '8174');
+  assert.equal(march.word, 'March');
+  assert.equal(app.entrySenses(march)[0].cefr, 'A1');
+
+  const enBadge = app.cefrBadgeHtml({ cefr: 'C2', label: '(v)', meaning: 'diễn đạt rõ ràng', evidence: 'editorial_estimate', confidence: 'MEDIUM' }, 'en');
+  assert.match(enBadge, /cefr-estimate/);
+  assert.match(enBadge, /editorial estimate/);
+  assert.ok(!enBadge.includes('diễn đạt'));
+  const viBadge = app.cefrBadgeHtml({ cefr: 'C1', label: '(adj)', meaning: 'diễn đạt rõ ràng', evidence: 'cross_validated', confidence: 'HIGH' }, 'vi');
+  assert.match(viBadge, /đối chiếu độc lập/);
 });
 
 test('v1.0.0: the CEFR badge is present in the learning card markup and hides no answer', () => {

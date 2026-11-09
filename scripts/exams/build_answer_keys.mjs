@@ -138,6 +138,14 @@ loadInferencePin(
 );
 // The pin remains validated above for compatibility and fail-closed checks.
 // It is deliberately not used to infer any answer keys.
+
+function sha256Text(value) {
+  return crypto.createHash('sha256').update(String(value ?? ''), 'utf8').digest('hex');
+}
+function canonicalOptionsString(question) {
+  return (question?.options || []).map(o => `${o.id}:${o.label}:${o.text}`).join('|');
+}
+
 const parsedPapers = [];
 
 for (const item of plan) {
@@ -148,13 +156,96 @@ for (const item of plan) {
   parsedPapers.push({ item, body, contentSha256, questions });
 }
 
+function loadCuratedKeys(filePath, parsedPapersList) {
+  if (!fs.existsSync(filePath)) {
+    throw new Error('data/exam-curated-keys.json is missing: curated key verification is fail-closed.');
+  }
+  let payload;
+  try {
+    payload = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+  } catch (err) {
+    throw new Error(`data/exam-curated-keys.json is not valid JSON: ${err.message}`);
+  }
+  if (!payload || typeof payload !== 'object' || Array.isArray(payload) || payload.schemaVersion !== 1 || !Array.isArray(payload.entries)) {
+    throw new Error('data/exam-curated-keys.json must be an object with schemaVersion=1 and an entries array.');
+  }
+  const questionLookup = new Map();
+  for (const p of parsedPapersList) {
+    for (const q of p.questions) {
+      questionLookup.set(`${p.item.key}\u001f${q.id}`, { paper: p, question: q });
+    }
+  }
+  const map = new Map();
+  for (const entry of payload.entries) {
+    if (!entry || typeof entry !== 'object') {
+      throw new Error('data/exam-curated-keys.json contains a non-object entry.');
+    }
+    const compoundKey = `${entry.examId}\u001f${entry.questionId}`;
+    if (map.has(compoundKey)) {
+      throw new Error(`data/exam-curated-keys.json has duplicate entry: ${compoundKey}`);
+    }
+    const target = questionLookup.get(compoundKey);
+    if (!target) {
+      throw new Error(`data/exam-curated-keys.json references unknown question: ${compoundKey}`);
+    }
+    const { question } = target;
+    const expectedPromptSha = sha256Text(question.prompt);
+    const expectedOptionsSha = sha256Text(canonicalOptionsString(question));
+    if (entry.promptSha256 !== expectedPromptSha) {
+      throw new Error(`promptSha256 mismatch for ${compoundKey}: expected ${expectedPromptSha}, got ${entry.promptSha256}`);
+    }
+    if (entry.optionsSha256 !== expectedOptionsSha) {
+      throw new Error(`optionsSha256 mismatch for ${compoundKey}: expected ${expectedOptionsSha}, got ${entry.optionsSha256}`);
+    }
+    if (typeof entry.reasoning !== 'string' || entry.reasoning.trim().length < 15) {
+      throw new Error(`Curated entry ${compoundKey} must carry an explicit reasoning string (>= 15 chars).`);
+    }
+    if (entry.exempt === true) {
+      if (entry.scorable !== false) {
+        throw new Error(`Exempt curated entry ${compoundKey} must have scorable=false.`);
+      }
+      if (!['missing_stimulus', 'structural_transcription_defect', 'open_ended_writing_or_speaking'].includes(entry.exemptionCategory)) {
+        throw new Error(`Exempt curated entry ${compoundKey} has invalid exemptionCategory: ${entry.exemptionCategory}`);
+      }
+      if (!['stimulus-incomplete', 'ocr-structural-defect', 'incomplete-options', 'option-overflow', 'essay-open-ended-exempt'].includes(entry.ungradeableReason)) {
+        throw new Error(`Exempt curated entry ${compoundKey} has invalid ungradeableReason: ${entry.ungradeableReason}`);
+      }
+      if (Array.isArray(entry.candidates) && entry.candidates.length > 0) {
+        throw new Error(`Exempt curated entry ${compoundKey} must have empty candidates.`);
+      }
+    } else {
+      if (entry.scorable !== true || entry.exempt !== false) {
+        throw new Error(`Scorable curated entry ${compoundKey} must set scorable=true and exempt=false.`);
+      }
+      if (!Array.isArray(entry.candidates) || entry.candidates.length === 0 || entry.candidates.some(c => typeof c !== 'string' || !c.trim())) {
+        throw new Error(`Scorable curated entry ${compoundKey} must have non-empty string candidates.`);
+      }
+      if (question.responseType === 'choice' || question.responseType === 'multiple') {
+        const validIds = new Set((question.options || []).map(o => o.id));
+        if (!entry.candidates.every(c => validIds.has(c))) {
+          throw new Error(`Curated entry ${compoundKey} has choice candidate not in options: ${JSON.stringify(entry.candidates)}`);
+        }
+      } else if (question.responseType === 'true-false') {
+        const validIds = new Set([...(question.options || []).map(o => o.id), 'true', 'false']);
+        if (!entry.candidates.every(c => validIds.has(c))) {
+          throw new Error(`Curated entry ${compoundKey} has invalid true-false candidate: ${JSON.stringify(entry.candidates)}`);
+        }
+      }
+    }
+    map.set(compoundKey, entry);
+  }
+  return map;
+}
+
+const curatedKeysMap = loadCuratedKeys(path.join(root, 'data/exam-curated-keys.json'), parsedPapers);
+
 // One definition of "this item can actually be scored", used both for the
 // per-paper count and for the archive totals. Before this existed, `scoredCount`
 // was `answerKeys.length`, so every paper claimed 100% coverage while only a
 // fraction of its items had a usable key (issue #75).
 function isScorableKey(question, key) {
   if (!key || key.scorable === false) return false;
-  if (['invalid_key', 'missing_answer', 'incomplete_stimulus', 'ambiguous_review'].includes(key.verificationStatus)) return false;
+  if (['invalid_key', 'missing_answer', 'incomplete_stimulus', 'ambiguous_review', 'exempt_open_ended'].includes(key.verificationStatus)) return false;
   if (question.responseType === 'essay') return Boolean(key.rubric);
   return Array.isArray(key.candidates) && key.candidates.length > 0;
 }
@@ -164,11 +255,15 @@ const totals = {
   papers: 0,
   questions: 0,
   scoredQuestions: 0,
+  exemptQuestions: 0,
+  nonExemptQuestions: 0,
+  nonExemptCoveragePct: 100,
   scoringCoveragePct: 100,
   byStatus: {},
   bySourceStatus: {},
   byConfidence: { HIGH: 0, MEDIUM: 0, LOW: 0, VERY_LOW: 0 },
   byResponseType: {},
+  byExemptionCategory: {},
   gradable: 0,
   provisional: 0,
   listeningItems: 0,
@@ -185,11 +280,63 @@ const totals = {
 };
 
 for (const { item, body, contentSha256, questions } of parsedPapers) {
-  // A teaching lexicon, answer-letter frequency, or heuristic solver is not
-  // evidence for an exam answer. Keep the historical pin fail-closed above,
-  // but do not supply inferred hints; missing source keys remain ungraded.
-  const answerKeys = app.extractExamAnswerKeys(body, questions, { id: item.key, source: item.source, quality: item.quality, answers: item.answers });
   const isOcr = /HTML|OCR|cần-soát/i.test(item.quality);
+  const rawAnswerKeys = app.extractExamAnswerKeys(body, questions, { id: item.key, source: item.source, quality: item.quality, answers: item.answers });
+  const answerKeys = rawAnswerKeys.map((baseKey, idx) => {
+    const q = questions[idx];
+    const compoundKey = `${item.key}\u001f${q.id}`;
+    const curated = curatedKeysMap.get(compoundKey);
+    if (!curated) return baseKey;
+    if (baseKey.ungradeableReason !== 'no-source-answer') {
+      throw new Error(`Curated entry ${compoundKey} targets an item that is already resolved (${baseKey.verificationStatus} / ${baseKey.ungradeableReason}).`);
+    }
+    const baseLimits = Array.isArray(baseKey.limitations)
+      ? baseKey.limitations.filter(x => !/No answer entry in the stored transcription/i.test(x))
+      : [];
+    if (curated.exempt === true) {
+      const isStimulus = curated.ungradeableReason === 'stimulus-incomplete';
+      return {
+        ...baseKey,
+        verificationStatus: isStimulus ? 'incomplete_stimulus' : 'ambiguous_review',
+        sourceStatus: isStimulus ? 'incomplete_stimulus' : 'invalid_key',
+        confidence: 'VERY_LOW',
+        candidates: [],
+        acceptedAlternatives: [],
+        normalization: 'none',
+        scorable: false,
+        exempt: true,
+        exemptionCategory: curated.exemptionCategory,
+        ungradeableReason: curated.ungradeableReason,
+        reasoning: curated.reasoning.trim(),
+        sources: [{ kind: 'curated-exemption-audit', url: item.source || null, locator: `question context, source line ${q.sourceLine}` }],
+        limitations: [...baseLimits, curated.reasoning.trim()],
+        checkedAt: curated.checkedAt || '2026-11-08'
+      };
+    }
+    const calibratedConfidence = (isOcr || baseKey.stimulusFallback === 'listening_transcript_fallback') ? 'LOW' : 'MEDIUM';
+    const defaultNorm = q.responseType === 'choice' ? 'choice-id'
+      : q.responseType === 'multiple' ? 'choice-set'
+      : q.responseType === 'true-false' ? 'true-false'
+      : (curated.candidates[0].trim().split(/\s+/).length >= 4 ? 'case-whitespace-punctuation' : 'case-whitespace');
+    return {
+      ...baseKey,
+      verificationStatus: 'curated_verified',
+      sourceStatus: 'curated_domain_verified',
+      confidence: calibratedConfidence,
+      candidates: curated.candidates.map(c => c.trim()),
+      acceptedAlternatives: Array.isArray(curated.acceptedAlternatives) ? curated.acceptedAlternatives.map(c => String(c).trim()).filter(Boolean) : [],
+      normalization: curated.normalization || defaultNorm,
+      rawAnswer: null,
+      scorable: true,
+      exempt: false,
+      exemptionCategory: null,
+      ungradeableReason: null,
+      reasoning: curated.reasoning.trim(),
+      sources: [{ kind: 'curated-domain-review', url: item.source || null, locator: curated.locator || `question context, source line ${q.sourceLine}` }],
+      limitations: [...baseLimits, 'Curated domain-verified answer key bound by promptSha256 and optionsSha256; not an official primary provincial marking sheet.'],
+      checkedAt: curated.checkedAt || '2026-11-08'
+    };
+  });
   const hasMissingFig = answerKeys.some(k => k.stimulusFallback === 'missing_diagram_or_figure');
 
   const paper = {
@@ -202,6 +349,7 @@ for (const { item, body, contentSha256, questions } of parsedPapers) {
     ocrCaution: isOcr,
     questionCount: questions.length,
     scoredCount: questions.filter((q, i) => isScorableKey(q, answerKeys[i])).length,
+    exemptCount: answerKeys.filter(k => k.exempt === true).length,
     responseTypes: Object.fromEntries(['choice','multiple','true-false','text','essay'].map(t => [t, questions.filter(q => q.responseType === t).length])),
     keyStatuses: Object.fromEntries([...new Set(answerKeys.map(k => k.verificationStatus))].map(s => [s, answerKeys.filter(k => k.verificationStatus === s).length])),
     sourceStatuses: Object.fromEntries([...new Set(answerKeys.map(k => k.sourceStatus))].map(s => [s, answerKeys.filter(k => k.sourceStatus === s).length])),
@@ -232,6 +380,11 @@ for (const { item, body, contentSha256, questions } of parsedPapers) {
     if (q.responseType === 'essay' || q.flags.includes('writing-rubric-required')) {
       totals.writingRubricScored += 1;
     }
+    if (key.exempt === true) {
+      totals.exemptQuestions += 1;
+      const cat = key.exemptionCategory || 'unspecified';
+      totals.byExemptionCategory[cat] = (totals.byExemptionCategory[cat] || 0) + 1;
+    }
     // "Scorable" means the stored key can actually answer this question: a
     // non-empty candidate list is not enough (issue #75). Items without a
     // usable key or without their stimulus are counted as ungradeable.
@@ -240,7 +393,7 @@ for (const { item, body, contentSha256, questions } of parsedPapers) {
       totals.gradable += 1;
       if (key.verificationStatus !== 'official_verified') totals.provisional += 1;
     } else {
-      totals.missing += 1;
+      if (!key.exempt) totals.missing += 1;
       totals.ungradeable += 1;
       const reason = key.ungradeableReason || 'no-answer-key';
       totals.byUngradeableReason[reason] = (totals.byUngradeableReason[reason] || 0) + 1;
@@ -250,6 +403,10 @@ for (const { item, body, contentSha256, questions } of parsedPapers) {
   }
 }
 
+totals.nonExemptQuestions = totals.questions - totals.exemptQuestions;
+totals.nonExemptCoveragePct = totals.nonExemptQuestions > 0
+  ? Math.round((totals.scoredQuestions / totals.nonExemptQuestions) * 10000) / 100
+  : 100;
 totals.scoringCoveragePct = totals.questions > 0 ? Math.round((totals.scoredQuestions / totals.questions) * 10000) / 100 : 100;
 
 const manifest = {
@@ -265,10 +422,10 @@ const audit = {
   totals,
   limits: [
     'Zero items are labeled official_verified without an official primary ministry/department source.',
-    'Only items that can actually be scored from the stored material enter the denominator. Items whose key is not an option of the question, whose key is missing, or whose picture/audio stimulus is absent are reported as ungradeable with an explicit reason and excluded from the score denominator (scorable-only scoring).',
-    'No answer key is inferred from the teaching bank, option frequencies, or an automatic contextual solver; missing source answers stay ungraded.',
-    'Listening items without bundled MP3 use source transcript fallback (LOW confidence) when a transcript exists, or incomplete_stimulus (VERY_LOW confidence) otherwise.',
-    'Open-ended writing and speaking items are scored provisionally via a 4-criterion analytical rubric (Task 30%, Coherence 25%, Lexis 25%, Grammar 20%) and never claim human-examiner equivalence.'
+    'Only objective and short-answer items with a verified answer key (source-transcribed or curated domain-verified, bound by SHA-256) enter the objective score denominator.',
+    'No answer key is inferred from the teaching bank, option frequencies, or an automatic heuristic solver.',
+    'Listening items without bundled MP3 use source transcript fallback (LOW confidence) when a transcript exists, or formal missing_stimulus exemption (VERY_LOW confidence) otherwise.',
+    'Open-ended writing and speaking essays are formally exempt from the objective score denominator (exempt_open_ended) while providing an advisory 4-criterion analytical rubric (Task 30%, Coherence 25%, Lexis 25%, Grammar 20%) that never claims human-examiner equivalence.'
   ],
   papers: records.map(({ answerKeys, ...rest }) => rest)
 };
@@ -276,11 +433,17 @@ const audit = {
 const md = [
   '# Exam scoring audit',
   '',
-  `Scoring rule: \`${app.EXAM_SCORING_RULE_VERSION}\`. Scorable-only denominator: items with a usable recorded-source answer or a provisional essay rubric are scored (${totals.scoredQuestions} / ${totals.questions} = ${totals.scoringCoveragePct} %). The remaining ${totals.ungradeable} items are listed as ungradeable with a reason and are never guessed, inferred or keyed by statistics. No official verification is implied where primary sources are absent.`,
+  `Scoring rule: \`${app.EXAM_SCORING_RULE_VERSION}\`. Objective scorable denominator: ${totals.scoredQuestions} / ${totals.nonExemptQuestions} non-exempt questions (${totals.nonExemptCoveragePct} %; ${totals.scoringCoveragePct} % of all ${totals.questions} stored questions). Formally exempt items (${totals.exemptQuestions}: missing stimulus, open-ended writing/speaking, or structural transcription defect) are excluded from the objective denominator with explicit exemption categories; unresolved non-exempt items: ${totals.missing}.`,
   '',
   '| Metric | Count |',
   '| --- | ---: |',
   ...Object.entries(totals).filter(([, v]) => typeof v === 'number').map(([k, v]) => `| ${k} | ${v} |`),
+  '',
+  '## Formal exemption categories',
+  '',
+  '| Exemption Category | Questions |',
+  '| --- | ---: |',
+  ...Object.entries(totals.byExemptionCategory).map(([k, v]) => `| ${k} | ${v} |`),
   '',
   '## Verification status counts (question denominator)',
   '',

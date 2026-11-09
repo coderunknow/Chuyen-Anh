@@ -20675,7 +20675,7 @@
   },
   {
    "id": "7966",
-   "word": "cd",
+   "word": "CD",
    "multiWord": false,
    "type": [
     "core"
@@ -20830,7 +20830,7 @@
   },
   {
    "id": "8130",
-   "word": "i",
+   "word": "I",
    "multiWord": false,
    "type": [
     "core"
@@ -20951,7 +20951,7 @@
   },
   {
    "id": "8214",
-   "word": "ok",
+   "word": "OK",
    "multiWord": false,
    "type": [
     "topic"
@@ -21085,7 +21085,7 @@
   },
   {
    "id": "8330",
-   "word": "tv",
+   "word": "TV",
    "multiWord": false,
    "type": [
     "core"
@@ -21446,7 +21446,7 @@
   },
   {
    "id": "8539",
-   "word": "id",
+   "word": "ID",
    "multiWord": false,
    "type": [
     "topic"

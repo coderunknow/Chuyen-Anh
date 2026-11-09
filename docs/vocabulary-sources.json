@@ -1,7 +1,7 @@
 {
   "version": 1,
   "description": "Registry of every source referenced by the SOURCES column of Learned_Vocabulary_List.md and Learned_Phrase_List.md. Each row cites registry ids and a locator; the registry states what the source can and cannot back.",
-  "accessed": "2026-11-03",
+  "accessed": "2026-11-08",
   "sources": [
     {
       "id": "exam-corpus",
@@ -98,6 +98,19 @@
       "access": "file-in-repo",
       "supports": "Oxford's printed CEFR level (mostly B2-C1) for advanced headwords and senses.",
       "limits": "Same mirror caveat as oxford-3000-wordlist."
+    },
+    {
+      "id": "cambridge-evp",
+      "cefrLevels": ["A1", "A2", "B1", "B2", "C1", "C2"],
+      "independenceGroup": "cambridge-university-press",
+      "type": "cefr-reference",
+      "title": "Cambridge Dictionary / English Vocabulary Profile sense-level CEFR badges (verified snapshot)",
+      "publisher": "Cambridge University Press & Assessment",
+      "url": "https://dictionary.cambridge.org/dictionary/english/",
+      "locatorScheme": "cambridge-evp-verified.tsv:<line>: <headword> (<pos>, <sense>) — verified entry snapshot in audit/v100/refs/cambridge-evp-verified.tsv",
+      "access": "file-in-repo",
+      "supports": "Printed English Vocabulary Profile (EVP) CEFR badges (A1-C2) on individual senses in Cambridge Dictionary Online, directly fetched and verified with sense guideword, POS, URL, and retrieval date.",
+      "limits": "Covers only headword senses whose Cambridge Dictionary pages were directly fetched and verified in audit/v100/refs/cambridge-evp-verified.tsv; unbadged senses in Cambridge Dictionary are omitted rather than interpolated."
     },
     {
       "id": "editorial-sense-gloss-map",

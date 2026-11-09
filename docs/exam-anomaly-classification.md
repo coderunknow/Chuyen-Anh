@@ -6,14 +6,14 @@ No transcription is edited by this script: each leftover anomaly is listed with 
 | Metric | Count |
 | --- | ---: |
 | papers | 106 |
-| questions | 6804 |
-| truncated_prompt | 518 |
-| instruction_only | 215 |
-| shared_prompt | 422 |
-| option_overflow | 21 |
+| questions | 6708 |
+| truncated_prompt | 520 |
+| instruction_only | 198 |
+| shared_prompt | 400 |
+| option_overflow | 15 |
 | incomplete_option | 0 |
-| papersWithAnomalies | 94 |
-| questionsWithAnomalies | 970 |
+| papersWithAnomalies | 92 |
+| questionsWithAnomalies | 937 |
 
 ## Criteria
 
@@ -25,9 +25,9 @@ No transcription is edited by this script: each leftover anomaly is listed with 
 
 ## Handling
 
-- **kept_as_recorded** — 518 cases
-- **needs_review** — 431 cases
-- **handled_in_app** — 21 cases
+- **kept_as_recorded** — 520 cases
+- **needs_review** — 402 cases
+- **handled_in_app** — 15 cases
 
 - `option_overflow` / `incomplete_option` are excluded from scoring in the app (structural defect), with the stored options and answer kept unchanged.
 - `truncated_prompt` / `instruction_only` / `shared_prompt` are kept exactly as transcribed: the archive holds no more text for them, and rewriting or borrowing another paper's wording would invent content.
@@ -37,73 +37,94 @@ No transcription is edited by this script: each leftover anomaly is listed with 
 | Paper | Q | Type | Anomaly | Options | Prompt chars | Key status | Scorable | Status |
 | --- | ---: | --- | --- | ---: | ---: | --- | --- | --- |
 | 2022/an-giang/so | 5 | text | truncated_prompt | 0 | 153 | incomplete_stimulus | no | kept_as_recorded |
-| 2022/an-giang/so | 1 | choice | shared_prompt | 4 | 209 | missing_answer | no | needs_review |
-| 2022/an-giang/so | 2 | choice | shared_prompt | 4 | 209 | missing_answer | no | needs_review |
-| 2022/an-giang/so | 3 | choice | shared_prompt | 4 | 209 | missing_answer | no | needs_review |
-| 2022/an-giang/so | 4 | choice | shared_prompt | 4 | 209 | missing_answer | no | needs_review |
-| 2022/an-giang/so | 5 | choice | shared_prompt | 4 | 209 | missing_answer | no | needs_review |
-| 2022/an-giang/so | 6 | choice | shared_prompt | 4 | 209 | missing_answer | no | needs_review |
-| 2022/an-giang/so | 7 | choice | shared_prompt | 4 | 209 | missing_answer | no | needs_review |
-| 2022/an-giang/so | 8 | choice | shared_prompt | 4 | 209 | missing_answer | no | needs_review |
-| 2022/an-giang/so | 9 | choice | shared_prompt | 4 | 209 | missing_answer | no | needs_review |
-| 2022/an-giang/so | 10 | choice | shared_prompt | 4 | 209 | missing_answer | no | needs_review |
-| 2022/bac-giang/so | 1 | choice | shared_prompt | 2 | 286 | missing_answer | no | needs_review |
-| 2022/bac-giang/so | 2 | choice | shared_prompt | 2 | 286 | missing_answer | no | needs_review |
-| 2022/bac-giang/so | 3 | choice | shared_prompt | 4 | 286 | missing_answer | no | needs_review |
-| 2022/bac-giang/so | 4 | choice | shared_prompt | 4 | 286 | missing_answer | no | needs_review |
-| 2022/bac-giang/so | 5 | choice | shared_prompt | 4 | 286 | missing_answer | no | needs_review |
-| 2022/bac-giang/so | 6 | choice | shared_prompt | 4 | 286 | missing_answer | no | needs_review |
-| 2022/bac-giang/so | 7 | choice | shared_prompt | 4 | 286 | missing_answer | no | needs_review |
-| 2022/bac-giang/so | 8 | choice | shared_prompt | 5 | 286 | missing_answer | no | needs_review |
-| 2022/bac-kan/so | 1 | choice | instruction_only, shared_prompt | 4 | 155 | missing_answer | no | needs_review |
-| 2022/bac-kan/so | 2 | choice | instruction_only, shared_prompt | 4 | 155 | missing_answer | no | needs_review |
-| 2022/bac-kan/so | 3 | choice | instruction_only, shared_prompt | 4 | 155 | missing_answer | no | needs_review |
-| 2022/bac-kan/so | 4 | choice | instruction_only, shared_prompt | 4 | 155 | missing_answer | no | needs_review |
-| 2022/bac-kan/so | 5 | choice | instruction_only, shared_prompt | 4 | 155 | missing_answer | no | needs_review |
-| 2022/bac-kan/so | 6 | choice | instruction_only, shared_prompt | 4 | 92 | missing_answer | no | needs_review |
-| 2022/bac-kan/so | 7 | choice | instruction_only, shared_prompt | 4 | 92 | missing_answer | no | needs_review |
-| 2022/bac-kan/so | 8 | choice | instruction_only, shared_prompt | 4 | 92 | missing_answer | no | needs_review |
-| 2022/bac-kan/so | 9 | choice | instruction_only, shared_prompt | 4 | 92 | missing_answer | no | needs_review |
-| 2022/bac-kan/so | 10 | choice | instruction_only, shared_prompt | 4 | 92 | missing_answer | no | needs_review |
-| 2022/bac-kan/so | 1 | text | instruction_only | 0 | 97 | missing_answer | no | needs_review |
-| 2022/bac-kan/so | 61 | choice | instruction_only, shared_prompt | 4 | 72 | missing_answer | no | needs_review |
-| 2022/bac-kan/so | 62 | choice | instruction_only, shared_prompt | 4 | 72 | missing_answer | no | needs_review |
-| 2022/bac-kan/so | 63 | choice | instruction_only, shared_prompt | 4 | 72 | missing_answer | no | needs_review |
-| 2022/bac-kan/so | 64 | choice | instruction_only, shared_prompt | 4 | 72 | missing_answer | no | needs_review |
-| 2022/bac-kan/so | 65 | choice | instruction_only, shared_prompt | 4 | 72 | missing_answer | no | needs_review |
-| 2022/bac-ninh/so | 3 | choice | truncated_prompt | 3 | 81 | missing_answer | no | kept_as_recorded |
-| 2022/bac-ninh/so | 5 | choice | truncated_prompt | 3 | 37 | missing_answer | no | kept_as_recorded |
-| 2022/bac-ninh/so | 12 | choice | instruction_only | 4 | 41 | missing_answer | no | needs_review |
-| 2022/bac-ninh/so | 16 | choice | truncated_prompt | 4 | 80 | missing_answer | no | kept_as_recorded |
-| 2022/binh-duong/so | 10 | choice | option_overflow | 8 | 54 | ambiguous_review | no | handled_in_app |
-| 2022/binh-duong/so | 10 | true-false | option_overflow | 7 | 1884 | ambiguous_review | no | handled_in_app |
-| 2022/binh-duong/so | 25 | text | shared_prompt | 0 | 370 | missing_answer | no | needs_review |
-| 2022/binh-duong/so | 27 | text | shared_prompt | 0 | 370 | missing_answer | no | needs_review |
-| 2022/binh-duong/so | 28 | text | shared_prompt | 0 | 370 | missing_answer | no | needs_review |
-| 2022/binh-duong/so | 29 | choice | shared_prompt | 4 | 370 | missing_answer | no | needs_review |
-| 2022/binh-duong/so | 21 | text | shared_prompt | 0 | 370 | missing_answer | no | needs_review |
-| 2022/binh-duong/so | 22 | choice | truncated_prompt | 3 | 7 | missing_answer | no | kept_as_recorded |
-| 2022/binh-duong/so | 23 | choice | shared_prompt | 3 | 370 | missing_answer | no | needs_review |
-| 2022/binh-duong/so | 24 | choice | shared_prompt | 4 | 370 | missing_answer | no | needs_review |
-| 2022/binh-duong/so | 25 | text | shared_prompt | 0 | 370 | missing_answer | no | needs_review |
-| 2022/binh-duong/so | 27 | text | shared_prompt | 0 | 370 | missing_answer | no | needs_review |
-| 2022/binh-duong/so | 28 | text | shared_prompt | 0 | 370 | missing_answer | no | needs_review |
-| 2022/binh-duong/so | 29 | text | shared_prompt | 0 | 370 | missing_answer | no | needs_review |
-| 2022/binh-duong/so | 30 | choice | shared_prompt | 4 | 370 | missing_answer | no | needs_review |
-| 2022/binh-duong/so | 32 | text | truncated_prompt | 0 | 8 | missing_answer | no | kept_as_recorded |
-| 2022/binh-duong/so | 59 | text | truncated_prompt | 0 | 5 | missing_answer | no | kept_as_recorded |
-| 2022/binh-duong/so | 61 | text | truncated_prompt | 0 | 2 | missing_answer | no | kept_as_recorded |
-| 2022/binh-duong/so | 62 | choice | truncated_prompt | 2 | 3 | missing_answer | no | kept_as_recorded |
-| 2022/binh-duong/so | 65 | text | truncated_prompt | 0 | 9 | missing_answer | no | kept_as_recorded |
-| 2022/binh-duong/so | 66 | choice | truncated_prompt | 2 | 4 | missing_answer | no | kept_as_recorded |
-| 2022/binh-duong/so | 70 | text | truncated_prompt | 0 | 5 | missing_answer | no | kept_as_recorded |
-| 2022/binh-duong/so | 72 | text | truncated_prompt | 0 | 5 | missing_answer | no | kept_as_recorded |
-| 2022/binh-duong/so | 73 | text | truncated_prompt | 0 | 6 | missing_answer | no | kept_as_recorded |
-| 2022/binh-duong/so | 81 | text | truncated_prompt | 0 | 6 | missing_answer | no | kept_as_recorded |
-| 2022/binh-duong/so | 59 | text | truncated_prompt | 0 | 67 | missing_answer | no | kept_as_recorded |
-| 2022/binh-duong/so | 85 | choice | truncated_prompt | 4 | 103 | missing_answer | no | kept_as_recorded |
-| 2022/binh-duong/so | 91 | choice | truncated_prompt | 4 | 1 | missing_answer | no | kept_as_recorded |
-| 2022/binh-duong/so | 95 | choice | truncated_prompt | 4 | 4 | missing_answer | no | kept_as_recorded |
+| 2022/an-giang/so | 1 | choice | shared_prompt | 4 | 209 | curated_verified | yes | needs_review |
+| 2022/an-giang/so | 2 | choice | shared_prompt | 4 | 209 | curated_verified | yes | needs_review |
+| 2022/an-giang/so | 3 | choice | shared_prompt | 4 | 209 | curated_verified | yes | needs_review |
+| 2022/an-giang/so | 4 | choice | shared_prompt | 4 | 209 | curated_verified | yes | needs_review |
+| 2022/an-giang/so | 5 | choice | shared_prompt | 4 | 209 | curated_verified | yes | needs_review |
+| 2022/an-giang/so | 6 | choice | shared_prompt | 4 | 209 | curated_verified | yes | needs_review |
+| 2022/an-giang/so | 7 | choice | shared_prompt | 4 | 209 | curated_verified | yes | needs_review |
+| 2022/an-giang/so | 8 | choice | shared_prompt | 4 | 209 | curated_verified | yes | needs_review |
+| 2022/an-giang/so | 9 | choice | shared_prompt | 4 | 209 | curated_verified | yes | needs_review |
+| 2022/an-giang/so | 10 | choice | shared_prompt | 4 | 209 | curated_verified | yes | needs_review |
+| 2022/bac-giang/so | 1 | choice | shared_prompt | 4 | 286 | curated_verified | yes | needs_review |
+| 2022/bac-giang/so | 2 | choice | shared_prompt | 4 | 286 | curated_verified | yes | needs_review |
+| 2022/bac-giang/so | 3 | choice | shared_prompt | 4 | 286 | curated_verified | yes | needs_review |
+| 2022/bac-giang/so | 4 | choice | shared_prompt | 4 | 286 | curated_verified | yes | needs_review |
+| 2022/bac-giang/so | 5 | choice | shared_prompt | 4 | 286 | curated_verified | yes | needs_review |
+| 2022/bac-giang/so | 6 | choice | shared_prompt | 4 | 286 | curated_verified | yes | needs_review |
+| 2022/bac-giang/so | 7 | choice | shared_prompt | 4 | 286 | curated_verified | yes | needs_review |
+| 2022/bac-giang/so | 8 | choice | shared_prompt | 4 | 286 | curated_verified | yes | needs_review |
+| 2022/bac-kan/so | 1 | choice | instruction_only, shared_prompt | 4 | 155 | incomplete_stimulus | no | needs_review |
+| 2022/bac-kan/so | 2 | choice | instruction_only, shared_prompt | 4 | 155 | incomplete_stimulus | no | needs_review |
+| 2022/bac-kan/so | 3 | choice | instruction_only, shared_prompt | 4 | 155 | incomplete_stimulus | no | needs_review |
+| 2022/bac-kan/so | 4 | choice | instruction_only, shared_prompt | 4 | 155 | incomplete_stimulus | no | needs_review |
+| 2022/bac-kan/so | 5 | choice | instruction_only, shared_prompt | 4 | 155 | incomplete_stimulus | no | needs_review |
+| 2022/bac-kan/so | 6 | choice | instruction_only, shared_prompt | 4 | 92 | ambiguous_review | no | needs_review |
+| 2022/bac-kan/so | 7 | choice | instruction_only, shared_prompt | 4 | 92 | ambiguous_review | no | needs_review |
+| 2022/bac-kan/so | 8 | choice | instruction_only, shared_prompt | 4 | 92 | ambiguous_review | no | needs_review |
+| 2022/bac-kan/so | 9 | choice | instruction_only, shared_prompt | 4 | 92 | ambiguous_review | no | needs_review |
+| 2022/bac-kan/so | 10 | choice | instruction_only, shared_prompt | 4 | 92 | ambiguous_review | no | needs_review |
+| 2022/bac-kan/so | 1 | text | instruction_only | 0 | 97 | ambiguous_review | no | needs_review |
+| 2022/bac-kan/so | 61 | choice | instruction_only, shared_prompt | 4 | 164 | curated_verified | yes | needs_review |
+| 2022/bac-kan/so | 62 | choice | instruction_only, shared_prompt | 4 | 164 | curated_verified | yes | needs_review |
+| 2022/bac-kan/so | 63 | choice | instruction_only, shared_prompt | 4 | 164 | curated_verified | yes | needs_review |
+| 2022/bac-kan/so | 64 | choice | instruction_only, shared_prompt | 4 | 164 | curated_verified | yes | needs_review |
+| 2022/bac-kan/so | 65 | choice | instruction_only, shared_prompt | 4 | 164 | ambiguous_review | no | needs_review |
+| 2022/bac-ninh/so | 3 | choice | truncated_prompt | 3 | 81 | incomplete_stimulus | no | kept_as_recorded |
+| 2022/bac-ninh/so | 5 | choice | truncated_prompt | 3 | 37 | incomplete_stimulus | no | kept_as_recorded |
+| 2022/bac-ninh/so | 16 | choice | truncated_prompt | 4 | 80 | ambiguous_review | no | kept_as_recorded |
+| 2022/bac-ninh/so | 1 | choice | instruction_only, shared_prompt | 3 | 109 | ambiguous_review | no | needs_review |
+| 2022/bac-ninh/so | 2 | choice | instruction_only, shared_prompt | 4 | 109 | curated_verified | yes | needs_review |
+| 2022/bac-ninh/so | 3 | choice | instruction_only, shared_prompt | 3 | 109 | ambiguous_review | no | needs_review |
+| 2022/bac-ninh/so | 4 | choice | instruction_only, shared_prompt | 4 | 109 | curated_verified | yes | needs_review |
+| 2022/bac-ninh/so | 5 | choice | instruction_only, shared_prompt | 4 | 109 | curated_verified | yes | needs_review |
+| 2022/bac-ninh/so | 6 | choice | instruction_only, shared_prompt | 4 | 109 | curated_verified | yes | needs_review |
+| 2022/bac-ninh/so | 7 | choice | instruction_only, shared_prompt | 4 | 109 | curated_verified | yes | needs_review |
+| 2022/bac-ninh/so | 8 | choice | instruction_only, shared_prompt | 4 | 109 | curated_verified | yes | needs_review |
+| 2022/bac-ninh/so | 9 | choice | instruction_only, shared_prompt | 3 | 109 | ambiguous_review | no | needs_review |
+| 2022/bac-ninh/so | 10 | choice | instruction_only, shared_prompt | 4 | 109 | curated_verified | yes | needs_review |
+| 2022/bac-ninh/so | 3 | choice | truncated_prompt | 4 | 68 | curated_verified | yes | kept_as_recorded |
+| 2022/bac-ninh/so | 8 | choice | truncated_prompt | 4 | 48 | curated_verified | yes | kept_as_recorded |
+| 2022/bac-ninh/so | 9 | choice | truncated_prompt | 4 | 69 | curated_verified | yes | kept_as_recorded |
+| 2022/bac-ninh/so | 1 | text | truncated_prompt | 0 | 128 | curated_verified | yes | kept_as_recorded |
+| 2022/bac-ninh/so | 2 | text | truncated_prompt | 0 | 120 | curated_verified | yes | kept_as_recorded |
+| 2022/bac-ninh/so | 3 | text | truncated_prompt | 0 | 107 | curated_verified | yes | kept_as_recorded |
+| 2022/bac-ninh/so | 4 | text | truncated_prompt | 0 | 122 | curated_verified | yes | kept_as_recorded |
+| 2022/bac-ninh/so | 5 | text | truncated_prompt | 0 | 117 | curated_verified | yes | kept_as_recorded |
+| 2022/bac-ninh/so | 1 | text | truncated_prompt | 0 | 125 | curated_verified | yes | kept_as_recorded |
+| 2022/bac-ninh/so | 2 | text | truncated_prompt | 0 | 132 | curated_verified | yes | kept_as_recorded |
+| 2022/bac-ninh/so | 3 | text | truncated_prompt | 0 | 112 | curated_verified | yes | kept_as_recorded |
+| 2022/bac-ninh/so | 4 | text | truncated_prompt | 0 | 116 | curated_verified | yes | kept_as_recorded |
+| 2022/bac-ninh/so | 5 | text | truncated_prompt | 0 | 114 | curated_verified | yes | kept_as_recorded |
+| 2022/binh-duong/so | 10 | choice | option_overflow | 8 | 54 | incomplete_stimulus | no | handled_in_app |
+| 2022/binh-duong/so | 25 | text | shared_prompt | 0 | 370 | ambiguous_review | no | needs_review |
+| 2022/binh-duong/so | 27 | text | shared_prompt | 0 | 370 | ambiguous_review | no | needs_review |
+| 2022/binh-duong/so | 28 | text | shared_prompt | 0 | 370 | ambiguous_review | no | needs_review |
+| 2022/binh-duong/so | 29 | choice | shared_prompt | 4 | 370 | ambiguous_review | no | needs_review |
+| 2022/binh-duong/so | 21 | text | shared_prompt | 0 | 370 | ambiguous_review | no | needs_review |
+| 2022/binh-duong/so | 22 | choice | truncated_prompt | 3 | 7 | ambiguous_review | no | kept_as_recorded |
+| 2022/binh-duong/so | 23 | choice | shared_prompt | 3 | 370 | ambiguous_review | no | needs_review |
+| 2022/binh-duong/so | 24 | choice | shared_prompt | 4 | 370 | ambiguous_review | no | needs_review |
+| 2022/binh-duong/so | 25 | text | shared_prompt | 0 | 370 | ambiguous_review | no | needs_review |
+| 2022/binh-duong/so | 27 | text | shared_prompt | 0 | 370 | ambiguous_review | no | needs_review |
+| 2022/binh-duong/so | 28 | text | shared_prompt | 0 | 370 | ambiguous_review | no | needs_review |
+| 2022/binh-duong/so | 29 | text | shared_prompt | 0 | 370 | ambiguous_review | no | needs_review |
+| 2022/binh-duong/so | 30 | choice | shared_prompt | 4 | 370 | ambiguous_review | no | needs_review |
+| 2022/binh-duong/so | 32 | text | truncated_prompt | 0 | 8 | ambiguous_review | no | kept_as_recorded |
+| 2022/binh-duong/so | 59 | text | truncated_prompt | 0 | 5 | ambiguous_review | no | kept_as_recorded |
+| 2022/binh-duong/so | 61 | text | truncated_prompt | 0 | 2 | ambiguous_review | no | kept_as_recorded |
+| 2022/binh-duong/so | 62 | choice | truncated_prompt | 2 | 3 | ambiguous_review | no | kept_as_recorded |
+| 2022/binh-duong/so | 65 | text | truncated_prompt | 0 | 9 | ambiguous_review | no | kept_as_recorded |
+| 2022/binh-duong/so | 66 | choice | truncated_prompt | 2 | 4 | ambiguous_review | no | kept_as_recorded |
+| 2022/binh-duong/so | 70 | text | truncated_prompt | 0 | 5 | ambiguous_review | no | kept_as_recorded |
+| 2022/binh-duong/so | 72 | text | truncated_prompt | 0 | 5 | ambiguous_review | no | kept_as_recorded |
+| 2022/binh-duong/so | 73 | text | truncated_prompt | 0 | 6 | ambiguous_review | no | kept_as_recorded |
+| 2022/binh-duong/so | 81 | text | truncated_prompt | 0 | 6 | ambiguous_review | no | kept_as_recorded |
+| 2022/binh-duong/so | 59 | text | truncated_prompt | 0 | 67 | ambiguous_review | no | kept_as_recorded |
+| 2022/binh-duong/so | 85 | choice | truncated_prompt | 4 | 103 | ambiguous_review | no | kept_as_recorded |
+| 2022/binh-duong/so | 91 | choice | truncated_prompt | 4 | 1 | ambiguous_review | no | kept_as_recorded |
+| 2022/binh-duong/so | 95 | choice | truncated_prompt | 4 | 4 | curated_verified | yes | kept_as_recorded |
 | 2022/binh-phuoc/so | 16 | text | shared_prompt | 0 | 144 | source_transcription_unverified | yes | needs_review |
 | 2022/binh-phuoc/so | 17 | choice | shared_prompt | 4 | 144 | source_transcription_unverified | yes | needs_review |
 | 2022/binh-phuoc/so | 18 | text | shared_prompt | 0 | 144 | source_transcription_unverified | yes | needs_review |
@@ -117,45 +138,45 @@ No transcription is edited by this script: each leftover anomaly is listed with 
 | 2022/binh-phuoc/so | 71 | text | shared_prompt | 0 | 142 | source_transcription_unverified | yes | needs_review |
 | 2022/binh-phuoc/so | 72 | text | shared_prompt | 0 | 142 | source_transcription_unverified | yes | needs_review |
 | 2022/binh-phuoc/so | 73 | choice | shared_prompt | 4 | 142 | source_transcription_unverified | yes | needs_review |
-| 2022/binh-thuan/so | 13 | choice | truncated_prompt | 4 | 2 | missing_answer | no | kept_as_recorded |
-| 2022/binh-thuan/so | 41 | choice | shared_prompt | 2 | 133 | missing_answer | no | needs_review |
-| 2022/binh-thuan/so | 42 | choice | shared_prompt | 4 | 133 | missing_answer | no | needs_review |
-| 2022/binh-thuan/so | 43 | choice | shared_prompt | 4 | 133 | missing_answer | no | needs_review |
-| 2022/binh-thuan/so | 44 | choice | shared_prompt | 3 | 133 | missing_answer | no | needs_review |
-| 2022/binh-thuan/so | 45 | choice | shared_prompt | 3 | 133 | missing_answer | no | needs_review |
-| 2022/binh-thuan/so | 46 | choice | shared_prompt | 2 | 133 | missing_answer | no | needs_review |
-| 2022/binh-thuan/so | 47 | text | shared_prompt | 0 | 133 | missing_answer | no | needs_review |
-| 2022/binh-thuan/so | 48 | choice | shared_prompt | 2 | 133 | missing_answer | no | needs_review |
-| 2022/binh-thuan/so | 49 | text | shared_prompt | 0 | 133 | missing_answer | no | needs_review |
-| 2022/binh-thuan/so | 50 | choice | shared_prompt | 4 | 133 | missing_answer | no | needs_review |
-| 2022/binh-thuan/so | 55 | choice | truncated_prompt | 4 | 19 | missing_answer | no | kept_as_recorded |
-| 2022/binh-thuan/so | 82 | text | truncated_prompt | 0 | 114 | missing_answer | no | kept_as_recorded |
-| 2022/binh-thuan/so | 83 | text | truncated_prompt | 0 | 104 | missing_answer | no | kept_as_recorded |
-| 2022/binh-thuan/so | 85 | text | truncated_prompt | 0 | 88 | missing_answer | no | kept_as_recorded |
-| 2022/ca-mau/so | 1 | choice | shared_prompt | 4 | 102 | missing_answer | no | needs_review |
-| 2022/ca-mau/so | 2 | choice | shared_prompt | 4 | 102 | missing_answer | no | needs_review |
-| 2022/ca-mau/so | 3 | choice | shared_prompt | 4 | 102 | missing_answer | no | needs_review |
-| 2022/ca-mau/so | 3 | choice | truncated_prompt | 4 | 3 | missing_answer | no | kept_as_recorded |
-| 2022/ca-mau/so | 4 | choice | truncated_prompt | 4 | 4 | missing_answer | no | kept_as_recorded |
-| 2022/dong-nai/so | 1 | text | instruction_only, shared_prompt | 0 | 176 | missing_answer | no | needs_review |
-| 2022/dong-nai/so | 5 | choice | instruction_only, shared_prompt | 4 | 176 | missing_answer | no | needs_review |
-| 2022/dong-nai/so | 6 | choice | instruction_only, shared_prompt | 2 | 176 | missing_answer | no | needs_review |
-| 2022/dong-nai/so | 7 | choice | instruction_only, shared_prompt | 2 | 176 | missing_answer | no | needs_review |
-| 2022/dong-nai/so | 9 | choice | instruction_only, shared_prompt | 2 | 176 | missing_answer | no | needs_review |
-| 2022/dong-nai/so | 10 | choice | instruction_only, shared_prompt | 4 | 176 | missing_answer | no | needs_review |
-| 2022/dong-nai/so | 14 | choice | truncated_prompt | 4 | 7 | missing_answer | no | kept_as_recorded |
-| 2022/dong-nai/so | 16 | choice | truncated_prompt | 4 | 44 | missing_answer | no | kept_as_recorded |
-| 2022/dong-nai/so | 23 | choice | truncated_prompt | 4 | 7 | missing_answer | no | kept_as_recorded |
-| 2022/dong-nai/so | 47 | text | instruction_only, shared_prompt | 0 | 404 | missing_answer | no | needs_review |
-| 2022/dong-nai/so | 48 | text | instruction_only, shared_prompt | 0 | 404 | missing_answer | no | needs_review |
-| 2022/dong-nai/so | 49 | choice | instruction_only, shared_prompt | 4 | 404 | missing_answer | no | needs_review |
-| 2022/dong-nai/so | 50 | text | instruction_only, shared_prompt | 0 | 404 | missing_answer | no | needs_review |
-| 2022/dong-nai/so | 51 | choice | instruction_only, shared_prompt | 4 | 404 | missing_answer | no | needs_review |
-| 2022/dong-nai/so | 75 | essay | truncated_prompt | 0 | 54 | inferred_unverified | yes | kept_as_recorded |
-| 2022/dong-nai/so | 77 | essay | truncated_prompt | 0 | 63 | inferred_unverified | yes | kept_as_recorded |
-| 2022/dong-nai/so | 82 | essay | truncated_prompt | 0 | 122 | inferred_unverified | yes | kept_as_recorded |
-| 2022/dong-nai/so | 84 | essay | truncated_prompt | 0 | 245 | inferred_unverified | yes | kept_as_recorded |
-| 2022/dong-nai/so | 88 | essay | truncated_prompt | 0 | 62 | inferred_unverified | yes | kept_as_recorded |
+| 2022/binh-thuan/so | 13 | choice | truncated_prompt | 4 | 2 | ambiguous_review | no | kept_as_recorded |
+| 2022/binh-thuan/so | 41 | choice | shared_prompt | 2 | 133 | ambiguous_review | no | needs_review |
+| 2022/binh-thuan/so | 42 | choice | shared_prompt | 4 | 133 | ambiguous_review | no | needs_review |
+| 2022/binh-thuan/so | 43 | choice | shared_prompt | 4 | 133 | curated_verified | yes | needs_review |
+| 2022/binh-thuan/so | 44 | choice | shared_prompt | 3 | 133 | ambiguous_review | no | needs_review |
+| 2022/binh-thuan/so | 45 | choice | shared_prompt | 3 | 133 | ambiguous_review | no | needs_review |
+| 2022/binh-thuan/so | 46 | choice | shared_prompt | 2 | 133 | ambiguous_review | no | needs_review |
+| 2022/binh-thuan/so | 47 | text | shared_prompt | 0 | 133 | ambiguous_review | no | needs_review |
+| 2022/binh-thuan/so | 48 | choice | shared_prompt | 2 | 133 | ambiguous_review | no | needs_review |
+| 2022/binh-thuan/so | 49 | text | shared_prompt | 0 | 133 | ambiguous_review | no | needs_review |
+| 2022/binh-thuan/so | 50 | choice | shared_prompt | 4 | 133 | ambiguous_review | no | needs_review |
+| 2022/binh-thuan/so | 55 | choice | truncated_prompt | 4 | 19 | ambiguous_review | no | kept_as_recorded |
+| 2022/binh-thuan/so | 82 | text | truncated_prompt | 0 | 114 | curated_verified | yes | kept_as_recorded |
+| 2022/binh-thuan/so | 83 | text | truncated_prompt | 0 | 104 | ambiguous_review | no | kept_as_recorded |
+| 2022/binh-thuan/so | 85 | text | truncated_prompt | 0 | 88 | ambiguous_review | no | kept_as_recorded |
+| 2022/ca-mau/so | 1 | choice | shared_prompt | 4 | 102 | incomplete_stimulus | no | needs_review |
+| 2022/ca-mau/so | 2 | choice | shared_prompt | 4 | 102 | incomplete_stimulus | no | needs_review |
+| 2022/ca-mau/so | 3 | choice | shared_prompt | 4 | 102 | incomplete_stimulus | no | needs_review |
+| 2022/ca-mau/so | 3 | choice | truncated_prompt | 4 | 3 | curated_verified | yes | kept_as_recorded |
+| 2022/ca-mau/so | 4 | choice | truncated_prompt | 4 | 4 | curated_verified | yes | kept_as_recorded |
+| 2022/dong-nai/so | 1 | text | instruction_only, shared_prompt | 0 | 176 | incomplete_stimulus | no | needs_review |
+| 2022/dong-nai/so | 5 | choice | instruction_only, shared_prompt | 4 | 176 | incomplete_stimulus | no | needs_review |
+| 2022/dong-nai/so | 6 | choice | instruction_only, shared_prompt | 2 | 176 | ambiguous_review | no | needs_review |
+| 2022/dong-nai/so | 7 | choice | instruction_only, shared_prompt | 2 | 176 | ambiguous_review | no | needs_review |
+| 2022/dong-nai/so | 9 | choice | instruction_only, shared_prompt | 2 | 176 | ambiguous_review | no | needs_review |
+| 2022/dong-nai/so | 10 | choice | instruction_only, shared_prompt | 4 | 176 | ambiguous_review | no | needs_review |
+| 2022/dong-nai/so | 14 | choice | truncated_prompt | 4 | 7 | ambiguous_review | no | kept_as_recorded |
+| 2022/dong-nai/so | 16 | choice | truncated_prompt | 4 | 44 | ambiguous_review | no | kept_as_recorded |
+| 2022/dong-nai/so | 23 | choice | truncated_prompt | 4 | 7 | ambiguous_review | no | kept_as_recorded |
+| 2022/dong-nai/so | 47 | text | instruction_only, shared_prompt | 0 | 404 | ambiguous_review | no | needs_review |
+| 2022/dong-nai/so | 48 | text | instruction_only, shared_prompt | 0 | 404 | ambiguous_review | no | needs_review |
+| 2022/dong-nai/so | 49 | choice | instruction_only, shared_prompt | 4 | 404 | ambiguous_review | no | needs_review |
+| 2022/dong-nai/so | 50 | text | instruction_only, shared_prompt | 0 | 404 | ambiguous_review | no | needs_review |
+| 2022/dong-nai/so | 51 | choice | instruction_only, shared_prompt | 4 | 404 | ambiguous_review | no | needs_review |
+| 2022/dong-nai/so | 75 | text | truncated_prompt | 0 | 54 | curated_verified | yes | kept_as_recorded |
+| 2022/dong-nai/so | 77 | text | truncated_prompt | 0 | 63 | curated_verified | yes | kept_as_recorded |
+| 2022/dong-nai/so | 82 | text | truncated_prompt | 0 | 122 | ambiguous_review | no | kept_as_recorded |
+| 2022/dong-nai/so | 84 | text | truncated_prompt | 0 | 245 | ambiguous_review | no | kept_as_recorded |
+| 2022/dong-nai/so | 88 | text | truncated_prompt | 0 | 62 | ambiguous_review | no | kept_as_recorded |
 | 2022/dong-thap/so | 1 | text | shared_prompt | 0 | 368 | incomplete_stimulus | no | needs_review |
 | 2022/dong-thap/so | 2 | text | shared_prompt | 0 | 368 | incomplete_stimulus | no | needs_review |
 | 2022/dong-thap/so | 3 | text | shared_prompt | 0 | 368 | incomplete_stimulus | no | needs_review |
@@ -163,134 +184,122 @@ No transcription is edited by this script: each leftover anomaly is listed with 
 | 2022/dong-thap/so | 5 | choice | truncated_prompt | 3 | 7 | incomplete_stimulus | no | kept_as_recorded |
 | 2022/ha-nam/so | 1 | text | truncated_prompt | 0 | 46 | incomplete_stimulus | no | kept_as_recorded |
 | 2022/ha-nam/so | 2 | text | truncated_prompt | 0 | 38 | incomplete_stimulus | no | kept_as_recorded |
-| 2022/ha-nam/so | 1 | choice | shared_prompt | 4 | 91 | missing_answer | no | needs_review |
-| 2022/ha-nam/so | 2 | choice | shared_prompt | 4 | 91 | missing_answer | no | needs_review |
-| 2022/ha-nam/so | 3 | choice | shared_prompt | 4 | 91 | missing_answer | no | needs_review |
-| 2022/ha-nam/so | 4 | choice | shared_prompt | 4 | 91 | missing_answer | no | needs_review |
-| 2022/ha-nam/so | 5 | choice | shared_prompt | 4 | 91 | missing_answer | no | needs_review |
-| 2022/ha-nam/so | 1 | choice | shared_prompt | 4 | 76 | missing_answer | no | needs_review |
-| 2022/ha-nam/so | 2 | choice | shared_prompt | 4 | 76 | missing_answer | no | needs_review |
-| 2022/ha-nam/so | 3 | choice | shared_prompt | 4 | 76 | missing_answer | no | needs_review |
-| 2022/ha-nam/so | 4 | choice | shared_prompt | 4 | 76 | missing_answer | no | needs_review |
-| 2022/ha-nam/so | 5 | choice | shared_prompt | 5 | 76 | missing_answer | no | needs_review |
-| 2022/ha-nam/so | 2 | text | truncated_prompt | 0 | 226 | missing_answer | no | kept_as_recorded |
-| 2022/ha-nam/so | 1 | text | truncated_prompt | 0 | 194 | missing_answer | no | kept_as_recorded |
-| 2022/ha-nam/so | 2 | text | truncated_prompt | 0 | 210 | missing_answer | no | kept_as_recorded |
-| 2022/ha-nam/so | 3 | text | truncated_prompt | 0 | 220 | missing_answer | no | kept_as_recorded |
-| 2022/ha-nam/so | 4 | text | truncated_prompt | 0 | 214 | missing_answer | no | kept_as_recorded |
-| 2022/ha-nam/so | 5 | text | truncated_prompt | 0 | 204 | missing_answer | no | kept_as_recorded |
-| 2022/ha-noi/chuyen-su-pham | 1 | choice | instruction_only | 4 | 119 | missing_answer | no | needs_review |
-| 2022/ha-noi/chuyen-su-pham | 2 | choice | instruction_only | 4 | 119 | missing_answer | no | needs_review |
-| 2022/ha-noi/chuyen-su-pham | 3 | choice | instruction_only | 4 | 74 | missing_answer | no | needs_review |
-| 2022/ha-noi/chuyen-su-pham | 19 | choice | instruction_only | 4 | 103 | missing_answer | no | needs_review |
-| 2022/ha-noi/chuyen-su-pham | 20 | choice | instruction_only | 4 | 103 | missing_answer | no | needs_review |
-| 2022/ha-noi/chuyen-su-pham | 23 | choice | instruction_only, shared_prompt | 4 | 83 | missing_answer | no | needs_review |
-| 2022/ha-noi/chuyen-su-pham | 24 | choice | instruction_only, shared_prompt | 4 | 83 | missing_answer | no | needs_review |
-| 2022/ha-noi/chuyen-su-pham | 25 | choice | instruction_only, shared_prompt | 4 | 83 | missing_answer | no | needs_review |
-| 2022/ha-noi/chuyen-su-pham | 26 | choice | instruction_only, shared_prompt | 4 | 83 | missing_answer | no | needs_review |
-| 2022/ha-noi/chuyen-su-pham | 27 | choice | instruction_only, shared_prompt | 4 | 83 | missing_answer | no | needs_review |
-| 2022/ha-noi/chuyen-su-pham | 28 | choice | instruction_only, shared_prompt | 4 | 83 | missing_answer | no | needs_review |
-| 2022/ha-noi/chuyen-su-pham | 29 | choice | instruction_only, shared_prompt | 4 | 83 | missing_answer | no | needs_review |
-| 2022/ha-noi/chuyen-su-pham | 30 | choice | instruction_only, shared_prompt | 4 | 83 | missing_answer | no | needs_review |
-| 2022/ha-noi/chuyen-su-pham | 31 | choice | instruction_only, shared_prompt | 4 | 83 | missing_answer | no | needs_review |
-| 2022/ha-noi/chuyen-su-pham | 32 | choice | instruction_only, shared_prompt | 4 | 83 | missing_answer | no | needs_review |
-| 2022/ha-noi/chuyen-su-pham | 76 | text | truncated_prompt | 0 | 224 | missing_answer | no | kept_as_recorded |
-| 2022/ha-noi/chuyen-su-pham | 77 | text | truncated_prompt | 0 | 187 | missing_answer | no | kept_as_recorded |
-| 2022/ha-noi/chuyen-su-pham | 78 | text | truncated_prompt | 0 | 201 | missing_answer | no | kept_as_recorded |
-| 2022/ha-noi/chuyen-su-pham | 79 | text | truncated_prompt | 0 | 229 | missing_answer | no | kept_as_recorded |
-| 2022/ha-noi/so | 7 | choice | option_overflow | 10 | 61 | ambiguous_review | no | handled_in_app |
-| 2022/ha-noi/so | 3 | text | truncated_prompt | 0 | 89 | missing_answer | no | kept_as_recorded |
-| 2022/ha-noi/so | 3 | text | truncated_prompt | 0 | 109 | missing_answer | no | kept_as_recorded |
-| 2022/ha-noi/so | 3 | text | truncated_prompt | 0 | 114 | missing_answer | no | kept_as_recorded |
-| 2022/ha-noi/so | 3 | text | truncated_prompt | 0 | 122 | missing_answer | no | kept_as_recorded |
-| 2022/ha-noi/so | 3 | text | truncated_prompt | 0 | 121 | missing_answer | no | kept_as_recorded |
-| 2022/ha-noi/so | 32 | choice | truncated_prompt | 4 | 2 | missing_answer | no | kept_as_recorded |
-| 2022/ha-noi/so | 32 | choice | truncated_prompt | 4 | 2 | missing_answer | no | kept_as_recorded |
-| 2022/ha-noi/so | 32 | choice | truncated_prompt | 4 | 2 | missing_answer | no | kept_as_recorded |
-| 2022/ha-noi/so | 32 | choice | truncated_prompt | 4 | 2 | missing_answer | no | kept_as_recorded |
-| 2022/ha-noi/so | 32 | choice | truncated_prompt | 4 | 2 | missing_answer | no | kept_as_recorded |
-| 2022/ha-noi/so | 32 | choice | truncated_prompt | 4 | 2 | missing_answer | no | kept_as_recorded |
-| 2022/ha-noi/so | 33 | text | truncated_prompt | 0 | 84 | missing_answer | no | kept_as_recorded |
-| 2022/ha-noi/so | 38 | text | truncated_prompt | 0 | 184 | missing_answer | no | kept_as_recorded |
-| 2022/ha-noi/so | 44 | text | truncated_prompt | 0 | 77 | missing_answer | no | kept_as_recorded |
-| 2022/ha-noi/so | 45 | text | truncated_prompt | 0 | 81 | missing_answer | no | kept_as_recorded |
-| 2022/ha-noi/so | 46 | text | truncated_prompt | 0 | 71 | missing_answer | no | kept_as_recorded |
-| 2022/ha-noi/so | 47 | text | truncated_prompt | 0 | 134 | missing_answer | no | kept_as_recorded |
-| 2022/ha-noi/so | 48 | text | truncated_prompt | 0 | 58 | missing_answer | no | kept_as_recorded |
-| 2022/ha-noi/so | 49 | text | truncated_prompt | 0 | 88 | missing_answer | no | kept_as_recorded |
-| 2022/ha-noi/so | 50 | text | truncated_prompt | 0 | 65 | missing_answer | no | kept_as_recorded |
+| 2022/ha-nam/so | 1 | choice | shared_prompt | 4 | 91 | incomplete_stimulus | no | needs_review |
+| 2022/ha-nam/so | 2 | choice | shared_prompt | 4 | 91 | incomplete_stimulus | no | needs_review |
+| 2022/ha-nam/so | 3 | choice | shared_prompt | 4 | 91 | incomplete_stimulus | no | needs_review |
+| 2022/ha-nam/so | 4 | choice | shared_prompt | 4 | 91 | incomplete_stimulus | no | needs_review |
+| 2022/ha-nam/so | 5 | choice | shared_prompt | 4 | 91 | incomplete_stimulus | no | needs_review |
+| 2022/ha-nam/so | 1 | choice | shared_prompt | 4 | 76 | curated_verified | yes | needs_review |
+| 2022/ha-nam/so | 2 | choice | shared_prompt | 4 | 76 | curated_verified | yes | needs_review |
+| 2022/ha-nam/so | 3 | choice | shared_prompt | 4 | 76 | curated_verified | yes | needs_review |
+| 2022/ha-nam/so | 4 | choice | shared_prompt | 4 | 76 | curated_verified | yes | needs_review |
+| 2022/ha-nam/so | 5 | choice | shared_prompt | 4 | 76 | curated_verified | yes | needs_review |
+| 2022/ha-nam/so | 2 | text | truncated_prompt | 0 | 226 | curated_verified | yes | kept_as_recorded |
+| 2022/ha-nam/so | 1 | text | truncated_prompt | 0 | 194 | curated_verified | yes | kept_as_recorded |
+| 2022/ha-nam/so | 2 | text | truncated_prompt | 0 | 210 | curated_verified | yes | kept_as_recorded |
+| 2022/ha-nam/so | 3 | text | truncated_prompt | 0 | 220 | curated_verified | yes | kept_as_recorded |
+| 2022/ha-nam/so | 4 | text | truncated_prompt | 0 | 214 | curated_verified | yes | kept_as_recorded |
+| 2022/ha-nam/so | 5 | text | truncated_prompt | 0 | 204 | curated_verified | yes | kept_as_recorded |
+| 2022/ha-noi/chuyen-su-pham | 1 | choice | instruction_only | 4 | 119 | incomplete_stimulus | no | needs_review |
+| 2022/ha-noi/chuyen-su-pham | 2 | choice | instruction_only | 4 | 119 | incomplete_stimulus | no | needs_review |
+| 2022/ha-noi/chuyen-su-pham | 3 | choice | instruction_only | 4 | 74 | curated_verified | yes | needs_review |
+| 2022/ha-noi/chuyen-su-pham | 19 | choice | instruction_only | 4 | 103 | curated_verified | yes | needs_review |
+| 2022/ha-noi/chuyen-su-pham | 20 | choice | instruction_only | 4 | 103 | curated_verified | yes | needs_review |
+| 2022/ha-noi/chuyen-su-pham | 23 | choice | instruction_only, shared_prompt | 4 | 83 | curated_verified | yes | needs_review |
+| 2022/ha-noi/chuyen-su-pham | 24 | choice | instruction_only, shared_prompt | 4 | 83 | curated_verified | yes | needs_review |
+| 2022/ha-noi/chuyen-su-pham | 25 | choice | instruction_only, shared_prompt | 4 | 83 | curated_verified | yes | needs_review |
+| 2022/ha-noi/chuyen-su-pham | 26 | choice | instruction_only, shared_prompt | 4 | 83 | curated_verified | yes | needs_review |
+| 2022/ha-noi/chuyen-su-pham | 27 | choice | instruction_only, shared_prompt | 4 | 83 | curated_verified | yes | needs_review |
+| 2022/ha-noi/chuyen-su-pham | 28 | choice | instruction_only, shared_prompt | 4 | 83 | curated_verified | yes | needs_review |
+| 2022/ha-noi/chuyen-su-pham | 29 | choice | instruction_only, shared_prompt | 4 | 83 | curated_verified | yes | needs_review |
+| 2022/ha-noi/chuyen-su-pham | 30 | choice | instruction_only, shared_prompt | 4 | 83 | curated_verified | yes | needs_review |
+| 2022/ha-noi/chuyen-su-pham | 31 | choice | instruction_only, shared_prompt | 4 | 83 | curated_verified | yes | needs_review |
+| 2022/ha-noi/chuyen-su-pham | 32 | choice | instruction_only, shared_prompt | 4 | 83 | curated_verified | yes | needs_review |
+| 2022/ha-noi/chuyen-su-pham | 76 | text | truncated_prompt | 0 | 224 | curated_verified | yes | kept_as_recorded |
+| 2022/ha-noi/chuyen-su-pham | 77 | text | truncated_prompt | 0 | 187 | curated_verified | yes | kept_as_recorded |
+| 2022/ha-noi/chuyen-su-pham | 78 | text | truncated_prompt | 0 | 201 | curated_verified | yes | kept_as_recorded |
+| 2022/ha-noi/chuyen-su-pham | 79 | text | truncated_prompt | 0 | 229 | curated_verified | yes | kept_as_recorded |
+| 2022/ha-noi/so | 7 | choice | option_overflow | 8 | 61 | incomplete_stimulus | no | handled_in_app |
+| 2022/ha-noi/so | 3 | text | truncated_prompt | 0 | 89 | ambiguous_review | no | kept_as_recorded |
+| 2022/ha-noi/so | 3 | text | truncated_prompt | 0 | 109 | ambiguous_review | no | kept_as_recorded |
+| 2022/ha-noi/so | 3 | text | truncated_prompt | 0 | 114 | ambiguous_review | no | kept_as_recorded |
+| 2022/ha-noi/so | 3 | text | truncated_prompt | 0 | 122 | ambiguous_review | no | kept_as_recorded |
+| 2022/ha-noi/so | 3 | text | truncated_prompt | 0 | 121 | ambiguous_review | no | kept_as_recorded |
+| 2022/ha-noi/so | 32 | choice | truncated_prompt | 4 | 2 | curated_verified | yes | kept_as_recorded |
+| 2022/ha-noi/so | 32 | choice | truncated_prompt | 4 | 2 | curated_verified | yes | kept_as_recorded |
+| 2022/ha-noi/so | 32 | choice | truncated_prompt | 4 | 2 | curated_verified | yes | kept_as_recorded |
+| 2022/ha-noi/so | 32 | choice | truncated_prompt | 4 | 2 | curated_verified | yes | kept_as_recorded |
+| 2022/ha-noi/so | 32 | choice | truncated_prompt | 4 | 2 | curated_verified | yes | kept_as_recorded |
+| 2022/ha-noi/so | 32 | choice | truncated_prompt | 4 | 2 | curated_verified | yes | kept_as_recorded |
+| 2022/ha-noi/so | 33 | text | truncated_prompt | 0 | 84 | ambiguous_review | no | kept_as_recorded |
+| 2022/ha-noi/so | 38 | text | truncated_prompt | 0 | 184 | curated_verified | yes | kept_as_recorded |
+| 2022/ha-noi/so | 44 | text | truncated_prompt | 0 | 77 | curated_verified | yes | kept_as_recorded |
+| 2022/ha-noi/so | 45 | text | truncated_prompt | 0 | 81 | curated_verified | yes | kept_as_recorded |
+| 2022/ha-noi/so | 46 | text | truncated_prompt | 0 | 71 | curated_verified | yes | kept_as_recorded |
+| 2022/ha-noi/so | 47 | text | truncated_prompt | 0 | 134 | curated_verified | yes | kept_as_recorded |
+| 2022/ha-noi/so | 48 | text | truncated_prompt | 0 | 58 | curated_verified | yes | kept_as_recorded |
+| 2022/ha-noi/so | 49 | text | truncated_prompt | 0 | 88 | curated_verified | yes | kept_as_recorded |
+| 2022/ha-noi/so | 50 | text | truncated_prompt | 0 | 65 | curated_verified | yes | kept_as_recorded |
 | 2022/hai-duong/so | 8 | text | truncated_prompt | 0 | 10 | incomplete_stimulus | no | kept_as_recorded |
 | 2022/hai-phong/so | 13 | text | truncated_prompt | 0 | 78 | incomplete_stimulus | no | kept_as_recorded |
 | 2022/hai-phong/so | 15 | text | truncated_prompt | 0 | 45 | incomplete_stimulus | no | kept_as_recorded |
-| 2022/hai-phong/so | 14 | choice | truncated_prompt | 4 | 83 | missing_answer | no | kept_as_recorded |
-| 2022/hai-phong/so | 21 | choice | truncated_prompt | 4 | 76 | missing_answer | no | kept_as_recorded |
-| 2022/hai-phong/so | 34 | choice | truncated_prompt | 4 | 103 | missing_answer | no | kept_as_recorded |
-| 2022/hai-phong/so | 37 | choice | truncated_prompt | 4 | 87 | missing_answer | no | kept_as_recorded |
-| 2022/hai-phong/so | 38 | choice | truncated_prompt | 4 | 116 | missing_answer | no | kept_as_recorded |
-| 2022/hai-phong/so | 41 | choice | instruction_only, shared_prompt | 4 | 119 | missing_answer | no | needs_review |
-| 2022/hai-phong/so | 42 | choice | instruction_only, shared_prompt | 4 | 119 | missing_answer | no | needs_review |
-| 2022/hai-phong/so | 43 | choice | instruction_only, shared_prompt | 4 | 119 | missing_answer | no | needs_review |
-| 2022/hai-phong/so | 44 | choice | instruction_only, shared_prompt | 4 | 119 | missing_answer | no | needs_review |
-| 2022/hai-phong/so | 45 | choice | instruction_only, shared_prompt | 4 | 119 | missing_answer | no | needs_review |
-| 2022/hai-phong/so | 46 | choice | instruction_only, shared_prompt | 4 | 119 | missing_answer | no | needs_review |
-| 2022/hai-phong/so | 47 | choice | instruction_only, shared_prompt | 4 | 119 | missing_answer | no | needs_review |
-| 2022/hai-phong/so | 48 | choice | instruction_only, shared_prompt | 4 | 119 | missing_answer | no | needs_review |
-| 2022/hai-phong/so | 49 | choice | instruction_only, shared_prompt | 6 | 119 | missing_answer | no | needs_review |
-| 2022/hai-phong/so | 50 | choice | instruction_only, shared_prompt | 4 | 119 | missing_answer | no | needs_review |
-| 2022/hoa-binh/so | 11 | text | shared_prompt | 0 | 76 | missing_answer | no | needs_review |
-| 2022/hoa-binh/so | 12 | text | shared_prompt | 0 | 76 | missing_answer | no | needs_review |
-| 2022/hoa-binh/so | 13 | text | shared_prompt | 0 | 76 | missing_answer | no | needs_review |
-| 2022/hoa-binh/so | 18 | choice | instruction_only, shared_prompt | 2 | 31 | missing_answer | no | needs_review |
-| 2022/hoa-binh/so | 19 | choice | instruction_only, shared_prompt | 2 | 31 | missing_answer | no | needs_review |
-| 2022/hoa-binh/so | 20 | choice | instruction_only, shared_prompt | 3 | 31 | missing_answer | no | needs_review |
-| 2022/hoa-binh/so | 21 | choice | truncated_prompt | 2 | 62 | missing_answer | no | kept_as_recorded |
-| 2022/hoa-binh/so | 60 | choice | truncated_prompt | 2 | 10 | missing_answer | no | kept_as_recorded |
-| 2022/hoa-binh/so | 61 | text | instruction_only, shared_prompt | 0 | 75 | missing_answer | no | needs_review |
-| 2022/hoa-binh/so | 62 | text | instruction_only, shared_prompt | 0 | 75 | missing_answer | no | needs_review |
-| 2022/hoa-binh/so | 63 | text | instruction_only, shared_prompt | 0 | 75 | missing_answer | no | needs_review |
-| 2022/hoa-binh/so | 65 | text | instruction_only, shared_prompt | 0 | 75 | missing_answer | no | needs_review |
-| 2022/hoa-binh/so | 68 | text | instruction_only, shared_prompt | 0 | 75 | missing_answer | no | needs_review |
-| 2022/hoa-binh/so | 69 | text | instruction_only, shared_prompt | 0 | 75 | missing_answer | no | needs_review |
-| 2022/hoa-binh/so | 70 | text | instruction_only, shared_prompt | 0 | 75 | missing_answer | no | needs_review |
-| 2022/hoa-binh/so | 98 | text | truncated_prompt | 0 | 3 | missing_answer | no | kept_as_recorded |
-| 2022/long-an/so | 2 | text | truncated_prompt | 0 | 11 | missing_answer | no | kept_as_recorded |
-| 2022/long-an/so | 3 | text | truncated_prompt | 0 | 10 | missing_answer | no | kept_as_recorded |
-| 2022/long-an/so | 5 | choice | truncated_prompt | 3 | 5 | missing_answer | no | kept_as_recorded |
-| 2022/long-an/so | 9 | text | truncated_prompt | 0 | 1 | missing_answer | no | kept_as_recorded |
-| 2022/long-an/so | 10 | choice | truncated_prompt | 4 | 6 | missing_answer | no | kept_as_recorded |
-| 2022/ninh-binh/so | 1 | choice | truncated_prompt | 4 | 1 | missing_answer | no | kept_as_recorded |
-| 2022/ninh-binh/so | 3 | choice | truncated_prompt | 3 | 9 | missing_answer | no | kept_as_recorded |
-| 2022/ninh-thuan/so | 20 | text | truncated_prompt | 0 | 113 | missing_answer | no | kept_as_recorded |
+| 2022/hai-phong/so | 14 | choice | truncated_prompt | 4 | 83 | curated_verified | yes | kept_as_recorded |
+| 2022/hai-phong/so | 21 | choice | truncated_prompt | 4 | 76 | ambiguous_review | no | kept_as_recorded |
+| 2022/hai-phong/so | 34 | choice | truncated_prompt | 4 | 103 | ambiguous_review | no | kept_as_recorded |
+| 2022/hai-phong/so | 37 | choice | truncated_prompt | 4 | 87 | ambiguous_review | no | kept_as_recorded |
+| 2022/hai-phong/so | 38 | choice | truncated_prompt | 4 | 116 | ambiguous_review | no | kept_as_recorded |
+| 2022/hai-phong/so | 41 | choice | instruction_only, shared_prompt | 4 | 119 | curated_verified | yes | needs_review |
+| 2022/hai-phong/so | 42 | choice | instruction_only, shared_prompt | 4 | 119 | curated_verified | yes | needs_review |
+| 2022/hai-phong/so | 43 | choice | instruction_only, shared_prompt | 4 | 119 | ambiguous_review | no | needs_review |
+| 2022/hai-phong/so | 44 | choice | instruction_only, shared_prompt | 4 | 119 | ambiguous_review | no | needs_review |
+| 2022/hai-phong/so | 45 | choice | instruction_only, shared_prompt | 4 | 119 | ambiguous_review | no | needs_review |
+| 2022/hai-phong/so | 46 | choice | instruction_only, shared_prompt | 4 | 119 | curated_verified | yes | needs_review |
+| 2022/hai-phong/so | 47 | choice | instruction_only, shared_prompt | 4 | 119 | ambiguous_review | no | needs_review |
+| 2022/hai-phong/so | 48 | choice | instruction_only, shared_prompt | 4 | 119 | ambiguous_review | no | needs_review |
+| 2022/hai-phong/so | 49 | choice | instruction_only, shared_prompt | 5 | 119 | ambiguous_review | no | needs_review |
+| 2022/hai-phong/so | 50 | choice | instruction_only, shared_prompt | 4 | 119 | ambiguous_review | no | needs_review |
+| 2022/hoa-binh/so | 11 | text | shared_prompt | 0 | 83 | incomplete_stimulus | no | needs_review |
+| 2022/hoa-binh/so | 12 | text | shared_prompt | 0 | 83 | incomplete_stimulus | no | needs_review |
+| 2022/hoa-binh/so | 13 | text | shared_prompt | 0 | 83 | incomplete_stimulus | no | needs_review |
+| 2022/hoa-binh/so | 18 | choice | instruction_only, shared_prompt | 2 | 31 | ambiguous_review | no | needs_review |
+| 2022/hoa-binh/so | 19 | choice | instruction_only, shared_prompt | 2 | 31 | ambiguous_review | no | needs_review |
+| 2022/hoa-binh/so | 20 | choice | instruction_only, shared_prompt | 3 | 31 | ambiguous_review | no | needs_review |
+| 2022/hoa-binh/so | 21 | choice | truncated_prompt | 2 | 62 | ambiguous_review | no | kept_as_recorded |
+| 2022/hoa-binh/so | 60 | text | truncated_prompt | 0 | 10 | ambiguous_review | no | kept_as_recorded |
+| 2022/hoa-binh/so | 61 | text | instruction_only, shared_prompt | 0 | 124 | ambiguous_review | no | needs_review |
+| 2022/hoa-binh/so | 62 | text | instruction_only, shared_prompt | 0 | 124 | ambiguous_review | no | needs_review |
+| 2022/hoa-binh/so | 63 | text | instruction_only, shared_prompt | 0 | 124 | ambiguous_review | no | needs_review |
+| 2022/hoa-binh/so | 65 | text | instruction_only, shared_prompt | 0 | 124 | ambiguous_review | no | needs_review |
+| 2022/hoa-binh/so | 68 | text | instruction_only, shared_prompt | 0 | 124 | ambiguous_review | no | needs_review |
+| 2022/hoa-binh/so | 69 | text | instruction_only, shared_prompt | 0 | 124 | ambiguous_review | no | needs_review |
+| 2022/hoa-binh/so | 70 | text | instruction_only, shared_prompt | 0 | 124 | ambiguous_review | no | needs_review |
+| 2022/hoa-binh/so | 98 | text | truncated_prompt | 0 | 3 | ambiguous_review | no | kept_as_recorded |
+| 2022/long-an/so | 2 | text | truncated_prompt | 0 | 11 | ambiguous_review | no | kept_as_recorded |
+| 2022/long-an/so | 3 | text | truncated_prompt | 0 | 10 | ambiguous_review | no | kept_as_recorded |
+| 2022/long-an/so | 5 | text | truncated_prompt | 0 | 5 | ambiguous_review | no | kept_as_recorded |
+| 2022/long-an/so | 9 | text | truncated_prompt | 0 | 1 | ambiguous_review | no | kept_as_recorded |
+| 2022/long-an/so | 10 | choice | truncated_prompt | 4 | 6 | ambiguous_review | no | kept_as_recorded |
+| 2022/ninh-binh/so | 1 | choice | truncated_prompt | 4 | 1 | curated_verified | yes | kept_as_recorded |
+| 2022/ninh-binh/so | 3 | choice | truncated_prompt | 3 | 9 | invalid_key | no | kept_as_recorded |
+| 2022/ninh-thuan/so | 20 | text | truncated_prompt | 0 | 113 | incomplete_stimulus | no | kept_as_recorded |
 | 2022/ninh-thuan/so | 53 | choice | option_overflow | 8 | 190 | ambiguous_review | no | handled_in_app |
 | 2022/quang-ngai/so | 16 | text | truncated_prompt | 0 | 25 | incomplete_stimulus | no | kept_as_recorded |
-| 2022/quang-ngai/so | 21 | text | shared_prompt | 0 | 54 | incomplete_stimulus | no | needs_review |
-| 2022/quang-ngai/so | 22 | text | shared_prompt | 0 | 54 | incomplete_stimulus | no | needs_review |
-| 2022/quang-ngai/so | 23 | text | shared_prompt | 0 | 54 | incomplete_stimulus | no | needs_review |
-| 2022/quang-ngai/so | 24 | choice | shared_prompt | 4 | 54 | incomplete_stimulus | no | needs_review |
-| 2022/quang-ngai/so | 28 | choice | shared_prompt | 2 | 54 | incomplete_stimulus | no | needs_review |
-| 2022/quang-ngai/so | 29 | text | shared_prompt | 0 | 54 | incomplete_stimulus | no | needs_review |
-| 2022/quang-ngai/so | 30 | choice | shared_prompt | 3 | 54 | incomplete_stimulus | no | needs_review |
 | 2022/quang-ngai/so | 34 | text | truncated_prompt | 0 | 13 | source_transcription_unverified | yes | kept_as_recorded |
 | 2022/quang-ngai/so | 38 | text | truncated_prompt | 0 | 13 | source_transcription_unverified | yes | kept_as_recorded |
-| 2022/quang-ngai/so | 41 | choice | truncated_prompt | 4 | 50 | missing_answer | no | kept_as_recorded |
-| 2022/quang-ngai/so | 46 | choice | truncated_prompt | 4 | 71 | missing_answer | no | kept_as_recorded |
-| 2022/quang-ninh/so | 21 | text | truncated_prompt | 0 | 20 | missing_answer | no | kept_as_recorded |
-| 2022/quang-ninh/so | 22 | text | truncated_prompt | 0 | 20 | missing_answer | no | kept_as_recorded |
-| 2022/quang-ninh/so | 23 | text | truncated_prompt | 0 | 20 | missing_answer | no | kept_as_recorded |
-| 2022/quang-ninh/so | 24 | text | truncated_prompt | 0 | 20 | missing_answer | no | kept_as_recorded |
-| 2022/quang-ninh/so | 25 | choice | truncated_prompt | 2 | 20 | missing_answer | no | kept_as_recorded |
-| 2022/quang-ninh/so | 12 | choice | truncated_prompt | 4 | 5 | missing_answer | no | kept_as_recorded |
-| 2022/soc-trang/so | 1 | text | instruction_only | 0 | 176 | missing_answer | no | needs_review |
-| 2022/soc-trang/so | 2 | choice | instruction_only | 3 | 176 | missing_answer | no | needs_review |
-| 2022/soc-trang/so | 3 | text | instruction_only | 0 | 175 | missing_answer | no | needs_review |
-| 2022/soc-trang/so | 4 | choice | instruction_only | 4 | 175 | missing_answer | no | needs_review |
-| 2022/soc-trang/so | 14 | choice | truncated_prompt | 4 | 35 | missing_answer | no | kept_as_recorded |
-| 2022/soc-trang/so | 33 | choice | option_overflow | 7 | 44 | ambiguous_review | no | handled_in_app |
-| 2022/tay-ninh/so | 61 | choice | instruction_only, shared_prompt | 4 | 148 | missing_answer | no | needs_review |
-| 2022/tay-ninh/so | 62 | choice | instruction_only, shared_prompt | 4 | 148 | missing_answer | no | needs_review |
-| 2022/tay-ninh/so | 63 | choice | instruction_only, shared_prompt | 4 | 148 | missing_answer | no | needs_review |
-| 2022/tay-ninh/so | 64 | choice | instruction_only, shared_prompt | 4 | 148 | missing_answer | no | needs_review |
-| 2022/tay-ninh/so | 65 | choice | instruction_only, shared_prompt | 4 | 148 | missing_answer | no | needs_review |
+| 2022/quang-ngai/so | 41 | choice | truncated_prompt | 4 | 50 | curated_verified | yes | kept_as_recorded |
+| 2022/quang-ngai/so | 46 | choice | truncated_prompt | 4 | 71 | curated_verified | yes | kept_as_recorded |
+| 2022/quang-ninh/so | 21 | text | truncated_prompt | 0 | 20 | incomplete_stimulus | no | kept_as_recorded |
+| 2022/quang-ninh/so | 22 | text | truncated_prompt | 0 | 20 | incomplete_stimulus | no | kept_as_recorded |
+| 2022/quang-ninh/so | 23 | text | truncated_prompt | 0 | 20 | incomplete_stimulus | no | kept_as_recorded |
+| 2022/quang-ninh/so | 24 | text | truncated_prompt | 0 | 20 | incomplete_stimulus | no | kept_as_recorded |
+| 2022/quang-ninh/so | 25 | text | truncated_prompt | 0 | 20 | incomplete_stimulus | no | kept_as_recorded |
+| 2022/quang-ninh/so | 12 | choice | truncated_prompt | 4 | 5 | curated_verified | yes | kept_as_recorded |
+| 2022/soc-trang/so | 14 | choice | truncated_prompt | 4 | 35 | curated_verified | yes | kept_as_recorded |
+| 2022/tay-ninh/so | 61 | choice | instruction_only, shared_prompt | 4 | 148 | curated_verified | yes | needs_review |
+| 2022/tay-ninh/so | 62 | choice | instruction_only, shared_prompt | 4 | 148 | curated_verified | yes | needs_review |
+| 2022/tay-ninh/so | 63 | choice | instruction_only, shared_prompt | 4 | 148 | curated_verified | yes | needs_review |
+| 2022/tay-ninh/so | 64 | choice | instruction_only, shared_prompt | 4 | 148 | curated_verified | yes | needs_review |
+| 2022/tay-ninh/so | 65 | choice | instruction_only, shared_prompt | 4 | 148 | curated_verified | yes | needs_review |
 | 2022/thai-nguyen/so | 11 | choice | shared_prompt | 4 | 60 | source_transcription_unverified | yes | needs_review |
 | 2022/thai-nguyen/so | 12 | choice | shared_prompt | 4 | 60 | source_transcription_unverified | yes | needs_review |
 | 2022/thai-nguyen/so | 13 | choice | shared_prompt | 4 | 60 | source_transcription_unverified | yes | needs_review |
@@ -313,53 +322,46 @@ No transcription is edited by this script: each leftover anomaly is listed with 
 | 2022/thai-nguyen/so | 63 | choice | instruction_only, shared_prompt | 4 | 83 | source_transcription_unverified | yes | needs_review |
 | 2022/thai-nguyen/so | 86 | text | instruction_only | 0 | 40 | source_transcription_unverified | yes | needs_review |
 | 2022/thai-nguyen/so | 89 | text | instruction_only | 0 | 52 | source_transcription_unverified | yes | needs_review |
-| 2022/tien-giang/so | 30 | choice | truncated_prompt | 6 | 9 | missing_answer | no | kept_as_recorded |
+| 2022/tien-giang/so | 30 | choice | truncated_prompt | 6 | 9 | curated_verified | yes | kept_as_recorded |
 | 2022/tien-giang/so | 30 | choice | option_overflow | 8 | 155 | ambiguous_review | no | handled_in_app |
-| 2022/tp-ho-chi-minh/ptnk | 2 | choice | instruction_only, shared_prompt | 2 | 200 | missing_answer | no | needs_review |
-| 2022/tp-ho-chi-minh/ptnk | 7 | choice | instruction_only, shared_prompt | 4 | 200 | missing_answer | no | needs_review |
-| 2022/tp-ho-chi-minh/ptnk | 8 | choice | instruction_only, shared_prompt | 2 | 200 | missing_answer | no | needs_review |
-| 2022/tp-ho-chi-minh/ptnk | 10 | choice | instruction_only, shared_prompt | 3 | 200 | missing_answer | no | needs_review |
-| 2022/tp-ho-chi-minh/ptnk | 34 | choice | truncated_prompt | 3 | 8 | missing_answer | no | kept_as_recorded |
-| 2022/tp-ho-chi-minh/ptnk | 2 | text | truncated_prompt | 0 | 8 | missing_answer | no | kept_as_recorded |
-| 2022/tp-ho-chi-minh/ptnk | 5 | text | truncated_prompt | 0 | 6 | missing_answer | no | kept_as_recorded |
-| 2022/tp-ho-chi-minh/ptnk | 6 | text | truncated_prompt | 0 | 6 | missing_answer | no | kept_as_recorded |
-| 2022/tp-ho-chi-minh/ptnk | 7 | text | truncated_prompt | 0 | 5 | missing_answer | no | kept_as_recorded |
-| 2022/tp-ho-chi-minh/ptnk | 9 | text | truncated_prompt | 0 | 7 | missing_answer | no | kept_as_recorded |
-| 2022/vinh-phuc/so | 12 | choice | truncated_prompt | 3 | 72 | missing_answer | no | kept_as_recorded |
-| 2022/vinh-phuc/so | 13 | choice | truncated_prompt | 4 | 41 | incomplete_stimulus | no | kept_as_recorded |
-| 2022/vinh-phuc/so | 19 | choice | truncated_prompt | 4 | 77 | incomplete_stimulus | no | kept_as_recorded |
-| 2022/vinh-phuc/so | 26 | text | truncated_prompt | 0 | 5 | missing_answer | no | kept_as_recorded |
-| 2022/vinh-phuc/so | 27 | text | truncated_prompt | 0 | 8 | missing_answer | no | kept_as_recorded |
-| 2022/vinh-phuc/so | 29 | text | truncated_prompt | 0 | 8 | missing_answer | no | kept_as_recorded |
-| 2022/vinh-phuc/so | 30 | text | truncated_prompt | 0 | 9 | missing_answer | no | kept_as_recorded |
-| 2022/vinh-phuc/so | 32 | text | truncated_prompt | 0 | 10 | missing_answer | no | kept_as_recorded |
-| 2022/vinh-phuc/so | 11 | text | truncated_prompt | 0 | 10 | missing_answer | no | kept_as_recorded |
-| 2022/vinh-phuc/so | 14 | text | truncated_prompt | 0 | 9 | missing_answer | no | kept_as_recorded |
-| 2022/vinh-phuc/so | 15 | text | truncated_prompt | 0 | 11 | missing_answer | no | kept_as_recorded |
-| 2022/vinh-phuc/so | 20 | choice | truncated_prompt | 3 | 5 | missing_answer | no | kept_as_recorded |
-| 2022/vinh-phuc/so | 2 | text | truncated_prompt | 0 | 141 | missing_answer | no | kept_as_recorded |
-| 2023/ba-ria-vung-tau/so | 3 | choice | truncated_prompt | 4 | 38 | missing_answer | no | kept_as_recorded |
-| 2023/bac-ninh/so | 1 | choice | shared_prompt | 4 | 214 | missing_answer | no | needs_review |
-| 2023/bac-ninh/so | 2 | choice | shared_prompt | 4 | 214 | missing_answer | no | needs_review |
-| 2023/bac-ninh/so | 3 | choice | shared_prompt | 4 | 214 | missing_answer | no | needs_review |
-| 2023/bac-ninh/so | 4 | choice | shared_prompt | 4 | 214 | missing_answer | no | needs_review |
-| 2023/bac-ninh/so | 5 | choice | shared_prompt | 4 | 214 | missing_answer | no | needs_review |
-| 2023/bac-ninh/so | 6 | choice | shared_prompt | 4 | 214 | missing_answer | no | needs_review |
-| 2023/bac-ninh/so | 7 | choice | shared_prompt | 4 | 214 | missing_answer | no | needs_review |
-| 2023/bac-ninh/so | 8 | choice | shared_prompt | 4 | 214 | missing_answer | no | needs_review |
-| 2023/bac-ninh/so | 9 | choice | shared_prompt | 4 | 214 | missing_answer | no | needs_review |
-| 2023/bac-ninh/so | 10 | choice | shared_prompt | 4 | 214 | missing_answer | no | needs_review |
-| 2023/bac-ninh/so | 1 | text | instruction_only | 0 | 131 | missing_answer | no | needs_review |
-| 2023/bac-ninh/so | 1 | text | truncated_prompt | 0 | 145 | missing_answer | no | kept_as_recorded |
-| 2023/bac-ninh/so | 2 | text | truncated_prompt | 0 | 153 | missing_answer | no | kept_as_recorded |
-| 2023/bac-ninh/so | 3 | text | truncated_prompt | 0 | 174 | missing_answer | no | kept_as_recorded |
-| 2023/bac-ninh/so | 4 | text | truncated_prompt | 0 | 170 | missing_answer | no | kept_as_recorded |
-| 2023/bac-ninh/so | 5 | text | truncated_prompt | 0 | 151 | missing_answer | no | kept_as_recorded |
-| 2023/bac-ninh/so | 1 | text | truncated_prompt | 0 | 188 | missing_answer | no | kept_as_recorded |
-| 2023/bac-ninh/so | 2 | text | truncated_prompt | 0 | 168 | missing_answer | no | kept_as_recorded |
-| 2023/bac-ninh/so | 3 | text | truncated_prompt | 0 | 178 | missing_answer | no | kept_as_recorded |
-| 2023/bac-ninh/so | 4 | text | truncated_prompt | 0 | 145 | missing_answer | no | kept_as_recorded |
-| 2023/bac-ninh/so | 5 | text | truncated_prompt | 0 | 141 | missing_answer | no | kept_as_recorded |
+| 2022/tp-ho-chi-minh/ptnk | 2 | choice | instruction_only, shared_prompt | 2 | 200 | ambiguous_review | no | needs_review |
+| 2022/tp-ho-chi-minh/ptnk | 7 | choice | instruction_only, shared_prompt | 4 | 200 | ambiguous_review | no | needs_review |
+| 2022/tp-ho-chi-minh/ptnk | 8 | choice | instruction_only, shared_prompt | 2 | 200 | ambiguous_review | no | needs_review |
+| 2022/tp-ho-chi-minh/ptnk | 10 | choice | instruction_only, shared_prompt | 3 | 200 | ambiguous_review | no | needs_review |
+| 2022/tp-ho-chi-minh/ptnk | 34 | choice | truncated_prompt | 3 | 8 | ambiguous_review | no | kept_as_recorded |
+| 2022/tp-ho-chi-minh/ptnk | 2 | text | truncated_prompt | 0 | 8 | ambiguous_review | no | kept_as_recorded |
+| 2022/tp-ho-chi-minh/ptnk | 5 | text | truncated_prompt | 0 | 6 | ambiguous_review | no | kept_as_recorded |
+| 2022/tp-ho-chi-minh/ptnk | 6 | text | truncated_prompt | 0 | 6 | ambiguous_review | no | kept_as_recorded |
+| 2022/tp-ho-chi-minh/ptnk | 7 | text | truncated_prompt | 0 | 5 | ambiguous_review | no | kept_as_recorded |
+| 2022/tp-ho-chi-minh/ptnk | 9 | text | truncated_prompt | 0 | 7 | ambiguous_review | no | kept_as_recorded |
+| 2022/vinh-phuc/so | 12 | choice | truncated_prompt | 3 | 72 | incomplete_stimulus | no | kept_as_recorded |
+| 2022/vinh-phuc/so | 13 | choice | truncated_prompt | 4 | 41 | curated_verified | yes | kept_as_recorded |
+| 2022/vinh-phuc/so | 19 | choice | truncated_prompt | 4 | 77 | ambiguous_review | no | kept_as_recorded |
+| 2022/vinh-phuc/so | 11 | text | truncated_prompt | 0 | 10 | ambiguous_review | no | kept_as_recorded |
+| 2022/vinh-phuc/so | 14 | text | truncated_prompt | 0 | 9 | ambiguous_review | no | kept_as_recorded |
+| 2022/vinh-phuc/so | 20 | choice | truncated_prompt | 3 | 5 | ambiguous_review | no | kept_as_recorded |
+| 2023/ba-ria-vung-tau/so | 3 | choice | truncated_prompt | 4 | 38 | curated_verified | yes | kept_as_recorded |
+| 2023/bac-ninh/so | 1 | choice | shared_prompt | 4 | 214 | curated_verified | yes | needs_review |
+| 2023/bac-ninh/so | 2 | choice | shared_prompt | 4 | 214 | curated_verified | yes | needs_review |
+| 2023/bac-ninh/so | 3 | choice | shared_prompt | 4 | 214 | curated_verified | yes | needs_review |
+| 2023/bac-ninh/so | 4 | choice | shared_prompt | 4 | 214 | curated_verified | yes | needs_review |
+| 2023/bac-ninh/so | 5 | choice | shared_prompt | 4 | 214 | ambiguous_review | no | needs_review |
+| 2023/bac-ninh/so | 6 | choice | shared_prompt | 4 | 214 | ambiguous_review | no | needs_review |
+| 2023/bac-ninh/so | 7 | choice | shared_prompt | 4 | 214 | ambiguous_review | no | needs_review |
+| 2023/bac-ninh/so | 8 | choice | shared_prompt | 4 | 214 | ambiguous_review | no | needs_review |
+| 2023/bac-ninh/so | 9 | choice | shared_prompt | 4 | 214 | curated_verified | yes | needs_review |
+| 2023/bac-ninh/so | 10 | choice | shared_prompt | 4 | 214 | curated_verified | yes | needs_review |
+| 2023/bac-ninh/so | 1 | essay | instruction_only | 0 | 131 | exempt_open_ended | no | needs_review |
+| 2023/bac-ninh/so | 1 | essay | truncated_prompt | 0 | 145 | exempt_open_ended | no | kept_as_recorded |
+| 2023/bac-ninh/so | 2 | essay | truncated_prompt | 0 | 153 | exempt_open_ended | no | kept_as_recorded |
+| 2023/bac-ninh/so | 3 | essay | truncated_prompt | 0 | 174 | exempt_open_ended | no | kept_as_recorded |
+| 2023/bac-ninh/so | 4 | essay | truncated_prompt | 0 | 170 | exempt_open_ended | no | kept_as_recorded |
+| 2023/bac-ninh/so | 5 | essay | truncated_prompt | 0 | 151 | exempt_open_ended | no | kept_as_recorded |
+| 2023/bac-ninh/so | 1 | text | truncated_prompt | 0 | 188 | curated_verified | yes | kept_as_recorded |
+| 2023/bac-ninh/so | 2 | text | truncated_prompt | 0 | 168 | curated_verified | yes | kept_as_recorded |
+| 2023/bac-ninh/so | 3 | text | truncated_prompt | 0 | 178 | curated_verified | yes | kept_as_recorded |
+| 2023/bac-ninh/so | 4 | text | truncated_prompt | 0 | 145 | curated_verified | yes | kept_as_recorded |
+| 2023/bac-ninh/so | 5 | text | truncated_prompt | 0 | 141 | curated_verified | yes | kept_as_recorded |
 | 2023/binh-duong/so | 11 | text | truncated_prompt | 0 | 21 | incomplete_stimulus | no | kept_as_recorded |
 | 2023/binh-duong/so | 12 | text | truncated_prompt | 0 | 21 | incomplete_stimulus | no | kept_as_recorded |
 | 2023/binh-duong/so | 13 | text | truncated_prompt | 0 | 22 | incomplete_stimulus | no | kept_as_recorded |
@@ -393,35 +395,25 @@ No transcription is edited by this script: each leftover anomaly is listed with 
 | 2023/binh-thuan/so | 46 | choice | shared_prompt | 4 | 101 | source_transcription_unverified | yes | needs_review |
 | 2023/binh-thuan/so | 47 | choice | shared_prompt | 4 | 101 | source_transcription_unverified | yes | needs_review |
 | 2023/binh-thuan/so | 48 | choice | shared_prompt | 4 | 101 | source_transcription_unverified | yes | needs_review |
-| 2023/binh-thuan/so | 90 | text | truncated_prompt | 0 | 188 | missing_answer | no | kept_as_recorded |
-| 2023/dak-lak/so | 1 | text | truncated_prompt | 0 | 4 | missing_answer | no | kept_as_recorded |
+| 2023/binh-thuan/so | 90 | text | truncated_prompt | 0 | 188 | source_transcription_unverified | yes | kept_as_recorded |
+| 2023/dak-lak/so | 1 | text | truncated_prompt | 0 | 4 | source_transcription_unverified | yes | kept_as_recorded |
 | 2023/dak-lak/so | 5 | text | truncated_prompt | 0 | 10 | source_transcription_unverified | yes | kept_as_recorded |
 | 2023/dak-lak/so | 26 | text | truncated_prompt | 0 | 10 | source_transcription_unverified | yes | kept_as_recorded |
 | 2023/dak-lak/so | 27 | choice | truncated_prompt | 3 | 11 | source_transcription_unverified | yes | kept_as_recorded |
 | 2023/dak-lak/so | 34 | choice | truncated_prompt | 4 | 7 | source_transcription_unverified | yes | kept_as_recorded |
 | 2023/dak-lak/so | 38 | choice | truncated_prompt | 4 | 75 | source_transcription_unverified | yes | kept_as_recorded |
-| 2023/dak-lak/so | 44 | choice | truncated_prompt | 2 | 33 | source_transcription_unverified | yes | kept_as_recorded |
-| 2023/dak-lak/so | 61 | text | instruction_only, shared_prompt | 0 | 317 | source_transcription_unverified | yes | needs_review |
-| 2023/dak-lak/so | 62 | choice | instruction_only, shared_prompt | 4 | 317 | source_transcription_unverified | yes | needs_review |
-| 2023/dak-lak/so | 63 | choice | instruction_only, shared_prompt | 2 | 317 | source_transcription_unverified | yes | needs_review |
-| 2023/dak-lak/so | 64 | choice | instruction_only, shared_prompt | 3 | 317 | missing_answer | no | needs_review |
-| 2023/dak-lak/so | 65 | choice | instruction_only, shared_prompt | 3 | 317 | source_transcription_unverified | yes | needs_review |
-| 2023/dak-lak/so | 66 | choice | instruction_only, shared_prompt | 3 | 317 | source_transcription_unverified | yes | needs_review |
-| 2023/dak-lak/so | 67 | choice | instruction_only, shared_prompt | 4 | 317 | source_transcription_unverified | yes | needs_review |
-| 2023/dak-lak/so | 69 | text | instruction_only, shared_prompt | 0 | 317 | source_transcription_unverified | yes | needs_review |
-| 2023/dak-lak/so | 68 | choice | instruction_only, shared_prompt | 3 | 317 | missing_answer | no | needs_review |
-| 2023/dak-lak/so | 70 | choice | instruction_only, shared_prompt | 4 | 317 | source_transcription_unverified | yes | needs_review |
-| 2023/dak-nong/so | 31 | choice | shared_prompt | 4 | 296 | missing_answer | no | needs_review |
-| 2023/dak-nong/so | 32 | choice | shared_prompt | 4 | 296 | missing_answer | no | needs_review |
-| 2023/dak-nong/so | 33 | choice | shared_prompt | 4 | 296 | missing_answer | no | needs_review |
-| 2023/dak-nong/so | 34 | choice | shared_prompt | 4 | 296 | missing_answer | no | needs_review |
-| 2023/dak-nong/so | 35 | choice | shared_prompt | 4 | 296 | missing_answer | no | needs_review |
+| 2023/dak-lak/so | 44 | choice | truncated_prompt | 2 | 33 | ambiguous_review | no | kept_as_recorded |
+| 2023/dak-nong/so | 31 | choice | shared_prompt | 4 | 296 | curated_verified | yes | needs_review |
+| 2023/dak-nong/so | 32 | choice | shared_prompt | 4 | 296 | curated_verified | yes | needs_review |
+| 2023/dak-nong/so | 33 | choice | shared_prompt | 4 | 296 | curated_verified | yes | needs_review |
+| 2023/dak-nong/so | 34 | choice | shared_prompt | 4 | 296 | curated_verified | yes | needs_review |
+| 2023/dak-nong/so | 35 | choice | shared_prompt | 4 | 296 | curated_verified | yes | needs_review |
 | 2023/dong-nai/so | 1 | choice | instruction_only, shared_prompt | 4 | 176 | source_transcription_unverified | yes | needs_review |
 | 2023/dong-nai/so | 2 | choice | instruction_only, shared_prompt | 4 | 176 | source_transcription_unverified | yes | needs_review |
 | 2023/dong-nai/so | 3 | choice | instruction_only, shared_prompt | 4 | 176 | source_transcription_unverified | yes | needs_review |
 | 2023/dong-nai/so | 4 | choice | instruction_only, shared_prompt | 4 | 176 | source_transcription_unverified | yes | needs_review |
-| 2023/dong-nai/so | 5 | choice | instruction_only, shared_prompt | 4 | 176 | missing_answer | no | needs_review |
-| 2023/dong-nai/so | 6 | choice | instruction_only, shared_prompt | 4 | 176 | missing_answer | no | needs_review |
+| 2023/dong-nai/so | 5 | choice | instruction_only, shared_prompt | 4 | 176 | incomplete_stimulus | no | needs_review |
+| 2023/dong-nai/so | 6 | choice | instruction_only, shared_prompt | 4 | 176 | curated_verified | yes | needs_review |
 | 2023/dong-nai/so | 7 | choice | instruction_only, shared_prompt | 4 | 176 | source_transcription_unverified | yes | needs_review |
 | 2023/dong-nai/so | 8 | choice | instruction_only, shared_prompt | 4 | 176 | source_transcription_unverified | yes | needs_review |
 | 2023/dong-nai/so | 9 | choice | instruction_only, shared_prompt | 4 | 176 | source_transcription_unverified | yes | needs_review |
@@ -437,122 +429,117 @@ No transcription is edited by this script: each leftover anomaly is listed with 
 | 2023/dong-nai/so | 56 | choice | instruction_only, shared_prompt, option_overflow | 7 | 138 | ambiguous_review | no | handled_in_app |
 | 2023/dong-nai/so | 63 | text | truncated_prompt | 0 | 19 | source_transcription_unverified | yes | kept_as_recorded |
 | 2023/dong-nai/so | 64 | text | truncated_prompt | 0 | 19 | source_transcription_unverified | yes | kept_as_recorded |
-| 2023/dong-nai/so | 91 | essay | truncated_prompt, instruction_only | 0 | 1230 | source_transcription_unverified | yes | kept_as_recorded |
-| 2023/dong-thap/so | 1 | text | truncated_prompt | 0 | 53 | missing_answer | no | kept_as_recorded |
-| 2023/dong-thap/so | 2 | text | truncated_prompt | 0 | 42 | missing_answer | no | kept_as_recorded |
-| 2023/dong-thap/so | 3 | text | truncated_prompt | 0 | 48 | missing_answer | no | kept_as_recorded |
-| 2023/dong-thap/so | 4 | text | truncated_prompt | 0 | 48 | missing_answer | no | kept_as_recorded |
-| 2023/dong-thap/so | 5 | text | truncated_prompt | 0 | 42 | missing_answer | no | kept_as_recorded |
+| 2023/dong-nai/so | 91 | essay | truncated_prompt, instruction_only | 0 | 1230 | exempt_open_ended | no | kept_as_recorded |
+| 2023/dong-thap/so | 1 | choice | shared_prompt | 4 | 151 | curated_verified | yes | needs_review |
+| 2023/dong-thap/so | 2 | choice | shared_prompt | 4 | 151 | curated_verified | yes | needs_review |
+| 2023/dong-thap/so | 3 | choice | shared_prompt | 4 | 151 | curated_verified | yes | needs_review |
+| 2023/dong-thap/so | 4 | choice | shared_prompt | 4 | 151 | curated_verified | yes | needs_review |
+| 2023/dong-thap/so | 5 | true-false | shared_prompt | 6 | 151 | curated_verified | yes | needs_review |
+| 2023/dong-thap/so | 1 | text | truncated_prompt | 0 | 53 | curated_verified | yes | kept_as_recorded |
+| 2023/dong-thap/so | 2 | text | truncated_prompt | 0 | 42 | curated_verified | yes | kept_as_recorded |
+| 2023/dong-thap/so | 3 | text | truncated_prompt | 0 | 48 | curated_verified | yes | kept_as_recorded |
+| 2023/dong-thap/so | 4 | text | truncated_prompt | 0 | 48 | curated_verified | yes | kept_as_recorded |
+| 2023/dong-thap/so | 5 | text | truncated_prompt | 0 | 42 | curated_verified | yes | kept_as_recorded |
 | 2023/ha-giang/so | 35 | choice | option_overflow | 8 | 135 | ambiguous_review | no | handled_in_app |
 | 2023/ha-giang/so | 49 | choice | truncated_prompt | 4 | 73 | incomplete_stimulus | no | kept_as_recorded |
-| 2023/ha-giang/so | 51 | text | truncated_prompt | 0 | 142 | missing_answer | no | kept_as_recorded |
-| 2023/ha-giang/so | 52 | text | truncated_prompt | 0 | 123 | missing_answer | no | kept_as_recorded |
-| 2023/ha-giang/so | 53 | text | truncated_prompt | 0 | 128 | missing_answer | no | kept_as_recorded |
-| 2023/ha-giang/so | 54 | text | truncated_prompt | 0 | 137 | missing_answer | no | kept_as_recorded |
-| 2023/ha-giang/so | 55 | text | truncated_prompt | 0 | 114 | missing_answer | no | kept_as_recorded |
-| 2023/ha-noi/chuyen-su-pham | 1 | text | truncated_prompt | 0 | 7 | missing_answer | no | kept_as_recorded |
-| 2023/ha-noi/chuyen-su-pham | 15 | choice | truncated_prompt | 4 | 41 | missing_answer | no | kept_as_recorded |
+| 2023/ha-giang/so | 51 | text | truncated_prompt | 0 | 142 | curated_verified | yes | kept_as_recorded |
+| 2023/ha-giang/so | 52 | text | truncated_prompt | 0 | 123 | curated_verified | yes | kept_as_recorded |
+| 2023/ha-giang/so | 53 | text | truncated_prompt | 0 | 128 | curated_verified | yes | kept_as_recorded |
+| 2023/ha-giang/so | 54 | text | truncated_prompt | 0 | 137 | curated_verified | yes | kept_as_recorded |
+| 2023/ha-giang/so | 55 | text | truncated_prompt | 0 | 114 | curated_verified | yes | kept_as_recorded |
+| 2023/ha-noi/chuyen-su-pham | 1 | text | truncated_prompt | 0 | 7 | ambiguous_review | no | kept_as_recorded |
+| 2023/ha-noi/chuyen-su-pham | 15 | choice | truncated_prompt | 4 | 41 | ambiguous_review | no | kept_as_recorded |
 | 2023/ha-noi/chuyen-su-pham | 26 | text | instruction_only | 0 | 169 | source_transcription_unverified | yes | needs_review |
-| 2023/ha-noi/chuyen-su-pham | 27 | choice | instruction_only | 4 | 169 | missing_answer | no | needs_review |
+| 2023/ha-noi/chuyen-su-pham | 27 | choice | instruction_only | 4 | 169 | incomplete_stimulus | no | needs_review |
 | 2023/ha-noi/chuyen-su-pham | 28 | text | instruction_only, shared_prompt | 0 | 164 | source_transcription_unverified | yes | needs_review |
 | 2023/ha-noi/chuyen-su-pham | 29 | choice | instruction_only, shared_prompt | 3 | 164 | source_transcription_unverified | yes | needs_review |
 | 2023/ha-noi/chuyen-su-pham | 30 | choice | instruction_only, shared_prompt | 4 | 164 | source_transcription_unverified | yes | needs_review |
 | 2023/ha-noi/chuyen-su-pham | 31 | text | instruction_only, shared_prompt | 0 | 136 | source_transcription_unverified | yes | needs_review |
 | 2023/ha-noi/chuyen-su-pham | 32 | text | instruction_only, shared_prompt | 0 | 136 | source_transcription_unverified | yes | needs_review |
-| 2023/ha-noi/chuyen-su-pham | 33 | choice | instruction_only, shared_prompt | 2 | 136 | missing_answer | no | needs_review |
+| 2023/ha-noi/chuyen-su-pham | 33 | choice | instruction_only, shared_prompt | 2 | 136 | ambiguous_review | no | needs_review |
 | 2023/ha-noi/chuyen-su-pham | 34 | choice | instruction_only, shared_prompt | 2 | 136 | source_transcription_unverified | yes | needs_review |
-| 2023/ha-noi/chuyen-su-pham | 35 | choice | instruction_only, shared_prompt | 3 | 136 | missing_answer | no | needs_review |
+| 2023/ha-noi/chuyen-su-pham | 35 | choice | instruction_only, shared_prompt | 3 | 136 | ambiguous_review | no | needs_review |
 | 2023/ha-noi/chuyen-su-pham | 37 | choice | instruction_only, shared_prompt | 2 | 136 | source_transcription_unverified | yes | needs_review |
-| 2023/ha-noi/chuyen-su-pham | 38 | choice | instruction_only, shared_prompt | 3 | 136 | missing_answer | no | needs_review |
+| 2023/ha-noi/chuyen-su-pham | 38 | choice | instruction_only, shared_prompt | 3 | 136 | ambiguous_review | no | needs_review |
 | 2023/ha-noi/chuyen-su-pham | 39 | choice | instruction_only, shared_prompt | 4 | 136 | source_transcription_unverified | yes | needs_review |
-| 2023/ha-noi/chuyen-su-pham | 36 | choice | instruction_only, shared_prompt | 3 | 136 | missing_answer | no | needs_review |
-| 2023/ha-noi/chuyen-su-pham | 40 | text | instruction_only, shared_prompt | 0 | 136 | missing_answer | no | needs_review |
-| 2023/ha-noi/so | 5 | choice | option_overflow | 7 | 65 | ambiguous_review | no | handled_in_app |
-| 2023/ha-noi/so | 84 | text | truncated_prompt | 0 | 195 | missing_answer | no | kept_as_recorded |
-| 2023/hai-phong/so | 1 | text | truncated_prompt | 0 | 243 | missing_answer | no | kept_as_recorded |
-| 2023/hai-phong/so | 2 | text | truncated_prompt | 0 | 245 | missing_answer | no | kept_as_recorded |
-| 2023/hai-phong/so | 3 | text | truncated_prompt | 0 | 265 | missing_answer | no | kept_as_recorded |
-| 2023/hai-phong/so | 4 | text | truncated_prompt | 0 | 241 | missing_answer | no | kept_as_recorded |
-| 2023/hai-phong/so | 5 | text | truncated_prompt | 0 | 258 | missing_answer | no | kept_as_recorded |
-| 2023/hai-phong/so | 6 | text | truncated_prompt | 0 | 259 | missing_answer | no | kept_as_recorded |
-| 2023/hai-phong/so | 7 | text | truncated_prompt | 0 | 245 | missing_answer | no | kept_as_recorded |
-| 2023/hai-phong/so | 8 | text | truncated_prompt | 0 | 285 | missing_answer | no | kept_as_recorded |
-| 2023/hai-phong/so | 9 | text | truncated_prompt | 0 | 245 | missing_answer | no | kept_as_recorded |
-| 2023/hai-phong/so | 10 | text | truncated_prompt | 0 | 258 | missing_answer | no | kept_as_recorded |
-| 2023/hai-phong/so | 36 | choice | shared_prompt | 4 | 98 | missing_answer | no | needs_review |
-| 2023/hai-phong/so | 37 | choice | shared_prompt | 4 | 98 | missing_answer | no | needs_review |
-| 2023/hai-phong/so | 38 | choice | shared_prompt | 4 | 98 | missing_answer | no | needs_review |
-| 2023/hai-phong/so | 39 | choice | shared_prompt | 4 | 98 | missing_answer | no | needs_review |
-| 2023/hai-phong/so | 40 | choice | shared_prompt | 4 | 98 | missing_answer | no | needs_review |
-| 2023/hai-phong/so | 41 | choice | shared_prompt | 4 | 98 | missing_answer | no | needs_review |
-| 2023/hai-phong/so | 42 | choice | shared_prompt | 4 | 98 | missing_answer | no | needs_review |
-| 2023/hai-phong/so | 43 | choice | shared_prompt | 4 | 98 | missing_answer | no | needs_review |
-| 2023/hai-phong/so | 44 | choice | shared_prompt | 4 | 98 | missing_answer | no | needs_review |
-| 2023/hai-phong/so | 45 | choice | shared_prompt | 4 | 98 | missing_answer | no | needs_review |
-| 2023/hung-yen/so | 1 | text | instruction_only, shared_prompt | 0 | 126 | missing_answer | no | needs_review |
-| 2023/hung-yen/so | 2 | text | instruction_only, shared_prompt | 0 | 126 | missing_answer | no | needs_review |
-| 2023/hung-yen/so | 5 | choice | instruction_only, shared_prompt | 5 | 126 | missing_answer | no | needs_review |
-| 2023/hung-yen/so | 9 | choice | truncated_prompt | 4 | 54 | missing_answer | no | kept_as_recorded |
-| 2023/hung-yen/so | 14 | choice | truncated_prompt | 4 | 4 | missing_answer | no | kept_as_recorded |
-| 2023/hung-yen/so | 17 | choice | truncated_prompt | 2 | 11 | missing_answer | no | kept_as_recorded |
-| 2023/hung-yen/so | 18 | choice | truncated_prompt | 2 | 11 | missing_answer | no | kept_as_recorded |
-| 2023/hung-yen/so | 1 | text | truncated_prompt | 0 | 5 | missing_answer | no | kept_as_recorded |
-| 2023/hung-yen/so | 2 | text | truncated_prompt | 0 | 7 | missing_answer | no | kept_as_recorded |
-| 2023/hung-yen/so | 9 | text | instruction_only | 0 | 71 | missing_answer | no | needs_review |
-| 2023/nam-dinh/so | 7 | choice | truncated_prompt | 4 | 79 | missing_answer | no | kept_as_recorded |
+| 2023/ha-noi/chuyen-su-pham | 36 | choice | instruction_only, shared_prompt | 3 | 136 | ambiguous_review | no | needs_review |
+| 2023/ha-noi/chuyen-su-pham | 40 | text | instruction_only, shared_prompt | 0 | 136 | ambiguous_review | no | needs_review |
+| 2023/ha-noi/so | 5 | choice | option_overflow | 7 | 65 | incomplete_stimulus | no | handled_in_app |
+| 2023/ha-noi/so | 84 | text | truncated_prompt | 0 | 195 | curated_verified | yes | kept_as_recorded |
+| 2023/hai-phong/so | 1 | text | truncated_prompt | 0 | 243 | curated_verified | yes | kept_as_recorded |
+| 2023/hai-phong/so | 2 | text | truncated_prompt | 0 | 245 | curated_verified | yes | kept_as_recorded |
+| 2023/hai-phong/so | 3 | text | truncated_prompt | 0 | 265 | curated_verified | yes | kept_as_recorded |
+| 2023/hai-phong/so | 4 | text | truncated_prompt | 0 | 241 | curated_verified | yes | kept_as_recorded |
+| 2023/hai-phong/so | 5 | text | truncated_prompt | 0 | 258 | curated_verified | yes | kept_as_recorded |
+| 2023/hai-phong/so | 6 | text | truncated_prompt | 0 | 259 | curated_verified | yes | kept_as_recorded |
+| 2023/hai-phong/so | 7 | text | truncated_prompt | 0 | 245 | curated_verified | yes | kept_as_recorded |
+| 2023/hai-phong/so | 8 | text | truncated_prompt | 0 | 285 | curated_verified | yes | kept_as_recorded |
+| 2023/hai-phong/so | 9 | text | truncated_prompt | 0 | 245 | curated_verified | yes | kept_as_recorded |
+| 2023/hai-phong/so | 10 | text | truncated_prompt | 0 | 258 | curated_verified | yes | kept_as_recorded |
+| 2023/hai-phong/so | 36 | choice | shared_prompt | 4 | 98 | curated_verified | yes | needs_review |
+| 2023/hai-phong/so | 37 | choice | shared_prompt | 4 | 98 | curated_verified | yes | needs_review |
+| 2023/hai-phong/so | 38 | choice | shared_prompt | 4 | 98 | curated_verified | yes | needs_review |
+| 2023/hai-phong/so | 39 | choice | shared_prompt | 4 | 98 | curated_verified | yes | needs_review |
+| 2023/hai-phong/so | 40 | choice | shared_prompt | 4 | 98 | curated_verified | yes | needs_review |
+| 2023/hai-phong/so | 41 | choice | shared_prompt | 4 | 98 | curated_verified | yes | needs_review |
+| 2023/hai-phong/so | 42 | choice | shared_prompt | 4 | 98 | curated_verified | yes | needs_review |
+| 2023/hai-phong/so | 43 | choice | shared_prompt | 4 | 98 | curated_verified | yes | needs_review |
+| 2023/hai-phong/so | 44 | choice | shared_prompt | 4 | 98 | curated_verified | yes | needs_review |
+| 2023/hai-phong/so | 45 | choice | shared_prompt | 4 | 98 | curated_verified | yes | needs_review |
+| 2023/hung-yen/so | 1 | text | instruction_only, shared_prompt | 0 | 126 | ambiguous_review | no | needs_review |
+| 2023/hung-yen/so | 2 | text | instruction_only, shared_prompt | 0 | 126 | ambiguous_review | no | needs_review |
+| 2023/hung-yen/so | 5 | choice | instruction_only, shared_prompt | 4 | 126 | curated_verified | yes | needs_review |
+| 2023/hung-yen/so | 9 | choice | truncated_prompt | 4 | 54 | ambiguous_review | no | kept_as_recorded |
+| 2023/hung-yen/so | 14 | choice | truncated_prompt | 4 | 4 | ambiguous_review | no | kept_as_recorded |
+| 2023/hung-yen/so | 17 | choice | truncated_prompt | 2 | 11 | ambiguous_review | no | kept_as_recorded |
+| 2023/hung-yen/so | 18 | choice | truncated_prompt | 2 | 11 | ambiguous_review | no | kept_as_recorded |
+| 2023/hung-yen/so | 1 | text | truncated_prompt | 0 | 5 | ambiguous_review | no | kept_as_recorded |
+| 2023/hung-yen/so | 2 | text | truncated_prompt | 0 | 7 | ambiguous_review | no | kept_as_recorded |
+| 2023/hung-yen/so | 9 | text | instruction_only | 0 | 71 | curated_verified | yes | needs_review |
+| 2023/nam-dinh/so | 7 | choice | truncated_prompt | 4 | 79 | source_transcription_unverified | yes | kept_as_recorded |
 | 2023/phu-yen/so | 17 | text | truncated_prompt | 0 | 19 | source_transcription_unverified | yes | kept_as_recorded |
 | 2023/phu-yen/so | 21 | text | truncated_prompt | 0 | 8 | source_transcription_unverified | yes | kept_as_recorded |
 | 2023/phu-yen/so | 67 | text | truncated_prompt | 0 | 7 | source_transcription_unverified | yes | kept_as_recorded |
-| 2023/quang-binh/so | 40 | text | truncated_prompt | 0 | 72 | missing_answer | no | kept_as_recorded |
-| 2023/quang-binh/so | 46 | text | instruction_only | 0 | 51 | missing_answer | no | needs_review |
-| 2023/quang-binh/so | 76 | choice | truncated_prompt | 4 | 106 | missing_answer | no | kept_as_recorded |
-| 2023/quang-binh/so | 82 | text | truncated_prompt | 0 | 118 | missing_answer | no | kept_as_recorded |
-| 2023/quang-binh/so | 83 | text | truncated_prompt | 0 | 104 | missing_answer | no | kept_as_recorded |
-| 2023/quang-binh/so | 88 | text | truncated_prompt | 0 | 132 | missing_answer | no | kept_as_recorded |
-| 2023/quang-binh/so | 89 | text | truncated_prompt | 0 | 100 | missing_answer | no | kept_as_recorded |
-| 2023/quang-binh/so | 90 | text | truncated_prompt | 0 | 125 | missing_answer | no | kept_as_recorded |
-| 2023/thua-thien-hue/so | 1 | choice | shared_prompt | 4 | 600 | incomplete_stimulus | no | needs_review |
-| 2023/thua-thien-hue/so | 2 | choice | shared_prompt | 4 | 600 | incomplete_stimulus | no | needs_review |
-| 2023/thua-thien-hue/so | 3 | choice | shared_prompt | 4 | 600 | incomplete_stimulus | no | needs_review |
-| 2023/thua-thien-hue/so | 4 | choice | shared_prompt | 4 | 600 | incomplete_stimulus | no | needs_review |
-| 2023/thua-thien-hue/so | 5 | choice | shared_prompt | 4 | 600 | incomplete_stimulus | no | needs_review |
-| 2023/thua-thien-hue/so | 6 | choice | shared_prompt | 4 | 600 | incomplete_stimulus | no | needs_review |
-| 2023/thua-thien-hue/so | 7 | choice | shared_prompt | 4 | 600 | incomplete_stimulus | no | needs_review |
-| 2023/thua-thien-hue/so | 8 | choice | shared_prompt | 4 | 600 | incomplete_stimulus | no | needs_review |
-| 2023/thua-thien-hue/so | 9 | choice | shared_prompt | 4 | 600 | incomplete_stimulus | no | needs_review |
-| 2023/thua-thien-hue/so | 10 | choice | shared_prompt | 4 | 600 | incomplete_stimulus | no | needs_review |
+| 2023/quang-binh/so | 40 | text | truncated_prompt | 0 | 72 | ambiguous_review | no | kept_as_recorded |
+| 2023/quang-binh/so | 46 | text | instruction_only | 0 | 51 | curated_verified | yes | needs_review |
+| 2023/quang-binh/so | 76 | choice | truncated_prompt | 4 | 106 | curated_verified | yes | kept_as_recorded |
+| 2023/quang-binh/so | 82 | text | truncated_prompt | 0 | 118 | curated_verified | yes | kept_as_recorded |
+| 2023/quang-binh/so | 83 | text | truncated_prompt | 0 | 104 | curated_verified | yes | kept_as_recorded |
+| 2023/quang-binh/so | 88 | text | truncated_prompt | 0 | 132 | curated_verified | yes | kept_as_recorded |
+| 2023/quang-binh/so | 89 | text | truncated_prompt | 0 | 100 | curated_verified | yes | kept_as_recorded |
+| 2023/quang-binh/so | 90 | text | truncated_prompt | 0 | 125 | curated_verified | yes | kept_as_recorded |
 | 2023/tp-ho-chi-minh/ptnk | 8 | choice | option_overflow | 7 | 88 | ambiguous_review | no | handled_in_app |
 | 2023/tp-ho-chi-minh/ptnk | 15 | choice | option_overflow | 7 | 2146 | ambiguous_review | no | handled_in_app |
 | 2023/tp-ho-chi-minh/ptnk | 32 | text | truncated_prompt | 0 | 2 | source_transcription_unverified | yes | kept_as_recorded |
-| 2023/tp-ho-chi-minh/ptnk | 33 | choice | truncated_prompt | 3 | 2 | source_transcription_unverified | yes | kept_as_recorded |
-| 2023/tp-ho-chi-minh/ptnk | 37 | choice | truncated_prompt | 3 | 7 | source_transcription_unverified | yes | kept_as_recorded |
-| 2023/vinh-phuc/so | 10 | choice | instruction_only | 4 | 142 | missing_answer | no | needs_review |
-| 2023/vinh-phuc/so | 16 | choice | instruction_only, shared_prompt | 4 | 185 | missing_answer | no | needs_review |
-| 2023/vinh-phuc/so | 17 | choice | instruction_only, shared_prompt | 4 | 185 | missing_answer | no | needs_review |
-| 2023/vinh-phuc/so | 18 | choice | instruction_only, shared_prompt | 4 | 185 | missing_answer | no | needs_review |
-| 2023/vinh-phuc/so | 19 | choice | instruction_only, shared_prompt | 4 | 185 | missing_answer | no | needs_review |
-| 2023/vinh-phuc/so | 20 | choice | instruction_only, shared_prompt | 4 | 185 | missing_answer | no | needs_review |
-| 2023/vinh-phuc/so | 1 | text | truncated_prompt | 0 | 139 | missing_answer | no | kept_as_recorded |
-| 2023/vinh-phuc/so | 2 | text | truncated_prompt | 0 | 126 | missing_answer | no | kept_as_recorded |
-| 2023/vinh-phuc/so | 3 | text | truncated_prompt | 0 | 128 | missing_answer | no | kept_as_recorded |
-| 2023/vinh-phuc/so | 4 | text | truncated_prompt | 0 | 123 | missing_answer | no | kept_as_recorded |
-| 2023/vinh-phuc/so | 5 | text | truncated_prompt | 0 | 140 | missing_answer | no | kept_as_recorded |
-| 2024/da-nang/so | 1 | choice | truncated_prompt, shared_prompt | 4 | 248 | missing_answer | no | kept_as_recorded |
-| 2024/da-nang/so | 2 | choice | truncated_prompt, shared_prompt | 4 | 248 | missing_answer | no | kept_as_recorded |
-| 2024/da-nang/so | 3 | choice | truncated_prompt, shared_prompt | 4 | 248 | missing_answer | no | kept_as_recorded |
-| 2024/da-nang/so | 4 | choice | truncated_prompt, shared_prompt | 4 | 248 | missing_answer | no | kept_as_recorded |
-| 2024/da-nang/so | 5 | choice | truncated_prompt, shared_prompt | 4 | 248 | missing_answer | no | kept_as_recorded |
-| 2024/da-nang/so | 6 | choice | truncated_prompt, shared_prompt | 4 | 248 | missing_answer | no | kept_as_recorded |
-| 2024/da-nang/so | 7 | choice | truncated_prompt, shared_prompt | 4 | 248 | missing_answer | no | kept_as_recorded |
-| 2024/da-nang/so | 8 | choice | truncated_prompt, shared_prompt | 4 | 248 | missing_answer | no | kept_as_recorded |
-| 2024/da-nang/so | 9 | choice | truncated_prompt, shared_prompt | 4 | 248 | missing_answer | no | kept_as_recorded |
-| 2024/da-nang/so | 10 | choice | truncated_prompt, shared_prompt | 4 | 248 | missing_answer | no | kept_as_recorded |
-| 2024/da-nang/so | 6 | choice | option_overflow | 10 | 1538 | ambiguous_review | no | handled_in_app |
+| 2023/tp-ho-chi-minh/ptnk | 33 | choice | truncated_prompt | 3 | 2 | ambiguous_review | no | kept_as_recorded |
+| 2023/tp-ho-chi-minh/ptnk | 37 | choice | truncated_prompt | 3 | 7 | ambiguous_review | no | kept_as_recorded |
+| 2023/vinh-phuc/so | 10 | choice | instruction_only | 4 | 142 | ambiguous_review | no | needs_review |
+| 2023/vinh-phuc/so | 16 | choice | instruction_only, shared_prompt | 4 | 185 | curated_verified | yes | needs_review |
+| 2023/vinh-phuc/so | 17 | choice | instruction_only, shared_prompt | 4 | 185 | curated_verified | yes | needs_review |
+| 2023/vinh-phuc/so | 18 | choice | instruction_only, shared_prompt | 4 | 185 | curated_verified | yes | needs_review |
+| 2023/vinh-phuc/so | 19 | choice | instruction_only, shared_prompt | 4 | 185 | curated_verified | yes | needs_review |
+| 2023/vinh-phuc/so | 20 | choice | instruction_only, shared_prompt | 4 | 185 | curated_verified | yes | needs_review |
+| 2023/vinh-phuc/so | 1 | text | truncated_prompt | 0 | 139 | curated_verified | yes | kept_as_recorded |
+| 2023/vinh-phuc/so | 2 | text | truncated_prompt | 0 | 126 | curated_verified | yes | kept_as_recorded |
+| 2023/vinh-phuc/so | 3 | text | truncated_prompt | 0 | 128 | curated_verified | yes | kept_as_recorded |
+| 2023/vinh-phuc/so | 4 | text | truncated_prompt | 0 | 123 | curated_verified | yes | kept_as_recorded |
+| 2023/vinh-phuc/so | 5 | text | truncated_prompt | 0 | 140 | curated_verified | yes | kept_as_recorded |
+| 2024/da-nang/so | 1 | choice | truncated_prompt, shared_prompt | 4 | 248 | source_transcription_unverified | yes | kept_as_recorded |
+| 2024/da-nang/so | 2 | choice | truncated_prompt, shared_prompt | 4 | 248 | source_transcription_unverified | yes | kept_as_recorded |
+| 2024/da-nang/so | 3 | choice | truncated_prompt, shared_prompt | 4 | 248 | source_transcription_unverified | yes | kept_as_recorded |
+| 2024/da-nang/so | 4 | choice | truncated_prompt, shared_prompt | 4 | 248 | source_transcription_unverified | yes | kept_as_recorded |
+| 2024/da-nang/so | 5 | choice | truncated_prompt, shared_prompt | 4 | 248 | source_transcription_unverified | yes | kept_as_recorded |
+| 2024/da-nang/so | 6 | choice | truncated_prompt, shared_prompt | 4 | 248 | source_transcription_unverified | yes | kept_as_recorded |
+| 2024/da-nang/so | 7 | choice | truncated_prompt, shared_prompt | 4 | 248 | source_transcription_unverified | yes | kept_as_recorded |
+| 2024/da-nang/so | 8 | choice | truncated_prompt, shared_prompt | 4 | 248 | source_transcription_unverified | yes | kept_as_recorded |
+| 2024/da-nang/so | 9 | choice | truncated_prompt, shared_prompt | 4 | 248 | source_transcription_unverified | yes | kept_as_recorded |
+| 2024/da-nang/so | 10 | choice | truncated_prompt, shared_prompt | 4 | 248 | source_transcription_unverified | yes | kept_as_recorded |
+| 2024/da-nang/so | 6 | choice | option_overflow | 8 | 1538 | ambiguous_review | no | handled_in_app |
 | 2024/ha-noi/chuyen-su-pham | 1 | choice | instruction_only | 4 | 132 | source_transcription_unverified | yes | needs_review |
 | 2024/ha-noi/chuyen-su-pham | 2 | choice | instruction_only | 4 | 132 | source_transcription_unverified | yes | needs_review |
-| 2024/ha-noi/chuyen-su-pham | 3 | choice | instruction_only, shared_prompt | 4 | 109 | missing_answer | no | needs_review |
+| 2024/ha-noi/chuyen-su-pham | 3 | choice | instruction_only, shared_prompt | 4 | 109 | curated_verified | yes | needs_review |
 | 2024/ha-noi/chuyen-su-pham | 4 | choice | instruction_only, shared_prompt | 4 | 109 | source_transcription_unverified | yes | needs_review |
-| 2024/ha-noi/chuyen-su-pham | 5 | choice | instruction_only, shared_prompt | 4 | 109 | missing_answer | no | needs_review |
+| 2024/ha-noi/chuyen-su-pham | 5 | choice | instruction_only, shared_prompt | 4 | 109 | curated_verified | yes | needs_review |
 | 2024/ha-noi/so | 21 | choice | shared_prompt | 4 | 214 | source_transcription_unverified | yes | needs_review |
 | 2024/ha-noi/so | 22 | choice | shared_prompt | 4 | 214 | source_transcription_unverified | yes | needs_review |
 | 2024/ha-noi/so | 23 | choice | shared_prompt | 4 | 214 | source_transcription_unverified | yes | needs_review |
@@ -565,34 +552,32 @@ No transcription is edited by this script: each leftover anomaly is listed with 
 | 2024/ha-noi/so | 64 | choice | truncated_prompt | 4 | 47 | source_transcription_unverified | yes | kept_as_recorded |
 | 2024/ha-noi/so | 65 | choice | truncated_prompt | 4 | 87 | source_transcription_unverified | yes | kept_as_recorded |
 | 2024/ha-noi/so | 1 | text | truncated_prompt | 0 | 1868 | source_transcription_unverified | yes | kept_as_recorded |
-| 2024/thanh-hoa/so | 17 | choice | truncated_prompt | 4 | 53 | missing_answer | no | kept_as_recorded |
-| 2024/thanh-hoa/so | 18 | choice | truncated_prompt | 4 | 83 | missing_answer | no | kept_as_recorded |
-| 2024/thanh-hoa/so | 19 | choice | truncated_prompt | 4 | 87 | missing_answer | no | kept_as_recorded |
-| 2024/thanh-hoa/so | 1 | choice | shared_prompt | 4 | 106 | missing_answer | no | needs_review |
-| 2024/thanh-hoa/so | 2 | choice | shared_prompt | 4 | 106 | missing_answer | no | needs_review |
-| 2024/thanh-hoa/so | 3 | choice | shared_prompt | 4 | 106 | missing_answer | no | needs_review |
-| 2024/thanh-hoa/so | 50 | choice | option_overflow | 7 | 90 | ambiguous_review | no | handled_in_app |
-| 2024/thanh-hoa/so | 62 | choice | truncated_prompt | 4 | 76 | missing_answer | no | kept_as_recorded |
-| 2024/thanh-hoa/so | 63 | choice | truncated_prompt | 4 | 67 | missing_answer | no | kept_as_recorded |
-| 2024/thanh-hoa/so | 65 | choice | shared_prompt | 4 | 102 | missing_answer | no | needs_review |
-| 2024/thanh-hoa/so | 66 | choice | shared_prompt | 4 | 102 | missing_answer | no | needs_review |
-| 2024/thanh-hoa/so | 67 | choice | shared_prompt | 4 | 102 | missing_answer | no | needs_review |
-| 2024/thanh-hoa/so | 68 | choice | shared_prompt | 4 | 102 | missing_answer | no | needs_review |
-| 2024/thanh-hoa/so | 69 | choice | shared_prompt | 4 | 102 | missing_answer | no | needs_review |
-| 2024/thanh-hoa/so | 70 | choice | shared_prompt | 4 | 102 | missing_answer | no | needs_review |
-| 2024/thanh-hoa/so | 71 | choice | shared_prompt | 4 | 102 | missing_answer | no | needs_review |
-| 2024/thanh-hoa/so | 72 | choice | shared_prompt | 5 | 102 | missing_answer | no | needs_review |
-| 2024/thanh-hoa/so | 81 | text | truncated_prompt | 0 | 159 | missing_answer | no | kept_as_recorded |
-| 2024/thanh-hoa/so | 82 | text | truncated_prompt | 0 | 158 | missing_answer | no | kept_as_recorded |
-| 2024/thanh-hoa/so | 83 | text | truncated_prompt | 0 | 150 | missing_answer | no | kept_as_recorded |
-| 2024/thanh-hoa/so | 84 | text | truncated_prompt | 0 | 146 | missing_answer | no | kept_as_recorded |
-| 2024/thanh-hoa/so | 86 | text | truncated_prompt | 0 | 165 | missing_answer | no | kept_as_recorded |
-| 2024/thanh-hoa/so | 87 | text | truncated_prompt | 0 | 155 | missing_answer | no | kept_as_recorded |
-| 2024/thanh-hoa/so | 88 | text | truncated_prompt | 0 | 153 | missing_answer | no | kept_as_recorded |
-| 2024/thanh-hoa/so | 89 | text | truncated_prompt | 0 | 137 | missing_answer | no | kept_as_recorded |
-| 2024/thanh-hoa/so | 90 | essay | truncated_prompt | 0 | 1820 | inferred_unverified | yes | kept_as_recorded |
-| 2024/tp-ho-chi-minh/so | 20 | choice | truncated_prompt | 4 | 71 | missing_answer | no | kept_as_recorded |
-| 2024/tp-ho-chi-minh/so | 10 | choice | option_overflow | 7 | 33 | ambiguous_review | no | handled_in_app |
+| 2024/thanh-hoa/so | 17 | choice | truncated_prompt | 4 | 53 | incomplete_stimulus | no | kept_as_recorded |
+| 2024/thanh-hoa/so | 18 | choice | truncated_prompt | 4 | 83 | incomplete_stimulus | no | kept_as_recorded |
+| 2024/thanh-hoa/so | 19 | choice | truncated_prompt | 4 | 87 | incomplete_stimulus | no | kept_as_recorded |
+| 2024/thanh-hoa/so | 1 | choice | shared_prompt | 4 | 169 | incomplete_stimulus | no | needs_review |
+| 2024/thanh-hoa/so | 2 | choice | shared_prompt | 4 | 169 | incomplete_stimulus | no | needs_review |
+| 2024/thanh-hoa/so | 3 | choice | shared_prompt | 4 | 169 | incomplete_stimulus | no | needs_review |
+| 2024/thanh-hoa/so | 62 | choice | truncated_prompt | 4 | 76 | curated_verified | yes | kept_as_recorded |
+| 2024/thanh-hoa/so | 63 | choice | truncated_prompt | 4 | 67 | curated_verified | yes | kept_as_recorded |
+| 2024/thanh-hoa/so | 65 | choice | shared_prompt | 4 | 102 | curated_verified | yes | needs_review |
+| 2024/thanh-hoa/so | 66 | choice | shared_prompt | 4 | 102 | curated_verified | yes | needs_review |
+| 2024/thanh-hoa/so | 67 | choice | shared_prompt | 4 | 102 | curated_verified | yes | needs_review |
+| 2024/thanh-hoa/so | 68 | choice | shared_prompt | 4 | 102 | curated_verified | yes | needs_review |
+| 2024/thanh-hoa/so | 69 | choice | shared_prompt | 4 | 102 | curated_verified | yes | needs_review |
+| 2024/thanh-hoa/so | 70 | choice | shared_prompt | 4 | 102 | curated_verified | yes | needs_review |
+| 2024/thanh-hoa/so | 71 | choice | shared_prompt | 4 | 102 | curated_verified | yes | needs_review |
+| 2024/thanh-hoa/so | 72 | choice | shared_prompt | 4 | 102 | curated_verified | yes | needs_review |
+| 2024/thanh-hoa/so | 81 | essay | truncated_prompt | 0 | 159 | exempt_open_ended | no | kept_as_recorded |
+| 2024/thanh-hoa/so | 82 | essay | truncated_prompt | 0 | 158 | exempt_open_ended | no | kept_as_recorded |
+| 2024/thanh-hoa/so | 83 | essay | truncated_prompt | 0 | 150 | exempt_open_ended | no | kept_as_recorded |
+| 2024/thanh-hoa/so | 84 | essay | truncated_prompt | 0 | 146 | exempt_open_ended | no | kept_as_recorded |
+| 2024/thanh-hoa/so | 86 | essay | truncated_prompt | 0 | 165 | exempt_open_ended | no | kept_as_recorded |
+| 2024/thanh-hoa/so | 87 | essay | truncated_prompt | 0 | 155 | exempt_open_ended | no | kept_as_recorded |
+| 2024/thanh-hoa/so | 88 | essay | truncated_prompt | 0 | 153 | exempt_open_ended | no | kept_as_recorded |
+| 2024/thanh-hoa/so | 89 | essay | truncated_prompt | 0 | 137 | exempt_open_ended | no | kept_as_recorded |
+| 2024/thanh-hoa/so | 90 | essay | truncated_prompt | 0 | 1820 | exempt_open_ended | no | kept_as_recorded |
+| 2024/tp-ho-chi-minh/so | 20 | choice | truncated_prompt | 4 | 71 | curated_verified | yes | kept_as_recorded |
 | 2024/vinh-phuc/so | 16 | choice | truncated_prompt | 4 | 56 | incomplete_stimulus | no | kept_as_recorded |
 | 2024/vinh-phuc/so | 17 | choice | truncated_prompt | 4 | 59 | incomplete_stimulus | no | kept_as_recorded |
 | 2024/vinh-phuc/so | 18 | choice | truncated_prompt | 4 | 66 | incomplete_stimulus | no | kept_as_recorded |
@@ -602,34 +587,29 @@ No transcription is edited by this script: each leftover anomaly is listed with 
 | 2024/vinh-phuc/so | 18 | choice | instruction_only, shared_prompt | 4 | 265 | source_transcription_unverified | yes | needs_review |
 | 2024/vinh-phuc/so | 19 | choice | instruction_only, shared_prompt | 4 | 265 | source_transcription_unverified | yes | needs_review |
 | 2024/vinh-phuc/so | 20 | choice | instruction_only, shared_prompt | 4 | 265 | source_transcription_unverified | yes | needs_review |
-| 2025/ba-ria-vung-tau/so | 1 | text | truncated_prompt | 0 | 180 | missing_answer | no | kept_as_recorded |
-| 2025/ba-ria-vung-tau/so | 2 | text | truncated_prompt | 0 | 169 | missing_answer | no | kept_as_recorded |
-| 2025/ba-ria-vung-tau/so | 3 | text | truncated_prompt | 0 | 157 | missing_answer | no | kept_as_recorded |
-| 2025/ba-ria-vung-tau/so | 4 | text | truncated_prompt | 0 | 188 | missing_answer | no | kept_as_recorded |
-| 2025/ba-ria-vung-tau/so | 5 | text | truncated_prompt | 0 | 196 | missing_answer | no | kept_as_recorded |
-| 2025/bac-giang/so | 5 | text | truncated_prompt | 0 | 111 | missing_answer | no | kept_as_recorded |
-| 2025/bac-giang/so | 4 | text | truncated_prompt | 0 | 409 | missing_answer | no | kept_as_recorded |
-| 2025/bac-giang/so | 1 | text | truncated_prompt | 0 | 10 | missing_answer | no | kept_as_recorded |
-| 2025/bac-giang/so | 1 | text | truncated_prompt | 0 | 196 | missing_answer | no | kept_as_recorded |
-| 2025/bac-giang/so | 2 | text | truncated_prompt | 0 | 146 | missing_answer | no | kept_as_recorded |
-| 2025/bac-giang/so | 3 | text | truncated_prompt | 0 | 165 | missing_answer | no | kept_as_recorded |
-| 2025/bac-giang/so | 4 | text | truncated_prompt | 0 | 150 | missing_answer | no | kept_as_recorded |
-| 2025/bac-giang/so | 5 | text | truncated_prompt | 0 | 146 | missing_answer | no | kept_as_recorded |
-| 2025/bac-giang/so | 2 | text | truncated_prompt | 0 | 11 | missing_answer | no | kept_as_recorded |
-| 2025/bac-giang/so | 4 | text | truncated_prompt | 0 | 10 | missing_answer | no | kept_as_recorded |
-| 2025/bac-giang/so | 5 | text | truncated_prompt | 0 | 11 | missing_answer | no | kept_as_recorded |
-| 2025/binh-duong/so | 1 | text | instruction_only | 0 | 21 | missing_answer | no | needs_review |
-| 2025/binh-duong/so | 2 | text | instruction_only | 0 | 1706 | incomplete_stimulus | no | needs_review |
-| 2025/binh-duong/so | 35 | choice | option_overflow | 14 | 273 | ambiguous_review | no | handled_in_app |
-| 2025/binh-duong/so | 10 | text | truncated_prompt | 0 | 4 | incomplete_stimulus | no | kept_as_recorded |
-| 2025/binh-duong/so | 11 | text | truncated_prompt | 0 | 5 | incomplete_stimulus | no | kept_as_recorded |
-| 2025/binh-duong/so | 12 | text | truncated_prompt | 0 | 4 | incomplete_stimulus | no | kept_as_recorded |
-| 2025/binh-duong/so | 120 | text | instruction_only | 0 | 1599 | incomplete_stimulus | no | needs_review |
-| 2025/binh-phuoc/so | 81 | essay | truncated_prompt | 0 | 167 | source_transcription_unverified | yes | kept_as_recorded |
-| 2025/binh-phuoc/so | 83 | essay | truncated_prompt | 0 | 166 | source_transcription_unverified | yes | kept_as_recorded |
-| 2025/binh-phuoc/so | 84 | essay | truncated_prompt | 0 | 136 | source_transcription_unverified | yes | kept_as_recorded |
-| 2025/binh-phuoc/so | 85 | essay | truncated_prompt | 0 | 1050 | source_transcription_unverified | yes | kept_as_recorded |
-| 2025/da-nang/so | 6 | essay | truncated_prompt | 0 | 137 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/ba-ria-vung-tau/so | 1 | text | truncated_prompt | 0 | 180 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/ba-ria-vung-tau/so | 2 | text | truncated_prompt | 0 | 169 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/ba-ria-vung-tau/so | 3 | text | truncated_prompt | 0 | 157 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/ba-ria-vung-tau/so | 4 | text | truncated_prompt | 0 | 188 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/ba-ria-vung-tau/so | 5 | text | truncated_prompt | 0 | 196 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/bac-giang/so | 5 | text | truncated_prompt | 0 | 111 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/bac-giang/so | 4 | text | truncated_prompt | 0 | 409 | curated_verified | yes | kept_as_recorded |
+| 2025/bac-giang/so | 1 | text | truncated_prompt | 0 | 10 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/bac-giang/so | 1 | text | truncated_prompt | 0 | 196 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/bac-giang/so | 2 | text | truncated_prompt | 0 | 146 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/bac-giang/so | 3 | text | truncated_prompt | 0 | 165 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/bac-giang/so | 4 | text | truncated_prompt | 0 | 150 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/bac-giang/so | 5 | text | truncated_prompt | 0 | 146 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/bac-giang/so | 2 | text | truncated_prompt | 0 | 11 | ambiguous_review | no | kept_as_recorded |
+| 2025/bac-giang/so | 4 | text | truncated_prompt | 0 | 10 | ambiguous_review | no | kept_as_recorded |
+| 2025/bac-giang/so | 5 | text | truncated_prompt | 0 | 11 | ambiguous_review | no | kept_as_recorded |
+| 2025/binh-duong/so | 35 | choice | option_overflow | 11 | 273 | ambiguous_review | no | handled_in_app |
+| 2025/binh-duong/so | 120 | text | instruction_only | 0 | 1599 | source_transcription_unverified | yes | needs_review |
+| 2025/binh-phuoc/so | 81 | essay | truncated_prompt | 0 | 167 | exempt_open_ended | no | kept_as_recorded |
+| 2025/binh-phuoc/so | 83 | essay | truncated_prompt | 0 | 166 | exempt_open_ended | no | kept_as_recorded |
+| 2025/binh-phuoc/so | 84 | essay | truncated_prompt | 0 | 136 | exempt_open_ended | no | kept_as_recorded |
+| 2025/binh-phuoc/so | 85 | essay | truncated_prompt | 0 | 1050 | exempt_open_ended | no | kept_as_recorded |
+| 2025/da-nang/so | 6 | text | truncated_prompt | 0 | 137 | source_transcription_unverified | yes | kept_as_recorded |
 | 2025/dak-lak/so | 101 | text | truncated_prompt | 0 | 120 | source_transcription_unverified | yes | kept_as_recorded |
 | 2025/dak-lak/so | 102 | text | truncated_prompt | 0 | 128 | source_transcription_unverified | yes | kept_as_recorded |
 | 2025/dak-lak/so | 103 | text | truncated_prompt | 0 | 137 | source_transcription_unverified | yes | kept_as_recorded |
@@ -648,127 +628,126 @@ No transcription is edited by this script: each leftover anomaly is listed with 
 | 2025/dong-nai/so | 84 | text | truncated_prompt | 0 | 134 | source_transcription_unverified | yes | kept_as_recorded |
 | 2025/dong-nai/so | 85 | text | truncated_prompt | 0 | 149 | source_transcription_unverified | yes | kept_as_recorded |
 | 2025/dong-nai/so | 95 | text | truncated_prompt | 0 | 943 | source_transcription_unverified | yes | kept_as_recorded |
-| 2025/dong-thap/so | 1 | text | truncated_prompt | 0 | 164 | missing_answer | no | kept_as_recorded |
-| 2025/dong-thap/so | 2 | text | truncated_prompt | 0 | 162 | missing_answer | no | kept_as_recorded |
-| 2025/dong-thap/so | 3 | text | truncated_prompt | 0 | 170 | missing_answer | no | kept_as_recorded |
-| 2025/dong-thap/so | 4 | text | truncated_prompt | 0 | 167 | missing_answer | no | kept_as_recorded |
-| 2025/dong-thap/so | 5 | text | truncated_prompt | 0 | 178 | missing_answer | no | kept_as_recorded |
-| 2025/ha-nam/so | 1 | choice | instruction_only, shared_prompt | 4 | 62 | missing_answer | no | needs_review |
-| 2025/ha-nam/so | 2 | choice | instruction_only, shared_prompt | 4 | 62 | missing_answer | no | needs_review |
-| 2025/ha-nam/so | 3 | choice | instruction_only, shared_prompt | 4 | 62 | missing_answer | no | needs_review |
-| 2025/ha-nam/so | 4 | choice | instruction_only, shared_prompt | 4 | 62 | missing_answer | no | needs_review |
-| 2025/ha-nam/so | 5 | choice | instruction_only, shared_prompt | 4 | 62 | missing_answer | no | needs_review |
-| 2025/ha-nam/so | 1 | choice | shared_prompt | 4 | 191 | missing_answer | no | needs_review |
-| 2025/ha-nam/so | 2 | choice | shared_prompt | 4 | 191 | missing_answer | no | needs_review |
-| 2025/ha-nam/so | 3 | choice | shared_prompt | 4 | 191 | missing_answer | no | needs_review |
-| 2025/ha-nam/so | 4 | choice | shared_prompt | 4 | 191 | missing_answer | no | needs_review |
-| 2025/ha-nam/so | 5 | choice | shared_prompt | 4 | 191 | missing_answer | no | needs_review |
-| 2025/ha-nam/so | 6 | choice | shared_prompt | 4 | 191 | missing_answer | no | needs_review |
-| 2025/ha-nam/so | 7 | choice | shared_prompt | 4 | 191 | missing_answer | no | needs_review |
-| 2025/ha-nam/so | 8 | choice | shared_prompt | 4 | 191 | missing_answer | no | needs_review |
-| 2025/ha-nam/so | 9 | choice | shared_prompt | 4 | 191 | missing_answer | no | needs_review |
-| 2025/ha-nam/so | 10 | choice | shared_prompt | 4 | 191 | missing_answer | no | needs_review |
-| 2025/ha-nam/so | 1 | text | truncated_prompt | 0 | 152 | missing_answer | no | kept_as_recorded |
-| 2025/ha-nam/so | 2 | text | truncated_prompt | 0 | 147 | missing_answer | no | kept_as_recorded |
-| 2025/ha-nam/so | 3 | text | truncated_prompt | 0 | 160 | missing_answer | no | kept_as_recorded |
-| 2025/ha-nam/so | 4 | text | truncated_prompt | 0 | 138 | missing_answer | no | kept_as_recorded |
-| 2025/ha-nam/so | 5 | text | truncated_prompt | 0 | 141 | missing_answer | no | kept_as_recorded |
-| 2025/ha-nam/so | 1 | text | truncated_prompt | 0 | 145 | missing_answer | no | kept_as_recorded |
-| 2025/ha-nam/so | 2 | text | truncated_prompt | 0 | 161 | missing_answer | no | kept_as_recorded |
-| 2025/ha-nam/so | 3 | text | truncated_prompt | 0 | 140 | missing_answer | no | kept_as_recorded |
-| 2025/ha-nam/so | 4 | text | truncated_prompt | 0 | 155 | missing_answer | no | kept_as_recorded |
-| 2025/ha-nam/so | 5 | text | truncated_prompt | 0 | 169 | missing_answer | no | kept_as_recorded |
-| 2025/hai-phong/so | 1 | text | truncated_prompt | 0 | 208 | missing_answer | no | kept_as_recorded |
-| 2025/hai-phong/so | 2 | text | truncated_prompt | 0 | 227 | missing_answer | no | kept_as_recorded |
-| 2025/hai-phong/so | 3 | text | truncated_prompt | 0 | 213 | missing_answer | no | kept_as_recorded |
-| 2025/hai-phong/so | 4 | text | truncated_prompt | 0 | 202 | missing_answer | no | kept_as_recorded |
-| 2025/hai-phong/so | 5 | text | truncated_prompt | 0 | 193 | missing_answer | no | kept_as_recorded |
-| 2025/hai-phong/so | 6 | text | truncated_prompt | 0 | 236 | missing_answer | no | kept_as_recorded |
-| 2025/hai-phong/so | 7 | text | truncated_prompt | 0 | 207 | missing_answer | no | kept_as_recorded |
-| 2025/hai-phong/so | 8 | text | truncated_prompt | 0 | 207 | missing_answer | no | kept_as_recorded |
-| 2025/hai-phong/so | 9 | text | truncated_prompt, instruction_only | 0 | 208 | missing_answer | no | kept_as_recorded |
-| 2025/hai-phong/so | 10 | text | truncated_prompt | 0 | 227 | missing_answer | no | kept_as_recorded |
-| 2025/hai-phong/so | 1 | choice | shared_prompt | 4 | 282 | missing_answer | no | needs_review |
-| 2025/hai-phong/so | 2 | choice | shared_prompt | 4 | 282 | missing_answer | no | needs_review |
-| 2025/hai-phong/so | 3 | choice | shared_prompt | 4 | 282 | missing_answer | no | needs_review |
-| 2025/hai-phong/so | 4 | choice | shared_prompt | 4 | 282 | missing_answer | no | needs_review |
-| 2025/hai-phong/so | 5 | choice | shared_prompt | 4 | 282 | missing_answer | no | needs_review |
-| 2025/hai-phong/so | 6 | choice | shared_prompt | 4 | 282 | missing_answer | no | needs_review |
-| 2025/hai-phong/so | 7 | choice | shared_prompt | 4 | 282 | missing_answer | no | needs_review |
-| 2025/hai-phong/so | 8 | choice | shared_prompt | 4 | 282 | missing_answer | no | needs_review |
-| 2025/hai-phong/so | 9 | choice | shared_prompt | 4 | 282 | missing_answer | no | needs_review |
-| 2025/hai-phong/so | 10 | choice | shared_prompt | 4 | 282 | missing_answer | no | needs_review |
-| 2025/hai-phong/so | 16 | choice | shared_prompt | 4 | 122 | missing_answer | no | needs_review |
-| 2025/hai-phong/so | 17 | choice | shared_prompt | 4 | 122 | missing_answer | no | needs_review |
-| 2025/hai-phong/so | 18 | choice | shared_prompt | 4 | 122 | missing_answer | no | needs_review |
-| 2025/hai-phong/so | 19 | choice | shared_prompt | 4 | 122 | missing_answer | no | needs_review |
-| 2025/hai-phong/so | 20 | choice | shared_prompt | 4 | 122 | missing_answer | no | needs_review |
-| 2025/hai-phong/so | 21 | choice | shared_prompt | 4 | 122 | missing_answer | no | needs_review |
-| 2025/hai-phong/so | 22 | choice | shared_prompt | 4 | 122 | missing_answer | no | needs_review |
-| 2025/hai-phong/so | 23 | choice | shared_prompt | 4 | 122 | missing_answer | no | needs_review |
-| 2025/hai-phong/so | 24 | choice | shared_prompt | 4 | 122 | missing_answer | no | needs_review |
-| 2025/hai-phong/so | 25 | choice | shared_prompt | 5 | 122 | missing_answer | no | needs_review |
+| 2025/dong-thap/so | 1 | essay | truncated_prompt | 0 | 164 | exempt_open_ended | no | kept_as_recorded |
+| 2025/dong-thap/so | 2 | essay | truncated_prompt | 0 | 162 | exempt_open_ended | no | kept_as_recorded |
+| 2025/dong-thap/so | 3 | essay | truncated_prompt | 0 | 170 | exempt_open_ended | no | kept_as_recorded |
+| 2025/dong-thap/so | 4 | essay | truncated_prompt | 0 | 167 | exempt_open_ended | no | kept_as_recorded |
+| 2025/dong-thap/so | 5 | essay | truncated_prompt | 0 | 178 | exempt_open_ended | no | kept_as_recorded |
+| 2025/ha-nam/so | 1 | choice | instruction_only, shared_prompt | 4 | 62 | source_transcription_unverified | yes | needs_review |
+| 2025/ha-nam/so | 2 | choice | instruction_only, shared_prompt | 4 | 62 | source_transcription_unverified | yes | needs_review |
+| 2025/ha-nam/so | 3 | choice | instruction_only, shared_prompt | 4 | 62 | source_transcription_unverified | yes | needs_review |
+| 2025/ha-nam/so | 4 | choice | instruction_only, shared_prompt | 4 | 62 | source_transcription_unverified | yes | needs_review |
+| 2025/ha-nam/so | 5 | choice | instruction_only, shared_prompt | 4 | 62 | source_transcription_unverified | yes | needs_review |
+| 2025/ha-nam/so | 1 | choice | shared_prompt | 4 | 191 | source_transcription_unverified | yes | needs_review |
+| 2025/ha-nam/so | 2 | choice | shared_prompt | 4 | 191 | source_transcription_unverified | yes | needs_review |
+| 2025/ha-nam/so | 3 | choice | shared_prompt | 4 | 191 | source_transcription_unverified | yes | needs_review |
+| 2025/ha-nam/so | 4 | choice | shared_prompt | 4 | 191 | source_transcription_unverified | yes | needs_review |
+| 2025/ha-nam/so | 5 | choice | shared_prompt | 4 | 191 | source_transcription_unverified | yes | needs_review |
+| 2025/ha-nam/so | 6 | choice | shared_prompt | 4 | 191 | source_transcription_unverified | yes | needs_review |
+| 2025/ha-nam/so | 7 | choice | shared_prompt | 4 | 191 | source_transcription_unverified | yes | needs_review |
+| 2025/ha-nam/so | 8 | choice | shared_prompt | 4 | 191 | source_transcription_unverified | yes | needs_review |
+| 2025/ha-nam/so | 9 | choice | shared_prompt | 4 | 191 | source_transcription_unverified | yes | needs_review |
+| 2025/ha-nam/so | 10 | choice | shared_prompt | 4 | 191 | source_transcription_unverified | yes | needs_review |
+| 2025/ha-nam/so | 1 | text | truncated_prompt | 0 | 152 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/ha-nam/so | 2 | text | truncated_prompt | 0 | 147 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/ha-nam/so | 3 | text | truncated_prompt | 0 | 160 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/ha-nam/so | 4 | text | truncated_prompt | 0 | 138 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/ha-nam/so | 5 | text | truncated_prompt | 0 | 141 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/ha-nam/so | 1 | text | truncated_prompt | 0 | 145 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/ha-nam/so | 2 | text | truncated_prompt | 0 | 161 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/ha-nam/so | 3 | text | truncated_prompt | 0 | 140 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/ha-nam/so | 4 | text | truncated_prompt | 0 | 155 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/ha-nam/so | 5 | text | truncated_prompt | 0 | 169 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/hai-phong/so | 1 | text | truncated_prompt | 0 | 208 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/hai-phong/so | 2 | text | truncated_prompt | 0 | 227 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/hai-phong/so | 3 | text | truncated_prompt | 0 | 213 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/hai-phong/so | 4 | text | truncated_prompt | 0 | 202 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/hai-phong/so | 5 | text | truncated_prompt | 0 | 193 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/hai-phong/so | 6 | text | truncated_prompt | 0 | 236 | curated_verified | yes | kept_as_recorded |
+| 2025/hai-phong/so | 7 | text | truncated_prompt | 0 | 207 | curated_verified | yes | kept_as_recorded |
+| 2025/hai-phong/so | 8 | text | truncated_prompt | 0 | 207 | curated_verified | yes | kept_as_recorded |
+| 2025/hai-phong/so | 9 | text | truncated_prompt, instruction_only | 0 | 208 | curated_verified | yes | kept_as_recorded |
+| 2025/hai-phong/so | 10 | text | truncated_prompt | 0 | 227 | curated_verified | yes | kept_as_recorded |
+| 2025/hai-phong/so | 1 | choice | shared_prompt | 4 | 282 | curated_verified | yes | needs_review |
+| 2025/hai-phong/so | 2 | choice | shared_prompt | 4 | 282 | curated_verified | yes | needs_review |
+| 2025/hai-phong/so | 3 | choice | shared_prompt | 4 | 282 | curated_verified | yes | needs_review |
+| 2025/hai-phong/so | 4 | choice | shared_prompt | 4 | 282 | curated_verified | yes | needs_review |
+| 2025/hai-phong/so | 5 | choice | shared_prompt | 4 | 282 | curated_verified | yes | needs_review |
+| 2025/hai-phong/so | 6 | choice | shared_prompt | 4 | 282 | curated_verified | yes | needs_review |
+| 2025/hai-phong/so | 7 | choice | shared_prompt | 4 | 282 | curated_verified | yes | needs_review |
+| 2025/hai-phong/so | 8 | choice | shared_prompt | 4 | 282 | curated_verified | yes | needs_review |
+| 2025/hai-phong/so | 9 | choice | shared_prompt | 4 | 282 | curated_verified | yes | needs_review |
+| 2025/hai-phong/so | 10 | choice | shared_prompt | 4 | 282 | curated_verified | yes | needs_review |
+| 2025/hai-phong/so | 16 | choice | shared_prompt | 4 | 122 | incomplete_stimulus | no | needs_review |
+| 2025/hai-phong/so | 17 | choice | shared_prompt | 4 | 122 | incomplete_stimulus | no | needs_review |
+| 2025/hai-phong/so | 18 | choice | shared_prompt | 4 | 122 | incomplete_stimulus | no | needs_review |
+| 2025/hai-phong/so | 19 | choice | shared_prompt | 4 | 122 | incomplete_stimulus | no | needs_review |
+| 2025/hai-phong/so | 20 | choice | shared_prompt | 4 | 122 | incomplete_stimulus | no | needs_review |
+| 2025/hai-phong/so | 21 | choice | shared_prompt | 4 | 122 | ambiguous_review | no | needs_review |
+| 2025/hai-phong/so | 22 | choice | shared_prompt | 4 | 122 | ambiguous_review | no | needs_review |
+| 2025/hai-phong/so | 23 | choice | shared_prompt | 4 | 122 | ambiguous_review | no | needs_review |
+| 2025/hai-phong/so | 24 | choice | shared_prompt | 4 | 122 | ambiguous_review | no | needs_review |
+| 2025/hai-phong/so | 25 | choice | shared_prompt | 5 | 122 | ambiguous_review | no | needs_review |
 | 2025/khanh-hoa/so | 81 | text | truncated_prompt | 0 | 144 | source_transcription_unverified | yes | kept_as_recorded |
 | 2025/khanh-hoa/so | 82 | text | truncated_prompt | 0 | 157 | source_transcription_unverified | yes | kept_as_recorded |
 | 2025/khanh-hoa/so | 83 | text | truncated_prompt | 0 | 127 | source_transcription_unverified | yes | kept_as_recorded |
 | 2025/khanh-hoa/so | 84 | text | truncated_prompt | 0 | 137 | source_transcription_unverified | yes | kept_as_recorded |
 | 2025/khanh-hoa/so | 85 | text | truncated_prompt | 0 | 141 | source_transcription_unverified | yes | kept_as_recorded |
-| 2025/kon-tum/so | 1 | text | truncated_prompt | 0 | 139 | missing_answer | no | kept_as_recorded |
-| 2025/kon-tum/so | 2 | text | truncated_prompt | 0 | 150 | missing_answer | no | kept_as_recorded |
-| 2025/kon-tum/so | 3 | text | truncated_prompt | 0 | 153 | missing_answer | no | kept_as_recorded |
-| 2025/kon-tum/so | 4 | text | truncated_prompt | 0 | 155 | missing_answer | no | kept_as_recorded |
-| 2025/kon-tum/so | 10 | text | truncated_prompt | 0 | 152 | missing_answer | no | kept_as_recorded |
+| 2025/kon-tum/so | 1 | text | truncated_prompt | 0 | 139 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/kon-tum/so | 2 | text | truncated_prompt | 0 | 150 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/kon-tum/so | 3 | text | truncated_prompt | 0 | 153 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/kon-tum/so | 4 | text | truncated_prompt | 0 | 155 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/kon-tum/so | 10 | text | truncated_prompt | 0 | 152 | source_transcription_unverified | yes | kept_as_recorded |
 | 2025/nam-dinh/so | 1 | text | truncated_prompt | 0 | 156 | incomplete_stimulus | no | kept_as_recorded |
 | 2025/nam-dinh/so | 2 | text | truncated_prompt | 0 | 149 | incomplete_stimulus | no | kept_as_recorded |
 | 2025/nam-dinh/so | 3 | text | truncated_prompt | 0 | 176 | incomplete_stimulus | no | kept_as_recorded |
 | 2025/nam-dinh/so | 4 | text | truncated_prompt | 0 | 165 | incomplete_stimulus | no | kept_as_recorded |
 | 2025/nam-dinh/so | 5 | text | truncated_prompt | 0 | 136 | incomplete_stimulus | no | kept_as_recorded |
-| 2025/nam-dinh/so | 1 | text | truncated_prompt | 0 | 176 | missing_answer | no | kept_as_recorded |
-| 2025/nam-dinh/so | 2 | text | truncated_prompt | 0 | 150 | missing_answer | no | kept_as_recorded |
-| 2025/nam-dinh/so | 3 | text | truncated_prompt | 0 | 165 | missing_answer | no | kept_as_recorded |
-| 2025/nam-dinh/so | 4 | text | truncated_prompt | 0 | 150 | missing_answer | no | kept_as_recorded |
-| 2025/nam-dinh/so | 5 | text | truncated_prompt | 0 | 182 | missing_answer | no | kept_as_recorded |
+| 2025/nam-dinh/so | 1 | text | truncated_prompt | 0 | 176 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/nam-dinh/so | 2 | text | truncated_prompt | 0 | 150 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/nam-dinh/so | 3 | text | truncated_prompt | 0 | 165 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/nam-dinh/so | 4 | text | truncated_prompt | 0 | 150 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/nam-dinh/so | 5 | text | truncated_prompt | 0 | 182 | source_transcription_unverified | yes | kept_as_recorded |
 | 2025/nghe-an/so | 1 | choice | option_overflow | 8 | 66 | ambiguous_review | no | handled_in_app |
-| 2025/nghe-an/so | 1 | choice | shared_prompt | 4 | 215 | missing_answer | no | needs_review |
-| 2025/nghe-an/so | 2 | choice | shared_prompt | 4 | 215 | missing_answer | no | needs_review |
-| 2025/nghe-an/so | 3 | choice | shared_prompt | 4 | 215 | missing_answer | no | needs_review |
-| 2025/nghe-an/so | 4 | choice | shared_prompt | 4 | 215 | missing_answer | no | needs_review |
-| 2025/nghe-an/so | 5 | choice | shared_prompt | 4 | 215 | missing_answer | no | needs_review |
-| 2025/nghe-an/so | 6 | choice | shared_prompt | 4 | 215 | missing_answer | no | needs_review |
-| 2025/nghe-an/so | 7 | choice | shared_prompt | 4 | 215 | missing_answer | no | needs_review |
-| 2025/nghe-an/so | 8 | choice | shared_prompt | 4 | 215 | missing_answer | no | needs_review |
-| 2025/nghe-an/so | 9 | choice | shared_prompt | 4 | 215 | missing_answer | no | needs_review |
-| 2025/nghe-an/so | 10 | choice | shared_prompt | 4 | 215 | missing_answer | no | needs_review |
+| 2025/nghe-an/so | 1 | choice | shared_prompt | 4 | 215 | source_transcription_unverified | yes | needs_review |
+| 2025/nghe-an/so | 2 | choice | shared_prompt | 4 | 215 | source_transcription_unverified | yes | needs_review |
+| 2025/nghe-an/so | 3 | choice | shared_prompt | 4 | 215 | source_transcription_unverified | yes | needs_review |
+| 2025/nghe-an/so | 4 | choice | shared_prompt | 4 | 215 | source_transcription_unverified | yes | needs_review |
+| 2025/nghe-an/so | 5 | choice | shared_prompt | 4 | 215 | source_transcription_unverified | yes | needs_review |
+| 2025/nghe-an/so | 6 | choice | shared_prompt | 4 | 215 | source_transcription_unverified | yes | needs_review |
+| 2025/nghe-an/so | 7 | choice | shared_prompt | 4 | 215 | source_transcription_unverified | yes | needs_review |
+| 2025/nghe-an/so | 8 | choice | shared_prompt | 4 | 215 | source_transcription_unverified | yes | needs_review |
+| 2025/nghe-an/so | 9 | choice | shared_prompt | 4 | 215 | source_transcription_unverified | yes | needs_review |
+| 2025/nghe-an/so | 10 | choice | shared_prompt | 4 | 215 | source_transcription_unverified | yes | needs_review |
 | 2025/ninh-thuan/so | 20 | text | truncated_prompt | 0 | 167 | incomplete_stimulus | no | kept_as_recorded |
 | 2025/ninh-thuan/so | 69 | text | truncated_prompt | 0 | 145 | source_transcription_unverified | yes | kept_as_recorded |
 | 2025/ninh-thuan/so | 70 | text | truncated_prompt | 0 | 147 | source_transcription_unverified | yes | kept_as_recorded |
 | 2025/ninh-thuan/so | 71 | text | truncated_prompt | 0 | 142 | source_transcription_unverified | yes | kept_as_recorded |
-| 2025/ninh-thuan/so | 72 | essay | truncated_prompt | 0 | 1104 | source_transcription_unverified | yes | kept_as_recorded |
-| 2025/phu-tho/so | 81 | text | truncated_prompt | 0 | 158 | source_transcription_unverified | yes | kept_as_recorded |
-| 2025/phu-tho/so | 82 | text | truncated_prompt | 0 | 144 | source_transcription_unverified | yes | kept_as_recorded |
-| 2025/phu-tho/so | 83 | text | truncated_prompt | 0 | 156 | source_transcription_unverified | yes | kept_as_recorded |
-| 2025/phu-tho/so | 84 | text | truncated_prompt | 0 | 143 | source_transcription_unverified | yes | kept_as_recorded |
-| 2025/phu-tho/so | 90 | essay | truncated_prompt | 0 | 1011 | source_transcription_unverified | yes | kept_as_recorded |
-| 2025/quang-ngai/so | 21 | choice | shared_prompt | 4 | 211 | missing_answer | no | needs_review |
-| 2025/quang-ngai/so | 22 | choice | shared_prompt | 4 | 211 | missing_answer | no | needs_review |
-| 2025/quang-ngai/so | 23 | choice | shared_prompt | 4 | 211 | missing_answer | no | needs_review |
-| 2025/quang-ngai/so | 24 | choice | shared_prompt | 4 | 211 | missing_answer | no | needs_review |
-| 2025/quang-ngai/so | 25 | choice | shared_prompt | 4 | 211 | missing_answer | no | needs_review |
-| 2025/quang-ngai/so | 26 | choice | shared_prompt | 4 | 211 | missing_answer | no | needs_review |
-| 2025/quang-ngai/so | 27 | choice | shared_prompt | 4 | 211 | missing_answer | no | needs_review |
-| 2025/quang-ngai/so | 28 | choice | shared_prompt | 4 | 211 | missing_answer | no | needs_review |
-| 2025/quang-ngai/so | 29 | choice | shared_prompt | 4 | 211 | missing_answer | no | needs_review |
-| 2025/quang-ngai/so | 30 | choice | shared_prompt | 4 | 211 | missing_answer | no | needs_review |
-| 2025/quang-ninh/so | 21 | text | truncated_prompt | 0 | 20 | missing_answer | no | kept_as_recorded |
-| 2025/quang-ninh/so | 22 | text | truncated_prompt | 0 | 20 | missing_answer | no | kept_as_recorded |
-| 2025/quang-ninh/so | 23 | text | truncated_prompt | 0 | 20 | missing_answer | no | kept_as_recorded |
-| 2025/quang-ninh/so | 24 | text | truncated_prompt | 0 | 20 | missing_answer | no | kept_as_recorded |
-| 2025/quang-ninh/so | 25 | text | truncated_prompt | 0 | 20 | missing_answer | no | kept_as_recorded |
-| 2025/quang-ninh/so | 23 | essay | truncated_prompt | 0 | 22 | source_transcription_unverified | yes | kept_as_recorded |
-| 2025/quang-ninh/so | 24 | essay | truncated_prompt | 0 | 22 | source_transcription_unverified | yes | kept_as_recorded |
-| 2025/quang-ninh/so | 26 | essay | truncated_prompt | 0 | 22 | source_transcription_unverified | yes | kept_as_recorded |
-| 2025/quang-ninh/so | 10 | text | truncated_prompt | 0 | 168 | missing_answer | no | kept_as_recorded |
-| 2025/thai-binh/so | 9 | text | truncated_prompt | 0 | 6 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/ninh-thuan/so | 72 | text | truncated_prompt | 0 | 140 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/phu-tho/so | 81 | essay | truncated_prompt | 0 | 158 | exempt_open_ended | no | kept_as_recorded |
+| 2025/phu-tho/so | 82 | essay | truncated_prompt | 0 | 144 | exempt_open_ended | no | kept_as_recorded |
+| 2025/phu-tho/so | 83 | essay | truncated_prompt | 0 | 156 | exempt_open_ended | no | kept_as_recorded |
+| 2025/phu-tho/so | 84 | essay | truncated_prompt | 0 | 143 | exempt_open_ended | no | kept_as_recorded |
+| 2025/phu-tho/so | 90 | essay | truncated_prompt | 0 | 1011 | exempt_open_ended | no | kept_as_recorded |
+| 2025/quang-ngai/so | 21 | choice | shared_prompt | 4 | 211 | source_transcription_unverified | yes | needs_review |
+| 2025/quang-ngai/so | 22 | choice | shared_prompt | 4 | 211 | source_transcription_unverified | yes | needs_review |
+| 2025/quang-ngai/so | 23 | choice | shared_prompt | 4 | 211 | source_transcription_unverified | yes | needs_review |
+| 2025/quang-ngai/so | 24 | choice | shared_prompt | 4 | 211 | source_transcription_unverified | yes | needs_review |
+| 2025/quang-ngai/so | 25 | choice | shared_prompt | 4 | 211 | source_transcription_unverified | yes | needs_review |
+| 2025/quang-ngai/so | 26 | choice | shared_prompt | 4 | 211 | source_transcription_unverified | yes | needs_review |
+| 2025/quang-ngai/so | 27 | choice | shared_prompt | 4 | 211 | source_transcription_unverified | yes | needs_review |
+| 2025/quang-ngai/so | 28 | choice | shared_prompt | 4 | 211 | source_transcription_unverified | yes | needs_review |
+| 2025/quang-ngai/so | 29 | choice | shared_prompt | 4 | 211 | source_transcription_unverified | yes | needs_review |
+| 2025/quang-ngai/so | 30 | choice | shared_prompt | 4 | 211 | source_transcription_unverified | yes | needs_review |
+| 2025/quang-ninh/so | 21 | text | truncated_prompt | 0 | 20 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/quang-ninh/so | 22 | text | truncated_prompt | 0 | 20 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/quang-ninh/so | 23 | text | truncated_prompt | 0 | 20 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/quang-ninh/so | 24 | text | truncated_prompt | 0 | 20 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/quang-ninh/so | 25 | text | truncated_prompt | 0 | 20 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/quang-ninh/so | 23 | text | truncated_prompt | 0 | 22 | curated_verified | yes | kept_as_recorded |
+| 2025/quang-ninh/so | 24 | text | truncated_prompt | 0 | 22 | curated_verified | yes | kept_as_recorded |
+| 2025/quang-ninh/so | 26 | text | truncated_prompt | 0 | 22 | curated_verified | yes | kept_as_recorded |
+| 2025/quang-ninh/so | 10 | text | truncated_prompt | 0 | 168 | source_transcription_unverified | yes | kept_as_recorded |
 | 2025/thai-binh/so | 44 | text | truncated_prompt | 0 | 7 | source_transcription_unverified | yes | kept_as_recorded |
 | 2025/thai-binh/so | 46 | choice | shared_prompt | 4 | 259 | source_transcription_unverified | yes | needs_review |
 | 2025/thai-binh/so | 47 | choice | shared_prompt | 4 | 259 | source_transcription_unverified | yes | needs_review |
@@ -795,21 +774,20 @@ No transcription is edited by this script: each leftover anomaly is listed with 
 | 2025/thai-nguyen/so | 68 | choice | instruction_only, shared_prompt | 4 | 97 | source_transcription_unverified | yes | needs_review |
 | 2025/thai-nguyen/so | 69 | choice | instruction_only, shared_prompt | 4 | 97 | source_transcription_unverified | yes | needs_review |
 | 2025/thai-nguyen/so | 70 | choice | instruction_only, shared_prompt | 4 | 97 | source_transcription_unverified | yes | needs_review |
-| 2025/tien-giang/so | 5 | choice | truncated_prompt | 3 | 10 | invalid_key | no | kept_as_recorded |
-| 2025/tien-giang/so | 17 | choice | shared_prompt | 4 | 127 | invalid_key | no | needs_review |
-| 2025/tien-giang/so | 18 | choice | shared_prompt | 4 | 127 | invalid_key | no | needs_review |
-| 2025/tien-giang/so | 19 | choice | shared_prompt | 4 | 127 | invalid_key | no | needs_review |
-| 2025/tien-giang/so | 20 | choice | shared_prompt | 4 | 127 | invalid_key | no | needs_review |
-| 2025/tien-giang/so | 21 | choice | shared_prompt | 4 | 86 | invalid_key | no | needs_review |
-| 2025/tien-giang/so | 22 | choice | shared_prompt | 4 | 86 | invalid_key | no | needs_review |
-| 2025/tien-giang/so | 23 | choice | shared_prompt | 4 | 86 | invalid_key | no | needs_review |
-| 2025/tien-giang/so | 24 | choice | shared_prompt | 4 | 86 | invalid_key | no | needs_review |
-| 2025/tien-giang/so | 25 | choice | shared_prompt | 4 | 86 | invalid_key | no | needs_review |
-| 2025/tien-giang/so | 26 | choice | shared_prompt | 4 | 86 | invalid_key | no | needs_review |
-| 2025/tien-giang/so | 27 | choice | shared_prompt | 4 | 86 | invalid_key | no | needs_review |
-| 2025/tien-giang/so | 28 | choice | shared_prompt | 4 | 86 | invalid_key | no | needs_review |
+| 2025/tien-giang/so | 5 | choice | truncated_prompt | 3 | 10 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/tien-giang/so | 17 | choice | shared_prompt | 4 | 127 | source_transcription_unverified | yes | needs_review |
+| 2025/tien-giang/so | 18 | choice | shared_prompt | 4 | 127 | source_transcription_unverified | yes | needs_review |
+| 2025/tien-giang/so | 19 | choice | shared_prompt | 4 | 127 | source_transcription_unverified | yes | needs_review |
+| 2025/tien-giang/so | 20 | choice | shared_prompt | 4 | 127 | source_transcription_unverified | yes | needs_review |
+| 2025/tien-giang/so | 21 | choice | shared_prompt | 4 | 86 | source_transcription_unverified | yes | needs_review |
+| 2025/tien-giang/so | 22 | choice | shared_prompt | 4 | 86 | source_transcription_unverified | yes | needs_review |
+| 2025/tien-giang/so | 23 | choice | shared_prompt | 4 | 86 | source_transcription_unverified | yes | needs_review |
+| 2025/tien-giang/so | 24 | choice | shared_prompt | 4 | 86 | source_transcription_unverified | yes | needs_review |
+| 2025/tien-giang/so | 25 | choice | shared_prompt | 4 | 86 | source_transcription_unverified | yes | needs_review |
+| 2025/tien-giang/so | 26 | choice | shared_prompt | 4 | 86 | source_transcription_unverified | yes | needs_review |
+| 2025/tien-giang/so | 27 | choice | shared_prompt | 4 | 86 | source_transcription_unverified | yes | needs_review |
+| 2025/tien-giang/so | 28 | choice | shared_prompt | 4 | 86 | source_transcription_unverified | yes | needs_review |
 | 2025/tien-giang/so | 42 | text | truncated_prompt | 0 | 35 | source_transcription_unverified | yes | kept_as_recorded |
-| 2025/tien-giang/so | 44 | choice | option_overflow | 10 | 18 | ambiguous_review | no | handled_in_app |
 | 2025/tien-giang/so | 61 | text | truncated_prompt | 0 | 127 | source_transcription_unverified | yes | kept_as_recorded |
 | 2025/tien-giang/so | 62 | text | truncated_prompt | 0 | 121 | source_transcription_unverified | yes | kept_as_recorded |
 | 2025/tien-giang/so | 63 | text | truncated_prompt | 0 | 124 | source_transcription_unverified | yes | kept_as_recorded |
@@ -817,20 +795,19 @@ No transcription is edited by this script: each leftover anomaly is listed with 
 | 2025/tien-giang/so | 65 | text | truncated_prompt | 0 | 117 | source_transcription_unverified | yes | kept_as_recorded |
 | 2025/tien-giang/so | 66 | text | truncated_prompt | 0 | 148 | source_transcription_unverified | yes | kept_as_recorded |
 | 2025/tien-giang/so | 67 | text | truncated_prompt | 0 | 138 | source_transcription_unverified | yes | kept_as_recorded |
-| 2025/tien-giang/so | 68 | essay | truncated_prompt | 0 | 1752 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/tien-giang/so | 68 | essay | truncated_prompt | 0 | 1752 | exempt_open_ended | no | kept_as_recorded |
 | 2025/tp-ho-chi-minh/so | 19 | choice | truncated_prompt | 4 | 53 | source_transcription_unverified | yes | kept_as_recorded |
-| 2025/tp-ho-chi-minh/so | 10 | choice | option_overflow | 7 | 67 | ambiguous_review | no | handled_in_app |
-| 2025/tp-ho-chi-minh/so | 10 | text | truncated_prompt | 0 | 208 | missing_answer | no | kept_as_recorded |
-| 2025/vinh-phuc/so | 4 | text | truncated_prompt | 0 | 148 | missing_answer | no | kept_as_recorded |
-| 2025/vinh-phuc/so | 5 | text | truncated_prompt | 0 | 144 | missing_answer | no | kept_as_recorded |
-| 2025/vinh-phuc/so | 6 | text | truncated_prompt | 0 | 163 | missing_answer | no | kept_as_recorded |
-| 2025/vinh-phuc/so | 8 | text | truncated_prompt | 0 | 146 | missing_answer | no | kept_as_recorded |
-| 2025/vinh-phuc/so | 9 | text | truncated_prompt | 0 | 158 | missing_answer | no | kept_as_recorded |
-| 2025/vinh-phuc/so | 10 | text | truncated_prompt | 0 | 122 | missing_answer | no | kept_as_recorded |
-| 2025/yen-bai/so | 1 | essay | truncated_prompt | 0 | 140 | source_transcription_unverified | yes | kept_as_recorded |
-| 2025/yen-bai/so | 2 | essay | truncated_prompt | 0 | 159 | source_transcription_unverified | yes | kept_as_recorded |
-| 2025/yen-bai/so | 3 | essay | truncated_prompt | 0 | 172 | source_transcription_unverified | yes | kept_as_recorded |
-| 2025/yen-bai/so | 3 | essay | truncated_prompt | 0 | 1054 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/tp-ho-chi-minh/so | 10 | text | truncated_prompt | 0 | 208 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/vinh-phuc/so | 4 | text | truncated_prompt | 0 | 148 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/vinh-phuc/so | 5 | text | truncated_prompt | 0 | 144 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/vinh-phuc/so | 6 | text | truncated_prompt | 0 | 163 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/vinh-phuc/so | 8 | text | truncated_prompt | 0 | 146 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/vinh-phuc/so | 9 | text | truncated_prompt | 0 | 158 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/vinh-phuc/so | 10 | text | truncated_prompt | 0 | 122 | source_transcription_unverified | yes | kept_as_recorded |
+| 2025/yen-bai/so | 1 | essay | truncated_prompt | 0 | 140 | exempt_open_ended | no | kept_as_recorded |
+| 2025/yen-bai/so | 2 | essay | truncated_prompt | 0 | 159 | exempt_open_ended | no | kept_as_recorded |
+| 2025/yen-bai/so | 3 | essay | truncated_prompt | 0 | 172 | exempt_open_ended | no | kept_as_recorded |
+| 2025/yen-bai/so | 3 | essay | truncated_prompt | 0 | 1054 | exempt_open_ended | no | kept_as_recorded |
 | 2026/an-giang/so | 6 | text | truncated_prompt | 0 | 19 | source_transcription_unverified | yes | kept_as_recorded |
 | 2026/an-giang/so | 7 | text | truncated_prompt | 0 | 19 | source_transcription_unverified | yes | kept_as_recorded |
 | 2026/an-giang/so | 8 | text | truncated_prompt | 0 | 19 | source_transcription_unverified | yes | kept_as_recorded |
@@ -842,28 +819,24 @@ No transcription is edited by this script: each leftover anomaly is listed with 
 | 2026/an-giang/so | 83 | text | truncated_prompt | 0 | 177 | source_transcription_unverified | yes | kept_as_recorded |
 | 2026/an-giang/so | 84 | text | truncated_prompt | 0 | 192 | source_transcription_unverified | yes | kept_as_recorded |
 | 2026/an-giang/so | 85 | text | truncated_prompt | 0 | 171 | source_transcription_unverified | yes | kept_as_recorded |
-| 2026/bac-ninh/so | 1 | essay | truncated_prompt | 0 | 22 | source_transcription_unverified | yes | kept_as_recorded |
-| 2026/bac-ninh/so | 2 | essay | truncated_prompt | 0 | 22 | source_transcription_unverified | yes | kept_as_recorded |
-| 2026/bac-ninh/so | 3 | essay | truncated_prompt | 0 | 22 | source_transcription_unverified | yes | kept_as_recorded |
-| 2026/bac-ninh/so | 4 | true-false | truncated_prompt | 2 | 22 | missing_answer | no | kept_as_recorded |
-| 2026/bac-ninh/so | 1 | text | truncated_prompt | 0 | 133 | missing_answer | no | kept_as_recorded |
-| 2026/bac-ninh/so | 2 | text | truncated_prompt | 0 | 132 | missing_answer | no | kept_as_recorded |
-| 2026/bac-ninh/so | 3 | text | truncated_prompt | 0 | 142 | missing_answer | no | kept_as_recorded |
-| 2026/bac-ninh/so | 4 | text | truncated_prompt | 0 | 153 | missing_answer | no | kept_as_recorded |
-| 2026/bac-ninh/so | 5 | text | truncated_prompt | 0 | 151 | missing_answer | no | kept_as_recorded |
-| 2026/bac-ninh/so | 6 | text | truncated_prompt | 0 | 146 | missing_answer | no | kept_as_recorded |
-| 2026/bac-ninh/so | 7 | text | truncated_prompt | 0 | 132 | missing_answer | no | kept_as_recorded |
-| 2026/bac-ninh/so | 8 | text | truncated_prompt | 0 | 165 | missing_answer | no | kept_as_recorded |
-| 2026/bac-ninh/so | 2 | text | truncated_prompt | 0 | 144 | missing_answer | no | kept_as_recorded |
-| 2026/bac-ninh/so | 4 | text | truncated_prompt | 0 | 145 | missing_answer | no | kept_as_recorded |
-| 2026/da-nang/so | 4 | choice | truncated_prompt | 4 | 324 | missing_answer | no | kept_as_recorded |
-| 2026/da-nang/so | 5 | choice | truncated_prompt | 4 | 324 | missing_answer | no | kept_as_recorded |
-| 2026/da-nang/so | 6 | choice | truncated_prompt | 4 | 324 | missing_answer | no | kept_as_recorded |
-| 2026/da-nang/so | 7 | choice | truncated_prompt | 4 | 324 | missing_answer | no | kept_as_recorded |
-| 2026/dak-lak/so | 66 | essay | truncated_prompt | 0 | 22 | source_transcription_unverified | yes | kept_as_recorded |
-| 2026/dak-lak/so | 67 | essay | truncated_prompt | 0 | 22 | source_transcription_unverified | yes | kept_as_recorded |
-| 2026/dak-lak/so | 68 | essay | truncated_prompt | 0 | 22 | source_transcription_unverified | yes | kept_as_recorded |
-| 2026/dak-lak/so | 69 | essay | truncated_prompt | 0 | 22 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/bac-ninh/so | 1 | text | truncated_prompt | 0 | 22 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/bac-ninh/so | 2 | text | truncated_prompt | 0 | 22 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/bac-ninh/so | 3 | text | truncated_prompt | 0 | 22 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/bac-ninh/so | 4 | text | truncated_prompt | 0 | 22 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/bac-ninh/so | 1 | text | truncated_prompt | 0 | 133 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/bac-ninh/so | 2 | text | truncated_prompt | 0 | 132 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/bac-ninh/so | 3 | text | truncated_prompt | 0 | 142 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/bac-ninh/so | 4 | text | truncated_prompt | 0 | 153 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/bac-ninh/so | 5 | text | truncated_prompt | 0 | 151 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/bac-ninh/so | 6 | text | truncated_prompt | 0 | 146 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/bac-ninh/so | 7 | text | truncated_prompt | 0 | 132 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/bac-ninh/so | 8 | text | truncated_prompt | 0 | 165 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/bac-ninh/so | 2 | text | truncated_prompt | 0 | 144 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/bac-ninh/so | 4 | text | truncated_prompt | 0 | 145 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/dak-lak/so | 66 | text | truncated_prompt | 0 | 22 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/dak-lak/so | 67 | text | truncated_prompt | 0 | 22 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/dak-lak/so | 68 | text | truncated_prompt | 0 | 22 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/dak-lak/so | 69 | text | truncated_prompt | 0 | 22 | source_transcription_unverified | yes | kept_as_recorded |
 | 2026/dak-lak/so | 81 | text | truncated_prompt | 0 | 155 | source_transcription_unverified | yes | kept_as_recorded |
 | 2026/dak-lak/so | 82 | text | truncated_prompt | 0 | 135 | source_transcription_unverified | yes | kept_as_recorded |
 | 2026/dak-lak/so | 83 | text | truncated_prompt | 0 | 143 | source_transcription_unverified | yes | kept_as_recorded |
@@ -873,36 +846,38 @@ No transcription is edited by this script: each leftover anomaly is listed with 
 | 2026/dien-bien/so | 8 | text | truncated_prompt, shared_prompt | 0 | 9 | source_transcription_unverified | yes | kept_as_recorded |
 | 2026/dien-bien/so | 9 | text | truncated_prompt, shared_prompt | 0 | 9 | source_transcription_unverified | yes | kept_as_recorded |
 | 2026/dien-bien/so | 10 | text | truncated_prompt, shared_prompt | 0 | 9 | source_transcription_unverified | yes | kept_as_recorded |
-| 2026/dien-bien/so | 11 | true-false | truncated_prompt, shared_prompt | 3 | 9 | invalid_key | no | kept_as_recorded |
-| 2026/dien-bien/so | 1 | text | truncated_prompt | 0 | 135 | missing_answer | no | kept_as_recorded |
-| 2026/dien-bien/so | 2 | text | truncated_prompt | 0 | 134 | missing_answer | no | kept_as_recorded |
-| 2026/dien-bien/so | 3 | text | truncated_prompt | 0 | 143 | missing_answer | no | kept_as_recorded |
-| 2026/dien-bien/so | 4 | text | truncated_prompt | 0 | 120 | missing_answer | no | kept_as_recorded |
-| 2026/dien-bien/so | 6 | text | truncated_prompt | 0 | 141 | missing_answer | no | kept_as_recorded |
-| 2026/dien-bien/so | 7 | text | truncated_prompt | 0 | 162 | missing_answer | no | kept_as_recorded |
-| 2026/dien-bien/so | 8 | text | truncated_prompt | 0 | 158 | missing_answer | no | kept_as_recorded |
-| 2026/dien-bien/so | 9 | text | truncated_prompt | 0 | 160 | missing_answer | no | kept_as_recorded |
-| 2026/dien-bien/so | 10 | text | truncated_prompt | 0 | 166 | missing_answer | no | kept_as_recorded |
-| 2026/dong-nai/so | 71 | essay | truncated_prompt | 0 | 143 | source_transcription_unverified | yes | kept_as_recorded |
-| 2026/dong-nai/so | 72 | essay | truncated_prompt | 0 | 161 | source_transcription_unverified | yes | kept_as_recorded |
-| 2026/dong-nai/so | 73 | essay | truncated_prompt | 0 | 137 | source_transcription_unverified | yes | kept_as_recorded |
-| 2026/dong-nai/so | 74 | essay | truncated_prompt | 0 | 148 | source_transcription_unverified | yes | kept_as_recorded |
-| 2026/dong-nai/so | 75 | essay | truncated_prompt | 0 | 143 | source_transcription_unverified | yes | kept_as_recorded |
-| 2026/dong-nai/so | 77 | essay | truncated_prompt | 0 | 149 | source_transcription_unverified | yes | kept_as_recorded |
-| 2026/dong-nai/so | 80 | essay | truncated_prompt | 0 | 1407 | source_transcription_unverified | yes | kept_as_recorded |
-| 2026/gia-lai/so | 61 | essay | truncated_prompt | 0 | 153 | source_transcription_unverified | yes | kept_as_recorded |
-| 2026/gia-lai/so | 62 | essay | truncated_prompt | 0 | 153 | source_transcription_unverified | yes | kept_as_recorded |
-| 2026/gia-lai/so | 63 | essay | truncated_prompt | 0 | 147 | source_transcription_unverified | yes | kept_as_recorded |
-| 2026/gia-lai/so | 64 | essay | truncated_prompt | 0 | 121 | source_transcription_unverified | yes | kept_as_recorded |
-| 2026/ha-tinh/so | 21 | essay | truncated_prompt, shared_prompt | 0 | 9 | source_transcription_unverified | yes | kept_as_recorded |
-| 2026/ha-tinh/so | 22 | essay | truncated_prompt, shared_prompt | 0 | 9 | source_transcription_unverified | yes | kept_as_recorded |
-| 2026/ha-tinh/so | 23 | essay | truncated_prompt, shared_prompt | 0 | 9 | source_transcription_unverified | yes | kept_as_recorded |
-| 2026/ha-tinh/so | 24 | true-false | truncated_prompt, shared_prompt | 3 | 9 | invalid_key | no | kept_as_recorded |
-| 2026/ha-tinh/so | 1 | text | truncated_prompt | 0 | 156 | missing_answer | no | kept_as_recorded |
-| 2026/ha-tinh/so | 2 | text | truncated_prompt | 0 | 140 | missing_answer | no | kept_as_recorded |
-| 2026/ha-tinh/so | 3 | text | truncated_prompt | 0 | 160 | missing_answer | no | kept_as_recorded |
-| 2026/ha-tinh/so | 4 | text | truncated_prompt | 0 | 148 | missing_answer | no | kept_as_recorded |
-| 2026/ha-tinh/so | 5 | text | truncated_prompt | 0 | 142 | missing_answer | no | kept_as_recorded |
+| 2026/dien-bien/so | 11 | text | truncated_prompt, shared_prompt | 0 | 9 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/dien-bien/so | 1 | text | truncated_prompt | 0 | 135 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/dien-bien/so | 2 | text | truncated_prompt | 0 | 134 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/dien-bien/so | 3 | text | truncated_prompt | 0 | 143 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/dien-bien/so | 4 | text | truncated_prompt | 0 | 120 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/dien-bien/so | 5 | text | truncated_prompt | 0 | 146 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/dien-bien/so | 6 | text | truncated_prompt | 0 | 141 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/dien-bien/so | 7 | text | truncated_prompt | 0 | 162 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/dien-bien/so | 8 | text | truncated_prompt | 0 | 158 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/dien-bien/so | 9 | text | truncated_prompt | 0 | 160 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/dien-bien/so | 10 | text | truncated_prompt | 0 | 166 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/dong-nai/so | 71 | text | truncated_prompt | 0 | 143 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/dong-nai/so | 72 | text | truncated_prompt | 0 | 161 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/dong-nai/so | 73 | text | truncated_prompt | 0 | 137 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/dong-nai/so | 74 | text | truncated_prompt | 0 | 148 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/dong-nai/so | 75 | text | truncated_prompt | 0 | 143 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/dong-nai/so | 77 | text | truncated_prompt | 0 | 149 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/dong-nai/so | 80 | essay | truncated_prompt | 0 | 1407 | exempt_open_ended | no | kept_as_recorded |
+| 2026/gia-lai/so | 61 | text | truncated_prompt | 0 | 153 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/gia-lai/so | 62 | text | truncated_prompt | 0 | 153 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/gia-lai/so | 63 | text | truncated_prompt | 0 | 147 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/gia-lai/so | 64 | text | truncated_prompt | 0 | 121 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/gia-lai/so | 65 | text | truncated_prompt | 0 | 129 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/ha-tinh/so | 21 | essay | truncated_prompt, shared_prompt | 0 | 9 | exempt_open_ended | no | kept_as_recorded |
+| 2026/ha-tinh/so | 22 | essay | truncated_prompt, shared_prompt | 0 | 9 | exempt_open_ended | no | kept_as_recorded |
+| 2026/ha-tinh/so | 23 | essay | truncated_prompt, shared_prompt | 0 | 9 | exempt_open_ended | no | kept_as_recorded |
+| 2026/ha-tinh/so | 24 | essay | truncated_prompt, shared_prompt | 0 | 9 | exempt_open_ended | no | kept_as_recorded |
+| 2026/ha-tinh/so | 1 | text | truncated_prompt | 0 | 156 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/ha-tinh/so | 2 | text | truncated_prompt | 0 | 140 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/ha-tinh/so | 3 | text | truncated_prompt | 0 | 160 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/ha-tinh/so | 4 | text | truncated_prompt | 0 | 148 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/ha-tinh/so | 5 | text | truncated_prompt | 0 | 142 | source_transcription_unverified | yes | kept_as_recorded |
 | 2026/hue/chuyen-khoa-hoc-hue | 16 | text | truncated_prompt | 0 | 23 | source_transcription_unverified | yes | kept_as_recorded |
 | 2026/hue/chuyen-khoa-hoc-hue | 17 | text | truncated_prompt | 0 | 27 | source_transcription_unverified | yes | kept_as_recorded |
 | 2026/hue/chuyen-khoa-hoc-hue | 18 | text | truncated_prompt | 0 | 28 | source_transcription_unverified | yes | kept_as_recorded |
@@ -911,98 +886,90 @@ No transcription is edited by this script: each leftover anomaly is listed with 
 | 2026/hue/chuyen-khoa-hoc-hue | 52 | choice | truncated_prompt | 4 | 325 | source_transcription_unverified | yes | kept_as_recorded |
 | 2026/hue/chuyen-khoa-hoc-hue | 53 | choice | truncated_prompt | 4 | 325 | source_transcription_unverified | yes | kept_as_recorded |
 | 2026/hue/chuyen-khoa-hoc-hue | 54 | choice | truncated_prompt | 4 | 325 | source_transcription_unverified | yes | kept_as_recorded |
-| 2026/hue/chuyen-khoa-hoc-hue | 71 | essay | truncated_prompt | 0 | 144 | source_transcription_unverified | yes | kept_as_recorded |
-| 2026/hue/chuyen-khoa-hoc-hue | 72 | essay | truncated_prompt | 0 | 148 | source_transcription_unverified | yes | kept_as_recorded |
-| 2026/hue/chuyen-khoa-hoc-hue | 73 | essay | truncated_prompt | 0 | 139 | source_transcription_unverified | yes | kept_as_recorded |
-| 2026/hue/chuyen-khoa-hoc-hue | 74 | essay | truncated_prompt | 0 | 147 | source_transcription_unverified | yes | kept_as_recorded |
-| 2026/hue/chuyen-khoa-hoc-hue | 75 | essay | truncated_prompt | 0 | 162 | source_transcription_unverified | yes | kept_as_recorded |
-| 2026/khanh-hoa/so | 61 | essay | truncated_prompt | 0 | 22 | source_transcription_unverified | yes | kept_as_recorded |
-| 2026/khanh-hoa/so | 62 | essay | truncated_prompt | 0 | 22 | source_transcription_unverified | yes | kept_as_recorded |
-| 2026/khanh-hoa/so | 63 | essay | truncated_prompt | 0 | 22 | source_transcription_unverified | yes | kept_as_recorded |
-| 2026/khanh-hoa/so | 64 | essay | truncated_prompt | 0 | 22 | source_transcription_unverified | yes | kept_as_recorded |
-| 2026/khanh-hoa/so | 65 | essay | truncated_prompt | 0 | 22 | source_transcription_unverified | yes | kept_as_recorded |
-| 2026/khanh-hoa/so | 66 | essay | truncated_prompt | 0 | 103 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/hue/chuyen-khoa-hoc-hue | 71 | text | truncated_prompt | 0 | 144 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/hue/chuyen-khoa-hoc-hue | 72 | text | truncated_prompt | 0 | 148 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/hue/chuyen-khoa-hoc-hue | 73 | text | truncated_prompt | 0 | 139 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/hue/chuyen-khoa-hoc-hue | 74 | text | truncated_prompt | 0 | 147 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/hue/chuyen-khoa-hoc-hue | 75 | text | truncated_prompt | 0 | 162 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/khanh-hoa/so | 61 | essay | truncated_prompt | 0 | 22 | exempt_open_ended | no | kept_as_recorded |
+| 2026/khanh-hoa/so | 62 | essay | truncated_prompt | 0 | 22 | exempt_open_ended | no | kept_as_recorded |
+| 2026/khanh-hoa/so | 63 | essay | truncated_prompt | 0 | 22 | exempt_open_ended | no | kept_as_recorded |
+| 2026/khanh-hoa/so | 64 | essay | truncated_prompt | 0 | 22 | exempt_open_ended | no | kept_as_recorded |
+| 2026/khanh-hoa/so | 65 | essay | truncated_prompt | 0 | 22 | exempt_open_ended | no | kept_as_recorded |
+| 2026/khanh-hoa/so | 66 | essay | truncated_prompt | 0 | 103 | exempt_open_ended | no | kept_as_recorded |
 | 2026/khanh-hoa/so | 81 | text | truncated_prompt | 0 | 162 | source_transcription_unverified | yes | kept_as_recorded |
 | 2026/khanh-hoa/so | 82 | text | truncated_prompt | 0 | 159 | source_transcription_unverified | yes | kept_as_recorded |
 | 2026/khanh-hoa/so | 83 | text | truncated_prompt | 0 | 159 | source_transcription_unverified | yes | kept_as_recorded |
 | 2026/khanh-hoa/so | 84 | text | truncated_prompt | 0 | 179 | source_transcription_unverified | yes | kept_as_recorded |
 | 2026/khanh-hoa/so | 85 | text | truncated_prompt | 0 | 200 | source_transcription_unverified | yes | kept_as_recorded |
-| 2026/lao-cai/so | 1 | text | truncated_prompt | 0 | 19 | missing_answer | no | kept_as_recorded |
-| 2026/lao-cai/so | 2 | text | truncated_prompt | 0 | 19 | missing_answer | no | kept_as_recorded |
-| 2026/lao-cai/so | 3 | text | truncated_prompt | 0 | 19 | missing_answer | no | kept_as_recorded |
-| 2026/lao-cai/so | 4 | text | truncated_prompt | 0 | 19 | missing_answer | no | kept_as_recorded |
-| 2026/lao-cai/so | 1 | text | truncated_prompt | 0 | 145 | missing_answer | no | kept_as_recorded |
-| 2026/lao-cai/so | 2 | text | truncated_prompt | 0 | 159 | missing_answer | no | kept_as_recorded |
-| 2026/lao-cai/so | 3 | text | truncated_prompt | 0 | 166 | missing_answer | no | kept_as_recorded |
-| 2026/lao-cai/so | 4 | text | truncated_prompt | 0 | 148 | missing_answer | no | kept_as_recorded |
-| 2026/nghe-an/so | 1 | text | truncated_prompt | 0 | 10 | missing_answer | no | kept_as_recorded |
-| 2026/nghe-an/so | 2 | text | truncated_prompt | 0 | 10 | missing_answer | no | kept_as_recorded |
-| 2026/nghe-an/so | 3 | text | truncated_prompt | 0 | 10 | missing_answer | no | kept_as_recorded |
-| 2026/nghe-an/so | 4 | text | truncated_prompt | 0 | 10 | missing_answer | no | kept_as_recorded |
-| 2026/nghe-an/so | 5 | text | truncated_prompt | 0 | 10 | missing_answer | no | kept_as_recorded |
-| 2026/nghe-an/so | 6 | text | truncated_prompt | 0 | 10 | missing_answer | no | kept_as_recorded |
-| 2026/nghe-an/so | 7 | text | truncated_prompt | 0 | 10 | missing_answer | no | kept_as_recorded |
-| 2026/nghe-an/so | 8 | text | truncated_prompt | 0 | 10 | missing_answer | no | kept_as_recorded |
-| 2026/nghe-an/so | 9 | text | truncated_prompt | 0 | 10 | missing_answer | no | kept_as_recorded |
-| 2026/nghe-an/so | 10 | text | truncated_prompt | 0 | 10 | missing_answer | no | kept_as_recorded |
-| 2026/nghe-an/so | 1 | choice | instruction_only, shared_prompt | 4 | 174 | missing_answer | no | needs_review |
-| 2026/nghe-an/so | 2 | choice | instruction_only, shared_prompt | 4 | 174 | missing_answer | no | needs_review |
-| 2026/nghe-an/so | 3 | choice | instruction_only, shared_prompt | 4 | 174 | missing_answer | no | needs_review |
-| 2026/nghe-an/so | 4 | choice | instruction_only, shared_prompt | 4 | 174 | missing_answer | no | needs_review |
-| 2026/nghe-an/so | 5 | choice | instruction_only, shared_prompt | 4 | 174 | missing_answer | no | needs_review |
-| 2026/nghe-an/so | 6 | choice | instruction_only, shared_prompt | 4 | 174 | missing_answer | no | needs_review |
-| 2026/nghe-an/so | 7 | choice | instruction_only, shared_prompt | 4 | 174 | missing_answer | no | needs_review |
-| 2026/nghe-an/so | 8 | choice | instruction_only, shared_prompt | 4 | 174 | missing_answer | no | needs_review |
-| 2026/nghe-an/so | 9 | choice | instruction_only, shared_prompt | 4 | 174 | missing_answer | no | needs_review |
-| 2026/nghe-an/so | 10 | choice | instruction_only, shared_prompt | 4 | 174 | missing_answer | no | needs_review |
-| 2026/nghe-an/so | 1 | text | truncated_prompt, instruction_only | 0 | 9 | missing_answer | no | kept_as_recorded |
-| 2026/nghe-an/so | 2 | text | truncated_prompt, instruction_only | 0 | 9 | missing_answer | no | kept_as_recorded |
-| 2026/nghe-an/so | 3 | text | truncated_prompt, instruction_only | 0 | 9 | missing_answer | no | kept_as_recorded |
-| 2026/nghe-an/so | 4 | text | truncated_prompt, instruction_only | 0 | 9 | missing_answer | no | kept_as_recorded |
-| 2026/nghe-an/so | 5 | text | truncated_prompt, instruction_only | 0 | 9 | missing_answer | no | kept_as_recorded |
-| 2026/nghe-an/so | 6 | text | instruction_only | 0 | 23 | missing_answer | no | needs_review |
-| 2026/nghe-an/so | 6 | text | instruction_only | 0 | 158 | missing_answer | no | needs_review |
-| 2026/nghe-an/so | 5 | essay | truncated_prompt | 0 | 1656 | source_transcription_unverified | yes | kept_as_recorded |
-| 2026/ninh-binh/so | 4 | choice | truncated_prompt | 4 | 40 | missing_answer | no | kept_as_recorded |
-| 2026/ninh-binh/so | 5 | choice | truncated_prompt | 4 | 59 | missing_answer | no | kept_as_recorded |
-| 2026/ninh-binh/so | 6 | choice | truncated_prompt | 4 | 324 | missing_answer | no | kept_as_recorded |
-| 2026/ninh-binh/so | 7 | choice | truncated_prompt | 4 | 324 | missing_answer | no | kept_as_recorded |
-| 2026/ninh-binh/so | 8 | choice | truncated_prompt | 4 | 324 | missing_answer | no | kept_as_recorded |
-| 2026/ninh-binh/so | 9 | choice | truncated_prompt | 4 | 324 | missing_answer | no | kept_as_recorded |
-| 2026/ninh-binh/so | 10 | choice | truncated_prompt | 4 | 325 | missing_answer | no | kept_as_recorded |
-| 2026/ninh-binh/so | 1 | text | truncated_prompt | 0 | 22 | missing_answer | no | kept_as_recorded |
-| 2026/ninh-binh/so | 2 | text | truncated_prompt | 0 | 22 | missing_answer | no | kept_as_recorded |
-| 2026/ninh-binh/so | 3 | text | truncated_prompt | 0 | 22 | missing_answer | no | kept_as_recorded |
-| 2026/ninh-binh/so | 4 | text | truncated_prompt | 0 | 22 | missing_answer | no | kept_as_recorded |
-| 2026/quang-ninh/so | 21 | text | truncated_prompt | 0 | 20 | missing_answer | no | kept_as_recorded |
-| 2026/quang-ninh/so | 22 | text | truncated_prompt | 0 | 20 | missing_answer | no | kept_as_recorded |
-| 2026/quang-ninh/so | 23 | text | truncated_prompt | 0 | 20 | missing_answer | no | kept_as_recorded |
-| 2026/quang-ninh/so | 24 | text | truncated_prompt | 0 | 20 | missing_answer | no | kept_as_recorded |
-| 2026/quang-ninh/so | 25 | text | truncated_prompt | 0 | 20 | missing_answer | no | kept_as_recorded |
+| 2026/lao-cai/so | 1 | text | truncated_prompt | 0 | 19 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/lao-cai/so | 2 | text | truncated_prompt | 0 | 19 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/lao-cai/so | 3 | text | truncated_prompt | 0 | 19 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/lao-cai/so | 4 | text | truncated_prompt | 0 | 19 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/lao-cai/so | 1 | text | truncated_prompt | 0 | 145 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/lao-cai/so | 2 | text | truncated_prompt | 0 | 159 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/lao-cai/so | 3 | text | truncated_prompt | 0 | 166 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/lao-cai/so | 4 | text | truncated_prompt | 0 | 148 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/lao-cai/so | 5 | text | truncated_prompt | 0 | 147 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/nghe-an/so | 1 | text | truncated_prompt | 0 | 10 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/nghe-an/so | 2 | text | truncated_prompt | 0 | 10 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/nghe-an/so | 3 | text | truncated_prompt | 0 | 10 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/nghe-an/so | 4 | text | truncated_prompt | 0 | 10 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/nghe-an/so | 5 | text | truncated_prompt | 0 | 10 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/nghe-an/so | 6 | text | truncated_prompt | 0 | 10 | curated_verified | yes | kept_as_recorded |
+| 2026/nghe-an/so | 7 | text | truncated_prompt | 0 | 10 | curated_verified | yes | kept_as_recorded |
+| 2026/nghe-an/so | 8 | text | truncated_prompt | 0 | 10 | curated_verified | yes | kept_as_recorded |
+| 2026/nghe-an/so | 9 | text | truncated_prompt | 0 | 10 | curated_verified | yes | kept_as_recorded |
+| 2026/nghe-an/so | 10 | text | truncated_prompt | 0 | 10 | curated_verified | yes | kept_as_recorded |
+| 2026/nghe-an/so | 1 | text | truncated_prompt, instruction_only | 0 | 9 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/nghe-an/so | 2 | text | truncated_prompt, instruction_only | 0 | 9 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/nghe-an/so | 3 | text | truncated_prompt, instruction_only | 0 | 9 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/nghe-an/so | 4 | text | truncated_prompt, instruction_only | 0 | 9 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/nghe-an/so | 5 | text | truncated_prompt, instruction_only | 0 | 9 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/nghe-an/so | 6 | text | instruction_only | 0 | 23 | curated_verified | yes | needs_review |
+| 2026/nghe-an/so | 6 | text | instruction_only | 0 | 158 | source_transcription_unverified | yes | needs_review |
+| 2026/nghe-an/so | 5 | essay | truncated_prompt | 0 | 1656 | exempt_open_ended | no | kept_as_recorded |
+| 2026/ninh-binh/so | 4 | choice | truncated_prompt | 4 | 324 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/ninh-binh/so | 5 | choice | truncated_prompt | 4 | 324 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/ninh-binh/so | 6 | choice | truncated_prompt | 4 | 324 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/ninh-binh/so | 7 | choice | truncated_prompt | 4 | 324 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/ninh-binh/so | 8 | choice | truncated_prompt | 4 | 324 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/ninh-binh/so | 9 | choice | truncated_prompt | 4 | 324 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/ninh-binh/so | 10 | choice | truncated_prompt | 4 | 325 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/ninh-binh/so | 1 | text | truncated_prompt | 0 | 22 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/ninh-binh/so | 2 | text | truncated_prompt | 0 | 22 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/ninh-binh/so | 3 | text | truncated_prompt | 0 | 22 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/ninh-binh/so | 4 | text | truncated_prompt | 0 | 22 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/quang-ninh/so | 21 | text | truncated_prompt | 0 | 20 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/quang-ninh/so | 22 | text | truncated_prompt | 0 | 20 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/quang-ninh/so | 23 | text | truncated_prompt | 0 | 20 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/quang-ninh/so | 24 | text | truncated_prompt | 0 | 20 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/quang-ninh/so | 25 | text | truncated_prompt | 0 | 20 | source_transcription_unverified | yes | kept_as_recorded |
 | 2026/quang-ninh/so | 22 | choice | truncated_prompt | 4 | 11 | source_transcription_unverified | yes | kept_as_recorded |
 | 2026/quang-ninh/so | 25 | choice | truncated_prompt | 4 | 6 | source_transcription_unverified | yes | kept_as_recorded |
-| 2026/quang-ninh/so | 23 | text | truncated_prompt | 0 | 22 | missing_answer | no | kept_as_recorded |
-| 2026/quang-ninh/so | 24 | text | truncated_prompt | 0 | 21 | missing_answer | no | kept_as_recorded |
-| 2026/quang-ninh/so | 25 | text | truncated_prompt | 0 | 21 | missing_answer | no | kept_as_recorded |
-| 2026/quang-ninh/so | 26 | text | truncated_prompt | 0 | 21 | missing_answer | no | kept_as_recorded |
-| 2026/quang-tri/so | 10 | essay | truncated_prompt | 0 | 175 | inferred_unverified | yes | kept_as_recorded |
-| 2026/tay-ninh/so | 46 | choice | instruction_only, shared_prompt | 4 | 152 | missing_answer | no | needs_review |
-| 2026/tay-ninh/so | 47 | choice | instruction_only, shared_prompt | 4 | 152 | missing_answer | no | needs_review |
-| 2026/tay-ninh/so | 48 | choice | instruction_only, shared_prompt | 4 | 152 | missing_answer | no | needs_review |
-| 2026/tay-ninh/so | 49 | choice | instruction_only, shared_prompt | 4 | 152 | missing_answer | no | needs_review |
-| 2026/tay-ninh/so | 50 | choice | instruction_only, shared_prompt | 4 | 152 | missing_answer | no | needs_review |
-| 2026/tay-ninh/so | 51 | choice | instruction_only, shared_prompt | 4 | 152 | missing_answer | no | needs_review |
-| 2026/tay-ninh/so | 52 | choice | instruction_only, shared_prompt | 4 | 152 | missing_answer | no | needs_review |
-| 2026/tay-ninh/so | 53 | choice | instruction_only, shared_prompt | 4 | 152 | missing_answer | no | needs_review |
+| 2026/quang-ninh/so | 23 | text | truncated_prompt | 0 | 22 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/quang-ninh/so | 24 | text | truncated_prompt | 0 | 21 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/quang-ninh/so | 25 | text | truncated_prompt | 0 | 21 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/quang-ninh/so | 26 | text | truncated_prompt | 0 | 21 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/quang-tri/so | 10 | essay | truncated_prompt | 0 | 175 | exempt_open_ended | no | kept_as_recorded |
+| 2026/tay-ninh/so | 46 | choice | instruction_only, shared_prompt | 4 | 398 | source_transcription_unverified | yes | needs_review |
+| 2026/tay-ninh/so | 47 | choice | instruction_only, shared_prompt | 4 | 398 | source_transcription_unverified | yes | needs_review |
+| 2026/tay-ninh/so | 48 | choice | instruction_only, shared_prompt | 4 | 398 | source_transcription_unverified | yes | needs_review |
+| 2026/tay-ninh/so | 49 | choice | instruction_only, shared_prompt | 4 | 398 | source_transcription_unverified | yes | needs_review |
+| 2026/tay-ninh/so | 50 | choice | instruction_only, shared_prompt | 4 | 398 | source_transcription_unverified | yes | needs_review |
+| 2026/tay-ninh/so | 51 | choice | instruction_only, shared_prompt | 4 | 398 | source_transcription_unverified | yes | needs_review |
+| 2026/tay-ninh/so | 52 | choice | instruction_only, shared_prompt | 4 | 398 | source_transcription_unverified | yes | needs_review |
+| 2026/tay-ninh/so | 53 | choice | instruction_only, shared_prompt | 4 | 398 | source_transcription_unverified | yes | needs_review |
 | 2026/thanh-hoa/so | 81 | text | truncated_prompt | 0 | 129 | source_transcription_unverified | yes | kept_as_recorded |
 | 2026/thanh-hoa/so | 82 | text | truncated_prompt | 0 | 130 | source_transcription_unverified | yes | kept_as_recorded |
 | 2026/thanh-hoa/so | 83 | text | truncated_prompt | 0 | 162 | source_transcription_unverified | yes | kept_as_recorded |
 | 2026/thanh-hoa/so | 84 | text | truncated_prompt | 0 | 136 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/thanh-hoa/so | 85 | text | truncated_prompt | 0 | 145 | source_transcription_unverified | yes | kept_as_recorded |
 | 2026/thanh-hoa/so | 86 | text | truncated_prompt | 0 | 133 | source_transcription_unverified | yes | kept_as_recorded |
 | 2026/thanh-hoa/so | 87 | text | truncated_prompt | 0 | 156 | source_transcription_unverified | yes | kept_as_recorded |
 | 2026/thanh-hoa/so | 88 | text | truncated_prompt | 0 | 138 | source_transcription_unverified | yes | kept_as_recorded |
 | 2026/thanh-hoa/so | 89 | text | truncated_prompt | 0 | 154 | source_transcription_unverified | yes | kept_as_recorded |
 | 2026/thanh-hoa/so | 90 | text | truncated_prompt | 0 | 149 | source_transcription_unverified | yes | kept_as_recorded |
 | 2026/tp-ho-chi-minh/ptnk | 88 | choice | option_overflow | 9 | 175 | ambiguous_review | no | handled_in_app |
-| 2026/tp-ho-chi-minh/ptnk | 123 | essay | truncated_prompt | 0 | 144 | source_transcription_unverified | yes | kept_as_recorded |
-| 2026/tp-ho-chi-minh/ptnk | 130 | essay | truncated_prompt | 0 | 237 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/tp-ho-chi-minh/ptnk | 123 | text | truncated_prompt | 0 | 144 | source_transcription_unverified | yes | kept_as_recorded |
+| 2026/tp-ho-chi-minh/ptnk | 130 | text | truncated_prompt | 0 | 237 | source_transcription_unverified | yes | kept_as_recorded |
