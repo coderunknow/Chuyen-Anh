@@ -1410,3 +1410,9 @@ same test step, but its detailed log was inaccessible, so its cause is unverifie
 - The readiness report counted `scripts/exams/test_archive.py` in its `243/243` claim while no workflow ran it and a clean checkout errors in two of its five tests (missing `fitz`/`bs4`). Added a `ci.yml` step that creates a venv, installs the pinned `scripts/exams/requirements.txt` and runs the suite, corrected the totals to `244 + 5 = 249`, and added `tests/test_ci_gate_coverage.py` to keep the claim tied to the workflow (also asserting every `tests/*.test.js` file is named by a workflow).
 - Fail-first: the coverage test failed on the missing step, the `.venv` instruction and the stale count before the fix.
 - Verified: archive suite `5/5 OK` in a fresh venv, `244` discover tests OK.
+
+### 2026-11-09 — `BUG-005`: counts recomputed, corrections recorded
+
+- `DEFECTS.md` D6 said `3,032` where every other document and the data say `3,020` headwords / `3,043` senses; D25 said `157` open-ended essays where the taxonomy says `158`. Both corrected in place, with D27/D28 appended so the change is visible in the ledger.
+- Added `tests/test_audit_document_counts.py`, which recomputes the default `B2+C1` deck from `data/vocabulary.json` (matching the JavaScript pins of `3,020`/`3,043`) and fails when `DEFECTS.md`, `GATES.md`, `FINAL_READINESS.md` or `README.md` disagree — or when a document stops stating the size at all.
+- Fail-first: the new test failed naming the `3,032` line before the correction.

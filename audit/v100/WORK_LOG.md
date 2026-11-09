@@ -223,3 +223,17 @@
 - **Validation method:** full requirements install in a fresh venv, archive suite run, CI config assertions, whole `unittest` discovery.
 - **Status:** `VERIFIED`
 - **Outcome:** added a "Run exam archive conversion tests" step to `ci.yml` (venv + pinned requirements + suite), corrected the checklist row to `244 + 5 = 249` with the real commands, and updated the measured totals in this file (`Node 218`, `Python 249`). `tests/test_ci_gate_coverage.py` (4 tests) pins the wiring so the claim cannot drift from the workflow again.
+
+---
+
+### `W016` — Audit finding `BUG-005`: the defect ledger carried its own stale count
+- **Problem statement:** `DEFECTS.md` D6 recorded the re-pinned totals as "`3,032` default B2+C1 eligible" while `GATES.md` S9, `FINAL_READINESS.md` and `README.md` say `3,020` headwords / `3,043` senses, and the shipped data yields `3,020` / `3,043`. A second count disagreed: D25 said `157` open-ended essays where the exemption taxonomy, the curated manifest and `FINAL_READINESS.md` say `158`.
+- **Affected files / scope:** `audit/v100/DEFECTS.md` (D6 figure, D25 wording, new D27/D28 rows), `tests/test_audit_document_counts.py` (new).
+- **Expected result:** every document states the count the data produces, and a test recomputes it instead of trusting any document.
+- **Acceptance criteria:**
+  1. The new test fails before the change, naming `audit/v100/DEFECTS.md: states 3032 headwords, the data has 3020`.
+  2. The count is recomputed from `data/vocabulary.json` with the app's rule and agrees with the JavaScript pins (`3,020` headwords / `3,043` senses).
+  3. The correction is visible: D27/D28 record what changed and why, so the edit is not silent.
+- **Validation method:** fail-first unit test, `unittest` discovery, cross-check against `tests/static-app.test.js` and `tests/v100-senses.test.js` pins.
+- **Status:** `VERIFIED`
+- **Outcome:** corrected D6 to `3,020` headwords / `3,043` senses and D25 to `158` (`157` `essay` + `1` `text`); appended D27 and D28 describing both corrections; added `tests/test_audit_document_counts.py`, which recomputes the deck and fails on any document that disagrees (it also fails when a document stops stating the size at all).

@@ -2282,3 +2282,10 @@ not change. The earlier comparison's 203 inference removals remain unchanged.
 - **Change (user-approved `BUG-004`):** `ci.yml` gains a step that builds a throwaway venv, installs `scripts/exams/requirements.txt` (pinned) and runs the archive suite; the checklist row now says `244 + 5 = 249` with commands that actually exist; the measured totals in `GATES.md` are updated. `tests/test_ci_gate_coverage.py` asserts the wiring, that every `tests/*.test.js` file is named by a workflow, and that the report does not prescribe a local virtualenv.
 - **Verified:** fresh venv + `pip install -r scripts/exams/requirements.txt` + suite → `5/5 OK`; `244` discover tests OK; the new coverage test failed first on all three claims (missing CI step, `.venv` instruction, stale total) and passes now.
 - **Not verified:** the edited workflow was not executed on GitHub in this session; the step's behaviour is claimed from the local reproduction of the same commands.
+
+### 2026-11-09 — `BUG-005`: document counts recomputed instead of trusted
+
+- **Finding:** `audit/v100/DEFECTS.md` D6 recorded the default `B2+C1` selection as `3,032` while `GATES.md` S9, `FINAL_READINESS.md`, `README.md` and the shipped data all say `3,020` headwords / `3,043` senses. D25 separately said `157` open-ended essays where the taxonomy says `158`.
+- **Change (user-approved `BUG-005`):** corrected both figures in `DEFECTS.md` and appended D27/D28 so the edits are recorded rather than silent; added `tests/test_audit_document_counts.py`, which recomputes the deck from `data/vocabulary.json` using the app's rule (`8,112` headwords · `6,841` active · `3,020` eligible · `3,043` senses — matching the JavaScript pins) and fails when any of the four documents states a different number, or stops stating it at all.
+- **Verified:** fail-first — the test failed on `DEFECTS.md: states 3032 headwords, the data has 3020` and passes after the correction; `248` Python tests OK.
+- **Not verified:** nothing beyond the counts; the semantic accuracy of the surrounding prose was not otherwise re-audited in this change.
