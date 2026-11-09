@@ -122,6 +122,12 @@ def main() -> int:
             print("vocabulary.json senses are out of sync; run python scripts/build_senses.py", file=sys.stderr)
             return 1
         summary = summarize(audit)
+        if args.json == DEFAULT_JSON:
+            payload = {"schemaVersion": 1, "generatedBy": "scripts/build_senses.py", "summary": summary, "entries": audit}
+            expected_audit = json.dumps(payload, ensure_ascii=False, indent=2) + "\n"
+            if not AUDIT_JSON.exists() or AUDIT_JSON.read_text(encoding="utf-8") != expected_audit:
+                print("cefr-sense-audit.json is stale; run python scripts/build_senses.py --report", file=sys.stderr)
+                return 1
         print(f"senses in sync: {summary['entries']} entries, {summary['senses']} senses "
               f"({summary['multiSenseEntries']} multi-sense), unresolved={summary['unresolvedSenses']}")
         return 0

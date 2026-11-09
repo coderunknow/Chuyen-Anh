@@ -23,7 +23,7 @@ class SenseMappingTests(unittest.TestCase):
 
     def test_alignment_has_a_registered_mapping_source_not_a_cefr_editorial_map(self):
         import json
-        registry = {item['id']: item for item in json.loads((ROOT / 'docs/vocabulary-sources.json').read_text())['sources']}
+        registry = {item['id']: item for item in json.loads((ROOT / 'docs/vocabulary-sources.json').read_text(encoding='utf-8'))['sources']}
         entry = {'id':'8677','word':'rock','pos':'n','meaning':'đá; thể loại nhạc phương Tây'}
         for sense in classify_entry(entry, self.refs):
             source = next(s for s in sense['sources'] if s['locator'].startswith('docs/sense-gloss-mappings.json:'))

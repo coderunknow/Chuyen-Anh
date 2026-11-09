@@ -72,6 +72,10 @@ class AppReleaseGateTests(unittest.TestCase):
                 ('v1.0.0', True, {'STABLE_DEPLOY_AUTHORIZED': 'true'}, 'deploy=true'),
                 # Unpublished stable release even with STABLE_DEPLOY_AUTHORIZED=true -> held
                 ('v1.0.0', False, {'STABLE_DEPLOY_AUTHORIZED': 'true'}, 'deploy=false'),
+                # Force override alone cannot bypass stable_deploy_authorized on a stable tag
+                ('v1.0.0', False, {'FORCE_DEPLOY': 'true'}, 'deploy=false'),
+                # Force override with explicit stable_deploy_authorized -> allowed
+                ('v1.0.0', False, {'FORCE_DEPLOY': 'true', 'STABLE_DEPLOY_AUTHORIZED': 'true'}, 'deploy=true'),
                 # Published prerelease on push (no STABLE_DEPLOY_AUTHORIZED needed) -> allowed
                 ('v1.0.0-rc10', True, {}, 'deploy=true'),
             ]

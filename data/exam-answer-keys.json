@@ -28431,14 +28431,16 @@
       "keyStatuses": {
         "incomplete_stimulus": 11,
         "source_transcription_unverified": 17,
-        "ambiguous_review": 27,
-        "curated_verified": 25
+        "ambiguous_review": 26,
+        "curated_verified": 25,
+        "exempt_open_ended": 1
       },
       "sourceStatuses": {
         "incomplete_stimulus": 11,
         "single_source_transcription": 17,
-        "invalid_key": 27,
-        "curated_domain_verified": 25
+        "invalid_key": 26,
+        "curated_domain_verified": 25,
+        "open_ended_exempt": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
@@ -30955,8 +30957,8 @@
         {
           "questionId": "q-51-9c5133cba3668e8e",
           "number": 51,
-          "verificationStatus": "ambiguous_review",
-          "sourceStatus": "invalid_key",
+          "verificationStatus": "exempt_open_ended",
+          "sourceStatus": "open_ended_exempt",
           "confidence": "VERY_LOW",
           "stimulusFallback": null,
           "candidates": [],

@@ -294,11 +294,17 @@ for (const { item, body, contentSha256, questions } of parsedPapers) {
       ? baseKey.limitations.filter(x => !/No answer entry in the stored transcription/i.test(x))
       : [];
     if (curated.exempt === true) {
-      const isStimulus = curated.ungradeableReason === 'stimulus-incomplete';
+      const cat = curated.exemptionCategory;
+      const verificationStatus = cat === 'missing_stimulus' ? 'incomplete_stimulus'
+        : cat === 'open_ended_writing_or_speaking' ? 'exempt_open_ended'
+        : 'ambiguous_review';
+      const sourceStatus = cat === 'missing_stimulus' ? 'incomplete_stimulus'
+        : cat === 'open_ended_writing_or_speaking' ? 'open_ended_exempt'
+        : 'invalid_key';
       return {
         ...baseKey,
-        verificationStatus: isStimulus ? 'incomplete_stimulus' : 'ambiguous_review',
-        sourceStatus: isStimulus ? 'incomplete_stimulus' : 'invalid_key',
+        verificationStatus,
+        sourceStatus,
         confidence: 'VERY_LOW',
         candidates: [],
         acceptedAlternatives: [],

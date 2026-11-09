@@ -72,7 +72,7 @@ function seedScript() {
   return `(() => {
     const now = Date.now();
     const data = JSON.parse(document.getElementById('vocabulary-data').textContent)
-      .filter(entry => !(entry.tags || []).some(t => t === 'family:merged' || t === 'status:archived'))
+      .filter(entry => !(entry.tags || []).some(t => t === 'family:merged' || t === 'curation:archived'))
       .slice(0, ${WORDS});
     const progress = {};
     data.forEach((entry, index) => {

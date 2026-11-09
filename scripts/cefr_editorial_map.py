@@ -501,8 +501,6 @@ EDITORIAL_LEVELS.update({
     "petroleum": "B2", "cellular": "C1", "underway": "B2", "heroic": "B2",
     "bibliography": "C1", "collectively": "B2", "filthy": "B1", "kindergarten": "B1",
     "circadian": "C2",
-    "tenth": "A2", "sixteenth": "A2", "seventeenth": "A2", "eighteenth": "A2",
-    "nineteenth": "A2", "twentieth": "A2",
 })
 
 # Explicit POS-keyed editorial overrides where a headword's published level in

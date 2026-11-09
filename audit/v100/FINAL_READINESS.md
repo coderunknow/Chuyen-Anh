@@ -3,7 +3,7 @@
 - **Date:** `2026-11-08`
 - **Repository:** `coderunknow/Chuyen-Anh`
 - **Candidate Branch:** `arena/2a533bbc-chuyen-anh` (continuing from `arena/6b7c2879-chuyen-anh` `a66561d9` over `main` `f12b4bc5`)
-- **Declared Application Version (`index.html`):** `v1.0.0` (`28,189,117` bytes standalone HTML)
+- **Declared Application Version (`index.html`):** `v1.0.0` (`28,189,194` bytes standalone HTML)
 - **Live Hold Marker (`DEPLOY_HOLD`):** `v1.0.0-rc10` (untouched)
 - **Release Action Status:** **Draft Pull Request only** — NOT merged, NOT tagged, NOT published as a GitHub Release, NOT deployed to GitHub Pages.
 
@@ -11,7 +11,7 @@
 
 ## 1. Executive Summary
 
-All engineering workstreams (`W001`–`W011`) for the `v1.0.0` stable candidate are complete and verified:
+Engineering workstreams `W001`–`W010` are complete and locally verified; `W011` (`Draft PR CI & review convergence`) remains active until final-head GitHub Actions CI and review checks complete on Draft PR #83 prior to human review:
 
 1. **Sense-Level CEFR & Lexical Integrity (`W002`–`W004`):**
    - **Inventory:** `8,852` rows (`8,112` active headwords + `740` merged word-family rows; `6,841` focus study words + `1,271` archived rows) and `1,094` standalone phrases (`P001`–`P1094`).

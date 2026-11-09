@@ -63,7 +63,10 @@ def main() -> int:
     version = app_version(ROOT / 'index.html')
     is_stable = bool(version and '-' not in version)
     published = bool(version and release_is_published(version, os.environ.get('GITHUB_REPOSITORY', '')))
-    if force:
+    if force and is_stable and not stable_auth:
+        allowed = False
+        reason = f'stable release {version} requires separate stable_deploy_authorized=true; force override not sufficient'
+    elif force:
         allowed = True
         reason = 'manual force override'
     elif not published:

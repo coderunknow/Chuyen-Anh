@@ -38,8 +38,8 @@ Scoring rule: `rc9-scorable-only-v1`. Objective scorable denominator: 5155 / 515
 | --- | ---: |
 | incomplete_stimulus | 627 |
 | curated_verified | 1407 |
-| ambiguous_review | 762 |
-| exempt_open_ended | 157 |
+| ambiguous_review | 761 |
+| exempt_open_ended | 158 |
 | source_transcription_unverified | 3748 |
 | invalid_key | 7 |
 
@@ -49,8 +49,8 @@ Scoring rule: `rc9-scorable-only-v1`. Objective scorable denominator: 5155 / 515
 | --- | ---: |
 | incomplete_stimulus | 627 |
 | curated_domain_verified | 1407 |
-| invalid_key | 769 |
-| open_ended_exempt | 157 |
+| invalid_key | 768 |
+| open_ended_exempt | 158 |
 | reconstructed | 395 |
 | single_source_transcription | 3339 |
 | ambiguous_source | 14 |
