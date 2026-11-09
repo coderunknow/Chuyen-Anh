@@ -48,6 +48,11 @@ from vocabulary_curation import (  # noqa: E402
 
 VOCAB_MD = ROOT / "Learned_Vocabulary_List.md"
 VOCAB_JSON = ROOT / "data" / "vocabulary.json"
+PUBLISHED_LEVEL_SOURCES = {
+    item["id"]
+    for item in json.loads((ROOT / "docs" / "vocabulary-sources.json").read_text(encoding="utf-8"))["sources"]
+    if item.get("type") == "cefr-reference"
+}
 CURRICULUM = ROOT / "docs" / "curriculum-grades-6-9.json"
 REPORT_JSON = ROOT / "docs" / "rc4-vocabulary-audit.json"
 REPORT_MD = ROOT / "docs" / "rc4-vocabulary-audit.md"
@@ -180,7 +185,7 @@ def classify(rows: list[dict[str, Any]], spec: dict[str, Any]) -> dict[str, Any]
         curriculum_focus.append(record)
         if level in CURRICULUM_LEVELS and not is_family_root(row):
             level_source = tag_value(row, "level-source") or ""
-            if level in ("A1", "A2") and level_source and level_source != "editorial":
+            if level in ("A1", "A2") and level_source in PUBLISHED_LEVEL_SOURCES:
                 attested_published.append({**record, "levelSource": level_source})
             elif word_key(row["word"]) in pending_review_words:
                 pending_curation.append({

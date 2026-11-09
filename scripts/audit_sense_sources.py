@@ -35,6 +35,7 @@ REF_GROUPS = {
 
 
 def reference_index(refs):
+    """Build line-keyed lookup tables for CEFR-J, Octanove, Oxford, and Cambridge EVP snapshots."""
     tables = {}
     for ref, attr in PROFILE_REF.items():
         tables[ref] = {r['line']: (word, r) for word, rows in getattr(refs, attr).items() for r in rows}
@@ -48,6 +49,7 @@ def reference_index(refs):
 
 
 def match_source(entry, level, source, index, pos=None):
+    """Verify a single sense source locator against headword, POS, and CEFR level in the snapshot."""
     ref, locator = source.get('ref'), source.get('locator', '')
     if not isinstance(locator, str):
         return 'malformed locator'
@@ -91,6 +93,7 @@ def match_source(entry, level, source, index, pos=None):
 
 
 def audit_entry(entry, index):
+    """Assess all senses on a vocabulary entry for matching reference source groups."""
     results = []
     for sense in entry.get('senses', []):
         if not isinstance(sense, dict):
@@ -128,6 +131,7 @@ def audit_entry(entry, index):
 
 
 def main():
+    """Generate or verify the sense source-locator review artifact and enforce zero locator gaps."""
     parser = argparse.ArgumentParser()
     parser.add_argument('--check', action='store_true')
     args = parser.parse_args()
@@ -146,6 +150,11 @@ def main():
     if args.check:
         if not OUT.exists() or OUT.read_text(encoding='utf-8') != serialized:
             raise SystemExit('source locator review is stale')
+        failing = [r for r in records if r['locatorAssessment'] == 'insufficient matching source groups']
+        if failing:
+            raise SystemExit(
+                f"{len(failing)} source-backed senses lack matching source groups (e.g. {failing[0]['senseId']})"
+            )
     else:
         OUT.write_text(serialized, encoding='utf-8')
     print(json.dumps({'entries': len(data), 'senses': len(records), 'byLocatorAssessment': report['byLocatorAssessment']}))

@@ -26,14 +26,29 @@ const ALLOWED_UNGRADEABLE_REASONS = new Set([
 ]);
 const ALLOWED_CURATED_CONFIDENCE = new Set(['MEDIUM', 'LOW']);
 
+/**
+ * Compute the lowercase hex SHA-256 digest of a string.
+ * @param {string} value
+ * @returns {string}
+ */
 function sha256Text(value) {
   return crypto.createHash('sha256').update(String(value ?? ''), 'utf8').digest('hex');
 }
 
+/**
+ * Serialize a parsed exam question's options into a deterministic canonical string.
+ * @param {{ options?: Array<{ id: string, label: string, text: string }> }} question
+ * @returns {string}
+ */
 function canonicalOptionsString(question) {
   return (question?.options || []).map((o) => `${o.id}:${o.label}:${o.text}`).join('|');
 }
 
+/**
+ * Load the standalone application's parser and grading functions from index.html in an isolated VM.
+ * @param {string} html
+ * @returns {{ parseExamQuestions: Function, extractExamAnswerKeys: Function, gradeExamQuestion: Function }}
+ */
 function loadAppRuntime(html) {
   const match = html.match(/<script type="module" id="app-script">([\s\S]*?)<\/script>/);
   if (!match) throw new Error('Missing #app-script in index.html');
@@ -74,6 +89,12 @@ function loadAppRuntime(html) {
   return context.__examExports;
 }
 
+/**
+ * Extract and parse a JSON `<script id="...">` payload from index.html.
+ * @param {string} html
+ * @param {string} id
+ * @returns {any}
+ */
 function extractJsonScript(html, id) {
   const re = new RegExp(`<script[^>]*id="${id}"[^>]*>([\\s\\S]*?)<\\/script>`);
   const match = html.match(re);
@@ -81,6 +102,10 @@ function extractJsonScript(html, id) {
   return JSON.parse(match[1]);
 }
 
+/**
+ * Verify every curated exam key and formal exemption against SHA-256 prompt/option pins,
+ * runtime self-grading, data/exam-answer-keys.json, index.html #exam-data, and docs/exam-scoring-audit.json.
+ */
 export function verifyCuratedKeys({
   indexPath = INDEX_PATH,
   curatedPath = CURATED_PATH,
@@ -270,11 +295,13 @@ export function verifyCuratedKeys({
       }
       if (key.scorable) {
         totalScorable += 1;
-      } else {
+      } else if (key.exempt === true) {
         totalExempt += 1;
         if (!ALLOWED_EXEMPTION_CATEGORIES.has(key.exemptionCategory)) {
           errors.push(`${examId}::${qId}: non-scorable key missing valid exemptionCategory (got '${key.exemptionCategory}')`);
         }
+      } else {
+        errors.push(`${examId}::${qId}: non-scorable key is not formally exempt`);
       }
     }
   }
@@ -289,6 +316,10 @@ export function verifyCuratedKeys({
     errors.push('docs/exam-scoring-audit.json totals out of sync with data/exam-answer-keys.json');
   }
 
+  const nonExemptQuestions = totalQuestions - totalExempt;
+  const nonExemptCoveragePct =
+    nonExemptQuestions > 0 ? Math.round((totalScorable / nonExemptQuestions) * 10000) / 100 : 100;
+
   return {
     ok: errors.length === 0,
     errors,
@@ -299,7 +330,7 @@ export function verifyCuratedKeys({
       totalQuestions,
       totalScorable,
       totalExempt,
-      nonExemptCoveragePct: totalScorable > 0 ? 100 : 0,
+      nonExemptCoveragePct,
     },
   };
 }

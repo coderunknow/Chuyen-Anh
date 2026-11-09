@@ -55,7 +55,32 @@ class AppReleaseGateTests(unittest.TestCase):
     def test_workflow_requires_both_gates_at_every_publish_step(self):
         text = (ROOT / '.github/workflows/deploy.yml').read_text(encoding='utf-8')
         self.assertIn('python3 scripts/app_release_gate.py', text)
+        self.assertIn('STABLE_DEPLOY_AUTHORIZED:', text)
+        self.assertIn('inputs.stable_deploy_authorized == true', text)
         for step in ('Stage standalone HTML', 'Configure Pages', 'Upload Pages artifact', 'Deploy'):
             snippet = text.split(f'- name: {step}', 1)[1][:250]
             self.assertIn("steps.gate.outputs.deploy == 'true'", snippet)
             self.assertIn("steps.app_release.outputs.deploy == 'true'", snippet)
+
+    def test_main_holds_published_stable_release_until_separately_authorized(self):
+        with tempfile.TemporaryDirectory() as directory:
+            out = pathlib.Path(directory) / 'gh-output.txt'
+            cases = [
+                # Published stable release on push (no STABLE_DEPLOY_AUTHORIZED) -> held
+                ('v1.0.0', True, {}, 'deploy=false'),
+                # Published stable release with STABLE_DEPLOY_AUTHORIZED=true -> allowed
+                ('v1.0.0', True, {'STABLE_DEPLOY_AUTHORIZED': 'true'}, 'deploy=true'),
+                # Unpublished stable release even with STABLE_DEPLOY_AUTHORIZED=true -> held
+                ('v1.0.0', False, {'STABLE_DEPLOY_AUTHORIZED': 'true'}, 'deploy=false'),
+                # Published prerelease on push (no STABLE_DEPLOY_AUTHORIZED needed) -> allowed
+                ('v1.0.0-rc10', True, {}, 'deploy=true'),
+            ]
+            for version, published, extra_env, expected in cases:
+                out.write_text('', encoding='utf-8')
+                env = {'GITHUB_OUTPUT': str(out), 'GITHUB_REPOSITORY': 'owner/repo', **extra_env}
+                with self.subTest(version=version, published=published, extra_env=extra_env), \
+                     patch.object(gate, 'app_version', return_value=version), \
+                     patch.object(gate, 'release_is_published', return_value=published), \
+                     patch.dict('os.environ', env, clear=True):
+                    self.assertEqual(gate.main(), 0)
+                    self.assertEqual(out.read_text(encoding='utf-8').strip(), expected)

@@ -92,8 +92,6 @@ class StableReleasePathTests(unittest.TestCase):
         self.assertIn('--prerelease', mod.release_create_command('v1.0.0-rc10'))
         self.assertIn('--draft', mod.release_create_command('v1.0.0'))
 
-if __name__ == '__main__':
-    unittest.main()
 
 class StableDispatchContractTests(unittest.TestCase):
     def test_stable_dispatch_requires_separate_explicit_confirmation(self):
@@ -103,6 +101,15 @@ class StableDispatchContractTests(unittest.TestCase):
         self.assertIn("github.event_name == 'workflow_dispatch'", text)
         self.assertIn("github.ref == 'refs/heads/main'", text)
         self.assertIn('inputs.stable_deploy_authorized == true', text)
+        self.assertIn('STABLE_DEPLOY_AUTHORIZED:', text)
+        self.assertIn('"stable_deploy_authorized":true', text)
         self.assertIn('python3 scripts/app_release_gate.py', text)
         self.assertIn("steps.app_release.outputs.deploy == 'true'", text)
         self.assertNotIn('force_deploy', text)
+        deploy_text = (ROOT / '.github/workflows/deploy.yml').read_text(encoding='utf-8')
+        self.assertIn('stable_deploy_authorized:', deploy_text)
+        self.assertIn('STABLE_DEPLOY_AUTHORIZED:', deploy_text)
+
+
+if __name__ == '__main__':
+    unittest.main()

@@ -221,9 +221,11 @@ jobs:
   # Run both sequential Playwright suites across Chromium, Firefox, and WebKit.
   # Each engine gets its own 2-CPU runner VM so two heavy 16 MB DOM browsers never
   # compete for memory on the same VM, and `playwright-core` remains test-only.
+  # Pin ubuntu-24.04 LTS because playwright@1.55.1 registers ubuntu20.04..24.04
+  # host platforms (ubuntu-latest migrated to Ubuntu 26.04 in Oct/Nov 2026).
   browser:
     name: browser (${{ matrix.browser }})
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 35
     strategy:
       fail-fast: false

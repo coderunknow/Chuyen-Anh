@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 """Hold Pages until the exact application version is published in its release channel.
 
-This is an additional gate, not a replacement for DEPLOY_HOLD. The deploy
-workflow permits its explicit manual force override for both gates.
+This is an additional gate, not a replacement for DEPLOY_HOLD. Prereleases may
+deploy once their matching GitHub prerelease is published; stable versions also
+require explicit separate workflow_dispatch authorization (`STABLE_DEPLOY_AUTHORIZED=true`)
+so a push to `main` after stable release publication cannot deploy without explicit
+confirmation. The deploy workflow permits its manual force override for both gates.
 """
 from __future__ import annotations
 
@@ -20,6 +23,7 @@ TIMEOUT = 15
 
 
 def app_version(path: pathlib.Path) -> str | None:
+    """Extract the single validated APP_VERSION string from index.html, or None."""
     try:
         matches = DECLARATION.findall(path.read_text(encoding='utf-8'))
     except (OSError, UnicodeError):
@@ -28,6 +32,7 @@ def app_version(path: pathlib.Path) -> str | None:
 
 
 def release_is_published(version: str, repo: str) -> bool:
+    """Return True iff `version` is a non-draft published GitHub release in its proper channel."""
     if not VERSION.fullmatch(version or '') or not re.fullmatch(r'[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+', repo or ''):
         return False
     try:
@@ -52,10 +57,24 @@ def release_is_published(version: str, repo: str) -> bool:
 
 
 def main() -> int:
+    """Evaluate application release publication and stable-deploy authorization for GitHub Actions."""
     force = os.environ.get('FORCE_DEPLOY', '').strip().lower() in {'1', 'true', 'yes'}
+    stable_auth = os.environ.get('STABLE_DEPLOY_AUTHORIZED', '').strip().lower() in {'1', 'true', 'yes'}
     version = app_version(ROOT / 'index.html')
-    allowed = force or bool(version and release_is_published(version, os.environ.get('GITHUB_REPOSITORY', '')))
-    reason = 'manual force override' if force else (f'exact release {version} published in the correct channel' if allowed else f'application release {version or "unknown"} not verified; held')
+    is_stable = bool(version and '-' not in version)
+    published = bool(version and release_is_published(version, os.environ.get('GITHUB_REPOSITORY', '')))
+    if force:
+        allowed = True
+        reason = 'manual force override'
+    elif not published:
+        allowed = False
+        reason = f'application release {version or "unknown"} not verified; held'
+    elif is_stable and not stable_auth:
+        allowed = False
+        reason = f'stable release {version} requires separate stable_deploy_authorized=true; held'
+    else:
+        allowed = True
+        reason = f'exact release {version} published in the correct channel'
     print(f'app-release gate: deploy={str(allowed).lower()} ({reason})')
     if os.environ.get('GITHUB_OUTPUT'):
         with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as output:

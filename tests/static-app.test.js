@@ -4269,9 +4269,9 @@ test('the shipped vocabulary keeps every row and every level is selectable', () 
     'no row of the 8,852 is left without a classified sense');
   const previouslyUntagged = embeddedVocabulary.filter(entry => !(entry.tags || []).some(t => /^level:(A1|A2|B1|B2|C1|C2)$/i.test(t)));
   assert.equal(previouslyUntagged.length, 913);
-  assert.ok(previouslyUntagged.every(entry => (entry.senses || []).every(sense => app.entrySenses(entry).length && sense.cefr && sense.evidence)),
+  assert.ok(previouslyUntagged.every(entry => Array.isArray(entry.senses) && entry.senses.length > 0 && entry.senses.every(sense => sense.cefr && sense.evidence)),
     'each of the 913 legacy-tagged-less rows carries senses with a CEFR level and an evidence class');
-  assert.ok(previouslyUntagged.every(entry => (entry.senses || []).some(sense => sense.evidence !== 'editorial_estimate' || sense.needsIndependentValidation === true)),
+  assert.ok(previouslyUntagged.every(entry => (entry.senses || []).every(sense => sense.evidence !== 'editorial_estimate' || sense.needsIndependentValidation === true)),
     'editorial estimates are flagged for independent validation, never presented as verified');
   const phrases = embeddedPhrases;
   const phraseLevels = {};
