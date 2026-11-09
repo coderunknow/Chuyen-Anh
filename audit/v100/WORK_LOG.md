@@ -211,3 +211,15 @@
 - **Outcome:** added `examIsEssayItem(question, key)` (essay response type **or** curated `open_ended_writing_or_speaking` / `essay-open-ended-exempt`) and routed eight call sites through it — rubric construction, rubric attachment on the exempt path, candidate label, verdict label, rubric hint, textarea rows, and the override field/label. The protected parser was not touched. `tests/exam-exempt-rubric.test.js` now pins all `158` exemptions and names the `text`-typed case explicitly.
 
 ---
+
+### `W015` — Audit finding `BUG-004`: the `243/243` Python claim was not reproducible and not CI-enforced
+- **Problem statement:** `FINAL_READINESS_CHECKLIST.md` reported `[x] PASS (243/243)` and gave the command `.venv/bin/python scripts/exams/test_archive.py`, but the repository creates no `.venv`, no workflow ran that suite, and on a clean checkout two of its five tests error with `ModuleNotFoundError` (`fitz`, then `bs4`). The stated coverage therefore exceeded what any reproducible command could show.
+- **Affected files / scope:** `.github/workflows/ci.yml`, `audit/v100/FINAL_READINESS_CHECKLIST.md`, `audit/v100/GATES.md` (measured totals), `tests/test_ci_gate_coverage.py` (new).
+- **Expected result:** a fresh clone plus CI runs every counted suite; the report states the real totals and the command that produces them.
+- **Acceptance criteria:**
+  1. `python3 -m venv … && pip install -r scripts/exams/requirements.txt && python scripts/exams/test_archive.py` → `5/5 OK`.
+  2. `ci.yml` performs exactly that, so the number is reproducible without a hand-made environment.
+  3. `tests/test_ci_gate_coverage.py` fails if the archive suite or its requirements leave CI, if a `tests/*.test.js` file is not named by a workflow, or if the checklist prescribes a `.venv`.
+- **Validation method:** full requirements install in a fresh venv, archive suite run, CI config assertions, whole `unittest` discovery.
+- **Status:** `VERIFIED`
+- **Outcome:** added a "Run exam archive conversion tests" step to `ci.yml` (venv + pinned requirements + suite), corrected the checklist row to `244 + 5 = 249` with the real commands, and updated the measured totals in this file (`Node 218`, `Python 249`). `tests/test_ci_gate_coverage.py` (4 tests) pins the wiring so the claim cannot drift from the workflow again.

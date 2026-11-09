@@ -211,6 +211,17 @@ jobs:
       - name: Run Python unit tests
         run: python -m unittest discover -s tests -p 'test_*.py'
 
+      # The archive conversion suite needs the exam pipeline's own dependencies
+      # (`scripts/exams/requirements.txt`). Without them two of its five tests
+      # error out, which is how the readiness report once claimed `243/243` that
+      # no workflow could reproduce. A venv keeps the runner's system Python
+      # untouched (PEP 668) and pins the same versions a developer installs.
+      - name: Run exam archive conversion tests
+        run: |
+          python -m venv /tmp/exam-archive-venv
+          /tmp/exam-archive-venv/bin/pip install --disable-pip-version-check --quiet -r scripts/exams/requirements.txt
+          /tmp/exam-archive-venv/bin/python scripts/exams/test_archive.py
+
       # Node is used only for dependency-free tests; production is a single HTML file.
       - name: Run static app logic, scoring and single-file tests
         run: node --trace-deprecation --test tests/static-app.test.js tests/exam-scoring.test.js tests/exam-anomalies.test.js tests/rc10-cefr.test.js tests/v100-senses.test.js tests/exam-exempt-rubric.test.js
