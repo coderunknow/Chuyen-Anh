@@ -28,7 +28,7 @@ def discovered_cases() -> int:
     return loader.discover(str(ROOT / "tests"), pattern="test_*.py").countTestCases()
 
 
-def node_test_commands(workflow: str = None) -> str:
+def node_test_commands(workflow: str | None = None) -> str:
     """Only the `node --test …` run blocks: a suite named in a comment or a path filter runs nothing.
 
     A block is bounded by the *indentation of the line that holds `--test`*, not by
