@@ -1501,3 +1501,14 @@ same test step, but its detailed log was inaccessible, so its cause is unverifie
   baselines on unchanged code.
 - Evidence: `audit-evidence/round6/{REPORT,SYSTEM_MAP,COVERAGE_MATRIX,FINDINGS,TEST_STRATEGY,EVIDENCE_MANIFEST,CHECKLIST}.md`
   with `scripts/` and `logs/` (pre-fix and post-fix runs kept separately, append-only).
+
+### Round 6 — review follow-up (CodeRabbit on `7ed7b2f`)
+
+- Two findings, both valid and both mine: `R6-03`/`D50` (snapshot equality compared with order-sensitive
+  `JSON.stringify`, so a same-content paper with reordered keys would be refused as a conflict) and
+  `R6-04`/`D51` (the new merge test miscounted its own scenario — 40 + 20 − 50 = 10 dropped, not 30 — and
+  its `local-0`/`local-10` assertions passed for any drop count). Fixed both, with a regression test for the
+  ordering case and exact boundary assertions for the window case.
+- The mutation pass again contained the lesson: one mutant "survived" only because its rewrite no longer
+  matched the changed source. The harness now reports a no-op rewrite as `NOT-APPLIED` instead of `SURVIVED`.
+- Totals: Node `238 / 0 fail` (`exam-scoring` `31 → 34`), Python `257 OK`, archive `5 OK`, `21/21` gates, `9/9` mutants.

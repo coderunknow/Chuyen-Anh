@@ -886,7 +886,8 @@ test('merging two valid histories keeps the newest 50 and still imports', () => 
     'a correction against the trimmed-away paper cannot be kept: its target no longer exists');
   assert.equal(app.loadExamResultHistory(storage).attempts.length, 50, 'and the trimmed history saves');
 
-  // The other direction: 20 newer attempts from a second device displace the 30 oldest local ones.
+  // The other direction: 40 local + 20 newer attempts exceed the window by 10, so the
+  // 10 oldest local attempts are displaced — not 30, and the boundary has to be exact.
   const store2 = store();
   const local2 = historyOf(Array.from({ length: 40 }, (_, i) => buildAttempt(0, `local-${i}`, 1000 + i)));
   app.saveExamResultHistory(local2, store2);
@@ -896,8 +897,9 @@ test('merging two valid histories keeps the newest 50 and still imports', () => 
   assert.equal(merged2.history.attempts.length, 50);
   const kept = merged2.history.attempts.map(a => a.id);
   assert.equal(kept.at(-1), 'newer-19', 'the newest attempt stays last in storage order (the history screen reverses it)');
-  assert.equal(kept.includes('local-0'), false, 'the 30 oldest local attempts are dropped');
-  assert.equal(kept.includes('local-10'), true, 'everything newer than them is kept');
+  assert.equal(kept.filter(id => id.startsWith('local-')).length, 30, 'exactly 10 of the 40 local attempts are dropped');
+  assert.equal(kept.includes('local-9'), false, 'the tenth-oldest local attempt is the last one dropped');
+  assert.equal(kept.includes('local-10'), true, 'the eleventh-oldest survives, so the boundary is exact');
   assert.equal(kept.filter(id => id.startsWith('newer-')).length, 20, 'all 20 imported attempts survive');
   // The mirror case: a correction on a paper that does survive every trim stays.
   const keptCorrection = app.applyExamKeyCorrection(newer, correctionTarget(newer));
@@ -941,4 +943,48 @@ test('a second attempt on the same paper cannot overwrite the stored question se
     'the conflicting snapshot is rejected instead of silently corrupting the history');
   assert.equal(app.validateExamResultHistory(history).ok, true, 'the rejected call leaves the history valid');
   assert.equal(app.loadExamResultHistory(storage).attempts.length, 1, 'and the saved history still holds the first attempt');
+});
+
+test('a snapshot with the same values in a different key order is not a conflict', () => {
+  // A paper can be exported, rewritten by a tool or restored from another device with
+  // its object properties in a different order. That is the same paper: refusing it
+  // would fail the learner's own attempt because of formatting, not content.
+  const record = records[0];
+  const questions = app.parseExamQuestions(record.markdown, record.id);
+  const keys = Array.isArray(record.answerKey) ? record.answerKey : [];
+  const reorder = value => Array.isArray(value) ? value.map(reorder)
+    : value && typeof value === 'object'
+      ? Object.fromEntries(Object.keys(value).reverse().map(key => [key, reorder(value[key])]))
+      : value;
+  const build = (id, submittedAt) => {
+    const session = app.createExamPracticeSession(record.id, questions.slice(0, 3), submittedAt - 10);
+    for (const question of questions.slice(0, 3)) app.recordExamPracticeResponse(session, question.id, question.options?.[0]?.id ?? 'x');
+    app.submitExamPractice(session, submittedAt);
+    return app.createExamResultRecord(session, record, keys, { now: submittedAt, id });
+  };
+
+  const first = build('order-a', 1000);
+  const second = build('order-b', 2000);
+  const reordered = { ...second, paper: reorder(second.paper) };
+  assert.notDeepEqual(Object.keys(reordered.paper), Object.keys(second.paper), 'the key order really differs');
+
+  const history = app.addExamResult(app.addExamResult(app.emptyExamResultHistory(), first), reordered);
+  assert.equal(history.attempts.length, 2, 'the reordered snapshot is accepted as the same paper');
+  assert.equal(Object.keys(history.papers).length, 1);
+
+  // The merge path compares the same way, so a reordered export is not a conflict either.
+  const storage = store();
+  assert.equal(app.saveExamResultHistory(app.addExamResult(app.emptyExamResultHistory(), first), storage), true);
+  const payload = JSON.parse(app.exportExamResultHistory(history));
+  const paperKey = Object.keys(payload.papers)[0];
+  payload.papers[paperKey] = reorder(payload.papers[paperKey]);
+  const merged = app.mergeExamResultHistory(app.loadExamResultHistory(storage), payload);
+  assert.equal(merged.ok, true, 'a reordered paper merges instead of being rejected as conflicting-paper');
+  assert.equal(merged.history.attempts.length, 2);
+
+  // A genuinely different snapshot is still refused.
+  const other = build('order-c', 3000);
+  const different = { ...other, paper: { ...other.paper, questions: other.paper.questions.slice(0, 2) } };
+  assert.throws(() => app.addExamResult(history, different), /Conflicting exam paper snapshot/,
+    'a different question set is still a conflict');
 });

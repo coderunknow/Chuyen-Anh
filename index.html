@@ -553573,6 +553573,17 @@ export function examResultFilename(result) {
 
 function examPaperKey(examId, contentSha256) { return `${examId}@${contentSha256}`; }
 function examClone(value) { return JSON.parse(JSON.stringify(value)); }
+// Snapshot equality must not depend on property order. A paper that was exported,
+// re-saved by a tool or restored from another device can carry the same questions
+// and keys in a different key order; `JSON.stringify` would call that a conflict
+// and the learner's own attempt would be refused for being formatted differently.
+function examCanonicalJson(value) {
+  if (Array.isArray(value)) return `[${value.map(examCanonicalJson).join(',')}]`;
+  if (value && typeof value === 'object') {
+    return `{${Object.keys(value).sort().map(key => `${JSON.stringify(key)}:${examCanonicalJson(value[key])}`).join(',')}}`;
+  }
+  return JSON.stringify(value);
+}
 export function emptyExamResultHistory() { return { schemaVersion: EXAM_HISTORY_SCHEMA_VERSION, attempts: [], papers: {}, corrections: [] }; }
 function examPruneCorrections(history) {
   const targets = new Set();
@@ -553634,7 +553645,7 @@ export function addExamResult(history, attempt) {
   // the paper no longer holds: the history then fails its own validator and the
   // save silently drops every attempt, so the conflict has to fail loudly here.
   const known = next.papers[paper.id];
-  if (known && JSON.stringify(known) !== JSON.stringify(paper)) throw new Error('Conflicting exam paper snapshot.');
+  if (known && examCanonicalJson(known) !== examCanonicalJson(paper)) throw new Error('Conflicting exam paper snapshot.');
   next.papers[paper.id] = paper;
   next.attempts.push(stored);
   if (next.attempts.length > EXAM_RESULT_HISTORY_LIMIT) {
@@ -553806,17 +553817,17 @@ export function mergeExamResultHistory(local, incoming) {
   if (!valid.ok) return valid;
   const next = examClone(local || emptyExamResultHistory());
   for (const [key, paper] of Object.entries(valid.value.papers)) {
-    if (next.papers[key] && JSON.stringify(next.papers[key]) !== JSON.stringify(paper)) return { ok: false, reason: 'conflicting-paper' };
+    if (next.papers[key] && examCanonicalJson(next.papers[key]) !== examCanonicalJson(paper)) return { ok: false, reason: 'conflicting-paper' };
     next.papers[key] = paper;
   }
   for (const attempt of valid.value.attempts) {
     const existing = next.attempts.find(a => a.id === attempt.id);
-    if (existing && JSON.stringify(existing) !== JSON.stringify(attempt)) return { ok: false, reason: 'conflicting-attempt' };
+    if (existing && examCanonicalJson(existing) !== examCanonicalJson(attempt)) return { ok: false, reason: 'conflicting-attempt' };
     if (!existing) next.attempts.push(attempt);
   }
   for (const correction of valid.value.corrections) {
     const existing = next.corrections.find(c => c.id === correction.id);
-    if (existing && JSON.stringify(existing) !== JSON.stringify(correction)) return { ok: false, reason: 'conflicting-correction' };
+    if (existing && examCanonicalJson(existing) !== examCanonicalJson(correction)) return { ok: false, reason: 'conflicting-correction' };
     if (!existing) next.corrections.push(correction);
   }
   // A union of two valid histories can exceed the window every other path
