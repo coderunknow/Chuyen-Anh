@@ -28,7 +28,7 @@ def discovered_cases() -> int:
     return loader.discover(str(ROOT / "tests"), pattern="test_*.py").countTestCases()
 
 
-def node_test_commands() -> str:
+def node_test_commands(workflow: str = None) -> str:
     """Only the `node --test …` run blocks: a suite named in a comment or a path filter runs nothing.
 
     A block is bounded by the *indentation of the line that holds `--test`*, not by
@@ -36,8 +36,9 @@ def node_test_commands() -> str:
     would run each block to the end of the file and let a later `with: path:` entry or
     a `cat` command satisfy the coverage check without any `node --test` running it.
     """
+    text = CI if workflow is None else workflow
     lines = ["" if line.lstrip().startswith("#") else line.split(" #", 1)[0]
-             for line in CI.splitlines()]  # drop YAML comments first, including column-0 ones
+             for line in text.splitlines()]  # drop YAML comments first, including column-0 ones
     blocks = []
     for index, line in enumerate(lines):
         if "--test" not in line:
@@ -59,14 +60,23 @@ class CiGateCoverageTests(unittest.TestCase):
         self.assertIn(ARCHIVE_SUITE, CI,
                       "CI must run scripts/exams/test_archive.py, or the readiness count claims untested work")
 
-    def test_every_node_test_file_is_run_by_the_ci_workflow(self) -> None:
+    def test_every_node_test_file_is_run_by_every_workflow_that_tests(self) -> None:
+        """Both `ci.yml` and `deploy.yml` run the suites; both must run all of them.
+
+        Round 5 shipped two new suites and added them to `ci.yml` only, so the
+        deploy workflow would have passed while skipping them.
+        """
         files = sorted(path.name for path in (ROOT / "tests").glob("*.test.js"))
         self.assertGreater(len(files), 5)
-        commands = node_test_commands()
-        missing = [name for name in files if f"tests/{name}" not in commands]
-        self.assertEqual([], missing,
-                         "these Node suites exist but no `node --test` command runs them: "
-                         + ", ".join(missing))
+        for name in ("ci.yml", "deploy.yml"):
+            path = ROOT / ".github" / "workflows" / name
+            self.assertTrue(path.exists(), f"{name} must exist")
+            commands = node_test_commands(path.read_text(encoding="utf-8"))
+            self.assertIn("--test", commands, f"{name} must run node --test")
+            missing = [suite for suite in files if f"tests/{suite}" not in commands]
+            self.assertEqual([], missing,
+                             f"these Node suites exist but {name} does not run them: "
+                             + ", ".join(missing))
 
     def test_the_release_source_check_runs_every_node_suite(self) -> None:
         """`DEFECTS.md` says packaging runs all suites; the list in code must match the files."""
@@ -96,6 +106,13 @@ class CiGateCoverageTests(unittest.TestCase):
         total = sum(int(count.replace(",", "")) for _, count in pairs)
         self.assertEqual((total, total), (int(stated.group(1)), int(stated.group(2))),
                          f"the Node row lists {total} tests but claims {stated.group(0)}")
+        # The per-suite numbers must match the tests the files actually declare, or a
+        # suite can gain a test while the row (and its total) stays stale.
+        for suite, count in pairs:
+            source = (ROOT / "tests" / f"{suite}.test.js").read_text(encoding="utf-8")
+            declared = len(re.findall(r"^test\(", source, flags=re.MULTILINE))
+            self.assertEqual(int(count.replace(",", "")), declared,
+                             f"the checklist says {suite} has {count} tests; the file declares {declared}")
         # A hand-installed `.venv` is not a reproducible instruction.
         self.assertNotIn(".venv/bin/python scripts/exams/test_archive.py", text,
                          "the checklist must not require a local virtualenv the repository does not create")

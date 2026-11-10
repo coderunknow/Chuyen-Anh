@@ -119,6 +119,10 @@ until `v1.0.0` is published as a non-draft stable release and separately authori
   question with no options, an orphan key, two keys for one question, and non-string `acceptedAlternatives` all imported.
   Each is now rejected; all `106` genuine papers (`6,708` questions/keys, `0` violations of every new rule) still validate,
   and the adversarial probe drops from `8` accepted to `4`, the rest being non-scoring cosmetics.
+- **D45 / D46 (review round 2):** `deploy.yml` ran six of eight suites while the checklist claimed both workflows
+  named all eight, and the readiness row's per-suite counts were only compared with each other. The gate now checks
+  every testing workflow and compares each stated count with the file's `test(` declarations (verified equal to the
+  runner's `pass` count for all eight suites).
 - **Also probed, no defect:** multi-select is unreachable (`0` of `6,708` questions), wrong options never raise credit
   (`0` monotonicity violations over every option subset), telemetry review clean, persistence adversaries all sanitised.
 - **Verification**

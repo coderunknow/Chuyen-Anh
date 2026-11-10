@@ -295,3 +295,10 @@
 - **Performance (no defect):** full archive scoring `106` papers / `6,708` questions in `1.8 s`; a `1,000`-question paper (`1.88 MB`) imports in `53 ms`; search index `99 ms`, ten queries `55 ms` over `8,852` rows; CEFR filter `26 ms` (`logs/r5-perf.log`).
 - **Totals on the fixed tree:** Python `257 + 5 = 262 OK`, Node `235 / 0 fail`.
 
+## W022 — 2026-11-09 — second review round (CodeRabbit on `9e362b8`)
+
+- **Procedure:** the first completed review of the round (`c9f209f96`, `7` findings) was followed by a request on `ebdab72`, which the platform **skipped** (`completed/neutral`) and then explained: the included review limit was reached, next available in `36` minutes. That skip is recorded as a skip — it is not a review. After the window opened, `@coderabbitai review` produced a completed review against **`9e362b899`**, the exact head, with `2` actionable comments.
+- **Both were valid and both are fixed:** `D45` (`deploy.yml` ran `6` of `8` suites while the checklist claimed both workflows named all eight — the two missing suites are the ones this round changed) and `D46` (the readiness row's per-suite counts were compared only with each other, so a suite could gain a test and the row stay green). The gate now checks every testing workflow and compares each stated count with the `test(` declarations in the file; the static counts were first verified to equal the runner's `pass` count for all eight suites (`144/31/7/10/8/17/7/11`).
+- **Method note:** both findings are about *deployment and documentation paths around the code*, not the code itself — the second consecutive review to find more in the claims than in the product. That is the pattern this round kept hitting: the guarantees were sound where they were exercised and absent where they were only described.
+- **Totals on the fixed tree:** Python `257 + 5 = 262 OK`, Node `235 / 0 fail` (`ci.yml` and `deploy.yml` both run all eight suites).
+
