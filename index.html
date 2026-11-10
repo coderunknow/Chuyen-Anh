@@ -553590,6 +553590,12 @@ function examStoredQuestionResults(results) {
 export function createExamResultRecord(session, record, keys = [], { now = Date.now(), id = null } = {}) {
   if (!session || session.status !== 'submitted' || !record?.contentSha256) throw new Error('Invalid submitted exam result.');
   const paperKey = examPaperKey(record.id, record.contentSha256);
+  // Keep the snapshot self-consistent: a key for a question the session never
+  // contained would be stored and then rejected by the import validator, which
+  // would make the learner's own export unrestorable. Only the questions in this
+  // session can be graded anyway.
+  const sessionQuestions = session.questions || [];
+  const snapshotKeys = keys.filter(key => sessionQuestions.some(q => q.id === key.questionId));
   const scored = scoreExamSession(session, keys, [], record.id);
   return {
     id: id || `attempt-${examStableHash(`${record.id}:${session.submittedAt}:${JSON.stringify(session.responses)}`)}`,
@@ -553598,7 +553604,7 @@ export function createExamResultRecord(session, record, keys = [], { now = Date.
     summary: scored.summary, questionResults: examStoredQuestionResults(scored.results),
     paper: { id: paperKey, examId: record.id, contentSha256: record.contentSha256,
       metadata: { year: record.year, province: record.province, unit: record.unit, unitLabel: record.unitLabel, source: record.source, quality: record.quality },
-      questions: examClone(session.questions), baseKeys: examClone(keys) }
+      questions: examClone(sessionQuestions), baseKeys: examClone(snapshotKeys) }
   };
 }
 function examResultAttemptScore(history, attempt) {

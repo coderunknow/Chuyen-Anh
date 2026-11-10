@@ -29,15 +29,23 @@ def discovered_cases() -> int:
 
 
 def node_test_commands() -> str:
-    """Only the `node --test …` run blocks: a suite named in a comment or a path filter runs nothing."""
-    lines = [line.split(" #", 1)[0] for line in CI.splitlines()]  # drop YAML comments first
+    """Only the `node --test …` run blocks: a suite named in a comment or a path filter runs nothing.
+
+    A block is bounded by the *indentation of the line that holds `--test`*, not by
+    column 0. Every step in a workflow is indented under `jobs:`, so a column-0 bound
+    would run each block to the end of the file and let a later `with: path:` entry or
+    a `cat` command satisfy the coverage check without any `node --test` running it.
+    """
+    lines = ["" if line.lstrip().startswith("#") else line.split(" #", 1)[0]
+             for line in CI.splitlines()]  # drop YAML comments first, including column-0 ones
     blocks = []
     for index, line in enumerate(lines):
         if "--test" not in line:
             continue
+        base = len(line) - len(line.lstrip())
         block = [line]
         for follower in lines[index + 1:]:
-            if follower.strip() and not follower.startswith((" ", "\t")):
+            if follower.strip() and len(follower) - len(follower.lstrip()) <= base:
                 break
             block.append(follower)
         blocks.append("\n".join(block))
@@ -71,6 +79,23 @@ class CiGateCoverageTests(unittest.TestCase):
     def test_the_readiness_checklist_and_the_workflows_describe_the_same_suites(self) -> None:
         text = CHECKLIST.read_text(encoding="utf-8")
         self.assertIn(ARCHIVE_SUITE, text, "the checklist claims the archive suite; CI must run it")
+        # The Node row must name every suite that exists, with its own count: a row
+        # that stops at seven files while eight ship is the same stale claim the
+        # Round-4 ledger caught, one level down.
+        row = next((line for line in text.splitlines()
+                    if "Node test suites" in line), None)
+        self.assertIsNotNone(row, "the checklist must keep a Node test-suite row")
+        pairs = re.findall(r"`([\w.-]+)` \(`([\d,]+)`\)", row.split("|")[2])
+        named = {f"{name}.test.js" for name, _ in pairs}
+        files = {path.name for path in (ROOT / "tests").glob("*.test.js")}
+        self.assertEqual(sorted(files - named), [],
+                         "these Node suites exist but the checklist row does not name them: "
+                         + ", ".join(sorted(files - named)))
+        stated = re.search(r"PASS \((\d+)/(\d+)\)", row)
+        self.assertIsNotNone(stated, "the Node row must state a PASS (n/n) total")
+        total = sum(int(count.replace(",", "")) for _, count in pairs)
+        self.assertEqual((total, total), (int(stated.group(1)), int(stated.group(2))),
+                         f"the Node row lists {total} tests but claims {stated.group(0)}")
         # A hand-installed `.venv` is not a reproducible instruction.
         self.assertNotIn(".venv/bin/python scripts/exams/test_archive.py", text,
                          "the checklist must not require a local virtualenv the repository does not create")

@@ -96,6 +96,30 @@ class AuditDocumentCountTests(unittest.TestCase):
         self.assertIn("158", rows.get("D28 (new, 2026-11-09)", ""),
                       "the dated correction must state the current open-ended count")
 
+    def test_the_checklist_pass_totals_match_their_own_components(self) -> None:
+        """A `PASS (n/n)` that no longer equals its parts is a stale claim, not a result.
+
+        Round 5 left the Python row at `259/259` after the suite reached `261`, and the
+        Node row at `221/221` after it reached `234`; the changelog check compared the
+        two documents to each other, so neither went stale alone.
+        """
+        checklist = (ROOT / "audit" / "v100" / "FINAL_READINESS_CHECKLIST.md").read_text(encoding="utf-8")
+        python_row = next((line for line in checklist.splitlines()
+                           if "test_archive.py" in line and "unit tests" in line), None)
+        self.assertIsNotNone(python_row, "the checklist must keep a Python test-suite row")
+        unit = int(re.search(r"`(\d+)` unit tests", python_row).group(1))
+        archive = int(re.search(r"`(\d+)` conversion/archive tests", python_row).group(1))
+        python_total = int(re.search(r"PASS \((\d+)/(\d+)\)", python_row).group(1))
+        python_denominator = int(re.search(r"PASS \((\d+)/(\d+)\)", python_row).group(2))
+        self.assertEqual((unit + archive, unit + archive), (python_total, python_denominator),
+                         "the Python row's PASS total must be unit tests plus archive tests")
+        node_row = next((line for line in checklist.splitlines() if "Node test suites" in line), None)
+        self.assertIsNotNone(node_row, "the checklist must keep a Node test-suite row")
+        counts = [int(c.replace(",", "")) for c in re.findall(r"`[\w.-]+` \(`([\d,]+)`\)", node_row)]
+        self.assertGreater(len(counts), 5, "the Node row must list each suite's count")
+        self.assertEqual(sum(counts), int(re.search(r"PASS \((\d+)/", node_row).group(1)),
+                         "the Node row's PASS total must be the sum of its per-suite counts")
+
     def test_the_changelog_totals_agree_with_the_checklist_and_their_own_parts(self) -> None:
         """The unreleased section quoted `237 OK` / `214 pass` long after the suite had grown."""
         text = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")

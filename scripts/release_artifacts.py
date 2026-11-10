@@ -72,10 +72,13 @@ def test_source(source: pathlib.Path) -> None:
     if (source / "tests").exists():
         run([sys.executable, "-m", "unittest", "discover", "-s", "tests", "-p", "test_*.py"], cwd=source)
         if (source / "tests/static-app.test.js").exists():
-            node_suites = ["tests/static-app.test.js", "tests/exam-scoring.test.js",
-                           "tests/core-invariants.test.js"]
+            node_suites = ["tests/static-app.test.js", "tests/exam-scoring.test.js"]
+            # Older tags predate the later suites: only run files this tree actually
+            # contains, because `node --test` fails on a path that does not exist and
+            # that would make a historical tag impossible to re-check.
             for extra in ("tests/exam-anomalies.test.js", "tests/rc10-cefr.test.js", "tests/v100-senses.test.js",
-                          "tests/telemetry-api.test.js", "tests/exam-exempt-rubric.test.js"):
+                          "tests/telemetry-api.test.js", "tests/exam-exempt-rubric.test.js",
+                          "tests/core-invariants.test.js"):
                 if (source / extra).exists():
                     node_suites.append(extra)
             run(["node", "--test", *node_suites], cwd=source)
