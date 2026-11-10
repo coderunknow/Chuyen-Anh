@@ -302,3 +302,10 @@
 - **Method note:** both findings are about *deployment and documentation paths around the code*, not the code itself — the second consecutive review to find more in the claims than in the product. That is the pattern this round kept hitting: the guarantees were sound where they were exercised and absent where they were only described.
 - **Totals on the fixed tree:** Python `257 + 5 = 262 OK`, Node `235 / 0 fail` (`ci.yml` and `deploy.yml` both run all eight suites).
 
+## W023 — 2026-11-09 — third review round (CodeRabbit on `3733355`)
+
+- **Procedure:** two requests were answered "Review rate limited" (recorded as such, not as reviews). Once the included-review window reopened, `@coderabbitai review` produced a **completed review against `3733355ddc499aac7f4b16df61b106b8a69459b7`** — the exact head at the time — with `1` additional comment, itself labelled **Trivial / Low value / "Unverified finding"**: `workflow: str = None` is an implicit `Optional` (RUF013).
+- **Verified anyway:** the repository does not run Ruff, but it writes `str | None` in five other places and this was the only implicit-Optional in the tree, so the finding was correct as a style inconsistency. Fixed in the follow-up commit; no behaviour changed and every suite reports the same counts (Node `235 / 0`, Python `257 OK`).
+- **Not fixed, stated:** CodeRabbit's own "Docstring Coverage" pre-merge metric is below its threshold. That is the platform's house rule, not this project's; the repository's own gates (`tests/test_ci_gate_coverage.py`, the `--check` validators) pass, and adding docstrings across a `257`-test suite to satisfy a third-party dashboard would be churn with no behavioural value.
+- **Pattern, three rounds in:** review 1 found seven issues (two of them in my own fix), review 2 found two more, both in the deployment/documentation path, review 3 found one style nit. The product code has been stable since round 1; every subsequent finding has been about the *claims around* it — which is exactly what the "CI green proves nothing" premise predicted.
+
