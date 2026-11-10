@@ -2339,3 +2339,16 @@ inside its module's own `__main__` guard, so it parsed, reviewed and diffed like
 Two lessons were encoded rather than written down: a meta-test now refuses that shape tree-wide (and any `test_*` function that
 is not a `TestCase` method), and the documented suite total is already asserted against `discover`, so a reclaimed test forces
 the number to move instead of quietly inflating the count.
+
+## A passing suite is a claim about the runner, not about the code
+
+Round 5 asked the suites a different question — not "do they pass" but "would they notice". Nine of eleven deliberate changes to
+the learning engine survived them, which reframed the whole audit: green CI bounded how often the code *runs*, not whether it is
+*right*. The new `tests/core-invariants.test.js` deliberately asserts values (the `180`-day cap, the `0.2` penalty, the exact
+essay bands, the `4 MB` ceiling) rather than ranges, because a range wide enough to be comfortable is wide enough to hide a
+regression — `interval <= 180` was satisfied by a `120`-day cap until it was written as `interval === 180`.
+
+The second lesson is about equivalence: one mutant survived every input until the input was chosen to reach the guard it removed.
+Before writing a test to kill a survivor, decide what *observable* behaviour the mutation changes; if none exists, say so and
+call it an equivalent mutant rather than inventing a test that only pretends to cover it.
+

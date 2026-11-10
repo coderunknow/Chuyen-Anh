@@ -553690,14 +553690,27 @@ export function deleteExamResult(history, attemptId) {
 }
 export function exportExamResultHistory(history) { return JSON.stringify({ app: 'Chuyên Anh', format: 'exam-result-history', ...history }, null, 2); }
 function examValidQuestion(q) {
-  return q && typeof q.id === 'string' && q.id.length <= 160 && Number.isInteger(q.number) && typeof q.prompt === 'string' && q.prompt.length <= 20000
+  if (!(q && typeof q.id === 'string' && q.id.length <= 160 && Number.isInteger(q.number) && typeof q.prompt === 'string' && q.prompt.length <= 20000
     && ['choice', 'multiple', 'true-false', 'text', 'essay'].includes(q.responseType) && Array.isArray(q.options) && q.options.length <= 12
-    && q.options.every(o => o && typeof o.id === 'string' && typeof o.label === 'string' && typeof o.text === 'string') && Array.isArray(q.flags || []);
+    && q.options.every(o => o && typeof o.id === 'string' && typeof o.label === 'string' && typeof o.text === 'string') && Array.isArray(q.flags || []))) return false;
+  // Option ids are the graded value, so a duplicate makes the answer and the
+  // feedback ambiguous: two rows would share one id and the review screen would
+  // print whichever of them it found first.
+  const optionIds = q.options.map(option => option.id);
+  if (new Set(optionIds).size !== optionIds.length) return false;
+  // A selectable item with fewer than two options cannot be answered at all; the
+  // shipped archive never contains one (audited over all 6,708 questions).
+  if (['choice', 'multiple', 'true-false'].includes(q.responseType) && optionIds.length < 2) return false;
+  return true;
 }
 function examValidKey(k) {
   return k && typeof k.questionId === 'string' && Object.values(EXAM_ANSWER_STATUSES).includes(k.verificationStatus)
     && Array.isArray(k.candidates) && k.candidates.length <= 20 && k.candidates.every(c => typeof c === 'string' && c.length <= 2000)
-    && Array.isArray(k.acceptedAlternatives || []) && Array.isArray(k.sources || []) && Array.isArray(k.limitations || []);
+    // Alternatives are graded exactly like candidates, so they carry the same
+    // type contract (arrays of strings); anything else is untyped scored data.
+    && Array.isArray(k.acceptedAlternatives || [])
+    && (k.acceptedAlternatives || []).every(a => typeof a === 'string' && a.length <= 2000)
+    && Array.isArray(k.sources || []) && Array.isArray(k.limitations || []);
 }
 // Imported history is untrusted input: it arrives as a file the learner was
 // asked to open. `province` and `year` are printed in the history list, so the
@@ -553731,7 +553744,9 @@ export function validateExamResultHistory(payload, { migrateLegacy = false } = {
       if (paperIds.has(key) || !/^[^\s@]{1,300}@[a-f0-9]{64}$/.test(key) || !paper || !examPaperMetadataIsValid(paper.metadata) || paper.id !== key || typeof paper.examId !== 'string' || !/^[a-f0-9]{64}$/.test(paper.contentSha256)
         || !Array.isArray(paper.questions) || !paper.questions.length || paper.questions.length > EXAM_PAPER_QUESTION_LIMIT
         || !paper.questions.every(examValidQuestion) || new Set(paper.questions.map(q => q.id)).size !== paper.questions.length
-        || !Array.isArray(paper.baseKeys) || !paper.baseKeys.every(examValidKey)) return { ok: false, reason: 'invalid-paper' };
+        || !Array.isArray(paper.baseKeys) || !paper.baseKeys.every(examValidKey)
+        || new Set(paper.baseKeys.map(k => k.questionId)).size !== paper.baseKeys.length
+        || paper.baseKeys.some(k => !paper.questions.some(q => q.id === k.questionId))) return { ok: false, reason: 'invalid-paper' };
       paperIds.add(key); history.papers[key] = examClone(paper);
     }
     const attemptIds = new Set();

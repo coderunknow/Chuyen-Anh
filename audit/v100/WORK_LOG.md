@@ -274,3 +274,14 @@
 - **Totals on the fixed tree:** Python `256 + 5 = 261 OK`, Node `222 / 0 fail`.
 - **Status:** `VERIFIED` (local commits only; no push, merge, tag, release or deploy)
 - **Follow-up found while fixing the counts (D39):** the F2 mutant pin never ran — it was defined inside the module's own `__main__` guard. It is now collectable and passes; a tree-wide meta-test rejects definitions nested in `__main__` guards and non-collectable `test_*` functions. Python totals `254 → 256`, so the recorded totals here and in `GATES.md`/`CHANGELOG.md` were corrected before the run they describe.
+
+## W020 — 2026-11-09 — round 5: mutation testing and import hardening
+
+- **Scope:** not a re-review of Round 4 patches. Adversarial passes over multi-select scoring, telemetry, persistence, and — the productive one — *test effectiveness* and the history-import validator.
+- **Method:** base64 `data:` import of the live `#app-script` module in Node (no browser needed), so the shipped functions are exercised directly; every claim below is a script under `/home/user/audit-evidence/round5/scripts/` with its output in `../logs/` or reproducible by one command.
+- **Findings:** `D40` (the shipped suites do not detect changes to the engine: `9` of `11` mutants survived — CI green was not evidence of correctness) and `D41` (the import validator accepted paper snapshots that cannot be scored coherently: duplicate option ids, zero-option choice, orphan/duplicate keys, untyped alternatives). Both fixed and verified.
+- **Also probed, no defect found:** multi-select is **unreachable** (`0` of `6,708` questions use `responseType: 'multiple'`), and exhaustive monotonicity over all option subsets raised credit in `0` cases when only wrong options were added; telemetry (`api/telemetry.js` + both migrations) reviewed end-to-end — origin/method/content-type/size ordering, atomic bucket RPC, RLS with no policies, `service_role`-only execute; persistence adversaries — every corrupt/`NaN`/prototype/huge payload sanitised, throwing `getItem`/`setItem` tolerated, `__proto__` did not pollute.
+- **Not fixed, reported:** the family cycle `{a: b, b: a}` is loaded but not folded to a canonical head; and the four non-scoring import cosmetics (D41).
+- **Totals on the fixed tree:** Python `256 + 5 = 261 OK`, Node `234 / 0 fail` (`core-invariants.test.js` `11` added, `exam-scoring.test.js` `29 → 30`); `ci.yml` and every `--check` gate list the new suite, which the CI-coverage meta-test enforces.
+- **Status:** `IN PROGRESS` — push/PR update and an independent CodeRabbit review of the exact final SHA are still to come, and the coverage matrix is not yet complete.
+

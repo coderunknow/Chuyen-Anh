@@ -1468,3 +1468,20 @@ same test step, but its detailed log was inaccessible, so its cause is unverifie
   now rejects that shape tree-wide and any `test_*` function that is not a `TestCase` method.
 - **Count consequence:** Python `254 → 256` (`+5` archive = `261`), recorded in `GATES.md`, `WORK_LOG.md`,
   `CHANGELOG.md` and `FINAL_READINESS_CHECKLIST.md` before the run it describes.
+
+## 2026-11-09 (Round 5) — mutation testing and the import validator
+
+- **Question asked:** do the shipped suites detect a change to the engine? Answer, measured: no. `11` one-behaviour mutants,
+  `9` survived all four Node suites. Recorded as `D40` with the harness and both control sets that make the survivors credible.
+- **Trap worth remembering:** the harness used `String.replace(from, to)`, which rewrites only the **first** occurrence; two
+  targets occur twice, so the first run reported "SURVIVED" for mutants a control later killed. The fix is to count sites
+  (`split(from).length - 1`) and `split(from).join(to)`; a mutant harness that under-mutates reports false coverage just as a
+  test that never runs reports false assurance.
+- **Two survivors were not test gaps but assertion weaknesses:** `interval <= 180` accepted a `120` cap, and the empty-response
+  mutant was *equivalent* on every path I first tried because an earlier `answered` guard returns `ungraded`. The
+  distinguishing input is a key that normalises to `''` (punctuation contract) answered with punctuation.
+- **Second finding (`D41`):** the import validator's per-field checks were sound but the *paper* was never checked for coherence.
+  Read the validator as a whole, not field by field: uniqueness, referential integrity and answerability were all unstated.
+- **Counts:** Python `256 + 5 = 261`, Node `222 → 234`; `ci.yml`, `release_artifacts.py` and the CI-coverage meta-test all
+  name the new suite (the meta-test failed first, which is the gate working).
+

@@ -72,7 +72,8 @@ def test_source(source: pathlib.Path) -> None:
     if (source / "tests").exists():
         run([sys.executable, "-m", "unittest", "discover", "-s", "tests", "-p", "test_*.py"], cwd=source)
         if (source / "tests/static-app.test.js").exists():
-            node_suites = ["tests/static-app.test.js", "tests/exam-scoring.test.js"]
+            node_suites = ["tests/static-app.test.js", "tests/exam-scoring.test.js",
+                           "tests/core-invariants.test.js"]
             for extra in ("tests/exam-anomalies.test.js", "tests/rc10-cefr.test.js", "tests/v100-senses.test.js",
                           "tests/telemetry-api.test.js", "tests/exam-exempt-rubric.test.js"):
                 if (source / extra).exists():

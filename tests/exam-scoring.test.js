@@ -785,3 +785,38 @@ test('rc10 import hardening: untrusted paper metadata and correction candidates 
     assert.deepEqual(app.validateExamResultHistory(tampered), { ok: false, reason: 'invalid-correction' }, `candidates ${JSON.stringify(candidates)} must be rejected`);
   }
 });
+
+test('rc10 import hardening: a paper snapshot must describe an answerable paper', () => {
+  const q1 = question(); const q2 = question({ id: 'q-2-test', number: 2 });
+  const keys = [key(), key({ questionId: 'q-2-test' })];
+  const session = app.createExamPracticeSession('2025/test/so', [q1, q2], 1000);
+  app.recordExamPracticeResponse(session, q1.id, 'choice-A');
+  app.recordExamPracticeResponse(session, q2.id, 'choice-A');
+  app.submitExamPractice(session, 2000);
+  const record = { id:'2025/test/so', year:2025, province:'Test', unit:'so', unitLabel:'Test', source:'https://example.com', assets:[], quality:'PDF-text', answers:'', note:'', contentSha256:'f'.repeat(64), markdown:'' };
+  const attempt = app.createExamResultRecord(session, record, keys, { now: 2000, id: 'attempt-shape' });
+  const history = app.addExamResult(app.emptyExamResultHistory(), attempt);
+  const exported = JSON.parse(app.exportExamResultHistory(history));
+  const paperKey = Object.keys(exported.papers)[0];
+  assert.equal(app.validateExamResultHistory(exported).ok, true, 'a genuine snapshot still validates');
+
+  const cases = {
+    'duplicate option ids': (p) => { const q = p.papers[paperKey].questions[0]; q.options[1].id = q.options[0].id; },
+    'choice question with one option': (p) => { const q = p.papers[paperKey].questions[0]; q.options = [q.options[0]]; },
+    'choice question with no options': (p) => { p.papers[paperKey].questions[0].options = []; },
+    'key for a question the paper does not contain': (p) => { p.papers[paperKey].baseKeys.push({ ...p.papers[paperKey].baseKeys[0], questionId: 'q-absent' }); },
+    'two keys for the same question': (p) => { p.papers[paperKey].baseKeys.push({ ...p.papers[paperKey].baseKeys[0] }); },
+    'non-string accepted alternative': (p) => { p.papers[paperKey].baseKeys[0].acceptedAlternatives = [7]; }
+  };
+  for (const [name, mutate] of Object.entries(cases)) {
+    const tampered = JSON.parse(JSON.stringify(exported));
+    mutate(tampered);
+    assert.deepEqual(app.validateExamResultHistory(tampered), { ok: false, reason: 'invalid-paper' }, name);
+  }
+  // Text and essay items legitimately carry no options; they must still validate.
+  const textAttempt = { ...JSON.parse(JSON.stringify(exported)) };
+  textAttempt.papers[paperKey].questions = [{ id: 'q-1-test', number: 1, prompt: 'Write.', instruction: '', responseType: 'text', options: [], flags: [] }];
+  textAttempt.papers[paperKey].baseKeys = [key({ candidates: ['go'], acceptedAlternatives: ['goes'] })];
+  textAttempt.attempts = [];
+  assert.equal(app.validateExamResultHistory(textAttempt).ok, true, 'an optionless text item is valid');
+});
