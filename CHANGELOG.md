@@ -88,10 +88,28 @@ until `v1.0.0` is published as a non-draft stable release and separately authori
   the correction kept in D27/D28. Declined: re-adding replacement rows to reach `500 A1 + 500 A2`, which
   the maintainer rejected for `BUG-001`.
 
+### Import-surface hardening (Round 4, 2026-11-09)
+
+- **D37 (P2): an imported history file could render markup.** `paper.metadata.year` reached the history row without
+  `escapeHtml`, and `validateExamResultHistory` accepted any `metadata` shape, so an edited export with
+  `year: "<img src=x onerror=…>"` imported cleanly and rendered as HTML on the app origin. The row escapes the year now,
+  and the validator requires `year` to be an integer in `1900…2200` and the paper text fields (`province`, `unit`,
+  `unitLabel`, `source`, `quality`, `answers`, `note`) to be strings of ≤ 500 chars (the real maximum is a 187-char
+  source URL). A genuine export still round-trips unchanged.
+- **D38 (P3): `correction.candidates` was validated for array-ness only**, so `["0.25", 7]` imported as a correction.
+  Each candidate must now be a non-empty string of ≤ 1,000 chars (the real maximum is 115).
+- **D39 (P2): a regression test that never ran.** `tests/test_sense_integrity_audit_artifact.py` defined its F2 mutant test
+  *after* its own `if __name__ == "__main__": unittest.main()` line, so `unittest` never collected it and the suite was green
+  without ever proving the evidence gate rejects a reshaped artifact. The method is a real class method now and passes (all four
+  mutants rejected); `tests/test_ci_gate_coverage.py` fails on any definition nested in a `__main__` guard or any `test_*`
+  function that is not a `TestCase` method. Python totals `254 → 256`.
+- **Regression test:** `tests/exam-scoring.test.js` → "rc10 import hardening"; removing either the escape or the
+  validator checks makes it fail. Totals: Python `256 + 5 = 261 OK`, Node **222 / 0 fail**.
+
 ### Verification
 
 - **Validators & `--check` gates:** `expand_vocabulary`, `build_vocabulary`, `build_senses`, `audit_sense_sources`, `validate_vocab`, `embed_vocabulary`, `build_phrases`, `validate_phrases`, `embed_phrases`, `build_answer_keys`, `verify_curated_keys`, `audit_rendering`, `classify_anomalies`, `embed_archive`, `audit_vocabulary_quality`, `vocabulary_cefr_review`, `vocabulary_evidence_review`, `rc4_vocabulary_audit`, `audit_exam_provenance`, `generate_vocab_audit_dev5`, and `sense_integrity_audit` (new `--check` mode, wired into `ci.yml` and `deploy.yml`) all pass cleanly.
-- **Automated suites:** Python `unittest` **254 OK** + `scripts/exams/test_archive.py` **5 OK**; Node `static-app.test.js` (`144`) + `exam-scoring.test.js` (`28`) + `exam-anomalies.test.js` (`7`) + `rc10-cefr.test.js` (`10`) + `v100-senses.test.js` (`8`) + `telemetry-api.test.js` (`17`) + `exam-exempt-rubric.test.js` (`7`) = **221 pass / 0 fail**; sequential Chromium E2E (`browser-learning.cjs` + `browser-exams.cjs` with `axe-core` WCAG 2.1 AA, `320–1440px` viewports, VI/EN, Classic/Modern, light/dark, `file://` standalone) **PASS**; `speed-benchmark.cjs` **PASS** (`3 ms` median consolidation/retry DOM latency, `0` page errors).
+- **Automated suites:** Python `unittest` **256 OK** + `scripts/exams/test_archive.py` **5 OK**; Node `static-app.test.js` (`144`) + `exam-scoring.test.js` (`29`) + `exam-anomalies.test.js` (`7`) + `rc10-cefr.test.js` (`10`) + `v100-senses.test.js` (`8`) + `telemetry-api.test.js` (`17`) + `exam-exempt-rubric.test.js` (`7`) = **222 pass / 0 fail**; sequential Chromium E2E (`browser-learning.cjs` + `browser-exams.cjs` with `axe-core` WCAG 2.1 AA, `320–1440px` viewports, VI/EN, Classic/Modern, light/dark, `file://` standalone) **PASS**; `speed-benchmark.cjs` **PASS** (`3 ms` median consolidation/retry DOM latency, `0` page errors).
 - Current gates, defects, work log, and readiness report: `audit/v100/{GATES,DEFECTS,WORK_LOG,FINAL_READINESS_CHECKLIST,FINAL_READINESS}.md`.
   Separate explicit authorization is required before merge, tag, release or deployment.
 

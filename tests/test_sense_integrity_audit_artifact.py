@@ -85,11 +85,6 @@ class SenseIntegrityArtifactTests(unittest.TestCase):
             self.assertIn("scripts/sense_integrity_audit.py --check", text,
                           f"{path.name} must run the sense-integrity gate; evidence that no "
                           f"workflow checks it is how the committed queue drifted")
-
-
-if __name__ == "__main__":
-    unittest.main()
-
     def test_check_mode_rejects_a_reshaped_artifact(self) -> None:
         """`--check` compared a projection, so scope, duplicates and order slipped through."""
         import copy
@@ -110,3 +105,7 @@ if __name__ == "__main__":
                 result = run_audit("--check", "--artifact", str(copy_path))
             self.assertNotEqual(0, result.returncode,
                                 f"an artifact with a changed {name} must fail the gate")
+
+
+if __name__ == "__main__":
+    unittest.main()

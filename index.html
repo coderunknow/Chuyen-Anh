@@ -553699,6 +553699,26 @@ function examValidKey(k) {
     && Array.isArray(k.candidates) && k.candidates.length <= 20 && k.candidates.every(c => typeof c === 'string' && c.length <= 2000)
     && Array.isArray(k.acceptedAlternatives || []) && Array.isArray(k.sources || []) && Array.isArray(k.limitations || []);
 }
+// Imported history is untrusted input: it arrives as a file the learner was
+// asked to open. `province` and `year` are printed in the history list, so the
+// paper metadata is type-checked here instead of trusting the file, and the
+// renderer escapes them as a second layer. Lengths are far above the real data
+// (longest source URL 187 chars) so genuine exports keep round-tripping.
+const EXAM_PAPER_METADATA_TEXT_LIMIT = 500;
+const EXAM_PAPER_METADATA_TEXT_FIELDS = Object.freeze(['province', 'unit', 'unitLabel', 'source', 'quality', 'answers', 'note']);
+const EXAM_CORRECTION_CANDIDATE_LIMIT = 1000;
+function examPaperMetadataIsValid(metadata) {
+  if (metadata === undefined || metadata === null) return true;
+  if (typeof metadata !== 'object' || Array.isArray(metadata)) return false;
+  if (metadata.year !== undefined && metadata.year !== null
+    && !(Number.isInteger(metadata.year) && metadata.year >= 1900 && metadata.year <= 2200)) return false;
+  return EXAM_PAPER_METADATA_TEXT_FIELDS.every(field => {
+    const value = metadata[field];
+    return value === undefined || value === null
+      || (typeof value === 'string' && value.length <= EXAM_PAPER_METADATA_TEXT_LIMIT);
+  });
+}
+
 export function validateExamResultHistory(payload, { migrateLegacy = false } = {}) {
   try {
     if (!payload || typeof payload !== 'object' || payload.schemaVersion !== EXAM_HISTORY_SCHEMA_VERSION
@@ -553708,7 +553728,7 @@ export function validateExamResultHistory(payload, { migrateLegacy = false } = {
     const history = emptyExamResultHistory();
     const paperIds = new Set();
     for (const [key, paper] of Object.entries(payload.papers)) {
-      if (paperIds.has(key) || !/^[^\s@]{1,300}@[a-f0-9]{64}$/.test(key) || !paper || paper.id !== key || typeof paper.examId !== 'string' || !/^[a-f0-9]{64}$/.test(paper.contentSha256)
+      if (paperIds.has(key) || !/^[^\s@]{1,300}@[a-f0-9]{64}$/.test(key) || !paper || !examPaperMetadataIsValid(paper.metadata) || paper.id !== key || typeof paper.examId !== 'string' || !/^[a-f0-9]{64}$/.test(paper.contentSha256)
         || !Array.isArray(paper.questions) || !paper.questions.length || paper.questions.length > EXAM_PAPER_QUESTION_LIMIT
         || !paper.questions.every(examValidQuestion) || new Set(paper.questions.map(q => q.id)).size !== paper.questions.length
         || !Array.isArray(paper.baseKeys) || !paper.baseKeys.every(examValidKey)) return { ok: false, reason: 'invalid-paper' };
@@ -553735,7 +553755,9 @@ export function validateExamResultHistory(payload, { migrateLegacy = false } = {
     const correctionIds = new Set();
     for (const correction of payload.corrections) {
       if (!correction || typeof correction.id !== 'string' || correctionIds.has(correction.id) || correction.verificationStatus !== EXAM_ANSWER_STATUSES.USER
-        || !Array.isArray(correction.candidates) || !correction.candidates.length || typeof correction.questionId !== 'string' || typeof correction.examId !== 'string'
+        || !Array.isArray(correction.candidates) || !correction.candidates.length
+        || !correction.candidates.every(candidate => typeof candidate === 'string' && candidate.length > 0 && candidate.length <= EXAM_CORRECTION_CANDIDATE_LIMIT)
+        || typeof correction.questionId !== 'string' || typeof correction.examId !== 'string'
         || !Number.isFinite(correction.createdAt)) return { ok: false, reason: 'invalid-correction' };
       const targetPapers = Object.values(history.papers).filter(paper => paper.examId === correction.examId);
       if (!targetPapers.some(paper => paper.questions.some(q => q.id === correction.questionId) && paper.baseKeys.some(k => k.questionId === correction.questionId))) return { ok: false, reason: 'unknown-correction-target' };
@@ -556814,7 +556836,7 @@ export async function createApp(root) {
     const rows = [...examResults.attempts].reverse().map(attempt => {
       const paper = examResults.papers[attempt.paperKey];
       const s = attempt.summary;
-      return `<div class="history-row exam-history-row"><span><b>${escapeHtml(paper?.metadata?.province || attempt.examId)} · ${paper?.metadata?.year || ''}</b><small>${new Date(attempt.submittedAt).toLocaleString(language === 'en' ? 'en-GB' : 'vi-VN')} · ${s.earnedPoints ?? s.correct}/${s.denominator ?? s.total} ${L('điểm trên phần chấm được', 'pts over scorable items')} (${s.percentage === null ? '—' : s.percentage + '%'}${s.scale10 != null ? ` · ${s.scale10}/10` : ''}) · ${L('Đã làm', 'Answered')} ${s.answered}/${s.total} ${s.provisional ? `· ${L('tạm tính', 'provisional')}` : ''}</small></span><span class="setting-actions"><button class="btn small" data-exam-history-open="${escapeHtml(attempt.id)}">${L('Xem', 'Inspect')}</button><button class="btn small danger" data-exam-history-delete="${escapeHtml(attempt.id)}">${L('Xóa', 'Delete')}</button></span></div>`;
+      return `<div class="history-row exam-history-row"><span><b>${escapeHtml(paper?.metadata?.province || attempt.examId)} · ${escapeHtml(paper?.metadata?.year ?? '')}</b><small>${new Date(attempt.submittedAt).toLocaleString(language === 'en' ? 'en-GB' : 'vi-VN')} · ${s.earnedPoints ?? s.correct}/${s.denominator ?? s.total} ${L('điểm trên phần chấm được', 'pts over scorable items')} (${s.percentage === null ? '—' : s.percentage + '%'}${s.scale10 != null ? ` · ${s.scale10}/10` : ''}) · ${L('Đã làm', 'Answered')} ${s.answered}/${s.total} ${s.provisional ? `· ${L('tạm tính', 'provisional')}` : ''}</small></span><span class="setting-actions"><button class="btn small" data-exam-history-open="${escapeHtml(attempt.id)}">${L('Xem', 'Inspect')}</button><button class="btn small danger" data-exam-history-delete="${escapeHtml(attempt.id)}">${L('Xóa', 'Delete')}</button></span></div>`;
     }).join('');
     return `<section class="panel" aria-labelledby="exam-history-title"><div class="panel-heading" id="exam-history-title">${L('Lịch sử luyện đề', 'Exam history')}</div><div class="panel-body"><p class="settings-copy">${L('Chỉ lưu trên thiết bị này; không gửi qua telemetry. Nhập/xuất tách biệt với bản sao flashcard v1.', 'Stored only on this device; never sent through telemetry. Import/export is separate from the v1 flashcard backup.')}</p><div class="setting-actions"><button class="btn" id="exam-history-export">${L('Xuất lịch sử đề', 'Export exam history')}</button><label class="btn" for="exam-history-import">${L('Nhập lịch sử đề', 'Import exam history')}<input id="exam-history-import" type="file" accept="application/json,.json" hidden></label><button class="btn danger" id="exam-history-clear" ${examResults.attempts.length ? '' : 'disabled'}>${L('Xóa tất cả', 'Clear all')}</button></div><div id="exam-history-list">${rows || `<div class="empty">${L('Chưa có kết quả luyện đề.', 'No exam results yet.')}</div>`}</div><p id="exam-history-status" role="status" aria-live="polite"></p></div></section>`;
   }

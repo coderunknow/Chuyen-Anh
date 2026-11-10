@@ -2311,3 +2311,31 @@ not change. The earlier comparison's 203 inference removals remain unchanged.
 - **Declined:** the reviewer asked for `500 A1 + 500 A2` via replacement rows. The maintainer chose "correct the levels" over "correct plus seven replacements"; a review finding cannot reopen an approved decision, so it is recorded with the reason instead of implemented.
 - **Verified:** four artifact mutants exit `1`; the Q51 override grades `0 / 0.25 / 0.75 / 1` as credit and `1.5` as `ungraded`; `254 + 5` Python OK, `221` Node pass, twenty `--check` gates clean, release-list coverage pinned.
 - **Not verified:** the new CI branch filter cannot be exercised from here — proving it needs a GitHub event on a PR whose base matches `arena/**`, which this session cannot create; Firefox and WebKit were not run locally.
+
+## Round 4 — system-wide hunt and the history-import surface (2026-11-09)
+
+**Intent:** find the defects the previous review rounds could not see, by executing instead of reading, and repair the root
+cause where the defect actually lives. Local commits only; no push, merge, tag, release or deploy.
+
+- **Executed, not assumed:** the whole grading surface (106 papers, 5,155 scorable questions), the scoring summary
+  invariants, the export/import contract with tamper cases, all seven exercise types over a 403-entry sample, the
+  sense-level CEFR narrowing over 8,852 rows, an 800-step progress walk and the family fold. All clean.
+- **Where the defect actually was:** the import boundary. A history file is untrusted input, and one field of it
+  (`paper.metadata.year`) reached the history list unescaped while the validator only asked whether `metadata` existed.
+  A hostile file therefore imported with `{ok:true}` and rendered markup in the app origin. The same validator accepted
+  non-string `correction.candidates` (`["0.25", 7]`), which is inert in grading but is unvalidated data inside a scored record.
+- **Fix shape:** escape at the sink *and* type-check at the boundary — neither alone is enough, because a future render
+  site can forget the escape and a future consumer can trust the value. Text fields stay free-form (provinces legitimately
+  contain punctuation) and are neutralised by escaping; `year` is a number and is validated as one.
+- **Verified:** the new test fails with either check removed; `254 + 5` Python OK, `222` Node; 13 `--check`/provenance
+  gates exit `0`; a genuine export/import round trip is unchanged.
+- **Left visible:** the telemetry client-key derivation (caller-chosen headers) is recorded as an open hardening item,
+  not silently changed.
+
+### Round 4 follow-up — why a green suite is not the same as a test (2026-11-09)
+
+The most instructive finding of Round 4 was not a bug in the app: it was a test that did not exist. The F2 mutant pin sat
+inside its module's own `__main__` guard, so it parsed, reviewed and diffed like a test while the runner never collected it.
+Two lessons were encoded rather than written down: a meta-test now refuses that shape tree-wide (and any `test_*` function that
+is not a `TestCase` method), and the documented suite total is already asserted against `discover`, so a reclaimed test forces
+the number to move instead of quietly inflating the count.

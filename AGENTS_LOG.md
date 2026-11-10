@@ -1437,3 +1437,34 @@ same test step, but its detailed log was inaccessible, so its cause is unverifie
 - Declined one finding: restoring `500 A1 + 500 A2` by adding replacement rows. That is option A plus replacements, which the maintainer rejected for `BUG-001`; the corrections stand.
 - Every fix carries a reproduction: four artifact mutants now exit `1`; the shipped Q51 grades `0 / 0.25 / 0.75 / 1` as credit and `1.5` as `ungraded`; the stack is covered by `arena/**` in the CI filter with no deploy gate touched; the release list is pinned by a test; D6/D25 are byte-identical to the base and D27/D28 record the corrections.
 - Totals: Python `254 + 5 = 259`, Node `221`.
+
+## 2026-11-09 — Round 4: system-wide hunt, history-import hardening (local commits only; no push, merge, tag, release or deploy)
+
+- **Method:** executed the surfaces earlier rounds only reasoned about. Grading over all 106 papers / 5,155 scorable questions
+  (0 false accept, 0 false reject, 0 duplicate or orphan ids); the scoring summary invariants; export → validate → import
+  round trips plus five tamper cases; all seven exercise types over a 403-entry sample (2,821 generated questions, 0 defects);
+  the sense-level CEFR model over 8,852 rows / 8,928 senses (16 narrowed entries, 3,684 headwords under `B2+C1`); an
+  800-step progress walk; family folding; the HTML/escaper helpers.
+- **D37 (P2), fixed:** `paper.metadata.year` was interpolated into the history row without `escapeHtml`, and
+  `validateExamResultHistory` accepted any `metadata` shape — an edited export with `year: "<img src=x onerror=…>"`
+  imported as `{ok:true}` and rendered markup on the app origin. Sink escapes the year; the validator type-checks
+  `year` (integer `1900…2200`) and the paper text fields (string, ≤ 500 chars).
+- **D38 (P3), fixed:** `correction.candidates` was checked for array-ness only, so `["0.25", 7]` imported as a correction.
+  Every candidate must now be a non-empty string of ≤ 1,000 chars.
+- **Regression:** `tests/exam-scoring.test.js` → "rc10 import hardening"; removing the escape or the validator checks
+  makes it fail (both mutants executed).
+- **Reported, not fixed:** the telemetry client key is derived from caller-chosen headers, so the per-client `10/600 s`
+  limit is advisory while the global `120/600 s` cap still bounds abuse. Changing it alters deployed behaviour and
+  needs maintainer approval.
+- **Totals:** Python `256 + 5 = 261 OK`, Node `222` / `0` fail. Ledgers: `DEFECTS.md` D37/D38, `GATES.md` S38, `WORK_LOG.md` W019.
+
+### Round 4 follow-up — a phantom pin and the count that hid it (2026-11-09)
+
+- **D39 (P2), fixed:** `tests/test_sense_integrity_audit_artifact.py` defined `test_check_mode_rejects_a_reshaped_artifact`
+  after its own `if __name__ == "__main__": unittest.main()` line, inside the guard. `unittest` never collected it, so the
+  four-mutant proof of `sense_integrity_audit.py --check` existed only as a manual run while the suite reported green.
+- **Repair:** the method is a real class method and passes (the gate does reject `scope claim`, `duplicate entry`,
+  `reordered entries` and `unknown field`); `tests/test_ci_gate_coverage.py::test_every_test_definition_is_collectable`
+  now rejects that shape tree-wide and any `test_*` function that is not a `TestCase` method.
+- **Count consequence:** Python `254 → 256` (`+5` archive = `261`), recorded in `GATES.md`, `WORK_LOG.md`,
+  `CHANGELOG.md` and `FINAL_READINESS_CHECKLIST.md` before the run it describes.

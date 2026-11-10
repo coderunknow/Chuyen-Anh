@@ -264,3 +264,13 @@
 - **Validation method:** fail-first reproduction on `4862d0e`, negative controls, full suites, twenty `--check` gates, archive suite in a venv, protected-path diff against `main`.
 - **Status:** `VERIFIED` (F1 declined — see below)
 - **Outcome:** F2–F6 fixed and pinned; F1 declined because the maintainer chose "correct the levels" over "correct plus seven replacement rows" for `BUG-001`, and this loop does not reopen an approved decision. Totals: Python `254 + 5 = 259`, Node `221`.
+
+## W019 — Round 4: system-wide hunt, import-surface hardening (2026-11-09)
+
+- **Scope:** a systematic pass over the surfaces earlier rounds reasoned about but did not execute: all 106 papers and 5,155 scorable questions (grading soundness), the scoring summary invariants, export → validate → import round trips plus tamper cases, all seven exercise types over a 403-entry sample (2,821 generated questions), the sense-level CEFR model over 8,852 rows / 8,928 senses, an 800-step progress walk and the family fold, and the HTML/escaper helpers.
+- **Result:** one confirmed **P2** and one confirmed **P3**, both on the history-import surface (D37, D38); no false accept/reject in grading, no invariant break in scoring, question generation, CEFR narrowing or progress.
+- **Fix:** escape `paper.metadata.year` at the render site; type-check paper metadata and correction candidates in `validateExamResultHistory`. Regression test `tests/exam-scoring.test.js` ("rc10 import hardening"); both mutants fail it.
+- **Not fixed, reported:** the telemetry client key is derived from request headers the caller can choose (`x-vercel-forwarded-for` → `x-real-ip` → last `X-Forwarded-For` hop → socket), so the per-client 10/600 s limit is advisory while the global 120/600 s cap still bounds abuse; changing key derivation changes deployed behaviour and needs maintainer approval.
+- **Totals on the fixed tree:** Python `256 + 5 = 261 OK`, Node `222 / 0 fail`.
+- **Status:** `VERIFIED` (local commits only; no push, merge, tag, release or deploy)
+- **Follow-up found while fixing the counts (D39):** the F2 mutant pin never ran — it was defined inside the module's own `__main__` guard. It is now collectable and passes; a tree-wide meta-test rejects definitions nested in `__main__` guards and non-collectable `test_*` functions. Python totals `254 → 256`, so the recorded totals here and in `GATES.md`/`CHANGELOG.md` were corrected before the run they describe.

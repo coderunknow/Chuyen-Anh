@@ -88,6 +88,57 @@ class CiGateCoverageTests(unittest.TestCase):
         self.assertEqual(cases, stated,
                          f"checklist states {stated} unit tests; discover collects {cases}")
 
+    def test_every_test_definition_is_collectable(self) -> None:
+        """A test the runner cannot see is not a test.
+
+        Round 4 found `test_check_mode_rejects_a_reshaped_artifact` defined *inside*
+        the `if __name__ == "__main__":` guard of its own module: it parsed, it read
+        correctly in a diff, and `unittest` never collected it, so the mutant proof it
+        claimed had never run. Two shapes are rejected here — a definition nested in a
+        `__main__` guard anywhere in the tree, and a `test_*` function that is not a
+        method of a `unittest.TestCase` subclass in a test module.
+        """
+        import ast
+        import pathlib
+
+        root = pathlib.Path(__file__).resolve().parents[1]
+        problems = []
+        for path in sorted(root.rglob('*.py')):
+            if any(part in {'.venv', 'node_modules', '__pycache__', 'release'} for part in path.parts):
+                continue
+            try:
+                tree = ast.parse(path.read_text(encoding='utf-8'))
+            except SyntaxError:
+                continue
+            for node in ast.walk(tree):
+                if not isinstance(node, ast.If):
+                    continue
+                test_node = node.test
+                compares_name = (
+                    isinstance(test_node, ast.Compare)
+                    and isinstance(test_node.left, ast.Name)
+                    and test_node.left.id == '__name__'
+                )
+                if not compares_name:
+                    continue
+                nested = [child.name for child in node.body if isinstance(child, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef))]
+                if nested:
+                    problems.append(f'{path.relative_to(root)}: {nested} nested inside the __main__ guard')
+
+        for path in sorted((root / 'tests').glob('test_*.py')):
+            tree = ast.parse(path.read_text(encoding='utf-8'))
+            for node in tree.body:
+                if isinstance(node, ast.FunctionDef) and node.name.startswith('test_'):
+                    problems.append(f'{path.relative_to(root)}: module-level {node.name}() is never collected by unittest')
+                if isinstance(node, ast.ClassDef):
+                    for item in node.body:
+                        if isinstance(item, ast.FunctionDef) and item.name.startswith('test_'):
+                            bases = ' '.join(ast.unparse(base) for base in node.bases)
+                            if 'TestCase' not in bases:
+                                problems.append(f'{path.relative_to(root)}: {node.name}.{item.name}() is not in a TestCase subclass')
+
+        self.assertEqual([], problems, 'unreachable test definitions: ' + '; '.join(problems))
+
 
 if __name__ == "__main__":
     unittest.main()

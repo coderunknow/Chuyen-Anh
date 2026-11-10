@@ -734,3 +734,54 @@ test('v1.0.0 curated keys & formal exemptions: curated_verified scores determini
   assert.equal(essayGrade.earnedCredit, 0);
   assert.ok(essayGrade.advisoryRubricEvaluation, 'answered exempt essay still provides advisory 4-criterion rubric feedback');
 });
+
+test('rc10 import hardening: untrusted paper metadata and correction candidates are validated', () => {
+  const q = question(); const keys = [key()];
+  const session = app.createExamPracticeSession('2025/test/so', [q], 1000);
+  app.recordExamPracticeResponse(session, q.id, 'choice-A'); app.submitExamPractice(session, 1000);
+  const record = { id:'2025/test/so', year:2025, province:'Test', unit:'so', unitLabel:'Test', source:'https://example.com', assets:[], quality:'PDF-text', answers:'', note:'', contentSha256:'c'.repeat(64), markdown:'' };
+  const attempt = app.createExamResultRecord(session, record, keys, { now: 1000, id: 'attempt-guard' });
+  const history = app.addExamResult(app.emptyExamResultHistory(), attempt);
+  const exported = JSON.parse(app.exportExamResultHistory(history));
+  const paperKey = Object.keys(exported.papers)[0];
+
+  // A genuine export (numeric year, string metadata) still round-trips.
+  assert.equal(app.validateExamResultHistory(exported).ok, true);
+  assert.equal(exported.papers[paperKey].metadata.year, 2025);
+
+  // Imported paper metadata is printed in the history list. Text fields stay
+  // free-form (legitimate provinces contain punctuation and HTML-ish text) and
+  // are escaped at the render site; non-strings are rejected outright.
+  const textField = JSON.parse(JSON.stringify(exported));
+  textField.papers[paperKey].metadata.province = '<img src=x onerror=alert(1)>';
+  assert.equal(app.validateExamResultHistory(textField).ok, true, 'a text field is data, not markup');
+  assert.doesNotMatch(app.escapeHtml(textField.papers[paperKey].metadata.province), /<(img|svg|script)/i);
+  const hostile = [[{ toString: 'x' }, 'province'], [7, 'unitLabel'], [['a'], 'source'], [{}, 'quality']];
+  for (const [value, field] of hostile) {
+    const tampered = JSON.parse(JSON.stringify(exported));
+    tampered.papers[paperKey].metadata[field] = value;
+    assert.deepEqual(app.validateExamResultHistory(tampered), { ok: false, reason: 'invalid-paper' }, `${field} must be a string`);
+  }
+  for (const year of ['<img src=x onerror=alert(1)>', 99999, 20.5, {}]) {
+    const tampered = JSON.parse(JSON.stringify(exported));
+    tampered.papers[paperKey].metadata.year = year;
+    assert.deepEqual(app.validateExamResultHistory(tampered), { ok: false, reason: 'invalid-paper' }, `year ${JSON.stringify(year)} must be rejected`);
+  }
+  const longSource = JSON.parse(JSON.stringify(exported));
+  longSource.papers[paperKey].metadata.source = `https://example.com/${'a'.repeat(600)}`;
+  assert.deepEqual(app.validateExamResultHistory(longSource), { ok: false, reason: 'invalid-paper' });
+
+  // The history row escapes the year as a second layer, so removing the check
+  // above cannot silently reintroduce raw HTML into the list.
+  assert.match(appSource, /escapeHtml\(paper\?\.metadata\?\.year \?\? ''\)/);
+
+  // Correction candidates are graded, so they must be non-empty bounded strings.
+  const corrected = app.applyExamKeyCorrection(history, { examId: record.id, questionId: q.id, candidates: ['choice-B'], normalization: 'choice-id', note: 'user review', now: 2000 });
+  const correctedExport = JSON.parse(app.exportExamResultHistory(corrected.history));
+  assert.equal(app.validateExamResultHistory(correctedExport).ok, true);
+  for (const candidates of [['choice-B', 7], [''], ['x'.repeat(1001)], 'choice-B', [null]]) {
+    const tampered = JSON.parse(JSON.stringify(correctedExport));
+    tampered.corrections[0].candidates = candidates;
+    assert.deepEqual(app.validateExamResultHistory(tampered), { ok: false, reason: 'invalid-correction' }, `candidates ${JSON.stringify(candidates)} must be rejected`);
+  }
+});
