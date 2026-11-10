@@ -279,10 +279,10 @@
 
 - **Scope:** not a re-review of Round 4 patches. Adversarial passes over multi-select scoring, telemetry, persistence, and — the productive one — *test effectiveness* and the history-import validator.
 - **Method:** base64 `data:` import of the live `#app-script` module in Node (no browser needed), so the shipped functions are exercised directly; every claim below is a script under `/home/user/audit-evidence/round5/scripts/` with its output in `../logs/` or reproducible by one command.
-- **Findings:** `D40` (the shipped suites do not detect changes to the engine: `9` of `11` mutants survived — CI green was not evidence of correctness) and `D41` (the import validator accepted paper snapshots that cannot be scored coherently: duplicate option ids, zero-option choice, orphan/duplicate keys, untyped alternatives). Both fixed and verified.
+- **Findings:** `D40` (the shipped suites do not detect changes to the engine: `11` of `12` mutants survived (`0` killed, `1` not applicable) — CI green was not evidence of correctness) and `D41` (the import validator accepted paper snapshots that cannot be scored coherently: duplicate option ids, zero-option choice, orphan/duplicate keys, untyped alternatives). Both fixed and verified.
 - **Also probed, no defect found:** multi-select is **unreachable** (`0` of `6,708` questions use `responseType: 'multiple'`), and exhaustive monotonicity over all option subsets raised credit in `0` cases when only wrong options were added; telemetry (`api/telemetry.js` + both migrations) reviewed end-to-end — origin/method/content-type/size ordering, atomic bucket RPC, RLS with no policies, `service_role`-only execute; persistence adversaries — every corrupt/`NaN`/prototype/huge payload sanitised, throwing `getItem`/`setItem` tolerated, `__proto__` did not pollute.
 - **Not fixed, reported:** the family cycle `{a: b, b: a}` is loaded but not folded to a canonical head; and the four non-scoring import cosmetics (D41).
-- **Totals on the fixed tree:** Python `257 + 5 = 262 OK`, Node `234 / 0 fail` (`core-invariants.test.js` `11` added, `exam-scoring.test.js` `29 → 30`); `ci.yml` and every `--check` gate list the new suite, which the CI-coverage meta-test enforces.
+- **Totals on the fixed tree:** Python `257 + 5 = 262 OK`, Node `235 / 0 fail` (`core-invariants.test.js` `11` added, `exam-scoring.test.js` `29 → 31`); `ci.yml` and every `--check` gate list the new suite, which the CI-coverage meta-test enforces.
 - **Status:** `IN PROGRESS` — push/PR update and an independent CodeRabbit review of the exact final SHA are still to come, and the coverage matrix is not yet complete.
 
 ## W021 — 2026-11-09 — independent review round (CodeRabbit on `c9f209f`)
@@ -293,5 +293,5 @@
 - **D41 addendum:** the strict orphan-key rule could have rejected an *app-produced* export if a paper's parse ever yielded fewer questions than its key list, so `createExamResultRecord` now filters the snapshot keys to the session's own questions. Producer and consumer agree by construction, and the import validator stays strict for hand-edited files.
 - **Property fuzz of the importer:** `400` random mutations of a genuine export — `0` throws, `139` accepted and every accepted payload re-validated after export (fixed point) with `0` score drift and no prototype pollution (`logs/r5-fuzz-import.log`).
 - **Performance (no defect):** full archive scoring `106` papers / `6,708` questions in `1.8 s`; a `1,000`-question paper (`1.88 MB`) imports in `53 ms`; search index `99 ms`, ten queries `55 ms` over `8,852` rows; CEFR filter `26 ms` (`logs/r5-perf.log`).
-- **Totals on the fixed tree:** Python `257 + 5 = 262 OK`, Node `234 / 0 fail`.
+- **Totals on the fixed tree:** Python `257 + 5 = 262 OK`, Node `235 / 0 fail`.
 

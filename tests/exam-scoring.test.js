@@ -820,3 +820,21 @@ test('rc10 import hardening: a paper snapshot must describe an answerable paper'
   textAttempt.attempts = [];
   assert.equal(app.validateExamResultHistory(textAttempt).ok, true, 'an optionless text item is valid');
 });
+
+test('rc10 import hardening: a record produced from a partial session still imports', () => {
+  // The import validator rejects a key for a question the paper does not contain.
+  // A learner whose session covered only part of a paper must still be able to
+  // restore their own export, so the producer stores only the keys it can grade.
+  const questions = [question(), question({ id: 'q-2-test', number: 2 })];
+  const allKeys = [key(), key({ questionId: 'q-2-test' }), key({ questionId: 'q-3-not-in-session' })];
+  const session = app.createExamPracticeSession('2025/test/so', questions, 1000);
+  app.recordExamPracticeResponse(session, questions[0].id, 'choice-A');
+  app.submitExamPractice(session, 2000);
+  const record = { id:'2025/test/so', year:2025, province:'Test', unit:'so', unitLabel:'Test', source:'https://example.com', assets:[], quality:'PDF-text', answers:'', note:'', contentSha256:'f'.repeat(64), markdown:'' };
+  const attempt = app.createExamResultRecord(session, record, allKeys, { now: 2000, id: 'attempt-partial' });
+  const exported = JSON.parse(app.exportExamResultHistory(app.addExamResult(app.emptyExamResultHistory(), attempt)));
+  const paper = exported.papers[Object.keys(exported.papers)[0]];
+  assert.equal(paper.baseKeys.length, 2, 'only keys for questions in the session are stored');
+  assert.equal(app.validateExamResultHistory(exported).ok, true,
+    'an export the app produced must never be rejected by the app');
+});

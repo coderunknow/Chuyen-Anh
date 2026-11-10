@@ -1471,8 +1471,8 @@ same test step, but its detailed log was inaccessible, so its cause is unverifie
 
 ## 2026-11-09 (Round 5) — mutation testing and the import validator
 
-- **Question asked:** do the shipped suites detect a change to the engine? Answer, measured: no. `11` one-behaviour mutants,
-  `9` survived all four Node suites. Recorded as `D40` with the harness and both control sets that make the survivors credible.
+- **Question asked:** do the shipped suites detect a change to the engine? Answer, measured: no. `12` one-token mutants,
+  `11` of them behavioural: **`0` killed** — every behaviour mutant survived all four Node suites (the twelfth no longer matches its target string). Recorded as `D40` with the harness and both control sets that make the survivors credible.
 - **Trap worth remembering:** the harness used `String.replace(from, to)`, which rewrites only the **first** occurrence; two
   targets occur twice, so the first run reported "SURVIVED" for mutants a control later killed. The fix is to count sites
   (`split(from).length - 1`) and `split(from).join(to)`; a mutant harness that under-mutates reports false coverage just as a

@@ -104,14 +104,14 @@ until `v1.0.0` is published as a non-draft stable release and separately authori
   mutants rejected); `tests/test_ci_gate_coverage.py` fails on any definition nested in a `__main__` guard or any `test_*`
   function that is not a `TestCase` method. Python totals `254 → 256`.
 - **Regression test:** `tests/exam-scoring.test.js` → "rc10 import hardening"; removing either the escape or the
-  validator checks makes it fail. Totals: Python `257 + 5 = 262 OK`, Node **234 / 0 fail**.
+  validator checks makes it fail. Totals: Python `257 + 5 = 262 OK`, Node **235 / 0 fail**.
 
 ### Engine invariants & import coherence (Round 5, 2026-11-09)
 
 - **D40 (P2): the test suites did not detect changes to the engine.** Mutation testing over the shipped learning/grading code
-  applied `11` one-behaviour mutations (ease cap, learning interval, penalty, mastered cap, CEFR-unclassified admission, essay
-  bands, NFC folding, apostrophe stripping, history limit, import cap, empty-response matching); **`9` survived every shipped
-  suite**. CI green meant the suites ran, not that the engine was right. New suite `tests/core-invariants.test.js` (`11` tests)
+  applied `12` one-token mutations (`11` with observable behaviour) (ease cap, learning interval, penalty, mastered cap, CEFR-unclassified admission, essay
+  bands, NFC folding, apostrophe stripping, history limit, import cap, empty-response matching); **all `11` behaviour mutants
+  survived every shipped suite** (`0` killed). CI green meant the suites ran, not that the engine was right. New suite `tests/core-invariants.test.js` (`11` tests)
   kills **`11/11`**, including an exact `180`-day mastered cap (the old assertion `≤ 180` also accepted a `120` cap) and a
   punctuation-only key whose response normalises to `''` (the only path that distinguishes the empty-response guard, which is
   otherwise unreachable behind the earlier `answered` check).
@@ -124,7 +124,7 @@ until `v1.0.0` is published as a non-draft stable release and separately authori
 - **Verification**
 
 - **Validators & `--check` gates:** `expand_vocabulary`, `build_vocabulary`, `build_senses`, `audit_sense_sources`, `validate_vocab`, `embed_vocabulary`, `build_phrases`, `validate_phrases`, `embed_phrases`, `build_answer_keys`, `verify_curated_keys`, `audit_rendering`, `classify_anomalies`, `embed_archive`, `audit_vocabulary_quality`, `vocabulary_cefr_review`, `vocabulary_evidence_review`, `rc4_vocabulary_audit`, `audit_exam_provenance`, `generate_vocab_audit_dev5`, and `sense_integrity_audit` (new `--check` mode, wired into `ci.yml` and `deploy.yml`) all pass cleanly.
-- **Automated suites:** Python `unittest` **257 OK** + `scripts/exams/test_archive.py` **5 OK**; Node `static-app.test.js` (`144`) + `exam-scoring.test.js` (`30`) + `exam-anomalies.test.js` (`7`) + `rc10-cefr.test.js` (`10`) + `v100-senses.test.js` (`8`) + `telemetry-api.test.js` (`17`) + `exam-exempt-rubric.test.js` (`7`) + `core-invariants.test.js` (`11`) = **234 pass / 0 fail**; sequential Chromium E2E (`browser-learning.cjs` + `browser-exams.cjs` with `axe-core` WCAG 2.1 AA, `320–1440px` viewports, VI/EN, Classic/Modern, light/dark, `file://` standalone) **PASS**; `speed-benchmark.cjs` **PASS** (`3 ms` median consolidation/retry DOM latency, `0` page errors).
+- **Automated suites:** Python `unittest` **257 OK** + `scripts/exams/test_archive.py` **5 OK**; Node `static-app.test.js` (`144`) + `exam-scoring.test.js` (`31`) + `exam-anomalies.test.js` (`7`) + `rc10-cefr.test.js` (`10`) + `v100-senses.test.js` (`8`) + `telemetry-api.test.js` (`17`) + `exam-exempt-rubric.test.js` (`7`) + `core-invariants.test.js` (`11`) = **235 pass / 0 fail**; sequential Chromium E2E (`browser-learning.cjs` + `browser-exams.cjs` with `axe-core` WCAG 2.1 AA, `320–1440px` viewports, VI/EN, Classic/Modern, light/dark, `file://` standalone) **PASS**; `speed-benchmark.cjs` **PASS** (`3 ms` median consolidation/retry DOM latency, `0` page errors).
 - Current gates, defects, work log, and readiness report: `audit/v100/{GATES,DEFECTS,WORK_LOG,FINAL_READINESS_CHECKLIST,FINAL_READINESS}.md`.
   Separate explicit authorization is required before merge, tag, release or deployment.
 
