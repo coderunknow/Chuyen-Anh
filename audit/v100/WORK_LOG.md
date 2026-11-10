@@ -237,3 +237,16 @@
 - **Validation method:** fail-first unit test, `unittest` discovery, cross-check against `tests/static-app.test.js` and `tests/v100-senses.test.js` pins.
 - **Status:** `VERIFIED`
 - **Outcome:** corrected D6 to `3,020` headwords / `3,043` senses and D25 to `158` (`157` `essay` + `1` `text`); appended D27 and D28 describing both corrections; added `tests/test_audit_document_counts.py`, which recomputes the deck and fails on any document that disagrees (it also fails when a document stops stating the size at all).
+
+### `W017` — Independent review of the five fixes: guards hardened, three stale statements corrected
+- **Problem statement:** an independent review of `BUG-001`…`BUG-005` found four guards that could pass without proving their claim — a suite *named* in `ci.yml` counted as executed, a `±5` tolerance stood in for the exact discovered count, multiword Oxford headwords were split on whitespace (`according to`, prep A2, also attested `to`, prep A1), and the objective-item guard skipped the very `scorable: false` flag it exists to police — plus three statements that the corrections had left stale: `README.md` (two places) and the `22-a1a2-stable.tsv` header still said `500 A1 + 500 A2`, and `CHANGELOG.md` still claimed `237 OK` / `214 pass`.
+- **Affected files / scope:** `tests/test_ci_gate_coverage.py`, `tests/test_seed_level_provenance.py`, `tests/exam-exempt-rubric.test.js`, `tests/test_audit_document_counts.py`, `scripts/sense_integrity_audit.py`, `README.md`, `CHANGELOG.md`, `data/vocab-seed/22-a1a2-stable.tsv` header, `audit/v100/{GATES,DEFECTS,FINAL_READINESS_CHECKLIST}.md`.
+- **Expected result:** each guard fails when the thing it guards is broken, and every surface states the measured `506 A1 + 493 A2 + 1 B1` and the real totals.
+- **Acceptance criteria:**
+  1. `tests/test_ci_gate_coverage.py` requires each Node suite inside a `node --test` run block (YAML comments stripped) and compares the checklist total to `countTestCases()` exactly.
+  2. `tests/test_seed_level_provenance.py` indexes multiword headwords whole; the `5,316` published rows resolve to the same bands as before.
+  3. `tests/exam-exempt-rubric.test.js` skips only items carrying an `exemptionCategory`; all `739` non-scorable keys carry one.
+  4. `tests/test_audit_document_counts.py` uses the app's exact `curation:archived` membership and pins the changelog's totals.
+- **Validation method:** fail-first runs plus three negative controls, `unittest` discovery, the seven Node suites, the twenty `--check` gates, and the archive suite in a venv.
+- **Status:** `VERIFIED`
+- **Outcome:** fail-first — `252 != 250 : checklist states 250 unit tests; discover collects 252` and `250 != 237 : the changelog states a Python total the checklist does not`. Controls: commenting out the telemetry `node --test` line fails with `['telemetry-api.test.js']`; one key flipped to `scorable: false` without a marker fails `not ok 5 … a scorable objective item was treated as an exempt essay`; restoring the whitespace split fails `the multiword headword must be indexed as printed`. Totals are now Python `252 + 5 = 257` and Node `219`; no seed row changed band and no exam item changed verdict.

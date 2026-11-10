@@ -1,4 +1,5 @@
-# Phase III (v1.0.0): +500 A1 and +500 A2 everyday headwords.
+# Phase III (v1.0.0): 1,000 everyday headwords — 506 A1 + 493 A2 + 1 B1 once every row's level
+# was re-attested for its own part of speech (seven of the original 500 A1 + 500 A2 were corrected).
 # Candidates: CEFR-J Vocabulary Profile 1.5 and Oxford 3000 A1/A2 headwords absent from the
 # pre-v1.0.0 bank (type=core = listed at that level by both reference works).
 # word<TAB>pos<TAB>meaning<TAB>level<TAB>topic<TAB>type<TAB>skills<TAB>level_source

@@ -20,11 +20,9 @@ ROOT = Path(__file__).resolve().parents[1]
 SELECTION = {"B2", "C1"}
 
 
-def tag_value(tags, namespace):
-    for tag in tags or []:
-        if isinstance(tag, str) and tag.startswith(f"{namespace}:"):
-            return tag.split(":", 1)[1]
-    return None
+def is_archived(tags) -> bool:
+    """The app hides a row only when its tags contain the exact `curation:archived` tag."""
+    return "curation:archived" in (tags or [])
 
 
 def normalized(number: str) -> int:
@@ -34,7 +32,7 @@ def normalized(number: str) -> int:
 def measured():
     rows = json.loads((ROOT / "data" / "vocabulary.json").read_text(encoding="utf-8"))
     headwords = [row for row in rows if not row.get("familyHead")]
-    active = [row for row in headwords if "archived" not in (tag_value(row.get("tags"), "curation") or "")]
+    active = [row for row in headwords if not is_archived(row.get("tags"))]
     eligible = [row for row in active
                 if {sense.get("cefr") for sense in row.get("senses") or []} & SELECTION]
     senses = sum(len([sense for sense in row.get("senses") or [] if sense.get("cefr") in SELECTION])
@@ -81,6 +79,28 @@ class AuditDocumentCountTests(unittest.TestCase):
                     problems.append(f"{name}: states {normalized(numbers[1])} senses, "
                                     f"the data has {self.senses}")
         self.assertEqual([], problems, "stale default-selection counts:\n  " + "\n  ".join(problems))
+
+    def test_the_changelog_totals_agree_with_the_checklist_and_their_own_parts(self) -> None:
+        """The unreleased section quoted `237 OK` / `214 pass` long after the suite had grown."""
+        text = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
+        current = text.split("\n## v1.0.0-rc10", 1)[0]
+        checklist = (ROOT / "audit" / "v100" / "FINAL_READINESS_CHECKLIST.md").read_text(encoding="utf-8")
+        row = next((line for line in checklist.splitlines()
+                    if "test_archive.py" in line and "unit tests" in line), None)
+        self.assertIsNotNone(row, "the checklist must keep a Python test-suite row")
+        expected_python = int(re.search(r"`(\d+)` unit tests", row).group(1))
+        stated_python = re.search(r"`unittest` \*\*(\d+) OK\*\*", current)
+        self.assertIsNotNone(stated_python, "the current section must state the Python total")
+        self.assertEqual(expected_python, int(stated_python.group(1)),
+                         "the changelog states a Python total the checklist does not")
+        node_line = next((line for line in current.splitlines()
+                          if "pass / 0 fail" in line and "Node" in line), None)
+        self.assertIsNotNone(node_line, "the current section must state the Node total")
+        stated_node = int(re.search(r"\*\*(\d+) pass / 0 fail\*\*", node_line).group(1))
+        parts = [int(number.replace(",", "")) for number in re.findall(r"`([\d,]+)`", node_line)]
+        self.assertGreater(len(parts), 5, "the changelog must list each Node suite's count")
+        self.assertEqual(sum(parts), stated_node,
+                         f"the changelog's per-suite numbers sum to {sum(parts)}, it claims {stated_node}")
 
 
 if __name__ == "__main__":

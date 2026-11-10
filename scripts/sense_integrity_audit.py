@@ -83,8 +83,10 @@ def drift(committed: dict, fresh: dict) -> list[str]:
     for entry_id in sorted(set(old) | set(new)):
         if old.get(entry_id) != new.get(entry_id):
             was, now = old.get(entry_id) or {}, new.get(entry_id) or {}
-            problems.append(f"{entry_id} {was.get('word') or now.get('word')}: committed meaning "
-                            f"{was.get('meaning')!r}, data says {now.get('meaning')!r}")
+            changed = [key for key in sorted(set(was) | set(now)) if was.get(key) != now.get(key)]
+            detail = "; ".join(f"{key}: committed {was.get(key)!r}, data says {now.get(key)!r}"
+                              for key in changed)
+            problems.append(f"{entry_id} {was.get('word') or now.get('word')}: {detail}")
     for key in ('entriesInspected', 'entriesFlagged', 'issueCounts'):
         if committed.get(key) != fresh.get(key):
             problems.append(f"{key}: committed {committed.get(key)!r}, data says {fresh.get(key)!r}")

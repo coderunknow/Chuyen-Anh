@@ -1422,3 +1422,11 @@ same test step, but its detailed log was inaccessible, so its cause is unverifie
 - Added a fifth assertion to `tests/exam-exempt-rubric.test.js`: every scorable objective item (5,000+ across the archive) must stay scorable with no rubric and no exemption category, so the `BUG-003` widening cannot capture an item that has a usable key.
 - Proved the guard bites by injecting a deliberate over-reach into `examIsEssayItem()` (also true for `source_transcription_unverified`): the assertion failed as intended, then the mutation was reverted.
 - Node totals are now `219`; the checklist and GATES rows were updated to match.
+
+### 2026-11-09 — Review-loop round two: the guards proved, then tightened
+
+- Independent review of the five fixes: three inline findings and four nitpicks, each verified against the code before any edit. Two were consequences of the corrections themselves — `README.md` (two places) and the `22-a1a2-stable.tsv` header still described Phase III as `500 A1 + 500 A2`, and `CHANGELOG.md` still quoted `237 OK` / `214 pass`.
+- Re-derived the accepted distribution from `data/vocabulary.json` rather than trusting any document: `1,000` of the `1,143` candidate rows are in the bank — `506 A1 + 493 A2 + 1 B1`, `144` rejected. All three surfaces now say so.
+- Hardened four guards and proved each with a control: execution-aware Node coverage (a commented-out line now fails), exact discovered count instead of a `±5` tolerance, multiword Oxford headwords kept whole (`according to` no longer attests `to`), and the objective-item guard skipping on exemption markers rather than on `scorable: false` (all `739` non-scorable keys carry a marker).
+- `tests/test_audit_document_counts.py` now mirrors the app's exact `curation:archived` tag and pins the changelog's per-suite sum to its own total; `sense_integrity_audit.py` `drift()` names the differing fields instead of always printing `meaning`.
+- Totals: Python `252 + 5 = 257`, Node `219`; the twenty `--check` gates and the archive suite pass.

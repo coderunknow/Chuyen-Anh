@@ -62,10 +62,25 @@ until `v1.0.0` is published as a non-draft stable release and separately authori
     rubric hint, the verdict label and the override field from the curated exemption, so the parser stays
     untouched and `tests/exam-exempt-rubric.test.js` proves all `158` items yield advisory feedback.
 
+- **Independent review of the five fixes (2026-11-09):** eight corrections, all verified before applying.
+  Three were stale statements the earlier corrections had left behind: `README.md` (two bullets) and the
+  `22-a1a2-stable.tsv` header still described Phase III as `500 A1 + 500 A2` when the accepted distribution
+  recomputed from `data/vocabulary.json` is `506 A1 + 493 A2 + 1 B1`, and this file still quoted the old
+  totals. Four were guards that could pass without proving their claim: the CI-coverage test accepted a
+  suite merely *named* in `ci.yml` (now only `node --test` run blocks count, comments stripped) and compared
+  the Python total to a regex with a `±5` tolerance (now exactly `discover`'s `countTestCases()`); the seed
+  provenance test split multiword Oxford headwords on whitespace, so `according to` (prep, A2) also attested
+  a bare `to` (prep, A1) — headwords now split only on `,` and `/`; and the objective-item guard skipped
+  keys flagged `scorable: false`, the very flag it exists to police — it now skips only items carrying an
+  `exemptionCategory` (all `739` non-scorable keys do). The eighth: `sense_integrity_audit.py` `drift()` now
+  names the fields that differ instead of always printing `meaning`. Each tightening was proved with a
+  reproduction: a commented-out `node --test` line fails the coverage test, and a single key flipped to
+  `scorable: false` without a marker fails the essay-gate guard.
+
 ### Verification
 
 - **Validators & `--check` gates:** `expand_vocabulary`, `build_vocabulary`, `build_senses`, `audit_sense_sources`, `validate_vocab`, `embed_vocabulary`, `build_phrases`, `validate_phrases`, `embed_phrases`, `build_answer_keys`, `verify_curated_keys`, `audit_rendering`, `classify_anomalies`, `embed_archive`, `audit_vocabulary_quality`, `vocabulary_cefr_review`, `vocabulary_evidence_review`, `rc4_vocabulary_audit`, `audit_exam_provenance`, `generate_vocab_audit_dev5`, and `sense_integrity_audit` (new `--check` mode, wired into `ci.yml` and `deploy.yml`) all pass cleanly.
-- **Automated suites:** Python `unittest` **237 OK** + `scripts/exams/test_archive.py` **5 OK**; Node `static-app.test.js` (`144`) + `exam-scoring.test.js` (`28`) + `exam-anomalies.test.js` (`7`) + `rc10-cefr.test.js` (`10`) + `v100-senses.test.js` (`8`) + `telemetry-api.test.js` (`17`) = **214 pass / 0 fail**; sequential Chromium E2E (`browser-learning.cjs` + `browser-exams.cjs` with `axe-core` WCAG 2.1 AA, `320–1440px` viewports, VI/EN, Classic/Modern, light/dark, `file://` standalone) **PASS**; `speed-benchmark.cjs` **PASS** (`3 ms` median consolidation/retry DOM latency, `0` page errors).
+- **Automated suites:** Python `unittest` **252 OK** + `scripts/exams/test_archive.py` **5 OK**; Node `static-app.test.js` (`144`) + `exam-scoring.test.js` (`28`) + `exam-anomalies.test.js` (`7`) + `rc10-cefr.test.js` (`10`) + `v100-senses.test.js` (`8`) + `telemetry-api.test.js` (`17`) + `exam-exempt-rubric.test.js` (`5`) = **219 pass / 0 fail**; sequential Chromium E2E (`browser-learning.cjs` + `browser-exams.cjs` with `axe-core` WCAG 2.1 AA, `320–1440px` viewports, VI/EN, Classic/Modern, light/dark, `file://` standalone) **PASS**; `speed-benchmark.cjs` **PASS** (`3 ms` median consolidation/retry DOM latency, `0` page errors).
 - Current gates, defects, work log, and readiness report: `audit/v100/{GATES,DEFECTS,WORK_LOG,FINAL_READINESS_CHECKLIST,FINAL_READINESS}.md`.
   Separate explicit authorization is required before merge, tag, release or deployment.
 

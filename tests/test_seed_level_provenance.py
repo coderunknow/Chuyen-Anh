@@ -89,8 +89,11 @@ def oxford_index(filename: str) -> dict[str, list[dict]]:
                 "levels": _oxford_levels(row["Level"]),
                 "pos_codes": printed_pos_codes(row["Part of Speech"]),
             }
+            # Alternative headwords are comma/slash separated; a space is part of the headword
+            # ("according to" is a preposition at A2, while "to" alone is A1 — splitting on
+            # whitespace would let the wrong entry attest the wrong band).
             for form in dict.fromkeys(normalize_word(part)
-                                      for part in re.split(r"[,/\s]+", head) if normalize_word(part)):
+                                      for part in re.split(r"[,/]+", head) if normalize_word(part)):
                 index[form].append(record)
     return index
 
@@ -180,6 +183,13 @@ class SeedLevelProvenanceTests(unittest.TestCase):
         self.assertEqual([], unresolved,
                          "seed rows name a source that cannot be resolved to a POS level:\n  "
                          + "\n  ".join(unresolved))
+
+    def test_multiword_headwords_are_not_split_into_their_parts(self) -> None:
+        """A spaced headword must be indexed whole, or its parts inherit its band."""
+        self.assertTrue("according to" in self.oxford3000,
+                        "the multiword headword must be indexed as printed")
+        self.assertTrue("according" not in self.oxford3000,
+                        "a fragment of a multiword headword must not become its own entry")
 
     def test_rows_without_a_source_are_editorial_and_out_of_scope(self) -> None:
         editorial = [row for row in self.rows if not row["source"]]

@@ -107,7 +107,10 @@ test('the essay gate never captures a scorable objective item', () => {
     const keys = Array.isArray(record.answerKey) ? record.answerKey : [];
     for (const question of questions) {
       const key = keys.find(entry => entry.questionId === question.id);
-      if (!key || key.scorable === false || question.responseType === 'essay') continue;
+      // Skip only what the curation actually exempts: a bare `scorable: false` flag is the
+      // over-reach this guard exists to catch, so it must not filter the item out.
+      const exempt = Boolean(key && key.exemptionCategory);
+      if (!key || exempt || question.responseType === 'essay') continue;
       checked += 1;
       const verification = app.getQuestionVerification(question, key);
       if (verification.scorable !== true || verification.rubric || verification.exemptionCategory) {
