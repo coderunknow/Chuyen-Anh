@@ -89,3 +89,24 @@ class SenseIntegrityArtifactTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+    def test_check_mode_rejects_a_reshaped_artifact(self) -> None:
+        """`--check` compared a projection, so scope, duplicates and order slipped through."""
+        import copy
+        import tempfile
+        original = json.loads(ARTIFACT.read_text(encoding="utf-8"))
+        mutants = {
+            "scope claim": lambda d: d.update(scope="Every entry is independently verified"),
+            "duplicate entry": lambda d: d["entries"].append(copy.deepcopy(d["entries"][0])),
+            "reordered entries": lambda d: d.__setitem__("entries", list(reversed(d["entries"]))),
+            "unknown field": lambda d: d.update(unexpected="x"),
+        }
+        for name, mutate in mutants.items():
+            payload = copy.deepcopy(original)
+            mutate(payload)
+            with tempfile.TemporaryDirectory() as tmp:
+                copy_path = Path(tmp) / "queue.json"
+                copy_path.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+                result = run_audit("--check", "--artifact", str(copy_path))
+            self.assertNotEqual(0, result.returncode,
+                                f"an artifact with a changed {name} must fail the gate")

@@ -552771,7 +552771,10 @@ function examAlignQuestionEntries(questions, entries) {
 function examIsEssayItem(question, key = null) {
   if (question?.responseType === 'essay') return true;
   const record = key || question?.answerKey || null;
-  return record?.exemptionCategory === 'open_ended_writing_or_speaking'
+  // `essayLike` is what a verification record remembers about the curated
+  // exemption once a learner correction has made the item scorable again.
+  return record?.essayLike === true
+    || record?.exemptionCategory === 'open_ended_writing_or_speaking'
     || record?.ungradeableReason === 'essay-open-ended-exempt';
 }
 function examEssayRubricSpec(question) {
@@ -553232,7 +553235,7 @@ export function getQuestionVerification(question, keyRecord = null) {
       sourceStatus: key.sourceStatus || (missingKey ? EXAM_SOURCE_STATUSES.INSUFFICIENT : EXAM_SOURCE_STATUSES.INVALID),
       confidence: EXAM_CONFIDENCE_LEVELS.VERY_LOW,
       candidates: [], acceptedAlternatives: [], normalization: 'none',
-      rubric: question?.responseType === 'essay' ? rubric : null,
+      rubric: examIsEssayItem(question, key) ? rubric : null,
       reasoning: `The stored answer cannot answer this item (${validity.reason}); the item is reported as ungraded instead of being scored.`,
       limitations: [...limitations, `Stored key rejected: ${validity.reason}.`],
       sources: key.sources || [],
@@ -553243,7 +553246,7 @@ export function getQuestionVerification(question, keyRecord = null) {
     };
   }
   const provisional = status !== EXAM_ANSWER_STATUSES.OFFICIAL || hasMissingAudio;
-  return { ...key, status, verificationStatus: status, sourceStatus, confidence, candidates, acceptedAlternatives, normalization, rubric, reasoning: key.reasoning || null, limitations, provisional, scorable: true, exempt: false, exemptionCategory: null, ungradeableReason: null };
+  return { ...key, status, verificationStatus: status, sourceStatus, confidence, candidates, acceptedAlternatives, normalization, rubric, reasoning: key.reasoning || null, limitations, provisional, scorable: true, exempt: false, exemptionCategory: null, ungradeableReason: null, essayLike: examIsEssayItem(question, key) };
 }
 export function gradeExamQuestion(question, learnerAnswer, keyRecord = null) {
   const verification = getQuestionVerification(question, keyRecord);
@@ -553296,7 +553299,7 @@ export function gradeExamQuestion(question, learnerAnswer, keyRecord = null) {
     }
     return ungraded(reason);
   }
-  if (question.responseType === 'essay') {
+  if (examIsEssayItem(question, verification)) {
     const answered = typeof learnerAnswer === 'string' && Boolean(learnerAnswer.trim());
     if (!answered) return ungraded('unanswered');
     if (verification.status === EXAM_ANSWER_STATUSES.USER && verification.candidates?.length && !/^\[.*rubric\]$/i.test(verification.candidates[0])) {
@@ -553305,6 +553308,9 @@ export function gradeExamQuestion(question, learnerAnswer, keyRecord = null) {
         const credit = Math.round(numOverride * 100) / 100;
         return { ...base, result: credit >= 0.6 ? 'correct' : credit >= 0.25 ? 'partial' : 'incorrect', earnedCredit: credit, reason: 'learner-rubric-override' };
       }
+      // A number outside 0..1 is not a credit: say so instead of letting the
+      // essay text be scored as a template answer against a bad override.
+      if (Number.isFinite(numOverride)) return ungraded('invalid-rubric-credit');
     }
     const evaluated = gradeExamEssayRubric(question, learnerAnswer, verification);
     // Off-topic and template responses are never reported as a successful
@@ -553625,6 +553631,38 @@ export function addExamResult(history, attempt) {
     examPruneCorrections(next);
   }
   return examRecomputeResultHistory(next);
+}
+/**
+ * Parse what the learner typed into the correction box.
+ *
+ * The item is "essay-like" when the curated exemption says so, not when the
+ * protected parser happened to type it `essay`: `2022/ha-noi/so` Q51 is a
+ * 250-word essay prompt typed `text`, and its correction box promises 0..1
+ * rubric credit. Parsing it as free text stored "0.75" as an answer string and
+ * the item was then graded `incorrect` against the learner's own essay.
+ */
+export function examCorrectionCandidates(question, input, keyRecord = null) {
+  const text = String(input || '').trim();
+  if (!text || !question) return null;
+  if (examIsEssayItem(question, keyRecord || question.answerKey || null)) {
+    const val = Number(text);
+    if (!Number.isFinite(val) || val < 0 || val > 1) return null;
+    return { candidates: [String(Math.round(val * 100) / 100)], acceptedAlternatives: [], normalization: 'essay-rubric' };
+  }
+  if (question.responseType === 'true-false') {
+    const v = text.toLowerCase();
+    if (['t', 'true'].includes(v)) return { candidates: ['true'], normalization: 'true-false' };
+    if (['f', 'false'].includes(v)) return { candidates: ['false'], normalization: 'true-false' };
+    return null;
+  }
+  if (question.responseType === 'choice' || question.responseType === 'multiple') {
+    const labels = text.split(/[,;\s]+/).map(s => s.replace(/^choice-/i, '').toUpperCase()).filter(Boolean);
+    const ids = labels.map(l => `choice-${l}`);
+    if (!ids.length || ids.some(id => !question.options.some(o => o.id === id))) return null;
+    return { candidates: [...new Set(ids)], normalization: question.responseType === 'multiple' ? 'choice-set' : 'choice-id' };
+  }
+  const parts = text.split(/\s*;\s*/).map(s => s.trim()).filter(Boolean);
+  return { candidates: [parts[0]], acceptedAlternatives: parts.slice(1), normalization: 'case-whitespace' };
 }
 export function applyExamKeyCorrection(history, { examId, questionId, candidates, acceptedAlternatives = [], normalization = 'case-whitespace', note = '', now = Date.now(), replace = false } = {}) {
   const next = examClone(history || emptyExamResultHistory());
@@ -556530,11 +556568,12 @@ export async function createApp(root) {
     const confText = language === 'en' ? `Confidence: ${lvl}` : `Độ tin cậy: ${lvl}`;
     return `<div class="exam-meta-badges"><span class="exam-confidence-badge exam-confidence-${escapeHtml(lvl)}">${escapeHtml(confText)}</span><span class="state-pill exam-pill-neutral">${escapeHtml(srcLabel)}</span></div>`;
   }
-  function examGradeLabel(result, responseType = null) {
+  function examGradeLabel(result, responseType = null, essayLike = false) {
     // `partial` covers both the essay rubric and a multi-select answer that found
     // only some of the correct options, so the label names the item type.
-    const partialVi = responseType === 'essay' ? 'Đạt một phần (Rubric)' : responseType === 'multiple' ? 'Đạt một phần (chọn thiếu)' : 'Đạt một phần';
-    const partialEn = responseType === 'essay' ? 'Partial (rubric)' : responseType === 'multiple' ? 'Partial (incomplete selection)' : 'Partial';
+    const rubricItem = essayLike || responseType === 'essay';
+    const partialVi = rubricItem ? 'Đạt một phần (Rubric)' : responseType === 'multiple' ? 'Đạt một phần (chọn thiếu)' : 'Đạt một phần';
+    const partialEn = rubricItem ? 'Partial (rubric)' : responseType === 'multiple' ? 'Partial (incomplete selection)' : 'Partial';
     if (language === 'en') return result === 'correct' ? 'Correct' : result === 'partial' ? partialEn : result === 'incorrect' ? 'Incorrect' : 'Unanswered (0 pt)';
     return result === 'correct' ? 'Đúng' : result === 'partial' ? partialVi : result === 'incorrect' ? 'Sai' : 'Bỏ trống (0đ)';
   }
@@ -556550,30 +556589,7 @@ export async function createApp(root) {
     if (grade?.result === 'incorrect' && grade.answerKeyInferred) {
       return language === 'en' ? 'Differs from an unverified inferred key' : 'Khác đáp án suy luận (chưa xác minh)';
     }
-    return examGradeLabel(grade?.result, question?.responseType);
-  }
-  function examCorrectionCandidates(question, input) {
-    const text = String(input || '').trim();
-    if (!text || !question) return null;
-    if (question.responseType === 'essay') {
-      const val = Number(text);
-      if (!Number.isFinite(val) || val < 0 || val > 1) return null;
-      return { candidates: [String(Math.round(val * 100) / 100)], acceptedAlternatives: [], normalization: 'essay-rubric' };
-    }
-    if (question.responseType === 'true-false') {
-      const v = text.toLowerCase();
-      if (['t', 'true'].includes(v)) return { candidates: ['true'], normalization: 'true-false' };
-      if (['f', 'false'].includes(v)) return { candidates: ['false'], normalization: 'true-false' };
-      return null;
-    }
-    if (question.responseType === 'choice' || question.responseType === 'multiple') {
-      const labels = text.split(/[,;\s]+/).map(s => s.replace(/^choice-/i, '').toUpperCase()).filter(Boolean);
-      const ids = labels.map(l => `choice-${l}`);
-      if (!ids.length || ids.some(id => !question.options.some(o => o.id === id))) return null;
-      return { candidates: [...new Set(ids)], normalization: question.responseType === 'multiple' ? 'choice-set' : 'choice-id' };
-    }
-    const parts = text.split(/\s*;\s*/).map(s => s.trim()).filter(Boolean);
-    return { candidates: [parts[0]], acceptedAlternatives: parts.slice(1), normalization: 'case-whitespace' };
+    return examGradeLabel(grade?.result, question?.responseType, examIsEssayItem(question, grade));
   }
   function persistExamResults(next) {
     if (!saveExamResultHistory(next, storage)) {
@@ -556783,7 +556799,8 @@ export async function createApp(root) {
     region.querySelector('#exam-download-json')?.addEventListener('click', () => { if (session?.status === 'submitted') downloadExamJson(examResultFilename(buildExamResultJson(session, record, keys, examResults.corrections)), buildExamResultJson(session, record, keys, examResults.corrections)); });
     region.querySelector('#exam-key-correct-save')?.addEventListener('click', event => {
       const question = questions.find(q => q.id === event.currentTarget.dataset.questionId);
-      const parsed = examCorrectionCandidates(question, region.querySelector('#exam-key-correct-input')?.value);
+      const parsed = examCorrectionCandidates(question, region.querySelector('#exam-key-correct-input')?.value,
+        keys.find(k => k.questionId === question.id) || null);
       if (!parsed) { toast(language === 'en' ? 'The corrected answer does not match this question type.' : 'Đáp án hiệu chỉnh không hợp lệ với dạng câu hỏi.', 'error'); return; }
       const result = applyExamKeyCorrection(examResults, { examId: record.id, questionId: question.id, ...parsed, note: region.querySelector('#exam-key-correct-note')?.value || '', replace: true });
       if (!result.ok || !persistExamResults(result.history)) return;

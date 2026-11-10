@@ -60,6 +60,14 @@ class CiGateCoverageTests(unittest.TestCase):
                          "these Node suites exist but no `node --test` command runs them: "
                          + ", ".join(missing))
 
+    def test_the_release_source_check_runs_every_node_suite(self) -> None:
+        """`DEFECTS.md` says packaging runs all suites; the list in code must match the files."""
+        source = (ROOT / "scripts" / "release_artifacts.py").read_text(encoding="utf-8")
+        listed = set(re.findall(r'"(tests/[\w.-]+\.test\.js)"', source))
+        files = {f"tests/{path.name}" for path in (ROOT / "tests").glob("*.test.js")}
+        self.assertEqual(sorted(files - listed), [],
+                         "these Node suites exist but the release source check never runs them")
+
     def test_the_readiness_checklist_and_the_workflows_describe_the_same_suites(self) -> None:
         text = CHECKLIST.read_text(encoding="utf-8")
         self.assertIn(ARCHIVE_SUITE, text, "the checklist claims the archive suite; CI must run it")

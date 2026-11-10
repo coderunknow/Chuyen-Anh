@@ -1430,3 +1430,10 @@ same test step, but its detailed log was inaccessible, so its cause is unverifie
 - Hardened four guards and proved each with a control: execution-aware Node coverage (a commented-out line now fails), exact discovered count instead of a `±5` tolerance, multiword Oxford headwords kept whole (`according to` no longer attests `to`), and the objective-item guard skipping on exemption markers rather than on `scorable: false` (all `739` non-scorable keys carry a marker).
 - `tests/test_audit_document_counts.py` now mirrors the app's exact `curation:archived` tag and pins the changelog's per-suite sum to its own total; `sense_integrity_audit.py` `drift()` names the differing fields instead of always printing `meaning`.
 - Totals: Python `252 + 5 = 257`, Node `219`; the twenty `--check` gates and the archive suite pass.
+
+### 2026-11-09 — Independent review round three: five findings fixed, one declined
+
+- Reproduced all six findings from the reviewer's pass over `4862d0e` before editing. Fixed: `--check` accepted reshaped evidence (scope, duplicates, order, unknown fields); the text-typed exempt essay's rubric override was stored and graded as a text answer; the stacked PR ran no CI (`branches: [main]` filter); `release_artifacts.py` skipped two of the seven Node suites; and the `BUG-005` correction had rewritten `DEFECTS.md` D6/D25 in place.
+- Declined one finding: restoring `500 A1 + 500 A2` by adding replacement rows. That is option A plus replacements, which the maintainer rejected for `BUG-001`; the corrections stand.
+- Every fix carries a reproduction: four artifact mutants now exit `1`; the shipped Q51 grades `0 / 0.25 / 0.75 / 1` as credit and `1.5` as `ungraded`; the stack is covered by `arena/**` in the CI filter with no deploy gate touched; the release list is pinned by a test; D6/D25 are byte-identical to the base and D27/D28 record the corrections.
+- Totals: Python `254 + 5 = 259`, Node `221`.

@@ -77,10 +77,21 @@ until `v1.0.0` is published as a non-draft stable release and separately authori
   reproduction: a commented-out `node --test` line fails the coverage test, and a single key flipped to
   `scorable: false` without a marker fails the essay-gate guard.
 
+- **Independent review round three (2026-11-09):** five confirmed findings fixed, one declined.
+  `sense_integrity_audit.py --check` compared a projection of the evidence, so a rewritten `scope`, an
+  unknown field, a duplicated entry or a reordered list all passed — it now compares the complete payload.
+  The `text`-typed exempt essay's `0..1` override box stored "0.75" as an answer string and every credit
+  graded `incorrect`; `examIsEssayItem()` now decides the override branch, the correction parser and the
+  `(Rubric)` label, and an out-of-range credit is `ungraded`. `ci.yml` now runs CI for PRs stacked on
+  `arena/**` (previously `main` only, so this stacked PR ran nothing; no deploy gate changed),
+  `release_artifacts.py` runs all seven Node suites, and `DEFECTS.md` D6/D25 were restored verbatim with
+  the correction kept in D27/D28. Declined: re-adding replacement rows to reach `500 A1 + 500 A2`, which
+  the maintainer rejected for `BUG-001`.
+
 ### Verification
 
 - **Validators & `--check` gates:** `expand_vocabulary`, `build_vocabulary`, `build_senses`, `audit_sense_sources`, `validate_vocab`, `embed_vocabulary`, `build_phrases`, `validate_phrases`, `embed_phrases`, `build_answer_keys`, `verify_curated_keys`, `audit_rendering`, `classify_anomalies`, `embed_archive`, `audit_vocabulary_quality`, `vocabulary_cefr_review`, `vocabulary_evidence_review`, `rc4_vocabulary_audit`, `audit_exam_provenance`, `generate_vocab_audit_dev5`, and `sense_integrity_audit` (new `--check` mode, wired into `ci.yml` and `deploy.yml`) all pass cleanly.
-- **Automated suites:** Python `unittest` **252 OK** + `scripts/exams/test_archive.py` **5 OK**; Node `static-app.test.js` (`144`) + `exam-scoring.test.js` (`28`) + `exam-anomalies.test.js` (`7`) + `rc10-cefr.test.js` (`10`) + `v100-senses.test.js` (`8`) + `telemetry-api.test.js` (`17`) + `exam-exempt-rubric.test.js` (`5`) = **219 pass / 0 fail**; sequential Chromium E2E (`browser-learning.cjs` + `browser-exams.cjs` with `axe-core` WCAG 2.1 AA, `320–1440px` viewports, VI/EN, Classic/Modern, light/dark, `file://` standalone) **PASS**; `speed-benchmark.cjs` **PASS** (`3 ms` median consolidation/retry DOM latency, `0` page errors).
+- **Automated suites:** Python `unittest` **254 OK** + `scripts/exams/test_archive.py` **5 OK**; Node `static-app.test.js` (`144`) + `exam-scoring.test.js` (`28`) + `exam-anomalies.test.js` (`7`) + `rc10-cefr.test.js` (`10`) + `v100-senses.test.js` (`8`) + `telemetry-api.test.js` (`17`) + `exam-exempt-rubric.test.js` (`7`) = **221 pass / 0 fail**; sequential Chromium E2E (`browser-learning.cjs` + `browser-exams.cjs` with `axe-core` WCAG 2.1 AA, `320–1440px` viewports, VI/EN, Classic/Modern, light/dark, `file://` standalone) **PASS**; `speed-benchmark.cjs` **PASS** (`3 ms` median consolidation/retry DOM latency, `0` page errors).
 - Current gates, defects, work log, and readiness report: `audit/v100/{GATES,DEFECTS,WORK_LOG,FINAL_READINESS_CHECKLIST,FINAL_READINESS}.md`.
   Separate explicit authorization is required before merge, tag, release or deployment.
 

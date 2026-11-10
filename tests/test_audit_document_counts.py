@@ -43,7 +43,9 @@ def measured():
 # Each pattern states where a document claims the default-selection size. A
 # missing claim fails too: the report is supposed to say how big the deck is.
 CLAIMS = {
-    "audit/v100/DEFECTS.md": r"([\d,]+) default B2\+C1 eligible",
+    # D6 keeps the figure it recorded on 2026-11-08; the current value is stated
+    # by its dated correction row (D27), which is what this guard must check.
+    "audit/v100/DEFECTS.md": r"Corrected to `([\d,]+)` / `([\d,]+)`",
     "audit/v100/GATES.md": r"active focus deck = \*\*`([\d,]+)` headwords \(`([\d,]+)` senses\)\*\*",
     "audit/v100/FINAL_READINESS.md": r"default `B2\+C1` focus selection: `([\d,]+)` headwords / `([\d,]+)` senses",
     "README.md": r"mặc định chọn B2\+C1 \(([\d.]+) từ trọng tâm / ([\d.]+) nghĩa\)",
@@ -79,6 +81,20 @@ class AuditDocumentCountTests(unittest.TestCase):
                     problems.append(f"{name}: states {normalized(numbers[1])} senses, "
                                     f"the data has {self.senses}")
         self.assertEqual([], problems, "stale default-selection counts:\n  " + "\n  ".join(problems))
+
+    def test_the_historical_ledger_rows_keep_what_they_recorded(self) -> None:
+        """A ledger records what was believed then; corrections are appended, not substituted."""
+        text = (ROOT / "audit" / "v100" / "DEFECTS.md").read_text(encoding="utf-8")
+        rows = {line.split("|")[1].strip(): line for line in text.splitlines()
+                if line.startswith("| D") and line.count("|") > 2}
+        self.assertIn("3,032", rows.get("D6", ""),
+                      "D6 must keep the figure it recorded; the correction belongs in its own dated row")
+        self.assertIn("157", rows.get("D25", ""),
+                      "D25 must keep the figure it recorded; the correction belongs in its own dated row")
+        self.assertIn("3,020", rows.get("D27 (new, 2026-11-09)", ""),
+                      "the dated correction must state the current headword count")
+        self.assertIn("158", rows.get("D28 (new, 2026-11-09)", ""),
+                      "the dated correction must state the current open-ended count")
 
     def test_the_changelog_totals_agree_with_the_checklist_and_their_own_parts(self) -> None:
         """The unreleased section quoted `237 OK` / `214 pass` long after the suite had grown."""

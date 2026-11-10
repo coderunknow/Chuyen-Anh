@@ -2,7 +2,9 @@ name: Static checks
 
 on:
   pull_request:
-    branches: [main]
+    # Candidate work is reviewed as a draft PR stacked on the previous candidate
+    # branch, so a `main`-only filter meant such a PR ran no CI at all (PR #84).
+    branches: [main, "arena/**"]
     paths: &ci-paths
       - "index.html"
       - "Learned_Vocabulary_List.md"

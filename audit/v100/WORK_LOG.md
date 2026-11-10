@@ -250,3 +250,17 @@
 - **Validation method:** fail-first runs plus three negative controls, `unittest` discovery, the seven Node suites, the twenty `--check` gates, and the archive suite in a venv.
 - **Status:** `VERIFIED`
 - **Outcome:** fail-first — `252 != 250 : checklist states 250 unit tests; discover collects 252` and `250 != 237 : the changelog states a Python total the checklist does not`. Controls: commenting out the telemetry `node --test` line fails with `['telemetry-api.test.js']`; one key flipped to `scorable: false` without a marker fails `not ok 5 … a scorable objective item was treated as an exempt essay`; restoring the whitespace split fails `the multiword headword must be indexed as printed`. Totals are now Python `252 + 5 = 257` and Node `219`; no seed row changed band and no exam item changed verdict.
+
+### `W018` — Independent review, round three: reproduced six findings, fixed five, declined one
+- **Problem statement:** the independent reviewer's pass over `4862d0e` reported six findings. Each was reproduced before any edit: `--check` accepted reshaped evidence; the text-typed exempt essay's rubric override was graded as text; the stacked PR ran no CI; the ledger had been rewritten in place; the release source check skipped two Node suites; and the review demanded `500 A1 + 500 A2` by adding replacement rows.
+- **Affected files / scope:** `scripts/sense_integrity_audit.py`, `scripts/release_artifacts.py`, `index.html`, `.github/workflows/ci.yml`, `audit/v100/DEFECTS.md`, `tests/{test_sense_integrity_audit_artifact,test_audit_document_counts,test_ci_gate_coverage}.py`, `tests/exam-exempt-rubric.test.js`, plus the count surfaces.
+- **Expected result:** every finding that holds is fixed with a reproduction; the one that contradicts a maintainer decision is declined in writing rather than implemented.
+- **Acceptance criteria:**
+  1. Scope/duplicate/reorder/unknown-field mutants of the evidence file make `--check` exit nonzero.
+  2. The shipped Q51 override grades `0 / 0.25 / 0.75 / 1` as rubric credit and `1.5` as `ungraded`.
+  3. A stacked PR is covered by CI without weakening any deploy gate.
+  4. Release source validation names every Node suite.
+  5. `DEFECTS.md` D6/D25 keep their original figures; the correction lives in D27/D28.
+- **Validation method:** fail-first reproduction on `4862d0e`, negative controls, full suites, twenty `--check` gates, archive suite in a venv, protected-path diff against `main`.
+- **Status:** `VERIFIED` (F1 declined — see below)
+- **Outcome:** F2–F6 fixed and pinned; F1 declined because the maintainer chose "correct the levels" over "correct plus seven replacement rows" for `BUG-001`, and this loop does not reopen an approved decision. Totals: Python `254 + 5 = 259`, Node `221`.

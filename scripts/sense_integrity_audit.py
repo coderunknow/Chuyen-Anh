@@ -90,6 +90,21 @@ def drift(committed: dict, fresh: dict) -> list[str]:
     for key in ('entriesInspected', 'entriesFlagged', 'issueCounts'):
         if committed.get(key) != fresh.get(key):
             problems.append(f"{key}: committed {committed.get(key)!r}, data says {fresh.get(key)!r}")
+    # The checks above compare a projection: entries keyed by id (so ordering and
+    # duplicates vanish), three named counts, and nothing else. `scope` is a claim
+    # about the artifact, and a duplicated or reordered entry makes the file differ
+    # from a fresh regeneration even when every entry body matches. Compare the
+    # whole decoded payload too, or an altered artifact passes `--check`.
+    committed_ids = [row.get('id') for row in committed.get('entries', [])]
+    fresh_ids = [row.get('id') for row in fresh.get('entries', [])]
+    if committed_ids != fresh_ids:
+        problems.append(f"entries: committed {len(committed_ids)} entries are reordered or duplicated; "
+                        f"a fresh regeneration has {len(fresh_ids)}")
+    if committed != fresh and not problems:
+        changed = sorted((set(committed) ^ set(fresh))
+                         | {key for key in set(committed) & set(fresh) if committed[key] != fresh[key]})
+        problems.append("payload: the artifact differs from a fresh regeneration "
+                        f"(fields: {', '.join(changed) or 'nested values'})")
     return problems
 
 

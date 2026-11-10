@@ -122,3 +122,48 @@ test('the essay gate never captures a scorable objective item', () => {
   assert.ok(checked > 5000, `expected the scorable items to be inspected, checked ${checked}`);
   assert.deepEqual(overreached, [], 'a scorable objective item was treated as an exempt essay');
 });
+
+test('a learner override on a text-typed exempt essay is rubric credit, not an answer string', () => {
+  // The UI offers a 0..1 credit box because `examIsEssayItem` says this item is
+  // essay-like. Grading and correction parsing must agree with that decision, or
+  // "0.75" is stored as an answer and compared with the learner's own essay.
+  const record = records.find(r => r.id === '2022/ha-noi/so');
+  const question = app.parseExamQuestions(record.markdown, record.id)
+    .find(q => q.id === 'q-51-9c5133cba3668e8e');
+  const curated = record.answerKey.find(k => k.questionId === question.id);
+  assert.equal(question.responseType, 'text', 'the protected parser still types this item as text');
+
+  // exactly what `examApplyCorrections` builds: base key first, correction second
+  const corrected = credit => ({
+    ...curated,
+    candidates: [credit], acceptedAlternatives: [], normalization: 'essay-rubric',
+    scorable: true, ungradeableReason: null,
+    verificationStatus: 'user_confirmed', sourceStatus: 'user', confidence: 'MEDIUM'
+  });
+
+  for (const [credit, result, earned] of [['0', 'incorrect', 0], ['0.25', 'partial', 0.25],
+                                          ['0.75', 'correct', 0.75], ['1', 'correct', 1]]) {
+    const grade = app.gradeExamQuestion(question, SAMPLE_ESSAY, corrected(credit));
+    assert.equal(grade.result, result, `override ${credit} should grade ${result}`);
+    assert.equal(grade.earnedCredit, earned, `override ${credit} should earn ${earned}`);
+    assert.equal(grade.reason, 'learner-rubric-override');
+  }
+
+  const outOfRange = app.gradeExamQuestion(question, SAMPLE_ESSAY, corrected('1.5'));
+  assert.equal(outOfRange.result, 'ungraded', 'an out-of-range credit must not be scored as an essay');
+  assert.equal(outOfRange.reason, 'invalid-rubric-credit');
+});
+
+test('the correction box validates credit for every essay-like item', () => {
+  const record = records.find(r => r.id === '2022/ha-noi/so');
+  const question = app.parseExamQuestions(record.markdown, record.id)
+    .find(q => q.id === 'q-51-9c5133cba3668e8e');
+  const curated = record.answerKey.find(k => k.questionId === question.id);
+
+  assert.deepEqual(app.examCorrectionCandidates(question, '0.75', curated),
+    { candidates: ['0.75'], acceptedAlternatives: [], normalization: 'essay-rubric' });
+  assert.equal(app.examCorrectionCandidates(question, '1.5', curated), null,
+    'a credit above 1 is not a correction');
+  assert.equal(app.examCorrectionCandidates(question, 'excellent', curated), null,
+    'a word is not a credit');
+});
