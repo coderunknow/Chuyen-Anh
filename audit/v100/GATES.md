@@ -92,7 +92,7 @@ Nothing below is claimed before it is measured; commands are listed so every num
 
 ## Current Measured Test Totals
 
-- **Node (`node --trace-deprecation --test`):** `static-app.test.js` (`144`) + `exam-scoring.test.js` (`31`) + `exam-anomalies.test.js` (`7`) + `rc10-cefr.test.js` (`10`) + `v100-senses.test.js` (`8`) + `telemetry-api.test.js` (`17`) + `exam-exempt-rubric.test.js` (`7`) + `core-invariants.test.js` (`11`) = **`235 pass / 0 fail`**
+- **Node (`node --trace-deprecation --test`):** `static-app.test.js` (`144`) + `exam-scoring.test.js` (`33`) + `exam-anomalies.test.js` (`7`) + `rc10-cefr.test.js` (`10`) + `v100-senses.test.js` (`8`) + `telemetry-api.test.js` (`17`) + `exam-exempt-rubric.test.js` (`7`) + `core-invariants.test.js` (`11`) = **`237 pass / 0 fail`** (Round 6 added two regression tests to `exam-scoring`; `tests/test_ci_gate_coverage.py` recomputes these counts from the files and recomputes the total from the row itself)
 - **Python (`python3 -m unittest discover -s tests -p 'test_*.py'` + `python scripts/exams/test_archive.py` with `scripts/exams/requirements.txt` installed):** **`257 + 5 = 262 OK / 0 fail`** — the archive suite now runs in `ci.yml` (a venv installs its pinned requirements), so the number is reproducible on a fresh checkout instead of needing a hand-made `.venv`
 - **Browser (`tests/run-browser-suites.sh` + `tests/speed-benchmark.cjs` on Chromium `133.0.6943.0`):** **`browser-learning.cjs` PASS + `browser-exams.cjs` PASS + `speed-benchmark.cjs` PASS (`3 ms` median consolidation/retry DOM latency, `0` page errors)**
 - **Generators & `--check` gates:** All `19` `--check` / audit / provenance / curated-key validators exit `0`.

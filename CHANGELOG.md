@@ -106,6 +106,30 @@ until `v1.0.0` is published as a non-draft stable release and separately authori
 - **Regression test:** `tests/exam-scoring.test.js` → "rc10 import hardening"; removing either the escape or the
   validator checks makes it fail. Totals: Python `257 + 5 = 262 OK`, Node **235 / 0 fail**.
 
+### Import union & paper-snapshot integrity (Round 6, 2026-11-09)
+
+- **D48 (P2): a merged history could exceed the 50-attempt window and the import blamed storage.** `mergeExamResultHistory`
+  returned the union of two valid histories without applying `EXAM_RESULT_HISTORY_LIMIT`. With 40 local and 20 imported
+  attempts the union was 60, `validateExamResultHistory` refused it inside `saveExamResultHistory`, and
+  `importExamResultHistory` reported `storage-failed` — an error naming a healthy subsystem. The merge now sorts by
+  `submittedAt` (stable), keeps the newest 50 (the order the history screen already assumes), and drops the papers and
+  corrections that only the dropped attempts used. Repro `audit-evidence/round6/scripts/r6-merge.mjs` (`storage-failed`,
+  `storedAfter: 40` → `ok`, `storedAfter: 50`); regression test fails pre-fix (`31/1`) and passes post-fix (`33/0`).
+- **D49 (P3): a second attempt could silently overwrite the shared paper snapshot.** Every attempt of one archive shares
+  `paperKey = examId@contentSha256`, so `addExamResult` replaced the stored snapshot when a second attempt carried a
+  different question set. The earlier attempt's answers then pointed at questions the paper no longer held: the history
+  failed its own validator (`unknown-question-response`) and could neither be saved nor export-restored, with nothing
+  reported at the moment of corruption. A conflicting snapshot now throws `Conflicting exam paper snapshot.` and the
+  stored history stays valid. Not reachable from today's UI (it always practises the full paper); found by the Round-6
+  stateful fuzz (`25` violations pre-fix, `0` post-fix), minimised in `scripts/r6-snapshot.mjs`.
+- **Verification:** `8/8` mutants around the two fixes killed (`scripts/r6-mutants.mjs`); fuzz `150` sequences × `14`
+  operations = `11,677` invariant checks with `0` violations; backup round trip field-for-field identical; corrections
+  re-score stored attempts, survive export/import and are pruned with the attempt. Totals: Node **`237 / 0 fail`**
+  (`exam-scoring` `31 → 33`), Python `257 + 5 = 262 OK`, `21/21` `--check` gates exit `0`.
+- **Not changed on purpose:** the v1 backup still excludes phrase progress and the CEFR selection (stated in the UI copy;
+  a schema change, not a fix), and `paperKey` stays content-unaware (content-addressed keys would change the persisted
+  format and the merge/dedupe semantics of every existing history).
+
 ### Engine invariants & import coherence (Round 5, 2026-11-09)
 
 - **D40 (P2): the test suites did not detect changes to the engine.** Mutation testing over the shipped learning/grading code
@@ -128,7 +152,7 @@ until `v1.0.0` is published as a non-draft stable release and separately authori
 - **Verification**
 
 - **Validators & `--check` gates:** `expand_vocabulary`, `build_vocabulary`, `build_senses`, `audit_sense_sources`, `validate_vocab`, `embed_vocabulary`, `build_phrases`, `validate_phrases`, `embed_phrases`, `build_answer_keys`, `verify_curated_keys`, `audit_rendering`, `classify_anomalies`, `embed_archive`, `audit_vocabulary_quality`, `vocabulary_cefr_review`, `vocabulary_evidence_review`, `rc4_vocabulary_audit`, `audit_exam_provenance`, `generate_vocab_audit_dev5`, and `sense_integrity_audit` (new `--check` mode, wired into `ci.yml` and `deploy.yml`) all pass cleanly.
-- **Automated suites:** Python `unittest` **257 OK** + `scripts/exams/test_archive.py` **5 OK**; Node `static-app.test.js` (`144`) + `exam-scoring.test.js` (`31`) + `exam-anomalies.test.js` (`7`) + `rc10-cefr.test.js` (`10`) + `v100-senses.test.js` (`8`) + `telemetry-api.test.js` (`17`) + `exam-exempt-rubric.test.js` (`7`) + `core-invariants.test.js` (`11`) = **235 pass / 0 fail**; sequential Chromium E2E (`browser-learning.cjs` + `browser-exams.cjs` with `axe-core` WCAG 2.1 AA, `320–1440px` viewports, VI/EN, Classic/Modern, light/dark, `file://` standalone) **PASS**; `speed-benchmark.cjs` **PASS** (`3 ms` median consolidation/retry DOM latency, `0` page errors).
+- **Automated suites:** Python `unittest` **257 OK** + `scripts/exams/test_archive.py` **5 OK**; Node `static-app.test.js` (`144`) + `exam-scoring.test.js` (`33`) + `exam-anomalies.test.js` (`7`) + `rc10-cefr.test.js` (`10`) + `v100-senses.test.js` (`8`) + `telemetry-api.test.js` (`17`) + `exam-exempt-rubric.test.js` (`7`) + `core-invariants.test.js` (`11`) = **237 pass / 0 fail**; sequential Chromium E2E (`browser-learning.cjs` + `browser-exams.cjs` with `axe-core` WCAG 2.1 AA, `320–1440px` viewports, VI/EN, Classic/Modern, light/dark, `file://` standalone) **PASS**; `speed-benchmark.cjs` **PASS** (`3 ms` median consolidation/retry DOM latency, `0` page errors).
 - Current gates, defects, work log, and readiness report: `audit/v100/{GATES,DEFECTS,WORK_LOG,FINAL_READINESS_CHECKLIST,FINAL_READINESS}.md`.
   Separate explicit authorization is required before merge, tag, release or deployment.
 

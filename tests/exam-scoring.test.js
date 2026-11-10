@@ -838,3 +838,107 @@ test('rc10 import hardening: a record produced from a partial session still impo
   assert.equal(app.validateExamResultHistory(exported).ok, true,
     'an export the app produced must never be rejected by the app');
 });
+
+test('merging two valid histories keeps the newest 50 and still imports', () => {
+  const paperFor = record => ({ questions: app.parseExamQuestions(record.markdown, record.id), keys: Array.isArray(record.answerKey) ? record.answerKey : [] });
+  const buildAttempt = (index, id, submittedAt) => {
+    const record = records[index];
+    const { questions, keys } = paperFor(record);
+    const session = app.createExamPracticeSession(record.id, questions, submittedAt - 10);
+    for (const question of questions) app.recordExamPracticeResponse(session, question.id, question.options?.[0]?.id ?? 'x');
+    app.submitExamPractice(session, submittedAt);
+    return app.createExamResultRecord(session, record, keys, { now: submittedAt, id });
+  };
+  const historyOf = attempts => attempts.reduce((history, attempt) => app.addExamResult(history, attempt), app.emptyExamResultHistory());
+  const store = () => {
+    const map = new Map();
+    return { getItem: key => (map.has(key) ? map.get(key) : null), setItem: (key, value) => { map.set(key, String(value)); }, removeItem: key => map.delete(key) };
+  };
+
+  // 50 local attempts on paper A, 50 older attempts from another device on paper B.
+  const local = historyOf(Array.from({ length: 50 }, (_, i) => buildAttempt(0, `local-${i}`, 1000 + i)));
+  const otherAttempts = historyOf(Array.from({ length: 50 }, (_, i) => buildAttempt(1, `other-${i}`, 500 + i)));
+  // A learner correction on the other device's paper: when every attempt of that
+  // paper falls outside the window, the correction has nothing left to score and
+  // must go with it, or the merged history is rejected as an unknown target.
+  // A correction target must exist in the stored snapshot: pick a question that
+  // the paper still holds together with a key, so the correction is legal.
+  const correctionTarget = history => {
+    const paper = Object.values(history.papers)[0];
+    const key = paper.baseKeys.find(k => paper.questions.some(q => q.id === k.questionId));
+    const question = paper.questions.find(q => q.id === key.questionId);
+    return { examId: paper.examId, questionId: question.id, candidates: [question.options?.[0]?.id ?? 'learner answer'] };
+  };
+  const corrected = app.applyExamKeyCorrection(otherAttempts, correctionTarget(otherAttempts));
+  assert.equal(corrected.ok, true, 'the other device history carries a valid correction');
+  const other = corrected.history;
+  const storage = store();
+  assert.equal(app.saveExamResultHistory(local, storage), true);
+
+  const result = app.importExamResultHistory(app.exportExamResultHistory(other), storage);
+  assert.equal(result.ok, true, 'a union of two valid histories must import, not report a storage failure');
+  assert.equal(result.history.attempts.length, 50, 'the merged history keeps exactly the 50-attempt window');
+  assert.deepEqual(result.history.attempts.map(a => a.id), Array.from({ length: 50 }, (_, i) => `local-${i}`),
+    'the newest attempts win: every imported one is older than every local one');
+  assert.deepEqual(Object.values(result.history.papers).map(p => p.examId), [records[0].id],
+    'the paper only the dropped attempts used is pruned too');
+  assert.equal(result.history.corrections.length, 0,
+    'a correction against the trimmed-away paper cannot be kept: its target no longer exists');
+  assert.equal(app.loadExamResultHistory(storage).attempts.length, 50, 'and the trimmed history saves');
+
+  // The other direction: 20 newer attempts from a second device displace the 30 oldest local ones.
+  const store2 = store();
+  const local2 = historyOf(Array.from({ length: 40 }, (_, i) => buildAttempt(0, `local-${i}`, 1000 + i)));
+  app.saveExamResultHistory(local2, store2);
+  const newer = historyOf(Array.from({ length: 20 }, (_, i) => buildAttempt(1, `newer-${i}`, 2000 + i)));
+  const merged2 = app.importExamResultHistory(app.exportExamResultHistory(newer), store2);
+  assert.equal(merged2.ok, true);
+  assert.equal(merged2.history.attempts.length, 50);
+  const kept = merged2.history.attempts.map(a => a.id);
+  assert.equal(kept.at(-1), 'newer-19', 'the newest attempt stays last in storage order (the history screen reverses it)');
+  assert.equal(kept.includes('local-0'), false, 'the 30 oldest local attempts are dropped');
+  assert.equal(kept.includes('local-10'), true, 'everything newer than them is kept');
+  assert.equal(kept.filter(id => id.startsWith('newer-')).length, 20, 'all 20 imported attempts survive');
+  // The mirror case: a correction on a paper that does survive every trim stays.
+  const keptCorrection = app.applyExamKeyCorrection(newer, correctionTarget(newer));
+  assert.equal(keptCorrection.ok, true);
+  const store3 = store();
+  app.saveExamResultHistory(local2, store3);
+  const merged3 = app.importExamResultHistory(app.exportExamResultHistory(keptCorrection.history), store3);
+  assert.equal(merged3.ok, true);
+  assert.equal(merged3.history.corrections.length, 1, 'trimming must not drop a correction whose paper survives');
+});
+
+test('a second attempt on the same paper cannot overwrite the stored question set', () => {
+  // Every attempt of one archive shares `examId@contentSha256` as its paper key,
+  // so the first snapshot is the only one that can score its attempts. A caller
+  // that practises a different slice of the same paper must be refused: letting
+  // the snapshot be replaced leaves the earlier answers pointing at questions the
+  // paper no longer holds, and the whole history then fails validation and can no
+  // longer be saved or exported.
+  const record = records[0];
+  const questions = app.parseExamQuestions(record.markdown, record.id);
+  const keys = Array.isArray(record.answerKey) ? record.answerKey : [];
+  assert.ok(questions.length >= 6, 'the fixture paper needs enough questions');
+  const build = (subset, id, submittedAt) => {
+    const session = app.createExamPracticeSession(record.id, subset, submittedAt - 10);
+    for (const question of subset) app.recordExamPracticeResponse(session, question.id, question.options?.[0]?.id ?? 'x');
+    app.submitExamPractice(session, submittedAt);
+    return app.createExamResultRecord(session, record, keys, { now: submittedAt, id });
+  };
+
+  const first = build(questions.slice(0, 3), 'slice-a', 1000);
+  const second = build(questions.slice(2, 6), 'slice-b', 2000);
+  assert.equal(first.paperKey, second.paperKey, 'both attempts belong to the same stored paper');
+  assert.notDeepEqual(first.paper.questions, second.paper.questions, 'and they carry different question sets');
+
+  const history = app.addExamResult(app.emptyExamResultHistory(), first);
+  assert.equal(app.validateExamResultHistory(history).ok, true);
+  const storage = store();
+  assert.equal(app.saveExamResultHistory(history, storage), true, 'the first attempt saves on its own');
+
+  assert.throws(() => app.addExamResult(history, second), /Conflicting exam paper snapshot/,
+    'the conflicting snapshot is rejected instead of silently corrupting the history');
+  assert.equal(app.validateExamResultHistory(history).ok, true, 'the rejected call leaves the history valid');
+  assert.equal(app.loadExamResultHistory(storage).attempts.length, 1, 'and the saved history still holds the first attempt');
+});

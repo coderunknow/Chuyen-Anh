@@ -1485,3 +1485,19 @@ same test step, but its detailed log was inaccessible, so its cause is unverifie
 - **Counts:** Python `256 + 5 = 261`, Node `222 → 234`; `ci.yml`, `release_artifacts.py` and the CI-coverage meta-test all
   name the new suite (the meta-test failed first, which is the gate working).
 
+## 2026-11-09 (Round 6) — system-wide audit; import union and paper-snapshot integrity
+
+- Two defects, both fixed at the root cause with regression tests that fail on the pre-fix tree:
+  `R6-01`/`D48` (a merged history could exceed the 50-attempt window and the import then reported
+  `storage-failed` for a storage that was healthy) and `R6-02`/`D49` (`addExamResult` silently
+  replaced a shared paper snapshot, making the history unsavable and un-restorable).
+- `R6-02` was found by a seeded stateful fuzz of the history surface, not by reading code: the fuzz
+  walked `add`/`delete`/`correct`/`merge` and asked, after every operation, whether the history
+  still passed its own validator. It did not, on sequences that practise two slices of one paper.
+- Mutation testing (`8/8` killed) also audited the audit: the first run's two survivors were one
+  harness defect (first-occurrence string replacement) and one genuine test gap, both closed.
+- Honest gaps: no browser E2E in this sandbox, so the chromium/firefox/webkit layers are BLOCKED and
+  can only be read from CI; accessibility was read, not measured; performance numbers are Round-5
+  baselines on unchanged code.
+- Evidence: `audit-evidence/round6/{REPORT,SYSTEM_MAP,COVERAGE_MATRIX,FINDINGS,TEST_STRATEGY,EVIDENCE_MANIFEST,CHECKLIST}.md`
+  with `scripts/` and `logs/` (pre-fix and post-fix runs kept separately, append-only).

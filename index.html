@@ -553628,6 +553628,13 @@ export function addExamResult(history, attempt) {
   if (!attempt?.paper || attempt.paper.id !== attempt.paperKey) throw new Error('Invalid exam paper snapshot.');
   if (next.attempts.some(a => a.id === attempt.id)) return next;
   const { paper, ...stored } = examClone(attempt);
+  // One paper key covers every attempt of the same archive, so the snapshot that
+  // was registered first is the only one that can score its attempts. Replacing
+  // it with a different question set leaves the earlier answers pointing at items
+  // the paper no longer holds: the history then fails its own validator and the
+  // save silently drops every attempt, so the conflict has to fail loudly here.
+  const known = next.papers[paper.id];
+  if (known && JSON.stringify(known) !== JSON.stringify(paper)) throw new Error('Conflicting exam paper snapshot.');
   next.papers[paper.id] = paper;
   next.attempts.push(stored);
   if (next.attempts.length > EXAM_RESULT_HISTORY_LIMIT) {
@@ -553811,6 +553818,23 @@ export function mergeExamResultHistory(local, incoming) {
     const existing = next.corrections.find(c => c.id === correction.id);
     if (existing && JSON.stringify(existing) !== JSON.stringify(correction)) return { ok: false, reason: 'conflicting-correction' };
     if (!existing) next.corrections.push(correction);
+  }
+  // A union of two valid histories can exceed the window every other path
+  // enforces (memory, storage, backup, import). Without this trim the merged
+  // history fails validation on save, and the caller reports `storage-failed`
+  // for a storage that is perfectly healthy - the learner's other device is
+  // simply refused. Keep the newest attempts by submission time, which is the
+  // order the history screen already assumes, and drop the papers and
+  // corrections that only the dropped attempts used.
+  if (next.attempts.length > EXAM_RESULT_HISTORY_LIMIT) {
+    next.attempts = next.attempts
+      .map((attempt, index) => ({ attempt, index }))
+      .sort((a, b) => (a.attempt.submittedAt - b.attempt.submittedAt) || (a.index - b.index))
+      .slice(-EXAM_RESULT_HISTORY_LIMIT)
+      .map(entry => entry.attempt);
+    const used = new Set(next.attempts.map(attempt => attempt.paperKey));
+    for (const key of Object.keys(next.papers)) if (!used.has(key)) delete next.papers[key];
+    examPruneCorrections(next);
   }
   return { ok: true, history: examRecomputeResultHistory(next) };
 }
