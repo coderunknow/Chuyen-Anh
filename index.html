@@ -853,7 +853,12 @@ h1, h2, h3 { font-family: var(--font-serif); font-weight: 700; letter-spacing: -
 }
 .chip.is-on .chip-label, .chip.is-on .chip-count { color: var(--primary-strong); }
 .chip.is-on::before { content: "✓"; margin-right: 4px; font-size: .72rem; color: var(--primary-strong); }
-.chip.is-unavailable { border-style: dashed; opacity: .72; }
+.chip.is-unavailable { border-style: dashed; }
+/* Unavailable chips used to fade to opacity .72. That multiplies the text colour
+   too: the "Chưa phân loại" count rendered at 3.52:1 (WCAG 2.2 AA needs 4.5:1 for
+   text under 18.66px bold / 24px), and no palette value could pass while the fade
+   stayed. The dashed border and the "0 từ" count already say "unavailable", so the
+   text keeps full contrast. */
 .chip--exercise.is-on::before { content: "✓"; }
 .chip--exercise:not(.is-on)::before { content: ""; }
 .segmented { display: inline-flex; flex-wrap: wrap; padding: 3px; border: 1px solid var(--border); border-radius: var(--radius-pill); background: var(--surface-soft); gap: 2px; }
@@ -547705,6 +547710,7 @@ const EN_UI_TRANSLATIONS = Object.freeze({
   'Số thẻ mặc định mỗi phiên': 'Default cards per session',
   'Áp dụng cho Đến hạn, Từ yếu, Từ mới, Ngẫu nhiên, Yêu thích và Học cấp tốc. Phiên nhanh 10/20/30 giữ số thẻ ghi trên nút.': 'Applies to Due, Weak, New, Random, Favorites, and Study sprint. Quick 10/20/30 sessions keep the size shown on their button.',
   'Sao lưu tiến độ': 'Progress backup',
+  'Bản sao JSON v1 gồm tiến độ flashcard, từ yêu thích, chuỗi ngày, lịch sử học và cài đặt. Từ khó, cấu hình phiên ưu tiên, huy hiệu đã đạt và tiến độ cụm từ là các khối tùy chọn; bản sao v1 cũ vẫn nhập được. Bộ lọc CEFR, giao diện sáng/tối và ngôn ngữ hiển thị là cài đặt của từng thiết bị. Kho đề offline nằm trong tệp HTML, không thuộc bản sao lưu.': 'The v1 JSON backup contains flashcard progress, favorites, streak, session history and settings. Hard words, priority-session settings, earned badges and phrase practice are optional blocks; an older v1 file still imports. The CEFR filter, light/dark theme and interface language are per-device settings. The offline exam archive is embedded in the HTML and is not part of the backup.',
   'Bản sao JSON v1 chỉ gồm tiến độ flashcard, từ yêu thích, chuỗi ngày, lịch sử học và cài đặt. Kho đề offline được nhúng trong tệp HTML, không thuộc định dạng sao lưu tiến độ.': 'The v1 JSON backup contains flashcard progress, favorites, streak, study history, and preferences only. The offline exam archive is embedded in the HTML and is not part of the progress backup.',
   'Xuất bản sao JSON': 'Export JSON backup',
   'Nhập bản sao JSON': 'Import JSON backup',
@@ -547899,8 +547905,8 @@ const EN_UI_TRANSLATIONS = Object.freeze({
   'Đánh dấu từ khó': 'Mark as hard word',
   'Bỏ đánh dấu từ khó': 'Remove hard-word mark',
   'Sao lưu tiến độ': 'Progress backup',
+  'Bản sao JSON v1 gồm tiến độ flashcard, từ yêu thích, chuỗi ngày, lịch sử học và cài đặt. Từ khó, cấu hình phiên ưu tiên, huy hiệu đã đạt và tiến độ cụm từ là các khối tùy chọn; bản sao v1 cũ vẫn nhập được. Bộ lọc CEFR, giao diện sáng/tối và ngôn ngữ hiển thị là cài đặt của từng thiết bị. Kho đề offline nằm trong tệp HTML, không thuộc bản sao lưu.': 'The v1 JSON backup contains flashcard progress, favorites, streak, session history and settings. Hard words, priority-session settings, earned badges and phrase practice are optional blocks; an older v1 file still imports. The CEFR filter, light/dark theme and interface language are per-device settings. The offline exam archive is embedded in the HTML and is not part of the backup.',
   'Bản sao JSON v1 gồm tiến độ flashcard, từ yêu thích, chuỗi ngày, lịch sử học và cài đặt.': 'The v1 JSON backup contains flashcard progress, favorites, streak, session history and settings.',
-  'Từ khó, cấu hình phiên ưu tiên và huy hiệu đã đạt được ghi thêm dưới dạng trường tùy chọn; bản sao v1 cũ vẫn nhập được và các trường mới sẽ dùng giá trị mặc định.': 'Hard words, the priority configuration and unlocked badges are written as optional fields; older v1 backups still import and the new fields keep this device values.',
   'Kho đề offline nằm trong tệp HTML, không thuộc bản sao lưu.': 'The offline exam archive lives in the HTML file and is not part of the backup.',
   'Xuất bản sao JSON': 'Export JSON backup',
   'Nhập bản sao JSON': 'Import JSON backup',
@@ -548064,7 +548070,13 @@ const EN_UI_TRANSLATIONS = Object.freeze({
   'Không thể lưu lựa chọn hiển thị nghĩa trên thiết bị này.': 'This device cannot store the meaning preference.',
   'Không thể lưu kiểu giao diện trên thiết bị này.': 'This device cannot store the interface style.',
   'Đã chuyển sang giao diện Modern.': 'Switched to the Modern interface.',
-  'Đã chuyển sang giao diện Classic.': 'Switched to the Classic interface.'
+  'Đã chuyển sang giao diện Classic.': 'Switched to the Classic interface.',
+  'Bản đề của kết quả này không còn trong kho.': 'The paper for this result is no longer in the archive.',
+  'Không thể lưu bộ lọc CEFR.': 'The CEFR filter could not be saved.',
+  'Không thể lưu lịch sử luyện đề trên thiết bị này.': 'The exam history could not be saved on this device.',
+  'Không thể lưu lịch sử luyện đề; hãy tải kết quả JSON trước khi đóng trang.': 'The exam history could not be saved; download the JSON result before closing the page.',
+  'Không thể mở kho đề để xem lịch sử.': 'The exam archive could not be opened to view this history.',
+  'Đã nhập lịch sử luyện đề hợp lệ.': 'The exam history was imported.'
 });
 
 const EN_UI_PATTERNS = [
@@ -553571,6 +553583,9 @@ export function examResultFilename(result) {
   return `ket-qua-${safe}-${date}.json`;
 }
 
+// The single definition of a storable paper key, shared by the writer and the
+// validator so the two can never disagree about what is storable.
+const EXAM_PAPER_KEY_RE = /^[^\s@]{1,300}@[a-f0-9]{64}$/;
 function examPaperKey(examId, contentSha256) { return `${examId}@${contentSha256}`; }
 function examClone(value) { return JSON.parse(JSON.stringify(value)); }
 // Snapshot equality must not depend on property order. A paper that was exported,
@@ -553583,6 +553598,29 @@ function examCanonicalJson(value) {
     return `{${Object.keys(value).sort().map(key => `${JSON.stringify(key)}:${examCanonicalJson(value[key])}`).join(',')}}`;
   }
   return JSON.stringify(value);
+}
+// Retention keeps the newest attempts, so it must act on submission time and not
+// on array position: an imported history can put a record first (a device whose
+// clock runs ahead writes a later `submittedAt`), and a positional trim then
+// discards the newest attempt while keeping older ones. The sort is stable.
+function examOrderAttempts(attempts) {
+  return attempts
+    .map((attempt, index) => ({ attempt, index }))
+    .sort((a, b) => (a.attempt.submittedAt - b.attempt.submittedAt) || (a.index - b.index))
+    .map(entry => entry.attempt);
+}
+// What makes two records "the same attempt" for a merge is what the learner did:
+// the paper, the responses and when they were submitted. `summary` and
+// `questionResults` are derived from the responses and the corrections in force,
+// so they are the *result* of an attempt, not its identity. Comparing them made a
+// corrected attempt and its uncorrected copy look like two attempts with one id,
+// so a learner who corrected a key on one device could no longer import their
+// history on another: `conflicting-attempt`.
+function examAttemptIdentity(attempt) {
+  return examCanonicalJson({
+    id: attempt?.id, paperKey: attempt?.paperKey, examId: attempt?.examId,
+    startedAt: attempt?.startedAt, submittedAt: attempt?.submittedAt, responses: attempt?.responses
+  });
 }
 export function emptyExamResultHistory() { return { schemaVersion: EXAM_HISTORY_SCHEMA_VERSION, attempts: [], papers: {}, corrections: [] }; }
 function examPruneCorrections(history) {
@@ -553601,6 +553639,13 @@ function examStoredQuestionResults(results) {
 export function createExamResultRecord(session, record, keys = [], { now = Date.now(), id = null } = {}) {
   if (!session || session.status !== 'submitted' || !record?.contentSha256) throw new Error('Invalid submitted exam result.');
   const paperKey = examPaperKey(record.id, record.contentSha256);
+  // The stored key must be one the importer will accept again. `examPaperKey`
+  // joins id and hash with `@`, and the validator allows no `@` inside the id, so
+  // an id that contains one produced a record that could never be saved or
+  // re-imported - the learner was told to "download the JSON", and that file was
+  // rejected too. Refusing it here fails at the only point where the promise is
+  // still true: nothing has been reported as saved yet.
+  if (!EXAM_PAPER_KEY_RE.test(paperKey)) throw new Error('Invalid exam paper key.');
   // Keep the snapshot self-consistent: a key for a question the session never
   // contained would be stored and then rejected by the import validator, which
   // would make the learner's own export unrestorable. Only the questions in this
@@ -553647,7 +553692,7 @@ export function addExamResult(history, attempt) {
   const known = next.papers[paper.id];
   if (known && examCanonicalJson(known) !== examCanonicalJson(paper)) throw new Error('Conflicting exam paper snapshot.');
   next.papers[paper.id] = paper;
-  next.attempts.push(stored);
+  next.attempts = examOrderAttempts([...next.attempts, stored]);
   if (next.attempts.length > EXAM_RESULT_HISTORY_LIMIT) {
     next.attempts = next.attempts.slice(-EXAM_RESULT_HISTORY_LIMIT);
     const used = new Set(next.attempts.map(a => a.paperKey));
@@ -553765,7 +553810,7 @@ export function validateExamResultHistory(payload, { migrateLegacy = false } = {
     const history = emptyExamResultHistory();
     const paperIds = new Set();
     for (const [key, paper] of Object.entries(payload.papers)) {
-      if (paperIds.has(key) || !/^[^\s@]{1,300}@[a-f0-9]{64}$/.test(key) || !paper || !examPaperMetadataIsValid(paper.metadata) || paper.id !== key || typeof paper.examId !== 'string' || !/^[a-f0-9]{64}$/.test(paper.contentSha256)
+      if (paperIds.has(key) || !EXAM_PAPER_KEY_RE.test(key) || !paper || !examPaperMetadataIsValid(paper.metadata) || paper.id !== key || typeof paper.examId !== 'string' || !/^[a-f0-9]{64}$/.test(paper.contentSha256)
         || !Array.isArray(paper.questions) || !paper.questions.length || paper.questions.length > EXAM_PAPER_QUESTION_LIMIT
         || !paper.questions.every(examValidQuestion) || new Set(paper.questions.map(q => q.id)).size !== paper.questions.length
         || !Array.isArray(paper.baseKeys) || !paper.baseKeys.every(examValidKey)
@@ -553812,7 +553857,7 @@ export function validateExamResultHistory(payload, { migrateLegacy = false } = {
   } catch { return { ok: false, reason: 'invalid-payload' }; }
 }
 
-export function mergeExamResultHistory(local, incoming) {
+export function mergeExamResultHistory(local, incoming, { scoreResult = true } = {}) {
   const valid = validateExamResultHistory(incoming);
   if (!valid.ok) return valid;
   const next = examClone(local || emptyExamResultHistory());
@@ -553822,7 +553867,7 @@ export function mergeExamResultHistory(local, incoming) {
   }
   for (const attempt of valid.value.attempts) {
     const existing = next.attempts.find(a => a.id === attempt.id);
-    if (existing && examCanonicalJson(existing) !== examCanonicalJson(attempt)) return { ok: false, reason: 'conflicting-attempt' };
+    if (existing && examAttemptIdentity(existing) !== examAttemptIdentity(attempt)) return { ok: false, reason: 'conflicting-attempt' };
     if (!existing) next.attempts.push(attempt);
   }
   for (const correction of valid.value.corrections) {
@@ -553837,17 +553882,18 @@ export function mergeExamResultHistory(local, incoming) {
   // simply refused. Keep the newest attempts by submission time, which is the
   // order the history screen already assumes, and drop the papers and
   // corrections that only the dropped attempts used.
+  next.attempts = examOrderAttempts(next.attempts);
   if (next.attempts.length > EXAM_RESULT_HISTORY_LIMIT) {
-    next.attempts = next.attempts
-      .map((attempt, index) => ({ attempt, index }))
-      .sort((a, b) => (a.attempt.submittedAt - b.attempt.submittedAt) || (a.index - b.index))
-      .slice(-EXAM_RESULT_HISTORY_LIMIT)
-      .map(entry => entry.attempt);
+    next.attempts = next.attempts.slice(-EXAM_RESULT_HISTORY_LIMIT);
     const used = new Set(next.attempts.map(attempt => attempt.paperKey));
     for (const key of Object.keys(next.papers)) if (!used.has(key)) delete next.papers[key];
     examPruneCorrections(next);
   }
-  return { ok: true, history: examRecomputeResultHistory(next) };
+  // Scoring every attempt is the expensive step and it is pure: a caller that
+  // already holds a fully scored history only needs the union. `scoreResult:
+  // false` is used by the merge-before-write path, which validates the result
+  // before storing it, so nothing unscored can reach disk.
+  return { ok: true, history: scoreResult ? examRecomputeResultHistory(next) : next };
 }
 export function loadExamResultHistory(storage = memorySafeStorage()) {
   const raw = readJson(storage, EXAM_RESULTS_KEY, null);
@@ -553860,6 +553906,61 @@ export function saveExamResultHistory(history, storage = memorySafeStorage()) {
   if (!valid.ok) return false;
   return writeJson(storage, EXAM_RESULTS_KEY, valid.value);
 }
+// A tab keeps its history in memory for the whole session, so a whole-key write
+// silently drops whatever another tab saved after this one booted (RT-01 fixed
+// that for the learner's stores by reloading them on `storage`, but an exam that
+// is being taken cannot be reloaded without throwing the attempt away). Every
+// mutation therefore merges with what the key really holds, and the caller's
+// history is the base: it carries the user's intent (a submitted attempt, a
+// deleted row, a cleared list), and only records this tab has never seen are
+// added, so a deletion is never resurrected.
+export function persistExamResultHistory(next, base, storage = memorySafeStorage()) {
+  const stored = loadExamResultHistory(storage);
+  const baseIds = new Set((Array.isArray(base?.attempts) ? base.attempts : []).map(attempt => attempt?.id));
+  const nextIds = new Set((Array.isArray(next?.attempts) ? next.attempts : []).map(attempt => attempt?.id));
+  const unseenAttempts = stored.attempts.filter(attempt => !baseIds.has(attempt.id) && !nextIds.has(attempt.id));
+  // A correction the caller knew about and dropped (a deleted attempt takes its
+  // corrections with it) is a deliberate removal, exactly like an attempt, so it
+  // must be compared against the base as well; keeping it would also keep the
+  // paper it targets and leave a snapshot no attempt points at.
+  const baseCorrectionIds = new Set((Array.isArray(base?.corrections) ? base.corrections : []).map(correction => correction?.id));
+  const unseenCorrections = (stored.corrections || []).filter(correction =>
+    !baseCorrectionIds.has(correction.id) && !next?.corrections?.some(existing => existing.id === correction.id));
+  // Papers use the same id@sha256 key for every attempt of one archive, so a
+  // paper the caller already knows is never replaced; it is only carried here so
+  // the incoming records can be validated on their own. mergeExamResultHistory
+  // still rejects a genuine snapshot conflict instead of choosing a winner.
+  const neededPapers = new Set([...unseenAttempts.map(attempt => attempt.paperKey), ...unseenCorrections.map(correction => Object.keys(stored.papers).find(key => stored.papers[key].examId === correction.examId))]);
+  const unseen = {
+    app: 'Chuyên Anh', format: 'exam-result-history', schemaVersion: EXAM_HISTORY_SCHEMA_VERSION,
+    // Only papers that the unseen records actually reference are carried: a
+    // whole-history clear or a bulk delete is a deliberate removal, and shipping
+    // the old snapshots along would leave papers no attempt points at.
+    papers: Object.fromEntries(Object.entries(stored.papers || {}).filter(([key]) => neededPapers.has(key))),
+    attempts: unseenAttempts,
+    corrections: unseenCorrections
+  };
+  if (!unseenAttempts.length && !Object.keys(unseen.papers).length && !unseenCorrections.length) {
+    // Fast path: nothing was written by another tab. Reorder a shallow copy -
+    // the attempt objects are not mutated, only their position in the array - and
+    // store it. Cloning 1.6 MB here would cost more than the whole write.
+    const ordered = { ...next, attempts: examOrderAttempts(next.attempts) };
+    return saveExamResultHistory(ordered, storage);
+  }
+  // The union is already fully scored (the caller's history is scored and the
+  // unseen records were validated by mergeExamResultHistory), so re-scoring all
+  // 50 attempts again would only spend main-thread time on the submit path.
+  const merged = mergeExamResultHistory(next, unseen, { scoreResult: false });
+  // Another tab wrote a different snapshot under a key both tabs already hold:
+  // this is a real conflict and must be reported, never resolved by last write.
+  if (!merged.ok) throw new Error(`Conflicting stored exam history: ${merged.reason}`);
+  // Store attempts in submission order regardless of which tab or device wrote
+  // them: the history screen reverses this list and the retention window keeps
+  // its tail, so an out-of-order key would show, and trim, the wrong attempts.
+  const orderedMerged = { ...merged.history, attempts: examOrderAttempts(merged.history.attempts) };
+  return saveExamResultHistory(orderedMerged, storage);
+}
+
 export function importExamResultHistory(rawText, storage = memorySafeStorage()) {
   if (typeof rawText !== 'string' || new TextEncoder().encode(rawText).length > EXAM_IMPORT_MAX_BYTES) return { ok: false, reason: 'too-large-or-invalid' };
   let payload; try { payload = JSON.parse(rawText); } catch { return { ok: false, reason: 'invalid-json' }; }
@@ -554661,7 +554762,7 @@ export async function createApp(root) {
       const pressed = level === CEFR_UNCLASSIFIED ? cefrSelection.unclassified : cefrSelection.levels.includes(level);
       const label = cefrLevelLabel(level);
       const count = counts[level] || 0;
-      return `<button type="button" class="chip ${pressed ? 'is-on' : ''} ${count ? '' : 'is-unavailable'}" data-cefr="${level}" aria-pressed="${pressed}">
+      return `<button type="button" class="chip ${pressed ? 'is-on' : ''} ${count ? '' : 'is-unavailable'}" data-cefr="${level}" aria-pressed="${pressed}" ${count ? '' : 'aria-disabled="true"'}>
         <span class="chip-label">${escapeHtml(label)}</span>
         <span class="chip-count">${count} ${cefrText('từ', 'words')} · ${senseCounts[level] || 0} ${cefrText('nghĩa', 'senses')}</span>
       </button>`;
@@ -555287,7 +555388,7 @@ export async function createApp(root) {
           <h1>Học từ vựng theo trọng tâm của bạn</h1>
           <p>Chọn nhóm từ, trọng tâm và dạng bài trước khi bắt đầu. Lịch ôn cách quãng giữ nguyên quy tắc hiện có.</p>
         </div>
-        <div class="hero-metrics" aria-label="Tóm tắt tiến độ">
+        <div class="hero-metrics" role="group" aria-label="Tóm tắt tiến độ">
           <div class="hero-metric"><strong>${poolSummary.due}</strong><span>Đến hạn</span></div>
           <div class="hero-metric"><strong>${currentStats.accuracy}%</strong><span>Chính xác</span></div>
           <div class="hero-metric"><strong>${streak.current}</strong><span>Ngày liên tiếp</span></div>
@@ -556248,7 +556349,7 @@ export async function createApp(root) {
         }
         return `<span class="vocab-meaning" title="${escapeHtml(item.entry.meaning)}">${hi(item.entry.meaning)}</span>`;
       };
-      results.innerHTML = matches.length ? `<p class="results-meta" role="status" aria-live="polite">${formatCount(matches.length)} kết quả · trang ${page}/${pages}${scopeNote}</p><div class="vocab-list${showGloss ? '' : ' vocab-list--no-gloss'}">${visible.map(item => `<div class="vocab-row${item.archived ? ' vocab-row--archived' : ''}"><span class="vocab-word">${hi(item.entry.word)}</span><span class="card-cefr">${entryCefrBadgesHtml(item.entry)}</span><span class="vocab-pos">${escapeHtml(item.entry.pos)}</span>${glossCell(item)}${item.archived ? `<span class="state-pill state-archived" title="Mục này nằm ngoài bộ từ trọng tâm nên không vào phiên học; nghĩa và tiến độ cũ vẫn được giữ.">Lưu trữ</span>` : `<span class="state-pill state-${escapeHtml(item.state)}">${escapeHtml(stateLabel(item.state))}</span><button class="fav ${item.favorite ? 'active' : ''}" data-fav="${escapeHtml(item.entry.id)}" aria-label="${item.favorite ? 'Bỏ yêu thích' : 'Thêm yêu thích'}">${item.favorite ? '★' : '☆'}</button>`}</div>`).join('')}</div>${pages > 1 ? `<div class="pagination" aria-label="Trang kết quả">${Array.from({ length: pages }, (_, i) => `<button class="btn small ${i + 1 === page ? 'primary' : ''}" data-page="${i + 1}" aria-label="Trang ${i + 1}" ${i + 1 === page ? 'aria-current="page"' : ''}>${i + 1}</button>`).join('')}</div>` : ''}` : '<div class="empty" role="status"><strong>Không tìm thấy</strong>Thử từ khóa khác hoặc bỏ bớt bộ lọc.</div>';
+      results.innerHTML = matches.length ? `<p class="results-meta" role="status" aria-live="polite">${formatCount(matches.length)} kết quả · trang ${page}/${pages}${scopeNote}</p><div class="vocab-list${showGloss ? '' : ' vocab-list--no-gloss'}">${visible.map(item => `<div class="vocab-row${item.archived ? ' vocab-row--archived' : ''}"><span class="vocab-word">${hi(item.entry.word)}</span><span class="card-cefr">${entryCefrBadgesHtml(item.entry)}</span><span class="vocab-pos">${escapeHtml(item.entry.pos)}</span>${glossCell(item)}${item.archived ? `<span class="state-pill state-archived" title="Mục này nằm ngoài bộ từ trọng tâm nên không vào phiên học; nghĩa và tiến độ cũ vẫn được giữ.">Lưu trữ</span>` : `<span class="state-pill state-${escapeHtml(item.state)}">${escapeHtml(stateLabel(item.state))}</span><button class="fav ${item.favorite ? 'active' : ''}" data-fav="${escapeHtml(item.entry.id)}" aria-label="${item.favorite ? 'Bỏ yêu thích' : 'Thêm yêu thích'}: ${escapeHtml(item.entry.word)}" aria-pressed="${item.favorite ? 'true' : 'false'}">${item.favorite ? '★' : '☆'}</button>`}</div>`).join('')}</div>${pages > 1 ? `<div class="pagination" role="group" aria-label="Trang kết quả">${Array.from({ length: pages }, (_, i) => `<button class="btn small ${i + 1 === page ? 'primary' : ''}" data-page="${i + 1}" aria-label="Trang ${i + 1}" ${i + 1 === page ? 'aria-current="page"' : ''}>${i + 1}</button>`).join('')}</div>` : ''}` : '<div class="empty" role="status"><strong>Không tìm thấy</strong>Thử từ khóa khác hoặc bỏ bớt bộ lọc.</div>';
       results.querySelectorAll('[data-fav]').forEach(button => button.addEventListener('click', () => {
         const id = button.dataset.fav;
         toggleFavorite(id, false); // No shell rerender: the search state must survive.
@@ -556669,8 +556770,10 @@ export async function createApp(root) {
     }
     return examGradeLabel(grade?.result, question?.responseType, examIsEssayItem(question, grade));
   }
-  function persistExamResults(next) {
-    if (!saveExamResultHistory(next, storage)) {
+  function persistExamResults(next, base = examResults) {
+    let saved = false;
+    try { saved = persistExamResultHistory(next, base, storage); } catch { saved = false; }
+    if (!saved) {
       toast('Không thể lưu lịch sử luyện đề trên thiết bị này.', 'error');
       return false;
     }
@@ -556868,10 +556971,19 @@ export async function createApp(root) {
         const attempt = createExamResultRecord(session, record, keys);
         const next = addExamResult(examResults, attempt);
         session.attemptId = attempt.id;
-        session.resultSaved = saveExamResultHistory(next, storage);
+        session.resultSaved = persistExamResults(next);
         if (session.resultSaved) examResults = next;
         else toast('Không thể lưu lịch sử luyện đề; hãy tải kết quả JSON trước khi đóng trang.', 'error');
-      } catch { session.resultSaved = false; toast('Không thể tạo bản ghi lịch sử luyện đề.', 'error'); }
+      } catch (error) {
+        session.resultSaved = false;
+        // A conflicting snapshot is the learner's own archive being read
+        // differently (a different question set under the same paper key). It is
+        // actionable - re-open the paper from the archive and retake it - so it
+        // gets its own message instead of the generic "could not create" one.
+        toast(error?.message === 'Conflicting exam paper snapshot.'
+          ? 'Không thể lưu kết quả vì bản đề này đã được lưu với bộ câu hỏi khác; hãy mở lại đề từ kho và làm lại.'
+          : 'Không thể tạo bản ghi lịch sử luyện đề.', 'error');
+      }
       rerender('#exam-submission-summary h3');
     });
     region.querySelector('#exam-download-json')?.addEventListener('click', () => { if (session?.status === 'submitted') downloadExamJson(examResultFilename(buildExamResultJson(session, record, keys, examResults.corrections)), buildExamResultJson(session, record, keys, examResults.corrections)); });
@@ -556941,7 +557053,7 @@ export async function createApp(root) {
         ${flaggedWords.length ? `<div class="flagged-list">${flaggedWords.map(entry => `<div class="flagged-row"><span><b class="vocab-word">${escapeHtml(entry.word)}</b> · <span class="vocab-pos">${escapeHtml(entry.pos)}</span>${passiveGlossSegment(entry, { className: 'vocab-meaning flagged-meaning', content: `<small>${escapeHtml(entry.meaning)}</small>` })}</span><button class="btn small" data-unflag="${escapeHtml(entry.id)}">Bỏ đánh dấu</button></div>`).join('')}</div>` : '<div class="empty" role="status"><strong>Chưa đánh dấu từ khó nào</strong>Bấm biểu tượng cờ trong phiên học hoặc ở kết quả tra cứu để thêm từ.</div>'}
       </div></section>
       <section class="panel"><div class="panel-heading">Sao lưu tiến độ</div><div class="panel-body">
-        <p class="settings-copy">Bản sao JSON v1 gồm tiến độ flashcard, từ yêu thích, chuỗi ngày, lịch sử học và cài đặt. Từ khó, cấu hình phiên ưu tiên và huy hiệu đã đạt được ghi thêm dưới dạng trường tùy chọn; bản sao v1 cũ vẫn nhập được và các trường mới sẽ dùng giá trị mặc định. Kho đề offline nằm trong tệp HTML, không thuộc bản sao lưu.</p>
+        <p class="settings-copy">Bản sao JSON v1 gồm tiến độ flashcard, từ yêu thích, chuỗi ngày, lịch sử học và cài đặt. Từ khó, cấu hình phiên ưu tiên, huy hiệu đã đạt và tiến độ cụm từ là các khối tùy chọn; bản sao v1 cũ vẫn nhập được. Bộ lọc CEFR, giao diện sáng/tối và ngôn ngữ hiển thị là cài đặt của từng thiết bị. Kho đề offline nằm trong tệp HTML, không thuộc bản sao lưu.</p>
         <div class="setting-actions"><button class="btn primary" id="export-setting">${iconMarkup('download')}Xuất bản sao JSON</button><label class="btn" for="import-setting">${iconMarkup('overview')}Nhập bản sao JSON<input id="import-setting" type="file" accept="application/json,.json" hidden></label><button class="btn danger" id="reset-setting">Xóa dữ liệu học</button></div>
       </div></section>
       ${examHistoryMarkup()}
