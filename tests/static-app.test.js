@@ -4446,3 +4446,21 @@ test('every import control is a focusable button, not a label around a hidden in
       `${buttonId} must forward its click to ${inputId}`);
   }
 });
+
+test('an unavailable chip is not announced as disabled, because it still works', () => {
+  // D60 added aria-disabled while fixing a contrast failure. It also told assistive
+  // technology the chip could not be used - but pressing it still changes the
+  // selection and persists it (verified in the chip-state probe: the chip toggles).
+  // The dashed border and the "0" count carry the visual meaning; the attribute
+  // added nothing except a false claim, so it is gone from both chip kinds.
+  // Matched as an attribute, not as a bare word: the comments explaining this fix
+  // mention aria-disabled by name, and a bare-word search would match them.
+  assert.doesNotMatch(appScript[1], /\baria-disabled=/,
+    'an operable chip must not claim to be disabled');
+  // The contrast fix that D60 was actually about must survive: no opacity fade.
+  // These rules live in the page stylesheet, not in the app module.
+  assert.match(html, /\.chip\.is-unavailable \{ border-style: dashed; \}/);
+  assert.doesNotMatch(html, /\.chip\.is-unavailable[^}]*opacity/);
+  // And the "unavailable" signal is still presented visually.
+  assert.match(appScript[1], /is-unavailable/);
+});

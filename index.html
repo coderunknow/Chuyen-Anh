@@ -554922,7 +554922,9 @@ export async function createApp(root) {
         : available;
       const unit = type === EXERCISE_TYPES.MATCH ? 'cặp' : 'từ';
       const unavailable = available === 0;
-      return `<button type="button" class="chip chip--exercise ${enabled ? 'is-on' : ''} ${unavailable ? 'is-unavailable' : ''}" data-exercise="${type}" aria-pressed="${enabled}" ${unavailable ? 'aria-disabled="true"' : ''}>
+      // Same reasoning as the CEFR chips: an exercise type with no eligible cards
+      // is still pressable and still records the choice, so it is not disabled.
+      return `<button type="button" class="chip chip--exercise ${enabled ? 'is-on' : ''} ${unavailable ? 'is-unavailable' : ''}" data-exercise="${type}" aria-pressed="${enabled}">
         <span class="chip-label">${escapeHtml(EXERCISE_SHORT_LABELS[type])}</span>
         <span class="chip-count">${available} ${unit}${type === EXERCISE_TYPES.MATCH ? ` · ${usable} bàn` : ''}</span>
       </button>`;
@@ -554979,7 +554981,12 @@ export async function createApp(root) {
       const pressed = level === CEFR_UNCLASSIFIED ? cefrSelection.unclassified : cefrSelection.levels.includes(level);
       const label = cefrLevelLabel(level);
       const count = counts[level] || 0;
-      return `<button type="button" class="chip ${pressed ? 'is-on' : ''} ${count ? '' : 'is-unavailable'}" data-cefr="${level}" aria-pressed="${pressed}" ${count ? '' : 'aria-disabled="true"'}>
+      // No aria-disabled here. A zero word count does not make this chip
+      // inoperable - pressing it still changes the selection and persists - so
+      // announcing it as disabled told assistive technology the opposite of the
+      // truth. The dashed border and the "0 từ" count carry that meaning visually,
+      // and they always had it; this attribute added nothing but a false claim.
+      return `<button type="button" class="chip ${pressed ? 'is-on' : ''} ${count ? '' : 'is-unavailable'}" data-cefr="${level}" aria-pressed="${pressed}">
         <span class="chip-label">${escapeHtml(label)}</span>
         <span class="chip-count">${count} ${cefrText('từ', 'words')} · ${senseCounts[level] || 0} ${cefrText('nghĩa', 'senses')}</span>
       </button>`;
