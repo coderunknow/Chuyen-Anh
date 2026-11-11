@@ -554124,7 +554124,10 @@ export function persistExamResultHistory(next, base, storage = memorySafeStorage
     // the attempt objects are not mutated, only their position in the array - and
     // store it. Cloning 1.6 MB here would cost more than the whole write.
     const ordered = { ...next, attempts: examOrderAttempts(next.attempts) };
-    return saveExamResultHistory(ordered, storage) ? ordered : false;
+    // The fast path is the common one, so it needs the same read-back: a tab that
+    // reads and writes in the same instant can still be overwritten between the two.
+    if (!saveExamResultHistory(ordered, storage)) return false;
+    return verifyOrRepairExamResultHistory(ordered, storage);
   }
   // The union must be re-scored, and this is not optional. A record another tab
   // wrote was scored against *that* tab's corrections, and corrections are shared
@@ -554146,7 +554149,33 @@ export function persistExamResultHistory(next, base, storage = memorySafeStorage
   // attempts are merged in here, so the caller's own `next` is missing records the
   // store now holds; assigning `next` to the in-memory history would hide them from
   // the history list and the JSON export until the next reload.
-  return saveExamResultHistory(orderedMerged, storage) ? orderedMerged : false;
+  if (!saveExamResultHistory(orderedMerged, storage)) return false;
+  // Verify the write landed and repair it if a concurrent tab overwrote it in
+  // between. Web Locks exist but this whole path is synchronous, and the app also
+  // runs from `file://`, so the guarantee this can actually make is: the write is
+  // read back, and a lost attempt is rewritten on top of whatever the store now
+  // holds. Bounded to two retries so a pathological peer cannot spin here.
+  return verifyOrRepairExamResultHistory(orderedMerged, storage);
+}
+
+// Read back what the key holds and, if the merge we just wrote is missing from it,
+// merge again and rewrite. Returns the history the store was last made to hold, or
+// false when even the repair could not be saved.
+function verifyOrRepairExamResultHistory(written, storage, attemptsLeft = 2) {
+  let stored;
+  try { stored = loadExamResultHistory(storage); } catch { return written; }
+  const storedIds = new Set(stored.attempts.map(attempt => attempt?.id));
+  const lost = written.attempts.filter(attempt => !storedIds.has(attempt.id));
+  if (!lost.length) return stored;
+  if (attemptsLeft <= 0) return stored;
+  // Someone else's write won the race. Merge what is there now with what we
+  // intended, then write and verify once more.
+  const repaired = mergeExamResultHistory(written, stored);
+  if (!repaired.ok) return stored;
+  const ordered = { ...repaired.history, attempts: examOrderAttempts(repaired.history.attempts) };
+  examPruneCorrections(ordered);
+  if (!saveExamResultHistory(ordered, storage)) return stored;
+  return verifyOrRepairExamResultHistory(ordered, storage, attemptsLeft - 1);
 }
 
 export function importExamResultHistory(rawText, storage = memorySafeStorage()) {

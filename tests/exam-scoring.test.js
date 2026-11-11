@@ -989,6 +989,51 @@ test('a snapshot with the same values in a different key order is not a conflict
     'a different question set is still a conflict');
 });
 
+test('rc11 persistence: a concurrent overwrite between write and read-back is repaired, not lost', () => {
+  // The read-merge-write is not atomic across tabs. Web Locks exist but this path is
+  // synchronous and the app also runs from file://, so the guarantee made here is
+  // weaker and explicit: the write is read back, and an attempt that vanished is
+  // merged and rewritten rather than reported as a clean success.
+  const record = records[0];
+  const questions = app.parseExamQuestions(record.markdown, record.id);
+  const keys = Array.isArray(record.answerKey) ? record.answerKey : [];
+  const build = (id, submittedAt) => {
+    const session = app.createExamPracticeSession(record.id, questions.slice(0, 2), submittedAt - 10);
+    for (const q of questions.slice(0, 2)) app.recordExamPracticeResponse(session, q.id, q.options?.[0]?.id ?? 'x');
+    app.submitExamPractice(session, submittedAt);
+    return app.createExamResultRecord(session, record, keys, { now: submittedAt, id });
+  };
+  const inner = store();
+  const tabA = app.loadExamResultHistory(inner);
+  const attemptA = build('a1', 5000);
+  const savedA = app.persistExamResultHistory(app.addExamResult(tabA, attemptA), tabA, inner);
+  assert.notEqual(savedA, false);
+
+  // A store that, immediately after the first successful exam write, has another
+  // tab's stale history slapped over it exactly once. That is the interleaving the
+  // finding describes: the write succeeded, then somebody else's write won.
+  const snapshots = inner.getItem('chuyen-anh.exam-results.v1');
+  let clobbered = false;
+  const racing = {
+    getItem: k => inner.getItem(k),
+    setItem: (k, v) => {
+      inner.setItem(k, v);
+      if (!clobbered && k === 'chuyen-anh.exam-results.v1') { clobbered = true; inner.setItem(k, snapshots); }
+    },
+    removeItem: k => inner.removeItem(k)
+  };
+  const tabB = app.loadExamResultHistory(inner);
+  const attemptB = build('b1', 6000);
+  const saved = app.persistExamResultHistory(app.addExamResult(tabB, attemptB), tabB, racing);
+
+  assert.notEqual(saved, false, 'the save reports success');
+  assert.ok(clobbered, 'the harness really did overwrite the key once (otherwise this proves nothing)');
+  assert.deepEqual(saved.attempts.map(a => a.id).sort(), ['a1', 'b1'],
+    'the returned history carries the attempt that the concurrent write discarded');
+  assert.deepEqual(app.loadExamResultHistory(inner).attempts.map(a => a.id).sort(), ['a1', 'b1'],
+    'and the repair reached storage, so a reload still sees both');
+});
+
 test('rc11 persistence: a successful save returns the merged history, not the caller\'s unmerged copy', () => {
   // Storage was always correct here; the *return value* was not. The merge path
   // adds attempts another tab wrote, but it used to return only `true`, so the UI
