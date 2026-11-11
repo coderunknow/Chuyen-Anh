@@ -143,10 +143,10 @@ until `v1.0.0` is published as a non-draft stable release and separately authori
 - **D62 (P3): six exam toasts had no English rendering.** In the English interface the most consequential exam flows
   (a refused save, an import confirmation, a missing paper) still spoke Vietnamese. All six now translate, asserted by a
   test over every literal toast string.
-- **Verification:** Node `static-app.test.js` (`144`) + `exam-scoring.test.js` (`40`) + `exam-anomalies.test.js` (`7`)
+- **Verification:** Node `static-app.test.js` (`144`) + `exam-scoring.test.js` (`42`) + `exam-anomalies.test.js` (`7`)
   + `rc10-cefr.test.js` (`10`) + `v100-senses.test.js` (`8`) + `telemetry-api.test.js` (`17`)
-  + `exam-exempt-rubric.test.js` (`7`) + `core-invariants.test.js` (`11`) = **244 pass / 0 fail**; Python `unittest`
-  **257 OK**, `test_archive.py` **5 OK**; `21/21` `--check` gates; Chromium E2E `browser-learning.cjs` + `browser-exams.cjs` PASS;
+  + `exam-exempt-rubric.test.js` (`7`) + `core-invariants.test.js` (`11`) = **246 pass / 0 fail**; Python `unittest`
+  **257 OK**, `test_archive.py` **5 OK**; `18/18` `--check` gates; Chromium E2E `browser-learning.cjs` + `browser-exams.cjs` PASS;
   axe-core 4.14.0 clean over 6 views × light/dark × desktop/375px, `320px` reflow, `200%` text zoom, reduced motion,
   keyboard focus; stateful fuzz `150 × 14 = 2,100` operations and **`29,529`** invariant checks with `0` violations (the
   `11,677` figure quoted for Round 6 was neither operations nor checks; it is superseded by the measured figure).
@@ -173,7 +173,7 @@ until `v1.0.0` is published as a non-draft stable release and separately authori
 - **Verification:** `9/9` mutants around the two fixes killed (`scripts/r6-mutants.mjs`); fuzz `150` sequences × `14`
   operations = `11,677` invariant checks with `0` violations; backup round trip field-for-field identical; corrections
   re-score stored attempts, survive export/import and are pruned with the attempt. Totals: Node **`238 / 0 fail`**
-  (`exam-scoring` `31 → 34`), Python `257 + 5 = 262 OK`, `21/21` `--check` gates exit `0`.
+  (`exam-scoring` `31 → 34`), Python `257 + 5 = 262 OK`, `18/18` `--check` gates exit `0`.
 - **Not changed on purpose:** the v1 backup still excludes phrase progress and the CEFR selection (stated in the UI copy;
   a schema change, not a fix), and `paperKey` stays content-unaware (content-addressed keys would change the persisted
   format and the merge/dedupe semantics of every existing history).
