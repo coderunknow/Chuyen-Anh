@@ -4417,3 +4417,32 @@ test('rc9 fix round: an inferred key is never printed as a bare "sai" in the rev
   assert.equal(inferred.summary.incorrectInferred, 1);
   assert.equal(inferred.summary.incorrectKeyed, 0);
 });
+
+test('every import control is a focusable button, not a label around a hidden input', () => {
+  // A <label for> wrapping a hidden file input has tabIndex -1, so the control is
+  // skipped entirely by the keyboard: Tab walked straight from each Export button
+  // past its Import sibling. A keyboard-only learner could export a backup but
+  // never restore one. The visible control is now a real <button> that forwards
+  // its click to the hidden input.
+  assert.doesNotMatch(appScript[1], /<label class="btn"[^>]*for="[^"]*import/i,
+    'a label-as-button makes import unreachable by keyboard');
+
+  const buttons = [
+    ['import-setting-button', 'import-setting'],
+    ['import-device-settings-button', 'import-device-settings'],
+    ['exam-history-import-button', 'exam-history-import']
+  ];
+  for (const [buttonId, inputId] of buttons) {
+    assert.match(appScript[1], new RegExp(`<button type="button" class="btn" id="${buttonId}"`),
+      `${buttonId} must be a real button`);
+    assert.match(appScript[1], new RegExp(`<input id="${inputId}" type="file"[^>]*hidden>`),
+      `${inputId} stays hidden`);
+    // Checked with plain substring search rather than a built RegExp: the escaping
+    // through a template literal is easy to get wrong, and a pattern that silently
+    // required literal backslashes would "pass" by matching nothing.
+    const forwarder = `querySelector('#${buttonId}').addEventListener('click', () => container.querySelector('#${inputId}').click())`;
+    const guarded = `querySelector('#${buttonId}')?.addEventListener('click', () => container.querySelector('#${inputId}').click())`;
+    assert.ok(appScript[1].includes(forwarder) || appScript[1].includes(guarded),
+      `${buttonId} must forward its click to ${inputId}`);
+  }
+});

@@ -143,9 +143,9 @@ until `v1.0.0` is published as a non-draft stable release and separately authori
 - **D62 (P3): six exam toasts had no English rendering.** In the English interface the most consequential exam flows
   (a refused save, an import confirmation, a missing paper) still spoke Vietnamese. All six now translate, asserted by a
   test over every literal toast string.
-- **Verification:** Node `static-app.test.js` (`144`) + `exam-scoring.test.js` (`53`) + `exam-anomalies.test.js` (`7`)
-  + `rc10-cefr.test.js` (`10`) + `v100-senses.test.js` (`8`) + `telemetry-api.test.js` (`17`)
-  + `exam-exempt-rubric.test.js` (`7`) + `core-invariants.test.js` (`11`) = **246 pass / 0 fail**; Python `unittest`
+- **Verification:** Node `static-app` (`145`) + `exam-scoring` (`53`) + `exam-anomalies` (`7`) + `rc10-cefr` (`10`)
+  + `v100-senses` (`8`) + `telemetry-api` (`17`) + `exam-exempt-rubric` (`7`) + `core-invariants` (`11`)
+  = **258 pass / 0 fail** on one line; Python `unittest`
   **257 OK**, `test_archive.py` **5 OK**; `18/18` `--check` gates; Chromium E2E `browser-learning.cjs` + `browser-exams.cjs` PASS;
   axe-core 4.14.0 clean over 6 views × light/dark × desktop/375px, `320px` reflow, `200%` text zoom, reduced motion,
   keyboard focus; stateful fuzz `150 × 14 = 2,100` operations and **`29,529`** invariant checks with `0` violations (the
@@ -200,7 +200,7 @@ until `v1.0.0` is published as a non-draft stable release and separately authori
 - **Verification**
 
 - **Validators & `--check` gates:** `expand_vocabulary`, `build_vocabulary`, `build_senses`, `audit_sense_sources`, `validate_vocab`, `embed_vocabulary`, `build_phrases`, `validate_phrases`, `embed_phrases`, `build_answer_keys`, `verify_curated_keys`, `audit_rendering`, `classify_anomalies`, `embed_archive`, `audit_vocabulary_quality`, `vocabulary_cefr_review`, `vocabulary_evidence_review`, `rc4_vocabulary_audit`, `audit_exam_provenance`, `generate_vocab_audit_dev5`, and `sense_integrity_audit` (new `--check` mode, wired into `ci.yml` and `deploy.yml`) all pass cleanly.
-- **Automated suites:** Python `unittest` **257 OK** + `scripts/exams/test_archive.py` **5 OK**; Node `static-app.test.js` (`144`) + `exam-scoring.test.js` (`40`) + `exam-anomalies.test.js` (`7`) + `rc10-cefr.test.js` (`10`) + `v100-senses.test.js` (`8`) + `telemetry-api.test.js` (`17`) + `exam-exempt-rubric.test.js` (`7`) + `core-invariants.test.js` (`11`) = **244 pass / 0 fail**; sequential Chromium E2E (`browser-learning.cjs` + `browser-exams.cjs` with `axe-core` WCAG 2.1 AA, `320–1440px` viewports, VI/EN, Classic/Modern, light/dark, `file://` standalone) **PASS**; `speed-benchmark.cjs` **PASS** (`3 ms` median consolidation/retry DOM latency, `0` page errors).
+- **Automated suites:** Python `unittest` **257 OK** + `scripts/exams/test_archive.py` **5 OK**; Node `static-app.test.js` (`145`) + `exam-scoring.test.js` (`53`) + `exam-anomalies.test.js` (`7`) + `rc10-cefr.test.js` (`10`) + `v100-senses.test.js` (`8`) + `telemetry-api.test.js` (`17`) + `exam-exempt-rubric.test.js` (`7`) + `core-invariants.test.js` (`11`) = **258 pass / 0 fail**; sequential Chromium E2E (`browser-learning.cjs` + `browser-exams.cjs` with `axe-core` WCAG 2.1 AA, `320–1440px` viewports, VI/EN, Classic/Modern, light/dark, `file://` standalone) **PASS**; `speed-benchmark.cjs` **PASS** (`3 ms` median consolidation/retry DOM latency, `0` page errors).
 - Current gates, defects, work log, and readiness report: `audit/v100/{GATES,DEFECTS,WORK_LOG,FINAL_READINESS_CHECKLIST,FINAL_READINESS}.md`.
   Separate explicit authorization is required before merge, tag, release or deployment.
 
