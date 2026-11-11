@@ -1237,3 +1237,164 @@ test('rc11 persist: a correction another tab wrote is carried, so the union stay
   assert.equal(merged.corrections.length, 1, "the other tab's correction is carried, not dropped");
   assert.equal(app.validateExamResultHistory(merged).ok, true, 'and the stored history still passes its own validator');
 });
+
+// ---------------------------------------------------------------------------
+// Device-local settings: the separate, versioned file agreed as Option 3.
+// ---------------------------------------------------------------------------
+const deviceStore = () => {
+  const m = new Map();
+  return { getItem: k => (m.has(k) ? m.get(k) : null), setItem: (k, v) => m.set(k, String(v)), removeItem: k => m.delete(k), key: i => [...m.keys()][i] ?? null, get length() { return m.size; } };
+};
+const settingsSample = () => ({
+  cefrSelection: app.sanitizeCefrSelection({ version: app.CEFR_SELECTION_VERSION, levels: ['B2', 'C1'], unclassified: true }),
+  theme: 'dark',
+  language: 'en',
+  presentation: { meanings: 'show', interface: 'modern' }
+});
+
+test('rc11 device settings: export carries exactly the four device-local settings and nothing else', () => {
+  const payload = app.exportDeviceSettings(settingsSample());
+  assert.equal(payload.app, 'chuyen-anh-device-settings');
+  assert.equal(payload.version, 1);
+  assert.deepEqual(Object.keys(payload.settings).sort(), ['cefr', 'language', 'presentation', 'theme']);
+  assert.deepEqual(payload.settings.cefr, { levels: ['B2', 'C1'], unclassified: true });
+  assert.equal(payload.settings.theme, 'dark');
+  assert.equal(payload.settings.language, 'en');
+  // Phrase progress must never appear here: it already travels in the v1 backup.
+  const serialized = JSON.stringify(payload);
+  assert.equal(/phrases|P\d{3}/.test(serialized), false, 'the settings file must not carry phrase progress');
+  assert.equal(/progress|favorites|streak|flagged/.test(serialized), false, 'and no study store may leak in');
+});
+
+test('rc11 device settings: export -> import round-trips and the values persist after reload', () => {
+  const storage = deviceStore();
+  const payload = app.exportDeviceSettings(settingsSample());
+  const parsed = app.validateDeviceSettingsPayload(JSON.parse(JSON.stringify(payload)));
+  assert.equal(app.applyDeviceSettings(parsed, storage), 'ok');
+  // "Reload": read the stores back through the public loaders.
+  assert.deepEqual(app.loadCefrSelection(storage).levels, ['B2', 'C1']);
+  assert.equal(app.loadCefrSelection(storage).unclassified, true);
+  assert.equal(app.loadTheme(storage), 'dark');
+  assert.equal(app.loadLanguage(storage), 'en');
+  assert.equal(app.loadPresentation(storage).interface, 'modern');
+});
+
+test('rc11 device settings: a malformed, foreign or unsupported-version file is refused and changes nothing', () => {
+  const storage = deviceStore();
+  app.saveTheme('light', storage);
+  app.saveLanguage('vi', storage);
+  const before = app.loadTheme(storage) + '|' + app.loadLanguage(storage);
+
+  const refused = [
+    ['not an object', []],
+    ['foreign app id', { app: 'something-else', version: 1, settings: {} }],
+    ['unsupported version', { ...app.exportDeviceSettings(settingsSample()), version: 99 }],
+    ['missing settings', { app: 'chuyen-anh-device-settings', version: 1 }],
+    ['missing theme', (() => { const p = app.exportDeviceSettings(settingsSample()); delete p.settings.theme; return p; })()],
+    ['bad theme value', (() => { const p = app.exportDeviceSettings(settingsSample()); p.settings.theme = 'sepia'; return p; })()],
+    ['bad language', (() => { const p = app.exportDeviceSettings(settingsSample()); p.settings.language = 'fr'; return p; })()],
+    ['bad cefr level', (() => { const p = app.exportDeviceSettings(settingsSample()); p.settings.cefr.levels = ['B2', 'Z9']; return p; })()],
+    ['cefr not an array', (() => { const p = app.exportDeviceSettings(settingsSample()); p.settings.cefr.levels = 'B2'; return p; })()],
+    ['missing unclassified flag', (() => { const p = app.exportDeviceSettings(settingsSample()); delete p.settings.cefr.unclassified; return p; })()],
+    ['bad presentation', (() => { const p = app.exportDeviceSettings(settingsSample()); p.settings.presentation.interface = 'neon'; return p; })()]
+  ];
+  for (const [label, payload] of refused) {
+    assert.throws(() => app.validateDeviceSettingsPayload(payload), /./, `${label} must be refused`);
+  }
+  // Nothing above may have written: validation never touches storage.
+  assert.equal(app.loadTheme(storage) + '|' + app.loadLanguage(storage), before, 'failed validation changed the device');
+  assert.equal(app.loadTheme(storage), 'light');
+});
+
+test('rc11 device settings: extra unknown fields are ignored, not applied', () => {
+  const payload = app.exportDeviceSettings(settingsSample());
+  payload.settings.somethingNew = 'ignore me';
+  payload.extraTopLevel = { nope: true };
+  const parsed = app.validateDeviceSettingsPayload(payload);
+  assert.deepEqual(Object.keys(parsed).sort(), ['cefrSelection', 'language', 'presentation', 'theme']);
+  assert.equal(Object.hasOwn(parsed, 'somethingNew'), false);
+});
+
+test('rc11 device settings: a failing store reports the failure and leaves the old settings readable', () => {
+  const backing = deviceStore();
+  app.saveTheme('light', backing);
+  app.saveLanguage('vi', backing);
+  // A real quota refuses *large* writes but still accepts small ones, which is
+  // exactly why the staging layer can probe and roll back. A mock that fails every
+  // write models a dead store, whose honest answer is 'rollback-failed' - tested
+  // separately below.
+  const failing = {
+    getItem: k => backing.getItem(k),
+    setItem: (k, v) => {
+      if (String(v).length > 64) throw new Error('QuotaExceededError');
+      backing.setItem(k, v);
+    },
+    removeItem: k => backing.removeItem(k)
+  };
+  const parsed = app.validateDeviceSettingsPayload(app.exportDeviceSettings(settingsSample()));
+  const result = app.applyDeviceSettings(parsed, failing);
+  assert.equal(result, 'write-failed', 'the caller must be able to tell a clean refusal from a rollback');
+  // The rollback restores the pre-import values, so the device is not half configured.
+  assert.equal(app.loadTheme(backing), 'light');
+  assert.equal(app.loadLanguage(backing), 'vi');
+});
+
+test('rc11 device settings: a dead store reports write-failed because the capacity probe caught it first', () => {
+  // The staging layer probes capacity before touching a real key, so a store that
+  // refuses everything is caught with nothing written ('false', not
+  // 'rollback-failed'). Verified by tracing commitStagedWrites directly.
+  const dead = { getItem: () => null, setItem: () => { throw new Error('denied'); }, removeItem: () => { throw new Error('denied'); } };
+  const parsed = app.validateDeviceSettingsPayload(app.exportDeviceSettings(settingsSample()));
+  assert.equal(app.applyDeviceSettings(parsed, dead), 'write-failed');
+  // Every write threw, so the store cannot hold a partial configuration; the
+  // loader then falls back to its default, which is the pre-import state.
+  assert.equal(app.loadTheme(dead), 'system', 'the default is still what the app would show');
+});
+
+test('rc11 device settings: a store that fails mid-commit and cannot roll back is reported as rollback-failed', () => {
+  // Only reachable when the probe passes but a real write then throws and the
+  // restore also fails - a half-written store. The learner must be told to check
+  // rather than being reassured.
+  const m = new Map();
+  let writes = 0;
+  const halfDead = {
+    getItem: k => (m.has(k) ? m.get(k) : null),
+    setItem: (k, v) => {
+      if (k.startsWith('__chuyen-anh.import.probe')) { m.set(k, v); return; }  // probe passes
+      writes += 1;
+      if (writes > 1) throw new Error('denied');  // second real write fails
+      m.set(k, v);
+    },
+    removeItem: k => { if (!k.startsWith('__chuyen-anh.import.probe')) throw new Error('denied'); m.delete(k); }
+  };
+  const parsed = app.validateDeviceSettingsPayload(app.exportDeviceSettings(settingsSample()));
+  assert.equal(app.applyDeviceSettings(parsed, halfDead), 'rollback-failed');
+});
+
+test('rc11 device settings: the v1 progress backup still refuses to carry these settings', () => {
+  const bundle = app.exportProgressBundle({
+    progress: {}, prefs: app.DEFAULT_PREFS, favorites: new Set(), history: [],
+    streak: { current: 0, longest: 0, lastDate: null }, study: app.sanitizeStudyConfig(null),
+    flagged: new Set(), achievements: { seenBadges: new Set() }, phrases: {}
+  });
+  const serialized = JSON.stringify(bundle);
+  assert.equal(/chuyen-anh\.cefr\.v1|chuyen-anh\.theme\.v1|chuyen-anh\.language\.v1/.test(serialized), false,
+    'the v1 contract is unchanged: device-local stores stay out of it');
+  assert.equal(Object.hasOwn(bundle, 'cefr'), false);
+  assert.equal(Object.hasOwn(bundle, 'theme'), false);
+  assert.equal(Object.hasOwn(bundle, 'language'), false);
+});
+
+test('rc11 device settings: phrase progress keeps travelling in the v1 backup', () => {
+  // Regression guard for the one thing this round must not break: phrase progress
+  // already had a home and the new file must not have moved it.
+  const bundle = app.exportProgressBundle({
+    progress: {}, prefs: app.DEFAULT_PREFS, favorites: new Set(), history: [],
+    streak: { current: 0, longest: 0, lastDate: null }, study: app.sanitizeStudyConfig(null),
+    flagged: new Set(), achievements: { seenBadges: new Set() },
+    phrases: { P001: { attempts: 3, correct: 2, wrong: 1, lastPracticed: 9 } }
+  });
+  assert.equal(Object.hasOwn(bundle, 'phrases'), true, 'phrase progress is still in the v1 bundle');
+  const reimported = app.validateImportPayload(bundle);
+  assert.equal(reimported.phrases.P001.correct, 2, 'and it still round-trips');
+});

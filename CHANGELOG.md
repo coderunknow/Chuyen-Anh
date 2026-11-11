@@ -143,7 +143,7 @@ until `v1.0.0` is published as a non-draft stable release and separately authori
 - **D62 (P3): six exam toasts had no English rendering.** In the English interface the most consequential exam flows
   (a refused save, an import confirmation, a missing paper) still spoke Vietnamese. All six now translate, asserted by a
   test over every literal toast string.
-- **Verification:** Node `static-app.test.js` (`144`) + `exam-scoring.test.js` (`42`) + `exam-anomalies.test.js` (`7`)
+- **Verification:** Node `static-app.test.js` (`144`) + `exam-scoring.test.js` (`51`) + `exam-anomalies.test.js` (`7`)
   + `rc10-cefr.test.js` (`10`) + `v100-senses.test.js` (`8`) + `telemetry-api.test.js` (`17`)
   + `exam-exempt-rubric.test.js` (`7`) + `core-invariants.test.js` (`11`) = **246 pass / 0 fail**; Python `unittest`
   **257 OK**, `test_archive.py` **5 OK**; `18/18` `--check` gates; Chromium E2E `browser-learning.cjs` + `browser-exams.cjs` PASS;

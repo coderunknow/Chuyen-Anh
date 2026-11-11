@@ -548076,7 +548076,27 @@ const EN_UI_TRANSLATIONS = Object.freeze({
   'Không thể lưu lịch sử luyện đề trên thiết bị này.': 'The exam history could not be saved on this device.',
   'Không thể lưu lịch sử luyện đề; hãy tải kết quả JSON trước khi đóng trang.': 'The exam history could not be saved; download the JSON result before closing the page.',
   'Không thể mở kho đề để xem lịch sử.': 'The exam archive could not be opened to view this history.',
-  'Đã nhập lịch sử luyện đề hợp lệ.': 'The exam history was imported.'
+  'Đã nhập lịch sử luyện đề hợp lệ.': 'The exam history was imported.',
+  'Cài đặt thiết bị': 'Device settings',
+  'Bộ lọc CEFR, giao diện sáng/tối, kiểu hiển thị và ngôn ngữ không nằm trong bản sao tiến độ vì chúng thuộc về từng thiết bị. Tệp riêng này chỉ gồm bốn cài đặt đó. Nhập vào sẽ thay thế cả bốn, không gộp; tệp sai sẽ bị từ chối và cài đặt hiện tại giữ nguyên.': 'The CEFR filter, light/dark theme, display mode and language are not part of the progress backup because they belong to one device. This separate file carries only those four settings. Importing replaces all four rather than merging; an invalid file is refused and the current settings are kept.',
+  'Xuất cài đặt thiết bị': 'Export device settings',
+  'Nhập cài đặt thiết bị': 'Import device settings',
+  'Đã xuất cài đặt thiết bị.': 'Device settings exported.',
+  'Đã nhập cài đặt thiết bị.': 'Device settings imported.',
+  'Không thể lưu cài đặt vừa nhập; cài đặt cũ trên máy được giữ nguyên.': 'The imported settings could not be saved; the previous settings on this device were kept.',
+  'Không thể lưu cài đặt vừa nhập và việc khôi phục có thể chưa hoàn tất; hãy kiểm tra lại cài đặt trên máy.': 'The imported settings could not be saved and restoring them may not have completed; check the settings on this device.',
+  'Tệp cài đặt phải là một đối tượng JSON.': 'The settings file must be a JSON object.',
+  'Tệp này không phải bản sao cài đặt thiết bị của Chuyên Anh.': 'This is not a Chuyên Anh device-settings file.',
+  'Tệp cài đặt có phiên bản không được hỗ trợ.': 'The settings file uses an unsupported version.',
+  'Tệp cài đặt thiếu phần cài đặt.': 'The settings file is missing its settings section.',
+  'Tệp cài đặt thiếu trường bắt buộc.': 'The settings file is missing a required field.',
+  'Bộ lọc CEFR trong tệp không hợp lệ.': 'The CEFR filter in the file is invalid.',
+  'Bộ lọc CEFR trong tệp có mức không hợp lệ.': 'The CEFR filter in the file contains an unsupported level.',
+  'Bộ lọc CEFR trong tệp thiếu trạng thái "chưa phân loại".': 'The CEFR filter in the file is missing its "unclassified" state.',
+  'Giao diện trong tệp không hợp lệ.': 'The theme in the file is invalid.',
+  'Ngôn ngữ trong tệp không hợp lệ.': 'The language in the file is invalid.',
+  'Kiểu hiển thị trong tệp không hợp lệ.': 'The display mode in the file is invalid.',
+  'Tệp cài đặt không phải JSON hợp lệ.': 'The settings file is not valid JSON.',
 });
 
 const EN_UI_PATTERNS = [
@@ -549406,6 +549426,121 @@ export function loadPresentation(storage = memorySafeStorage()) {
 
 export function savePresentation(presentation, storage = memorySafeStorage()) {
   return writeJson(storage, PRESENTATION_STORAGE_KEY, sanitizePresentation(presentation));
+}
+
+/* ------------------- device-local settings export (v1) -------------------- */
+// The progress backup deliberately does not carry the CEFR filter, the theme or
+// the interface language: they describe *this device*, not the learner's study
+// record, and folding them into a 674-byte study bundle would change the v1
+// contract for everyone who ever wrote one. They still deserve a way to travel,
+// so they get their own small, explicitly versioned file.
+//
+// Import semantics: **replace**, all-or-nothing. A device-settings file is a
+// description of one device's interface, not a mergeable log - there is no
+// meaningful union of "dark" and "light", and merging a CEFR list with another
+// device's list would invent a filter neither device ever had. Replacement is
+// also what makes the operation explainable in one sentence to the learner, and
+// it is safe because every applied value was validated first and the previous
+// values are restored if the write fails.
+export const DEVICE_SETTINGS_FORMAT = 'chuyen-anh-device-settings';
+export const DEVICE_SETTINGS_VERSION = 1;
+
+// The exact set this file may carry. Anything else in the object is ignored on
+// read (a newer writer may add fields) and never written on export.
+export function deviceSettingsSnapshot({ cefrSelection, theme, language, presentation } = {}) {
+  const selection = sanitizeCefrSelection(cefrSelection);
+  return {
+    cefr: { levels: [...selection.levels], unclassified: selection.unclassified === true },
+    theme: THEMES.includes(theme) ? theme : 'system',
+    language: language === 'en' ? 'en' : 'vi',
+    // `presentation` is device-local too (interface skin and whether meanings are
+    // shown). It is included because leaving it out would make a restore produce a
+    // device that looks like neither the old nor the new one.
+    presentation: sanitizePresentation(presentation)
+  };
+}
+
+export function exportDeviceSettings(input) {
+  return {
+    app: DEVICE_SETTINGS_FORMAT,
+    version: DEVICE_SETTINGS_VERSION,
+    exportedAt: new Date().toISOString(),
+    settings: deviceSettingsSnapshot(input)
+  };
+}
+
+// Throws with a translated message: the caller shows it verbatim, and a silent
+// `{ok:false}` would leave the learner without a reason. Nothing here writes.
+export function validateDeviceSettingsPayload(payload, translate = text => text) {
+  if (!payload || typeof payload !== 'object' || Array.isArray(payload)) {
+    throw new Error(translate('Tệp cài đặt phải là một đối tượng JSON.'));
+  }
+  if (payload.app !== DEVICE_SETTINGS_FORMAT) {
+    throw new Error(translate('Tệp này không phải bản sao cài đặt thiết bị của Chuyên Anh.'));
+  }
+  // An unknown version is refused rather than guessed at: a future file may mean
+  // something different by the same field names, and applying it half-way is how
+  // a restore silently produces a device nobody configured.
+  if (payload.version !== DEVICE_SETTINGS_VERSION) {
+    throw new Error(translate('Tệp cài đặt có phiên bản không được hỗ trợ.'));
+  }
+  const settings = payload.settings;
+  if (!settings || typeof settings !== 'object' || Array.isArray(settings)) {
+    throw new Error(translate('Tệp cài đặt thiếu phần cài đặt.'));
+  }
+  // Every field is required. This is deliberate: a file that omits `theme` is a
+  // file written by something other than this exporter, and filling the gap with
+  // a default would overwrite a real setting with a guess.
+  for (const field of ['cefr', 'theme', 'language', 'presentation']) {
+    if (!Object.hasOwn(settings, field)) throw new Error(translate('Tệp cài đặt thiếu trường bắt buộc.'));
+  }
+  const cefr = settings.cefr;
+  if (!cefr || typeof cefr !== 'object' || Array.isArray(cefr) || !Array.isArray(cefr.levels)) {
+    throw new Error(translate('Bộ lọc CEFR trong tệp không hợp lệ.'));
+  }
+  if (cefr.levels.some(level => typeof level !== 'string' || !CEFR_LEVELS.includes(level.toUpperCase()))) {
+    throw new Error(translate('Bộ lọc CEFR trong tệp có mức không hợp lệ.'));
+  }
+  if (typeof cefr.unclassified !== 'boolean') {
+    throw new Error(translate('Bộ lọc CEFR trong tệp thiếu trạng thái "chưa phân loại".'));
+  }
+  if (!THEMES.includes(settings.theme)) {
+    throw new Error(translate('Giao diện trong tệp không hợp lệ.'));
+  }
+  if (!['vi', 'en'].includes(settings.language)) {
+    throw new Error(translate('Ngôn ngữ trong tệp không hợp lệ.'));
+  }
+  const presentation = settings.presentation;
+  if (!presentation || typeof presentation !== 'object' || Array.isArray(presentation)
+    || !Object.values(MEANING_MODES).includes(presentation.meanings)
+    || !Object.values(INTERFACE_MODES).includes(presentation.interface)) {
+    throw new Error(translate('Kiểu hiển thị trong tệp không hợp lệ.'));
+  }
+  // Normalise so the caller applies exactly what was validated, not the raw object.
+  return {
+    cefrSelection: sanitizeCefrSelection({
+      version: CEFR_SELECTION_VERSION,
+      levels: [...new Set(cefr.levels.map(level => level.toUpperCase()))],
+      unclassified: cefr.unclassified
+    }),
+    theme: settings.theme,
+    language: settings.language,
+    presentation: sanitizePresentation(presentation)
+  };
+}
+
+// Applies validated settings atomically. Returns 'ok', 'write-failed' or
+// 'rollback-failed'; the caller distinguishes a clean refusal from a store that
+// may now be half written, because only the first can be retried safely.
+export function applyDeviceSettings(settings, storage = memorySafeStorage()) {
+  const staged = createWriteStaging(storage);
+  saveCefrSelection(settings.cefrSelection, staged.storage);
+  saveTheme(settings.theme, staged.storage);
+  saveLanguage(settings.language, staged.storage);
+  savePresentation(settings.presentation, staged.storage);
+  const committed = staged.commit();
+  if (committed === true) return 'ok';
+  return committed === 'rollback-failed' ? 'rollback-failed' : 'write-failed';
 }
 
 // True when a gloss must be withheld *before the learner has answered*. The
@@ -557074,6 +557209,10 @@ export async function createApp(root) {
         <p class="settings-copy">Bản sao JSON v1 gồm tiến độ flashcard, từ yêu thích, chuỗi ngày, lịch sử học và cài đặt. Từ khó, cấu hình phiên ưu tiên, huy hiệu đã đạt và tiến độ cụm từ là các khối tùy chọn; bản sao v1 cũ vẫn nhập được. Bộ lọc CEFR, giao diện sáng/tối và ngôn ngữ hiển thị là cài đặt của từng thiết bị. Kho đề offline nằm trong tệp HTML, không thuộc bản sao lưu.</p>
         <div class="setting-actions"><button class="btn primary" id="export-setting">${iconMarkup('download')}Xuất bản sao JSON</button><label class="btn" for="import-setting">${iconMarkup('overview')}Nhập bản sao JSON<input id="import-setting" type="file" accept="application/json,.json" hidden></label><button class="btn danger" id="reset-setting">Xóa dữ liệu học</button></div>
       </div></section>
+      <section class="panel" aria-labelledby="device-settings-title"><div class="panel-heading" id="device-settings-title">Cài đặt thiết bị</div><div class="panel-body">
+        <p class="settings-copy">Bộ lọc CEFR, giao diện sáng/tối, kiểu hiển thị và ngôn ngữ không nằm trong bản sao tiến độ vì chúng thuộc về từng thiết bị. Tệp riêng này chỉ gồm bốn cài đặt đó. Nhập vào sẽ thay thế cả bốn, không gộp; tệp sai sẽ bị từ chối và cài đặt hiện tại giữ nguyên.</p>
+        <div class="setting-actions"><button class="btn" id="export-device-settings">${iconMarkup('download')}Xuất cài đặt thiết bị</button><label class="btn" for="import-device-settings">${iconMarkup('overview')}Nhập cài đặt thiết bị<input id="import-device-settings" type="file" accept="application/json,.json" hidden></label></div>
+      </div></section>
       ${examHistoryMarkup()}
       <section class="panel"><div class="panel-heading">Thông tin dữ liệu</div><div class="panel-body data-info"><p><b>${formatCount(deck.length)} từ trọng tâm</b> · <b>${formatCount(archivedIds.size)} từ lưu trữ</b> · <b>${formatCount(familyHeadOf.size)} dạng cùng gốc</b> · <b>${phrases.length} cụm từ</b> · phiên bản dữ liệu <code class="code">${escapeHtml(loaded.version)}</code> · phiên bản ứng dụng <code class="code" id="app-version">${escapeHtml(APP_VERSION)}</code></p><p>Từ vựng, kho cụm từ, 106 bản chép đề, giao diện và mã ứng dụng nằm trong chính tệp HTML này. Ứng dụng không tự tải dữ liệu/tài nguyên; chỉ tiến độ flashcard và tiến độ cụm từ được lưu riêng trên thiết bị.</p><p><b>Phạm vi ôn:</b> từ lưu trữ vẫn tra cứu được và giữ tiến độ cũ, nhưng không vào phiên học, bộ đếm hay phương án nhiễu. Danh sách và lý do từng mục nằm trong <code class="code">docs/vocabulary-curation.json</code>.</p><p><b>Quy tắc gốc từ:</b> mỗi gốc từ chỉ tính là một từ vựng. Các dạng cùng gốc (ví dụ số nhiều, thì, phái sinh) không phải mục riêng; chúng được ghi ở dòng “Họ từ” của từ gốc.</p></div></section>
       <section class="panel" aria-labelledby="privacy-title"><div class="panel-heading" id="privacy-title">Quyền riêng tư &amp; nhật ký chẩn đoán</div><div class="panel-body">
@@ -557142,6 +557281,8 @@ export async function createApp(root) {
     });
     container.querySelector('#export-setting').addEventListener('click', exportDownload);
     container.querySelector('#import-setting').addEventListener('change', importFile);
+    container.querySelector('#export-device-settings').addEventListener('click', exportDeviceSettingsFile);
+    container.querySelector('#import-device-settings').addEventListener('change', importDeviceSettingsFile);
     container.querySelector('#reset-setting').addEventListener('click', resetProgress);
     container.querySelector('#telemetry-setting').addEventListener('change', event => {
       const wanted = event.target.checked;
@@ -557209,6 +557350,56 @@ export async function createApp(root) {
     // Only the shape of the backup is counted, never its contents.
     recordTelemetry('backup', 'export-ok', { progressRows: Object.keys(bundle.progress || {}).length });
     toast('Đã xuất bản sao JSON.', 'success');
+  }
+
+  // A device-settings file is small by construction, so it is written with the
+  // same Blob download the progress backup uses.
+  function exportDeviceSettingsFile() {
+    const payload = exportDeviceSettings({ cefrSelection, theme, language, presentation });
+    downloadExamJson(`chuyen-anh-device-settings-${todayKey()}.json`, JSON.stringify(payload, null, 2));
+    toast('Đã xuất cài đặt thiết bị.', 'success');
+  }
+
+  async function importDeviceSettingsFile(event) {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    try {
+      // Parse, validate and apply are three separate steps and nothing writes
+      // before the second finishes, so a malformed file cannot leave the device
+      // half configured.
+      const parsed = JSON.parse(await file.text());
+      const settings = validateDeviceSettingsPayload(parsed, text => translateUiText(text, language));
+      const result = applyDeviceSettings(settings, storage);
+      if (result !== 'ok') {
+        reloadLearnerStores();
+        toast(result === 'rollback-failed'
+          ? 'Không thể lưu cài đặt vừa nhập và việc khôi phục có thể chưa hoàn tất; hãy kiểm tra lại cài đặt trên máy.'
+          : 'Không thể lưu cài đặt vừa nhập; cài đặt cũ trên máy được giữ nguyên.', 'error');
+        renderShell();
+        return;
+      }
+      // The in-memory copies must follow storage, or the interface would show the
+      // old theme until the next reload.
+      cefrSelection = settings.cefrSelection;
+      theme = settings.theme;
+      language = settings.language;
+      presentation = settings.presentation;
+      enforceStudyPool();
+      applyTheme();
+      applyInterface();
+      toast('Đã nhập cài đặt thiết bị.', 'success');
+      renderShell();
+    } catch (error) {
+      // `validateDeviceSettingsPayload` already throws translated text; a JSON
+      // parse error does not, so it gets its own sentence instead of a raw
+      // engine message quoting the learner's file.
+      const message = error instanceof SyntaxError
+        ? (language === 'en' ? 'The settings file is not valid JSON.' : 'Tệp cài đặt không phải JSON hợp lệ.')
+        : error.message;
+      toast(language === 'en' ? `Device settings import failed: ${message}` : `Nhập cài đặt thiết bị thất bại: ${message}`, 'error');
+    } finally {
+      event.target.value = '';
+    }
   }
 
   async function importFile(event) {
