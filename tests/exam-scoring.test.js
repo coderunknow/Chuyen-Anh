@@ -988,3 +988,186 @@ test('a snapshot with the same values in a different key order is not a conflict
   assert.throws(() => app.addExamResult(history, different), /Conflicting exam paper snapshot/,
     'a different question set is still a conflict');
 });
+
+test('rc11 persistence: two tabs that both submit keep both attempts', () => {
+  // Both tabs boot from the same store, so both hold the same boot-time snapshot.
+  // Tab A saves first; tab B still has the older snapshot. Saving B's whole
+  // in-memory history used to overwrite the key and silently drop A's attempt.
+  const record = records[0];
+  const questions = app.parseExamQuestions(record.markdown, record.id);
+  const keys = Array.isArray(record.answerKey) ? record.answerKey : [];
+  const build = (id, submittedAt) => {
+    const session = app.createExamPracticeSession(record.id, questions.slice(0, 2), submittedAt - 10);
+    for (const q of questions.slice(0, 2)) app.recordExamPracticeResponse(session, q.id, q.options?.[0]?.id ?? 'x');
+    app.submitExamPractice(session, submittedAt);
+    return app.createExamResultRecord(session, record, keys, { now: submittedAt, id });
+  };
+  const storage = store();
+  const tabA = app.loadExamResultHistory(storage);
+  const tabB = app.loadExamResultHistory(storage);
+  const attemptA = build('tab-a-attempt', 5000);
+  const attemptB = build('tab-b-attempt', 6000);
+
+  assert.equal(app.persistExamResultHistory(app.addExamResult(tabA, attemptA), tabA, storage), true,
+    'the first tab saves through the merge-before-write path');
+  assert.equal(app.persistExamResultHistory(app.addExamResult(tabB, attemptB), tabB, storage), true,
+    'the second tab must not fail just because the key changed under it');
+
+  const stored = app.loadExamResultHistory(storage);
+  assert.deepEqual(stored.attempts.map(a => a.id), ['tab-a-attempt', 'tab-b-attempt'],
+    'both attempts survive, in submission order');
+  assert.equal(Object.keys(stored.papers).length, 1, 'and they still share one stored paper snapshot');
+
+  // A deletion is a deliberate whole-history edit: it must not be resurrected.
+  const beforeDelete = app.loadExamResultHistory(storage);
+  const deleted = app.deleteExamResult(app.loadExamResultHistory(storage), 'tab-a-attempt');
+  assert.equal(app.persistExamResultHistory(deleted, beforeDelete, storage), true);
+  assert.deepEqual(app.loadExamResultHistory(storage).attempts.map(a => a.id), ['tab-b-attempt'],
+    'a deletion sticks: the caller history is the base');
+
+  const beforeClear = app.loadExamResultHistory(storage);
+  assert.equal(app.persistExamResultHistory(app.emptyExamResultHistory(), beforeClear, storage), true);
+  assert.equal(app.loadExamResultHistory(storage).attempts.length, 0, 'clearing removes every attempt');
+  assert.equal(Object.keys(app.loadExamResultHistory(storage).papers).length, 0, 'and leaves no orphan papers');
+
+  // A genuinely conflicting snapshot is still refused, never merged blindly.
+  assert.equal(app.persistExamResultHistory(app.addExamResult(app.emptyExamResultHistory(), attemptB),
+    app.emptyExamResultHistory(), storage), true, 'storage now holds the full paper snapshot');
+  const conflicting = { ...attemptB, id: 'tab-c-attempt', paper: { ...attemptB.paper, questions: attemptB.paper.questions.slice(0, 1) } };
+  const staleTab = app.addExamResult(app.emptyExamResultHistory(), conflicting);
+  assert.throws(() => app.persistExamResultHistory(staleTab, app.emptyExamResultHistory(), storage),
+    /conflicting-paper/, 'a different snapshot for the same paper key is reported, not merged blindly');
+});
+
+test('rc11 retention: the window keeps the newest attempts by submission time, not array position', () => {
+  // A device whose clock runs ahead publishes an attempt with a later
+  // `submittedAt`. Once imported it sits first in the stored array, and a
+  // positional `slice(-50)` then drops the newest local attempt.
+  const record = records[0];
+  const questions = app.parseExamQuestions(record.markdown, record.id);
+  const keys = Array.isArray(record.answerKey) ? record.answerKey : [];
+  const build = (answered, submittedAt, id) => {
+    const session = app.createExamPracticeSession(record.id, questions, submittedAt - 10);
+    let n = 0;
+    for (const q of questions) {
+      if (n >= answered) break;
+      app.recordExamPracticeResponse(session, q.id, q.options?.[0]?.id ?? 'x'); n += 1;
+    }
+    app.submitExamPractice(session, submittedAt);
+    return app.createExamResultRecord(session, record, keys, { now: submittedAt, id });
+  };
+  const storage = store();
+  const future = build(1, 3_600_000, 'clock-ahead-attempt');
+  assert.equal(app.importExamResultHistory(app.exportExamResultHistory(app.addExamResult(app.emptyExamResultHistory(), future)), storage).ok, true);
+
+  let history = app.loadExamResultHistory(storage);
+  for (let i = 0; i < 50; i += 1) {
+    const next = app.addExamResult(history, build(1, 1000 + i, `local-${i}`));
+    assert.equal(app.persistExamResultHistory(next, history, storage), true);
+    history = app.loadExamResultHistory(storage);
+  }
+  const ids = history.attempts.map(attempt => attempt.id);
+  assert.equal(ids.length, 50, 'the window still holds exactly 50 attempts');
+  assert.equal(ids.includes('local-49'), true, 'the newest local attempt is kept');
+  assert.equal(ids.includes('local-0'), false, 'the oldest local attempt is the one that leaves the window');
+  assert.equal(ids.includes('clock-ahead-attempt'), true, 'the newest attempt overall is not silently dropped');
+  const order = history.attempts.map(attempt => attempt.submittedAt);
+  assert.deepEqual(order, [...order].sort((a, b) => a - b), 'storage keeps attempts in submission order');
+});
+
+test('rc11 merge: a corrected attempt still merges with its uncorrected copy', () => {
+  // `summary` and `questionResults` are derived from the responses plus the
+  // corrections in force, so two copies of one attempt legitimately differ there
+  // once one device corrected the key. They are the same attempt.
+  const q = question(); const keys = [key()];
+  const session = app.createExamPracticeSession('2025/test/so', [q], 1000);
+  app.recordExamPracticeResponse(session, q.id, 'choice-A');
+  app.submitExamPractice(session, 1000);
+  const record = { id: '2025/test/so', year: 2025, province: 'Test', unit: 'so', unitLabel: 'Test', source: 'https://example.com', assets: [], quality: 'PDF-text', answers: '', note: '', contentSha256: 'a'.repeat(64), markdown: '' };
+  const attempt = app.createExamResultRecord(session, record, keys, { now: 1000, id: 'attempt-1' });
+  const before = app.addExamResult(app.emptyExamResultHistory(), attempt);
+  const corrected = app.applyExamKeyCorrection(before, { examId: record.id, questionId: q.id, candidates: ['choice-B'], normalization: 'choice-id', note: 'user review', now: 2000 });
+  assert.equal(corrected.ok, true);
+  assert.notEqual(corrected.history.attempts[0].summary.correct, before.attempts[0].summary.correct, 'the two copies really do score differently');
+
+  const merged = app.mergeExamResultHistory(before, JSON.parse(app.exportExamResultHistory(corrected.history)));
+  assert.equal(merged.ok, true, 'the corrected copy is the same attempt, not a conflict');
+  assert.equal(merged.history.attempts.length, 1, 'and it is stored once');
+  assert.equal(merged.history.corrections.length, 1, 'with the correction that justifies its score');
+  assert.equal(merged.history.attempts[0].summary.correct, corrected.history.attempts[0].summary.correct,
+    'the merged result is re-scored from the correction');
+
+  const tampered = JSON.parse(app.exportExamResultHistory(before));
+  tampered.attempts[0].responses[q.id] = 'choice-B';
+  const tamperedMerge = app.mergeExamResultHistory(corrected.history, tampered);
+  assert.equal(tamperedMerge.ok, false, 'a different answer under the same id is still refused');
+  assert.equal(tamperedMerge.reason, 'score-mismatch',
+    'it is caught even earlier: the edited responses no longer reproduce the stored result');
+});
+
+test('rc11 backup copy matches what the exporter really writes', () => {
+  // The settings panel describes the backup, and that description drifted: it
+  // omitted the `phrases` block the exporter has written for releases and said
+  // nothing about the stores that genuinely stay on the device.
+  const source = html.match(/<script type="module" id="app-script">([\s\S]*?)<\/script>/)[1];
+  const bundle = app.exportProgressBundle({
+    progress: {}, prefs: app.DEFAULT_PREFS, favorites: new Set(), history: [],
+    streak: { current: 0, longest: 0, lastDate: null }, study: null, flagged: null,
+    achievements: null, phrases: { P001: { attempts: 1, correct: 1, wrong: 0, lastPracticed: 1 } }
+  });
+  for (const block of ['study', 'flagged', 'achievements', 'phrases']) {
+    assert.equal(Object.hasOwn(bundle, block), true, `the bundle carries an optional ${block} block`);
+  }
+  const serialized = JSON.stringify(bundle);
+  assert.equal(/chuyen-anh\.cefr\.v1/.test(serialized), false, 'the CEFR selection is not in the backup');
+  assert.equal(/chuyen-anh\.presentation\.v1/.test(serialized), false, 'the theme/presentation is not in the backup');
+  assert.equal(/chuyen-anh\.language\.v1/.test(serialized), false, 'the interface language is not in the backup');
+
+  const viCopy = source.match(/<p class="settings-copy">(Bản sao JSON v1[^<]+)<\/p>/)[1];
+  assert.match(viCopy, /tiến độ cụm từ/, 'the copy names phrase progress, which the file really carries');
+  assert.match(viCopy, /CEFR/, 'the copy names the CEFR filter as device-local');
+  assert.match(viCopy, /giao diện sáng\/tối/, 'the copy names the theme as device-local');
+  assert.match(viCopy, /ngôn ngữ hiển thị/, 'the copy names the interface language as device-local');
+});
+
+test('rc11 export: a history the app can build is a history the app can import', () => {
+  // `examPaperKey` is `${examId}@${sha256}` while the import validator requires
+  // the exam id to contain no `@`. An id that does contain one built a key that
+  // could never be validated again: the submit saved nothing, and the recovery
+  // the error toast suggests - "download the JSON" - produced a file the
+  // importer refused with `invalid-paper`.
+  const toolQ = question({ id: 'q-1-test' });
+  const toolRecord = {
+    id: '2026/tool@x/so', year: 2026, province: 'Tool', unit: 'so', unitLabel: 'Tool',
+    source: 'https://example.com', quality: 'PDF-text', answers: '', note: '',
+    contentSha256: 'a'.repeat(64), markdown: ''
+  };
+  const session = app.createExamPracticeSession(toolRecord.id, [toolQ], 1000);
+  app.recordExamPracticeResponse(session, toolQ.id, 'choice-A');
+  app.submitExamPractice(session, 2000);
+  assert.throws(() => app.createExamResultRecord(session, toolRecord, [key()], { now: 2000 }),
+    /paper/i, 'a record that could never be stored or re-imported is refused at creation');
+
+  const record = records[0];
+  const questions = app.parseExamQuestions(record.markdown, record.id);
+  const keys = Array.isArray(record.answerKey) ? record.answerKey : [];
+  const okSession = app.createExamPracticeSession(record.id, questions.slice(0, 2), 1000);
+  for (const q of questions.slice(0, 2)) app.recordExamPracticeResponse(okSession, q.id, q.options[0].id);
+  app.submitExamPractice(okSession, 2000);
+  const okAttempt = app.createExamResultRecord(okSession, record, keys, { now: 2000, id: 'ok-attempt' });
+  const history = app.addExamResult(app.emptyExamResultHistory(), okAttempt);
+  const storage = store();
+  assert.equal(app.saveExamResultHistory(history, storage), true);
+  assert.equal(app.importExamResultHistory(app.exportExamResultHistory(history), store()).ok, true,
+    'a storeable history still exports and re-imports');
+});
+
+test('rc11 english: every exam toast has an English rendering', () => {
+  // The exam area is translated through EN_UI_TRANSLATIONS. Six of its toasts had
+  // no entry, so an English interface still showed Vietnamese sentences from the
+  // most consequential flows (a refused save, an import, a missing paper).
+  const source = html.match(/<script type="module" id="app-script">([\s\S]*?)<\/script>/)[1];
+  const toasts = [...new Set([...source.matchAll(/toast\(\s*'([^']{8,220})'/g)].map(m => m[1]))];
+  const untranslated = toasts.filter(text => app.translateUiText(text, 'en') === text);
+  assert.deepEqual(untranslated, [], 'these toast strings would be shown in Vietnamese: ' + untranslated.join(' | '));
+});
