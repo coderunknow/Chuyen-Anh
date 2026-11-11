@@ -143,9 +143,9 @@ until `v1.0.0` is published as a non-draft stable release and separately authori
 - **D62 (P3): six exam toasts had no English rendering.** In the English interface the most consequential exam flows
   (a refused save, an import confirmation, a missing paper) still spoke Vietnamese. All six now translate, asserted by a
   test over every literal toast string.
-- **Verification:** Node `static-app` (`146`) + `exam-scoring` (`58`) + `exam-anomalies` (`7`) + `rc10-cefr` (`10`)
+- **Verification:** Node `static-app` (`146`) + `exam-scoring` (`59`) + `exam-anomalies` (`7`) + `rc10-cefr` (`10`)
   + `v100-senses` (`8`) + `telemetry-api` (`17`) + `exam-exempt-rubric` (`7`) + `core-invariants` (`11`)
-  = **264 pass / 0 fail** on one line; Python `unittest`
+  = **265 pass / 0 fail** on one line; Python `unittest`
   **257 OK**, `test_archive.py` **5 OK**; `18/18` `--check` gates; Chromium E2E `browser-learning.cjs` + `browser-exams.cjs` PASS;
   axe-core 4.14.0 clean over 6 views × light/dark × desktop/375px, `320px` reflow, `200%` text zoom, reduced motion,
   keyboard focus; stateful fuzz `150 × 14 = 2,100` operations and **`29,529`** invariant checks with `0` violations (the

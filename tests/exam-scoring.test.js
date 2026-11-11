@@ -1038,6 +1038,51 @@ test('rc11 persistence: a correction removed by another tab is not silently adop
     `a removed correction must be restored or the save must fail (restored=${restored}, failed=${second === false})`);
 });
 
+test('rc11 persistence: an attempt replaced under the same id is not adopted as our save', () => {
+  // A concurrent import can write a different attempt under the same id with the
+  // same summary. Comparing summaries alone would call that our own successful
+  // write; the read-back must compare identity too (submittedAt, responses).
+  const record = records[0];
+  const questions = app.parseExamQuestions(record.markdown, record.id);
+  const keys = Array.isArray(record.answerKey) ? record.answerKey : [];
+  const build = (id, submittedAt) => {
+    const session = app.createExamPracticeSession(record.id, questions.slice(0, 2), submittedAt - 10);
+    for (const q of questions.slice(0, 2)) app.recordExamPracticeResponse(session, q.id, q.options?.[0]?.id ?? 'x');
+    app.submitExamPractice(session, submittedAt);
+    return app.createExamResultRecord(session, record, keys, { now: submittedAt, id });
+  };
+  const inner = store();
+  const tabA = app.loadExamResultHistory(inner);
+  const saved = app.persistExamResultHistory(app.addExamResult(tabA, build('b1', 6000)), tabA, inner);
+  assert.notEqual(saved, false);
+
+  // Mutate the stored attempt **in place** so the history it belongs to stays valid:
+  // keep the summary, change the timestamp. submittedAt is a number in this schema.
+  const substitute = () => {
+    const parsed = JSON.parse(inner.getItem('chuyen-anh.exam-results.v1'));
+    const target = parsed.attempts.find(a => a.id === 'b1');
+    assert.ok(target, 'the attempt to substitute is really in storage');
+    target.submittedAt = 999999;
+    return JSON.stringify(parsed);
+  };
+  let once = false;
+  const hostile = {
+    getItem: k => inner.getItem(k),
+    setItem: (k, v) => {
+      inner.setItem(k, v);
+      if (!once && k === 'chuyen-anh.exam-results.v1') { once = true; inner.setItem(k, substitute()); }
+    },
+    removeItem: k => inner.removeItem(k)
+  };
+  const tabB = app.loadExamResultHistory(inner);
+  const second = app.persistExamResultHistory(app.addExamResult(tabB, build('c1', 7000)), tabB, hostile);
+  assert.ok(once, 'the harness really did substitute the attempt once');
+  const finalAttempt = app.loadExamResultHistory(inner).attempts.find(a => a.id === 'b1');
+  const restoredOriginal = finalAttempt?.submittedAt === 6000;
+  assert.ok(restoredOriginal || second === false,
+    `a substituted attempt must be restored or the save must fail (submittedAt=${finalAttempt?.submittedAt}, returned=${second === false ? 'false' : 'history'})`);
+});
+
 test('rc11 persistence: an unrepairable concurrent overwrite reports failure, not a partial success', () => {
   // Returning the partial history here would be the worst outcome in the whole
   // path: persistExamResults treats any history as success, so the submit handler
