@@ -105,6 +105,54 @@ until `v1.0.0` is published as a non-draft stable release and separately authori
   function that is not a `TestCase` method. Python totals `254 → 256`.
 - **Regression test:** `tests/exam-scoring.test.js` → "rc10 import hardening"; removing either the escape or the
   validator checks makes it fail. Totals: Python `257 + 5 = 262 OK`, Node **235 / 0 fail**.
+### Persistence concurrency, backup truthfulness & accessibility (Round 7, 2026-11-09)
+
+- **D55 (P2, user-reachable): a corrected exam history could not be imported on the device that held the uncorrected copy.**
+  `mergeExamResultHistory` compared whole attempt objects, including `summary` and `questionResults`. Those are derived
+  from the responses plus the corrections in force, so once one device corrected a key the same attempt scored
+  differently on the two devices, the ids collided with different payloads, and the import failed with a raw
+  `conflicting-attempt` toast. Reproduced by driving the shipped UI
+  (`audit-evidence/round7/scripts/r7-browser-corrected-import.mjs`: pre-fix `FAIL … conflicting-attempt`, post-fix
+  `PASS`). Attempt identity is now the learner's own data - paper key, responses, timestamps - and the merged result is
+  re-scored from the corrections, so the score still follows the key.
+- **D56 (P2): a paper key the importer cannot validate was accepted at creation.** `examPaperKey` joins `examId` and
+  `contentSha256` with `@`, while the validator allows no `@` inside the id; an id such as `2026/tool@x/so` therefore
+  built a record that could never be saved, and the "download the JSON" advice in the error toast produced a file the app
+  itself rejected with `invalid-paper`. `createExamResultRecord` now refuses such a record before anything is reported as
+  saved, and the key pattern has one definition shared by writer and validator.
+- **D57 (P2): two tabs could overwrite each other's exam attempts.** A tab keeps `examResults` in memory for the whole
+  session; the `storage` listener reloads it, but a tab that is *inside an exam* cannot reload without discarding the
+  attempt. Writes now merge with what the key really holds, using the caller's history as the base so a deletion or a
+  clear is never resurrected. Reachability: the shipped UI's `storage` reload made the naive two-tab repro pass, so this
+  is a latent hardening rather than an observed loss.
+- **D58 (P3): retention trimmed by array position, not submission time.** An imported attempt with a later `submittedAt`
+  (a device whose clock runs ahead) sat first in the array, so `slice(-50)` dropped the *newest* local attempt and kept 49
+  older ones. Ordering now happens on submission time in `addExamResult`, `mergeExamResultHistory` and every persist.
+- **D59 (P3): the settings copy described a backup that does not exist.** It said the v1 file held only flashcard
+  progress, favourites, streak, history and settings - omitting the `phrases` block the exporter has written for
+  releases - and said nothing about the CEFR filter, theme and interface language, which really are device-local.
+  Corrected in both languages and pinned by a test.
+- **D60 (A11Y, P2): the "Chưa phân loại" CEFR chip failed WCAG 2.2 AA contrast at `3.52:1`.** The cause was
+  `opacity: .72` on unavailable chips, which multiplies the text colour, so no palette value could pass while the fade
+  stayed. The fade is gone (the dashed border and the "0 từ" count already carry the state, and the chips expose
+  `aria-disabled`); the axe scan is clean in light and dark themes.
+- **D61 (A11Y, P3): two labelled groups had no accessible name, and search favourite buttons were indistinguishable.**
+  `aria-label` on a plain `<div>` (`.hero-metrics`, `.pagination`) is ignored by assistive technology; both are now
+  `role="group"`. The favourite buttons announced the same name for every row and exposed no state; they now name the
+  word and carry `aria-pressed`.
+- **D62 (P3): six exam toasts had no English rendering.** In the English interface the most consequential exam flows
+  (a refused save, an import confirmation, a missing paper) still spoke Vietnamese. All six now translate, asserted by a
+  test over every literal toast string.
+- **Verification:** Node `static-app.test.js` (`144`) + `exam-scoring.test.js` (`40`) + `exam-anomalies.test.js` (`7`)
+  + `rc10-cefr.test.js` (`10`) + `v100-senses.test.js` (`8`) + `telemetry-api.test.js` (`17`)
+  + `exam-exempt-rubric.test.js` (`7`) + `core-invariants.test.js` (`11`) = **244 pass / 0 fail**; Python `unittest`
+  **257 OK**, `test_archive.py` **5 OK**; `21/21` `--check` gates; Chromium E2E `browser-learning.cjs` + `browser-exams.cjs` PASS;
+  axe-core 4.14.0 clean over 6 views × light/dark × desktop/375px, `320px` reflow, `200%` text zoom, reduced motion,
+  keyboard focus; stateful fuzz `150 × 14 = 2,100` operations and **`29,529`** invariant checks with `0` violations (the
+  `11,677` figure quoted for Round 6 was neither operations nor checks; it is superseded by the measured figure).
+- **Not changed on purpose:** the v1 backup contract. Phrase progress was already carried; the CEFR filter, theme and
+  interface language stay device-local, which is a product decision documented in the report, not a schema change.
+
 
 ### Import union & paper-snapshot integrity (Round 6, 2026-11-09)
 
@@ -152,7 +200,7 @@ until `v1.0.0` is published as a non-draft stable release and separately authori
 - **Verification**
 
 - **Validators & `--check` gates:** `expand_vocabulary`, `build_vocabulary`, `build_senses`, `audit_sense_sources`, `validate_vocab`, `embed_vocabulary`, `build_phrases`, `validate_phrases`, `embed_phrases`, `build_answer_keys`, `verify_curated_keys`, `audit_rendering`, `classify_anomalies`, `embed_archive`, `audit_vocabulary_quality`, `vocabulary_cefr_review`, `vocabulary_evidence_review`, `rc4_vocabulary_audit`, `audit_exam_provenance`, `generate_vocab_audit_dev5`, and `sense_integrity_audit` (new `--check` mode, wired into `ci.yml` and `deploy.yml`) all pass cleanly.
-- **Automated suites:** Python `unittest` **257 OK** + `scripts/exams/test_archive.py` **5 OK**; Node `static-app.test.js` (`144`) + `exam-scoring.test.js` (`34`) + `exam-anomalies.test.js` (`7`) + `rc10-cefr.test.js` (`10`) + `v100-senses.test.js` (`8`) + `telemetry-api.test.js` (`17`) + `exam-exempt-rubric.test.js` (`7`) + `core-invariants.test.js` (`11`) = **238 pass / 0 fail**; sequential Chromium E2E (`browser-learning.cjs` + `browser-exams.cjs` with `axe-core` WCAG 2.1 AA, `320–1440px` viewports, VI/EN, Classic/Modern, light/dark, `file://` standalone) **PASS**; `speed-benchmark.cjs` **PASS** (`3 ms` median consolidation/retry DOM latency, `0` page errors).
+- **Automated suites:** Python `unittest` **257 OK** + `scripts/exams/test_archive.py` **5 OK**; Node `static-app.test.js` (`144`) + `exam-scoring.test.js` (`40`) + `exam-anomalies.test.js` (`7`) + `rc10-cefr.test.js` (`10`) + `v100-senses.test.js` (`8`) + `telemetry-api.test.js` (`17`) + `exam-exempt-rubric.test.js` (`7`) + `core-invariants.test.js` (`11`) = **244 pass / 0 fail**; sequential Chromium E2E (`browser-learning.cjs` + `browser-exams.cjs` with `axe-core` WCAG 2.1 AA, `320–1440px` viewports, VI/EN, Classic/Modern, light/dark, `file://` standalone) **PASS**; `speed-benchmark.cjs` **PASS** (`3 ms` median consolidation/retry DOM latency, `0` page errors).
 - Current gates, defects, work log, and readiness report: `audit/v100/{GATES,DEFECTS,WORK_LOG,FINAL_READINESS_CHECKLIST,FINAL_READINESS}.md`.
   Separate explicit authorization is required before merge, tag, release or deployment.
 
