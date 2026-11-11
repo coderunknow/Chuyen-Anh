@@ -2384,3 +2384,46 @@ Evidence: `12/12` UI checks over three consecutive runs, `51/51` scoring tests (
 literal toasts translated, axe `0` violations. A harness flake is recorded here because it would have been invisible: the first version
 waited for any `.toast` node, which the 3.2-second success toast satisfied, so the invalid-file assertion silently read the *previous*
 message. It now waits on toast content.
+
+## Round 7 continuation — what a review round is actually for (2026-11-09)
+
+**Type: defect remediation + accessibility.** Two independent review rounds over the
+device-settings work and its neighbours produced 14 findings; 12 were real and are fixed,
+one is mitigated with its limits stated, one is out of scope.
+
+The most valuable finding was not in the new feature. **All three import controls — the v1
+backup, exam history, and the new settings file — were unreachable by keyboard.** Each was
+a `<label for>` wrapping a hidden file input, and a label is not focusable. Tab went from
+each Export button straight past its Import sibling. A keyboard-only learner could export
+a backup and never restore it, and nothing in the existing suite noticed, because the
+tests drove imports by setting the input's files directly — the way a developer does, not
+the way a person does. The lesson generalises: **a test that bypasses the control tests
+the handler, not the interface.**
+
+The second theme is that *reporting success over partial data* kept reappearing in
+different clothes. `applyDeviceSettings` returned `'ok'` after writing three of four
+stores, because a saver refuses an invalid value by staging nothing and the staging layer
+cannot tell "refused" from "nothing to change". Later, the cross-tab repair returned the
+partial history on every give-up path — and because any history return means success, the
+submit handler marked the attempt saved and suppressed its warning while the attempt was
+absent from storage. Both were found by asking a different question: not "does it work"
+but "what does the caller believe happened".
+
+Third: **a coverage test can be blind to its own subject.** The i18n test's Vietnamese
+detector omitted `ọ ụ ử ữ ẫ`, so `VI.test('Học tập')` was `false`, and its extractor
+matched only single-quoted strings. It had been green while unable to see a class of
+messages. Both gaps are now proved by injecting a message the old version missed. A test
+that cannot demonstrate it would fail is a claim, not evidence.
+
+**Decision recorded:** the cross-tab race is **mitigated, not fixed**. Writes are read back
+and a lost attempt is merged and rewritten, bounded to two retries. A true mutex is
+available (`navigator.locks` works even at `file://` in Chromium) but the save path awaits
+nothing, and making it async changes the contract for submit, delete, clear and
+correction. That trade is written in the code, in the ledger, and in the report, rather
+than being called a fix.
+
+**What was not tested.** No screen reader exists here (no X/Wayland, no D-Bus/AT-SPI, no
+`gi`/`pyatspi`; the Debian mirrors are unreachable), so the new controls are structurally
+checked, axe-clean and keyboard-operable but never heard. Firefox and WebKit ran only in
+CI. The concurrent overwrite was modelled with a store that reverts a key at the exact
+interleaving, not with two real tabs racing.
