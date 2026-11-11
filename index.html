@@ -548098,6 +548098,17 @@ const EN_UI_TRANSLATIONS = Object.freeze({
   'Kiểu hiển thị trong tệp không hợp lệ.': 'The display mode in the file is invalid.',
   'Tệp cài đặt không phải JSON hợp lệ.': 'The settings file is not valid JSON.',
   'Tệp cài đặt quá lớn.': 'The settings file is too large.',
+  'Không thể lưu kết quả vì bản đề này đã được lưu với bộ câu hỏi khác; hãy mở lại đề từ kho và làm lại.': 'The result could not be saved because this paper was saved with a different set of questions. Reopen it from the archive and retake it.',
+  'Bộ lọc CEFR vừa thay đổi: đã bỏ X thẻ nằm ngoài mức đang chọn khỏi phiên.': 'The CEFR filter just changed: X cards outside the selected level(s) were removed from the session.',
+  'Đã bật nhóm từ và chọn làm trọng tâm phiên học.': 'Word family enabled and set as the focus of the study session.',
+  'Chưa có từ khó nào được đánh dấu trong các mức CEFR đang chọn. Hãy đánh dấu từ hoặc mở thêm mức CEFR.': 'No hard words are marked within the selected CEFR levels. Mark a word or enable more CEFR levels.',
+  'Bạn chưa đánh dấu từ yêu thích nào. Hãy bấm ngôi sao ở Tra cứu hoặc trong phiên học.': 'You have not starred any favourite words yet. Tap the star in Search or during a study session.',
+  'Mọi mức CEFR đang tắt nên không cụm từ nào vào phiên. Hãy bật lại một mức trong mục Học.': 'Every CEFR level is off, so no phrases enter the session. Turn a level back on in the Study section.',
+  'Không thể tạo bản ghi lịch sử luyện đề.': 'The exam history record could not be created.',
+  'Đáp án hiệu chỉnh không hợp lệ với dạng câu hỏi.': 'The corrected answer is not valid for this question type.',
+  'Đã lưu hiệu chỉnh người học và tính lại kết quả.': 'Your correction was saved and the result recalculated.',
+  'Không thể nhập lịch sử đề: X': 'The exam history could not be imported: X',
+  'Nhập cài đặt thiết bị thất bại: X': 'Device settings import failed: X',
 });
 
 const EN_UI_PATTERNS = [
@@ -554113,7 +554124,7 @@ export function persistExamResultHistory(next, base, storage = memorySafeStorage
     // the attempt objects are not mutated, only their position in the array - and
     // store it. Cloning 1.6 MB here would cost more than the whole write.
     const ordered = { ...next, attempts: examOrderAttempts(next.attempts) };
-    return saveExamResultHistory(ordered, storage);
+    return saveExamResultHistory(ordered, storage) ? ordered : false;
   }
   // The union must be re-scored, and this is not optional. A record another tab
   // wrote was scored against *that* tab's corrections, and corrections are shared
@@ -554131,7 +554142,11 @@ export function persistExamResultHistory(next, base, storage = memorySafeStorage
   // its tail, so an out-of-order key would show, and trim, the wrong attempts.
   const orderedMerged = { ...merged.history, attempts: examOrderAttempts(merged.history.attempts) };
   examPruneCorrections(orderedMerged);
-  return saveExamResultHistory(orderedMerged, storage);
+  // Return the history that was actually stored, not just a boolean. Another tab's
+  // attempts are merged in here, so the caller's own `next` is missing records the
+  // store now holds; assigning `next` to the in-memory history would hide them from
+  // the history list and the JSON export until the next reload.
+  return saveExamResultHistory(orderedMerged, storage) ? orderedMerged : false;
 }
 
 export function importExamResultHistory(rawText, storage = memorySafeStorage()) {
@@ -556950,7 +556965,9 @@ export async function createApp(root) {
       toast('Không thể lưu lịch sử luyện đề trên thiết bị này.', 'error');
       return false;
     }
-    examResults = next;
+    // `saved` is the merged history the store now holds, which can contain attempts
+    // another tab wrote. Assigning `next` would drop them from the UI until reload.
+    examResults = saved;
     return true;
   }
   function downloadExamJson(filename, value) {
@@ -557145,8 +557162,7 @@ export async function createApp(root) {
         const next = addExamResult(examResults, attempt);
         session.attemptId = attempt.id;
         session.resultSaved = persistExamResults(next);
-        if (session.resultSaved) examResults = next;
-        else toast('Không thể lưu lịch sử luyện đề; hãy tải kết quả JSON trước khi đóng trang.', 'error');
+        if (!session.resultSaved) toast('Không thể lưu lịch sử luyện đề; hãy tải kết quả JSON trước khi đóng trang.', 'error');
       } catch (error) {
         session.resultSaved = false;
         // A conflicting snapshot is the learner's own archive being read

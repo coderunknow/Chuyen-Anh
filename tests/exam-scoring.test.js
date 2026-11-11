@@ -989,6 +989,41 @@ test('a snapshot with the same values in a different key order is not a conflict
     'a different question set is still a conflict');
 });
 
+test('rc11 persistence: a successful save returns the merged history, not the caller\'s unmerged copy', () => {
+  // Storage was always correct here; the *return value* was not. The merge path
+  // adds attempts another tab wrote, but it used to return only `true`, so the UI
+  // assigned its own `next` and hid the merged records from the history list and
+  // the JSON export until the next reload. A later clear could then treat them as
+  // unseen and resurrect them.
+  const record = records[0];
+  const questions = app.parseExamQuestions(record.markdown, record.id);
+  const keys = Array.isArray(record.answerKey) ? record.answerKey : [];
+  const build = (id, submittedAt) => {
+    const session = app.createExamPracticeSession(record.id, questions.slice(0, 2), submittedAt - 10);
+    for (const q of questions.slice(0, 2)) app.recordExamPracticeResponse(session, q.id, q.options?.[0]?.id ?? 'x');
+    app.submitExamPractice(session, submittedAt);
+    return app.createExamResultRecord(session, record, keys, { now: submittedAt, id });
+  };
+  const storage = store();
+  const tabA = app.loadExamResultHistory(storage);
+  const tabB = app.loadExamResultHistory(storage);
+  app.persistExamResultHistory(app.addExamResult(tabA, build('a1', 5000)), tabA, storage);
+  const nextB = app.addExamResult(tabB, build('b1', 6000));
+  const saved = app.persistExamResultHistory(nextB, tabB, storage);
+
+  assert.notEqual(saved, false, 'the save succeeded');
+  assert.equal(typeof saved, 'object', 'a successful save must yield the stored history so the caller can adopt it');
+  assert.deepEqual(saved.attempts.map(a => a.id), ['a1', 'b1'],
+    'the returned history is the merged one, including the attempt this tab never saw');
+  assert.deepEqual(saved.attempts.map(a => a.id), app.loadExamResultHistory(storage).attempts.map(a => a.id),
+    'and it matches what the store really holds');
+  // The caller's own copy is still the unmerged one - that is why returning it mattered.
+  assert.deepEqual(nextB.attempts.map(a => a.id), ['b1']);
+  // A refused save still reports false rather than a history.
+  assert.equal(app.persistExamResultHistory(nextB, tabB, { getItem: () => null, setItem: () => { throw new Error('denied'); }, removeItem: () => {} }), false,
+    'a failed write reports false');
+});
+
 test('rc11 persistence: two tabs that both submit keep both attempts', () => {
   // Both tabs boot from the same store, so both hold the same boot-time snapshot.
   // Tab A saves first; tab B still has the older snapshot. Saving B's whole
@@ -1008,9 +1043,9 @@ test('rc11 persistence: two tabs that both submit keep both attempts', () => {
   const attemptA = build('tab-a-attempt', 5000);
   const attemptB = build('tab-b-attempt', 6000);
 
-  assert.equal(app.persistExamResultHistory(app.addExamResult(tabA, attemptA), tabA, storage), true,
+  assert.notEqual(app.persistExamResultHistory(app.addExamResult(tabA, attemptA), tabA, storage), false,
     'the first tab saves through the merge-before-write path');
-  assert.equal(app.persistExamResultHistory(app.addExamResult(tabB, attemptB), tabB, storage), true,
+  assert.notEqual(app.persistExamResultHistory(app.addExamResult(tabB, attemptB), tabB, storage), false,
     'the second tab must not fail just because the key changed under it');
 
   const stored = app.loadExamResultHistory(storage);
@@ -1021,18 +1056,18 @@ test('rc11 persistence: two tabs that both submit keep both attempts', () => {
   // A deletion is a deliberate whole-history edit: it must not be resurrected.
   const beforeDelete = app.loadExamResultHistory(storage);
   const deleted = app.deleteExamResult(app.loadExamResultHistory(storage), 'tab-a-attempt');
-  assert.equal(app.persistExamResultHistory(deleted, beforeDelete, storage), true);
+  assert.notEqual(app.persistExamResultHistory(deleted, beforeDelete, storage), false);
   assert.deepEqual(app.loadExamResultHistory(storage).attempts.map(a => a.id), ['tab-b-attempt'],
     'a deletion sticks: the caller history is the base');
 
   const beforeClear = app.loadExamResultHistory(storage);
-  assert.equal(app.persistExamResultHistory(app.emptyExamResultHistory(), beforeClear, storage), true);
+  assert.notEqual(app.persistExamResultHistory(app.emptyExamResultHistory(), beforeClear, storage), false);
   assert.equal(app.loadExamResultHistory(storage).attempts.length, 0, 'clearing removes every attempt');
   assert.equal(Object.keys(app.loadExamResultHistory(storage).papers).length, 0, 'and leaves no orphan papers');
 
   // A genuinely conflicting snapshot is still refused, never merged blindly.
-  assert.equal(app.persistExamResultHistory(app.addExamResult(app.emptyExamResultHistory(), attemptB),
-    app.emptyExamResultHistory(), storage), true, 'storage now holds the full paper snapshot');
+  assert.notEqual(app.persistExamResultHistory(app.addExamResult(app.emptyExamResultHistory(), attemptB),
+    app.emptyExamResultHistory(), storage), false, 'storage now holds the full paper snapshot');
   const conflicting = { ...attemptB, id: 'tab-c-attempt', paper: { ...attemptB.paper, questions: attemptB.paper.questions.slice(0, 1) } };
   const staleTab = app.addExamResult(app.emptyExamResultHistory(), conflicting);
   assert.throws(() => app.persistExamResultHistory(staleTab, app.emptyExamResultHistory(), storage),
@@ -1063,7 +1098,7 @@ test('rc11 retention: the window keeps the newest attempts by submission time, n
   let history = app.loadExamResultHistory(storage);
   for (let i = 0; i < 50; i += 1) {
     const next = app.addExamResult(history, build(1, 1000 + i, `local-${i}`));
-    assert.equal(app.persistExamResultHistory(next, history, storage), true);
+    assert.notEqual(app.persistExamResultHistory(next, history, storage), false);
     history = app.loadExamResultHistory(storage);
   }
   const ids = history.attempts.map(attempt => attempt.id);
@@ -1223,14 +1258,14 @@ test('rc11 persist: a correction another tab wrote is carried, so the union stay
     normalization: 'choice-id', note: 'tab A review', now: 6000
   });
   assert.equal(corrected.ok, true, 'the other tab corrected the key');
-  assert.equal(app.persistExamResultHistory(corrected.history, tabA, storage), true);
+  assert.notEqual(app.persistExamResultHistory(corrected.history, tabA, storage), false);
 
   // This tab booted before that write and knows nothing about the correction.
   const staleTab = app.emptyExamResultHistory();
   const own = app.addExamResult(staleTab, build('tab-b-attempt', 7000));
   let saved = false;
   try { saved = app.persistExamResultHistory(own, staleTab, storage); } catch (error) { saved = error.message; }
-  assert.equal(saved, true, `the union must stay saveable, got: ${saved}`);
+  assert.notEqual(saved, false, `the union must stay saveable, got: ${saved === false ? 'false' : JSON.stringify(saved).slice(0, 120)}`);
 
   const merged = app.loadExamResultHistory(storage);
   assert.deepEqual(merged.attempts.map(a => a.id), ['tab-a-attempt', 'tab-b-attempt'], 'both attempts are stored');
@@ -1442,4 +1477,41 @@ test('rc11 device settings: phrase progress keeps travelling in the v1 backup', 
   assert.equal(Object.hasOwn(bundle, 'phrases'), true, 'phrase progress is still in the v1 bundle');
   const reimported = app.validateImportPayload(bundle);
   assert.equal(reimported.phrases.P001.correct, 2, 'and it still round-trips');
+});
+
+test('rc11 english: every Vietnamese sentence passed to toast() renders in English', () => {
+  // The earlier coverage test only matched `toast('literal'`. A toast whose message
+  // is chosen by a ternary - `toast(error ? 'A' : 'B')` - was invisible to it, and
+  // that is how the snapshot-conflict recovery sentence stayed Vietnamese in the
+  // English interface even though the suite was green.
+  // `app` and `appSource` are module-level: the suite already loaded the app once.
+  const source = appSource;
+  const VI = /[àáảãạăâđêôơưýỳỷỹỵ]/i;
+
+  // Balanced-argument walk from each toast( so ternaries and template literals in
+  // the argument are included, not just the leading literal.
+  const args = [];
+  const re = /\btoast\(/g;
+  let m;
+  while ((m = re.exec(source))) {
+    let i = m.index + m[0].length, depth = 1, start = i, quote = null;
+    for (; i < source.length && depth > 0; i += 1) {
+      const c = source[i];
+      if (quote) { if (c === '\\') i += 1; else if (c === quote) quote = null; continue; }
+      if (c === "'" || c === '"' || c === '`') { quote = c; continue; }
+      if (c === '(') depth += 1;
+      else if (c === ')') depth -= 1;
+    }
+    args.push(source.slice(start, i - 1));
+  }
+  assert.ok(args.length >= 60, `expected the toast call sites to be found, got ${args.length}`);
+
+  const literals = new Set();
+  for (const arg of args) {
+    for (const q of arg.matchAll(/'((?:[^'\\\n]|\\.){6,300})'/g)) literals.add(q[1]);
+  }
+  const vi = [...literals].filter(t => VI.test(t) && !/[`'"]/.test(t));
+  assert.ok(vi.length >= 60, `expected Vietnamese toast copy to be found, got ${vi.length}`);
+  const untranslated = vi.filter(t => app.translateUiText(t, 'en') === t);
+  assert.deepEqual(untranslated, [], 'these toast messages have no English rendering');
 });
