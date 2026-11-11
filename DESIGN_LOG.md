@@ -2352,3 +2352,35 @@ The second lesson is about equivalence: one mutant survived every input until th
 Before writing a test to kill a survivor, decide what *observable* behaviour the mutation changes; if none exists, say so and
 call it an equivalent mutant rather than inventing a test that only pretends to cover it.
 
+## Round 7 continuation — device settings get a file of their own (2026-11-09)
+
+**Type: feature + contract decision.** The round-7 brief named three device-local settings (CEFR filter, theme, language) that the v1
+progress backup deliberately does not carry. Option 3 was chosen: give them a *separate*, versioned file rather than widening the v1
+schema, because widening it would mean a backup written today could silently repaint a device restored tomorrow.
+
+The file is `{ app: 'chuyen-anh-device-settings', version: 1, exportedAt, settings }`. The interesting decisions are all about what
+happens when the file is wrong:
+
+- **Replace, never merge.** A merge has no correct answer when two devices disagree about the theme. Import means "make this device
+  match this file", and the panel says so before the learner commits.
+- **A missing field is refused, not defaulted.** Defaulting a missing `theme` would look like a successful import while quietly
+  reverting it to `system` — the file would appear to have worked.
+- **A fourth setting was included: `presentation`.** The brief named three. Interface skin and meaning-visibility are also
+  device-local, and a restore that omits them lands on a device that looks like neither the old nor the new configuration. This is a
+  deliberate widening of the stated scope, recorded here rather than left implicit.
+- **Rollback is reported honestly.** `applyDeviceSettings` returns `'ok' | 'write-failed' | 'rollback-failed'`. The existing staging
+  layer probes capacity before touching a real key, so a short store returns `false` with nothing written; only a commit that throws
+  mid-way and cannot restore reports `'rollback-failed'`. Two tests cover the two branches separately, because a single test would
+  have accepted either result and told us nothing.
+
+Phrase progress stays in the v1 backup, untouched — a test asserts the settings file contains no `P\d{3}` key and that the v1 schema is
+unchanged, because the tempting refactor here is to move everything at once.
+
+**What was not tested.** No screen reader exists in this environment (no X/Wayland, no D-Bus/AT-SPI, no `gi`/`pyatspi`, and the Debian
+mirrors are unreachable), so the new panel's announcement order is structurally checked and axe-clean but not heard. Browser evidence
+is Chromium only; Firefox and WebKit coverage is CI's, at the exact PR head, not a local run.
+
+Evidence: `12/12` UI checks over three consecutive runs, `51/51` scoring tests (control on `2e640bb`: `36 pass / 15 fail`), `35/35`
+literal toasts translated, axe `0` violations. A harness flake is recorded here because it would have been invisible: the first version
+waited for any `.toast` node, which the 3.2-second success toast satisfied, so the invalid-file assertion silently read the *previous*
+message. It now waits on toast content.
