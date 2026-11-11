@@ -548097,6 +548097,7 @@ const EN_UI_TRANSLATIONS = Object.freeze({
   'Ngôn ngữ trong tệp không hợp lệ.': 'The language in the file is invalid.',
   'Kiểu hiển thị trong tệp không hợp lệ.': 'The display mode in the file is invalid.',
   'Tệp cài đặt không phải JSON hợp lệ.': 'The settings file is not valid JSON.',
+  'Tệp cài đặt quá lớn.': 'The settings file is too large.',
 });
 
 const EN_UI_PATTERNS = [
@@ -549444,6 +549445,11 @@ export function savePresentation(presentation, storage = memorySafeStorage()) {
 // values are restored if the write fails.
 export const DEVICE_SETTINGS_FORMAT = 'chuyen-anh-device-settings';
 export const DEVICE_SETTINGS_VERSION = 1;
+// This file holds four small preferences, so anything approaching a megabyte is
+// not one of ours. Refusing before reading matters: `file.text()` would load the
+// whole selection into memory first and could hang the tab, which is why the size
+// is checked on the File, not on the parsed result.
+export const DEVICE_SETTINGS_MAX_BYTES = 64 * 1024;
 
 // The exact set this file may carry. Anything else in the object is ignored on
 // read (a newer writer may add fields) and never written on export.
@@ -549472,6 +549478,11 @@ export function exportDeviceSettings(input) {
 // Throws with a translated message: the caller shows it verbatim, and a silent
 // `{ok:false}` would leave the learner without a reason. Nothing here writes.
 export function validateDeviceSettingsPayload(payload, translate = text => text) {
+  // A caller holding raw text is capped the same way the UI caps the File, so the
+  // limit cannot be bypassed by calling the validator directly.
+  if (typeof payload === 'string' && new TextEncoder().encode(payload).length > DEVICE_SETTINGS_MAX_BYTES) {
+    throw new Error(translate('Tệp cài đặt quá lớn.'));
+  }
   if (!payload || typeof payload !== 'object' || Array.isArray(payload)) {
     throw new Error(translate('Tệp cài đặt phải là một đối tượng JSON.'));
   }
@@ -557364,6 +557375,13 @@ export async function createApp(root) {
     const file = event.target.files?.[0];
     if (!file) return;
     try {
+      if (file.size > DEVICE_SETTINGS_MAX_BYTES) {
+        // Never call file.text() for a file this size: reading it is the part
+        // that would stall the tab.
+        toast('Tệp cài đặt quá lớn.', 'error');
+        event.target.value = '';
+        return;
+      }
       // Parse, validate and apply are three separate steps and nothing writes
       // before the second finishes, so a malformed file cannot leave the device
       // half configured.

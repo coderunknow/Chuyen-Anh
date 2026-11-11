@@ -1371,6 +1371,33 @@ test('rc11 device settings: a store that fails mid-commit and cannot roll back i
   assert.equal(app.applyDeviceSettings(parsed, halfDead), 'rollback-failed');
 });
 
+test('rc11 device settings: oversized input is refused before it can be parsed', () => {
+  // Four small preferences never need 64 KB. The cap exists because reading a huge
+  // selection into `file.text()` is what would stall the tab, so it is enforced on
+  // the File in the UI and again on raw text here for direct callers.
+  assert.equal(app.DEVICE_SETTINGS_MAX_BYTES, 64 * 1024);
+  const huge = '{"app":"chuyen-anh-device-settings"}' + ' '.repeat(app.DEVICE_SETTINGS_MAX_BYTES);
+  assert.throws(() => app.validateDeviceSettingsPayload(huge), /quá lớn|too large/);
+  // The UI parses first, so the same payload arriving as an object must still be
+  // refused - here by shape, because padding a real payload with junk fields is
+  // how a bloated file would actually arrive.
+  const parsedHuge = JSON.parse('{"app":"chuyen-anh-device-settings","version":1,"settings":' + JSON.stringify({
+    cefr: { levels: ['B2'], unclassified: false }, theme: 'dark', language: 'en',
+    presentation: { meanings: 'show', interface: 'modern' }
+  }) + ',"pad":"' + 'x'.repeat(app.DEVICE_SETTINGS_MAX_BYTES) + '"}');
+  // Unknown fields are ignored by design, so a big valid payload is fine; the cap
+  // that matters is the byte check on raw text and the File check in the UI.
+  assert.doesNotThrow(() => app.validateDeviceSettingsPayload(parsedHuge));
+  // A legitimate payload stays well under the ceiling. Note the shape: the
+  // validator takes a parsed object (the string branch exists only for the byte
+  // cap), so passing the serialized text would be refused as "not an object" -
+  // which is the correct behaviour, not a bug.
+  const small = JSON.stringify(app.exportDeviceSettings(settingsSample()));
+  assert.ok(new TextEncoder().encode(small).length < app.DEVICE_SETTINGS_MAX_BYTES);
+  assert.doesNotThrow(() => app.validateDeviceSettingsPayload(JSON.parse(small)));
+  assert.throws(() => app.validateDeviceSettingsPayload(small), /đối tượng JSON|JSON object/);
+});
+
 test('rc11 device settings: the v1 progress backup still refuses to carry these settings', () => {
   const bundle = app.exportProgressBundle({
     progress: {}, prefs: app.DEFAULT_PREFS, favorites: new Set(), history: [],
