@@ -549544,11 +549544,20 @@ export function validateDeviceSettingsPayload(payload, translate = text => text)
 // 'rollback-failed'; the caller distinguishes a clean refusal from a store that
 // may now be half written, because only the first can be retried safely.
 export function applyDeviceSettings(settings, storage = memorySafeStorage()) {
+  const expected = [
+    STUDY_STORAGE_KEYS.cefr, STUDY_STORAGE_KEYS.theme, LANGUAGE_STORAGE_KEY, PRESENTATION_STORAGE_KEY
+  ];
   const staged = createWriteStaging(storage);
   saveCefrSelection(settings.cefrSelection, staged.storage);
   saveTheme(settings.theme, staged.storage);
   saveLanguage(settings.language, staged.storage);
   savePresentation(settings.presentation, staged.storage);
+  // A saver refuses an invalid value by not staging a write at all, and the
+  // staging layer cannot tell "refused" from "nothing to change". Without this
+  // check an invalid theme would report 'ok' after writing the other three
+  // stores - a partial application dressed as a success. The UI validates first,
+  // but this function is exported and its contract is all-or-nothing.
+  if (!expected.every(key => staged.writes.has(key))) return 'write-failed';
   const committed = staged.commit();
   if (committed === true) return 'ok';
   return committed === 'rollback-failed' ? 'rollback-failed' : 'write-failed';

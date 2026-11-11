@@ -1398,6 +1398,24 @@ test('rc11 device settings: oversized input is refused before it can be parsed',
   assert.throws(() => app.validateDeviceSettingsPayload(small), /đối tượng JSON|JSON object/);
 });
 
+test('rc11 device settings: applyDeviceSettings never reports ok after writing only part of the set', () => {
+  // A saver refuses an invalid value by not staging a write, and the staging layer
+  // cannot distinguish that from "no change needed". Before the guard, an invalid
+  // theme reported 'ok' after writing the other three stores - a partial
+  // application dressed as a success. The UI validates first, but this function is
+  // exported and its contract is all-or-nothing.
+  const m = new Map();
+  const store = { getItem: k => (m.has(k) ? m.get(k) : null), setItem: (k, v) => m.set(k, String(v)), removeItem: k => m.delete(k) };
+  const bogus = {
+    cefrSelection: app.sanitizeCefrSelection({ version: 1, levels: ['B2'], unclassified: false }),
+    theme: 'sepia',   // invalid: saveTheme stages nothing
+    language: 'en',
+    presentation: { meanings: 'show', interface: 'modern' }
+  };
+  assert.equal(app.applyDeviceSettings(bogus, store), 'write-failed');
+  assert.equal(m.size, 0, 'nothing may be written when one setting is refused');
+});
+
 test('rc11 device settings: the v1 progress backup still refuses to carry these settings', () => {
   const bundle = app.exportProgressBundle({
     progress: {}, prefs: app.DEFAULT_PREFS, favorites: new Set(), history: [],
