@@ -989,6 +989,87 @@ test('a snapshot with the same values in a different key order is not a conflict
     'a different question set is still a conflict');
 });
 
+test('rc11 persistence: a correction removed by another tab is not silently adopted', () => {
+  // Attempt ids can all match while a correction changed or vanished; the stored
+  // score is only reproducible from that correction, so adopting the older list and
+  // reporting success would be a quiet data loss.
+  const record = records[0];
+  const questions = app.parseExamQuestions(record.markdown, record.id);
+  const keys = Array.isArray(record.answerKey) ? record.answerKey : [];
+  const build = (id, submittedAt) => {
+    const session = app.createExamPracticeSession(record.id, questions.slice(0, 2), submittedAt - 10);
+    for (const q of questions.slice(0, 2)) app.recordExamPracticeResponse(session, q.id, q.options?.[0]?.id ?? 'x');
+    app.submitExamPractice(session, submittedAt);
+    return app.createExamResultRecord(session, record, keys, { now: submittedAt, id });
+  };
+  const inner = store();
+  const tabA = app.loadExamResultHistory(inner);
+  const withAttempt = app.addExamResult(tabA, build('a1', 5000));
+  // Built through the app's own API so the correction has a valid shape.
+  const corrected = app.applyExamKeyCorrection(withAttempt, {
+    examId: record.id, questionId: questions[0].id, candidates: ['probe-answer'], now: 5000
+  });
+  assert.equal(corrected.ok, true, 'the app can build the correction this test needs');
+  const first = app.persistExamResultHistory(corrected.history, tabA, inner);
+  assert.notEqual(first, false, 'the first save succeeds');
+  const correctionId = corrected.correction.id;
+
+  // A store that re-applies a snapshot with the correction stripped, once.
+  const stripped = inner.getItem('chuyen-anh.exam-results.v1');
+  let once = false;
+  const hostile = {
+    getItem: k => inner.getItem(k),
+    setItem: (k, v) => {
+      inner.setItem(k, v);
+      if (!once && k === 'chuyen-anh.exam-results.v1') {
+        once = true;
+        const parsed = JSON.parse(stripped);
+        parsed.corrections = [];
+        inner.setItem(k, JSON.stringify(parsed));
+      }
+    },
+    removeItem: k => inner.removeItem(k)
+  };
+  const tabB = app.loadExamResultHistory(inner);
+  const second = app.persistExamResultHistory(app.loadExamResultHistory(inner), tabB, hostile);
+  assert.ok(once, 'the harness really did strip the correction once');
+  const restored = app.loadExamResultHistory(inner).corrections.some(c => c.id === correctionId);
+  assert.ok(restored || second === false,
+    `a removed correction must be restored or the save must fail (restored=${restored}, failed=${second === false})`);
+});
+
+test('rc11 persistence: an unrepairable concurrent overwrite reports failure, not a partial success', () => {
+  // Returning the partial history here would be the worst outcome in the whole
+  // path: persistExamResults treats any history as success, so the submit handler
+  // would mark the attempt saved and suppress the "could not save" warning while
+  // the learner's attempt is genuinely absent from storage.
+  const record = records[0];
+  const questions = app.parseExamQuestions(record.markdown, record.id);
+  const keys = Array.isArray(record.answerKey) ? record.answerKey : [];
+  const build = (id, submittedAt) => {
+    const session = app.createExamPracticeSession(record.id, questions.slice(0, 2), submittedAt - 10);
+    for (const q of questions.slice(0, 2)) app.recordExamPracticeResponse(session, q.id, q.options?.[0]?.id ?? 'x');
+    app.submitExamPractice(session, submittedAt);
+    return app.createExamResultRecord(session, record, keys, { now: submittedAt, id });
+  };
+  const inner = store();
+  const tabA = app.loadExamResultHistory(inner);
+  app.persistExamResultHistory(app.addExamResult(tabA, build('a1', 5000)), tabA, inner);
+  const snapshot = inner.getItem('chuyen-anh.exam-results.v1');
+
+  // Every write is immediately reverted: the repair can never win.
+  const hostile = {
+    getItem: k => inner.getItem(k),
+    setItem: (k, v) => { inner.setItem(k, v); if (k === 'chuyen-anh.exam-results.v1') inner.setItem(k, snapshot); },
+    removeItem: k => inner.removeItem(k)
+  };
+  const tabB = app.loadExamResultHistory(inner);
+  const saved = app.persistExamResultHistory(app.addExamResult(tabB, build('b1', 6000)), tabB, hostile);
+  assert.equal(saved, false, 'an attempt that cannot be confirmed in storage must not be reported as saved');
+  assert.equal(app.loadExamResultHistory(inner).attempts.some(a => a.id === 'b1'), false,
+    'and the harness really did keep it out of storage (otherwise this proves nothing)');
+});
+
 test('rc11 persistence: a concurrent overwrite between write and read-back is repaired, not lost', () => {
   // The read-merge-write is not atomic across tabs. Web Locks exist but this path is
   // synchronous and the app also runs from file://, so the guarantee made here is
@@ -1531,7 +1612,11 @@ test('rc11 english: every Vietnamese sentence passed to toast() renders in Engli
   // English interface even though the suite was green.
   // `app` and `appSource` are module-level: the suite already loaded the app once.
   const source = appSource;
-  const VI = /[àáảãạăâđêôơưýỳỷỹỵ]/i;
+  // The full Vietnamese alphabet, not a subset: an earlier version of this test
+  // omitted ọ, ụ, ử, ữ, ẫ and others, so `VI.test('Học tập')` was false and a toast
+  // using only those letters would never reach translateUiText. That version
+  // happened to miss no real message, but the hole was real.
+  const VI = /[ăâđêôơưàáảãạằắẳẵặầấẩẫậèéẻẽẹềếểễệìíỉĩịòóỏõọồốổỗộờớởỡợùúủũụừứửữựỳýỷỹỵ]/i;
 
   // Balanced-argument walk from each toast( so ternaries and template literals in
   // the argument are included, not just the leading literal.
@@ -1551,9 +1636,20 @@ test('rc11 english: every Vietnamese sentence passed to toast() renders in Engli
   }
   assert.ok(args.length >= 60, `expected the toast call sites to be found, got ${args.length}`);
 
+  // Single quotes, double quotes and template literals all carry user-facing copy;
+  // matching only the first form would let a `toast("Đã lưu")` escape the check.
+  // Interpolations are replaced with a placeholder so the rest of the sentence is
+  // still compared against the translation table.
   const literals = new Set();
   for (const arg of args) {
     for (const q of arg.matchAll(/'((?:[^'\\\n]|\\.){6,300})'/g)) literals.add(q[1]);
+    for (const q of arg.matchAll(/"((?:[^"\\\n]|\\.){6,300})"/g)) literals.add(q[1]);
+    for (const q of arg.matchAll(/`((?:[^`\\]|\\.){6,300})`/g)) literals.add(q[1].replace(/\$\{[^}]*\}/g, 'X'));
+  }
+  // Prove the detector before trusting it: these are the letters the previous
+  // version of this test did not recognise.
+  for (const sample of ['Học tập', 'Xóa', 'ử', 'ữ', 'ẫ']) {
+    assert.ok(VI.test(sample), `the Vietnamese detector must recognise ${sample}`);
   }
   const vi = [...literals].filter(t => VI.test(t) && !/[`'"]/.test(t));
   assert.ok(vi.length >= 60, `expected Vietnamese toast copy to be found, got ${vi.length}`);

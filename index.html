@@ -554165,16 +554165,38 @@ function verifyOrRepairExamResultHistory(written, storage, attemptsLeft = 2) {
   let stored;
   try { stored = loadExamResultHistory(storage); } catch { return written; }
   const storedIds = new Set(stored.attempts.map(attempt => attempt?.id));
-  const lost = written.attempts.filter(attempt => !storedIds.has(attempt.id));
-  if (!lost.length) return stored;
-  if (attemptsLeft <= 0) return stored;
+  const storedById = new Map(stored.attempts.map(attempt => [attempt?.id, attempt]));
+  // An attempt is missing if it is gone, or if another tab replaced it under the
+  // same id: matching ids alone would adopt a different record and call it success.
+  const lost = written.attempts.filter(attempt => {
+    const found = storedById.get(attempt?.id);
+    if (!found) return true;
+    return JSON.stringify(found.summary || {}) !== JSON.stringify(attempt.summary || {});
+  });
+  // Corrections matter even when every attempt id survived: a correction is what
+  // makes a stored score reproducible, so if another tab dropped or replaced one,
+  // adopting the older list silently reports a success over changed data. Only
+  // removals and content changes count - an added correction is not a loss.
+  const storedCorrections = new Map((stored.corrections || []).map(correction => [correction?.id, correction]));
+  const lostCorrection = (written.corrections || []).some(correction => {
+    const found = storedCorrections.get(correction?.id);
+    if (!found) return true;
+    return JSON.stringify(found) !== JSON.stringify(correction);
+  });
+  if (!lost.length && !lostCorrection) return stored;
+  // From here the write is not confirmed. Every remaining exit reports failure
+  // rather than the partial history: a caller that receives a history marks the
+  // submission saved and suppresses its 'could not save' warning, so returning
+  // `stored` here would tell the learner their attempt is safe when it is not.
+  if (attemptsLeft <= 0) return false;
   // Someone else's write won the race. Merge what is there now with what we
-  // intended, then write and verify once more.
+  // intended, then write and verify once more. A merge that refuses (a conflicting
+  // paper snapshot) cannot be repaired by this loop either.
   const repaired = mergeExamResultHistory(written, stored);
-  if (!repaired.ok) return stored;
+  if (!repaired.ok) return false;
   const ordered = { ...repaired.history, attempts: examOrderAttempts(repaired.history.attempts) };
   examPruneCorrections(ordered);
-  if (!saveExamResultHistory(ordered, storage)) return stored;
+  if (!saveExamResultHistory(ordered, storage)) return false;
   return verifyOrRepairExamResultHistory(ordered, storage, attemptsLeft - 1);
 }
 
