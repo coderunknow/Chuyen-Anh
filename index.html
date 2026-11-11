@@ -553682,6 +553682,11 @@ function examRecomputeResultHistory(history) {
 export function addExamResult(history, attempt) {
   const next = examClone(history || emptyExamResultHistory());
   if (!attempt?.paper || attempt.paper.id !== attempt.paperKey) throw new Error('Invalid exam paper snapshot.');
+  // Same rule as `createExamResultRecord`: a history that holds a key the
+  // importer cannot validate is a history whose own export cannot be read back.
+  // Refusing here keeps the model's promise - anything the app can build, the app
+  // can also import - instead of letting the failure surface only at re-import.
+  if (!EXAM_PAPER_KEY_RE.test(attempt.paperKey)) throw new Error('Invalid exam paper key.');
   if (next.attempts.some(a => a.id === attempt.id)) return next;
   const { paper, ...stored } = examClone(attempt);
   // One paper key covers every attempt of the same archive, so the snapshot that
@@ -553921,8 +553926,12 @@ export function persistExamResultHistory(next, base, storage = memorySafeStorage
   const unseenAttempts = stored.attempts.filter(attempt => !baseIds.has(attempt.id) && !nextIds.has(attempt.id));
   // A correction the caller knew about and dropped (a deleted attempt takes its
   // corrections with it) is a deliberate removal, exactly like an attempt, so it
-  // must be compared against the base as well; keeping it would also keep the
-  // paper it targets and leave a snapshot no attempt points at.
+  // must be compared against the base as well. A correction the caller has never
+  // seen is kept even when no unseen attempt references it: a record was scored
+  // against the corrections in force on the tab that wrote it, so the correction
+  // is what makes that record's stored score reproducible - dropping it makes the
+  // whole union fail its own validator with `score-mismatch`. Corrections that do
+  // not target a paper in the result are pruned below, so this cannot accumulate.
   const baseCorrectionIds = new Set((Array.isArray(base?.corrections) ? base.corrections : []).map(correction => correction?.id));
   const unseenCorrections = (stored.corrections || []).filter(correction =>
     !baseCorrectionIds.has(correction.id) && !next?.corrections?.some(existing => existing.id === correction.id));
@@ -553931,6 +553940,10 @@ export function persistExamResultHistory(next, base, storage = memorySafeStorage
   // the incoming records can be validated on their own. mergeExamResultHistory
   // still rejects a genuine snapshot conflict instead of choosing a winner.
   const neededPapers = new Set([...unseenAttempts.map(attempt => attempt.paperKey), ...unseenCorrections.map(correction => Object.keys(stored.papers).find(key => stored.papers[key].examId === correction.examId))]);
+  // The union is built from the caller's history plus the unseen records, and the
+  // unseen corrections are copied in whole rather than filtered against the
+  // caller's papers; `examPruneCorrections` then keeps only those that still
+  // target a paper present in the result, which is the rule the model enforces.
   const unseen = {
     app: 'Chuyên Anh', format: 'exam-result-history', schemaVersion: EXAM_HISTORY_SCHEMA_VERSION,
     // Only papers that the unseen records actually reference are carried: a
@@ -553947,10 +553960,14 @@ export function persistExamResultHistory(next, base, storage = memorySafeStorage
     const ordered = { ...next, attempts: examOrderAttempts(next.attempts) };
     return saveExamResultHistory(ordered, storage);
   }
-  // The union is already fully scored (the caller's history is scored and the
-  // unseen records were validated by mergeExamResultHistory), so re-scoring all
-  // 50 attempts again would only spend main-thread time on the submit path.
-  const merged = mergeExamResultHistory(next, unseen, { scoreResult: false });
+  // The union must be re-scored, and this is not optional. A record another tab
+  // wrote was scored against *that* tab's corrections, and corrections are shared
+  // across attempts of one exam; the union's correction list is this tab's, so the
+  // unseen records' stored summaries need not reproduce from it. Skipping the
+  // re-score (an earlier version of this code did, to save time on the submit
+  // path) produced histories that failed their own validator with `score-mismatch`
+  // - silently un-saveable, which is the failure this whole path exists to avoid.
+  const merged = mergeExamResultHistory(next, unseen);
   // Another tab wrote a different snapshot under a key both tabs already hold:
   // this is a real conflict and must be reported, never resolved by last write.
   if (!merged.ok) throw new Error(`Conflicting stored exam history: ${merged.reason}`);
@@ -553958,6 +553975,7 @@ export function persistExamResultHistory(next, base, storage = memorySafeStorage
   // them: the history screen reverses this list and the retention window keeps
   // its tail, so an out-of-order key would show, and trim, the wrong attempts.
   const orderedMerged = { ...merged.history, attempts: examOrderAttempts(merged.history.attempts) };
+  examPruneCorrections(orderedMerged);
   return saveExamResultHistory(orderedMerged, storage);
 }
 

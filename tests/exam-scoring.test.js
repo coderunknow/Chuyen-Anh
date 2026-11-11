@@ -1171,3 +1171,69 @@ test('rc11 english: every exam toast has an English rendering', () => {
   const untranslated = toasts.filter(text => app.translateUiText(text, 'en') === text);
   assert.deepEqual(untranslated, [], 'these toast strings would be shown in Vietnamese: ' + untranslated.join(' | '));
 });
+
+test('rc11 model: addExamResult refuses a key the exporter could never re-import', () => {
+  // The fuzz suite found this: `addExamResult` accepted an attempt whose
+  // `paperKey` was a bare exam id, so the history it built exported to a file its
+  // own importer rejected with `invalid-paper`. Both ends now share the rule.
+  const bare = { id: 'x', paperKey: '2026/paper-a/so', examId: '2026/paper-a/so', startedAt: 1, submittedAt: 2, responses: {}, paper: { id: '2026/paper-a/so' } };
+  assert.throws(() => app.addExamResult(app.emptyExamResultHistory(), bare), /paper key/i,
+    'a key that is not id@sha256 is refused at the point of adding');
+  const at = 'a@b@' + 'a'.repeat(64);
+  assert.throws(() => app.addExamResult(app.emptyExamResultHistory(),
+    { ...bare, paperKey: at, paper: { id: at } }), /paper key/i,
+    'an id containing @ cannot form a storable key');
+
+  // A storable key on a complete paper - built from the archive the app itself
+  // validates - still adds, exports and re-imports.
+  const record = records[0];
+  const questions = app.parseExamQuestions(record.markdown, record.id);
+  const keys = Array.isArray(record.answerKey) ? record.answerKey : [];
+  const session = app.createExamPracticeSession(record.id, questions.slice(0, 2), 1000);
+  for (const q of questions.slice(0, 2)) app.recordExamPracticeResponse(session, q.id, q.options[0].id);
+  app.submitExamPractice(session, 2000);
+  const real = app.createExamResultRecord(session, record, keys, { now: 2000, id: 'real-attempt' });
+  const ok = app.addExamResult(app.emptyExamResultHistory(), real);
+  assert.equal(ok.attempts.length, 1, 'a complete attempt with a storable key is accepted');
+  assert.equal(app.importExamResultHistory(app.exportExamResultHistory(ok), store()).ok, true,
+    'and that history re-imports, which is the property the fuzz failure broke');
+});
+
+test('rc11 persist: a correction another tab wrote is carried, so the union stays saveable', () => {
+  // Found by the stateful fuzz. Another tab corrected a key and saved; its records
+  // were scored against that correction. A tab that has never seen the correction
+  // must carry it into the union, or the union's own stored scores become
+  // unreproducible and the validator refuses the save with `score-mismatch` -
+  // a silently un-saveable history, which is exactly what this path prevents.
+  const record = records[0];
+  const questions = app.parseExamQuestions(record.markdown, record.id);
+  const keys = Array.isArray(record.answerKey) ? record.answerKey : [];
+  const build = (id, submittedAt) => {
+    const session = app.createExamPracticeSession(record.id, questions.slice(0, 2), submittedAt - 10);
+    for (const q of questions.slice(0, 2)) app.recordExamPracticeResponse(session, q.id, q.options[0].id);
+    app.submitExamPractice(session, submittedAt);
+    return app.createExamResultRecord(session, record, keys, { now: submittedAt, id });
+  };
+  const storage = store();
+  const first = build('tab-a-attempt', 5000);
+  const tabA = app.addExamResult(app.emptyExamResultHistory(), first);
+  const corrected = app.applyExamKeyCorrection(tabA, {
+    examId: record.id, questionId: questions[0].id,
+    candidates: [questions[0].options[1]?.id ?? questions[0].options[0].id],
+    normalization: 'choice-id', note: 'tab A review', now: 6000
+  });
+  assert.equal(corrected.ok, true, 'the other tab corrected the key');
+  assert.equal(app.persistExamResultHistory(corrected.history, tabA, storage), true);
+
+  // This tab booted before that write and knows nothing about the correction.
+  const staleTab = app.emptyExamResultHistory();
+  const own = app.addExamResult(staleTab, build('tab-b-attempt', 7000));
+  let saved = false;
+  try { saved = app.persistExamResultHistory(own, staleTab, storage); } catch (error) { saved = error.message; }
+  assert.equal(saved, true, `the union must stay saveable, got: ${saved}`);
+
+  const merged = app.loadExamResultHistory(storage);
+  assert.deepEqual(merged.attempts.map(a => a.id), ['tab-a-attempt', 'tab-b-attempt'], 'both attempts are stored');
+  assert.equal(merged.corrections.length, 1, "the other tab's correction is carried, not dropped");
+  assert.equal(app.validateExamResultHistory(merged).ok, true, 'and the stored history still passes its own validator');
+});
