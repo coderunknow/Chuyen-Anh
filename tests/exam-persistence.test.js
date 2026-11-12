@@ -508,3 +508,38 @@ test('r8 correction UI: the 1,000-character limit is visible and enforced at the
   assert.match(appSource, /examCorrectionValidation\(question,/);
   assert.match(appSource, /validation\.reason === 'too-long'/);
 });
+
+test('r8 persistence: importing a backup after Clear restores it, because the learner asked for it', async () => {
+  // Tombstones exist so a *stale tab* cannot resurrect deleted data. An explicit
+  // import is the opposite actor: the learner chose the file. If the tombstone won
+  // there, "Clear all" then "Import" would silently import nothing.
+  const { store } = makeStore();
+  const boot = app.loadExamResultHistory(store);
+  await save(app.addExamResult(boot, attempt('backup-attempt', 5000)), boot, store);
+  const withCorrection = app.applyExamKeyCorrection(app.loadExamResultHistory(store), {
+    examId: record.id, questionId: questions[0].id, candidates: ['backup-correction'], now: 5100
+  });
+  assert.equal(withCorrection.ok, true);
+  await save(withCorrection.history, app.loadExamResultHistory(store), store);
+  const exported = app.exportExamResultHistory(app.loadExamResultHistory(store));
+
+  const beforeClear = app.loadExamResultHistory(store);
+  await save(app.clearExamResultHistory(beforeClear), beforeClear, store);
+  assert.deepEqual(stored(store).attempts, [], 'the Clear really removed the attempt');
+
+  const imported = await app.importExamResultHistory(exported, store);
+  assert.equal(imported.ok, true, `import must succeed (reason: ${imported.reason})`);
+  assert.deepEqual(stored(store).attempts.map(item => item.id), ['backup-attempt'],
+    'the backup the learner explicitly imported is restored');
+  assert.deepEqual(stored(store).corrections.map(item => item.id), [withCorrection.correction.id],
+    'and the correction travels with it, as the export/import round trip promises');
+
+  // The stale-tab guarantee is untouched: a tab that still holds a record deleted
+  // *after* the import still cannot write it back.
+  const staleTab = app.loadExamResultHistory(store);
+  const deleted = app.loadExamResultHistory(store);
+  await save(app.deleteExamResult(deleted, 'backup-attempt'), deleted, store);
+  const back = await save(app.addExamResult(staleTab, attempt('unrelated', 8000)), staleTab, store);
+  assert.equal(back.ok, true);
+  assert.deepEqual(stored(store).attempts.map(item => item.id), ['unrelated']);
+});

@@ -554617,7 +554617,20 @@ export async function importExamResultHistory(rawText, storage = memorySafeStora
   return withExamHistoryLock(storage, async () => {
     const inspected = inspectExamResultStore(storage);
     if (inspected.status === 'unreadable') return { ok: false, reason: `store-${inspected.reason}` };
-    const merged = examUnionHistories(inspected.history, valid.value);
+    // An import is an explicit restore: the learner chose this file. Tombstones
+    // keep a *stale tab* from resurrecting data, not the owner from restoring a
+    // backup, so the records the file actually carries are un-tombstoned - and
+    // nothing else is. Without this, "Clear all" followed by "Import" would
+    // silently import nothing, which is a data-loss shaped bug in the opposite
+    // direction.
+    const restored = examClone(inspected.history);
+    const incomingAttempts = new Set(valid.value.attempts.map(attempt => attempt.id));
+    const incomingCorrections = new Set(valid.value.corrections.map(correction => correction.id));
+    for (const field of ['attempts', 'corrections']) {
+      const carried = field === 'attempts' ? incomingAttempts : incomingCorrections;
+      restored.tombstones[field] = (restored.tombstones[field] || []).filter(entry => !carried.has(entry.id));
+    }
+    const merged = examUnionHistories(restored, valid.value);
     if (!merged.ok) return merged;
     const recomputed = examRecomputeResultHistory(merged.history);
     const consistent = validateExamResultHistory(recomputed);

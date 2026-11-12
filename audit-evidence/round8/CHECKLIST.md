@@ -33,9 +33,9 @@ Starting SHA `e663295ea8236fd29be6b30e0d04c78e911d7429` · branch `arena/chuyen-
 | 23 | Unseen-attempt score mismatch reproduced against the starting SHA, then fixed | `[x]` | `logs/repro-score-mismatch-at-start-sha.log` (throws `score-mismatch`) vs `logs/repro-score-mismatch-after-fix.log` (saves, all three attempts stored) |
 | 24 | Vocabulary multiword finding verified and given a negative control | `[x]` | `test_a_word_is_not_attested_by_a_multiword_headword_that_contains_it`; mutation check in `EVIDENCE_MANIFEST.md` |
 | 25 | `--help` has no side effects in `build_archive.py` and `release_artifacts.py` | `[x]` | `tests/test_script_help.py` (5 tests, fake `gh`, tree hash before/after, `PUSH_TAG`/`INPUT_TAG` set) |
-| 26 | Full local regression at the working tree state | `[x]` | Node **288 pass / 0 fail** (9 suites), Python **263 OK**, **21/21** `ci.yml` gates, `test_archive.py` covered by CI only (`scripts/exams/requirements.txt` needs a venv; see `EVIDENCE_MANIFEST.md`) |
-| 27 | Browser suites (Chromium/Firefox/WebKit) on the exact final SHA | `[ ]` | **BLOCKED_EXTERNAL locally** (`FAILURE_LEDGER.md` F1). Deferred to CI on the exact final SHA |
-| 28 | Required CI jobs green on the exact final head SHA | `[ ]` | Pending CI on the pushed head; results recorded in `CONTINUATION_REPORT.md` |
+| 26 | Full local regression at the working tree state | `[x]` | Node **289 pass / 0 fail** (9 suites), Python **263 OK**, **21/21** `ci.yml` gates, archive suite **5 OK** in a pinned venv; logs in `logs/` |
+| 27 | Browser suites (Chromium/Firefox/WebKit) on the exact final SHA | `[ ]` | First CI run at `bbe957d` **failed all three engines** at the clear→import step; that is a real regression, fixed, and recorded as `FAILURE_LEDGER.md` F6. Re-run pending on the new head |
+| 28 | Required CI jobs green on the exact final head SHA | `[ ]` | `checks` + `validate` green at `bbe957d`; the browser matrix failed there and is re-running on the fixed head. Results recorded in `CONTINUATION_REPORT.md` |
 | 29 | CodeRabbit completed on the exact final head SHA | `[ ]` | Pending; status (including any rate limit) recorded in `CONTINUATION_REPORT.md` |
 | 30 | Screen-reader manual validation with genuine evidence | `[ ]` | **INCOMPLETE — no real screen reader in this environment.** `accessibility/` records what a human must do |
 | 31 | Kilo / Copilot external review | `[ ]` | Not a completion; see `CONTINUATION_REPORT.md` |

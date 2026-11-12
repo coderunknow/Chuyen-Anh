@@ -99,3 +99,54 @@ No tag, release, draft, asset or upload was created at any point in this round.
 depends on (it shows a specific message instead of catching). The intent of the original
 assertion — *a different snapshot is never merged blindly* — is preserved and strengthened
 by checking the reason.
+
+---
+
+## F6 — CI caught a real regression my local suites missed: importing a backup after Clear
+
+**Hypothesis.** Tombstones should win in every direction, including an import.
+
+**Actual.** All three browser jobs at `bbe957d` failed at the same step:
+`waiting for locator('#exam-history-list .exam-history-row')` after
+*Clear all* followed by *Import*. The suite's scenario is the ordinary learner one —
+export a backup, clear, import it back — and the tombstones I had added refused it, so
+the import silently restored nothing.
+
+This is the valuable kind of failure: the *unit* tests all passed, because they asserted
+the tombstone rule without asserting that the learner's own explicit restore still works.
+The browser suite exercises the flow, not the rule.
+
+**Fix.** An import un-tombstones exactly the ids the file carries, and nothing else: an
+explicit restore by the owner is a different actor from a stale tab. The stale-tab
+guarantee is unchanged (and still tested).
+
+**Control.** The new test
+`r8 persistence: importing a backup after Clear restores it, because the learner asked for it`
+was run against the pre-fix code and **fails** (`22 pass / 1 fail`), then passes with the
+fix (`23 / 0`). That is the first test in this round whose control was provided by CI
+rather than by me choosing where to look.
+
+**Lesson.** A rule that is right in isolation can still break a flow nobody asserted.
+The tombstone tests were written from the finding; the import test was written from a
+failing pipeline.
+
+**Second lesson, recorded honestly.** The log download for the failed jobs was unavailable
+from this sandbox (`gh run view --log` returns `EOF` from the results receiver), so the
+diagnosis came from the check-run annotations, which named the exact locator. When the
+raw log is unreachable, the annotation is the evidence — and it was enough.
+
+---
+
+## F7 — Browser binaries are still unavailable, so the jsdom probe is a substitute, not proof
+
+**Method.** With the real engines unreachable (F1), the UI flow that the browser suite
+asserts was driven through `jsdom` and the app's own exported API
+(`audit-evidence/round8/ui-flow-probe.mjs`, 8 checks, all passing): submit → correct →
+clear → malformed import → valid import, on the store the app actually uses.
+
+**What it proves.** The application logic and the storage contract of that flow, in a
+context with no Web Locks (the `file://`-shaped fallback).
+
+**What it does not prove.** Rendering, focus, timing or anything a real engine does
+differently. It is not a browser result and is not counted as one; the browser matrix is
+still read only from CI.
