@@ -95,7 +95,7 @@ declare them, which is how the stale `exam-scoring 59` was caught the moment the
 |---|---|---|
 | 8 — screen-reader validation | **INCOMPLETE** | No screen reader can exist in this environment. The checklist is real; the validation is missing. Not simulated. |
 | 10 — Kilo review at the final SHA | **INCOMPLETE** | Insufficient credits on the app's account. Kilo fails to run at every SHA; an ACTION_REQUIRED is not a completion. |
-| 13 — all CI green at the final SHA | **PASS** | Was blocked for ~50 minutes by the Playwright CDN and twice by WebKit runner timeouts. Both cleared: `ac445f4` is green on chromium, firefox, webkit and checks. |
+| 13 — all CI green at the final SHA | **PASS** | Was blocked for ~50 minutes by the Playwright CDN and twice by WebKit runner timeouts. Both cleared; every head from `ac445f4` to `b697481` is green on all four jobs. |
 
 Carried forward and **not** claimed fixed: Major `4537334892` (score mismatch on
 `unseen` attempts) and Minor `4514659122` (multiword seed headwords, out of
@@ -118,7 +118,10 @@ separate authorisation and has not been requested by this report.
 | `3c2d7ff` | pass | **fail** | **fail** | **fail** | empty retry commit, same step |
 | `9edc2a0` | pass | **pass** | **pass** | **pass** | **CDN recovered — all four green** |
 | `e538bb6` | pass | pass | pass | cancelled | cancelled by the next push (concurrency), not by a failure |
-| `ac445f4` | pass | **pass** | **pass** | **pass** | **all four green** |
+| `ac445f4` | pass | **pass** | **pass** | **pass** | all four green |
+| `ac2f216` | pass | **pass** | **pass** | **pass** | all four green |
+| `a2be2d4` | pass | **pass** | **pass** | **pass** | all four green |
+| `b697481` | pass | **pass** | **pass** | **pass** | **final head — all four green** |
 
 The failure was always the same single step, `Install <browser> for Playwright`,
 failing after ~2 s. The diagnosis rests on three facts, not on the error text:

@@ -18,7 +18,7 @@ document.
 | 6 | Round-trip + failure tests pass | **PASS** | 14-check UI probe + 19-check keyboard probe; malformed / incomplete / unknown-version cases; `index.html` tests |
 | 7 | v1 backup compatibility preserved | **PASS** | v1 schema untouched; phrase progress stays in the v1 backup and is **not** duplicated into the settings file |
 | 8 | Screen-reader manual validation with genuine evidence | **INCOMPLETE** | **Impossible in this environment** — no AT-SPI, no `pyatspi`, no display, Debian mirror unreachable. Checklist delivered at `accessibility/MANUAL_SCREEN_READER_CHECKLIST.md`. Not simulated. |
-| 9 | CodeRabbit completed at the exact final SHA | **PASS** | `completed/success` at **`e538bb6`** (05:15:18Z), producing 3 Minor findings `4546621788` / `4546621792` / `4546621797`. Earlier runs, kept for the record: `completed/success` at `3c2d7ff` (15:35–15:43Z) → Major `4539964627`; at `74a5e45` → 4; at `9f2f82e` → 10. **A request is not a completion** — the `9edc2a0` request was counted only after its result arrived at `e538bb6`. |
+| 9 | CodeRabbit completed at the exact final SHA | **PASS** | `completed/success` at **`b697481`** (10:30:59Z) — "Review finished", **zero new findings**. Completions along the way, each fixed: `3c2d7ff` (1 Major), `e538bb6` (3 Minor), `ac2f216` (3 Minor), `0c8587a` (1 Major), `4970cb5` (1 Major), `a2be2d4` (1 Minor). **A request is not a completion** — each row above was counted only after its result arrived. |
 | 10 | Kilo completed at the exact final SHA | **INCOMPLETE** | Kilo's account has insufficient credits; it fails to run at any SHA. An ACTION_REQUIRED or a crash is not a completion. |
 | 11 | Review findings resolved or dispositioned | **PASS** | Every CodeRabbit finding to date either fixed with a control or explicitly carried forward with a reason |
 | 12 | Regression tests pass at the exact final SHA | **PASS** | Node **266/266**, Python **257 OK**, archive **5 OK**, **17** validator gates pass (18 document `--check`, 1 is retired by design; 2 build tools ignore `--help`); browser suites PASS locally |
@@ -43,9 +43,10 @@ document.
 
 ## Final table
 
-Measured at **`ac2f216`** (the reviewed head) unless a row names a different SHA.
-Node and Python were re-run at this exact commit after the review; CI at this
-commit is green on all four jobs.
+Measured at **`b697481`** (the final head) unless a row names a different SHA.
+Node and Python were re-run at this commit; CI at this commit is green on all
+four jobs, and CodeRabbit's review at this commit **finished with zero new
+findings**.
 
 | Check | Result |
 |---|---|
@@ -56,8 +57,8 @@ commit is green on all four jobs.
 | Browser suites (local, chromium 133) | `browser-learning` **PASS**, `browser-exams` **PASS** |
 | Control for the `9edc2a0` fix | fails without the fix (`restored=false, returned=history`), passes with it |
 | CI — `9edc2a0` (last code change) | **all four green**: chromium, firefox, webkit, checks |
-| CI — `ac2f216` (the reviewed head) | **all four green**: chromium, firefox, webkit, checks |
-| CodeRabbit at `ac2f216` | `completed/success` (06:20:39Z), 3 Minor findings — all fixed. Earlier: `completed/success` at `e538bb6` (3 Minor) and `3c2d7ff` (1 Major). |
+| CI — `b697481` (the final head) | **all four green**: chromium, firefox, webkit, checks |
+| CodeRabbit at `b697481` | `completed/success` (10:30:59Z) — **zero new findings**, the first clean review of the session. History: `3c2d7ff` 1 Major, `74a5e45` 4, `9f2f82e` 10, `e538bb6` 3 Minor, `ac2f216` 3 Minor, `0c8587a` 1 Major, `4970cb5` 1 Major, `a2be2d4` 1 Minor — all fixed with controls. |
 | Kilo | **fail** — insufficient credits; not a completion |
 | PR state | Draft, MERGEABLE, `DEPLOY_HOLD` intact, `v1.0.0-rc10`, no tag/release/deploy |
 
