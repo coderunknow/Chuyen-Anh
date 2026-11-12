@@ -554188,7 +554188,21 @@ function verifyOrRepairExamResultHistory(written, storage, attemptsLeft = 2) {
     if (!found) return true;
     return JSON.stringify(found) !== JSON.stringify(correction);
   });
-  if (!lost.length && !lostCorrection) return stored;
+  // The papers map is the third half of the record and the reason a stored score
+  // is reproducible at all. Attempts and corrections can both survive while a
+  // concurrent import swaps the snapshot under the same key: the attempt keeps its
+  // responses and its stored results still pass the validator, so nothing above
+  // notices, and the learner ends up with a saved paper holding a different
+  // question set than the one they sat. The merge already refuses to combine two
+  // different snapshots for one key, so a lost one here is unrecoverable by the
+  // same rule - comparing it now makes the repair path report the conflict instead
+  // of adopting it.
+  const lostPaper = Object.entries(written.papers || {}).some(([key, paper]) => {
+    const found = stored.papers?.[key];
+    if (!found) return true;
+    return examCanonicalJson(found) !== examCanonicalJson(paper);
+  });
+  if (!lost.length && !lostCorrection && !lostPaper) return stored;
   // From here the write is not confirmed. Every remaining exit reports failure
   // rather than the partial history: a caller that receives a history marks the
   // submission saved and suppresses its 'could not save' warning, so returning

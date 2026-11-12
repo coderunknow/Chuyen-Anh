@@ -1083,6 +1083,57 @@ test('rc11 persistence: an attempt replaced under the same id is not adopted as 
     `a substituted attempt must be restored or the save must fail (submittedAt=${finalAttempt?.submittedAt}, returned=${second === false ? 'false' : 'history'})`);
 });
 
+test('rc11 persistence: a paper snapshot replaced under the same key is not adopted as our save', () => {
+  // The read-back compares attempts and corrections, but the papers map is the
+  // third half of the record: it is what makes a stored score reproducible. A
+  // concurrent import can replace a snapshot under the same paperKey while every
+  // attempt identity and summary still matches - the attempts keep their own
+  // responses, and `questionResults` is stored data, so the history still passes
+  // its own validator. Adopting it means the learner's saved paper now holds a
+  // different question set than the one they sat.
+  const record = records[0];
+  const questions = app.parseExamQuestions(record.markdown, record.id);
+  const keys = Array.isArray(record.answerKey) ? record.answerKey : [];
+  const session = app.createExamPracticeSession(record.id, questions.slice(0, 2), 5000);
+  for (const q of questions.slice(0, 2)) app.recordExamPracticeResponse(session, q.id, q.options?.[0]?.id ?? 'x');
+  app.submitExamPractice(session, 6000);
+  const attempt = app.createExamResultRecord(session, record, keys, { now: 6000, id: 'p1' });
+  const inner = store();
+  const tabA = app.loadExamResultHistory(inner);
+  const first = app.persistExamResultHistory(app.addExamResult(tabA, attempt), tabA, inner);
+  assert.notEqual(first, false, 'the initial save must succeed');
+
+  // A different, still perfectly valid question set under the same paper key: the
+  // snapshot's own hash moves, the attempt that references it does not.
+  const paperKey = attempt.paperKey;
+  const impostor = () => {
+    const parsed = JSON.parse(inner.getItem('chuyen-anh.exam-results.v1'));
+    const paper = parsed.papers[paperKey];
+    assert.ok(paper, 'the paper snapshot to replace is really in storage');
+    // A prompt change is enough: questions stay valid and the attempt's stored
+    // results still reproduce, because results are stored, not recomputed from text.
+    paper.questions[0].prompt = `${paper.questions[0].prompt} (replaced under the same key)`;
+    return JSON.stringify(parsed);
+  };
+  let once = false;
+  const hostile = {
+    getItem: k => inner.getItem(k),
+    setItem: (k, v) => {
+      inner.setItem(k, v);
+      if (!once && k === 'chuyen-anh.exam-results.v1') { once = true; inner.setItem(k, impostor()); }
+    },
+    removeItem: k => inner.removeItem(k)
+  };
+  const tabB = app.loadExamResultHistory(inner);
+  const second = app.persistExamResultHistory(app.addExamResult(tabB, attempt), tabB, hostile);
+  assert.ok(once, 'the harness really did substitute the paper snapshot once');
+  const storedPaper = app.loadExamResultHistory(inner).papers[paperKey];
+  const originalPrompt = attempt.paper.questions[0].prompt;
+  const restored = storedPaper?.questions?.[0]?.prompt === originalPrompt;
+  assert.ok(restored || second === false,
+    `a substituted paper snapshot must be restored or the save must fail (restored=${restored}, returned=${second === false ? 'false' : 'history'})`);
+});
+
 test('rc11 persistence: an unrepairable concurrent overwrite reports failure, not a partial success', () => {
   // Returning the partial history here would be the worst outcome in the whole
   // path: persistExamResults treats any history as success, so the submit handler
