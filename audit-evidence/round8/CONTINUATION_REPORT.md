@@ -188,3 +188,56 @@ Test: "an over-long historical correction is preserved, not truncated or dropped
 The user has accepted a ready-for-review PR with the screen-reader checklist and the
 unavailable external reviews still incomplete, provided they are disclosed — which is
 what the table above does.
+
+---
+
+# Final state (this session)
+
+## Exactly which SHA each result belongs to
+
+| SHA | What ran there | Result |
+|-----|----------------|--------|
+| `bbe957d` | full local battery + CI | local: Node 288, Python 263, gates 21/21. CI: `checks` + `validate` **pass**; **all three browser engines failed** at the clear→import step |
+| `6db5ce3` | the F6 fix (import after Clear) | CI **all five required jobs pass**; CodeRabbit review requested → **completed, 16 threads** |
+| `4e2b6c3` | the 16 review dispositions | local: **Node 296**, Python **263 OK**, archive **5 OK**, gates **21/21**, adversarial 8/8; CI: **all five required jobs pass** on this exact SHA |
+
+No CI result from `bbe957d` or `6db5ce3` is reused for `4e2b6c3`. The browser
+matrix was read from CI only: it cannot run in this sandbox (`FAILURE_LEDGER.md`
+F1), and the jsdom probe is explicitly not a browser result (F7).
+
+## The CI failure this round actually found
+
+`bbe957d` failed all three engines on the same step: after *Clear all*, importing
+the exported file restored nothing, because the tombstones I had added refused the
+learner's own backup. The local unit tests all passed — they asserted the
+tombstone rule without asserting that the ordinary export→clear→import flow still
+works. The fix un-tombstones exactly the ids an imported file carries;
+`FAILURE_LEDGER.md` F6 records it, and the new test fails against the pre-fix code
+(`22 pass / 1 fail`) before passing with it.
+
+## External review: what it covered and what it did not
+
+CodeRabbit completed **one** review (on `6db5ce3`, 16 threads). All 16 are
+dispositioned in `CODERABBIT_85_DISPOSITION.md`: 12 code fixes and 4 documentation
+corrections, each code fix with a test that fails when the guard is disabled.
+
+**The re-review of those fixes was not obtained.** After `4e2b6c3` the review
+request was answered with *"Review rate limited"* and the note that CodeRabbit
+"does not re-review already reviewed commits". So the state is:
+
+* the review of `6db5ce3` is real and complete;
+* the fixes in `4e2b6c3` are verified by tests, mutation checks and CI on that
+  exact SHA, but they are **not** externally reviewed;
+* this is a disclosure item, not a pass. `CHECKLIST.md` item 29 records the
+  completed review; it does not claim the responses were reviewed.
+
+## Ready-for-review disclosure
+
+| Item | State |
+|------|-------|
+| Required CI jobs on the exact head SHA `4e2b6c3` | **PASS** — `checks`, `validate`, `browser (chromium\|firefox\|webkit)` |
+| Local suites | Node **296/296**, Python **263 OK**, archive **5 OK**, gates **21/21**, adversarial **8/8** |
+| CodeRabbit | review **completed** on `6db5ce3`; 16/16 dispositioned; the follow-up review is **rate-limited** and not obtained |
+| Screen-reader validation | **INCOMPLETE** — human work specified in `accessibility/EXAM_HISTORY_MANUAL_CHECKLIST.md`; not performed, not claimed |
+| Kilo / Copilot review | **not obtained** — an unavailable tool is not an approval |
+| Browser suites locally | **cannot run** in this sandbox; CI is the only browser evidence |
