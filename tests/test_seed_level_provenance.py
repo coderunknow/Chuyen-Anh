@@ -191,6 +191,25 @@ class SeedLevelProvenanceTests(unittest.TestCase):
         self.assertTrue("according" not in self.oxford3000,
                         "a fragment of a multiword headword must not become its own entry")
 
+    def test_a_word_is_not_attested_by_a_multiword_headword_that_contains_it(self) -> None:
+        """Negative control for the multiword fix (CodeRabbit 4514659122).
+
+        "according to" is a preposition at A2 in the pinned Oxford snapshot, while
+        "to" alone is a preposition at A1. Indexing the multiword entry by its words
+        made `to` / prep / A2 resolve through the wrong entry, so a seed row could
+        claim A2 for `to` and still pass. This asserts the resolution the guard
+        actually performs, not just the shape of the index: `to` must attest A1 and
+        must not attest A2.
+        """
+        attested = self._oxford_levels_for(self.oxford3000, "to", ("prep",))
+        self.assertIn("A1", attested, "the pinned snapshot prints `to` as a preposition at A1")
+        self.assertNotIn("A2", attested,
+                         "`to` must not inherit the A2 band of the multiword entry "
+                         "`according to`; that would let a seed row claim A2 for `to`")
+        # And the multiword headword still attests its own band, so the control
+        # above is not passing because the entry disappeared.
+        self.assertEqual({"A2"}, self._oxford_levels_for(self.oxford3000, "according to", ("prep",)))
+
     def test_rows_without_a_source_are_editorial_and_out_of_scope(self) -> None:
         editorial = [row for row in self.rows if not row["source"]]
         self.assertGreater(len(editorial), 1000)

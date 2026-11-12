@@ -2465,3 +2465,73 @@ which is what should have happened the first time (H16).
 CI: chromium and firefox pass again at `9edc2a0`, confirming the earlier
 `Install <browser> for Playwright` failures were the Microsoft CDN outage and not
 the repository.
+
+---
+
+## Round 8 (2026-11-12) — asynchronous, cross-tab-safe exam-history persistence
+
+Starting commit `e663295ea8236fd29be6b30e0d04c78e911d7429`, branch
+`arena/chuyen-anh-r8-ready-review`, base `arena/dedd1942-chuyen-anh`. PR #84 was left
+untouched (still Draft) and its body's stale `9cd1a65`/`main` metadata was **not** used:
+the live PR's base is `arena/2a533bbc-chuyen-anh`, and the new branch was cut from the
+live head SHA after checking that `arena/chuyen-anh-r8*` did not already exist.
+
+### Why the round-7 persistence design could not work
+
+It merged with whatever the key held and then read the key back to repair a lost write.
+A read-back proves *my* write landed. It cannot prove that nobody wrote between my write
+and my read, and two tabs that both read `S0` each verify their own `S0 + x`. Writing
+that down before the fix mattered: it is the difference between "we added a retry" and
+"we changed what the operation is".
+
+### The operation model
+
+* **Deletions are facts, additions are claims.** `deleteExamResult` and the new
+  `clearExamResultHistory` tombstone ids (bounded, compacted by `examPruneRetention`),
+  and `examApplyTombstones` runs on **both** sides of every union, so a stale tab's
+  copy of a deleted record can never win. A `Clear` also bumps `generation`, so
+  "deliberately emptied" is distinguishable from "never written".
+* **Post-Clear work survives** because a new attempt's id is named by no tombstone. This
+  is the case a blanket "discard what a stale tab wrote" gets wrong, and it has its own
+  test.
+* **Serialisation where it exists, honesty where it does not.** The whole operation runs
+  under `navigator.locks.request(…, 'exclusive')` when Web Locks are available; every
+  result reports the mode obtained (`locked` / `unserialized` / …), and the documented
+  guarantee without a lock is **merge + verify + bounded repair, not linearizability**.
+  Node has no `navigator.locks` and the suite asserts `unserialized` is reported — the
+  weaker mode is not hidden.
+* **No write over an unreadable store.** `inspectExamResultStore` separates `empty`,
+  `present` and `unreadable`; the old single `emptyExamResultHistory()` return for all
+  three is what let an unreadable key be replaced with nothing.
+
+### Corrections, snapshots and the score mismatch
+
+One shared limit, counted in **code points**, enforced at the input (`maxlength` + a
+visible hint), the parser, `examCorrectionValidation` (which reports the measured
+length), the model and the validator. Historical schema-v1 corrections longer than the
+limit are **tagged and kept** — never truncated, never dropped — via a narrow retry on
+load and import only, so new input stays bounded without destroying old data.
+
+`examCorrectionPaperKeys` requires `examId` **and** the `questionId` **and** a
+`baseKeys` entry, and returns every backing snapshot instead of the first one whose
+`examId` matched.
+
+The unseen-attempt `score-mismatch` (`4537334892`) was reproduced against the starting
+SHA before touching the code — tab B's save threw while the store was healthy — and the
+fix is structural: the **union** is recomputed and validated, never the partial
+`unseen` payload. A first attempt was stricter than the finding and broke a legitimate
+re-save; that is recorded in `FAILURE_LEDGER.md` F3 with the mirror test that pins the
+correct invariant.
+
+### Elsewhere
+
+`--help` on `build_archive.py` and `release_artifacts.py` no longer executes them (D75),
+proved with a fake failing `gh` and a tree hash rather than by trusting the output. The
+vocabulary multiword guard gained the negative control the review asked for. `D64`
+docstring coverage was measured (35.8 % → 38.5 %) and improved where it matters — the
+release pipeline — instead of padded.
+
+Local results: Node **288**, Python **263**, archive **5**, gates **21/21**. Browser
+suites are `BLOCKED_EXTERNAL` here (the Playwright browser download fails), so their
+result must come from CI on the exact final SHA. Evidence:
+`audit-evidence/round8/`.

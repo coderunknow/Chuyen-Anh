@@ -1512,3 +1512,28 @@ same test step, but its detailed log was inaccessible, so its cause is unverifie
 - The mutation pass again contained the lesson: one mutant "survived" only because its rewrite no longer
   matched the changed source. The harness now reports a no-op rewrite as `NOT-APPLIED` instead of `SURVIVED`.
 - Totals: Node `238 / 0 fail` (`exam-scoring` `31 → 34`), Python `257 OK`, archive `5 OK`, `21/21` gates, `9/9` mutants.
+
+### Round 8 (2026-11-12) — cross-tab persistence, correction limits, D75
+
+- Starting SHA `e663295`, new branch `arena/chuyen-anh-r8-ready-review`, PR #84 untouched.
+- Replaced the synchronous read-merge-write + read-back repair with: tombstones for
+  deletions, a `generation` counter for clears, an awaited read/merge/write inside
+  `navigator.locks` where available, and an `inspectExamResultStore` that refuses to
+  write over a store it cannot read. Every result reports the lock mode it obtained, so
+  the weaker fallback is visible instead of implied.
+- 22 new adversarial tests (`tests/exam-persistence.test.js`) plus an out-of-suite probe
+  (`audit-evidence/round8/adversarial-verification.mjs`, 8/8) for interleavings a single
+  test file expresses badly: a peer that reverts every write must produce a failure, not
+  a false success.
+- `4537334892` reproduced at `e663295` (`score-mismatch` thrown on a healthy store) and
+  fixed by validating the union rather than the partial payload. One intermediate fix
+  was stricter than the finding and broke a legitimate re-score — kept in the failure
+  ledger, not silently dropped.
+- 1,000-character limit unified (code points) across input/parser/validation/model/
+  validator; over-long **historical** records tagged `legacyOverLimit` and preserved.
+- `--help` no longer executes the two build scripts; `tests/test_script_help.py` proves it
+  with a fake `gh` and a tree hash. No tag, release, upload or deploy was performed.
+- Honest gaps: browser suites `BLOCKED_EXTERNAL` here; exact-SHA CI and CodeRabbit
+  pending; screen-reader checklist still `INCOMPLETE`.
+- Totals on this branch: Node `288 / 0 fail` (9 suites), Python `263 OK`, archive `5 OK`,
+  `21/21` gates.

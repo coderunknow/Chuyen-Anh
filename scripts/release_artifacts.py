@@ -2,6 +2,7 @@
 """Build and safely attach the established HTML/ZIP artifacts for GitHub releases."""
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
 import os
@@ -39,12 +40,14 @@ def release_create_command(tag: str) -> list[str]:
 
 
 def run(args: list[str], *, cwd: pathlib.Path = ROOT, capture: bool = False) -> str:
+    """Run a subprocess from the repository root and return its stdout when asked."""
     result = subprocess.run(args, cwd=cwd, check=True, text=True,
                             stdout=subprocess.PIPE if capture else None)
     return result.stdout.strip() if capture else ""
 
 
 def sha(path: pathlib.Path) -> str:
+    """Lowercase hex SHA-256 of a file, streamed so a 28 MB index.html is not held twice."""
     h = hashlib.sha256()
     with path.open("rb") as stream:
         for block in iter(lambda: stream.read(1024 * 1024), b""):
@@ -53,6 +56,7 @@ def sha(path: pathlib.Path) -> str:
 
 
 def release_for(tag: str) -> dict | None:
+    """The release record for a tag, or None when no release exists."""
     result = subprocess.run(["gh", "release", "view", tag, "--json", "tagName,isDraft,isPrerelease,assets"],
                             cwd=ROOT, text=True, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
     return json.loads(result.stdout) if result.returncode == 0 else None
@@ -78,7 +82,7 @@ def test_source(source: pathlib.Path) -> None:
             # that would make a historical tag impossible to re-check.
             for extra in ("tests/exam-anomalies.test.js", "tests/rc10-cefr.test.js", "tests/v100-senses.test.js",
                           "tests/telemetry-api.test.js", "tests/exam-exempt-rubric.test.js",
-                          "tests/core-invariants.test.js"):
+                          "tests/core-invariants.test.js", "tests/exam-persistence.test.js"):
                 if (source / extra).exists():
                     node_suites.append(extra)
             run(["node", "--test", *node_suites], cwd=source)
@@ -106,6 +110,7 @@ def verify_zip_contract(zip_path: pathlib.Path, extracted: pathlib.Path) -> None
 
 
 def build(tag: str, commit: str, temp: pathlib.Path) -> dict[str, pathlib.Path]:
+    """Materialise `commit` and build the HTML/ZIP/checksum artifacts for `tag` in `temp`."""
     extracted = temp / "source"
     extracted.mkdir()
     archive = subprocess.Popen(["git", "archive", commit], cwd=ROOT, stdout=subprocess.PIPE)
@@ -171,6 +176,7 @@ def build(tag: str, commit: str, temp: pathlib.Path) -> dict[str, pathlib.Path]:
 
 
 def release_notes(tag: str) -> str:
+    """The release body: what the assets are and how to verify them."""
     return (
         f"Automated {'prerelease' if is_prerelease_tag(tag) else 'stable release'} draft for `{tag}`, built from the tagged commit by "
         "`scripts/release_artifacts.py`.\n\n"
@@ -187,6 +193,7 @@ def release_notes(tag: str) -> str:
 
 
 def process(tag: str, *, future: bool = False) -> None:
+    """Verify one release and attach any missing artifact; never replaces an asset."""
     # Confirm the release's tag association; use the immutable resolved tag commit for all work.
     release = release_for(tag)
     if release is None:
@@ -277,9 +284,28 @@ def main() -> None:
             process(release["tag_name"])
 
 
+def cli(argv=None):
+    """Parse arguments before any release work happens.
+
+    The script had no argument parser, so `--help` was ignored and the module went
+    straight to `main()`: it read `PUSH_TAG`/`INPUT_TAG`, could call `gh release
+    create --draft` and could upload assets. `--help` is now a query that exits 0
+    without touching a release, and unknown arguments are refused instead of being
+    silently ignored (D75). `main()` keeps its environment-driven behaviour for the
+    workflow and the tests.
+    """
+    parser = argparse.ArgumentParser(
+        prog='release_artifacts.py',
+        description='Build and attach the release artifacts for a tag. Driven by the '
+                    'PUSH_TAG / INPUT_TAG environment variables; with neither set it walks '
+                    'the existing releases. There is no dry-run mode.')
+    parser.parse_args(argv)
+    main()
+
+
 if __name__ == "__main__":
     try:
-        main()
+        cli()
     except Exception as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         raise
