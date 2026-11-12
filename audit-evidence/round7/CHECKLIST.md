@@ -21,7 +21,7 @@ document.
 | 9 | CodeRabbit completed at the exact final SHA | **PASS** | `completed/success` at **`e538bb6`** (05:15:18Z), producing 3 Minor findings `4546621788` / `4546621792` / `4546621797`. Earlier runs, kept for the record: `completed/success` at `3c2d7ff` (15:35–15:43Z) → Major `4539964627`; at `74a5e45` → 4; at `9f2f82e` → 10. **A request is not a completion** — the `9edc2a0` request was counted only after its result arrived at `e538bb6`. |
 | 10 | Kilo completed at the exact final SHA | **INCOMPLETE** | Kilo's account has insufficient credits; it fails to run at any SHA. An ACTION_REQUIRED or a crash is not a completion. |
 | 11 | Review findings resolved or dispositioned | **PASS** | Every CodeRabbit finding to date either fixed with a control or explicitly carried forward with a reason |
-| 12 | Regression tests pass at the exact final SHA | **PASS** | Node **266/266**, Python **257 OK**, archive **5 OK**, **16** validator gates pass (17 accept `--check`, 1 is retired by design); browser suites PASS locally |
+| 12 | Regression tests pass at the exact final SHA | **PASS** | Node **266/266**, Python **257 OK**, archive **5 OK**, **17** validator gates pass (18 document `--check`, 1 is retired by design; 2 build tools ignore `--help`); browser suites PASS locally |
 | 13 | All CI green at the exact final SHA | **PASS** | chromium / firefox / checks pass at `9edc2a0`; WebKit pending — see final table |
 | 14 | Remote/PR head synced | **PASS** | `git ls-remote` equals local `rev-parse` at every push |
 | 15 | Evidence + ledger updated | **PASS** | This directory, `DESIGN_LOG.md`, `CHANGELOG.md`, `audit/v100/` counts — and committed to Git, which the earlier round failed to do |
@@ -43,19 +43,21 @@ document.
 
 ## Final table
 
-Measured at **`ac445f4`** unless a row names a different SHA.
+Measured at **`ac2f216`** (the reviewed head) unless a row names a different SHA.
+Node and Python were re-run at this exact commit after the review; CI at this
+commit is green on all four jobs.
 
 | Check | Result |
 |---|---|
 | Node suites (8 files) | **266 pass / 0 fail** — `exam-scoring` 60, `static-app` 146, `telemetry-api` 17, `core-invariants` 11, `rc10-cefr` 10, `v100-senses` 8, `exam-anomalies` 7, `exam-exempt-rubric` 7 |
 | Python suite | **257 OK** |
 | Archive suite | **5 OK** (after `pip install -r scripts/exams/requirements.txt`) |
-| Validator gates | **16 passed / 0 failed** (17 accept `--check`; 1 retired by design) |
+| Validator gates | **17 passed / 0 failed** (18 document `--check`; 1 retired by design; 2 build tools ignore `--help`) |
 | Browser suites (local, chromium 133) | `browser-learning` **PASS**, `browser-exams` **PASS** |
 | Control for the `9edc2a0` fix | fails without the fix (`restored=false, returned=history`), passes with it |
 | CI — `9edc2a0` (last code change) | **all four green**: chromium, firefox, webkit, checks |
-| CI — `ac445f4` (docs/evidence only) | **all four green**: chromium, firefox, webkit, checks |
-| CodeRabbit at `e538bb6` | `completed/success`, 3 Minor findings — all fixed in `ac445f4` |
+| CI — `ac2f216` (the reviewed head) | **all four green**: chromium, firefox, webkit, checks |
+| CodeRabbit at `ac2f216` | `completed/success` (06:20:39Z), 3 Minor findings — all fixed. Earlier: `completed/success` at `e538bb6` (3 Minor) and `3c2d7ff` (1 Major). |
 | Kilo | **fail** — insufficient credits; not a completion |
 | PR state | Draft, MERGEABLE, `DEPLOY_HOLD` intact, `v1.0.0-rc10`, no tag/release/deploy |
 

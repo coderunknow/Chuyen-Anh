@@ -57,27 +57,50 @@ python3 -m pip install --break-system-packages -r scripts/exams/requirements.txt
 python3 scripts/exams/test_archive.py
 ```
 
-**Validator gates** — every `--check` script must exit 0. `generate_vocab_audit_dev4.py`
-is **retired on purpose**: it refuses to run and exits non-zero to prevent
-unsupported verification claims, so it is excluded explicitly rather than left to
-fail every run. The loop records failures across *all* iterations and exits
-non-zero if any required gate failed — reporting only the last iteration's status
-would let an early failure pass unnoticed:
+**Validator gates** — 18 scripts across `scripts/*.py` and `scripts/exams/*.py`
+document a `--check` flag; **17 must pass** and 1 is retired by design. Two
+corrections were needed before this number was right, and both are recorded
+because each one produced a plausible but wrong total:
+
+- An earlier revision scanned only `scripts/*.py` and reported **16**. That
+  silently dropped `scripts/exams/embed_archive.py`, which is a real gate.
+- `generate_vocab_audit_dev4.py` documents `--check`, then refuses to run and
+  exits 2 to prevent unsupported verification claims. It must be excluded
+  explicitly; letting its non-zero exit fold into "passed" is how the original
+  17 was miscounted.
+
+Two failure modes the loop must not have: reporting only the last iteration's
+status (an early failure then passes), and letting a script whose help invocation
+crashes disappear from the set as "not a validator".
+
+**Known hazard, not a gate:** `scripts/exams/build_archive.py` and
+`scripts/release_artifacts.py` have no argument parser at all. They ignore
+`--help` and execute immediately, so a `--help` sweep *runs them* — the first
+attempts to build the archive and dies on a missing fixture; the second requires
+an asset host. This loop classifies them as `NO-ARG-PARSE` and does not count them
+as gates. They are build tools, not validators, but a tool that ignores `--help`
+by doing the work is a real robustness wart and is recorded as D75.
+
 ```bash
 set -u
-fail=0; pass=0
-for f in scripts/*.py; do
-  python3 "$f" --help 2>&1 | grep -q -- "--check" || continue
+fail=0; pass=0; noarg=0
+for f in scripts/*.py scripts/exams/*.py; do
+  [ -f "$f" ] || continue
+  out=$(python3 "$f" --help 2>&1); rc=$?
+  printf '%s' "$out" | grep -q -- "--check" || {
+    # No --check documented: either an ordinary tool, or one that ignores --help
+    # and actually ran. Flag the latter rather than losing it silently.
+    [ "$rc" -ne 0 ] && { noarg=$((noarg+1)); echo "NO-ARG-PARSE  $f"; }
+    continue
+  }
   case "$f" in *generate_vocab_audit_dev4.py) echo "SKIP  $f (retired by design)"; continue;; esac
   if python3 "$f" --check >/dev/null 2>&1; then pass=$((pass+1)); echo "PASS  $f"
   else fail=$((fail+1)); echo "FAIL  $f"; fi
 done
-echo "gates: $pass passed, $fail failed"
+echo "gates: $pass passed, $fail failed, $noarg no-arg-parse"
 [ "$fail" -eq 0 ]
 ```
-Expected: `gates: 16 passed, 0 failed` (17 scripts accept `--check`, one is
-retired). The final `[ ... ]` is what makes the
-block's exit status mean "all gates passed", not "the last loop body ran".
+Expected: `gates: 17 passed, 0 failed, 2 no-arg-parse`.
 
 **Browser suites.** Playwright's own browser download was unavailable for part of
 this session (a CDN outage), so the `@sparticuz/chromium` fallback was used:

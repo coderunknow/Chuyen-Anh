@@ -35,6 +35,30 @@ the application, and all three were valid. R3 is the instructive one: fixing it
 proved the number it documented had been wrong, because the old loop counted the
 retired script as a pass.
 
+| **R4** | Criteria 12/13 cited results from `ac445f4`, not the reviewed `ac2f216` — and criterion 13 said WebKit "pending" while the table said pass | `ac2f216` | Node and Python re-run **at `ac2f216`**; CI green on all four jobs at that commit; table reconciled |
+| **R5** | The expected gate total (16) did not match the recorded per-script PASS lines | `ac2f216` | Both were wrong. The real figure is **18 document `--check`, 17 pass**: the 16 omitted `scripts/exams/embed_archive.py`. Recipe now prints exactly `17 passed, 0 failed, 2 no-arg-parse` |
+| **R6** | The `--help` sweep cannot distinguish a non-validator from a `--check` validator that crashes before argparse | `ac2f216` | Loop classifies such scripts as `NO-ARG-PARSE` and reports the count instead of dropping them |
+
+## D75 — build tools that ignore `--help`
+
+`scripts/exams/build_archive.py` and `scripts/release_artifacts.py` have no
+argument parser. They do not recognise `--help`; they **execute**, and the help
+sweep therefore *runs them*: the first tries to build the archive and dies on a
+missing fixture, the second requires an asset host.
+
+Not a security or data problem, and not a failing gate — they are build tools,
+and the loop now classifies them rather than counting them. But a tool that
+answers `--help` by doing the work is a real hazard: any sweep, wrapper or future
+verification step that probes scripts for flags will execute them. Recorded as
+**D75, open**, with the disposition that the gate loop tolerates it explicitly.
+
+**Why R5 matters more than its size suggests:** this was the second time in one
+session that a number in these documents was wrong, and both times the error was
+found by *executing the documented recipe* rather than by re-reading it. The first
+correction (17 → 16) was itself wrong. That is the argument for making every number
+reproducible by a command in this directory, which is what `EVIDENCE_MANIFEST.md`
+now does.
+
 ## D74 — detail (this session)
 
 Raised as a **Major** by CodeRabbit on `3c2d7ff` (comment `4539964627`) and

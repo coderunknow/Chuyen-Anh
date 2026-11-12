@@ -56,11 +56,17 @@ PASS  scripts/rc4_vocabulary_audit.py --check
 PASS  scripts/sense_integrity_audit.py --check
 PASS  scripts/vocabulary_cefr_review.py --check
 PASS  scripts/vocabulary_evidence_review.py --check
-TOTAL: 16 passed, 0 failed, 1 not-applicable (retired script)
-NOTE: an earlier revision of this log said 17. The corrected recipe in
-EVIDENCE_MANIFEST.md excludes the retired script explicitly and re-counts:
-17 scripts accept --check, 1 is retired, 16 pass. The wrong number came from a
-loop that let the retired script's non-zero exit pass as a pass.
+TOTAL: 17 passed, 0 failed, 1 not-applicable (retired script).
+CORRECTION (verify with the recipe in EVIDENCE_MANIFEST.md):
+  18 scripts document --check across scripts/*.py AND scripts/exams/*.py;
+  1 is retired by design (generate_vocab_audit_dev4.py, exits 2 on purpose);
+  17 pass. Two build tools (exams/build_archive.py, release_artifacts.py) have no
+  argument parser, ignore --help and execute, so they are classified
+  NO-ARG-PARSE and not counted as gates.
+  An intermediate revision of this log said 16: it scanned only scripts/*.py and
+  silently dropped scripts/exams/embed_archive.py. The PASS lines above are the
+  authority -- they were 17 all along, which is what made the discrepancy
+  visible (CodeRabbit finding 4547049527).
 
 --- Control proof for commit 9edc2a0 (paper-snapshot read-back) ---
 The new test must fail without the fix, or it proves nothing.
