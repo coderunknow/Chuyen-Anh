@@ -83,22 +83,43 @@ by doing the work is a real robustness wart and is recorded as D75.
 
 ```bash
 set -u
+# The only scripts allowed to fail --help are the two that have no argument
+# parser at all and execute on import (D75). Anything else that crashes before
+# printing --check is a real failure, not a non-validator: a broken import must
+# not be able to shrink the gate set silently. The retired script is excluded
+# first, because it refuses --help by design (exit 2) and would otherwise read
+# as a help failure.
+no_arg_parse=(
+  scripts/exams/build_archive.py
+  scripts/release_artifacts.py
+)
 fail=0; pass=0; noarg=0
 for f in scripts/*.py scripts/exams/*.py; do
   [ -f "$f" ] || continue
-  out=$(python3 "$f" --help 2>&1); rc=$?
-  printf '%s' "$out" | grep -q -- "--check" || {
-    # No --check documented: either an ordinary tool, or one that ignores --help
-    # and actually ran. Flag the latter rather than losing it silently.
-    [ "$rc" -ne 0 ] && { noarg=$((noarg+1)); echo "NO-ARG-PARSE  $f"; }
-    continue
-  }
   case "$f" in *generate_vocab_audit_dev4.py) echo "SKIP  $f (retired by design)"; continue;; esac
+  out=$(python3 "$f" --help 2>&1); rc=$?
+  if [ "$rc" -ne 0 ]; then
+    allowed=0
+    for a in "${no_arg_parse[@]}"; do [ "$f" = "$a" ] && allowed=1; done
+    if [ "$allowed" -eq 1 ]; then noarg=$((noarg+1)); echo "NO-ARG-PARSE  $f"; continue; fi
+    fail=$((fail+1)); echo "HELP-FAIL  $f"; continue
+  fi
+  printf '%s' "$out" | grep -q -- "--check" || continue
   if python3 "$f" --check >/dev/null 2>&1; then pass=$((pass+1)); echo "PASS  $f"
   else fail=$((fail+1)); echo "FAIL  $f"; fi
 done
 echo "gates: $pass passed, $fail failed, $noarg no-arg-parse"
-[ "$fail" -eq 0 ]
+# Three conditions, all required. The count check is what stops a silent shrink:
+# "0 failed" is true and useless if only three gates ran.
+[ "$fail" -eq 0 ] && [ "$noarg" -eq 2 ] && [ "$pass" -eq 17 ]
+```
+Expected: `gates: 17 passed, 0 failed, 2 no-arg-parse`, exit 0.
+
+```
+Expected: `gates: 17 passed, 0 failed, 2 no-arg-parse`, exit 0. If a validator
+starts crashing, the run prints `HELP-FAIL` and exits non-zero instead of
+reporting a smaller success.
+
 ```
 Expected: `gates: 17 passed, 0 failed, 2 no-arg-parse`.
 

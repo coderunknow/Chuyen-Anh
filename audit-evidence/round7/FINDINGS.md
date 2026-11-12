@@ -39,6 +39,15 @@ retired script as a pass.
 | **R5** | The expected gate total (16) did not match the recorded per-script PASS lines | `ac2f216` | Both were wrong. The real figure is **18 document `--check`, 17 pass**: the 16 omitted `scripts/exams/embed_archive.py`. Recipe now prints exactly `17 passed, 0 failed, 2 no-arg-parse` |
 | **R6** | The `--help` sweep cannot distinguish a non-validator from a `--check` validator that crashes before argparse | `ac2f216` | Loop classifies such scripts as `NO-ARG-PARSE` and reports the count instead of dropping them |
 
+| **R7** | The `NO-ARG-PARSE` branch tolerated **any** script whose help crashed, not just the two known build tools, so a broken validator could shrink the gate set and still report success | `0c8587a` | Skip list is now explicit by name; every other help failure is `HELP-FAIL` and exits non-zero; final assert requires `pass -eq 17`. Control: broken import → `HELP-FAIL`, exit 1, 16 passed |
+
+R7 was raised as a **Major** (`4547516961`) and it was the best finding of the
+session: my previous fix for R6 had replaced one silent-drop with another. The
+lesson is specific — *a tolerance must be enumerated, never inferred from the
+symptom*. "It crashed, so it must not be a validator" is the same reasoning that
+lets a broken gate pass, and the two build tools are the only scripts entitled to
+that excuse, by name.
+
 ## D75 — build tools that ignore `--help`
 
 `scripts/exams/build_archive.py` and `scripts/release_artifacts.py` have no

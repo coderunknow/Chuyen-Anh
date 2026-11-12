@@ -93,3 +93,25 @@ Local checkout had been reset to 0026267 with the whole round-1..7 diff
 uncommitted in the working tree; the round-7 commits were recovered from the
 remote (git fetch + reset --hard 3c2d7ff) instead of being re-committed as one
 squash. The only working-tree change carried over was this session's fix.
+
+--- Control proof for the gate loop (CodeRabbit Major 4547516961) ---
+The loop must fail when a validator breaks, not shrink quietly.
+
+Normal run (recipe in EVIDENCE_MANIFEST.md, verbatim):
+  gates: 17 passed, 0 failed, 2 no-arg-parse
+  exit 0
+
+Control: injected `import nonexistent_module_that_breaks` into
+scripts/audit_learned_vocab.py so its --help crashes before argparse:
+  HELP-FAIL  scripts/audit_learned_vocab.py
+  gates: 16 passed, 1 failed, 2 no-arg-parse
+  exit 1
+
+Restored byte-identically (git status clean), re-ran:
+  gates: 17 passed, 0 failed, 2 no-arg-parse
+  exit 0
+
+The retired script is excluded BEFORE the help check, because it refuses --help
+by design (exit 2) and would otherwise read as a help failure. The two build
+tools with no argument parser are skipped by explicit name, not by "it crashed,
+so it must not be a validator".
