@@ -139,3 +139,37 @@ when those two were still probed): `git status --porcelain` shows no modificatio
 to any tracked file outside audit-evidence/. Both tools aborted on missing
 inputs before writing anything. That is luck plus missing fixtures, not a
 guarantee - which is exactly why the skip now happens first.
+
+--- FINAL gate recipe: mirror ci.yml, probe nothing (supersedes all above) ---
+Everything in this log before this point that counts gates by probing `--help` is
+SUPERSEDED and wrong in three compounding ways. It is left in place because the
+sequence is the evidence for how it was found.
+
+The authoritative gate list is the one ci.yml runs, named explicitly. Recipe in
+EVIDENCE_MANIFEST.md extracts those commands from the workflow and runs them.
+
+  gates: 21 passed, 0 failed (of 21)
+  exit 0
+
+Why the earlier counts were all wrong:
+
+  16  - scanned only scripts/*.py, missing scripts/exams/*.py entirely.
+  17  - scanned both globs but SELECTED by probing --help, so the set depended on
+        which scripts happened to crash here. Six scripts have no argument parser
+        and act on import; a skip list built from the first two failures missed
+        the other four.
+  21  - the real answer, and the only one with meaning outside this sandbox: the
+        twenty-one commands ci.yml actually executes, four of which are not
+        --check gates at all (validate_vocab.py, validate_phrases.py,
+        verify_curated_keys.mjs, and the two node --check gates).
+
+Executing scripts to discover whether they are gates is the defect, not the
+counting method. exams/discover.py makes network requests; exams/packages.py
+extracts files; exams/coverage.py and exams/review_sources.py write reports;
+exams/build_archive.py rebuilds archive SOURCES; release_artifacts.py shells out
+to `gh release create --draft`, which under DEPLOY_HOLD must never run by
+accident. Reading ci.yml touches none of them.
+
+Environment note: the run above required scripts/exams/requirements.txt
+(requests, PyMuPDF) because three of the ci.yml gates import them. That is the
+same dependency ci.yml installs, so it is a prerequisite, not an accommodation.

@@ -59,6 +59,24 @@ parser is not a query, it is an execution.
 Recorded disposition for D75 therefore changes: the build tools are not merely
 "tolerated" by the gate loop, they are **never invoked** by it.
 
+| **R9** | The gate count was derived by **probing scripts with `--help`**, which executed them — and which made the total depend on which ones happened to crash. Six scripts have no argument parser and act on import (network requests, file extraction, report writes, archive rebuilds, `gh release create`) | `a2be2d4`+ | The list is now **extracted from `ci.yml`**, which names every gate explicitly; nothing is probed. Real total: **21** |
+
+R9 is the root cause behind R5, R7 and R8, and it is worth stating as a single
+lesson rather than three fixes. **The mistake was the selection method, not the
+arithmetic.** Each correction (16, then 17) was a re-count of a wrong set.
+
+- The set was wrong because it was *discovered* by running code.
+- The count was unstable because scripts that import `requests` or `PyMuPDF`
+  fail without those packages, so a sandbox reset silently changed the gate set.
+- The same probing **acted on the repository**: `release_artifacts.py` shells out
+  to `gh release create --draft`, and this repository is under `DEPLOY_HOLD`.
+
+The authoritative list already existed — `ci.yml` has run exactly these commands
+on every push throughout. The fix was to stop inventing a discovery mechanism and
+read the one that ships. The recipe now extracts the commands from the workflow
+and executes them verbatim: **21 passed, 0 failed (of 21)**, with a count
+assertion so a silent shrink fails.
+
 ## D75 — build tools that ignore `--help`
 
 `scripts/exams/build_archive.py` and `scripts/release_artifacts.py` have no

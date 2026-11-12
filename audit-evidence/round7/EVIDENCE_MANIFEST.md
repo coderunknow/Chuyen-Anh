@@ -57,77 +57,48 @@ python3 -m pip install --break-system-packages -r scripts/exams/requirements.txt
 python3 scripts/exams/test_archive.py
 ```
 
-**Validator gates** — 18 scripts across `scripts/*.py` and `scripts/exams/*.py`
-document a `--check` flag; **17 must pass** and 1 is retired by design. Two
-corrections were needed before this number was right, and both are recorded
-because each one produced a plausible but wrong total:
+**Validator gates.** The authoritative list is **not** derived by probing scripts
+— it is the list `ci.yml` invokes explicitly, in its "Check vocabulary sources and
+embedded HTML" step. Earlier revisions of this file invented a `--help` sweep to
+discover gates, and that was wrong in three compounding ways:
 
-- An earlier revision scanned only `scripts/*.py` and reported **16**. That
-  silently dropped `scripts/exams/embed_archive.py`, which is a real gate.
-- `generate_vocab_audit_dev4.py` documents `--check`, then refuses to run and
-  exits 2 to prevent unsupported verification claims. It must be excluded
-  explicitly; letting its non-zero exit fold into "passed" is how the original
-  17 was miscounted.
+1. It **executed** scripts to classify them. Six scripts in `scripts/` have no
+   argument parser and act on import: `exams/discover.py` makes network requests,
+   `exams/packages.py` extracts files, `exams/coverage.py` and
+   `exams/review_sources.py` write reports, and `exams/build_archive.py` rebuilds
+   archive sources. `release_artifacts.py` shells out to `gh release create
+   --draft` — under `DEPLOY_HOLD` that is unacceptable. Probing then allowlisting
+   is a side effect, not a check (CodeRabbit `4548054140`).
+2. It **under-counted**. A skip list built from the first two failures missed the
+   other four, so the "17 gates" total was a coincidence of which scripts happened
+   to crash in this environment, not a property of the repository.
+3. It was **environment-dependent**. Three scripts failed only because `requests`
+   and `PyMuPDF` were absent after a sandbox reset, which silently changed the
+   gate set.
 
-Two failure modes the loop must not have: reporting only the last iteration's
-status (an early failure then passes), and letting a script whose help invocation
-crashes disappear from the set as "not a validator".
-
-**Known hazard, not a gate:** `scripts/exams/build_archive.py` and
-`scripts/release_artifacts.py` have no argument parser at all. They ignore
-`--help` and execute immediately, so a `--help` sweep *runs them* — the first
-attempts to build the archive and dies on a missing fixture; the second requires
-an asset host. This loop classifies them as `NO-ARG-PARSE` and does not count them
-as gates. They are build tools, not validators, but a tool that ignores `--help`
-by doing the work is a real robustness wart and is recorded as D75.
+The recipe now reads the commands out of `ci.yml` and runs exactly those. Nothing
+is probed, so nothing can act on the repository or the network:
 
 ```bash
 set -u
-# Scripts that must never be INVOKED by this sweep, because they have no argument
-# parser and execute on import:
-#   * scripts/exams/build_archive.py  - rebuilds archive files, which SOURCE data
-#     depends on; running it can overwrite them.
-#   * scripts/release_artifacts.py    - shells out to `gh release create --draft`;
-#     with credentials present, `--help` would create a release and violate
-#     DEPLOY_HOLD.
-# They are skipped by name BEFORE any invocation. Probing first and sorting out
-# the allowlist afterwards is a side effect, not a check - that was a real defect
-# (CodeRabbit 4548054140) and not a theoretical one: this repository is under a
-# deploy hold, so "it only ran --help" is not a defence.
-never_invoke=(
-  scripts/exams/build_archive.py
-  scripts/release_artifacts.py
-)
-fail=0; pass=0; skipped=0
-for f in scripts/*.py scripts/exams/*.py; do
-  [ -f "$f" ] || continue
-  skip=0
-  for a in "${never_invoke[@]}"; do [ "$f" = "$a" ] && skip=1; done
-  [ "$skip" -eq 1 ] && { skipped=$((skipped+1)); echo "SKIP  $f (no argument parser; never invoked)"; continue; }
-  case "$f" in *generate_vocab_audit_dev4.py) echo "SKIP  $f (retired by design)"; continue;; esac
-  out=$(python3 "$f" --help 2>&1); rc=$?
-  # A --check validator whose help crashes is a failure, not a non-validator.
-  if [ "$rc" -ne 0 ]; then fail=$((fail+1)); echo "HELP-FAIL  $f"; continue; fi
-  printf '%s' "$out" | grep -q -- "--check" || continue
-  if python3 "$f" --check >/dev/null 2>&1; then pass=$((pass+1)); echo "PASS  $f"
-  else fail=$((fail+1)); echo "FAIL  $f"; fi
+# Extract the commands the workflow itself runs and execute those, verbatim.
+mapfile -t gates < <(sed -n '/Check vocabulary sources and embedded HTML/,/Run Python unit tests/p' \
+  .github/workflows/ci.yml | grep -E '^\s+(python|node) scripts/' | sed 's/^ *//')
+fail=0; pass=0
+for g in "${gates[@]}"; do
+  if bash -c "$g" >/dev/null 2>&1; then pass=$((pass+1)); echo "PASS  $g"
+  else fail=$((fail+1)); echo "FAIL  $g"; fi
 done
-echo "gates: $pass passed, $fail failed, $skipped never-invoked"
-# All three required. The count check is what stops a silent shrink: "0 failed"
-# is true and useless if only three gates ran.
-[ "$fail" -eq 0 ] && [ "$skipped" -eq 2 ] && [ "$pass" -eq 17 ]
+echo "gates: $pass passed, $fail failed (of ${#gates[@]})"
+[ "$fail" -eq 0 ] && [ "${#gates[@]}" -eq 21 ]
 ```
-Expected: `gates: 17 passed, 0 failed, 2 never-invoked`, exit 0.
-```
-Expected: `gates: 17 passed, 0 failed, 2 no-arg-parse`, exit 0.
+Expected: `gates: 21 passed, 0 failed (of 21)`, exit 0. The count assertion is
+what stops a silent shrink: "0 failed" is true and useless if only three gates
+ran.
 
-```
-Expected: `gates: 17 passed, 0 failed, 2 no-arg-parse`, exit 0. If a validator
-starts crashing, the run prints `HELP-FAIL` and exits non-zero instead of
-reporting a smaller success.
-
-```
-Expected: `gates: 17 passed, 0 failed, 2 no-arg-parse`.
+Note this runs the two `node` gates too, and it runs `validate_vocab.py` and
+`validate_phrases.py` (plain validators, no `--check` flag) because CI runs them.
+A `--check`-only sweep silently omitted all four.
 
 **Browser suites.** Playwright's own browser download was unavailable for part of
 this session (a CDN outage), so the `@sparticuz/chromium` fallback was used:

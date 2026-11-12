@@ -52,7 +52,7 @@ commit is green on all four jobs.
 | Node suites (8 files) | **266 pass / 0 fail** — `exam-scoring` 60, `static-app` 146, `telemetry-api` 17, `core-invariants` 11, `rc10-cefr` 10, `v100-senses` 8, `exam-anomalies` 7, `exam-exempt-rubric` 7 |
 | Python suite | **257 OK** |
 | Archive suite | **5 OK** (after `pip install -r scripts/exams/requirements.txt`) |
-| Validator gates | **17 passed / 0 failed** (18 document `--check`; 1 retired by design; 2 build tools ignore `--help`) |
+| Validator gates | **21 passed / 0 failed** — the exact list `ci.yml` runs, extracted rather than probed |
 | Browser suites (local, chromium 133) | `browser-learning` **PASS**, `browser-exams` **PASS** |
 | Control for the `9edc2a0` fix | fails without the fix (`restored=false, returned=history`), passes with it |
 | CI — `9edc2a0` (last code change) | **all four green**: chromium, firefox, webkit, checks |

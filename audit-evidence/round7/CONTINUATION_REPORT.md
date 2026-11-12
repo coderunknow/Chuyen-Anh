@@ -81,7 +81,7 @@ Ten defects with controls (D65–D74 in `FINDINGS.md`) plus the process failures
 ## E. What was tested, and the numbers
 
 At `9edc2a0`: Node **266/266** (`exam-scoring` 60), Python **257 OK**, archive
-**5 OK**, 17 validator gates pass (18 scripts document `--check`; 1 is retired by design; 2 build tools ignore `--help`), both browser
+**5 OK**, 21 validator gates pass (the exact list `ci.yml` runs), both browser
 suites PASS locally on chromium 133. The full transcription, with commands, is
 `logs/final-sha-verification.log`.
 
