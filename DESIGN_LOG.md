@@ -2427,3 +2427,41 @@ than being called a fix.
 checked, axe-clean and keyboard-operable but never heard. Firefox and WebKit ran only in
 CI. The concurrent overwrite was modelled with a store that reverts a key at the exact
 interleaving, not with two real tabs racing.
+
+### Round 7 continuation (session 2) — 2026-11-11 — DONE
+
+Recovered the branch after a sandbox reset restored the checkout to `0026267`
+with all round-1..7 work sitting uncommitted in the working tree. The commits
+themselves were intact on the remote (`3c2d7ff`), so they were fetched and the
+local branch reset to them rather than re-committing the whole diff as one
+squash; only this session's change was carried across.
+
+CodeRabbit reviewed `3c2d7ff` and raised one **Major** (`4539964627`): the
+read-back verified attempts and corrections but never the `papers` map. A
+concurrent import could therefore replace a snapshot under the same paper key
+while every attempt identity and summary still matched — `questionResults` is
+stored rather than recomputed, so the replaced history still passed
+`validateExamResultHistory`. The learner was told the attempt was saved while the
+history held a different question set.
+
+Fixed in `9edc2a0` by applying the rule the merge already enforces
+(`conflicting-paper`): a snapshot that does not match what we wrote is a loss,
+and the repair path reports the conflict instead of adopting it. Full canonical
+comparison rather than `contentSha256` alone, because `examPaperMetadataIsValid`
+permits extra keys.
+
+The regression test asserts on a mutated *prompt* deliberately: a validity-
+breaking mutation would make the test vacuous, exactly as the first version of the
+identity test was (H12). Control-verified — fails with
+`restored=false, returned=history` when the block is removed.
+
+Also discovered that the entire `audit-evidence/round7/` tree had **never been
+committed** and did not survive the reset. Per the standing rule it was
+reconstructed and labelled; every measurement that can be re-executed was, at the
+final SHA, and the interactive probes were left honestly missing rather than
+rewritten to agree with their own conclusions. The directory is now committed,
+which is what should have happened the first time (H16).
+
+CI: chromium and firefox pass again at `9edc2a0`, confirming the earlier
+`Install <browser> for Playwright` failures were the Microsoft CDN outage and not
+the repository.
