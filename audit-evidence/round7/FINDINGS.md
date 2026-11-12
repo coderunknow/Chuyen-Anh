@@ -48,6 +48,17 @@ symptom*. "It crashed, so it must not be a validator" is the same reasoning that
 lets a broken gate pass, and the two build tools are the only scripts entitled to
 that excuse, by name.
 
+| **R8** | The sweep **invoked** `build_archive.py` and `release_artifacts.py` before consulting the allowlist — with credentials, `release_artifacts.py` could create a draft release, violating `DEPLOY_HOLD` | `4970cb5` | Both are now skipped **by name before any invocation**; verified neither is executed. Integrity checked: no tracked file outside `audit-evidence/` changed during the earlier runs |
+
+R8 was raised as a **Major** (`4548054140`) and is the most consequential finding
+about the process rather than the code. The fix for R7 made the loop *classify*
+the dangerous scripts but still *ran* them first. In a repository under a deploy
+hold, that ordering is the whole problem: `--help` on a script with no argument
+parser is not a query, it is an execution.
+
+Recorded disposition for D75 therefore changes: the build tools are not merely
+"tolerated" by the gate loop, they are **never invoked** by it.
+
 ## D75 — build tools that ignore `--help`
 
 `scripts/exams/build_archive.py` and `scripts/release_artifacts.py` have no

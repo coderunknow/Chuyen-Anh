@@ -115,3 +115,27 @@ The retired script is excluded BEFORE the help check, because it refuses --help
 by design (exit 2) and would otherwise read as a help failure. The two build
 tools with no argument parser are skipped by explicit name, not by "it crashed,
 so it must not be a validator".
+
+--- CodeRabbit Major 4548054140: the sweep must not invoke the build tools ---
+The previous recipe probed every script with `--help` and only then consulted the
+allowlist. That is a side effect, not a check:
+
+  * scripts/exams/build_archive.py rebuilds archive files that SOURCE data
+    depends on.
+  * scripts/release_artifacts.py shells out to `gh release create --draft`; with
+    credentials present, `--help` would create a release.
+
+This repository is under DEPLOY_HOLD, so "it only ran --help" is not a defence.
+
+Current recipe skips both BY NAME before any invocation:
+  SKIP  scripts/generate_vocab_audit_dev4.py (retired by design)
+  SKIP  scripts/release_artifacts.py (no argument parser; never invoked)
+  SKIP  scripts/exams/build_archive.py (no argument parser; never invoked)
+  gates: 17 passed, 0 failed, 2 never-invoked
+  exit 0
+
+Integrity check on the runs that DID happen during this session (before the fix,
+when those two were still probed): `git status --porcelain` shows no modification
+to any tracked file outside audit-evidence/. Both tools aborted on missing
+inputs before writing anything. That is luck plus missing fixtures, not a
+guarantee - which is exactly why the skip now happens first.

@@ -83,35 +83,41 @@ by doing the work is a real robustness wart and is recorded as D75.
 
 ```bash
 set -u
-# The only scripts allowed to fail --help are the two that have no argument
-# parser at all and execute on import (D75). Anything else that crashes before
-# printing --check is a real failure, not a non-validator: a broken import must
-# not be able to shrink the gate set silently. The retired script is excluded
-# first, because it refuses --help by design (exit 2) and would otherwise read
-# as a help failure.
-no_arg_parse=(
+# Scripts that must never be INVOKED by this sweep, because they have no argument
+# parser and execute on import:
+#   * scripts/exams/build_archive.py  - rebuilds archive files, which SOURCE data
+#     depends on; running it can overwrite them.
+#   * scripts/release_artifacts.py    - shells out to `gh release create --draft`;
+#     with credentials present, `--help` would create a release and violate
+#     DEPLOY_HOLD.
+# They are skipped by name BEFORE any invocation. Probing first and sorting out
+# the allowlist afterwards is a side effect, not a check - that was a real defect
+# (CodeRabbit 4548054140) and not a theoretical one: this repository is under a
+# deploy hold, so "it only ran --help" is not a defence.
+never_invoke=(
   scripts/exams/build_archive.py
   scripts/release_artifacts.py
 )
-fail=0; pass=0; noarg=0
+fail=0; pass=0; skipped=0
 for f in scripts/*.py scripts/exams/*.py; do
   [ -f "$f" ] || continue
+  skip=0
+  for a in "${never_invoke[@]}"; do [ "$f" = "$a" ] && skip=1; done
+  [ "$skip" -eq 1 ] && { skipped=$((skipped+1)); echo "SKIP  $f (no argument parser; never invoked)"; continue; }
   case "$f" in *generate_vocab_audit_dev4.py) echo "SKIP  $f (retired by design)"; continue;; esac
   out=$(python3 "$f" --help 2>&1); rc=$?
-  if [ "$rc" -ne 0 ]; then
-    allowed=0
-    for a in "${no_arg_parse[@]}"; do [ "$f" = "$a" ] && allowed=1; done
-    if [ "$allowed" -eq 1 ]; then noarg=$((noarg+1)); echo "NO-ARG-PARSE  $f"; continue; fi
-    fail=$((fail+1)); echo "HELP-FAIL  $f"; continue
-  fi
+  # A --check validator whose help crashes is a failure, not a non-validator.
+  if [ "$rc" -ne 0 ]; then fail=$((fail+1)); echo "HELP-FAIL  $f"; continue; fi
   printf '%s' "$out" | grep -q -- "--check" || continue
   if python3 "$f" --check >/dev/null 2>&1; then pass=$((pass+1)); echo "PASS  $f"
   else fail=$((fail+1)); echo "FAIL  $f"; fi
 done
-echo "gates: $pass passed, $fail failed, $noarg no-arg-parse"
-# Three conditions, all required. The count check is what stops a silent shrink:
-# "0 failed" is true and useless if only three gates ran.
-[ "$fail" -eq 0 ] && [ "$noarg" -eq 2 ] && [ "$pass" -eq 17 ]
+echo "gates: $pass passed, $fail failed, $skipped never-invoked"
+# All three required. The count check is what stops a silent shrink: "0 failed"
+# is true and useless if only three gates ran.
+[ "$fail" -eq 0 ] && [ "$skipped" -eq 2 ] && [ "$pass" -eq 17 ]
+```
+Expected: `gates: 17 passed, 0 failed, 2 never-invoked`, exit 0.
 ```
 Expected: `gates: 17 passed, 0 failed, 2 no-arg-parse`, exit 0.
 
