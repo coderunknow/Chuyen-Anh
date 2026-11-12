@@ -18,10 +18,10 @@ document.
 | 6 | Round-trip + failure tests pass | **PASS** | 14-check UI probe + 19-check keyboard probe; malformed / incomplete / unknown-version cases; `index.html` tests |
 | 7 | v1 backup compatibility preserved | **PASS** | v1 schema untouched; phrase progress stays in the v1 backup and is **not** duplicated into the settings file |
 | 8 | Screen-reader manual validation with genuine evidence | **INCOMPLETE** | **Impossible in this environment** — no AT-SPI, no `pyatspi`, no display, Debian mirror unreachable. Checklist delivered at `accessibility/MANUAL_SCREEN_READER_CHECKLIST.md`. Not simulated. |
-| 9 | CodeRabbit completed at the exact final SHA | **PASS** | `completed/success` at `3c2d7ff` (15:35–15:43Z), producing Major `4539964627`; final SHA `9edc2a0` re-requested |
+| 9 | CodeRabbit completed at the exact final SHA | **PASS** | `completed/success` at **`e538bb6`** (05:15:18Z), producing 3 Minor findings `4546621788` / `4546621792` / `4546621797`. Earlier runs, kept for the record: `completed/success` at `3c2d7ff` (15:35–15:43Z) → Major `4539964627`; at `74a5e45` → 4; at `9f2f82e` → 10. **A request is not a completion** — the `9edc2a0` request was counted only after its result arrived at `e538bb6`. |
 | 10 | Kilo completed at the exact final SHA | **INCOMPLETE** | Kilo's account has insufficient credits; it fails to run at any SHA. An ACTION_REQUIRED or a crash is not a completion. |
 | 11 | Review findings resolved or dispositioned | **PASS** | Every CodeRabbit finding to date either fixed with a control or explicitly carried forward with a reason |
-| 12 | Regression tests pass at the exact final SHA | **PASS** | Node **266/266**, Python **257 OK**, archive **5 OK**, 17 validator gates + 1 retired-by-design; browser suites PASS locally |
+| 12 | Regression tests pass at the exact final SHA | **PASS** | Node **266/266**, Python **257 OK**, archive **5 OK**, **16** validator gates pass (17 accept `--check`, 1 is retired by design); browser suites PASS locally |
 | 13 | All CI green at the exact final SHA | **see table** | chromium / firefox / checks pass at `9edc2a0`; WebKit pending — see final table |
 | 14 | Remote/PR head synced | **PASS** | `git ls-remote` equals local `rev-parse` at every push |
 | 15 | Evidence + ledger updated | **PASS** | This directory, `DESIGN_LOG.md`, `CHANGELOG.md`, `audit/v100/` counts — and committed to Git, which the earlier round failed to do |

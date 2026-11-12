@@ -81,7 +81,7 @@ Ten defects with controls (D65–D74 in `FINDINGS.md`) plus the process failures
 ## E. What was tested, and the numbers
 
 At `9edc2a0`: Node **266/266** (`exam-scoring` 60), Python **257 OK**, archive
-**5 OK**, 17 validator gates pass and 1 script is retired by design, both browser
+**5 OK**, 16 validator gates pass (17 scripts accept `--check`; 1 is retired by design), both browser
 suites PASS locally on chromium 133. The full transcription, with commands, is
 `logs/final-sha-verification.log`.
 
@@ -116,7 +116,8 @@ separate authorisation and has not been requested by this report.
 | `50fd918` | pass | **fail** | **fail** | cancelled | install step fails in ~2 s |
 | `277b3c2` | pass | **fail** | **fail** | **fail** | empty retry commit, same step |
 | `3c2d7ff` | pass | **fail** | **fail** | **fail** | empty retry commit, same step |
-| `9edc2a0` | pass | **pass** | **pass** | pending | **CDN recovered** |
+| `9edc2a0` | pass | **pass** | **pass** | **pass** | **CDN recovered — all four green** |
+| `e538bb6` | pass | pending | pending | pending | docs/evidence only; in progress at time of writing |
 
 The failure was always the same single step, `Install <browser> for Playwright`,
 failing after ~2 s. The diagnosis rests on three facts, not on the error text:
@@ -125,8 +126,11 @@ contains **no** `.github` or package change; and the same commit set passes
 locally. Job logs were unreachable (`EOF` from blob storage), so the step's own
 output could not be quoted — that limitation is recorded rather than papered over.
 
-At `9edc2a0` chromium and firefox pass again with no change to the workflow,
-which confirms the outage rather than a repository defect.
+At `9edc2a0` **all four jobs pass** — chromium, firefox, webkit and checks — with
+no change to the workflow, which confirms the outage rather than a repository
+defect. WebKit completed in ~14 minutes on that run, against the 35-minute job
+timeout it had previously hit twice; the earlier cancellations were runner
+health, not test failures.
 
 **WebKit is tracked separately.** It has twice been cancelled after ~35 minutes
 with no failing step (a runner timeout, not a test failure), and at the time of

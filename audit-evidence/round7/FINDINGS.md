@@ -25,6 +25,16 @@ without the fix · **OPEN** = carried forward, with the reason it is not fixed.
 | D73 | The read-back compared attempt **summaries** only, so an attempt replaced under the same id was adopted | `50fd918` | `an attempt replaced under the same id is not adopted as our save` |
 | **D74** | **The read-back never compared the `papers` map**, so a snapshot replaced under the same key was adopted while every attempt still matched | **`9edc2a0`** | **`a paper snapshot replaced under the same key is not adopted as our save`** |
 
+| **R1** | Criterion 9 claimed **PASS** on a *request* at `9edc2a0`, not a completion at the SHA being assessed | `e538bb6` | Evidence now cites `completed/success` at `e538bb6` |
+| **R2** | The coverage matrix cited lost probes for rows that committed tests actually cover, and claimed unknown keys were *refused* when the test proves they are *ignored* | `e538bb6` | Matrix rebuilt row by row against `exam-scoring` test names |
+| **R3** | The reproduction recipe's gate loop reported only its last iteration, so an early failure could pass — and the documented total was **17**, actually **16** | `e538bb6` | Recipe rewritten with a failure counter and `[ "$fail" -eq 0 ]`; number corrected in four files |
+
+R1–R3 were raised by CodeRabbit on `e538bb6` (`4546621788`, `4546621792`,
+`4546621797`). All three were about **this audit's own evidence documents**, not
+the application, and all three were valid. R3 is the instructive one: fixing it
+proved the number it documented had been wrong, because the old loop counted the
+retired script as a pass.
+
 ## D74 — detail (this session)
 
 Raised as a **Major** by CodeRabbit on `3c2d7ff` (comment `4539964627`) and

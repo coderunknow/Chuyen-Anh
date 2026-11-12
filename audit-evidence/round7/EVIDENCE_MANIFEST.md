@@ -57,12 +57,27 @@ python3 -m pip install --break-system-packages -r scripts/exams/requirements.txt
 python3 scripts/exams/test_archive.py
 ```
 
-**Validator gates** — a `--check` script must exit 0:
+**Validator gates** — every `--check` script must exit 0. `generate_vocab_audit_dev4.py`
+is **retired on purpose**: it refuses to run and exits non-zero to prevent
+unsupported verification claims, so it is excluded explicitly rather than left to
+fail every run. The loop records failures across *all* iterations and exits
+non-zero if any required gate failed — reporting only the last iteration's status
+would let an early failure pass unnoticed:
 ```bash
-for f in scripts/*.py; do python3 "$f" --help 2>&1 | grep -q -- --check && python3 "$f" --check; done
+set -u
+fail=0; pass=0
+for f in scripts/*.py; do
+  python3 "$f" --help 2>&1 | grep -q -- "--check" || continue
+  case "$f" in *generate_vocab_audit_dev4.py) echo "SKIP  $f (retired by design)"; continue;; esac
+  if python3 "$f" --check >/dev/null 2>&1; then pass=$((pass+1)); echo "PASS  $f"
+  else fail=$((fail+1)); echo "FAIL  $f"; fi
+done
+echo "gates: $pass passed, $fail failed"
+[ "$fail" -eq 0 ]
 ```
-`generate_vocab_audit_dev4.py` is **retired on purpose** and exits non-zero to
-prevent unsupported verification claims. It is not a failing gate.
+Expected: `gates: 16 passed, 0 failed` (17 scripts accept `--check`, one is
+retired). The final `[ ... ]` is what makes the
+block's exit status mean "all gates passed", not "the last loop body ran".
 
 **Browser suites.** Playwright's own browser download was unavailable for part of
 this session (a CDN outage), so the `@sparticuz/chromium` fallback was used:

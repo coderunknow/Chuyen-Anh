@@ -1,14 +1,18 @@
 # Round 7 — coverage matrix for the device-settings export (Option 3)
 
-> **Reconstructed document.** The original matrix was lost with the untracked
-> working tree. This version was rebuilt against the committed implementation and
-> re-checked by reading `index.html`; each row names the assertion that actually
-> exercises it. Rows whose original probe script is gone are marked
-> **reconstructed — method described, not re-executed**.
+> **Reconstructed document**, rebuilt against the committed implementation. The
+> column that matters is **Evidence**: it names either a **committed test** (which
+> was re-executed at the final SHA and cannot silently rot) or a **lost probe**
+> (which was not re-run and must be re-derived before anyone relies on it again).
+>
+> The first draft of this file cited the lost probe scripts for everything, which
+> overstated the weakness of the evidence *and* contained one factual error:
+> row 12 claimed unknown keys are refused. They are ignored — see the committed
+> test named in the row.
 
 The user's instruction was to validate the **whole file before applying anything**
-and to preserve existing settings on failure. This matrix is the evidence that
-each clause of that instruction has a test, not just a code path.
+and to preserve existing settings on failure. Each row below is a clause of that
+instruction with the evidence that actually exercises it.
 
 ## Format
 
@@ -22,32 +26,41 @@ duplicated here; the v1 backup schema is unchanged (criterion 7).
 
 ## Cases
 
-| # | Case | Expected | Where it is asserted |
-|---|------|----------|----------------------|
-| 1 | Round trip: export → import on a fresh store | All four settings reapplied | 14-check UI probe; `v1`-compat check |
-| 2 | Round trip survives a page reload | Imported values persist | UI probe — reload, re-read from storage |
-| 3 | Not an object / not JSON | Refused, `invalid` message, **no write** | `validateDeviceSettingsPayload` |
-| 4 | `app` field wrong | Refused before any field is applied | validator (app constant) |
-| 5 | `version` unknown (e.g. `2`) | Refused, not silently migrated | validator (version check) |
-| 6 | `version` missing | Refused | validator |
-| 7 | `settings` missing or not an object | Refused | validator |
-| 8 | `cefr` not a supported value | Refused | validator allow-list |
-| 9 | `theme` not a supported value | Refused | validator allow-list |
-| 10 | `language` not a supported value | Refused | validator allow-list |
-| 11 | `presentation` malformed | Refused | validator shape check |
-| 12 | Unknown extra keys inside `settings` | Refused rather than partially adopted | validator (exact key set) |
-| 13 | File larger than 64 KB | Refused **before** the parse, on byte length | `99859e3` — cap checked on the string |
-| 14 | Partial write (one key throws) | Reports **failure**, not `ok` | `32ad30e`; staging probe asserts `writes.has(key)` per key |
-| 15 | Failure leaves existing settings intact | Previous values still readable | UI probe — snapshot before, compare after |
-| 16 | No partial application | Every key is written or none is | staging probe (refuses mid-write) |
-| 17 | Import control reachable by keyboard | Focus lands on the control, chooser opens | 19-check keyboard probe |
-| 18 | Message clarity (VI/EN) | Each refusal has its own message, both languages | toast-argument walk, 66 literals / 0 untranslated |
+All tests named below live in `tests/exam-scoring.test.js` and were re-run at the
+final SHA: `exam-scoring` **60 pass / 0 fail**.
+
+| # | Case | Expected | Evidence |
+|---|------|----------|----------|
+| 1 | Round trip: export → import on a fresh store | All four settings reapplied | **Committed test** — `export -> import round-trips and the values persist after reload` |
+| 2 | Round trip survives a reload | Imported values persist | **Committed test** — same test, read back through the public loaders |
+| 3 | Export carries only the four device-local settings | No phrase/progress data leaks in | **Committed test** — `export carries exactly the four device-local settings and nothing else` (asserts on the serialized payload) |
+| 4 | Not an object | Refused, nothing written | **Committed test** — `a malformed, foreign or unsupported-version file is refused and changes nothing` (`not an object`, `[]`) |
+| 5 | `app` field wrong | Refused | **Committed test** — same test (`foreign app id`) |
+| 6 | `version` unknown (e.g. `99`) | Refused, not silently migrated | **Committed test** — same test (`unsupported version`) |
+| 7 | `version` missing | Refused | **Code path only** — `payload.version !== DEVICE_SETTINGS_VERSION` refuses `undefined`; **no test asserts this exact case**. Weaker than the rows above; stated so it is not mistaken for coverage. |
+| 8 | `settings` missing | Refused | **Committed test** — same test (`missing settings`) |
+| 9 | `theme` missing or unsupported | Refused | **Committed test** — same test (`missing theme`, `bad theme value`) |
+| 10 | `language` unsupported | Refused | **Committed test** — same test (`bad language`) |
+| 11 | `cefr` malformed (bad level / not an array / missing flag) | Refused | **Committed test** — same test (three CEFR cases) |
+| 12 | `presentation` malformed | Refused | **Committed test** — same test (`bad presentation`) |
+| 13 | Unknown extra keys | **Ignored, not applied** — the validator returns only the four known settings | **Committed test** — `extra unknown fields are ignored, not applied` (asserts the parsed key set and that the unknown key is absent) |
+| 14 | File larger than 64 KB | Refused **before** the parse, on byte length | **Committed test** — `oversized input is refused before it can be parsed` |
+| 15 | Partial write (one key refused) | Reports **failure**, not `ok`; nothing written | **Committed test** — `applyDeviceSettings never reports ok after writing only part of the set` (asserts `m.size === 0`) |
+| 16 | Store fails on capacity | `write-failed`, old settings still readable | **Committed test** — `a failing store reports the failure and leaves the old settings readable` |
+| 17 | Dead store | `write-failed` (probe catches it first) | **Committed test** — `a dead store reports write-failed because the capacity probe caught it first` |
+| 18 | Mid-commit failure that cannot roll back | `rollback-failed` — told to check, not reassured | **Committed test** — `a store that fails mid-commit and cannot roll back is reported as rollback-failed` |
+| 19 | Settings never leak into the v1 backup | v1 bundle still refuses them | **Committed test** — `the v1 progress backup still refuses to carry these settings` |
+| 20 | Import control reachable by keyboard | Focus lands on the control, chooser opens | **Lost probe** — `r7-import-keyboard.mjs` (19 checks) was **not re-executed**; its script is gone and has not been rewritten. Re-derive before relying on it. |
+| 21 | Refusal messages exist in both languages | One message per refusal, VI and EN | **Lost probe** — `r7-toast-args.mjs` (66 literals / 0 untranslated), **not re-executed**. The mechanism is still present in the code; the measurement is not. |
 
 ## What this matrix does **not** claim
 
 - It does not claim screen-reader support. Criterion 8 is open; see
   `accessibility/MANUAL_SCREEN_READER_CHECKLIST.md`.
-- It does not claim the 64 KB cap is enforced on a stream: the file is read by
-  the browser's file chooser, so the cap is enforced on the resulting string
-  before parsing. That is the strongest guarantee available at this layer and is
-  stated as such rather than as a streaming limit.
+- It does not claim the 64 KB cap is enforced on a stream: the file arrives
+  through the browser's file chooser, so the cap is enforced on the resulting
+  text (and on the `File` size in the UI) before parsing. That is the strongest
+  guarantee available at this layer and is stated as such rather than as a
+  streaming limit.
+- Rows 20 and 21 are the only ones resting on lost probes, and they say so. The
+  rest are covered by tests that run in CI on every push.
