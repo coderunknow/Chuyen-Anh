@@ -7,4 +7,4 @@ PASS  malformed import is refused and changes nothing — invalid-schema
 PASS  valid import after clear restores the row
 PASS  the correction travels with the restored row
 
-all UI-flow checks passed
+all model-API checks passed (not a browser result)

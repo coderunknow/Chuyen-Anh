@@ -20,31 +20,21 @@ const questions = app.parseExamQuestions(record.markdown, record.id);
 const keys = Array.isArray(record.answerKey) ? record.answerKey : [];
 
 /** A store backed by one shared map, with hooks that fire inside a write. */
-function sharedStore({ onWrite } = {}) {
+function makeStore({ onWrite } = {}) {
   const data = new Map();
-  return {
+  // The store object exists before the hook can fire, and the hook receives that
+  // same object: the previous version passed an undeclared `api` binding, so
+  // `onWrite` threw a ReferenceError the first time any test supplied one
+  // (CodeRabbit, PR #85).
+  const store = {
     getItem: key => (data.has(key) ? data.get(key) : null),
     setItem: (key, value) => {
       data.set(key, value);
-      if (key === KEY && onWrite) onWrite({ data, store: api });
+      if (key === KEY && onWrite) onWrite({ data, store });
     },
-    removeItem: key => data.delete(key),
-    snapshot: () => Object.fromEntries(data),
-    raw: () => data.get(KEY),
-    api: null
+    removeItem: key => { data.delete(key); }
   };
-}
-
-function makeStore(options = {}) {
-  const store = sharedStore(options);
-  store.api = { getItem: store.getItem, setItem: store.setItem, removeItem: store.removeItem };
-  // Allow the hook to talk to the same API surface.
-  const wrapped = { ...store.api, snapshot: store.snapshot, raw: store.raw };
-  if (options.onWrite) {
-    const original = store.api.setItem;
-    wrapped.setItem = (key, value) => original(key, value);
-  }
-  return { store: store.api, snapshot: store.snapshot, raw: store.raw };
+  return { store, snapshot: () => Object.fromEntries(data), raw: () => data.get(KEY) };
 }
 
 function attempt(id, submittedAt, { count = 2 } = {}) {
@@ -497,12 +487,20 @@ test('r8 correction UI: the 1,000-character limit is visible and enforced at the
   // The requirement is that the limit is visible at the UI boundary, not only in
   // the persistence validator - a learner must not discover it by losing a save.
   const inputTag = appSource.match(/id="exam-key-correct-input"[^>]*/)?.[0] || '';
-  assert.match(inputTag, /maxlength="1000"/, 'the correction input carries a hard maxlength');
+  // The limit counts code points per answer, which `maxlength` cannot express: it
+  // counts UTF-16 units over the whole field, so it blocked a legitimate
+  // 600-emoji answer and accepted two 700-character answers (CodeRabbit, PR #85).
+  // Enforcement moved to an input handler that uses the same two model functions
+  // the save uses, and the measured length is shown to the learner.
+  assert.doesNotMatch(inputTag, /maxlength=/, 'no UTF-16 maxlength on a code-point-limited answer');
   assert.match(inputTag, /aria-describedby="exam-key-correct-hint"/,
     'the input is programmatically associated with the hint that states the limit');
   assert.match(appSource, /id="exam-key-correct-hint"/);
   assert.match(appSource, /Tối đa 1000 ký tự/);
   assert.match(appSource, /At most 1000 characters/);
+  assert.match(appSource, /examCorrectionOverLimitPart\(question, correctionInput\.value, key\)/,
+    'the input handler refuses an edit with the same rule the save applies');
+  assert.match(appSource, /id="exam-key-correct-length"/, 'the measured length is shown');
   // A refused over-limit correction must explain itself rather than surface as a
   // generic storage error: the handler routes through examCorrectionValidation.
   assert.match(appSource, /examCorrectionValidation\(question,/);
@@ -542,4 +540,205 @@ test('r8 persistence: importing a backup after Clear restores it, because the le
   const back = await save(app.addExamResult(staleTab, attempt('unrelated', 8000)), staleTab, store);
   assert.equal(back.ok, true);
   assert.deepEqual(stored(store).attempts.map(item => item.id), ['unrelated']);
+});
+
+// ---------------------------------------------------------------------------
+// Findings from the CodeRabbit review of PR #85. Each test fails against the
+// code as reviewed and passes against the fix, so the thread is closed by a
+// check rather than by an argument.
+// ---------------------------------------------------------------------------
+
+test('r8 review: the Web Locks path is exercised, not just the fallback', async () => {
+  // The fallback test alone would keep passing if the app stopped asking for a
+  // lock at all. This installs a controllable facade and asserts what the app
+  // actually requests, what it reports, and that a second save waits.
+  const calls = [];
+  let running = 0;
+  let peakRunning = 0;
+  let busy = false;
+  let overlapped = false;
+  const waiters = [];
+  let releaseFirst;
+  const held = new Promise(resolve => { releaseFirst = resolve; });
+  const original = globalThis.navigator;
+  Object.defineProperty(globalThis, 'navigator', {
+    value: {
+      locks: {
+        // A real exclusive lock: a second request is not granted while the first
+        // holds it. Calls are counted when *requested*, runs when *entered*, so
+        // the test can tell "asked for the lock" from "started the critical
+        // section" - the difference the fallback test cannot observe.
+        request: async (name, options, run) => {
+          calls.push({ name, mode: options?.mode });
+          while (busy) await new Promise(resolve => waiters.push(resolve));
+          busy = true;
+          try {
+            if (calls.length === 1) await held;
+            running += 1;
+            peakRunning = Math.max(peakRunning, running);
+            if (running > 1) overlapped = true;
+            try { return await run(); } finally { running -= 1; }
+          } finally {
+            busy = false;
+            waiters.shift()?.();
+          }
+        }
+      }
+    },
+    configurable: true,
+    writable: true
+  });
+  try {
+    assert.equal(app.examHistoryLockSupport().available, true);
+    const { store } = makeStore();
+    const base = app.loadExamResultHistory(store);
+    const first = save(app.addExamResult(base, attempt('lock-1', 5000)), base, store);
+    // Let the first save reach the lock, then start a second one.
+    await new Promise(resolve => setTimeout(resolve, 0));
+    const second = save(app.addExamResult(base, attempt('lock-2', 6000)), base, store);
+    await new Promise(resolve => setTimeout(resolve, 10));
+    // Both saves have *asked* for the lock, but only one is inside the critical
+    // section: that is what exclusive means, and it is the property the fallback
+    // test could not observe.
+    assert.equal(calls.length, 2, 'both saves asked for the lock');
+    // Neither critical section has started: the lock is held by this test, so a
+    // save that ran here would have ignored the lock entirely.
+    assert.equal(running, 0, 'nothing runs while the lock is held');
+    releaseFirst();
+    const [a, b] = await Promise.all([first, second]);
+    assert.equal(a.ok, true);
+    assert.equal(b.ok, true);
+    assert.equal(a.mode, 'locked');
+    assert.equal(b.mode, 'locked');
+    assert.equal(calls[0].name, 'chuyen-anh.exam-results.v1');
+    assert.equal(calls[0].mode, 'exclusive');
+    assert.equal(overlapped, false, 'the critical sections never overlapped');
+    assert.equal(peakRunning, 1, 'and only ever one ran at a time');
+    assert.deepEqual(stored(store).attempts.map(item => item.id).sort(), ['lock-1', 'lock-2']);
+  } finally {
+    Object.defineProperty(globalThis, 'navigator', { value: original, configurable: true, writable: true });
+  }
+});
+
+test('r8 review: an empty string in the store is unreadable, not an empty history', async () => {
+  const { store } = makeStore();
+  const base = app.loadExamResultHistory(store);
+  store.setItem(KEY, '');
+  assert.equal(app.inspectExamResultStore(store).status, 'unreadable',
+    'a blank value is a present-but-unreadable store, not an absent key');
+  const result = await save(app.addExamResult(base, attempt('after-blank', 5000)), base, store);
+  assert.equal(result.ok, false);
+  assert.equal(result.reason, 'store-invalid-json');
+  assert.equal(app.inspectExamResultStore(store).status, 'unreadable',
+    'the blank value is still there; it was refused, not overwritten');
+});
+
+test('r8 review: two 700-character answers are accepted, the limit is per answer', () => {
+  const text = questions.find(question => question.responseType === 'text') || questions[0];
+  const long = 'x'.repeat(700);
+  const validation = app.examCorrectionValidation(text, `${long}; ${long}`);
+  assert.equal(validation.ok, true, 'each answer is within the limit');
+  assert.equal(validation.candidates[0], long);
+  assert.deepEqual(validation.acceptedAlternatives, [long]);
+  // The measured length in a refusal is the length of the offending answer.
+  const refused = app.examCorrectionValidation(text, `${long}; ${'y'.repeat(1001)}`);
+  assert.equal(refused.reason, 'too-long');
+  assert.equal(refused.length, 1001);
+});
+
+test('r8 review: a legacy over-limit accepted alternative is preserved, not refused', async () => {
+  const target = questions[0];
+  const { store } = makeStore();
+  // A correction needs a paper snapshot to target, and the snapshot arrives with
+  // the first saved attempt (this is why the migration test seeds one too).
+  const boot = app.loadExamResultHistory(store);
+  assert.equal((await save(app.addExamResult(boot, attempt('legacy-alt-attempt', 4000)), boot, store)).ok, true);
+  const seeded = app.applyExamKeyCorrection(app.loadExamResultHistory(store), {
+    examId: record.id, questionId: target.id, candidates: ['short'], now: 5000
+  });
+  assert.equal(seeded.ok, true);
+  const raw = JSON.parse(JSON.stringify(seeded.history));
+  // Exactly the shape the uncapped input could create: a long *alternative*.
+  raw.corrections[0].acceptedAlternatives = ['z'.repeat(1400)];
+  delete raw.corrections[0].legacyOverLimit;
+  store.setItem(KEY, JSON.stringify(raw));
+  const loaded = app.loadExamResultHistory(store);
+  assert.equal(loaded.corrections.length, 1, 'the historical record is not dropped');
+  assert.deepEqual(loaded.corrections[0].acceptedAlternatives, ['z'.repeat(1400)], 'and not truncated');
+  assert.equal(loaded.corrections[0].legacyOverLimit, true, 'it is tagged');
+});
+
+test('r8 review: an import replaces a same-id correction instead of failing', async () => {
+  const { store } = makeStore();
+  const target = questions[0];
+  const boot = app.loadExamResultHistory(store);
+  assert.equal((await save(app.addExamResult(boot, attempt('import-target', 4000)), boot, store)).ok, true);
+  // The learner corrects the key, exports, clears, then edits the same question
+  // again and imports the older backup: both carry one id (exam+question).
+  const first = app.applyExamKeyCorrection(app.loadExamResultHistory(store), {
+    examId: record.id, questionId: target.id, candidates: ['from-backup'], now: 5000
+  });
+  assert.equal((await save(first.history, app.loadExamResultHistory(store), store)).ok, true);
+  const backup = app.exportExamResultHistory(app.loadExamResultHistory(store));
+  const edited = app.applyExamKeyCorrection(app.loadExamResultHistory(store), {
+    examId: record.id, questionId: target.id, candidates: ['edited-later'], now: 6000, replace: true
+  });
+  assert.equal((await save(edited.history, app.loadExamResultHistory(store), store)).ok, true);
+  const imported = await app.importExamResultHistory(backup, store);
+  assert.equal(imported.ok, true, 'the chosen backup is restorable, not a conflict');
+  const after = stored(store);
+  assert.equal(after.corrections.length, 1);
+  assert.deepEqual(after.corrections[0].candidates, ['from-backup'],
+    'the imported file wins for the ids it carries, because the learner chose it');
+});
+
+test('r8 review: a newer correction from another tab is not overwritten by a stale one', async () => {
+  const { store } = makeStore();
+  const target = questions[0];
+  const boot = app.loadExamResultHistory(store);
+  assert.equal((await save(app.addExamResult(boot, attempt('stale-tab-seed', 4000)), boot, store)).ok, true);
+  const seeded = app.applyExamKeyCorrection(app.loadExamResultHistory(store), {
+    examId: record.id, questionId: target.id, candidates: ['v1'], now: 5000
+  });
+  assert.equal((await save(seeded.history, app.loadExamResultHistory(store), store)).ok, true);
+
+  // Tab A snapshots the history, then tab B edits the same correction.
+  const tabA = stored(store);
+  const edited = app.applyExamKeyCorrection(stored(store), {
+    examId: record.id, questionId: target.id, candidates: ['v2-newer'], now: 7000, replace: true
+  });
+  assert.equal((await save(edited.history, stored(store), store)).ok, true);
+
+  // Tab A now saves something unrelated. Its stale correction must not win.
+  const tabASave = await save(app.addExamResult(tabA, attempt('tab-a-attempt', 8000)), tabA, store);
+  assert.equal(tabASave.ok, true);
+  const after = stored(store);
+  assert.deepEqual(after.corrections[0].candidates, ['v2-newer'], 'the newer edit survives');
+  assert.ok(after.attempts.some(item => item.id === 'tab-a-attempt'), 'and the new attempt is kept too');
+});
+
+test('r8 review: a Clear that is overwritten by a stale tab is detected, not reported as success', async () => {
+  // Unlocked mode, and the stale write lands *after* the clear's verification.
+  // Nothing the previous checks looked at can see this: a Clear writes no attempt,
+  // and the overwrite removes the very tombstones the resurrection check reads.
+  const { store } = makeStore();
+  const base = app.loadExamResultHistory(store);
+  const filled = app.addExamResult(base, attempt('doomed', 5000));
+  assert.equal((await save(filled, base, store)).ok, true);
+  const seenByStaleTab = stored(store);
+
+  const cleared = app.clearExamResultHistory(seenByStaleTab);
+  const clearSave = await save(cleared, seenByStaleTab, store);
+  assert.equal(clearSave.ok, true);
+  assert.equal(app.inspectExamResultStore(store).history.generation, 1, 'the clear bumped the generation');
+
+  // Now the stale tab writes its pre-clear state back, as an interleaving would.
+  store.setItem(KEY, JSON.stringify(seenByStaleTab));
+  // A later save must notice the store went backwards rather than accept the
+  // resurrected attempt as someone else's legitimate record.
+  const later = await save(app.addExamResult(cleared, attempt('after-clear', 9000)), cleared, store);
+  assert.equal(later.ok, false, 'the resurrected store is reported, not silently accepted');
+  assert.equal(later.reason, 'lost-clear');
+  assert.ok(!stored(store).attempts.some(item => item.id === 'after-clear'),
+    'and nothing was written over the store while it is in that state');
 });

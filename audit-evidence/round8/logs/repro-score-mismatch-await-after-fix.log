@@ -1,0 +1,5 @@
+seed base+c: ok=true
+tabB booted with corrections=1 attempts=a1
+tabA save a2: ok=true
+tabB save b1: ok=true
+stored ids after: a1,a2,b1

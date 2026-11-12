@@ -1,7 +1,20 @@
-// jsdom probe of the exam-history UI flow the browser suite asserts:
-// submit -> correct -> reload -> export -> malformed import -> clear -> import.
+// jsdom probe of the exam-history *model* API, not the rendered UI.
+//
+// It calls the exported functions the UI calls (submit -> correct -> clear ->
+// malformed import -> valid import) against jsdom's `localStorage`, in a context
+// with no Web Locks. It does not dispatch DOM events, read rendered controls or
+// assert anything about focus/layout: it is a substitute for the parts of the
+// browser suite that only exercise model+storage, and it is NOT a browser result
+// (FAILURE_LEDGER.md F7).
 import { readFile } from 'node:fs/promises';
-import { JSDOM } from '/tmp/r8/node_modules/jsdom/lib/api.js';
+// The probe needs jsdom, which is not a dependency of this repo: it is resolved
+// from wherever the operator installed it. Fail with an instruction, not a
+// module-resolution stack trace.
+const JSDOM_PATH = process.env.JSDOM_PATH || '/tmp/r8/node_modules/jsdom/lib/api.js';
+const { JSDOM } = await import(JSDOM_PATH).catch(() => {
+  console.error(`jsdom is not installed at ${JSDOM_PATH}. Install it (npm i jsdom) and set JSDOM_PATH to its lib/api.js.\nThis probe is not a repo dependency; see audit-evidence/round8/EVIDENCE_MANIFEST.md.`);
+  process.exit(2);
+});
 
 const html = await readFile('index.html', 'utf8');
 const dom = new JSDOM(html, { runScripts: 'outside-only', url: 'https://example.test/', pretendToBeVisual: true });
@@ -54,5 +67,5 @@ check('valid import after clear restores the row', good.ok && app.loadExamResult
   good.ok ? '' : good.reason);
 check('the correction travels with the restored row', app.loadExamResultHistory(store).corrections.length === 1);
 
-console.log(fails ? `\n${fails} check(s) failed` : '\nall UI-flow checks passed');
+console.log(fails ? `\n${fails} check(s) failed` : '\nall model-API checks passed (not a browser result)');
 process.exit(fails ? 1 : 0);

@@ -2489,7 +2489,11 @@ that down before the fix mattered: it is the difference between "we added a retr
 * **Deletions are facts, additions are claims.** `deleteExamResult` and the new
   `clearExamResultHistory` tombstone ids (bounded, compacted by `examPruneRetention`),
   and `examApplyTombstones` runs on **both** sides of every union, so a stale tab's
-  copy of a deleted record can never win. A `Clear` also bumps `generation`, so
+  copy of a deleted record cannot win **while that tombstone is retained**. The bag is
+  bounded (`500` entries or `4 ×` retained attempts, whichever is larger), so the
+  guarantee is scoped to the retention window, not permanent: once the tombstone for an
+  old deletion is compacted away, a tab still holding that record can keep it. Tombstone
+  compaction is a deliberate size bound, and this is the price of it. A `Clear` also bumps `generation`, so
   "deliberately emptied" is distinguishable from "never written".
 * **Post-Clear work survives** because a new attempt's id is named by no tombstone. This
   is the case a blanket "discard what a stale tab wrote" gets wrong, and it has its own

@@ -1,0 +1,5 @@
+seed base+c: ok=undefined reason=undefined
+tabB booted with corrections=1 attempts=a1
+tabA save a2: ok=undefined reason=undefined
+tabB save b1: THREW: Conflicting stored exam history: score-mismatch
+stored ids after: a1,a2

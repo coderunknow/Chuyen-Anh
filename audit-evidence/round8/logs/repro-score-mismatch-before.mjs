@@ -1,3 +1,11 @@
+// HISTORICAL REPRO — runs against the API as it existed at e663295, where
+// `persistExamResultHistory` was synchronous and threw on a conflict.
+//
+// It is kept verbatim because its output is the "before" half of a before/after
+// pair (logs/repro-score-mismatch-at-start-sha.log). It MUST NOT be reused against
+// the current tree: the API is async, so `=== false` and a try/catch around an
+// un-awaited call cannot observe `{ ok: false }`. The reusable version is
+// `repro-score-mismatch-await.mjs` (CodeRabbit, PR #85).
 import { readFile } from 'node:fs/promises';
 const html = await readFile('index.html', 'utf8');
 const appSource = html.match(/<script type="module" id="app-script">([\s\S]*?)<\/script>/)[1];

@@ -1,0 +1,43 @@
+### python scripts/expand_vocabulary.py --check
+PASS: python scripts/expand_vocabulary.py --check
+### python scripts/build_vocabulary.py --check
+PASS: python scripts/build_vocabulary.py --check
+### python scripts/build_senses.py --check
+PASS: python scripts/build_senses.py --check
+### python scripts/audit_sense_sources.py --check
+PASS: python scripts/audit_sense_sources.py --check
+### python scripts/sense_integrity_audit.py --check
+PASS: python scripts/sense_integrity_audit.py --check
+### python scripts/generate_vocab_audit_dev5.py --check
+PASS: python scripts/generate_vocab_audit_dev5.py --check
+### python scripts/validate_vocab.py
+PASS: python scripts/validate_vocab.py
+### python scripts/embed_vocabulary.py --check
+PASS: python scripts/embed_vocabulary.py --check
+### python scripts/build_phrases.py --check
+PASS: python scripts/build_phrases.py --check
+### python scripts/validate_phrases.py
+PASS: python scripts/validate_phrases.py
+### python scripts/embed_phrases.py --check
+PASS: python scripts/embed_phrases.py --check
+### node scripts/exams/build_answer_keys.mjs --check
+PASS: node scripts/exams/build_answer_keys.mjs --check
+### node scripts/exams/verify_curated_keys.mjs
+PASS: node scripts/exams/verify_curated_keys.mjs
+### node scripts/exams/audit_rendering.mjs --check
+PASS: node scripts/exams/audit_rendering.mjs --check
+### node scripts/exams/classify_anomalies.mjs --check
+PASS: node scripts/exams/classify_anomalies.mjs --check
+### python scripts/exams/embed_archive.py --check
+PASS: python scripts/exams/embed_archive.py --check
+### python scripts/audit_vocabulary_quality.py --check
+PASS: python scripts/audit_vocabulary_quality.py --check
+### python scripts/vocabulary_cefr_review.py --check
+PASS: python scripts/vocabulary_cefr_review.py --check
+### python scripts/vocabulary_evidence_review.py --check
+PASS: python scripts/vocabulary_evidence_review.py --check
+### python scripts/rc4_vocabulary_audit.py --check
+PASS: python scripts/rc4_vocabulary_audit.py --check
+### python scripts/audit_exam_provenance.py --check
+PASS: python scripts/audit_exam_provenance.py --check
+GATES pass=21 fail=0

@@ -548076,6 +548076,7 @@ const EN_UI_TRANSLATIONS = Object.freeze({
   'Không thể lưu lịch sử luyện đề trên thiết bị này.': 'The exam history could not be saved on this device.',
   'Lịch sử luyện đề đã lưu trên thiết bị này không đọc được, nên dữ liệu được giữ nguyên thay vì bị ghi đè.': 'The exam history stored on this device cannot be read, so it was left untouched instead of being overwritten.',
   'Đáp án hiệu chỉnh tối đa X ký tự; nội dung vừa nhập có X ký tự.': 'A corrected answer may be at most X characters; the text just entered has X characters.',
+  'Mỗi đáp án hiệu chỉnh tối đa X ký tự; đáp án vừa nhập có X ký tự.': 'Each corrected answer may be at most X characters; the answer just entered has X characters.',
   'Không thể áp dụng hiệu chỉnh cho bản đề này.': 'The correction could not be applied to this paper.',
   'Không thể lưu lịch sử luyện đề; hãy tải kết quả JSON trước khi đóng trang.': 'The exam history could not be saved; download the JSON result before closing the page.',
   'Không thể mở kho đề để xem lịch sử.': 'The exam archive could not be opened to view this history.',
@@ -553952,14 +553953,38 @@ export function addExamResult(history, attempt) {
  * rubric credit. Parsing it as free text stored "0.75" as an answer string and
  * the item was then graded `incorrect` against the learner's own essay.
  */
+/**
+ * The individual answers a correction input carries, before any length decision.
+ *
+ * The limit is per *answer*, not per field: a text item accepts
+ * `answer; alternative; alternative`, and checking the whole field refused two
+ * perfectly valid 700-character answers as one 1,401-character input (CodeRabbit,
+ * PR #85). Splitting first is what makes the rule the same in the parser, the
+ * validator and the stored-history check.
+ */
+export function examCorrectionAnswerParts(question, input, keyRecord = null) {
+  const text = String(input ?? '').trim();
+  if (!question || !text) return [];
+  if (question.responseType === 'choice' || question.responseType === 'multiple') {
+    return text.split(/[,;\s]+/).map(part => part.trim()).filter(Boolean);
+  }
+  if (question.responseType === 'true-false') return [text];
+  if (examIsEssayItem(question, keyRecord || question.answerKey || null)) return [text];
+  return text.split(/\s*;\s*/).map(part => part.trim()).filter(Boolean);
+}
+/** The first part of this input that breaks the per-answer limit, or `undefined`. */
+export function examCorrectionOverLimitPart(question, input, keyRecord = null) {
+  return examCorrectionAnswerParts(question, input, keyRecord).find(part => examCorrectionExceedsLimit(part));
+}
+
 export function examCorrectionCandidates(question, input, keyRecord = null) {
   const text = String(input || '').trim();
   if (!text || !question) return null;
   // The 1,000-character bound belongs at the parser, not only in the store
   // validator: an over-limit answer used to parse, apply and re-score, and only
   // failed on save with a generic storage error after the learner had already
-  // been told the correction was understood.
-  if (examCorrectionExceedsLimit(text)) return null;
+  // been told the correction was understood. It is applied per answer.
+  if (examCorrectionOverLimitPart(question, text, keyRecord) !== undefined) return null;
   if (examIsEssayItem(question, keyRecord || question.answerKey || null)) {
     const val = Number(text);
     if (!Number.isFinite(val) || val < 0 || val > 1) return null;
@@ -553989,8 +554014,12 @@ export function examCorrectionValidation(question, input, keyRecord = null) {
   const text = String(input ?? '').trim();
   if (!question) return { ok: false, reason: 'unknown-question' };
   if (!text) return { ok: false, reason: 'empty' };
-  if (examCorrectionExceedsLimit(text)) {
-    return { ok: false, reason: 'too-long', length: examCorrectionLength(text), limit: EXAM_CORRECTION_CANDIDATE_LIMIT };
+  // Report the length of the answer that actually broke the rule, not of the
+  // whole field: two 700-character answers fit, and telling the learner "1,401
+  // characters" would name a limit they cannot see.
+  const overLimit = examCorrectionOverLimitPart(question, text, keyRecord);
+  if (overLimit !== undefined) {
+    return { ok: false, reason: 'too-long', length: examCorrectionLength(overLimit), limit: EXAM_CORRECTION_CANDIDATE_LIMIT };
   }
   const parsed = examCorrectionCandidates(question, text, keyRecord);
   if (!parsed) return { ok: false, reason: 'does-not-match-question-type', length: examCorrectionLength(text) };
@@ -554175,7 +554204,9 @@ export function validateExamResultHistory(payload, { migrateLegacy = false, allo
         || !Array.isArray(correction.candidates) || !correction.candidates.length
         || !correction.candidates.every(candidate => typeof candidate === 'string' && candidate.length > 0
           && (!examCorrectionExceedsLimit(candidate) || correction.legacyOverLimit === true || allowLegacyOverLongCorrections))
-        || !(correction.acceptedAlternatives === undefined || (Array.isArray(correction.acceptedAlternatives) && correction.acceptedAlternatives.every(a => typeof a === 'string' && !examCorrectionExceedsLimit(a))))
+        || !(correction.acceptedAlternatives === undefined || (Array.isArray(correction.acceptedAlternatives)
+          && correction.acceptedAlternatives.every(a => typeof a === 'string'
+            && (!examCorrectionExceedsLimit(a) || correction.legacyOverLimit === true || allowLegacyOverLongCorrections))))
         || typeof correction.questionId !== 'string' || typeof correction.examId !== 'string'
         || !Number.isFinite(correction.createdAt)) return { ok: false, reason: 'invalid-correction' };
       const targetPapers = Object.values(history.papers).filter(paper => paper.examId === correction.examId);
@@ -554184,7 +554215,13 @@ export function validateExamResultHistory(payload, { migrateLegacy = false, allo
       // Tag what the compatibility path rescued so the next save keeps accepting
       // it without the flag, and so the record states why it is longer than the
       // current input rule.
-      if (stored.legacyOverLimit !== true && stored.candidates.some(candidate => examCorrectionExceedsLimit(candidate))) stored.legacyOverLimit = true;
+      // Alternatives are tagged by the same rule as the primary candidate: an
+      // over-limit alternative used to fail validation outright, so a history that
+      // predates the limit could not be read or imported at all - the opposite of
+      // the compatibility policy that says tag and keep.
+      if (stored.legacyOverLimit !== true && [...stored.candidates, ...(stored.acceptedAlternatives || [])].some(part => examCorrectionExceedsLimit(part))) {
+        stored.legacyOverLimit = true;
+      }
       correctionIds.add(stored.id); history.corrections.push(stored);
     }
     // A tombstone and a live record with the same id is a contradiction: the
@@ -554261,7 +554298,11 @@ export function inspectExamResultStore(storage = memorySafeStorage()) {
   } catch {
     return { status: 'unreadable', history: null, reason: 'storage-read-failed' };
   }
-  if (!raw) return { status: 'empty', history: emptyExamResultHistory(), reason: null };
+  // Only a missing key is an empty store. `''` is a *present but unreadable* value
+  // (a truncated write, a store cleared to a blank string): treating it as empty
+  // let the next save overwrite it instead of refusing, which is the exact failure
+  // this function exists to prevent (CodeRabbit, PR #85).
+  if (raw === null || raw === undefined) return { status: 'empty', history: emptyExamResultHistory(), reason: null };
   let parsed;
   try {
     parsed = JSON.parse(raw);
@@ -554471,7 +554512,24 @@ function examMergeIntent(next, base, stored) {
   const keptPaperKeys = new Set((next?.attempts || []).map(attempt => attempt?.paperKey));
   const storedPapers = { ...(stored.papers || {}) };
   for (const key of removedPaperCandidates) if (!keptPaperKeys.has(key) && !unseenAttempts.some(attempt => attempt.paperKey === key)) delete storedPapers[key];
-  const merged = examUnionHistories(next, { ...emptyExamResultHistory(), papers: storedPapers, attempts: unseenAttempts, corrections: unseenCorrections, generation: stored.generation, tombstones: stored.tombstones });
+  // A correction another tab has *edited* since this tab's snapshot is newer than
+  // this tab's copy. The union kept whichever copy the caller held and then
+  // verified against that same copy, so the newer edit disappeared while the save
+  // reported success (CodeRabbit, PR #85). Keep the stored version when this tab
+  // did not change it, and report a conflict when both sides changed it.
+  const storedCorrectionById = new Map((stored.corrections || []).map(correction => [correction?.id, correction]));
+  const keptCorrections = [];
+  for (const correction of next?.corrections || []) {
+    const storedCopy = storedCorrectionById.get(correction?.id);
+    const baseCopy = (base?.corrections || []).find(candidate => candidate?.id === correction?.id);
+    if (storedCopy && baseCopy && examCanonicalJson(storedCopy) !== examCanonicalJson(baseCopy)) {
+      if (examCanonicalJson(correction) !== examCanonicalJson(baseCopy)) return { ok: false, reason: 'conflicting-correction' };
+      keptCorrections.push(storedCopy);
+      continue;
+    }
+    keptCorrections.push(correction);
+  }
+  const merged = examUnionHistories({ ...next, corrections: keptCorrections }, { ...emptyExamResultHistory(), papers: storedPapers, attempts: unseenAttempts, corrections: unseenCorrections, generation: stored.generation, tombstones: stored.tombstones });
   if (!merged.ok) return merged;
   examAddTombstones(merged.history, { attempts: removedAttempts, corrections: removedCorrections });
   examApplyTombstones(merged.history, merged.history.tombstones);
@@ -554496,6 +554554,15 @@ function examMergeIntent(next, base, stored) {
  * snapshots, because an id that survived while its content changed is a loss.
  */
 async function examineHistoryWriteConflict(written, stored) {
+  // A lost *Clear* writes no attempt and no correction, so every check below is
+  // blind to it: a stale tab overwrites the cleared store with its pre-Clear copy,
+  // the resurrection check finds no tombstones (the overwrite removed them) and the
+  // call returns success while deleted attempts are visible again. The generation
+  // counter is the one value such an overwrite cannot match, and it is not pruned
+  // (CodeRabbit, PR #85).
+  if ((Number(stored?.generation) || 0) !== (Number(written?.generation) || 0)) {
+    return { reason: 'generation-mismatch', id: String(Number(stored?.generation) || 0) };
+  }
   const storedById = new Map((stored.attempts || []).map(attempt => [attempt?.id, attempt]));
   const lostAttempt = (written.attempts || []).find(attempt => {
     const found = storedById.get(attempt?.id);
@@ -554583,6 +554650,15 @@ export async function persistExamResultHistory(next, base, storage = memorySafeS
     let lastReason = null;
     let current = stored;
     for (let attempt = 0; attempt < EXAM_PERSIST_ATTEMPTS; attempt += 1) {
+      // A store whose generation is *older* than the one this tab already saw has
+      // lost a Clear: a stale tab wrote its pre-Clear copy back, replacing the
+      // cleared store (and, with it, the tombstones that would have blocked the
+      // resurrection). No post-write check can see this - the overwrite happened
+      // before this call - and merging would silently re-adopt the deleted
+      // attempts. Report it instead; the learner can re-clear or re-import.
+      if ((Number(current?.generation) || 0) < (Number(baseHistory?.generation) || 0)) {
+        return { ok: false, history: null, reason: 'lost-clear', mode: 'none' };
+      }
       const merged = examMergeIntent(next, baseHistory, current);
       if (!merged.ok) return { ok: false, history: null, reason: merged.reason, mode: 'none' };
       // The union must reproduce every stored summary from its own correction
@@ -554630,6 +554706,12 @@ export async function importExamResultHistory(rawText, storage = memorySafeStora
       const carried = field === 'attempts' ? incomingAttempts : incomingCorrections;
       restored.tombstones[field] = (restored.tombstones[field] || []).filter(entry => !carried.has(entry.id));
     }
+    // Correction ids are derived from exam+question, so a backup and a later edit
+    // share one. Keeping the stored copy made the union answer
+    // `conflicting-correction` and the import fail, i.e. the backup the learner
+    // chose could not be restored (CodeRabbit, PR #85). Only ids the file carries
+    // are replaced; every other stored correction is left untouched.
+    restored.corrections = (restored.corrections || []).filter(correction => !incomingCorrections.has(correction.id));
     const merged = examUnionHistories(restored, valid.value);
     if (!merged.ok) return merged;
     const recomputed = examRecomputeResultHistory(merged.history);
@@ -557596,7 +557678,7 @@ export async function createApp(root) {
         ? `<p class="exam-practice-note">${L('Đáp án tham chiếu của câu này là <strong>suy luận</strong>, chưa đối chiếu nguồn chính thức. Câu trả lời khác đáp án suy luận nên <strong>không được coi là sai chắc chắn</strong>; hãy dùng ô hiệu chỉnh bên dưới nếu bạn có căn cứ khác.', 'This item\'s reference answer is an <strong>inference</strong> with no official cross-check. A response that differs from it is <strong>not a proven mistake</strong>; use the override field below if you have better evidence.')}</p>`
         : '';
       const feedback = submitted ? `${inferredNote}<div class="exam-result-summary"><p><b>${examVerdictLabel(grade, question)} (${grade.earnedCredit}/1)</b> · ${examStatusLabel(grade.verificationStatus)}${grade.provisional ? ` · ${L('Tạm tính — không phải khóa chính thức', 'Provisional — not an official key')}` : ''}${grade.needsReview ? ` · ${L('cần người chấm xem lại', 'needs human review')}` : ''}</p>${examConfidenceBadgeMarkup(grade.confidence, grade.sourceStatus)}<p>${L('Đáp án / Rubric đối chiếu', 'Key / Rubric')}: <span class="exam-question-source">${escapeHtml(examCandidateLabel(question, key))}</span></p>${grade.reasoning ? `<p>${L('Cơ sở & suy luận', 'Reasoning basis')}: ${escapeHtml(grade.reasoning)}</p>` : ''}${rubricTable}<p>${L('Nguồn định vị', 'Source locator')}: ${escapeHtml(key?.sources?.[0]?.locator || record.id)} · ${L('dòng', 'line')} ${question.sourceLine}</p>${(key?.limitations || []).map(x => `<p class="config-hint">${escapeHtml(x)}</p>`).join('')}
-        <details class="exam-key-correction"><summary>${L('Xác nhận hoặc hiệu chỉnh đáp án / điểm câu này', 'Confirm or override key / credit')}</summary><label for="exam-key-correct-input">${corrLabel}</label><input class="search-input" id="exam-key-correct-input" value="${escapeHtml(corrInputVal)}" maxlength="1000" aria-describedby="exam-key-correct-hint"><span class="config-hint" id="exam-key-correct-hint">${L('Tối đa 1000 ký tự cho mỗi đáp án hiệu chỉnh.', 'At most 1000 characters per corrected answer.')}</span><label for="exam-key-correct-note">${L('Ghi chú nguồn/lý do', 'Source/reason note')}</label><input class="search-input" id="exam-key-correct-note" maxlength="1000"><p class="config-hint">${L('Hiệu chỉnh là do người học cung cấp trên máy này, không phải xác minh chính thức.', 'A correction is user-provided on this device, not official verification.')}</p><button class="btn primary" id="exam-key-correct-save" data-question-id="${escapeHtml(question.id)}">${L('Lưu hiệu chỉnh & tính lại', 'Save correction & recalculate')}</button></details></div>` : `<p class="exam-question-instruction">${L('Đáp án và đúng/sai chỉ hiển thị sau khi nộp.', 'Key and correctness feedback appear only after submission.')}</p>`;
+        <details class="exam-key-correction"><summary>${L('Xác nhận hoặc hiệu chỉnh đáp án / điểm câu này', 'Confirm or override key / credit')}</summary><label for="exam-key-correct-input">${corrLabel}</label><input class="search-input" id="exam-key-correct-input" value="${escapeHtml(corrInputVal)}" aria-describedby="exam-key-correct-hint" data-correction-length aria-live="off"><span class="config-hint" id="exam-key-correct-hint">${L('Tối đa 1000 ký tự cho mỗi đáp án hiệu chỉnh.', 'At most 1000 characters per corrected answer.')}</span><span class="config-hint" id="exam-key-correct-length" role="status"></span><label for="exam-key-correct-note">${L('Ghi chú nguồn/lý do', 'Source/reason note')}</label><input class="search-input" id="exam-key-correct-note" maxlength="1000"><p class="config-hint">${L('Hiệu chỉnh là do người học cung cấp trên máy này, không phải xác minh chính thức.', 'A correction is user-provided on this device, not official verification.')}</p><button class="btn primary" id="exam-key-correct-save" data-question-id="${escapeHtml(question.id)}">${L('Lưu hiệu chỉnh & tính lại', 'Save correction & recalculate')}</button></details></div>` : `<p class="exam-question-instruction">${L('Đáp án và đúng/sai chỉ hiển thị sau khi nộp.', 'Key and correctness feedback appear only after submission.')}</p>`;
       const questionButtons = questions.map((item, i) => `<button class="exam-question-nav ${i === index ? 'is-current' : ''} ${examPracticeQuestionAnswered(session, item) ? 'is-answered' : ''}" data-question-index="${i}" aria-label="${L('Câu', 'Q')} ${item.number}" ${i === index ? 'aria-current="step"' : ''}><span>${item.number}</span></button>`).join('');
       body = `<div class="exam-practice-status"><span><b id="exam-practice-answered-count">${summary.answered}</b> ${L('đã trả lời', 'answered')}</span><span><b id="exam-practice-unanswered-count">${summary.unanswered}</b> ${L('chưa trả lời', 'unanswered')}</span><span><b>${summary.total}</b> ${L('mục', 'items')}</span><span><b>${scorableCount}</b> ${L('chấm được (mẫu số)', 'scorable (denominator)')}</span><span><b>${ungradeableCount}</b> ${L('miễn chấm / ngoài mẫu số', 'exempt / not scorable')}</span></div><section class="exam-practice-question" aria-labelledby="exam-current-question-heading"><p class="exam-question-meta">${L('Câu nguồn', 'Source Q')} <strong>${question.number}</strong> · ${escapeHtml(question.section || '')} · ${index + 1}/${questions.length}</p>${examConfidenceBadgeMarkup(key?.confidence, key?.sourceStatus)}<h3 id="exam-current-question-heading" tabindex="-1"><span class="exam-question-source">${escapeHtml(question.prompt)}</span></h3>${question.instruction ? `<p class="exam-question-instruction">${escapeHtml(question.instruction)}</p>` : ''}${notScorableMarkup}${listeningFallbackMarkup}${rubricHintMarkup}${options}${feedback}</section><div class="exam-question-grid">${questionButtons}</div><div class="exam-practice-actions"><div><button class="btn" id="exam-question-prev" ${index === 0 ? 'disabled' : ''}>${L('Câu trước', 'Previous')}</button><button class="btn" id="exam-question-next" ${index >= questions.length - 1 ? 'disabled' : ''}>${L('Câu sau', 'Next')}</button></div><div>${submitted ? `<button class="btn" id="exam-practice-back">${L('Về tóm tắt', 'Back to summary')}</button>` : `<button class="btn" id="exam-review-answers">${L('Xem lại', 'Review')}</button><button class="btn primary" id="exam-submit">${L('Nộp bài', 'Submit Exam')}</button>`}</div></div>`;
     }
@@ -557679,6 +557761,40 @@ export async function createApp(root) {
       rerender('#exam-submission-summary h3');
     });
     region.querySelector('#exam-download-json')?.addEventListener('click', () => { if (session?.status === 'submitted') downloadExamJson(examResultFilename(buildExamResultJson(session, record, keys, examResults.corrections)), buildExamResultJson(session, record, keys, examResults.corrections)); });
+    // The limit is counted in code points per answer, so `maxlength` (UTF-16
+    // units, whole field) cannot express it: it refused a legitimate 600-emoji
+    // answer while accepting input the save would reject. The rule is enforced
+    // here with the same two functions the save uses, and the learner is told the
+    // measured length instead of silently losing a character.
+    const correctionInput = region.querySelector('#exam-key-correct-input');
+    const correctionLengthHint = region.querySelector('#exam-key-correct-length');
+    const describeCorrectionLength = () => {
+      if (!correctionInput || !correctionLengthHint) return;
+      const question = questions.find(q => q.id === region.querySelector('#exam-key-correct-save')?.dataset.questionId);
+      const key = question ? keys.find(k => k.questionId === question.id) || null : null;
+      const parts = examCorrectionAnswerParts(question, correctionInput.value, key);
+      const longest = parts.reduce((max, part) => Math.max(max, examCorrectionLength(part)), 0);
+      correctionLengthHint.textContent = longest
+        ? (language === 'en' ? `${longest}/${EXAM_CORRECTION_CANDIDATE_LIMIT} characters` : `${longest}/${EXAM_CORRECTION_CANDIDATE_LIMIT} ký tự`)
+        : '';
+      correctionLengthHint.dataset.overLimit = examCorrectionOverLimitPart(question, correctionInput.value, key) !== undefined ? 'true' : 'false';
+    };
+    correctionInput?.addEventListener('input', () => {
+      const question = questions.find(q => q.id === region.querySelector('#exam-key-correct-save')?.dataset.questionId);
+      const key = question ? keys.find(k => k.questionId === question.id) || null : null;
+      const overLimit = examCorrectionOverLimitPart(question, correctionInput.value, key);
+      if (overLimit === undefined) { describeCorrectionLength(); return; }
+      // Refuse the edit rather than keep text the save would reject. The caret is
+      // preserved so typing an over-limit character simply does nothing.
+      const caret = correctionInput.selectionStart;
+      correctionInput.value = String(correctionInput.value).replace(/\s+$/, '');
+      if (typeof caret === 'number') correctionInput.setSelectionRange(Math.min(caret, correctionInput.value.length), Math.min(caret, correctionInput.value.length));
+      describeCorrectionLength();
+      toast(language === 'en'
+        ? `Each corrected answer may be at most ${EXAM_CORRECTION_CANDIDATE_LIMIT} characters; that answer would be ${examCorrectionLength(overLimit)}.`
+        : `Mỗi đáp án hiệu chỉnh tối đa ${EXAM_CORRECTION_CANDIDATE_LIMIT} ký tự; đáp án vừa nhập có ${examCorrectionLength(overLimit)} ký tự.`, 'error');
+    });
+    correctionInput && describeCorrectionLength();
     region.querySelector('#exam-key-correct-save')?.addEventListener('click', async event => {
       const question = questions.find(q => q.id === event.currentTarget.dataset.questionId);
       const validation = examCorrectionValidation(question, region.querySelector('#exam-key-correct-input')?.value,
