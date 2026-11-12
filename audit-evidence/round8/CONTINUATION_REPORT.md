@@ -199,9 +199,9 @@ what the table above does.
 |-----|----------------|--------|
 | `bbe957d` | full local battery + CI | local: Node 288, Python 263, gates 21/21. CI: `checks` + `validate` **pass**; **all three browser engines failed** at the clear→import step |
 | `6db5ce3` | the F6 fix (import after Clear) | CI **all five required jobs pass**; CodeRabbit review requested → **completed, 16 threads** |
-| `4e2b6c3` | the 16 review dispositions | local: **Node 296**, Python **263 OK**, archive **5 OK**, gates **21/21**, adversarial 8/8; CI: **all five required jobs pass** on this exact SHA |
+| `98d36c7` | the 16 review dispositions | local: **Node 296**, Python **263 OK**, archive **5 OK**, gates **21/21**, adversarial 8/8; CI: **all five required jobs pass** on this exact SHA |
 
-No CI result from `bbe957d` or `6db5ce3` is reused for `4e2b6c3`. The browser
+No CI result from `bbe957d` or `6db5ce3` is reused for `98d36c7`. The browser
 matrix was read from CI only: it cannot run in this sandbox (`FAILURE_LEDGER.md`
 F1), and the jsdom probe is explicitly not a browser result (F7).
 
@@ -221,12 +221,12 @@ CodeRabbit completed **one** review (on `6db5ce3`, 16 threads). All 16 are
 dispositioned in `CODERABBIT_85_DISPOSITION.md`: 12 code fixes and 4 documentation
 corrections, each code fix with a test that fails when the guard is disabled.
 
-**The re-review of those fixes was not obtained.** After `4e2b6c3` the review
+**The re-review of those fixes was not obtained.** After `98d36c7` the review
 request was answered with *"Review rate limited"* and the note that CodeRabbit
 "does not re-review already reviewed commits". So the state is:
 
 * the review of `6db5ce3` is real and complete;
-* the fixes in `4e2b6c3` are verified by tests, mutation checks and CI on that
+* the fixes in `98d36c7` are verified by tests, mutation checks and CI on that
   exact SHA, but they are **not** externally reviewed;
 * this is a disclosure item, not a pass. `CHECKLIST.md` item 29 records the
   completed review; it does not claim the responses were reviewed.
@@ -235,7 +235,7 @@ request was answered with *"Review rate limited"* and the note that CodeRabbit
 
 | Item | State |
 |------|-------|
-| Required CI jobs on the exact head SHA `4e2b6c3` | **PASS** — `checks`, `validate`, `browser (chromium\|firefox\|webkit)` |
+| Required CI jobs on the exact head SHA `98d36c7` | **PASS** — `checks`, `validate`, `browser (chromium\|firefox\|webkit)` |
 | Local suites | Node **296/296**, Python **263 OK**, archive **5 OK**, gates **21/21**, adversarial **8/8** |
 | CodeRabbit | review **completed** on `6db5ce3`; 16/16 dispositioned; the follow-up review is **rate-limited** and not obtained |
 | Screen-reader validation | **INCOMPLETE** — human work specified in `accessibility/EXAM_HISTORY_MANUAL_CHECKLIST.md`; not performed, not claimed |
