@@ -22,7 +22,7 @@ document.
 | 10 | Kilo completed at the exact final SHA | **INCOMPLETE** | Kilo's account has insufficient credits; it fails to run at any SHA. An ACTION_REQUIRED or a crash is not a completion. |
 | 11 | Review findings resolved or dispositioned | **PASS** | Every CodeRabbit finding to date either fixed with a control or explicitly carried forward with a reason |
 | 12 | Regression tests pass at the exact final SHA | **PASS** | Node **266/266**, Python **257 OK**, archive **5 OK**, **16** validator gates pass (17 accept `--check`, 1 is retired by design); browser suites PASS locally |
-| 13 | All CI green at the exact final SHA | **see table** | chromium / firefox / checks pass at `9edc2a0`; WebKit pending — see final table |
+| 13 | All CI green at the exact final SHA | **PASS** | chromium / firefox / checks pass at `9edc2a0`; WebKit pending — see final table |
 | 14 | Remote/PR head synced | **PASS** | `git ls-remote` equals local `rev-parse` at every push |
 | 15 | Evidence + ledger updated | **PASS** | This directory, `DESIGN_LOG.md`, `CHANGELOG.md`, `audit/v100/` counts — and committed to Git, which the earlier round failed to do |
 
@@ -43,5 +43,21 @@ document.
 
 ## Final table
 
-Filled at the end of this session; see `CONTINUATION_REPORT.md` §H for the CI
-timeline and the exact SHA at which each measurement ran.
+Measured at **`ac445f4`** unless a row names a different SHA.
+
+| Check | Result |
+|---|---|
+| Node suites (8 files) | **266 pass / 0 fail** — `exam-scoring` 60, `static-app` 146, `telemetry-api` 17, `core-invariants` 11, `rc10-cefr` 10, `v100-senses` 8, `exam-anomalies` 7, `exam-exempt-rubric` 7 |
+| Python suite | **257 OK** |
+| Archive suite | **5 OK** (after `pip install -r scripts/exams/requirements.txt`) |
+| Validator gates | **16 passed / 0 failed** (17 accept `--check`; 1 retired by design) |
+| Browser suites (local, chromium 133) | `browser-learning` **PASS**, `browser-exams` **PASS** |
+| Control for the `9edc2a0` fix | fails without the fix (`restored=false, returned=history`), passes with it |
+| CI — `9edc2a0` (last code change) | **all four green**: chromium, firefox, webkit, checks |
+| CI — `ac445f4` (docs/evidence only) | **all four green**: chromium, firefox, webkit, checks |
+| CodeRabbit at `e538bb6` | `completed/success`, 3 Minor findings — all fixed in `ac445f4` |
+| Kilo | **fail** — insufficient credits; not a completion |
+| PR state | Draft, MERGEABLE, `DEPLOY_HOLD` intact, `v1.0.0-rc10`, no tag/release/deploy |
+
+See `CONTINUATION_REPORT.md` §H for the CI timeline and the exact SHA behind each
+measurement.
