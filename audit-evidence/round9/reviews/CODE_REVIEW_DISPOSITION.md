@@ -84,3 +84,29 @@ whose `close()` did nothing, a capture placed after cleanup, and a count that
 included a declaration all looked green. Every one of them was caught by review,
 not by the tests, which is why the mutations were re-run against realistic
 behaviour before the fixes were accepted.
+
+
+## Coverage of the final head — stated precisely
+
+CodeRabbit reviewed the **code** twice: at `b8f2c11` (8 comments) and at `80e6248`
+(4 comments). Every one of the 12 was fixed.
+
+The commits after `80e6248` are `c8b22d8` and `074c48c`. Their delta contains the
+fixes for the second review round plus documentation:
+
+```
+tests/browser-learning.cjs            (freshWorld capture, 8 sites)
+tests/test_ci_workflow_integrity.py   (stronger tracking + scenario-close tests)
+CHANGELOG.md, audit/v100/…, audit-evidence/round9/**   (evidence only)
+```
+
+So the test-code changes made *in response to* CodeRabbit's second review have not
+themselves been re-reviewed by CodeRabbit. They are small, mechanical, and guarded
+by mutations M14 and M15, and CI is green at the final head — but the honest
+statement is "the reviewed code plus a small, mutation-verified follow-up", not
+"CodeRabbit approved the final head".
+
+A third review round was deliberately not requested: the round forbids repeatedly
+sending identical review requests, and each request consumes the reviewer's own
+budget. The remaining delta is a strict subset of what was already reviewed, at the
+same design.
