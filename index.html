@@ -86,6 +86,10 @@
 [data-theme="dark"] .btn.primary,
 [data-theme="dark"] .nav-button.active,
 [data-theme="dark"] .brand-mark { color: #10231b; }
+/* R9-23: in dark mode --accent/--primary are light lavenders (#b79bff,
+   #8fa7ff), so the white badge label sat at 2.30:1. The dark ink used by the
+   other filled controls in this theme reads 8.16:1 on the same gradient. */
+[data-theme="dark"] .sprint-badge { color: #0a1220; }
 
 
 * { box-sizing: border-box; }
@@ -127,7 +131,11 @@ button:disabled { cursor: not-allowed; opacity: .65; }
 .nav-button.active { background: var(--primary); color: #fff; box-shadow: 0 5px 14px color-mix(in srgb, var(--primary) 20%, transparent); }
 .nav-icon { width: 20px; display: inline-grid; place-items: center; flex: 0 0 auto; }
 .nav-count { margin-left: auto; min-width: 23px; padding: 2px 6px; border-radius: 99px; background: color-mix(in srgb, currentColor 14%, transparent); text-align: center; font-size: .72rem; }
-.active .nav-count { background: rgba(255,255,255,.2); }
+/* R9-23: at 20% the dot pill lifted the backdrop under the white count to
+   rgb(111,105,229), i.e. 4.37:1 against a 4.5:1 requirement, on the lighter
+   stop of the active-button gradient. 10% keeps the pill visible and the
+   number legible (worst stop now 5.43:1). */
+.active .nav-count { background: rgba(255,255,255,.1); }
 .mini-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .mini-stat { padding: 11px 8px; border-radius: 10px; background: var(--surface-soft); text-align: center; }
 .mini-stat strong { display: block; font-size: 1.25rem; line-height: 1.1; }
@@ -552052,7 +552060,23 @@ export function renderExamMarkdown(markdown, namespace = 'exam') {
       index += 2; const rows = [];
       while (index < lines.length && isTable(lines[index]) && !examTableRule(lines[index])) rows.push(splitExamTableRow(lines[index++]));
       const width = Math.max(header.length, ...rows.map(r => r.length), 1);
-      const cell = (tag, value, col, scope) => `<${tag}${scope ? ' scope="col"' : ''} style="text-align:${align[col] || 'left'}">${examInlineMarkdown(value ?? '')}</${tag}>`;
+      // A body row wider than the markdown header row used to emit
+      // `<th scope="col"></th>`, an empty header cell that axe reports as
+      // `empty-table-header` (minor, WCAG 1.3.1) and that a screen reader
+      // announces as a nameless column. Eight of the 106 papers do this
+      // (17 cells), because their transcription has a shorter header row.
+      //
+      // The source document has no text for those columns, so inventing a
+      // name ("Column 3") would put a claim in the accessibility tree that the
+      // paper does not make. Instead the cell stops claiming to be a header:
+      // an empty `<td>`. Rows keep their real headers, sighted users see the
+      // same empty cell in the same place, and no nameless header is announced.
+      const cell = (tag, value, col, scope) => {
+        const text = examInlineMarkdown(value ?? '');
+        const realTag = scope && !text.trim() ? 'td' : tag;
+        const attrs = `${realTag === 'th' ? ' scope="col"' : ''} style="text-align:${align[col] || 'left'}"`;
+        return `<${realTag}${attrs}>${text}</${realTag}>`;
+      };
       html.push(`<div class="exam-table-scroll"><table class="exam-table"><thead><tr>${Array.from({ length: width }, (_, c) => cell('th', header[c], c, true)).join('')}</tr></thead><tbody>${rows.map(row => `<tr>${Array.from({ length: width }, (_, c) => cell('td', row[c], c, false)).join('')}</tr>`).join('')}</tbody></table></div>`);
       continue;
     }

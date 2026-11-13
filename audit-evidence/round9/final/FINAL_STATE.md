@@ -5,13 +5,15 @@
 | Artefact | Path |
 |---|---|
 | Checklist (every requirement, status, evidence, SHA) | `audit-evidence/round9/CHECKLIST.md` |
-| Defect ledger (18 entries, classified) | `audit-evidence/round9/DEFECTS.md` |
-| Test integrity (15 mutations, changed expectations) | `audit-evidence/round9/TEST_INTEGRITY.md` |
+| Defect ledger (24 entries, classified) | `audit-evidence/round9/DEFECTS.md` |
+| Test integrity (21 mutations, changed expectations) | `audit-evidence/round9/TEST_INTEGRITY.md` |
 | Actions baseline (measured) | `audit-evidence/round9/actions/BASELINE.md` |
 | Actions optimization (measured, partly reverted) | `audit-evidence/round9/actions/OPTIMIZATION_REPORT.md` |
 | Application probes | `audit-evidence/round9/application/audit-probes.md` |
 | Local verification transcript | `audit-evidence/round9/application/local-verification.log` |
 | Review dispositions (12 CodeRabbit findings) | `audit-evidence/round9/reviews/CODE_REVIEW_DISPOSITION.md` |
+| Final audit report | `audit-evidence/round9/FINAL_AUDIT_REPORT.md` |
+| Continuation report | `audit-evidence/round9/CONTINUATION_REPORT.md` |
 | This file | `audit-evidence/round9/final/FINAL_STATE.md` |
 
 ## Commits
@@ -31,13 +33,13 @@
 | Check | Result |
 |---|---|
 | Python unit tests | **285 OK** |
-| Node tests | **302 pass / 0 fail** |
+| Node tests | **304 pass / 0 fail** |
 | Archive conversion | **5 OK** |
 | Vocabulary/exam validators | **21/21 commands, exit 0** |
 | Deploy gates | both `deploy=false … held` (`DEPLOY_HOLD` = `v1.0.0-rc11`) |
 | Workflow YAML | **8/8 parse** |
 | Browser suites in CI | three engines × both suites, all passing at the final head `a82c3f7` — run `43402014715` (chromium 6 m 55 s, firefox 9 m 15 s, webkit 15 m 07 s, checks 1 m 26 s) |
-| CodeRabbit | reviewed the final code; 12 comments, all accepted and fixed |
+| CodeRabbit | reviewed the code twice (12 comments, all disposed of). At `3ba0da6` its check is `skipped` with the reason *"manual review required for this OSS repository"* (a <10-star policy threshold, not quota) — see `CHECKLIST.md` R9-E1 |
 
 ## Not claimed
 

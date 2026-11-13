@@ -252,6 +252,51 @@ async function main() {
       /<studying the species of dolphin called bottlenose dolphins>/,
       'angle-bracket constituent is preserved as literal visible text');
 
+    // ---- Round 9 R9-21: no exam table may expose a nameless column header.
+    // The markdown renderer sized the header row to `max(header, body)` cells
+    // and filled the gap from `undefined`, so a paper whose transcription has a
+    // shorter header row than body row produced `<th scope="col"></th>`. The
+    // suite used to open a single paper, which happens to be well formed, so
+    // this survived CI. Sweep every openable record instead.
+    // The assertion reads the usable name of each header (text, else aria-label),
+    // so it fails on a nameless <th> but not on an intentionally empty <td>.
+    {
+      await page.locator('button[data-view="exams"]').click();
+      await page.locator('#exam-search').fill('');
+      await page.waitForSelector('[data-exam-open]');
+      const sweep = [];
+      const openable = await page.evaluate(() => [...document.querySelectorAll('[data-exam-open]')]
+        .map(el => el.dataset.examOpen));
+      assert.ok(openable.length >= 20,
+        `expected at least 20 openable exam records, saw ${openable.length}`);
+      for (const id of openable) {
+        await page.evaluate(record => document.querySelector(`[data-exam-open="${record}"]`).click(), id);
+        await page.waitForSelector('.exam-document');
+        const stat = await page.evaluate(() => {
+          const headers = [...document.querySelectorAll('.exam-document table.exam-table thead th')];
+          const name = th => (th.getAttribute('aria-label') || '').trim() || th.textContent.trim();
+          const nameless = headers.filter(th => !th.getAttribute('scope') || !name(th));
+          return {
+            tables: document.querySelectorAll('.exam-document table.exam-table').length,
+            headers: headers.length,
+            nameless: nameless.length,
+            where: nameless.slice(0, 3).map(th => th.outerHTML.slice(0, 120))
+          };
+        });
+        sweep.push({ id, ...stat });
+        assert.equal(stat.nameless, 0,
+          `${id}: ${stat.nameless} nameless column header(s) in ${stat.tables} table(s): ${stat.where.join(' | ')}`);
+        await page.locator('#exam-detail-back').click();
+        await page.waitForSelector('[data-exam-open]');
+      }
+      const tables = sweep.reduce((n, r) => n + r.tables, 0);
+      const headers = sweep.reduce((n, r) => n + r.headers, 0);
+      // Guard against a vacuous pass: the sweep must have actually parsed tables.
+      assert.ok(tables > 400 && headers > 1000,
+        `sweep parsed ${tables} tables / ${headers} headers, which is too few to be meaningful`);
+      console.log(`    exam table headers: ${sweep.length} papers, ${tables} tables, ${headers} headers, 0 nameless`);
+    }
+
     await page.locator('[data-view="settings"]').click();
     await page.locator('#language-setting').selectOption('vi');
     await page.locator('[data-interface="classic"]').first().click();

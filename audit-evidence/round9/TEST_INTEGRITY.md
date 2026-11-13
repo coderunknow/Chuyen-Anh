@@ -42,6 +42,10 @@ file was restored. "Caught by" names the test that failed.
 | M16 | Make the exam denominator `summary.total` instead of the scorable count | the new scorer-agreement test fails | `FAILED` — `not ok 14 - the real scorer agrees with every manifest count, all 106 papers` (plus two pre-existing tests, `pass 59 / fail 3`) |
 | M17 | Count an exempt item as `incorrect` | the scorer-agreement test fails | `FAILED` (`pass 61 / fail 1`) |
 | M18 | Award `1.5` credit for a correct item | the ceiling test fails | `FAILED` — caught by the pre-existing "choose two" partial-credit test (`pass 61 / fail 1`) |
+| M19 | Emit `<th scope="col">` for a column with no header text (revert R9-21's guard) | the exam-header sweep fails | `FAILED` — `2026/an-giang/so: 2 nameless column header(s) in 49 table(s)` |
+| M19b | Revert the guard **and** delete the new sweep block | *nothing* fails — this is the measurement, not a mutation to fix | `PASS` — proving the single-paper suite was blind to R9-21 |
+| M20 | `.active .nav-count` pill back to `rgba(255,255,255,.2)` | the R9-23 contrast probe fails in **light** | `FAILED` — `R9-23 light: .nav-button.active .nav-count contrast 4.38:1, needs 4.5:1` |
+| M21 | Delete `[data-theme="dark"] .sprint-badge { color: #0a1220; }` | the R9-23 contrast probe fails in **dark** | `FAILED` — `R9-23 dark: .sprint-badge contrast 2.3:1, needs 4.5:1` |
 
 After each restore: `Ran 22 tests … OK` / `Ran 28 tests … OK` / `node --test … 62 pass / 0 fail`.
 
@@ -127,10 +131,14 @@ these rows were caught twice in one round.
 
 ## Tests NOT added, and why
 
-- **No browser assertion was added.** The suites cannot run in this sandbox, so a new
-  browser test would be unverified locally. The screenshot capture is the one
-  browser change; it is proven with a stub plus a negative control, and the suites
-  themselves were subsequently run green on all three engines by CI.
+- **No browser assertion was added during the first pass.** The suites could not run
+  in this sandbox then, so a new browser test would have been unverified locally;
+  the screenshot capture was proven with a stub plus a negative control and the
+  suites were run green on all three engines by CI.
+  **That changed in the final pass:** a Chromium build was made to run here (see
+  "Running the browser suites locally" below), so the R9-21 and R9-22/R9-23 browser
+  assertions *were* executed locally, one engine, end to end, before being pushed.
+  Firefox and WebKit remain unverified locally and are left to CI.
 - **No test asserts a wall-clock number.** Timing assertions are flaky by nature.
   The optimization is measured by `scripts/ci_run_summary.py` on real runs and
   reported in `OPTIMIZATION_REPORT.md`, with the after-value marked `N/A` until a
@@ -146,3 +154,37 @@ these rows were caught twice in one round.
 - No assertion was deleted; one was tightened.
 - No cache was introduced, so no stale-cache evidence path exists.
 - `fail-fast: false` is asserted by test, not just present by accident.
+
+## Running the browser suites locally (new in the final pass)
+
+The suites were previously described as unrunnable here. They are runnable on
+Chromium with three non-obvious steps, recorded so the next round does not repeat
+the search:
+
+1. `npm install --no-save --package-lock=false playwright-core@1.55.1 axe-core@4.14.0 @sparticuz/chromium@133.0.0`
+   (`playwright install` cannot reach `cdn.playwright.dev` from this sandbox).
+2. `@sparticuz/chromium` ships a Chromium whose only missing shared libraries are
+   `libnss3/libnssutil3/libnspr4/libplc4/libplds4`. They are inside its
+   `bin/al2023.tar.br`; extract that brotli tar to a directory and export
+   `LD_LIBRARY_PATH` to it. `apt` is unusable here (no permission on
+   `/var/lib/apt/lists`).
+3. Symlink that `node_modules` into the repo root and run
+   `BROWSER_ENGINE=chromium BROWSER_EXECUTABLE=<chromium> tests/run-browser-suites.sh`.
+
+Measured here: `browser-learning.cjs` 8 m 02 s, `browser-exams.cjs` 26 s
+(vs 365 s / 578 s / 849 s in CI at the same head). Chromium 133 is close to CI's
+Chromium 140, not identical, which is stated rather than glossed: a rendering or
+`color-mix` difference between those versions would not have been seen here.
+
+## The four tests that could not fail (and how each was found)
+
+A pattern, recorded once so it is not re-learned each round:
+
+| Test | Why it could not fail | Found by |
+|---|---|---|
+| screenshot captured in `main().catch` | ran after `finally` closed the browser | CodeRabbit review |
+| `freshWorld()` screenshot | the scenario closed its own browser first | CodeRabbit review |
+| `failedPageCount` | the count included the `let` declaration | mutation M10 |
+| R9-23 "light" theme audit | the loop never set the theme; both iterations audited dark | mutation M21 (R9-24) |
+
+Each is now guarded, and in each case the guard was proven by making it fail.

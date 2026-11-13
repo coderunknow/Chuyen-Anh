@@ -1715,3 +1715,90 @@ The ledger now has **20 entries**: 9 confirmed defects (R9-01, 02, 04, 07, 14, 1
 1 refuted-and-reverted hypothesis (R9-03), 2 design limitations (R9-08, 09), 1
 external failure (R9-10), 1 unreproduced flake (R9-11), 1 unreproduced performance
 drift (R9-20), and 2 accepted trade-offs (R9-12, 13).
+
+---
+
+## Round 9 — coverage pass: what the suite was not looking at
+
+The last pass of the round asked a question none of the earlier passes asked:
+*not "is the code right?" but "is the check looking at it?"* It produced three of
+the round's four most consequential findings, and a fourth about the tests
+themselves.
+
+### R9-21 — 17 nameless exam column headers
+
+The markdown renderer sized the header row to `max(header, widest body row)` and
+filled the gap from `undefined`, so a paper whose transcription has a shorter
+header row emitted `<th scope="col"></th>`. **8 of the 24 openable papers, 17
+cells.** CI opened exactly one paper — a well-formed one — and treated it as
+representative of the catalogue. Fixed by emitting an empty `<td>` where the
+source gives no header text, deliberately *not* by inventing a `aria-label`
+column name the paper does not state. The suite now sweeps every openable record
+(791 tables, 2 330 headers). Mutation **M19** fails; **M19b** — bug restored, new
+sweep removed — **passes**, which is the measurement showing the old coverage was
+blind.
+
+### R9-22 — "WCAG 2.1 AA" meant two rules on two views
+
+RT-03 ran `runOnly: ['label-content-name-mismatch', 'color-contrast']` while the
+documents recorded the result as WCAG 2.1 AA. Proof the gap was real: one
+unnamed icon button injected into `.top-actions` is invisible to the old set
+(`[]`) and caught by the full set (`["button-name"]`). RT-03 now runs the full
+`wcag2a/wcag2aa/wcag21a/wcag21aa` set on all six views in both themes, with a
+three-defect positive control so a broken probe fails instead of passing.
+
+### R9-23 — two contrast failures axe files as `incomplete`
+
+axe does not report a violation when a backdrop is a gradient or a translucent
+chip; it reports `incomplete`. **126 nodes** in this app are undecidable to axe,
+and that is exactly where the fragile colour pairs live:
+
+- light: `.active .nav-count`, white on a 20 % white pill over the active
+  gradient → **4.37:1** (needs 4.5). Fixed to 10 % → **5.43:1**.
+- dark: `.sprint-badge`, white on `#b79bff → #8fa7ff` → **2.30:1** on both
+  stops. Fixed with the theme's own dark ink → **8.16:1**.
+
+Both were confirmed twice, by independent methods (transparent-text pixel
+sampling, and exact computed gradient stops), before being called defects. Three
+earlier hand-rolled compositing attempts produced impossible ratios and were
+discarded — that is recorded because a measurement that cannot be reproduced is
+not a defect report.
+
+### R9-24 — the test for R9-23 could not fail for the theme it named
+
+The R9-23 block never set the theme: iteration 1 inherited dark from the block
+before it, and iteration 2 (also dark) was right by coincidence, so the "light"
+audit was a duplicate of the dark one. Mutation M21 gave it away by reporting a
+**2.30:1 dark ratio under a `light` label**. The loop now sets the theme, reloads,
+and asserts the resolved theme before measuring. After the fix M20 fails `light`
+and M21 fails `dark` — each on the theme it actually breaks.
+
+### Also in this pass
+
+- Chromium was made to run in this sandbox (`@sparticuz/chromium` + its
+  `al2023.tar.br` libraries via `LD_LIBRARY_PATH`; `playwright install` cannot
+  reach `cdn.playwright.dev` here). Every new browser assertion was therefore
+  executed locally, one engine, before push. Firefox and WebKit remain CI-only.
+- A 120-combination UX sweep (6 views × 2 themes × 2 skins × 5 viewports): **0**
+  horizontal-overflow pages, **0** clipped text nodes.
+- `#cefr-narrow` looked like a 13×13 WCAG 2.2 target-size failure and is **not**:
+  its real target is the 239×19.7 px wrapping label, verified by clicking the
+  label text. Recorded as a probe artifact; no code changed.
+
+### Round 9 — coverage-pass numbers
+
+| Check | Result | Evidence |
+|---|---|---|
+| Python unit tests | **285 OK** | `python3 -m unittest discover -s tests -p 'test_*.py'` |
+| Node tests | **304 pass / 0 fail** | `node --test tests/static-app.test.js tests/exam-scoring.test.js` → 208; full set 304 |
+| Browser suites, Chromium | both green locally | `browser-learning.cjs` 8 m 02 s, `browser-exams.cjs` 26 s |
+| Exam header sweep | **24 papers, 791 tables, 2 330 headers, 0 nameless** (was 8 papers / 17 cells) | new block in `browser-exams.cjs` |
+| WCAG audits | 12 per engine × 3 engines, **0 violations**; positive control fires | widened RT-03 |
+| Mutations | **21 (M1–M21), each turned a guard red** | `audit-evidence/round9/TEST_INTEGRITY.md` |
+| CI at `3ba0da6` | **4/4 pass**, wall 15 m 05 s, runner-seconds 2 062 s | run `43415336939` |
+
+The ledger now has **24 entries**. Still not claimed: fully audited, all bugs
+fixed, production-ready. The 186 external asset digests (R9-B7b), the CI failure
+upload path (R9-C8), the screen-reader pass, and WebKit's unexplained drift
+(R9-20) remain open on purpose, and the maintainer is asked whether the audit is
+accepted as it stands.

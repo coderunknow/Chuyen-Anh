@@ -2941,29 +2941,61 @@ async function main() {
       }
     }
 
-    // ---- RT-03: label-in-name and WCAG AA contrast, light and dark.
+    // ---- RT-03: WCAG 2.1 A/AA, light and dark, on every view.
     // RC2 flagged a label mismatch on the brand/export controls (their
     // accessible names hid the visible text) and 2.77:1 locked-badge text.
+    //
+    // Round 9 (R9-22): this used to run only two rules
+    // (`label-content-name-mismatch`, `color-contrast`), so "axe clean" meant
+    // "two rules clean" - an unlabelled icon button or an empty table header
+    // elsewhere on the page could not fail it. It now runs the full normative
+    // WCAG 2.1 A/AA rule set on all six views, which is what the evidence
+    // documents claim. A positive control runs first so a broken probe cannot
+    // read as a pass: the same runner must report three known-bad nodes.
     {
       const axeSource = fs.readFileSync(require.resolve('axe-core/axe.min.js'), 'utf8');
+      const WCAG = { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'] };
+      const runAxe = () => page.evaluate(async (runOnly) => {
+        const result = await axe.run(document, { runOnly, resultTypes: ['violations'] });
+        return result.violations.map(v => ({
+          id: v.id,
+          impact: v.impact,
+          nodes: v.nodes.map(n => n.target.join(' ')).slice(0, 6)
+        }));
+      }, WCAG);
       const audit = async (label) => {
         await page.evaluate(axeSource);
-        const violations = await page.evaluate(async () => {
-          const result = await axe.run(document, {
-            runOnly: ['label-content-name-mismatch', 'color-contrast'],
-            resultTypes: ['violations']
-          });
-          return result.violations.map(v => ({
-            id: v.id,
-            nodes: v.nodes.map(n => n.target.join(' ')).slice(0, 6)
-          }));
-        });
+        const violations = await runAxe();
         assert.deepEqual(violations, [], `RT-03 ${label}: ${JSON.stringify(violations)}`);
       };
-      await audit('learn (light)');
-      await page.locator('button[data-view="dashboard"]').click();
-      await page.waitForSelector('.badge');
-      await audit('dashboard badges (light)');
+
+      // Positive control: inject three defects axe must find. If this does not
+      // fail, the probe or the axe build is broken and every audit below is
+      // meaningless - so the assertion is on the control, not on the app.
+      await page.evaluate(axeSource);
+      const control = await page.evaluate(async (runOnly) => {
+        const box = document.createElement('div');
+        box.id = 'rt03-positive-control';
+        box.innerHTML = '<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">'
+          + '<p style="color:#eeeeee;background-color:#ffffff;font-size:14px">contrast control</p>'
+          + '<button><svg width="16" height="16"><rect width="16" height="16"/></svg></button>';
+        document.querySelector('main').appendChild(box);
+        const result = await axe.run(box, { runOnly, resultTypes: ['violations'] });
+        box.remove();
+        return result.violations.map(v => v.id).sort();
+      }, WCAG);
+      for (const expected of ['button-name', 'color-contrast', 'image-alt']) {
+        assert.ok(control.includes(expected),
+          `RT-03 positive control: axe did not report ${expected} on known-bad markup (saw ${control.join(',') || 'nothing'}) - the audit below would be vacuous`);
+      }
+
+      for (const view of ['learn', 'dashboard', 'search', 'phrases', 'exams', 'settings']) {
+        await page.locator(`button[data-view="${view}"]`).click();
+        await page.waitForTimeout(250);
+        await audit(`${view} (light)`);
+      }
+      await page.locator('button[data-view="learn"]').click();
+      await page.waitForSelector('#brand-link');
       await page.evaluate(() => {
         const prefs = JSON.parse(localStorage.getItem('chuyen-anh.prefs.v1') || '{}');
         prefs.darkMode = true;
@@ -2971,10 +3003,113 @@ async function main() {
       });
       await page.reload();
       await page.waitForSelector('#brand-link');
-      await audit('learn (dark)');
-      await page.locator('button[data-view="dashboard"]').click();
-      await page.waitForSelector('.badge');
-      await audit('dashboard badges (dark)');
+      for (const view of ['learn', 'dashboard', 'search', 'phrases', 'exams', 'settings']) {
+        await page.locator(`button[data-view="${view}"]`).click();
+        await page.waitForTimeout(250);
+        await audit(`${view} (dark)`);
+      }
+
+      // ---- R9-23: the contrast axe cannot decide.
+      // axe returns `incomplete` (not a violation) whenever a backdrop is a
+      // gradient or a translucent chip, which in this app is exactly where the
+      // fragile colour pairs live: white text on the primary gradient, and the
+      // translucent count pill on top of it. R9-23 was found this way and axe
+      // would never have reported it. Recompute those pairs from the computed
+      // styles: take every gradient stop and every tinted layer, composite them,
+      // and require AA at the element's own size threshold.
+      const contrastOf = async () => page.evaluate(() => {
+        const parse = value => {
+          const parts = (String(value).match(/-?[\d.]+/g) || []).map(Number);
+          if (parts.length < 3) return null;
+          // `color(srgb 0.29 0.26 0.87 / 0.1)` is 0..1, `rgb(36,71,200)` is 0..255
+          const unit = String(value).includes('.') && parts[0] <= 1.001 && parts[1] <= 1.001;
+          const scale = unit ? 255 : 1;
+          return { r: parts[0] * scale, g: parts[1] * scale, b: parts[2] * scale,
+            a: parts.length > 3 ? parts[3] : 1 };
+        };
+        const lum = c => {
+          const f = v => { v /= 255; return v <= 0.04045 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
+          return 0.2126 * f(c.r) + 0.7152 * f(c.g) + 0.0722 * f(c.b);
+        };
+        const ratio = (a, b) => {
+          const hi = Math.max(lum(a), lum(b)), lo = Math.min(lum(a), lum(b));
+          return (hi + 0.05) / (lo + 0.05);
+        };
+        const over = (top, bottom) => ({
+          r: top.r * top.a + bottom.r * (1 - top.a),
+          g: top.g * top.a + bottom.g * (1 - top.a),
+          b: top.b * top.a + bottom.b * (1 - top.a)
+        });
+        const stopsOf = value => {
+          const found = String(value).match(/(?:rgba?\([^)]*\)|color\(srgb [^)]*\))/g);
+          return found ? found.map(parse).filter(Boolean) : [];
+        };
+        const probe = (selector, needed) => {
+          const el = document.querySelector(selector);
+          if (!el) return { selector, missing: true };
+          const cs = getComputedStyle(el);
+          const fg = parse(cs.color);
+          const ownStops = stopsOf(cs.backgroundImage);
+          const ownColor = parse(cs.backgroundColor);
+          let backgrounds;
+          if (ownStops.length) {
+            // The element paints its own gradient (e.g. the sprint badge); the
+            // translucent layer beneath it, if any, is the page behind that.
+            backgrounds = ownStops;
+          } else if (ownColor && ownColor.a >= 1) {
+            backgrounds = [ownColor];
+          } else {
+            // A translucent chip (the nav count pill) sits on the PARENT's
+            // gradient, not on the page background.
+            const host = el.parentElement;
+            const hostCs = host ? getComputedStyle(host) : null;
+            const hostStops = hostCs ? stopsOf(hostCs.backgroundImage) : [];
+            const bases = hostStops.length ? hostStops
+              : hostCs && parse(hostCs.backgroundColor) ? [parse(hostCs.backgroundColor)]
+              : [parse(getComputedStyle(document.documentElement).backgroundColor)];
+            backgrounds = ownColor && ownColor.a > 0
+              ? bases.filter(Boolean).map(base => over(ownColor, base))
+              : bases.filter(Boolean);
+          }
+          const worst = Math.min(...backgrounds.map(bg => ratio(fg, bg)));
+          return { selector, needed, worst: Number(worst.toFixed(2)), pass: worst >= needed };
+        };
+        return [
+          // 10.9px / 14.4px white-on-readable: 4.5:1
+          probe('.sprint-badge', 4.5),
+          probe('.nav-button.active .nav-count', 4.5)
+        ];
+      });
+      // The badge lives on the learn view; the loop above ended on settings.
+      // Set the theme explicitly for each label and assert it took effect: an
+      // earlier version of this loop inherited whatever theme the previous block
+      // left behind and silently audited dark twice under a "light" label.
+      for (const themeLabel of ['light', 'dark']) {
+        await page.evaluate(label => {
+          localStorage.setItem('chuyen-anh.theme.v1', label);
+        }, themeLabel);
+        await page.reload();
+        await page.waitForSelector('#brand-link');
+        assert.equal(await page.evaluate(() => document.documentElement.dataset.theme), themeLabel,
+          `R9-23: wanted to audit the ${themeLabel} theme but the app resolved a different one`);
+        await page.locator('button[data-view="learn"]').click();
+        await page.waitForSelector('.sprint-badge');
+        const results = await contrastOf();
+        for (const result of results) {
+          assert.ok(!result.missing, `R9-23 ${themeLabel}: ${result.selector} not found`);
+          assert.ok(result.worst >= result.needed,
+            `R9-23 ${themeLabel}: ${result.selector} contrast ${result.worst}:1, needs ${result.needed}:1 (axe cannot see this: the backdrop is a gradient or a translucent chip)`);
+        }
+      }
+      // Return to light for the rest of the suite.
+      await page.evaluate(() => {
+        const prefs = JSON.parse(localStorage.getItem('chuyen-anh.prefs.v1') || '{}');
+        prefs.darkMode = false;
+        localStorage.setItem('chuyen-anh.prefs.v1', JSON.stringify(prefs));
+        localStorage.setItem('chuyen-anh.theme.v1', 'light');
+      });
+      await page.reload();
+      await page.waitForSelector('#brand-link');
       await page.evaluate(() => localStorage.removeItem('chuyen-anh.prefs.v1'));
       await page.reload();
       await page.waitForSelector('#brand-link');

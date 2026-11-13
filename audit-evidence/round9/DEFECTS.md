@@ -408,6 +408,145 @@ Branch: `arena/34e7e96d-chuyen-anh`.
 
 ---
 
+### R9-21 — eight exam papers rendered a column header with no name
+
+- **Class:** confirmed defect (accessibility, WCAG 1.3.1 / axe `empty-table-header`).
+- **Where:** `index.html`, the markdown table renderer used by every exam document.
+- **Reproduction (how it was found):** run axe's full WCAG 2.1 A/AA rule set on a
+  paper that CI does not open. Open `2026/an-giang/so` and query
+  `table.exam-table thead th`: two of them are `<th scope="col"></th>`.
+  Across all openable papers: **8 papers, 17 cells** —
+  `2026/an-giang/so` (2), `2026/bac-ninh/so` (1),
+  `2026/hue/chuyen-khoa-hoc-hue` (5), `2026/nghe-an/so` (1),
+  `2026/ninh-binh/so` (1), `2026/quang-ninh/so` (1), `2026/tay-ninh/so` (4),
+  `2025/binh-duong/so` (2).
+- **Root cause:** the renderer sized the header row to
+  `width = max(header.length, …rows.map(r => r.length))` and then filled all
+  `width` cells from `header[c]`. When a transcription's header row is shorter
+  than its widest body row, `header[c]` is `undefined`, `?? ''` turns that into
+  the empty string, and an empty `<th scope="col">` is emitted. The markdown is
+  guilty too — the paper really does have fewer header cells than body cells —
+  but the renderer is where the nameless header is invented.
+- **Impact:** a screen reader announces a nameless column header and associates
+  every body cell in that column with an empty name, so the column's data is
+  announced without the label sighted users read from the row above it. Eight of
+  106 papers are affected, all in the newest transcriptions (7 × 2026, 1 × 2025).
+- **Why CI never saw it:** `browser-exams.cjs` opened exactly one paper
+  (`2022/hai-phong/so`), which is well formed. One sample was treated as
+  representative of 106 documents.
+- **Smallest robust fix:** when the transcription gives no header text for a
+  column, do not claim the cell is a header — emit an empty `<td>`. Deliberately
+  **not** `aria-label="Column 3"`: that makes axe pass but puts a column name in
+  the accessibility tree that the source document never states. The empty cell
+  keeps the visual layout identical and stops the false header claim.
+- **Regression test:** `tests/browser-exams.cjs` — the new "exam table headers"
+  block opens **every** openable record (24 rows covering the 106-paper
+  catalogue), asserts each `<th>` carries `scope="col"` and a non-empty
+  name, and guards against a vacuous pass by requiring >400 tables / >1 000
+  headers to have been parsed (observed: 24 papers, 791 tables, 2 330 headers,
+  0 nameless).
+- **Mutation proofs:**
+  - **M19** — restore `const realTag = tag` (the guard) →
+    `AssertionError: 2026/an-giang/so: 2 nameless column header(s) in 49 table(s)`.
+  - **M19b** — restore the guard *and* remove the new sweep block → the suite
+    **passes**, which is the measurement that proves the old coverage was blind.
+
+### R9-22 — the accessibility check covered two rules but the evidence said "WCAG 2.1 AA"
+
+- **Class:** harness defect (over-claiming check), found by this audit of CI
+  coverage itself.
+- **Where:** `tests/browser-learning.cjs`, the RT-03 block.
+- **Reproduction:** `grep -n "runOnly" tests/browser-learning.cjs` →
+  `runOnly: ['label-content-name-mismatch', 'color-contrast']`. Two rules, on the
+  learn and dashboard views only. Meanwhile `CHECKLIST.md` R9-B10 and the
+  readiness documents record the result as "WCAG 2.1 AA, axe clean".
+- **Proof the gap is real, not theoretical:** inject one realistic defect — an
+  icon-only button with no accessible name in `.top-actions` — and run both rule
+  sets on the same page:
+  - old two-rule set → `[]` (no violations; the defect is invisible),
+  - full WCAG 2.1 A/AA set → `["button-name"]`.
+- **Impact:** every "axe clean" claim about the learn/dashboard views covered two
+  rules out of the ~60 in `wcag2a`/`wcag2aa`/`wcag21a`/`wcag21aa`. An unnamed
+  control, a missing form label, a bad ARIA role or a broken list structure on
+  those views could not have failed CI.
+- **Fix:** RT-03 now runs the full `wcag2a`, `wcag2aa`, `wcag21a`, `wcag21aa`
+  rule set on **all six views in both themes** (12 audits per engine) instead of
+  two views × two rules.
+- **Positive control, so a broken probe cannot read as a pass:** before the
+  audits, three known-bad nodes (an alt-less image, a 1.1:1 label, an unnamed
+  icon button) are injected and axe must report `image-alt`,
+  `color-contrast` and `button-name`. If the probe or the axe build breaks, that
+  assertion fails rather than the app passing silently.
+- **Result at the fix:** 12 audits × 3 engines, zero violations. The 36-audit
+  cross-check (6 views × 2 themes × 3 viewports) was also run separately with
+  the full set plus `best-practice`: zero violations.
+- **Regression test:**the widened RT-03 block above. It fails if any of the 12
+  audits regresses.
+
+### R9-23 — two real contrast failures that axe reports as `incomplete`, not as violations
+
+- **Class:** confirmed defect (accessibility, WCAG 1.4.3 contrast minimum).
+- **Where:** `index.html` — `.active .nav-count` (both themes) and, in dark mode
+  only, `.sprint-badge`.
+- **How it was found:** axe's `color-contrast` rule returns **`incomplete`**, not
+  a violation, when the backdrop is a gradient or a translucent chip. In this app
+  that is exactly where the fragile pairs live. On the learn view axe left **48**
+  nodes undecided in light and 8 in dark. Resolving them required measuring the
+  painted pixels.
+- **Reproduction:** on the learn view —
+  - light: `.nav-button.active .nav-count` is white on
+    `rgba(255,255,255,.2)` over the active button's gradient. On the lighter stop
+    `rgb(75,67,222)` the composited pill is `rgb(111,105,229)` → **4.37:1**
+    (measured 4.38–4.44 by two independent methods). AA needs 4.5:1.
+  - dark: `.sprint-badge` is white on
+    `linear-gradient(135deg, rgb(183,155,255), rgb(143,167,255))` → **2.30:1**
+    on *both* stops. Dark mode uses light lavenders for `--accent`/`--primary`,
+    but the badge kept the light theme's white label.
+- **Root cause:** both are "white text on a light surface" pairs created by a
+  theme change (dark) and by a self-tinting pill that lightens its own backdrop
+  (light). Neither is visible to axe, and neither is visible in a screenshot at a
+  glance.
+- **Impact:** the count next to the active nav item is the one number a learner
+  uses to see what is due; in light mode its contrast sat just under AA. The
+  dark-theme sprint badge is a low-vision reader's worst case — white on pale
+  lavender at less than half the required ratio.
+- **Smallest robust fix:**
+  - `.active .nav-count` background `rgba(255,255,255,.2)` → `.1`; the pill stays
+    visible and the worst stop becomes **5.43:1**.
+  - `[data-theme="dark"] .sprint-badge { color: #0a1220; }` — the same dark ink
+    the other filled controls already use in dark mode; **8.16:1** on both stops.
+- **Regression test:** the R9-23 block in `browser-learning.cjs`. It recomputes
+  each pair from the *computed* styles (every gradient stop, plus the tint
+  composited over the parent's gradient), at the element's own size threshold,
+  and first asserts that the theme it is about to audit actually resolved — an
+  earlier version of this loop audited dark twice under a "light" label.
+- **Mutation proofs:**
+  - **M20** — restore `rgba(255,255,255,.2)` →
+    `R9-23 light: .nav-button.active .nav-count contrast 4.38:1, needs 4.5:1`.
+  - **M21** — delete the dark badge ink rule →
+    `R9-23 dark: .sprint-badge contrast 2.3:1, needs 4.5:1`.
+
+### R9-24 — a test this round wrote could not fail for the theme it claimed to test
+
+- **Class:** harness defect in **this round's own new work**, caught while
+  producing the mutation proof for R9-23.
+- **Where:** `tests/browser-learning.cjs`, R9-23 block (before the fix).
+- **Reproduction:** with M21 applied (dark badge ink deleted) the failure message
+  read `R9-23 **light**: .sprint-badge contrast 2.3:1`. 2.3:1 is the *dark* ratio.
+  The loop body set no theme: iteration 1 inherited the dark theme the RT-03
+  block left behind, and iteration 2 (also dark) happened to be correct, so the
+  test passed while its "light" audit was a duplicate of its dark audit.
+- **Impact:** a contrast regression that only affects the light theme would have
+  passed. The mutation surfaced it only because the label disagreed with the
+  ratio.
+- **Fix:** each iteration writes `chuyen-anh.theme.v1`, reloads, and **asserts
+  `document.documentElement.dataset.theme` equals the label** before measuring.
+- **Proof:** after the fix, M21 reports `R9-23 dark:` and M20 reports
+  `R9-23 light:`, i.e. each mutation now fails the theme it actually breaks.
+- **Recorded because** it is the third time this project has produced a test that
+  could not fail for the reason it claimed (R9-19, R9-15, R9-24). The pattern is
+  worth naming: a green test is only evidence once a mutation makes it red.
+
 ## Audited and found sound (no defect)
 
 Two areas were attacked and held:
@@ -421,28 +560,45 @@ Two areas were attacked and held:
 - **Malformed scoring input.** Null, numeric, object, 30 kB garbage and 200 kB
   string responses, an unknown question id and a `__proto__` key all score without
   throwing, keep the percentage in range and cannot pollute `Object.prototype`.
+- **The `#cefr-narrow` filter looked like a 13×13 target and is not.** A sweep for
+  WCAG 2.2 target size flagged the checkbox's own box (13×13). Its real pointer
+  target is the `<label>` that wraps it — 239×19.7 px, `for="cefr-narrow"` — and
+  clicking anywhere in the visible label text toggles the box (verified: `false →
+  true`). This was a **probe artifact**, not a defect, and no code was changed for
+  it. The same sweep checked every other checkbox/radio on the page: none other
+  exists.
+- **No layout breakage across 120 combinations.** 6 views × 2 themes × 2 skins ×
+  5 viewports (320/375/768/1024/1440 px): **0** pages with horizontal overflow
+  >1 px and **0** text nodes clipped by their own box.
 
 ## Summary
 
 | Class | Count | IDs |
 |---|---:|---|
-| Confirmed defect | 5 | R9-01, R9-02, R9-04, R9-07, R9-14 |
-| Harness defect found later | 1 | R9-19 |
-| Refuted hypothesis (reverted) | 1 | R9-03 |
+| Confirmed defect | 7 | R9-01, R9-02, R9-04, R9-07, R9-14, R9-21, R9-23 |
 | Confirmed defect (found in review) | 4 | R9-15, R9-16, R9-17, R9-18 |
-
-R9-15 covers the whole failure-capture class: the ordering bug, the wrong-page
-selection, and the `freshWorld()` cleanup path where a scenario closed its own
-browser before the capture ran. All three are the same mistake at three depths, and
-all three were found by review rather than by the tests that were supposed to guard
-them.
-| Harness defect | 2 | R9-05, R9-06 |
+| Harness defect | 5 | R9-05, R9-06, R9-19, R9-22, R9-24 |
+| Refuted hypothesis (reverted) | 1 | R9-03 |
 | Design limitation | 2 | R9-08, R9-09 |
 | External failure | 1 | R9-10 |
 | Unreproduced flake | 1 | R9-11 |
 | Unreproduced drift (measured, unexplained) | 1 | R9-20 |
 | Accepted trade-off | 2 | R9-12, R9-13 |
 
+R9-15 covers the whole failure-capture class: the ordering bug, the wrong-page
+selection, and the `freshWorld()` cleanup path where a scenario closed its own
+browser before the capture ran. All three are the same mistake at three depths, and
+all three were found by review rather than by the tests that were supposed to guard
+them.
+
+R9-22, R9-23 and R9-24 came from the last pass of this round, which asked a
+different question than the earlier ones: *what does the suite not look at?* R9-22
+was a check running two of ~60 rules while the documents claimed AA; R9-23 was the
+class of contrast failure axe files as `incomplete` and therefore never reports;
+R9-24 was a flaw in the test written to guard R9-23. R9-21 was found by opening
+the exam records CI never opened — 24 of the 106 catalogue rows are individually
+openable, and only one of them was ever opened by the suite.
+
 Every confirmed defect has a regression test that was **mutation-verified**: the
-fix was reverted and the test failed (eighteen mutations, M1–M18, all caught), then
-restored and passed. Details in `TEST_INTEGRITY.md`.
+fix was reverted and the test failed (twenty-one mutations, M1–M21, all caught),
+then restored and passed. Details in `TEST_INTEGRITY.md`.

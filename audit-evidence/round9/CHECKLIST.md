@@ -40,8 +40,12 @@ Two SHAs are used on purpose, and they mean different things:
 | R9-B7b | 186 downloaded asset digests match their contents | `[ ]` **not verified** | Only format and uniqueness were checked (all 64-hex, all distinct). Recomputing them needs the external files this sandbox cannot fetch. Reported as narrowing, never as verified | `80e6248` |
 | R9-B8 | Persistence: tombstones, generation, cross-tab merge, unreadable store | `[x]` | probes: no resurrection after delete, no re-add after Clear, `generation` bumps | `2f686f7` |
 | R9-B9 | Security/privacy: user-supplied backups cannot inject markup | `[x]` | probe: crafted `<img onerror>`/`<script>` escaped; import validated | `2f686f7` |
-| R9-B10 | Accessibility (WCAG AA, axe-core, keyboard) | `[x]` (automated, **run**) / `MANUAL_REQUIRED` (screen reader) | The axe-core RT-03 assertions ran in CI — run `43376379586`, all six engine-suite jobs passed. No screen-reader session was performed and none is claimed | `80e6248` |
-| R9-B11 | UX / visual consistency across viewports and themes | `[x]` (automated, **run**) | 320/375/768/1024/1440 px and light/dark assertions passed in `43376379586` on all three engines | `80e6248` |
+| R9-B10 | Accessibility (WCAG AA, axe-core, keyboard) | `[x]` (automated, **run**) / `MANUAL_REQUIRED` (screen reader) | RT-03 now runs the **full** `wcag2a/wcag2aa/wcag21a/wcag21aa` set on all six views in both themes (R9-22), with a three-defect positive control; 12 audits × 3 engines clean. R9-21 (nameless exam headers) and R9-23 (two contrast failures axe files as `incomplete`) were found and fixed. No screen-reader session was performed and none is claimed | `WORKING-HEAD` |
+| R9-B11 | UX / visual consistency across viewports and themes | `[x]` (automated, **run**) | Suite assertions plus an independent 120-combination sweep (6 views × 2 themes × 2 skins × 5 viewports): **0** horizontal-overflow pages, **0** clipped text nodes. One apparent WCAG 2.2 target-size hit (`#cefr-narrow`, 13×13) was a probe artifact — its real target is the 239×19.7 px label | `WORKING-HEAD` |
+
+| R9-B12 | Every exam document actually renders correctly, not just the one paper CI opens | `[x]` → fixed (R9-21) | sweep of all 24 openable records: 791 tables, 2 330 headers, 0 nameless; was 8 papers / 17 cells. Mutation M19, and M19b which proves the old coverage was blind | `WORKING-HEAD` |
+| R9-B13 | Contrast is verified where axe cannot decide it (gradients, translucent chips) | `[x]` → fixed (R9-23) | pixel-sampled all 126 nodes axe left `incomplete` across theme × skin × viewport; two real failures found and fixed, each with a mutation (M20, M21) | `WORKING-HEAD` |
+| R9-B14 | The audit's own new tests can fail for the reason they claim | `[x]` → fixed (R9-24) | the R9-23 loop audited dark twice under a "light" label; it now asserts the resolved theme first, and both mutations fail the correct theme | `WORKING-HEAD` |
 
 ## C. Delivery infrastructure
 
@@ -78,17 +82,24 @@ Two SHAs are used on purpose, and they mean different things:
 
 | ID | Requirement | Status | Evidence | SHA |
 |---|---|---|---|---|
-| R9-E1 | CodeRabbit review of the exact final SHA, reason inspected if `SKIPPED` | `[ ]` | pending the final push (a `SKIPPED` status is not quota exhaustion and must be read, not assumed) | — |
-| R9-E2 | Copilot only if CodeRabbit is provably exhausted | `[ ]` | not reached | — |
+| R9-E1 | CodeRabbit review of the exact final SHA, reason inspected if `SKIPPED` | `[x]` for the reason / see note | At `3ba0da6` CodeRabbit's check run reports **`skipped`** with title *"Review skipped: manual review required for this OSS repository"* and the body *"This repository does not receive automatic reviews because it has fewer than 10 stars."* That is a repository-policy threshold, **not** quota. Both `@coderabbitai review` commands (`06:27:19`, `08:37:13`) were honoured with "Review finished." and produced the 12 findings already dispositioned. A third identical command was **not** sent, per instruction | `3ba0da6` |
+| R9-E2 | Copilot only if CodeRabbit is provably exhausted | `[x]` (not required) | CodeRabbit is **not** exhausted — it reviewed on request twice and its skips are a star threshold, so the Copilot fallback condition was never met. Copilot's own status says *"insufficient remaining quota"*, which is not a code review and is not treated as one | `3ba0da6` |
 | R9-E3 | Kilo not invoked; its `ACTION_REQUIRED` not cited as approval | `[x]` | not invoked | `2f686f7` |
-| R9-E4 | PR #85 OPEN, non-draft, body updated with this round | `[ ]` | pending final push | — |
+| R9-E4 | PR OPEN, non-draft, body updated with this round | `[x]` | PR #86 `draft=false`, `state=OPEN`, `mergeable=MERGEABLE`, base `arena/chuyen-anh-r8-ready-review` (not retargeted); PR #85 also open and non-draft at `2f686f7` | `3ba0da6` |
 | R9-E5 | No merge, no tag, no release, no deploy in this round | `[x]` | gates held; no release/tag command issued | `2f686f7` |
 | R9-E6 | Maintainer asked whether the audit is accepted | `[ ]` | asked in the final message | — |
 
 ## Summary
 
-- **Verified at this head:** 27 items.
-- **Fixed this round (were failing):** R9-01, R9-02, R9-03, R9-04, R9-07, R9-14.
-- **Open with a reason:** R9-E1–E2, E4, E6 (need the final push and review cycle).
+- **Verified at this head:** 33 items.
+- **Fixed this round (were failing):** R9-01, R9-02, R9-04, R9-07, R9-14, R9-21,
+  R9-23, plus three harness defects in the checks themselves (R9-19, R9-22, R9-24).
+- **Refuted and reverted:** R9-03 (the browser-job split).
+- **Open with a reason:** R9-B7b (external asset digests), R9-C8 upload path,
+  R9-E2 (Copilot — not reached, and not needed), R9-E6 (asked in the final message).
 - **Externally blocked:** R9-C12 (telemetry upstream).
 - **Manual required:** R9-B10 screen-reader validation — not performed, not claimed.
+- **Unreproduced, recorded not fixed:** R9-11, R9-20.
+
+`WORKING-HEAD` in the SHA column means the row was verified at the commit this
+document is committed with; the commit message names it.
