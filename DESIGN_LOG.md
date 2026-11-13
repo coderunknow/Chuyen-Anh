@@ -2539,3 +2539,38 @@ Local results: Node **288**, Python **263**, archive **5**, gates **21/21**. Bro
 suites are `BLOCKED_EXTERNAL` here (the Playwright browser download fails), so their
 result must come from CI on the exact final SHA. Evidence:
 `audit-evidence/round8/`.
+
+### RC11 candidate (2026-11-12) — the candidate gets its own prerelease identity, and three persistence conflicts stop resolving by luck
+
+**Decision 1 — the candidate ships `v1.0.0-rc11`, not the bare stable identity.** The base branch
+had dropped the suffix, leaving `APP_VERSION = 'v1.0.0'`. That string is what
+`scripts/app_release_gate.py` reads to decide which release channel applies (`is_stable = '-' not
+in version`), so a PR-only candidate was silently asking for the stable deploy authorization path
+while no stable release existed. `DEPLOY_HOLD` names `v1.0.0-rc11`, which is *stricter* than the
+old policy it replaces: the previously published rc10 can no longer satisfy the gate on the
+candidate's behalf, and while rc11 is unpublished Pages stays held. RC10 remains a real published
+release; nothing historical was rewritten.
+
+**Decision 2 — an attempt's identity is immutable, so a same-id record with different answers is a
+conflict, not an update.** Corrections can legitimately be edited under one id (the id is derived
+from exam+question); attempts cannot, because their identity *is* the paper, the timestamps and
+the responses. A stored attempt whose identity moved is therefore a different record wearing the
+same id — a concurrent import or a hand-edited store — so it is reported as
+`conflicting-attempt` rather than adopted as our own save or overwritten.
+
+**Decision 3 — a correction the learner typed is never silently replaced.** Two tabs correcting the
+same question mint the same id. When this tab's snapshot had never seen the stored correction, the
+old merge wrote its own copy and dropped the stored one while reporting success. That is the same
+class of loss this round exists to prevent, so it is now a reported `conflicting-correction`.
+This deliberately reverses the earlier "last explicit choice wins" policy recorded for test #10,
+and the reversal is written down in the test itself rather than quietly changed.
+
+**Decision 4 — the input boundary is a rule, not an attribute.** `maxlength` counts UTF-16 units
+over the whole field; the limit is code points per answer. The boundary is now
+`examCorrectionAcceptedInput` + `examCorrectionRestoreValue`, pure functions the handler calls and
+the tests drive, so "the input enforces the limit" is a property of the code rather than of a
+claim. The restore value falls back to the *rendered* text, so a preloaded legacy over-limit
+correction is not erased by the first over-limit keystroke.
+
+**Evidence.** Node `302`, Python `263`, archive `5`, gates `21/21`, pages probe PASS; both deploy
+gates verified held against the live repository. `audit-evidence/round8/RC11_VERSION_SYNC.md`.

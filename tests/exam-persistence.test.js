@@ -215,7 +215,7 @@ test('r8 persistence: multiple corrections to different questions of one exam al
     [questions[0].id, questions[1].id].sort(), 'each correction stays attached to its own question');
 });
 
-test('r8 persistence: two tabs correcting the same question keep one record, deterministically', async () => {
+test('r8 persistence: two tabs correcting the same question conflict instead of overwriting', async () => {
   const { store } = makeStore();
   const boot = app.loadExamResultHistory(store);
   await save(app.addExamResult(boot, attempt('a1', 5000)), boot, store);
@@ -227,17 +227,33 @@ test('r8 persistence: two tabs correcting the same question keep one record, det
   assert.equal(b.ok, true);
   const firstSave = await save(a.history, tabA, store);
   assert.equal(firstSave.ok, true);
+
+  // POLICY CHANGE (round 8 / RC11). This used to be "last explicit choice wins":
+  // tab B's save succeeded and tab A's correction was silently replaced. A
+  // correction id is derived from exam+question, so two tabs correcting the same
+  // question mint the same id, and tab B's snapshot had never seen A's record - so
+  // B was not editing it, it was clobbering a record it did not know existed, and
+  // the save reported success while A's work was gone (CodeRabbit, PR #85).
+  // A correction is data the learner typed, so it is now a reported conflict.
   const secondSave = await save(b.history, tabB, store);
-  // Two different corrections for one question carry the same derived id, so this
-  // is a *conflict on one record*, and the contract is "report it, never fabricate
-  // a value". Tab B's in-memory history is the user's own explicit choice, so B's
-  // save succeeds with B's value; what must never happen is a merge that produces
-  // a third value or keeps two records for one id.
-  assert.equal(secondSave.ok, true);
+  assert.equal(secondSave.ok, false, 'clobbering an unseen correction is refused');
+  assert.equal(secondSave.reason, 'conflicting-correction');
   const final = stored(store);
   assert.equal(final.corrections.length, 1, 'one question keeps exactly one correction record');
-  assert.deepEqual(final.corrections[0].candidates, ['from-b'], 'the latest explicit user choice is what is stored');
+  assert.deepEqual(final.corrections[0].candidates, ['from-a'],
+    'the correction already stored is not silently replaced');
   assert.equal(app.validateExamResultHistory(final).ok, true);
+
+  // The edit path still works: a tab that KNOWS the stored correction may replace
+  // it, because that is an edit of a record it can see, not a blind overwrite.
+  const aware = app.loadExamResultHistory(store);
+  const edited = app.applyExamKeyCorrection(aware, {
+    examId: record.id, questionId: questions[0].id, candidates: ['from-a-edited'], now: 6000, replace: true
+  });
+  assert.equal(edited.ok, true);
+  const editSave = await save(edited.history, aware, store);
+  assert.equal(editSave.ok, true, 'a visible correction can still be edited');
+  assert.deepEqual(stored(store).corrections[0].candidates, ['from-a-edited']);
 });
 
 test('r8 persistence: reloading either tab after concurrent writes shows the same history', async () => {
@@ -874,4 +890,24 @@ test('r8 copilot: the correction input actually reverts an over-limit edit', () 
   // an over-limit *alternative* is refused as a whole - the rule is per answer.
   assert.equal(app.examCorrectionAcceptedInput(text, `${'a'.repeat(700)}; ${'b'.repeat(700)}`, ''), `${'a'.repeat(700)}; ${'b'.repeat(700)}`);
   assert.equal(app.examCorrectionAcceptedInput(text, `${'a'.repeat(700)}; ${'b'.repeat(1001)}`, `${'a'.repeat(700)}; ok`), `${'a'.repeat(700)}; ok`);
+});
+
+test('r8 review 2: an over-limit edit does not erase a preloaded legacy correction', () => {
+  // A legacy correction is over the limit and is preloaded into the field. Because
+  // it is not "valid", it is never recorded as the last valid value, so falling
+  // back to '' would clear the learner's whole answer on the first over-limit
+  // keystroke (CodeRabbit, PR #85, second review). The rule must fall back to the
+  // value the field was rendered with.
+  const text = questions.find(question => question.responseType === 'text') || questions[0];
+  const legacy = 'x'.repeat(1200);
+  const typed = `${legacy}y`;
+  // `examCorrectionRestoreValue` is what the handler calls to choose the fallback.
+  assert.equal(app.examCorrectionRestoreValue(undefined, legacy), legacy,
+    'the preloaded text comes back, not an empty field');
+  assert.equal(app.examCorrectionRestoreValue(undefined, undefined), '');
+  assert.equal(app.examCorrectionRestoreValue('typed-ok', legacy), 'typed-ok',
+    'once a valid edit exists it is the better fallback');
+  // And the accept rule still refuses to keep the over-limit text itself.
+  assert.equal(app.examCorrectionAcceptedInput(text, typed, app.examCorrectionRestoreValue(undefined, legacy)), legacy);
+  assert.notEqual(app.examCorrectionAcceptedInput(text, typed, legacy), typed);
 });

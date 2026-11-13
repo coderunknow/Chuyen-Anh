@@ -1553,3 +1553,39 @@ is append-only; the correction is recorded here instead.
 - **Evidence:** `audit-evidence/round8/logs/node-after-review-fixes.log`, and the
   per-finding dispositions in `CODERABBIT_85_DISPOSITION.md` and
   `COPILOT_85_DISPOSITION.md`.
+
+## 2026-11-12 — RC11 version synchronization + answers to the Copilot and second CodeRabbit reviews
+
+- **Version identity.** `APP_VERSION` and `DEPLOY_HOLD` are now `v1.0.0-rc11`. `main` (published
+  rc10) declares `v1.0.0-rc10`; PR #85's base had dropped the suffix to plain `v1.0.0`, which
+  `scripts/app_release_gate.py` classifies as a **stable** build — so the candidate was asking for
+  the stable-deploy path before any stable release existed. RC11 restores a prerelease identity
+  and moves one release forward. Historical rc10 records are untouched.
+- **Gates verified fail-closed against the live repo:** `deploy_gate` holds (`v1.0.0-rc11 is
+  missing`), `app_release_gate` holds (`v1.0.0-rc11 not verified`), and the published rc10 cannot
+  satisfy either because both ask for the exact tag.
+- **Copilot review (10 comments) dispositioned** in `audit-evidence/round8/COPILOT_85_DISPOSITION.md`;
+  5 real code defects fixed, each mutation-checked: a delete that wrote a tombstone but no
+  generation (so a stale overwrite hid the loss); a store-changed attempt silently overwritten;
+  a tombstone discarding a claim this operation made while returning `ok`; the legacy
+  `saveExamResultHistory` bypassing the unreadable-store check; and an input handler that trimmed
+  whitespace instead of refusing the edit.
+- **Second CodeRabbit review (`fe6a081`, 5 new comments) dispositioned.** Two real code fixes: a
+  differing same-id correction is now a conflict even with no base copy — this **changed the
+  documented policy** from last-write-wins to reported-conflict, because a correction is text the
+  learner typed; and a preloaded legacy over-limit correction is no longer erased by the first
+  over-limit keystroke. Three documentation corrections (stale exact-SHA claims, and a row that
+  claimed test coverage it did not have).
+- **Three latent test defects found while syncing:** `pages_smoke.py` had no `rc11` branch, so an
+  rc11 deploy would have passed the version line and then checked nothing; `test_deploy_gate.py`
+  and `static-app.test.js` encoded the old hold policy; and a version pin `/^v1\.0\.0$/` would
+  have passed by accident on rc11.
+- **One unreproduced flake recorded:** `rc7: no generated question … prints its answer early`
+  failed once on the real dataset and passed in isolation and in three later full runs. Not
+  attributed to this change and not claimed fixed.
+- **Local totals:** Node `302 / 0 fail` (9 suites, `exam-persistence` 36), Python `263 OK`,
+  archive `5 OK`, `21/21` gates, pages probe PASS on the rc11 page. Evidence:
+  `audit-evidence/round8/RC11_VERSION_SYNC.md`.
+- **Not claimed:** screen-reader validation is still `INCOMPLETE`; Kilo's check is
+  `ACTION_REQUIRED` (it fails in 2 s, i.e. it never reviewed) and is not an approval. No merge,
+  tag, release, prerelease, publication or deploy was performed.

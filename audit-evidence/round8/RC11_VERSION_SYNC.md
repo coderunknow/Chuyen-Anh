@@ -63,7 +63,7 @@ authorization gate is untouched and still applies to a version without a suffix.
 - [x] No active documentation calls rc10 the current candidate.
 - [x] No `v1.0.0-stable` declaration anywhere; `grep -r "v1.0.0-stable"` outside this report's own explanation returns nothing.
 - [x] Copilot's 10 review comments dispositioned; 5 code fixes, each mutation-checked.
-- [x] Local regression: Node **301/301**, Python **263 OK**, archive **5 OK**, `ci.yml` gates **21/21**, pages probe **PASS**.
+- [x] Local regression: Node **302/302**, Python **263 OK**, archive **5 OK**, `ci.yml` gates **21/21**, pages probe **PASS**.
 - [ ] Exact-final-SHA CI (checks, validate, chromium, firefox, webkit) — recorded below once the head is known.
 - [ ] Independent re-review of the RC11 commit — CodeRabbit was rate-limited on the previous request; a new request is made on the final SHA and the outcome recorded whatever it is.
 - [ ] Screen-reader validation — **INCOMPLETE**, human work specified in `accessibility/EXAM_HISTORY_MANUAL_CHECKLIST.md`.
@@ -72,7 +72,7 @@ authorization gate is untouched and still applies to a version without a suffix.
 
 | Command | Result |
 |---|---|
-| `node --test tests/*.test.js` | `# tests 301 / pass 301 / fail 0` (two consecutive full runs) |
+| `node --test tests/*.test.js` | `# tests 302 / pass 302 / fail 0` |
 | `python -m unittest discover -s tests -p 'test_*.py'` | `Ran 263 tests … OK` |
 | `scripts/exams/test_archive.py` (venv + pinned requirements) | `Ran 5 tests … OK` |
 | 21 validator commands extracted from `ci.yml` | `GATES pass=21 fail=0` |

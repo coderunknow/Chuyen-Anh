@@ -553991,6 +553991,17 @@ export function examCorrectionOverLimitPart(question, input, keyRecord = null) {
 export function examCorrectionAcceptedInput(question, nextValue, previousValue, keyRecord = null) {
   return examCorrectionOverLimitPart(question, nextValue, keyRecord) === undefined ? nextValue : previousValue;
 }
+/**
+ * What a refused edit restores to.
+ *
+ * `lastValid` is only recorded for values that pass the limit, so a *preloaded*
+ * legacy over-limit correction is never in it. Falling back to `''` erased the
+ * learner's whole answer on the first over-limit keystroke; the rendered value
+ * (`defaultValue`) is the honest fallback (CodeRabbit, PR #85, second review).
+ */
+export function examCorrectionRestoreValue(lastValid, renderedValue) {
+  return lastValid ?? renderedValue ?? '';
+}
 
 export function examCorrectionCandidates(question, input, keyRecord = null) {
   const text = String(input || '').trim();
@@ -554565,6 +554576,15 @@ function examMergeIntent(next, base, stored) {
   for (const correction of next?.corrections || []) {
     const storedCopy = storedCorrectionById.get(correction?.id);
     const baseCopy = (base?.corrections || []).find(candidate => candidate?.id === correction?.id);
+    // A correction id comes from exam+question, so two tabs correcting the same
+    // question mint the same id. If this tab's base never held that correction there
+    // is no base copy to compare against, and the previous condition simply fell
+    // through: the stored (other tab's) correction was dropped and this tab's copy
+    // written, with the save reporting success (CodeRabbit, PR #85). Differing
+    // content under one id is a conflict regardless of whether this tab knew it.
+    if (storedCopy && !baseCopy && examCanonicalJson(storedCopy) !== examCanonicalJson(correction)) {
+      return { ok: false, reason: 'conflicting-correction' };
+    }
     if (storedCopy && baseCopy && examCanonicalJson(storedCopy) !== examCanonicalJson(baseCopy)) {
       if (examCanonicalJson(correction) !== examCanonicalJson(baseCopy)) return { ok: false, reason: 'conflicting-correction' };
       keptCorrections.push(storedCopy);
@@ -557876,7 +557896,7 @@ export async function createApp(root) {
       // the test drives). The caret is restored to where it was so typing past the
       // limit visibly does nothing instead of silently moving the cursor.
       const caret = correctionInput.selectionStart;
-      const previous = correctionInput.dataset.lastValid ?? '';
+      const previous = examCorrectionRestoreValue(correctionInput.dataset.lastValid, correctionInput.defaultValue);
       correctionInput.value = examCorrectionAcceptedInput(question, correctionInput.value, previous, key);
       if (typeof caret === 'number') correctionInput.setSelectionRange(Math.min(caret, correctionInput.value.length), Math.min(caret, correctionInput.value.length));
       describeCorrectionLength();
