@@ -1842,3 +1842,26 @@ Still not claimed: fully audited, all bugs fixed, production-ready. Open on
 purpose: R9-B7b (186 asset digests), R9-C8 (failure-artefact upload), the
 screen-reader pass, R9-20 (webkit drift unexplained). Merging #84/#85/#86
 remains prohibited; no tag, release or deploy was performed.
+
+### R9-20, strengthened by the final two runs
+
+| run | head | webkit suite step |
+|---|---|---:|
+| `43434146112` | `b687b86` | **748 s** |
+| `43436286834` | `97acf97` | **1112 s** |
+
+Those two trees differ **only in Markdown** — no workflow, test or `index.html`
+change — and the runs are 78 minutes apart. A 364 s swing on identical executable
+content is the strongest evidence this round has that the cause sits outside the
+repository. It still does not *identify* the cause, so R9-20 remains **unreproduced
+and unexplained**, not fixed.
+
+Final state, stated precisely to avoid a self-referential chase:
+
+- **Code frozen at `b687b86`** — every source, workflow and test change of this
+  round is in that commit or earlier. CI: run `43434146112`, **4/4 green**.
+- **Documentation frozen one commit later at `97acf97`** — Markdown only. CI: run
+  `43436286834`, **4/4 green**.
+- No commit after `97acf97` changes code. Any later documentation commit (such as
+  the one carrying this paragraph) is Markdown-only and is covered by the same
+  two green runs rather than by a third.

@@ -306,12 +306,21 @@ Branch: `arena/34e7e96d-chuyen-anh`.
   | `43402014715` | `a82c3f7` | 907 s | 555 s | 415 s |
   | `43404388721` | `8572aaa` | 1174 s | 775 s | 418 s |
   | `43409142506` | `ab35c98` | 1150 s | 640 s | 389 s |
+  | `43415336939` | `3ba0da6` | 849 s | 578 s | 365 s |
+  | `43434146112` | `b687b86` | 748 s | 583 s | 453 s |
+  | `43436286834` | `97acf97` | **1112 s** | 748 s | 486 s |
 
 - **Why this is not attributed to the code:** the browser suites were unchanged
   between `a82c3f7` and `ab35c98` (only docs and one Node test file changed), yet
   webkit's step moved 907 s → 1150 s. Chromium stayed within 387–458 s throughout.
   A cause inside the suite would have to spare chromium and firefox, which run the
   same `browser-learning.cjs` first.
+- **Strengthened by the final two runs:** `43434146112` (webkit 748 s) and
+  `43436286834` (**1112 s**) ran on trees that differ **only in Markdown files** —
+  no workflow, test or `index.html` change at all — 78 minutes apart. A 364 s swing
+  on identical executable content is the cleanest evidence in this round that the
+  cause is outside the repository. It makes the strong form of the hypothesis
+  (runner-side) much more likely, though it still does not *identify* it.
 - **Leading hypothesis, not proven:** runner contention. WebKit's browser install
   also rose (34 s → 46 s), which points at the machine rather than the page, and
   the drift appeared as this branch pushed many runs within hours. Distinguishing

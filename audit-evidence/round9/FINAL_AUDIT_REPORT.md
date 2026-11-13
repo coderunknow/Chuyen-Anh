@@ -1,7 +1,9 @@
 # Round 9 — final audit report
 
 Branch `arena/34e7e96d-chuyen-anh`. Base `2f686f7` (PR #85 head). Final head
-**`b687b86`**, CI run `43434146112`, 4/4 green. Review PR **#86**,
+**`b687b86`** — every code, workflow and test change of this round is there or
+earlier; CI run `43434146112`, **4/4 green**. Documentation is frozen one commit
+later at `97acf97` (Markdown only; run `43436286834`, **4/4 green**). Review PR **#86**,
 open and ready for review, stacked on `arena/chuyen-anh-r8-ready-review`.
 No merge, tag, release, prerelease, publication or deploy was performed, and
 `DEPLOY_HOLD` stayed in force throughout.
