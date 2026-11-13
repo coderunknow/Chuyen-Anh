@@ -91,7 +91,7 @@ The gains this round are correctness, security and diagnostics.
 | Browser runner-seconds | 2 026 s | **2 367 s** (experiment) | measured; the experiment's extra cost |
 | Runner-seconds after revert | 2 026 s | **N/A** — not re-measured | would need another run; the job graph is back to the baseline shape plus the reverted changes' diagnostics, which add no steps to the suite run |
 | `checks` job | 2 m 20 s | **2 m 23 s** | +3 s from 13 new Python tests; unchanged steps |
-| Failure screenshot artifact | Always empty by construction | Real PNGs | Verified with a stub (below) |
+| Failure screenshot artifact | Always empty by construction | Real PNGs **locally, under a stub** | The capture path is proven locally; CI failure capture and artifact upload are **not** verified, because no failing run has exercised them |
 | Failure log artifact | 40-line console tail | Full log on every outcome | `if: always()` |
 | Workflow files covered by a trigger | 4 of 8 | **8 of 8** | `tests/test_ci_workflow_integrity.py` |
 | Duplicated trigger path lines | 77 | **0** | same |
@@ -137,9 +137,12 @@ $ BROWSER_SCREENSHOT_DIR=/tmp/shots3 node tests/browser-exams.cjs
 failure screenshot written to /tmp/shots3     → exams-chromium-failure.png      (exit 1)
 ```
 
-In CI the same path is exercised by the export in the job, and the exams job's
-screenshot step reported `skipped` (nothing failed), which is the correct outcome
-for a passing run.
+**What this does not show.** A passing run never enters the failure path. The
+`skipped` screenshot step in CI is the correct outcome for a green run, but it is
+not evidence that uploads work: the artifact upload on failure, and the capture on a
+real browser inside CI, remain **unverified** until a failing run exercises them.
+The local stub proves the code path and its ordering; it cannot prove GitHub's
+artifact step.
 
 ## Actions security
 

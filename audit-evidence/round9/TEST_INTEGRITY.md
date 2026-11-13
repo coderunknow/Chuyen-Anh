@@ -8,7 +8,7 @@ was run, and the failure was recorded. All reverts were restored and re-run gree
 
 | Suite | Command | Result |
 |---|---|---|
-| Python unit | `python3 -m unittest discover -s tests -p 'test_*.py'` | **284 OK** |
+| Python unit | `python3 -m unittest discover -s tests -p 'test_*.py'` | **285 OK** |
 | Node | `node --test tests/*.test.js` | **302 pass / 0 fail** |
 | Archive conversion | `python scripts/exams/test_archive.py` (with `scripts/exams/requirements.txt`) | **5 OK** |
 | Vocabulary + exam validators | the 21 commands in `ci.yml`'s "Check vocabulary sources and embedded HTML" | **all exit 0** |
@@ -37,8 +37,10 @@ file was restored. "Caught by" names the test that failed.
 | M11 | Report final metrics for an unfinished run | `SummaryScriptTests` fails | `FAILED (failures=1)` |
 | M12 | Move the exams capture back outside `main()`'s try block | ordering test fails | `FAILED (errors=1)` |
 | M13c | Make `block()` stop only at column 0 | `BlockExtractionTests` fails (2 tests) | `FAILED (failures=2)` |
+| M14 | Remove the capture from the `freshWorld()` scenario blocks (8 sites) | `test_every_scenario_closes_its_browser_only_after_capturing` fails | `FAILED (failures=1)` |
+| M15 | Delete the `failedPage = rc5` assignment | the strengthened tracking test fails | `FAILED (failures=1)` |
 
-After each restore: `Ran 21 tests … OK` / `Ran 28 tests … OK`.
+After each restore: `Ran 22 tests … OK` / `Ran 28 tests … OK`.
 
 **Two mutations initially reported green, and both were informative.** The first M8 attempt edited the wrong
 slice and removed nothing, so the suite passed — indistinguishable from a broken
@@ -98,8 +100,8 @@ requirement was preserved or strengthened. Full reasoning in `DEFECTS.md`
 | `test_static_checks_cover_the_release_and_gate_scripts` | the dispatcher path appears **twice** | appears **once**, and both triggers cover it (alias or both lists) | Yes — strengthened: it now fails if the path leaves the shared filter |
 | `paths_blocks()` helper | only recognised inline `- "…"` lists | also resolves `paths: *anchor` | Yes — it now checks the aliased filter it used to skip |
 
-Test-count documents were updated (`263 → 284`, `268 → 289`, changelog
-`263 OK → 284 OK`) because the suite genuinely grew by 21 tests; the repository's
+Test-count documents were updated (`263 → 285`, `268 → 290`, changelog
+`263 OK → 285 OK`) because the suite genuinely grew by 22 tests; the repository's
 own count tests compute the number rather than trusting the document, which is how
 these rows were caught twice in one round.
 

@@ -151,12 +151,12 @@ Branch: `arena/34e7e96d-chuyen-anh`.
 - **Where:** `audit/v100/FINAL_READINESS_CHECKLIST.md`,
   `CHANGELOG.md` (unreleased section).
 - **Reproduction:** `python3 -m unittest discover -s tests -p 'test_*.py'` →
-  **284**; both documents said **263**.
-- **Root cause:** the round added `tests/test_ci_workflow_integrity.py` (21 tests),
+  **285**; both documents said **263**.
+- **Root cause:** the round added `tests/test_ci_workflow_integrity.py` (22 tests),
   and the documents carry a hand-maintained total.
 - **Impact:** the published readiness claim understated the suite. Left alone, the
   repository's own count tests fail, which is the intended tripwire.
-- **Fix:** checklist row `263 → 284`, `PASS (268/268) → (289/289)` (284 unit + 5
+- **Fix:** checklist row `263 → 285`, `PASS (268/268) → (290/290)` (285 unit + 5
   archive), changelog `263 OK → 274 OK`. Totals verified against the counts the
   tests themselves compute, not typed optimistically.
 - **Regression test:** `test_ci_gate_coverage.py::test_the_python_total_in_the_report_matches_the_discovered_suite`
@@ -365,6 +365,12 @@ Branch: `arena/34e7e96d-chuyen-anh`.
 | Confirmed defect | 5 | R9-01, R9-02, R9-04, R9-07, R9-14 |
 | Refuted hypothesis (reverted) | 1 | R9-03 |
 | Confirmed defect (found in review) | 4 | R9-15, R9-16, R9-17, R9-18 |
+
+R9-15 covers the whole failure-capture class: the ordering bug, the wrong-page
+selection, and the `freshWorld()` cleanup path where a scenario closed its own
+browser before the capture ran. All three are the same mistake at three depths, and
+all three were found by review rather than by the tests that were supposed to guard
+them.
 | Harness defect | 2 | R9-05, R9-06 |
 | Design limitation | 2 | R9-08, R9-09 |
 | External failure | 1 | R9-10 |
@@ -372,5 +378,5 @@ Branch: `arena/34e7e96d-chuyen-anh`.
 | Accepted trade-off | 2 | R9-12, R9-13 |
 
 Every confirmed defect has a regression test that was **mutation-verified**: the
-fix was reverted and the test failed (thirteen mutations, M1–M13c, all caught), then
+fix was reverted and the test failed (fifteen mutations, M1–M15, all caught), then
 restored and passed. Details in `TEST_INTEGRITY.md`.

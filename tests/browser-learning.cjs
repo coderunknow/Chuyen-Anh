@@ -2397,6 +2397,13 @@ async function main() {
         assert.deepEqual(await world.raceRec(tabA, '2'), { state: 'learning', correct: 1, wrong: 0 },
           'a reload keeps the other tab\'s grade instead of reverting to the boot snapshot (RT-01)');
         assert.deepEqual(world.ownErrors, [], 'RT-01 core ran without page errors');
+      } catch (error) {
+        // A scenario's own browser is closed by the `finally` below, and a closed
+        // page cannot be photographed. Capture here, while it is still open, and
+        // photograph this scenario's own tab rather than the suite's first page
+        // (CodeRabbit, PR #86).
+        await captureFailureScreenshot();
+        throw error;
       } finally {
         await world.ownBrowser.close().catch(() => null);
       }
@@ -2419,6 +2426,13 @@ async function main() {
         assert.equal(rec.correct, 1, 'the correct answer from the other tab is kept (RT-01 sameid)');
         assert.equal(rec.wrong, 1, 'the wrong answer of this tab is added, not substituted (RT-01 sameid)');
         assert.deepEqual(world.ownErrors, [], 'RT-01 sameid ran without page errors');
+      } catch (error) {
+        // A scenario's own browser is closed by the `finally` below, and a closed
+        // page cannot be photographed. Capture here, while it is still open, and
+        // photograph this scenario's own tab rather than the suite's first page
+        // (CodeRabbit, PR #86).
+        await captureFailureScreenshot();
+        throw error;
       } finally {
         await world.ownBrowser.close().catch(() => null);
       }
@@ -2450,6 +2464,13 @@ async function main() {
         assert.deepEqual(await world.raceRec(tabA, '3'), { state: 'learning', correct: 1, wrong: 0 },
           'the post-wipe grade is recorded normally');
         assert.deepEqual(world.ownErrors, [], 'RT-01 reset ran without page errors');
+      } catch (error) {
+        // A scenario's own browser is closed by the `finally` below, and a closed
+        // page cannot be photographed. Capture here, while it is still open, and
+        // photograph this scenario's own tab rather than the suite's first page
+        // (CodeRabbit, PR #86).
+        await captureFailureScreenshot();
+        throw error;
       } finally {
         await world.ownBrowser.close().catch(() => null);
       }
@@ -2547,6 +2568,13 @@ async function main() {
         assert.equal(quotaFinal.id2, 'learning/7', 'the retry stores the imported progress');
         assert.equal(quotaFinal.phrases, 1094, 'the retry stores all 1094 phrase records (no silent loss)');
         assert.deepEqual(world.ownErrors, [], 'RT-07 ran without page errors');
+      } catch (error) {
+        // A scenario's own browser is closed by the `finally` below, and a closed
+        // page cannot be photographed. Capture here, while it is still open, and
+        // photograph this scenario's own tab rather than the suite's first page
+        // (CodeRabbit, PR #86).
+        await captureFailureScreenshot();
+        throw error;
       } finally {
         await world.ownBrowser.close().catch(() => null);
       }
@@ -2687,6 +2715,13 @@ async function main() {
         streak = await readStreak();
         assert.equal(streak.current, 2, 'a self-assessed correct first pass extends the streak');
         assert.deepEqual(world.ownErrors, [], 'RT-04 card scenarios ran without page errors');
+      } catch (error) {
+        // A scenario's own browser is closed by the `finally` below, and a closed
+        // page cannot be photographed. Capture here, while it is still open, and
+        // photograph this scenario's own tab rather than the suite's first page
+        // (CodeRabbit, PR #86).
+        await captureFailureScreenshot();
+        throw error;
       } finally {
         await world.ownBrowser.close().catch(() => null);
       }
@@ -2743,6 +2778,13 @@ async function main() {
         streak = await streakNow();
         assert.equal(streak.current, 2, 'a clean first-pass match extends the streak');
         assert.deepEqual(world.ownErrors, [], 'RT-04 match scenario ran without page errors');
+      } catch (error) {
+        // A scenario's own browser is closed by the `finally` below, and a closed
+        // page cannot be photographed. Capture here, while it is still open, and
+        // photograph this scenario's own tab rather than the suite's first page
+        // (CodeRabbit, PR #86).
+        await captureFailureScreenshot();
+        throw error;
       } finally {
         await world.ownBrowser.close().catch(() => null);
       }
@@ -2787,6 +2829,13 @@ async function main() {
         assert.match(summary, /3\s*\n?\s*Bỏ trống/,
           `RT-08: three cards pending means three blanks, skip included (saw: ${summary.replace(/\n/g, ' | ')})`);
         assert.deepEqual(world.ownErrors, [], 'RT-08 expiry ran without page errors');
+      } catch (error) {
+        // A scenario's own browser is closed by the `finally` below, and a closed
+        // page cannot be photographed. Capture here, while it is still open, and
+        // photograph this scenario's own tab rather than the suite's first page
+        // (CodeRabbit, PR #86).
+        await captureFailureScreenshot();
+        throw error;
       } finally {
         await world.ownBrowser.close().catch(() => null);
       }
@@ -2880,6 +2929,13 @@ async function main() {
         assert.match(summary, /0\s*\n?\s*Bỏ trống/,
           `RT-08: every word was graded, so nothing may be reported as blank (saw: ${summary.replace(/\n/g, ' | ')})`);
         assert.deepEqual(world.ownErrors, [], 'RT-08 practice-skip ran without page errors');
+      } catch (error) {
+        // A scenario's own browser is closed by the `finally` below, and a closed
+        // page cannot be photographed. Capture here, while it is still open, and
+        // photograph this scenario's own tab rather than the suite's first page
+        // (CodeRabbit, PR #86).
+        await captureFailureScreenshot();
+        throw error;
       } finally {
         await world.ownBrowser.close().catch(() => null);
       }

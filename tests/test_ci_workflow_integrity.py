@@ -245,16 +245,40 @@ class FailureArtifactTests(unittest.TestCase):
     def test_the_capture_tracks_the_page_of_the_failing_scenario(self) -> None:
         """Photographing the first page is wrong once a scenario opens its own.
 
-        `freshWorld()` scenarios and the exams `file://` check drive their own
-        page. A capture pointing at the initial page photographs a closed browser
-        and reports a screenshot error instead of the failure.
+        The first version of this test counted `failedPage = ` assignments, which
+        counted the `let failedPage = null` declaration and therefore passed even
+        with every scenario assignment removed (CodeRabbit, PR #86). It now looks
+        for the scenario-specific assignments themselves.
         """
         learning = (ROOT / "tests" / "browser-learning.cjs").read_text(encoding="utf-8")
         exams = (ROOT / "tests" / "browser-exams.cjs").read_text(encoding="utf-8")
-        self.assertGreaterEqual(learning.count("failedPage = "), 3,
-                                "the learning suite must track its active page (initial, freshWorld tabs, rc5)")
-        self.assertGreaterEqual(exams.count("failedPage = "), 2,
-                                "the exams suite must track its active page (initial and file://)")
+        # The scenario tab opened inside freshWorld() is registered with the
+        # screenshot source, and so is the rc5 scenario page.
+        self.assertIn("failedPage = page;\n        page.on('pageerror'", learning,
+                      "the freshWorld tab must become the failure page")
+        self.assertIn("const rc5 = await browser.newPage", learning)
+        rc5_index = learning.index("const rc5 = await browser.newPage")
+        self.assertIn("failedPage = rc5;", learning[rc5_index:rc5_index + 400],
+                      "the rc5 scenario page must become the failure page")
+        file_index = exams.index("const filePage = await")
+        self.assertIn("failedPage = filePage;", exams[file_index:file_index + 400],
+                      "the exams file:// page must become the failure page")
+
+    def test_every_scenario_closes_its_browser_only_after_capturing(self) -> None:
+        """Each scenario's own `finally` closes a browser; the capture must precede it.
+
+        `freshWorld()` scenarios close `world.ownBrowser` themselves, so a capture
+        that only ran in the outer handler photographed a closed browser
+        (CodeRabbit, PR #86). Every such block must capture in its own `catch`.
+        """
+        source = (ROOT / "tests" / "browser-learning.cjs").read_text(encoding="utf-8")
+        closes = source.count("await world.ownBrowser.close().catch(() => null);")
+        self.assertGreaterEqual(closes, 5, "the freshWorld scenarios still close their own browsers")
+        captures = source.count("""      } catch (error) {
+        // A scenario's own browser is closed by the `finally` below""")
+        self.assertEqual(closes, captures,
+                         "every scenario that closes its own browser must capture first: "
+                         f"{closes} closes vs {captures} captures")
 
     def test_the_browser_log_is_uploaded_even_when_the_suite_fails(self) -> None:
         job = BrowserMatrixTests().browser_job()
