@@ -22,6 +22,9 @@
 | `b8f2c11` | Round 9 first pass: filter drift, trigger coverage, credential, diagnostics, evidence counts |
 | `80e6248` | first review round: capture ordering, wrong-page selection, summary-script guard, parity helper, claim narrowing |
 | `c8b22d8` | second review round: `freshWorld` capture path, vacuous assertion, citations |
+| `074c48c` | final state + post-revert runner-seconds |
+| `3e3bd67` | states precisely what CodeRabbit reviewed |
+| `a82c3f7` | review dispositions appended to `AGENTS_LOG.md` — the final head, and the one CI and CodeRabbit evidence is cited at |
 
 ## Verified at the final head
 
@@ -33,7 +36,7 @@
 | Vocabulary/exam validators | **21/21 commands, exit 0** |
 | Deploy gates | both `deploy=false … held` (`DEPLOY_HOLD` = `v1.0.0-rc11`) |
 | Workflow YAML | **8/8 parse** |
-| Browser suites in CI | three engines × both suites, all passing — run `43392226077` at `80e6248`, and the run for `c8b22d8` |
+| Browser suites in CI | three engines × both suites, all passing at the final head `a82c3f7` — run `43402014715` (chromium 6 m 55 s, firefox 9 m 15 s, webkit 15 m 07 s, checks 1 m 26 s) |
 | CodeRabbit | reviewed the final code; 12 comments, all accepted and fixed |
 
 ## Not claimed
