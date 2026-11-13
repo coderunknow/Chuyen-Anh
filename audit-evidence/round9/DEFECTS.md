@@ -276,6 +276,22 @@ Branch: `arena/34e7e96d-chuyen-anh`.
 
 ## Classified, but not fixed in this round
 
+### R9-19 — the manifest test checked the manifest against itself
+
+- **Class:** harness defect (coverage gap, found while promoting a probe).
+- **Where:** `tests/exam-scoring.test.js`, `rc9 manifest (#75)`.
+- **Reproduction:** the test recomputes "usable key" with a local `usable()`
+  predicate and compares it to `record.scoredCount`. Nothing in it calls
+  `scoreExamSession`, so the numbers the app actually reports are never checked
+  against the manifest.
+- **Impact:** the manifest and the predicate could drift from the grader together
+  and the test would still pass; the per-paper counts are what a learner sees.
+- **Fix:** a second test that asks the real scorer for all 106 papers and asserts
+  `questionCount` / `scoredCount` / `exemptCount` per paper plus the totals, and a
+  companion ceiling test (no over-credit, exempt never marked wrong).
+- **Regression test / mutation proof:** M16 (denominator = every item) and M17
+  (exempt counted as incorrect) both fail the new test.
+
 ### R9-08 — the Node suite is ~3× slower in this sandbox than in CI
 
 - **Class:** design limitation / environment difference (not reproduced as a bug).
@@ -378,5 +394,5 @@ them.
 | Accepted trade-off | 2 | R9-12, R9-13 |
 
 Every confirmed defect has a regression test that was **mutation-verified**: the
-fix was reverted and the test failed (fifteen mutations, M1–M15, all caught), then
+fix was reverted and the test failed (eighteen mutations, M1–M18, all caught), then
 restored and passed. Details in `TEST_INTEGRITY.md`.

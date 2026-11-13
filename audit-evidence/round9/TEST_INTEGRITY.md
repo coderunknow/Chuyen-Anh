@@ -9,7 +9,7 @@ was run, and the failure was recorded. All reverts were restored and re-run gree
 | Suite | Command | Result |
 |---|---|---|
 | Python unit | `python3 -m unittest discover -s tests -p 'test_*.py'` | **285 OK** |
-| Node | `node --test tests/*.test.js` | **302 pass / 0 fail** |
+| Node | `node --test tests/*.test.js` | **304 pass / 0 fail** |
 | Archive conversion | `python scripts/exams/test_archive.py` (with `scripts/exams/requirements.txt`) | **5 OK** |
 | Vocabulary + exam validators | the 21 commands in `ci.yml`'s "Check vocabulary sources and embedded HTML" | **all exit 0** |
 | Gates | `scripts/deploy_gate.py`, `scripts/app_release_gate.py` | both `deploy=false … held` (correct under `DEPLOY_HOLD`) |
@@ -39,8 +39,11 @@ file was restored. "Caught by" names the test that failed.
 | M13c | Make `block()` stop only at column 0 | `BlockExtractionTests` fails (2 tests) | `FAILED (failures=2)` |
 | M14 | Remove the capture from the `freshWorld()` scenario blocks (8 sites) | `test_every_scenario_closes_its_browser_only_after_capturing` fails | `FAILED (failures=1)` |
 | M15 | Delete the `failedPage = rc5` assignment | the strengthened tracking test fails | `FAILED (failures=1)` |
+| M16 | Make the exam denominator `summary.total` instead of the scorable count | the new scorer-agreement test fails | `FAILED` — `not ok 14 - the real scorer agrees with every manifest count, all 106 papers` (plus two pre-existing tests, `pass 59 / fail 3`) |
+| M17 | Count an exempt item as `incorrect` | the scorer-agreement test fails | `FAILED` (`pass 61 / fail 1`) |
+| M18 | Award `1.5` credit for a correct item | the ceiling test fails | `FAILED` — caught by the pre-existing "choose two" partial-credit test (`pass 61 / fail 1`) |
 
-After each restore: `Ran 22 tests … OK` / `Ran 28 tests … OK`.
+After each restore: `Ran 22 tests … OK` / `Ran 28 tests … OK` / `node --test … 62 pass / 0 fail`.
 
 **Two mutations initially reported green, and both were informative.** The first M8 attempt edited the wrong
 slice and removed nothing, so the suite passed — indistinguishable from a broken
@@ -63,6 +66,23 @@ CodeRabbit caught the ordering (PR #86); the stub was rebuilt to model the real
 lifecycle — a closed page's `screenshot()` throws — and the old arrangement was
 reproduced as failing (M10) before the new one was accepted. A stub that cannot
 fail is not evidence.
+
+## Probes promoted to permanent tests
+
+Round 9's application checks were ad-hoc probes. Two of them are now tests, because
+a probe proves a property today and a test proves it tomorrow:
+
+- `rc9/r9: the real scorer agrees with every manifest count, all 106 papers` — the
+  existing manifest test recomputed "usable" with its **own predicate**, so it
+  checked the manifest against a second implementation of the same idea: both could
+  drift from the grader and agree with each other. The new test asks
+  `scoreExamSession` itself. It also asserts the archive totals (6,708 questions,
+  5,155 scorable, 1,553 exempt) and that blanks are never reported as incorrect.
+- `rc9/r9: answering every scorable item correctly reaches 100%, never more` — the
+  ceiling and the floor on real data: no item may award more than full credit and
+  an exempt answered item may never be marked wrong.
+
+Mutations M16–M18 show both tests fail when the grader is broken.
 
 ## Behavioural (not just static) proofs
 

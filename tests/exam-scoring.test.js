@@ -349,6 +349,79 @@ test('rc9 manifest (#75): every paper reports the number of items it can actuall
   }
 });
 
+test('rc9/r9: the real scorer agrees with every manifest count, all 106 papers', async () => {
+  // The manifest test above recomputes "usable" with its own predicate. That checks
+  // the manifest against a *second implementation of the same idea*, so both could
+  // drift from the scorer and agree with each other. This test asks the code that
+  // actually grades a paper: `scoreExamSession` over the embedded keys.
+  //
+  // Round 9 ran this as an ad-hoc probe (106 papers, 6,708 questions); it belongs
+  // in the suite so a data change cannot silently break the reported counts.
+  const manifest = JSON.parse(await readFile(new URL('../data/exam-answer-keys.json', import.meta.url), 'utf8'));
+  const byId = new Map(manifest.records.map(record => [record.id, record]));
+  assert.equal(records.length, 106, 'the archive ships 106 papers');
+  let scored = 0; let exempt = 0; let questions = 0;
+  for (const paper of records) {
+    const record = byId.get(paper.id);
+    assert.ok(record, `${paper.id}: every paper has a manifest row`);
+    const parsed = app.parseExamQuestions(paper.markdown, paper.id);
+    const baseKeys = (paper.answerKey || []).map(key => ({ ...key, answer: key.rawAnswer ?? key.answer }));
+    // An empty response set: nothing answered, so the summary describes the paper,
+    // not a learner. Exemptions are decided per item by the grader itself.
+    const summary = app.scoreExamSession({ examId: paper.id, questions: parsed, responses: {} }, baseKeys, [], paper.id).summary;
+    assert.equal(summary.total, parsed.length, `${paper.id}: total`);
+    assert.equal(summary.denominator, summary.scorableTotal, `${paper.id}: the denominator is the scorable count`);
+    assert.equal(record.questionCount, summary.total, `${paper.id}: manifest questionCount must match the parsed paper`);
+    assert.equal(record.scoredCount, summary.scorableTotal, `${paper.id}: manifest scoredCount must match the grader`);
+    assert.equal(record.exemptCount, summary.ungradeable, `${paper.id}: manifest exemptCount must match the grader`);
+    // Unanswered scorable items count as 0 in the denominator, never as missed
+    // answers the learner could have got right.
+    assert.equal(summary.unanswered, summary.scorableTotal, `${paper.id}: every scorable item is unanswered`);
+    assert.equal(summary.answered, 0, `${paper.id}: nothing was answered`);
+    assert.equal(summary.incorrect, 0, `${paper.id}: an ungraded blank is not an incorrect answer`);
+    scored += summary.scorableTotal; exempt += summary.ungradeable; questions += summary.total;
+  }
+  assert.equal(questions, 6708, 'the archive holds 6,708 questions');
+  assert.equal(scored, 5155, 'the archive can score 5,155 of them');
+  assert.equal(exempt, 1553, 'the rest are formally exempt');
+  assert.equal(scored + exempt, questions, 'every question is either scorable or explicitly exempt');
+});
+
+test('rc9/r9: answering every scorable item correctly reaches 100%, never more', async () => {
+  // The ceiling and the floor, on real data: a scorer that can award more than full
+  // credit on a partial or a duplicate would fail here rather than in a learner's
+  // result screen.
+  const manifest = JSON.parse(await readFile(new URL('../data/exam-answer-keys.json', import.meta.url), 'utf8'));
+  const byId = new Map(manifest.records.map(record => [record.id, record]));
+  for (const paper of records) {
+    const parsed = app.parseExamQuestions(paper.markdown, paper.id);
+    const baseKeys = (paper.answerKey || []).map(key => ({ ...key, answer: key.rawAnswer ?? key.answer }));
+    const keyById = new Map(baseKeys.map(key => [key.questionId, key]));
+    const responses = {};
+    for (const question of parsed) {
+      const key = keyById.get(question.id);
+      if (!key || question.responseType === 'multiple') continue;
+      const answer = [...(key.rawAnswer ? [key.rawAnswer] : []), ...(key.acceptedAlternatives || []), ...(key.answer ? [key.answer] : [])]
+        .find(candidate => typeof candidate === 'string' && candidate.trim());
+      if (answer) responses[question.id] = answer;
+    }
+    const result = app.scoreExamSession({ examId: paper.id, questions: parsed, responses }, baseKeys, [], paper.id);
+    const { summary } = result;
+    assert.ok(summary.earnedPoints <= summary.denominator,
+      `${paper.id}: earned ${summary.earnedPoints} must not exceed the denominator ${summary.denominator}`);
+    for (const item of result.results) {
+      assert.ok(Number(item.earnedCredit || 0) <= 1.0001,
+        `${paper.id}/${item.questionId}: no item may award more than full credit`);
+      // An exempt item is never graded as a wrong answer.
+      if (item.scorable === false && item.answered) {
+        assert.notEqual(item.result, 'incorrect',
+          `${paper.id}/${item.questionId}: an exempt item must not be marked incorrect`);
+      }
+    }
+    assert.ok(byId.has(paper.id));
+  }
+});
+
 test('paper-level anchor checks do not verify individual answer keys', () => {
   const md = '## Đề thi\n1. Choose the correct answer.\nA. Alpha\nB. Beta\n## Đáp án/hướng dẫn chấm trong nguồn\n1. B\n';
   const qs = app.parseExamQuestions(md, '2025/hai-phong/so');
