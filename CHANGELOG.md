@@ -1,12 +1,44 @@
 # Changelog
 
-## v1.0.0 — stable candidate (PR from `arena/2a533bbc-chuyen-anh`, baseline `f12b4bc5…`, 2026-11-08) — NOT merged, NOT tagged, NOT released, NOT deployed
+## v1.0.0-rc11 — Round 8 candidate (PR #85 from `arena/chuyen-anh-r8-ready-review`, baseline `e663295…`, 2026-11-12) — NOT merged, NOT tagged, NOT released, NOT deployed
 
-**Status: draft pull request only.** Proposed as a Draft PR to `main` from `arena/2a533bbc-chuyen-anh`
-(continuing from `arena/6b7c2879-chuyen-anh` / `a66561d9` on top of `main` `f12b4bc5`).
-No merge, no tag, no release, no Pages deploy; `DEPLOY_HOLD` remains `v1.0.0-rc10`
-and `scripts/app_release_gate.py` + `release-published-dispatch.yml` block Pages deployment
-until `v1.0.0` is published as a non-draft stable release and separately authorized via manual dispatch.
+**Status: open pull request only.** Proposed to `arena/dedd1942-chuyen-anh` (not to `main`) from
+`arena/chuyen-anh-r8-ready-review`. `APP_VERSION` and `DEPLOY_HOLD` are both `v1.0.0-rc11`.
+No merge, no tag, no release, no Pages deploy: `scripts/deploy_gate.py` holds Pages while
+`v1.0.0-rc11` is unpublished, and `scripts/app_release_gate.py` additionally requires the exact
+tag to be published in the correct channel. **RC11 is a proposed candidate, not a release.**
+`v1.0.0-stable` does not exist and is not claimed anywhere.
+
+### Round 8 — asynchronous, cross-tab-safe exam-history persistence (PR #85)
+
+- **Persistence rewritten around three mechanisms** instead of a read-back "repair": bounded
+  tombstones for deletes and Clear (deletions are facts, additions are claims); the whole
+  read → merge → write → verify inside `navigator.locks` `exclusive` when the platform offers it
+  (every result reports the mode it actually obtained); and a hard refusal to write over a store
+  the tab cannot read. Without a lock the guarantee is stated honestly as merge + verify +
+  bounded repair, not linearizability.
+- **Delete and Clear are detectable after a stale overwrite** — both bump the monotonic
+  `generation` counter, so a tab that observed the operation reports `lost-clear` instead of
+  silently re-adopting deleted records. A claim this operation introduced is reported as
+  `tombstoned-claim` rather than dropped, and an attempt the store changed since this tab's
+  snapshot is kept as stored (or reported `conflicting-attempt`).
+- **Import is an explicit restore**: it takes the lock, refuses an unreadable store, and
+  un-tombstones exactly the ids the file carries, so export → Clear → import works again
+  (this regression was caught by all three CI browser engines, not by the unit tests).
+- **One 1,000-character rule per answer, counted in code points**, enforced at the input
+  (a handler that reverts an over-limit edit — deliberately **not** `maxlength`, which counts
+  UTF-16 units over the whole field), the parser, a `too-long` validation with the measured
+  length, the model and the validator. Pre-limit historical records in `candidates` **and**
+  `acceptedAlternatives` are tagged `legacyOverLimit` and preserved, never truncated or dropped.
+- **Snapshot selection by `examId` + `questionId` + `baseKeys`**, returning every backing
+  snapshot instead of the first exam match; the unseen-attempt `score-mismatch` is fixed
+  structurally by validating the union once, with a before/after repro in the evidence.
+- **`--help` no longer executes `build_archive.py` or `release_artifacts.py`** (D75);
+  `tests/test_script_help.py` proves it with a failing fake `gh` and a tree hash.
+- **External review of this PR:** CodeRabbit (16 threads) and Copilot (10 comments) both
+  reviewed it; every finding is dispositioned in `audit-evidence/round8/`
+  (`CODERABBIT_85_DISPOSITION.md`, `COPILOT_85_DISPOSITION.md`), with the code fixes backed by
+  tests that fail when the guard is removed.
 
 ### Sense-level CEFR & lexical integrity (Phase II)
 
@@ -200,7 +232,7 @@ until `v1.0.0` is published as a non-draft stable release and separately authori
 - **Verification**
 
 - **Validators & `--check` gates:** `expand_vocabulary`, `build_vocabulary`, `build_senses`, `audit_sense_sources`, `validate_vocab`, `embed_vocabulary`, `build_phrases`, `validate_phrases`, `embed_phrases`, `build_answer_keys`, `verify_curated_keys`, `audit_rendering`, `classify_anomalies`, `embed_archive`, `audit_vocabulary_quality`, `vocabulary_cefr_review`, `vocabulary_evidence_review`, `rc4_vocabulary_audit`, `audit_exam_provenance`, `generate_vocab_audit_dev5`, and `sense_integrity_audit` (new `--check` mode, wired into `ci.yml` and `deploy.yml`) all pass cleanly.
-- **Automated suites:** Python `unittest` **263 OK** + `scripts/exams/test_archive.py` **5 OK**; Node `static-app.test.js` (`146`) + `exam-scoring.test.js` (`60`) + `exam-anomalies.test.js` (`7`) + `rc10-cefr.test.js` (`10`) + `v100-senses.test.js` (`8`) + `telemetry-api.test.js` (`17`) + `exam-exempt-rubric.test.js` (`7`) + `core-invariants.test.js` (`11`) + `exam-persistence.test.js` (`30`) = **296 pass / 0 fail**; sequential Chromium E2E (`browser-learning.cjs` + `browser-exams.cjs` with `axe-core` WCAG 2.1 AA, `320–1440px` viewports, VI/EN, Classic/Modern, light/dark, `file://` standalone) **PASS**; `speed-benchmark.cjs` **PASS** (`3 ms` median consolidation/retry DOM latency, `0` page errors).
+- **Automated suites:** Python `unittest` **263 OK** + `scripts/exams/test_archive.py` **5 OK**; Node `static-app.test.js` (`146`) + `exam-scoring.test.js` (`60`) + `exam-anomalies.test.js` (`7`) + `rc10-cefr.test.js` (`10`) + `v100-senses.test.js` (`8`) + `telemetry-api.test.js` (`17`) + `exam-exempt-rubric.test.js` (`7`) + `core-invariants.test.js` (`11`) + `exam-persistence.test.js` (`35`) = **301 pass / 0 fail**; sequential Chromium E2E (`browser-learning.cjs` + `browser-exams.cjs` with `axe-core` WCAG 2.1 AA, `320–1440px` viewports, VI/EN, Classic/Modern, light/dark, `file://` standalone) **PASS**; `speed-benchmark.cjs` **PASS** (`3 ms` median consolidation/retry DOM latency, `0` page errors).
 - Current gates, defects, work log, and readiness report: `audit/v100/{GATES,DEFECTS,WORK_LOG,FINAL_READINESS_CHECKLIST,FINAL_READINESS}.md`.
   Separate explicit authorization is required before merge, tag, release or deployment.
 

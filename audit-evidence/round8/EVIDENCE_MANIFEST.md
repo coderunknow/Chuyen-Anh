@@ -25,7 +25,9 @@ implied.
 |---|---|
 | `logs/node-baseline.log` | `node --test` over the 8 suites at the starting SHA — 266 pass |
 | `logs/python-baseline.log` | `unittest discover` at the starting SHA — 257 OK |
-| `logs/node-after.log` | The same run on this branch, 9 suites — **288 pass / 0 fail** |
+| `logs/node-after.log` | The run at `bbe957d`, 9 suites — **288 pass / 0 fail** (kept as history) |
+| `logs/node-after-review-fixes.log` | The run after the review fixes, 9 suites — **296 pass / 0 fail** (kept as history) |
+| `logs/node-rc11.log` | The current run on this branch (RC11), 9 suites — **301 pass / 0 fail** |
 | `logs/python-final.log` | `unittest discover` on this branch — **263 OK** |
 | `logs/gates-final.log` | The 21 `ci.yml` `--check` commands, run verbatim — **21 pass / 0 fail** |
 | `logs/archive-suite.log` | `scripts/exams/test_archive.py` in a venv with `scripts/exams/requirements.txt` — **5 OK** |
@@ -37,7 +39,7 @@ implied.
 ## How to re-derive each headline number
 
 ```bash
-# Node (288) — the list is the one ci.yml runs, plus the new suite.
+# Node (301) — the list is the one ci.yml runs, plus the new suite.
 node --trace-deprecation --test tests/static-app.test.js tests/exam-scoring.test.js \
   tests/exam-anomalies.test.js tests/rc10-cefr.test.js tests/v100-senses.test.js \
   tests/exam-exempt-rubric.test.js tests/core-invariants.test.js \
@@ -71,7 +73,7 @@ deliberate: `FAILURE_LEDGER.md` F4 records why probing executes the build tools.
 | Guard | Mutation applied | Result |
 |---|---|---|
 | `tests/test_seed_level_provenance.py::test_a_word_is_not_attested_by_a_multiword_headword_that_contains_it` | restore `re.split(r"[,/\s]+", head)` in `oxford_index` | **2 tests fail** (the new control *and* the older shape test) — restored, suite green |
-| `tests/test_ci_gate_coverage.py` (Node row) | add `tests/exam-persistence.test.js` without updating the checklist row | gate fails naming the missing suite; passes once the row states `exam-persistence` (`22`) and `PASS (288/288)` |
+| `tests/test_ci_gate_coverage.py` (Node row) | add `tests/exam-persistence.test.js` without updating the checklist row | gate fails naming the missing suite; passes once the row states `exam-persistence` (`35`) and `PASS (296/296)` |
 | `tests/test_audit_document_counts.py` (changelog totals) | change the checklist's Python total to `263` while the changelog still says `257` | fails with `263 != 257`; passes when both agree |
 | `tests/test_script_help.py` | the round-7 shape (no parser) | would execute: the fake `gh` on `PATH` records the call and the tree digest changes. The shipped parser makes both assertions pass |
 

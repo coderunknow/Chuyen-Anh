@@ -547063,7 +547063,7 @@ export const MODES = Object.freeze({
   FLASHCARD: 'flashcard'
 });
 
-export const APP_VERSION = 'v1.0.0';
+export const APP_VERSION = 'v1.0.0-rc11';
 export const LICENSE_NAME = 'MIT License';
 export const LICENSE_COPYRIGHT = '© 2026 coderunknow';
 export const LICENSE_TEXT = `MIT License
@@ -553976,6 +553976,21 @@ export function examCorrectionAnswerParts(question, input, keyRecord = null) {
 export function examCorrectionOverLimitPart(question, input, keyRecord = null) {
   return examCorrectionAnswerParts(question, input, keyRecord).find(part => examCorrectionExceedsLimit(part));
 }
+/**
+ * What the correction input should hold after an edit: the previous value when the
+ * new one breaks the per-answer limit, the new value otherwise.
+ *
+ * This is the input boundary, expressed as a pure function so it can be tested
+ * without a DOM. The previous handler removed trailing whitespace and kept the
+ * over-limit text in the field, so typing or pasting past the limit left text the
+ * save would refuse - the "the input enforces it" claim was not true of the code
+ * (Copilot, PR #85). Returning the previous value is what makes the refusal a
+ * refusal, and it keeps the last valid text instead of discarding the learner's
+ * whole answer.
+ */
+export function examCorrectionAcceptedInput(question, nextValue, previousValue, keyRecord = null) {
+  return examCorrectionOverLimitPart(question, nextValue, keyRecord) === undefined ? nextValue : previousValue;
+}
 
 export function examCorrectionCandidates(question, input, keyRecord = null) {
   const text = String(input || '').trim();
@@ -554066,6 +554081,13 @@ export function deleteExamResult(history, attemptId) {
   if (next.attempts.length === before) return next;
   const keptCorrections = new Set((next.corrections || []).map(correction => correction.id));
   const droppedCorrections = (base.corrections || []).map(correction => correction.id).filter(id => !keptCorrections.has(id));
+  // A delete is a *fact*, exactly like a Clear, and it must be detectable after the
+  // fact when a stale tab overwrites the store between the write and the read-back.
+  // A tombstone alone does not survive that overwrite (the overwrite carries the
+  // pre-delete copy, tombstones and all), so verification would see nothing wrong
+  // and report the delete as successful (Copilot, PR #85). The generation counter
+  // is the same monotonic marker a Clear uses; it is not pruned with the tombstones.
+  next.generation = (Number(base.generation) || 0) + 1;
   return examAddTombstones(next, { attempts: [attemptId], corrections: droppedCorrections });
 }
 /**
@@ -554327,9 +554349,22 @@ export function loadExamResultHistory(storage = memorySafeStorage()) {
   // overwrite a store it cannot read.
   return inspected.history || emptyExamResultHistory();
 }
+/**
+ * Legacy synchronous writer.
+ *
+ * Kept for callers that predate the async API, but it must not be a way around the
+ * round-8 contract: it used to validate its argument and write straight over
+ * whatever the key held, so a caller could replace an unreadable store with a
+ * fresh history - exactly the "treat it as empty and save" failure the async path
+ * exists to prevent (Copilot, PR #85). It now refuses to write over a store it
+ * cannot read. It still cannot merge or serialise; new code should use
+ * `persistExamResultHistory`.
+ */
 export function saveExamResultHistory(history, storage = memorySafeStorage()) {
   const valid = validateExamResultHistory(history);
   if (!valid.ok) return false;
+  const inspected = inspectExamResultStore(storage);
+  if (inspected.status === 'unreadable') return false;
   return writeJson(storage, EXAM_RESULTS_KEY, valid.value);
 }
 // ---------------------------------------------------------------------------
@@ -554493,6 +554528,14 @@ function examMergeIntent(next, base, stored) {
   // Another tab's records: present in the store, unknown to this tab's snapshot
   // and not written by this operation.
   const unseenAttempts = (stored.attempts || []).filter(attempt => !baseAttemptIds.has(attempt.id) && !nextAttemptIds.has(attempt.id));
+  // An id this tab knows but the store has *changed* since the snapshot is not this
+  // tab's to overwrite: a stale save of an unrelated attempt used to replace a newer
+  // stored copy, and because both sides carried the same id the two copies never met
+  // in the union, so no `conflicting-attempt` was raised (Copilot, PR #85). Keep the
+  // stored copy when this tab did not edit it; if this tab edited it too, that is a
+  // real conflict and it is reported rather than resolved by luck.
+  const baseAttemptById = new Map((base?.attempts || []).map(attempt => [attempt?.id, attempt]));
+  const storedAttemptById = new Map((stored.attempts || []).map(attempt => [attempt?.id, attempt]));
   // An unseen correction is carried only when some snapshot in the union really
   // backs it (matches `examId`, holds the `questionId` and its base key). Carrying
   // one that no snapshot backs would build a history that cannot validate.
@@ -554529,9 +554572,52 @@ function examMergeIntent(next, base, stored) {
     }
     keptCorrections.push(correction);
   }
-  const merged = examUnionHistories({ ...next, corrections: keptCorrections }, { ...emptyExamResultHistory(), papers: storedPapers, attempts: unseenAttempts, corrections: unseenCorrections, generation: stored.generation, tombstones: stored.tombstones });
+  const keptAttempts = [];
+  for (const attempt of next?.attempts || []) {
+    const baseCopy = baseAttemptById.get(attempt?.id);
+    const storedCopy = storedAttemptById.get(attempt?.id);
+    // Only a record this tab actually carries from its snapshot can be stale; a
+    // record created by this operation has no base copy and is always this tab's.
+    //
+    // An attempt is immutable in its *identity* (paper, timestamps, responses):
+    // re-scoring changes the derived summary, never the answers. So a stored copy
+    // whose identity moved is not a newer edit to adopt and not something to
+    // overwrite - it is a different record wearing the same id (a concurrent
+    // import, a hand-edited store). Adopting it made the substituted attempt the
+    // learner's own saved result; overwriting it lost the other writer's data.
+    // Both are wrong, so it is reported.
+    if (baseCopy && storedCopy && examAttemptIdentity(storedCopy) !== examAttemptIdentity(baseCopy)) {
+      return { ok: false, reason: 'conflicting-attempt', id: attempt?.id };
+    }
+    keptAttempts.push(attempt);
+  }
+  const merged = examUnionHistories({ ...next, attempts: keptAttempts, corrections: keptCorrections }, { ...emptyExamResultHistory(), papers: storedPapers, attempts: unseenAttempts, corrections: unseenCorrections, generation: stored.generation, tombstones: stored.tombstones });
   if (!merged.ok) return merged;
   examAddTombstones(merged.history, { attempts: removedAttempts, corrections: removedCorrections });
+  // Delete-wins is right for records this tab merely *carried* from its snapshot.
+  // It is wrong for a claim this operation introduced or changed: if another tab
+  // deleted the attempt while this tab was editing a correction, the tombstone
+  // filtered the correction out and the call still returned success, so the UI
+  // reported a saved correction that was never stored (Copilot, PR #85). Such a
+  // filtered claim is a conflict to report, not a silent deletion to absorb.
+  const tombstonedByOthers = {
+    attempts: examTombstoneIds({ attempts: merged.history.tombstones.attempts }).size
+      ? new Set((merged.history.tombstones.attempts || []).map(entry => entry.id)) : new Set(),
+    corrections: new Set((merged.history.tombstones.corrections || []).map(entry => entry.id))
+  };
+  const claimLost = [...(next?.attempts || []), ...(next?.corrections || [])].find(record => {
+    const isAttempt = Object.prototype.hasOwnProperty.call(record || {}, 'summary');
+    const tombstoned = isAttempt ? tombstonedByOthers.attempts.has(record.id) : tombstonedByOthers.corrections.has(record.id);
+    if (!tombstoned) return false;
+    const baseCopy = isAttempt ? baseAttemptById.get(record.id) : (base?.corrections || []).find(c => c?.id === record.id);
+    const same = isAttempt
+      ? (baseCopy && examAttemptIdentity(baseCopy) === examAttemptIdentity(record))
+      : (baseCopy && examCanonicalJson(baseCopy) === examCanonicalJson(record));
+    // Carried unchanged from the snapshot => the delete legitimately wins. New or
+    // edited here => this tab's claim is being discarded, which the caller must know.
+    return !same;
+  });
+  if (claimLost) return { ok: false, reason: 'tombstoned-claim', id: claimLost.id };
   examApplyTombstones(merged.history, merged.history.tombstones);
   // The union keeps the newest 50 attempts; pruning can drop the paper a kept
   // correction targets, and the tombstone list can outgrow the data.
@@ -557778,16 +557864,20 @@ export async function createApp(root) {
         ? (language === 'en' ? `${longest}/${EXAM_CORRECTION_CANDIDATE_LIMIT} characters` : `${longest}/${EXAM_CORRECTION_CANDIDATE_LIMIT} ký tự`)
         : '';
       correctionLengthHint.dataset.overLimit = examCorrectionOverLimitPart(question, correctionInput.value, key) !== undefined ? 'true' : 'false';
+      if (correctionLengthHint.dataset.overLimit === 'false') correctionInput.dataset.lastValid = correctionInput.value;
     };
     correctionInput?.addEventListener('input', () => {
       const question = questions.find(q => q.id === region.querySelector('#exam-key-correct-save')?.dataset.questionId);
       const key = question ? keys.find(k => k.questionId === question.id) || null : null;
       const overLimit = examCorrectionOverLimitPart(question, correctionInput.value, key);
       if (overLimit === undefined) { describeCorrectionLength(); return; }
-      // Refuse the edit rather than keep text the save would reject. The caret is
-      // preserved so typing an over-limit character simply does nothing.
+      // Refuse the edit rather than keep text the save would reject: restore the
+      // last valid value (the rule is `examCorrectionAcceptedInput`, which is what
+      // the test drives). The caret is restored to where it was so typing past the
+      // limit visibly does nothing instead of silently moving the cursor.
       const caret = correctionInput.selectionStart;
-      correctionInput.value = String(correctionInput.value).replace(/\s+$/, '');
+      const previous = correctionInput.dataset.lastValid ?? '';
+      correctionInput.value = examCorrectionAcceptedInput(question, correctionInput.value, previous, key);
       if (typeof caret === 'number') correctionInput.setSelectionRange(Math.min(caret, correctionInput.value.length), Math.min(caret, correctionInput.value.length));
       describeCorrectionLength();
       toast(language === 'en'

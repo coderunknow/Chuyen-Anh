@@ -1,0 +1,28 @@
+site: http://127.0.0.1:8899/index.html
+expected served version: v1.0.0-rc11 (from DEPLOY_HOLD)
+HTTP 200, 27927821 bytes, content-type text/html
+PASS version: the page declares v1.0.0-rc11
+PASS embedded vocabulary
+PASS embedded phrase bank
+PASS embedded exam archive
+PASS application module
+PASS no the rc4 five-dot mask
+PASS no the mask constant
+PASS no the per-row reveal set
+PASS no the per-word reveal attribute
+PASS the scorable-only grading rule
+PASS the answered-on-scorable counter
+PASS the completion figure
+PASS round-8 snapshot selection by exam+question+baseKeys
+PASS the round-8 per-answer correction bound
+PASS the round-8 import path
+PASS the round-8 unreadable-store guard
+PASS the round-8 Clear with tombstones
+PASS the phrase CEFR predicate
+PASS the phrase-bank level note
+PASS the preview-stage predicate
+PASS the no-gloss list layout
+PASS the meaning segmented control
+PASS the diagnostics send button
+
+pages probe passed

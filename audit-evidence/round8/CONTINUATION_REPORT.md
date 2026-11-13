@@ -117,12 +117,13 @@ correction *may* re-score when the union carries it).
 ## 4. The 1,000-character limit and historical data
 
 One constant, one length definition (**Unicode code points**, not UTF-16 units — so
-1,000 emoji are 1,000 characters, which is why `maxlength="1000"` is a convenience guard
+1,000 emoji are 1,000 characters, which is why `maxlength` is **not** used (it counts
+UTF-16 units over the whole field); the input handler is the guard
 and the code-point check is the rule). Enforced at four boundaries:
 
 | Boundary | Behaviour |
 |---|---|
-| Input | `maxlength="1000"` plus a visible, associated hint (`aria-describedby`) |
+| Input | an input handler that reverts an over-limit edit (`examCorrectionAcceptedInput`, the same two model functions the save uses) plus a visible, associated hint (`aria-describedby`) and a live measured length |
 | Parser (`examCorrectionCandidates`) | returns `null` above the limit |
 | Validation (`examCorrectionValidation`, new) | `{ ok: false, reason: 'too-long', length, limit }` — the measured length is reported |
 | Model (`applyExamKeyCorrection`) | `reason: 'correction-too-long'` |
@@ -168,7 +169,7 @@ Test: "an over-long historical correction is preserved, not truncated or dropped
 
 | Check | Result | Log |
 |---|---|---|
-| Node, 9 suites | **288 pass / 0 fail** | `logs/node-after.log` |
+| Node, 9 suites | **301 pass / 0 fail** | `logs/node-rc11.log` |
 | Python `discover` | **263 OK** | `logs/python-final.log` |
 | `scripts/exams/test_archive.py` (venv + pinned requirements) | **5 OK** | `logs/archive-suite.log` |
 | 21 `ci.yml` validator gates, extracted and run verbatim | **21 pass / 0 fail** | `logs/gates-final.log` |
@@ -197,7 +198,7 @@ what the table above does.
 
 | SHA | What ran there | Result |
 |-----|----------------|--------|
-| `bbe957d` | full local battery + CI | local: Node 288, Python 263, gates 21/21. CI: `checks` + `validate` **pass**; **all three browser engines failed** at the clear→import step |
+| `bbe957d` | full local battery + CI | local: Node 288 (the count at that SHA), Python 263, gates 21/21. CI: `checks` + `validate` **pass**; **all three browser engines failed** at the clear→import step |
 | `6db5ce3` | the F6 fix (import after Clear) | CI **all five required jobs pass**; CodeRabbit review requested → **completed, 16 threads** |
 | `98d36c7` | the 16 review dispositions | local: **Node 296**, Python **263 OK**, archive **5 OK**, gates **21/21**, adversarial 8/8; CI: **all five required jobs pass** on this exact SHA |
 

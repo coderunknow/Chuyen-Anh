@@ -742,3 +742,136 @@ test('r8 review: a Clear that is overwritten by a stale tab is detected, not rep
   assert.ok(!stored(store).attempts.some(item => item.id === 'after-clear'),
     'and nothing was written over the store while it is in that state');
 });
+
+// ---------------------------------------------------------------------------
+// Findings from the Copilot review of PR #85. Each test targets one claim and
+// fails against the code as reviewed.
+// ---------------------------------------------------------------------------
+
+test('r8 copilot: a delete is detectable after a stale overwrite, because it bumps generation', async () => {
+  // A delete writes a tombstone, but a stale overwrite carries the pre-delete copy
+  // - tombstones and all - so the tombstone is gone by the time the read-back runs.
+  // The monotonic marker is what survives, and it is what the tab that observed the
+  // delete can compare against. (A tab that never observed the delete cannot be
+  // protected by any counter - that limitation is stated in DESIGN_LOG.md.)
+  const { store } = makeStore();
+  const base = app.loadExamResultHistory(store);
+  assert.equal((await save(app.addExamResult(base, attempt('del-me', 5000)), base, store)).ok, true);
+  const seen = stored(store);
+  assert.equal(seen.generation, 0);
+  const deleted = await save(app.deleteExamResult(seen, 'del-me'), seen, store);
+  assert.equal(deleted.ok, true);
+  const afterDelete = stored(store);
+  assert.equal(afterDelete.generation, 1, 'the delete bumped generation');
+  assert.equal(afterDelete.attempts.length, 0);
+  assert.equal(afterDelete.tombstones.attempts.length, 1, 'and recorded the tombstone');
+
+  // A stale tab writes its pre-delete copy back over the store.
+  store.setItem(KEY, JSON.stringify(seen));
+  assert.equal(app.inspectExamResultStore(store).history.generation, 0, 'the store went backwards');
+  // The tab that observed the delete now saves: it must report the loss, not merge
+  // the resurrected attempt back in as if it were someone else's new record.
+  const later = await save(app.addExamResult(afterDelete, attempt('later', 9000)), afterDelete, store);
+  assert.equal(later.ok, false, 'the lost delete is reported instead of absorbed');
+  assert.equal(later.reason, 'lost-clear');
+});
+
+test('r8 copilot: a stale save keeps the stored attempt, and a substituted one is refused', async () => {
+  // Two different things can change a stored attempt under one id, and they need
+  // opposite answers:
+  //  - a re-score rewrites only the derived score, which the merge recomputes
+  //    anyway, so the stored record is the newer truth and must not be replaced by
+  //    a stale tab's copy;
+  //  - a concurrent import (or a hand-edited store) can substitute a record whose
+  //    *identity* moved - answers, timestamps - which is a different attempt wearing
+  //    the same id. Adopting it would make it the learner's saved result, and
+  //    overwriting it would discard the other writer's data, so it is reported.
+  const { store } = makeStore();
+  const base = app.loadExamResultHistory(store);
+  assert.equal((await save(app.addExamResult(base, attempt('shared-id', 5000)), base, store)).ok, true);
+  const tabA = stored(store);
+
+  // (a) legitimate re-score: same identity, different derived score. The store's
+  // own validator refuses a summary that does not reproduce from its answers
+  // (`store-score-mismatch`), which is the honest answer for a hand-edited store
+  // and is covered in the scoring suite. What matters here is that the score path
+  // is *not* confused with substitution: a re-score keeps the identity, so it can
+  // never be mistaken for a different attempt wearing the same id.
+  const rescored = JSON.parse(JSON.stringify(stored(store)));
+  rescored.attempts[0].summary = { ...rescored.attempts[0].summary, percentage: 42, scale10: 4.2 };
+  store.setItem(KEY, JSON.stringify(rescored));
+  const out = await save(app.addExamResult(tabA, attempt('unrelated', 7000)), tabA, store);
+  assert.equal(out.ok, false);
+  assert.equal(out.reason, 'store-score-mismatch', 'an unreproducible stored score is refused, not adopted');
+  // Restore a store the app itself produced before testing substitution.
+  store.setItem(KEY, JSON.stringify(tabA));
+
+  // (b) substitution: the same id whose identity moved. `submittedAt` is part of
+  // the identity and not part of scoring, so the stored history still validates -
+  // this is the shape a concurrent import produces, not a corrupt store.
+  const tabB = stored(store);
+  const swapped = JSON.parse(JSON.stringify(stored(store)));
+  swapped.attempts.find(item => item.id === 'shared-id').submittedAt = 999999;
+  store.setItem(KEY, JSON.stringify(swapped));
+  const conflicted = await save(app.addExamResult(tabB, attempt('another', 8000)), tabB, store);
+  assert.equal(conflicted.ok, false, 'a substituted attempt is not adopted as our own save');
+  assert.equal(conflicted.reason, 'conflicting-attempt');
+  assert.equal(
+    stored(store).attempts.find(item => item.id === 'shared-id').submittedAt,
+    999999,
+    'and neither copy is silently overwritten'
+  );
+});
+
+test('r8 copilot: a claim this operation makes is not silently dropped by a tombstone', async () => {
+  const { store } = makeStore();
+  const boot = app.loadExamResultHistory(store);
+  assert.equal((await save(app.addExamResult(boot, attempt('shared', 5000)), boot, store)).ok, true);
+  const target = questions[0];
+  const withCorrection = app.applyExamKeyCorrection(stored(store), {
+    examId: record.id, questionId: target.id, candidates: ['v1'], now: 5100
+  });
+  assert.equal(withCorrection.ok, true);
+  assert.equal((await save(withCorrection.history, stored(store), store)).ok, true);
+  const tabBase = stored(store);
+
+  // Another tab deletes the attempt and the correction it backed (delete-wins).
+  const trashed = app.deleteExamResult(tabBase, 'shared');
+  assert.equal((await save(trashed, tabBase, store)).ok, true);
+
+  // This tab edits the correction and saves. The tombstone removes it; the caller
+  // must be told rather than shown "saved" for a record that is not stored.
+  const edited = app.applyExamKeyCorrection(tabBase, {
+    examId: record.id, questionId: target.id, candidates: ['v2-edited'], now: 9000, replace: true
+  });
+  assert.equal(edited.ok, true);
+  const out = await save(edited.history, tabBase, store);
+  assert.equal(out.ok, false, 'the discarded claim is reported');
+  assert.equal(out.reason, 'tombstoned-claim');
+  assert.equal(stored(store).corrections.length, 0, 'and the deleted record stays deleted');
+});
+
+test('r8 copilot: the legacy writer cannot overwrite an unreadable store', () => {
+  const { store } = makeStore();
+  const base = app.loadExamResultHistory(store);
+  const built = app.addExamResult(base, attempt('legacy-write', 5000));
+  store.setItem(KEY, '{not json');
+  assert.equal(app.saveExamResultHistory(built, store), false,
+    'the legacy synchronous writer refuses what the async path refuses');
+  assert.equal(app.inspectExamResultStore(store).reason, 'invalid-json',
+    'and the unreadable value is untouched');
+});
+
+test('r8 copilot: the correction input actually reverts an over-limit edit', () => {
+  const text = questions.find(question => question.responseType === 'text') || questions[0];
+  const valid = 'x'.repeat(1000);
+  const overLimit = 'x'.repeat(1001);
+  // Typing the 1,001st character must leave the field holding the last valid value,
+  // not the over-limit text with trailing whitespace trimmed.
+  assert.equal(app.examCorrectionAcceptedInput(text, overLimit, valid), valid);
+  assert.equal(app.examCorrectionAcceptedInput(text, 'short', valid), 'short');
+  // A paste of two answers each within the limit is still accepted, and a paste of
+  // an over-limit *alternative* is refused as a whole - the rule is per answer.
+  assert.equal(app.examCorrectionAcceptedInput(text, `${'a'.repeat(700)}; ${'b'.repeat(700)}`, ''), `${'a'.repeat(700)}; ${'b'.repeat(700)}`);
+  assert.equal(app.examCorrectionAcceptedInput(text, `${'a'.repeat(700)}; ${'b'.repeat(1001)}`, `${'a'.repeat(700)}; ok`), `${'a'.repeat(700)}; ok`);
+});

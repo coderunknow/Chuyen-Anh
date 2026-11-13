@@ -1537,3 +1537,19 @@ same test step, but its detailed log was inaccessible, so its cause is unverifie
   pending; screen-reader checklist still `INCOMPLETE`.
 - Totals on this branch: Node `288 / 0 fail` (9 suites), Python `263 OK`, archive `5 OK`,
   `21/21` gates.
+
+### 2026-11-12 — round-8 log correction: the totals quoted above were the `bbe957d` totals
+
+The entry immediately above states Node `288 / 0 fail`. That was true at `bbe957d`
+and stopped being true two commits later. It is **not** rewritten, because this file
+is append-only; the correction is recorded here instead.
+
+- **Current totals on PR #85:** Node **296 / 0 fail** (9 suites, `exam-persistence`
+  is 35 tests), Python **263 OK**, archive **5 OK**, `21/21` gates.
+- **What moved:** the CodeRabbit review of PR #85 (16 threads) and the Copilot review
+  (10 comments) added 13 tests: import-after-Clear, the Web Locks facade, per-answer
+  limits, legacy alternatives, stale corrections, lost Clear/delete, the unreadable
+  empty string, the legacy writer's contract, and the input-revert rule.
+- **Evidence:** `audit-evidence/round8/logs/node-after-review-fixes.log`, and the
+  per-finding dispositions in `CODERABBIT_85_DISPOSITION.md` and
+  `COPILOT_85_DISPOSITION.md`.

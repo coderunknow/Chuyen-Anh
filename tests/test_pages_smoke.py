@@ -54,7 +54,13 @@ def modern_page(version: str) -> str:
         "<span>Trọng tâm phiên học</span>"
         "<script>const EXAM_SCORING_RULE_VERSION = \"rc9-scorable-only-v1\"; const answerKeySchemaVersion = 1;"
         " const answeredScorable = 1; const completionPercentage = 100; const partialMultiSelectReason = 'partial-multi-select 1/2';"
-        " const curatedStatus = 'curated_domain_verified'; const exemptStatus = 'exempt_open_ended';</script>"
+        " const curatedStatus = 'curated_domain_verified'; const exemptStatus = 'exempt_open_ended';"
+        # rc11 markers (PR #85): the probe checks these for an rc11 page, so the
+        # "modern page" fixture has to actually be one.
+        " function examCorrectionPaperKeys() {} function examCorrectionAcceptedInput() {}"
+        " function importExamResultHistory() {} function inspectExamResultStore() {}"
+        " function clearExamResultHistory() {}"
+        "</script>"
         "<div id=\"exam-exemption-breakdown\"></div>"
         "<span>Bộ lọc CEFR</span>"
         f"<script type=\"module\" id=\"app-script\">const APP_VERSION = '{version}';"

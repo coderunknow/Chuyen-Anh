@@ -28,7 +28,7 @@ cannot be mutated without review); the table is the disposition record.
 | 13 | The repro script compares a Promise with `false` | `logs/repro-score-mismatch-before.mjs` | **FIXED** — kept verbatim as history with a header saying so; new `repro-score-mismatch-await.mjs` awaits and reports `ok`/`reason` | `logs/repro-score-mismatch-await-{at-start-sha,after-fix}.log` |
 | 14 | The probe hard-codes `/tmp/r8/node_modules/jsdom` | `ui-flow-probe.mjs` | **FIXED** — `JSDOM_PATH` env var, and a missing install exits `2` with an instruction | run with a bogus path exits `2` with the message |
 | 15 | The probe is labelled a "UI-flow" check but drives the model | `ui-flow-probe.mjs` | **FIXED** (labels) — header and success line now say model-API probe, not a browser result | `logs/ui-flow-probe.log` regenerated |
-| 16 | CHANGELOG says 284 Node tests; the checklist says 289 | `CHANGELOG.md` | **FIXED** — both now state the measured **296**, with the per-suite counts the runner reports | `logs/node-after-review-fixes.log` |
+| 16 | CHANGELOG says 284 Node tests; the checklist says 289 | `CHANGELOG.md` | **FIXED** — both now state the measured total, with the per-suite counts the runner reports (currently **301**, after the Copilot fixes) | `logs/node-rc11.log` |
 
 ## Mutation checks
 

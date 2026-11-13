@@ -127,24 +127,28 @@ class HoldMarkerLifecycleTests(unittest.TestCase):
         text = path.read_text(encoding='utf-8')
         tags = [line.strip() for line in text.splitlines()
                 if line.strip() and not line.strip().startswith('#')]
-        self.assertEqual(tags, ['v1.0.0-rc10'])
-        self.assertRegex(tags[0], r'^v\d+\.\d+\.\d+-(?:dev|beta|rc)\d+$')
+        # RC11 changed the policy this test encodes. The candidate no longer ships
+        # the bare `v1.0.0` string: that identity is what `app_release_gate.py`
+        # classifies as a *stable* build, so a PR-only candidate carrying it would
+        # be asking for the stable-deploy authorization path and would describe
+        # itself as stable before any stable release existed. The candidate is
+        # `v1.0.0-rc11`, and the hold names that exact tag so the gate cannot be
+        # satisfied by the already-published `v1.0.0-rc10`.
+        self.assertRegex(tags[0], r'^v\d+\.\d+\.\d+-(?:dev|beta|rc)\d+$',
+                         'the hold names a prerelease tag, never the stable identity')
         html = (ROOT / 'index.html').read_text(encoding='utf-8')
         live = re.search(r"APP_VERSION = '([^']+)'", html)
         self.assertIsNotNone(live, 'the shipped file declares its version')
         version = live.group(1)
-        if re.search(r'-(?:dev|beta|rc)\d+$', version):
-            # A prerelease build must be covered by its own published prerelease.
-            self.assertEqual(tags[0], version,
-                             'the hold names the release of the version actually shipped')
-        else:
-            # A PR-only stable candidate (final version string, no merge/tag/release)
-            # must NOT move the hold: the hold keeps naming the last published
-            # prerelease, and deploy.yml still only triggers on a main push.
-            self.assertEqual(version, 'v1.0.0',
-                             'the candidate ships the final version string')
-            self.assertEqual(tags, ['v1.0.0-rc10'],
-                             'DEPLOY_HOLD stays at the last published release on a PR-only candidate')
+        self.assertRegex(version, r'-(?:dev|beta|rc)\d+$',
+                         'the shipped candidate carries its prerelease suffix, not the stable identity')
+        self.assertEqual(tags[0], version,
+                         'the hold names the release of the version actually shipped')
+        self.assertNotEqual(tags[0], 'v1.0.0-rc10',
+                            'the hold must not still be satisfiable by the published rc10')
+        # The published rc10 remains a real, superseded release; it is simply no
+        # longer what the hold names.
+        self.assertNotEqual(version, 'v1.0.0-rc10')
 
 
 class ReleasePublishedDispatchWorkflowContractTests(unittest.TestCase):

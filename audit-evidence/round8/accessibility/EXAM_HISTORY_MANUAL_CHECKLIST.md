@@ -17,7 +17,7 @@ needs its own steps.
 
 | Change | Why it matters to AT |
 |---|---|
-| `#exam-key-correct-input` gained `maxlength="1000"` and `aria-describedby="exam-key-correct-hint"` | The limit must be announced as part of the field's description, not only enforced on save |
+| `#exam-key-correct-input` carries `aria-describedby="exam-key-correct-hint"` and `#exam-key-correct-length`, and has **no** `maxlength` (that attribute counts UTF-16 units over the whole field, so it contradicted the per-answer code-point rule) | The limit must be announced as part of the field's description, and an over-limit edit must be refused at the field, not only at save |
 | New visible hint `#exam-key-correct-hint` ("Tối đa 1000 ký tự…" / "At most 1000 characters…") | It is the only place the rule is stated before the learner types |
 | The correction save button is now asynchronous (`await`) | Focus and any live-region message must survive the await; a silent gap reads as "nothing happened" |
 | "Xóa tất cả" (Clear all) now goes through an awaited write with a confirmation dialog | A cancelled confirm must leave the list untouched and keep focus on the button |
@@ -28,7 +28,7 @@ needs its own steps.
 
 | Precondition | Result | Evidence |
 |---|---|---|
-| Correction input carries `maxlength="1000"` and `aria-describedby` | PASS | `tests/exam-persistence.test.js::r8 correction UI…` |
+| Correction input has `aria-describedby`, a measured-length hint, and **no** `maxlength`; an over-limit edit reverts | PASS (code-level) | `tests/exam-persistence.test.js::r8 correction UI…` and `::r8 copilot: the correction input actually reverts…` |
 | Hint element exists with the limit in both languages | PASS | same test |
 | Over-limit refusals have their own translated message | PASS | `exam-persistence.test.js`; `exam-scoring.test.js::rc11 english…` (all `toast()` literals translated) |
 | Clear and Delete re-render only after a resolved save | PASS (code) | `bindExamHistory` handlers are `async` and `await persistExamResults` |
