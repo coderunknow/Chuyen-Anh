@@ -11,8 +11,17 @@ numbers come from the same code reading the same API.
 |---|---|---|---:|---:|---:|
 | `43342769617` | `2f686f7` | 4 | **13 m 19 s** | 13 m 16 s (`browser (webkit)`) | **36 m 06 s** |
 | `43376379586` | `b8f2c11` | 7 | **13 m 18 s** | 13 m 14 s (`browser (webkit / learning)`) | **39 m 27 s** |
+| `43396115217` | `c8b22d8` | 4 | **15 m 08 s** | 15 m 04 s (`browser (webkit)`) | **36 m 07 s** |
 
 **The split saved 1 second and cost 201 runner-seconds.** It has been reverted.
+
+The third row is the post-revert shape at the final head: **36 m 07 s** of
+runner-seconds — within one second of the 36 m 06 s baseline. That confirms the
+revert restored the original cost profile, and it also shows the wall-clock noise
+this round refuses to chase: the same four-job shape produced **13 m 19 s**,
+**13 m 18 s** and **15 m 08 s** on different runs, a ±13 % spread driven by runner
+provisioning and machine variance. Any "optimization" smaller than that spread is
+unmeasurable here, which is a further reason not to claim one.
 
 ## What was tried
 
