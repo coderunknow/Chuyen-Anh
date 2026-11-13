@@ -427,6 +427,7 @@ Two areas were attacked and held:
 | Class | Count | IDs |
 |---|---:|---|
 | Confirmed defect | 5 | R9-01, R9-02, R9-04, R9-07, R9-14 |
+| Harness defect found later | 1 | R9-19 |
 | Refuted hypothesis (reverted) | 1 | R9-03 |
 | Confirmed defect (found in review) | 4 | R9-15, R9-16, R9-17, R9-18 |
 

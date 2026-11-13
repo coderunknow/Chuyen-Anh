@@ -1696,3 +1696,22 @@ is append-only; the correction is recorded here instead.
   also rose. Runner contention is the leading hypothesis and is labelled as such —
   the round does not claim a cause it has not isolated, and does not call the drift
   fixed.
+
+### Round 9 — final numbers (superseding the review-round figures)
+
+| Check | Result | Evidence |
+|---|---|---|
+| Python unit tests | **285 OK** | `python3 -m unittest discover -s tests -p 'test_*.py'` |
+| Node tests | **304 pass / 0 fail** (was 302 before the two promoted probes) | `node --test tests/*.test.js` |
+| Archive conversion | **5 OK** | `scripts/exams/test_archive.py` with `requirements.txt` |
+| Validators | **21/21 commands, exit 0** | the `ci.yml` "Check vocabulary sources" block |
+| Deploy gates | both `deploy=false … held` | `scripts/deploy_gate.py`, `scripts/app_release_gate.py` |
+| Workflows | **8/8 parse** | PyYAML over `.github/workflows/*.yml` |
+| Mutations | **18 (M1–M18), each turned a guard red** | `audit-evidence/round9/TEST_INTEGRITY.md` |
+| CI at `f967c8e` | **4/4 checks pass** (chromium 7 m 47 s, firefox 10 m 52 s, webkit 20 m 25 s, checks 2 m 14 s) | run `43412045593` |
+
+The ledger now has **20 entries**: 9 confirmed defects (R9-01, 02, 04, 07, 14, 15,
+16, 17, 18), 1 harness defect found later (R9-19), 2 harness defects (R9-05, 06),
+1 refuted-and-reverted hypothesis (R9-03), 2 design limitations (R9-08, 09), 1
+external failure (R9-10), 1 unreproduced flake (R9-11), 1 unreproduced performance
+drift (R9-20), and 2 accepted trade-offs (R9-12, 13).
