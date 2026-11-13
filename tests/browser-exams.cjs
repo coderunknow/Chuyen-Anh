@@ -39,6 +39,9 @@ async function main() {
   try {
     ({ browser, engineName } = await launchSelectedBrowser());
     const page = await browser.newPage({ viewport: { width: 1280, height: 900 }, reducedMotion: 'reduce' });
+    // Published for the failure handler at the bottom of this file, so a red CI
+    // run leaves a picture of the page that failed instead of only a stack trace.
+    globalThis.__failurePage = page;
     await page.clock.setFixedTime(new Date('2026-10-29T12:00:00Z'));
     const errors = [], external = [];
     const origin = `http://127.0.0.1:${server.address().port}`;
@@ -266,4 +269,22 @@ async function main() {
     if (!serverClosed) await new Promise(resolve => server.close(resolve));
   }
 }
-main().catch(error => { console.error(error); process.exitCode = 1; });
+main().catch(async error => {
+  console.error(error);
+  // Same contract as the learning suite: BROWSER_SCREENSHOT_DIR is a scratch
+  // directory the CI job uploads on failure, so the artifact step collects a real
+  // picture. Setting the variable is what opts in; local runs stay unchanged.
+  const dir = process.env.BROWSER_SCREENSHOT_DIR;
+  const page = globalThis.__failurePage;
+  if (dir && page) {
+    try {
+      fs.mkdirSync(dir, { recursive: true });
+      const engine = (process.env.BROWSER_ENGINE || 'chromium').toLowerCase();
+      await page.screenshot({ path: path.join(dir, `exams-${engine}-failure.png`), fullPage: true });
+      console.error(`failure screenshot written to ${dir}`);
+    } catch (shotError) {
+      console.error(`could not capture a failure screenshot: ${shotError.message}`);
+    }
+  }
+  process.exitCode = 1;
+});

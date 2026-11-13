@@ -56,6 +56,12 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: main
+          # This job holds `pages: write` and publishes the site. Leaving the
+          # token in .git/config means any later step that runs a command from a
+          # subdirectory, or any tool that shells out to git, can read a
+          # credential with Pages write access. Every other checkout in this
+          # repository already opts out; this one did not (Round 9, R9-14).
+          persist-credentials: false
 
       # The release named in DEPLOY_HOLD must be published before Pages deploys.
       # Published prereleases dispatch this workflow on main because the Pages environment

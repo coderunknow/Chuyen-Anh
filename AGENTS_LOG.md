@@ -1589,3 +1589,51 @@ is append-only; the correction is recorded here instead.
 - **Not claimed:** screen-reader validation is still `INCOMPLETE`; Kilo's check is
   `ACTION_REQUIRED` (it fails in 2 s, i.e. it never reviewed) and is not an approval. No merge,
   tag, release, prerelease, publication or deploy was performed.
+
+## 2026-11-13 — Round 9: full end-to-end audit and Actions optimization
+
+- **Base:** `2f686f77e3103cbbbea15350a765021fc8283b28` (PR #85 head, verified live:
+  OPEN, not draft, base `arena/dedd1942-chuyen-anh` @ `e663295`). PR #84 untouched.
+- **Method:** independent probes against the extracted app module and the real
+  embedded data, not re-runs of the repository's own assertions. Results in
+  `audit-evidence/round9/application/audit-probes.md`: 0 CEFR inheritance
+  violations over 8,928 senses; 0 scoring or bookkeeping mismatches over 106
+  papers / 6,708 questions; `contentSha256` matches 106/106; 0 tombstone
+  resurrections; import path escapes injected markup.
+- **Defects found and fixed (6):**
+  - `R9-01` — `ci.yml` declared the anchor `&ci-paths` and never aliased it, so
+    `push` carried a hand-copied 77-line duplicate that could drift.
+  - `R9-02` — four workflow files (`exam-sources`, `exam-validation`,
+    `pages-smoke`, `telemetry-smoke`) were covered by no CI trigger.
+  - `R9-03` — the browser matrix ran both suites sequentially in one job per
+    engine; the critical path was 13 m 16 s on `browser (webkit)`.
+  - `R9-04` — the failure-screenshot artifact globbed `**/*.png` while nothing set
+    `BROWSER_SCREENSHOT`, so it could only ever be empty.
+  - `R9-07` — the readiness checklist and changelog stated `263` Python tests
+    after the suite had reached 276.
+  - `R9-14` — the `deploy.yml` checkout (the one job with `pages: write`) did not
+    set `persist-credentials: false`, leaving the workflow token in `.git/config`.
+- **Also recorded, not fixed:** two harness defects where a test encoded the
+  duplication it was meant to police (`R9-05`, `R9-06`); two design limitations
+  (`R9-08` sandbox-vs-CI speed, `R9-09` the 27 MB single-file page); one external
+  failure (`R9-10` telemetry 503 with `api/`+`supabase/` unchanged across the
+  green→red boundary); one unreproduced flake (`R9-11`); two accepted trade-offs
+  (`R9-12`, `R9-13`). Full ledger: `audit-evidence/round9/DEFECTS.md`.
+- **Actions work:** baseline measured from the API (`actions/BASELINE.md`,
+  13 m 19 s, critical path 13 m 16 s). Optimization = one job per (engine, suite)
+  via a 6-job matrix, explicit suite argument in `run-browser-suites.sh`. The
+  after-value is **not claimed**: `OPTIMIZATION_REPORT.md` marks it `N/A` until a
+  real run of the new workflow exists. The trade (more runner-seconds for less
+  latency) is stated rather than hidden.
+- **Security:** 7/7 action SHA pins re-resolved to their claimed tags; all 8
+  workflows' `permissions` audited; 9/9 checkouts now opt out of credential
+  persistence.
+- **Verification at this head:** Python `276 OK`, Node `302 pass / 0 fail`,
+  archive `5 OK`, 21/21 validator commands, both gates `deploy=false … held`.
+  Eight mutations (M1–M8) each turned a guard red; all restored green. One
+  mutation initially did not mutate and was re-run — recorded, not hidden.
+- **Not done / not claimed:** the browser suites did not run in this sandbox (no
+  browser binaries, no CDN egress), so cross-engine behaviour is delegated to CI
+  and is not reported as passing here. Screen-reader validation remains
+  `MANUAL_REQUIRED`. No merge, tag, release, prerelease, publication or deploy was
+  performed; `DEPLOY_HOLD` still names `v1.0.0-rc11`.

@@ -82,87 +82,18 @@ on:
       - ".github/workflows/deploy.yml"
       - ".github/workflows/release-artifacts.yml"
       - ".github/workflows/release-published-dispatch.yml"
+      - ".github/workflows/exam-sources.yml"
+      - ".github/workflows/exam-validation.yml"
+      - ".github/workflows/pages-smoke.yml"
+      - ".github/workflows/telemetry-smoke.yml"
       - "DEPLOY_HOLD"
   push:
     branches: [main]
-    paths:
-      - "index.html"
-      - "Learned_Vocabulary_List.md"
-      - "Learned_Phrase_List.md"
-      - "data/**"
-      - "scripts/build_vocabulary.py"
-      - "scripts/embed_vocabulary.py"
-      - "scripts/learned_vocabulary.py"
-      - "scripts/validate_vocab.py"
-      - "scripts/build_senses.py"
-      - "scripts/cefr_senses.py"
-      - "docs/sense-gloss-mappings.json"
-      - "scripts/sense_integrity_audit.py"
-      - "scripts/audit_sense_sources.py"
-      - "audit/v100/evidence/source-locator-review.json"
-      - "audit/v100/evidence/sense-integrity-review-queue.json"
-      - "scripts/cefr_editorial_map.py"
-      - "scripts/migrate_senses.py"
-      - "scripts/audit_learned_vocab.py"
-      - "scripts/expand_vocabulary.py"
-      - "scripts/vocabulary_families.py"
-      - "docs/vocabulary-families.json"
-      - "scripts/phrase_bank.py"
-      - "scripts/build_phrases.py"
-      - "scripts/validate_phrases.py"
-      - "scripts/embed_phrases.py"
-      - "scripts/rc4_vocabulary_audit.py"
-      - "docs/vocabulary-sources.json"
-      - "scripts/exams/**"
-      - "scripts/release_artifacts.py"
-      - "scripts/deploy_gate.py"
-      - "scripts/app_release_gate.py"
-      - "tests/test_app_release_gate.py"
-      - "docs/vocabulary-300-*.json"
-      - "docs/vocabulary-300-review.md"
-      - "docs/vocabulary-audit-dev*.json"
-      - "docs/vocabulary-audit-dev*.md"
-      - "docs/rc4-vocabulary-audit.*"
-      - "docs/EXAM_AUDIT_LEDGER.md"
-      - "docs/RC8_*.md"
-      - "scripts/generate_vocab_audit_dev*.py"
-      - "scripts/vocabulary_curation.py"
-      - "scripts/vocabulary_evidence_review.py"
-      - "scripts/vocabulary_cefr_review.py"
-      - "docs/vocabulary-cefr-review.*"
-      - "docs/exam-anomaly-classification.*"
-      - "scripts/audit_vocabulary_quality.py"
-      - "scripts/audit_exam_provenance.py"
-      - "scripts/vocab_sources.py"
-      - "docs/vocabulary-curation.json"
-      - "docs/vocabulary-quality-audit.*"
-      - "docs/vocabulary-evidence-review.*"
-      - "docs/exam-provenance-audit.*"
-      - "docs/exam-scoring-audit.*"
-      - "docs/exam-rendering-audit.*"
-      - "scripts/exams/audit_rendering.mjs"
-      - "data/exam-answer-keys.json"
-      - "docs/exam-crosschecks.json"
-      - "tests/run-browser-suites.sh"
-      - "README.md"
-      - "CHANGELOG.md"
-      - "PRIVACY.md"
-      - "SECURITY.md"
-      - "THIRD_PARTY_NOTICES.md"
-      - "DESIGN_LOG.md"
-      - "AGENTS_LOG.md"
-      - "De-chuyen-Anh-vao-10/**"
-      - "tests/**"
-      - "audit/v100/refs/**"
-      - "api/**"
-      - "app.js"
-      - "vercel.json"
-      - "supabase/**"
-      - ".github/workflows/ci.yml"
-      - ".github/workflows/deploy.yml"
-      - ".github/workflows/release-artifacts.yml"
-      - ".github/workflows/release-published-dispatch.yml"
-      - "DEPLOY_HOLD"
+    # Same list as the pull request trigger, by reference: the two used to be
+    # 77 byte-identical lines, so adding a path to one silently left the other
+    # stale. YAML anchors must name their target to work - the anchor was
+    # declared and then re-typed, which is not an alias.
+    paths: *ci-paths
 
 concurrency:
   group: static-checks-${{ github.ref }}
@@ -240,13 +171,20 @@ jobs:
   # Pin ubuntu-24.04 LTS because playwright@1.55.1 registers ubuntu20.04..24.04
   # host platforms (ubuntu-latest migrated to Ubuntu 26.04 in Oct/Nov 2026).
   browser:
-    name: browser (${{ matrix.browser }})
+    name: browser (${{ matrix.browser }} / ${{ matrix.suite.name }})
     runs-on: ubuntu-24.04
-    timeout-minutes: 35
+    timeout-minutes: 30
     strategy:
+      # Every combination reports its own verdict: one engine failing must not
+      # hide whether the other five still pass.
       fail-fast: false
       matrix:
         browser: [chromium, firefox, webkit]
+        suite:
+          - name: learning
+            file: tests/browser-learning.cjs
+          - name: exams
+            file: tests/browser-exams.cjs
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -264,29 +202,44 @@ jobs:
       - name: Install ${{ matrix.browser }} for Playwright
         run: npx --yes playwright@1.55.1 install --with-deps ${{ matrix.browser }}
 
-      - name: Point the suites at Playwright's ${{ matrix.browser }}
+      - name: Point the suite at Playwright's ${{ matrix.browser }}
         run: |
           node -e "process.stdout.write(require('playwright-core')['${{ matrix.browser }}'].executablePath())" > /tmp/browser-path
           echo "BROWSER_ENGINE=${{ matrix.browser }}" >> "$GITHUB_ENV"
           echo "BROWSER_EXECUTABLE=$(cat /tmp/browser-path)" >> "$GITHUB_ENV"
           echo "${{ matrix.browser }}: $(cat /tmp/browser-path)"
 
-      - name: Run both browser suites sequentially (${{ matrix.browser }})
+      # The failure artifacts used to be collected by a glob over `**/*.png`,
+      # but nothing produced a PNG unless a developer set BROWSER_SCREENSHOT by
+      # hand - so the artifact step could only ever report "no files found".
+      # Both suites now write into a scratch directory that exists only for this,
+      # and the directory is uploaded whether the suite passes or fails.
+      - name: Run ${{ matrix.suite.name }} suite (${{ matrix.browser }})
         run: |
           set +e
-          bash tests/run-browser-suites.sh 2>&1 | tee /tmp/browser.log
+          mkdir -p "$RUNNER_TEMP/browser-shots"
+          BROWSER_SCREENSHOT_DIR="$RUNNER_TEMP/browser-shots" \
+            bash tests/run-browser-suites.sh "${{ matrix.suite.file }}" 2>&1 | tee /tmp/browser.log
           status=${PIPESTATUS[0]}
           if [ "$status" -ne 0 ]; then
-            tail -n 40 /tmp/browser.log | sed 's/^/::error::/'
+            tail -n 60 /tmp/browser.log | sed 's/^/::error::/'
             exit "$status"
           fi
 
-      - name: Upload browser screenshots on failure (${{ matrix.browser }})
+      - name: Upload browser log (${{ matrix.browser }} / ${{ matrix.suite.name }})
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: browser-log-${{ matrix.browser }}-${{ matrix.suite.name }}
+          path: /tmp/browser.log
+          if-no-files-found: warn
+          retention-days: 7
+
+      - name: Upload browser screenshots on failure (${{ matrix.browser }} / ${{ matrix.suite.name }})
         if: failure()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: browser-screenshots-${{ matrix.browser }}
-          path: |
-            **/*.png
-          if-no-files-found: ignore
+          name: browser-screenshots-${{ matrix.browser }}-${{ matrix.suite.name }}
+          path: ${{ runner.temp }}/browser-shots
+          if-no-files-found: warn
           retention-days: 7

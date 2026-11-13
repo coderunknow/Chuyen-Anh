@@ -43,6 +43,10 @@ async function main() {
     browser = launched.browser;
     const engineLabel = launched.engineName;
     const page = await browser.newPage({ viewport: { width: 1280, height: 900 }, reducedMotion: 'reduce' });
+    // Published for the failure handler at the bottom of this file: a CI run that
+    // dies on an assertion should leave a picture of the page behind.
+    globalThis.__failurePage = page;
+    globalThis.__failureEngine = engineLabel;
     const errors = [];
     page.on('pageerror', error => errors.push(error.message));
     // This suite was written against the whole vocabulary bank and mostly drives
@@ -3207,4 +3211,22 @@ async function main() {
     await new Promise(resolve => server.close(resolve));
   }
 }
-main().catch(error => { console.error(error); process.exitCode = 1; });
+main().catch(async error => {
+  console.error(error);
+  // CI collects this directory on failure. Screenshotting the page that actually
+  // failed is the difference between "an assertion failed" and knowing what the
+  // learner was looking at; the suites used to stop at the console message.
+  const dir = process.env.BROWSER_SCREENSHOT_DIR;
+  const page = globalThis.__failurePage;
+  if (dir && page) {
+    try {
+      fs.mkdirSync(dir, { recursive: true });
+      const engine = (process.env.BROWSER_ENGINE || 'chromium').toLowerCase();
+      await page.screenshot({ path: path.join(dir, `learning-${engine}-failure.png`), fullPage: true });
+      console.error(`failure screenshot written to ${dir}`);
+    } catch (shotError) {
+      console.error(`could not capture a failure screenshot: ${shotError.message}`);
+    }
+  }
+  process.exitCode = 1;
+});

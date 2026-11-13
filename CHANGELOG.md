@@ -9,6 +9,40 @@ No merge, no tag, no release, no Pages deploy: `scripts/deploy_gate.py` holds Pa
 tag to be published in the correct channel. **RC11 is a proposed candidate, not a release.**
 `v1.0.0-stable` does not exist and is not claimed anywhere.
 
+### Round 9 — end-to-end audit and GitHub Actions optimization (PR #85)
+
+Round 9 audited the whole application and its delivery infrastructure against
+`2f686f7`, with independent probes rather than re-runs of the existing assertions
+(`audit-evidence/round9/DEFECTS.md`, `TEST_INTEGRITY.md`, `actions/OPTIMIZATION_REPORT.md`).
+
+- **Six confirmed defects fixed.** `ci.yml` declared the anchor `&ci-paths` and then
+  copied its 77 entries by hand under `push:` (drift guaranteed, R9-01); four
+  workflow files were covered by no CI trigger at all (R9-02); the browser matrix
+  ran both suites sequentially in one job per engine, putting 13 m 16 s on the
+  critical path (R9-03); the failure-screenshot artifact globbed `**/*.png` while
+  nothing set `BROWSER_SCREENSHOT`, so it could never contain a file (R9-04); the
+  readiness checklist and changelog still stated `263` Python tests (R9-07); and
+  the `deploy.yml` checkout — the one job holding `pages: write` — left the
+  workflow token in `.git/config` (R9-14).
+- **CI shape.** The `browser` job is now a `browser × suite` matrix of six parallel
+  jobs, each running one suite; `run-browser-suites.sh` takes explicit suite paths
+  and still defaults to the sequential order locally. All three engines and both
+  suites still gate, `fail-fast: false` is kept, and a new failure-capture path
+  writes a real screenshot and uploads the full log on every outcome.
+- **New tools.** `scripts/ci_run_summary.py` turns the Actions API into the
+  wall-clock / critical-path / runner-seconds numbers the report needs, and
+  `tests/test_ci_workflow_integrity.py` (13 tests) pins the workflow properties.
+- **Verification at this head.** Python `276 OK`, Node `302` tests with `0`
+  failures, archive `5 OK`, 21/21 validator commands, both gates `deploy=false … held`. Eight
+  mutations (M1–M8) each turned a guard red before being restored.
+- **Not claimed.** The browser suites did not run in the audit sandbox (no browser
+  binaries, no CDN egress), so cross-engine results are delegated to CI and are not
+  reported as passing here. The optimized wall-clock is `N/A` until a real run of
+  the new workflow exists. Screen-reader validation remains outstanding. The
+  telemetry endpoint smoke failure is an external/upstream condition: `api/` and
+  `supabase/` are unchanged across the green→red boundary and a 503 is not a
+  version error.
+
 ### Round 8 — asynchronous, cross-tab-safe exam-history persistence (PR #85)
 
 - **Persistence rewritten around three mechanisms** instead of a read-back "repair": bounded
@@ -232,7 +266,7 @@ tag to be published in the correct channel. **RC11 is a proposed candidate, not 
 - **Verification**
 
 - **Validators & `--check` gates:** `expand_vocabulary`, `build_vocabulary`, `build_senses`, `audit_sense_sources`, `validate_vocab`, `embed_vocabulary`, `build_phrases`, `validate_phrases`, `embed_phrases`, `build_answer_keys`, `verify_curated_keys`, `audit_rendering`, `classify_anomalies`, `embed_archive`, `audit_vocabulary_quality`, `vocabulary_cefr_review`, `vocabulary_evidence_review`, `rc4_vocabulary_audit`, `audit_exam_provenance`, `generate_vocab_audit_dev5`, and `sense_integrity_audit` (new `--check` mode, wired into `ci.yml` and `deploy.yml`) all pass cleanly.
-- **Automated suites:** Python `unittest` **263 OK** + `scripts/exams/test_archive.py` **5 OK**; Node `static-app.test.js` (`146`) + `exam-scoring.test.js` (`60`) + `exam-anomalies.test.js` (`7`) + `rc10-cefr.test.js` (`10`) + `v100-senses.test.js` (`8`) + `telemetry-api.test.js` (`17`) + `exam-exempt-rubric.test.js` (`7`) + `core-invariants.test.js` (`11`) + `exam-persistence.test.js` (`36`) = **302 pass / 0 fail**; sequential Chromium E2E (`browser-learning.cjs` + `browser-exams.cjs` with `axe-core` WCAG 2.1 AA, `320–1440px` viewports, VI/EN, Classic/Modern, light/dark, `file://` standalone) **PASS**; `speed-benchmark.cjs` **PASS** (`3 ms` median consolidation/retry DOM latency, `0` page errors).
+- **Automated suites:** Python `unittest` **276 OK** + `scripts/exams/test_archive.py` **5 OK**; Node `static-app.test.js` (`146`) + `exam-scoring.test.js` (`60`) + `exam-anomalies.test.js` (`7`) + `rc10-cefr.test.js` (`10`) + `v100-senses.test.js` (`8`) + `telemetry-api.test.js` (`17`) + `exam-exempt-rubric.test.js` (`7`) + `core-invariants.test.js` (`11`) + `exam-persistence.test.js` (`36`) = **302 pass / 0 fail**; sequential Chromium E2E (`browser-learning.cjs` + `browser-exams.cjs` with `axe-core` WCAG 2.1 AA, `320–1440px` viewports, VI/EN, Classic/Modern, light/dark, `file://` standalone) **PASS**; `speed-benchmark.cjs` **PASS** (`3 ms` median consolidation/retry DOM latency, `0` page errors).
 - Current gates, defects, work log, and readiness report: `audit/v100/{GATES,DEFECTS,WORK_LOG,FINAL_READINESS_CHECKLIST,FINAL_READINESS}.md`.
   Separate explicit authorization is required before merge, tag, release or deployment.
 
