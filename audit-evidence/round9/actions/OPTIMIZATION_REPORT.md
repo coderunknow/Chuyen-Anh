@@ -12,16 +12,29 @@ numbers come from the same code reading the same API.
 | `43342769617` | `2f686f7` | 4 | **13 m 19 s** | 13 m 16 s (`browser (webkit)`) | **36 m 06 s** |
 | `43376379586` | `b8f2c11` | 7 | **13 m 18 s** | 13 m 14 s (`browser (webkit / learning)`) | **39 m 27 s** |
 | `43396115217` | `c8b22d8` | 4 | **15 m 08 s** | 15 m 04 s (`browser (webkit)`) | **36 m 07 s** |
+| `43402014715` | `a82c3f7` | 4 | **16 m 10 s** | 16 m 07 s (`browser (webkit)`) | **35 m 01 s** |
+| `43404388721` | `8572aaa` | 4 | **19 m 37 s** | 19 m 34 s (`browser (webkit)`) | **40 m 57 s** |
+| `43409142506` | `ab35c98` | 4 | **20 m 11 s** | 20 m 09 s (`browser (webkit)`) | **40 m 15 s** |
 
 **The split saved 1 second and cost 201 runner-seconds.** It has been reverted.
 
-The third row is the post-revert shape at the final head: **36 m 07 s** of
-runner-seconds — within one second of the 36 m 06 s baseline. That confirms the
-revert restored the original cost profile, and it also shows the wall-clock noise
-this round refuses to chase: the same four-job shape produced **13 m 19 s**,
-**13 m 18 s** and **15 m 08 s** on different runs, a ±13 % spread driven by runner
-provisioning and machine variance. Any "optimization" smaller than that spread is
-unmeasurable here, which is a further reason not to claim one.
+The post-revert rows sit between **35 m 01 s and 40 m 57 s** of runner-seconds,
+around the 36 m 06 s baseline (the baseline is the lowest observed, not a floor).
+
+The wall-clock columns matter more than any of my changes. Six runs of the **same
+four-job shape** produced **13 m 19 s, 13 m 18 s, 15 m 08 s, 16 m 10 s, 19 m 37 s and
+20 m 11 s**. The spread is 7 minutes on unchanged work.
+
+The cause is visible in the per-step data and is **not** the code: the browser
+suites were byte-identical between `a82c3f7` and `ab35c98`, yet webkit's run step
+went 907 s → 1150 s while chromium stayed in 387–458 s. Recorded as **R9-20**, an
+unreproduced drift with runner contention as the leading hypothesis — not as a fact,
+and not as something this round fixed.
+
+The consequence for the optimization work is the point: **any speed claim smaller
+than a seven-minute spread is unmeasurable on this runner setup.** That is why the
+one optimization tried was judged on runner-seconds (the stable number) as well as
+wall-clock, and why it was reverted instead of celebrated.
 
 ## What was tried
 

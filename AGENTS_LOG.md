@@ -1674,3 +1674,25 @@ is append-only; the correction is recorded here instead.
   review requests, and the post-review delta (two test files, evidence) is a strict
   subset at the same design; `CODE_REVIEW_DISPOSITION.md` states exactly what was
   reviewed.
+
+### Round 9 — hardening pass (after the review rounds)
+
+- **Two probes were promoted to permanent tests.** The manifest test recomputed
+  "usable key" with its own predicate, so it compared the manifest against a second
+  implementation of the same idea; both could drift from the grader and agree. The
+  new tests ask `scoreExamSession` for all 106 papers (per-paper counts plus the
+  archive totals 6,708 / 5,155 / 1,553) and assert the ceiling (no item above full
+  credit, an exempt answered item never marked wrong). Node is now **304 pass /
+  0 fail**. Mutations M16–M18 prove they bite. Recorded as **R9-19**.
+- **Robustness probed, not assumed:** malformed exam responses (null, number,
+  object, 30 kB garbage, a 200 kB string, `__proto__`) never throw, never push the
+  percentage out of range and cannot pollute `Object.prototype`; the CEFR helpers
+  never throw on ten kinds of bad input. These stayed probes — they are recorded in
+  `TEST_INTEGRITY.md` rather than dressed up as new tests.
+- **A real performance drift was found and left unexplained (R9-20).** Across six
+  runs of the identical four-job shape the wall-clock went from 13 m 19 s to
+  20 m 11 s. The browser suites were byte-identical between the last two runs, yet
+  webkit's step moved 907 s → 1150 s while chromium stayed flat; webkit's install
+  also rose. Runner contention is the leading hypothesis and is labelled as such —
+  the round does not claim a cause it has not isolated, and does not call the drift
+  fixed.

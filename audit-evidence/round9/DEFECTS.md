@@ -292,6 +292,40 @@ Branch: `arena/34e7e96d-chuyen-anh`.
 - **Regression test / mutation proof:** M16 (denominator = every item) and M17
   (exempt counted as incorrect) both fail the new test.
 
+### R9-20 — webkit suite time grows over the day: measured, cause not established
+
+- **Class:** **unreproduced** performance drift. Recorded, explicitly **not** fixed
+  and **not** explained.
+- **Observation (real per-step API data, `Run both browser suites` step):**
+
+  | run | head | webkit | firefox | chromium |
+  |---|---:|---:|---:|---:|
+  | `43342769617` | `2f686f7` (baseline) | 747 s | 730 s | 437 s |
+  | `43376379586` | `b8f2c11` | 740 s | 728 s | 387 s |
+  | `43396115217` | `c8b22d8` | 904 s | 666 s | 458 s |
+  | `43402014715` | `a82c3f7` | 907 s | 555 s | 415 s |
+  | `43404388721` | `8572aaa` | 1174 s | 775 s | 418 s |
+  | `43409142506` | `ab35c98` | 1150 s | 640 s | 389 s |
+
+- **Why this is not attributed to the code:** the browser suites were unchanged
+  between `a82c3f7` and `ab35c98` (only docs and one Node test file changed), yet
+  webkit's step moved 907 s → 1150 s. Chromium stayed within 387–458 s throughout.
+  A cause inside the suite would have to spare chromium and firefox, which run the
+  same `browser-learning.cjs` first.
+- **Leading hypothesis, not proven:** runner contention. WebKit's browser install
+  also rose (34 s → 46 s), which points at the machine rather than the page, and
+  the drift appeared as this branch pushed many runs within hours. Distinguishing
+  contention from a genuine webkit regression needs an isolated re-run (same SHA,
+  quiet minute) or a runner with guaranteed CPU, which this session cannot arrange.
+- **Impact:** the workflow's wall-clock now varies 13 m – 20 m for the same work.
+  That variance is why this round refused to claim any optimization smaller than
+  it, and it is why the one optimization that was tried was judged on
+  runner-seconds (a stable number) as well as wall-clock.
+- **Follow-up:** emit per-scenario timings inside `browser-learning.cjs` so a slow
+  run says *which* scenario was slow instead of only how long the suite took. Not
+  done here: it changes a 3,200-line suite that cannot be run in this sandbox, and
+  adding unverified instrumentation to it would be worse than the gap.
+
 ### R9-08 — the Node suite is ~3× slower in this sandbox than in CI
 
 - **Class:** design limitation / environment difference (not reproduced as a bug).
@@ -391,6 +425,7 @@ them.
 | Design limitation | 2 | R9-08, R9-09 |
 | External failure | 1 | R9-10 |
 | Unreproduced flake | 1 | R9-11 |
+| Unreproduced drift (measured, unexplained) | 1 | R9-20 |
 | Accepted trade-off | 2 | R9-12, R9-13 |
 
 Every confirmed defect has a regression test that was **mutation-verified**: the
