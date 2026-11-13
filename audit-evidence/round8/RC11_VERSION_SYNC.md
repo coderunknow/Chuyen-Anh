@@ -65,7 +65,8 @@ authorization gate is untouched and still applies to a version without a suffix.
 - [x] Copilot's 10 review comments dispositioned; 5 code fixes, each mutation-checked.
 - [x] Local regression: Node **302/302**, Python **263 OK**, archive **5 OK**, `ci.yml` gates **21/21**, pages probe **PASS**.
 - [x] Exact-head CI at `fe6a081`: `checks`, `validate`, `browser (chromium|firefox|webkit)` all **pass**, plus both `probe` jobs.
-- [ ] Exact-head CI at `711257a` — **NOT fully green.** `checks`, `validate` and all three browser engines pass, but the **Telemetry endpoint smoke test** failed with **HTTP 503 `service-unavailable`**. That is an upstream outage/unconfiguration, **not** an RC11 rejection: the probe below shows `v1.0.0-rc11` is accepted (202) and a version problem is a **400**, so a 503 cannot come from the version string. The same job passed at `fe6a081` minutes earlier. **Externally blocked**; left unchecked.
+- [x] Exact-head CI at `5d57f56` (final head): `checks`, `validate`, `browser (chromium|firefox|webkit)` **pass**; Pages `probe` passes.
+- [ ] Exact-head CI at `711257a`/`5d57f56` is **NOT fully green.** `checks`, `validate` and all three browser engines pass, but the **Telemetry endpoint smoke test** failed with **HTTP 503 `service-unavailable`**. That is an upstream outage/unconfiguration, **not** an RC11 rejection: the probe below shows `v1.0.0-rc11` is accepted (202) and a version problem is a **400**, so a 503 cannot come from the version string. The same job passed at `fe6a081` minutes earlier. **Externally blocked**; left unchecked.
 - [x] Independent review at the RC11 head: CodeRabbit completed on `fe6a081` (5 threads) and on `6db5ce3` (16 threads); all dispositioned. Intermediate SHAs were never reviewed and are not claimed as reviewed.
 - [ ] Screen-reader validation — **INCOMPLETE**, human work specified in `accessibility/EXAM_HISTORY_MANUAL_CHECKLIST.md`.
 
