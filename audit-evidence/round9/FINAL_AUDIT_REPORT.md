@@ -1,6 +1,7 @@
 # Round 9 — final audit report
 
-Branch `arena/34e7e96d-chuyen-anh`. Base `2f686f7` (PR #85 head). Review PR **#86**,
+Branch `arena/34e7e96d-chuyen-anh`. Base `2f686f7` (PR #85 head). Final head
+**`b687b86`**, CI run `43434146112`, 4/4 green. Review PR **#86**,
 open and ready for review, stacked on `arena/chuyen-anh-r8-ready-review`.
 No merge, tag, release, prerelease, publication or deploy was performed, and
 `DEPLOY_HOLD` stayed in force throughout.
@@ -33,10 +34,11 @@ Four passes, in this order:
 | **R9-23** | confirmed defect, a11y | light: active-nav count pill **4.37:1**; dark: sprint badge **2.30:1** (AA needs 4.5:1) | 126 nodes axe left `incomplete`, resolved by pixel sampling + exact gradient maths | mutations **M20** and **M21** fail, each on the correct theme |
 | **R9-22** | harness defect | the "WCAG 2.1 AA" claim rested on **two** axe rules on two views | injecting one unnamed icon button: old set `[]`, full set `["button-name"]` | the widened check is itself the regression test |
 | **R9-24** | harness defect (this round's own test) | the R9-23 test audited dark **twice** under a "light" label | mutation M21 reported a 2.30:1 failure labelled `light` | loop now asserts the resolved theme before measuring |
+| R9-25 | process (this round) | a generated artefact was not regenerated; CI's own guard caught it in 27 s | `audit_rendering.mjs --check` failed at `24bfad5`; only `rendererOutputBytes` on 11 records changed | the existing `--check` gate |
 | R9-14, R9-15, R9-16, R9-17, R9-18 | confirmed/harness | publishing checkout persisted the token; failure screenshots could never work; summary script reported unfinished runs; parity test could pass over unequal filters; checklist overclaimed | review + mutation | M10–M13 |
 
-Full ledger, including the refuted hypothesis and the three things that held under
-attack, is in `DEFECTS.md` (24 entries, classified, 21 mutations M1–M21).
+Full ledger, including the refuted hypothesis and the things that held under
+attack, is in `DEFECTS.md` (25 entries, classified, 21 mutations M1–M21).
 
 ## 3. What the suite now covers that it did not before
 
@@ -71,18 +73,22 @@ Being explicit is the point of this section.
 
 ## 5. Actions cost, measured
 
-Final numbers for the head `3ba0da6` (run `43415336939`, 4/4 green):
+Final numbers for the head `b687b86` (run `43434146112`, 4/4 green):
 
 | Job | Duration | Suite step |
 |---|---:|---:|
-| `browser (chromium)` | 421 s | 365 s |
-| `browser (firefox)` | 603 s | 578 s |
-| `browser (webkit)` | 905 s | 849 s |
-| `checks` | 133 s | — |
-| **wall-clock** | **905 s (15 m 05 s)** | |
-| **runner-seconds** | **2 062 s** | |
+| `browser (chromium)` | 494 s | 453 s |
+| `browser (firefox)` | 639 s | 583 s |
+| `browser (webkit)` | 834 s | 748 s |
+| `checks` | 145 s | — |
+| **wall-clock** | **835 s (13 m 55 s)** | |
+| **runner-seconds** | **2 112 s** | |
 
-Wall-clock across eight runs of this branch spans **13 m 18 s – 20 m 11 s** on
+The suite step grew by design (the exam-header sweep and twelve WCAG audits per
+engine); `checks` grew from 133 s to 145 s for the same reason. Both are paid
+knowingly.
+
+Wall-clock across ten runs of this branch spans **13 m 18 s – 20 m 11 s** on
 identical work. That is the single most important number in this report for
 anyone reviewing the "optimize CI" objective: **no change smaller than ~7 minutes
 is measurable on this workload.** It is why the one optimization attempted was

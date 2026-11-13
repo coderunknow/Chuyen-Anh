@@ -40,12 +40,12 @@ Two SHAs are used on purpose, and they mean different things:
 | R9-B7b | 186 downloaded asset digests match their contents | `[ ]` **not verified** | Only format and uniqueness were checked (all 64-hex, all distinct). Recomputing them needs the external files this sandbox cannot fetch. Reported as narrowing, never as verified | `80e6248` |
 | R9-B8 | Persistence: tombstones, generation, cross-tab merge, unreadable store | `[x]` | probes: no resurrection after delete, no re-add after Clear, `generation` bumps | `2f686f7` |
 | R9-B9 | Security/privacy: user-supplied backups cannot inject markup | `[x]` | probe: crafted `<img onerror>`/`<script>` escaped; import validated | `2f686f7` |
-| R9-B10 | Accessibility (WCAG AA, axe-core, keyboard) | `[x]` (automated, **run**) / `MANUAL_REQUIRED` (screen reader) | RT-03 now runs the **full** `wcag2a/wcag2aa/wcag21a/wcag21aa` set on all six views in both themes (R9-22), with a three-defect positive control; 12 audits × 3 engines clean. R9-21 (nameless exam headers) and R9-23 (two contrast failures axe files as `incomplete`) were found and fixed. No screen-reader session was performed and none is claimed | `WORKING-HEAD` |
-| R9-B11 | UX / visual consistency across viewports and themes | `[x]` (automated, **run**) | Suite assertions plus an independent 120-combination sweep (6 views × 2 themes × 2 skins × 5 viewports): **0** horizontal-overflow pages, **0** clipped text nodes. One apparent WCAG 2.2 target-size hit (`#cefr-narrow`, 13×13) was a probe artifact — its real target is the 239×19.7 px label | `WORKING-HEAD` |
+| R9-B10 | Accessibility (WCAG AA, axe-core, keyboard) | `[x]` (automated, **run**) / `MANUAL_REQUIRED` (screen reader) | RT-03 now runs the **full** `wcag2a/wcag2aa/wcag21a/wcag21aa` set on all six views in both themes (R9-22), with a three-defect positive control; 12 audits × 3 engines clean. R9-21 (nameless exam headers) and R9-23 (two contrast failures axe files as `incomplete`) were found and fixed. No screen-reader session was performed and none is claimed | `b687b86` |
+| R9-B11 | UX / visual consistency across viewports and themes | `[x]` (automated, **run**) | Suite assertions plus an independent 120-combination sweep (6 views × 2 themes × 2 skins × 5 viewports): **0** horizontal-overflow pages, **0** clipped text nodes. One apparent WCAG 2.2 target-size hit (`#cefr-narrow`, 13×13) was a probe artifact — its real target is the 239×19.7 px label | `b687b86` |
 
-| R9-B12 | Every exam document actually renders correctly, not just the one paper CI opens | `[x]` → fixed (R9-21) | sweep of all 24 openable records: 791 tables, 2 330 headers, 0 nameless; was 8 papers / 17 cells. Mutation M19, and M19b which proves the old coverage was blind | `WORKING-HEAD` |
-| R9-B13 | Contrast is verified where axe cannot decide it (gradients, translucent chips) | `[x]` → fixed (R9-23) | pixel-sampled all 126 nodes axe left `incomplete` across theme × skin × viewport; two real failures found and fixed, each with a mutation (M20, M21) | `WORKING-HEAD` |
-| R9-B14 | The audit's own new tests can fail for the reason they claim | `[x]` → fixed (R9-24) | the R9-23 loop audited dark twice under a "light" label; it now asserts the resolved theme first, and both mutations fail the correct theme | `WORKING-HEAD` |
+| R9-B12 | Every exam document actually renders correctly, not just the one paper CI opens | `[x]` → fixed (R9-21) | sweep of all 24 openable records: 791 tables, 2 330 headers, 0 nameless; was 8 papers / 17 cells. Mutation M19, and M19b which proves the old coverage was blind | `b687b86` |
+| R9-B13 | Contrast is verified where axe cannot decide it (gradients, translucent chips) | `[x]` → fixed (R9-23) | pixel-sampled all 126 nodes axe left `incomplete` across theme × skin × viewport; two real failures found and fixed, each with a mutation (M20, M21) | `b687b86` |
+| R9-B14 | The audit's own new tests can fail for the reason they claim | `[x]` → fixed (R9-24) | the R9-23 loop audited dark twice under a "light" label; it now asserts the resolved theme first, and both mutations fail the correct theme | `b687b86` |
 
 ## C. Delivery infrastructure
 
@@ -75,7 +75,7 @@ Two SHAs are used on purpose, and they mean different things:
 | R9-D5 | `AGENTS_LOG.md` append-only | `[x]` | round-9 entry appended; no history rewritten | `2f686f7` |
 | R9-D6 | No claim of "fully audited" / "all bugs fixed" / "production-ready" | `[x]` | wording reviewed across this tree | `2f686f7` |
 | R9-D7 | Full local suite green at this head | `[x]` | 285 Python OK, 302 Node, 5 archive, 21 validators, gates held | `80e6248` |
-| R9-D8 | CI green on the round-9 head | `[x]` | Run `43376379586`: 7/7 checks pass (`checks` 2 m 23 s, three engines × both suites) | `80e6248` |
+| R9-D8 | CI green on the round-9 head | `[x]` | Run `43434146112` at `b687b86`: **4/4** (chromium 8 m 14 s, firefox 10 m 39 s, webkit 13 m 54 s, checks 2 m 25 s). An earlier head `24bfad5` went red on a stale generated artefact — R9-25 | `b687b86` |
 | R9-D9 | A refuted hypothesis is reported as refuted, not quietly dropped | `[x]` | R9-03 records the 1 s saving and the 201 s cost, and the revert | `80e6248` |
 
 ## E. Review and delivery
@@ -101,5 +101,5 @@ Two SHAs are used on purpose, and they mean different things:
 - **Manual required:** R9-B10 screen-reader validation — not performed, not claimed.
 - **Unreproduced, recorded not fixed:** R9-11, R9-20.
 
-`WORKING-HEAD` in the SHA column means the row was verified at the commit this
+`b687b86` in the SHA column means the row was verified at the commit this
 document is committed with; the commit message names it.

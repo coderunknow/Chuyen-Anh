@@ -5,7 +5,7 @@
 | Artefact | Path |
 |---|---|
 | Checklist (every requirement, status, evidence, SHA) | `audit-evidence/round9/CHECKLIST.md` |
-| Defect ledger (24 entries, classified) | `audit-evidence/round9/DEFECTS.md` |
+| Defect ledger (25 entries, classified) | `audit-evidence/round9/DEFECTS.md` |
 | Test integrity (21 mutations, changed expectations) | `audit-evidence/round9/TEST_INTEGRITY.md` |
 | Actions baseline (measured) | `audit-evidence/round9/actions/BASELINE.md` |
 | Actions optimization (measured, partly reverted) | `audit-evidence/round9/actions/OPTIMIZATION_REPORT.md` |
@@ -39,6 +39,7 @@
 | Deploy gates | both `deploy=false … held` (`DEPLOY_HOLD` = `v1.0.0-rc11`) |
 | Workflow YAML | **8/8 parse** |
 | Browser suites in CI | three engines × both suites, all passing at the final head `a82c3f7` — run `43402014715` (chromium 6 m 55 s, firefox 9 m 15 s, webkit 15 m 07 s, checks 1 m 26 s) |
+| Final head | `b687b86`, CI run `43434146112` 4/4 green (wall 13 m 55 s, runner-seconds 2 112 s) | n/a |
 | CodeRabbit | reviewed the code twice (12 comments, all disposed of). At `3ba0da6` its check is `skipped` with the reason *"manual review required for this OSS repository"* (a <10-star policy threshold, not quota) — see `CHECKLIST.md` R9-E1 |
 
 ## Not claimed

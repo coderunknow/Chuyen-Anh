@@ -20,10 +20,12 @@ Everything a follow-up session needs, in the order it would need it.
 | Browser suites, Chromium | both green, end to end | see "Running the browser suites locally" in `TEST_INTEGRITY.md` |
 | Browser suites, Firefox/WebKit | CI only, green at `3ba0da6` | run `43415336939` |
 
-## The last sha before this pass
+## Final head
 
-`3ba0da6` — green: `43415336939`, 4/4, wall 15 m 05 s, runner-seconds 2 062 s
-(chromium 421 s, firefox 603 s, webkit 905 s, checks 133 s).
+`b687b86` — green: `43434146112`, 4/4, wall 13 m 55 s, runner-seconds 2 112 s
+(chromium 494 s, firefox 639 s, webkit 834 s, checks 145 s). The previous head
+`24bfad5` went red on a stale generated artefact (R9-25), which is the one red
+run of this pass and is documented rather than hidden.
 
 ## Open items, in priority order
 
@@ -88,6 +90,7 @@ BROWSER_ENGINE=chromium BROWSER_EXECUTABLE=/tmp/chromium \
 | Run | Head | Result |
 |---|---|---|
 | `43431615451` | `24bfad5` | **`checks` FAILED** — `Stale: docs/exam-rendering-audit.json` (R9-25) |
+| **`43434146112`** | **`b687b86`** | **4/4 green**, wall 13 m 55 s, runner-seconds 2 112 s (chromium 494 s, firefox 639 s, webkit 834 s, checks 145 s) |
 | `43415336939` | `3ba0da6` | 4/4 green, wall 15 m 05 s, runner-seconds 2 062 s |
 
 R9-25 is the reason to run **the whole** `checks` step locally, not just the

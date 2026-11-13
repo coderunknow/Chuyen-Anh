@@ -1821,3 +1821,24 @@ check pass: only `rendererOutputBytes` changes, on 11 records; every total is
 byte-identical and every other field of every record is unchanged. The papers
 shrink by 2–84 bytes because the fix removes markup. `--check` passes, and all 21
 validator commands pass locally.
+
+### Round 9 — closing numbers at the final head
+
+| Check | Result | Evidence |
+|---|---|---|
+| CI at `b687b86` | **4/4 pass**, wall **13 m 55 s**, runner-seconds **2 112 s** | run `43434146112` (chromium 494 s, firefox 639 s, webkit 834 s, checks 145 s) |
+| `checks` job reproduced locally | **4/4 steps pass** | 21 validators, 285 Python, 8 Node files, telemetry — all run end to end here |
+| Browser suites, Chromium | both green locally, before and after the fixes | `browser-learning.cjs` 8 m 02 s, `browser-exams.cjs` 26 s |
+| Mutations | **21 (M1–M21)** | `TEST_INTEGRITY.md` |
+| Ledger | **25 entries** | `DEFECTS.md` |
+| PR #86 | open, non-draft, `MERGEABLE`, body rewritten for `b687b86` | — |
+
+One red run occurred in this pass (`43431615451`, `24bfad5`) and is recorded as
+R9-25 rather than erased: a generated artefact was not regenerated after the
+renderer fix, and CI's own `--check` guard caught it in 27 s. That guard working
+is the better outcome than the guard being absent.
+
+Still not claimed: fully audited, all bugs fixed, production-ready. Open on
+purpose: R9-B7b (186 asset digests), R9-C8 (failure-artefact upload), the
+screen-reader pass, R9-20 (webkit drift unexplained). Merging #84/#85/#86
+remains prohibited; no tag, release or deploy was performed.
