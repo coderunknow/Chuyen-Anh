@@ -547,6 +547,34 @@ Branch: `arena/34e7e96d-chuyen-anh`.
   could not fail for the reason it claimed (R9-19, R9-15, R9-24). The pattern is
   worth naming: a green test is only evidence once a mutation makes it red.
 
+### R9-25 — the CI gate caught a generated artefact this round forgot to regenerate
+
+- **Class:** process defect in this round's own work (caught by CI, not by the
+  author's checks).
+- **What happened:** the R9-21 fix changes the rendered HTML of 11 of the 106
+  papers, so `scripts/exams/audit_rendering.mjs --check` failed at run
+  `43431615451`: `Stale: docs/exam-rendering-audit.json`. The `checks` job went
+  red in 27 s, on the very first step.
+- **Why this is recorded rather than quietly fixed:** the round's local
+  verification did not run that command. The suite ran, the browser suites ran,
+  and the two Node test files ran — but the 21-command validator block was last
+  run *before* the renderer change, and its result was carried forward. **A green
+  result from before a change is not evidence about after it.** That is the same
+  class of mistake this round has been finding in other people's tests all day.
+- **Is the artefact update legitimate, or is the test wrong?** Checked rather than
+  assumed. Regenerating changes **only** `rendererOutputBytes` on 11 records; the
+  totals are byte-identical, and every other field of every record is unchanged
+  (`all other record fields identical: True`). Those 11 papers are exactly the
+  8-paper defect's neighbourhood plus the papers whose empty `<th …></th>` became
+  an empty `<td></td>`: the fix removes markup, so the output shrinks by 2–84
+  bytes. The generated file is meant to describe the shipped renderer, so it is
+  regenerated, not the check weakened.
+- **Fix:** `node scripts/exams/audit_rendering.mjs` regenerated
+  `docs/exam-rendering-audit.json`; `--check` now passes, and all 21 validator
+  commands pass locally.
+- **Regression guard:** the existing `--check` *is* the guard, and it worked. It
+  is in the `checks` job and therefore gates every PR that touches the renderer.
+
 ## Audited and found sound (no defect)
 
 Two areas were attacked and held:
@@ -578,6 +606,7 @@ Two areas were attacked and held:
 | Confirmed defect | 7 | R9-01, R9-02, R9-04, R9-07, R9-14, R9-21, R9-23 |
 | Confirmed defect (found in review) | 4 | R9-15, R9-16, R9-17, R9-18 |
 | Harness defect | 5 | R9-05, R9-06, R9-19, R9-22, R9-24 |
+| Process defect in this round | 1 | R9-25 |
 | Refuted hypothesis (reverted) | 1 | R9-03 |
 | Design limitation | 2 | R9-08, R9-09 |
 | External failure | 1 | R9-10 |

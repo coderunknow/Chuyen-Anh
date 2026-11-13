@@ -82,3 +82,14 @@ LD_LIBRARY_PATH=/tmp/al2023/lib \
 BROWSER_ENGINE=chromium BROWSER_EXECUTABLE=/tmp/chromium \
   bash tests/run-browser-suites.sh
 ```
+
+## CI run history at the final head
+
+| Run | Head | Result |
+|---|---|---|
+| `43431615451` | `24bfad5` | **`checks` FAILED** — `Stale: docs/exam-rendering-audit.json` (R9-25) |
+| `43415336939` | `3ba0da6` | 4/4 green, wall 15 m 05 s, runner-seconds 2 062 s |
+
+R9-25 is the reason to run **the whole** `checks` step locally, not just the
+suites: `node scripts/exams/audit_rendering.mjs --check` is a generated-artefact
+guard that any renderer change trips, and it is the first thing CI runs.

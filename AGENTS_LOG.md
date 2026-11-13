@@ -1802,3 +1802,22 @@ fixed, production-ready. The 186 external asset digests (R9-B7b), the CI failure
 upload path (R9-C8), the screen-reader pass, and WebKit's unexplained drift
 (R9-20) remain open on purpose, and the maintainer is asked whether the audit is
 accepted as it stands.
+
+### R9-25 — CI caught a generated artefact this round forgot to regenerate
+
+Run `43431615451` at `24bfad5` went red in 27 s on the *first* step:
+`Stale: docs/exam-rendering-audit.json`. The R9-21 fix removes markup from 11 of
+the 106 papers, so `scripts/exams/audit_rendering.mjs --check` — a
+generated-artefact guard — was right to fail.
+
+Recorded rather than quietly fixed, because the root cause is procedural: the
+21-command validator block was last run **before** the renderer change and its
+green result was carried forward. **A green result from before a change is not
+evidence about after it.** That is precisely the class of mistake this round spent
+a day finding in other people's tests (R9-19, R9-22, R9-24).
+
+The artefact was checked before being regenerated, not regenerated to make the
+check pass: only `rendererOutputBytes` changes, on 11 records; every total is
+byte-identical and every other field of every record is unchanged. The papers
+shrink by 2–84 bytes because the fix removes markup. `--check` passes, and all 21
+validator commands pass locally.
