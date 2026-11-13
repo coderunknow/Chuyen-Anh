@@ -1648,3 +1648,29 @@ is append-only; the correction is recorded here instead.
   inferred locally. Screen-reader validation remains
   `MANUAL_REQUIRED`. No merge, tag, release, prerelease, publication or deploy was
   performed; `DEPLOY_HOLD` still names `v1.0.0-rc11`.
+
+### Round 9 — review handling (appended after the code review)
+
+- **CodeRabbit's first status was `SKIPPED`, and the reason was read, not assumed:**
+  *"This repository does not receive automatic reviews because it has fewer than 10
+  stars"* — an OSS policy threshold, **not** quota exhaustion. Triggering it manually
+  (`@coderabbitai review`) ran a real review, twice: 8 comments at `b8f2c11`, 4 more
+  at `80e6248`. All 12 were accepted and fixed; dispositions in
+  `audit-evidence/round9/reviews/CODE_REVIEW_DISPOSITION.md`.
+- **Copilot, Codex, Kilo and Qodo all stated quota/billing limits in their own
+  output**, so they produced no findings. Kilo's `action_required` is explicitly not
+  treated as approval.
+- **Four of the 12 were defects in this round's own work.** The most serious: the
+  failure screenshot was captured in `main().catch`, i.e. *after* `finally` closed
+  the browser, so it could never have worked — it looked verified only because the
+  first stub's `close()` was a no-op. The same mistake appeared twice more (a
+  `freshWorld()` scenario closing its own browser first, and a tracking test that
+  counted a `let` declaration). All three are now guarded by mutations M10, M14 and
+  M15 that provably fail.
+- **Two claims were narrowed rather than repeated:** the 186 external asset digests
+  were never verified against their bytes (only format and uniqueness), and CI
+  failure capture plus artifact upload have not been observed on a failing run.
+- **No third review round was requested.** The round forbids repeated identical
+  review requests, and the post-review delta (two test files, evidence) is a strict
+  subset at the same design; `CODE_REVIEW_DISPOSITION.md` states exactly what was
+  reviewed.
