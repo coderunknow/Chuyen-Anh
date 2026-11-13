@@ -408,6 +408,20 @@ Branch: `arena/34e7e96d-chuyen-anh`.
 
 ---
 
+## Audited and found sound (no defect)
+
+Two areas were attacked and held:
+
+- **The deploy gate.** Nine crafted `DEPLOY_HOLD` files — empty, comment-only,
+  whitespace, `../../etc/passwd`, `v1.0.0; rm -rf /`, backticks, newline injection,
+  a 5,000-character tag, a Unicode line separator — all resolve to *held*. Only a
+  well-formed tag whose release is genuinely published opens it; a missing marker
+  deploys (correct) and an unreadable one holds (correct). Evidence:
+  `application/audit-probes.md`.
+- **Malformed scoring input.** Null, numeric, object, 30 kB garbage and 200 kB
+  string responses, an unknown question id and a `__proto__` key all score without
+  throwing, keep the percentage in range and cannot pollute `Object.prototype`.
+
 ## Summary
 
 | Class | Count | IDs |

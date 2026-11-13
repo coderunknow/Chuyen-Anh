@@ -20,6 +20,7 @@ Every probe below reports a real result. None of them are sketches.
 | Import XSS | A crafted backup smuggling `<img onerror>` / `<script>` through import into `innerHTML` | **Escaped**; `escapeHtml` covers `& < > " '` and every render path found interpolates through it |
 | Tombstone resurrection | A stale tab merging a deleted attempt back in | **Not resurrected** |
 | Clear-then-merge | A stale tab re-adding records after a Clear | **Not re-added**; `generation` incremented |
+| Deploy-gate bypass | A crafted `DEPLOY_HOLD` enabling a deploy: empty, comment-only, whitespace, `../../etc/passwd`, `v1.0.0; rm -rf /`, backticks, newline injection, a 5,000-character tag, a Unicode line separator | **All held.** Only a well-formed tag whose release is genuinely published opens the gate; a missing marker deploys (correct), an unreadable one holds (correct) |
 | Dirty-read after delete | A delete reported successful while a stale overwrite landed between write and read-back | Handled by the `generation` bump (round 8, PR #85) — verified still present |
 
 ## Probe sources
