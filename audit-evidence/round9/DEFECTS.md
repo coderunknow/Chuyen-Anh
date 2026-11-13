@@ -50,30 +50,35 @@ Branch: `arena/34e7e96d-chuyen-anh`.
   automatically rather than needing the test edited.
 - **Mutation proof:** removing the four lines (M4) → `FAILED (failures=2)`.
 
-## R9-03 — the browser matrix serialized both suites on the critical path
+## R9-03 — browser critical path: hypothesis tested, measured, and REVERTED
 
-- **Class:** confirmed defect (wall-clock; the workflow's whole latency).
+- **Class:** the planned optimization was **refuted by measurement**. What remains
+  is a confirmed *finding* about where the time goes, not a defect that was fixed.
 - **Where:** `.github/workflows/ci.yml` `browser` job; `tests/run-browser-suites.sh`.
-- **Reproduction:** `scripts/ci_run_summary.py 43342769617` → wall-clock 13 m 19 s,
-  critical path 13 m 16 s on `browser (webkit)`, whose single step (both suites)
-  took 747 s while `install` took 38 s.
-- **Root cause:** one job per engine ran `run-browser-suites.sh` with no argument,
-  which runs learning then exams sequentially — 2× the work on the critical path
-  for a suite that is two thirds of it.
-- **Impact:** every push waits ~13–17 minutes for verdicts that could arrive in
-  roughly the time of the longer single suite. It also means one slow suite delays
-  feedback on the other.
-- **Fix:** matrix on `(browser, suite)`; six jobs; the wrapper accepts an explicit
-  suite. `fail-fast: false` kept so no verdict is masked.
-- **Trade stated honestly:** total runner-seconds *rise* (six installs instead of
-  three). This buys latency with compute, and `OPTIMIZATION_REPORT.md` records it
-  as such rather than as a free win.
-- **Regression test:** `BrowserMatrixTests` (all three engines present; both
-  suites named; each job passes `matrix.suite.file`; `fail-fast: false` present)
-  and `test_the_runner_script_accepts_a_single_suite`.
-- **Mutation proof:** reverting the job to `bash tests/run-browser-suites.sh`
-  with no argument (M2) → `FAILED (failures=1)`; removing the argument handling
-  from the wrapper (M6) → `FAILED (failures=1)`.
+- **Baseline (measured):** `scripts/ci_run_summary.py 43342769617` → wall-clock
+  13 m 19 s, critical path 13 m 16 s on `browser (webkit)`, whose single step (both
+  suites) took 747 s while install took 38 s. The suite was split into a
+  six-job `(engine, suite)` matrix and pushed.
+- **Result of the experiment (run `43376379586`, measured):** wall-clock
+  **13 m 18 s** — a **1 s** saving — and runner-seconds **36 m 06 s → 39 m 27 s**,
+  a **+201 s (+9.3 %)** cost. Per-step data explains why: the exam suite is
+  **11/22/61 s** (chromium/firefox/webkit) while the learning suite is
+  **387/728/740 s**. The learning suite is 99 % of the webkit critical path, so
+  removing the exam suite from that job could not move the wall clock, and the
+  extra jobs each paid a browser install (webkit's install itself rose 38 s → 82 s
+  on the busier runner).
+- **Decision:** reverted to one job per engine running both suites, with the
+  measurement written into a comment beside the job and pinned by
+  `OptimizationRegressionTests`, so the "obvious win" cannot be re-implemented
+  without confronting the numbers.
+- **Kept from the experiment:** `run-browser-suites.sh` accepts explicit suite
+  paths (used for local reproduction, tested, and a bad path fails the job).
+- **Proof the guard works:** removing the recorded measurement (M9) →
+  `FAILED (failures=1)`; restored → `OK`.
+- **Recorded, not fixed (follow-up):** the real lever is inside
+  `browser-learning.cjs` — ~60 navigations of a 27 MB single-file page. Per-scenario
+  timings are not emitted yet, so where those 387–740 s go is **not** measured and
+  is not claimed.
 
 ## R9-04 — the failure screenshot artifact could never contain a screenshot
 
@@ -146,12 +151,12 @@ Branch: `arena/34e7e96d-chuyen-anh`.
 - **Where:** `audit/v100/FINAL_READINESS_CHECKLIST.md`,
   `CHANGELOG.md` (unreleased section).
 - **Reproduction:** `python3 -m unittest discover -s tests -p 'test_*.py'` →
-  **276**; both documents said **263**.
-- **Root cause:** the round added `tests/test_ci_workflow_integrity.py` (13 tests),
+  **284**; both documents said **263**.
+- **Root cause:** the round added `tests/test_ci_workflow_integrity.py` (21 tests),
   and the documents carry a hand-maintained total.
 - **Impact:** the published readiness claim understated the suite. Left alone, the
   repository's own count tests fail, which is the intended tripwire.
-- **Fix:** checklist row `263 → 276`, `PASS (268/268) → (281/281)` (276 unit + 5
+- **Fix:** checklist row `263 → 284`, `PASS (268/268) → (289/289)` (284 unit + 5
   archive), changelog `263 OK → 274 OK`. Totals verified against the counts the
   tests themselves compute, not typed optimistically.
 - **Regression test:** `test_ci_gate_coverage.py::test_the_python_total_in_the_report_matches_the_discovered_suite`
@@ -185,6 +190,87 @@ Branch: `arena/34e7e96d-chuyen-anh`.
   remove the line and the suite stayed green. That is recorded rather than hidden:
   a mutation that does not mutate looks exactly like a passing guard, and this
   entry only earns its proof because the mutation was re-run and confirmed.
+
+## R9-15 — the failure screenshot could never have worked on a real browser
+
+- **Class:** confirmed defect (in this round's own fix; found by CodeRabbit).
+- **Where:** `tests/browser-learning.cjs`, `tests/browser-exams.cjs` (first version).
+- **Reproduction:** run either suite with a stub whose `browser.close()` closes its
+  pages, as Playwright really does, and with `BROWSER_SCREENSHOT_DIR` set. The
+  capture runs in `main().catch`, which executes **after** `main`'s `finally`
+  block, so `browser.close()` has already closed every page:
+  `could not capture a failure screenshot: Target page, context or browser has been closed`
+  — and no file is written.
+- **Root cause:** ordering. `finally` runs before the promise rejection is handled
+  by `.catch`. The capture belongs inside `main()`, not after it.
+- **Impact:** the artifact this round introduced to make red CI runs debuggable
+  would have been empty exactly when needed. It *looked* verified because the first
+  stub's `close()` was a no-op — a stub that cannot fail.
+- **Fix:** a `captureFailureScreenshot()` helper plus a `catch` inside `main()`
+  before the `finally`, in both suites; `failedPage` tracks the page actually being
+  driven (initial, `freshWorld` tabs, `rc5`, exams `file://`), because
+  photographing the first page after a scenario opened its own is the same bug one
+  level down.
+- **Regression test:** `test_both_suites_capture_before_the_browser_is_closed`
+  (asserts the call site precedes `} finally {`, and that `main().catch` does not
+  capture) and `test_the_capture_tracks_the_page_of_the_failing_scenario`.
+- **Mutation proof:** M10 (restore the old ordering) → the realistic stub reports
+  the "browser has been closed" error and writes no file; M12 (move the exams
+  capture back outside `main()`) → `FAILED (errors=1)`. Restored → the PNGs are
+  written by both suites.
+
+## R9-16 — the CI summary script reported metrics for unfinished runs
+
+- **Class:** confirmed defect (measuring instrument; found by CodeRabbit, observed live).
+- **Where:** `scripts/ci_run_summary.py`.
+- **Reproduction:** run it against a run still in progress. `updated_at` is then
+  "last time GitHub touched the record", so it printed
+  `wall-clock 0m10s … critical path 7m04s`. This was seen for real during this
+  round (`run 43376379586` before it completed).
+- **Root cause:** no `status == "completed"` check; unfinished jobs were silently
+  excluded from the sum while the wall-clock came from a live timestamp. `--latest`
+  also took the newest run regardless of state.
+- **Impact:** the tool the optimization report depends on could produce a
+  flattering, meaningless number — the "never claim speed without measurement"
+  failure in its purest form.
+- **Fix:** final metrics only for a completed run; `--latest` selects the newest
+  **completed** run and errors if none exists in the last 20; incomplete runs print
+  that no totals are reported.
+- **Regression test:** `SummaryScriptTests` (three tests, including a completed
+  run that must still produce the real numbers).
+- **Mutation proof:** M11 (force `finished = True`) → `FAILED (failures=1)`.
+
+## R9-17 — the path-parity test could pass over unequal filters
+
+- **Class:** harness defect (found by CodeRabbit).
+- **Where:** `tests/test_ci_workflow_integrity.py::block()`.
+- **Reproduction:** a path listed only under `push`, with `push` written as an
+  explicit list. The helper's body ran from `pull_request:` straight through
+  `push:` because it stopped only at column 0, so both extracted sets contained
+  both triggers' paths and the parity assertion passed.
+- **Root cause:** trigger keys are indented two spaces; the bound was column 0.
+- **Impact:** the test I wrote to prevent filter drift was a no-op in precisely the
+  case it was written for.
+- **Fix:** `block()` ends at the next sibling key (indentation ≤ header); parity is
+  asserted in **both** directions, so extra paths in either trigger fail.
+- **Regression test:** `BlockExtractionTests` — a fixture with a path unique to
+  each trigger that fails if the helper ever over-reaches again.
+- **Mutation proof:** M13c (revert the helper bound) → `FAILED (failures=2)`.
+
+## R9-18 — the checklist overclaimed what the probes verified
+
+- **Class:** harness/documentation defect (found by CodeRabbit).
+- **Where:** `audit-evidence/round9/CHECKLIST.md`, `application/audit-probes.md`.
+- **Reproduction:** the asset row said "SHA-256 integrity … `[x]`" while the probe
+  only checked that 186 digests are 64-hex and distinct — which cannot detect an
+  asset whose bytes differ from its digest. Two automation rows also cited the base
+  commit `2f686f7`, whose CI had no browser job at all, so nothing there showed
+  those assertions passing.
+- **Impact:** evidence that overstates its own reach is worse than no evidence; it
+  is the exact failure mode this round exists to prevent.
+- **Fix:** a separate `R9-B7b` row marks the 186 external asset digests as **not
+  verified**; the two automation rows cite run `43376379586` at `b8f2c11`, where
+  all six engine-suite jobs passed; fixed rows cite the head SHA, not the base.
 
 ---
 
@@ -276,7 +362,9 @@ Branch: `arena/34e7e96d-chuyen-anh`.
 
 | Class | Count | IDs |
 |---|---:|---|
-| Confirmed defect | 6 | R9-01, R9-02, R9-03, R9-04, R9-07, R9-14 |
+| Confirmed defect | 5 | R9-01, R9-02, R9-04, R9-07, R9-14 |
+| Refuted hypothesis (reverted) | 1 | R9-03 |
+| Confirmed defect (found in review) | 4 | R9-15, R9-16, R9-17, R9-18 |
 | Harness defect | 2 | R9-05, R9-06 |
 | Design limitation | 2 | R9-08, R9-09 |
 | External failure | 1 | R9-10 |
@@ -284,5 +372,5 @@ Branch: `arena/34e7e96d-chuyen-anh`.
 | Accepted trade-off | 2 | R9-12, R9-13 |
 
 Every confirmed defect has a regression test that was **mutation-verified**: the
-fix was reverted and the test failed (eight mutations, M1–M8, all caught), then
+fix was reverted and the test failed (thirteen mutations, M1–M13c, all caught), then
 restored and passed. Details in `TEST_INTEGRITY.md`.

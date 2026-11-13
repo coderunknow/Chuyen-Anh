@@ -1605,8 +1605,17 @@ is append-only; the correction is recorded here instead.
     `push` carried a hand-copied 77-line duplicate that could drift.
   - `R9-02` — four workflow files (`exam-sources`, `exam-validation`,
     `pages-smoke`, `telemetry-smoke`) were covered by no CI trigger.
-  - `R9-03` — the browser matrix ran both suites sequentially in one job per
-    engine; the critical path was 13 m 16 s on `browser (webkit)`.
+  - `R9-03` — **the planned optimization was refuted by measurement.** The
+    browser matrix ran both suites sequentially in one job per engine (critical
+    path 13 m 16 s on `browser (webkit)`). Splitting it into a six-job
+    `(engine, suite)` matrix was implemented, pushed and measured in
+    `43376379586`: wall-clock **13 m 18 s** vs **13 m 19 s** (1 s saved) for
+    **+201 runner-seconds** (36 m 06 s → 39 m 27 s). Cause: the exam suite is
+    11/22/61 s while the learning suite is 387/728/740 s and is 99 % of the
+    critical path, and each extra job paid a browser install (webkit 38 s → 82 s).
+    **The split was reverted**, the measurement is recorded beside the job, and
+    `OptimizationRegressionTests` keeps it there. The real lever is inside
+    `browser-learning.cjs` (~60 navigations of a 27 MB page) and is a follow-up.
   - `R9-04` — the failure-screenshot artifact globbed `**/*.png` while nothing set
     `BROWSER_SCREENSHOT`, so it could only ever be empty.
   - `R9-07` — the readiness checklist and changelog stated `263` Python tests
@@ -1620,20 +1629,22 @@ is append-only; the correction is recorded here instead.
   green→red boundary); one unreproduced flake (`R9-11`); two accepted trade-offs
   (`R9-12`, `R9-13`). Full ledger: `audit-evidence/round9/DEFECTS.md`.
 - **Actions work:** baseline measured from the API (`actions/BASELINE.md`,
-  13 m 19 s, critical path 13 m 16 s). Optimization = one job per (engine, suite)
-  via a 6-job matrix, explicit suite argument in `run-browser-suites.sh`. The
-  after-value is **not claimed**: `OPTIMIZATION_REPORT.md` marks it `N/A` until a
-  real run of the new workflow exists. The trade (more runner-seconds for less
-  latency) is stated rather than hidden.
+  13 m 19 s, critical path 13 m 16 s). The optimization was measured on a real run
+  of the changed workflow (`43376379586`) and **reverted** because it saved 1 s and
+  cost 201 runner-seconds. The report states that plainly; net runtime effect of
+  this round is zero, and the gains are correctness, security and diagnostics.
 - **Security:** 7/7 action SHA pins re-resolved to their claimed tags; all 8
   workflows' `permissions` audited; 9/9 checkouts now opt out of credential
   persistence.
-- **Verification at this head:** Python `276 OK`, Node `302 pass / 0 fail`,
+- **Verification at this head:** Python `278 OK`, Node `302 pass / 0 fail`,
   archive `5 OK`, 21/21 validator commands, both gates `deploy=false … held`.
-  Eight mutations (M1–M8) each turned a guard red; all restored green. One
-  mutation initially did not mutate and was re-run — recorded, not hidden.
-- **Not done / not claimed:** the browser suites did not run in this sandbox (no
-  browser binaries, no CDN egress), so cross-engine behaviour is delegated to CI
-  and is not reported as passing here. Screen-reader validation remains
+  CI on head `b8f2c11` (run `43376379586`): **7/7 checks pass**, including all
+  three engines × both browser suites. Nine mutations (M1–M9) each turned a guard
+  red; all restored green. One mutation initially did not mutate and was re-run —
+  recorded, not hidden.
+- **Not done / not claimed:** the browser suites did not run in this *sandbox* (no
+  browser binaries, no CDN egress); they ran on real runners in `43376379586` and
+  passed on all three engines. Cross-engine results are reported from CI, never
+  inferred locally. Screen-reader validation remains
   `MANUAL_REQUIRED`. No merge, tag, release, prerelease, publication or deploy was
   performed; `DEPLOY_HOLD` still names `v1.0.0-rc11`.

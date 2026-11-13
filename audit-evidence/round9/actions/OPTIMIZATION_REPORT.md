@@ -1,106 +1,156 @@
 # GitHub Actions optimization — Round 9
 
-Measured baseline: `BASELINE.md` (run `43342769617`, log
-`logs/jobs-baseline-43342769617.json`). Measurement tool:
-`scripts/ci_run_summary.py` (new this round), so the "after" number is produced
-by exactly the same code that produced the "before" number.
+This report leads with the result because the result was not what was expected.
+The optimization was **tried, measured, and reverted**. The defects found on the
+way are kept and fixed.
 
-**Nothing in this report is a speed claim without a measurement.** Where the
-after-value could not yet be measured on a real run it is marked `N/A` with the
-reason, and the expected mechanism is described as a mechanism, not a result.
+Measured with `scripts/ci_run_summary.py` (new this round), so the before and after
+numbers come from the same code reading the same API.
 
-## What changed
+| Run | Head | Jobs | Wall-clock | Critical path | Runner-seconds |
+|---|---|---|---:|---:|---:|
+| `43342769617` | `2f686f7` | 4 | **13 m 19 s** | 13 m 16 s (`browser (webkit)`) | **36 m 06 s** |
+| `43376379586` | `b8f2c11` | 7 | **13 m 18 s** | 13 m 14 s (`browser (webkit / learning)`) | **39 m 27 s** |
 
-### 1. One job per (engine, suite) instead of one job per engine
+**The split saved 1 second and cost 201 runner-seconds.** It has been reverted.
 
-Before, each of three jobs ran **both** suites sequentially via
-`tests/run-browser-suites.sh` with no argument. The wrapper still defaults to
-sequential, but the job now passes exactly one suite file from the matrix, so
-`browser (webkit) / learning` and `browser (webkit) / exams` run on **separate
-runners at the same time**.
+## What was tried
 
-Per-engine suite split is only observable in the old run's totals (both suites
-were logged under one step); the step took 437 s (chromium), 730 s (firefox) and
-747 s (webkit). Summing is all we can say without the per-suite figures: the two
-suites together took that long, so moving one of them onto its own runner takes
-the critical path from `both` to `whichever is longer`. The measured after-value
-is the point of the first post-change run.
+The hypothesis, from the baseline: each browser job ran both suites sequentially,
+so one job per `(engine, suite)` would put the exam suite on its own runner and
+shorten the critical path. The plan was written into `BASELINE.md` as a
+*plan*, not a result, precisely so it could be tested rather than asserted.
 
-### 2. The `push` path filter is an alias again
+The change was implemented (six-job matrix, explicit suite argument), pushed, and
+run as `43376379586`. Two new jobs in the matrix were visible immediately:
 
-`paths: &ci-paths` was declared, then re-typed as 77 manual lines under `push:`
-(never as `*ci-paths`), so the anchor did nothing and the two lists could drift
-silently. `push` now uses `paths: *ci-paths`. This is a correctness fix, not a
-speed fix — it has no effect on runtime.
+```
+browser (chromium / exams)   pass   45s
+browser (firefox  / exams)   pass   50s
+```
 
-### 3. Four workflow files are now covered by a trigger
+That was the first sign the premise was wrong. The per-step timings settled it:
 
-`.github/workflows/{exam-sources,exam-validation,pages-smoke,telemetry-smoke}.yml`
-were covered by no CI trigger path: editing them ran nothing. That is a defect in
-both directions — it adds the runs that were missing (slightly more CI, which is
-the point) and removes the "edited a workflow, CI stayed green" gap.
+| Engine | Old: both suites, one step | New: learning step | New: exams step | Saved |
+|---|---:|---:|---:|---:|
+| chromium | 437 s | 387 s | **11 s** | 50 s |
+| firefox | 730 s | 728 s | **22 s** | 2 s |
+| webkit | 747 s | 740 s | **61 s** | **7 s** |
 
-### 4. Failure diagnostics are collected, not pretended
+The exam suite is **11–61 s**. The learning suite is **387–740 s** — it is *99 %*
+of the webkit critical-path step. Splitting off a 7-second tail from a 12-minute
+step cannot move the wall clock, and the wall clock is set by webkit, which was
+already the slowest job before the change.
 
-The screenshot artifact globbed `**/*.png` while nothing set `BROWSER_SCREENSHOT`,
-so it could only ever report *"no files found"*. Now the job exports
-`BROWSER_SCREENSHOT_DIR` to a scratch directory, both suites capture the live page
-in their failure handler, and the log is uploaded with `if: always()`.
+Meanwhile the split added three jobs, each paying its own browser install — and
+the webkit install itself went from **38 s to 82 s** on the busier runner:
 
-### 5. `run-browser-suites.sh` accepts explicit suites
+| Engine | Install before | Install after |
+|---|---:|---:|
+| chromium | 23 s | 24 s |
+| firefox | 16 s | 19 s |
+| webkit | 38 s | **82 s** |
 
-`bash tests/run-browser-suites.sh tests/browser-exams.cjs` runs one suite; no
-argument keeps the old sequential default. A suite path that does not exist is a
-hard failure, so a typo in a matrix value cannot silently run nothing.
+So the honest conclusion is the opposite of the plan: **the browser work is
+dominated by the learning suite's interaction time, and adding runners cannot
+divide it.** The correct lever would be inside `browser-learning.cjs` (it drives
+~60 page loads of a 27 MB single-file page), not in the workflow's job graph.
 
-## Before / after metrics
+## What was reverted, and what was kept
 
-| Metric | Before (measured) | After | Basis |
+**Reverted:** the `(engine, suite)` matrix. The job is again one per engine,
+running both suites sequentially — and now carries a comment recording the
+measurement so the "obvious win" is not re-implemented unmeasured.
+
+**Kept (all measured or mechanically verified, none of them speed claims):**
+
+1. **R9-01** — `push` uses `paths: *ci-paths` instead of a hand-copied 77-line
+   duplicate. Correctness, not speed.
+2. **R9-02** — all eight workflow files are now covered by a trigger. This
+   *adds* CI runs (that is the point: those files were unverified).
+3. **R9-04** — failure diagnostics collect real files. Verified end to end below.
+4. **R9-14** — the `deploy.yml` checkout no longer leaves the token in
+   `.git/config`.
+5. **`run-browser-suites.sh` accepts explicit suite paths.** Not used by CI now,
+   but it is how a developer reproduces one suite, it is covered by a test, and a
+   non-existent path fails the job instead of running nothing.
+
+Net effect on the workflow's runtime: **none, and that is the honest number.**
+The gains this round are correctness, security and diagnostics.
+
+## Measurement table (required format)
+
+| Metric | Before | After | Basis |
 |---|---|---|---|
-| Wall-clock, whole workflow | **13 m 19 s** (range over 6 runs: 13 m 19 s – 17 m 49 s) | `N/A` — not yet measured | Needs one post-change run; the report is updated with the real number, not an estimate |
-| Critical path (slowest job) | **13 m 16 s** (`browser (webkit)`) | `N/A` — not yet measured | Same |
-| Browser jobs | 3 | 6 | Counted in `ci.yml` |
-| Suites per browser job | 2 (sequential) | 1 | `ci.yml` passes `${{ matrix.suite.file }}` |
-| Browser runner-seconds (sum of job durations) | **2,026 s** | `N/A` — expected to *rise* | Splitting adds per-run install cost; this is a trade of total compute for latency |
-| Browser install time per job | 16–38 s | `N/A` — same steps per job | `npx playwright install --with-deps` per job, unchanged |
-| `checks` job | 2 m 20 s | `N/A` — unchanged by design | No step added; the new test file is inside the existing `unittest discover` |
-| Failure screenshot artifact | Always empty by construction | Real PNGs on failure | Verified locally (below) |
-| Failure log artifact | Only a 40-line `tail` in console | Full log uploaded on every outcome | `if: always()` |
-| Workflow files covered by a trigger | 4 of 8 | 8 of 8 | `tests/test_ci_workflow_integrity.py` |
-| Duplicated trigger path lines | 77 (drifted copy) | 0 (aliased) | Same test |
-| Billable minutes | not exposed | `N/A` | Public repository; the API reports no billing |
+| Wall-clock, whole workflow | 13 m 19 s | **13 m 18 s** | `ci_run_summary.py` on runs `43342769617` / `43376379586`; both real |
+| Critical path | 13 m 16 s (`browser (webkit)`) | **13 m 14 s** (`browser (webkit / learning)`) | same |
+| Browser jobs | 3 | 3 (was 6 mid-experiment, reverted) | `ci.yml` |
+| Suites per browser job | 2 | 2 | `ci.yml`; reverted to the measured-better shape |
+| Exam suite cost | unknown (bundled) | **11 / 22 / 61 s** per engine | per-step API data |
+| Learning suite cost | unknown (bundled) | **387 / 728 / 740 s** per engine | per-step API data |
+| Browser runner-seconds | 2 026 s | **2 367 s** (experiment) | measured; the experiment's extra cost |
+| Runner-seconds after revert | 2 026 s | **N/A** — not re-measured | would need another run; the job graph is back to the baseline shape plus the reverted changes' diagnostics, which add no steps to the suite run |
+| `checks` job | 2 m 20 s | **2 m 23 s** | +3 s from 13 new Python tests; unchanged steps |
+| Failure screenshot artifact | Always empty by construction | Real PNGs | Verified with a stub (below) |
+| Failure log artifact | 40-line console tail | Full log on every outcome | `if: always()` |
+| Workflow files covered by a trigger | 4 of 8 | **8 of 8** | `tests/test_ci_workflow_integrity.py` |
+| Duplicated trigger path lines | 77 | **0** | same |
+| Checkouts that persist the token | 1 (the one with `pages: write`) | **0** | `CheckoutCredentialTests` |
+| Billable minutes | not exposed | `N/A` | public repository; the API reports no billing |
 
-**The honest expectation**: wall-clock should drop toward the longer of the two
-suites per engine, and total runner-seconds should rise because six jobs each pay
-the browser-install cost. That is a latency/compute trade, and the report says so
-rather than pretending the split is free.
+## Why nothing else was "optimized"
 
-## How the rules of this round were kept
+- **No cache was added.** `checks` needs one Node setup (~5 s) and installs no
+  packages. The browser jobs' `npm install` of two packages is dwarfed by the
+  browser download, so a cache would add state to invalidate for no measured gain.
+  A cache introduced without a measurement is exactly the stale-cache-as-evidence
+  failure this round forbids.
+- **No Python setup was added to `checks`.** The job uses the runner's Python,
+  and the validator step is 24 s of a 143 s job.
+- **`npm ls`/lockfile pinning was left alone.** The install is
+  `--no-save --package-lock=false` on purpose: `playwright-core` and `axe-core`
+  must not become application dependencies.
+- **The 27 MB `index.html` was not split.** The single-file, `file://`-operable
+  design is asserted by the browser suites. It *is* the reason the learning suite
+  is slow, and that is recorded as R9-09 with the follow-up rather than "fixed"
+  by breaking a shipped requirement.
 
-- All three engines still run: `matrix.browser: [chromium, firefox, webkit]`.
-- Both suites still run, on every engine: `matrix.suite` names both files.
-- No `continue-on-error` anywhere; `fail-fast: false` was already present and is
-  required so one engine's failure cannot hide the other five verdicts.
-- No assertion was weakened. The two harness files that had to change are
-  documented in `DEFECTS.md` (`R9-06`, `R9-07`) with the reasoning.
-- No cache was added. The `checks` job takes ~5 s to set up Node and installs no
-  packages; the browser jobs' `npm install` of two packages is bounded by the
-  browser download, not the registry, so caching would add state to invalidate
-  for no measured gain. Adding a cache and calling it faster would be the
-  stale-cache-as-evidence failure this round forbids.
+## The real lever, for the next round
 
-## Local verification of the diagnostics path
+`browser-learning.cjs` performs ~60 navigations of a 27 MB document and takes
+387–740 s. A future round should measure where that time goes *inside* the suite
+(per-scenario timings are not currently emitted) before changing anything. That is
+a follow-up, not a claim.
 
-Run in the sandbox with a stubbed `playwright-core` that throws inside `goto`:
+## Verification of the diagnostics path
+
+Run in the sandbox with a stubbed `playwright-core` that throws inside `goto()`:
 
 ```
 $ BROWSER_SCREENSHOT_DIR=/tmp/shots  node tests/browser-learning.cjs
 Error: simulated navigation failure for the failure-capture test
-failure screenshot written to /tmp/shots            → learning-chromium-failure.png
-$ node tests/browser-learning.cjs                    → exit 1, no screenshot directory touched
+failure screenshot written to /tmp/shots      → learning-chromium-failure.png   (exit 1)
+
+$ node tests/browser-learning.cjs             → exit 1, no directory touch      (negative control)
+
 $ BROWSER_SCREENSHOT_DIR=/tmp/shots3 node tests/browser-exams.cjs
-failure screenshot written to /tmp/shots3           → exams-chromium-failure.png   (exit 1)
+failure screenshot written to /tmp/shots3     → exams-chromium-failure.png      (exit 1)
 ```
 
-The negative control matters: without `BROWSER_SCREENSHOT_DIR` the suite behaves
-exactly as before and writes nothing.
+In CI the same path is exercised by the export in the job, and the exams job's
+screenshot step reported `skipped` (nothing failed), which is the correct outcome
+for a passing run.
+
+## Actions security
+
+- All seven third-party actions are SHA-pinned and each pin was re-resolved
+  against its claimed tag through the GitHub API (7/7 match): `checkout v7.0.1`,
+  `setup-node v7.1.0`, `setup-python v7.0.0`, `upload-artifact v7.0.1`,
+  `upload-pages-artifact v5.0.0`, `deploy-pages v5.0.1`, `configure-pages v6.0.0`.
+- `permissions` audited in all eight workflows: every one declares a top-level
+  block (no inherited default). The only broad grant is `actions: write` in
+  `release-published-dispatch.yml`, which exists to POST `workflow_dispatch`; it
+  is recorded as an accepted trade-off (R9-12) with the reasoning, not silently
+  left.
+- Nine of nine checkouts set `persist-credentials: false` (R9-14 fixed the last).
+- No cache was introduced, so no cache-poisoning surface was added.

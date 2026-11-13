@@ -16,7 +16,7 @@ Every probe below reports a real result. None of them are sketches.
 | Over-credit | Any item earning more than 1.0, or `earnedPoints > denominator` | **0** |
 | All-correct ceiling | Answering every scorable item correctly and still not scoring 100 % | **0** |
 | Content integrity | `contentSha256` not matching the `markdown` it claims to protect | **106/106 match** |
-| Asset integrity | An asset with a malformed SHA-256, or two assets sharing one | **0** (186 assets, all 64-hex, all distinct) |
+| Asset digest *formatting* | An asset with a malformed SHA-256, or two assets sharing one | **0** (186 assets, all 64-hex, all distinct) |
 | Import XSS | A crafted backup smuggling `<img onerror>` / `<script>` through import into `innerHTML` | **Escaped**; `escapeHtml` covers `& < > " '` and every render path found interpolates through it |
 | Tombstone resurrection | A stale tab merging a deleted attempt back in | **Not resurrected** |
 | Clear-then-merge | A stale tab re-adding records after a Clear | **Not re-added**; `generation` incremented |
@@ -39,6 +39,12 @@ const app = await import(`data:text/javascript;base64,${Buffer.from(appSource).t
 
 - They do not validate the *pedagogical* correctness of any CEFR level against a
   dictionary. They only prove the app never invents, inherits or borrows one.
+- **The asset digests were not verified against the asset bytes.** They are
+  well-formed and unique, and the *paper* `contentSha256` was recomputed from the
+  embedded markdown (106/106 match), but the 186 PDF/source assets are external
+  downloads this sandbox cannot reach, so no digest was recomputed over their
+  contents. Any wording that called asset integrity "verified" was wrong and has
+  been narrowed to the check actually performed (CodeRabbit, PR #86).
 - They do not exercise the real browsers. Cross-engine behaviour is the browser
   matrix's job, and it is measured in CI, not here.
 - A zero-violation result is evidence about this dataset. It is not a proof that

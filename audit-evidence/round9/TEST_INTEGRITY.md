@@ -8,12 +8,12 @@ was run, and the failure was recorded. All reverts were restored and re-run gree
 
 | Suite | Command | Result |
 |---|---|---|
-| Python unit | `python3 -m unittest discover -s tests -p 'test_*.py'` | **276 OK** |
+| Python unit | `python3 -m unittest discover -s tests -p 'test_*.py'` | **284 OK** |
 | Node | `node --test tests/*.test.js` | **302 pass / 0 fail** |
 | Archive conversion | `python scripts/exams/test_archive.py` (with `scripts/exams/requirements.txt`) | **5 OK** |
 | Vocabulary + exam validators | the 21 commands in `ci.yml`'s "Check vocabulary sources and embedded HTML" | **all exit 0** |
 | Gates | `scripts/deploy_gate.py`, `scripts/app_release_gate.py` | both `deploy=false … held` (correct under `DEPLOY_HOLD`) |
-| Browser suites | `tests/run-browser-suites.sh` on 3 engines | **not run in this sandbox** — no browser binaries and no CDN egress; delegated to the CI matrix and reported as `N/A` here, never as a pass |
+| Browser suites | `tests/run-browser-suites.sh` on 3 engines | **not run in this sandbox**, but **run on real runners**: 6/6 engine-suite jobs passed in `43376379586` (chromium/learning 7 m 04 s, firefox/learning 12 m 37 s, webkit/learning 13 m 14 s) |
 
 Full transcripts: `audit-evidence/round9/application/local-verification.log`.
 
@@ -32,14 +32,35 @@ file was restored. "Caught by" names the test that failed.
 | M6 | Remove the `if [ "$#" -gt 0 ]` suite-argument handling from `run-browser-suites.sh` | `test_the_runner_script_accepts_a_single_suite` fails | `FAILED (failures=1)` |
 | M7 | Remove `- "DEPLOY_HOLD"` from the shared path filter | `test_every_paths_filter_mentions_the_hold_marker` fails | `FAILED (failures=2)` (one per workflow filter block) |
 | M8 | Delete `persist-credentials: false` from the `deploy.yml` checkout | `CheckoutCredentialTests` fails (2 tests) | `FAILED (failures=2)` |
+| M9 | Remove the recorded measurement from the browser job comment | `OptimizationRegressionTests` fails | `FAILED (failures=1)` |
+| M10 | Capture the screenshot from `main().catch` (after `finally` closed the browser) | a realistic stub shows the capture throwing | `could not capture a failure screenshot: Target page, context or browser has been closed` — **no file written**. Restored → the PNG is written |
+| M11 | Report final metrics for an unfinished run | `SummaryScriptTests` fails | `FAILED (failures=1)` |
+| M12 | Move the exams capture back outside `main()`'s try block | ordering test fails | `FAILED (errors=1)` |
+| M13c | Make `block()` stop only at column 0 | `BlockExtractionTests` fails (2 tests) | `FAILED (failures=2)` |
 
-After each restore: `Ran 13 tests … OK` / `Ran 28 tests … OK`.
+After each restore: `Ran 21 tests … OK` / `Ran 28 tests … OK`.
 
-**One mutation initially reported green.** The first M8 attempt edited the wrong
+**Two mutations initially reported green, and both were informative.** The first M8 attempt edited the wrong
 slice and removed nothing, so the suite passed — indistinguishable from a broken
 guard. It was re-run against a verified edit (`occurrences: 1` → `remaining: 0`)
 and then failed as expected. Recorded here because a mutation that does not mutate
 is the most dangerous kind of "proof".
+
+The second (M13) removed a one-way parity assertion and nothing failed — because the
+*bug that assertion was meant to catch* (an over-reaching `block()` helper) had
+already been fixed. Deleting a redundant check proves nothing, so the mutation was
+redone as M13c, reverting the helper itself, which the new fixture test catches.
+
+## The screenshot proof that was initially wrong
+
+The first version of the failure capture was verified with a stub whose
+`browser.close()` did nothing, so the capture "worked" in the sandbox while being
+guaranteed to fail on a real browser: Playwright closes pages on `browser.close()`,
+and the capture ran in `main().catch`, i.e. *after* the `finally` that closes it.
+CodeRabbit caught the ordering (PR #86); the stub was rebuilt to model the real
+lifecycle — a closed page's `screenshot()` throws — and the old arrangement was
+reproduced as failing (M10) before the new one was accepted. A stub that cannot
+fail is not evidence.
 
 ## Behavioural (not just static) proofs
 
@@ -77,15 +98,17 @@ requirement was preserved or strengthened. Full reasoning in `DEFECTS.md`
 | `test_static_checks_cover_the_release_and_gate_scripts` | the dispatcher path appears **twice** | appears **once**, and both triggers cover it (alias or both lists) | Yes — strengthened: it now fails if the path leaves the shared filter |
 | `paths_blocks()` helper | only recognised inline `- "…"` lists | also resolves `paths: *anchor` | Yes — it now checks the aliased filter it used to skip |
 
-Test-count documents were updated (`263 → 274`, `268 → 279`, changelog
-`263 OK → 274 OK`) because the suite genuinely grew by 11 tests; the repository's
-own count tests compute the number rather than trusting the document.
+Test-count documents were updated (`263 → 284`, `268 → 289`, changelog
+`263 OK → 284 OK`) because the suite genuinely grew by 21 tests; the repository's
+own count tests compute the number rather than trusting the document, which is how
+these rows were caught twice in one round.
 
 ## Tests NOT added, and why
 
-- **No browser assertion was added.** The suites cannot run here, so a new
-  browser test would be unverified at this head. The screenshot capture is the one
-  browser change, and it is proven with a stub plus a negative control.
+- **No browser assertion was added.** The suites cannot run in this sandbox, so a new
+  browser test would be unverified locally. The screenshot capture is the one
+  browser change; it is proven with a stub plus a negative control, and the suites
+  themselves were subsequently run green on all three engines by CI.
 - **No test asserts a wall-clock number.** Timing assertions are flaky by nature.
   The optimization is measured by `scripts/ci_run_summary.py` on real runs and
   reported in `OPTIMIZATION_REPORT.md`, with the after-value marked `N/A` until a

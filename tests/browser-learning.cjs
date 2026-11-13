@@ -30,6 +30,28 @@ async function launchSelectedBrowser() {
   return { browser, engineName };
 }
 
+
+// Failure capture, kept at module scope so it can be reached from inside `main()`
+// *before* the `finally` block tears the browser down. Capturing from
+// `main().catch` was wrong: `finally` runs first, `browser.close()` closes every
+// page, and the screenshot then throws - the artifact would be empty exactly when
+// it is needed (CodeRabbit, PR #86).
+let failedPage = null;
+
+async function captureFailureScreenshot() {
+  const dir = process.env.BROWSER_SCREENSHOT_DIR;
+  if (!dir || !failedPage) return;
+  try {
+    fs.mkdirSync(dir, { recursive: true });
+    const engine = (process.env.BROWSER_ENGINE || 'chromium').toLowerCase();
+    await failedPage.screenshot({ path: path.join(dir, `learning-${engine}-failure.png`), fullPage: true });
+    console.error(`failure screenshot written to ${dir}`);
+  } catch (shotError) {
+    // A screenshot that cannot be taken must never mask the real failure.
+    console.error(`could not capture a failure screenshot: ${shotError.message}`);
+  }
+}
+
 async function main() {
   const html = fs.readFileSync(path.join(__dirname, '../index.html'));
   const server = http.createServer((_req, res) => {
@@ -43,10 +65,9 @@ async function main() {
     browser = launched.browser;
     const engineLabel = launched.engineName;
     const page = await browser.newPage({ viewport: { width: 1280, height: 900 }, reducedMotion: 'reduce' });
-    // Published for the failure handler at the bottom of this file: a CI run that
-    // dies on an assertion should leave a picture of the page behind.
-    globalThis.__failurePage = page;
-    globalThis.__failureEngine = engineLabel;
+    // The page a failure should be photographed from. Scenarios that open their
+    // own browser (freshWorld) reassign this while they run.
+    failedPage = page;
     const errors = [];
     page.on('pageerror', error => errors.push(error.message));
     // This suite was written against the whole vocabulary bank and mostly drives
@@ -2282,6 +2303,8 @@ async function main() {
       const ownContext = await ownBrowser.newContext();
       const openTab = async () => {
         const page = await ownContext.newPage();
+        // The scenario's own tab is what a failure here should photograph.
+        failedPage = page;
         page.on('pageerror', error => ownErrors.push(error.message));
         await page.goto(origin);
         // The first navigation can settle a beat after goto resolves in this
@@ -3069,6 +3092,7 @@ async function main() {
     await browser.close();
     browser = (await launchSelectedBrowser()).browser;
     const rc5 = await browser.newPage({ viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' });
+    failedPage = rc5;
     const rc5Errors = [];
     rc5.on('pageerror', error => rc5Errors.push(error.message));
     await rc5.goto(`http://127.0.0.1:${server.address().port}`);
@@ -3206,27 +3230,17 @@ async function main() {
 
     assert.deepEqual(errors, []);
     console.log(`PASS: ${engineLabel} ${browser.version()} — first-look introduction for new words, same-part-of-speech distractors, cloze options absent from the sentence, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, 320/375/768px responsive layout, reduced-motion setting, search state across a favorite toggle, session clearing on reset/import, the ID 448 historical label, named option groups, shortcuts limited to the visible card, failed writes reported truthfully, JSON backup round-trips that keep every retained session, blank spelling submissions ignored, single-graded self-assessment, skip locked after a reveal, and 'Học cấp tốc' processing all ten requested words with a truthful single correction, automatic advance only after correct answers, accurate first-pass statistics, persisted progress, an immediate hand-off with the graded answer carried onto the next card, a queue that never shifts while another screen is open, and interface copy on a consolidation turn translated in the English interface; the beta5 priority configuration with all eight exercise types, a matching board driven from the keyboard, a skipped question reopened from the pending list, a hard word marked and unmarked, a real one-minute timed session that ends on its results with unanswered questions reported as blank, a v1 backup that keeps the device hard-word list, English rendering of every new screen, and the beta6 regressions: a priority session started from Settings opens where the learner can see it, a classic session reports only its own XP, a typed answer survives the star/flag toggles, a sprint honours the timer, a start that cannot run explains itself, a new session inherits no skipped questions, and the beta7 phrase bank: 1,094 phrases browsed, searched, filtered by type and level, practised for ten turns with typed and multiple-choice retrieval recorded in its own store while word progress stayed byte-identical, English rendering of the phrase screens, and a reset that clears phrase progress; the RC2 remediation regressions: two-tab grades surviving cross-tab writes with wipes never resurrected, an over-quota restore failing atomically with a truthful error then recovering fully once space is freed, the day streak moving only on first-pass correct answers — typed, chosen, self-assessed, and match resolutions alike — and skipped cards counted exactly once, at expiry and in a finished session; the curation release: an archived word marked in Tra cứu with no favourite toggle and a 1.271-row archived scope, every count driven by the 6,841-word focus deck, and an About panel stating the real version and the MIT licence read from LICENSE; the opt-in diagnostics log: off by default with no key on a device that never consented, a timestamped consent record, boot/settings/search events with no search text inside them, a downloaded report that names what it omits and carries no user agent, erasure on withdrawal; the rc7 answer-leakage regression: a gloss quoting its own headword is masked in the pre-answer prompt and printed in full only in feedback; no page errors.`);
+  } catch (error) {
+    // Capture first: the `finally` below closes the browser, and a closed browser
+    // cannot take a screenshot. Rethrowing keeps the exit code and the message.
+    await captureFailureScreenshot();
+    throw error;
   } finally {
     if (browser) await browser.close();
     await new Promise(resolve => server.close(resolve));
   }
 }
-main().catch(async error => {
+main().catch(error => {
   console.error(error);
-  // CI collects this directory on failure. Screenshotting the page that actually
-  // failed is the difference between "an assertion failed" and knowing what the
-  // learner was looking at; the suites used to stop at the console message.
-  const dir = process.env.BROWSER_SCREENSHOT_DIR;
-  const page = globalThis.__failurePage;
-  if (dir && page) {
-    try {
-      fs.mkdirSync(dir, { recursive: true });
-      const engine = (process.env.BROWSER_ENGINE || 'chromium').toLowerCase();
-      await page.screenshot({ path: path.join(dir, `learning-${engine}-failure.png`), fullPage: true });
-      console.error(`failure screenshot written to ${dir}`);
-    } catch (shotError) {
-      console.error(`could not capture a failure screenshot: ${shotError.message}`);
-    }
-  }
   process.exitCode = 1;
 });

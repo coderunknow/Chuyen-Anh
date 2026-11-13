@@ -6,8 +6,14 @@ Statuses: `[x]` done and verified · `[ ]` not done (reason given) ·
 Evidence column points at a file in this tree or a named command. Every row names
 the SHA it was verified at.
 
-Round head while auditing: `2f686f77e3103cbbbea15350a765021fc8283b28`
-(final verification SHA is recorded in `final/FINAL_STATE.md`).
+Two SHAs are used on purpose, and they mean different things:
+
+- `2f686f7…` — the **base** the audit started from. A row carrying it was verified
+  by inspection or measurement *of that base*, and the property still holds.
+- `b8f2c11…` — the **Round 9 head**, which contains the fixes. A row carrying it
+  describes a fix or a run that only exists at that head, so it can only be
+  reproduced there. Citing the base for a fixed property would be a false claim
+  (CodeRabbit, PR #86).
 
 ## A. Preflight
 
@@ -17,7 +23,7 @@ Round head while auditing: `2f686f77e3103cbbbea15350a765021fc8283b28`
 | R9-A2 | Confirm PR #85 state, head SHA, base, draft flag from live data (not the snapshot) | `[x]` | PR #85 OPEN, not draft, head `2f686f7`, base `arena/dedd1942-chuyen-anh` @ `e663295` | `2f686f7` |
 | R9-A3 | Confirm PR #84 untouched (Open / Draft / same SHA) | `[x]` | `e663295`, updatedAt unchanged | `e663295` |
 | R9-A4 | Confirm `DEPLOY_HOLD` and that no release/tag/deploy is triggered by this round | `[x]` | `DEPLOY_HOLD` = `v1.0.0-rc11`; both gates return `deploy=false … held` | `2f686f7` |
-| R9-A5 | Establish a measured Actions baseline from the API | `[x]` | `actions/BASELINE.md`, `actions/logs/jobs-baseline-43342769617.json` | `2f686f7` |
+| R9-A5 | Establish a measured Actions baseline from the API | `[x]` | `actions/BASELINE.md`, `actions/logs/jobs-baseline-43342769617.json` | `b8f2c11` |
 
 ## B. Application audit
 
@@ -29,11 +35,12 @@ Round head while auditing: `2f686f77e3103cbbbea15350a765021fc8283b28`
 | R9-B4 | All supported exam question types score correctly | `[x]` | 106 papers / 6,708 questions probed; bookkeeping 0 mismatches | `2f686f7` |
 | R9-B5 | Exemptions are never graded as normal questions | `[x]` | probe: 0 exempt items marked incorrect; 1,553 exemptions excluded from the denominator | `2f686f7` |
 | R9-B6 | Partial credit never over-credits and all-correct reaches 100 % | `[x]` | probe: 0 items > 1.0 credit, 0 all-correct-but-not-100 | `2f686f7` |
-| R9-B7 | SHA-256 integrity of the 106 papers and 186 assets | `[x]` | `contentSha256` matches markdown 106/106; 186 assets all 64-hex, distinct | `2f686f7` |
+| R9-B7 | SHA-256 integrity of the 106 papers | `[x]` | `contentSha256` recomputed from the embedded markdown: **106/106 match** | `2f686f7` |
+| R9-B7b | 186 downloaded asset digests match their contents | `[ ]` **not verified** | Only format and uniqueness were checked (all 64-hex, all distinct). Recomputing them needs the external files this sandbox cannot fetch. Reported as narrowing, never as verified | `b8f2c11` |
 | R9-B8 | Persistence: tombstones, generation, cross-tab merge, unreadable store | `[x]` | probes: no resurrection after delete, no re-add after Clear, `generation` bumps | `2f686f7` |
 | R9-B9 | Security/privacy: user-supplied backups cannot inject markup | `[x]` | probe: crafted `<img onerror>`/`<script>` escaped; import validated | `2f686f7` |
-| R9-B10 | Accessibility (WCAG AA, axe-core, keyboard) | `[x]` (automated) / `MANUAL_REQUIRED` (screen reader) | Existing axe-core RT-03 assertions remain in `browser-learning.cjs`; no screen-reader session was performed and none is claimed | `2f686f7` |
-| R9-B11 | UX / visual consistency across viewports and themes | `[x]` (automated) | 320/375/768/1024/1440 px and light/dark assertions remain in both suites | `2f686f7` |
+| R9-B10 | Accessibility (WCAG AA, axe-core, keyboard) | `[x]` (automated, **run**) / `MANUAL_REQUIRED` (screen reader) | The axe-core RT-03 assertions ran in CI — run `43376379586`, all six engine-suite jobs passed. No screen-reader session was performed and none is claimed | `b8f2c11` |
+| R9-B11 | UX / visual consistency across viewports and themes | `[x]` (automated, **run**) | 320/375/768/1024/1440 px and light/dark assertions passed in `43376379586` on all three engines | `b8f2c11` |
 
 ## C. Delivery infrastructure
 
@@ -41,13 +48,13 @@ Round head while auditing: `2f686f77e3103cbbbea15350a765021fc8283b28`
 |---|---|---|---|---|
 | R9-C1 | Third-party actions SHA-pinned and pins verified against the real tags | `[x]` | 7/7 pins resolved to their claimed tags via the GitHub API | `2f686f7` |
 | R9-C2 | Least-privilege `permissions` in every workflow | `[x]` | 8 workflows audited; `actions: write` in the dispatcher recorded as R9-12 (accepted trade-off, reasoned) | `2f686f7` |
-| R9-C3 | No credential persistence on checkout | `[x]` → fixed (R9-14) | `CheckoutCredentialTests`: 9/9 checkouts opt out; the publishing job was the missing one | `2f686f7` |
+| R9-C3 | No credential persistence on checkout | `[x]` → fixed (R9-14) | `CheckoutCredentialTests`: 9/9 checkouts opt out; the publishing job was the missing one | `b8f2c11` |
 | R9-C4 | No cache poisoning surface introduced | `[x]` | no cache added this round; reasoning in `actions/OPTIMIZATION_REPORT.md` | `2f686f7` |
-| R9-C5 | Every workflow file is covered by a CI trigger | `[x]` → fixed (R9-02) | `tests/test_ci_workflow_integrity.py::WorkflowFileCoverageTests` | `2f686f7` |
-| R9-C6 | Path filters cannot drift between triggers | `[x]` → fixed (R9-01) | `AnchorAliasTests`, mutation M1 | `2f686f7` |
-| R9-C7 | All three engines and both suites still gate | `[x]` → 6-job matrix | `BrowserMatrixTests` | `2f686f7` |
-| R9-C8 | Failure diagnostics actually collect something | `[x]` → fixed (R9-04) | stub run wrote real PNGs; `FailureArtifactTests` | `2f686f7` |
-| R9-C9 | Measure the optimization on a real run | `[ ]` | Cannot run until this branch is pushed and CI executes with the new workflow | — |
+| R9-C5 | Every workflow file is covered by a CI trigger | `[x]` → fixed (R9-02) | `tests/test_ci_workflow_integrity.py::WorkflowFileCoverageTests` | `b8f2c11` |
+| R9-C6 | Path filters cannot drift between triggers | `[x]` → fixed (R9-01) | `AnchorAliasTests`, mutation M1 | `b8f2c11` |
+| R9-C7 | All three engines and both suites still gate | `[x]` | `BrowserMatrixTests`: 3 engines, both suites, no `continue-on-error` | `b8f2c11` |
+| R9-C8 | Failure diagnostics actually collect something | `[x]` → fixed (R9-04) | stub run wrote real PNGs; `FailureArtifactTests`; the CI screenshot step correctly reports `skipped` on a passing run | `b8f2c11` |
+| R9-C9 | Measure the optimization on a real run | `[x]` | Run `43376379586`: 13 m 18 s vs 13 m 19 s, runner-seconds +201 s ⇒ **the split was reverted**; numbers in `actions/OPTIMIZATION_REPORT.md` | `b8f2c11` |
 | R9-C10 | Pages smoke fixed-delay re-examined | `[x]` | release path already waits on deployment status; R9-13 keeps the bounded sleep, reasoned | `2f686f7` |
 | R9-C11 | Telemetry smoke failure diagnosed (not guessed) | `[x]` (diagnosed as external) | R9-10: `api/`+`supabase/` unchanged across green→red; 503 is not a version error | `2f686f7` |
 | R9-C12 | Telemetry smoke green | `EXTERNALLY_BLOCKED` | No sandbox egress to `vercel.app`/`supabase.co`; changing repo code cannot fix an upstream/config outage | `2f686f7` |
@@ -59,10 +66,12 @@ Round head while auditing: `2f686f77e3103cbbbea15350a765021fc8283b28`
 | R9-D1 | Every confirmed defect has repro, cause, impact, fix, test, mutation proof | `[x]` | `DEFECTS.md` R9-01…R9-07; mutations M1–M7 in `TEST_INTEGRITY.md` | `2f686f7` |
 | R9-D2 | Defects classified distinctly (confirmed / potential / limitation / external / harness / flake / trade-off) | `[x]` | `DEFECTS.md` summary table, 13 entries across 6 classes | `2f686f7` |
 | R9-D3 | No existing test expectation changed merely to pass | `[x]` | 2 changed, both documented (R9-05, R9-06); one tightened, none deleted | `2f686f7` |
-| R9-D4 | Stale totals in the readiness documents corrected | `[x]` → fixed (R9-07) | 263→274, 268→279, changelog; verified by the repo's own count tests | `2f686f7` |
+| R9-D4 | Stale totals in the readiness documents corrected | `[x]` → fixed (R9-07) | 263→274, 268→279, changelog; verified by the repo's own count tests | `b8f2c11` |
 | R9-D5 | `AGENTS_LOG.md` append-only | `[x]` | round-9 entry appended; no history rewritten | `2f686f7` |
 | R9-D6 | No claim of "fully audited" / "all bugs fixed" / "production-ready" | `[x]` | wording reviewed across this tree | `2f686f7` |
-| R9-D7 | Full local suite green at this head | `[x]` | 276 Python OK, 302 Node, 5 archive, 21 validators, gates held | `2f686f7` |
+| R9-D7 | Full local suite green at this head | `[x]` | 284 Python OK, 302 Node, 5 archive, 21 validators, gates held | `b8f2c11` |
+| R9-D8 | CI green on the round-9 head | `[x]` | Run `43376379586`: 7/7 checks pass (`checks` 2 m 23 s, three engines × both suites) | `b8f2c11` |
+| R9-D9 | A refuted hypothesis is reported as refuted, not quietly dropped | `[x]` | R9-03 records the 1 s saving and the 201 s cost, and the revert | `b8f2c11` |
 
 ## E. Review and delivery
 
@@ -79,7 +88,6 @@ Round head while auditing: `2f686f77e3103cbbbea15350a765021fc8283b28`
 
 - **Verified at this head:** 27 items.
 - **Fixed this round (were failing):** R9-01, R9-02, R9-03, R9-04, R9-07, R9-14.
-- **Open with a reason:** R9-C9 (needs a real run), R9-E1–E2, E4, E6 (need the
-  final push and review cycle).
+- **Open with a reason:** R9-E1–E2, E4, E6 (need the final push and review cycle).
 - **Externally blocked:** R9-C12 (telemetry upstream).
 - **Manual required:** R9-B10 screen-reader validation — not performed, not claimed.

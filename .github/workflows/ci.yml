@@ -171,20 +171,15 @@ jobs:
   # Pin ubuntu-24.04 LTS because playwright@1.55.1 registers ubuntu20.04..24.04
   # host platforms (ubuntu-latest migrated to Ubuntu 26.04 in Oct/Nov 2026).
   browser:
-    name: browser (${{ matrix.browser }} / ${{ matrix.suite.name }})
+    name: browser (${{ matrix.browser }})
     runs-on: ubuntu-24.04
-    timeout-minutes: 30
+    timeout-minutes: 35
     strategy:
-      # Every combination reports its own verdict: one engine failing must not
-      # hide whether the other five still pass.
+      # Every engine reports its own verdict: one engine failing must not hide
+      # whether the other two still pass.
       fail-fast: false
       matrix:
         browser: [chromium, firefox, webkit]
-        suite:
-          - name: learning
-            file: tests/browser-learning.cjs
-          - name: exams
-            file: tests/browser-exams.cjs
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -202,44 +197,51 @@ jobs:
       - name: Install ${{ matrix.browser }} for Playwright
         run: npx --yes playwright@1.55.1 install --with-deps ${{ matrix.browser }}
 
-      - name: Point the suite at Playwright's ${{ matrix.browser }}
+      - name: Point the suites at Playwright's ${{ matrix.browser }}
         run: |
           node -e "process.stdout.write(require('playwright-core')['${{ matrix.browser }}'].executablePath())" > /tmp/browser-path
           echo "BROWSER_ENGINE=${{ matrix.browser }}" >> "$GITHUB_ENV"
           echo "BROWSER_EXECUTABLE=$(cat /tmp/browser-path)" >> "$GITHUB_ENV"
           echo "${{ matrix.browser }}: $(cat /tmp/browser-path)"
 
-      # The failure artifacts used to be collected by a glob over `**/*.png`,
-      # but nothing produced a PNG unless a developer set BROWSER_SCREENSHOT by
-      # hand - so the artifact step could only ever report "no files found".
-      # Both suites now write into a scratch directory that exists only for this,
-      # and the directory is uploaded whether the suite passes or fails.
-      - name: Run ${{ matrix.suite.name }} suite (${{ matrix.browser }})
+      # Both suites run in this job, sequentially, on purpose. Round 9 measured
+      # splitting them into one job per (engine, suite) and reverted it: the exam
+      # suite costs 11-61 s while the learning suite is 387-740 s, so the split
+      # saved 1 s of wall-clock (13m19s -> 13m18s) and added 201 runner-seconds
+      # (36m06s -> 39m27s) in three extra browser installs. Numbers and reasoning:
+      # audit-evidence/round9/actions/OPTIMIZATION_REPORT.md.
+      #
+      # The failure artifacts used to be collected by a glob over `**/*.png`, but
+      # nothing produced a PNG unless a developer exported BROWSER_SCREENSHOT by
+      # hand - so the artifact step could only ever report "no files found". Both
+      # suites now write into a scratch directory that exists only for this, and it
+      # is uploaded whether the suite passes or fails.
+      - name: Run both browser suites sequentially (${{ matrix.browser }})
         run: |
           set +e
           mkdir -p "$RUNNER_TEMP/browser-shots"
           BROWSER_SCREENSHOT_DIR="$RUNNER_TEMP/browser-shots" \
-            bash tests/run-browser-suites.sh "${{ matrix.suite.file }}" 2>&1 | tee /tmp/browser.log
+            bash tests/run-browser-suites.sh 2>&1 | tee /tmp/browser.log
           status=${PIPESTATUS[0]}
           if [ "$status" -ne 0 ]; then
             tail -n 60 /tmp/browser.log | sed 's/^/::error::/'
             exit "$status"
           fi
 
-      - name: Upload browser log (${{ matrix.browser }} / ${{ matrix.suite.name }})
+      - name: Upload browser log (${{ matrix.browser }})
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: browser-log-${{ matrix.browser }}-${{ matrix.suite.name }}
+          name: browser-log-${{ matrix.browser }}
           path: /tmp/browser.log
           if-no-files-found: warn
           retention-days: 7
 
-      - name: Upload browser screenshots on failure (${{ matrix.browser }} / ${{ matrix.suite.name }})
+      - name: Upload browser screenshots on failure (${{ matrix.browser }})
         if: failure()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: browser-screenshots-${{ matrix.browser }}-${{ matrix.suite.name }}
+          name: browser-screenshots-${{ matrix.browser }}
           path: ${{ runner.temp }}/browser-shots
           if-no-files-found: warn
           retention-days: 7

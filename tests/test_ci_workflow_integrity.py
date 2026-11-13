@@ -42,11 +42,23 @@ def uncommented(text: str) -> list[str]:
 
 
 def block(lines: list[str], header: str) -> list[str]:
-    """The indented body under a top-level key such as `  push:`."""
+    """The body under a trigger key such as `  push:`.
+
+    The body ends at the next *sibling* key - a non-blank line indented no deeper
+    than the header - not merely at the next unindented one. Trigger keys are
+    indented two spaces, so stopping only at column 0 ran one trigger's body into
+    the next one: a path list present under `push` alone then appeared in both
+    extracted sets and the parity test passed over unequal filters
+    (CodeRabbit, PR #86).
+    """
     start = next(index for index, line in enumerate(lines) if line == header)
+    indent = len(header) - len(header.lstrip(" "))
     body = []
     for line in lines[start + 1:]:
-        if line and not line.startswith(" "):
+        if not line.strip():
+            body.append(line)
+            continue
+        if (len(line) - len(line.lstrip(" "))) <= indent:
             break
         body.append(line)
     return body
@@ -90,8 +102,12 @@ class AnchorAliasTests(unittest.TestCase):
 
         pr_paths, push_paths = paths(pr), paths(push)
         self.assertGreater(len(pr_paths), 50, "the pull-request trigger must list its paths")
+        # Both directions: a one-way difference check accepts extra paths in the
+        # other trigger, which is the same drift in the other direction.
         self.assertEqual(sorted(pr_paths - push_paths), [],
                          "these paths trigger CI on a pull request but not on main")
+        self.assertEqual(sorted(push_paths - pr_paths), [],
+                         "these paths trigger CI on main but not on a pull request")
 
 
 class WorkflowFileCoverageTests(unittest.TestCase):
@@ -128,34 +144,63 @@ class BrowserMatrixTests(unittest.TestCase):
         for engine in ("chromium", "firefox", "webkit"):
             self.assertIn(engine, job, f"the browser matrix must keep {engine}")
 
-    def test_both_suites_are_named_as_matrix_values(self) -> None:
-        """One suite per job is the whole optimization: both files must stay in the matrix."""
+    def test_both_suites_are_named(self) -> None:
+        """Both suites must run on every engine; the wrapper names them by default."""
         job = self.browser_job()
+        script = (ROOT / "tests" / "run-browser-suites.sh").read_text(encoding="utf-8")
         for suite in ("tests/browser-learning.cjs", "tests/browser-exams.cjs"):
-            self.assertIn(suite, job, f"the browser matrix must run {suite}")
+            self.assertIn(suite, script,
+                          f"the default suite list must include {suite}")
+        self.assertIn("run-browser-suites.sh", job,
+                      "the browser job must run the wrapper that names both suites")
 
-    def test_a_job_runs_one_suite_not_both(self) -> None:
-        """`run-browser-suites.sh` with no argument runs both, sequentially.
-
-        That is the pre-Round-9 shape and it doubles the critical path. The job must
-        pass an explicit suite file, taken from the matrix.
-        """
+    def test_the_job_does_not_hide_a_failure(self) -> None:
         job = self.browser_job()
-        invocations = [line for line in job.splitlines()
-                       if "run-browser-suites.sh" in line and not line.lstrip().startswith("#")]
-        self.assertTrue(invocations, "the browser job must run tests/run-browser-suites.sh")
-        for line in invocations:
-            self.assertRegex(line, r"run-browser-suites\.sh\s+\"?\$\{\{\s*matrix\.suite\.file\s*\}\}",
-                             "the browser job must pass one suite from the matrix, not run both")
+        self.assertNotIn("continue-on-error", job,
+                         "a browser failure must fail the job, not be swallowed")
         self.assertIn("fail-fast: false", job,
                       "one engine failing must not cancel the others' verdicts")
 
     def test_the_runner_script_accepts_a_single_suite(self) -> None:
+        """The wrapper must stay usable for one suite even though CI runs both.
+
+        It is how a developer reproduces one failing suite, and the argument is
+        honoured rather than silently ignored.
+        """
         script = (ROOT / "tests" / "run-browser-suites.sh").read_text(encoding="utf-8")
         self.assertIn('if [ "$#" -gt 0 ]', script,
                       "run-browser-suites.sh must accept explicit suite paths")
         self.assertIn("no such browser suite", script,
-                      "a typo in a matrix value must fail the job instead of running nothing")
+                      "a suite path that does not exist must fail, not run nothing")
+
+
+class OptimizationRegressionTests(unittest.TestCase):
+    """Pin the Round-9 measurement so the split is not re-introduced unmeasured.
+
+    Splitting the browser job into one job per (engine, suite) was tried and
+    measured: it saved 1 s of wall-clock and cost 201 runner-seconds, because the
+    exam suite is 11-61 s of a 387-740 s step. A future change may revisit this,
+    but it must do so with a measurement, so this test requires the workflow to
+    carry the finding next to the job it governs.
+    """
+
+    def test_the_browser_job_records_why_it_runs_both_suites_in_one_job(self) -> None:
+        # Read the raw file, not the comment-stripped one: the requirement is that
+        # the measurement survives in a comment next to the job it governs.
+        raw = ci_text()
+        start = raw.index("  browser:\n")
+        end = raw.find("\n  ", start + len("  browser:\n"))
+        while end != -1 and not raw[end + 1:].startswith("  ") or (end != -1 and raw[end + 1:].startswith("   ")):
+            end = raw.find("\n  ", end + 1)
+        job = raw[start:]
+        self.assertIn("Round 9 measured", job,
+                      "keep the measured reason beside the job: without it the "
+                      "unmeasured split looks like an obvious win")
+
+    def test_both_suites_still_run_in_the_job(self) -> None:
+        job = BrowserMatrixTests().browser_job()
+        self.assertIn("bash tests/run-browser-suites.sh", job,
+                      "the job must invoke the wrapper with no suite argument, so both suites run")
 
 
 class FailureArtifactTests(unittest.TestCase):
@@ -166,17 +211,50 @@ class FailureArtifactTests(unittest.TestCase):
                             "the browser job must not glob **/*.png; nothing produces one")
         self.assertIn("browser-shots", job,
                       "the upload must name the scratch directory the suite writes into")
+        self.assertIn("mkdir -p", job,
+                      "the scratch directory must exist before the suite runs")
         self.assertIn("BROWSER_SCREENSHOT_DIR", job,
                       "the job must export BROWSER_SCREENSHOT_DIR for the suites")
 
-    def test_both_suites_honour_the_screenshot_directory_on_failure(self) -> None:
+    def test_both_suites_capture_before_the_browser_is_closed(self) -> None:
+        """The capture must run inside `main()`, before the `finally` cleanup.
+
+        Capturing from `main().catch` looked right and was useless: Playwright's
+        `browser.close()` closes every page, so the screenshot threw with "Target
+        page, context or browser has been closed" and the artifact stayed empty -
+        the exact failure the capture exists to prevent (CodeRabbit, PR #86).
+        Position is therefore part of the contract, not a style choice.
+        """
         for suite in ("browser-learning.cjs", "browser-exams.cjs"):
             source = (ROOT / "tests" / suite).read_text(encoding="utf-8")
             self.assertIn("BROWSER_SCREENSHOT_DIR", source,
                           f"{suite} must honour BROWSER_SCREENSHOT_DIR")
-            catch = source[source.rindex("main().catch"):]
-            self.assertIn("screenshot", catch,
-                          f"{suite} must capture a screenshot in its failure handler, not only on the happy path")
+            # The helper exists and is called from inside main's catch...
+            self.assertIn("async function captureFailureScreenshot()", source,
+                          f"{suite} must define the capture helper")
+            finally_at = source.rindex("} finally {")
+            body_start = source.index("async function main()")
+            catch_at = source.index("await captureFailureScreenshot();", body_start)
+            self.assertLess(catch_at, finally_at,
+                            f"{suite} must capture before the `finally` block that closes the browser")
+            # ...and the top-level handler must not try to capture after cleanup.
+            tail = source[source.rindex("main().catch"):]
+            self.assertNotIn("captureFailureScreenshot", tail,
+                             f"{suite} must not capture from main().catch: the browser is already closed there")
+
+    def test_the_capture_tracks_the_page_of_the_failing_scenario(self) -> None:
+        """Photographing the first page is wrong once a scenario opens its own.
+
+        `freshWorld()` scenarios and the exams `file://` check drive their own
+        page. A capture pointing at the initial page photographs a closed browser
+        and reports a screenshot error instead of the failure.
+        """
+        learning = (ROOT / "tests" / "browser-learning.cjs").read_text(encoding="utf-8")
+        exams = (ROOT / "tests" / "browser-exams.cjs").read_text(encoding="utf-8")
+        self.assertGreaterEqual(learning.count("failedPage = "), 3,
+                                "the learning suite must track its active page (initial, freshWorld tabs, rc5)")
+        self.assertGreaterEqual(exams.count("failedPage = "), 2,
+                                "the exams suite must track its active page (initial and file://)")
 
     def test_the_browser_log_is_uploaded_even_when_the_suite_fails(self) -> None:
         job = BrowserMatrixTests().browser_job()
@@ -237,6 +315,102 @@ class CheckoutCredentialTests(unittest.TestCase):
         for line_number, block in blocks:
             self.assertIn("persist-credentials: false", "\n".join(block),
                           f"deploy.yml:{line_number} publishes Pages but persists the token")
+
+
+class SummaryScriptTests(unittest.TestCase):
+    """`scripts/ci_run_summary.py` is the measuring instrument for the Actions work.
+
+    A measuring instrument that reports numbers for a run that has not finished is
+    worse than none: it produced a "0m10s wall-clock" beside a 7-minute job from
+    live data during this round (CodeRabbit, PR #86). Final metrics are only
+    reported for a completed run.
+    """
+
+    @staticmethod
+    def module():
+        import importlib.util
+        path = ROOT / "scripts" / "ci_run_summary.py"
+        spec = importlib.util.spec_from_file_location("ci_run_summary_under_test", path)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        return module
+
+    RUN = {
+        "id": 1, "head_sha": "a" * 40, "event": "pull_request",
+        "run_started_at": "2026-11-13T06:00:00Z",
+    }
+    JOBS = [{"name": "browser (webkit)", "conclusion": None,
+             "started_at": "2026-11-13T06:00:00Z", "completed_at": "2026-11-13T06:07:00Z"}]
+
+    def test_an_unfinished_run_reports_no_final_metrics(self) -> None:
+        summary = self.module().summarise_from(
+            dict(self.RUN, status="in_progress", conclusion=None, updated_at="2026-11-13T06:00:10Z"),
+            self.JOBS)
+        self.assertFalse(summary["complete"])
+        self.assertIsNone(summary["wall_clock_seconds"],
+                          "an unfinished run has no wall-clock; updated_at is not a finish time")
+        self.assertIsNone(summary["critical_path_seconds"])
+        self.assertIsNone(summary["sum_job_seconds"],
+                          "a partial sum over finished jobs is not a total")
+
+    def test_a_completed_run_reports_the_measured_metrics(self) -> None:
+        summary = self.module().summarise_from(
+            dict(self.RUN, status="completed", conclusion="success", updated_at="2026-11-13T06:13:19Z"),
+            self.JOBS)
+        self.assertTrue(summary["complete"])
+        self.assertEqual(summary["wall_clock_seconds"], 799)
+        self.assertEqual(summary["critical_path_seconds"], 420)
+        self.assertEqual(summary["sum_job_seconds"], 420)
+
+    def test_latest_never_selects_an_unfinished_run(self) -> None:
+        source = (ROOT / "scripts" / "ci_run_summary.py").read_text(encoding="utf-8")
+        self.assertIn('run.get("status") == "completed"', source,
+                      "--latest must filter for completed runs")
+
+
+class BlockExtractionTests(unittest.TestCase):
+    """`block()` must stop at the next sibling key, not at column 0.
+
+    Trigger keys are indented two spaces, so a column-0 bound ran one trigger's
+    body straight into the next. A path listed only under `push` then appeared in
+    both extracted sets, and the parity test passed over filters that genuinely
+    differed - the assertion was inverted into a no-op by its own helper
+    (CodeRabbit, PR #86).
+    """
+
+    SAMPLE = [
+        "on:",
+        "  pull_request:",
+        "    paths: &p",
+        '      - "a"',
+        "  push:",
+        "    branches: [main]",
+        "    paths: *p",
+        "concurrency:",
+        "  group: x",
+    ]
+
+    def test_the_body_stops_at_the_next_trigger(self) -> None:
+        lines = list(self.SAMPLE)
+        body = block(lines, "  pull_request:")
+        joined = "\n".join(body)
+        self.assertIn('- "a"', joined)
+        self.assertNotIn("paths: *p", joined,
+                         "the pull_request body must not swallow the push trigger")
+        self.assertNotIn("concurrency", joined)
+
+    def test_a_path_only_in_one_trigger_is_detected(self) -> None:
+        """The regression the helper bug hid: an unequal pair must not look equal."""
+        lines = [line.replace('    paths: *p', '    paths:\n      - "b"') for line in self.SAMPLE]
+        flat = []
+        for line in lines:
+            flat.extend(line.split("\n"))
+        pr = "\n".join(block(flat, "  pull_request:"))
+        push = "\n".join(block(flat, "  push:"))
+        self.assertIn('- "a"', pr)
+        self.assertNotIn('- "b"', pr)
+        self.assertIn('- "b"', push)
+        self.assertNotIn('- "a"', push)
 
 
 if __name__ == "__main__":

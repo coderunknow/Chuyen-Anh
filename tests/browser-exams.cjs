@@ -28,6 +28,25 @@ async function launchSelectedBrowser() {
   return { browser, engineName };
 }
 
+
+// Failure capture, reachable from inside `main()` before the `finally` closes the
+// browser. Capturing from `main().catch` ran *after* `browser.close()`, which
+// closes every page, so the screenshot always threw (CodeRabbit, PR #86).
+let failedPage = null;
+
+async function captureFailureScreenshot() {
+  const dir = process.env.BROWSER_SCREENSHOT_DIR;
+  if (!dir || !failedPage) return;
+  try {
+    fs.mkdirSync(dir, { recursive: true });
+    const engine = (process.env.BROWSER_ENGINE || 'chromium').toLowerCase();
+    await failedPage.screenshot({ path: path.join(dir, `exams-${engine}-failure.png`), fullPage: true });
+    console.error(`failure screenshot written to ${dir}`);
+  } catch (shotError) {
+    console.error(`could not capture a failure screenshot: ${shotError.message}`);
+  }
+}
+
 async function main() {
   const html = fs.readFileSync(path.join(__dirname, '../index.html'));
   const keyManifest = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/exam-answer-keys.json'), 'utf8'));
@@ -39,9 +58,9 @@ async function main() {
   try {
     ({ browser, engineName } = await launchSelectedBrowser());
     const page = await browser.newPage({ viewport: { width: 1280, height: 900 }, reducedMotion: 'reduce' });
-    // Published for the failure handler at the bottom of this file, so a red CI
-    // run leaves a picture of the page that failed instead of only a stack trace.
-    globalThis.__failurePage = page;
+    // The page a failure should be photographed from; the file:// scenario
+    // reassigns it below.
+    failedPage = page;
     await page.clock.setFixedTime(new Date('2026-10-29T12:00:00Z'));
     const errors = [], external = [];
     const origin = `http://127.0.0.1:${server.address().port}`;
@@ -247,6 +266,7 @@ async function main() {
     // Verify direct file:// standalone offline execution with NO HTTP server running.
     ({ browser, engineName } = await launchSelectedBrowser());
     const filePage = await browser.newPage({ viewport: { width: 1280, height: 900 }, reducedMotion: 'reduce' });
+    failedPage = filePage;
     const fileErrors = [];
     const fileExternal = [];
     filePage.on('pageerror', error => fileErrors.push(error.message));
@@ -264,27 +284,16 @@ async function main() {
     assert.deepEqual(fileErrors, [], 'no page error under file://');
 
     console.log(`PASS: ${engineName} ${browserVersion} — 106-record catalogue; scorable-only grading with per-paper coverage; 3 correct/3 incorrect deterministic summary; key hidden before submit; user correction recalculated and persisted; history reload/export/malformed import/valid import; operable session-focus control; HTML/OCR interactive with LOW/VERY_LOW warning; WCAG 2.1 AA axe clean; 2022/hai-phong/so angle-bracket escaped in live DOM; standalone file:// offline verified; VI/EN, Classic/Modern; 320/375/768/1024/1440px; no network or page errors.`);
+  } catch (error) {
+    // Capture before the `finally` below closes the browser.
+    await captureFailureScreenshot();
+    throw error;
   } finally {
     if (browser) await browser.close();
     if (!serverClosed) await new Promise(resolve => server.close(resolve));
   }
 }
-main().catch(async error => {
+main().catch(error => {
   console.error(error);
-  // Same contract as the learning suite: BROWSER_SCREENSHOT_DIR is a scratch
-  // directory the CI job uploads on failure, so the artifact step collects a real
-  // picture. Setting the variable is what opts in; local runs stay unchanged.
-  const dir = process.env.BROWSER_SCREENSHOT_DIR;
-  const page = globalThis.__failurePage;
-  if (dir && page) {
-    try {
-      fs.mkdirSync(dir, { recursive: true });
-      const engine = (process.env.BROWSER_ENGINE || 'chromium').toLowerCase();
-      await page.screenshot({ path: path.join(dir, `exams-${engine}-failure.png`), fullPage: true });
-      console.error(`failure screenshot written to ${dir}`);
-    } catch (shotError) {
-      console.error(`could not capture a failure screenshot: ${shotError.message}`);
-    }
-  }
   process.exitCode = 1;
 });

@@ -52,17 +52,28 @@ def resolve_run(explicit: str | None, latest: bool, workflow: str) -> str:
     if not latest:
         raise SystemExit("pass a run id, or --latest")
     runs = json.loads(gh([
-        "run", "list", "--workflow", workflow, "--limit", "1",
-        "--json", "databaseId",
+        "run", "list", "--workflow", workflow, "--limit", "20",
+        "--json", "databaseId,status",
     ]))
     if not runs:
         raise SystemExit(f"no runs found for workflow {workflow!r}")
-    return str(runs[0]["databaseId"])
+    # Prefer the newest *completed* run: measuring a run that is still in flight
+    # yields partial numbers, which is the mistake this script used to invite.
+    completed = [run for run in runs if run.get("status") == "completed"]
+    if not completed:
+        raise SystemExit(f"no completed run of {workflow!r} in the last 20; pass an explicit run id")
+    return str(completed[0]["databaseId"])
 
 
 def summarise_from(run: dict, jobs: list[dict]) -> dict:
+    # An unfinished run has no wall-clock: `updated_at` is then just "last time
+    # GitHub touched this record", and the jobs still running are excluded from
+    # every total. Reporting those numbers produced a "0m10s wall-clock" with a
+    # 7-minute critical path from live data (CodeRabbit, PR #86). Final metrics are
+    # only computed for a completed run; otherwise they are null.
+    finished = run.get("status") == "completed"
     started = parse(run.get("run_started_at") or run.get("created_at"))
-    completed = parse(run.get("updated_at"))
+    completed = parse(run.get("updated_at")) if finished else None
     wall = round((completed - started).total_seconds()) if started and completed else None
 
     rows = []
@@ -77,16 +88,19 @@ def summarise_from(run: dict, jobs: list[dict]) -> dict:
         })
 
     measured = [row["seconds"] for row in rows if row["seconds"] is not None]
-    slowest = max(rows, key=lambda r: r["seconds"] or 0) if rows else None
+    slowest = max(rows, key=lambda r: r["seconds"] or 0) if rows and finished else None
     return {
         "run_id": run.get("id"),
         "head_sha": run.get("head_sha"),
         "event": run.get("event"),
+        "status": run.get("status"),
         "conclusion": run.get("conclusion"),
+        "complete": finished,
         "wall_clock_seconds": wall,
         "critical_path_job": (slowest or {}).get("name"),
         "critical_path_seconds": (slowest or {}).get("seconds"),
-        "sum_job_seconds": sum(measured) if measured else None,
+        # A partial sum over finished jobs while others still run is not a total.
+        "sum_job_seconds": sum(measured) if finished and measured else None,
         "jobs": sorted(rows, key=lambda r: r["seconds"] or 0, reverse=True),
         # The API exposes no billing or cache-hit data for workflow runs, so these
         # stay null instead of being guessed.
@@ -116,6 +130,9 @@ def main(argv: list[str]) -> int:
         return "n/a" if seconds is None else f"{seconds // 60}m{seconds % 60:02d}s"
 
     print(f"run {summary['run_id']}  head {summary['head_sha']}  event {summary['event']}  {summary['conclusion']}")
+    if not summary["complete"]:
+        print(f"status {summary['status']}: this run has not finished, so no wall-clock, "
+              "critical path or runner-second total is reported")
     print(f"wall-clock          {clock(summary['wall_clock_seconds'])}")
     print(f"critical path       {clock(summary['critical_path_seconds'])}  ({summary['critical_path_job']})")
     print(f"runner-seconds sum  {clock(summary['sum_job_seconds'])}")
