@@ -64,8 +64,9 @@ authorization gate is untouched and still applies to a version without a suffix.
 - [x] No `v1.0.0-stable` declaration anywhere; `grep -r "v1.0.0-stable"` outside this report's own explanation returns nothing.
 - [x] Copilot's 10 review comments dispositioned; 5 code fixes, each mutation-checked.
 - [x] Local regression: Node **302/302**, Python **263 OK**, archive **5 OK**, `ci.yml` gates **21/21**, pages probe **PASS**.
-- [ ] Exact-final-SHA CI (checks, validate, chromium, firefox, webkit) — recorded below once the head is known.
-- [ ] Independent re-review of the RC11 commit — CodeRabbit was rate-limited on the previous request; a new request is made on the final SHA and the outcome recorded whatever it is.
+- [x] Exact-head CI at `fe6a081`: `checks`, `validate`, `browser (chromium|firefox|webkit)` all **pass**, plus both `probe` jobs.
+- [ ] Exact-head CI at `711257a` — **NOT fully green.** `checks`, `validate` and all three browser engines pass, but the **Telemetry endpoint smoke test** failed with **HTTP 503 `service-unavailable`**. That is an upstream outage/unconfiguration, **not** an RC11 rejection: the probe below shows `v1.0.0-rc11` is accepted (202) and a version problem is a **400**, so a 503 cannot come from the version string. The same job passed at `fe6a081` minutes earlier. **Externally blocked**; left unchecked.
+- [x] Independent review at the RC11 head: CodeRabbit completed on `fe6a081` (5 threads) and on `6db5ce3` (16 threads); all dispositioned. Intermediate SHAs were never reviewed and are not claimed as reviewed.
 - [ ] Screen-reader validation — **INCOMPLETE**, human work specified in `accessibility/EXAM_HISTORY_MANUAL_CHECKLIST.md`.
 
 ## 5. Commands executed (actual results)
@@ -112,3 +113,12 @@ authorization gate is untouched and still applies to a version without a suffix.
 in `DESIGN_LOG.md`/`AGENTS_LOG.md`, `tests/rc10-cefr.test.js`, the `rc10` fixture
 tags in `test_app_release_gate.py`/`test_stable_release_path.py`, and the published
 release/tag on GitHub. None were modified. RC10 remains a real, published prerelease.
+
+## 8. Open items at the time of writing
+
+| Item | State | Why |
+|---|---|---|
+| Telemetry endpoint smoke at `711257a` | **FAILED — blocked** | 503 `service-unavailable` from the deployed function; the retry primitive is unavailable (`gh run rerun` → "cannot be rerun"; `workflow_dispatch` → 403 for this integration). Proven not version-caused by `logs/telemetry-version-probe.log`. |
+| Kilo Code Review | unavailable | `ACTION_REQUIRED`, job fails in ~2 s. Never reviewed; not an approval. |
+| Screen-reader validation | **INCOMPLETE** | no real screen reader in this environment; human steps in `accessibility/EXAM_HISTORY_MANUAL_CHECKLIST.md`. |
+| `rc7` answer-leak test | unreproduced flake | failed once on the real dataset, passed in isolation and in three subsequent full runs; not attributed to this change. |

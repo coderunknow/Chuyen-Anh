@@ -1,0 +1,3 @@
+v1.0.0-rc11    -> 202 {"ok":true,"id":"row-1"}
+v1.0.0         -> 202 {"ok":true,"id":"row-1"}
+rc5            -> 400 {"ok":false,"error":"bad-app-version"}
