@@ -1,24 +1,24 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "generatedBy": "scripts/vocabulary_cefr_review.py",
   "policy": {
     "deletion": "none — this audit never removes, relabels or merges a row",
-    "cefr": "a level is read from the stored `level:` tag only; no level is inferred, invented or inflated",
-    "senseLevel": "a row is one headword with one stored gloss; where the gloss lists several senses the row is reported for review, never split or deleted",
+    "cefr": "legacy distribution reads `level:` tags; sense evidence reports stored sense claims separately",
+    "senseLevel": "sense arrays may split a row; this report counts their stored evidence claims without validating the mappings",
     "phrases": "a phrase is kept at its own stored level and is never judged by the level of its cheapest constituent word"
   },
   "totals": {
-    "rows": 7852,
-    "headwords": 7112,
+    "rows": 8852,
+    "headwords": 8112,
     "mergedFamilyForms": 740,
-    "activeHeadwords": 5841,
+    "activeHeadwords": 6841,
     "archivedHeadwords": 1271,
     "phrases": 1094
   },
-  "before": {
+  "currentLegacyTagDistribution": {
     "activeByLevel": {
-      "A1": 0,
-      "A2": 0,
+      "A1": 500,
+      "A2": 500,
       "B1": 757,
       "B2": 1714,
       "C1": 1638,
@@ -26,8 +26,8 @@
       "UNCLASSIFIED": 843
     },
     "allByLevel": {
-      "A1": 0,
-      "A2": 0,
+      "A1": 500,
+      "A2": 500,
       "B1": 1700,
       "B2": 2196,
       "C1": 2087,
@@ -44,50 +44,28 @@
       "UNCLASSIFIED": 0
     }
   },
-  "after": {
-    "note": "unchanged by design: the CEFR study filter is a view, not a migration",
-    "activeByLevel": {
-      "A1": 0,
-      "A2": 0,
-      "B1": 757,
-      "B2": 1714,
-      "C1": 1638,
-      "C2": 889,
-      "UNCLASSIFIED": 843
-    },
-    "allByLevel": {
-      "A1": 0,
-      "A2": 0,
-      "B1": 1700,
-      "B2": 2196,
-      "C1": 2087,
-      "C2": 956,
-      "UNCLASSIFIED": 913
-    },
-    "phraseByLevel": {
-      "A1": 0,
-      "A2": 0,
-      "B1": 387,
-      "B2": 324,
-      "C1": 304,
-      "C2": 79,
-      "UNCLASSIFIED": 0
-    }
-  },
-  "cefrEvidence": {
-    "Verified": 0,
-    "Source-supported": 0,
-    "Inferred": 3018,
-    "Unknown": 913,
-    "Other label source": 3921,
-    "totalRows": 7852,
+  "legacyTagEvidence": {
+    "totalRows": 8852,
     "labelSources": {
-      "none": 913,
+      "cefrj-vocabulary-profile-1.5": 2074,
       "editorial": 3018,
+      "none": 913,
+      "octanove-vocabulary-profile-1.0": 760,
       "oxford-3000-5000": 1979,
-      "cefrj-vocabulary-profile-1.5": 1182,
-      "octanove-vocabulary-profile-1.0": 760
-    }
+      "oxford-3000-wordlist": 108
+    },
+    "qualification": "stored legacy tags only; their source claims were not independently validated by this report"
+  },
+  "senseEvidence": {
+    "totalSenses": 8928,
+    "byClass": {
+      "cross_validated": 1670,
+      "disputed": 2238,
+      "editorial_estimate": 1846,
+      "source_supported": 3174
+    },
+    "needsIndependentValidation": 1945,
+    "qualification": "stored generator claims, not independently verified; an unset validation flag does not imply approval"
   },
   "quality": {
     "duplicateNormalizedHeadwords": [],
@@ -1834,6 +1812,131 @@
         "id": "3193",
         "word": "toll",
         "meaning": "số người chết; phí đường"
+      },
+      {
+        "id": "7854",
+        "word": "about",
+        "meaning": "xấp xỉ, khoảng; về"
+      },
+      {
+        "id": "7900",
+        "word": "bank",
+        "meaning": "ngân hàng; bờ sông"
+      },
+      {
+        "id": "7903",
+        "word": "bat",
+        "meaning": "con dơi; gậy bóng chày"
+      },
+      {
+        "id": "7926",
+        "word": "block",
+        "meaning": "tòa nhà; khối"
+      },
+      {
+        "id": "7988",
+        "word": "cool",
+        "meaning": "mát mẻ; ngầu"
+      },
+      {
+        "id": "8010",
+        "word": "dig",
+        "meaning": "cú huých; sự đào bới"
+      },
+      {
+        "id": "8023",
+        "word": "dream",
+        "meaning": "giấc mơ; mơ"
+      },
+      {
+        "id": "8106",
+        "word": "hard",
+        "meaning": "cứng; khó"
+      },
+      {
+        "id": "8110",
+        "word": "head",
+        "meaning": "cái đầu; người đứng đầu"
+      },
+      {
+        "id": "8114",
+        "word": "her",
+        "meaning": "cô ấy; của cô ấy"
+      },
+      {
+        "id": "8147",
+        "word": "just",
+        "meaning": "vừa mới; chỉ"
+      },
+      {
+        "id": "8175",
+        "word": "match",
+        "meaning": "que diêm; trận đấu"
+      },
+      {
+        "id": "8182",
+        "word": "miss",
+        "meaning": "nhớ; bỏ lỡ"
+      },
+      {
+        "id": "8244",
+        "word": "pound",
+        "meaning": "pao (đơn vị tiền/đo)"
+      },
+      {
+        "id": "8328",
+        "word": "too",
+        "meaning": "cũng; quá"
+      },
+      {
+        "id": "8382",
+        "word": "beat",
+        "meaning": "đánh bại; đập"
+      },
+      {
+        "id": "8416",
+        "word": "chip",
+        "meaning": "khoai tây chiên lát mỏng; linh kiện điện tử"
+      },
+      {
+        "id": "8640",
+        "word": "please",
+        "meaning": "làm hài lòng; xin vui lòng"
+      },
+      {
+        "id": "8662",
+        "word": "race",
+        "meaning": "cuộc đua; chủng tộc"
+      },
+      {
+        "id": "8677",
+        "word": "rock",
+        "meaning": "đá; thể loại nhạc phương Tây"
+      },
+      {
+        "id": "8731",
+        "word": "slide",
+        "meaning": "cầu trượt; bản chiếu"
+      },
+      {
+        "id": "8761",
+        "word": "strike",
+        "meaning": "cuộc đình công; cú đánh"
+      },
+      {
+        "id": "8809",
+        "word": "twin",
+        "meaning": "anh/chị em sinh đôi"
+      },
+      {
+        "id": "8825",
+        "word": "wave",
+        "meaning": "con sóng; cái vẫy tay"
+      },
+      {
+        "id": "8851",
+        "word": "yet",
+        "meaning": "chưa; tuy nhiên"
       }
     ],
     "glossContainsHeadword": [
@@ -1961,15 +2064,68 @@
         "id": "7639",
         "word": "cello",
         "meaning": "đàn cello"
+      },
+      {
+        "id": "8130",
+        "word": "I",
+        "meaning": "tôi"
       }
     ],
     "highLevelPhrasesWithOnlyLowLevelConstituents": [
+      {
+        "id": "P004",
+        "phrase": "carry out",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P006",
+        "phrase": "come up with",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1",
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
       {
         "id": "P007",
         "phrase": "come across",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P008",
+        "phrase": "come down to",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P009",
+        "phrase": "come down with",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P010",
+        "phrase": "come round",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1",
+          "A2"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -1978,7 +2134,27 @@
         "phrase": "come true",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P012",
+        "phrase": "do away with",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P013",
+        "phrase": "do up",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1",
+          "A2"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -1987,7 +2163,36 @@
         "phrase": "draw up",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A2",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P015",
+        "phrase": "drop out",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P016",
+        "phrase": "drop off",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P017",
+        "phrase": "end up",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1",
+          "A2"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -1996,7 +2201,99 @@
         "phrase": "fall behind",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P024",
+        "phrase": "get away with",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P025",
+        "phrase": "get by",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P026",
+        "phrase": "get over",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P028",
+        "phrase": "get through",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P029",
+        "phrase": "give in",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P030",
+        "phrase": "give off",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P031",
+        "phrase": "give out",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P032",
+        "phrase": "go through",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P034",
+        "phrase": "go off",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P041",
+        "phrase": "hold up",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1",
+          "A2"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -2005,6 +2302,7 @@
         "phrase": "keep up with",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A2",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2014,7 +2312,26 @@
         "phrase": "lay off",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P045",
+        "phrase": "leave out",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P046",
+        "phrase": "let down",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -2023,6 +2340,7 @@
         "phrase": "look into",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2041,6 +2359,8 @@
         "phrase": "look up to",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
+          "A2",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2050,6 +2370,7 @@
         "phrase": "look down on",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2059,6 +2380,7 @@
         "phrase": "make up",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A2",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2068,6 +2390,7 @@
         "phrase": "make up for",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A2",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2086,7 +2409,120 @@
         "phrase": "make off with",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P058",
+        "phrase": "put up with",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1",
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P059",
+        "phrase": "put forward",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1",
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P060",
+        "phrase": "put down",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P063",
+        "phrase": "run into",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1",
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P064",
+        "phrase": "run over",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P066",
+        "phrase": "set off",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1",
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P067",
+        "phrase": "set out",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P071",
+        "phrase": "sort out",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P072",
+        "phrase": "stand out",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P073",
+        "phrase": "stand for",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P074",
+        "phrase": "stand up for",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P075",
+        "phrase": "take after",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -2095,7 +2531,35 @@
         "phrase": "take apart",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P077",
+        "phrase": "take in",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P079",
+        "phrase": "take on",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P080",
+        "phrase": "take over",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -2113,6 +2577,7 @@
         "phrase": "turn to",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2122,6 +2587,7 @@
         "phrase": "turn up",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A2",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2131,6 +2597,7 @@
         "phrase": "turn into",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2140,6 +2607,7 @@
         "phrase": "bring about",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2149,6 +2617,7 @@
         "phrase": "bring up",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A2",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2158,7 +2627,108 @@
         "phrase": "bring in",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P091",
+        "phrase": "break down",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P093",
+        "phrase": "break up",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P094",
+        "phrase": "break into",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P095",
+        "phrase": "call off",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P096",
+        "phrase": "call for",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P097",
+        "phrase": "call on",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P099",
+        "phrase": "cut down on",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P100",
+        "phrase": "cut off",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P101",
+        "phrase": "cut out",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P104",
+        "phrase": "die out",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P105",
+        "phrase": "die down",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1",
+          "A2"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -2181,11 +2751,77 @@
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
       {
+        "id": "P109",
+        "phrase": "fit in",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1",
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
         "id": "P110",
         "phrase": "get across",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P111",
+        "phrase": "get around to",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P112",
+        "phrase": "get down to",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P113",
+        "phrase": "get on with",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P114",
+        "phrase": "go along with",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P115",
+        "phrase": "go for",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P116",
+        "phrase": "go without",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1",
+          "A2"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -2194,7 +2830,35 @@
         "phrase": "grow on",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P118",
+        "phrase": "head for",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P119",
+        "phrase": "hold back",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P120",
+        "phrase": "hold off",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -2203,6 +2867,7 @@
         "phrase": "keep away from",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2212,7 +2877,18 @@
         "phrase": "keep track of",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
+          "A2",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P123",
+        "phrase": "let off",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -2221,6 +2897,8 @@
         "phrase": "live up to",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
+          "A2",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2239,6 +2917,7 @@
         "phrase": "make do with",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2253,6 +2932,15 @@
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
       {
+        "id": "P128",
+        "phrase": "map out",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
         "id": "P131",
         "phrase": "point out",
         "phraseLevel": "B2",
@@ -2262,10 +2950,77 @@
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
       {
+        "id": "P132",
+        "phrase": "pull off",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1",
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P133",
+        "phrase": "pull out",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P134",
+        "phrase": "put through",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P135",
+        "phrase": "see through",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P136",
+        "phrase": "send off",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1",
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P137",
+        "phrase": "set about",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1",
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P138",
+        "phrase": "set against",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
         "id": "P139",
         "phrase": "shut down",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2275,7 +3030,37 @@
         "phrase": "sit in for",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P142",
+        "phrase": "stand by",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1",
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P143",
+        "phrase": "stand in",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1",
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P144",
+        "phrase": "take to",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -2302,7 +3087,45 @@
         "phrase": "turn against",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A2",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P149",
+        "phrase": "use up",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P151",
+        "phrase": "wear off",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P152",
+        "phrase": "wear out",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P157",
+        "phrase": "add up",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1",
+          "A2"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -2320,6 +3143,7 @@
         "phrase": "boil down to",
         "phraseLevel": "C2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2329,6 +3153,8 @@
         "phrase": "brush up on",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
+          "A2",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2338,7 +3164,18 @@
         "phrase": "build up",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A2",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P166",
+        "phrase": "count on",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1",
+          "A2"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -2347,7 +3184,55 @@
         "phrase": "draw on",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P169",
+        "phrase": "dwell on",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P171",
+        "phrase": "give rise to",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1",
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P173",
+        "phrase": "impose on",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P177",
+        "phrase": "single out",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P182",
+        "phrase": "touch on",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "A1",
+          "A2"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -2356,7 +3241,18 @@
         "phrase": "weigh up",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A2",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P186",
+        "phrase": "a drop in the ocean",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1",
+          "A2"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -2365,7 +3261,17 @@
         "phrase": "a grey area",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P190",
+        "phrase": "a hot potato",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -2374,6 +3280,8 @@
         "phrase": "a long shot",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
+          "A2",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2383,6 +3291,7 @@
         "phrase": "a turning point",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2392,7 +3301,36 @@
         "phrase": "above board",
         "phraseLevel": "C2",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P198",
+        "phrase": "against all odds",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1",
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P199",
+        "phrase": "all ears",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P200",
+        "phrase": "all in all",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -2401,6 +3339,7 @@
         "phrase": "all of a sudden",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2410,7 +3349,65 @@
         "phrase": "at a crossroads",
         "phraseLevel": "C2",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P204",
+        "phrase": "at all costs",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P207",
+        "phrase": "at the expense of",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P209",
+        "phrase": "back to square one",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1",
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P210",
+        "phrase": "beat about the bush",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1",
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P211",
+        "phrase": "behind the scenes",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P212",
+        "phrase": "bend the rules",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1",
+          "A2"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -2419,7 +3416,36 @@
         "phrase": "blow the whistle on",
         "phraseLevel": "C2",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P215",
+        "phrase": "break new ground",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P216",
+        "phrase": "break the ice",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P217",
+        "phrase": "burn the midnight oil",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1",
+          "A2"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -2428,7 +3454,26 @@
         "phrase": "by and large",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P219",
+        "phrase": "by leaps and bounds",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P220",
+        "phrase": "call it a day",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -2437,7 +3482,17 @@
         "phrase": "carry weight",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P223",
+        "phrase": "come to terms with",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -2446,6 +3501,7 @@
         "phrase": "down to earth",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2455,7 +3511,37 @@
         "phrase": "draw the line",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P228",
+        "phrase": "drop the ball",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P229",
+        "phrase": "easier said than done",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1",
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P230",
+        "phrase": "every cloud has a silver lining",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1",
+          "A2"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -2464,7 +3550,18 @@
         "phrase": "face the music",
         "phraseLevel": "C2",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P232",
+        "phrase": "fair and square",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1",
+          "A2"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -2473,7 +3570,28 @@
         "phrase": "fall on deaf ears",
         "phraseLevel": "C2",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P234",
+        "phrase": "far from it",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1",
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P235",
+        "phrase": "few and far between",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1",
+          "A2"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -2482,7 +3600,18 @@
         "phrase": "follow suit",
         "phraseLevel": "C2",
         "constituentLevels": [
+          "A2",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P238",
+        "phrase": "for the sake of",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1",
+          "A2"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -2491,7 +3620,17 @@
         "phrase": "get the hang of",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P240",
+        "phrase": "get to grips with",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -2500,7 +3639,64 @@
         "phrase": "give someone the benefit of the doubt",
         "phraseLevel": "C2",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P242",
+        "phrase": "go hand in hand",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P243",
+        "phrase": "go the extra mile",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1",
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P244",
+        "phrase": "go to great lengths",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P245",
+        "phrase": "grease the wheels",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P246",
+        "phrase": "have a say in",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P247",
+        "phrase": "have second thoughts",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1",
+          "A2"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -2509,6 +3705,8 @@
         "phrase": "hit the nail on the head",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
+          "A2",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2518,7 +3716,46 @@
         "phrase": "in the long run",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
+          "A2",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P251",
+        "phrase": "in the same boat",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P252",
+        "phrase": "in the wake of",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P253",
+        "phrase": "it goes without saying",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1",
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P254",
+        "phrase": "jump on the bandwagon",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -2527,6 +3764,7 @@
         "phrase": "keep an eye on",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2536,7 +3774,18 @@
         "phrase": "know the ropes",
         "phraseLevel": "C2",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P259",
+        "phrase": "last but not least",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1",
+          "A2"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -2545,7 +3794,27 @@
         "phrase": "learn the hard way",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P261",
+        "phrase": "leave no stone unturned",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "A1",
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P262",
+        "phrase": "let the cat out of the bag",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -2563,6 +3832,8 @@
         "phrase": "lose track of",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
+          "A2",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2581,6 +3852,7 @@
         "phrase": "make the most of",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2595,11 +3867,68 @@
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
       {
+        "id": "P269",
+        "phrase": "miss the boat",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P270",
+        "phrase": "no sooner said than done",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "A1",
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P272",
+        "phrase": "off the beaten track",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1",
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P273",
+        "phrase": "on a par with",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
         "id": "P275",
         "phrase": "on the fence",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P278",
+        "phrase": "once and for all",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P279",
+        "phrase": "out of the blue",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -2608,6 +3937,7 @@
         "phrase": "out of the question",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2617,6 +3947,7 @@
         "phrase": "pay the price",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2626,6 +3957,7 @@
         "phrase": "play it safe",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2635,7 +3967,17 @@
         "phrase": "pull one's weight",
         "phraseLevel": "C2",
         "constituentLevels": [
+          "A2",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P284",
+        "phrase": "put one's foot down",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -2644,6 +3986,7 @@
         "phrase": "put oneself in someone's shoes",
         "phraseLevel": "C2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2653,6 +3996,7 @@
         "phrase": "red tape",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A2",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2662,7 +4006,18 @@
         "phrase": "rise to the occasion",
         "phraseLevel": "C2",
         "constituentLevels": [
+          "A1",
+          "A2",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P290",
+        "phrase": "see eye to eye",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -2671,6 +4026,7 @@
         "phrase": "sit on the fence",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2685,10 +4041,48 @@
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
       {
+        "id": "P294",
+        "phrase": "stand one's ground",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1",
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P295",
+        "phrase": "stay tuned",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P297",
+        "phrase": "take for granted",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P298",
+        "phrase": "take into account",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
         "id": "P300",
         "phrase": "take one's time",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2698,6 +4092,7 @@
         "phrase": "the bottom line",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2707,7 +4102,46 @@
         "phrase": "throw light on",
         "phraseLevel": "C2",
         "constituentLevels": [
+          "A1",
+          "A2",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P306",
+        "phrase": "to some extent",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P307",
+        "phrase": "to that end",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P308",
+        "phrase": "under way",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P309",
+        "phrase": "up in the air",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1",
+          "A2"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -2716,6 +4150,7 @@
         "phrase": "walk on eggshells",
         "phraseLevel": "C2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2725,6 +4160,7 @@
         "phrase": "water under the bridge",
         "phraseLevel": "C2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2734,6 +4170,7 @@
         "phrase": "weigh the pros and cons",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2743,6 +4180,8 @@
         "phrase": "without a doubt",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
+          "A2",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2752,7 +4191,17 @@
         "phrase": "worth one's while",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A2",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P319",
+        "phrase": "take a decision",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -2761,6 +4210,7 @@
         "phrase": "make a difference",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2770,6 +4220,7 @@
         "phrase": "make a contribution",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2779,6 +4230,7 @@
         "phrase": "make a commitment",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2788,6 +4240,7 @@
         "phrase": "make a living",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2802,11 +4255,66 @@
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
       {
+        "id": "P330",
+        "phrase": "take responsibility",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P332",
+        "phrase": "take into consideration",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P336",
+        "phrase": "take steps",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P337",
+        "phrase": "take measures",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
         "id": "P339",
         "phrase": "pay a visit",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P341",
+        "phrase": "pay the consequences",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P342",
+        "phrase": "have an impact on",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -2815,7 +4323,36 @@
         "phrase": "have access to",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P344",
+        "phrase": "have a tendency to",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P345",
+        "phrase": "have difficulty in",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P347",
+        "phrase": "have second thoughts about",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1",
+          "A2"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -2824,7 +4361,17 @@
         "phrase": "have no choice but to",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P351",
+        "phrase": "do justice to",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -2833,6 +4380,7 @@
         "phrase": "do business with",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2842,7 +4390,27 @@
         "phrase": "do damage to",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P358",
+        "phrase": "do the washing-up",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1",
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P360",
+        "phrase": "carry out a survey",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -2851,6 +4419,7 @@
         "phrase": "carry a risk",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2860,6 +4429,7 @@
         "phrase": "play a part in",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2887,6 +4457,7 @@
         "phrase": "play down",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2896,6 +4467,7 @@
         "phrase": "draw a conclusion",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2905,6 +4477,7 @@
         "phrase": "draw attention to",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2914,6 +4487,7 @@
         "phrase": "draw a distinction",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2923,6 +4497,7 @@
         "phrase": "draw a comparison",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2932,6 +4507,7 @@
         "phrase": "achieve a balance",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2941,6 +4517,7 @@
         "phrase": "meet a demand",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2950,6 +4527,7 @@
         "phrase": "meet a requirement",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2968,6 +4546,7 @@
         "phrase": "meet a challenge",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2986,6 +4565,7 @@
         "phrase": "address an issue",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -2995,6 +4575,7 @@
         "phrase": "address a problem",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -3013,6 +4594,7 @@
         "phrase": "implement a policy",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -3022,7 +4604,27 @@
         "phrase": "adopt a policy",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P404",
+        "phrase": "enforce a law",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1",
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P407",
+        "phrase": "conduct a survey",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -3031,6 +4633,7 @@
         "phrase": "conduct a study",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -3040,7 +4643,17 @@
         "phrase": "challenge a claim",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P417",
+        "phrase": "voice concerns",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A2"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -3054,10 +4667,20 @@
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
       {
+        "id": "P421",
+        "phrase": "establish a reputation",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
         "id": "P422",
         "phrase": "maintain a balance",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -3067,6 +4690,8 @@
         "phrase": "strike a balance",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
+          "A2",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -3108,6 +4733,15 @@
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
       {
+        "id": "P445",
+        "phrase": "boost the economy",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
         "id": "P449",
         "phrase": "attract investment",
         "phraseLevel": "B2",
@@ -3121,6 +4755,8 @@
         "phrase": "suffer from stress",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
+          "A2",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -3130,6 +4766,7 @@
         "phrase": "treat a patient",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -3139,7 +4776,46 @@
         "phrase": "balance work and life",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P460",
+        "phrase": "work under pressure",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P462",
+        "phrase": "hold a position",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1",
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P463",
+        "phrase": "hold a meeting",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P464",
+        "phrase": "hold a conference",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1",
+          "A2"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -3148,6 +4824,7 @@
         "phrase": "drop a subject",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -3157,6 +4834,8 @@
         "phrase": "keep up with the class",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
+          "A2",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -3166,6 +4845,8 @@
         "phrase": "on a large scale",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
+          "A2",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -3175,7 +4856,27 @@
         "phrase": "on a global scale",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
+          "A2",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P481",
+        "phrase": "to a great extent",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P483",
+        "phrase": "in terms of",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -3184,7 +4885,17 @@
         "phrase": "in relation to",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P486",
+        "phrase": "in response to",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -3193,7 +4904,26 @@
         "phrase": "in contrast to",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P488",
+        "phrase": "in comparison with",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P490",
+        "phrase": "as a consequence of",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -3202,7 +4932,17 @@
         "phrase": "by contrast",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P493",
+        "phrase": "by comparison",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -3211,6 +4951,7 @@
         "phrase": "in addition to",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -3220,7 +4961,17 @@
         "phrase": "apart from",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P497",
+        "phrase": "as opposed to",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -3229,7 +4980,35 @@
         "phrase": "in favour of",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P500",
+        "phrase": "regardless of",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P501",
+        "phrase": "owing to",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P502",
+        "phrase": "due to",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -3238,6 +5017,7 @@
         "phrase": "in light of",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -3247,7 +5027,44 @@
         "phrase": "with respect to",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P509",
+        "phrase": "subsequent to",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P510",
+        "phrase": "rely on",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P512",
+        "phrase": "concentrate on",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P515",
+        "phrase": "succeed in",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -3256,6 +5073,7 @@
         "phrase": "result in",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -3265,7 +5083,80 @@
         "phrase": "result from",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P520",
+        "phrase": "contribute to",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P526",
+        "phrase": "approve of",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P527",
+        "phrase": "disapprove of",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P528",
+        "phrase": "capable of",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P529",
+        "phrase": "aware of",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P530",
+        "phrase": "conscious of",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P531",
+        "phrase": "cautious of",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P532",
+        "phrase": "suspicious of",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -3274,7 +5165,62 @@
         "phrase": "keen on",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P537",
+        "phrase": "concerned about",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P538",
+        "phrase": "anxious about",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P540",
+        "phrase": "enthusiastic about",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P541",
+        "phrase": "optimistic about",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P542",
+        "phrase": "pessimistic about",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P543",
+        "phrase": "doubtful about",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -3283,7 +5229,17 @@
         "phrase": "confident of",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P546",
+        "phrase": "guilty of",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -3292,7 +5248,17 @@
         "phrase": "innocent of",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P551",
+        "phrase": "independent of",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -3301,6 +5267,7 @@
         "phrase": "in need of",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -3310,6 +5277,7 @@
         "phrase": "in danger of",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -3319,6 +5287,7 @@
         "phrase": "on the basis of",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -3328,6 +5297,7 @@
         "phrase": "in the event of",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -3337,6 +5307,7 @@
         "phrase": "at the risk of",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -3346,7 +5317,26 @@
         "phrase": "with the aim of",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P564",
+        "phrase": "adapt to",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P565",
+        "phrase": "adjust to",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -3355,6 +5345,7 @@
         "phrase": "relate to",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -3373,6 +5364,7 @@
         "phrase": "aim at",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -3382,7 +5374,17 @@
         "phrase": "arrive at",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P584",
+        "phrase": "benefit from",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -3391,7 +5393,36 @@
         "phrase": "profit from",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P587",
+        "phrase": "withdraw from",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P589",
+        "phrase": "escape from",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1",
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P594",
+        "phrase": "distinguish between",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -3400,6 +5431,7 @@
         "phrase": "agree to",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -3409,6 +5441,7 @@
         "phrase": "agree on",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -3454,7 +5487,26 @@
         "phrase": "familiar to",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P611",
+        "phrase": "superior to",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P613",
+        "phrase": "preferable to",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -3463,6 +5515,7 @@
         "phrase": "to begin with",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -3472,6 +5525,7 @@
         "phrase": "in the first place",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -3481,7 +5535,36 @@
         "phrase": "in addition",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P619",
+        "phrase": "what is more",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P620",
+        "phrase": "on top of that",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1",
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P621",
+        "phrase": "not only ... but also",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -3490,6 +5573,7 @@
         "phrase": "as well as",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -3504,11 +5588,48 @@
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
       {
+        "id": "P624",
+        "phrase": "along with",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P625",
+        "phrase": "in the same way",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P626",
+        "phrase": "by the same token",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
         "id": "P627",
         "phrase": "in contrast",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P629",
+        "phrase": "on the one hand",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -3517,7 +5638,27 @@
         "phrase": "even though",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A2",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P631",
+        "phrase": "even if",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1",
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P632",
+        "phrase": "provided that",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -3526,7 +5667,81 @@
         "phrase": "as long as",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P634",
+        "phrase": "in case",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P637",
+        "phrase": "as a consequence",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P639",
+        "phrase": "under these circumstances",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P641",
+        "phrase": "that is to say",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P642",
+        "phrase": "to put it another way",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P647",
+        "phrase": "in summary",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P648",
+        "phrase": "to sum up",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1",
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P649",
+        "phrase": "in conclusion",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -3535,7 +5750,54 @@
         "phrase": "on balance",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P651",
+        "phrase": "all things considered",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P653",
+        "phrase": "as far as ... is concerned",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1",
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P654",
+        "phrase": "when it comes to",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P655",
+        "phrase": "with reference to",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P656",
+        "phrase": "as regards",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -3544,7 +5806,35 @@
         "phrase": "in respect of",
         "phraseLevel": "C2",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P658",
+        "phrase": "if anything",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P659",
+        "phrase": "by no means",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P660",
+        "phrase": "under no circumstances",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -3553,7 +5843,26 @@
         "phrase": "at no time",
         "phraseLevel": "C2",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P662",
+        "phrase": "not until",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P663",
+        "phrase": "no sooner ... than",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -3562,7 +5871,84 @@
         "phrase": "hardly ... when",
         "phraseLevel": "C2",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P665",
+        "phrase": "scarcely ... when",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P666",
+        "phrase": "only when",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P667",
+        "phrase": "only after",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P668",
+        "phrase": "such was",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "A1",
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P669",
+        "phrase": "so ... that",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1",
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P670",
+        "phrase": "such ... that",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1",
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P671",
+        "phrase": "too ... to",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P674",
+        "phrase": "so as to",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1",
+          "A2"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -3571,7 +5957,73 @@
         "phrase": "in the event that",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P678",
+        "phrase": "should ...",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P679",
+        "phrase": "were it not for",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P680",
+        "phrase": "had it not been for",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "A1",
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P681",
+        "phrase": "but for",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P682",
+        "phrase": "given that",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1",
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P683",
+        "phrase": "considering that",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P684",
+        "phrase": "granted that",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -3580,7 +6032,17 @@
         "phrase": "more often than not",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P687",
+        "phrase": "in many respects",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -3589,7 +6051,92 @@
         "phrase": "to make matters worse",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
+          "A2",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P697",
+        "phrase": "after all",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P698",
+        "phrase": "all the same",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P699",
+        "phrase": "even so",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P700",
+        "phrase": "that said",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P701",
+        "phrase": "having said that",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P702",
+        "phrase": "then again",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P705",
+        "phrase": "be used to",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1",
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P706",
+        "phrase": "get used to",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1",
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P708",
+        "phrase": "had better",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -3598,7 +6145,18 @@
         "phrase": "no point in",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P712",
+        "phrase": "no use",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1",
+          "A2"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -3607,6 +6165,7 @@
         "phrase": "it is high time",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -3616,7 +6175,26 @@
         "phrase": "it is essential that",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P719",
+        "phrase": "supposing that",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P721",
+        "phrase": "in case of",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -3625,6 +6203,7 @@
         "phrase": "despite the fact that",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -3634,6 +6213,7 @@
         "phrase": "due to the fact that",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -3643,6 +6223,7 @@
         "phrase": "in order that",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -3652,7 +6233,45 @@
         "phrase": "hardly any",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P727",
+        "phrase": "little did",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P728",
+        "phrase": "never before",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P729",
+        "phrase": "not only",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P730",
+        "phrase": "so as not to",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1",
+          "A2"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -3661,6 +6280,7 @@
         "phrase": "in order not to",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -3670,6 +6290,7 @@
         "phrase": "a number of",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -3679,6 +6300,7 @@
         "phrase": "the number of",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -3688,6 +6310,7 @@
         "phrase": "the amount of",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -3697,6 +6320,7 @@
         "phrase": "a great deal of",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -3706,6 +6330,7 @@
         "phrase": "a large number of",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -3715,7 +6340,17 @@
         "phrase": "hardly ever",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A2",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P742",
+        "phrase": "every now and then",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -3724,6 +6359,7 @@
         "phrase": "by the time",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -3733,6 +6369,7 @@
         "phrase": "regardless of whether",
         "phraseLevel": "C2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -3742,7 +6379,17 @@
         "phrase": "whether or not",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P748",
+        "phrase": "as if",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -3751,7 +6398,17 @@
         "phrase": "as though",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P750",
+        "phrase": "the more ... the more",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -3760,7 +6417,35 @@
         "phrase": "however much",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P753",
+        "phrase": "in that",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P754",
+        "phrase": "now that",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P755",
+        "phrase": "seeing that",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -3769,7 +6454,101 @@
         "phrase": "on the point of",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P757",
+        "phrase": "about to",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P758",
+        "phrase": "far from",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1",
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P759",
+        "phrase": "anything but",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P760",
+        "phrase": "nothing but",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P761",
+        "phrase": "none other than",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "A1",
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P762",
+        "phrase": "such as to",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "A1",
+          "A2"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P763",
+        "phrase": "be supposed to",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P766",
+        "phrase": "be unlikely to",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P768",
+        "phrase": "be capable of",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P769",
+        "phrase": "have difficulty",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -3778,6 +6557,7 @@
         "phrase": "make it possible",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -3787,7 +6567,44 @@
         "phrase": "find it difficult",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P773",
+        "phrase": "it is said that",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P774",
+        "phrase": "be believed to",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P775",
+        "phrase": "be said to",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P776",
+        "phrase": "there is no denying",
+        "phraseLevel": "C2",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -3796,6 +6613,7 @@
         "phrase": "it is worth noting",
         "phraseLevel": "C1",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -3805,6 +6623,7 @@
         "phrase": "a case in point",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
@@ -3814,7 +6633,53 @@
         "phrase": "there is no doubt that",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P1000",
+        "phrase": "attribute to",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P1003",
+        "phrase": "persist in",
+        "phraseLevel": "C1",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P1025",
+        "phrase": "in principle",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P1073",
+        "phrase": "by all means",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P1074",
+        "phrase": "in demand",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       },
@@ -3823,7 +6688,26 @@
         "phrase": "meet the demand",
         "phraseLevel": "B2",
         "constituentLevels": [
+          "A1",
           "B1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P1090",
+        "phrase": "vary from",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
+        ],
+        "handling": "kept at its own level — the phrase is never judged by its cheapest word"
+      },
+      {
+        "id": "P1091",
+        "phrase": "emerge from",
+        "phraseLevel": "B2",
+        "constituentLevels": [
+          "A1"
         ],
         "handling": "kept at its own level — the phrase is never judged by its cheapest word"
       }
@@ -3831,8 +6715,8 @@
   },
   "usefulness": {
     "activeByLevel": {
-      "A1": 0,
-      "A2": 0,
+      "A1": 500,
+      "A2": 500,
       "B1": 757,
       "B2": 1714,
       "C1": 1638,
@@ -3840,15 +6724,15 @@
       "UNCLASSIFIED": 843
     },
     "activeByType": {
-      "topic": 3436,
+      "topic": 3990,
       "academic": 1268,
       "none": 843,
-      "core": 122,
+      "core": 568,
       "word-formation": 79,
       "linker": 59,
       "confusable": 34
     },
-    "advancedShare": 72.6,
+    "advancedShare": 62.0,
     "academicActive": 1268,
     "wordFormationActive": 79,
     "confusableActive": 34,
@@ -3862,7 +6746,8 @@
   },
   "limits": [
     "0/106 papers are checked against an official primary source, so \"exam-attested\" means \"appears in the reposted transcription\", not official inclusion.",
-    "Every CEFR label is editorial (level-source:editorial). No dictionary or CEFR reference page was fetched offline; the audit therefore cannot promote any label to Verified or Source-supported.",
-    "Rows without a level tag stay Unknown/Unclassified; assigning them a level would be an invention."
+    "The legacy tags include editorial and named reference sources; this report does not independently validate either those claims or the separate sense-level evidence.",
+    "Unknown legacy level tags do not imply unknown sense levels; the app can use stored sense classifications instead.",
+    "The generator uses pinned reference snapshots; they and their locators require independent audit, including source scope and POS."
   ]
 }

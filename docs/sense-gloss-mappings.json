@@ -1,0 +1,1549 @@
+{
+  "description": "Editorial alignments of existing Vietnamese gloss text to Oxford/Cambridge wordlist homographs (entries) and atomic part-of-speech senses of composite-POS legacy entries (posSplits). Null means the existing gloss does not cover that sense/POS. Not independent verification; dictionary excerpts and translation alignment require independent review.",
+  "accessed": "2026-11-08",
+  "entries": {
+    "1902": {
+      "word": "rest",
+      "pos": "n",
+      "meaning": "sự nghỉ ngơi",
+      "rows": [
+        {
+          "source": "oxford-3000.en.tsv",
+          "line": 2229,
+          "senseId": "1902-s1",
+          "gloss": null,
+          "dictionary": null,
+          "annotation": "(remaining part)",
+          "sense": "",
+          "evpLine": 46
+        },
+        {
+          "source": "oxford-3000.en.tsv",
+          "line": 2230,
+          "senseId": "1902-s2",
+          "gloss": "sự nghỉ ngơi",
+          "dictionary": "https://www.oxfordlearnersdictionaries.com/definition/english/rest_1",
+          "annotation": "(sleep/relax)",
+          "sense": "",
+          "evpLine": 45
+        }
+      ]
+    },
+    "3839": {
+      "word": "ring",
+      "pos": "n",
+      "meaning": "nhẫn",
+      "rows": [
+        {
+          "source": "oxford-3000.en.tsv",
+          "line": 2248,
+          "senseId": "3839-s1",
+          "gloss": "nhẫn",
+          "dictionary": "https://www.oxfordlearnersdictionaries.com/definition/english/ring1_1",
+          "annotation": "",
+          "sense": "1",
+          "evpLine": 48
+        },
+        {
+          "source": "oxford-3000.en.tsv",
+          "line": 2249,
+          "senseId": "3839-s2",
+          "gloss": null,
+          "dictionary": null,
+          "annotation": "",
+          "sense": "2",
+          "evpLine": 49
+        }
+      ]
+    },
+    "7900": {
+      "word": "bank",
+      "pos": "n",
+      "meaning": "ngân hàng; bờ sông",
+      "rows": [
+        {
+          "source": "oxford-3000.en.tsv",
+          "line": 224,
+          "senseId": "7900-s1",
+          "gloss": "ngân hàng",
+          "dictionary": "https://www.oxfordlearnersdictionaries.com/definition/english/bank_1",
+          "annotation": "(money)",
+          "sense": "",
+          "evpLine": 4
+        },
+        {
+          "source": "oxford-3000.en.tsv",
+          "line": 225,
+          "senseId": "7900-s2",
+          "gloss": "bờ sông",
+          "dictionary": "https://www.oxfordlearnersdictionaries.com/definition/english/bank_1",
+          "annotation": "(river)",
+          "sense": "",
+          "evpLine": 5
+        }
+      ]
+    },
+    "8174": {
+      "word": "March",
+      "pos": "n",
+      "meaning": "tháng Ba",
+      "rows": [
+        {
+          "source": "oxford-3000.en.tsv",
+          "line": 1597,
+          "evpLine": 31,
+          "senseId": "8174-s1",
+          "gloss": "tháng Ba",
+          "dictionary": "https://dictionary.cambridge.org/dictionary/english/march",
+          "annotation": "(month)",
+          "sense": ""
+        },
+        {
+          "source": "oxford-5000-expanded.en.tsv",
+          "line": 1118,
+          "evpLine": 32,
+          "senseId": "8174-s2",
+          "gloss": null,
+          "dictionary": null,
+          "annotation": "(event/walk)",
+          "sense": ""
+        }
+      ]
+    },
+    "8576": {
+      "word": "lie",
+      "pos": "v",
+      "meaning": "nói dối, nằm",
+      "rows": [
+        {
+          "source": "oxford-3000.en.tsv",
+          "line": 1521,
+          "senseId": "8576-s1",
+          "gloss": "nằm",
+          "dictionary": "https://www.oxfordlearnersdictionaries.com/definition/english/lie1_1",
+          "annotation": "",
+          "sense": "1",
+          "evpLine": 29
+        },
+        {
+          "source": "oxford-3000.en.tsv",
+          "line": 1522,
+          "senseId": "8576-s2",
+          "gloss": "nói dối",
+          "dictionary": "https://www.oxfordlearnersdictionaries.com/definition/english/lie2_1",
+          "annotation": "(tell a lie)",
+          "sense": "2",
+          "evpLine": 30
+        }
+      ]
+    },
+    "8662": {
+      "word": "race",
+      "pos": "n",
+      "meaning": "cuộc đua; chủng tộc",
+      "rows": [
+        {
+          "source": "oxford-3000.en.tsv",
+          "line": 2118,
+          "senseId": "8662-s1",
+          "gloss": "cuộc đua",
+          "dictionary": "https://www.oxfordlearnersdictionaries.com/definition/english/race_1",
+          "annotation": "(competition)",
+          "sense": "",
+          "evpLine": 37
+        },
+        {
+          "source": "oxford-3000.en.tsv",
+          "line": 2119,
+          "senseId": "8662-s2",
+          "gloss": "chủng tộc",
+          "dictionary": "https://www.oxfordlearnersdictionaries.com/definition/english/race_1",
+          "annotation": "(people)",
+          "sense": "",
+          "evpLine": 38
+        }
+      ]
+    },
+    "8677": {
+      "word": "rock",
+      "pos": "n",
+      "meaning": "đá; thể loại nhạc phương Tây",
+      "rows": [
+        {
+          "source": "oxford-3000.en.tsv",
+          "line": 2255,
+          "senseId": "8677-s1",
+          "gloss": "thể loại nhạc phương Tây",
+          "dictionary": "https://www.oxfordlearnersdictionaries.com/definition/english/rock_1",
+          "annotation": "(music)",
+          "sense": "",
+          "evpLine": 51
+        },
+        {
+          "source": "oxford-3000.en.tsv",
+          "line": 2256,
+          "senseId": "8677-s2",
+          "gloss": "đá",
+          "dictionary": "https://www.oxfordlearnersdictionaries.com/definition/english/rock_1",
+          "annotation": "(stone)",
+          "sense": "",
+          "evpLine": 52
+        }
+      ]
+    },
+    "8780": {
+      "word": "tear",
+      "pos": "n",
+      "meaning": "nước mắt",
+      "rows": [
+        {
+          "source": "oxford-3000.en.tsv",
+          "line": 2652,
+          "senseId": "8780-s1",
+          "gloss": null,
+          "dictionary": null,
+          "annotation": "",
+          "sense": "1"
+        },
+        {
+          "source": "oxford-3000.en.tsv",
+          "line": 2653,
+          "senseId": "8780-s2",
+          "gloss": "nước mắt",
+          "dictionary": "https://www.oxfordlearnersdictionaries.com/definition/english/tear2_2",
+          "annotation": "",
+          "sense": "2",
+          "evpLine": 67
+        }
+      ]
+    },
+    "8816": {
+      "word": "used",
+      "pos": "adj",
+      "meaning": "đã từng dùng, cũ",
+      "rows": [
+        {
+          "source": "oxford-3000.en.tsv",
+          "line": 2842,
+          "senseId": "8816-s1",
+          "gloss": null,
+          "dictionary": null,
+          "annotation": "",
+          "sense": "1"
+        },
+        {
+          "source": "oxford-3000.en.tsv",
+          "line": 2843,
+          "senseId": "8816-s2",
+          "gloss": "đã từng dùng, cũ",
+          "dictionary": "https://www.oxfordlearnersdictionaries.com/definition/american_english/used2",
+          "annotation": "",
+          "sense": "2"
+        }
+      ]
+    }
+  },
+  "posSplits": {
+    "65": {
+      "word": "Precipitate",
+      "pos": "v/adj",
+      "meaning": "gây ra hoặc làm xảy ra đột ngột / hấp tấp, vội vàng",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/precipitate",
+      "senses": [
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "gây ra hoặc làm xảy ra đột ngột"
+        },
+        {
+          "pos": "adj",
+          "label": "(adj)",
+          "gloss": "hấp tấp, vội vàng"
+        }
+      ]
+    },
+    "79": {
+      "word": "Malign",
+      "pos": "v/adj",
+      "meaning": "nói xấu, phỉ báng / có hại, ác độc",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/malign",
+      "senses": [
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "nói xấu, phỉ báng"
+        },
+        {
+          "pos": "adj",
+          "label": "(adj)",
+          "gloss": "có hại, ác độc"
+        }
+      ]
+    },
+    "93": {
+      "word": "Advocate",
+      "pos": "v/n",
+      "meaning": "ủng hộ / người ủng hộ",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/advocate",
+      "senses": [
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "ủng hộ"
+        },
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "người ủng hộ"
+        }
+      ]
+    },
+    "98": {
+      "word": "Articulate",
+      "pos": "adj/v",
+      "meaning": "diễn đạt rõ ràng, ăn nói lưu loát / diễn đạt rõ ràng",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/articulate",
+      "senses": [
+        {
+          "pos": "adj",
+          "label": "(adj)",
+          "gloss": "diễn đạt rõ ràng, ăn nói lưu loát"
+        },
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "diễn đạt rõ ràng"
+        }
+      ]
+    },
+    "139": {
+      "word": "Disdain",
+      "pos": "n/v",
+      "meaning": "sự khinh miệt / khinh miệt, coi thường",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/disdain",
+      "senses": [
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "sự khinh miệt"
+        },
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "khinh miệt, coi thường"
+        }
+      ]
+    },
+    "141": {
+      "word": "Dissent",
+      "pos": "n/v",
+      "meaning": "sự bất đồng / bất đồng, phản đối",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/dissent",
+      "senses": [
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "sự bất đồng"
+        },
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "bất đồng, phản đối"
+        }
+      ]
+    },
+    "187": {
+      "word": "Manifest",
+      "pos": "v/adj",
+      "meaning": "biểu lộ, thể hiện / rõ ràng, hiển nhiên",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/manifest",
+      "senses": [
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "biểu lộ, thể hiện"
+        },
+        {
+          "pos": "adj",
+          "label": "(adj)",
+          "gloss": "rõ ràng, hiển nhiên"
+        }
+      ]
+    },
+    "196": {
+      "word": "Acclaim",
+      "pos": "n/v",
+      "meaning": "sự hoan nghênh, tán dương / hoan nghênh, tán dương",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/acclaim",
+      "senses": [
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "sự hoan nghênh, tán dương"
+        },
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "hoan nghênh, tán dương"
+        }
+      ]
+    },
+    "199": {
+      "word": "Adept",
+      "pos": "adj/n",
+      "meaning": "thành thạo / người thành thạo",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/adept",
+      "senses": [
+        {
+          "pos": "adj",
+          "label": "(adj)",
+          "gloss": "thành thạo"
+        },
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "người thành thạo"
+        }
+      ]
+    },
+    "219": {
+      "word": "Ascetic",
+      "pos": "adj/n",
+      "meaning": "khổ hạnh / người sống khổ hạnh",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/ascetic",
+      "senses": [
+        {
+          "pos": "adj",
+          "label": "(adj)",
+          "gloss": "khổ hạnh"
+        },
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "người sống khổ hạnh"
+        }
+      ]
+    },
+    "223": {
+      "word": "Atrophy",
+      "pos": "v/n",
+      "meaning": "teo lại, suy yếu / sự teo lại, suy thoái",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/atrophy",
+      "senses": [
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "teo lại, suy yếu"
+        },
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "sự teo lại, suy thoái"
+        }
+      ]
+    },
+    "236": {
+      "word": "Breach",
+      "pos": "n/v",
+      "meaning": "vi phạm, phá vỡ / sự vi phạm, lỗ hổng",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/breach",
+      "senses": [
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "sự vi phạm, lỗ hổng"
+        },
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "vi phạm, phá vỡ"
+        }
+      ]
+    },
+    "263": {
+      "word": "Conjecture",
+      "pos": "n/v",
+      "meaning": "phỏng đoán / phỏng đoán",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/conjecture",
+      "senses": [
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "phỏng đoán"
+        },
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "phỏng đoán"
+        }
+      ]
+    },
+    "272": {
+      "word": "Correlate",
+      "pos": "v/n",
+      "meaning": "có tương quan / biến hoặc đại lượng tương quan",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/correlate",
+      "senses": [
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "có tương quan"
+        },
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "biến hoặc đại lượng tương quan"
+        }
+      ]
+    },
+    "274": {
+      "word": "Cosmopolitan",
+      "pos": "adj/n",
+      "meaning": "có tính quốc tế, đa văn hóa; (người) có trải nghiệm và hiểu biết về nhiều nơi trên thế giới",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/cosmopolitan",
+      "senses": [
+        {
+          "pos": "adj",
+          "label": "(adj)",
+          "gloss": "có tính quốc tế, đa văn hóa"
+        },
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "(người) có trải nghiệm và hiểu biết về nhiều nơi trên thế giới"
+        }
+      ]
+    },
+    "275": {
+      "word": "Counterfeit",
+      "pos": "adj/n/v",
+      "meaning": "giả, làm giả / hàng giả / làm giả",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/counterfeit",
+      "senses": [
+        {
+          "pos": "adj",
+          "label": "(adj)",
+          "gloss": "giả, làm giả"
+        },
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "hàng giả"
+        },
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "làm giả"
+        }
+      ]
+    },
+    "276": {
+      "word": "Covert",
+      "pos": "adj/n",
+      "meaning": "bí mật, ngầm / nơi trú ẩn hoặc nơi có cây che phủ",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/covert",
+      "senses": [
+        {
+          "pos": "adj",
+          "label": "(adj)",
+          "gloss": "bí mật, ngầm"
+        },
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "nơi trú ẩn hoặc nơi có cây che phủ"
+        }
+      ]
+    },
+    "300": {
+      "word": "Aesthetic",
+      "pos": "adj/n",
+      "meaning": "thuộc về thẩm mỹ / khía cạnh hoặc quan niệm về cái đẹp",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/aesthetic",
+      "senses": [
+        {
+          "pos": "adj",
+          "label": "(adj)",
+          "gloss": "thuộc về thẩm mỹ"
+        },
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "khía cạnh hoặc quan niệm về cái đẹp"
+        }
+      ]
+    },
+    "301": {
+      "word": "Affront",
+      "pos": "n/v",
+      "meaning": "sự xúc phạm / xúc phạm, làm nhục",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/affront",
+      "senses": [
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "sự xúc phạm"
+        },
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "xúc phạm, làm nhục"
+        }
+      ]
+    },
+    "308": {
+      "word": "Allure",
+      "pos": "v/n",
+      "meaning": "quyến rũ, lôi cuốn / sức quyến rũ",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/allure",
+      "senses": [
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "quyến rũ, lôi cuốn"
+        },
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "sức quyến rũ"
+        }
+      ]
+    },
+    "323": {
+      "word": "Antecedent",
+      "pos": "n/adj",
+      "meaning": "tiền thân, điều xảy ra trước / xảy ra trước",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/antecedent",
+      "senses": [
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "tiền thân, điều xảy ra trước"
+        },
+        {
+          "pos": "adj",
+          "label": "(adj)",
+          "gloss": "xảy ra trước"
+        }
+      ]
+    },
+    "332": {
+      "word": "Array",
+      "pos": "n/v",
+      "meaning": "mảng, dãy, tập hợp / sắp xếp, bày biện",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/array",
+      "senses": [
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "mảng, dãy, tập hợp"
+        },
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "sắp xếp, bày biện"
+        }
+      ]
+    },
+    "337": {
+      "word": "Assay",
+      "pos": "v/n",
+      "meaning": "thử nghiệm hoặc phân tích / phép thử, phép phân tích",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/assay",
+      "senses": [
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "thử nghiệm hoặc phân tích"
+        },
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "phép thử, phép phân tích"
+        }
+      ]
+    },
+    "349": {
+      "word": "Salient",
+      "pos": "adj/n",
+      "meaning": "nổi bật, đáng chú ý / điểm nổi bật",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/salient",
+      "senses": [
+        {
+          "pos": "adj",
+          "label": "(adj)",
+          "gloss": "nổi bật, đáng chú ý"
+        },
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "điểm nổi bật"
+        }
+      ]
+    },
+    "370": {
+      "word": "Wane",
+      "pos": "v/n",
+      "meaning": "suy yếu, giảm dần; sự suy giảm",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/wane",
+      "senses": [
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "suy yếu, giảm dần"
+        },
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "sự suy giảm"
+        }
+      ]
+    },
+    "375": {
+      "word": "Lament",
+      "pos": "v/n",
+      "meaning": "than khóc, than tiếc; lời than, sự than tiếc",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/lament",
+      "senses": [
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "than khóc, than tiếc"
+        },
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "lời than, sự than tiếc"
+        }
+      ]
+    },
+    "384": {
+      "word": "Yield",
+      "pos": "v/n",
+      "meaning": "mang lại; nhường, nhượng bộ; sản lượng, lợi suất",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/yield",
+      "senses": [
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "mang lại; nhường, nhượng bộ"
+        },
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "sản lượng, lợi suất"
+        }
+      ]
+    },
+    "385": {
+      "word": "Nurture",
+      "pos": "v/n",
+      "meaning": "nuôi dưỡng, chăm sóc; sự nuôi dưỡng",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/nurture",
+      "senses": [
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "nuôi dưỡng, chăm sóc"
+        },
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "sự nuôi dưỡng"
+        }
+      ]
+    },
+    "409": {
+      "word": "Warp",
+      "pos": "v/n",
+      "meaning": "làm cong vênh, bóp méo; sự cong vênh",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/warp",
+      "senses": [
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "làm cong vênh, bóp méo"
+        },
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "sự cong vênh"
+        }
+      ]
+    },
+    "413": {
+      "word": "Trigger",
+      "pos": "v/n",
+      "meaning": "kích hoạt, gây ra; tác nhân kích hoạt",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/trigger",
+      "senses": [
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "kích hoạt, gây ra"
+        },
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "tác nhân kích hoạt"
+        }
+      ]
+    },
+    "427": {
+      "word": "Attribute",
+      "pos": "v/n",
+      "meaning": "quy cho, gán cho / đặc điểm, thuộc tính",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/attribute",
+      "senses": [
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "quy cho, gán cho"
+        },
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "đặc điểm, thuộc tính"
+        }
+      ]
+    },
+    "432": {
+      "word": "Elaborate",
+      "pos": "v/adj",
+      "meaning": "trình bày chi tiết / công phu, tỉ mỉ",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/elaborate",
+      "senses": [
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "trình bày chi tiết"
+        },
+        {
+          "pos": "adj",
+          "label": "(adj)",
+          "gloss": "công phu, tỉ mỉ"
+        }
+      ]
+    },
+    "451": {
+      "word": "Derivative",
+      "pos": "adj/n",
+      "meaning": "bắt chước, ăn theo, thiếu tính nguyên bản / sản phẩm phái sinh",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/derivative",
+      "senses": [
+        {
+          "pos": "adj",
+          "label": "(adj)",
+          "gloss": "bắt chước, ăn theo, thiếu tính nguyên bản"
+        },
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "sản phẩm phái sinh"
+        }
+      ]
+    },
+    "491": {
+      "word": "Repellent",
+      "pos": "adj/n",
+      "meaning": "gây ghê tởm, khó chịu; có tác dụng xua đuổi / chất xua đuổi (côn trùng)",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/repellent",
+      "senses": [
+        {
+          "pos": "adj",
+          "label": "(adj)",
+          "gloss": "gây ghê tởm, khó chịu; có tác dụng xua đuổi"
+        },
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "chất xua đuổi (côn trùng)"
+        }
+      ]
+    },
+    "541": {
+      "word": "Quiver",
+      "pos": "v/n",
+      "meaning": "run rẩy, rung nhẹ (vì sợ, xúc động) / cái run nhẹ; bao đựng tên",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/quiver",
+      "senses": [
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "run rẩy, rung nhẹ (vì sợ, xúc động)"
+        },
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "cái run nhẹ; bao đựng tên"
+        }
+      ]
+    },
+    "542": {
+      "word": "Flutter",
+      "pos": "v/n",
+      "meaning": "vỗ, đập nhẹ (cánh); phấp phới; đập loạn (tim); bồn chồn / sự rung nhẹ, cảm giác nôn nao",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/flutter",
+      "senses": [
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "vỗ, đập nhẹ (cánh); phấp phới; đập loạn (tim); bồn chồn"
+        },
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "sự rung nhẹ, cảm giác nôn nao"
+        }
+      ]
+    },
+    "546": {
+      "word": "Surge",
+      "pos": "n/v",
+      "meaning": "sự tăng vọt, dâng trào đột ngột / dâng lên, tăng vọt",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/surge",
+      "senses": [
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "sự tăng vọt, dâng trào đột ngột"
+        },
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "dâng lên, tăng vọt"
+        }
+      ]
+    },
+    "548": {
+      "word": "Summary",
+      "pos": "n/adj",
+      "meaning": "bản tóm tắt / nhanh gọn, tức thời, không qua thủ tục đầy đủ (summary dismissal)",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/summary",
+      "senses": [
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "bản tóm tắt"
+        },
+        {
+          "pos": "adj",
+          "label": "(adj)",
+          "gloss": "nhanh gọn, tức thời, không qua thủ tục đầy đủ (summary dismissal)"
+        }
+      ]
+    },
+    "550": {
+      "word": "Eclipse",
+      "pos": "v/n",
+      "meaning": "làm lu mờ, vượt trội hơn hẳn / nhật/nguyệt thực; sự lu mờ",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/eclipse",
+      "senses": [
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "làm lu mờ, vượt trội hơn hẳn"
+        },
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "nhật/nguyệt thực; sự lu mờ"
+        }
+      ]
+    },
+    "559": {
+      "word": "Reactionary",
+      "pos": "adj/n",
+      "meaning": "phản động, bảo thủ cực đoan, muốn quay về trật tự cũ / người có tư tưởng đó",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/reactionary",
+      "senses": [
+        {
+          "pos": "adj",
+          "label": "(adj)",
+          "gloss": "phản động, bảo thủ cực đoan, muốn quay về trật tự cũ"
+        },
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "người có tư tưởng đó"
+        }
+      ]
+    },
+    "595": {
+      "word": "Extract",
+      "pos": "v/n",
+      "meaning": "chiết xuất, khai thác, lấy ra, moi (thông tin) / chiết xuất; đoạn trích",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/extract",
+      "senses": [
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "chiết xuất, khai thác, lấy ra, moi (thông tin)"
+        },
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "chiết xuất; đoạn trích"
+        }
+      ]
+    },
+    "599": {
+      "word": "Preserve",
+      "pos": "v/n",
+      "meaning": "bảo tồn, gìn giữ; bảo quản (thực phẩm) / mứt; khu bảo tồn; lĩnh vực riêng",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/preserve",
+      "senses": [
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "bảo tồn, gìn giữ; bảo quản (thực phẩm)"
+        },
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "mứt; khu bảo tồn; lĩnh vực riêng"
+        }
+      ]
+    },
+    "621": {
+      "word": "Conduct",
+      "pos": "v/n",
+      "meaning": "tiến hành (nghiên cứu, khảo sát); cư xử (conduct oneself); chỉ huy; dẫn điện/nhiệt; (n) cách cư xử.",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/conduct",
+      "senses": [
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "tiến hành (nghiên cứu, khảo sát); cư xử (conduct oneself); chỉ huy; dẫn điện/nhiệt"
+        },
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "(n) cách cư xử."
+        }
+      ]
+    },
+    "627": {
+      "word": "Superior",
+      "pos": "adj/n",
+      "meaning": "vượt trội, tốt hơn / người cấp trên.",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/superior",
+      "senses": [
+        {
+          "pos": "adj",
+          "label": "(adj)",
+          "gloss": "vượt trội, tốt hơn"
+        },
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "người cấp trên."
+        }
+      ]
+    },
+    "656": {
+      "word": "Resolve",
+      "pos": "v/n",
+      "meaning": "giải quyết (vấn đề, tranh chấp); quyết tâm.",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/resolve",
+      "senses": [
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "giải quyết (vấn đề, tranh chấp)"
+        },
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "quyết tâm."
+        }
+      ]
+    },
+    "666": {
+      "word": "Alternative",
+      "pos": "n/adj",
+      "meaning": "phương án khác; có thể dùng thay thế.",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/alternative",
+      "senses": [
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "phương án khác"
+        },
+        {
+          "pos": "adj",
+          "label": "(adj)",
+          "gloss": "có thể dùng thay thế."
+        }
+      ]
+    },
+    "677": {
+      "word": "Complex",
+      "pos": "adj/n",
+      "meaning": "phức tạp, gồm nhiều phần liên hệ; tổ hợp.",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/complex",
+      "senses": [
+        {
+          "pos": "adj",
+          "label": "(adj)",
+          "gloss": "phức tạp, gồm nhiều phần liên hệ"
+        },
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "tổ hợp."
+        }
+      ]
+    },
+    "678": {
+      "word": "Concrete",
+      "pos": "adj/n",
+      "meaning": "cụ thể, rõ ràng; bê tông.",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/concrete",
+      "senses": [
+        {
+          "pos": "adj",
+          "label": "(adj)",
+          "gloss": "cụ thể, rõ ràng"
+        },
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "bê tông."
+        }
+      ]
+    },
+    "680": {
+      "word": "Contemporary",
+      "pos": "adj/n",
+      "meaning": "đương đại; cùng thời; người cùng thời.",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/contemporary",
+      "senses": [
+        {
+          "pos": "adj",
+          "label": "(adj)",
+          "gloss": "đương đại; cùng thời"
+        },
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "người cùng thời."
+        }
+      ]
+    },
+    "699": {
+      "word": "Initial",
+      "pos": "adj/n",
+      "meaning": "ban đầu; chữ cái đầu của tên.",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/initial",
+      "senses": [
+        {
+          "pos": "adj",
+          "label": "(adj)",
+          "gloss": "ban đầu"
+        },
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "chữ cái đầu của tên."
+        }
+      ]
+    },
+    "704": {
+      "word": "Objective",
+      "pos": "adj/n",
+      "meaning": "khách quan; mục tiêu.",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/objective",
+      "senses": [
+        {
+          "pos": "adj",
+          "label": "(adj)",
+          "gloss": "khách quan"
+        },
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "mục tiêu."
+        }
+      ]
+    },
+    "706": {
+      "word": "Potential",
+      "pos": "adj/n",
+      "meaning": "tiềm năng, có thể xảy ra/phát triển; khả năng tiềm tàng.",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/potential",
+      "senses": [
+        {
+          "pos": "adj",
+          "label": "(adj)",
+          "gloss": "tiềm năng, có thể xảy ra/phát triển"
+        },
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "khả năng tiềm tàng."
+        }
+      ]
+    },
+    "737": {
+      "word": "Demand",
+      "pos": "n/v",
+      "meaning": "nhu cầu; yêu cầu mạnh mẽ; đòi hỏi.",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/demand",
+      "senses": [
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "nhu cầu; yêu cầu mạnh mẽ"
+        },
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "đòi hỏi."
+        }
+      ]
+    },
+    "738": {
+      "word": "Discipline",
+      "pos": "n/v",
+      "meaning": "kỷ luật; ngành học; rèn kỷ luật.",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/discipline",
+      "senses": [
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "kỷ luật; ngành học"
+        },
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "rèn kỷ luật."
+        }
+      ]
+    },
+    "744": {
+      "word": "Encounter",
+      "pos": "v/n",
+      "meaning": "tình cờ gặp; gặp phải khó khăn; cuộc gặp.",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/encounter",
+      "senses": [
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "tình cờ gặp; gặp phải khó khăn"
+        },
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "cuộc gặp."
+        }
+      ]
+    },
+    "755": {
+      "word": "Fatigue",
+      "pos": "n/v",
+      "meaning": "sự mệt mỏi nghiêm trọng; làm mệt mỏi.",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/fatigue",
+      "senses": [
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "sự mệt mỏi nghiêm trọng"
+        },
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "làm mệt mỏi."
+        }
+      ]
+    },
+    "763": {
+      "word": "Impact",
+      "pos": "n/v",
+      "meaning": "tác động mạnh, ảnh hưởng; sự va chạm.",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/impact",
+      "senses": [
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "tác động mạnh, ảnh hưởng; sự va chạm."
+        },
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": null
+        }
+      ]
+    },
+    "781": {
+      "word": "Prejudice",
+      "pos": "n/v",
+      "meaning": "định kiến; làm tổn hại tính công bằng hoặc cơ hội.",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/prejudice",
+      "senses": [
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "định kiến"
+        },
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "làm tổn hại tính công bằng hoặc cơ hội."
+        }
+      ]
+    },
+    "798": {
+      "word": "Substitute",
+      "pos": "n/v",
+      "meaning": "người/vật thay thế; thay thế.",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/substitute",
+      "senses": [
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "người/vật thay thế"
+        },
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "thay thế."
+        }
+      ]
+    },
+    "800": {
+      "word": "Survey",
+      "pos": "n/v",
+      "meaning": "cuộc khảo sát; khảo sát, xem xét tổng thể.",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/survey",
+      "senses": [
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "cuộc khảo sát"
+        },
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "khảo sát, xem xét tổng thể."
+        }
+      ]
+    },
+    "806": {
+      "word": "Trend",
+      "pos": "n/v",
+      "meaning": "xu hướng thay đổi; có chiều hướng.",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/trend",
+      "senses": [
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "xu hướng thay đổi"
+        },
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "có chiều hướng."
+        }
+      ]
+    },
+    "822": {
+      "word": "Amateur",
+      "pos": "n/adj",
+      "meaning": "người nghiệp dư; thuộc người làm vì sở thích, không chuyên nghiệp.",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/amateur",
+      "senses": [
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "người nghiệp dư"
+        },
+        {
+          "pos": "adj",
+          "label": "(adj)",
+          "gloss": "thuộc người làm vì sở thích, không chuyên nghiệp."
+        }
+      ]
+    },
+    "828": {
+      "word": "Bargain",
+      "pos": "n/v",
+      "meaning": "món mua hời; thỏa thuận; mặc cả.",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/bargain",
+      "senses": [
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "món mua hời; thỏa thuận"
+        },
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "mặc cả."
+        }
+      ]
+    },
+    "829": {
+      "word": "Bias",
+      "pos": "n/v",
+      "meaning": "thiên kiến; sự thiên lệch; làm lệch kết quả.",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/bias",
+      "senses": [
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "thiên kiến; sự thiên lệch"
+        },
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "làm lệch kết quả."
+        }
+      ]
+    },
+    "830": {
+      "word": "Boost",
+      "pos": "v/n",
+      "meaning": "thúc đẩy, làm tăng; sự gia tăng/hỗ trợ.",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/boost",
+      "senses": [
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "thúc đẩy, làm tăng"
+        },
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "sự gia tăng/hỗ trợ."
+        }
+      ]
+    },
+    "835": {
+      "word": "Collapse",
+      "pos": "v/n",
+      "meaning": "sụp đổ; đổ gục; sự sụp đổ.",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/collapse",
+      "senses": [
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "sụp đổ; đổ gục"
+        },
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "sự sụp đổ."
+        }
+      ]
+    },
+    "836": {
+      "word": "Compromise",
+      "pos": "n/v",
+      "meaning": "sự thỏa hiệp; thỏa hiệp; làm tổn hại đến.",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/compromise",
+      "senses": [
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "sự thỏa hiệp"
+        },
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "thỏa hiệp; làm tổn hại đến."
+        }
+      ]
+    },
+    "848": {
+      "word": "Decline",
+      "pos": "v/n",
+      "meaning": "suy giảm; từ chối lịch sự; sự suy giảm.",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/decline",
+      "senses": [
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "suy giảm; từ chối lịch sự"
+        },
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "sự suy giảm."
+        }
+      ]
+    },
+    "851": {
+      "word": "Guarantee",
+      "pos": "v/n",
+      "meaning": "bảo đảm, cam đoan / sự bảo đảm; bảo hành.",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/guarantee",
+      "senses": [
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "bảo đảm, cam đoan"
+        },
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "sự bảo đảm; bảo hành."
+        }
+      ]
+    },
+    "869": {
+      "word": "Harness",
+      "pos": "v/n",
+      "meaning": "khai thác và kiểm soát để sử dụng; bộ đai/dây cương.",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/harness",
+      "senses": [
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "khai thác và kiểm soát để sử dụng"
+        },
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "bộ đai/dây cương."
+        }
+      ]
+    },
+    "887": {
+      "word": "Obscure",
+      "pos": "adj/v",
+      "meaning": "ít được biết đến; khó hiểu; che khuất/làm khó nhận ra.",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/obscure",
+      "senses": [
+        {
+          "pos": "adj",
+          "label": "(adj)",
+          "gloss": "ít được biết đến; khó hiểu"
+        },
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "che khuất/làm khó nhận ra."
+        }
+      ]
+    },
+    "895": {
+      "word": "Recruit",
+      "pos": "v/n",
+      "meaning": "tuyển người; người mới được tuyển.",
+      "dictionary": "https://dictionary.cambridge.org/dictionary/english/recruit",
+      "senses": [
+        {
+          "pos": "v",
+          "label": "(v)",
+          "gloss": "tuyển người"
+        },
+        {
+          "pos": "n",
+          "label": "(n)",
+          "gloss": "người mới được tuyển."
+        }
+      ]
+    }
+  }
+}

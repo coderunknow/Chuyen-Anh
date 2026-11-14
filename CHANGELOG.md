@@ -1,5 +1,47 @@
 # Changelog
 
+## v1.0.0 — stable candidate (PR from `arena/2a533bbc-chuyen-anh`, baseline `f12b4bc5…`, 2026-11-08) — NOT merged, NOT tagged, NOT released, NOT deployed
+
+**Status: draft pull request only.** Proposed as a Draft PR to `main` from `arena/2a533bbc-chuyen-anh`
+(continuing from `arena/6b7c2879-chuyen-anh` / `a66561d9` on top of `main` `f12b4bc5`).
+No merge, no tag, no release, no Pages deploy; `DEPLOY_HOLD` remains `v1.0.0-rc10`
+and `scripts/app_release_gate.py` + `release-published-dispatch.yml` block Pages deployment
+until `v1.0.0` is published as a non-draft stable release and separately authorized via manual dispatch.
+
+### Sense-level CEFR & lexical integrity (Phase II)
+
+- **8,852 vocabulary rows / 8,928 stored senses (`75` multi-sense entries, `UNCLASSIFIED = 0`, `unresolved = 0`):**
+  - Sense distribution across all rows: `A1: 942 · A2: 1,160 · B1: 1,930 · B2: 2,230 · C1: 1,478 · C2: 1,188 · UNCLASSIFIED: 0` (active 6,841-word focus deck: `A1: 631 · A2: 809 · B1: 1,299 · B2: 1,768 · C1: 1,253 · C2: 1,100`; default `B2+C1` focus selection: `3,020` headwords / `3,043` senses).
+  - Evidence distribution: `source_supported: 3,174 · cross_validated: 1,670 · disputed: 2,238 · editorial_estimate: 1,846 · unresolved: 0`; confidence: `HIGH: 4,844 · MEDIUM: 4,045 · LOW: 39 · VERY_LOW: 0`.
+  - **100% source-locator verification (`4,844 / 4,844`):** `scripts/audit_sense_sources.py --check` verifies headword, POS, and CEFR level for every source-backed sense against pinned wordlists (`cefrj-vocabulary-profile-1.5`, `octanove-vocabulary-profile-c1c2-1.0`, `oxford-3000-wordlist`, `oxford-5000-expanded-wordlist`, and newly registered `cambridge-evp` in `audit/v100/refs/cambridge-evp-verified.tsv` with SHA-256 verification in `acquire-references.sh`).
+  - **Multi-sense & seed hygiene:** Mapped `72` multi-POS / multi-sense splits with Cambridge EVP sense-level badges + entry `8174` (`March`), corrected `27` cardinal/ordinal numeral rows from `n` to `number` and `24` proper-noun capitalizations in `data/vocab-seed/*.tsv` (leaving `Learned_Vocabulary_List.md` legacy IDs untouched), and added a `WeakMap` `distractorPoolCache` in `index.html` reducing session consolidation/retry DOM transitions to `3 ms` median.
+  - All `1,945` editorial estimates and editorial sense-gloss alignments retain `needsIndependentValidation: true` as an explicit provenance disclosure.
+
+### Phase III — exactly +500 A1 and +500 A2 headwords
+
+- `data/vocab-seed/22-a1a2-stable.tsv`: 1,144 CEFR-J/Oxford-3000 A1/A2 candidates absent
+  from the pre-v1.0.0 bank; `expand_vocabulary.py` accepts **exactly 500 A1 + 500 A2**
+  (144 skips, each with a recorded reason: inflection 81 · word-family 53 · comparative 6 ·
+  spelling variant 4). Bank: 8,852 rows, 8,112 headwords, 6,841-word focus deck, 1,271
+  archived (unchanged). Over the 1,000 accepted rows, `level-source:` is
+  `cefrj-vocabulary-profile-1.5` (892) or `oxford-3000-wordlist` (108), all POS-and-level
+  attested and free of editor notes.
+
+### Exams — 100% non-exempt scoring coverage (`missing = 0`) & formal exemptions
+
+- **5,155 / 6,708 questions scorable (`76.85%`, `100%` of non-exempt items) across all 106 papers:**
+  - Refined section-header/answer-box filtering and multi-section transcription key alignment in `index.html` (`6,708` genuine questions across `106` papers; `missing = 0`, `inferred_unverified = 0`, `official_verified = 0`).
+  - **SHA-256-bound curated domain-verified manifest (`data/exam-curated-keys.json`):** `2,146` audited entries (`1,407` scorable `curated_verified` / `curated_domain_verified` keys + `739` item-level formal exemptions), each cryptographically bound to `promptSha256` and `optionsSha256` and self-graded end-to-end through `gradeExamQuestion` by `scripts/exams/verify_curated_keys.mjs` (enforced fail-closed in `build_answer_keys.mjs`, `ci.yml`, `deploy.yml`, and `release_artifacts.py`).
+  - **Formal exemption taxonomy (`1,553` items):** `structural_transcription_defect: 768`, `missing_stimulus: 627`, `open_ended_writing_or_speaking: 158` (`byUngradeableReason`: `ocr-structural-defect: 749`, `stimulus-incomplete: 627`, `essay-open-ended-exempt: 158`, `option-overflow: 12`, `key-not-an-option: 7`). Open-ended writing/speaking prompts are excluded from the objective score denominator while still providing advisory 4-criterion rubric feedback (`advisoryRubricEvaluation`) when answered, and submitted summaries display an explicit `#exam-exemption-breakdown` strip.
+  - `officialScore` remains `null`/`false` (`0/106` papers checked against sealed primary official marking sheets).
+
+### Verification
+
+- **Validators & `--check` gates:** `expand_vocabulary`, `build_vocabulary`, `build_senses`, `audit_sense_sources`, `validate_vocab`, `embed_vocabulary`, `build_phrases`, `validate_phrases`, `embed_phrases`, `build_answer_keys`, `verify_curated_keys`, `audit_rendering`, `classify_anomalies`, `embed_archive`, `audit_vocabulary_quality`, `vocabulary_cefr_review`, `vocabulary_evidence_review`, `rc4_vocabulary_audit`, `audit_exam_provenance`, and `generate_vocab_audit_dev5` all pass cleanly.
+- **Automated suites:** Python `unittest` **237 OK** + `scripts/exams/test_archive.py` **5 OK**; Node `static-app.test.js` (`144`) + `exam-scoring.test.js` (`28`) + `exam-anomalies.test.js` (`7`) + `rc10-cefr.test.js` (`10`) + `v100-senses.test.js` (`8`) + `telemetry-api.test.js` (`17`) = **214 pass / 0 fail**; sequential Chromium E2E (`browser-learning.cjs` + `browser-exams.cjs` with `axe-core` WCAG 2.1 AA, `320–1440px` viewports, VI/EN, Classic/Modern, light/dark, `file://` standalone) **PASS**; `speed-benchmark.cjs` **PASS** (`3 ms` median consolidation/retry DOM latency, `0` page errors).
+- Current gates, defects, work log, and readiness report: `audit/v100/{GATES,DEFECTS,WORK_LOG,FINAL_READINESS_CHECKLIST,FINAL_READINESS}.md`.
+  Separate explicit authorization is required before merge, tag, release or deployment.
+
 ## v1.0.0-rc10 — full vocabulary revalidation, 2,000 new headwords, 314 new phrases, and fail-closed exam inference (2026-11-03)
 
 **Status: published prerelease.** Tag `v1.0.0-rc10` points at the merge commit of PR #81 into `main`. `APP_VERSION` and `DEPLOY_HOLD` are both `v1.0.0-rc10`. Release artifacts were built by `.github/workflows/release-artifacts.yml` from the tag; Pages was deployed by `.github/workflows/deploy.yml` after the deploy gate opened.

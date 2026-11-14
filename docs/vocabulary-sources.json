@@ -1,7 +1,7 @@
 {
   "version": 1,
   "description": "Registry of every source referenced by the SOURCES column of Learned_Vocabulary_List.md and Learned_Phrase_List.md. Each row cites registry ids and a locator; the registry states what the source can and cannot back.",
-  "accessed": "2026-10-24",
+  "accessed": "2026-11-08",
   "sources": [
     {
       "id": "exam-corpus",
@@ -46,6 +46,104 @@
       "access": "file-in-repo",
       "supports": "Cụm từ xuất hiện nguyên dạng trong một bản chép đề.",
       "limits": "Như exam-corpus: bản chép, có thể lỗi OCR; không suy ra đáp án."
+    },
+    {
+      "id": "cefrj-vocabulary-profile-1.5",
+      "cefrLevels": ["A1", "A2", "B1", "B2"],
+      "independenceGroup": "open-language-profiles",
+      "type": "cefr-reference",
+      "title": "CEFR-J Vocabulary Profile 1.5 (English)",
+      "publisher": "Open Language Profiles / CEFR-J project",
+      "url": "https://github.com/openlanguageprofiles/olp-en-cefrj",
+      "locatorScheme": "CSV row: headword;pos;CEFR — snapshot pinned in audit/v100/refs/cefrj-vocabulary-profile-1.5.csv",
+      "access": "file-in-repo",
+      "supports": "Published CEFR level (A1-B2) for a headword+POS. Direct level evidence for source_supported/cross_validated classifications.",
+      "limits": "Word-level (headword+POS), not per-sense for homographs; covers A1-B2 only (C1/C2 come from the Octanove profile)."
+    },
+    {
+      "id": "octanove-vocabulary-profile-c1c2-1.0",
+      "cefrLevels": ["C1", "C2"],
+      "independenceGroup": "open-language-profiles",
+      "type": "cefr-reference",
+      "title": "Octanove Vocabulary Profile — C1/C2 (English)",
+      "publisher": "Open Language Profiles / Octanove project",
+      "url": "https://github.com/openlanguageprofiles/olp-en-cefrj",
+      "locatorScheme": "CSV row: headword;pos;CEFR — snapshot pinned in audit/v100/refs/octanove-vocabulary-profile-c1c2-1.0.csv",
+      "access": "file-in-repo",
+      "supports": "Published C1/C2 level for a headword. Direct level evidence for C1/C2 classifications.",
+      "limits": "Covers only the C1/C2 stratum; headword-level, not per-sense."
+    },
+    {
+      "id": "oxford-3000-wordlist",
+      "cefrLevels": ["A1", "A2", "B1", "B2"],
+      "independenceGroup": "oxford-university-press",
+      "type": "cefr-reference",
+      "title": "Oxford 3000 wordlist with per-sense CEFR levels (Oxford Learner's Dictionaries)",
+      "publisher": "Oxford University Press — via curated TSV mirror voothi/20260715190122-oxford-3000-5000",
+      "url": "https://www.oxfordlearnersdictionaries.com/wordlists/",
+      "locatorScheme": "TSV line: Word/Annotation/Sense/Part of Speech/Level — snapshot pinned in audit/v100/refs/oxford-3000.en.tsv",
+      "access": "file-in-repo",
+      "supports": "Oxford's printed CEFR level for a headword or for one annotated sense of a headword (e.g. bank (money) A1 vs bank (river) B1). Basis of the sense-level split.",
+      "limits": "The mirror is a third-party curation of the official lists; the official site was not reachable from the sandbox, so rows are cited to the pinned snapshot, not re-fetched."
+    },
+    {
+      "id": "oxford-5000-expanded-wordlist",
+      "cefrLevels": ["B1", "B2", "C1"],
+      "independenceGroup": "oxford-university-press",
+      "type": "cefr-reference",
+      "title": "Oxford 5000 expanded wordlist with CEFR levels (Oxford Learner's Dictionaries)",
+      "publisher": "Oxford University Press — via curated TSV mirror voothi/20260715190122-oxford-3000-5000",
+      "url": "https://www.oxfordlearnersdictionaries.com/wordlists/",
+      "locatorScheme": "TSV line — snapshot pinned in audit/v100/refs/oxford-5000-expanded.en.tsv",
+      "access": "file-in-repo",
+      "supports": "Oxford's printed CEFR level (mostly B2-C1) for advanced headwords and senses.",
+      "limits": "Same mirror caveat as oxford-3000-wordlist."
+    },
+    {
+      "id": "cambridge-evp",
+      "cefrLevels": ["A1", "A2", "B1", "B2", "C1", "C2"],
+      "independenceGroup": "cambridge-university-press",
+      "type": "cefr-reference",
+      "title": "Cambridge Dictionary / English Vocabulary Profile sense-level CEFR badges (verified snapshot)",
+      "publisher": "Cambridge University Press & Assessment",
+      "url": "https://dictionary.cambridge.org/dictionary/english/",
+      "locatorScheme": "cambridge-evp-verified.tsv:<line>: <headword> (<pos>, <sense>) — verified entry snapshot in audit/v100/refs/cambridge-evp-verified.tsv",
+      "access": "file-in-repo",
+      "supports": "Printed English Vocabulary Profile (EVP) CEFR badges (A1-C2) on individual senses in Cambridge Dictionary Online, directly fetched and verified with sense guideword, POS, URL, and retrieval date.",
+      "limits": "Covers only headword senses whose Cambridge Dictionary pages were directly fetched and verified in audit/v100/refs/cambridge-evp-verified.tsv; unbadged senses in Cambridge Dictionary are omitted rather than interpolated."
+    },
+    {
+      "id": "editorial-sense-gloss-map",
+      "type": "repository-origin",
+      "title": "Editorial mapping of existing Vietnamese glosses to Oxford wordlist rows",
+      "publisher": "coderunknow/Chuyen-Anh — this repository, 2026-11-04",
+      "url": "https://github.com/coderunknow/Chuyen-Anh/blob/main/docs/sense-gloss-mappings.json",
+      "locatorScheme": "docs/sense-gloss-mappings.json: entry id; dictionary URL",
+      "access": "file-in-repo",
+      "supports": "Documents an editorial alignment of an existing Vietnamese gloss to a reference homograph, with an English dictionary URL for context.",
+      "limits": "Not independent verification, not a published translation or CEFR source; all mapped senses require independent validation."
+    },
+    {
+      "id": "editorial-curation-map",
+      "type": "repository-origin",
+      "title": "Curated editorial CEFR map authored for v1.0.0 (scripts/cefr_editorial_map.py)",
+      "publisher": "coderunknow/Chuyen-Anh — this repository, 2026-11-03",
+      "url": "https://github.com/coderunknow/Chuyen-Anh/blob/main/scripts/cefr_editorial_map.py",
+      "locatorScheme": "dict key: normalized headword -> level; method:cross-pos-proxy for explicitly unverified different-POS proxies",
+      "access": "file-in-repo",
+      "supports": "Editorial estimates when no consulted reference supports the requested headword and POS, including explicitly identified cross-POS proxies. Always marked evidence=editorial_estimate with needsIndependentValidation=true.",
+      "limits": "Not a published reference. A single reviewer's judgement; it must not be quoted as a verified level and requires two independent validations per the classification policy."
+    },
+    {
+      "id": "corpus-frequency-index",
+      "type": "corpus",
+      "title": "COCA-based frequency rank list (top 30k) via Words-CEFR-Dataset mirror",
+      "publisher": "Maximax67/Words-CEFR-Dataset (GitHub mirror of frequency data)",
+      "url": "https://github.com/Maximax67/Words-CEFR-Dataset",
+      "locatorScheme": "frequency-top30k.csv: Rank,Word — snapshot pinned in audit/v100/refs/",
+      "access": "file-in-repo",
+      "supports": "A frequency rank used only to propose an editorial band when nothing else exists.",
+      "limits": "Frequency is never a CEFR level source; any level derived from it is editorial_estimate with LOW/VERY_LOW confidence and needsIndependentValidation=true."
     }
   ]
 }

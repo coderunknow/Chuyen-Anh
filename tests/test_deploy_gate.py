@@ -132,8 +132,19 @@ class HoldMarkerLifecycleTests(unittest.TestCase):
         html = (ROOT / 'index.html').read_text(encoding='utf-8')
         live = re.search(r"APP_VERSION = '([^']+)'", html)
         self.assertIsNotNone(live, 'the shipped file declares its version')
-        self.assertEqual(tags[0], live.group(1),
-                         'the hold names the release of the version actually shipped')
+        version = live.group(1)
+        if re.search(r'-(?:dev|beta|rc)\d+$', version):
+            # A prerelease build must be covered by its own published prerelease.
+            self.assertEqual(tags[0], version,
+                             'the hold names the release of the version actually shipped')
+        else:
+            # A PR-only stable candidate (final version string, no merge/tag/release)
+            # must NOT move the hold: the hold keeps naming the last published
+            # prerelease, and deploy.yml still only triggers on a main push.
+            self.assertEqual(version, 'v1.0.0',
+                             'the candidate ships the final version string')
+            self.assertEqual(tags, ['v1.0.0-rc10'],
+                             'DEPLOY_HOLD stays at the last published release on a PR-only candidate')
 
 
 class ReleasePublishedDispatchWorkflowContractTests(unittest.TestCase):

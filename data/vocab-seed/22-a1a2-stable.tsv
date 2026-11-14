@@ -1,0 +1,1148 @@
+# Phase III (v1.0.0): +500 A1 and +500 A2 everyday headwords.
+# Candidates: CEFR-J Vocabulary Profile 1.5 and Oxford 3000 A1/A2 headwords absent from the
+# pre-v1.0.0 bank (type=core = listed at that level by both reference works).
+# word<TAB>pos<TAB>meaning<TAB>level<TAB>topic<TAB>type<TAB>skills<TAB>level_source
+a	det	một	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+about	prep	xấp xỉ, khoảng; về	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+above	prep	ở trên, phía trên	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+action	n	hành động	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+actress	n	nữ diễn viên	A1	work	topic	reading,cloze	oxford-3000-wordlist
+add	v	cộng, thêm vào	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+after	prep	sau, sau khi	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+again	adv	lại, lần nữa	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+age	n	tuổi	A1	personal	core	reading,cloze	cefrj-vocabulary-profile-1.5
+ago	adv	trước đây	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+airport	n	sân bay	A1	travel	core	reading,cloze	cefrj-vocabulary-profile-1.5
+album	n	an-bum ảnh	A1	home	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+all	pron	toàn bộ, tất cả	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+almost	adv	gần như	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+alone	adv	một mình	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+along	adv	dọc theo	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+already	adv	đã, rồi	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+also	adv	cũng, cũng vậy	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+always	adv	luôn luôn	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+am	v	thì, là	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+amazing	adj	tuyệt vời, đáng kinh ngạc	A1	daily	topic	reading,cloze	oxford-3000-wordlist
+an	det	một	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+and	conj	và	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+angry	adj	tức giận	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+another	det	một cái khác, thêm nữa	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+answer	n	câu trả lời	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+any	pron	bất kỳ, cái nào	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+anyone	pron	bất kỳ ai	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+anything	pron	bất cứ cái gì	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+apple	n	quả táo	A1	food	core	reading,cloze	cefrj-vocabulary-profile-1.5
+April	n	tháng Tư	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+are	v	thì, là	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+arm	n	cánh tay	A1	personal	core	reading,cloze	cefrj-vocabulary-profile-1.5
+around	prep	xung quanh, quanh	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+art	n	nghệ thuật	A1	leisure	core	reading,cloze	cefrj-vocabulary-profile-1.5
+artist	n	nghệ sĩ, họa sĩ	A1	work	topic	reading,cloze	oxford-3000-wordlist
+as	prep	như, với tư cách là	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+ask	v	hỏi, yêu cầu	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+at	prep	ở, tại	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+August	n	tháng Tám	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+away	adv	xa, đi xa	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+baby	n	em bé	A1	family	core	reading,cloze	cefrj-vocabulary-profile-1.5
+back	n	lưng, phía sau	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+bad	adj	tệ, xấu	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+bag	n	cái túi, túi xách	A1	shopping	core	reading,cloze	cefrj-vocabulary-profile-1.5
+ball	n	quả bóng	A1	leisure	core	reading,cloze	cefrj-vocabulary-profile-1.5
+band	n	ban nhạc, dải	A1	appearance	core	reading,cloze	cefrj-vocabulary-profile-1.5
+bank	n	ngân hàng; bờ sông	A1	shopping	core	reading,cloze	cefrj-vocabulary-profile-1.5
+bar	n	quán rượu	A1	shopping	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+baseball	n	bóng chày	A1	leisure	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+bat	n	con dơi; gậy bóng chày	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+bath	n	bồn tắm, việc tắm	A1	home	core	reading,cloze	cefrj-vocabulary-profile-1.5
+be	v	thì, là, ở	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+beach	n	bãi biển	A1	travel	core	reading,cloze	cefrj-vocabulary-profile-1.5
+bean	n	hạt đậu	A1	food	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+bear	n	con gấu	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+because	conj	bởi vì	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+become	v	trở thành	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+bed	n	cái giường	A1	home	core	reading,cloze	cefrj-vocabulary-profile-1.5
+bee	n	con ong	A1	school	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+before	prep	trước, trước khi	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+behind	prep	đằng sau	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+bell	n	cái chuông	A1	home	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+below	prep	ở dưới, phía dưới	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+beside	prep	bên cạnh	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+best	adv	tốt nhất	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+better	adj	tốt hơn	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+between	prep	giữa	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+big	adj	to, lớn	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+bird	n	con chim	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+birthday	n	sinh nhật	A1	personal	core	reading,cloze	cefrj-vocabulary-profile-1.5
+black	n	màu đen	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+blank	adj	trống, để trống	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+block	n	tòa nhà; khối	A1	shopping	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+blog	n	trang nhật ký cá nhân (web)	A1	leisure	topic	reading,cloze	oxford-3000-wordlist
+blow	v	thổi	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+blue	n	màu xanh dương	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+boat	n	con thuyền	A1	travel	core	reading,cloze	cefrj-vocabulary-profile-1.5
+bone	n	xương	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+bookstore	n	tiệm sách	A1	shopping	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+boring	adj	nhàm chán	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+born	v	được sinh ra	A1	daily	topic	reading,cloze	oxford-3000-wordlist
+both	pron	cả hai	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+bottom	n	đáy, phần dưới	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+bowl	n	cái bát	A1	home	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+box	n	cái hộp	A1	home	core	reading,cloze	cefrj-vocabulary-profile-1.5
+boy	n	cậu bé trai	A1	personal	core	reading,cloze	cefrj-vocabulary-profile-1.5
+break	v	làm vỡ, gãy	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+bridge	n	cây cầu	A1	shopping	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+bright	adj	sáng, thông minh	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+broken	adj	bị hỏng, vỡ	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+brother	n	anh, em trai	A1	family	core	reading,cloze	cefrj-vocabulary-profile-1.5
+brown	adj	nâu, màu nâu	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+building	n	tòa nhà	A1	shopping	core	reading,cloze	cefrj-vocabulary-profile-1.5
+bus	n	xe buýt	A1	travel	core	reading,cloze	cefrj-vocabulary-profile-1.5
+but	conj	nhưng	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+buy	v	mua	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+by	prep	bởi, bằng, cạnh	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+bye	n	tạm biệt	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+cafe	n	quán cà phê	A1	daily	topic	reading,cloze	oxford-3000-wordlist
+cake	n	bánh ngọt, bánh kem	A1	food	core	reading,cloze	cefrj-vocabulary-profile-1.5
+call	v	gọi, gọi điện	A1	daily	core	reading,cloze	oxford-3000-wordlist
+camera	n	máy ảnh	A1	home	core	reading,cloze	cefrj-vocabulary-profile-1.5
+camp	n	trại, khu cắm trại	A1	leisure	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+can	modal	có thể, biết làm	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+candy	n	kẹo	A1	food	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+cannot	modal	không thể nào, chẳng thể	A1	daily	topic	reading,cloze	oxford-3000-wordlist
+cap	n	mũ lưỡi trai	A1	appearance	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+car	n	xe ô tô	A1	shopping	core	reading,cloze	cefrj-vocabulary-profile-1.5
+card	n	thẻ, thiệp	A1	shopping	core	reading,cloze	cefrj-vocabulary-profile-1.5
+carefully	adv	cẩn thận	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+carry	v	mang, xách	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+cartoon	n	phim hoạt hình	A1	leisure	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+case	n	trường hợp, vali	A1	home	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+cat	n	con mèo	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+catch	v	bắt	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+CD	n	đĩa nén	A1	leisure	core	reading,cloze	cefrj-vocabulary-profile-1.5
+centre	n	trung tâm	A1	daily	topic	reading,cloze	oxford-3000-wordlist
+check	v	kiểm tra	A1	daily	core	reading,cloze	oxford-3000-wordlist
+chocolate	n	sô-cô-la	A1	food	core	reading,cloze	cefrj-vocabulary-profile-1.5
+church	n	nhà thờ	A1	shopping	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+cinema	n	rạp chiếu phim	A1	leisure	core	reading,cloze	cefrj-vocabulary-profile-1.5
+circle	n	hình tròn, vòng tròn	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+classmate	n	bạn cùng lớp	A1	school	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+clean	v	làm sạch, dọn dẹp	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+close	v	đóng lại	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+closed	adj	đóng, đóng cửa	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+clothes	n	quần áo	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+cloud	n	đám mây	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+cloudy	adj	nhiều mây	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+club	n	câu lạc bộ	A1	leisure	core	reading,cloze	cefrj-vocabulary-profile-1.5
+code	n	mã, mật mã	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+coffee	n	cà phê	A1	food	core	reading,cloze	cefrj-vocabulary-profile-1.5
+coke	n	nước ngọt Coca	A1	food	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+cold	adj	lạnh, rét	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+college	n	trường cao đẳng, đại học	A1	school	core	reading,cloze	cefrj-vocabulary-profile-1.5
+come	v	đến, tới	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+concert	n	buổi hòa nhạc	A1	leisure	core	reading,cloze	cefrj-vocabulary-profile-1.5
+contest	n	cuộc thi	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+cook	v	nấu ăn	A1	work	core	reading,cloze	cefrj-vocabulary-profile-1.5
+cool	adj	mát mẻ; ngầu	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+cop	n	cảnh sát	A1	work	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+copy	n	bản sao	A1	school	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+corner	n	góc	A1	home	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+correct	adj	đúng, chính xác	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+couch	n	ghế sofa	A1	home	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+could	modal	đã có thể, có thể được	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+cow	n	con bò	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+cry	n	tiếng khóc, tiếng kêu	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+cup	n	tách, chén	A1	home	core	reading,cloze	cefrj-vocabulary-profile-1.5
+cut	v	cắt	A1	travel	core	reading,cloze	cefrj-vocabulary-profile-1.5
+cute	adj	dễ thương	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+dad	n	bố, ba	A1	family	core	reading,cloze	cefrj-vocabulary-profile-1.5
+daddy	n	bố, ba	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+dance	v	nhảy múa, khiêu vũ	A1	leisure	core	reading,cloze	cefrj-vocabulary-profile-1.5
+dancing	n	việc nhảy múa	A1	leisure	core	reading,cloze	cefrj-vocabulary-profile-1.5
+dark	adj	tối, sẫm màu	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+daughter	n	con gái	A1	family	core	reading,cloze	cefrj-vocabulary-profile-1.5
+day	n	ngày	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+dear	adj	thân mến, thân thương	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+December	n	tháng Mười Hai	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+delicious	adj	ngon tuyệt	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+did	v	đã làm	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+dig	n	cú huých; sự đào bới	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+dinner	n	bữa tối	A1	food	core	reading,cloze	cefrj-vocabulary-profile-1.5
+dirty	adj	bẩn	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+do	v	làm	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+doctor	n	bác sĩ	A1	daily	topic	reading,cloze	oxford-3000-wordlist
+does	v	làm	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+dog	n	con chó	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+doing	v	đang làm	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+doll	n	búp bê	A1	leisure	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+dollar	n	đô-la	A1	shopping	core	reading,cloze	cefrj-vocabulary-profile-1.5
+door	n	cửa ra vào	A1	home	core	reading,cloze	cefrj-vocabulary-profile-1.5
+down	adv	xuống, ở dưới	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+drama	n	vở kịch, phim chính kịch	A1	leisure	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+dream	n	giấc mơ; mơ	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+driver	n	tài xế	A1	leisure	core	reading,cloze	cefrj-vocabulary-profile-1.5
+drop	v	làm rơi, thả rơi	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+drum	n	cái trống	A1	leisure	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+dry	adj	khô, khô ráo	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+due	adj	hết hạn, đến hạn	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+DVD	n	đĩa hình kỹ thuật số	A1	leisure	core	reading,cloze	cefrj-vocabulary-profile-1.5
+each	pron	mỗi	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+eat	v	ăn	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+eight	number	số 8	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+either	adv	cũng không	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+else	adv	khác, nếu không thì	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+end	n	sự kết thúc, phần cuối	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+evening	n	buổi tối	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+every	det	mỗi, mọi	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+everybody	pron	mọi người	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+everyone	pron	mọi người	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+everything	pron	mọi thứ	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+excellent	adj	xuất sắc	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+excited	adj	phấn khích, hào hứng	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+exciting	adj	thú vị, hấp dẫn	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+expensive	adj	đắt	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+eye	n	mắt	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+fair	adj	công bằng, hợp lý	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+fairy	n	nàng tiên	A1	media	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+false	adj	sai, giả	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+farm	n	nông trại	A1	shopping	core	reading,cloze	cefrj-vocabulary-profile-1.5
+farmer	n	nông dân	A1	work	core	reading,cloze	cefrj-vocabulary-profile-1.5
+fat	adj	béo, mập	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+February	n	tháng Hai	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+feeling	n	cảm giác	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+fever	n	sốt	A1	travel	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+fight	n	cuộc ẩu đả, trận chiến	A1	media	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+fire	n	lửa, hỏa hoạn	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+first	adv	đầu tiên	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+fish	n	cá	A1	food	core	reading,cloze	cefrj-vocabulary-profile-1.5
+five	number	số 5	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+flag	n	lá cờ	A1	shopping	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+floor	n	tầng, sàn nhà	A1	home	core	reading,cloze	cefrj-vocabulary-profile-1.5
+flower	n	hoa	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+fly	n	con ruồi	A1	travel	core	reading,cloze	cefrj-vocabulary-profile-1.5
+following	adj	sau đây, tiếp theo	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+foot	n	bàn chân	A1	daily	topic	reading,cloze	oxford-3000-wordlist
+for	prep	cho, trong khoảng (thời gian)	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+foreign	adj	nước ngoài	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+foreigner	n	người nước ngoài	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+four	number	số 4	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+fourteen	number	số 14	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+Friday	n	thứ Sáu	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+from	prep	từ	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+front	adj	ở phía trước	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+full	adj	đầy, no	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+fun	n	niềm vui, sự vui thích	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+funny	adj	buồn cười, khôi hài	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+garden	n	vườn	A1	home	core	reading,cloze	cefrj-vocabulary-profile-1.5
+get	v	lấy, nhận được	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+ghost	n	ma, hồn ma	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+gift	n	món quà	A1	home	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+girl	n	cô bé gái	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+girlfriend	n	bạn gái	A1	personal	core	reading,cloze	cefrj-vocabulary-profile-1.5
+give	v	cho, tặng	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+glasses	n	kính đeo mắt	A1	home	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+go	v	đi	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+gold	adj	bằng vàng, màu vàng kim	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+good	adj	tốt	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+goodbye	n	tạm biệt	A1	daily	topic	reading,cloze	oxford-3000-wordlist
+grandfather	n	ông	A1	family	core	reading,cloze	cefrj-vocabulary-profile-1.5
+grandma	n	bà	A1	family	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+grandmother	n	bà	A1	family	core	reading,cloze	cefrj-vocabulary-profile-1.5
+grandpa	n	ông	A1	family	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+grandparent	n	ông bà	A1	family	core	reading,cloze	cefrj-vocabulary-profile-1.5
+great	adj	tuyệt vời, vĩ đại	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+green	adj	xanh lá, màu xanh lá	A1	appearance	core	reading,cloze	cefrj-vocabulary-profile-1.5
+greet	v	chào hỏi, đón chào	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+grey	n	màu xám	A1	daily	topic	reading,cloze	oxford-3000-wordlist
+ground	n	mặt đất	A1	shopping	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+group	n	nhóm	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+guess	v	đoán	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+guest	n	khách mời	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+guitar	n	đàn ghi-ta	A1	home	core	reading,cloze	cefrj-vocabulary-profile-1.5
+guy	n	anh chàng, gã	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+gym	n	phòng tập thể dục	A1	shopping	topic	reading,cloze	oxford-3000-wordlist
+had	v	đã có	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+hair	n	tóc	A1	personal	core	reading,cloze	cefrj-vocabulary-profile-1.5
+half	n	một nửa	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+hall	n	hành lang, hội trường	A1	shopping	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+hamburger	n	bánh mì kẹp thịt bò	A1	food	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+hand	n	bàn tay	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+handsome	adj	đẹp trai	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+happen	v	xảy ra	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+hard	adj	cứng; khó	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+has	v	có	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+hat	n	cái mũ	A1	appearance	core	reading,cloze	cefrj-vocabulary-profile-1.5
+have	v	có	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+he	pron	anh ấy	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+head	n	cái đầu; người đứng đầu	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+hear	v	nghe	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+heavy	adj	nặng	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+hello	n	lời chào, xin chào	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+her	pron	cô ấy; của cô ấy	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+here	adv	đây, ở đây	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+hers	pron	của cô ấy	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+hi	interj	xin chào (thân mật)	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+hide	v	trốn, giấu	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+hill	n	ngọn đồi	A1	shopping	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+him	pron	anh ấy	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+his	pron	của anh ấy	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+hold	n	sự cầm nắm, chỗ bám	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+horse	n	con ngựa	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+hospital	n	bệnh viện	A1	shopping	core	reading,cloze	cefrj-vocabulary-profile-1.5
+hot	adj	nóng, cay	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+hotel	n	khách sạn	A1	travel	core	reading,cloze	cefrj-vocabulary-profile-1.5
+hour	n	giờ, tiếng đồng hồ	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+how	adv	thế nào, như thế nào	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+hurt	v	làm đau, bị thương	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+husband	n	chồng	A1	family	core	reading,cloze	cefrj-vocabulary-profile-1.5
+I	pron	tôi	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+ice	n	băng, nước đá	A1	food	core	reading,cloze	cefrj-vocabulary-profile-1.5
+if	conj	nếu	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+in	prep	trong, ở trong	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+inside	prep	bên trong	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+interested	adj	quan tâm, hứng thú	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+interesting	adj	thú vị, hay	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+interviewer	n	người phỏng vấn	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+into	prep	vào trong	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+is	v	thì, là	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+it	pron	nó	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+item	n	món đồ, mục	A1	home	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+its	pron	của nó	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+January	n	tháng Một	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+jet	n	máy bay phản lực	A1	travel	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+join	v	tham gia	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+July	n	tháng Bảy	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+jump	v	nhảy	A1	leisure	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+June	n	tháng Sáu	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+just	adv	vừa mới; chỉ	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+kick	v	đá	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+kid	n	đứa trẻ	A1	family	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+kill	v	giết	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+kilometre	n	ki-lô-mét	A1	daily	topic	reading,cloze	oxford-3000-wordlist
+king	n	vua	A1	world	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+kiss	n	nụ hôn	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+kitchen	n	nhà bếp	A1	home	core	reading,cloze	cefrj-vocabulary-profile-1.5
+kite	n	cái diều	A1	leisure	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+lady	n	quý bà, người phụ nữ	A1	personal	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+later	adv	muộn hơn, sau này	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+leave	v	rời đi, để lại	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+left	adj	ở bên trái	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+let	v	để cho, cho phép	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+like	v	thích	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+lily	n	hoa ly	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+lion	n	con sư tử	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+listen	v	nghe	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+little	adj	nhỏ, bé	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+living	adj	đang sống, còn sống	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+lot	pron	nhiều	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+lovely	adj	đáng yêu, tuyệt đẹp	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+luck	n	vận may	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+lucky	adj	may mắn	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+machine	n	máy móc	A1	work	core	reading,cloze	cefrj-vocabulary-profile-1.5
+mail	n	thư bưu điện	A1	home	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+man	n	người đàn ông	A1	personal	core	reading,cloze	cefrj-vocabulary-profile-1.5
+many	pron	nhiều	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+map	n	bản đồ	A1	home	core	reading,cloze	cefrj-vocabulary-profile-1.5
+March	n	tháng Ba	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+match	n	que diêm; trận đấu	A1	leisure	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+may	modal	có lẽ, được phép	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+maybe	adv	có thể, có lẽ	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+me	pron	tôi	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+merry	adj	vui vẻ	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+message	n	lời nhắn, tin nhắn	A1	media	core	reading,cloze	cefrj-vocabulary-profile-1.5
+mile	n	dặm (đơn vị đo)	A1	daily	topic	reading,cloze	oxford-3000-wordlist
+miss	v	nhớ; bỏ lỡ	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+mobile	n	điện thoại di động	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+mom	n	mẹ	A1	family	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+moment	n	khoảnh khắc	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+Monday	n	thứ Hai	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+monkey	n	con khỉ	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+moon	n	mặt trăng	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+more	pron	nhiều hơn	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+most	det	hầu hết	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+mountain	n	núi	A1	world	core	reading,cloze	cefrj-vocabulary-profile-1.5
+mouse	n	con chuột	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+movie	n	phim	A1	media	core	reading,cloze	cefrj-vocabulary-profile-1.5
+much	pron	nhiều	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+must	modal	phải, bắt buộc phải	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+my	det	của tôi	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+name	n	tên	A1	personal	core	reading,cloze	cefrj-vocabulary-profile-1.5
+never	adv	không bao giờ	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+new	adj	mới	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+nice	adj	tốt, hay, dễ thương	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+nine	number	số 9	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+ninety	number	số 90	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+no	det	không	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+not	adv	không	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+nothing	pron	không có gì	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+November	n	tháng Mười Một	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+now	adv	bây giờ	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+nurse	n	y tá	A1	work	core	reading,cloze	cefrj-vocabulary-profile-1.5
+o'clock	adv	giờ (nói giờ đúng)	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+October	n	tháng Mười	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+of	prep	của	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+off	adj	tắt, nghỉ	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+officer	n	sĩ quan, cán bộ	A1	work	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+oh	interj	ôi, ồ	A1	daily	topic	reading,cloze	oxford-3000-wordlist
+OK	adj	được, ổn	A1	daily	topic	reading,cloze	oxford-3000-wordlist
+olympics	n	đại hội thể thao thế giới	A1	media	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+on	prep	trên, vào (ngày)	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+once	adv	một lần	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+one	number	số 1	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+only	adv	chỉ	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+opera	n	nhạc kịch phương Tây	A1	leisure	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+or	conj	hoặc	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+other	det	khác	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+our	det	của chúng tôi	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+ours	pron	của chúng tôi	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+out	adv	ngoài, ra ngoài	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+over	prep	qua, phía trên, hơn	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+own	adj	của riêng mình	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+owner	n	chủ sở hữu	A1	work	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+page	n	trang	A1	media	core	reading,cloze	cefrj-vocabulary-profile-1.5
+paint	v	sơn, vẽ tranh	A1	school	core	reading,cloze	cefrj-vocabulary-profile-1.5
+palace	n	cung điện	A1	world	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+pants	n	quần dài	A1	appearance	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+partner	n	người cộng sự, bạn đời	A1	family	core	reading,cloze	cefrj-vocabulary-profile-1.5
+party	n	bữa tiệc	A1	leisure	core	reading,cloze	cefrj-vocabulary-profile-1.5
+pay	v	trả tiền	A1	shopping	core	reading,cloze	cefrj-vocabulary-profile-1.5
+pen	n	bút mực	A1	home	core	reading,cloze	cefrj-vocabulary-profile-1.5
+pencil	n	bút chì	A1	home	core	reading,cloze	cefrj-vocabulary-profile-1.5
+personal	adj	cá nhân	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+pet	n	thú cưng	A1	family	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+photo	n	bức ảnh	A1	home	core	reading,cloze	cefrj-vocabulary-profile-1.5
+piano	n	đàn dương cầm	A1	leisure	core	reading,cloze	cefrj-vocabulary-profile-1.5
+pick	v	chọn, hái	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+picnic	n	buổi dã ngoại	A1	leisure	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+picture	n	bức tranh, bức ảnh	A1	leisure	core	reading,cloze	cefrj-vocabulary-profile-1.5
+pig	n	con lợn	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+player	n	người chơi	A1	leisure	core	reading,cloze	cefrj-vocabulary-profile-1.5
+pool	n	hồ bơi	A1	shopping	core	reading,cloze	cefrj-vocabulary-profile-1.5
+poor	adj	nghèo, tội nghiệp	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+potato	n	khoai tây	A1	food	core	reading,cloze	cefrj-vocabulary-profile-1.5
+pound	n	pao (đơn vị tiền/đo)	A1	daily	topic	reading,cloze	oxford-3000-wordlist
+pray	v	cầu nguyện	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+prince	n	hoàng tử	A1	world	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+princess	n	công chúa	A1	world	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+put	v	đặt, để	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+quarter	n	một phần tư	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+rabbit	n	con thỏ	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+radio	n	máy phát thanh	A1	home	core	reading,cloze	cefrj-vocabulary-profile-1.5
+rain	v	mưa	A1	media	core	reading,cloze	cefrj-vocabulary-profile-1.5
+rat	n	con chuột	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+read	v	đọc	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+reader	n	người đọc, bạn đọc	A1	leisure	core	reading,cloze	cefrj-vocabulary-profile-1.5
+reading	n	việc đọc sách	A1	leisure	core	reading,cloze	cefrj-vocabulary-profile-1.5
+really	adv	thực sự	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+ribbon	n	dải ruy băng	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+rich	adj	giàu	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+rose	n	hoa hồng	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+row	n	hàng, dãy	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+rule	n	quy tắc	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+sad	adj	buồn	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+sailor	n	thủy thủ	A1	work	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+same	adj	giống nhau	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+Saturday	n	thứ Bảy	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+say	v	nói	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+sea	n	biển	A1	world	core	reading,cloze	cefrj-vocabulary-profile-1.5
+see	v	nhìn thấy	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+self	n	tự mình, bản thân	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+sell	v	bán	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+September	n	tháng Chín	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+seven	number	số 7	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+she	pron	cô ấy	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+shop	n	cửa hàng	A1	shopping	core	reading,cloze	cefrj-vocabulary-profile-1.5
+shopping	n	việc mua sắm	A1	shopping	core	reading,cloze	cefrj-vocabulary-profile-1.5
+short	adj	ngắn, thấp	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+should	modal	nên, đáng lẽ nên	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+shower	n	vòi hoa sen, việc tắm	A1	home	core	reading,cloze	cefrj-vocabulary-profile-1.5
+sing	v	hát	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+singer	n	ca sĩ	A1	work	core	reading,cloze	cefrj-vocabulary-profile-1.5
+sister	n	chị, em gái	A1	family	core	reading,cloze	cefrj-vocabulary-profile-1.5
+six	number	số 6	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+slow	adj	chậm	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+smart	adj	thông minh	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+smith	n	thợ rèn	A1	work	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+snake	n	con rắn	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+snowy	adj	có tuyết	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+some	pron	một số, một vài	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+someone	pron	một ai đó	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+something	pron	một cái gì đó	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+sometimes	adv	đôi khi	A1	daily	topic	reading,cloze	oxford-3000-wordlist
+son	n	con trai	A1	family	core	reading,cloze	cefrj-vocabulary-profile-1.5
+song	n	bài hát	A1	leisure	core	reading,cloze	cefrj-vocabulary-profile-1.5
+soon	adv	sớm	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+sorry	adj	xin lỗi	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+spelling	n	chính tả	A1	school	topic	reading,cloze	oxford-3000-wordlist
+spend	v	tiêu (tiền), dành (thời gian)	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+spot	n	đốm, điểm	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+spring	n	mùa xuân	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+spy	n	gián điệp	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+station	n	nhà ga, trạm	A1	shopping	core	reading,cloze	cefrj-vocabulary-profile-1.5
+stop	v	dừng lại, ngừng	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+sum	n	tổng, số tiền	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+sun	n	mặt trời	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+Sunday	n	Chủ nhật	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+sunny	adj	có nắng	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+sunshine	n	ánh nắng	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+super	adj	tuyệt vời	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+swimming	n	việc bơi lội	A1	leisure	core	reading,cloze	cefrj-vocabulary-profile-1.5
+t-shirt	n	áo thun	A1	daily	topic	reading,cloze	oxford-3000-wordlist
+table	n	cái bàn	A1	home	core	reading,cloze	cefrj-vocabulary-profile-1.5
+take	v	lấy, mang đi	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+taxi	n	xe tắc-xi	A1	travel	core	reading,cloze	cefrj-vocabulary-profile-1.5
+tea	n	trà	A1	food	core	reading,cloze	cefrj-vocabulary-profile-1.5
+temple	n	ngôi đền	A1	shopping	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+ten	number	số 10	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+tennis	n	quần vợt	A1	leisure	core	reading,cloze	cefrj-vocabulary-profile-1.5
+than	prep	hơn	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+thank	v	cảm ơn	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+thanks	n	lời cảm ơn	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+that	pron	đó, kia	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+the	det	cái, con, người, ấy	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+their	det	của họ	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+them	pron	họ, chúng	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+then	adv	sau đó, rồi	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+there	adv	ở đó	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+these	pron	những cái này	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+they	pron	họ	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+this	pron	đây, này	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+those	pron	những cái kia	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+three	number	số 3	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+through	prep	xuyên qua	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+Thursday	n	thứ Năm	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+tiger	n	con hổ	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+tired	adj	mệt	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+to	prep	đến, tới	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+tomorrow	n	ngày mai	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+too	adv	cũng; quá	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+Tuesday	n	thứ Ba	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+TV	n	tivi	A1	home	core	reading,cloze	cefrj-vocabulary-profile-1.5
+two	number	số 2	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+umbrella	n	cái ô	A1	home	core	reading,cloze	cefrj-vocabulary-profile-1.5
+under	prep	dưới	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+until	prep	cho đến khi	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+us	pron	chúng tôi, chúng ta	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+very	adv	rất	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+video	n	phim ngắn trên mạng	A1	home	core	reading,cloze	cefrj-vocabulary-profile-1.5
+wake	v	thức dậy	A1	daily	core	reading,cloze	oxford-3000-wordlist
+wall	n	tường	A1	home	core	reading,cloze	cefrj-vocabulary-profile-1.5
+was	v	đã là, đã ở	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+way	n	con đường, cách	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+we	pron	chúng tôi	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+wear	v	mặc, đeo	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+Wednesday	n	thứ Tư	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+weekend	n	cuối tuần	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+were	v	đã là, đã ở	A1	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+what	pron	cái gì, điều gì	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+when	conj	khi nào	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+where	conj	ở đâu	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+which	pron	cái nào	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+white	n	màu trắng	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+who	pron	ai	A1	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+work	n	công việc	A1	work	core	reading,cloze	cefrj-vocabulary-profile-1.5
+worker	n	công nhân	A1	work	core	reading,cloze	cefrj-vocabulary-profile-1.5
+able	adj	có khả năng, có thể	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+account	n	tài khoản	A2	shopping	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+achieve	v	đạt được	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+act	n	hành động, màn diễn	A2	leisure	core	reading,cloze	cefrj-vocabulary-profile-1.5
+adjective	n	tính từ	A2	school	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+admit	v	thừa nhận	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+advanced	adj	nâng cao, tiên tiến	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+advertising	n	quảng cáo	A2	shopping	core	reading,cloze	cefrj-vocabulary-profile-1.5
+against	prep	chống lại, ngược lại	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+aged	adj	lớn tuổi, cao tuổi	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+agency	n	đại lý, cơ quan	A2	travel	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+agent	n	đại lý, tác nhân	A2	shopping	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+ah	interj	á, à	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+ahead	adv	phía trước	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+air	n	không khí	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+airline	n	hãng hàng không	A2	travel	topic	reading,cloze	oxford-3000-wordlist
+alive	adj	còn sống	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+amused	adj	vui thích, buồn cười	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+angel	n	thiên thần	A2	media	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+angrily	adv	một cách giận dữ	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+annoy	v	làm phiền	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+annoying	adj	khó chịu	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+anxious	adj	lo lắng	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+anymore	adv	không còn nữa	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+app	n	ứng dụng (điện thoại)	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+apparently	adv	rõ ràng, có vẻ	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+armed	adj	có vũ trang	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+army	n	quân đội	A2	work	topic	reading,cloze	oxford-3000-wordlist
+astronaut	n	phi hành gia	A2	work	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+attack	v	tấn công	A2	media	core	reading,cloze	cefrj-vocabulary-profile-1.5
+audio	adj	âm thanh	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+automatic	adj	tự động	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+award	n	giải thưởng	A2	media	core	reading,cloze	cefrj-vocabulary-profile-1.5
+background	n	nền, hoàn cảnh	A2	personal	core	reading,cloze	cefrj-vocabulary-profile-1.5
+badminton	n	cầu lông	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+balloon	n	bóng bay	A2	shopping	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+banking	n	nghiệp vụ ngân hàng	A2	travel	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+barbecue	n	tiệc nướng	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+base	n	cơ sở, đế	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+based	adj	dựa trên, có trụ sở tại	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+basic	adj	cơ bản	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+batch	n	mẻ, đợt	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+beat	v	đánh bại; đập	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+beauty	n	vẻ đẹp	A2	leisure	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+been	v	đã từng, đã ở	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+beginner	n	người mới bắt đầu	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+beginning	n	sự bắt đầu	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+being	n	con người, sự tồn tại	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+belly	n	bụng	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+bend	v	uốn cong, cúi xuống	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+benefit	n	lợi ích	A2	work	topic	reading,cloze	oxford-3000-wordlist
+bit	n	một chút, mảnh	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+blackboard	n	bảng đen	A2	school	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+blonde	adj	vàng hoe (tóc)	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+blood	n	máu	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+bloom	n	hoa, sự nở hoa	A2	shopping	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+boiled	adj	luộc	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+bookcase	n	tủ sách	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+bookshelf	n	kệ sách	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+bookshop	n	tiệm sách	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+boss	n	sếp, ông chủ	A2	work	core	reading,cloze	cefrj-vocabulary-profile-1.5
+brainstorm	n	động não	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+bride	n	cô dâu	A2	family	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+burn	n	vết bỏng	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+bush	n	bụi cây	A2	shopping	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+businesswoman	n	nữ doanh nhân	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+cab	n	xe taxi	A2	travel	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+campus	n	khuôn viên trường	A2	school	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+captain	n	đội trưởng	A2	work	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+carrot	n	cà rốt	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+cash	n	tiền mặt	A2	shopping	core	reading,cloze	cefrj-vocabulary-profile-1.5
+cassette	n	băng cát-xét	A2	home	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+castle	n	lâu đài	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+cent	n	xu, đồng xu	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+chain	n	chuỗi, xích	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+chart	n	biểu đồ	A2	school	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+chess	n	cờ vua	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+chest	n	tủ, ngực	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+chin	n	cằm	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+chip	n	khoai tây chiên lát mỏng; linh kiện điện tử	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+chirp	n	tiếng kêu chíp chíp	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+classic	adj	kinh điển	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+cleaner	n	người dọn dẹp	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+clear	adj	rõ ràng, trong trẻo	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+click	v	nhấp chuột, kêu lách cách	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+clone	v	nhân bản vô tính	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+clothing	n	quần áo (nói chung)	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+clown	n	chú hề	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+coast	n	bờ biển	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+cola	n	nước ngọt có ga	A2	food	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+comedy	n	hài kịch, phim hài	A2	leisure	topic	reading,cloze	oxford-3000-wordlist
+committee	n	ủy ban	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+compare	v	so sánh	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+compete	v	cạnh tranh, thi đấu	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+completely	adv	hoàn toàn	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+composer	n	nhà soạn nhạc	A2	work	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+concentrate	v	tập trung	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+conference	n	hội nghị	A2	work	topic	reading,cloze	oxford-3000-wordlist
+confused	adj	bối rối	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+connected	adj	có liên kết, gắn bó	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+consider	v	cân nhắc, xem như	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+continent	n	châu lục	A2	school	core	reading,cloze	cefrj-vocabulary-profile-1.5
+convenient	adj	thuận tiện	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+cooking	n	việc nấu ăn	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+cooler	n	máy làm mát	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+count	v	đếm	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+countryside	n	nông thôn	A2	world	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+couple	n	cặp, đôi	A2	family	core	reading,cloze	cefrj-vocabulary-profile-1.5
+court	n	sân, tòa án	A2	shopping	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+crazy	adj	điên, khùng	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+credit	n	tín dụng, công trạng	A2	shopping	core	reading,cloze	cefrj-vocabulary-profile-1.5
+crisp	n	khoai tây chiên lát mỏng	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+cross	v	băng qua, vượt qua	A2	media	core	reading,cloze	cefrj-vocabulary-profile-1.5
+crowded	adj	đông đúc	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+crown	n	vương miện	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+cruise	n	chuyến du ngoạn trên biển	A2	travel	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+curly	adj	xoăn (tóc)	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+curse	n	lời nguyền	A2	media	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+cycling	n	môn đạp xe, việc đi xe đạp	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+dam	n	đập nước	A2	school	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+dancer	n	vũ công	A2	leisure	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+daylight	n	ánh sáng ban ngày	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+dead	adj	chết	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+death	n	cái chết	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+deeply	adv	sâu sắc	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+department	n	phòng ban, khoa	A2	work	topic	reading,cloze	oxford-3000-wordlist
+depend	v	phụ thuộc	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+designer	n	nhà thiết kế	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+detective	n	thám tử	A2	work	topic	reading,cloze	oxford-3000-wordlist
+developed	adj	đã phát triển	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+diamond	n	kim cương	A2	home	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+die	v	chết	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+direction	n	hướng, phương hướng	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+disappointed	adj	thất vọng	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+disappointing	adj	đáng thất vọng	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+disco	n	sàn nhảy nhạc điện tử	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+display	n	trưng bày, màn hình	A2	shopping	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+distance	n	khoảng cách	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+divorced	adj	đã ly hôn	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+done	v	đã làm xong	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+double	adj	gấp đôi	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+downstairs	adv	ở tầng dưới	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+drawing	n	bức vẽ	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+dressed	adj	đã mặc quần áo	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+driving	n	việc lái xe	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+drugstore	n	tiệm thuốc	A2	shopping	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+during	prep	trong suốt	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+east	n	hướng Đông	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+editor	n	biên tập viên	A2	work	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+electronic	adj	điện tử	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+elevator	n	thang máy	A2	shopping	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+email	v	gửi thư điện tử	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+embarrassing	adj	xấu hổ, ngượng	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+employ	v	thuê, tuyển dụng	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+employee	n	nhân viên	A2	work	topic	reading,cloze	oxford-3000-wordlist
+employer	n	người sử dụng lao động	A2	work	topic	reading,cloze	oxford-3000-wordlist
+ending	n	cái kết	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+engine	n	động cơ	A2	work	topic	reading,cloze	oxford-3000-wordlist
+enough	adv	đủ	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+enter	v	vào, đi vào	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+escape	n	cuộc trốn thoát, lối thoát	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+euro	n	tiền tệ chung của châu Âu	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+even	adv	thậm chí, ngay cả	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+ever	adv	đã từng	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+expert	n	chuyên gia	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+extra	adj	thêm, phụ	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+extremely	adv	cực kỳ, vô cùng	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+fail	v	thất bại, trượt	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+far	adv	xa	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+farming	n	nghề nông	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+fascinating	adj	quyến rũ, hấp dẫn	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+fashion	n	thời trang	A2	shopping	core	reading,cloze	cefrj-vocabulary-profile-1.5
+feather	n	lông vũ	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+female	adj	thuộc giống cái, nữ	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+few	det	ít, một vài	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+fighter	n	chiến binh, võ sĩ	A2	work	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+finally	adv	cuối cùng	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+finger	n	ngón tay	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+fisherman	n	ngư dân	A2	work	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+fit	adj	vừa vặn, khỏe mạnh	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+flea	n	con bọ chét	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+flying	n	việc bay, đi máy bay	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+follow	v	theo sau, đi theo	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+fool	n	kẻ ngốc	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+footballer	n	cầu thủ bóng đá	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+forbid	v	cấm	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+force	n	lực lượng, sức mạnh	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+forest	n	rừng	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+forever	adv	mãi mãi	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+fortune	n	tài sản, vận may	A2	shopping	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+forward	adv	về phía trước	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+frame	n	khung	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+frank	adj	thẳng thắn	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+fresh	adj	tươi, trong lành	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+fried	adj	chiên, rán	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+friendship	n	tình bạn	A2	personal	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+frighten	v	làm hoảng sợ	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+frightened	adj	sợ hãi	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+frightening	adj	đáng sợ	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+gather	v	tụ họp, thu thập	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+gender	n	giới tính	A2	school	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+generation	n	thế hệ	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+given	adj	được cho	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+god	n	thần, Chúa	A2	media	topic	reading,cloze	oxford-3000-wordlist
+golden	adj	vàng óng, quý giá	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+golf	n	môn đánh gôn	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+good-looking	adj	đẹp trai, ưa nhìn	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+grace	n	vẻ duyên dáng	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+gradually	adv	dần dần	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+grandchild	n	cháu (gọi ông bà)	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+granddad	n	ông	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+granddaughter	n	cháu gái	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+grandson	n	cháu trai	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+granny	n	bà	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+greedy	adj	tham lam	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+grilled	adj	nướng	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+guard	n	người canh gác	A2	work	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+guide	n	hướng dẫn viên, sách hướng dẫn	A2	travel	topic	reading,cloze	oxford-3000-wordlist
+gun	n	súng	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+half-price	adj	giảm một nửa giá	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+handicapped	adj	khuyết tật	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+happiness	n	hạnh phúc	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+harmony	n	sự hòa hợp	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+hate	v	ghét	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+headphone	n	tai nghe	A2	home	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+headteacher	n	hiệu trưởng	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+heat	n	nhiệt, hơi nóng	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+heating	n	hệ thống sưởi	A2	home	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+hero	n	anh hùng	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+herself	pron	chính cô ấy	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+hey	interj	ê, này	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+hike	n	chuyến đi bộ đường dài	A2	travel	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+himself	pron	chính anh ấy	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+hit	v	đánh, đập	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+hockey	n	khúc côn cầu	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+horror	n	kinh dị	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+host	n	chủ nhà, người dẫn	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+huge	adj	to lớn, khổng lồ	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+hundred	number	số 100	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+hunter	n	thợ săn	A2	work	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+ID	n	chứng minh thư	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+identify	v	nhận ra, xác định	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+illness	n	bệnh tật	A2	travel	topic	reading,cloze	oxford-3000-wordlist
+image	n	hình ảnh	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+immediately	adv	ngay lập tức	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+impatient	adj	thiếu kiên nhẫn	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+importantly	adv	quan trọng là	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+inch	n	đơn vị đo độ dài (2,54 cm)	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+include	v	bao gồm	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+included	adj	được bao gồm	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+including	prep	kể cả, bao gồm	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+increase	v	tăng lên	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+incredible	adj	đáng kinh ngạc, tuyệt vời	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+independence	n	sự độc lập	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+inexpensive	adj	rẻ, không đắt	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+injure	v	làm bị thương	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+inner	adj	bên trong	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+insect	n	côn trùng	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+intelligence	n	trí thông minh	A2	school	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+intelligent	adj	thông minh	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+invade	v	xâm lược	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+itself	pron	chính nó	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+jazz	n	thể loại nhạc phương Tây	A2	leisure	topic	reading,cloze	oxford-3000-wordlist
+jelly	n	thạch trái cây	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+jewellery	n	trang sức	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+joy	n	niềm vui	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+junior	adj	trẻ hơn, cấp dưới	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+killer	n	kẻ giết người	A2	media	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+kilo	n	ki-lô-gam	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+kindly	adj	tử tế, ân cần	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+kingdom	n	vương quốc	A2	world	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+kit	n	bộ dụng cụ	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+knock	n	tiếng gõ cửa	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+lab	n	phòng thí nghiệm	A2	home	topic	reading,cloze	oxford-3000-wordlist
+lack	n	thiếu, sự thiếu	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+lake	n	hồ	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+lane	n	làn đường	A2	shopping	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+last	det	cuối cùng, vừa qua	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+latest	adj	mới nhất	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+laughter	n	tiếng cười	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+law	n	luật, pháp luật	A2	media	core	reading,cloze	cefrj-vocabulary-profile-1.5
+laziness	n	sự lười biếng	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+learner	n	người học	A2	school	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+learning	n	việc học	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+least	det	ít nhất	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+left-hand	adj	tay trái	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+less	pron	ít hơn	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+lie	v	nói dối, nằm	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+lip	n	môi	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+lively	adj	sống động	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+lost	adj	lạc, mất	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+loud	adj	to, ồn ào	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+loudly	adv	to, ồn ào	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+lover	n	người yêu	A2	family	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+lunchtime	n	giờ ăn trưa	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+mad	adj	điên, giận dữ	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+magic	n	phép thuật	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+make-up	n	trang điểm	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+maker	n	người chế tạo	A2	work	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+married	adj	đã kết hôn	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+mathematics	n	môn toán	A2	school	topic	reading,cloze	oxford-3000-wordlist
+maths	n	toán (viết tắt)	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+max	n	mức tối đa	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+meaning	n	ý nghĩa	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+member	n	thành viên	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+metal	n	kim loại	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+midnight	n	nửa đêm	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+might	modal	có lẽ, biết đâu	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+military	adj	quân sự	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+million	number	số 1.000.000	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+missing	adj	mất tích, thiếu	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+mix	v	trộn	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+mosque	n	nhà thờ Hồi giáo	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+motorway	n	đường cao tốc	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+movement	n	sự chuyển động	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+murder	n	vụ giết người	A2	media	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+myself	pron	chính tôi	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+mysterious	adj	bí ẩn	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+mystery	n	điều bí ẩn	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+nearly	adv	gần như, suýt	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+neither	adv	cũng không	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+net	adj	ròng, thực	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+next	det	tiếp theo	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+nobody	pron	không ai	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+none	pron	không ai, không cái gì	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+north	n	hướng Bắc	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+noun	n	danh từ	A2	school	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+ocean	n	đại dương	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+official	adj	chính thức	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+oil	n	dầu, dầu mỏ	A2	home	core	reading,cloze	cefrj-vocabulary-profile-1.5
+olympic	adj	thuộc đại hội thể thao thế giới	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+onto	prep	lên trên	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+organize	v	tổ chức, sắp xếp	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+ourselves	pron	chính chúng tôi	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+overseas	adv	ở nước ngoài	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+overweight	adj	thừa cân	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+pacific	adj	thuộc Thái Bình Dương	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+pain	n	cơn đau	A2	travel	topic	reading,cloze	oxford-3000-wordlist
+pal	n	bạn thân	A2	personal	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+pan	n	cái chảo	A2	home	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+parking	n	bãi đỗ xe	A2	travel	topic	reading,cloze	oxford-3000-wordlist
+passenger	n	hành khách	A2	travel	core	reading,cloze	cefrj-vocabulary-profile-1.5
+path	n	đường mòn	A2	shopping	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+pc	n	máy tính cá nhân	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+pea	n	hạt đậu Hà Lan	A2	food	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+pence	n	đồng xu Anh	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+penny	n	đồng xu nhỏ của Anh	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+per	prep	mỗi, trên mỗi	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+perfect	adj	hoàn hảo	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+photographer	n	nhiếp ảnh gia	A2	work	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+physically	adv	về thể chất	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+pilgrim	n	người hành hương	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+pill	n	viên thuốc	A2	travel	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+pilot	n	phi công	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+pink	n	màu hồng	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+playful	adj	vui tươi	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+playground	n	sân chơi	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+please	v	làm hài lòng; xin vui lòng	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+pleased	adj	vui mừng, hài lòng	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+pleasing	adj	dễ chịu	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+plural	n	số nhiều	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+police	n	cảnh sát	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+policewoman	n	nữ cảnh sát	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+political	adj	chính trị	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+pop	n	thể loại nhạc đại chúng	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+position	n	vị trí	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+possession	n	vật sở hữu	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+post	v	đăng, gửi thư	A2	shopping	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+poster	n	áp phích quảng cáo	A2	shopping	topic	reading,cloze	oxford-3000-wordlist
+prediction	n	dự đoán	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+president	n	tổng thống, chủ tịch	A2	work	topic	reading,cloze	oxford-3000-wordlist
+pretty	adv	khá, tương đối	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+print	v	in	A2	media	core	reading,cloze	cefrj-vocabulary-profile-1.5
+private	adj	riêng tư	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+pro	n	người chuyên nghiệp	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+produce	v	sản xuất	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+product	n	sản phẩm	A2	work	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+production	n	sự sản xuất	A2	work	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+program	n	chương trình	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+pronounce	v	phát âm	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+proper	adj	đúng đắn	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+pull	v	kéo	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+push	v	đẩy	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+queen	n	nữ hoàng	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+quick	adj	nhanh	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+quietly	adv	một cách yên lặng	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+race	n	cuộc đua; chủng tộc	A2	leisure	topic	reading,cloze	oxford-3000-wordlist
+rap	n	thể loại nhạc đường phố	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+rating	n	xếp hạng	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+raw	adj	thô, sống	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+ray	n	tia	A2	media	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+recently	adv	gần đây	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+recording	n	bản ghi âm	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+red	n	màu đỏ	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+regularly	adv	thường xuyên	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+relaxed	adj	thư giãn	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+remind	v	nhắc nhở	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+researcher	n	nhà nghiên cứu	A2	work	topic	reading,cloze	oxford-3000-wordlist
+retired	adj	đã nghỉ hưu	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+reunion	n	cuộc sum họp	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+ride	v	cưỡi, đi xe	A2	travel	topic	reading,cloze	oxford-3000-wordlist
+right-hand	adj	tay phải	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+rise	v	tăng lên, mọc	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+road	n	đường	A2	shopping	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+rob	v	cướp	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+rock	n	đá; thể loại nhạc phương Tây	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+romance	n	chuyện tình, phim chính kịch lãng mạn	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+round	adv	vòng quanh, xung quanh	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+royal	adj	hoàng gia	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+run	v	chạy	A2	leisure	topic	reading,cloze	oxford-3000-wordlist
+runner	n	người chạy	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+running	n	việc chạy bộ	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+rush	n	cơn vội vã, giờ cao điểm	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+sake	n	lợi ích, vì	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+sale	n	đợt giảm giá	A2	shopping	topic	reading,cloze	oxford-3000-wordlist
+sandy	adj	có cát	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+save	v	tiết kiệm, cứu	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+scale	n	quy mô, cái cân	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+scared	adj	sợ hãi	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+scene	n	cảnh, hiện trường	A2	media	core	reading,cloze	cefrj-vocabulary-profile-1.5
+schoolchild	n	học sinh	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+scream	n	tiếng hét	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+script	n	kịch bản	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+search	n	cuộc tìm kiếm	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+seaside	n	bờ biển	A2	world	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+second	n	giây	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+secret	n	bí mật	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+seed	n	hạt giống	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+seem	v	có vẻ	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+send	v	gửi	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+seriously	adv	nghiêm túc	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+set	n	bộ, nhóm	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+several	pron	một số, vài	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+shadow	n	bóng	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+shake	v	lắc, rung	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+shall	modal	sẽ, xin phép sẽ	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+shape	n	hình dạng	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+shell	n	vỏ sò	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+shine	v	chiếu sáng	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+ship	n	con tàu	A2	travel	topic	reading,cloze	oxford-3000-wordlist
+shock	n	sốc, cú sốc	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+shoot	v	bắn, quay phim	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+shot	n	cú sút, phát đạn	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+show	n	chương trình, buổi biểu diễn	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+side	n	bên, cạnh	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+sign	n	biển hiệu, ký hiệu	A2	personal	topic	reading,cloze	oxford-3000-wordlist
+significant	adj	quan trọng	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+silence	n	sự im lặng	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+silently	adv	một cách im lặng	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+silver	n	bạc	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+simply	adv	đơn giản	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+singing	n	việc hát	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+single	adj	độc thân, một mình	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+singular	n	số ít	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+sir	n	thưa ông	A2	travel	topic	reading,cloze	oxford-3000-wordlist
+site	n	địa điểm, trang web	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+skate	n	giày trượt băng	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+skateboarding	n	trượt ván	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+skating	n	trượt băng	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+ski	n	ván trượt tuyết	A2	leisure	core	reading,cloze	cefrj-vocabulary-profile-1.5
+skiing	n	môn trượt tuyết	A2	leisure	core	reading,cloze	cefrj-vocabulary-profile-1.5
+skin	n	da	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+sky	n	bầu trời	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+slave	n	nô lệ	A2	media	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+sleepless	adj	mất ngủ	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+sleepy	adj	buồn ngủ	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+slide	n	cầu trượt; bản chiếu	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+slim	adj	thon thả	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+smile	n	nụ cười	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+smoking	n	việc hút thuốc	A2	leisure	topic	reading,cloze	oxford-3000-wordlist
+snow	v	tuyết rơi	A2	media	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+snowboarding	n	trượt ván tuyết	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+so	adv	vậy, vì vậy	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+soccer	n	bóng đá	A2	leisure	topic	reading,cloze	oxford-3000-wordlist
+soft	adj	mềm, êm dịu	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+softly	adv	nhẹ nhàng	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+soldier	n	người lính	A2	media	core	reading,cloze	cefrj-vocabulary-profile-1.5
+somebody	pron	một ai đó	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+sort	n	loại, kiểu	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+south	n	hướng Nam	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+specific	adj	cụ thể	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+speed	n	tốc độ	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+splash	v	văng tóe	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+square	n	hình vuông, quảng trường	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+stair	n	bậc thang	A2	home	core	reading,cloze	cefrj-vocabulary-profile-1.5
+stand	v	đứng	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+star	n	ngôi sao	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+state	n	bang, nhà nước	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+stay	v	ở lại, lưu lại	A2	travel	topic	reading,cloze	oxford-3000-wordlist
+step	n	bước chân	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+still	adv	vẫn	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+stomachache	n	đau bụng	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+stone	n	đá	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+store	n	cửa hàng	A2	shopping	topic	reading,cloze	oxford-3000-wordlist
+storm	n	cơn bão	A2	media	core	reading,cloze	cefrj-vocabulary-profile-1.5
+stove	n	bếp lò	A2	home	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+straight	adj	thẳng	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+strange	adj	lạ, kỳ lạ	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+stranger	n	người lạ	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+stress	n	căng thẳng	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+strike	n	cuộc đình công; cú đánh	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+strongly	adv	mạnh mẽ	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+stuff	n	đồ đạc, thứ	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+stupid	adj	ngu ngốc	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+such	pron	như vậy, như thế	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+sunglasses	n	kính râm	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+superlative	n	dạng so sánh nhất	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+superstar	n	siêu sao	A2	media	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+supper	n	bữa ăn nhẹ tối	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+sure	adv	chắc chắn	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+surname	n	họ	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+surprised	adj	ngạc nhiên	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+surprising	adj	đáng ngạc nhiên	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+sweat	v	đổ mồ hôi	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+sweater	n	áo len	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+sweet	n	kẹo, đồ ngọt	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+sweetheart	n	người yêu	A2	family	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+swimsuit	n	đồ bơi	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+symphony	n	bản giao hưởng	A2	leisure	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+talent	n	tài năng	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+talk	v	nói chuyện, trò chuyện	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+teaching	n	việc giảng dạy	A2	school	topic	reading,cloze	oxford-3000-wordlist
+tear	n	nước mắt	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+terrify	v	làm khiếp sợ	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+terrorist	adj	khủng bố	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+textbook	n	sách giáo khoa	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+theirs	pron	của họ (đại từ)	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+themselves	pron	chính họ	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+thief	n	kẻ trộm	A2	media	core	reading,cloze	cefrj-vocabulary-profile-1.5
+thin	adj	gầy, mỏng	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+thinking	n	việc suy nghĩ	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+third	adj	thứ ba	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+thirsty	adj	khát nước	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+thought	n	suy nghĩ, ý nghĩ	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+thousand	number	số 1.000	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+throw	v	ném	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+title	n	tiêu đề	A2	media	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+toe	n	ngón chân	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+tone	n	giọng, tông màu	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+tonight	n	tối nay, đêm nay	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+tool	n	dụng cụ	A2	home	topic	reading,cloze	oxford-3000-wordlist
+top	n	đỉnh, trên cùng	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+touch	v	chạm vào	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+tour	n	chuyến du lịch	A2	travel	core	reading,cloze	cefrj-vocabulary-profile-1.5
+tower	n	tháp	A2	shopping	topic	reading,cloze	oxford-3000-wordlist
+toy	n	đồ chơi	A2	home	topic	reading,cloze	oxford-3000-wordlist
+track	n	đường đua, dấu vết	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+train	v	đào tạo	A2	travel	core	reading,cloze	cefrj-vocabulary-profile-1.5
+traveller	n	người đi du lịch	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+trick	n	mẹo, trò lừa	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+truck	n	xe tải	A2	shopping	topic	reading,cloze	oxford-3000-wordlist
+truly	adv	thực sự	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+twice	adv	hai lần	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+twin	n	anh/chị em sinh đôi	A2	family	topic	reading,cloze	oxford-3000-wordlist
+understanding	n	sự hiểu biết	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+uneasy	adj	bồn chồn	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+unimportant	adj	không quan trọng	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+unit	n	đơn vị	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+united	adj	đoàn kết, thống nhất	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+up	adv	lên, ở trên	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+upstairs	adv	ở tầng trên	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+use	n	cách dùng, công dụng	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+used	adj	đã từng dùng, cũ	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+user	n	người dùng	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+variety	n	sự đa dạng	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+village	n	làng	A2	world	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+violin	n	đàn vi-ô-lông	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+visitor	n	khách đến thăm	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+voice	n	giọng nói	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+walking	n	việc đi bộ	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+wander	v	đi lang thang	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+war	n	chiến tranh	A2	media	topic	reading,cloze	oxford-3000-wordlist
+washing	n	việc giặt giũ	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+washing-up	n	việc rửa bát	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+wave	n	con sóng; cái vẫy tay	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+web	n	mạng máy tính toàn cầu	A2	media	core	reading,cloze	cefrj-vocabulary-profile-1.5
+wedding	n	đám cưới	A2	family	core	reading,cloze	cefrj-vocabulary-profile-1.5
+weekday	n	ngày trong tuần	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+weekly	adv	hàng tuần	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+weep	n	tiếng khóc nức nở	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+welcome	v	chào đón, hoan nghênh	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+well-known	adj	nổi tiếng	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+west	n	hướng Tây	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+whatever	det	bất cứ điều gì	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+wheelchair	n	xe lăn	A2	shopping	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+while	conj	trong khi	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+whom	pron	ai (tân ngữ trang trọng)	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+whose	pron	của ai	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+wide	adj	rộng	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+wind	n	gió	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+winner	n	người chiến thắng	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+wise	adj	khôn ngoan	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+wish	v	ước, mong ước	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+without	prep	không có	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+wood	n	gỗ, rừng	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+working	adj	đang làm việc, lao động	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+worldwide	adv	trên toàn thế giới	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+worried	adj	lo lắng	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+worse	adv	kém hơn	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+worst	adj	tệ nhất	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
+wow	interj	ôi, chà	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+writing	n	việc viết	A2	school	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+yeah	adv	vâng, ừ	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
+yet	adv	chưa; tuy nhiên	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+zero	number	số không	A2	daily	core	reading,cloze	oxford-3000-wordlist

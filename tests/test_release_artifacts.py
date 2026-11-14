@@ -147,7 +147,7 @@ class ProcessFlowTests(unittest.TestCase):
                 return json.dumps({'sha': self.remote_sha})
             if args[0] == 'gh' and args[1] == 'release' and args[2] == 'create':
                 self.created.append(args)
-                self.release_state = {'assets': [], 'isDraft': True, 'isPrerelease': True, 'tagName': self.TAG}
+                self.release_state = {'assets': [], 'isDraft': True, 'isPrerelease': '--prerelease' in args, 'tagName': self.TAG}
                 return ''
             if args[0] == 'gh' and args[1] == 'release' and args[2] == 'upload':
                 self.uploaded.extend(args[4:])
@@ -217,6 +217,23 @@ class ProcessFlowTests(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError, 'digest'):
             self.mod.process(self.TAG, future=True)
 
+    def test_future_stable_tag_creates_only_stable_draft_and_uploads_assets(self):
+        self.TAG = 'v1.0.0'
+        self.release_state = None
+        self.artifacts = {}
+        for suffix in ('.html', '.zip', '-checksums.txt'):
+            name = f'chuyen-anh-{self.TAG}{suffix}'
+            path = self.temp / name
+            path.write_bytes(f'stable-{name}'.encode())
+            self.artifacts[name] = path
+        self.mod.process(self.TAG, future=True)
+        self.assertEqual(len(self.created), 1)
+        self.assertIn('--draft', self.created[0])
+        self.assertNotIn('--prerelease', self.created[0])
+        self.assertEqual(len(self.uploaded), 3)
+        self.assertTrue(self.release_state['isDraft'])
+        self.assertFalse(self.release_state['isPrerelease'])
+
     def test_future_tag_creates_a_draft_prerelease_with_verification_notes(self):
         self.release_state = None
         self.mod.process(self.TAG, future=True)
@@ -243,8 +260,8 @@ class PushTagValidationTests(unittest.TestCase):
         for tag in ('v1.0.0-beta1', 'v1.0.0-dev5', 'v1.0.0-rc2', 'v12.3.4-beta10'):
             self.assertTrue(self.mod.is_supported_tag(tag), tag)
 
-    def test_arbitrary_or_final_refs_are_refused(self):
-        for tag in ('', 'v1.0.0', 'v1.0.0-beta1/../x', 'v1.0.0-beta1x', 'v1.0.0-evil1',
+    def test_arbitrary_and_other_final_refs_are_refused(self):
+        for tag in ('', 'v1.0.1', 'v1.0.0-beta1/../x', 'v1.0.0-beta1x', 'v1.0.0-evil1',
                     'beta1', 'v1.0.0-beta', 'main', 'refs/tags/v1.0.0-beta1'):
             self.assertFalse(self.mod.is_supported_tag(tag), tag)
 

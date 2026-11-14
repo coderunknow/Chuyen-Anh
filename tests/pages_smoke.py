@@ -161,6 +161,20 @@ def main() -> int:
             else:
                 print(f"PASS {label}")
 
+    if version == "v1.0.0":
+        for marker, label in (
+            ("rc9-scorable-only-v1", "the scorable-only grading rule"),
+            ("curated_domain_verified", "the curated domain-verified source status"),
+            ("exempt_open_ended", "the open-ended essay exemption status"),
+            ("exam-exemption-breakdown", "the submitted exemption breakdown strip"),
+            ("phraseMatchesCefrSelection", "the phrase CEFR predicate"),
+            ("Bộ lọc CEFR", "the phrase-bank level note"),
+        ):
+            if marker not in body:
+                fail(f"the served page is missing {label}")
+            else:
+                print(f"PASS {label}")
+
     if version.startswith("v1.0.0-rc10"):
         for marker, label in (
             ("rc9-scorable-only-v1", "the rc9 scorable-only grading rule"),

@@ -71,7 +71,9 @@ function seedScript() {
   // and selectSprintSession therefore select the exact same 10-word sequence.
   return `(() => {
     const now = Date.now();
-    const data = JSON.parse(document.getElementById('vocabulary-data').textContent).slice(0, ${WORDS});
+    const data = JSON.parse(document.getElementById('vocabulary-data').textContent)
+      .filter(entry => !(entry.tags || []).some(t => t === 'family:merged' || t === 'curation:archived'))
+      .slice(0, ${WORDS});
     const progress = {};
     data.forEach((entry, index) => {
       if (index < 6) {
@@ -97,6 +99,7 @@ function seedScript() {
     localStorage.clear();
     localStorage.setItem('chuyen-anh.progress.v1', JSON.stringify(progress));
     localStorage.setItem('chuyen-anh.prefs.v1', JSON.stringify({ sessionSize: 10, darkMode: false, keyboardShortcuts: false }));
+    localStorage.setItem('chuyen-anh.cefr.v1', JSON.stringify({ version: 1, levels: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'], unclassified: true }));
     return data.map(entry => ({ id: entry.id, word: entry.word, meaning: entry.meaning }));
   })()`;
 }

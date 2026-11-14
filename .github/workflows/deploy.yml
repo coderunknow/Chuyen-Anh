@@ -11,8 +11,14 @@ on:
       - "scripts/embed_vocabulary.py"
       - "scripts/learned_vocabulary.py"
       - "scripts/validate_vocab.py"
+      - "scripts/expand_vocabulary.py"
+      - "scripts/vocabulary_families.py"
+      - "docs/vocabulary-families.json"
+      - "scripts/build_senses.py"
+      - "scripts/cefr_senses.py"
       - "scripts/exams/**"
       - "scripts/deploy_gate.py"
+      - "scripts/app_release_gate.py"
       - "De-chuyen-Anh-vao-10/**"
       - ".github/workflows/deploy.yml"
       - "DEPLOY_HOLD"
@@ -20,6 +26,11 @@ on:
     inputs:
       force_deploy:
         description: "Deploy even while the release named in DEPLOY_HOLD is unpublished"
+        required: false
+        type: boolean
+        default: false
+      stable_deploy_authorized:
+        description: "Confirm separate user authorization to deploy a published stable release"
         required: false
         type: boolean
         default: false
@@ -56,6 +67,16 @@ jobs:
           FORCE_DEPLOY: ${{ github.event_name == 'workflow_dispatch' && inputs.force_deploy == true }}
         run: python3 scripts/deploy_gate.py
 
+      # An old, published hold must not authorize a newer unpublished app, and
+      # stable releases require separate workflow_dispatch authorization even after publication.
+      - name: Verify the application release
+        id: app_release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          FORCE_DEPLOY: ${{ github.event_name == 'workflow_dispatch' && inputs.force_deploy == true }}
+          STABLE_DEPLOY_AUTHORIZED: ${{ github.event_name == 'workflow_dispatch' && inputs.stable_deploy_authorized == true }}
+        run: python3 scripts/app_release_gate.py
+
       - name: Set up Node for data and app-logic tests
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
@@ -64,14 +85,20 @@ jobs:
       - name: Check vocabulary sources and embedded HTML
         run: |
           python scripts/build_vocabulary.py --check
+          python scripts/expand_vocabulary.py --check
+          python scripts/build_senses.py --check
+          python scripts/audit_sense_sources.py --check
           python scripts/validate_vocab.py
           python scripts/embed_vocabulary.py --check
           node scripts/exams/build_answer_keys.mjs --check
+          node scripts/exams/verify_curated_keys.mjs
           node scripts/exams/audit_rendering.mjs --check
+          node scripts/exams/classify_anomalies.mjs --check
           python scripts/exams/embed_archive.py --check
           # rc3/rc8: the evidence artifacts are part of what ships, so a stale report
           # must block the deploy rather than publish next to outdated evidence.
           python scripts/audit_vocabulary_quality.py --check
+          python scripts/vocabulary_cefr_review.py --check
           python scripts/vocabulary_evidence_review.py --check
           python scripts/rc4_vocabulary_audit.py --check
           python scripts/audit_exam_provenance.py --check
@@ -81,11 +108,11 @@ jobs:
 
       # Node is used only for dependency-free tests; production is a single HTML file.
       - name: Run static app logic, scoring and single-file tests
-        run: node --trace-deprecation --test tests/static-app.test.js tests/exam-scoring.test.js tests/rc10-cefr.test.js
+        run: node --trace-deprecation --test tests/static-app.test.js tests/exam-scoring.test.js tests/exam-anomalies.test.js tests/rc10-cefr.test.js tests/v100-senses.test.js
 
       # Publish only the fully self-contained application file.
       - name: Stage standalone HTML
-        if: steps.gate.outputs.deploy == 'true'
+        if: steps.gate.outputs.deploy == 'true' && steps.app_release.outputs.deploy == 'true'
         run: |
           rm -rf _site
           mkdir -p _site
@@ -95,16 +122,16 @@ jobs:
       # Pages must be enabled once in Settings → Pages with GitHub Actions.
       # Do not use enablement: true here: GITHUB_TOKEN cannot create a Pages site.
       - name: Configure Pages
-        if: steps.gate.outputs.deploy == 'true'
+        if: steps.gate.outputs.deploy == 'true' && steps.app_release.outputs.deploy == 'true'
         uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
 
       - name: Upload Pages artifact
-        if: steps.gate.outputs.deploy == 'true'
+        if: steps.gate.outputs.deploy == 'true' && steps.app_release.outputs.deploy == 'true'
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
           path: _site
 
       - name: Deploy
         id: deployment
-        if: steps.gate.outputs.deploy == 'true'
+        if: steps.gate.outputs.deploy == 'true' && steps.app_release.outputs.deploy == 'true'
         uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1

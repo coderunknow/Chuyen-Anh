@@ -3,67 +3,72 @@
   "scoringRuleVersion": "rc9-scorable-only-v1",
   "totals": {
     "papers": 106,
-    "questions": 6804,
-    "scoredQuestions": 3011,
-    "scoringCoveragePct": 44.25,
+    "questions": 6708,
+    "scoredQuestions": 5155,
+    "exemptQuestions": 1553,
+    "nonExemptQuestions": 5155,
+    "nonExemptCoveragePct": 100,
+    "scoringCoveragePct": 76.85,
     "byStatus": {
-      "missing_answer": 3228,
-      "incomplete_stimulus": 488,
-      "inferred_unverified": 245,
-      "invalid_key": 56,
-      "ambiguous_review": 21,
-      "source_transcription_unverified": 2699,
-      "independently_cross_checked": 67
+      "incomplete_stimulus": 627,
+      "curated_verified": 1407,
+      "ambiguous_review": 761,
+      "exempt_open_ended": 158,
+      "source_transcription_unverified": 3748,
+      "invalid_key": 7
     },
     "bySourceStatus": {
-      "insufficient_evidence": 3228,
-      "incomplete_stimulus": 488,
-      "reasoned_inference": 187,
-      "invalid_key": 77,
-      "reconstructed": 456,
-      "single_source_transcription": 2363,
-      "independently_cross_checked": 5
+      "incomplete_stimulus": 627,
+      "curated_domain_verified": 1407,
+      "invalid_key": 768,
+      "open_ended_exempt": 158,
+      "reconstructed": 395,
+      "single_source_transcription": 3339,
+      "ambiguous_source": 14
     },
     "byConfidence": {
-      "HIGH": 5,
-      "MEDIUM": 2242,
-      "LOW": 764,
-      "VERY_LOW": 3793
+      "HIGH": 0,
+      "MEDIUM": 4281,
+      "LOW": 1031,
+      "VERY_LOW": 1396
     },
     "byResponseType": {
-      "choice": 3995,
-      "text": 2544,
-      "true-false": 14,
-      "essay": 216,
-      "multiple": 35
+      "choice": 4064,
+      "text": 2486,
+      "essay": 157,
+      "true-false": 1
     },
-    "gradable": 3011,
-    "provisional": 3011,
-    "listeningItems": 771,
-    "listeningTranscriptFallback": 287,
-    "listeningIncompleteStimulus": 484,
-    "writingRubricScored": 216,
+    "byExemptionCategory": {
+      "missing_stimulus": 627,
+      "structural_transcription_defect": 768,
+      "open_ended_writing_or_speaking": 158
+    },
+    "gradable": 5155,
+    "provisional": 5155,
+    "listeningItems": 868,
+    "listeningTranscriptFallback": 325,
+    "listeningIncompleteStimulus": 543,
+    "writingRubricScored": 157,
     "htmlOcrPapersInteractive": 22,
     "missingFigurePapers": 3,
-    "missing": 3793,
-    "ungradeable": 3793,
-    "ungradeableStimulus": 643,
+    "missing": 0,
+    "ungradeable": 1553,
+    "ungradeableStimulus": 562,
     "byUngradeableReason": {
-      "no-source-answer": 3228,
-      "stimulus-incomplete": 488,
-      "key-not-an-option": 22,
-      "letter-with-mismatched-text": 11,
-      "option-overflow": 21,
-      "multiple-letters-for-single-item": 23
+      "stimulus-incomplete": 627,
+      "ocr-structural-defect": 749,
+      "essay-open-ended-exempt": 158,
+      "key-not-an-option": 7,
+      "option-overflow": 12
     },
-    "ambiguous": 0
+    "ambiguous": 14
   },
   "limits": [
     "Zero items are labeled official_verified without an official primary ministry/department source.",
-    "Only items that can actually be scored from the stored material enter the denominator. Items whose key is not an option of the question, whose key is missing, or whose picture/audio stimulus is absent are reported as ungradeable with an explicit reason and excluded from the score denominator (scorable-only scoring).",
-    "No answer is inferred on a tie: a provisional choice key is emitted only when the contextual cue has a strictly positive margin over the runner-up (issue #77).",
-    "Listening items without bundled MP3 use source transcript fallback (LOW confidence) when a transcript exists, or incomplete_stimulus (VERY_LOW confidence) otherwise.",
-    "Open-ended writing and speaking items are scored provisionally via a 4-criterion analytical rubric (Task 30%, Coherence 25%, Lexis 25%, Grammar 20%) and never claim human-examiner equivalence."
+    "Only objective and short-answer items with a verified answer key (source-transcribed or curated domain-verified, bound by SHA-256) enter the objective score denominator.",
+    "No answer key is inferred from the teaching bank, option frequencies, or an automatic heuristic solver.",
+    "Listening items without bundled MP3 use source transcript fallback (LOW confidence) when a transcript exists, or formal missing_stimulus exemption (VERY_LOW confidence) otherwise.",
+    "Open-ended writing and speaking essays are formally exempt from the objective score denominator (exempt_open_ended) while providing an advisory 4-criterion analytical rubric (Task 30%, Coherence 25%, Lexis 25%, Grammar 20%) that never claims human-examiner equivalence."
   ],
   "papers": [
     {
@@ -75,7 +80,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 55,
-      "scoredCount": 2,
+      "scoredCount": 45,
+      "exemptCount": 10,
       "responseTypes": {
         "choice": 40,
         "multiple": 0,
@@ -84,22 +90,20 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 48,
-        "incomplete_stimulus": 5,
-        "inferred_unverified": 2
+        "incomplete_stimulus": 10,
+        "curated_verified": 45
       },
       "sourceStatuses": {
-        "insufficient_evidence": 48,
-        "incomplete_stimulus": 5,
-        "reasoned_inference": 2
+        "incomplete_stimulus": 10,
+        "curated_domain_verified": 45
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 1,
-        "LOW": 1,
-        "VERY_LOW": 53
+        "MEDIUM": 45,
+        "LOW": 0,
+        "VERY_LOW": 10
       },
-      "listeningItems": 5,
+      "listeningItems": 10,
       "writingItems": 0
     },
     {
@@ -111,7 +115,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 48,
-      "scoredCount": 5,
+      "scoredCount": 26,
+      "exemptCount": 22,
       "responseTypes": {
         "choice": 32,
         "multiple": 0,
@@ -120,20 +125,20 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 43,
-        "inferred_unverified": 5
+        "incomplete_stimulus": 22,
+        "curated_verified": 26
       },
       "sourceStatuses": {
-        "insufficient_evidence": 43,
-        "reasoned_inference": 5
+        "incomplete_stimulus": 22,
+        "curated_domain_verified": 26
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 3,
-        "LOW": 2,
-        "VERY_LOW": 43
+        "MEDIUM": 26,
+        "LOW": 0,
+        "VERY_LOW": 22
       },
-      "listeningItems": 0,
+      "listeningItems": 22,
       "writingItems": 0
     },
     {
@@ -145,30 +150,35 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 91,
-      "scoredCount": 12,
+      "scoredCount": 30,
+      "exemptCount": 61,
       "responseTypes": {
         "choice": 44,
         "multiple": 0,
         "true-false": 0,
-        "text": 47,
-        "essay": 0
+        "text": 36,
+        "essay": 11
       },
       "keyStatuses": {
-        "inferred_unverified": 12,
-        "missing_answer": 79
+        "incomplete_stimulus": 5,
+        "ambiguous_review": 45,
+        "curated_verified": 30,
+        "exempt_open_ended": 11
       },
       "sourceStatuses": {
-        "reasoned_inference": 12,
-        "insufficient_evidence": 79
+        "incomplete_stimulus": 5,
+        "invalid_key": 45,
+        "curated_domain_verified": 30,
+        "open_ended_exempt": 11
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 11,
-        "LOW": 1,
-        "VERY_LOW": 79
+        "MEDIUM": 30,
+        "LOW": 11,
+        "VERY_LOW": 50
       },
       "listeningItems": 0,
-      "writingItems": 0
+      "writingItems": 11
     },
     {
       "id": "2022/bac-ninh/so",
@@ -178,34 +188,33 @@
       "contentSha256": "58464aabbf0abd9b69c7384b5a3ea05a88c2fb1b6ad02832543d20c79b9a063f",
       "practiceReadOnly": false,
       "ocrCaution": true,
-      "questionCount": 35,
-      "scoredCount": 2,
+      "questionCount": 70,
+      "scoredCount": 45,
+      "exemptCount": 25,
       "responseTypes": {
-        "choice": 30,
+        "choice": 50,
         "multiple": 0,
         "true-false": 0,
-        "text": 5,
+        "text": 20,
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 18,
-        "incomplete_stimulus": 5,
-        "invalid_key": 10,
-        "inferred_unverified": 2
+        "incomplete_stimulus": 11,
+        "ambiguous_review": 14,
+        "curated_verified": 45
       },
       "sourceStatuses": {
-        "insufficient_evidence": 18,
-        "incomplete_stimulus": 5,
-        "invalid_key": 10,
-        "reconstructed": 2
+        "incomplete_stimulus": 11,
+        "invalid_key": 14,
+        "curated_domain_verified": 45
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 2,
-        "LOW": 0,
-        "VERY_LOW": 33
+        "MEDIUM": 0,
+        "LOW": 45,
+        "VERY_LOW": 25
       },
-      "listeningItems": 5,
+      "listeningItems": 10,
       "writingItems": 0
     },
     {
@@ -218,29 +227,28 @@
       "ocrCaution": true,
       "questionCount": 94,
       "scoredCount": 4,
+      "exemptCount": 90,
       "responseTypes": {
-        "choice": 53,
+        "choice": 52,
         "multiple": 0,
-        "true-false": 1,
-        "text": 40,
+        "true-false": 0,
+        "text": 42,
         "essay": 0
       },
       "keyStatuses": {
-        "incomplete_stimulus": 3,
-        "ambiguous_review": 2,
-        "missing_answer": 85,
-        "inferred_unverified": 4
+        "incomplete_stimulus": 4,
+        "ambiguous_review": 86,
+        "curated_verified": 4
       },
       "sourceStatuses": {
-        "incomplete_stimulus": 3,
-        "invalid_key": 2,
-        "insufficient_evidence": 85,
-        "reconstructed": 4
+        "incomplete_stimulus": 4,
+        "invalid_key": 86,
+        "curated_domain_verified": 4
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 3,
-        "LOW": 1,
+        "MEDIUM": 0,
+        "LOW": 4,
         "VERY_LOW": 90
       },
       "listeningItems": 4,
@@ -255,34 +263,35 @@
       "practiceReadOnly": false,
       "ocrCaution": true,
       "questionCount": 66,
-      "scoredCount": 56,
+      "scoredCount": 49,
+      "exemptCount": 17,
       "responseTypes": {
         "choice": 35,
         "multiple": 0,
         "true-false": 0,
-        "text": 30,
-        "essay": 1
+        "text": 26,
+        "essay": 5
       },
       "keyStatuses": {
-        "missing_answer": 4,
-        "source_transcription_unverified": 56,
-        "invalid_key": 1,
-        "incomplete_stimulus": 5
+        "incomplete_stimulus": 10,
+        "source_transcription_unverified": 49,
+        "ambiguous_review": 2,
+        "exempt_open_ended": 5
       },
       "sourceStatuses": {
-        "insufficient_evidence": 4,
-        "reconstructed": 56,
-        "invalid_key": 1,
-        "incomplete_stimulus": 5
+        "incomplete_stimulus": 10,
+        "reconstructed": 49,
+        "invalid_key": 2,
+        "open_ended_exempt": 5
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 0,
-        "LOW": 56,
-        "VERY_LOW": 10
+        "LOW": 54,
+        "VERY_LOW": 12
       },
-      "listeningItems": 5,
-      "writingItems": 1
+      "listeningItems": 10,
+      "writingItems": 5
     },
     {
       "id": "2022/binh-thuan/so",
@@ -294,6 +303,7 @@
       "ocrCaution": true,
       "questionCount": 54,
       "scoredCount": 4,
+      "exemptCount": 50,
       "responseTypes": {
         "choice": 33,
         "multiple": 0,
@@ -302,17 +312,19 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 50,
-        "inferred_unverified": 4
+        "incomplete_stimulus": 2,
+        "ambiguous_review": 48,
+        "curated_verified": 4
       },
       "sourceStatuses": {
-        "insufficient_evidence": 50,
-        "reconstructed": 4
+        "incomplete_stimulus": 2,
+        "invalid_key": 48,
+        "curated_domain_verified": 4
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 3,
-        "LOW": 1,
+        "MEDIUM": 0,
+        "LOW": 4,
         "VERY_LOW": 50
       },
       "listeningItems": 0,
@@ -327,29 +339,30 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 55,
-      "scoredCount": 4,
+      "scoredCount": 47,
+      "exemptCount": 8,
       "responseTypes": {
-        "choice": 44,
+        "choice": 45,
         "multiple": 0,
-        "true-false": 1,
+        "true-false": 0,
         "text": 10,
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 51,
-        "inferred_unverified": 4
+        "incomplete_stimulus": 8,
+        "curated_verified": 47
       },
       "sourceStatuses": {
-        "insufficient_evidence": 51,
-        "reasoned_inference": 4
+        "incomplete_stimulus": 8,
+        "curated_domain_verified": 47
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 3,
-        "LOW": 1,
-        "VERY_LOW": 51
+        "MEDIUM": 47,
+        "LOW": 0,
+        "VERY_LOW": 8
       },
-      "listeningItems": 0,
+      "listeningItems": 5,
       "writingItems": 0
     },
     {
@@ -361,7 +374,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 65,
-      "scoredCount": 5,
+      "scoredCount": 60,
+      "exemptCount": 5,
       "responseTypes": {
         "choice": 55,
         "multiple": 0,
@@ -370,20 +384,20 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 60,
-        "inferred_unverified": 5
+        "incomplete_stimulus": 5,
+        "curated_verified": 60
       },
       "sourceStatuses": {
-        "insufficient_evidence": 60,
-        "reasoned_inference": 5
+        "incomplete_stimulus": 5,
+        "curated_domain_verified": 60
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 3,
-        "LOW": 2,
-        "VERY_LOW": 60
+        "MEDIUM": 60,
+        "LOW": 0,
+        "VERY_LOW": 5
       },
-      "listeningItems": 0,
+      "listeningItems": 5,
       "writingItems": 0
     },
     {
@@ -396,29 +410,34 @@
       "ocrCaution": true,
       "questionCount": 68,
       "scoredCount": 22,
+      "exemptCount": 46,
       "responseTypes": {
         "choice": 27,
         "multiple": 0,
         "true-false": 0,
-        "text": 21,
-        "essay": 20
+        "text": 40,
+        "essay": 1
       },
       "keyStatuses": {
-        "inferred_unverified": 22,
-        "missing_answer": 46
+        "incomplete_stimulus": 2,
+        "ambiguous_review": 43,
+        "curated_verified": 22,
+        "exempt_open_ended": 1
       },
       "sourceStatuses": {
-        "reconstructed": 22,
-        "insufficient_evidence": 46
+        "incomplete_stimulus": 2,
+        "invalid_key": 43,
+        "curated_domain_verified": 22,
+        "open_ended_exempt": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 2,
-        "LOW": 20,
-        "VERY_LOW": 46
+        "MEDIUM": 0,
+        "LOW": 23,
+        "VERY_LOW": 45
       },
       "listeningItems": 0,
-      "writingItems": 20
+      "writingItems": 1
     },
     {
       "id": "2022/dong-thap/so",
@@ -429,30 +448,35 @@
       "practiceReadOnly": false,
       "ocrCaution": true,
       "questionCount": 37,
-      "scoredCount": 0,
+      "scoredCount": 5,
+      "exemptCount": 32,
       "responseTypes": {
         "choice": 19,
         "multiple": 0,
         "true-false": 0,
-        "text": 18,
-        "essay": 0
+        "text": 10,
+        "essay": 8
       },
       "keyStatuses": {
         "incomplete_stimulus": 19,
-        "missing_answer": 18
+        "ambiguous_review": 5,
+        "source_transcription_unverified": 5,
+        "exempt_open_ended": 8
       },
       "sourceStatuses": {
         "incomplete_stimulus": 19,
-        "insufficient_evidence": 18
+        "invalid_key": 5,
+        "reconstructed": 5,
+        "open_ended_exempt": 8
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 0,
-        "LOW": 0,
-        "VERY_LOW": 37
+        "LOW": 13,
+        "VERY_LOW": 24
       },
       "listeningItems": 19,
-      "writingItems": 0
+      "writingItems": 8
     },
     {
       "id": "2022/ha-nam/so",
@@ -463,31 +487,32 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 77,
-      "scoredCount": 10,
+      "scoredCount": 63,
+      "exemptCount": 14,
       "responseTypes": {
-        "choice": 47,
+        "choice": 45,
         "multiple": 0,
         "true-false": 0,
-        "text": 30,
+        "text": 32,
         "essay": 0
       },
       "keyStatuses": {
-        "incomplete_stimulus": 2,
-        "missing_answer": 65,
-        "inferred_unverified": 10
+        "incomplete_stimulus": 12,
+        "curated_verified": 63,
+        "ambiguous_review": 2
       },
       "sourceStatuses": {
-        "incomplete_stimulus": 2,
-        "insufficient_evidence": 65,
-        "reasoned_inference": 10
+        "incomplete_stimulus": 12,
+        "curated_domain_verified": 63,
+        "invalid_key": 2
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 10,
+        "MEDIUM": 63,
         "LOW": 0,
-        "VERY_LOW": 67
+        "VERY_LOW": 14
       },
-      "listeningItems": 2,
+      "listeningItems": 7,
       "writingItems": 0
     },
     {
@@ -499,30 +524,35 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 58,
-      "scoredCount": 11,
+      "scoredCount": 47,
+      "exemptCount": 11,
       "responseTypes": {
         "choice": 40,
         "multiple": 0,
         "true-false": 0,
-        "text": 13,
-        "essay": 5
+        "text": 17,
+        "essay": 1
       },
       "keyStatuses": {
-        "missing_answer": 47,
-        "inferred_unverified": 11
+        "incomplete_stimulus": 2,
+        "curated_verified": 47,
+        "ambiguous_review": 8,
+        "exempt_open_ended": 1
       },
       "sourceStatuses": {
-        "insufficient_evidence": 47,
-        "reasoned_inference": 11
+        "incomplete_stimulus": 2,
+        "curated_domain_verified": 47,
+        "invalid_key": 8,
+        "open_ended_exempt": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 5,
-        "LOW": 6,
-        "VERY_LOW": 47
+        "MEDIUM": 47,
+        "LOW": 1,
+        "VERY_LOW": 10
       },
       "listeningItems": 0,
-      "writingItems": 5
+      "writingItems": 1
     },
     {
       "id": "2022/ha-noi/so",
@@ -533,7 +563,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 80,
-      "scoredCount": 18,
+      "scoredCount": 42,
+      "exemptCount": 38,
       "responseTypes": {
         "choice": 30,
         "multiple": 0,
@@ -542,24 +573,24 @@
         "essay": 0
       },
       "keyStatuses": {
-        "incomplete_stimulus": 7,
-        "ambiguous_review": 1,
-        "missing_answer": 54,
+        "incomplete_stimulus": 11,
         "source_transcription_unverified": 17,
-        "inferred_unverified": 1
+        "ambiguous_review": 26,
+        "curated_verified": 25,
+        "exempt_open_ended": 1
       },
       "sourceStatuses": {
-        "incomplete_stimulus": 7,
-        "invalid_key": 1,
-        "insufficient_evidence": 54,
+        "incomplete_stimulus": 11,
         "single_source_transcription": 17,
-        "reasoned_inference": 1
+        "invalid_key": 26,
+        "curated_domain_verified": 25,
+        "open_ended_exempt": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 18,
+        "MEDIUM": 42,
         "LOW": 0,
-        "VERY_LOW": 62
+        "VERY_LOW": 38
       },
       "listeningItems": 7,
       "writingItems": 0
@@ -573,29 +604,30 @@
       "practiceReadOnly": false,
       "ocrCaution": true,
       "questionCount": 47,
-      "scoredCount": 13,
+      "scoredCount": 28,
+      "exemptCount": 19,
       "responseTypes": {
-        "choice": 30,
+        "choice": 29,
         "multiple": 0,
         "true-false": 0,
-        "text": 17,
+        "text": 18,
         "essay": 0
       },
       "keyStatuses": {
-        "incomplete_stimulus": 34,
-        "source_transcription_unverified": 13
+        "incomplete_stimulus": 19,
+        "source_transcription_unverified": 28
       },
       "sourceStatuses": {
-        "incomplete_stimulus": 34,
-        "reconstructed": 13
+        "incomplete_stimulus": 19,
+        "reconstructed": 28
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 0,
-        "LOW": 13,
-        "VERY_LOW": 34
+        "LOW": 28,
+        "VERY_LOW": 19
       },
-      "listeningItems": 34,
+      "listeningItems": 19,
       "writingItems": 0
     },
     {
@@ -607,7 +639,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 124,
-      "scoredCount": 8,
+      "scoredCount": 16,
+      "exemptCount": 108,
       "responseTypes": {
         "choice": 60,
         "multiple": 0,
@@ -616,22 +649,22 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 107,
-        "incomplete_stimulus": 9,
-        "inferred_unverified": 8
+        "incomplete_stimulus": 14,
+        "ambiguous_review": 94,
+        "curated_verified": 16
       },
       "sourceStatuses": {
-        "insufficient_evidence": 107,
-        "incomplete_stimulus": 9,
-        "reasoned_inference": 8
+        "incomplete_stimulus": 14,
+        "invalid_key": 94,
+        "curated_domain_verified": 16
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 8,
+        "MEDIUM": 16,
         "LOW": 0,
-        "VERY_LOW": 116
+        "VERY_LOW": 108
       },
-      "listeningItems": 9,
+      "listeningItems": 14,
       "writingItems": 0
     },
     {
@@ -642,30 +675,33 @@
       "contentSha256": "42377971e5cfa6bb931a4730d22e84989bc056fa2b22e9d6d39f14f7427da4e4",
       "practiceReadOnly": false,
       "ocrCaution": true,
-      "questionCount": 82,
-      "scoredCount": 5,
+      "questionCount": 79,
+      "scoredCount": 9,
+      "exemptCount": 70,
       "responseTypes": {
-        "choice": 36,
+        "choice": 32,
         "multiple": 0,
         "true-false": 0,
-        "text": 46,
+        "text": 47,
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 77,
-        "inferred_unverified": 5
+        "incomplete_stimulus": 18,
+        "ambiguous_review": 52,
+        "curated_verified": 9
       },
       "sourceStatuses": {
-        "insufficient_evidence": 77,
-        "reconstructed": 5
+        "incomplete_stimulus": 18,
+        "invalid_key": 52,
+        "curated_domain_verified": 9
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 3,
-        "LOW": 2,
-        "VERY_LOW": 77
+        "MEDIUM": 0,
+        "LOW": 9,
+        "VERY_LOW": 70
       },
-      "listeningItems": 0,
+      "listeningItems": 5,
       "writingItems": 0
     },
     {
@@ -677,29 +713,32 @@
       "practiceReadOnly": false,
       "ocrCaution": true,
       "questionCount": 40,
-      "scoredCount": 6,
+      "scoredCount": 8,
+      "exemptCount": 32,
       "responseTypes": {
-        "choice": 26,
+        "choice": 25,
         "multiple": 0,
         "true-false": 0,
-        "text": 9,
+        "text": 10,
         "essay": 5
       },
       "keyStatuses": {
         "incomplete_stimulus": 5,
-        "missing_answer": 29,
-        "inferred_unverified": 6
+        "ambiguous_review": 22,
+        "curated_verified": 8,
+        "exempt_open_ended": 5
       },
       "sourceStatuses": {
         "incomplete_stimulus": 5,
-        "insufficient_evidence": 29,
-        "reconstructed": 6
+        "invalid_key": 22,
+        "curated_domain_verified": 8,
+        "open_ended_exempt": 5
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 1,
-        "LOW": 5,
-        "VERY_LOW": 34
+        "MEDIUM": 0,
+        "LOW": 13,
+        "VERY_LOW": 27
       },
       "listeningItems": 5,
       "writingItems": 5
@@ -713,7 +752,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 50,
-      "scoredCount": 0,
+      "scoredCount": 39,
+      "exemptCount": 11,
       "responseTypes": {
         "choice": 40,
         "multiple": 0,
@@ -722,20 +762,25 @@
         "essay": 0
       },
       "keyStatuses": {
-        "incomplete_stimulus": 25,
-        "missing_answer": 25
+        "incomplete_stimulus": 10,
+        "source_transcription_unverified": 33,
+        "curated_verified": 6,
+        "invalid_key": 1
       },
       "sourceStatuses": {
-        "incomplete_stimulus": 25,
-        "insufficient_evidence": 25
+        "incomplete_stimulus": 10,
+        "single_source_transcription": 32,
+        "curated_domain_verified": 6,
+        "ambiguous_source": 1,
+        "invalid_key": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 0,
-        "LOW": 0,
-        "VERY_LOW": 50
+        "MEDIUM": 38,
+        "LOW": 1,
+        "VERY_LOW": 11
       },
-      "listeningItems": 25,
+      "listeningItems": 10,
       "writingItems": 0
     },
     {
@@ -747,7 +792,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 55,
-      "scoredCount": 1,
+      "scoredCount": 36,
+      "exemptCount": 19,
       "responseTypes": {
         "choice": 20,
         "multiple": 0,
@@ -756,22 +802,22 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 53,
-        "inferred_unverified": 1,
-        "ambiguous_review": 1
+        "incomplete_stimulus": 13,
+        "curated_verified": 36,
+        "ambiguous_review": 6
       },
       "sourceStatuses": {
-        "insufficient_evidence": 53,
-        "reasoned_inference": 1,
-        "invalid_key": 1
+        "incomplete_stimulus": 13,
+        "curated_domain_verified": 36,
+        "invalid_key": 6
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 1,
+        "MEDIUM": 36,
         "LOW": 0,
-        "VERY_LOW": 54
+        "VERY_LOW": 19
       },
-      "listeningItems": 0,
+      "listeningItems": 13,
       "writingItems": 0
     },
     {
@@ -783,7 +829,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 75,
-      "scoredCount": 46,
+      "scoredCount": 69,
+      "exemptCount": 6,
       "responseTypes": {
         "choice": 65,
         "multiple": 0,
@@ -792,22 +839,21 @@
         "essay": 0
       },
       "keyStatuses": {
-        "incomplete_stimulus": 5,
-        "missing_answer": 24,
-        "inferred_unverified": 1,
-        "source_transcription_unverified": 45
+        "incomplete_stimulus": 6,
+        "source_transcription_unverified": 63,
+        "curated_verified": 6
       },
       "sourceStatuses": {
-        "incomplete_stimulus": 5,
-        "insufficient_evidence": 24,
-        "reasoned_inference": 1,
-        "single_source_transcription": 45
+        "incomplete_stimulus": 6,
+        "single_source_transcription": 62,
+        "curated_domain_verified": 6,
+        "ambiguous_source": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 46,
-        "LOW": 0,
-        "VERY_LOW": 29
+        "MEDIUM": 68,
+        "LOW": 1,
+        "VERY_LOW": 6
       },
       "listeningItems": 5,
       "writingItems": 0
@@ -820,33 +866,35 @@
       "contentSha256": "8d3b1b8bede01db62ce0244c0e4c2f8cf3f77f46f93cec20a2825b4573868322",
       "practiceReadOnly": false,
       "ocrCaution": true,
-      "questionCount": 30,
-      "scoredCount": 3,
+      "questionCount": 26,
+      "scoredCount": 12,
+      "exemptCount": 14,
       "responseTypes": {
         "choice": 18,
         "multiple": 0,
-        "true-false": 1,
-        "text": 11,
+        "true-false": 0,
+        "text": 8,
         "essay": 0
       },
       "keyStatuses": {
-        "incomplete_stimulus": 18,
+        "incomplete_stimulus": 11,
+        "ambiguous_review": 3,
         "source_transcription_unverified": 2,
-        "missing_answer": 9,
-        "inferred_unverified": 1
+        "curated_verified": 10
       },
       "sourceStatuses": {
-        "incomplete_stimulus": 18,
-        "reconstructed": 3,
-        "insufficient_evidence": 9
+        "incomplete_stimulus": 11,
+        "invalid_key": 3,
+        "reconstructed": 2,
+        "curated_domain_verified": 10
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 1,
-        "LOW": 2,
-        "VERY_LOW": 27
+        "MEDIUM": 0,
+        "LOW": 12,
+        "VERY_LOW": 14
       },
-      "listeningItems": 18,
+      "listeningItems": 11,
       "writingItems": 0
     },
     {
@@ -858,31 +906,32 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 63,
-      "scoredCount": 5,
+      "scoredCount": 47,
+      "exemptCount": 16,
       "responseTypes": {
-        "choice": 39,
+        "choice": 38,
         "multiple": 0,
         "true-false": 0,
-        "text": 24,
+        "text": 25,
         "essay": 0
       },
       "keyStatuses": {
-        "incomplete_stimulus": 5,
-        "missing_answer": 53,
-        "inferred_unverified": 5
+        "incomplete_stimulus": 15,
+        "curated_verified": 47,
+        "ambiguous_review": 1
       },
       "sourceStatuses": {
-        "incomplete_stimulus": 5,
-        "insufficient_evidence": 53,
-        "reasoned_inference": 5
+        "incomplete_stimulus": 15,
+        "curated_domain_verified": 47,
+        "invalid_key": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 2,
-        "LOW": 3,
-        "VERY_LOW": 58
+        "MEDIUM": 47,
+        "LOW": 0,
+        "VERY_LOW": 16
       },
-      "listeningItems": 5,
+      "listeningItems": 15,
       "writingItems": 0
     },
     {
@@ -893,30 +942,29 @@
       "contentSha256": "ac5cacd002be7887d083313edee29e39cee43870d06707350d6435e22551ba64",
       "practiceReadOnly": false,
       "ocrCaution": true,
-      "questionCount": 25,
+      "questionCount": 23,
       "scoredCount": 2,
+      "exemptCount": 21,
       "responseTypes": {
         "choice": 11,
         "multiple": 0,
         "true-false": 0,
-        "text": 14,
+        "text": 12,
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 22,
-        "inferred_unverified": 2,
-        "ambiguous_review": 1
+        "ambiguous_review": 21,
+        "curated_verified": 2
       },
       "sourceStatuses": {
-        "insufficient_evidence": 22,
-        "reconstructed": 2,
-        "invalid_key": 1
+        "invalid_key": 21,
+        "curated_domain_verified": 2
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 1,
-        "LOW": 1,
-        "VERY_LOW": 23
+        "MEDIUM": 0,
+        "LOW": 2,
+        "VERY_LOW": 21
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -930,7 +978,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 45,
-      "scoredCount": 4,
+      "scoredCount": 27,
+      "exemptCount": 18,
       "responseTypes": {
         "choice": 27,
         "multiple": 0,
@@ -939,20 +988,22 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 41,
-        "inferred_unverified": 4
+        "incomplete_stimulus": 10,
+        "curated_verified": 27,
+        "ambiguous_review": 8
       },
       "sourceStatuses": {
-        "insufficient_evidence": 41,
-        "reasoned_inference": 4
+        "incomplete_stimulus": 10,
+        "curated_domain_verified": 27,
+        "invalid_key": 8
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 3,
-        "LOW": 1,
-        "VERY_LOW": 41
+        "MEDIUM": 27,
+        "LOW": 0,
+        "VERY_LOW": 18
       },
-      "listeningItems": 0,
+      "listeningItems": 10,
       "writingItems": 0
     },
     {
@@ -964,7 +1015,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 87,
-      "scoredCount": 83,
+      "scoredCount": 87,
+      "exemptCount": 0,
       "responseTypes": {
         "choice": 70,
         "multiple": 0,
@@ -973,20 +1025,16 @@
         "essay": 0
       },
       "keyStatuses": {
-        "source_transcription_unverified": 82,
-        "missing_answer": 4,
-        "inferred_unverified": 1
+        "source_transcription_unverified": 87
       },
       "sourceStatuses": {
-        "single_source_transcription": 82,
-        "insufficient_evidence": 4,
-        "reasoned_inference": 1
+        "single_source_transcription": 87
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 83,
+        "MEDIUM": 87,
         "LOW": 0,
-        "VERY_LOW": 4
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -999,30 +1047,33 @@
       "contentSha256": "dae642e81400214490bbbbd07ea7569d3bbe9e22cb74fd686d2d0273b2caeca6",
       "practiceReadOnly": false,
       "ocrCaution": true,
-      "questionCount": 38,
-      "scoredCount": 2,
+      "questionCount": 36,
+      "scoredCount": 12,
+      "exemptCount": 24,
       "responseTypes": {
         "choice": 16,
         "multiple": 0,
         "true-false": 0,
-        "text": 21,
+        "text": 19,
         "essay": 1
       },
       "keyStatuses": {
-        "missing_answer": 35,
-        "inferred_unverified": 2,
-        "ambiguous_review": 1
+        "incomplete_stimulus": 8,
+        "ambiguous_review": 15,
+        "curated_verified": 12,
+        "exempt_open_ended": 1
       },
       "sourceStatuses": {
-        "insufficient_evidence": 35,
-        "reconstructed": 2,
-        "invalid_key": 1
+        "incomplete_stimulus": 8,
+        "invalid_key": 15,
+        "curated_domain_verified": 12,
+        "open_ended_exempt": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 1,
-        "LOW": 1,
-        "VERY_LOW": 36
+        "MEDIUM": 0,
+        "LOW": 13,
+        "VERY_LOW": 23
       },
       "listeningItems": 0,
       "writingItems": 1
@@ -1036,7 +1087,8 @@
       "practiceReadOnly": false,
       "ocrCaution": true,
       "questionCount": 56,
-      "scoredCount": 3,
+      "scoredCount": 10,
+      "exemptCount": 46,
       "responseTypes": {
         "choice": 31,
         "multiple": 0,
@@ -1045,18 +1097,18 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 53,
-        "inferred_unverified": 3
+        "ambiguous_review": 46,
+        "curated_verified": 10
       },
       "sourceStatuses": {
-        "insufficient_evidence": 53,
-        "reconstructed": 3
+        "invalid_key": 46,
+        "curated_domain_verified": 10
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 2,
-        "LOW": 1,
-        "VERY_LOW": 53
+        "MEDIUM": 0,
+        "LOW": 10,
+        "VERY_LOW": 46
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -1070,29 +1122,32 @@
       "practiceReadOnly": false,
       "ocrCaution": true,
       "questionCount": 80,
-      "scoredCount": 0,
+      "scoredCount": 6,
+      "exemptCount": 74,
       "responseTypes": {
-        "choice": 45,
+        "choice": 43,
         "multiple": 0,
         "true-false": 0,
-        "text": 35,
+        "text": 37,
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 55,
-        "incomplete_stimulus": 25
+        "incomplete_stimulus": 10,
+        "ambiguous_review": 64,
+        "curated_verified": 6
       },
       "sourceStatuses": {
-        "insufficient_evidence": 55,
-        "incomplete_stimulus": 25
+        "incomplete_stimulus": 10,
+        "invalid_key": 64,
+        "curated_domain_verified": 6
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 0,
-        "LOW": 0,
-        "VERY_LOW": 80
+        "LOW": 6,
+        "VERY_LOW": 74
       },
-      "listeningItems": 25,
+      "listeningItems": 10,
       "writingItems": 0
     },
     {
@@ -1104,7 +1159,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 40,
-      "scoredCount": 8,
+      "scoredCount": 21,
+      "exemptCount": 19,
       "responseTypes": {
         "choice": 35,
         "multiple": 0,
@@ -1113,24 +1169,22 @@
         "essay": 0
       },
       "keyStatuses": {
-        "incomplete_stimulus": 5,
-        "missing_answer": 27,
-        "inferred_unverified": 2,
-        "source_transcription_unverified": 6
+        "incomplete_stimulus": 19,
+        "curated_verified": 16,
+        "source_transcription_unverified": 5
       },
       "sourceStatuses": {
-        "incomplete_stimulus": 5,
-        "insufficient_evidence": 27,
-        "reasoned_inference": 2,
-        "reconstructed": 6
+        "incomplete_stimulus": 19,
+        "curated_domain_verified": 16,
+        "single_source_transcription": 5
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 2,
-        "LOW": 6,
-        "VERY_LOW": 32
+        "MEDIUM": 21,
+        "LOW": 0,
+        "VERY_LOW": 19
       },
-      "listeningItems": 5,
+      "listeningItems": 19,
       "writingItems": 0
     },
     {
@@ -1142,32 +1196,35 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 85,
-      "scoredCount": 5,
+      "scoredCount": 63,
+      "exemptCount": 22,
       "responseTypes": {
-        "choice": 51,
+        "choice": 50,
         "multiple": 0,
         "true-false": 0,
-        "text": 34,
-        "essay": 0
+        "text": 29,
+        "essay": 6
       },
       "keyStatuses": {
         "incomplete_stimulus": 12,
-        "missing_answer": 68,
-        "inferred_unverified": 5
+        "curated_verified": 63,
+        "ambiguous_review": 4,
+        "exempt_open_ended": 6
       },
       "sourceStatuses": {
         "incomplete_stimulus": 12,
-        "insufficient_evidence": 68,
-        "reasoned_inference": 5
+        "curated_domain_verified": 63,
+        "invalid_key": 4,
+        "open_ended_exempt": 6
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 3,
-        "LOW": 2,
-        "VERY_LOW": 80
+        "MEDIUM": 63,
+        "LOW": 6,
+        "VERY_LOW": 16
       },
-      "listeningItems": 12,
-      "writingItems": 0
+      "listeningItems": 10,
+      "writingItems": 6
     },
     {
       "id": "2023/binh-duong/so",
@@ -1178,7 +1235,8 @@
       "practiceReadOnly": false,
       "ocrCaution": true,
       "questionCount": 97,
-      "scoredCount": 82,
+      "scoredCount": 86,
+      "exemptCount": 11,
       "responseTypes": {
         "choice": 77,
         "multiple": 0,
@@ -1188,19 +1246,21 @@
       },
       "keyStatuses": {
         "incomplete_stimulus": 10,
-        "source_transcription_unverified": 82,
-        "missing_answer": 5
+        "source_transcription_unverified": 81,
+        "ambiguous_review": 1,
+        "curated_verified": 5
       },
       "sourceStatuses": {
         "incomplete_stimulus": 10,
-        "reconstructed": 82,
-        "insufficient_evidence": 5
+        "reconstructed": 81,
+        "invalid_key": 1,
+        "curated_domain_verified": 5
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 0,
-        "LOW": 82,
-        "VERY_LOW": 15
+        "LOW": 86,
+        "VERY_LOW": 11
       },
       "listeningItems": 10,
       "writingItems": 0
@@ -1214,7 +1274,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 66,
-      "scoredCount": 56,
+      "scoredCount": 66,
+      "exemptCount": 0,
       "responseTypes": {
         "choice": 56,
         "multiple": 0,
@@ -1223,18 +1284,18 @@
         "essay": 0
       },
       "keyStatuses": {
-        "source_transcription_unverified": 56,
-        "missing_answer": 10
+        "source_transcription_unverified": 65,
+        "curated_verified": 1
       },
       "sourceStatuses": {
-        "single_source_transcription": 56,
-        "insufficient_evidence": 10
+        "single_source_transcription": 65,
+        "curated_domain_verified": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 56,
+        "MEDIUM": 66,
         "LOW": 0,
-        "VERY_LOW": 10
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -1248,7 +1309,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 51,
-      "scoredCount": 5,
+      "scoredCount": 50,
+      "exemptCount": 1,
       "responseTypes": {
         "choice": 31,
         "multiple": 0,
@@ -1257,18 +1319,18 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 46,
-        "inferred_unverified": 5
+        "curated_verified": 50,
+        "ambiguous_review": 1
       },
       "sourceStatuses": {
-        "insufficient_evidence": 46,
-        "reasoned_inference": 5
+        "curated_domain_verified": 50,
+        "invalid_key": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 4,
-        "LOW": 1,
-        "VERY_LOW": 46
+        "MEDIUM": 50,
+        "LOW": 0,
+        "VERY_LOW": 1
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -1281,32 +1343,32 @@
       "contentSha256": "661a062a056bb8219771aa63854e506a4a5c92d4fe2629d6622f85b36ffbf272",
       "practiceReadOnly": false,
       "ocrCaution": true,
-      "questionCount": 69,
-      "scoredCount": 62,
+      "questionCount": 65,
+      "scoredCount": 57,
+      "exemptCount": 8,
       "responseTypes": {
         "choice": 40,
         "multiple": 0,
         "true-false": 0,
-        "text": 29,
+        "text": 25,
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 4,
-        "independently_cross_checked": 62,
+        "source_transcription_unverified": 57,
+        "ambiguous_review": 5,
         "invalid_key": 3
       },
       "sourceStatuses": {
-        "insufficient_evidence": 4,
-        "reconstructed": 62,
-        "invalid_key": 3
+        "reconstructed": 57,
+        "invalid_key": 8
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 0,
-        "LOW": 62,
-        "VERY_LOW": 7
+        "LOW": 57,
+        "VERY_LOW": 8
       },
-      "listeningItems": 8,
+      "listeningItems": 7,
       "writingItems": 0
     },
     {
@@ -1318,7 +1380,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 40,
-      "scoredCount": 1,
+      "scoredCount": 20,
+      "exemptCount": 20,
       "responseTypes": {
         "choice": 15,
         "multiple": 0,
@@ -1327,22 +1390,20 @@
         "essay": 0
       },
       "keyStatuses": {
-        "incomplete_stimulus": 10,
-        "missing_answer": 29,
-        "inferred_unverified": 1
+        "incomplete_stimulus": 20,
+        "curated_verified": 20
       },
       "sourceStatuses": {
-        "incomplete_stimulus": 10,
-        "insufficient_evidence": 29,
-        "reasoned_inference": 1
+        "incomplete_stimulus": 20,
+        "curated_domain_verified": 20
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 1,
+        "MEDIUM": 20,
         "LOW": 0,
-        "VERY_LOW": 39
+        "VERY_LOW": 20
       },
-      "listeningItems": 3,
+      "listeningItems": 20,
       "writingItems": 0
     },
     {
@@ -1354,32 +1415,37 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 77,
-      "scoredCount": 72,
+      "scoredCount": 74,
+      "exemptCount": 3,
       "responseTypes": {
         "choice": 39,
         "multiple": 0,
         "true-false": 0,
-        "text": 17,
-        "essay": 21
+        "text": 37,
+        "essay": 1
       },
       "keyStatuses": {
-        "source_transcription_unverified": 72,
-        "missing_answer": 4,
-        "ambiguous_review": 1
+        "source_transcription_unverified": 61,
+        "incomplete_stimulus": 1,
+        "curated_verified": 13,
+        "ambiguous_review": 1,
+        "exempt_open_ended": 1
       },
       "sourceStatuses": {
-        "single_source_transcription": 72,
-        "insufficient_evidence": 4,
-        "invalid_key": 1
+        "single_source_transcription": 61,
+        "incomplete_stimulus": 1,
+        "curated_domain_verified": 13,
+        "invalid_key": 1,
+        "open_ended_exempt": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 51,
-        "LOW": 21,
-        "VERY_LOW": 5
+        "MEDIUM": 74,
+        "LOW": 1,
+        "VERY_LOW": 2
       },
       "listeningItems": 0,
-      "writingItems": 21
+      "writingItems": 1
     },
     {
       "id": "2023/dong-thap/so",
@@ -1390,32 +1456,35 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 51,
-      "scoredCount": 2,
+      "scoredCount": 34,
+      "exemptCount": 17,
       "responseTypes": {
         "choice": 30,
         "multiple": 0,
         "true-false": 1,
-        "text": 20,
-        "essay": 0
+        "text": 10,
+        "essay": 10
       },
       "keyStatuses": {
         "incomplete_stimulus": 6,
-        "missing_answer": 43,
-        "inferred_unverified": 2
+        "curated_verified": 34,
+        "ambiguous_review": 1,
+        "exempt_open_ended": 10
       },
       "sourceStatuses": {
         "incomplete_stimulus": 6,
-        "insufficient_evidence": 43,
-        "reasoned_inference": 2
+        "curated_domain_verified": 34,
+        "invalid_key": 1,
+        "open_ended_exempt": 10
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 1,
-        "LOW": 1,
-        "VERY_LOW": 49
+        "MEDIUM": 34,
+        "LOW": 10,
+        "VERY_LOW": 7
       },
       "listeningItems": 6,
-      "writingItems": 0
+      "writingItems": 10
     },
     {
       "id": "2023/ha-giang/so",
@@ -1426,7 +1495,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 43,
-      "scoredCount": 2,
+      "scoredCount": 20,
+      "exemptCount": 23,
       "responseTypes": {
         "choice": 21,
         "multiple": 0,
@@ -1435,22 +1505,20 @@
         "essay": 0
       },
       "keyStatuses": {
-        "incomplete_stimulus": 15,
-        "missing_answer": 25,
-        "inferred_unverified": 2,
-        "ambiguous_review": 1
+        "incomplete_stimulus": 20,
+        "curated_verified": 20,
+        "ambiguous_review": 3
       },
       "sourceStatuses": {
-        "incomplete_stimulus": 15,
-        "insufficient_evidence": 25,
-        "reasoned_inference": 2,
-        "invalid_key": 1
+        "incomplete_stimulus": 20,
+        "curated_domain_verified": 20,
+        "invalid_key": 3
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 1,
-        "LOW": 1,
-        "VERY_LOW": 41
+        "MEDIUM": 20,
+        "LOW": 0,
+        "VERY_LOW": 23
       },
       "listeningItems": 15,
       "writingItems": 0
@@ -1464,7 +1532,8 @@
       "practiceReadOnly": false,
       "ocrCaution": true,
       "questionCount": 57,
-      "scoredCount": 42,
+      "scoredCount": 33,
+      "exemptCount": 24,
       "responseTypes": {
         "choice": 29,
         "multiple": 0,
@@ -1473,19 +1542,24 @@
         "essay": 7
       },
       "keyStatuses": {
-        "missing_answer": 15,
-        "source_transcription_unverified": 38,
-        "inferred_unverified": 4
+        "ambiguous_review": 16,
+        "source_transcription_unverified": 32,
+        "incomplete_stimulus": 1,
+        "exempt_open_ended": 7,
+        "curated_verified": 1
       },
       "sourceStatuses": {
-        "insufficient_evidence": 15,
-        "reconstructed": 42
+        "invalid_key": 16,
+        "reconstructed": 32,
+        "incomplete_stimulus": 1,
+        "open_ended_exempt": 7,
+        "curated_domain_verified": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 4,
-        "LOW": 38,
-        "VERY_LOW": 15
+        "MEDIUM": 0,
+        "LOW": 40,
+        "VERY_LOW": 17
       },
       "listeningItems": 0,
       "writingItems": 7
@@ -1499,7 +1573,8 @@
       "practiceReadOnly": false,
       "ocrCaution": true,
       "questionCount": 51,
-      "scoredCount": 32,
+      "scoredCount": 29,
+      "exemptCount": 22,
       "responseTypes": {
         "choice": 29,
         "multiple": 0,
@@ -1508,24 +1583,22 @@
         "essay": 0
       },
       "keyStatuses": {
-        "incomplete_stimulus": 4,
-        "ambiguous_review": 1,
-        "source_transcription_unverified": 32,
-        "missing_answer": 14
+        "incomplete_stimulus": 22,
+        "source_transcription_unverified": 13,
+        "curated_verified": 16
       },
       "sourceStatuses": {
-        "incomplete_stimulus": 4,
-        "invalid_key": 1,
-        "reconstructed": 32,
-        "insufficient_evidence": 14
+        "incomplete_stimulus": 22,
+        "reconstructed": 13,
+        "curated_domain_verified": 16
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 0,
-        "LOW": 32,
-        "VERY_LOW": 19
+        "LOW": 29,
+        "VERY_LOW": 22
       },
-      "listeningItems": 5,
+      "listeningItems": 22,
       "writingItems": 0
     },
     {
@@ -1537,7 +1610,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 105,
-      "scoredCount": 3,
+      "scoredCount": 84,
+      "exemptCount": 21,
       "responseTypes": {
         "choice": 60,
         "multiple": 0,
@@ -1546,22 +1620,22 @@
         "essay": 0
       },
       "keyStatuses": {
-        "incomplete_stimulus": 5,
-        "missing_answer": 97,
-        "inferred_unverified": 3
+        "incomplete_stimulus": 20,
+        "curated_verified": 84,
+        "ambiguous_review": 1
       },
       "sourceStatuses": {
-        "incomplete_stimulus": 5,
-        "insufficient_evidence": 97,
-        "reasoned_inference": 3
+        "incomplete_stimulus": 20,
+        "curated_domain_verified": 84,
+        "invalid_key": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 2,
-        "LOW": 1,
-        "VERY_LOW": 102
+        "MEDIUM": 84,
+        "LOW": 0,
+        "VERY_LOW": 21
       },
-      "listeningItems": 5,
+      "listeningItems": 15,
       "writingItems": 0
     },
     {
@@ -1573,27 +1647,30 @@
       "practiceReadOnly": false,
       "ocrCaution": true,
       "questionCount": 77,
-      "scoredCount": 2,
+      "scoredCount": 11,
+      "exemptCount": 66,
       "responseTypes": {
-        "choice": 31,
+        "choice": 30,
         "multiple": 0,
         "true-false": 0,
-        "text": 46,
+        "text": 47,
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 75,
-        "inferred_unverified": 2
+        "ambiguous_review": 56,
+        "curated_verified": 11,
+        "incomplete_stimulus": 10
       },
       "sourceStatuses": {
-        "insufficient_evidence": 75,
-        "reconstructed": 2
+        "invalid_key": 56,
+        "curated_domain_verified": 11,
+        "incomplete_stimulus": 10
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 2,
-        "LOW": 0,
-        "VERY_LOW": 75
+        "MEDIUM": 0,
+        "LOW": 11,
+        "VERY_LOW": 66
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -1607,31 +1684,30 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 57,
-      "scoredCount": 15,
+      "scoredCount": 47,
+      "exemptCount": 10,
       "responseTypes": {
-        "choice": 38,
+        "choice": 35,
         "multiple": 0,
         "true-false": 0,
-        "text": 19,
+        "text": 22,
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 27,
-        "source_transcription_unverified": 15,
-        "incomplete_stimulus": 15
+        "source_transcription_unverified": 47,
+        "incomplete_stimulus": 10
       },
       "sourceStatuses": {
-        "insufficient_evidence": 27,
-        "single_source_transcription": 15,
-        "incomplete_stimulus": 15
+        "single_source_transcription": 47,
+        "incomplete_stimulus": 10
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 15,
+        "MEDIUM": 47,
         "LOW": 0,
-        "VERY_LOW": 42
+        "VERY_LOW": 10
       },
-      "listeningItems": 15,
+      "listeningItems": 10,
       "writingItems": 0
     },
     {
@@ -1643,29 +1719,32 @@
       "practiceReadOnly": false,
       "ocrCaution": true,
       "questionCount": 38,
-      "scoredCount": 36,
+      "scoredCount": 31,
+      "exemptCount": 7,
       "responseTypes": {
-        "choice": 17,
+        "choice": 16,
         "multiple": 0,
         "true-false": 0,
-        "text": 21,
+        "text": 22,
         "essay": 0
       },
       "keyStatuses": {
-        "source_transcription_unverified": 36,
-        "missing_answer": 2
+        "incomplete_stimulus": 7,
+        "source_transcription_unverified": 30,
+        "curated_verified": 1
       },
       "sourceStatuses": {
-        "reconstructed": 36,
-        "insufficient_evidence": 2
+        "incomplete_stimulus": 7,
+        "reconstructed": 30,
+        "curated_domain_verified": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 0,
-        "LOW": 36,
-        "VERY_LOW": 2
+        "LOW": 31,
+        "VERY_LOW": 7
       },
-      "listeningItems": 0,
+      "listeningItems": 7,
       "writingItems": 0
     },
     {
@@ -1677,7 +1756,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 76,
-      "scoredCount": 4,
+      "scoredCount": 64,
+      "exemptCount": 12,
       "responseTypes": {
         "choice": 35,
         "multiple": 0,
@@ -1686,20 +1766,20 @@
         "essay": 0
       },
       "keyStatuses": {
-        "incomplete_stimulus": 6,
-        "missing_answer": 66,
-        "inferred_unverified": 4
+        "incomplete_stimulus": 8,
+        "curated_verified": 64,
+        "ambiguous_review": 4
       },
       "sourceStatuses": {
-        "incomplete_stimulus": 6,
-        "insufficient_evidence": 66,
-        "reasoned_inference": 4
+        "incomplete_stimulus": 8,
+        "curated_domain_verified": 64,
+        "invalid_key": 4
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 3,
-        "LOW": 1,
-        "VERY_LOW": 72
+        "MEDIUM": 64,
+        "LOW": 0,
+        "VERY_LOW": 12
       },
       "listeningItems": 6,
       "writingItems": 0
@@ -1713,7 +1793,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 29,
-      "scoredCount": 3,
+      "scoredCount": 27,
+      "exemptCount": 2,
       "responseTypes": {
         "choice": 20,
         "multiple": 0,
@@ -1722,18 +1803,18 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 26,
-        "inferred_unverified": 3
+        "incomplete_stimulus": 2,
+        "curated_verified": 27
       },
       "sourceStatuses": {
-        "insufficient_evidence": 26,
-        "reasoned_inference": 3
+        "incomplete_stimulus": 2,
+        "curated_domain_verified": 27
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 2,
-        "LOW": 1,
-        "VERY_LOW": 26
+        "MEDIUM": 27,
+        "LOW": 0,
+        "VERY_LOW": 2
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -1747,7 +1828,8 @@
       "practiceReadOnly": false,
       "ocrCaution": true,
       "questionCount": 66,
-      "scoredCount": 31,
+      "scoredCount": 46,
+      "exemptCount": 20,
       "responseTypes": {
         "choice": 46,
         "multiple": 0,
@@ -1756,22 +1838,22 @@
         "essay": 0
       },
       "keyStatuses": {
-        "incomplete_stimulus": 25,
-        "source_transcription_unverified": 31,
-        "missing_answer": 10
+        "incomplete_stimulus": 19,
+        "source_transcription_unverified": 46,
+        "ambiguous_review": 1
       },
       "sourceStatuses": {
-        "incomplete_stimulus": 25,
-        "reconstructed": 31,
-        "insufficient_evidence": 10
+        "incomplete_stimulus": 19,
+        "reconstructed": 46,
+        "invalid_key": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 0,
-        "LOW": 31,
-        "VERY_LOW": 35
+        "LOW": 46,
+        "VERY_LOW": 20
       },
-      "listeningItems": 25,
+      "listeningItems": 19,
       "writingItems": 0
     },
     {
@@ -1782,35 +1864,33 @@
       "contentSha256": "ffaa0f80464f23d7957a3353bcfcc965f5de7073cda067fb32482edd15ef55d6",
       "practiceReadOnly": false,
       "ocrCaution": true,
-      "questionCount": 36,
-      "scoredCount": 27,
+      "questionCount": 46,
+      "scoredCount": 36,
+      "exemptCount": 10,
       "responseTypes": {
         "choice": 32,
         "multiple": 0,
         "true-false": 0,
-        "text": 3,
-        "essay": 1
+        "text": 14,
+        "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 6,
-        "inferred_unverified": 1,
-        "source_transcription_unverified": 26,
-        "ambiguous_review": 2,
-        "invalid_key": 1
+        "source_transcription_unverified": 36,
+        "ambiguous_review": 8,
+        "invalid_key": 2
       },
       "sourceStatuses": {
-        "insufficient_evidence": 6,
-        "reconstructed": 27,
-        "invalid_key": 3
+        "reconstructed": 36,
+        "invalid_key": 10
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 1,
-        "LOW": 26,
-        "VERY_LOW": 9
+        "MEDIUM": 0,
+        "LOW": 36,
+        "VERY_LOW": 10
       },
       "listeningItems": 0,
-      "writingItems": 1
+      "writingItems": 0
     },
     {
       "id": "2023/tp-ho-chi-minh/so",
@@ -1821,7 +1901,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 70,
-      "scoredCount": 22,
+      "scoredCount": 70,
+      "exemptCount": 0,
       "responseTypes": {
         "choice": 50,
         "multiple": 0,
@@ -1830,20 +1911,19 @@
         "essay": 0
       },
       "keyStatuses": {
-        "source_transcription_unverified": 20,
-        "missing_answer": 48,
-        "inferred_unverified": 2
+        "source_transcription_unverified": 63,
+        "curated_verified": 7
       },
       "sourceStatuses": {
-        "single_source_transcription": 20,
-        "insufficient_evidence": 48,
-        "reasoned_inference": 2
+        "single_source_transcription": 61,
+        "ambiguous_source": 2,
+        "curated_domain_verified": 7
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 21,
-        "LOW": 1,
-        "VERY_LOW": 48
+        "MEDIUM": 68,
+        "LOW": 2,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -1857,7 +1937,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 58,
-      "scoredCount": 4,
+      "scoredCount": 47,
+      "exemptCount": 11,
       "responseTypes": {
         "choice": 43,
         "multiple": 0,
@@ -1867,19 +1948,19 @@
       },
       "keyStatuses": {
         "incomplete_stimulus": 10,
-        "missing_answer": 44,
-        "inferred_unverified": 4
+        "curated_verified": 47,
+        "ambiguous_review": 1
       },
       "sourceStatuses": {
         "incomplete_stimulus": 10,
-        "insufficient_evidence": 44,
-        "reasoned_inference": 4
+        "curated_domain_verified": 47,
+        "invalid_key": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 4,
+        "MEDIUM": 47,
         "LOW": 0,
-        "VERY_LOW": 54
+        "VERY_LOW": 11
       },
       "listeningItems": 10,
       "writingItems": 0
@@ -1893,7 +1974,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 42,
-      "scoredCount": 33,
+      "scoredCount": 42,
+      "exemptCount": 0,
       "responseTypes": {
         "choice": 29,
         "multiple": 0,
@@ -1902,18 +1984,16 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 9,
-        "source_transcription_unverified": 33
+        "source_transcription_unverified": 42
       },
       "sourceStatuses": {
-        "insufficient_evidence": 9,
-        "single_source_transcription": 33
+        "single_source_transcription": 42
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 33,
-        "LOW": 0,
-        "VERY_LOW": 9
+        "MEDIUM": 38,
+        "LOW": 4,
+        "VERY_LOW": 0
       },
       "listeningItems": 4,
       "writingItems": 0
@@ -1927,7 +2007,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 51,
-      "scoredCount": 23,
+      "scoredCount": 50,
+      "exemptCount": 1,
       "responseTypes": {
         "choice": 31,
         "multiple": 0,
@@ -1936,22 +2017,19 @@
         "essay": 0
       },
       "keyStatuses": {
-        "source_transcription_unverified": 20,
-        "missing_answer": 27,
-        "inferred_unverified": 3,
+        "source_transcription_unverified": 50,
         "ambiguous_review": 1
       },
       "sourceStatuses": {
-        "single_source_transcription": 20,
-        "insufficient_evidence": 27,
-        "reasoned_inference": 3,
+        "single_source_transcription": 49,
+        "ambiguous_source": 1,
         "invalid_key": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 23,
-        "LOW": 0,
-        "VERY_LOW": 28
+        "MEDIUM": 49,
+        "LOW": 1,
+        "VERY_LOW": 1
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -1965,7 +2043,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 54,
-      "scoredCount": 48,
+      "scoredCount": 53,
+      "exemptCount": 1,
       "responseTypes": {
         "choice": 30,
         "multiple": 0,
@@ -1974,18 +2053,20 @@
         "essay": 1
       },
       "keyStatuses": {
-        "source_transcription_unverified": 48,
-        "missing_answer": 6
+        "source_transcription_unverified": 47,
+        "curated_verified": 6,
+        "exempt_open_ended": 1
       },
       "sourceStatuses": {
-        "single_source_transcription": 48,
-        "insufficient_evidence": 6
+        "single_source_transcription": 47,
+        "curated_domain_verified": 6,
+        "open_ended_exempt": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 47,
+        "MEDIUM": 53,
         "LOW": 1,
-        "VERY_LOW": 6
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 1
@@ -1999,7 +2080,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 36,
-      "scoredCount": 35,
+      "scoredCount": 36,
+      "exemptCount": 0,
       "responseTypes": {
         "choice": 21,
         "multiple": 0,
@@ -2009,17 +2091,17 @@
       },
       "keyStatuses": {
         "source_transcription_unverified": 35,
-        "missing_answer": 1
+        "curated_verified": 1
       },
       "sourceStatuses": {
         "single_source_transcription": 35,
-        "insufficient_evidence": 1
+        "curated_domain_verified": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 35,
+        "MEDIUM": 36,
         "LOW": 0,
-        "VERY_LOW": 1
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -2033,34 +2115,33 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 71,
-      "scoredCount": 4,
+      "scoredCount": 38,
+      "exemptCount": 33,
       "responseTypes": {
         "choice": 36,
         "multiple": 0,
         "true-false": 0,
-        "text": 34,
-        "essay": 1
+        "text": 25,
+        "essay": 10
       },
       "keyStatuses": {
-        "missing_answer": 56,
-        "incomplete_stimulus": 10,
-        "inferred_unverified": 4,
-        "ambiguous_review": 1
+        "incomplete_stimulus": 23,
+        "curated_verified": 38,
+        "exempt_open_ended": 10
       },
       "sourceStatuses": {
-        "insufficient_evidence": 56,
-        "incomplete_stimulus": 10,
-        "reasoned_inference": 4,
-        "invalid_key": 1
+        "incomplete_stimulus": 23,
+        "curated_domain_verified": 38,
+        "open_ended_exempt": 10
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 3,
-        "LOW": 1,
-        "VERY_LOW": 67
+        "MEDIUM": 38,
+        "LOW": 10,
+        "VERY_LOW": 23
       },
-      "listeningItems": 10,
-      "writingItems": 1
+      "listeningItems": 20,
+      "writingItems": 10
     },
     {
       "id": "2024/tp-ho-chi-minh/so",
@@ -2071,7 +2152,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 70,
-      "scoredCount": 3,
+      "scoredCount": 68,
+      "exemptCount": 2,
       "responseTypes": {
         "choice": 50,
         "multiple": 0,
@@ -2080,20 +2162,18 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 66,
-        "inferred_unverified": 3,
-        "ambiguous_review": 1
+        "curated_verified": 68,
+        "ambiguous_review": 2
       },
       "sourceStatuses": {
-        "insufficient_evidence": 66,
-        "reasoned_inference": 3,
-        "invalid_key": 1
+        "curated_domain_verified": 68,
+        "invalid_key": 2
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 3,
+        "MEDIUM": 68,
         "LOW": 0,
-        "VERY_LOW": 67
+        "VERY_LOW": 2
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -2107,7 +2187,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 58,
-      "scoredCount": 46,
+      "scoredCount": 48,
+      "exemptCount": 10,
       "responseTypes": {
         "choice": 43,
         "multiple": 0,
@@ -2117,19 +2198,19 @@
       },
       "keyStatuses": {
         "incomplete_stimulus": 10,
-        "source_transcription_unverified": 46,
-        "missing_answer": 2
+        "curated_verified": 3,
+        "source_transcription_unverified": 45
       },
       "sourceStatuses": {
         "incomplete_stimulus": 10,
-        "single_source_transcription": 46,
-        "insufficient_evidence": 2
+        "curated_domain_verified": 3,
+        "single_source_transcription": 45
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 46,
+        "MEDIUM": 48,
         "LOW": 0,
-        "VERY_LOW": 12
+        "VERY_LOW": 10
       },
       "listeningItems": 10,
       "writingItems": 0
@@ -2143,7 +2224,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 41,
-      "scoredCount": 16,
+      "scoredCount": 36,
+      "exemptCount": 5,
       "responseTypes": {
         "choice": 36,
         "multiple": 0,
@@ -2153,19 +2235,17 @@
       },
       "keyStatuses": {
         "incomplete_stimulus": 5,
-        "missing_answer": 20,
-        "source_transcription_unverified": 16
+        "source_transcription_unverified": 36
       },
       "sourceStatuses": {
         "incomplete_stimulus": 5,
-        "insufficient_evidence": 20,
-        "single_source_transcription": 16
+        "single_source_transcription": 36
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 16,
+        "MEDIUM": 36,
         "LOW": 0,
-        "VERY_LOW": 25
+        "VERY_LOW": 5
       },
       "listeningItems": 5,
       "writingItems": 0
@@ -2179,7 +2259,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 100,
-      "scoredCount": 11,
+      "scoredCount": 96,
+      "exemptCount": 4,
       "responseTypes": {
         "choice": 30,
         "multiple": 0,
@@ -2188,22 +2269,23 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 89,
-        "source_transcription_unverified": 10,
-        "inferred_unverified": 1
+        "source_transcription_unverified": 86,
+        "curated_verified": 10,
+        "ambiguous_review": 4
       },
       "sourceStatuses": {
-        "insufficient_evidence": 89,
-        "single_source_transcription": 10,
-        "reasoned_inference": 1
+        "single_source_transcription": 83,
+        "curated_domain_verified": 10,
+        "ambiguous_source": 3,
+        "invalid_key": 4
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 11,
-        "LOW": 0,
-        "VERY_LOW": 89
+        "MEDIUM": 78,
+        "LOW": 18,
+        "VERY_LOW": 4
       },
-      "listeningItems": 5,
+      "listeningItems": 15,
       "writingItems": 0
     },
     {
@@ -2214,33 +2296,36 @@
       "contentSha256": "2e5f5e035bf6b58afe277e1e75680266077dc19181127f802912a15ebfecb617",
       "practiceReadOnly": false,
       "ocrCaution": false,
-      "questionCount": 132,
-      "scoredCount": 0,
+      "questionCount": 88,
+      "scoredCount": 55,
+      "exemptCount": 33,
       "responseTypes": {
-        "choice": 10,
-        "multiple": 35,
+        "choice": 55,
+        "multiple": 0,
         "true-false": 0,
-        "text": 87,
-        "essay": 0
+        "text": 23,
+        "essay": 10
       },
       "keyStatuses": {
-        "missing_answer": 1,
-        "incomplete_stimulus": 130,
-        "ambiguous_review": 1
+        "incomplete_stimulus": 20,
+        "source_transcription_unverified": 55,
+        "ambiguous_review": 3,
+        "exempt_open_ended": 10
       },
       "sourceStatuses": {
-        "insufficient_evidence": 1,
-        "incomplete_stimulus": 130,
-        "invalid_key": 1
+        "incomplete_stimulus": 20,
+        "single_source_transcription": 55,
+        "invalid_key": 3,
+        "open_ended_exempt": 10
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 0,
-        "LOW": 0,
-        "VERY_LOW": 132
+        "MEDIUM": 55,
+        "LOW": 10,
+        "VERY_LOW": 23
       },
-      "listeningItems": 131,
-      "writingItems": 0
+      "listeningItems": 20,
+      "writingItems": 10
     },
     {
       "id": "2025/binh-phuoc/so",
@@ -2251,7 +2336,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 62,
-      "scoredCount": 61,
+      "scoredCount": 57,
+      "exemptCount": 5,
       "responseTypes": {
         "choice": 45,
         "multiple": 0,
@@ -2260,18 +2346,20 @@
         "essay": 5
       },
       "keyStatuses": {
-        "source_transcription_unverified": 61,
-        "missing_answer": 1
+        "source_transcription_unverified": 56,
+        "curated_verified": 1,
+        "exempt_open_ended": 5
       },
       "sourceStatuses": {
-        "single_source_transcription": 61,
-        "insufficient_evidence": 1
+        "single_source_transcription": 56,
+        "curated_domain_verified": 1,
+        "open_ended_exempt": 5
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 46,
+        "MEDIUM": 47,
         "LOW": 15,
-        "VERY_LOW": 1
+        "VERY_LOW": 0
       },
       "listeningItems": 10,
       "writingItems": 5
@@ -2285,32 +2373,29 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 50,
-      "scoredCount": 34,
+      "scoredCount": 50,
+      "exemptCount": 0,
       "responseTypes": {
-        "choice": 31,
+        "choice": 30,
         "multiple": 0,
         "true-false": 0,
-        "text": 9,
-        "essay": 10
+        "text": 20,
+        "essay": 0
       },
       "keyStatuses": {
-        "source_transcription_unverified": 30,
-        "missing_answer": 16,
-        "inferred_unverified": 4
+        "source_transcription_unverified": 50
       },
       "sourceStatuses": {
-        "single_source_transcription": 30,
-        "insufficient_evidence": 16,
-        "reasoned_inference": 4
+        "single_source_transcription": 50
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 24,
-        "LOW": 10,
-        "VERY_LOW": 16
+        "MEDIUM": 50,
+        "LOW": 0,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
-      "writingItems": 10
+      "writingItems": 0
     },
     {
       "id": "2025/dak-lak/so",
@@ -2321,7 +2406,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 77,
-      "scoredCount": 71,
+      "scoredCount": 77,
+      "exemptCount": 0,
       "responseTypes": {
         "choice": 50,
         "multiple": 0,
@@ -2330,22 +2416,18 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 4,
-        "invalid_key": 2,
-        "source_transcription_unverified": 70,
-        "inferred_unverified": 1
+        "source_transcription_unverified": 72,
+        "curated_verified": 5
       },
       "sourceStatuses": {
-        "insufficient_evidence": 4,
-        "invalid_key": 2,
-        "single_source_transcription": 70,
-        "reasoned_inference": 1
+        "single_source_transcription": 72,
+        "curated_domain_verified": 5
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 71,
-        "LOW": 0,
-        "VERY_LOW": 6
+        "MEDIUM": 72,
+        "LOW": 5,
+        "VERY_LOW": 0
       },
       "listeningItems": 5,
       "writingItems": 0
@@ -2360,6 +2442,7 @@
       "ocrCaution": false,
       "questionCount": 77,
       "scoredCount": 75,
+      "exemptCount": 2,
       "responseTypes": {
         "choice": 39,
         "multiple": 0,
@@ -2393,32 +2476,36 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 50,
-      "scoredCount": 21,
+      "scoredCount": 25,
+      "exemptCount": 25,
       "responseTypes": {
         "choice": 25,
         "multiple": 0,
         "true-false": 0,
-        "text": 15,
-        "essay": 10
+        "text": 5,
+        "essay": 20
       },
       "keyStatuses": {
-        "missing_answer": 29,
-        "source_transcription_unverified": 20,
-        "inferred_unverified": 1
+        "incomplete_stimulus": 5,
+        "source_transcription_unverified": 24,
+        "curated_verified": 1,
+        "exempt_open_ended": 20
       },
       "sourceStatuses": {
-        "insufficient_evidence": 29,
-        "single_source_transcription": 20,
-        "reasoned_inference": 1
+        "incomplete_stimulus": 5,
+        "single_source_transcription": 23,
+        "ambiguous_source": 1,
+        "curated_domain_verified": 1,
+        "open_ended_exempt": 20
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 11,
-        "LOW": 10,
-        "VERY_LOW": 29
+        "MEDIUM": 24,
+        "LOW": 21,
+        "VERY_LOW": 5
       },
-      "listeningItems": 0,
-      "writingItems": 10
+      "listeningItems": 5,
+      "writingItems": 20
     },
     {
       "id": "2025/ha-nam/so",
@@ -2429,7 +2516,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 80,
-      "scoredCount": 17,
+      "scoredCount": 70,
+      "exemptCount": 10,
       "responseTypes": {
         "choice": 40,
         "multiple": 0,
@@ -2438,22 +2526,22 @@
         "essay": 0
       },
       "keyStatuses": {
-        "source_transcription_unverified": 10,
-        "missing_answer": 63,
-        "inferred_unverified": 7
+        "incomplete_stimulus": 10,
+        "source_transcription_unverified": 60,
+        "curated_verified": 10
       },
       "sourceStatuses": {
-        "single_source_transcription": 10,
-        "insufficient_evidence": 63,
-        "reasoned_inference": 7
+        "incomplete_stimulus": 10,
+        "single_source_transcription": 60,
+        "curated_domain_verified": 10
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 17,
+        "MEDIUM": 70,
         "LOW": 0,
-        "VERY_LOW": 63
+        "VERY_LOW": 10
       },
-      "listeningItems": 0,
+      "listeningItems": 10,
       "writingItems": 0
     },
     {
@@ -2465,7 +2553,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 36,
-      "scoredCount": 34,
+      "scoredCount": 36,
+      "exemptCount": 0,
       "responseTypes": {
         "choice": 16,
         "multiple": 0,
@@ -2474,19 +2563,17 @@
         "essay": 0
       },
       "keyStatuses": {
-        "source_transcription_unverified": 34,
-        "invalid_key": 2
+        "source_transcription_unverified": 36
       },
       "sourceStatuses": {
-        "reconstructed": 14,
-        "invalid_key": 2,
+        "reconstructed": 16,
         "single_source_transcription": 20
       },
       "confidenceCounts": {
         "HIGH": 0,
         "MEDIUM": 20,
-        "LOW": 14,
-        "VERY_LOW": 2
+        "LOW": 16,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -2500,7 +2587,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 95,
-      "scoredCount": 12,
+      "scoredCount": 75,
+      "exemptCount": 20,
       "responseTypes": {
         "choice": 60,
         "multiple": 0,
@@ -2509,22 +2597,24 @@
         "essay": 0
       },
       "keyStatuses": {
-        "independently_cross_checked": 5,
-        "missing_answer": 83,
-        "inferred_unverified": 7
+        "source_transcription_unverified": 35,
+        "curated_verified": 40,
+        "incomplete_stimulus": 5,
+        "ambiguous_review": 15
       },
       "sourceStatuses": {
-        "independently_cross_checked": 5,
-        "insufficient_evidence": 83,
-        "reasoned_inference": 7
+        "single_source_transcription": 35,
+        "curated_domain_verified": 40,
+        "incomplete_stimulus": 5,
+        "invalid_key": 15
       },
       "confidenceCounts": {
-        "HIGH": 5,
-        "MEDIUM": 5,
-        "LOW": 2,
-        "VERY_LOW": 83
+        "HIGH": 0,
+        "MEDIUM": 70,
+        "LOW": 5,
+        "VERY_LOW": 20
       },
-      "listeningItems": 0,
+      "listeningItems": 5,
       "writingItems": 0
     },
     {
@@ -2536,7 +2626,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 58,
-      "scoredCount": 57,
+      "scoredCount": 52,
+      "exemptCount": 6,
       "responseTypes": {
         "choice": 31,
         "multiple": 0,
@@ -2545,11 +2636,13 @@
         "essay": 5
       },
       "keyStatuses": {
-        "source_transcription_unverified": 57,
-        "invalid_key": 1
+        "source_transcription_unverified": 52,
+        "exempt_open_ended": 5,
+        "ambiguous_review": 1
       },
       "sourceStatuses": {
-        "single_source_transcription": 57,
+        "single_source_transcription": 52,
+        "open_ended_exempt": 5,
         "invalid_key": 1
       },
       "confidenceCounts": {
@@ -2570,7 +2663,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 60,
-      "scoredCount": 50,
+      "scoredCount": 25,
+      "exemptCount": 35,
       "responseTypes": {
         "choice": 26,
         "multiple": 0,
@@ -2579,20 +2673,20 @@
         "essay": 0
       },
       "keyStatuses": {
-        "source_transcription_unverified": 50,
-        "missing_answer": 10
+        "incomplete_stimulus": 35,
+        "source_transcription_unverified": 25
       },
       "sourceStatuses": {
-        "single_source_transcription": 50,
-        "insufficient_evidence": 10
+        "incomplete_stimulus": 35,
+        "single_source_transcription": 25
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 50,
+        "MEDIUM": 25,
         "LOW": 0,
-        "VERY_LOW": 10
+        "VERY_LOW": 35
       },
-      "listeningItems": 0,
+      "listeningItems": 35,
       "writingItems": 0
     },
     {
@@ -2605,6 +2699,7 @@
       "ocrCaution": false,
       "questionCount": 80,
       "scoredCount": 80,
+      "exemptCount": 0,
       "responseTypes": {
         "choice": 62,
         "multiple": 0,
@@ -2636,7 +2731,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 75,
-      "scoredCount": 27,
+      "scoredCount": 65,
+      "exemptCount": 10,
       "responseTypes": {
         "choice": 45,
         "multiple": 0,
@@ -2645,24 +2741,23 @@
         "essay": 0
       },
       "keyStatuses": {
-        "source_transcription_unverified": 25,
-        "incomplete_stimulus": 5,
-        "missing_answer": 43,
-        "inferred_unverified": 2
+        "incomplete_stimulus": 10,
+        "source_transcription_unverified": 60,
+        "curated_verified": 5
       },
       "sourceStatuses": {
-        "single_source_transcription": 25,
-        "incomplete_stimulus": 5,
-        "insufficient_evidence": 43,
-        "reasoned_inference": 2
+        "incomplete_stimulus": 10,
+        "single_source_transcription": 59,
+        "curated_domain_verified": 5,
+        "ambiguous_source": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 27,
-        "LOW": 0,
-        "VERY_LOW": 48
+        "MEDIUM": 64,
+        "LOW": 1,
+        "VERY_LOW": 10
       },
-      "listeningItems": 5,
+      "listeningItems": 10,
       "writingItems": 0
     },
     {
@@ -2674,7 +2769,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 46,
-      "scoredCount": 12,
+      "scoredCount": 43,
+      "exemptCount": 3,
       "responseTypes": {
         "choice": 30,
         "multiple": 0,
@@ -2684,25 +2780,21 @@
       },
       "keyStatuses": {
         "incomplete_stimulus": 1,
-        "ambiguous_review": 1,
-        "missing_answer": 32,
-        "inferred_unverified": 3,
-        "source_transcription_unverified": 9
+        "ambiguous_review": 2,
+        "source_transcription_unverified": 43
       },
       "sourceStatuses": {
         "incomplete_stimulus": 1,
-        "invalid_key": 1,
-        "insufficient_evidence": 32,
-        "reasoned_inference": 3,
-        "single_source_transcription": 9
+        "invalid_key": 2,
+        "single_source_transcription": 43
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 12,
-        "LOW": 0,
-        "VERY_LOW": 34
+        "MEDIUM": 38,
+        "LOW": 5,
+        "VERY_LOW": 3
       },
-      "listeningItems": 1,
+      "listeningItems": 8,
       "writingItems": 0
     },
     {
@@ -2715,12 +2807,13 @@
       "ocrCaution": false,
       "questionCount": 64,
       "scoredCount": 44,
+      "exemptCount": 20,
       "responseTypes": {
-        "choice": 36,
+        "choice": 42,
         "multiple": 0,
-        "true-false": 6,
-        "text": 17,
-        "essay": 5
+        "true-false": 0,
+        "text": 22,
+        "essay": 0
       },
       "keyStatuses": {
         "incomplete_stimulus": 20,
@@ -2732,12 +2825,12 @@
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 39,
-        "LOW": 5,
+        "MEDIUM": 44,
+        "LOW": 0,
         "VERY_LOW": 20
       },
       "listeningItems": 20,
-      "writingItems": 5
+      "writingItems": 0
     },
     {
       "id": "2025/phu-tho/so",
@@ -2748,32 +2841,37 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 70,
-      "scoredCount": 57,
+      "scoredCount": 54,
+      "exemptCount": 16,
       "responseTypes": {
         "choice": 56,
         "multiple": 0,
         "true-false": 0,
-        "text": 13,
-        "essay": 1
+        "text": 8,
+        "essay": 6
       },
       "keyStatuses": {
-        "incomplete_stimulus": 7,
-        "missing_answer": 6,
-        "source_transcription_unverified": 57
+        "incomplete_stimulus": 9,
+        "source_transcription_unverified": 53,
+        "curated_verified": 1,
+        "ambiguous_review": 1,
+        "exempt_open_ended": 6
       },
       "sourceStatuses": {
-        "incomplete_stimulus": 7,
-        "insufficient_evidence": 6,
-        "single_source_transcription": 57
+        "incomplete_stimulus": 9,
+        "single_source_transcription": 53,
+        "curated_domain_verified": 1,
+        "invalid_key": 1,
+        "open_ended_exempt": 6
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 56,
-        "LOW": 1,
-        "VERY_LOW": 13
+        "MEDIUM": 54,
+        "LOW": 6,
+        "VERY_LOW": 10
       },
       "listeningItems": 7,
-      "writingItems": 1
+      "writingItems": 6
     },
     {
       "id": "2025/quang-ngai/so",
@@ -2784,7 +2882,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 30,
-      "scoredCount": 8,
+      "scoredCount": 20,
+      "exemptCount": 10,
       "responseTypes": {
         "choice": 25,
         "multiple": 0,
@@ -2793,22 +2892,20 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 22,
-        "source_transcription_unverified": 5,
-        "inferred_unverified": 3
+        "incomplete_stimulus": 10,
+        "source_transcription_unverified": 20
       },
       "sourceStatuses": {
-        "insufficient_evidence": 22,
-        "single_source_transcription": 5,
-        "reasoned_inference": 3
+        "incomplete_stimulus": 10,
+        "single_source_transcription": 20
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 8,
+        "MEDIUM": 20,
         "LOW": 0,
-        "VERY_LOW": 22
+        "VERY_LOW": 10
       },
-      "listeningItems": 0,
+      "listeningItems": 10,
       "writingItems": 0
     },
     {
@@ -2820,32 +2917,31 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 88,
-      "scoredCount": 54,
+      "scoredCount": 88,
+      "exemptCount": 0,
       "responseTypes": {
-        "choice": 39,
+        "choice": 40,
         "multiple": 0,
-        "true-false": 1,
-        "text": 35,
-        "essay": 13
+        "true-false": 0,
+        "text": 48,
+        "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 34,
-        "inferred_unverified": 1,
-        "source_transcription_unverified": 53
+        "source_transcription_unverified": 80,
+        "curated_verified": 8
       },
       "sourceStatuses": {
-        "insufficient_evidence": 34,
-        "reasoned_inference": 1,
-        "single_source_transcription": 53
+        "single_source_transcription": 80,
+        "curated_domain_verified": 8
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 40,
-        "LOW": 14,
-        "VERY_LOW": 34
+        "MEDIUM": 73,
+        "LOW": 15,
+        "VERY_LOW": 0
       },
       "listeningItems": 15,
-      "writingItems": 13
+      "writingItems": 0
     },
     {
       "id": "2025/thai-binh/so",
@@ -2857,6 +2953,7 @@
       "ocrCaution": false,
       "questionCount": 56,
       "scoredCount": 56,
+      "exemptCount": 0,
       "responseTypes": {
         "choice": 35,
         "multiple": 0,
@@ -2865,10 +2962,12 @@
         "essay": 0
       },
       "keyStatuses": {
-        "source_transcription_unverified": 56
+        "source_transcription_unverified": 55,
+        "curated_verified": 1
       },
       "sourceStatuses": {
-        "single_source_transcription": 56
+        "single_source_transcription": 55,
+        "curated_domain_verified": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
@@ -2889,6 +2988,7 @@
       "ocrCaution": false,
       "questionCount": 70,
       "scoredCount": 70,
+      "exemptCount": 0,
       "responseTypes": {
         "choice": 70,
         "multiple": 0,
@@ -2920,28 +3020,30 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 52,
-      "scoredCount": 23,
+      "scoredCount": 51,
+      "exemptCount": 1,
       "responseTypes": {
-        "choice": 29,
+        "choice": 28,
         "multiple": 0,
         "true-false": 0,
-        "text": 22,
+        "text": 23,
         "essay": 1
       },
       "keyStatuses": {
-        "invalid_key": 28,
-        "source_transcription_unverified": 23,
-        "ambiguous_review": 1
+        "curated_verified": 1,
+        "source_transcription_unverified": 50,
+        "exempt_open_ended": 1
       },
       "sourceStatuses": {
-        "invalid_key": 29,
-        "single_source_transcription": 23
+        "curated_domain_verified": 1,
+        "single_source_transcription": 50,
+        "open_ended_exempt": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 22,
+        "MEDIUM": 51,
         "LOW": 1,
-        "VERY_LOW": 29
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 1
@@ -2955,7 +3057,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 70,
-      "scoredCount": 30,
+      "scoredCount": 70,
+      "exemptCount": 0,
       "responseTypes": {
         "choice": 50,
         "multiple": 0,
@@ -2964,22 +3067,19 @@
         "essay": 0
       },
       "keyStatuses": {
-        "source_transcription_unverified": 29,
-        "missing_answer": 39,
-        "inferred_unverified": 1,
-        "ambiguous_review": 1
+        "source_transcription_unverified": 63,
+        "curated_verified": 7
       },
       "sourceStatuses": {
-        "single_source_transcription": 29,
-        "insufficient_evidence": 39,
-        "reasoned_inference": 1,
-        "invalid_key": 1
+        "single_source_transcription": 62,
+        "ambiguous_source": 1,
+        "curated_domain_verified": 7
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 30,
-        "LOW": 0,
-        "VERY_LOW": 40
+        "MEDIUM": 69,
+        "LOW": 1,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -2994,6 +3094,7 @@
       "ocrCaution": false,
       "questionCount": 55,
       "scoredCount": 55,
+      "exemptCount": 0,
       "responseTypes": {
         "choice": 35,
         "multiple": 0,
@@ -3025,7 +3126,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 80,
-      "scoredCount": 50,
+      "scoredCount": 75,
+      "exemptCount": 5,
       "responseTypes": {
         "choice": 55,
         "multiple": 0,
@@ -3035,21 +3137,19 @@
       },
       "keyStatuses": {
         "incomplete_stimulus": 5,
-        "source_transcription_unverified": 47,
-        "missing_answer": 25,
-        "inferred_unverified": 3
+        "source_transcription_unverified": 65,
+        "curated_verified": 10
       },
       "sourceStatuses": {
         "incomplete_stimulus": 5,
-        "single_source_transcription": 47,
-        "insufficient_evidence": 25,
-        "reasoned_inference": 3
+        "single_source_transcription": 65,
+        "curated_domain_verified": 10
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 50,
+        "MEDIUM": 75,
         "LOW": 0,
-        "VERY_LOW": 30
+        "VERY_LOW": 5
       },
       "listeningItems": 5,
       "writingItems": 0
@@ -3063,7 +3163,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 56,
-      "scoredCount": 18,
+      "scoredCount": 47,
+      "exemptCount": 9,
       "responseTypes": {
         "choice": 45,
         "multiple": 0,
@@ -3072,20 +3173,23 @@
         "essay": 8
       },
       "keyStatuses": {
-        "missing_answer": 38,
-        "source_transcription_unverified": 13,
-        "inferred_unverified": 5
+        "source_transcription_unverified": 45,
+        "curated_verified": 2,
+        "invalid_key": 1,
+        "exempt_open_ended": 8
       },
       "sourceStatuses": {
-        "insufficient_evidence": 38,
-        "single_source_transcription": 13,
-        "reasoned_inference": 5
+        "ambiguous_source": 3,
+        "single_source_transcription": 42,
+        "curated_domain_verified": 2,
+        "invalid_key": 1,
+        "open_ended_exempt": 8
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 3,
-        "LOW": 15,
-        "VERY_LOW": 38
+        "MEDIUM": 37,
+        "LOW": 18,
+        "VERY_LOW": 1
       },
       "listeningItems": 8,
       "writingItems": 8
@@ -3099,7 +3203,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 55,
-      "scoredCount": 51,
+      "scoredCount": 55,
+      "exemptCount": 0,
       "responseTypes": {
         "choice": 40,
         "multiple": 0,
@@ -3108,20 +3213,18 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 4,
-        "source_transcription_unverified": 51
+        "source_transcription_unverified": 55
       },
       "sourceStatuses": {
-        "insufficient_evidence": 4,
-        "single_source_transcription": 51
+        "single_source_transcription": 55
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 50,
-        "LOW": 1,
-        "VERY_LOW": 4
+        "MEDIUM": 45,
+        "LOW": 10,
+        "VERY_LOW": 0
       },
-      "listeningItems": 5,
+      "listeningItems": 10,
       "writingItems": 0
     },
     {
@@ -3133,30 +3236,29 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 83,
-      "scoredCount": 37,
+      "scoredCount": 83,
+      "exemptCount": 0,
       "responseTypes": {
         "choice": 50,
         "multiple": 0,
-        "true-false": 1,
-        "text": 25,
-        "essay": 7
+        "true-false": 0,
+        "text": 33,
+        "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 46,
-        "source_transcription_unverified": 37
+        "source_transcription_unverified": 83
       },
       "sourceStatuses": {
-        "insufficient_evidence": 46,
-        "single_source_transcription": 37
+        "single_source_transcription": 83
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 30,
-        "LOW": 7,
-        "VERY_LOW": 46
+        "MEDIUM": 73,
+        "LOW": 10,
+        "VERY_LOW": 0
       },
       "listeningItems": 10,
-      "writingItems": 7
+      "writingItems": 0
     },
     {
       "id": "2026/da-nang/so",
@@ -3167,29 +3269,28 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 59,
-      "scoredCount": 25,
+      "scoredCount": 59,
+      "exemptCount": 0,
       "responseTypes": {
-        "choice": 40,
+        "choice": 39,
         "multiple": 0,
         "true-false": 0,
-        "text": 19,
+        "text": 20,
         "essay": 0
       },
       "keyStatuses": {
-        "source_transcription_unverified": 20,
-        "missing_answer": 34,
-        "inferred_unverified": 5
+        "source_transcription_unverified": 49,
+        "curated_verified": 10
       },
       "sourceStatuses": {
-        "single_source_transcription": 20,
-        "insufficient_evidence": 34,
-        "reasoned_inference": 5
+        "single_source_transcription": 49,
+        "curated_domain_verified": 10
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 24,
-        "LOW": 1,
-        "VERY_LOW": 34
+        "MEDIUM": 59,
+        "LOW": 0,
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -3204,12 +3305,13 @@
       "ocrCaution": false,
       "questionCount": 55,
       "scoredCount": 55,
+      "exemptCount": 0,
       "responseTypes": {
         "choice": 30,
         "multiple": 0,
         "true-false": 0,
-        "text": 20,
-        "essay": 5
+        "text": 25,
+        "essay": 0
       },
       "keyStatuses": {
         "source_transcription_unverified": 55
@@ -3219,12 +3321,12 @@
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 50,
-        "LOW": 5,
+        "MEDIUM": 55,
+        "LOW": 0,
         "VERY_LOW": 0
       },
       "listeningItems": 0,
-      "writingItems": 5
+      "writingItems": 0
     },
     {
       "id": "2026/dien-bien/so",
@@ -3235,33 +3337,30 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 96,
-      "scoredCount": 73,
+      "scoredCount": 96,
+      "exemptCount": 0,
       "responseTypes": {
         "choice": 63,
         "multiple": 0,
-        "true-false": 1,
-        "text": 32,
+        "true-false": 0,
+        "text": 33,
         "essay": 0
       },
       "keyStatuses": {
-        "source_transcription_unverified": 70,
-        "inferred_unverified": 3,
-        "missing_answer": 22,
-        "invalid_key": 1
+        "source_transcription_unverified": 95,
+        "curated_verified": 1
       },
       "sourceStatuses": {
-        "single_source_transcription": 70,
-        "reasoned_inference": 3,
-        "insufficient_evidence": 22,
-        "invalid_key": 1
+        "single_source_transcription": 95,
+        "curated_domain_verified": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 65,
-        "LOW": 8,
-        "VERY_LOW": 23
+        "MEDIUM": 85,
+        "LOW": 11,
+        "VERY_LOW": 0
       },
-      "listeningItems": 9,
+      "listeningItems": 11,
       "writingItems": 0
     },
     {
@@ -3273,30 +3372,33 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 57,
-      "scoredCount": 56,
+      "scoredCount": 54,
+      "exemptCount": 3,
       "responseTypes": {
         "choice": 31,
         "multiple": 0,
         "true-false": 0,
-        "text": 15,
-        "essay": 11
+        "text": 24,
+        "essay": 2
       },
       "keyStatuses": {
-        "source_transcription_unverified": 56,
-        "invalid_key": 1
+        "source_transcription_unverified": 54,
+        "exempt_open_ended": 2,
+        "ambiguous_review": 1
       },
       "sourceStatuses": {
-        "single_source_transcription": 56,
+        "single_source_transcription": 54,
+        "open_ended_exempt": 2,
         "invalid_key": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 45,
-        "LOW": 11,
+        "MEDIUM": 54,
+        "LOW": 2,
         "VERY_LOW": 1
       },
       "listeningItems": 0,
-      "writingItems": 11
+      "writingItems": 2
     },
     {
       "id": "2026/gia-lai/so",
@@ -3308,12 +3410,13 @@
       "ocrCaution": false,
       "questionCount": 30,
       "scoredCount": 30,
+      "exemptCount": 0,
       "responseTypes": {
         "choice": 20,
         "multiple": 0,
         "true-false": 0,
-        "text": 0,
-        "essay": 10
+        "text": 10,
+        "essay": 0
       },
       "keyStatuses": {
         "source_transcription_unverified": 30
@@ -3323,12 +3426,12 @@
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 15,
-        "LOW": 15,
+        "MEDIUM": 25,
+        "LOW": 5,
         "VERY_LOW": 0
       },
       "listeningItems": 5,
-      "writingItems": 10
+      "writingItems": 0
     },
     {
       "id": "2026/ha-tinh/so",
@@ -3339,32 +3442,31 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 85,
-      "scoredCount": 59,
+      "scoredCount": 75,
+      "exemptCount": 10,
       "responseTypes": {
         "choice": 47,
         "multiple": 0,
-        "true-false": 1,
+        "true-false": 0,
         "text": 28,
-        "essay": 9
+        "essay": 10
       },
       "keyStatuses": {
-        "missing_answer": 25,
-        "source_transcription_unverified": 59,
-        "invalid_key": 1
+        "source_transcription_unverified": 75,
+        "exempt_open_ended": 10
       },
       "sourceStatuses": {
-        "insufficient_evidence": 25,
-        "single_source_transcription": 59,
-        "invalid_key": 1
+        "single_source_transcription": 75,
+        "open_ended_exempt": 10
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 50,
-        "LOW": 9,
-        "VERY_LOW": 26
+        "MEDIUM": 60,
+        "LOW": 25,
+        "VERY_LOW": 0
       },
-      "listeningItems": 7,
-      "writingItems": 9
+      "listeningItems": 15,
+      "writingItems": 10
     },
     {
       "id": "2026/hue/chuyen-khoa-hoc-hue",
@@ -3376,12 +3478,13 @@
       "ocrCaution": false,
       "questionCount": 48,
       "scoredCount": 48,
+      "exemptCount": 0,
       "responseTypes": {
         "choice": 33,
         "multiple": 0,
         "true-false": 0,
-        "text": 5,
-        "essay": 10
+        "text": 15,
+        "essay": 0
       },
       "keyStatuses": {
         "source_transcription_unverified": 48
@@ -3391,12 +3494,12 @@
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 28,
-        "LOW": 20,
+        "MEDIUM": 38,
+        "LOW": 10,
         "VERY_LOW": 0
       },
       "listeningItems": 10,
-      "writingItems": 10
+      "writingItems": 0
     },
     {
       "id": "2026/khanh-hoa/so",
@@ -3407,7 +3510,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 55,
-      "scoredCount": 55,
+      "scoredCount": 48,
+      "exemptCount": 7,
       "responseTypes": {
         "choice": 33,
         "multiple": 0,
@@ -3416,10 +3520,12 @@
         "essay": 7
       },
       "keyStatuses": {
-        "source_transcription_unverified": 55
+        "source_transcription_unverified": 48,
+        "exempt_open_ended": 7
       },
       "sourceStatuses": {
-        "single_source_transcription": 55
+        "single_source_transcription": 48,
+        "open_ended_exempt": 7
       },
       "confidenceCounts": {
         "HIGH": 0,
@@ -3439,7 +3545,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 80,
-      "scoredCount": 76,
+      "scoredCount": 80,
+      "exemptCount": 0,
       "responseTypes": {
         "choice": 62,
         "multiple": 0,
@@ -3448,18 +3555,16 @@
         "essay": 0
       },
       "keyStatuses": {
-        "source_transcription_unverified": 76,
-        "invalid_key": 4
+        "source_transcription_unverified": 80
       },
       "sourceStatuses": {
-        "single_source_transcription": 76,
-        "invalid_key": 4
+        "single_source_transcription": 80
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 76,
+        "MEDIUM": 80,
         "LOW": 0,
-        "VERY_LOW": 4
+        "VERY_LOW": 0
       },
       "listeningItems": 0,
       "writingItems": 0
@@ -3473,7 +3578,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 70,
-      "scoredCount": 23,
+      "scoredCount": 70,
+      "exemptCount": 0,
       "responseTypes": {
         "choice": 43,
         "multiple": 0,
@@ -3482,20 +3588,16 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 47,
-        "source_transcription_unverified": 18,
-        "inferred_unverified": 5
+        "source_transcription_unverified": 70
       },
       "sourceStatuses": {
-        "insufficient_evidence": 47,
-        "single_source_transcription": 18,
-        "reasoned_inference": 5
+        "single_source_transcription": 70
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 22,
-        "LOW": 1,
-        "VERY_LOW": 47
+        "MEDIUM": 60,
+        "LOW": 10,
+        "VERY_LOW": 0
       },
       "listeningItems": 10,
       "writingItems": 0
@@ -3509,32 +3611,31 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 78,
-      "scoredCount": 52,
+      "scoredCount": 78,
+      "exemptCount": 0,
       "responseTypes": {
-        "choice": 46,
+        "choice": 45,
         "multiple": 0,
         "true-false": 0,
-        "text": 22,
-        "essay": 10
+        "text": 33,
+        "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 25,
-        "source_transcription_unverified": 52,
-        "invalid_key": 1
+        "source_transcription_unverified": 68,
+        "curated_verified": 10
       },
       "sourceStatuses": {
-        "insufficient_evidence": 25,
-        "single_source_transcription": 52,
-        "invalid_key": 1
+        "single_source_transcription": 68,
+        "curated_domain_verified": 10
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 22,
-        "LOW": 30,
-        "VERY_LOW": 26
+        "MEDIUM": 63,
+        "LOW": 15,
+        "VERY_LOW": 0
       },
-      "listeningItems": 35,
-      "writingItems": 10
+      "listeningItems": 15,
+      "writingItems": 0
     },
     {
       "id": "2026/nghe-an/so",
@@ -3544,32 +3645,35 @@
       "contentSha256": "cf324cfac6426503c49106a8c4ffa085f3432700cbfa6b9997fa04c476e15f30",
       "practiceReadOnly": false,
       "ocrCaution": false,
-      "questionCount": 130,
-      "scoredCount": 9,
+      "questionCount": 89,
+      "scoredCount": 80,
+      "exemptCount": 9,
       "responseTypes": {
-        "choice": 15,
+        "choice": 25,
         "multiple": 0,
         "true-false": 0,
-        "text": 114,
+        "text": 63,
         "essay": 1
       },
       "keyStatuses": {
-        "missing_answer": 121,
-        "source_transcription_unverified": 6,
-        "inferred_unverified": 3
+        "source_transcription_unverified": 74,
+        "ambiguous_review": 8,
+        "curated_verified": 6,
+        "exempt_open_ended": 1
       },
       "sourceStatuses": {
-        "insufficient_evidence": 121,
-        "single_source_transcription": 6,
-        "reasoned_inference": 3
+        "single_source_transcription": 74,
+        "invalid_key": 8,
+        "curated_domain_verified": 6,
+        "open_ended_exempt": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 3,
-        "LOW": 6,
-        "VERY_LOW": 121
+        "MEDIUM": 53,
+        "LOW": 28,
+        "VERY_LOW": 8
       },
-      "listeningItems": 50,
+      "listeningItems": 34,
       "writingItems": 1
     },
     {
@@ -3581,31 +3685,28 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 45,
-      "scoredCount": 9,
+      "scoredCount": 45,
+      "exemptCount": 0,
       "responseTypes": {
-        "choice": 29,
+        "choice": 28,
         "multiple": 0,
         "true-false": 0,
-        "text": 16,
+        "text": 17,
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 36,
-        "source_transcription_unverified": 7,
-        "inferred_unverified": 2
+        "source_transcription_unverified": 45
       },
       "sourceStatuses": {
-        "insufficient_evidence": 36,
-        "single_source_transcription": 7,
-        "reasoned_inference": 2
+        "single_source_transcription": 45
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 1,
-        "LOW": 8,
-        "VERY_LOW": 36
+        "MEDIUM": 30,
+        "LOW": 15,
+        "VERY_LOW": 0
       },
-      "listeningItems": 25,
+      "listeningItems": 15,
       "writingItems": 0
     },
     {
@@ -3617,7 +3718,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 88,
-      "scoredCount": 41,
+      "scoredCount": 88,
+      "exemptCount": 0,
       "responseTypes": {
         "choice": 45,
         "multiple": 0,
@@ -3626,22 +3728,18 @@
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 47,
-        "inferred_unverified": 1,
-        "source_transcription_unverified": 40
+        "source_transcription_unverified": 88
       },
       "sourceStatuses": {
-        "insufficient_evidence": 47,
-        "reasoned_inference": 1,
-        "single_source_transcription": 40
+        "single_source_transcription": 88
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 41,
-        "LOW": 0,
-        "VERY_LOW": 47
+        "MEDIUM": 73,
+        "LOW": 15,
+        "VERY_LOW": 0
       },
-      "listeningItems": 5,
+      "listeningItems": 15,
       "writingItems": 0
     },
     {
@@ -3653,7 +3751,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 74,
-      "scoredCount": 13,
+      "scoredCount": 63,
+      "exemptCount": 11,
       "responseTypes": {
         "choice": 31,
         "multiple": 0,
@@ -3662,20 +3761,22 @@
         "essay": 10
       },
       "keyStatuses": {
-        "missing_answer": 61,
-        "inferred_unverified": 13
+        "curated_verified": 63,
+        "ambiguous_review": 1,
+        "exempt_open_ended": 10
       },
       "sourceStatuses": {
-        "insufficient_evidence": 61,
-        "reasoned_inference": 13
+        "curated_domain_verified": 63,
+        "invalid_key": 1,
+        "open_ended_exempt": 10
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 1,
-        "LOW": 12,
-        "VERY_LOW": 61
+        "MEDIUM": 49,
+        "LOW": 24,
+        "VERY_LOW": 1
       },
-      "listeningItems": 6,
+      "listeningItems": 14,
       "writingItems": 10
     },
     {
@@ -3686,32 +3787,33 @@
       "contentSha256": "286a109350658bbbe51f0d93c984e802dbc9c575f8e282ad5de5a7bbf062f3d0",
       "practiceReadOnly": false,
       "ocrCaution": false,
-      "questionCount": 112,
-      "scoredCount": 33,
+      "questionCount": 71,
+      "scoredCount": 66,
+      "exemptCount": 5,
       "responseTypes": {
-        "choice": 19,
+        "choice": 28,
         "multiple": 0,
         "true-false": 0,
-        "text": 93,
+        "text": 43,
         "essay": 0
       },
       "keyStatuses": {
-        "missing_answer": 79,
-        "source_transcription_unverified": 31,
-        "inferred_unverified": 2
+        "source_transcription_unverified": 65,
+        "ambiguous_review": 5,
+        "curated_verified": 1
       },
       "sourceStatuses": {
-        "insufficient_evidence": 79,
-        "single_source_transcription": 31,
-        "reasoned_inference": 2
+        "single_source_transcription": 65,
+        "invalid_key": 5,
+        "curated_domain_verified": 1
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 33,
-        "LOW": 0,
-        "VERY_LOW": 79
+        "MEDIUM": 46,
+        "LOW": 20,
+        "VERY_LOW": 5
       },
-      "listeningItems": 0,
+      "listeningItems": 24,
       "writingItems": 0
     },
     {
@@ -3723,7 +3825,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 61,
-      "scoredCount": 61,
+      "scoredCount": 56,
+      "exemptCount": 5,
       "responseTypes": {
         "choice": 36,
         "multiple": 0,
@@ -3732,18 +3835,20 @@
         "essay": 5
       },
       "keyStatuses": {
-        "source_transcription_unverified": 61
+        "exempt_open_ended": 5,
+        "source_transcription_unverified": 56
       },
       "sourceStatuses": {
-        "single_source_transcription": 61
+        "open_ended_exempt": 5,
+        "single_source_transcription": 56
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 48,
-        "LOW": 13,
+        "MEDIUM": 51,
+        "LOW": 10,
         "VERY_LOW": 0
       },
-      "listeningItems": 13,
+      "listeningItems": 10,
       "writingItems": 5
     },
     {
@@ -3756,12 +3861,13 @@
       "ocrCaution": false,
       "questionCount": 83,
       "scoredCount": 82,
+      "exemptCount": 1,
       "responseTypes": {
         "choice": 68,
         "multiple": 0,
         "true-false": 0,
-        "text": 5,
-        "essay": 10
+        "text": 15,
+        "essay": 0
       },
       "keyStatuses": {
         "source_transcription_unverified": 82,
@@ -3773,12 +3879,12 @@
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 72,
-        "LOW": 10,
+        "MEDIUM": 82,
+        "LOW": 0,
         "VERY_LOW": 1
       },
       "listeningItems": 0,
-      "writingItems": 10
+      "writingItems": 0
     },
     {
       "id": "2026/vinh-long/so",
@@ -3789,7 +3895,8 @@
       "practiceReadOnly": false,
       "ocrCaution": false,
       "questionCount": 49,
-      "scoredCount": 36,
+      "scoredCount": 49,
+      "exemptCount": 0,
       "responseTypes": {
         "choice": 35,
         "multiple": 0,
@@ -3798,22 +3905,20 @@
         "essay": 0
       },
       "keyStatuses": {
-        "source_transcription_unverified": 35,
-        "missing_answer": 13,
-        "inferred_unverified": 1
+        "source_transcription_unverified": 44,
+        "curated_verified": 5
       },
       "sourceStatuses": {
-        "single_source_transcription": 35,
-        "insufficient_evidence": 13,
-        "reasoned_inference": 1
+        "single_source_transcription": 44,
+        "curated_domain_verified": 5
       },
       "confidenceCounts": {
         "HIGH": 0,
-        "MEDIUM": 23,
-        "LOW": 13,
-        "VERY_LOW": 13
+        "MEDIUM": 28,
+        "LOW": 21,
+        "VERY_LOW": 0
       },
-      "listeningItems": 12,
+      "listeningItems": 21,
       "writingItems": 0
     }
   ]

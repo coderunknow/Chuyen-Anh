@@ -1242,3 +1242,145 @@ artifacts built by run `40863169016`, Pages deployment `7410642916` from run `40
   with HTML/ZIP/checksums assets. Deploy Flashcard `41649172113` success; Pages
   deployed at https://coderunknow.github.io/Chuyen-Anh/. Pages smoke `41648090805`
   and telemetry smoke `41648090779` both pass. Stable `v1.0.0` remains NO-GO.
+
+- **2026-11-04 — v1.0.0 candidate, branch `arena/6b7c2879-chuyen-anh` (baseline `f12b4bc5…`).**
+  Commits `213eb61` (sense-level CEFR model: 8,860 senses / 0 unresolved / Oxford
+  POS dot-strip bug fixed / migration tested / CI wired), `2e33735` (Phase III: exactly
+  500 A1 + 500 A2 new headwords with CEFR-J/Oxford provenance, 143 documented skips;
+  full chain rebuilt; tests re-pinned: node 161 pass, python 194 OK), `8626f27`
+  (browser-suite re-pins; both suites PASS locally on chromium 153.0.8010.0 —
+  axe clean, 320–1440px, keyboard, reduced-motion, file://, cross-tab). Gates S1–S25
+  and the defect ledger are in `audit/v100/GATES.md` / `audit/v100/DEFECTS.md`.
+  Exam: 3,011/6,804 scorable (44.25%), `officialScore: null` without official evidence,
+  0 unresolved non-exempt blockers. PR opened from the branch; CodeRabbit reviews every
+  push (drafts included) — states recorded by head SHA in the PR. No merge, no tag, no
+  release, no deploy, `DEPLOY_HOLD` unchanged, AGENT.md untouched, logs append-only.
+
+- **2026-11-04 — PR #82 review-round fixes (append-only).**
+  On PR #82 head `c8138af`, CI run `41794025530` passed all 4 jobs (`checks`,
+  `browser (chromium)`, `browser (firefox)`, `browser (webkit)`) and CodeRabbit run
+  `3f8762ce-2219-4cd2-8a76-5034afdadc95` posted 11 comments (+ 2 outside-diff README
+  notes). Verified and applied: per-POS Oxford level isolation, documented dispute
+  hierarchy (`cefrj > octanove > word-level oxford`), cross-publisher `cross_validated`,
+  and `editorial_estimate` validation in `scripts/cefr_senses.py`; full POS/gloss/note
+  and `level-source` cleanup in `data/vocab-seed/22-a1a2-stable.tsv` (1,144 candidates →
+  500 A1 + 500 A2 accepted = 892 CEFR-J + 108 Oxford 3000, 144 skipped); A1/A2-only
+  `attestedByPublishedLevel` (13 A1/A2, 13 B1 restored to `pendingCurationReview`,
+  0 `unexplained`) in `scripts/rc4_vocabulary_audit.py`; immutable SHA + `sha256sum -c`
+  staging check in `audit/v100/refs/acquire-references.sh`; `wcag21a`/`wcag21aa` axe
+  tags in `tests/browser-exams.cjs`; CLI usage fix in `scripts/migrate_senses.py`; and
+  `README.md` / `GATES.md` / `DEFECTS.md` / `CHANGELOG.md` updates. Skipped the
+  `DEPLOY_HOLD`/deploy-gate change per explicit PR-only constraint (`DEPLOY_HOLD` stays
+  `v1.0.0-rc10`). Rebuilt full data/audit chain and re-verified node 210 pass, python
+  194 OK, and local Chromium 153 browser suites.
+
+## 2026-11-04 — review-round verification and PR synchronization
+
+The review-round tree passed 210 Node tests, 194 Python tests, all CI data checks, and both local Chromium 153 browser suites. Pushed commit `9546080`; GitHub's branch API reports it, but PR #82 still reports `c8138af` and has not started a new CI run. The earlier S19/S25 statements claiming latest-head CI and review were premature; corrected the gate ledger to pending. Keep the PR draft until GitHub synchronizes the head and CI and review have actually completed for it.
+
+## 2026-11-04 — renewed stable-release mission: preflight and partial remediation
+
+- Fresh fetch confirmed clean local and remote head `1d61c7bc9f8fed221025cb253ea3c15e51389cee`, PR #82 draft, base/main `f12b4bc5241e330eb8c051ada749d4f514111b61`, CI run 41813222542 success on that head. Review 5766898002 contains five new findings; all review threads remain unresolved on GitHub. No stable tag or release found.
+- Reproduced unsafe order: the old deploy gate returned `deploy=true` for published rc10 while `index.html` declares v1.0.0. Added an additional fail-closed application-version/release-channel gate to every workflow publish condition without modifying the hold or removing the manual dispatch override. Targeted tests: old gate 28 OK, new gate 3 OK. Live workflow not run.
+- Enumerated all eight multi-sense entries. `lie` repeats its combined A1/B1 gloss; `rock` maps the stone gloss to music and the music gloss to stone. Not remediated; S10 is FAIL. Stable artifact tooling supports prereleases only; stable workflow work remains open.
+- Reproduced `build_senses.py --json` outside the repository exiting 1 after writing; corrected display path, path tests 2 OK, `build_senses.py --check` passed. Full Python discovery on the modified tree: 199 OK. No Node or browser re-run on this tree yet. No merge, tag, release or deployment.
+
+### 2026-11-04 — stable artifact path follow-up
+
+Added local stable-package regressions after reproducing rejection of `v1.0.0`, then
+implemented the narrowly scoped draft packaging path. S28 and D17 remain in progress;
+the prerelease-only publication dispatcher and final-head CI/review are unresolved.
+No deployment gate or protected hold was changed. No publication action was taken.
+
+### 2026-11-04 — stable packaging and dispatcher continuation
+
+Fail-first test reproduced timezone-dependent stable ZIP bytes; fixed stable ZIP
+metadata and verified matching outputs across timezones. Added a manual stable-dispatch
+path requiring separate confirmation and exact published stable app release; retained
+existing prerelease dispatch and deploy gates. Manual path not exercised live. Release
+unit tests and deploy-gate tests passed locally; final-head CI remains pending.
+
+### 2026-11-04 — Oxford POS and sense audit continuation
+
+Added fail-first parser, split POS-level, and source locator tests; fixed these defects,
+regenerated vocabulary, embed, sense and quality reports. Added a heuristic review
+queue with explicit non-verification warning. Removed claims that headword-level
+agreement independently validates split senses. Meaning mapping defects remain open.
+GitHub PR and remote head synchronized after a normal fast-forward push of cc2d0f6;
+previous stale PR bookkeeping's underlying server-side cause is not established.
+
+### 2026-11-04 — source-row mapping implementation
+
+Fail-first regressions reproduced lie gloss leakage, rock reversal, row-order
+dependence, unglossed homograph duplication, and empty-filter fallback leakage.
+Added an explicit eight-entry source-row mapping manifest with recorded dictionary
+URLs and fail-closed guards, retaining all original gloss text. Corrected generator
+and regenerated artifacts; targeted Python and Node tests pass. The editorial mapping
+and complete dataset still require independent validation, so S10 remains FAIL.
+
+### 2026-11-04 — mapping provenance and POS follow-up
+
+Registered a dedicated editorial gloss-alignment source, added a regression against
+using the CEFR editorial source for that purpose, and fixed composite slash-separated
+POS matching. The review queue now records unmatched-POS fallback votes; 173 entries
+need review. A fail-closed simulation yielded three unresolved entries, so the
+remaining source-scope issue remains open and is not marked as a passed gate.
+
+### 2026-11-04 — CEFR report correction
+
+A fail-first regression exposed stale claims about source evidence, sense splitting,
+and identical before/after snapshots. Rebuilt the report with separate current legacy
+and sense evidence sections; no independent review is claimed. Focused tests pass.
+
+### 2026-11-04 — candidate changelog evidence
+
+Verified the CI-SHA review finding and corrected the unreleased candidate changelog;
+run 41813222542 applies only to 1d61c7b. Current-head CI and independent review
+are still pending. Historical release sections were not changed.
+
+### 2026-11-04 — source-capability validator
+
+Independently verified CodeRabbit's source-capability finding with a fail-first
+Cambridge fixture. Added explicit registry capabilities and independent publisher
+groups, fail-closed source validation and malformed-input regressions. Current data
+passes the capability check; locator-to-row and POS scope verification remain open,
+with 57 preliminary potentially unsupported claims requiring individual investigation.
+
+### 2026-11-04 — locator audit and POS-scope classification
+
+Added a reproducible 8,856-sense locator triage with negative tests. Reproduced 57
+unsupported POS-scope claims; changed classification so different-POS votes cannot
+count as direct or independent evidence. Fifty-two all-fallback cases are explicitly
+marked LOW editorial proxies requiring independent review. After regeneration the
+triage finds zero insufficient source-group claims, but 4,081 senses are outside its
+scope and no independent human review is claimed. Python and targeted Node tests pass.
+
+### 2026-11-04 — exam inference fail-closed correction
+
+Reproduced 203 automatic provisional answers generated from heuristic/lexical or
+cross-archive matching. Removed automatic inference and made missing source answers
+ungradable; retained inference-pin validation and added a regression against injected
+runtime hints. Regenerated answer keys, standalone exam data and derived audits.
+No source answer, paper or learner data was removed; no official key was invented.
+
+### 2026-11-04 — exam evidence scope correction
+
+Removed a paper-wide answer verification upgrade unsupported by item-level
+cross-check evidence. A synthetic regression reproduced the issue, and 67 keys
+now report single-source transcription. Per-question independent review remains
+open; the existing partial paper-anchor report is retained.
+
+### 2026-11-04 — CEFR snapshot regression correction
+
+The full JavaScript run exposed a stale exact deck-count assertion after the
+POS-scope and sense-alignment changes. Recomputed the headword and sense counts
+from the shipped data and updated the still-exact assertions, including the B2+C1
+default selection. The isolated test passes. The older CI failure occurred in the
+same test step, but its detailed log was inaccessible, so its cause is unverified.
+
+### 2026-11-08 — v1.0.0 candidate completion on `arena/2a533bbc-chuyen-anh` (`W001`–`W011`)
+
+- Completed Workstreams A–D (`W001`–`W011`) on `arena/2a533bbc-chuyen-anh` (branched from `a66561d9` / `arena/6b7c2879-chuyen-anh` over `main` `f12b4bc5`) per user policy selections (`draft_pr_to_main`, `exempt_essays_and_curate_all_non_exempt`):
+  - **Vocabulary & CEFR (`W002`–`W004`):** Verified `72` Cambridge EVP sense badges (`audit/v100/refs/cambridge-evp-verified.tsv`), fixed `27` numeral POS tags and `24` proper nouns in `data/vocab-seed/*.tsv`, mapped `8174` (`March`) + `72` `posSplits`, rebuilt `data/vocabulary.json` (`8,852` entries, `8,928` senses, `UNCLASSIFIED: 0`, `unresolved: 0`, `4,844/4,844` verified locators) and embedded into `index.html` with `WeakMap` `distractorPoolCache`. Left `docs/vocabulary-audit-dev5.{json,md}`, `DEPLOY_HOLD`, `AGENT.md`, and `De-chuyen-Anh-vao-10/*.md` untouched.
+  - **Exam parser, curated manifest & exemptions (`W005`–`W007`):** Refined parser/key-alignment (`6,708` questions across `106` papers), authored SHA-256-verified `data/exam-curated-keys.json` (`2,146` entries: `1,407` scorable `curated_verified` + `739` formal exemptions), built `scripts/exams/verify_curated_keys.mjs` (caught and fixed `13` MCQ secondary-candidate entries including `2023/bac-ninh/so` Eldorado Valley Q10 `choice-B` `therefore`), regenerated `data/exam-answer-keys.json`, `docs/exam-scoring-audit.{json,md}`, `docs/exam-anomaly-classification.{json,md}`, and embedded `index.html` (`28,189,117` bytes; `5,155/6,708` = `76.85%` scorable, `100%` non-exempt coverage, `missing = 0`, `inferred_unverified = 0`, `official_verified = 0`).
+  - **Testing, browser E2E & release gates (`W008`–`W010`):** Passed all `--check` validators, `237` Python unittests + `5` archive tests (`test_archive.py`), `214` Node assertions (`static-app` `144`, `exam-scoring` `28`, `exam-anomalies` `7`, `rc10-cefr` `10`, `v100-senses` `8`, `telemetry-api` `17`), sequential Chromium E2E (`browser-learning.cjs` + `browser-exams.cjs` WCAG 2.1 AA + `320–1440px` + `file://` offline), and `speed-benchmark.cjs` (`3 ms` median consolidation/retry latency, `0` page errors). Hardened `ci.yml`, `deploy.yml`, `pages-smoke.yml`, `tests/pages_smoke.py`, and `scripts/release_artifacts.py`. No merge, tag, release publication, or Pages deployment performed.

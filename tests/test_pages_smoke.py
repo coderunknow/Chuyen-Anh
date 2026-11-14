@@ -53,7 +53,9 @@ def modern_page(version: str) -> str:
         "<div class=\"exam-ocr-warning\"></div>"
         "<span>Trọng tâm phiên học</span>"
         "<script>const EXAM_SCORING_RULE_VERSION = \"rc9-scorable-only-v1\"; const answerKeySchemaVersion = 1;"
-        " const answeredScorable = 1; const completionPercentage = 100; const partialMultiSelectReason = 'partial-multi-select 1/2';</script>"
+        " const answeredScorable = 1; const completionPercentage = 100; const partialMultiSelectReason = 'partial-multi-select 1/2';"
+        " const curatedStatus = 'curated_domain_verified'; const exemptStatus = 'exempt_open_ended';</script>"
+        "<div id=\"exam-exemption-breakdown\"></div>"
         "<span>Bộ lọc CEFR</span>"
         f"<script type=\"module\" id=\"app-script\">const APP_VERSION = '{version}';"
         "function previewStageVisible() { return true; } function maskAnswerInPrompt() {} function usableClozeExample() {} function handOffForDisplay() {} function gradeExamEssayRubric() {} function extractExamTranscript() {} function gradeExamQuestion() {} function phraseMatchesCefrSelection() {}</script>"
@@ -174,4 +176,32 @@ class ExpectedVersionTests(unittest.TestCase):
         self.assertIn("newest published release", workflow)
         self.assertIn("EXPECTED_VERSION: ${{ steps.expected.outputs.expected }}", workflow)
         self.assertIn("Wait for the Pages deployment of the released commit", workflow)
+        self.assertIn("github.event.release.prerelease == true", workflow)
         self.assertIn("Timed out waiting for the Pages deployment", workflow)
+
+    def test_v100_stable_page_passes_with_expected_version_override(self):
+        previous = os.environ.get("EXPECTED_VERSION")
+        os.environ["EXPECTED_VERSION"] = "v1.0.0"
+        try:
+            with Fixture(modern_page("v1.0.0")) as url:
+                module = load_probe()
+                old_url = os.environ.get("PAGES_URL")
+                os.environ["PAGES_URL"] = url
+                try:
+                    buffer = io.StringIO()
+                    with redirect_stdout(buffer):
+                        code = module.main()
+                    output = buffer.getvalue()
+                finally:
+                    if old_url is None:
+                        os.environ.pop("PAGES_URL", None)
+                    else:
+                        os.environ["PAGES_URL"] = old_url
+        finally:
+            if previous is None:
+                os.environ.pop("EXPECTED_VERSION", None)
+            else:
+                os.environ["EXPECTED_VERSION"] = previous
+        self.assertEqual(code, 0, output)
+        self.assertIn("PASS the curated domain-verified source status", output)
+        self.assertIn("PASS the open-ended essay exemption status", output)

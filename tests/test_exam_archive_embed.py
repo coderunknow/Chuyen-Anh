@@ -50,18 +50,38 @@ class ExamArchiveEmbedTests(unittest.TestCase):
         self.assertEqual(sum(record['answers'].startswith('Chưa') for record in self.payload), 32)
         self.assertTrue(all('score' not in record for record in self.payload))
         self.assertTrue(all(record['answerKeySchemaVersion'] == 1 for record in self.payload))
+        total_q = 0
+        total_scorable = 0
+        total_exempt = 0
+        allowed_exempt_categories = {
+            'missing_stimulus',
+            'open_ended_writing_or_speaking',
+            'structural_transcription_defect',
+        }
         for record in self.payload:
             ids = [key['questionId'] for key in record['answerKey']]
             self.assertEqual(len(ids), len(set(ids)), record['id'])
             self.assertTrue(all(key['verificationStatus'] in {
                 'official_verified', 'independently_cross_checked', 'source_transcription_unverified',
-                'inferred_unverified', 'user_confirmed', 'missing_answer', 'ambiguous_review',
-                # rc9: an unusable stored key and an absent stimulus are explicit,
-                # ungraded states instead of being scored as a wrong answer.
-                'invalid_key', 'incomplete_stimulus'
-            } for key in record['answerKey']))
+                'curated_verified', 'user_confirmed', 'ambiguous_review',
+                # rc9/v1.0.0: unusable stored keys, absent stimuli, and open-ended
+                # essays are explicit formally exempt states rather than guessed or missing.
+                'invalid_key', 'incomplete_stimulus', 'exempt_open_ended'
+            } for key in record['answerKey']), record['id'])
             self.assertTrue(all(isinstance(key.get('scorable'), bool) for key in record['answerKey']),
                             record['id'])
+            for key in record['answerKey']:
+                total_q += 1
+                if key['scorable']:
+                    total_scorable += 1
+                else:
+                    total_exempt += 1
+                    self.assertTrue(key.get('exempt'), f"{record['id']} {key['questionId']} must mark exempt=True")
+                    self.assertIn(key.get('exemptionCategory'), allowed_exempt_categories,
+                                  f"{record['id']} {key['questionId']} invalid exemptionCategory")
+        self.assertEqual(total_q, 6708)
+        self.assertEqual(total_scorable, 5155)
+        self.assertEqual(total_exempt, 1553)
 
 
 if __name__ == '__main__':

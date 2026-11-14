@@ -1,0 +1,23 @@
+# Chuyên Anh `v1.0.0` — Final Readiness Checklist
+
+- **Candidate branch:** `arena/2a533bbc-chuyen-anh`
+- **Target branch:** `main` (`f12b4bc5241e330eb8c051ada749d4f514111b61`)
+- **Delivery artifact:** Draft Pull Request only (`NOT merged`, `NOT tagged`, `NOT released`, `NOT deployed`)
+
+| Category | Check | Command / Artifact | Status |
+| --- | --- | --- | --- |
+| **Protected files** | `DEPLOY_HOLD` (`v1.0.0-rc10`), `AGENT.md`, `De-chuyen-Anh-vao-10/*.md`, `docs/vocabulary-audit-dev5.{json,md}` untouched | `git diff main -- DEPLOY_HOLD AGENT.md De-chuyen-Anh-vao-10 docs/vocabulary-audit-dev5.json docs/vocabulary-audit-dev5.md` | `[x] PASS` |
+| **Append-only logs** | `DESIGN_LOG.md` and `AGENTS_LOG.md` have zero deleted or modified historical lines | `git diff main -- DESIGN_LOG.md AGENTS_LOG.md` | `[x] PASS` |
+| **Vocabulary & Phase III** | `8,852` rows (`8,112` headwords + `740` merged family rows; `6,841` focus + `1,271` archived), `+500 A1 + +500 A2` | `python3 scripts/expand_vocabulary.py --check && python3 scripts/build_vocabulary.py --check && python3 scripts/validate_vocab.py` | `[x] PASS` |
+| **Sense-level CEFR** | `8,928` senses (`75` multi-sense), `UNCLASSIFIED = 0`, `unresolved = 0`, `4,844 / 4,844` (`100%`) verified source locators | `python3 scripts/build_senses.py --check && python3 scripts/audit_sense_sources.py --check` | `[x] PASS` |
+| **Reference snapshots** | SHA-256 digests pinned & verified (`cefrj`, `octanove`, `oxford-3000`, `oxford-5000`, `cambridge-evp-verified.tsv`) | `audit/v100/refs/acquire-references.sh` + `docs/vocabulary-sources.json` | `[x] PASS` |
+| **Phrase bank** | `1,094` phrases validated & embedded cleanly | `python3 scripts/build_phrases.py --check && python3 scripts/validate_phrases.py && python3 scripts/embed_phrases.py --check` | `[x] PASS` |
+| **Exam curated keys** | `2,146` SHA-256-pinned entries (`1,407` scorable `curated_verified` + `739` formal exemptions), `100%` runtime self-graded | `node scripts/exams/build_answer_keys.mjs --check && node scripts/exams/verify_curated_keys.mjs` | `[x] PASS` |
+| **Exam coverage & provenance** | `106` papers, `6,708` questions, `5,155` scorable (`76.85%`, `100%` of non-exempt), `1,553` exempt, `missing = 0`, `inferred_unverified = 0`, `official_verified = 0` | `python3 scripts/exams/embed_archive.py --check && python3 scripts/audit_exam_provenance.py --check` | `[x] PASS` |
+| **Exam rendering & XSS** | `0` renderer errors, `0` `<script>` tags, `0` inline event handlers across `106` transcriptions | `node scripts/exams/audit_rendering.mjs --check && node scripts/exams/classify_anomalies.mjs --check` | `[x] PASS` |
+| **Derived audit reports** | All generated vocabulary & exam JSON/Markdown audit artifacts in sync with shipped `index.html` | `audit_vocabulary_quality.py --check`, `vocabulary_cefr_review.py --check`, `vocabulary_evidence_review.py --check`, `rc4_vocabulary_audit.py --check` | `[x] PASS` |
+| **Python test suites** | `238` unit tests in `tests/` + `5` conversion/archive tests in `scripts/exams/test_archive.py` | `python3 -m unittest discover -s tests -p 'test_*.py' && .venv/bin/python scripts/exams/test_archive.py` | `[x] PASS (243/243)` |
+| **Node test suites** | `static-app` (`144`), `exam-scoring` (`28`), `exam-anomalies` (`7`), `rc10-cefr` (`10`), `v100-senses` (`8`), `telemetry-api` (`17`) | `node --trace-deprecation --test tests/*.test.js` | `[x] PASS (214/214)` |
+| **Browser E2E & WCAG 2.1 AA** | Sequential real-browser `browser-learning.cjs` + `browser-exams.cjs` (`axe-core` WCAG 2.1 AA, `320–1440 px`, VI/EN, Classic/Modern, light/dark, `file://`) + `speed-benchmark.cjs` | `bash tests/run-browser-suites.sh && node tests/speed-benchmark.cjs` | `[x] PASS` |
+| **Dual release/deploy gates** | `deploy_gate.py` + `app_release_gate.py` + `release-published-dispatch.yml` + `pages-smoke.yml` + `release_artifacts.py` | `python3 -m unittest tests/test_deploy_gate.py tests/test_app_release_gate.py tests/test_pages_smoke.py tests/test_stable_release_path.py tests/test_release_artifacts.py` | `[x] PASS (62/62)` |
+| **GitHub Actions & Draft PR** | Draft PR opened from `arena/2a533bbc-chuyen-anh` → `main`; 3-engine CI (`chromium`, `firefox`, `webkit`) & review bot tracked on head SHA | `gh pr view` / `gh pr checks` | `[x] READY / VERIFYING ON PR` |

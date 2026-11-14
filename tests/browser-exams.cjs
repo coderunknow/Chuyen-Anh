@@ -212,7 +212,7 @@ async function main() {
     await page.evaluate(axeSource);
     const examAxeViolations = await page.evaluate(async () => {
       const result = await axe.run(document, {
-        runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa'] },
+        runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'] },
         resultTypes: ['violations']
       });
       return result.violations.map(v => ({ id: v.id, impact: v.impact, nodes: v.nodes.map(n => n.target.join(' ')).slice(0, 4) }));
@@ -256,7 +256,7 @@ async function main() {
     await filePage.locator('[data-view="exams"]').click();
     await filePage.locator('#exam-results-count').filter({ hasText: '106 bản chép' }).waitFor();
     await filePage.locator('[data-view="settings"]').click();
-    assert.equal(await filePage.locator('#app-version').innerText(), 'v1.0.0-rc10');
+    assert.equal(await filePage.locator('#app-version').innerText(), 'v1.0.0');
     assert.deepEqual(fileExternal, [], 'no external network call under file://');
     assert.deepEqual(fileErrors, [], 'no page error under file://');
 
