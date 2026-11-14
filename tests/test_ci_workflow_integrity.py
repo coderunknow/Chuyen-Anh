@@ -9,8 +9,9 @@ properties of the workflow YAML rather than of the application:
      drift the anchor was written to prevent. Four workflow files
      (`exam-sources`, `exam-validation`, `pages-smoke`, `telemetry-smoke`) were
      covered by no CI trigger at all.
-  2. The browser job ran *both* suites in *one* job per engine, sequentially,
-     which made the slowest engine the whole workflow's critical path.
+  2. The original browser graph ran both suites in one job per engine. Round 9
+     measured that splitting by suite did not help; this closeout now partitions
+     the learning assertions into five exact-once regions per engine.
   3. The failure artifact step globbed `**/*.png` while nothing in the job set
      `BROWSER_SCREENSHOT`, so it could only ever report "no files found": the
      diagnostics looked present and collected nothing.
@@ -119,6 +120,12 @@ class WorkflowFileCoverageTests(unittest.TestCase):
         missing = sorted(present - covered)
         self.assertEqual([], missing,
                          "these workflow files are covered by no ci.yml trigger path: " + ", ".join(missing))
+        # The exact test totals are read from these readiness documents, so edits
+        # to their contract inputs must rerun the gate that validates them.
+        for report in ("audit/v100/DEFECTS.md", "audit/v100/GATES.md",
+                       "audit/v100/FINAL_READINESS.md", "audit/v100/FINAL_READINESS_CHECKLIST.md"):
+            self.assertIn(f'"{report}"', ci_text(),
+                          f"changes to {report}, read by CI integrity tests, must trigger CI")
 
     def test_the_anchor_covers_the_workflow_files_as_well(self) -> None:
         """Guard the specific regression: exam-* and *-smoke workflows were untracked."""
@@ -144,8 +151,8 @@ class BrowserMatrixTests(unittest.TestCase):
         for engine in ("chromium", "firefox", "webkit"):
             self.assertIn(engine, job, f"the browser matrix must keep {engine}")
 
-    def test_both_suites_are_named(self) -> None:
-        """Both suites must run on every engine; the wrapper names them by default."""
+    def test_both_suites_remain_in_the_required_browser_run(self) -> None:
+        """The wrapper keeps both full-suite fallback and the exam shard path."""
         job = self.browser_job()
         script = (ROOT / "tests" / "run-browser-suites.sh").read_text(encoding="utf-8")
         for suite in ("tests/browser-learning.cjs", "tests/browser-exams.cjs"):
@@ -162,11 +169,7 @@ class BrowserMatrixTests(unittest.TestCase):
                       "one engine failing must not cancel the others' verdicts")
 
     def test_the_runner_script_accepts_a_single_suite(self) -> None:
-        """The wrapper must stay usable for one suite even though CI runs both.
-
-        It is how a developer reproduces one failing suite, and the argument is
-        honoured rather than silently ignored.
-        """
+        """Explicit suite paths remain available for focused local reproduction."""
         script = (ROOT / "tests" / "run-browser-suites.sh").read_text(encoding="utf-8")
         self.assertIn('if [ "$#" -gt 0 ]', script,
                       "run-browser-suites.sh must accept explicit suite paths")
@@ -174,33 +177,36 @@ class BrowserMatrixTests(unittest.TestCase):
                       "a suite path that does not exist must fail, not run nothing")
 
 
-class OptimizationRegressionTests(unittest.TestCase):
-    """Pin the Round-9 measurement so the split is not re-introduced unmeasured.
-
-    Splitting the browser job into one job per (engine, suite) was tried and
-    measured: it saved 1 s of wall-clock and cost 201 runner-seconds, because the
-    exam suite is 11-61 s of a 387-740 s step. A future change may revisit this,
-    but it must do so with a measurement, so this test requires the workflow to
-    carry the finding next to the job it governs.
-    """
-
-    def test_the_browser_job_records_why_it_runs_both_suites_in_one_job(self) -> None:
-        # Read the raw file, not the comment-stripped one: the requirement is that
-        # the measurement survives in a comment next to the job it governs.
-        raw = ci_text()
-        start = raw.index("  browser:\n")
-        end = raw.find("\n  ", start + len("  browser:\n"))
-        while end != -1 and not raw[end + 1:].startswith("  ") or (end != -1 and raw[end + 1:].startswith("   ")):
-            end = raw.find("\n  ", end + 1)
-        job = raw[start:]
-        self.assertIn("Round 9 measured", job,
-                      "keep the measured reason beside the job: without it the "
-                      "unmeasured split looks like an obvious win")
-
-    def test_both_suites_still_run_in_the_job(self) -> None:
+class BrowserShardMatrixTests(unittest.TestCase):
+    def test_each_engine_runs_all_five_learning_regions(self) -> None:
         job = BrowserMatrixTests().browser_job()
-        self.assertIn("bash tests/run-browser-suites.sh", job,
-                      "the job must invoke the wrapper with no suite argument, so both suites run")
+        self.assertIn("part: [1, 2, 3, 4, 5]", job)
+        self.assertIn("timeout-minutes: 9", job,
+                      "each matrix cell is bounded below the 600-second runtime target")
+        self.assertIn("PART: ${{ matrix.part }}", job)
+        self.assertIn("bash tests/run-browser-suites.sh", job)
+        self.assertNotIn("continue-on-error", job)
+
+    def test_the_shard_generator_is_in_the_ci_path_filter(self) -> None:
+        self.assertIn('"scripts/shard_browser_suite.mjs"', ci_text(),
+                      "changes to the script that creates every browser shard must trigger CI")
+
+    def test_the_exact_once_guard_and_behavioral_negative_controls_run_in_ci(self) -> None:
+        workflow = ci_text()
+        self.assertIn("node scripts/shard_browser_suite.mjs --check", workflow)
+        self.assertIn("node --test tests/shard-browser-suite.test.mjs tests/fresh-world-failure.test.cjs", workflow)
+        learning = (ROOT / "tests" / "browser-learning.cjs").read_text(encoding="utf-8")
+        self.assertIn("const runFreshWorldScenario = scenario => withFreshWorldScenario(", learning)
+        self.assertEqual(learning.count("await runFreshWorldScenario(async world => {"), 8,
+                         "every fresh-world scenario must exercise the tested capture-before-close helper")
+        self.assertIn("}, scenario, captureFailureScreenshot);", learning)
+
+    def test_exam_suite_runs_once_per_engine_outside_the_learning_partition(self) -> None:
+        script = (ROOT / "tests" / "run-browser-suites.sh").read_text(encoding="utf-8")
+        self.assertIn('if [ "$PART" = "5" ]; then', script)
+        self.assertIn('suites+=("tests/browser-exams.cjs")', script)
+        self.assertIn('suites=("tests/browser-learning.cjs" "tests/browser-exams.cjs")', script,
+                      "PART unset must preserve the full, unsharded local path")
 
 
 class FailureArtifactTests(unittest.TestCase):
@@ -215,70 +221,6 @@ class FailureArtifactTests(unittest.TestCase):
                       "the scratch directory must exist before the suite runs")
         self.assertIn("BROWSER_SCREENSHOT_DIR", job,
                       "the job must export BROWSER_SCREENSHOT_DIR for the suites")
-
-    def test_both_suites_capture_before_the_browser_is_closed(self) -> None:
-        """The capture must run inside `main()`, before the `finally` cleanup.
-
-        Capturing from `main().catch` looked right and was useless: Playwright's
-        `browser.close()` closes every page, so the screenshot threw with "Target
-        page, context or browser has been closed" and the artifact stayed empty -
-        the exact failure the capture exists to prevent (CodeRabbit, PR #86).
-        Position is therefore part of the contract, not a style choice.
-        """
-        for suite in ("browser-learning.cjs", "browser-exams.cjs"):
-            source = (ROOT / "tests" / suite).read_text(encoding="utf-8")
-            self.assertIn("BROWSER_SCREENSHOT_DIR", source,
-                          f"{suite} must honour BROWSER_SCREENSHOT_DIR")
-            # The helper exists and is called from inside main's catch...
-            self.assertIn("async function captureFailureScreenshot()", source,
-                          f"{suite} must define the capture helper")
-            finally_at = source.rindex("} finally {")
-            body_start = source.index("async function main()")
-            catch_at = source.index("await captureFailureScreenshot();", body_start)
-            self.assertLess(catch_at, finally_at,
-                            f"{suite} must capture before the `finally` block that closes the browser")
-            # ...and the top-level handler must not try to capture after cleanup.
-            tail = source[source.rindex("main().catch"):]
-            self.assertNotIn("captureFailureScreenshot", tail,
-                             f"{suite} must not capture from main().catch: the browser is already closed there")
-
-    def test_the_capture_tracks_the_page_of_the_failing_scenario(self) -> None:
-        """Photographing the first page is wrong once a scenario opens its own.
-
-        The first version of this test counted `failedPage = ` assignments, which
-        counted the `let failedPage = null` declaration and therefore passed even
-        with every scenario assignment removed (CodeRabbit, PR #86). It now looks
-        for the scenario-specific assignments themselves.
-        """
-        learning = (ROOT / "tests" / "browser-learning.cjs").read_text(encoding="utf-8")
-        exams = (ROOT / "tests" / "browser-exams.cjs").read_text(encoding="utf-8")
-        # The scenario tab opened inside freshWorld() is registered with the
-        # screenshot source, and so is the rc5 scenario page.
-        self.assertIn("failedPage = page;\n        page.on('pageerror'", learning,
-                      "the freshWorld tab must become the failure page")
-        self.assertIn("const rc5 = await browser.newPage", learning)
-        rc5_index = learning.index("const rc5 = await browser.newPage")
-        self.assertIn("failedPage = rc5;", learning[rc5_index:rc5_index + 400],
-                      "the rc5 scenario page must become the failure page")
-        file_index = exams.index("const filePage = await")
-        self.assertIn("failedPage = filePage;", exams[file_index:file_index + 400],
-                      "the exams file:// page must become the failure page")
-
-    def test_every_scenario_closes_its_browser_only_after_capturing(self) -> None:
-        """Each scenario's own `finally` closes a browser; the capture must precede it.
-
-        `freshWorld()` scenarios close `world.ownBrowser` themselves, so a capture
-        that only ran in the outer handler photographed a closed browser
-        (CodeRabbit, PR #86). Every such block must capture in its own `catch`.
-        """
-        source = (ROOT / "tests" / "browser-learning.cjs").read_text(encoding="utf-8")
-        closes = source.count("await world.ownBrowser.close().catch(() => null);")
-        self.assertGreaterEqual(closes, 5, "the freshWorld scenarios still close their own browsers")
-        captures = source.count("""      } catch (error) {
-        // A scenario's own browser is closed by the `finally` below""")
-        self.assertEqual(closes, captures,
-                         "every scenario that closes its own browser must capture first: "
-                         f"{closes} closes vs {captures} captures")
 
     def test_the_browser_log_is_uploaded_even_when_the_suite_fails(self) -> None:
         job = BrowserMatrixTests().browser_job()

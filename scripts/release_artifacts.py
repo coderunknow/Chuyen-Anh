@@ -192,8 +192,16 @@ def release_notes(tag: str) -> str:
     )
 
 
-def process(tag: str, *, future: bool = False) -> None:
-    """Verify one release and attach any missing artifact; never replaces an asset."""
+def process(tag: str, *, future: bool = False, dry_run: bool = False) -> None:
+    """Verify one release and attach any missing artifact; never replaces an asset.
+
+    A dry run performs the same tag resolution, archive materialization, tests,
+    artifact build, and read-only comparison of existing assets, but refuses all
+    release creation and upload operations. It is intentionally limited to an
+    explicit existing tag; it cannot masquerade as a pushed-tag release.
+    """
+    if dry_run and future:
+        raise RuntimeError("A dry run cannot process a future/pushed tag")
     # Confirm the release's tag association; use the immutable resolved tag commit for all work.
     release = release_for(tag)
     if release is None:
@@ -216,6 +224,8 @@ def process(tag: str, *, future: bool = False) -> None:
         temp = pathlib.Path(directory)
         artifacts = build(tag, commit, temp)
         if release is None:
+            if dry_run:
+                raise RuntimeError(f"Dry run requires an existing release for {tag}")
             run(release_create_command(tag))
             release = release_for(tag)
             if (release is None or release.get("tagName") != tag or not release.get("isDraft")
@@ -235,6 +245,26 @@ def process(tag: str, *, future: bool = False) -> None:
                 raise RuntimeError(f"Expected existing asset could not be downloaded: {name}")
             if sha(downloaded_path) != sha(path):
                 raise RuntimeError(f"Asset {name} exists with different content; refusing to replace it")
+        if dry_run:
+            # A safe run may read an existing release and download matching assets,
+            # but must never create or mutate one. Report missing files as the
+            # actions a real run would take, not as a successful upload.
+            final = release_for(tag)
+            if final is None or final.get("tagName") != tag:
+                raise RuntimeError(f"Release disappeared during dry run: {tag}")
+            if final["isDraft"] != release["isDraft"] or final["isPrerelease"] != release["isPrerelease"]:
+                raise RuntimeError(f"Release state changed during dry run: {tag}")
+            for asset in final.get("assets", []):
+                digest = asset.get("digest")
+                if asset.get("name") in artifacts and digest:
+                    expected = f"sha256:{sha(artifacts[asset['name']])}"
+                    if digest != expected:
+                        raise RuntimeError(f"Asset {asset['name']} digest {digest} != built {expected}")
+            missing = sorted(pathlib.Path(item).name for item in upload)
+            print(f"DRY RUN verified {tag}: {commit}; draft={final['isDraft']}; "
+                  f"prerelease={final['isPrerelease']}; matching_existing={sorted(existing.intersection(artifacts))}; "
+                  f"would_upload={missing}; no release mutation performed", flush=True)
+            return
         if upload:
             run(["gh", "release", "upload", tag, *upload])
         # Assert names and digests after upload and ensure the release state did not change.
@@ -272,12 +302,17 @@ def process(tag: str, *, future: bool = False) -> None:
 def main() -> None:
     push_tag = os.environ.get("PUSH_TAG", "").strip()
     requested = os.environ.get("INPUT_TAG", "").strip()
+    dry_run = os.environ.get("DRY_RUN", "").strip().lower() in {"1", "true", "yes"}
+    if dry_run and push_tag:
+        raise RuntimeError("DRY_RUN is only allowed for an explicit workflow_dispatch tag, not a pushed tag")
+    if dry_run and not requested:
+        raise RuntimeError("DRY_RUN requires INPUT_TAG for one existing release")
     if push_tag:
         if not is_supported_tag(push_tag):
             raise RuntimeError(f"Unexpected tag push: {push_tag}")
         process(push_tag, future=True)
     elif requested:
-        process(requested)
+        process(requested, dry_run=dry_run)
     else:
         releases = json.loads(run(["gh", "api", "repos/{owner}/{repo}/releases?per_page=100"], capture=True))
         for release in releases:
@@ -298,7 +333,8 @@ def cli(argv=None):
         prog='release_artifacts.py',
         description='Build and attach the release artifacts for a tag. Driven by the '
                     'PUSH_TAG / INPUT_TAG environment variables; with neither set it walks '
-                    'the existing releases. There is no dry-run mode.')
+                    'the existing releases. DRY_RUN=true performs the same archive validation/build '
+                    'plus read-only existing-asset checks for one explicit existing tag.')
     parser.parse_args(argv)
     main()
 

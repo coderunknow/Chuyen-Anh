@@ -18,14 +18,11 @@
 # Without BROWSER_EXECUTABLE on chromium, the suites fall back to @sparticuz/chromium
 # or Playwright's installed browser binary.
 #
-# Sequential by default, on purpose. CI runs one suite per job (a browser x suite
-# matrix in .github/workflows/ci.yml) instead of two per job: on the standard
-# GitHub runner that halves the critical path without ever asking one machine to
-# host two browsers at once. Before that split, a 2-CPU VM segfaulted when two
-# browser instances ran together ("Target page, context or browser has been
-# closed"), and a crashed browser is not a test result - so the default here
-# stays one-at-a-time, and the parallelism comes from adding runners, not from
-# stacking browsers.
+# The default (PART unset) remains the untouched full-suite path: learning, then
+# exams, one browser at a time. CI uses five exact source-region shards of the
+# learning suite across each engine; part 5 also runs the exam suite once per
+# engine. This wrapper generates those files on demand, so local full-suite runs
+# do not depend on generated artifacts or change behavior.
 set -euo pipefail
 
 here="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -57,6 +54,18 @@ fi
 
 if [ "$#" -gt 0 ]; then
   suites=("$@")
+elif [ -n "${PART:-}" ]; then
+  if [[ ! "$PART" =~ ^[1-5]$ ]]; then
+    echo "PART must be an integer from 1 to 5; received: $PART" >&2
+    exit 2
+  fi
+  node scripts/shard_browser_suite.mjs --write tests/.shards
+  suites=("tests/.shards/browser-learning.part${PART}.cjs")
+  # The full suite's five source regions cover all learning scenarios; the
+  # independent exam suite still runs once per engine, alongside the last part.
+  if [ "$PART" = "5" ]; then
+    suites+=("tests/browser-exams.cjs")
+  fi
 else
   suites=("tests/browser-learning.cjs" "tests/browser-exams.cjs")
 fi

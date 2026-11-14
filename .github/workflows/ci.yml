@@ -35,6 +35,7 @@ on:
       - "docs/vocabulary-sources.json"
       - "scripts/exams/**"
       - "scripts/release_artifacts.py"
+      - "scripts/shard_browser_suite.mjs"
       - "scripts/deploy_gate.py"
       - "scripts/app_release_gate.py"
       - "tests/test_app_release_gate.py"
@@ -74,6 +75,10 @@ on:
       - "De-chuyen-Anh-vao-10/**"
       - "tests/**"
       - "audit/v100/refs/**"
+      - "audit/v100/DEFECTS.md"
+      - "audit/v100/GATES.md"
+      - "audit/v100/FINAL_READINESS.md"
+      - "audit/v100/FINAL_READINESS_CHECKLIST.md"
       - "api/**"
       - "app.js"
       - "vercel.json"
@@ -159,27 +164,36 @@ jobs:
       - name: Run static app logic, scoring and single-file tests
         run: node --trace-deprecation --test tests/static-app.test.js tests/exam-scoring.test.js tests/exam-anomalies.test.js tests/rc10-cefr.test.js tests/v100-senses.test.js tests/exam-exempt-rubric.test.js tests/core-invariants.test.js tests/exam-persistence.test.js
 
+      - name: Verify browser shard partition and failure-capture lifecycle
+        run: |
+          node scripts/shard_browser_suite.mjs --check
+          node --test tests/shard-browser-suite.test.mjs tests/fresh-world-failure.test.cjs
+
       # rc5/rc8: the ingestion endpoint is the only server-side code in the project,
       # so its contract (origins, size limits, stored fields, status codes, fail-closed salt)
       # is pinned by its own suite rather than by a live request.
       - name: Run telemetry endpoint contract tests
         run: node --trace-deprecation --test tests/telemetry-api.test.js
 
-  # Run both sequential Playwright suites across Chromium, Firefox, and WebKit.
-  # Each engine gets its own 2-CPU runner VM so two heavy 16 MB DOM browsers never
-  # compete for memory on the same VM, and `playwright-core` remains test-only.
+  # Run five disjoint learning-suite regions on each engine. The generator's
+  # exact-once partition check runs in `checks`; each matrix job regenerates the
+  # ignored shards from the checked-in suite. PART unset still runs the original
+  # full learning suite plus exams for local developers. Part 5 runs the complete
+  # exam suite once per engine, so no required browser coverage is dropped.
+  #
   # Pin ubuntu-24.04 LTS because playwright@1.55.1 registers ubuntu20.04..24.04
   # host platforms (ubuntu-latest migrated to Ubuntu 26.04 in Oct/Nov 2026).
   browser:
-    name: browser (${{ matrix.browser }})
+    name: browser (${{ matrix.browser }} shard ${{ matrix.part }})
     runs-on: ubuntu-24.04
-    timeout-minutes: 35
+    timeout-minutes: 9
     strategy:
-      # Every engine reports its own verdict: one engine failing must not hide
-      # whether the other two still pass.
+      # Every engine and every source region reports its own verdict: a failure
+      # must not hide whether the other engines or regions still pass.
       fail-fast: false
       matrix:
         browser: [chromium, firefox, webkit]
+        part: [1, 2, 3, 4, 5]
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -204,44 +218,44 @@ jobs:
           echo "BROWSER_EXECUTABLE=$(cat /tmp/browser-path)" >> "$GITHUB_ENV"
           echo "${{ matrix.browser }}: $(cat /tmp/browser-path)"
 
-      # Both suites run in this job, sequentially, on purpose. Round 9 measured
-      # splitting them into one job per (engine, suite) and reverted it: the exam
-      # suite costs 11-61 s while the learning suite is 387-740 s, so the split
-      # saved 1 s of wall-clock (13m19s -> 13m18s) and added 201 runner-seconds
-      # (36m06s -> 39m27s) in three extra browser installs. Numbers and reasoning:
-      # audit-evidence/round9/actions/OPTIMIZATION_REPORT.md.
+      # Round 9's (engine, suite) split was measured and reverted because exams
+      # were only 11-61 s; the learning suite was the critical path. Here the
+      # learning assertions themselves are partitioned at checked scenario
+      # boundaries, and the five shards run concurrently on independent runners.
+      # Part 5 also runs browser-exams.cjs, once per engine. Measurements and the
+      # decision are recorded in ACTIONS_OPTIMIZATION_REPORT.md.
       #
-      # The failure artifacts used to be collected by a glob over `**/*.png`, but
-      # nothing produced a PNG unless a developer exported BROWSER_SCREENSHOT by
-      # hand - so the artifact step could only ever report "no files found". Both
-      # suites now write into a scratch directory that exists only for this, and it
-      # is uploaded whether the suite passes or fails.
-      - name: Run both browser suites sequentially (${{ matrix.browser }})
+      # Both suites write failure screenshots into a scratch directory that
+      # exists only for this job. Upload logs on every outcome and screenshots on
+      # failure, with distinct artifact names for each matrix cell.
+      - name: Run browser shard (${{ matrix.browser }} part ${{ matrix.part }})
+        env:
+          PART: ${{ matrix.part }}
+          BROWSER_SCREENSHOT_DIR: ${{ runner.temp }}/browser-shots
         run: |
           set +e
           mkdir -p "$RUNNER_TEMP/browser-shots"
-          BROWSER_SCREENSHOT_DIR="$RUNNER_TEMP/browser-shots" \
-            bash tests/run-browser-suites.sh 2>&1 | tee /tmp/browser.log
+          bash tests/run-browser-suites.sh 2>&1 | tee /tmp/browser.log
           status=${PIPESTATUS[0]}
           if [ "$status" -ne 0 ]; then
             tail -n 60 /tmp/browser.log | sed 's/^/::error::/'
             exit "$status"
           fi
 
-      - name: Upload browser log (${{ matrix.browser }})
+      - name: Upload browser log (${{ matrix.browser }} part ${{ matrix.part }})
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: browser-log-${{ matrix.browser }}
+          name: browser-log-${{ matrix.browser }}-part-${{ matrix.part }}
           path: /tmp/browser.log
           if-no-files-found: warn
           retention-days: 7
 
-      - name: Upload browser screenshots on failure (${{ matrix.browser }})
+      - name: Upload browser screenshots on failure (${{ matrix.browser }} part ${{ matrix.part }})
         if: failure()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: browser-screenshots-${{ matrix.browser }}
+          name: browser-screenshots-${{ matrix.browser }}-part-${{ matrix.part }}
           path: ${{ runner.temp }}/browser-shots
           if-no-files-found: warn
           retention-days: 7
