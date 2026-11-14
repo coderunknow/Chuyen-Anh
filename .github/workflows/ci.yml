@@ -99,6 +99,9 @@ on:
     # stale. YAML anchors must name their target to work - the anchor was
     # declared and then re-typed, which is not an alias.
     paths: *ci-paths
+  # Safe manual reruns on an exact ref make the full browser matrix available
+  # for repeatable measurement; this workflow only runs checks, never publishes.
+  workflow_dispatch:
 
 concurrency:
   group: static-checks-${{ github.ref }}

@@ -193,6 +193,8 @@ class BrowserShardMatrixTests(unittest.TestCase):
 
     def test_the_exact_once_guard_and_behavioral_negative_controls_run_in_ci(self) -> None:
         workflow = ci_text()
+        self.assertIn("\n  workflow_dispatch:", workflow,
+                      "maintainers need a read-only manual rerun path for measured repeats")
         self.assertIn("node scripts/shard_browser_suite.mjs --check", workflow)
         self.assertIn("node --test tests/shard-browser-suite.test.mjs tests/fresh-world-failure.test.cjs", workflow)
         learning = (ROOT / "tests" / "browser-learning.cjs").read_text(encoding="utf-8")
