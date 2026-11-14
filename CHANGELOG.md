@@ -48,6 +48,17 @@ Round 9 audited the whole application and its delivery infrastructure against
   `supabase/` are unchanged across the green→red boundary and a 503 is not a
   version error.
 
+### PR #86 follow-up — exact-once learning-suite sharding (candidate only)
+
+The earlier `browser × suite` job split remains reverted. This follow-up tackles
+its measured bottleneck inside the learning suite: `scripts/shard_browser_suite.mjs`
+partitions the original source at five scenario boundaries, with a guard against
+missing or overlapping lines. All five shards run on Chromium, Firefox, and WebKit;
+part 5 also runs the complete exam suite once per engine. `tests/run-browser-suites.sh`
+with `PART` unset still runs the complete unsharded learning suite followed by exams.
+This is still PR-only work: no merge, tag, release, or deployment. Cross-engine
+measurements are recorded in `audit-evidence/round9/actions/OPTIMIZATION_REPORT.md`.
+
 ### Round 8 — asynchronous, cross-tab-safe exam-history persistence (PR #85)
 
 - **Persistence rewritten around three mechanisms** instead of a read-back "repair": bounded
