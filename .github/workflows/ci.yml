@@ -79,6 +79,7 @@ on:
       - "audit/v100/GATES.md"
       - "audit/v100/FINAL_READINESS.md"
       - "audit/v100/FINAL_READINESS_CHECKLIST.md"
+      - "audit-evidence/round9/actions/OPTIMIZATION_REPORT.md"
       - "api/**"
       - "app.js"
       - "vercel.json"
@@ -99,10 +100,6 @@ on:
     # stale. YAML anchors must name their target to work - the anchor was
     # declared and then re-typed, which is not an alias.
     paths: *ci-paths
-  # Safe manual reruns on an exact ref make the full browser matrix available
-  # for repeatable measurement; this workflow only runs checks, never publishes.
-  workflow_dispatch:
-
 concurrency:
   group: static-checks-${{ github.ref }}
   cancel-in-progress: true
@@ -226,7 +223,7 @@ jobs:
       # learning assertions themselves are partitioned at checked scenario
       # boundaries, and the five shards run concurrently on independent runners.
       # Part 5 also runs browser-exams.cjs, once per engine. Measurements and the
-      # decision are recorded in ACTIONS_OPTIMIZATION_REPORT.md.
+      # decision are recorded in audit-evidence/round9/actions/OPTIMIZATION_REPORT.md.
       #
       # Both suites write failure screenshots into a scratch directory that
       # exists only for this job. Upload logs on every outcome and screenshots on
