@@ -179,3 +179,106 @@ artifact step.
   left.
 - Nine of nine checkouts set `persist-credentials: false` (R9-14 fixed the last).
 - No cache was introduced, so no cache-poisoning surface was added.
+
+---
+
+## PR #86 follow-up: exact-once learning-suite sharding
+
+This section records the follow-up that tested the *inside-the-suite* lever
+identified above. The `(engine, suite)` split remains reverted. Instead, the
+learning suite is partitioned into five disjoint scenario regions, and the full
+five-shard matrix runs on each of Chromium, Firefox, and WebKit. This changes the
+parallelism unit while keeping the original scenarios and assertions.
+
+The generator verifies a **3,418-line exact partition**: prologue, leading
+scenarios, helpers, the five scenario regions, separators, and teardown are
+accounted for once; the original **3,123 scenario lines** are assigned to exactly
+one region. Shared setup/helpers are regenerated in each isolated shard by design.
+The ranges are:
+
+| Shard | Original source lines | Lines |
+|---|---:|---:|
+| 1 | 281–948 | 668 |
+| 2 | 949–1542 | 594 |
+| 3 | 1543–2336 | 794 |
+| 4 | 2337–2914 | 578 |
+| 5 | 2915–3403 | 489 |
+
+`node scripts/shard_browser_suite.mjs --check` is a required CI gate, including
+negative controls for a missing and an overlapping range. The browser job is a
+3-engine × 5-part matrix (`fail-fast: false`, 9-minute per-cell timeout); part 5
+runs `browser-exams.cjs` after its learning region, once per engine. With `PART`
+unset, the local wrapper still runs the complete, unsharded learning suite and
+then exams. Thus the exam suite is neither partitioned nor dropped.
+
+### CI measurements
+
+All values below are from `scripts/ci_run_summary.py` over **completed** GitHub
+Actions runs. Each qualifying row had the 15 browser cells and the `checks` job
+successful. The older sequential result is shown as context, not as a controlled
+before/after experiment: the commits and runner conditions differ.
+
+| Run | Head | Wall-clock | Critical path | Runner-seconds | Result |
+|---|---|---:|---:|---:|---|
+| Sequential context [`43439798628`](https://github.com/coderunknow/Chuyen-Anh/actions/runs/43439798628) | `40823f69` | 14 m 24 s | 14 m 22 s (`browser (webkit)`) | 34 m 54 s | Success; old one-job-per-engine workflow |
+| [`43549976351`](https://github.com/coderunknow/Chuyen-Anh/actions/runs/43549976351) | `8f9ece25` | **6 m 24 s** | 6 m 21 s (`browser (webkit shard 4)`) | 48 m 48 s | **Success; < 600 s** |
+| [`43550897165`](https://github.com/coderunknow/Chuyen-Anh/actions/runs/43550897165) | `cc6337f3` | **6 m 56 s** | 6 m 53 s (`browser (webkit shard 4)`) | 48 m 54 s | **Success; < 600 s** |
+| [`43552001904`](https://github.com/coderunknow/Chuyen-Anh/actions/runs/43552001904) | `a54f899a` | **5 m 50 s** | 5 m 30 s (`browser (webkit shard 4)`) | 49 m 35 s | **Success; < 600 s** |
+| [`43552772561`](https://github.com/coderunknow/Chuyen-Anh/actions/runs/43552772561) | `6179b9a5` | **6 m 28 s** | 6 m 25 s (`browser (webkit shard 4)`) | 48 m 04 s | **Success; < 600 s** |
+
+**Acceptance met:** four completed, successful full-matrix runs were under the
+10-minute wall-clock limit (the requirement was three). All 15 `(engine, shard)`
+cells passed in each qualifying run; the exams suite ran in part 5 for each
+engine. Latest code head `6179b9a5` passed Static checks run
+[`43552772561`](https://github.com/coderunknow/Chuyen-Anh/actions/runs/43552772561),
+including all 15 shards and `checks`; companion archive validation
+[`43552772560`](https://github.com/coderunknow/Chuyen-Anh/actions/runs/43552772560)
+and Pages smoke
+[`43552772552`](https://github.com/coderunknow/Chuyen-Anh/actions/runs/43552772552)
+also passed. This run validates the final active-page capture assertions at that
+code head.
+
+Run `43551811190` at `b52cca37` was **cancelled**, not counted: a newer PR-head
+run superseded it under `static-checks-refs/pull/86/merge` concurrency. Its
+cancellation is not reported as a test failure. The later complete runs above are
+the qualifying evidence.
+
+### Runtime / runner-cost trade-off
+
+The wall-clock target is now met with WebKit's slowest shard in 5 m 30 s–6 m 53 s
+across the four qualifying runs. The sum of runner time is higher: **48 m 04 s–49 m
+35 s** versus **34 m 54 s** in the earlier, sequential context run. This is the
+cost of fifteen isolated browser jobs (including repeated browser installs). The
+change is a wall-clock optimization, **not** a runner-cost or billable-minutes
+optimization; the old and new runs are not a controlled experiment, so no precise
+causal percentage is claimed.
+
+### Local and cross-engine verification
+
+- Chromium 133.0.6943.0: all five learning shards passed locally in **128, 62,
+  88, 139, and 100 s**; shard 5 also ran exams. The full local default, unsharded
+  learning-plus-exams path passed in **512 s**.
+- CI: the full 5 × 3 learning matrix and exams-on-part-5 passed on Chromium,
+  Firefox, and WebKit in each qualifying run. Firefox and WebKit were not run in
+  this sandbox.
+- The exact-once/failure-lifecycle Node tests passed **7/7**; full Python discovery
+  passed **291/291**, the release-artifact tests **22/22**, workflow-integrity
+  tests **23/23**, archive tests **5/5**, and all eight workflow YAML files parsed.
+- A green run does **not** verify failure screenshot upload. The screenshot upload
+  step is correctly skipped on success; capture-before-close is covered by the
+  lifecycle regression test, while a failing GitHub Actions upload remains
+  unobserved.
+
+### Review status and limits
+
+The final code head's automated reviewer checks did not provide external
+approval: Kilo reported **“Insufficient credits to run review”**; CodeRabbit was
+**skipped** with **“manual review required for this OSS repository.”** A Copilot
+review request on earlier head `b8462be6` also said it could not review because
+of insufficient remaining quota. These are not approvals or code-test results.
+The prior CodeRabbit reviews at `b8f2c11` and `80e6248` are historical and did not
+review this sharding delta. A separate manual disposition is recorded in
+`audit-evidence/round9/reviews/CODE_REVIEW_DISPOSITION.md`; it must not be read as
+bot approval.
+
+No merge, tag, release, publication, or deployment occurred. The PR remains open.

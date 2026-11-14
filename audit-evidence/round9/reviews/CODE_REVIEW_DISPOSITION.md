@@ -74,8 +74,8 @@ work, one was a weak assertion, two were citation/claim corrections.
 |---|---|---|---|---|
 | 9 | `OPTIMIZATION_REPORT.md` | Minor | The diagnostics claim was too broad: a passing run never exercises failure capture or upload | **Accepted.** The table now says real PNGs locally **under a stub** and marks CI failure capture and artifact upload as **unverified**; the report has a "what this does not show" paragraph. |
 | 10 | `CODE_REVIEW_DISPOSITION.md` / `CHECKLIST.md` | **Major** | `R9-C8` cited `b8f2c11`, where the screenshot bug still existed; the fix is in `80e6248` | **Accepted.** The row cites `80e6248`; rows generally no longer demand one shared SHA; the disposition document says each fix cites the commit that contains it. |
-| 11 | `browser-learning.cjs` | Minor | `freshWorld()` scenarios close `world.ownBrowser` in their own `finally`, so the outer capture photographed a closed page | **Accepted — real bug, same class as finding 6 one level down.** All **8** scenario blocks now capture in their own `catch` before closing, photographing their own tab. Guarded by `test_every_scenario_closes_its_browser_only_after_capturing` (asserts close-count == capture-count) and mutation M14. |
-| 12 | `test_ci_workflow_integrity.py` | Minor | `count("failedPage = ")` counted the `let failedPage = null` declaration, so the test passed even with scenario tracking removed | **Accepted — the assertion was vacuous.** It now checks the scenario-specific assignments (freshWorld tab, `rc5`, exams `file://`); mutation M15. |
+| 11 | `browser-learning.cjs` | Minor | `freshWorld()` scenarios close `world.ownBrowser` in their own `finally`, so the outer capture photographed a closed page | **Accepted; the earlier correction required follow-up.** The PR #86 follow-up wraps all **8** fresh-world scenarios in `withFreshWorldScenario`: on failure it awaits capture before its `finally` closes the scenario browser, then rethrows the original error. `fresh-world-failure.test.cjs` asserts this order and rejects a close-before-capture negative control; `test_ci_workflow_integrity.py` checks all eight call sites. This implementation is in the PR #86 follow-up, not attributed to `80e6248`. |
+| 12 | `test_ci_workflow_integrity.py` | Minor | `count("failedPage = ")` counted the `let failedPage = null` declaration, so the test passed even with scenario tracking removed | **Accepted.** The current test checks actual page assignments for the fresh-world tab, `rc5`, and the exams `file://` page, and verifies each suite's outer capture precedes cleanup. The earlier M15 caught the declaration-count defect; no new mutation result is claimed for this follow-up version. |
 
 ### Lesson recorded
 
@@ -106,7 +106,57 @@ by mutations M14 and M15, and CI is green at the final head — but the honest
 statement is "the reviewed code plus a small, mutation-verified follow-up", not
 "CodeRabbit approved the final head".
 
-A third review round was deliberately not requested: the round forbids repeatedly
-sending identical review requests, and each request consumes the reviewer's own
-budget. The remaining delta is a strict subset of what was already reviewed, at the
-same design.
+A third review round was deliberately not requested at that checkpoint: repeated
+identical requests consume review budget. The statement above about the remaining
+delta describes only the Round 9 checkpoint; it does not cover the later PR #86
+sharding follow-up below.
+
+---
+
+## PR #86 follow-up — agent self-review and external-review status
+
+**Source reviewed:** `6179b9a5b52ba2f4d143e9e2bf85c17ffd0477c5` (the code head before
+this evidence-only closeout update). Its full matrix run `43552772561` completed
+successfully, including the 15 browser cells and the `checks` job.
+
+### Agent self-review scope and disposition
+
+- **Exact-once partition:** reviewed `scripts/shard_browser_suite.mjs` against the
+  checked 1-based ranges, phase-marker assertions, 3,418-line coverage, and
+  missing/overlap negative controls. No source region is silently dropped by the
+  generator; shared setup/helpers are explicitly regenerated per shard.
+- **Coverage and local default:** reviewed the `3 × 5` engine/shard matrix and the
+  wrapper's `PART` handling. All five learning regions run on each engine; part 5
+  then runs the complete exam suite once on that engine. With `PART` unset, the
+  wrapper still runs the complete unsharded learning suite followed by exams.
+- **Failure lifecycle:** reviewed the fresh-world helper's `catch → capture →
+  finally close` ordering, the eight wrapper call sites, and page targeting for
+  fresh-world tabs, `rc5`, and the standalone exam page. The lifecycle test's
+  negative control verifies that moving close before capture fails. No
+  `continue-on-error` or engine omission was introduced.
+- **Final-code verification:** Python `unittest` **291/291**, archive tests **5/5**,
+  workflow integrity **23/23**, release-artifact tests **22/22**, shard/lifecycle
+  Node tests **7/7**, and all eight workflow YAML files parsed. Four successful
+  full-matrix runs are recorded in `actions/OPTIMIZATION_REPORT.md`; each was under
+  600 seconds.
+
+No additional issue was identified in this focused agent self-review. This is not
+an independent human or third-party approval.
+
+### External review checks on the reviewed code head
+
+| Reviewer | Reviewed head / status | Observed reason | Disposition |
+|---|---|---|---|
+| Kilo Code Review | `6179b9a5`; `action_required` / failed | **“Insufficient credits to run review”** — “Review could not start because the account has insufficient credits.” | No review was performed; not approval or code-test success. [Check details](https://app.kilo.ai/code-reviews/cae5d019-ca6a-4b06-8e90-573050ec196d) |
+| CodeRabbit | `6179b9a5`; `skipped` | **“Review skipped: manual review required for this OSS repository”** | No new CodeRabbit review of the sharding delta; earlier reviews at `b8f2c11` and `80e6248` are not evidence of approval for it. [Check details](https://github.com/coderunknow/Chuyen-Anh/pull/86/checks) |
+| GitHub Copilot PR reviewer | Earlier head `b8462be6`; `COMMENTED` | “Copilot was unable to review this pull request because the user who requested the review has insufficient remaining quota.” | Comment reports no review; it predates the final code head and is not approval. [Reviewed commit](https://github.com/coderunknow/Chuyen-Anh/commit/b8462be6b628935d54f72bd2bbba745fd577be86) |
+
+The prior CodeRabbit comments about fresh-world cleanup and active-page assertions
+were rechecked and the disposition above is updated to the current helper and test
+implementation. GitHub reports no review decision (`reviewDecision` is empty) and
+`mergeStateStatus=UNSTABLE`. The final PR still needs a maintainer/independent
+review; blocked, skipped, or quota-limited reviewers are recorded, not counted as
+approvals or successful tests.
+
+PR #86 remains open and non-draft. No merge, tag, release, publication, or
+deployment occurred.
