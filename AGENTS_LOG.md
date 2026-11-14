@@ -1939,3 +1939,17 @@ Final state, stated precisely to avoid a self-referential chase:
   exam-scoring full-credit fixture, and the round-9 documentation labelings.
   No review approval is claimed: CodeRabbit reviews are COMMENTED, and no
   maintainer approval exists on this repository's PRs.
+
+## 2026-11-14 — stable PR review round 2 (CodeRabbit on `e9eb42a`)
+
+- CodeRabbit's review of the stable PR (COMMENTED, 15:28Z; later retries hit
+  the hourly included-review limit or reported "already reviewed the last
+  commit") posted one Major thread, one outside-diff minor and one nitpick; all
+  three are fixed in the follow-up commit: FINAL_STATE/FINAL_AUDIT evidence now
+  labels each result by its actual tree (`b687b86` checkpoint, `eb7690d` for
+  #86's gate + CI ids, the stable PR's own gate/CI left unpinned by SHA and
+  recorded in its closeout), README's release-artifact instructions now state
+  the verified stable-tag procedure (workflow accepts `v1.0.0-*` plus exactly
+  `v1.0.0`; the script rejects other stable refs), and the exam-scoring fixture
+  now asserts all three items sit in the denominator, were graded, and each
+  contributes full credit. No approval is inferred from the COMMENTED review.

@@ -194,7 +194,7 @@ Khi nguồn dữ liệu, validator, bộ đồng bộ, kho đề hoặc app thay
 
 ### Release artifacts `.github/workflows/release-artifacts.yml` + `scripts/release_artifacts.py`
 
-Khi push tag khớp `v1.0.0-*` (prerelease `dev`/`beta`/`rc`; script chỉ chấp nhận `vMAJOR.MINOR.PATCH-(dev|beta|rc)N` và từ chối mọi ref khác, kể cả release cuối), workflow build artifact từ **đúng commit của tag** (`git archive`), chạy các kiểm tra dữ liệu/unit test ở source revision của tag, rồi đóng gói:
+Khi push tag khớp `v1.0.0-*` (prerelease `dev`/`beta`/`rc`) hoặc đúng `v1.0.0` — bản stable duy nhất được chấp nhận, mọi ref stable khác vẫn bị từ chối; script chỉ nhận `vMAJOR.MINOR.PATCH-(dev|beta|rc)N` cùng đúng `v1.0.0` — workflow build artifact từ **đúng commit của tag** (`git archive`), chạy các kiểm tra dữ liệu/unit test ở source revision của tag, rồi đóng gói:
 
 - `chuyen-anh-<tag>.html` — khớp từng byte với `index.html` của commit được tag.
 - `chuyen-anh-<tag>.zip` — đúng ba tệp ở root: `index.html`, `README.md`, `LICENSE`; CRC và nội dung từng tệp được kiểm tra.

@@ -438,16 +438,26 @@ test('a fully correct submission, including multiple-response items, earns the w
     key({ questionId: 'q-full-multi', candidates: ['choice-A', 'choice-C'], normalization: 'choice-set' }),
     key({ questionId: 'q-full-text', candidates: ['color'], acceptedAlternatives: ['colour'], normalization: 'case-whitespace' })
   ];
-  const { summary } = app.scoreExamSession(
+  const result = app.scoreExamSession(
     { examId: '2025/test/full-credit',
       questions: [choiceQ, multiQ, textQ],
       responses: { 'q-full-choice': 'choice-B', 'q-full-multi': ['choice-A', 'choice-C'], 'q-full-text': '  COLOUR  ' } },
     keys, [], '2025/test/full-credit'
   );
+  const { summary } = result;
   assert.ok(summary.denominator > 0, 'the fixture must have a nonzero denominator');
   assert.equal(summary.earnedPoints, summary.denominator,
     'a completely correct submission must earn every point, including multiple-response credit');
   assert.equal(summary.percentage, 100);
+  // Every fixture item must contribute: 100% of a denominator that silently
+  // excluded the multiple-response or text item would not prove their coverage
+  // (CodeRabbit nitpick, PR #87).
+  assert.equal(summary.denominator, 3, 'choice, multiple-response and text items are all in the denominator');
+  assert.equal(summary.graded, 3, 'all three fixture items were graded');
+  assert.equal(result.results.length, 3, 'the scorer graded every fixture item');
+  for (const item of result.results) {
+    assert.equal(item.earnedCredit, 1, `${item.questionId} must contribute full credit`);
+  }
 });
 
 test('paper-level anchor checks do not verify individual answer keys', () => {

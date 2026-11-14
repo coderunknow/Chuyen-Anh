@@ -39,7 +39,9 @@
 | Deploy gates | both `deploy=false … held` (`DEPLOY_HOLD` = `v1.0.0-rc11`) |
 | Workflow YAML | **8/8 parse** |
 | Browser suites in CI | three engines × both suites, all passing at historical checkpoint `a82c3f7` — run `43402014715` (chromium 6 m 55 s, firefox 9 m 15 s, webkit 15 m 07 s, checks 1 m 26 s) |
-| Round 9 checkpoint head | `b687b86`, CI run `43434146112` 4/4 green (wall 13 m 55 s, runner-seconds 2 112 s) — historical; the PR's current head is `eb7690d`, verified separately (local full gate green; exact-head CI Static `43572771403`, archive `43572771481`, Pages `43572771338`, 15/15 browser shards) |
+| Round 9 checkpoint head (historical) | `b687b86`, CI run `43434146112` 4/4 green (wall 13 m 55 s, runner-seconds 2 112 s) |
+| PR #86 head (historical) | `eb7690d` — verified by its own exact-head CI (Static `43572771403`, archive `43572771481`, Pages `43572771338`, checks/validate/probe success, 15/15 browser shards) and its own local full gate (Python 291 / Node 304); evidence in the #86 closeout |
+| Stable release PR head | the head of the PR carrying this file — verified by that PR's own local full gate (Python 294 / Node 305) and its own exact-head CI (checks success, 15/15 browser shards, Pages probe success; telemetry probe externally blocked HTTP 503); evidence in that PR's closeout comment and CHANGELOG §v1.0.0, not pinned to a SHA here |
 | CodeRabbit | reviewed the code twice (12 comments, all disposed of). At `3ba0da6` its check is `skipped` with the reason *"manual review required for this OSS repository"* (a <10-star policy threshold, not quota) — see `CHECKLIST.md` R9-E1 |
 
 ## Not claimed
