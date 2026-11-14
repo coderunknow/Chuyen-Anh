@@ -184,7 +184,12 @@ class ExpectedVersionTests(unittest.TestCase):
         self.assertIn("Wait for the Pages deployment of a released commit", workflow)
         self.assertIn("inputs.release_tag != ''", workflow,
                       "manual verification can exercise the same wait against an already deployed release without publishing one")
-        self.assertIn("github.event.release.prerelease == true", workflow)
+        # Every release event waits for its deployment: the stable release is
+        # published before the authorized dispatch deploys it, so its probe must
+        # wait exactly like a prerelease probe does (CodeRabbit, PR #86).
+        self.assertIn(
+            "github.event_name == 'release' || (github.event_name == 'workflow_dispatch' && inputs.release_tag != '')",
+            workflow)
         self.assertIn("Timed out waiting for the Pages deployment", workflow)
 
     def test_v100_stable_page_passes_with_expected_version_override(self):
