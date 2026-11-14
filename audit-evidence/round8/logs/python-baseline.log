@@ -1,0 +1,17 @@
+....................................................................................................................................................app-release gate: deploy=false (stable release v1.0.0 requires separate stable_deploy_authorized=true; held)
+app-release gate: deploy=true (exact release v1.0.0 published in the correct channel)
+app-release gate: deploy=false (application release v1.0.0 not verified; held)
+app-release gate: deploy=false (stable release v1.0.0 requires separate stable_deploy_authorized=true; force override not sufficient)
+app-release gate: deploy=true (manual force override)
+app-release gate: deploy=true (exact release v1.0.0-rc10 published in the correct channel)
+Verified release v1.0.0: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa; draft=True; prerelease=False; assets=['chuyen-anh-v1.0.0-checksums.txt', 'chuyen-anh-v1.0.0.html', 'chuyen-anh-v1.0.0.zip']
+.Verified release v1.0.0-dev5: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa; draft=True; prerelease=True; assets=['chuyen-anh-v1.0.0-dev5-checksums.txt', 'chuyen-anh-v1.0.0-dev5.html', 'chuyen-anh-v1.0.0-dev5.zip']
+.Verified release v1.0.0-dev5: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa; draft=False; prerelease=True; assets=['chuyen-anh-v1.0.0-dev5-checksums.txt', 'chuyen-anh-v1.0.0-dev5.html', 'chuyen-anh-v1.0.0-dev5.zip']
+........v0.0.0-test: html sha256=626268c38e793c0d21e0b679620069707d086041fc08dde8aa8ab6b7e2405924; zip sha256=5b4ce77cf25ed3c64a47b82fb8d4b3e65c42f1dff0947ef28333b68536f1aa5b; manifest sha256=da28eb6d548d2eb2081f0ce5267294f48c9a81ee2b7c58af65acd4211f991878
+......................................v1.0.0: html sha256=0743750e84993e1317517c4c841e5f99a1ef61e9bf21ec8d5996506ba61c549a; zip sha256=62950bfc31cd5a079c4de5ab198612c636c988f550a0be3e10f03191e9544caa; manifest sha256=b8923751bbbfbfcb6f39511cf8e058ba2318f9f54719f993813cdec11eac9d69
+v1.0.0: html sha256=0743750e84993e1317517c4c841e5f99a1ef61e9bf21ec8d5996506ba61c549a; zip sha256=62950bfc31cd5a079c4de5ab198612c636c988f550a0be3e10f03191e9544caa; manifest sha256=b8923751bbbfbfcb6f39511cf8e058ba2318f9f54719f993813cdec11eac9d69
+.............................................................
+----------------------------------------------------------------------
+Ran 257 tests in 44.078s
+
+OK

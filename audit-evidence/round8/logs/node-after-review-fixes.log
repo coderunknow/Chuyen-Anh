@@ -1,0 +1,1786 @@
+TAP version 13
+# Subtest: SRS: ease stays inside 1.3…2.8 for both directions
+ok 1 - SRS: ease stays inside 1.3…2.8 for both directions
+  ---
+  duration_ms: 1.857936
+  type: 'test'
+  ...
+# Subtest: SRS: a wrong answer is immediately due, weak, and costs 0.2 ease
+ok 2 - SRS: a wrong answer is immediately due, weak, and costs 0.2 ease
+  ---
+  duration_ms: 0.198507
+  type: 'test'
+  ...
+# Subtest: SRS: learning interval is 3 days on the second consecutive correct answer
+ok 3 - SRS: learning interval is 3 days on the second consecutive correct answer
+  ---
+  duration_ms: 0.239894
+  type: 'test'
+  ...
+# Subtest: SRS: a mastered item never schedules beyond 180 days and never below 7
+ok 4 - SRS: a mastered item never schedules beyond 180 days and never below 7
+  ---
+  duration_ms: 0.233601
+  type: 'test'
+  ...
+# Subtest: exam normaliser folds decomposed Vietnamese input onto the composed key
+ok 5 - exam normaliser folds decomposed Vietnamese input onto the composed key
+  ---
+  duration_ms: 1.15659
+  type: 'test'
+  ...
+# Subtest: punctuation contract strips apostrophes and hyphens; the plain contract does not
+ok 6 - punctuation contract strips apostrophes and hyphens; the plain contract does not
+  ---
+  duration_ms: 0.448985
+  type: 'test'
+  ...
+# Subtest: an empty or whitespace-only response is never graded correct
+ok 7 - an empty or whitespace-only response is never graded correct
+  ---
+  duration_ms: 0.766625
+  type: 'test'
+  ...
+# Subtest: essay rubric override maps credit to the documented verdict bands
+ok 8 - essay rubric override maps credit to the documented verdict bands
+  ---
+  duration_ms: 2.062186
+  type: 'test'
+  ...
+# Subtest: exam history keeps the newest 50 attempts and prunes papers of dropped ones
+ok 9 - exam history keeps the newest 50 attempts and prunes papers of dropped ones
+  ---
+  duration_ms: 42.570402
+  type: 'test'
+  ...
+# Subtest: a history import larger than 4 MB is refused before parsing
+ok 10 - a history import larger than 4 MB is refused before parsing
+  ---
+  duration_ms: 23.943422
+  type: 'test'
+  ...
+# Subtest: an unclassified sense is in scope only when Unclassified is selected
+ok 11 - an unclassified sense is in scope only when Unclassified is selected
+  ---
+  duration_ms: 0.569876
+  type: 'test'
+  ...
+# Subtest: rc9 anomalies: the inventory regenerates byte-for-byte from the parser
+ok 12 - rc9 anomalies: the inventory regenerates byte-for-byte from the parser
+  ---
+  duration_ms: 2040.511296
+  type: 'test'
+  ...
+# Subtest: rc9 anomalies: every case points at a question that really exists
+ok 13 - rc9 anomalies: every case points at a question that really exists
+  ---
+  duration_ms: 13305.09305
+  type: 'test'
+  ...
+# Subtest: rc9 anomalies: categories are counted from the cases, never asserted on their own
+ok 14 - rc9 anomalies: categories are counted from the cases, never asserted on their own
+  ---
+  duration_ms: 1317.830505
+  type: 'test'
+  ...
+# Subtest: rc9 anomalies: the criteria describe real defects and nothing else
+ok 15 - rc9 anomalies: the criteria describe real defects and nothing else
+  ---
+  duration_ms: 13019.658581
+  type: 'test'
+  ...
+# Subtest: rc9 anomalies: structural defects are excluded from scoring and text gaps are never rewritten
+ok 16 - rc9 anomalies: structural defects are excluded from scoring and text gaps are never rewritten
+  ---
+  duration_ms: 1.030755
+  type: 'test'
+  ...
+# Subtest: rc9 anomalies: a case is only marked scorable when its stored key is scorable
+ok 17 - rc9 anomalies: a case is only marked scorable when its stored key is scorable
+  ---
+  duration_ms: 13833.371439
+  type: 'test'
+  ...
+# Subtest: rc9 anomalies: the rendered markdown lists every case and never claims a fix
+ok 18 - rc9 anomalies: the rendered markdown lists every case and never claims a fix
+  ---
+  duration_ms: 3.920126
+  type: 'test'
+  ...
+# Subtest: open-ended exemptions exist and most are typed essay
+ok 19 - open-ended exemptions exist and most are typed essay
+  ---
+  duration_ms: 1473.09095
+  type: 'test'
+  ...
+# Subtest: an open-ended exemption keeps its 4-criterion rubric whatever the question type is
+ok 20 - an open-ended exemption keeps its 4-criterion rubric whatever the question type is
+  ---
+  duration_ms: 1353.678504
+  type: 'test'
+  ...
+# Subtest: answering an open-ended exemption returns advisory rubric feedback and no credit
+ok 21 - answering an open-ended exemption returns advisory rubric feedback and no credit
+  ---
+  duration_ms: 1301.480051
+  type: 'test'
+  ...
+# Subtest: the text-typed essay is the documented 2022/ha-noi/so Q51 case
+ok 22 - the text-typed essay is the documented 2022/ha-noi/so Q51 case
+  ---
+  duration_ms: 1280.000319
+  type: 'test'
+  ...
+# Subtest: the essay gate never captures a scorable objective item
+ok 23 - the essay gate never captures a scorable objective item
+  ---
+  duration_ms: 1302.579349
+  type: 'test'
+  ...
+# Subtest: a learner override on a text-typed exempt essay is rubric credit, not an answer string
+ok 24 - a learner override on a text-typed exempt essay is rubric credit, not an answer string
+  ---
+  duration_ms: 12.077335
+  type: 'test'
+  ...
+# Subtest: the correction box validates credit for every essay-like item
+ok 25 - the correction box validates credit for every essay-like item
+  ---
+  duration_ms: 12.651101
+  type: 'test'
+  ...
+# Subtest: r8 persistence: a locked write reports the mode it obtained
+ok 26 - r8 persistence: a locked write reports the mode it obtained
+  ---
+  duration_ms: 6.321455
+  type: 'test'
+  ...
+# Subtest: r8 persistence: two tabs creating different attempts concurrently keep both
+ok 27 - r8 persistence: two tabs creating different attempts concurrently keep both
+  ---
+  duration_ms: 5.268065
+  type: 'test'
+  ...
+# Subtest: r8 persistence: a write that lands between read and write is repaired, not adopted silently
+ok 28 - r8 persistence: a write that lands between read and write is repaired, not adopted silently
+  ---
+  duration_ms: 4.074046
+  type: 'test'
+  ...
+# Subtest: r8 persistence: a stale tab cannot resurrect an attempt another tab deleted
+ok 29 - r8 persistence: a stale tab cannot resurrect an attempt another tab deleted
+  ---
+  duration_ms: 4.855587
+  type: 'test'
+  ...
+# Subtest: r8 persistence: a stale tab cannot resurrect history cleared by another tab
+ok 30 - r8 persistence: a stale tab cannot resurrect history cleared by another tab
+  ---
+  duration_ms: 6.933098
+  type: 'test'
+  ...
+# Subtest: r8 persistence: a legitimate attempt created while another tab clears survives
+ok 31 - r8 persistence: a legitimate attempt created while another tab clears survives
+  ---
+  duration_ms: 4.271586
+  type: 'test'
+  ...
+# Subtest: r8 persistence: clearing twice is idempotent and never leaves orphan papers
+ok 32 - r8 persistence: clearing twice is idempotent and never leaves orphan papers
+  ---
+  duration_ms: 2.367818
+  type: 'test'
+  ...
+# Subtest: r8 persistence: an attempt created while another tab saves a correction keeps both facts
+ok 33 - r8 persistence: an attempt created while another tab saves a correction keeps both facts
+  ---
+  duration_ms: 7.470414
+  type: 'test'
+  ...
+# Subtest: r8 persistence: multiple corrections to different questions of one exam all survive
+ok 34 - r8 persistence: multiple corrections to different questions of one exam all survive
+  ---
+  duration_ms: 4.387791
+  type: 'test'
+  ...
+# Subtest: r8 persistence: two tabs correcting the same question keep one record, deterministically
+ok 35 - r8 persistence: two tabs correcting the same question keep one record, deterministically
+  ---
+  duration_ms: 6.469921
+  type: 'test'
+  ...
+# Subtest: r8 persistence: reloading either tab after concurrent writes shows the same history
+ok 36 - r8 persistence: reloading either tab after concurrent writes shows the same history
+  ---
+  duration_ms: 3.300092
+  type: 'test'
+  ...
+# Subtest: r8 persistence: a store that rejects writes reports failure and keeps the old history intact
+ok 37 - r8 persistence: a store that rejects writes reports failure and keeps the old history intact
+  ---
+  duration_ms: 2.694404
+  type: 'test'
+  ...
+# Subtest: r8 persistence: an unreadable store is never overwritten with an empty history
+ok 38 - r8 persistence: an unreadable store is never overwritten with an empty history
+  ---
+  duration_ms: 1.336603
+  type: 'test'
+  ...
+# Subtest: r8 persistence: a storage that throws on read is a failure, not an empty history
+ok 39 - r8 persistence: a storage that throws on read is a failure, not an empty history
+  ---
+  duration_ms: 0.391666
+  type: 'test'
+  ...
+# Subtest: r8 persistence: repeated retries converge instead of oscillating
+ok 40 - r8 persistence: repeated retries converge instead of oscillating
+  ---
+  duration_ms: 12.356642
+  type: 'test'
+  ...
+# Subtest: r8 tombstones: they are bounded so history cannot grow without limit
+ok 41 - r8 tombstones: they are bounded so history cannot grow without limit
+  ---
+  duration_ms: 13.414536
+  type: 'test'
+  ...
+# Subtest: r8 correction limit: exactly 1000 characters is accepted, 1001 is refused everywhere
+ok 42 - r8 correction limit: exactly 1000 characters is accepted, 1001 is refused everywhere
+  ---
+  duration_ms: 1.239241
+  type: 'test'
+  ...
+# Subtest: r8 correction migration: an over-long historical correction is preserved, not truncated or dropped
+ok 43 - r8 correction migration: an over-long historical correction is preserved, not truncated or dropped
+  ---
+  duration_ms: 4.710327
+  type: 'test'
+  ...
+# Subtest: r8 snapshot selection: the snapshot that backs the correction is the one carried
+ok 44 - r8 snapshot selection: the snapshot that backs the correction is the one carried
+  ---
+  duration_ms: 0.349025
+  type: 'test'
+  ...
+# Subtest: r8 scoring: an attempt is not refused when another tab already held the correction it was scored with
+ok 45 - r8 scoring: an attempt is not refused when another tab already held the correction it was scored with
+  ---
+  duration_ms: 6.576983
+  type: 'test'
+  ...
+# Subtest: r8 scoring: an attempt scored before a correction re-scores when the union carries it
+ok 46 - r8 scoring: an attempt scored before a correction re-scores when the union carries it
+  ---
+  duration_ms: 5.287747
+  type: 'test'
+  ...
+# Subtest: r8 correction UI: the 1,000-character limit is visible and enforced at the input
+ok 47 - r8 correction UI: the 1,000-character limit is visible and enforced at the input
+  ---
+  duration_ms: 1.986716
+  type: 'test'
+  ...
+# Subtest: r8 persistence: importing a backup after Clear restores it, because the learner asked for it
+ok 48 - r8 persistence: importing a backup after Clear restores it, because the learner asked for it
+  ---
+  duration_ms: 10.200063
+  type: 'test'
+  ...
+# Subtest: r8 review: the Web Locks path is exercised, not just the fallback
+ok 49 - r8 review: the Web Locks path is exercised, not just the fallback
+  ---
+  duration_ms: 32.913148
+  type: 'test'
+  ...
+# Subtest: r8 review: an empty string in the store is unreadable, not an empty history
+ok 50 - r8 review: an empty string in the store is unreadable, not an empty history
+  ---
+  duration_ms: 0.599015
+  type: 'test'
+  ...
+# Subtest: r8 review: two 700-character answers are accepted, the limit is per answer
+ok 51 - r8 review: two 700-character answers are accepted, the limit is per answer
+  ---
+  duration_ms: 0.231172
+  type: 'test'
+  ...
+# Subtest: r8 review: a legacy over-limit accepted alternative is preserved, not refused
+ok 52 - r8 review: a legacy over-limit accepted alternative is preserved, not refused
+  ---
+  duration_ms: 2.332432
+  type: 'test'
+  ...
+# Subtest: r8 review: an import replaces a same-id correction instead of failing
+ok 53 - r8 review: an import replaces a same-id correction instead of failing
+  ---
+  duration_ms: 7.178547
+  type: 'test'
+  ...
+# Subtest: r8 review: a newer correction from another tab is not overwritten by a stale one
+ok 54 - r8 review: a newer correction from another tab is not overwritten by a stale one
+  ---
+  duration_ms: 7.545362
+  type: 'test'
+  ...
+# Subtest: r8 review: a Clear that is overwritten by a stale tab is detected, not reported as success
+ok 55 - r8 review: a Clear that is overwritten by a stale tab is detected, not reported as success
+  ---
+  duration_ms: 3.330595
+  type: 'test'
+  ...
+# Subtest: rc6 markdown: escaped delimiters stay literal and code spans are not re-parsed
+ok 56 - rc6 markdown: escaped delimiters stay literal and code spans are not re-parsed
+  ---
+  duration_ms: 2.854431
+  type: 'test'
+  ...
+# Subtest: rc6 markdown: tables keep headers, alignment and escaped pipes; unsafe links/images stay inert
+ok 57 - rc6 markdown: tables keep headers, alignment and escaped pipes; unsafe links/images stay inert
+  ---
+  duration_ms: 1.013461
+  type: 'test'
+  ...
+# Subtest: rc6 markdown: ordered numbering, hard breaks and blockquote structure survive
+ok 58 - rc6 markdown: ordered numbering, hard breaks and blockquote structure survive
+  ---
+  duration_ms: 0.696475
+  type: 'test'
+  ...
+# Subtest: rc6 parser: stable IDs do not depend on array position and fenced questions are parsed
+ok 59 - rc6 parser: stable IDs do not depend on array position and fenced questions are parsed
+  ---
+  duration_ms: 8.648528
+  type: 'test'
+  ...
+# Subtest: rc6 parser: answer material never becomes a practice question or option
+ok 60 - rc6 parser: answer material never becomes a practice question or option
+  ---
+  duration_ms: 0.466161
+  type: 'test'
+  ...
+# Subtest: rc9 grading: provenance controls provisional scoring and unusable keys are ungraded instead of guessed
+ok 61 - rc9 grading: provenance controls provisional scoring and unusable keys are ungraded instead of guessed
+  ---
+  duration_ms: 1.053146
+  type: 'test'
+  ...
+# Subtest: rc6 grading: multiple choices, true/false, alternatives and explicit normalization
+ok 62 - rc6 grading: multiple choices, true/false, alternatives and explicit normalization
+  ---
+  duration_ms: 0.711735
+  type: 'test'
+  ...
+# Subtest: rc9 scoring: the denominator only counts scorable items and ungradeable items are reported separately
+ok 63 - rc9 scoring: the denominator only counts scorable items and ungradeable items are reported separately
+  ---
+  duration_ms: 2.043877
+  type: 'test'
+  ...
+# Subtest: rc8 transcript fallback and legacy rc6 history migration preserve anti-tampering on direct imports
+ok 64 - rc8 transcript fallback and legacy rc6 history migration preserve anti-tampering on direct imports
+  ---
+  duration_ms: 8.649577
+  type: 'test'
+  ...
+# Subtest: rc6 history: versioned round trip, atomic invalid import, deterministic conflicts and legacy isolation
+ok 65 - rc6 history: versioned round trip, atomic invalid import, deterministic conflicts and legacy isolation
+  ---
+  duration_ms: 3.128011
+  type: 'test'
+  ...
+# Subtest: rc9 archive: unique question IDs, honest scorable coverage, confidence labels and zero unearned official keys
+ok 66 - rc9 archive: unique question IDs, honest scorable coverage, confidence labels and zero unearned official keys
+  ---
+  duration_ms: 1456.238043
+  type: 'test'
+  ...
+# Subtest: rc9 parser (\#76): numbering that restarts per section never borrows another section's answer
+ok 67 - rc9 parser (\#76): numbering that restarts per section never borrows another section's answer
+  ---
+  duration_ms: 3.647456
+  type: 'test'
+  ...
+# Subtest: rc9 manifest (\#75): every paper reports the number of items it can actually score
+ok 68 - rc9 manifest (\#75): every paper reports the number of items it can actually score
+  ---
+  duration_ms: 1497.179287
+  type: 'test'
+  ...
+# Subtest: paper-level anchor checks do not verify individual answer keys
+ok 69 - paper-level anchor checks do not verify individual answer keys
+  ---
+  duration_ms: 0.716085
+  type: 'test'
+  ...
+# Subtest: untrusted provisional hints cannot turn a missing exam key into a gradeable answer
+ok 70 - untrusted provisional hints cannot turn a missing exam key into a gradeable answer
+  ---
+  duration_ms: 0.503998
+  type: 'test'
+  ...
+# Subtest: exam builder never emits an inferred choice key from heuristic or teaching-bank evidence
+ok 71 - exam builder never emits an inferred choice key from heuristic or teaching-bank evidence
+  ---
+  duration_ms: 1441.498015
+  type: 'test'
+  ...
+# Subtest: rc9 essay rubric (\#78): off-topic, template and too-short answers never reach the correct band
+ok 72 - rc9 essay rubric (\#78): off-topic, template and too-short answers never reach the correct band
+  ---
+  duration_ms: 1.209677
+  type: 'test'
+  ...
+# Subtest: rc9 stimulus (\#79): picture-dependent items are detected from the item itself and never scored without the picture
+ok 73 - rc9 stimulus (\#79): picture-dependent items are detected from the item itself and never scored without the picture
+  ---
+  duration_ms: 0.717753
+  type: 'test'
+  ...
+# Subtest: rc6 build: the answer-key manifest and scoring audit regenerate byte-for-byte
+ok 74 - rc6 build: the answer-key manifest and scoring audit regenerate byte-for-byte
+  ---
+  duration_ms: 3201.509743
+  type: 'test'
+  ...
+# Subtest: rc9 review round: a gap-fill item with one transcribed line keeps its stored key (\#75)
+ok 75 - rc9 review round: a gap-fill item with one transcribed line keeps its stored key (\#75)
+  ---
+  duration_ms: 1.337455
+  type: 'test'
+  ...
+# Subtest: rc9 review round: a learner correction restores a key the archive never had
+ok 76 - rc9 review round: a learner correction restores a key the archive never had
+  ---
+  duration_ms: 0.597225
+  type: 'test'
+  ...
+# Subtest: rc9 review round: the efficiency figure and its fraction share one denominator
+ok 77 - rc9 review round: the efficiency figure and its fraction share one denominator
+  ---
+  duration_ms: 0.371185
+  type: 'test'
+  ...
+# Subtest: rc9/v1.0.0 review round: open-ended essays are formally exempt while preserving provisional vs transcribed rubric provenance
+ok 78 - rc9/v1.0.0 review round: open-ended essays are formally exempt while preserving provisional vs transcribed rubric provenance
+  ---
+  duration_ms: 2.808973
+  type: 'test'
+  ...
+# Subtest: rc9 fix round: a "choose two" item gives partial credit and never full credit for a wrong set
+ok 79 - rc9 fix round: a "choose two" item gives partial credit and never full credit for a wrong set
+  ---
+  duration_ms: 0.48478
+  type: 'test'
+  ...
+# Subtest: rc9 fix round: a true/false item rejects a response that answers both ways
+ok 80 - rc9 fix round: a true/false item rejects a response that answers both ways
+  ---
+  duration_ms: 0.17328
+  type: 'test'
+  ...
+# Subtest: rc9 fix round: an item that cannot be scored is never counted as "chưa trả lời"
+ok 81 - rc9 fix round: an item that cannot be scored is never counted as "chưa trả lời"
+  ---
+  duration_ms: 0.308539
+  type: 'test'
+  ...
+# Subtest: rc9 fix round: partial credit lowers the earned fraction without inventing a wrong answer
+ok 82 - rc9 fix round: partial credit lowers the earned fraction without inventing a wrong answer
+  ---
+  duration_ms: 0.224232
+  type: 'test'
+  ...
+# Subtest: v1.0.0 curated keys & formal exemptions: curated_verified scores deterministically and exempt essays attach advisory rubrics without entering denominator
+ok 83 - v1.0.0 curated keys & formal exemptions: curated_verified scores deterministically and exempt essays attach advisory rubrics without entering denominator
+  ---
+  duration_ms: 3214.391653
+  type: 'test'
+  ...
+# Subtest: rc10 import hardening: untrusted paper metadata and correction candidates are validated
+ok 84 - rc10 import hardening: untrusted paper metadata and correction candidates are validated
+  ---
+  duration_ms: 2.876162
+  type: 'test'
+  ...
+# Subtest: rc10 import hardening: a paper snapshot must describe an answerable paper
+ok 85 - rc10 import hardening: a paper snapshot must describe an answerable paper
+  ---
+  duration_ms: 3.306241
+  type: 'test'
+  ...
+# Subtest: rc10 import hardening: a record produced from a partial session still imports
+ok 86 - rc10 import hardening: a record produced from a partial session still imports
+  ---
+  duration_ms: 1.068042
+  type: 'test'
+  ...
+# Subtest: merging two valid histories keeps the newest 50 and still imports
+ok 87 - merging two valid histories keeps the newest 50 and still imports
+  ---
+  duration_ms: 5877.927698
+  type: 'test'
+  ...
+# Subtest: a second attempt on the same paper cannot overwrite the stored question set
+ok 88 - a second attempt on the same paper cannot overwrite the stored question set
+  ---
+  duration_ms: 12.729161
+  type: 'test'
+  ...
+# Subtest: a snapshot with the same values in a different key order is not a conflict
+ok 89 - a snapshot with the same values in a different key order is not a conflict
+  ---
+  duration_ms: 14.699068
+  type: 'test'
+  ...
+# Subtest: rc11 persistence: a correction removed by another tab is not silently adopted
+ok 90 - rc11 persistence: a correction removed by another tab is not silently adopted
+  ---
+  duration_ms: 15.822716
+  type: 'test'
+  ...
+# Subtest: rc11 persistence: an attempt replaced under the same id is not adopted as our save
+ok 91 - rc11 persistence: an attempt replaced under the same id is not adopted as our save
+  ---
+  duration_ms: 17.861488
+  type: 'test'
+  ...
+# Subtest: rc11 persistence: a paper snapshot replaced under the same key is not adopted as our save
+ok 92 - rc11 persistence: a paper snapshot replaced under the same key is not adopted as our save
+  ---
+  duration_ms: 16.046608
+  type: 'test'
+  ...
+# Subtest: rc11 persistence: an unrepairable concurrent overwrite reports failure, not a partial success
+ok 93 - rc11 persistence: an unrepairable concurrent overwrite reports failure, not a partial success
+  ---
+  duration_ms: 27.383833
+  type: 'test'
+  ...
+# Subtest: rc11 persistence: a concurrent overwrite between write and read-back is repaired, not lost
+ok 94 - rc11 persistence: a concurrent overwrite between write and read-back is repaired, not lost
+  ---
+  duration_ms: 29.625815
+  type: 'test'
+  ...
+# Subtest: rc11 persistence: a successful save returns the merged history, not the caller's unmerged copy
+ok 95 - rc11 persistence: a successful save returns the merged history, not the caller's unmerged copy
+  ---
+  duration_ms: 20.43425
+  type: 'test'
+  ...
+# Subtest: rc11 persistence: two tabs that both submit keep both attempts
+ok 96 - rc11 persistence: two tabs that both submit keep both attempts
+  ---
+  duration_ms: 20.292582
+  type: 'test'
+  ...
+# Subtest: rc11 retention: the window keeps the newest attempts by submission time, not array position
+ok 97 - rc11 retention: the window keeps the newest attempts by submission time, not array position
+  ---
+  duration_ms: 8448.952095
+  type: 'test'
+  ...
+# Subtest: rc11 merge: a corrected attempt still merges with its uncorrected copy
+ok 98 - rc11 merge: a corrected attempt still merges with its uncorrected copy
+  ---
+  duration_ms: 1.297869
+  type: 'test'
+  ...
+# Subtest: rc11 backup copy matches what the exporter really writes
+ok 99 - rc11 backup copy matches what the exporter really writes
+  ---
+  duration_ms: 26.197207
+  type: 'test'
+  ...
+# Subtest: rc11 export: a history the app can build is a history the app can import
+ok 100 - rc11 export: a history the app can build is a history the app can import
+  ---
+  duration_ms: 17.126044
+  type: 'test'
+  ...
+# Subtest: rc11 english: every exam toast has an English rendering
+ok 101 - rc11 english: every exam toast has an English rendering
+  ---
+  duration_ms: 25.247565
+  type: 'test'
+  ...
+# Subtest: rc11 model: addExamResult refuses a key the exporter could never re-import
+ok 102 - rc11 model: addExamResult refuses a key the exporter could never re-import
+  ---
+  duration_ms: 13.196941
+  type: 'test'
+  ...
+# Subtest: rc11 persist: a correction another tab wrote is carried, so the union stays saveable
+ok 103 - rc11 persist: a correction another tab wrote is carried, so the union stays saveable
+  ---
+  duration_ms: 14.400075
+  type: 'test'
+  ...
+# Subtest: rc11 device settings: export carries exactly the four device-local settings and nothing else
+ok 104 - rc11 device settings: export carries exactly the four device-local settings and nothing else
+  ---
+  duration_ms: 0.584749
+  type: 'test'
+  ...
+# Subtest: rc11 device settings: export -> import round-trips and the values persist after reload
+ok 105 - rc11 device settings: export -> import round-trips and the values persist after reload
+  ---
+  duration_ms: 0.889511
+  type: 'test'
+  ...
+# Subtest: rc11 device settings: a malformed, foreign or unsupported-version file is refused and changes nothing
+ok 106 - rc11 device settings: a malformed, foreign or unsupported-version file is refused and changes nothing
+  ---
+  duration_ms: 0.771499
+  type: 'test'
+  ...
+# Subtest: rc11 device settings: extra unknown fields are ignored, not applied
+ok 107 - rc11 device settings: extra unknown fields are ignored, not applied
+  ---
+  duration_ms: 0.178232
+  type: 'test'
+  ...
+# Subtest: rc11 device settings: a failing store reports the failure and leaves the old settings readable
+ok 108 - rc11 device settings: a failing store reports the failure and leaves the old settings readable
+  ---
+  duration_ms: 0.26183
+  type: 'test'
+  ...
+# Subtest: rc11 device settings: a dead store reports write-failed because the capacity probe caught it first
+ok 109 - rc11 device settings: a dead store reports write-failed because the capacity probe caught it first
+  ---
+  duration_ms: 0.226929
+  type: 'test'
+  ...
+# Subtest: rc11 device settings: a store that fails mid-commit and cannot roll back is reported as rollback-failed
+ok 110 - rc11 device settings: a store that fails mid-commit and cannot roll back is reported as rollback-failed
+  ---
+  duration_ms: 0.367482
+  type: 'test'
+  ...
+# Subtest: rc11 device settings: oversized input is refused before it can be parsed
+ok 111 - rc11 device settings: oversized input is refused before it can be parsed
+  ---
+  duration_ms: 0.445844
+  type: 'test'
+  ...
+# Subtest: rc11 device settings: applyDeviceSettings never reports ok after writing only part of the set
+ok 112 - rc11 device settings: applyDeviceSettings never reports ok after writing only part of the set
+  ---
+  duration_ms: 0.129655
+  type: 'test'
+  ...
+# Subtest: rc11 device settings: the v1 progress backup still refuses to carry these settings
+ok 113 - rc11 device settings: the v1 progress backup still refuses to carry these settings
+  ---
+  duration_ms: 0.262451
+  type: 'test'
+  ...
+# Subtest: rc11 device settings: phrase progress keeps travelling in the v1 backup
+ok 114 - rc11 device settings: phrase progress keeps travelling in the v1 backup
+  ---
+  duration_ms: 0.501904
+  type: 'test'
+  ...
+# Subtest: rc11 english: every Vietnamese sentence passed to toast() renders in English
+ok 115 - rc11 english: every Vietnamese sentence passed to toast() renders in English
+  ---
+  duration_ms: 4.288095
+  type: 'test'
+  ...
+# Subtest: rc10: every CEFR combination narrows the deck to exactly its own levels (128 cases)
+ok 116 - rc10: every CEFR combination narrows the deck to exactly its own levels (128 cases)
+  ---
+  duration_ms: 1119.379974
+  type: 'test'
+  ...
+# Subtest: rc10: the reported configuration arithmetic is corrected and the true denominator is computed
+ok 117 - rc10: the reported configuration arithmetic is corrected and the true denominator is computed
+  ---
+  duration_ms: 0.281387
+  type: 'test'
+  ...
+# Subtest: rc10: every vocabulary entry point stays inside the pool for all 2,816 configurations
+ok 118 - rc10: every vocabulary entry point stays inside the pool for all 2,816 configurations
+  ---
+  duration_ms: 7238.32766
+  type: 'test'
+  ...
+# Subtest: rc10: the phrase entry point stays inside its own level pool for all 256 configurations
+ok 119 - rc10: the phrase entry point stays inside its own level pool for all 256 configurations
+  ---
+  duration_ms: 226.598552
+  type: 'test'
+  ...
+# Subtest: rc10: the counters a study surface promises come from the filtered pool, not the whole deck
+ok 120 - rc10: the counters a study surface promises come from the filtered pool, not the whole deck
+  ---
+  duration_ms: 3.838798
+  type: 'test'
+  ...
+# Subtest: rc10: no study mode bypasses the level filter any more
+ok 121 - rc10: no study mode bypasses the level filter any more
+  ---
+  duration_ms: 1.779274
+  type: 'test'
+  ...
+# Subtest: rc10: the study scope is a persisted setting with a safe default
+ok 122 - rc10: the study scope is a persisted setting with a safe default
+  ---
+  duration_ms: 0.802586
+  type: 'test'
+  ...
+# Subtest: rc10: the study scope is visible on the study home, not buried in the advanced panel
+ok 123 - rc10: the study scope is visible on the study home, not buried in the advanced panel
+  ---
+  duration_ms: 1.641087
+  type: 'test'
+  ...
+# Subtest: rc10: words-only refuses phrase practice without deleting a single phrase
+ok 124 - rc10: words-only refuses phrase practice without deleting a single phrase
+  ---
+  duration_ms: 2.13938
+  type: 'test'
+  ...
+# Subtest: v1.0.0: legacy rows without a senses array still follow the headword level tag
+ok 125 - v1.0.0: legacy rows without a senses array still follow the headword level tag
+  ---
+  duration_ms: 0.977758
+  type: 'test'
+  ...
+# Subtest: the only runtime deliverable is a self-contained HTML document
+ok 126 - the only runtime deliverable is a self-contained HTML document
+  ---
+  duration_ms: 311.305278
+  type: 'test'
+  ...
+# Subtest: the embedded exam archive preserves all 106 selected transcription bodies and provenance
+ok 127 - the embedded exam archive preserves all 106 selected transcription bodies and provenance
+  ---
+  duration_ms: 108.332793
+  type: 'test'
+  ...
+# Subtest: interface language is stored independently and is not added to prefs or the v1 backup
+ok 128 - interface language is stored independently and is not added to prefs or the v1 backup
+  ---
+  duration_ms: 0.873588
+  type: 'test'
+  ...
+# Subtest: English interface labels are localized while unknown source text and Vietnamese mode remain unchanged
+ok 129 - English interface labels are localized while unknown source text and Vietnamese mode remain unchanged
+  ---
+  duration_ms: 15.385677
+  type: 'test'
+  ...
+# Subtest: every sentence in the privacy panel translates in the English interface
+ok 130 - every sentence in the privacy panel translates in the English interface
+  ---
+  duration_ms: 6.57207
+  type: 'test'
+  ...
+# Subtest: embedded vocabulary loads without fetch and passes runtime validation
+ok 131 - embedded vocabulary loads without fetch and passes runtime validation
+  ---
+  duration_ms: 201.783606
+  type: 'test'
+  ...
+# Subtest: same-root forms are folded into their headword, never counted as words
+ok 132 - same-root forms are folded into their headword, never counted as words
+  ---
+  duration_ms: 148.521113
+  type: 'test'
+  ...
+# Subtest: the About panel states the real name, version, licence and purpose
+ok 133 - the About panel states the real name, version, licence and purpose
+  ---
+  duration_ms: 8.011927
+  type: 'test'
+  ...
+# Subtest: the search index is only warmed where warming is free
+ok 134 - the search index is only warmed where warming is free
+  ---
+  duration_ms: 1.079313
+  type: 'test'
+  ...
+# Subtest: the learner-facing word count is the focus deck, not every stored row
+ok 135 - the learner-facing word count is the focus deck, not every stored row
+  ---
+  duration_ms: 72.139094
+  type: 'test'
+  ...
+# Subtest: exam archive filters by year, location, format and unit
+ok 136 - exam archive filters by year, location, format and unit
+  ---
+  duration_ms: 36.848739
+  type: 'test'
+  ...
+# Subtest: unreviewed corpus uses conservative transcript-only parsing and unlocks OCR records with explicit low-confidence warnings
+ok 137 - unreviewed corpus uses conservative transcript-only parsing and unlocks OCR records with explicit low-confidence warnings
+  ---
+  duration_ms: 28.444382
+  type: 'test'
+  ...
+# Subtest: transcript parser groups only present choices, marks items unverified, and stops before answer-key sections
+ok 138 - transcript parser groups only present choices, marks items unverified, and stops before answer-key sections
+  ---
+  duration_ms: 10.450758
+  type: 'test'
+  ...
+# Subtest: corpus parsing stops before explicit answer and marking-scheme headings
+ok 139 - corpus parsing stops before explicit answer and marking-scheme headings
+  ---
+  duration_ms: 943.348834
+  type: 'test'
+  ...
+# Subtest: transcript practice supports selection, changes, incomplete submissions and in-session review without grading
+ok 140 - transcript practice supports selection, changes, incomplete submissions and in-session review without grading
+  ---
+  duration_ms: 0.975268
+  type: 'test'
+  ...
+# Subtest: transcription rendering keeps source structure and escapes untrusted HTML
+ok 141 - transcription rendering keeps source structure and escapes untrusted HTML
+  ---
+  duration_ms: 2.127708
+  type: 'test'
+  ...
+# Subtest: exam attempts use a separate local-only history and never extend the v1 flashcard backup
+ok 142 - exam attempts use a separate local-only history and never extend the v1 flashcard backup
+  ---
+  duration_ms: 0.645372
+  type: 'test'
+  ...
+# Subtest: learner-facing labels stay local while persisted scheduler keys remain stable
+ok 143 - learner-facing labels stay local while persisted scheduler keys remain stable
+  ---
+  duration_ms: 0.420217
+  type: 'test'
+  ...
+# Subtest: new progress transitions to learning, and wrong answers become weak and due
+ok 144 - new progress transitions to learning, and wrong answers become weak and due
+  ---
+  duration_ms: 0.35716
+  type: 'test'
+  ...
+# Subtest: repeated correct review answers can reach mastered
+ok 145 - repeated correct review answers can reach mastered
+  ---
+  duration_ms: 0.101953
+  type: 'test'
+  ...
+# Subtest: untouched new words are not misreported as overdue reviews
+ok 146 - untouched new words are not misreported as overdue reviews
+  ---
+  duration_ms: 0.523294
+  type: 'test'
+  ...
+# Subtest: due sessions never pull reviews forward while quick mixed sessions may fill
+ok 147 - due sessions never pull reviews forward while quick mixed sessions may fill
+  ---
+  duration_ms: 0.199907
+  type: 'test'
+  ...
+# Subtest: due selection respects size boundaries and deterministic overdue order
+ok 148 - due selection respects size boundaries and deterministic overdue order
+  ---
+  duration_ms: 0.195021
+  type: 'test'
+  ...
+# Subtest: stats and search include structured vocabulary metadata
+ok 149 - stats and search include structured vocabulary metadata
+  ---
+  duration_ms: 0.346
+  type: 'test'
+  ...
+# Subtest: a search favorite toggle updates the cached index without dropping the result set
+ok 150 - a search favorite toggle updates the cached index without dropping the result set
+  ---
+  duration_ms: 0.218009
+  type: 'test'
+  ...
+# Subtest: ID 448 renders its canonical meaning and labels the retained old wording
+ok 151 - ID 448 renders its canonical meaning and labels the retained old wording
+  ---
+  duration_ms: 0.36814
+  type: 'test'
+  ...
+# Subtest: answer choices are a named button group rather than a radio group
+ok 152 - answer choices are a named button group rather than a radio group
+  ---
+  duration_ms: 2.726066
+  type: 'test'
+  ...
+# Subtest: resetting or importing progress clears the whole running session
+ok 153 - resetting or importing progress clears the whole running session
+  ---
+  duration_ms: 1.662021
+  type: 'test'
+  ...
+# Subtest: a failed write is reported instead of being followed by a success message
+ok 154 - a failed write is reported instead of being followed by a success message
+  ---
+  duration_ms: 2.11106
+  type: 'test'
+  ...
+# Subtest: programmatic page focus stays visually quiet while settings switches have names and focus
+ok 155 - programmatic page focus stays visually quiet while settings switches have names and focus
+  ---
+  duration_ms: 0.547618
+  type: 'test'
+  ...
+# Subtest: global shortcuts only act on the session that is actually on screen
+ok 156 - global shortcuts only act on the session that is actually on screen
+  ---
+  duration_ms: 0.235788
+  type: 'test'
+  ...
+# Subtest: an exported backup round-trips through the importer without loss or mutation
+ok 157 - an exported backup round-trips through the importer without loss or mutation
+  ---
+  duration_ms: 1.257851
+  type: 'test'
+  ...
+# Subtest: misidentified and malformed backups are rejected with an accurate message
+ok 158 - misidentified and malformed backups are rejected with an accurate message
+  ---
+  duration_ms: 0.555861
+  type: 'test'
+  ...
+# Subtest: session history keeps one retention window across storage, export and import
+ok 159 - session history keeps one retention window across storage, export and import
+  ---
+  duration_ms: 1.53963
+  type: 'test'
+  ...
+# Subtest: expanded metadata is rendered safely on answer feedback
+ok 160 - expanded metadata is rendered safely on answer feedback
+  ---
+  duration_ms: 0.145307
+  type: 'test'
+  ...
+# Subtest: progress save/load and import validation are atomic at the boundary
+ok 161 - progress save/load and import validation are atomic at the boundary
+  ---
+  duration_ms: 0.333847
+  type: 'test'
+  ...
+# Subtest: question mode constants remain available and cloze handles a regular plural
+ok 162 - question mode constants remain available and cloze handles a regular plural
+  ---
+  duration_ms: 3.594685
+  type: 'test'
+  ...
+# Subtest: corrective practice follows remaining cards without mutating their progress
+ok 163 - corrective practice follows remaining cards without mutating their progress
+  ---
+  duration_ms: 0.412594
+  type: 'test'
+  ...
+# Subtest: practice is bounded to one retry per card, including the last card
+ok 164 - practice is bounded to one retry per card, including the last card
+  ---
+  duration_ms: 0.083579
+  type: 'test'
+  ...
+# Subtest: only a never-studied card is introduced before it is graded
+ok 165 - only a never-studied card is introduced before it is graded
+  ---
+  duration_ms: 0.18705
+  type: 'test'
+  ...
+# Subtest: a revealed answer can only be graded by explicit self-assessment
+ok 166 - a revealed answer can only be graded by explicit self-assessment
+  ---
+  duration_ms: 0.071666
+  type: 'test'
+  ...
+# Subtest: a blank spelling submission is not an attempt that can be graded
+ok 167 - a blank spelling submission is not an attempt that can be graded
+  ---
+  duration_ms: 0.091015
+  type: 'test'
+  ...
+# Subtest: the diagnostics log is opt-in, local, bounded and free of learner content
+ok 168 - the diagnostics log is opt-in, local, bounded and free of learner content
+  ---
+  duration_ms: 4.472871
+  type: 'test'
+  ...
+# Subtest: rc5: the diagnostics report is sent once, bounded, and explained when it fails
+ok 169 - rc5: the diagnostics report is sent once, bounded, and explained when it fails
+  ---
+  duration_ms: 35.389672
+  type: 'test'
+  ...
+# Subtest: every multiple-choice question offers plausible, distinct options
+ok 170 - every multiple-choice question offers plausible, distinct options
+  ---
+  duration_ms: 2019.023442
+  type: 'test'
+  ...
+# Subtest: every generated mode keeps prompt, answer and options bound to its own record
+ok 171 - every generated mode keeps prompt, answer and options bound to its own record
+  ---
+  duration_ms: 2100.76457
+  type: 'test'
+  ...
+# Subtest: cloze options never repeat a word already printed in the sentence
+ok 172 - cloze options never repeat a word already printed in the sentence
+  ---
+  duration_ms: 1.300016
+  type: 'test'
+  ...
+# Subtest: each failed card gets its own retry, retaining the original queue order
+ok 173 - each failed card gets its own retry, retaining the original queue order
+  ---
+  duration_ms: 0.227278
+  type: 'test'
+  ...
+# Subtest: a study sprint queues the configured session size instead of a hidden seven-word cap
+ok 174 - a study sprint queues the configured session size instead of a hidden seven-word cap
+  ---
+  duration_ms: 0.843969
+  type: 'test'
+  ...
+# Subtest: a study sprint ranks due, weak, learning, new, review and mastered cards deterministically
+ok 175 - a study sprint ranks due, weak, learning, new, review and mastered cards deterministically
+  ---
+  duration_ms: 0.262037
+  type: 'test'
+  ...
+# Subtest: a study sprint handles small pools, unknown ids and an empty pool without inventing words
+ok 176 - a study sprint handles small pools, unknown ids and an empty pool without inventing words
+  ---
+  duration_ms: 0.164732
+  type: 'test'
+  ...
+# Subtest: exam grading never turns an unverified answer key into a confident grade
+ok 177 - exam grading never turns an unverified answer key into a confident grade
+  ---
+  duration_ms: 1.008136
+  type: 'test'
+  ...
+# Subtest: exported exam results report exactly what the learner did and what could be graded
+ok 178 - exported exam results report exactly what the learner did and what could be graded
+  ---
+  duration_ms: 1.506231
+  type: 'test'
+  ...
+# Subtest: a sprint hand-off happens only after a correct first-pass answer
+ok 179 - a sprint hand-off happens only after a correct first-pass answer
+  ---
+  duration_ms: 0.150632
+  type: 'test'
+  ...
+# Subtest: a sprint asks each word at the retrieval level the learner has demonstrated
+ok 180 - a sprint asks each word at the retrieval level the learner has demonstrated
+  ---
+  duration_ms: 0.195469
+  type: 'test'
+  ...
+# Subtest: a consolidation is required only when the first pass was not a produced answer
+ok 181 - a consolidation is required only when the first pass was not a produced answer
+  ---
+  duration_ms: 0.139088
+  type: 'test'
+  ...
+# Subtest: a consolidation is inserted after the gap, bounded to once per word and never practice
+ok 182 - a consolidation is inserted after the gap, bounded to once per word and never practice
+  ---
+  duration_ms: 0.28936
+  type: 'test'
+  ...
+# Subtest: a sprint cannot exceed three turns per word, however badly it goes
+ok 183 - a sprint cannot exceed three turns per word, however badly it goes
+  ---
+  duration_ms: 0.277628
+  type: 'test'
+  ...
+# Subtest: a sprint hand-off never skips a consolidation, a retry or a self-assessment
+ok 184 - a sprint hand-off never skips a consolidation, a retry or a self-assessment
+  ---
+  duration_ms: 0.081457
+  type: 'test'
+  ...
+# Subtest: a sprint consolidation never mutates the record or the first-look decision
+ok 185 - a sprint consolidation never mutates the record or the first-look decision
+  ---
+  duration_ms: 0.09449
+  type: 'test'
+  ...
+# Subtest: the consolidation summary and sprint banner are translated without leftover Vietnamese
+ok 186 - the consolidation summary and sprint banner are translated without leftover Vietnamese
+  ---
+  duration_ms: 0.971601
+  type: 'test'
+  ...
+# Subtest: the retired dwell timer is gone rather than re-tuned
+ok 187 - the retired dwell timer is gone rather than re-tuned
+  ---
+  duration_ms: 197.073773
+  type: 'test'
+  ...
+# Subtest: the sprint and session headers translate without leaking Vietnamese fragments
+ok 188 - the sprint and session headers translate without leaking Vietnamese fragments
+  ---
+  duration_ms: 0.933644
+  type: 'test'
+  ...
+# Subtest: the benchmark accepts a complete, valid run and reports the median of its rounds
+ok 189 - the benchmark accepts a complete, valid run and reports the median of its rounds
+  ---
+  duration_ms: 0.871899
+  type: 'test'
+  ...
+# Subtest: the benchmark rejects runs that did less work than the fixed workload
+ok 190 - the benchmark rejects runs that did less work than the fixed workload
+  ---
+  duration_ms: 0.745267
+  type: 'test'
+  ...
+# Subtest: the benchmark validates each flow against its own workload
+ok 191 - the benchmark validates each flow against its own workload
+  ---
+  duration_ms: 0.253341
+  type: 'test'
+  ...
+# Subtest: the benchmark rejects a different word order, missing rounds and non-median totals
+ok 192 - the benchmark rejects a different word order, missing rounds and non-median totals
+  ---
+  duration_ms: 0.85444
+  type: 'test'
+  ...
+# Subtest: the benchmark rejects page errors and impossible hand-off counters
+ok 193 - the benchmark rejects page errors and impossible hand-off counters
+  ---
+  duration_ms: 0.906062
+  type: 'test'
+  ...
+# Subtest: the benchmark rejects a scenario whose recorded settings do not match the request
+ok 194 - the benchmark rejects a scenario whose recorded settings do not match the request
+  ---
+  duration_ms: 0.772891
+  type: 'test'
+  ...
+# Subtest: Scope A: English UI localization translates all shortcut hints and UI chrome without corrupting any vocabulary or exam text
+ok 195 - Scope A: English UI localization translates all shortcut hints and UI chrome without corrupting any vocabulary or exam text
+  ---
+  duration_ms: 1276.353487
+  type: 'test'
+  ...
+# Subtest: Scope B.1: queueConsolidation maintains gap >= min(3, N-1) for every session size N = 1..25 and never drops or loops across skips and retries
+ok 196 - Scope B.1: queueConsolidation maintains gap >= min(3, N-1) for every session size N = 1..25 and never drops or loops across skips and retries
+  ---
+  duration_ms: 3.245502
+  type: 'test'
+  ...
+# Subtest: Scope B.2: handleAnswer strictly isolates updateStreak and progress writes to firstPass turns only
+ok 197 - Scope B.2: handleAnswer strictly isolates updateStreak and progress writes to firstPass turns only
+  ---
+  duration_ms: 0.634003
+  type: 'test'
+  ...
+# Subtest: Scope C: benchmark contract rejects under-spaced sprint consolidations, dropped outliers, and malformed turnTimingsByClass
+ok 198 - Scope C: benchmark contract rejects under-spaced sprint consolidations, dropped outliers, and malformed turnTimingsByClass
+  ---
+  duration_ms: 0.669923
+  type: 'test'
+  ...
+# Subtest: Scope E: unstudied vocabulary items normalize to new across all modes while preserving valid/legacy studied progress
+ok 199 - Scope E: unstudied vocabulary items normalize to new across all modes while preserving valid/legacy studied progress
+  ---
+  duration_ms: 42.352737
+  type: 'test'
+  ...
+# Subtest: every one of the eight exercise types is generated from its own record and grades once
+ok 200 - every one of the eight exercise types is generated from its own record and grades once
+  ---
+  duration_ms: 27.12632
+  type: 'test'
+  ...
+# Subtest: a typed answer accepts the canonical wording and recorded senses, never a synonym column
+ok 201 - a typed answer accepts the canonical wording and recorded senses, never a synonym column
+  ---
+  duration_ms: 2.470473
+  type: 'test'
+  ...
+# Subtest: a mixed plan interleaves modes, spaces matching boards and reports unusable words
+ok 202 - a mixed plan interleaves modes, spaces matching boards and reports unusable words
+  ---
+  duration_ms: 2.650585
+  type: 'test'
+  ...
+# Subtest: the priority selection deduplicates overlapping groups and honours focus without touching progress
+ok 203 - the priority selection deduplicates overlapping groups and honours focus without touching progress
+  ---
+  duration_ms: 1.968673
+  type: 'test'
+  ...
+# Subtest: study configuration survives storage, rejects impossible states and never blocks boot
+ok 204 - study configuration survives storage, rejects impossible states and never blocks boot
+  ---
+  duration_ms: 1.148324
+  type: 'test'
+  ...
+# Subtest: a v1 backup still imports and an absent block keeps the device list instead of wiping it
+ok 205 - a v1 backup still imports and an absent block keeps the device list instead of wiping it
+  ---
+  duration_ms: 1.730804
+  type: 'test'
+  ...
+# Subtest: timed practice is bounded, formatted and never negative
+ok 206 - timed practice is bounded, formatted and never negative
+  ---
+  duration_ms: 2.207036
+  type: 'test'
+  ...
+# Subtest: XP and badges are derived from real first-pass records and are announced once
+ok 207 - XP and badges are derived from real first-pass records and are announced once
+  ---
+  duration_ms: 1.481385
+  type: 'test'
+  ...
+# Subtest: skipped questions stay pending and can be reopened without being graded
+ok 208 - skipped questions stay pending and can be reopened without being graded
+  ---
+  duration_ms: 0.480263
+  type: 'test'
+  ...
+# Subtest: the new interface copy exists in both languages and keeps dataset text intact
+ok 209 - the new interface copy exists in both languages and keeps dataset text intact
+  ---
+  duration_ms: 84.607972
+  type: 'test'
+  ...
+# Subtest: starting a session always lands on the study view
+ok 210 - starting a session always lands on the study view
+  ---
+  duration_ms: 0.921478
+  type: 'test'
+  ...
+# Subtest: every session starter captures its own XP baseline and resets session state
+ok 211 - every session starter captures its own XP baseline and resets session state
+  ---
+  duration_ms: 0.517913
+  type: 'test'
+  ...
+# Subtest: a start that cannot run explains itself instead of being a dead click
+ok 212 - a start that cannot run explains itself instead of being a dead click
+  ---
+  duration_ms: 0.769228
+  type: 'test'
+  ...
+# Subtest: card toggles update in place so a typed answer is never discarded
+ok 213 - card toggles update in place so a typed answer is never discarded
+  ---
+  duration_ms: 0.678824
+  type: 'test'
+  ...
+# Subtest: the embedded phrase bank loads, validates and stays separate from the vocabulary
+ok 214 - the embedded phrase bank loads, validates and stays separate from the vocabulary
+  ---
+  duration_ms: 25.569286
+  type: 'test'
+  ...
+# Subtest: phrase search covers type, level and Vietnamese meaning without touching word search
+ok 215 - phrase search covers type, level and Vietnamese meaning without touching word search
+  ---
+  duration_ms: 18.664182
+  type: 'test'
+  ...
+# Subtest: a phrase question is generated from its own record and graded once
+ok 216 - a phrase question is generated from its own record and graded once
+  ---
+  duration_ms: 2.927113
+  type: 'test'
+  ...
+# Subtest: phrase progress has its own store and sanitises whatever it is given
+ok 217 - phrase progress has its own store and sanitises whatever it is given
+  ---
+  duration_ms: 0.680217
+  type: 'test'
+  ...
+# Subtest: a phrase session prefers unseen and weak phrases and honours the filters
+ok 218 - a phrase session prefers unseen and weak phrases and honours the filters
+  ---
+  duration_ms: 1.237483
+  type: 'test'
+  ...
+# Subtest: phrase progress rides along in the backup without breaking v1 files
+ok 219 - phrase progress rides along in the backup without breaking v1 files
+  ---
+  duration_ms: 0.463627
+  type: 'test'
+  ...
+# Subtest: the phrase bank is wired into the shell, reset and localisation
+ok 220 - the phrase bank is wired into the shell, reset and localisation
+  ---
+  duration_ms: 2.810404
+  type: 'test'
+  ...
+# Subtest: search highlighting never breaks the text it escapes
+ok 221 - search highlighting never breaks the text it escapes
+  ---
+  duration_ms: 0.433976
+  type: 'test'
+  ...
+# Subtest: relative review times are plural-correct in both languages
+ok 222 - relative review times are plural-correct in both languages
+  ---
+  duration_ms: 0.169017
+  type: 'test'
+  ...
+# Subtest: a headword a learner cannot type is never asked as a typed exercise
+ok 223 - a headword a learner cannot type is never asked as a typed exercise
+  ---
+  duration_ms: 11.632465
+  type: 'test'
+  ...
+# Subtest: a modified key is never a flashcard shortcut
+ok 224 - a modified key is never a flashcard shortcut
+  ---
+  duration_ms: 0.141973
+  type: 'test'
+  ...
+# Subtest: English counted labels use singular and plural forms
+ok 225 - English counted labels use singular and plural forms
+  ---
+  duration_ms: 0.752369
+  type: 'test'
+  ...
+# Subtest: the search count is normalised before its noun is chosen
+ok 226 - the search count is normalised before its noun is chosen
+  ---
+  duration_ms: 0.937278
+  type: 'test'
+  ...
+# Subtest: every counted English pattern agrees with a count of one
+ok 227 - every counted English pattern agrees with a count of one
+  ---
+  duration_ms: 19.919517
+  type: 'test'
+  ...
+# Subtest: the exam archive scope panel is localised in English
+ok 228 - the exam archive scope panel is localised in English
+  ---
+  duration_ms: 0.156665
+  type: 'test'
+  ...
+# Subtest: rc2: a four-option question offers exactly four distinct options or is explicitly unavailable
+ok 229 - rc2: a four-option question offers exactly four distinct options or is explicitly unavailable
+  ---
+  duration_ms: 15.523536
+  type: 'test'
+  ...
+# Subtest: rc2: four-option configuration round-trips and older configurations stay usable
+ok 230 - rc2: four-option configuration round-trips and older configurations stay usable
+  ---
+  duration_ms: 0.404671
+  type: 'test'
+  ...
+# Subtest: rc2: changing a matching selection never grades; only completing a pair does
+ok 231 - rc2: changing a matching selection never grades; only completing a pair does
+  ---
+  duration_ms: 0.287248
+  type: 'test'
+  ...
+# Subtest: rc2: a matching board never repeats a word or a meaning
+ok 232 - rc2: a matching board never repeats a word or a meaning
+  ---
+  duration_ms: 4.359631
+  type: 'test'
+  ...
+# Subtest: rc2: recall distractors never repeat the prompt gloss
+ok 233 - rc2: recall distractors never repeat the prompt gloss
+  ---
+  duration_ms: 23.979611
+  type: 'test'
+  ...
+# Subtest: rc2: every turn shape introduces a new word before grading it
+ok 234 - rc2: every turn shape introduces a new word before grading it
+  ---
+  duration_ms: 1.528788
+  type: 'test'
+  ...
+# Subtest: rc2: vocabulary coverage reconciles the full headword inventory
+ok 235 - rc2: vocabulary coverage reconciles the full headword inventory
+  ---
+  duration_ms: 488.033473
+  type: 'test'
+  ...
+# Subtest: remediation: every learner store is synced across tabs and the listener is wired
+ok 236 - remediation: every learner store is synced across tabs and the listener is wired
+  ---
+  duration_ms: 0.817912
+  type: 'test'
+  ...
+# Subtest: remediation: the importer commits staged writes as one all-or-nothing step
+ok 237 - remediation: the importer commits staged writes as one all-or-nothing step
+  ---
+  duration_ms: 1.426722
+  type: 'test'
+  ...
+# Subtest: remediation: staged writes are all-or-nothing (shrink first, preflight, rollback)
+ok 238 - remediation: staged writes are all-or-nothing (shrink first, preflight, rollback)
+  ---
+  duration_ms: 0.905202
+  type: 'test'
+  ...
+# Subtest: remediation: the 838/1505 punctuation gloss pair never becomes a wrong option
+ok 239 - remediation: the 838/1505 punctuation gloss pair never becomes a wrong option
+  ---
+  duration_ms: 16.118809
+  type: 'test'
+  ...
+# Subtest: remediation: the day streak only counts first-pass correct answers (README)
+ok 240 - remediation: the day streak only counts first-pass correct answers (README)
+  ---
+  duration_ms: 0.97924
+  type: 'test'
+  ...
+# Subtest: remediation: a skipped card is counted exactly once (RT-08)
+ok 241 - remediation: a skipped card is counted exactly once (RT-08)
+  ---
+  duration_ms: 0.881376
+  type: 'test'
+  ...
+# Subtest: remediation: a failed commit rolls back in reverse order and reports a failed rollback
+ok 242 - remediation: a failed commit rolls back in reverse order and reports a failed rollback
+  ---
+  duration_ms: 0.691409
+  type: 'test'
+  ...
+# Subtest: rc4: showing or hiding meanings is a presentation preference, never a learning rule
+ok 243 - rc4: showing or hiding meanings is a presentation preference, never a learning rule
+  ---
+  duration_ms: 22.306005
+  type: 'test'
+  ...
+# Subtest: rc5: hiding meanings skips the preview stage instead of masking it
+ok 244 - rc5: hiding meanings skips the preview stage instead of masking it
+  ---
+  duration_ms: 43.827344
+  type: 'test'
+  ...
+# Subtest: rc5: no mask, placeholder or per-word reveal survives anywhere
+ok 245 - rc5: no mask, placeholder or per-word reveal survives anywhere
+  ---
+  duration_ms: 73.71175
+  type: 'test'
+  ...
+# Subtest: rc5: every passive surface omits the gloss rather than masking it
+ok 246 - rc5: every passive surface omits the gloss rather than masking it
+  ---
+  duration_ms: 150.354636
+  type: 'test'
+  ...
+# Subtest: rc4: neither presentation preference can reach the scheduler, the grader or stored progress
+ok 247 - rc4: neither presentation preference can reach the scheduler, the grader or stored progress
+  ---
+  duration_ms: 86.900419
+  type: 'test'
+  ...
+# Subtest: rc4: the Modern interface is a second layout, not a palette swap
+ok 248 - rc4: the Modern interface is a second layout, not a palette swap
+  ---
+  duration_ms: 1.336922
+  type: 'test'
+  ...
+# Subtest: rc7: maskAnswerInPrompt is token-aware and masks written forms only
+ok 249 - rc7: maskAnswerInPrompt is token-aware and masks written forms only
+  ---
+  duration_ms: 0.336495
+  type: 'test'
+  ...
+# Subtest: rc7: cloze blanks inflected forms, refuses leaky sentences and tries later examples
+ok 250 - rc7: cloze blanks inflected forms, refuses leaky sentences and tries later examples
+  ---
+  duration_ms: 0.517097
+  type: 'test'
+  ...
+# Subtest: rc8: proton/gluten/cholesterol glosses are fixed in data while a synthetic degenerate gloss still keeps only the flashcard path
+ok 251 - rc8: proton/gluten/cholesterol glosses are fixed in data while a synthetic degenerate gloss still keeps only the flashcard path
+  ---
+  duration_ms: 1.251281
+  type: 'test'
+  ...
+# Subtest: rc7: no generated question over the real dataset prints its answer early
+ok 252 - rc7: no generated question over the real dataset prints its answer early
+  ---
+  duration_ms: 2624.370999
+  type: 'test'
+  ...
+# Subtest: rc7: typed spelling still detects a shared-gloss ambiguity behind a masked prompt
+ok 253 - rc7: typed spelling still detects a shared-gloss ambiguity behind a masked prompt
+  ---
+  duration_ms: 0.329039
+  type: 'test'
+  ...
+# Subtest: rc7: the sprint hand-off strip never answers the next card
+ok 254 - rc7: the sprint hand-off strip never answers the next card
+  ---
+  duration_ms: 0.224615
+  type: 'test'
+  ...
+# Subtest: rc7: phrase prompts are masked with the phrase itself
+ok 255 - rc7: phrase prompts are masked with the phrase itself
+  ---
+  duration_ms: 0.301438
+  type: 'test'
+  ...
+# Subtest: every shipped version literal agrees with APP_VERSION
+ok 256 - every shipped version literal agrees with APP_VERSION
+  ---
+  duration_ms: 410.397414
+  type: 'test'
+  ...
+# Subtest: CEFR levels are read from the stored label only, never guessed
+ok 257 - CEFR levels are read from the stored label only, never guessed
+  ---
+  duration_ms: 2.253313
+  type: 'test'
+  ...
+# Subtest: the CEFR selection survives storage, rejects corrupt data and keeps an explicit empty choice
+ok 258 - the CEFR selection survives storage, rejects corrupt data and keeps an explicit empty choice
+  ---
+  duration_ms: 0.755558
+  type: 'test'
+  ...
+# Subtest: toggling CEFR levels is order-stable, supports one/many/none/all and never mutates the input
+ok 259 - toggling CEFR levels is order-stable, supports one/many/none/all and never mutates the input
+  ---
+  duration_ms: 0.434669
+  type: 'test'
+  ...
+# Subtest: the CEFR filter narrows every word mode without touching priority order or learning state
+ok 260 - the CEFR filter narrows every word mode without touching priority order or learning state
+  ---
+  duration_ms: 0.694521
+  type: 'test'
+  ...
+# Subtest: all seven exercise modes plan only from the CEFR-selected words
+ok 261 - all seven exercise modes plan only from the CEFR-selected words
+  ---
+  duration_ms: 2.575758
+  type: 'test'
+  ...
+# Subtest: the exam copy never promises 100% scoring and always shows the real coverage
+ok 262 - the exam copy never promises 100% scoring and always shows the real coverage
+  ---
+  duration_ms: 2.317449
+  type: 'test'
+  ...
+# Subtest: the shipped vocabulary keeps every row and every level is selectable
+ok 263 - the shipped vocabulary keeps every row and every level is selectable
+  ---
+  duration_ms: 71.861802
+  type: 'test'
+  ...
+# Subtest: the CEFR panel and its empty states are bilingual, not Vietnamese-only
+ok 264 - the CEFR panel and its empty states are bilingual, not Vietnamese-only
+  ---
+  duration_ms: 1.845635
+  type: 'test'
+  ...
+# Subtest: the CEFR selector is wired into the real session pipeline, not just the panel
+ok 265 - the CEFR selector is wired into the real session pipeline, not just the panel
+  ---
+  duration_ms: 2.349516
+  type: 'test'
+  ...
+# Subtest: rc9 fix round: a corrupt CEFR record falls back to the default instead of emptying the deck
+ok 266 - rc9 fix round: a corrupt CEFR record falls back to the default instead of emptying the deck
+  ---
+  duration_ms: 0.351002
+  type: 'test'
+  ...
+# Subtest: rc9 fix round: the CEFR panel says how many words the level filter hides
+ok 267 - rc9 fix round: the CEFR panel says how many words the level filter hides
+  ---
+  duration_ms: 0.767528
+  type: 'test'
+  ...
+# Subtest: rc9 fix round: phrase practice is narrowed by the CEFR selection using each phrase's own level
+ok 268 - rc9 fix round: phrase practice is narrowed by the CEFR selection using each phrase's own level
+  ---
+  duration_ms: 20.121085
+  type: 'test'
+  ...
+# Subtest: rc9 fix round: an inferred key is never printed as a bare "sai" in the review list
+ok 269 - rc9 fix round: an inferred key is never printed as a bare "sai" in the review list
+  ---
+  duration_ms: 1.605058
+  type: 'test'
+  ...
+# Subtest: every import control is a focusable button, not a label around a hidden input
+ok 270 - every import control is a focusable button, not a label around a hidden input
+  ---
+  duration_ms: 3.977741
+  type: 'test'
+  ...
+# Subtest: an unavailable chip is not announced as disabled, because it still works
+ok 271 - an unavailable chip is not announced as disabled, because it still works
+  ---
+  duration_ms: 11.802198
+  type: 'test'
+  ...
+# Subtest: preflight answers 204 and echoes only the published origin
+ok 272 - preflight answers 204 and echoes only the published origin
+  ---
+  duration_ms: 1.285232
+  type: 'test'
+  ...
+# Subtest: a copy opened from disk (Origin: null) and local development are allowed
+ok 273 - a copy opened from disk (Origin: null) and local development are allowed
+  ---
+  duration_ms: 2.314836
+  type: 'test'
+  ...
+# Subtest: a foreign origin is refused before the body is read
+ok 274 - a foreign origin is refused before the body is read
+  ---
+  duration_ms: 0.274843
+  type: 'test'
+  ...
+# Subtest: only POST with a JSON body is accepted
+ok 275 - only POST with a JSON body is accepted
+  ---
+  duration_ms: 0.262921
+  type: 'test'
+  ...
+# Subtest: oversized, malformed and unknown-contract bodies are rejected
+ok 276 - oversized, malformed and unknown-contract bodies are rejected
+  ---
+  duration_ms: 0.676677
+  type: 'test'
+  ...
+# Subtest: the stored payload is rebuilt: unknown fields, kinds and counters are dropped
+ok 277 - the stored payload is rebuilt: unknown fields, kinds and counters are dropped
+  ---
+  duration_ms: 2.075688
+  type: 'test'
+  ...
+# Subtest: a rejected theme falls back to no value at all
+ok 278 - a rejected theme falls back to no value at all
+  ---
+  duration_ms: 0.419994
+  type: 'test'
+  ...
+# Subtest: the rate-limit key is a salted hash, never the address
+ok 279 - the rate-limit key is a salted hash, never the address
+  ---
+  duration_ms: 0.532279
+  type: 'test'
+  ...
+# Subtest: upstream outcomes map to documented status codes
+ok 280 - upstream outcomes map to documented status codes
+  ---
+  duration_ms: 1.285138
+  type: 'test'
+  ...
+# Subtest: an unconfigured deployment or missing/weak TELEMETRY_IP_SALT fails closed with 503
+ok 281 - an unconfigured deployment or missing/weak TELEMETRY_IP_SALT fails closed with 503
+  ---
+  duration_ms: 0.709087
+  type: 'test'
+  ...
+# Subtest: proxy IP extraction prefers x-vercel-forwarded-for and rightmost XFF over spoofed leftmost XFF
+ok 282 - proxy IP extraction prefers x-vercel-forwarded-for and rightmost XFF over spoofed leftmost XFF
+  ---
+  duration_ms: 0.510337
+  type: 'test'
+  ...
+# Subtest: service errors never describe how the deployment is wired
+ok 283 - service errors never describe how the deployment is wired
+  ---
+  duration_ms: 0.27542
+  type: 'test'
+  ...
+# Subtest: the endpoint kind list matches the one the application records
+ok 284 - the endpoint kind list matches the one the application records
+  ---
+  duration_ms: 158.019042
+  type: 'test'
+  ...
+# Subtest: no credential is ever shipped in the application or in this repository copy
+ok 285 - no credential is ever shipped in the application or in this repository copy
+  ---
+  duration_ms: 179.379072
+  type: 'test'
+  ...
+# Subtest: a request whose body was not pre-parsed is read from the stream
+ok 286 - a request whose body was not pre-parsed is read from the stream
+  ---
+  duration_ms: 15.023938
+  type: 'test'
+  ...
+# Subtest: a streamed body over the size cap is refused without being stored
+ok 287 - a streamed body over the size cap is refused without being stored
+  ---
+  duration_ms: 0.825112
+  type: 'test'
+  ...
+# Subtest: an empty streamed body is a malformed request, not a crash
+ok 288 - an empty streamed body is a malformed request, not a crash
+  ---
+  duration_ms: 1.989616
+  type: 'test'
+  ...
+# Subtest: v1.0.0: every shipped entry carries well-formed, classified senses
+ok 289 - v1.0.0: every shipped entry carries well-formed, classified senses
+  ---
+  duration_ms: 77.793167
+  type: 'test'
+  ...
+# Subtest: v1.0.0: all 128 selections narrow every entry to exactly its in-scope senses
+ok 290 - v1.0.0: all 128 selections narrow every entry to exactly its in-scope senses
+  ---
+  duration_ms: 6175.118567
+  type: 'test'
+  ...
+# Subtest: v1.0.0: multi-sense headwords keep senses separate with their own labels and badges
+ok 291 - v1.0.0: multi-sense headwords keep senses separate with their own labels and badges
+  ---
+  duration_ms: 2.508192
+  type: 'test'
+  ...
+# Subtest: v1.0.0: the scope example is classified from evidence, not inherited
+ok 292 - v1.0.0: the scope example is classified from evidence, not inherited
+  ---
+  duration_ms: 0.477224
+  type: 'test'
+  ...
+# Subtest: v1.0.0: excluded senses cannot appear as distractors, prompts or answers
+ok 293 - v1.0.0: excluded senses cannot appear as distractors, prompts or answers
+  ---
+  duration_ms: 27.094471
+  type: 'test'
+  ...
+# Subtest: v1.0.0: headword counts and sense counts are distinguished
+ok 294 - v1.0.0: headword counts and sense counts are distinguished
+  ---
+  duration_ms: 36.62668
+  type: 'test'
+  ...
+# Subtest: v1.0.0: composite-POS headwords split into atomic-POS senses and narrow POS + gloss cleanly
+ok 295 - v1.0.0: composite-POS headwords split into atomic-POS senses and narrow POS + gloss cleanly
+  ---
+  duration_ms: 1.010153
+  type: 'test'
+  ...
+# Subtest: v1.0.0: the CEFR badge is present in the learning card markup and hides no answer
+ok 296 - v1.0.0: the CEFR badge is present in the learning card markup and hides no answer
+  ---
+  duration_ms: 0.851946
+  type: 'test'
+  ...
+1..296
+# tests 296
+# suites 0
+# pass 296
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 106161.903653

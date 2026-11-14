@@ -2465,3 +2465,112 @@ which is what should have happened the first time (H16).
 CI: chromium and firefox pass again at `9edc2a0`, confirming the earlier
 `Install <browser> for Playwright` failures were the Microsoft CDN outage and not
 the repository.
+
+---
+
+## Round 8 (2026-11-12) — asynchronous, cross-tab-safe exam-history persistence
+
+Starting commit `e663295ea8236fd29be6b30e0d04c78e911d7429`, branch
+`arena/chuyen-anh-r8-ready-review`, base `arena/dedd1942-chuyen-anh`. PR #84 was left
+untouched (still Draft) and its body's stale `9cd1a65`/`main` metadata was **not** used:
+the live PR's base is `arena/2a533bbc-chuyen-anh`, and the new branch was cut from the
+live head SHA after checking that `arena/chuyen-anh-r8*` did not already exist.
+
+### Why the round-7 persistence design could not work
+
+It merged with whatever the key held and then read the key back to repair a lost write.
+A read-back proves *my* write landed. It cannot prove that nobody wrote between my write
+and my read, and two tabs that both read `S0` each verify their own `S0 + x`. Writing
+that down before the fix mattered: it is the difference between "we added a retry" and
+"we changed what the operation is".
+
+### The operation model
+
+* **Deletions are facts, additions are claims.** `deleteExamResult` and the new
+  `clearExamResultHistory` tombstone ids (bounded, compacted by `examPruneRetention`),
+  and `examApplyTombstones` runs on **both** sides of every union, so a stale tab's
+  copy of a deleted record cannot win **while that tombstone is retained**. The bag is
+  bounded (`500` entries or `4 ×` retained attempts, whichever is larger), so the
+  guarantee is scoped to the retention window, not permanent: once the tombstone for an
+  old deletion is compacted away, a tab still holding that record can keep it. Tombstone
+  compaction is a deliberate size bound, and this is the price of it. A `Clear` also bumps `generation`, so
+  "deliberately emptied" is distinguishable from "never written".
+* **Post-Clear work survives** because a new attempt's id is named by no tombstone. This
+  is the case a blanket "discard what a stale tab wrote" gets wrong, and it has its own
+  test.
+* **Serialisation where it exists, honesty where it does not.** The whole operation runs
+  under `navigator.locks.request(…, 'exclusive')` when Web Locks are available; every
+  result reports the mode obtained (`locked` / `unserialized` / …), and the documented
+  guarantee without a lock is **merge + verify + bounded repair, not linearizability**.
+  Node has no `navigator.locks` and the suite asserts `unserialized` is reported — the
+  weaker mode is not hidden.
+* **No write over an unreadable store.** `inspectExamResultStore` separates `empty`,
+  `present` and `unreadable`; the old single `emptyExamResultHistory()` return for all
+  three is what let an unreadable key be replaced with nothing.
+
+### Corrections, snapshots and the score mismatch
+
+One shared limit, counted in **code points**, enforced at the input (`maxlength` + a
+visible hint), the parser, `examCorrectionValidation` (which reports the measured
+length), the model and the validator. Historical schema-v1 corrections longer than the
+limit are **tagged and kept** — never truncated, never dropped — via a narrow retry on
+load and import only, so new input stays bounded without destroying old data.
+
+`examCorrectionPaperKeys` requires `examId` **and** the `questionId` **and** a
+`baseKeys` entry, and returns every backing snapshot instead of the first one whose
+`examId` matched.
+
+The unseen-attempt `score-mismatch` (`4537334892`) was reproduced against the starting
+SHA before touching the code — tab B's save threw while the store was healthy — and the
+fix is structural: the **union** is recomputed and validated, never the partial
+`unseen` payload. A first attempt was stricter than the finding and broke a legitimate
+re-save; that is recorded in `FAILURE_LEDGER.md` F3 with the mirror test that pins the
+correct invariant.
+
+### Elsewhere
+
+`--help` on `build_archive.py` and `release_artifacts.py` no longer executes them (D75),
+proved with a fake failing `gh` and a tree hash rather than by trusting the output. The
+vocabulary multiword guard gained the negative control the review asked for. `D64`
+docstring coverage was measured (35.8 % → 38.5 %) and improved where it matters — the
+release pipeline — instead of padded.
+
+Local results: Node **288**, Python **263**, archive **5**, gates **21/21**. Browser
+suites are `BLOCKED_EXTERNAL` here (the Playwright browser download fails), so their
+result must come from CI on the exact final SHA. Evidence:
+`audit-evidence/round8/`.
+
+### RC11 candidate (2026-11-12) — the candidate gets its own prerelease identity, and three persistence conflicts stop resolving by luck
+
+**Decision 1 — the candidate ships `v1.0.0-rc11`, not the bare stable identity.** The base branch
+had dropped the suffix, leaving `APP_VERSION = 'v1.0.0'`. That string is what
+`scripts/app_release_gate.py` reads to decide which release channel applies (`is_stable = '-' not
+in version`), so a PR-only candidate was silently asking for the stable deploy authorization path
+while no stable release existed. `DEPLOY_HOLD` names `v1.0.0-rc11`, which is *stricter* than the
+old policy it replaces: the previously published rc10 can no longer satisfy the gate on the
+candidate's behalf, and while rc11 is unpublished Pages stays held. RC10 remains a real published
+release; nothing historical was rewritten.
+
+**Decision 2 — an attempt's identity is immutable, so a same-id record with different answers is a
+conflict, not an update.** Corrections can legitimately be edited under one id (the id is derived
+from exam+question); attempts cannot, because their identity *is* the paper, the timestamps and
+the responses. A stored attempt whose identity moved is therefore a different record wearing the
+same id — a concurrent import or a hand-edited store — so it is reported as
+`conflicting-attempt` rather than adopted as our own save or overwritten.
+
+**Decision 3 — a correction the learner typed is never silently replaced.** Two tabs correcting the
+same question mint the same id. When this tab's snapshot had never seen the stored correction, the
+old merge wrote its own copy and dropped the stored one while reporting success. That is the same
+class of loss this round exists to prevent, so it is now a reported `conflicting-correction`.
+This deliberately reverses the earlier "last explicit choice wins" policy recorded for test #10,
+and the reversal is written down in the test itself rather than quietly changed.
+
+**Decision 4 — the input boundary is a rule, not an attribute.** `maxlength` counts UTF-16 units
+over the whole field; the limit is code points per answer. The boundary is now
+`examCorrectionAcceptedInput` + `examCorrectionRestoreValue`, pure functions the handler calls and
+the tests drive, so "the input enforces the limit" is a property of the code rather than of a
+claim. The restore value falls back to the *rendered* text, so a preloaded legacy over-limit
+correction is not erased by the first over-limit keystroke.
+
+**Evidence.** Node `302`, Python `263`, archive `5`, gates `21/21`, pages probe PASS; both deploy
+gates verified held against the live repository. `audit-evidence/round8/RC11_VERSION_SYNC.md`.

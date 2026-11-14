@@ -1,0 +1,10 @@
+PASS  interleaved submissions keep both — i-a,i-b
+PASS  a peer that always wins yields failure, not a false success — ok=false present=false reason=lost-attempt
+PASS  deleted attempt does not return via a stale tab — other
+PASS  Clear keeps the post-Clear attempt and drops the cleared ones — fresh
+PASS  two corrections to different questions coexist — corrections=2
+PASS  a burst of three concurrent saves stays valid and loses nothing obvious — attempts=burst-0,burst-1,burst-2
+PASS  the 1,000-character rule holds at every boundary — true,true,true,true,true,true
+PASS  an unreadable store is refused, not overwritten — store-invalid-schema
+
+all scenarios passed

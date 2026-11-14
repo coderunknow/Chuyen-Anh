@@ -1,0 +1,226 @@
+TAP version 13
+# Subtest: r8 persistence: a locked write reports the mode it obtained
+ok 1 - r8 persistence: a locked write reports the mode it obtained
+  ---
+  duration_ms: 6.802368
+  type: 'test'
+  ...
+# Subtest: r8 persistence: two tabs creating different attempts concurrently keep both
+ok 2 - r8 persistence: two tabs creating different attempts concurrently keep both
+  ---
+  duration_ms: 5.536651
+  type: 'test'
+  ...
+# Subtest: r8 persistence: a write that lands between read and write is repaired, not adopted silently
+ok 3 - r8 persistence: a write that lands between read and write is repaired, not adopted silently
+  ---
+  duration_ms: 4.227203
+  type: 'test'
+  ...
+# Subtest: r8 persistence: a stale tab cannot resurrect an attempt another tab deleted
+ok 4 - r8 persistence: a stale tab cannot resurrect an attempt another tab deleted
+  ---
+  duration_ms: 5.71338
+  type: 'test'
+  ...
+# Subtest: r8 persistence: a stale tab cannot resurrect history cleared by another tab
+ok 5 - r8 persistence: a stale tab cannot resurrect history cleared by another tab
+  ---
+  duration_ms: 6.742559
+  type: 'test'
+  ...
+# Subtest: r8 persistence: a legitimate attempt created while another tab clears survives
+ok 6 - r8 persistence: a legitimate attempt created while another tab clears survives
+  ---
+  duration_ms: 4.354521
+  type: 'test'
+  ...
+# Subtest: r8 persistence: clearing twice is idempotent and never leaves orphan papers
+ok 7 - r8 persistence: clearing twice is idempotent and never leaves orphan papers
+  ---
+  duration_ms: 2.312988
+  type: 'test'
+  ...
+# Subtest: r8 persistence: an attempt created while another tab saves a correction keeps both facts
+ok 8 - r8 persistence: an attempt created while another tab saves a correction keeps both facts
+  ---
+  duration_ms: 6.943502
+  type: 'test'
+  ...
+# Subtest: r8 persistence: multiple corrections to different questions of one exam all survive
+ok 9 - r8 persistence: multiple corrections to different questions of one exam all survive
+  ---
+  duration_ms: 4.027775
+  type: 'test'
+  ...
+# Subtest: r8 persistence: two tabs correcting the same question conflict instead of overwriting
+ok 10 - r8 persistence: two tabs correcting the same question conflict instead of overwriting
+  ---
+  duration_ms: 7.9801
+  type: 'test'
+  ...
+# Subtest: r8 persistence: reloading either tab after concurrent writes shows the same history
+ok 11 - r8 persistence: reloading either tab after concurrent writes shows the same history
+  ---
+  duration_ms: 3.240769
+  type: 'test'
+  ...
+# Subtest: r8 persistence: a store that rejects writes reports failure and keeps the old history intact
+ok 12 - r8 persistence: a store that rejects writes reports failure and keeps the old history intact
+  ---
+  duration_ms: 2.807207
+  type: 'test'
+  ...
+# Subtest: r8 persistence: an unreadable store is never overwritten with an empty history
+ok 13 - r8 persistence: an unreadable store is never overwritten with an empty history
+  ---
+  duration_ms: 1.500462
+  type: 'test'
+  ...
+# Subtest: r8 persistence: a storage that throws on read is a failure, not an empty history
+ok 14 - r8 persistence: a storage that throws on read is a failure, not an empty history
+  ---
+  duration_ms: 0.389533
+  type: 'test'
+  ...
+# Subtest: r8 persistence: repeated retries converge instead of oscillating
+ok 15 - r8 persistence: repeated retries converge instead of oscillating
+  ---
+  duration_ms: 14.755012
+  type: 'test'
+  ...
+# Subtest: r8 tombstones: they are bounded so history cannot grow without limit
+ok 16 - r8 tombstones: they are bounded so history cannot grow without limit
+  ---
+  duration_ms: 14.184463
+  type: 'test'
+  ...
+# Subtest: r8 correction limit: exactly 1000 characters is accepted, 1001 is refused everywhere
+ok 17 - r8 correction limit: exactly 1000 characters is accepted, 1001 is refused everywhere
+  ---
+  duration_ms: 1.371558
+  type: 'test'
+  ...
+# Subtest: r8 correction migration: an over-long historical correction is preserved, not truncated or dropped
+ok 18 - r8 correction migration: an over-long historical correction is preserved, not truncated or dropped
+  ---
+  duration_ms: 4.537549
+  type: 'test'
+  ...
+# Subtest: r8 snapshot selection: the snapshot that backs the correction is the one carried
+ok 19 - r8 snapshot selection: the snapshot that backs the correction is the one carried
+  ---
+  duration_ms: 0.309661
+  type: 'test'
+  ...
+# Subtest: r8 scoring: an attempt is not refused when another tab already held the correction it was scored with
+ok 20 - r8 scoring: an attempt is not refused when another tab already held the correction it was scored with
+  ---
+  duration_ms: 7.281645
+  type: 'test'
+  ...
+# Subtest: r8 scoring: an attempt scored before a correction re-scores when the union carries it
+ok 21 - r8 scoring: an attempt scored before a correction re-scores when the union carries it
+  ---
+  duration_ms: 6.235372
+  type: 'test'
+  ...
+# Subtest: r8 correction UI: the 1,000-character limit is visible and enforced at the input
+ok 22 - r8 correction UI: the 1,000-character limit is visible and enforced at the input
+  ---
+  duration_ms: 2.390754
+  type: 'test'
+  ...
+# Subtest: r8 persistence: importing a backup after Clear restores it, because the learner asked for it
+ok 23 - r8 persistence: importing a backup after Clear restores it, because the learner asked for it
+  ---
+  duration_ms: 10.111437
+  type: 'test'
+  ...
+# Subtest: r8 review: the Web Locks path is exercised, not just the fallback
+ok 24 - r8 review: the Web Locks path is exercised, not just the fallback
+  ---
+  duration_ms: 30.080111
+  type: 'test'
+  ...
+# Subtest: r8 review: an empty string in the store is unreadable, not an empty history
+ok 25 - r8 review: an empty string in the store is unreadable, not an empty history
+  ---
+  duration_ms: 0.472153
+  type: 'test'
+  ...
+# Subtest: r8 review: two 700-character answers are accepted, the limit is per answer
+ok 26 - r8 review: two 700-character answers are accepted, the limit is per answer
+  ---
+  duration_ms: 0.216703
+  type: 'test'
+  ...
+# Subtest: r8 review: a legacy over-limit accepted alternative is preserved, not refused
+ok 27 - r8 review: a legacy over-limit accepted alternative is preserved, not refused
+  ---
+  duration_ms: 2.208447
+  type: 'test'
+  ...
+# Subtest: r8 review: an import replaces a same-id correction instead of failing
+ok 28 - r8 review: an import replaces a same-id correction instead of failing
+  ---
+  duration_ms: 6.756802
+  type: 'test'
+  ...
+# Subtest: r8 review: a newer correction from another tab is not overwritten by a stale one
+ok 29 - r8 review: a newer correction from another tab is not overwritten by a stale one
+  ---
+  duration_ms: 7.257107
+  type: 'test'
+  ...
+# Subtest: r8 review: a Clear that is overwritten by a stale tab is detected, not reported as success
+ok 30 - r8 review: a Clear that is overwritten by a stale tab is detected, not reported as success
+  ---
+  duration_ms: 3.203628
+  type: 'test'
+  ...
+# Subtest: r8 copilot: a delete is detectable after a stale overwrite, because it bumps generation
+ok 31 - r8 copilot: a delete is detectable after a stale overwrite, because it bumps generation
+  ---
+  duration_ms: 3.137476
+  type: 'test'
+  ...
+# Subtest: r8 copilot: a stale save keeps the stored attempt, and a substituted one is refused
+ok 32 - r8 copilot: a stale save keeps the stored attempt, and a substituted one is refused
+  ---
+  duration_ms: 5.389784
+  type: 'test'
+  ...
+# Subtest: r8 copilot: a claim this operation makes is not silently dropped by a tombstone
+ok 33 - r8 copilot: a claim this operation makes is not silently dropped by a tombstone
+  ---
+  duration_ms: 5.709811
+  type: 'test'
+  ...
+# Subtest: r8 copilot: the legacy writer cannot overwrite an unreadable store
+ok 34 - r8 copilot: the legacy writer cannot overwrite an unreadable store
+  ---
+  duration_ms: 0.741808
+  type: 'test'
+  ...
+# Subtest: r8 copilot: the correction input actually reverts an over-limit edit
+ok 35 - r8 copilot: the correction input actually reverts an over-limit edit
+  ---
+  duration_ms: 0.413074
+  type: 'test'
+  ...
+# Subtest: r8 review 2: an over-limit edit does not erase a preloaded legacy correction
+ok 36 - r8 review 2: an over-limit edit does not erase a preloaded legacy correction
+  ---
+  duration_ms: 0.200763
+  type: 'test'
+  ...
+1..36
+# tests 36
+# suites 0
+# pass 36
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 534.576328

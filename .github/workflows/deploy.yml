@@ -109,7 +109,7 @@ jobs:
 
       # Node is used only for dependency-free tests; production is a single HTML file.
       - name: Run static app logic, scoring and single-file tests
-        run: node --trace-deprecation --test tests/static-app.test.js tests/exam-scoring.test.js tests/exam-anomalies.test.js tests/rc10-cefr.test.js tests/v100-senses.test.js tests/exam-exempt-rubric.test.js tests/telemetry-api.test.js tests/core-invariants.test.js
+        run: node --trace-deprecation --test tests/static-app.test.js tests/exam-scoring.test.js tests/exam-anomalies.test.js tests/rc10-cefr.test.js tests/v100-senses.test.js tests/exam-exempt-rubric.test.js tests/telemetry-api.test.js tests/core-invariants.test.js tests/exam-persistence.test.js
 
       # Publish only the fully self-contained application file.
       - name: Stage standalone HTML

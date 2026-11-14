@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Build Markdown only from an explicitly reviewed selection (no automatic acceptance)."""
+import argparse
 import hashlib
 import json
 import re
@@ -115,5 +116,23 @@ def main():
     print('By year:', dict(sorted(indexes(plan).items())))
 
 
-if __name__ == '__main__':
+def cli(argv=None):
+    """Parse arguments before doing any work.
+
+    This script used to execute on import of `__main__`, so `--help` rebuilt every
+    archived paper from `.source-review/` and rewrote `De-chuyen-Anh-vao-10/`
+    instead of printing usage (D75). A help flag must be a query: it now exits 0
+    having touched nothing. `main()` keeps its no-argument, environment-free
+    behaviour so the existing callers and tests are unaffected.
+    """
+    parser = argparse.ArgumentParser(
+        prog='build_archive.py',
+        description='Rebuild the archived exam Markdown from the reviewed selection in '
+                    'scripts/exams/selection.json. This writes De-chuyen-Anh-vao-10/ and is '
+                    'only run deliberately; there is no --check mode.')
+    parser.parse_args(argv)
     main()
+
+
+if __name__ == '__main__':
+    cli()

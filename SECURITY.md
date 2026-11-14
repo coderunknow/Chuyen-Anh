@@ -4,9 +4,9 @@
 
 | Version | Supported | Notes |
 | --- | --- | --- |
-| `v1.0.0` (candidate) | Yes | Current stable candidate (`index.html` standalone offline build + SHA-256-pinned `data/exam-curated-keys.json` + hardened `api/telemetry.js`). |
-| `v1.0.0-rc10` | Yes | Latest published release on GitHub Pages (`DEPLOY_HOLD`). |
-| `< v1.0.0-rc10` | No | Superseded prereleases; upgrade to `v1.0.0-rc10` or `v1.0.0`. |
+| `v1.0.0-rc11` (candidate) | Yes | Current proposed candidate (PR #85; `index.html` standalone offline build + SHA-256-pinned `data/exam-curated-keys.json` + hardened `api/telemetry.js`). **Not published or deployed.** |
+| `v1.0.0-rc10` | Yes | Latest **published** release on GitHub Pages (2026-11-03, PR #81). `DEPLOY_HOLD` has moved to `v1.0.0-rc11`, so rc10 is no longer the deploy marker. |
+| `< v1.0.0-rc10` | No | Superseded prereleases; upgrade to `v1.0.0-rc10` or the current candidate. |
 
 ## Reporting a vulnerability
 

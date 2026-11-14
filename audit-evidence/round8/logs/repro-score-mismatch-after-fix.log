@@ -1,0 +1,5 @@
+save base+c: true
+tabB corrections: 1 attempts: [ 'a1' ]
+tabA save: ok
+tabB save: ok
+stored ids after: [ 'a1', 'a2', 'b1' ]

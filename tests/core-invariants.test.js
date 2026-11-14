@@ -118,10 +118,10 @@ test('exam history keeps the newest 50 attempts and prunes papers of dropped one
   assert.equal(history.attempts.at(-1).id, 'attempt-50');
 });
 
-test('a history import larger than 4 MB is refused before parsing', () => {
+test('a history import larger than 4 MB is refused before parsing', async () => {
   const big = JSON.stringify({ schemaVersion: app.EXAM_HISTORY_SCHEMA_VERSION, attempts: [], papers: {}, corrections: [], pad: 'x'.repeat(4 * 1024 * 1024) });
   const store = { getItem: () => null, setItem: () => {}, removeItem: () => {} };
-  const result = app.importExamResultHistory(big, store);
+  const result = await app.importExamResultHistory(big, store);
   assert.deepEqual(result, { ok: false, reason: 'too-large-or-invalid' });
 });
 

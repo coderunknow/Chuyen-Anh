@@ -1591,7 +1591,7 @@ test('exported exam results report exactly what the learner did and what could b
   const result = buildExamResultJson(session, record, keys, [], { now: 6000 });
   assert.equal(result.app, 'Chuyên Anh');
   assert.equal(result.version, APP_VERSION, 'the result carries the application version');
-  assert.equal(result.version, 'v1.0.0');
+  assert.equal(result.version, 'v1.0.0-rc11');
   assert.equal(result.schemaVersion, '2.0.0');
   assert.equal(result.summary.total, 3);
   // q3 has no stored answer key, so it is excluded from the denominator instead
@@ -4041,11 +4041,16 @@ test('every shipped version literal agrees with APP_VERSION', async () => {
   ];
   const stale = pins.filter(entry => !entry.endsWith(shipped));
   assert.deepEqual(stale, [], 'no shipped file still names an older version');
-  // A candidate PR bumps only the app version string. DEPLOY_HOLD must stay at the
-  // last PUBLISHED release (v1.0.0-rc10) until the release itself is published —
-  // moving it from a PR would arm a deploy of an unpublished version.
-  assert.equal((await readFile(new URL('DEPLOY_HOLD', root), 'utf8')).trim(), 'v1.0.0-rc10',
-    'the deploy hold still names the last published release, never a candidate');
+  // RC11 changed the hold policy this assertion encoded. The hold now names the
+  // exact tag of the shipped candidate (v1.0.0-rc11), not the last published
+  // release. That is still fail-closed, and it is strictly tighter here: while
+  // rc11 is unpublished `deploy_gate.py` holds Pages, and the already-published
+  // rc10 can no longer satisfy the gate on the candidate's behalf. Arming a deploy
+  // of an unpublished version was the risk when the tag named a *published*
+  // release; naming the unpublished candidate cannot arm anything.
+  const hold = (await readFile(new URL('DEPLOY_HOLD', root), 'utf8')).trim();
+  assert.equal(hold, shipped, 'the deploy hold names the version actually shipped');
+  assert.notEqual(hold, 'v1.0.0-rc10', 'the published rc10 is not the active hold any more');
 });
 
 /* ------------------------------ CEFR filter ------------------------------- */

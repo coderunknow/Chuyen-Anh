@@ -161,6 +161,27 @@ def main() -> int:
             else:
                 print(f"PASS {label}")
 
+    # rc11 (PR #85). The marker lists have to grow with the candidate: without an
+    # rc11 branch the probe would still pass the version check and then silently
+    # check nothing else, which is the failure mode a smoke test exists to avoid.
+    if version.startswith("v1.0.0-rc11"):
+        for marker, label in (
+            ("rc9-scorable-only-v1", "the scorable-only grading rule"),
+            ("answeredScorable", "the answered-on-scorable counter"),
+            ("completionPercentage", "the completion figure"),
+            ("examCorrectionPaperKeys", "round-8 snapshot selection by exam+question+baseKeys"),
+            ("examCorrectionAcceptedInput", "the round-8 per-answer correction bound"),
+            ("importExamResultHistory", "the round-8 import path"),
+            ("inspectExamResultStore", "the round-8 unreadable-store guard"),
+            ("clearExamResultHistory", "the round-8 Clear with tombstones"),
+            ("phraseMatchesCefrSelection", "the phrase CEFR predicate"),
+            ("Bộ lọc CEFR", "the phrase-bank level note"),
+        ):
+            if marker not in body:
+                fail(f"the served page is missing {label}")
+            else:
+                print(f"PASS {label}")
+
     if version == "v1.0.0":
         for marker, label in (
             ("rc9-scorable-only-v1", "the scorable-only grading rule"),

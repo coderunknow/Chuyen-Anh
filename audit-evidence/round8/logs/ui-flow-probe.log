@@ -1,0 +1,10 @@
+PASS  jsdom context has no Web Locks (fallback path) — {"available":false,"reason":"web-locks-unavailable"}
+PASS  submit persists through the async API
+PASS  correction applies
+PASS  correction persists
+PASS  clear empties the list
+PASS  malformed import is refused and changes nothing — invalid-schema
+PASS  valid import after clear restores the row
+PASS  the correction travels with the restored row
+
+all model-API checks passed (not a browser result)

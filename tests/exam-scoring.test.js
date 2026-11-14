@@ -9,6 +9,14 @@ const appSource = html.match(/<script type="module" id="app-script">([\s\S]*?)<\
 const app = await import(`data:text/javascript;base64,${Buffer.from(appSource).toString('base64')}`);
 const records = JSON.parse(html.match(/<script id="exam-data" type="application\/json">([\s\S]*?)<\/script>/)[1]);
 
+// Round 8: exam-history persistence is asynchronous - it takes a cross-tab Web
+// Lock where the browser has one - and answers `{ ok, history, reason }` instead
+// of a history or `false`. `persist` keeps the older call sites readable.
+const persist = async (next, base, storage) => {
+  const result = await app.persistExamResultHistory(next, base, storage);
+  return result.ok ? result.history : false;
+};
+
 function store(initial = {}) {
   const data = new Map(Object.entries(initial));
   return {
@@ -182,7 +190,7 @@ test('rc8 transcript fallback and legacy rc6 history migration preserve anti-tam
   assert.equal(migrated.attempts[0].summary.denominator, 1);
 });
 
-test('rc6 history: versioned round trip, atomic invalid import, deterministic conflicts and legacy isolation', () => {
+test('rc6 history: versioned round trip, atomic invalid import, deterministic conflicts and legacy isolation', async () => {
   const q = question(); const keys = [key()];
   const session = app.createExamPracticeSession('2025/test/so', [q], 1000);
   app.recordExamPracticeResponse(session, q.id, 'choice-A'); app.submitExamPractice(session, 1000);
@@ -205,7 +213,7 @@ test('rc6 history: versioned round trip, atomic invalid import, deterministic co
   const s = store({ 'chuyen-anh.progress.v1': '{"1":{"correctCount":9}}', 'chuyen-anh.phrase-progress.v1': '{"P001":{"correctCount":8}}' });
   assert.equal(app.saveExamResultHistory(corrected.history, s), true);
   const before = s.snapshot();
-  assert.equal(app.importExamResultHistory(JSON.stringify({ schemaVersion: 99 }), s).ok, false);
+  assert.equal((await app.importExamResultHistory(JSON.stringify({ schemaVersion: 99 }), s)).ok, false);
   assert.deepEqual(s.snapshot(), before);
   assert.equal(app.loadExamResultHistory(s).attempts.length, 1);
 });
@@ -839,7 +847,7 @@ test('rc10 import hardening: a record produced from a partial session still impo
     'an export the app produced must never be rejected by the app');
 });
 
-test('merging two valid histories keeps the newest 50 and still imports', () => {
+test('merging two valid histories keeps the newest 50 and still imports', async () => {
   const paperFor = record => ({ questions: app.parseExamQuestions(record.markdown, record.id), keys: Array.isArray(record.answerKey) ? record.answerKey : [] });
   const buildAttempt = (index, id, submittedAt) => {
     const record = records[index];
@@ -875,7 +883,7 @@ test('merging two valid histories keeps the newest 50 and still imports', () => 
   const storage = store();
   assert.equal(app.saveExamResultHistory(local, storage), true);
 
-  const result = app.importExamResultHistory(app.exportExamResultHistory(other), storage);
+  const result = await app.importExamResultHistory(app.exportExamResultHistory(other), storage);
   assert.equal(result.ok, true, 'a union of two valid histories must import, not report a storage failure');
   assert.equal(result.history.attempts.length, 50, 'the merged history keeps exactly the 50-attempt window');
   assert.deepEqual(result.history.attempts.map(a => a.id), Array.from({ length: 50 }, (_, i) => `local-${i}`),
@@ -892,7 +900,7 @@ test('merging two valid histories keeps the newest 50 and still imports', () => 
   const local2 = historyOf(Array.from({ length: 40 }, (_, i) => buildAttempt(0, `local-${i}`, 1000 + i)));
   app.saveExamResultHistory(local2, store2);
   const newer = historyOf(Array.from({ length: 20 }, (_, i) => buildAttempt(1, `newer-${i}`, 2000 + i)));
-  const merged2 = app.importExamResultHistory(app.exportExamResultHistory(newer), store2);
+  const merged2 = await app.importExamResultHistory(app.exportExamResultHistory(newer), store2);
   assert.equal(merged2.ok, true);
   assert.equal(merged2.history.attempts.length, 50);
   const kept = merged2.history.attempts.map(a => a.id);
@@ -906,7 +914,7 @@ test('merging two valid histories keeps the newest 50 and still imports', () => 
   assert.equal(keptCorrection.ok, true);
   const store3 = store();
   app.saveExamResultHistory(local2, store3);
-  const merged3 = app.importExamResultHistory(app.exportExamResultHistory(keptCorrection.history), store3);
+  const merged3 = await app.importExamResultHistory(app.exportExamResultHistory(keptCorrection.history), store3);
   assert.equal(merged3.ok, true);
   assert.equal(merged3.history.corrections.length, 1, 'trimming must not drop a correction whose paper survives');
 });
@@ -989,7 +997,7 @@ test('a snapshot with the same values in a different key order is not a conflict
     'a different question set is still a conflict');
 });
 
-test('rc11 persistence: a correction removed by another tab is not silently adopted', () => {
+test('rc11 persistence: a correction removed by another tab is not silently adopted', async () => {
   // Attempt ids can all match while a correction changed or vanished; the stored
   // score is only reproducible from that correction, so adopting the older list and
   // reporting success would be a quiet data loss.
@@ -1010,7 +1018,7 @@ test('rc11 persistence: a correction removed by another tab is not silently adop
     examId: record.id, questionId: questions[0].id, candidates: ['probe-answer'], now: 5000
   });
   assert.equal(corrected.ok, true, 'the app can build the correction this test needs');
-  const first = app.persistExamResultHistory(corrected.history, tabA, inner);
+  const first = await persist(corrected.history, tabA, inner);
   assert.notEqual(first, false, 'the first save succeeds');
   const correctionId = corrected.correction.id;
 
@@ -1031,14 +1039,14 @@ test('rc11 persistence: a correction removed by another tab is not silently adop
     removeItem: k => inner.removeItem(k)
   };
   const tabB = app.loadExamResultHistory(inner);
-  const second = app.persistExamResultHistory(app.loadExamResultHistory(inner), tabB, hostile);
+  const second = await persist(app.loadExamResultHistory(inner), tabB, hostile);
   assert.ok(once, 'the harness really did strip the correction once');
   const restored = app.loadExamResultHistory(inner).corrections.some(c => c.id === correctionId);
   assert.ok(restored || second === false,
     `a removed correction must be restored or the save must fail (restored=${restored}, failed=${second === false})`);
 });
 
-test('rc11 persistence: an attempt replaced under the same id is not adopted as our save', () => {
+test('rc11 persistence: an attempt replaced under the same id is not adopted as our save', async () => {
   // A concurrent import can write a different attempt under the same id with the
   // same summary. Comparing summaries alone would call that our own successful
   // write; the read-back must compare identity too (submittedAt, responses).
@@ -1053,7 +1061,7 @@ test('rc11 persistence: an attempt replaced under the same id is not adopted as 
   };
   const inner = store();
   const tabA = app.loadExamResultHistory(inner);
-  const saved = app.persistExamResultHistory(app.addExamResult(tabA, build('b1', 6000)), tabA, inner);
+  const saved = await persist(app.addExamResult(tabA, build('b1', 6000)), tabA, inner);
   assert.notEqual(saved, false);
 
   // Mutate the stored attempt **in place** so the history it belongs to stays valid:
@@ -1075,7 +1083,7 @@ test('rc11 persistence: an attempt replaced under the same id is not adopted as 
     removeItem: k => inner.removeItem(k)
   };
   const tabB = app.loadExamResultHistory(inner);
-  const second = app.persistExamResultHistory(app.addExamResult(tabB, build('c1', 7000)), tabB, hostile);
+  const second = await persist(app.addExamResult(tabB, build('c1', 7000)), tabB, hostile);
   assert.ok(once, 'the harness really did substitute the attempt once');
   const finalAttempt = app.loadExamResultHistory(inner).attempts.find(a => a.id === 'b1');
   const restoredOriginal = finalAttempt?.submittedAt === 6000;
@@ -1083,7 +1091,7 @@ test('rc11 persistence: an attempt replaced under the same id is not adopted as 
     `a substituted attempt must be restored or the save must fail (submittedAt=${finalAttempt?.submittedAt}, returned=${second === false ? 'false' : 'history'})`);
 });
 
-test('rc11 persistence: a paper snapshot replaced under the same key is not adopted as our save', () => {
+test('rc11 persistence: a paper snapshot replaced under the same key is not adopted as our save', async () => {
   // The read-back compares attempts and corrections, but the papers map is the
   // third half of the record: it is what makes a stored score reproducible. A
   // concurrent import can replace a snapshot under the same paperKey while every
@@ -1100,7 +1108,7 @@ test('rc11 persistence: a paper snapshot replaced under the same key is not adop
   const attempt = app.createExamResultRecord(session, record, keys, { now: 6000, id: 'p1' });
   const inner = store();
   const tabA = app.loadExamResultHistory(inner);
-  const first = app.persistExamResultHistory(app.addExamResult(tabA, attempt), tabA, inner);
+  const first = await persist(app.addExamResult(tabA, attempt), tabA, inner);
   assert.notEqual(first, false, 'the initial save must succeed');
 
   // A different, still perfectly valid question set under the same paper key: the
@@ -1125,7 +1133,7 @@ test('rc11 persistence: a paper snapshot replaced under the same key is not adop
     removeItem: k => inner.removeItem(k)
   };
   const tabB = app.loadExamResultHistory(inner);
-  const second = app.persistExamResultHistory(app.addExamResult(tabB, attempt), tabB, hostile);
+  const second = await persist(app.addExamResult(tabB, attempt), tabB, hostile);
   assert.ok(once, 'the harness really did substitute the paper snapshot once');
   const storedPaper = app.loadExamResultHistory(inner).papers[paperKey];
   const originalPrompt = attempt.paper.questions[0].prompt;
@@ -1134,7 +1142,7 @@ test('rc11 persistence: a paper snapshot replaced under the same key is not adop
     `a substituted paper snapshot must be restored or the save must fail (restored=${restored}, returned=${second === false ? 'false' : 'history'})`);
 });
 
-test('rc11 persistence: an unrepairable concurrent overwrite reports failure, not a partial success', () => {
+test('rc11 persistence: an unrepairable concurrent overwrite reports failure, not a partial success', async () => {
   // Returning the partial history here would be the worst outcome in the whole
   // path: persistExamResults treats any history as success, so the submit handler
   // would mark the attempt saved and suppress the "could not save" warning while
@@ -1150,7 +1158,7 @@ test('rc11 persistence: an unrepairable concurrent overwrite reports failure, no
   };
   const inner = store();
   const tabA = app.loadExamResultHistory(inner);
-  app.persistExamResultHistory(app.addExamResult(tabA, build('a1', 5000)), tabA, inner);
+  await persist(app.addExamResult(tabA, build('a1', 5000)), tabA, inner);
   const snapshot = inner.getItem('chuyen-anh.exam-results.v1');
 
   // Every write is immediately reverted: the repair can never win.
@@ -1160,13 +1168,13 @@ test('rc11 persistence: an unrepairable concurrent overwrite reports failure, no
     removeItem: k => inner.removeItem(k)
   };
   const tabB = app.loadExamResultHistory(inner);
-  const saved = app.persistExamResultHistory(app.addExamResult(tabB, build('b1', 6000)), tabB, hostile);
+  const saved = await persist(app.addExamResult(tabB, build('b1', 6000)), tabB, hostile);
   assert.equal(saved, false, 'an attempt that cannot be confirmed in storage must not be reported as saved');
   assert.equal(app.loadExamResultHistory(inner).attempts.some(a => a.id === 'b1'), false,
     'and the harness really did keep it out of storage (otherwise this proves nothing)');
 });
 
-test('rc11 persistence: a concurrent overwrite between write and read-back is repaired, not lost', () => {
+test('rc11 persistence: a concurrent overwrite between write and read-back is repaired, not lost', async () => {
   // The read-merge-write is not atomic across tabs. Web Locks exist but this path is
   // synchronous and the app also runs from file://, so the guarantee made here is
   // weaker and explicit: the write is read back, and an attempt that vanished is
@@ -1183,7 +1191,7 @@ test('rc11 persistence: a concurrent overwrite between write and read-back is re
   const inner = store();
   const tabA = app.loadExamResultHistory(inner);
   const attemptA = build('a1', 5000);
-  const savedA = app.persistExamResultHistory(app.addExamResult(tabA, attemptA), tabA, inner);
+  const savedA = await persist(app.addExamResult(tabA, attemptA), tabA, inner);
   assert.notEqual(savedA, false);
 
   // A store that, immediately after the first successful exam write, has another
@@ -1201,7 +1209,7 @@ test('rc11 persistence: a concurrent overwrite between write and read-back is re
   };
   const tabB = app.loadExamResultHistory(inner);
   const attemptB = build('b1', 6000);
-  const saved = app.persistExamResultHistory(app.addExamResult(tabB, attemptB), tabB, racing);
+  const saved = await persist(app.addExamResult(tabB, attemptB), tabB, racing);
 
   assert.notEqual(saved, false, 'the save reports success');
   assert.ok(clobbered, 'the harness really did overwrite the key once (otherwise this proves nothing)');
@@ -1211,7 +1219,7 @@ test('rc11 persistence: a concurrent overwrite between write and read-back is re
     'and the repair reached storage, so a reload still sees both');
 });
 
-test('rc11 persistence: a successful save returns the merged history, not the caller\'s unmerged copy', () => {
+test('rc11 persistence: a successful save returns the merged history, not the caller\'s unmerged copy', async () => {
   // Storage was always correct here; the *return value* was not. The merge path
   // adds attempts another tab wrote, but it used to return only `true`, so the UI
   // assigned its own `next` and hid the merged records from the history list and
@@ -1229,9 +1237,9 @@ test('rc11 persistence: a successful save returns the merged history, not the ca
   const storage = store();
   const tabA = app.loadExamResultHistory(storage);
   const tabB = app.loadExamResultHistory(storage);
-  app.persistExamResultHistory(app.addExamResult(tabA, build('a1', 5000)), tabA, storage);
+  await persist(app.addExamResult(tabA, build('a1', 5000)), tabA, storage);
   const nextB = app.addExamResult(tabB, build('b1', 6000));
-  const saved = app.persistExamResultHistory(nextB, tabB, storage);
+  const saved = await persist(nextB, tabB, storage);
 
   assert.notEqual(saved, false, 'the save succeeded');
   assert.equal(typeof saved, 'object', 'a successful save must yield the stored history so the caller can adopt it');
@@ -1242,11 +1250,11 @@ test('rc11 persistence: a successful save returns the merged history, not the ca
   // The caller's own copy is still the unmerged one - that is why returning it mattered.
   assert.deepEqual(nextB.attempts.map(a => a.id), ['b1']);
   // A refused save still reports false rather than a history.
-  assert.equal(app.persistExamResultHistory(nextB, tabB, { getItem: () => null, setItem: () => { throw new Error('denied'); }, removeItem: () => {} }), false,
+  assert.equal(await persist(nextB, tabB, { getItem: () => null, setItem: () => { throw new Error('denied'); }, removeItem: () => {} }), false,
     'a failed write reports false');
 });
 
-test('rc11 persistence: two tabs that both submit keep both attempts', () => {
+test('rc11 persistence: two tabs that both submit keep both attempts', async () => {
   // Both tabs boot from the same store, so both hold the same boot-time snapshot.
   // Tab A saves first; tab B still has the older snapshot. Saving B's whole
   // in-memory history used to overwrite the key and silently drop A's attempt.
@@ -1265,9 +1273,9 @@ test('rc11 persistence: two tabs that both submit keep both attempts', () => {
   const attemptA = build('tab-a-attempt', 5000);
   const attemptB = build('tab-b-attempt', 6000);
 
-  assert.notEqual(app.persistExamResultHistory(app.addExamResult(tabA, attemptA), tabA, storage), false,
+  assert.notEqual(await persist(app.addExamResult(tabA, attemptA), tabA, storage), false,
     'the first tab saves through the merge-before-write path');
-  assert.notEqual(app.persistExamResultHistory(app.addExamResult(tabB, attemptB), tabB, storage), false,
+  assert.notEqual(await persist(app.addExamResult(tabB, attemptB), tabB, storage), false,
     'the second tab must not fail just because the key changed under it');
 
   const stored = app.loadExamResultHistory(storage);
@@ -1278,25 +1286,40 @@ test('rc11 persistence: two tabs that both submit keep both attempts', () => {
   // A deletion is a deliberate whole-history edit: it must not be resurrected.
   const beforeDelete = app.loadExamResultHistory(storage);
   const deleted = app.deleteExamResult(app.loadExamResultHistory(storage), 'tab-a-attempt');
-  assert.notEqual(app.persistExamResultHistory(deleted, beforeDelete, storage), false);
+  assert.notEqual(await persist(deleted, beforeDelete, storage), false);
   assert.deepEqual(app.loadExamResultHistory(storage).attempts.map(a => a.id), ['tab-b-attempt'],
     'a deletion sticks: the caller history is the base');
 
   const beforeClear = app.loadExamResultHistory(storage);
-  assert.notEqual(app.persistExamResultHistory(app.emptyExamResultHistory(), beforeClear, storage), false);
+  assert.notEqual(await persist(app.emptyExamResultHistory(), beforeClear, storage), false);
   assert.equal(app.loadExamResultHistory(storage).attempts.length, 0, 'clearing removes every attempt');
   assert.equal(Object.keys(app.loadExamResultHistory(storage).papers).length, 0, 'and leaves no orphan papers');
 
+  // After a Clear, re-adding the *same* attempt id is a resurrection, not a new
+  // record: the id is derived from the paper, submission time and responses, so
+  // the same id is the same attempt, and Clear tombstoned it.
+  const resurrected = await persist(app.addExamResult(app.emptyExamResultHistory(), attemptB),
+    app.emptyExamResultHistory(), storage);
+  assert.equal(app.loadExamResultHistory(storage).attempts.length, 0,
+    'a cleared attempt cannot be written back under its own id');
+
+  // A genuinely *new* attempt after the Clear is legitimate and must persist.
+  assert.notEqual(await persist(app.addExamResult(app.emptyExamResultHistory(), build('tab-d-attempt', 8000)),
+    app.emptyExamResultHistory(), storage), false, 'a new attempt created after Clear persists');
+
   // A genuinely conflicting snapshot is still refused, never merged blindly.
-  assert.notEqual(app.persistExamResultHistory(app.addExamResult(app.emptyExamResultHistory(), attemptB),
-    app.emptyExamResultHistory(), storage), false, 'storage now holds the full paper snapshot');
   const conflicting = { ...attemptB, id: 'tab-c-attempt', paper: { ...attemptB.paper, questions: attemptB.paper.questions.slice(0, 1) } };
   const staleTab = app.addExamResult(app.emptyExamResultHistory(), conflicting);
-  assert.throws(() => app.persistExamResultHistory(staleTab, app.emptyExamResultHistory(), storage),
-    /conflicting-paper/, 'a different snapshot for the same paper key is reported, not merged blindly');
+  // The conflict is reported as a refusal, not thrown: persistence answers a
+  // result object now, and a conflicting snapshot is a `false` save (with
+  // `reason: 'conflicting-paper'`) rather than an exception the UI would have to
+  // catch to tell the learner why their attempt was not stored.
+  const conflictResult = await app.persistExamResultHistory(staleTab, app.emptyExamResultHistory(), storage);
+  assert.equal(conflictResult.ok, false, 'a different snapshot for the same paper key is refused, not merged blindly');
+  assert.equal(conflictResult.reason, 'conflicting-paper');
 });
 
-test('rc11 retention: the window keeps the newest attempts by submission time, not array position', () => {
+test('rc11 retention: the window keeps the newest attempts by submission time, not array position', async () => {
   // A device whose clock runs ahead publishes an attempt with a later
   // `submittedAt`. Once imported it sits first in the stored array, and a
   // positional `slice(-50)` then drops the newest local attempt.
@@ -1315,12 +1338,12 @@ test('rc11 retention: the window keeps the newest attempts by submission time, n
   };
   const storage = store();
   const future = build(1, 3_600_000, 'clock-ahead-attempt');
-  assert.equal(app.importExamResultHistory(app.exportExamResultHistory(app.addExamResult(app.emptyExamResultHistory(), future)), storage).ok, true);
+  assert.equal((await app.importExamResultHistory(app.exportExamResultHistory(app.addExamResult(app.emptyExamResultHistory(), future)), storage)).ok, true);
 
   let history = app.loadExamResultHistory(storage);
   for (let i = 0; i < 50; i += 1) {
     const next = app.addExamResult(history, build(1, 1000 + i, `local-${i}`));
-    assert.notEqual(app.persistExamResultHistory(next, history, storage), false);
+    assert.notEqual(await persist(next, history, storage), false);
     history = app.loadExamResultHistory(storage);
   }
   const ids = history.attempts.map(attempt => attempt.id);
@@ -1387,7 +1410,7 @@ test('rc11 backup copy matches what the exporter really writes', () => {
   assert.match(viCopy, /ngôn ngữ hiển thị/, 'the copy names the interface language as device-local');
 });
 
-test('rc11 export: a history the app can build is a history the app can import', () => {
+test('rc11 export: a history the app can build is a history the app can import', async () => {
   // `examPaperKey` is `${examId}@${sha256}` while the import validator requires
   // the exam id to contain no `@`. An id that does contain one built a key that
   // could never be validated again: the submit saved nothing, and the recovery
@@ -1415,7 +1438,7 @@ test('rc11 export: a history the app can build is a history the app can import',
   const history = app.addExamResult(app.emptyExamResultHistory(), okAttempt);
   const storage = store();
   assert.equal(app.saveExamResultHistory(history, storage), true);
-  assert.equal(app.importExamResultHistory(app.exportExamResultHistory(history), store()).ok, true,
+  assert.equal((await app.importExamResultHistory(app.exportExamResultHistory(history), store())).ok, true,
     'a storeable history still exports and re-imports');
 });
 
@@ -1429,7 +1452,7 @@ test('rc11 english: every exam toast has an English rendering', () => {
   assert.deepEqual(untranslated, [], 'these toast strings would be shown in Vietnamese: ' + untranslated.join(' | '));
 });
 
-test('rc11 model: addExamResult refuses a key the exporter could never re-import', () => {
+test('rc11 model: addExamResult refuses a key the exporter could never re-import', async () => {
   // The fuzz suite found this: `addExamResult` accepted an attempt whose
   // `paperKey` was a bare exam id, so the history it built exported to a file its
   // own importer rejected with `invalid-paper`. Both ends now share the rule.
@@ -1452,11 +1475,11 @@ test('rc11 model: addExamResult refuses a key the exporter could never re-import
   const real = app.createExamResultRecord(session, record, keys, { now: 2000, id: 'real-attempt' });
   const ok = app.addExamResult(app.emptyExamResultHistory(), real);
   assert.equal(ok.attempts.length, 1, 'a complete attempt with a storable key is accepted');
-  assert.equal(app.importExamResultHistory(app.exportExamResultHistory(ok), store()).ok, true,
+  assert.equal((await app.importExamResultHistory(app.exportExamResultHistory(ok), store())).ok, true,
     'and that history re-imports, which is the property the fuzz failure broke');
 });
 
-test('rc11 persist: a correction another tab wrote is carried, so the union stays saveable', () => {
+test('rc11 persist: a correction another tab wrote is carried, so the union stays saveable', async () => {
   // Found by the stateful fuzz. Another tab corrected a key and saved; its records
   // were scored against that correction. A tab that has never seen the correction
   // must carry it into the union, or the union's own stored scores become
@@ -1480,13 +1503,13 @@ test('rc11 persist: a correction another tab wrote is carried, so the union stay
     normalization: 'choice-id', note: 'tab A review', now: 6000
   });
   assert.equal(corrected.ok, true, 'the other tab corrected the key');
-  assert.notEqual(app.persistExamResultHistory(corrected.history, tabA, storage), false);
+  assert.notEqual(await persist(corrected.history, tabA, storage), false);
 
   // This tab booted before that write and knows nothing about the correction.
   const staleTab = app.emptyExamResultHistory();
   const own = app.addExamResult(staleTab, build('tab-b-attempt', 7000));
   let saved = false;
-  try { saved = app.persistExamResultHistory(own, staleTab, storage); } catch (error) { saved = error.message; }
+  try { saved = await persist(own, staleTab, storage); } catch (error) { saved = error.message; }
   assert.notEqual(saved, false, `the union must stay saveable, got: ${saved === false ? 'false' : JSON.stringify(saved).slice(0, 120)}`);
 
   const merged = app.loadExamResultHistory(storage);

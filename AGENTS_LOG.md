@@ -1512,3 +1512,80 @@ same test step, but its detailed log was inaccessible, so its cause is unverifie
 - The mutation pass again contained the lesson: one mutant "survived" only because its rewrite no longer
   matched the changed source. The harness now reports a no-op rewrite as `NOT-APPLIED` instead of `SURVIVED`.
 - Totals: Node `238 / 0 fail` (`exam-scoring` `31 → 34`), Python `257 OK`, archive `5 OK`, `21/21` gates, `9/9` mutants.
+
+### Round 8 (2026-11-12) — cross-tab persistence, correction limits, D75
+
+- Starting SHA `e663295`, new branch `arena/chuyen-anh-r8-ready-review`, PR #84 untouched.
+- Replaced the synchronous read-merge-write + read-back repair with: tombstones for
+  deletions, a `generation` counter for clears, an awaited read/merge/write inside
+  `navigator.locks` where available, and an `inspectExamResultStore` that refuses to
+  write over a store it cannot read. Every result reports the lock mode it obtained, so
+  the weaker fallback is visible instead of implied.
+- 22 new adversarial tests (`tests/exam-persistence.test.js`) plus an out-of-suite probe
+  (`audit-evidence/round8/adversarial-verification.mjs`, 8/8) for interleavings a single
+  test file expresses badly: a peer that reverts every write must produce a failure, not
+  a false success.
+- `4537334892` reproduced at `e663295` (`score-mismatch` thrown on a healthy store) and
+  fixed by validating the union rather than the partial payload. One intermediate fix
+  was stricter than the finding and broke a legitimate re-score — kept in the failure
+  ledger, not silently dropped.
+- 1,000-character limit unified (code points) across input/parser/validation/model/
+  validator; over-long **historical** records tagged `legacyOverLimit` and preserved.
+- `--help` no longer executes the two build scripts; `tests/test_script_help.py` proves it
+  with a fake `gh` and a tree hash. No tag, release, upload or deploy was performed.
+- Honest gaps: browser suites `BLOCKED_EXTERNAL` here; exact-SHA CI and CodeRabbit
+  pending; screen-reader checklist still `INCOMPLETE`.
+- Totals on this branch: Node `288 / 0 fail` (9 suites), Python `263 OK`, archive `5 OK`,
+  `21/21` gates.
+
+### 2026-11-12 — round-8 log correction: the totals quoted above were the `bbe957d` totals
+
+The entry immediately above states Node `288 / 0 fail`. That was true at `bbe957d`
+and stopped being true two commits later. It is **not** rewritten, because this file
+is append-only; the correction is recorded here instead.
+
+- **Current totals on PR #85:** Node **296 / 0 fail** (9 suites, `exam-persistence`
+  is 35 tests), Python **263 OK**, archive **5 OK**, `21/21` gates.
+- **What moved:** the CodeRabbit review of PR #85 (16 threads) and the Copilot review
+  (10 comments) added 13 tests: import-after-Clear, the Web Locks facade, per-answer
+  limits, legacy alternatives, stale corrections, lost Clear/delete, the unreadable
+  empty string, the legacy writer's contract, and the input-revert rule.
+- **Evidence:** `audit-evidence/round8/logs/node-after-review-fixes.log`, and the
+  per-finding dispositions in `CODERABBIT_85_DISPOSITION.md` and
+  `COPILOT_85_DISPOSITION.md`.
+
+## 2026-11-12 — RC11 version synchronization + answers to the Copilot and second CodeRabbit reviews
+
+- **Version identity.** `APP_VERSION` and `DEPLOY_HOLD` are now `v1.0.0-rc11`. `main` (published
+  rc10) declares `v1.0.0-rc10`; PR #85's base had dropped the suffix to plain `v1.0.0`, which
+  `scripts/app_release_gate.py` classifies as a **stable** build — so the candidate was asking for
+  the stable-deploy path before any stable release existed. RC11 restores a prerelease identity
+  and moves one release forward. Historical rc10 records are untouched.
+- **Gates verified fail-closed against the live repo:** `deploy_gate` holds (`v1.0.0-rc11 is
+  missing`), `app_release_gate` holds (`v1.0.0-rc11 not verified`), and the published rc10 cannot
+  satisfy either because both ask for the exact tag.
+- **Copilot review (10 comments) dispositioned** in `audit-evidence/round8/COPILOT_85_DISPOSITION.md`;
+  5 real code defects fixed, each mutation-checked: a delete that wrote a tombstone but no
+  generation (so a stale overwrite hid the loss); a store-changed attempt silently overwritten;
+  a tombstone discarding a claim this operation made while returning `ok`; the legacy
+  `saveExamResultHistory` bypassing the unreadable-store check; and an input handler that trimmed
+  whitespace instead of refusing the edit.
+- **Second CodeRabbit review (`fe6a081`, 5 new comments) dispositioned.** Two real code fixes: a
+  differing same-id correction is now a conflict even with no base copy — this **changed the
+  documented policy** from last-write-wins to reported-conflict, because a correction is text the
+  learner typed; and a preloaded legacy over-limit correction is no longer erased by the first
+  over-limit keystroke. Three documentation corrections (stale exact-SHA claims, and a row that
+  claimed test coverage it did not have).
+- **Three latent test defects found while syncing:** `pages_smoke.py` had no `rc11` branch, so an
+  rc11 deploy would have passed the version line and then checked nothing; `test_deploy_gate.py`
+  and `static-app.test.js` encoded the old hold policy; and a version pin `/^v1\.0\.0$/` would
+  have passed by accident on rc11.
+- **One unreproduced flake recorded:** `rc7: no generated question … prints its answer early`
+  failed once on the real dataset and passed in isolation and in three later full runs. Not
+  attributed to this change and not claimed fixed.
+- **Local totals:** Node `302 / 0 fail` (9 suites, `exam-persistence` 36), Python `263 OK`,
+  archive `5 OK`, `21/21` gates, pages probe PASS on the rc11 page. Evidence:
+  `audit-evidence/round8/RC11_VERSION_SYNC.md`.
+- **Not claimed:** screen-reader validation is still `INCOMPLETE`; Kilo's check is
+  `ACTION_REQUIRED` (it fails in 2 s, i.e. it never reviewed) and is not an approval. No merge,
+  tag, release, prerelease, publication or deploy was performed.
