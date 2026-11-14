@@ -1,5 +1,34 @@
 # Changelog
 
+## v1.0.0 — first stable release (PR chain #83–#86 integrated, stable release PR, 2026-11-14)
+
+`index.html` declares `APP_VERSION = 'v1.0.0'` (the stable identity) and
+`DEPLOY_HOLD` names `v1.0.0-rc10`, the last published prerelease. The release
+path is the stable dual gate: `scripts/deploy_gate.py` is open because the hold
+names a published release, while `scripts/app_release_gate.py` holds Pages until
+tag `v1.0.0` is published in its channel **and** a separate
+`release-published-dispatch` run confirms `stable_deploy_authorized=true` — a
+push to `main` after publication cannot deploy the stable build by itself, and
+`force_deploy` alone is not sufficient for a stable identity.
+
+Integrated into `main` by ordered merge: PR #83 (`a6191f6`), PR #84 (`3adb8be`),
+PR #85 (`305678a`), PR #86 (`5cf8625`); PR #82 closed as superseded. The
+candidate content of `v1.0.0-rc11` ships inside this release; rc11 itself was
+never tagged or published as its own release.
+
+**Verification on the stable PR head (local release gate, all green):** Python
+`unittest` **294 OK**; Node **305 pass / 0 fail** (static-app 146 +
+exam-scoring 63 + exam-anomalies 7 + rc10-cefr 10 + v100-senses 8 +
+telemetry-api 17 + exam-exempt-rubric 7 + core-invariants 11 +
+exam-persistence 36); archive conversion **5 OK**; help-side-effect **5/5**;
+audit-document counts **5/5**; workflow-integrity **26/26**; shard/lifecycle
+**9/9**; artifact checks **21/21**; scoring probe
+`nonExemptCoveragePct=100%`; `git diff --check` clean. Exact-head CI results
+and the live telemetry recheck are recorded in the stable PR's closeout
+comment. Review posture is stated honestly: CodeRabbit reviews are
+COMMENTED (never an approval) and no maintainer approval exists on this
+repository's PRs.
+
 ## v1.0.0-rc11 — Round 8 candidate (PR #85 from `arena/chuyen-anh-r8-ready-review`, baseline `e663295…`, 2026-11-12) — NOT merged, NOT tagged, NOT released, NOT deployed
 
 **Status: open pull request only.** Proposed to `arena/dedd1942-chuyen-anh` (not to `main`) from
@@ -8,6 +37,10 @@ No merge, no tag, no release, no Pages deploy: `scripts/deploy_gate.py` holds Pa
 `v1.0.0-rc11` is unpublished, and `scripts/app_release_gate.py` additionally requires the exact
 tag to be published in the correct channel. **RC11 is a proposed candidate, not a release.**
 `v1.0.0-stable` does not exist and is not claimed anywhere.
+
+> **Superseded:** this candidate merged into `main` via PR #85 (content) and the
+> stable release PR; its surfaces ship as part of `v1.0.0` (section above).
+> RC11 was never tagged, published or deployed as its own release.
 
 ### Round 9 — end-to-end audit and GitHub Actions optimization (PR #85)
 
@@ -61,10 +94,10 @@ with `PART` unset still runs the complete unsharded learning suite followed by e
 This is still PR-only work: no merge, tag, release, or deployment. Cross-engine
 measurements are recorded in `audit-evidence/round9/actions/OPTIMIZATION_REPORT.md`.
 
-- **Current follow-up totals.** Python `unittest` **291 OK**. Node `static-app.test.js` (`146`) + `exam-scoring.test.js` (`62`) + `exam-anomalies.test.js` (`7`) + `rc10-cefr.test.js` (`10`) + `v100-senses.test.js` (`8`) + `telemetry-api.test.js` (`17`) + `exam-exempt-rubric.test.js` (`7`) + `core-invariants.test.js` (`11`) + `exam-persistence.test.js` (`36`) = **304 pass / 0 fail**. These are the current suite totals; the initial Round 9 checkpoint figures above are retained as historical evidence.
+- **Current follow-up totals** (refreshed on the stable release PR head, 2026-11-14). Python `unittest` **294 OK**. Node `static-app.test.js` (`146`) + `exam-scoring.test.js` (`63`) + `exam-anomalies.test.js` (`7`) + `rc10-cefr.test.js` (`10`) + `v100-senses.test.js` (`8`) + `telemetry-api.test.js` (`17`) + `exam-exempt-rubric.test.js` (`7`) + `core-invariants.test.js` (`11`) + `exam-persistence.test.js` (`36`) = **305 pass / 0 fail**. These are the current suite totals; the initial Round 9 checkpoint figures above are retained as historical evidence.
 - **Focused closeout checks.** Provenance test **4/4**; audit-document count tests
-  **5/5**; workflow-integrity tests **23/23**; exact-once/shard/lifecycle Node tests
-  **7/7**; `rc4_vocabulary_audit.py --check` reports **8,852 rows, 0 in general
+  **5/5**; workflow-integrity tests **26/26**; exact-once/shard/lifecycle Node tests
+  **9/9**; `rc4_vocabulary_audit.py --check` reports **8,852 rows, 0 in general
   review**. CI failure screenshots and upload remain unverified on a failing run;
   green runs skip the screenshot-upload step. The PR #86 body records the exact-head
   Actions and Pages results and the unrun live telemetry smoke.

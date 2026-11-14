@@ -1911,3 +1911,31 @@ Final state, stated precisely to avoid a self-referential chase:
   applicable SHA and explicitly leaves failing-CI artifact upload unverified.
 - Documentation-only correction; no application/workflow behavior changed.
   Documentation-count checks and a new exact-head Actions run are pending.
+
+## 2026-11-14 — stable release PR: checkpoint clarification and stable version transition
+
+- **Clarification of the Round 9 freeze statement above** (CodeRabbit thread on
+  `AGENTS_LOG.md:1867`): "Code frozen at `b687b86`" / "no commit after
+  `97acf97` changes code" records the repository status **at the original Round 9
+  checkpoint**. Later PR #86 commits — `316b5f9` and the rest of the chain through
+  `eb7690d` — did change code and tests, and the two green runs cited there cover
+  the checkpoint, not those later commits. Later evidence is recorded separately:
+  the #86 closeout comment, exact-head CI on `eb7690d` (Static `43572771403`,
+  archive `43572771481`, Pages `43572771338`, checks/validate/probe success,
+  15/15 browser shards), and the stable PR's local full-gate log.
+- The stable PR transitions the release identity: `APP_VERSION = 'v1.0.0'` and
+  `DEPLOY_HOLD = v1.0.0-rc10`. The RC11-era hold assertions (hold names the
+  shipped candidate) were rewritten as the stable dual gate: `deploy_gate.py` is
+  open on the published prerelease hold, while `app_release_gate.py` holds Pages
+  until `v1.0.0` is published in its channel and a separate dispatch sets
+  `stable_deploy_authorized=true` (force override alone is insufficient).
+- CodeRabbit's incremental review on `eb7690d` (check **success**,
+  2026-11-14T14:08:48Z) posted 14 threads plus 1 nitpick; all 14 received written
+  dispositions and were resolved, with the code/test fixes landing in this stable
+  PR under the no-new-pushes-to-#86 rule: per-shard page-error assertions before
+  PASS, separator blank validation in `--check`, `markPhase` label attribution
+  with final-interval flush, ordered path-pattern parity, active
+  `persist-credentials` validation, the dispatcher count condition, the
+  exam-scoring full-credit fixture, and the round-9 documentation labelings.
+  No review approval is claimed: CodeRabbit reviews are COMMENTED, and no
+  maintainer approval exists on this repository's PRs.
