@@ -37,9 +37,11 @@ Round 9 audited the whole application and its delivery infrastructure against
 - **New tools.** `scripts/ci_run_summary.py` turns the Actions API into the
   wall-clock / critical-path / runner-seconds numbers the report needs, and
   `tests/test_ci_workflow_integrity.py` (13 tests) pins the workflow properties.
-- **Verification at this head.** Python `276 OK`, Node `302` tests with `0`
-  failures, archive `5 OK`, 21/21 validator commands, both gates `deploy=false … held`. Eight
-  mutations (M1–M8) each turned a guard red before being restored.
+- **Verification at the original Round 9 checkpoint (`b8f2c11`).** These are the
+  counts for that snapshot, before the later PR #86 follow-up: Python `276 OK`,
+  Node `302` tests with `0` failures, archive `5 OK`, 21/21 validator commands,
+  both gates `deploy=false … held`. Eight mutations (M1–M8) each turned a guard
+  red before being restored.
 - **Not claimed.** The browser suites did not run in the audit sandbox (no browser
   binaries, no CDN egress), so cross-engine results are delegated to CI and are not
   reported as passing here. The optimized wall-clock is `N/A` until a real run of
@@ -58,6 +60,14 @@ part 5 also runs the complete exam suite once per engine. `tests/run-browser-sui
 with `PART` unset still runs the complete unsharded learning suite followed by exams.
 This is still PR-only work: no merge, tag, release, or deployment. Cross-engine
 measurements are recorded in `audit-evidence/round9/actions/OPTIMIZATION_REPORT.md`.
+
+- **Current follow-up totals.** Python `unittest` **291 OK**. Node `static-app.test.js` (`146`) + `exam-scoring.test.js` (`62`) + `exam-anomalies.test.js` (`7`) + `rc10-cefr.test.js` (`10`) + `v100-senses.test.js` (`8`) + `telemetry-api.test.js` (`17`) + `exam-exempt-rubric.test.js` (`7`) + `core-invariants.test.js` (`11`) + `exam-persistence.test.js` (`36`) = **304 pass / 0 fail**. These are the current suite totals; the initial Round 9 checkpoint figures above are retained as historical evidence.
+- **Focused closeout checks.** Provenance test **4/4**; audit-document count tests
+  **5/5**; workflow-integrity tests **23/23**; exact-once/shard/lifecycle Node tests
+  **7/7**; `rc4_vocabulary_audit.py --check` reports **8,852 rows, 0 in general
+  review**. CI failure screenshots and upload remain unverified on a failing run;
+  green runs skip the screenshot-upload step. The PR #86 body records the exact-head
+  Actions and Pages results and the unrun live telemetry smoke.
 
 ### Round 8 — asynchronous, cross-tab-safe exam-history persistence (PR #85)
 

@@ -2574,3 +2574,39 @@ correction is not erased by the first over-limit keystroke.
 
 **Evidence.** Node `302`, Python `263`, archive `5`, gates `21/21`, pages probe PASS; both deploy
 gates verified held against the live repository. `audit-evidence/round8/RC11_VERSION_SYNC.md`.
+
+### 2026-11-12 — PR #86 Round 9 closeout follow-up — DONE
+
+- Rechecked CodeRabbit comments `4561322722` and `4561322728` against the current
+  code. The `R9-C8` evidence now separates the top-level screenshot correction
+  (`80e6248`), the eight `freshWorld()` wrappers (`c8b22d8`), and the stronger
+  behavioral regression (`316b5f9`). The regression's fake page refuses a
+  screenshot after its browser closes, writes a PNG signature while open, and
+  proves the close-before-capture negative control fails. CI failure capture and
+  artifact upload remain explicitly unverified on a failing run.
+- Reconciled the count record: the original Round 9 figures `276` Python / `302`
+  Node are labelled as the historical `b8f2c11` checkpoint; the current follow-up
+  record is `291` Python / `304` Node. The changelog count test now reads the PR
+  #86 follow-up subsection, rather than accidentally satisfying itself from a
+  later unrelated changelog entry. The published readiness checklist already
+  states `291` Python + `5` archive tests and `304` Node tests.
+- **Local verification:** Python discovery `291/291`; Node suites `304/304`;
+  shard/lifecycle Node tests `7/7`; provenance `4/4`; audit-document counts `5/5`;
+  workflow integrity `23/23`; RC4 audit `--check` reports `8,852` rows and zero
+  general-review rows. The current `freshWorld()` test passed its negative control.
+- At the then-current PR head `697f8d4`, GitHub's static checks, all 15 browser
+  shards, archive validation, and Pages smoke were successful. The live Pages
+  deployment record is `main@72afdc7` (`APP_VERSION` rc10). The Pages workflow's
+  expected version is inferred as rc10 because rc11 is unpublished and rc10 is
+  the newest published release; the raw Actions log download returned EOF, so its
+  expected-version summary was not directly inspected.
+- PR #86 has no live telemetry smoke run: this diff does not touch telemetry
+  trigger paths. The most recent live smoke recorded here is PR #85 run
+  `43342769589`, where the valid-report POST returned HTTP 503
+  `service-unavailable` and no row id. A current #86 POST/preflight result is not
+  claimed. PR #86 remains open, non-draft, and without an independent review
+  decision. No merge, tag, release, or deployment was performed.
+- **Not tested / still open:** actual CI screenshot capture and upload on a
+  failing job; a live telemetry POST/preflight for PR #86; screen-reader testing;
+  and recomputation of the 186 external asset digests against their bytes. The
+  final push's exact-head checks remain pending at this point in the log.

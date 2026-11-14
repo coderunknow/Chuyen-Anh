@@ -1865,3 +1865,35 @@ Final state, stated precisely to avoid a self-referential chase:
 - No commit after `97acf97` changes code. Any later documentation commit (such as
   the one carrying this paragraph) is Markdown-only and is covered by the same
   two green runs rather than by a third.
+
+## 2026-11-12 — PR #86 Round 9 closeout follow-up
+
+- Verified CodeRabbit comments `4561322722` and `4561322728` against code. The
+  fresh-world helper captures before browser close; the updated regression test
+  models a closed page, writes a PNG signature only while open, and rejects a
+  close-before-capture negative control (`316b5f9`). Updated the R9-C8 evidence
+  with the applicable fix/test commits and retained the explicit limitation that
+  real failing-CI screenshot capture/upload is unverified.
+- Corrected the changelog's stale-count framing and tightened
+  `test_the_changelog_totals_agree_with_the_checklist_and_their_own_parts` to
+  inspect the PR #86 follow-up subsection. At the prior state, the broad search
+  found a later `291` total and let the stale `276`/`302` Round 9 paragraph pass;
+  fail-first the isolated check rejected the missing follow-up totals, then passed
+  after the documentation update.
+- Local results: Python discovery **291/291**; Node **304/304**; focused
+  shard/lifecycle tests **7/7**; provenance tests **4/4**; audit count tests
+  **5/5**; workflow-integrity tests **23/23**; `rc4_vocabulary_audit.py --check`
+  **8,852 rows, 0 general-review rows**. `git diff --check` passed.
+- Read-only GitHub evidence at prior PR head `697f8d4`: static checks and all 15
+  browser shards, exam archive validation, and Pages smoke passed. The Pages
+  deployment is `main@72afdc7` with rc10; RC11 is still unpublished. Raw Actions
+  log download returned EOF, so the Pages smoke's expected-version summary was
+  not directly read.
+- No telemetry workflow ran for PR #86 because the changed files do not match
+  its live-smoke paths. PR #85 run `43342769589` previously reported a valid
+  report POST HTTP 503 `service-unavailable` with no row id. No live POST or
+  preflight was sent from this closeout. PR #86 remains open and independent
+  review is still needed; no merge, tag, release, or deployment occurred.
+- Not verified: actual CI failure-artifact capture/upload, current #86 live
+  telemetry, screen-reader usability, and external asset-byte digests. Exact-head
+  checks after pushing this closeout are pending.

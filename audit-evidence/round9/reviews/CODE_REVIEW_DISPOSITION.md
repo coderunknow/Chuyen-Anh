@@ -160,3 +160,30 @@ approvals or successful tests.
 
 PR #86 remains open and non-draft. No merge, tag, release, publication, or
 deployment occurred.
+
+
+## PR #86 follow-up findings rechecked — code/test commit `316b5f9`
+
+CodeRabbit's comments `4561322722` (the R9-C8 citation) and `4561322728` (the
+`freshWorld()` cleanup path) were checked against the current implementation rather
+than accepted from the review text alone.
+
+- **R9-C8 citation and evidence:** `80e6248` contains the top-level
+  capture-before-cleanup correction and the M10 lifecycle-stub evidence;
+  `c8b22d8` contains the eight `freshWorld()` wrappers and the tested
+  capture-before-close helper. The checklist now names both fix commits and the
+  strengthened regression-test commit `316b5f9`. It continues to say that failure
+  capture and artifact upload on an actual failing CI run are unverified: the
+  successful GitHub jobs skip the upload step.
+- **`freshWorld()` failure path:** `withFreshWorldScenario` invokes capture in its
+  `catch` before its `finally` closes `world.ownBrowser`, then rethrows the original
+  scenario error. All eight browser-learning scenarios use the helper. The updated
+  test models a page that throws from `screenshot()` after close and writes a PNG
+  signature only while open; its close-before-capture negative control fails. On
+  code commit `316b5f9`, `node --test tests/fresh-world-failure.test.cjs
+  tests/shard-browser-suite.test.mjs` passed **7/7**, and
+  `python -m unittest tests.test_ci_workflow_integrity` passed **23/23**.
+- These findings are addressed in the code and evidence, but no independent
+  maintainer approval is inferred. The latest PR state still requires an
+  independent review; green automation, a skipped bot, and an `action_required`
+  reviewer are not approval.

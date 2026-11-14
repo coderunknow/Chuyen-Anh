@@ -58,7 +58,7 @@ Two SHAs are used on purpose, and they mean different things:
 | R9-C5 | Every workflow file is covered by a CI trigger | `[x]` → fixed (R9-02) | `tests/test_ci_workflow_integrity.py::WorkflowFileCoverageTests` | `80e6248` |
 | R9-C6 | Path filters cannot drift between triggers | `[x]` → fixed (R9-01) | `AnchorAliasTests`, mutation M1 | `80e6248` |
 | R9-C7 | All three engines and both suites still gate | `[x]` | `BrowserMatrixTests`: 3 engines, both suites, no `continue-on-error` | `80e6248` |
-| R9-C8 | Failure diagnostics actually collect something | `[x]` for capture; **upload path unverified** | The capture-before-cleanup fix is in `80e6248`; a stub modelling Playwright's lifecycle wrote real PNGs locally (M10). CI failure capture **and** artifact upload have not been observed on a failing run — a passing run only reports the step `skipped` | `80e6248` |
+| R9-C8 | Failure diagnostics actually collect something | `[x]` for local capture; **CI failure/upload unverified** | M10's Playwright-lifecycle stub replay covered the fixed snapshot committed as `80e6248` (old order: no PNG; fixed order: PNG written). `c8b22d8` wraps all 8 `freshWorld()` scenarios; the regression test at `316b5f9` models a page that throws after close, writes a PNG before close, and rejects the close-before-capture negative control. Green CI runs skip the screenshot-upload step; no failing CI run has verified capture/upload | `80e6248` / `c8b22d8` / `316b5f9` |
 | R9-C9 | Measure the optimization on a real run | `[x]` | Run `43376379586`: 13 m 18 s vs 13 m 19 s, runner-seconds +201 s ⇒ **the split was reverted**; numbers in `actions/OPTIMIZATION_REPORT.md` | `80e6248` |
 | R9-C10 | Pages smoke fixed-delay re-examined | `[x]` | release path already waits on deployment status; R9-13 keeps the bounded sleep, reasoned | `2f686f7` |
 | R9-C11 | Telemetry smoke failure diagnosed (not guessed) | `[x]` (diagnosed as external) | R9-10: `api/`+`supabase/` unchanged across green→red; 503 is not a version error | `2f686f7` |
@@ -101,5 +101,6 @@ Two SHAs are used on purpose, and they mean different things:
 - **Manual required:** R9-B10 screen-reader validation — not performed, not claimed.
 - **Unreproduced, recorded not fixed:** R9-11, R9-20.
 
-`b687b86` in the SHA column means the row was verified at the commit this
-document is committed with; the commit message names it.
+For the original Round 9 rows, `b687b86` denotes the final code head checked by
+run `43434146112` and frozen in docs commit `97acf97`. PR #86 follow-up evidence
+names its applicable fix and test commits separately in the row's SHA column.
