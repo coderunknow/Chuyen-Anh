@@ -6,15 +6,18 @@ Statuses: `[x]` done and verified · `[ ]` not done (reason given) ·
 Evidence column points at a file in this tree or a named command. Every row names
 the SHA it was verified at.
 
-Two SHAs are used on purpose, and they mean different things:
+The SHA column is commit-specific; there is no single SHA shared by every row:
 
 - `2f686f7…` — the **base** the audit started from. A row carrying it was verified
   by inspection or measurement *of that base*, and the property still holds.
-- `80e6248…` — the **final Round 9 head**, which contains every fix, including the
-  review-driven ones. A row carrying it describes a fix that only exists at that
-  head. Rows that named an earlier head were corrected: the screenshot fix landed
-  after `b8f2c11`, so citing `b8f2c11` for it pointed at a commit where the defect
-  was still present (CodeRabbit, PR #86).
+- `80e6248…` — an original Round 9 review-fix commit containing the top-level
+  screenshot capture-before-cleanup correction. It is **not** the final original
+  Round 9 code head, and does not contain later fixes.
+- `b687b86…` — the final code head for the original Round 9 checkpoint, checked by
+  run `43434146112` and followed by the documentation-only freeze `97acf97`.
+- Later PR #86 follow-up fixes have their own citations: `c8b22d8…` contains the
+  eight `freshWorld()` wrappers, and `316b5f9…` contains the behavioral regression
+  that exercises capture before close. The R9-C8 row lists each applicable SHA.
 
 ## A. Preflight
 

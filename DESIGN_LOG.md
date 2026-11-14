@@ -2610,3 +2610,20 @@ gates verified held against the live repository. `audit-evidence/round8/RC11_VER
   failing job; a live telemetry POST/preflight for PR #86; screen-reader testing;
   and recomputation of the 186 external asset digests against their bytes. The
   final push's exact-head checks remain pending at this point in the log.
+
+### 2026-11-12 — PR #86 evidence-scope correction — DONE
+
+- After replying to the two original CodeRabbit findings, its follow-up comment
+  `4572045536` correctly caught two remaining overbroad historical statements:
+  the disposition table still said every fix/run row cited `b8f2c11`, and the
+  checklist header still described `80e6248` as the final Round 9 head containing
+  every fix.
+- Scoped the disposition statement to the rows covered at that review point and
+  updated the checklist SHA key to distinguish the audit base `2f686f7`, the
+  original screenshot/review-fix commit `80e6248`, the final original Round 9
+  code head `b687b86`, and subsequent PR #86 follow-up commits `c8b22d8` and
+  `316b5f9`. R9-C8 continues to list each applicable fix/test SHA and keeps the
+  failure-artifact upload limitation explicit.
+- No application or workflow behavior changed. Local documentation/count checks
+  and exact-head CI for this wording-only correction are pending before final
+  closeout; no independent approval is inferred.

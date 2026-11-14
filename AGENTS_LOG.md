@@ -1897,3 +1897,17 @@ Final state, stated precisely to avoid a self-referential chase:
 - Not verified: actual CI failure-artifact capture/upload, current #86 live
   telemetry, screen-reader usability, and external asset-byte digests. Exact-head
   checks after pushing this closeout are pending.
+
+## 2026-11-12 — PR #86 evidence-scope correction
+
+- CodeRabbit's auto-reply `4572045536` identified two statements that still
+  conflated historical snapshots: the finding-3 disposition said all fixes/runs
+  cited `b8f2c11`, and `CHECKLIST.md` described `80e6248` as the final Round 9
+  head with every fix.
+- Narrowed the disposition row to the review point it records and rewrote the
+  checklist SHA key to separate base `2f686f7`, original review-fix commit
+  `80e6248`, original Round 9 final code head `b687b86`, and later PR #86
+  follow-up commits `c8b22d8` / `316b5f9`. The R9-C8 row still records each
+  applicable SHA and explicitly leaves failing-CI artifact upload unverified.
+- Documentation-only correction; no application/workflow behavior changed.
+  Documentation-count checks and a new exact-head Actions run are pending.

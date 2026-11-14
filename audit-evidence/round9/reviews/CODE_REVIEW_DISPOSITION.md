@@ -31,7 +31,7 @@ a commit where the defect still exists is a false claim.
 |---|---|---|---|---|
 | 1 | `CHECKLIST.md` | Minor | Asset integrity was marked verified on digest *formatting* alone | **Accepted — real overclaim.** The row is split: `R9-B7` keeps the 106/106 recomputed `contentSha256` (a real check), and a new `R9-B7b` records that the 186 external asset digests were **not** verified against their bytes. `audit-probes.md` narrowed the same way. |
 | 2 | `CHECKLIST.md` | Minor | `R9-B10`/`R9-B11` cited `2f686f7`, a commit whose CI had **no browser job** | **Accepted.** Both rows now cite run `43376379586` at `b8f2c11`, where all six engine-suite jobs actually passed. The evidence column says what ran, not just where the assertion lives. |
-| 3 | `CHECKLIST.md` | **Major** | Fixed rows cited the **base** SHA, where the defect still existed | **Accepted.** Every row describing a Round-9 fix or run now cites `b8f2c11`, and the checklist header explains what the two SHAs mean. |
+| 3 | `CHECKLIST.md` | **Major** | Fixed rows cited the **base** SHA, where the defect still existed | **Accepted at that review point.** The then-current checklist entries were changed from base `2f686f7` to the original Round 9 audit head `b8f2c11` where that was the verified snapshot. This was not a permanent one-SHA rule: the screenshot fix was later pinned to `80e6248`, and subsequent R9/PR #86 rows cite their applicable commits. The checklist header now distinguishes the original base, final original R9 code head, and later follow-up commits. |
 | 4 | `TEST_INTEGRITY.md` | Minor | Stale counts (`274`, `279`) after the suite grew | **Accepted.** Recounted, and all documents reconciled to **284** unit / **289** total. The stale-count class was fixed twice in one round, which is why the count tests exist. |
 | 5 | `scripts/ci_run_summary.py` | Minor | Reported final metrics for an **unfinished** run; `--latest` did not filter | **Accepted — real bug, observed live.** It printed `wall-clock 0m10s` beside a 7-minute job during this round. Completed runs are now required before any metric is reported; `--latest` picks the newest *completed* run; `SummaryScriptTests` pins it; mutation M11. |
 | 6 | `tests/browser-exams.cjs` | Minor | The screenshot ran in `main().catch`, i.e. **after** `finally` closed the browser | **Accepted — my capture was broken on real browsers.** Restructured: capture happens in a `catch` inside `main()`, before cleanup; both suites. Proven with a stub that models Playwright's lifecycle (M10), which the first stub did not. |
@@ -187,3 +187,21 @@ than accepted from the review text alone.
   maintainer approval is inferred. The latest PR state still requires an
   independent review; green automation, a skipped bot, and an `action_required`
   reviewer are not approval.
+
+
+## Follow-up to CodeRabbit reply `4572045536` — citation scope corrected
+
+The automated reply correctly identified two statements that remained too broad,
+even though the R9-C8 row itself had been updated:
+
+- The finding-3 disposition above said that every R9 fix/run row cited `b8f2c11`.
+  It now scopes that statement to the rows covered at that historical review point
+  and states that later fixes cite their applicable commits.
+- The checklist header called `80e6248` the final Round 9 head containing every
+  fix. It now distinguishes the `2f686f7` audit base, the `80e6248` original
+  screenshot/review-fix commit, the final original Round 9 code head `b687b86`,
+  and later PR #86 follow-up commits `c8b22d8` and `316b5f9`.
+
+The R9-C8 row still records the distinct commit for each fix/test and does not
+claim that a green CI run verified failure artifact upload. This wording correction
+makes no new claim of independent review or approval.
