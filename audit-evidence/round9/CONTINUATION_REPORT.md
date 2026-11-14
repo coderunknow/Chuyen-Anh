@@ -2,7 +2,12 @@
 
 Everything a follow-up session needs, in the order it would need it.
 
-## State
+## State (historical snapshot — Round 9 checkpoint)
+
+> Written while #85 was open and #86 targeted `arena/chuyen-anh-r8-ready-review`.
+> Superseded: #83–#86 have since merged into `main` (#86 as `5cf8625`), and the
+> dedicated stable PR follows. Current state lives in `audit/v100/GATES.md` and
+> the PR closeout comments.
 
 - Branch `arena/34e7e96d-chuyen-anh`, PR **#86**, open, non-draft,
   `MERGEABLE`, base `arena/chuyen-anh-r8-ready-review` (not retargeted).
@@ -15,7 +20,7 @@ Everything a follow-up session needs, in the order it would need it.
 
 | Check | Result | How to reproduce |
 |---|---|---|
-| Python unit tests | **285 OK** | `python3 -m unittest discover -s tests -p "test_*.py"` |
+| Python unit tests | **274 OK** | `python3 -m unittest discover -s tests -p "test_*.py"` (the count the verification log records; that log names no commit, so it cannot be tied to a head — current, SHA-bound totals are in CHANGELOG §v1.0.0 and TEST_INTEGRITY) |
 | Node tests | **208 pass / 0 fail** (`static-app` + `exam-scoring`) | `node --test tests/static-app.test.js tests/exam-scoring.test.js` |
 | Browser suites, Chromium | both green, end to end | see "Running the browser suites locally" in `TEST_INTEGRITY.md` |
 | Browser suites, Firefox/WebKit | CI only, green at `3ba0da6` | run `43415336939` |
@@ -80,6 +85,7 @@ npm install --no-save --package-lock=false playwright-core@1.55.1 axe-core@4.14.
 # extract libnss3/libnspr4/... from node_modules/@sparticuz/chromium/bin/al2023.tar.br
 # (brotli) into /tmp/al2023/lib, then:
 ln -sfn /tmp/br/node_modules /home/user/Chuyen-Anh/node_modules
+cd /home/user/Chuyen-Anh   # back to the repository root: the relative suite path resolves here, not under /tmp/br
 LD_LIBRARY_PATH=/tmp/al2023/lib \
 BROWSER_ENGINE=chromium BROWSER_EXECUTABLE=/tmp/chromium \
   bash tests/run-browser-suites.sh

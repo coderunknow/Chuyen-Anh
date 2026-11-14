@@ -40,7 +40,7 @@ jobs:
           persist-credentials: false
 
       - name: Give a released Pages deployment a moment to propagate
-        if: (github.event_name == 'release' && github.event.release.prerelease == true) || (github.event_name == 'workflow_dispatch' && inputs.release_tag != '')
+        if: github.event_name == 'release' || (github.event_name == 'workflow_dispatch' && inputs.release_tag != '')
         run: sleep 30
 
       # A release event is emitted before the dispatched Pages deployment has
@@ -49,7 +49,7 @@ jobs:
       # Wait for a successful deployment status carrying the Pages environment
       # URL for the released commit; a failed deployment fails this job.
       - name: Wait for the Pages deployment of a released commit
-        if: (github.event_name == 'release' && github.event.release.prerelease == true) || (github.event_name == 'workflow_dispatch' && inputs.release_tag != '')
+        if: github.event_name == 'release' || (github.event_name == 'workflow_dispatch' && inputs.release_tag != '')
         env:
           GH_TOKEN: ${{ github.token }}
           RELEASE_TAG: ${{ github.event_name == 'release' && github.event.release.tag_name || inputs.release_tag }}
@@ -87,17 +87,14 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          hold="$(tr -d '[:space:]' < DEPLOY_HOLD)"
-          status="$(gh api "repos/${GITHUB_REPOSITORY}/releases/tags/${hold}" --jq '.draft|tostring + " " + (.prerelease|tostring)' 2>/dev/null || true)"
-          if [ "$status" = "false true" ]; then
-            expected="$hold"
-            reason="held release is published"
-          else
-            expected="$(gh release list --exclude-drafts --limit 1 --json tagName --jq '.[0].tagName // ""')"
-            reason="held release is not published; compare with newest published release"
-          fi
+          # Compare against the newest published release, never the hold marker:
+          # after the stable release ships, DEPLOY_HOLD stays at the last
+          # published prerelease (v1.0.0-rc10) by design, so probing the hold
+          # would keep expecting rc10 while Pages serves v1.0.0.
+          expected="$(gh release list --exclude-drafts --limit 1 --json tagName --jq '.[0].tagName // ""')"
+          reason="newest published release"
           if [ -z "$expected" ]; then
-            echo "::error::No published release and no published hold release to probe"
+            echo "::error::No published release to probe"
             exit 1
           fi
           echo "expected=$expected" >> "$GITHUB_OUTPUT"

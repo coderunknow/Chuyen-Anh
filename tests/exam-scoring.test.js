@@ -422,6 +422,44 @@ test('rc9/r9: answering every scorable item correctly reaches 100%, never more',
   }
 });
 
+test('a fully correct submission, including multiple-response items, earns the whole denominator', () => {
+  // The ceiling test above skips multiple-response items and only checks an
+  // upper bound, so a scorer that awarded zero credit would still pass it
+  // (CodeRabbit nitpick, PR #86). This fixture answers every item type fully
+  // correctly and requires the exact full score, on a nonzero denominator.
+  const choiceQ = question({ id: 'q-full-choice' });
+  const multiQ = question({
+    id: 'q-full-multi', responseType: 'multiple',
+    options: [choice('choice-A', 'A', 'alpha'), choice('choice-B', 'B', 'beta'), choice('choice-C', 'C', 'gamma')]
+  });
+  const textQ = question({ id: 'q-full-text', responseType: 'text', options: [], prompt: 'Write "colour".' });
+  const keys = [
+    key({ questionId: 'q-full-choice', candidates: ['choice-B'], normalization: 'choice-id' }),
+    key({ questionId: 'q-full-multi', candidates: ['choice-A', 'choice-C'], normalization: 'choice-set' }),
+    key({ questionId: 'q-full-text', candidates: ['color'], acceptedAlternatives: ['colour'], normalization: 'case-whitespace' })
+  ];
+  const result = app.scoreExamSession(
+    { examId: '2025/test/full-credit',
+      questions: [choiceQ, multiQ, textQ],
+      responses: { 'q-full-choice': 'choice-B', 'q-full-multi': ['choice-A', 'choice-C'], 'q-full-text': '  COLOUR  ' } },
+    keys, [], '2025/test/full-credit'
+  );
+  const { summary } = result;
+  assert.ok(summary.denominator > 0, 'the fixture must have a nonzero denominator');
+  assert.equal(summary.earnedPoints, summary.denominator,
+    'a completely correct submission must earn every point, including multiple-response credit');
+  assert.equal(summary.percentage, 100);
+  // Every fixture item must contribute: 100% of a denominator that silently
+  // excluded the multiple-response or text item would not prove their coverage
+  // (CodeRabbit nitpick, PR #87).
+  assert.equal(summary.denominator, 3, 'choice, multiple-response and text items are all in the denominator');
+  assert.equal(summary.graded, 3, 'all three fixture items were graded');
+  assert.equal(result.results.length, 3, 'the scorer graded every fixture item');
+  for (const item of result.results) {
+    assert.equal(item.earnedCredit, 1, `${item.questionId} must contribute full credit`);
+  }
+});
+
 test('paper-level anchor checks do not verify individual answer keys', () => {
   const md = '## Đề thi\n1. Choose the correct answer.\nA. Alpha\nB. Beta\n## Đáp án/hướng dẫn chấm trong nguồn\n1. B\n';
   const qs = app.parseExamQuestions(md, '2025/hai-phong/so');

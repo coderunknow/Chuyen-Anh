@@ -2627,3 +2627,26 @@ gates verified held against the live repository. `audit-evidence/round8/RC11_VER
 - No application or workflow behavior changed. Local documentation/count checks
   and exact-head CI for this wording-only correction are pending before final
   closeout; no independent approval is inferred.
+
+## 2026-11-14 — stable release PR (v1.0.0 transition)
+
+- **Dual-gate split of responsibilities.** `DEPLOY_HOLD` stays at the last
+  published prerelease (`v1.0.0-rc10`) so `deploy_gate.py` remains open, and the
+  stable identity is protected solely by `app_release_gate.py`: published
+  `v1.0.0` in its channel **plus** an explicit `stable_deploy_authorized=true`
+  dispatch; `force_deploy` is explicitly not enough for a stable tag. The
+  hold==shipped policy tests in `test_deploy_gate.py` and `static-app.test.js`
+  were rewritten to encode exactly this inversion.
+- **Pages probe expected-version.** Always the newest published release: after
+  `v1.0.0` ships the hold stays at rc10 by design, so a hold-based expectation
+  would keep probing rc10 while Pages serves the stable build. All release
+  events (prerelease or stable) wait for the released commit's Pages deployment
+  before probing; the `v1.0.0` marker list is the union of the rc11 list and the
+  earlier stable list.
+- **Shard harness hardening (CodeRabbit #86 major).** Shards 1-4 now assert
+  their collected page errors before reporting PASS (shard 5 already carried the
+  original assertion), the two structural separator lines are blank-checked in
+  `--check`, and `markPhase` attributes each interval to the phase that was
+  running and flushes the final interval before reporting.
+- **Counts.** Python 294 / Node 305 after the added tests; checklist and the
+  changelog follow-up totals refreshed to match the discovered suites.

@@ -116,39 +116,40 @@ class DecideDeployTests(unittest.TestCase):
 
 
 class HoldMarkerLifecycleTests(unittest.TestCase):
-    def test_hold_marker_names_the_release_that_must_publish_first(self):
-        # Keep deployment gated until the explicitly named prerelease has been
-        # built, verified, and published. The gate reads its live release state, so
-        # the marker simply has to name one valid tag: it must be the version the
-        # shipped file declares, otherwise a merge could publish code whose own
-        # prerelease does not exist yet under cover of an unrelated, older release.
+    def test_hold_names_the_published_prerelease_while_the_shipment_is_stable(self):
+        # STABLE changed the policy this test encodes. The shipped file now
+        # carries the bare stable identity `v1.0.0`: that is what
+        # `app_release_gate.py` classifies as a *stable* build, so Pages is held
+        # by the second gate until the tag is published in its channel AND a
+        # separate dispatch sets `stable_deploy_authorized=true` — a push to
+        # `main` after the stable release cannot deploy on its own. DEPLOY_HOLD
+        # therefore stays at the last published prerelease (`v1.0.0-rc10`):
+        # `deploy_gate.py` reads it as published and opens, while the stable
+        # identity itself remains protected by `app_release_gate.py`. Naming a
+        # published prerelease cannot arm an unpublished version, because the
+        # second gate checks the shipped APP_VERSION, not the hold.
         path = ROOT / 'DEPLOY_HOLD'
         self.assertTrue(path.exists(), 'DEPLOY_HOLD must protect the release sequence')
         text = path.read_text(encoding='utf-8')
         tags = [line.strip() for line in text.splitlines()
                 if line.strip() and not line.strip().startswith('#')]
-        # RC11 changed the policy this test encodes. The candidate no longer ships
-        # the bare `v1.0.0` string: that identity is what `app_release_gate.py`
-        # classifies as a *stable* build, so a PR-only candidate carrying it would
-        # be asking for the stable-deploy authorization path and would describe
-        # itself as stable before any stable release existed. The candidate is
-        # `v1.0.0-rc11`, and the hold names that exact tag so the gate cannot be
-        # satisfied by the already-published `v1.0.0-rc10`.
         self.assertRegex(tags[0], r'^v\d+\.\d+\.\d+-(?:dev|beta|rc)\d+$',
-                         'the hold names a prerelease tag, never the stable identity')
+                         'the hold names a published prerelease tag, never the stable identity')
         html = (ROOT / 'index.html').read_text(encoding='utf-8')
         live = re.search(r"APP_VERSION = '([^']+)'", html)
         self.assertIsNotNone(live, 'the shipped file declares its version')
         version = live.group(1)
-        self.assertRegex(version, r'-(?:dev|beta|rc)\d+$',
-                         'the shipped candidate carries its prerelease suffix, not the stable identity')
-        self.assertEqual(tags[0], version,
-                         'the hold names the release of the version actually shipped')
-        self.assertNotEqual(tags[0], 'v1.0.0-rc10',
-                            'the hold must not still be satisfiable by the published rc10')
-        # The published rc10 remains a real, superseded release; it is simply no
-        # longer what the hold names.
-        self.assertNotEqual(version, 'v1.0.0-rc10')
+        self.assertEqual(version, 'v1.0.0',
+                         'the shipped candidate carries the stable identity')
+        self.assertEqual(tags[0], 'v1.0.0-rc10',
+                         'the hold stays at the last published prerelease: deploy_gate opens, '
+                         'app_release_gate holds the stable build until published + authorized')
+        # The first gate is open for a published hold; the stable protection is
+        # the second gate (its decide() matrix lives in test_app_release_gate.py).
+        mod = load_module()
+        deploy, reason = mod.decide_deploy(has_hold=True, hold_tag=tags[0],
+                                           status='published', force=False, repo='owner/repo')
+        self.assertTrue(deploy, f'a published prerelease hold opens deploy_gate: {reason}')
 
 
 class ReleasePublishedDispatchWorkflowContractTests(unittest.TestCase):
@@ -201,12 +202,19 @@ class DeployWorkflowContractTests(unittest.TestCase):
         # alias of the `pull_request` list (`paths: *ci-paths`), so the path is now
         # written once and both triggers share it. Asserting a count of two would
         # force the duplication back — the drift this alias removes.
-        self.assertEqual(text.count('.github/workflows/release-published-dispatch.yml'), 1,
-                         'the dispatcher path must be listed exactly once, in the shared filter')
+        count = text.count('.github/workflows/release-published-dispatch.yml')
         shared = 'paths: *ci-paths' in text
-        self.assertTrue(shared or text.count('.github/workflows/release-published-dispatch.yml') == 2,
-                        'both pull_request and push filters must cover the dispatcher: '
-                        'either share one filter by alias, or list the path in both')
+        # Both supported representations must pass: one shared aliased filter
+        # (path written once), or equivalent explicit lists under both triggers
+        # (path written twice). The exact-once assertion used to run first and
+        # rejected the explicit-lists alternative before this condition could
+        # accept it (CodeRabbit, PR #86).
+        if shared:
+            self.assertEqual(count, 1,
+                             'with the shared alias the dispatcher path must be listed exactly once')
+        else:
+            self.assertEqual(count, 2,
+                             'without the alias both pull_request and push filters must list the dispatcher path')
 
 
 

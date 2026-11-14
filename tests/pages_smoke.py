@@ -182,14 +182,24 @@ def main() -> int:
             else:
                 print(f"PASS {label}")
 
+    # The stable build is the rc11 candidate plus the stable identity, so the
+    # v1.0.0 marker list is the union of the rc11 list and the earlier stable
+    # list: a served v1.0.0 page must carry every surface those releases added.
     if version == "v1.0.0":
         for marker, label in (
             ("rc9-scorable-only-v1", "the scorable-only grading rule"),
+            ("answeredScorable", "the answered-on-scorable counter"),
+            ("completionPercentage", "the completion figure"),
+            ("examCorrectionPaperKeys", "the round-8 snapshot selection by exam+question+baseKeys"),
+            ("examCorrectionAcceptedInput", "the round-8 per-answer correction bound"),
+            ("importExamResultHistory", "the round-8 import path"),
+            ("inspectExamResultStore", "the round-8 unreadable-store guard"),
+            ("clearExamResultHistory", "the round-8 Clear with tombstones"),
+            ("phraseMatchesCefrSelection", "the phrase CEFR predicate"),
+            ("Bộ lọc CEFR", "the phrase-bank level note"),
             ("curated_domain_verified", "the curated domain-verified source status"),
             ("exempt_open_ended", "the open-ended essay exemption status"),
             ("exam-exemption-breakdown", "the submitted exemption breakdown strip"),
-            ("phraseMatchesCefrSelection", "the phrase CEFR predicate"),
-            ("Bộ lọc CEFR", "the phrase-bank level note"),
         ):
             if marker not in body:
                 fail(f"the served page is missing {label}")

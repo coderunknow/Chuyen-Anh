@@ -18,7 +18,7 @@ const root = path.resolve(__dirname, '..');
 const handler = require(path.join(root, 'api', 'telemetry.js'));
 
 const APP_ORIGIN = 'https://coderunknow.github.io';
-const VALID_VERSION = 'v1.0.0-rc11';
+const VALID_VERSION = 'v1.0.0';
 
 function response() {
   const headers = {};

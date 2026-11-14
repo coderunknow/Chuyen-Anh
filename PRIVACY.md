@@ -1,6 +1,6 @@
 # Privacy — Chuyên Anh
 
-_Áp dụng cho `v1.0.0-rc11` (bản ứng viên hiện tại, chưa phát hành) và mọi bản dựng từ mã nguồn này._
+_Áp dụng cho `v1.0.0` (bản stable hiện tại) và mọi bản dựng từ mã nguồn này._
 
 ## Tóm tắt
 

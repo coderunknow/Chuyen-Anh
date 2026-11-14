@@ -86,7 +86,11 @@ a probe proves a property today and a test proves it tomorrow:
   ceiling and the floor on real data: no item may award more than full credit and
   an exempt answered item may never be marked wrong.
 
-Mutations M16–M18 show both tests fail when the grader is broken.
+Mutations M16–M18 show the scorer-agreement test fails when the grader is
+broken (M16, M17); M18's single failure was the pre-existing "choose two"
+partial-credit test, so the recorded runs do **not** demonstrate the ceiling
+test itself failing — that claim is withdrawn rather than backed by an
+invented run.
 
 ## Behavioural (not just static) proofs
 
@@ -128,6 +132,20 @@ Test-count documents were updated (`263 → 285`, `268 → 290`, changelog
 `263 OK → 285 OK`) because the suite genuinely grew by 22 tests; the repository's
 own count tests compute the number rather than trusting the document, which is how
 these rows were caught twice in one round.
+
+## 2026-11-14 revalidation (stable release PR)
+
+The counts and mutation records above are SHA-bound to the Round 9 checkpoint
+and are kept as recorded. Re-validated on the stable release PR head with the
+full local release gate (all green): Python `unittest` **294 OK** (the suite
+grew by the three workflow-integrity tests added for the PR #86 review
+dispositions), Node **305 pass / 0 fail** (exam-scoring gained the
+complete-correct-answer fixture the review asked for), archive **5 OK**,
+workflow-integrity **26/26**, shard/lifecycle **9/9**, artifact checks
+**21/21**, scoring probe `nonExemptCoveragePct=100%`, `git diff --check`
+clean. The checklist and changelog follow-up rows were refreshed to these
+measured values; the mutation table above remains a historical record of what
+was run at the checkpoint.
 
 ## Tests NOT added, and why
 

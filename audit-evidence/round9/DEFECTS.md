@@ -93,13 +93,19 @@ Branch: `arena/34e7e96d-chuyen-anh`.
   described an intention; nothing implemented it.
 - **Impact:** a red browser job produced a stack trace and no visual evidence —
   the most expensive kind of CI failure to debug, on the most flaky surface.
-- **Fix:** the job exports `BROWSER_SCREENSHOT_DIR`; both suites capture the live
-  page in their failure handler (`main().catch`) and write into that directory;
-  the artifact uploads it. A full log is uploaded with `if: always()`.
+- **Fix:** the job exports `BROWSER_SCREENSHOT_DIR`; both suites now capture the
+  live page inside `main()` *before* browser cleanup — `browser-learning.cjs`
+  reassigns `failedPage` per scenario (fresh-world openTab, rc5) and
+  `browser-exams.cjs` does the same for `filePage` — and write into that
+  directory; the artifact uploads it. A full log is uploaded with `if: always()`.
+  (The original `main().catch` placement ran after cleanup and could not capture
+  the page — R9-15.) Artifact upload on a *failing* CI run remains unverified:
+  every CI run has been green, as `actions/OPTIMIZATION_REPORT.md` now states.
 - **Regression test:** `FailureArtifactTests` — the glob must not be `**/*.png`,
   the job must name the scratch dir and export the variable, both suites must
-  reference it *and* use it inside their failure handler, and the log upload must
-  be `always()`.
+  reference it *and* capture the page before cleanup, and the log upload must be
+  `always()`; plus
+  `test_failure_capture_tracks_each_suite_scenario_page_before_cleanup`.
 - **Mutation proof:** restoring `path: |` + `**/*.png` (M3) → `FAILED (failures=1)`;
   neutering the capture in the learning suite (M5) → `FAILED (failures=1)`.
 - **Behavioural proof (not just static):** with a stubbed `playwright-core` that
