@@ -282,3 +282,26 @@ review this sharding delta. A separate manual disposition is recorded in
 bot approval.
 
 No merge, tag, release, publication, or deployment occurred. The PR remains open.
+
+## 2026-11-14 revalidation (stable release PR)
+
+Re-run on the stable release PR head with the full local release gate (all
+green) after the PR #86 review dispositions landed:
+
+- **The reverted browser split stays reverted.** No new job split was
+  introduced; the measured wall-clock / runner-seconds reasoning above is
+  unchanged and the recorded measurement beside the job remains the authority.
+- **Diagnostics path still holds:** `node scripts/shard_browser_suite.mjs
+  --check` passes (exact-once partition, blank separators validated), and the
+  shard/lifecycle suite is **9/9** including the new per-shard page-error
+  assertion tests (shards 1–4 now assert their collected errors before PASS —
+  the PR #86 major finding) and the separator negative control.
+- **Workflow integrity 26/26** after the ordered path-pattern comparison and the
+  active `persist-credentials` validation were added.
+- **CI failure capture/upload on a failing run remains unverified** — every CI
+  run has been green, exactly as the narrowed claims above state. This has not
+  changed and is not claimed.
+- Review status is unchanged in kind: CodeRabbit reviews on the chain are
+  COMMENTED (its incremental review check on `eb7690d` completed **success**
+  with 14 dispositioned threads), Kilo reported insufficient credits, Copilot
+  was quota-blocked. None of these is an approval.

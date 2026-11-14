@@ -26,9 +26,9 @@
 | `c8b22d8` | second review round: `freshWorld` capture path, vacuous assertion, citations |
 | `074c48c` | final state + post-revert runner-seconds |
 | `3e3bd67` | states precisely what CodeRabbit reviewed |
-| `a82c3f7` | review dispositions appended to `AGENTS_LOG.md` — the final head, and the one CI and CodeRabbit evidence is cited at |
+| `a82c3f7` | review dispositions appended to `AGENTS_LOG.md` — the historical Round 9 head the CI and CodeRabbit evidence of that checkpoint is cited at |
 
-## Verified at the final head
+## Verified at the Round 9 checkpoint (`b687b86`; historical — current head verified separately above)
 
 | Check | Result |
 |---|---|
@@ -38,8 +38,8 @@
 | Vocabulary/exam validators | **21/21 commands, exit 0** |
 | Deploy gates | both `deploy=false … held` (`DEPLOY_HOLD` = `v1.0.0-rc11`) |
 | Workflow YAML | **8/8 parse** |
-| Browser suites in CI | three engines × both suites, all passing at the final head `a82c3f7` — run `43402014715` (chromium 6 m 55 s, firefox 9 m 15 s, webkit 15 m 07 s, checks 1 m 26 s) |
-| Final head | `b687b86`, CI run `43434146112` 4/4 green (wall 13 m 55 s, runner-seconds 2 112 s) | n/a |
+| Browser suites in CI | three engines × both suites, all passing at historical checkpoint `a82c3f7` — run `43402014715` (chromium 6 m 55 s, firefox 9 m 15 s, webkit 15 m 07 s, checks 1 m 26 s) |
+| Round 9 checkpoint head | `b687b86`, CI run `43434146112` 4/4 green (wall 13 m 55 s, runner-seconds 2 112 s) — historical; the PR's current head is `eb7690d`, verified separately (local full gate green; exact-head CI Static `43572771403`, archive `43572771481`, Pages `43572771338`, 15/15 browser shards) |
 | CodeRabbit | reviewed the code twice (12 comments, all disposed of). At `3ba0da6` its check is `skipped` with the reason *"manual review required for this OSS repository"* (a <10-star policy threshold, not quota) — see `CHECKLIST.md` R9-E1 |
 
 ## Not claimed
