@@ -27,7 +27,7 @@ Retained + excluded headwords equal the inspected headword count (6,841 + 1,271 
 
 ## B. Policy replay (the map, not the tags, decides)
 
-`docs/vocabulary-curation.json` was replayed through the shipping engine (`scripts/vocabulary_curation.matched_rows`) against the Markdown table: **1,271 decisions**, **1,271 stored archived rows**; **491** row(s) newly meet a rule and are queued for a curation decision rather than acted on.
+`docs/vocabulary-curation.json` was replayed through the shipping engine (`scripts/vocabulary_curation.matched_rows`) against the Markdown table: **1,271 decisions**, **1,271 stored archived rows**; **492** row(s) newly meet a rule and are queued for a curation decision rather than acted on.
 
 **Result: reconciled.** No row is tagged archived without a policy decision, no decision is missing a tag, no row carries the wrong category, and the engine reported no problems.
 

@@ -853,7 +853,12 @@ h1, h2, h3 { font-family: var(--font-serif); font-weight: 700; letter-spacing: -
 }
 .chip.is-on .chip-label, .chip.is-on .chip-count { color: var(--primary-strong); }
 .chip.is-on::before { content: "✓"; margin-right: 4px; font-size: .72rem; color: var(--primary-strong); }
-.chip.is-unavailable { border-style: dashed; opacity: .72; }
+.chip.is-unavailable { border-style: dashed; }
+/* Unavailable chips used to fade to opacity .72. That multiplies the text colour
+   too: the "Chưa phân loại" count rendered at 3.52:1 (WCAG 2.2 AA needs 4.5:1 for
+   text under 18.66px bold / 24px), and no palette value could pass while the fade
+   stayed. The dashed border and the "0 từ" count already say "unavailable", so the
+   text keeps full contrast. */
 .chip--exercise.is-on::before { content: "✓"; }
 .chip--exercise:not(.is-on)::before { content: ""; }
 .segmented { display: inline-flex; flex-wrap: wrap; padding: 3px; border: 1px solid var(--border); border-radius: var(--radius-pill); background: var(--surface-soft); gap: 2px; }
@@ -501154,7 +501159,7 @@ html[data-ui="modern"] .ui-switch-option, html[data-ui="modern"] .seg { transiti
     "meaning": "cũng không",
     "examples": [],
     "tags": [
-      "level:A2",
+      "level:B1",
       "level-source:oxford-3000-wordlist",
       "topic:daily",
       "type:topic",
@@ -505324,7 +505329,7 @@ html[data-ui="modern"] .ui-switch-option, html[data-ui="modern"] .seg { transiti
     "meaning": "cưỡi, đi xe",
     "examples": [],
     "tags": [
-      "level:A2",
+      "level:A1",
       "level-source:oxford-3000-wordlist",
       "topic:travel",
       "type:topic",
@@ -505931,7 +505936,7 @@ html[data-ui="modern"] .ui-switch-option, html[data-ui="modern"] .seg { transiti
     "meaning": "chạy",
     "examples": [],
     "tags": [
-      "level:A2",
+      "level:A1",
       "level-source:oxford-3000-wordlist",
       "topic:leisure",
       "type:topic",
@@ -510169,7 +510174,7 @@ html[data-ui="modern"] .ui-switch-option, html[data-ui="modern"] .seg { transiti
     "meaning": "ngôi sao",
     "examples": [],
     "tags": [
-      "level:A2",
+      "level:A1",
       "level-source:oxford-3000-wordlist",
       "topic:daily",
       "type:topic",
@@ -510230,7 +510235,7 @@ html[data-ui="modern"] .ui-switch-option, html[data-ui="modern"] .seg { transiti
     "meaning": "ở lại, lưu lại",
     "examples": [],
     "tags": [
-      "level:A2",
+      "level:A1",
       "level-source:oxford-3000-wordlist",
       "topic:travel",
       "type:topic",
@@ -511979,7 +511984,7 @@ html[data-ui="modern"] .ui-switch-option, html[data-ui="modern"] .seg { transiti
     "meaning": "nói chuyện, trò chuyện",
     "examples": [],
     "tags": [
-      "level:A2",
+      "level:A1",
       "level-source:oxford-3000-wordlist",
       "topic:daily",
       "type:topic",
@@ -515170,7 +515175,7 @@ html[data-ui="modern"] .ui-switch-option, html[data-ui="modern"] .seg { transiti
     "meaning": "chào đón, hoan nghênh",
     "examples": [],
     "tags": [
-      "level:A2",
+      "level:A1",
       "level-source:oxford-3000-wordlist",
       "topic:daily",
       "type:topic",
@@ -547705,6 +547710,7 @@ const EN_UI_TRANSLATIONS = Object.freeze({
   'Số thẻ mặc định mỗi phiên': 'Default cards per session',
   'Áp dụng cho Đến hạn, Từ yếu, Từ mới, Ngẫu nhiên, Yêu thích và Học cấp tốc. Phiên nhanh 10/20/30 giữ số thẻ ghi trên nút.': 'Applies to Due, Weak, New, Random, Favorites, and Study sprint. Quick 10/20/30 sessions keep the size shown on their button.',
   'Sao lưu tiến độ': 'Progress backup',
+  'Bản sao JSON v1 gồm tiến độ flashcard, từ yêu thích, chuỗi ngày, lịch sử học và cài đặt. Từ khó, cấu hình phiên ưu tiên, huy hiệu đã đạt và tiến độ cụm từ là các khối tùy chọn; bản sao v1 cũ vẫn nhập được. Bộ lọc CEFR, giao diện sáng/tối và ngôn ngữ hiển thị là cài đặt của từng thiết bị. Kho đề offline nằm trong tệp HTML, không thuộc bản sao lưu.': 'The v1 JSON backup contains flashcard progress, favorites, streak, session history and settings. Hard words, priority-session settings, earned badges and phrase practice are optional blocks; an older v1 file still imports. The CEFR filter, light/dark theme and interface language are per-device settings. The offline exam archive is embedded in the HTML and is not part of the backup.',
   'Bản sao JSON v1 chỉ gồm tiến độ flashcard, từ yêu thích, chuỗi ngày, lịch sử học và cài đặt. Kho đề offline được nhúng trong tệp HTML, không thuộc định dạng sao lưu tiến độ.': 'The v1 JSON backup contains flashcard progress, favorites, streak, study history, and preferences only. The offline exam archive is embedded in the HTML and is not part of the progress backup.',
   'Xuất bản sao JSON': 'Export JSON backup',
   'Nhập bản sao JSON': 'Import JSON backup',
@@ -547899,8 +547905,8 @@ const EN_UI_TRANSLATIONS = Object.freeze({
   'Đánh dấu từ khó': 'Mark as hard word',
   'Bỏ đánh dấu từ khó': 'Remove hard-word mark',
   'Sao lưu tiến độ': 'Progress backup',
+  'Bản sao JSON v1 gồm tiến độ flashcard, từ yêu thích, chuỗi ngày, lịch sử học và cài đặt. Từ khó, cấu hình phiên ưu tiên, huy hiệu đã đạt và tiến độ cụm từ là các khối tùy chọn; bản sao v1 cũ vẫn nhập được. Bộ lọc CEFR, giao diện sáng/tối và ngôn ngữ hiển thị là cài đặt của từng thiết bị. Kho đề offline nằm trong tệp HTML, không thuộc bản sao lưu.': 'The v1 JSON backup contains flashcard progress, favorites, streak, session history and settings. Hard words, priority-session settings, earned badges and phrase practice are optional blocks; an older v1 file still imports. The CEFR filter, light/dark theme and interface language are per-device settings. The offline exam archive is embedded in the HTML and is not part of the backup.',
   'Bản sao JSON v1 gồm tiến độ flashcard, từ yêu thích, chuỗi ngày, lịch sử học và cài đặt.': 'The v1 JSON backup contains flashcard progress, favorites, streak, session history and settings.',
-  'Từ khó, cấu hình phiên ưu tiên và huy hiệu đã đạt được ghi thêm dưới dạng trường tùy chọn; bản sao v1 cũ vẫn nhập được và các trường mới sẽ dùng giá trị mặc định.': 'Hard words, the priority configuration and unlocked badges are written as optional fields; older v1 backups still import and the new fields keep this device values.',
   'Kho đề offline nằm trong tệp HTML, không thuộc bản sao lưu.': 'The offline exam archive lives in the HTML file and is not part of the backup.',
   'Xuất bản sao JSON': 'Export JSON backup',
   'Nhập bản sao JSON': 'Import JSON backup',
@@ -548064,7 +548070,45 @@ const EN_UI_TRANSLATIONS = Object.freeze({
   'Không thể lưu lựa chọn hiển thị nghĩa trên thiết bị này.': 'This device cannot store the meaning preference.',
   'Không thể lưu kiểu giao diện trên thiết bị này.': 'This device cannot store the interface style.',
   'Đã chuyển sang giao diện Modern.': 'Switched to the Modern interface.',
-  'Đã chuyển sang giao diện Classic.': 'Switched to the Classic interface.'
+  'Đã chuyển sang giao diện Classic.': 'Switched to the Classic interface.',
+  'Bản đề của kết quả này không còn trong kho.': 'The paper for this result is no longer in the archive.',
+  'Không thể lưu bộ lọc CEFR.': 'The CEFR filter could not be saved.',
+  'Không thể lưu lịch sử luyện đề trên thiết bị này.': 'The exam history could not be saved on this device.',
+  'Không thể lưu lịch sử luyện đề; hãy tải kết quả JSON trước khi đóng trang.': 'The exam history could not be saved; download the JSON result before closing the page.',
+  'Không thể mở kho đề để xem lịch sử.': 'The exam archive could not be opened to view this history.',
+  'Đã nhập lịch sử luyện đề hợp lệ.': 'The exam history was imported.',
+  'Cài đặt thiết bị': 'Device settings',
+  'Bộ lọc CEFR, giao diện sáng/tối, kiểu hiển thị và ngôn ngữ không nằm trong bản sao tiến độ vì chúng thuộc về từng thiết bị. Tệp riêng này chỉ gồm bốn cài đặt đó. Nhập vào sẽ thay thế cả bốn, không gộp; tệp sai sẽ bị từ chối và cài đặt hiện tại giữ nguyên.': 'The CEFR filter, light/dark theme, display mode and language are not part of the progress backup because they belong to one device. This separate file carries only those four settings. Importing replaces all four rather than merging; an invalid file is refused and the current settings are kept.',
+  'Xuất cài đặt thiết bị': 'Export device settings',
+  'Nhập cài đặt thiết bị': 'Import device settings',
+  'Đã xuất cài đặt thiết bị.': 'Device settings exported.',
+  'Đã nhập cài đặt thiết bị.': 'Device settings imported.',
+  'Không thể lưu cài đặt vừa nhập; cài đặt cũ trên máy được giữ nguyên.': 'The imported settings could not be saved; the previous settings on this device were kept.',
+  'Không thể lưu cài đặt vừa nhập và việc khôi phục có thể chưa hoàn tất; hãy kiểm tra lại cài đặt trên máy.': 'The imported settings could not be saved and restoring them may not have completed; check the settings on this device.',
+  'Tệp cài đặt phải là một đối tượng JSON.': 'The settings file must be a JSON object.',
+  'Tệp này không phải bản sao cài đặt thiết bị của Chuyên Anh.': 'This is not a Chuyên Anh device-settings file.',
+  'Tệp cài đặt có phiên bản không được hỗ trợ.': 'The settings file uses an unsupported version.',
+  'Tệp cài đặt thiếu phần cài đặt.': 'The settings file is missing its settings section.',
+  'Tệp cài đặt thiếu trường bắt buộc.': 'The settings file is missing a required field.',
+  'Bộ lọc CEFR trong tệp không hợp lệ.': 'The CEFR filter in the file is invalid.',
+  'Bộ lọc CEFR trong tệp có mức không hợp lệ.': 'The CEFR filter in the file contains an unsupported level.',
+  'Bộ lọc CEFR trong tệp thiếu trạng thái "chưa phân loại".': 'The CEFR filter in the file is missing its "unclassified" state.',
+  'Giao diện trong tệp không hợp lệ.': 'The theme in the file is invalid.',
+  'Ngôn ngữ trong tệp không hợp lệ.': 'The language in the file is invalid.',
+  'Kiểu hiển thị trong tệp không hợp lệ.': 'The display mode in the file is invalid.',
+  'Tệp cài đặt không phải JSON hợp lệ.': 'The settings file is not valid JSON.',
+  'Tệp cài đặt quá lớn.': 'The settings file is too large.',
+  'Không thể lưu kết quả vì bản đề này đã được lưu với bộ câu hỏi khác; hãy mở lại đề từ kho và làm lại.': 'The result could not be saved because this paper was saved with a different set of questions. Reopen it from the archive and retake it.',
+  'Bộ lọc CEFR vừa thay đổi: đã bỏ X thẻ nằm ngoài mức đang chọn khỏi phiên.': 'The CEFR filter just changed: X cards outside the selected level(s) were removed from the session.',
+  'Đã bật nhóm từ và chọn làm trọng tâm phiên học.': 'Word family enabled and set as the focus of the study session.',
+  'Chưa có từ khó nào được đánh dấu trong các mức CEFR đang chọn. Hãy đánh dấu từ hoặc mở thêm mức CEFR.': 'No hard words are marked within the selected CEFR levels. Mark a word or enable more CEFR levels.',
+  'Bạn chưa đánh dấu từ yêu thích nào. Hãy bấm ngôi sao ở Tra cứu hoặc trong phiên học.': 'You have not starred any favourite words yet. Tap the star in Search or during a study session.',
+  'Mọi mức CEFR đang tắt nên không cụm từ nào vào phiên. Hãy bật lại một mức trong mục Học.': 'Every CEFR level is off, so no phrases enter the session. Turn a level back on in the Study section.',
+  'Không thể tạo bản ghi lịch sử luyện đề.': 'The exam history record could not be created.',
+  'Đáp án hiệu chỉnh không hợp lệ với dạng câu hỏi.': 'The corrected answer is not valid for this question type.',
+  'Đã lưu hiệu chỉnh người học và tính lại kết quả.': 'Your correction was saved and the result recalculated.',
+  'Không thể nhập lịch sử đề: X': 'The exam history could not be imported: X',
+  'Nhập cài đặt thiết bị thất bại: X': 'Device settings import failed: X',
 });
 
 const EN_UI_PATTERNS = [
@@ -549394,6 +549438,140 @@ export function loadPresentation(storage = memorySafeStorage()) {
 
 export function savePresentation(presentation, storage = memorySafeStorage()) {
   return writeJson(storage, PRESENTATION_STORAGE_KEY, sanitizePresentation(presentation));
+}
+
+/* ------------------- device-local settings export (v1) -------------------- */
+// The progress backup deliberately does not carry the CEFR filter, the theme or
+// the interface language: they describe *this device*, not the learner's study
+// record, and folding them into a 674-byte study bundle would change the v1
+// contract for everyone who ever wrote one. They still deserve a way to travel,
+// so they get their own small, explicitly versioned file.
+//
+// Import semantics: **replace**, all-or-nothing. A device-settings file is a
+// description of one device's interface, not a mergeable log - there is no
+// meaningful union of "dark" and "light", and merging a CEFR list with another
+// device's list would invent a filter neither device ever had. Replacement is
+// also what makes the operation explainable in one sentence to the learner, and
+// it is safe because every applied value was validated first and the previous
+// values are restored if the write fails.
+export const DEVICE_SETTINGS_FORMAT = 'chuyen-anh-device-settings';
+export const DEVICE_SETTINGS_VERSION = 1;
+// This file holds four small preferences, so anything approaching a megabyte is
+// not one of ours. Refusing before reading matters: `file.text()` would load the
+// whole selection into memory first and could hang the tab, which is why the size
+// is checked on the File, not on the parsed result.
+export const DEVICE_SETTINGS_MAX_BYTES = 64 * 1024;
+
+// The exact set this file may carry. Anything else in the object is ignored on
+// read (a newer writer may add fields) and never written on export.
+export function deviceSettingsSnapshot({ cefrSelection, theme, language, presentation } = {}) {
+  const selection = sanitizeCefrSelection(cefrSelection);
+  return {
+    cefr: { levels: [...selection.levels], unclassified: selection.unclassified === true },
+    theme: THEMES.includes(theme) ? theme : 'system',
+    language: language === 'en' ? 'en' : 'vi',
+    // `presentation` is device-local too (interface skin and whether meanings are
+    // shown). It is included because leaving it out would make a restore produce a
+    // device that looks like neither the old nor the new one.
+    presentation: sanitizePresentation(presentation)
+  };
+}
+
+export function exportDeviceSettings(input) {
+  return {
+    app: DEVICE_SETTINGS_FORMAT,
+    version: DEVICE_SETTINGS_VERSION,
+    exportedAt: new Date().toISOString(),
+    settings: deviceSettingsSnapshot(input)
+  };
+}
+
+// Throws with a translated message: the caller shows it verbatim, and a silent
+// `{ok:false}` would leave the learner without a reason. Nothing here writes.
+export function validateDeviceSettingsPayload(payload, translate = text => text) {
+  // A caller holding raw text is capped the same way the UI caps the File, so the
+  // limit cannot be bypassed by calling the validator directly.
+  if (typeof payload === 'string' && new TextEncoder().encode(payload).length > DEVICE_SETTINGS_MAX_BYTES) {
+    throw new Error(translate('Tệp cài đặt quá lớn.'));
+  }
+  if (!payload || typeof payload !== 'object' || Array.isArray(payload)) {
+    throw new Error(translate('Tệp cài đặt phải là một đối tượng JSON.'));
+  }
+  if (payload.app !== DEVICE_SETTINGS_FORMAT) {
+    throw new Error(translate('Tệp này không phải bản sao cài đặt thiết bị của Chuyên Anh.'));
+  }
+  // An unknown version is refused rather than guessed at: a future file may mean
+  // something different by the same field names, and applying it half-way is how
+  // a restore silently produces a device nobody configured.
+  if (payload.version !== DEVICE_SETTINGS_VERSION) {
+    throw new Error(translate('Tệp cài đặt có phiên bản không được hỗ trợ.'));
+  }
+  const settings = payload.settings;
+  if (!settings || typeof settings !== 'object' || Array.isArray(settings)) {
+    throw new Error(translate('Tệp cài đặt thiếu phần cài đặt.'));
+  }
+  // Every field is required. This is deliberate: a file that omits `theme` is a
+  // file written by something other than this exporter, and filling the gap with
+  // a default would overwrite a real setting with a guess.
+  for (const field of ['cefr', 'theme', 'language', 'presentation']) {
+    if (!Object.hasOwn(settings, field)) throw new Error(translate('Tệp cài đặt thiếu trường bắt buộc.'));
+  }
+  const cefr = settings.cefr;
+  if (!cefr || typeof cefr !== 'object' || Array.isArray(cefr) || !Array.isArray(cefr.levels)) {
+    throw new Error(translate('Bộ lọc CEFR trong tệp không hợp lệ.'));
+  }
+  if (cefr.levels.some(level => typeof level !== 'string' || !CEFR_LEVELS.includes(level.toUpperCase()))) {
+    throw new Error(translate('Bộ lọc CEFR trong tệp có mức không hợp lệ.'));
+  }
+  if (typeof cefr.unclassified !== 'boolean') {
+    throw new Error(translate('Bộ lọc CEFR trong tệp thiếu trạng thái "chưa phân loại".'));
+  }
+  if (!THEMES.includes(settings.theme)) {
+    throw new Error(translate('Giao diện trong tệp không hợp lệ.'));
+  }
+  if (!['vi', 'en'].includes(settings.language)) {
+    throw new Error(translate('Ngôn ngữ trong tệp không hợp lệ.'));
+  }
+  const presentation = settings.presentation;
+  if (!presentation || typeof presentation !== 'object' || Array.isArray(presentation)
+    || !Object.values(MEANING_MODES).includes(presentation.meanings)
+    || !Object.values(INTERFACE_MODES).includes(presentation.interface)) {
+    throw new Error(translate('Kiểu hiển thị trong tệp không hợp lệ.'));
+  }
+  // Normalise so the caller applies exactly what was validated, not the raw object.
+  return {
+    cefrSelection: sanitizeCefrSelection({
+      version: CEFR_SELECTION_VERSION,
+      levels: [...new Set(cefr.levels.map(level => level.toUpperCase()))],
+      unclassified: cefr.unclassified
+    }),
+    theme: settings.theme,
+    language: settings.language,
+    presentation: sanitizePresentation(presentation)
+  };
+}
+
+// Applies validated settings atomically. Returns 'ok', 'write-failed' or
+// 'rollback-failed'; the caller distinguishes a clean refusal from a store that
+// may now be half written, because only the first can be retried safely.
+export function applyDeviceSettings(settings, storage = memorySafeStorage()) {
+  const expected = [
+    STUDY_STORAGE_KEYS.cefr, STUDY_STORAGE_KEYS.theme, LANGUAGE_STORAGE_KEY, PRESENTATION_STORAGE_KEY
+  ];
+  const staged = createWriteStaging(storage);
+  saveCefrSelection(settings.cefrSelection, staged.storage);
+  saveTheme(settings.theme, staged.storage);
+  saveLanguage(settings.language, staged.storage);
+  savePresentation(settings.presentation, staged.storage);
+  // A saver refuses an invalid value by not staging a write at all, and the
+  // staging layer cannot tell "refused" from "nothing to change". Without this
+  // check an invalid theme would report 'ok' after writing the other three
+  // stores - a partial application dressed as a success. The UI validates first,
+  // but this function is exported and its contract is all-or-nothing.
+  if (!expected.every(key => staged.writes.has(key))) return 'write-failed';
+  const committed = staged.commit();
+  if (committed === true) return 'ok';
+  return committed === 'rollback-failed' ? 'rollback-failed' : 'write-failed';
 }
 
 // True when a gloss must be withheld *before the learner has answered*. The
@@ -552763,6 +552941,20 @@ function examAlignQuestionEntries(questions, entries) {
   }
   return result;
 }
+// An item can be open-ended without the protected parser typing it `essay`:
+// the curated exemption is the authority (`2022/ha-noi/so` Q51 is a 250-word
+// essay prompt whose wording the parser does not recognise). Every surface that
+// offers essay-format input or advisory rubric feedback keys off this helper,
+// so a curated open-ended item never loses the feedback it was promised.
+function examIsEssayItem(question, key = null) {
+  if (question?.responseType === 'essay') return true;
+  const record = key || question?.answerKey || null;
+  // `essayLike` is what a verification record remembers about the curated
+  // exemption once a learner correction has made the item scorable again.
+  return record?.essayLike === true
+    || record?.exemptionCategory === 'open_ended_writing_or_speaking'
+    || record?.ungradeableReason === 'essay-open-ended-exempt';
+}
 function examEssayRubricSpec(question) {
   const surface = `${question?.instruction || ''} ${question?.prompt || ''}`;
   const rangeMatch = surface.match(/\b(\d{2,3})\s*(?:-|–|to)\s*(\d{2,3})\s*words?\b/i);
@@ -553130,7 +553322,7 @@ function examValidateKeyRecord(question, key) {
 }
 export function getQuestionVerification(question, keyRecord = null) {
   const key = keyRecord || question?.answerKey || null;
-  const essayRubric = question?.responseType === 'essay' ? examEssayRubricSpec(question) : null;
+  const essayRubric = examIsEssayItem(question, key) ? examEssayRubricSpec(question) : null;
   if (!key || !Object.values(EXAM_ANSWER_STATUSES).includes(key.verificationStatus)) {
     return {
       status: question?.responseType === 'essay' ? EXAM_ANSWER_STATUSES.INFERRED : EXAM_ANSWER_STATUSES.MISSING,
@@ -553221,7 +553413,7 @@ export function getQuestionVerification(question, keyRecord = null) {
       sourceStatus: key.sourceStatus || (missingKey ? EXAM_SOURCE_STATUSES.INSUFFICIENT : EXAM_SOURCE_STATUSES.INVALID),
       confidence: EXAM_CONFIDENCE_LEVELS.VERY_LOW,
       candidates: [], acceptedAlternatives: [], normalization: 'none',
-      rubric: question?.responseType === 'essay' ? rubric : null,
+      rubric: examIsEssayItem(question, key) ? rubric : null,
       reasoning: `The stored answer cannot answer this item (${validity.reason}); the item is reported as ungraded instead of being scored.`,
       limitations: [...limitations, `Stored key rejected: ${validity.reason}.`],
       sources: key.sources || [],
@@ -553232,7 +553424,7 @@ export function getQuestionVerification(question, keyRecord = null) {
     };
   }
   const provisional = status !== EXAM_ANSWER_STATUSES.OFFICIAL || hasMissingAudio;
-  return { ...key, status, verificationStatus: status, sourceStatus, confidence, candidates, acceptedAlternatives, normalization, rubric, reasoning: key.reasoning || null, limitations, provisional, scorable: true, exempt: false, exemptionCategory: null, ungradeableReason: null };
+  return { ...key, status, verificationStatus: status, sourceStatus, confidence, candidates, acceptedAlternatives, normalization, rubric, reasoning: key.reasoning || null, limitations, provisional, scorable: true, exempt: false, exemptionCategory: null, ungradeableReason: null, essayLike: examIsEssayItem(question, key) };
 }
 export function gradeExamQuestion(question, learnerAnswer, keyRecord = null) {
   const verification = getQuestionVerification(question, keyRecord);
@@ -553270,7 +553462,7 @@ export function gradeExamQuestion(question, learnerAnswer, keyRecord = null) {
   // attach an advisory 4-criterion rubric breakdown when answered.
   if (verification.scorable === false) {
     const reason = verification.ungradeableReason || 'no-usable-key';
-    if (question.responseType === 'essay' && typeof learnerAnswer === 'string' && Boolean(learnerAnswer.trim())) {
+    if (examIsEssayItem(question, verification) && typeof learnerAnswer === 'string' && Boolean(learnerAnswer.trim())) {
       const evaluated = gradeExamEssayRubric(question, learnerAnswer, verification);
       return {
         ...base,
@@ -553285,7 +553477,7 @@ export function gradeExamQuestion(question, learnerAnswer, keyRecord = null) {
     }
     return ungraded(reason);
   }
-  if (question.responseType === 'essay') {
+  if (examIsEssayItem(question, verification)) {
     const answered = typeof learnerAnswer === 'string' && Boolean(learnerAnswer.trim());
     if (!answered) return ungraded('unanswered');
     if (verification.status === EXAM_ANSWER_STATUSES.USER && verification.candidates?.length && !/^\[.*rubric\]$/i.test(verification.candidates[0])) {
@@ -553294,6 +553486,9 @@ export function gradeExamQuestion(question, learnerAnswer, keyRecord = null) {
         const credit = Math.round(numOverride * 100) / 100;
         return { ...base, result: credit >= 0.6 ? 'correct' : credit >= 0.25 ? 'partial' : 'incorrect', earnedCredit: credit, reason: 'learner-rubric-override' };
       }
+      // A number outside 0..1 is not a credit: say so instead of letting the
+      // essay text be scored as a template answer against a bad override.
+      if (Number.isFinite(numOverride)) return ungraded('invalid-rubric-credit');
     }
     const evaluated = gradeExamEssayRubric(question, learnerAnswer, verification);
     // Off-topic and template responses are never reported as a successful
@@ -553554,8 +553749,45 @@ export function examResultFilename(result) {
   return `ket-qua-${safe}-${date}.json`;
 }
 
+// The single definition of a storable paper key, shared by the writer and the
+// validator so the two can never disagree about what is storable.
+const EXAM_PAPER_KEY_RE = /^[^\s@]{1,300}@[a-f0-9]{64}$/;
 function examPaperKey(examId, contentSha256) { return `${examId}@${contentSha256}`; }
 function examClone(value) { return JSON.parse(JSON.stringify(value)); }
+// Snapshot equality must not depend on property order. A paper that was exported,
+// re-saved by a tool or restored from another device can carry the same questions
+// and keys in a different key order; `JSON.stringify` would call that a conflict
+// and the learner's own attempt would be refused for being formatted differently.
+function examCanonicalJson(value) {
+  if (Array.isArray(value)) return `[${value.map(examCanonicalJson).join(',')}]`;
+  if (value && typeof value === 'object') {
+    return `{${Object.keys(value).sort().map(key => `${JSON.stringify(key)}:${examCanonicalJson(value[key])}`).join(',')}}`;
+  }
+  return JSON.stringify(value);
+}
+// Retention keeps the newest attempts, so it must act on submission time and not
+// on array position: an imported history can put a record first (a device whose
+// clock runs ahead writes a later `submittedAt`), and a positional trim then
+// discards the newest attempt while keeping older ones. The sort is stable.
+function examOrderAttempts(attempts) {
+  return attempts
+    .map((attempt, index) => ({ attempt, index }))
+    .sort((a, b) => (a.attempt.submittedAt - b.attempt.submittedAt) || (a.index - b.index))
+    .map(entry => entry.attempt);
+}
+// What makes two records "the same attempt" for a merge is what the learner did:
+// the paper, the responses and when they were submitted. `summary` and
+// `questionResults` are derived from the responses and the corrections in force,
+// so they are the *result* of an attempt, not its identity. Comparing them made a
+// corrected attempt and its uncorrected copy look like two attempts with one id,
+// so a learner who corrected a key on one device could no longer import their
+// history on another: `conflicting-attempt`.
+function examAttemptIdentity(attempt) {
+  return examCanonicalJson({
+    id: attempt?.id, paperKey: attempt?.paperKey, examId: attempt?.examId,
+    startedAt: attempt?.startedAt, submittedAt: attempt?.submittedAt, responses: attempt?.responses
+  });
+}
 export function emptyExamResultHistory() { return { schemaVersion: EXAM_HISTORY_SCHEMA_VERSION, attempts: [], papers: {}, corrections: [] }; }
 function examPruneCorrections(history) {
   const targets = new Set();
@@ -553573,6 +553805,19 @@ function examStoredQuestionResults(results) {
 export function createExamResultRecord(session, record, keys = [], { now = Date.now(), id = null } = {}) {
   if (!session || session.status !== 'submitted' || !record?.contentSha256) throw new Error('Invalid submitted exam result.');
   const paperKey = examPaperKey(record.id, record.contentSha256);
+  // The stored key must be one the importer will accept again. `examPaperKey`
+  // joins id and hash with `@`, and the validator allows no `@` inside the id, so
+  // an id that contains one produced a record that could never be saved or
+  // re-imported - the learner was told to "download the JSON", and that file was
+  // rejected too. Refusing it here fails at the only point where the promise is
+  // still true: nothing has been reported as saved yet.
+  if (!EXAM_PAPER_KEY_RE.test(paperKey)) throw new Error('Invalid exam paper key.');
+  // Keep the snapshot self-consistent: a key for a question the session never
+  // contained would be stored and then rejected by the import validator, which
+  // would make the learner's own export unrestorable. Only the questions in this
+  // session can be graded anyway.
+  const sessionQuestions = session.questions || [];
+  const snapshotKeys = keys.filter(key => sessionQuestions.some(q => q.id === key.questionId));
   const scored = scoreExamSession(session, keys, [], record.id);
   return {
     id: id || `attempt-${examStableHash(`${record.id}:${session.submittedAt}:${JSON.stringify(session.responses)}`)}`,
@@ -553581,7 +553826,7 @@ export function createExamResultRecord(session, record, keys = [], { now = Date.
     summary: scored.summary, questionResults: examStoredQuestionResults(scored.results),
     paper: { id: paperKey, examId: record.id, contentSha256: record.contentSha256,
       metadata: { year: record.year, province: record.province, unit: record.unit, unitLabel: record.unitLabel, source: record.source, quality: record.quality },
-      questions: examClone(session.questions), baseKeys: examClone(keys) }
+      questions: examClone(sessionQuestions), baseKeys: examClone(snapshotKeys) }
   };
 }
 function examResultAttemptScore(history, attempt) {
@@ -553603,10 +553848,22 @@ function examRecomputeResultHistory(history) {
 export function addExamResult(history, attempt) {
   const next = examClone(history || emptyExamResultHistory());
   if (!attempt?.paper || attempt.paper.id !== attempt.paperKey) throw new Error('Invalid exam paper snapshot.');
+  // Same rule as `createExamResultRecord`: a history that holds a key the
+  // importer cannot validate is a history whose own export cannot be read back.
+  // Refusing here keeps the model's promise - anything the app can build, the app
+  // can also import - instead of letting the failure surface only at re-import.
+  if (!EXAM_PAPER_KEY_RE.test(attempt.paperKey)) throw new Error('Invalid exam paper key.');
   if (next.attempts.some(a => a.id === attempt.id)) return next;
   const { paper, ...stored } = examClone(attempt);
+  // One paper key covers every attempt of the same archive, so the snapshot that
+  // was registered first is the only one that can score its attempts. Replacing
+  // it with a different question set leaves the earlier answers pointing at items
+  // the paper no longer holds: the history then fails its own validator and the
+  // save silently drops every attempt, so the conflict has to fail loudly here.
+  const known = next.papers[paper.id];
+  if (known && examCanonicalJson(known) !== examCanonicalJson(paper)) throw new Error('Conflicting exam paper snapshot.');
   next.papers[paper.id] = paper;
-  next.attempts.push(stored);
+  next.attempts = examOrderAttempts([...next.attempts, stored]);
   if (next.attempts.length > EXAM_RESULT_HISTORY_LIMIT) {
     next.attempts = next.attempts.slice(-EXAM_RESULT_HISTORY_LIMIT);
     const used = new Set(next.attempts.map(a => a.paperKey));
@@ -553614,6 +553871,38 @@ export function addExamResult(history, attempt) {
     examPruneCorrections(next);
   }
   return examRecomputeResultHistory(next);
+}
+/**
+ * Parse what the learner typed into the correction box.
+ *
+ * The item is "essay-like" when the curated exemption says so, not when the
+ * protected parser happened to type it `essay`: `2022/ha-noi/so` Q51 is a
+ * 250-word essay prompt typed `text`, and its correction box promises 0..1
+ * rubric credit. Parsing it as free text stored "0.75" as an answer string and
+ * the item was then graded `incorrect` against the learner's own essay.
+ */
+export function examCorrectionCandidates(question, input, keyRecord = null) {
+  const text = String(input || '').trim();
+  if (!text || !question) return null;
+  if (examIsEssayItem(question, keyRecord || question.answerKey || null)) {
+    const val = Number(text);
+    if (!Number.isFinite(val) || val < 0 || val > 1) return null;
+    return { candidates: [String(Math.round(val * 100) / 100)], acceptedAlternatives: [], normalization: 'essay-rubric' };
+  }
+  if (question.responseType === 'true-false') {
+    const v = text.toLowerCase();
+    if (['t', 'true'].includes(v)) return { candidates: ['true'], normalization: 'true-false' };
+    if (['f', 'false'].includes(v)) return { candidates: ['false'], normalization: 'true-false' };
+    return null;
+  }
+  if (question.responseType === 'choice' || question.responseType === 'multiple') {
+    const labels = text.split(/[,;\s]+/).map(s => s.replace(/^choice-/i, '').toUpperCase()).filter(Boolean);
+    const ids = labels.map(l => `choice-${l}`);
+    if (!ids.length || ids.some(id => !question.options.some(o => o.id === id))) return null;
+    return { candidates: [...new Set(ids)], normalization: question.responseType === 'multiple' ? 'choice-set' : 'choice-id' };
+  }
+  const parts = text.split(/\s*;\s*/).map(s => s.trim()).filter(Boolean);
+  return { candidates: [parts[0]], acceptedAlternatives: parts.slice(1), normalization: 'case-whitespace' };
 }
 export function applyExamKeyCorrection(history, { examId, questionId, candidates, acceptedAlternatives = [], normalization = 'case-whitespace', note = '', now = Date.now(), replace = false } = {}) {
   const next = examClone(history || emptyExamResultHistory());
@@ -553641,15 +553930,48 @@ export function deleteExamResult(history, attemptId) {
 }
 export function exportExamResultHistory(history) { return JSON.stringify({ app: 'Chuyên Anh', format: 'exam-result-history', ...history }, null, 2); }
 function examValidQuestion(q) {
-  return q && typeof q.id === 'string' && q.id.length <= 160 && Number.isInteger(q.number) && typeof q.prompt === 'string' && q.prompt.length <= 20000
+  if (!(q && typeof q.id === 'string' && q.id.length <= 160 && Number.isInteger(q.number) && typeof q.prompt === 'string' && q.prompt.length <= 20000
     && ['choice', 'multiple', 'true-false', 'text', 'essay'].includes(q.responseType) && Array.isArray(q.options) && q.options.length <= 12
-    && q.options.every(o => o && typeof o.id === 'string' && typeof o.label === 'string' && typeof o.text === 'string') && Array.isArray(q.flags || []);
+    && q.options.every(o => o && typeof o.id === 'string' && typeof o.label === 'string' && typeof o.text === 'string') && Array.isArray(q.flags || []))) return false;
+  // Option ids are the graded value, so a duplicate makes the answer and the
+  // feedback ambiguous: two rows would share one id and the review screen would
+  // print whichever of them it found first.
+  const optionIds = q.options.map(option => option.id);
+  if (new Set(optionIds).size !== optionIds.length) return false;
+  // A selectable item with fewer than two options cannot be answered at all; the
+  // shipped archive never contains one (audited over all 6,708 questions).
+  if (['choice', 'multiple', 'true-false'].includes(q.responseType) && optionIds.length < 2) return false;
+  return true;
 }
 function examValidKey(k) {
   return k && typeof k.questionId === 'string' && Object.values(EXAM_ANSWER_STATUSES).includes(k.verificationStatus)
     && Array.isArray(k.candidates) && k.candidates.length <= 20 && k.candidates.every(c => typeof c === 'string' && c.length <= 2000)
-    && Array.isArray(k.acceptedAlternatives || []) && Array.isArray(k.sources || []) && Array.isArray(k.limitations || []);
+    // Alternatives are graded exactly like candidates, so they carry the same
+    // type contract (arrays of strings); anything else is untyped scored data.
+    && Array.isArray(k.acceptedAlternatives || [])
+    && (k.acceptedAlternatives || []).every(a => typeof a === 'string' && a.length <= 2000)
+    && Array.isArray(k.sources || []) && Array.isArray(k.limitations || []);
 }
+// Imported history is untrusted input: it arrives as a file the learner was
+// asked to open. `province` and `year` are printed in the history list, so the
+// paper metadata is type-checked here instead of trusting the file, and the
+// renderer escapes them as a second layer. Lengths are far above the real data
+// (longest source URL 187 chars) so genuine exports keep round-tripping.
+const EXAM_PAPER_METADATA_TEXT_LIMIT = 500;
+const EXAM_PAPER_METADATA_TEXT_FIELDS = Object.freeze(['province', 'unit', 'unitLabel', 'source', 'quality', 'answers', 'note']);
+const EXAM_CORRECTION_CANDIDATE_LIMIT = 1000;
+function examPaperMetadataIsValid(metadata) {
+  if (metadata === undefined || metadata === null) return true;
+  if (typeof metadata !== 'object' || Array.isArray(metadata)) return false;
+  if (metadata.year !== undefined && metadata.year !== null
+    && !(Number.isInteger(metadata.year) && metadata.year >= 1900 && metadata.year <= 2200)) return false;
+  return EXAM_PAPER_METADATA_TEXT_FIELDS.every(field => {
+    const value = metadata[field];
+    return value === undefined || value === null
+      || (typeof value === 'string' && value.length <= EXAM_PAPER_METADATA_TEXT_LIMIT);
+  });
+}
+
 export function validateExamResultHistory(payload, { migrateLegacy = false } = {}) {
   try {
     if (!payload || typeof payload !== 'object' || payload.schemaVersion !== EXAM_HISTORY_SCHEMA_VERSION
@@ -553659,10 +553981,12 @@ export function validateExamResultHistory(payload, { migrateLegacy = false } = {
     const history = emptyExamResultHistory();
     const paperIds = new Set();
     for (const [key, paper] of Object.entries(payload.papers)) {
-      if (paperIds.has(key) || !/^[^\s@]{1,300}@[a-f0-9]{64}$/.test(key) || !paper || paper.id !== key || typeof paper.examId !== 'string' || !/^[a-f0-9]{64}$/.test(paper.contentSha256)
+      if (paperIds.has(key) || !EXAM_PAPER_KEY_RE.test(key) || !paper || !examPaperMetadataIsValid(paper.metadata) || paper.id !== key || typeof paper.examId !== 'string' || !/^[a-f0-9]{64}$/.test(paper.contentSha256)
         || !Array.isArray(paper.questions) || !paper.questions.length || paper.questions.length > EXAM_PAPER_QUESTION_LIMIT
         || !paper.questions.every(examValidQuestion) || new Set(paper.questions.map(q => q.id)).size !== paper.questions.length
-        || !Array.isArray(paper.baseKeys) || !paper.baseKeys.every(examValidKey)) return { ok: false, reason: 'invalid-paper' };
+        || !Array.isArray(paper.baseKeys) || !paper.baseKeys.every(examValidKey)
+        || new Set(paper.baseKeys.map(k => k.questionId)).size !== paper.baseKeys.length
+        || paper.baseKeys.some(k => !paper.questions.some(q => q.id === k.questionId))) return { ok: false, reason: 'invalid-paper' };
       paperIds.add(key); history.papers[key] = examClone(paper);
     }
     const attemptIds = new Set();
@@ -553686,7 +554010,9 @@ export function validateExamResultHistory(payload, { migrateLegacy = false } = {
     const correctionIds = new Set();
     for (const correction of payload.corrections) {
       if (!correction || typeof correction.id !== 'string' || correctionIds.has(correction.id) || correction.verificationStatus !== EXAM_ANSWER_STATUSES.USER
-        || !Array.isArray(correction.candidates) || !correction.candidates.length || typeof correction.questionId !== 'string' || typeof correction.examId !== 'string'
+        || !Array.isArray(correction.candidates) || !correction.candidates.length
+        || !correction.candidates.every(candidate => typeof candidate === 'string' && candidate.length > 0 && candidate.length <= EXAM_CORRECTION_CANDIDATE_LIMIT)
+        || typeof correction.questionId !== 'string' || typeof correction.examId !== 'string'
         || !Number.isFinite(correction.createdAt)) return { ok: false, reason: 'invalid-correction' };
       const targetPapers = Object.values(history.papers).filter(paper => paper.examId === correction.examId);
       if (!targetPapers.some(paper => paper.questions.some(q => q.id === correction.questionId) && paper.baseKeys.some(k => k.questionId === correction.questionId))) return { ok: false, reason: 'unknown-correction-target' };
@@ -553702,25 +554028,43 @@ export function validateExamResultHistory(payload, { migrateLegacy = false } = {
   } catch { return { ok: false, reason: 'invalid-payload' }; }
 }
 
-export function mergeExamResultHistory(local, incoming) {
+export function mergeExamResultHistory(local, incoming, { scoreResult = true } = {}) {
   const valid = validateExamResultHistory(incoming);
   if (!valid.ok) return valid;
   const next = examClone(local || emptyExamResultHistory());
   for (const [key, paper] of Object.entries(valid.value.papers)) {
-    if (next.papers[key] && JSON.stringify(next.papers[key]) !== JSON.stringify(paper)) return { ok: false, reason: 'conflicting-paper' };
+    if (next.papers[key] && examCanonicalJson(next.papers[key]) !== examCanonicalJson(paper)) return { ok: false, reason: 'conflicting-paper' };
     next.papers[key] = paper;
   }
   for (const attempt of valid.value.attempts) {
     const existing = next.attempts.find(a => a.id === attempt.id);
-    if (existing && JSON.stringify(existing) !== JSON.stringify(attempt)) return { ok: false, reason: 'conflicting-attempt' };
+    if (existing && examAttemptIdentity(existing) !== examAttemptIdentity(attempt)) return { ok: false, reason: 'conflicting-attempt' };
     if (!existing) next.attempts.push(attempt);
   }
   for (const correction of valid.value.corrections) {
     const existing = next.corrections.find(c => c.id === correction.id);
-    if (existing && JSON.stringify(existing) !== JSON.stringify(correction)) return { ok: false, reason: 'conflicting-correction' };
+    if (existing && examCanonicalJson(existing) !== examCanonicalJson(correction)) return { ok: false, reason: 'conflicting-correction' };
     if (!existing) next.corrections.push(correction);
   }
-  return { ok: true, history: examRecomputeResultHistory(next) };
+  // A union of two valid histories can exceed the window every other path
+  // enforces (memory, storage, backup, import). Without this trim the merged
+  // history fails validation on save, and the caller reports `storage-failed`
+  // for a storage that is perfectly healthy - the learner's other device is
+  // simply refused. Keep the newest attempts by submission time, which is the
+  // order the history screen already assumes, and drop the papers and
+  // corrections that only the dropped attempts used.
+  next.attempts = examOrderAttempts(next.attempts);
+  if (next.attempts.length > EXAM_RESULT_HISTORY_LIMIT) {
+    next.attempts = next.attempts.slice(-EXAM_RESULT_HISTORY_LIMIT);
+    const used = new Set(next.attempts.map(attempt => attempt.paperKey));
+    for (const key of Object.keys(next.papers)) if (!used.has(key)) delete next.papers[key];
+    examPruneCorrections(next);
+  }
+  // Scoring every attempt is the expensive step and it is pure: a caller that
+  // already holds a fully scored history only needs the union. `scoreResult:
+  // false` is used by the merge-before-write path, which validates the result
+  // before storing it, so nothing unscored can reach disk.
+  return { ok: true, history: scoreResult ? examRecomputeResultHistory(next) : next };
 }
 export function loadExamResultHistory(storage = memorySafeStorage()) {
   const raw = readJson(storage, EXAM_RESULTS_KEY, null);
@@ -553733,6 +554077,148 @@ export function saveExamResultHistory(history, storage = memorySafeStorage()) {
   if (!valid.ok) return false;
   return writeJson(storage, EXAM_RESULTS_KEY, valid.value);
 }
+// A tab keeps its history in memory for the whole session, so a whole-key write
+// silently drops whatever another tab saved after this one booted (RT-01 fixed
+// that for the learner's stores by reloading them on `storage`, but an exam that
+// is being taken cannot be reloaded without throwing the attempt away). Every
+// mutation therefore merges with what the key really holds, and the caller's
+// history is the base: it carries the user's intent (a submitted attempt, a
+// deleted row, a cleared list), and only records this tab has never seen are
+// added, so a deletion is never resurrected.
+export function persistExamResultHistory(next, base, storage = memorySafeStorage()) {
+  const stored = loadExamResultHistory(storage);
+  const baseIds = new Set((Array.isArray(base?.attempts) ? base.attempts : []).map(attempt => attempt?.id));
+  const nextIds = new Set((Array.isArray(next?.attempts) ? next.attempts : []).map(attempt => attempt?.id));
+  const unseenAttempts = stored.attempts.filter(attempt => !baseIds.has(attempt.id) && !nextIds.has(attempt.id));
+  // A correction the caller knew about and dropped (a deleted attempt takes its
+  // corrections with it) is a deliberate removal, exactly like an attempt, so it
+  // must be compared against the base as well. A correction the caller has never
+  // seen is kept even when no unseen attempt references it: a record was scored
+  // against the corrections in force on the tab that wrote it, so the correction
+  // is what makes that record's stored score reproducible - dropping it makes the
+  // whole union fail its own validator with `score-mismatch`. Corrections that do
+  // not target a paper in the result are pruned below, so this cannot accumulate.
+  const baseCorrectionIds = new Set((Array.isArray(base?.corrections) ? base.corrections : []).map(correction => correction?.id));
+  const unseenCorrections = (stored.corrections || []).filter(correction =>
+    !baseCorrectionIds.has(correction.id) && !next?.corrections?.some(existing => existing.id === correction.id));
+  // Papers use the same id@sha256 key for every attempt of one archive, so a
+  // paper the caller already knows is never replaced; it is only carried here so
+  // the incoming records can be validated on their own. mergeExamResultHistory
+  // still rejects a genuine snapshot conflict instead of choosing a winner.
+  const neededPapers = new Set([...unseenAttempts.map(attempt => attempt.paperKey), ...unseenCorrections.map(correction => Object.keys(stored.papers).find(key => stored.papers[key].examId === correction.examId))]);
+  // The union is built from the caller's history plus the unseen records, and the
+  // unseen corrections are copied in whole rather than filtered against the
+  // caller's papers; `examPruneCorrections` then keeps only those that still
+  // target a paper present in the result, which is the rule the model enforces.
+  const unseen = {
+    app: 'Chuyên Anh', format: 'exam-result-history', schemaVersion: EXAM_HISTORY_SCHEMA_VERSION,
+    // Only papers that the unseen records actually reference are carried: a
+    // whole-history clear or a bulk delete is a deliberate removal, and shipping
+    // the old snapshots along would leave papers no attempt points at.
+    papers: Object.fromEntries(Object.entries(stored.papers || {}).filter(([key]) => neededPapers.has(key))),
+    attempts: unseenAttempts,
+    corrections: unseenCorrections
+  };
+  if (!unseenAttempts.length && !Object.keys(unseen.papers).length && !unseenCorrections.length) {
+    // Fast path: nothing was written by another tab. Reorder a shallow copy -
+    // the attempt objects are not mutated, only their position in the array - and
+    // store it. Cloning 1.6 MB here would cost more than the whole write.
+    const ordered = { ...next, attempts: examOrderAttempts(next.attempts) };
+    // The fast path is the common one, so it needs the same read-back: a tab that
+    // reads and writes in the same instant can still be overwritten between the two.
+    if (!saveExamResultHistory(ordered, storage)) return false;
+    return verifyOrRepairExamResultHistory(ordered, storage);
+  }
+  // The union must be re-scored, and this is not optional. A record another tab
+  // wrote was scored against *that* tab's corrections, and corrections are shared
+  // across attempts of one exam; the union's correction list is this tab's, so the
+  // unseen records' stored summaries need not reproduce from it. Skipping the
+  // re-score (an earlier version of this code did, to save time on the submit
+  // path) produced histories that failed their own validator with `score-mismatch`
+  // - silently un-saveable, which is the failure this whole path exists to avoid.
+  const merged = mergeExamResultHistory(next, unseen);
+  // Another tab wrote a different snapshot under a key both tabs already hold:
+  // this is a real conflict and must be reported, never resolved by last write.
+  if (!merged.ok) throw new Error(`Conflicting stored exam history: ${merged.reason}`);
+  // Store attempts in submission order regardless of which tab or device wrote
+  // them: the history screen reverses this list and the retention window keeps
+  // its tail, so an out-of-order key would show, and trim, the wrong attempts.
+  const orderedMerged = { ...merged.history, attempts: examOrderAttempts(merged.history.attempts) };
+  examPruneCorrections(orderedMerged);
+  // Return the history that was actually stored, not just a boolean. Another tab's
+  // attempts are merged in here, so the caller's own `next` is missing records the
+  // store now holds; assigning `next` to the in-memory history would hide them from
+  // the history list and the JSON export until the next reload.
+  if (!saveExamResultHistory(orderedMerged, storage)) return false;
+  // Verify the write landed and repair it if a concurrent tab overwrote it in
+  // between. Web Locks exist but this whole path is synchronous, and the app also
+  // runs from `file://`, so the guarantee this can actually make is: the write is
+  // read back, and a lost attempt is rewritten on top of whatever the store now
+  // holds. Bounded to two retries so a pathological peer cannot spin here.
+  return verifyOrRepairExamResultHistory(orderedMerged, storage);
+}
+
+// Read back what the key holds and, if the merge we just wrote is missing from it,
+// merge again and rewrite. Returns the history the store was last made to hold, or
+// false when even the repair could not be saved.
+function verifyOrRepairExamResultHistory(written, storage, attemptsLeft = 2) {
+  let stored;
+  try { stored = loadExamResultHistory(storage); } catch { return written; }
+  const storedIds = new Set(stored.attempts.map(attempt => attempt?.id));
+  const storedById = new Map(stored.attempts.map(attempt => [attempt?.id, attempt]));
+  // An attempt is missing if it is gone, or if another tab replaced it under the
+  // same id: matching ids alone would adopt a different record and call it success.
+  const lost = written.attempts.filter(attempt => {
+    const found = storedById.get(attempt?.id);
+    if (!found) return true;
+    // Identity, not just the summary: a concurrent import can replace an attempt
+    // under the same id with the same score but a different submittedAt or
+    // responses. Comparing summaries alone would adopt that replacement and report
+    // it as our own successful save.
+    if (examAttemptIdentity(found) !== examAttemptIdentity(attempt)) return true;
+    return JSON.stringify(found.summary || {}) !== JSON.stringify(attempt.summary || {});
+  });
+  // Corrections matter even when every attempt id survived: a correction is what
+  // makes a stored score reproducible, so if another tab dropped or replaced one,
+  // adopting the older list silently reports a success over changed data. Only
+  // removals and content changes count - an added correction is not a loss.
+  const storedCorrections = new Map((stored.corrections || []).map(correction => [correction?.id, correction]));
+  const lostCorrection = (written.corrections || []).some(correction => {
+    const found = storedCorrections.get(correction?.id);
+    if (!found) return true;
+    return JSON.stringify(found) !== JSON.stringify(correction);
+  });
+  // The papers map is the third half of the record and the reason a stored score
+  // is reproducible at all. Attempts and corrections can both survive while a
+  // concurrent import swaps the snapshot under the same key: the attempt keeps its
+  // responses and its stored results still pass the validator, so nothing above
+  // notices, and the learner ends up with a saved paper holding a different
+  // question set than the one they sat. The merge already refuses to combine two
+  // different snapshots for one key, so a lost one here is unrecoverable by the
+  // same rule - comparing it now makes the repair path report the conflict instead
+  // of adopting it.
+  const lostPaper = Object.entries(written.papers || {}).some(([key, paper]) => {
+    const found = stored.papers?.[key];
+    if (!found) return true;
+    return examCanonicalJson(found) !== examCanonicalJson(paper);
+  });
+  if (!lost.length && !lostCorrection && !lostPaper) return stored;
+  // From here the write is not confirmed. Every remaining exit reports failure
+  // rather than the partial history: a caller that receives a history marks the
+  // submission saved and suppresses its 'could not save' warning, so returning
+  // `stored` here would tell the learner their attempt is safe when it is not.
+  if (attemptsLeft <= 0) return false;
+  // Someone else's write won the race. Merge what is there now with what we
+  // intended, then write and verify once more. A merge that refuses (a conflicting
+  // paper snapshot) cannot be repaired by this loop either.
+  const repaired = mergeExamResultHistory(written, stored);
+  if (!repaired.ok) return false;
+  const ordered = { ...repaired.history, attempts: examOrderAttempts(repaired.history.attempts) };
+  examPruneCorrections(ordered);
+  if (!saveExamResultHistory(ordered, storage)) return false;
+  return verifyOrRepairExamResultHistory(ordered, storage, attemptsLeft - 1);
+}
+
 export function importExamResultHistory(rawText, storage = memorySafeStorage()) {
   if (typeof rawText !== 'string' || new TextEncoder().encode(rawText).length > EXAM_IMPORT_MAX_BYTES) return { ok: false, reason: 'too-large-or-invalid' };
   let payload; try { payload = JSON.parse(rawText); } catch { return { ok: false, reason: 'invalid-json' }; }
@@ -554477,7 +554963,9 @@ export async function createApp(root) {
         : available;
       const unit = type === EXERCISE_TYPES.MATCH ? 'cặp' : 'từ';
       const unavailable = available === 0;
-      return `<button type="button" class="chip chip--exercise ${enabled ? 'is-on' : ''} ${unavailable ? 'is-unavailable' : ''}" data-exercise="${type}" aria-pressed="${enabled}" ${unavailable ? 'aria-disabled="true"' : ''}>
+      // Same reasoning as the CEFR chips: an exercise type with no eligible cards
+      // is still pressable and still records the choice, so it is not disabled.
+      return `<button type="button" class="chip chip--exercise ${enabled ? 'is-on' : ''} ${unavailable ? 'is-unavailable' : ''}" data-exercise="${type}" aria-pressed="${enabled}">
         <span class="chip-label">${escapeHtml(EXERCISE_SHORT_LABELS[type])}</span>
         <span class="chip-count">${available} ${unit}${type === EXERCISE_TYPES.MATCH ? ` · ${usable} bàn` : ''}</span>
       </button>`;
@@ -554534,6 +555022,11 @@ export async function createApp(root) {
       const pressed = level === CEFR_UNCLASSIFIED ? cefrSelection.unclassified : cefrSelection.levels.includes(level);
       const label = cefrLevelLabel(level);
       const count = counts[level] || 0;
+      // No aria-disabled here. A zero word count does not make this chip
+      // inoperable - pressing it still changes the selection and persists - so
+      // announcing it as disabled told assistive technology the opposite of the
+      // truth. The dashed border and the "0 từ" count carry that meaning visually,
+      // and they always had it; this attribute added nothing but a false claim.
       return `<button type="button" class="chip ${pressed ? 'is-on' : ''} ${count ? '' : 'is-unavailable'}" data-cefr="${level}" aria-pressed="${pressed}">
         <span class="chip-label">${escapeHtml(label)}</span>
         <span class="chip-count">${count} ${cefrText('từ', 'words')} · ${senseCounts[level] || 0} ${cefrText('nghĩa', 'senses')}</span>
@@ -555160,7 +555653,7 @@ export async function createApp(root) {
           <h1>Học từ vựng theo trọng tâm của bạn</h1>
           <p>Chọn nhóm từ, trọng tâm và dạng bài trước khi bắt đầu. Lịch ôn cách quãng giữ nguyên quy tắc hiện có.</p>
         </div>
-        <div class="hero-metrics" aria-label="Tóm tắt tiến độ">
+        <div class="hero-metrics" role="group" aria-label="Tóm tắt tiến độ">
           <div class="hero-metric"><strong>${poolSummary.due}</strong><span>Đến hạn</span></div>
           <div class="hero-metric"><strong>${currentStats.accuracy}%</strong><span>Chính xác</span></div>
           <div class="hero-metric"><strong>${streak.current}</strong><span>Ngày liên tiếp</span></div>
@@ -556121,7 +556614,7 @@ export async function createApp(root) {
         }
         return `<span class="vocab-meaning" title="${escapeHtml(item.entry.meaning)}">${hi(item.entry.meaning)}</span>`;
       };
-      results.innerHTML = matches.length ? `<p class="results-meta" role="status" aria-live="polite">${formatCount(matches.length)} kết quả · trang ${page}/${pages}${scopeNote}</p><div class="vocab-list${showGloss ? '' : ' vocab-list--no-gloss'}">${visible.map(item => `<div class="vocab-row${item.archived ? ' vocab-row--archived' : ''}"><span class="vocab-word">${hi(item.entry.word)}</span><span class="card-cefr">${entryCefrBadgesHtml(item.entry)}</span><span class="vocab-pos">${escapeHtml(item.entry.pos)}</span>${glossCell(item)}${item.archived ? `<span class="state-pill state-archived" title="Mục này nằm ngoài bộ từ trọng tâm nên không vào phiên học; nghĩa và tiến độ cũ vẫn được giữ.">Lưu trữ</span>` : `<span class="state-pill state-${escapeHtml(item.state)}">${escapeHtml(stateLabel(item.state))}</span><button class="fav ${item.favorite ? 'active' : ''}" data-fav="${escapeHtml(item.entry.id)}" aria-label="${item.favorite ? 'Bỏ yêu thích' : 'Thêm yêu thích'}">${item.favorite ? '★' : '☆'}</button>`}</div>`).join('')}</div>${pages > 1 ? `<div class="pagination" aria-label="Trang kết quả">${Array.from({ length: pages }, (_, i) => `<button class="btn small ${i + 1 === page ? 'primary' : ''}" data-page="${i + 1}" aria-label="Trang ${i + 1}" ${i + 1 === page ? 'aria-current="page"' : ''}>${i + 1}</button>`).join('')}</div>` : ''}` : '<div class="empty" role="status"><strong>Không tìm thấy</strong>Thử từ khóa khác hoặc bỏ bớt bộ lọc.</div>';
+      results.innerHTML = matches.length ? `<p class="results-meta" role="status" aria-live="polite">${formatCount(matches.length)} kết quả · trang ${page}/${pages}${scopeNote}</p><div class="vocab-list${showGloss ? '' : ' vocab-list--no-gloss'}">${visible.map(item => `<div class="vocab-row${item.archived ? ' vocab-row--archived' : ''}"><span class="vocab-word">${hi(item.entry.word)}</span><span class="card-cefr">${entryCefrBadgesHtml(item.entry)}</span><span class="vocab-pos">${escapeHtml(item.entry.pos)}</span>${glossCell(item)}${item.archived ? `<span class="state-pill state-archived" title="Mục này nằm ngoài bộ từ trọng tâm nên không vào phiên học; nghĩa và tiến độ cũ vẫn được giữ.">Lưu trữ</span>` : `<span class="state-pill state-${escapeHtml(item.state)}">${escapeHtml(stateLabel(item.state))}</span><button class="fav ${item.favorite ? 'active' : ''}" data-fav="${escapeHtml(item.entry.id)}" aria-label="${item.favorite ? 'Bỏ yêu thích' : 'Thêm yêu thích'}: ${escapeHtml(item.entry.word)}" aria-pressed="${item.favorite ? 'true' : 'false'}">${item.favorite ? '★' : '☆'}</button>`}</div>`).join('')}</div>${pages > 1 ? `<div class="pagination" role="group" aria-label="Trang kết quả">${Array.from({ length: pages }, (_, i) => `<button class="btn small ${i + 1 === page ? 'primary' : ''}" data-page="${i + 1}" aria-label="Trang ${i + 1}" ${i + 1 === page ? 'aria-current="page"' : ''}>${i + 1}</button>`).join('')}</div>` : ''}` : '<div class="empty" role="status"><strong>Không tìm thấy</strong>Thử từ khóa khác hoặc bỏ bớt bộ lọc.</div>';
       results.querySelectorAll('[data-fav]').forEach(button => button.addEventListener('click', () => {
         const id = button.dataset.fav;
         toggleFavorite(id, false); // No shell rerender: the search state must survive.
@@ -556463,7 +556956,7 @@ export async function createApp(root) {
     return extractExamAnswerKeys(record.markdown, questions, record);
   }
   function examCandidateLabel(question, key) {
-    if (question.responseType === 'essay' && (!key?.candidates?.length || /^\[.*rubric\]$/i.test(key.candidates[0]))) {
+    if (examIsEssayItem(question, key) && (!key?.candidates?.length || /^\[.*rubric\]$/i.test(key.candidates[0]))) {
       const spec = key?.rubric || examEssayRubricSpec(question);
       return language === 'en'
         ? `4-criterion rubric (${spec.minWords}–${spec.maxWords} words)`
@@ -556519,11 +557012,12 @@ export async function createApp(root) {
     const confText = language === 'en' ? `Confidence: ${lvl}` : `Độ tin cậy: ${lvl}`;
     return `<div class="exam-meta-badges"><span class="exam-confidence-badge exam-confidence-${escapeHtml(lvl)}">${escapeHtml(confText)}</span><span class="state-pill exam-pill-neutral">${escapeHtml(srcLabel)}</span></div>`;
   }
-  function examGradeLabel(result, responseType = null) {
+  function examGradeLabel(result, responseType = null, essayLike = false) {
     // `partial` covers both the essay rubric and a multi-select answer that found
     // only some of the correct options, so the label names the item type.
-    const partialVi = responseType === 'essay' ? 'Đạt một phần (Rubric)' : responseType === 'multiple' ? 'Đạt một phần (chọn thiếu)' : 'Đạt một phần';
-    const partialEn = responseType === 'essay' ? 'Partial (rubric)' : responseType === 'multiple' ? 'Partial (incomplete selection)' : 'Partial';
+    const rubricItem = essayLike || responseType === 'essay';
+    const partialVi = rubricItem ? 'Đạt một phần (Rubric)' : responseType === 'multiple' ? 'Đạt một phần (chọn thiếu)' : 'Đạt một phần';
+    const partialEn = rubricItem ? 'Partial (rubric)' : responseType === 'multiple' ? 'Partial (incomplete selection)' : 'Partial';
     if (language === 'en') return result === 'correct' ? 'Correct' : result === 'partial' ? partialEn : result === 'incorrect' ? 'Incorrect' : 'Unanswered (0 pt)';
     return result === 'correct' ? 'Đúng' : result === 'partial' ? partialVi : result === 'incorrect' ? 'Sai' : 'Bỏ trống (0đ)';
   }
@@ -556531,7 +557025,7 @@ export async function createApp(root) {
   // learner may well be right and the machine guess wrong.
   function examVerdictLabel(grade, question) {
     if (grade?.scorable === false) {
-      if (grade?.exempt && question?.responseType === 'essay') {
+      if (grade?.exempt && examIsEssayItem(question, grade)) {
         return language === 'en' ? 'Exempt (advisory rubric)' : 'Miễn chấm điểm (Rubric tham khảo)';
       }
       return language === 'en' ? 'Not scored (exempt)' : 'Không chấm (ngoài mẫu số)';
@@ -556539,37 +557033,18 @@ export async function createApp(root) {
     if (grade?.result === 'incorrect' && grade.answerKeyInferred) {
       return language === 'en' ? 'Differs from an unverified inferred key' : 'Khác đáp án suy luận (chưa xác minh)';
     }
-    return examGradeLabel(grade?.result, question?.responseType);
+    return examGradeLabel(grade?.result, question?.responseType, examIsEssayItem(question, grade));
   }
-  function examCorrectionCandidates(question, input) {
-    const text = String(input || '').trim();
-    if (!text || !question) return null;
-    if (question.responseType === 'essay') {
-      const val = Number(text);
-      if (!Number.isFinite(val) || val < 0 || val > 1) return null;
-      return { candidates: [String(Math.round(val * 100) / 100)], acceptedAlternatives: [], normalization: 'essay-rubric' };
-    }
-    if (question.responseType === 'true-false') {
-      const v = text.toLowerCase();
-      if (['t', 'true'].includes(v)) return { candidates: ['true'], normalization: 'true-false' };
-      if (['f', 'false'].includes(v)) return { candidates: ['false'], normalization: 'true-false' };
-      return null;
-    }
-    if (question.responseType === 'choice' || question.responseType === 'multiple') {
-      const labels = text.split(/[,;\s]+/).map(s => s.replace(/^choice-/i, '').toUpperCase()).filter(Boolean);
-      const ids = labels.map(l => `choice-${l}`);
-      if (!ids.length || ids.some(id => !question.options.some(o => o.id === id))) return null;
-      return { candidates: [...new Set(ids)], normalization: question.responseType === 'multiple' ? 'choice-set' : 'choice-id' };
-    }
-    const parts = text.split(/\s*;\s*/).map(s => s.trim()).filter(Boolean);
-    return { candidates: [parts[0]], acceptedAlternatives: parts.slice(1), normalization: 'case-whitespace' };
-  }
-  function persistExamResults(next) {
-    if (!saveExamResultHistory(next, storage)) {
+  function persistExamResults(next, base = examResults) {
+    let saved = false;
+    try { saved = persistExamResultHistory(next, base, storage); } catch { saved = false; }
+    if (!saved) {
       toast('Không thể lưu lịch sử luyện đề trên thiết bị này.', 'error');
       return false;
     }
-    examResults = next;
+    // `saved` is the merged history the store now holds, which can contain attempts
+    // another tab wrote. Assigning `next` would drop them from the UI until reload.
+    examResults = saved;
     return true;
   }
   function downloadExamJson(filename, value) {
@@ -556670,7 +557145,7 @@ export async function createApp(root) {
       const notScorableMarkup = key?.scorable === false || (grade && grade.scorable === false)
         ? `<div class="exam-stimulus-banner" role="note"><strong>${L('Không tính vào mẫu số điểm:', 'Excluded from score denominator:')}</strong> ${escapeHtml(ungradeableReasons[key?.ungradeableReason || grade?.ungradeableReason] || L('Không có đáp án dùng được cho câu này.', 'No usable answer for this item.'))}</div>`
         : '';
-      const rubricHintMarkup = question.responseType === 'essay'
+      const rubricHintMarkup = examIsEssayItem(question, key)
         ? (() => {
           const spec = key?.rubric || examEssayRubricSpec(question);
           return `<p class="exam-question-instruction">${L(`Miễn tính vào mẫu số điểm khách quan · Bảng tự đánh giá tham khảo theo Rubric 4 tiêu chí (${spec.minWords}–${spec.maxWords} từ): Đáp ứng yêu cầu đề (30%) · Bố cục & mạch lạc (25%) · Từ vựng (25%) · Ngữ pháp (20%).`, `Formally exempt from objective score denominator · Advisory 4-criterion self-review rubric (${spec.minWords}–${spec.maxWords} words): Task (30%) · Coherence (25%) · Lexis (25%) · Grammar (20%).`)}</p>`;
@@ -556681,14 +557156,14 @@ export async function createApp(root) {
           const selected = question.responseType === 'multiple' ? Array.isArray(response) && response.includes(option.id) : response === option.id;
           return `<button class="exam-practice-option" data-practice-choice="${escapeHtml(option.id)}" aria-pressed="${selected}" ${submitted ? 'disabled' : ''}><span class="exam-practice-option-label">${escapeHtml(option.label)}.</span><span class="exam-question-source">${escapeHtml(option.text)}</span></button>`;
         }).join('')}</div>`
-        : `<label for="exam-practice-response">${L('Câu trả lời của bạn', 'Your answer')}</label><textarea class="exam-practice-response" id="exam-practice-response" rows="${question.responseType === 'essay' ? 7 : 3}" maxlength="20000" ${submitted ? 'disabled' : ''}>${escapeHtml(typeof response === 'string' ? response : '')}</textarea>`;
+        : `<label for="exam-practice-response">${L('Câu trả lời của bạn', 'Your answer')}</label><textarea class="exam-practice-response" id="exam-practice-response" rows="${examIsEssayItem(question, key) ? 7 : 3}" maxlength="20000" ${submitted ? 'disabled' : ''}>${escapeHtml(typeof response === 'string' ? response : '')}</textarea>`;
       const rubricTable = submitted && grade?.rubricEvaluation
         ? `<table class="exam-rubric-table"><thead><tr><th>${escapeHtml(L(`Tiêu chí Rubric (${grade.rubricEvaluation.wordCount} từ)`, `Rubric criterion (${grade.rubricEvaluation.wordCount} words)`))}</th><th>${escapeHtml(L('Điểm tạm tính', 'Provisional credit'))}</th></tr></thead><tbody>${grade.rubricEvaluation.criteriaScores.map(cs => `<tr><td>${escapeHtml(language === 'en' ? cs.labelEn : cs.labelVi)}</td><td>${cs.earned} / ${cs.max}</td></tr>`).join('')}</tbody></table>`
         : '';
-      const corrInputVal = question.responseType === 'essay'
+      const corrInputVal = examIsEssayItem(question, key)
         ? (key?.verificationStatus === 'user_confirmed' ? (key.candidates?.[0] || '') : '')
         : (key?.candidates?.map(id => question.options?.find(o => o.id === id)?.label || id).join(', ') || '');
-      const corrLabel = question.responseType === 'essay'
+      const corrLabel = examIsEssayItem(question, key)
         ? L('Điểm tự chấm hiệu chỉnh (từ 0 đến 1, ví dụ 0.75)', 'Override rubric credit (0 to 1, e.g. 0.75)')
         : L('Đáp án đúng (nhãn lựa chọn hoặc văn bản; dùng ; cho phương án phụ)', 'Correct answer (choice label or text; use ; for alternatives)');
       const inferredNote = submitted && grade?.result === 'incorrect' && grade.answerKeyInferred
@@ -556763,16 +557238,25 @@ export async function createApp(root) {
         const attempt = createExamResultRecord(session, record, keys);
         const next = addExamResult(examResults, attempt);
         session.attemptId = attempt.id;
-        session.resultSaved = saveExamResultHistory(next, storage);
-        if (session.resultSaved) examResults = next;
-        else toast('Không thể lưu lịch sử luyện đề; hãy tải kết quả JSON trước khi đóng trang.', 'error');
-      } catch { session.resultSaved = false; toast('Không thể tạo bản ghi lịch sử luyện đề.', 'error'); }
+        session.resultSaved = persistExamResults(next);
+        if (!session.resultSaved) toast('Không thể lưu lịch sử luyện đề; hãy tải kết quả JSON trước khi đóng trang.', 'error');
+      } catch (error) {
+        session.resultSaved = false;
+        // A conflicting snapshot is the learner's own archive being read
+        // differently (a different question set under the same paper key). It is
+        // actionable - re-open the paper from the archive and retake it - so it
+        // gets its own message instead of the generic "could not create" one.
+        toast(error?.message === 'Conflicting exam paper snapshot.'
+          ? 'Không thể lưu kết quả vì bản đề này đã được lưu với bộ câu hỏi khác; hãy mở lại đề từ kho và làm lại.'
+          : 'Không thể tạo bản ghi lịch sử luyện đề.', 'error');
+      }
       rerender('#exam-submission-summary h3');
     });
     region.querySelector('#exam-download-json')?.addEventListener('click', () => { if (session?.status === 'submitted') downloadExamJson(examResultFilename(buildExamResultJson(session, record, keys, examResults.corrections)), buildExamResultJson(session, record, keys, examResults.corrections)); });
     region.querySelector('#exam-key-correct-save')?.addEventListener('click', event => {
       const question = questions.find(q => q.id === event.currentTarget.dataset.questionId);
-      const parsed = examCorrectionCandidates(question, region.querySelector('#exam-key-correct-input')?.value);
+      const parsed = examCorrectionCandidates(question, region.querySelector('#exam-key-correct-input')?.value,
+        keys.find(k => k.questionId === question.id) || null);
       if (!parsed) { toast(language === 'en' ? 'The corrected answer does not match this question type.' : 'Đáp án hiệu chỉnh không hợp lệ với dạng câu hỏi.', 'error'); return; }
       const result = applyExamKeyCorrection(examResults, { examId: record.id, questionId: question.id, ...parsed, note: region.querySelector('#exam-key-correct-note')?.value || '', replace: true });
       if (!result.ok || !persistExamResults(result.history)) return;
@@ -556786,12 +557270,13 @@ export async function createApp(root) {
     const rows = [...examResults.attempts].reverse().map(attempt => {
       const paper = examResults.papers[attempt.paperKey];
       const s = attempt.summary;
-      return `<div class="history-row exam-history-row"><span><b>${escapeHtml(paper?.metadata?.province || attempt.examId)} · ${paper?.metadata?.year || ''}</b><small>${new Date(attempt.submittedAt).toLocaleString(language === 'en' ? 'en-GB' : 'vi-VN')} · ${s.earnedPoints ?? s.correct}/${s.denominator ?? s.total} ${L('điểm trên phần chấm được', 'pts over scorable items')} (${s.percentage === null ? '—' : s.percentage + '%'}${s.scale10 != null ? ` · ${s.scale10}/10` : ''}) · ${L('Đã làm', 'Answered')} ${s.answered}/${s.total} ${s.provisional ? `· ${L('tạm tính', 'provisional')}` : ''}</small></span><span class="setting-actions"><button class="btn small" data-exam-history-open="${escapeHtml(attempt.id)}">${L('Xem', 'Inspect')}</button><button class="btn small danger" data-exam-history-delete="${escapeHtml(attempt.id)}">${L('Xóa', 'Delete')}</button></span></div>`;
+      return `<div class="history-row exam-history-row"><span><b>${escapeHtml(paper?.metadata?.province || attempt.examId)} · ${escapeHtml(paper?.metadata?.year ?? '')}</b><small>${new Date(attempt.submittedAt).toLocaleString(language === 'en' ? 'en-GB' : 'vi-VN')} · ${s.earnedPoints ?? s.correct}/${s.denominator ?? s.total} ${L('điểm trên phần chấm được', 'pts over scorable items')} (${s.percentage === null ? '—' : s.percentage + '%'}${s.scale10 != null ? ` · ${s.scale10}/10` : ''}) · ${L('Đã làm', 'Answered')} ${s.answered}/${s.total} ${s.provisional ? `· ${L('tạm tính', 'provisional')}` : ''}</small></span><span class="setting-actions"><button class="btn small" data-exam-history-open="${escapeHtml(attempt.id)}">${L('Xem', 'Inspect')}</button><button class="btn small danger" data-exam-history-delete="${escapeHtml(attempt.id)}">${L('Xóa', 'Delete')}</button></span></div>`;
     }).join('');
-    return `<section class="panel" aria-labelledby="exam-history-title"><div class="panel-heading" id="exam-history-title">${L('Lịch sử luyện đề', 'Exam history')}</div><div class="panel-body"><p class="settings-copy">${L('Chỉ lưu trên thiết bị này; không gửi qua telemetry. Nhập/xuất tách biệt với bản sao flashcard v1.', 'Stored only on this device; never sent through telemetry. Import/export is separate from the v1 flashcard backup.')}</p><div class="setting-actions"><button class="btn" id="exam-history-export">${L('Xuất lịch sử đề', 'Export exam history')}</button><label class="btn" for="exam-history-import">${L('Nhập lịch sử đề', 'Import exam history')}<input id="exam-history-import" type="file" accept="application/json,.json" hidden></label><button class="btn danger" id="exam-history-clear" ${examResults.attempts.length ? '' : 'disabled'}>${L('Xóa tất cả', 'Clear all')}</button></div><div id="exam-history-list">${rows || `<div class="empty">${L('Chưa có kết quả luyện đề.', 'No exam results yet.')}</div>`}</div><p id="exam-history-status" role="status" aria-live="polite"></p></div></section>`;
+    return `<section class="panel" aria-labelledby="exam-history-title"><div class="panel-heading" id="exam-history-title">${L('Lịch sử luyện đề', 'Exam history')}</div><div class="panel-body"><p class="settings-copy">${L('Chỉ lưu trên thiết bị này; không gửi qua telemetry. Nhập/xuất tách biệt với bản sao flashcard v1.', 'Stored only on this device; never sent through telemetry. Import/export is separate from the v1 flashcard backup.')}</p><div class="setting-actions"><button class="btn" id="exam-history-export">${L('Xuất lịch sử đề', 'Export exam history')}</button><button type="button" class="btn" id="exam-history-import-button">${L('Nhập lịch sử đề', 'Import exam history')}</button><input id="exam-history-import" type="file" accept="application/json,.json" hidden><button class="btn danger" id="exam-history-clear" ${examResults.attempts.length ? '' : 'disabled'}>${L('Xóa tất cả', 'Clear all')}</button></div><div id="exam-history-list">${rows || `<div class="empty">${L('Chưa có kết quả luyện đề.', 'No exam results yet.')}</div>`}</div><p id="exam-history-status" role="status" aria-live="polite"></p></div></section>`;
   }
   function bindExamHistory(container) {
     container.querySelector('#exam-history-export')?.addEventListener('click', () => downloadExamJson('chuyen-anh-exam-history.json', exportExamResultHistory(examResults)));
+    container.querySelector('#exam-history-import-button')?.addEventListener('click', () => container.querySelector('#exam-history-import').click());
     container.querySelector('#exam-history-import')?.addEventListener('change', async event => {
       const file = event.target.files?.[0]; if (!file) return;
       const result = importExamResultHistory(await file.text(), storage);
@@ -556835,8 +557320,12 @@ export async function createApp(root) {
         ${flaggedWords.length ? `<div class="flagged-list">${flaggedWords.map(entry => `<div class="flagged-row"><span><b class="vocab-word">${escapeHtml(entry.word)}</b> · <span class="vocab-pos">${escapeHtml(entry.pos)}</span>${passiveGlossSegment(entry, { className: 'vocab-meaning flagged-meaning', content: `<small>${escapeHtml(entry.meaning)}</small>` })}</span><button class="btn small" data-unflag="${escapeHtml(entry.id)}">Bỏ đánh dấu</button></div>`).join('')}</div>` : '<div class="empty" role="status"><strong>Chưa đánh dấu từ khó nào</strong>Bấm biểu tượng cờ trong phiên học hoặc ở kết quả tra cứu để thêm từ.</div>'}
       </div></section>
       <section class="panel"><div class="panel-heading">Sao lưu tiến độ</div><div class="panel-body">
-        <p class="settings-copy">Bản sao JSON v1 gồm tiến độ flashcard, từ yêu thích, chuỗi ngày, lịch sử học và cài đặt. Từ khó, cấu hình phiên ưu tiên và huy hiệu đã đạt được ghi thêm dưới dạng trường tùy chọn; bản sao v1 cũ vẫn nhập được và các trường mới sẽ dùng giá trị mặc định. Kho đề offline nằm trong tệp HTML, không thuộc bản sao lưu.</p>
-        <div class="setting-actions"><button class="btn primary" id="export-setting">${iconMarkup('download')}Xuất bản sao JSON</button><label class="btn" for="import-setting">${iconMarkup('overview')}Nhập bản sao JSON<input id="import-setting" type="file" accept="application/json,.json" hidden></label><button class="btn danger" id="reset-setting">Xóa dữ liệu học</button></div>
+        <p class="settings-copy">Bản sao JSON v1 gồm tiến độ flashcard, từ yêu thích, chuỗi ngày, lịch sử học và cài đặt. Từ khó, cấu hình phiên ưu tiên, huy hiệu đã đạt và tiến độ cụm từ là các khối tùy chọn; bản sao v1 cũ vẫn nhập được. Bộ lọc CEFR, giao diện sáng/tối và ngôn ngữ hiển thị là cài đặt của từng thiết bị. Kho đề offline nằm trong tệp HTML, không thuộc bản sao lưu.</p>
+        <div class="setting-actions"><button class="btn primary" id="export-setting">${iconMarkup('download')}Xuất bản sao JSON</button><button type="button" class="btn" id="import-setting-button">${iconMarkup('overview')}Nhập bản sao JSON</button><input id="import-setting" type="file" accept="application/json,.json" hidden><button class="btn danger" id="reset-setting">Xóa dữ liệu học</button></div>
+      </div></section>
+      <section class="panel" aria-labelledby="device-settings-title"><div class="panel-heading" id="device-settings-title">Cài đặt thiết bị</div><div class="panel-body">
+        <p class="settings-copy">Bộ lọc CEFR, giao diện sáng/tối, kiểu hiển thị và ngôn ngữ không nằm trong bản sao tiến độ vì chúng thuộc về từng thiết bị. Tệp riêng này chỉ gồm bốn cài đặt đó. Nhập vào sẽ thay thế cả bốn, không gộp; tệp sai sẽ bị từ chối và cài đặt hiện tại giữ nguyên.</p>
+        <div class="setting-actions"><button class="btn" id="export-device-settings">${iconMarkup('download')}Xuất cài đặt thiết bị</button><button type="button" class="btn" id="import-device-settings-button">${iconMarkup('overview')}Nhập cài đặt thiết bị</button><input id="import-device-settings" type="file" accept="application/json,.json" hidden></div>
       </div></section>
       ${examHistoryMarkup()}
       <section class="panel"><div class="panel-heading">Thông tin dữ liệu</div><div class="panel-body data-info"><p><b>${formatCount(deck.length)} từ trọng tâm</b> · <b>${formatCount(archivedIds.size)} từ lưu trữ</b> · <b>${formatCount(familyHeadOf.size)} dạng cùng gốc</b> · <b>${phrases.length} cụm từ</b> · phiên bản dữ liệu <code class="code">${escapeHtml(loaded.version)}</code> · phiên bản ứng dụng <code class="code" id="app-version">${escapeHtml(APP_VERSION)}</code></p><p>Từ vựng, kho cụm từ, 106 bản chép đề, giao diện và mã ứng dụng nằm trong chính tệp HTML này. Ứng dụng không tự tải dữ liệu/tài nguyên; chỉ tiến độ flashcard và tiến độ cụm từ được lưu riêng trên thiết bị.</p><p><b>Phạm vi ôn:</b> từ lưu trữ vẫn tra cứu được và giữ tiến độ cũ, nhưng không vào phiên học, bộ đếm hay phương án nhiễu. Danh sách và lý do từng mục nằm trong <code class="code">docs/vocabulary-curation.json</code>.</p><p><b>Quy tắc gốc từ:</b> mỗi gốc từ chỉ tính là một từ vựng. Các dạng cùng gốc (ví dụ số nhiều, thì, phái sinh) không phải mục riêng; chúng được ghi ở dòng “Họ từ” của từ gốc.</p></div></section>
@@ -556906,6 +557395,13 @@ export async function createApp(root) {
     });
     container.querySelector('#export-setting').addEventListener('click', exportDownload);
     container.querySelector('#import-setting').addEventListener('change', importFile);
+    // A `label` wrapping a hidden input is not focusable, so the old markup made
+    // import unreachable by keyboard. The visible control is a real button now and
+    // forwards its click to the input, which stays hidden but still announces.
+    container.querySelector('#import-setting-button').addEventListener('click', () => container.querySelector('#import-setting').click());
+    container.querySelector('#export-device-settings').addEventListener('click', exportDeviceSettingsFile);
+    container.querySelector('#import-device-settings').addEventListener('change', importDeviceSettingsFile);
+    container.querySelector('#import-device-settings-button').addEventListener('click', () => container.querySelector('#import-device-settings').click());
     container.querySelector('#reset-setting').addEventListener('click', resetProgress);
     container.querySelector('#telemetry-setting').addEventListener('change', event => {
       const wanted = event.target.checked;
@@ -556973,6 +557469,63 @@ export async function createApp(root) {
     // Only the shape of the backup is counted, never its contents.
     recordTelemetry('backup', 'export-ok', { progressRows: Object.keys(bundle.progress || {}).length });
     toast('Đã xuất bản sao JSON.', 'success');
+  }
+
+  // A device-settings file is small by construction, so it is written with the
+  // same Blob download the progress backup uses.
+  function exportDeviceSettingsFile() {
+    const payload = exportDeviceSettings({ cefrSelection, theme, language, presentation });
+    downloadExamJson(`chuyen-anh-device-settings-${todayKey()}.json`, JSON.stringify(payload, null, 2));
+    toast('Đã xuất cài đặt thiết bị.', 'success');
+  }
+
+  async function importDeviceSettingsFile(event) {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    try {
+      if (file.size > DEVICE_SETTINGS_MAX_BYTES) {
+        // Never call file.text() for a file this size: reading it is the part
+        // that would stall the tab.
+        toast('Tệp cài đặt quá lớn.', 'error');
+        event.target.value = '';
+        return;
+      }
+      // Parse, validate and apply are three separate steps and nothing writes
+      // before the second finishes, so a malformed file cannot leave the device
+      // half configured.
+      const parsed = JSON.parse(await file.text());
+      const settings = validateDeviceSettingsPayload(parsed, text => translateUiText(text, language));
+      const result = applyDeviceSettings(settings, storage);
+      if (result !== 'ok') {
+        reloadLearnerStores();
+        toast(result === 'rollback-failed'
+          ? 'Không thể lưu cài đặt vừa nhập và việc khôi phục có thể chưa hoàn tất; hãy kiểm tra lại cài đặt trên máy.'
+          : 'Không thể lưu cài đặt vừa nhập; cài đặt cũ trên máy được giữ nguyên.', 'error');
+        renderShell();
+        return;
+      }
+      // The in-memory copies must follow storage, or the interface would show the
+      // old theme until the next reload.
+      cefrSelection = settings.cefrSelection;
+      theme = settings.theme;
+      language = settings.language;
+      presentation = settings.presentation;
+      enforceStudyPool();
+      applyTheme();
+      applyInterface();
+      toast('Đã nhập cài đặt thiết bị.', 'success');
+      renderShell();
+    } catch (error) {
+      // `validateDeviceSettingsPayload` already throws translated text; a JSON
+      // parse error does not, so it gets its own sentence instead of a raw
+      // engine message quoting the learner's file.
+      const message = error instanceof SyntaxError
+        ? (language === 'en' ? 'The settings file is not valid JSON.' : 'Tệp cài đặt không phải JSON hợp lệ.')
+        : error.message;
+      toast(language === 'en' ? `Device settings import failed: ${message}` : `Nhập cài đặt thiết bị thất bại: ${message}`, 'error');
+    } finally {
+      event.target.value = '';
+    }
   }
 
   async function importFile(event) {

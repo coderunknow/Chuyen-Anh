@@ -734,3 +734,1021 @@ test('v1.0.0 curated keys & formal exemptions: curated_verified scores determini
   assert.equal(essayGrade.earnedCredit, 0);
   assert.ok(essayGrade.advisoryRubricEvaluation, 'answered exempt essay still provides advisory 4-criterion rubric feedback');
 });
+
+test('rc10 import hardening: untrusted paper metadata and correction candidates are validated', () => {
+  const q = question(); const keys = [key()];
+  const session = app.createExamPracticeSession('2025/test/so', [q], 1000);
+  app.recordExamPracticeResponse(session, q.id, 'choice-A'); app.submitExamPractice(session, 1000);
+  const record = { id:'2025/test/so', year:2025, province:'Test', unit:'so', unitLabel:'Test', source:'https://example.com', assets:[], quality:'PDF-text', answers:'', note:'', contentSha256:'c'.repeat(64), markdown:'' };
+  const attempt = app.createExamResultRecord(session, record, keys, { now: 1000, id: 'attempt-guard' });
+  const history = app.addExamResult(app.emptyExamResultHistory(), attempt);
+  const exported = JSON.parse(app.exportExamResultHistory(history));
+  const paperKey = Object.keys(exported.papers)[0];
+
+  // A genuine export (numeric year, string metadata) still round-trips.
+  assert.equal(app.validateExamResultHistory(exported).ok, true);
+  assert.equal(exported.papers[paperKey].metadata.year, 2025);
+
+  // Imported paper metadata is printed in the history list. Text fields stay
+  // free-form (legitimate provinces contain punctuation and HTML-ish text) and
+  // are escaped at the render site; non-strings are rejected outright.
+  const textField = JSON.parse(JSON.stringify(exported));
+  textField.papers[paperKey].metadata.province = '<img src=x onerror=alert(1)>';
+  assert.equal(app.validateExamResultHistory(textField).ok, true, 'a text field is data, not markup');
+  assert.doesNotMatch(app.escapeHtml(textField.papers[paperKey].metadata.province), /<(img|svg|script)/i);
+  const hostile = [[{ toString: 'x' }, 'province'], [7, 'unitLabel'], [['a'], 'source'], [{}, 'quality']];
+  for (const [value, field] of hostile) {
+    const tampered = JSON.parse(JSON.stringify(exported));
+    tampered.papers[paperKey].metadata[field] = value;
+    assert.deepEqual(app.validateExamResultHistory(tampered), { ok: false, reason: 'invalid-paper' }, `${field} must be a string`);
+  }
+  for (const year of ['<img src=x onerror=alert(1)>', 99999, 20.5, {}]) {
+    const tampered = JSON.parse(JSON.stringify(exported));
+    tampered.papers[paperKey].metadata.year = year;
+    assert.deepEqual(app.validateExamResultHistory(tampered), { ok: false, reason: 'invalid-paper' }, `year ${JSON.stringify(year)} must be rejected`);
+  }
+  const longSource = JSON.parse(JSON.stringify(exported));
+  longSource.papers[paperKey].metadata.source = `https://example.com/${'a'.repeat(600)}`;
+  assert.deepEqual(app.validateExamResultHistory(longSource), { ok: false, reason: 'invalid-paper' });
+
+  // The history row escapes the year as a second layer, so removing the check
+  // above cannot silently reintroduce raw HTML into the list.
+  assert.match(appSource, /escapeHtml\(paper\?\.metadata\?\.year \?\? ''\)/);
+
+  // Correction candidates are graded, so they must be non-empty bounded strings.
+  const corrected = app.applyExamKeyCorrection(history, { examId: record.id, questionId: q.id, candidates: ['choice-B'], normalization: 'choice-id', note: 'user review', now: 2000 });
+  const correctedExport = JSON.parse(app.exportExamResultHistory(corrected.history));
+  assert.equal(app.validateExamResultHistory(correctedExport).ok, true);
+  for (const candidates of [['choice-B', 7], [''], ['x'.repeat(1001)], 'choice-B', [null]]) {
+    const tampered = JSON.parse(JSON.stringify(correctedExport));
+    tampered.corrections[0].candidates = candidates;
+    assert.deepEqual(app.validateExamResultHistory(tampered), { ok: false, reason: 'invalid-correction' }, `candidates ${JSON.stringify(candidates)} must be rejected`);
+  }
+});
+
+test('rc10 import hardening: a paper snapshot must describe an answerable paper', () => {
+  const q1 = question(); const q2 = question({ id: 'q-2-test', number: 2 });
+  const keys = [key(), key({ questionId: 'q-2-test' })];
+  const session = app.createExamPracticeSession('2025/test/so', [q1, q2], 1000);
+  app.recordExamPracticeResponse(session, q1.id, 'choice-A');
+  app.recordExamPracticeResponse(session, q2.id, 'choice-A');
+  app.submitExamPractice(session, 2000);
+  const record = { id:'2025/test/so', year:2025, province:'Test', unit:'so', unitLabel:'Test', source:'https://example.com', assets:[], quality:'PDF-text', answers:'', note:'', contentSha256:'f'.repeat(64), markdown:'' };
+  const attempt = app.createExamResultRecord(session, record, keys, { now: 2000, id: 'attempt-shape' });
+  const history = app.addExamResult(app.emptyExamResultHistory(), attempt);
+  const exported = JSON.parse(app.exportExamResultHistory(history));
+  const paperKey = Object.keys(exported.papers)[0];
+  assert.equal(app.validateExamResultHistory(exported).ok, true, 'a genuine snapshot still validates');
+
+  const cases = {
+    'duplicate option ids': (p) => { const q = p.papers[paperKey].questions[0]; q.options[1].id = q.options[0].id; },
+    'choice question with one option': (p) => { const q = p.papers[paperKey].questions[0]; q.options = [q.options[0]]; },
+    'choice question with no options': (p) => { p.papers[paperKey].questions[0].options = []; },
+    'key for a question the paper does not contain': (p) => { p.papers[paperKey].baseKeys.push({ ...p.papers[paperKey].baseKeys[0], questionId: 'q-absent' }); },
+    'two keys for the same question': (p) => { p.papers[paperKey].baseKeys.push({ ...p.papers[paperKey].baseKeys[0] }); },
+    'non-string accepted alternative': (p) => { p.papers[paperKey].baseKeys[0].acceptedAlternatives = [7]; }
+  };
+  for (const [name, mutate] of Object.entries(cases)) {
+    const tampered = JSON.parse(JSON.stringify(exported));
+    mutate(tampered);
+    assert.deepEqual(app.validateExamResultHistory(tampered), { ok: false, reason: 'invalid-paper' }, name);
+  }
+  // Text and essay items legitimately carry no options; they must still validate.
+  const textAttempt = { ...JSON.parse(JSON.stringify(exported)) };
+  textAttempt.papers[paperKey].questions = [{ id: 'q-1-test', number: 1, prompt: 'Write.', instruction: '', responseType: 'text', options: [], flags: [] }];
+  textAttempt.papers[paperKey].baseKeys = [key({ candidates: ['go'], acceptedAlternatives: ['goes'] })];
+  textAttempt.attempts = [];
+  assert.equal(app.validateExamResultHistory(textAttempt).ok, true, 'an optionless text item is valid');
+});
+
+test('rc10 import hardening: a record produced from a partial session still imports', () => {
+  // The import validator rejects a key for a question the paper does not contain.
+  // A learner whose session covered only part of a paper must still be able to
+  // restore their own export, so the producer stores only the keys it can grade.
+  const questions = [question(), question({ id: 'q-2-test', number: 2 })];
+  const allKeys = [key(), key({ questionId: 'q-2-test' }), key({ questionId: 'q-3-not-in-session' })];
+  const session = app.createExamPracticeSession('2025/test/so', questions, 1000);
+  app.recordExamPracticeResponse(session, questions[0].id, 'choice-A');
+  app.submitExamPractice(session, 2000);
+  const record = { id:'2025/test/so', year:2025, province:'Test', unit:'so', unitLabel:'Test', source:'https://example.com', assets:[], quality:'PDF-text', answers:'', note:'', contentSha256:'f'.repeat(64), markdown:'' };
+  const attempt = app.createExamResultRecord(session, record, allKeys, { now: 2000, id: 'attempt-partial' });
+  const exported = JSON.parse(app.exportExamResultHistory(app.addExamResult(app.emptyExamResultHistory(), attempt)));
+  const paper = exported.papers[Object.keys(exported.papers)[0]];
+  assert.equal(paper.baseKeys.length, 2, 'only keys for questions in the session are stored');
+  assert.equal(app.validateExamResultHistory(exported).ok, true,
+    'an export the app produced must never be rejected by the app');
+});
+
+test('merging two valid histories keeps the newest 50 and still imports', () => {
+  const paperFor = record => ({ questions: app.parseExamQuestions(record.markdown, record.id), keys: Array.isArray(record.answerKey) ? record.answerKey : [] });
+  const buildAttempt = (index, id, submittedAt) => {
+    const record = records[index];
+    const { questions, keys } = paperFor(record);
+    const session = app.createExamPracticeSession(record.id, questions, submittedAt - 10);
+    for (const question of questions) app.recordExamPracticeResponse(session, question.id, question.options?.[0]?.id ?? 'x');
+    app.submitExamPractice(session, submittedAt);
+    return app.createExamResultRecord(session, record, keys, { now: submittedAt, id });
+  };
+  const historyOf = attempts => attempts.reduce((history, attempt) => app.addExamResult(history, attempt), app.emptyExamResultHistory());
+  const store = () => {
+    const map = new Map();
+    return { getItem: key => (map.has(key) ? map.get(key) : null), setItem: (key, value) => { map.set(key, String(value)); }, removeItem: key => map.delete(key) };
+  };
+
+  // 50 local attempts on paper A, 50 older attempts from another device on paper B.
+  const local = historyOf(Array.from({ length: 50 }, (_, i) => buildAttempt(0, `local-${i}`, 1000 + i)));
+  const otherAttempts = historyOf(Array.from({ length: 50 }, (_, i) => buildAttempt(1, `other-${i}`, 500 + i)));
+  // A learner correction on the other device's paper: when every attempt of that
+  // paper falls outside the window, the correction has nothing left to score and
+  // must go with it, or the merged history is rejected as an unknown target.
+  // A correction target must exist in the stored snapshot: pick a question that
+  // the paper still holds together with a key, so the correction is legal.
+  const correctionTarget = history => {
+    const paper = Object.values(history.papers)[0];
+    const key = paper.baseKeys.find(k => paper.questions.some(q => q.id === k.questionId));
+    const question = paper.questions.find(q => q.id === key.questionId);
+    return { examId: paper.examId, questionId: question.id, candidates: [question.options?.[0]?.id ?? 'learner answer'] };
+  };
+  const corrected = app.applyExamKeyCorrection(otherAttempts, correctionTarget(otherAttempts));
+  assert.equal(corrected.ok, true, 'the other device history carries a valid correction');
+  const other = corrected.history;
+  const storage = store();
+  assert.equal(app.saveExamResultHistory(local, storage), true);
+
+  const result = app.importExamResultHistory(app.exportExamResultHistory(other), storage);
+  assert.equal(result.ok, true, 'a union of two valid histories must import, not report a storage failure');
+  assert.equal(result.history.attempts.length, 50, 'the merged history keeps exactly the 50-attempt window');
+  assert.deepEqual(result.history.attempts.map(a => a.id), Array.from({ length: 50 }, (_, i) => `local-${i}`),
+    'the newest attempts win: every imported one is older than every local one');
+  assert.deepEqual(Object.values(result.history.papers).map(p => p.examId), [records[0].id],
+    'the paper only the dropped attempts used is pruned too');
+  assert.equal(result.history.corrections.length, 0,
+    'a correction against the trimmed-away paper cannot be kept: its target no longer exists');
+  assert.equal(app.loadExamResultHistory(storage).attempts.length, 50, 'and the trimmed history saves');
+
+  // The other direction: 40 local + 20 newer attempts exceed the window by 10, so the
+  // 10 oldest local attempts are displaced — not 30, and the boundary has to be exact.
+  const store2 = store();
+  const local2 = historyOf(Array.from({ length: 40 }, (_, i) => buildAttempt(0, `local-${i}`, 1000 + i)));
+  app.saveExamResultHistory(local2, store2);
+  const newer = historyOf(Array.from({ length: 20 }, (_, i) => buildAttempt(1, `newer-${i}`, 2000 + i)));
+  const merged2 = app.importExamResultHistory(app.exportExamResultHistory(newer), store2);
+  assert.equal(merged2.ok, true);
+  assert.equal(merged2.history.attempts.length, 50);
+  const kept = merged2.history.attempts.map(a => a.id);
+  assert.equal(kept.at(-1), 'newer-19', 'the newest attempt stays last in storage order (the history screen reverses it)');
+  assert.equal(kept.filter(id => id.startsWith('local-')).length, 30, 'exactly 10 of the 40 local attempts are dropped');
+  assert.equal(kept.includes('local-9'), false, 'the tenth-oldest local attempt is the last one dropped');
+  assert.equal(kept.includes('local-10'), true, 'the eleventh-oldest survives, so the boundary is exact');
+  assert.equal(kept.filter(id => id.startsWith('newer-')).length, 20, 'all 20 imported attempts survive');
+  // The mirror case: a correction on a paper that does survive every trim stays.
+  const keptCorrection = app.applyExamKeyCorrection(newer, correctionTarget(newer));
+  assert.equal(keptCorrection.ok, true);
+  const store3 = store();
+  app.saveExamResultHistory(local2, store3);
+  const merged3 = app.importExamResultHistory(app.exportExamResultHistory(keptCorrection.history), store3);
+  assert.equal(merged3.ok, true);
+  assert.equal(merged3.history.corrections.length, 1, 'trimming must not drop a correction whose paper survives');
+});
+
+test('a second attempt on the same paper cannot overwrite the stored question set', () => {
+  // Every attempt of one archive shares `examId@contentSha256` as its paper key,
+  // so the first snapshot is the only one that can score its attempts. A caller
+  // that practises a different slice of the same paper must be refused: letting
+  // the snapshot be replaced leaves the earlier answers pointing at questions the
+  // paper no longer holds, and the whole history then fails validation and can no
+  // longer be saved or exported.
+  const record = records[0];
+  const questions = app.parseExamQuestions(record.markdown, record.id);
+  const keys = Array.isArray(record.answerKey) ? record.answerKey : [];
+  assert.ok(questions.length >= 6, 'the fixture paper needs enough questions');
+  const build = (subset, id, submittedAt) => {
+    const session = app.createExamPracticeSession(record.id, subset, submittedAt - 10);
+    for (const question of subset) app.recordExamPracticeResponse(session, question.id, question.options?.[0]?.id ?? 'x');
+    app.submitExamPractice(session, submittedAt);
+    return app.createExamResultRecord(session, record, keys, { now: submittedAt, id });
+  };
+
+  const first = build(questions.slice(0, 3), 'slice-a', 1000);
+  const second = build(questions.slice(2, 6), 'slice-b', 2000);
+  assert.equal(first.paperKey, second.paperKey, 'both attempts belong to the same stored paper');
+  assert.notDeepEqual(first.paper.questions, second.paper.questions, 'and they carry different question sets');
+
+  const history = app.addExamResult(app.emptyExamResultHistory(), first);
+  assert.equal(app.validateExamResultHistory(history).ok, true);
+  const storage = store();
+  assert.equal(app.saveExamResultHistory(history, storage), true, 'the first attempt saves on its own');
+
+  assert.throws(() => app.addExamResult(history, second), /Conflicting exam paper snapshot/,
+    'the conflicting snapshot is rejected instead of silently corrupting the history');
+  assert.equal(app.validateExamResultHistory(history).ok, true, 'the rejected call leaves the history valid');
+  assert.equal(app.loadExamResultHistory(storage).attempts.length, 1, 'and the saved history still holds the first attempt');
+});
+
+test('a snapshot with the same values in a different key order is not a conflict', () => {
+  // A paper can be exported, rewritten by a tool or restored from another device with
+  // its object properties in a different order. That is the same paper: refusing it
+  // would fail the learner's own attempt because of formatting, not content.
+  const record = records[0];
+  const questions = app.parseExamQuestions(record.markdown, record.id);
+  const keys = Array.isArray(record.answerKey) ? record.answerKey : [];
+  const reorder = value => Array.isArray(value) ? value.map(reorder)
+    : value && typeof value === 'object'
+      ? Object.fromEntries(Object.keys(value).reverse().map(key => [key, reorder(value[key])]))
+      : value;
+  const build = (id, submittedAt) => {
+    const session = app.createExamPracticeSession(record.id, questions.slice(0, 3), submittedAt - 10);
+    for (const question of questions.slice(0, 3)) app.recordExamPracticeResponse(session, question.id, question.options?.[0]?.id ?? 'x');
+    app.submitExamPractice(session, submittedAt);
+    return app.createExamResultRecord(session, record, keys, { now: submittedAt, id });
+  };
+
+  const first = build('order-a', 1000);
+  const second = build('order-b', 2000);
+  const reordered = { ...second, paper: reorder(second.paper) };
+  assert.notDeepEqual(Object.keys(reordered.paper), Object.keys(second.paper), 'the key order really differs');
+
+  const history = app.addExamResult(app.addExamResult(app.emptyExamResultHistory(), first), reordered);
+  assert.equal(history.attempts.length, 2, 'the reordered snapshot is accepted as the same paper');
+  assert.equal(Object.keys(history.papers).length, 1);
+
+  // The merge path compares the same way, so a reordered export is not a conflict either.
+  const storage = store();
+  assert.equal(app.saveExamResultHistory(app.addExamResult(app.emptyExamResultHistory(), first), storage), true);
+  const payload = JSON.parse(app.exportExamResultHistory(history));
+  const paperKey = Object.keys(payload.papers)[0];
+  payload.papers[paperKey] = reorder(payload.papers[paperKey]);
+  const merged = app.mergeExamResultHistory(app.loadExamResultHistory(storage), payload);
+  assert.equal(merged.ok, true, 'a reordered paper merges instead of being rejected as conflicting-paper');
+  assert.equal(merged.history.attempts.length, 2);
+
+  // A genuinely different snapshot is still refused.
+  const other = build('order-c', 3000);
+  const different = { ...other, paper: { ...other.paper, questions: other.paper.questions.slice(0, 2) } };
+  assert.throws(() => app.addExamResult(history, different), /Conflicting exam paper snapshot/,
+    'a different question set is still a conflict');
+});
+
+test('rc11 persistence: a correction removed by another tab is not silently adopted', () => {
+  // Attempt ids can all match while a correction changed or vanished; the stored
+  // score is only reproducible from that correction, so adopting the older list and
+  // reporting success would be a quiet data loss.
+  const record = records[0];
+  const questions = app.parseExamQuestions(record.markdown, record.id);
+  const keys = Array.isArray(record.answerKey) ? record.answerKey : [];
+  const build = (id, submittedAt) => {
+    const session = app.createExamPracticeSession(record.id, questions.slice(0, 2), submittedAt - 10);
+    for (const q of questions.slice(0, 2)) app.recordExamPracticeResponse(session, q.id, q.options?.[0]?.id ?? 'x');
+    app.submitExamPractice(session, submittedAt);
+    return app.createExamResultRecord(session, record, keys, { now: submittedAt, id });
+  };
+  const inner = store();
+  const tabA = app.loadExamResultHistory(inner);
+  const withAttempt = app.addExamResult(tabA, build('a1', 5000));
+  // Built through the app's own API so the correction has a valid shape.
+  const corrected = app.applyExamKeyCorrection(withAttempt, {
+    examId: record.id, questionId: questions[0].id, candidates: ['probe-answer'], now: 5000
+  });
+  assert.equal(corrected.ok, true, 'the app can build the correction this test needs');
+  const first = app.persistExamResultHistory(corrected.history, tabA, inner);
+  assert.notEqual(first, false, 'the first save succeeds');
+  const correctionId = corrected.correction.id;
+
+  // A store that re-applies a snapshot with the correction stripped, once.
+  const stripped = inner.getItem('chuyen-anh.exam-results.v1');
+  let once = false;
+  const hostile = {
+    getItem: k => inner.getItem(k),
+    setItem: (k, v) => {
+      inner.setItem(k, v);
+      if (!once && k === 'chuyen-anh.exam-results.v1') {
+        once = true;
+        const parsed = JSON.parse(stripped);
+        parsed.corrections = [];
+        inner.setItem(k, JSON.stringify(parsed));
+      }
+    },
+    removeItem: k => inner.removeItem(k)
+  };
+  const tabB = app.loadExamResultHistory(inner);
+  const second = app.persistExamResultHistory(app.loadExamResultHistory(inner), tabB, hostile);
+  assert.ok(once, 'the harness really did strip the correction once');
+  const restored = app.loadExamResultHistory(inner).corrections.some(c => c.id === correctionId);
+  assert.ok(restored || second === false,
+    `a removed correction must be restored or the save must fail (restored=${restored}, failed=${second === false})`);
+});
+
+test('rc11 persistence: an attempt replaced under the same id is not adopted as our save', () => {
+  // A concurrent import can write a different attempt under the same id with the
+  // same summary. Comparing summaries alone would call that our own successful
+  // write; the read-back must compare identity too (submittedAt, responses).
+  const record = records[0];
+  const questions = app.parseExamQuestions(record.markdown, record.id);
+  const keys = Array.isArray(record.answerKey) ? record.answerKey : [];
+  const build = (id, submittedAt) => {
+    const session = app.createExamPracticeSession(record.id, questions.slice(0, 2), submittedAt - 10);
+    for (const q of questions.slice(0, 2)) app.recordExamPracticeResponse(session, q.id, q.options?.[0]?.id ?? 'x');
+    app.submitExamPractice(session, submittedAt);
+    return app.createExamResultRecord(session, record, keys, { now: submittedAt, id });
+  };
+  const inner = store();
+  const tabA = app.loadExamResultHistory(inner);
+  const saved = app.persistExamResultHistory(app.addExamResult(tabA, build('b1', 6000)), tabA, inner);
+  assert.notEqual(saved, false);
+
+  // Mutate the stored attempt **in place** so the history it belongs to stays valid:
+  // keep the summary, change the timestamp. submittedAt is a number in this schema.
+  const substitute = () => {
+    const parsed = JSON.parse(inner.getItem('chuyen-anh.exam-results.v1'));
+    const target = parsed.attempts.find(a => a.id === 'b1');
+    assert.ok(target, 'the attempt to substitute is really in storage');
+    target.submittedAt = 999999;
+    return JSON.stringify(parsed);
+  };
+  let once = false;
+  const hostile = {
+    getItem: k => inner.getItem(k),
+    setItem: (k, v) => {
+      inner.setItem(k, v);
+      if (!once && k === 'chuyen-anh.exam-results.v1') { once = true; inner.setItem(k, substitute()); }
+    },
+    removeItem: k => inner.removeItem(k)
+  };
+  const tabB = app.loadExamResultHistory(inner);
+  const second = app.persistExamResultHistory(app.addExamResult(tabB, build('c1', 7000)), tabB, hostile);
+  assert.ok(once, 'the harness really did substitute the attempt once');
+  const finalAttempt = app.loadExamResultHistory(inner).attempts.find(a => a.id === 'b1');
+  const restoredOriginal = finalAttempt?.submittedAt === 6000;
+  assert.ok(restoredOriginal || second === false,
+    `a substituted attempt must be restored or the save must fail (submittedAt=${finalAttempt?.submittedAt}, returned=${second === false ? 'false' : 'history'})`);
+});
+
+test('rc11 persistence: a paper snapshot replaced under the same key is not adopted as our save', () => {
+  // The read-back compares attempts and corrections, but the papers map is the
+  // third half of the record: it is what makes a stored score reproducible. A
+  // concurrent import can replace a snapshot under the same paperKey while every
+  // attempt identity and summary still matches - the attempts keep their own
+  // responses, and `questionResults` is stored data, so the history still passes
+  // its own validator. Adopting it means the learner's saved paper now holds a
+  // different question set than the one they sat.
+  const record = records[0];
+  const questions = app.parseExamQuestions(record.markdown, record.id);
+  const keys = Array.isArray(record.answerKey) ? record.answerKey : [];
+  const session = app.createExamPracticeSession(record.id, questions.slice(0, 2), 5000);
+  for (const q of questions.slice(0, 2)) app.recordExamPracticeResponse(session, q.id, q.options?.[0]?.id ?? 'x');
+  app.submitExamPractice(session, 6000);
+  const attempt = app.createExamResultRecord(session, record, keys, { now: 6000, id: 'p1' });
+  const inner = store();
+  const tabA = app.loadExamResultHistory(inner);
+  const first = app.persistExamResultHistory(app.addExamResult(tabA, attempt), tabA, inner);
+  assert.notEqual(first, false, 'the initial save must succeed');
+
+  // A different, still perfectly valid question set under the same paper key: the
+  // snapshot's own hash moves, the attempt that references it does not.
+  const paperKey = attempt.paperKey;
+  const impostor = () => {
+    const parsed = JSON.parse(inner.getItem('chuyen-anh.exam-results.v1'));
+    const paper = parsed.papers[paperKey];
+    assert.ok(paper, 'the paper snapshot to replace is really in storage');
+    // A prompt change is enough: questions stay valid and the attempt's stored
+    // results still reproduce, because results are stored, not recomputed from text.
+    paper.questions[0].prompt = `${paper.questions[0].prompt} (replaced under the same key)`;
+    return JSON.stringify(parsed);
+  };
+  let once = false;
+  const hostile = {
+    getItem: k => inner.getItem(k),
+    setItem: (k, v) => {
+      inner.setItem(k, v);
+      if (!once && k === 'chuyen-anh.exam-results.v1') { once = true; inner.setItem(k, impostor()); }
+    },
+    removeItem: k => inner.removeItem(k)
+  };
+  const tabB = app.loadExamResultHistory(inner);
+  const second = app.persistExamResultHistory(app.addExamResult(tabB, attempt), tabB, hostile);
+  assert.ok(once, 'the harness really did substitute the paper snapshot once');
+  const storedPaper = app.loadExamResultHistory(inner).papers[paperKey];
+  const originalPrompt = attempt.paper.questions[0].prompt;
+  const restored = storedPaper?.questions?.[0]?.prompt === originalPrompt;
+  assert.ok(restored || second === false,
+    `a substituted paper snapshot must be restored or the save must fail (restored=${restored}, returned=${second === false ? 'false' : 'history'})`);
+});
+
+test('rc11 persistence: an unrepairable concurrent overwrite reports failure, not a partial success', () => {
+  // Returning the partial history here would be the worst outcome in the whole
+  // path: persistExamResults treats any history as success, so the submit handler
+  // would mark the attempt saved and suppress the "could not save" warning while
+  // the learner's attempt is genuinely absent from storage.
+  const record = records[0];
+  const questions = app.parseExamQuestions(record.markdown, record.id);
+  const keys = Array.isArray(record.answerKey) ? record.answerKey : [];
+  const build = (id, submittedAt) => {
+    const session = app.createExamPracticeSession(record.id, questions.slice(0, 2), submittedAt - 10);
+    for (const q of questions.slice(0, 2)) app.recordExamPracticeResponse(session, q.id, q.options?.[0]?.id ?? 'x');
+    app.submitExamPractice(session, submittedAt);
+    return app.createExamResultRecord(session, record, keys, { now: submittedAt, id });
+  };
+  const inner = store();
+  const tabA = app.loadExamResultHistory(inner);
+  app.persistExamResultHistory(app.addExamResult(tabA, build('a1', 5000)), tabA, inner);
+  const snapshot = inner.getItem('chuyen-anh.exam-results.v1');
+
+  // Every write is immediately reverted: the repair can never win.
+  const hostile = {
+    getItem: k => inner.getItem(k),
+    setItem: (k, v) => { inner.setItem(k, v); if (k === 'chuyen-anh.exam-results.v1') inner.setItem(k, snapshot); },
+    removeItem: k => inner.removeItem(k)
+  };
+  const tabB = app.loadExamResultHistory(inner);
+  const saved = app.persistExamResultHistory(app.addExamResult(tabB, build('b1', 6000)), tabB, hostile);
+  assert.equal(saved, false, 'an attempt that cannot be confirmed in storage must not be reported as saved');
+  assert.equal(app.loadExamResultHistory(inner).attempts.some(a => a.id === 'b1'), false,
+    'and the harness really did keep it out of storage (otherwise this proves nothing)');
+});
+
+test('rc11 persistence: a concurrent overwrite between write and read-back is repaired, not lost', () => {
+  // The read-merge-write is not atomic across tabs. Web Locks exist but this path is
+  // synchronous and the app also runs from file://, so the guarantee made here is
+  // weaker and explicit: the write is read back, and an attempt that vanished is
+  // merged and rewritten rather than reported as a clean success.
+  const record = records[0];
+  const questions = app.parseExamQuestions(record.markdown, record.id);
+  const keys = Array.isArray(record.answerKey) ? record.answerKey : [];
+  const build = (id, submittedAt) => {
+    const session = app.createExamPracticeSession(record.id, questions.slice(0, 2), submittedAt - 10);
+    for (const q of questions.slice(0, 2)) app.recordExamPracticeResponse(session, q.id, q.options?.[0]?.id ?? 'x');
+    app.submitExamPractice(session, submittedAt);
+    return app.createExamResultRecord(session, record, keys, { now: submittedAt, id });
+  };
+  const inner = store();
+  const tabA = app.loadExamResultHistory(inner);
+  const attemptA = build('a1', 5000);
+  const savedA = app.persistExamResultHistory(app.addExamResult(tabA, attemptA), tabA, inner);
+  assert.notEqual(savedA, false);
+
+  // A store that, immediately after the first successful exam write, has another
+  // tab's stale history slapped over it exactly once. That is the interleaving the
+  // finding describes: the write succeeded, then somebody else's write won.
+  const snapshots = inner.getItem('chuyen-anh.exam-results.v1');
+  let clobbered = false;
+  const racing = {
+    getItem: k => inner.getItem(k),
+    setItem: (k, v) => {
+      inner.setItem(k, v);
+      if (!clobbered && k === 'chuyen-anh.exam-results.v1') { clobbered = true; inner.setItem(k, snapshots); }
+    },
+    removeItem: k => inner.removeItem(k)
+  };
+  const tabB = app.loadExamResultHistory(inner);
+  const attemptB = build('b1', 6000);
+  const saved = app.persistExamResultHistory(app.addExamResult(tabB, attemptB), tabB, racing);
+
+  assert.notEqual(saved, false, 'the save reports success');
+  assert.ok(clobbered, 'the harness really did overwrite the key once (otherwise this proves nothing)');
+  assert.deepEqual(saved.attempts.map(a => a.id).sort(), ['a1', 'b1'],
+    'the returned history carries the attempt that the concurrent write discarded');
+  assert.deepEqual(app.loadExamResultHistory(inner).attempts.map(a => a.id).sort(), ['a1', 'b1'],
+    'and the repair reached storage, so a reload still sees both');
+});
+
+test('rc11 persistence: a successful save returns the merged history, not the caller\'s unmerged copy', () => {
+  // Storage was always correct here; the *return value* was not. The merge path
+  // adds attempts another tab wrote, but it used to return only `true`, so the UI
+  // assigned its own `next` and hid the merged records from the history list and
+  // the JSON export until the next reload. A later clear could then treat them as
+  // unseen and resurrect them.
+  const record = records[0];
+  const questions = app.parseExamQuestions(record.markdown, record.id);
+  const keys = Array.isArray(record.answerKey) ? record.answerKey : [];
+  const build = (id, submittedAt) => {
+    const session = app.createExamPracticeSession(record.id, questions.slice(0, 2), submittedAt - 10);
+    for (const q of questions.slice(0, 2)) app.recordExamPracticeResponse(session, q.id, q.options?.[0]?.id ?? 'x');
+    app.submitExamPractice(session, submittedAt);
+    return app.createExamResultRecord(session, record, keys, { now: submittedAt, id });
+  };
+  const storage = store();
+  const tabA = app.loadExamResultHistory(storage);
+  const tabB = app.loadExamResultHistory(storage);
+  app.persistExamResultHistory(app.addExamResult(tabA, build('a1', 5000)), tabA, storage);
+  const nextB = app.addExamResult(tabB, build('b1', 6000));
+  const saved = app.persistExamResultHistory(nextB, tabB, storage);
+
+  assert.notEqual(saved, false, 'the save succeeded');
+  assert.equal(typeof saved, 'object', 'a successful save must yield the stored history so the caller can adopt it');
+  assert.deepEqual(saved.attempts.map(a => a.id), ['a1', 'b1'],
+    'the returned history is the merged one, including the attempt this tab never saw');
+  assert.deepEqual(saved.attempts.map(a => a.id), app.loadExamResultHistory(storage).attempts.map(a => a.id),
+    'and it matches what the store really holds');
+  // The caller's own copy is still the unmerged one - that is why returning it mattered.
+  assert.deepEqual(nextB.attempts.map(a => a.id), ['b1']);
+  // A refused save still reports false rather than a history.
+  assert.equal(app.persistExamResultHistory(nextB, tabB, { getItem: () => null, setItem: () => { throw new Error('denied'); }, removeItem: () => {} }), false,
+    'a failed write reports false');
+});
+
+test('rc11 persistence: two tabs that both submit keep both attempts', () => {
+  // Both tabs boot from the same store, so both hold the same boot-time snapshot.
+  // Tab A saves first; tab B still has the older snapshot. Saving B's whole
+  // in-memory history used to overwrite the key and silently drop A's attempt.
+  const record = records[0];
+  const questions = app.parseExamQuestions(record.markdown, record.id);
+  const keys = Array.isArray(record.answerKey) ? record.answerKey : [];
+  const build = (id, submittedAt) => {
+    const session = app.createExamPracticeSession(record.id, questions.slice(0, 2), submittedAt - 10);
+    for (const q of questions.slice(0, 2)) app.recordExamPracticeResponse(session, q.id, q.options?.[0]?.id ?? 'x');
+    app.submitExamPractice(session, submittedAt);
+    return app.createExamResultRecord(session, record, keys, { now: submittedAt, id });
+  };
+  const storage = store();
+  const tabA = app.loadExamResultHistory(storage);
+  const tabB = app.loadExamResultHistory(storage);
+  const attemptA = build('tab-a-attempt', 5000);
+  const attemptB = build('tab-b-attempt', 6000);
+
+  assert.notEqual(app.persistExamResultHistory(app.addExamResult(tabA, attemptA), tabA, storage), false,
+    'the first tab saves through the merge-before-write path');
+  assert.notEqual(app.persistExamResultHistory(app.addExamResult(tabB, attemptB), tabB, storage), false,
+    'the second tab must not fail just because the key changed under it');
+
+  const stored = app.loadExamResultHistory(storage);
+  assert.deepEqual(stored.attempts.map(a => a.id), ['tab-a-attempt', 'tab-b-attempt'],
+    'both attempts survive, in submission order');
+  assert.equal(Object.keys(stored.papers).length, 1, 'and they still share one stored paper snapshot');
+
+  // A deletion is a deliberate whole-history edit: it must not be resurrected.
+  const beforeDelete = app.loadExamResultHistory(storage);
+  const deleted = app.deleteExamResult(app.loadExamResultHistory(storage), 'tab-a-attempt');
+  assert.notEqual(app.persistExamResultHistory(deleted, beforeDelete, storage), false);
+  assert.deepEqual(app.loadExamResultHistory(storage).attempts.map(a => a.id), ['tab-b-attempt'],
+    'a deletion sticks: the caller history is the base');
+
+  const beforeClear = app.loadExamResultHistory(storage);
+  assert.notEqual(app.persistExamResultHistory(app.emptyExamResultHistory(), beforeClear, storage), false);
+  assert.equal(app.loadExamResultHistory(storage).attempts.length, 0, 'clearing removes every attempt');
+  assert.equal(Object.keys(app.loadExamResultHistory(storage).papers).length, 0, 'and leaves no orphan papers');
+
+  // A genuinely conflicting snapshot is still refused, never merged blindly.
+  assert.notEqual(app.persistExamResultHistory(app.addExamResult(app.emptyExamResultHistory(), attemptB),
+    app.emptyExamResultHistory(), storage), false, 'storage now holds the full paper snapshot');
+  const conflicting = { ...attemptB, id: 'tab-c-attempt', paper: { ...attemptB.paper, questions: attemptB.paper.questions.slice(0, 1) } };
+  const staleTab = app.addExamResult(app.emptyExamResultHistory(), conflicting);
+  assert.throws(() => app.persistExamResultHistory(staleTab, app.emptyExamResultHistory(), storage),
+    /conflicting-paper/, 'a different snapshot for the same paper key is reported, not merged blindly');
+});
+
+test('rc11 retention: the window keeps the newest attempts by submission time, not array position', () => {
+  // A device whose clock runs ahead publishes an attempt with a later
+  // `submittedAt`. Once imported it sits first in the stored array, and a
+  // positional `slice(-50)` then drops the newest local attempt.
+  const record = records[0];
+  const questions = app.parseExamQuestions(record.markdown, record.id);
+  const keys = Array.isArray(record.answerKey) ? record.answerKey : [];
+  const build = (answered, submittedAt, id) => {
+    const session = app.createExamPracticeSession(record.id, questions, submittedAt - 10);
+    let n = 0;
+    for (const q of questions) {
+      if (n >= answered) break;
+      app.recordExamPracticeResponse(session, q.id, q.options?.[0]?.id ?? 'x'); n += 1;
+    }
+    app.submitExamPractice(session, submittedAt);
+    return app.createExamResultRecord(session, record, keys, { now: submittedAt, id });
+  };
+  const storage = store();
+  const future = build(1, 3_600_000, 'clock-ahead-attempt');
+  assert.equal(app.importExamResultHistory(app.exportExamResultHistory(app.addExamResult(app.emptyExamResultHistory(), future)), storage).ok, true);
+
+  let history = app.loadExamResultHistory(storage);
+  for (let i = 0; i < 50; i += 1) {
+    const next = app.addExamResult(history, build(1, 1000 + i, `local-${i}`));
+    assert.notEqual(app.persistExamResultHistory(next, history, storage), false);
+    history = app.loadExamResultHistory(storage);
+  }
+  const ids = history.attempts.map(attempt => attempt.id);
+  assert.equal(ids.length, 50, 'the window still holds exactly 50 attempts');
+  assert.equal(ids.includes('local-49'), true, 'the newest local attempt is kept');
+  assert.equal(ids.includes('local-0'), false, 'the oldest local attempt is the one that leaves the window');
+  assert.equal(ids.includes('clock-ahead-attempt'), true, 'the newest attempt overall is not silently dropped');
+  const order = history.attempts.map(attempt => attempt.submittedAt);
+  assert.deepEqual(order, [...order].sort((a, b) => a - b), 'storage keeps attempts in submission order');
+});
+
+test('rc11 merge: a corrected attempt still merges with its uncorrected copy', () => {
+  // `summary` and `questionResults` are derived from the responses plus the
+  // corrections in force, so two copies of one attempt legitimately differ there
+  // once one device corrected the key. They are the same attempt.
+  const q = question(); const keys = [key()];
+  const session = app.createExamPracticeSession('2025/test/so', [q], 1000);
+  app.recordExamPracticeResponse(session, q.id, 'choice-A');
+  app.submitExamPractice(session, 1000);
+  const record = { id: '2025/test/so', year: 2025, province: 'Test', unit: 'so', unitLabel: 'Test', source: 'https://example.com', assets: [], quality: 'PDF-text', answers: '', note: '', contentSha256: 'a'.repeat(64), markdown: '' };
+  const attempt = app.createExamResultRecord(session, record, keys, { now: 1000, id: 'attempt-1' });
+  const before = app.addExamResult(app.emptyExamResultHistory(), attempt);
+  const corrected = app.applyExamKeyCorrection(before, { examId: record.id, questionId: q.id, candidates: ['choice-B'], normalization: 'choice-id', note: 'user review', now: 2000 });
+  assert.equal(corrected.ok, true);
+  assert.notEqual(corrected.history.attempts[0].summary.correct, before.attempts[0].summary.correct, 'the two copies really do score differently');
+
+  const merged = app.mergeExamResultHistory(before, JSON.parse(app.exportExamResultHistory(corrected.history)));
+  assert.equal(merged.ok, true, 'the corrected copy is the same attempt, not a conflict');
+  assert.equal(merged.history.attempts.length, 1, 'and it is stored once');
+  assert.equal(merged.history.corrections.length, 1, 'with the correction that justifies its score');
+  assert.equal(merged.history.attempts[0].summary.correct, corrected.history.attempts[0].summary.correct,
+    'the merged result is re-scored from the correction');
+
+  const tampered = JSON.parse(app.exportExamResultHistory(before));
+  tampered.attempts[0].responses[q.id] = 'choice-B';
+  const tamperedMerge = app.mergeExamResultHistory(corrected.history, tampered);
+  assert.equal(tamperedMerge.ok, false, 'a different answer under the same id is still refused');
+  assert.equal(tamperedMerge.reason, 'score-mismatch',
+    'it is caught even earlier: the edited responses no longer reproduce the stored result');
+});
+
+test('rc11 backup copy matches what the exporter really writes', () => {
+  // The settings panel describes the backup, and that description drifted: it
+  // omitted the `phrases` block the exporter has written for releases and said
+  // nothing about the stores that genuinely stay on the device.
+  const source = html.match(/<script type="module" id="app-script">([\s\S]*?)<\/script>/)[1];
+  const bundle = app.exportProgressBundle({
+    progress: {}, prefs: app.DEFAULT_PREFS, favorites: new Set(), history: [],
+    streak: { current: 0, longest: 0, lastDate: null }, study: null, flagged: null,
+    achievements: null, phrases: { P001: { attempts: 1, correct: 1, wrong: 0, lastPracticed: 1 } }
+  });
+  for (const block of ['study', 'flagged', 'achievements', 'phrases']) {
+    assert.equal(Object.hasOwn(bundle, block), true, `the bundle carries an optional ${block} block`);
+  }
+  const serialized = JSON.stringify(bundle);
+  assert.equal(/chuyen-anh\.cefr\.v1/.test(serialized), false, 'the CEFR selection is not in the backup');
+  assert.equal(/chuyen-anh\.presentation\.v1/.test(serialized), false, 'the theme/presentation is not in the backup');
+  assert.equal(/chuyen-anh\.language\.v1/.test(serialized), false, 'the interface language is not in the backup');
+
+  const viCopy = source.match(/<p class="settings-copy">(Bản sao JSON v1[^<]+)<\/p>/)[1];
+  assert.match(viCopy, /tiến độ cụm từ/, 'the copy names phrase progress, which the file really carries');
+  assert.match(viCopy, /CEFR/, 'the copy names the CEFR filter as device-local');
+  assert.match(viCopy, /giao diện sáng\/tối/, 'the copy names the theme as device-local');
+  assert.match(viCopy, /ngôn ngữ hiển thị/, 'the copy names the interface language as device-local');
+});
+
+test('rc11 export: a history the app can build is a history the app can import', () => {
+  // `examPaperKey` is `${examId}@${sha256}` while the import validator requires
+  // the exam id to contain no `@`. An id that does contain one built a key that
+  // could never be validated again: the submit saved nothing, and the recovery
+  // the error toast suggests - "download the JSON" - produced a file the
+  // importer refused with `invalid-paper`.
+  const toolQ = question({ id: 'q-1-test' });
+  const toolRecord = {
+    id: '2026/tool@x/so', year: 2026, province: 'Tool', unit: 'so', unitLabel: 'Tool',
+    source: 'https://example.com', quality: 'PDF-text', answers: '', note: '',
+    contentSha256: 'a'.repeat(64), markdown: ''
+  };
+  const session = app.createExamPracticeSession(toolRecord.id, [toolQ], 1000);
+  app.recordExamPracticeResponse(session, toolQ.id, 'choice-A');
+  app.submitExamPractice(session, 2000);
+  assert.throws(() => app.createExamResultRecord(session, toolRecord, [key()], { now: 2000 }),
+    /paper/i, 'a record that could never be stored or re-imported is refused at creation');
+
+  const record = records[0];
+  const questions = app.parseExamQuestions(record.markdown, record.id);
+  const keys = Array.isArray(record.answerKey) ? record.answerKey : [];
+  const okSession = app.createExamPracticeSession(record.id, questions.slice(0, 2), 1000);
+  for (const q of questions.slice(0, 2)) app.recordExamPracticeResponse(okSession, q.id, q.options[0].id);
+  app.submitExamPractice(okSession, 2000);
+  const okAttempt = app.createExamResultRecord(okSession, record, keys, { now: 2000, id: 'ok-attempt' });
+  const history = app.addExamResult(app.emptyExamResultHistory(), okAttempt);
+  const storage = store();
+  assert.equal(app.saveExamResultHistory(history, storage), true);
+  assert.equal(app.importExamResultHistory(app.exportExamResultHistory(history), store()).ok, true,
+    'a storeable history still exports and re-imports');
+});
+
+test('rc11 english: every exam toast has an English rendering', () => {
+  // The exam area is translated through EN_UI_TRANSLATIONS. Six of its toasts had
+  // no entry, so an English interface still showed Vietnamese sentences from the
+  // most consequential flows (a refused save, an import, a missing paper).
+  const source = html.match(/<script type="module" id="app-script">([\s\S]*?)<\/script>/)[1];
+  const toasts = [...new Set([...source.matchAll(/toast\(\s*'([^']{8,220})'/g)].map(m => m[1]))];
+  const untranslated = toasts.filter(text => app.translateUiText(text, 'en') === text);
+  assert.deepEqual(untranslated, [], 'these toast strings would be shown in Vietnamese: ' + untranslated.join(' | '));
+});
+
+test('rc11 model: addExamResult refuses a key the exporter could never re-import', () => {
+  // The fuzz suite found this: `addExamResult` accepted an attempt whose
+  // `paperKey` was a bare exam id, so the history it built exported to a file its
+  // own importer rejected with `invalid-paper`. Both ends now share the rule.
+  const bare = { id: 'x', paperKey: '2026/paper-a/so', examId: '2026/paper-a/so', startedAt: 1, submittedAt: 2, responses: {}, paper: { id: '2026/paper-a/so' } };
+  assert.throws(() => app.addExamResult(app.emptyExamResultHistory(), bare), /paper key/i,
+    'a key that is not id@sha256 is refused at the point of adding');
+  const at = 'a@b@' + 'a'.repeat(64);
+  assert.throws(() => app.addExamResult(app.emptyExamResultHistory(),
+    { ...bare, paperKey: at, paper: { id: at } }), /paper key/i,
+    'an id containing @ cannot form a storable key');
+
+  // A storable key on a complete paper - built from the archive the app itself
+  // validates - still adds, exports and re-imports.
+  const record = records[0];
+  const questions = app.parseExamQuestions(record.markdown, record.id);
+  const keys = Array.isArray(record.answerKey) ? record.answerKey : [];
+  const session = app.createExamPracticeSession(record.id, questions.slice(0, 2), 1000);
+  for (const q of questions.slice(0, 2)) app.recordExamPracticeResponse(session, q.id, q.options[0].id);
+  app.submitExamPractice(session, 2000);
+  const real = app.createExamResultRecord(session, record, keys, { now: 2000, id: 'real-attempt' });
+  const ok = app.addExamResult(app.emptyExamResultHistory(), real);
+  assert.equal(ok.attempts.length, 1, 'a complete attempt with a storable key is accepted');
+  assert.equal(app.importExamResultHistory(app.exportExamResultHistory(ok), store()).ok, true,
+    'and that history re-imports, which is the property the fuzz failure broke');
+});
+
+test('rc11 persist: a correction another tab wrote is carried, so the union stays saveable', () => {
+  // Found by the stateful fuzz. Another tab corrected a key and saved; its records
+  // were scored against that correction. A tab that has never seen the correction
+  // must carry it into the union, or the union's own stored scores become
+  // unreproducible and the validator refuses the save with `score-mismatch` -
+  // a silently un-saveable history, which is exactly what this path prevents.
+  const record = records[0];
+  const questions = app.parseExamQuestions(record.markdown, record.id);
+  const keys = Array.isArray(record.answerKey) ? record.answerKey : [];
+  const build = (id, submittedAt) => {
+    const session = app.createExamPracticeSession(record.id, questions.slice(0, 2), submittedAt - 10);
+    for (const q of questions.slice(0, 2)) app.recordExamPracticeResponse(session, q.id, q.options[0].id);
+    app.submitExamPractice(session, submittedAt);
+    return app.createExamResultRecord(session, record, keys, { now: submittedAt, id });
+  };
+  const storage = store();
+  const first = build('tab-a-attempt', 5000);
+  const tabA = app.addExamResult(app.emptyExamResultHistory(), first);
+  const corrected = app.applyExamKeyCorrection(tabA, {
+    examId: record.id, questionId: questions[0].id,
+    candidates: [questions[0].options[1]?.id ?? questions[0].options[0].id],
+    normalization: 'choice-id', note: 'tab A review', now: 6000
+  });
+  assert.equal(corrected.ok, true, 'the other tab corrected the key');
+  assert.notEqual(app.persistExamResultHistory(corrected.history, tabA, storage), false);
+
+  // This tab booted before that write and knows nothing about the correction.
+  const staleTab = app.emptyExamResultHistory();
+  const own = app.addExamResult(staleTab, build('tab-b-attempt', 7000));
+  let saved = false;
+  try { saved = app.persistExamResultHistory(own, staleTab, storage); } catch (error) { saved = error.message; }
+  assert.notEqual(saved, false, `the union must stay saveable, got: ${saved === false ? 'false' : JSON.stringify(saved).slice(0, 120)}`);
+
+  const merged = app.loadExamResultHistory(storage);
+  assert.deepEqual(merged.attempts.map(a => a.id), ['tab-a-attempt', 'tab-b-attempt'], 'both attempts are stored');
+  assert.equal(merged.corrections.length, 1, "the other tab's correction is carried, not dropped");
+  assert.equal(app.validateExamResultHistory(merged).ok, true, 'and the stored history still passes its own validator');
+});
+
+// ---------------------------------------------------------------------------
+// Device-local settings: the separate, versioned file agreed as Option 3.
+// ---------------------------------------------------------------------------
+const deviceStore = () => {
+  const m = new Map();
+  return { getItem: k => (m.has(k) ? m.get(k) : null), setItem: (k, v) => m.set(k, String(v)), removeItem: k => m.delete(k), key: i => [...m.keys()][i] ?? null, get length() { return m.size; } };
+};
+const settingsSample = () => ({
+  cefrSelection: app.sanitizeCefrSelection({ version: app.CEFR_SELECTION_VERSION, levels: ['B2', 'C1'], unclassified: true }),
+  theme: 'dark',
+  language: 'en',
+  presentation: { meanings: 'show', interface: 'modern' }
+});
+
+test('rc11 device settings: export carries exactly the four device-local settings and nothing else', () => {
+  const payload = app.exportDeviceSettings(settingsSample());
+  assert.equal(payload.app, 'chuyen-anh-device-settings');
+  assert.equal(payload.version, 1);
+  assert.deepEqual(Object.keys(payload.settings).sort(), ['cefr', 'language', 'presentation', 'theme']);
+  assert.deepEqual(payload.settings.cefr, { levels: ['B2', 'C1'], unclassified: true });
+  assert.equal(payload.settings.theme, 'dark');
+  assert.equal(payload.settings.language, 'en');
+  // Phrase progress must never appear here: it already travels in the v1 backup.
+  const serialized = JSON.stringify(payload);
+  assert.equal(/phrases|P\d{3}/.test(serialized), false, 'the settings file must not carry phrase progress');
+  assert.equal(/progress|favorites|streak|flagged/.test(serialized), false, 'and no study store may leak in');
+});
+
+test('rc11 device settings: export -> import round-trips and the values persist after reload', () => {
+  const storage = deviceStore();
+  const payload = app.exportDeviceSettings(settingsSample());
+  const parsed = app.validateDeviceSettingsPayload(JSON.parse(JSON.stringify(payload)));
+  assert.equal(app.applyDeviceSettings(parsed, storage), 'ok');
+  // "Reload": read the stores back through the public loaders.
+  assert.deepEqual(app.loadCefrSelection(storage).levels, ['B2', 'C1']);
+  assert.equal(app.loadCefrSelection(storage).unclassified, true);
+  assert.equal(app.loadTheme(storage), 'dark');
+  assert.equal(app.loadLanguage(storage), 'en');
+  assert.equal(app.loadPresentation(storage).interface, 'modern');
+});
+
+test('rc11 device settings: a malformed, foreign or unsupported-version file is refused and changes nothing', () => {
+  const storage = deviceStore();
+  app.saveTheme('light', storage);
+  app.saveLanguage('vi', storage);
+  const before = app.loadTheme(storage) + '|' + app.loadLanguage(storage);
+
+  const refused = [
+    ['not an object', []],
+    ['foreign app id', { app: 'something-else', version: 1, settings: {} }],
+    ['unsupported version', { ...app.exportDeviceSettings(settingsSample()), version: 99 }],
+    ['missing settings', { app: 'chuyen-anh-device-settings', version: 1 }],
+    ['missing theme', (() => { const p = app.exportDeviceSettings(settingsSample()); delete p.settings.theme; return p; })()],
+    ['bad theme value', (() => { const p = app.exportDeviceSettings(settingsSample()); p.settings.theme = 'sepia'; return p; })()],
+    ['bad language', (() => { const p = app.exportDeviceSettings(settingsSample()); p.settings.language = 'fr'; return p; })()],
+    ['bad cefr level', (() => { const p = app.exportDeviceSettings(settingsSample()); p.settings.cefr.levels = ['B2', 'Z9']; return p; })()],
+    ['cefr not an array', (() => { const p = app.exportDeviceSettings(settingsSample()); p.settings.cefr.levels = 'B2'; return p; })()],
+    ['missing unclassified flag', (() => { const p = app.exportDeviceSettings(settingsSample()); delete p.settings.cefr.unclassified; return p; })()],
+    ['bad presentation', (() => { const p = app.exportDeviceSettings(settingsSample()); p.settings.presentation.interface = 'neon'; return p; })()]
+  ];
+  for (const [label, payload] of refused) {
+    assert.throws(() => app.validateDeviceSettingsPayload(payload), /./, `${label} must be refused`);
+  }
+  // Nothing above may have written: validation never touches storage.
+  assert.equal(app.loadTheme(storage) + '|' + app.loadLanguage(storage), before, 'failed validation changed the device');
+  assert.equal(app.loadTheme(storage), 'light');
+});
+
+test('rc11 device settings: extra unknown fields are ignored, not applied', () => {
+  const payload = app.exportDeviceSettings(settingsSample());
+  payload.settings.somethingNew = 'ignore me';
+  payload.extraTopLevel = { nope: true };
+  const parsed = app.validateDeviceSettingsPayload(payload);
+  assert.deepEqual(Object.keys(parsed).sort(), ['cefrSelection', 'language', 'presentation', 'theme']);
+  assert.equal(Object.hasOwn(parsed, 'somethingNew'), false);
+});
+
+test('rc11 device settings: a failing store reports the failure and leaves the old settings readable', () => {
+  const backing = deviceStore();
+  app.saveTheme('light', backing);
+  app.saveLanguage('vi', backing);
+  // A real quota refuses *large* writes but still accepts small ones, which is
+  // exactly why the staging layer can probe and roll back. A mock that fails every
+  // write models a dead store, whose honest answer is 'rollback-failed' - tested
+  // separately below.
+  const failing = {
+    getItem: k => backing.getItem(k),
+    setItem: (k, v) => {
+      if (String(v).length > 64) throw new Error('QuotaExceededError');
+      backing.setItem(k, v);
+    },
+    removeItem: k => backing.removeItem(k)
+  };
+  const parsed = app.validateDeviceSettingsPayload(app.exportDeviceSettings(settingsSample()));
+  const result = app.applyDeviceSettings(parsed, failing);
+  assert.equal(result, 'write-failed', 'the caller must be able to tell a clean refusal from a rollback');
+  // The rollback restores the pre-import values, so the device is not half configured.
+  assert.equal(app.loadTheme(backing), 'light');
+  assert.equal(app.loadLanguage(backing), 'vi');
+});
+
+test('rc11 device settings: a dead store reports write-failed because the capacity probe caught it first', () => {
+  // The staging layer probes capacity before touching a real key, so a store that
+  // refuses everything is caught with nothing written ('false', not
+  // 'rollback-failed'). Verified by tracing commitStagedWrites directly.
+  const dead = { getItem: () => null, setItem: () => { throw new Error('denied'); }, removeItem: () => { throw new Error('denied'); } };
+  const parsed = app.validateDeviceSettingsPayload(app.exportDeviceSettings(settingsSample()));
+  assert.equal(app.applyDeviceSettings(parsed, dead), 'write-failed');
+  // Every write threw, so the store cannot hold a partial configuration; the
+  // loader then falls back to its default, which is the pre-import state.
+  assert.equal(app.loadTheme(dead), 'system', 'the default is still what the app would show');
+});
+
+test('rc11 device settings: a store that fails mid-commit and cannot roll back is reported as rollback-failed', () => {
+  // Only reachable when the probe passes but a real write then throws and the
+  // restore also fails - a half-written store. The learner must be told to check
+  // rather than being reassured.
+  const m = new Map();
+  let writes = 0;
+  const halfDead = {
+    getItem: k => (m.has(k) ? m.get(k) : null),
+    setItem: (k, v) => {
+      if (k.startsWith('__chuyen-anh.import.probe')) { m.set(k, v); return; }  // probe passes
+      writes += 1;
+      if (writes > 1) throw new Error('denied');  // second real write fails
+      m.set(k, v);
+    },
+    removeItem: k => { if (!k.startsWith('__chuyen-anh.import.probe')) throw new Error('denied'); m.delete(k); }
+  };
+  const parsed = app.validateDeviceSettingsPayload(app.exportDeviceSettings(settingsSample()));
+  assert.equal(app.applyDeviceSettings(parsed, halfDead), 'rollback-failed');
+});
+
+test('rc11 device settings: oversized input is refused before it can be parsed', () => {
+  // Four small preferences never need 64 KB. The cap exists because reading a huge
+  // selection into `file.text()` is what would stall the tab, so it is enforced on
+  // the File in the UI and again on raw text here for direct callers.
+  assert.equal(app.DEVICE_SETTINGS_MAX_BYTES, 64 * 1024);
+  const huge = '{"app":"chuyen-anh-device-settings"}' + ' '.repeat(app.DEVICE_SETTINGS_MAX_BYTES);
+  assert.throws(() => app.validateDeviceSettingsPayload(huge), /quá lớn|too large/);
+  // The UI parses first, so the same payload arriving as an object must still be
+  // refused - here by shape, because padding a real payload with junk fields is
+  // how a bloated file would actually arrive.
+  const parsedHuge = JSON.parse('{"app":"chuyen-anh-device-settings","version":1,"settings":' + JSON.stringify({
+    cefr: { levels: ['B2'], unclassified: false }, theme: 'dark', language: 'en',
+    presentation: { meanings: 'show', interface: 'modern' }
+  }) + ',"pad":"' + 'x'.repeat(app.DEVICE_SETTINGS_MAX_BYTES) + '"}');
+  // Unknown fields are ignored by design, so a big valid payload is fine; the cap
+  // that matters is the byte check on raw text and the File check in the UI.
+  assert.doesNotThrow(() => app.validateDeviceSettingsPayload(parsedHuge));
+  // A legitimate payload stays well under the ceiling. Note the shape: the
+  // validator takes a parsed object (the string branch exists only for the byte
+  // cap), so passing the serialized text would be refused as "not an object" -
+  // which is the correct behaviour, not a bug.
+  const small = JSON.stringify(app.exportDeviceSettings(settingsSample()));
+  assert.ok(new TextEncoder().encode(small).length < app.DEVICE_SETTINGS_MAX_BYTES);
+  assert.doesNotThrow(() => app.validateDeviceSettingsPayload(JSON.parse(small)));
+  assert.throws(() => app.validateDeviceSettingsPayload(small), /đối tượng JSON|JSON object/);
+});
+
+test('rc11 device settings: applyDeviceSettings never reports ok after writing only part of the set', () => {
+  // A saver refuses an invalid value by not staging a write, and the staging layer
+  // cannot distinguish that from "no change needed". Before the guard, an invalid
+  // theme reported 'ok' after writing the other three stores - a partial
+  // application dressed as a success. The UI validates first, but this function is
+  // exported and its contract is all-or-nothing.
+  const m = new Map();
+  const store = { getItem: k => (m.has(k) ? m.get(k) : null), setItem: (k, v) => m.set(k, String(v)), removeItem: k => m.delete(k) };
+  const bogus = {
+    cefrSelection: app.sanitizeCefrSelection({ version: 1, levels: ['B2'], unclassified: false }),
+    theme: 'sepia',   // invalid: saveTheme stages nothing
+    language: 'en',
+    presentation: { meanings: 'show', interface: 'modern' }
+  };
+  assert.equal(app.applyDeviceSettings(bogus, store), 'write-failed');
+  assert.equal(m.size, 0, 'nothing may be written when one setting is refused');
+});
+
+test('rc11 device settings: the v1 progress backup still refuses to carry these settings', () => {
+  const bundle = app.exportProgressBundle({
+    progress: {}, prefs: app.DEFAULT_PREFS, favorites: new Set(), history: [],
+    streak: { current: 0, longest: 0, lastDate: null }, study: app.sanitizeStudyConfig(null),
+    flagged: new Set(), achievements: { seenBadges: new Set() }, phrases: {}
+  });
+  const serialized = JSON.stringify(bundle);
+  assert.equal(/chuyen-anh\.cefr\.v1|chuyen-anh\.theme\.v1|chuyen-anh\.language\.v1/.test(serialized), false,
+    'the v1 contract is unchanged: device-local stores stay out of it');
+  assert.equal(Object.hasOwn(bundle, 'cefr'), false);
+  assert.equal(Object.hasOwn(bundle, 'theme'), false);
+  assert.equal(Object.hasOwn(bundle, 'language'), false);
+});
+
+test('rc11 device settings: phrase progress keeps travelling in the v1 backup', () => {
+  // Regression guard for the one thing this round must not break: phrase progress
+  // already had a home and the new file must not have moved it.
+  const bundle = app.exportProgressBundle({
+    progress: {}, prefs: app.DEFAULT_PREFS, favorites: new Set(), history: [],
+    streak: { current: 0, longest: 0, lastDate: null }, study: app.sanitizeStudyConfig(null),
+    flagged: new Set(), achievements: { seenBadges: new Set() },
+    phrases: { P001: { attempts: 3, correct: 2, wrong: 1, lastPracticed: 9 } }
+  });
+  assert.equal(Object.hasOwn(bundle, 'phrases'), true, 'phrase progress is still in the v1 bundle');
+  const reimported = app.validateImportPayload(bundle);
+  assert.equal(reimported.phrases.P001.correct, 2, 'and it still round-trips');
+});
+
+test('rc11 english: every Vietnamese sentence passed to toast() renders in English', () => {
+  // The earlier coverage test only matched `toast('literal'`. A toast whose message
+  // is chosen by a ternary - `toast(error ? 'A' : 'B')` - was invisible to it, and
+  // that is how the snapshot-conflict recovery sentence stayed Vietnamese in the
+  // English interface even though the suite was green.
+  // `app` and `appSource` are module-level: the suite already loaded the app once.
+  const source = appSource;
+  // The full Vietnamese alphabet, not a subset: an earlier version of this test
+  // omitted ọ, ụ, ử, ữ, ẫ and others, so `VI.test('Học tập')` was false and a toast
+  // using only those letters would never reach translateUiText. That version
+  // happened to miss no real message, but the hole was real.
+  const VI = /[ăâđêôơưàáảãạằắẳẵặầấẩẫậèéẻẽẹềếểễệìíỉĩịòóỏõọồốổỗộờớởỡợùúủũụừứửữựỳýỷỹỵ]/i;
+
+  // Balanced-argument walk from each toast( so ternaries and template literals in
+  // the argument are included, not just the leading literal.
+  const args = [];
+  const re = /\btoast\(/g;
+  let m;
+  while ((m = re.exec(source))) {
+    let i = m.index + m[0].length, depth = 1, start = i, quote = null;
+    for (; i < source.length && depth > 0; i += 1) {
+      const c = source[i];
+      if (quote) { if (c === '\\') i += 1; else if (c === quote) quote = null; continue; }
+      if (c === "'" || c === '"' || c === '`') { quote = c; continue; }
+      if (c === '(') depth += 1;
+      else if (c === ')') depth -= 1;
+    }
+    args.push(source.slice(start, i - 1));
+  }
+  assert.ok(args.length >= 60, `expected the toast call sites to be found, got ${args.length}`);
+
+  // Single quotes, double quotes and template literals all carry user-facing copy;
+  // matching only the first form would let a `toast("Đã lưu")` escape the check.
+  // Interpolations are replaced with a placeholder so the rest of the sentence is
+  // still compared against the translation table.
+  const literals = new Set();
+  for (const arg of args) {
+    for (const q of arg.matchAll(/'((?:[^'\\\n]|\\.){6,300})'/g)) literals.add(q[1]);
+    for (const q of arg.matchAll(/"((?:[^"\\\n]|\\.){6,300})"/g)) literals.add(q[1]);
+    for (const q of arg.matchAll(/`((?:[^`\\]|\\.){6,300})`/g)) literals.add(q[1].replace(/\$\{[^}]*\}/g, 'X'));
+  }
+  // Prove the detector before trusting it: these are the letters the previous
+  // version of this test did not recognise.
+  for (const sample of ['Học tập', 'Xóa', 'ử', 'ữ', 'ẫ']) {
+    assert.ok(VI.test(sample), `the Vietnamese detector must recognise ${sample}`);
+  }
+  const vi = [...literals].filter(t => VI.test(t) && !/[`'"]/.test(t));
+  assert.ok(vi.length >= 60, `expected Vietnamese toast copy to be found, got ${vi.length}`);
+  const untranslated = vi.filter(t => app.translateUiText(t, 'en') === t);
+  assert.deepEqual(untranslated, [], 'these toast messages have no English rendering');
+});

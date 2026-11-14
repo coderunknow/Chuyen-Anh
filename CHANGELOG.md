@@ -17,15 +17,32 @@ until `v1.0.0` is published as a non-draft stable release and separately authori
   - **Multi-sense & seed hygiene:** Mapped `72` multi-POS / multi-sense splits with Cambridge EVP sense-level badges + entry `8174` (`March`), corrected `27` cardinal/ordinal numeral rows from `n` to `number` and `24` proper-noun capitalizations in `data/vocab-seed/*.tsv` (leaving `Learned_Vocabulary_List.md` legacy IDs untouched), and added a `WeakMap` `distractorPoolCache` in `index.html` reducing session consolidation/retry DOM transitions to `3 ms` median.
   - All `1,945` editorial estimates and editorial sense-gloss alignments retain `needsIndependentValidation: true` as an explicit provenance disclosure.
 
-### Phase III — exactly +500 A1 and +500 A2 headwords
+  - **Committed review queue kept current (audit finding `BUG-002`, 2026-11-09):**
+    `audit/v100/evidence/sense-integrity-review-queue.json` had drifted from the data it describes —
+    `8393` (`bloom`) was queued with the gloss `nở hoa` while the shipped row reads `hoa, sự nở hoa` — and no
+    gate could notice because the auditor had no `--check` mode and no workflow ran it. The queue was
+    regenerated (still `239` flagged of `8,852`; issue counts unchanged), `scripts/sense_integrity_audit.py`
+    gained `--check`/`--artifact`, and the check now runs in `ci.yml` and `deploy.yml`, with
+    `tests/test_sense_integrity_audit_artifact.py` pinning the artifact against a fresh regeneration.
+
+### Phase III — +1,000 A1/A2 headwords with POS-attested level provenance
 
 - `data/vocab-seed/22-a1a2-stable.tsv`: 1,144 CEFR-J/Oxford-3000 A1/A2 candidates absent
-  from the pre-v1.0.0 bank; `expand_vocabulary.py` accepts **exactly 500 A1 + 500 A2**
-  (144 skips, each with a recorded reason: inflection 81 · word-family 53 · comparative 6 ·
-  spelling variant 4). Bank: 8,852 rows, 8,112 headwords, 6,841-word focus deck, 1,271
-  archived (unchanged). Over the 1,000 accepted rows, `level-source:` is
-  `cefrj-vocabulary-profile-1.5` (892) or `oxford-3000-wordlist` (108), all POS-and-level
-  attested and free of editor notes.
+  from the pre-v1.0.0 bank; `expand_vocabulary.py` accepts **1,000 rows** (144 skips, each with a
+  recorded reason: inflection 81 · word-family 53 · comparative 6 · spelling variant 4). Bank:
+  8,852 rows, 8,112 headwords, 6,841-word focus deck, 1,271 archived (unchanged). Over the 1,000
+  accepted rows, `level-source:` is `cefrj-vocabulary-profile-1.5` (892) or
+  `oxford-3000-wordlist` (108), all POS-and-level attested and free of editor notes.
+- **Corrected level provenance (audit finding `BUG-001`, 2026-11-09):** seven rows claimed an Oxford
+  3000 band that Oxford prints for a *different* part of speech of the same headword, because the
+  level had been copied from the composite band list of a multi-POS entry (`v. A1, n. A2`) instead of
+  the band attached to the row's own POS. Fixed: `neither` adv A2→B1; `ride`, `run`, `stay`, `talk`,
+  `welcome` v and `star` n A2→A1. The shipped `senses` already carried the POS-attested band, so only
+  the legacy `level:*` tag and its `level-source` label disagreed with the data beside them. The
+  accepted distribution is therefore **506 A1 + 493 A2 + 1 B1** (previously stated as 500 + 500); the
+  source split is unchanged. `tests/test_seed_level_provenance.py` now resolves every seed row that
+  names a reference work through the pinned reference files and fails on any band the work does not
+  print for that POS (`5,316` rows checked, `0` unresolved).
 
 ### Exams — 100% non-exempt scoring coverage (`missing = 0`) & formal exemptions
 
@@ -35,10 +52,155 @@ until `v1.0.0` is published as a non-draft stable release and separately authori
   - **Formal exemption taxonomy (`1,553` items):** `structural_transcription_defect: 768`, `missing_stimulus: 627`, `open_ended_writing_or_speaking: 158` (`byUngradeableReason`: `ocr-structural-defect: 749`, `stimulus-incomplete: 627`, `essay-open-ended-exempt: 158`, `option-overflow: 12`, `key-not-an-option: 7`). Open-ended writing/speaking prompts are excluded from the objective score denominator while still providing advisory 4-criterion rubric feedback (`advisoryRubricEvaluation`) when answered, and submitted summaries display an explicit `#exam-exemption-breakdown` strip.
   - `officialScore` remains `null`/`false` (`0/106` papers checked against sealed primary official marking sheets).
 
-### Verification
+  - **Advisory rubric reaches every exempt open-ended item (audit finding `BUG-003`, 2026-11-09):**
+    `2022/ha-noi/so` Q51 is a 250-word academic essay prompt that the protected parser types as `text`,
+    because its wording is not the pattern that parser recognises as an essay. The runtime keyed the
+    4-criterion rubric on `responseType === 'essay'`, so that one item returned `ungraded` with **no**
+    rubric and a 3-row textarea, while the exemption strip and the readiness documentation both promised
+    feedback. Of the `158` `open_ended_writing_or_speaking` exemptions, `157` are typed `essay` and one is
+    typed `text`. A single `examIsEssayItem(question, key)` helper now decides essay-format input, the
+    rubric hint, the verdict label and the override field from the curated exemption, so the parser stays
+    untouched and `tests/exam-exempt-rubric.test.js` proves all `158` items yield advisory feedback.
 
-- **Validators & `--check` gates:** `expand_vocabulary`, `build_vocabulary`, `build_senses`, `audit_sense_sources`, `validate_vocab`, `embed_vocabulary`, `build_phrases`, `validate_phrases`, `embed_phrases`, `build_answer_keys`, `verify_curated_keys`, `audit_rendering`, `classify_anomalies`, `embed_archive`, `audit_vocabulary_quality`, `vocabulary_cefr_review`, `vocabulary_evidence_review`, `rc4_vocabulary_audit`, `audit_exam_provenance`, and `generate_vocab_audit_dev5` all pass cleanly.
-- **Automated suites:** Python `unittest` **237 OK** + `scripts/exams/test_archive.py` **5 OK**; Node `static-app.test.js` (`144`) + `exam-scoring.test.js` (`28`) + `exam-anomalies.test.js` (`7`) + `rc10-cefr.test.js` (`10`) + `v100-senses.test.js` (`8`) + `telemetry-api.test.js` (`17`) = **214 pass / 0 fail**; sequential Chromium E2E (`browser-learning.cjs` + `browser-exams.cjs` with `axe-core` WCAG 2.1 AA, `320–1440px` viewports, VI/EN, Classic/Modern, light/dark, `file://` standalone) **PASS**; `speed-benchmark.cjs` **PASS** (`3 ms` median consolidation/retry DOM latency, `0` page errors).
+- **Independent review of the five fixes (2026-11-09):** eight corrections, all verified before applying.
+  Three were stale statements the earlier corrections had left behind: `README.md` (two bullets) and the
+  `22-a1a2-stable.tsv` header still described Phase III as `500 A1 + 500 A2` when the accepted distribution
+  recomputed from `data/vocabulary.json` is `506 A1 + 493 A2 + 1 B1`, and this file still quoted the old
+  totals. Four were guards that could pass without proving their claim: the CI-coverage test accepted a
+  suite merely *named* in `ci.yml` (now only `node --test` run blocks count, comments stripped) and compared
+  the Python total to a regex with a `±5` tolerance (now exactly `discover`'s `countTestCases()`); the seed
+  provenance test split multiword Oxford headwords on whitespace, so `according to` (prep, A2) also attested
+  a bare `to` (prep, A1) — headwords now split only on `,` and `/`; and the objective-item guard skipped
+  keys flagged `scorable: false`, the very flag it exists to police — it now skips only items carrying an
+  `exemptionCategory` (all `739` non-scorable keys do). The eighth: `sense_integrity_audit.py` `drift()` now
+  names the fields that differ instead of always printing `meaning`. Each tightening was proved with a
+  reproduction: a commented-out `node --test` line fails the coverage test, and a single key flipped to
+  `scorable: false` without a marker fails the essay-gate guard.
+
+- **Independent review round three (2026-11-09):** five confirmed findings fixed, one declined.
+  `sense_integrity_audit.py --check` compared a projection of the evidence, so a rewritten `scope`, an
+  unknown field, a duplicated entry or a reordered list all passed — it now compares the complete payload.
+  The `text`-typed exempt essay's `0..1` override box stored "0.75" as an answer string and every credit
+  graded `incorrect`; `examIsEssayItem()` now decides the override branch, the correction parser and the
+  `(Rubric)` label, and an out-of-range credit is `ungraded`. `ci.yml` now runs CI for PRs stacked on
+  `arena/**` (previously `main` only, so this stacked PR ran nothing; no deploy gate changed),
+  `release_artifacts.py` runs all seven Node suites, and `DEFECTS.md` D6/D25 were restored verbatim with
+  the correction kept in D27/D28. Declined: re-adding replacement rows to reach `500 A1 + 500 A2`, which
+  the maintainer rejected for `BUG-001`.
+
+### Import-surface hardening (Round 4, 2026-11-09)
+
+- **D37 (P2): an imported history file could render markup.** `paper.metadata.year` reached the history row without
+  `escapeHtml`, and `validateExamResultHistory` accepted any `metadata` shape, so an edited export with
+  `year: "<img src=x onerror=…>"` imported cleanly and rendered as HTML on the app origin. The row escapes the year now,
+  and the validator requires `year` to be an integer in `1900…2200` and the paper text fields (`province`, `unit`,
+  `unitLabel`, `source`, `quality`, `answers`, `note`) to be strings of ≤ 500 chars (the real maximum is a 187-char
+  source URL). A genuine export still round-trips unchanged.
+- **D38 (P3): `correction.candidates` was validated for array-ness only**, so `["0.25", 7]` imported as a correction.
+  Each candidate must now be a non-empty string of ≤ 1,000 chars (the real maximum is 115).
+- **D39 (P2): a regression test that never ran.** `tests/test_sense_integrity_audit_artifact.py` defined its F2 mutant test
+  *after* its own `if __name__ == "__main__": unittest.main()` line, so `unittest` never collected it and the suite was green
+  without ever proving the evidence gate rejects a reshaped artifact. The method is a real class method now and passes (all four
+  mutants rejected); `tests/test_ci_gate_coverage.py` fails on any definition nested in a `__main__` guard or any `test_*`
+  function that is not a `TestCase` method. Python totals `254 → 256`.
+- **Regression test:** `tests/exam-scoring.test.js` → "rc10 import hardening"; removing either the escape or the
+  validator checks makes it fail. Totals: Python `257 + 5 = 262 OK`, Node **235 / 0 fail**.
+### Persistence concurrency, backup truthfulness & accessibility (Round 7, 2026-11-09)
+
+- **D55 (P2, user-reachable): a corrected exam history could not be imported on the device that held the uncorrected copy.**
+  `mergeExamResultHistory` compared whole attempt objects, including `summary` and `questionResults`. Those are derived
+  from the responses plus the corrections in force, so once one device corrected a key the same attempt scored
+  differently on the two devices, the ids collided with different payloads, and the import failed with a raw
+  `conflicting-attempt` toast. Reproduced by driving the shipped UI
+  (`audit-evidence/round7/scripts/r7-browser-corrected-import.mjs`: pre-fix `FAIL … conflicting-attempt`, post-fix
+  `PASS`). Attempt identity is now the learner's own data - paper key, responses, timestamps - and the merged result is
+  re-scored from the corrections, so the score still follows the key.
+- **D56 (P2): a paper key the importer cannot validate was accepted at creation.** `examPaperKey` joins `examId` and
+  `contentSha256` with `@`, while the validator allows no `@` inside the id; an id such as `2026/tool@x/so` therefore
+  built a record that could never be saved, and the "download the JSON" advice in the error toast produced a file the app
+  itself rejected with `invalid-paper`. `createExamResultRecord` now refuses such a record before anything is reported as
+  saved, and the key pattern has one definition shared by writer and validator.
+- **D57 (P2): two tabs could overwrite each other's exam attempts.** A tab keeps `examResults` in memory for the whole
+  session; the `storage` listener reloads it, but a tab that is *inside an exam* cannot reload without discarding the
+  attempt. Writes now merge with what the key really holds, using the caller's history as the base so a deletion or a
+  clear is never resurrected. Reachability: the shipped UI's `storage` reload made the naive two-tab repro pass, so this
+  is a latent hardening rather than an observed loss.
+- **D58 (P3): retention trimmed by array position, not submission time.** An imported attempt with a later `submittedAt`
+  (a device whose clock runs ahead) sat first in the array, so `slice(-50)` dropped the *newest* local attempt and kept 49
+  older ones. Ordering now happens on submission time in `addExamResult`, `mergeExamResultHistory` and every persist.
+- **D59 (P3): the settings copy described a backup that does not exist.** It said the v1 file held only flashcard
+  progress, favourites, streak, history and settings - omitting the `phrases` block the exporter has written for
+  releases - and said nothing about the CEFR filter, theme and interface language, which really are device-local.
+  Corrected in both languages and pinned by a test.
+- **D60 (A11Y, P2): the "Chưa phân loại" CEFR chip failed WCAG 2.2 AA contrast at `3.52:1`.** The cause was
+  `opacity: .72` on unavailable chips, which multiplies the text colour, so no palette value could pass while the fade
+  stayed. The fade is gone (the dashed border and the "0 từ" count already carry the state, and the chips expose
+  `aria-disabled`); the axe scan is clean in light and dark themes.
+- **D61 (A11Y, P3): two labelled groups had no accessible name, and search favourite buttons were indistinguishable.**
+  `aria-label` on a plain `<div>` (`.hero-metrics`, `.pagination`) is ignored by assistive technology; both are now
+  `role="group"`. The favourite buttons announced the same name for every row and exposed no state; they now name the
+  word and carry `aria-pressed`.
+- **D62 (P3): six exam toasts had no English rendering.** In the English interface the most consequential exam flows
+  (a refused save, an import confirmation, a missing paper) still spoke Vietnamese. All six now translate, asserted by a
+  test over every literal toast string.
+- **Verification:** Node `static-app` (`146`) + `exam-scoring` (`60`) + `exam-anomalies` (`7`) + `rc10-cefr` (`10`)
+  + `v100-senses` (`8`) + `telemetry-api` (`17`) + `exam-exempt-rubric` (`7`) + `core-invariants` (`11`)
+  = **266 pass / 0 fail** on one line; Python `unittest`
+  **257 OK**, `test_archive.py` **5 OK**; `18/18` `--check` gates; Chromium E2E `browser-learning.cjs` + `browser-exams.cjs` PASS;
+  axe-core 4.14.0 clean over 6 views × light/dark × desktop/375px, `320px` reflow, `200%` text zoom, reduced motion,
+  keyboard focus; stateful fuzz `150 × 14 = 2,100` operations and **`29,529`** invariant checks with `0` violations (the
+  `11,677` figure quoted for Round 6 was neither operations nor checks; it is superseded by the measured figure).
+- **Not changed on purpose:** the v1 backup contract. Phrase progress was already carried; the CEFR filter, theme and
+  interface language stay device-local, which is a product decision documented in the report, not a schema change.
+
+
+### Import union & paper-snapshot integrity (Round 6, 2026-11-09)
+
+- **D48 (P2): a merged history could exceed the 50-attempt window and the import blamed storage.** `mergeExamResultHistory`
+  returned the union of two valid histories without applying `EXAM_RESULT_HISTORY_LIMIT`. With 40 local and 20 imported
+  attempts the union was 60, `validateExamResultHistory` refused it inside `saveExamResultHistory`, and
+  `importExamResultHistory` reported `storage-failed` — an error naming a healthy subsystem. The merge now sorts by
+  `submittedAt` (stable), keeps the newest 50 (the order the history screen already assumes), and drops the papers and
+  corrections that only the dropped attempts used. Repro `audit-evidence/round6/scripts/r6-merge.mjs` (`storage-failed`,
+  `storedAfter: 40` → `ok`, `storedAfter: 50`); regression test fails pre-fix (`31/1`) and passes post-fix (`33/0`).
+- **D49 (P3): a second attempt could silently overwrite the shared paper snapshot.** Every attempt of one archive shares
+  `paperKey = examId@contentSha256`, so `addExamResult` replaced the stored snapshot when a second attempt carried a
+  different question set. The earlier attempt's answers then pointed at questions the paper no longer held: the history
+  failed its own validator (`unknown-question-response`) and could neither be saved nor export-restored, with nothing
+  reported at the moment of corruption. A conflicting snapshot now throws `Conflicting exam paper snapshot.` and the
+  stored history stays valid. Not reachable from today's UI (it always practises the full paper); found by the Round-6
+  stateful fuzz (`25` violations pre-fix, `0` post-fix), minimised in `scripts/r6-snapshot.mjs`.
+- **Verification:** `9/9` mutants around the two fixes killed (`scripts/r6-mutants.mjs`); fuzz `150` sequences × `14`
+  operations = `11,677` invariant checks with `0` violations; backup round trip field-for-field identical; corrections
+  re-score stored attempts, survive export/import and are pruned with the attempt. Totals: Node **`238 / 0 fail`**
+  (`exam-scoring` `31 → 34`), Python `257 + 5 = 262 OK`, `18/18` `--check` gates exit `0`.
+- **Not changed on purpose:** the v1 backup still excludes phrase progress and the CEFR selection (stated in the UI copy;
+  a schema change, not a fix), and `paperKey` stays content-unaware (content-addressed keys would change the persisted
+  format and the merge/dedupe semantics of every existing history).
+
+### Engine invariants & import coherence (Round 5, 2026-11-09)
+
+- **D40 (P2): the test suites did not detect changes to the engine.** Mutation testing over the shipped learning/grading code
+  applied `12` one-token mutations (`11` with observable behaviour) (ease cap, learning interval, penalty, mastered cap, CEFR-unclassified admission, essay
+  bands, NFC folding, apostrophe stripping, history limit, import cap, empty-response matching); **all `11` behaviour mutants
+  survived every shipped suite** (`0` killed). CI green meant the suites ran, not that the engine was right. New suite `tests/core-invariants.test.js` (`11` tests)
+  kills **`11/11`**, including an exact `180`-day mastered cap (the old assertion `≤ 180` also accepted a `120` cap) and a
+  punctuation-only key whose response normalises to `''` (the only path that distinguishes the empty-response guard, which is
+  otherwise unreachable behind the earlier `answered` check).
+- **D41 (P3): the import validator accepted snapshots that cannot be graded coherently.** Duplicate option ids, a selectable
+  question with no options, an orphan key, two keys for one question, and non-string `acceptedAlternatives` all imported.
+  Each is now rejected; all `106` genuine papers (`6,708` questions/keys, `0` violations of every new rule) still validate,
+  and the adversarial probe drops from `8` accepted to `4`, the rest being non-scoring cosmetics.
+- **D45 / D46 (review round 2):** `deploy.yml` ran six of eight suites while the checklist claimed both workflows
+  named all eight, and the readiness row's per-suite counts were only compared with each other. The gate now checks
+  every testing workflow and compares each stated count with the file's `test(` declarations (verified equal to the
+  runner's `pass` count for all eight suites).
+- **Also probed, no defect:** multi-select is unreachable (`0` of `6,708` questions), wrong options never raise credit
+  (`0` monotonicity violations over every option subset), telemetry review clean, persistence adversaries all sanitised.
+- **Verification**
+
+- **Validators & `--check` gates:** `expand_vocabulary`, `build_vocabulary`, `build_senses`, `audit_sense_sources`, `validate_vocab`, `embed_vocabulary`, `build_phrases`, `validate_phrases`, `embed_phrases`, `build_answer_keys`, `verify_curated_keys`, `audit_rendering`, `classify_anomalies`, `embed_archive`, `audit_vocabulary_quality`, `vocabulary_cefr_review`, `vocabulary_evidence_review`, `rc4_vocabulary_audit`, `audit_exam_provenance`, `generate_vocab_audit_dev5`, and `sense_integrity_audit` (new `--check` mode, wired into `ci.yml` and `deploy.yml`) all pass cleanly.
+- **Automated suites:** Python `unittest` **257 OK** + `scripts/exams/test_archive.py` **5 OK**; Node `static-app.test.js` (`145`) + `exam-scoring.test.js` (`56`) + `exam-anomalies.test.js` (`7`) + `rc10-cefr.test.js` (`10`) + `v100-senses.test.js` (`8`) + `telemetry-api.test.js` (`17`) + `exam-exempt-rubric.test.js` (`7`) + `core-invariants.test.js` (`11`) = **261 pass / 0 fail**; sequential Chromium E2E (`browser-learning.cjs` + `browser-exams.cjs` with `axe-core` WCAG 2.1 AA, `320–1440px` viewports, VI/EN, Classic/Modern, light/dark, `file://` standalone) **PASS**; `speed-benchmark.cjs` **PASS** (`3 ms` median consolidation/retry DOM latency, `0` page errors).
 - Current gates, defects, work log, and readiness report: `audit/v100/{GATES,DEFECTS,WORK_LOG,FINAL_READINESS_CHECKLIST,FINAL_READINESS}.md`.
   Separate explicit authorization is required before merge, tag, release or deployment.
 

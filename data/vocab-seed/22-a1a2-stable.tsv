@@ -1,4 +1,5 @@
-# Phase III (v1.0.0): +500 A1 and +500 A2 everyday headwords.
+# Phase III (v1.0.0): 1,000 everyday headwords — 506 A1 + 493 A2 + 1 B1 once every row's level
+# was re-attested for its own part of speech (seven of the original 500 A1 + 500 A2 were corrected).
 # Candidates: CEFR-J Vocabulary Profile 1.5 and Oxford 3000 A1/A2 headwords absent from the
 # pre-v1.0.0 bank (type=core = listed at that level by both reference works).
 # word<TAB>pos<TAB>meaning<TAB>level<TAB>topic<TAB>type<TAB>skills<TAB>level_source
@@ -861,7 +862,7 @@ myself	pron	chính tôi	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
 mysterious	adj	bí ẩn	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
 mystery	n	điều bí ẩn	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
 nearly	adv	gần như, suýt	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
-neither	adv	cũng không	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+neither	adv	cũng không	B1	daily	topic	reading,cloze	oxford-3000-wordlist
 net	adj	ròng, thực	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
 next	det	tiếp theo	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
 nobody	pron	không ai	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
@@ -941,7 +942,7 @@ remind	v	nhắc nhở	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
 researcher	n	nhà nghiên cứu	A2	work	topic	reading,cloze	oxford-3000-wordlist
 retired	adj	đã nghỉ hưu	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
 reunion	n	cuộc sum họp	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
-ride	v	cưỡi, đi xe	A2	travel	topic	reading,cloze	oxford-3000-wordlist
+ride	v	cưỡi, đi xe	A1	travel	topic	reading,cloze	oxford-3000-wordlist
 right-hand	adj	tay phải	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
 rise	v	tăng lên, mọc	A2	daily	topic	reading,cloze	oxford-3000-wordlist
 road	n	đường	A2	shopping	topic	reading,cloze	cefrj-vocabulary-profile-1.5
@@ -950,7 +951,7 @@ rock	n	đá; thể loại nhạc phương Tây	A2	daily	core	reading,cloze	cefrj
 romance	n	chuyện tình, phim chính kịch lãng mạn	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
 round	adv	vòng quanh, xung quanh	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
 royal	adj	hoàng gia	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
-run	v	chạy	A2	leisure	topic	reading,cloze	oxford-3000-wordlist
+run	v	chạy	A1	leisure	topic	reading,cloze	oxford-3000-wordlist
 runner	n	người chạy	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
 running	n	việc chạy bộ	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
 rush	n	cơn vội vã, giờ cao điểm	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
@@ -1027,9 +1028,9 @@ splash	v	văng tóe	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
 square	n	hình vuông, quảng trường	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
 stair	n	bậc thang	A2	home	core	reading,cloze	cefrj-vocabulary-profile-1.5
 stand	v	đứng	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
-star	n	ngôi sao	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+star	n	ngôi sao	A1	daily	topic	reading,cloze	oxford-3000-wordlist
 state	n	bang, nhà nước	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
-stay	v	ở lại, lưu lại	A2	travel	topic	reading,cloze	oxford-3000-wordlist
+stay	v	ở lại, lưu lại	A1	travel	topic	reading,cloze	oxford-3000-wordlist
 step	n	bước chân	A2	daily	core	reading,cloze	cefrj-vocabulary-profile-1.5
 still	adv	vẫn	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
 stomachache	n	đau bụng	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
@@ -1061,7 +1062,7 @@ sweetheart	n	người yêu	A2	family	topic	reading,cloze	cefrj-vocabulary-profil
 swimsuit	n	đồ bơi	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
 symphony	n	bản giao hưởng	A2	leisure	topic	reading,cloze	cefrj-vocabulary-profile-1.5
 talent	n	tài năng	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
-talk	v	nói chuyện, trò chuyện	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+talk	v	nói chuyện, trò chuyện	A1	daily	topic	reading,cloze	oxford-3000-wordlist
 teaching	n	việc giảng dạy	A2	school	topic	reading,cloze	oxford-3000-wordlist
 tear	n	nước mắt	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
 terrify	v	làm khiếp sợ	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
@@ -1121,7 +1122,7 @@ wedding	n	đám cưới	A2	family	core	reading,cloze	cefrj-vocabulary-profile-1.
 weekday	n	ngày trong tuần	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
 weekly	adv	hàng tuần	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
 weep	n	tiếng khóc nức nở	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
-welcome	v	chào đón, hoan nghênh	A2	daily	topic	reading,cloze	oxford-3000-wordlist
+welcome	v	chào đón, hoan nghênh	A1	daily	topic	reading,cloze	oxford-3000-wordlist
 well-known	adj	nổi tiếng	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
 west	n	hướng Tây	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5
 whatever	det	bất cứ điều gì	A2	daily	topic	reading,cloze	cefrj-vocabulary-profile-1.5

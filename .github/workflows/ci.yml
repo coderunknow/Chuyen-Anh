@@ -2,7 +2,9 @@ name: Static checks
 
 on:
   pull_request:
-    branches: [main]
+    # Candidate work is reviewed as a draft PR stacked on the previous candidate
+    # branch, so a `main`-only filter meant such a PR ran no CI at all (PR #84).
+    branches: [main, "arena/**"]
     paths: &ci-paths
       - "index.html"
       - "Learned_Vocabulary_List.md"
@@ -18,6 +20,7 @@ on:
       - "scripts/sense_integrity_audit.py"
       - "scripts/audit_sense_sources.py"
       - "audit/v100/evidence/source-locator-review.json"
+      - "audit/v100/evidence/sense-integrity-review-queue.json"
       - "scripts/cefr_editorial_map.py"
       - "scripts/migrate_senses.py"
       - "scripts/audit_learned_vocab.py"
@@ -97,6 +100,7 @@ on:
       - "scripts/sense_integrity_audit.py"
       - "scripts/audit_sense_sources.py"
       - "audit/v100/evidence/source-locator-review.json"
+      - "audit/v100/evidence/sense-integrity-review-queue.json"
       - "scripts/cefr_editorial_map.py"
       - "scripts/migrate_senses.py"
       - "scripts/audit_learned_vocab.py"
@@ -188,6 +192,7 @@ jobs:
           python scripts/build_vocabulary.py --check
           python scripts/build_senses.py --check
           python scripts/audit_sense_sources.py --check
+          python scripts/sense_integrity_audit.py --check
           python scripts/generate_vocab_audit_dev5.py --check
           python scripts/validate_vocab.py
           python scripts/embed_vocabulary.py --check
@@ -208,9 +213,20 @@ jobs:
       - name: Run Python unit tests
         run: python -m unittest discover -s tests -p 'test_*.py'
 
+      # The archive conversion suite needs the exam pipeline's own dependencies
+      # (`scripts/exams/requirements.txt`). Without them two of its five tests
+      # error out, which is how the readiness report once claimed `243/243` that
+      # no workflow could reproduce. A venv keeps the runner's system Python
+      # untouched (PEP 668) and pins the same versions a developer installs.
+      - name: Run exam archive conversion tests
+        run: |
+          python -m venv /tmp/exam-archive-venv
+          /tmp/exam-archive-venv/bin/pip install --disable-pip-version-check --quiet -r scripts/exams/requirements.txt
+          /tmp/exam-archive-venv/bin/python scripts/exams/test_archive.py
+
       # Node is used only for dependency-free tests; production is a single HTML file.
       - name: Run static app logic, scoring and single-file tests
-        run: node --trace-deprecation --test tests/static-app.test.js tests/exam-scoring.test.js tests/exam-anomalies.test.js tests/rc10-cefr.test.js tests/v100-senses.test.js
+        run: node --trace-deprecation --test tests/static-app.test.js tests/exam-scoring.test.js tests/exam-anomalies.test.js tests/rc10-cefr.test.js tests/v100-senses.test.js tests/exam-exempt-rubric.test.js tests/core-invariants.test.js
 
       # rc5/rc8: the ingestion endpoint is the only server-side code in the project,
       # so its contract (origins, size limits, stored fields, status codes, fail-closed salt)

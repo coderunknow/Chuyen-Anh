@@ -1,0 +1,175 @@
+================================================================================
+ROUND 7 FINAL-SHA VERIFICATION
+Generated: 2026-11-12T04:57:53Z
+HEAD:      9edc2a05e002b19790e541ec82de463d19cee966
+Subject:   fix(exams): verify paper snapshots during read-back (CodeRabbit Major)
+================================================================================
+
+--- Node test suites (node --test, one process per file) ---
+tests/core-invariants.test.js    rc=0 pass=11   fail=0
+tests/exam-anomalies.test.js     rc=0 pass=7    fail=0
+tests/exam-exempt-rubric.test.js rc=0 pass=7    fail=0
+tests/exam-scoring.test.js       rc=0 pass=60   fail=0
+tests/rc10-cefr.test.js          rc=0 pass=10   fail=0
+tests/static-app.test.js         rc=0 pass=146  fail=0
+tests/telemetry-api.test.js      rc=0 pass=17   fail=0
+tests/v100-senses.test.js        rc=0 pass=8    fail=0
+TOTAL NODE: 266 pass, 0 failing files
+
+--- Python suite (unittest discover) ---
+Ran 257 tests in 43.731s
+
+OK
+Ran 257 tests in 43.731s
+OK
+
+--- Browser suites (chromium 133.0.6943.0, @sparticuz/chromium build) ---
+Command: BROWSER_ENGINE=chromium BROWSER_EXECUTABLE=/tmp/chromium \
+         LD_LIBRARY_PATH=/tmp/al2023/lib node tests/browser-<suite>.cjs
+PASS: chromium 133.0.6943.0 — 106-record catalogue; scorable-only grading with per-paper coverage; 3 correct/3 incorrect deterministic summary; key hidden before submit; user correction recalculated and persisted; history reload/export/malformed import/valid import; operable session-focus control; HTML/OCR interactive with LOW/VERY_LOW warning; WCAG 2.1 AA axe clean; 2022/hai-phong/so angle-brac
+PASS: chromium 133.0.6943.0 — first-look introduction for new words, same-part-of-speech distractors, cloze options absent from the sentence, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, i
+
+--- Archive conversion suite (separate, needs scripts/exams/requirements.txt) ---
+Ran 5 tests in 0.094s
+
+FAILED (errors=2)
+Ran 5 tests — OK (after pip install -r scripts/exams/requirements.txt)
+
+--- Generator / validator --check gates ---
+PASS  scripts/audit_exam_provenance.py --check
+PASS  scripts/audit_learned_vocab.py --check
+PASS  scripts/audit_sense_sources.py --check
+PASS  scripts/audit_vocabulary_quality.py --check
+PASS  scripts/build_phrases.py --check
+PASS  scripts/build_senses.py --check
+PASS  scripts/build_vocabulary.py --check
+PASS  scripts/embed_phrases.py --check
+PASS  scripts/embed_vocabulary.py --check
+PASS  scripts/exams/embed_archive.py --check
+PASS  scripts/expand_vocabulary.py --check
+PASS  scripts/freeze_curation_decisions.py --check
+N/A   scripts/generate_vocab_audit_dev4.py --check  (RETIRED by design: refuses to run
+      and exits non-zero to prevent unsupported verification claims; the live
+      replacement is generate_vocab_audit_dev5.py, which passes below)
+PASS  scripts/generate_vocab_audit_dev5.py --check
+PASS  scripts/rc4_vocabulary_audit.py --check
+PASS  scripts/sense_integrity_audit.py --check
+PASS  scripts/vocabulary_cefr_review.py --check
+PASS  scripts/vocabulary_evidence_review.py --check
+TOTAL: 17 passed, 0 failed, 1 not-applicable (retired script).
+CORRECTION (verify with the recipe in EVIDENCE_MANIFEST.md):
+  18 scripts document --check across scripts/*.py AND scripts/exams/*.py;
+  1 is retired by design (generate_vocab_audit_dev4.py, exits 2 on purpose);
+  17 pass. Two build tools (exams/build_archive.py, release_artifacts.py) have no
+  argument parser, ignore --help and execute, so they are classified
+  NO-ARG-PARSE and not counted as gates.
+  An intermediate revision of this log said 16: it scanned only scripts/*.py and
+  silently dropped scripts/exams/embed_archive.py. The PASS lines above are the
+  authority -- they were 17 all along, which is what made the discrepancy
+  visible (CodeRabbit finding 4547049527).
+
+--- Control proof for commit 9edc2a0 (paper-snapshot read-back) ---
+The new test must fail without the fix, or it proves nothing.
+
+WITH the fix (HEAD 9edc2a0):
+  $ node --test --test-name-pattern="paper snapshot replaced" tests/exam-scoring.test.js
+  ok 1 - rc11 persistence: a paper snapshot replaced under the same key is not adopted as our save
+  # pass 1  # fail 0
+
+WITH the fix reverted (the `lostPaper` block deleted, restoring the previous
+`if (!lost.length && !lostCorrection) return stored;`):
+  not ok 1 - rc11 persistence: a paper snapshot replaced under the same key is not adopted as our save
+  error: 'a substituted paper snapshot must be restored or the save must fail
+          (restored=false, returned=history)'
+  # pass 0  # fail 1
+
+`returned=history` is the defect itself: the app adopted a foreign snapshot and
+reported the save as successful. The tree was restored byte-identically after the
+control (diff re-checked: index.html +15/-1).
+
+--- Sandbox reset recovery (same session) ---
+git ls-remote origin refs/heads/arena/dedd1942-chuyen-anh -> 3c2d7ff (intact)
+Local checkout had been reset to 0026267 with the whole round-1..7 diff
+uncommitted in the working tree; the round-7 commits were recovered from the
+remote (git fetch + reset --hard 3c2d7ff) instead of being re-committed as one
+squash. The only working-tree change carried over was this session's fix.
+
+--- Control proof for the gate loop (CodeRabbit Major 4547516961) ---
+The loop must fail when a validator breaks, not shrink quietly.
+
+Normal run (recipe in EVIDENCE_MANIFEST.md, verbatim):
+  gates: 17 passed, 0 failed, 2 no-arg-parse
+  exit 0
+
+Control: injected `import nonexistent_module_that_breaks` into
+scripts/audit_learned_vocab.py so its --help crashes before argparse:
+  HELP-FAIL  scripts/audit_learned_vocab.py
+  gates: 16 passed, 1 failed, 2 no-arg-parse
+  exit 1
+
+Restored byte-identically (git status clean), re-ran:
+  gates: 17 passed, 0 failed, 2 no-arg-parse
+  exit 0
+
+The retired script is excluded BEFORE the help check, because it refuses --help
+by design (exit 2) and would otherwise read as a help failure. The two build
+tools with no argument parser are skipped by explicit name, not by "it crashed,
+so it must not be a validator".
+
+--- CodeRabbit Major 4548054140: the sweep must not invoke the build tools ---
+The previous recipe probed every script with `--help` and only then consulted the
+allowlist. That is a side effect, not a check:
+
+  * scripts/exams/build_archive.py rebuilds archive files that SOURCE data
+    depends on.
+  * scripts/release_artifacts.py shells out to `gh release create --draft`; with
+    credentials present, `--help` would create a release.
+
+This repository is under DEPLOY_HOLD, so "it only ran --help" is not a defence.
+
+Current recipe skips both BY NAME before any invocation:
+  SKIP  scripts/generate_vocab_audit_dev4.py (retired by design)
+  SKIP  scripts/release_artifacts.py (no argument parser; never invoked)
+  SKIP  scripts/exams/build_archive.py (no argument parser; never invoked)
+  gates: 17 passed, 0 failed, 2 never-invoked
+  exit 0
+
+Integrity check on the runs that DID happen during this session (before the fix,
+when those two were still probed): `git status --porcelain` shows no modification
+to any tracked file outside audit-evidence/. Both tools aborted on missing
+inputs before writing anything. That is luck plus missing fixtures, not a
+guarantee - which is exactly why the skip now happens first.
+
+--- FINAL gate recipe: mirror ci.yml, probe nothing (supersedes all above) ---
+Everything in this log before this point that counts gates by probing `--help` is
+SUPERSEDED and wrong in three compounding ways. It is left in place because the
+sequence is the evidence for how it was found.
+
+The authoritative gate list is the one ci.yml runs, named explicitly. Recipe in
+EVIDENCE_MANIFEST.md extracts those commands from the workflow and runs them.
+
+  gates: 21 passed, 0 failed (of 21)
+  exit 0
+
+Why the earlier counts were all wrong:
+
+  16  - scanned only scripts/*.py, missing scripts/exams/*.py entirely.
+  17  - scanned both globs but SELECTED by probing --help, so the set depended on
+        which scripts happened to crash here. Six scripts have no argument parser
+        and act on import; a skip list built from the first two failures missed
+        the other four.
+  21  - the real answer, and the only one with meaning outside this sandbox: the
+        twenty-one commands ci.yml actually executes, four of which are not
+        --check gates at all (validate_vocab.py, validate_phrases.py,
+        verify_curated_keys.mjs, and the two node --check gates).
+
+Executing scripts to discover whether they are gates is the defect, not the
+counting method. exams/discover.py makes network requests; exams/packages.py
+extracts files; exams/coverage.py and exams/review_sources.py write reports;
+exams/build_archive.py rebuilds archive SOURCES; release_artifacts.py shells out
+to `gh release create --draft`, which under DEPLOY_HOLD must never run by
+accident. Reading ci.yml touches none of them.
+
+Environment note: the run above required scripts/exams/requirements.txt
+(requests, PyMuPDF) because three of the ci.yml gates import them. That is the
+same dependency ci.yml installs, so it is a prerequisite, not an accommodation.

@@ -167,3 +167,166 @@
 - **Validation method:** `gh pr view`, `gh pr checks`, `gh api` review/thread inspection, and local verification suite.
 - **Status:** `ACTIVE`
 - **Commit SHA:** _pending_
+
+---
+
+### `W012` — Audit finding `BUG-001`: Phase III seed rows named a level their reference does not print for that POS
+- **Problem statement:** Seven `data/vocab-seed/22-a1a2-stable.tsv` rows carried `level:A2` with `level-source:oxford-3000-wordlist` while Oxford 3000 prints a different band for the row's part of speech (`neither` adv `B1`; `ride`, `run`, `stay`, `talk`, `welcome` v and `star` n `A1`). The band had been copied from the composite list of a multi-POS entry (`v. A1, n. A2`). Nothing in the pipeline resolved a seed row's `(word, pos, level)` against the work it names, so `rc4_vocabulary_audit.py` counted those rows as `attestedByPublishedLevel`.
+- **Affected files / scope:** `data/vocab-seed/22-a1a2-stable.tsv`, `Learned_Vocabulary_List.md`, `data/vocabulary.json`, `index.html` (embedded payload), `docs/{rc4-vocabulary-audit,vocabulary-cefr-review,vocabulary-quality-audit,vocabulary-audit-dev5}.{json,md}`, `README.md`, `CHANGELOG.md`, `tests/test_seed_level_provenance.py` (new).
+- **Expected result:** Every seed row that names a reference work states a band that work prints for that POS; the shipped `level:*` tag agrees with the shipped `senses`; the regression test fails on the old data and passes on the new.
+- **Acceptance criteria:**
+  1. `python3 -m unittest tests.test_seed_level_provenance` fails before the seed edit (7 rows listed) and passes after.
+  2. `python3 -m unittest discover -s tests -p 'test_*.py'` passes (`240` tests), all `--check` gates exit `0`, and `tests/static-app.test.js` + `tests/v100-senses.test.js` still pass on the regenerated payload.
+  3. `git diff main -- DEPLOY_HOLD AGENT.md De-chuyen-Anh-vao-10 docs/vocabulary-audit-dev5.{json,md} docs/RC1_AUDIT_REPORT.md docs/EXAM_AUDIT_LEDGER.md` remains empty and `DESIGN_LOG.md` / `AGENTS_LOG.md` stay append-only.
+- **Validation method:** Test-first reproduction (`FAIL` with the 7 rows, then `OK`), full pipeline regeneration, whole `--check` matrix, Python + Node suites, local Chromium E2E.
+- **Status:** `VERIFIED`
+- **Outcome:** Corrected the seven rows (`neither` `A2→B1`; `ride`, `run`, `stay`, `talk`, `welcome`, `star` `A2→A1`), regenerated the vocabulary payload and every derived audit artifact, and added `tests/test_seed_level_provenance.py`, which resolves all `5,316` published-level seed rows through the pinned references (`0` unattested, `0` unresolved). Distribution moved from `500 A1 + 500 A2` to `506 A1 + 493 A2 + 1 B1`; the source split is unchanged (`892` CEFR-J + `108` Oxford 3000). Consequence recorded: `neither` (`8605`) is now a B1 row in the focus deck and is queued for a curator decision (`rule:b1-baseline-general`) instead of being archived automatically; deck membership was not changed.
+
+---
+
+### `W013` — Audit finding `BUG-002`: committed sense-integrity evidence had drifted with no gate able to notice
+- **Problem statement:** `audit/v100/evidence/sense-integrity-review-queue.json` disagreed with the shipped data on entry `8393` (`bloom`): the committed queue recorded the gloss `nở hoa` while `data/vocabulary.json` (and the same file's own `senses` copy) says `hoa, sự nở hoa`. `scripts/sense_integrity_audit.py` only printed to stdout, had no `--check`, and no workflow ran it, so the evidence could drift silently while every gate stayed green.
+- **Affected files / scope:** `scripts/sense_integrity_audit.py` (`build_payload`, `drift`, `--check`, `--artifact`), `audit/v100/evidence/sense-integrity-review-queue.json`, `.github/workflows/ci.yml`, `.github/workflows/deploy.yml`, `tests/test_sense_integrity_audit_artifact.py` (new), `CHANGELOG.md`.
+- **Expected result:** the committed queue equals a fresh rebuild; a stale queue fails both the script and CI; the guard is exercised by a test that can fail.
+- **Acceptance criteria:**
+  1. `tests/test_sense_integrity_audit_artifact.py` fails before the change, naming `8393 bloom`, and passes after.
+  2. `python scripts/sense_integrity_audit.py --check` exits `0` for the current artifact and non-zero for a deliberately drifted copy.
+  3. `ci.yml` and `deploy.yml` both run the check, and the CI path filters include the evidence file.
+- **Validation method:** fail-first unit test, a negative-control test against a mutated artifact, whole `unittest` suite, `--check` matrix.
+- **Status:** `VERIFIED`
+- **Outcome:** extracted `build_payload()`/`drift()`, added `--check`/`--artifact`, regenerated the queue (2 lines: `8393` meaning in the entry and in its `senses`), wired the gate into both workflows and their path filters, and pinned it with four new tests. Flag count and issue counts are unchanged (`239` of `8,852`), so this is evidence hygiene, not a change to which entries need review.
+
+---
+
+### `W014` — Audit finding `BUG-003`: the one `text`-typed open-ended exemption never received its advisory rubric
+- **Problem statement:** `2022/ha-noi/so` `q-51-9c5133cba3668e8e` is a 250-word academic essay prompt curated as `open_ended_writing_or_speaking`, but the protected `parseExamQuestions` types it `text`. `getQuestionVerification` and `gradeExamQuestion` keyed the 4-criterion rubric on `responseType === 'essay'`, so answering it returned `ungraded` (`essay-open-ended-exempt`) with no `advisoryRubricEvaluation`, while the exemption strip and `FINAL_READINESS.md` promised advisory feedback. The UI also rendered a 3-row textarea.
+- **Affected files / scope:** `index.html` (app module only), `.github/workflows/{ci,deploy}.yml` (new test file), `tests/exam-exempt-rubric.test.js` (new), `CHANGELOG.md`.
+- **Expected result:** every curated open-ended exemption, whatever its parser response type, keeps its rubric, its essay-shaped input and its exemption semantics.
+- **Acceptance criteria:**
+  1. The new test fails before the change on exactly this item and passes after.
+  2. All `158` exemptions return `ungraded` + `advisoryRubricEvaluation` with four criteria and `earnedCredit = 0`.
+  3. `parseExamQuestions` / `extractExamAnswerKeys` are byte-identical; the score denominator is unchanged (`5,155 / 6,708`).
+- **Validation method:** data-driven fail-first Node test over the shipped archive, full Python/Node suites, `--check` matrix, both Chromium browser suites.
+- **Status:** `VERIFIED`
+- **Outcome:** added `examIsEssayItem(question, key)` (essay response type **or** curated `open_ended_writing_or_speaking` / `essay-open-ended-exempt`) and routed eight call sites through it — rubric construction, rubric attachment on the exempt path, candidate label, verdict label, rubric hint, textarea rows, and the override field/label. The protected parser was not touched. `tests/exam-exempt-rubric.test.js` now pins all `158` exemptions and names the `text`-typed case explicitly.
+
+---
+
+### `W015` — Audit finding `BUG-004`: the `243/243` Python claim was not reproducible and not CI-enforced
+- **Problem statement:** `FINAL_READINESS_CHECKLIST.md` reported `[x] PASS (243/243)` and gave the command `.venv/bin/python scripts/exams/test_archive.py`, but the repository creates no `.venv`, no workflow ran that suite, and on a clean checkout two of its five tests error with `ModuleNotFoundError` (`fitz`, then `bs4`). The stated coverage therefore exceeded what any reproducible command could show.
+- **Affected files / scope:** `.github/workflows/ci.yml`, `audit/v100/FINAL_READINESS_CHECKLIST.md`, `audit/v100/GATES.md` (measured totals), `tests/test_ci_gate_coverage.py` (new).
+- **Expected result:** a fresh clone plus CI runs every counted suite; the report states the real totals and the command that produces them.
+- **Acceptance criteria:**
+  1. `python3 -m venv … && pip install -r scripts/exams/requirements.txt && python scripts/exams/test_archive.py` → `5/5 OK`.
+  2. `ci.yml` performs exactly that, so the number is reproducible without a hand-made environment.
+  3. `tests/test_ci_gate_coverage.py` fails if the archive suite or its requirements leave CI, if a `tests/*.test.js` file is not named by a workflow, or if the checklist prescribes a `.venv`.
+- **Validation method:** full requirements install in a fresh venv, archive suite run, CI config assertions, whole `unittest` discovery.
+- **Status:** `VERIFIED`
+- **Outcome:** added a "Run exam archive conversion tests" step to `ci.yml` (venv + pinned requirements + suite), corrected the checklist row to `244 + 5 = 249` with the real commands, and updated the measured totals in this file (`Node 218`, `Python 249`). `tests/test_ci_gate_coverage.py` (4 tests) pins the wiring so the claim cannot drift from the workflow again.
+
+---
+
+### `W016` — Audit finding `BUG-005`: the defect ledger carried its own stale count
+- **Problem statement:** `DEFECTS.md` D6 recorded the re-pinned totals as "`3,032` default B2+C1 eligible" while `GATES.md` S9, `FINAL_READINESS.md` and `README.md` say `3,020` headwords / `3,043` senses, and the shipped data yields `3,020` / `3,043`. A second count disagreed: D25 said `157` open-ended essays where the exemption taxonomy, the curated manifest and `FINAL_READINESS.md` say `158`.
+- **Affected files / scope:** `audit/v100/DEFECTS.md` (D6 figure, D25 wording, new D27/D28 rows), `tests/test_audit_document_counts.py` (new).
+- **Expected result:** every document states the count the data produces, and a test recomputes it instead of trusting any document.
+- **Acceptance criteria:**
+  1. The new test fails before the change, naming `audit/v100/DEFECTS.md: states 3032 headwords, the data has 3020`.
+  2. The count is recomputed from `data/vocabulary.json` with the app's rule and agrees with the JavaScript pins (`3,020` headwords / `3,043` senses).
+  3. The correction is visible: D27/D28 record what changed and why, so the edit is not silent.
+- **Validation method:** fail-first unit test, `unittest` discovery, cross-check against `tests/static-app.test.js` and `tests/v100-senses.test.js` pins.
+- **Status:** `VERIFIED`
+- **Outcome:** corrected D6 to `3,020` headwords / `3,043` senses and D25 to `158` (`157` `essay` + `1` `text`); appended D27 and D28 describing both corrections; added `tests/test_audit_document_counts.py`, which recomputes the deck and fails on any document that disagrees (it also fails when a document stops stating the size at all).
+
+### `W017` — Independent review of the five fixes: guards hardened, three stale statements corrected
+- **Problem statement:** an independent review of `BUG-001`…`BUG-005` found four guards that could pass without proving their claim — a suite *named* in `ci.yml` counted as executed, a `±5` tolerance stood in for the exact discovered count, multiword Oxford headwords were split on whitespace (`according to`, prep A2, also attested `to`, prep A1), and the objective-item guard skipped the very `scorable: false` flag it exists to police — plus three statements that the corrections had left stale: `README.md` (two places) and the `22-a1a2-stable.tsv` header still said `500 A1 + 500 A2`, and `CHANGELOG.md` still claimed `237 OK` / `214 pass`.
+- **Affected files / scope:** `tests/test_ci_gate_coverage.py`, `tests/test_seed_level_provenance.py`, `tests/exam-exempt-rubric.test.js`, `tests/test_audit_document_counts.py`, `scripts/sense_integrity_audit.py`, `README.md`, `CHANGELOG.md`, `data/vocab-seed/22-a1a2-stable.tsv` header, `audit/v100/{GATES,DEFECTS,FINAL_READINESS_CHECKLIST}.md`.
+- **Expected result:** each guard fails when the thing it guards is broken, and every surface states the measured `506 A1 + 493 A2 + 1 B1` and the real totals.
+- **Acceptance criteria:**
+  1. `tests/test_ci_gate_coverage.py` requires each Node suite inside a `node --test` run block (YAML comments stripped) and compares the checklist total to `countTestCases()` exactly.
+  2. `tests/test_seed_level_provenance.py` indexes multiword headwords whole; the `5,316` published rows resolve to the same bands as before.
+  3. `tests/exam-exempt-rubric.test.js` skips only items carrying an `exemptionCategory`; all `739` non-scorable keys carry one.
+  4. `tests/test_audit_document_counts.py` uses the app's exact `curation:archived` membership and pins the changelog's totals.
+- **Validation method:** fail-first runs plus three negative controls, `unittest` discovery, the seven Node suites, the twenty `--check` gates, and the archive suite in a venv.
+- **Status:** `VERIFIED`
+- **Outcome:** fail-first — `252 != 250 : checklist states 250 unit tests; discover collects 252` and `250 != 237 : the changelog states a Python total the checklist does not`. Controls: commenting out the telemetry `node --test` line fails with `['telemetry-api.test.js']`; one key flipped to `scorable: false` without a marker fails `not ok 5 … a scorable objective item was treated as an exempt essay`; restoring the whitespace split fails `the multiword headword must be indexed as printed`. Totals are now Python `252 + 5 = 257` and Node `219`; no seed row changed band and no exam item changed verdict.
+
+### `W018` — Independent review, round three: reproduced six findings, fixed five, declined one
+- **Problem statement:** the independent reviewer's pass over `4862d0e` reported six findings. Each was reproduced before any edit: `--check` accepted reshaped evidence; the text-typed exempt essay's rubric override was graded as text; the stacked PR ran no CI; the ledger had been rewritten in place; the release source check skipped two Node suites; and the review demanded `500 A1 + 500 A2` by adding replacement rows.
+- **Affected files / scope:** `scripts/sense_integrity_audit.py`, `scripts/release_artifacts.py`, `index.html`, `.github/workflows/ci.yml`, `audit/v100/DEFECTS.md`, `tests/{test_sense_integrity_audit_artifact,test_audit_document_counts,test_ci_gate_coverage}.py`, `tests/exam-exempt-rubric.test.js`, plus the count surfaces.
+- **Expected result:** every finding that holds is fixed with a reproduction; the one that contradicts a maintainer decision is declined in writing rather than implemented.
+- **Acceptance criteria:**
+  1. Scope/duplicate/reorder/unknown-field mutants of the evidence file make `--check` exit nonzero.
+  2. The shipped Q51 override grades `0 / 0.25 / 0.75 / 1` as rubric credit and `1.5` as `ungraded`.
+  3. A stacked PR is covered by CI without weakening any deploy gate.
+  4. Release source validation names every Node suite.
+  5. `DEFECTS.md` D6/D25 keep their original figures; the correction lives in D27/D28.
+- **Validation method:** fail-first reproduction on `4862d0e`, negative controls, full suites, twenty `--check` gates, archive suite in a venv, protected-path diff against `main`.
+- **Status:** `VERIFIED` (F1 declined — see below)
+- **Outcome:** F2–F6 fixed and pinned; F1 declined because the maintainer chose "correct the levels" over "correct plus seven replacement rows" for `BUG-001`, and this loop does not reopen an approved decision. Totals: Python `254 + 5 = 259`, Node `221`.
+
+## W019 — Round 4: system-wide hunt, import-surface hardening (2026-11-09)
+
+- **Scope:** a systematic pass over the surfaces earlier rounds reasoned about but did not execute: all 106 papers and 5,155 scorable questions (grading soundness), the scoring summary invariants, export → validate → import round trips plus tamper cases, all seven exercise types over a 403-entry sample (2,821 generated questions), the sense-level CEFR model over 8,852 rows / 8,928 senses, an 800-step progress walk and the family fold, and the HTML/escaper helpers.
+- **Result:** one confirmed **P2** and one confirmed **P3**, both on the history-import surface (D37, D38); no false accept/reject in grading, no invariant break in scoring, question generation, CEFR narrowing or progress.
+- **Fix:** escape `paper.metadata.year` at the render site; type-check paper metadata and correction candidates in `validateExamResultHistory`. Regression test `tests/exam-scoring.test.js` ("rc10 import hardening"); both mutants fail it.
+- **Not fixed, reported:** the telemetry client key is derived from request headers the caller can choose (`x-vercel-forwarded-for` → `x-real-ip` → last `X-Forwarded-For` hop → socket), so the per-client 10/600 s limit is advisory while the global 120/600 s cap still bounds abuse; changing key derivation changes deployed behaviour and needs maintainer approval.
+- **Totals on the fixed tree:** Python `256 + 5 = 261 OK`, Node `222 / 0 fail`.
+- **Status:** `VERIFIED` (local commits only; no push, merge, tag, release or deploy)
+- **Follow-up found while fixing the counts (D39):** the F2 mutant pin never ran — it was defined inside the module's own `__main__` guard. It is now collectable and passes; a tree-wide meta-test rejects definitions nested in `__main__` guards and non-collectable `test_*` functions. Python totals `254 → 256`, so the recorded totals here and in `GATES.md`/`CHANGELOG.md` were corrected before the run they describe.
+
+## W020 — 2026-11-09 — round 5: mutation testing and import hardening
+
+- **Scope:** not a re-review of Round 4 patches. Adversarial passes over multi-select scoring, telemetry, persistence, and — the productive one — *test effectiveness* and the history-import validator.
+- **Method:** base64 `data:` import of the live `#app-script` module in Node (no browser needed), so the shipped functions are exercised directly; every claim below is a script under `/home/user/audit-evidence/round5/scripts/` with its output in `../logs/` or reproducible by one command.
+- **Findings:** `D40` (the shipped suites do not detect changes to the engine: `11` of `12` mutants survived (`0` killed, `1` not applicable) — CI green was not evidence of correctness) and `D41` (the import validator accepted paper snapshots that cannot be scored coherently: duplicate option ids, zero-option choice, orphan/duplicate keys, untyped alternatives). Both fixed and verified.
+- **Also probed, no defect found:** multi-select is **unreachable** (`0` of `6,708` questions use `responseType: 'multiple'`), and exhaustive monotonicity over all option subsets raised credit in `0` cases when only wrong options were added; telemetry (`api/telemetry.js` + both migrations) reviewed end-to-end — origin/method/content-type/size ordering, atomic bucket RPC, RLS with no policies, `service_role`-only execute; persistence adversaries — every corrupt/`NaN`/prototype/huge payload sanitised, throwing `getItem`/`setItem` tolerated, `__proto__` did not pollute.
+- **Not fixed, reported:** the family cycle `{a: b, b: a}` is loaded but not folded to a canonical head; and the four non-scoring import cosmetics (D41).
+- **Totals on the fixed tree:** Python `257 + 5 = 262 OK`, Node `235 / 0 fail` (`core-invariants.test.js` `11` added, `exam-scoring.test.js` `29 → 31`); `ci.yml` and every `--check` gate list the new suite, which the CI-coverage meta-test enforces.
+- **Status:** `IN PROGRESS` — push/PR update and an independent CodeRabbit review of the exact final SHA are still to come, and the coverage matrix is not yet complete.
+
+## W021 — 2026-11-09 — independent review round (CodeRabbit on `c9f209f`)
+
+- **Procedure:** `@coderabbitai review` (the command the repository's own `.coderabbit.yaml` documents) on PR #84; the review finished as `COMMENTED` against `c9f209f96ffa622a5129f15f3b194d2e9e8ede94` — the exact head at the time — with `7` actionable comments. A skipped review would have been no review at all, so the completion state and the commit id were both checked, not just "a comment appeared".
+- **All seven verified, all seven valid, all seven fixed:** `D42` (release back-fill would have failed on tags that predate the new suite — the same script re-checks `v1.0.0-rc8`), `D43` (the defect ledger no longer rendered as a table and carried `1,143` where `1,000 + 144 = 1,144`), `D44` (stale `PASS (259/259)` and `PASS (221/221)`, a Node row missing a suite, and a CI-coverage helper that ran a block to the end of the workflow), plus the two consequence fixes: the checklist totals now have to equal their own parts, and every `tests/*.test.js` has to be named with a count that sums to the row's total.
+- **One finding was against my own change (`D42`)** and one (`D44`) exposed that my earlier "totals" claim was only cross-checked between two documents that could both be wrong. Both are the review doing what an independent layer is for.
+- **D41 addendum:** the strict orphan-key rule could have rejected an *app-produced* export if a paper's parse ever yielded fewer questions than its key list, so `createExamResultRecord` now filters the snapshot keys to the session's own questions. Producer and consumer agree by construction, and the import validator stays strict for hand-edited files.
+- **Property fuzz of the importer:** `400` random mutations of a genuine export — `0` throws, `139` accepted and every accepted payload re-validated after export (fixed point) with `0` score drift and no prototype pollution (`logs/r5-fuzz-import.log`).
+- **Performance (no defect):** full archive scoring `106` papers / `6,708` questions in `1.8 s`; a `1,000`-question paper (`1.88 MB`) imports in `53 ms`; search index `99 ms`, ten queries `55 ms` over `8,852` rows; CEFR filter `26 ms` (`logs/r5-perf.log`).
+- **Totals on the fixed tree:** Python `257 + 5 = 262 OK`, Node `235 / 0 fail`.
+
+## W022 — 2026-11-09 — second review round (CodeRabbit on `9e362b8`)
+
+- **Procedure:** the first completed review of the round (`c9f209f96`, `7` findings) was followed by a request on `ebdab72`, which the platform **skipped** (`completed/neutral`) and then explained: the included review limit was reached, next available in `36` minutes. That skip is recorded as a skip — it is not a review. After the window opened, `@coderabbitai review` produced a completed review against **`9e362b899`**, the exact head, with `2` actionable comments.
+- **Both were valid and both are fixed:** `D45` (`deploy.yml` ran `6` of `8` suites while the checklist claimed both workflows named all eight — the two missing suites are the ones this round changed) and `D46` (the readiness row's per-suite counts were compared only with each other, so a suite could gain a test and the row stay green). The gate now checks every testing workflow and compares each stated count with the `test(` declarations in the file; the static counts were first verified to equal the runner's `pass` count for all eight suites (`144/31/7/10/8/17/7/11`).
+- **Method note:** both findings are about *deployment and documentation paths around the code*, not the code itself — the second consecutive review to find more in the claims than in the product. That is the pattern this round kept hitting: the guarantees were sound where they were exercised and absent where they were only described.
+- **Totals on the fixed tree:** Python `257 + 5 = 262 OK`, Node `235 / 0 fail` (`ci.yml` and `deploy.yml` both run all eight suites).
+
+## W023 — 2026-11-09 — third review round (CodeRabbit on `3733355`)
+
+- **Procedure:** two requests were answered "Review rate limited" (recorded as such, not as reviews). Once the included-review window reopened, `@coderabbitai review` produced a **completed review against `3733355ddc499aac7f4b16df61b106b8a69459b7`** — the exact head at the time — with `1` additional comment, itself labelled **Trivial / Low value / "Unverified finding"**: `workflow: str = None` is an implicit `Optional` (RUF013).
+- **Verified anyway:** the repository does not run Ruff, but it writes `str | None` in five other places and this was the only implicit-Optional in the tree, so the finding was correct as a style inconsistency. Fixed in the follow-up commit; no behaviour changed and every suite reports the same counts (Node `235 / 0`, Python `257 OK`).
+- **Not fixed, stated:** CodeRabbit's own "Docstring Coverage" pre-merge metric is below its threshold. That is the platform's house rule, not this project's; the repository's own gates (`tests/test_ci_gate_coverage.py`, the `--check` validators) pass, and adding docstrings across a `257`-test suite to satisfy a third-party dashboard would be churn with no behavioural value.
+- **Pattern, three rounds in:** review 1 found seven issues (two of them in my own fix), review 2 found two more, both in the deployment/documentation path, review 3 found one style nit. The product code has been stable since round 1; every subsequent finding has been about the *claims around* it — which is exactly what the "CI green proves nothing" premise predicted.
+
+## W024 — 2026-11-09 — Round 6: system-wide audit, import union and snapshot integrity
+
+- **Scope:** not a re-run of Round 5. An independent pass treating the app as one system: functional correctness, cross-feature workflows, data integrity/scoring, UI/UX and a11y, security/robustness, performance, build/CI/deploy (`audit-evidence/round6/COVERAGE_MATRIX.md`, 18 areas).
+- **Method:** the shipped `#app-script` module imported as a `data:` URL in Node, so the real stores, engines and importers are exercised without a browser; seeded stateful fuzz; mutation testing around the fixes; all 21 `--check`/CI gates.
+- **`D48` (P2, fixed):** `mergeExamResultHistory` returned unions larger than the 50-attempt window, and the save that follows failed validation and surfaced as `storage-failed` — the wrong subsystem. `scripts/r6-merge.mjs` reproduces it (`ok:false · reason:"storage-failed" · storedAfter:40`); after the trim (`ok:true · storedAfter:50`). Regression test fails pre-fix (`31/1`) and passes post-fix (`33/0`).
+- **`D49` (P3, fixed):** `addExamResult` overwrote a registered paper snapshot when a second attempt carried a different question set, leaving the history unsavable and un-restorable (`unknown-question-response`). Found by the fuzz (`25` violations pre-fix, `0` post-fix), minimised in `scripts/r6-snapshot.mjs`. Not reachable from today's UI; the guard makes it loud instead of silent.
+- **Mutation:** `9/9` killed around the two fixes. The two apparent survivors in the first run were a harness defect (first-occurrence replacement hit the identical idiom in `addExamResult`) and a genuine gap (no correction on a trimmed paper), which the regression test now pins in both directions.
+- **Probed, no defect:** backup round trip field-for-field (`progressDiffs: []`); corrections re-score stored attempts (`0 → 1`), survive export/import, and are pruned with the attempt; conflicting papers/attempts/corrections refused by name without touching the stored history; flashcard engine `400 × 25` reviews with `0` invariant violations.
+- **Not filed, recorded:** `R6-O1` phrase progress and the CEFR selection are outside the v1 backup (stated in the UI copy; a schema decision), `R6-O2` `SYNCED_STORAGE_KEYS` excludes CEFR/theme/badges with no reproducible stale state.
+- **Blocked:** no local browser E2E (`libnspr4.so`, no root, Playwright CDN unreachable) — the browser layers stay BLOCKED in the coverage matrix and must be read from CI; accessibility PROBED only; performance BASELINE from Round 5.
+- **Totals on the fixed tree:** Node `238 / 0 fail` (`exam-scoring` `31 → 34`), Python `257 OK`, archive `5 OK`, `21/21` `--check` gates exit `0`.
+- **Status:** code and evidence complete; push, PR update and an independent review of the exact final SHA still to come.
+
+## W025 — 2026-11-09 — Round 6 review follow-up (CodeRabbit on `7ed7b2f`)
+
+- **Procedure:** `@coderabbitai review` on PR #84 after `7ed7b2f`; the review completed as `COMMENTED` against exactly `7ed7b2ff010c30dc68c6f40693defbc1f070e0f2` with two inline findings, both verified against the tree and both valid.
+- **`D50` fixed:** snapshot equality used order-sensitive `JSON.stringify`, so a same-content paper with reordered keys was refused as a conflict. One `examCanonicalJson` helper now sorts keys recursively and is used by the `addExamResult` guard and all three merge conflict checks; a genuinely different question set is still refused. New regression test fails on the pre-fix comparison and passes after.
+- **`D51` fixed:** the Round-6 merge test miscounted its own scenario (40 + 20 − 50 = 10 dropped, not 30) and its `local-0`/`local-10` assertions passed for any drop count from 1 to 10. The test now asserts exactly 30 local survivors and the exact boundary (`local-9` dropped, `local-10` kept).
+- **Mutation:** `9/9` killed, including a new mutant that restores the order-sensitive comparison. Two harness defects were found and fixed on the way: a mutant whose rewrite no longer matched the changed source would have "survived" silently (now a no-op rewrite is reported as `NOT-APPLIED`), and one mutant pattern went stale after the guard changed.
+- **Totals on the fixed tree:** Node `238 / 0 fail` (`exam-scoring` `31 → 34`), Python `257 OK`, archive `5 OK`, `21/21` `--check` gates exit `0`.
+- **Status:** follow-up committed and pushed; a review of the new final SHA is still to come.

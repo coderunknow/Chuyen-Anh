@@ -2968,9 +2968,15 @@
         "word": "windscreen",
         "category": "basic-b1",
         "reason": "rule:b1-baseline-general"
+      },
+      {
+        "id": "8605",
+        "word": "neither",
+        "category": "basic-b1",
+        "reason": "rule:b1-baseline-general"
       }
     ],
-    "pendingReviewCount": 491,
+    "pendingReviewCount": 492,
     "reconciled": true
   },
   "curriculum": {
@@ -3947,9 +3953,9 @@
     "nature-species": 163
   },
   "levelMix": {
-    "A1": 500,
-    "A2": 500,
-    "B1": 757,
+    "A1": 506,
+    "A2": 493,
+    "B1": 758,
     "B2": 1714,
     "C1": 1638,
     "C2": 889,

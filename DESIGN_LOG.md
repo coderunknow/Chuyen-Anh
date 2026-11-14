@@ -2251,3 +2251,217 @@ not change. The earlier comparison's 203 inference removals remain unchanged.
 
 - Added `HANDOFF_NEXT_AGENT.md` on `arena/2a533bbc-chuyen-anh` documenting exact branch/tag/deployment SHAs and SHA-256 fingerprints, standing user approval constraints and protected-file invariants, `v1.0.0` readiness metrics (`34792d6e8a9bc2e8752785377c451a9f03aac2d1`), the combined GitHub Pages `/preview/` subpath workflow specification off `main` (including `pull_request` pre-deploy local smoke verification, `push` deployment-status synchronization, and same-origin `localStorage` behavior), the future `v1.0.0` stable release cutover sequence, and regeneration/test/sandbox recipes.
 - Verified `git diff --check` and confirmed zero changes to `index.html`, data manifests, scripts, workflows, or `DEPLOY_HOLD`. Live GitHub Pages `/preview/` deployment was not executed pending user approval on a separate `main`-based workflow PR.
+
+### 2026-11-09 — Independent audit round 2 (`BUG-001`–`BUG-005` approved) and `BUG-001` level-provenance fix
+
+- **User decisions (new session, branch `arena/dedd1942-chuyen-anh`, baseline `00262671bbeeb5f6ca543a693cc322b6dae30a79`):** the read-only audit report was presented with five verified IDs; the user approved **all five** (`BUG-001`…`BUG-005`) for one-at-a-time remediation and left the Phase III remediation shape open until `BUG-001` was reached. At that point the user chose **Option A**: correct the seven rows to the band the cited reference prints for the row's POS, rather than relabelling the provenance as editorial. Constraints unchanged: no merge/tag/release/deploy, `DEPLOY_HOLD` stays `v1.0.0-rc10`, PR #83 stays OPEN and Draft, no force-push, protected files untouched.
+- **`BUG-001` (P2, data/provenance):** `data/vocab-seed/22-a1a2-stable.tsv` carried seven rows claiming `A2` + `level-source:oxford-3000-wordlist` where Oxford 3000 prints the band for a different part of speech (`neither` adv `B1`; `ride`, `run`, `stay`, `talk`, `welcome` v and `star` n `A1`). The value had been copied from the composite band list of a multi-POS entry (`v. A1, n. A2`). The shipped `senses` already said `A1`/`B2`, so only the legacy `level:*` tag and its `level-source` label disagreed with the data beside them.
+  - Fixed by editing only the seven `LEVEL` cells (`neither` `A2→B1`; six rows `A2→A1`), then regenerating `Learned_Vocabulary_List.md` → `data/vocabulary.json` → `index.html` and every derived audit artifact. Distribution is now `506 A1 + 493 A2 + 1 B1` (was stated as `500 A1 + 500 A2`); the source split is unchanged (`892` CEFR-J + `108` Oxford 3000).
+  - Added `tests/test_seed_level_provenance.py`, which resolves every seed row that names a reference work through the pinned reference files and requires the claimed band to be printed for the row's POS (`5,316` rows checked, `0` unattested, `0` unresolved). Written test-first: it failed on the unmodified data listing exactly those seven rows.
+  - Known consequence, recorded not hidden: `neither` (`8605`) is now a B1 row inside the focus deck, so `rc4_vocabulary_audit.py` additionally queues it for a curator decision (`rule:b1-baseline-general`, `491 → 492`). Deck membership was **not** changed by this fix.
+  - Documentation updated where it stated the old distribution: `README.md` (two places), `CHANGELOG.md`, `audit/v100/FINAL_READINESS.md`, `audit/v100/FINAL_READINESS_CHECKLIST.md`, and appended `audit/v100/GATES.md` `S31` + `audit/v100/WORK_LOG.md` `W012`. `S12`/`W004` remain as the historical record of the earlier round; `S31` states that it supersedes their `+500/+500` count.
+- **Not done in this entry:** `BUG-002`–`BUG-005` remain open and are scheduled after this one lands. No exam data, workflow, gate, or protected file was touched. Live Pages deployment, workflows, telemetry, Firefox/WebKit in this sandbox, and human semantic review of glosses/levels remain unverified.
+
+### 2026-11-09 — `BUG-002`: sense-integrity evidence made reproducible and gated
+
+- **Finding:** `audit/v100/evidence/sense-integrity-review-queue.json` (release evidence) disagreed with the shipped data on `8393` (`bloom`): queued as `nở hoa`, shipped as `hoa, sự nở hoa`. The auditor printed to stdout only, had no `--check`, and no workflow invoked it, so the drift was invisible to every gate.
+- **Change (user-approved `BUG-002`):** `scripts/sense_integrity_audit.py` now exposes `build_payload()` and `drift()` and accepts `--check` / `--artifact`; the queue was regenerated; the check runs in `ci.yml` and `deploy.yml` and the CI path filters include the evidence file. `tests/test_sense_integrity_audit_artifact.py` pins the artifact against a fresh rebuild, exercises the failure path with a deliberately mutated copy, and asserts both workflows run the gate.
+- **Verified:** fail-first — the new test failed naming `8393 bloom` before the regeneration and passes after; `--check` exits `0` on the current artifact and non-zero on the mutated copy; Python `244` tests OK; all `--check` gates exit `0`. Flag counts are unchanged (`239` of `8,852`), so no entry changed its review status.
+- **Not verified:** the workflows were not executed on GitHub in this session (push-only); their behaviour is claimed from config and from the local tests that parse them.
+
+### 2026-11-09 — `BUG-003`: the exempt `text`-typed essay keeps its advisory rubric
+
+- **Finding:** `2022/ha-noi/so` Q51 (250-word academic essay, curated `open_ended_writing_or_speaking`) is typed `text` by the protected parser, and the runtime keyed the rubric on `responseType === 'essay'`. Answering it returned `ungraded` with no `advisoryRubricEvaluation` and a 3-row input, contradicting both the exemption strip and `FINAL_READINESS.md`.
+- **Change (user-approved `BUG-003`):** added `examIsEssayItem(question, key)`, which treats an item as essay-shaped when its curated exemption says so, and routed eight call sites through it (rubric spec, rubric attachment on the exempt path, candidate label, verdict label, rubric hint, textarea rows, override value and label). `parseExamQuestions` and `extractExamAnswerKeys` were not modified.
+- **Verified:** fail-first — the new `tests/exam-exempt-rubric.test.js` failed on exactly this item (`result=ungraded reason=essay-open-ended-exempt credit=0 rubric=absent`) and now passes for all `158` exemptions; `218` Node assertions and `244` Python tests OK; every `--check` gate green; both Chromium browser suites pass on the modified `index.html`. Score denominator unchanged (`5,155 / 6,708`).
+- **Not verified:** Firefox/WebKit locally (CI only) and a human judgement of rubric quality — the rubric is advisory and still not an examiner's mark.
+
+### 2026-11-09 — `BUG-004`: the readiness test total is now reproducible by CI
+
+- **Finding:** `FINAL_READINESS_CHECKLIST.md` claimed `243/243` Python tests, counting `scripts/exams/test_archive.py` via a `.venv` the repository never creates. On a clean checkout that suite reports `3 ok + 2 ERROR` (`fitz`, then `bs4` missing), and no workflow ran it at all.
+- **Change (user-approved `BUG-004`):** `ci.yml` gains a step that builds a throwaway venv, installs `scripts/exams/requirements.txt` (pinned) and runs the archive suite; the checklist row now says `244 + 5 = 249` with commands that actually exist; the measured totals in `GATES.md` are updated. `tests/test_ci_gate_coverage.py` asserts the wiring, that every `tests/*.test.js` file is named by a workflow, and that the report does not prescribe a local virtualenv.
+- **Verified:** fresh venv + `pip install -r scripts/exams/requirements.txt` + suite → `5/5 OK`; `244` discover tests OK; the new coverage test failed first on all three claims (missing CI step, `.venv` instruction, stale total) and passes now.
+- **Not verified:** the edited workflow was not executed on GitHub in this session; the step's behaviour is claimed from the local reproduction of the same commands.
+
+### 2026-11-09 — `BUG-005`: document counts recomputed instead of trusted
+
+- **Finding:** `audit/v100/DEFECTS.md` D6 recorded the default `B2+C1` selection as `3,032` while `GATES.md` S9, `FINAL_READINESS.md`, `README.md` and the shipped data all say `3,020` headwords / `3,043` senses. D25 separately said `157` open-ended essays where the taxonomy says `158`.
+- **Change (user-approved `BUG-005`):** corrected both figures in `DEFECTS.md` and appended D27/D28 so the edits are recorded rather than silent; added `tests/test_audit_document_counts.py`, which recomputes the deck from `data/vocabulary.json` using the app's rule (`8,112` headwords · `6,841` active · `3,020` eligible · `3,043` senses — matching the JavaScript pins) and fails when any of the four documents states a different number, or stops stating it at all.
+- **Verified:** fail-first — the test failed on `DEFECTS.md: states 3032 headwords, the data has 3020` and passes after the correction; `248` Python tests OK.
+- **Not verified:** nothing beyond the counts; the semantic accuracy of the surrounding prose was not otherwise re-audited in this change.
+
+### 2026-11-09 — Review-loop addendum to `BUG-003`: a guard against the essay gate over-reaching
+
+- The `BUG-003` fix widened the "treat this as an essay" decision to a curated exemption. That risks the opposite error: an item with a usable key being treated as exempt. Added a fifth assertion to `tests/exam-exempt-rubric.test.js` that walks every *scorable* objective item in the shipped archive (5,000+ inspected) and requires `scorable === true`, no `rubric`, and no `exemptionCategory`.
+- Negative control performed: temporarily widening `examIsEssayItem()` to also return true for `source_transcription_unverified` made the new assertion fail (`a scorable objective item was treated as an exempt essay`); the mutation was reverted and `index.html` is unchanged.
+- Counts restated: Node `219` assertions; `GATES.md` and `FINAL_READINESS_CHECKLIST.md` updated to match. Python remains `250 + 5 = 255`.
+
+### 2026-11-09 — Review round two: prove the guard, then trust it
+
+- **Finding:** the guards added with `BUG-001`…`BUG-005` each stated a contract slightly stronger than what they enforced. A Node suite merely *named* in `ci.yml` (even in a comment) satisfied the coverage test; the Python total was compared to a `def test_` regex with a `±5` tolerance rather than to what `discover` collects; the Oxford reference index split headwords on whitespace, so the multiword entry `according to` (prep, A2) also attested a bare `to` (prep, A1); and the objective-item guard skipped keys with `scorable: false` — precisely the flag whose misuse it exists to detect.
+- **Change (review loop on the approved fixes):** the Node check now reads only `node --test` run blocks with YAML comments stripped; the total is compared to `TestLoader().discover(...).countTestCases()` exactly, with an explicit failure when the checklist row loses its number; headwords split only on `,` and `/`; the objective-item guard skips on `exemptionCategory` (verified: all `739` non-scorable keys carry one). `tests/test_audit_document_counts.py` mirrors the app's exact `curation:archived` membership and pins the changelog to the checklist and to its own per-suite sum; `drift()` reports the differing fields.
+- **Also corrected:** `README.md` (two bullets) and the `22-a1a2-stable.tsv` header still claimed `500 A1 + 500 A2` after the `BUG-001` correction; the accepted distribution recomputed from `data/vocabulary.json` is `506 A1 + 493 A2 + 1 B1` (`1,000` of `1,143` candidates). `CHANGELOG.md` still claimed `237 OK` / `214 pass`; now `252` / `219` with the `exam-exempt-rubric` suite listed.
+- **Verified:** three controls (two fail-first count failures, a commented-out Node line, a `scorable: false` key with no marker, the whitespace split restored), `5,316` seed rows unchanged in band, `252 + 5` Python OK, `219` Node pass, twenty `--check` gates clean.
+- **Not verified:** the `curation:archived` exactness fix is latent-only — the data holds `1,271` archived rows and no other `curation:` value, so no injection can distinguish old from new behaviour without inventing data. Firefox and WebKit were not run locally in this round.
+
+### 2026-11-09 — Review round three: evidence gates compare payloads, and a decision is not a bug
+
+- **Finding (reviewer, confirmed by reproduction):** `sense_integrity_audit.py --check` compared a projection of the artifact — entries keyed by id plus three counts — so a rewritten `scope`, an unknown field, a duplicated entry or a reordered list passed. Separately, the exempt-essay override path still keyed on `responseType === 'essay'`, so the one `text`-typed essay stored "0.75" as an answer and graded every credit `incorrect`; the reviewer's browser repro matched a Node repro of the same shipped question.
+- **Change:** the check compares the whole decoded payload and names the differing fields; `examIsEssayItem()` decides the override branch, the correction parser (now a module-level exported function) and the `(Rubric)` label, a verification record carries `essayLike` forward once a correction restores scorability, and an out-of-range credit is `ungraded`/`invalid-rubric-credit`. `ci.yml` now runs for PRs into `arena/**` (deploy untouched), `release_artifacts.py` runs all seven Node suites, and `DEFECTS.md` D6/D25 are restored verbatim with the correction kept in D27/D28.
+- **Declined:** the reviewer asked for `500 A1 + 500 A2` via replacement rows. The maintainer chose "correct the levels" over "correct plus seven replacements"; a review finding cannot reopen an approved decision, so it is recorded with the reason instead of implemented.
+- **Verified:** four artifact mutants exit `1`; the Q51 override grades `0 / 0.25 / 0.75 / 1` as credit and `1.5` as `ungraded`; `254 + 5` Python OK, `221` Node pass, twenty `--check` gates clean, release-list coverage pinned.
+- **Not verified:** the new CI branch filter cannot be exercised from here — proving it needs a GitHub event on a PR whose base matches `arena/**`, which this session cannot create; Firefox and WebKit were not run locally.
+
+## Round 4 — system-wide hunt and the history-import surface (2026-11-09)
+
+**Intent:** find the defects the previous review rounds could not see, by executing instead of reading, and repair the root
+cause where the defect actually lives. Local commits only; no push, merge, tag, release or deploy.
+
+- **Executed, not assumed:** the whole grading surface (106 papers, 5,155 scorable questions), the scoring summary
+  invariants, the export/import contract with tamper cases, all seven exercise types over a 403-entry sample, the
+  sense-level CEFR narrowing over 8,852 rows, an 800-step progress walk and the family fold. All clean.
+- **Where the defect actually was:** the import boundary. A history file is untrusted input, and one field of it
+  (`paper.metadata.year`) reached the history list unescaped while the validator only asked whether `metadata` existed.
+  A hostile file therefore imported with `{ok:true}` and rendered markup in the app origin. The same validator accepted
+  non-string `correction.candidates` (`["0.25", 7]`), which is inert in grading but is unvalidated data inside a scored record.
+- **Fix shape:** escape at the sink *and* type-check at the boundary — neither alone is enough, because a future render
+  site can forget the escape and a future consumer can trust the value. Text fields stay free-form (provinces legitimately
+  contain punctuation) and are neutralised by escaping; `year` is a number and is validated as one.
+- **Verified:** the new test fails with either check removed; `254 + 5` Python OK, `222` Node; 13 `--check`/provenance
+  gates exit `0`; a genuine export/import round trip is unchanged.
+- **Left visible:** the telemetry client-key derivation (caller-chosen headers) is recorded as an open hardening item,
+  not silently changed.
+
+### Round 4 follow-up — why a green suite is not the same as a test (2026-11-09)
+
+The most instructive finding of Round 4 was not a bug in the app: it was a test that did not exist. The F2 mutant pin sat
+inside its module's own `__main__` guard, so it parsed, reviewed and diffed like a test while the runner never collected it.
+Two lessons were encoded rather than written down: a meta-test now refuses that shape tree-wide (and any `test_*` function that
+is not a `TestCase` method), and the documented suite total is already asserted against `discover`, so a reclaimed test forces
+the number to move instead of quietly inflating the count.
+
+## A passing suite is a claim about the runner, not about the code
+
+Round 5 asked the suites a different question — not "do they pass" but "would they notice". Nine of eleven deliberate changes to
+the learning engine survived them, which reframed the whole audit: green CI bounded how often the code *runs*, not whether it is
+*right*. The new `tests/core-invariants.test.js` deliberately asserts values (the `180`-day cap, the `0.2` penalty, the exact
+essay bands, the `4 MB` ceiling) rather than ranges, because a range wide enough to be comfortable is wide enough to hide a
+regression — `interval <= 180` was satisfied by a `120`-day cap until it was written as `interval === 180`.
+
+The second lesson is about equivalence: one mutant survived every input until the input was chosen to reach the guard it removed.
+Before writing a test to kill a survivor, decide what *observable* behaviour the mutation changes; if none exists, say so and
+call it an equivalent mutant rather than inventing a test that only pretends to cover it.
+
+## Round 7 continuation — device settings get a file of their own (2026-11-09)
+
+**Type: feature + contract decision.** The round-7 brief named three device-local settings (CEFR filter, theme, language) that the v1
+progress backup deliberately does not carry. Option 3 was chosen: give them a *separate*, versioned file rather than widening the v1
+schema, because widening it would mean a backup written today could silently repaint a device restored tomorrow.
+
+The file is `{ app: 'chuyen-anh-device-settings', version: 1, exportedAt, settings }`. The interesting decisions are all about what
+happens when the file is wrong:
+
+- **Replace, never merge.** A merge has no correct answer when two devices disagree about the theme. Import means "make this device
+  match this file", and the panel says so before the learner commits.
+- **A missing field is refused, not defaulted.** Defaulting a missing `theme` would look like a successful import while quietly
+  reverting it to `system` — the file would appear to have worked.
+- **A fourth setting was included: `presentation`.** The brief named three. Interface skin and meaning-visibility are also
+  device-local, and a restore that omits them lands on a device that looks like neither the old nor the new configuration. This is a
+  deliberate widening of the stated scope, recorded here rather than left implicit.
+- **Rollback is reported honestly.** `applyDeviceSettings` returns `'ok' | 'write-failed' | 'rollback-failed'`. The existing staging
+  layer probes capacity before touching a real key, so a short store returns `false` with nothing written; only a commit that throws
+  mid-way and cannot restore reports `'rollback-failed'`. Two tests cover the two branches separately, because a single test would
+  have accepted either result and told us nothing.
+
+Phrase progress stays in the v1 backup, untouched — a test asserts the settings file contains no `P\d{3}` key and that the v1 schema is
+unchanged, because the tempting refactor here is to move everything at once.
+
+**What was not tested.** No screen reader exists in this environment (no X/Wayland, no D-Bus/AT-SPI, no `gi`/`pyatspi`, and the Debian
+mirrors are unreachable), so the new panel's announcement order is structurally checked and axe-clean but not heard. Browser evidence
+is Chromium only; Firefox and WebKit coverage is CI's, at the exact PR head, not a local run.
+
+Evidence: `12/12` UI checks over three consecutive runs, `51/51` scoring tests (control on `2e640bb`: `36 pass / 15 fail`), `35/35`
+literal toasts translated, axe `0` violations. A harness flake is recorded here because it would have been invisible: the first version
+waited for any `.toast` node, which the 3.2-second success toast satisfied, so the invalid-file assertion silently read the *previous*
+message. It now waits on toast content.
+
+## Round 7 continuation — what a review round is actually for (2026-11-09)
+
+**Type: defect remediation + accessibility.** Two independent review rounds over the
+device-settings work and its neighbours produced 14 findings; 12 were real and are fixed,
+one is mitigated with its limits stated, one is out of scope.
+
+The most valuable finding was not in the new feature. **All three import controls — the v1
+backup, exam history, and the new settings file — were unreachable by keyboard.** Each was
+a `<label for>` wrapping a hidden file input, and a label is not focusable. Tab went from
+each Export button straight past its Import sibling. A keyboard-only learner could export
+a backup and never restore it, and nothing in the existing suite noticed, because the
+tests drove imports by setting the input's files directly — the way a developer does, not
+the way a person does. The lesson generalises: **a test that bypasses the control tests
+the handler, not the interface.**
+
+The second theme is that *reporting success over partial data* kept reappearing in
+different clothes. `applyDeviceSettings` returned `'ok'` after writing three of four
+stores, because a saver refuses an invalid value by staging nothing and the staging layer
+cannot tell "refused" from "nothing to change". Later, the cross-tab repair returned the
+partial history on every give-up path — and because any history return means success, the
+submit handler marked the attempt saved and suppressed its warning while the attempt was
+absent from storage. Both were found by asking a different question: not "does it work"
+but "what does the caller believe happened".
+
+Third: **a coverage test can be blind to its own subject.** The i18n test's Vietnamese
+detector omitted `ọ ụ ử ữ ẫ`, so `VI.test('Học tập')` was `false`, and its extractor
+matched only single-quoted strings. It had been green while unable to see a class of
+messages. Both gaps are now proved by injecting a message the old version missed. A test
+that cannot demonstrate it would fail is a claim, not evidence.
+
+**Decision recorded:** the cross-tab race is **mitigated, not fixed**. Writes are read back
+and a lost attempt is merged and rewritten, bounded to two retries. A true mutex is
+available (`navigator.locks` works even at `file://` in Chromium) but the save path awaits
+nothing, and making it async changes the contract for submit, delete, clear and
+correction. That trade is written in the code, in the ledger, and in the report, rather
+than being called a fix.
+
+**What was not tested.** No screen reader exists here (no X/Wayland, no D-Bus/AT-SPI, no
+`gi`/`pyatspi`; the Debian mirrors are unreachable), so the new controls are structurally
+checked, axe-clean and keyboard-operable but never heard. Firefox and WebKit ran only in
+CI. The concurrent overwrite was modelled with a store that reverts a key at the exact
+interleaving, not with two real tabs racing.
+
+### Round 7 continuation (session 2) — 2026-11-11 — DONE
+
+Recovered the branch after a sandbox reset restored the checkout to `0026267`
+with all round-1..7 work sitting uncommitted in the working tree. The commits
+themselves were intact on the remote (`3c2d7ff`), so they were fetched and the
+local branch reset to them rather than re-committing the whole diff as one
+squash; only this session's change was carried across.
+
+CodeRabbit reviewed `3c2d7ff` and raised one **Major** (`4539964627`): the
+read-back verified attempts and corrections but never the `papers` map. A
+concurrent import could therefore replace a snapshot under the same paper key
+while every attempt identity and summary still matched — `questionResults` is
+stored rather than recomputed, so the replaced history still passed
+`validateExamResultHistory`. The learner was told the attempt was saved while the
+history held a different question set.
+
+Fixed in `9edc2a0` by applying the rule the merge already enforces
+(`conflicting-paper`): a snapshot that does not match what we wrote is a loss,
+and the repair path reports the conflict instead of adopting it. Full canonical
+comparison rather than `contentSha256` alone, because `examPaperMetadataIsValid`
+permits extra keys.
+
+The regression test asserts on a mutated *prompt* deliberately: a validity-
+breaking mutation would make the test vacuous, exactly as the first version of the
+identity test was (H12). Control-verified — fails with
+`restored=false, returned=history` when the block is removed.
+
+Also discovered that the entire `audit-evidence/round7/` tree had **never been
+committed** and did not survive the reset. Per the standing rule it was
+reconstructed and labelled; every measurement that can be re-executed was, at the
+final SHA, and the interactive probes were left honestly missing rather than
+rewritten to agree with their own conclusions. The directory is now committed,
+which is what should have happened the first time (H16).
+
+CI: chromium and firefox pass again at `9edc2a0`, confirming the earlier
+`Install <browser> for Playwright` failures were the Microsoft CDN outage and not
+the repository.
