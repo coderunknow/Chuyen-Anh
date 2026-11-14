@@ -7,19 +7,55 @@ on:
         description: "Optional tag to backfill (blank processes every current release)"
         required: false
         type: string
+      dry_run:
+        description: "Build and validate one existing tag without creating or uploading release assets"
+        required: false
+        type: boolean
+        default: false
   push:
     tags:
       # dev/beta/rc prereleases and the explicitly targeted stable version.
       - "v1.0.0-*"
       - "v1.0.0"
 
+# Dry runs only need to inspect GitHub releases, tags, and assets.
+# The mutation job opts into write access only for actual release work.
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  artifacts:
+  dry-run:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run == true }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    permissions:
+      contents: read
+    steps:
+      - name: Check out workflow code and tags
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up Node
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+
+      - name: Build and validate one existing tag without mutation
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          INPUT_TAG: ${{ inputs.tag }}
+          DRY_RUN: 'true'
+        run: python3 scripts/release_artifacts.py
+
+  release:
+    if: ${{ github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.dry_run != true) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
     steps:
       - name: Check out workflow code and tags
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -38,4 +74,5 @@ jobs:
           GH_REPO: ${{ github.repository }}
           INPUT_TAG: ${{ inputs.tag }}
           PUSH_TAG: ${{ github.event_name == 'push' && github.ref_name || '' }}
+          DRY_RUN: 'false'
         run: python3 scripts/release_artifacts.py

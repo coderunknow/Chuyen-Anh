@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# Run the two real-browser regression suites one after another.
+# Run the real-browser regression suites.
 #
 # Why a wrapper:
-#   * the suites are sequential on purpose — on a small runner two browser
-#     instances at once have segfaulted (2-CPU VM: "Target page, context or
-#     browser has been closed"), and a crashed browser is not a test result;
+#   * the suites are independent (each starts its own static server on an
+#     ephemeral port and launches its own browser), so they can be run one per
+#     job or one after another without changing what they prove;
 #   * the browser executable has to be found once and exported, so CI, a laptop
 #     and the optional @sparticuz/chromium fallback all use the same entry point;
 #   * no dependency is added to the app: `playwright-core` is installed by the
@@ -13,9 +13,16 @@
 # Usage:
 #   npm install --no-save --package-lock=false playwright-core@1.55.1 axe-core@4.14.0
 #   BROWSER_ENGINE=chromium BROWSER_EXECUTABLE=/usr/bin/google-chrome tests/run-browser-suites.sh
+#   tests/run-browser-suites.sh tests/browser-exams.cjs   # just one suite
 #
 # Without BROWSER_EXECUTABLE on chromium, the suites fall back to @sparticuz/chromium
 # or Playwright's installed browser binary.
+#
+# The default (PART unset) remains the untouched full-suite path: learning, then
+# exams, one browser at a time. CI uses five exact source-region shards of the
+# learning suite across each engine; part 5 also runs the exam suite once per
+# engine. This wrapper generates those files on demand, so local full-suite runs
+# do not depend on generated artifacts or change behavior.
 set -euo pipefail
 
 here="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -45,7 +52,33 @@ else
   echo "browser ($BROWSER_ENGINE): Playwright / @sparticuz/chromium fallback"
 fi
 
-suites=("tests/browser-learning.cjs" "tests/browser-exams.cjs")
+if [ "$#" -gt 0 ]; then
+  suites=("$@")
+elif [ -n "${PART:-}" ]; then
+  if [[ ! "$PART" =~ ^[1-5]$ ]]; then
+    echo "PART must be an integer from 1 to 5; received: $PART" >&2
+    exit 2
+  fi
+  node scripts/shard_browser_suite.mjs --write tests/.shards
+  suites=("tests/.shards/browser-learning.part${PART}.cjs")
+  # The full suite's five source regions cover all learning scenarios; the
+  # independent exam suite still runs once per engine, alongside the last part.
+  if [ "$PART" = "5" ]; then
+    suites+=("tests/browser-exams.cjs")
+  fi
+else
+  suites=("tests/browser-learning.cjs" "tests/browser-exams.cjs")
+fi
+
+# Every requested suite must exist: a typo in a CI matrix value must fail the
+# job, not silently run nothing and report success.
+for suite in "${suites[@]}"; do
+  if [ ! -f "$suite" ]; then
+    echo "no such browser suite: $suite" >&2
+    exit 1
+  fi
+done
+
 for suite in "${suites[@]}"; do
   echo "---- $suite ($BROWSER_ENGINE)"
   if [ "${GITHUB_ACTIONS:-}" = "true" ]; then
@@ -57,4 +90,4 @@ for suite in "${suites[@]}"; do
   fi
 done
 
-echo "both browser suites passed on $BROWSER_ENGINE, run sequentially"
+echo "browser suite(s) passed on $BROWSER_ENGINE: ${suites[*]}"

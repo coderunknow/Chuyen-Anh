@@ -7,7 +7,7 @@ const fs = require('node:fs');
 const http = require('node:http');
 const path = require('node:path');
 const playwright = require('playwright-core');
-
+const { withFreshWorldScenario } = require(path.join(__dirname, 'helpers/fresh_world.cjs'));
 async function launchSelectedBrowser() {
   const engineName = (process.env.BROWSER_ENGINE || 'chromium').toLowerCase();
   const browserType = playwright[engineName];
@@ -30,6 +30,52 @@ async function launchSelectedBrowser() {
   return { browser, engineName };
 }
 
+
+// Failure capture, kept at module scope so it can be reached from inside `main()`
+// *before* the `finally` block tears the browser down. Capturing from
+// `main().catch` was wrong: `finally` runs first, `browser.close()` closes every
+// page, and the screenshot then throws - the artifact would be empty exactly when
+// it is needed (CodeRabbit, PR #86).
+let failedPage = null;
+
+async function captureFailureScreenshot() {
+  const dir = process.env.BROWSER_SCREENSHOT_DIR;
+  if (!dir || !failedPage) return;
+  try {
+    fs.mkdirSync(dir, { recursive: true });
+    const engine = (process.env.BROWSER_ENGINE || 'chromium').toLowerCase();
+    await failedPage.screenshot({ path: path.join(dir, `learning-${engine}-failure.png`), fullPage: true });
+    console.error(`failure screenshot written to ${dir}`);
+  } catch (shotError) {
+    // A screenshot that cannot be taken must never mask the real failure.
+    console.error(`could not capture a failure screenshot: ${shotError.message}`);
+  }
+}
+
+// Phase timings. R9-20 established that the suite's total time drifts by minutes
+// between runs on identical code, and that a slow run could not say *which*
+// scenario was slow. This records a timestamp at every `// ---- ` scenario banner
+// and prints the deltas at the end, so a slow CI run is diagnosable from its log
+// alone. It is diagnostics only: it asserts nothing and changes no behaviour.
+const phaseTimings = [];
+let lastPhaseAt = Date.now();
+function markPhase(label) {
+  const now = Date.now();
+  phaseTimings.push({ label, ms: now - lastPhaseAt });
+  lastPhaseAt = now;
+}
+function reportPhaseTimings(engineLabel) {
+  const total = phaseTimings.reduce((sum, entry) => sum + entry.ms, 0);
+  const rows = [...phaseTimings].sort((a, b) => b.ms - a.ms);
+  const lines = [
+    `phase timings (${engineLabel}): ${phaseTimings.length} phases, ${(total / 1000).toFixed(1)}s instrumented`,
+    ...rows.map(entry => `  ${(entry.ms / 1000).toFixed(1).padStart(7)}s  ${entry.label}`)
+  ];
+  console.error(lines.join('\n'));
+  const out = process.env.BROWSER_PHASE_TIMINGS;
+  if (out) { try { fs.writeFileSync(out, lines.join('\n') + '\n'); } catch { /* diagnostics must never fail a run */ } }
+}
+
 async function main() {
   const html = fs.readFileSync(path.join(__dirname, '../index.html'));
   const server = http.createServer((_req, res) => {
@@ -43,6 +89,9 @@ async function main() {
     browser = launched.browser;
     const engineLabel = launched.engineName;
     const page = await browser.newPage({ viewport: { width: 1280, height: 900 }, reducedMotion: 'reduce' });
+    // The page a failure should be photographed from. Scenarios that open their
+    // own browser (freshWorld) reassign this while they run.
+    failedPage = page;
     const errors = [];
     page.on('pageerror', error => errors.push(error.message));
     // This suite was written against the whole vocabulary bank and mostly drives
@@ -102,6 +151,7 @@ async function main() {
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, 'the tablet breakpoint does not introduce horizontal overflow');
     await page.setViewportSize({ width: 1280, height: 900 });
 
+    markPhase("Timed practice: a real clock, unanswered questions are blank, not wrong.");
     // ---- Timed practice: a real clock, unanswered questions are blank, not wrong.
     // This runs on the real clock before the date is frozen for the date-sensitive
     // scenarios below; the minimum selectable limit is one minute, so the wait is
@@ -228,6 +278,7 @@ async function main() {
       if (await page.locator('#start-quiz').count()) await page.locator('#start-quiz').click();
     }
 
+    markPhase("\"Học cấp tốc\" is a learning method, not only a faster hand-off. Every");
     // ---- "Học cấp tốc" is a learning method, not only a faster hand-off. Every
     // configured word is asked at the retrieval level its record has earned and is
     // then checked once more after other cards. This drives the real app for ten
@@ -895,6 +946,7 @@ async function main() {
     assert.equal(continued.correctCount, 4, 'the stored counters keep growing from their old value');
     assert.equal(continued.wrongCount, 0);
 
+    markPhase("Searching \"advers\" and favoriting a result must not reset the view.");
     // ---- Searching "advers" and favoriting a result must not reset the view.
     await page.evaluate(() => localStorage.clear());
     await page.reload();
@@ -936,6 +988,7 @@ async function main() {
     assert.deepEqual(await read('favorites'), []);
     await page.locator('#clear-search').click();
 
+    markPhase("Reset and import end the running session instead of resurrecting it.");
     // ---- Reset and import end the running session instead of resurrecting it.
     await seed(['298', '2']);
     await page.locator('#start-quiz').click();
@@ -965,6 +1018,7 @@ async function main() {
     assert.equal(await page.locator('.flashcard').count(), 0, 'an imported bundle does not continue the previous session');
     assert.equal(importPrompt.length > 0, true);
 
+    markPhase("ID 448 shows its canonical meaning and labels the retained old wording.");
     // ---- ID 448 shows its canonical meaning and labels the retained old wording.
     await page.evaluate(() => {
       localStorage.clear();
@@ -1010,6 +1064,7 @@ async function main() {
     assert.ok(clozeFeedback.includes(menial.meaning));
     assert.match(clozeFeedback, /Nghĩa của phiên bản ứng dụng trước \(chỉ tham chiếu lịch sử; không phải nghĩa hiện tại\)/);
 
+    markPhase("The answer choices are a named button group, not a radio group.");
     // ---- The answer choices are a named button group, not a radio group.
     await page.evaluate(() => localStorage.clear());
     await page.reload();
@@ -1025,6 +1080,7 @@ async function main() {
       assert.ok(label.trim().length > 0, 'every option button has an accessible name');
     }
 
+    markPhase("Shortcuts belong to the visible card, not to a hidden session.");
     // ---- Shortcuts belong to the visible card, not to a hidden session.
     await seed(['298', '2']);
     await page.locator('#start-quiz').click();
@@ -1045,6 +1101,7 @@ async function main() {
     assert.equal(await page.locator('#next-card').count(), 0);
     assert.deepEqual(await page.evaluate(() => ({ ...localStorage })), storageBeforeShortcuts, 'the hidden card was not graded or rescheduled');
 
+    markPhase("A chord belongs to the browser, never to the card (review round 2).");
     // ---- A chord belongs to the browser, never to the card (review round 2).
     // This drives the *registered* document keydown handler with real key presses,
     // so a regression that stops calling acceptsShortcutKey() fails here even if the
@@ -1096,6 +1153,7 @@ async function main() {
     await page.locator('#reveal-correct').click();
     await next();
 
+    markPhase("A backup file round-trips: export → wipe → import → export preserves data.");
     // ---- A backup file round-trips: export → wipe → import → export preserves data.
     await page.evaluate(() => localStorage.clear());
     await page.reload();
@@ -1147,6 +1205,7 @@ async function main() {
     assert.match(await page.locator('.toast').innerText(), /không đúng phiên bản/);
     assert.deepEqual(await page.evaluate(() => ({ ...localStorage })), beforeWrongVersion, 'a refused import changes nothing');
 
+    markPhase("History keeps one retention window, so a roundTripBundle cannot drop sessions.");
     // ---- History keeps one retention window, so a roundTripBundle cannot drop sessions.
     const seededHistory = Array.from({ length: 50 }, (_, index) => ({
       date: new Date(Date.UTC(2026, 8, 1, 0, index)).toISOString(),
@@ -1186,6 +1245,7 @@ async function main() {
     assert.deepEqual(restoredHistory, retentionBundle.history);
 
 
+    markPhase("English interface: the note that explains a turn is interface copy and");
     // ---- English interface: the note that explains a turn is interface copy and
     // must be translated. Regression: it was rendered inside `.sub-prompt`, which
     // the localizer protects because it also carries prompt content, so an English
@@ -1254,6 +1314,7 @@ async function main() {
     await page.reload();
     await page.locator('[data-session="new"]').waitFor();
 
+    markPhase("Scope A (beta4 follow-up): the card-footer keyboard hints are interface");
     // ---- Scope A (beta4 follow-up): the card-footer keyboard hints are interface
     // copy, asserted as rendered behaviour on every turn kind. The static suite
     // checks the dictionary entries; this pins what the learner actually sees on
@@ -1332,6 +1393,7 @@ async function main() {
     await page.locator('#exit-session').click();
     await page.evaluate(() => localStorage.removeItem('chuyen-anh.language.v1'));
 
+    markPhase("Scope B (beta4 follow-up): the daily streak is written by first-pass");
     // ---- Scope B (beta4 follow-up): the daily streak is written by first-pass
     // CORRECT turns only (README L127: "Chuỗi ngày vẫn chỉ tính lượt trả lời
     // đúng ở lần đầu"), and a first-look introduction writes nothing. The static suite
@@ -1478,6 +1540,7 @@ async function main() {
     assert.equal(streakState.streak.current, 1, 'a skipped day resets the run before this answer');
 
 
+    markPhase("A blank spelling submission is not a graded attempt. (dev3 regression)");
     // ---- A blank spelling submission is not a graded attempt. (dev3 regression)
     async function seedSpellingCard() {
       await page.evaluate(() => {
@@ -1514,6 +1577,7 @@ async function main() {
       'a real submission still grades exactly once');
     await next();
 
+    markPhase("Self-assessment grades exactly once, even when activated twice. (dev3 regression)");
     // ---- Self-assessment grades exactly once, even when activated twice. (dev3 regression)
     await seedSpellingCard();
     await revealFromKeyboard();
@@ -1527,6 +1591,7 @@ async function main() {
     assert.equal(afterSelfGrade.streak, beforeSelfGrade.streak + 1, 'the streak advances once per graded turn');
     assert.equal(await page.locator('#next-card').count(), 1, 'one turn produces one feedback panel');
 
+    markPhase("A revealed card cannot be skipped past its self-assessment. (dev3 regression)");
     // ---- A revealed card cannot be skipped past its self-assessment. (dev3 regression)
     await seedSpellingCard();
     await revealFromKeyboard();
@@ -1538,6 +1603,7 @@ async function main() {
       { id: '298', state: 'learning', correctCount: 2, wrongCount: 0, streak: 2, lastReviewed: 0, nextReview: 0, interval: 1, ease: 2.5, difficulty: 0 },
       'revealing and locking writes nothing to progress');
 
+    markPhase("beta4 regressions (Scopes A, B, E, F) on live Chromium page before quota-failure scenario");
     // ---- beta4 regressions (Scopes A, B, E, F) on live Chromium page before quota-failure scenario
     {
       const netRequests = [];
@@ -1649,6 +1715,7 @@ async function main() {
     }
 
 
+    markPhase("beta5: the priority configuration, all seven exercise types, skipped");
     // ---- beta5: the priority configuration, all seven exercise types, skipped
     // questions, hard words, XP/badges and the v1 backup contract are exercised
     // through the interface, in the learner's own workflow.
@@ -1829,6 +1896,7 @@ async function main() {
     assert.equal(await page.locator('.flagged-row').count(), 0);
     assert.deepEqual(await page.evaluate(() => JSON.parse(localStorage.getItem('chuyen-anh.flagged.v1'))), []);
 
+    markPhase("A v1 file from an older build keeps this device's hard words and config.");
     // ---- A v1 file from an older build keeps this device's hard words and config.
     await page.evaluate(() => {
       localStorage.setItem('chuyen-anh.flagged.v1', JSON.stringify(['3']));
@@ -1854,6 +1922,7 @@ async function main() {
     assert.equal(await page.evaluate(() => localStorage.getItem('chuyen-anh.study.v1')), studyBeforeV1,
       'a v1 backup does not reset the study configuration');
 
+    markPhase("Every new interface string is translated in the English interface.");
     // ---- Every new interface string is translated in the English interface.
     await page.evaluate(() => { localStorage.setItem('chuyen-anh.language.v1', 'en'); });
     await page.reload();
@@ -1888,6 +1957,7 @@ async function main() {
     await page.reload();
     await page.locator('[data-session="priority"]').waitFor();
 
+    markPhase("beta6: a session always opens where the learner can see it, the XP a");
     // ---- beta6: a session always opens where the learner can see it, the XP a
     // summary reports is the XP that session earned, a typed answer survives the
     // star/flag toggles, sprints honour the timer, and a start that cannot run
@@ -2048,7 +2118,9 @@ async function main() {
       'a new session starts with no pending list from the previous one');
     await page.locator('#exit-session').click();
 
+    markPhase("A failed device write is reported, never replaced by a success message.");
     // ---- A failed device write is reported, never replaced by a success message.
+    markPhase("beta7: the phrase bank browses, searches, filters and practises on its");
     // ---- beta7: the phrase bank browses, searches, filters and practises on its
     // own storage key; word progress must be untouched by any of it.
     await page.evaluate(() => localStorage.clear());
@@ -2165,6 +2237,7 @@ async function main() {
     assert.deepEqual(await page.evaluate(() => JSON.parse(localStorage.getItem('chuyen-anh.phrases.v1') || '{}')), {},
       'reset clears phrase progress');
 
+    markPhase("RC2: a matching board introduces new words first, changing the left");
     // ---- RC2: a matching board introduces new words first, changing the left
     // selection never grades, and the four-option exercise is selectable.
     await page.evaluate(() => {
@@ -2261,6 +2334,7 @@ async function main() {
     await page.reload();
     await page.locator('[data-session="priority"]').waitFor();
 
+    markPhase("RC2 remediation regressions: RT-01 / RT-07 ----");
     // ---- RC2 remediation regressions: RT-01 / RT-07 ----
     // Each scenario runs in its own freshly launched browser: in this
     // environment closing a context tears down its single-process browser, so
@@ -2272,12 +2346,14 @@ async function main() {
       exercises: { mc_en_vi: true, mc_vi_en: false, mc4: false, fill_vi: false, fill_en: false, cloze: false, match: false, flashcard: false },
       size: 10, timed: false, timerMinutes: 1
     };
-    const freshWorld = async () => {
+    const runFreshWorldScenario = scenario => withFreshWorldScenario(async () => {
       const { browser: ownBrowser } = await launchSelectedBrowser();
       const ownErrors = [];
       const ownContext = await ownBrowser.newContext();
       const openTab = async () => {
         const page = await ownContext.newPage();
+        // The scenario's own tab is what a failure here should photograph.
+        failedPage = page;
         page.on('pageerror', error => ownErrors.push(error.message));
         await page.goto(origin);
         // The first navigation can settle a beat after goto resolves in this
@@ -2343,12 +2419,11 @@ async function main() {
         } catch { return null; }
       }, id);
       return { ownBrowser, ownContext, ownErrors, openTab, seedRace, startRaceSession, gradeRace, raceRec };
-    };
+    }, scenario, captureFailureScreenshot);
 
     // RT-01 core: B skips id2, A grades id2, B grades id3 — id2 must survive.
     {
-      const world = await freshWorld();
-      try {
+      await runFreshWorldScenario(async world => {
         const tabA = await world.openTab();
         await world.seedRace(tabA);
         const tabB = await world.openTab();
@@ -2370,15 +2445,12 @@ async function main() {
         assert.deepEqual(await world.raceRec(tabA, '2'), { state: 'learning', correct: 1, wrong: 0 },
           'a reload keeps the other tab\'s grade instead of reverting to the boot snapshot (RT-01)');
         assert.deepEqual(world.ownErrors, [], 'RT-01 core ran without page errors');
-      } finally {
-        await world.ownBrowser.close().catch(() => null);
-      }
+      });
     }
 
     // RT-01 sameid: both tabs grade id2 (correct, then wrong) — counts accumulate.
     {
-      const world = await freshWorld();
-      try {
+      await runFreshWorldScenario(async world => {
         const tabA = await world.openTab();
         await world.seedRace(tabA);
         const tabB = await world.openTab();
@@ -2392,15 +2464,12 @@ async function main() {
         assert.equal(rec.correct, 1, 'the correct answer from the other tab is kept (RT-01 sameid)');
         assert.equal(rec.wrong, 1, 'the wrong answer of this tab is added, not substituted (RT-01 sameid)');
         assert.deepEqual(world.ownErrors, [], 'RT-01 sameid ran without page errors');
-      } finally {
-        await world.ownBrowser.close().catch(() => null);
-      }
+      });
     }
 
     // RT-01 reset: a wipe in one tab must not be resurrected by the other tab.
     {
-      const world = await freshWorld();
-      try {
+      await runFreshWorldScenario(async world => {
         const tabA = await world.openTab();
         await world.seedRace(tabA);
         const tabB = await world.openTab();
@@ -2423,16 +2492,13 @@ async function main() {
         assert.deepEqual(await world.raceRec(tabA, '3'), { state: 'learning', correct: 1, wrong: 0 },
           'the post-wipe grade is recorded normally');
         assert.deepEqual(world.ownErrors, [], 'RT-01 reset ran without page errors');
-      } finally {
-        await world.ownBrowser.close().catch(() => null);
-      }
+      });
     }
 
     // RT-07: a restore that cannot fit must fail before any key changes, report
     // honestly, and fully succeed once space is freed.
     {
-      const world = await freshWorld();
-      try {
+      await runFreshWorldScenario(async world => {
         const quota = await world.openTab();
         const quotaBundle = await quota.evaluate(() => {
           const ids = JSON.parse(document.getElementById('vocabulary-data').textContent)
@@ -2520,18 +2586,16 @@ async function main() {
         assert.equal(quotaFinal.id2, 'learning/7', 'the retry stores the imported progress');
         assert.equal(quotaFinal.phrases, 1094, 'the retry stores all 1094 phrase records (no silent loss)');
         assert.deepEqual(world.ownErrors, [], 'RT-07 ran without page errors');
-      } finally {
-        await world.ownBrowser.close().catch(() => null);
-      }
+      });
     }
 
+    markPhase("RC2 remediation regression: RT-04 first-pass-correct streak ----");
     // ---- RC2 remediation regression: RT-04 first-pass-correct streak ----
     // README: "Chuỗi ngày vẫn chỉ tính lượt trả lời đúng ở lần đầu." A wrong
     // first answer — typed, chosen, self-assessed, or a failed match claim —
     // must never extend the day streak; the next first-pass correct answer must.
     {
-      const world = await freshWorld();
-      try {
+      await runFreshWorldScenario(async world => {
         const page = await world.openTab();
         const seedStreak = () => page.evaluate(() => {
           const yesterday = new Date();
@@ -2660,16 +2724,13 @@ async function main() {
         streak = await readStreak();
         assert.equal(streak.current, 2, 'a self-assessed correct first pass extends the streak');
         assert.deepEqual(world.ownErrors, [], 'RT-04 card scenarios ran without page errors');
-      } finally {
-        await world.ownBrowser.close().catch(() => null);
-      }
+      });
     }
 
     // A failed match claim resolved later must not extend the streak either;
     // the next clean first-pass pair must.
     {
-      const world = await freshWorld();
-      try {
+      await runFreshWorldScenario(async world => {
         const page = await world.openTab();
         await page.evaluate(() => {
           const yesterday = new Date();
@@ -2716,19 +2777,17 @@ async function main() {
         streak = await streakNow();
         assert.equal(streak.current, 2, 'a clean first-pass match extends the streak');
         assert.deepEqual(world.ownErrors, [], 'RT-04 match scenario ran without page errors');
-      } finally {
-        await world.ownBrowser.close().catch(() => null);
-      }
+      });
     }
 
+    markPhase("RC2 remediation regression: RT-08 skipped cards are counted once ----");
     // ---- RC2 remediation regression: RT-08 skipped cards are counted once ----
     // README: a skipped turn stays pending and expiry reports blanks without
     // miscounting. A skip must not add a phantom blank at expiry, and a
     // practice turn that was skipped and then answered must not be reported
     // as unanswered when the session ends normally.
     {
-      const world = await freshWorld();
-      try {
+      await runFreshWorldScenario(async world => {
         const page = await world.openTab();
         await page.evaluate(() => {
           localStorage.clear();
@@ -2760,14 +2819,11 @@ async function main() {
         assert.match(summary, /3\s*\n?\s*Bỏ trống/,
           `RT-08: three cards pending means three blanks, skip included (saw: ${summary.replace(/\n/g, ' | ')})`);
         assert.deepEqual(world.ownErrors, [], 'RT-08 expiry ran without page errors');
-      } finally {
-        await world.ownBrowser.close().catch(() => null);
-      }
+      });
     }
 
     {
-      const world = await freshWorld();
-      try {
+      await runFreshWorldScenario(async world => {
         const page = await world.openTab();
         await page.evaluate(() => {
           localStorage.clear();
@@ -2853,34 +2909,65 @@ async function main() {
         assert.match(summary, /0\s*\n?\s*Bỏ trống/,
           `RT-08: every word was graded, so nothing may be reported as blank (saw: ${summary.replace(/\n/g, ' | ')})`);
         assert.deepEqual(world.ownErrors, [], 'RT-08 practice-skip ran without page errors');
-      } finally {
-        await world.ownBrowser.close().catch(() => null);
-      }
+      });
     }
 
-    // ---- RT-03: label-in-name and WCAG AA contrast, light and dark.
+    markPhase("RT-03: WCAG 2.1 A/AA, light and dark, on every view.");
+    // ---- RT-03: WCAG 2.1 A/AA, light and dark, on every view.
     // RC2 flagged a label mismatch on the brand/export controls (their
     // accessible names hid the visible text) and 2.77:1 locked-badge text.
+    //
+    // Round 9 (R9-22): this used to run only two rules
+    // (`label-content-name-mismatch`, `color-contrast`), so "axe clean" meant
+    // "two rules clean" - an unlabelled icon button or an empty table header
+    // elsewhere on the page could not fail it. It now runs the full normative
+    // WCAG 2.1 A/AA rule set on all six views, which is what the evidence
+    // documents claim. A positive control runs first so a broken probe cannot
+    // read as a pass: the same runner must report three known-bad nodes.
     {
       const axeSource = fs.readFileSync(require.resolve('axe-core/axe.min.js'), 'utf8');
+      const WCAG = { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'] };
+      const runAxe = () => page.evaluate(async (runOnly) => {
+        const result = await axe.run(document, { runOnly, resultTypes: ['violations'] });
+        return result.violations.map(v => ({
+          id: v.id,
+          impact: v.impact,
+          nodes: v.nodes.map(n => n.target.join(' ')).slice(0, 6)
+        }));
+      }, WCAG);
       const audit = async (label) => {
         await page.evaluate(axeSource);
-        const violations = await page.evaluate(async () => {
-          const result = await axe.run(document, {
-            runOnly: ['label-content-name-mismatch', 'color-contrast'],
-            resultTypes: ['violations']
-          });
-          return result.violations.map(v => ({
-            id: v.id,
-            nodes: v.nodes.map(n => n.target.join(' ')).slice(0, 6)
-          }));
-        });
+        const violations = await runAxe();
         assert.deepEqual(violations, [], `RT-03 ${label}: ${JSON.stringify(violations)}`);
       };
-      await audit('learn (light)');
-      await page.locator('button[data-view="dashboard"]').click();
-      await page.waitForSelector('.badge');
-      await audit('dashboard badges (light)');
+
+      // Positive control: inject three defects axe must find. If this does not
+      // fail, the probe or the axe build is broken and every audit below is
+      // meaningless - so the assertion is on the control, not on the app.
+      await page.evaluate(axeSource);
+      const control = await page.evaluate(async (runOnly) => {
+        const box = document.createElement('div');
+        box.id = 'rt03-positive-control';
+        box.innerHTML = '<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">'
+          + '<p style="color:#eeeeee;background-color:#ffffff;font-size:14px">contrast control</p>'
+          + '<button><svg width="16" height="16"><rect width="16" height="16"/></svg></button>';
+        document.querySelector('main').appendChild(box);
+        const result = await axe.run(box, { runOnly, resultTypes: ['violations'] });
+        box.remove();
+        return result.violations.map(v => v.id).sort();
+      }, WCAG);
+      for (const expected of ['button-name', 'color-contrast', 'image-alt']) {
+        assert.ok(control.includes(expected),
+          `RT-03 positive control: axe did not report ${expected} on known-bad markup (saw ${control.join(',') || 'nothing'}) - the audit below would be vacuous`);
+      }
+
+      for (const view of ['learn', 'dashboard', 'search', 'phrases', 'exams', 'settings']) {
+        await page.locator(`button[data-view="${view}"]`).click();
+        await page.waitForTimeout(250);
+        await audit(`${view} (light)`);
+      }
+      await page.locator('button[data-view="learn"]').click();
+      await page.waitForSelector('#brand-link');
       await page.evaluate(() => {
         const prefs = JSON.parse(localStorage.getItem('chuyen-anh.prefs.v1') || '{}');
         prefs.darkMode = true;
@@ -2888,15 +2975,120 @@ async function main() {
       });
       await page.reload();
       await page.waitForSelector('#brand-link');
-      await audit('learn (dark)');
-      await page.locator('button[data-view="dashboard"]').click();
-      await page.waitForSelector('.badge');
-      await audit('dashboard badges (dark)');
+      for (const view of ['learn', 'dashboard', 'search', 'phrases', 'exams', 'settings']) {
+        await page.locator(`button[data-view="${view}"]`).click();
+        await page.waitForTimeout(250);
+        await audit(`${view} (dark)`);
+      }
+
+      markPhase("R9-23: the contrast axe cannot decide.");
+      // ---- R9-23: the contrast axe cannot decide.
+      // axe returns `incomplete` (not a violation) whenever a backdrop is a
+      // gradient or a translucent chip, which in this app is exactly where the
+      // fragile colour pairs live: white text on the primary gradient, and the
+      // translucent count pill on top of it. R9-23 was found this way and axe
+      // would never have reported it. Recompute those pairs from the computed
+      // styles: take every gradient stop and every tinted layer, composite them,
+      // and require AA at the element's own size threshold.
+      const contrastOf = async () => page.evaluate(() => {
+        const parse = value => {
+          const parts = (String(value).match(/-?[\d.]+/g) || []).map(Number);
+          if (parts.length < 3) return null;
+          // `color(srgb 0.29 0.26 0.87 / 0.1)` is 0..1, `rgb(36,71,200)` is 0..255
+          const unit = String(value).includes('.') && parts[0] <= 1.001 && parts[1] <= 1.001;
+          const scale = unit ? 255 : 1;
+          return { r: parts[0] * scale, g: parts[1] * scale, b: parts[2] * scale,
+            a: parts.length > 3 ? parts[3] : 1 };
+        };
+        const lum = c => {
+          const f = v => { v /= 255; return v <= 0.04045 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
+          return 0.2126 * f(c.r) + 0.7152 * f(c.g) + 0.0722 * f(c.b);
+        };
+        const ratio = (a, b) => {
+          const hi = Math.max(lum(a), lum(b)), lo = Math.min(lum(a), lum(b));
+          return (hi + 0.05) / (lo + 0.05);
+        };
+        const over = (top, bottom) => ({
+          r: top.r * top.a + bottom.r * (1 - top.a),
+          g: top.g * top.a + bottom.g * (1 - top.a),
+          b: top.b * top.a + bottom.b * (1 - top.a)
+        });
+        const stopsOf = value => {
+          const found = String(value).match(/(?:rgba?\([^)]*\)|color\(srgb [^)]*\))/g);
+          return found ? found.map(parse).filter(Boolean) : [];
+        };
+        const probe = (selector, needed) => {
+          const el = document.querySelector(selector);
+          if (!el) return { selector, missing: true };
+          const cs = getComputedStyle(el);
+          const fg = parse(cs.color);
+          const ownStops = stopsOf(cs.backgroundImage);
+          const ownColor = parse(cs.backgroundColor);
+          let backgrounds;
+          if (ownStops.length) {
+            // The element paints its own gradient (e.g. the sprint badge); the
+            // translucent layer beneath it, if any, is the page behind that.
+            backgrounds = ownStops;
+          } else if (ownColor && ownColor.a >= 1) {
+            backgrounds = [ownColor];
+          } else {
+            // A translucent chip (the nav count pill) sits on the PARENT's
+            // gradient, not on the page background.
+            const host = el.parentElement;
+            const hostCs = host ? getComputedStyle(host) : null;
+            const hostStops = hostCs ? stopsOf(hostCs.backgroundImage) : [];
+            const bases = hostStops.length ? hostStops
+              : hostCs && parse(hostCs.backgroundColor) ? [parse(hostCs.backgroundColor)]
+              : [parse(getComputedStyle(document.documentElement).backgroundColor)];
+            backgrounds = ownColor && ownColor.a > 0
+              ? bases.filter(Boolean).map(base => over(ownColor, base))
+              : bases.filter(Boolean);
+          }
+          const worst = Math.min(...backgrounds.map(bg => ratio(fg, bg)));
+          return { selector, needed, worst: Number(worst.toFixed(2)), pass: worst >= needed };
+        };
+        return [
+          // 10.9px / 14.4px white-on-readable: 4.5:1
+          probe('.sprint-badge', 4.5),
+          probe('.nav-button.active .nav-count', 4.5)
+        ];
+      });
+      // The badge lives on the learn view; the loop above ended on settings.
+      // Set the theme explicitly for each label and assert it took effect: an
+      // earlier version of this loop inherited whatever theme the previous block
+      // left behind and silently audited dark twice under a "light" label.
+      for (const themeLabel of ['light', 'dark']) {
+        await page.evaluate(label => {
+          localStorage.setItem('chuyen-anh.theme.v1', label);
+        }, themeLabel);
+        await page.reload();
+        await page.waitForSelector('#brand-link');
+        assert.equal(await page.evaluate(() => document.documentElement.dataset.theme), themeLabel,
+          `R9-23: wanted to audit the ${themeLabel} theme but the app resolved a different one`);
+        await page.locator('button[data-view="learn"]').click();
+        await page.waitForSelector('.sprint-badge');
+        const results = await contrastOf();
+        for (const result of results) {
+          assert.ok(!result.missing, `R9-23 ${themeLabel}: ${result.selector} not found`);
+          assert.ok(result.worst >= result.needed,
+            `R9-23 ${themeLabel}: ${result.selector} contrast ${result.worst}:1, needs ${result.needed}:1 (axe cannot see this: the backdrop is a gradient or a translucent chip)`);
+        }
+      }
+      // Return to light for the rest of the suite.
+      await page.evaluate(() => {
+        const prefs = JSON.parse(localStorage.getItem('chuyen-anh.prefs.v1') || '{}');
+        prefs.darkMode = false;
+        localStorage.setItem('chuyen-anh.prefs.v1', JSON.stringify(prefs));
+        localStorage.setItem('chuyen-anh.theme.v1', 'light');
+      });
+      await page.reload();
+      await page.waitForSelector('#brand-link');
       await page.evaluate(() => localStorage.removeItem('chuyen-anh.prefs.v1'));
       await page.reload();
       await page.waitForSelector('#brand-link');
     }
 
+    markPhase("Curation: an archived row stays findable and labelled, but it is not");
     // ---- Curation: an archived row stays findable and labelled, but it is not
     // part of the learning deck, so it offers no favourite toggle and cannot be
     // queued into a session.
@@ -2915,6 +3107,7 @@ async function main() {
     assert.match(await page.locator('.brand-detail').innerText(), /6\.841 từ trọng tâm/,
       'the shell counts the focus deck, not every stored row');
 
+    markPhase("About: name, real version, licence from LICENSE and a short purpose.");
     // ---- About: name, real version, licence from LICENSE and a short purpose.
     await page.locator('[data-view="settings"]').click();
     const about = page.locator('.about-panel');
@@ -2931,6 +3124,7 @@ async function main() {
     assert.equal(await page.locator('.skip-link').getAttribute('href'), '#content',
       'keyboard users can skip the chrome');
 
+    markPhase("Diagnostics log: off by default, opt-in, downloadable, and erased when");
     // ---- Diagnostics log: off by default, opt-in, downloadable, and erased when
     // consent is withdrawn. The application must also make no network request
     // while the switch is used, and the downloaded file must not carry learner text.
@@ -3055,6 +3249,7 @@ async function main() {
     assert.deepEqual(failingErrors, []);
     await failing.close();
 
+    markPhase("rc5: \"only after answering\" deletes the preview stage; it does not mask it.");
     // ---- rc5: "only after answering" deletes the preview stage; it does not mask it.
     // A separate page keeps the scenarios above untouched. The device starts empty,
     // the preference is chosen in Settings, and every visible surface is checked for
@@ -3065,6 +3260,7 @@ async function main() {
     await browser.close();
     browser = (await launchSelectedBrowser()).browser;
     const rc5 = await browser.newPage({ viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' });
+    failedPage = rc5;
     const rc5Errors = [];
     rc5.on('pageerror', error => rc5Errors.push(error.message));
     await rc5.goto(`http://127.0.0.1:${server.address().port}`);
@@ -3153,6 +3349,7 @@ async function main() {
       'the introduction carries the real Vietnamese gloss');
     assert.equal(await rc5.locator('[data-reveal-meaning], [data-reveal-phrase]').count(), 0,
       'no per-word reveal control exists in either mode');
+    markPhase("rc7: a gloss that quotes its own headword never prints the answer");
     // ---- rc7: a gloss that quotes its own headword never prints the answer
     // inside the question. Record 453 "Derive" is glossed "bắt nguồn từ
     // (derive from); thu được, rút ra (derive sth from)": before rc7 the
@@ -3201,10 +3398,20 @@ async function main() {
 
 
     assert.deepEqual(errors, []);
+    reportPhaseTimings(engineLabel);
+
     console.log(`PASS: ${engineLabel} ${browser.version()} — first-look introduction for new words, same-part-of-speech distractors, cloze options absent from the sentence, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, 320/375/768px responsive layout, reduced-motion setting, search state across a favorite toggle, session clearing on reset/import, the ID 448 historical label, named option groups, shortcuts limited to the visible card, failed writes reported truthfully, JSON backup round-trips that keep every retained session, blank spelling submissions ignored, single-graded self-assessment, skip locked after a reveal, and 'Học cấp tốc' processing all ten requested words with a truthful single correction, automatic advance only after correct answers, accurate first-pass statistics, persisted progress, an immediate hand-off with the graded answer carried onto the next card, a queue that never shifts while another screen is open, and interface copy on a consolidation turn translated in the English interface; the beta5 priority configuration with all eight exercise types, a matching board driven from the keyboard, a skipped question reopened from the pending list, a hard word marked and unmarked, a real one-minute timed session that ends on its results with unanswered questions reported as blank, a v1 backup that keeps the device hard-word list, English rendering of every new screen, and the beta6 regressions: a priority session started from Settings opens where the learner can see it, a classic session reports only its own XP, a typed answer survives the star/flag toggles, a sprint honours the timer, a start that cannot run explains itself, a new session inherits no skipped questions, and the beta7 phrase bank: 1,094 phrases browsed, searched, filtered by type and level, practised for ten turns with typed and multiple-choice retrieval recorded in its own store while word progress stayed byte-identical, English rendering of the phrase screens, and a reset that clears phrase progress; the RC2 remediation regressions: two-tab grades surviving cross-tab writes with wipes never resurrected, an over-quota restore failing atomically with a truthful error then recovering fully once space is freed, the day streak moving only on first-pass correct answers — typed, chosen, self-assessed, and match resolutions alike — and skipped cards counted exactly once, at expiry and in a finished session; the curation release: an archived word marked in Tra cứu with no favourite toggle and a 1.271-row archived scope, every count driven by the 6,841-word focus deck, and an About panel stating the real version and the MIT licence read from LICENSE; the opt-in diagnostics log: off by default with no key on a device that never consented, a timestamped consent record, boot/settings/search events with no search text inside them, a downloaded report that names what it omits and carries no user agent, erasure on withdrawal; the rc7 answer-leakage regression: a gloss quoting its own headword is masked in the pre-answer prompt and printed in full only in feedback; no page errors.`);
+  } catch (error) {
+    // Capture first: the `finally` below closes the browser, and a closed browser
+    // cannot take a screenshot. Rethrowing keeps the exit code and the message.
+    await captureFailureScreenshot();
+    throw error;
   } finally {
     if (browser) await browser.close();
     await new Promise(resolve => server.close(resolve));
   }
 }
-main().catch(error => { console.error(error); process.exitCode = 1; });
+main().catch(error => {
+  console.error(error);
+  process.exitCode = 1;
+});

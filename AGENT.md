@@ -33,6 +33,8 @@ python scripts/validate_vocab.py
 python scripts/embed_vocabulary.py --check
 python -m unittest discover -s tests -p 'test_*.py'
 node --test tests/static-app.test.js
+node scripts/shard_browser_suite.mjs --check
+node --test tests/shard-browser-suite.test.mjs tests/fresh-world-failure.test.cjs
 ```
 
 `node` is used by CI and the deploy workflow for dependency-free app-logic tests; production has no frontend bundler or npm build. `.github/workflows/deploy.yml` checks source/JSON/HTML synchronization and runs the Python and Node tests before staging and publishing only `index.html` to GitHub Pages. Consult `README.md` and the relevant workflow before changing these steps.

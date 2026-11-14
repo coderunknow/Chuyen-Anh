@@ -121,21 +121,28 @@ class AuditDocumentCountTests(unittest.TestCase):
                          "the Node row's PASS total must be the sum of its per-suite counts")
 
     def test_the_changelog_totals_agree_with_the_checklist_and_their_own_parts(self) -> None:
-        """The unreleased section quoted `237 OK` / `214 pass` long after the suite had grown."""
+        """Read the PR #86 follow-up block, not a later unrelated total in the changelog.
+
+        Searching the whole unreleased section let the stale Round 9 figures pass
+        because the test found a matching count in a later entry instead.
+        """
         text = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
         current = text.split("\n## v1.0.0-rc10", 1)[0]
+        follow_up_heading = "### PR #86 follow-up — exact-once learning-suite sharding (candidate only)"
+        self.assertIn(follow_up_heading, current, "the current PR #86 verification section must exist")
+        follow_up = current.split(follow_up_heading, 1)[1].split("\n### Round 8 —", 1)[0]
         checklist = (ROOT / "audit" / "v100" / "FINAL_READINESS_CHECKLIST.md").read_text(encoding="utf-8")
         row = next((line for line in checklist.splitlines()
                     if "test_archive.py" in line and "unit tests" in line), None)
         self.assertIsNotNone(row, "the checklist must keep a Python test-suite row")
         expected_python = int(re.search(r"`(\d+)` unit tests", row).group(1))
-        stated_python = re.search(r"`unittest` \*\*(\d+) OK\*\*", current)
-        self.assertIsNotNone(stated_python, "the current section must state the Python total")
+        stated_python = re.search(r"`unittest` \*\*(\d+) OK\*\*", follow_up)
+        self.assertIsNotNone(stated_python, "the PR #86 follow-up section must state the Python total")
         self.assertEqual(expected_python, int(stated_python.group(1)),
-                         "the changelog states a Python total the checklist does not")
-        node_line = next((line for line in current.splitlines()
+                         "the PR #86 changelog states a Python total the checklist does not")
+        node_line = next((line for line in follow_up.splitlines()
                           if "pass / 0 fail" in line and "Node" in line), None)
-        self.assertIsNotNone(node_line, "the current section must state the Node total")
+        self.assertIsNotNone(node_line, "the PR #86 follow-up section must state the Node total")
         stated_node = int(re.search(r"\*\*(\d+) pass / 0 fail\*\*", node_line).group(1))
         parts = [int(number.replace(",", "")) for number in re.findall(r"`([\d,]+)`", node_line)]
         self.assertGreater(len(parts), 5, "the changelog must list each Node suite's count")

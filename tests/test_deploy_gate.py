@@ -196,8 +196,17 @@ class DeployWorkflowContractTests(unittest.TestCase):
         self.assertIn('DEPLOY_HOLD', text)
         self.assertIn('.github/workflows/release-artifacts.yml', text)
         self.assertIn('.github/workflows/release-published-dispatch.yml', text)
-        self.assertEqual(text.count('.github/workflows/release-published-dispatch.yml'), 2,
-                         'both pull_request and push filters must cover the dispatcher')
+        # The requirement is that *both* triggers cover the dispatcher, not that the
+        # path is typed twice: Round 9 replaced the duplicated `push:` list with an
+        # alias of the `pull_request` list (`paths: *ci-paths`), so the path is now
+        # written once and both triggers share it. Asserting a count of two would
+        # force the duplication back — the drift this alias removes.
+        self.assertEqual(text.count('.github/workflows/release-published-dispatch.yml'), 1,
+                         'the dispatcher path must be listed exactly once, in the shared filter')
+        shared = 'paths: *ci-paths' in text
+        self.assertTrue(shared or text.count('.github/workflows/release-published-dispatch.yml') == 2,
+                        'both pull_request and push filters must cover the dispatcher: '
+                        'either share one filter by alias, or list the path in both')
 
 
 
@@ -305,11 +314,36 @@ class WorkflowTimeoutAndHoldPathsContractTests(unittest.TestCase):
 
     @staticmethod
     def paths_blocks(text):
+        """Every `paths:` filter, including an aliased one.
+
+        A block written as `paths: *ci-paths` is a filter like any other: it just
+        takes its entries from the anchor. It used to be skipped entirely, because
+        the scan only understood the inline `- "…"` form, so aliasing a list made
+        this test stop checking the most important filter in the file.
+        """
         blocks = []
         lines = text.splitlines()
         index = 0
         while index < len(lines):
-            if lines[index].rstrip().endswith('paths:'):
+            stripped = lines[index].strip()
+            alias = re.match(r'paths:\s*\*([\w-]+)\s*$', stripped)
+            if alias:
+                name = alias.group(1)
+                start = next((i for i, line in enumerate(lines)
+                              if line.strip().startswith(f'paths: &{name}')), None)
+                if start is not None:
+                    block = []
+                    for line in lines[start + 1:]:
+                        if line.strip() == '' or line.strip().startswith('#'):
+                            continue
+                        if line.startswith('      - '):
+                            block.append(line)
+                        else:
+                            break
+                    blocks.append('\n'.join(block))
+                index += 1
+                continue
+            if stripped.endswith('paths:'):
                 index += 1
                 block = []
                 while index < len(lines) and (

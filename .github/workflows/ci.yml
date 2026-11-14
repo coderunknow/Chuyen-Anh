@@ -35,6 +35,7 @@ on:
       - "docs/vocabulary-sources.json"
       - "scripts/exams/**"
       - "scripts/release_artifacts.py"
+      - "scripts/shard_browser_suite.mjs"
       - "scripts/deploy_gate.py"
       - "scripts/app_release_gate.py"
       - "tests/test_app_release_gate.py"
@@ -74,6 +75,11 @@ on:
       - "De-chuyen-Anh-vao-10/**"
       - "tests/**"
       - "audit/v100/refs/**"
+      - "audit/v100/DEFECTS.md"
+      - "audit/v100/GATES.md"
+      - "audit/v100/FINAL_READINESS.md"
+      - "audit/v100/FINAL_READINESS_CHECKLIST.md"
+      - "audit-evidence/round9/actions/OPTIMIZATION_REPORT.md"
       - "api/**"
       - "app.js"
       - "vercel.json"
@@ -82,88 +88,18 @@ on:
       - ".github/workflows/deploy.yml"
       - ".github/workflows/release-artifacts.yml"
       - ".github/workflows/release-published-dispatch.yml"
+      - ".github/workflows/exam-sources.yml"
+      - ".github/workflows/exam-validation.yml"
+      - ".github/workflows/pages-smoke.yml"
+      - ".github/workflows/telemetry-smoke.yml"
       - "DEPLOY_HOLD"
   push:
     branches: [main]
-    paths:
-      - "index.html"
-      - "Learned_Vocabulary_List.md"
-      - "Learned_Phrase_List.md"
-      - "data/**"
-      - "scripts/build_vocabulary.py"
-      - "scripts/embed_vocabulary.py"
-      - "scripts/learned_vocabulary.py"
-      - "scripts/validate_vocab.py"
-      - "scripts/build_senses.py"
-      - "scripts/cefr_senses.py"
-      - "docs/sense-gloss-mappings.json"
-      - "scripts/sense_integrity_audit.py"
-      - "scripts/audit_sense_sources.py"
-      - "audit/v100/evidence/source-locator-review.json"
-      - "audit/v100/evidence/sense-integrity-review-queue.json"
-      - "scripts/cefr_editorial_map.py"
-      - "scripts/migrate_senses.py"
-      - "scripts/audit_learned_vocab.py"
-      - "scripts/expand_vocabulary.py"
-      - "scripts/vocabulary_families.py"
-      - "docs/vocabulary-families.json"
-      - "scripts/phrase_bank.py"
-      - "scripts/build_phrases.py"
-      - "scripts/validate_phrases.py"
-      - "scripts/embed_phrases.py"
-      - "scripts/rc4_vocabulary_audit.py"
-      - "docs/vocabulary-sources.json"
-      - "scripts/exams/**"
-      - "scripts/release_artifacts.py"
-      - "scripts/deploy_gate.py"
-      - "scripts/app_release_gate.py"
-      - "tests/test_app_release_gate.py"
-      - "docs/vocabulary-300-*.json"
-      - "docs/vocabulary-300-review.md"
-      - "docs/vocabulary-audit-dev*.json"
-      - "docs/vocabulary-audit-dev*.md"
-      - "docs/rc4-vocabulary-audit.*"
-      - "docs/EXAM_AUDIT_LEDGER.md"
-      - "docs/RC8_*.md"
-      - "scripts/generate_vocab_audit_dev*.py"
-      - "scripts/vocabulary_curation.py"
-      - "scripts/vocabulary_evidence_review.py"
-      - "scripts/vocabulary_cefr_review.py"
-      - "docs/vocabulary-cefr-review.*"
-      - "docs/exam-anomaly-classification.*"
-      - "scripts/audit_vocabulary_quality.py"
-      - "scripts/audit_exam_provenance.py"
-      - "scripts/vocab_sources.py"
-      - "docs/vocabulary-curation.json"
-      - "docs/vocabulary-quality-audit.*"
-      - "docs/vocabulary-evidence-review.*"
-      - "docs/exam-provenance-audit.*"
-      - "docs/exam-scoring-audit.*"
-      - "docs/exam-rendering-audit.*"
-      - "scripts/exams/audit_rendering.mjs"
-      - "data/exam-answer-keys.json"
-      - "docs/exam-crosschecks.json"
-      - "tests/run-browser-suites.sh"
-      - "README.md"
-      - "CHANGELOG.md"
-      - "PRIVACY.md"
-      - "SECURITY.md"
-      - "THIRD_PARTY_NOTICES.md"
-      - "DESIGN_LOG.md"
-      - "AGENTS_LOG.md"
-      - "De-chuyen-Anh-vao-10/**"
-      - "tests/**"
-      - "audit/v100/refs/**"
-      - "api/**"
-      - "app.js"
-      - "vercel.json"
-      - "supabase/**"
-      - ".github/workflows/ci.yml"
-      - ".github/workflows/deploy.yml"
-      - ".github/workflows/release-artifacts.yml"
-      - ".github/workflows/release-published-dispatch.yml"
-      - "DEPLOY_HOLD"
-
+    # Same list as the pull request trigger, by reference: the two used to be
+    # 77 byte-identical lines, so adding a path to one silently left the other
+    # stale. YAML anchors must name their target to work - the anchor was
+    # declared and then re-typed, which is not an alias.
+    paths: *ci-paths
 concurrency:
   group: static-checks-${{ github.ref }}
   cancel-in-progress: true
@@ -228,25 +164,36 @@ jobs:
       - name: Run static app logic, scoring and single-file tests
         run: node --trace-deprecation --test tests/static-app.test.js tests/exam-scoring.test.js tests/exam-anomalies.test.js tests/rc10-cefr.test.js tests/v100-senses.test.js tests/exam-exempt-rubric.test.js tests/core-invariants.test.js tests/exam-persistence.test.js
 
+      - name: Verify browser shard partition and failure-capture lifecycle
+        run: |
+          node scripts/shard_browser_suite.mjs --check
+          node --test tests/shard-browser-suite.test.mjs tests/fresh-world-failure.test.cjs
+
       # rc5/rc8: the ingestion endpoint is the only server-side code in the project,
       # so its contract (origins, size limits, stored fields, status codes, fail-closed salt)
       # is pinned by its own suite rather than by a live request.
       - name: Run telemetry endpoint contract tests
         run: node --trace-deprecation --test tests/telemetry-api.test.js
 
-  # Run both sequential Playwright suites across Chromium, Firefox, and WebKit.
-  # Each engine gets its own 2-CPU runner VM so two heavy 16 MB DOM browsers never
-  # compete for memory on the same VM, and `playwright-core` remains test-only.
+  # Run five disjoint learning-suite regions on each engine. The generator's
+  # exact-once partition check runs in `checks`; each matrix job regenerates the
+  # ignored shards from the checked-in suite. PART unset still runs the original
+  # full learning suite plus exams for local developers. Part 5 runs the complete
+  # exam suite once per engine, so no required browser coverage is dropped.
+  #
   # Pin ubuntu-24.04 LTS because playwright@1.55.1 registers ubuntu20.04..24.04
   # host platforms (ubuntu-latest migrated to Ubuntu 26.04 in Oct/Nov 2026).
   browser:
-    name: browser (${{ matrix.browser }})
+    name: browser (${{ matrix.browser }} shard ${{ matrix.part }})
     runs-on: ubuntu-24.04
-    timeout-minutes: 35
+    timeout-minutes: 9
     strategy:
+      # Every engine and every source region reports its own verdict: a failure
+      # must not hide whether the other engines or regions still pass.
       fail-fast: false
       matrix:
         browser: [chromium, firefox, webkit]
+        part: [1, 2, 3, 4, 5]
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -271,22 +218,44 @@ jobs:
           echo "BROWSER_EXECUTABLE=$(cat /tmp/browser-path)" >> "$GITHUB_ENV"
           echo "${{ matrix.browser }}: $(cat /tmp/browser-path)"
 
-      - name: Run both browser suites sequentially (${{ matrix.browser }})
+      # Round 9's (engine, suite) split was measured and reverted because exams
+      # were only 11-61 s; the learning suite was the critical path. Here the
+      # learning assertions themselves are partitioned at checked scenario
+      # boundaries, and the five shards run concurrently on independent runners.
+      # Part 5 also runs browser-exams.cjs, once per engine. Measurements and the
+      # decision are recorded in audit-evidence/round9/actions/OPTIMIZATION_REPORT.md.
+      #
+      # Both suites write failure screenshots into a scratch directory that
+      # exists only for this job. Upload logs on every outcome and screenshots on
+      # failure, with distinct artifact names for each matrix cell.
+      - name: Run browser shard (${{ matrix.browser }} part ${{ matrix.part }})
+        env:
+          PART: ${{ matrix.part }}
+          BROWSER_SCREENSHOT_DIR: ${{ runner.temp }}/browser-shots
         run: |
           set +e
+          mkdir -p "$RUNNER_TEMP/browser-shots"
           bash tests/run-browser-suites.sh 2>&1 | tee /tmp/browser.log
           status=${PIPESTATUS[0]}
           if [ "$status" -ne 0 ]; then
-            tail -n 40 /tmp/browser.log | sed 's/^/::error::/'
+            tail -n 60 /tmp/browser.log | sed 's/^/::error::/'
             exit "$status"
           fi
 
-      - name: Upload browser screenshots on failure (${{ matrix.browser }})
+      - name: Upload browser log (${{ matrix.browser }} part ${{ matrix.part }})
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: browser-log-${{ matrix.browser }}-part-${{ matrix.part }}
+          path: /tmp/browser.log
+          if-no-files-found: warn
+          retention-days: 7
+
+      - name: Upload browser screenshots on failure (${{ matrix.browser }} part ${{ matrix.part }})
         if: failure()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: browser-screenshots-${{ matrix.browser }}
-          path: |
-            **/*.png
-          if-no-files-found: ignore
+          name: browser-screenshots-${{ matrix.browser }}-part-${{ matrix.part }}
+          path: ${{ runner.temp }}/browser-shots
+          if-no-files-found: warn
           retention-days: 7

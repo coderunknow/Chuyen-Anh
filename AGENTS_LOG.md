@@ -1589,3 +1589,325 @@ is append-only; the correction is recorded here instead.
 - **Not claimed:** screen-reader validation is still `INCOMPLETE`; Kilo's check is
   `ACTION_REQUIRED` (it fails in 2 s, i.e. it never reviewed) and is not an approval. No merge,
   tag, release, prerelease, publication or deploy was performed.
+
+## 2026-11-13 — Round 9: full end-to-end audit and Actions optimization
+
+- **Base:** `2f686f77e3103cbbbea15350a765021fc8283b28` (PR #85 head, verified live:
+  OPEN, not draft, base `arena/dedd1942-chuyen-anh` @ `e663295`). PR #84 untouched.
+- **Method:** independent probes against the extracted app module and the real
+  embedded data, not re-runs of the repository's own assertions. Results in
+  `audit-evidence/round9/application/audit-probes.md`: 0 CEFR inheritance
+  violations over 8,928 senses; 0 scoring or bookkeeping mismatches over 106
+  papers / 6,708 questions; `contentSha256` matches 106/106; 0 tombstone
+  resurrections; import path escapes injected markup.
+- **Defects found and fixed (6):**
+  - `R9-01` — `ci.yml` declared the anchor `&ci-paths` and never aliased it, so
+    `push` carried a hand-copied 77-line duplicate that could drift.
+  - `R9-02` — four workflow files (`exam-sources`, `exam-validation`,
+    `pages-smoke`, `telemetry-smoke`) were covered by no CI trigger.
+  - `R9-03` — **the planned optimization was refuted by measurement.** The
+    browser matrix ran both suites sequentially in one job per engine (critical
+    path 13 m 16 s on `browser (webkit)`). Splitting it into a six-job
+    `(engine, suite)` matrix was implemented, pushed and measured in
+    `43376379586`: wall-clock **13 m 18 s** vs **13 m 19 s** (1 s saved) for
+    **+201 runner-seconds** (36 m 06 s → 39 m 27 s). Cause: the exam suite is
+    11/22/61 s while the learning suite is 387/728/740 s and is 99 % of the
+    critical path, and each extra job paid a browser install (webkit 38 s → 82 s).
+    **The split was reverted**, the measurement is recorded beside the job, and
+    `OptimizationRegressionTests` keeps it there. The real lever is inside
+    `browser-learning.cjs` (~60 navigations of a 27 MB page) and is a follow-up.
+  - `R9-04` — the failure-screenshot artifact globbed `**/*.png` while nothing set
+    `BROWSER_SCREENSHOT`, so it could only ever be empty.
+  - `R9-07` — the readiness checklist and changelog stated `263` Python tests
+    after the suite had reached 276.
+  - `R9-14` — the `deploy.yml` checkout (the one job with `pages: write`) did not
+    set `persist-credentials: false`, leaving the workflow token in `.git/config`.
+- **Also recorded, not fixed:** two harness defects where a test encoded the
+  duplication it was meant to police (`R9-05`, `R9-06`); two design limitations
+  (`R9-08` sandbox-vs-CI speed, `R9-09` the 27 MB single-file page); one external
+  failure (`R9-10` telemetry 503 with `api/`+`supabase/` unchanged across the
+  green→red boundary); one unreproduced flake (`R9-11`); two accepted trade-offs
+  (`R9-12`, `R9-13`). Full ledger: `audit-evidence/round9/DEFECTS.md`.
+- **Actions work:** baseline measured from the API (`actions/BASELINE.md`,
+  13 m 19 s, critical path 13 m 16 s). The optimization was measured on a real run
+  of the changed workflow (`43376379586`) and **reverted** because it saved 1 s and
+  cost 201 runner-seconds. The report states that plainly; net runtime effect of
+  this round is zero, and the gains are correctness, security and diagnostics.
+- **Security:** 7/7 action SHA pins re-resolved to their claimed tags; all 8
+  workflows' `permissions` audited; 9/9 checkouts now opt out of credential
+  persistence.
+- **Verification at this head:** Python `278 OK`, Node `302 pass / 0 fail`,
+  archive `5 OK`, 21/21 validator commands, both gates `deploy=false … held`.
+  CI on head `b8f2c11` (run `43376379586`): **7/7 checks pass**, including all
+  three engines × both browser suites. Nine mutations (M1–M9) each turned a guard
+  red; all restored green. One mutation initially did not mutate and was re-run —
+  recorded, not hidden.
+- **Not done / not claimed:** the browser suites did not run in this *sandbox* (no
+  browser binaries, no CDN egress); they ran on real runners in `43376379586` and
+  passed on all three engines. Cross-engine results are reported from CI, never
+  inferred locally. Screen-reader validation remains
+  `MANUAL_REQUIRED`. No merge, tag, release, prerelease, publication or deploy was
+  performed; `DEPLOY_HOLD` still names `v1.0.0-rc11`.
+
+### Round 9 — review handling (appended after the code review)
+
+- **CodeRabbit's first status was `SKIPPED`, and the reason was read, not assumed:**
+  *"This repository does not receive automatic reviews because it has fewer than 10
+  stars"* — an OSS policy threshold, **not** quota exhaustion. Triggering it manually
+  (`@coderabbitai review`) ran a real review, twice: 8 comments at `b8f2c11`, 4 more
+  at `80e6248`. All 12 were accepted and fixed; dispositions in
+  `audit-evidence/round9/reviews/CODE_REVIEW_DISPOSITION.md`.
+- **Copilot, Codex, Kilo and Qodo all stated quota/billing limits in their own
+  output**, so they produced no findings. Kilo's `action_required` is explicitly not
+  treated as approval.
+- **Four of the 12 were defects in this round's own work.** The most serious: the
+  failure screenshot was captured in `main().catch`, i.e. *after* `finally` closed
+  the browser, so it could never have worked — it looked verified only because the
+  first stub's `close()` was a no-op. The same mistake appeared twice more (a
+  `freshWorld()` scenario closing its own browser first, and a tracking test that
+  counted a `let` declaration). All three are now guarded by mutations M10, M14 and
+  M15 that provably fail.
+- **Two claims were narrowed rather than repeated:** the 186 external asset digests
+  were never verified against their bytes (only format and uniqueness), and CI
+  failure capture plus artifact upload have not been observed on a failing run.
+- **No third review round was requested.** The round forbids repeated identical
+  review requests, and the post-review delta (two test files, evidence) is a strict
+  subset at the same design; `CODE_REVIEW_DISPOSITION.md` states exactly what was
+  reviewed.
+
+### Round 9 — hardening pass (after the review rounds)
+
+- **Two probes were promoted to permanent tests.** The manifest test recomputed
+  "usable key" with its own predicate, so it compared the manifest against a second
+  implementation of the same idea; both could drift from the grader and agree. The
+  new tests ask `scoreExamSession` for all 106 papers (per-paper counts plus the
+  archive totals 6,708 / 5,155 / 1,553) and assert the ceiling (no item above full
+  credit, an exempt answered item never marked wrong). Node is now **304 pass /
+  0 fail**. Mutations M16–M18 prove they bite. Recorded as **R9-19**.
+- **Robustness probed, not assumed:** malformed exam responses (null, number,
+  object, 30 kB garbage, a 200 kB string, `__proto__`) never throw, never push the
+  percentage out of range and cannot pollute `Object.prototype`; the CEFR helpers
+  never throw on ten kinds of bad input. These stayed probes — they are recorded in
+  `TEST_INTEGRITY.md` rather than dressed up as new tests.
+- **A real performance drift was found and left unexplained (R9-20).** Across six
+  runs of the identical four-job shape the wall-clock went from 13 m 19 s to
+  20 m 11 s. The browser suites were byte-identical between the last two runs, yet
+  webkit's step moved 907 s → 1150 s while chromium stayed flat; webkit's install
+  also rose. Runner contention is the leading hypothesis and is labelled as such —
+  the round does not claim a cause it has not isolated, and does not call the drift
+  fixed.
+
+### Round 9 — final numbers (superseding the review-round figures)
+
+| Check | Result | Evidence |
+|---|---|---|
+| Python unit tests | **285 OK** | `python3 -m unittest discover -s tests -p 'test_*.py'` |
+| Node tests | **304 pass / 0 fail** (was 302 before the two promoted probes) | `node --test tests/*.test.js` |
+| Archive conversion | **5 OK** | `scripts/exams/test_archive.py` with `requirements.txt` |
+| Validators | **21/21 commands, exit 0** | the `ci.yml` "Check vocabulary sources" block |
+| Deploy gates | both `deploy=false … held` | `scripts/deploy_gate.py`, `scripts/app_release_gate.py` |
+| Workflows | **8/8 parse** | PyYAML over `.github/workflows/*.yml` |
+| Mutations | **18 (M1–M18), each turned a guard red** | `audit-evidence/round9/TEST_INTEGRITY.md` |
+| CI at `f967c8e` | **4/4 checks pass** (chromium 7 m 47 s, firefox 10 m 52 s, webkit 20 m 25 s, checks 2 m 14 s) | run `43412045593` |
+
+The ledger now has **20 entries**: 9 confirmed defects (R9-01, 02, 04, 07, 14, 15,
+16, 17, 18), 1 harness defect found later (R9-19), 2 harness defects (R9-05, 06),
+1 refuted-and-reverted hypothesis (R9-03), 2 design limitations (R9-08, 09), 1
+external failure (R9-10), 1 unreproduced flake (R9-11), 1 unreproduced performance
+drift (R9-20), and 2 accepted trade-offs (R9-12, 13).
+
+---
+
+## Round 9 — coverage pass: what the suite was not looking at
+
+The last pass of the round asked a question none of the earlier passes asked:
+*not "is the code right?" but "is the check looking at it?"* It produced three of
+the round's four most consequential findings, and a fourth about the tests
+themselves.
+
+### R9-21 — 17 nameless exam column headers
+
+The markdown renderer sized the header row to `max(header, widest body row)` and
+filled the gap from `undefined`, so a paper whose transcription has a shorter
+header row emitted `<th scope="col"></th>`. **8 of the 24 openable papers, 17
+cells.** CI opened exactly one paper — a well-formed one — and treated it as
+representative of the catalogue. Fixed by emitting an empty `<td>` where the
+source gives no header text, deliberately *not* by inventing a `aria-label`
+column name the paper does not state. The suite now sweeps every openable record
+(791 tables, 2 330 headers). Mutation **M19** fails; **M19b** — bug restored, new
+sweep removed — **passes**, which is the measurement showing the old coverage was
+blind.
+
+### R9-22 — "WCAG 2.1 AA" meant two rules on two views
+
+RT-03 ran `runOnly: ['label-content-name-mismatch', 'color-contrast']` while the
+documents recorded the result as WCAG 2.1 AA. Proof the gap was real: one
+unnamed icon button injected into `.top-actions` is invisible to the old set
+(`[]`) and caught by the full set (`["button-name"]`). RT-03 now runs the full
+`wcag2a/wcag2aa/wcag21a/wcag21aa` set on all six views in both themes, with a
+three-defect positive control so a broken probe fails instead of passing.
+
+### R9-23 — two contrast failures axe files as `incomplete`
+
+axe does not report a violation when a backdrop is a gradient or a translucent
+chip; it reports `incomplete`. **126 nodes** in this app are undecidable to axe,
+and that is exactly where the fragile colour pairs live:
+
+- light: `.active .nav-count`, white on a 20 % white pill over the active
+  gradient → **4.37:1** (needs 4.5). Fixed to 10 % → **5.43:1**.
+- dark: `.sprint-badge`, white on `#b79bff → #8fa7ff` → **2.30:1** on both
+  stops. Fixed with the theme's own dark ink → **8.16:1**.
+
+Both were confirmed twice, by independent methods (transparent-text pixel
+sampling, and exact computed gradient stops), before being called defects. Three
+earlier hand-rolled compositing attempts produced impossible ratios and were
+discarded — that is recorded because a measurement that cannot be reproduced is
+not a defect report.
+
+### R9-24 — the test for R9-23 could not fail for the theme it named
+
+The R9-23 block never set the theme: iteration 1 inherited dark from the block
+before it, and iteration 2 (also dark) was right by coincidence, so the "light"
+audit was a duplicate of the dark one. Mutation M21 gave it away by reporting a
+**2.30:1 dark ratio under a `light` label**. The loop now sets the theme, reloads,
+and asserts the resolved theme before measuring. After the fix M20 fails `light`
+and M21 fails `dark` — each on the theme it actually breaks.
+
+### Also in this pass
+
+- Chromium was made to run in this sandbox (`@sparticuz/chromium` + its
+  `al2023.tar.br` libraries via `LD_LIBRARY_PATH`; `playwright install` cannot
+  reach `cdn.playwright.dev` here). Every new browser assertion was therefore
+  executed locally, one engine, before push. Firefox and WebKit remain CI-only.
+- A 120-combination UX sweep (6 views × 2 themes × 2 skins × 5 viewports): **0**
+  horizontal-overflow pages, **0** clipped text nodes.
+- `#cefr-narrow` looked like a 13×13 WCAG 2.2 target-size failure and is **not**:
+  its real target is the 239×19.7 px wrapping label, verified by clicking the
+  label text. Recorded as a probe artifact; no code changed.
+
+### Round 9 — coverage-pass numbers
+
+| Check | Result | Evidence |
+|---|---|---|
+| Python unit tests | **285 OK** | `python3 -m unittest discover -s tests -p 'test_*.py'` |
+| Node tests | **304 pass / 0 fail** | `node --test tests/static-app.test.js tests/exam-scoring.test.js` → 208; full set 304 |
+| Browser suites, Chromium | both green locally | `browser-learning.cjs` 8 m 02 s, `browser-exams.cjs` 26 s |
+| Exam header sweep | **24 papers, 791 tables, 2 330 headers, 0 nameless** (was 8 papers / 17 cells) | new block in `browser-exams.cjs` |
+| WCAG audits | 12 per engine × 3 engines, **0 violations**; positive control fires | widened RT-03 |
+| Mutations | **21 (M1–M21), each turned a guard red** | `audit-evidence/round9/TEST_INTEGRITY.md` |
+| CI at `3ba0da6` | **4/4 pass**, wall 15 m 05 s, runner-seconds 2 062 s | run `43415336939` |
+
+The ledger now has **24 entries**. Still not claimed: fully audited, all bugs
+fixed, production-ready. The 186 external asset digests (R9-B7b), the CI failure
+upload path (R9-C8), the screen-reader pass, and WebKit's unexplained drift
+(R9-20) remain open on purpose, and the maintainer is asked whether the audit is
+accepted as it stands.
+
+### R9-25 — CI caught a generated artefact this round forgot to regenerate
+
+Run `43431615451` at `24bfad5` went red in 27 s on the *first* step:
+`Stale: docs/exam-rendering-audit.json`. The R9-21 fix removes markup from 11 of
+the 106 papers, so `scripts/exams/audit_rendering.mjs --check` — a
+generated-artefact guard — was right to fail.
+
+Recorded rather than quietly fixed, because the root cause is procedural: the
+21-command validator block was last run **before** the renderer change and its
+green result was carried forward. **A green result from before a change is not
+evidence about after it.** That is precisely the class of mistake this round spent
+a day finding in other people's tests (R9-19, R9-22, R9-24).
+
+The artefact was checked before being regenerated, not regenerated to make the
+check pass: only `rendererOutputBytes` changes, on 11 records; every total is
+byte-identical and every other field of every record is unchanged. The papers
+shrink by 2–84 bytes because the fix removes markup. `--check` passes, and all 21
+validator commands pass locally.
+
+### Round 9 — closing numbers at the final head
+
+| Check | Result | Evidence |
+|---|---|---|
+| CI at `b687b86` | **4/4 pass**, wall **13 m 55 s**, runner-seconds **2 112 s** | run `43434146112` (chromium 494 s, firefox 639 s, webkit 834 s, checks 145 s) |
+| `checks` job reproduced locally | **4/4 steps pass** | 21 validators, 285 Python, 8 Node files, telemetry — all run end to end here |
+| Browser suites, Chromium | both green locally, before and after the fixes | `browser-learning.cjs` 8 m 02 s, `browser-exams.cjs` 26 s |
+| Mutations | **21 (M1–M21)** | `TEST_INTEGRITY.md` |
+| Ledger | **25 entries** | `DEFECTS.md` |
+| PR #86 | open, non-draft, `MERGEABLE`, body rewritten for `b687b86` | — |
+
+One red run occurred in this pass (`43431615451`, `24bfad5`) and is recorded as
+R9-25 rather than erased: a generated artefact was not regenerated after the
+renderer fix, and CI's own `--check` guard caught it in 27 s. That guard working
+is the better outcome than the guard being absent.
+
+Still not claimed: fully audited, all bugs fixed, production-ready. Open on
+purpose: R9-B7b (186 asset digests), R9-C8 (failure-artefact upload), the
+screen-reader pass, R9-20 (webkit drift unexplained). Merging #84/#85/#86
+remains prohibited; no tag, release or deploy was performed.
+
+### R9-20, strengthened by the final two runs
+
+| run | head | webkit suite step |
+|---|---|---:|
+| `43434146112` | `b687b86` | **748 s** |
+| `43436286834` | `97acf97` | **1112 s** |
+
+Those two trees differ **only in Markdown** — no workflow, test or `index.html`
+change — and the runs are 78 minutes apart. A 364 s swing on identical executable
+content is the strongest evidence this round has that the cause sits outside the
+repository. It still does not *identify* the cause, so R9-20 remains **unreproduced
+and unexplained**, not fixed.
+
+Final state, stated precisely to avoid a self-referential chase:
+
+- **Code frozen at `b687b86`** — every source, workflow and test change of this
+  round is in that commit or earlier. CI: run `43434146112`, **4/4 green**.
+- **Documentation frozen one commit later at `97acf97`** — Markdown only. CI: run
+  `43436286834`, **4/4 green**.
+- No commit after `97acf97` changes code. Any later documentation commit (such as
+  the one carrying this paragraph) is Markdown-only and is covered by the same
+  two green runs rather than by a third.
+
+## 2026-11-12 — PR #86 Round 9 closeout follow-up
+
+- Verified CodeRabbit comments `4561322722` and `4561322728` against code. The
+  fresh-world helper captures before browser close; the updated regression test
+  models a closed page, writes a PNG signature only while open, and rejects a
+  close-before-capture negative control (`316b5f9`). Updated the R9-C8 evidence
+  with the applicable fix/test commits and retained the explicit limitation that
+  real failing-CI screenshot capture/upload is unverified.
+- Corrected the changelog's stale-count framing and tightened
+  `test_the_changelog_totals_agree_with_the_checklist_and_their_own_parts` to
+  inspect the PR #86 follow-up subsection. At the prior state, the broad search
+  found a later `291` total and let the stale `276`/`302` Round 9 paragraph pass;
+  fail-first the isolated check rejected the missing follow-up totals, then passed
+  after the documentation update.
+- Local results: Python discovery **291/291**; Node **304/304**; focused
+  shard/lifecycle tests **7/7**; provenance tests **4/4**; audit count tests
+  **5/5**; workflow-integrity tests **23/23**; `rc4_vocabulary_audit.py --check`
+  **8,852 rows, 0 general-review rows**. `git diff --check` passed.
+- Read-only GitHub evidence at prior PR head `697f8d4`: static checks and all 15
+  browser shards, exam archive validation, and Pages smoke passed. The Pages
+  deployment is `main@72afdc7` with rc10; RC11 is still unpublished. Raw Actions
+  log download returned EOF, so the Pages smoke's expected-version summary was
+  not directly read.
+- No telemetry workflow ran for PR #86 because the changed files do not match
+  its live-smoke paths. PR #85 run `43342769589` previously reported a valid
+  report POST HTTP 503 `service-unavailable` with no row id. No live POST or
+  preflight was sent from this closeout. PR #86 remains open and independent
+  review is still needed; no merge, tag, release, or deployment occurred.
+- Not verified: actual CI failure-artifact capture/upload, current #86 live
+  telemetry, screen-reader usability, and external asset-byte digests. Exact-head
+  checks after pushing this closeout are pending.
+
+## 2026-11-12 — PR #86 evidence-scope correction
+
+- CodeRabbit's auto-reply `4572045536` identified two statements that still
+  conflated historical snapshots: the finding-3 disposition said all fixes/runs
+  cited `b8f2c11`, and `CHECKLIST.md` described `80e6248` as the final Round 9
+  head with every fix.
+- Narrowed the disposition row to the review point it records and rewrote the
+  checklist SHA key to separate base `2f686f7`, original review-fix commit
+  `80e6248`, original Round 9 final code head `b687b86`, and later PR #86
+  follow-up commits `c8b22d8` / `316b5f9`. The R9-C8 row still records each
+  applicable SHA and explicitly leaves failing-CI artifact upload unverified.
+- Documentation-only correction; no application/workflow behavior changed.
+  Documentation-count checks and a new exact-head Actions run are pending.

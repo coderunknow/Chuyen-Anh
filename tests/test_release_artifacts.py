@@ -201,6 +201,20 @@ class ProcessFlowTests(unittest.TestCase):
         self.assertEqual([pathlib.Path(item).name for item in self.uploaded],
                          [f'chuyen-anh-{self.TAG}.zip', f'chuyen-anh-{self.TAG}-checksums.txt'])
 
+    def test_dry_run_builds_and_compares_without_creating_or_uploading_assets(self):
+        self.mod.process(self.TAG, dry_run=True)
+        self.assertEqual(self.created, [])
+        self.assertEqual(self.uploaded, [])
+
+    def test_dry_run_checks_existing_asset_bytes_and_never_replaces_a_mismatch(self):
+        name = f'chuyen-anh-{self.TAG}.html'
+        self.release_state['assets'].append({'name': name})
+        self.download_content[name] = b'not-the-built-file'
+        with self.assertRaisesRegex(RuntimeError, 'refusing to replace it'):
+            self.mod.process(self.TAG, dry_run=True)
+        self.assertEqual(self.created, [])
+        self.assertEqual(self.uploaded, [])
+
     def test_a_changed_download_after_upload_fails_verification(self):
         zip_name = f'chuyen-anh-{self.TAG}.zip'
         # The upload reports success, but the re-download does not match the built file.
@@ -267,10 +281,27 @@ class PushTagValidationTests(unittest.TestCase):
 
     def test_main_packages_a_beta1_tag_push(self):
         calls = []
-        with patch.dict(os.environ, {'PUSH_TAG': 'v1.0.0-beta1', 'INPUT_TAG': ''}, clear=False), \
+        with patch.dict(os.environ, {'PUSH_TAG': 'v1.0.0-beta1', 'INPUT_TAG': '', 'DRY_RUN': ''}, clear=False), \
                 patch.object(self.mod, 'process', lambda tag, **kw: calls.append((tag, kw))):
             self.mod.main()
         self.assertEqual(calls, [('v1.0.0-beta1', {'future': True})])
+
+    def test_main_dispatches_an_explicit_safe_dry_run(self):
+        calls = []
+        with patch.dict(os.environ, {'PUSH_TAG': '', 'INPUT_TAG': 'v1.0.0-rc10', 'DRY_RUN': 'true'}, clear=False), \
+                patch.object(self.mod, 'process', lambda tag, **kw: calls.append((tag, kw))):
+            self.mod.main()
+        self.assertEqual(calls, [('v1.0.0-rc10', {'dry_run': True})])
+
+    def test_dry_run_refuses_a_blank_backfill_before_listing_releases(self):
+        with patch.dict(os.environ, {'PUSH_TAG': '', 'INPUT_TAG': '', 'DRY_RUN': 'true'}, clear=False):
+            with self.assertRaisesRegex(RuntimeError, 'requires INPUT_TAG'):
+                self.mod.main()
+
+    def test_dry_run_refuses_a_tag_push(self):
+        with patch.dict(os.environ, {'PUSH_TAG': 'v1.0.0-rc10', 'INPUT_TAG': '', 'DRY_RUN': 'true'}, clear=False):
+            with self.assertRaisesRegex(RuntimeError, 'not a pushed tag'):
+                self.mod.main()
 
     def test_main_refuses_an_unsupported_push_before_touching_a_release(self):
         calls = []
@@ -282,13 +313,26 @@ class PushTagValidationTests(unittest.TestCase):
 
 
 class ReleaseWorkflowContractTests(unittest.TestCase):
-    def test_workflow_packages_the_pushed_tag_with_write_permission_only(self):
+    def test_workflow_scopes_write_permission_to_the_mutating_job(self):
         text = (ROOT / '.github' / 'workflows' / 'release-artifacts.yml').read_text(encoding='utf-8')
         self.assertIn('"v1.0.0-*"', text, 'beta1 and later prereleases must trigger the workflow')
         self.assertNotIn('"v1.0.0-dev*"', text, 'the trigger is no longer dev-only')
-        self.assertIn('contents: write', text)
+        self.assertIn('permissions:\n  contents: read', text,
+                      'the workflow default is least-privilege read access')
+        dry_run_job, release_job = text.split('\n  release:', 1)
+        self.assertIn('dry-run:', dry_run_job)
+        self.assertIn('permissions:\n      contents: read', dry_run_job)
+        self.assertNotIn('contents: write', dry_run_job)
+        self.assertIn("DRY_RUN: 'true'", dry_run_job)
+        self.assertIn('inputs.dry_run == true', dry_run_job)
+        self.assertIn('contents: write', release_job,
+                      'only actual release creation/upload needs write permission')
+        self.assertIn("DRY_RUN: 'false'", release_job)
+        self.assertIn("github.event_name == 'workflow_dispatch' && inputs.dry_run != true", release_job,
+                      "the write-enabled job must be skipped for a read-only dry run")
         self.assertIn('scripts/release_artifacts.py', text)
-        self.assertIn('PUSH_TAG', text)
+        self.assertIn('PUSH_TAG', release_job)
+        self.assertIn('without creating or uploading release assets', text)
         self.assertNotIn('pull_request', text)
 
 

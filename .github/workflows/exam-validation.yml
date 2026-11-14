@@ -1,5 +1,8 @@
 name: Validate exam archive
 on:
+  # The archive checks are read-only, so a maintainer can re-run them on an
+  # exact candidate ref without creating or changing exam records.
+  workflow_dispatch:
   pull_request:
     paths:
       - 'De-chuyen-Anh-vao-10/**'

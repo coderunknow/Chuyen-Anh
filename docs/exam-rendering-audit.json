@@ -1301,7 +1301,7 @@
       "renderingErrors": 0,
       "renderedScriptTags": 0,
       "renderedEventHandlers": 0,
-      "rendererOutputBytes": 64419
+      "rendererOutputBytes": 64395
     },
     {
       "id": "2025/ba-ria-vung-tau/so",
@@ -1367,7 +1367,7 @@
       "renderingErrors": 0,
       "renderedScriptTags": 0,
       "renderedEventHandlers": 0,
-      "rendererOutputBytes": 62509
+      "rendererOutputBytes": 62485
     },
     {
       "id": "2025/binh-phuoc/so",
@@ -1455,7 +1455,7 @@
       "renderingErrors": 0,
       "renderedScriptTags": 0,
       "renderedEventHandlers": 0,
-      "rendererOutputBytes": 55493
+      "rendererOutputBytes": 55409
     },
     {
       "id": "2025/dong-thap/so",
@@ -1741,7 +1741,7 @@
       "renderingErrors": 0,
       "renderedScriptTags": 0,
       "renderedEventHandlers": 0,
-      "rendererOutputBytes": 82613
+      "rendererOutputBytes": 82601
     },
     {
       "id": "2025/thai-binh/so",
@@ -1917,7 +1917,7 @@
       "renderingErrors": 0,
       "renderedScriptTags": 0,
       "renderedEventHandlers": 0,
-      "rendererOutputBytes": 81100
+      "rendererOutputBytes": 81076
     },
     {
       "id": "2026/bac-ninh/so",
@@ -1939,7 +1939,7 @@
       "renderingErrors": 0,
       "renderedScriptTags": 0,
       "renderedEventHandlers": 0,
-      "rendererOutputBytes": 72884
+      "rendererOutputBytes": 72872
     },
     {
       "id": "2026/da-nang/so",
@@ -2093,7 +2093,7 @@
       "renderingErrors": 0,
       "renderedScriptTags": 0,
       "renderedEventHandlers": 0,
-      "rendererOutputBytes": 50212
+      "rendererOutputBytes": 50152
     },
     {
       "id": "2026/khanh-hoa/so",
@@ -2203,7 +2203,7 @@
       "renderingErrors": 0,
       "renderedScriptTags": 0,
       "renderedEventHandlers": 0,
-      "rendererOutputBytes": 122555
+      "rendererOutputBytes": 122543
     },
     {
       "id": "2026/ninh-binh/so",
@@ -2225,7 +2225,7 @@
       "renderingErrors": 0,
       "renderedScriptTags": 0,
       "renderedEventHandlers": 0,
-      "rendererOutputBytes": 68498
+      "rendererOutputBytes": 68486
     },
     {
       "id": "2026/quang-ninh/so",
@@ -2247,7 +2247,7 @@
       "renderingErrors": 0,
       "renderedScriptTags": 0,
       "renderedEventHandlers": 0,
-      "rendererOutputBytes": 73869
+      "rendererOutputBytes": 73857
     },
     {
       "id": "2026/quang-tri/so",
@@ -2291,7 +2291,7 @@
       "renderingErrors": 0,
       "renderedScriptTags": 0,
       "renderedEventHandlers": 0,
-      "rendererOutputBytes": 65300
+      "rendererOutputBytes": 65252
     },
     {
       "id": "2026/thanh-hoa/so",

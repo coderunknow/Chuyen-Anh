@@ -5,6 +5,11 @@ name: Pages content smoke test
 # the development sandbox cannot resolve github.io.
 on:
   workflow_dispatch:
+    inputs:
+      release_tag:
+        description: "Optional existing release tag whose Pages deployment status should be awaited (read-only dry run)"
+        required: false
+        type: string
   push:
     branches: [main]
     paths: &pages-paths
@@ -34,7 +39,8 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Give the Pages deployment a moment to propagate
+      - name: Give a released Pages deployment a moment to propagate
+        if: (github.event_name == 'release' && github.event.release.prerelease == true) || (github.event_name == 'workflow_dispatch' && inputs.release_tag != '')
         run: sleep 30
 
       # A release event is emitted before the dispatched Pages deployment has
@@ -42,12 +48,17 @@ jobs:
       # rc6 release probe read rc5 and failed although the deploy then succeeded.
       # Wait for a successful deployment status carrying the Pages environment
       # URL for the released commit; a failed deployment fails this job.
-      - name: Wait for the Pages deployment of the released commit
-        if: github.event_name == 'release' && github.event.release.prerelease == true
+      - name: Wait for the Pages deployment of a released commit
+        if: (github.event_name == 'release' && github.event.release.prerelease == true) || (github.event_name == 'workflow_dispatch' && inputs.release_tag != '')
         env:
           GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ github.event_name == 'release' && github.event.release.tag_name || inputs.release_tag }}
         run: |
-          tag="${{ github.event.release.tag_name }}"
+          tag="$RELEASE_TAG"
+          if [[ ! "$tag" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-[a-z]+[0-9]+)?$ ]]; then
+            echo "::error::Refusing to wait for an invalid release tag: $tag"
+            exit 1
+          fi
           sha="$(gh api "repos/${GITHUB_REPOSITORY}/commits/${tag}" --jq .sha)"
           echo "released commit: $sha" >> "$GITHUB_STEP_SUMMARY"
           for attempt in $(seq 1 60); do

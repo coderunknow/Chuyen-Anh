@@ -28,6 +28,25 @@ async function launchSelectedBrowser() {
   return { browser, engineName };
 }
 
+
+// Failure capture, reachable from inside `main()` before the `finally` closes the
+// browser. Capturing from `main().catch` ran *after* `browser.close()`, which
+// closes every page, so the screenshot always threw (CodeRabbit, PR #86).
+let failedPage = null;
+
+async function captureFailureScreenshot() {
+  const dir = process.env.BROWSER_SCREENSHOT_DIR;
+  if (!dir || !failedPage) return;
+  try {
+    fs.mkdirSync(dir, { recursive: true });
+    const engine = (process.env.BROWSER_ENGINE || 'chromium').toLowerCase();
+    await failedPage.screenshot({ path: path.join(dir, `exams-${engine}-failure.png`), fullPage: true });
+    console.error(`failure screenshot written to ${dir}`);
+  } catch (shotError) {
+    console.error(`could not capture a failure screenshot: ${shotError.message}`);
+  }
+}
+
 async function main() {
   const html = fs.readFileSync(path.join(__dirname, '../index.html'));
   const keyManifest = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/exam-answer-keys.json'), 'utf8'));
@@ -39,6 +58,9 @@ async function main() {
   try {
     ({ browser, engineName } = await launchSelectedBrowser());
     const page = await browser.newPage({ viewport: { width: 1280, height: 900 }, reducedMotion: 'reduce' });
+    // The page a failure should be photographed from; the file:// scenario
+    // reassigns it below.
+    failedPage = page;
     await page.clock.setFixedTime(new Date('2026-10-29T12:00:00Z'));
     const errors = [], external = [];
     const origin = `http://127.0.0.1:${server.address().port}`;
@@ -230,6 +252,51 @@ async function main() {
       /<studying the species of dolphin called bottlenose dolphins>/,
       'angle-bracket constituent is preserved as literal visible text');
 
+    // ---- Round 9 R9-21: no exam table may expose a nameless column header.
+    // The markdown renderer sized the header row to `max(header, body)` cells
+    // and filled the gap from `undefined`, so a paper whose transcription has a
+    // shorter header row than body row produced `<th scope="col"></th>`. The
+    // suite used to open a single paper, which happens to be well formed, so
+    // this survived CI. Sweep every openable record instead.
+    // The assertion reads the usable name of each header (text, else aria-label),
+    // so it fails on a nameless <th> but not on an intentionally empty <td>.
+    {
+      await page.locator('button[data-view="exams"]').click();
+      await page.locator('#exam-search').fill('');
+      await page.waitForSelector('[data-exam-open]');
+      const sweep = [];
+      const openable = await page.evaluate(() => [...document.querySelectorAll('[data-exam-open]')]
+        .map(el => el.dataset.examOpen));
+      assert.ok(openable.length >= 20,
+        `expected at least 20 openable exam records, saw ${openable.length}`);
+      for (const id of openable) {
+        await page.evaluate(record => document.querySelector(`[data-exam-open="${record}"]`).click(), id);
+        await page.waitForSelector('.exam-document');
+        const stat = await page.evaluate(() => {
+          const headers = [...document.querySelectorAll('.exam-document table.exam-table thead th')];
+          const name = th => (th.getAttribute('aria-label') || '').trim() || th.textContent.trim();
+          const nameless = headers.filter(th => !th.getAttribute('scope') || !name(th));
+          return {
+            tables: document.querySelectorAll('.exam-document table.exam-table').length,
+            headers: headers.length,
+            nameless: nameless.length,
+            where: nameless.slice(0, 3).map(th => th.outerHTML.slice(0, 120))
+          };
+        });
+        sweep.push({ id, ...stat });
+        assert.equal(stat.nameless, 0,
+          `${id}: ${stat.nameless} nameless column header(s) in ${stat.tables} table(s): ${stat.where.join(' | ')}`);
+        await page.locator('#exam-detail-back').click();
+        await page.waitForSelector('[data-exam-open]');
+      }
+      const tables = sweep.reduce((n, r) => n + r.tables, 0);
+      const headers = sweep.reduce((n, r) => n + r.headers, 0);
+      // Guard against a vacuous pass: the sweep must have actually parsed tables.
+      assert.ok(tables > 400 && headers > 1000,
+        `sweep parsed ${tables} tables / ${headers} headers, which is too few to be meaningful`);
+      console.log(`    exam table headers: ${sweep.length} papers, ${tables} tables, ${headers} headers, 0 nameless`);
+    }
+
     await page.locator('[data-view="settings"]').click();
     await page.locator('#language-setting').selectOption('vi');
     await page.locator('[data-interface="classic"]').first().click();
@@ -244,6 +311,7 @@ async function main() {
     // Verify direct file:// standalone offline execution with NO HTTP server running.
     ({ browser, engineName } = await launchSelectedBrowser());
     const filePage = await browser.newPage({ viewport: { width: 1280, height: 900 }, reducedMotion: 'reduce' });
+    failedPage = filePage;
     const fileErrors = [];
     const fileExternal = [];
     filePage.on('pageerror', error => fileErrors.push(error.message));
@@ -261,9 +329,16 @@ async function main() {
     assert.deepEqual(fileErrors, [], 'no page error under file://');
 
     console.log(`PASS: ${engineName} ${browserVersion} — 106-record catalogue; scorable-only grading with per-paper coverage; 3 correct/3 incorrect deterministic summary; key hidden before submit; user correction recalculated and persisted; history reload/export/malformed import/valid import; operable session-focus control; HTML/OCR interactive with LOW/VERY_LOW warning; WCAG 2.1 AA axe clean; 2022/hai-phong/so angle-bracket escaped in live DOM; standalone file:// offline verified; VI/EN, Classic/Modern; 320/375/768/1024/1440px; no network or page errors.`);
+  } catch (error) {
+    // Capture before the `finally` below closes the browser.
+    await captureFailureScreenshot();
+    throw error;
   } finally {
     if (browser) await browser.close();
     if (!serverClosed) await new Promise(resolve => server.close(resolve));
   }
 }
-main().catch(error => { console.error(error); process.exitCode = 1; });
+main().catch(error => {
+  console.error(error);
+  process.exitCode = 1;
+});
