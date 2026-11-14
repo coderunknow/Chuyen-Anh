@@ -205,6 +205,24 @@ class BrowserShardMatrixTests(unittest.TestCase):
                          "every fresh-world scenario must exercise the tested capture-before-close helper")
         self.assertIn("}, scenario, captureFailureScreenshot);", learning)
 
+    def test_failure_capture_tracks_each_suite_scenario_page_before_cleanup(self) -> None:
+        learning = (ROOT / "tests" / "browser-learning.cjs").read_text(encoding="utf-8")
+        exams = (ROOT / "tests" / "browser-exams.cjs").read_text(encoding="utf-8")
+        self.assertIn("failedPage = page;\n        page.on('pageerror'", learning,
+                      "fresh-world captures must point at the tab opened by that scenario")
+        rc5 = learning.index("const rc5 = await browser.newPage")
+        self.assertIn("failedPage = rc5;", learning[rc5:rc5 + 300],
+                      "the rc5 scenario must update the active failure page")
+        file_page = exams.index("const filePage = await browser.newPage")
+        self.assertIn("failedPage = filePage;", exams[file_page:file_page + 300],
+                      "the standalone file:// scenario must update the active failure page")
+        for source, name in ((learning, "learning"), (exams, "exams")):
+            main = source.index("async function main()")
+            capture = source.index("await captureFailureScreenshot();", main)
+            cleanup = source.rindex("} finally {")
+            self.assertLess(capture, cleanup,
+                            f"{name} main failure capture must happen before browser cleanup")
+
     def test_exam_suite_runs_once_per_engine_outside_the_learning_partition(self) -> None:
         script = (ROOT / "tests" / "run-browser-suites.sh").read_text(encoding="utf-8")
         self.assertIn('if [ "$PART" = "5" ]; then', script)
