@@ -38,55 +38,61 @@ const SUITE = path.join(root, 'tests/browser-learning.cjs');
 
 // Line ranges are 1-based and inclusive, and are asserted below against the
 // source text so a future edit fails loudly instead of silently mis-slicing.
-const LAYOUT = {
-  moduleHeadEnd: 77,      // everything before `async function main() {`
-  mainOpen: 79,           // `async function main() {`
-  prologueStart: 80,
-  // Line 78 is the blank line closing `main() {`'s indentation block; it is kept
+export const LAYOUT = {
+  moduleHeadEnd: 88,      // everything before `async function main() {`
+  mainOpen: 90,           // `async function main() {`
+  prologueStart: 91,
+  // Line 89 is the blank line closing `main() {`'s indentation block; it is kept
   // as part of the prologue so nothing between the opener and scenario 1 is lost.
   // The prologue also carries the first navigation and the "all CEFR levels"
-  // init script (lines 98-113). Every shard needs both: a page that has loaded
+  // init script (lines 109-124). Every shard needs both: a page that has loaded
   // the app, and a device profile whose study filter does not hide the legacy
   // ids the suite drives. They are setup, not scenarios, so they run per shard.
-  prologueEnd: 113,
-  // Lines 114-194 are the homepage + timed-practice scenarios, which happen to
-  // sit before the helper block; 195 is the blank separator line. The helper
-  // declarations themselves are 196-280. Those leading scenarios belong to
+  prologueEnd: 124,
+  // Lines 125-205 are the homepage + timed-practice scenarios, which happen to
+  // sit before the helper block; 206 is the blank separator line. The helper
+  // declarations themselves are 207-291. Those leading scenarios belong to
   // shard 1, and crucially they still run *first*, because a shard is emitted as
   // prologue -> leading scenarios -> helpers -> its own scenarios. Scenario order
   // inside a shard is therefore the same order as the full suite.
-  helpersStart: 196,
-  helpersEnd: 280,        // key/read/seed/next/.../startQuizFromIntroduction
+  helpersStart: 207,
+  helpersEnd: 291,        // key/read/seed/next/.../startQuizFromIntroduction
   // The five scenario ranges include each phase marker with the scenario it
-  // names: search/favorite (949-950), blank spelling (1543-1544), RC2
-  // remediation (2337-2338), and the WCAG axe block (2915-2916). The leading
+  // names: search/favorite (960-961), blank spelling (1554-1555), RC2
+  // remediation (2348-2349), and the WCAG axe block (2926-2927). The leading
   // homepage/timed-practice scenarios
   // remain first in shard 1, before the shared helper declarations.
   // Boundaries are scenario banners. They are chosen for *balance*, because the
   // largest shard sets the job's duration and WebKit has historically run up to
   // 2.5x slower than Chromium on this suite. Measured Chromium costs per region
   // (Round 9 phase timings) guided the split:
-  //   114-948   2.1 + 63.2 + 69.6  ≈ 135s  (the timed-practice scenario waits a
+  //   125-959   2.1 + 63.2 + 69.6  ≈ 135s  (the timed-practice scenario waits a
   //                                       real minute by design; it cannot be cut)
-  //   949-1542                      ≈  62s
-  //   1543-2336                     ≈  78s
-  //   2337-2914 9.4 + 44.6 + 35.6   ≈ 101s before the capture-helper refactor
-  //   2915-3403 75.8 + 34.7         ≈ 121s before the capture-helper refactor
+  //   960-1553                      ≈  62s
+  //   1554-2347                     ≈  78s
+  //   2348-2925 9.4 + 44.6 + 35.6   ≈ 101s before the capture-helper refactor
+  //   2926-3414 75.8 + 34.7         ≈ 121s before the capture-helper refactor
   shards: [
-    { name: '1', start: 281, end: 948 },
-    { name: '2', start: 949, end: 1542 },
-    { name: '3', start: 1543, end: 2336 },
-    { name: '4', start: 2337, end: 2914 },
-    { name: '5', start: 2915, end: 3403 }
+    { name: '1', start: 292, end: 959 },
+    { name: '2', start: 960, end: 1553 },
+    { name: '3', start: 1554, end: 2347 },
+    { name: '4', start: 2348, end: 2925 },
+    { name: '5', start: 2926, end: 3414 }
   ],
   // Scenarios that run before the helper declarations and need no helpers.
-  leading: { start: 114, end: 194 },
+  leading: { start: 125, end: 205 },
+  // Blank structural separators: counted by the partition, never emitted.
+  separators: [
+    { name: 'main/prologue separator', line: 89 },
+    { name: 'helper separator', line: 206 }
+  ],
   // Fixture wiring established in earlier scenarios is restored by the prelude
   // in later shards, so they do not depend on another shard's execution.
-  dialogPolicyLine: 997,   // page.on('dialog', …accept()) installed by the reset scenario
-  backupExport: { download: 1011, bytes: 1013 },  // activeBackup = the app's own export
-  phaseReportLine: 3401,  // full-suite diagnostics call; generated shards report their own phase timings
-  mainCloseStart: 3404    // `} catch (error) {` ... end of file
+  dialogPolicyLine: 1008,   // page.on('dialog', …accept()) installed by the reset scenario
+  backupExport: { download: 1022, bytes: 1024 },  // activeBackup = the app's own export
+  phaseReportLine: 3412,  // full-suite diagnostics call; generated shards report their own phase timings
+  errorAssertLine: 3411,  // full-suite `assert.deepEqual(errors, [])`; shards not covering it must emit their own
+  mainCloseStart: 3415    // `} catch (error) {` ... end of file
 };
 
 function readSuite() {
@@ -102,6 +108,7 @@ function assertLayout(lines) {
   if (!/console\.log\(`PASS: \$\{engineLabel\}/.test(at(LAYOUT.shards.at(-1).end))) problems.push(`line ${LAYOUT.shards.at(-1).end}: expected the PASS log line`);
   if (!/^\s*\} catch \(error\) \{$/.test(at(LAYOUT.mainCloseStart))) problems.push(`line ${LAYOUT.mainCloseStart}: expected the catch block`);
   if (!/^\s*reportPhaseTimings\(engineLabel\);$/.test(at(LAYOUT.phaseReportLine))) problems.push(`line ${LAYOUT.phaseReportLine}: expected the phase timing report`);
+  if (!/assert\.deepEqual\(errors, \[\]\)/.test(at(LAYOUT.errorAssertLine))) problems.push(`line ${LAYOUT.errorAssertLine}: expected the page-errors assertion`);
   for (const [index, shard] of LAYOUT.shards.entries()) {
     if (!/^\s*markPhase\(/.test(at(shard.start))) {
       problems.push(`shard ${shard.name} must start with its scenario's phase marker at line ${shard.start}`);
@@ -157,7 +164,7 @@ function buildPrelude(shardBody) {
 
 // A shard is: module head, main() up to and including the prologue, the shared
 // helpers, its own scenarios, then the suite's own teardown.
-function buildShard(lines, shard, depth) {
+export function buildShard(lines, shard, depth) {
   // The suite resolves `../index.html` and `playwright-core` relative to its own
   // directory, so a shard written one level deeper must be corrected by exactly
   // one `../`. `depth` is how many directories below tests/ the shard will land.
@@ -182,8 +189,15 @@ function buildShard(lines, shard, depth) {
   const phaseReport = shard.start <= LAYOUT.phaseReportLine && shard.end >= LAYOUT.phaseReportLine
     ? []
     : ['    reportPhaseTimings(engineLabel);'];
+  // Every shard must check the page errors it collected before it reports
+  // PASS. The full suite asserts this at its end (line 3400, inside shard 5's
+  // range), but shards 1-4 collect the same `errors` array without ever
+  // checking it, so an async page error could pass silently (CodeRabbit, PR
+  // #86). Shard 5 already carries the original assertion: do not duplicate it.
+  const coversErrorAssert = shard.start <= LAYOUT.errorAssertLine && shard.end >= LAYOUT.errorAssertLine;
   const summary = [
     ...phaseReport,
+    ...(coversErrorAssert ? [] : ['    assert.deepEqual(errors, []);']),
     `    // A shard reports its own result: the full suite's PASS line lives in the`,
     `    // last shard, so each shard states that it reached its end with no failure.`,
     `    console.log(\`SHARD ${shard.name}/${LAYOUT.shards.length} PASS: \${engineLabel} \${browser.version()}\`);`
@@ -197,7 +211,7 @@ function buildShard(lines, shard, depth) {
     .replace(/path\.join\(__dirname, 'helpers\/fresh_world\.cjs'\)/g, `path.join(__dirname, '${up}helpers/fresh_world.cjs')`);
 }
 
-export function verifyPartition(lineCount, layout) {
+export function verifyPartition(lineCount, layout, lines = null) {
   const counts = new Uint32Array(lineCount + 1);
   const invalid = [];
   const scenarioLines = { value: 0 };
@@ -219,9 +233,28 @@ export function verifyPartition(lineCount, layout) {
   add('helpers', layout.helpersStart, layout.helpersEnd);
   for (const shard of layout.shards) add(`shard ${shard.name}`, shard.start, shard.end, true);
   // These two blank lines are structural separators between the named regions.
-  add('main/prologue separator', 78, 78);
-  add('helper separator', 195, 195);
+  // The real layout names their (re-based) lines; the default keeps the
+  // fixture layouts in tests/shard-browser-suite.test.mjs working unchanged.
+  const separators = layout.separators ?? [
+    { name: 'main/prologue separator', line: 78 },
+    { name: 'helper separator', line: 195 },
+  ];
+  for (const separator of separators) add(separator.name, separator.line, separator.line);
   add('teardown', layout.mainCloseStart, lineCount);
+  // buildShard never emits these separators: they are counted as assigned so
+  // the partition stays complete, but a non-blank replacement there would be
+  // dropped from every generated shard while --check still passed. When the
+  // source text is supplied (--check / --write), require them blank
+  // (CodeRabbit, PR #86).
+  if (lines) {
+    for (const separator of separators) {
+      const text = lines[separator.line - 1] ?? '';
+      if (text.trim() !== '') {
+        invalid.push(`${separator.name} (line ${separator.line}) must stay blank: it is counted as assigned but ` +
+                     'never emitted by buildShard, so a replacement here would vanish from every shard');
+      }
+    }
+  }
 
   const missing = [];
   const duplicates = [];
@@ -233,7 +266,7 @@ export function verifyPartition(lineCount, layout) {
 }
 
 function verifyReconstruction(lines) {
-  return verifyPartition(lines.length, LAYOUT);
+  return verifyPartition(lines.length, LAYOUT, lines);
 }
 
 function printInventory(lines) {
