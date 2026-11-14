@@ -65,6 +65,34 @@ def block(lines: list[str], header: str) -> list[str]:
     return body
 
 
+PATH_ITEM = r'^\s*-\s*"?([^"\n]+?)"?\s*$'
+
+
+def path_filter(lines: list[str], body: list[str]) -> list[str]:
+    """The trigger's path patterns as an ordered list (aliases resolved).
+
+    Order is part of the contract: GitHub evaluates the patterns in order, so a
+    set comparison cannot detect a reversed exclusion (CodeRabbit, PR #86).
+    """
+    joined = "\n".join(body)
+    alias = re.search(r"paths:\s*\*([\w-]+)", joined)
+    if alias:
+        body = block(lines, f"    paths: &{alias.group(1)}")
+    return re.findall(PATH_ITEM, "\n".join(body), re.MULTILINE)
+
+
+class PathOrderTests(unittest.TestCase):
+    def test_the_extractor_preserves_pattern_order(self) -> None:
+        body = ["    paths:", '      - "tests/**"', '      - "!tests/private/**"']
+        self.assertEqual(path_filter(body, body), ["tests/**", "!tests/private/**"])
+
+    def test_a_reversed_exclusion_order_is_not_the_same_filter(self) -> None:
+        """The regression the set comparison hid: order changes the filter."""
+        forward = ["tests/**", "!tests/private/**"]
+        self.assertNotEqual(forward, list(reversed(forward)),
+                            "the parity comparison must be order-sensitive")
+
+
 class AnchorAliasTests(unittest.TestCase):
     def test_a_declared_paths_anchor_is_actually_aliased(self) -> None:
         """`paths: &name` must be consumed somewhere as `paths: *name`.
@@ -93,22 +121,15 @@ class AnchorAliasTests(unittest.TestCase):
         pr = block(lines, "  pull_request:")
         push = block(lines, "  push:")
 
-        def paths(body: list[str]) -> set[str]:
-            joined = "\n".join(body)
-            alias = re.search(r"paths:\s*\*([\w-]+)", joined)
-            if alias:
-                name = alias.group(1)
-                return set(re.findall(r'^\s*-\s*"?([^"\n]+?)"?\s*$', "\n".join(block(lines, f"    paths: &{name}")), re.MULTILINE))
-            return set(re.findall(r'^\s*-\s*"?([^"\n]+?)"?\s*$', "\n".join(body), re.MULTILINE))
-
-        pr_paths, push_paths = paths(pr), paths(push)
+        pr_paths, push_paths = path_filter(lines, pr), path_filter(lines, push)
         self.assertGreater(len(pr_paths), 50, "the pull-request trigger must list its paths")
-        # Both directions: a one-way difference check accepts extra paths in the
-        # other trigger, which is the same drift in the other direction.
-        self.assertEqual(sorted(pr_paths - push_paths), [],
-                         "these paths trigger CI on a pull request but not on main")
-        self.assertEqual(sorted(push_paths - pr_paths), [],
-                         "these paths trigger CI on main but not on a pull request")
+        # Ordered list equality, not set difference: GitHub evaluates positive
+        # and negative path patterns in order, so `tests/**` before
+        # `!tests/private/**` is a different filter from the reverse, while both
+        # set comparisons passed (CodeRabbit, PR #86).
+        self.assertEqual(pr_paths, push_paths,
+                         "the pull_request and push path filters must be identical and ordered: "
+                         "these paths trigger CI differently on a pull request than on main")
 
 
 class WorkflowFileCoverageTests(unittest.TestCase):
@@ -263,6 +284,34 @@ class CheckoutCredentialTests(unittest.TestCase):
     """
 
     @staticmethod
+    def active_persist_credentials(block: list[str]) -> str | None:
+        """The active `persist-credentials` value in the block's `with:` mapping.
+
+        A commented-out line (`# persist-credentials: false`) is not a setting:
+        matching raw text let a disabled opt-out pass the assertion
+        (CodeRabbit, PR #86).
+        """
+        in_with = False
+        with_indent = 0
+        for line in block:
+            stripped = line.strip()
+            if not stripped or stripped.startswith("#"):
+                continue
+            indent = len(line) - len(line.lstrip(" "))
+            if stripped.startswith("with:"):
+                in_with = True
+                with_indent = indent
+                continue
+            if in_with:
+                if indent <= with_indent:
+                    in_with = False
+                    continue
+                match = re.match(r"persist-credentials:\s*(\S+)", stripped)
+                if match:
+                    return match.group(1)
+        return None
+
+    @staticmethod
     def checkout_blocks(path: Path) -> list[tuple[int, list[str]]]:
         lines = path.read_text(encoding="utf-8").splitlines()
         blocks = []
@@ -290,9 +339,23 @@ class CheckoutCredentialTests(unittest.TestCase):
         for path in sorted(WORKFLOWS.glob("*.yml")):
             blocks = self.checkout_blocks(path)
             for line_number, block in blocks:
-                self.assertIn("persist-credentials: false", "\n".join(block),
-                              f"{path.name}:{line_number} checks out without "
-                              "'persist-credentials: false', leaving the workflow token in .git/config")
+                self.assertEqual(self.active_persist_credentials(block), "false",
+                                 f"{path.name}:{line_number} must actively set "
+                                 "'persist-credentials: false' in the checkout's with: block, "
+                                 "leaving the workflow token in .git/config otherwise")
+
+    def test_a_commented_out_setting_is_not_a_setting(self) -> None:
+        """Negative fixture: `# persist-credentials: false` must be rejected."""
+        block = [
+            "      - name: Checkout",
+            "        uses: actions/checkout@v7",
+            "        with:",
+            "          ref: main",
+            "          # persist-credentials: false",
+            "      - name: Next step",
+        ]
+        self.assertIsNone(self.active_persist_credentials(block),
+                          "a commented-out opt-out counts as absent and must fail the check")
 
     def test_the_publishing_job_is_checked_too(self) -> None:
         """Guard the specific regression: the one checkout with publish rights was the one missing it."""
@@ -301,8 +364,8 @@ class CheckoutCredentialTests(unittest.TestCase):
         blocks = self.checkout_blocks(WORKFLOWS / "deploy.yml")
         self.assertGreaterEqual(len(blocks), 1, "deploy.yml must still check out main")
         for line_number, block in blocks:
-            self.assertIn("persist-credentials: false", "\n".join(block),
-                          f"deploy.yml:{line_number} publishes Pages but persists the token")
+            self.assertEqual(self.active_persist_credentials(block), "false",
+                             f"deploy.yml:{line_number} publishes Pages but persists the token")
 
 
 class SummaryScriptTests(unittest.TestCase):

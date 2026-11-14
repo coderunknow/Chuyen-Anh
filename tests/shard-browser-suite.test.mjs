@@ -1,6 +1,13 @@
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import path from 'node:path';
 import test from 'node:test';
-import { verifyPartition } from '../scripts/shard_browser_suite.mjs';
+import { fileURLToPath } from 'node:url';
+import { LAYOUT, buildShard, verifyPartition } from '../scripts/shard_browser_suite.mjs';
+
+const suiteLines = fs.readFileSync(
+  path.join(path.dirname(fileURLToPath(import.meta.url)), 'browser-learning.cjs'), 'utf8'
+).split('\n');
 
 function completeLayout() {
   return {
@@ -42,4 +49,29 @@ test('overlapping source regions are rejected by a negative-control mutation', (
   const result = verifyPartition(200, layout);
   assert.deepEqual(result.missing, []);
   assert.deepEqual(result.duplicates, [{ line: 78, assignments: 2 }]);
+});
+
+test('every shard asserts its collected page errors before reporting PASS', () => {
+  for (const shard of LAYOUT.shards) {
+    const text = buildShard(suiteLines, shard, 0);
+    const assertion = 'assert.deepEqual(errors, []);';
+    const occurrences = text.split(assertion).length - 1;
+    assert.equal(occurrences, 1,
+      `shard ${shard.name} must carry exactly one page-errors assertion (the original or the emitted one)`);
+    const passAt = text.indexOf(`SHARD ${shard.name}/${LAYOUT.shards.length} PASS`);
+    assert.ok(passAt > 0, `shard ${shard.name} must report its PASS line`);
+    assert.ok(text.indexOf(assertion) < passAt,
+      `shard ${shard.name} must assert its collected errors before it reports PASS`);
+  }
+});
+
+test('a non-blank separator line is rejected by the partition check', () => {
+  const lines = [...suiteLines];
+  const clean = verifyPartition(lines.length, LAYOUT, lines);
+  assert.deepEqual(clean.invalid, [], 'the real suite keeps both separators blank');
+  const separator = LAYOUT.separators[0].line;
+  lines[separator - 1] = 'const silently_dropped = true;';
+  const mutated = verifyPartition(lines.length, LAYOUT, lines);
+  assert.ok(mutated.invalid.some(message => message.includes(`line ${separator}`)),
+    `a non-blank line 78 must be rejected, got: ${mutated.invalid.join('; ')}`);
 });

@@ -58,13 +58,24 @@ async function captureFailureScreenshot() {
 // and prints the deltas at the end, so a slow CI run is diagnosable from its log
 // alone. It is diagnostics only: it asserts nothing and changes no behaviour.
 const phaseTimings = [];
+// The interval before a banner belongs to the phase that was *running*, not to
+// the label being set: the old code attributed each wait to the next label
+// (timed-practice waits were reported as sprint time) and never recorded the
+// final interval, because nothing ran after the last banner (CodeRabbit, PR #86).
+let activePhaseLabel = 'prologue';
 let lastPhaseAt = Date.now();
 function markPhase(label) {
   const now = Date.now();
-  phaseTimings.push({ label, ms: now - lastPhaseAt });
+  phaseTimings.push({ label: activePhaseLabel, ms: now - lastPhaseAt });
+  activePhaseLabel = label;
   lastPhaseAt = now;
 }
 function reportPhaseTimings(engineLabel) {
+  if (activePhaseLabel !== null) {
+    // Flush the still-running phase so the final interval is reported exactly once.
+    phaseTimings.push({ label: activePhaseLabel, ms: Date.now() - lastPhaseAt });
+    activePhaseLabel = null;
+  }
   const total = phaseTimings.reduce((sum, entry) => sum + entry.ms, 0);
   const rows = [...phaseTimings].sort((a, b) => b.ms - a.ms);
   const lines = [
@@ -607,7 +618,7 @@ async function main() {
 
     // The shipped build identifies itself.
     await sprint.locator('[data-view="settings"]').click();
-    assert.equal(await sprint.locator('#app-version').innerText(), 'v1.0.0-rc11');
+    assert.equal(await sprint.locator('#app-version').innerText(), 'v1.0.0');
     assert.deepEqual(sprintErrors, []);
 
     // Error -> intervening word -> typed corrective retrieval -> truthful summary.
@@ -3114,7 +3125,7 @@ async function main() {
     await about.waitFor();
     const aboutText = await about.innerText();
     assert.match(aboutText, /Chuyên Anh/);
-    assert.match(aboutText, /v1\.0\.0-rc11/, 'the About panel shows the shipped version');
+    assert.match(aboutText, /v1\.0\.0/, 'the About panel shows the shipped version');
     assert.match(aboutText, /MIT License · © 2026 coderunknow/);
     assert.match(aboutText, /Flashcard từ vựng/);
     await about.locator('summary').click();
@@ -3176,7 +3187,7 @@ async function main() {
       assert.match(download.suggestedFilename(), /^chuyen-anh-diagnostics-\d{4}-\d\d-\d\d\.json$/);
       const report = JSON.parse(fs.readFileSync(await download.path(), 'utf8'));
       assert.equal(report.product, 'Chuyen-Anh');
-      assert.match(report.appVersion, /^v1\.0\.0-rc11$/);
+      assert.match(report.appVersion, /^v1\.0\.0$/);
       assert.equal(report.consent.enabled, true);
       assert.equal(report.eventCount, report.events.length);
       assert.equal(['mobile', 'tablet', 'desktop'].includes(report.environment.viewport), true, 'the viewport is bucketed, not exact');

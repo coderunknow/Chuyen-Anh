@@ -1,12 +1,21 @@
 # Round 9 — final audit report
 
-Branch `arena/34e7e96d-chuyen-anh`. Base `2f686f7` (PR #85 head). Final head
-**`b687b86`** — every code, workflow and test change of this round is there or
-earlier; CI run `43434146112`, **4/4 green**. Documentation is frozen one commit
-later at `97acf97` (Markdown only; run `43436286834`, **4/4 green**). Review PR **#86**,
-open and ready for review, stacked on `arena/chuyen-anh-r8-ready-review`.
-No merge, tag, release, prerelease, publication or deploy was performed, and
-`DEPLOY_HOLD` stayed in force throughout.
+Branch `arena/34e7e96d-chuyen-anh`. Base `2f686f7` (PR #85 head). **Original
+Round 9 checkpoint head `b687b86`** — at that checkpoint every code, workflow and
+test change of this round was there or earlier; CI run `43434146112`, **4/4
+green**. Documentation was frozen one commit later at `97acf97` (run
+`43436286834`, **4/4 green**). This report is that checkpoint, not the final
+code head: commits after `97acf97` — through PR #86's head `eb7690d` — changed
+code and workflows (not Markdown only), and #86 has since merged into `main`
+(`5cf8625`). Evidence is labeled by tree: #86's head `eb7690d` was verified by
+its own exact-head CI (Static `43572771403`, archive `43572771481`, Pages
+`43572771338`, checks/validate/probe success, 15/15 browser shards) and its own
+local full gate (Python 291 / Node 304), recorded in the #86 closeout; the
+stable release PR that carries this file is verified by its own local full gate
+(Python 294 / Node 305) and its own exact-head CI, recorded in that PR's closeout
+comment and in CHANGELOG §v1.0.0 — neither result verifies the other tree. At
+the checkpoint: no merge, tag, release or deploy had been performed, and
+`DEPLOY_HOLD` was in force throughout.
 
 This report is written to be checkable rather than reassuring: every claim names
 either a command, a file in this tree, a CI run id, or a mutation that was made to

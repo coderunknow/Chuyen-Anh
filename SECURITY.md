@@ -4,8 +4,9 @@
 
 | Version | Supported | Notes |
 | --- | --- | --- |
-| `v1.0.0-rc11` (candidate) | Yes | Current proposed candidate (PR #85; `index.html` standalone offline build + SHA-256-pinned `data/exam-curated-keys.json` + hardened `api/telemetry.js`). **Not published or deployed.** |
-| `v1.0.0-rc10` | Yes | Latest **published** release on GitHub Pages (2026-11-03, PR #81). `DEPLOY_HOLD` has moved to `v1.0.0-rc11`, so rc10 is no longer the deploy marker. |
+| `v1.0.0` (stable) | Yes | Current release identity declared on `main` (`index.html` standalone offline build + SHA-256-pinned `data/exam-curated-keys.json` + hardened `api/telemetry.js`). Released only through the stable path: tag `v1.0.0` → `release-artifacts` draft → publish → separate dispatch with `stable_deploy_authorized=true`. |
+| `v1.0.0-rc11` (candidate) | Yes | Round 8 candidate merged into `v1.0.0` via PRs #85/#86; never tagged or published as its own release. |
+| `v1.0.0-rc10` | Yes | Latest **published prerelease** (2026-11-03, PR #81). `DEPLOY_HOLD` names `v1.0.0-rc10`, so `deploy_gate.py` is open; the stable build is held by `app_release_gate.py` until tag `v1.0.0` is published in its channel **and** a separate dispatch sets `stable_deploy_authorized=true`. |
 | `< v1.0.0-rc10` | No | Superseded prereleases; upgrade to `v1.0.0-rc10` or the current candidate. |
 
 ## Reporting a vulnerability
