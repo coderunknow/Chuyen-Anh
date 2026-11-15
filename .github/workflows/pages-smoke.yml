@@ -10,17 +10,17 @@ on:
         description: "Optional existing release tag whose Pages deployment status should be awaited (read-only dry run)"
         required: false
         type: string
-  push:
-    branches: [main]
-    paths: &pages-paths
+  # No push trigger: a push starts this probe before Deploy Flashcard has replaced
+  # the live page, so it checked the previous build (run 43677677477). The release
+  # and dispatch triggers below wait for the deployment of the released commit.
+  # The pull request that changes the probe is the moment to run it: if the
+  # assertions do not hold for the page that is live now, that is the finding.
+  pull_request:
+    paths:
       - "tests/pages_smoke.py"
       - "tests/test_pages_smoke.py"
       - "DEPLOY_HOLD"
       - ".github/workflows/pages-smoke.yml"
-  # The pull request that changes the probe is the moment to run it: if the
-  # assertions do not hold for the page that is live now, that is the finding.
-  pull_request:
-    paths: *pages-paths
   # A published prerelease is what releases the hold, so it is also the moment
   # the served page should change.
   release:

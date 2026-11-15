@@ -182,6 +182,7 @@ class ExpectedVersionTests(unittest.TestCase):
         self.assertIn("APP_VERSION declared in index.html", workflow)
         self.assertNotIn("gh release list", workflow)
         self.assertIn("timeout-minutes: 20", workflow)
+        self.assertNotIn("\n  push:", workflow.split("jobs:")[0], "a push starts the probe before the deploy and races it")
         self.assertIn("EXPECTED_VERSION: ${{ steps.expected.outputs.expected }}", workflow)
         self.assertIn("Wait for the Pages deployment of a released commit", workflow)
         self.assertIn("inputs.release_tag != ''", workflow,
