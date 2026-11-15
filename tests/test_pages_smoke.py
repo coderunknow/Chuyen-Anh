@@ -179,7 +179,9 @@ class ExpectedVersionTests(unittest.TestCase):
         self.assertIn("EXPECTED_VERSION", text)
         self.assertIn("invalid EXPECTED_VERSION override", text)
         workflow = (ROOT / ".github" / "workflows" / "pages-smoke.yml").read_text(encoding="utf-8")
-        self.assertIn("newest published release", workflow)
+        self.assertIn("APP_VERSION declared in index.html", workflow)
+        self.assertNotIn("gh release list", workflow)
+        self.assertIn("timeout-minutes: 20", workflow)
         self.assertIn("EXPECTED_VERSION: ${{ steps.expected.outputs.expected }}", workflow)
         self.assertIn("Wait for the Pages deployment of a released commit", workflow)
         self.assertIn("inputs.release_tag != ''", workflow,

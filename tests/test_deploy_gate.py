@@ -116,18 +116,12 @@ class DecideDeployTests(unittest.TestCase):
 
 
 class HoldMarkerLifecycleTests(unittest.TestCase):
-    def test_hold_names_the_published_prerelease_while_the_shipment_is_stable(self):
-        # STABLE changed the policy this test encodes. The shipped file now
-        # carries the bare stable identity `v1.0.0`: that is what
-        # `app_release_gate.py` classifies as a *stable* build, so Pages is held
-        # by the second gate until the tag is published in its channel AND a
-        # separate dispatch sets `stable_deploy_authorized=true` — a push to
-        # `main` after the stable release cannot deploy on its own. DEPLOY_HOLD
-        # therefore stays at the last published prerelease (`v1.0.0-rc10`):
-        # `deploy_gate.py` reads it as published and opens, while the stable
-        # identity itself remains protected by `app_release_gate.py`. Naming a
-        # published prerelease cannot arm an unpublished version, because the
-        # second gate checks the shipped APP_VERSION, not the hold.
+    def test_hold_names_the_shipped_published_prerelease(self):
+        # The shipped file carries the prerelease identity v1.0.0-rc11, which is
+        # published. DEPLOY_HOLD names that same tag: deploy_gate.py reads it as
+        # published and opens, while app_release_gate.py checks that the exact
+        # APP_VERSION is published in the prerelease channel. Prereleases need no
+        # stable authorization, so the stable identity is not implicated here.
         path = ROOT / 'DEPLOY_HOLD'
         self.assertTrue(path.exists(), 'DEPLOY_HOLD must protect the release sequence')
         text = path.read_text(encoding='utf-8')
@@ -139,13 +133,12 @@ class HoldMarkerLifecycleTests(unittest.TestCase):
         live = re.search(r"APP_VERSION = '([^']+)'", html)
         self.assertIsNotNone(live, 'the shipped file declares its version')
         version = live.group(1)
-        self.assertEqual(version, 'v1.0.0',
-                         'the shipped candidate carries the stable identity')
-        self.assertEqual(tags[0], 'v1.0.0-rc10',
-                         'the hold stays at the last published prerelease: deploy_gate opens, '
-                         'app_release_gate holds the stable build until published + authorized')
-        # The first gate is open for a published hold; the stable protection is
-        # the second gate (its decide() matrix lives in test_app_release_gate.py).
+        self.assertEqual(version, 'v1.0.0-rc11',
+                         'the shipped build carries the prerelease identity v1.0.0-rc11')
+        self.assertEqual(tags[0], 'v1.0.0-rc11',
+                         'the hold names the shipped published prerelease')
+        # The first gate is open for a published hold; the second gate
+        # (app_release_gate.py) has its own decision matrix in test_app_release_gate.py.
         mod = load_module()
         deploy, reason = mod.decide_deploy(has_hold=True, hold_tag=tags[0],
                                            status='published', force=False, repo='owner/repo')

@@ -1591,7 +1591,7 @@ test('exported exam results report exactly what the learner did and what could b
   const result = buildExamResultJson(session, record, keys, [], { now: 6000 });
   assert.equal(result.app, 'Chuyên Anh');
   assert.equal(result.version, APP_VERSION, 'the result carries the application version');
-  assert.equal(result.version, 'v1.0.0');
+  assert.equal(result.version, 'v1.0.0-rc11');
   assert.equal(result.schemaVersion, '2.0.0');
   assert.equal(result.summary.total, 3);
   // q3 has no stored answer key, so it is excluded from the denominator instead
@@ -4041,20 +4041,15 @@ test('every shipped version literal agrees with APP_VERSION', async () => {
   ];
   const stale = pins.filter(entry => !entry.endsWith(shipped));
   assert.deepEqual(stale, [], 'no shipped file still names an older version');
-  // STABLE changed the hold policy this assertion encoded. The shipped file
-  // carries the bare stable identity `v1.0.0`, and DEPLOY_HOLD stays at the
-  // last published prerelease (v1.0.0-rc10). deploy_gate.py is therefore open
-  // (the named release is published), and the stable build is held by
-  // app_release_gate.py: the exact APP_VERSION tag must be published in its
-  // channel AND a separate dispatch must set stable_deploy_authorized=true, so
-  // a push to main after the stable release cannot deploy by itself. The hold
-  // naming a published prerelease cannot arm an unpublished version either:
-  // the second gate checks the shipped identity, not the hold name.
+  // The shipped build is the published prerelease v1.0.0-rc11, so the hold
+  // names that same tag. deploy_gate.py reads it as published and opens, and
+  // app_release_gate.py confirms the exact APP_VERSION is published in its
+  // channel. A prerelease needs no stable authorization; the stable v1.0.0
+  // identity is not the current release.
   const hold = (await readFile(new URL('DEPLOY_HOLD', root), 'utf8')).trim();
-  assert.equal(hold, 'v1.0.0-rc10', 'the hold stays at the last published prerelease');
-  assert.equal(shipped, 'v1.0.0', 'this release ships the stable identity');
-  assert.notEqual(hold, shipped,
-    'the stable identity is protected by app_release_gate, not by matching the hold name');
+  assert.equal(hold, 'v1.0.0-rc11', 'the hold names the shipped published prerelease');
+  assert.equal(shipped, 'v1.0.0-rc11', 'this build ships the prerelease identity v1.0.0-rc11');
+  assert.equal(hold, shipped, 'the hold and the shipped identity name the same published release');
 });
 
 /* ------------------------------ CEFR filter ------------------------------- */

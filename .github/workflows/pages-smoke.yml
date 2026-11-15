@@ -32,7 +32,8 @@ permissions:
 jobs:
   probe:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    # The deployment wait below may take up to 30 s + 60 x 10 s; the job limit must exceed it.
+    timeout-minutes: 20
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -84,21 +85,17 @@ jobs:
 
       - name: Determine the version that should be served
         id: expected
-        env:
-          GH_TOKEN: ${{ github.token }}
         run: |
-          # Compare against the newest published release, never the hold marker:
-          # after the stable release ships, DEPLOY_HOLD stays at the last
-          # published prerelease (v1.0.0-rc10) by design, so probing the hold
-          # would keep expecting rc10 while Pages serves v1.0.0.
-          expected="$(gh release list --exclude-drafts --limit 1 --json tagName --jq '.[0].tagName // ""')"
-          reason="newest published release"
+          # The served page is the build main declares. The newest published
+          # release is not a reliable reference: a stable v1.0.0 published after
+          # the v1.0.0-rc11 prerelease would be picked while Pages serves rc11.
+          expected="$(python3 -c "from scripts.app_release_gate import app_version; from pathlib import Path; print(app_version(Path('index.html')) or '')")"
           if [ -z "$expected" ]; then
-            echo "::error::No published release to probe"
+            echo "::error::index.html does not declare exactly one valid APP_VERSION"
             exit 1
           fi
           echo "expected=$expected" >> "$GITHUB_OUTPUT"
-          echo "Probing $expected ($reason)" >> "$GITHUB_STEP_SUMMARY"
+          echo "Probing $expected (APP_VERSION declared in index.html)" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Probe the published application
         env:

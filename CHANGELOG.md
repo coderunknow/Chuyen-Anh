@@ -1,22 +1,19 @@
 # Changelog
 
-## v1.0.0 — first stable release (PR chain #83–#86 integrated, stable release PR, 2026-11-14)
+## v1.0.0-rc11 — current published prerelease (PR chain #83–#86 integrated, 2026-11-14)
 
-`index.html` declares `APP_VERSION = 'v1.0.0'` (the stable identity) and
-`DEPLOY_HOLD` names `v1.0.0-rc10`, the last published prerelease. The release
-path is the stable dual gate: `scripts/deploy_gate.py` is open because the hold
-names a published release, while `scripts/app_release_gate.py` holds Pages until
-tag `v1.0.0` is published in its channel **and** a separate
-`release-published-dispatch` run confirms `stable_deploy_authorized=true` — a
-push to `main` after publication cannot deploy the stable build by itself, and
-`force_deploy` alone is not sufficient for a stable identity.
+`index.html` declares `APP_VERSION = 'v1.0.0-rc11'` and `DEPLOY_HOLD` names
+`v1.0.0-rc11`, the published prerelease. This is the current version. The stable
+identity `v1.0.0` is not the current release and is not authorized as stable. The
+release path is the prerelease gate: `scripts/deploy_gate.py` is open because the
+hold names a published release, and `scripts/app_release_gate.py` confirms that the
+exact `APP_VERSION` is published in the prerelease channel.
 
 Integrated into `main` by ordered merge: PR #83 (`a6191f6`), PR #84 (`3adb8be`),
-PR #85 (`305678a`), PR #86 (`5cf8625`); PR #82 closed as superseded. The
-candidate content of `v1.0.0-rc11` ships inside this release; rc11 itself was
-never tagged or published as its own release.
+PR #85 (`305678a`), PR #86 (`5cf8625`); PR #82 closed as superseded. The content
+of this release is the former Round 8 candidate described below.
 
-**Verification on the stable PR head (local release gate, all green):** Python
+**Verification on the PR head (local release gate, all green):** Python
 `unittest` **294 OK**; Node **305 pass / 0 fail** (static-app 146 +
 exam-scoring 63 + exam-anomalies 7 + rc10-cefr 10 + v100-senses 8 +
 telemetry-api 17 + exam-exempt-rubric 7 + core-invariants 11 +
@@ -29,7 +26,7 @@ comment. Review posture is stated honestly: CodeRabbit reviews are
 COMMENTED (never an approval) and no maintainer approval exists on this
 repository's PRs.
 
-## v1.0.0-rc11 — Round 8 candidate (PR #85 from `arena/chuyen-anh-r8-ready-review`, baseline `e663295…`, 2026-11-12) — NOT merged, NOT tagged, NOT released, NOT deployed
+## Round 8 candidate (2026-11-12), later published as v1.0.0-rc11 — status at the time: PR #85 from `arena/chuyen-anh-r8-ready-review`, baseline `e663295…`, 2026-11-12 — NOT merged, NOT tagged, NOT released, NOT deployed
 
 **Status: open pull request only.** Proposed to `arena/dedd1942-chuyen-anh` (not to `main`) from
 `arena/chuyen-anh-r8-ready-review`. `APP_VERSION` and `DEPLOY_HOLD` are both `v1.0.0-rc11`.
@@ -39,8 +36,8 @@ tag to be published in the correct channel. **RC11 is a proposed candidate, not 
 `v1.0.0-stable` does not exist and is not claimed anywhere.
 
 > **Superseded:** this candidate merged into `main` via PR #85 (content) and the
-> stable release PR; its surfaces ship as part of `v1.0.0` (section above).
-> RC11 was never tagged, published or deployed as its own release.
+> PR chain #83–#86; its surfaces ship as `v1.0.0-rc11` (section above).
+> Its later publication as the prerelease `v1.0.0-rc11` is recorded in that section.
 
 ### Round 9 — end-to-end audit and GitHub Actions optimization (PR #85)
 
