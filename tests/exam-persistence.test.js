@@ -57,11 +57,15 @@ test('r8 persistence: a locked write reports the mode it obtained', async () => 
   const base = app.loadExamResultHistory(store);
   const result = await save(app.addExamResult(base, attempt('a1', 5000)), base, store);
   assert.equal(result.ok, true);
-  // Node has no `navigator.locks`, so the honest answer is "unserialized" - the
-  // weaker mode, verified after the write. The app must never claim "locked" when
-  // it did not get a lock, and this assertion is what pins that honesty.
-  assert.equal(result.mode, 'unserialized');
-  assert.equal(app.examHistoryLockSupport().available, false);
+  // The reported mode must equal the lock support this context actually has:
+  // Node <24.22 and `file://` contexts have no `navigator.locks` and must report
+  // "unserialized" (the weaker mode, verified after the write), while contexts
+  // with working Web Locks report "locked". Deriving the expectation from
+  // `examHistoryLockSupport()` keeps the assertion honest on both kinds of
+  // environments - Node 24.22+ ships a working `navigator.locks`, which broke
+  // the previous hardcoded "Node has no locks" assumption.
+  const lockAvailable = app.examHistoryLockSupport().available;
+  assert.equal(result.mode, lockAvailable ? 'locked' : 'unserialized');
   assert.equal(result.history.attempts.length, 1);
 });
 
