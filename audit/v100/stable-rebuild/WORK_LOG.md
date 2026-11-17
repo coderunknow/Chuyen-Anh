@@ -71,3 +71,19 @@
   (append-only); this evidence directory created.
 - `git diff --check` clean; no secrets, artifacts or unrelated files committed
   (checked before push).
+
+### Push and PR (2026-11-17, post-commit)
+
+- Commits landed locally on `build/v100-stable-rebuild`:
+  `f84d85f` (D-SR1 test fix) and `8ee185f` (stable candidate: identity, D-SR2,
+  evidence). Pre-push checks: `git diff --check` clean; diff secret-scan clean
+  (the only hits are the synthetic test fixtures quoted inside DEFECTS.md).
+- `git push -u origin build/v100-stable-rebuild` → **HTTP 403 "Permission to
+  coderunknow/Chuyen-Anh.git denied to coderunknow"**. Probed the fine-grained
+  PAT directly: `GET /user` → `coderunknow`; `POST /git/refs` (temporary probe
+  ref at the main SHA) → `403 Resource not accessible by personal access token`;
+  probe ref confirmed absent afterwards. Diagnosis: the supplied token has
+  repository **read** access but **no Contents:write**, so pushing the branch
+  and opening the PR are externally blocked pending a token with
+  `contents: write` (or a classic PAT with `repo` scope). Branch delivered as a
+  git bundle instead; PR body pre-drafted for the owner to push and open.
