@@ -56,6 +56,21 @@ const TOKEN = /^[a-z0-9][a-z0-9._-]{0,39}$/;
 const VERSION = /^v\d+\.\d+\.\d+(-[a-z]+\d+)?$/;
 const QUOTE = /["'`«»“”‘’]/;
 const EMAIL = /[\w.+-]+@[\w-]+\.[\w.-]+/g;
+// Secret-shaped strings an error message can quote verbatim (a failed fetch
+// prints its own Authorization header, a request error can carry a token in a
+// URL). E-mail redaction does not catch any of these, and a diagnostics note
+// must never become the way a credential leaves a device.
+const SECRET_SHAPES = [
+  // Classic tokens plus GitHub's fine-grained personal access tokens
+  // (github_pat_ + 22 + '_' + 59 characters).
+  [/\b(?:ghp|gho|ghu|ghs|ghr)_[A-Za-z0-9]{16,}\b|\bgithub_pat_[A-Za-z0-9]{22}_[A-Za-z0-9]{59}\b/g, '…'],
+  [/\bsk-(?:proj-)?[A-Za-z0-9_-]{16,}\b/g, '…'],
+  // RFC 6750 b64token: 1*( ALPHA / DIGIT / "-" / "." / "_" / "~" / "+" / "/" ) *"=".
+  // No minimum length: a short credential is still a credential.
+  [/\bBearer\s+[A-Za-z0-9._~+/-]+=*/gi, '…'],
+  // RFC 3986 user-info: the username may be empty (https://:password@host).
+  [/([a-z][a-z0-9+.-]*:\/\/)[^\s/@]*:[^\s/@]+@/gi, '$1…@']
+];
 const LANGUAGE_VALUES = new Set(['vi', 'en']);
 const THEME_VALUES = new Set(['system', 'light', 'dark']);
 const VIEWPORT_VALUES = new Set(['mobile', 'tablet', 'desktop']);
@@ -88,6 +103,10 @@ function send(res, status, payload, headers = {}) {
 
 function scrub(value, maxLength = MAX_NOTE) {
   let text = String(value == null ? '' : value).replace(/[\u0000-\u001f\u007f]/g, ' ');
+  // Secret patterns run before the quote split: an apostrophe inside URL
+  // user-info (RFC 3986 allows it) would otherwise truncate the text before the
+  // '@' is redacted, leaving the password prefix in the note.
+  for (const [pattern, replacement] of SECRET_SHAPES) text = text.replace(pattern, replacement);
   text = text.split(QUOTE)[0];
   text = text.replace(EMAIL, '…').replace(/\s+/g, ' ').trim();
   return text.length > maxLength ? `${text.slice(0, maxLength - 1)}…` : text;

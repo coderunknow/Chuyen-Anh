@@ -1,0 +1,19 @@
+=== CLIENT scrubTelemetryText (shipped) ===
+github PAT: "Uncaught Error: request failed with token … in headers"
+openai-style key: "upload failed using … at retry 2"
+bearer header: "network error: …"
+URL with credentials: "could not reach https://…@private.example.com/api"
+email (control): "mail me at … please"
+quoted learner text (control): "Import failed:"
+script payload: "error near <script>alert(1)</script> printed"
+=== SERVER scrub via sanitizeEvent note (shipped) ===
+github PAT: "Uncaught Error: request failed with token … in headers"
+openai-style key: "upload failed using … at retry 2"
+bearer header: "network error: …"
+URL with credentials: "could not reach https://…@private.example.com/api"
+email (control): "mail me at … please"
+quoted learner text (control): "Import failed:"
+script payload: "error near <script>alert(1)</script> printed"
+=== prototype-pollution counter key (both) ===
+client counters: {"constructor":2,"turns":3}
+server counters: {"constructor":2,"turns":3}

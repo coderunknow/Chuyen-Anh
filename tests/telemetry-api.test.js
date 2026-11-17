@@ -247,6 +247,60 @@ test('the rate-limit key is a salted hash, never the address', async () => {
   assert.equal(missing.calls[0].body.client_key, null, 'no address, no key — the database decides');
 });
 
+test('secret-shaped strings in a note are redacted before storage', async () => {
+  const { calls } = await invoke(request('POST', payload({
+    events: [
+      { at: '2026-10-29T05:00:00.000Z', kind: 'error', name: 'uncaught', note: 'request failed with token ghp_0123456789abcdefghijklmnopqrstuvwxyz in headers' },
+      { at: '2026-10-29T05:00:01.000Z', kind: 'error', name: 'uncaught', note: 'upload failed using sk-proj-9f8e7d6c5b4a3210feedcba9876543210 at retry 2' },
+      { at: '2026-10-29T05:00:02.000Z', kind: 'error', name: 'uncaught', note: 'network error: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.disallowed' },
+      { at: '2026-10-29T05:00:03.000Z', kind: 'error', name: 'uncaught', note: 'could not reach https://learner:s3cretpass@private.example.com/api' },
+      { at: '2026-10-29T05:00:04.000Z', kind: 'error', name: 'uncaught', note: 'plain failure at retry 2 keeps its words' }
+    ]
+  })));
+  assert.equal(calls.length, 1);
+  const notes = calls[0].body.payload.events.map(event => event.note);
+  assert.equal(notes[0], 'request failed with token … in headers', 'a GitHub token is redacted');
+  assert.equal(notes[1], 'upload failed using … at retry 2', 'an OpenAI-style key is redacted');
+  assert.equal(notes[2], 'network error: …', 'a bearer credential is redacted');
+  assert.equal(notes[3], 'could not reach https://…@private.example.com/api', 'URL credentials are redacted, the host stays readable');
+  assert.equal(notes[4], 'plain failure at retry 2 keeps its words', 'an ordinary message is untouched');
+  const stored = JSON.stringify(calls[0].body.payload);
+  for (const secret of ['ghp_0123456789', 'sk-proj-9f8e7d6c', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9', 's3cretpass']) {
+    assert.equal(stored.includes(secret), false, `${secret} must never reach the stored payload`);
+  }
+});
+
+test('review round: fine-grained GitHub tokens, the full Bearer alphabet, empty-username URL credentials and the redaction order are all covered', async () => {
+  // GitHub's fine-grained personal access tokens carry the github_pat_ prefix
+  // and a fixed 22 + '_' + 59 body (93 characters with the prefix).
+  const fineGrained = `github_pat_${'1'.repeat(22)}_${'A'.repeat(59)}`;
+  const { calls } = await invoke(request('POST', payload({
+    events: [
+      event({ kind: 'error', name: 'uncaught', note: `upload failed for ${fineGrained}` }),
+      event({ kind: 'error', name: 'uncaught', note: 'Authorization: Bearer +ab~/cdEF9=' }),
+      event({ kind: 'error', name: 'uncaught', note: 'Authorization: Bearer abc123' }),
+      event({ kind: 'error', name: 'uncaught', note: 'Authorization: Bearer -LeadingHyphen0123' }),
+      event({ kind: 'error', name: 'uncaught', note: 'Authorization: Bearer abc-def-ghi' }),
+      event({ kind: 'error', name: 'uncaught', note: 'could not reach https://:s3cr3tcredential@localhost/path' }),
+      event({ kind: 'error', name: 'uncaught', note: `fetch failed https://alice:SecretPrefix'***@example.test/` })
+    ]
+  })));
+  assert.equal(calls.length, 1);
+  const notes = calls[0].body.payload.events.map(e => e.note);
+  assert.equal(notes[0], 'upload failed for …', 'a fine-grained GitHub token is redacted');
+  assert.equal(notes[1], 'Authorization: …', 'a Bearer credential using the RFC 6750 alphabet (+ / ~ and trailing =) is redacted');
+  assert.equal(notes[2], 'Authorization: …', 'a Bearer credential shorter than twelve characters is redacted');
+  assert.equal(notes[3], 'Authorization: …', 'a Bearer credential starting with a hyphen is redacted');
+  assert.equal(notes[4], 'Authorization: …', 'a Bearer credential with embedded hyphens is redacted');
+  assert.equal(notes[5], 'could not reach https://…@localhost/path', 'URL user-info with an empty username is redacted');
+  assert.equal(notes[6], 'fetch failed https://…@example.test/',
+    'an apostrophe inside URL user-info cannot hide the credential: the secret patterns run before the quote split');
+  const stored = JSON.stringify(calls[0].body.payload);
+  for (const fragment of ['github_pat_', fineGrained.slice(-20), '+ab~/cdEF9=', 'abc123', '-LeadingHyphen0123', 'abc-def-ghi', 's3cr3tcredential', 'SecretPrefix']) {
+    assert.equal(stored.includes(fragment), false, `${fragment} must never reach the stored payload`);
+  }
+});
+
 test('upstream outcomes map to documented status codes', async () => {
   const ok = await invoke(request('POST', payload()), { status: 'ok', id: 'row-9' });
   assert.equal(ok.res.statusCode, 202);

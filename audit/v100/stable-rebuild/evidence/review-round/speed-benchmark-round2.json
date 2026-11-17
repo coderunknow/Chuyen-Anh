@@ -1,0 +1,104 @@
+{
+  "app": "/home/z/my-project/work/repo/index.html",
+  "flow": "sprint",
+  "thinkMs": 600,
+  "reactionMs": 450,
+  "rounds": 3,
+  "aggregation": "median",
+  "outlierPolicy": "retain-all-rounds-report-median-mean-and-range",
+  "outliersDropped": 0,
+  "elapsedMs": 22087,
+  "meanElapsedMs": 22138,
+  "minElapsedMs": 22009,
+  "maxElapsedMs": 22318,
+  "elapsedMsAllRounds": [
+    22087,
+    22009,
+    22318
+  ],
+  "throughputPerMinute": 27.17,
+  "gradedTurns": 10,
+  "practiceTurns": 1,
+  "consolidationTurns": 10,
+  "wordsCompleted": 10,
+  "wrongAt": 3,
+  "wordOrder": [
+    "Meticulous",
+    "Ambiguity",
+    "Deteriorate",
+    "Exacerbate",
+    "Discrepancy",
+    "Pervasive",
+    "Eloquent",
+    "Plausible",
+    "Conspicuous",
+    "Relinquish"
+  ],
+  "consolidationOrder": [
+    "Meticulous",
+    "Ambiguity",
+    "Deteriorate",
+    "Exacerbate",
+    "Discrepancy",
+    "Pervasive",
+    "Eloquent",
+    "Plausible",
+    "Conspicuous",
+    "Relinquish"
+  ],
+  "consolidationGaps": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    5,
+    5,
+    3,
+    3
+  ],
+  "minConsolidationGap": 3,
+  "handoffSamples": 9,
+  "continueSamples": 12,
+  "meanFeedbackLatencyMs": 26,
+  "meanHandoffLatencyMs": 55,
+  "meanContinueLatencyMs": 40,
+  "turnTimingsByClass": {
+    "firstPass": {
+      "samples": 10,
+      "medianMs": 54,
+      "meanMs": 53.77
+    },
+    "handOff": {
+      "samples": 9,
+      "medianMs": 57,
+      "meanMs": 56.67
+    },
+    "consolidation": {
+      "samples": 10,
+      "medianMs": 3,
+      "meanMs": 2.9
+    },
+    "retry": {
+      "samples": 1,
+      "medianMs": 3,
+      "meanMs": 3
+    }
+  },
+  "limitations": "Software-only DOM & interaction benchmark: sprint performs 21 turns (10 first-pass + 10 delayed consolidations + 1 corrective retry) vs 11 turns in standard mode (10 first-pass + 1 corrective retry). Synthetic timings never establish human learning speed or retention.",
+  "summary": "Hoàn thành phiên học 10 từ · 22 giây · Học cấp tốc 90% Chính xác lần đầu 9 Đúng 1 Sai 0 Bỏ trống Luyện lại: 1 đúng · 0 chưa đúng / 1 lượt. Không tính vào độ chính xác lần đầu hay lịch ôn. Củng cố: 10 đúng · 0 chưa đúng / 10 lượt, kiểm tra lại sau vài thẻ khác. Không tính vào độ chính xác lần đầu hay lịch ôn. XP nhận trong phiên +117 Tổng 203 XP Huy hiệu đã đạt Bước đầu tiên Học tiếp Xem tổng quan",
+  "history": [
+    {
+      "date": "2026-11-17T13:33:59.464Z",
+      "total": 10,
+      "correct": 9,
+      "wrong": 1,
+      "accuracy": 90,
+      "mode": "sprint",
+      "durationSec": 22
+    }
+  ],
+  "pageErrors": [],
+  "browser": "133.0.6943.0"
+}

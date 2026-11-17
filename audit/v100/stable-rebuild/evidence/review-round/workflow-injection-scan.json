@@ -1,0 +1,16 @@
+{
+  "scanned": 8,
+  "workflows": [
+    "ci.yml",
+    "deploy.yml",
+    "exam-sources.yml",
+    "exam-validation.yml",
+    "pages-smoke.yml",
+    "release-artifacts.yml",
+    "release-published-dispatch.yml",
+    "telemetry-smoke.yml"
+  ],
+  "yamlParser": "available (parsed walk)",
+  "injectionShapedExpressions": 0,
+  "findings": []
+}

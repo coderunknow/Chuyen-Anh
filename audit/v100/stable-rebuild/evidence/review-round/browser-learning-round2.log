@@ -1,0 +1,62 @@
+browser (chromium): /tmp/chromium
+---- tests/browser-learning.cjs (chromium)
+phase timings (chromium): 35 phases, 421.0s instrumented
+     75.1s  RC2 remediation regression: RT-08 skipped cards are counted once ----
+     63.1s  Timed practice: a real clock, unanswered questions are blank, not wrong.
+     57.9s  "Học cấp tốc" is a learning method, not only a faster hand-off. Every
+     39.0s  RC2 remediation regressions: RT-01 / RT-07 ----
+     30.9s  RC2 remediation regression: RT-04 first-pass-correct streak ----
+     17.9s  beta6: a session always opens where the learner can see it, the XP a
+     13.8s  RT-03: WCAG 2.1 A/AA, light and dark, on every view.
+     10.7s  Diagnostics log: off by default, opt-in, downloadable, and erased when
+     10.6s  A backup file round-trips: export → wipe → import → export preserves data.
+      9.4s  beta5: the priority configuration, all seven exercise types, skipped
+      9.0s  beta7: the phrase bank browses, searches, filters and practises on its
+      8.0s  RC2: a matching board introduces new words first, changing the left
+      7.9s  Reset and import end the running session instead of resurrecting it.
+      6.6s  Scope B (beta4 follow-up): the daily streak is written by first-pass
+      6.4s  R9-23: the contrast axe cannot decide.
+      5.5s  History keeps one retention window, so a roundTripBundle cannot drop sessions.
+      5.1s  rc5: "only after answering" deletes the preview stage; it does not mask it.
+      4.8s  ID 448 shows its canonical meaning and labels the retained old wording.
+      4.5s  Scope A (beta4 follow-up): the card-footer keyboard hints are interface
+      4.2s  A chord belongs to the browser, never to the card (review round 2).
+      3.4s  beta4 regressions (Scopes A, B, E, F) on live Chromium page before quota-failure scenario
+      3.4s  English interface: the note that explains a turn is interface copy and
+      3.1s  Every new interface string is translated in the English interface.
+      2.8s  Shortcuts belong to the visible card, not to a hidden session.
+      2.5s  rc7: a gloss that quotes its own headword never prints the answer
+      2.5s  The answer choices are a named button group, not a radio group.
+      2.2s  A v1 file from an older build keeps this device's hard words and config.
+      2.2s  Searching "advers" and favoriting a result must not reset the view.
+      2.2s  A blank spelling submission is not a graded attempt. (dev3 regression)
+      2.1s  Self-assessment grades exactly once, even when activated twice. (dev3 regression)
+      1.6s  prologue
+      1.4s  A revealed card cannot be skipped past its self-assessment. (dev3 regression)
+      0.7s  About: name, real version, licence from LICENSE and a short purpose.
+      0.4s  Curation: an archived row stays findable and labelled, but it is not
+      0.0s  A failed device write is reported, never replaced by a success message.
+PASS: chromium 133.0.6943.0 — first-look introduction for new words, same-part-of-speech distractors, cloze options absent from the sentence, revealed answers locked to self-assessment, corrective retrieval, bounded retries, R, skips, first-pass history, existing progress preserved, persistence, import/export, keyboard focus, light/dark, 320/375/768px responsive layout, reduced-motion setting, search state across a favorite toggle, session clearing on reset/import, the ID 448 historical label, named option groups, shortcuts limited to the visible card, failed writes reported truthfully, JSON backup round-trips that keep every retained session, blank spelling submissions ignored, single-graded self-assessment, skip locked after a reveal, and 'Học cấp tốc' processing all ten requested words with a truthful single correction, automatic advance only after correct answers, accurate first-pass statistics, persisted progress, an immediate hand-off with the graded answer carried onto the next card, a queue that never shifts while another screen is open, and interface copy on a consolidation turn translated in the English interface; the beta5 priority configuration with all eight exercise types, a matching board driven from the keyboard, a skipped question reopened from the pending list, a hard word marked and unmarked, a real one-minute timed session that ends on its results with unanswered questions reported as blank, a v1 backup that keeps the device hard-word list, English rendering of every new screen, and the beta6 regressions: a priority session started from Settings opens where the learner can see it, a classic session reports only its own XP, a typed answer survives the star/flag toggles, a sprint honours the timer, a start that cannot run explains itself, a new session inherits no skipped questions, and the beta7 phrase bank: 1,094 phrases browsed, searched, filtered by type and level, practised for ten turns with typed and multiple-choice retrieval recorded in its own store while word progress stayed byte-identical, English rendering of the phrase screens, and a reset that clears phrase progress; the RC2 remediation regressions: two-tab grades surviving cross-tab writes with wipes never resurrected, an over-quota restore failing atomically with a truthful error then recovering fully once space is freed, the day streak moving only on first-pass correct answers — typed, chosen, self-assessed, and match resolutions alike — and skipped cards counted exactly once, at expiry and in a finished session; the curation release: an archived word marked in Tra cứu with no favourite toggle and a 1.271-row archived scope, every count driven by the 6,841-word focus deck, and an About panel stating the real version and the MIT licence read from LICENSE; the opt-in diagnostics log: off by default with no key on a device that never consented, a timestamped consent record, boot/settings/search events with no search text inside them, a downloaded report that names what it omits and carries no user agent, erasure on withdrawal; the rc7 answer-leakage regression: a gloss quoting its own headword is masked in the pre-answer prompt and printed in full only in feedback; no page errors.
+---- tests/browser-exams.cjs (chromium)
+node:internal/modules/cjs/loader:1568
+  throw err;
+  ^
+
+Error: Cannot find module 'playwright-core'
+Require stack:
+- /home/z/my-project/work/repo/tests/browser-exams.cjs
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1564:15)
+    at wrapResolveFilename (node:internal/modules/cjs/loader:1118:27)
+    at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1142:10)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1169:12)
+    at Module._load (node:internal/modules/cjs/loader:1341:5)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.require (node:internal/modules/cjs/loader:1674:12)
+    at require (node:internal/modules/helpers:157:16)
+    at Object.<anonymous> (/home/z/my-project/work/repo/tests/browser-exams.cjs:7:20)
+    at Module._compile (node:internal/modules/cjs/loader:1929:14) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [ '/home/z/my-project/work/repo/tests/browser-exams.cjs' ]
+}
+
+Node.js v24.22.3
