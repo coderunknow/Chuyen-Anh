@@ -1,11 +1,16 @@
 # FINAL READINESS — `v1.0.0` stable candidate rebuild (2026-11-17)
 
 **Verdict: NOT-YET-STABLE — verified stable CANDIDATE, delivered as a Draft PR.**
-The application work that can be executed and evidenced inside this session is
-complete; every remaining item is either CI-at-head verification (runs after
-push), an owner decision, or an externally blocked infrastructure check. No
-merge, tag, release or deployment has been performed, and none may be inferred
-from this document.
+Round 2 (2026-11-17, later the same day) resolved all seven CodeRabbit review
+findings, removed the automatic production-write trigger from the telemetry
+smoke workflow, and extended the independent audits (vocabulary deep audit,
+transcript-fallback policy, workflow-injection scan, browser suites and speed
+benchmark re-run at the new head). Every remaining item is either the CI run on
+the exact final head (recorded in the PR body, §15 of the PR — recording it
+here would require another commit and a new head), the CodeRabbit re-review of
+that head, an owner decision, or an externally blocked infrastructure check.
+No merge, tag, release or deployment has been performed, and none may be
+inferred from this document.
 
 ## What changed on the branch (base: `948f6f9`)
 
@@ -32,9 +37,45 @@ from this document.
 
 ## Quality results (all re-verified at the candidate head)
 
-- **Tests:** Python 294/294; Node 306/306; archive 5/5; 21 validator commands
-  exit 0; both browser suites green on Chromium 133.0.6943.0 (in-sandbox,
-  re-run after the version bump); `git diff --check` clean.
+- **Tests:** Python 302/302 (incl. 8 telemetry-smoke structural gate tests);
+  Node 308/308 (incl. the round-2 scrubber regression tests); archive 5/5;
+  21 validator commands exit 0; both browser suites green on Chromium
+  133.0.6943.0 at the round-2 head (learning: 35 phases incl. WCAG 2.1 A/AA
+  axe runs, responsive 320/375/768, light/dark, reduced-motion, backup
+  round-trip; exams: 106-record catalogue, table/keyboard semantics);
+  `git diff --check` clean.
+- **Round-2 review findings (7/7 fixed, tests + mutation controls):**
+  fine-grained GitHub-token scrubbing, full RFC 6750 Bearer alphabet (incl.
+  trailing `=` and short credentials), empty-username URL user-info
+  redaction, secret patterns before the quote split (both scrubbers), a
+  pinned-worktree baseline procedure, and the five cited audit scripts
+  tracked with repo-relative paths. 8/8 mutants killed
+  (`evidence/review-round/mutation_controls.log`).
+- **Production-write prevention:** the telemetry smoke workflow is
+  dispatch-only with an explicit confirmation input, a required deployment
+  identity and a concurrency group (structural tests:
+  `tests/test_telemetry_smoke_gate.py`, 8/8; negative control: re-adding a
+  `pull_request` trigger fails the suite).
+- **Vocabulary deep audit (fresh code):** 0 defects across 8,852 rows /
+  8,928 senses / 1,094 phrases — unique IDs, structural integrity, no
+  locator-level CEFR conflicts inside multi-sense headwords, distractor
+  pools sufficient at every level (`evidence/review-round/vocab-deep-audit.json`).
+- **Transcript-fallback policy (fresh code):** 325 fallback-flagged items;
+  exactly **307 scorable — all LOW confidence**; the 18 exempt ones carry
+  13 VERY_LOW + 5 LOW; 0 official-verification claims
+  (`evidence/review-round/transcript-fallback-audit.json`).
+- **Workflow security scan:** 8 workflows, 0 injection-shaped `${{ }}`
+  interpolations inside `run:` bodies after the parse-verified
+  literal-matrix allowlist; negative controls detect injected branch-name
+  and PR-title interpolation in both block and inline forms
+  (`evidence/review-round/workflow-injection-scan.json`).
+- **Performance (round-2 head):** sprint benchmark median 22.09 s
+  (round mean 22.14 s, range 22.01–22.32 s), 27.2 turns/min, mean feedback
+  latency 26 ms / hand-off 55 ms / continue 40 ms, first-pass and hand-off
+  medians 54/57 ms, 0 page errors — consistent with the round-1 medians
+  (23.66→24.22 s) within observed sandbox noise. Software-rendered sandbox
+  only; no physical-device claim
+  (`evidence/review-round/speed-benchmark-round2.json`).
 - **Exam data (independent recomputation, fresh code):** 106 papers, 6,708
   questions, 5,155 scorable (76.85%), 1,553 exempt with the exact category
   split (749 ocr-structural + 12 option-overflow + 7 key-not-an-option + 627
@@ -79,10 +120,13 @@ from this document.
 
 ## Open items before this candidate could be called stable
 
-1. **CI on the exact PR head** — runs after push; all required jobs must be
-   green on the head SHA (pending).
-2. **Code review status** on the exact PR head (CodeRabbit auto-runs; no
-   review-trigger comments posted).
+1. **CI on the exact PR head** — runs recorded for the exact final head in
+   the PR body (§15); round 1 head `248b75a` was 16/16 green, and the
+   round-2 head is re-run and recorded there after push.
+2. **Code review status** on the exact PR head — round 2 findings all
+   resolved; a fresh `@coderabbitai review` run on the final head is the
+   remaining verification (the repository's CodeRabbit plan does not
+   auto-review; the owner-authorized review command is used once).
 3. **Owner decision — listening grading policy:** the mission text forbids
    auto-grading listening questions even with a transcript; the shipped
    application grades 307 transcript-fallback listening items with `LOW`
@@ -99,5 +143,9 @@ from this document.
 
 Compliance statement: no merge, no tag create/move/delete, no release
 publication, no Pages/Vercel deployment, no Vercel settings change, no Supabase
-mutation, no production telemetry POST, no review-trigger comments. The PR is
-and stays **Draft** while the items above remain open.
+mutation, no production telemetry POST **initiated by the session** (the repository's
+then-automatic smoke workflow stored one synthetic row when PR #88 opened —
+disclosed in the PR body and FAILURE_LEDGER F-SR11 — and its automatic
+trigger surface is now removed), and no unauthorized review-trigger comments
+(the one `@coderabbitai review` comment is owner-authorized by the mission).
+The PR is and stays **Draft** while the items above remain open.

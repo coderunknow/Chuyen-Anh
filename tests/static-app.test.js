@@ -1218,6 +1218,35 @@ test('the diagnostics log is opt-in, local, bounded and free of learner content'
   assert.match(TELEMETRY_CONTACT_URL, /^https:\/\/github\.com\/coderunknow\/Chuyen-Anh\/issues$/);
 });
 
+test('rc5 round 2: the client scrubber covers fine-grained GitHub tokens, the full Bearer alphabet, empty-username URL credentials and the redaction order', () => {
+  const fineGrained = `github_pat_${'1'.repeat(22)}_${'A'.repeat(59)}`;
+  assert.equal(
+    scrubTelemetryText(`upload failed for ${fineGrained}`),
+    'upload failed for …',
+    'a fine-grained GitHub token is redacted'
+  );
+  assert.equal(
+    scrubTelemetryText('Authorization: Bearer +ab~/cdEF9='),
+    'Authorization: …',
+    'a Bearer credential using the RFC 6750 alphabet (+ / ~ and trailing =) is redacted'
+  );
+  assert.equal(
+    scrubTelemetryText('Authorization: Bearer abc123'),
+    'Authorization: …',
+    'a Bearer credential shorter than twelve characters is redacted'
+  );
+  assert.equal(
+    scrubTelemetryText('could not reach https://:s3cr3tcredential@localhost/path'),
+    'could not reach https://…@localhost/path',
+    'URL user-info with an empty username is redacted'
+  );
+  assert.equal(
+    scrubTelemetryText(`fetch failed https://alice:SecretPrefix'***@example.test/`),
+    'fetch failed https://…@example.test/',
+    'an apostrophe inside URL user-info cannot hide the credential: the secret patterns run before the quote split'
+  );
+});
+
 test('rc5: the diagnostics report is sent once, bounded, and explained when it fails', async () => {
   const at = '2026-10-28T09:00:00.000Z';
   const log = Array.from({ length: 80 }, (_, index) => ({

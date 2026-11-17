@@ -270,6 +270,33 @@ test('secret-shaped strings in a note are redacted before storage', async () => 
   }
 });
 
+test('review round: fine-grained GitHub tokens, the full Bearer alphabet, empty-username URL credentials and the redaction order are all covered', async () => {
+  // GitHub's fine-grained personal access tokens carry the github_pat_ prefix
+  // and a fixed 22 + '_' + 59 body (93 characters with the prefix).
+  const fineGrained = `github_pat_${'1'.repeat(22)}_${'A'.repeat(59)}`;
+  const { calls } = await invoke(request('POST', payload({
+    events: [
+      event({ kind: 'error', name: 'uncaught', note: `upload failed for ${fineGrained}` }),
+      event({ kind: 'error', name: 'uncaught', note: 'Authorization: Bearer +ab~/cdEF9=' }),
+      event({ kind: 'error', name: 'uncaught', note: 'Authorization: Bearer abc123' }),
+      event({ kind: 'error', name: 'uncaught', note: 'could not reach https://:s3cr3tcredential@localhost/path' }),
+      event({ kind: 'error', name: 'uncaught', note: `fetch failed https://alice:SecretPrefix'***@example.test/` })
+    ]
+  })));
+  assert.equal(calls.length, 1);
+  const notes = calls[0].body.payload.events.map(e => e.note);
+  assert.equal(notes[0], 'upload failed for …', 'a fine-grained GitHub token is redacted');
+  assert.equal(notes[1], 'Authorization: …', 'a Bearer credential using the RFC 6750 alphabet (+ / ~ and trailing =) is redacted');
+  assert.equal(notes[2], 'Authorization: …', 'a Bearer credential shorter than twelve characters is redacted');
+  assert.equal(notes[3], 'could not reach https://…@localhost/path', 'URL user-info with an empty username is redacted');
+  assert.equal(notes[4], 'fetch failed https://…@example.test/',
+    'an apostrophe inside URL user-info cannot hide the credential: the secret patterns run before the quote split');
+  const stored = JSON.stringify(calls[0].body.payload);
+  for (const fragment of ['github_pat_', fineGrained.slice(-20), '+ab~/cdEF9=', 'abc123', 's3cr3tcredential', 'SecretPrefix']) {
+    assert.equal(stored.includes(fragment), false, `${fragment} must never reach the stored payload`);
+  }
+});
+
 test('upstream outcomes map to documented status codes', async () => {
   const ok = await invoke(request('POST', payload()), { status: 'ok', id: 'row-9' });
   assert.equal(ok.res.statusCode, 202);

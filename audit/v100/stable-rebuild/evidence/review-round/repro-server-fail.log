@@ -1,0 +1,48 @@
+✔ preflight answers 204 and echoes only the published origin (1.149841ms)
+✔ a copy opened from disk (Origin: null) and local development are allowed (3.277266ms)
+✔ a foreign origin is refused before the body is read (0.195052ms)
+✔ only POST with a JSON body is accepted (0.201723ms)
+✔ oversized, malformed and unknown-contract bodies are rejected (0.522637ms)
+✔ the stored payload is rebuilt: unknown fields, kinds and counters are dropped (1.130931ms)
+✔ a rejected theme falls back to no value at all (1.043305ms)
+✔ the rate-limit key is a salted hash, never the address (0.521776ms)
+✔ secret-shaped strings in a note are redacted before storage (0.766883ms)
+✖ review round: fine-grained GitHub tokens, the full Bearer alphabet, empty-username URL credentials and the redaction order are all covered (1.656292ms)
+✔ upstream outcomes map to documented status codes (0.790279ms)
+✔ an unconfigured deployment or missing/weak TELEMETRY_IP_SALT fails closed with 503 (0.345581ms)
+✔ proxy IP extraction prefers x-vercel-forwarded-for and rightmost XFF over spoofed leftmost XFF (0.399948ms)
+✔ service errors never describe how the deployment is wired (0.193132ms)
+✔ the endpoint kind list matches the one the application records (108.520379ms)
+✔ no credential is ever shipped in the application or in this repository copy (135.340223ms)
+✔ a request whose body was not pre-parsed is read from the stream (6.386444ms)
+✔ a streamed body over the size cap is refused without being stored (0.584072ms)
+✔ an empty streamed body is a malformed request, not a crash (0.335695ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 18
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 317.387195
+
+✖ failing tests:
+
+test at tests/telemetry-api.test.js:273:1
+✖ review round: fine-grained GitHub tokens, the full Bearer alphabet, empty-username URL credentials and the redaction order are all covered (1.656292ms)
+  AssertionError [ERR_ASSERTION]: a fine-grained GitHub token is redacted
+  + actual - expected
+  
+  + 'upload failed for github_pat_1111111111111111111111_AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'
+  - 'upload failed for …'
+  
+      at TestContext.<anonymous> (/home/z/my-project/work/repo/tests/telemetry-api.test.js:288:10)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'upload failed for github_pat_1111111111111111111111_AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+    expected: 'upload failed for …',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

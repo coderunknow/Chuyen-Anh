@@ -550189,16 +550189,24 @@ const TELEMETRY_EMAIL = /[\w.+-]+@[\w-]+\.[\w.-]+/g;
 // any of these, and a diagnostics note must never become the way a credential
 // leaves a device.
 const TELEMETRY_SECRET_SHAPES = [
-  [/\b(?:ghp|gho|ghu|ghs|ghr)_[A-Za-z0-9]{16,}\b/g, '…'],
+  // Classic tokens plus GitHub's fine-grained personal access tokens
+  // (github_pat_ + 22 + '_' + 59 characters).
+  [/\b(?:ghp|gho|ghu|ghs|ghr)_[A-Za-z0-9]{16,}\b|\bgithub_pat_[A-Za-z0-9]{22}_[A-Za-z0-9]{59}\b/g, '…'],
   [/\bsk-(?:proj-)?[A-Za-z0-9_-]{16,}\b/g, '…'],
-  [/\bBearer\s+[A-Za-z0-9._-]{12,}/gi, '…'],
-  [/([a-z][a-z0-9+.-]*:\/\/)[^\s/@:]+:[^\s/@]+@/gi, '$1…@']
+  // RFC 6750 b64token: 1*( ALPHA / DIGIT / "-" / "." / "_" / "~" / "+" / "/" ) *"=".
+  // No minimum length: a short credential is still a credential.
+  [/\bBearer\s+[A-Za-z0-9._~+/]+=*/gi, '…'],
+  // RFC 3986 user-info: the username may be empty (https://:password@host).
+  [/([a-z][a-z0-9+.-]*:\/\/)[^\s/@]*:[^\s/@]+@/gi, '$1…@']
 ];
 
 export function scrubTelemetryText(value, maxLength = 120) {
   let text = String(value ?? '').replace(/[\u0000-\u001f\u007f]/g, ' ');
-  text = text.split(TELEMETRY_QUOTE)[0];
+  // Secret patterns run before the quote split: an apostrophe inside URL
+  // user-info (RFC 3986 allows it) would otherwise truncate the text before the
+  // '@' is redacted, leaving the password prefix in the note.
   for (const [pattern, replacement] of TELEMETRY_SECRET_SHAPES) text = text.replace(pattern, replacement);
+  text = text.split(TELEMETRY_QUOTE)[0];
   text = text.replace(TELEMETRY_EMAIL, '…').replace(/\s+/g, ' ').trim();
   const cap = Number.isFinite(Number(maxLength)) && Number(maxLength) > 0 ? Math.floor(Number(maxLength)) : 120;
   return text.length > cap ? `${text.slice(0, cap - 1)}…` : text;

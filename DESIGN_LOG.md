@@ -2729,3 +2729,52 @@ gates verified held against the live repository. `audit-evidence/round8/RC11_VER
 - **What was not tested.** Firefox/WebKit locally (CI's), a live telemetry
   POST, live Vercel project settings/Supabase inspection, screen-reader
   testing, the 186 external asset digests, physical low-memory devices.
+
+## 2026-11-17 — review round 2 on `build/v100-stable-rebuild`: findings resolved, production-write trigger removed (Arena/Z agent session)
+
+- **All seven CodeRabbit findings (head `248b75a`) verified against source and
+  fixed.** Both telemetry scrubbers now redact fine-grained GitHub tokens
+  (`github_pat_` + 22 + `_` + 59), the full RFC 6750 Bearer alphabet
+  (`+ / ~`, trailing `=`, no minimum length), and URL user-info with an empty
+  username; the secret-pattern loop now runs BEFORE the quote split so an
+  apostrophe inside URL user-info cannot leave a password prefix behind.
+  Regression tests were written first and committed as failing logs, then the
+  fix landed; `scripts/mutation_cr_scrub.mjs` kills 8/8 mutants (one per fix
+  per implementation) after passing on the clean tree.
+- **Baseline reproduction is now worktree-based.** `git stash` cannot recover
+  the base commit on a branch checkout; `REPRODUCTION_COMMANDS.md` pins
+  `948f6f9` in a separate worktree, verified end-to-end (exactly the D-SR1
+  failure at base, 0 failures at the candidate head).
+- **The five cited audit scripts are tracked** at their cited `scripts/`
+  paths with repo-relative resolution replacing absolute sandbox paths; every
+  documented command runs from the checkout. The originals were recovered
+  unchanged from the session workspace — no evidence was refabricated.
+- **The telemetry smoke workflow no longer writes to production
+  automatically.** The `push` and `pull_request` triggers are removed (opening
+  PR #88 had stored one synthetic production row before the cancel could
+  land — disclosed in the PR body and FAILURE_LEDGER F-SR11). It is now
+  dispatch-only with a required `confirm_production_write` boolean, a
+  required `deployment_identity` (passed via `env:`, never shell
+  interpolation), a `concurrency` group, least privilege and the pinned
+  checkout SHA; checkout/probe steps are additionally conditional.
+  `tests/test_telemetry_smoke_gate.py` (8 tests) parses the real YAML to pin
+  this; negative control: re-adding a `pull_request` trigger fails the suite.
+- **Suite totals reconciled:** Python 302/302, Node 308/308, archive 5/5;
+  checklist rows and the changelog follow-up totals updated to match (both
+  enforced by tests). All gates green at the round-2 head before commit.
+- **Independent audits extended:** vocabulary deep audit (0 defects; unique
+  IDs, no locator-level CEFR conflicts, sufficient distractor pools, clean
+  phrase bank); transcript-fallback policy re-derived with fresh code (325
+  flagged → exactly 307 scorable, all LOW; 18 exempt; 0 official claims);
+  workflow script-injection scan (0 findings after a parse-verified
+  literal-matrix allowlist; negative controls detect injected branch-name and
+  PR-title interpolation); browser suites re-run at the round-2 head
+  (learning 35 phases PASS incl. axe WCAG, exams PASS); speed benchmark
+  median 22.09 s, 0 page errors — within round-1 noise.
+- **Production authorization unchanged:** the single authorized synthetic
+  POST remains PENDING — the candidate revision is not deployed by an
+  authorized actor, so the deployed revision cannot be verified and no POST
+  was sent. No merge, tag, release, deploy, Vercel or Supabase change.
+- **Not tested:** Firefox/WebKit locally (CI's matrix), screen-reader pass,
+  physical low-memory devices, the 186 external asset digests, live Supabase
+  function version, Vercel settings.

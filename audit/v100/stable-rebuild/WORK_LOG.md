@@ -87,3 +87,69 @@
   and opening the PR are externally blocked pending a token with
   `contents: write` (or a classic PAT with `repo` scope). Branch delivered as a
   git bundle instead; PR body pre-drafted for the owner to push and open.
+
+## Round 2 — review response, production-write prevention, deep audit (2026-11-17)
+
+### CodeRabbit review round 2 (7 findings, all verified valid, all fixed)
+
+- Fetched the genuine COMMENTED review at `248b75a` (submitted 12:45:11Z):
+  7 inline findings, 5 Major (security) + 2 Minor (reproducibility). Each was
+  reproduced against the current source first; failing tests were committed
+  as the reproduction evidence (`evidence/review-round/repro-*-fail.log`)
+  BEFORE the fix, then the fix landed and both suites went green.
+- Fixes: fine-grained GitHub-token pattern; full RFC 6750 Bearer alphabet with
+  trailing `=` and no minimum length; empty-username URL user-info redaction;
+  secret patterns moved before the quote split (both scrubbers); baseline
+  reproduction rewritten around a pinned `948f6f9` worktree; the five cited
+  audit scripts tracked at their cited paths with repo-relative resolution.
+- Suite totals after the round: Python 302/302 (+8 structural gate tests),
+  Node 308/308 (+1 telemetry-api, +1 static-app). Checklist and changelog
+  follow-up totals refreshed to match (enforced by `test_ci_gate_coverage.py`
+  and `test_audit_document_counts.py`).
+- Mutation controls: `scripts/mutation_cr_scrub.mjs` — 8/8 mutants killed,
+  log `evidence/review-round/mutation_controls.log`.
+
+### Production-write prevention (repository behaviour change)
+
+- `telemetry-smoke.yml` no longer auto-triggers on `push` or `pull_request`
+  (opening PR #88 had stored one synthetic production row before the cancel
+  could land — recorded in FAILURE_LEDGER F-SR11). It is now dispatch-only:
+  required `confirm_production_write` boolean, required `deployment_identity`,
+  concurrency group, least privilege, pinned SHA, conditional checkout/probe.
+- The authorized single production POST stays PENDING: the candidate revision
+  of the endpoint has not been deployed by an authorized actor, so no POST was
+  sent this session and none will be until the deployment identity can be
+  verified.
+
+### Independent deep audits (fresh code, fresh assumptions)
+
+- Vocabulary deep audit (`scripts/independent_vocab_deep_audit.mjs`): unique
+  row/sense IDs, structural integrity, locator-level CEFR conflicts inside
+  multi-sense headwords, distractor-pool sufficiency per level, phrase-bank
+  uniqueness → **0 defects** across 8,852 rows / 8,928 senses / 1,094 phrases
+  (`evidence/review-round/vocab-deep-audit.json`).
+- Reference-sample re-verification (fresh parsers): 198/198 = 100% agreement,
+  3 unverifiable-first-ref senses documented (same result as round 1).
+- Exam totals re-derived independently: 106 papers, 6,708 questions, 5,155
+  scorable (76.85%), 1,553 exempt, 0 non-exempt missing keys, 2,146/2,146
+  curated SHA-256 bindings re-derived with 0 mismatches.
+- Transcript-fallback policy re-derived: 325 fallback-flagged items, **307
+  scorable — every one LOW confidence**, 18 exempt (13 VERY_LOW + 5 LOW), 0
+  official-verification claims, 0 violations
+  (`evidence/review-round/transcript-fallback-audit.json`).
+- Workflow security scan (`scripts/scan_workflow_injection.mjs`): 8 workflows,
+  0 injection-shaped interpolations after the parse-verified literal-matrix
+  allowlist; negative controls detect injected branch-name/PR-title
+  interpolation in both `run:` forms
+  (`evidence/review-round/workflow-injection-scan.json`).
+- Threat-oriented security review written up with per-threat controls and
+  tracked evidence (`evidence/SECURITY_AUDIT_ROUND2.md`).
+
+### Session boundary notes
+
+- The five original round-1 scripts were recovered from the session workspace
+  and committed unchanged except for repo-relative path resolution; no
+  evidence was rewritten or fabricated.
+- `git worktree add /tmp/baseline-948f6f9 948f6f9` verified the documented
+  baseline procedure: exactly 1 failure at base ("a locked write reports the
+  mode it obtained"), 0 failures at the candidate head.

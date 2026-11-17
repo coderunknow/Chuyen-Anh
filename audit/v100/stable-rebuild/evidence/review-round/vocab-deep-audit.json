@@ -1,0 +1,15 @@
+{
+  "rows": 8852,
+  "phrases": 1094,
+  "multiSenseRows": 75,
+  "senses": 8928,
+  "checks": [
+    "identifier-uniqueness",
+    "structural-integrity",
+    "locator-cefr-conflicts",
+    "distractor-pools",
+    "phrase-bank"
+  ],
+  "defectCount": 0,
+  "defects": []
+}

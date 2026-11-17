@@ -88,3 +88,76 @@
   PGlite demonstration of both migration behaviours.
 - **Status:** EXTERNALLY BLOCKED; exact required owner action recorded in
   `FINAL_READINESS.md`.
+
+## F-SR8 — round-2 session (2026-11-17): transcript-fallback audit matched no items
+
+- **Raw outcome:** the first run of the independent transcript-fallback audit
+  reported 0 items.
+- **Cause:** two shape assumptions were wrong at once: the answer keys live
+  under `record.answerKeys` (not `record.keys`), and the fallback flag is
+  `stimulusFallback: "listening_transcript_fallback"` while `sourceStatus` for
+  these items is `reconstructed`.
+- **Learned:** grep the raw JSON for the marker string before writing the
+  parser (the same lesson as F-SR2, paid for again).
+- **Next experiment:** re-run against the real shape → 325 fallback-flagged
+  items, **307 scorable — all LOW** (13 VERY_LOW + 5 LOW among the 18 exempt),
+  0 official-verification claims, 0 policy violations
+  (`scripts/independent_transcript_fallback_audit.mjs`,
+  `evidence/review-round/transcript-fallback-audit.json`).
+
+## F-SR9 — mutation-control fixtures diverged from the production text
+
+- **Raw outcome:** `FIXTURE MISSING` aborts in `mutation_cr_scrub.mjs` (twice).
+- **Cause (1):** the URL-pattern fixture used `\/` inside a character class
+  where the production file writes a bare `/`; **cause (2):** the file's regex
+  literal contains `\/\/` escapes the fixture lacked.
+- **Learned:** mutant fixtures must be copied from the actual file bytes, not
+  retyped; the script deliberately aborts (exit 2) instead of guessing.
+- **Fix:** fixtures now mirror the file exactly; full run → 8/8 killed.
+
+## F-SR10 — workflow-injection scanner had two blind spots at first
+
+- **Raw outcome:** the first version only scanned block-scalar `run:` bodies
+  (`run: |`), so a one-line `run: echo "…${{ … }}…"` step was invisible; and
+  the optional `yaml` import failed under ESM (NODE_PATH is a CJS mechanism),
+  which silently emptied the literal-matrix allowlist.
+- **Fix:** inline `run:` bodies are scanned directly; the parser loads via
+  `createRequire` (CJS, honours NODE_PATH) with a conservative fallback (no
+  parser → nothing allowlisted).
+- **Negative controls:** injecting `github.head_ref` (block form) and
+  `github.event.pull_request.title` (inline form) → both detected; clean tree
+  → 0 findings (the three `matrix.browser` interpolations are allowlisted only
+  because the matrix values are scalar literals in the same file).
+- **Recorded failure impact:** none on the shipped tree; the blind spot could
+  have hidden a future injection, which is why the inline form and the
+  negative controls are now part of the tracked scan.
+
+## F-SR11 — the telemetry-smoke cancel request landed after the run completed
+
+- **Raw outcome:** PR #88's opening (via the then-automatic `pull_request`
+  path filter) queued the telemetry smoke run; the session's cancellation
+  request arrived 2 minutes later than the run's completion. The workflow
+  stored exactly one synthetic production row (the probe's documented
+  behaviour: "One valid report is stored per run").
+- **Consequence:** this round removed the automatic triggers entirely — the
+  workflow is now dispatch-only with an explicit confirmation input, a required
+  deployment identity and a concurrency group, so this failure mode is
+  structurally closed, and the incident is recorded here rather than quietly
+  dropped.
+
+## F-SR12 — session-tooling: `npm install --prefix /tmp/pw --no-save <pkg>` prunes previously installed packages
+
+- **Raw outcome:** the exam browser suite crashed with
+  `Cannot find module 'playwright-core'` minutes after the learning suite had
+  resolved it in the same wrapper run; `/tmp/pw/node_modules` afterwards
+  contained only the most recently installed package set.
+- **Cause:** installing into a `--prefix` directory that has no `package.json`
+  with `--no-save` rewrites `node_modules` from the ideal tree of the CURRENT
+  command; previously installed packages are removed. The learning suite had
+  started before the last pruning install; the exam suite started after it.
+- **Learned:** install all session tooling in ONE `npm install` command (or
+  pin a `package.json` in the tooling dir); never assume earlier
+  `--prefix --no-save` installs survive the next one.
+- **Fix:** single reinstall of `playwright-core + @sparticuz/chromium +
+  axe-core + yaml`; exam suite re-run from scratch. No repository change
+  (the repo itself stays dependency-free; `/tmp/pw` is session tooling).

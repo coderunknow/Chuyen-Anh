@@ -1981,3 +1981,29 @@ Final state, stated precisely to avoid a self-referential chase:
   the transcript-fallback listening grading policy (mission text vs shipped
   behaviour, 307 items); screen-reader pass; WebKit/Firefox local runs (CI
   covers at head); 186 external asset digests; live telemetry POST recheck.
+
+## 2026-11-17 — review round 2 (`build/v100-stable-rebuild`) — findings resolved, workflow hardened, audits extended
+
+- CodeRabbit's genuine COMMENTED review at `248b75a` (submitted 12:45:11Z)
+  published seven findings (5 Major security, 2 Minor reproducibility). All
+  seven were reproduced against the current source, fixed with regression
+  tests written first, and guarded by mutation controls (8/8 killed). The
+  full proof chain per finding lives in `audit/v100/stable-rebuild/DEFECTS.md`
+  (CR1–CR7).
+- `.github/workflows/telemetry-smoke.yml` lost its automatic `push` and
+  `pull_request` triggers (the PR-open production write is disclosed as
+  FAILURE_LEDGER F-SR11); it is dispatch-only with an explicit confirmation
+  input and a required deployment identity, structurally pinned by
+  `tests/test_telemetry_smoke_gate.py`.
+- Independent round-2 audits: vocabulary deep audit 0 defects; transcript
+  fallback 307 scorable / all LOW (mission figure verified exactly);
+  workflow-injection scan clean with negative controls; browser suites green
+  at the round-2 head; sprint benchmark median 22.09 s, 0 page errors.
+- Local gates at the round-2 head: Python 302/302, Node 308/308, archive 5/5,
+  21 validators exit 0, `git diff --check` clean. Checklist/changelog totals
+  reconciled and test-enforced.
+- No merge, tag, release, deploy, Vercel/Supabase mutation; no production
+  POST initiated by the session; the single authorized live POST stays
+  pending until an authorized actor deploys and the deployed revision can be
+  verified. The authorized `@coderabbitai review` command is used once, on
+  the final head, per the mission's explicit grant.
