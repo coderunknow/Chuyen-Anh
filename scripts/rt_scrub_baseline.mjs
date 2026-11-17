@@ -32,7 +32,7 @@ for (const [label, text] of samples) {
   console.log(`${label}: ${JSON.stringify(ev.note)}`);
 }
 console.log('=== prototype-pollution counter key (both) ===');
-const evC = sanitizeTelemetryEvent({ kind: 'error', at: '2026-11-17T00:00:00.000Z', name: 'x', counters: { __proto__: 1, constructor: 2, turns: 3 } });
+const evC = sanitizeTelemetryEvent({ kind: 'error', at: '2026-11-17T00:00:00.000Z', name: 'x', counters: { ['__proto__']: 1, constructor: 2, turns: 3 } });
 console.log('client counters:', JSON.stringify(evC.counters));
-const evS = api.sanitizeEvent({ kind: 'error', at: '2026-11-17T00:00:00.000Z', name: 'x', counters: { __proto__: 1, constructor: 2, turns: 3 } });
+const evS = api.sanitizeEvent({ kind: 'error', at: '2026-11-17T00:00:00.000Z', name: 'x', counters: { ['__proto__']: 1, constructor: 2, turns: 3 } });
 console.log('server counters:', JSON.stringify(evS.counters));

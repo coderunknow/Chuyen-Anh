@@ -10,6 +10,7 @@
     "release-published-dispatch.yml",
     "telemetry-smoke.yml"
   ],
-  "injectionShapedLines": 0,
+  "yamlParser": "available (parsed walk)",
+  "injectionShapedExpressions": 0,
   "findings": []
 }

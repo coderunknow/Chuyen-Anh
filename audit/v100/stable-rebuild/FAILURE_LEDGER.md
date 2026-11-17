@@ -161,3 +161,28 @@
 - **Fix:** single reinstall of `playwright-core + @sparticuz/chromium +
   axe-core + yaml`; exam suite re-run from scratch. No repository change
   (the repo itself stays dependency-free; `/tmp/pw` is session tooling).
+
+## F-SR13 — the mutation classifier misread execFileSync failures
+
+- **Raw outcome:** after adding the infra/killed distinction (round 3, R3-6),
+  ALL 8 mutants were reported as INFRA-FAILURE.
+- **Cause:** for `execFileSync`, a completed non-zero exit carries the status
+  in `error.status` (number) while `error.code` is undefined — the check
+  `typeof error.code !== 'number'` therefore classified every killed mutant
+  as an infrastructure failure.
+- **Learned:** verify the exception shape empirically with one real mutant
+  before trusting a classification.
+- **Fix:** classify on `error.status` (number, no signal, not killed) → kill;
+  anything else → infra (exit 2). Full run: 8/8 killed, clean tree passes.
+
+## F-SR14 — window-boundary probe false-positive on an empty rate-limit table
+
+- **Raw outcome:** the pglite harness's first boundary check reported "the
+  10-minute window changed" on every attempt (before: null, after: a
+  timestamp) and declared scenario A inconclusive.
+- **Cause:** `min(window_start)` on an empty table is null; the absence of
+  rows is not a window change.
+- **Fix:** read the DB's own 600-second window floor (`to_timestamp(floor(
+  extract(epoch from now())/600)*600)`, the same expression as the SQL's
+  `v_window`) instead of querying the row table. Re-run: both behaviours
+  demonstrated, exit 0.

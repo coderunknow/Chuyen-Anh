@@ -1236,6 +1236,16 @@ test('rc5 round 2: the client scrubber covers fine-grained GitHub tokens, the fu
     'a Bearer credential shorter than twelve characters is redacted'
   );
   assert.equal(
+    scrubTelemetryText('Authorization: Bearer -LeadingHyphen0123'),
+    'Authorization: …',
+    'a Bearer credential starting with a hyphen is redacted'
+  );
+  assert.equal(
+    scrubTelemetryText('Authorization: Bearer abc-def-ghi'),
+    'Authorization: …',
+    'a Bearer credential with embedded hyphens is redacted'
+  );
+  assert.equal(
     scrubTelemetryText('could not reach https://:s3cr3tcredential@localhost/path'),
     'could not reach https://…@localhost/path',
     'URL user-info with an empty username is redacted'

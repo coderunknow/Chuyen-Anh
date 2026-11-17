@@ -1,16 +1,22 @@
 # FINAL READINESS — `v1.0.0` stable candidate rebuild (2026-11-17)
 
 **Verdict: NOT-YET-STABLE — verified stable CANDIDATE, delivered as a Draft PR.**
-Round 2 (2026-11-17, later the same day) resolved all seven CodeRabbit review
-findings, removed the automatic production-write trigger from the telemetry
-smoke workflow, and extended the independent audits (vocabulary deep audit,
-transcript-fallback policy, workflow-injection scan, browser suites and speed
-benchmark re-run at the new head). Every remaining item is either the CI run on
-the exact final head (recorded in the PR body, §15 of the PR — recording it
-here would require another commit and a new head), the CodeRabbit re-review of
-that head, an owner decision, or an externally blocked infrastructure check.
-No merge, tag, release or deployment has been performed, and none may be
-inferred from this document.
+Round 2 (2026-11-17) resolved all seven CodeRabbit review findings and removed
+the automatic production-write trigger from the telemetry smoke workflow. The
+owner-authorized `@coderabbitai review` on that head then produced a fresh
+review (13 findings, 2 Major); round 3 (2026-11-17) resolved all of them —
+including the real gap it caught (the Bearer class omitted `-`, which RFC 6750
+allows) — and hardened every audit script the review flagged. The independent
+audits were re-run at the round-3 head: vocabulary deep audit 0 defects, exam
+totals and 2,146/2,146 curated hashes re-derived (`verdictOk: true`),
+transcript fallback exactly 307 scorable / all LOW, injection scan clean with
+negative controls, browser suites green, sprint benchmark 22.09 s median with
+0 page errors. Every remaining item is either the CI run on the exact final
+head (recorded in the PR body, §15 of the PR — recording it here would require
+another commit and a new head), the next CodeRabbit pass on that head, an
+owner decision, or an externally blocked infrastructure check. No merge, tag,
+release or deployment has been performed, and none may be inferred from this
+document.
 
 ## What changed on the branch (base: `948f6f9`)
 

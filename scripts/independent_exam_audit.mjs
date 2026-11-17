@@ -53,19 +53,26 @@ for (const record of examData) {
   }
 
   // Independent hash re-derivation for every curated entry of this paper.
+  // An entry counts as passing only when it carries at least one hash and
+  // every supplied hash matches.
   for (const [qid, entry] of curatedMap) {
     const q = qById.get(qid);
     if (!q) { hashMismatches.push(`${record.id}/${qid}: question not re-parsed`); continue; }
+    const hasHash = entry.promptSha256 !== undefined || entry.optionsSha256 !== undefined;
+    let entryOk = true;
     if (entry.promptSha256 !== undefined && sha(q.prompt) !== entry.promptSha256) {
       hashMismatches.push(`${record.id}/${qid}: promptSha256`);
+      entryOk = false;
     }
     if (entry.optionsSha256 !== undefined && sha(canonicalOptions(q)) !== entry.optionsSha256) {
       hashMismatches.push(`${record.id}/${qid}: optionsSha256`);
+      entryOk = false;
     }
-    hashOk += 1;
+    if (hasHash && entryOk) hashOk += 1;
   }
 }
 
+const verdictOk = hashMismatches.length === 0 && noKey === 0;
 console.log(JSON.stringify({
   papers: examData.length, total, scorable, exempt, noKey,
   scorablePct: +(100 * scorable / total).toFixed(2),
@@ -74,5 +81,8 @@ console.log(JSON.stringify({
   curatedHashChecked: hashOk,
   curatedHashMismatches: hashMismatches.length,
   hashMismatchSample: hashMismatches.slice(0, 8),
-  noKeySample
+  noKeySample,
+  verdictOk
 }, null, 2));
+// Exit non-zero so CI or a release gate can act on a failed audit.
+process.exitCode = verdictOk ? 0 : 1;

@@ -9,12 +9,34 @@ const REPO = fileURLToPath(new URL('../', import.meta.url));
 const vocab = JSON.parse(await readFile(`${REPO}/data/vocabulary.json`, 'utf8'));
 
 // --- Load references with independent parsers ---
+// Quote-aware CSV field parser (RFC 4180 subset): quoted fields may contain
+// commas; CRLF and LF line endings are both accepted.
+function parseCsvLine(line) {
+  const cols = [];
+  let current = '', inQuotes = false;
+  for (let i = 0; i < line.length; i += 1) {
+    const ch = line[i];
+    if (inQuotes) {
+      if (ch === '"' && line[i + 1] === '"') { current += '"'; i += 1; }
+      else if (ch === '"') inQuotes = false;
+      else current += ch;
+    } else if (ch === '"') inQuotes = true;
+    else if (ch === ',') { cols.push(current); current = ''; }
+    else current += ch;
+  }
+  cols.push(current);
+  return cols;
+}
+// Split on CRLF or LF; drop a trailing empty line.
+function dataRows(text) {
+  return text.split(/\r?\n/).slice(1).filter(l => l !== '');
+}
 const refs = {};
 {
   const csv = await readFile(`${REPO}/audit/v100/refs/cefrj-vocabulary-profile-1.5.csv`, 'utf8');
   const map = new Map();
-  for (const line of csv.split('\n').slice(1)) {
-    const cols = line.split(',');
+  for (const line of dataRows(csv)) {
+    const cols = parseCsvLine(line);
     if (cols.length < 3) continue;
     const head = cols[0].trim().toLowerCase();
     const pos = (cols[1] || '').trim().toLowerCase();
@@ -28,8 +50,8 @@ const refs = {};
 {
   const csv = await readFile(`${REPO}/audit/v100/refs/octanove-vocabulary-profile-c1c2-1.0.csv`, 'utf8');
   const map = new Map();
-  for (const line of csv.split('\n').slice(1)) {
-    const cols = line.split(',');
+  for (const line of dataRows(csv)) {
+    const cols = parseCsvLine(line);
     if (cols.length < 3) continue;
     const head = cols[0].trim().toLowerCase();
     const pos = (cols[1] || '').trim().toLowerCase();
@@ -43,7 +65,7 @@ const refs = {};
 {
   const tsv = await readFile(`${REPO}/audit/v100/refs/oxford-3000.en.tsv`, 'utf8');
   const map = new Map();
-  for (const line of tsv.split('\n').slice(1)) {
+  for (const line of dataRows(tsv)) {
     const cols = line.split('\t');
     if (cols.length < 5) continue;
     const head = cols[0].trim().toLowerCase();
@@ -58,7 +80,7 @@ const refs = {};
 {
   const tsv = await readFile(`${REPO}/audit/v100/refs/oxford-5000-expanded.en.tsv`, 'utf8');
   const map = new Map();
-  for (const line of tsv.split('\n').slice(1)) {
+  for (const line of dataRows(tsv)) {
     const cols = line.split('\t');
     if (cols.length < 5) continue;
     const head = cols[0].trim().toLowerCase();
@@ -73,7 +95,7 @@ const refs = {};
 {
   const tsv = await readFile(`${REPO}/audit/v100/refs/cambridge-evp-verified.tsv`, 'utf8');
   const map = new Map();
-  for (const line of tsv.split('\n').slice(1)) {
+  for (const line of dataRows(tsv)) {
     const cols = line.split('\t');
     if (cols.length < 4) continue;
     const head = cols[0].trim().toLowerCase();

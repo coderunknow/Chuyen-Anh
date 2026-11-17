@@ -50,7 +50,8 @@ const add = (kind, detail) => { defects.push({ kind, detail }); };
   const EVIDENCE = new Set(['source_supported', 'cross_validated', 'disputed', 'editorial_estimate', 'unresolved']);
   for (const row of rows) {
     if (!row.id || !row.word) add('row-missing-identity', JSON.stringify(row).slice(0, 80));
-    if (!row.word.startsWith('*')) activeRows += 1;
+    // Guard against malformed rows so the audit reports them instead of crashing.
+    if (!String(row.word || '').startsWith('*')) activeRows += 1;
     if (!row.meaning) missingMeaning += 1;
     for (const sense of row.senses || []) {
       senses += 1;
@@ -104,7 +105,7 @@ const add = (kind, detail) => { defects.push({ kind, detail }); };
     if (!sense || !CEFR.has(sense.cefr)) continue;
     if (!byLevel.has(sense.cefr)) byLevel.set(sense.cefr, new Map());
     const m = byLevel.get(sense.cefr);
-    const key = `${row.word.toLowerCase()}|${row.meaning}`;
+    const key = `${String(row.word || '').toLowerCase()}|${row.meaning}`;
     m.set(key, (m.get(key) || 0) + 1);
   }
   for (const [level, m] of byLevel) {

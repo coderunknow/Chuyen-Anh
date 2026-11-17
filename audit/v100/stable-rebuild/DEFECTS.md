@@ -166,3 +166,68 @@ regression tests and mutation controls. No finding was dismissed.
   workflows with a parse-verified literal-matrix allowlist; negative control
   detects injected `github.head_ref` / PR-title interpolation in both block
   and inline `run:` forms.
+
+## Review round 3 (CodeRabbit, 2026-11-17, against head `2f13f33`) — dispositions
+
+The owner-authorized `@coderabbitai review` on the round-2 head produced 13
+actionable findings (2 Major, 11 Minor incl. nitpicks). All were verified
+against the current source; all were valid and are fixed. No finding dismissed.
+
+### R3-1/R3-2 (Major, server + client) — Bearer class missing `-` — FIXED
+
+- Root cause: the round-2 pattern `[A-Za-z0-9._~+/]` omitted `-`, which RFC
+  6750 b64token allows; `Bearer abc-def` matched only `Bearer abc` and a
+  leading-hyphen token did not match at all.
+- Fix: `[A-Za-z0-9._~+/-]` in both scrubbers (hyphen last in the class).
+- Regression: leading-hyphen and embedded-hyphen cases added to both suites
+  (assertions inside the round-2 tests; suite counts unchanged).
+- Mutation fixtures updated to mirror the new pattern; 8/8 mutants still
+  killed after the fixture refresh.
+
+### R3-3 (Minor) — exam audit counted checked, not passing, hashes; always exited 0 — FIXED
+
+`independent_exam_audit.mjs` now counts an entry as passing only when it
+carries at least one hash and every supplied hash matches, and exits non-zero
+on any mismatch or missing key (`verdictOk` in the JSON output). Re-run:
+2,146/2,146, `verdictOk: true`.
+
+### R3-4 (Minor) — naive CSV/TSV splitting — FIXED
+
+`independent_vocab_audit.mjs` splits rows on `/\r?\n/` and parses CSV fields
+with a quote-aware parser (RFC 4180 subset); re-run reproduces 198/198.
+
+### R3-5 (Minor) — unguarded `row.word` in the deep audit — FIXED
+
+Both uses guarded (`String(row.word || '')`), so a malformed row is reported
+as a defect instead of crashing the audit.
+
+### R3-6 (Minor) — mutation harness counted infra failures as kills — FIXED
+
+`mutation_cr_scrub.mjs` classifies a completed non-zero exit (`error.status`
+number, no signal) as a kill and everything else (timeout, signal, spawn
+error) as an inconclusive infrastructure failure (exit 2). The first attempt
+of this fix itself misclassified — see FAILURE_LEDGER F-SR13.
+
+### R3-7/R3-8 (Minor) — PGlite portability and window boundaries — FIXED
+
+The script documents `PGLITE_NODE_PATH`, fails with the exact install command
+(exit 2) instead of a MODULE_NOT_FOUND stack, and every scenario reads the
+DB's own 600-second window floor before and after; a boundary crossing
+retries from a fresh database (up to 3 attempts) and an unresolvable crossing
+marks the scenario inconclusive. Re-run: both behaviours demonstrated.
+
+### R3-9..R3-14 (Minor) — workflow-injection scanner hardening — FIXED
+
+The scanner now walks the PARSED YAML: per-job literal-matrix allowlists
+(local to the consuming job), matrix values that contain expressions are
+rejected from the allowlist, `run` bodies are taken from the parsed document
+(block-scalar headers, indicators and comments are the parser's problem, not
+a regex's), every expression in a body is checked individually, and the old
+`SAFE_CONTEXT` shell-text filter is gone. Negative controls: a poisoned
+matrix value, a block-form `github.head_ref` and an inline PR-title
+interpolation are all detected; the clean tree passes with 0 findings.
+
+### R3-15 (nitpick) — `__proto__` fixture created no own property — FIXED
+
+Both counter fixtures in `rt_scrub_baseline.mjs` use `['__proto__']: 1`, so
+the probe exercises the actual rejection of an own `__proto__` key.

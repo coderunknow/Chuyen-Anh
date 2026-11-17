@@ -7,11 +7,30 @@
 //       client_key rejected; keyless calls bucketed 'client:missing' cap 5;
 //       global budget survives for other clients.
 // Read-only w.r.t. any external system: everything runs locally in WASM.
+//
+// Window-boundary note: the SQL windows are 600-second floors of now(). A long
+// scenario straddling a boundary would reset its counters and fake a failure,
+// so every scenario reads telemetry.rate_limits.window_start before and after
+// and retries from a fresh database (up to 3 attempts) if the window changed.
 import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
-const require = createRequire(process.env.PGLITE_NODE_PATH || '/tmp/pw/');
-const { PGlite } = require('@electric-sql/pglite');
+// PGlite is optional session tooling, not an app dependency. Point
+// PGLITE_NODE_PATH at a directory containing node_modules/@electric-sql/pglite
+// (a trailing slash or a file path both work — createRequire resolves from the
+// given base), e.g.:
+//   npm install --prefix /tmp/pw --no-save --package-lock=false @electric-sql/pglite
+//   PGLITE_NODE_PATH=/tmp/pw/ node scripts/pglite_rate_limit_evidence.mjs
+const PGLITE_BASE = process.env.PGLITE_NODE_PATH || '/tmp/pw/';
+let PGlite;
+try {
+  PGlite = createRequire(PGLITE_BASE)('@electric-sql/pglite').PGlite;
+} catch {
+  console.error('PGlite is not installed. Install it outside the repository, then re-run:');
+  console.error('  npm install --prefix /tmp/pw --no-save --package-lock=false @electric-sql/pglite');
+  console.error('  PGLITE_NODE_PATH=/tmp/pw/ node scripts/pglite_rate_limit_evidence.mjs');
+  process.exit(2);
+}
 
 const REPO = fileURLToPath(new URL('../', import.meta.url));
 const oldSql = await readFile(`${REPO}/supabase/migrations/20261029_telemetry_ingest.sql`, 'utf8');
@@ -40,61 +59,94 @@ function summarise(statuses) {
   const firstGlobal = statuses.findIndex(s => s.status === 'rate_limited' && s.scope === 'global');
   const firstClient = statuses.findIndex(s => s.status === 'rate_limited' && s.scope === 'client');
   const okCount = statuses.filter(s => s.status === 'ok').length;
-  const storedRows = null;
   return { counts, okCount, firstGlobal, firstClient };
 }
 
+async function windowStart(db) {
+  // The same 600-second floor the SQL function computes (20261031 migration,
+  // v_window). Reading the DB's clock avoids mistaking "no rows yet" for a
+  // window change.
+  const res = await db.query(
+    "select to_timestamp((floor(extract(epoch from now()) / 600) * 600)::double precision)::text as w"
+  );
+  return res.rows[0].w;
+}
+
+// Runs `scenario(db)` against a fresh database; if the 10-minute window
+// changed between the first and the last statement, retries with a new
+// database (up to 3 attempts). Returns { value, windowChanged }.
+async function withStableWindow(label, scenario) {
+  for (let attempt = 1; attempt <= 3; attempt += 1) {
+    const db = await freshDb();
+    const before = await windowStart(db);
+    const value = await scenario(db);
+    const after = await windowStart(db);
+    if (before === after) return { value, windowChanged: false };
+    if (attempt < 3) {
+      console.log(`${label}: the 10-minute window changed mid-scenario (${before} -> ${after}); retrying in a fresh database (attempt ${attempt + 1})`);
+    }
+  }
+  console.log(`${label}: the window changed on every retry; treating the scenario as inconclusive`);
+  return { value: null, windowChanged: true };
+}
+
 // ---------- (A) OLD function: keyless flood ----------
-const dbA = await freshDb();
-const oldStatuses = [];
-for (let i = 0; i < 130; i += 1) oldStatuses.push(await ingest(dbA, null));
-const oldRes = summarise(oldStatuses);
-// honest client arrives after the flood with a valid-looking key
-const honestAfterFlood = await ingest(dbA, 'a'.repeat(32));
-console.log('A) OLD migration, 130 keyless calls:', JSON.stringify(oldRes.counts),
-  `firstGlobalBucketIndex=${oldRes.firstGlobal} firstClientRefusal=${oldRes.firstClient}`);
-console.log('A) honest client after the keyless flood:', JSON.stringify(honestAfterFlood));
-const oldEvidenceOk = oldRes.okCount === 120 && oldRes.firstGlobal === 120 && oldRes.firstClient === -1
-  && honestAfterFlood.status === 'rate_limited';
+const { value: old, windowChanged: oldWindowChanged } = await withStableWindow('A', async (db) => {
+  const statuses = [];
+  for (let i = 0; i < 130; i += 1) statuses.push(await ingest(db, null));
+  const res = summarise(statuses);
+  const honest = await ingest(db, 'a'.repeat(32));
+  return { res, honest };
+});
+console.log('A) OLD migration, 130 keyless calls:', JSON.stringify(old.res.counts),
+  `firstGlobalBucketIndex=${old.res.firstGlobal} firstClientRefusal=${old.res.firstClient}`);
+console.log('A) honest client after the keyless flood:', JSON.stringify(old.honest));
+const oldEvidenceOk = !oldWindowChanged && old.res.okCount === 120 && old.res.firstGlobal === 120
+  && old.res.firstClient === -1 && old.honest.status === 'rate_limited';
 
 // malformed client_key accepted by OLD function (no format validation)?
-const dbA2 = await freshDb();
-const evilKey = await ingest(dbA2, "x'); insert into telemetry.reports values (gen_random_uuid());--");
-const evilRows = await dbA2.query('select count(*)::int as n from telemetry.reports');
-console.log('A) OLD migration accepts a non-hex, injection-shaped client_key:',
-  JSON.stringify(evilKey), 'reports rows after:', evilRows.rows[0].n);
+{
+  const dbA2 = await freshDb();
+  const evilKey = await ingest(dbA2, "x'); insert into telemetry.reports values (gen_random_uuid());--");
+  const evilRows = await dbA2.query('select count(*)::int as n from telemetry.reports');
+  console.log('A) OLD migration accepts a non-hex, injection-shaped client_key:',
+    JSON.stringify(evilKey), 'reports rows after:', evilRows.rows[0].n);
+}
 
 // ---------- (B) HARDENED function: same flood ----------
-// Two scenarios:
-//   B1: a short keyless burst (10 calls): 5 stored, 5 refused client-side, and
-//       the global attempt budget (120) still has room for another client.
-//   B2: the full 130-call flood: only 5 rows stored (vs 120 old), but refused
-//       attempts still increment the global counter (the hardened function
-//       counts attempts globally BEFORE the per-client check), so a flood of
-//       >120 attempts still closes the window for everyone. Disclosed property.
-const dbB = await freshDb();
-await dbB.exec(hardSql); // create or replace with the hardened function
-const burst = [];
-for (let i = 0; i < 10; i += 1) burst.push(await ingest(dbB, null));
-const burstRes = summarise(burst);
-const otherClient = await ingest(dbB, 'b'.repeat(32)); // a different honest client, same window
-console.log('B1) HARDENED migration, 10 keyless calls:', JSON.stringify(burstRes.counts),
-  `firstClientRefusal=${burstRes.firstClient} firstGlobalRefusal=${burstRes.firstGlobal}`);
-console.log('B1) a different honest client in the same window:', JSON.stringify(otherClient));
-const malformedKey = await ingest(dbB, "x'); insert into telemetry.reports values (gen_random_uuid());--");
-console.log('B1) HARDENED migration rejects the injection-shaped client_key:', JSON.stringify(malformedKey));
+// B1: a short keyless burst (10 calls): 5 stored, 5 refused client-side, and
+//     the global attempt budget (120) still has room for another client.
+// B2: the full 130-call flood: only 5 rows stored (vs 120 old), but refused
+//     attempts still increment the global counter (the hardened function
+//     counts attempts globally BEFORE the per-client check), so a flood of
+//     >120 attempts still closes the window for everyone. Disclosed property.
+const { value: b1, windowChanged: b1WindowChanged } = await withStableWindow('B1', async (db) => {
+  await db.exec(hardSql); // create or replace with the hardened function
+  const burst = [];
+  for (let i = 0; i < 10; i += 1) burst.push(await ingest(db, null));
+  const burstRes = summarise(burst);
+  const other = await ingest(db, 'b'.repeat(32)); // a different honest client, same window
+  const malformed = await ingest(db, "x'); insert into telemetry.reports values (gen_random_uuid());--");
+  return { burstRes, other, malformed };
+});
+console.log('B1) HARDENED migration, 10 keyless calls:', JSON.stringify(b1.burstRes.counts),
+  `firstClientRefusal=${b1.burstRes.firstClient} firstGlobalRefusal=${b1.burstRes.firstGlobal}`);
+console.log('B1) a different honest client in the same window:', JSON.stringify(b1.other));
+console.log('B1) HARDENED migration rejects the injection-shaped client_key:', JSON.stringify(b1.malformed));
 
-const dbB2 = await freshDb();
-await dbB2.exec(hardSql);
-const flood = [];
-for (let i = 0; i < 130; i += 1) flood.push(await ingest(dbB2, null));
-const floodRes = summarise(flood);
-console.log('B2) HARDENED migration, 130 keyless calls:', JSON.stringify(floodRes.counts),
-  `firstClientRefusal=${floodRes.firstClient} firstGlobalRefusal=${floodRes.firstGlobal}`);
+const { value: b2, windowChanged: b2WindowChanged } = await withStableWindow('B2', async (db) => {
+  await db.exec(hardSql);
+  const flood = [];
+  for (let i = 0; i < 130; i += 1) flood.push(await ingest(db, null));
+  return summarise(flood);
+});
+console.log('B2) HARDENED migration, 130 keyless calls:', JSON.stringify(b2.counts),
+  `firstClientRefusal=${b2.firstClient} firstGlobalRefusal=${b2.firstGlobal}`);
 
-const newEvidenceOk = burstRes.okCount === 5 && burstRes.firstClient === 5 && burstRes.firstGlobal === -1
-  && otherClient.status === 'ok' && malformedKey.status === 'invalid'
-  && floodRes.okCount === 5 && floodRes.firstClient === 5;
+const newEvidenceOk = !b1WindowChanged && !b2WindowChanged
+  && b1.burstRes.okCount === 5 && b1.burstRes.firstClient === 5 && b1.burstRes.firstGlobal === -1
+  && b1.other.status === 'ok' && b1.malformed.status === 'invalid'
+  && b2.okCount === 5 && b2.firstClient === 5;
 
 console.log(`RESULT old-behavior-demonstrated=${oldEvidenceOk} hardened-behavior-demonstrated=${newEvidenceOk}`);
 process.exit(oldEvidenceOk && newEvidenceOk ? 0 : 1);

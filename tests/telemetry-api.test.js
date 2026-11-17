@@ -279,6 +279,8 @@ test('review round: fine-grained GitHub tokens, the full Bearer alphabet, empty-
       event({ kind: 'error', name: 'uncaught', note: `upload failed for ${fineGrained}` }),
       event({ kind: 'error', name: 'uncaught', note: 'Authorization: Bearer +ab~/cdEF9=' }),
       event({ kind: 'error', name: 'uncaught', note: 'Authorization: Bearer abc123' }),
+      event({ kind: 'error', name: 'uncaught', note: 'Authorization: Bearer -LeadingHyphen0123' }),
+      event({ kind: 'error', name: 'uncaught', note: 'Authorization: Bearer abc-def-ghi' }),
       event({ kind: 'error', name: 'uncaught', note: 'could not reach https://:s3cr3tcredential@localhost/path' }),
       event({ kind: 'error', name: 'uncaught', note: `fetch failed https://alice:SecretPrefix'***@example.test/` })
     ]
@@ -288,11 +290,13 @@ test('review round: fine-grained GitHub tokens, the full Bearer alphabet, empty-
   assert.equal(notes[0], 'upload failed for …', 'a fine-grained GitHub token is redacted');
   assert.equal(notes[1], 'Authorization: …', 'a Bearer credential using the RFC 6750 alphabet (+ / ~ and trailing =) is redacted');
   assert.equal(notes[2], 'Authorization: …', 'a Bearer credential shorter than twelve characters is redacted');
-  assert.equal(notes[3], 'could not reach https://…@localhost/path', 'URL user-info with an empty username is redacted');
-  assert.equal(notes[4], 'fetch failed https://…@example.test/',
+  assert.equal(notes[3], 'Authorization: …', 'a Bearer credential starting with a hyphen is redacted');
+  assert.equal(notes[4], 'Authorization: …', 'a Bearer credential with embedded hyphens is redacted');
+  assert.equal(notes[5], 'could not reach https://…@localhost/path', 'URL user-info with an empty username is redacted');
+  assert.equal(notes[6], 'fetch failed https://…@example.test/',
     'an apostrophe inside URL user-info cannot hide the credential: the secret patterns run before the quote split');
   const stored = JSON.stringify(calls[0].body.payload);
-  for (const fragment of ['github_pat_', fineGrained.slice(-20), '+ab~/cdEF9=', 'abc123', 's3cr3tcredential', 'SecretPrefix']) {
+  for (const fragment of ['github_pat_', fineGrained.slice(-20), '+ab~/cdEF9=', 'abc123', '-LeadingHyphen0123', 'abc-def-ghi', 's3cr3tcredential', 'SecretPrefix']) {
     assert.equal(stored.includes(fragment), false, `${fragment} must never reach the stored payload`);
   }
 });

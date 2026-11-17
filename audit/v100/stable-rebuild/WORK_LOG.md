@@ -153,3 +153,29 @@
 - `git worktree add /tmp/baseline-948f6f9 948f6f9` verified the documented
   baseline procedure: exactly 1 failure at base ("a locked write reports the
   mode it obtained"), 0 failures at the candidate head.
+
+## Round 3 — review response on `2f13f33` (2026-11-17)
+
+- The owner-authorized `@coderabbitai review` (comment 6949685023, posted
+  13:39:26Z) produced a fresh COMMENTED review against `2f13f33`
+  (submitted 13:51:34Z): 13 actionable findings (2 Major, 11 Minor/nitpick).
+  All 13 were verified against the source and fixed; dispositions in
+  `DEFECTS.md` (R3-1..R3-15).
+- Headline fix (Major × 2): the round-2 Bearer class had omitted `-`, which
+  RFC 6750 allows — leading-hyphen and embedded-hyphen credentials leaked.
+  Fixed in both scrubbers with regression cases; mutation fixtures refreshed;
+  8/8 mutants killed.
+- The five audit scripts hardened per review (hash counting + exit codes,
+  CRLF/quote-aware CSV, malformed-row guards, PGlite portability +
+  window-boundary retry, `__proto__` own-property fixtures); the workflow
+  injection scanner was rewritten to walk the parsed YAML with per-job,
+  per-expression allowlists (poisoned-matrix, block and inline negative
+  controls all detected).
+- Suite counts unchanged (assertions added inside existing tests):
+  Python 302/302, Node 308/308, archive 5/5, validators exit 0.
+- New evidence: `evidence/review-round/{exam-audit-round3.json,
+  vocab-ref-audit-round3.json, scrub-baseline-round3.log, pglite-round3.log,
+  mutation_controls.log, workflow-injection-scan.json}`.
+- Session error recorded honestly: a careless `mv` during this append
+  briefly overwrote this file with the round-3 text alone; it was restored
+  from git and the entry re-appended. No committed history was lost.

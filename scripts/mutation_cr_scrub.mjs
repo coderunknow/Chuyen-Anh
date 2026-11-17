@@ -23,7 +23,7 @@ const CLIENT = join(REPO, 'index.html');
 // --- the exact strings the fixes introduced (mutants are their inverse) -------
 const SERVER_GITHUB =
   '[/\\b(?:ghp|gho|ghu|ghs|ghr)_[A-Za-z0-9]{16,}\\b|\\bgithub_pat_[A-Za-z0-9]{22}_[A-Za-z0-9]{59}\\b/g';
-const SERVER_BEARER = '[/\\bBearer\\s+[A-Za-z0-9._~+/]+=*/gi';
+const SERVER_BEARER = '[/\\bBearer\\s+[A-Za-z0-9._~+/-]+=*/gi';
 const SERVER_URL = '/([a-z][a-z0-9+.-]*:\\/\\/)[^\\s/@]*:[^\\s/@]+@/gi';
 const SERVER_ORDER =
   '  // Secret patterns run before the quote split: an apostrophe inside URL\n' +
@@ -58,7 +58,7 @@ const SERVER_MUTANTS = [
 
 const CLIENT_GITHUB =
   '[/\\b(?:ghp|gho|ghu|ghs|ghr)_[A-Za-z0-9]{16,}\\b|\\bgithub_pat_[A-Za-z0-9]{22}_[A-Za-z0-9]{59}\\b/g';
-const CLIENT_BEARER = '[/\\bBearer\\s+[A-Za-z0-9._~+/]+=*/gi';
+const CLIENT_BEARER = '[/\\bBearer\\s+[A-Za-z0-9._~+/-]+=*/gi';
 const CLIENT_URL = '/([a-z][a-z0-9+.-]*:\\/\\/)[^\\s/@]*:[^\\s/@]+@/gi';
 const CLIENT_ORDER =
   '  // Secret patterns run before the quote split: an apostrophe inside URL\n' +
@@ -90,16 +90,24 @@ const CLIENT_MUTANTS = [
   }
 ];
 
+// The result of one mutant run: 'pass' (mutant survived), 'failed' (the
+// regression suite completed and detected it), or 'infra' (timeout, signal
+// termination or spawn error — not evidence either way). For execFileSync a
+// completed non-zero exit has `error.status` as a number and no signal;
+// timeouts arrive with `killed`/`signal`; spawn errors carry a string `code`.
 function runTest(file, namePattern) {
   try {
     execFileSync('node', ['--test', `--test-name-pattern=${namePattern}`, file], {
       cwd: REPO,
       stdio: ['ignore', 'pipe', 'pipe'],
-      timeout: 300000
+      timeout: 300000,
+      maxBuffer: 64 * 1024 * 1024
     });
-    return true; // suite passed -> mutant survived
-  } catch {
-    return false; // suite failed -> mutant killed
+    return 'pass'; // suite passed -> mutant survived
+  } catch (error) {
+    const completedFailure = typeof error.status === 'number' && error.status !== 0
+      && error.killed !== true && !error.signal;
+    return completedFailure ? 'failed' : 'infra';
   }
 }
 
@@ -127,27 +135,46 @@ const CLIENT_PATTERN = 'rc5 round 2';
 // Sanity first: the unmuted suites must PASS, or a mutant "kill" means nothing.
 const serverClean = runTest(SERVER_TEST, SERVER_PATTERN);
 const clientClean = runTest(CLIENT_TEST, CLIENT_PATTERN);
-if (!serverClean || !clientClean) {
+if (serverClean === 'infra' || clientClean === 'infra') {
+  console.error('An infrastructure failure (timeout/signal/spawn error) occurred on the clean tree; cannot run mutation controls.');
+  process.exit(2);
+}
+if (serverClean !== 'pass' || clientClean !== 'pass') {
   console.error('The regression tests do not pass on the unmutated tree; cannot run mutation controls.');
   process.exit(2);
 }
 console.log('clean tree: both regression tests pass');
 
 let survived = [];
+let infraFailures = 0;
 for (const mutant of SERVER_MUTANTS) {
-  const survivedRun = applyAndRun(SERVER, mutant, SERVER_TEST, SERVER_PATTERN);
-  console.log(`${survivedRun ? 'SURVIVED' : 'killed'}: ${mutant.name}`);
-  if (survivedRun) survived.push(mutant.name);
+  const outcome = applyAndRun(SERVER, mutant, SERVER_TEST, SERVER_PATTERN);
+  if (outcome === 'infra') {
+    infraFailures += 1;
+    console.log(`INFRA-FAILURE: ${mutant.name} (timeout/signal/spawn error — not counted as killed)`);
+    continue;
+  }
+  console.log(`${outcome === 'pass' ? 'SURVIVED' : 'killed'}: ${mutant.name}`);
+  if (outcome === 'pass') survived.push(mutant.name);
 }
 for (const mutant of CLIENT_MUTANTS) {
-  const survivedRun = applyAndRun(CLIENT, mutant, CLIENT_TEST, CLIENT_PATTERN);
-  console.log(`${survivedRun ? 'SURVIVED' : 'killed'}: ${mutant.name}`);
-  if (survivedRun) survived.push(mutant.name);
+  const outcome = applyAndRun(CLIENT, mutant, CLIENT_TEST, CLIENT_PATTERN);
+  if (outcome === 'infra') {
+    infraFailures += 1;
+    console.log(`INFRA-FAILURE: ${mutant.name} (timeout/signal/spawn error — not counted as killed)`);
+    continue;
+  }
+  console.log(`${outcome === 'pass' ? 'SURVIVED' : 'killed'}: ${mutant.name}`);
+  if (outcome === 'pass') survived.push(mutant.name);
 }
 
 if (survived.length) {
   console.error(`\n${survived.length} mutant(s) survived — the regression tests do not guard these fixes:`);
   for (const name of survived) console.error(` - ${name}`);
   process.exit(1);
+}
+if (infraFailures) {
+  console.error(`\n${infraFailures} mutant run(s) failed for infrastructure reasons; results are inconclusive.`);
+  process.exit(2);
 }
 console.log('\nall 8 mutants killed: the regression tests genuinely guard every review-round fix');
