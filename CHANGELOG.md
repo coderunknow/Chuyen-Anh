@@ -1,5 +1,51 @@
 # Changelog
 
+## v1.0.0 stable candidate (working branch `build/v100-stable-rebuild`, 2026-11-17) — NOT merged, NOT tagged, NOT released, NOT deployed
+
+`index.html` declares `APP_VERSION = 'v1.0.0'` and `DEPLOY_HOLD` stays at
+`v1.0.0-rc11`, the last published prerelease. This is the dual-gate stable
+candidate: `scripts/deploy_gate.py` is open because the hold names a published
+release, and `scripts/app_release_gate.py` holds Pages until `v1.0.0` is
+published in its channel AND a separate dispatch confirms
+`stable_deploy_authorized=true` (a force override alone is not sufficient).
+Merging this branch does not deploy anything: production GitHub Pages keeps
+serving `v1.0.0-rc11` until the maintainer explicitly authorizes the cutover.
+No `v1.0.0` tag exists in the repository (verified against the GitHub API on
+2026-11-17; existing tags are only `beta`/`dev`/`rc` prereleases), so a future
+stable publication has no tag collision.
+
+Changes on this candidate beyond the identity:
+
+- **`NODE-LOCKS-ENV` (test):** `tests/exam-persistence.test.js` hardcoded the
+  environment assumption "Node has no `navigator.locks`", which Node ≥24.22
+  broke — the shipped code was right and the test was wrong. The test now
+  derives the expected mode from `examHistoryLockSupport()`; mutation controls
+  prove both directions (always-`locked` caught on a lockless context,
+  always-`unserialized` caught on a locking context).
+- **`TELEMETRY-NOTE-SECRETS` (privacy):** a diagnostics note could carry a
+  verbatim credential (a GitHub PAT, an OpenAI-style key, a bearer header or
+  `user:password@host` URL) because the scrubber only cut quoted fragments and
+  e-mail addresses. Both scrubbers (`scrubTelemetryText` in `index.html` and
+  `scrub` in `api/telemetry.js`) now also redact secret-shaped strings, kept in
+  sync with new tests in `tests/static-app.test.js` and
+  `tests/telemetry-api.test.js` (which went 17 → 18 tests, total 305 → 306).
+- **Version-dependent tests reconciled** to the dual gate:
+  `tests/test_deploy_gate.py`, `tests/test_sprint_exam_features.py`,
+  `tests/static-app.test.js`, `tests/browser-learning.cjs`,
+  `tests/browser-exams.cjs`, `audit/v100/FINAL_READINESS_CHECKLIST.md` (Node
+  total `306/306`), `PRIVACY.md`, `SECURITY.md`, `README.md`.
+
+Verification on this candidate (local, Chromium 133.0.6943.0 in-sandbox):
+Python `unittest` **294 OK**; Node **306 pass / 0 fail**; archive conversion
+**5 OK**; the 21-command validator block **all pass**; independent exam-data
+recomputation matches every published number (106 papers / 6,708 questions /
+5,155 scorable / 1,553 exempt; all `2,146` curated SHA-256 bindings re-derived
+with independent code, 0 mismatches); independent CEFR sample 201/201 agree;
+both browser suites pass after the version bump; both deploy gates verified
+fail-closed. Not verified locally: Firefox/WebKit (CI's), a live telemetry
+POST (production-writing; never sent), Vercel/Supabase live inspection (no
+credentials in this environment), screen-reader testing.
+
 ## v1.0.0-rc11 — current published prerelease (PR chain #83–#86 integrated, 2026-11-14)
 
 `index.html` declares `APP_VERSION = 'v1.0.0-rc11'` and `DEPLOY_HOLD` names

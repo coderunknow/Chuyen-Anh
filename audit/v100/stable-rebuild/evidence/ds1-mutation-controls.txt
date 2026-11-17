@@ -1,0 +1,5 @@
+mutant=none env=locking lockAvailable=true mode=locked => PASS
+mutant=none env=lockless lockAvailable=false mode=unserialized => PASS
+mutant=always-locked env=lockless lockAvailable=false mode=locked => FAIL(detected)
+mutant=always-unserialized env=locking lockAvailable=true mode=unserialized => FAIL(detected)
+MUTATION-CONTROLS: OK (both mutants caught, both honest contexts pass)

@@ -547071,7 +547071,7 @@ export const MODES = Object.freeze({
   FLASHCARD: 'flashcard'
 });
 
-export const APP_VERSION = 'v1.0.0-rc11';
+export const APP_VERSION = 'v1.0.0';
 export const LICENSE_NAME = 'MIT License';
 export const LICENSE_COPYRIGHT = '© 2026 coderunknow';
 export const LICENSE_TEXT = `MIT License
@@ -550182,10 +550182,23 @@ const TELEMETRY_TOKEN = /^[a-z0-9][a-z0-9._-]{0,39}$/;
 // not the content the learner typed.
 const TELEMETRY_QUOTE = /["'`«»“”‘’]/;
 const TELEMETRY_EMAIL = /[\w.+-]+@[\w-]+\.[\w.-]+/g;
+// Secret-shaped strings an error message can quote verbatim (a failed fetch
+// prints its own Authorization header, a request error can carry a token in a
+// URL). Kept in sync with SECRET_SHAPES in api/telemetry.js, which re-scrubs
+// every note server-side. Quoted fragments and e-mail addresses do not catch
+// any of these, and a diagnostics note must never become the way a credential
+// leaves a device.
+const TELEMETRY_SECRET_SHAPES = [
+  [/\b(?:ghp|gho|ghu|ghs|ghr)_[A-Za-z0-9]{16,}\b/g, '…'],
+  [/\bsk-(?:proj-)?[A-Za-z0-9_-]{16,}\b/g, '…'],
+  [/\bBearer\s+[A-Za-z0-9._-]{12,}/gi, '…'],
+  [/([a-z][a-z0-9+.-]*:\/\/)[^\s/@:]+:[^\s/@]+@/gi, '$1…@']
+];
 
 export function scrubTelemetryText(value, maxLength = 120) {
   let text = String(value ?? '').replace(/[\u0000-\u001f\u007f]/g, ' ');
   text = text.split(TELEMETRY_QUOTE)[0];
+  for (const [pattern, replacement] of TELEMETRY_SECRET_SHAPES) text = text.replace(pattern, replacement);
   text = text.replace(TELEMETRY_EMAIL, '…').replace(/\s+/g, ' ').trim();
   const cap = Number.isFinite(Number(maxLength)) && Number(maxLength) > 0 ? Math.floor(Number(maxLength)) : 120;
   return text.length > cap ? `${text.slice(0, cap - 1)}…` : text;

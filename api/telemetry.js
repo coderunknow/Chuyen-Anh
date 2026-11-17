@@ -56,6 +56,16 @@ const TOKEN = /^[a-z0-9][a-z0-9._-]{0,39}$/;
 const VERSION = /^v\d+\.\d+\.\d+(-[a-z]+\d+)?$/;
 const QUOTE = /["'`«»“”‘’]/;
 const EMAIL = /[\w.+-]+@[\w-]+\.[\w.-]+/g;
+// Secret-shaped strings an error message can quote verbatim (a failed fetch
+// prints its own Authorization header, a request error can carry a token in a
+// URL). E-mail redaction does not catch any of these, and a diagnostics note
+// must never become the way a credential leaves a device.
+const SECRET_SHAPES = [
+  [/\b(?:ghp|gho|ghu|ghs|ghr)_[A-Za-z0-9]{16,}\b/g, '…'],
+  [/\bsk-(?:proj-)?[A-Za-z0-9_-]{16,}\b/g, '…'],
+  [/\bBearer\s+[A-Za-z0-9._-]{12,}/gi, '…'],
+  [/([a-z][a-z0-9+.-]*:\/\/)[^\s/@:]+:[^\s/@]+@/gi, '$1…@']
+];
 const LANGUAGE_VALUES = new Set(['vi', 'en']);
 const THEME_VALUES = new Set(['system', 'light', 'dark']);
 const VIEWPORT_VALUES = new Set(['mobile', 'tablet', 'desktop']);
@@ -89,6 +99,7 @@ function send(res, status, payload, headers = {}) {
 function scrub(value, maxLength = MAX_NOTE) {
   let text = String(value == null ? '' : value).replace(/[\u0000-\u001f\u007f]/g, ' ');
   text = text.split(QUOTE)[0];
+  for (const [pattern, replacement] of SECRET_SHAPES) text = text.replace(pattern, replacement);
   text = text.replace(EMAIL, '…').replace(/\s+/g, ' ').trim();
   return text.length > maxLength ? `${text.slice(0, maxLength - 1)}…` : text;
 }

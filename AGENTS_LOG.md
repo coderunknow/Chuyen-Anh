@@ -1953,3 +1953,31 @@ Final state, stated precisely to avoid a self-referential chase:
   `v1.0.0`; the script rejects other stable refs), and the exam-scoring fixture
   now asserts all three items sit in the denominator, were graded, and each
   contributes full credit. No approval is inferred from the COMMENTED review.
+
+## 2026-11-17 — agent session: stable candidate rebuild (`build/v100-stable-rebuild`) — DONE (candidate), open items listed
+
+- **Scope executed:** baseline verification (live SHA `948f6f9` confirmed, tag
+  premise checked and found false — no `v1.0.0` tag exists), branch cut from
+  verified `main`, two defects fixed with baseline reproductions and mutation
+  controls (`NODE-LOCKS-ENV` test environment drift, `TELEMETRY-NOTE-SECRETS`
+  credential-redaction gap in both telemetry scrubbers), stable identity
+  reconciled behind the dual gate, independent exam/vocabulary data audits,
+  PGlite demonstration of both Supabase migration behaviours, read-only live
+  probes (Pages deployment API, telemetry preflight/GET; no production-writing
+  request), evidence under `audit/v100/stable-rebuild/`.
+- **Local totals at the candidate head:** Python 294/294, Node 306/306
+  (+1 telemetry-api test, checklist row updated accordingly), archive 5/5,
+  21 validator commands exit 0, both browser suites green on Chromium 133.0.6943.0
+  (re-run after the version bump), deploy gates verified fail-closed
+  (`app_release_gate` holds the stable candidate; the `gh`-less sandbox reports
+  "missing" from `deploy_gate.py --repo`, which is the documented fail-closed
+  behaviour, not a repository defect).
+- **Compliance:** no merge, no tag create/move/delete, no release publish, no
+  Pages/Vercel deploy, no Vercel settings change, no Supabase mutation, no
+  production telemetry POST, no review-trigger comments. PR opened as Draft.
+- **Open items (external or owner decisions):** apply the hardening migration to
+  the live Supabase function and verify it; resolve `compute_jobs` RLS exposure
+  (shared project, not this app's table — read-only investigated only); decide
+  the transcript-fallback listening grading policy (mission text vs shipped
+  behaviour, 307 items); screen-reader pass; WebKit/Firefox local runs (CI
+  covers at head); 186 external asset digests; live telemetry POST recheck.

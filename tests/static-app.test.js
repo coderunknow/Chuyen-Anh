@@ -1120,6 +1120,34 @@ test('the diagnostics log is opt-in, local, bounded and free of learner content'
   assert.equal(event.counters.bad, undefined, 'a non-numeric counter is dropped');
   assert.equal(scrubTelemetryText('a'.repeat(400)).length, 120, 'a note is capped');
   assert.equal(scrubTelemetryText('line\u0000break\nx'), 'line break x', 'control characters never enter the log');
+  // A credential quoted by an error message must never travel in a note: the
+  // scrubber removes secret-shaped strings in addition to quoted fragments and
+  // e-mail addresses (kept in sync with SECRET_SHAPES in api/telemetry.js).
+  assert.equal(
+    scrubTelemetryText('request failed with token ghp_0123456789abcdefghijklmnopqrstuvwxyz in headers'),
+    'request failed with token … in headers',
+    'a GitHub token inside a note is redacted'
+  );
+  assert.equal(
+    scrubTelemetryText('upload failed using sk-proj-9f8e7d6c5b4a3210feedcba9876543210 at retry 2'),
+    'upload failed using … at retry 2',
+    'an OpenAI-style key inside a note is redacted'
+  );
+  assert.equal(
+    scrubTelemetryText('network error: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.disallowed'),
+    'network error: …',
+    'a bearer credential inside a note is redacted'
+  );
+  assert.equal(
+    scrubTelemetryText('could not reach https://learner:s3cretpass@private.example.com/api'),
+    'could not reach https://…@private.example.com/api',
+    'credentials inside a URL are redacted but the host stays readable'
+  );
+  assert.equal(
+    scrubTelemetryText('plain failure at retry 2 keeps its words'),
+    'plain failure at retry 2 keeps its words',
+    'an ordinary message without a secret shape is untouched'
+  );
 
   // ---- Bounded, immutable ------------------------------------------------------
   let log = [];
@@ -1591,7 +1619,7 @@ test('exported exam results report exactly what the learner did and what could b
   const result = buildExamResultJson(session, record, keys, [], { now: 6000 });
   assert.equal(result.app, 'Chuyên Anh');
   assert.equal(result.version, APP_VERSION, 'the result carries the application version');
-  assert.equal(result.version, 'v1.0.0-rc11');
+  assert.equal(result.version, 'v1.0.0');
   assert.equal(result.schemaVersion, '2.0.0');
   assert.equal(result.summary.total, 3);
   // q3 has no stored answer key, so it is excluded from the denominator instead
@@ -4041,15 +4069,15 @@ test('every shipped version literal agrees with APP_VERSION', async () => {
   ];
   const stale = pins.filter(entry => !entry.endsWith(shipped));
   assert.deepEqual(stale, [], 'no shipped file still names an older version');
-  // The shipped build is the published prerelease v1.0.0-rc11, so the hold
-  // names that same tag. deploy_gate.py reads it as published and opens, and
-  // app_release_gate.py confirms the exact APP_VERSION is published in its
-  // channel. A prerelease needs no stable authorization; the stable v1.0.0
-  // identity is not the current release.
+  // The shipped build carries the stable identity v1.0.0 behind the dual gate,
+  // while DEPLOY_HOLD names the published prerelease v1.0.0-rc11: deploy_gate.py
+  // reads that hold as published and opens, and app_release_gate.py holds Pages
+  // until `v1.0.0` is published in its channel AND a separate dispatch confirms
+  // `stable_deploy_authorized=true` (a force override is not sufficient).
   const hold = (await readFile(new URL('DEPLOY_HOLD', root), 'utf8')).trim();
-  assert.equal(hold, 'v1.0.0-rc11', 'the hold names the shipped published prerelease');
-  assert.equal(shipped, 'v1.0.0-rc11', 'this build ships the prerelease identity v1.0.0-rc11');
-  assert.equal(hold, shipped, 'the hold and the shipped identity name the same published release');
+  assert.equal(hold, 'v1.0.0-rc11', 'the hold names the published prerelease');
+  assert.equal(shipped, 'v1.0.0', 'this build ships the stable candidate identity');
+  assert.notEqual(hold, shipped, 'the stable identity must not ship behind a prerelease hold that names it');
 });
 
 /* ------------------------------ CEFR filter ------------------------------- */
