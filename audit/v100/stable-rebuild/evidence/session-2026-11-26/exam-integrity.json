@@ -1,0 +1,11 @@
+{
+ "notes": {
+  "A_sourceHashAndBodyMatch": "106/106",
+  "B_alignmentProbe": "see probe_question_alignment.mjs (106 papers / 6708 questions / 6708 unique ids / 0 failures)",
+  "C_crossPaperPassageDupes": 0,
+  "D_papers": 106,
+  "D_answerKeyEntries": 6708
+ },
+ "problems": [],
+ "problemCount": 0
+}
