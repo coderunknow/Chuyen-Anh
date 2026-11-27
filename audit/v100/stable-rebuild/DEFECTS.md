@@ -462,3 +462,53 @@ telemetry 19/19; Python 303/303; archive 5/5; shard partition OK;
 `mutation_cr_scrub` 12/12 killed; `mutation_ds1` OK on a lockless host;
 clean-tree scan 0 findings both modes; all four session-6 probe batteries
 0 flags; exam core unchanged (106/6,708/3,292/0/0); gates held as designed.
+
+## Session 7 (2026-11-27) — live-infrastructure defects (INFRA-1..4)
+
+Found by direct live inspection (Supabase/Vercel connectors) after owner
+addendum 2 authorized it. Full evidence:
+`evidence/session-2026-11-27/live-infra-hardening.md`.
+
+### INFRA-1 (critical) — `public.compute_jobs` writable by the public API — CLOSED
+
+Live state: RLS disabled, zero policies, and `anon` **and** `authenticated`
+holding SELECT/INSERT/UPDATE/DELETE/**TRUNCATE**/REFERENCES/TRIGGER — anyone
+with the project's public anon key could dump and wipe the table via
+PostgREST. Zero references anywhere in the repo (grep of `supabase/`, `api/`,
+`scripts/` and git history) — it belongs to a separate compute pipeline.
+Fix (tracked migration `lock_compute_jobs_from_public_api`): RLS enabled,
+all anon/authenticated privileges revoked. Live re-read: grants = service_role
+only, RLS on. The owning pipeline (service_role, BYPASSRLS) is unaffected.
+Rollback: disable RLS + re-grant (single pair, documented).
+
+### INFRA-2 (critical) — live ingest function was pre-hardening — CLOSED
+
+Live state: `public.telemetry_ingest` matched `20261029_telemetry_ingest.sql`
+(no `client:missing` bucket, no `missing_key_limit`) while the rc10/rc11
+client ships the hardened contract — keyless callers could consume the whole
+global 120/10-min budget. Fix: repo migration
+`20261031_telemetry_hardening.sql` applied verbatim via
+`create_migration apply_repo_20261031_telemetry_hardening`. Live re-read:
+`ingest_is_hardened=true`, execute granted to postgres + service_role only,
+`search_path` pinned. Rollback: re-apply `20261029_telemetry_ingest.sql`.
+
+### INFRA-3 (high) — production endpoint stale (2026-10-29 build) — CLOSED
+
+The live function predated every rc8–rc11 scrubber fix (URL user-info
+boundary, Bearer alphabet, fine-grained PAT rule). Fix: files-based
+production deploy of the byte-identical repo-head handler in the working
+deployment's shape → `dpl_9S9n7dkfm8ysEii4nMf1n2ZEWhYW` READY/PROMOTED,
+alias `chuyen-anh-telemetry.vercel.app` assigned 2026-11-27. Rollback: the
+retained 2026-10-29 deployment `dpl_FbxQncjJru7dSKMWnPnTs1GozMWV` can be
+redeployed.
+
+### INFRA-4 (medium) — deployment not reproducible from git — CLOSED
+
+The working deployment contained `src/app.js` (service entrypoint) that
+existed nowhere in the repository; the first redeploy attempt
+(`dpl_2xJrWZ6eKhpmykYfKuGmezrvDBts`) failed with "No entrypoint found" —
+proof the gap was real. Fix: `api/app.js` committed (minimal pass-through
+wrapper, documented mapping, never touches request data); local live-server
+smoke against the real handler: OPTIONS→204 (+CORS/methods), GET→405
+(+Allow), POST from disallowed origin→403. Rollback: none needed (additive
+file; the wrapper is only exercised in the Node-service deployment).

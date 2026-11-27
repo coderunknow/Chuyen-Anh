@@ -315,3 +315,40 @@ telemetry 19/19; Python **303/303**; archive 5/5; shard partition OK;
 `mutation_cr_scrub` **12/12**; `mutation_ds1` OK (lockless host); clean-tree
 scan **0 findings both modes**; all four probe batteries **0 flags**; exam
 core 106/6,708/3,292 with 0 crashes/0 violations; release/deploy gates held.
+
+## Session 7 (2026-11-27) — live infrastructure blockers closed
+
+Owner addendum 2 authorized direct execution of the external blockers through
+the connected Supabase/Vercel apps under the standing
+impact/data-safety/rollback procedure. Full register with live reads, fixes,
+verifications and rollbacks: `evidence/session-2026-11-27/live-infra-hardening.md`.
+
+1. Sandbox reconciliation: the workspace was re-cloned at the branch base
+   `948f6f9` with the session-5/6 work present as uncommitted files; every
+   on-disk file was byte-verified against its `b9dd1b2` blob before
+   `git reset --hard b9dd1b2` re-anchored the branch (only `api/app.js`, new
+   this session, was not in `b9dd1b2`).
+2. Supabase `chuyen-anh-telemetry` (`zomeiulaqahyjwhgdemf`): restored from
+   PAUSED; migration history was EMPTY. Live reads found **INFRA-2** (ingest
+   function pre-hardening) and **INFRA-1** (`public.compute_jobs`: RLS off,
+   anon/authenticated held ALL privileges incl. TRUNCATE). Fixes applied as
+   tracked migrations (`apply_repo_20261031_telemetry_hardening` — repo SQL
+   verbatim; `lock_compute_jobs_from_public_api`) and verified live
+   (hardened=true; service_role-only grants). Rollbacks documented.
+3. Vercel `chuyen-anh-telemetry` (`prj_YmtevOrE913KuRhJSX9FlQyKi3dO`): prod
+   was the 2026-10-29 build, predating every scrubber fix (**INFRA-3**).
+   First files-deploy (handler only) ERROR'd — "No entrypoint found" —
+   exposing **INFRA-4**: the working deployment's `src/app.js` entrypoint
+   existed nowhere in the repo. Second deploy replicated the working shape
+   (repo-head handler byte-identical + documented wrapper) →
+   `dpl_9S9n7dkfm8ysEii4nMf1n2ZEWhYW` READY/PROMOTED/aliasAssigned;
+   `api/app.js` committed to close the reproducibility gap; local live-server
+   smoke 204/405/403 matches the pinned contract.
+4. Constraint compliance: zero telemetry POSTs (read-only OPTIONS/GET probes
+   only); no merge/tag/release/force-push; DEPLOY_HOLD untouched. The two DB
+   migrations are the only live mutations — both disclosed in the checklist
+   Compliance row (amended) with rollback statements.
+5. Gates re-run at the session-7 content state: CI Node 179 pass + 1
+   documented skip; Python 303/303 (8 skipped-with-reason); release + deploy
+   gates exit 0; scanner 0 findings both modes; exam + vocab independent
+   audits verdict OK.
