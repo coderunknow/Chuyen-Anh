@@ -47,3 +47,23 @@ it: `pglite-rate-limit-evidence.txt` shows `firstGlobalRefusal=120`).
   core unchanged (106 papers / 6,708 questions / 3,292 scorable items /
   0 crashes / 0 invariant violations).
 - Release/deploy gates: held as designed; `DEPLOY_HOLD` untouched.
+
+## Round 3 (2026-11-27, review 6088447084 on head `f077679`)
+
+Re-review requested by comment 7218675373 after the session-7 infra commit.
+4 actionable comments + 1 stale round-1 thread re-surfaced unmarked. Every
+finding verified against the current head before acting:
+
+| # | Finding | Verdict | Disposition |
+| --- | --- | --- | --- |
+| R3-1 | `scripts/app_release_gate.py:65` — force override deploys an unclassifiable (None) `APP_VERSION` without `stable_deploy_authorized`, violating the documented "force alone never deploys a stable release" contract | VALID (reproduced: duplicated declaration + `FORCE_DEPLOY=true` alone → `deploy=true`) | FIXED — force on an unclassifiable version now requires `stable_deploy_authorized` (or holds); docstring + deploy.yml input descriptions amended; 3 new control cases in `test_app_release_gate.py`, fail-verified (controls fail with the fix stashed, pass with it) |
+| R3-2 | `FINAL_READINESS_CHECKLIST.md:23` — session-6 sweep row split across the table (category cell alone on line 23, evidence/status cells on line 26) | VALID (markdownlint MD055/MD056; row was split by an earlier edit) | FIXED — joined into one four-column row between CR-SR6-1 and the session-6b rows |
+| R3-3 | `FINAL_READINESS_CHECKLIST.md:35` — the four session-7 infra rows had 5 cells (result text and evidence path split), so the status cell did not render | VALID (header defines 4 columns) | FIXED — evidence path merged into the Evidence cell; all rows re-verified 4 cells programmatically (0 bad rows) |
+| R3-4 | `api/app.js:23` — header claimed a `src/` deployment mapping "reproducible from the repository", but no repo config creates that layout (`vercel.json` references `api/telemetry.js`; the mapping is a deployment-call choice) | VALID (overstated wording; the live deployment does carry the two files under `src/`, but via the files-based deploy call) | FIXED — header now describes the module layout (entrypoint + sibling handler), states vercel.json's actual role, and points at the evidence file for the deployment mapping |
+| R3-5 (stale round-1 thread 4718454999, Major) | `scan_workflow_injection.mjs:87` — `include` entries can add combinations (PR-title example), so the literal-matrix allowlist must account for include values | ALREADY FIXED — does not reproduce on this head: CodeRabbit's exact example (expression-bearing `include` entry) is flagged in BOTH parser modes (parsed walk: `includeEntriesAreLiteral` false → whole allowlist dropped → `matrix.browser` flagged; fallback: same), 1 finding each, evidence reproduced 2026-11-27 | NO ACTION — reply posted with the repro; the rule added in `b9dd1b2` covers the case conservatively (any expression-bearing include/exclude entry disables the entire per-job allowlist) |
+
+Fresh gates after the round-3 fixes: CI Node static 289/289; shard partition
+OK + shard/scanner suite (1 documented skip); telemetry 19/19; Python 303/303
+(PyYAML venv, 0 skips); archive 5/5; release + deploy gates exit 0; clean-tree
+scanner 0 findings both modes; `mutation_cr_scrub` 12/12; exam + vocab
+independent audits verdict OK.

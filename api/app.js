@@ -3,15 +3,23 @@
 /**
  * Chuyên Anh telemetry — plain Node service entrypoint.
  *
- * The Vercel project uses framework "node", so the deployment is one Node
- * service: this file is the entrypoint (src/app.js) and every request is
- * delegated to the endpoint handler in src/api/telemetry.js. Nothing here
- * reads or logs request data — the privacy rules live in the handler and the
- * less this wrapper touches, the better they hold.
+ * The Vercel project uses framework "node" (see vercel.json), so the audited
+ * production deployment is one Node service: this file is the entrypoint and
+ * every request is delegated to the endpoint handler in ./telemetry.js.
+ * Nothing here reads or logs request data — the privacy rules live in the
+ * handler and the less this wrapper touches, the better they hold.
  *
- * Deployment mapping (reproducible from the repository):
- *   api/app.js        → src/app.js           (this file, entrypoint)
- *   api/telemetry.js  → src/api/telemetry.js (the endpoint handler)
+ * Module layout (repository paths; there is no repository configuration that
+ * renames or relocates these files — vercel.json only references the handler
+ * and sets framework/headers):
+ *   api/app.js        (this file, entrypoint)
+ *   api/telemetry.js  (the endpoint handler, required as ./telemetry.js)
+ *
+ * The live deployment carries the same two files under Vercel's service
+ * layout (src/app.js + src/api/telemetry.js); that src/ mapping is applied by
+ * the files-based deployment call itself and is documented, with the live
+ * verification transcript, in
+ * audit/v100/stable-rebuild/evidence/session-2026-11-27/live-infra-hardening.md.
  *
  * Live verification (read-only, 2026-11-27): OPTIONS /api/telemetry → 204
  * with the CORS preflight headers; GET /api/telemetry → 405 with Allow:

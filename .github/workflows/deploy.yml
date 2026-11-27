@@ -29,7 +29,9 @@ on:
           Deploy even while the release named in DEPLOY_HOLD is unpublished
           (prereleases only — a stable release additionally requires
           stable_deploy_authorized=true; with that input set as well, this
-          override can deploy a stable release before its tag is published)
+          override can deploy a stable release before its tag is published.
+          When APP_VERSION cannot be classified, the build is treated as
+          potentially stable, so the same additional input is required)
         required: false
         type: boolean
         default: false
@@ -38,7 +40,8 @@ on:
           Confirm separate user authorization to deploy a stable release.
           Required for a stable release even when force_deploy=true; combined
           with force_deploy=true it also authorizes deploying a stable release
-          that is not yet published
+          that is not yet published, or one whose APP_VERSION declaration is
+          missing, malformed, or duplicated (unclassifiable)
         required: false
         type: boolean
         default: false

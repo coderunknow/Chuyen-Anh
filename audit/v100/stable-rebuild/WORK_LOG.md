@@ -352,3 +352,17 @@ verifications and rollbacks: `evidence/session-2026-11-27/live-infra-hardening.m
    documented skip; Python 303/303 (8 skipped-with-reason); release + deploy
    gates exit 0; scanner 0 findings both modes; exam + vocab independent
    audits verdict OK.
+
+### Session 7 addendum — CodeRabbit round 3 (review 6088447084 on `f077679`)
+
+Re-review of the session-7 head returned 4 actionable findings + 1 stale
+round-1 thread. All verified against source before acting (no false
+positives fixed as real): INFRA-gate bypass in `app_release_gate.py`
+(force on an unclassifiable version) — reproduced live, fixed, fail-verified
+controls added; two checklist table malformations — fixed; `api/app.js`
+header wording — fixed; the stale scanner Major — does not reproduce (CR's
+exact example flagged in both parser modes; repro recorded). Full register:
+`evidence/session-2026-11-27/CODERABBIT-ROUND-VERIFY.md` (Round 3). Fresh
+gates re-run at the resulting head: all green (Node 289 + 19 + 19; Python
+303 with PyYAML, 0 skips; archive 5/5; gates exit 0; scanner 0/0;
+`mutation_cr_scrub` 12/12; exam/vocab audits OK).

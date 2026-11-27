@@ -512,3 +512,23 @@ wrapper, documented mapping, never touches request data); local live-server
 smoke against the real handler: OPTIONS→204 (+CORS/methods), GET→405
 (+Allow), POST from disallowed origin→403. Rollback: none needed (additive
 file; the wrapper is only exercised in the Node-service deployment).
+
+### INFRA-5 (medium, gate integrity) — force override deployed unclassifiable builds — CLOSED (round 3)
+
+Found by CodeRabbit round 3 on head `f077679`. `app_release_gate.py` treated
+an unclassifiable `APP_VERSION` (missing, malformed, or duplicated
+declaration → `app_version()` returns None) as "not stable", so the
+`elif force:` branch granted a deploy WITHOUT `stable_deploy_authorized` —
+while the gate's own contract (docstring + deploy.yml input text) promises
+"FORCE_DEPLOY alone never deploys a stable release". Reproduced live: a
+duplicated declaration + `FORCE_DEPLOY=true` alone printed
+`deploy=true (manual force override)`.
+Fix: force on an unclassifiable version now requires
+`stable_deploy_authorized=true` (or the deploy holds); behaviour for a single
+valid declaration is unchanged (prerelease+force allowed, stable+force
+denied without authorization, stable+force+authorization allowed).
+Controls: three new cases in `tests/test_app_release_gate.py`
+(unclassified+force → denied; unclassified+no force → held;
+unclassified+force+authorization → allowed), fail-verified against the
+unfixed gate. Docstring and both deploy.yml input descriptions amended to
+state the unclassified corner.

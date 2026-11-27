@@ -63,19 +63,27 @@ def main() -> int:
     documented on deploy.yml's inputs): FORCE_DEPLOY=true alone deploys an unpublished
     prerelease; FORCE_DEPLOY=true together with STABLE_DEPLOY_AUTHORIZED=true deploys a
     stable release even before its tag is published. FORCE_DEPLOY alone never deploys a
-    stable release.
+    stable release — and when APP_VERSION cannot be classified (missing, malformed, or
+    duplicated declaration), the build cannot be proven non-stable, so force alone is
+    also denied: it requires the same separate STABLE_DEPLOY_AUTHORIZED=true as a
+    known-stable tag.
     """
     force = os.environ.get('FORCE_DEPLOY', '').strip().lower() in {'1', 'true', 'yes'}
     stable_auth = os.environ.get('STABLE_DEPLOY_AUTHORIZED', '').strip().lower() in {'1', 'true', 'yes'}
     version = app_version(ROOT / 'index.html')
     is_stable = bool(version and '-' not in version)
     published = bool(version and release_is_published(version, os.environ.get('GITHUB_REPOSITORY', '')))
-    if force and is_stable and not stable_auth:
+    if force and (version is None or is_stable) and not stable_auth:
+        if version is None:
+            reason = ('APP_VERSION unclassified (missing, malformed, or duplicated declaration): '
+                      'the build cannot be proven non-stable, so force override also requires '
+                      'stable_deploy_authorized=true')
+        else:
+            reason = f'stable release {version} requires separate stable_deploy_authorized=true; force override not sufficient'
         allowed = False
-        reason = f'stable release {version} requires separate stable_deploy_authorized=true; force override not sufficient'
     elif force:
         allowed = True
-        reason = 'manual force override'
+        reason = 'manual force override' if version is not None else 'manual force override with explicit stable_deploy_authorized (APP_VERSION unclassified)'
     elif not published:
         allowed = False
         reason = f'application release {version or "unknown"} not verified; held'
