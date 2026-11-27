@@ -81,7 +81,7 @@ def test_source(source: pathlib.Path) -> None:
             # contains, because `node --test` fails on a path that does not exist and
             # that would make a historical tag impossible to re-check.
             for extra in ("tests/exam-anomalies.test.js", "tests/rc10-cefr.test.js", "tests/v100-senses.test.js",
-                          "tests/telemetry-api.test.js", "tests/exam-exempt-rubric.test.js",
+                          "tests/telemetry-api.test.js", "tests/telemetry-entrypoint.test.js", "tests/exam-exempt-rubric.test.js",
                           "tests/core-invariants.test.js", "tests/exam-persistence.test.js"):
                 if (source / extra).exists():
                     node_suites.append(extra)

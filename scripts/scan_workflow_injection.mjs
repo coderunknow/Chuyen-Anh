@@ -139,7 +139,7 @@ const isComment = (line) => line.trimStart().startsWith('#');
 function findJobRanges(lines) {
   let jobsIndex = -1;
   for (let i = 0; i < lines.length; i += 1) {
-    if (/^jobs:\s*(#.*)?$/.test(lines[i])) { jobsIndex = i; break; }
+    if (/^jobs\s*:\s*(#.*)?$/.test(lines[i])) { jobsIndex = i; break; }
   }
   if (jobsIndex < 0) return [];
   let j = jobsIndex + 1;
@@ -154,7 +154,7 @@ function findJobRanges(lines) {
     if (isBlank(line) || isComment(line)) continue;
     const indent = indentOf(line);
     if (indent < jobIndent) break; // left the jobs block
-    if (indent === jobIndent && /^\s*[\w.-]+:\s*(#.*)?$/.test(line)) {
+    if (indent === jobIndent && /^\s*[\w.-]+\s*:\s*(#.*)?$/.test(line)) {
       if (current) current.end = i;
       current = { name: line.split(':')[0].trim(), start: i, end: lines.length };
       ranges.push(current);
@@ -220,7 +220,7 @@ function fallbackLiteralMatrixKeys(lines, job) {
   // matrix is scanned so keys declared after the include block cannot survive.
   let poisonedInclude = false;
   for (let s = job.start + 1; s < job.end; s += 1) {
-    const strategyMatch = /^(\s*)strategy:\s*(#.*)?$/.exec(lines[s]);
+    const strategyMatch = /^(\s*)strategy\s*:\s*(#.*)?$/.exec(lines[s]);
     if (!strategyMatch || isBlank(lines[s]) || isComment(lines[s])) continue;
     const strategyIndent = strategyMatch[1].length;
     for (let i = s + 1; i < job.end; i += 1) {
@@ -228,7 +228,7 @@ function fallbackLiteralMatrixKeys(lines, job) {
       if (isBlank(line) || isComment(line)) continue;
       const indent = indentOf(line);
       if (indent <= strategyIndent) break; // left the strategy block
-      const matrixMatch = indent === strategyIndent + 2 ? /^\s*matrix:\s*(#.*)?$/.exec(line) : null;
+      const matrixMatch = indent === strategyIndent + 2 ? /^\s*matrix\s*:\s*(#.*)?$/.exec(line) : null;
       if (!matrixMatch) continue;
       for (let k = i + 1; k < job.end; k += 1) {
         const keyLine = lines[k];
@@ -236,7 +236,7 @@ function fallbackLiteralMatrixKeys(lines, job) {
         const keyIndent = indentOf(keyLine);
         if (keyIndent <= indent) break; // left the matrix block
         if (keyIndent !== indent + 2) continue; // nested continuation
-        const keyMatch = /^\s*(["']?)([\w.-]+)\1:\s*(.*)$/.exec(keyLine);
+        const keyMatch = /^\s*(["']?)([\w.-]+)\1\s*:\s*(.*)$/.exec(keyLine);
         if (!keyMatch) continue;
         const key = keyMatch[2];
         if (key === 'include' || key === 'exclude') {
@@ -299,7 +299,7 @@ function fallbackScanFile(text, file) {
     // Quoted mapping keys are valid YAML (`"run":`, `'run':`, also after a
     // `- ` list marker). The fallback must recognise them or it would silently
     // skip the whole script — the opposite of conservative.
-    const runMatch = /^(\s*)((?:-\s+)?)(["']?)run\3:(\s*)(.*)$/.exec(lines[i]);
+    const runMatch = /^(\s*)((?:-\s+)?)(["']?)run\3\s*:(\s*)(.*)$/.exec(lines[i]);
     if (!runMatch) continue;
     const keyColumn = runMatch[1].length + runMatch[2].length;
     const value = runMatch[5].trim().replace(/^(?:[&!][^\s]+\s+)*/, ''); // strip anchors/tags

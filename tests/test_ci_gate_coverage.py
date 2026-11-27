@@ -119,6 +119,38 @@ class CiGateCoverageTests(unittest.TestCase):
         self.assertEqual(sorted(files - listed), [],
                          "these Node suites exist but the release source check never runs them")
 
+    def test_the_scanner_parsed_mode_is_required_in_ci_not_silently_skipped(self) -> None:
+        """The workflow-injection suite's parsed walk must run in CI with a pinned parser.
+
+        ChatGPT round-2 finding: CI installs Python PyYAML (for `unittest`), which
+        does NOT provide the Node `yaml` package the scanner resolves, so the
+        parsed-mode tests silently skipped and only the fallback mode was ever
+        validated on the runner. A skipped parser test must not count as coverage.
+        """
+        scanner_step = CI[CI.index("workflow-injection scanning"):]
+        self.assertIn("npm install", scanner_step, "CI must install the Node YAML parser for the scanner suite")
+        self.assertRegex(scanner_step, r"yaml@\d+\.\d+\.\d+", "the parser install must be version-pinned")
+        self.assertIn("NODE_PATH", scanner_step, "the suite must actually resolve the installed parser via NODE_PATH")
+        scanner_suite = "tests/workflow-injection-scan.test.mjs"
+        self.assertIn(scanner_suite, scanner_step, "the parser install must precede the scanner suite run")
+
+    def test_ci_triggers_cover_new_workflow_files_and_scanner_only_changes(self) -> None:
+        """`ci-paths` must include the workflow directory and the scanner source.
+
+        ChatGPT round-2 finding: adding a NEW workflow file (not yet enumerated)
+        or editing only `scripts/scan_workflow_injection.mjs` matched no path
+        filter, so the security-critical scanner could change with no CI at all.
+        """
+        anchor_start = CI.index("paths: &ci-paths")
+        anchor = CI[anchor_start:CI.index("DEPLOY_HOLD", anchor_start)]
+        for required in (".github/workflows/**", "scripts/scan_workflow_injection.mjs"):
+            self.assertIn(required, anchor,
+                          f"the shared ci-paths anchor must include {required} so a scanner-only or new-workflow change runs CI")
+        push_start = CI.index("push:")
+        push_paths = CI[push_start:CI.index("jobs:", push_start)]
+        self.assertIn("paths: *ci-paths", push_paths,
+                      "the push trigger must alias the same ci-paths anchor (shared by reference, not re-typed)")
+
     def test_the_readiness_checklist_and_the_workflows_describe_the_same_suites(self) -> None:
         text = CHECKLIST.read_text(encoding="utf-8")
         self.assertIn(ARCHIVE_SUITE, text, "the checklist claims the archive suite; CI must run it")

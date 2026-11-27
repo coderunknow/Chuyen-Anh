@@ -6,6 +6,8 @@ on:
     # branch, so a `main`-only filter meant such a PR ran no CI at all (PR #84).
     branches: [main, "arena/**"]
     paths: &ci-paths
+      - ".github/workflows/**"
+      - "scripts/scan_workflow_injection.mjs"
       - "index.html"
       - "Learned_Vocabulary_List.md"
       - "Learned_Phrase_List.md"
@@ -172,6 +174,13 @@ jobs:
 
       - name: Verify browser shard partition, failure capture and workflow-injection scanning
         run: |
+          # The scanner's parsed walk must be REQUIRED in CI, not silently
+          # skipped: install the pinned Node YAML parser and expose it via
+          # NODE_PATH (the project itself stays dependency-free). Without it
+          # the suite's parsed-mode tests skip and the fallback is the only
+          # validated mode — a skipped parser test must not count as coverage.
+          npm install --no-save --prefix "$RUNNER_TEMP/scanner-yaml" yaml@2.9.1
+          export NODE_PATH="$RUNNER_TEMP/scanner-yaml/node_modules"
           node scripts/shard_browser_suite.mjs --check
           node --test tests/shard-browser-suite.test.mjs tests/fresh-world-failure.test.cjs tests/workflow-injection-scan.test.mjs
 
@@ -179,7 +188,7 @@ jobs:
       # so its contract (origins, size limits, stored fields, status codes, fail-closed salt)
       # is pinned by its own suite rather than by a live request.
       - name: Run telemetry endpoint contract tests
-        run: node --trace-deprecation --test tests/telemetry-api.test.js
+        run: node --trace-deprecation --test tests/telemetry-api.test.js tests/telemetry-entrypoint.test.js
 
   # Run five disjoint learning-suite regions on each engine. The generator's
   # exact-once partition check runs in `checks`; each matrix job regenerates the

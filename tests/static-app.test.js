@@ -2187,6 +2187,107 @@ test('Scope B.1: queueConsolidation maintains gap >= min(3, N-1) for every sessi
   assert.match(app.consolidationTurnNote(3), /ba thẻ khác|vài thẻ khác/);
 });
 
+test('Scope B.1b: continuous skipping never lets an unsatisfied consolidation jump ahead of a real first-pass card', () => {
+  // Owner-reported bug (session 7): skipping continuously collapsed the
+  // consolidation gap — the old skipSessionCard clamp counted absolute queue
+  // positions and walked down past practice cards only, so once skips and
+  // corrective retries dominated the queue the consolidation was clamped to
+  // index 0 and answered immediately after its own first pass (gap 0) while a
+  // real first-pass card was still queued behind it.
+  const simulate = (size, actions) => {
+    const session = Array.from({ length: size }, (_, i) => ({
+      vocab: embeddedVocabulary[i],
+      progress: createInitialProgress(embeddedVocabulary[i].id, 0)
+    }));
+    const log = [];
+    let guard = 0;
+    let step = 0;
+    while (session.length) {
+      guard += 1;
+      assert.ok(guard < 4000, `Queue failed to drain within bound for N=${size}`);
+      const cur = session[0];
+      const kind = cur.consolidation ? 'consolidation' : cur.practice ? 'practice' : 'first';
+      let act = actions({ kind, step, completed: log.length });
+      step += 1;
+      if (act === 'skip') {
+        if (cur.consolidation) { act = 'correct'; } else {
+          assert.equal(app.skipSessionCard(session, log.length, SPRINT_CONSOLIDATION_GAP), true);
+          const seen = new Set(session.map(t => `${t.vocab.id}:${t.consolidation ? 'c' : t.practice ? 'p' : 'f'}`));
+          assert.equal(seen.size, session.length, 'a skip never duplicates or drops a queued turn');
+          continue;
+        }
+      }
+      const firstPass = !cur.practice && !cur.consolidation;
+      const correct = act === 'correct';
+      const demand = cur.demand || (firstPass ? sprintRetrievalDemand(cur.progress) : null);
+      const turnIndex = log.length;
+      if (cur.consolidation) {
+        // The contract: an unsatisfied consolidation must never be graded while
+        // a real first-pass card is still queued behind it. Skips and practice
+        // retries provide no spaced evidence; only real first passes do.
+        const elapsed = Number.isInteger(cur.firstPassTurn) ? Math.max(0, turnIndex - cur.firstPassTurn - 1) : 0;
+        const neededNow = Math.max(0, SPRINT_CONSOLIDATION_GAP - elapsed);
+        const realBehind = session.slice(1).some(t => !t.practice && !t.consolidation);
+        assert.ok(neededNow === 0 || !realBehind,
+          `Consolidation for ${cur.vocab.id} jumped the queue: needed=${neededNow} but a real first-pass card is still queued`);
+      }
+      if (firstPass) {
+        cur.progress = updateProgress(cur.progress, correct, 100);
+        if (!correct) app.queuePractice(session, cur);
+        if (needsConsolidationTurn({ correct, demand })) {
+          app.queueConsolidation(session, cur, consolidationDemand({ correct, demand }), SPRINT_CONSOLIDATION_GAP, turnIndex);
+        }
+      }
+      log.push({ id: cur.vocab.id, kind });
+      session.shift();
+    }
+    return log;
+  };
+
+  // Deterministic replay of the reported pattern: every third turn graded
+  // (wrong, so corrective retries pile up), everything else skipped.
+  for (const phase of [0, 1, 2]) {
+    const log = simulate(7, ctx => (ctx.step % 3 === phase)
+      ? (ctx.kind === 'consolidation' ? 'correct' : 'wrong') : 'skip');
+    assert.equal(new Set(log.filter(t => t.kind === 'first').map(t => t.id)).size, 7,
+      `All 7 words completed their first pass (phase ${phase})`);
+  }
+
+  // Skip-heavy with wrong answers on larger sessions.
+  for (const size of [10, 15]) {
+    simulate(size, ctx => (ctx.step % 2 === 0)
+      ? 'skip'
+      : (ctx.kind === 'consolidation' ? 'wrong' : 'wrong'));
+  }
+
+  // The consolidation spacing contract itself, at the queue level: with a
+  // queue dominated by a practice retry and a skipped card, an unsatisfied
+  // consolidation must land AFTER the remaining real first-pass card, never
+  // in front of it.
+  {
+    const session = [
+      { vocab: embeddedVocabulary[0], progress: createInitialProgress(embeddedVocabulary[0].id, 0) },
+      { vocab: embeddedVocabulary[1], progress: createInitialProgress(embeddedVocabulary[1].id, 0), practice: true },
+      { vocab: embeddedVocabulary[2], progress: createInitialProgress(embeddedVocabulary[2].id, 0) },
+      { vocab: embeddedVocabulary[0], progress: createInitialProgress(embeddedVocabulary[0].id, 0), consolidation: true, demand: MODES.RECALL, firstPassTurn: 0, scheduledAfter: 1 }
+    ];
+    // skipSessionCard(session, completedTurns=1, gap=3): elapsed = 0, needed = 3,
+    // only one real first-pass card remains -> consolidation goes after it.
+    assert.equal(app.skipSessionCard(session, 1, SPRINT_CONSOLIDATION_GAP), true);
+    const kinds = session.map(t => `${t.vocab.id}${t.consolidation ? 'c' : t.practice ? 'p' : ''}`);
+    // The front card (word 0's real first pass) is the one being skipped, so it
+    // rotates to the back; with two real cards ('3' and the rotated '1') and
+    // needed = 3, the unsatisfied consolidation must land AFTER both of them.
+    assert.equal(kinds[kinds.length - 1], `${embeddedVocabulary[0].id}c`,
+      'the unsatisfied consolidation is last, never at the front');
+    assert.deepEqual(kinds.slice(0, kinds.length - 1).sort(),
+      [`${embeddedVocabulary[0].id}`, `${embeddedVocabulary[1].id}p`, `${embeddedVocabulary[2].id}`].sort(),
+      'both real first-pass cards sit in front of the unsatisfied consolidation');
+    assert.equal(kinds[0], `${embeddedVocabulary[1].id}p`,
+      'the practice retry keeps its relative position');
+  }
+});
+
 test('Scope B.2: handleAnswer strictly isolates updateStreak and progress writes to firstPass turns only', () => {
   const handleStart = appScript[1].indexOf('function handleAnswer(');
   const handleEnd = appScript[1].indexOf('function renderFeedback(', handleStart);
@@ -3710,6 +3811,69 @@ test('remediation: a failed commit rolls back in reverse order and reports a fai
   assert.match(appScript[1], /commitResult === 'rollback-failed'/);
   assert.match(appScript[1], /dữ liệu trên máy có thể chưa nhất quán\./);
   assert.match(appScript[1], /'Could not save the imported data and the rollback may be incomplete; data on this device may be inconsistent\.'/);
+});
+
+test('remediation: the progress-backup importer rejects oversized files before reading them (P2)', () => {
+  // The import path must mirror the device-settings importer: a file above the
+  // cap is refused by `file.size` BEFORE `file.text()` allocates and parses it
+  // on the main thread, and the validator enforces the same bound for non-UI
+  // callers that hand it an already-parsed object.
+  const importStart = appScript[1].indexOf('async function importFile(event)');
+  assert.ok(importStart > 0, 'importFile must exist');
+  const importBody = appScript[1].slice(importStart, importStart + 1200);
+  const sizeCheck = importBody.indexOf('file.size > PROGRESS_BACKUP_MAX_BYTES');
+  const textRead = importBody.indexOf('file.text()');
+  assert.ok(sizeCheck >= 0, 'importFile must check file.size against PROGRESS_BACKUP_MAX_BYTES');
+  assert.ok(textRead > sizeCheck, 'the size check must run before file.text()');
+  assert.match(appScript[1], /export const PROGRESS_BACKUP_MAX_BYTES = 4 \* 1024 \* 1024;/);
+
+  // Validator bound: an oversized payload is rejected at entry, a normal one
+  // passes (no false positive).
+  const pad = 'x'.repeat(5 * 1024 * 1024);
+  const oversized = { app: 'chuyen-anh-flashcard', version: 1, progress: {}, history: [], streak: { a: 1 }, pad };
+  assert.throws(() => app.validateImportPayload(oversized, null), /quá lớn/,
+    'an oversized parsed payload must be rejected by the validator');
+  const normal = { app: 'chuyen-anh-flashcard', version: 1, progress: {}, favorites: [], history: [], streak: { longest: 0, last: null, current: 0 } };
+  const imported = app.validateImportPayload(normal, null);
+  assert.ok(imported && typeof imported.progress === 'object', 'a normal-size payload still imports');
+});
+
+test('remediation: the quota preflight never destroys a value stored under the probe key (P2)', () => {
+  // The probe key is a fixed, documented name, so a pre-existing value under it
+  // belongs to whoever stored it. The preflight must restore it on the success
+  // path, on a refused probe, AND on a failed real commit.
+  const PROBE = '__chuyen-anh.import.probe';
+  const makeStorage = ({ failProbe, failReal } = {}) => {
+    const state = new Map([['K', 'x'.repeat(10)], ['L', 'y'.repeat(20)], [PROBE, 'user-owned-value']]);
+    return {
+      state,
+      getItem: key => (state.has(key) ? state.get(key) : null),
+      setItem: (key, value) => {
+        if (failProbe && String(value).length > 100) throw new Error('quota');
+        if (failReal && key === 'K' && String(value).length > 100) throw new Error('quota');
+        state.set(key, String(value));
+      },
+      removeItem: key => { state.delete(key); }
+    };
+  };
+  const writes = new Map([['K', 'x'.repeat(200)]]); // netNeed > 0 -> the preflight runs
+
+  const okStore = makeStorage();
+  assert.equal(app.commitStagedWrites(okStore, writes), true);
+  assert.equal(okStore.state.get(PROBE), 'user-owned-value',
+    'a successful preflight restores the pre-existing probe-key value');
+
+  const refused = makeStorage({ failProbe: true });
+  assert.equal(app.commitStagedWrites(refused, writes), false);
+  assert.equal(refused.state.get(PROBE), 'user-owned-value',
+    'a refused preflight must not delete the pre-existing probe-key value');
+  assert.equal(refused.state.get('K'), 'x'.repeat(10),
+    'a refused preflight leaves the real keys untouched');
+
+  const failedCommit = makeStorage({ failReal: true });
+  assert.equal(app.commitStagedWrites(failedCommit, writes), false);
+  assert.equal(failedCommit.state.get(PROBE), 'user-owned-value',
+    'the probe-key value survives a failed real commit too');
 });
 
 test('rc4: showing or hiding meanings is a presentation preference, never a learning rule', () => {

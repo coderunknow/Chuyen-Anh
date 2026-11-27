@@ -22,7 +22,7 @@ on:
         required: true
         type: boolean
       deployment_identity:
-        description: "The deployed revision that an authorized actor verified before this dispatch (e.g. the Vercel deployment id or commit SHA)."
+        description: "The deployed revision the dispatcher declares was verified before this dispatch (e.g. the Vercel deployment id or commit SHA). This workflow records the string as declared; it does not resolve it against Vercel, so the identity is format-checked, not independently verified."
         required: true
         type: string
 
@@ -48,16 +48,24 @@ jobs:
           echo "::error::deployed the candidate revision and recorded it in deployment_identity."
           exit 1
 
-      - name: Record the verified deployment identity
+      - name: Record the declared deployment identity
         if: ${{ inputs.confirm_production_write == true }}
         env:
           DEPLOYMENT_IDENTITY: ${{ inputs.deployment_identity }}
         run: |
+          # The identity is a caller declaration: this workflow has no Vercel
+          # credentials, so it format-checks the string (a Vercel deployment id
+          # or a git commit SHA) and records it verbatim in the audit trail —
+          # it does NOT resolve it to a live deployment or the production alias.
           test -n "$DEPLOYMENT_IDENTITY" || {
             echo "::error::deployment_identity must name the deployed revision that was verified first."
             exit 1
           }
-          echo "production write confirmed; deployed revision: $DEPLOYMENT_IDENTITY" >> "$GITHUB_STEP_SUMMARY"
+          echo "$DEPLOYMENT_IDENTITY" | grep -Eq '^(dpl_[A-Za-z0-9]{10,}|[0-9a-f]{7,40})$' || {
+            echo "::error::deployment_identity must be a Vercel deployment id (dpl_…) or a commit SHA — refusing to record an unidentifiable string."
+            exit 1
+          }
+          echo "production write confirmed; deployed revision (caller-declared, format-checked — not resolved against Vercel): $DEPLOYMENT_IDENTITY" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Checkout
         if: ${{ inputs.confirm_production_write == true }}

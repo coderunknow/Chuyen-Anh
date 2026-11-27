@@ -11,7 +11,7 @@ This suite parses the workflow's real YAML (not a textual claim) and pins:
 
 * no automatic trigger at all — no `pull_request`, no `push`, no schedule;
 * a `workflow_dispatch` trigger whose inputs force a deliberate confirmation
-  of the production write and a verified deployment identity;
+  of the production write and a declared, format-checked deployment identity;
 * a `concurrency` group so two dispatches cannot race;
 * least privilege (`contents: read`), the pinned checkout action, and the
   probe step that actually exercises the deployed endpoint.
@@ -71,6 +71,24 @@ class TelemetrySmokeGateTests(unittest.TestCase):
         identity = inputs["deployment_identity"]
         self.assertEqual(identity.get("required"), True)
         self.assertIn("deployed", identity.get("description", "").lower())
+        # ChatGPT round-2 finding: the audit trail must not overstate what the
+        # workflow verified. It has no Vercel credentials, so the input is a
+        # caller DECLARATION: the description says so, the step is named
+        # accordingly, and the recorded summary line must not claim an
+        # independently verified identity.
+        self.assertIn("declares", identity.get("description", "").lower())
+        self.assertIn("not independently verified", identity.get("description", "").lower())
+        steps = self.doc["jobs"]["probe"]["steps"]
+        identity_step = next(step for step in steps if "deployment identity" in step.get("name", "").lower())
+        self.assertIn("declared", identity_step["name"].lower())
+        run = identity_step["run"]
+        # The string is format-checked (Vercel deployment id or commit SHA) so
+        # the audit trail cannot record an arbitrary label.
+        self.assertRegex(run, r"grep -Eq")
+        self.assertRegex(run, r"dpl_")
+        self.assertIn("caller-declared", run)
+        self.assertNotIn("deployed revision: $DEPLOYMENT_IDENTITY", run,
+                         "the summary must not present the declared id as a resolved/verified deployment")
 
     def test_a_missing_confirmation_fails_before_any_checkout(self) -> None:
         steps = self.doc["jobs"]["probe"]["steps"]

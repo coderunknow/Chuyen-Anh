@@ -250,6 +250,52 @@ jobs:
   } finally { await rm(dir, { recursive: true, force: true }); }
 });
 
+// ChatGPT round-2 finding: YAML permits whitespace BEFORE the mapping colon,
+// so `run :` / "run" : are ordinary run keys; the old matcher required the
+// colon to immediately follow the key and silently skipped those scripts.
+test('fallback: `run :` (whitespace before the colon) is still a run key and is scanned', async () => {
+  const poison = `name: Run space colon
+on: push
+jobs:
+  leak:
+    runs-on: ubuntu-latest
+    steps:
+      - run : echo "\${{ github.head_ref }}"
+`;
+  const dir = await fixtureDir({ 'run-space.yml': poison });
+  try {
+    const fallback = await scanWorkflows({ dir, yamlParse: null });
+    assert.equal(fallback.injectionShapedExpressions, 1, JSON.stringify(fallback.findings));
+    assert.equal(fallback.findings[0].expression.trim(), 'github.head_ref');
+    if (yamlParse) {
+      const parsed = await scanWorkflows({ dir, yamlParse });
+      assert.equal(parsed.injectionShapedExpressions, 1, JSON.stringify(parsed.findings));
+    }
+  } finally { await rm(dir, { recursive: true, force: true }); }
+});
+
+test('fallback: quoted "run" : with a pre-colon space is scanned, its full block body included', async () => {
+  const poison = `name: Quoted run space colon
+on: push
+jobs:
+  leak:
+    runs-on: ubuntu-latest
+    steps:
+      - "run" : |
+          echo "\${{ github.event.pull_request.title }}"
+`;
+  const dir = await fixtureDir({ 'quoted-run-space.yml': poison });
+  try {
+    const fallback = await scanWorkflows({ dir, yamlParse: null });
+    assert.equal(fallback.injectionShapedExpressions, 1, JSON.stringify(fallback.findings));
+    assert.equal(fallback.findings[0].expression.trim(), 'github.event.pull_request.title');
+    if (yamlParse) {
+      const parsed = await scanWorkflows({ dir, yamlParse });
+      assert.equal(parsed.injectionShapedExpressions, 1, JSON.stringify(parsed.findings));
+    }
+  } finally { await rm(dir, { recursive: true, force: true }); }
+});
+
 test('fallback: a base matrix key declared after a poisoned include block does not survive the poisoning', async () => {
   const poison = `name: Key after poisoned include
 on: push

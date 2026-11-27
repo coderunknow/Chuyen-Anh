@@ -377,3 +377,30 @@ both poison shapes), fixed (key-line check + deferred allowlist clear),
 fail-verified with two new fixtures; parsed walk confirmed already strict;
 literal-only include merge preserved as safe. Register: Round 4 table in
 `CODERABBIT-ROUND-VERIFY.md`.
+
+## Session 8 (2026-11-27) — owner skip bug + ChatGPT round-2 closure
+
+1. Owner report "continuous skipping breaks the session": root cause found by
+   deterministic replay (SKIP-1 in DEFECTS.md) — the consolidation clamp in
+   `skipSessionCard()` jumped unsatisfied consolidations to the front of a
+   skip/practice-dominated queue (graded gap 0). Fixed by counting REAL
+   first-pass turns during repositioning; fail-verified `Scope B.1b` added;
+   `Scope B.1` untouched and green.
+2. ChatGPT round-2 review (PR #89 comment 7220291631): 3 P1 + 3 P2 all verified
+   then fixed — entrypoint packaging + packaging smoke suite, fallback scanner
+   `run :`/`"run" :` whitespace class (6 matchers, 2 negative controls), CI
+   path filters (+`.github/workflows/**`, scanner source), smoke-workflow
+   declared-identity honesty + format check, quota-probe key restore, progress
+   backup size cap (pre-read refusal + validator bound). Register:
+   `evidence/session-2026-11-27/CHATGPT-ROUND2-VERIFY.md`.
+3. CI truthfulness: the Node `yaml` parser is now pinned and installed in
+   `ci.yml` (`yaml@2.9.1` via NODE_PATH) so the scanner's parsed-mode tests are
+   REQUIRED on the runner instead of silently skipped (GPT2-2 addendum); the
+   coverage gate pins the install, the NODE_PATH export and the path filters.
+4. Count consistency gates kept honest: checklist Node row 314 (10 suites incl.
+   `telemetry-entrypoint`), Python row 305, CHANGELOG PR-#86 totals synced —
+   `test_audit_document_counts` green.
+5. Fresh gates at the session-8 head: Node static 292/292; shard/scanner 26+1
+   documented skip; telemetry 19/19 + entrypoint 3/3; Python 305/305; archive
+   5/5; release/deploy gates exit 0; clean-tree scan 0/0; mutation_cr_scrub
+   12/12; exam/vocab audits verdict OK.

@@ -532,3 +532,74 @@ Controls: three new cases in `tests/test_app_release_gate.py`
 unclassified+force+authorization → allowed), fail-verified against the
 unfixed gate. Docstring and both deploy.yml input descriptions amended to
 state the unclassified corner.
+
+## Session 8 (2026-11-27) — owner skip bug + ChatGPT round-2 findings (GPT2-1..6)
+
+Full register with verdicts and fail-verified controls:
+`evidence/session-2026-11-27/CHATGPT-ROUND2-VERIFY.md`.
+
+### SKIP-1 (major, owner-reported) — continuous skipping collapsed consolidation spacing — CLOSED
+
+`skipSessionCard()` clamped a consolidation's position with
+`target = min(needed, nonPracticeBeforeSkipped)`: an absolute queue position
+(walking down past practice cards only). Under continuous skipping — the queue
+dominated by skipped first passes and corrective practice retries — the clamp
+reached 0, the consolidation jumped to the FRONT and was answered immediately
+after its own first pass (graded gap 0) while a real first-pass card was still
+queued behind it; the rendered note ("no other cards remain") also became
+false. Secondary variant: `target = needed` counted positions, not real cards,
+so a mid-queue practice card silently reduced the real intervening evidence.
+Fix: reposition by counting REAL first-pass turns (practices/consolidations do
+not provide spaced evidence) and insert after exactly `needed` of them; when
+fewer remain, place the consolidation after all of them (honest end-of-session
+case), never ahead of a queued real card. Controls: `Scope B.1b` (deterministic
+replays of the reported pattern + grade-time invariant + queue-level unit
+case), fail-verified against the unfixed module. `Scope B.1` unchanged, green.
+
+### GPT2-1 (P1) — committed entrypoint could not run in the documented deployment layout — CLOSED
+
+`api/app.js` required `./telemetry.js` (sibling layout only) while the
+documented deployment layout is `src/app.js` + `src/api/telemetry.js`, where
+that path resolves to nothing — INFRA-4's "reproducible from git" was not
+actually closed. Fix: runtime resolution across the two real layouts (sibling
+preferred, nested otherwise) with a loud boot failure when neither exists, plus
+`tests/telemetry-entrypoint.test.js` (3 tests) performing the exact packaging
+step and booting the packaged service (byte-identical handler; 204/405/403
+contract; handler-less deployment exits non-zero).
+
+### GPT2-2 (P1) — fallback scanner missed valid-YAML `run :` / `"run" :` keys — CLOSED
+
+YAML allows whitespace before the mapping colon; all six fallback key matchers
+required the colon to immediately follow the key, so such scripts were never
+scanned (CI runs the fallback mode). Fix: whitespace before the colon accepted
+in `jobs:`, job keys, `strategy:`, `matrix:`, generic mapping keys (incl.
+include/exclude) and `run:`; 2 negative controls added; both poison forms
+flagged in both parser modes; safe literals unchanged.
+
+### GPT2-3 (P1) — CI path filters missed new workflow files and scanner-only changes — CLOSED
+
+`.github/workflows/**` and `scripts/scan_workflow_injection.mjs` added to the
+shared `ci-paths` anchor; a new coverage test pins both entries and the push
+trigger's alias (`paths: *ci-paths`).
+
+### GPT2-4 (P2) — smoke workflow overstated the deployment identity — CLOSED
+
+Renamed to a caller-DECLARED identity (description states it is not
+independently resolved against Vercel), format-checked (`dpl_…` or commit SHA)
+before recording, and the summary line says "caller-declared, format-checked".
+Gate test pins all of it.
+
+### GPT2-5 (P2) — quota preflight probe key collision destroyed user data — CLOSED
+
+`commitStagedWrites()` wrote and removed the fixed probe key unconditionally.
+Fix: snapshot the previous value and restore it in a `finally` on all three
+paths (successful preflight, refused probe, failed real commit). Regression
+test seeds the exact key and asserts survival in all three paths.
+
+### GPT2-6 (P2) — progress-backup import read an unbounded file — CLOSED
+
+`importFile` now refuses by `file.size > PROGRESS_BACKUP_MAX_BYTES` (4 MiB,
+consistent with the exam-history cap) BEFORE `file.text()`, and
+`validateImportPayload` enforces the same bound at entry for non-UI callers.
+Regression test proves the order and the validator behaviour; the new toast has
+its English translation-map entry (localization contract green).
