@@ -315,3 +315,85 @@ gate tests skip without it) and the new contract test
 keeps both workflows honest. With the new scanner suite the totals are Python
 **303** (`discover`) + 5 archive, Node **308** static/telemetry + **19**
 shard/failure/scanner; checklist and changelog refreshed to match.
+
+## Session 6 — final merge-readiness audit round on `b8c3dbf` (2026-11-27)
+
+Directive: "find all bugs in index.html — don't just repeat the green tests;
+confirm no false positives; fix comprehensively and cleanly; then push, request
+CodeRabbit and verify every finding." The whole single-file runtime (the
+~11,400-line ES module inside `index.html`) was re-probed adversarially at head
+`b8c3dbf` through four fresh probe batteries (all written for this round, all
+iterating until their own probe-contract errors were eliminated — every
+non-bug flag was adjudicated against the real contract before being dismissed):
+
+1. Exam grading core re-sweep: all 106 papers / 6,708 parsed questions /
+   3,292 scorable choice items with 18 weird inputs each, determinism pairs,
+   per-option credit invariants, multi-select subset credit — 0 crashes,
+   0 invariant violations (unchanged from session 4, re-confirmed at this head).
+2. Behavioral battery #2 (12 areas): storage/store guards, staging rollback
+   incl. `__proto__` keys, `updateProgress` walks, telemetry sanitize, exam
+   result store, typed grading incl. ambiguity paths, queue/consolidation
+   placement — 0 flags. The previously pending consolidation-placement flag was
+   closed as a probe arithmetic error (with 2 unseen cards and gap 3 an
+   achievable gap does not exist; the documented contract inserts at
+   `nonPracticeEnd` with `scheduledAfter = index-1 = 2`).
+3. Behavioral battery #3 (new): device-settings export/validate/apply
+   round-trip incl. 10 adversarial payloads, v1 backup import validation incl.
+   prototype-pollution and junk-field cases, essay rubric grader, exam
+   stimulus state, the full CEFR sense model, match-board state machine, XP/
+   badge/timer math, telemetry report build, exam practice lifecycle, family
+   fold — 0 bugs.
+4. Behavioral battery #4 (new): 2,000 seeded distractor boards over the real
+   8,112-headword deck (4 options, exactly one correct, unique normalized
+   texts, no answer leak, EN→VI masking, gradeAnswer agreement, seeded
+   determinism), phrase grader adversarial cases, phrase progress counters,
+   exam corrections through `scoreExamSession` (0→1 credit, foreign examId
+   ignored), exam clock, hand-off leak guard — 0 bugs.
+5. Static sweeps: 17 storage keys (no collisions), global listener
+   registration (4 document/window listeners, each registered once inside
+   `createApp`; no `beforeunload` exists at all), every `innerHTML` template
+   site (31) checked for unescaped data-derived interpolation (all escaped;
+   exam markdown renderer escapes raw HTML and only whitelisted inline tags
+   pass), `new RegExp` sites, Math.random inventory (shuffle/distractors/
+   attempt id/confetti only — nothing security-relevant).
+
+Exactly one real defect was found and fixed this round; every other flag was
+adjudicated as a probe-contract error with the reason recorded.
+
+### CR-SR6-1 (Robustness, high) — `highlightMatch` threw an uncaught SyntaxError on huge search queries (V8 lazy RegExp compilation) — FIXED
+
+- Root cause: the try/catch in `highlightMatch` wrapped only the
+  `new RegExp(...)` constructor. V8 compiles a RegExp body lazily, so the
+  constructor can succeed and the first `.replace()` still throws
+  (`regular expression is too large`). `#search-field` has no maxlength and no
+  JS cap, so a query of >= ~40,000 escaped regex atoms (measured: 30,000 ok,
+  40,000 throws, Node v22.22.3) crashed the whole search `draw()` path with an
+  uncaught exception. Not ReDoS — a plain crash.
+- Fix: construction and first use now sit inside ONE try/catch whose catch
+  returns `escapeHtml(source)` — exactly the function's existing
+  constructor-failure contract (plain escaped text, no `<mark>`). One comment
+  documents the lazy-compile mechanism. Nothing else changed.
+- Evidence: before/after probe transcripts in
+  `evidence/session-2026-11-27/highlight-lazy-regex-crash-evidence.txt`.
+- Regression: `tests/static-app.test.js` ("search highlighting never breaks
+  the text it escapes") now pins the 40k/60k-atom fallback, a 40k-atom `+`
+  query, and that a 20,000-match source still marks every match. Full suites
+  green at the fix head (289 canonical Node + 19 shard/failure/scanner +
+  303 Python + 5 archive).
+- Adjudicated non-bugs recorded for completeness (probe errors, verified
+  against source): `pluralCount` includes the count; `highlightMatch` marks
+  only matched characters; `loadExamResultHistory` is best-effort by design
+  with the writer holding the refusal guard; `createExamAttempt` throws on
+  invalid input (fail-closed, bounds 1–360 min); `examStimulusState` returns a
+  status string; essay `under_length` fires before the template gate by
+  design; CEFR levels live on senses (`sense.cefr`, verified against
+  data/vocabulary.json) with `level:` tags as the legacy headword path;
+  match items use `item.vocab`; `sessionTimeLimit` untimed returns 0;
+  `examClockState` is not called by runtime UI paths and its attempts are
+  sanitized (Number.isFinite enforced) so NaN inputs are out of contract;
+  `phraseKey` folds punctuation including dashes (intended);
+  `handOffForDisplay` passes the answer through when no leak exists;
+  `generateQuestion`'s cloze fall-through is unreachable (the only runtime
+  call site is fed sanitized numeric progress counters and hints that are
+  either MODE values or `EXERCISE_TO_MODE` keys; match turns carry
+  `match: true` and never reach it).

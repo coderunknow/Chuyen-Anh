@@ -2946,6 +2946,19 @@ test('search highlighting never breaks the text it escapes', () => {
   assert.equal(highlightMatch('a+b', 'a+b'), '<mark>a+b</mark>');
   assert.equal(highlightMatch('anything', '   '), 'anything');
   assert.equal(highlightMatch(undefined, 'x'), '');
+  // V8 compiles a RegExp body lazily, so the constructor can succeed and the
+  // first replace() can still throw: a query with tens of thousands of atoms
+  // (the search field has no length cap) overflows the engine's matcher. The
+  // function must degrade to its documented no-highlight contract instead of
+  // crashing the search draw path (regression: 2026-11-27 audit, CR-SR6-1).
+  assert.equal(highlightMatch('searchable text', '*'.repeat(40_000)), 'searchable text');
+  assert.equal(highlightMatch('searchable text', '?'.repeat(60_000)), 'searchable text');
+  assert.equal(highlightMatch('a b', '+'.repeat(40_000)), 'a b');
+  // A huge source with a normal query still highlights every match.
+  assert.equal(
+    highlightMatch('word '.repeat(20_000).trim(), 'word').split('<mark>word</mark>').length - 1,
+    20_000
+  );
 });
 
 test('relative review times are plural-correct in both languages', () => {

@@ -237,3 +237,49 @@ confirmed defects at that exact head; both were reproduced before fixing.
 - PyYAML was installed into a disposable venv for the parsed-mode scan
   verification; no repository dependency was added beyond the pinned
   `tests/requirements.txt` consumed by CI.
+
+## Session 6 — final merge-readiness audit round on `b8c3dbf` (2026-11-27)
+
+Same branch, same operating base as session 5 (head `b8c3dbf`, all session-4/5
+evidence intact). Directive: find all bugs in index.html with fresh adversarial
+probes, no false positives, clean comprehensive fixes, then push, request
+CodeRabbit and verify every finding.
+
+### Probes (all written this round; every non-bug flag adjudicated before dismissal)
+
+- Probe corpus rebuilt from the fixed head: module extracted from
+  `index.html` (702,165 bytes, 11,400+ lines, 295 exports).
+- Exam core re-sweep: 106 papers / 6,708 questions / 3,292 scorable choice
+  items, 18 weird inputs each, 0 crashes, 0 invariant violations.
+- Battery #2 (12 areas) re-run to 0 flags; the pending consolidation-placement
+  flag closed as a probe arithmetic error (insert at `nonPracticeEnd`,
+  `scheduledAfter = 2`, documented contract).
+- Battery #3 (new, 12 areas): device settings round-trip + adversarial
+  payloads, backup import validation incl. prototype pollution, essay rubric,
+  stimulus state, CEFR sense model, match state machine, XP/badges/timers,
+  telemetry report, exam practice lifecycle, family fold — 0 bugs.
+- Battery #4 (new): 2,000 seeded distractor boards over the real deck with
+  full invariants, phrase grader, phrase progress, exam corrections through
+  the scorer, exam clock, hand-off guard — 0 bugs.
+- Static sweeps: storage keys, global listeners, all 31 innerHTML sites,
+  `new RegExp` sites, Math.random inventory — clean.
+
+### Fixes (details and dispositions in `DEFECTS.md` CR-SR6-1)
+
+1. **CR-SR6-1** — `highlightMatch`: the RegExp's first use (`.replace`) moved
+   inside the same try/catch as its construction; V8 lazy compilation could
+   otherwise throw an uncaught SyntaxError on queries of >= ~40k escaped atoms
+   (search field has no length cap) and crash the search draw path. Fallback =
+   the function's existing constructor-failure contract. Regression assertions
+   in `tests/static-app.test.js`; before/after evidence in
+   `evidence/session-2026-11-27/highlight-lazy-regex-crash-evidence.txt`.
+
+### Fresh verification at the session head (Node v22.22.3, Python 3.11.2)
+
+- Canonical CI Node set: **289/289** (incl. the new regression assertions).
+- Shard/fresh-world/scanner trio: **18 pass / 1 skip (parsed-walk needs yaml)**;
+  shard partition check OK; telemetry contract suite **19/19**.
+- Python `unittest discover` (with PyYAML venv): **303/303**; archive suite
+  5/5; release/deploy gates held as designed (`DEPLOY_HOLD` untouched).
+- All four probe batteries re-run against the fixed module: 0 flags, exam-core
+  numbers unchanged (106/6,708/3,292/0/0).

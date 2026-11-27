@@ -2830,3 +2830,44 @@ and all work landed on top of it.
 - **No merge, no tag, no release, no Pages/Vercel/Supabase change, no
   production telemetry POST, no protected-file edits** (`AGENT.md` untouched;
   `DESIGN_LOG.md`/`AGENTS_LOG.md` appends only; `DEPLOY_HOLD` untouched).
+
+## Session 6 — final merge-readiness audit round (2026-11-27, head `b8c3dbf`)
+
+- **Directive:** find all bugs in `index.html` with fresh adversarial probes
+  (not a re-run of the green tests), confirm no false positives, fix
+  comprehensively and cleanly, push, request CodeRabbit, verify every finding.
+- **Probes:** the full runtime module (~11,400 lines, 295 exports) was
+  re-probed through four fresh batteries: exam core over all 106 papers /
+  6,708 questions / 3,292 scorable choice items (0 crashes, 0 invariant
+  violations); a 12-area behavioral battery closed to 0 flags (the pending
+  consolidation-placement flag was a probe arithmetic error — insert lands at
+  `nonPracticeEnd` with `scheduledAfter = 2` per the documented contract);
+  a new battery over device settings (export/validate/apply + 10 adversarial
+  payloads), v1 backup import (incl. prototype pollution), essay rubric,
+  exam stimulus state, the CEFR sense model, match boards, XP/badges/timers,
+  telemetry report and exam practice lifecycle (0 bugs); and a new battery
+  over 2,000 seeded distractor boards on the real 8,112-headword deck with
+  full invariants plus phrase grader, phrase progress, exam corrections
+  through the scorer and clocks (0 bugs). Static sweeps: 17 storage keys
+  (no collisions), 4 global listeners each registered once, all 31
+  `innerHTML` sites escape every data-derived value, `new RegExp` sites and
+  Math.random inventory clean.
+- **One defect found and fixed — CR-SR6-1:** `highlightMatch` wrapped only
+  the `new RegExp` constructor in its try/catch, but V8 compiles RegExp
+  bodies lazily: the first `.replace()` could still throw on huge queries
+  (measured 30,000 atoms ok, 40,000 throws; `#search-field` has no length
+  cap), crashing the search draw path with an uncaught SyntaxError. Fix:
+  construction and first use share one try/catch whose catch returns
+  `escapeHtml(source)` — the function's existing constructor-failure
+  contract. Regression assertions pin the 40k/60k-atom fallback and that a
+  20,000-match source still marks every match. Evidence:
+  `audit/v100/stable-rebuild/evidence/session-2026-11-27/highlight-lazy-regex-crash-evidence.txt`.
+- **Verified at the fix head:** canonical CI Node set 289/289 (incl. new
+  assertions), shard/fresh-world/scanner 18 pass + 1 documented skip,
+  telemetry 19/19, Python 303/303, archive 5/5, release/deploy gates held as
+  designed, all four probe batteries re-run 0 flags, exam-core numbers
+  unchanged. Every non-bug flag adjudicated against the real source contract
+  before dismissal (list recorded in `DEFECTS.md` Session 6).
+- **No merge, no tag, no release, no Pages/Vercel/Supabase change, no
+  production telemetry POST, no protected-file edits** (`AGENT.md` untouched;
+  `DESIGN_LOG.md`/`AGENTS_LOG.md` appends only; `DEPLOY_HOLD` untouched).

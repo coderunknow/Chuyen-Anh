@@ -2034,3 +2034,22 @@ Final state, stated precisely to avoid a self-referential chase:
   CI covers), screen-reader pass, physical low-memory devices, live
   Vercel/Supabase verification, production POST (prohibited).
 - No merge/tag/release/deploy; protected files untouched; logs append-only.
+
+## Session 6 — final merge-readiness audit round (2026-11-27, head `b8c3dbf`)
+
+- Fresh adversarial probe round against the whole runtime module in
+  `index.html` (four batteries + static sweeps; every non-bug flag
+  adjudicated against the real contract before dismissal — no false-positive
+  fixes landed).
+- One confirmed defect: CR-SR6-1 — `highlightMatch` uncaught SyntaxError on
+  huge search queries (V8 lazy RegExp compile; constructor guarded, first use
+  not). Fixed to the documented fallback contract (`escapeHtml(source)`) with
+  regression assertions in `tests/static-app.test.js`; before/after evidence
+  in `evidence/session-2026-11-27/highlight-lazy-regex-crash-evidence.txt`.
+- Fresh gates at the fix head: canonical CI Node set 289/289, shard trio
+  18 pass + 1 documented skip, telemetry 19/19, Python 303/303, archive 5/5,
+  gates held as designed, all probe batteries re-run 0 flags (exam core
+  106/6,708/3,292 with 0 problems, unchanged).
+- Next: push, request CodeRabbit on PR #89, verify every CodeRabbit finding
+  and inspect around it; report all bugs found and fixes.
+- No merge/tag/release/deploy; protected files untouched; logs append-only.

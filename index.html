@@ -547240,13 +547240,17 @@ export function highlightMatch(text, query) {
   const source = String(text ?? '');
   const needle = String(query ?? '').trim();
   if (!needle) return escapeHtml(source);
-  let pattern;
+  let marked;
   try {
-    pattern = new RegExp(needle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+    const pattern = new RegExp(needle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+    // V8 compiles a RegExp body lazily, so the constructor can succeed and the
+    // first use still throw: a query with tens of thousands of atoms (the search
+    // field has no length cap) overflows the engine's own matcher. The fallback
+    // is exactly the constructor-failure contract — plain escaped text, no <mark>.
+    marked = source.replace(pattern, match => `\u0000${match}\u0001`);
   } catch {
     return escapeHtml(source);
   }
-  const marked = source.replace(pattern, match => `\u0000${match}\u0001`);
   if (!marked.includes('\u0000')) return escapeHtml(source);
   return escapeHtml(marked).replace(/\u0000/g, '<mark>').replace(/\u0001/g, '</mark>');
 }

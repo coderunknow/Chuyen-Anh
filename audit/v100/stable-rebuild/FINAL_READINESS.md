@@ -64,6 +64,19 @@ document.
   a kill; CR-SR5-4 — the gate's PyYAML dependency is declared, CI-installed,
   and skipped-with-reason on fresh checkouts. Evidence:
   `evidence/session-2026-11-27/`.
+- **Final merge-readiness audit round (session 6, 2026-11-27):** the whole
+  runtime module re-probed adversarially at `b8c3dbf` — exam core (106/6,708/
+  3,292, 0 problems), device settings, backup import, essay rubric, CEFR
+  sense model, match boards, 2,000 seeded distractor boards over the real
+  deck, phrase grader, exam corrections, clocks, telemetry report — plus
+  static sweeps of every `innerHTML` site, storage keys, listeners and
+  `RegExp`/`Math.random` inventory. Exactly one defect found and fixed:
+  CR-SR6-1 — `highlightMatch` threw an uncaught SyntaxError on huge search
+  queries (V8 lazy RegExp compilation; the try/catch covered only the
+  constructor, not the first use). Fixed to its documented fallback contract
+  with regression tests; all suites green at the fix head (289 canonical Node
+  + 19 shard/failure/scanner + 303 Python + 5 archive). Evidence:
+  `evidence/session-2026-11-27/highlight-lazy-regex-crash-evidence.txt`.
 - **Round-2 review findings (7/7 fixed, tests + mutation controls):**
   fine-grained GitHub-token scrubbing, full RFC 6750 Bearer alphabet (incl.
   trailing `=` and short credentials), empty-username URL user-info
