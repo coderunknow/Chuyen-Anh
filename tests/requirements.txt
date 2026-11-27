@@ -1,0 +1,6 @@
+# Dependencies of the Python test suite itself (not the exam archive pipeline,
+# which pins its own set in scripts/exams/requirements.txt). Installed by ci.yml
+# and deploy.yml right before `unittest discover`, and imported with an honest
+# skip when missing, so a fresh checkout reproduces the same collection count
+# everywhere.
+PyYAML==6.0.4

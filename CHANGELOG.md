@@ -137,7 +137,7 @@ with `PART` unset still runs the complete unsharded learning suite followed by e
 This is still PR-only work: no merge, tag, release, or deployment. Cross-engine
 measurements are recorded in `audit-evidence/round9/actions/OPTIMIZATION_REPORT.md`.
 
-- **Current follow-up totals** (refreshed on the stable candidate PR head, 2026-11-17). Python `unittest` **302 OK**. Node `static-app.test.js` (`147`) + `exam-scoring.test.js` (`63`) + `exam-anomalies.test.js` (`7`) + `rc10-cefr.test.js` (`10`) + `v100-senses.test.js` (`8`) + `telemetry-api.test.js` (`19`) + `exam-exempt-rubric.test.js` (`7`) + `core-invariants.test.js` (`11`) + `exam-persistence.test.js` (`36`) = **308 pass / 0 fail**. These are the current suite totals; the initial Round 9 checkpoint figures above are retained as historical evidence.
+- **Current follow-up totals** (refreshed on the stable candidate PR head, 2026-11-27). Python `unittest` **303 OK** (8 telemetry-smoke gate tests skip on a fresh checkout until `tests/requirements.txt` is installed; CI installs it). Node `static-app.test.js` (`147`) + `exam-scoring.test.js` (`63`) + `exam-anomalies.test.js` (`7`) + `rc10-cefr.test.js` (`10`) + `v100-senses.test.js` (`8`) + `telemetry-api.test.js` (`19`) + `exam-exempt-rubric.test.js` (`7`) + `core-invariants.test.js` (`11`) + `exam-persistence.test.js` (`36`) = **308 pass / 0 fail**. These are the current suite totals; the initial Round 9 checkpoint figures above are retained as historical evidence.
 - **Focused closeout checks.** Provenance test **4/4**; audit-document count tests
   **5/5**; workflow-integrity tests **26/26**; exact-once/shard/lifecycle Node tests
   **9/9**; `rc4_vocabulary_audit.py --check` reports **8,852 rows, 0 in general

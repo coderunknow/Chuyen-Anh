@@ -24,7 +24,9 @@ const CLIENT = join(REPO, 'index.html');
 const SERVER_GITHUB =
   '[/\\b(?:ghp|gho|ghu|ghs|ghr)_[A-Za-z0-9]{16,}\\b|\\bgithub_pat_[A-Za-z0-9]{22}_[A-Za-z0-9]{59}\\b/g';
 const SERVER_BEARER = '[/\\bBearer\\s+[A-Za-z0-9._~+/-]+=*/gi';
-const SERVER_URL = '/([a-z][a-z0-9+.-]*:\\/\\/)[^\\s/@]*:[^\\s/@]+@/gi';
+// The fixed URL rule redacts the WHOLE user-info component (username, password,
+// or both; either side may be empty and the colon may be absent).
+const SERVER_URL = '[/([a-z][a-z0-9+.-]*:\\/\\/)[^\\s/@]+@/gi';
 const SERVER_ORDER =
   '  // Secret patterns run before the quote split: an apostrophe inside URL\n' +
   "  // user-info (RFC 3986 allows it) would otherwise truncate the text before the\n" +
@@ -45,9 +47,14 @@ const SERVER_MUTANTS = [
     to: '[/\\bBearer\\s+[A-Za-z0-9._-]{12,}/gi'
   },
   {
-    name: 'server: URL user-info requires a non-empty username again',
+    name: 'server: URL user-info requires a colon and a non-empty password again',
     from: SERVER_URL,
-    to: '/([a-z][a-z0-9+.-]*:\\/\\/)[^\\s/@:]+:[^\\s/@]+@/gi'
+    to: '[/([a-z][a-z0-9+.-]*:\\/\\/)[^\\s/@]*:[^\\s/@]+@/gi'
+  },
+  {
+    name: 'server: URL user-info drops the colon from the credential again (user:pass leaks)',
+    from: SERVER_URL,
+    to: '[/([a-z][a-z0-9+.-]*:\\/\\/)[^\\s/@:]+@/gi'
   },
   {
     name: 'server: quote split moved back before the secret loop',
@@ -59,7 +66,8 @@ const SERVER_MUTANTS = [
 const CLIENT_GITHUB =
   '[/\\b(?:ghp|gho|ghu|ghs|ghr)_[A-Za-z0-9]{16,}\\b|\\bgithub_pat_[A-Za-z0-9]{22}_[A-Za-z0-9]{59}\\b/g';
 const CLIENT_BEARER = '[/\\bBearer\\s+[A-Za-z0-9._~+/-]+=*/gi';
-const CLIENT_URL = '/([a-z][a-z0-9+.-]*:\\/\\/)[^\\s/@]*:[^\\s/@]+@/gi';
+// Same rule as the server (kept in sync): the whole user-info component.
+const CLIENT_URL = '[/([a-z][a-z0-9+.-]*:\\/\\/)[^\\s/@]+@/gi';
 const CLIENT_ORDER =
   '  // Secret patterns run before the quote split: an apostrophe inside URL\n' +
   "  // user-info (RFC 3986 allows it) would otherwise truncate the text before the\n" +
@@ -79,9 +87,14 @@ const CLIENT_MUTANTS = [
     to: '[/\\bBearer\\s+[A-Za-z0-9._-]{12,}/gi'
   },
   {
-    name: 'client: URL user-info requires a non-empty username again',
+    name: 'client: URL user-info requires a colon and a non-empty password again',
     from: CLIENT_URL,
-    to: '/([a-z][a-z0-9+.-]*:\\/\\/)[^\\s/@:]+:[^\\s/@]+@/gi'
+    to: '[/([a-z][a-z0-9+.-]*:\\/\\/)[^\\s/@]*:[^\\s/@]+@/gi'
+  },
+  {
+    name: 'client: URL user-info drops the colon from the credential again (user:pass leaks)',
+    from: CLIENT_URL,
+    to: '[/([a-z][a-z0-9+.-]*:\\/\\/)[^\\s/@:]+@/gi'
   },
   {
     name: 'client: quote split moved back before the secret loop',
@@ -91,10 +104,13 @@ const CLIENT_MUTANTS = [
 ];
 
 // The result of one mutant run: 'pass' (mutant survived), 'failed' (the
-// regression suite completed and detected it), or 'infra' (timeout, signal
+// regression suite completed and detected it), 'syntax' (the mutant broke the
+// file so hard it no longer loads — the regression logic never ran, so this is
+// NOT a detection and must not count as a kill), or 'infra' (timeout, signal
 // termination or spawn error — not evidence either way). For execFileSync a
 // completed non-zero exit has `error.status` as a number and no signal;
 // timeouts arrive with `killed`/`signal`; spawn errors carry a string `code`.
+const LOAD_FAILURE = /SyntaxError|ERR_INVALID|ERR_MODULE_NOT_FOUND|ERR_REQUIRE|ReferenceError|TypeError: (?:Invalid|Cannot)/;
 function runTest(file, namePattern) {
   try {
     execFileSync('node', ['--test', `--test-name-pattern=${namePattern}`, file], {
@@ -107,7 +123,11 @@ function runTest(file, namePattern) {
   } catch (error) {
     const completedFailure = typeof error.status === 'number' && error.status !== 0
       && error.killed !== true && !error.signal;
-    return completedFailure ? 'failed' : 'infra';
+    if (!completedFailure) return 'infra';
+    const output = `${error.stdout || ''}${error.stderr || ''}`;
+    // A mutant that prevents the suite from loading has not been detected by
+    // the regression assertions; only a real assertion failure is a kill.
+    return LOAD_FAILURE.test(output) ? 'syntax' : 'failed';
   }
 }
 
@@ -154,6 +174,11 @@ for (const mutant of SERVER_MUTANTS) {
     console.log(`INFRA-FAILURE: ${mutant.name} (timeout/signal/spawn error — not counted as killed)`);
     continue;
   }
+  if (outcome === 'syntax') {
+    infraFailures += 1;
+    console.log(`LOAD-FAILURE: ${mutant.name} (the mutant broke the file; the regression logic never ran — not counted as killed)`);
+    continue;
+  }
   console.log(`${outcome === 'pass' ? 'SURVIVED' : 'killed'}: ${mutant.name}`);
   if (outcome === 'pass') survived.push(mutant.name);
 }
@@ -162,6 +187,11 @@ for (const mutant of CLIENT_MUTANTS) {
   if (outcome === 'infra') {
     infraFailures += 1;
     console.log(`INFRA-FAILURE: ${mutant.name} (timeout/signal/spawn error — not counted as killed)`);
+    continue;
+  }
+  if (outcome === 'syntax') {
+    infraFailures += 1;
+    console.log(`LOAD-FAILURE: ${mutant.name} (the mutant broke the file; the regression logic never ran — not counted as killed)`);
     continue;
   }
   console.log(`${outcome === 'pass' ? 'SURVIVED' : 'killed'}: ${mutant.name}`);
@@ -174,7 +204,7 @@ if (survived.length) {
   process.exit(1);
 }
 if (infraFailures) {
-  console.error(`\n${infraFailures} mutant run(s) failed for infrastructure reasons; results are inconclusive.`);
+  console.error(`\n${infraFailures} mutant run(s) failed for infrastructure or load reasons; results are inconclusive.`);
   process.exit(2);
 }
-console.log('\nall 8 mutants killed: the regression tests genuinely guard every review-round fix');
+console.log(`\nall ${SERVER_MUTANTS.length + CLIENT_MUTANTS.length} mutants killed: the regression tests genuinely guard every review-round fix`);

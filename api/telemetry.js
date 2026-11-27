@@ -68,8 +68,10 @@ const SECRET_SHAPES = [
   // RFC 6750 b64token: 1*( ALPHA / DIGIT / "-" / "." / "_" / "~" / "+" / "/" ) *"=".
   // No minimum length: a short credential is still a credential.
   [/\bBearer\s+[A-Za-z0-9._~+/-]+=*/gi, '…'],
-  // RFC 3986 user-info: the username may be empty (https://:password@host).
-  [/([a-z][a-z0-9+.-]*:\/\/)[^\s/@]*:[^\s/@]+@/gi, '$1…@']
+  // RFC 3986 user-info: everything between '://' and '@' is the credential —
+  // username, password, or both; either side may be empty and the colon may be
+  // absent entirely (https://user@host, https://:password@host).
+  [/([a-z][a-z0-9+.-]*:\/\/)[^\s/@]+@/gi, '$1…@']
 ];
 const LANGUAGE_VALUES = new Set(['vi', 'en']);
 const THEME_VALUES = new Set(['system', 'light', 'dark']);

@@ -270,7 +270,7 @@ test('secret-shaped strings in a note are redacted before storage', async () => 
   }
 });
 
-test('review round: fine-grained GitHub tokens, the full Bearer alphabet, empty-username URL credentials and the redaction order are all covered', async () => {
+test('review round: fine-grained GitHub tokens, the full Bearer alphabet, every URL user-info form and the redaction order are all covered', async () => {
   // GitHub's fine-grained personal access tokens carry the github_pat_ prefix
   // and a fixed 22 + '_' + 59 body (93 characters with the prefix).
   const fineGrained = `github_pat_${'1'.repeat(22)}_${'A'.repeat(59)}`;
@@ -282,7 +282,11 @@ test('review round: fine-grained GitHub tokens, the full Bearer alphabet, empty-
       event({ kind: 'error', name: 'uncaught', note: 'Authorization: Bearer -LeadingHyphen0123' }),
       event({ kind: 'error', name: 'uncaught', note: 'Authorization: Bearer abc-def-ghi' }),
       event({ kind: 'error', name: 'uncaught', note: 'could not reach https://:s3cr3tcredential@localhost/path' }),
-      event({ kind: 'error', name: 'uncaught', note: `fetch failed https://alice:SecretPrefix'***@example.test/` })
+      event({ kind: 'error', name: 'uncaught', note: `fetch failed https://alice:SecretPrefix'***@example.test/` }),
+      event({ kind: 'error', name: 'uncaught', note: 'request failed https://alice-secret@localhost/api' }),
+      event({ kind: 'error', name: 'uncaught', note: 'request failed https://alice-secret:@localhost/api' }),
+      event({ kind: 'error', name: 'uncaught', note: 'could not reach https://user@[2001:db8::1]:8443/api' }),
+      event({ kind: 'error', name: 'uncaught', note: 'path is fine https://example.com/@user' })
     ]
   })));
   assert.equal(calls.length, 1);
@@ -295,8 +299,12 @@ test('review round: fine-grained GitHub tokens, the full Bearer alphabet, empty-
   assert.equal(notes[5], 'could not reach https://…@localhost/path', 'URL user-info with an empty username is redacted');
   assert.equal(notes[6], 'fetch failed https://…@example.test/',
     'an apostrophe inside URL user-info cannot hide the credential: the secret patterns run before the quote split');
+  assert.equal(notes[7], 'request failed https://…@localhost/api', 'URL user-info carrying only a username is redacted');
+  assert.equal(notes[8], 'request failed https://…@localhost/api', 'URL user-info with an empty password is redacted');
+  assert.equal(notes[9], 'could not reach https://…@[2001:db8::1]:8443/api', 'URL user-info before an IPv6 authority is redacted');
+  assert.equal(notes[10], 'path is fine https://example.com/@user', 'an @ in a URL path is not user-info and must not be redacted');
   const stored = JSON.stringify(calls[0].body.payload);
-  for (const fragment of ['github_pat_', fineGrained.slice(-20), '+ab~/cdEF9=', 'abc123', '-LeadingHyphen0123', 'abc-def-ghi', 's3cr3tcredential', 'SecretPrefix']) {
+  for (const fragment of ['github_pat_', fineGrained.slice(-20), '+ab~/cdEF9=', 'abc123', '-LeadingHyphen0123', 'abc-def-ghi', 's3cr3tcredential', 'SecretPrefix', 'alice-secret']) {
     assert.equal(stored.includes(fragment), false, `${fragment} must never reach the stored payload`);
   }
 });

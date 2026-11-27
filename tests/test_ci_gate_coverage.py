@@ -17,8 +17,13 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CI = (ROOT / ".github" / "workflows" / "ci.yml").read_text(encoding="utf-8")
+DEPLOY = (ROOT / ".github" / "workflows" / "deploy.yml").read_text(encoding="utf-8")
 ARCHIVE_SUITE = "scripts/exams/test_archive.py"
 REQUIREMENTS = "scripts/exams/requirements.txt"
+# The Python test suite's own dependencies (the telemetry smoke gate parses the
+# real workflow YAML). CI must install them explicitly: relying on whatever the
+# runner image preinstalls breaks a fresh checkout silently.
+TEST_REQUIREMENTS = "tests/requirements.txt"
 CHECKLIST = ROOT / "audit" / "v100" / "FINAL_READINESS_CHECKLIST.md"
 
 
@@ -59,6 +64,14 @@ class CiGateCoverageTests(unittest.TestCase):
                       "CI must install scripts/exams/requirements.txt; without it two archive tests error out")
         self.assertIn(ARCHIVE_SUITE, CI,
                       "CI must run scripts/exams/test_archive.py, or the readiness count claims untested work")
+
+    def test_the_python_suite_dependencies_are_declared_and_installed_in_every_workflow(self) -> None:
+        self.assertTrue((ROOT / TEST_REQUIREMENTS).exists(),
+                        "tests/requirements.txt must exist and declare the Python test suite's dependencies")
+        for name, text in (("ci.yml", CI), ("deploy.yml", DEPLOY)):
+            self.assertIn(TEST_REQUIREMENTS, text,
+                          f"{name} must install tests/requirements.txt before `unittest discover`; "
+                          "an undeclared preinstalled dependency breaks a fresh checkout")
 
     def test_every_node_test_file_is_run_by_every_workflow_that_tests(self) -> None:
         """Both `ci.yml` and `deploy.yml` run the suites; both must run all of them.

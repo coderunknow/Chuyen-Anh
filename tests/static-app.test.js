@@ -1218,7 +1218,7 @@ test('the diagnostics log is opt-in, local, bounded and free of learner content'
   assert.match(TELEMETRY_CONTACT_URL, /^https:\/\/github\.com\/coderunknow\/Chuyen-Anh\/issues$/);
 });
 
-test('rc5 round 2: the client scrubber covers fine-grained GitHub tokens, the full Bearer alphabet, empty-username URL credentials and the redaction order', () => {
+test('rc5 round 2: the client scrubber covers fine-grained GitHub tokens, the full Bearer alphabet, every URL user-info form and the redaction order', () => {
   const fineGrained = `github_pat_${'1'.repeat(22)}_${'A'.repeat(59)}`;
   assert.equal(
     scrubTelemetryText(`upload failed for ${fineGrained}`),
@@ -1254,6 +1254,26 @@ test('rc5 round 2: the client scrubber covers fine-grained GitHub tokens, the fu
     scrubTelemetryText(`fetch failed https://alice:SecretPrefix'***@example.test/`),
     'fetch failed https://…@example.test/',
     'an apostrophe inside URL user-info cannot hide the credential: the secret patterns run before the quote split'
+  );
+  assert.equal(
+    scrubTelemetryText('request failed https://alice-secret@localhost/api'),
+    'request failed https://…@localhost/api',
+    'URL user-info carrying only a username is redacted'
+  );
+  assert.equal(
+    scrubTelemetryText('request failed https://alice-secret:@localhost/api'),
+    'request failed https://…@localhost/api',
+    'URL user-info with an empty password is redacted'
+  );
+  assert.equal(
+    scrubTelemetryText('could not reach https://user@[2001:db8::1]:8443/api'),
+    'could not reach https://…@[2001:db8::1]:8443/api',
+    'URL user-info before an IPv6 authority is redacted'
+  );
+  assert.equal(
+    scrubTelemetryText('path is fine https://example.com/@user'),
+    'path is fine https://example.com/@user',
+    'an @ in a URL path is not user-info and must not be redacted'
   );
 });
 

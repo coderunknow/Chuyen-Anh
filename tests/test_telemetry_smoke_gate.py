@@ -21,7 +21,15 @@ import re
 import unittest
 from pathlib import Path
 
-import yaml
+# Declared dependency of this suite (tests/requirements.txt): the gate parses
+# the workflow's real YAML instead of trusting a textual claim. When PyYAML is
+# missing the tests skip with that reason instead of erroring at import — a
+# fresh checkout must collect the same test count everywhere; CI installs the
+# pinned requirement before `unittest discover` so the gate always runs there.
+try:
+    import yaml
+except ImportError:  # pragma: no cover - exercised by the skip path
+    yaml = None
 
 ROOT = Path(__file__).resolve().parents[1]
 WORKFLOW = ROOT / ".github" / "workflows" / "telemetry-smoke.yml"
@@ -32,6 +40,10 @@ def load() -> dict:
     return yaml.safe_load(WORKFLOW.read_text(encoding="utf-8"))
 
 
+@unittest.skipUnless(
+    yaml is not None,
+    "PyYAML is required to parse telemetry-smoke.yml (pip install -r tests/requirements.txt; CI installs it)",
+)
 class TelemetrySmokeGateTests(unittest.TestCase):
     def setUp(self) -> None:
         self.doc = load()
