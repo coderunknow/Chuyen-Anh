@@ -215,6 +215,10 @@ function collectBlockSeqItems(lines, startIndex, itemIndent, endIndex) {
 // count as literal; everything else keeps the key unallowlisted.
 function fallbackLiteralMatrixKeys(lines, job) {
   const keys = new Set();
+  // Set (not cleared immediately) when any include/exclude key line or entry
+  // carries an expression; the allowlist is dropped once after the whole
+  // matrix is scanned so keys declared after the include block cannot survive.
+  let poisonedInclude = false;
   for (let s = job.start + 1; s < job.end; s += 1) {
     const strategyMatch = /^(\s*)strategy:\s*(#.*)?$/.exec(lines[s]);
     if (!strategyMatch || isBlank(lines[s]) || isComment(lines[s])) continue;
@@ -239,8 +243,14 @@ function fallbackLiteralMatrixKeys(lines, job) {
           // An expression-bearing include/exclude entry can grow a combination
           // whose value for a proven-literal key comes from the entry, so the
           // whole allowlist for this matrix must be dropped (conservative).
-          // The block ends at the first non-blank line at or above the key's
-          // indent; comments and blanks inside it are part of the block.
+          // The poison is recorded as a flag and the set is cleared AFTER the
+          // matrix scan: keys collected before this block AND keys collected
+          // after it (YAML mapping order is free) must both go. An inline flow
+          // entry on the key line itself (`include: [{ b: "${{ … }}" }]`) is
+          // part of the key line, not of the block below, so it is checked
+          // here too. The block ends at the first non-blank line at or above
+          // the key's indent; comments and blanks inside it are part of it.
+          if (/\$\{\{/.test(keyMatch[3])) poisonedInclude = true;
           let m = k + 1;
           let poisoned = false;
           while (m < job.end) {
@@ -250,7 +260,7 @@ function fallbackLiteralMatrixKeys(lines, job) {
             if (/\$\{\{/.test(entryLine)) poisoned = true;
             m += 1;
           }
-          if (poisoned) keys.clear();
+          if (poisoned) poisonedInclude = true;
           continue;
         }
         const raw = keyMatch[3].trim();
@@ -274,6 +284,7 @@ function fallbackLiteralMatrixKeys(lines, job) {
     }
     break; // only the first strategy block of this job is recognised
   }
+  if (poisonedInclude) keys.clear();
   return keys;
 }
 

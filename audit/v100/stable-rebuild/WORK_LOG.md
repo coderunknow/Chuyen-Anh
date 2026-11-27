@@ -366,3 +366,14 @@ exact example flagged in both parser modes; repro recorded). Full register:
 gates re-run at the resulting head: all green (Node 289 + 19 + 19; Python
 303 with PyYAML, 0 skips; archive 5/5; gates exit 0; scanner 0/0;
 `mutation_cr_scrub` 12/12; exam/vocab audits OK).
+
+### Session 7 addendum — CodeRabbit round 4 (review 6089248860 on `c3ca701`)
+
+One outside-diff Major: the fallback scanner missed expressions ON the
+`include:`/`exclude:` key line (inline flow) and cleared the poisoned
+allowlist before keys declared after the include block were collected — CI
+runs the scanner in exactly that fallback mode. Reproduced (0 findings on
+both poison shapes), fixed (key-line check + deferred allowlist clear),
+fail-verified with two new fixtures; parsed walk confirmed already strict;
+literal-only include merge preserved as safe. Register: Round 4 table in
+`CODERABBIT-ROUND-VERIFY.md`.

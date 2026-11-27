@@ -220,6 +220,61 @@ jobs:
   } finally { await rm(dir, { recursive: true, force: true }); }
 });
 
+// Round-4 CodeRabbit finding (6089248860): the fallback started scanning the
+// include block on the line AFTER the key, so an expression on the key line
+// itself (inline flow map) was never seen — and `keys.clear()` ran before
+// keys declared after the include block were collected, so a base key written
+// after a poisoned include stayed allowlisted. CI runs the scanner in exactly
+// this fallback mode, so both shapes must be flagged there.
+test('fallback: an expression on the include: key line (inline flow) poisons the allowlist', async () => {
+  const poison = `name: Inline-flow include
+on: push
+jobs:
+  build:
+    strategy:
+      matrix:
+        browser: [chromium]
+        include: [{ browser: "\${{ github.event.pull_request.title }}" }]
+    steps:
+      - run: echo "browser=\${{ matrix.browser }}"
+`;
+  const dir = await fixtureDir({ 'include-inline-flow.yml': poison });
+  try {
+    const fallback = await scanWorkflows({ dir, yamlParse: null });
+    assert.equal(fallback.injectionShapedExpressions, 1, JSON.stringify(fallback.findings));
+    assert.equal(fallback.findings[0].expression.trim(), 'matrix.browser');
+    if (yamlParse) {
+      const parsed = await scanWorkflows({ dir, yamlParse });
+      assert.equal(parsed.injectionShapedExpressions, 1, JSON.stringify(parsed.findings));
+    }
+  } finally { await rm(dir, { recursive: true, force: true }); }
+});
+
+test('fallback: a base matrix key declared after a poisoned include block does not survive the poisoning', async () => {
+  const poison = `name: Key after poisoned include
+on: push
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - browser: \${{ github.event.pull_request.title }}
+        browser: [chromium]
+    steps:
+      - run: echo "browser=\${{ matrix.browser }}"
+`;
+  const dir = await fixtureDir({ 'include-poison-order.yml': poison });
+  try {
+    const fallback = await scanWorkflows({ dir, yamlParse: null });
+    assert.equal(fallback.injectionShapedExpressions, 1, JSON.stringify(fallback.findings));
+    assert.equal(fallback.findings[0].expression.trim(), 'matrix.browser');
+    if (yamlParse) {
+      const parsed = await scanWorkflows({ dir, yamlParse });
+      assert.equal(parsed.injectionShapedExpressions, 1, JSON.stringify(parsed.findings));
+    }
+  } finally { await rm(dir, { recursive: true, force: true }); }
+});
+
 // CR-SR6 review round (CodeRabbit #4718455017): `[^}]+?` stopped at the lone
 // `}` inside `'{0}'`, so `${{ format('{0}', github.head_ref) }}` was never
 // matched at all. The scanner must read the expression up to the real `}}`.

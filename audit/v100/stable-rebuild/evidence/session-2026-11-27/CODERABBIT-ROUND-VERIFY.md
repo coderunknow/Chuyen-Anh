@@ -67,3 +67,14 @@ OK + shard/scanner suite (1 documented skip); telemetry 19/19; Python 303/303
 (PyYAML venv, 0 skips); archive 5/5; release + deploy gates exit 0; clean-tree
 scanner 0 findings both modes; `mutation_cr_scrub` 12/12; exam + vocab
 independent audits verdict OK.
+
+## Round 4 (2026-11-27, review 6089248860 on head `c3ca701`)
+
+| # | Finding | Verdict | Disposition |
+| --- | --- | --- | --- |
+| R4-1 | `scan_workflow_injection.mjs` fallback (Major, outside-diff): an expression on the `include:`/`exclude:` **key line** (inline flow map, e.g. `include: [{ browser: "${{ … }}" }]`) was never checked (scan starts on the following line), and `keys.clear()` ran before keys declared **after** the include block were collected — so a base key written after a poisoned include stayed allowlisted. CI runs the scanner without `yaml`, i.e. in exactly this fallback mode | VALID — reproduced on a scratch tree before fixing: both shapes produced **0 findings** in fallback mode | FIXED — the key-line value is checked (`keyMatch[3]`), the poison is recorded in a flag and the allowlist is cleared once after the matrix scan, so keys collected before or after the include block cannot survive; 2 new fixtures/tests (inline flow on the key line; base key after a poisoned include), **fail-verified** (suite: 13 pass/2 fail with the fix stashed → 15 pass/0 fail with it); parsed walk already rejected both shapes (verified) |
+
+Negative control re-run: the all-literal include merge (safe case) still
+produces 0 findings in both modes. Fresh gates at the round-4 head: shard +
+scanner suite 24 pass + 1 documented skip (16 scanner tests); clean-tree scan
+0 findings both modes; `mutation_cr_scrub` 12/12.
