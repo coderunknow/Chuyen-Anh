@@ -231,3 +231,87 @@ interpolation are all detected; the clean tree passes with 0 findings.
 
 Both counter fixtures in `rt_scrub_baseline.mjs` use `['__proto__']: 1`, so
 the probe exercises the actual rejection of an own `__proto__` key.
+
+## Session 5 — owner ChatGPT-review round on `2fd29c2` (2026-11-27)
+
+The repository owner posted an independent review ("Review By ChatGPT", PR
+comment 2026-11-26, target `2fd29c2ab20c43ba8a3091b9dc3b46a24fb10fa6`) with two
+confirmed code findings. Both were reproduced on this session's head before
+fixing, fixed with regression tests, and mutation-guarded. No finding dismissed.
+
+### CR-SR5-1 / "P1" (Privacy, high) — URL user-info with a username-only or empty-password credential bypassed both scrubbers — FIXED
+
+- Root cause: the RFC 3986 user-info rule
+  `/([a-z][a-z0-9+.-]*:\/\/)[^\s/@]*:[^\s/@]+@/gi` required a colon AND a
+  non-empty password, so `https://alice-secret@localhost/api` (username-only,
+  single-label host so the e-mail rule cannot catch it) and
+  `https://alice-secret:@localhost/api` (empty password) passed through both
+  `TELEMETRY_SECRET_SHAPES` (index.html) and `SECRET_SHAPES` (api/telemetry.js)
+  unchanged. Baseline repro captured from `git 2fd29c2`
+  (`evidence/session-2026-11-27/url-userinfo-scrub-evidence.txt`).
+- Fix: the whole user-info component is redacted —
+  `/([a-z][a-z0-9+.-]*:\/\/)[^\s/@]+@/gi` → `$1…@` — in BOTH files, comment
+  updated in sync. A path `@` (`https://example.com/@user`) is untouched
+  (negative control), and a username before an IPv6 authority is covered too.
+- Regression: client assertions in `tests/static-app.test.js` ("rc5 round 2")
+  and server events + never-stored fragments in `tests/telemetry-api.test.js`;
+  both suites green.
+- Mutation controls: `scripts/mutation_cr_scrub.mjs` fixtures refreshed to the
+  new rule and two new mutants per side (revert to colon+password; drop the
+  colon from the class) — **10/10 killed** with the hardened harness.
+
+### CR-SR5-2 / "P2" (Security tooling, high) — the no-parser fallback of the workflow-injection scanner missed multiline run bodies AND flagged the clean tree — FIXED
+
+- Root cause: without the optional `yaml` module the fallback only inspected
+  the `run:` header line. A poisoned `run: |` body
+  (`echo "${{ github.event.pull_request.title }}"`) produced **no** finding
+  (false negative) while ci.yml's safe inline `${{ matrix.browser }}` WAS
+  flagged (false positive) — so in a parser-less environment the scanner both
+  missed real injections and failed the clean tree. Reproduced from
+  `git 2fd29c2` in
+  `evidence/session-2026-11-27/workflow-injection-negative-controls.txt`.
+- Fix: `scripts/scan_workflow_injection.mjs` rewritten around an exported
+  `scanWorkflows()` (importable, no side effects; CLI behaviour unchanged).
+  The fallback now inspects the FULL run text — block-scalar bodies (`|`, `>`,
+  chomping and explicit indent indicators, blank lines, comments), quoted and
+  plain inline continuations — and applies the same literal-matrix allowlist
+  through a strict line scan that can never allowlist more than the parsed
+  walk (flow maps, multi-line flow collections, include/exclude and
+  expression-bearing values all stay rejected); alias-valued `run:` steps are
+  flagged because they cannot be resolved safely.
+- Regression: `tests/workflow-injection-scan.test.mjs` (10 tests) — poisoned
+  block/inline/folded/explicit-indent/preamble fixtures, allowlisted matrix
+  cases, non-run contexts, alias case, and the repository's real workflows
+  passing in fallback mode; the parsed-walk test runs whenever `yaml` resolves.
+  Wired into `ci.yml` next to the shard-partition suite.
+- Fresh scan: 8 workflows, **0 findings** in BOTH modes
+  (`workflow-injection-scan-fallback.json`, `workflow-injection-scan-parsed.json`).
+
+### CR-SR5-3 (Audit-tooling honesty, medium) — a load-breaking mutant counted as a "kill" — FIXED
+
+While adding the CR-SR5-1 mutants the harness's `to:` strings dropped the
+leading `[` of the regex literal, so the mutant failed with a SyntaxError and
+the suite "failed" without running any assertion — a false kill (the harness's
+first attempt at this session's own fix repeated the failure-ledger pattern of
+F-SR13). `runTest` now classifies a completed non-zero exit whose output looks
+like a load failure (`SyntaxError`, `ERR_*`, `ReferenceError`, …) as
+**LOAD-FAILURE — inconclusive (exit 2)**, not a kill; only an assertion
+failure counts. Verified: reverting one mutant manually produces the expected
+`expected: 'request failed https://…@localhost/api'` assertion failure, and the
+full 10/10 run still kills every mutant.
+
+### CR-SR5-4 (Reproducibility, medium) — the telemetry-smoke gate depended on an undeclared preinstalled PyYAML — FIXED
+
+`tests/test_telemetry_smoke_gate.py` imports `yaml` at module top. GitHub
+runners ship PyYAML, so CI was green, but a fresh checkout (and this sandbox)
+errored at import: `discover` collected 295 tests + 1 loader error while the
+checklist claimed 302 — exactly the "claims no workflow could reproduce" class
+the coverage contract exists for. Fix: the dependency is declared and pinned in
+`tests/requirements.txt` (PyYAML==6.0.4), `ci.yml` and `deploy.yml` install it
+right before `unittest discover`, and the module skips with that reason when
+PyYAML is missing. Fresh counts: **302 collected with or without PyYAML** (8
+gate tests skip without it) and the new contract test
+(`test_the_python_suite_dependencies_are_declared_and_installed_in_every_workflow`)
+keeps both workflows honest. With the new scanner suite the totals are Python
+**303** (`discover`) + 5 archive, Node **308** static/telemetry + **19**
+shard/failure/scanner; checklist and changelog refreshed to match.

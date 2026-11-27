@@ -179,3 +179,61 @@
 - Session error recorded honestly: a careless `mv` during this append
   briefly overwrote this file with the round-3 text alone; it was restored
   from git and the entry re-appended. No committed history was lost.
+
+## Session 5 — owner-review round on `2fd29c2` (2026-11-27)
+
+Operating base: this session's branch was created from `main` `948f6f9` and
+fast-forwarded to the PR head `2fd29c2ab20c43ba8a3091b9dc3b46a24fb10fa6`
+(all session-4 evidence intact), then worked on top of it. The owner's
+independent "Review By ChatGPT" comment (PR #88, 2026-11-26) named two
+confirmed defects at that exact head; both were reproduced before fixing.
+
+### Fixes (details and dispositions in `DEFECTS.md` CR-SR5-1..4)
+
+1. **CR-SR5-1** — both telemetry scrubbers now redact the WHOLE RFC 3986
+   user-info component (`/([a-z][a-z0-9+.-]*:\/\/)[^\s/@]+@/gi`), closing the
+   username-only and empty-password bypass. Regression cases on both sides;
+   10/10 mutation controls killed.
+2. **CR-SR5-2** — the workflow-injection scanner's no-parser fallback now
+   scans the full run body (block scalars, continuations) with a strictly
+   narrower literal-matrix allowlist; new `tests/workflow-injection-scan.test.mjs`
+   suite wired into `ci.yml`; clean tree passes in BOTH parser modes.
+3. **CR-SR5-3** — `mutation_cr_scrub.mjs` no longer counts a load-breaking
+   mutant as a kill (LOAD-FAILURE → inconclusive, exit 2).
+4. **CR-SR5-4** — the telemetry-smoke gate's PyYAML dependency is declared
+   (`tests/requirements.txt`, PyYAML==6.0.4), installed by `ci.yml`/`deploy.yml`,
+   and skipped-with-reason on a fresh checkout; the checklist/changelog totals
+   were refreshed to the measured values (Python 303 discover + 5 archive;
+   Node 308 static/telemetry + 19 shard/failure/scanner).
+
+### Fresh verification at the session head (local sandbox: Node v22.22.3, Python 3.11.2)
+
+- 21/21 validator commands exit 0.
+- Python `unittest discover`: **303 collected, 0 failures** (8 telemetry-smoke
+  gate tests skip without PyYAML — CI installs `tests/requirements.txt` and
+  runs them; with PyYAML: 303/303 pass).
+- Node static + telemetry suites: **308 pass / 0 fail**.
+- Shard partition + failure-capture + workflow-injection scan: **19 tests,
+  18 pass + 1 documented skip** (parsed-walk test without a `yaml` module).
+- Exam archive conversion (venv, pinned deps): **5/5 OK**.
+- Integrity probes re-run at the head: exam integrity 106/6,708, 0 problems;
+  question alignment 6,708 unique IDs, 0 failures; independent exam audit
+  `verdictOk: true` (2,146/2,146 bindings); transcript-fallback audit 0
+  violations.
+- Workflow-injection scan: 0 findings in fallback AND parsed modes (evidence
+  JSONs + negative controls in `evidence/session-2026-11-27/`).
+- Mutation controls: 10/10 killed (`url-userinfo-scrub-evidence.txt`).
+
+### Honest environment notes (this sandbox)
+
+- No browser binaries and no Playwright CDN egress: the browser suites did NOT
+  run locally this session; cross-engine coverage is delegated to CI on the
+  pushed head (15 shards). The `index.html` delta is confined to the telemetry
+  scrubber (2 comment lines + 1 regex literal), which no browser journey
+  exercises.
+- No screen reader, no physical low-memory device: unchanged residual.
+- No Vercel/Supabase credentials: live-function redeploy and live-DB hardening
+  verification remain owner actions (unchanged residual).
+- PyYAML was installed into a disposable venv for the parsed-mode scan
+  verification; no repository dependency was added beyond the pinned
+  `tests/requirements.txt` consumed by CI.

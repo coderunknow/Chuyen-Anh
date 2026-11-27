@@ -2778,3 +2778,55 @@ gates verified held against the live repository. `audit-evidence/round8/RC11_VER
 - **Not tested:** Firefox/WebKit locally (CI's matrix), screen-reader pass,
   physical low-memory devices, the 186 external asset digests, live Supabase
   function version, Vercel settings.
+
+## 2026-11-27 — session 5: owner ChatGPT-review round fixed on `build/v100-stable-rebuild` (Arena agent session)
+
+User intent (mission): audit and stabilize the complete product, fix confirmed
+defects, verify real workflows, and prepare PR #88 for human review. The
+branch note fixed this session to `arena/ac053f1d-chuyen-anh` over `948f6f9`;
+that branch was fast-forwarded to the PR head `2fd29c2` (no history rewritten)
+and all work landed on top of it.
+
+- **CR-SR5-1 (fixed):** both telemetry scrubbers now redact the WHOLE RFC 3986
+  user-info component (`/([a-z][a-z0-9+.-]*:\/\/)[^\s/@]+@/gi`), closing the
+  username-only and empty-password bypass the owner's independent ChatGPT
+  review demonstrated at `2fd29c2`. Regression cases added to
+  `tests/static-app.test.js` and `tests/telemetry-api.test.js` (including a
+  path-`@` negative control and an IPv6-authority case); the mutation
+  harness's fixtures were refreshed and grew to 10/10 killed.
+- **CR-SR5-2 (fixed):** `scripts/scan_workflow_injection.mjs` was rewritten
+  around an exported, importable `scanWorkflows()`; the no-parser fallback now
+  scans full run bodies (block scalars with chomping/indent indicators,
+  comments, inline continuations) with the parsed walk's literal-matrix
+  allowlist re-derived by a strictly narrower line scan; alias-valued `run:`
+  steps are flagged. New suite `tests/workflow-injection-scan.test.mjs` (10
+  tests) is wired into `ci.yml`. Clean tree passes in BOTH parser modes; both
+  poison shapes are detected in BOTH modes (evidence JSONs + negative-control
+  transcript committed under `evidence/session-2026-11-27/`).
+- **CR-SR5-3 (fixed):** the mutation harness no longer counts a load-breaking
+  mutant (SyntaxError/module-load failure) as a "kill"; such runs are
+  LOAD-FAILURE — inconclusive (exit 2). Discovered while adding this session's
+  own mutants: the first `to:` strings dropped the leading `[` of the regex
+  literal, which would have produced false kills.
+- **CR-SR5-4 (fixed):** `tests/test_telemetry_smoke_gate.py` had an undeclared
+  PyYAML dependency that only GitHub runners satisfy (fresh checkout: 295
+  collected + 1 import error while the checklist claimed 302). The dependency
+  is now declared and pinned in `tests/requirements.txt` (PyYAML==6.0.4),
+  installed by `ci.yml` and `deploy.yml` before `unittest discover`, and the
+  module skips with that reason when PyYAML is missing. Totals refreshed to
+  measured values: Python 303 discover (+5 archive), Node 308 static/telemetry
+  + 19 shard/failure/scanner; checklist and changelog rows updated (test
+  enforced).
+- **Verified:** 21/21 validator commands, Python 303 (0 failures; 8 honest
+  skips without PyYAML), Node 308/308, 18+1 documented skip on the
+  shard/failure/scanner trio, archive 5/5 in a venv, exam-integrity and
+  question-alignment probes re-run (106/6,708, 0 problems; 2,146/2,146
+  bindings; 0 violations), workflow scan 0 findings in both parser modes,
+  mutation controls 10/10.
+- **Not tested (this environment):** browser suites locally (no browser
+  binaries, no Playwright CDN egress — CI's 15 shards cover the pushed head),
+  screen-reader pass, physical low-memory devices, live Vercel/Supabase
+  verification, live production POST (prohibited).
+- **No merge, no tag, no release, no Pages/Vercel/Supabase change, no
+  production telemetry POST, no protected-file edits** (`AGENT.md` untouched;
+  `DESIGN_LOG.md`/`AGENTS_LOG.md` appends only; `DEPLOY_HOLD` untouched).

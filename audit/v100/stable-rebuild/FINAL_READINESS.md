@@ -43,13 +43,27 @@ document.
 
 ## Quality results (all re-verified at the candidate head)
 
-- **Tests:** Python 302/302 (incl. 8 telemetry-smoke structural gate tests);
-  Node 308/308 (incl. the round-2 scrubber regression tests); archive 5/5;
+- **Tests:** Python 303/303 (incl. 8 telemetry-smoke structural gate tests;
+  their declared PyYAML dependency ships as `tests/requirements.txt` and is
+  installed by both workflows, skipped-with-reason on a fresh checkout);
+  Node 308/308 static/telemetry (incl. the round-2 scrubber regression tests)
+  plus 19 shard-partition/failure-capture/workflow-injection tests; archive 5/5;
   21 validator commands exit 0; both browser suites green on Chromium
   133.0.6943.0 at the round-2 head (learning: 35 phases incl. WCAG 2.1 A/AA
   axe runs, responsive 320/375/768, light/dark, reduced-motion, backup
   round-trip; exams: 106-record catalogue, table/keyboard semantics);
   `git diff --check` clean.
+- **Owner-review round (ChatGPT review of `2fd29c2`, 2026-11-26; 2/2 code
+  findings fixed, session 2026-11-27):** CR-SR5-1 — both telemetry scrubbers
+  now redact the WHOLE RFC 3986 user-info component (username-only and
+  empty-password credentials were bypassing the old colon+password rule);
+  CR-SR5-2 — the workflow-injection scanner's no-parser fallback now scans
+  full run bodies with a strictly narrower literal-matrix allowlist (it both
+  missed multiline injections and flagged the clean tree before);
+  CR-SR5-3 — the mutation harness no longer counts a load-breaking mutant as
+  a kill; CR-SR5-4 — the gate's PyYAML dependency is declared, CI-installed,
+  and skipped-with-reason on fresh checkouts. Evidence:
+  `evidence/session-2026-11-27/`.
 - **Round-2 review findings (7/7 fixed, tests + mutation controls):**
   fine-grained GitHub-token scrubbing, full RFC 6750 Bearer alphabet (incl.
   trailing `=` and short credentials), empty-username URL user-info
@@ -127,12 +141,15 @@ document.
 ## Open items before this candidate could be called stable
 
 1. **CI on the exact PR head** — runs recorded for the exact final head in
-   the PR body (§15); round 1 head `248b75a` was 16/16 green, and the
-   round-2 head is re-run and recorded there after push.
+   the PR body (§15); round 1 head `248b75a` was 16/16 green, the
+   session-4 evidence head `2fd29c2` was 16/16 green (run `45849570888`),
+   and the session-5 fix head is re-run and recorded there after push.
 2. **Code review status** on the exact PR head — round 2 findings all
-   resolved; a fresh `@coderabbitai review` run on the final head is the
-   remaining verification (the repository's CodeRabbit plan does not
-   auto-review; the owner-authorized review command is used once).
+   resolved; the owner's independent ChatGPT review of `2fd29c2` (2026-11-26)
+   named 2 code findings, both fixed with tests this session (CR-SR5-1/2);
+   a review of the fix head is the remaining verification (CodeRabbit and the
+   other automated reviewers were quota/billing-limited as of 2026-11-17;
+   recorded, not invented).
 3. **Owner decision — listening grading policy:** the mission text forbids
    auto-grading listening questions even with a transcript; the shipped
    application grades 307 transcript-fallback listening items with `LOW`
@@ -144,8 +161,11 @@ document.
 5. **Owner action — Vercel:** re-deploy `api/telemetry.js` to ship the
    secret-scrub; then a single authorized live POST recheck.
 6. **Externally blocked verification:** Firefox/WebKit local runs (CI covers),
-   screen-reader pass, physical low-memory devices, the 186 external asset
-   digests.
+   screen-reader pass, physical low-memory devices. (The 186 external asset
+   digests are no longer open: session 4 verified 163/186 byte-for-byte, 1
+   explained external drift preserved as capture evidence, 22 dynamic-page
+   snapshots verified through the `.md → contentSha256 → embedded` chain —
+   `evidence/session-2026-11-26/SESSION_REPORT.md` §3.)
 
 Compliance statement: no merge, no tag create/move/delete, no release
 publication, no Pages/Vercel deployment, no Vercel settings change, no Supabase

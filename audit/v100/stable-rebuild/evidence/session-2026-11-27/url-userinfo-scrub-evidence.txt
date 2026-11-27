@@ -1,0 +1,51 @@
+# P1 (owner ChatGPT review of 2fd29c2, 2026-11-26): URL user-info credentials
+# bypassed both telemetry scrubbers when the credential had no
+# "username:password" shape. Old rule (2fd29c2):
+#   /([a-z][a-z0-9+.-]*:\/\/)[^\s/@]*:[^\s/@]+@/gi   (required colon + non-empty password)
+# New rule (api/telemetry.js and index.html, kept in sync):
+#   /([a-z][a-z0-9+.-]*:\/\/)[^\s/@]+@/gi            (whole user-info component)
+
+====================================================================
+== BASELINE: the pre-fix client scrubber (git 2fd29c2, extracted) ==
+====================================================================
+"request failed https://alice-secret@localhost/api" -> "request failed https://alice-secret@localhost/api"
+"request failed https://alice-secret:@localhost/api" -> "request failed https://alice-secret:@localhost/api"
+"could not reach https://learner:s3cretpass@private.example.com/api" -> "could not reach https://…@private.example.com/api"
+
+====================================================================
+== FIXED: the client scrubber at the session head (extracted live) ==
+====================================================================
+"request failed https://alice-secret@localhost/api" -> "request failed https://…@localhost/api"
+"request failed https://alice-secret:@localhost/api" -> "request failed https://…@localhost/api"
+"could not reach https://user@[2001:db8::1]:8443/api" -> "could not reach https://…@[2001:db8::1]:8443/api"
+"could not reach https://learner:s3cretpass@private.example.com/api" -> "could not reach https://…@private.example.com/api"
+"could not reach https://:s3cr3tcredential@localhost/path" -> "could not reach https://…@localhost/path"
+"path is fine https://example.com/@user" -> "path is fine https://example.com/@user"
+
+======================================================================
+======================================================================
+== FIXED: the server scrubber end-to-end through the real handler   ==
+== (same path tests/telemetry-api.test.js exercises, fetch stubbed) ==
+======================================================================
+handler status: 202 | response: {"ok":true,"id":"row-1"}
+notes stored upstream: ["request failed https://…@localhost/api","request failed https://…@localhost/api"]
+alice-secret reaches the stored payload? NO — redacted server-side
+
+======================================================================
+== MUTATION CONTROLS (scripts/mutation_cr_scrub.mjs)                 ==
+== 10 mutants; the harness now classifies a load-breaking mutant as  ==
+== LOAD-FAILURE (inconclusive) instead of counting it as a kill      ==
+======================================================================
+clean tree: both regression tests pass
+killed: server: fine-grained github_pat_ pattern removed
+killed: server: Bearer alphabet restricted again (+ / ~ and = rejected)
+killed: server: URL user-info requires a colon and a non-empty password again
+killed: server: URL user-info drops the colon from the credential again (user:pass leaks)
+killed: server: quote split moved back before the secret loop
+killed: client: fine-grained github_pat_ pattern removed
+killed: client: Bearer alphabet restricted again (+ / ~ and = rejected)
+killed: client: URL user-info requires a colon and a non-empty password again
+killed: client: URL user-info drops the colon from the credential again (user:pass leaks)
+killed: client: quote split moved back before the secret loop
+
+all 10 mutants killed: the regression tests genuinely guard every review-round fix

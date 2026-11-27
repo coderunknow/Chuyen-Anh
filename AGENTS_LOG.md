@@ -2007,3 +2007,30 @@ Final state, stated precisely to avoid a self-referential chase:
   pending until an authorized actor deploys and the deployed revision can be
   verified. The authorized `@coderabbitai review` command is used once, on
   the final head, per the mission's explicit grant.
+
+## 2026-11-27 — session 5 on `build/v100-stable-rebuild`: owner-review findings fixed
+
+- Branch note: session branch `arena/ac053f1d-chuyen-anh` cut from `main`
+  `948f6f9`; fast-forwarded to PR head `2fd29c2`; fixes on top (no force, no
+  other branch touched).
+- Owner's independent ChatGPT review of `2fd29c2` (PR comment 2026-11-26)
+  confirmed 2 code defects; both reproduced live, then fixed tests-first:
+  1. URL user-info credentials (username-only / empty-password) bypassed both
+     telemetry scrubbers → whole-user-info redaction in `index.html` +
+     `api/telemetry.js`, regression cases both sides, 10/10 mutation controls.
+  2. The workflow-injection scanner's no-parser fallback missed multiline run
+     bodies and flagged the clean tree → full-run-body fallback with a
+     strictly narrower allowlist, new 10-test suite in `ci.yml`, clean tree
+     green in both parser modes, negative controls detected in both modes.
+- Harness/reproducibility hardening: load-breaking mutants are inconclusive
+  (no false kills); PyYAML declared as `tests/requirements.txt`, installed by
+  both workflows, honest skip on fresh checkouts; totals re-pinned (Python 303
+  discover + 5 archive; Node 308 + 19).
+- Fresh gates at the head: 21/21 validators, Python 303 (0 failures), Node
+  308/308, shard/failure/scanner 18 pass + 1 documented skip, archive 5/5,
+  exam-integrity probes 106/6,708 with 0 problems, 2,146/2,146 curated
+  bindings, scan 0 findings both modes.
+- Not tested here: local browser suites (no browser binaries / no CDN egress;
+  CI covers), screen-reader pass, physical low-memory devices, live
+  Vercel/Supabase verification, production POST (prohibited).
+- No merge/tag/release/deploy; protected files untouched; logs append-only.
