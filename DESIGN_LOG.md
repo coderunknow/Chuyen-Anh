@@ -2871,3 +2871,27 @@ and all work landed on top of it.
 - **No merge, no tag, no release, no Pages/Vercel/Supabase change, no
   production telemetry POST, no protected-file edits** (`AGENT.md` untouched;
   `DESIGN_LOG.md`/`AGENTS_LOG.md` appends only; `DEPLOY_HOLD` untouched).
+
+## Session 6b — CodeRabbit review round (2026-11-27, head `f58fd93`)
+
+- Requested the CodeRabbit review per the audit directive. The review posted
+  18 actionable comments (3 Major Security & Privacy in the workflow-injection
+  scanner, 15 Minor). Every finding was verified against the code with a
+  repro before fixing; all 18 confirmed valid and all 18 fixed — nothing
+  dismissed. Register: `audit/v100/stable-rebuild/evidence/session-2026-11-27/CODERABBIT-ROUND-VERIFY.md`.
+- CR-SR6-2: scanner include-bypass / expression under-scan (`format('{0}', …)`)
+  / quoted `"run":` keys — all three closed with both-mode regression tests.
+- CR-SR6-3: both telemetry scrubbers stop URL user-info matching at `?`/`#`
+  so a query or fragment `@` cannot create a false redaction; all prior
+  credential forms unchanged; 12/12 mutants killed (2 new boundary mutants).
+- CR-SR6-4: evidence-honesty batch — enforced probe totals, measured
+  alignment results, pure-JSON scan reports, tracked evidence paths,
+  documented repro preconditions and dispatch-only escape hatches, guarded
+  inconclusive rate-limit scenarios, host-independent ds1 harness,
+  content-checking CI coverage gate (each with a failure control).
+- Fresh gates at this head: canonical CI Node 289/289, scanner trio 22+1skip,
+  telemetry 19/19, Python 303/303, archive 5/5, mutation harnesses 12/12 and
+  OK, clean-tree scan 0 findings both modes, all probe batteries 0 flags,
+  exam core 106/6,708/3,292/0/0, gates held.
+- No merge, no tag, no release, no Pages/Vercel/Supabase change, no
+  production telemetry POST, no protected-file edits; logs append-only.

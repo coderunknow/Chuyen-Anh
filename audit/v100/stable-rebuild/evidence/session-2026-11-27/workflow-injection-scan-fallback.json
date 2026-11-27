@@ -12,6 +12,6 @@
   ],
   "yamlParser": "missing (conservative full-run-body fallback)",
   "injectionShapedExpressions": 0,
-  "findings": []
+  "findings": [],
+  "exit": 0
 }
-fallback exit=0

@@ -2053,3 +2053,17 @@ Final state, stated precisely to avoid a self-referential chase:
 - Next: push, request CodeRabbit on PR #89, verify every CodeRabbit finding
   and inspect around it; report all bugs found and fixes.
 - No merge/tag/release/deploy; protected files untouched; logs append-only.
+
+## Session 6b — CodeRabbit round (2026-11-27, head `f58fd93`)
+
+- All 18 CodeRabbit findings verified (repro-first) and fixed: scanner
+  include-bypass + format-expression + quoted-run-key coverage (Major ×3),
+  telemetry URL user-info `?`/`#` boundary (both scrubbers), and the
+  evidence-honesty batch (probe enforcement, measured alignment, pure-JSON
+  reports, tracked paths, documented overrides, guarded inconclusive cases,
+  host-independent harness, content-checking CI gate).
+- Fresh gates: canonical CI Node 289/289, scanner trio 22+1skip, telemetry
+  19/19, Python 303/303, archive 5/5, mutation cr 12/12 killed, ds1 OK on a
+  lockless host, clean-tree scan 0 findings both modes, probe batteries
+  0 flags, exam core 106/6,708/3,292/0/0.
+- No merge/tag/release/deploy; protected files untouched; logs append-only.

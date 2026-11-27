@@ -11,6 +11,7 @@ Prints a JSON verdict to stdout; exit 1 when any check fails.
 import hashlib
 import json
 import re
+import subprocess
 import sys
 from collections import Counter, defaultdict
 from pathlib import Path
@@ -51,10 +52,32 @@ notes['A_sourceHashAndBodyMatch'] = f'{hash_ok}/{len(papers)}'
 # ---- B: answerKey <-> parsed questions (app parser as oracle) ---------------
 # Numbering is per-section (duplicate display numbers are legitimate); the
 # stable identifier is questionId. Alignment of parsed questions to answerKey
-# entries is verified by probe_question_alignment.mjs (fresh logic, app parser
-# as oracle). Here we only pin the global totals.
-b_bad = 0
-notes['B_alignmentProbe'] = 'see probe_question_alignment.mjs (106 papers / 6708 questions / 6708 unique ids / 0 failures)'
+# entries is measured by RUNNING probe_question_alignment.mjs (fresh logic,
+# app parser as oracle) and recording its real output — the fixed "0 failures"
+# string this block used to print was never measured (CodeRabbit 2026-11-27).
+alignment = None
+try:
+    completed = subprocess.run(
+        ['node', str(Path(__file__).resolve().parent / 'probe_question_alignment.mjs')],
+        capture_output=True, text=True, timeout=300,
+    )
+    alignment = json.loads(completed.stdout)
+    notes['B_alignmentProbe'] = {
+        'papers': alignment.get('papers'),
+        'questions': alignment.get('totalQuestions'),
+        'uniqueIds': alignment.get('uniqueQuestionIds'),
+        'failureCount': alignment.get('failureCount'),
+        'exitCode': completed.returncode,
+        'failures': alignment.get('failures', [])[:10],
+    }
+    if completed.returncode != 0 or alignment.get('failureCount'):
+        problems.append(f"B: question<->key alignment probe failed ({alignment.get('failureCount')} failures, exit {completed.returncode})")
+    if alignment.get('papers') != 106 or alignment.get('totalQuestions') != 6708:
+        problems.append(f"B: alignment probe totals off ({alignment.get('papers')} papers / {alignment.get('totalQuestions')} questions)")
+except FileNotFoundError:
+    problems.append('B: node unavailable — probe_question_alignment.mjs could not run; alignment NOT verified')
+except (subprocess.TimeoutExpired, json.JSONDecodeError) as e:
+    problems.append(f'B: alignment probe output unreadable ({type(e).__name__}); alignment NOT verified')
 
 # ---- C: cross-paper passage leakage ----------------------------------------
 def norm_blocks(text):

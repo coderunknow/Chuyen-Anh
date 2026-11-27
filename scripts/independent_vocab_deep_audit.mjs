@@ -111,12 +111,20 @@ const add = (kind, detail) => { defects.push({ kind, detail }); };
   for (const [level, m] of byLevel) {
     if (m.size < 60) add('distractor-pool-too-small', `${level}: ${m.size} distinct entries`);
     const words = new Map();
+    const meanings = new Set();
     for (const key of m.keys()) {
-      const w = key.split('|')[0];
+      const [w, meaning] = key.split('|');
       words.set(w, (words.get(w) || 0) + 1);
+      meanings.add(meaning);
     }
     const dupWords = [...words.entries()].filter(([, n]) => n > 1).length;
     if (dupWords) add('level-word-duplicates', `${level}: ${dupWords} word forms appear with >1 meaning`);
+    // Distinct word keys are not enough: sixty distinct words sharing one
+    // gloss would leave no row a single distinct wrong answer (CodeRabbit
+    // 2026-11-27). A 4-option board needs 3 distractors different from the
+    // correct gloss, so every level pool must hold at least 4 distinct
+    // meanings; the app also excludes the row's own meaning when picking.
+    if (meanings.size < 4) add('distractor-meanings-too-few', `${level}: only ${meanings.size} distinct meanings`);
   }
 }
 

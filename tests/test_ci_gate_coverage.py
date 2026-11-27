@@ -66,12 +66,32 @@ class CiGateCoverageTests(unittest.TestCase):
                       "CI must run scripts/exams/test_archive.py, or the readiness count claims untested work")
 
     def test_the_python_suite_dependencies_are_declared_and_installed_in_every_workflow(self) -> None:
-        self.assertTrue((ROOT / TEST_REQUIREMENTS).exists(),
+        requirements_path = ROOT / TEST_REQUIREMENTS
+        self.assertTrue(requirements_path.exists(),
                         "tests/requirements.txt must exist and declare the Python test suite's dependencies")
+        # Existence alone is not the declaration: the file must actually pin the
+        # dependency the smoke gate imports, or an emptied file passes this test
+        # while the gate's tests skip on a fresh checkout (CodeRabbit 2026-11-27).
+        requirements_text = requirements_path.read_text(encoding="utf-8")
+        self.assertRegex(requirements_text, r"(?m)^PyYAML\s*==\s*\d",
+                         "tests/requirements.txt must pin the PyYAML dependency the smoke gate imports")
         for name, text in (("ci.yml", CI), ("deploy.yml", DEPLOY)):
-            self.assertIn(TEST_REQUIREMENTS, text,
-                          f"{name} must install tests/requirements.txt before `unittest discover`; "
-                          "an undeclared preinstalled dependency breaks a fresh checkout")
+            # A comment mentioning the path is not an install: require an actual
+            # `pip install ... -r tests/requirements.txt` command line, and require
+            # it to appear before the suite invocation (CodeRabbit 2026-11-27).
+            install_lines = [line.strip() for line in text.splitlines()
+                             if re.match(r"^\s*python -m pip install\b", line)]
+            matching = [line for line in install_lines if TEST_REQUIREMENTS in line]
+            self.assertTrue(matching,
+                            f"{name} must run an actual `python -m pip install -r tests/requirements.txt` "
+                            "command before `unittest discover`; a comment mentioning the path does not "
+                            "install anything and the telemetry gate tests would skip on a fresh checkout")
+            for install_line in matching:
+                install_position = text.find(install_line)
+                discover_position = text.find("unittest discover")
+                self.assertLess(
+                    install_position, discover_position,
+                    f"{name} must install tests/requirements.txt BEFORE `unittest discover`")
 
     def test_every_node_test_file_is_run_by_every_workflow_that_tests(self) -> None:
         """Both `ci.yml` and `deploy.yml` run the suites; both must run all of them.

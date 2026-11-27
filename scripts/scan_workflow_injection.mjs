@@ -49,15 +49,40 @@ const isLiteralValue = (value) =>
     ? !/\$\{\{/.test(String(value ?? ''))
     : false;
 
+// A matrix `include`/`exclude` entry is safe only when it is a plain mapping
+// whose every value is a scalar literal. GitHub adds an extra combination for
+// an `include` entry that cannot fully merge with the base values, so a single
+// expression-bearing field there would put attacker-controlled text into a
+// key the base matrix proved literal. When that happens the caller must drop
+// the whole allowlist for the job (conservative: a scanner never guesses).
+const includeEntriesAreLiteral = (matrix) => {
+  const blocks = [matrix.include, matrix.exclude].filter((block) => block !== undefined);
+  for (const block of blocks) {
+    const entries = Array.isArray(block) ? block : [block];
+    for (const entry of entries) {
+      if (!entry || typeof entry !== 'object' || Array.isArray(entry)) return false;
+      for (const value of Object.values(entry)) {
+        if (!isLiteralValue(value)) return false;
+      }
+    }
+  }
+  return true;
+};
+
 // Collect, per job, the matrix keys whose values are ALL scalar literals
 // without expressions. `${{ matrix.<key> }}` for such a key is safe by
 // construction (no attacker-controlled text can enter the matrix), and the
-// exception is local to the consuming job.
+// exception is local to the consuming job. Any expression-bearing
+// `include`/`exclude` entry disables the whole per-job allowlist: GitHub may
+// grow a combination whose value for a proven-literal key comes from that
+// entry instead.
 function literalMatrixKeys(job) {
   const keys = new Set();
   const matrix = job?.strategy?.matrix;
   if (!matrix || typeof matrix !== 'object') return keys;
+  if (!includeEntriesAreLiteral(matrix)) return keys;
   for (const [key, value] of Object.entries(matrix)) {
+    if (key === 'include' || key === 'exclude') continue;
     const values = Array.isArray(value) ? value : [value];
     if (values.every(isLiteralValue) && values.length > 0) keys.add(key);
   }
@@ -65,14 +90,37 @@ function literalMatrixKeys(job) {
 }
 
 // Every `${{ … }}` expression in the script text; a line passes only when ALL
-// of its expressions are allowlisted.
-const EXPRESSION = /\$\{\{\s*([^}]+?)\s*\}\}/g;
+// of its expressions are allowlisted. The terminator is the FIRST `}}` after
+// the opener: an expression can contain a lone `}` inside a string literal
+// (`format('{0}', github.head_ref)`), and a security scanner must treat the
+// text up to the real `}}` as expression content — GitHub substitutes whatever
+// it parses there, so under-scanning would hide an injection.
 function unsafeExpressions(script, allow) {
   const unsafe = [];
-  for (const match of script.matchAll(EXPRESSION)) {
-    const expression = match[1];
-    const matrixLiteral = /^matrix\.([\w-]+)$/.test(expression) && allow.has(expression.slice('matrix.'.length));
-    if (!matrixLiteral) unsafe.push({ expression, index: match.index, text: match[0] });
+  const opener = /\$\{\{/g;
+  let openerMatch;
+  while ((openerMatch = opener.exec(script)) !== null) {
+    const start = openerMatch.index + openerMatch[0].length;
+    const end = script.indexOf('}}', start);
+    if (end === -1) {
+      // Unterminated expression: flag the whole tail conservatively.
+      unsafe.push({
+        expression: script.slice(start).trim(),
+        index: openerMatch.index,
+        text: script.slice(openerMatch.index)
+      });
+      break;
+    }
+    const expression = script.slice(start, end).trim();
+    const matrixLiteral = /^matrix\.([\w-]+)$/.test(expression)
+      && allow.has(expression.slice('matrix.'.length));
+    if (!matrixLiteral) {
+      unsafe.push({
+        expression, index: openerMatch.index,
+        text: script.slice(openerMatch.index, end + 2)
+      });
+    }
+    opener.lastIndex = end + 2;
   }
   return unsafe;
 }
@@ -184,11 +232,28 @@ function fallbackLiteralMatrixKeys(lines, job) {
         const keyIndent = indentOf(keyLine);
         if (keyIndent <= indent) break; // left the matrix block
         if (keyIndent !== indent + 2) continue; // nested continuation
-        const keyMatch = /^\s*([\w.-]+):\s*(.*)$/.exec(keyLine);
+        const keyMatch = /^\s*(["']?)([\w.-]+)\1:\s*(.*)$/.exec(keyLine);
         if (!keyMatch) continue;
-        const key = keyMatch[1];
-        if (key === 'include' || key === 'exclude') continue;
-        const raw = keyMatch[2].trim();
+        const key = keyMatch[2];
+        if (key === 'include' || key === 'exclude') {
+          // An expression-bearing include/exclude entry can grow a combination
+          // whose value for a proven-literal key comes from the entry, so the
+          // whole allowlist for this matrix must be dropped (conservative).
+          // The block ends at the first non-blank line at or above the key's
+          // indent; comments and blanks inside it are part of the block.
+          let m = k + 1;
+          let poisoned = false;
+          while (m < job.end) {
+            const entryLine = lines[m];
+            if (isBlank(entryLine) || isComment(entryLine)) { m += 1; continue; }
+            if (indentOf(entryLine) <= keyIndent) break;
+            if (/\$\{\{/.test(entryLine)) poisoned = true;
+            m += 1;
+          }
+          if (poisoned) keys.clear();
+          continue;
+        }
+        const raw = keyMatch[3].trim();
         if (!raw) {
           // Block sequence below the key (items at the key's indent or deeper).
           const items = collectBlockSeqItems(lines, k, indent + 2, job.end);
@@ -220,10 +285,13 @@ function fallbackScanFile(text, file) {
   const jobs = findJobRanges(lines);
   const jobOf = (index) => jobs.find(job => index > job.start && index < job.end) || null;
   for (let i = 0; i < lines.length; i += 1) {
-    const runMatch = /^(\s*)((?:-\s+)?)run:(\s*)(.*)$/.exec(lines[i]);
+    // Quoted mapping keys are valid YAML (`"run":`, `'run':`, also after a
+    // `- ` list marker). The fallback must recognise them or it would silently
+    // skip the whole script — the opposite of conservative.
+    const runMatch = /^(\s*)((?:-\s+)?)(["']?)run\3:(\s*)(.*)$/.exec(lines[i]);
     if (!runMatch) continue;
     const keyColumn = runMatch[1].length + runMatch[2].length;
-    const value = runMatch[4].trim().replace(/^(?:[&!][^\s]+\s+)*/, ''); // strip anchors/tags
+    const value = runMatch[5].trim().replace(/^(?:[&!][^\s]+\s+)*/, ''); // strip anchors/tags
     if (!value) continue; // null run (e.g. `defaults: run:`) — no script
     const job = jobOf(i);
     const allow = job ? fallbackLiteralMatrixKeys(lines, job) : new Set();

@@ -166,6 +166,107 @@ jobs:
   } finally { await rm(dir, { recursive: true, force: true }); }
 });
 
+// CR-SR6 review round (CodeRabbit #4718454999): GitHub adds a combination for
+// an include entry that cannot fully merge with the base values, so an
+// expression-bearing include field puts attacker text into a key the base
+// matrix proved literal. The whole per-job allowlist must be dropped.
+test('an expression-bearing include entry disables the literal-matrix allowlist (parsed and fallback)', async () => {
+  const poison = `name: Include bypass
+on: push
+jobs:
+  build:
+    strategy:
+      matrix:
+        browser: [chromium]
+        include:
+          - browser: \${{ github.event.pull_request.title }}
+    steps:
+      - run: echo "browser=\${{ matrix.browser }}"
+`;
+  const dir = await fixtureDir({ 'include-bypass.yml': poison });
+  try {
+    const fallback = await scanWorkflows({ dir, yamlParse: null });
+    assert.equal(fallback.injectionShapedExpressions, 1, JSON.stringify(fallback.findings));
+    assert.equal(fallback.findings[0].expression.trim(), 'matrix.browser');
+    if (yamlParse) {
+      const parsed = await scanWorkflows({ dir, yamlParse });
+      assert.equal(parsed.injectionShapedExpressions, 1, JSON.stringify(parsed.findings));
+    }
+  } finally { await rm(dir, { recursive: true, force: true }); }
+});
+
+// A literal-only include/exclude keeps merging safe: the allowlist stays.
+test('a literal-only include entry keeps the allowlist intact', async () => {
+  const literal = `name: Literal include
+on: push
+jobs:
+  build:
+    strategy:
+      matrix:
+        browser: [chromium]
+        include:
+          - experimental: true
+    steps:
+      - run: echo "browser=\${{ matrix.browser }}"
+`;
+  const dir = await fixtureDir({ 'literal-include.yml': literal });
+  try {
+    const fallback = await scanWorkflows({ dir, yamlParse: null });
+    assert.equal(fallback.injectionShapedExpressions, 0, JSON.stringify(fallback.findings));
+    if (yamlParse) {
+      const parsed = await scanWorkflows({ dir, yamlParse });
+      assert.equal(parsed.injectionShapedExpressions, 0, JSON.stringify(parsed.findings));
+    }
+  } finally { await rm(dir, { recursive: true, force: true }); }
+});
+
+// CR-SR6 review round (CodeRabbit #4718455017): `[^}]+?` stopped at the lone
+// `}` inside `'{0}'`, so `${{ format('{0}', github.head_ref) }}` was never
+// matched at all. The scanner must read the expression up to the real `}}`.
+test('an expression containing a closing brace inside a string literal is a finding (parsed and fallback)', async () => {
+  const format = `name: Format expression
+on: push
+jobs:
+  build:
+    steps:
+      - run: echo "\${{ format('{0}', github.head_ref) }}"
+`;
+  const dir = await fixtureDir({ 'format.yml': format });
+  try {
+    const fallback = await scanWorkflows({ dir, yamlParse: null });
+    assert.equal(fallback.injectionShapedExpressions, 1, JSON.stringify(fallback.findings));
+    assert.ok(fallback.findings[0].expression.includes('format('), JSON.stringify(fallback.findings));
+    assert.ok(fallback.findings[0].expression.includes('github.head_ref'), JSON.stringify(fallback.findings));
+    if (yamlParse) {
+      const parsed = await scanWorkflows({ dir, yamlParse });
+      assert.equal(parsed.injectionShapedExpressions, 1, JSON.stringify(parsed.findings));
+    }
+  } finally { await rm(dir, { recursive: true, force: true }); }
+});
+
+// CR-SR6 review round (CodeRabbit #4718455024): quoted mapping keys are valid
+// YAML; the fallback missed the whole script instead of flagging it.
+test('a quoted run: key is scanned by the fallback like the parsed walk', async () => {
+  const quoted = `name: Quoted run key
+on: push
+jobs:
+  build:
+    steps:
+      - "run": echo "\${{ github.head_ref }}"
+      - 'run': |
+          echo "\${{ github.event.pull_request.title }}"
+`;
+  const dir = await fixtureDir({ 'quoted.yml': quoted });
+  try {
+    const fallback = await scanWorkflows({ dir, yamlParse: null });
+    assert.equal(fallback.injectionShapedExpressions, 2, JSON.stringify(fallback.findings));
+    if (yamlParse) {
+      const parsed = await scanWorkflows({ dir, yamlParse });
+      assert.equal(parsed.injectionShapedExpressions, 2, JSON.stringify(parsed.findings));
+    }
+  } finally { await rm(dir, { recursive: true, force: true }); }
+});
+
 test('fallback: expressions outside run scripts (env, if, name, with) are not findings', async () => {
   const dir = await fixtureDir({
     'safe-contexts.yml': `name: Safe contexts

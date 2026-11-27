@@ -283,3 +283,35 @@ CodeRabbit and verify every finding.
   5/5; release/deploy gates held as designed (`DEPLOY_HOLD` untouched).
 - All four probe batteries re-run against the fixed module: 0 flags, exam-core
   numbers unchanged (106/6,708/3,292/0/0).
+
+## Session 6b — CodeRabbit round on `f58fd93` (2026-11-27)
+
+Requested the review per the directive (`@coderabbitai review`), then
+verified all **18 findings** (3 Major + 15 Minor) against the code with
+repros before fixing — all valid, all fixed, none dismissed. Register with
+per-finding fixes and controls:
+`evidence/session-2026-11-27/CODERABBIT-ROUND-VERIFY.md`.
+
+### Fixes (details in `DEFECTS.md` CR-SR6-2..4)
+
+1. **CR-SR6-2 (Major ×3)** — workflow-injection scanner: expression-bearing
+   matrix `include`/`exclude` entries now drop the per-job literal allowlist
+   (parsed + fallback); the expression scan reads to the first real `}}`
+   (format-string braces no longer hide an injection); quoted `"run":` keys
+   are scanned by the fallback.
+2. **CR-SR6-3 (Minor)** — both telemetry scrubbers stop URL user-info
+   matching at `?`/`#`/`/` so a query or fragment `@` can no longer create a
+   false redaction; credential coverage byte-identical; 12/12 mutants killed.
+3. **CR-SR6-4 (Minor batch)** — evidence/tooling honesty: enforced probe
+   totals, measured (not asserted) alignment results, pure-JSON scan reports,
+   tracked evidence paths, documented repro preconditions and escape hatches,
+   guarded inconclusive rate-limit scenarios, host-independent ds1 mutation
+   harness, content-checking CI coverage gate.
+
+### Fresh gates at the session-6b head
+
+Canonical CI Node **289/289**; scanner suite 13 pass + 1 documented skip;
+telemetry 19/19; Python **303/303**; archive 5/5; shard partition OK;
+`mutation_cr_scrub` **12/12**; `mutation_ds1` OK (lockless host); clean-tree
+scan **0 findings both modes**; all four probe batteries **0 flags**; exam
+core 106/6,708/3,292 with 0 crashes/0 violations; release/deploy gates held.

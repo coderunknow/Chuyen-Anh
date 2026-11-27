@@ -397,3 +397,68 @@ adjudicated as a probe-contract error with the reason recorded.
   call site is fed sanitized numeric progress counters and hints that are
   either MODE values or `EXERCISE_TO_MODE` keys; match turns carry
   `match: true` and never reach it).
+
+## Session 6b — CodeRabbit review round on `f58fd93` (2026-11-27)
+
+The session-6 push requested the CodeRabbit review per the audit directive.
+The review (id 6087003324) posted **18 actionable comments — 3 Major
+(Security & Privacy), 15 Minor — every one of them verified against the code
+with a repro before fixing, every one confirmed valid, every one fixed.**
+Full register with per-finding fixes and controls:
+`evidence/session-2026-11-27/CODERABBIT-ROUND-VERIFY.md`.
+
+### CR-SR6-2 (Major, Security tooling) — three scanner allowlist/coverage gaps — FIXED
+
+1. **Matrix include bypass:** GitHub adds a combination for an `include`
+   entry that cannot fully merge with the base values, so a single
+   expression-bearing include field put attacker text into a matrix key the
+   base matrix had proved literal, and `${{ matrix.<key> }}` was allowlisted.
+   Fix: any expression-bearing include/exclude entry drops the whole per-job
+   allowlist (parsed and fallback modes). Controls: poisoned include flagged
+   in BOTH modes; literal-only include still clean.
+2. **Expression under-scan:** `[^}]+?` stopped at the lone `}` inside
+   `format('{0}', …)`, so `${{ format('{0}', github.head_ref) }}` produced NO
+   finding at all. Fix: the expression scan reads to the first real `}}`
+   (an unterminated `${{` flags the tail conservatively). Control:
+   format-expression flagged in both modes.
+3. **Quoted run keys:** the fallback's `run:` regex missed valid quoted
+   mapping keys (`"run":`, `'run':`), silently skipping the whole script —
+   the opposite of conservative. Fix: optional quote pair (backreferenced)
+   around the key, close before the colon. Control: quoted inline + quoted
+   block flagged in both modes.
+
+### CR-SR6-3 (Minor, Privacy tooling) — URL user-info redaction consumed past `?`/`#` — FIXED
+
+`[^\s/@]+@` could match across a query or fragment, so
+`https://api.example.test?contact=alice@localhost/path` was rewritten to
+`https://…@localhost/path` — mangling the real host and misreporting the
+endpoint in diagnostics. Fix in BOTH scrubbers (`api/telemetry.js`,
+index.html client copy): `[^\s/?#@]+@` — user-info sits between the scheme
+and the authority, so a query/fragment `@` is not a credential. All
+CR-SR5-1 redaction cases unchanged. Controls: 2 new assertions per suite; 2
+new boundary mutants; **12/12 killed**.
+
+### CR-SR6-4 (Minor, Evidence honesty) — audit tooling/evidence integrity batch — FIXED
+
+All confirmed and fixed with controls (details in the register file):
+probe totals now enforced (alignment B4; orphan curated examIds fail the
+verdict; distinct distractor meanings checked), `B_alignmentProbe` is now
+MEASURED by running the alignment probe (fixed string removed), scan
+evidence files are pure JSON with `exit` as a property, checklist evidence
+paths point at tracked files, the baseline repro documents its Web Locks
+precondition, the browser method note states its one-off helpers were not
+committed, the pglite evidence guards inconclusive window changes and pins
+the B2 global refusal, `mutation_ds1.mjs` runs both environments
+deterministically on any host (verified on a lockless sandbox), and the
+CI-coverage gate checks the actual PyYAML pin and the actual install command
+(controls: each broken state fails the new test). The CHANGELOG/deploy.yml
+force-override wording now documents the real dispatch-only escape hatches
+(behaviour unchanged, pinned by 32/32 gate tests).
+
+### Gates at the session-6b head
+
+Canonical CI Node 289/289; scanner trio 22 pass + 1 documented skip;
+telemetry 19/19; Python 303/303; archive 5/5; shard partition OK;
+`mutation_cr_scrub` 12/12 killed; `mutation_ds1` OK on a lockless host;
+clean-tree scan 0 findings both modes; all four session-6 probe batteries
+0 flags; exam core unchanged (106/6,708/3,292/0/0); gates held as designed.

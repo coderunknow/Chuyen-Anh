@@ -6,11 +6,16 @@ Chromium session passes the challenge. Steps for a clean reproduction:
 
 1. Serve the repository's `index.html` locally (or use any page on the host)
    in a real Chromium browser and let the challenge clear once.
-2. In that page context, run `browser_digest_check.js` /
-   `browser_recon2.js` after loading the de-duplicated URL list built by
-   `extract_asset_list.py` (60 unique file URLs covering the 140 pdf/docx
-   asset records; 53 URLs carry 2+ recorded assets each because the host
-   re-packaged several files into single ZIP bundles).
+2. In that page context, run the session's one-off browser-console scripts
+   (`browser_digest_check.js`, `browser_recon2.js`, built on the
+   de-duplicated URL list from `extract_asset_list.py`) after loading the
+   60 unique file URLs covering the 140 pdf/docx asset records; 53 URLs carry
+   2+ recorded assets each because the host re-packaged several files into
+   single ZIP bundles. Note: these three helpers were session-local one-offs
+   run from the browser console and were **not committed** to the repository —
+   steps 2-3 below describe exactly what they did, so the procedure is
+   reproducible from this note alone; their outputs ARE tracked
+   (`tailieudieuky-recon.json`, `asset-digest-classification.json`).
 3. `browser_recon2.js` fetches each URL with credentials, hashes the
    response, and — when the bytes are a ZIP — walks the central directory,
    inflates every member (`DecompressionStream('deflate-raw')`) and hashes

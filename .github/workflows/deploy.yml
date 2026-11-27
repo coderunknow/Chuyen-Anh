@@ -25,12 +25,20 @@ on:
   workflow_dispatch:
     inputs:
       force_deploy:
-        description: "Deploy even while the release named in DEPLOY_HOLD is unpublished"
+        description: >-
+          Deploy even while the release named in DEPLOY_HOLD is unpublished
+          (prereleases only — a stable release additionally requires
+          stable_deploy_authorized=true; with that input set as well, this
+          override can deploy a stable release before its tag is published)
         required: false
         type: boolean
         default: false
       stable_deploy_authorized:
-        description: "Confirm separate user authorization to deploy a published stable release"
+        description: >-
+          Confirm separate user authorization to deploy a stable release.
+          Required for a stable release even when force_deploy=true; combined
+          with force_deploy=true it also authorizes deploying a stable release
+          that is not yet published
         required: false
         type: boolean
         default: false

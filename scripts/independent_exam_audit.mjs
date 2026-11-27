@@ -22,7 +22,14 @@ let hashOk = 0;
 const hashMismatches = [];
 
 const curatedByPaper = new Map();
+const embeddedPaperIds = new Set(examData.map(r => r.id));
+const orphanExamIds = [];
 for (const entry of curated) {
+  // A curated entry naming a paper the embedded archive does not hold is never
+  // hash-checked by the paper loop below, so it would silently escape every
+  // check while the verdict still reports success (CodeRabbit 2026-11-27).
+  // Track orphans and fail the verdict on any of them.
+  if (!embeddedPaperIds.has(entry.examId)) orphanExamIds.push(entry.examId);
   if (!curatedByPaper.has(entry.examId)) curatedByPaper.set(entry.examId, new Map());
   curatedByPaper.get(entry.examId).set(entry.questionId, entry);
 }
@@ -72,7 +79,7 @@ for (const record of examData) {
   }
 }
 
-const verdictOk = hashMismatches.length === 0 && noKey === 0;
+const verdictOk = hashMismatches.length === 0 && noKey === 0 && orphanExamIds.length === 0;
 console.log(JSON.stringify({
   papers: examData.length, total, scorable, exempt, noKey,
   scorablePct: +(100 * scorable / total).toFixed(2),
@@ -81,6 +88,8 @@ console.log(JSON.stringify({
   curatedHashChecked: hashOk,
   curatedHashMismatches: hashMismatches.length,
   hashMismatchSample: hashMismatches.slice(0, 8),
+  curatedOrphanExamIds: orphanExamIds.length,
+  curatedOrphanSample: [...new Set(orphanExamIds)].slice(0, 8),
   noKeySample,
   verdictOk
 }, null, 2));

@@ -70,8 +70,12 @@ const SECRET_SHAPES = [
   [/\bBearer\s+[A-Za-z0-9._~+/-]+=*/gi, '…'],
   // RFC 3986 user-info: everything between '://' and '@' is the credential —
   // username, password, or both; either side may be empty and the colon may be
-  // absent entirely (https://user@host, https://:password@host).
-  [/([a-z][a-z0-9+.-]*:\/\/)[^\s/@]+@/gi, '$1…@']
+  // absent entirely (https://user@host, https://:password@host). The scan
+  // stops at '/', '?', '#' and whitespace: user-info sits between the scheme
+  // and the authority, so a query or fragment after the host — even one that
+  // itself contains an '@' — is not a credential and must reach the log intact
+  // (https://api.example.test?contact=alice@localhost keeps its real host).
+  [/([a-z][a-z0-9+.-]*:\/\/)[^\s/?#@]+@/gi, '$1…@']
 ];
 const LANGUAGE_VALUES = new Set(['vi', 'en']);
 const THEME_VALUES = new Set(['system', 'light', 'dark']);

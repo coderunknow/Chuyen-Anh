@@ -98,9 +98,13 @@ const { value: old, windowChanged: oldWindowChanged } = await withStableWindow('
   const honest = await ingest(db, 'a'.repeat(32));
   return { res, honest };
 });
-console.log('A) OLD migration, 130 keyless calls:', JSON.stringify(old.res.counts),
-  `firstGlobalBucketIndex=${old.res.firstGlobal} firstClientRefusal=${old.res.firstClient}`);
-console.log('A) honest client after the keyless flood:', JSON.stringify(old.honest));
+if (!oldWindowChanged) {
+  console.log('A) OLD migration, 130 keyless calls:', JSON.stringify(old.res.counts),
+    `firstGlobalBucketIndex=${old.res.firstGlobal} firstClientRefusal=${old.res.firstClient}`);
+  console.log('A) honest client after the keyless flood:', JSON.stringify(old.honest));
+} else {
+  console.log('A) OLD migration, 130 keyless calls: INCONCLUSIVE (the 10-minute window changed on every retry; the scenario never produced a stable reading)');
+}
 const oldEvidenceOk = !oldWindowChanged && old.res.okCount === 120 && old.res.firstGlobal === 120
   && old.res.firstClient === -1 && old.honest.status === 'rate_limited';
 
@@ -129,10 +133,14 @@ const { value: b1, windowChanged: b1WindowChanged } = await withStableWindow('B1
   const malformed = await ingest(db, "x'); insert into telemetry.reports values (gen_random_uuid());--");
   return { burstRes, other, malformed };
 });
-console.log('B1) HARDENED migration, 10 keyless calls:', JSON.stringify(b1.burstRes.counts),
-  `firstClientRefusal=${b1.burstRes.firstClient} firstGlobalRefusal=${b1.burstRes.firstGlobal}`);
-console.log('B1) a different honest client in the same window:', JSON.stringify(b1.other));
-console.log('B1) HARDENED migration rejects the injection-shaped client_key:', JSON.stringify(b1.malformed));
+if (!b1WindowChanged) {
+  console.log('B1) HARDENED migration, 10 keyless calls:', JSON.stringify(b1.burstRes.counts),
+    `firstClientRefusal=${b1.burstRes.firstClient} firstGlobalRefusal=${b1.burstRes.firstGlobal}`);
+  console.log('B1) a different honest client in the same window:', JSON.stringify(b1.other));
+  console.log('B1) HARDENED migration rejects the injection-shaped client_key:', JSON.stringify(b1.malformed));
+} else {
+  console.log('B1) HARDENED migration, 10 keyless calls: INCONCLUSIVE (window changed on every retry)');
+}
 
 const { value: b2, windowChanged: b2WindowChanged } = await withStableWindow('B2', async (db) => {
   await db.exec(hardSql);
@@ -140,13 +148,21 @@ const { value: b2, windowChanged: b2WindowChanged } = await withStableWindow('B2
   for (let i = 0; i < 130; i += 1) flood.push(await ingest(db, null));
   return summarise(flood);
 });
-console.log('B2) HARDENED migration, 130 keyless calls:', JSON.stringify(b2.counts),
-  `firstClientRefusal=${b2.firstClient} firstGlobalRefusal=${b2.firstGlobal}`);
+if (!b2WindowChanged) {
+  console.log('B2) HARDENED migration, 130 keyless calls:', JSON.stringify(b2.counts),
+    `firstClientRefusal=${b2.firstClient} firstGlobalRefusal=${b2.firstGlobal}`);
+} else {
+  console.log('B2) HARDENED migration, 130 keyless calls: INCONCLUSIVE (window changed on every retry)');
+}
 
 const newEvidenceOk = !b1WindowChanged && !b2WindowChanged
   && b1.burstRes.okCount === 5 && b1.burstRes.firstClient === 5 && b1.burstRes.firstGlobal === -1
   && b1.other.status === 'ok' && b1.malformed.status === 'invalid'
-  && b2.okCount === 5 && b2.firstClient === 5;
+  && b2.okCount === 5 && b2.firstClient === 5
+  // B2 documents that refused attempts still count toward the global budget:
+  // pin the global refusal itself, not just the per-client one (CodeRabbit
+  // 2026-11-27). The committed evidence run satisfies this (firstGlobal=120).
+  && b2.firstGlobal === 120;
 
 console.log(`RESULT old-behavior-demonstrated=${oldEvidenceOk} hardened-behavior-demonstrated=${newEvidenceOk}`);
 process.exit(oldEvidenceOk && newEvidenceOk ? 0 : 1);

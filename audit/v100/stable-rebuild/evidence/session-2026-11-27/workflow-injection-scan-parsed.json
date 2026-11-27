@@ -12,6 +12,6 @@
   ],
   "yamlParser": "available (parsed walk)",
   "injectionShapedExpressions": 0,
-  "findings": []
+  "findings": [],
+  "exit": 0
 }
-parsed exit=0

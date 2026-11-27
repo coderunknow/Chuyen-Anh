@@ -51,6 +51,21 @@ for (const paper of examData) {
   }
 }
 
+// B4 enforcement (CodeRabbit #4718454802): printing the totals is not checking
+// them. A missing paper or a lost question must fail the probe, or every other
+// check could pass on a shrunken corpus while the probe still exits zero.
+const EXPECTED_PAPERS = 106;
+const EXPECTED_QUESTIONS = 6708;
+if (examData.length !== EXPECTED_PAPERS) {
+  failures.push(`B4: paper count ${examData.length} != expected ${EXPECTED_PAPERS}`);
+}
+if (totalQuestions !== EXPECTED_QUESTIONS) {
+  failures.push(`B4: question count ${totalQuestions} != expected ${EXPECTED_QUESTIONS}`);
+}
+if (seenIds.size !== totalQuestions) {
+  failures.push(`B4: unique (examId,questionId) pairs ${seenIds.size} != parsed questions ${totalQuestions}`);
+}
+
 console.log(JSON.stringify({
   papers: examData.length,
   totalQuestions,

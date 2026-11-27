@@ -57,7 +57,14 @@ def release_is_published(version: str, repo: str) -> bool:
 
 
 def main() -> int:
-    """Evaluate application release publication and stable-deploy authorization for GitHub Actions."""
+    """Evaluate application release publication and stable-deploy authorization for GitHub Actions.
+
+    Dispatch-only escape hatches (both require an explicit manual workflow_dispatch,
+    documented on deploy.yml's inputs): FORCE_DEPLOY=true alone deploys an unpublished
+    prerelease; FORCE_DEPLOY=true together with STABLE_DEPLOY_AUTHORIZED=true deploys a
+    stable release even before its tag is published. FORCE_DEPLOY alone never deploys a
+    stable release.
+    """
     force = os.environ.get('FORCE_DEPLOY', '').strip().lower() in {'1', 'true', 'yes'}
     stable_auth = os.environ.get('STABLE_DEPLOY_AUTHORIZED', '').strip().lower() in {'1', 'true', 'yes'}
     version = app_version(ROOT / 'index.html')

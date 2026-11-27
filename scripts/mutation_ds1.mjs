@@ -20,7 +20,22 @@ async function runCase(mutant, envKind) {
     // Strip navigator.locks for this import context via a stub the module reads lazily.
     Object.defineProperty(globalThis, 'navigator', { value: {}, configurable: true, writable: true });
   } else {
-    Object.defineProperty(globalThis, 'navigator', { value: originalNavigator, configurable: true, writable: true });
+    // Deterministic locking context: the app only needs locks.request(name,
+    // {mode}, cb) to invoke cb and return its result. A host without Web Locks
+    // (Node < 24, file://, this sandbox) would silently turn the "locking"
+    // control AND the always-unserialized mutant both into 'unserialized', so
+    // the mutant could never be caught there. The stub makes both environments
+    // behave identically on any host.
+    Object.defineProperty(globalThis, 'navigator', {
+      value: {
+        locks: {
+          request: async (name, options, callback) => callback({
+            name, mode: options?.mode ?? 'exclusive', released: Promise.resolve()
+          })
+        }
+      },
+      configurable: true, writable: true
+    });
   }
   const KEY = 'chuyen-anh.exam-results.v1';
   const records = JSON.parse(html.match(/<script id="exam-data" type="application\/json">([\s\S]*?)<\/script>/)[1]);

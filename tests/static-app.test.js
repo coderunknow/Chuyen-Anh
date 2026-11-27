@@ -1275,6 +1275,16 @@ test('rc5 round 2: the client scrubber covers fine-grained GitHub tokens, the fu
     'path is fine https://example.com/@user',
     'an @ in a URL path is not user-info and must not be redacted'
   );
+  assert.equal(
+    scrubTelemetryText('could not reach https://api.example.test?contact=alice@localhost/path'),
+    'could not reach https://api.example.test?contact=alice@localhost/path',
+    'an @ in a URL query is not user-info: the real host and query survive intact'
+  );
+  assert.equal(
+    scrubTelemetryText('report https://api.example.test/page#signed-off-by-alice@localhost'),
+    'report https://api.example.test/page#signed-off-by-alice@localhost',
+    'an @ in a URL fragment is not user-info: the fragment survives intact'
+  );
 });
 
 test('rc5: the diagnostics report is sent once, bounded, and explained when it fails', async () => {

@@ -7,7 +7,14 @@
 candidate: `scripts/deploy_gate.py` is open because the hold names a published
 release, and `scripts/app_release_gate.py` holds Pages until `v1.0.0` is
 published in its channel AND a separate dispatch confirms
-`stable_deploy_authorized=true` (a force override alone is not sufficient).
+`stable_deploy_authorized=true` (a force override alone is never sufficient
+for a stable release). Two deliberate maintainer escape hatches remain, and
+both are documented on `deploy.yml`'s dispatch inputs: `FORCE_DEPLOY=true`
+alone can deploy an unpublished **prerelease** (how the rc line was shipped),
+and `FORCE_DEPLOY=true` together with `STABLE_DEPLOY_AUTHORIZED=true` can
+deploy a stable release even before its tag is published. Neither combination
+can be produced by a push or a merge; both require an explicit manual
+`workflow_dispatch`.
 Merging this branch does not deploy anything: production GitHub Pages keeps
 serving `v1.0.0-rc11` until the maintainer explicitly authorizes the cutover.
 No `v1.0.0` tag exists in the repository (verified against the GitHub API on

@@ -286,7 +286,9 @@ test('review round: fine-grained GitHub tokens, the full Bearer alphabet, every 
       event({ kind: 'error', name: 'uncaught', note: 'request failed https://alice-secret@localhost/api' }),
       event({ kind: 'error', name: 'uncaught', note: 'request failed https://alice-secret:@localhost/api' }),
       event({ kind: 'error', name: 'uncaught', note: 'could not reach https://user@[2001:db8::1]:8443/api' }),
-      event({ kind: 'error', name: 'uncaught', note: 'path is fine https://example.com/@user' })
+      event({ kind: 'error', name: 'uncaught', note: 'path is fine https://example.com/@user' }),
+      event({ kind: 'error', name: 'uncaught', note: 'could not reach https://api.example.test?contact=alice@localhost/path' }),
+      event({ kind: 'error', name: 'uncaught', note: 'report https://api.example.test/page#signed-off-by-alice@localhost' })
     ]
   })));
   assert.equal(calls.length, 1);
@@ -303,6 +305,10 @@ test('review round: fine-grained GitHub tokens, the full Bearer alphabet, every 
   assert.equal(notes[8], 'request failed https://…@localhost/api', 'URL user-info with an empty password is redacted');
   assert.equal(notes[9], 'could not reach https://…@[2001:db8::1]:8443/api', 'URL user-info before an IPv6 authority is redacted');
   assert.equal(notes[10], 'path is fine https://example.com/@user', 'an @ in a URL path is not user-info and must not be redacted');
+  assert.equal(notes[11], 'could not reach https://api.example.test?contact=alice@localhost/path',
+    'an @ in a URL query is not user-info: the real host and query survive intact');
+  assert.equal(notes[12], 'report https://api.example.test/page#signed-off-by-alice@localhost',
+    'an @ in a URL fragment is not user-info: the fragment survives intact');
   const stored = JSON.stringify(calls[0].body.payload);
   for (const fragment of ['github_pat_', fineGrained.slice(-20), '+ab~/cdEF9=', 'abc123', '-LeadingHyphen0123', 'abc-def-ghi', 's3cr3tcredential', 'SecretPrefix', 'alice-secret']) {
     assert.equal(stored.includes(fragment), false, `${fragment} must never reach the stored payload`);
