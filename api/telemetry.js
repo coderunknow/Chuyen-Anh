@@ -68,14 +68,15 @@ const SECRET_SHAPES = [
   // RFC 6750 b64token: 1*( ALPHA / DIGIT / "-" / "." / "_" / "~" / "+" / "/" ) *"=".
   // No minimum length: a short credential is still a credential.
   [/\bBearer\s+[A-Za-z0-9._~+/-]+=*/gi, '…'],
-  // RFC 3986 user-info: everything between '://' and '@' is the credential —
-  // username, password, or both; either side may be empty and the colon may be
-  // absent entirely (https://user@host, https://:password@host). The scan
+  // RFC 3986 user-info: everything between '://' and the LAST '@' of the
+  // authority is the credential — the WHATWG URL parser treats earlier '@'
+  // characters as credential DATA, so stopping at the first '@' would leave
+  // the password of https://alice@team:secret@host intact. The scan still
   // stops at '/', '?', '#' and whitespace: user-info sits between the scheme
   // and the authority, so a query or fragment after the host — even one that
-  // itself contains an '@' — is not a credential and must reach the log intact
-  // (https://api.example.test?contact=alice@localhost keeps its real host).
-  [/([a-z][a-z0-9+.-]*:\/\/)[^\s/?#@]+@/gi, '$1…@']
+  // itself contains an '@' — is not a credential and must reach the log
+  // intact (https://api.example.test?contact=alice@localhost keeps its host).
+  [/([a-z][a-z0-9+.-]*:\/\/)[^\s/?#]*@/gi, '$1…@']
 ];
 const LANGUAGE_VALUES = new Set(['vi', 'en']);
 const THEME_VALUES = new Set(['system', 'light', 'dark']);

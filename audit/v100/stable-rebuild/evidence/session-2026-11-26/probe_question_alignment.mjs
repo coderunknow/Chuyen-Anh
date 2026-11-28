@@ -13,7 +13,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const root = new URL('../../../../../', import.meta.url).pathname;  // repo root
+const root = fileURLToPath(new URL('../../../../../', import.meta.url));  // repo root (survives paths with spaces)
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 const appSource = html.match(/<script type="module" id="app-script">([\s\S]*?)<\/script>/)[1];
 const app = await import(`data:text/javascript;base64,${Buffer.from(appSource).toString('base64')}`);

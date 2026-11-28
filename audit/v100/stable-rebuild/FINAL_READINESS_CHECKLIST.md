@@ -9,7 +9,7 @@ BLOCKED / INCOMPLETE / NOT TESTED / EXTERNALLY BLOCKED.
 | Baseline | Starting SHA verified live, branch cut from it | `BASELINE.md`; `git log -1 main` = `948f6f9` | `[x] VERIFIED` |
 | Baseline | Mission premise "v1.0.0 tag exists" checked | API: 24 tags, none `v1.0.0` → collision N/A | `[x] VERIFIED` |
 | Protected files | `AGENT.md`, `De-chuyen-Anh-vao-10/*.md` untouched; logs append-only | `git diff main --stat` (16 files, none of the protected set; log diffs are appends) | `[x] VERIFIED` |
-| Tests — Python | 306/306 at the candidate head (incl. 9 telemetry-smoke structural gate tests; their declared PyYAML dependency ships as `tests/requirements.txt`, installed by both workflows, skipped-with-reason on a fresh checkout) | session-2026-11-27 run log + `test_ci_gate_coverage` contract | `[x] VERIFIED` |
+| Tests — Python | 307/307 at the candidate head (incl. 9 telemetry-smoke structural gate tests; their declared PyYAML dependency ships as `tests/requirements.txt`, installed by both workflows, skipped-with-reason on a fresh checkout) | session-2026-11-27 run log + `test_ci_gate_coverage` contract | `[x] VERIFIED` |
 | Tests — Node | 315/315 static/telemetry (incl. the round-2 scrubber regression tests) + 29 shard-partition/failure-capture/workflow-injection tests (28 pass + 1 documented skip without `yaml`; parsed mode REQUIRED in CI, where the pinned parser is installed and the CLI-refusal test is copy-isolated from any local yaml install) | session run log + checklist row below | `[x] VERIFIED` |
 | Tests — archive | 5/5 | `scripts/exams/test_archive.py` | `[x] VERIFIED` |
 | Validators | 21-command ci.yml block all exit 0 | validator run log | `[x] VERIFIED` |

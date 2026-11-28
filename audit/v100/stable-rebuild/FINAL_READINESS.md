@@ -43,10 +43,10 @@ document.
 
 ## Quality results (all re-verified at the candidate head)
 
-- **Tests:** Python 306/306 (incl. 9 telemetry-smoke structural gate tests;
+- **Tests:** Python 307/307 (incl. 9 telemetry-smoke structural gate tests;
   their declared PyYAML dependency ships as `tests/requirements.txt` and is
   installed by both workflows, skipped-with-reason on a fresh checkout);
-  Node 315/315 static/telemetry (incl. the round-2 scrubber regression tests)
+  Node 316/316 static/telemetry (incl. the round-2 scrubber regression tests)
   plus 29 shard-partition/failure-capture/workflow-injection tests (28 pass
   + 1 documented skip without `yaml`; parsed mode REQUIRED in CI, where the
   pinned parser is installed); archive 5/5;

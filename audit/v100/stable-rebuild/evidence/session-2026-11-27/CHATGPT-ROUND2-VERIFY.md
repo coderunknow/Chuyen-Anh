@@ -36,8 +36,11 @@ turn 14, its consolidation graded at turn 15 — gap 0, with word 6's first pass
 still queued behind it.
 
 **Invariant violated:** an unsatisfied consolidation must never be graded while
-a real first-pass card is still queued behind it (skips and practice retries of
-other words provide no spaced evidence; only real first passes do).
+a real first-pass card is still queued behind it. (Two-part rule, clarified in
+the round-7 record: the REQUIRED gap decays with every GRADED turn — a graded
+practice retry of another word is real retrieval evidence and counts toward
+`elapsed` — while the queue PLACEMENT counts only real first-pass retrievals,
+and a skipped card never grades and never closes the gap.)
 
 **Fix:** the repositioning now walks the queue counting REAL first-pass turns
 and inserts the consolidation after exactly `needed` of them; when fewer real

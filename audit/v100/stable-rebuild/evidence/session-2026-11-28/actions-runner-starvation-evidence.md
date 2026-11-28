@@ -76,7 +76,14 @@ Support. Draft:
 > subject to an automated abuse-review hold or region-specific scheduler
 > degradation and lift/re-route it.
 
-Interim options if the ticket is slow: temporarily register one self-hosted
-runner on a trusted machine and add `runs-on: [ubuntu-latest, self-hosted]`
-fallbacks, or re-run from the UI periodically (pickup windows opened before:
-11-27 20:13).
+Interim options if the ticket is slow: re-run from the UI periodically
+(pickup windows opened before: 11-27 20:13), or temporarily register one
+self-hosted runner — with the following mandatory guard. A self-hosted runner
+MUST NOT execute workflows from fork pull requests: this repo's `Static checks`
+workflow runs on `pull_request` events, and untrusted fork workflow code can
+persistently compromise a self-hosted host. It is only safe while (a) the
+runner is registered on this single, non-fork-accepting repository, (b) the
+repository restricts actions to non-fork PRs (Settings → Actions → Fork pull
+request workflows: require approval for all outside collaborators), and (c)
+the runner is removed as soon as hosted runners recover. Add
+`runs-on: [ubuntu-latest, self-hosted]` only after those conditions hold.

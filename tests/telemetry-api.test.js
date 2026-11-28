@@ -315,6 +315,24 @@ test('review round: fine-grained GitHub tokens, the full Bearer alphabet, every 
   }
 });
 
+test('review round 8: fine-grained GitHub tokens, the full Bearer alphabet, and nested URL user-info redact through the LAST @', async () => {
+  const { calls } = await invoke(request('POST', payload({
+    events: [
+      event({ kind: 'error', name: 'uncaught', note: 'fetch failed https://alice@team:secret-pass@localhost/api' }),
+      event({ kind: 'error', name: 'uncaught', note: 'fetch failed https://alice@team:secret-pass@localhost/api?contact=bob@host' }),
+      event({ kind: 'error', name: 'uncaught', note: 'path is fine https://example.com/@user' })
+    ]
+  })));
+  assert.equal(calls.length, 1);
+  const notes = calls[0].body.payload.events.map(e => e.note);
+  assert.equal(notes[0], 'fetch failed https://…@localhost/api',
+    'the credential runs through the LAST @ (earlier @ characters are credential data), so the password is redacted too');
+  assert.equal(notes[1], 'fetch failed https://…@localhost/api?contact=bob@host',
+    'nested user-info is redacted while a query email after the authority survives');
+  assert.equal(notes[2], 'path is fine https://example.com/@user',
+    'an @ in the path is still not user-info');
+});
+
 test('upstream outcomes map to documented status codes', async () => {
   const ok = await invoke(request('POST', payload()), { status: 'ok', id: 'row-9' });
   assert.equal(ok.res.statusCode, 202);

@@ -25,9 +25,11 @@ const SERVER_GITHUB =
   '[/\\b(?:ghp|gho|ghu|ghs|ghr)_[A-Za-z0-9]{16,}\\b|\\bgithub_pat_[A-Za-z0-9]{22}_[A-Za-z0-9]{59}\\b/g';
 const SERVER_BEARER = '[/\\bBearer\\s+[A-Za-z0-9._~+/-]+=*/gi';
 // The fixed URL rule redacts the WHOLE user-info component (username, password,
-// or both; either side may be empty and the colon may be absent) and stops at
-// '/', '?', '#': a query or fragment after the host is not a credential.
-const SERVER_URL = '[/([a-z][a-z0-9+.-]*:\\/\\/)[^\\s/?#@]+@/gi';
+// or both; either side may be empty and the colon may be absent) THROUGH THE
+// LAST '@' of the authority (earlier '@' characters are credential data for
+// the WHATWG URL parser) and stops at '/', '?', '#': a query or fragment
+// after the host is not a credential.
+const SERVER_URL = '[/([a-z][a-z0-9+.-]*:\\/\\/)[^\\s/?#]*@/gi';
 const SERVER_ORDER =
   '  // Secret patterns run before the quote split: an apostrophe inside URL\n' +
   "  // user-info (RFC 3986 allows it) would otherwise truncate the text before the\n" +
@@ -50,17 +52,22 @@ const SERVER_MUTANTS = [
   {
     name: 'server: URL user-info requires a colon and a non-empty password again',
     from: SERVER_URL,
-    to: '[/([a-z][a-z0-9+.-]*:\\/\\/)[^\\s/@]*:[^\\s/@]+@/gi'
+    to: '[/([a-z][a-z0-9+.-]*:\\/\\/)[^\\s/?#]*:[^\\s/?#]+@/gi'
   },
   {
     name: 'server: URL user-info drops the colon from the credential again (user:pass leaks)',
     from: SERVER_URL,
-    to: '[/([a-z][a-z0-9+.-]*:\\/\\/)[^\\s/@:]+@/gi'
+    to: '[/([a-z][a-z0-9+.-]*:\\/\\/)[^\\s/?#:]+@/gi'
   },
   {
     name: 'server: URL user-info scan no longer stops at ? and # (query/fragment @ creates a false credential)',
     from: SERVER_URL,
-    to: '[/([a-z][a-z0-9+.-]*:\\/\\/)[^\\s/@]+@/gi'
+    to: '[/([a-z][a-z0-9+.-]*:\\/\\/)[^\\s]+@/gi'
+  },
+  {
+    name: 'server: URL user-info stops at the FIRST @ again (nested userinfo leaks the password)',
+    from: SERVER_URL,
+    to: '[/([a-z][a-z0-9+.-]*:\\/\\/)[^\\s/?#@]+@/gi'
   },
   {
     name: 'server: quote split moved back before the secret loop',
@@ -72,9 +79,10 @@ const SERVER_MUTANTS = [
 const CLIENT_GITHUB =
   '[/\\b(?:ghp|gho|ghu|ghs|ghr)_[A-Za-z0-9]{16,}\\b|\\bgithub_pat_[A-Za-z0-9]{22}_[A-Za-z0-9]{59}\\b/g';
 const CLIENT_BEARER = '[/\\bBearer\\s+[A-Za-z0-9._~+/-]+=*/gi';
-// Same rule as the server (kept in sync): the whole user-info component,
-// stopped at '/', '?', '#' so a query/fragment '@' cannot create a false one.
-const CLIENT_URL = '[/([a-z][a-z0-9+.-]*:\\/\\/)[^\\s/?#@]+@/gi';
+// Same rule as the server (kept in sync): the whole user-info component
+// through the LAST '@' of the authority, stopped at '/', '?', '#' so a
+// query/fragment '@' cannot create a false one.
+const CLIENT_URL = '[/([a-z][a-z0-9+.-]*:\\/\\/)[^\\s/?#]*@/gi';
 const CLIENT_ORDER =
   '  // Secret patterns run before the quote split: an apostrophe inside URL\n' +
   "  // user-info (RFC 3986 allows it) would otherwise truncate the text before the\n" +
@@ -96,17 +104,22 @@ const CLIENT_MUTANTS = [
   {
     name: 'client: URL user-info requires a colon and a non-empty password again',
     from: CLIENT_URL,
-    to: '[/([a-z][a-z0-9+.-]*:\\/\\/)[^\\s/@]*:[^\\s/@]+@/gi'
+    to: '[/([a-z][a-z0-9+.-]*:\\/\\/)[^\\s/?#]*:[^\\s/?#]+@/gi'
   },
   {
     name: 'client: URL user-info drops the colon from the credential again (user:pass leaks)',
     from: CLIENT_URL,
-    to: '[/([a-z][a-z0-9+.-]*:\\/\\/)[^\\s/@:]+@/gi'
+    to: '[/([a-z][a-z0-9+.-]*:\\/\\/)[^\\s/?#:]+@/gi'
   },
   {
     name: 'client: URL user-info scan no longer stops at ? and # (query/fragment @ creates a false credential)',
     from: CLIENT_URL,
-    to: '[/([a-z][a-z0-9+.-]*:\\/\\/)[^\\s/@]+@/gi'
+    to: '[/([a-z][a-z0-9+.-]*:\\/\\/)[^\\s]+@/gi'
+  },
+  {
+    name: 'client: URL user-info stops at the FIRST @ again (nested userinfo leaks the password)',
+    from: CLIENT_URL,
+    to: '[/([a-z][a-z0-9+.-]*:\\/\\/)[^\\s/?#@]+@/gi'
   },
   {
     name: 'client: quote split moved back before the secret loop',

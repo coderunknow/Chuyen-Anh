@@ -123,3 +123,21 @@ incl. the hardened CLI test; 19+1 documented skip parser-less), telemetry
 19/19, entrypoint 3/3, Python **306/306** (+1 smoke-gate regression), archive
 5/5, release + deploy gates exit 0, doc-count gates green (checklist Python
 row 306 / 311+311 total, changelog totals synced 306/151/315 + 9 gate tests).
+
+## Round 8 (2026-11-28, manual `@coderabbitai review` on PR #88 after integration — 13 findings / 9 threads on the full 92-file diff)
+
+Verified against source before fixing; 9/9 threads dispositioned with evidence.
+
+| Finding | Verdict | Disposition |
+| --- | --- | --- |
+| Major — URL user-info scrubber stops at the FIRST `@` (`https://alice@team:secret@host` leaks the password; WHATWG URL treats earlier `@` as credential data) | VALID (reproduced) | FIXED in BOTH scrubbers (`index.html` client, `api/telemetry.js` server): the rule now redacts THROUGH THE LAST `@` of the authority while still stopping at `/ ? #` whitespace (query/fragment emails preserved — existing tests kept passing). 4 regressions (2 client, 2 server) + 2 NEW mutation mutants (first-@ revert, per-scrubber) → **14/14 mutants killed** (was 12) |
+| REPRODUCTION_COMMANDS.md cites Node 24 for Web Locks (API landed in 24.5.0) | VALID | FIXED — Node ≥ 24.5 stated in both affected preconditions |
+| browser-session-method.md helpers not committed → clean checkout cannot run them | VALID | FIXED — runnable re-creations committed under `evidence/session-2026-11-26/scripts/` (`extract_asset_list.py` — a new python regression pins that it reproduces 140/60/53/186 + the 164/84 type-filter contrast from tracked `selection.json`; `browser_digest_check.js` + `browser_recon2.js` — console helpers following steps 3–4 exactly, `node --check` clean, clearly marked as re-creations) |
+| The `.md` → `contentSha256` chain over-claims for the 22 dynamic pages | VALID | FIXED — the note now states the chain proves INTERNAL integrity only and that the 22 dynamic snapshots are NOT verified against their live source |
+| probe_question_alignment.mjs uses `.pathname` (breaks on paths with spaces) | VALID | FIXED — `fileURLToPath(new URL(...))` |
+| CHATGPT-ROUND2-VERIFY.md invariant wording contradicts the round-7 two-part spacing rule | VALID | FIXED — the invariant now states the two-part rule verbatim |
+| Runner doc's self-hosted option lacks the fork-PR warning | VALID | FIXED — explicit conditions (no fork workflows, approval requirement, removal after recovery) |
+| branding/README says the app already loads the favicons | VALID (contradicted index.html) | FIXED — deferred-wiring status stated, with the two adoption paths |
+| branding/README says social-preview.png is "referenced by og:image" | VALID (no og:image tracked) | FIXED — marked as candidate, wiring deferred |
+
+Gates after the round-8 fixes: Node **316/316** (telemetry-api 20; the new test is count-gated), Python **307/307** (helper-count regression), shard/scanner 28 + 1 documented skip, archive OK, release+deploy gates exit 0, mutants **14/14**, doc-count gates green (316/312 rows, changelog 307/316).

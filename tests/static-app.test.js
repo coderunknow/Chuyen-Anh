@@ -1285,6 +1285,16 @@ test('rc5 round 2: the client scrubber covers fine-grained GitHub tokens, the fu
     'report https://api.example.test/page#signed-off-by-alice@localhost',
     'an @ in a URL fragment is not user-info: the fragment survives intact'
   );
+  assert.equal(
+    scrubTelemetryText('fetch failed https://alice@team:secret-pass@localhost/api'),
+    'fetch failed https://…@localhost/api',
+    'nested user-info: the credential runs through the LAST @ (WHATWG URL treats earlier @ as credential data), so the password is redacted too'
+  );
+  assert.equal(
+    scrubTelemetryText('fetch failed https://alice@team:secret-pass@localhost/api?contact=bob@host'),
+    'fetch failed https://…@localhost/api?contact=bob@host',
+    'nested user-info is redacted while a query email after the authority survives'
+  );
 });
 
 test('rc5: the diagnostics report is sent once, bounded, and explained when it fails', async () => {

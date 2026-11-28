@@ -440,3 +440,15 @@ literal-only include merge preserved as safe. Register: Round 4 table in
    fail-verified with a planted install (old spawn exit 1 vs copy exit 2).
 8. Count gates: python 306 (new regression), checklist 306/311, changelog
    306/151/315, "8 → 9 telemetry-smoke gate tests" phrasing synced.
+
+### Session 10 addendum (2026-11-28) — #89 integration into #88 + round 8
+
+1. Fast-forwarded `build/v100-stable-rebuild` `2fd29c2 → 88af47b` (owner-approved; 22
+   fix-stream commits; cumulative diff verified identical to #89's). #89 closed.
+2. Dispositioned the 9 threads left open on #88 since rounds 2–3 (all genuinely
+   addressed by the integrated stream; replied with evidence, resolved).
+3. Round 8 (manual review on #88, 13 findings): fixed the Major first-@ userinfo
+   leak in both scrubbers (+4 regressions, +2 mutants → 14/14), the probe
+   pathname bug, committed runnable reproduction helpers (with a count-pinning
+   regression), and corrected six documentation claims.
+4. Count gates re-synced: telemetry-api 20 → Node 316; python 307; totals 312/316.

@@ -19,14 +19,15 @@ git fetch origin
 git worktree add /tmp/baseline-948f6f9 948f6f9
 
 # Baseline reproduction (D-SR1), in the baseline worktree:
-# Precondition: run this on a Node build WITH Web Locks (Node >= 24, or any
+# Precondition: run this on a Node build WITH Web Locks (Node >= 24.5, or any
 # build where `typeof navigator.locks === 'object'`). On a lockless build the
 # honest old app already reports 'unserialized', so the old test passes and the
 # reproduction shows no failure. Verify before starting:
 #   node -e "console.log(typeof navigator.locks)"   # must print 'object'
 cd /tmp/baseline-948f6f9
 node --test tests/exam-persistence.test.js   # expect exactly 1 failure:
-#   "a locked write reports the mode it obtained" — Node 24 ships Web Locks,
+#   "a locked write reports the mode it obtained" — Web Locks ships in Node 24.5.0
+#   (24.0-24.4 lack navigator.locks), so run this on Node >= 24.5:
 #   the old test hard-coded `unserialized`, so the honest app failed it.
 
 # Candidate checks stay in the candidate worktree:
