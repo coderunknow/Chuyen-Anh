@@ -2,7 +2,7 @@
 
 Ứng dụng flashcard Chuyên Anh và kho bản chép đề offline, chạy như **một file HTML độc lập**. `index.html` chứa HTML, CSS, JavaScript, **8.112 từ gốc** (trong đó **6.841 từ trọng tâm** vào phiên học và **1.271 từ lưu trữ** vẫn tra cứu được, giữ nguyên ID và tiến độ nhưng nằm ngoài phiên học — xem [Chọn lọc từ vựng](#chọn-lọc-từ-vựng-curation)) (bảng có 8.852 hàng: 740 dạng cùng gốc được ghi trong cột `WORD_FAMILY` của từ gốc, không phải mục riêng), **1.094 cụm từ** (kho riêng, không tính vào chỉ tiêu từ vựng) và toàn bộ 106 bản chép đề thi 2022–2026. Không có API, backend hay tài nguyên tự tải; có thể mở trực tiếp trên trình duyệt. Chỉ tiến độ flashcard và tiến độ cụm từ được lưu trong `localStorage`; kho đề là dữ liệu đọc trong file.
 
-![Chuyển Anh](branding/logo-lockup.png)
+![Chuyên Anh](branding/logo-lockup.png)
 
 ## Dữ liệu và quy trình cập nhật
 

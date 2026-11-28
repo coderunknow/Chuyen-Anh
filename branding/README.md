@@ -1,4 +1,4 @@
-# Chuyển Anh — official brand assets
+# Chuyên Anh — official brand assets
 
 The emblem was selected from three generated concepts on 2026-11-28 (card-flip
 monogram, "Â" glyph, exam-bank roundel — the roundel won). Vector work and all
