@@ -1953,3 +1953,117 @@ Final state, stated precisely to avoid a self-referential chase:
   `v1.0.0`; the script rejects other stable refs), and the exam-scoring fixture
   now asserts all three items sit in the denominator, were graded, and each
   contributes full credit. No approval is inferred from the COMMENTED review.
+
+## 2026-11-17 — agent session: stable candidate rebuild (`build/v100-stable-rebuild`) — DONE (candidate), open items listed
+
+- **Scope executed:** baseline verification (live SHA `948f6f9` confirmed, tag
+  premise checked and found false — no `v1.0.0` tag exists), branch cut from
+  verified `main`, two defects fixed with baseline reproductions and mutation
+  controls (`NODE-LOCKS-ENV` test environment drift, `TELEMETRY-NOTE-SECRETS`
+  credential-redaction gap in both telemetry scrubbers), stable identity
+  reconciled behind the dual gate, independent exam/vocabulary data audits,
+  PGlite demonstration of both Supabase migration behaviours, read-only live
+  probes (Pages deployment API, telemetry preflight/GET; no production-writing
+  request), evidence under `audit/v100/stable-rebuild/`.
+- **Local totals at the candidate head:** Python 294/294, Node 306/306
+  (+1 telemetry-api test, checklist row updated accordingly), archive 5/5,
+  21 validator commands exit 0, both browser suites green on Chromium 133.0.6943.0
+  (re-run after the version bump), deploy gates verified fail-closed
+  (`app_release_gate` holds the stable candidate; the `gh`-less sandbox reports
+  "missing" from `deploy_gate.py --repo`, which is the documented fail-closed
+  behaviour, not a repository defect).
+- **Compliance:** no merge, no tag create/move/delete, no release publish, no
+  Pages/Vercel deploy, no Vercel settings change, no Supabase mutation, no
+  production telemetry POST, no review-trigger comments. PR opened as Draft.
+- **Open items (external or owner decisions):** apply the hardening migration to
+  the live Supabase function and verify it; resolve `compute_jobs` RLS exposure
+  (shared project, not this app's table — read-only investigated only); decide
+  the transcript-fallback listening grading policy (mission text vs shipped
+  behaviour, 307 items); screen-reader pass; WebKit/Firefox local runs (CI
+  covers at head); 186 external asset digests; live telemetry POST recheck.
+
+## 2026-11-17 — review round 2 (`build/v100-stable-rebuild`) — findings resolved, workflow hardened, audits extended
+
+- CodeRabbit's genuine COMMENTED review at `248b75a` (submitted 12:45:11Z)
+  published seven findings (5 Major security, 2 Minor reproducibility). All
+  seven were reproduced against the current source, fixed with regression
+  tests written first, and guarded by mutation controls (8/8 killed). The
+  full proof chain per finding lives in `audit/v100/stable-rebuild/DEFECTS.md`
+  (CR1–CR7).
+- `.github/workflows/telemetry-smoke.yml` lost its automatic `push` and
+  `pull_request` triggers (the PR-open production write is disclosed as
+  FAILURE_LEDGER F-SR11); it is dispatch-only with an explicit confirmation
+  input and a required deployment identity, structurally pinned by
+  `tests/test_telemetry_smoke_gate.py`.
+- Independent round-2 audits: vocabulary deep audit 0 defects; transcript
+  fallback 307 scorable / all LOW (mission figure verified exactly);
+  workflow-injection scan clean with negative controls; browser suites green
+  at the round-2 head; sprint benchmark median 22.09 s, 0 page errors.
+- Local gates at the round-2 head: Python 302/302, Node 308/308, archive 5/5,
+  21 validators exit 0, `git diff --check` clean. Checklist/changelog totals
+  reconciled and test-enforced.
+- No merge, tag, release, deploy, Vercel/Supabase mutation; no production
+  POST initiated by the session; the single authorized live POST stays
+  pending until an authorized actor deploys and the deployed revision can be
+  verified. The authorized `@coderabbitai review` command is used once, on
+  the final head, per the mission's explicit grant.
+
+## 2026-11-27 — session 5 on `build/v100-stable-rebuild`: owner-review findings fixed
+
+- Branch note: session branch `arena/ac053f1d-chuyen-anh` cut from `main`
+  `948f6f9`; fast-forwarded to PR head `2fd29c2`; fixes on top (no force, no
+  other branch touched).
+- Owner's independent ChatGPT review of `2fd29c2` (PR comment 2026-11-26)
+  confirmed 2 code defects; both reproduced live, then fixed tests-first:
+  1. URL user-info credentials (username-only / empty-password) bypassed both
+     telemetry scrubbers → whole-user-info redaction in `index.html` +
+     `api/telemetry.js`, regression cases both sides, 10/10 mutation controls.
+  2. The workflow-injection scanner's no-parser fallback missed multiline run
+     bodies and flagged the clean tree → full-run-body fallback with a
+     strictly narrower allowlist, new 10-test suite in `ci.yml`, clean tree
+     green in both parser modes, negative controls detected in both modes.
+- Harness/reproducibility hardening: load-breaking mutants are inconclusive
+  (no false kills); PyYAML declared as `tests/requirements.txt`, installed by
+  both workflows, honest skip on fresh checkouts; totals re-pinned (Python 303
+  discover + 5 archive; Node 308 + 19).
+- Fresh gates at the head: 21/21 validators, Python 303 (0 failures), Node
+  308/308, shard/failure/scanner 18 pass + 1 documented skip, archive 5/5,
+  exam-integrity probes 106/6,708 with 0 problems, 2,146/2,146 curated
+  bindings, scan 0 findings both modes.
+- Not tested here: local browser suites (no browser binaries / no CDN egress;
+  CI covers), screen-reader pass, physical low-memory devices, live
+  Vercel/Supabase verification, production POST (prohibited).
+- No merge/tag/release/deploy; protected files untouched; logs append-only.
+
+## Session 6 — final merge-readiness audit round (2026-11-27, head `b8c3dbf`)
+
+- Fresh adversarial probe round against the whole runtime module in
+  `index.html` (four batteries + static sweeps; every non-bug flag
+  adjudicated against the real contract before dismissal — no false-positive
+  fixes landed).
+- One confirmed defect: CR-SR6-1 — `highlightMatch` uncaught SyntaxError on
+  huge search queries (V8 lazy RegExp compile; constructor guarded, first use
+  not). Fixed to the documented fallback contract (`escapeHtml(source)`) with
+  regression assertions in `tests/static-app.test.js`; before/after evidence
+  in `evidence/session-2026-11-27/highlight-lazy-regex-crash-evidence.txt`.
+- Fresh gates at the fix head: canonical CI Node set 289/289, shard trio
+  18 pass + 1 documented skip, telemetry 19/19, Python 303/303, archive 5/5,
+  gates held as designed, all probe batteries re-run 0 flags (exam core
+  106/6,708/3,292 with 0 problems, unchanged).
+- Next: push, request CodeRabbit on PR #89, verify every CodeRabbit finding
+  and inspect around it; report all bugs found and fixes.
+- No merge/tag/release/deploy; protected files untouched; logs append-only.
+
+## Session 6b — CodeRabbit round (2026-11-27, head `f58fd93`)
+
+- All 18 CodeRabbit findings verified (repro-first) and fixed: scanner
+  include-bypass + format-expression + quoted-run-key coverage (Major ×3),
+  telemetry URL user-info `?`/`#` boundary (both scrubbers), and the
+  evidence-honesty batch (probe enforcement, measured alignment, pure-JSON
+  reports, tracked paths, documented overrides, guarded inconclusive cases,
+  host-independent harness, content-checking CI gate).
+- Fresh gates: canonical CI Node 289/289, scanner trio 22+1skip, telemetry
+  19/19, Python 303/303, archive 5/5, mutation cr 12/12 killed, ds1 OK on a
+  lockless host, clean-tree scan 0 findings both modes, probe batteries
+  0 flags, exam core 106/6,708/3,292/0/0.
+- No merge/tag/release/deploy; protected files untouched; logs append-only.

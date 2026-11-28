@@ -25,12 +25,23 @@ on:
   workflow_dispatch:
     inputs:
       force_deploy:
-        description: "Deploy even while the release named in DEPLOY_HOLD is unpublished"
+        description: >-
+          Deploy even while the release named in DEPLOY_HOLD is unpublished
+          (prereleases only — a stable release additionally requires
+          stable_deploy_authorized=true; with that input set as well, this
+          override can deploy a stable release before its tag is published.
+          When APP_VERSION cannot be classified, the build is treated as
+          potentially stable, so the same additional input is required)
         required: false
         type: boolean
         default: false
       stable_deploy_authorized:
-        description: "Confirm separate user authorization to deploy a published stable release"
+        description: >-
+          Confirm separate user authorization to deploy a stable release.
+          Required for a stable release even when force_deploy=true; combined
+          with force_deploy=true it also authorizes deploying a stable release
+          that is not yet published, or one whose APP_VERSION declaration is
+          missing, malformed, or duplicated (unclassifiable)
         required: false
         type: boolean
         default: false
@@ -66,6 +77,9 @@ jobs:
       # The release named in DEPLOY_HOLD must be published before Pages deploys.
       # Published prereleases dispatch this workflow on main because the Pages environment
       # allows main only. Tests always run; only the publish steps are deferred.
+      # A maintainer may override the hold for one run via workflow_dispatch with
+      # force_deploy=true (deploy_gate.py honours it); the application-release gate
+      # still refuses a stable version without stable_deploy_authorized=true.
       - name: Evaluate deploy hold
         id: gate
         env:
@@ -111,11 +125,14 @@ jobs:
           python scripts/audit_exam_provenance.py --check
 
       - name: Run Python unit tests
-        run: python -m unittest discover -s tests -p 'test_*.py'
+        # Same declared dependency as ci.yml (tests/requirements.txt).
+        run: |
+          python -m pip install --disable-pip-version-check --quiet -r tests/requirements.txt
+          python -m unittest discover -s tests -p 'test_*.py'
 
       # Node is used only for dependency-free tests; production is a single HTML file.
       - name: Run static app logic, scoring and single-file tests
-        run: node --trace-deprecation --test tests/static-app.test.js tests/exam-scoring.test.js tests/exam-anomalies.test.js tests/rc10-cefr.test.js tests/v100-senses.test.js tests/exam-exempt-rubric.test.js tests/telemetry-api.test.js tests/core-invariants.test.js tests/exam-persistence.test.js
+        run: node --trace-deprecation --test tests/static-app.test.js tests/exam-scoring.test.js tests/exam-anomalies.test.js tests/rc10-cefr.test.js tests/v100-senses.test.js tests/exam-exempt-rubric.test.js tests/telemetry-api.test.js tests/telemetry-entrypoint.test.js tests/core-invariants.test.js tests/exam-persistence.test.js
 
       # Publish only the fully self-contained application file.
       - name: Stage standalone HTML

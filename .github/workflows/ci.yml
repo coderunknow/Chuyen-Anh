@@ -6,6 +6,8 @@ on:
     # branch, so a `main`-only filter meant such a PR ran no CI at all (PR #84).
     branches: [main, "arena/**"]
     paths: &ci-paths
+      - ".github/workflows/**"
+      - "scripts/scan_workflow_injection.mjs"
       - "index.html"
       - "Learned_Vocabulary_List.md"
       - "Learned_Phrase_List.md"
@@ -147,7 +149,13 @@ jobs:
           python scripts/audit_exam_provenance.py --check
 
       - name: Run Python unit tests
-        run: python -m unittest discover -s tests -p 'test_*.py'
+        # The suite's own dependencies are declared in tests/requirements.txt
+        # (the telemetry smoke gate parses the real workflow YAML). Installing
+        # them explicitly keeps the run independent of whatever the runner
+        # image happens to preinstall.
+        run: |
+          python -m pip install --disable-pip-version-check --quiet -r tests/requirements.txt
+          python -m unittest discover -s tests -p 'test_*.py'
 
       # The archive conversion suite needs the exam pipeline's own dependencies
       # (`scripts/exams/requirements.txt`). Without them two of its five tests
@@ -164,16 +172,23 @@ jobs:
       - name: Run static app logic, scoring and single-file tests
         run: node --trace-deprecation --test tests/static-app.test.js tests/exam-scoring.test.js tests/exam-anomalies.test.js tests/rc10-cefr.test.js tests/v100-senses.test.js tests/exam-exempt-rubric.test.js tests/core-invariants.test.js tests/exam-persistence.test.js
 
-      - name: Verify browser shard partition and failure-capture lifecycle
+      - name: Verify browser shard partition, failure capture and workflow-injection scanning
         run: |
+          # The scanner's parsed walk must be REQUIRED in CI, not silently
+          # skipped: install the pinned Node YAML parser and expose it via
+          # NODE_PATH (the project itself stays dependency-free). Without it
+          # the suite's parsed-mode tests skip and the fallback is the only
+          # validated mode — a skipped parser test must not count as coverage.
+          npm install --no-save --prefix "$RUNNER_TEMP/scanner-yaml" yaml@2.9.1
+          export NODE_PATH="$RUNNER_TEMP/scanner-yaml/node_modules"
           node scripts/shard_browser_suite.mjs --check
-          node --test tests/shard-browser-suite.test.mjs tests/fresh-world-failure.test.cjs
+          node --test tests/shard-browser-suite.test.mjs tests/fresh-world-failure.test.cjs tests/workflow-injection-scan.test.mjs
 
       # rc5/rc8: the ingestion endpoint is the only server-side code in the project,
       # so its contract (origins, size limits, stored fields, status codes, fail-closed salt)
       # is pinned by its own suite rather than by a live request.
       - name: Run telemetry endpoint contract tests
-        run: node --trace-deprecation --test tests/telemetry-api.test.js
+        run: node --trace-deprecation --test tests/telemetry-api.test.js tests/telemetry-entrypoint.test.js
 
   # Run five disjoint learning-suite regions on each engine. The generator's
   # exact-once partition check runs in `checks`; each matrix job regenerates the

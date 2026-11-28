@@ -1,0 +1,6 @@
+papers with parsing-detectable Reading questions: 19
+paperA = 2026/tp-ho-chi-minh/ptnk | paperB = 2026/tay-ninh/so
+A prompt ok: Some Hollywood terms are derived from murder mystery films. Language and culture
+B prompt ok: Read the following passage and for questions 46-53 decide which answer (A, B, C 
+section-switch within paper B ok
+PROBE PASS: reading lifecycle — distinct papers, no cross-paper passage leakage, no stale state after switching, reload/resume byte-identical, 0 page errors, 0 external requests

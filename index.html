@@ -547071,7 +547071,7 @@ export const MODES = Object.freeze({
   FLASHCARD: 'flashcard'
 });
 
-export const APP_VERSION = 'v1.0.0-rc11';
+export const APP_VERSION = 'v1.0.0';
 export const LICENSE_NAME = 'MIT License';
 export const LICENSE_COPYRIGHT = '© 2026 coderunknow';
 export const LICENSE_TEXT = `MIT License
@@ -547240,13 +547240,17 @@ export function highlightMatch(text, query) {
   const source = String(text ?? '');
   const needle = String(query ?? '').trim();
   if (!needle) return escapeHtml(source);
-  let pattern;
+  let marked;
   try {
-    pattern = new RegExp(needle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+    const pattern = new RegExp(needle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+    // V8 compiles a RegExp body lazily, so the constructor can succeed and the
+    // first use still throw: a query with tens of thousands of atoms (the search
+    // field has no length cap) overflows the engine's own matcher. The fallback
+    // is exactly the constructor-failure contract — plain escaped text, no <mark>.
+    marked = source.replace(pattern, match => `\u0000${match}\u0001`);
   } catch {
     return escapeHtml(source);
   }
-  const marked = source.replace(pattern, match => `\u0000${match}\u0001`);
   if (!marked.includes('\u0000')) return escapeHtml(source);
   return escapeHtml(marked).replace(/\u0000/g, '<mark>').replace(/\u0001/g, '</mark>');
 }
@@ -547337,12 +547341,35 @@ export function commitStagedWrites(realStorage, writes) {
     const probeKey = '__chuyen-anh.import.probe';
     const probeSize = netNeed + 4096 + Math.ceil(netNeed / 2);
     let fits = false;
+    // The probe key is a fixed, documented name, so a pre-existing value under
+    // it belongs to whoever stored it — the preflight must overwrite it only
+    // for the duration of the probe and put it back afterwards, on success and
+    // on failure alike (a collision must never destroy user data or leave the
+    // probe string behind).
+    let probePrevious = null;
+    let probePreviousKnown = true;
+    try { probePrevious = realStorage.getItem(probeKey); } catch { probePreviousKnown = false; }
+    if (!probePreviousKnown) {
+      // The pre-read failed: whether the key holds a value is unknown, so the
+      // probe must not run at all — overwriting it could destroy a value we
+      // could never put back. Refuse the commit; nothing has been touched.
+      return false;
+    }
     try {
       realStorage.setItem(probeKey, 'x'.repeat(probeSize));
-      realStorage.removeItem(probeKey);
       fits = true;
     } catch {
-      try { realStorage.removeItem(probeKey); } catch { /* nothing landed */ }
+      // The probe value never landed; the store refused the write itself.
+    } finally {
+      try {
+        if (probePrevious === null || probePrevious === undefined) realStorage.removeItem(probeKey);
+        else realStorage.setItem(probeKey, probePrevious);
+      } catch {
+        // Restoring the pre-existing value failed even though the (larger)
+        // probe write had fit — the store shrank underneath us. Best effort:
+        // never leave the probe string behind; fall back to removing the key.
+        try { realStorage.removeItem(probeKey); } catch { /* give up quietly */ }
+      }
     }
     if (!fits) return false;
   }
@@ -548110,6 +548137,7 @@ const EN_UI_TRANSLATIONS = Object.freeze({
   'Kiểu hiển thị trong tệp không hợp lệ.': 'The display mode in the file is invalid.',
   'Tệp cài đặt không phải JSON hợp lệ.': 'The settings file is not valid JSON.',
   'Tệp cài đặt quá lớn.': 'The settings file is too large.',
+  'Tệp sao lưu quá lớn (giới hạn 4 MiB).': 'The backup file is too large (4 MiB limit).',
   'Không thể lưu kết quả vì bản đề này đã được lưu với bộ câu hỏi khác; hãy mở lại đề từ kho và làm lại.': 'The result could not be saved because this paper was saved with a different set of questions. Reopen it from the archive and retake it.',
   'Bộ lọc CEFR vừa thay đổi: đã bỏ X thẻ nằm ngoài mức đang chọn khỏi phiên.': 'The CEFR filter just changed: X cards outside the selected level(s) were removed from the session.',
   'Đã bật nhóm từ và chọn làm trọng tâm phiên học.': 'Word family enabled and set as the focus of the study session.',
@@ -548796,11 +548824,23 @@ export function skipSessionCard(session, completedTurns = 0, gap = SPRINT_CONSOL
       ? Math.max(0, completedTurns - c.firstPassTurn - 1)
       : Math.max(0, gap - (Number.isFinite(c.scheduledAfter) ? c.scheduledAfter : gap));
     const needed = Math.max(0, gap - elapsed);
-    let nonPracticeBeforeSkipped = Math.max(0, session.length - 1);
-    while (nonPracticeBeforeSkipped > 0 && session[nonPracticeBeforeSkipped - 1]?.practice) {
-      nonPracticeBeforeSkipped -= 1;
+    // Two-part rule (mirrored by the replay oracle in static-app.test.js):
+    // `needed` decays with EVERY graded turn (elapsed uses sessionStats
+    // .completedTurns — a graded practice retry of another word is real
+    // retrieval evidence for the session, while a skipped card never grades
+    // and never closes the gap), and the INSERTION POINT below counts only
+    // REAL intervening first-pass retrievals so the consolidation is placed
+    // behind at least `needed` real cards. An unsatisfied consolidation must
+    // never jump ahead of a real first-pass card that is still queued — the
+    // old absolute-position clamp put it at the front when skips dominated
+    // the queue, collapsing the gap to 0.
+    let realSeen = 0;
+    let target = session.length;
+    for (let i = 0; i < session.length; i += 1) {
+      if (session[i]?.practice || session[i]?.consolidation) continue;
+      realSeen += 1;
+      if (realSeen >= needed) { target = i + 1; break; }
     }
-    const target = Math.min(needed, nonPracticeBeforeSkipped);
     session.splice(target, 0, c);
   }
   return true;
@@ -549473,6 +549513,12 @@ export const DEVICE_SETTINGS_VERSION = 1;
 // whole selection into memory first and could hang the tab, which is why the size
 // is checked on the File, not on the parsed result.
 export const DEVICE_SETTINGS_MAX_BYTES = 64 * 1024;
+// A progress backup is one JSON object (progress, prefs, favourites, session
+// history, streak). 4 MiB is the same bound the exam-history importer uses and
+// is far above any real backup; the point is that an oversized or malformed
+// file is rejected by `file.size` BEFORE `file.text()` can allocate it on the
+// main thread. The validator enforces the same bound for non-UI callers.
+export const PROGRESS_BACKUP_MAX_BYTES = 4 * 1024 * 1024;
 
 // The exact set this file may carry. Anything else in the object is ignored on
 // read (a newer writer may add fields) and never written on export.
@@ -550182,9 +550228,37 @@ const TELEMETRY_TOKEN = /^[a-z0-9][a-z0-9._-]{0,39}$/;
 // not the content the learner typed.
 const TELEMETRY_QUOTE = /["'`«»“”‘’]/;
 const TELEMETRY_EMAIL = /[\w.+-]+@[\w-]+\.[\w.-]+/g;
+// Secret-shaped strings an error message can quote verbatim (a failed fetch
+// prints its own Authorization header, a request error can carry a token in a
+// URL). Kept in sync with SECRET_SHAPES in api/telemetry.js, which re-scrubs
+// every note server-side. Quoted fragments and e-mail addresses do not catch
+// any of these, and a diagnostics note must never become the way a credential
+// leaves a device.
+const TELEMETRY_SECRET_SHAPES = [
+  // Classic tokens plus GitHub's fine-grained personal access tokens
+  // (github_pat_ + 22 + '_' + 59 characters).
+  [/\b(?:ghp|gho|ghu|ghs|ghr)_[A-Za-z0-9]{16,}\b|\bgithub_pat_[A-Za-z0-9]{22}_[A-Za-z0-9]{59}\b/g, '…'],
+  [/\bsk-(?:proj-)?[A-Za-z0-9_-]{16,}\b/g, '…'],
+  // RFC 6750 b64token: 1*( ALPHA / DIGIT / "-" / "." / "_" / "~" / "+" / "/" ) *"=".
+  // No minimum length: a short credential is still a credential.
+  [/\bBearer\s+[A-Za-z0-9._~+/-]+=*/gi, '…'],
+  // RFC 3986 user-info: everything between '://' and the LAST '@' of the
+  // authority is the credential — the WHATWG URL parser treats earlier '@'
+  // characters as credential DATA, so stopping at the first '@' would leave
+  // the password of https://alice@team:secret@host intact. The scan still
+  // stops at '/', '?', '#' and whitespace: user-info sits between the scheme
+  // and the authority, so a query or fragment after the host — even one that
+  // itself contains an '@' — is not a credential and must reach the log
+  // intact (https://api.example.test?contact=alice@localhost keeps its host).
+  [/([a-z][a-z0-9+.-]*:\/\/)[^\s/?#]*@/gi, '$1…@']
+];
 
 export function scrubTelemetryText(value, maxLength = 120) {
   let text = String(value ?? '').replace(/[\u0000-\u001f\u007f]/g, ' ');
+  // Secret patterns run before the quote split: an apostrophe inside URL
+  // user-info (RFC 3986 allows it) would otherwise truncate the text before the
+  // '@' is redacted, leaving the password prefix in the note.
+  for (const [pattern, replacement] of TELEMETRY_SECRET_SHAPES) text = text.replace(pattern, replacement);
   text = text.split(TELEMETRY_QUOTE)[0];
   text = text.replace(TELEMETRY_EMAIL, '…').replace(/\s+/g, ' ').trim();
   const cap = Number.isFinite(Number(maxLength)) && Number(maxLength) > 0 ? Math.floor(Number(maxLength)) : 120;
@@ -551226,6 +551300,12 @@ export function exportProgressBundle({
 
 export function validateImportPayload(payload, validIds = null) {
   if (!payload || typeof payload !== 'object' || Array.isArray(payload)) throw new Error('Tệp sao lưu phải là một đối tượng JSON.');
+  // Same bound as the UI import path, enforced here for non-UI callers that
+  // hand the validator an already-parsed (potentially huge) object: the payload
+  // is rejected before any per-word validation work allocates on top of it.
+  if (new TextEncoder().encode(JSON.stringify(payload)).length > PROGRESS_BACKUP_MAX_BYTES) {
+    throw new Error('Tệp sao lưu quá lớn (giới hạn 4 MiB).');
+  }
   if (payload.app !== 'chuyen-anh-flashcard' || payload.version !== 1) throw new Error('Tệp sao lưu không đúng phiên bản của Chuyên Anh.');
   if (!payload.progress || typeof payload.progress !== 'object' || Array.isArray(payload.progress)) throw new Error('Bản sao lưu thiếu tiến độ học hợp lệ.');
   const progress = {};
@@ -558230,6 +558310,13 @@ export async function createApp(root) {
     const file = event.target.files?.[0];
     if (!file) return;
     try {
+      if (file.size > PROGRESS_BACKUP_MAX_BYTES) {
+        // Never call file.text() for a file this size: reading and parsing it
+        // is exactly the main-thread stall an oversized file would cause.
+        toast('Tệp sao lưu quá lớn (giới hạn 4 MiB).', 'error');
+        event.target.value = '';
+        return;
+      }
       const parsed = JSON.parse(await file.text());
       const imported = validateImportPayload(parsed, validIds); // no storage mutation before this completes
       // The imported scheduler state must not continue an in-memory queue that no

@@ -1,0 +1,13 @@
+{
+  "sampleTarget": 220,
+  "checked": 198,
+  "agree": 198,
+  "agreementPct": 100,
+  "mismatches": [],
+  "unverifiableCount": 3,
+  "unverifiableSample": [
+    "favourite/adj@cefrj-vocabulary-profile-1.5",
+    "narrative/n@oxford-3000-wordlist",
+    "grey/n@cefrj-vocabulary-profile-1.5"
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "transcriptFallbackItems": 325,
+  "lowConfidence": 312,
+  "scorable": 307,
+  "exempt": 18,
+  "officialClaims": 0,
+  "papersWithFallbackItems": 26,
+  "largestPapers": [
+    [
+      "2026/nghe-an/so",
+      34
+    ],
+    [
+      "2026/tay-ninh/so",
+      24
+    ],
+    [
+      "2026/vinh-long/so",
+      21
+    ],
+    [
+      "2025/thai-binh/so",
+      20
+    ],
+    [
+      "2025/bac-giang/so",
+      15
+    ]
+  ],
+  "sourceStatusCounts": {
+    "reconstructed": 7,
+    "listening_transcript_fallback": 325,
+    "single_source_transcription": 276,
+    "curated_domain_verified": 23,
+    "invalid_key": 13,
+    "ambiguous_source": 1,
+    "open_ended_exempt": 5
+  },
+  "violations": [],
+  "violationCount": 0
+}

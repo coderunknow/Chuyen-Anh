@@ -1,0 +1,18 @@
+{
+ "notes": {
+  "A_sourceHashAndBodyMatch": "106/106",
+  "B_alignmentProbe": {
+   "papers": 106,
+   "questions": 6708,
+   "uniqueIds": 6708,
+   "failureCount": 0,
+   "exitCode": 0,
+   "failures": []
+  },
+  "C_crossPaperPassageDupes": 0,
+  "D_papers": 106,
+  "D_answerKeyEntries": 6708
+ },
+ "problems": [],
+ "problemCount": 0
+}

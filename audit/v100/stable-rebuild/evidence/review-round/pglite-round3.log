@@ -1,0 +1,8 @@
+A) OLD migration, 130 keyless calls: {"ok":120,"rate_limited":10} firstGlobalBucketIndex=120 firstClientRefusal=-1
+A) honest client after the keyless flood: {"scope":"global","status":"rate_limited"}
+A) OLD migration accepts a non-hex, injection-shaped client_key: {"id":"e456be1f-84ba-4516-8750-e2576ddb6b17","status":"ok"} reports rows after: 1
+B1) HARDENED migration, 10 keyless calls: {"ok":5,"rate_limited":5} firstClientRefusal=5 firstGlobalRefusal=-1
+B1) a different honest client in the same window: {"id":"ecd9a4e1-234b-4410-b2d5-c90ea9c03fbd","status":"ok"}
+B1) HARDENED migration rejects the injection-shaped client_key: {"reason":"invalid-client-key","status":"invalid"}
+B2) HARDENED migration, 130 keyless calls: {"ok":5,"rate_limited":125} firstClientRefusal=5 firstGlobalRefusal=120
+RESULT old-behavior-demonstrated=true hardened-behavior-demonstrated=true

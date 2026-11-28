@@ -1,0 +1,33 @@
+{
+  "papers": 106,
+  "total": 6708,
+  "scorable": 5155,
+  "exempt": 1553,
+  "noKey": 0,
+  "scorablePct": 76.85,
+  "nonExemptCoveragePct": 100,
+  "exemptByCategory": {
+    "missing_stimulus": 627,
+    "missing_stimulus / stimulus-incomplete": 627,
+    "structural_transcription_defect": 768,
+    "structural_transcription_defect / ocr-structural-defect": 749,
+    "open_ended_writing_or_speaking": 158,
+    "open_ended_writing_or_speaking / essay-open-ended-exempt": 158,
+    "structural_transcription_defect / key-not-an-option": 7,
+    "structural_transcription_defect / option-overflow": 12
+  },
+  "sourceStatuses": {
+    "curated_domain_verified": 1407,
+    "reconstructed": 395,
+    "single_source_transcription": 3339,
+    "ambiguous_source": 14
+  },
+  "confidence": {
+    "MEDIUM": 4281,
+    "LOW": 874
+  },
+  "curatedHashChecked": 2146,
+  "curatedHashMismatches": 0,
+  "hashMismatchSample": [],
+  "noKeySample": []
+}

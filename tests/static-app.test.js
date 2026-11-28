@@ -1120,6 +1120,34 @@ test('the diagnostics log is opt-in, local, bounded and free of learner content'
   assert.equal(event.counters.bad, undefined, 'a non-numeric counter is dropped');
   assert.equal(scrubTelemetryText('a'.repeat(400)).length, 120, 'a note is capped');
   assert.equal(scrubTelemetryText('line\u0000break\nx'), 'line break x', 'control characters never enter the log');
+  // A credential quoted by an error message must never travel in a note: the
+  // scrubber removes secret-shaped strings in addition to quoted fragments and
+  // e-mail addresses (kept in sync with SECRET_SHAPES in api/telemetry.js).
+  assert.equal(
+    scrubTelemetryText('request failed with token ghp_0123456789abcdefghijklmnopqrstuvwxyz in headers'),
+    'request failed with token … in headers',
+    'a GitHub token inside a note is redacted'
+  );
+  assert.equal(
+    scrubTelemetryText('upload failed using sk-proj-9f8e7d6c5b4a3210feedcba9876543210 at retry 2'),
+    'upload failed using … at retry 2',
+    'an OpenAI-style key inside a note is redacted'
+  );
+  assert.equal(
+    scrubTelemetryText('network error: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.disallowed'),
+    'network error: …',
+    'a bearer credential inside a note is redacted'
+  );
+  assert.equal(
+    scrubTelemetryText('could not reach https://learner:s3cretpass@private.example.com/api'),
+    'could not reach https://…@private.example.com/api',
+    'credentials inside a URL are redacted but the host stays readable'
+  );
+  assert.equal(
+    scrubTelemetryText('plain failure at retry 2 keeps its words'),
+    'plain failure at retry 2 keeps its words',
+    'an ordinary message without a secret shape is untouched'
+  );
 
   // ---- Bounded, immutable ------------------------------------------------------
   let log = [];
@@ -1188,6 +1216,85 @@ test('the diagnostics log is opt-in, local, bounded and free of learner content'
   assert.equal(TELEMETRY_RETENTION_DAYS, 90, 'the stated retention matches the database policy');
   assert.match(appScript[1], /clearTelemetryLog\(storage\)/, 'withdrawing consent erases the log');
   assert.match(TELEMETRY_CONTACT_URL, /^https:\/\/github\.com\/coderunknow\/Chuyen-Anh\/issues$/);
+});
+
+test('rc5 round 2: the client scrubber covers fine-grained GitHub tokens, the full Bearer alphabet, every URL user-info form and the redaction order', () => {
+  const fineGrained = `github_pat_${'1'.repeat(22)}_${'A'.repeat(59)}`;
+  assert.equal(
+    scrubTelemetryText(`upload failed for ${fineGrained}`),
+    'upload failed for …',
+    'a fine-grained GitHub token is redacted'
+  );
+  assert.equal(
+    scrubTelemetryText('Authorization: Bearer +ab~/cdEF9='),
+    'Authorization: …',
+    'a Bearer credential using the RFC 6750 alphabet (+ / ~ and trailing =) is redacted'
+  );
+  assert.equal(
+    scrubTelemetryText('Authorization: Bearer abc123'),
+    'Authorization: …',
+    'a Bearer credential shorter than twelve characters is redacted'
+  );
+  assert.equal(
+    scrubTelemetryText('Authorization: Bearer -LeadingHyphen0123'),
+    'Authorization: …',
+    'a Bearer credential starting with a hyphen is redacted'
+  );
+  assert.equal(
+    scrubTelemetryText('Authorization: Bearer abc-def-ghi'),
+    'Authorization: …',
+    'a Bearer credential with embedded hyphens is redacted'
+  );
+  assert.equal(
+    scrubTelemetryText('could not reach https://:s3cr3tcredential@localhost/path'),
+    'could not reach https://…@localhost/path',
+    'URL user-info with an empty username is redacted'
+  );
+  assert.equal(
+    scrubTelemetryText(`fetch failed https://alice:SecretPrefix'***@example.test/`),
+    'fetch failed https://…@example.test/',
+    'an apostrophe inside URL user-info cannot hide the credential: the secret patterns run before the quote split'
+  );
+  assert.equal(
+    scrubTelemetryText('request failed https://alice-secret@localhost/api'),
+    'request failed https://…@localhost/api',
+    'URL user-info carrying only a username is redacted'
+  );
+  assert.equal(
+    scrubTelemetryText('request failed https://alice-secret:@localhost/api'),
+    'request failed https://…@localhost/api',
+    'URL user-info with an empty password is redacted'
+  );
+  assert.equal(
+    scrubTelemetryText('could not reach https://user@[2001:db8::1]:8443/api'),
+    'could not reach https://…@[2001:db8::1]:8443/api',
+    'URL user-info before an IPv6 authority is redacted'
+  );
+  assert.equal(
+    scrubTelemetryText('path is fine https://example.com/@user'),
+    'path is fine https://example.com/@user',
+    'an @ in a URL path is not user-info and must not be redacted'
+  );
+  assert.equal(
+    scrubTelemetryText('could not reach https://api.example.test?contact=alice@localhost/path'),
+    'could not reach https://api.example.test?contact=alice@localhost/path',
+    'an @ in a URL query is not user-info: the real host and query survive intact'
+  );
+  assert.equal(
+    scrubTelemetryText('report https://api.example.test/page#signed-off-by-alice@localhost'),
+    'report https://api.example.test/page#signed-off-by-alice@localhost',
+    'an @ in a URL fragment is not user-info: the fragment survives intact'
+  );
+  assert.equal(
+    scrubTelemetryText('fetch failed https://alice@team:secret-pass@localhost/api'),
+    'fetch failed https://…@localhost/api',
+    'nested user-info: the credential runs through the LAST @ (WHATWG URL treats earlier @ as credential data), so the password is redacted too'
+  );
+  assert.equal(
+    scrubTelemetryText('fetch failed https://alice@team:secret-pass@localhost/api?contact=bob@host'),
+    'fetch failed https://…@localhost/api?contact=bob@host',
+    'nested user-info is redacted while a query email after the authority survives'
+  );
 });
 
 test('rc5: the diagnostics report is sent once, bounded, and explained when it fails', async () => {
@@ -1591,7 +1698,7 @@ test('exported exam results report exactly what the learner did and what could b
   const result = buildExamResultJson(session, record, keys, [], { now: 6000 });
   assert.equal(result.app, 'Chuyên Anh');
   assert.equal(result.version, APP_VERSION, 'the result carries the application version');
-  assert.equal(result.version, 'v1.0.0-rc11');
+  assert.equal(result.version, 'v1.0.0');
   assert.equal(result.schemaVersion, '2.0.0');
   assert.equal(result.summary.total, 3);
   // q3 has no stored answer key, so it is excluded from the denominator instead
@@ -2088,6 +2195,114 @@ test('Scope B.1: queueConsolidation maintains gap >= min(3, N-1) for every sessi
   assert.doesNotMatch(app.consolidationTurnNote(0), /vài thẻ khác|ba thẻ khác/);
   assert.doesNotMatch(app.consolidationTurnNote(1), /ba thẻ khác/);
   assert.match(app.consolidationTurnNote(3), /ba thẻ khác|vài thẻ khác/);
+});
+
+test('Scope B.1b: continuous skipping never lets an unsatisfied consolidation jump ahead of a real first-pass card', () => {
+  // Owner-reported bug (session 7): skipping continuously collapsed the
+  // consolidation gap — the old skipSessionCard clamp counted absolute queue
+  // positions and walked down past practice cards only, so once skips and
+  // corrective retries dominated the queue the consolidation was clamped to
+  // index 0 and answered immediately after its own first pass (gap 0) while a
+  // real first-pass card was still queued behind it.
+  const simulate = (size, actions) => {
+    const session = Array.from({ length: size }, (_, i) => ({
+      vocab: embeddedVocabulary[i],
+      progress: createInitialProgress(embeddedVocabulary[i].id, 0)
+    }));
+    const log = [];
+    let guard = 0;
+    let step = 0;
+    while (session.length) {
+      guard += 1;
+      assert.ok(guard < 4000, `Queue failed to drain within bound for N=${size}`);
+      const cur = session[0];
+      const kind = cur.consolidation ? 'consolidation' : cur.practice ? 'practice' : 'first';
+      let act = actions({ kind, step, completed: log.length });
+      step += 1;
+      if (act === 'skip') {
+        if (cur.consolidation) { act = 'correct'; } else {
+          assert.equal(app.skipSessionCard(session, log.length, SPRINT_CONSOLIDATION_GAP), true);
+          const seen = new Set(session.map(t => `${t.vocab.id}:${t.consolidation ? 'c' : t.practice ? 'p' : 'f'}`));
+          assert.equal(seen.size, session.length, 'a skip never duplicates or drops a queued turn');
+          continue;
+        }
+      }
+      const firstPass = !cur.practice && !cur.consolidation;
+      const correct = act === 'correct';
+      const demand = cur.demand || (firstPass ? sprintRetrievalDemand(cur.progress) : null);
+      const turnIndex = log.length;
+      if (cur.consolidation) {
+        // The contract (two-part rule, matching skipSessionCard): the REQUIRED
+        // gap decays with every GRADED turn (`elapsed` uses the same
+        // completedTurns measure as the app — practice turns are graded
+        // retrievals, so they count; skips never grade, so they never close
+        // the gap), while PLACEMENT additionally guarantees the consolidation
+        // sits behind the `needed` real first-pass retrievals its remaining
+        // gap demands. Hence: an unsatisfied consolidation (neededNow > 0)
+        // must never be graded while a real first-pass card is still queued
+        // behind it. When neededNow has decayed to 0 the placement still
+        // defers to the first queued real card, and grading it is correct.
+        const elapsed = Number.isInteger(cur.firstPassTurn) ? Math.max(0, turnIndex - cur.firstPassTurn - 1) : 0;
+        const neededNow = Math.max(0, SPRINT_CONSOLIDATION_GAP - elapsed);
+        const realBehind = session.slice(1).some(t => !t.practice && !t.consolidation);
+        assert.ok(neededNow === 0 || !realBehind,
+          `Consolidation for ${cur.vocab.id} jumped the queue: needed=${neededNow} but a real first-pass card is still queued`);
+      }
+      if (firstPass) {
+        cur.progress = updateProgress(cur.progress, correct, 100);
+        if (!correct) app.queuePractice(session, cur);
+        if (needsConsolidationTurn({ correct, demand })) {
+          app.queueConsolidation(session, cur, consolidationDemand({ correct, demand }), SPRINT_CONSOLIDATION_GAP, turnIndex);
+        }
+      }
+      log.push({ id: cur.vocab.id, kind });
+      session.shift();
+    }
+    return log;
+  };
+
+  // Deterministic replay of the reported pattern: every third turn graded
+  // (wrong, so corrective retries pile up), everything else skipped.
+  for (const phase of [0, 1, 2]) {
+    const log = simulate(7, ctx => (ctx.step % 3 === phase)
+      ? (ctx.kind === 'consolidation' ? 'correct' : 'wrong') : 'skip');
+    assert.equal(new Set(log.filter(t => t.kind === 'first').map(t => t.id)).size, 7,
+      `All 7 words completed their first pass (phase ${phase})`);
+  }
+
+  // Skip-heavy with wrong answers on larger sessions.
+  for (const size of [10, 15]) {
+    simulate(size, ctx => (ctx.step % 2 === 0)
+      ? 'skip'
+      : (ctx.kind === 'consolidation' ? 'wrong' : 'wrong'));
+  }
+
+  // The consolidation spacing contract itself, at the queue level: with a
+  // queue dominated by a practice retry and a skipped card, an unsatisfied
+  // consolidation must land AFTER the remaining real first-pass card, never
+  // in front of it.
+  {
+    const session = [
+      { vocab: embeddedVocabulary[0], progress: createInitialProgress(embeddedVocabulary[0].id, 0) },
+      { vocab: embeddedVocabulary[1], progress: createInitialProgress(embeddedVocabulary[1].id, 0), practice: true },
+      { vocab: embeddedVocabulary[2], progress: createInitialProgress(embeddedVocabulary[2].id, 0) },
+      { vocab: embeddedVocabulary[0], progress: createInitialProgress(embeddedVocabulary[0].id, 0), consolidation: true, demand: MODES.RECALL, firstPassTurn: 0, scheduledAfter: 1 }
+    ];
+    // skipSessionCard(session, completedTurns=1, gap=3): elapsed = 0, needed = 3,
+    // only one real first-pass card remains -> consolidation goes after it.
+    assert.equal(app.skipSessionCard(session, 1, SPRINT_CONSOLIDATION_GAP), true);
+    const kinds = session.map(t => `${t.vocab.id}${t.consolidation ? 'c' : t.practice ? 'p' : ''}`);
+    // The front card (word 0's real first pass) is the one being skipped, so it
+    // rotates to the back; with two real cards ('3' and the rotated '1') and
+    // needed = 3, the unsatisfied consolidation must land AFTER both of them.
+    assert.equal(kinds[kinds.length - 1], `${embeddedVocabulary[0].id}c`,
+      'the unsatisfied consolidation is last, never at the front');
+    assert.deepEqual(kinds.slice(0, kinds.length - 1).sort(),
+      [`${embeddedVocabulary[0].id}`, `${embeddedVocabulary[1].id}p`, `${embeddedVocabulary[2].id}`].sort(),
+      'both real first-pass cards sit in front of the unsatisfied consolidation');
+    assert.equal(kinds[0], `${embeddedVocabulary[1].id}p`,
+      'the practice retry keeps its relative position');
+  }
 });
 
 test('Scope B.2: handleAnswer strictly isolates updateStreak and progress writes to firstPass turns only', () => {
@@ -2859,6 +3074,19 @@ test('search highlighting never breaks the text it escapes', () => {
   assert.equal(highlightMatch('a+b', 'a+b'), '<mark>a+b</mark>');
   assert.equal(highlightMatch('anything', '   '), 'anything');
   assert.equal(highlightMatch(undefined, 'x'), '');
+  // V8 compiles a RegExp body lazily, so the constructor can succeed and the
+  // first replace() can still throw: a query with tens of thousands of atoms
+  // (the search field has no length cap) overflows the engine's matcher. The
+  // function must degrade to its documented no-highlight contract instead of
+  // crashing the search draw path (regression: 2026-11-27 audit, CR-SR6-1).
+  assert.equal(highlightMatch('searchable text', '*'.repeat(40_000)), 'searchable text');
+  assert.equal(highlightMatch('searchable text', '?'.repeat(60_000)), 'searchable text');
+  assert.equal(highlightMatch('a b', '+'.repeat(40_000)), 'a b');
+  // A huge source with a normal query still highlights every match.
+  assert.equal(
+    highlightMatch('word '.repeat(20_000).trim(), 'word').split('<mark>word</mark>').length - 1,
+    20_000
+  );
 });
 
 test('relative review times are plural-correct in both languages', () => {
@@ -3602,6 +3830,126 @@ test('remediation: a failed commit rolls back in reverse order and reports a fai
   assert.match(appScript[1], /'Could not save the imported data and the rollback may be incomplete; data on this device may be inconsistent\.'/);
 });
 
+test('remediation: the progress-backup importer rejects oversized files before reading them (P2)', () => {
+  // The import path must mirror the device-settings importer: a file above the
+  // cap is refused by `file.size` BEFORE `file.text()` allocates and parses it
+  // on the main thread, and the validator enforces the same bound for non-UI
+  // callers that hand it an already-parsed object.
+  const importStart = appScript[1].indexOf('async function importFile(event)');
+  assert.ok(importStart > 0, 'importFile must exist');
+  const importBody = appScript[1].slice(importStart, importStart + 1200);
+  const sizeCheck = importBody.indexOf('file.size > PROGRESS_BACKUP_MAX_BYTES');
+  const textRead = importBody.indexOf('file.text()');
+  assert.ok(sizeCheck >= 0, 'importFile must check file.size against PROGRESS_BACKUP_MAX_BYTES');
+  assert.ok(textRead > sizeCheck, 'the size check must run before file.text()');
+  assert.match(appScript[1], /export const PROGRESS_BACKUP_MAX_BYTES = 4 \* 1024 \* 1024;/);
+
+  // Validator bound: an oversized payload is rejected at entry, a normal one
+  // passes (no false positive).
+  const pad = 'x'.repeat(5 * 1024 * 1024);
+  const oversized = { app: 'chuyen-anh-flashcard', version: 1, progress: {}, history: [], streak: { a: 1 }, pad };
+  assert.throws(() => app.validateImportPayload(oversized, null), /quá lớn/,
+    'an oversized parsed payload must be rejected by the validator');
+  const normal = { app: 'chuyen-anh-flashcard', version: 1, progress: {}, favorites: [], history: [], streak: { longest: 0, last: null, current: 0 } };
+  const imported = app.validateImportPayload(normal, null);
+  assert.ok(imported && typeof imported.progress === 'object', 'a normal-size payload still imports');
+});
+
+test('remediation: the quota preflight never destroys a value stored under the probe key (P2)', () => {
+  // The probe key is a fixed, documented name, so a pre-existing value under it
+  // belongs to whoever stored it. The preflight must restore it on the success
+  // path, on a refused probe, AND on a failed real commit.
+  const PROBE = '__chuyen-anh.import.probe';
+  const makeStorage = ({ failProbe, failReal } = {}) => {
+    const state = new Map([['K', 'x'.repeat(10)], ['L', 'y'.repeat(20)], [PROBE, 'user-owned-value']]);
+    return {
+      state,
+      getItem: key => (state.has(key) ? state.get(key) : null),
+      setItem: (key, value) => {
+        if (failProbe && String(value).length > 100) throw new Error('quota');
+        if (failReal && key === 'K' && String(value).length > 100) throw new Error('quota');
+        state.set(key, String(value));
+      },
+      removeItem: key => { state.delete(key); }
+    };
+  };
+  const writes = new Map([['K', 'x'.repeat(200)]]); // netNeed > 0 -> the preflight runs
+
+  const okStore = makeStorage();
+  assert.equal(app.commitStagedWrites(okStore, writes), true);
+  assert.equal(okStore.state.get(PROBE), 'user-owned-value',
+    'a successful preflight restores the pre-existing probe-key value');
+
+  const refused = makeStorage({ failProbe: true });
+  assert.equal(app.commitStagedWrites(refused, writes), false);
+  assert.equal(refused.state.get(PROBE), 'user-owned-value',
+    'a refused preflight must not delete the pre-existing probe-key value');
+  assert.equal(refused.state.get('K'), 'x'.repeat(10),
+    'a refused preflight leaves the real keys untouched');
+
+  const failedCommit = makeStorage({ failReal: true });
+  assert.equal(app.commitStagedWrites(failedCommit, writes), false);
+  assert.equal(failedCommit.state.get(PROBE), 'user-owned-value',
+    'the probe-key value survives a failed real commit too');
+});
+
+test('remediation: the quota preflight is fail-safe when the probe-key pre-read or restore throws', () => {
+  // AUDIT-1: the snapshot read of the probe key can itself fail (exotic storage
+  // states). The preflight must then refuse the commit WITHOUT touching
+  // anything — it can never know whether a value existed to restore.
+  const PROBE = '__chuyen-anh.import.probe';
+  const state = new Map([[PROBE, 'keep-me'], ['K', 'x'.repeat(10)]]);
+  let getItemCalls = 0;
+  const flakyRead = {
+    state,
+    getItem: key => {
+      getItemCalls += 1;
+      if (getItemCalls === 2) throw new Error('storage glitch'); // first call = real-key snapshot, second = probe-key read
+      return state.has(key) ? state.get(key) : null;
+    },
+    setItem: (key, value) => { state.set(key, String(value)); },
+    removeItem: key => { state.delete(key); }
+  };
+  const refused = app.commitStagedWrites(flakyRead, new Map([['K', 'x'.repeat(200)]]));
+  assert.equal(refused, false, 'an unreadable probe-key pre-read must refuse the commit');
+  assert.equal(state.get(PROBE), 'keep-me',
+    'the pre-existing probe-key value is untouched when the pre-read fails');
+  assert.equal(state.get('K'), 'x'.repeat(10), 'real keys untouched too');
+
+  // AUDIT-1 (restore leg): if the store refuses even the RESTORE write after a
+  // successful probe, the probe string must never be left behind. This is the
+  // one deliberate exception to the P2 preservation contract above, and the
+  // test pins the WHOLE sequence: the original value is genuinely re-attempted
+  // first (restoreAttempts === 1); only when the store refuses THAT write is
+  // the app-owned scratch key deleted. Preservation is impossible here — the
+  // store just shrank below the value it already held — so deleting the probe
+  // residue is the fail-closed endpoint, not an accepted data loss: the value
+  // was read successfully (it is known app-scratch residue, not opaque data),
+  // and leaving the probe string would poison every future preflight.
+  const state2 = new Map([[PROBE, 'y'.repeat(9000)], ['K', 'x'.repeat(10)]]);
+  let restoreAttempts = 0;
+  const flakyRestore = {
+    state: state2,
+    getItem: key => (state2.has(key) ? state2.get(key) : null),
+    setItem: (key, value) => {
+      if (key === PROBE) {
+        if (String(value) === 'y'.repeat(9000)) { restoreAttempts += 1; throw new Error('store shrank'); }
+        // the initial probe write also targets PROBE but with the probe
+        // string, not the original value — only the restore attempt throws
+      }
+      state2.set(key, String(value));
+    },
+    removeItem: key => { state2.delete(key); }
+  };
+  const committed = app.commitStagedWrites(flakyRestore, new Map([['K', 'x'.repeat(200)]]));
+  assert.equal(committed, true, 'the probe proved the growth fits, so the commit proceeds');
+  assert.equal(restoreAttempts, 1,
+    'the original value is genuinely re-attempted before any fallback');
+  assert.equal(state2.get('K'), 'x'.repeat(200), 'the real write succeeded');
+  assert.equal(state2.has(PROBE), false,
+    'the failed restore falls back to removeItem: no probe residue is left behind');
+});
+
 test('rc4: showing or hiding meanings is a presentation preference, never a learning rule', () => {
   // Defaults: an existing profile keeps the interface and the glosses it had.
   assert.deepEqual(DEFAULT_PRESENTATION, { meanings: 'show', interface: 'classic' });
@@ -4041,15 +4389,15 @@ test('every shipped version literal agrees with APP_VERSION', async () => {
   ];
   const stale = pins.filter(entry => !entry.endsWith(shipped));
   assert.deepEqual(stale, [], 'no shipped file still names an older version');
-  // The shipped build is the published prerelease v1.0.0-rc11, so the hold
-  // names that same tag. deploy_gate.py reads it as published and opens, and
-  // app_release_gate.py confirms the exact APP_VERSION is published in its
-  // channel. A prerelease needs no stable authorization; the stable v1.0.0
-  // identity is not the current release.
+  // The shipped build carries the stable identity v1.0.0 behind the dual gate,
+  // while DEPLOY_HOLD names the published prerelease v1.0.0-rc11: deploy_gate.py
+  // reads that hold as published and opens, and app_release_gate.py holds Pages
+  // until `v1.0.0` is published in its channel AND a separate dispatch confirms
+  // `stable_deploy_authorized=true` (a force override is not sufficient).
   const hold = (await readFile(new URL('DEPLOY_HOLD', root), 'utf8')).trim();
-  assert.equal(hold, 'v1.0.0-rc11', 'the hold names the shipped published prerelease');
-  assert.equal(shipped, 'v1.0.0-rc11', 'this build ships the prerelease identity v1.0.0-rc11');
-  assert.equal(hold, shipped, 'the hold and the shipped identity name the same published release');
+  assert.equal(hold, 'v1.0.0-rc11', 'the hold names the published prerelease');
+  assert.equal(shipped, 'v1.0.0', 'this build ships the stable candidate identity');
+  assert.notEqual(hold, shipped, 'the stable identity must not ship behind a prerelease hold that names it');
 });
 
 /* ------------------------------ CEFR filter ------------------------------- */

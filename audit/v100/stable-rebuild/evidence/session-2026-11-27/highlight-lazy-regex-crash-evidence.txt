@@ -1,0 +1,62 @@
+CR-SR6-1 — highlightMatch uncaught SyntaxError on huge search queries (V8 lazy RegExp compile)
+================================================================================
+Found: 2026-11-27 final merge-readiness audit round (session 6), head b8c3dbf.
+Site:  index.html, module function `highlightMatch` (was line ~547239; the
+       try/catch wrapped only `new RegExp(...)`, NOT the first `.replace()`).
+
+Mechanism
+---------
+V8 compiles a RegExp body lazily: a syntactically valid constructor call can
+succeed and the FIRST USE (source.replace(pattern, ...)) can still throw
+SyntaxError ("Invalid regular expression: ... regular expression is too large").
+The search field (#search-field) has no maxlength and no JS-side length cap,
+so a learner pasting a huge string (>= ~40,000 escaped regex atoms, e.g.
+40,000 '*' characters) crashed the whole search draw() path with an uncaught
+exception. Not ReDoS (alternation is safe); purely a crash.
+
+Before fix (measured on the pre-fix module, Node v22.22.3)
+----------------------------------------------------------
+  highlightMatch('some text', '*'.repeat(30000))  -> ok (no match -> plain text)
+  highlightMatch('some text', '*'.repeat(40000))  -> THROWS SyntaxError
+      at source.replace(pattern, ...)  [outside the try/catch]
+  highlightMatch('some text', '*'.repeat(50000))  -> THROWS SyntaxError
+
+After fix (same probe, Node v22.22.3)
+-------------------------------------
+  30000 atoms -> "some text"   (unchanged: pattern does not match the source)
+  40000 atoms -> "some text"   (graceful no-highlight fallback, NO crash)
+  60000 atoms -> "some text"   (fallback, NO crash)
+ 200000 atoms -> "some text"   (fallback, NO crash)
+  normal queries byte-identical to pre-fix behaviour:
+    highlightMatch('hello world', 'wor')      -> "hello <mark>wor</mark>ld"
+    highlightMatch('A & B', '&')              -> "A <mark>&amp;</mark> B"
+    highlightMatch('<script>', 'SCRIPT')      -> "&lt;<mark>script</mark>&gt;"
+    highlightMatch('a+b', 'a+b')              -> "<mark>a+b</mark>"
+    highlightMatch('a.b c', '.')              -> "a<mark>.</mark>b c"
+
+Fix
+---
+Construction and first use are now inside ONE try/catch whose catch returns
+`escapeHtml(source)` — exactly the function's existing constructor-failure
+contract (plain escaped text, no <mark>). Comment in the source explains the
+lazy-compile mechanism. No other behaviour, data or API changed.
+
+Regression tests
+----------------
+tests/static-app.test.js, test "search highlighting never breaks the text it
+escapes": 40,000-atom '*' query, 60,000-atom '?' query and 40,000-atom '+'
+query each degrade to plain text without throwing; a 20,000-repetition source
+with a normal query still marks all 20,000 matches. Suite: 147/147 in the file,
+289/289 across the canonical CI Node set.
+
+Reachability notes
+------------------
+- `#search-field` (index.html search view) has no maxlength; the value flows
+  straight into highlightMatch per rendered row via the `hi` closure.
+- Embedded vocabulary/phrase/exam JSON cannot carry \u0000/\u0001 (verified
+  absent from all three payloads), so the fallback path can never corrupt
+  rendering.
+- `new RegExp` occurrences in the module: line 199 (this function) and the
+  exam cloze-context needle at ~5515, which interpolates `marker.number` —
+  always a Number() result (or NaN, which produces a harmless non-matching
+  literal); no injection path.

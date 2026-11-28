@@ -1,0 +1,43 @@
+# Negative controls for scripts/scan_workflow_injection.mjs (session 2026-11-27)
+# Head under test: the stable-rebuild branch head with this session's scanner fix.
+# Both reported defects of the no-parser fallback are demonstrated:
+#   (a) FALSE NEGATIVE — the pre-fix fallback missed a poisoned multiline run body;
+#   (b) FALSE POSITIVE — the pre-fix fallback flagged the CLEAN tree's inline
+#       literal-matrix interpolation (ci.yml), so the scanner exited 1 with no yaml.
+# The fixed fallback scans the full run body, keeps the literal-matrix allowlist
+# (strictly narrower than the parsed walk), and passes the clean tree in BOTH modes.
+
+===================================================================
+== PRE-FIX scanner (git 2fd29c2) on the clean tree               ==
+===================================================================
+(clean tree = this branch's 8 workflows; the pre-fix scanner cannot allowlist
+ literal matrix keys, so the safe ci.yml inline interpolation is flagged)
+pre-fix on CLEAN tree exit=1 (false positive: a clean workflow repository must exit 0)
+pre-fix findings: ["ci.yml:218"]
+
+===================================================================
+== PRE-FIX scanner on the poisoned multiline block fixture       ==
+===================================================================
+pre-fix with poisoned fixture exit=1
+pre-fix findings: ["ci.yml:212"]
+poisoned-fixture.yml flagged? NO — FALSE NEGATIVE: the multiline run body was never inspected
+
+===================================================================
+== FIXED scanner, fallback mode (no yaml module in this sandbox)  ==
+===================================================================
+fixed fallback with both poisons exit=1 (1 = both detected)
+findings: ["poisoned-fixture.yml:8 github.event.pull_request.title","poisoned-inline.yml:8 github.head_ref"]
+
+===================================================================
+== FIXED scanner, parsed walk (yaml@2.6.1 via NODE_PATH)          ==
+===================================================================
+fixed parsed with both poisons exit=1 (1 = both detected)
+parser: available (parsed walk)
+findings: ["poisoned-fixture.yml:leak:github.event.pull_request.title","poisoned-inline.yml:leak:github.head_ref"]
+
+===================================================================
+== FIXED scanner on the clean tree, both modes (evidence JSONs)    ==
+===================================================================
+workflow-injection-scan-fallback.json (this directory): exit 0, 0 findings, 'missing (conservative full-run-body fallback)'
+workflow-injection-scan-parsed.json  (this directory): exit 0, 0 findings, 'available (parsed walk)'
+Regression suite: tests/workflow-injection-scan.test.mjs — 10 tests (9 pass + 1 documented skip when yaml is absent)

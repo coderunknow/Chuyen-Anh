@@ -4,10 +4,10 @@
 
 | Version | Supported | Notes |
 | --- | --- | --- |
-| `v1.0.0-rc11` (current) | Yes | Current release identity declared on `main` (`index.html` standalone offline build + SHA-256-pinned `data/exam-curated-keys.json` + hardened `api/telemetry.js`). Published **prerelease** (not stable). `DEPLOY_HOLD` names `v1.0.0-rc11`, so `deploy_gate.py` is open. |
-| `v1.0.0-rc10` | Yes | Previous published prerelease (2026-11-03, PR #81). |
-| `v1.0.0` (stable) | No | Not the current release and not authorized as stable. Stable publication would require tag `v1.0.0` → `release-artifacts` draft → publish → separate dispatch with `stable_deploy_authorized=true`. |
-| `< v1.0.0-rc10` | No | Superseded prereleases; upgrade to `v1.0.0-rc11`. |
+| `v1.0.0` (stable candidate) | Yes | Candidate identity declared on the working branch (`index.html` standalone offline build + SHA-256-pinned `data/exam-curated-keys.json` + hardened `api/telemetry.js`). **Not yet published**: `DEPLOY_HOLD` still names the published prerelease `v1.0.0-rc11`, so `deploy_gate.py` is open, and `app_release_gate.py` holds Pages until the `v1.0.0` release is published in its channel and a separate dispatch sets `stable_deploy_authorized=true`. |
+| `v1.0.0-rc11` | Yes | Previous published prerelease (2026-11-14, PR chain #83–#86); the version live GitHub Pages served until the stable candidate is authorized. |
+| `v1.0.0-rc10` | No | Superseded prerelease (2026-11-03, PR #81). |
+| `< v1.0.0-rc10` | No | Superseded prereleases; upgrade to the current release. |
 
 ## Reporting a vulnerability
 
@@ -15,7 +15,7 @@ Please report security issues privately via GitHub's security advisory workflow 
 
 Do not open public issues for unpatched vulnerabilities or sensitive security findings.
 
-## Architecture & security controls (`v1.0.0-rc11`)
+## Architecture & security controls (`v1.0.0` stable candidate)
 
 - **Zero-network standalone client (`index.html`):** All vocabulary (`8,852` rows / `8,112` headwords), phrases (`1,094`), and exam transcriptions (`106` papers / `6,708` questions) are embedded locally. Curated domain-verified answer keys (`data/exam-curated-keys.json`) are fail-closed and cryptographically bound to `promptSha256` and `optionsSha256`. Study progress and exam history stay in browser `localStorage`. All untrusted/transcribed Markdown is HTML-escaped (`<script>`, `<iframe>`, `javascript:`/`data:`/`vbscript:` URLs, and raw HTML tags such as angle-bracket constituents in `2022/hai-phong/so` are rendered inert; only explicit `<u>` and `<br>` formatting tokens are emitted).
 - **Opt-in default-off diagnostics (`api/telemetry.js` + Supabase):**

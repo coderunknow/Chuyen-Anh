@@ -3,21 +3,34 @@ name: Telemetry endpoint smoke test
 # The only check that exercises the deployed chain end to end
 # (index.html → Vercel function → Supabase). It is deliberately not part of the
 # commit gate: a red unit test must never be confused with a network outage.
+#
+# Production-write policy (2026-11-17): the probe stores one synthetic report in
+# the production database, so this workflow never runs automatically. It used to
+# trigger on `push` to `main` and on `pull_request` when api/** changed, which
+# turned every merge — and even opening a PR — into an unintended production
+# write (PR #88 stored one synthetic row that way before it could be cancelled).
+# Now it runs ONLY when a person dispatches it deliberately and confirms the
+# production write, after an authorized actor deployed the candidate revision.
+# The non-production chain coverage lives in the unit suites
+# (tests/telemetry-api.test.js and the client telemetry tests), which run on
+# every PR and never touch the network.
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths: &smoke-paths
-      - "api/**"
-      - "app.js"
-      - "vercel.json"
-      - "tests/telemetry_endpoint_smoke.py"
-      - ".github/workflows/telemetry-smoke.yml"
-  # A pull request that changes the endpoint is exactly the moment to prove the
-  # deployed chain still answers, because the sandbox that develops it cannot
-  # reach vercel.app or supabase.co.
-  pull_request:
-    paths: *smoke-paths
+    inputs:
+      confirm_production_write:
+        description: "Type true to confirm the probe POSTs one synthetic report to the production endpoint."
+        required: true
+        type: boolean
+      deployment_identity:
+        description: "The deployed revision the dispatcher declares was verified before this dispatch (e.g. the Vercel deployment id or commit SHA). This workflow records the string as declared; it does not resolve it against Vercel, so the identity is format-checked, not independently verified."
+        required: true
+        type: string
+
+# One production probe at a time; a second dispatch queues instead of racing,
+# and a queued duplicate is still visible and cancellable.
+concurrency:
+  group: telemetry-smoke-production
+  cancel-in-progress: false
 
 permissions:
   contents: read
@@ -27,10 +40,48 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
+      - name: Require an explicit production-write confirmation
+        if: ${{ inputs.confirm_production_write != true }}
+        run: |
+          echo "::error::This probe writes to production. Re-run the workflow with"
+          echo "::error::confirm_production_write=true after an authorized actor has"
+          echo "::error::deployed the candidate revision and recorded it in deployment_identity."
+          exit 1
+
+      - name: Record the declared deployment identity
+        if: ${{ inputs.confirm_production_write == true }}
+        env:
+          DEPLOYMENT_IDENTITY: ${{ inputs.deployment_identity }}
+        run: |
+          # The identity is a caller declaration: this workflow has no Vercel
+          # credentials, so it format-checks the string (a Vercel deployment id
+          # or a git commit SHA) and records it verbatim in the audit trail —
+          # it does NOT resolve it to a live deployment or the production alias.
+          test -n "$DEPLOYMENT_IDENTITY" || {
+            echo "::error::deployment_identity must name the deployed revision that was verified first."
+            exit 1
+          }
+          # Whole-string guard first: grep matches per line, so a multi-line
+          # dispatch input whose FIRST line is a valid id would slip past the
+          # anchored check below and smuggle extra lines into the audit trail.
+          case "$DEPLOYMENT_IDENTITY" in
+            *$'\n'* | *$'\r'*)
+              echo "::error::deployment_identity must be a single line (a Vercel deployment id or a commit SHA)."
+              exit 1
+              ;;
+          esac
+          echo "$DEPLOYMENT_IDENTITY" | grep -Eq '^(dpl_[A-Za-z0-9]{10,}|[0-9a-f]{7,40})$' || {
+            echo "::error::deployment_identity must be a Vercel deployment id (dpl_…) or a commit SHA — refusing to record an unidentifiable string."
+            exit 1
+          }
+          echo "production write confirmed; deployed revision (caller-declared, format-checked — not resolved against Vercel): $DEPLOYMENT_IDENTITY" >> "$GITHUB_STEP_SUMMARY"
+
       - name: Checkout
+        if: ${{ inputs.confirm_production_write == true }}
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
       - name: Probe the deployed endpoint
+        if: ${{ inputs.confirm_production_write == true }}
         run: python tests/telemetry_endpoint_smoke.py

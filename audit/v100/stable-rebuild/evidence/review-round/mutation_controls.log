@@ -1,0 +1,11 @@
+clean tree: both regression tests pass
+killed: server: fine-grained github_pat_ pattern removed
+killed: server: Bearer alphabet restricted again (+ / ~ and = rejected)
+killed: server: URL user-info requires a non-empty username again
+killed: server: quote split moved back before the secret loop
+killed: client: fine-grained github_pat_ pattern removed
+killed: client: Bearer alphabet restricted again (+ / ~ and = rejected)
+killed: client: URL user-info requires a non-empty username again
+killed: client: quote split moved back before the secret loop
+
+all 8 mutants killed: the regression tests genuinely guard every review-round fix

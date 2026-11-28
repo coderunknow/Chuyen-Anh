@@ -78,6 +78,12 @@ class AppReleaseGateTests(unittest.TestCase):
                 ('v1.0.0', False, {'FORCE_DEPLOY': 'true', 'STABLE_DEPLOY_AUTHORIZED': 'true'}, 'deploy=true'),
                 # Published prerelease on push (no STABLE_DEPLOY_AUTHORIZED needed) -> allowed
                 ('v1.0.0-rc10', True, {}, 'deploy=true'),
+                # An UNCLASSIFIABLE version (None) cannot be proven non-stable: force alone is denied
+                (None, False, {'FORCE_DEPLOY': 'true'}, 'deploy=false'),
+                # ...and no force at all keeps holding it
+                (None, False, {}, 'deploy=false'),
+                # Force with explicit stable_deploy_authorized stays allowed for an unclassified version
+                (None, False, {'FORCE_DEPLOY': 'true', 'STABLE_DEPLOY_AUTHORIZED': 'true'}, 'deploy=true'),
             ]
             for version, published, extra_env, expected in cases:
                 out.write_text('', encoding='utf-8')

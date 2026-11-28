@@ -1,0 +1,212 @@
+# FINAL READINESS — `v1.0.0` stable candidate rebuild (2026-11-17)
+
+**Verdict: NOT-YET-STABLE — verified stable CANDIDATE, delivered as a Draft PR.**
+Round 2 (2026-11-17) resolved all seven CodeRabbit review findings and removed
+the automatic production-write trigger from the telemetry smoke workflow. The
+owner-authorized `@coderabbitai review` on that head then produced a fresh
+review (13 findings, 2 Major); round 3 (2026-11-17) resolved all of them —
+including the real gap it caught (the Bearer class omitted `-`, which RFC 6750
+allows) — and hardened every audit script the review flagged. The independent
+audits were re-run at the round-3 head: vocabulary deep audit 0 defects, exam
+totals and 2,146/2,146 curated hashes re-derived (`verdictOk: true`),
+transcript fallback exactly 307 scorable / all LOW, injection scan clean with
+negative controls, browser suites green, sprint benchmark 22.09 s median with
+0 page errors. Every remaining item is either the CI run on the exact final
+head (recorded in the PR body, §15 of the PR — recording it here would require
+another commit and a new head), the next CodeRabbit pass on that head, an
+owner decision, or an externally blocked infrastructure check. No merge, tag,
+release or deployment has been performed, and none may be inferred from this
+document.
+
+## What changed on the branch (base: `948f6f9`)
+
+1. **Two defects fixed with the full proof chain** (baseline reproduction →
+   fix → regression tests → mutation controls → post-fix green):
+   - `NODE-LOCKS-ENV` (`tests/exam-persistence.test.js`): a stale environment
+     assumption broke the suite on Node ≥24.22; the app code was right. The
+     test now pins the honesty invariant (`mode` equals actual lock support) on
+     both kinds of environments.
+   - `TELEMETRY-NOTE-SECRETS` (`index.html` + `api/telemetry.js`): diagnostics
+     notes could carry verbatim credentials (GitHub PAT, OpenAI-style key,
+     bearer header, URL credentials). Both scrubbers now redact secret-shaped
+     strings, in sync, with new tests on both sides (telemetry-api 17 → 18,
+     Node total 305 → 306).
+2. **Stable identity reconciled behind the dual gate:** `APP_VERSION = 'v1.0.0'`,
+   `DEPLOY_HOLD` unchanged at the published prerelease `v1.0.0-rc11`;
+   `deploy_gate.py` is open, `app_release_gate.py` holds Pages until the stable
+   release is published **and** separately authorized (`stable_deploy_authorized=true`;
+   force alone is insufficient). All version-dependent tests, checklist totals,
+   PRIVACY/SECURITY/README/CHANGELOG reconciled. Merging does **not** deploy:
+   production Pages keeps serving rc11 until the owner authorizes the cutover.
+3. **Documentation:** CHANGELOG stable-candidate section, append-only log
+   entries, and this evidence directory (`audit/v100/stable-rebuild/`).
+
+## Quality results (all re-verified at the candidate head)
+
+- **Tests:** Python 307/307 (incl. 9 telemetry-smoke structural gate tests;
+  their declared PyYAML dependency ships as `tests/requirements.txt` and is
+  installed by both workflows, skipped-with-reason on a fresh checkout);
+  Node 316/316 static/telemetry (incl. the round-2 scrubber regression tests)
+  plus 29 shard-partition/failure-capture/workflow-injection tests (28 pass
+  + 1 documented skip without `yaml`; parsed mode REQUIRED in CI, where the
+  pinned parser is installed); archive 5/5;
+  21 validator commands exit 0; both browser suites green on Chromium
+  133.0.6943.0 at the round-2 head (learning: 35 phases incl. WCAG 2.1 A/AA
+  axe runs, responsive 320/375/768, light/dark, reduced-motion, backup
+  round-trip; exams: 106-record catalogue, table/keyboard semantics);
+  `git diff --check` clean.
+- **Owner-review round (ChatGPT review of `2fd29c2`, 2026-11-26; 2/2 code
+  findings fixed, session 2026-11-27):** CR-SR5-1 — both telemetry scrubbers
+  now redact the WHOLE RFC 3986 user-info component (username-only and
+  empty-password credentials were bypassing the old colon+password rule);
+  CR-SR5-2 — the workflow-injection scanner's no-parser fallback now scans
+  full run bodies with a strictly narrower literal-matrix allowlist (it both
+  missed multiline injections and flagged the clean tree before);
+  CR-SR5-3 — the mutation harness no longer counts a load-breaking mutant as
+  a kill; CR-SR5-4 — the gate's PyYAML dependency is declared, CI-installed,
+  and skipped-with-reason on fresh checkouts. Evidence:
+  `evidence/session-2026-11-27/`.
+- **Final merge-readiness audit round (session 6, 2026-11-27):** the whole
+  runtime module re-probed adversarially at `b8c3dbf` — exam core (106/6,708/
+  3,292, 0 problems), device settings, backup import, essay rubric, CEFR
+  sense model, match boards, 2,000 seeded distractor boards over the real
+  deck, phrase grader, exam corrections, clocks, telemetry report — plus
+  static sweeps of every `innerHTML` site, storage keys, listeners and
+  `RegExp`/`Math.random` inventory. Exactly one defect found and fixed:
+  CR-SR6-1 — `highlightMatch` threw an uncaught SyntaxError on huge search
+  queries (V8 lazy RegExp compilation; the try/catch covered only the
+  constructor, not the first use). Fixed to its documented fallback contract
+  with regression tests; all suites green at the fix head (289 canonical Node
+  + 19 shard/failure/scanner + 303 Python + 5 archive). Evidence:
+  `evidence/session-2026-11-27/highlight-lazy-regex-crash-evidence.txt`.
+- **Round-2 review findings (7/7 fixed, tests + mutation controls):**
+  fine-grained GitHub-token scrubbing, full RFC 6750 Bearer alphabet (incl.
+  trailing `=` and short credentials), empty-username URL user-info
+  redaction, secret patterns before the quote split (both scrubbers), a
+  pinned-worktree baseline procedure, and the five cited audit scripts
+  tracked with repo-relative paths. 8/8 mutants killed
+  (`evidence/review-round/mutation_controls.log`).
+- **Production-write prevention:** the telemetry smoke workflow is
+  dispatch-only with an explicit confirmation input, a required deployment
+  identity and a concurrency group (structural tests:
+  `tests/test_telemetry_smoke_gate.py`, 8/8; negative control: re-adding a
+  `pull_request` trigger fails the suite).
+- **Vocabulary deep audit (fresh code):** 0 defects across 8,852 rows /
+  8,928 senses / 1,094 phrases — unique IDs, structural integrity, no
+  locator-level CEFR conflicts inside multi-sense headwords, distractor
+  pools sufficient at every level (`evidence/review-round/vocab-deep-audit.json`).
+  Count reconciliation (owner decision 2026-11-28, §5.2 of the mission):
+  **8,928 = every sense in the 8,852 rows** (75 rows carry two senses, one
+  carries three), audited structurally as a whole and by independent
+  sampling (201/201 agree — see the independent sample below). **4,844/4,844
+  = the SOURCE-LOCATOR-BACKED subset** of senses, verified 100% by
+  `scripts/audit_sense_sources.py --check` against SHA-256-pinned reference
+  wordlists (re-run at the final head: exit 0, `matching source group(s)
+  found: 4844`); the remaining 4,084 senses carry cross-validated, disputed
+  or editorial-estimate evidence at MEDIUM/LOW confidence and are covered by
+  the structural + sampled audits instead. The two figures describe
+  different populations; neither is claimed as "all senses manually
+  verified".
+- **Transcript-fallback policy (fresh code):** 325 fallback-flagged items;
+  exactly **307 scorable — all LOW confidence**; the 18 exempt ones carry
+  13 VERY_LOW + 5 LOW; 0 official-verification claims
+  (`evidence/review-round/transcript-fallback-audit.json`).
+- **Workflow security scan:** 8 workflows, 0 injection-shaped `${{ }}`
+  interpolations inside `run:` bodies after the parse-verified
+  literal-matrix allowlist; negative controls detect injected branch-name
+  and PR-title interpolation in both block and inline forms
+  (`evidence/review-round/workflow-injection-scan.json`).
+- **Performance (round-2 head):** sprint benchmark median 22.09 s
+  (round mean 22.14 s, range 22.01–22.32 s), 27.2 turns/min, mean feedback
+  latency 26 ms / hand-off 55 ms / continue 40 ms, first-pass and hand-off
+  medians 54/57 ms, 0 page errors — consistent with the round-1 medians
+  (23.66→24.22 s) within observed sandbox noise. Software-rendered sandbox
+  only; no physical-device claim
+  (`evidence/review-round/speed-benchmark-round2.json`).
+- **Exam data (independent recomputation, fresh code):** 106 papers, 6,708
+  questions, 5,155 scorable (76.85%), 1,553 exempt with the exact category
+  split (749 ocr-structural + 12 option-overflow + 7 key-not-an-option + 627
+  stimulus-incomplete + 158 essay), 100% non-exempt coverage; all 2,146
+  curated SHA-256 bindings re-derived with 0 mismatches; deterministic
+  10-question solving sample: 8/8 verifiable agree (2 listening/context items
+  left unclaimed rather than guessed).
+- **Vocabulary (independent sample):** 201/201 senses agree with the five
+  pinned reference snapshots (198 automatic + 3 manual lookups).
+- **Security:** red-team probes confirmed the allow-list rebuild drops unknown
+  fields, hostile counters are dropped, the injection-shaped client_key is
+  rejected by the hardened SQL (and inert in the old one, parameter-bound),
+  and the live endpoint answers preflight `204` / GET `405` exactly per
+  contract. No production-writing request was sent.
+- **Performance:** artifact size byte-identical to baseline (28,273,009 B raw,
+  3,093,228 B gzip); speed benchmark medians 23.66 s → 24.22 s (~2%, within
+  observed run-to-run noise in a software-rendered sandbox), 0 page errors.
+  The scrub change sits on the diagnostics path only, not any hot path.
+  Physical-device memory claims remain unverified (no device).
+
+## Infrastructure findings
+
+- **Supabase:** the old `20261029` ingest function demonstrably lets a keyless
+  flood store 120 rows and exhaust the global budget; the `20261031` hardening
+  stores 5, buckets missing keys (`client:missing`, cap 5) and rejects
+  non-32-hex keys — demonstrated against the **real SQL** in an in-memory
+  Postgres (PGlite). Disclosed residual: refused attempts still count toward
+  the global attempt budget, so a >120-attempt flood closes the window for
+  everyone (bounded rows, not bounded accounting). Whether the hardening is
+  actually applied to the live database could not be verified (no
+  credentials) — externally blocked. The shared `compute_jobs` table (RLS
+  disabled, broad privileges) was **not** read or modified and remains an
+  owner decision on the shared project.
+- **Vercel:** project settings/logs/observability not inspectable without
+  credentials; the deployed endpoint's public contract was verified read-only.
+  The deployed function does not yet contain the new secret-scrub — it ships
+  when the maintainer next deploys the function (no deployment authorized from
+  here).
+- **GitHub:** no `v1.0.0` tag exists (mission premise false) — a future stable
+  publication has no tag collision; `RELEASE_BLOCKED_TAG_COLLISION` not
+  applicable. Live Pages serves rc11 (deployment `7798610277`, success).
+
+## Open items before this candidate could be called stable
+
+1. **CI on the exact PR head** — runs recorded for the exact final head in
+   the PR body (§15); round 1 head `248b75a` was 16/16 green, the
+   session-4 evidence head `2fd29c2` was 16/16 green (run `45849570888`),
+   and the session-5 fix head is re-run and recorded there after push.
+2. **Code review status** on the exact PR head — round 2 findings all
+   resolved; the owner's independent ChatGPT review of `2fd29c2` (2026-11-26)
+   named 2 code findings, both fixed with tests this session (CR-SR5-1/2);
+   a review of the fix head is the remaining verification (CodeRabbit and the
+   other automated reviewers were quota/billing-limited as of 2026-11-17;
+   recorded, not invented).
+3. ~~**Owner decision — listening grading policy**~~ — **RESOLVED (owner
+   decision, 2026-11-28): the shipped behavior stands.** The application
+   grades 307 transcript-fallback listening items with `LOW` confidence and
+   explicit warnings (per the published README); no scoring-semantics change
+   is made and the policy is pinned by tests (`transcript-fallback-audit.json`,
+   telemetry suites). This is a documented owner decision, not an open one.
+4. ~~**Owner action — Supabase**~~ — **RESOLVED 2026-11-27 (read-only verified):**
+   `20261031_telemetry_hardening.sql` applied on the live database and the
+   shared `compute_jobs` exposure locked down —
+   `evidence/session-2026-11-27/live-infra-hardening.md`; revalidated
+   read-only on 2026-11-28 (session 10 addendum).
+5. ~~**Owner action — Vercel**~~ — **RESOLVED 2026-11-27 (read-only verified):**
+   `api/telemetry.js` (secret-scrub) is live in production and the deployment
+   identity matches the tracked source — same evidence file; revalidated
+   read-only on 2026-11-28.
+6. **Externally blocked verification (owner-only, still open):** a genuine
+   screen-reader pass and physical low-memory-device verification. The full
+   browser matrix (Chromium/Firefox/WebKit + axe WCAG runs) is covered by CI
+   on every head. (The 186 external asset digests are no longer open: session
+   4 verified 163/186 byte-for-byte, 1 explained external drift preserved as
+   capture evidence; the 22 dynamic-page snapshots are internally intact via
+   the `.md → contentSha256 → embedded` chain but NOT verified against their
+   live sources — see the scoped claim in
+   `evidence/session-2026-11-26/browser-session-method.md`.)
+
+Compliance statement: no merge, no tag create/move/delete, no release
+publication, no Pages/Vercel deployment, no Vercel settings change, no Supabase
+mutation, no production telemetry POST **initiated by the session** (the repository's
+then-automatic smoke workflow stored one synthetic row when PR #88 opened —
+disclosed in the PR body and FAILURE_LEDGER F-SR11 — and its automatic
+trigger surface is now removed), and no unauthorized review-trigger comments
+(the one `@coderabbitai review` comment is owner-authorized by the mission).
+The PR is and stays **Draft** while the items above remain open.

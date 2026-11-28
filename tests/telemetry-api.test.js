@@ -247,6 +247,92 @@ test('the rate-limit key is a salted hash, never the address', async () => {
   assert.equal(missing.calls[0].body.client_key, null, 'no address, no key — the database decides');
 });
 
+test('secret-shaped strings in a note are redacted before storage', async () => {
+  const { calls } = await invoke(request('POST', payload({
+    events: [
+      { at: '2026-10-29T05:00:00.000Z', kind: 'error', name: 'uncaught', note: 'request failed with token ghp_0123456789abcdefghijklmnopqrstuvwxyz in headers' },
+      { at: '2026-10-29T05:00:01.000Z', kind: 'error', name: 'uncaught', note: 'upload failed using sk-proj-9f8e7d6c5b4a3210feedcba9876543210 at retry 2' },
+      { at: '2026-10-29T05:00:02.000Z', kind: 'error', name: 'uncaught', note: 'network error: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.disallowed' },
+      { at: '2026-10-29T05:00:03.000Z', kind: 'error', name: 'uncaught', note: 'could not reach https://learner:s3cretpass@private.example.com/api' },
+      { at: '2026-10-29T05:00:04.000Z', kind: 'error', name: 'uncaught', note: 'plain failure at retry 2 keeps its words' }
+    ]
+  })));
+  assert.equal(calls.length, 1);
+  const notes = calls[0].body.payload.events.map(event => event.note);
+  assert.equal(notes[0], 'request failed with token … in headers', 'a GitHub token is redacted');
+  assert.equal(notes[1], 'upload failed using … at retry 2', 'an OpenAI-style key is redacted');
+  assert.equal(notes[2], 'network error: …', 'a bearer credential is redacted');
+  assert.equal(notes[3], 'could not reach https://…@private.example.com/api', 'URL credentials are redacted, the host stays readable');
+  assert.equal(notes[4], 'plain failure at retry 2 keeps its words', 'an ordinary message is untouched');
+  const stored = JSON.stringify(calls[0].body.payload);
+  for (const secret of ['ghp_0123456789', 'sk-proj-9f8e7d6c', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9', 's3cretpass']) {
+    assert.equal(stored.includes(secret), false, `${secret} must never reach the stored payload`);
+  }
+});
+
+test('review round: fine-grained GitHub tokens, the full Bearer alphabet, every URL user-info form and the redaction order are all covered', async () => {
+  // GitHub's fine-grained personal access tokens carry the github_pat_ prefix
+  // and a fixed 22 + '_' + 59 body (93 characters with the prefix).
+  const fineGrained = `github_pat_${'1'.repeat(22)}_${'A'.repeat(59)}`;
+  const { calls } = await invoke(request('POST', payload({
+    events: [
+      event({ kind: 'error', name: 'uncaught', note: `upload failed for ${fineGrained}` }),
+      event({ kind: 'error', name: 'uncaught', note: 'Authorization: Bearer +ab~/cdEF9=' }),
+      event({ kind: 'error', name: 'uncaught', note: 'Authorization: Bearer abc123' }),
+      event({ kind: 'error', name: 'uncaught', note: 'Authorization: Bearer -LeadingHyphen0123' }),
+      event({ kind: 'error', name: 'uncaught', note: 'Authorization: Bearer abc-def-ghi' }),
+      event({ kind: 'error', name: 'uncaught', note: 'could not reach https://:s3cr3tcredential@localhost/path' }),
+      event({ kind: 'error', name: 'uncaught', note: `fetch failed https://alice:SecretPrefix'***@example.test/` }),
+      event({ kind: 'error', name: 'uncaught', note: 'request failed https://alice-secret@localhost/api' }),
+      event({ kind: 'error', name: 'uncaught', note: 'request failed https://alice-secret:@localhost/api' }),
+      event({ kind: 'error', name: 'uncaught', note: 'could not reach https://user@[2001:db8::1]:8443/api' }),
+      event({ kind: 'error', name: 'uncaught', note: 'path is fine https://example.com/@user' }),
+      event({ kind: 'error', name: 'uncaught', note: 'could not reach https://api.example.test?contact=alice@localhost/path' }),
+      event({ kind: 'error', name: 'uncaught', note: 'report https://api.example.test/page#signed-off-by-alice@localhost' })
+    ]
+  })));
+  assert.equal(calls.length, 1);
+  const notes = calls[0].body.payload.events.map(e => e.note);
+  assert.equal(notes[0], 'upload failed for …', 'a fine-grained GitHub token is redacted');
+  assert.equal(notes[1], 'Authorization: …', 'a Bearer credential using the RFC 6750 alphabet (+ / ~ and trailing =) is redacted');
+  assert.equal(notes[2], 'Authorization: …', 'a Bearer credential shorter than twelve characters is redacted');
+  assert.equal(notes[3], 'Authorization: …', 'a Bearer credential starting with a hyphen is redacted');
+  assert.equal(notes[4], 'Authorization: …', 'a Bearer credential with embedded hyphens is redacted');
+  assert.equal(notes[5], 'could not reach https://…@localhost/path', 'URL user-info with an empty username is redacted');
+  assert.equal(notes[6], 'fetch failed https://…@example.test/',
+    'an apostrophe inside URL user-info cannot hide the credential: the secret patterns run before the quote split');
+  assert.equal(notes[7], 'request failed https://…@localhost/api', 'URL user-info carrying only a username is redacted');
+  assert.equal(notes[8], 'request failed https://…@localhost/api', 'URL user-info with an empty password is redacted');
+  assert.equal(notes[9], 'could not reach https://…@[2001:db8::1]:8443/api', 'URL user-info before an IPv6 authority is redacted');
+  assert.equal(notes[10], 'path is fine https://example.com/@user', 'an @ in a URL path is not user-info and must not be redacted');
+  assert.equal(notes[11], 'could not reach https://api.example.test?contact=alice@localhost/path',
+    'an @ in a URL query is not user-info: the real host and query survive intact');
+  assert.equal(notes[12], 'report https://api.example.test/page#signed-off-by-alice@localhost',
+    'an @ in a URL fragment is not user-info: the fragment survives intact');
+  const stored = JSON.stringify(calls[0].body.payload);
+  for (const fragment of ['github_pat_', fineGrained.slice(-20), '+ab~/cdEF9=', 'abc123', '-LeadingHyphen0123', 'abc-def-ghi', 's3cr3tcredential', 'SecretPrefix', 'alice-secret']) {
+    assert.equal(stored.includes(fragment), false, `${fragment} must never reach the stored payload`);
+  }
+});
+
+test('review round 8: fine-grained GitHub tokens, the full Bearer alphabet, and nested URL user-info redact through the LAST @', async () => {
+  const { calls } = await invoke(request('POST', payload({
+    events: [
+      event({ kind: 'error', name: 'uncaught', note: 'fetch failed https://alice@team:secret-pass@localhost/api' }),
+      event({ kind: 'error', name: 'uncaught', note: 'fetch failed https://alice@team:secret-pass@localhost/api?contact=bob@host' }),
+      event({ kind: 'error', name: 'uncaught', note: 'path is fine https://example.com/@user' })
+    ]
+  })));
+  assert.equal(calls.length, 1);
+  const notes = calls[0].body.payload.events.map(e => e.note);
+  assert.equal(notes[0], 'fetch failed https://…@localhost/api',
+    'the credential runs through the LAST @ (earlier @ characters are credential data), so the password is redacted too');
+  assert.equal(notes[1], 'fetch failed https://…@localhost/api?contact=bob@host',
+    'nested user-info is redacted while a query email after the authority survives');
+  assert.equal(notes[2], 'path is fine https://example.com/@user',
+    'an @ in the path is still not user-info');
+});
+
 test('upstream outcomes map to documented status codes', async () => {
   const ok = await invoke(request('POST', payload()), { status: 'ok', id: 'row-9' });
   assert.equal(ok.res.statusCode, 202);

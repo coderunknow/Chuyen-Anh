@@ -17,8 +17,13 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CI = (ROOT / ".github" / "workflows" / "ci.yml").read_text(encoding="utf-8")
+DEPLOY = (ROOT / ".github" / "workflows" / "deploy.yml").read_text(encoding="utf-8")
 ARCHIVE_SUITE = "scripts/exams/test_archive.py"
 REQUIREMENTS = "scripts/exams/requirements.txt"
+# The Python test suite's own dependencies (the telemetry smoke gate parses the
+# real workflow YAML). CI must install them explicitly: relying on whatever the
+# runner image preinstalls breaks a fresh checkout silently.
+TEST_REQUIREMENTS = "tests/requirements.txt"
 CHECKLIST = ROOT / "audit" / "v100" / "FINAL_READINESS_CHECKLIST.md"
 
 
@@ -60,6 +65,34 @@ class CiGateCoverageTests(unittest.TestCase):
         self.assertIn(ARCHIVE_SUITE, CI,
                       "CI must run scripts/exams/test_archive.py, or the readiness count claims untested work")
 
+    def test_the_python_suite_dependencies_are_declared_and_installed_in_every_workflow(self) -> None:
+        requirements_path = ROOT / TEST_REQUIREMENTS
+        self.assertTrue(requirements_path.exists(),
+                        "tests/requirements.txt must exist and declare the Python test suite's dependencies")
+        # Existence alone is not the declaration: the file must actually pin the
+        # dependency the smoke gate imports, or an emptied file passes this test
+        # while the gate's tests skip on a fresh checkout (CodeRabbit 2026-11-27).
+        requirements_text = requirements_path.read_text(encoding="utf-8")
+        self.assertRegex(requirements_text, r"(?m)^PyYAML\s*==\s*\d",
+                         "tests/requirements.txt must pin the PyYAML dependency the smoke gate imports")
+        for name, text in (("ci.yml", CI), ("deploy.yml", DEPLOY)):
+            # A comment mentioning the path is not an install: require an actual
+            # `pip install ... -r tests/requirements.txt` command line, and require
+            # it to appear before the suite invocation (CodeRabbit 2026-11-27).
+            install_lines = [line.strip() for line in text.splitlines()
+                             if re.match(r"^\s*python -m pip install\b", line)]
+            matching = [line for line in install_lines if TEST_REQUIREMENTS in line]
+            self.assertTrue(matching,
+                            f"{name} must run an actual `python -m pip install -r tests/requirements.txt` "
+                            "command before `unittest discover`; a comment mentioning the path does not "
+                            "install anything and the telemetry gate tests would skip on a fresh checkout")
+            for install_line in matching:
+                install_position = text.find(install_line)
+                discover_position = text.find("unittest discover")
+                self.assertLess(
+                    install_position, discover_position,
+                    f"{name} must install tests/requirements.txt BEFORE `unittest discover`")
+
     def test_every_node_test_file_is_run_by_every_workflow_that_tests(self) -> None:
         """Both `ci.yml` and `deploy.yml` run the suites; both must run all of them.
 
@@ -85,6 +118,38 @@ class CiGateCoverageTests(unittest.TestCase):
         files = {f"tests/{path.name}" for path in (ROOT / "tests").glob("*.test.js")}
         self.assertEqual(sorted(files - listed), [],
                          "these Node suites exist but the release source check never runs them")
+
+    def test_the_scanner_parsed_mode_is_required_in_ci_not_silently_skipped(self) -> None:
+        """The workflow-injection suite's parsed walk must run in CI with a pinned parser.
+
+        ChatGPT round-2 finding: CI installs Python PyYAML (for `unittest`), which
+        does NOT provide the Node `yaml` package the scanner resolves, so the
+        parsed-mode tests silently skipped and only the fallback mode was ever
+        validated on the runner. A skipped parser test must not count as coverage.
+        """
+        scanner_step = CI[CI.index("workflow-injection scanning"):]
+        self.assertIn("npm install", scanner_step, "CI must install the Node YAML parser for the scanner suite")
+        self.assertRegex(scanner_step, r"yaml@\d+\.\d+\.\d+", "the parser install must be version-pinned")
+        self.assertIn("NODE_PATH", scanner_step, "the suite must actually resolve the installed parser via NODE_PATH")
+        scanner_suite = "tests/workflow-injection-scan.test.mjs"
+        self.assertIn(scanner_suite, scanner_step, "the parser install must precede the scanner suite run")
+
+    def test_ci_triggers_cover_new_workflow_files_and_scanner_only_changes(self) -> None:
+        """`ci-paths` must include the workflow directory and the scanner source.
+
+        ChatGPT round-2 finding: adding a NEW workflow file (not yet enumerated)
+        or editing only `scripts/scan_workflow_injection.mjs` matched no path
+        filter, so the security-critical scanner could change with no CI at all.
+        """
+        anchor_start = CI.index("paths: &ci-paths")
+        anchor = CI[anchor_start:CI.index("DEPLOY_HOLD", anchor_start)]
+        for required in (".github/workflows/**", "scripts/scan_workflow_injection.mjs"):
+            self.assertIn(required, anchor,
+                          f"the shared ci-paths anchor must include {required} so a scanner-only or new-workflow change runs CI")
+        push_start = CI.index("push:")
+        push_paths = CI[push_start:CI.index("jobs:", push_start)]
+        self.assertIn("paths: *ci-paths", push_paths,
+                      "the push trigger must alias the same ci-paths anchor (shared by reference, not re-typed)")
 
     def test_the_readiness_checklist_and_the_workflows_describe_the_same_suites(self) -> None:
         text = CHECKLIST.read_text(encoding="utf-8")
