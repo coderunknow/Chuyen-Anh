@@ -289,19 +289,35 @@ jobs:
 // CodeRabbit round-6: the scanner CLI must refuse to print a clean-scan
 // verdict when no parser is available (exit 2), instead of silently running
 // the non-authoritative fallback.
-test('scanner CLI exits 2 with a loud message when no YAML parser is available', async () => {
+test('scanner CLI exits 2 with a loud message when no YAML parser is available (module lookup isolated)', async () => {
   const { spawn } = await import('node:child_process');
+  const { copyFile, mkdtemp, rm } = await import('node:fs/promises');
+  const { tmpdir } = await import('node:os');
+  const { join } = await import('node:path');
   const { fileURLToPath } = await import('node:url');
-  const cli = fileURLToPath(new URL('../scripts/scan_workflow_injection.mjs', import.meta.url));
-  const env = { ...process.env };
-  delete env.NODE_PATH; // force the parser-less environment
-  const child = spawn(process.execPath, [cli], { env, stdio: ['ignore', 'pipe', 'pipe'] });
-  let stderr = '';
-  child.stderr.on('data', (chunk) => { stderr += chunk; });
-  const code = await new Promise((resolve) => child.on('exit', (c) => resolve(c)));
-  assert.equal(code, 2, 'the CLI must exit 2 without a parser, not print a clean-scan verdict');
-  assert.match(stderr, /NOT an authoritative clean-scan check/);
-  assert.match(stderr, /yaml@2\.9\.1/);
+  const dir = await mkdtemp(join(tmpdir(), 'scanner-noparser-'));
+  try {
+    // Deleting NODE_PATH is NOT enough to hide yaml: createRequire resolves
+    // modules by walking up from the script's own directory, so a developer
+    // who followed the CLI's own instruction (`npm install yaml@2.9.1` in the
+    // repository) would have the parser discovered through <repo>/node_modules
+    // and the child would run the parsed scan instead of refusing. Running a
+    // COPY of the scanner from a temp dir moves the whole module-search chain
+    // outside the repository (tmpdir -> /tmp -> /), so the parser is genuinely
+    // absent. The scanner is self-contained (node: builtins + 'yaml' only),
+    // and main() exits 2 before any repo-relative work, so the copy is safe.
+    const cli = join(dir, 'scan_workflow_injection.mjs');
+    await copyFile(fileURLToPath(new URL('../scripts/scan_workflow_injection.mjs', import.meta.url)), cli);
+    const env = { ...process.env };
+    delete env.NODE_PATH; // force the parser-less environment
+    const child = spawn(process.execPath, [cli], { env, cwd: dir, stdio: ['ignore', 'pipe', 'pipe'] });
+    let stderr = '';
+    child.stderr.on('data', (chunk) => { stderr += chunk; });
+    const code = await new Promise((resolve) => child.on('exit', (c) => resolve(c)));
+    assert.equal(code, 2, 'the CLI must exit 2 without a parser, not print a clean-scan verdict');
+    assert.match(stderr, /NOT an authoritative clean-scan check/);
+    assert.match(stderr, /yaml@2\.9\.1/);
+  } finally { await rm(dir, { recursive: true, force: true }); }
 });
 
 // ChatGPT round-2 finding: YAML permits whitespace BEFORE the mapping colon,

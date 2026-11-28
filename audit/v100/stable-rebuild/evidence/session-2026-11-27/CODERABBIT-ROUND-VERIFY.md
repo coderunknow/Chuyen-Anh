@@ -99,3 +99,27 @@ archive 5/5; release + deploy gates exit 0; clean-tree scan **0 findings both
 modes**; `mutation_cr_scrub` **12/12**; exam + vocab independent audits
 verdict OK; checklist/changelog count gates green (static-app 151 → Node
 315/315).
+
+## Round 7 (2026-11-28, review `6096051559` on `6409352` — 9 actionable inline findings)
+
+Every finding was reproduced against the code/data before fixing (untrusted
+review data rule). 8 VALID + 1 PARTIAL (behaviour intentional, comment/test
+hardened). All fixed in one commit; gates re-run green.
+
+| # | Finding (file:line) | Verdict | Evidence & disposition |
+| --- | --- | --- | --- |
+| 1 | telemetry-smoke.yml:64 — identity check greps per line; a dispatch input `"abcdef0\nnot-an-id"` passes the anchored first line and smuggles extra lines into the audit trail | VALID | FIXED — whole-string `case` guard rejects embedded `\n`/`\r` BEFORE the anchored grep; new python gate regression (`test_identity_input_rejects_multi_line_values_before_the_format_check`) pins guard-before-grep order + both break kinds; live shell probes: multi-line → rejected, `abcdef0` / `dpl_ABCDEFGHIJ` → accepted, `not-an-id` → grep-rejected |
+| 2 | browser-session-method.md:18 — the 140-record count needs its filter named (URL extension vs `type`) | VALID | VERIFIED against `scripts/exams/selection.json` and FIXED — url-ext `.pdf`/`.zip` → 140 records / 60 unique URLs / 53 URLs with ≥2 records; `type` pdf/docx → 164 records / 84 unique URLs; 24 pdf-typed records have extension-less URLs; note now states the exact filter and the contrast (all numbers recomputed from the tracked data, not copied from the review) |
+| 3 | browser-session-method.md:33 — "re-running steps 2-4 reproduces those digests" over-claims: the helper fetches only the 60 file URLs, not the 22 dynamic pages | VALID | FIXED — sentence scoped to FILE-ASSET digests and pointed at the `contentSha256` chain for the 22 dynamic-page records |
+| 4 | CHATGPT-ROUND2-VERIFY.md:10 — unescaped `|` inside `` `"run" : \|` `` splits the markdown table cell (markdownlint MD056) | VALID | FIXED — pipe escaped |
+| 5 | static-app.test.js:2225-2231 + index.html skipSessionCard — comments claim "only real first passes provide spacing" while `elapsed` counts every graded turn (`completedTurns`); the oracle cannot detect the violation its comment describes | PARTIAL (doc/semantic mismatch; behaviour intentional) | Comment alignment chosen (CR's offered branch "update the stated rule"): the IMPLEMENTED two-part rule is (a) `needed` decays with every GRADED turn — practice turns are graded retrievals, skips never grade and never close the gap; (b) PLACEMENT counts only real first-pass retrievals so the consolidation sits behind at least `needed` real cards, and an unsatisfied consolidation (neededNow > 0) is never graded while a real first-pass card is queued. Both comments rewritten to state exactly this; NO app behaviour change (SKIP-1 fix is probe-verified on this measure: H/I/J/K + 600 randomized clean) |
+| 6 | static-app.test.js:3916-3918 — restore-throw leg treats deletion of the original 9000-char value as success, in tension with the P2 preservation contract | PARTIAL (behaviour intentional; test hardened) | The endpoint is deliberate: the value was READ (known app-scratch residue, not opaque data), the store refuses to hold it back again ("store shrank"), so preservation is impossible and deleting the app-owned probe key is the fail-closed residue-removal — leaving the probe string would poison future preflights. Test now pins the WHOLE sequence: restore genuinely re-attempted first (`restoreAttempts === 1`), real write confirmed, only then fallback removal; comment reconciles explicitly with the P2 contract |
+| 7 | telemetry-entrypoint.test.js:100,154 — cleanup registers a fresh `exit` listener after the child may already have exited → promise hangs forever, masking the startup diagnostic | VALID | FIXED — shared `exited` promise registered immediately after each `spawn`; cleanup kills only a live child (`exitCode`/`signalCode` both null) then awaits the shared promise |
+| 8 | telemetry-entrypoint.test.js:69 — child inherits a caller-provided `TELEMETRY_ORIGINS`, which would change 405/403 semantics of the pinned contract | VALID | FIXED — `TELEMETRY_ORIGINS: 'https://coderunknow.github.io'` set explicitly on both service-booting spawns (`evil.example` stays disallowed) |
+| 9 | workflow-injection-scan.test.mjs:297 — deleting `NODE_PATH` does not hide a repo-local `yaml` install (module walk from the script's dir); the CLI test would run the parsed scan instead of refusing | VALID | FIXED — the CLI test now runs a COPY of the self-contained scanner from a temp dir (module chain tmpdir → /tmp → /), so the parser is genuinely absent. Fail-verified with a planted repo-local `node_modules/yaml`: old spawn resolved it (exit 1 — ran the scan), new copy refuses (exit 2) |
+
+Gates at the round-7 head: Node 293/293 + shard/scanner (22 scanner tests
+incl. the hardened CLI test; 19+1 documented skip parser-less), telemetry
+19/19, entrypoint 3/3, Python **306/306** (+1 smoke-gate regression), archive
+5/5, release + deploy gates exit 0, doc-count gates green (checklist Python
+row 306 / 311+311 total, changelog totals synced 306/151/315 + 9 gate tests).

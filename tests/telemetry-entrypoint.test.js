@@ -66,11 +66,19 @@ test('the packaged src/ layout boots the committed entrypoint and serves the pin
 
     const port = await freePort();
     const child = spawn(process.execPath, [join(srcRoot, 'app.js')], {
-      env: { ...process.env, PORT: String(port) },
+      // Pin the fixture's allowlist explicitly: an inherited caller-provided
+      // TELEMETRY_ORIGINS would change 405/403 semantics below. evil.example
+      // stays outside the allowlist.
+      env: { ...process.env, PORT: String(port), TELEMETRY_ORIGINS: 'https://coderunknow.github.io' },
       stdio: ['ignore', 'pipe', 'pipe']
     });
     const stderr = [];
     child.stderr.on('data', (chunk) => stderr.push(String(chunk)));
+    // Shared exit promise registered immediately after spawn: awaiting it in
+    // cleanup is safe whether or not the child already exited (a freshly
+    // registered 'exit' listener after the event has fired would hang forever
+    // and mask the startup diagnostic).
+    const exited = new Promise((resolve) => child.once('exit', resolve));
     try {
       // Wait for the service to listen (or fail fast on a resolve error).
       await new Promise((resolve, reject) => {
@@ -96,8 +104,8 @@ test('the packaged src/ layout boots the committed entrypoint and serves the pin
       assert.equal(badOrigin.status, 403, 'a disallowed origin must be refused before any body handling');
       assert.deepEqual(JSON.parse(badOrigin.body), { ok: false, error: 'origin-not-allowed' });
     } finally {
-      child.kill('SIGTERM');
-      await new Promise((resolve) => child.on('exit', resolve));
+      if (child.exitCode === null && child.signalCode === null) child.kill('SIGTERM');
+      await exited;
     }
   } finally {
     await rm(work, { recursive: true, force: true });
@@ -128,11 +136,12 @@ test('the repository sibling layout still resolves (sibling handler preferred)',
   try {
     const port = await freePort();
     const child = spawn(process.execPath, [ENTRYPOINT], {
-      env: { ...process.env, PORT: String(port) },
+      env: { ...process.env, PORT: String(port), TELEMETRY_ORIGINS: 'https://coderunknow.github.io' },
       stdio: ['ignore', 'pipe', 'pipe']
     });
     const stderr = [];
     child.stderr.on('data', (chunk) => stderr.push(String(chunk)));
+    const exited = new Promise((resolve) => child.once('exit', resolve));
     try {
       await new Promise((resolve, reject) => {
         const started = Date.now();
@@ -150,8 +159,8 @@ test('the repository sibling layout still resolves (sibling handler preferred)',
       const methodProbe = await request(port, 'GET', '/api/telemetry');
       assert.equal(methodProbe.status, 405, 'the repository-layout service answers the pinned contract');
     } finally {
-      child.kill('SIGTERM');
-      await new Promise((resolve) => child.on('exit', resolve));
+      if (child.exitCode === null && child.signalCode === null) child.kill('SIGTERM');
+      await exited;
     }
   } finally {
     await rm(work, { recursive: true, force: true });

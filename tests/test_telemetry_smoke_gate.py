@@ -90,6 +90,22 @@ class TelemetrySmokeGateTests(unittest.TestCase):
         self.assertNotIn("deployed revision: $DEPLOYMENT_IDENTITY", run,
                          "the summary must not present the declared id as a resolved/verified deployment")
 
+    def test_identity_input_rejects_multi_line_values_before_the_format_check(self) -> None:
+        # CodeRabbit round-7: dispatch inputs may arrive as JSON with embedded
+        # "\n". grep matches per line, so "abcdef0\nnot-an-id" would pass the
+        # anchored per-line check and record both lines in the audit trail.
+        # The whole-string guard must reject line breaks BEFORE the grep, while
+        # the anchored grep keeps accepting valid single-line ids and SHAs.
+        steps = self.doc["jobs"]["probe"]["steps"]
+        identity_step = next(step for step in steps if "deployment identity" in step.get("name", "").lower())
+        run = identity_step["run"]
+        guard = run.index("case \"$DEPLOYMENT_IDENTITY\" in")
+        grep = run.index("grep -Eq")
+        self.assertLess(guard, grep, "the multi-line rejection must run before the format check")
+        self.assertIn("*$'\\n'*", run, "the guard must reject embedded line feeds")
+        self.assertIn("*$'\\r'*", run, "the guard must reject embedded carriage returns")
+        self.assertIn("must be a single line", run)
+
     def test_a_missing_confirmation_fails_before_any_checkout(self) -> None:
         steps = self.doc["jobs"]["probe"]["steps"]
         gate = steps[0]

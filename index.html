@@ -548824,12 +548824,16 @@ export function skipSessionCard(session, completedTurns = 0, gap = SPRINT_CONSOL
       ? Math.max(0, completedTurns - c.firstPassTurn - 1)
       : Math.max(0, gap - (Number.isFinite(c.scheduledAfter) ? c.scheduledAfter : gap));
     const needed = Math.max(0, gap - elapsed);
-    // The remaining gap is measured in REAL intervening first-pass retrievals:
-    // practice retries of other words and skipped cards provide no spaced
-    // evidence for THIS word, so they must not be counted (and an unsatisfied
-    // consolidation must never jump ahead of a real first-pass card that is
-    // still queued — the old absolute-position clamp put it at the front when
-    // skips/practices dominated the queue, collapsing the gap to 0).
+    // Two-part rule (mirrored by the replay oracle in static-app.test.js):
+    // `needed` decays with EVERY graded turn (elapsed uses sessionStats
+    // .completedTurns — a graded practice retry of another word is real
+    // retrieval evidence for the session, while a skipped card never grades
+    // and never closes the gap), and the INSERTION POINT below counts only
+    // REAL intervening first-pass retrievals so the consolidation is placed
+    // behind at least `needed` real cards. An unsatisfied consolidation must
+    // never jump ahead of a real first-pass card that is still queued — the
+    // old absolute-position clamp put it at the front when skips dominated
+    // the queue, collapsing the gap to 0.
     let realSeen = 0;
     let target = session.length;
     for (let i = 0; i < session.length; i += 1) {

@@ -61,6 +61,15 @@ jobs:
             echo "::error::deployment_identity must name the deployed revision that was verified first."
             exit 1
           }
+          # Whole-string guard first: grep matches per line, so a multi-line
+          # dispatch input whose FIRST line is a valid id would slip past the
+          # anchored check below and smuggle extra lines into the audit trail.
+          case "$DEPLOYMENT_IDENTITY" in
+            *$'\n'* | *$'\r'*)
+              echo "::error::deployment_identity must be a single line (a Vercel deployment id or a commit SHA)."
+              exit 1
+              ;;
+          esac
           echo "$DEPLOYMENT_IDENTITY" | grep -Eq '^(dpl_[A-Za-z0-9]{10,}|[0-9a-f]{7,40})$' || {
             echo "::error::deployment_identity must be a Vercel deployment id (dpl_…) or a commit SHA — refusing to record an unidentifiable string."
             exit 1

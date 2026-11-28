@@ -418,3 +418,25 @@ literal-only include merge preserved as safe. Register: Round 4 table in
    pre-read → refuse untouched; failed restore → no probe residue),
    fail-verified regressions added (static-app 151).
 5. Full matrix re-run at the round-6 head — all green (see Round 6 register).
+
+### Session 9 addendum 2 (2026-11-28) — CodeRabbit round-7 (9 findings on `6409352`)
+
+1. telemetry-smoke identity: whole-string multi-line guard before the anchored
+   grep (+ python gate regression; live probes for accept/reject paths).
+2. Browser method note: URL-extension filter named with exact recomputed
+   counts (140/60/53 vs type-filter 164/84, 24 extension-less pdf records);
+   live re-run claim scoped to file assets (dynamic pages via contentSha256).
+3. CHATGPT-ROUND2-VERIFY table pipe escaped (MD056).
+4. Consolidation-spacing rule: comments (test oracle + skipSessionCard) aligned
+   to the implemented two-part rule (needed decays with every graded turn;
+   placement counts real first passes only) — no behaviour change, SKIP-1
+   probes remain the behavioural evidence.
+5. AUDIT-1 restore leg: test now requires a genuine restore attempt
+   (restoreAttempts === 1) before the fail-closed removeItem endpoint; comment
+   reconciles with the P2 preservation contract.
+6. Entrypoint tests: shared exit promises (no post-exit listener hang) +
+   explicit TELEMETRY_ORIGINS in both spawned children.
+7. Scanner CLI test: copy-isolated from any repo-local yaml install;
+   fail-verified with a planted install (old spawn exit 1 vs copy exit 2).
+8. Count gates: python 306 (new regression), checklist 306/311, changelog
+   306/151/315, "8 → 9 telemetry-smoke gate tests" phrasing synced.

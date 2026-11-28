@@ -2222,9 +2222,16 @@ test('Scope B.1b: continuous skipping never lets an unsatisfied consolidation ju
       const demand = cur.demand || (firstPass ? sprintRetrievalDemand(cur.progress) : null);
       const turnIndex = log.length;
       if (cur.consolidation) {
-        // The contract: an unsatisfied consolidation must never be graded while
-        // a real first-pass card is still queued behind it. Skips and practice
-        // retries provide no spaced evidence; only real first passes do.
+        // The contract (two-part rule, matching skipSessionCard): the REQUIRED
+        // gap decays with every GRADED turn (`elapsed` uses the same
+        // completedTurns measure as the app — practice turns are graded
+        // retrievals, so they count; skips never grade, so they never close
+        // the gap), while PLACEMENT additionally guarantees the consolidation
+        // sits behind the `needed` real first-pass retrievals its remaining
+        // gap demands. Hence: an unsatisfied consolidation (neededNow > 0)
+        // must never be graded while a real first-pass card is still queued
+        // behind it. When neededNow has decayed to 0 the placement still
+        // defers to the first queued real card, and grading it is correct.
         const elapsed = Number.isInteger(cur.firstPassTurn) ? Math.max(0, turnIndex - cur.firstPassTurn - 1) : 0;
         const neededNow = Math.max(0, SPRINT_CONSOLIDATION_GAP - elapsed);
         const realBehind = session.slice(1).some(t => !t.practice && !t.consolidation);
@@ -3900,20 +3907,35 @@ test('remediation: the quota preflight is fail-safe when the probe-key pre-read 
   assert.equal(state.get('K'), 'x'.repeat(10), 'real keys untouched too');
 
   // AUDIT-1 (restore leg): if the store refuses even the RESTORE write after a
-  // successful probe, the probe string must never be left behind.
+  // successful probe, the probe string must never be left behind. This is the
+  // one deliberate exception to the P2 preservation contract above, and the
+  // test pins the WHOLE sequence: the original value is genuinely re-attempted
+  // first (restoreAttempts === 1); only when the store refuses THAT write is
+  // the app-owned scratch key deleted. Preservation is impossible here — the
+  // store just shrank below the value it already held — so deleting the probe
+  // residue is the fail-closed endpoint, not an accepted data loss: the value
+  // was read successfully (it is known app-scratch residue, not opaque data),
+  // and leaving the probe string would poison every future preflight.
   const state2 = new Map([[PROBE, 'y'.repeat(9000)], ['K', 'x'.repeat(10)]]);
-  const probeSize = 200 + 4096 + Math.ceil(200 / 2); // mirrors netNeed + margin
+  let restoreAttempts = 0;
   const flakyRestore = {
     state: state2,
     getItem: key => (state2.has(key) ? state2.get(key) : null),
     setItem: (key, value) => {
-      if (key === PROBE && String(value) === 'y'.repeat(9000)) throw new Error('store shrank');
+      if (key === PROBE) {
+        if (String(value) === 'y'.repeat(9000)) { restoreAttempts += 1; throw new Error('store shrank'); }
+        // the initial probe write also targets PROBE but with the probe
+        // string, not the original value — only the restore attempt throws
+      }
       state2.set(key, String(value));
     },
     removeItem: key => { state2.delete(key); }
   };
   const committed = app.commitStagedWrites(flakyRestore, new Map([['K', 'x'.repeat(200)]]));
   assert.equal(committed, true, 'the probe proved the growth fits, so the commit proceeds');
+  assert.equal(restoreAttempts, 1,
+    'the original value is genuinely re-attempted before any fallback');
+  assert.equal(state2.get('K'), 'x'.repeat(200), 'the real write succeeded');
   assert.equal(state2.has(PROBE), false,
     'the failed restore falls back to removeItem: no probe residue is left behind');
 });
