@@ -388,6 +388,18 @@ export async function scanWorkflows({ dir = WORKFLOW_DIR, yamlParse = resolveYam
 }
 
 async function main() {
+  // A clean-scan claim is only authoritative when the parsed walk ran. The
+  // fallback engine (still exercised by the test suite via explicit
+  // `yamlParse: null`) is deliberately incomplete: YAML escape sequences in
+  // mapping keys (`"\x72un"`, `"\u0072un"`), aliases, and other exotic shapes
+  // decode to ordinary keys it cannot see. A CI gate must not mistake that
+  // for a clean tree — fail loudly and tell the operator how to fix the
+  // environment instead (ci.yml installs the pinned parser via NODE_PATH).
+  if (resolveYamlParse() === null) {
+    console.error('workflow-injection scan: no YAML parser is available; the fallback scan is NOT an authoritative clean-scan check.');
+    console.error('Install the pinned parser (npm install yaml@2.9.1) or run through ci.yml, which exports NODE_PATH for it.');
+    process.exit(2);
+  }
   const report = await scanWorkflows();
   console.log(JSON.stringify(report, null, 2));
   process.exit(report.injectionShapedExpressions ? 1 : 0);

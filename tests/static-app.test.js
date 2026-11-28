@@ -3876,6 +3876,48 @@ test('remediation: the quota preflight never destroys a value stored under the p
     'the probe-key value survives a failed real commit too');
 });
 
+test('remediation: the quota preflight is fail-safe when the probe-key pre-read or restore throws', () => {
+  // AUDIT-1: the snapshot read of the probe key can itself fail (exotic storage
+  // states). The preflight must then refuse the commit WITHOUT touching
+  // anything — it can never know whether a value existed to restore.
+  const PROBE = '__chuyen-anh.import.probe';
+  const state = new Map([[PROBE, 'keep-me'], ['K', 'x'.repeat(10)]]);
+  let getItemCalls = 0;
+  const flakyRead = {
+    state,
+    getItem: key => {
+      getItemCalls += 1;
+      if (getItemCalls === 2) throw new Error('storage glitch'); // first call = real-key snapshot, second = probe-key read
+      return state.has(key) ? state.get(key) : null;
+    },
+    setItem: (key, value) => { state.set(key, String(value)); },
+    removeItem: key => { state.delete(key); }
+  };
+  const refused = app.commitStagedWrites(flakyRead, new Map([['K', 'x'.repeat(200)]]));
+  assert.equal(refused, false, 'an unreadable probe-key pre-read must refuse the commit');
+  assert.equal(state.get(PROBE), 'keep-me',
+    'the pre-existing probe-key value is untouched when the pre-read fails');
+  assert.equal(state.get('K'), 'x'.repeat(10), 'real keys untouched too');
+
+  // AUDIT-1 (restore leg): if the store refuses even the RESTORE write after a
+  // successful probe, the probe string must never be left behind.
+  const state2 = new Map([[PROBE, 'y'.repeat(9000)], ['K', 'x'.repeat(10)]]);
+  const probeSize = 200 + 4096 + Math.ceil(200 / 2); // mirrors netNeed + margin
+  const flakyRestore = {
+    state: state2,
+    getItem: key => (state2.has(key) ? state2.get(key) : null),
+    setItem: (key, value) => {
+      if (key === PROBE && String(value) === 'y'.repeat(9000)) throw new Error('store shrank');
+      state2.set(key, String(value));
+    },
+    removeItem: key => { state2.delete(key); }
+  };
+  const committed = app.commitStagedWrites(flakyRestore, new Map([['K', 'x'.repeat(200)]]));
+  assert.equal(committed, true, 'the probe proved the growth fits, so the commit proceeds');
+  assert.equal(state2.has(PROBE), false,
+    'the failed restore falls back to removeItem: no probe residue is left behind');
+});
+
 test('rc4: showing or hiding meanings is a presentation preference, never a learning rule', () => {
   // Defaults: an existing profile keeps the interface and the glosses it had.
   assert.deepEqual(DEFAULT_PRESENTATION, { meanings: 'show', interface: 'classic' });

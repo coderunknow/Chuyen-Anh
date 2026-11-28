@@ -404,3 +404,17 @@ literal-only include merge preserved as safe. Register: Round 4 table in
    documented skip; telemetry 19/19 + entrypoint 3/3; Python 305/305; archive
    5/5; release/deploy gates exit 0; clean-tree scan 0/0; mutation_cr_scrub
    12/12; exam/vocab audits verdict OK.
+
+### Session 9 addendum (2026-11-28) — CodeRabbit round-6 follow-ups + independent audit finding
+
+1. CR6-a: the browser method note's "outputs ARE tracked" claim was false
+   (neither recon JSON is in git) — rewritten to describe the self-contained
+   procedure and point at the authoritative tracked digest record.
+2. CR6-b: scanner CLI now exits 2 (loud, non-authoritative) without a parser;
+   the suite fails in CI when the pinned parser is missing; escape-decoded run
+   keys documented as parsed-mode-only, with tests for both modes' behaviour.
+3. CR6-c: deploy.yml's hold comment now states the manual force exception.
+4. AUDIT-1 (independent): quota-preflight exceptional paths hardened (unreadable
+   pre-read → refuse untouched; failed restore → no probe residue),
+   fail-verified regressions added (static-app 151).
+5. Full matrix re-run at the round-6 head — all green (see Round 6 register).

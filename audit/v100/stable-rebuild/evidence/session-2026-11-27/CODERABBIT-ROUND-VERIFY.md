@@ -78,3 +78,24 @@ Negative control re-run: the all-literal include merge (safe case) still
 produces 0 findings in both modes. Fresh gates at the round-4 head: shard +
 scanner suite 24 pass + 1 documented skip (16 scanner tests); clean-tree scan
 0 findings both modes; `mutation_cr_scrub` 12/12.
+
+## Round 6 (2026-11-28, CodeRabbit re-analysis replies in the resolved round-1 threads + review 6090656978 on `750df86`)
+
+CodeRabbit re-analysed after the thread resolutions and raised three concrete
+follow-ups; a fourth finding (AUDIT-1) came out of this session's independent
+exceptional-path audit. All four verified against source, fixed, and tested:
+
+| # | Finding | Verdict | Disposition |
+| --- | --- | --- | --- |
+| CR6-a (browser-session-method.md) | The note claimed the recon helper OUTPUTS (`tailieudieuky-recon.json`, `asset-digest-classification.json`) "ARE tracked" — `git ls-tree` proves neither file is in the tree or its history | VALID (false documentation claim) | FIXED — the note no longer claims the outputs are tracked; it states they were session-workspace artefacts, that the URL list is derivable from the tracked exam records' `assets[].url` fields, and that the authoritative tracked verification record is the embedded per-record `assets[].sha256` / `contentSha256` set plus the session-4 reconciliation outcome in `WORK_LOG.md` (186 compared — 163 byte-verified, 1 explained drift, 22 dynamic) |
+| CR6-b (scanner, Major) | (1) `"\x72un"` decodes to `run` — the fallback matcher cannot see escape-decoded keys (verified: fallback 0 findings, parsed 1); (2) the CLI still printed a clean-scan verdict with no parser; (3) parsed-mode tests could silently skip | VALID (reproduced) | FIXED — the scanner CLI now **exits 2** with an explicit "NOT an authoritative clean-scan check" message when no parser is available (the fallback engine remains available to the test suite via explicit `yamlParse: null` and is documented as non-authoritative); the suite **fails in CI when the parser is missing** (`CI === 'true' && !yamlParse` → throw), so the pinned install can never silently convert required parsed-mode coverage into skips; new tests: escape-sequence parsed-mode flagging (parser present) + documented fallback limitation (parser absent) + CLI exit-2 contract. CI sim verified locally: `CI=true` without parser → suite fails; with parser → 20/20, zero skips |
+| CR6-c (deploy.yml gate comment) | The comment above "Evaluate deploy hold" said the DEPLOY_HOLD release must be published before Pages deploys, without the manual force exception that `deploy_gate.py` honours | VALID | FIXED — comment now qualifies the maintainer override (`force_deploy=true` via workflow_dispatch) and notes the application-release gate still refuses a stable version without `stable_deploy_authorized=true` |
+| AUDIT-1 (quota preflight, independent audit) | Exceptional paths of the probe-key restore: a failing probe-key PRE-READ made the code treat the key as absent and later DELETE a pre-existing value; a failing RESTORE write left the probe string behind | VALID (edge-path reproduction) | FIXED — an unreadable pre-read now refuses the commit outright (nothing touched); a failed restore falls back to removing the key so no probe residue survives; 2 regression tests, fail-verified (150/1 with the fix stashed → 151/151 with it) |
+
+Fresh gates at the round-6 head: Node static **293/293**; shard partition OK +
+shard/scanner **28 pass + 1 documented skip** (22 scanner tests incl. the two
+new ones); telemetry 19/19; entrypoint packaging 3/3; Python **305/305**;
+archive 5/5; release + deploy gates exit 0; clean-tree scan **0 findings both
+modes**; `mutation_cr_scrub` **12/12**; exam + vocab independent audits
+verdict OK; checklist/changelog count gates green (static-app 151 → Node
+315/315).

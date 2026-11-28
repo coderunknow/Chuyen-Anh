@@ -13,16 +13,24 @@ Chromium session passes the challenge. Steps for a clean reproduction:
    2+ recorded assets each because the host re-packaged several files into
    single ZIP bundles. Note: these three helpers were session-local one-offs
    run from the browser console and were **not committed** to the repository —
-   steps 2-3 below describe exactly what they did, so the procedure is
-   reproducible from this note alone; their outputs ARE tracked
-   (`tailieudieuky-recon.json`, `asset-digest-classification.json`).
+   steps 3-4 below describe exactly what they did, so the whole procedure is
+   reproducible from this note alone (the URL list is derivable from the
+   tracked exam records' `assets[].url` fields).
 3. `browser_recon2.js` fetches each URL with credentials, hashes the
    response, and — when the bytes are a ZIP — walks the central directory,
    inflates every member (`DecompressionStream('deflate-raw')`) and hashes
    each member, so a recorded digest can match either the response bytes or
    a member inside a re-packaged archive.
-4. Results land in `tailieudieuky-recon.json`; the classification logic and
-   outcome are in `asset-digest-classification.json`.
+4. The helper outputs (`tailieudieuky-recon.json` with the raw per-URL digests
+   and `asset-digest-classification.json` with the classification) were
+   session-workspace artefacts and are **not tracked in the repository**
+   either. What IS tracked and is the verification's authoritative record:
+   every exam record's `assets[].sha256` in the embedded exam data, the
+   per-record `contentSha256` over the transcribed markdown, and the
+   reconciliation outcome summarised in `WORK_LOG.md` (session 4: 186 digests
+   compared — 163 byte-verified, 1 explained external drift, 22 dynamic
+   pages). Re-running steps 2-4 reproduces those digests from the live host;
+   a changed digest means the source changed and the record needs re-curation.
 
 The 22 `type: html` records are document *pages* (dynamic content — live
 clock, share widgets), so their digests are capture-time snapshots and are

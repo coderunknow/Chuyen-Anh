@@ -547344,9 +547344,17 @@ export function commitStagedWrites(realStorage, writes) {
     // The probe key is a fixed, documented name, so a pre-existing value under
     // it belongs to whoever stored it — the preflight must overwrite it only
     // for the duration of the probe and put it back afterwards, on success and
-    // on failure alike (a collision must never destroy user data).
+    // on failure alike (a collision must never destroy user data or leave the
+    // probe string behind).
     let probePrevious = null;
-    try { probePrevious = realStorage.getItem(probeKey); } catch { probePrevious = null; }
+    let probePreviousKnown = true;
+    try { probePrevious = realStorage.getItem(probeKey); } catch { probePreviousKnown = false; }
+    if (!probePreviousKnown) {
+      // The pre-read failed: whether the key holds a value is unknown, so the
+      // probe must not run at all — overwriting it could destroy a value we
+      // could never put back. Refuse the commit; nothing has been touched.
+      return false;
+    }
     try {
       realStorage.setItem(probeKey, 'x'.repeat(probeSize));
       fits = true;
@@ -547357,9 +547365,10 @@ export function commitStagedWrites(realStorage, writes) {
         if (probePrevious === null || probePrevious === undefined) realStorage.removeItem(probeKey);
         else realStorage.setItem(probeKey, probePrevious);
       } catch {
-        // Restoring the pre-existing value failed after a refused probe: the
-        // real keys are still untouched, and the failed preflight aborts the
-        // commit below either way.
+        // Restoring the pre-existing value failed even though the (larger)
+        // probe write had fit — the store shrank underneath us. Best effort:
+        // never leave the probe string behind; fall back to removing the key.
+        try { realStorage.removeItem(probeKey); } catch { /* give up quietly */ }
       }
     }
     if (!fits) return false;

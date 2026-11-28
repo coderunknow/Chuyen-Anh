@@ -18,6 +18,15 @@ function resolveYamlParse() {
 }
 const yamlParse = resolveYamlParse();
 
+// In CI the pinned parser is REQUIRED: ci.yml installs yaml@2.9.1 and exports
+// NODE_PATH before this suite runs. A silently skipped parsed-mode suite must
+// never count as coverage, so the suite FAILS in CI when the parser is
+// missing (locally it still skips for dependency-free checkouts, and the
+// scanner CLI refuses to print a clean-scan verdict without a parser).
+if (process.env.CI === 'true' && !yamlParse) {
+  throw new Error('CI must provide the pinned yaml parser (NODE_PATH): parsed-mode scanner coverage would be silently skipped');
+}
+
 async function fixtureDir(files) {
   const dir = await mkdtemp(join(tmpdir(), 'workflow-injection-scan-'));
   for (const [name, text] of Object.entries(files)) {
@@ -248,6 +257,51 @@ jobs:
       assert.equal(parsed.injectionShapedExpressions, 1, JSON.stringify(parsed.findings));
     }
   } finally { await rm(dir, { recursive: true, force: true }); }
+});
+
+// CodeRabbit round-6: YAML double-quoted keys may use escape sequences
+// (`"\x72un"` decodes to `run`). The fallback cannot see them — this is exactly
+// why a clean-scan verdict REQUIRES the parsed walk (the CLI exits 2 without a
+// parser), and why CI installs the pinned parser before running this suite.
+test('parsed walk flags a hex-escaped run key; the fallback is non-authoritative for it', async () => {
+  const poison = `name: Escaped run key
+on: push
+jobs:
+  leak:
+    runs-on: ubuntu-latest
+    steps:
+      - "\\x72un": echo "\${{ github.head_ref }}"
+`;
+  const dir = await fixtureDir({ 'escaped-run.yml': poison });
+  try {
+    if (yamlParse) {
+      const parsed = await scanWorkflows({ dir, yamlParse });
+      assert.equal(parsed.injectionShapedExpressions, 1, JSON.stringify(parsed.findings));
+      assert.equal(parsed.findings[0].expression.trim(), 'github.head_ref');
+    } else {
+      const fallback = await scanWorkflows({ dir, yamlParse: null });
+      assert.equal(fallback.injectionShapedExpressions, 0,
+        'documenting the known fallback limitation: escape-decoded keys are invisible to it');
+    }
+  } finally { await rm(dir, { recursive: true, force: true }); }
+});
+
+// CodeRabbit round-6: the scanner CLI must refuse to print a clean-scan
+// verdict when no parser is available (exit 2), instead of silently running
+// the non-authoritative fallback.
+test('scanner CLI exits 2 with a loud message when no YAML parser is available', async () => {
+  const { spawn } = await import('node:child_process');
+  const { fileURLToPath } = await import('node:url');
+  const cli = fileURLToPath(new URL('../scripts/scan_workflow_injection.mjs', import.meta.url));
+  const env = { ...process.env };
+  delete env.NODE_PATH; // force the parser-less environment
+  const child = spawn(process.execPath, [cli], { env, stdio: ['ignore', 'pipe', 'pipe'] });
+  let stderr = '';
+  child.stderr.on('data', (chunk) => { stderr += chunk; });
+  const code = await new Promise((resolve) => child.on('exit', (c) => resolve(c)));
+  assert.equal(code, 2, 'the CLI must exit 2 without a parser, not print a clean-scan verdict');
+  assert.match(stderr, /NOT an authoritative clean-scan check/);
+  assert.match(stderr, /yaml@2\.9\.1/);
 });
 
 // ChatGPT round-2 finding: YAML permits whitespace BEFORE the mapping colon,

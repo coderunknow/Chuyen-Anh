@@ -77,6 +77,9 @@ jobs:
       # The release named in DEPLOY_HOLD must be published before Pages deploys.
       # Published prereleases dispatch this workflow on main because the Pages environment
       # allows main only. Tests always run; only the publish steps are deferred.
+      # A maintainer may override the hold for one run via workflow_dispatch with
+      # force_deploy=true (deploy_gate.py honours it); the application-release gate
+      # still refuses a stable version without stable_deploy_authorized=true.
       - name: Evaluate deploy hold
         id: gate
         env:
