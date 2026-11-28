@@ -43,11 +43,13 @@ document.
 
 ## Quality results (all re-verified at the candidate head)
 
-- **Tests:** Python 303/303 (incl. 8 telemetry-smoke structural gate tests;
+- **Tests:** Python 306/306 (incl. 9 telemetry-smoke structural gate tests;
   their declared PyYAML dependency ships as `tests/requirements.txt` and is
   installed by both workflows, skipped-with-reason on a fresh checkout);
-  Node 308/308 static/telemetry (incl. the round-2 scrubber regression tests)
-  plus 19 shard-partition/failure-capture/workflow-injection tests; archive 5/5;
+  Node 315/315 static/telemetry (incl. the round-2 scrubber regression tests)
+  plus 29 shard-partition/failure-capture/workflow-injection tests (28 pass
+  + 1 documented skip without `yaml`; parsed mode REQUIRED in CI, where the
+  pinned parser is installed); archive 5/5;
   21 validator commands exit 0; both browser suites green on Chromium
   133.0.6943.0 at the round-2 head (learning: 35 phases incl. WCAG 2.1 A/AA
   axe runs, responsive 320/375/768, light/dark, reduced-motion, backup
