@@ -95,6 +95,18 @@ document.
   8,928 senses / 1,094 phrases — unique IDs, structural integrity, no
   locator-level CEFR conflicts inside multi-sense headwords, distractor
   pools sufficient at every level (`evidence/review-round/vocab-deep-audit.json`).
+  Count reconciliation (owner decision 2026-11-28, §5.2 of the mission):
+  **8,928 = every sense in the 8,852 rows** (75 rows carry two senses, one
+  carries three), audited structurally as a whole and by independent
+  sampling (201/201 agree — see the independent sample below). **4,844/4,844
+  = the SOURCE-LOCATOR-BACKED subset** of senses, verified 100% by
+  `scripts/audit_sense_sources.py --check` against SHA-256-pinned reference
+  wordlists (re-run at the final head: exit 0, `matching source group(s)
+  found: 4844`); the remaining 4,084 senses carry cross-validated, disputed
+  or editorial-estimate evidence at MEDIUM/LOW confidence and are covered by
+  the structural + sampled audits instead. The two figures describe
+  different populations; neither is claimed as "all senses manually
+  verified".
 - **Transcript-fallback policy (fresh code):** 325 fallback-flagged items;
   exactly **307 scorable — all LOW confidence**; the 18 exempt ones carry
   13 VERY_LOW + 5 LOW; 0 official-verification claims
@@ -165,22 +177,30 @@ document.
    a review of the fix head is the remaining verification (CodeRabbit and the
    other automated reviewers were quota/billing-limited as of 2026-11-17;
    recorded, not invented).
-3. **Owner decision — listening grading policy:** the mission text forbids
-   auto-grading listening questions even with a transcript; the shipped
-   application grades 307 transcript-fallback listening items with `LOW`
-   confidence and explicit warnings (per the published README). Changing this
-   flips scoring semantics on published numbers, so it was documented, not
-   silently changed (`AGENT.md` rule 4).
-4. **Owner action — Supabase:** verify/apply `20261031_telemetry_hardening.sql`
-   on the live database; remediate the shared `compute_jobs` exposure.
-5. **Owner action — Vercel:** re-deploy `api/telemetry.js` to ship the
-   secret-scrub; then a single authorized live POST recheck.
-6. **Externally blocked verification:** Firefox/WebKit local runs (CI covers),
-   screen-reader pass, physical low-memory devices. (The 186 external asset
-   digests are no longer open: session 4 verified 163/186 byte-for-byte, 1
-   explained external drift preserved as capture evidence, 22 dynamic-page
-   snapshots verified through the `.md → contentSha256 → embedded` chain —
-   `evidence/session-2026-11-26/SESSION_REPORT.md` §3.)
+3. ~~**Owner decision — listening grading policy**~~ — **RESOLVED (owner
+   decision, 2026-11-28): the shipped behavior stands.** The application
+   grades 307 transcript-fallback listening items with `LOW` confidence and
+   explicit warnings (per the published README); no scoring-semantics change
+   is made and the policy is pinned by tests (`transcript-fallback-audit.json`,
+   telemetry suites). This is a documented owner decision, not an open one.
+4. ~~**Owner action — Supabase**~~ — **RESOLVED 2026-11-27 (read-only verified):**
+   `20261031_telemetry_hardening.sql` applied on the live database and the
+   shared `compute_jobs` exposure locked down —
+   `evidence/session-2026-11-27/live-infra-hardening.md`; revalidated
+   read-only on 2026-11-28 (session 10 addendum).
+5. ~~**Owner action — Vercel**~~ — **RESOLVED 2026-11-27 (read-only verified):**
+   `api/telemetry.js` (secret-scrub) is live in production and the deployment
+   identity matches the tracked source — same evidence file; revalidated
+   read-only on 2026-11-28.
+6. **Externally blocked verification (owner-only, still open):** a genuine
+   screen-reader pass and physical low-memory-device verification. The full
+   browser matrix (Chromium/Firefox/WebKit + axe WCAG runs) is covered by CI
+   on every head. (The 186 external asset digests are no longer open: session
+   4 verified 163/186 byte-for-byte, 1 explained external drift preserved as
+   capture evidence; the 22 dynamic-page snapshots are internally intact via
+   the `.md → contentSha256 → embedded` chain but NOT verified against their
+   live sources — see the scoped claim in
+   `evidence/session-2026-11-26/browser-session-method.md`.)
 
 Compliance statement: no merge, no tag create/move/delete, no release
 publication, no Pages/Vercel deployment, no Vercel settings change, no Supabase

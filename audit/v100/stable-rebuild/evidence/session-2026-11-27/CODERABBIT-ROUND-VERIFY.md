@@ -141,3 +141,14 @@ Verified against source before fixing; 9/9 threads dispositioned with evidence.
 | branding/README says social-preview.png is "referenced by og:image" | VALID (no og:image tracked) | FIXED — marked as candidate, wiring deferred |
 
 Gates after the round-8 fixes: Node **316/316** (telemetry-api 20; the new test is count-gated), Python **307/307** (helper-count regression), shard/scanner 28 + 1 documented skip, archive OK, release+deploy gates exit 0, mutants **14/14**, doc-count gates green (316/312 rows, changelog 307/316).
+
+## Round 9 (2026-11-28, follow-up manual review on `d677d64` — 4 minor findings, no inline threads)
+
+| Finding | Verdict | Disposition |
+| --- | --- | --- |
+| browser_digest_check.js usage comment over-claims page extraction and omits the console sequence | VALID | FIXED — usage now shows the exact sequence (extractor JSON → `await browserDigestCheck(assets.urls)`) and states the file does NOT extract from the page |
+| browser_recon2.js ZIP slice uses the uncompressed size for the raw payload | VALID | FIXED — the raw slice is bounded by the COMPRESSED size (central directory offset+20) for deflated members and the uncompressed size for stored ones, with the inflated output checked against the uncompressed size |
+| branding/README: social-preview upload scope unclear | VALID | FIXED — states it affects REPOSITORY link unfurls only; app URLs still need og:/twitter: metadata |
+| branding/README: deferred-wiring note doesn't say which approach passes the test invariant | VALID | FIXED — states the inline data-URI keeps the static-app invariant passing (it forbids `<link>`, not inline data) while a linked file requires relaxing the test; both need the owner decision first |
+
+No suite-count changes (helper/doc fixes only); mutants remain 14/14.

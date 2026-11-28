@@ -38,7 +38,7 @@ BLOCKED / INCOMPLETE / NOT TESTED / EXTERNALLY BLOCKED.
 | Exam data — coverage recomputed | 106 / 6,708 / 5,155 / 1,553; 100% non-exempt; exact category split | `audit/v100/stable-rebuild/evidence/independent-exam-audit.json` (tracked) | `[x] VERIFIED` |
 | Exam data — curated hash bindings | 2,146/2,146 re-derived, 0 mismatches | same | `[x] VERIFIED` |
 | Exam data — independent solving | 10-item deterministic sample: 8/8 verifiable agree; 2 listening/context items unclaimed | session transcript | `[x] VERIFIED (sample)` |
-| Exam policy — listening contradiction | Mission text vs shipped behaviour (307 transcript-fallback items, LOW) | `FINAL_READINESS.md` §Open decisions | `[ ] BLOCKED (owner decision)` |
+| Exam policy — listening contradiction | RESOLVED by owner decision (2026-11-28): shipped behaviour PRESERVED — 307 transcript-fallback items grade at LOW confidence with explicit warnings; no scoring-semantics change; pinned by tests and `transcript-fallback-audit.json` | `FINAL_READINESS.md` §resolved items 3; mission §5.1 | `[x] VERIFIED (owner policy)` |
 | Vocabulary — CEFR sample | 201/201 agree with pinned references | `audit/v100/stable-rebuild/evidence/independent-vocab-audit.json` (tracked) + 3 manual checks | `[x] VERIFIED (sample)` |
 | Vocabulary — full-sense audit | Every one of 8,928 senses independently re-checked | beyond this session's scope; `audit_sense_sources.py --check` (4,844/4,844) re-confirmed | `[ ] INCOMPLETE (validator-based, plus independent sample)` |
 | Performance | Sizes unchanged; benchmark baseline vs candidate | 28,273,009 B raw / 3,093,228 B gzip both heads; 23.66 s vs 24.22 s median (~2%, noise); 0 page errors | `[x] VERIFIED (software-rendered sandbox)` |

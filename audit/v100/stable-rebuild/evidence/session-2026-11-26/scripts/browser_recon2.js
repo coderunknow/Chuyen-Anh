@@ -27,7 +27,8 @@ async function walkZip(bytes) {
   for (let n = 0; n < count; n += 1) {
     if (view.getUint32(offset, true) !== 0x02014b50) break;
     const method = view.getUint16(offset + 10, true);
-    const size = view.getUint32(offset + 24, true);
+    const uncompressedSize = view.getUint32(offset + 24, true);
+    const compressedSize = view.getUint32(offset + 20, true);
     const nameLen = view.getUint16(offset + 28, true);
     const extraLen = view.getUint16(offset + 30, true);
     const commentLen = view.getUint16(offset + 32, true);
@@ -36,9 +37,11 @@ async function walkZip(bytes) {
     const lNameLen = view.getUint16(localOffset + 26, true);
     const lExtraLen = view.getUint16(localOffset + 28, true);
     const dataStart = localOffset + 30 + lNameLen + lExtraLen;
-    const raw = bytes.subarray(dataStart, dataStart + size);
-    const memberBytes = method === 0 ? raw : await inflateRaw(raw, size);
-    members.push({ name, method, size, sha256: await sha256Hex(memberBytes) });
+    // the on-disk payload is COMPRESSED-size long; stored members match the
+    // uncompressed size, deflated ones are inflated and checked against it
+    const raw = bytes.subarray(dataStart, dataStart + (method === 0 ? uncompressedSize : compressedSize));
+    const memberBytes = method === 0 ? raw : await inflateRaw(raw, uncompressedSize);
+    members.push({ name, method, compressedSize, size: uncompressedSize, sha256: await sha256Hex(memberBytes) });
     offset += 46 + nameLen + extraLen + commentLen;
   }
   return members;

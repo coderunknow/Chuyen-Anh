@@ -24,10 +24,14 @@ Palette (sampled from the master): violet `#41307A`, deep violet `#37276D`
 app background `#F5F7FB`.
 
 Deferred wiring: adopting the favicons needs either an inline data-URI in
-`index.html` or a deliberate relaxation of the self-contained-single-file test
-invariant; until that owner decision, the app ships without tab icons and
-without `og:`/`twitter:` meta tags (upload `social-preview.png` via repo
-Settings → Social preview for link unfurls in the meantime).
+`index.html` (which keeps the static-app self-contained-single-file test
+passing, because the invariant forbids `<link>` tags, not inline data) or a
+deliberate relaxation of that test invariant to permit a linked file — either
+way an owner decision is required first. Until then the app ships without tab
+icons and without `og:`/`twitter:` meta tags. Note on the social card:
+uploading `social-preview.png` via repo Settings → Social preview changes how
+REPOSITORY links (github.com/coderunknow/Chuyen-Anh) unfurl only — app URLs
+keep plain unfurls until the app's own `og:`/`twitter:` metadata is wired.
 
 Regeneration: raster sizes come from `favicon.svg` via `resvg-py`
 (`svg_to_bytes`) and ImageMagick; the lockups/social card are composed with
